@@ -1042,7 +1042,6 @@ struct ssl_ctx_st
 	const EVP_MD *sha1;   /* For SSLv3/TLSv1 'ssl3->sha1' */
 
 	STACK_OF(X509) *extra_certs;
-	STACK_OF(SSL_COMP) *comp_methods; /* stack of SSL_COMP, SSLv3/TLSv1 */
 
 
 	/* Default values used when no per-SSL value is defined follow */

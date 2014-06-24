@@ -213,7 +213,6 @@ SSL_SESSION *SSL_SESSION_new(void)
 	ss->time=(unsigned long)time(NULL);
 	ss->prev=NULL;
 	ss->next=NULL;
-	ss->compress_meth=0;
 #ifndef OPENSSL_NO_TLSEXT
 	ss->tlsext_hostname = NULL; 
 #ifndef OPENSSL_NO_EC
@@ -240,7 +239,7 @@ const unsigned char *SSL_SESSION_get_id(const SSL_SESSION *s, unsigned int *len)
 
 unsigned int SSL_SESSION_get_compress_id(const SSL_SESSION *s)
 	{
-	return s->compress_meth;
+	return 0;
 	}
 
 /* Even with SSLv2, we have 16 bytes (128 bits) of session ID space. SSLv3/TLSv1
