@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8497cd5d_e24486d9",
+        "filename": "tool/speed.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-06-24T18:30:49Z",
+      "side": 1,
+      "message": "If it\u0027s worth bothering, the internet seems to think some three-function chord involving SYSTEM_CLOCK is the way to get monotonic time on OS X.\n\nhttp://stackoverflow.com/questions/11680461/monotonic-clock-on-osx",
+      "revId": "30eda1d2b80b8a943d3fb792f623a232646b0dbc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
