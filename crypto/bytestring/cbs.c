@@ -12,6 +12,7 @@
  * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. */
 
+#include <openssl/buf.h>
 #include <openssl/bytestring.h>
 
 #include <assert.h>
@@ -44,6 +45,10 @@ const uint8_t *CBS_data(const CBS *cbs) {
 
 size_t CBS_len(const CBS *cbs) {
   return cbs->len;
+}
+
+void *CBS_memdup(const CBS *cbs) {
+  return BUF_memdup(cbs->data, cbs->len);
 }
 
 static int cbs_get_u(CBS *cbs, uint32_t *out, size_t len) {

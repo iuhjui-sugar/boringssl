@@ -53,6 +53,9 @@ const uint8_t *CBS_data(const CBS *cbs);
 /* CBS_len returns the number of bytes remaining in |cbs|. */
 size_t CBS_len(const CBS *cbs);
 
+/* CBS_memdup returns an allocated, duplicate of the bytes remaining in |cbs|. */
+void *CBS_memdup(const CBS *cbs);
+
 /* CBS_get_u8 sets |*out| to the next uint8_t from |cbs| and advances |cbs|. It
  * returns one on success and zero on error. */
 int CBS_get_u8(CBS *cbs, uint8_t *out);
