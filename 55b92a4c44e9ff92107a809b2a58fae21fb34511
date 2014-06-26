@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e4d5e933_33c2d018",
+        "filename": "ssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 2573,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-06-26T20:51:40Z",
+      "side": 0,
+      "message": "this is fine, but I\u0027d usually leave the error defines. Since we don\u0027t have ABI compat, we can run util/make_errors.go --reset in the directory any time that we want to clean up unused error functions or reasons.",
+      "range": {
+        "startLine": 2573,
+        "startChar": 8,
+        "endLine": 2573,
+        "endChar": 36
+      },
+      "revId": "55b92a4c44e9ff92107a809b2a58fae21fb34511",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
