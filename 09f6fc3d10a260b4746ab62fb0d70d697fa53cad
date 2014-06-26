@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6438195d_a1a45edb",
+        "filename": "ssl/d1_srtp.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-06-26T20:31:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4d5e933_90b29ad3",
+      "range": {
+        "startLine": 444,
+        "startChar": 10,
+        "endLine": 444,
+        "endChar": 11
+      },
+      "revId": "09f6fc3d10a260b4746ab62fb0d70d697fa53cad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e4d5e933_30c2c618",
         "filename": "ssl/d1_srtp.c",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2014-06-26T18:07:50Z",
       "side": 1,
       "message": "|| CBS_len(cbs) !\u003d 0 to check for trailing data?",
+      "range": {
+        "startLine": 448,
+        "startChar": 45,
+        "endLine": 448,
+        "endChar": 46
+      },
+      "revId": "09f6fc3d10a260b4746ab62fb0d70d697fa53cad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6438195d_819cba89",
+        "filename": "ssl/d1_srtp.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-06-26T20:31:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4d5e933_30c2c618",
       "range": {
         "startLine": 448,
         "startChar": 45,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "6438195d_21992e98",
+        "filename": "ssl/ssl_locl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1294,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-06-26T20:31:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4d5e933_30dbe6fa",
+      "range": {
+        "startLine": 1294,
+        "startChar": 41,
+        "endLine": 1294,
+        "endChar": 44
+      },
+      "revId": "09f6fc3d10a260b4746ab62fb0d70d697fa53cad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e4d5e933_10d8eaf9",
         "filename": "ssl/ssl_locl.h",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2014-06-26T18:07:50Z",
       "side": 1,
       "message": "ditto.",
+      "range": {
+        "startLine": 1340,
+        "startChar": 54,
+        "endLine": 1340,
+        "endChar": 55
+      },
+      "revId": "09f6fc3d10a260b4746ab62fb0d70d697fa53cad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6438195d_4196b269",
+        "filename": "ssl/ssl_locl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1340,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-06-26T20:31:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4d5e933_10d8eaf9",
       "range": {
         "startLine": 1340,
         "startChar": 54,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "6438195d_e11b465d",
+        "filename": "ssl/ssl_locl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1355,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-06-26T20:31:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4d5e933_f0f55e67",
+      "range": {
+        "startLine": 1355,
+        "startChar": 50,
+        "endLine": 1355,
+        "endChar": 51
+      },
+      "revId": "09f6fc3d10a260b4746ab62fb0d70d697fa53cad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e4d5e933_50e792bc",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 1
@@ -128,6 +248,30 @@
       "writtenOn": "2014-06-26T18:07:50Z",
       "side": 1,
       "message": "Something to ponder:\n\nint CBS_stow(uint8_t **out_ptr, size_t *out_len, CBS *input);\n\nIt\u0027s like CBS_memdup, but frees |*out_ptr| if |*out_ptr| !\u003d NULL (or maybe not if |*out_len| suggests that it\u0027s about the right size already) and returns zero if the malloc failed.\n\nThis seems to be a pretty common pattern.",
+      "range": {
+        "startLine": 2928,
+        "startChar": 42,
+        "endLine": 2928,
+        "endChar": 52
+      },
+      "revId": "09f6fc3d10a260b4746ab62fb0d70d697fa53cad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6438195d_c143a225",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2928,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-06-26T20:31:22Z",
+      "side": 1,
+      "message": "Yeah, that\u0027s a good idea... and that can be a single place to handle the nonsense malloc(0) case. Done.\n\nI flipped the parameters to be consistent with the rest of CBS though. I can use this version if you prefer... I\u0027m not sure which is better. All of CBS puts the input CBS first a la OOP, but elsewhere we like to put the output first. This is mostly relevant for not confusing CBS_get_u*_length_prefixed.",
+      "parentUuid": "e4d5e933_50e792bc",
       "range": {
         "startLine": 2928,
         "startChar": 42,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "6438195d_c1fc0291",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 3102,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-06-26T20:31:22Z",
+      "side": 1,
+      "message": "Alright, have another one then. :-)",
+      "parentUuid": "e4d5e933_703dee48",
+      "range": {
+        "startLine": 3102,
+        "startChar": 8,
+        "endLine": 3102,
+        "endChar": 29
+      },
+      "revId": "09f6fc3d10a260b4746ab62fb0d70d697fa53cad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e4d5e933_3037666b",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 1
@@ -174,6 +342,30 @@
       "writtenOn": "2014-06-26T18:07:50Z",
       "side": 1,
       "message": "I think CT are already switching to a different API, but I didn\u0027t pull it in from 1.0.2 because it\u0027s so full of bugs.",
+      "range": {
+        "startLine": 3169,
+        "startChar": 5,
+        "endLine": 3169,
+        "endChar": 56
+      },
+      "revId": "09f6fc3d10a260b4746ab62fb0d70d697fa53cad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6438195d_61e2d6ef",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 3169,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-06-26T20:31:22Z",
+      "side": 1,
+      "message": "Added that on top of this one.",
+      "parentUuid": "e4d5e933_3037666b",
       "range": {
         "startLine": 3169,
         "startChar": 5,
