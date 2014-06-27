@@ -1,0 +1,293 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6438195d_8481283e",
+        "filename": "crypto/cipher/e_rc4.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-06-27T03:05:39Z",
+      "side": 1,
+      "message": "Do we ever care about tag_len not being equal to MD5_DIGEST_LENGTH? It looks like this results in just truncating the tag.",
+      "revId": "65f8453f6432858e94c2e7dac958740ae4196dc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6438195d_849cc889",
+        "filename": "crypto/cipher/e_rc4.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-06-27T03:05:39Z",
+      "side": 1,
+      "message": "Kinda wish these functions had more comments, but inaccurate comments would be worse than not having any, so feel free to ignore these if they seem wrong:",
+      "revId": "65f8453f6432858e94c2e7dac958740ae4196dc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6438195d_4437a0d0",
+        "filename": "crypto/cipher/e_rc4.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-06-27T03:05:39Z",
+      "side": 1,
+      "message": "/* The MAC\u0027s payload begins with the additional data. */",
+      "revId": "65f8453f6432858e94c2e7dac958740ae4196dc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6438195d_6430a4db",
+        "filename": "crypto/cipher/e_rc4.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-06-27T03:05:39Z",
+      "side": 1,
+      "message": "/* Ensure RC4 is behind MD5. */\n\n(Aside: I\u0027m actually not sure why this is needed. Maybe the stitched code is really funny or maybe it\u0027s just a side effect of the computations below only checking |md5_off| and not max(md5_off, rc4_off). I suppose it\u0027s conceivable the stitched routines also have this as a requirement, but that seems suspicious. This is what the original code\u0027s comment says though.\n\n*shrug*)",
+      "revId": "65f8453f6432858e94c2e7dac958740ae4196dc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6438195d_e444b432",
+        "filename": "crypto/cipher/e_rc4.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-06-27T03:05:39Z",
+      "side": 1,
+      "message": "Worth an assert(md5_off \u003e\u003d rc4_off)? This is guaranteed because rc4_off ranegs from 0 to 31 and MD5_CBLOCK is 64, but meh.",
+      "revId": "65f8453f6432858e94c2e7dac958740ae4196dc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6438195d_243a9cb9",
+        "filename": "crypto/cipher/e_rc4.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-06-27T03:05:39Z",
+      "side": 1,
+      "message": "/* Process the initial portions of the plaintext normally. */",
+      "revId": "65f8453f6432858e94c2e7dac958740ae4196dc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6438195d_044af83b",
+        "filename": "crypto/cipher/e_rc4.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-06-27T03:05:39Z",
+      "side": 1,
+      "message": "/* Process the next |blocks| blocks of plaintext with stitched routines. */",
+      "revId": "65f8453f6432858e94c2e7dac958740ae4196dc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6438195d_c443b025",
+        "filename": "crypto/cipher/e_rc4.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-06-27T03:05:39Z",
+      "side": 1,
+      "message": "/* Finish computing the MAC. */",
+      "revId": "65f8453f6432858e94c2e7dac958740ae4196dc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6438195d_a43eaca6",
+        "filename": "crypto/cipher/e_rc4.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-06-27T03:05:39Z",
+      "side": 1,
+      "message": "Nit: I\u0027d probably drop this line. 236 is more related to 234 than 237.",
+      "revId": "65f8453f6432858e94c2e7dac958740ae4196dc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6438195d_64598411",
+        "filename": "crypto/cipher/e_rc4.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-06-27T03:05:39Z",
+      "side": 1,
+      "message": "/* Encrypt the remainder of the plaintext and the MAC. */",
+      "revId": "65f8453f6432858e94c2e7dac958740ae4196dc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6438195d_24537cf3",
+        "filename": "crypto/cipher/e_rc4.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-06-27T03:05:39Z",
+      "side": 1,
+      "message": "/* The MAC\u0027s payload begins with the additional data. */",
+      "revId": "65f8453f6432858e94c2e7dac958740ae4196dc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6438195d_e4ed94e0",
+        "filename": "crypto/cipher/e_rc4.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-06-27T03:05:39Z",
+      "side": 1,
+      "message": "/* Ensure MD5 is a full block behind RC4 so it has plaintext to operate on in both normal and stitched routines. */\n\nFor the normal ones, it should just only need to be behind, but I\u0027m assuming the stitched routines operate on them in parallel and that\u0027s why the full block is necessary.",
+      "revId": "65f8453f6432858e94c2e7dac958740ae4196dc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6438195d_04f3d8c3",
+        "filename": "crypto/cipher/e_rc4.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-06-27T03:05:39Z",
+      "side": 1,
+      "message": "/* Decrypt the initial portion of the ciphertext and digest the plaintext normally. */",
+      "revId": "65f8453f6432858e94c2e7dac958740ae4196dc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6438195d_a4f78cac",
+        "filename": "crypto/cipher/e_rc4.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-06-27T03:05:39Z",
+      "side": 1,
+      "message": "/* Decrypt and digest the next |blocks| blocks of ciphertext with the stitched routines. */",
+      "revId": "65f8453f6432858e94c2e7dac958740ae4196dc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6438195d_845608e1",
+        "filename": "crypto/cipher/e_rc4.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-06-27T03:05:39Z",
+      "side": 1,
+      "message": "/* Process the remainder of the input. */",
+      "revId": "65f8453f6432858e94c2e7dac958740ae4196dc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6438195d_c4fc1091",
+        "filename": "crypto/cipher/e_rc4.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-06-27T03:05:39Z",
+      "side": 1,
+      "message": "Nit: Calculate HMAC and verify it.",
+      "revId": "65f8453f6432858e94c2e7dac958740ae4196dc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6438195d_64e2e4ef",
+        "filename": "crypto/rc4/asm/rc4-md5-x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-06-27T03:05:39Z",
+      "side": 1,
+      "message": "I didn\u0027t really look at this file and assume it\u0027s the same as upstream\u0027s and works.",
+      "revId": "65f8453f6432858e94c2e7dac958740ae4196dc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
