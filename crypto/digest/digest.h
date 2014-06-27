@@ -229,7 +229,7 @@ uint32_t EVP_MD_CTX_test_flags(const EVP_MD_CTX *ctx, uint32_t flags);
 
 struct evp_md_pctx_ops;
 
-struct env_md_ctx_st {
+struct evp_md_ctx_st {
   /* digest is the underlying digest function, or NULL if not set. */
   const EVP_MD *digest;
   /* flags is the OR of a number of |EVP_MD_CTX_FLAG_*| values. */

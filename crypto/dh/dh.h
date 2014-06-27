@@ -193,7 +193,7 @@ void *DH_get_ex_data(DH *d, int idx);
 
 /* dh_method contains function pointers to override the implementation of DH.
  * See |engine.h| for details. */
-struct dh_method {
+struct dh_method_st {
   struct openssl_method_common_st common;
 
   /* app_data is an opaque pointer for the method to use. */

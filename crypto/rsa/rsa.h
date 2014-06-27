@@ -309,7 +309,7 @@ void *RSA_get_ex_data(const RSA *r, int idx);
  * present: for example a key stored in external hardware. */
 #define RSA_FLAG_EXT_PKEY 0x20
 
-/* RSA_FLAG_SIGN_VER causes the |sign| and |verify| functions of |rsa_meth_st|
+/* RSA_FLAG_SIGN_VER causes the |sign| and |verify| functions of |RSA_METHOD|
  * to be called when set. */
 #define RSA_FLAG_SIGN_VER 0x40
 
@@ -320,7 +320,7 @@ void *RSA_get_ex_data(const RSA *r, int idx);
 #define RSA_F4 0x10001
 
 
-struct rsa_meth_st {
+struct rsa_method_st {
   struct openssl_method_common_st common;
 
   void *app_data;

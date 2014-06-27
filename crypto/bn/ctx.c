@@ -106,7 +106,7 @@ static unsigned int	BN_STACK_pop(BN_STACK *);
 /**********/
 
 /* The opaque BN_CTX type */
-struct bignum_ctx {
+struct bn_ctx_st {
   /* The bignum bundles */
   BN_POOL pool;
   /* The "stack frames", if you will */

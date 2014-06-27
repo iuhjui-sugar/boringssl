@@ -120,8 +120,8 @@
 
 
 /* err_fns contains a pointer to the current error implementation. */
-static const struct ERR_FNS_st *err_fns = NULL;
-extern const struct ERR_FNS_st openssl_err_default_impl;
+static const ERR_FNS *err_fns = NULL;
+extern const ERR_FNS openssl_err_default_impl;
 
 #define ERRFN(a) err_fns->a
 

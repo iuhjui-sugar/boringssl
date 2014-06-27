@@ -64,8 +64,7 @@ extern "C" {
 #endif
 
 /* Forward reference */
-struct v3_ext_method;
-struct v3_ext_ctx;
+typedef struct x509v3_ext_method_st X509V3_EXT_METHOD;
 
 /* Useful typedefs */
 
@@ -74,22 +73,22 @@ typedef void (*X509V3_EXT_FREE)(void *);
 typedef void * (*X509V3_EXT_D2I)(void *, const unsigned char ** , long);
 typedef int (*X509V3_EXT_I2D)(void *, unsigned char **);
 typedef STACK_OF(CONF_VALUE) *
-  (*X509V3_EXT_I2V)(const struct v3_ext_method *method, void *ext,
+  (*X509V3_EXT_I2V)(const X509V3_EXT_METHOD *method, void *ext,
 		    STACK_OF(CONF_VALUE) *extlist);
-typedef void * (*X509V3_EXT_V2I)(const struct v3_ext_method *method,
-				 struct v3_ext_ctx *ctx,
+typedef void * (*X509V3_EXT_V2I)(const X509V3_EXT_METHOD *method,
+				 X509V3_CTX *ctx,
 				 STACK_OF(CONF_VALUE) *values);
-typedef char * (*X509V3_EXT_I2S)(const struct v3_ext_method *method, void *ext);
-typedef void * (*X509V3_EXT_S2I)(const struct v3_ext_method *method,
-				 struct v3_ext_ctx *ctx, const char *str);
-typedef int (*X509V3_EXT_I2R)(const struct v3_ext_method *method, void *ext,
+typedef char * (*X509V3_EXT_I2S)(const X509V3_EXT_METHOD *method, void *ext);
+typedef void * (*X509V3_EXT_S2I)(const X509V3_EXT_METHOD *method,
+				 X509V3_CTX *ctx, const char *str);
+typedef int (*X509V3_EXT_I2R)(const X509V3_EXT_METHOD *method, void *ext,
 			      BIO *out, int indent);
-typedef void * (*X509V3_EXT_R2I)(const struct v3_ext_method *method,
-				 struct v3_ext_ctx *ctx, const char *str);
+typedef void * (*X509V3_EXT_R2I)(const X509V3_EXT_METHOD *method,
+				 X509V3_CTX *ctx, const char *str);
 
 /* V3 extension structure */
 
-struct v3_ext_method {
+struct x509v3_ext_method_st {
 int ext_nid;
 int ext_flags;
 /* If this is set the following four fields are ignored */
@@ -123,7 +122,7 @@ void (*free_section)(void *db, STACK_OF(CONF_VALUE) *section);
 } X509V3_CONF_METHOD;
 
 /* Context specific info */
-struct v3_ext_ctx {
+struct x509v3_ctx_st {
 #define CTX_TEST 0x1
 int flags;
 X509 *issuer_cert;
@@ -134,8 +133,6 @@ X509V3_CONF_METHOD *db_meth;
 void *db;
 /* Maybe more here */
 };
-
-typedef struct v3_ext_method X509V3_EXT_METHOD;
 
 DECLARE_STACK_OF(X509V3_EXT_METHOD)
 

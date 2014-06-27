@@ -94,7 +94,7 @@ void CRYPTO_ctr128_encrypt_ctr32(const uint8_t *in, uint8_t *out,
 
 /* GCM. */
 
-typedef struct gcm128_context GCM128_CONTEXT;
+typedef struct gcm128_context_st GCM128_CONTEXT;
 
 /* CRYPTO_gcm128_new allocates a fresh |GCM128_CONTEXT| and calls
  * |CRYPTO_gcm128_init|. It returns the new context, or NULL on error. */

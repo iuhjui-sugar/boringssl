@@ -129,7 +129,7 @@ int DSA_generate_key(DSA *dsa);
 /* Signatures. */
 
 /* DSA_SIG contains a DSA signature as a pair of integers. */
-typedef struct DSA_SIG_st {
+typedef struct dsa_sig_st {
   BIGNUM *r, *s;
 } DSA_SIG;
 
@@ -294,7 +294,7 @@ int DSA_set_ex_data(DSA *d, int idx, void *arg);
 void *DSA_get_ex_data(const DSA *d, int idx);
 
 
-struct dsa_method {
+struct dsa_method_st {
   struct openssl_method_common_st common;
 
   void *app_data;

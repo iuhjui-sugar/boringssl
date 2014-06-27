@@ -91,7 +91,7 @@ uint8_t *MD5(const uint8_t *data, size_t len, uint8_t *out);
  * transformation using the state from |md5| and 64 bytes from |block|. */
 void MD5_Transform(MD5_CTX *md5, const uint8_t *block);
 
-struct md5_state_st {
+struct md5_ctx_st {
   uint32_t A, B, C, D;
   uint32_t Nl, Nh;
   uint32_t data[16];

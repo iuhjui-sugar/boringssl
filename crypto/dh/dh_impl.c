@@ -309,7 +309,7 @@ err:
   return ret;
 }
 
-const struct dh_method DH_default_method = {
+const DH_METHOD DH_default_method = {
   {
     0 /* references */,
     1 /* is_static */,

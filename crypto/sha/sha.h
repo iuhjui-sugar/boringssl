@@ -97,7 +97,7 @@ uint8_t *SHA1(const uint8_t *data, size_t len, uint8_t *out);
  * transformation using the state from |sha| and 64 bytes from |block|. */
 void SHA1_Transform(SHA_CTX *sha, const uint8_t *block);
 
-struct sha_state_st {
+struct sha_ctx_st {
   uint32_t h0, h1, h2, h3, h4;
   uint32_t Nl, Nh;
   uint32_t data[16];
@@ -156,7 +156,7 @@ uint8_t *SHA256(const uint8_t *data, size_t len ,uint8_t *out);
  * transformation using the state from |sha| and 64 bytes from |block|. */
 void SHA256_Transform(SHA256_CTX *sha, const uint8_t *data);
 
-struct sha256_state_st {
+struct sha256_ctx_st {
   uint32_t h[8];
   uint32_t Nl, Nh;
   uint32_t data[16];
@@ -219,7 +219,7 @@ uint8_t *SHA512(const uint8_t *data, size_t len ,uint8_t *out);
  * transformation using the state from |sha| and 64 bytes from |block|. */
 void SHA512_Transform(SHA512_CTX *sha, const uint8_t *data);
 
-struct sha512_state_st {
+struct sha512_ctx_st {
   uint64_t h[8];
   uint64_t Nl, Nh;
   union {

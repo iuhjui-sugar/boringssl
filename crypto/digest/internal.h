@@ -64,7 +64,7 @@ extern "C" {
 #endif
 
 
-struct env_md_st {
+struct evp_md_st {
   /* type contains a NID identifing the digest function. (For example,
    * NID_md5.) */
   int type;

@@ -149,7 +149,7 @@ __inline uint32_t _bswap4(uint32_t val) {
 /* GCM definitions */
 typedef struct { uint64_t hi,lo; } u128;
 
-struct gcm128_context {
+struct gcm128_context_st {
   /* Following 6 names follow names in GCM specification */
   union {
     uint64_t u[2];

@@ -895,7 +895,7 @@ struct ssl_ctx_st
 	 * be set then. */
 	struct ssl_cipher_preference_list_st *cipher_list_tls11;
 
-	struct x509_store_st /* X509_STORE */ *cert_store;
+	X509_STORE *cert_store;
 	LHASH_OF(SSL_SESSION) *sessions;
 	/* Most session-ids that will be cached, default is
 	 * SSL_SESSION_CACHE_MAX_SIZE_DEFAULT. 0 is unlimited. */
@@ -2311,7 +2311,7 @@ const char *SSL_CIPHER_description(const SSL_CIPHER *,char *buf,int size);
 STACK_OF(X509_NAME) *SSL_dup_CA_list(STACK_OF(X509_NAME) *sk);
 
 X509 *SSL_get_certificate(const SSL *ssl);
-/* EVP_PKEY */ struct evp_pkey_st *SSL_get_privatekey(const SSL *ssl);
+EVP_PKEY *SSL_get_privatekey(const SSL *ssl);
 
 X509 *SSL_CTX_get0_certificate(const SSL_CTX *ctx);
 EVP_PKEY *SSL_CTX_get0_privatekey(const SSL_CTX *ctx);

@@ -982,7 +982,7 @@ err:
   return ok;
 }
 
-const struct rsa_meth_st RSA_default_method = {
+const RSA_METHOD RSA_default_method = {
   {
     0 /* references */,
     1 /* is_static */,

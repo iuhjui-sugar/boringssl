@@ -715,7 +715,7 @@ static int finish(DSA *dsa) {
   return 1;
 }
 
-const struct dsa_method DSA_default_method = {
+const DSA_METHOD DSA_default_method = {
   {
     0 /* references */,
     1 /* is_static */,

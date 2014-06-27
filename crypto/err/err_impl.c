@@ -271,7 +271,7 @@ static void err_shutdown(void) {
   CRYPTO_w_unlock(CRYPTO_LOCK_ERR);
 }
 
-const struct ERR_FNS_st openssl_err_default_impl = {
+const ERR_FNS openssl_err_default_impl = {
   err_shutdown,
   err_get_item,
   err_set_item,
