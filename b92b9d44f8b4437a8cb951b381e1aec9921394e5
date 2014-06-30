@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6438195d_b0ffc643",
+        "filename": "ssl/t1_enc.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-06-30T23:23:00Z",
+      "side": 1,
+      "message": "Nit: This comment isn\u0027t quite accurate now.",
+      "revId": "b92b9d44f8b4437a8cb951b381e1aec9921394e5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
