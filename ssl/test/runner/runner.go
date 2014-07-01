@@ -53,9 +53,9 @@ type testCase struct {
 	// messageLen is the length, in bytes, of the test message that will be
 	// sent.
 	messageLen int
-	// flag, if not nil, contains a command line flag that will be passed
-	// to the shim program.
-	flag string
+	// flags, if not empty, contains a list of command-line flags that will
+	// be passed to the shim program.
+	flags []string
 }
 
 var clientTests = []testCase{
@@ -101,8 +101,7 @@ var clientTests = []testCase{
 				FailIfNotFallbackSCSV: true,
 			},
 		},
-		shouldFail:         true,
-		expectedLocalError: "no fallback SCSV found",
+		flags: []string{"-fallback-scsv"},
 	},
 }
 
@@ -134,18 +133,20 @@ func doExchange(tlsConn *Conn, messageLen int) error {
 	return nil
 }
 
-func valgrindOf(dbAttach bool, baseArgs ...string) *exec.Cmd {
+func valgrindOf(dbAttach bool, path string, baseArgs ...string) *exec.Cmd {
 	args := []string{"--error-exitcode=99", "--track-origins=yes", "--leak-check=full"}
 	if dbAttach {
 		args = append(args, "--db-attach=yes", "--db-command=xterm -e gdb -nw %f %p")
 	}
+	args = append(args, path)
 	args = append(args, baseArgs...)
 
 	return exec.Command("valgrind", args...)
 }
 
-func gdbOf(baseArgs ...string) *exec.Cmd {
+func gdbOf(path string, baseArgs ...string) *exec.Cmd {
 	args := []string{"-e", "gdb", "--args"}
+	args = append(args, path)
 	args = append(args, baseArgs...)
 
 	return exec.Command("xterm", args...)
@@ -170,9 +171,9 @@ func runTest(test *testCase) error {
 	const shim_path = "../../../build/ssl/test/client_shim"
 	var client *exec.Cmd
 	if *useValgrind {
-		client = valgrindOf(false, shim_path)
+		client = valgrindOf(false, shim_path, test.flags...)
 	} else {
-		client = exec.Command(shim_path)
+		client = exec.Command(shim_path, test.flags...)
 	}
 	//client := gdbOf(shim_path)
 	client.ExtraFiles = []*os.File{clientEnd}
