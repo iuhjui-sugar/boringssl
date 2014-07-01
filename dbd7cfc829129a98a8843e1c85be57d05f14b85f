@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "640d79e9_fcad8576",
+        "filename": "crypto/err/err_impl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-01T23:57:19Z",
+      "side": 1,
+      "message": "Any reason not to initialize this to ERR_NUM_LIBS right here? It\u0027d just end up in the data segment, so there shouldn\u0027t be a static initializer I think.",
+      "revId": "dbd7cfc829129a98a8843e1c85be57d05f14b85f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
