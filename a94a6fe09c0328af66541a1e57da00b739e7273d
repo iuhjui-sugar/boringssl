@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6438195d_db7e2b87",
+        "filename": "ssl/ssl_rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 802,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-01T04:56:06Z",
+      "side": 1,
+      "message": "(This looks funny, but I think it\u0027s actually right. Line 806 on the left turned into this line. I added a comment on it while I was here and that confused the diff.)",
+      "revId": "a94a6fe09c0328af66541a1e57da00b739e7273d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
