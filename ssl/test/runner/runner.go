@@ -42,7 +42,14 @@ func getECDSACertificate() Certificate {
 	return ecdsaCertificate
 }
 
+type testType int
+const (
+	clientTest testType = iota
+	serverTest
+)
+
 type testCase struct {
+	testType      testType
 	name          string
 	config        Config
 	shouldFail    bool
@@ -58,7 +65,7 @@ type testCase struct {
 	flags []string
 }
 
-var clientTests = []testCase{
+var testCases = []testCase{
 	{
 		name: "BadRSASignature",
 		config: Config{
@@ -170,7 +177,7 @@ func runTest(test *testCase) error {
 
 	syscall.CloseOnExec(socks[0])
 	syscall.CloseOnExec(socks[1])
-	clientEnd := os.NewFile(uintptr(socks[0]), "client end")
+	shimEnd := os.NewFile(uintptr(socks[0]), "shim end")
 	connFile := os.NewFile(uintptr(socks[1]), "our end")
 	conn, err := net.FileConn(connFile)
 	connFile.Close()
@@ -178,35 +185,49 @@ func runTest(test *testCase) error {
 		panic(err)
 	}
 
-	const shim_path = "../../../build/ssl/test/client_shim"
-	var client *exec.Cmd
-	if *useValgrind {
-		client = valgrindOf(false, shim_path, test.flags...)
+	const shim_path = "../../../build/ssl/test/bssl_shim"
+	flags := []string{}
+	if test.testType == clientTest {
+		flags = append(flags, "client")
 	} else {
-		client = exec.Command(shim_path, test.flags...)
+		flags = append(flags, "server")
 	}
-	//client := gdbOf(shim_path)
-	client.ExtraFiles = []*os.File{clientEnd}
-	client.Stdin = os.Stdin
-	var stdoutBuf, stderrBuf bytes.Buffer
-	client.Stdout = &stdoutBuf
-	client.Stderr = &stderrBuf
+	flags = append(flags, test.flags...)
 
-	if err := client.Start(); err != nil {
+	var shim *exec.Cmd
+	if *useValgrind {
+		shim = valgrindOf(false, shim_path, flags...)
+	} else {
+		shim = exec.Command(shim_path, flags...)
+	}
+	// shim = gdbOf(shim_path, flags...)
+	shim.ExtraFiles = []*os.File{shimEnd}
+	shim.Stdin = os.Stdin
+	var stdoutBuf, stderrBuf bytes.Buffer
+	shim.Stdout = &stdoutBuf
+	shim.Stderr = &stderrBuf
+
+	if err := shim.Start(); err != nil {
 		panic(err)
 	}
-	clientEnd.Close()
+	shimEnd.Close()
 
 	config := test.config
-	if len(config.Certificates) == 0 {
-		config.Certificates = []Certificate{getRSACertificate()}
-	}
 
-	tlsConn := Server(conn, &config)
+	var tlsConn *Conn
+	if test.testType == clientTest {
+		if len(config.Certificates) == 0 {
+			config.Certificates = []Certificate{getRSACertificate()}
+		}
+		tlsConn = Server(conn, &config)
+	} else {
+		config.InsecureSkipVerify = true
+		tlsConn = Client(conn, &config)
+	}
 	err = doExchange(tlsConn, test.messageLen)
 
 	conn.Close()
-	childErr := client.Wait()
+	childErr := shim.Wait()
 
 	stdout := string(stdoutBuf.Bytes())
 	stderr := string(stderrBuf.Bytes())
@@ -282,10 +303,16 @@ var testCipherSuites = []struct {
 func addCipherSuiteTests() {
 	for _, suite := range testCipherSuites {
 		var cert Certificate
+		var certFile string
+		var keyFile string
 		if strings.Contains(suite.name, "ECDSA") {
 			cert = getECDSACertificate()
+			certFile = "ecdsa_cert.pem"
+			keyFile = "ecdsa_key.pem"
 		} else {
 			cert = getRSACertificate()
+			certFile = "cert.pem"
+			keyFile = "key.pem"
 		}
 
 		for _, ver := range tlsVersions {
@@ -293,8 +320,9 @@ func addCipherSuiteTests() {
 				continue
 			}
 
-			clientTests = append(clientTests, testCase{
-				name: ver.name + "-" + suite.name,
+			testCases = append(testCases, testCase{
+				testType: clientTest,
+				name: ver.name + "-" + suite.name + "-client",
 				config: Config{
 					MinVersion:   ver.version,
 					MaxVersion:   ver.version,
@@ -302,6 +330,28 @@ func addCipherSuiteTests() {
 					Certificates: []Certificate{cert},
 				},
 			})
+
+			// Go's TLS implementation implements SSLv3 as a server,
+			// but not as a client.
+			//
+			// TODO(davidben): Implement SSLv3 as a client too to
+			// exercise that code.
+			if ver.version != VersionSSL30 {
+				testCases = append(testCases, testCase{
+					testType: serverTest,
+					name: ver.name + "-" + suite.name + "-server",
+					config: Config{
+						MinVersion:   ver.version,
+						MaxVersion:   ver.version,
+						CipherSuites: []uint16{suite.id},
+						Certificates: []Certificate{cert},
+					},
+					flags: []string{
+						"-cert-file", certFile,
+						"-key-file", keyFile,
+					},
+				})
+			}
 		}
 	}
 }
@@ -309,7 +359,7 @@ func addCipherSuiteTests() {
 func addBadECDSASignatureTests() {
 	for badR := BadValue(1); badR < NumBadValues; badR++ {
 		for badS := BadValue(1); badS < NumBadValues; badS++ {
-			clientTests = append(clientTests, testCase{
+			testCases = append(testCases, testCase{
 				name: fmt.Sprintf("BadECDSA-%d-%d", badR, badS),
 				config: Config{
 					CipherSuites: []uint16{TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256},
@@ -327,7 +377,7 @@ func addBadECDSASignatureTests() {
 }
 
 func addCBCPaddingTests() {
-	clientTests = append(clientTests, testCase{
+	testCases = append(testCases, testCase{
 		name: "MaxCBCPadding",
 		config: Config{
 			CipherSuites: []uint16{TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA},
@@ -337,7 +387,7 @@ func addCBCPaddingTests() {
 		},
 		messageLen: 12, // 20 bytes of SHA-1 + 12 == 0 % block size
 	})
-	clientTests = append(clientTests, testCase{
+	testCases = append(testCases, testCase{
 		name: "BadCBCPadding",
 		config: Config{
 			CipherSuites: []uint16{TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA},
@@ -350,7 +400,7 @@ func addCBCPaddingTests() {
 	})
 	// OpenSSL previously had an issue where the first byte of padding in
 	// 255 bytes of padding wasn't checked.
-	clientTests = append(clientTests, testCase{
+	testCases = append(testCases, testCase{
 		name: "BadCBCPadding255",
 		config: Config{
 			CipherSuites: []uint16{TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA},
@@ -421,16 +471,16 @@ func main() {
 	testChan := make(chan *testCase, numWorkers)
 	doneChan := make(chan struct{})
 
-	go statusPrinter(doneChan, statusChan, len(clientTests))
+	go statusPrinter(doneChan, statusChan, len(testCases))
 
 	for i := 0; i < numWorkers; i++ {
 		wg.Add(1)
 		go worker(statusChan, testChan, &wg)
 	}
 
-	for i := range clientTests {
-		if len(*flagTest) == 0 || *flagTest == clientTests[i].name {
-			testChan <- &clientTests[i]
+	for i := range testCases {
+		if len(*flagTest) == 0 || *flagTest == testCases[i].name {
+			testChan <- &testCases[i]
 		}
 	}
 
