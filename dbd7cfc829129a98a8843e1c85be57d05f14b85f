@@ -16,6 +16,24 @@
       "revId": "dbd7cfc829129a98a8843e1c85be57d05f14b85f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "84d6ed80_ea22c72e",
+        "filename": "crypto/err/err_impl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-02T00:06:41Z",
+      "side": 1,
+      "message": "It was just to be able to put it in the BSS rather than data, but I bet that the extra code takes \u003e 4 bytes so I\u0027ll switch it over.",
+      "parentUuid": "640d79e9_fcad8576",
+      "revId": "dbd7cfc829129a98a8843e1c85be57d05f14b85f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
