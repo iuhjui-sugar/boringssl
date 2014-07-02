@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c4c385c9_64c28a19",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-02T21:12:23Z",
+      "side": 1,
+      "message": "FLAGS -\u003e [flags...]\n\nhere and L87.",
+      "range": {
+        "startLine": 79,
+        "startChar": 47,
+        "endLine": 79,
+        "endChar": 52
+      },
+      "revId": "fc0ea5ac16cf210772686d607283980a42ce0e1b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4c385c9_04de36e9",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-02T21:12:23Z",
+      "side": 1,
+      "message": "we\u0027re going to want to write one-off tests for the server side too and giving the cert and key file is going to be a pain.\n\nHow about keyFile and certFile strings in testCase. If they are empty then defaults are set when building the flags.",
+      "range": {
+        "startLine": 350,
+        "startChar": 6,
+        "endLine": 350,
+        "endChar": 29
+      },
+      "revId": "fc0ea5ac16cf210772686d607283980a42ce0e1b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
