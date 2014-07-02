@@ -966,6 +966,7 @@ int ssl3_get_client_hello(SSL *s)
 				}
 			}
 		s->state = SSL3_ST_SR_CLNT_HELLO_D;
+		break;
 	default:
 		return -1;
 	}
