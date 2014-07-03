@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c4c385c9_273094da",
+        "filename": "ssl/d1_srtp.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-03T00:11:26Z",
+      "side": 1,
+      "message": "this collides with another patch, right?",
+      "range": {
+        "startLine": 323,
+        "startChar": 2,
+        "endLine": 323,
+        "endChar": 8
+      },
+      "revId": "17df1be872f6d2ebcc6e61f5669acec10ba9b8e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4c385c9_473790d0",
+        "filename": "ssl/d1_srtp.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-03T00:11:26Z",
+      "side": 1,
+      "message": "this function used to return 1 on error. Just leaving this here so that I remember to check that.\n\nLater: looks good.",
+      "range": {
+        "startLine": 363,
+        "startChar": 4,
+        "endLine": 363,
+        "endChar": 7
+      },
+      "revId": "17df1be872f6d2ebcc6e61f5669acec10ba9b8e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4c385c9_6753acf2",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1761,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-03T00:11:26Z",
+      "side": 1,
+      "message": "This is fine for now, but we actually want to remove this. We handling it internally now.",
+      "range": {
+        "startLine": 1761,
+        "startChar": 12,
+        "endLine": 1761,
+        "endChar": 32
+      },
+      "revId": "17df1be872f6d2ebcc6e61f5669acec10ba9b8e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4c385c9_475030e4",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1921,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-03T00:11:26Z",
+      "side": 1,
+      "message": "cbs should be empty after this, right?",
+      "range": {
+        "startLine": 1921,
+        "startChar": 6,
+        "endLine": 1921,
+        "endChar": 33
+      },
+      "revId": "17df1be872f6d2ebcc6e61f5669acec10ba9b8e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4c385c9_67056cde",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1935,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-03T00:11:26Z",
+      "side": 1,
+      "message": "not for this CL, but it would be good if there was an overall check for duplicate extensions. I think it would be reasonable to have a couple of passes:\n\nscan once to count,\nalloc buffer of uint16_t[]\nscan to fill the buffer with extension numbers\nqsort the buffer\nwalk to find duplicates (which will be adjacent).\nfree the buffer.\n\nProbably in its own function.",
+      "range": {
+        "startLine": 1935,
+        "startChar": 5,
+        "endLine": 1935,
+        "endChar": 6
+      },
+      "revId": "17df1be872f6d2ebcc6e61f5669acec10ba9b8e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4c385c9_27e254ee",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1998,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-03T00:11:26Z",
+      "side": 1,
+      "message": "this is crazy. How about\n\nif (s-\u003eservername_done \u003d\u003d 1)\n  continue;",
+      "range": {
+        "startLine": 1998,
+        "startChar": 11,
+        "endLine": 1998,
+        "endChar": 26
+      },
+      "revId": "17df1be872f6d2ebcc6e61f5669acec10ba9b8e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4c385c9_07df581e",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1999,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-03T00:11:26Z",
+      "side": 1,
+      "message": "this is just an if with worse indentation.",
+      "range": {
+        "startLine": 1999,
+        "startChar": 4,
+        "endLine": 1999,
+        "endChar": 10
+      },
+      "revId": "17df1be872f6d2ebcc6e61f5669acec10ba9b8e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4c385c9_47e950cc",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 2026,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-03T00:11:26Z",
+      "side": 1,
+      "message": "\"contain\" after \"not\".",
+      "range": {
+        "startLine": 2026,
+        "startChar": 23,
+        "endLine": 2026,
+        "endChar": 26
+      },
+      "revId": "17df1be872f6d2ebcc6e61f5669acec10ba9b8e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4c385c9_87bce8c9",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 2236,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-03T00:11:26Z",
+      "side": 1,
+      "message": "indeed and, ideally, they wouldn\u0027t use the current ASN.1 code at all either!",
+      "range": {
+        "startLine": 2236,
+        "startChar": 20,
+        "endLine": 2236,
+        "endChar": 51
+      },
+      "revId": "17df1be872f6d2ebcc6e61f5669acec10ba9b8e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4c385c9_27cc146b",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 2291,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-03T00:11:26Z",
+      "side": 1,
+      "message": "setting s-\u003etlsext_status_type to -1 when it\u0027s an unknown type disappeared, no?",
+      "range": {
+        "startLine": 2291,
+        "startChar": 4,
+        "endLine": 2291,
+        "endChar": 5
+      },
+      "revId": "17df1be872f6d2ebcc6e61f5669acec10ba9b8e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
