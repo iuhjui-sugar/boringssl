@@ -540,7 +540,6 @@ typedef struct ssl3_state_st
 	int next_proto_neg_seen;
 #endif
 
-#ifndef OPENSSL_NO_TLSEXT
 #ifndef OPENSSL_NO_EC
 	/* This is set to true if we believe that this is a version of Safari
 	 * running on OS X 10.6 or newer. We wish to know this because Safari
@@ -557,7 +556,6 @@ typedef struct ssl3_state_st
 	 * processed. */
 	uint8_t *alpn_selected;
 	size_t alpn_selected_len;
-#endif	/* OPENSSL_NO_TLSEXT */
 
 	/* In a client, this means that the server supported Channel ID and that
 	 * a Channel ID was sent. In a server it means that we echoed support
