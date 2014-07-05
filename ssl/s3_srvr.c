@@ -1515,13 +1515,11 @@ int ssl3_send_server_done(SSL *s)
 
 int ssl3_send_server_key_exchange(SSL *s)
 	{
-#ifndef OPENSSL_NO_RSA
 	unsigned char *q;
 	int j,num;
 	RSA *rsa;
 	unsigned char md_buf[MD5_DIGEST_LENGTH+SHA_DIGEST_LENGTH];
 	unsigned int u;
-#endif
 #ifndef OPENSSL_NO_DH
 	DH *dh=NULL,*dhp;
 #endif
@@ -1572,7 +1570,6 @@ int ssl3_send_server_key_exchange(SSL *s)
 			n+=2+psk_identity_hint_len;
 			}
 #endif /* !OPENSSL_NO_PSK */
-#ifndef OPENSSL_NO_RSA
 		if (alg_k & SSL_kRSA)
 			{
 			rsa=cert->rsa_tmp;
@@ -1600,7 +1597,6 @@ int ssl3_send_server_key_exchange(SSL *s)
 			r[1]=rsa->e;
 			s->s3->tmp.use_rsa_tmp=1;
 			}
-#endif
 #ifndef OPENSSL_NO_DH
 		else if (alg_k & SSL_kEDH)
 			{
@@ -1880,7 +1876,6 @@ int ssl3_send_server_key_exchange(SSL *s)
 			{
 			/* n is the length of the params, they start at &(d[4])
 			 * and p points to the space at the end. */
-#ifndef OPENSSL_NO_RSA
 			if (pkey->type == EVP_PKEY_RSA && !SSL_USE_SIGALGS(s))
 				{
 				q=md_buf;
@@ -1907,7 +1902,6 @@ int ssl3_send_server_key_exchange(SSL *s)
 				n+=u+2;
 				}
 			else
-#endif /* OPENSSL_NO_RSA */
 			if (md)
 				{
 				/* send signature algorithm */
@@ -2073,10 +2067,8 @@ int ssl3_get_client_key_exchange(SSL *s)
 	unsigned long alg_k;
 	unsigned long alg_a;
 	unsigned char *p;
-#ifndef OPENSSL_NO_RSA
 	RSA *rsa=NULL;
 	EVP_PKEY *pkey=NULL;
-#endif
 #ifndef OPENSSL_NO_DH
 	BIGNUM *pub=NULL;
 	DH *dh_srvr, *dh_clnt = NULL;
@@ -2188,7 +2180,6 @@ int ssl3_get_client_key_exchange(SSL *s)
 #endif /* OPENSSL_NO_PSK */
 
 	if (0) {}
-#ifndef OPENSSL_NO_RSA
 	else if (alg_k & SSL_kRSA)
 		{
 		unsigned char rand_premaster_secret[SSL_MAX_MASTER_KEY_LENGTH];
@@ -2350,7 +2341,6 @@ int ssl3_get_client_key_exchange(SSL *s)
 				p,sizeof(rand_premaster_secret));
 		OPENSSL_cleanse(p,sizeof(rand_premaster_secret));
 		}
-#endif
 #ifndef OPENSSL_NO_DH
 	else if (alg_k & (SSL_kEDH|SSL_kDHr|SSL_kDHd))
 		{
@@ -2645,9 +2635,7 @@ int ssl3_get_client_key_exchange(SSL *s)
 	return(1);
 f_err:
 	ssl3_send_alert(s,SSL3_AL_FATAL,al);
-#if !defined(OPENSSL_NO_DH) || !defined(OPENSSL_NO_RSA) || !defined(OPENSSL_NO_ECDH)
 err:
-#endif
 #ifndef OPENSSL_NO_ECDH
 	EVP_PKEY_free(clnt_pub_pkey);
 	EC_POINT_free(clnt_ecpoint);
@@ -2793,7 +2781,6 @@ fprintf(stderr, "USING TLSv1.2 HASH %s\n", EVP_MD_name(md));
 			}
 		}
 	else
-#ifndef OPENSSL_NO_RSA 
 	if (pkey->type == EVP_PKEY_RSA)
 		{
 		i=RSA_verify(NID_md5_sha1, s->s3->tmp.cert_verify_md,
@@ -2813,7 +2800,6 @@ fprintf(stderr, "USING TLSv1.2 HASH %s\n", EVP_MD_name(md));
 			}
 		}
 	else
-#endif
 #ifndef OPENSSL_NO_DSA
 		if (pkey->type == EVP_PKEY_DSA)
 		{
