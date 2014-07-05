@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e474097d_bb23ef43",
+        "filename": "ssl/d1_srtp.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-05T04:53:59Z",
+      "side": 1,
+      "message": "Rebased",
+      "parentUuid": "c4c385c9_273094da",
+      "range": {
+        "startLine": 323,
+        "startChar": 2,
+        "endLine": 323,
+        "endChar": 8
+      },
+      "revId": "17df1be872f6d2ebcc6e61f5669acec10ba9b8e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4c385c9_473790d0",
         "filename": "ssl/d1_srtp.c",
         "patchSetId": 5
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "e474097d_db18ab0a",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1761,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-05T04:53:59Z",
+      "side": 1,
+      "message": "Removed in followup.",
+      "parentUuid": "c4c385c9_6753acf2",
+      "range": {
+        "startLine": 1761,
+        "startChar": 12,
+        "endLine": 1761,
+        "endChar": 32
+      },
+      "revId": "17df1be872f6d2ebcc6e61f5669acec10ba9b8e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4c385c9_475030e4",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 5
@@ -82,6 +130,30 @@
       "writtenOn": "2014-07-03T00:11:26Z",
       "side": 1,
       "message": "cbs should be empty after this, right?",
+      "range": {
+        "startLine": 1921,
+        "startChar": 6,
+        "endLine": 1921,
+        "endChar": 33
+      },
+      "revId": "17df1be872f6d2ebcc6e61f5669acec10ba9b8e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e474097d_3b10bfdd",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1921,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-05T04:53:59Z",
+      "side": 1,
+      "message": "(Hah. So I went to check what the original code did and it barely does anything with extensions\u0027 length.)\n\nAdded the check in s3_srvr.c to mimic the other one. We probably want it there anyway so that, e.g., we still get the length check in SSL3.\n\nUnlike the other one, it\u0027s not outside the OPENSSL_NO_TLSEXT ifdef, but I assume we can drop that ifdef anyway. And if we wanted to support it, the check would want to be inside the ifdef because an OPENSSL_NO_TLSEXT server build wouldn\u0027t process the extensions. I assume that\u0027s why the original code lacked this check.",
+      "parentUuid": "c4c385c9_475030e4",
       "range": {
         "startLine": 1921,
         "startChar": 6,
@@ -117,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "e474097d_9e1e21f5",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1935,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-05T04:53:59Z",
+      "side": 1,
+      "message": "Done in a followup. Turns out there already was code for this for clienthellos, but it did an O(N^2) loop, so I implemented your version and replaced it with a call to this.",
+      "parentUuid": "c4c385c9_67056cde",
+      "range": {
+        "startLine": 1935,
+        "startChar": 5,
+        "endLine": 1935,
+        "endChar": 6
+      },
+      "revId": "17df1be872f6d2ebcc6e61f5669acec10ba9b8e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4c385c9_27e254ee",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 5
@@ -128,6 +224,30 @@
       "writtenOn": "2014-07-03T00:11:26Z",
       "side": 1,
       "message": "this is crazy. How about\n\nif (s-\u003eservername_done \u003d\u003d 1)\n  continue;",
+      "range": {
+        "startLine": 1998,
+        "startChar": 11,
+        "endLine": 1998,
+        "endChar": 26
+      },
+      "revId": "17df1be872f6d2ebcc6e61f5669acec10ba9b8e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e474097d_5b0d7bc4",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1998,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-05T04:53:59Z",
+      "side": 1,
+      "message": "Done. (This field is strange... the comment claims it can be 2, but I see no place that sets it to 2. I wonder if it\u0027s redundant with tlsext_hostname or something.)",
+      "parentUuid": "c4c385c9_27e254ee",
       "range": {
         "startLine": 1998,
         "startChar": 11,
@@ -163,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "e474097d_7b0a37af",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1999,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-05T04:53:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4c385c9_07df581e",
+      "range": {
+        "startLine": 1999,
+        "startChar": 4,
+        "endLine": 1999,
+        "endChar": 10
+      },
+      "revId": "17df1be872f6d2ebcc6e61f5669acec10ba9b8e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4c385c9_47e950cc",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 5
@@ -174,6 +318,30 @@
       "writtenOn": "2014-07-03T00:11:26Z",
       "side": 1,
       "message": "\"contain\" after \"not\".",
+      "range": {
+        "startLine": 2026,
+        "startChar": 23,
+        "endLine": 2026,
+        "endChar": 26
+      },
+      "revId": "17df1be872f6d2ebcc6e61f5669acec10ba9b8e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e474097d_7e5ea5c8",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 2026,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-05T04:53:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4c385c9_47e950cc",
       "range": {
         "startLine": 2026,
         "startChar": 23,
@@ -220,6 +388,30 @@
       "writtenOn": "2014-07-03T00:11:26Z",
       "side": 1,
       "message": "setting s-\u003etlsext_status_type to -1 when it\u0027s an unknown type disappeared, no?",
+      "range": {
+        "startLine": 2291,
+        "startChar": 4,
+        "endLine": 2291,
+        "endChar": 5
+      },
+      "revId": "17df1be872f6d2ebcc6e61f5669acec10ba9b8e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e474097d_fb4e47f4",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 2291,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-05T04:53:59Z",
+      "side": 1,
+      "message": "It just doesn\u0027t bother to save it if it\u0027s unknown. I\u0027ve made it just continue if the type isn\u0027t the single known one to cut down on indentation.",
+      "parentUuid": "c4c385c9_27cc146b",
       "range": {
         "startLine": 2291,
         "startChar": 4,
