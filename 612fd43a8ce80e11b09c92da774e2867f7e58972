@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c4c385c9_d3985e61",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1974,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-07T19:57:34Z",
+      "side": 1,
+      "message": "the indentation appears to be off here.",
+      "range": {
+        "startLine": 1974,
+        "startChar": 3,
+        "endLine": 1974,
+        "endChar": 5
+      },
+      "revId": "612fd43a8ce80e11b09c92da774e2867f7e58972",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
