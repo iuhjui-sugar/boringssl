@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e474097d_4f269121",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1913,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-07T21:40:57Z",
+      "side": 0,
+      "message": "servername_done gets reset up at the top of this function. Otherwise I don\u0027t think renego + SNI would ever work (the new session wouldn\u0027t have tlsext_hostname filled in), and I know of one deployment at MIT which does such a thing.",
+      "parentUuid": "c4c385c9_13b5d6b9",
+      "range": {
+        "startLine": 1913,
+        "startChar": 4,
+        "endLine": 1913,
+        "endChar": 27
+      },
+      "revId": "25a5b9722a9ce6f8587e03a5224c6197a1d48882",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4c385c9_b3f5e268",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 1
@@ -42,6 +66,47 @@
         "endLine": 2008,
         "endChar": 45
       },
+      "revId": "25a5b9722a9ce6f8587e03a5224c6197a1d48882",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e474097d_cf7f01ec",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2008,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-07T21:40:57Z",
+      "side": 0,
+      "message": "If it weren\u0027t a no-op, I think it\u0027d be even more important to remove this. :-) It would mean that all renegos fail because the initial and renegotiated handshake probably both specify this list.\n\n(I actually thought we did have such a bug at first and had to go test it before realizing it was fine.)",
+      "parentUuid": "c4c385c9_b3f5e268",
+      "range": {
+        "startLine": 2008,
+        "startChar": 4,
+        "endLine": 2008,
+        "endChar": 45
+      },
+      "revId": "25a5b9722a9ce6f8587e03a5224c6197a1d48882",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e474097d_afbd6557",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2044,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-07T21:40:57Z",
+      "side": 0,
+      "message": "For completeness, this too gets reset at the top, so this is a no-op for renego. (And if it didn\u0027t, renego would never haev worked.)",
       "revId": "25a5b9722a9ce6f8587e03a5224c6197a1d48882",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false

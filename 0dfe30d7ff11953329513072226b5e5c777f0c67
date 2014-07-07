@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e474097d_af1485a7",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1888,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-07T21:40:57Z",
+      "side": 1,
+      "message": "This is to prevent a leak in renego. The old block is line 2093 below. It\u0027s slightly different, but the old version is actually broken with renego anyway. (Actually, hrm, I think I just introduced this bug a few changes ago. That doesn\u0027t seem to be in the original code. Oops. Oh well it\u0027s all ifdef\u0027d out anyway.)\n\nI think this is another candidate for something that should move to per-handshake state. Not that we actually care about server renego.",
+      "parentUuid": "c4c385c9_33ea9285",
+      "range": {
+        "startLine": 1888,
+        "startChar": 1,
+        "endLine": 1888,
+        "endChar": 28
+      },
+      "revId": "0dfe30d7ff11953329513072226b5e5c777f0c67",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4c385c9_13de76e9",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2014-07-07T20:13:47Z",
       "side": 1,
       "message": "this could be merged into the if() above.",
+      "range": {
+        "startLine": 1914,
+        "startChar": 6,
+        "endLine": 1914,
+        "endChar": 50
+      },
+      "revId": "0dfe30d7ff11953329513072226b5e5c777f0c67",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e474097d_ef74bd12",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1914,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-07T21:40:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4c385c9_13de76e9",
       "range": {
         "startLine": 1914,
         "startChar": 6,
