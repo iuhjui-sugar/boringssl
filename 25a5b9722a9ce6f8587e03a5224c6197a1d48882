@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c4c385c9_13b5d6b9",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1913,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-07T20:13:47Z",
+      "side": 0,
+      "message": "are we sure that these are safe to remove? Even without duplicate extensions, an extension could be encountered twice if the connection is renegotiated.",
+      "range": {
+        "startLine": 1913,
+        "startChar": 4,
+        "endLine": 1913,
+        "endChar": 27
+      },
+      "revId": "25a5b9722a9ce6f8587e03a5224c6197a1d48882",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4c385c9_b3f5e268",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2008,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-07T20:13:47Z",
+      "side": 0,
+      "message": "This removal looks safe because, if !s-\u003ehit then s-\u003esession is fresh.",
+      "range": {
+        "startLine": 2008,
+        "startChar": 4,
+        "endLine": 2008,
+        "endChar": 45
+      },
+      "revId": "25a5b9722a9ce6f8587e03a5224c6197a1d48882",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
