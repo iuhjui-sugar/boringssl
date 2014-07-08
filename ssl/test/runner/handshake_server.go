@@ -338,9 +338,13 @@ func (hs *serverHandshakeState) doFullHandshake() error {
 	if config.ClientAuth >= RequestClientCert {
 		// Request a client certificate
 		certReq := new(certificateRequestMsg)
-		certReq.certificateTypes = []byte{
-			byte(certTypeRSASign),
-			byte(certTypeECDSASign),
+		if config.ClientCertificateTypes == nil {
+			certReq.certificateTypes = []byte{
+				byte(CertTypeRSASign),
+				byte(CertTypeECDSASign),
+			}
+		} else {
+			certReq.certificateTypes = config.ClientCertificateTypes
 		}
 		if c.vers >= VersionTLS12 {
 			certReq.hasSignatureAndHash = true

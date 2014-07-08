@@ -75,6 +75,7 @@ err:
 int main(int argc, char **argv) {
   int i, is_server, ret;
   const char *expected_server_name = NULL;
+  const char *expected_certificate_types = NULL;
 
   if (argc < 2) {
     fprintf(stderr, "Usage: %s (client|server) [flags...]\n", argv[0]);
@@ -128,6 +129,14 @@ int main(int argc, char **argv) {
         return 1;
       }
       expected_server_name = argv[i];
+    } else if (strcmp(argv[i], "-expect-certificate-types") == 0) {
+      i++;
+      if (i >= argc) {
+        fprintf(stderr, "Missing parameter\n");
+        return 1;
+      }
+      // Conveniently, 00 is not a certificate type.
+      expected_certificate_types = argv[i];
     } else {
       fprintf(stderr, "Unknown argument: %s\n", argv[i]);
       return 1;
@@ -151,6 +160,19 @@ int main(int argc, char **argv) {
     if (strcmp(server_name, expected_server_name) != 0) {
       fprintf(stderr, "servername mismatch (got %s; want %s)\n",
               server_name, expected_server_name);
+      return 2;
+    }
+  }
+
+  if (expected_certificate_types) {
+    uint8_t *certificate_types;
+    int num_certificate_types =
+      SSL_get0_certificate_types(ssl, &certificate_types);
+    if (num_certificate_types != (int)strlen(expected_certificate_types) ||
+        memcmp(certificate_types,
+               expected_certificate_types,
+               num_certificate_types) != 0) {
+      fprintf(stderr, "certificate types mismatch\n");
       return 2;
     }
   }
