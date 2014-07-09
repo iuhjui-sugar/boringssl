@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e4224989_9989cb1a",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-09T19:54:06Z",
+      "side": 1,
+      "message": "(I\u0027m not sure that this code is related to the change, but that\u0027s not too important.)\n\nif (!expected_server_name) {\n  return 1;\n}\n\nand then you can unindent a level for everything below.",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 29
+      },
+      "revId": "98df867770cbcead673078d312276c70e5d2340f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4224989_b98e871d",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-09T19:54:06Z",
+      "side": 1,
+      "message": "uint8_t",
+      "range": {
+        "startLine": 32,
+        "startChar": 10,
+        "endLine": 32,
+        "endChar": 23
+      },
+      "revId": "98df867770cbcead673078d312276c70e5d2340f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4224989_d9934344",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-09T19:54:06Z",
+      "side": 1,
+      "message": "\\n at the end.",
+      "range": {
+        "startLine": 40,
+        "startChar": 59,
+        "endLine": 40,
+        "endChar": 61
+      },
+      "revId": "98df867770cbcead673078d312276c70e5d2340f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4224989_f998ff60",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-09T19:54:06Z",
+      "side": 1,
+      "message": "ditto.",
+      "range": {
+        "startLine": 51,
+        "startChar": 61,
+        "endLine": 51,
+        "endChar": 63
+      },
+      "revId": "98df867770cbcead673078d312276c70e5d2340f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4224989_197ebb36",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-09T19:54:06Z",
+      "side": 1,
+      "message": "ditto.",
+      "range": {
+        "startLine": 58,
+        "startChar": 43,
+        "endLine": 58,
+        "endChar": 45
+      },
+      "revId": "98df867770cbcead673078d312276c70e5d2340f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
