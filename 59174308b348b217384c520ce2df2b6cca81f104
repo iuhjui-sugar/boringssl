@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e4224989_0eb66f17",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-09T16:46:44Z",
+      "side": 1,
+      "message": "certReq \u003d \u0026certificateRequestMsg{\n  certificateTypes: config.ClientCertificateTypes,\n}\nif certReq.certificateTypes \u003d\u003d nil {\n  certReq.certificateTypes \u003d []byte{\n    certTypeRSASign,\n    certTypeECDSASign,\n  }\n}",
+      "range": {
+        "startLine": 340,
+        "startChar": 2,
+        "endLine": 340,
+        "endChar": 9
+      },
+      "revId": "59174308b348b217384c520ce2df2b6cca81f104",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
