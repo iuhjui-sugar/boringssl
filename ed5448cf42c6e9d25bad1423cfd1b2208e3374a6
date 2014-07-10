@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f94e7481_a564be70",
+        "filename": "crypto/evp/p_hmac.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-10T16:14:52Z",
+      "side": 1,
+      "message": "This is not going to work drop-in. conscrypt will need similar fixes as t1_enc.c:\n\nhttps://android.googlesource.com/platform/external/conscrypt/+/master/src/main/native/org_conscrypt_NativeCrypto.cpp#4118\n\nI can remove this part for now. This was the only instance I found though, so we can also just get a fix into Android; their version doesn\u0027t work for anything other than HMAC anyway, though it doesn\u0027t look like they use it for anything else.",
+      "revId": "ed5448cf42c6e9d25bad1423cfd1b2208e3374a6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
