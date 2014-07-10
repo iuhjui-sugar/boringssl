@@ -33,6 +33,24 @@
       "revId": "ed5448cf42c6e9d25bad1423cfd1b2208e3374a6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f97cb4a5_9507a438",
+        "filename": "crypto/evp/p_hmac.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-10T20:59:09Z",
+      "side": 1,
+      "message": "If you can get the fix into Android then I think this is good to land.",
+      "parentUuid": "f94e7481_a564be70",
+      "revId": "ed5448cf42c6e9d25bad1423cfd1b2208e3374a6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
