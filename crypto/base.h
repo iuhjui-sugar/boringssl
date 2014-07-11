@@ -61,7 +61,7 @@
 #if defined(__x86_64) || defined(_M_AMD64) || defined(_M_X64)
 #define OPENSSL_64_BIT
 #define OPENSSL_X86_64
-#elif defined(__x86) || defined(__i386) || defined(__i386__) || defined(_M_IX86) || defined(__pnacl__)
+#elif defined(__x86) || defined(__i386) || defined(__i386__) || defined(_M_IX86)
 #define OPENSSL_32_BIT
 #define OPENSSL_X86
 #elif defined(__aarch64__)
@@ -73,6 +73,9 @@
 #elif defined(__mips__)
 #define OPENSSL_32_BIT
 #define OPENSSL_MIPS
+#elif defined(__pnacl__)
+#define OPENSSL_32_BIT
+#define OPENSSL_PNACL
 #else
 #error "Unknown target CPU"
 #endif
