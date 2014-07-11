@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "59db0006_b3bd02a0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-11T14:20:17Z",
+      "side": 1,
+      "message": "(I\u0027m guessing they supply OPENSSL_NO_ASM externally?)",
+      "revId": "5528c435961090188850684931bbab093d463672",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59db0006_93c0fe10",
+        "filename": "crypto/base.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-11T14:20:17Z",
+      "side": 1,
+      "message": "Seems a little strange to define OPENSSL_X86 for PNaCl since it\u0027s not x86, but a generic little-endian 32-bit target that compiles to LLVM. (As opposed to x86 NaCl which is x86, but a funny subset.)\n\nThe OPENSSL_NO_ASM checks are probably desirable anyway for plain NaCl\u0027s sake, but if we\u0027re going to be adding __pnacl__ checks in here anyway, does it work to do something like the MIPS change:\n\n #elif defined(__pnacl__)\n #define OPENSSL_32_BIT\n #define OPENSSL_PNACL\n\n(Could even imagine wanting to even build it without OPENSSL_NO_ASM in case we ever get PNaCl LLVM \"assembly\" somewhere, though that seems pretty unlikely.)",
+      "revId": "5528c435961090188850684931bbab093d463672",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
