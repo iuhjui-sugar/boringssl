@@ -51,6 +51,24 @@
       "revId": "ed5448cf42c6e9d25bad1423cfd1b2208e3374a6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59db0006_3647c065",
+        "filename": "crypto/evp/p_hmac.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-11T17:55:30Z",
+      "side": 1,
+      "message": "https://android.googlesource.com/platform/external/conscrypt/+/bca895f809dd2cef7a0834f0bfeb2a06e42b277d",
+      "parentUuid": "f97cb4a5_9507a438",
+      "revId": "ed5448cf42c6e9d25bad1423cfd1b2208e3374a6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
