@@ -211,6 +211,8 @@ var testCases = []testCase{
 		shouldFail:    true,
 		expectedError: ":UNEXPECTED_MESSAGE:",
 	},
+	{
+		testType: serverTest,
 }
 
 func doExchange(tlsConn *Conn, messageLen int) error {
@@ -536,7 +538,7 @@ func addClientAuthTests() {
 
 		testCases = append(testCases, testCase{
 			testType: clientTest,
-			name:     ver.name + "-ClientAuth-RSA",
+			name:     ver.name + "-Client-ClientAuth-RSA",
 			config: Config{
 				MinVersion:   ver.version,
 				MaxVersion:   ver.version,
@@ -550,7 +552,7 @@ func addClientAuthTests() {
 		})
 		testCases = append(testCases, testCase{
 			testType: clientTest,
-			name:     ver.name + "-ClientAuth-ECDSA",
+			name:     ver.name + "-Client-ClientAuth-ECDSA",
 			config: Config{
 				MinVersion:   ver.version,
 				MaxVersion:   ver.version,
@@ -561,6 +563,22 @@ func addClientAuthTests() {
 				"-cert-file", ecdsaCertificateFile,
 				"-key-file", ecdsaKeyFile,
 			},
+		})
+		testCases = append(testCases, testCase{
+			testType: serverTest,
+			name:     ver.name + "-Server-ClientAuth-RSA",
+			config: Config{
+				Certificates: []Certificate{rsaCertificate},
+			},
+			flags: []string{"-require-any-client-certificate"},
+		})
+		testCases = append(testCases, testCase{
+			testType: serverTest,
+			name:     ver.name + "-Server-ClientAuth-ECDSA",
+			config: Config{
+				Certificates: []Certificate{ecdsaCertificate},
+			},
+			flags: []string{"-require-any-client-certificate"},
 		})
 	}
 }
