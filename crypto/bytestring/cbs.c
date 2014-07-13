@@ -17,6 +17,7 @@
 #include <openssl/bytestring.h>
 
 #include <assert.h>
+#include <strings.h>
 
 
 void CBS_init(CBS *cbs, const uint8_t *data, size_t len) {
@@ -76,6 +77,12 @@ int CBS_strdup(const CBS *cbs, char **out_ptr) {
 
 int CBS_is_valid_string(const CBS *cbs) {
   return (BUF_strnlen((const char*)cbs->data, cbs->len) == cbs->len);
+}
+
+int CBS_mem_equal(const CBS *cbs, const uint8_t *data, size_t len) {
+  if (len != cbs->len)
+    return 0;
+  return memcmp(cbs->data, data, len) == 0;
 }
 
 static int cbs_get_u(CBS *cbs, uint32_t *out, size_t len) {

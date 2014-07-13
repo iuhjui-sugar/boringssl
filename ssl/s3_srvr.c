@@ -1045,13 +1045,12 @@ int ssl3_get_client_hello(SSL *s)
 					}
 				/* else cookie verification succeeded */
 				}
-			else if (CBS_len(&cookie) != s->d1->cookie_len ||
-				memcmp(CBS_data(&cookie), s->d1->cookie, 
-					s->d1->cookie_len) != 0) /* default verification */
+			else if (!CBS_mem_equal(&cookie, s->d1->cookie, s->d1->cookie_len))
 				{
-					al=SSL_AD_HANDSHAKE_FAILURE;
-					OPENSSL_PUT_ERROR(SSL, ssl3_get_client_hello, SSL_R_COOKIE_MISMATCH);
-					goto f_err;
+				/* default verification */
+				al=SSL_AD_HANDSHAKE_FAILURE;
+				OPENSSL_PUT_ERROR(SSL, ssl3_get_client_hello, SSL_R_COOKIE_MISMATCH);
+				goto f_err;
 				}
 			/* Set to -2 so if successful we return 2 and
 			 * don't send HelloVerifyRequest. */
