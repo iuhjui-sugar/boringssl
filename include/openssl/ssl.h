@@ -488,7 +488,7 @@ struct ssl_session_st
 	size_t tlsext_ecpointformatlist_length;
 	unsigned char *tlsext_ecpointformatlist; /* peer's list */
 	size_t tlsext_ellipticcurvelist_length;
-	unsigned char *tlsext_ellipticcurvelist; /* peer's list */
+	uint16_t *tlsext_ellipticcurvelist; /* peer's list */
 #endif /* OPENSSL_NO_EC */
 	/* RFC4507 info */
 	uint8_t *tlsext_tick;	/* Session ticket */
@@ -1088,9 +1088,9 @@ struct ssl_ctx_st
 # ifndef OPENSSL_NO_EC
 	/* EC extension values inherited by SSL structure */
 	size_t tlsext_ecpointformatlist_length;
-	unsigned char *tlsext_ecpointformatlist;
+	uint8_t *tlsext_ecpointformatlist;
 	size_t tlsext_ellipticcurvelist_length;
-	unsigned char *tlsext_ellipticcurvelist;
+	uint16_t *tlsext_ellipticcurvelist;
 # endif /* OPENSSL_NO_EC */
 
 	/* If true, a client will advertise the Channel ID extension and a
@@ -1444,9 +1444,9 @@ struct ssl_st
 	int tlsext_ticket_expected;
 #ifndef OPENSSL_NO_EC
 	size_t tlsext_ecpointformatlist_length;
-	unsigned char *tlsext_ecpointformatlist; /* our list */
+	uint8_t *tlsext_ecpointformatlist; /* our list */
 	size_t tlsext_ellipticcurvelist_length;
-	unsigned char *tlsext_ellipticcurvelist; /* our list */
+	uint16_t *tlsext_ellipticcurvelist; /* our list */
 #endif /* OPENSSL_NO_EC */
 
 	/* TLS Session Ticket extension override */

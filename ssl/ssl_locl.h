@@ -1245,14 +1245,12 @@ int ssl_check_srvr_ecc_cert_and_alg(X509 *x, SSL *s);
 
 char ssl_early_callback_init(struct ssl_early_callback_ctx *ctx);
 #ifndef OPENSSL_NO_EC
-int tls1_ec_curve_id2nid(int curve_id);
-int tls1_ec_nid2curve_id(int nid);
+int tls1_ec_curve_id2nid(uint16_t curve_id);
+uint16_t tls1_ec_nid2curve_id(int nid);
 int tls1_check_curve(SSL *s, CBS *cbs, uint16_t *out_curve_id);
 int tls1_shared_curve(SSL *s, int nmatch);
-int tls1_set_curves(unsigned char **pext, size_t *pextlen,
-			int *curves, size_t ncurves);
-int tls1_set_curves_list(unsigned char **pext, size_t *pextlen, 
-				const char *str);
+int tls1_set_curves(uint16_t **out_curve_ids, size_t *out_curve_ids_len,
+	const int *curves, size_t ncurves);
 int tls1_check_ec_tmp_key(SSL *s, unsigned long id);
 #endif /* OPENSSL_NO_EC */
 
