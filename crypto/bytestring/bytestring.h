@@ -60,6 +60,11 @@ size_t CBS_len(const CBS *cbs);
  * |*out_ptr| will be NULL. */
 int CBS_stow(const CBS *cbs, uint8_t **out_ptr, size_t *out_len);
 
+/* CBS_mem_equal compares the current contents of |cbs| with the |len|
+ * bytes starting at |data|. If they're equal, it returns one,
+ * otherwise zero. This is not a constant-time comparison. */
+int CBS_mem_equal(const CBS *cbs, const uint8_t *data, size_t len);
+
 /* CBS_get_u8 sets |*out| to the next uint8_t from |cbs| and advances |cbs|. It
  * returns one on success and zero on error. */
 int CBS_get_u8(CBS *cbs, uint8_t *out);
