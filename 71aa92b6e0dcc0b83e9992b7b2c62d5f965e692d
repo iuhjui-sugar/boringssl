@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "393e4ceb_65ab22a5",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-14T22:34:14Z",
+      "side": 1,
+      "message": "static.",
+      "revId": "71aa92b6e0dcc0b83e9992b7b2c62d5f965e692d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
