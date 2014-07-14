@@ -22,6 +22,30 @@
       "revId": "a98b91f987c6132070e9b6a595a06b60f5070c07",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "39256cef_67adf270",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 1021,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-14T23:51:44Z",
+      "side": 1,
+      "message": "Done. Yeah, it\u0027s a little annoying that the cipher_by_char interfaces sometimes give 3 because of s23_*.c.\n\n...I don\u0027t suppose we can drop V2-compatible ClientHellos given that we can\u0027t handshake SSLv2 anyway? :-)",
+      "parentUuid": "393e4ceb_e5573238",
+      "range": {
+        "startLine": 1021,
+        "startChar": 14,
+        "endLine": 1021,
+        "endChar": 52
+      },
+      "revId": "a98b91f987c6132070e9b6a595a06b60f5070c07",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
