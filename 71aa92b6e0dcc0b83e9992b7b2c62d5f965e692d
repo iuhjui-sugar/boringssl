@@ -16,6 +16,24 @@
       "revId": "71aa92b6e0dcc0b83e9992b7b2c62d5f965e692d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "39256cef_4730ae08",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-14T23:06:53Z",
+      "side": 1,
+      "message": "Done. And made everything else static since it probably should be.",
+      "parentUuid": "393e4ceb_65ab22a5",
+      "revId": "71aa92b6e0dcc0b83e9992b7b2c62d5f965e692d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
