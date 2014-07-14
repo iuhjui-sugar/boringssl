@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "393e4ceb_a2d0808b",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1377,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-14T21:57:58Z",
+      "side": 1,
+      "message": "Isn\u0027t this a CBS_stow? (And I\u0027d scan the hint for a NUL and reject it if it has one.)",
+      "range": {
+        "startLine": 1377,
+        "startChar": 2,
+        "endLine": 1377,
+        "endChar": 36
+      },
+      "revId": "b0125a808bb258084fb5020c336736160410c6a6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "393e4ceb_02ce8ced",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1410,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-14T21:57:58Z",
+      "side": 1,
+      "message": "this is \"\u003d\u003d 0\" and then one doesn\u0027t need to worry about whether it\u0027s signed or unsigned.",
+      "range": {
+        "startLine": 1410,
+        "startChar": 25,
+        "endLine": 1410,
+        "endChar": 28
+      },
+      "revId": "b0125a808bb258084fb5020c336736160410c6a6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "393e4ceb_e2ca88d7",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1412,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-14T21:57:58Z",
+      "side": 1,
+      "message": "ditto.",
+      "range": {
+        "startLine": 1412,
+        "startChar": 26,
+        "endLine": 1412,
+        "endChar": 30
+      },
+      "revId": "b0125a808bb258084fb5020c336736160410c6a6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "393e4ceb_428ff4af",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1456,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-14T21:57:58Z",
+      "side": 1,
+      "message": "ditto x 3.",
+      "range": {
+        "startLine": 1456,
+        "startChar": 18,
+        "endLine": 1456,
+        "endChar": 21
+      },
+      "revId": "b0125a808bb258084fb5020c336736160410c6a6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "393e4ceb_a286c08b",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1621,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-14T21:57:58Z",
+      "side": 1,
+      "message": "CBS_len(\u0026server_key_exchange_orig) - CBS_len(\u0026server_key_exchange)",
+      "range": {
+        "startLine": 1621,
+        "startChar": 2,
+        "endLine": 1621,
+        "endChar": 32
+      },
+      "revId": "b0125a808bb258084fb5020c336736160410c6a6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "393e4ceb_2249109a",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-14T21:57:58Z",
+      "side": 1,
+      "message": "This is not an \"XXX\" comment. We will only ever support named curves.",
+      "range": {
+        "startLine": 571,
+        "startChar": 4,
+        "endLine": 571,
+        "endChar": 60
+      },
+      "revId": "b0125a808bb258084fb5020c336736160410c6a6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "393e4ceb_823e1cf6",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-14T21:57:58Z",
+      "side": 1,
+      "message": "\"of\" after \"list\" at the end of the line.",
+      "range": {
+        "startLine": 594,
+        "startChar": 55,
+        "endLine": 594,
+        "endChar": 59
+      },
+      "revId": "b0125a808bb258084fb5020c336736160410c6a6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
