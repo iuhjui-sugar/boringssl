@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "393e4ceb_e5a9f200",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 2002,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-14T23:39:36Z",
+      "side": 1,
+      "message": "\u003d\u003d 0",
+      "range": {
+        "startLine": 2002,
+        "startChar": 26,
+        "endLine": 2002,
+        "endChar": 29
+      },
+      "revId": "58b4cfd5682bd63fa6bcbd96e785ff61b85cad82",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
