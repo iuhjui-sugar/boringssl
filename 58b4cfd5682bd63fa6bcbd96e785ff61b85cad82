@@ -22,6 +22,30 @@
       "revId": "58b4cfd5682bd63fa6bcbd96e785ff61b85cad82",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "39256cef_278dba27",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 2002,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-14T23:41:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "393e4ceb_e5a9f200",
+      "range": {
+        "startLine": 2002,
+        "startChar": 26,
+        "endLine": 2002,
+        "endChar": 29
+      },
+      "revId": "58b4cfd5682bd63fa6bcbd96e785ff61b85cad82",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
