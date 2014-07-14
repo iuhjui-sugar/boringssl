@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "393e4ceb_02efac8e",
+        "filename": "ssl/ssl_ciph.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1897,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-14T21:26:28Z",
+      "side": 1,
+      "message": "Yes.",
+      "range": {
+        "startLine": 1897,
+        "startChar": 19,
+        "endLine": 1897,
+        "endChar": 45
+      },
+      "revId": "bbe8ad0231d8c5422918e6ecbae7b0c5f55d6e85",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "393e4ceb_42f1b476",
+        "filename": "ssl/ssl_ciph.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1901,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-14T21:26:28Z",
+      "side": 1,
+      "message": "should be at end of prev line.",
+      "range": {
+        "startLine": 1901,
+        "startChar": 1,
+        "endLine": 1901,
+        "endChar": 3
+      },
+      "revId": "bbe8ad0231d8c5422918e6ecbae7b0c5f55d6e85",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
