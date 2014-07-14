@@ -22,6 +22,30 @@
       "revId": "1d92ff0394ddbada07317afdbf0602aacefec9bb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "39256cef_47ab8ea4",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 2348,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-14T23:11:12Z",
+      "side": 1,
+      "message": "Hrm. Is that true? It\u0027s 0x80 and OP_ALL ends in 0xFF. I can drop it anyway though.",
+      "parentUuid": "393e4ceb_6500429b",
+      "range": {
+        "startLine": 2348,
+        "startChar": 3,
+        "endLine": 2348,
+        "endChar": 55
+      },
+      "revId": "1d92ff0394ddbada07317afdbf0602aacefec9bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
