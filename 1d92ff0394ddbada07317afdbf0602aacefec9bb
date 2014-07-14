@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "393e4ceb_6500429b",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 2348,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-14T23:07:06Z",
+      "side": 1,
+      "message": "I think this chunk of code can be removed. We can assume that SSL_OP_SSLEAY_080_CLIENT_DH_BUG is never set because it\u0027s not in OP_ALL. (And the name suggests that it affected EAY\u0027s libssl around 0.8!)",
+      "range": {
+        "startLine": 2348,
+        "startChar": 3,
+        "endLine": 2348,
+        "endChar": 55
+      },
+      "revId": "1d92ff0394ddbada07317afdbf0602aacefec9bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
