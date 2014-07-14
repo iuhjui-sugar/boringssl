@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "393e4ceb_e5573238",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 1021,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-14T23:47:43Z",
+      "side": 1,
+      "message": "cipher_len is always going to be 2, no? This is s3_clnt.c after all.",
+      "range": {
+        "startLine": 1021,
+        "startChar": 14,
+        "endLine": 1021,
+        "endChar": 52
+      },
+      "revId": "a98b91f987c6132070e9b6a595a06b60f5070c07",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
