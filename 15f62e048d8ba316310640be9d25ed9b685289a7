@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "393e4ceb_02e7acf5",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2829,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-14T20:54:22Z",
+      "side": 1,
+      "message": "is_first_certificate",
+      "range": {
+        "startLine": 2829,
+        "startChar": 5,
+        "endLine": 2829,
+        "endChar": 22
+      },
+      "revId": "15f62e048d8ba316310640be9d25ed9b685289a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "393e4ceb_e2e3a8e5",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2901,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-14T20:54:22Z",
+      "side": 1,
+      "message": "looks like this might fit on one line.",
+      "range": {
+        "startLine": 2901,
+        "startChar": 4,
+        "endLine": 2901,
+        "endChar": 26
+      },
+      "revId": "15f62e048d8ba316310640be9d25ed9b685289a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "393e4ceb_820a9cf3",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2931,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-14T20:54:22Z",
+      "side": 1,
+      "message": "I\u0027d set this to zero after the if clause that tests it. I fear that it\u0027s in danger of getting skipped if someone adds a continue in the future.",
+      "range": {
+        "startLine": 2931,
+        "startChar": 3,
+        "endLine": 2931,
+        "endChar": 24
+      },
+      "revId": "15f62e048d8ba316310640be9d25ed9b685289a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
