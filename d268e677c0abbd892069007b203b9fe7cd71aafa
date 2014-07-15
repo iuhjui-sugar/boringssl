@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "393e4ceb_e8042735",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 2563,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-15T00:02:13Z",
+      "side": 1,
+      "message": "we can unifdef NO_PSK by the way.",
+      "range": {
+        "startLine": 2563,
+        "startChar": 8,
+        "endLine": 2563,
+        "endChar": 22
+      },
+      "revId": "d268e677c0abbd892069007b203b9fe7cd71aafa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
