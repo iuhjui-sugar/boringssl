@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "393e4ceb_0836abfa",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 895,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-15T00:17:59Z",
+      "side": 1,
+      "message": "The cookie comes after the session id: https://tools.ietf.org/html/rfc4347#section-4.2.1",
+      "range": {
+        "startLine": 895,
+        "startChar": 4,
+        "endLine": 895,
+        "endChar": 49
+      },
+      "revId": "4e5ab7fb7ba0488582f0c5da3e68ef8550dd0cf9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "19434882_c48832d5",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 1049,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-15T00:17:59Z",
+      "side": 1,
+      "message": "This is going to be a helper function after the next change, but I think it should be constant time.",
+      "range": {
+        "startLine": 1049,
+        "startChar": 4,
+        "endLine": 1049,
+        "endChar": 43
+      },
+      "revId": "4e5ab7fb7ba0488582f0c5da3e68ef8550dd0cf9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "19434882_a48526bb",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 1096,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-15T00:17:59Z",
+      "side": 1,
+      "message": "\u003d\u003d 0",
+      "range": {
+        "startLine": 1096,
+        "startChar": 32,
+        "endLine": 1096,
+        "endChar": 35
+      },
+      "revId": "4e5ab7fb7ba0488582f0c5da3e68ef8550dd0cf9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f93f54e6_86a0f090",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 1105,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-15T00:17:59Z",
+      "side": 1,
+      "message": "Let\u0027s leave it for now until we have our servers switched over and can test the impact.",
+      "revId": "4e5ab7fb7ba0488582f0c5da3e68ef8550dd0cf9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
