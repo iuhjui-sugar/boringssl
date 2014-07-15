@@ -385,14 +385,7 @@ int ssl3_accept(SSL *s)
 			 */
 			if (ssl_cipher_requires_server_key_exchange(s->s3->tmp.new_cipher) ||
 			    ((alg_a & SSL_aPSK) && s->session->psk_identity_hint) ||
-			    ((alg_k & SSL_kRSA)
-				&& (s->cert->pkeys[SSL_PKEY_RSA_ENC].privatekey == NULL
-				    || (SSL_C_IS_EXPORT(s->s3->tmp.new_cipher)
-					&& EVP_PKEY_size(s->cert->pkeys[SSL_PKEY_RSA_ENC].privatekey)*8 > SSL_C_EXPORT_PKEYLENGTH(s->s3->tmp.new_cipher)
-					)
-				    )
-				)
-			    )
+			    ((alg_k & SSL_kRSA) && (s->cert->pkeys[SSL_PKEY_RSA_ENC].privatekey == NULL)))
 				{
 				ret=ssl3_send_server_key_exchange(s);
 				if (ret <= 0) goto end;
@@ -1464,7 +1457,7 @@ int ssl3_send_server_key_exchange(SSL *s)
 			if ((rsa == NULL) && (s->cert->rsa_tmp_cb != NULL))
 				{
 				rsa=s->cert->rsa_tmp_cb(s,
-				      SSL_C_IS_EXPORT(s->s3->tmp.new_cipher),
+				      0  /* Export cipher suites have been removed. */,
 				      SSL_C_EXPORT_PKEYLENGTH(s->s3->tmp.new_cipher));
 				if(rsa == NULL)
 				{
@@ -1490,7 +1483,7 @@ int ssl3_send_server_key_exchange(SSL *s)
 			dhp=cert->dh_tmp;
 			if ((dhp == NULL) && (s->cert->dh_tmp_cb != NULL))
 				dhp=s->cert->dh_tmp_cb(s,
-				      SSL_C_IS_EXPORT(s->s3->tmp.new_cipher),
+				      0  /* Export cipher suites have been removed. */,
 				      SSL_C_EXPORT_PKEYLENGTH(s->s3->tmp.new_cipher));
 			if (dhp == NULL)
 				{
@@ -1554,7 +1547,7 @@ int ssl3_send_server_key_exchange(SSL *s)
 			else if ((ecdhp == NULL) && s->cert->ecdh_tmp_cb)
 				{
 				ecdhp=s->cert->ecdh_tmp_cb(s,
-				      SSL_C_IS_EXPORT(s->s3->tmp.new_cipher),
+				      0  /* Export cipher suites have been removed. */,
 				      SSL_C_EXPORT_PKEYLENGTH(s->s3->tmp.new_cipher));
 				}
 			if (ecdhp == NULL)
@@ -1601,13 +1594,6 @@ int ssl3_send_server_key_exchange(SSL *s)
 			    (EC_KEY_get0_private_key(ecdh) == NULL))
 				{
 				OPENSSL_PUT_ERROR(SSL, ssl3_send_server_key_exchange, ERR_R_ECDH_LIB);
-				goto err;
-				}
-
-			if (SSL_C_IS_EXPORT(s->s3->tmp.new_cipher) &&
-			    (EC_GROUP_get_degree(group) > 163)) 
-				{
-				OPENSSL_PUT_ERROR(SSL, ssl3_send_server_key_exchange, SSL_R_ECGROUP_TOO_LARGE_FOR_CIPHER);
 				goto err;
 				}
 
