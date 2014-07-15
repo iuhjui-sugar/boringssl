@@ -1262,7 +1262,6 @@ int ssl3_get_server_key_exchange(SSL *s)
 			return -1;
 			}
 
-#ifndef OPENSSL_NO_PSK
 		/* In plain PSK ciphersuite, ServerKeyExchange can be
 		   omitted if no identity hint is sent. Set
 		   session->sess_cert anyway to avoid problems
@@ -1280,7 +1279,6 @@ int ssl3_get_server_key_exchange(SSL *s)
 				s->session->psk_identity_hint = NULL;
 				}
 			}
-#endif
 		s->s3->tmp.reuse_message=1;
 		return(1);
 		}
@@ -1321,7 +1319,6 @@ int ssl3_get_server_key_exchange(SSL *s)
 	alg_a=s->s3->tmp.new_cipher->algorithm_auth;
 	EVP_MD_CTX_init(&md_ctx);
 
-#ifndef OPENSSL_NO_PSK
 	if (alg_a & SSL_aPSK)
 		{
 		CBS psk_identity_hint;
@@ -1359,7 +1356,6 @@ int ssl3_get_server_key_exchange(SSL *s)
 			goto f_err;
 			}
 		}
-#endif /* !OPENSSL_NO_PSK */
 
 	if (0) {}
 	else if (alg_k & SSL_kRSA)
@@ -2035,10 +2031,8 @@ int ssl3_send_client_key_exchange(SSL *s)
 	unsigned char *encodedPoint = NULL;
 	int encoded_pt_len = 0;
 	BN_CTX * bn_ctx = NULL;
-#ifndef OPENSSL_NO_PSK
 	unsigned int psk_len = 0;
 	unsigned char psk[PSK_MAX_PSK_LEN];
-#endif /* OPENSSL_NO_PSK */
 #endif /* OPENSSL_NO_ECDH */
 
 	if (s->state == SSL3_ST_CW_KEY_EXCH_A)
@@ -2048,7 +2042,6 @@ int ssl3_send_client_key_exchange(SSL *s)
 		alg_k=s->s3->tmp.new_cipher->algorithm_mkey;
 		alg_a=s->s3->tmp.new_cipher->algorithm_auth;
 
-#ifndef OPENSSL_NO_PSK
 		if (alg_a & SSL_aPSK)
 			{
 			char identity[PSK_MAX_IDENTITY_LEN + 1];
@@ -2125,7 +2118,6 @@ int ssl3_send_client_key_exchange(SSL *s)
 				goto err;
 				}
 			}
-#endif
 
 		/* Fool emacs indentation */
 		if (0) {}
@@ -2295,12 +2287,10 @@ int ssl3_send_client_key_exchange(SSL *s)
 			EC_KEY *tkey;
 			int ecdh_clnt_cert = 0;
 			int field_size = 0;
-#ifndef OPENSSL_NO_PSK
 			unsigned char *pre_ms;
 			unsigned char *t;
 			unsigned int pre_ms_len;
 			unsigned int i;
-#endif
 
 			if (s->session->sess_cert == NULL) 
 				{
@@ -2424,7 +2414,6 @@ int ssl3_send_client_key_exchange(SSL *s)
 				goto err;
 				}
 
-#ifndef OPENSSL_NO_PSK
 			/* ECDHE PSK ciphersuites from RFC 5489 */
 			if ((alg_a & SSL_aPSK) && psk_len != 0)
 				{
@@ -2448,7 +2437,6 @@ int ssl3_send_client_key_exchange(SSL *s)
 				OPENSSL_cleanse(pre_ms, pre_ms_len);
 				OPENSSL_free(pre_ms);
 				}
-#endif /* OPENSSL_NO_PSK */
 			if (!(alg_a & SSL_aPSK))
 				{
 				/* generate master key from the result */
@@ -2492,7 +2480,6 @@ int ssl3_send_client_key_exchange(SSL *s)
 				    encodedPoint, encoded_pt_len, bn_ctx);
 
 				n = 0;
-#ifndef OPENSSL_NO_PSK
 				if ((alg_a & SSL_aPSK) && psk_len != 0)
 					{
 					i = strlen(s->session->psk_identity);
@@ -2501,7 +2488,6 @@ int ssl3_send_client_key_exchange(SSL *s)
 					p += i;
 					n = i + 2;
 					}
-#endif
 
 				*p = encoded_pt_len; /* length of encoded point */
 				/* Encoded point will be copied here */
