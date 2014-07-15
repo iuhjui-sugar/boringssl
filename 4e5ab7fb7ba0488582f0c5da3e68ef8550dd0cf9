@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "39256cef_87d0e68b",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 895,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-15T01:55:43Z",
+      "side": 1,
+      "message": "Oops. Done. Also fixed the error-handling; we should be replying to parse errors with a decode error rather than a HelloVerifyRequest.",
+      "parentUuid": "393e4ceb_0836abfa",
+      "range": {
+        "startLine": 895,
+        "startChar": 4,
+        "endLine": 895,
+        "endChar": 49
+      },
+      "revId": "4e5ab7fb7ba0488582f0c5da3e68ef8550dd0cf9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19434882_c48832d5",
         "filename": "ssl/s3_srvr.c",
         "patchSetId": 6
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "39256cef_879f46dc",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 1049,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-15T01:55:43Z",
+      "side": 1,
+      "message": "Merged that change into this one and done.",
+      "parentUuid": "19434882_c48832d5",
+      "range": {
+        "startLine": 1049,
+        "startChar": 4,
+        "endLine": 1049,
+        "endChar": 43
+      },
+      "revId": "4e5ab7fb7ba0488582f0c5da3e68ef8550dd0cf9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19434882_a48526bb",
         "filename": "ssl/s3_srvr.c",
         "patchSetId": 6
@@ -59,6 +107,30 @@
       "writtenOn": "2014-07-15T00:17:59Z",
       "side": 1,
       "message": "\u003d\u003d 0",
+      "range": {
+        "startLine": 1096,
+        "startChar": 32,
+        "endLine": 1096,
+        "endChar": 35
+      },
+      "revId": "4e5ab7fb7ba0488582f0c5da3e68ef8550dd0cf9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "39256cef_e7ac4213",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 1096,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-15T01:55:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19434882_a48526bb",
       "range": {
         "startLine": 1096,
         "startChar": 32,
