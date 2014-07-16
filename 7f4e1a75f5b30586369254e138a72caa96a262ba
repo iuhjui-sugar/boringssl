@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9982d817_2d1d7900",
+        "filename": "util/make_errors.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-16T18:47:19Z",
+      "side": 1,
+      "message": "\u003e\u003d",
+      "range": {
+        "startLine": 306,
+        "startChar": 14,
+        "endLine": 306,
+        "endChar": 17
+      },
+      "revId": "7f4e1a75f5b30586369254e138a72caa96a262ba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9982d817_4d12adef",
+        "filename": "util/make_errors.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-16T18:47:19Z",
+      "side": 1,
+      "message": "\u003e\u003d",
+      "range": {
+        "startLine": 318,
+        "startChar": 15,
+        "endLine": 318,
+        "endChar": 18
+      },
+      "revId": "7f4e1a75f5b30586369254e138a72caa96a262ba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
