@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5964e099_2867eb5c",
+        "filename": "crypto/rsa/padding.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-17T23:21:49Z",
+      "side": 1,
+      "message": "I have a much less... unreadable... version of this function lying around from when I was previous playing with it. I can resurrect that and port it over if you like. For now, I believe this at least sorts out the signedness thing.",
+      "revId": "0078777ac31f35e33ae913d34fa3c36bd591a905",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
