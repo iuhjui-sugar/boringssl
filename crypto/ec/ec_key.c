@@ -243,6 +243,14 @@ int EC_KEY_up_ref(EC_KEY *r) {
   return CRYPTO_add(&r->references, 1, CRYPTO_LOCK_EC) > 1;
 }
 
+int EC_KEY_is_opaque(const EC_KEY *key) {
+  /* The only opaque keys are attached to ECDSA_METHODs. */
+  if (key->ecdsa_meth && (key->ecdsa_meth->flags & ECDSA_FLAG_OPAQUE)) {
+    return 1;
+  }
+  return 0;
+}
+
 const EC_GROUP *EC_KEY_get0_group(const EC_KEY *key) { return key->group; }
 
 int EC_KEY_set_group(EC_KEY *key, const EC_GROUP *group) {
