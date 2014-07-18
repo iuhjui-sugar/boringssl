@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "590220bc_f8963139",
+        "filename": "crypto/ec/ec_key.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-18T22:56:30Z",
+      "side": 1,
+      "message": "just return key-\u003eecdsa_meth \u0026\u0026 (key-\u003eecdsa_meth-\u003eflags \u0026 ECDSA_FLAG_OPAQUE) ?",
+      "revId": "afcf2a43ac071a6777951940df7f9cd590143584",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "590220bc_b88cb92b",
+        "filename": "crypto/evp/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-18T22:56:30Z",
+      "side": 1,
+      "message": "Why put it in the asn1_method structure? Doesn\u0027t it better fit in evp_pkey_method_st?",
+      "range": {
+        "startLine": 92,
+        "startChar": 2,
+        "endLine": 92,
+        "endChar": 20
+      },
+      "revId": "afcf2a43ac071a6777951940df7f9cd590143584",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "590220bc_d89b6d61",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-18T22:56:30Z",
+      "side": 1,
+      "message": "ditto about just returning the condition.",
+      "revId": "afcf2a43ac071a6777951940df7f9cd590143584",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "790d24e9_ad32b579",
+        "filename": "include/openssl/ec_key.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-18T22:56:30Z",
+      "side": 1,
+      "message": "ECDSA.",
+      "range": {
+        "startLine": 236,
+        "startChar": 41,
+        "endLine": 236,
+        "endChar": 44
+      },
+      "revId": "afcf2a43ac071a6777951940df7f9cd590143584",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
