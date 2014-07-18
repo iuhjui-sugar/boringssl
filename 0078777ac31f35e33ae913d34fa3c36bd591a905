@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5964e099_cbd2c970",
+        "filename": "crypto/rsa/padding.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-18T03:05:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99df387f_25b4f8b9",
+      "range": {
+        "startLine": 79,
+        "startChar": 13,
+        "endLine": 79,
+        "endChar": 14
+      },
+      "revId": "0078777ac31f35e33ae913d34fa3c36bd591a905",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99df387f_c5a26c82",
         "filename": "crypto/rsa/padding.c",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2014-07-18T02:16:42Z",
       "side": 1,
       "message": "this reads two bytes of |from|, but we only locally know that flen \u003e\u003d 1.",
+      "range": {
+        "startLine": 111,
+        "startChar": 2,
+        "endLine": 111,
+        "endChar": 39
+      },
+      "revId": "0078777ac31f35e33ae913d34fa3c36bd591a905",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5964e099_ebd78d5d",
+        "filename": "crypto/rsa/padding.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-18T03:05:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99df387f_c5a26c82",
       "range": {
         "startLine": 111,
         "startChar": 2,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5964e099_8bdcd183",
+        "filename": "crypto/rsa/padding.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-18T03:05:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99df387f_a5a76890",
+      "range": {
+        "startLine": 118,
+        "startChar": 6,
+        "endLine": 118,
+        "endChar": 14
+      },
+      "revId": "0078777ac31f35e33ae913d34fa3c36bd591a905",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99df387f_45b77cc0",
         "filename": "crypto/rsa/padding.c",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2014-07-18T02:16:42Z",
       "side": 1,
       "message": "11 here and just below should be RSA_PKCS1_PADDING_SIZE",
+      "range": {
+        "startLine": 162,
+        "startChar": 13,
+        "endLine": 162,
+        "endChar": 15
+      },
+      "revId": "0078777ac31f35e33ae913d34fa3c36bd591a905",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5964e099_abe19534",
+        "filename": "crypto/rsa/padding.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-18T03:05:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99df387f_45b77cc0",
       "range": {
         "startLine": 162,
         "startChar": 13,
@@ -140,6 +236,54 @@
     },
     {
       "key": {
+        "uuid": "5964e099_4be7b946",
+        "filename": "crypto/rsa/padding.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-18T03:05:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99df387f_65be009c",
+      "range": {
+        "startLine": 168,
+        "startChar": 21,
+        "endLine": 168,
+        "endChar": 23
+      },
+      "revId": "0078777ac31f35e33ae913d34fa3c36bd591a905",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5964e099_6be4fd40",
+        "filename": "crypto/rsa/padding.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-18T03:05:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99df387f_85c18416",
+      "range": {
+        "startLine": 168,
+        "startChar": 13,
+        "endLine": 168,
+        "endChar": 14
+      },
+      "revId": "0078777ac31f35e33ae913d34fa3c36bd591a905",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99df387f_65d560c8",
         "filename": "crypto/rsa/padding.c",
         "patchSetId": 1
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "5964e099_0bf1c101",
+        "filename": "crypto/rsa/padding.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-18T03:05:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99df387f_65d560c8",
+      "range": {
+        "startLine": 239,
+        "startChar": 13,
+        "endLine": 239,
+        "endChar": 15
+      },
+      "revId": "0078777ac31f35e33ae913d34fa3c36bd591a905",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99df387f_45de5cf2",
         "filename": "crypto/rsa/padding.c",
         "patchSetId": 1
@@ -174,6 +342,30 @@
       "writtenOn": "2014-07-18T02:16:42Z",
       "side": 1,
       "message": "RSA_PKCS1_PADDING_SIZE",
+      "range": {
+        "startLine": 309,
+        "startChar": 13,
+        "endLine": 309,
+        "endChar": 15
+      },
+      "revId": "0078777ac31f35e33ae913d34fa3c36bd591a905",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5964e099_2bee0521",
+        "filename": "crypto/rsa/padding.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-18T03:05:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99df387f_45de5cf2",
       "range": {
         "startLine": 309,
         "startChar": 13,
@@ -232,6 +424,54 @@
     },
     {
       "key": {
+        "uuid": "5964e099_ebfeadcf",
+        "filename": "crypto/rsa/padding.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-18T03:05:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99df387f_85d86404",
+      "range": {
+        "startLine": 315,
+        "startChar": 13,
+        "endLine": 315,
+        "endChar": 14
+      },
+      "revId": "0078777ac31f35e33ae913d34fa3c36bd591a905",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5964e099_cbf969ea",
+        "filename": "crypto/rsa/padding.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-18T03:05:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99df387f_25db5802",
+      "range": {
+        "startLine": 315,
+        "startChar": 21,
+        "endLine": 315,
+        "endChar": 23
+      },
+      "revId": "0078777ac31f35e33ae913d34fa3c36bd591a905",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99df387f_8506a4aa",
         "filename": "crypto/rsa/padding.c",
         "patchSetId": 1
@@ -243,6 +483,30 @@
       "writtenOn": "2014-07-18T02:16:42Z",
       "side": 1,
       "message": "remove superfluous parens.",
+      "range": {
+        "startLine": 373,
+        "startChar": 6,
+        "endLine": 373,
+        "endChar": 7
+      },
+      "revId": "0078777ac31f35e33ae913d34fa3c36bd591a905",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5964e099_8bf37106",
+        "filename": "crypto/rsa/padding.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-18T03:05:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99df387f_8506a4aa",
       "range": {
         "startLine": 373,
         "startChar": 6,
@@ -278,6 +542,30 @@
     },
     {
       "key": {
+        "uuid": "5964e099_4b0ed958",
+        "filename": "crypto/rsa/padding.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-18T03:05:57Z",
+      "side": 1,
+      "message": "Yikes. That loop is kinda crazy... I think it hasn\u0027t crashed because it\u0027s not used anywhere though. :-) It looks like it\u0027s an SSL2 downgrade thing?\n\nhttp://tools.ietf.org/html/rfc6101#appendix-E.2\n\nFlipped k back to an int.",
+      "parentUuid": "99df387f_0551f499",
+      "range": {
+        "startLine": 379,
+        "startChar": 11,
+        "endLine": 379,
+        "endChar": 13
+      },
+      "revId": "0078777ac31f35e33ae913d34fa3c36bd591a905",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99df387f_455bfcb9",
         "filename": "crypto/rsa/padding.c",
         "patchSetId": 1
@@ -289,6 +577,30 @@
       "writtenOn": "2014-07-18T02:16:42Z",
       "side": 1,
       "message": "not needed any longer.",
+      "range": {
+        "startLine": 397,
+        "startChar": 16,
+        "endLine": 397,
+        "endChar": 30
+      },
+      "revId": "0078777ac31f35e33ae913d34fa3c36bd591a905",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5964e099_cb472965",
+        "filename": "crypto/rsa/padding.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-18T03:05:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99df387f_455bfcb9",
       "range": {
         "startLine": 397,
         "startChar": 16,
@@ -341,6 +653,30 @@
     },
     {
       "key": {
+        "uuid": "5964e099_8b413152",
+        "filename": "crypto/rsa/padding.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 766,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-18T03:05:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99df387f_e5f9702f",
+      "range": {
+        "startLine": 766,
+        "startChar": 12,
+        "endLine": 766,
+        "endChar": 31
+      },
+      "revId": "0078777ac31f35e33ae913d34fa3c36bd591a905",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99df387f_45ff7c11",
         "filename": "crypto/rsa/padding.c",
         "patchSetId": 1
@@ -364,6 +700,30 @@
     },
     {
       "key": {
+        "uuid": "5964e099_2b33650b",
+        "filename": "crypto/rsa/padding.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 773,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-18T03:05:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99df387f_45ff7c11",
+      "range": {
+        "startLine": 773,
+        "startChar": 19,
+        "endLine": 773,
+        "endChar": 28
+      },
+      "revId": "0078777ac31f35e33ae913d34fa3c36bd591a905",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99df387f_25fcf81a",
         "filename": "crypto/rsa/padding.c",
         "patchSetId": 1
@@ -375,6 +735,30 @@
       "writtenOn": "2014-07-18T02:16:42Z",
       "side": 1,
       "message": "remove extra parens.",
+      "range": {
+        "startLine": 774,
+        "startChar": 21,
+        "endLine": 774,
+        "endChar": 22
+      },
+      "revId": "0078777ac31f35e33ae913d34fa3c36bd591a905",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5964e099_ab467565",
+        "filename": "crypto/rsa/padding.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 774,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-18T03:05:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99df387f_25fcf81a",
       "range": {
         "startLine": 774,
         "startChar": 21,
