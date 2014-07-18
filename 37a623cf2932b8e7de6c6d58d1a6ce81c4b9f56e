@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5964e099_2eda9323",
+        "filename": "include/openssl/rsa.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-18T19:22:23Z",
+      "side": 0,
+      "message": "Could also just leave this enum here, but it seems better to break compiles than let it fail at runtime? There\u0027s some bindings code internally that wraps it, but nothing calls those bindings apart from test code.",
+      "revId": "37a623cf2932b8e7de6c6d58d1a6ce81c4b9f56e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
