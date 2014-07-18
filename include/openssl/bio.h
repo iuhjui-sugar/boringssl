@@ -360,7 +360,7 @@ BIO *BIO_new_mem_buf(void *buf, int len);
 
 /* BIO_get_mem_data sets |*contents| to point to the current contents of |bio|
  * and returns the length of the data. */
-long BIO_get_mem_data(BIO *bio, char **contents);
+size_t BIO_get_mem_data(BIO *bio, uint8_t **contents);
 
 /* BIO_get_mem_ptr sets |*out| to a BUF_MEM containing the current contents of
  * |bio|. It returns one on success or zero on error. */

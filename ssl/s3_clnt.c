@@ -2587,12 +2587,11 @@ int ssl3_send_client_verify(SSL *s)
 		 */
 		if (SSL_USE_SIGALGS(s))
 			{
-			long hdatalen = 0;
-			char *hdata;
+			size_t hdatalen;
+			uint8_t *hdata;
 			md = s->cert->key->digest;
-			hdatalen = BIO_get_mem_data(s->s3->handshake_buffer,
-								&hdata);
-			if (hdatalen <= 0 || !tls12_get_sigandhash(p, pkey, md))
+			hdatalen = BIO_get_mem_data(s->s3->handshake_buffer, &hdata);
+			if (!tls12_get_sigandhash(p, pkey, md))
 				{
 				OPENSSL_PUT_ERROR(SSL, ssl3_send_client_verify, ERR_R_INTERNAL_ERROR);
 				goto err;

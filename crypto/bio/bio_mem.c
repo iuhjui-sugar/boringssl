@@ -56,6 +56,7 @@
 
 #include <openssl/bio.h>
 
+#include <assert.h>
 #include <limits.h>
 
 #include <openssl/buf.h>
@@ -254,7 +255,7 @@ static long mem_ctrl(BIO *bio, int cmd, long num, void *ptr) {
       ret = (long)b->length;
       if (ptr != NULL) {
         pptr = (char **)ptr;
-        *pptr = (char *)&(b->data[0]);
+        *pptr = (char *)&b->data[0];
       }
       break;
     case BIO_C_SET_BUF_MEM:
@@ -297,8 +298,10 @@ static const BIO_METHOD mem_method = {
 
 const BIO_METHOD *BIO_s_mem(void) { return &mem_method; }
 
-long BIO_get_mem_data(BIO *bio, char **contents) {
-  return BIO_ctrl(bio, BIO_CTRL_INFO, 0, (char *) contents);
+size_t BIO_get_mem_data(BIO *bio, uint8_t **contents) {
+  long ret = BIO_ctrl(bio, BIO_CTRL_INFO, 0, (char *) contents);
+  assert(ret >= 0);
+  return ret;
 }
 
 int BIO_get_mem_ptr(BIO *bio, BUF_MEM **out) {

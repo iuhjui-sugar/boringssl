@@ -552,19 +552,14 @@ int ssl3_digest_cached_records(SSL *s)
 	int i;
 	long mask;
 	const EVP_MD *md;
-	long hdatalen;
-	char *hdata;
+	size_t hdatalen;
+	uint8_t *hdata;
 
 	/* Allocate handshake_dgst array */
 	ssl3_free_digest_list(s);
 	s->s3->handshake_dgst = OPENSSL_malloc(SSL_MAX_DIGEST * sizeof(EVP_MD_CTX *));
 	memset(s->s3->handshake_dgst,0,SSL_MAX_DIGEST *sizeof(EVP_MD_CTX *));
 	hdatalen = BIO_get_mem_data(s->s3->handshake_buffer,&hdata);
-	if (hdatalen <= 0)
-		{
-		OPENSSL_PUT_ERROR(SSL, ssl3_digest_cached_records, SSL_R_BAD_HANDSHAKE_LENGTH);
-		return 0;
-		}
 
 	/* Loop through bitso of algorithm2 field and create MD_CTX-es */
 	for (i=0;ssl_get_handshake_digest(i,&mask,&md); i++) 
