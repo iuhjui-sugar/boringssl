@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5964e099_cb75e9dc",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 2595,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-18T17:14:27Z",
+      "side": 0,
+      "message": "This calll seems to have gotten lost. I\u0027m... a little puzzled why the tests still pass. I might need to follow-up with some more aggressive ones.",
+      "range": {
+        "startLine": 2595,
+        "startChar": 24,
+        "endLine": 2595,
+        "endChar": 58
+      },
+      "revId": "e77dff61bd47e2d7ed8072f7fba001681914a817",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
