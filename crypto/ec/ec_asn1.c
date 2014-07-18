@@ -197,12 +197,29 @@ EC_GROUP *ec_asn1_pkparameters2group(const ECPKPARAMETERS *params) {
     return NULL;
   }
 
-  if (params->type != 0) {
-    OPENSSL_PUT_ERROR(EC, ec_asn1_pkparameters2group, EC_R_NON_NAMED_CURVE);
-    return NULL;
+  if (params->type == 0) {
+    nid = OBJ_obj2nid(params->value.named_curve);
+  } else if (params->type == 1) {
+    /* We don't support arbitary curves so we attempt to recognise it from the
+     * group order. */
+    const ECPARAMETERS *ecparams = params->value.parameters;
+    static const uint8_t kP256Order[] = {
+      0x00, /* The ASN.1 integer will have a leading zero in order that the
+               number not be negative. */
+      0xFF, 0xFF, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF,
+      0xFF, 0xFF, 0xFF, 0xFF, 0xBC, 0xE6, 0xFA, 0xAD, 0xA7, 0x17, 0x9E, 0x84,
+      0xF3, 0xB9, 0xCA, 0xC2, 0xFC, 0x63, 0x25, 0x51,
+    };
+    if (ecparams->order->length == sizeof(kP256Order) &&
+        memcmp(ecparams->order->data, kP256Order, sizeof(kP256Order)) == 0) {
+      nid = NID_X9_62_prime256v1;
+    } else {
+      OPENSSL_PUT_ERROR(EC, ec_asn1_pkparameters2group,
+                        EC_R_NON_NAMED_CURVE);
+      return NULL;
+    }
   }
 
-  nid = OBJ_obj2nid(params->value.named_curve);
   ret = EC_GROUP_new_by_curve_name(nid);
   if (ret == NULL) {
     OPENSSL_PUT_ERROR(EC, ec_asn1_pkparameters2group,
