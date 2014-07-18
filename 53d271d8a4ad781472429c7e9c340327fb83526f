@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99df387f_2b65e994",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-18T19:20:17Z",
+      "side": 1,
+      "message": "as",
+      "range": {
+        "startLine": 441,
+        "startChar": 40,
+        "endLine": 441,
+        "endChar": 41
+      },
+      "revId": "53d271d8a4ad781472429c7e9c340327fb83526f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99df387f_4b682d6f",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-18T19:20:17Z",
+      "side": 1,
+      "message": "was",
+      "range": {
+        "startLine": 441,
+        "startChar": 15,
+        "endLine": 441,
+        "endChar": 16
+      },
+      "revId": "53d271d8a4ad781472429c7e9c340327fb83526f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99df387f_8b62358b",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-18T19:20:17Z",
+      "side": 1,
+      "message": "tls: bad signature type for client\u0027s ECDSA certificate.",
+      "range": {
+        "startLine": 453,
+        "startChar": 22,
+        "endLine": 453,
+        "endChar": 54
+      },
+      "revId": "53d271d8a4ad781472429c7e9c340327fb83526f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99df387f_6b5ff1ca",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-18T19:20:17Z",
+      "side": 1,
+      "message": "tls: bad signature type for client\u0027s RSA certificate.",
+      "range": {
+        "startLine": 475,
+        "startChar": 22,
+        "endLine": 475,
+        "endChar": 52
+      },
+      "revId": "53d271d8a4ad781472429c7e9c340327fb83526f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99df387f_6b889110",
+        "filename": "ssl/test/runner/prf.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-18T19:20:17Z",
+      "side": 1,
+      "message": "\"tls: no supported signature algorithm found for signing client certificate\"\n\n(error messages should generally have \"tls\" at the beginning. Some need to be cleaned up, but new ones should at least.",
+      "range": {
+        "startLine": 301,
+        "startChar": 40,
+        "endLine": 301,
+        "endChar": 42
+      },
+      "revId": "53d271d8a4ad781472429c7e9c340327fb83526f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99df387f_cb739d67",
+        "filename": "ssl/test/runner/prf.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-18T19:20:17Z",
+      "side": 1,
+      "message": "tls: unsupported hash function for client certificate",
+      "range": {
+        "startLine": 309,
+        "startChar": 30,
+        "endLine": 309,
+        "endChar": 55
+      },
+      "revId": "53d271d8a4ad781472429c7e9c340327fb83526f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
