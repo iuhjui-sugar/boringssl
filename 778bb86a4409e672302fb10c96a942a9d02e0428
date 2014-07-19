@@ -16,6 +16,24 @@
       "revId": "778bb86a4409e672302fb10c96a942a9d02e0428",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "790d24e9_8715045e",
+        "filename": "crypto/ec/ec_asn1.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-19T00:02:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5964e099_91f2beb9",
+      "revId": "778bb86a4409e672302fb10c96a942a9d02e0428",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
