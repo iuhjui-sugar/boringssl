@@ -501,8 +501,8 @@ int ssl3_connect(SSL *s)
 				 * a renegotiation, the BIO_flush may block on
 				 * flushing application data send after the
 				 * Finished. At which point the peer may have
-				 * sent ChangeCipherSpec which will be processed
-				 * before SSL3_FLAGS_CCS_OK is set.
+				 * sent ChangeCipherSpec which may be processed
+				 * early.
 				 *
 				 * Believed to be the cause of
 				 * https://rt.openssl.org/Ticket/Display.html?id=3400 */
@@ -532,12 +532,16 @@ int ssl3_connect(SSL *s)
 		case SSL3_ST_CR_CHANGE_FLUSH:
 			/* At this point, the next message must be entirely
 			 * behind a ChangeCipherSpec. */
-			s->s3->flags |= SSL3_FLAGS_CCS_OK;
+			if (!ssl3_expect_change_cipher_spec(s))
+				{
+				ret = -1;
+				goto end;
+				}
 
 			/* If we had previously finished writing a Finished for
 			 * a full handshake, flush the write buffer before
-			 * advancing to the next state, but not before setting
-			 * SSL3_FLAGS_CCS_OK. */
+			 * advancing to the next state, but not before calling
+			 * ssl3_expect_change_cipher_spec. */
 			if (s->state == SSL3_ST_SR_CHANGE_FLUSH)
 				{
 				s->state = SSL3_ST_SW_FLUSH;

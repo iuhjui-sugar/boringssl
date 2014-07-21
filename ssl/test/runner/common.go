@@ -374,6 +374,11 @@ type ProtocolBugs struct {
 	// zero disables this behavior. One and two configure variants for 0.9.8
 	// and 1.0.1 modes, respectively.
 	EarlyChangeCipherSpec int
+
+	// FragmentAcrossChangeCipherSpec causes the implementation to fragment
+	// the Finished (or NextProto) message around the ChangeCipherSpec
+	// messages.
+	FragmentAcrossChangeCipherSpec bool
 }
 
 func (c *Config) serverInit() {
