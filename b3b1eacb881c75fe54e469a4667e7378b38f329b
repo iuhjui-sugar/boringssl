@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "997bb85f_82b15ae3",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1413,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-22T23:54:25Z",
+      "side": 1,
+      "message": "I\u0027m a little puzzled why the compiler can\u0027t prove these aren\u0027t unused anymore. This is an issue at all because this function is awkwardly two-pass. It probably made more sense back when RSA SKX and DH(E) SKX were the only ones that exist, and we\u0027d fill in |r|, |nr|, and |kn| and then go on to some shared code. I have a cleanup to just make a single-pass that avoids this, but it\u0027s blocking on also porting this to CBB to replace the BUF_MEM_grow call.",
+      "revId": "b3b1eacb881c75fe54e469a4667e7378b38f329b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
