@@ -34,6 +34,24 @@
       "revId": "9bac969a65b5a53e33a2ce7a58afe0ab636dd4c2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_90e8b4cc",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-23T19:28:59Z",
+      "side": 1,
+      "message": "Fixed. That was a dumb bug.",
+      "parentUuid": "595300fd_f040201d",
+      "revId": "9bac969a65b5a53e33a2ce7a58afe0ab636dd4c2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
