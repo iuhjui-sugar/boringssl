@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "595300fd_50956c78",
+        "filename": "ssl/ssl_locl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-23T19:06:51Z",
+      "side": 1,
+      "message": "Whoops.",
+      "parentUuid": "996498c9_3d58bbbb",
+      "range": {
+        "startLine": 411,
+        "startChar": 13,
+        "endLine": 411,
+        "endChar": 16
+      },
+      "revId": "797fec5bdaa2b7fd8fc04f1d3a4568cc77bac917",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "996498c9_7d623365",
         "filename": "ssl/ssl_locl.h",
         "patchSetId": 2
@@ -36,6 +60,24 @@
       "writtenOn": "2014-07-23T15:28:10Z",
       "side": 1,
       "message": "Indeed, why not remove them?",
+      "revId": "797fec5bdaa2b7fd8fc04f1d3a4568cc77bac917",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_b06218e0",
+        "filename": "ssl/ssl_locl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-23T19:06:51Z",
+      "side": 1,
+      "message": "Good question. They\u0027re used in some parameters, but seeing as the only macro that\u0027s actually used now always expands to 1024... Done",
+      "parentUuid": "996498c9_7d623365",
       "revId": "797fec5bdaa2b7fd8fc04f1d3a4568cc77bac917",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
