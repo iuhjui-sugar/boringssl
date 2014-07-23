@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "997bb85f_85624462",
+        "filename": "ssl/s3_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 3057,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-23T19:06:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b995dcbe_9e20d9bb",
+      "range": {
+        "startLine": 3057,
+        "startChar": 15,
+        "endLine": 3057,
+        "endChar": 16
+      },
+      "revId": "e7b93ef0ead7ac38c2e94ca65bc5a86d4f007609",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "996498c9_3dda7b35",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2014-07-23T14:50:05Z",
       "side": 1,
       "message": "I think this assert would be better closer to tls1_set_curves, where the 32 limit comes in. (Possibly even inside the function.)",
+      "range": {
+        "startLine": 434,
+        "startChar": 0,
+        "endLine": 434,
+        "endChar": 22
+      },
+      "revId": "e7b93ef0ead7ac38c2e94ca65bc5a86d4f007609",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "997bb85f_c5328c7b",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-23T19:06:25Z",
+      "side": 1,
+      "message": "Done. (I can\u0027t repro it here, but I think the version of gcc on the machine I originally wrote the patches on got unhappy about OPENSSL_COMPILE_ASSERT inside a function. Unused function-local typedef I think)",
+      "parentUuid": "996498c9_3dda7b35",
       "range": {
         "startLine": 434,
         "startChar": 0,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "997bb85f_e5279036",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-23T19:06:25Z",
+      "side": 1,
+      "message": "Quite. Done.",
+      "parentUuid": "d998d0f7_bfb03314",
+      "revId": "e7b93ef0ead7ac38c2e94ca65bc5a86d4f007609",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d998d0f7_ffaabb9f",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 1
@@ -76,6 +142,24 @@
       "writtenOn": "2014-07-23T14:50:05Z",
       "side": 1,
       "message": "This comment probably belongs in the header file. Also, could |sess| be better named |get_client_curves| or something?",
+      "revId": "e7b93ef0ead7ac38c2e94ca65bc5a86d4f007609",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "997bb85f_653c604b",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-23T19:06:25Z",
+      "side": 1,
+      "message": "Rename done. This function doesn\u0027t actually exist in a header since it\u0027s static though.",
+      "parentUuid": "d998d0f7_ffaabb9f",
       "revId": "e7b93ef0ead7ac38c2e94ca65bc5a86d4f007609",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -105,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "b9c07cc0_09d00d02",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-23T19:06:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "996498c9_5d500fea",
+      "range": {
+        "startLine": 626,
+        "startChar": 9,
+        "endLine": 626,
+        "endChar": 11
+      },
+      "revId": "e7b93ef0ead7ac38c2e94ca65bc5a86d4f007609",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "996498c9_1d5697e8",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 1
@@ -122,6 +230,24 @@
     },
     {
       "key": {
+        "uuid": "b9c07cc0_29d34912",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-23T19:06:25Z",
+      "side": 1,
+      "message": "In fact, this looks like it\u0027s new API. I see no internal code that uses the ctrl. Removed... if someone wants the list of shared curves, we can add a saner API.",
+      "parentUuid": "996498c9_1d5697e8",
+      "revId": "e7b93ef0ead7ac38c2e94ca65bc5a86d4f007609",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "996498c9_9de8e7cc",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 1
@@ -133,6 +259,30 @@
       "writtenOn": "2014-07-23T14:50:05Z",
       "side": 1,
       "message": "uint32_t",
+      "range": {
+        "startLine": 685,
+        "startChar": 1,
+        "endLine": 685,
+        "endChar": 14
+      },
+      "revId": "e7b93ef0ead7ac38c2e94ca65bc5a86d4f007609",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b9c07cc0_69dd411a",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 685,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-23T19:06:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "996498c9_9de8e7cc",
       "range": {
         "startLine": 685,
         "startChar": 1,
@@ -168,6 +318,30 @@
     },
     {
       "key": {
+        "uuid": "b9c07cc0_49da0524",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-23T19:06:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "996498c9_9d0f0707",
+      "range": {
+        "startLine": 691,
+        "startChar": 2,
+        "endLine": 691,
+        "endChar": 15
+      },
+      "revId": "e7b93ef0ead7ac38c2e94ca65bc5a86d4f007609",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "996498c9_bd14cb1b",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 1
@@ -179,6 +353,30 @@
       "writtenOn": "2014-07-23T14:50:05Z",
       "side": 1,
       "message": "((uint32_t)1) - although it doesn\u0027t really matter.",
+      "range": {
+        "startLine": 694,
+        "startChar": 11,
+        "endLine": 694,
+        "endChar": 13
+      },
+      "revId": "e7b93ef0ead7ac38c2e94ca65bc5a86d4f007609",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_f0f820e4",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 694,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-23T19:06:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "996498c9_bd14cb1b",
       "range": {
         "startLine": 694,
         "startChar": 11,
@@ -208,6 +406,24 @@
     },
     {
       "key": {
+        "uuid": "595300fd_100e8457",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-23T19:06:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "996498c9_1d04d7e4",
+      "revId": "e7b93ef0ead7ac38c2e94ca65bc5a86d4f007609",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "996498c9_3d019bd5",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 1
@@ -225,6 +441,24 @@
     },
     {
       "key": {
+        "uuid": "595300fd_300b8848",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 747,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-23T19:06:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "996498c9_3d019bd5",
+      "revId": "e7b93ef0ead7ac38c2e94ca65bc5a86d4f007609",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "996498c9_7dfb138b",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 1
@@ -236,6 +470,24 @@
       "writtenOn": "2014-07-23T14:50:05Z",
       "side": 1,
       "message": "Is it really invalid to send an empty extension?",
+      "revId": "e7b93ef0ead7ac38c2e94ca65bc5a86d4f007609",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_501f2c7b",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1994,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-23T19:06:25Z",
+      "side": 1,
+      "message": "Apparently. http://tools.ietf.org/html/rfc4492#section-5.1.1\n\nNSS seems to be strict about it, so I think we can afford to be too:\n\nhttps://code.google.com/p/chromium/codesearch#chromium/src/net/third_party/nss/ssl/ssl3ecc.c\u0026q\u003dHandleSupportedCurvesXtn\u0026sq\u003dpackage:chromium\u0026type\u003dcs\u0026l\u003d1232\n\nIt rejects if data-\u003elen \u003c 4. 2 bytes for length and 2 bytes for first curve ID.",
+      "parentUuid": "996498c9_7dfb138b",
       "revId": "e7b93ef0ead7ac38c2e94ca65bc5a86d4f007609",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
