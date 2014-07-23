@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "997bb85f_e2c30617",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-23T00:30:20Z",
+      "side": 1,
+      "message": "For completeness, I probably want to go back and add a clientTest for full handshake + server doesn\u0027t support session tickets. And maybe a SkipNewSessionTicket test for good measure...",
+      "revId": "9bac969a65b5a53e33a2ce7a58afe0ab636dd4c2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
