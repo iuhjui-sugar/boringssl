@@ -22,6 +22,30 @@
       "revId": "84e6fd28f5ce6b17358829ba2642a6418f68e17f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "997bb85f_85ec0499",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-23T16:53:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "996498c9_5d6acf26",
+      "range": {
+        "startLine": 375,
+        "startChar": 19,
+        "endLine": 375,
+        "endChar": 20
+      },
+      "revId": "84e6fd28f5ce6b17358829ba2642a6418f68e17f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
