@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "996498c9_3d3fdb41",
+        "filename": "ssl/test/runner/ticket.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-23T15:31:21Z",
+      "side": 1,
+      "message": "Thanks for this. I\u0027ll look into how it\u0027s working upstream then, because I think it is.",
+      "revId": "5948b6abff0fd05df37853c9b428136e3b882e37",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
