@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "997bb85f_a2a2de80",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 912,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-23T00:28:57Z",
+      "side": 1,
+      "message": "Thinking about it, I\u0027m not sure this check is reachable. Probably worth having anyway, but handshake_fragment only buffers enough for the message type and length for when |type| and |rr-\u003etype| mismatch it seems. I.e. if you\u0027re doing renego and you get a handshake record when you expect application data (yeesh).\n\nBut ssl3_expect_change_cipher_spec will only be called right after processing a handshake message, which means you\u0027ve drained that buffer. And then to put new data in it, you must have read a new record, in which case the later check would catch you.\n\nThat said, I don\u0027t actually understand very well how renego works in this code. It looks pretty gnarly.\n\nEither way, the check\u0027s probably reasonable to have for completeness or something.",
+      "revId": "695f80e7f954b37c323d640748c8c176843b8bd2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
