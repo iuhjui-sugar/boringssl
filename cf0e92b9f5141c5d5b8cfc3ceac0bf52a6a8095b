@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "997bb85f_c51c4c06",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-23T16:53:42Z",
+      "side": 1,
+      "message": "Done. (Hrm, if this file is C++, maybe it\u0027s worth adding a stack of RAII helpers to this file...)",
+      "parentUuid": "996498c9_fda3a351",
+      "revId": "cf0e92b9f5141c5d5b8cfc3ceac0bf52a6a8095b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "996498c9_3d86fbc5",
         "filename": "ssl/test/bssl_shim.cc",
         "patchSetId": 1
@@ -30,6 +48,30 @@
       "writtenOn": "2014-07-23T15:37:27Z",
       "side": 1,
       "message": "Rather than a macro, make a function called |usage| that prints the usage and returns 1. Then return usage(argv[0]).",
+      "range": {
+        "startLine": 338,
+        "startChar": 0,
+        "endLine": 338,
+        "endChar": 4
+      },
+      "revId": "cf0e92b9f5141c5d5b8cfc3ceac0bf52a6a8095b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "997bb85f_051714de",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-23T16:53:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "996498c9_3d86fbc5",
       "range": {
         "startLine": 338,
         "startChar": 0,
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "997bb85f_250c18ce",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-23T16:53:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "996498c9_5d93af06",
+      "revId": "cf0e92b9f5141c5d5b8cfc3ceac0bf52a6a8095b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "996498c9_9d7b8701",
         "filename": "ssl/test/bssl_shim.cc",
         "patchSetId": 1
@@ -70,6 +130,24 @@
       "writtenOn": "2014-07-23T15:37:27Z",
       "side": 1,
       "message": "blank line above.",
+      "revId": "cf0e92b9f5141c5d5b8cfc3ceac0bf52a6a8095b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "997bb85f_650620ae",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-23T16:53:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "996498c9_9d7b8701",
       "revId": "cf0e92b9f5141c5d5b8cfc3ceac0bf52a6a8095b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
