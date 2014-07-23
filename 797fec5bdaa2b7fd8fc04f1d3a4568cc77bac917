@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "996498c9_3d58bbbb",
+        "filename": "ssl/ssl_locl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-23T15:28:10Z",
+      "side": 1,
+      "message": "ben",
+      "range": {
+        "startLine": 411,
+        "startChar": 13,
+        "endLine": 411,
+        "endChar": 16
+      },
+      "revId": "797fec5bdaa2b7fd8fc04f1d3a4568cc77bac917",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "996498c9_7d623365",
+        "filename": "ssl/ssl_locl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-23T15:28:10Z",
+      "side": 1,
+      "message": "Indeed, why not remove them?",
+      "revId": "797fec5bdaa2b7fd8fc04f1d3a4568cc77bac917",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
