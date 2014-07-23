@@ -39,6 +39,24 @@
       "revId": "847d06b978dc7f641a5eb9dbd40e3609e5b511a7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "996498c9_fd2c831d",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-23T15:29:01Z",
+      "side": 1,
+      "message": "Later: I see that you\u0027re changing this in later commits too, so maybe ignore this.",
+      "parentUuid": "996498c9_7decf397",
+      "revId": "847d06b978dc7f641a5eb9dbd40e3609e5b511a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
