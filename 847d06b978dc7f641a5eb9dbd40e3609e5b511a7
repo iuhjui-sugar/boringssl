@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "595300fd_50364cfb",
+        "filename": "ssl/d1_srvr.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-23T19:06:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d998d0f7_bfc3d340",
+      "range": {
+        "startLine": 389,
+        "startChar": 9,
+        "endLine": 389,
+        "endChar": 11
+      },
+      "revId": "847d06b978dc7f641a5eb9dbd40e3609e5b511a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "996498c9_7decf397",
         "filename": "ssl/s3_srvr.c",
         "patchSetId": 2
@@ -54,6 +78,24 @@
       "side": 1,
       "message": "Later: I see that you\u0027re changing this in later commits too, so maybe ignore this.",
       "parentUuid": "996498c9_7decf397",
+      "revId": "847d06b978dc7f641a5eb9dbd40e3609e5b511a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_9076f4ae",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-23T19:06:38Z",
+      "side": 1,
+      "message": "Yup. This is all part of a chain to remove all those cases one by one.",
+      "parentUuid": "996498c9_fd2c831d",
       "revId": "847d06b978dc7f641a5eb9dbd40e3609e5b511a7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
