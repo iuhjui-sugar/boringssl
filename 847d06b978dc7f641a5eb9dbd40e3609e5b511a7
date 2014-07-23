@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d998d0f7_bfc3d340",
+        "filename": "ssl/d1_srvr.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-23T15:22:39Z",
+      "side": 1,
+      "message": "s3",
+      "range": {
+        "startLine": 389,
+        "startChar": 9,
+        "endLine": 389,
+        "endChar": 11
+      },
+      "revId": "847d06b978dc7f641a5eb9dbd40e3609e5b511a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "996498c9_7decf397",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-23T15:22:39Z",
+      "side": 1,
+      "message": "This is ok because it\u0027s not changing anything, but this line and the following are pretty full of \"wat?\".\n\nI think the \"s-\u003ecert-\u003epkeys[SSL_PKEY_RSA_ENC].privatekey \u003d\u003d NULL\" bit is testing for ephemeral RSA. (If we have a \"signing only\" RSA, but have selected a straight RSA cipher suite, then I don\u0027t expect a client to cope when we decide to send an SKX anyway.)\n\nAnd I hope that SSL_C_IS_EXPORT is functionally dead now so that clause will never be true.",
+      "revId": "847d06b978dc7f641a5eb9dbd40e3609e5b511a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
