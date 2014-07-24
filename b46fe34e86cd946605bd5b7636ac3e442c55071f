@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "595300fd_19ba2fc2",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 2198,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-24T20:37:00Z",
+      "side": 1,
+      "message": "I believe decrypt_len shouldn\u0027t be a secret value at this point, though I can switch this back to the ERR_clear_error() thing and just read uninitialized memory (while masking it off) in the error case. For successful decryption, anything other than rsa_size is a bug. If the decryption failed, we\u0027ve already leaked it based on branching in RSA_private_decrypt and that\u0027s just malloc failures and stuff.",
+      "revId": "b46fe34e86cd946605bd5b7636ac3e442c55071f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
