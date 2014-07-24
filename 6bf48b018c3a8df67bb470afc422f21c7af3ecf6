@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f974b47c_09df399f",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-24T21:35:06Z",
+      "side": 1,
+      "message": "\", so\" ?",
+      "range": {
+        "startLine": 730,
+        "startChar": 15,
+        "endLine": 730,
+        "endChar": 20
+      },
+      "revId": "6bf48b018c3a8df67bb470afc422f21c7af3ecf6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f974b47c_69ceedee",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-24T21:35:06Z",
+      "side": 1,
+      "message": "sent",
+      "range": {
+        "startLine": 733,
+        "startChar": 33,
+        "endLine": 733,
+        "endChar": 37
+      },
+      "revId": "6bf48b018c3a8df67bb470afc422f21c7af3ecf6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
