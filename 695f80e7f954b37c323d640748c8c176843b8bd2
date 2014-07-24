@@ -16,6 +16,24 @@
       "revId": "695f80e7f954b37c323d640748c8c176843b8bd2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f974b47c_440bd846",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 912,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-24T21:40:55Z",
+      "side": 1,
+      "message": "How about also checking s-\u003es3-\u003etmp.reuse_message \u003d\u003d 0? Otherwise a full message might have been buffered.",
+      "parentUuid": "997bb85f_a2a2de80",
+      "revId": "695f80e7f954b37c323d640748c8c176843b8bd2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
