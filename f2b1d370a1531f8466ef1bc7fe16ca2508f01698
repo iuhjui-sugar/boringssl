@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "595300fd_bfce6340",
+        "filename": "crypto/x509/x509_vpm.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T18:08:48Z",
+      "side": 1,
+      "message": "It doesn\u0027t look like this will appropriately error if |name|, |namelen| happens to have NULs in it. And with X509_check_host now passing in a length of zero, would this not truncate the host parameter?\n\nOr is this fine because this is always the host parameter coming from the application rather than the certificate? Still seems a little strange.",
+      "revId": "f2b1d370a1531f8466ef1bc7fe16ca2508f01698",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
