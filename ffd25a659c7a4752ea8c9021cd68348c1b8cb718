@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "96e70794_6c43445a",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 5190
+      },
+      "writtenOn": "2014-07-25T19:39:33Z",
+      "side": 1,
+      "message": "Is this correct? Or is the comment wrong?\n\nYou say without p\u0026q, but you check d\u0026p. Given that you have discrete values in key for p \u0026 q (lines 551/552), I suspect something\u0027s hinky?\n\nThat is, I can\u0027t figure out if this is meant to check both p\u0026q are present, or that both of (d, p||q) are present.",
+      "range": {
+        "startLine": 527,
+        "startChar": 7,
+        "endLine": 527,
+        "endChar": 13
+      },
+      "revId": "ffd25a659c7a4752ea8c9021cd68348c1b8cb718",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
