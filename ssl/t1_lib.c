@@ -499,7 +499,7 @@ static void tls1_get_curvelist(SSL *s, int get_client_curves,
 	if (!*out_curve_ids)
 		{
 		*out_curve_ids = eccurves_default;
-		*out_curve_ids_len = sizeof(eccurves_default);
+		*out_curve_ids_len = sizeof(eccurves_default) / sizeof(eccurves_default[0]);
 		}
 	}
 
