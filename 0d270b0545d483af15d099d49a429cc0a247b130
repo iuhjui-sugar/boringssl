@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "595300fd_3f58b3bb",
+        "filename": "include/openssl/obj_dat.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T18:35:33Z",
+      "side": 1,
+      "message": "Going to assume this file was generated correctly.",
+      "revId": "0d270b0545d483af15d099d49a429cc0a247b130",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
