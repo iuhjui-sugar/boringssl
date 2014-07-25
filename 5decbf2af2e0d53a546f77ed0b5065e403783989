@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "595300fd_3f6d133e",
+        "filename": "crypto/bn/asm/rsaz-avx2.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T18:53:55Z",
+      "side": 1,
+      "message": "Eeeeuuuggghh. Line 78 does the same thing, but is this actually going to do anything useful given that we generate the perlasm once for all platforms?\n\nI suppose all we actually care here is that:\n1. The checks all pass positively on whatever machine we run perlasm on.\n2. All compilers we care about would have passed the check anyway.\n\nI suspect this is true given the low cutoffs here.\n\nDitto for all the other files in this change.",
+      "revId": "5decbf2af2e0d53a546f77ed0b5065e403783989",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
