@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f974b47c_0ace4768",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 905,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-25T17:50:51Z",
+      "side": 1,
+      "message": "required",
+      "range": {
+        "startLine": 905,
+        "startChar": 30,
+        "endLine": 905,
+        "endChar": 46
+      },
+      "revId": "b9be6f1e5ca16c7011b6ce7a93e0cd8ce088eef0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
