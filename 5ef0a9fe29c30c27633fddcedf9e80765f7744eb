@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "595300fd_1f512f48",
+        "filename": "crypto/bn/exponentiation.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 976,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T19:46:48Z",
+      "side": 1,
+      "message": "Does clang-format have a mode to always put the curlies in? There\u0027s a bunch of missing ones in this file.",
+      "revId": "5ef0a9fe29c30c27633fddcedf9e80765f7744eb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
