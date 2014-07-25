@@ -34,6 +34,24 @@
       "revId": "695f80e7f954b37c323d640748c8c176843b8bd2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_1fddaf2c",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 912,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T16:33:51Z",
+      "side": 1,
+      "message": "Done. Fairly sure that\u0027s also unreachable but also good for completeness; it would require that we process a pre-CCS message, put it back on the queue, but before (re)processing it, expect a CCS. And then I guess the next call to ssl3_get_message would pull it instead of pumping the record layer, so we\u0027d reprocess it before reading the CCS. So I guess that case would be really quite weird.",
+      "parentUuid": "f974b47c_440bd846",
+      "revId": "695f80e7f954b37c323d640748c8c176843b8bd2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
