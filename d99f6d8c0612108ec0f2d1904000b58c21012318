@@ -2,6 +2,567 @@
   "comments": [
     {
       "key": {
+        "uuid": "595300fd_ea090b02",
+        "filename": "crypto/ecdsa/ecdsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed]",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_8ae4ffef",
+        "filename": "crypto/ecdsa/ecdsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed]",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_cabd2755",
+        "filename": "crypto/evp/evp_ctx.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed]\n- hmac: not defined\n- ec: not defined\n- rsa: not defined",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_eac2ebcb",
+        "filename": "crypto/evp/evp_ctx.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "This can be !ret now",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_aa8e23b1",
+        "filename": "crypto/evp/evp_ctx.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed]\n- hmac: not defined\n- ec: reviewed\n- rsa: reviewed with comment",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_4ad05703",
+        "filename": "crypto/evp/evp_ctx.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed]\n- ec: not defined\n- hmac: not defined\n- rsa: not defined",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_0ace4f68",
+        "filename": "crypto/evp/evp_ctx.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "This can be !ret now.",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_8ab15fe3",
+        "filename": "crypto/evp/evp_ctx.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed]\n- hmac: not defined\n- ec: reviewed\n- rsa: reviewed",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_4a7e9735",
+        "filename": "crypto/evp/evp_ctx.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed]\n- hmac: not defined\n- ec: not defined\n- rsa: not defined",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_8a5f9fc9",
+        "filename": "crypto/evp/evp_ctx.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "This can be !ret now.",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_4a65b793",
+        "filename": "crypto/evp/evp_ctx.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed]\n- hmac: not defined\n- ec: not defined\n- rsa: reviewed",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_caa7e78f",
+        "filename": "crypto/evp/evp_ctx.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed]\n- hmac: not defined\n- ec: not defined\n- rsa: not defined",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_aaa2a380",
+        "filename": "crypto/evp/evp_ctx.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "This can be !ret now.",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_0a000f9a",
+        "filename": "crypto/evp/evp_ctx.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed]\n- hmac: not defined\n- ec: not defined\n- rsa: reviewed modulo bug",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_6aefdb8d",
+        "filename": "crypto/evp/evp_ctx.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed]\n- hmac: not defined\n- ec: not defined\n- rsa: not defined",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_4ae217a7",
+        "filename": "crypto/evp/evp_ctx.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "This can be !ret now.",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_ca32877b",
+        "filename": "crypto/evp/evp_ctx.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed]",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f974b47c_be8e78b1",
+        "filename": "crypto/evp/evp_ctx.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "- hmac: not defined\n- rsa: not defined\n- ec: reviewed",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f974b47c_7eadc00b",
+        "filename": "crypto/evp/evp_ctx.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed]\n- hmac: not defined\n- ec: not defined\n- rsa: not defined",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f974b47c_3ea34824",
+        "filename": "crypto/evp/evp_ctx.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "This can be !ret now.",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_8a1ddfcb",
+        "filename": "crypto/evp/evp_ctx.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed]\n- hmac: reviewed\n- rsa: reviewed\n- ec: reviewed",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f974b47c_be7598dd",
+        "filename": "crypto/evp/evp_ctx.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "This can be !ret now.",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_4aaa1708",
+        "filename": "crypto/evp/p_ec.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed]",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_2aadd31e",
+        "filename": "crypto/evp/p_ec.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "This can be !ret now.",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_caaa8772",
+        "filename": "crypto/evp/p_ec.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed]",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f974b47c_9ecb7cdc",
+        "filename": "crypto/evp/p_ec.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed]",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_6a20bbfc",
+        "filename": "crypto/evp/p_ec.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed]",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_0adf2f9f",
+        "filename": "crypto/evp/p_rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed] but note bug",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_6acefbee",
+        "filename": "crypto/evp/p_rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "This can be !ret now.",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_4ad1378e",
+        "filename": "crypto/evp/p_rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "return 0. RSA_private_encrypt can still return -1.",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_ea6d8b81",
+        "filename": "crypto/evp/p_rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed]",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_2aba33c2",
+        "filename": "crypto/evp/p_rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "rslen \u003c\u003d 0. tblsen isn\u0027t going to be (size_t)-1, so line 266 will catch it, but still.",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_2a68736e",
+        "filename": "crypto/evp/p_rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed]",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f974b47c_2aff8312",
         "filename": "crypto/evp/p_rsa.c",
         "patchSetId": 1
@@ -13,6 +574,397 @@
       "writtenOn": "2014-07-25T18:19:38Z",
       "side": 1,
       "message": "I don\u0027t know why I put outlen before out in |RSA_encrypt|. I\u0027ll change it after this.",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_caf52764",
+        "filename": "crypto/evp/p_rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "If the padding check fails, *outlen shouldn\u0027t be set to -1.",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_4a23f709",
+        "filename": "crypto/evp/p_rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed]",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_2a26b31a",
+        "filename": "crypto/evp/p_rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "This can be if (ret) now",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_ea9f4b55",
+        "filename": "include/openssl/ecdsa.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed]",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_aa0f0306",
+        "filename": "include/openssl/ecdsa.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "This comment is no longer accurate.",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_8aaa3ff3",
+        "filename": "include/openssl/evp.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed]",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_ea6f4b07",
+        "filename": "include/openssl/evp.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed]\n- signctx: only provided by hmac. verified correct.\n- This function assumes EVP_DigestFinal_ex has a reasonable return value. This seems to be true, but isn\u0027t documented.\n- Function also has a lot of \u003c\u003ds that can now be !s, but that can happen in a follow-up.",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_aa7543dd",
+        "filename": "include/openssl/evp.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed]",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_aa5c6365",
+        "filename": "include/openssl/evp.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "This one\u0027s actually good now but for a return -1 in digestsign.c.",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_0ac80feb",
+        "filename": "include/openssl/evp.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed]",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_6ab7db6e",
+        "filename": "include/openssl/evp.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed]",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_aaa543a3",
+        "filename": "include/openssl/evp.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed]",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_ca91a744",
+        "filename": "include/openssl/evp.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed]",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_aa738367",
+        "filename": "include/openssl/evp.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed]",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_6a627b8e",
+        "filename": "include/openssl/evp.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed]",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_eaacab76",
+        "filename": "include/openssl/evp.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed]",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_2ae5d3ad",
+        "filename": "include/openssl/evp.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed]",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_8aecff98",
+        "filename": "include/openssl/evp.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed]",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_aa1703df",
+        "filename": "include/openssl/evp.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed]",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f974b47c_de9334da",
+        "filename": "include/openssl/evp.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed]",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f974b47c_9eaa9cf3",
+        "filename": "include/openssl/evp.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed]",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_aab8e365",
+        "filename": "include/openssl/evp.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed]",
+      "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_8afb1f8a",
+        "filename": "include/openssl/rsa.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T22:02:18Z",
+      "side": 1,
+      "message": "[reviewed]",
       "revId": "d99f6d8c0612108ec0f2d1904000b58c21012318",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
