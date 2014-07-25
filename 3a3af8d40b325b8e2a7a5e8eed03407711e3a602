@@ -16,6 +16,24 @@
       "revId": "3a3af8d40b325b8e2a7a5e8eed03407711e3a602",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_df6fa707",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 2064,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T19:37:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f974b47c_9e361cd0",
+      "revId": "3a3af8d40b325b8e2a7a5e8eed03407711e3a602",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
