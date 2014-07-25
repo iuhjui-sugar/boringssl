@@ -22,6 +22,30 @@
       "revId": "b9be6f1e5ca16c7011b6ce7a93e0cd8ce088eef0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_5fc1f712",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 905,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T17:57:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f974b47c_0ace4768",
+      "range": {
+        "startLine": 905,
+        "startChar": 30,
+        "endLine": 905,
+        "endChar": 46
+      },
+      "revId": "b9be6f1e5ca16c7011b6ce7a93e0cd8ce088eef0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
