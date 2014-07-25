@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "595300fd_ffc8eb35",
+        "filename": "crypto/x509v3/v3_utl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 982,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T18:12:53Z",
+      "side": 1,
+      "message": "If upstream has both this change and the previous change:\nhttps://boringssl-review.googlesource.com/#/c/1311/1/crypto/x509/x509_vfy.c\nwould this change actually do anything? chklen will always be zero, so we\u0027ll always go the strlen route. There aren\u0027t any other (internal non-test) callers of this function.",
+      "revId": "30f238b34a964a8b6625ad7c6b3c5f8a27d0dc4b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_1fde8ff1",
+        "filename": "crypto/x509v3/v3_utl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 984,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T18:12:53Z",
+      "side": 1,
+      "message": "Why this leniency?",
+      "revId": "30f238b34a964a8b6625ad7c6b3c5f8a27d0dc4b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "595300fd_3fdb5302",
+        "filename": "crypto/x509v3/v3_utl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1003,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-25T18:12:53Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "30f238b34a964a8b6625ad7c6b3c5f8a27d0dc4b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
