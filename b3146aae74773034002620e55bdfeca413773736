@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "96e70794_33d2370e",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 992,
+      "author": {
+        "id": 5190
+      },
+      "writtenOn": "2014-07-26T00:27:06Z",
+      "side": 1,
+      "message": "Or RFC 3394",
+      "range": {
+        "startLine": 992,
+        "startChar": 3,
+        "endLine": 992,
+        "endChar": 68
+      },
+      "revId": "b3146aae74773034002620e55bdfeca413773736",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "96e70794_93910346",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1090,
+      "author": {
+        "id": 5190
+      },
+      "writtenOn": "2014-07-26T00:27:06Z",
+      "side": 1,
+      "message": "For AES-KW, n must be \u003e\u003d 2.",
+      "range": {
+        "startLine": 1090,
+        "startChar": 2,
+        "endLine": 1090,
+        "endChar": 16
+      },
+      "revId": "b3146aae74773034002620e55bdfeca413773736",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "96e70794_33d5977d",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1122,
+      "author": {
+        "id": 5190
+      },
+      "writtenOn": "2014-07-26T00:27:06Z",
+      "side": 1,
+      "message": "Proof I\u0027m a phony - took me way too long to figure this out.\n\nEven though RFC 3394 / the AES-KW spec define this in terms of MSB_64(...) xor T, the reason we don\u0027t need to touch the other bits is because T\u0027s 32-bit, so it\u0027s just xor zero, right?",
+      "range": {
+        "startLine": 1118,
+        "startChar": 0,
+        "endLine": 1122,
+        "endChar": 31
+      },
+      "revId": "b3146aae74773034002620e55bdfeca413773736",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "96e70794_8e00b826",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5190
+      },
+      "writtenOn": "2014-07-26T00:27:06Z",
+      "side": 1,
+      "message": "empty",
+      "range": {
+        "startLine": 107,
+        "startChar": 19,
+        "endLine": 107,
+        "endChar": 24
+      },
+      "revId": "b3146aae74773034002620e55bdfeca413773736",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "96e70794_ae201cbb",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5190
+      },
+      "writtenOn": "2014-07-26T00:27:06Z",
+      "side": 1,
+      "message": "And must be at least 16 bytes long (First sentence of para 2 of Section 2 of NIST spec / first sentence of second para of Section 2 of RFC 3394)",
+      "range": {
+        "startLine": 108,
+        "startChar": 24,
+        "endLine": 108,
+        "endChar": 72
+      },
+      "revId": "b3146aae74773034002620e55bdfeca413773736",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
