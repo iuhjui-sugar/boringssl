@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f974b47c_43e74546",
+        "filename": "include/openssl/err.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-28T18:52:47Z",
+      "side": 1,
+      "message": "/* ERR_TXT_STRING is provided for compatibility with code that assumes that it\u0027s using OpenSSL. */",
+      "revId": "6a1cc1cf57914b14d5c71be06afd5fc17f71017a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
