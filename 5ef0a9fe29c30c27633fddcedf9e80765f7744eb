@@ -16,6 +16,24 @@
       "revId": "5ef0a9fe29c30c27633fddcedf9e80765f7744eb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f974b47c_690edf58",
+        "filename": "crypto/bn/exponentiation.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 976,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-28T23:55:16Z",
+      "side": 1,
+      "message": "Sadly not :(\n\nI added { } in some places, but stopped after a while because it was so manual. I was hoping to add that ability to clang-format at some point.",
+      "parentUuid": "595300fd_1f512f48",
+      "revId": "5ef0a9fe29c30c27633fddcedf9e80765f7744eb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
