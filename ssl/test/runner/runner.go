@@ -343,6 +343,31 @@ var testCases = []testCase{
 		shouldFail:    true,
 		expectedError: ":CCS_RECEIVED_EARLY:",
 	},
+	{
+		name: "False-Start",
+		config: Config{
+			CipherSuites: []uint16{TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256},
+			NextProtos: []string{"foo"},
+			SessionTicketsDisabled: true,
+		},
+		flags: []string{
+			"-false-start",
+			"-select-next-proto", "foo",
+		},
+		resumeSession: true,
+	},
+	{
+		name: "False-Start-SessionTicketsDisabled",
+		config: Config{
+			CipherSuites: []uint16{TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256},
+			NextProtos: []string{"foo"},
+			SessionTicketsDisabled: true,
+		},
+		flags: []string{
+			"-false-start",
+			"-select-next-proto", "foo",
+		},
+	},
 }
 
 func doExchange(testType testType, config *Config, conn net.Conn, messageLen int) error {
