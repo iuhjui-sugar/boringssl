@@ -16,6 +16,24 @@
       "revId": "5decbf2af2e0d53a546f77ed0b5065e403783989",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f974b47c_097c8b8e",
+        "filename": "crypto/bn/asm/rsaz-avx2.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-29T00:00:43Z",
+      "side": 1,
+      "message": "Mostly we want this so that we don\u0027t drift away from OpenSSL for the asm files.\n\nWe could have a problem where we run perlasm on a machine with assembler $x but try to build with $y where y \u003c x. But we haven\u0027t hit that yet, thankfully.",
+      "parentUuid": "595300fd_3f6d133e",
+      "revId": "5decbf2af2e0d53a546f77ed0b5065e403783989",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
