@@ -53,6 +53,9 @@
 #ifndef OPENSSL_HEADER_BASE_H
 #define OPENSSL_HEADER_BASE_H
 
+
+/* This file should be the first included by all BoringSSL headers. */
+
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
@@ -86,11 +89,35 @@
 #define OPENSSL_APPLE
 #endif
 
+#if defined(WIN32)
+#define OPENSSL_WINDOWS
+#endif
+
 #define OPENSSL_IS_BORINGSSL
 #define OPENSSL_VERSION_NUMBER 0x10002000
 
+#if defined(OPENSSL_WINDOWS)
 
-/* This file should be the first included by all BoringSSL headers. */
+#if defined(BORINGSSL_IMPLEMENTATION)
+#define OPENSSL_EXPORT __declspec(dllexport)
+#else
+#define OPENSSL_EXPORT __declspec(dllimport)
+#endif
+
+#else  /* defined(OPENSSL_WINDOWS) */
+
+/* OPENSSL_HIDDEN can be removed once we have marked all exported symbols with
+ * OPENSSL_EXPORT and build with -fvisibility=hidden. Until then, there are
+ * some symbols that must be hidden already. */
+#define OPENSSL_HIDDEN __attribute__((visibility("hidden")))
+
+#if defined(BORINGSSL_IMPLEMENTATION)
+#define OPENSSL_EXPORT __attribute__((visibility("default")))
+#else
+#define OPENSSL_EXPORT
+#endif
+
+#endif /* defined(OPENSSL_WINDOWS) */
 
 typedef int ASN1_BOOLEAN;
 typedef int ASN1_NULL;

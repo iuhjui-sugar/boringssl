@@ -108,6 +108,7 @@ sub ::function_begin_B
     $func=$nmdecor.$func;
 
     push(@out,".globl\t$func\n")	if ($global);
+    push(@out,".hidden\t$func\n");
     if ($::coff)
     {	push(@out,".def\t$func;\t.scl\t".(3-$global).";\t.type\t32;\t.endef\n"); }
     elsif (($::aout and !$::pic) or $::macosx)
