@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1624f7a2_42acbfba",
+        "filename": "crypto/mem.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5145
+      },
+      "writtenOn": "2014-07-30T21:52:33Z",
+      "side": 1,
+      "message": "Would it makes sense to use SecureZeroMemory(), memset_s() or explicit_bzero() where available and only fallback to memset() + asm?",
+      "revId": "ba80a021417be2b6fd7e470b13b6721ad65694fe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
