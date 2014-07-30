@@ -585,6 +585,7 @@ ___
 
 # void AES_encrypt (const void *inp,void *out,const AES_KEY *key);
 $code.=<<___;
+.dynamic_export AES_encrypt
 .globl	AES_encrypt
 .type	AES_encrypt,\@function,3
 .align	16
@@ -1183,6 +1184,7 @@ ___
 
 # void AES_decrypt (const void *inp,void *out,const AES_KEY *key);
 $code.=<<___;
+.dynamic_export AES_decrypt
 .globl	AES_decrypt
 .type	AES_decrypt,\@function,3
 .align	16
@@ -1284,6 +1286,7 @@ ___
 
 # int AES_set_encrypt_key(const unsigned char *userKey, const int bits, AES_KEY *key)
 $code.=<<___;
+.dynamic_export AES_set_encrypt_key
 .globl	AES_set_encrypt_key
 .type	AES_set_encrypt_key,\@function,3
 .align	16
@@ -1549,6 +1552,7 @@ ___
 
 # int AES_set_decrypt_key(const unsigned char *userKey, const int bits, AES_KEY *key)
 $code.=<<___;
+.dynamic_export AES_set_decrypt_key
 .globl	AES_set_decrypt_key
 .type	AES_set_decrypt_key,\@function,3
 .align	16
@@ -1643,6 +1647,7 @@ my $aes_key="80(%rsp)";		# copy of aes_key
 my $mark="80+240(%rsp)";	# copy of aes_key->rounds
 
 $code.=<<___;
+.dynamic_export AES_cbc_encrypt
 .globl	AES_cbc_encrypt
 .type	AES_cbc_encrypt,\@function,6
 .align	16

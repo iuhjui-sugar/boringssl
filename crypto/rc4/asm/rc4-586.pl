@@ -153,6 +153,7 @@ if ($alt=0) {
 &external_label("OPENSSL_ia32cap_P");
 
 # void RC4(RC4_KEY *key,size_t len,const unsigned char *inp,unsigned char *out);
+&dynamic_export("RC4");
 &function_begin("RC4");
 	&mov	($dat,&wparam(0));	# load key schedule pointer
 	&mov	($ty, &wparam(1));	# load len
@@ -304,6 +305,7 @@ $ido="ecx";
 $idx="edx";
 
 # void RC4_set_key(RC4_KEY *key,int len,const unsigned char *data);
+&dynamic_export("RC4_set_key");
 &function_begin("RC4_set_key");
 	&mov	($out,&wparam(0));		# load key
 	&mov	($idi,&wparam(1));		# load len

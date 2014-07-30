@@ -12,6 +12,7 @@ $initseg="";
 $align=16;
 $align=log($align)/log(2) if ($::aout);
 $com_start="#" if ($::aout or $::coff);
+my %dynamic_exports;
 
 sub opsize()
 { my $reg=shift;
@@ -99,15 +100,24 @@ sub ::DWC	{ @_;		}
 sub ::file
 {   push(@out,".file\t\"$_[0].S\"\n.text\n");	}
 
+sub ::dynamic_export
+{ my $func=shift;
+  $dynamic_exports{$func} = 1;
+}
+
 sub ::function_begin_B
 { my $func=shift;
   my $global=($func !~ /^_/);
   my $begin="${::lbdecor}_${func}_begin";
+  my $is_dynamic_export = $dynamic_exports{$func};
 
     &::LABEL($func,$global?"$begin":"$nmdecor$func");
     $func=$nmdecor.$func;
 
     push(@out,".globl\t$func\n")	if ($global);
+    if ($is_dynamic_export != 1) {
+      push(@out,".hidden\t$func\n");
+    }
     if ($::coff)
     {	push(@out,".def\t$func;\t.scl\t".(3-$global).";\t.type\t32;\t.endef\n"); }
     elsif (($::aout and !$::pic) or $::macosx)

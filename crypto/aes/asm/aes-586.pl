@@ -1162,6 +1162,7 @@ sub enclast()
 &function_end_B("_x86_AES_encrypt");
 
 # void AES_encrypt (const void *inp,void *out,const AES_KEY *key);
+&dynamic_export("AES_encrypt");
 &function_begin("AES_encrypt");
 	&mov	($acc,&wparam(0));		# load inp
 	&mov	($key,&wparam(2));		# load key
@@ -1953,6 +1954,7 @@ sub declast()
 &function_end_B("_x86_AES_decrypt");
 
 # void AES_decrypt (const void *inp,void *out,const AES_KEY *key);
+&dynamic_export("AES_decrypt");
 &function_begin("AES_decrypt");
 	&mov	($acc,&wparam(0));		# load inp
 	&mov	($key,&wparam(2));		# load key
@@ -2036,6 +2038,7 @@ my $ivec=&DWP(60,"esp");	# ivec[16]
 my $aes_key=&DWP(76,"esp");	# copy of aes_key
 my $mark=&DWP(76+240,"esp");	# copy of aes_key->rounds
 
+&dynamic_export("AES_cbc_encrypt");
 &function_begin("AES_cbc_encrypt");
 	&mov	($s2 eq "ecx"? $s2 : "",&wparam(2));	# load len
 	&cmp	($s2,0);
@@ -2863,6 +2866,7 @@ sub enckey()
 
 # int AES_set_encrypt_key(const unsigned char *userKey, const int bits,
 #                        AES_KEY *key)
+&dynamic_export("AES_set_encrypt_key");
 &function_begin_B("AES_set_encrypt_key");
 	&call	("_x86_AES_set_encrypt_key");
 	&ret	();
@@ -2925,6 +2929,7 @@ sub deckey()
 
 # int AES_set_decrypt_key(const unsigned char *userKey, const int bits,
 #                        AES_KEY *key)
+&dynamic_export("AES_set_decrypt_key");
 &function_begin_B("AES_set_decrypt_key");
 	&call	("_x86_AES_set_encrypt_key");
 	&cmp	("eax",0);

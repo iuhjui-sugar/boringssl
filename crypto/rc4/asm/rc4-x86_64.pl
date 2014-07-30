@@ -125,6 +125,7 @@ $code=<<___;
 .text
 .extern	OPENSSL_ia32cap_P
 
+.dynamic_export RC4
 .globl	RC4
 .type	RC4,\@function,4
 .align	16
@@ -431,6 +432,7 @@ $idx="%r8";
 $ido="%r9";
 
 $code.=<<___;
+.dynamic_export RC4_set_key
 .globl	RC4_set_key
 .type	RC4_set_key,\@function,3
 .align	16

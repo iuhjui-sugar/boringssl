@@ -99,6 +99,7 @@ elsif (!$gas)
 my $current_segment;
 my $current_function;
 my %globals;
+my %dynamic_exports;
 
 { package opcode;	# pick up opcodes
     sub re {
@@ -459,6 +460,11 @@ my %globals;
 				    }
 				    last;
 				  };
+		/\.dynamic_export/ && do { $dynamic_exports{$line} = 1;
+		  			   $line = "";
+					   $dir = "";
+					   last;
+					 };
 		/\.global|\.globl|\.extern/
 			    && do { $globals{$line} = $prefix . $line;
 				    $line = $globals{$line} if ($prefix);
@@ -521,6 +527,10 @@ my %globals;
 		    }
 		} elsif ($dir =~ /\.(text|data)/) {
 		    $current_segment=".$1";
+		} elsif ($dir =~ /\.global|\.globl|\.extern/) {
+		    if ($dynamic_exports{$line} != 1) {
+			$self->{value} .= "\n.hidden $line";
+		    }
 		} elsif ($dir =~ /\.hidden/) {
 		    if    ($flavour eq "macosx")  { $self->{value} = ".private_extern\t$prefix$line"; }
 		    elsif ($flavour eq "mingw64") { $self->{value} = ""; }
