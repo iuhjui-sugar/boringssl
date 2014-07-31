@@ -66,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "f974b47c_65119bb8",
+        "filename": "crypto/perlasm/x86_64-xlate.pl",
+        "patchSetId": 5
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-31T18:54:03Z",
+      "side": 1,
+      "message": "Yes. I\u0027m keeping the existing .hidden stuff in order to minimise the diff, but I don\u0027t think that we can use it.",
+      "parentUuid": "b6016bf5_f565d896",
+      "revId": "f23998724d9661f933f69436dd5cfd6e405ecbd9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1624f7a2_9899272d",
         "filename": "crypto/perlasm/x86_64-xlate.pl.orig",
         "patchSetId": 5
@@ -77,6 +95,24 @@
       "writtenOn": "2014-07-31T02:50:53Z",
       "side": 1,
       "message": "Looks like you\u0027ve committed this file by accident.",
+      "revId": "f23998724d9661f933f69436dd5cfd6e405ecbd9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f974b47c_a5fc931c",
+        "filename": "crypto/perlasm/x86_64-xlate.pl.orig",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-31T18:54:03Z",
+      "side": 1,
+      "message": "Yep, thanks.",
+      "parentUuid": "1624f7a2_9899272d",
       "revId": "f23998724d9661f933f69436dd5cfd6e405ecbd9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -100,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "f974b47c_a523b308",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-31T18:54:03Z",
+      "side": 1,
+      "message": "Right, yes. Otherwise \"static\" Mac builds with have the symbols exported from the framework.",
+      "parentUuid": "b6016bf5_ca6c7bd2",
+      "revId": "f23998724d9661f933f69436dd5cfd6e405ecbd9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b6016bf5_15b604c6",
         "filename": "ssl/CMakeLists.txt",
         "patchSetId": 5
@@ -111,6 +165,24 @@
       "writtenOn": "2014-07-31T16:06:20Z",
       "side": 1,
       "message": "Why is this needed here and not in the other files?",
+      "revId": "f23998724d9661f933f69436dd5cfd6e405ecbd9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f974b47c_65c8bbec",
+        "filename": "ssl/CMakeLists.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-31T18:54:03Z",
+      "side": 1,
+      "message": "It is needed in the other cases (which is just crypto/CMakeLists.txt) but it was already there. I think it\u0027s the default so we got away without it until now.",
+      "parentUuid": "b6016bf5_15b604c6",
       "revId": "f23998724d9661f933f69436dd5cfd6e405ecbd9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
