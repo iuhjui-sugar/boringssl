@@ -16,6 +16,24 @@
       "revId": "696b462f3e52753f58e870f31a56ddceb660a661",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f974b47c_c0841d86",
+        "filename": "include/openssl/cpu.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-31T22:39:34Z",
+      "side": 1,
+      "message": "Eh, yea ok. I\u0027ve made them independent like that (except that is_functional still requires both flags to be set).",
+      "parentUuid": "b6016bf5_b0cbdeda",
+      "revId": "696b462f3e52753f58e870f31a56ddceb660a661",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
