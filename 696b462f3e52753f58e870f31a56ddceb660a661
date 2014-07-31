@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6016bf5_b0cbdeda",
+        "filename": "include/openssl/cpu.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-31T20:45:20Z",
+      "side": 1,
+      "message": "Nit: Probably worth a note that this should be called after CRYPTO_set_NEON_capable since those two bits aren\u0027t manipulated independently.\n\n(Or maybe they should be; just have the #else branch\u0027s default be ARMV7_NEON_FUNCTIONAL without ARMV7_NEON. Then if code never touches CRYPTO_set_NEON_functional, CRYPTO_set_NEON_capable will behave as expected and the bits don\u0027t interact weirdly on set.)",
+      "revId": "696b462f3e52753f58e870f31a56ddceb660a661",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
