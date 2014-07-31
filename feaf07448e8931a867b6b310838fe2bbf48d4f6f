@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f974b47c_c0089d4b",
+        "filename": "crypto/sha/sha512.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-31T18:56:13Z",
+      "side": 1,
+      "message": "What platform did you get the errors on? I\u0027ve tried to centralise which platform defines are used in base.h and, in the rest of the code, use OPENSSL_WINDOWS etc.",
+      "revId": "feaf07448e8931a867b6b310838fe2bbf48d4f6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
