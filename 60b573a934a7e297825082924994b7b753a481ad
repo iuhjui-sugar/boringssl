@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1624f7a2_24dc251d",
+        "filename": "include/openssl/pkcs8.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5190
+      },
+      "writtenOn": "2014-07-31T20:05:07Z",
+      "side": 1,
+      "message": "Really? Upstream OpenSSL supports/ed PBES2 - just transparently through the PBE nid. This... Surprises me that we\u0027d have an API like PKCS#8 only supporting PBES1, since \u0027everything\u0027 should be supporting PBES2.\n\nPerhaps this was lost during the CMS shuffle, since PBES2 is used by CMS as well?\n\nMaybe irrelevant for BoringSSL to even support EncryptedPrivateKeyInfo beyond the single type NSS uses, in which case, do we need both? (And also, boo on NSS for using PBES1)",
+      "range": {
+        "startLine": 68,
+        "startChar": 72,
+        "endLine": 70,
+        "endChar": 71
+      },
+      "revId": "60b573a934a7e297825082924994b7b753a481ad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
