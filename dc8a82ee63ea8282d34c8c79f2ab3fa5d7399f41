@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1624f7a2_6dc7abdd",
+        "filename": "crypto/perlasm/x86_64-xlate.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 5145
+      },
+      "writtenOn": "2014-07-31T01:28:44Z",
+      "side": 1,
+      "message": "This break build on OSX:\n\n    /tmp/boringssl/crypto/sha/sha1-x86_64.S:6:1: error: unknown directive\n    .hidden _sha1_block_data_order\n    ^\n\nThis should be \".private_extern\" for \"macosx\" flavor, like it\u0027s done few lines below.",
+      "range": {
+        "startLine": 525,
+        "startChar": 6,
+        "endLine": 525,
+        "endChar": 7
+      },
+      "revId": "dc8a82ee63ea8282d34c8c79f2ab3fa5d7399f41",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
