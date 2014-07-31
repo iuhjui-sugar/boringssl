@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1624f7a2_78c88b5b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5145
+      },
+      "writtenOn": "2014-07-31T02:09:08Z",
+      "side": 1,
+      "message": "That looks strange... Why can\u0027t it just use SSL_CTX_sess_set_new_cb()? What\u0027s the use case / reasoning behind that?",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 3
+      },
+      "revId": "f23998724d9661f933f69436dd5cfd6e405ecbd9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
