@@ -46,6 +46,30 @@
       "revId": "60b573a934a7e297825082924994b7b753a481ad",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f974b47c_40c9ed5f",
+        "filename": "include/openssl/pkcs8.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-31T20:29:15Z",
+      "side": 1,
+      "message": "Much of this code fell below the bar on the shittyness/neccessary tradeoff and was killed. If we need to bring some back, that\u0027s fine.\n\n(Poke me when this change is good to review.)",
+      "parentUuid": "b6016bf5_907d82f6",
+      "range": {
+        "startLine": 68,
+        "startChar": 72,
+        "endLine": 70,
+        "endChar": 71
+      },
+      "revId": "60b573a934a7e297825082924994b7b753a481ad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
