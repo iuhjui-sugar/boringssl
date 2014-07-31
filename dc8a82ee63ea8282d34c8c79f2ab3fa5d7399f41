@@ -22,6 +22,30 @@
       "revId": "dc8a82ee63ea8282d34c8c79f2ab3fa5d7399f41",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f974b47c_e2fbe188",
+        "filename": "crypto/perlasm/x86_64-xlate.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-31T01:47:28Z",
+      "side": 1,
+      "message": "Thanks, fixed.",
+      "parentUuid": "1624f7a2_6dc7abdd",
+      "range": {
+        "startLine": 525,
+        "startChar": 6,
+        "endLine": 525,
+        "endChar": 7
+      },
+      "revId": "dc8a82ee63ea8282d34c8c79f2ab3fa5d7399f41",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
