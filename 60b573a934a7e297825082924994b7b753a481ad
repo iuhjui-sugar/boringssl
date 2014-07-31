@@ -70,6 +70,30 @@
       "revId": "60b573a934a7e297825082924994b7b753a481ad",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1624f7a2_c49331db",
+        "filename": "include/openssl/pkcs8.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5190
+      },
+      "writtenOn": "2014-07-31T20:32:19Z",
+      "side": 1,
+      "message": "Right, the historical animosity towards sending private keys in the clear was in https://bugzilla.mozilla.org/show_bug.cgi?id\u003d207033#c1 , which was inspired by NIST/FIPS-type security concerns of no-keys-outside-the-module, but that\u0027s thankfully been changing very recently (like, NSS 3.16.1 - see https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS/NSS_3.16.1_release_notes )\n\nBut yeah, since we\u0027ve hardcoded NSS to use SEC_OID_PKCS12_V2_PBE_WITH_SHA1_AND_3KEY_TRIPLE_DES_CBC ( https://code.google.com/p/chromium/codesearch#chromium/src/crypto/ec_private_key_nss.cc\u0026l\u003d247 ) I think that\u0027s all you should worry about.\n\nWe could fix NSS to \"Do the Right Thing\", but that would only help our non-Linux users in the near term. Just $.02 if you wanted to stab there.",
+      "parentUuid": "b6016bf5_907d82f6",
+      "range": {
+        "startLine": 68,
+        "startChar": 72,
+        "endLine": 70,
+        "endChar": 71
+      },
+      "revId": "60b573a934a7e297825082924994b7b753a481ad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
