@@ -22,6 +22,30 @@
       "revId": "f23998724d9661f933f69436dd5cfd6e405ecbd9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f974b47c_e2b121e2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-07-31T02:18:32Z",
+      "side": 1,
+      "message": "Not sure. It\u0027s SSLSessionCacheOpenSSLTest in Chromium but maybe we can avoid using it. I\u0027ll look tomorrow.",
+      "parentUuid": "1624f7a2_78c88b5b",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 3
+      },
+      "revId": "f23998724d9661f933f69436dd5cfd6e405ecbd9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
