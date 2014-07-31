@@ -22,6 +22,30 @@
       "revId": "60b573a934a7e297825082924994b7b753a481ad",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b6016bf5_907d82f6",
+        "filename": "include/openssl/pkcs8.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-31T20:23:04Z",
+      "side": 1,
+      "message": "Most of it was lost in the fork, yeah. I believe pbeWithSHAAnd3-KeyTripleDES-CBC is the only one we actually need[*] (I found no other callers in internal code of these functions). I suspect the other was retained just because it\u0027s only another entry in kBuiltinPBE.\n\nThere\u0027s still random stuff in pkcs8/p5_pbev2.c that does have an internal caller. But I don\u0027t think the codepath from PKCS8_encrypt to it is functional right now (hence the removal of the pbe_nid \u003d\u003d -1 check) because there\u0027s nothing in kBuiltinPBE. The internal caller doesn\u0027t use PKCS8_encrypt.\n\n[*] And if I understood what you told me yesterday about NSS and FIPS yesterday, \"need\" is only because of silly NSS API weirdnesses and we don\u0027t actually have a good reason to want to encrypt this with an empty password anyway.\n\n(I\u0027ll note that upstream supporting these \"transparently\" involved doing the ascii_to_ucs2 thing for some NIDs but not others, which I think is part of this API confusion. :-) )",
+      "parentUuid": "1624f7a2_24dc251d",
+      "range": {
+        "startLine": 68,
+        "startChar": 72,
+        "endLine": 70,
+        "endChar": 71
+      },
+      "revId": "60b573a934a7e297825082924994b7b753a481ad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
