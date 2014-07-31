@@ -49,6 +49,23 @@
     },
     {
       "key": {
+        "uuid": "b6016bf5_f565d896",
+        "filename": "crypto/perlasm/x86_64-xlate.pl",
+        "patchSetId": 5
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-31T16:06:20Z",
+      "side": 1,
+      "message": "Seems like there is actually some support for .hidden already. Though just blanket-marking every .globl like this is probably simpler. As long as we can\u0027t conditionally export/unexport asm symbols, I don\u0027t think we\u0027ll ever want them not hidden.",
+      "revId": "f23998724d9661f933f69436dd5cfd6e405ecbd9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1624f7a2_9899272d",
         "filename": "crypto/perlasm/x86_64-xlate.pl.orig",
         "patchSetId": 5
@@ -60,6 +77,40 @@
       "writtenOn": "2014-07-31T02:50:53Z",
       "side": 1,
       "message": "Looks like you\u0027ve committed this file by accident.",
+      "revId": "f23998724d9661f933f69436dd5cfd6e405ecbd9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b6016bf5_ca6c7bd2",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-31T16:06:20Z",
+      "side": 1,
+      "message": "Doesn\u0027t this need to be guarded by yet another ifdef (BORINGSSL_SHARED_LIBRARY or something) for the static library build? (Analogous to Chromium guarding it all behind defined(COMPONENT_BUILD).)",
+      "revId": "f23998724d9661f933f69436dd5cfd6e405ecbd9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b6016bf5_15b604c6",
+        "filename": "ssl/CMakeLists.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-07-31T16:06:20Z",
+      "side": 1,
+      "message": "Why is this needed here and not in the other files?",
       "revId": "f23998724d9661f933f69436dd5cfd6e405ecbd9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
