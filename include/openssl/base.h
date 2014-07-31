@@ -82,6 +82,10 @@
 #error "Unknown target CPU"
 #endif
 
+#if defined(_WIN32)
+#define OPENSSL_WINDOWS
+#endif
+
 #if defined(__APPLE__)
 #define OPENSSL_APPLE
 #endif
