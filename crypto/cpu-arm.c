@@ -64,9 +64,9 @@
 #include "arm_arch.h"
 
 #if defined(__ARM_NEON__)
-uint32_t OPENSSL_armcap_P = ARMV7_NEON;
+uint32_t OPENSSL_armcap_P = ARMV7_NEON | ARMV7_NEON_FUNCTIONAL;
 #else
-uint32_t OPENSSL_armcap_P = ARMV7_NEON;
+uint32_t OPENSSL_armcap_P = 0;
 #endif
 
 char CRYPTO_is_NEON_capable() {
@@ -75,9 +75,22 @@ char CRYPTO_is_NEON_capable() {
 
 void CRYPTO_set_NEON_capable(char neon_capable) {
   if (neon_capable) {
-    OPENSSL_armcap_P |= ARMV7_NEON;
+    OPENSSL_armcap_P |= ARMV7_NEON | ARMV7_NEON_FUNCTIONAL;
   } else {
-    OPENSSL_armcap_P &= ~ARMV7_NEON;
+    OPENSSL_armcap_P &= ~(ARMV7_NEON | ARMV7_NEON_FUNCTIONAL);
+  }
+}
+
+char CRYPTO_is_NEON_functional() {
+  static const uint32_t kWantFlags = ARMV7_NEON | ARMV7_NEON_FUNCTIONAL;
+  return (OPENSSL_armcap_P & kWantFlags) == kWantFlags;
+}
+
+void CRYPTO_set_NEON_functional(char neon_functional) {
+  if (neon_functional) {
+    OPENSSL_armcap_P |= ARMV7_NEON | ARMV7_NEON_FUNCTIONAL;
+  } else {
+    OPENSSL_armcap_P &= ~ARMV7_NEON_FUNCTIONAL;
   }
 }
 
