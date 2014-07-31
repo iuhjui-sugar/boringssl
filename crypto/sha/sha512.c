@@ -91,15 +91,23 @@
 #define SHA512_ASM
 #endif
 
+#if (defined(_WIN32) || defined(_WIN64)) && !defined(__MINGW32__)
+#define U64(C) C##UI64
+#elif defined(__arch64__)
+#define U64(C) C##UL
+#else
+#define U64(C) C##ULL
+#endif
+
 int SHA384_Init(SHA512_CTX *sha) {
-  sha->h[0] = 0xcbbb9d5dc1059ed8;
-  sha->h[1] = 0x629a292a367cd507;
-  sha->h[2] = 0x9159015a3070dd17;
-  sha->h[3] = 0x152fecd8f70e5939;
-  sha->h[4] = 0x67332667ffc00b31;
-  sha->h[5] = 0x8eb44a8768581511;
-  sha->h[6] = 0xdb0c2e0d64f98fa7;
-  sha->h[7] = 0x47b5481dbefa4fa4;
+  sha->h[0] = U64(0xcbbb9d5dc1059ed8);
+  sha->h[1] = U64(0x629a292a367cd507);
+  sha->h[2] = U64(0x9159015a3070dd17);
+  sha->h[3] = U64(0x152fecd8f70e5939);
+  sha->h[4] = U64(0x67332667ffc00b31);
+  sha->h[5] = U64(0x8eb44a8768581511);
+  sha->h[6] = U64(0xdb0c2e0d64f98fa7);
+  sha->h[7] = U64(0x47b5481dbefa4fa4);
 
   sha->Nl = 0;
   sha->Nh = 0;
@@ -110,14 +118,14 @@ int SHA384_Init(SHA512_CTX *sha) {
 
 
 int SHA512_Init(SHA512_CTX *sha) {
-  sha->h[0] = 0x6a09e667f3bcc908;
-  sha->h[1] = 0xbb67ae8584caa73b;
-  sha->h[2] = 0x3c6ef372fe94f82b;
-  sha->h[3] = 0xa54ff53a5f1d36f1;
-  sha->h[4] = 0x510e527fade682d1;
-  sha->h[5] = 0x9b05688c2b3e6c1f;
-  sha->h[6] = 0x1f83d9abfb41bd6b;
-  sha->h[7] = 0x5be0cd19137e2179;
+  sha->h[0] = U64(0x6a09e667f3bcc908);
+  sha->h[1] = U64(0xbb67ae8584caa73b);
+  sha->h[2] = U64(0x3c6ef372fe94f82b);
+  sha->h[3] = U64(0xa54ff53a5f1d36f1);
+  sha->h[4] = U64(0x510e527fade682d1);
+  sha->h[5] = U64(0x9b05688c2b3e6c1f);
+  sha->h[6] = U64(0x1f83d9abfb41bd6b);
+  sha->h[7] = U64(0x5be0cd19137e2179);
 
   sha->Nl = 0;
   sha->Nh = 0;
@@ -189,7 +197,7 @@ int SHA512_Update(SHA512_CTX *c, const void *in_data, size_t len) {
   if (len == 0)
     return 1;
 
-  l = (c->Nl + (((uint64_t)len) << 3)) & 0xffffffffffffffff;
+  l = (c->Nl + (((uint64_t)len) << 3)) & U64(0xffffffffffffffff);
   if (l < c->Nl) {
     c->Nh++;
   }
