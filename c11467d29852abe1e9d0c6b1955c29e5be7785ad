@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6016bf5_7a2530c9",
+        "filename": "crypto/perlasm/x86_64-xlate.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-01T17:36:42Z",
+      "side": 1,
+      "message": "c0h?",
+      "range": {
+        "startLine": 924,
+        "startChar": 37,
+        "endLine": 924,
+        "endChar": 41
+      },
+      "revId": "c11467d29852abe1e9d0c6b1955c29e5be7785ad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b6016bf5_ba1a9887",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-01T17:36:42Z",
+      "side": 1,
+      "message": "Are both this and line 96 needed? (If both are, maybe merge it with that block so OPENSSL_WINDOWS isn\u0027t defined twice.)",
+      "revId": "c11467d29852abe1e9d0c6b1955c29e5be7785ad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b6016bf5_6798fdf5",
+        "filename": "ssl/d1_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-01T17:36:42Z",
+      "side": 1,
+      "message": "Maybe define an OPENSSL_TIMEVAL in the header and, on !OPENSSL_WINDOWS, typedef struct timeval OPENSSL_TIMEVAL? Having an OPENSSL_STANDARD_TYPENAME is pretty silly, but given the alternative is to still have a new type for next_timeout_storage anyway.\n\nWould also be nice to OPENSSL_COMPILE_ASSERT that this timeval is the same size as the Windows one, though that would require a file with winsock.h included.",
+      "revId": "c11467d29852abe1e9d0c6b1955c29e5be7785ad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b6016bf5_07d25994",
+        "filename": "ssl/d1_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-01T17:36:42Z",
+      "side": 1,
+      "message": "(It doesn\u0027t look like this BIO_ctrl actually does anything right now, either in our WebRTC code or in BoringSSL. Although our WebRTC code does all kinds of things that puzzle me like seemingly treating a datagram protocol as a stream, so that probably should just be left alone for the time being.)",
+      "revId": "c11467d29852abe1e9d0c6b1955c29e5be7785ad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b6016bf5_7a4e5083",
+        "filename": "ssl/d1_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-01T17:36:42Z",
+      "side": 1,
+      "message": "Does Windows define gettimeofday? (Googling gives chatter that suggests no, though if this builds...) Or do they just forward-declare the struct timeval for this function?",
+      "revId": "c11467d29852abe1e9d0c6b1955c29e5be7785ad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
