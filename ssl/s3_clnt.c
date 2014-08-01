@@ -2666,10 +2666,20 @@ static int ssl3_check_client_certificate(SSL *s)
 	return 1;
 	}
 
+static int ssl3_do_client_cert_cb(SSL *s, X509 **out_x509, STACK_OF(X509) **out_chain, EVP_PKEY **out_pkey)
+	{
+	if (s->ctx->client_cert_chain_cb)
+		return s->ctx->client_cert_chain_cb(s, out_x509, out_chain, out_pkey);
+	else if (s->ctx->client_cert_cb)
+		return s->ctx->client_cert_cb(s, out_x509, out_pkey);
+	return 0;
+	}
+
 int ssl3_send_client_certificate(SSL *s)
 	{
-	X509 *x509=NULL;
-	EVP_PKEY *pkey=NULL;
+	X509 *x509 = NULL;
+	STACK_OF(X509) *chain = NULL;
+	EVP_PKEY *pkey = NULL;
 	int i;
 
 	if (s->state ==	SSL3_ST_CW_CERT_A)
@@ -2702,7 +2712,7 @@ int ssl3_send_client_certificate(SSL *s)
 		/* If we get an error, we need to
 		 * ssl->rwstate=SSL_X509_LOOKUP; return(-1);
 		 * We then get retried later */
-		i = ssl_do_client_cert_cb(s, &x509, &pkey);
+		i = ssl3_do_client_cert_cb(s, &x509, &chain, &pkey);
 		if (i < 0)
 			{
 			s->rwstate=SSL_X509_LOOKUP;
@@ -2712,8 +2722,9 @@ int ssl3_send_client_certificate(SSL *s)
 		if ((i == 1) && (pkey != NULL) && (x509 != NULL))
 			{
 			s->state=SSL3_ST_CW_CERT_B;
-			if (	!SSL_use_certificate(s,x509) ||
-				!SSL_use_PrivateKey(s,pkey))
+			if (	!SSL_use_certificate(s, x509) ||
+				!SSL_use_PrivateKey(s, pkey) ||
+				(chain != NULL && SSL_set1_chain(s, chain)))
 				i=0;
 			}
 		else if (i == 1)
@@ -2723,6 +2734,7 @@ int ssl3_send_client_certificate(SSL *s)
 			}
 
 		if (x509 != NULL) X509_free(x509);
+		if (chain != NULL) sk_X509_pop_free(chain, X509_free);
 		if (pkey != NULL) EVP_PKEY_free(pkey);
 		if (i && !ssl3_check_client_certificate(s))
 			i = 0;
@@ -3020,25 +3032,4 @@ err:
 		ECDSA_SIG_free(sig);
 
 	return ret;
-	}
-
-int ssl_do_client_cert_cb(SSL *s, X509 **px509, EVP_PKEY **ppkey)
-	{
-	int i = 0;
-        /* TODO(fork): remove */
-#if 0
-#ifndef OPENSSL_NO_ENGINE
-	if (s->ctx->client_cert_engine)
-		{
-		i = ENGINE_load_ssl_client_cert(s->ctx->client_cert_engine, s,
-						SSL_get_client_CA_list(s),
-						px509, ppkey, NULL, NULL, NULL);
-		if (i != 0)
-			return i;
-		}
-#endif
-#endif
-	if (s->ctx->client_cert_cb)
-		i = s->ctx->client_cert_cb(s,px509,ppkey);
-	return i;
 	}

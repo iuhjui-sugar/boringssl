@@ -1060,14 +1060,15 @@ void (*SSL_CTX_get_info_callback(SSL_CTX *ctx))(const SSL *ssl,int type,int val)
 	}
 
 void SSL_CTX_set_client_cert_cb(SSL_CTX *ctx,
-	int (*cb)(SSL *ssl, X509 **x509, EVP_PKEY **pkey))
+	int (*cb)(SSL *ssl, X509 **out_x509, EVP_PKEY **out_pkey))
 	{
-	ctx->client_cert_cb=cb;
+	ctx->client_cert_cb = cb;
 	}
 
-int (*SSL_CTX_get_client_cert_cb(SSL_CTX *ctx))(SSL * ssl, X509 ** x509 , EVP_PKEY **pkey)
+void SSL_CTX_set_client_cert_chain_cb(SSL_CTX *ctx,
+	int (*cb)(SSL *ssl, X509 **out_x509, STACK_OF(X509) **out_chain, EVP_PKEY **out_pkey))
 	{
-	return ctx->client_cert_cb;
+	ctx->client_cert_chain_cb = cb;
 	}
 
 void SSL_CTX_set_cookie_generate_cb(SSL_CTX *ctx,

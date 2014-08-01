@@ -906,7 +906,10 @@ struct ssl_ctx_st
 	void *default_passwd_callback_userdata;
 
 	/* get client cert callback */
-	int (*client_cert_cb)(SSL *ssl, X509 **x509, EVP_PKEY **pkey);
+	int (*client_cert_cb)(SSL *ssl, X509 **out_x509, EVP_PKEY **out_pkey);
+
+	/* get client cert chain callback */
+	int (*client_cert_chain_cb)(SSL *ssl, X509 **out_x509, STACK_OF(X509) **out_chain, EVP_PKEY **out_pkey);
 
 	/* get channel id callback */
 	void (*channel_id_cb)(SSL *ssl, EVP_PKEY **pkey);
@@ -1143,8 +1146,19 @@ OPENSSL_EXPORT SSL_SESSION *(*SSL_CTX_sess_get_get_cb(SSL_CTX *ctx))(struct ssl_
 OPENSSL_EXPORT SSL_SESSION *SSL_magic_pending_session_ptr(void);
 OPENSSL_EXPORT void SSL_CTX_set_info_callback(SSL_CTX *ctx, void (*cb)(const SSL *ssl,int type,int val));
 OPENSSL_EXPORT void (*SSL_CTX_get_info_callback(SSL_CTX *ctx))(const SSL *ssl,int type,int val);
-OPENSSL_EXPORT void SSL_CTX_set_client_cert_cb(SSL_CTX *ctx, int (*client_cert_cb)(SSL *ssl, X509 **x509, EVP_PKEY **pkey));
-OPENSSL_EXPORT int (*SSL_CTX_get_client_cert_cb(SSL_CTX *ctx))(SSL *ssl, X509 **x509, EVP_PKEY **pkey);
+
+/* SSL_CTX_set_client_cert_chain_cb sets a callback to be called when the server
+ * requests a client certificate. To send a certificate, the callback should
+ * return 1 and set |*out_x509| to a certificate to use and |*out_pkey| to the
+ * private key used for client authentication. It may optionally set
+ * |*out_chain| to a chain of intermediate certificates to send with the
+ * certificate. It returns 0 to send no certificate and -1 on error. The caller
+ * takes ownership of all outputs. */
+OPENSSL_EXPORT void SSL_CTX_set_client_cert_chain_cb(SSL_CTX *ctx, int (*client_cert_chain_cb)(SSL *ssl, X509 **out_x509, STACK_OF(X509) **out_chain, EVP_PKEY **out_pkey));
+
+/* Deprecated: Use SSL_CTX_set_client_cert_chain_cb instead. */
+OPENSSL_EXPORT void SSL_CTX_set_client_cert_cb(SSL_CTX *ctx, int (*client_cert_cb)(SSL *ssl, X509 **out_x509, EVP_PKEY **out_pkey));
+
 OPENSSL_EXPORT void SSL_CTX_set_channel_id_cb(SSL_CTX *ctx, void (*channel_id_cb)(SSL *ssl, EVP_PKEY **pkey));
 OPENSSL_EXPORT void (*SSL_CTX_get_channel_id_cb(SSL_CTX *ctx))(SSL *ssl, EVP_PKEY **pkey);
 #ifndef OPENSSL_NO_ENGINE
