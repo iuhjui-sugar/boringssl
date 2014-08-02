@@ -607,20 +607,27 @@ var testCipherSuites = []struct {
 	id   uint16
 }{
 	{"3DES-SHA", TLS_RSA_WITH_3DES_EDE_CBC_SHA},
+	{"AES128-GCM", TLS_RSA_WITH_AES_128_GCM_SHA256},
 	{"AES128-SHA", TLS_RSA_WITH_AES_128_CBC_SHA},
+	{"AES256-GCM", TLS_RSA_WITH_AES_256_GCM_SHA384},
 	{"AES256-SHA", TLS_RSA_WITH_AES_256_CBC_SHA},
+	{"DHE-RSA-3DES-SHA", TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA},
+	{"DHE-RSA-AES128-GCM", TLS_DHE_RSA_WITH_AES_128_GCM_SHA256},
+	{"DHE-RSA-AES128-SHA", TLS_DHE_RSA_WITH_AES_128_CBC_SHA},
+	{"DHE-RSA-AES256-GCM", TLS_DHE_RSA_WITH_AES_256_GCM_SHA384},
+	{"DHE-RSA-AES256-SHA", TLS_DHE_RSA_WITH_AES_256_CBC_SHA},
 	{"ECDHE-ECDSA-AES128-GCM", TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256},
 	{"ECDHE-ECDSA-AES128-SHA", TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA},
 	{"ECDHE-ECDSA-AES256-SHA", TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA},
 	{"ECDHE-ECDSA-RC4-SHA", TLS_ECDHE_ECDSA_WITH_RC4_128_SHA},
 	{"ECDHE-RSA-3DES-SHA", TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA},
 	{"ECDHE-RSA-AES128-GCM", TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256},
-	{"ECDHE-RSA-AES256-GCM", TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384},
 	{"ECDHE-RSA-AES128-SHA", TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA},
+	{"ECDHE-RSA-AES256-GCM", TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384},
 	{"ECDHE-RSA-AES256-SHA", TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA},
 	{"ECDHE-RSA-RC4-SHA", TLS_ECDHE_RSA_WITH_RC4_128_SHA},
-	{"RC4-SHA", TLS_RSA_WITH_RC4_128_SHA},
 	{"RC4-MD5", TLS_RSA_WITH_RC4_128_MD5},
+	{"RC4-SHA", TLS_RSA_WITH_RC4_128_SHA},
 }
 
 func addCipherSuiteTests() {
@@ -660,12 +667,17 @@ func addCipherSuiteTests() {
 				resumeSession: resumeSession,
 			})
 
-			// Go's TLS implementation implements SSLv3 as a server,
-			// but not as a client.
+			// Go's TLS implementation implements SSLv3 as
+			// a server, but not as a client. The shim
+			// also cannot currently perform DHE-RSA as a server.
 			//
 			// TODO(davidben): Implement SSLv3 as a client too to
 			// exercise that code.
-			if ver.version != VersionSSL30 {
+			//
+			// TODO(davidben): Configure the server half
+			// of the shim to be able to perform a DHE-RSA
+			// key exchange.
+			if ver.version != VersionSSL30 && !strings.HasPrefix(suite.name, "DHE-") {
 				testCases = append(testCases, testCase{
 					testType: serverTest,
 					name:     ver.name + "-" + suite.name + "-server",
