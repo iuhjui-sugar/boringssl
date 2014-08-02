@@ -126,7 +126,24 @@ NextCipherSuite:
 		}
 	}
 
-	c.writeRecord(recordTypeHandshake, hello.marshal())
+	var helloBytes []byte
+	if c.config.Bugs.SendV2ClientHello {
+		v2Hello := &v2ClientHelloMsg{
+			vers:        hello.vers,
+			cipherSpecs: make([]uint32, len(hello.cipherSuites)),
+			// No session resumption for V2ClientHello.
+			sessionId: nil,
+			challenge: hello.random,
+		}
+		for i, id := range hello.cipherSuites {
+			v2Hello.cipherSpecs[i] = uint32(id)
+		}
+		helloBytes = v2Hello.marshal()
+		c.writeV2Record(helloBytes)
+	} else {
+		helloBytes = hello.marshal()
+		c.writeRecord(recordTypeHandshake, helloBytes)
+	}
 
 	msg, err := c.readHandshake()
 	if err != nil {
@@ -162,7 +179,7 @@ NextCipherSuite:
 		session:      session,
 	}
 
-	hs.finishedHash.Write(hs.hello.marshal())
+	hs.finishedHash.Write(helloBytes)
 	hs.finishedHash.Write(hs.serverHello.marshal())
 
 	if c.config.Bugs.EarlyChangeCipherSpec > 0 {
