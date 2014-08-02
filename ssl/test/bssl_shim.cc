@@ -127,6 +127,10 @@ static SSL_CTX *setup_ctx(int is_server) {
     goto err;
   }
 
+  if (!SSL_CTX_set_tmp_dh(ssl_ctx, DH_get_2048_256(NULL))) {
+    goto err;
+  }
+
   SSL_CTX_set_session_cache_mode(ssl_ctx, SSL_SESS_CACHE_BOTH);
 
   ssl_ctx->select_certificate_cb = select_certificate_callback;
