@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d6a09f5c_a5638468",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-04T18:58:37Z",
+      "side": 1,
+      "message": "go fmt needed I think.",
+      "revId": "05c12fe7a84c528e47c6aab2a490a8dffa5e0afe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
