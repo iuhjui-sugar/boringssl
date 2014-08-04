@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d6a09f5c_a53ce44a",
+        "filename": "ssl/test/runner/key_agreement.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-04T19:14:08Z",
+      "side": 1,
+      "message": "signParameters (should be named with a verb since it\u0027s not an accessor).",
+      "range": {
+        "startLine": 188,
+        "startChar": 30,
+        "endLine": 188,
+        "endChar": 46
+      },
+      "revId": "4a61b76a75c3ccf6207bb91a0c4651572feb8c9f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d6a09f5c_45a3a054",
+        "filename": "ssl/test/runner/key_agreement.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-04T19:14:08Z",
+      "side": 1,
+      "message": "an",
+      "range": {
+        "startLine": 459,
+        "startChar": 13,
+        "endLine": 459,
+        "endChar": 14
+      },
+      "revId": "4a61b76a75c3ccf6207bb91a0c4651572feb8c9f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d6a09f5c_a56aa422",
+        "filename": "ssl/test/runner/key_agreement.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-04T19:14:08Z",
+      "side": 1,
+      "message": "in a proper DH group, you don\u0027t need to generate a 2048-bit x - a 256-bit one will do. And you know the group in use here.",
+      "range": {
+        "startLine": 476,
+        "startChar": 41,
+        "endLine": 476,
+        "endChar": 43
+      },
+      "revId": "4a61b76a75c3ccf6207bb91a0c4651572feb8c9f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d6a09f5c_c58ed0db",
+        "filename": "ssl/test/runner/key_agreement.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-04T19:14:08Z",
+      "side": 1,
+      "message": "You can append multiple values in a single go:\n\nserverDHParams \u003d append(serverDHParams, byte(len(pBytes) \u003e\u003e 8), byte(len(pBytes)))",
+      "revId": "4a61b76a75c3ccf6207bb91a0c4651572feb8c9f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d6a09f5c_858208ad",
+        "filename": "ssl/test/runner/key_agreement.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-04T19:14:08Z",
+      "side": 1,
+      "message": "usually one would assign skx.key to a local variable (e.g. |k|) and reslice k as consumed:\n\nif len(k) \u003c 2 {\n  return errServerKeyExchange\n}\npLen :\u003d (int(k[0]) \u003c\u003c 8) | int(k[1])\nk \u003d k[2:]\nif len(k) \u003c pLen {\n  return errServerKeyExchange\n}\n...",
+      "revId": "4a61b76a75c3ccf6207bb91a0c4651572feb8c9f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d6a09f5c_457c00f5",
+        "filename": "ssl/test/runner/key_agreement.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-04T19:14:08Z",
+      "side": 1,
+      "message": "Good to check that ka.yTheirs.Sign() !\u003d 0 and it\u0027s \u003c ka.p.",
+      "revId": "4a61b76a75c3ccf6207bb91a0c4651572feb8c9f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
