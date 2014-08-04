@@ -25,10 +25,11 @@ const (
 )
 
 const (
-	maxPlaintext    = 16384        // maximum plaintext payload length
-	maxCiphertext   = 16384 + 2048 // maximum ciphertext payload length
-	recordHeaderLen = 5            // record header length
-	maxHandshake    = 65536        // maximum handshake we support (protocol max is 16 MB)
+	maxPlaintext        = 16384        // maximum plaintext payload length
+	maxCiphertext       = 16384 + 2048 // maximum ciphertext payload length
+	tlsRecordHeaderLen  = 5            // record header length
+	dtlsRecordHeaderLen = 13
+	maxHandshake        = 65536 // maximum handshake we support (protocol max is 16 MB)
 
 	minVersion = VersionSSL30
 	maxVersion = VersionTLS12
@@ -48,6 +49,7 @@ const (
 const (
 	typeClientHello        uint8 = 1
 	typeServerHello        uint8 = 2
+	typeHelloVerifyRequest uint8 = 3
 	typeNewSessionTicket   uint8 = 4
 	typeCertificate        uint8 = 11
 	typeServerKeyExchange  uint8 = 12
@@ -305,6 +307,11 @@ type Config struct {
 	// be used.
 	CurvePreferences []CurveID
 
+	// MaxHandshakeFragmentSize, if non-zero, sets the maximum
+	// handshake fragment size for DTLS. If zero, a default value
+	// of 1024 bytes is used.
+	MaxHandshakeFragmentSize int
+
 	// Bugs specifies optional misbehaviour to be used for testing other
 	// implementations.
 	Bugs ProtocolBugs
@@ -383,6 +390,10 @@ type ProtocolBugs struct {
 	// SkipNewSessionTicket causes the server to skip sending the
 	// NewSessionTicket message despite promising to in ServerHello.
 	SkipNewSessionTicket bool
+
+	// SkipHelloVerifyRequest causes the server in DTLS to skip
+	// the HelloVerifyRequest message.
+	SkipHelloVerifyRequest bool
 }
 
 func (c *Config) serverInit() {
