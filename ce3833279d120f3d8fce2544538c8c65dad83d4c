@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d6a09f5c_050a78b1",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1320,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-04T18:53:22Z",
+      "side": 1,
+      "message": "I think this should be a []uint16.\n\nWe\u0027ll never actually have any cipher suite ids outside the 16-bit range. And then it saves a conversion when constructing the v2ClientHelloMsg and also saves adding eqUint32s, below.",
+      "range": {
+        "startLine": 1320,
+        "startChar": 15,
+        "endLine": 1320,
+        "endChar": 21
+      },
+      "revId": "ce3833279d120f3d8fce2544538c8c65dad83d4c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d6a09f5c_a50624ac",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-04T18:53:22Z",
+      "side": 1,
+      "message": "need to run go fmt I think.",
+      "range": {
+        "startLine": 378,
+        "startChar": 8,
+        "endLine": 378,
+        "endChar": 9
+      },
+      "revId": "ce3833279d120f3d8fce2544538c8c65dad83d4c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
