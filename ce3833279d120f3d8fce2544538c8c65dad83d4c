@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "56dbcf05_b9e2c3e2",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1320,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-04T19:56:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6a09f5c_050a78b1",
+      "range": {
+        "startLine": 1320,
+        "startChar": 15,
+        "endLine": 1320,
+        "endChar": 21
+      },
+      "revId": "ce3833279d120f3d8fce2544538c8c65dad83d4c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d6a09f5c_a50624ac",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2014-08-04T18:53:22Z",
       "side": 1,
       "message": "need to run go fmt I think.",
+      "range": {
+        "startLine": 378,
+        "startChar": 8,
+        "endLine": 378,
+        "endChar": 9
+      },
+      "revId": "ce3833279d120f3d8fce2544538c8c65dad83d4c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56dbcf05_190bcff9",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-04T19:56:29Z",
+      "side": 1,
+      "message": "Apparently it doesn\u0027t realign if there\u0027s a literal? All the other tests are similar. (Did run go fmt, which is why lines 350 and 362 changed.)",
+      "parentUuid": "d6a09f5c_a50624ac",
       "range": {
         "startLine": 378,
         "startChar": 8,
