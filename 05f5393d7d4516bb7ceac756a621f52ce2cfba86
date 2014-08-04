@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56dbcf05_b92f23bb",
+        "filename": "crypto/bn/exponentiation.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1076,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-04T22:36:35Z",
+      "side": 1,
+      "message": "This can also be p-\u003edmax. Not sure if either\u0027s preferable. One potentially leaks the number of words, but the probability of it not being full size is around 1/2^64 for a key sized a power of two. The other could potentially leak something about how p was computed, but that\u0027s likely leaked already.",
+      "range": {
+        "startLine": 1076,
+        "startChar": 24,
+        "endLine": 1076,
+        "endChar": 27
+      },
+      "revId": "05f5393d7d4516bb7ceac756a621f52ce2cfba86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56dbcf05_84d75660",
+        "filename": "crypto/bn/exponentiation.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1080,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-04T22:36:35Z",
+      "side": 1,
+      "message": "Could also be bits \u003e\u003d max_bits - 4, but I think this is clearer and surely the compiler would optimize this properly.",
+      "revId": "05f5393d7d4516bb7ceac756a621f52ce2cfba86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56dbcf05_24dc6a81",
+        "filename": "crypto/bn/exponentiation.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1090,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-04T22:36:35Z",
+      "side": 1,
+      "message": "I\u0027m really not sure why this function is written in assembly and not with pointer fiddling.",
+      "revId": "05f5393d7d4516bb7ceac756a621f52ce2cfba86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
