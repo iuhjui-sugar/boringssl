@@ -42,6 +42,29 @@
     },
     {
       "key": {
+        "uuid": "56dbcf05_04e3663b",
+        "filename": "crypto/bn/exponentiation.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1082,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-04T22:37:46Z",
+      "side": 1,
+      "message": "This could also cast to uint8_t and read only one byte or so. Though gcc seems to already compile it to a movzbl.",
+      "range": {
+        "startLine": 1082,
+        "startChar": 17,
+        "endLine": 1082,
+        "endChar": 39
+      },
+      "revId": "05f5393d7d4516bb7ceac756a621f52ce2cfba86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "56dbcf05_24dc6a81",
         "filename": "crypto/bn/exponentiation.c",
         "patchSetId": 1
