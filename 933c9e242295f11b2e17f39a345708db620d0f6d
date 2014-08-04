@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "56dbcf05_79821bb0",
+        "filename": "crypto/bio/bio_test.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-04T21:05:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6a09f5c_30dc9081",
+      "revId": "933c9e242295f11b2e17f39a345708db620d0f6d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d6a09f5c_f0e5c83f",
         "filename": "crypto/bio/printf.c",
         "patchSetId": 4
@@ -30,6 +48,30 @@
       "writtenOn": "2014-08-04T20:09:42Z",
       "side": 1,
       "message": "\u003e\u003d seemed better and is closer to the suggestion in the manpage.",
+      "range": {
+        "startLine": 78,
+        "startChar": 14,
+        "endLine": 78,
+        "endChar": 20
+      },
+      "revId": "933c9e242295f11b2e17f39a345708db620d0f6d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56dbcf05_19774f15",
+        "filename": "crypto/bio/printf.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-04T21:05:55Z",
+      "side": 1,
+      "message": "Done. (Yeah, I guess it\u0027s whether you prefer counting bytes written or non-NUL characters there\u0027s room for. *shrug*)",
+      "parentUuid": "d6a09f5c_f0e5c83f",
       "range": {
         "startLine": 78,
         "startChar": 14,
