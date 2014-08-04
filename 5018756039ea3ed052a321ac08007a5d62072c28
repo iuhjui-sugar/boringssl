@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d6a09f5c_05a91810",
+        "filename": "crypto/digest/md32_common.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-04T19:23:08Z",
+      "side": 1,
+      "message": "capital X",
+      "range": {
+        "startLine": 172,
+        "startChar": 35,
+        "endLine": 172,
+        "endChar": 36
+      },
+      "revId": "5018756039ea3ed052a321ac08007a5d62072c28",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
