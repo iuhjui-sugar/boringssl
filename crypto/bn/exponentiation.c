@@ -108,6 +108,8 @@
 
 #include <openssl/bn.h>
 
+#include <assert.h>
+
 #include <openssl/cpu.h>
 #include <openssl/err.h>
 #include <openssl/mem.h>
@@ -991,7 +993,6 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
     void bn_power5(BN_ULONG * rp, const BN_ULONG * ap, const void * table,
                    const BN_ULONG * np, const BN_ULONG * n0, int num,
                    int power);
-    int bn_get_bits5(const BN_ULONG * ap, int off);
     int bn_from_montgomery(BN_ULONG * rp, const BN_ULONG * ap,
                            const BN_ULONG * not_used, const BN_ULONG * np,
                            const BN_ULONG * n0, int num);
@@ -1049,7 +1050,7 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
     /* Scan the exponent one window at a time starting from the most
      * significant bits.
      */
-    if (top & 7)
+    if (top & 7) {
       while (bits >= 0) {
         for (wvalue = 0, i = 0; i < 5; i++, bits--)
           wvalue = (wvalue << 1) + BN_is_bit_set(p, bits);
@@ -1061,9 +1062,28 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
         bn_mul_mont(tmp.d, tmp.d, tmp.d, np, n0, top);
         bn_mul_mont_gather5(tmp.d, tmp.d, powerbuf, np, n0, top, wvalue);
       }
-    else {
+    } else {
+      const uint8_t *p_bytes = (const uint8_t *)p->d;
+      int max_bits = p->top * BN_BITS2;
+      assert(bits < max_bits);
+      /* If the first bit to be read lands in the last byte, unroll the first
+       * iteration to avoid reading past the bounds of |p->d|. (After the first
+       * iteration, we are guaranteed to be past the last byte.) Note |bits|
+       * here is the top bit, inclusive. */
+      if (bits - 4 >= max_bits - 8) {
+        /* Read five bits from |bits-4| through |bits|, inclusive. */
+        wvalue = p_bytes[p->top * BN_BYTES - 1];
+        wvalue >>= (bits - 4) & 7;
+        wvalue &= 0x1f;
+        bits -= 5;
+        bn_power5(tmp.d, tmp.d, powerbuf, np2, n0, top, wvalue);
+      }
       while (bits >= 0) {
-        wvalue = bn_get_bits5(p->d, bits - 4);
+        /* Read five bits from |bits-4| through |bits|, inclusive. */
+        int first_bit = bits - 4;
+        wvalue = *(const uint16_t *) (p_bytes + (first_bit >> 3));
+        wvalue >>= first_bit & 7;
+        wvalue &= 0x1f;
         bits -= 5;
         bn_power5(tmp.d, tmp.d, powerbuf, np2, n0, top, wvalue);
       }
