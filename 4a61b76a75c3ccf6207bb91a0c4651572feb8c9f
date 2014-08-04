@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "56dbcf05_99fedf79",
+        "filename": "ssl/test/runner/key_agreement.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-04T19:57:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6a09f5c_a53ce44a",
+      "range": {
+        "startLine": 188,
+        "startChar": 30,
+        "endLine": 188,
+        "endChar": 46
+      },
+      "revId": "4a61b76a75c3ccf6207bb91a0c4651572feb8c9f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d6a09f5c_45a3a054",
         "filename": "ssl/test/runner/key_agreement.go",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2014-08-04T19:14:08Z",
       "side": 1,
       "message": "an",
+      "range": {
+        "startLine": 459,
+        "startChar": 13,
+        "endLine": 459,
+        "endChar": 14
+      },
+      "revId": "4a61b76a75c3ccf6207bb91a0c4651572feb8c9f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56dbcf05_b9fba388",
+        "filename": "ssl/test/runner/key_agreement.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-04T19:57:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6a09f5c_45a3a054",
       "range": {
         "startLine": 459,
         "startChar": 13,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "56dbcf05_99db3f26",
+        "filename": "ssl/test/runner/key_agreement.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-04T19:57:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6a09f5c_a56aa422",
+      "range": {
+        "startLine": 476,
+        "startChar": 41,
+        "endLine": 476,
+        "endChar": 43
+      },
+      "revId": "4a61b76a75c3ccf6207bb91a0c4651572feb8c9f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d6a09f5c_c58ed0db",
         "filename": "ssl/test/runner/key_agreement.go",
         "patchSetId": 2
@@ -82,6 +154,24 @@
       "writtenOn": "2014-08-04T19:14:08Z",
       "side": 1,
       "message": "You can append multiple values in a single go:\n\nserverDHParams \u003d append(serverDHParams, byte(len(pBytes) \u003e\u003e 8), byte(len(pBytes)))",
+      "revId": "4a61b76a75c3ccf6207bb91a0c4651572feb8c9f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56dbcf05_59be37c2",
+        "filename": "ssl/test/runner/key_agreement.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-04T19:57:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6a09f5c_c58ed0db",
       "revId": "4a61b76a75c3ccf6207bb91a0c4651572feb8c9f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -105,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "56dbcf05_19c8af5a",
+        "filename": "ssl/test/runner/key_agreement.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-04T19:57:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6a09f5c_858208ad",
+      "revId": "4a61b76a75c3ccf6207bb91a0c4651572feb8c9f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d6a09f5c_457c00f5",
         "filename": "ssl/test/runner/key_agreement.go",
         "patchSetId": 2
@@ -116,6 +224,24 @@
       "writtenOn": "2014-08-04T19:14:08Z",
       "side": 1,
       "message": "Good to check that ka.yTheirs.Sign() !\u003d 0 and it\u0027s \u003c ka.p.",
+      "revId": "4a61b76a75c3ccf6207bb91a0c4651572feb8c9f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56dbcf05_d9d1c709",
+        "filename": "ssl/test/runner/key_agreement.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-04T19:57:08Z",
+      "side": 1,
+      "message": "Done. (Well, moved the check up here from generateClientKeyExchange.)",
+      "parentUuid": "d6a09f5c_457c00f5",
       "revId": "4a61b76a75c3ccf6207bb91a0c4651572feb8c9f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
