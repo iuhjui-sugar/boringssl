@@ -108,6 +108,8 @@
 
 #include <openssl/bn.h>
 
+#include <assert.h>
+
 #include <openssl/cpu.h>
 #include <openssl/err.h>
 #include <openssl/mem.h>
@@ -991,6 +993,11 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
     void bn_power5(BN_ULONG * rp, const BN_ULONG * ap, const void * table,
                    const BN_ULONG * np, const BN_ULONG * n0, int num,
                    int power);
+
+    /* bn_get_bits5 reads the 5 bits from [off, off+5) from |ap| and returns
+     * them in the least-significant five bits of the result. Note: it always
+     * reads 2 bytes from |off/8|, so byte |off/8 + 1| must be readable, even
+     * the 5 bits lie entirely within byte |off/8|. */
     int bn_get_bits5(const BN_ULONG * ap, int off);
     int bn_from_montgomery(BN_ULONG * rp, const BN_ULONG * ap,
                            const BN_ULONG * not_used, const BN_ULONG * np,
@@ -1062,7 +1069,24 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
         bn_mul_mont_gather5(tmp.d, tmp.d, powerbuf, np, n0, top, wvalue);
       }
     else {
+      /* bn_get_bits5 cannot be used on any read that does not hit the
+       * second-to-last byte of |p->d|. Unroll the first iteration the loop to
+       * avoid reading off the edge of the buffer. After the first iteration, we
+       * read at least 10 bits from the top which is past the last byte. */
+      int max_bits = p->top * BN_BITS2;
+      assert(bits < max_bits);
+      /* If the first bit to be read lands in the last byte. Note |bits| here is
+       * the top bit, inclusive. */
+      if (bits - 4 >= max_bits - 8) {
+        /* Read five bits from |bits-4| through |bits|, inclusive. */
+        wvalue = p->d[p->top - 1] >> 56;
+        wvalue >>= (bits - 4) & 7;
+        wvalue &= 0x1f;
+        bits -= 5;
+        bn_power5(tmp.d, tmp.d, powerbuf, np2, n0, top, wvalue);
+      }
       while (bits >= 0) {
+        /* Read five bits from |bits-4| through |bits|, inclusive. */
         wvalue = bn_get_bits5(p->d, bits - 4);
         bits -= 5;
         bn_power5(tmp.d, tmp.d, powerbuf, np2, n0, top, wvalue);
