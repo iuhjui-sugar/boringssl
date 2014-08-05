@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "36b9fbaa_adb129e3",
+        "filename": "crypto/bn/exponentiation.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1073,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-05T20:51:48Z",
+      "side": 1,
+      "message": "Have confirmed that max_bits \u003e\u003d 8. However, it\u0027s not clear that bits \u003e\u003d 4. Here |bits| is an int so bits - 4 is valid none the less.",
+      "range": {
+        "startLine": 1073,
+        "startChar": 22,
+        "endLine": 1073,
+        "endChar": 34
+      },
+      "revId": "3e8f11f28f38b0acbc45615434b03f6f2f66aa75",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "36b9fbaa_ad860903",
+        "filename": "crypto/bn/exponentiation.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1084,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-05T20:51:48Z",
+      "side": 1,
+      "message": "I fear that first_bit might be negative, leading to a crash.\n\nThe loop at L1046 will reduce bits until it\u0027s a multiple of 5, but it could reduce it to zero I think. This section is guarded by bits \u003e\u003d 0, so bits \u003d\u003d 0 will pass that check too.",
+      "range": {
+        "startLine": 1084,
+        "startChar": 49,
+        "endLine": 1084,
+        "endChar": 59
+      },
+      "revId": "3e8f11f28f38b0acbc45615434b03f6f2f66aa75",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
