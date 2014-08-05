@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "56390f00_e9e26de3",
+        "filename": "ssl/test/async_bio.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-05T19:32:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36b9fbaa_6a18f7de",
+      "range": {
+        "startLine": 29,
+        "startChar": 25,
+        "endLine": 29,
+        "endChar": 26
+      },
+      "revId": "ef18394f43e96f545720125d07c195845ab24070",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "36b9fbaa_aa1d8fca",
         "filename": "ssl/test/async_bio.cc",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2014-08-05T18:17:47Z",
       "side": 1,
       "message": "this switch seems a little superfluous.",
+      "range": {
+        "startLine": 128,
+        "startChar": 2,
+        "endLine": 128,
+        "endChar": 16
+      },
+      "revId": "ef18394f43e96f545720125d07c195845ab24070",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56390f00_890be1f7",
+        "filename": "ssl/test/async_bio.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-05T19:32:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36b9fbaa_aa1d8fca",
       "range": {
         "startLine": 128,
         "startChar": 2,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "56390f00_c904c9e9",
+        "filename": "ssl/test/async_bio.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-05T19:32:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36b9fbaa_6abd5752",
+      "revId": "ef18394f43e96f545720125d07c195845ab24070",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "36b9fbaa_2ac75fde",
         "filename": "ssl/test/async_bio.h",
         "patchSetId": 4
@@ -82,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "56390f00_69101d26",
+        "filename": "ssl/test/async_bio.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-05T19:32:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36b9fbaa_2ac75fde",
+      "revId": "ef18394f43e96f545720125d07c195845ab24070",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "36b9fbaa_caab2309",
         "filename": "ssl/test/bssl_shim.cc",
         "patchSetId": 4
@@ -93,6 +177,24 @@
       "writtenOn": "2014-08-05T18:17:47Z",
       "side": 1,
       "message": "{ } around body.",
+      "revId": "ef18394f43e96f545720125d07c195845ab24070",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56390f00_a90185d7",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-05T19:32:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36b9fbaa_caab2309",
       "revId": "ef18394f43e96f545720125d07c195845ab24070",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -122,6 +224,30 @@
     },
     {
       "key": {
+        "uuid": "56390f00_89c8015d",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-05T19:32:35Z",
+      "side": 1,
+      "message": "Done. And changed conn.go slightly to reflect those sematics.",
+      "parentUuid": "36b9fbaa_ead14790",
+      "range": {
+        "startLine": 398,
+        "startChar": 1,
+        "endLine": 398,
+        "endChar": 22
+      },
+      "revId": "ef18394f43e96f545720125d07c195845ab24070",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "36b9fbaa_4ae1735d",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 4
@@ -133,6 +259,24 @@
       "writtenOn": "2014-08-05T18:17:47Z",
       "side": 1,
       "message": "opinions vary, but I tend to use var in this situation:\n\nvar suffix string\nvar flags []string\nvar splitHandshakeRecords int\n\nAlso s/splitHandshakeRecords/handshakeRecordLength/ ? Other it seems too close to |splitHandshake|.",
+      "revId": "ef18394f43e96f545720125d07c195845ab24070",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56390f00_a9cea563",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 795,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-05T19:32:35Z",
+      "side": 1,
+      "message": "Done. (Chose maxHandshakeRecordLength to match the new config name.)",
+      "parentUuid": "36b9fbaa_4ae1735d",
       "revId": "ef18394f43e96f545720125d07c195845ab24070",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -156,6 +300,24 @@
     },
     {
       "key": {
+        "uuid": "56390f00_69cdbd6a",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 799,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-05T19:32:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36b9fbaa_6ae6b778",
+      "revId": "ef18394f43e96f545720125d07c195845ab24070",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "36b9fbaa_2ae0bf56",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 4
@@ -167,6 +329,30 @@
       "writtenOn": "2014-08-05T18:17:47Z",
       "side": 1,
       "message": "ditto.",
+      "range": {
+        "startLine": 802,
+        "startChar": 9,
+        "endLine": 802,
+        "endChar": 12
+      },
+      "revId": "ef18394f43e96f545720125d07c195845ab24070",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56390f00_c9d1690a",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 802,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-05T19:32:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36b9fbaa_2ae0bf56",
       "range": {
         "startLine": 802,
         "startChar": 9,
