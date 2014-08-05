@@ -69,6 +69,30 @@
       "revId": "3e8f11f28f38b0acbc45615434b03f6f2f66aa75",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "36b9fbaa_4d198d12",
+        "filename": "crypto/bn/exponentiation.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1084,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-05T21:18:14Z",
+      "side": 1,
+      "message": "Can you add a comment after the L1046 loop:\n\n// At this point, |bits| is ≡ 4 mod 5 and \u003e\u003d -1.\nassert(bits \u003e\u003d -1 \u0026\u0026 (bits \u003d\u003d -1 || bits % 5 \u003d\u003d 4));",
+      "parentUuid": "56390f00_74fab0da",
+      "range": {
+        "startLine": 1084,
+        "startChar": 49,
+        "endLine": 1084,
+        "endChar": 59
+      },
+      "revId": "3e8f11f28f38b0acbc45615434b03f6f2f66aa75",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
