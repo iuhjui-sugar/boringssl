@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56390f00_c94fa9a1",
+        "filename": "crypto/ec/simple.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1274,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-05T21:01:15Z",
+      "side": 1,
+      "message": "Nit: extra space.",
+      "range": {
+        "startLine": 1274,
+        "startChar": 46,
+        "endLine": 1274,
+        "endChar": 47
+      },
+      "revId": "633d149fd57ff878564d493c5813c5fa751c3585",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
