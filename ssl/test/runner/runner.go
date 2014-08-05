@@ -403,6 +403,57 @@ var testCases = []testCase{
 			},
 		},
 	},
+	{
+		name: "SplitHandshakeRecords-client",
+		config: Config{
+			Bugs: ProtocolBugs{
+				SplitHandshakeRecords: 10,
+			},
+		},
+		resumeSession: true,
+	},
+	{
+		testType: serverTest,
+		name:     "SplitHandshakeRecords-server",
+		config: Config{
+			Bugs: ProtocolBugs{
+				SplitHandshakeRecords: 10,
+			},
+		},
+		resumeSession: true,
+	},
+	{
+		name:          "Async-Client",
+		resumeSession: true,
+		flags:         []string{"-async"},
+	},
+	{
+		testType:      serverTest,
+		name:          "Async-Server",
+		resumeSession: true,
+		flags:         []string{"-async"},
+	},
+	{
+		name: "Async-SplitHandshakeRecords-Client",
+		config: Config{
+			Bugs: ProtocolBugs{
+				SplitHandshakeRecords: 10,
+			},
+		},
+		resumeSession: true,
+		flags:         []string{"-async"},
+	},
+	{
+		testType: serverTest,
+		name:     "Async-SplitHandshakeRecords-Server",
+		config: Config{
+			Bugs: ProtocolBugs{
+				SplitHandshakeRecords: 10,
+			},
+		},
+		resumeSession: true,
+		flags:         []string{"-async"},
+	},
 }
 
 func doExchange(testType testType, config *Config, conn net.Conn, messageLen int) error {

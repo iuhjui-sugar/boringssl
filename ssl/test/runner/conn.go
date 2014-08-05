@@ -714,11 +714,16 @@ func (c *Conn) writeV2Record(data []byte) (n int, err error) {
 // c.out.Mutex <= L.
 func (c *Conn) writeRecord(typ recordType, data []byte) (n int, err error) {
 	b := c.out.newBlock()
+	first := true
 	for len(data) > 0 {
 		m := len(data)
 		if m > maxPlaintext {
 			m = maxPlaintext
 		}
+		if first && typ == recordTypeHandshake && c.config.Bugs.SplitHandshakeRecords > 0 && m > c.config.Bugs.SplitHandshakeRecords {
+			m = c.config.Bugs.SplitHandshakeRecords
+		}
+		first = false
 		explicitIVLen := 0
 		explicitIVIsSeq := false
 
