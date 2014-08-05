@@ -391,6 +391,11 @@ type ProtocolBugs struct {
 	// SendFallbackSCSV causes the client to include
 	// TLS_FALLBACK_SCSV in the ClientHello.
 	SendFallbackSCSV bool
+
+	// SplitHandshakeRecords, if non-zero, will cause the record
+	// layer to split any handshake message in two at a given
+	// length.
+	SplitHandshakeRecords int
 }
 
 func (c *Config) serverInit() {
