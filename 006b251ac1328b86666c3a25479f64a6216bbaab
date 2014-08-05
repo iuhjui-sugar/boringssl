@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "36b9fbaa_6a347768",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1148,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-05T17:53:45Z",
+      "side": 1,
+      "message": "out_chain makes me question whether the leaf certificate should also be included. I think from the comment that it should not, in which case, what about |out_intermediates|?",
+      "range": {
+        "startLine": 1148,
+        "startChar": 5,
+        "endLine": 1148,
+        "endChar": 14
+      },
+      "revId": "006b251ac1328b86666c3a25479f64a6216bbaab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "36b9fbaa_8a3c4b4b",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1149,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-05T17:53:45Z",
+      "side": 1,
+      "message": "How about one on success and zero on error? *out_x509 \u003d\u003d NULL can indicate that no certificate should be sent.\n\nLater: it looks like -1 was used to request a stack unwind in the old callback. It seems like this might be complex enough to warrant an enum:\n\nenum openssl_client_cert_chain_cb_t {\n  ...\n}\n\nWith OPENSSL_CLIENT_CERT_FOUND, OPENSSL_CLIENT_CERT_NONE, OPENSSL_CLIENT_CERT_LOOKUP_STARTED, OPENSSL_CLIENT_CERT_ERROR or something.\n\nAlso, what about the ownership of the X509, EVP_PKEY etc? Does the callback gift a reference when it sets these values? I looks like the caller of the callback takes a reference, but that\u0027s a pain for the callback: what if it just loaded the X509 etc? Now it has a problem because it can\u0027t drop its reference before returning so has to stuff them somewhere so that they can be destroyed later.",
+      "range": {
+        "startLine": 1149,
+        "startChar": 16,
+        "endLine": 1149,
+        "endChar": 68
+      },
+      "revId": "006b251ac1328b86666c3a25479f64a6216bbaab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
