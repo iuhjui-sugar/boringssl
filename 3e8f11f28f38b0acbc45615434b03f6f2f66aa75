@@ -45,6 +45,30 @@
       "revId": "3e8f11f28f38b0acbc45615434b03f6f2f66aa75",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56390f00_74fab0da",
+        "filename": "crypto/bn/exponentiation.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1084,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-05T20:57:44Z",
+      "side": 1,
+      "message": "It actually reduces bits until it\u0027s 4 mod 5 because bits is the last bit inclusive. (The condition in line 1046 is i \u003e\u003d 0.) So I think it\u0027s fine? I believe lowest bits can go as low as -1 and then the while loop\u0027s check will work. But, yeah, I\u0027m not too happy about how finicky this logic is.",
+      "parentUuid": "36b9fbaa_ad860903",
+      "range": {
+        "startLine": 1084,
+        "startChar": 49,
+        "endLine": 1084,
+        "endChar": 59
+      },
+      "revId": "3e8f11f28f38b0acbc45615434b03f6f2f66aa75",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
