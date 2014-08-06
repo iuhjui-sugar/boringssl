@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56390f00_8ad3cc41",
+        "filename": "crypto/bytestring/cbb.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-06T23:37:06Z",
+      "side": 1,
+      "message": "Maybe assert(cbb-\u003epending_len_len \u003d\u003d 1) here for good measure, since everything else needs it to be 1.",
+      "revId": "51b8bfb9fb963a68a1d75a67ffe8ad52076c8fe1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
