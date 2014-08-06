@@ -93,6 +93,30 @@
       "revId": "3e8f11f28f38b0acbc45615434b03f6f2f66aa75",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56390f00_749d90e4",
+        "filename": "crypto/bn/exponentiation.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1084,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-06T00:11:19Z",
+      "side": 1,
+      "message": "Done. Also added an assertion for max_bits.",
+      "parentUuid": "36b9fbaa_4d198d12",
+      "range": {
+        "startLine": 1084,
+        "startChar": 49,
+        "endLine": 1084,
+        "endChar": 59
+      },
+      "revId": "3e8f11f28f38b0acbc45615434b03f6f2f66aa75",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
