@@ -201,8 +201,8 @@ int CBB_flush(CBB *cbb) {
       if (!cbb_buffer_add(cbb->base, NULL, extra_bytes)) {
         return 0;
       }
-      memmove(cbb->base->buf + cbb->offset + extra_bytes,
-              cbb->base->buf + cbb->offset, len);
+      memmove(cbb->base->buf + child_start + extra_bytes,
+              cbb->base->buf + child_start, len);
     }
     cbb->base->buf[cbb->offset++] = initial_length_byte;
     cbb->pending_len_len = len_len - 1;
