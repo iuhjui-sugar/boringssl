@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56390f00_4f76f9b2",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-06T03:47:35Z",
+      "side": 1,
+      "message": "do_ssl3_write can\u0027t re-entrantly call ssl3_write, can it? Nothing outside this function reads it and, so, apart from that possibility, this should be equivalent to setting it at line 629. Which in turn should be equivalent to pulling it out of s-\u003es3 and into a local variable, initialized at 0, right?",
+      "revId": "5ea669b7e0be21dcf6b4180f683ee21cb81589b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56390f00_cf896967",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-06T03:47:35Z",
+      "side": 1,
+      "message": "Hrm. I don\u0027t think this is new with the change, and I still don\u0027t completely understand this code. But say we ssl3_write(1k), assemble a fragmented record, and don\u0027t manage to write it all. Maybe we write all but the final byte, so almost all of the previous IV has since hit the wire.\n\nThen the next iteration, we get ssl3_write(2k) with the first 1k the same data as before and then another 1k of additional data. We hit line 598, set fragment \u003d 1, and then go to do_ssl3_write. There\u0027s still a pending SSL3_BUFFER, so we ssl3_write_pending. And say that succeeds this time. So we return wb-\u003ewpend_ret and move on.\n\nssl3_write now thinks that the IV randomization is done and leaves record_split_done \u003d 1. The next record then gets written out without IV randomization.\n\nI thiiink checking wb-\u003eleft in line 596 would do the trick? Or perhaps if you set record_split_done \u003d 0 if i !\u003d n? Although that\u0027s is kinda ugly. I wonder if the fragmenting should be somewhere else. \n\n(Actually, is there any reason to maintain record_split_done at all? As opposed to always fragmenting every \u003e 1 byte application record.)",
+      "revId": "5ea669b7e0be21dcf6b4180f683ee21cb81589b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56390f00_14ac040f",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-06T03:47:35Z",
+      "side": 1,
+      "message": "Right, I keep forgetting this file is C++. (Say, would you object to my RAII-ing everything to avoid all this \u0027goto err\u0027 stuff? Also had been thinking we could do with a config struct that gets parsed once, in case the config wants to influence the SSL_CTX.)",
+      "range": {
+        "startLine": 186,
+        "startChar": 2,
+        "endLine": 186,
+        "endChar": 6
+      },
+      "revId": "5ea669b7e0be21dcf6b4180f683ee21cb81589b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
