@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "56390f00_da4f65a1",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-06T16:58:16Z",
+      "side": 1,
+      "message": "\u003e (Actually, is there any reason to maintain record_split_done at all? As opposed to always fragmenting every \u003e 1 byte application record.)\n\nAlright, now that I\u0027m more awake, I suppose you only want to fragment every time you get a new chunk of data you haven\u0027t committed to previously. So if we\u0027re writing out one buffer in a single call, that only needs one fragmenting. (Actually, that\u0027s a pretty good argument for why record_split_done should be a local variable.)\n\nPerhaps the ssl3_write_pending check could be moved to ssl3_write. Though do_ssl3_write is called in ssl3_dispatch_alert too, so do_ssl3_write would still need a check, or ssl3_dispatch_alert gets a copy too (maybe that\u0027s what we want). And if ssl3_dispatch_alert calls ssl3_write instead of ssl3_do_write, then ssl3_write can be re-entrantly called, making the local variable comment above more complicated...",
+      "parentUuid": "56390f00_cf896967",
+      "revId": "5ea669b7e0be21dcf6b4180f683ee21cb81589b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "56390f00_14ac040f",
         "filename": "ssl/test/bssl_shim.cc",
         "patchSetId": 3
