@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56390f00_0accdcf1",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-07T16:14:56Z",
+      "side": 1,
+      "message": "Oh yeah, I was thinking we\u0027d might want this someday for porting the ssl/ stuff over, mostly for EVP_DigestSignFinal and friends. Though the EVP ones are a little weirder in that passing in a NULL data sometimes gives you an upper bound for the length rather than the final length itself. I was thinking we might want a pair like CBB_reserve + CBB_advance or something.\n\nAnyway, let\u0027s just leave this as-is for now. We can cross that bridge when we come to it.",
+      "revId": "a20577e4f90d0aa81e1e9273d31cc4d208f05a9a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
