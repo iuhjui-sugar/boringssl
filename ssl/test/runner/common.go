@@ -401,6 +401,10 @@ type ProtocolBugs struct {
 	// ClientKeyExchange with the specified version rather than the
 	// client_version when performing the RSA key exchange.
 	RsaClientKeyExchangeVersion uint16
+
+	// ExpectVersion, if non-zero, is the TLS version expected to be
+	// negotiated.
+	ExpectVersion uint16
 }
 
 func (c *Config) serverInit() {
