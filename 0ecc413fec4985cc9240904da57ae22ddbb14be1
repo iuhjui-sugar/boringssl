@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6e5ebf4_de5021ed",
+        "filename": "ssl/s23_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-07T22:39:19Z",
+      "side": 1,
+      "message": "Hah. This block isn\u0027t actually attributed to me, but I guess upstream put it in the same one. I\u0027ll port this over to CBS and tidy up all the SSLv2 remnants in this function later. (Hence the CLs adding lots of test coverage for this bit.)",
+      "revId": "0ecc413fec4985cc9240904da57ae22ddbb14be1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
