@@ -16,6 +16,24 @@
       "revId": "a20577e4f90d0aa81e1e9273d31cc4d208f05a9a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "161a37b4_a6ba46be",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-07T18:10:03Z",
+      "side": 1,
+      "message": "(For a digest or signature, the contents are small enough that I think we can reasonably copy them into place.)",
+      "parentUuid": "56390f00_0accdcf1",
+      "revId": "a20577e4f90d0aa81e1e9273d31cc4d208f05a9a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
