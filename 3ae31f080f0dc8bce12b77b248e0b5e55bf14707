@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6e5ebf4_3eed85d9",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 871,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-07T22:41:04Z",
+      "side": 1,
+      "message": "This stresses these tests more. Now we can get a partial handshake-level message length, while using 10 always split past the header to avoid tickling that the fragmentation bug.",
+      "revId": "3ae31f080f0dc8bce12b77b248e0b5e55bf14707",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
