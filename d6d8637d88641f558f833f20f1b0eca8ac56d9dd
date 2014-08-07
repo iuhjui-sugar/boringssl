@@ -16,6 +16,24 @@
       "revId": "d6d8637d88641f558f833f20f1b0eca8ac56d9dd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "161a37b4_29c4697a",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2335,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-07T21:11:21Z",
+      "side": 1,
+      "message": "I don\u0027t know either. I can\u0027t think of a point where one needs to send an EC point during a resumption handshake.",
+      "parentUuid": "b6e5ebf4_dbdbd324",
+      "revId": "d6d8637d88641f558f833f20f1b0eca8ac56d9dd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
