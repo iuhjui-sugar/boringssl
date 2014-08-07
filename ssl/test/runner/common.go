@@ -410,6 +410,10 @@ type ProtocolBugs struct {
 	// ExpectVersion, if non-zero, is the TLS version expected to be
 	// negotiated.
 	ExpectVersion uint16
+
+	// RenewTicketOnResume causes the server to renew the session ticket and
+	// send a NewSessionTicket message during an abbreviated handshake.
+	RenewTicketOnResume bool
 }
 
 func (c *Config) serverInit() {
