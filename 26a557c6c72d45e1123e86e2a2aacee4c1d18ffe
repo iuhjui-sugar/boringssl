@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56390f00_4abd4452",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-07T03:17:35Z",
+      "side": 1,
+      "message": "Not doing this makes go fmt want to indent the second test, which looks silly.",
+      "revId": "26a557c6c72d45e1123e86e2a2aacee4c1d18ffe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
