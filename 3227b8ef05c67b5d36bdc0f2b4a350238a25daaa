@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "161a37b4_09c36d43",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-07T22:04:55Z",
+      "side": 1,
+      "message": "why this change?",
+      "range": {
+        "startLine": 752,
+        "startChar": 13,
+        "endLine": 752,
+        "endChar": 19
+      },
+      "revId": "3227b8ef05c67b5d36bdc0f2b4a350238a25daaa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
