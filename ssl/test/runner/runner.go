@@ -736,8 +736,8 @@ func addCBCSplittingTests() {
 			"-write-different-record-sizes",
 			"-cbc-record-splitting",
 		},
-	},
-	testCase{
+	})
+	testCases = append(testCases, testCase{
 		name: "CBCRecordSplittingPartialWrite",
 		config: Config{
 			MaxVersion:   VersionTLS10,
@@ -957,6 +957,51 @@ func addStateMachineCoverageTests(async bool, splitHandshake bool) {
 	})
 }
 
+func addRsaRollbackTests() {
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "Rsa-BadVersion",
+		config: Config{
+			CipherSuites: []uint16{TLS_RSA_WITH_RC4_128_SHA},
+			Bugs: ProtocolBugs{
+				RsaClientKeyExchangeVersion: VersionTLS11,
+			},
+		},
+		shouldFail:    true,
+		expectedError: ":DECRYPTION_FAILED_OR_BAD_RECORD_MAC:",
+	})
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "Rsa-RollbackQuirk",
+		config: Config{
+			CipherSuites: []uint16{TLS_RSA_WITH_RC4_128_SHA},
+			Bugs: ProtocolBugs{
+				RsaClientKeyExchangeVersion: VersionTLS11,
+			},
+		},
+		flags: []string{
+			"-tls-rollback-bug",
+			"-no-tls12",
+		},
+	})
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "Rsa-RollbackQuirk-BadVersion",
+		config: Config{
+			CipherSuites: []uint16{TLS_RSA_WITH_RC4_128_SHA},
+			Bugs: ProtocolBugs{
+				RsaClientKeyExchangeVersion: VersionTLS10,
+			},
+		},
+		flags: []string{
+			"-tls-rollback-bug",
+			"-no-tls12",
+		},
+		shouldFail:    true,
+		expectedError: ":DECRYPTION_FAILED_OR_BAD_RECORD_MAC:",
+	})
+}
+
 func worker(statusChan chan statusMsg, c chan *testCase, buildDir string, wg *sync.WaitGroup) {
 	defer wg.Done()
 
@@ -1008,6 +1053,7 @@ func main() {
 	addCBCPaddingTests()
 	addCBCSplittingTests()
 	addClientAuthTests()
+	addRsaRollbackTests()
 	for _, async := range []bool{false, true} {
 		for _, splitHandshake := range []bool{false, true} {
 			addStateMachineCoverageTests(async, splitHandshake)

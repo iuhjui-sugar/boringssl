@@ -271,6 +271,10 @@ static int do_exchange(SSL_SESSION **out_session,
       SSL_set_mode(ssl, SSL_MODE_CBC_RECORD_SPLITTING);
     } else if (strcmp(argv[i], "-partial-write") == 0) {
       SSL_set_mode(ssl, SSL_MODE_ENABLE_PARTIAL_WRITE);
+    } else if (strcmp(argv[i], "-tls-rollback-bug") == 0) {
+      SSL_set_options(ssl, SSL_OP_TLS_ROLLBACK_BUG);
+    } else if (strcmp(argv[i], "-no-tls12") == 0) {
+      SSL_set_options(ssl, SSL_OP_NO_TLSv1_2);
     } else {
       fprintf(stderr, "Unknown argument: %s\n", argv[i]);
       return 1;
