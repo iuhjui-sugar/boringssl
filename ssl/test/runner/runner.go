@@ -579,11 +579,12 @@ func runTest(test *testCase, buildDir string) error {
 var tlsVersions = []struct {
 	name    string
 	version uint16
+	flag    string
 }{
-	{"SSL3", VersionSSL30},
-	{"TLS1", VersionTLS10},
-	{"TLS11", VersionTLS11},
-	{"TLS12", VersionTLS12},
+	{"SSL3", VersionSSL30, "-no-ssl3"},
+	{"TLS1", VersionTLS10, "-no-tls1"},
+	{"TLS11", VersionTLS11, "-no-tls11"},
+	{"TLS12", VersionTLS12, "-no-tls12"},
 }
 
 var testCipherSuites = []struct {
@@ -969,6 +970,51 @@ func addStateMachineCoverageTests(async bool, splitHandshake bool) {
 	})
 }
 
+func addVersionNegotiationTests() {
+	for i, shimVers := range tlsVersions {
+		// Assemble flags to disable all newer versions on the shim.
+		var flags []string
+		for _, vers := range tlsVersions[i+1:] {
+			flags = append(flags, vers.flag)
+		}
+
+		for _, runnerVers := range tlsVersions {
+			expectedVers := shimVers.version
+			if runnerVers.version < shimVers.version {
+				expectedVers = runnerVers.version
+			}
+			suffix := shimVers.name + "-" + runnerVers.name
+
+			testCases = append(testCases, testCase{
+				testType: clientTest,
+				name:     "VersionNegotiation-Client-" + suffix,
+				config: Config{
+					MaxVersion: runnerVers.version,
+					Bugs: ProtocolBugs{
+						ExpectVersion: expectedVers,
+					},
+				},
+				flags: flags,
+			})
+
+			// TODO(davidben): Implement SSLv3 as a client in the runner.
+			if expectedVers > VersionSSL30 {
+				testCases = append(testCases, testCase{
+					testType: serverTest,
+					name:     "VersionNegotiation-Server-" + suffix,
+					config: Config{
+						MaxVersion: runnerVers.version,
+						Bugs: ProtocolBugs{
+							ExpectVersion: expectedVers,
+						},
+					},
+					flags: flags,
+				})
+			}
+		}
+	}
+}
+
 func worker(statusChan chan statusMsg, c chan *testCase, buildDir string, wg *sync.WaitGroup) {
 	defer wg.Done()
 
@@ -1020,6 +1066,7 @@ func main() {
 	addCBCPaddingTests()
 	addCBCSplittingTests()
 	addClientAuthTests()
+	addVersionNegotiationTests()
 	for _, async := range []bool{false, true} {
 		for _, splitHandshake := range []bool{false, true} {
 			addStateMachineCoverageTests(async, splitHandshake)

@@ -162,6 +162,9 @@ NextCipherSuite:
 		c.sendAlert(alertProtocolVersion)
 		return fmt.Errorf("tls: server selected unsupported protocol version %x", serverHello.vers)
 	}
+	if c.config.Bugs.ExpectVersion != 0 && vers != c.config.Bugs.ExpectVersion {
+		return fmt.Errorf("tls: did not negotiate expected version, got %x", vers)
+	}
 	c.vers = vers
 	c.haveVers = true
 

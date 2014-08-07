@@ -109,6 +109,9 @@ func (hs *serverHandshakeState) readClientHello() (isResume bool, err error) {
 		c.sendAlert(alertProtocolVersion)
 		return false, fmt.Errorf("tls: client offered an unsupported, maximum protocol version of %x", hs.clientHello.vers)
 	}
+	if c.config.Bugs.ExpectVersion != 0 && c.vers != c.config.Bugs.ExpectVersion {
+		return false, fmt.Errorf("tls: did not negotiate expected version, got %x", c.vers)
+	}
 	c.haveVers = true
 
 	hs.hello = new(serverHelloMsg)
