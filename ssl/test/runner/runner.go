@@ -380,6 +380,18 @@ var testCases = []testCase{
 			},
 		},
 	},
+	{
+		testType: serverTest,
+		name:     "FragmentedClientVersion",
+		config: Config{
+			Bugs: ProtocolBugs{
+				MaxHandshakeRecordLength: 1,
+				FragmentClientVersion:    true,
+			},
+		},
+		shouldFail:    true,
+		expectedError: ":RECORD_TOO_SMALL:",
+	},
 }
 
 func doExchange(testType testType, config *Config, conn net.Conn, messageLen int) error {
@@ -856,7 +868,7 @@ func addStateMachineCoverageTests(async bool, splitHandshake bool) {
 	}
 	if splitHandshake {
 		suffix += "-SplitHandshakeRecords"
-		maxHandshakeRecordLength = 10
+		maxHandshakeRecordLength = 1
 	}
 
 	// Basic handshake, with resumption. Client and server.
