@@ -22,6 +22,30 @@
       "revId": "3227b8ef05c67b5d36bdc0f2b4a350238a25daaa",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b6e5ebf4_3e1f4551",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-07T22:37:21Z",
+      "side": 1,
+      "message": "Oh, sorry, forgot to carry this comment over from the previous patch set:\n\n\"Not doing this makes go fmt want to indent the second test, which looks silly\"\n\n(I think what\u0027s going on is that it\u0027s indenting as if the \u0027testCase{\u0027 in line 738 were on a new line and indented.)",
+      "parentUuid": "161a37b4_09c36d43",
+      "range": {
+        "startLine": 752,
+        "startChar": 13,
+        "endLine": 752,
+        "endChar": 19
+      },
+      "revId": "3227b8ef05c67b5d36bdc0f2b4a350238a25daaa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
