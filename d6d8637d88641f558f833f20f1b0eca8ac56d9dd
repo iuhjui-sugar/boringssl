@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6e5ebf4_dbdbd324",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2335,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-07T19:56:13Z",
+      "side": 1,
+      "message": "(Not a comment on this change, but is there any reason this is attached to the session to begin with? I can\u0027t think of any context where it\u0027d be relevant after the handshake.)",
+      "revId": "d6d8637d88641f558f833f20f1b0eca8ac56d9dd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
