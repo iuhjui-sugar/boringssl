@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6e5ebf4_8a101327",
+        "filename": "ssl/s23_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-08T20:00:41Z",
+      "side": 1,
+      "message": "This line is different from the original and is the broken invariant. If I\u0027m understanding s3_pkt.c correctly, we want buf + offset \u003d\u003d packet + packet_length. This resets to a state where we\u0027ve read ahead 11 extra bytes and the current packet is empty.",
+      "revId": "0fc39144bbbbb3c9210b43ff21a573d1fca839b6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

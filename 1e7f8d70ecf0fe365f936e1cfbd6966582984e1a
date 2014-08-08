@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6e5ebf4_0afc0380",
+        "filename": "ssl/s23_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-08T20:00:41Z",
+      "side": 0,
+      "message": "As far as I can tell, this buffer and the memcpy in and back out of it is unnecessary. It looks like it might be a remnant of when buf would sometimes point to a malloc\u0027d thing.",
+      "revId": "1e7f8d70ecf0fe365f936e1cfbd6966582984e1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b6e5ebf4_ca013bd7",
+        "filename": "ssl/s23_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-08T20:00:41Z",
+      "side": 0,
+      "message": "This and 599 never runs.",
+      "revId": "1e7f8d70ecf0fe365f936e1cfbd6966582984e1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
