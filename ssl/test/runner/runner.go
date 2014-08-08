@@ -348,19 +348,6 @@ var testCases = []testCase{
 	},
 	{
 		testType: serverTest,
-		name:     "SendV2ClientHello",
-		config: Config{
-			// Choose a cipher suite that does not involve
-			// elliptic curves, so no extensions are
-			// involved.
-			CipherSuites: []uint16{TLS_RSA_WITH_RC4_128_SHA},
-			Bugs: ProtocolBugs{
-				SendV2ClientHello: true,
-			},
-		},
-	},
-	{
-		testType: serverTest,
 		name:     "FallbackSCSV",
 		config: Config{
 			MaxVersion: VersionTLS11,
@@ -992,6 +979,21 @@ func addStateMachineCoverageTests(async bool, splitHandshake bool) {
 			Certificates: []Certificate{rsaCertificate},
 		},
 		flags: append(flags, "-require-any-client-certificate"),
+	})
+
+	// Client sends a V2ClientHello.
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "SendV2ClientHello",
+		config: Config{
+			// Choose a cipher suite that does not involve
+			// elliptic curves, so no extensions are
+			// involved.
+			CipherSuites: []uint16{TLS_RSA_WITH_RC4_128_SHA},
+			Bugs: ProtocolBugs{
+				SendV2ClientHello: true,
+			},
+		},
 	})
 }
 
