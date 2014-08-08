@@ -991,7 +991,7 @@ func addStateMachineCoverageTests(async bool, splitHandshake bool) {
 	// Client sends a V2ClientHello.
 	testCases = append(testCases, testCase{
 		testType: serverTest,
-		name:     "SendV2ClientHello",
+		name:     "SendV2ClientHello" + suffix,
 		config: Config{
 			// Choose a cipher suite that does not involve
 			// elliptic curves, so no extensions are
