@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "161a37b4_2f75894d",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-08T17:09:05Z",
+      "side": 1,
+      "message": "I don\u0027t think this should be in Bugs. Rather runner.go can get the version of the resulting connection and check that it\u0027s correct.",
+      "range": {
+        "startLine": 407,
+        "startChar": 1,
+        "endLine": 407,
+        "endChar": 14
+      },
+      "revId": "c943d931ff405944c75c0005c635cc40b414f861",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
