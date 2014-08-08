@@ -138,8 +138,12 @@ int CBB_finish(CBB *cbb, uint8_t **out_data, size_t *out_len) {
     return 0;
   }
 
-  *out_data = cbb->base->buf;
-  *out_len = cbb->base->len;
+  if (out_data != NULL) {
+    *out_data = cbb->base->buf;
+  }
+  if (out_len != NULL) {
+    *out_len = cbb->base->len;
+  }
   cbb->base->buf = NULL;
   CBB_cleanup(cbb);
   return 1;
