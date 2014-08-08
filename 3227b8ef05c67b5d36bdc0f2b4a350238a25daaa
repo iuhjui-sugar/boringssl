@@ -46,6 +46,30 @@
       "revId": "3227b8ef05c67b5d36bdc0f2b4a350238a25daaa",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "161a37b4_4f9ba561",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-08T17:04:45Z",
+      "side": 1,
+      "message": "I think it\u0027s probably because it should be one line with:\n\n}, testCase {\n\nBut it\u0027s not important.",
+      "parentUuid": "b6e5ebf4_3e1f4551",
+      "range": {
+        "startLine": 752,
+        "startChar": 13,
+        "endLine": 752,
+        "endChar": 19
+      },
+      "revId": "3227b8ef05c67b5d36bdc0f2b4a350238a25daaa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
