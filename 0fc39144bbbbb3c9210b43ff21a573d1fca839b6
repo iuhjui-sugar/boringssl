@@ -2,6 +2,80 @@
   "comments": [
     {
       "key": {
+        "uuid": "76c53378_f94557d7",
+        "filename": "crypto/bytestring/cbb.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-11T19:06:33Z",
+      "side": 1,
+      "message": "I think out_data and out_len should only be allowed to be NULL if the CBB is fixed. Otherwise it\u0027s clearly a memory leak.",
+      "revId": "0fc39144bbbbb3c9210b43ff21a573d1fca839b6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "76c53378_d9797348",
+        "filename": "ssl/s23_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-11T19:06:33Z",
+      "side": 1,
+      "message": "This breaks a future TLS 2.0, right? (It might already be broken, but no point making it worse.)",
+      "revId": "0fc39144bbbbb3c9210b43ff21a573d1fca839b6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "76c53378_99b09bcb",
+        "filename": "ssl/s23_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-11T19:06:33Z",
+      "side": 1,
+      "message": "Doesn\u0027t the initial value of s-\u003eversion come into play? I.e. if I use an SSLv3 method, then I don\u0027t have to set SSL_OP_NO_TLSv1_2 but TLS 1.2 is still disabled.\n\nLater: I see that this was based on existing code. Hmm. I guess it\u0027s that this code is only run for SSLv23_method and that method implicitly enables all TLS versions?",
+      "revId": "0fc39144bbbbb3c9210b43ff21a573d1fca839b6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "76c53378_b9c47f21",
+        "filename": "ssl/s23_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-11T19:06:33Z",
+      "side": 1,
+      "message": "Ditto about breaking TLS 2.0.",
+      "range": {
+        "startLine": 336,
+        "startChar": 12,
+        "endLine": 336,
+        "endChar": 30
+      },
+      "revId": "0fc39144bbbbb3c9210b43ff21a573d1fca839b6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b6e5ebf4_8a101327",
         "filename": "ssl/s23_srvr.c",
         "patchSetId": 1
@@ -13,6 +87,75 @@
       "writtenOn": "2014-08-08T20:00:41Z",
       "side": 1,
       "message": "This line is different from the original and is the broken invariant. If I\u0027m understanding s3_pkt.c correctly, we want buf + offset \u003d\u003d packet + packet_length. This resets to a state where we\u0027ve read ahead 11 extra bytes and the current packet is empty.",
+      "revId": "0fc39144bbbbb3c9210b43ff21a573d1fca839b6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "76c53378_99fe5b44",
+        "filename": "ssl/s23_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-11T19:06:33Z",
+      "side": 1,
+      "message": "Of course, there\u0027s no comment in the old code about this, but this seems right.",
+      "parentUuid": "b6e5ebf4_8a101327",
+      "revId": "0fc39144bbbbb3c9210b43ff21a573d1fca839b6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "76c53378_59dc43f6",
+        "filename": "ssl/s23_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-11T19:06:33Z",
+      "side": 1,
+      "message": "Check these first? (And CONNECT)",
+      "revId": "0fc39144bbbbb3c9210b43ff21a573d1fca839b6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "76c53378_19eb6b81",
+        "filename": "ssl/s23_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-11T19:06:33Z",
+      "side": 1,
+      "message": "Comment here about the state of things, i.e. that we have read 11 bytes.",
+      "revId": "0fc39144bbbbb3c9210b43ff21a573d1fca839b6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "76c53378_b9123fee",
+        "filename": "ssl/s23_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-11T19:06:33Z",
+      "side": 1,
+      "message": "It seems that this would fit on a single line.",
       "revId": "0fc39144bbbbb3c9210b43ff21a573d1fca839b6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
