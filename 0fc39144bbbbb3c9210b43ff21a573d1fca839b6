@@ -53,6 +53,24 @@
     },
     {
       "key": {
+        "uuid": "16d9576f_ceb1a319",
+        "filename": "ssl/s23_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-11T20:34:14Z",
+      "side": 1,
+      "message": "Yeah, if I\u0027m understanding this correctly, all the other methods are specific to a version and this method, while I suppose was originally responsible for dispatching between SSLv2 and SSLv3, also dispatches between SSLv3 through TLSv1.2. Note s3_srvr.c\u0027s line 936 and s3_clnt.c\u0027s 919. By the time we get to one of the normal methods, the version is already set.\n\nFor more fun, the newly-added DTLS 1.2 has a completely different mechanism with the special DTLS_ANY_VERSION version that does the version in the ClientHello/ServerHello state machine. I do wonder if it\u0027s worth rejiggering this at some point... maybe even instead of this CL which is already rewriting much of this file? We could replace those fatal checks with the actual version negotiation logic which is what the DTLS code is doing. Then SSLv23_client_method becomes the same as TLSv${HIGHEST}_client_method while SSLv23_server_method\u0027s only purpose in life is to sniff for V2ClientHello, rewrite it, and call it a day. And then no one has to sniff the version or do anything absurd like that. And we don\u0027t have this silliness with s23_clnt.c and s3_clnt.c duplicate ClientHello logic.\n\nThen again, the DTLS version is probably much less tested[*]. I don\u0027t know how it interacts with say, session resumption. I believe right now session resumption has to resume at the same version because SSL_set_session will call SSL_set_ssl_method. Probably also has ramifications for renego as changing version during a renego[**] would be rather bad manners...\n\nIt would also change the meaning of SSLv3_method through TLSv1_2_method which currently specify a specific version. Maybe make yet another one or something, I dunno, or still call it SSLv23_method but implement the check inline. It\u0027s sort of weird how those are redundant with SSL_OP_NO_*. Which are, in turn, weird for not specifying a contiguous range.\n\nAlso means that the record-layer implementation has to be okay with the version changing underneath it while the null cipher is set. It doesn\u0027t seem like it should be a problem, but, this new DTLS_ANY_VERSION thing aside, I don\u0027t believe this is something that can happen in OpenSSL today.\n\n[*] Actually, I\u0027m pretty sure DTLS 1.2 doesn\u0027t work in BoringSSL right now. Some version checks that should be converted to SSL_IS_DTLS. Eh, we\u0027ll see what happens when I finally get those tests finished.\n\n[**] Speaking of DTLS and renego, I doubt WebRTC cares about it. Maybe worth forcing that off so we never have to support it.",
+      "parentUuid": "76c53378_99b09bcb",
+      "revId": "0fc39144bbbbb3c9210b43ff21a573d1fca839b6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76c53378_b9c47f21",
         "filename": "ssl/s23_srvr.c",
         "patchSetId": 1
