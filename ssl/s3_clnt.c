@@ -2201,6 +2201,13 @@ int ssl3_send_client_key_exchange(SSL *s)
 					}
 				}
 
+      if (DH_size(dh_srvr) < 1024/8)
+        {
+        OPENSSL_PUT_ERROR(SSL, ssl3_send_client_key_exchange, SSL_R_BAD_DH_P_LENGTH);
+        DH_free(dh_clnt);
+        goto err;
+        }
+
 			/* use the 'p' output buffer for the DH key, but
 			 * make sure to clear it out afterwards */
 
