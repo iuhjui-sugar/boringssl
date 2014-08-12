@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "76c53378_2d870502",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2204,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-12T17:55:22Z",
+      "side": 1,
+      "message": "(formatting incorrect.)\n\nSeems that this should happen during receipt of the SKX rather than here.",
+      "revId": "d77b985e36ec952b00c7462ed2fa8fddcee306f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
