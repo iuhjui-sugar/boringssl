@@ -1,0 +1,6 @@
+Code-Review+2: Adam Langley <agl@google.com>
+Submitted-by: Adam Langley <agl@google.com>
+Submitted-at: Tue, 12 Aug 2014 21:10:56 +0000
+Reviewed-on: https://boringssl-review.googlesource.com/1455
+Project: boringssl
+Branch: refs/heads/master
