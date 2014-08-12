@@ -71,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "16d9576f_ce92c3d8",
+        "filename": "ssl/s23_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-12T02:01:33Z",
+      "side": 1,
+      "message": "\u003e Then again, the DTLS version is probably much less tested[*]. I don\u0027t know how it interacts with say, session resumption [...] renego [...]\n\nActually, looking at it, that looks reasonably sane. After the version is determined, s-\u003eversion is no longer DTLS_ANY_VERSION, so renego should be fine. And session resumption goes through get_ssl_method, so it hits the version-specific methods. It does more strongly require that all the methods be compatible than the SSLv23 sniff-based mechanism, but that seems a pretty sound assumption. If anything, I think it\u0027d be nice to try to merge all these version-specific methods and, for SSL_set_session, have it set s-\u003eversion rather than the method altogether.\n\nThoughts? I guess most of this CL would actually still be applicable in the other version because the sniff is still necessary for V2ClientHello. It\u0027d just lose the version negotiation bits. I can push through with this CL or experiment with the even more aggressive one.",
+      "parentUuid": "16d9576f_ceb1a319",
+      "revId": "0fc39144bbbbb3c9210b43ff21a573d1fca839b6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76c53378_b9c47f21",
         "filename": "ssl/s23_srvr.c",
         "patchSetId": 1
