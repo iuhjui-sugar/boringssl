@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "16d9576f_970f2e03",
+        "filename": "crypto/bytestring/cbb.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-12T19:11:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76c53378_f94557d7",
+      "revId": "0fc39144bbbbb3c9210b43ff21a573d1fca839b6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76c53378_d9797348",
         "filename": "ssl/s23_srvr.c",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2014-08-11T19:06:33Z",
       "side": 1,
       "message": "This breaks a future TLS 2.0, right? (It might already be broken, but no point making it worse.)",
+      "revId": "0fc39144bbbbb3c9210b43ff21a573d1fca839b6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "16d9576f_d7ab7674",
+        "filename": "ssl/s23_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-12T19:11:16Z",
+      "side": 1,
+      "message": "Done. (Yeah, I think OpenSSL currently doesn\u0027t accept such a thing. I couldn\u0027t find any useful text in the spec for whether major version bumps are supposed to be okay.)\n\nAdded tests for version tolerance.",
+      "parentUuid": "76c53378_d9797348",
       "revId": "0fc39144bbbbb3c9210b43ff21a573d1fca839b6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -112,6 +148,30 @@
     },
     {
       "key": {
+        "uuid": "16d9576f_17d9fe2c",
+        "filename": "ssl/s23_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-12T19:11:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76c53378_b9c47f21",
+      "range": {
+        "startLine": 336,
+        "startChar": 12,
+        "endLine": 336,
+        "endChar": 30
+      },
+      "revId": "0fc39144bbbbb3c9210b43ff21a573d1fca839b6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b6e5ebf4_8a101327",
         "filename": "ssl/s23_srvr.c",
         "patchSetId": 1
@@ -164,6 +224,24 @@
     },
     {
       "key": {
+        "uuid": "16d9576f_77d2820f",
+        "filename": "ssl/s23_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-12T19:11:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76c53378_59dc43f6",
+      "revId": "0fc39144bbbbb3c9210b43ff21a573d1fca839b6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76c53378_19eb6b81",
         "filename": "ssl/s23_srvr.c",
         "patchSetId": 1
@@ -181,6 +259,24 @@
     },
     {
       "key": {
+        "uuid": "16d9576f_57cf8661",
+        "filename": "ssl/s23_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-12T19:11:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76c53378_19eb6b81",
+      "revId": "0fc39144bbbbb3c9210b43ff21a573d1fca839b6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76c53378_b9123fee",
         "filename": "ssl/s23_srvr.c",
         "patchSetId": 1
@@ -192,6 +288,24 @@
       "writtenOn": "2014-08-11T19:06:33Z",
       "side": 1,
       "message": "It seems that this would fit on a single line.",
+      "revId": "0fc39144bbbbb3c9210b43ff21a573d1fca839b6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "16d9576f_37dcfa1c",
+        "filename": "ssl/s23_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-12T19:11:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76c53378_b9123fee",
       "revId": "0fc39144bbbbb3c9210b43ff21a573d1fca839b6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
