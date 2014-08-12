@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56166fdd_2709444c",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 5145
+      },
+      "writtenOn": "2014-08-12T23:38:04Z",
+      "side": 1,
+      "message": "Typo, should be \"no session resumption\".",
+      "range": {
+        "startLine": 676,
+        "startChar": 3,
+        "endLine": 676,
+        "endChar": 10
+      },
+      "revId": "8eaaa86da3691e7729adc7c19004344633ffc9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
