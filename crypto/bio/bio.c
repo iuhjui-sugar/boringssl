@@ -86,6 +86,8 @@ static int bio_set(BIO *bio, const BIO_METHOD *method) {
       CRYPTO_free_ex_data(CRYPTO_EX_INDEX_BIO, bio, &bio->ex_data);
       return 0;
     }
+  } else {
+    bio->init = 1;
   }
 
   return 1;
