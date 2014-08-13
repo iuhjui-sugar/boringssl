@@ -284,6 +284,22 @@ OPENSSL_EXPORT int BN_print_fp(FILE *fp, const BIGNUM *a);
 OPENSSL_EXPORT BN_ULONG BN_get_word(const BIGNUM *bn);
 
 
+/* Internal functions.
+ *
+ * These functions are useful for code that is doing low-level manipulations of
+ * BIGNUM values. However, be sure that no other function in this file does
+ * what you want before turning to these. */
+
+/* bn_correct_top decrements |bn->top| until |bn->d[top-1]| is non-zero or
+ * until |top| is zero. */
+void bn_correct_top(BIGNUM *bn);
+
+/* BN_wexpand ensures that |bn| has at least |words| works of space without
+ * altering its value. It returns one on success or zero on allocation
+ * failure. */
+BIGNUM *bn_wexpand(BIGNUM *bn, unsigned words);
+
+
 /* BIGNUM pools.
  *
  * Certain BIGNUM operations need to use many temporary variables and
