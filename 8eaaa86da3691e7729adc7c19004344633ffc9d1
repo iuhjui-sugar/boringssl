@@ -22,6 +22,30 @@
       "revId": "8eaaa86da3691e7729adc7c19004344633ffc9d1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f62cc32f_5bb69bc6",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-13T14:52:49Z",
+      "side": 1,
+      "message": "It actually enforces that you do resume a session. It\u0027s bizarre. Why this API is part of javax.net.ssl.SSLEngine, who knows? It looks pretty bogus.\n\nhttp://docs.oracle.com/javase/7/docs/api/javax/net/ssl/SSLEngine.html#setEnableSessionCreation(boolean)",
+      "parentUuid": "56166fdd_2709444c",
+      "range": {
+        "startLine": 676,
+        "startChar": 3,
+        "endLine": 676,
+        "endChar": 10
+      },
+      "revId": "8eaaa86da3691e7729adc7c19004344633ffc9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
