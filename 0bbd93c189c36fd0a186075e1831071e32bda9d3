@@ -22,6 +22,30 @@
       "revId": "0bbd93c189c36fd0a186075e1831071e32bda9d3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f62cc32f_69a14dc2",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-13T23:24:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b626cb4d_67889ad2",
+      "range": {
+        "startLine": 40,
+        "startChar": 11,
+        "endLine": 40,
+        "endChar": 24
+      },
+      "revId": "0bbd93c189c36fd0a186075e1831071e32bda9d3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
