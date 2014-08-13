@@ -1094,6 +1094,10 @@ func addVersionNegotiationTests() {
 			}
 			suffix := shimVers.name + "-" + runnerVers.name
 
+			// TODO(davidben): Implement non-ticket-based (so
+			// SSLv3-compatible) session resumption in the Go code.
+			resumeSession := expectedVersion > VersionSSL30
+
 			testCases = append(testCases, testCase{
 				testType: clientTest,
 				name:     "VersionNegotiation-Client-" + suffix,
@@ -1101,6 +1105,7 @@ func addVersionNegotiationTests() {
 					MaxVersion: runnerVers.version,
 				},
 				flags:           flags,
+				resumeSession:   resumeSession,
 				expectedVersion: expectedVersion,
 			})
 
@@ -1113,6 +1118,7 @@ func addVersionNegotiationTests() {
 						MaxVersion: runnerVers.version,
 					},
 					flags:           flags,
+					resumeSession:   resumeSession,
 					expectedVersion: expectedVersion,
 				})
 			}
