@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "361bbb08_3d6ab7b4",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1443,
+      "author": {
+        "id": 5225
+      },
+      "writtenOn": "2014-08-13T11:16:03Z",
+      "side": 1,
+      "message": "Hm. Apparently (unlike chromium+NSS) chromium+BoringSSL does announce the static DH suits. However, I do not understand how this can work when this check responds with SL_R_TRIED_TO_USE_UNSUPPORTED_CIPHER if the server chooses any of  them. Am I misunderstanding this check?",
+      "revId": "d77b985e36ec952b00c7462ed2fa8fddcee306f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76c53378_2d870502",
         "filename": "ssl/s3_clnt.c",
         "patchSetId": 1
