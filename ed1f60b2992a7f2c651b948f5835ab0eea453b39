@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f62cc32f_899e2986",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-13T23:24:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b626cb4d_474ebe4c",
+      "range": {
+        "startLine": 420,
+        "startChar": 34,
+        "endLine": 420,
+        "endChar": 52
+      },
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b626cb4d_87d93641",
         "filename": "ssl/test/runner/conn.go",
         "patchSetId": 5
@@ -36,6 +60,24 @@
       "writtenOn": "2014-08-13T21:47:27Z",
       "side": 1,
       "message": "for i :\u003d range hc.seq[limit:] {\n  hc.seq[i] \u003d 0\n}",
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f62cc32f_299b5598",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-13T23:24:25Z",
+      "side": 1,
+      "message": "Apparently that doesn\u0027t quite work because i will range from 0 to 8-limit rather than limit to 8. Made it take a slice first.",
+      "parentUuid": "b626cb4d_87d93641",
       "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "f62cc32f_a9a0c591",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-13T23:24:25Z",
+      "side": 1,
+      "message": "Added a check in dtls.go.",
+      "parentUuid": "b626cb4d_6705fae1",
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b626cb4d_c7cc0e71",
         "filename": "ssl/test/runner/conn.go",
         "patchSetId": 5
@@ -70,6 +130,24 @@
       "writtenOn": "2014-08-13T21:47:27Z",
       "side": 1,
       "message": "can we always write to data[3] and [4] and then avoid allocating header? (Even if we have to put data[3] and [4] back in the DTLS case.)",
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f62cc32f_e9747d52",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-13T23:24:25Z",
+      "side": 1,
+      "message": "Added another parameter to MAC.",
+      "parentUuid": "b626cb4d_c7cc0e71",
       "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -99,6 +177,30 @@
     },
     {
       "key": {
+        "uuid": "f62cc32f_097a193c",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-13T23:24:25Z",
+      "side": 1,
+      "message": "Added another parameter to MAC.",
+      "parentUuid": "b626cb4d_e7a6eaae",
+      "range": {
+        "startLine": 414,
+        "startChar": 5,
+        "endLine": 414,
+        "endChar": 6
+      },
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b626cb4d_47d9de2b",
         "filename": "ssl/test/runner/conn.go",
         "patchSetId": 5
@@ -110,6 +212,24 @@
       "writtenOn": "2014-08-13T21:47:27Z",
       "side": 1,
       "message": "Why did doReadRecord get split off here? An escape for DTLS was added at the top but that could have been done inline.",
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f62cc32f_49981199",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 672,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-13T23:24:25Z",
+      "side": 1,
+      "message": "There\u0027s some logic afterwards in matching typ vs want and such that I didn\u0027t want to duplicate. Though it\u0027s not a whole lot and I can just duplicate it in DTLS if it\u0027s better to avoid diverging significantly from upstream.",
+      "parentUuid": "b626cb4d_47d9de2b",
       "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -133,6 +253,24 @@
     },
     {
       "key": {
+        "uuid": "f62cc32f_692e2d7c",
+        "filename": "ssl/test/runner/dtls.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-13T23:24:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b626cb4d_47b23ee8",
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b626cb4d_27b5c2ce",
         "filename": "ssl/test/runner/dtls.go",
         "patchSetId": 5
@@ -150,6 +288,24 @@
     },
     {
       "key": {
+        "uuid": "f62cc32f_c928a171",
+        "filename": "ssl/test/runner/dtls.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-13T23:24:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b626cb4d_27b5c2ce",
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b626cb4d_e78b4a11",
         "filename": "ssl/test/runner/dtls.go",
         "patchSetId": 5
@@ -161,6 +317,30 @@
       "writtenOn": "2014-08-13T21:47:27Z",
       "side": 1,
       "message": "just \":m\"",
+      "range": {
+        "startLine": 153,
+        "startChar": 36,
+        "endLine": 153,
+        "endChar": 39
+      },
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f62cc32f_a923e594",
+        "filename": "ssl/test/runner/dtls.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-13T23:24:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b626cb4d_e78b4a11",
       "range": {
         "startLine": 153,
         "startChar": 36,
@@ -196,6 +376,30 @@
     },
     {
       "key": {
+        "uuid": "f62cc32f_091f7950",
+        "filename": "ssl/test/runner/dtls.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-13T23:24:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b626cb4d_0791a643",
+      "range": {
+        "startLine": 155,
+        "startChar": 19,
+        "endLine": 155,
+        "endChar": 22
+      },
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b626cb4d_a7955230",
         "filename": "ssl/test/runner/dtls.go",
         "patchSetId": 5
@@ -207,6 +411,30 @@
       "writtenOn": "2014-08-13T21:47:27Z",
       "side": 1,
       "message": "switch cipher :\u003d c.out.cipher.(type) {\n  case cbcMode:\n    // Block cipher modes have an explicit IV.\n    explicitIVLen \u003d cbc.BlockSize()\n  \n  case cipher.AEAD:\n    ...\n\n  default:\n     panic(\"unknown cipher mode\")\n}",
+      "range": {
+        "startLine": 161,
+        "startChar": 0,
+        "endLine": 161,
+        "endChar": 2
+      },
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f62cc32f_0948d943",
+        "filename": "ssl/test/runner/dtls.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-13T23:24:25Z",
+      "side": 1,
+      "message": "That doesn\u0027t seem to work. I think because cbcMode is an interface rather than the concrete type. (conn.go has the same code.) Added the panic though.",
+      "parentUuid": "b626cb4d_a7955230",
       "range": {
         "startLine": 161,
         "startChar": 0,
@@ -242,6 +470,30 @@
     },
     {
       "key": {
+        "uuid": "f62cc32f_e9423d27",
+        "filename": "ssl/test/runner/dtls.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-13T23:24:25Z",
+      "side": 1,
+      "message": "I think that\u0027s correct? The nonce size doesn\u0027t change in DTLS\u0027s AES-GCM. The 8-byte sequence number in DTLS is split into epoch/seqno pair, but I think it\u0027s still what you want for the nonce? (Not that I have any reason yet to believe that codepath works at all DTLS isn\u0027t EVP_AEAD-aware yet.)",
+      "parentUuid": "b626cb4d_67809aeb",
+      "range": {
+        "startLine": 173,
+        "startChar": 3,
+        "endLine": 173,
+        "endChar": 18
+      },
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b626cb4d_a7c47221",
         "filename": "ssl/test/runner/dtls.go",
         "patchSetId": 5
@@ -253,6 +505,24 @@
       "writtenOn": "2014-08-13T21:47:27Z",
       "side": 1,
       "message": "can be just:\n\nfor len(c.handMsg) \u003c 4+c.handMsgLen\n\nbecause len(nil) \u003d 0.",
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f62cc32f_892b8969",
+        "filename": "ssl/test/runner/dtls.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-13T23:24:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b626cb4d_a7c47221",
       "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -276,6 +546,24 @@
     },
     {
       "key": {
+        "uuid": "f62cc32f_293835bd",
+        "filename": "ssl/test/runner/dtls.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-13T23:24:25Z",
+      "side": 1,
+      "message": "Later we\u0027ll be appending chunks to it, so it needed to be a copy. Otherwise we\u0027ll scribble over c.hand.",
+      "parentUuid": "b626cb4d_87e136a4",
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b626cb4d_a71232ee",
         "filename": "ssl/test/runner/dtls.go",
         "patchSetId": 5
@@ -287,6 +575,24 @@
       "writtenOn": "2014-08-13T21:47:27Z",
       "side": 1,
       "message": "for a pair of related assignments like this, I\u0027d do:\n\nc.handMsg, c.handMsgLen \u003d nil, 0",
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f62cc32f_493571c4",
+        "filename": "ssl/test/runner/dtls.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-13T23:24:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b626cb4d_a71232ee",
       "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -316,6 +622,30 @@
     },
     {
       "key": {
+        "uuid": "f62cc32f_a93c45ae",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-13T23:24:25Z",
+      "side": 1,
+      "message": "Yeah, it\u0027s probably fine. I wasn\u0027t sure what helloVerifyRequest might still be pointing to later on and figured I may as well do the copy. Done.",
+      "parentUuid": "b626cb4d_c7172edd",
+      "range": {
+        "startLine": 170,
+        "startChar": 18,
+        "endLine": 170,
+        "endChar": 24
+      },
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b626cb4d_270702ab",
         "filename": "ssl/test/runner/handshake_client.go",
         "patchSetId": 5
@@ -327,6 +657,24 @@
       "writtenOn": "2014-08-13T21:47:27Z",
       "side": 1,
       "message": "can\u0027t you do a couple of calls to hs.finishedHash.Write rather than allocating and copying the message?",
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f62cc32f_c9418121",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 685,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-13T23:24:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b626cb4d_270702ab",
       "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -356,6 +704,30 @@
     },
     {
       "key": {
+        "uuid": "f62cc32f_69570de6",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-13T23:24:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b626cb4d_074be6ea",
+      "range": {
+        "startLine": 119,
+        "startChar": 11,
+        "endLine": 119,
+        "endChar": 26
+      },
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b626cb4d_8757f68b",
         "filename": "ssl/test/runner/handshake_server.go",
         "patchSetId": 5
@@ -373,6 +745,24 @@
     },
     {
       "key": {
+        "uuid": "f62cc32f_8954e9e0",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-13T23:24:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b626cb4d_8757f68b",
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b626cb4d_2764e26f",
         "filename": "ssl/test/runner/handshake_server.go",
         "patchSetId": 5
@@ -384,6 +774,24 @@
       "writtenOn": "2014-08-13T21:47:27Z",
       "side": 1,
       "message": "ditto about a couple of Write calls rather than a copy.",
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f62cc32f_e9e79df9",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-13T23:24:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b626cb4d_2764e26f",
       "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
