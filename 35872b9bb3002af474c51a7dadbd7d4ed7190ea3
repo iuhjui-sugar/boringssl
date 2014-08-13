@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b626cb4d_82cfe460",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 780,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-13T23:50:14Z",
+      "side": 1,
+      "message": "11? (I\u0027ve always thought of DTLS as being a peer of TLS 1.1. I guess it doesn\u0027t really matter.)",
+      "range": {
+        "startLine": 780,
+        "startChar": 31,
+        "endLine": 780,
+        "endChar": 33
+      },
+      "revId": "35872b9bb3002af474c51a7dadbd7d4ed7190ea3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
