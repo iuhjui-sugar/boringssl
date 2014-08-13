@@ -1,0 +1,392 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b626cb4d_474ebe4c",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-13T21:47:27Z",
+      "side": 1,
+      "message": "a DTLS server",
+      "range": {
+        "startLine": 420,
+        "startChar": 34,
+        "endLine": 420,
+        "endChar": 52
+      },
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b626cb4d_87d93641",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-13T21:47:27Z",
+      "side": 1,
+      "message": "for i :\u003d range hc.seq[limit:] {\n  hc.seq[i] \u003d 0\n}",
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b626cb4d_6705fae1",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-13T21:47:27Z",
+      "side": 1,
+      "message": "Is b.data known to be long enough in the DTLS case?",
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b626cb4d_c7cc0e71",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-13T21:47:27Z",
+      "side": 1,
+      "message": "can we always write to data[3] and [4] and then avoid allocating header? (Even if we have to put data[3] and [4] back in the DTLS case.)",
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b626cb4d_e7a6eaae",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-13T21:47:27Z",
+      "side": 1,
+      "message": "avoid the alloc if not DTLS?",
+      "range": {
+        "startLine": 414,
+        "startChar": 5,
+        "endLine": 414,
+        "endChar": 6
+      },
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b626cb4d_47d9de2b",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 672,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-13T21:47:27Z",
+      "side": 1,
+      "message": "Why did doReadRecord get split off here? An escape for DTLS was added at the top but that could have been done inline.",
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b626cb4d_47b23ee8",
+        "filename": "ssl/test/runner/dtls.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-13T21:47:27Z",
+      "side": 1,
+      "message": "maybe s/[]byte{}/make([]byte, 0, 12 + m)/",
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b626cb4d_27b5c2ce",
+        "filename": "ssl/test/runner/dtls.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-13T21:47:27Z",
+      "side": 1,
+      "message": "You can pass multiple arguments to append:\n\nfragment \u003d append(fragment, byte(c.sendHandshakeSeq\u003e\u003e8), byte(c.sendHandshakeSeq))",
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b626cb4d_e78b4a11",
+        "filename": "ssl/test/runner/dtls.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-13T21:47:27Z",
+      "side": 1,
+      "message": "just \":m\"",
+      "range": {
+        "startLine": 153,
+        "startChar": 36,
+        "endLine": 153,
+        "endChar": 39
+      },
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b626cb4d_0791a643",
+        "filename": "ssl/test/runner/dtls.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-13T21:47:27Z",
+      "side": 1,
+      "message": "just \":m\"",
+      "range": {
+        "startLine": 155,
+        "startChar": 19,
+        "endLine": 155,
+        "endChar": 22
+      },
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b626cb4d_a7955230",
+        "filename": "ssl/test/runner/dtls.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-13T21:47:27Z",
+      "side": 1,
+      "message": "switch cipher :\u003d c.out.cipher.(type) {\n  case cbcMode:\n    // Block cipher modes have an explicit IV.\n    explicitIVLen \u003d cbc.BlockSize()\n  \n  case cipher.AEAD:\n    ...\n\n  default:\n     panic(\"unknown cipher mode\")\n}",
+      "range": {
+        "startLine": 161,
+        "startChar": 0,
+        "endLine": 161,
+        "endChar": 2
+      },
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b626cb4d_67809aeb",
+        "filename": "ssl/test/runner/dtls.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-13T21:47:27Z",
+      "side": 1,
+      "message": "explicitIVLen \u003d 8 ?",
+      "range": {
+        "startLine": 173,
+        "startChar": 3,
+        "endLine": 173,
+        "endChar": 18
+      },
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b626cb4d_a7c47221",
+        "filename": "ssl/test/runner/dtls.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-13T21:47:27Z",
+      "side": 1,
+      "message": "can be just:\n\nfor len(c.handMsg) \u003c 4+c.handMsgLen\n\nbecause len(nil) \u003d 0.",
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b626cb4d_87e136a4",
+        "filename": "ssl/test/runner/dtls.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-13T21:47:27Z",
+      "side": 1,
+      "message": "can this be c.handMsg \u003d header[4:]?",
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b626cb4d_a71232ee",
+        "filename": "ssl/test/runner/dtls.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-13T21:47:27Z",
+      "side": 1,
+      "message": "for a pair of related assignments like this, I\u0027d do:\n\nc.handMsg, c.handMsgLen \u003d nil, 0",
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b626cb4d_c7172edd",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-13T21:47:27Z",
+      "side": 1,
+      "message": "does this need to be a copy? hello is marshaled on the next line.",
+      "range": {
+        "startLine": 170,
+        "startChar": 18,
+        "endLine": 170,
+        "endChar": 24
+      },
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b626cb4d_270702ab",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 685,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-13T21:47:27Z",
+      "side": 1,
+      "message": "can\u0027t you do a couple of calls to hs.finishedHash.Write rather than allocating and copying the message?",
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b626cb4d_074be6ea",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-13T21:47:27Z",
+      "side": 1,
+      "message": "no need for the ending limit.",
+      "range": {
+        "startLine": 119,
+        "startChar": 11,
+        "endLine": 119,
+        "endChar": 26
+      },
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b626cb4d_8757f68b",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-13T21:47:27Z",
+      "side": 1,
+      "message": "I think the next if can be merged into this line.",
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b626cb4d_2764e26f",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-13T21:47:27Z",
+      "side": 1,
+      "message": "ditto about a couple of Write calls rather than a copy.",
+      "revId": "ed1f60b2992a7f2c651b948f5835ab0eea453b39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
