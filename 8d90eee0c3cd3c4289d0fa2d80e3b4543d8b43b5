@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b626cb4d_e7b7ca73",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-13T22:12:45Z",
+      "side": 1,
+      "message": "C++ - can put size_t i in the for body.",
+      "revId": "8d90eee0c3cd3c4289d0fa2d80e3b4543d8b43b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b626cb4d_c7df2e9c",
+        "filename": "ssl/test/runner/packet_adapter.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-13T22:12:45Z",
+      "side": 1,
+      "message": "length :\u003d uint32(len(b))",
+      "revId": "8d90eee0c3cd3c4289d0fa2d80e3b4543d8b43b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
