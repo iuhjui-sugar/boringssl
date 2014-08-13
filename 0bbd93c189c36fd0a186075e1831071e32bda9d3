@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b626cb4d_67889ad2",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-13T21:57:34Z",
+      "side": 1,
+      "message": "g_ex_data_index for a global.",
+      "range": {
+        "startLine": 40,
+        "startChar": 11,
+        "endLine": 40,
+        "endChar": 24
+      },
+      "revId": "0bbd93c189c36fd0a186075e1831071e32bda9d3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
