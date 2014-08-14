@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b626cb4d_3f3862bd",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-14T21:50:27Z",
+      "side": 1,
+      "message": "I don\u0027t have strong opinions as to whether the default is 2 hours or 5 minutes. Existing behavior is a mix of both which seems pretty silly.",
+      "revId": "6d7d58c5bd7372142bc6f9f8a1f62925a1ee1588",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
