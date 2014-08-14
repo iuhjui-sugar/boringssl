@@ -16,6 +16,24 @@
       "revId": "6d7d58c5bd7372142bc6f9f8a1f62925a1ee1588",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b6540bb2_12eed290",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-14T22:10:12Z",
+      "side": 1,
+      "message": "I\u0027m a little confused about this comment: \"the cache would overfill\"? Surely you want the cache to be pretty much full? Older entries will be removed anyway.",
+      "parentUuid": "b626cb4d_3f3862bd",
+      "revId": "6d7d58c5bd7372142bc6f9f8a1f62925a1ee1588",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
