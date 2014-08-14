@@ -22,6 +22,30 @@
       "revId": "35872b9bb3002af474c51a7dadbd7d4ed7190ea3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f62cc32f_a9f3e54e",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 780,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-14T16:53:24Z",
+      "side": 1,
+      "message": "Hrm. Yeah, it really should have been called DTLS 1.1. It\u0027d make the test name odd, and wireToVersion and versionToWire get slightly more complicated, but then we can lose the DTLS special-case for whether or not CBC modes have an explicit IV.\n\n*shrug*",
+      "parentUuid": "b626cb4d_82cfe460",
+      "range": {
+        "startLine": 780,
+        "startChar": 31,
+        "endLine": 780,
+        "endChar": 33
+      },
+      "revId": "35872b9bb3002af474c51a7dadbd7d4ed7190ea3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
