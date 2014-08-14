@@ -414,6 +414,8 @@ struct ssl_method_st
  *	Compression_meth [11]   EXPLICIT OCTET STRING, -- optional compression method
  *	SRP_username [ 12 ] EXPLICIT OCTET STRING -- optional SRP username
  *	Peer SHA256 [13]        EXPLICIT OCTET STRING, -- optional SHA256 hash of Peer certifiate
+ *	original handshake hash [14] EXPLICIT OCTET STRING, -- optional original handshake hash
+ *	tlsext_signed_cert_timestamp_list [15] EXPLICIT OCTET STRING, -- optional signed cert timestamp list extension
  *	}
  * Look in ssl/ssl_asn1.c for more details
  * I'm using EXPLICIT tags so I can read the damn things using asn1parse :-).
@@ -483,6 +485,8 @@ struct ssl_session_st
 	uint8_t *tlsext_tick;	/* Session ticket */
 	size_t tlsext_ticklen;		/* Session ticket length */
 	uint32_t tlsext_tick_lifetime_hint;	/* Session lifetime hint in seconds */
+	size_t tlsext_signed_cert_timestamp_list_length;
+	uint8_t *tlsext_signed_cert_timestamp_list; /* Server's list. */
 	char peer_sha256_valid;		/* Non-zero if peer_sha256 is valid */
 	unsigned char peer_sha256[SHA256_DIGEST_LENGTH];  /* SHA256 of peer certificate */
 
@@ -1134,6 +1138,13 @@ OPENSSL_EXPORT int SSL_CTX_set_client_cert_engine(SSL_CTX *ctx, ENGINE *e);
 #endif
 OPENSSL_EXPORT void SSL_CTX_set_cookie_generate_cb(SSL_CTX *ctx, int (*app_gen_cookie_cb)(SSL *ssl, uint8_t *cookie, size_t *cookie_len));
 OPENSSL_EXPORT void SSL_CTX_set_cookie_verify_cb(SSL_CTX *ctx, int (*app_verify_cookie_cb)(SSL *ssl, const uint8_t *cookie, size_t cookie_len));
+
+OPENSSL_EXPORT int SSL_enable_signed_cert_timestamps(SSL *ssl);
+
+/* returns the certificate timestamp list extension as described in RFC 6962,
+ * including the extension's initial 2-byte length prefix bytes. */
+OPENSSL_EXPORT void SSL_get0_signed_cert_timestamp_list(const SSL *ssl, uint8_t **out, size_t *length);
+
 #ifndef OPENSSL_NO_NEXTPROTONEG
 OPENSSL_EXPORT void SSL_CTX_set_next_protos_advertised_cb(SSL_CTX *s,
 					   int (*cb) (SSL *ssl,
@@ -1441,6 +1452,9 @@ struct ssl_st
 	char tlsext_channel_id_enabled;
 	/* The client's Channel ID private key. */
 	EVP_PKEY *tlsext_channel_id_private;
+
+	/* Enable signed certificate time stamps. Currently client only. */
+	char signed_cert_timestamps_enabled;
 
 	/* For a client, this contains the list of supported protocols in wire
 	 * format. */

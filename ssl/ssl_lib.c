@@ -1676,6 +1676,30 @@ int SSL_get_servername_type(const SSL *s)
 	return -1;
 	}
 
+int SSL_enable_signed_cert_timestamps(SSL *ssl)
+	{
+	/* Currently not implemented server side */
+	if (ssl->server)
+		return 0;
+
+	ssl->signed_cert_timestamps_enabled = 1;
+	return 1;
+	}
+
+void SSL_get0_signed_cert_timestamp_list(const SSL *ssl, uint8_t **out, size_t *length)
+	{
+		*length = 0;
+		*out = NULL;
+		if (ssl->server)
+			return;
+		SSL_SESSION *session = ssl->session;
+		if (!session || !session->tlsext_signed_cert_timestamp_list)
+			return;
+		if (out)
+			*out = session->tlsext_signed_cert_timestamp_list;
+		*length = session->tlsext_signed_cert_timestamp_list_length;
+	}
+
 /* SSL_select_next_proto implements the standard protocol selection. It is
  * expected that this function is called from the callback set by
  * SSL_CTX_set_next_proto_select_cb.
