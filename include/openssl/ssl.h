@@ -484,6 +484,10 @@ struct ssl_session_st
 	uint8_t *tlsext_tick;	/* Session ticket */
 	size_t tlsext_ticklen;		/* Session ticket length */
 	uint32_t tlsext_tick_lifetime_hint;	/* Session lifetime hint in seconds */
+
+	size_t tlsext_signed_cert_timestamp_list_length;
+	uint8_t *tlsext_signed_cert_timestamp_list; /* Server's list. */
+
 	char peer_sha256_valid;		/* Non-zero if peer_sha256 is valid */
 	unsigned char peer_sha256[SHA256_DIGEST_LENGTH];  /* SHA256 of peer certificate */
 
@@ -1451,6 +1455,9 @@ struct ssl_st
 	/* The client's Channel ID private key. */
 	EVP_PKEY *tlsext_channel_id_private;
 
+	/* Enable signed certificate time stamps. Currently client only. */
+	char signed_cert_timestamps_enabled;
+
 	/* For a client, this contains the list of supported protocols in wire
 	 * format. */
 	unsigned char* alpn_client_proto_list;
@@ -1752,6 +1759,9 @@ DECLARE_PEM_rw(SSL_SESSION, SSL_SESSION)
 
 #define SSL_CTRL_FALLBACK_SCSV			120
 
+#define SSL_CTRL_SIGNED_CERT_TIMESTAMPS			121
+#define SSL_CTRL_SIGNED_CERT_TIMESTAMP_LIST	122
+
 #define DTLSv1_get_timeout(ssl, arg) \
 	SSL_ctrl(ssl,DTLS_CTRL_GET_TIMEOUT,0, (void *)arg)
 #define DTLSv1_handle_timeout(ssl) \
@@ -1922,6 +1932,12 @@ DECLARE_PEM_rw(SSL_SESSION, SSL_SESSION)
 
 #define SSL_enable_fallback_scsv(s) \
 	SSL_ctrl(s, SSL_CTRL_FALLBACK_SCSV, 0, NULL)
+
+#define SSL_enable_signed_cert_timestamps(s) \
+	SSL_ctrl(s, SSL_CTRL_SIGNED_CERT_TIMESTAMPS, 0, NULL)
+
+#define SSL_get_get0_signed_cert_timestamp_list(s, tlist) \
+	SSL_ctrl(s, SSL_CTRL_SIGNED_CERT_TIMESTAMP_LIST, 0, tlist)
 
 #ifndef OPENSSL_NO_BIO
 OPENSSL_EXPORT BIO_METHOD *BIO_f_ssl(void);
