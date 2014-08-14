@@ -296,6 +296,7 @@ void ssl_load_ciphers(void)
 	ssl_cipher_methods[SSL_ENC_DES_IDX]= EVP_des_cbc();
 	ssl_cipher_methods[SSL_ENC_3DES_IDX]= EVP_des_ede3_cbc();
 	ssl_cipher_methods[SSL_ENC_RC4_IDX]= EVP_rc4();
+	ssl_cipher_methods[SSL_ENC_NULL_IDX] = EVP_enc_null();
 	ssl_cipher_methods[SSL_ENC_AES128_IDX]= EVP_aes_128_cbc();
 	ssl_cipher_methods[SSL_ENC_AES256_IDX]= EVP_aes_256_cbc();
 
@@ -403,12 +404,7 @@ int ssl_cipher_get_evp(const SSL_SESSION *s, const EVP_CIPHER **enc,
 	if ((i < 0) || (i >= SSL_ENC_NUM_IDX))
 		*enc=NULL;
 	else
-		{
-		if (i == SSL_ENC_NULL_IDX)
-			*enc = EVP_enc_null();
-
 		*enc=ssl_cipher_methods[i];
-		}
 
 	if (!ssl_cipher_get_mac(s, md, mac_pkey_type, mac_secret_size))
 		return 0;
