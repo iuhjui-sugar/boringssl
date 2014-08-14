@@ -34,6 +34,24 @@
       "revId": "6d7d58c5bd7372142bc6f9f8a1f62925a1ee1588",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b626cb4d_bf1232ee",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-14T22:20:51Z",
+      "side": 1,
+      "message": "I have no clue. I copied it from the old one. :-) Removing the comment.",
+      "parentUuid": "b6540bb2_12eed290",
+      "revId": "6d7d58c5bd7372142bc6f9f8a1f62925a1ee1588",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
