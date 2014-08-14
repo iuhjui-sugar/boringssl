@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f62cc32f_ef7c7df9",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-14T16:21:30Z",
+      "side": 1,
+      "message": "Do these need OPENSSL_EXPORT?",
+      "revId": "fa7e3ede3823ebc442a278468d81954ac6c71a6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f62cc32f_0f8219af",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-14T16:21:30Z",
+      "side": 1,
+      "message": "bn",
+      "range": {
+        "startLine": 297,
+        "startChar": 3,
+        "endLine": 297,
+        "endChar": 5
+      },
+      "revId": "fa7e3ede3823ebc442a278468d81954ac6c71a6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
