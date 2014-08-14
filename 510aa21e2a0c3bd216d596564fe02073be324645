@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f62cc32f_cf7bc1fc",
+        "filename": "include/openssl/obj.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-14T16:22:36Z",
+      "side": 1,
+      "message": "\"a newly-allocated\" perhaps?",
+      "revId": "510aa21e2a0c3bd216d596564fe02073be324645",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
