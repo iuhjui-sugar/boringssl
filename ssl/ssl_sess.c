@@ -220,6 +220,8 @@ SSL_SESSION *SSL_SESSION_new(void)
 	ss->tlsext_ellipticcurvelist_length = 0;
 	ss->tlsext_ellipticcurvelist = NULL;
 #endif
+	ss->tlsext_signed_cert_timestamp_list = NULL;
+	ss->tlsext_signed_cert_timestamp_list_length = 0;
 	CRYPTO_new_ex_data(CRYPTO_EX_INDEX_SSL_SESSION, ss, &ss->ex_data);
 	ss->psk_identity_hint=NULL;
 	ss->psk_identity=NULL;
@@ -743,6 +745,9 @@ void SSL_SESSION_free(SSL_SESSION *ss)
 	ss->tlsext_ellipticcurvelist_length = 0;
 	if (ss->tlsext_ellipticcurvelist != NULL) OPENSSL_free(ss->tlsext_ellipticcurvelist);
 #endif /* OPENSSL_NO_EC */
+	if (ss->tlsext_signed_cert_timestamp_list != NULL) 
+		OPENSSL_free(ss->tlsext_signed_cert_timestamp_list);
+	ss->tlsext_signed_cert_timestamp_list_length = 0;
 	if (ss->psk_identity_hint != NULL)
 		OPENSSL_free(ss->psk_identity_hint);
 	if (ss->psk_identity != NULL)

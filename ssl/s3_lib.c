@@ -2626,6 +2626,26 @@ long ssl3_ctrl(SSL *s, int cmd, long larg, void *parg)
 		ret = 1;
 		break;
 
+	case SSL_CTRL_SIGNED_CERT_TIMESTAMPS:
+		/* Currently not implemented server side */
+		if (s->server)
+			break;
+		s->signed_cert_timestamps_enabled = 1;
+		ret = 1;
+		break;
+
+	case SSL_CTRL_SIGNED_CERT_TIMESTAMP_LIST:
+		{
+		if (s->server)
+			break;
+		SSL_SESSION *session = s->session;
+		if (!session || !session->tlsext_signed_cert_timestamp_list)
+			return 0;
+		if (parg)
+			*(uint8_t **)parg = session->tlsext_signed_cert_timestamp_list;
+		return session->tlsext_signed_cert_timestamp_list_length;
+		}
+
 	default:
 		break;
 		}
