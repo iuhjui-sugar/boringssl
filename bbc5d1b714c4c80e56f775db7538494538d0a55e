@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f62cc32f_a90c45a0",
+        "filename": "crypto/bytestring/bytestring_test.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-14T00:19:03Z",
+      "side": 1,
+      "message": "Whoops, forgot to update that. :-) Done.",
+      "parentUuid": "b626cb4d_62b648c7",
+      "range": {
+        "startLine": 194,
+        "startChar": 7,
+        "endLine": 194,
+        "endChar": 61
+      },
+      "revId": "bbc5d1b714c4c80e56f775db7538494538d0a55e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b626cb4d_22c05010",
         "filename": "crypto/bytestring/bytestring_test.c",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "f62cc32f_c91181bb",
+        "filename": "crypto/bytestring/bytestring_test.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-14T00:19:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b626cb4d_22c05010",
+      "range": {
+        "startLine": 195,
+        "startChar": 21,
+        "endLine": 195,
+        "endChar": 62
+      },
+      "revId": "bbc5d1b714c4c80e56f775db7538494538d0a55e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b626cb4d_c2b07ccc",
         "filename": "crypto/bytestring/cbs.c",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2014-08-14T00:16:43Z",
       "side": 1,
       "message": "*out_tag is just |tag| here, no?",
+      "range": {
+        "startLine": 230,
+        "startChar": 9,
+        "endLine": 230,
+        "endChar": 17
+      },
+      "revId": "bbc5d1b714c4c80e56f775db7538494538d0a55e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f62cc32f_69270d18",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-14T00:19:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b626cb4d_c2b07ccc",
       "range": {
         "startLine": 230,
         "startChar": 9,
