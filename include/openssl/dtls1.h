@@ -171,7 +171,10 @@ typedef struct hm_fragment_st
 
 typedef struct dtls1_state_st
 	{
+	/* send_cookie is true if we are resending the ClientHello
+	 * with a cookie from a HelloVerifyRequest. */
 	unsigned int send_cookie;
+
 	unsigned char cookie[DTLS1_COOKIE_LENGTH];
 	unsigned int cookie_len;
 
