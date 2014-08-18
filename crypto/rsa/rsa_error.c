@@ -43,6 +43,7 @@ const ERR_STRING_DATA RSA_error_string_data[] = {
   {ERR_PACK(ERR_LIB_RSA, RSA_F_encrypt, 0), "encrypt"},
   {ERR_PACK(ERR_LIB_RSA, RSA_F_keygen, 0), "keygen"},
   {ERR_PACK(ERR_LIB_RSA, RSA_F_pkcs1_prefixed_msg, 0), "pkcs1_prefixed_msg"},
+  {ERR_PACK(ERR_LIB_RSA, RSA_F_private_transform, 0), "private_transform"},
   {ERR_PACK(ERR_LIB_RSA, RSA_F_rsa_setup_blinding, 0), "rsa_setup_blinding"},
   {ERR_PACK(ERR_LIB_RSA, RSA_F_sign_raw, 0), "sign_raw"},
   {ERR_PACK(ERR_LIB_RSA, RSA_F_verify_raw, 0), "verify_raw"},
