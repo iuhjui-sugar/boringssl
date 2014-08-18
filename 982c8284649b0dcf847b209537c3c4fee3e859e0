@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33f66d4a_626118de",
+        "filename": "ssl/ssl_sess.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-18T17:22:57Z",
+      "side": 1,
+      "message": "Not needed because the structure is zeroed when allocated. (The other zeros and NULLs in this function are superfluous too.)",
+      "revId": "982c8284649b0dcf847b209537c3c4fee3e859e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "33f66d4a_02700ca4",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 2469,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-18T17:22:57Z",
+      "side": 1,
+      "message": "indentation is funky here. Also, this is probably just a single call to CBS_stow.",
+      "revId": "982c8284649b0dcf847b209537c3c4fee3e859e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
