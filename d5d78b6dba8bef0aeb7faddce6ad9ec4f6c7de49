@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33f66d4a_25755a47",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-18T21:19:02Z",
+      "side": 1,
+      "message": "This error reason is no longer accurate.",
+      "range": {
+        "startLine": 396,
+        "startChar": 36,
+        "endLine": 396,
+        "endChar": 67
+      },
+      "revId": "d5d78b6dba8bef0aeb7faddce6ad9ec4f6c7de49",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "33f66d4a_45c29e17",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-18T21:19:02Z",
+      "side": 1,
+      "message": "Should we make this consistent or leave it for now? The current change will hit obnoxious clients and this will make it hit obnoxious servers. It seems to be safe though; NSS is strict about it:\n\nhttp://mxr.mozilla.org/mozilla-central/source/security/nss/lib/freebl/rsapkcs.c#348\n\nBut I haven\u0027t followed the entire chain of PKCS#11 wrapper code. It\u0027s possible that somewhere earlier up the line they zero-pad the input. They\u0027re also strict about decryption, but that\u0027s less helpful in determining whether it is compatible for a server.",
+      "revId": "d5d78b6dba8bef0aeb7faddce6ad9ec4f6c7de49",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "33f66d4a_65a6c299",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-18T21:19:02Z",
+      "side": 1,
+      "message": "Nit: while you\u0027re here, may as well capitalize and end with a period.",
+      "revId": "d5d78b6dba8bef0aeb7faddce6ad9ec4f6c7de49",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
