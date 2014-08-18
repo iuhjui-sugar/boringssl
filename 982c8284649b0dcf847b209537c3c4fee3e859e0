@@ -2,6 +2,63 @@
   "comments": [
     {
       "key": {
+        "uuid": "33f66d4a_02548cdc",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1937,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-18T17:55:12Z",
+      "side": 1,
+      "message": "Do we want to just make these normal functions rather than more SSL_ctrl macros? The ctrl macros lose type-checking and, with SSLv2 gone, every SSL goes through the same ctrl implementation anyway, with the minor exception that DTLS has a handful of extra ones.\n\n(I\u0027ll probably start converting the existing ones at some point.)",
+      "revId": "982c8284649b0dcf847b209537c3c4fee3e859e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "33f66d4a_0206ccf0",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1940,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-18T17:55:12Z",
+      "side": 1,
+      "message": "Extra \u0027get_\u0027",
+      "range": {
+        "startLine": 1940,
+        "startChar": 12,
+        "endLine": 1940,
+        "endChar": 16
+      },
+      "revId": "982c8284649b0dcf847b209537c3c4fee3e859e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "33f66d4a_2211d026",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1941,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-18T17:55:12Z",
+      "side": 1,
+      "message": "This should document what format the SCT comes out as. It looks like you\u0027re currently returning the entire extension body which includes an initial 2-byte length prefix over the whole thing. (Which is what our ct_verifier.h wants. Though arguably it\u0027s more of a nuisance for the caller which has to verify the initial length matches the total length.)\n\nI wonder if this should be called SSL_get0_signed_cert_timestamp_extension or something, since it\u0027s the entire extension data.",
+      "revId": "982c8284649b0dcf847b209537c3c4fee3e859e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "33f66d4a_626118de",
         "filename": "ssl/ssl_sess.c",
         "patchSetId": 3
