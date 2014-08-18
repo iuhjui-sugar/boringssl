@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9310f93f_e03ab6dd",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1937,
+      "author": {
+        "id": 5225
+      },
+      "writtenOn": "2014-08-18T19:05:21Z",
+      "side": 1,
+      "message": "I followed what I thought to be the standard. If that is changing I totally agree, and will turn this one into proper functions right away.",
+      "parentUuid": "33f66d4a_02548cdc",
+      "revId": "982c8284649b0dcf847b209537c3c4fee3e859e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "33f66d4a_0206ccf0",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 3
@@ -53,6 +71,24 @@
       "writtenOn": "2014-08-18T17:55:12Z",
       "side": 1,
       "message": "This should document what format the SCT comes out as. It looks like you\u0027re currently returning the entire extension body which includes an initial 2-byte length prefix over the whole thing. (Which is what our ct_verifier.h wants. Though arguably it\u0027s more of a nuisance for the caller which has to verify the initial length matches the total length.)\n\nI wonder if this should be called SSL_get0_signed_cert_timestamp_extension or something, since it\u0027s the entire extension data.",
+      "revId": "982c8284649b0dcf847b209537c3c4fee3e859e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9310f93f_8023fac7",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1941,
+      "author": {
+        "id": 5225
+      },
+      "writtenOn": "2014-08-18T19:05:21Z",
+      "side": 1,
+      "message": "Yes, this returns the whole extension, since that was what the tests and current verified did. I agree with your thinking about returning the inner data But if we change it here, we get different behavior between NSS and OpenSSL.",
+      "parentUuid": "33f66d4a_2211d026",
       "revId": "982c8284649b0dcf847b209537c3c4fee3e859e0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
