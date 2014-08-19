@@ -1,0 +1,158 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33f66d4a_f9db9734",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1142,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-19T19:12:53Z",
+      "side": 1,
+      "message": "/* SSL_enable_signed_cert_timestamps causes |ssl| (which must be the client end of a connection) to request SCTs from the server. See https://tools.ietf.org/html/rfc6962. */\n\nWe probably want to set this on an SSL_CTX for Chromium.",
+      "revId": "ab791900746ad92d9d1bcea7fe28a04ea439799d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "33f66d4a_b9fcef80",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1146,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-19T19:12:53Z",
+      "side": 1,
+      "message": "/* SSL_get0_signed_cert_timestamp_list sets |*out| and |*out_len| to point to |*out_len| bytes of SCT information from the server. This is only valid if |ssl| is a client.\n\nThe SCT information is a SignedCertificateTimestampList (including the two leading length bytes). See https://tools.ietf.org/html/rfc6962#section-3.3\n\nIf no SCT was received then |*out_len| will be zero on return. */\n\n\n(And length -\u003e out_len).",
+      "revId": "ab791900746ad92d9d1bcea7fe28a04ea439799d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "33f66d4a_99bdabc5",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-19T19:12:53Z",
+      "side": 1,
+      "message": "I think that this can all be one line.",
+      "revId": "ab791900746ad92d9d1bcea7fe28a04ea439799d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "33f66d4a_39cc5f71",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-19T19:12:53Z",
+      "side": 1,
+      "message": "I\u0027m not sure about this sizeof. In the original_handshake_hash case it\u0027s because there\u0027s a fixed size array that the data is copied to, but that\u0027s not the case here.",
+      "range": {
+        "startLine": 595,
+        "startChar": 20,
+        "endLine": 595,
+        "endChar": 26
+      },
+      "revId": "ab791900746ad92d9d1bcea7fe28a04ea439799d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "33f66d4a_599e035b",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-19T19:12:53Z",
+      "side": 1,
+      "message": "I think you need to free ret-\u003etlsext_signed_cert_timestamp_list (if not NULL) first and the assign os.data to it. Then the OPENSSL_free(os.data) can be omitted.",
+      "range": {
+        "startLine": 597,
+        "startChar": 9,
+        "endLine": 597,
+        "endChar": 47
+      },
+      "revId": "ab791900746ad92d9d1bcea7fe28a04ea439799d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "33f66d4a_39a33f9f",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 1691,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-19T19:12:53Z",
+      "side": 1,
+      "message": "indentation is incorrect. (Such as OpenSSL has a \"correct\" indentation.)",
+      "revId": "ab791900746ad92d9d1bcea7fe28a04ea439799d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "33f66d4a_19b87bc5",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 1698,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-19T19:12:53Z",
+      "side": 1,
+      "message": "*out has already been written so \"if (out)\" is superfluous.",
+      "revId": "ab791900746ad92d9d1bcea7fe28a04ea439799d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "33f66d4a_998feb21",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 2287,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-19T19:12:53Z",
+      "side": 1,
+      "message": "indentation is wrong.",
+      "range": {
+        "startLine": 2287,
+        "startChar": 6,
+        "endLine": 2287,
+        "endChar": 7
+      },
+      "revId": "ab791900746ad92d9d1bcea7fe28a04ea439799d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
