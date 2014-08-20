@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9310f93f_a9982998",
+        "filename": "util/make_errors.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5225
+      },
+      "writtenOn": "2014-08-20T13:10:11Z",
+      "side": 1,
+      "message": "It\u0027s a little unclear to me if this was intentional to keep error codes for now to avoid compile issues. If so, it would be nice to run this mode behind a flag. This way we can list out the dead error codes used by chromium.",
+      "revId": "b59b92ce07f9e49fe8f00ac3786572bfb5a49ef0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
