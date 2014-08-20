@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9310f93f_f40278da",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5225
+      },
+      "writtenOn": "2014-08-20T18:20:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33f66d4a_5e44a461",
+      "revId": "1b223433f8c892df5612fa66ff359a11101e7cce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "33f66d4a_5e56e409",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 7
@@ -30,6 +48,24 @@
       "writtenOn": "2014-08-20T16:35:11Z",
       "side": 1,
       "message": "Nit: \u0027*  */\u0027 -\u003e \u0027*/\u0027",
+      "revId": "1b223433f8c892df5612fa66ff359a11101e7cce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9310f93f_b4fc0081",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 1149,
+      "author": {
+        "id": 5225
+      },
+      "writtenOn": "2014-08-20T18:20:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33f66d4a_5e56e409",
       "revId": "1b223433f8c892df5612fa66ff359a11101e7cce",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "9310f93f_54c7e44e",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 1684,
+      "author": {
+        "id": 5225
+      },
+      "writtenOn": "2014-08-20T18:20:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33f66d4a_3e844050",
+      "revId": "1b223433f8c892df5612fa66ff359a11101e7cce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "33f66d4a_7e61a8dd",
         "filename": "ssl/ssl_lib.c",
         "patchSetId": 7
@@ -64,6 +118,30 @@
       "writtenOn": "2014-08-20T16:35:11Z",
       "side": 1,
       "message": "Nit: NULL",
+      "range": {
+        "startLine": 1700,
+        "startChar": 8,
+        "endLine": 1700,
+        "endChar": 9
+      },
+      "revId": "1b223433f8c892df5612fa66ff359a11101e7cce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9310f93f_34cc7071",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 1700,
+      "author": {
+        "id": 5225
+      },
+      "writtenOn": "2014-08-20T18:20:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33f66d4a_7e61a8dd",
       "range": {
         "startLine": 1700,
         "startChar": 8,
@@ -110,6 +188,24 @@
       "writtenOn": "2014-08-20T16:35:11Z",
       "side": 1,
       "message": "If s-\u003ehit is true, s-\u003esession should not be modified here (see CVE-2014-3509; if you think this smells kinda fragile, I completely agree). I don\u0027t know of any multithreaded clients, but the session is still be shared between multiple connections and pending resumptions on one really shouldn\u0027t affect another like that.\n\nThe spec says:\n\n   Session resumption uses the original session information: clients\n   SHOULD include the extension type in the ClientHello, but if the\n   session is resumed, the server is not expected to process it or\n   include the extension in the ServerHello.\n\nSo I think we should just ignore it and make this check just !s-\u003ehit. My interpretation is that the \u0027SHOULD\u0027 on the client end is because the server may still do a full handshake, not because it\u0027s relevant to the abbreviated handshake.\n\n(The server doesn\u0027t send the certificate again on resumption, so I wouldn\u0027t expect it to need to send the SCT again either.)",
+      "revId": "1b223433f8c892df5612fa66ff359a11101e7cce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9310f93f_14d16c05",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 2282,
+      "author": {
+        "id": 5225
+      },
+      "writtenOn": "2014-08-20T18:20:47Z",
+      "side": 1,
+      "message": "Agree.",
+      "parentUuid": "33f66d4a_fe3a58dd",
       "revId": "1b223433f8c892df5612fa66ff359a11101e7cce",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
