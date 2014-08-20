@@ -16,6 +16,24 @@
       "revId": "b59b92ce07f9e49fe8f00ac3786572bfb5a49ef0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "33f66d4a_5e6944fd",
+        "filename": "util/make_errors.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-20T19:03:28Z",
+      "side": 1,
+      "message": "It\u0027s nice not to change the numbers around too much because they\u0027ll end up in error messages and bug reports etc. Then one doesn\u0027t want to have to figure out exactly what version was in use at the time. However, parsing the error.c file wasn\u0027t planned.",
+      "parentUuid": "9310f93f_a9982998",
+      "revId": "b59b92ce07f9e49fe8f00ac3786572bfb5a49ef0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
