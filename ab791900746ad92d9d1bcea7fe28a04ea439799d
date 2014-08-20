@@ -253,6 +253,24 @@
     },
     {
       "key": {
+        "uuid": "33f66d4a_be8f306a",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 1698,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-20T16:35:57Z",
+      "side": 1,
+      "message": "If out is NULL, then line 1692 would already have dereferenced the NULL pointer. (And since doing so is undefined, the compiler\u0027s actually allowed to optimize this check out since it occurs after line 1692.)\n\n(There\u0027s probably no need to bother with the length-checking thing if this API is get0 rather than get1? If the caller were to supply a buffer for us to copy into, then you\u0027d want that, but this is just supplying two pointers.)",
+      "parentUuid": "9310f93f_8ea44ba9",
+      "revId": "ab791900746ad92d9d1bcea7fe28a04ea439799d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "33f66d4a_998feb21",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 4
