@@ -1271,3 +1271,9 @@ static const EVP_AEAD aead_aes_256_key_wrap = {
 const EVP_AEAD *EVP_aead_aes_128_key_wrap() { return &aead_aes_128_key_wrap; }
 
 const EVP_AEAD *EVP_aead_aes_256_key_wrap() { return &aead_aes_256_key_wrap; }
+
+#if defined(OPENSSL_X86) || defined(OPENSSL_X86_64)
+int EVP_aesni_enabled() {
+  return aesni_capable();
+}
+#endif

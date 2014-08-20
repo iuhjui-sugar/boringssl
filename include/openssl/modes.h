@@ -153,6 +153,12 @@ OPENSSL_EXPORT void CRYPTO_gcm128_tag(GCM128_CONTEXT *ctx, uint8_t *tag,
 /* CRYPTO_gcm128_release clears and frees |ctx|. */
 OPENSSL_EXPORT void CRYPTO_gcm128_release(GCM128_CONTEXT *ctx);
 
+#if defined(OPENSSL_X86) || defined(OPENSSL_X86_64)
+/* CRYPTO_gcm_clmul_enabled returns one if the CLMUL implementation of GCM is
+ * used. */
+OPENSSL_EXPORT int CRYPTO_gcm_clmul_enabled();
+#endif
+
 
 /* CBC. */
 

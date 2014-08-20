@@ -95,6 +95,12 @@ OPENSSL_EXPORT const EVP_CIPHER *EVP_enc_null(void);
  * NULL if no such cipher is known. */
 OPENSSL_EXPORT const EVP_CIPHER *EVP_get_cipherbynid(int nid);
 
+#if defined(OPENSSL_X86) || defined(OPENSSL_X86_64)
+/* EVP_aesni_enabled returns one if the AESNI implementation is used for the
+ * EVP_CIPHER and EVP_AEAD interfaces to AES. */
+OPENSSL_EXPORT int EVP_aesni_enabled();
+#endif
+
 
 /* Cipher context allocation.
  *

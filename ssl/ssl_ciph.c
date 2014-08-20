@@ -141,8 +141,10 @@
 #include <stdio.h>
 #include <assert.h>
 
+#include <openssl/cipher.h>
 #include <openssl/engine.h>
 #include <openssl/mem.h>
+#include <openssl/modes.h>
 #include <openssl/obj.h>
 
 #include "ssl_locl.h"
@@ -1152,6 +1154,7 @@ STACK_OF(SSL_CIPHER) *ssl_create_cipher_list(const SSL_METHOD *ssl_method,
 	unsigned char *in_group_flags = NULL;
 	unsigned int num_in_group_flags = 0;
 	struct ssl_cipher_preference_list_st *pref_list = NULL;
+	int prefer_aes_gcm = 0;
 
 	/*
 	 * Return with error if nothing to do.
@@ -1193,16 +1196,27 @@ STACK_OF(SSL_CIPHER) *ssl_create_cipher_list(const SSL_METHOD *ssl_method,
 	ssl_cipher_apply_rule(0, SSL_kEECDH, 0, 0, 0, 0, 0, CIPHER_ADD, -1, 0, &head, &tail);
 	ssl_cipher_apply_rule(0, SSL_kEECDH, 0, 0, 0, 0, 0, CIPHER_DEL, -1, 0, &head, &tail);
 
-	/* Order the bulk ciphers.
-	 * 1. CHACHA20_POLY1305.
-	 * 2. AES_256_GCM and AES_128_GCM.
-	 * 3. Legacy non-AEAD ciphers. AES_256_CBC, AES-128_CBC, RC4_128_SHA,
-	 *    RC4_128_MD5, 3DES_EDE_CBC_SHA.
-	 * TODO(davidben): Prefer AES_GCM over CHACHA20 if there is hardware
-	 * support. */
-        ssl_cipher_apply_rule(0, 0, 0, SSL_CHACHA20POLY1305, 0, 0, 0, CIPHER_ADD, -1, 0, &head, &tail);
-        ssl_cipher_apply_rule(0, 0, 0, SSL_AES256GCM, 0, 0, 0, CIPHER_ADD, -1, 0, &head, &tail);
-        ssl_cipher_apply_rule(0, 0, 0, SSL_AES128GCM, 0, 0, 0, CIPHER_ADD, -1, 0, &head, &tail);
+	/* Order the bulk ciphers. First the preferred AEAD ciphers. We prefer
+	 * CHACHA20 unless there is hardware support for fast and constant-time
+	 * AES_GCM. */
+#if defined(OPENSSL_X86) || defined(OPENSSL_X86_64)
+	prefer_aes_gcm = CRYPTO_gcm_clmul_enabled() && EVP_aesni_enabled();
+#endif
+	if (prefer_aes_gcm)
+		{
+		ssl_cipher_apply_rule(0, 0, 0, SSL_AES256GCM, 0, 0, 0, CIPHER_ADD, -1, 0, &head, &tail);
+		ssl_cipher_apply_rule(0, 0, 0, SSL_AES128GCM, 0, 0, 0, CIPHER_ADD, -1, 0, &head, &tail);
+		ssl_cipher_apply_rule(0, 0, 0, SSL_CHACHA20POLY1305, 0, 0, 0, CIPHER_ADD, -1, 0, &head, &tail);
+		}
+	else
+		{
+		ssl_cipher_apply_rule(0, 0, 0, SSL_CHACHA20POLY1305, 0, 0, 0, CIPHER_ADD, -1, 0, &head, &tail);
+		ssl_cipher_apply_rule(0, 0, 0, SSL_AES256GCM, 0, 0, 0, CIPHER_ADD, -1, 0, &head, &tail);
+		ssl_cipher_apply_rule(0, 0, 0, SSL_AES128GCM, 0, 0, 0, CIPHER_ADD, -1, 0, &head, &tail);
+		}
+
+	/* Then the legacy non-AEAD ciphers: AES_256_CBC, AES-128_CBC,
+	 * RC4_128_SHA, RC4_128_MD5, 3DES_EDE_CBC_SHA. */
         ssl_cipher_apply_rule(0, 0, 0, SSL_AES256, 0, 0, 0, CIPHER_ADD, -1, 0, &head, &tail);
         ssl_cipher_apply_rule(0, 0, 0, SSL_AES128, 0, 0, 0, CIPHER_ADD, -1, 0, &head, &tail);
         ssl_cipher_apply_rule(0, 0, 0, SSL_RC4, ~SSL_MD5, 0, 0, CIPHER_ADD, -1, 0, &head, &tail);
