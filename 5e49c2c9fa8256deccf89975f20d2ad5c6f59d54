@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33f66d4a_4bad08b9",
+        "filename": "ssl/d1_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-20T02:06:59Z",
+      "side": 0,
+      "message": "These two lines are now in both branches of the if(). It would seem better to have them in common, here.",
+      "revId": "5e49c2c9fa8256deccf89975f20d2ad5c6f59d54",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
