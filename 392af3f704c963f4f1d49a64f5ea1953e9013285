@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33f66d4a_814f7180",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 1122,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-20T19:13:42Z",
+      "side": 1,
+      "message": "and extra bit to include (after a blank line in the comment):\n\nWARNING: the returned data is not guaranteed to be well formed.",
+      "revId": "392af3f704c963f4f1d49a64f5ea1953e9013285",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
