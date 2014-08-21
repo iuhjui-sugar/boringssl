@@ -119,6 +119,13 @@ OPENSSL_EXPORT PKCS8_PRIV_KEY_INFO *PKCS8_decrypt(X509_SIG *pkcs8,
                                                   const char *pass,
                                                   int pass_len);
 
+/* PKCS12_get_key_and_certs parses a PKCS#12 structure from |in|, authenticates
+ * and decrypts it using |password|, sets |*out_key| to the included private
+ * key and appends the included certificates to |out_certs|. It returns one on
+ * success and zero on error. */
+OPENSSL_EXPORT int PKCS12_get_key_and_certs(EVP_PKEY **out_key,
+                                            STACK_OF(X509) * out_certs,
+                                            CBS * in, const char *password);
 
 #if defined(__cplusplus)
 }  /* extern C */
@@ -141,6 +148,10 @@ OPENSSL_EXPORT PKCS8_PRIV_KEY_INFO *PKCS8_decrypt(X509_SIG *pkcs8,
 #define PKCS8_F_pkcs12_key_gen_raw 114
 #define PKCS8_F_PKCS8_decrypt 115
 #define PKCS8_F_PKCS8_encrypt_pbe 116
+#define PKCS8_F_PKCS12_parse 117
+#define PKCS8_F_PKCS12_handle_content_info 118
+#define PKCS8_F_PKCS12_handle_content_infos 119
+#define PKCS8_F_PKCS12_get_key_and_certs 120
 #define PKCS8_R_ERROR_SETTING_CIPHER_PARAMS 100
 #define PKCS8_R_PRIVATE_KEY_ENCODE_ERROR 101
 #define PKCS8_R_UNKNOWN_ALGORITHM 102
@@ -158,5 +169,14 @@ OPENSSL_EXPORT PKCS8_PRIV_KEY_INFO *PKCS8_decrypt(X509_SIG *pkcs8,
 #define PKCS8_R_METHOD_NOT_SUPPORTED 114
 #define PKCS8_R_CIPHER_HAS_NO_OBJECT_IDENTIFIER 115
 #define PKCS8_R_KEY_GEN_ERROR 116
+#define PKCS8_R_BAD_PKCS12_DATA 117
+#define PKCS8_R_PKCS12_PUBLIC_KEY_INTEGRITY_NOT_SUPPORTED 118
+#define PKCS8_R_BAD_PKCS12_VERSION 119
+#define PKCS8_R_PKCS12_TOO_DEEPLY_NESTED 120
+#define PKCS8_R_MULTIPLE_PRIVATE_KEYS_IN_PKCS12 121
+#define PKCS8_R_UNKNOWN_HASH 122
+#define PKCS8_R_BAD_MAC 123
+#define PKCS8_R_MISSING_MAC 124
+#define PKCS8_R_INCORRECT_PASSWORD 125
 
 #endif  /* OPENSSL_HEADER_PKCS8_H */
