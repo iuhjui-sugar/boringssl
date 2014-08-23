@@ -1,0 +1,356 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f316958e_ae6fbbc8",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-23T01:52:43Z",
+      "side": 1,
+      "message": "Would be nice if this would check that it consumed all of |in|.",
+      "revId": "7a1c2d022b2655379d0aae8738bc326f1547b7bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f316958e_6ed14337",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 698,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-23T01:52:43Z",
+      "side": 1,
+      "message": "|| CBS_len(content_info) !\u003d 0",
+      "revId": "7a1c2d022b2655379d0aae8738bc326f1547b7bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f316958e_79446f62",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 716,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-23T01:52:43Z",
+      "side": 1,
+      "message": "CBS_len(\u0026wrapped_contents) \u003d\u003d 0 ||",
+      "revId": "7a1c2d022b2655379d0aae8738bc326f1547b7bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f316958e_5949b378",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 720,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-23T01:52:43Z",
+      "side": 1,
+      "message": "CBS_len(\u0026contents) \u003d\u003d 0 ||",
+      "revId": "7a1c2d022b2655379d0aae8738bc326f1547b7bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f316958e_59f7f3ef",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-23T01:52:43Z",
+      "side": 1,
+      "message": "Should probably revise this comment and add a TODO now that we know this is from an indefinite-length implicitly-tagged OCTET STRING.",
+      "revId": "7a1c2d022b2655379d0aae8738bc326f1547b7bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f316958e_397e77f0",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-23T01:52:43Z",
+      "side": 1,
+      "message": "|| CBS_len(\u0026wrapped_encrypted_contents) \u003d\u003d 0",
+      "revId": "7a1c2d022b2655379d0aae8738bc326f1547b7bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f316958e_59841351",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-23T01:52:43Z",
+      "side": 1,
+      "message": "That assembly should check that eci/eci_copy was completely consumed. (Maybe when trying again do eci \u003d eci_copy so you can check the same thing in both codepaths.)",
+      "revId": "7a1c2d022b2655379d0aae8738bc326f1547b7bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f316958e_79a10f4d",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-23T01:52:43Z",
+      "side": 1,
+      "message": "if (inp !\u003d CBS_data(\u0026wrapped_contents) + CBS_len(\u0026wrapped_contents)) {\n  X509_SIG_free(encrypted);\n  OPENSSL_PUT_ERROR(...);\n  goto err;\n}\n\n(We should really add CBS/CBB interfaces to crypto/asn1... could probably start by having the macros emit wrappers over d2i_ and i2d_ and then push it down later.)",
+      "revId": "7a1c2d022b2655379d0aae8738bc326f1547b7bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f316958e_996e8b3b",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 826,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-23T01:52:43Z",
+      "side": 1,
+      "message": "CBS_len(\u0026wrapped_contents) \u003d\u003d 0 ||",
+      "revId": "7a1c2d022b2655379d0aae8738bc326f1547b7bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f316958e_d9680330",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 829,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-23T01:52:43Z",
+      "side": 1,
+      "message": "CBS_len(\u0026cert_bag) \u003d\u003d 0 ||",
+      "revId": "7a1c2d022b2655379d0aae8738bc326f1547b7bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f316958e_39e95761",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 830,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-23T01:52:43Z",
+      "side": 1,
+      "message": "CBS_len(\u0026wrapped_cert) \u003d\u003d 0",
+      "revId": "7a1c2d022b2655379d0aae8738bc326f1547b7bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f316958e_b98a67cb",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 843,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-23T01:52:43Z",
+      "side": 1,
+      "message": "if (inp !\u003d CBS_data(\u0026cert) + CBS_len(\u0026cert) {\n  ...\n}",
+      "revId": "7a1c2d022b2655379d0aae8738bc326f1547b7bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f316958e_ce02f728",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 954,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-23T01:52:43Z",
+      "side": 1,
+      "message": "This is an X509_ALGOR, right?",
+      "range": {
+        "startLine": 954,
+        "startChar": 23,
+        "endLine": 954,
+        "endChar": 36
+      },
+      "revId": "7a1c2d022b2655379d0aae8738bc326f1547b7bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f316958e_ceeb1711",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 955,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-23T01:52:43Z",
+      "side": 1,
+      "message": "CBS_len(\u0026mac) \u003d\u003d 0 ||",
+      "revId": "7a1c2d022b2655379d0aae8738bc326f1547b7bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f316958e_0e288fa2",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 976,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-23T01:52:43Z",
+      "side": 1,
+      "message": "Do any of the our digests have parameters? (If not, should it check at this point that CBS_len(\u0026hash_type_seq) is empty?)",
+      "revId": "7a1c2d022b2655379d0aae8738bc326f1547b7bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f316958e_8e13df74",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 989,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-23T01:52:43Z",
+      "side": 1,
+      "message": "Nit: Could replace this with a CBS_mem_equal call.",
+      "revId": "7a1c2d022b2655379d0aae8738bc326f1547b7bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f316958e_056192de",
+        "filename": "include/openssl/pkcs8.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-23T01:52:43Z",
+      "side": 1,
+      "message": "Probably want to strike out this sentence and the one below.",
+      "range": {
+        "startLine": 70,
+        "startChar": 23,
+        "endLine": 71,
+        "endChar": 71
+      },
+      "revId": "7a1c2d022b2655379d0aae8738bc326f1547b7bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f316958e_cbb5c964",
+        "filename": "include/openssl/pkcs8.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-23T01:52:43Z",
+      "side": 1,
+      "message": "Nit: I would add \"The caller takes ownership of the outputs.\"",
+      "revId": "7a1c2d022b2655379d0aae8738bc326f1547b7bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f316958e_6b9775c5",
+        "filename": "tool/pkcs12.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-23T01:52:43Z",
+      "side": 1,
+      "message": "Probably should be\n\n } while (n \u003e 0 || (n \u003d\u003d -1 \u0026\u0026 errno \u003d\u003d EINTR));\n\nOr does POSIX always give it to you in one read?",
+      "revId": "7a1c2d022b2655379d0aae8738bc326f1547b7bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f316958e_4b7399f3",
+        "filename": "tool/pkcs12.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-23T01:52:43Z",
+      "side": 1,
+      "message": "Ditto from line 73",
+      "revId": "7a1c2d022b2655379d0aae8738bc326f1547b7bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
