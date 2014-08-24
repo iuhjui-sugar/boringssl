@@ -531,9 +531,12 @@ int dtls1_accept(SSL *s)
 
 		case SSL3_ST_SR_FINISHED_A:
 		case SSL3_ST_SR_FINISHED_B:
+		case SSL3_ST_SR_FINISHED_C:
 			s->d1->change_cipher_spec_ok = 1;
-			ret=ssl3_get_finished(s,SSL3_ST_SR_FINISHED_A,
-				SSL3_ST_SR_FINISHED_B);
+			ret=ssl3_get_finished(s,
+				SSL3_ST_SR_FINISHED_A,
+				SSL3_ST_SR_FINISHED_B,
+				SSL3_ST_SR_FINISHED_C);
 			if (ret <= 0) goto end;
 			dtls1_stop_timer(s);
 			if (s->hit)

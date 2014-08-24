@@ -865,7 +865,7 @@ void ssl3_init_finished_mac(SSL *s);
 int ssl3_send_server_certificate(SSL *s);
 int ssl3_send_newsession_ticket(SSL *s);
 int ssl3_send_cert_status(SSL *s);
-int ssl3_get_finished(SSL *s,int state_a,int state_b);
+int ssl3_get_finished(SSL *s, int state_a, int state_b, int state_c);
 int ssl3_setup_key_block(SSL *s);
 int ssl3_send_change_cipher_spec(SSL *s,int state_a,int state_b);
 int ssl3_change_cipher_state(SSL *s,int which);

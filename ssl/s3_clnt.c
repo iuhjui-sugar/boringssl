@@ -513,8 +513,11 @@ int ssl3_connect(SSL *s)
 
 		case SSL3_ST_CR_FINISHED_A:
 		case SSL3_ST_CR_FINISHED_B:
-			ret=ssl3_get_finished(s,SSL3_ST_CR_FINISHED_A,
-				SSL3_ST_CR_FINISHED_B);
+		case SSL3_ST_CR_FINISHED_C:
+			ret=ssl3_get_finished(s,
+				SSL3_ST_CR_FINISHED_A,
+				SSL3_ST_CR_FINISHED_B,
+				SSL3_ST_CR_FINISHED_C);
 			if (ret <= 0) goto end;
 
 			if (s->hit)
