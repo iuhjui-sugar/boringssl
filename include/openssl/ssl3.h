@@ -514,7 +514,9 @@ typedef struct ssl3_state_st
 	/* For a server:
 	 *     If |tlsext_channel_id_valid| is true, then this contains the
 	 *     verified Channel ID from the client: a P256 point, (x,y), where
-	 *     each are big-endian values. */
+	 *     each are big-endian values. As the extension is being processed,
+	 *     it is also used as scratch space for the SHA-256 hash to be
+	 *     signed. Conveniently, they are the same size. */
 	unsigned char tlsext_channel_id[64];
 	} SSL3_STATE;
 
@@ -608,6 +610,7 @@ typedef struct ssl3_state_st
 #endif
 #define SSL3_ST_SR_CHANNEL_ID_A		(0x230|SSL_ST_ACCEPT)
 #define SSL3_ST_SR_CHANNEL_ID_B		(0x231|SSL_ST_ACCEPT)
+#define SSL3_ST_SR_CHANNEL_ID_C		(0x232|SSL_ST_ACCEPT)
 #define SSL3_ST_SR_FINISHED_A		(0x1C0|SSL_ST_ACCEPT)
 #define SSL3_ST_SR_FINISHED_B		(0x1C1|SSL_ST_ACCEPT)
 /* write to client */
