@@ -126,6 +126,9 @@ type testCase struct {
 	// sendPrefix sends a prefix on the socket before actually performing a
 	// handshake.
 	sendPrefix string
+	// shimFirst controls whether the shim sends an initial
+	// "hello" message before doing a roundtrip with the runner.
+	shimFirst bool
 	// flags, if not empty, contains a list of command-line flags that will
 	// be passed to the shim program.
 	flags []string
@@ -529,6 +532,17 @@ func doExchange(test *testCase, config *Config, conn net.Conn, messageLen int) e
 		}
 	}
 
+	if test.shimFirst {
+		var buf [5]byte
+		_, err := io.ReadFull(tlsConn, buf[:])
+		if err != nil {
+			return err
+		}
+		if string(buf[:]) != "hello" {
+			return fmt.Errorf("bad initial message")
+		}
+	}
+
 	if messageLen < 0 {
 		if test.protocol == dtls {
 			return fmt.Errorf("messageLen < 0 not supported for DTLS tests")
@@ -644,6 +658,10 @@ func runTest(test *testCase, buildDir string) error {
 
 	if test.resumeSession {
 		flags = append(flags, "-resume")
+	}
+
+	if test.shimFirst {
+		flags = append(flags, "-shim-first")
 	}
 
 	flags = append(flags, test.flags...)
@@ -1156,12 +1174,14 @@ func addStateMachineCoverageTests(async, splitHandshake bool, protocol protocol)
 				CipherSuites: []uint16{TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256},
 				NextProtos:   []string{"foo"},
 				Bugs: ProtocolBugs{
+					ExpectFalseStart:         true,
 					MaxHandshakeRecordLength: maxHandshakeRecordLength,
 				},
 			},
 			flags: append(flags,
 				"-false-start",
 				"-select-next-proto", "foo"),
+			shimFirst:     true,
 			resumeSession: true,
 		})
 
@@ -1173,6 +1193,7 @@ func addStateMachineCoverageTests(async, splitHandshake bool, protocol protocol)
 				NextProtos:             []string{"foo"},
 				SessionTicketsDisabled: true,
 				Bugs: ProtocolBugs{
+					ExpectFalseStart:         true,
 					MaxHandshakeRecordLength: maxHandshakeRecordLength,
 				},
 			},
@@ -1180,6 +1201,7 @@ func addStateMachineCoverageTests(async, splitHandshake bool, protocol protocol)
 				"-false-start",
 				"-select-next-proto", "foo",
 			),
+			shimFirst: true,
 		})
 
 		// Server parses a V2ClientHello.
