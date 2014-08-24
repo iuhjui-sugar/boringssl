@@ -103,7 +103,7 @@ const ERR_STRING_DATA SSL_error_string_data[] = {
   {ERR_PACK(ERR_LIB_SSL, SSL_F_ssl3_change_cipher_state, 0), "ssl3_change_cipher_state"},
   {ERR_PACK(ERR_LIB_SSL, SSL_F_ssl3_check_cert_and_algorithm, 0), "ssl3_check_cert_and_algorithm"},
   {ERR_PACK(ERR_LIB_SSL, SSL_F_ssl3_check_client_hello, 0), "ssl3_check_client_hello"},
-  {ERR_PACK(ERR_LIB_SSL, SSL_F_ssl3_client_hello, 0), "ssl3_client_hello"},
+  {ERR_PACK(ERR_LIB_SSL, SSL_F_ssl3_send_client_hello, 0), "ssl3_send_client_hello"},
   {ERR_PACK(ERR_LIB_SSL, SSL_F_ssl3_connect, 0), "ssl3_connect"},
   {ERR_PACK(ERR_LIB_SSL, SSL_F_ssl3_ctrl, 0), "ssl3_ctrl"},
   {ERR_PACK(ERR_LIB_SSL, SSL_F_ssl3_ctx_ctrl, 0), "ssl3_ctx_ctrl"},
