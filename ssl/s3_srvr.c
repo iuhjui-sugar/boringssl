@@ -583,6 +583,7 @@ int ssl3_accept(SSL *s)
 
 		case SSL3_ST_SR_CHANNEL_ID_A:
 		case SSL3_ST_SR_CHANNEL_ID_B:
+		case SSL3_ST_SR_CHANNEL_ID_C:
 			ret=ssl3_get_channel_id(s);
 			if (ret <= 0) goto end;
 			s->init_num = 0;
@@ -2879,7 +2880,7 @@ int ssl3_get_channel_id(SSL *s)
 	BIGNUM x, y;
 	CBS encrypted_extensions, extension;
 
-	if (s->state == SSL3_ST_SR_CHANNEL_ID_A && s->init_num == 0)
+	if (s->state == SSL3_ST_SR_CHANNEL_ID_A)
 		{
 		/* The first time that we're called we take the current
 		 * handshake hash and store it. */
@@ -2893,19 +2894,18 @@ int ssl3_get_channel_id(SSL *s)
 		len = sizeof(s->s3->tlsext_channel_id);
 		EVP_DigestFinal(&md_ctx, s->s3->tlsext_channel_id, &len);
 		EVP_MD_CTX_cleanup(&md_ctx);
+		s->state = SSL3_ST_SR_CHANNEL_ID_B;
 		}
 
 	n = s->method->ssl_get_message(s,
-		SSL3_ST_SR_CHANNEL_ID_A,
 		SSL3_ST_SR_CHANNEL_ID_B,
+		SSL3_ST_SR_CHANNEL_ID_C,
 		SSL3_MT_ENCRYPTED_EXTENSIONS,
 		2 + 2 + TLSEXT_CHANNEL_ID_SIZE,
 		&ok);
 
 	if (!ok)
 		return((int)n);
-
-	ssl3_finish_mac(s, (unsigned char*)s->init_buf->data, s->init_num + 4);
 
 	/* s->state doesn't reflect whether ChangeCipherSpec has been received
 	 * in this handshake, but s->s3->change_cipher_spec does (will be reset
