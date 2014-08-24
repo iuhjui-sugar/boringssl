@@ -485,58 +485,11 @@ int ssl3_accept(SSL *s)
 				goto end;
 			s->state=SSL3_ST_SR_CERT_VRFY_A;
 			s->init_num=0;
-
-			/* TODO(davidben): These two blocks are different
-			 * between SSL and DTLS. Resolve the difference and code
-			 * duplication. */
-			if (SSL_USE_SIGALGS(s))
-				{
-				if (!s->session->peer)
-					break;
-				/* For sigalgs freeze the handshake buffer
-				 * at this point and digest cached records.
-				 */
-				if (!s->s3->handshake_buffer)
-					{
-					OPENSSL_PUT_ERROR(SSL, ssl3_accept, ERR_R_INTERNAL_ERROR);
-					return -1;
-					}
-				s->s3->flags |= TLS1_FLAGS_KEEP_HANDSHAKE;
-				if (!ssl3_digest_cached_records(s))
-					return -1;
-				}
-			else
-				{
-				int offset=0;
-				int dgst_num;
-
-				/* We need to get hashes here so if there is
-				 * a client cert, it can be verified
-				 * FIXME - digest processing for CertificateVerify
-				 * should be generalized. But it is next step
-				 */
-				if (s->s3->handshake_buffer)
-					if (!ssl3_digest_cached_records(s))
-						return -1;
-				for (dgst_num=0; dgst_num<SSL_MAX_DIGEST;dgst_num++)	
-					if (s->s3->handshake_dgst[dgst_num]) 
-						{
-						int dgst_size;
-
-						s->method->ssl3_enc->cert_verify_mac(s,EVP_MD_CTX_type(s->s3->handshake_dgst[dgst_num]),&(s->s3->tmp.cert_verify_md[offset]));
-						dgst_size=EVP_MD_CTX_size(s->s3->handshake_dgst[dgst_num]);
-						if (dgst_size < 0)
-							{
-							ret = -1;
-							goto end;
-							}
-						offset+=dgst_size;
-						}		
-				}
 			break;
 
 		case SSL3_ST_SR_CERT_VRFY_A:
 		case SSL3_ST_SR_CERT_VRFY_B:
+		case SSL3_ST_SR_CERT_VRFY_C:
 			ret=ssl3_get_cert_verify(s);
 			if (ret <= 0) goto end;
 
@@ -2308,29 +2261,58 @@ int ssl3_get_cert_verify(SSL *s)
 	const EVP_MD *md = NULL;
 	EVP_MD_CTX mctx;
 
-	EVP_MD_CTX_init(&mctx);
-
 	/* Only RSA and ECDSA client certificates are supported, so a
 	 * CertificateVerify is required if and only if there's a
 	 * client certificate. */
 	if (peer == NULL)
 		{
-		ret = 1;
-		goto done_with_buffer;
+		/* Discard the handshake buffer. It's no longer
+		 * needed. */
+		if (s->s3->handshake_buffer && !ssl3_digest_cached_records(s))
+			return -1;
+		return 1;
+		}
+
+	if (s->state == SSL3_ST_SR_CERT_VRFY_A)
+		{
+		if (SSL_USE_SIGALGS(s))
+			{
+			/* For sigalgs freeze the handshake buffer
+			 * at this point and digest cached records. */
+			if (!s->s3->handshake_buffer)
+				{
+				OPENSSL_PUT_ERROR(SSL, dtls1_accept, ERR_R_INTERNAL_ERROR);
+				return -1;
+				}
+			s->s3->flags |= TLS1_FLAGS_KEEP_HANDSHAKE;
+			if (!ssl3_digest_cached_records(s))
+				return -1;
+			}
+		else
+			{
+			/* We need to get hashes here so the verify
+			 * the client cert. */
+			s->method->ssl3_enc->cert_verify_mac(s,
+				NID_md5,
+				&(s->s3->tmp.cert_verify_md[0]));
+			s->method->ssl3_enc->cert_verify_mac(s,
+				NID_sha1,
+				&(s->s3->tmp.cert_verify_md[MD5_DIGEST_LENGTH]));
+			}
+		s->state = SSL3_ST_SR_CERT_VRFY_B;
 		}
 
 	n=s->method->ssl_get_message(s,
-		SSL3_ST_SR_CERT_VRFY_A,
 		SSL3_ST_SR_CERT_VRFY_B,
+		SSL3_ST_SR_CERT_VRFY_C,
 		SSL3_MT_CERTIFICATE_VERIFY,
 		SSL3_RT_MAX_PLAIN_LENGTH,
 		&ok);
 
 	if (!ok)
-		{
-		ret = (int)n;
-		goto done;
-		}
+		return (int)n;
+
+	EVP_MD_CTX_init(&mctx);
 
 	pkey = X509_get_pubkey(peer);
 	type = X509_certificate_type(peer,pkey);
@@ -2433,7 +2415,6 @@ int ssl3_get_cert_verify(SSL *s)
 f_err:
 		ssl3_send_alert(s,SSL3_AL_FATAL,al);
 		}
-done_with_buffer:
 	/* There is no more need for the handshake buffer. */
 	if (s->s3->handshake_buffer)
 		{
@@ -2441,7 +2422,6 @@ done_with_buffer:
 		s->s3->handshake_buffer = NULL;
 		s->s3->flags &= ~TLS1_FLAGS_KEEP_HANDSHAKE;
 		}
-done:
 	EVP_MD_CTX_cleanup(&mctx);
 	EVP_PKEY_free(pkey);
 	return(ret);
