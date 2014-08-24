@@ -2410,7 +2410,7 @@ OPENSSL_EXPORT void ERR_load_SSL_strings(void);
 #define SSL_F_SSL_SESSION_new 210
 #define SSL_F_check_suiteb_cipher_list 211
 #define SSL_F_ssl_scan_clienthello_tlsext 212
-#define SSL_F_ssl3_client_hello 213
+#define SSL_F_ssl3_send_client_hello 213
 #define SSL_F_SSL_use_RSAPrivateKey_ASN1 214
 #define SSL_F_ssl3_ctrl 215
 #define SSL_F_ssl3_setup_write_buffer 216

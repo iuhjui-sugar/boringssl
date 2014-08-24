@@ -245,7 +245,7 @@ int dtls1_connect(SSL *s)
 			ssl3_init_finished_mac(s);
 
 			dtls1_start_timer(s);
-			ret=ssl3_client_hello(s);
+			ret=ssl3_send_client_hello(s);
 			if (ret <= 0) goto end;
 
 			if ( s->d1->send_cookie)
