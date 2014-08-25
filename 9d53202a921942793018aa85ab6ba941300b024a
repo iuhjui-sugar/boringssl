@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "138de944_b10a9ab2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-25T21:35:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f316958e_e59b9693",
+      "range": {
+        "startLine": 12,
+        "startChar": 67,
+        "endLine": 12,
+        "endChar": 68
+      },
+      "revId": "9d53202a921942793018aa85ab6ba941300b024a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f316958e_4b49d978",
         "filename": "crypto/bytestring/ber.c",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2014-08-22T21:11:16Z",
       "side": 1,
       "message": "Nit: CBS_ASN1_CONSTRUCTED",
+      "range": {
+        "startLine": 53,
+        "startChar": 14,
+        "endLine": 53,
+        "endChar": 36
+      },
+      "revId": "9d53202a921942793018aa85ab6ba941300b024a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "138de944_d10726a9",
+        "filename": "crypto/bytestring/ber.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-25T21:35:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f316958e_4b49d978",
       "range": {
         "startLine": 53,
         "startChar": 14,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "138de944_f10422a7",
+        "filename": "crypto/bytestring/ber.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-25T21:35:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f316958e_8b02b1d9",
+      "range": {
+        "startLine": 113,
+        "startChar": 24,
+        "endLine": 113,
+        "endChar": 28
+      },
+      "revId": "9d53202a921942793018aa85ab6ba941300b024a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f316958e_2bbd7dc3",
         "filename": "crypto/bytestring/ber.c",
         "patchSetId": 1
@@ -82,6 +154,24 @@
       "writtenOn": "2014-08-22T21:11:16Z",
       "side": 1,
       "message": "Nit: It\u0027s odd that this block and the one at line 161 look different. (I found the second one clearer since it\u0027s more obvious there\u0027s an output parameter.)",
+      "revId": "9d53202a921942793018aa85ab6ba941300b024a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "138de944_314a2ae9",
+        "filename": "crypto/bytestring/ber.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-25T21:35:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f316958e_2bbd7dc3",
       "revId": "9d53202a921942793018aa85ab6ba941300b024a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -105,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "138de944_7154b287",
+        "filename": "crypto/bytestring/ber.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-25T21:35:50Z",
+      "side": 1,
+      "message": "Once landed, I hope to rework this based on a better understanding of what\u0027s going on.",
+      "parentUuid": "f316958e_8b3c714b",
+      "revId": "9d53202a921942793018aa85ab6ba941300b024a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f316958e_eb9405ee",
         "filename": "crypto/bytestring/ber.c",
         "patchSetId": 1
@@ -122,6 +230,24 @@
     },
     {
       "key": {
+        "uuid": "138de944_31c06ac6",
+        "filename": "crypto/bytestring/ber.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-25T21:35:50Z",
+      "side": 1,
+      "message": "Yep, I think you suggestion is better.",
+      "parentUuid": "f316958e_eb9405ee",
+      "revId": "9d53202a921942793018aa85ab6ba941300b024a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f316958e_0ba9a17f",
         "filename": "crypto/bytestring/ber.c",
         "patchSetId": 1
@@ -133,6 +259,24 @@
       "writtenOn": "2014-08-22T21:11:16Z",
       "side": 1,
       "message": "Nit: This would accept any TLV with tag \u003d\u003d 0 as the EOC, right? Probably add an additional check for header_len \u003d\u003d 2 \u0026\u0026 the length byte being 0. (Or some kind of is_eoc function like in the comment above.)",
+      "revId": "9d53202a921942793018aa85ab6ba941300b024a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "138de944_71caf2e7",
+        "filename": "crypto/bytestring/ber.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-25T21:35:50Z",
+      "side": 1,
+      "message": "It would actually require that it was an EOC, but the reasoning is not obvious so I\u0027ve used an is_eoc function.",
+      "parentUuid": "f316958e_0ba9a17f",
       "revId": "9d53202a921942793018aa85ab6ba941300b024a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -162,6 +306,30 @@
     },
     {
       "key": {
+        "uuid": "138de944_91ae7e1c",
+        "filename": "crypto/bytestring/ber.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-25T21:35:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f316958e_0b1ec152",
+      "range": {
+        "startLine": 171,
+        "startChar": 14,
+        "endLine": 171,
+        "endChar": 18
+      },
+      "revId": "9d53202a921942793018aa85ab6ba941300b024a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f316958e_0b9c0119",
         "filename": "crypto/bytestring/ber.c",
         "patchSetId": 1
@@ -179,6 +347,24 @@
     },
     {
       "key": {
+        "uuid": "138de944_b1ab7a0b",
+        "filename": "crypto/bytestring/ber.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-25T21:35:50Z",
+      "side": 1,
+      "message": "Done (strict).",
+      "parentUuid": "f316958e_0b9c0119",
+      "revId": "9d53202a921942793018aa85ab6ba941300b024a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f316958e_2bd1fd69",
         "filename": "crypto/bytestring/cbs.c",
         "patchSetId": 1
@@ -190,6 +376,30 @@
       "writtenOn": "2014-08-22T21:11:16Z",
       "side": 1,
       "message": "This check seems correct, but it took took me a couple seconds; a priori the 0x80 may be the last byte of a multibyte length. But there\u0027s a CBS_len(out) \u003d\u003d header_len check which makes it either indefinite or length zero, so it works. Maybe worth a comment or a check that header_len \u003d\u003d 2?\n\nIt\u0027s also duplicated in ber.c it seems.",
+      "range": {
+        "startLine": 231,
+        "startChar": 41,
+        "endLine": 231,
+        "endChar": 55
+      },
+      "revId": "9d53202a921942793018aa85ab6ba941300b024a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "138de944_f1cc22f8",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-25T21:35:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f316958e_2bd1fd69",
       "range": {
         "startLine": 231,
         "startChar": 41,
