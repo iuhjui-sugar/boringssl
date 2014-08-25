@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "138de944_349218d6",
+        "filename": "crypto/base64/base64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-25T22:53:51Z",
+      "side": 1,
+      "message": "Done. (I was going by RSA_encrypt/RSA_decrypt, but having the length second seems better yeah.)",
+      "parentUuid": "138de944_743f40a1",
+      "range": {
+        "startLine": 216,
+        "startChar": 21,
+        "endLine": 216,
+        "endChar": 36
+      },
+      "revId": "804a22c1a55e7619ce66837837eb03fe412eee00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "138de944_b4db6835",
         "filename": "crypto/x509/x509spki.c",
         "patchSetId": 1
@@ -36,6 +60,24 @@
       "writtenOn": "2014-08-25T21:59:06Z",
       "side": 1,
       "message": "allocation could be tighter now.",
+      "revId": "804a22c1a55e7619ce66837837eb03fe412eee00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "138de944_94874c8c",
+        "filename": "crypto/x509/x509spki.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-25T22:53:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "138de944_b4db6835",
       "revId": "804a22c1a55e7619ce66837837eb03fe412eee00",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
