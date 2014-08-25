@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "138de944_5197b6c4",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-25T21:35:11Z",
+      "side": 1,
+      "message": "We can\u0027t because of an NSS bug. (See comment on 676.)",
+      "parentUuid": "f316958e_ae6fbbc8",
+      "revId": "7a1c2d022b2655379d0aae8738bc326f1547b7bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f316958e_6ed14337",
         "filename": "crypto/pkcs8/pkcs8.c",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2014-08-23T01:52:43Z",
       "side": 1,
       "message": "|| CBS_len(content_info) !\u003d 0",
+      "revId": "7a1c2d022b2655379d0aae8738bc326f1547b7bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "138de944_d1aac6f6",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 698,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-25T21:35:11Z",
+      "side": 1,
+      "message": "I\u0027m going to skip all the comments about checking that there are no trailing members because I think that\u0027s how the format evolves - by adding members. The code only checks that the version number is at least 3. I think by ignoring extra members, this code will still function in the event that (god forbid) they add any more to the standard.",
+      "parentUuid": "f316958e_6ed14337",
       "revId": "7a1c2d022b2655379d0aae8738bc326f1547b7bc",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -87,6 +123,24 @@
     },
     {
       "key": {
+        "uuid": "138de944_11744edd",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-25T21:35:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f316958e_59f7f3ef",
+      "revId": "7a1c2d022b2655379d0aae8738bc326f1547b7bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f316958e_397e77f0",
         "filename": "crypto/pkcs8/pkcs8.c",
         "patchSetId": 1
@@ -132,6 +186,24 @@
       "writtenOn": "2014-08-23T01:52:43Z",
       "side": 1,
       "message": "if (inp !\u003d CBS_data(\u0026wrapped_contents) + CBS_len(\u0026wrapped_contents)) {\n  X509_SIG_free(encrypted);\n  OPENSSL_PUT_ERROR(...);\n  goto err;\n}\n\n(We should really add CBS/CBB interfaces to crypto/asn1... could probably start by having the macros emit wrappers over d2i_ and i2d_ and then push it down later.)",
+      "revId": "7a1c2d022b2655379d0aae8738bc326f1547b7bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "138de944_b1845a88",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-25T21:35:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f316958e_79a10f4d",
       "revId": "7a1c2d022b2655379d0aae8738bc326f1547b7bc",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -206,6 +278,24 @@
     },
     {
       "key": {
+        "uuid": "138de944_115fee58",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 843,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-25T21:35:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f316958e_b98a67cb",
+      "revId": "7a1c2d022b2655379d0aae8738bc326f1547b7bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f316958e_ce02f728",
         "filename": "crypto/pkcs8/pkcs8.c",
         "patchSetId": 1
@@ -217,6 +307,30 @@
       "writtenOn": "2014-08-23T01:52:43Z",
       "side": 1,
       "message": "This is an X509_ALGOR, right?",
+      "range": {
+        "startLine": 954,
+        "startChar": 23,
+        "endLine": 954,
+        "endChar": 36
+      },
+      "revId": "7a1c2d022b2655379d0aae8738bc326f1547b7bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "138de944_3164ea26",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 954,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-25T21:35:11Z",
+      "side": 1,
+      "message": "Yes.",
+      "parentUuid": "f316958e_ce02f728",
       "range": {
         "startLine": 954,
         "startChar": 23,
@@ -263,6 +377,24 @@
     },
     {
       "key": {
+        "uuid": "138de944_516976fd",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 976,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-25T21:35:11Z",
+      "side": 1,
+      "message": "I don\u0027t believe that any of them have parameters, but I worry about ASN.1 Nulls vs OPTIONAL again.",
+      "parentUuid": "f316958e_0e288fa2",
+      "revId": "7a1c2d022b2655379d0aae8738bc326f1547b7bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f316958e_8e13df74",
         "filename": "crypto/pkcs8/pkcs8.c",
         "patchSetId": 1
@@ -274,6 +406,24 @@
       "writtenOn": "2014-08-23T01:52:43Z",
       "side": 1,
       "message": "Nit: Could replace this with a CBS_mem_equal call.",
+      "revId": "7a1c2d022b2655379d0aae8738bc326f1547b7bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "138de944_9152fe48",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 989,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-25T21:35:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f316958e_8e13df74",
       "revId": "7a1c2d022b2655379d0aae8738bc326f1547b7bc",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -303,6 +453,30 @@
     },
     {
       "key": {
+        "uuid": "138de944_f159826c",
+        "filename": "include/openssl/pkcs8.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-25T21:35:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f316958e_056192de",
+      "range": {
+        "startLine": 70,
+        "startChar": 23,
+        "endLine": 71,
+        "endChar": 71
+      },
+      "revId": "7a1c2d022b2655379d0aae8738bc326f1547b7bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f316958e_cbb5c964",
         "filename": "include/openssl/pkcs8.h",
         "patchSetId": 1
@@ -314,6 +488,24 @@
       "writtenOn": "2014-08-23T01:52:43Z",
       "side": 1,
       "message": "Nit: I would add \"The caller takes ownership of the outputs.\"",
+      "revId": "7a1c2d022b2655379d0aae8738bc326f1547b7bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "138de944_314b0a96",
+        "filename": "include/openssl/pkcs8.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-25T21:35:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f316958e_cbb5c964",
       "revId": "7a1c2d022b2655379d0aae8738bc326f1547b7bc",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -337,6 +529,24 @@
     },
     {
       "key": {
+        "uuid": "138de944_f130a21c",
+        "filename": "tool/pkcs12.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-25T21:35:11Z",
+      "side": 1,
+      "message": "POSIX doesn\u0027t say that you\u0027ll always get it all in one go, but in practice you do for small files. \n\nDone with a test for off \u003c size too.",
+      "parentUuid": "f316958e_6b9775c5",
+      "revId": "7a1c2d022b2655379d0aae8738bc326f1547b7bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f316958e_4b7399f3",
         "filename": "tool/pkcs12.cc",
         "patchSetId": 1
@@ -348,6 +558,24 @@
       "writtenOn": "2014-08-23T01:52:43Z",
       "side": 1,
       "message": "Ditto from line 73",
+      "revId": "7a1c2d022b2655379d0aae8738bc326f1547b7bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "138de944_f4eb3010",
+        "filename": "tool/pkcs12.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-25T21:35:11Z",
+      "side": 1,
+      "message": "Can\u0027t do that here because we don\u0027t know how large the input is, but I\u0027ve rewritten it to use memchr.",
+      "parentUuid": "f316958e_4b7399f3",
       "revId": "7a1c2d022b2655379d0aae8738bc326f1547b7bc",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
