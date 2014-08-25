@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "138de944_d7b1d6e0",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 2287,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-25T23:35:34Z",
+      "side": 1,
+      "message": "Everything would break. :-) This logic is sort of awkward and might be worth further rejiggering. The combination freezes handshake_buffer but keeps it around, so that we can hash it later. We don\u0027t know what hash to use until after we\u0027ve read the CertificateVerify. By which point, the finished MAC has been clobbered with the CertificateVerify.\n\nActually, instead of of this tri-state pattern, what do you think about making ssl_get_message to take an auto_hash parameter? Then we don\u0027t need to store the hashes on the ssl_st like the tri-state pattern requires, and it\u0027d replace the per-message-type special-cases in ssl3_get_message.\n\n(Although, that doesn\u0027t quite interact properly with reuse_message... though I\u0027d really like to just avoid reuse_message whenever possible because its interaction with CCS is screwy. Looks like the only instances left are:\n- ServerKeyExchange is optional with PSK cipher suites. Could just remove the plain PSK suite and only do ECDHE_PSK... and that would get rid of the one case where we need to lookup PSK /before/ doing the companion key exchange, since plain PSK uses all 0s with the length of the PSK... actually that could already be a special case.\n- CertificateRequest is optional and needs probing\n- In SSLv3, client Certificate is optional and needs probing\n\nAmusingly, the old per-message-type special-cases don\u0027t have this problem, but means the hash-processing logic for a given state is controlled by two different pieces.)",
+      "parentUuid": "138de944_77282272",
+      "range": {
+        "startLine": 2287,
+        "startChar": 19,
+        "endLine": 2287,
+        "endChar": 44
+      },
+      "revId": "f86ccfbb80e0a7bdb42363fc4e155c187e6673ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "138de944_d769d6c3",
         "filename": "ssl/s3_srvr.c",
         "patchSetId": 2
@@ -82,6 +106,24 @@
       "writtenOn": "2014-08-25T23:16:46Z",
       "side": 1,
       "message": "This case used to call ssl3_digest_cached_records. Why not now? If it\u0027s deliberate, then assert(s-\u003es3-\u003ehandshake_buffer \u003d\u003d NULL);",
+      "revId": "f86ccfbb80e0a7bdb42363fc4e155c187e6673ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "138de944_f7d7b2f5",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 2295,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-25T23:35:34Z",
+      "side": 1,
+      "message": "(Well, it used to in the TLS case, but not the DTLS one. I went with the DTLS one because it was simpler... I think the other one was to allow for GOST which uses yet another hash function.)\n\nI think the assertion would be valid because we\u0027ll have digested the buffer by now pre TLS 1.2, but ssl3_handshake_mac calls ssl3_digest_cached_records, so it actually does get called.",
+      "parentUuid": "138de944_f74a5239",
       "revId": "f86ccfbb80e0a7bdb42363fc4e155c187e6673ed",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
