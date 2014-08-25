@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "138de944_17f8bee1",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-25T22:57:56Z",
+      "side": 1,
+      "message": "an",
+      "range": {
+        "startLine": 440,
+        "startChar": 32,
+        "endLine": 440,
+        "endChar": 35
+      },
+      "revId": "aa15ce6e7825faa4211337cefb0452607df6672b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "138de944_97e4ae45",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-25T22:57:56Z",
+      "side": 1,
+      "message": "sent",
+      "range": {
+        "startLine": 440,
+        "startChar": 10,
+        "endLine": 440,
+        "endChar": 14
+      },
+      "revId": "aa15ce6e7825faa4211337cefb0452607df6672b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "138de944_57f24601",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-25T22:57:56Z",
+      "side": 1,
+      "message": "shimWritesFirst?",
+      "range": {
+        "startLine": 131,
+        "startChar": 1,
+        "endLine": 131,
+        "endChar": 10
+      },
+      "revId": "aa15ce6e7825faa4211337cefb0452607df6672b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "138de944_f7025228",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-25T22:57:56Z",
+      "side": 1,
+      "message": "likewise --shim-writes-first ?",
+      "range": {
+        "startLine": 56,
+        "startChar": 7,
+        "endLine": 56,
+        "endChar": 16
+      },
+      "revId": "aa15ce6e7825faa4211337cefb0452607df6672b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
