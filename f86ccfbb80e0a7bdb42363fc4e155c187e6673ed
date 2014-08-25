@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "138de944_f73332dd",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 2284,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-25T23:16:46Z",
+      "side": 1,
+      "message": "ssl3_get_cert_verify",
+      "range": {
+        "startLine": 2284,
+        "startChar": 27,
+        "endLine": 2284,
+        "endChar": 39
+      },
+      "revId": "f86ccfbb80e0a7bdb42363fc4e155c187e6673ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "138de944_77282272",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 2287,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-25T23:16:46Z",
+      "side": 1,
+      "message": "what does TLS1_FLAGS_KEEP_HANDSHAKE mean? In ssl3_digest_cached_records is stops the handshake buffer being freed, but in ssl3_finish_mac it stops new stuff being written to the handshake buffer.\n\nIf it were to be deleted, what breaks?",
+      "range": {
+        "startLine": 2287,
+        "startChar": 19,
+        "endLine": 2287,
+        "endChar": 44
+      },
+      "revId": "f86ccfbb80e0a7bdb42363fc4e155c187e6673ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "138de944_d769d6c3",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 2293,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-25T23:16:46Z",
+      "side": 1,
+      "message": "to",
+      "range": {
+        "startLine": 2293,
+        "startChar": 33,
+        "endLine": 2293,
+        "endChar": 35
+      },
+      "revId": "f86ccfbb80e0a7bdb42363fc4e155c187e6673ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "138de944_f74a5239",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 2295,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-25T23:16:46Z",
+      "side": 1,
+      "message": "This case used to call ssl3_digest_cached_records. Why not now? If it\u0027s deliberate, then assert(s-\u003es3-\u003ehandshake_buffer \u003d\u003d NULL);",
+      "revId": "f86ccfbb80e0a7bdb42363fc4e155c187e6673ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
