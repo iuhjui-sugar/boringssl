@@ -16,6 +16,24 @@
       "revId": "f528e173de341ba6dd9168e704ce1feaadda6ef2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d3cd11a8_1a611d89",
+        "filename": "crypto/bytestring/ber.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-26T22:06:56Z",
+      "side": 1,
+      "message": "Yes, I think you\u0027re correct.\n\nHowever, it looks like we can get away with this as far as handling NSS\u0027s PKCS#7 and #12 files go and that\u0027s all I care about.\n\nAnything else should come with a very strong \"DER only\" requirement and a strong \"nothing with the letters P, K, C and S in it.\"",
+      "parentUuid": "d3cd11a8_3aef3921",
+      "revId": "f528e173de341ba6dd9168e704ce1feaadda6ef2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
