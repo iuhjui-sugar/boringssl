@@ -596,6 +596,7 @@ static int dtls1_get_hello_verify(SSL *s)
 		-1,
 		/* Use the same maximum size as ssl3_get_server_hello. */
 		20000,
+		0 /* skip_hash */,
 		&ok);
 	s->first_packet = 0;
 

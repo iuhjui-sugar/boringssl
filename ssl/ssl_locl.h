@@ -875,7 +875,11 @@ int ssl3_send_alert(SSL *s,int level, int desc);
 int ssl3_generate_master_secret(SSL *s, unsigned char *out,
 	unsigned char *p, int len);
 int ssl3_get_req_cert_type(SSL *s,unsigned char *p);
-long ssl3_get_message(SSL *s, int st1, int stn, int mt, long max, int *ok);
+long ssl3_get_message(SSL *s, int st1, int stn, int mt, long max, int skip_hash, int *ok);
+
+/* ssl3_hash_current_message incorporates the current handshake message into
+ * the handshake hash. */
+void ssl3_hash_current_message(SSL *s);
 int ssl3_send_finished(SSL *s, int a, int b, const char *sender,int slen);
 int ssl3_num_ciphers(void);
 const SSL_CIPHER *ssl3_get_cipher(unsigned int u);
@@ -1008,7 +1012,7 @@ void dtls1_clear(SSL *s);
 long dtls1_ctrl(SSL *s,int cmd, long larg, void *parg);
 int dtls1_shutdown(SSL *s);
 
-long dtls1_get_message(SSL *s, int st1, int stn, int mt, long max, int *ok);
+long dtls1_get_message(SSL *s, int st1, int stn, int mt, long max, int skip_hash, int *ok);
 int dtls1_get_record(SSL *s);
 int dtls1_dispatch_alert(SSL *s);
 int dtls1_enc(SSL *s, int snd);
