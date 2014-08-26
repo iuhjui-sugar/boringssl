@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d3cd11a8_3aef3921",
+        "filename": "crypto/bytestring/ber.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-26T21:30:57Z",
+      "side": 1,
+      "message": "I believe this hack assumes we\u0027ll never need to parse\n\n  [0] IMPLICIT SEQUENCE OF \u003cprimitive type\u003e\n\n, correct? (Hopefully we\u0027ll never need to... if we do, I think this BER -\u003e DER approach doesn\u0027t work anymore? I think those two are otherwise ambiguous.)\n\nI think the other potential failure mode is that we won\u0027t get the constructed bit right if we see\n\n  [0] IMPLICIT \u003cprimitive type\u003e\n\nencoded as an empty indefinite-length TLV. We can\u0027t distinguish between that and an empty\n\n  [0] IMPLICIT SEQUENCE OF \u003cwhatever\u003e\n\n(Both of which seem fine to me. As long as it imports the only thing we actually care about, whatever.)",
+      "revId": "f528e173de341ba6dd9168e704ce1feaadda6ef2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
