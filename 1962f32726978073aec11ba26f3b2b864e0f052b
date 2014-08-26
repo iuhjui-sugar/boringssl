@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d3cd11a8_b7c482da",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-26T21:14:06Z",
+      "side": 1,
+      "message": "need be",
+      "range": {
+        "startLine": 15,
+        "startChar": 41,
+        "endLine": 15,
+        "endChar": 47
+      },
+      "revId": "1962f32726978073aec11ba26f3b2b864e0f052b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d3cd11a8_37d07287",
+        "filename": "ssl/d1_clnt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-26T21:14:06Z",
+      "side": 1,
+      "message": "But this is actually \"don\u0027t skip hash\", right?\n\n#define SSL_GET_MESSAGE_HASH_MESSAGE 0\n#define SSL_GET_MESSAGE_DONT_HASH_MESSAGE 1\n\nThat actually suggested that the parameter should be inverted and should be \"int hash_message\" or something.",
+      "revId": "1962f32726978073aec11ba26f3b2b864e0f052b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
