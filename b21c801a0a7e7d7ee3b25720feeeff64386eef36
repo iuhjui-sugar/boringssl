@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d357d1b2_27ecf428",
+        "filename": "ssl/test/runner/prf.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-28T20:47:18Z",
+      "side": 1,
+      "message": "it\u0027s confusing that \"signatureAndHash\" is the other way around. I think we should flip the structure rather than here. Then, also write it as signatureAndHash{signature: sigType} to be double safe.",
+      "range": {
+        "startLine": 304,
+        "startChar": 9,
+        "endLine": 304,
+        "endChar": 25
+      },
+      "revId": "b21c801a0a7e7d7ee3b25720feeeff64386eef36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d357d1b2_67098c4f",
+        "filename": "ssl/test/runner/prf.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-08-28T20:47:18Z",
+      "side": 1,
+      "message": "are you sure that you need this?",
+      "range": {
+        "startLine": 334,
+        "startChar": 15,
+        "endLine": 334,
+        "endChar": 18
+      },
+      "revId": "b21c801a0a7e7d7ee3b25720feeeff64386eef36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
