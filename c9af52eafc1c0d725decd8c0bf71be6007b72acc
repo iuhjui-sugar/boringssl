@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d371918d_949604f9",
+        "filename": "ssl/s3_cbc.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-31T06:58:42Z",
+      "side": 1,
+      "message": "Code coverage says these two are also not currently tested... but they\u0027re not dead codepaths because there are TLS-1.2-only CBC mode cipher suites that use SHA-256 and SHA-384 HMACs.\n\nMaking runner.go support them would be pretty easy, but I wonder if we should just remove them. Do we care about them on the server? On the client, Chrome is already filtering those out. Since they\u0027re 1.2-only, one would hope that you\u0027re negotiating AES_GCM or CHACHA20 with 1.2. Then again, there is IE11\u0027s silly thing of only doing AES_GCM with ECDHE_ECDSA... so if we\u0027re not using an RSA certificate, having AES_128_CBC_SHA256 is probably somewhat better than AES_128_CBC_SHA...",
+      "revId": "c9af52eafc1c0d725decd8c0bf71be6007b72acc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d371918d_b49b0022",
+        "filename": "ssl/s3_cbc.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-08-31T06:58:42Z",
+      "side": 1,
+      "message": "(Aside: tests currently do not exercise this branch. The block at line 523 never runs.)",
+      "revId": "c9af52eafc1c0d725decd8c0bf71be6007b72acc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
