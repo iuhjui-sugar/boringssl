@@ -208,12 +208,19 @@ func (hc *halfConn) recordHeaderLen() int {
 // removePadding returns an unpadded slice, in constant time, which is a prefix
 // of the input. It also returns a byte which is equal to 255 if the padding
 // was valid and 0 otherwise. See RFC 2246, section 6.2.3.2
-func removePadding(payload []byte) ([]byte, byte) {
+func removePadding(config *Config, payload []byte) ([]byte, byte) {
 	if len(payload) < 1 {
 		return payload, 0
 	}
 
 	paddingLen := payload[len(payload)-1]
+	paddingValue := paddingLen
+	if config.Bugs.OffByOneCBCPadding {
+		if paddingLen == 0 {
+			return payload, 0
+		}
+		paddingLen--
+	}
 	t := uint(len(payload)-1) - uint(paddingLen)
 	// if len(payload) >= (paddingLen - 1) then the MSB of t is zero
 	good := byte(int32(^t) >> 31)
@@ -229,7 +236,7 @@ func removePadding(payload []byte) ([]byte, byte) {
 		// if i <= paddingLen then the MSB of t is zero
 		mask := byte(int32(^t) >> 31)
 		b := payload[len(payload)-1-i]
-		good &^= mask&paddingLen ^ mask&b
+		good &^= mask&paddingValue ^ mask&b
 	}
 
 	// We AND together the bits of good and replicate the result across
@@ -335,7 +342,7 @@ func (hc *halfConn) decrypt(b *block) (ok bool, prefixLen int, alertValue alert)
 			if hc.version == VersionSSL30 {
 				payload, paddingGood = removePaddingSSL30(payload)
 			} else {
-				payload, paddingGood = removePadding(payload)
+				payload, paddingGood = removePadding(hc.config, payload)
 			}
 			b.resize(recordHeaderLen + explicitIVLen + len(payload))
 
@@ -396,8 +403,12 @@ func padToBlockSize(payload []byte, blockSize int, config *Config) (prefix, fina
 		finalSize = 256
 	}
 	finalBlock = make([]byte, finalSize)
+	paddingValue := byte(paddingLen - 1)
+	if config.Bugs.OffByOneCBCPadding {
+		paddingValue++
+	}
 	for i := range finalBlock {
-		finalBlock[i] = byte(paddingLen - 1)
+		finalBlock[i] = paddingValue
 	}
 	if config.Bugs.PaddingFirstByteBad || config.Bugs.PaddingFirstByteBadIf255 && paddingLen == 256 {
 		finalBlock[overrun] ^= 0xff

@@ -1311,6 +1311,40 @@ func addVersionNegotiationTests() {
 	}
 }
 
+func addBlockPaddingBugTests() {
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "BlockPaddingBug-NoQuirk-Reject",
+		config: Config{
+			CipherSuites: []uint16{TLS_RSA_WITH_AES_128_CBC_SHA},
+			Bugs: ProtocolBugs{
+				OffByOneCBCPadding: true,
+			},
+		},
+		shouldFail:    true,
+		expectedError: ":DECRYPTION_FAILED_OR_BAD_RECORD_MAC:",
+	})
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "BlockPaddingBug-Quirk-Normal",
+		config: Config{
+			CipherSuites: []uint16{TLS_RSA_WITH_AES_128_CBC_SHA},
+		},
+		flags: []string{"-tls-block-padding-bug"},
+	})
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "BlockPaddingBug-Quirk-Bug",
+		config: Config{
+			CipherSuites: []uint16{TLS_RSA_WITH_AES_128_CBC_SHA},
+			Bugs: ProtocolBugs{
+				OffByOneCBCPadding: true,
+			},
+		},
+		flags: []string{"-tls-block-padding-bug"},
+	})
+}
+
 func worker(statusChan chan statusMsg, c chan *testCase, buildDir string, wg *sync.WaitGroup) {
 	defer wg.Done()
 
@@ -1363,6 +1397,7 @@ func main() {
 	addCBCSplittingTests()
 	addClientAuthTests()
 	addVersionNegotiationTests()
+	addBlockPaddingBugTests()
 	for _, async := range []bool{false, true} {
 		for _, splitHandshake := range []bool{false, true} {
 			for _, protocol := range []protocol{tls, dtls} {

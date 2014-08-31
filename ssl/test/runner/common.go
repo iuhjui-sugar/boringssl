@@ -440,6 +440,10 @@ type ProtocolBugs struct {
 	// isn't sent until we receive an application data record
 	// from the peer.
 	ExpectFalseStart bool
+
+	// OffByOneCBCPadding causes the CBC padding to be N bytes of
+	// value N rather than N+1 bytes of value N.
+	OffByOneCBCPadding bool
 }
 
 func (c *Config) serverInit() {
