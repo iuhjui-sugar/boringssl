@@ -169,6 +169,8 @@ const ERR_STRING_DATA SSL_error_string_data[] = {
   {ERR_PACK(ERR_LIB_SSL, SSL_F_ssl_get_server_cert_index, 0), "ssl_get_server_cert_index"},
   {ERR_PACK(ERR_LIB_SSL, SSL_F_ssl_get_sign_pkey, 0), "ssl_get_sign_pkey"},
   {ERR_PACK(ERR_LIB_SSL, SSL_F_ssl_init_wbio_buffer, 0), "ssl_init_wbio_buffer"},
+  {ERR_PACK(ERR_LIB_SSL, SSL_F_ssl_log_master_secret, 0), "ssl_log_master_secret"},
+  {ERR_PACK(ERR_LIB_SSL, SSL_F_ssl_log_rsa_client_key_exchange, 0), "ssl_log_rsa_client_key_exchange"},
   {ERR_PACK(ERR_LIB_SSL, SSL_F_ssl_new, 0), "ssl_new"},
   {ERR_PACK(ERR_LIB_SSL, SSL_F_ssl_parse_clienthello_renegotiate_ext, 0), "ssl_parse_clienthello_renegotiate_ext"},
   {ERR_PACK(ERR_LIB_SSL, SSL_F_ssl_parse_clienthello_tlsext, 0), "ssl_parse_clienthello_tlsext"},
