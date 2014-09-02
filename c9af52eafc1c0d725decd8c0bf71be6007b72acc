@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "3363cdc5_bdc1273d",
+        "filename": "ssl/s3_cbc.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-09-02T23:04:10Z",
+      "side": 1,
+      "message": "I think we might want the SHA-2 versions on the server side in the future.",
+      "parentUuid": "d371918d_a30f4498",
+      "revId": "c9af52eafc1c0d725decd8c0bf71be6007b72acc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d371918d_b49b0022",
         "filename": "ssl/s3_cbc.c",
         "patchSetId": 1
