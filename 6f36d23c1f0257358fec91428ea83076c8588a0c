@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d371918d_6308ccbb",
+        "filename": "crypto/bio/bio_mem.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-09-02T22:27:17Z",
+      "side": 1,
+      "message": "bio_io in bio.c filters out inputs \u003c\u003d 0 ahead of time, so this shouldn\u0027t be necessary.",
+      "revId": "6f36d23c1f0257358fec91428ea83076c8588a0c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d371918d_03547885",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2233,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-09-02T22:27:17Z",
+      "side": 1,
+      "message": "I think this one\u0027s also impossible. I\u0027m guessing this is a remnant from the ECDH_{RSA,ECDSA} edge cases.",
+      "range": {
+        "startLine": 2233,
+        "startChar": 3,
+        "endLine": 2233,
+        "endChar": 25
+      },
+      "revId": "6f36d23c1f0257358fec91428ea83076c8588a0c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
