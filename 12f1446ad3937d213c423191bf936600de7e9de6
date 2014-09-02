@@ -1,0 +1,203 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3363cdc5_bac12d3d",
+        "filename": "ssl/pqueue/CMakeLists.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-09-02T19:30:19Z",
+      "side": 1,
+      "message": "blank line before target_link_libraries and no blank line after it.",
+      "revId": "12f1446ad3937d213c423191bf936600de7e9de6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3363cdc5_dac6e151",
+        "filename": "ssl/pqueue/pqueue_test.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-09-02T19:30:19Z",
+      "side": 1,
+      "message": "extra blank line above this one.",
+      "revId": "12f1446ad3937d213c423191bf936600de7e9de6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3363cdc5_facba558",
+        "filename": "ssl/pqueue/pqueue_test.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-09-02T19:30:19Z",
+      "side": 1,
+      "message": "can just be:\n\nuint8_t priority[8] \u003d {0};\n\nI believe.",
+      "revId": "12f1446ad3937d213c423191bf936600de7e9de6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3363cdc5_1ad13906",
+        "filename": "ssl/pqueue/pqueue_test.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-09-02T19:30:19Z",
+      "side": 1,
+      "message": "item could be NULL.",
+      "revId": "12f1446ad3937d213c423191bf936600de7e9de6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3363cdc5_3acefd68",
+        "filename": "ssl/pqueue/pqueue_test.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-09-02T19:30:19Z",
+      "side": 1,
+      "message": "these can all be merged:\n\nif (foo(bar) !\u003d baz ||\n    x(y) !\u003d z ||\n    ...) {\n  return 0;\n}",
+      "revId": "12f1446ad3937d213c423191bf936600de7e9de6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3363cdc5_5adbb125",
+        "filename": "ssl/pqueue/pqueue_test.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-09-02T19:30:19Z",
+      "side": 1,
+      "message": "static const kNumItems \u003d 10;\n\nand then:\n\nint ordering[kNumItems]?\n\n(Or maybe the old C that we use won\u0027t compile that, in which case #define NUM_ITEMS 10.)",
+      "revId": "12f1446ad3937d213c423191bf936600de7e9de6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3363cdc5_7ad87528",
+        "filename": "ssl/pqueue/pqueue_test.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-09-02T19:30:19Z",
+      "side": 1,
+      "message": "ditto about {0}",
+      "revId": "12f1446ad3937d213c423191bf936600de7e9de6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3363cdc5_faa2c598",
+        "filename": "ssl/pqueue/pqueue_test.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-09-02T19:30:19Z",
+      "side": 1,
+      "message": "kNumItems / NUM_ITEMS.",
+      "range": {
+        "startLine": 63,
+        "startChar": 19,
+        "endLine": 63,
+        "endChar": 24
+      },
+      "revId": "12f1446ad3937d213c423191bf936600de7e9de6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3363cdc5_baa84d7d",
+        "filename": "ssl/pqueue/pqueue_test.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-09-02T19:30:19Z",
+      "side": 1,
+      "message": "parens not needed.",
+      "range": {
+        "startLine": 63,
+        "startChar": 14,
+        "endLine": 63,
+        "endChar": 15
+      },
+      "revId": "12f1446ad3937d213c423191bf936600de7e9de6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3363cdc5_1ab859c6",
+        "filename": "ssl/pqueue/pqueue_test.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-09-02T19:30:19Z",
+      "side": 1,
+      "message": "remove blank line.",
+      "revId": "12f1446ad3937d213c423191bf936600de7e9de6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3363cdc5_3ab51dcd",
+        "filename": "ssl/pqueue/pqueue_test.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-09-02T19:30:19Z",
+      "side": 1,
+      "message": "if (!trivial() ||\n    !fixed_random()) {\n  return 1;\n}",
+      "revId": "12f1446ad3937d213c423191bf936600de7e9de6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
