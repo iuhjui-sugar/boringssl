@@ -145,7 +145,6 @@ poly1305_donna_atmost15bytes:
   mp[j++] = 1;
   for (; j < 16; j++)
     mp[j] = 0;
-  len = 0;
 
   t0 = U8TO32_LE(mp + 0);
   t1 = U8TO32_LE(mp + 4);
