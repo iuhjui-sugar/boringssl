@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3363cdc5_7d994f9b",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 3140,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-09-02T22:50:31Z",
+      "side": 1,
+      "message": "/* Only the first 8 bytes of the encrypted premaster secret are logged. */",
+      "range": {
+        "startLine": 3140,
+        "startChar": 42,
+        "endLine": 3140,
+        "endChar": 43
+      },
+      "revId": "20adb34276ce779c24faebcbbfc818cea54e8708",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3363cdc5_7d34efc6",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 3150,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-09-02T22:50:31Z",
+      "side": 1,
+      "message": "I think that these functions should grab a lock before writing to the BIO.",
+      "revId": "20adb34276ce779c24faebcbbfc818cea54e8708",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3363cdc5_dd225b92",
+        "filename": "ssl/ssl_locl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1095,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-09-02T22:50:31Z",
+      "side": 1,
+      "message": "It returns ...",
+      "revId": "20adb34276ce779c24faebcbbfc818cea54e8708",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3363cdc5_fd271f9f",
+        "filename": "ssl/ssl_locl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1101,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-09-02T22:50:31Z",
+      "side": 1,
+      "message": "It returns ...",
+      "revId": "20adb34276ce779c24faebcbbfc818cea54e8708",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
