@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3363cdc5_9deaa3c4",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-09-02T22:58:07Z",
+      "side": 1,
+      "message": "This isn\u0027t correct, right? In CBC mode we\u0027ll have headerlen + 32 I think (or maybe 64 to be safe):\n\nThere\u0027s one byte of content and 20 bytes of MAC. That\u0027s 24 bytes with 3DES or 32 bytes with AES. If the HMAC is SHA-384 then it\u0027s 64 bytes.",
+      "range": {
+        "startLine": 693,
+        "startChar": 30,
+        "endLine": 693,
+        "endChar": 31
+      },
+      "revId": "5c3b5b65539d8eda8b95eba9cce54256dbe08752",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
