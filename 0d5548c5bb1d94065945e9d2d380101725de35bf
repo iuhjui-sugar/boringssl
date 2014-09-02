@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d371918d_23bb34fd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-09-02T21:22:00Z",
+      "side": 1,
+      "message": "Hah. I wonder what that check was originally for in OpenSSL then. Maybe they once ack\u0027d it and then stopped for some reason.",
+      "range": {
+        "startLine": 14,
+        "startChar": 64,
+        "endLine": 16,
+        "endChar": 62
+      },
+      "revId": "0d5548c5bb1d94065945e9d2d380101725de35bf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
