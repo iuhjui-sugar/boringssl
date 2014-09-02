@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "d371918d_a30f4498",
+        "filename": "ssl/s3_cbc.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-09-02T23:02:27Z",
+      "side": 1,
+      "message": "Well, there\u0027s three different AES_256_CBCs. There are\n\n- AES_256_CBC_SHA (SHA-1)\n- AES_256_CBC_SHA256\n- AES_256_CBC_SHA384\n\nThe latter two are TLS-1.2-only. Chrome doesn\u0027t advertise them at all on NSS or OpenSSL, I\u0027m guessing a remnant of trimming cipher suites to deal with the F5 ClientHello thing.\n\nhttp://www.iana.org/assignments/tls-parameters/tls-parameters.xhtml#tls-parameters-4\n\n(Minor up-side to ditching them is just that, if we don\u0027t actually ever need them, this file only has to care about one kind of MAC. But otherwise, yeah, I\u0027ll just hook the tests up, and it will barely be any new code.)",
+      "parentUuid": "3363cdc5_dd397bbe",
+      "revId": "c9af52eafc1c0d725decd8c0bf71be6007b72acc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d371918d_b49b0022",
         "filename": "ssl/s3_cbc.c",
         "patchSetId": 1
