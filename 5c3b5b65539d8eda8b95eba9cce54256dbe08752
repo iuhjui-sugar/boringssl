@@ -22,6 +22,30 @@
       "revId": "5c3b5b65539d8eda8b95eba9cce54256dbe08752",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0f76b45_5d203b33",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-09-03T14:56:52Z",
+      "side": 1,
+      "message": "Shouldn\u0027t that be covered by SSL3_RT_SEND_MAX_ENCRYPTED_OVERHEAD? I just put the +1 in since we\u0027re now adding overhead to 1 byte rather than 0.",
+      "parentUuid": "3363cdc5_9deaa3c4",
+      "range": {
+        "startLine": 693,
+        "startChar": 30,
+        "endLine": 693,
+        "endChar": 31
+      },
+      "revId": "5c3b5b65539d8eda8b95eba9cce54256dbe08752",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
