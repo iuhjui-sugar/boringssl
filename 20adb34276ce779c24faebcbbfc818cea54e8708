@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "305d8332_677492a7",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 3140,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-09-03T18:28:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3363cdc5_7d994f9b",
+      "range": {
+        "startLine": 3140,
+        "startChar": 42,
+        "endLine": 3140,
+        "endChar": 43
+      },
+      "revId": "20adb34276ce779c24faebcbbfc818cea54e8708",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3363cdc5_7d34efc6",
         "filename": "ssl/ssl_lib.c",
         "patchSetId": 1
@@ -36,6 +60,24 @@
       "writtenOn": "2014-09-02T22:50:31Z",
       "side": 1,
       "message": "I think that these functions should grab a lock before writing to the BIO.",
+      "revId": "20adb34276ce779c24faebcbbfc818cea54e8708",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "305d8332_e72be26a",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 3150,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-09-03T18:28:50Z",
+      "side": 1,
+      "message": "Done. Used the SSL_CTX lock; we\u0027re mutating state attached to an SSL_CTX, and the BIO is owned[*] by it. Also recast these functions to take the SSL_CTX rather than the BIO so that lock makes sense.\n\n[*] Modulo ref-counting. Which isn\u0027t used because the SSL BIO is currently nonexistent.",
+      "parentUuid": "3363cdc5_7d34efc6",
       "revId": "20adb34276ce779c24faebcbbfc818cea54e8708",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "305d8332_471d0e54",
+        "filename": "ssl/ssl_locl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1095,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-09-03T18:28:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3363cdc5_dd225b92",
+      "revId": "20adb34276ce779c24faebcbbfc818cea54e8708",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3363cdc5_fd271f9f",
         "filename": "ssl/ssl_locl.h",
         "patchSetId": 1
@@ -70,6 +130,24 @@
       "writtenOn": "2014-09-02T22:50:31Z",
       "side": 1,
       "message": "It returns ...",
+      "revId": "20adb34276ce779c24faebcbbfc818cea54e8708",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "305d8332_27221a94",
+        "filename": "ssl/ssl_locl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1101,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-09-03T18:28:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3363cdc5_fd271f9f",
       "revId": "20adb34276ce779c24faebcbbfc818cea54e8708",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
