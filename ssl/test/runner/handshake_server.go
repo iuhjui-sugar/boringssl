@@ -237,6 +237,9 @@ Curves:
 	if len(hs.clientHello.serverName) > 0 {
 		hs.cert = config.getCertificateForName(hs.clientHello.serverName)
 	}
+	if c.config.Bugs.ExpectServerName != "" && c.config.Bugs.ExpectServerName != hs.clientHello.serverName {
+		return false, errors.New("tls: unexpected server name")
+	}
 
 	if hs.clientHello.channelIDSupported && config.RequestChannelID {
 		hs.hello.channelIDRequested = true
