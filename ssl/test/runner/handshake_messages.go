@@ -26,6 +26,7 @@ type clientHelloMsg struct {
 	secureRenegotiation bool
 	duplicateExtension  bool
 	channelIDSupported  bool
+	alpnProtos          []string
 }
 
 func (m *clientHelloMsg) equal(i interface{}) bool {
@@ -52,7 +53,8 @@ func (m *clientHelloMsg) equal(i interface{}) bool {
 		eqSignatureAndHashes(m.signatureAndHashes, m1.signatureAndHashes) &&
 		m.secureRenegotiation == m1.secureRenegotiation &&
 		m.duplicateExtension == m1.duplicateExtension &&
-		m.channelIDSupported == m1.channelIDSupported
+		m.channelIDSupported == m1.channelIDSupported &&
+		eqStrings(m.alpnProtos, m1.alpnProtos)
 }
 
 func (m *clientHelloMsg) marshal() []byte {
@@ -102,6 +104,14 @@ func (m *clientHelloMsg) marshal() []byte {
 	}
 	if m.channelIDSupported {
 		numExtensions++
+	}
+	alpnLength := 0
+	if m.alpnProtos != nil {
+		numExtensions++
+		for _, v := range m.alpnProtos {
+			alpnLength += len(v) + 1
+		}
+		extensionsLength += 2 + alpnLength
 	}
 	if numExtensions > 0 {
 		extensionsLength += 4 * numExtensions
@@ -270,6 +280,26 @@ func (m *clientHelloMsg) marshal() []byte {
 		z[0] = byte(extensionChannelID >> 8)
 		z[1] = byte(extensionChannelID & 0xff)
 		z = z[4:]
+	}
+	if m.alpnProtos != nil {
+		z[0] = byte(extensionApplicationProtocol >> 8)
+		z[1] = byte(extensionApplicationProtocol & 0xff)
+		extensionLen := alpnLength + 2
+		z[2] = byte(extensionLen >> 8)
+		z[3] = byte(extensionLen & 0xff)
+		z[4] = byte(alpnLength >> 8)
+		z[5] = byte(alpnLength & 0xff)
+		z = z[6:]
+
+		for _, v := range m.alpnProtos {
+			l := len(v)
+			if l > 255 {
+				l = 255
+			}
+			z[0] = byte(l)
+			copy(z[1:], []byte(v[0:l]))
+			z = z[1+l:]
+		}
 	}
 	if m.duplicateExtension {
 		// Add a duplicate bogus extension at the beginning and end.
@@ -456,6 +486,22 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 				return false
 			}
 			m.channelIDSupported = true
+		case extensionApplicationProtocol:
+			m.alpnProtos = []string{}
+			protoNameListLen := int(data[0])<<8 | int(data[1])
+			if 2+protoNameListLen != length {
+				return false
+			}
+			d := data[2:length]
+			for len(d) > 0 {
+				l := int(d[0])
+				d = d[1:]
+				if l == 0 || l > len(d) {
+					return false
+				}
+				m.alpnProtos = append(m.alpnProtos, string(d[:l]))
+				d = d[l:]
+			}
 		}
 		data = data[length:]
 	}
@@ -478,6 +524,7 @@ type serverHelloMsg struct {
 	secureRenegotiation bool
 	duplicateExtension  bool
 	channelIDRequested  bool
+	alpnProto           string
 }
 
 func (m *serverHelloMsg) equal(i interface{}) bool {
@@ -499,7 +546,8 @@ func (m *serverHelloMsg) equal(i interface{}) bool {
 		m.ticketSupported == m1.ticketSupported &&
 		m.secureRenegotiation == m1.secureRenegotiation &&
 		m.duplicateExtension == m1.duplicateExtension &&
-		m.channelIDRequested == m1.channelIDRequested
+		m.channelIDRequested == m1.channelIDRequested &&
+		m.alpnProto == m1.alpnProto
 }
 
 func (m *serverHelloMsg) marshal() []byte {
@@ -534,6 +582,10 @@ func (m *serverHelloMsg) marshal() []byte {
 		numExtensions += 2
 	}
 	if m.channelIDRequested {
+		numExtensions++
+	}
+	if m.alpnProto != "" {
+		extensionsLength += 2 + 1 + len(m.alpnProto)
 		numExtensions++
 	}
 	if numExtensions > 0 {
@@ -607,6 +659,23 @@ func (m *serverHelloMsg) marshal() []byte {
 		z[0] = byte(extensionChannelID >> 8)
 		z[1] = byte(extensionChannelID & 0xff)
 		z = z[4:]
+	}
+	if m.alpnProto != "" {
+		z[0] = byte(extensionApplicationProtocol >> 8)
+		z[1] = byte(extensionApplicationProtocol & 0xff)
+		extensionLen := 2 + 1 + len(m.alpnProto)
+		z[2] = byte(extensionLen >> 8)
+		z[3] = byte(extensionLen & 0xff)
+		protoNameListLen := 1 + len(m.alpnProto)
+		z[4] = byte(protoNameListLen >> 8)
+		z[5] = byte(protoNameListLen & 0xff)
+		l := len(m.alpnProto)
+		if l > 255 {
+			l = 255
+		}
+		z[6] = byte(l)
+		copy(z[7:], []byte(m.alpnProto[:l]))
+		z = z[7+l:]
 	}
 	if m.duplicateExtension {
 		// Add a duplicate bogus extension at the beginning and end.
@@ -703,6 +772,19 @@ func (m *serverHelloMsg) unmarshal(data []byte) bool {
 				return false
 			}
 			m.channelIDRequested = true
+		case extensionApplicationProtocol:
+			if length < 3 {
+				return false
+			}
+			protoListLen := int(data[0])<<8 | int(data[1])
+			if 2+protoListLen != length {
+				return false
+			}
+			l := int(data[2])
+			if 2+1+l != length || l == 0 {
+				return false
+			}
+			m.alpnProto = string(data[3 : 3+l])
 		}
 		data = data[length:]
 	}

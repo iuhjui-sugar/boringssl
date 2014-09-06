@@ -58,6 +58,10 @@ func (c *Conn) clientHandshake() error {
 		channelIDSupported:  c.config.ChannelID != nil,
 	}
 
+	if len(c.config.NextProtos) > 0 {
+		hello.alpnProtos = c.config.NextProtos
+	}
+
 	if c.config.Bugs.SendClientVersion != 0 {
 		hello.vers = c.config.Bugs.SendClientVersion
 	}
@@ -565,9 +569,22 @@ func (hs *clientHandshakeState) processServerHello() (bool, error) {
 		return false, errors.New("tls: server selected unsupported compression format")
 	}
 
+	if hs.serverHello.nextProtoNeg && hs.serverHello.alpnProto != "" {
+		c.sendAlert(alertHandshakeFailure)
+		return false, errors.New("tls: server advertised both NPN and ALPN")
+	}
+
 	if !hs.hello.nextProtoNeg && hs.serverHello.nextProtoNeg {
 		c.sendAlert(alertHandshakeFailure)
 		return false, errors.New("server advertised unrequested NPN extension")
+	}
+
+	if hs.serverHello.alpnProto != "" {
+		if hs.hello.alpnProtos == nil {
+			c.sendAlert(alertHandshakeFailure)
+			return false, errors.New("tls: server advertised unrequested ALPN extension")
+		}
+		c.clientProtocol = hs.serverHello.alpnProto
 	}
 
 	if !hs.hello.channelIDSupported && hs.serverHello.channelIDRequested {

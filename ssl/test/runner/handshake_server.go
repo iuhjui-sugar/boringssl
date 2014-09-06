@@ -220,13 +220,23 @@ Curves:
 	if len(hs.clientHello.serverName) > 0 {
 		c.serverName = hs.clientHello.serverName
 	}
+
 	// Although sending an empty NPN extension is reasonable, Firefox has
 	// had a bug around this. Best to send nothing at all if
 	// config.NextProtos is empty. See
 	// https://code.google.com/p/go/issues/detail?id=5445.
-	if hs.clientHello.nextProtoNeg && len(config.NextProtos) > 0 {
-		hs.hello.nextProtoNeg = true
-		hs.hello.nextProtos = config.NextProtos
+	if len(config.NextProtos) > 0 {
+		// Prefer ALPN.
+		if len(hs.clientHello.alpnProtos) > 0 {
+			proto, fallback := mutualProtocol(hs.clientHello.alpnProtos, config.NextProtos)
+			if !fallback {
+				hs.hello.alpnProto = proto
+				c.clientProtocol = proto
+			}
+		} else if hs.clientHello.nextProtoNeg {
+			hs.hello.nextProtoNeg = true
+			hs.hello.nextProtos = config.NextProtos
+		}
 	}
 
 	if len(config.Certificates) == 0 {
