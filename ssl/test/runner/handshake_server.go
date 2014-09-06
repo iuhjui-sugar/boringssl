@@ -232,6 +232,7 @@ Curves:
 			if !fallback {
 				hs.hello.alpnProto = proto
 				c.clientProtocol = proto
+				c.usedALPN = true
 			}
 		} else if hs.clientHello.nextProtoNeg {
 			hs.hello.nextProtoNeg = true

@@ -27,6 +27,7 @@ type clientHelloMsg struct {
 	duplicateExtension  bool
 	channelIDSupported  bool
 	alpnProtos          []string
+	npnLast             bool
 }
 
 func (m *clientHelloMsg) equal(i interface{}) bool {
@@ -54,7 +55,8 @@ func (m *clientHelloMsg) equal(i interface{}) bool {
 		m.secureRenegotiation == m1.secureRenegotiation &&
 		m.duplicateExtension == m1.duplicateExtension &&
 		m.channelIDSupported == m1.channelIDSupported &&
-		eqStrings(m.alpnProtos, m1.alpnProtos)
+		eqStrings(m.alpnProtos, m1.alpnProtos) &&
+		m.npnLast == m1.npnLast
 }
 
 func (m *clientHelloMsg) marshal() []byte {
@@ -157,7 +159,7 @@ func (m *clientHelloMsg) marshal() []byte {
 		z[1] = 0xff
 		z = z[4:]
 	}
-	if m.nextProtoNeg {
+	if m.nextProtoNeg && !m.npnLast {
 		z[0] = byte(extensionNextProtoNeg >> 8)
 		z[1] = byte(extensionNextProtoNeg & 0xff)
 		// The length is always 0
@@ -300,6 +302,12 @@ func (m *clientHelloMsg) marshal() []byte {
 			copy(z[1:], []byte(v[0:l]))
 			z = z[1+l:]
 		}
+	}
+	if m.nextProtoNeg && m.npnLast {
+		z[0] = byte(extensionNextProtoNeg >> 8)
+		z[1] = byte(extensionNextProtoNeg & 0xff)
+		// The length is always 0
+		z = z[4:]
 	}
 	if m.duplicateExtension {
 		// Add a duplicate bogus extension at the beginning and end.

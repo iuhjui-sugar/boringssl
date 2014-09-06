@@ -56,6 +56,7 @@ func (c *Conn) clientHandshake() error {
 		secureRenegotiation: true,
 		duplicateExtension:  c.config.Bugs.DuplicateExtension,
 		channelIDSupported:  c.config.ChannelID != nil,
+		npnLast:             c.config.Bugs.SwapNPNAndALPN,
 	}
 
 	if len(c.config.NextProtos) > 0 {
@@ -585,6 +586,7 @@ func (hs *clientHandshakeState) processServerHello() (bool, error) {
 			return false, errors.New("tls: server advertised unrequested ALPN extension")
 		}
 		c.clientProtocol = hs.serverHello.alpnProto
+		c.usedALPN = true
 	}
 
 	if !hs.hello.channelIDSupported && hs.serverHello.channelIDRequested {
