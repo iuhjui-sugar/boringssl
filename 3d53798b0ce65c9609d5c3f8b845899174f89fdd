@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "70029b43_1149ccf2",
+        "filename": "ssl/s3_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-09-08T19:03:37Z",
+      "side": 0,
+      "message": "Not sure this bit even did anything before... there\u0027s a cipher alias for export in upstream, but there isn\u0027t a selector for not-export.",
+      "range": {
+        "startLine": 181,
+        "startChar": 1,
+        "endLine": 181,
+        "endChar": 12
+      },
+      "revId": "3d53798b0ce65c9609d5c3f8b845899174f89fdd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
