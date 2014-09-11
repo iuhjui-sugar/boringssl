@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "90b46fdf_c0b032c8",
+        "filename": "ssl/ssl_algs.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-09-11T23:58:42Z",
+      "side": 1,
+      "message": "I don\u0027t have opinions as to whether SSL_library_init should do this for you or if calling both should be the embedder\u0027s job. This was consistent with it doing ERR_load_crypto_strings.\n\n(We could, in theory, have EnsureOpenSSLSSLInit and EnsureOpenSSLCryptoInit, only call the latter in the renderer, and not have to double-initialize the crypto library in the browser. But right now there\u0027s just the one and ssl_load_ciphers isn\u0027t terribly interesting. I have to CL that nukes it altogether.)",
+      "revId": "3bf2bdef7c0ff2d1bf6de4347138f275153fefe0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
