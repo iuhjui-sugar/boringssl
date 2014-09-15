@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "50a3d7b2_df1f2777",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-09-15T19:02:13Z",
+      "side": 1,
+      "message": "if expected :\u003d c.config.Bugs.ExpectServerName; expected !\u003d \"\" \u0026\u0026 expected !\u003d hs.clientHello.serverName",
+      "range": {
+        "startLine": 240,
+        "startChar": 6,
+        "endLine": 240,
+        "endChar": 12
+      },
+      "revId": "a53062412d159cc3427655cd5c7b2b3ceb918da6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "50a3d7b2_1f4b6f75",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1368,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-09-15T19:02:13Z",
+      "side": 1,
+      "message": "Add a couple of cases where ExpectServerName and the SNI don\u0027t match to ensure failure?",
+      "revId": "a53062412d159cc3427655cd5c7b2b3ceb918da6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
