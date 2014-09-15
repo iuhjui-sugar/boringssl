@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "50a3d7b2_ff678bec",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-09-15T19:15:02Z",
+      "side": 1,
+      "message": "if expected :\u003d test.expectedNextProto; expected !\u003d \"\" {\n  if actual :\u003d tlsConn.ConnectionState().NegotiatedProtocol; actual !\u003d expected {\n    return fmt.Errorf(\"next proto mismatch: got %s, wanted %s\", actual, expected)\n  }\n}",
+      "revId": "69a7c3219a50f37f289b22db4d3ddc2de5327c50",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
