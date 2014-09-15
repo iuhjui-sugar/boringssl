@@ -16,6 +16,24 @@
       "revId": "28e26dcb46f7b911526a0f1abd8f7abe7134c745",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90b46fdf_c1dd912b",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-09-15T21:02:09Z",
+      "side": 1,
+      "message": "Oh, handy. Done.",
+      "parentUuid": "50a3d7b2_3f79139d",
+      "revId": "28e26dcb46f7b911526a0f1abd8f7abe7134c745",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
