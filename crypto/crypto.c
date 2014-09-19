@@ -45,7 +45,8 @@ __declspec(allocate(".CRT$XCU")) void(*library_init_constructor)(void) =
  * BORINGSSL_NO_STATIC_INITIALIZER isn't defined, this is set as a static
  * initializer. Otherwise, it is called by CRYPTO_library_init. */
 static void OPENSSL_CDECL do_library_init(void) {
-#if defined(OPENSSL_X86) || defined(OPENSSL_X86_64)
+#if !defined(OPENSSL_NO_ASM) && \
+    (defined(OPENSSL_X86) || defined(OPENSSL_X86_64))
   OPENSSL_cpuid_setup();
 #endif
 }
