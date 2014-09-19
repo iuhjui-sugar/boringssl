@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "301bc308_b197d034",
+        "filename": "crypto/cpu-intel.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-09-19T18:06:58Z",
+      "side": 1,
+      "message": "(Hrm. This wasn\u0027t in there pre-static-initializer-change either, right? Wondering how it worked before...)",
+      "revId": "6c411c4cb24a7e624e3d54ed57986a5de1f3458a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "301bc308_11c1dc3b",
+        "filename": "crypto/crypto.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-09-19T18:06:58Z",
+      "side": 1,
+      "message": "I suppose this could be updated too. Though it\u0027s a minor optimization and makes the goo even messier. Maybe a local NEED_CPUID #define if you want to bother.",
+      "revId": "6c411c4cb24a7e624e3d54ed57986a5de1f3458a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
