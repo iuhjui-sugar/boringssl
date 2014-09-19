@@ -1017,3 +1017,150 @@ err:
 }
 
 void PKCS12_PBE_add(){};
+
+struct pkcs12_st {
+  uint8_t *ber_bytes;
+  size_t ber_len;
+};
+
+PKCS12* d2i_PKCS12(PKCS12 **out_p12, const uint8_t **ber_bytes, size_t ber_len) {
+  PKCS12 *p12;
+  char p12_allocated = 0;
+
+  if (out_p12 && *out_p12) {
+    p12 = *out_p12;
+  } else {
+    p12 = OPENSSL_malloc(sizeof(PKCS12));
+    if (!p12) {
+      return NULL;
+    }
+    p12_allocated = 1;
+  }
+
+  p12->ber_bytes = OPENSSL_malloc(ber_len);
+  if (!p12->ber_bytes) {
+    if (p12_allocated) {
+      OPENSSL_free(p12);
+    }
+    return NULL;
+  }
+
+  memcpy(p12->ber_bytes, *ber_bytes, ber_len);
+  p12->ber_len = ber_len;
+  *ber_bytes += ber_len;
+
+  if (out_p12) {
+    *out_p12 = p12;
+  }
+
+  return p12;
+}
+
+PKCS12* d2i_PKCS12_bio(BIO *bio, PKCS12 **out_p12) {
+  size_t len = 8192, used = 0;
+  uint8_t *buf;
+  const uint8_t *dummy;
+  static const size_t kMaxSize = 256 * 1024;
+  PKCS12 *ret;
+
+  buf = OPENSSL_malloc(len);
+  if (buf == NULL) {
+    return NULL;
+  }
+
+  for (;;) {
+    uint8_t *new;
+
+    int n = BIO_read(bio, &buf[used], len - used);
+    if (n < 0) {
+      OPENSSL_free(buf);
+      return NULL;
+    }
+
+    if (n == 0) {
+      break;
+    }
+    used += n;
+
+    if (used < len) {
+      continue;
+    }
+
+    len *= 2;
+    if (len > kMaxSize) {
+      OPENSSL_free(buf);
+      return NULL;
+    }
+    new = realloc(buf, len);
+    if (!new) {
+      OPENSSL_free(buf);
+      return NULL;
+    }
+
+    buf = new;
+  }
+
+  dummy = buf;
+  ret = d2i_PKCS12(out_p12, &dummy, used);
+  OPENSSL_free(buf);
+  return ret;
+}
+
+PKCS12* d2i_PKCS12_fp(FILE *fp, PKCS12 **out_p12) {
+  BIO *bio;
+  PKCS12 *ret;
+
+  bio = BIO_new_fp(fp, 0 /* don't take ownership */);
+  if (!bio) {
+    return NULL;
+  }
+
+  ret = d2i_PKCS12_bio(bio, out_p12);
+  BIO_free(bio);
+  return ret;
+}
+
+int PKCS12_parse(const PKCS12 *p12, const char *password, EVP_PKEY **out_pkey,
+                 X509 **out_cert, STACK_OF(X509) **out_ca_certs) {
+  CBS ber_bytes;
+  STACK_OF(X509) *ca_certs = NULL;
+  char ca_certs_alloced = 0;
+
+  if (out_ca_certs != NULL && *out_ca_certs != NULL) {
+    ca_certs = *out_ca_certs;
+  }
+
+  if (!ca_certs) {
+    ca_certs = sk_X509_new_null();
+    if (ca_certs == NULL) {
+      return 0;
+    }
+    ca_certs_alloced = 1;
+  }
+
+  CBS_init(&ber_bytes, p12->ber_bytes, p12->ber_len);
+  if (!PKCS12_get_key_and_certs(out_pkey, ca_certs, &ber_bytes, password)) {
+    if (ca_certs_alloced) {
+      sk_X509_free(ca_certs);
+    }
+    return 0;
+  }
+
+  *out_cert = NULL;
+  if (sk_X509_num(ca_certs) > 0) {
+    *out_cert = sk_X509_shift(ca_certs);
+  }
+
+  if (out_ca_certs) {
+    *out_ca_certs = ca_certs;
+  } else {
+    sk_X509_pop_free(ca_certs, X509_free);
+  }
+
+  return 1;
+}
+
+void PKCS12_free(PKCS12 *p12) {
+  OPENSSL_free(p12->ber_bytes);
+  OPENSSL_free(p12);
+}
