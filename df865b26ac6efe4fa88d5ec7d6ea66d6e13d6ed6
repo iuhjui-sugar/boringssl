@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "301bc308_ccc74b25",
+        "filename": "include/openssl/pkcs8.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-09-19T22:02:33Z",
+      "side": 1,
+      "message": "Nit: This should probably say |out_p12| must be NULL now.",
+      "range": {
+        "startLine": 142,
+        "startChar": 62,
+        "endLine": 144,
+        "endChar": 67
+      },
+      "revId": "df865b26ac6efe4fa88d5ec7d6ea66d6e13d6ed6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
