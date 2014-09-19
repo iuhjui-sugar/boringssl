@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b04df311_70885664",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-09-19T21:49:16Z",
+      "side": 1,
+      "message": "Fair point. I\u0027ve added the check that there\u0027s no extra data at 881.",
+      "parentUuid": "301bc308_1149dcf2",
+      "revId": "8bb18911fb2c22943d8ce4889288bd33b23c0277",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "301bc308_d10044a0",
         "filename": "crypto/pkcs8/pkcs8.c",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2014-09-19T18:57:10Z",
       "side": 1,
       "message": "Is this case intended to be used with a fully-initialized PKCS12 that you previously got via d2i_PKCS12, or just something where the caller allocates an uninitialized PKCS12 on, say, the stack and passes it in?\n\nIf the former, there\u0027s a memory leak here; it should free the old ber_bytes. If the latter, no client can ever do this because the struct isn\u0027t exported.",
+      "revId": "8bb18911fb2c22943d8ce4889288bd33b23c0277",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b04df311_10cb128d",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1031,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-09-19T21:49:16Z",
+      "side": 1,
+      "message": "It\u0027s the latter and, yep, that\u0027s impossible right now. I haven\u0027t seen any code that uses this feature and the compiler will flag it if it happens. The plan was to remove support if we get to the end without needing it but, on reflection, it\u0027s probably better to not have support in the first place. We can always add it.",
+      "parentUuid": "301bc308_d10044a0",
       "revId": "8bb18911fb2c22943d8ce4889288bd33b23c0277",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "b04df311_50fe7a78",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1066,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-09-19T21:49:16Z",
+      "side": 1,
+      "message": "It\u0027s maybe a tiny bit cleaner. Done.",
+      "parentUuid": "301bc308_1120fc32",
+      "revId": "8bb18911fb2c22943d8ce4889288bd33b23c0277",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "301bc308_715858ba",
         "filename": "include/openssl/pkcs8.h",
         "patchSetId": 1
@@ -64,6 +118,30 @@
       "writtenOn": "2014-09-19T18:57:10Z",
       "side": 1,
       "message": "and written to |*out_ca_certs|.",
+      "range": {
+        "startLine": 164,
+        "startChar": 39,
+        "endLine": 164,
+        "endChar": 40
+      },
+      "revId": "8bb18911fb2c22943d8ce4889288bd33b23c0277",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b04df311_10c1d23b",
+        "filename": "include/openssl/pkcs8.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-09-19T21:49:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "301bc308_715858ba",
       "range": {
         "startLine": 164,
         "startChar": 39,
