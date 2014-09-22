@@ -22,6 +22,30 @@
       "revId": "5127db3b4d59066126a1f8c8f7fdf4841a8c58b9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "300743cd_170494e6",
+        "filename": "ssl/ssl_test.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-09-22T16:43:54Z",
+      "side": 0,
+      "message": "Oh, I see the later change.",
+      "parentUuid": "300743cd_77e870c6",
+      "range": {
+        "startLine": 28,
+        "startChar": 8,
+        "endLine": 28,
+        "endChar": 10
+      },
+      "revId": "5127db3b4d59066126a1f8c8f7fdf4841a8c58b9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
