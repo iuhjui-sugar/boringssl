@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0f97300_bea495a9",
+        "filename": "ssl/ssl_test.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-09-22T15:58:50Z",
+      "side": 1,
+      "message": "There\u0027s a lot of nonsense currently not being tested, like...\n\n+FOO:+BAR:+BAZ and -FOO:-BAR:-BAZ cannot be written as +FOO+BAR+BAZ or -FOO-BAR-BAZ, but...\n\n...!FOO:!BAR:!BAZ can be written as !FOO!BAR!BAZ, except...\n\n...as soon as one of FOO, BAR, or BAZ is an unknown alias OR is a bunch of directives +\u0027d together such that one of the masks is zero, all directives after that are ignored.\n\nAlso @STRENGTH and @STRENGTH+NONSENSE are parsed the same.\n\nTightening up the parsing is probably better... though it could potentially break things at runtime.",
+      "revId": "2f4f8477efec8df46259b2ffba96d12036ddc5aa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
