@@ -16,6 +16,23 @@
       "revId": "2f4f8477efec8df46259b2ffba96d12036ddc5aa",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "300743cd_f7c5a047",
+        "filename": "ssl/ssl_test.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-09-22T16:47:42Z",
+      "side": 1,
+      "message": "extra blank line.",
+      "revId": "2f4f8477efec8df46259b2ffba96d12036ddc5aa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
