@@ -46,6 +46,30 @@
       "revId": "2f4f8477efec8df46259b2ffba96d12036ddc5aa",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "300743cd_37739825",
+        "filename": "ssl/ssl_ciph.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 994,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-09-22T17:20:56Z",
+      "side": 0,
+      "message": "Ah, right you are. I scanned up and thought that 809 was the top of the loop.",
+      "parentUuid": "b0f97300_5e38f152",
+      "range": {
+        "startLine": 994,
+        "startChar": 18,
+        "endLine": 994,
+        "endChar": 23
+      },
+      "revId": "2f4f8477efec8df46259b2ffba96d12036ddc5aa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
