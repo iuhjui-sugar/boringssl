@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7069bba1_9cc8e939",
+        "filename": "ssl/s23_clnt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-09-24T22:21:47Z",
+      "side": 0,
+      "message": "Thing to note: if this is called before the final version is determined (way at the bottom in the ServerHello sniff), the SSL_SESSION gets a bad ssl_version burned into it which confuses things (this is the bug in the DTLS code right now). Hence which this code makes it NULL rather than call ssl_get_new_session.\n\nGiven that SSLv23_client_method left it NULL before, I don\u0027t think this exposes any new codepaths where we\u0027d have a NULL s-\u003esession that we didn\u0027t have before.",
+      "revId": "2055175908c6537a7f5152d2b23ac9a975658a72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7069bba1_fcc72524",
+        "filename": "ssl/s23_clnt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-09-24T22:21:47Z",
+      "side": 1,
+      "message": "This is pretty screwy. This hook is called to determine the method table to switch to in SSL_set_session. That whole thing will hopefully be gone in the massive cleanup, but this side-steps it for now.\n\nNote that the behavior of the client/server-agnostic SSLv23_method() is left unchanged by this patch. Though I suspect we could actually make the same change to the generic one\u0027s get_ssl_method hook as SSL_set_session makes no sense in a server context?",
+      "revId": "060b9f6ddd375b106e669b13732226f3107e0b80",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7069bba1_3cda7dfa",
+        "filename": "ssl/s23_clnt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-09-24T22:21:47Z",
+      "side": 1,
+      "message": "Adapted from s3_clnt.c\u0027s equivalent. The version check is different and is intended to match runner.go\u0027s.",
+      "revId": "060b9f6ddd375b106e669b13732226f3107e0b80",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7069bba1_1cddb9f1",
+        "filename": "ssl/s23_clnt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-09-24T22:21:47Z",
+      "side": 1,
+      "message": "This block is copied from s3_clnt.c\u0027s equivalent.",
+      "revId": "060b9f6ddd375b106e669b13732226f3107e0b80",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
