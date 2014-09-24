@@ -165,15 +165,36 @@
 #include "ssl_locl.h"
 #include "../crypto/dh/internal.h"
 
-static const SSL_METHOD *ssl3_get_client_method(int ver);
-
 static const SSL_METHOD *ssl3_get_client_method(int ver)
 	{
+	if (ver == TLS1_2_VERSION)
+		return TLSv1_2_client_method();
+	if (ver == TLS1_1_VERSION)
+		return TLSv1_1_client_method();
+	if (ver == TLS1_VERSION)
+		return TLSv1_client_method();
 	if (ver == SSL3_VERSION)
-		return(SSLv3_client_method());
-	else
-		return(NULL);
+		return SSLv3_client_method();
+	return NULL;
 	}
+
+IMPLEMENT_tls_meth_func(TLS1_2_VERSION, TLSv1_2_client_method,
+			ssl_undefined_function,
+			ssl3_connect,
+			ssl3_get_client_method,
+			TLSv1_2_enc_data)
+
+IMPLEMENT_tls_meth_func(TLS1_1_VERSION, TLSv1_1_client_method,
+			ssl_undefined_function,
+			ssl3_connect,
+			ssl3_get_client_method,
+			TLSv1_1_enc_data)
+
+IMPLEMENT_tls_meth_func(TLS1_VERSION, TLSv1_client_method,
+			ssl_undefined_function,
+			ssl3_connect,
+			ssl3_get_client_method,
+			TLSv1_enc_data)
 
 IMPLEMENT_tls_meth_func(SSL3_VERSION, SSLv3_client_method,
 			ssl_undefined_function,
