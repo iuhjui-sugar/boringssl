@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "50859788_b4f13879",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-09-25T00:18:08Z",
+      "side": 1,
+      "message": "Is that a ! and a !\u003d in the same conditional? :)",
+      "range": {
+        "startLine": 414,
+        "startChar": 21,
+        "endLine": 414,
+        "endChar": 39
+      },
+      "revId": "2055175908c6537a7f5152d2b23ac9a975658a72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "50859788_b41a1805",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 716,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-09-25T00:18:08Z",
+      "side": 1,
+      "message": "/* not a resumption */",
+      "range": {
+        "startLine": 716,
+        "startChar": 61,
+        "endLine": 716,
+        "endChar": 62
+      },
+      "revId": "2055175908c6537a7f5152d2b23ac9a975658a72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "50859788_d41f9cf3",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-09-25T00:18:08Z",
+      "side": 1,
+      "message": "/* resumption */",
+      "range": {
+        "startLine": 730,
+        "startChar": 72,
+        "endLine": 730,
+        "endChar": 74
+      },
+      "revId": "2055175908c6537a7f5152d2b23ac9a975658a72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "50859788_340fe8c5",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1549,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-09-25T00:18:08Z",
+      "side": 1,
+      "message": "I think it would be better to iterate over all the versions and say if sessionVers.version \u003d\u003d VersionSSL30 { continue }",
+      "range": {
+        "startLine": 1549,
+        "startChar": 41,
+        "endLine": 1549,
+        "endChar": 42
+      },
+      "revId": "2055175908c6537a7f5152d2b23ac9a975658a72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "50859788_740970bd",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1550,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-09-25T00:18:08Z",
+      "side": 1,
+      "message": "ditto.",
+      "range": {
+        "startLine": 1550,
+        "startChar": 41,
+        "endLine": 1550,
+        "endChar": 43
+      },
+      "revId": "2055175908c6537a7f5152d2b23ac9a975658a72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
