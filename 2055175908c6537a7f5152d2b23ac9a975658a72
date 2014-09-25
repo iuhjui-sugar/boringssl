@@ -34,6 +34,24 @@
       "revId": "2055175908c6537a7f5152d2b23ac9a975658a72",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7069bba1_5f83a37f",
+        "filename": "ssl/s23_clnt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-09-25T22:02:27Z",
+      "side": 0,
+      "message": "Yup. Was documenting why it was important the code never ran; I\u0027m guessing they #if 0\u0027ed it when they ran into the session cache bug.",
+      "parentUuid": "50859788_d4cddc47",
+      "revId": "2055175908c6537a7f5152d2b23ac9a975658a72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
