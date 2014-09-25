@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7069bba1_ff7397f2",
+        "filename": "crypto/cipher/cipher.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-09-25T12:57:43Z",
+      "side": 1,
+      "message": "This only needs to be the in header, right?",
+      "range": {
+        "startLine": 632,
+        "startChar": 0,
+        "endLine": 632,
+        "endChar": 15
+      },
+      "revId": "f054d8599cafb4eb99fa29fa95157a1aa6db46b3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
