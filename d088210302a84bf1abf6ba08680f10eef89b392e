@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "100240f8_db38d315",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2189,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-09-30T05:01:41Z",
+      "side": 1,
+      "message": "Another option would be to drop this altogether, given that it wasn\u0027t running at all. Neither NSS nor Secure Transport appear to consumer the server\u0027s EC point formats extension at all.",
+      "revId": "d088210302a84bf1abf6ba08680f10eef89b392e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
