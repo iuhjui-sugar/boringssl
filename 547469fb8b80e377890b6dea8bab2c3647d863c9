@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "30a1045f_bc1e41f9",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1457,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-01T01:07:40Z",
+      "side": 1,
+      "message": "Given this comment (although I don\u0027t see much SSLv2-specific about it... maybe they didn\u0027t have all those alias strings in SSLv2), I\u0027m tempted to nuke this function in a follow-up. Codesearch didn\u0027t uncover any code (that was actually built) using it, but I\u0027ll do another check. I believe that would also let us drop s-\u003esession-\u003eciphers.",
+      "revId": "547469fb8b80e377890b6dea8bab2c3647d863c9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
