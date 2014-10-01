@@ -111,6 +111,13 @@ extern "C" {
 #define OPENSSL_EXPORT __declspec(dllimport)
 #endif
 
+/* Wincrypt.h defines macros with conflict with our types. undef them when
+ * both headers are included. Consumers that need both will need to reference
+ * Wincrypt's versions by the constants directly. */
+#undef X509_CERT_PAIR
+#undef X509_EXTENSIONS
+#undef X509_NAME
+
 #else  /* defined(OPENSSL_WINDOWS) */
 
 #if defined(BORINGSSL_IMPLEMENTATION)
