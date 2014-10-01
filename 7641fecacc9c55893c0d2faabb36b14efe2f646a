@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f05e8c2a_8d28c5f0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-01T17:15:54Z",
+      "side": 1,
+      "message": "missing space.",
+      "range": {
+        "startLine": 16,
+        "startChar": 56,
+        "endLine": 16,
+        "endChar": 57
+      },
+      "revId": "7641fecacc9c55893c0d2faabb36b14efe2f646a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f05e8c2a_0d1df5d1",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-01T17:15:54Z",
+      "side": 1,
+      "message": "I think this needs to be deleted too.",
+      "range": {
+        "startLine": 546,
+        "startChar": 74,
+        "endLine": 548,
+        "endChar": 33
+      },
+      "revId": "7641fecacc9c55893c0d2faabb36b14efe2f646a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
