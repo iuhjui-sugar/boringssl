@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "104a4099_a18a3a74",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-02T03:48:17Z",
+      "side": 1,
+      "message": "d (for myself -- tomorrow)",
+      "range": {
+        "startLine": 11,
+        "startChar": 6,
+        "endLine": 11,
+        "endChar": 7
+      },
+      "revId": "de3626604609528b9f0a1dd8dbf4591b15563730",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "10a5e082_063cdc59",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
