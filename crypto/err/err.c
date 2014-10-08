@@ -626,7 +626,8 @@ int ERR_pop_to_mark(void) {
     error = &state->errors[state->top];
 
     if ((error->flags & ERR_FLAG_MARK) != 0) {
-      break;
+      error->flags &= ~ERR_FLAG_MARK;
+      return 1;
     }
 
     err_clear(error);
@@ -637,12 +638,7 @@ int ERR_pop_to_mark(void) {
     }
   }
 
-  if (state->bottom == state->top) {
-    return 0;
-  }
-
-  error->flags &= ~ERR_FLAG_MARK;
-  return 1;
+  return 0;
 }
 
 static const char *const kLibraryNames[ERR_NUM_LIBS] = {

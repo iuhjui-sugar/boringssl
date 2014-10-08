@@ -150,12 +150,7 @@ int a2i_ASN1_ENUMERATED(BIO *bp, ASN1_ENUMERATED *bs, char *buf, int size)
 		i/=2;
 		if (num+i > slen)
 			{
-			if (s == NULL)
-				sp=(unsigned char *)OPENSSL_malloc(
-					(unsigned int)num+i*2);
-			else
-				sp=(unsigned char *)OPENSSL_realloc(s,
-					(unsigned int)num+i*2);
+			sp=(unsigned char*)OPENSSL_realloc_clean(s,slen,(size_t)num+i*2);
 			if (sp == NULL)
 				{
 				OPENSSL_PUT_ERROR(ASN1, a2i_ASN1_ENUMERATED, ERR_R_MALLOC_FAILURE);
@@ -166,6 +161,7 @@ int a2i_ASN1_ENUMERATED(BIO *bp, ASN1_ENUMERATED *bs, char *buf, int size)
 			}
 		for (j=0; j<i; j++,k+=2)
 			{
+			s[num+j]=0;
 			for (n=0; n<2; n++)
 				{
 				m=bufp[k+n];

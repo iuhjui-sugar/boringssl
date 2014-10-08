@@ -61,6 +61,7 @@
 #include <openssl/mem.h>
 #include <openssl/obj.h>
 
+#include <assert.h>
 
 static int asn1_item_ex_combine_new(ASN1_VALUE **pval, const ASN1_ITEM *it,
 								int combine);
@@ -326,14 +327,29 @@ int ASN1_primitive_new(ASN1_VALUE **pval, const ASN1_ITEM *it)
 	ASN1_STRING *str;
 	int utype;
 
-	if (it && it->funcs)
+	/* "it" will never be NULL when this function is called by this
+	 * function's one caller, asn1_item_ex_combine_new.
+	 */
+	assert(it != NULL);
+
+	/* This branch is important(?) for NDEBUG; the code on the false branch
+	 * will attempt to dereference "it" when "it" is NULL.
+	 */
+	if (it == NULL)
+		{
+		*pval = NULL;
+		return 1;
+		}
+
+
+	if (it->funcs)
 		{
 		const ASN1_PRIMITIVE_FUNCS *pf = it->funcs;
 		if (pf->prim_new)
 			return pf->prim_new(pval, it);
 		}
 
-	if (!it || (it->itype == ASN1_ITYPE_MSTRING))
+	if (it->itype == ASN1_ITYPE_MSTRING)
 		utype = -1;
 	else
 		utype = it->utype;
@@ -360,9 +376,12 @@ int ASN1_primitive_new(ASN1_VALUE **pval, const ASN1_ITEM *it)
 		*pval = (ASN1_VALUE *)typ;
 		break;
 
+		case -1:
+		/* -1: ASN1_ITYPE_MSTRING */
 		default:
+		/* any other utype */
 		str = ASN1_STRING_type_new(utype);
-		if (it->itype == ASN1_ITYPE_MSTRING && str)
+		if ((it->itype == ASN1_ITYPE_MSTRING) && (str != NULL))
 			str->flags |= ASN1_STRING_FLAG_MSTRING;
 		*pval = (ASN1_VALUE *)str;
 		break;
