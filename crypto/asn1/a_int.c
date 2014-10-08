@@ -155,8 +155,10 @@ int i2c_ASN1_INTEGER(ASN1_INTEGER *a, unsigned char **pp)
 		n=a->data + a->length - 1;
 		p += a->length - 1;
 		i = a->length;
-		/* Copy zeros to destination as long as source is zero */
-		while(!*n) {
+		/* Copy zeros to destination as long as source is zero, and there are at
+		 * least two remaining octets. (One more octet is used when the loop exits.)
+		 */
+		while((i > 1) && (*n == 0)) {
 			*(p--) = 0;
 			n--;
 			i--;
