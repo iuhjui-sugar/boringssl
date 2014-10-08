@@ -85,7 +85,8 @@ int i2d_ASN1_OBJECT(ASN1_OBJECT *a, unsigned char **pp)
 int a2d_ASN1_OBJECT(unsigned char *out, int olen, const char *buf, int num)
 	{
 	int i,first,len=0,c, use_bn;
-	char ftmp[24], *tmp = ftmp;
+	char ftmp[24] = {0};
+	char *tmp = ftmp;
 	int tmpsize = sizeof ftmp;
 	const char *p;
 	unsigned long l;
@@ -181,7 +182,7 @@ int a2d_ASN1_OBJECT(unsigned char *out, int olen, const char *buf, int num)
 				if (tmp != ftmp)
 					OPENSSL_free(tmp);
 				tmpsize = blsize + 32;
-				tmp = OPENSSL_malloc(tmpsize);
+				tmp = calloc(tmpsize, 1);
 				if (!tmp)
 					goto err;
 				}
