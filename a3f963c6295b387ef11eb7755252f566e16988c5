@@ -22,6 +22,30 @@
       "revId": "a3f963c6295b387ef11eb7755252f566e16988c5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "106de043_437b6663",
+        "filename": "include/openssl/engine.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-09T23:44:50Z",
+      "side": 1,
+      "message": "It\u0027s added by a script which always adds error code defines at the end of the file like this. Since it\u0027s a preprocessor macro, extern \"C\" has no effect on it.",
+      "parentUuid": "70761c14_4c6b9311",
+      "range": {
+        "startLine": 103,
+        "startChar": 7,
+        "endLine": 103,
+        "endChar": 8
+      },
+      "revId": "a3f963c6295b387ef11eb7755252f566e16988c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
