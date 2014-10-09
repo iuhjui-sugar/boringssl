@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "10940050_3f474feb",
+        "filename": "crypto/evp/algorithm.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-09T21:44:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0820c18_0786c937",
+      "revId": "b956aef06729b03c916afb955fd8c3cc80e2189e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0820c18_a7c89d5f",
         "filename": "crypto/x509/a_sign.c",
         "patchSetId": 2
@@ -30,6 +48,30 @@
       "writtenOn": "2014-10-09T21:24:02Z",
       "side": 1,
       "message": "I won\u0027t ask why this function take two algor parameters.",
+      "range": {
+        "startLine": 94,
+        "startChar": 5,
+        "endLine": 94,
+        "endChar": 11
+      },
+      "revId": "b956aef06729b03c916afb955fd8c3cc80e2189e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10940050_5f65fb8a",
+        "filename": "crypto/x509/a_sign.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-09T21:44:32Z",
+      "side": 1,
+      "message": "It\u0027s ridiculous. X509_sign needs to store two copies of the X509_ALGOR (the one in the Certificate and the one in the TBSCertificate). Probably because it was too hard for duplicating to be the caller\u0027s problem.\n\nTo be fair, I wasn\u0027t able to find the way to do it either. There\u0027s X509_ALGOR_set0, but no X509_ALGOR_set1. And X509_ALGOR_dup will allocate a new one and we need to write into an existing one and...\n\nYeah, I figured this would be easier than trying to dive into the crypto/asn1 morass, especially since The Future doesn\u0027t involve that module anyway. :-)",
+      "parentUuid": "f0820c18_a7c89d5f",
       "range": {
         "startLine": 94,
         "startChar": 5,
