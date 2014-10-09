@@ -84,6 +84,24 @@
     },
     {
       "key": {
+        "uuid": "f0820c18_87eb9937",
+        "filename": "crypto/evp/example_sign.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-09T21:52:18Z",
+      "side": 1,
+      "message": "Not actually changed, although you did do another instance further up :)",
+      "parentUuid": "10940050_7f41d7d1",
+      "revId": "c8a76b25ee3d0acb12ea030af1c413db94694989",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0820c18_07016926",
         "filename": "crypto/evp/example_sign.c",
         "patchSetId": 2
