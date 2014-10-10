@@ -1019,6 +1019,8 @@ void ssl3_free(SSL *s)
 		sk_X509_NAME_pop_free(s->s3->tmp.ca_names,X509_NAME_free);
 	if (s->s3->tmp.certificate_types != NULL)
 		OPENSSL_free(s->s3->tmp.certificate_types);
+	if (s->s3->tmp.premaster_secret)
+		OPENSSL_free(s->s3->tmp.premaster_secret);
 	if (s->s3->handshake_buffer) {
 		BIO_free(s->s3->handshake_buffer);
 	}

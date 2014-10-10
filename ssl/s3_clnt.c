@@ -982,7 +982,7 @@ int ssl3_get_server_hello(SSL *s)
 	/* Don't digest cached records if no sigalgs: we may need them for
 	 * client authentication.
 	 */
-	if (!SSL_USE_SIGALGS(s) && !ssl3_digest_cached_records(s))
+	if (!SSL_USE_SIGALGS(s) && !ssl3_digest_cached_records(s, free_handshake_buffer))
 		goto f_err;
 
 	/* Only the NULL compression algorithm is supported. */
@@ -1637,7 +1637,7 @@ int ssl3_get_certificate_request(SSL *s)
 		 */
 		if (s->s3->handshake_buffer)
 			{
-			if (!ssl3_digest_cached_records(s))
+			if (!ssl3_digest_cached_records(s, free_handshake_buffer))
 				goto err;
 			}
 		return(1);
@@ -1896,7 +1896,7 @@ int ssl3_get_server_done(SSL *s)
 int ssl3_send_client_key_exchange(SSL *s)
 	{
 	unsigned char *p;
-	int n = 0;
+	int n = 0, ret;
 	unsigned long alg_k;
 	unsigned long alg_a;
 	unsigned char *q;
@@ -1914,6 +1914,13 @@ int ssl3_send_client_key_exchange(SSL *s)
 		{
 		p = ssl_handshake_start(s);
 
+		if (s->s3->tmp.premaster_secret != NULL)
+			{
+			OPENSSL_cleanse(s->s3->tmp.premaster_secret, s->s3->tmp.premaster_secret_len);
+			OPENSSL_free(s->s3->tmp.premaster_secret);
+			s->s3->tmp.premaster_secret = NULL;
+			}
+
 		alg_k=s->s3->tmp.new_cipher->algorithm_mkey;
 		alg_a=s->s3->tmp.new_cipher->algorithm_auth;
 
@@ -1921,9 +1928,6 @@ int ssl3_send_client_key_exchange(SSL *s)
 			{
 			char identity[PSK_MAX_IDENTITY_LEN + 1];
 			size_t identity_len;
-			unsigned char *t = NULL;
-			unsigned char pre_ms[PSK_MAX_PSK_LEN*2+4];
-			unsigned int pre_ms_len = 0;
 			int psk_err = 1;
 
 			n = 0;
@@ -1958,18 +1962,22 @@ int ssl3_send_client_key_exchange(SSL *s)
 				/* Create the shared secret now if we're not using ECDHE-PSK.
 				 * TODO(davidben): Refactor this logic similarly
 				 * to ssl3_get_client_key_exchange. */
-				pre_ms_len = 2+psk_len+2+psk_len;
-				t = pre_ms;
-				s2n(psk_len, t);
-				memset(t, 0, psk_len);
-				t+=psk_len;
-				s2n(psk_len, t);
-				memcpy(t, psk, psk_len);
+				const unsigned pre_ms_len = 2+psk_len+2+psk_len;
+				uint8_t *pms = OPENSSL_malloc(pre_ms_len);
+				if (pms == NULL)
+					{
+					OPENSSL_PUT_ERROR(SSL, ssl3_send_client_key_exchange, ERR_R_MALLOC_FAILURE);
+					goto psk_err;
+					}
+				s->s3->tmp.premaster_secret_len = pre_ms_len;
+				s->s3->tmp.premaster_secret = pms;
 
-				s->session->master_key_length =
-					s->method->ssl3_enc->generate_master_secret(s,
-						s->session->master_key,
-						pre_ms, pre_ms_len);
+				s2n(psk_len, pms);
+				memset(pms, 0, psk_len);
+				pms += psk_len;
+				s2n(psk_len, pms);
+				memcpy(pms, psk, psk_len);
+
 				s2n(identity_len, p);
 				memcpy(p, identity, identity_len);
 				n = 2 + identity_len;
@@ -1986,7 +1994,6 @@ int ssl3_send_client_key_exchange(SSL *s)
 			psk_err = 0;
 		psk_err:
 			OPENSSL_cleanse(identity, sizeof(identity));
-			OPENSSL_cleanse(pre_ms, sizeof(pre_ms));
 			if (psk_err != 0)
 				{
 				ssl3_send_alert(s, SSL3_AL_FATAL, SSL_AD_HANDSHAKE_FAILURE);
@@ -1997,7 +2004,16 @@ int ssl3_send_client_key_exchange(SSL *s)
 		if (alg_k & SSL_kRSA)
 			{
 			RSA *rsa;
-			unsigned char tmp_buf[SSL_MAX_MASTER_KEY_LENGTH];
+			uint8_t *pms;
+
+			pms = OPENSSL_malloc(SSL_MAX_MASTER_KEY_LENGTH);
+			if (pms == NULL)
+				{
+				OPENSSL_PUT_ERROR(SSL, ssl3_send_client_key_exchange, ERR_R_MALLOC_FAILURE);
+				goto err;
+				}
+			s->s3->tmp.premaster_secret_len = SSL_MAX_MASTER_KEY_LENGTH;
+			s->s3->tmp.premaster_secret = pms;
 
 			if (s->session->sess_cert == NULL)
 				{
@@ -2022,19 +2038,23 @@ int ssl3_send_client_key_exchange(SSL *s)
 				EVP_PKEY_free(pkey);
 				}
 				
-			tmp_buf[0]=s->client_version>>8;
-			tmp_buf[1]=s->client_version&0xff;
-			if (RAND_bytes(&(tmp_buf[2]),sizeof tmp_buf-2) <= 0)
+			pms[0]=s->client_version>>8;
+			pms[1]=s->client_version&0xff;
+			if (RAND_bytes(&pms[2],SSL_MAX_MASTER_KEY_LENGTH-2) <= 0)
 					goto err;
 
-			s->session->master_key_length=sizeof tmp_buf;
+			s->session->master_key_length=SSL_MAX_MASTER_KEY_LENGTH;
+			if (s->session->master_key_length == 0)
+				{
+				goto err;
+				}
 
 			q=p;
 			/* Fix buf for TLS and beyond */
 			if (s->version > SSL3_VERSION)
 				p+=2;
-			n=RSA_public_encrypt(sizeof tmp_buf,
-				tmp_buf,p,rsa,RSA_PKCS1_PADDING);
+			n=RSA_public_encrypt(SSL_MAX_MASTER_KEY_LENGTH,
+				pms,p,rsa,RSA_PKCS1_PADDING);
 			if (n <= 0)
 				{
 				OPENSSL_PUT_ERROR(SSL, ssl3_send_client_key_exchange, SSL_R_BAD_RSA_ENCRYPT);
@@ -2043,7 +2063,7 @@ int ssl3_send_client_key_exchange(SSL *s)
 
 			/* Log the premaster secret, if logging is enabled. */
 			if (!ssl_ctx_log_rsa_client_key_exchange(s->ctx,
-					p, n, tmp_buf, sizeof(tmp_buf)))
+					p, n, pms, SSL_MAX_MASTER_KEY_LENGTH))
 				{
 				goto err;
 				}
@@ -2054,17 +2074,12 @@ int ssl3_send_client_key_exchange(SSL *s)
 				s2n(n,q);
 				n+=2;
 				}
-
-			s->session->master_key_length=
-				s->method->ssl3_enc->generate_master_secret(s,
-					s->session->master_key,
-					tmp_buf,sizeof tmp_buf);
-			OPENSSL_cleanse(tmp_buf,sizeof tmp_buf);
 			}
 		else if (alg_k & SSL_kEDH)
 			{
 			DH *dh_srvr,*dh_clnt;
 			SESS_CERT *scert = s->session->sess_cert;
+			uint8_t *pms;
 
 			if (scert == NULL) 
 				{
@@ -2093,23 +2108,26 @@ int ssl3_send_client_key_exchange(SSL *s)
 				goto err;
 				}
 
+			pms = OPENSSL_malloc(DH_size(dh_clnt));
+			if (pms == NULL)
+				{
+				OPENSSL_PUT_ERROR(SSL, ssl3_send_client_key_exchange, ERR_R_MALLOC_FAILURE);
+				DH_free(dh_clnt);
+				goto err;
+				}
+			s->s3->tmp.premaster_secret = pms;
+
 			/* use the 'p' output buffer for the DH key, but
 			 * make sure to clear it out afterwards */
 
-			n=DH_compute_key(p,dh_srvr->pub_key,dh_clnt);
+			n=DH_compute_key(pms,dh_srvr->pub_key,dh_clnt);
 			if (n <= 0)
 				{
 				OPENSSL_PUT_ERROR(SSL, ssl3_send_client_key_exchange, ERR_R_DH_LIB);
 				DH_free(dh_clnt);
 				goto err;
 				}
-
-			/* generate master key from the result */
-			s->session->master_key_length=
-				s->method->ssl3_enc->generate_master_secret(s,
-					s->session->master_key,p,n);
-			/* clean up */
-			memset(p,0,n);
+			s->s3->tmp.premaster_secret_len = n;
 
 			/* send off the data */
 			n=BN_num_bytes(dh_clnt->pub_key);
@@ -2118,8 +2136,6 @@ int ssl3_send_client_key_exchange(SSL *s)
 			n+=2;
 
 			DH_free(dh_clnt);
-
-			/* perhaps clean things up a bit EAY EAY EAY EAY*/
 			}
 
 		else if (alg_k & SSL_kEECDH)
@@ -2127,9 +2143,7 @@ int ssl3_send_client_key_exchange(SSL *s)
 			const EC_GROUP *srvr_group = NULL;
 			EC_KEY *tkey;
 			int field_size = 0;
-			unsigned char *pre_ms;
-			unsigned char *t;
-			unsigned int pre_ms_len;
+			unsigned char *pms;
 			unsigned int i;
 
 			if (s->session->sess_cert == NULL) 
@@ -2193,32 +2207,33 @@ int ssl3_send_client_key_exchange(SSL *s)
 			/* ECDHE PSK ciphersuites from RFC 5489 */
 			if ((alg_a & SSL_aPSK) && psk_len != 0)
 				{
-				pre_ms_len = 2+psk_len+2+n;
-				pre_ms = OPENSSL_malloc(pre_ms_len);
-				if (pre_ms == NULL)
+				s->s3->tmp.premaster_secret_len = 2+psk_len+2+n;
+				pms = OPENSSL_malloc(s->s3->tmp.premaster_secret_len);
+				if (pms == NULL)
 					{
 					OPENSSL_PUT_ERROR(SSL, ssl3_send_client_key_exchange, ERR_R_MALLOC_FAILURE);
 					goto err;
 					}
-				memset(pre_ms, 0, pre_ms_len);
-				t = pre_ms;
-				s2n(psk_len, t);
-				memcpy(t, psk, psk_len);
-				t += psk_len;
-				s2n(n, t);
-				memcpy(t, p, n);
-				s->session->master_key_length = s->method->ssl3_enc \
-					-> generate_master_secret(s,
-						s->session->master_key, pre_ms, pre_ms_len);
-				OPENSSL_cleanse(pre_ms, pre_ms_len);
-				OPENSSL_free(pre_ms);
+				s->s3->tmp.premaster_secret = pms;
+				memset(pms, 0, s->s3->tmp.premaster_secret_len);
+				s2n(psk_len, pms);
+				memcpy(pms, psk, psk_len);
+				pms += psk_len;
+				s2n(n, pms);
+				memcpy(pms, p, n);
 				}
 			if (!(alg_a & SSL_aPSK))
 				{
 				/* generate master key from the result */
-				s->session->master_key_length = s->method->ssl3_enc \
-					-> generate_master_secret(s,
-						s->session->master_key, p, n);
+				s->s3->tmp.premaster_secret_len = n;
+				pms = OPENSSL_malloc(s->s3->tmp.premaster_secret_len);
+				if (pms == NULL)
+					{
+					OPENSSL_PUT_ERROR(SSL, ssl3_send_client_key_exchange, ERR_R_MALLOC_FAILURE);
+					goto err;
+					}
+				s->s3->tmp.premaster_secret = pms;
+				memcpy(pms, p, n);
 				}
 			memset(p, 0, n); /* clean up */
 
@@ -2286,14 +2301,35 @@ int ssl3_send_client_key_exchange(SSL *s)
 		}
 
 	/* SSL3_ST_CW_KEY_EXCH_B */
-	return ssl_do_write(s);
+	ret = ssl_do_write(s);
+	if (ret > 0)
+		{
+		s->session->master_key_length =
+			s->method->ssl3_enc->generate_master_secret(s,
+				s->session->master_key,
+				s->s3->tmp.premaster_secret,
+				s->s3->tmp.premaster_secret_len);
+		if (s->session->master_key_length == 0)
+			{
+			goto err;
+			}
+		s->session->extended_master_secret = s->s3->tmp.extended_master_secret;
+		OPENSSL_cleanse(s->s3->tmp.premaster_secret,
+				s->s3->tmp.premaster_secret_len);
+		OPENSSL_free(s->s3->tmp.premaster_secret);
+		s->s3->tmp.premaster_secret = NULL;
+		s->s3->tmp.premaster_secret_len = 0;
+		}
+
+	return ret;
+
 err:
 	BN_CTX_free(bn_ctx);
 	if (encodedPoint != NULL) OPENSSL_free(encodedPoint);
 	if (clnt_ecdh != NULL) 
 		EC_KEY_free(clnt_ecdh);
 	EVP_PKEY_free(srvr_pub_pkey);
-	return(-1);
+	return -1;
 	}
 
 int ssl3_send_cert_verify(SSL *s)
@@ -2332,7 +2368,7 @@ int ssl3_send_cert_verify(SSL *s)
 			goto err;
 
 		/* The handshake buffer is no longer necessary. */
-		if (s->s3->handshake_buffer && !ssl3_digest_cached_records(s))
+		if (s->s3->handshake_buffer && !ssl3_digest_cached_records(s, free_handshake_buffer))
 			goto err;
 
 		/* Sign the digest. */
