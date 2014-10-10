@@ -36,6 +36,7 @@ type Conn struct {
 	config            *Config    // configuration passed to constructor
 	handshakeComplete bool
 	didResume         bool // whether this connection was a session resumption
+	extendedMasterSecret bool // whether this session used an extended master secret
 	cipherSuite       uint16
 	ocspResponse      []byte // stapled OCSP response
 	peerCertificates  []*x509.Certificate

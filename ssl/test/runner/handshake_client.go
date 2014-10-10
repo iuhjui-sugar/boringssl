@@ -70,10 +70,15 @@ func (c *Conn) clientHandshake() error {
 		duplicateExtension:  c.config.Bugs.DuplicateExtension,
 		channelIDSupported:  c.config.ChannelID != nil,
 		npnLast:             c.config.Bugs.SwapNPNAndALPN,
+		extendedMasterSecret: c.config.maxVersion() >= VersionTLS10,
 	}
 
 	if c.config.Bugs.SendClientVersion != 0 {
 		hello.vers = c.config.Bugs.SendClientVersion
+	}
+
+	if c.config.Bugs.NoExtendedMasterSecret {
+		hello.extendedMasterSecret = false
 	}
 
 	possibleCipherSuites := c.config.cipherSuites()
@@ -488,7 +493,15 @@ func (hs *clientHandshakeState) doFullHandshake() error {
 		c.writeRecord(recordTypeHandshake, ckx.marshal())
 	}
 
-	hs.masterSecret = masterFromPreMasterSecret(c.vers, hs.suite, preMasterSecret, hs.hello.random, hs.serverHello.random)
+	if hs.serverHello.extendedMasterSecret {
+		hs.masterSecret = extendedMasterFromPreMasterSecret(c.vers, hs.suite, preMasterSecret, hs.finishedHash)
+		c.extendedMasterSecret = true
+	} else {
+		if c.config.Bugs.RequireExtendedMasterSecret {
+			return errors.New("tls: extended master secret required but not supported by peer")
+		}
+		hs.masterSecret = masterFromPreMasterSecret(c.vers, hs.suite, preMasterSecret, hs.hello.random, hs.serverHello.random)
+	}
 
 	if chainToSend != nil {
 		var signed []byte
@@ -614,6 +627,7 @@ func (hs *clientHandshakeState) processServerHello() (bool, error) {
 		// Restore masterSecret and peerCerts from previous state
 		hs.masterSecret = hs.session.masterSecret
 		c.peerCertificates = hs.session.serverCertificates
+		c.extendedMasterSecret = hs.session.extendedMasterSecret
 		hs.finishedHash.discardHandshakeBuffer()
 		return true, nil
 	}
