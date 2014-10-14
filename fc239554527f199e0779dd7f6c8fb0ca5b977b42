@@ -1,0 +1,204 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b00894ac_9294d94c",
+        "filename": "include/openssl/ssl3.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-14T21:46:04Z",
+      "side": 1,
+      "message": "from",
+      "range": {
+        "startLine": 479,
+        "startChar": 18,
+        "endLine": 479,
+        "endChar": 20
+      },
+      "revId": "fc239554527f199e0779dd7f6c8fb0ca5b977b42",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b00894ac_ceeab786",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 2305,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-14T21:46:04Z",
+      "side": 1,
+      "message": "Ick. Is there any reason ssl3_do_write has to ssl3_finish_mac only after it finishes ssl3_write_bytes? It\u0027d save us holding on to the premaster if we swapped the order and then had a mode where the caller was in charge of the hashing. Like the SSL_GET_MESSAGE_HASH_MESSAGE/SSL_GET_MESSAGE_DONT_HASH_MESSAGE change.",
+      "revId": "fc239554527f199e0779dd7f6c8fb0ca5b977b42",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b00894ac_f2bd55e0",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-14T21:46:04Z",
+      "side": 1,
+      "message": "This really ought to be a boolean, but asn1_mac.h doesn\u0027t seem to have a boolean story.\n\nI\u0027ve been meaning to get some (i2d,d2i)_SSL_SESSION tests going so this monster can be rewritten with CBS/CBB, but that shouldn\u0027t block this. I\u0027ll try to finish it before we care about keeping this format stable so it can be flipped to a boolean.",
+      "revId": "fc239554527f199e0779dd7f6c8fb0ca5b977b42",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b00894ac_f256751e",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-14T21:46:04Z",
+      "side": 1,
+      "message": "I believe this depends on an uninitialized value.",
+      "range": {
+        "startLine": 285,
+        "startChar": 32,
+        "endLine": 285,
+        "endChar": 37
+      },
+      "revId": "fc239554527f199e0779dd7f6c8fb0ca5b977b42",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b00894ac_7263a5fe",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-14T21:46:04Z",
+      "side": 1,
+      "message": "This should say extended_master_secret, which fixes the crash.",
+      "range": {
+        "startLine": 327,
+        "startChar": 29,
+        "endLine": 327,
+        "endChar": 42
+      },
+      "revId": "fc239554527f199e0779dd7f6c8fb0ca5b977b42",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b00894ac_122ea983",
+        "filename": "ssl/t1_enc.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1212,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-14T21:46:04Z",
+      "side": 1,
+      "message": "Nit: space. Also on line 1210.",
+      "range": {
+        "startLine": 1212,
+        "startChar": 7,
+        "endLine": 1212,
+        "endChar": 8
+      },
+      "revId": "fc239554527f199e0779dd7f6c8fb0ca5b977b42",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b00894ac_5225419e",
+        "filename": "ssl/t1_enc.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1220,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-14T21:46:04Z",
+      "side": 1,
+      "message": "Nit: May as well leave the unused slots at the end so it doesn\u0027t look like it matters.\n\n[Aside for a follow-up: I think we can get rid of two of the seedN parameters of tls1_PRF now. They were added for opaque_prf_input I think.]",
+      "revId": "fc239554527f199e0779dd7f6c8fb0ca5b977b42",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b00894ac_ce5cf7f1",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1876,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-14T21:46:04Z",
+      "side": 1,
+      "message": "May as well reset the field here too, even though we don\u0027t care about server renego. (I really should pick some time to tackle that TODO...)",
+      "revId": "fc239554527f199e0779dd7f6c8fb0ca5b977b42",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b00894ac_2e46f318",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-14T21:46:04Z",
+      "side": 1,
+      "message": "This is missing the corresponding check that SSL3 + EMS isn\u0027t allowed.",
+      "revId": "fc239554527f199e0779dd7f6c8fb0ca5b977b42",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b00894ac_f25f95ba",
+        "filename": "ssl/test/runner/recordingconn.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-14T21:46:04Z",
+      "side": 1,
+      "message": "This comment seems wrong.",
+      "range": {
+        "startLine": 65,
+        "startChar": 18,
+        "endLine": 65,
+        "endChar": 32
+      },
+      "revId": "fc239554527f199e0779dd7f6c8fb0ca5b977b42",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
