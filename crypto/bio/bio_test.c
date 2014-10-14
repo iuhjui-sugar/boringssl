@@ -35,6 +35,7 @@
 #include <openssl/crypto.h>
 #include <openssl/err.h>
 
+#define MIN(a, b) ((a < b) ? a : b)
 
 #if !defined(OPENSSL_WINDOWS)
 static int closesocket(int sock) {
@@ -119,6 +120,126 @@ static int test_socket_connect(void) {
   return 1;
 }
 
+/* zero copy apis are a bit troublesome to work with for synchronous read. Add
+ * wrappers for this test. */
+static int bio_read_zero_copy_wrapper(BIO* bio, void* data, int len) {
+  char* read_buf;
+  int read_buf_offset;
+  int available_bytes;
+  int len_read = 0;
+
+  do {
+    available_bytes =
+        BIO_zero_copy_get_read_buf(bio, &read_buf, &read_buf_offset);
+    available_bytes = MIN(available_bytes, len - len_read);
+
+    if (available_bytes < 0)
+      return available_bytes;
+
+    memmove(data + len_read, read_buf + read_buf_offset, available_bytes);
+
+    BIO_zero_copy_get_read_buf_done(bio, available_bytes);
+
+    len_read += available_bytes;
+  } while (len - len_read > 0 && available_bytes > 0);
+
+  return len_read;
+}
+
+static int bio_write_zero_copy_wrapper(BIO* bio, const void* data, int len) {
+  char* write_buf;
+  int write_buf_offset;
+  int available_bytes;
+  int len_written = 0;
+
+  do {
+    available_bytes =
+        BIO_zero_copy_get_write_buf(bio, &write_buf, &write_buf_offset);
+    available_bytes = MIN(available_bytes, len - len_written);
+
+    if (available_bytes < 0)
+      return available_bytes;
+
+    memmove(write_buf + write_buf_offset, data + len_written, available_bytes);
+
+    BIO_zero_copy_get_write_buf_done(bio, available_bytes);
+
+    len_written += available_bytes;
+  } while (len - len_written > 0 && available_bytes > 0);
+
+  return len_written;
+}
+
+static int test_zero_copy_bio_pairs(void) {
+  /* Test read and write, especially triggering the ring buffer wrap-around.*/
+  BIO* bio1;
+  BIO* bio2;
+  int i, j;
+  char bio1_application_send_buffer[1024];
+  char bio2_application_recv_buffer[1024];
+
+  int total_read = 0;
+  int total_write = 0;
+
+  const size_t kLengths[] = { 255, 256, 257, 511, 512, 513 };
+
+  /* These trigger ring buffer wrap around. */
+  const size_t kPartialLengths[] = { 0, 1, 2, 3, 128, 255, 256, 257 };
+
+  int internal_buffer_size = 512;
+
+  srand(1);
+  for (i = 0; i < 1024; i++) {
+    bio1_application_send_buffer[i] = rand() & 255;
+  }
+
+  /* Transfer bytes from bio1_application_send_buffer to
+   * bio2_application_recv_buffer in various ways. */
+  for (i = 0; i < sizeof(kLengths) / sizeof(kLengths[0]); i++) {
+    for (j = 0; j < sizeof(kPartialLengths) / sizeof(kPartialLengths[0]); j++) {
+      total_write = 0;
+      total_read = 0;
+
+      BIO_new_bio_pair(
+          &bio1, internal_buffer_size, &bio2, internal_buffer_size);
+
+      total_write += bio_write_zero_copy_wrapper(
+          bio1, bio1_application_send_buffer, kLengths[i]);
+      /* Free kPartialLengths[j] bytes in the beginning of bio1 write buffer.
+       * This enables ring buffer wrap around for the next write. */
+      total_read += bio_read_zero_copy_wrapper(
+          bio2, bio2_application_recv_buffer + total_read, kPartialLengths[j]);
+      total_write += bio_write_zero_copy_wrapper(
+          bio1, bio1_application_send_buffer + total_write, kPartialLengths[j]);
+      /* Drain the rest. */
+      while (BIO_pending(bio2)) {
+        total_read += bio_read_zero_copy_wrapper(
+            bio2, bio2_application_recv_buffer + total_read, kLengths[i]);
+      }
+
+      BIO_free(bio1);
+      BIO_free(bio2);
+
+      if (total_read != total_write) {
+        fprintf(stderr, "Lengths not equal in round (%d, %d)\n", i, j);
+        return 0;
+      }
+      if (total_read > kLengths[i] + kPartialLengths[j]) {
+        fprintf(stderr, "Bad lengths in round (%d, %d)\n", i, j);
+        return 0;
+      }
+      if (memcmp(bio1_application_send_buffer,
+                 bio2_application_recv_buffer,
+                 total_read) != 0) {
+        fprintf(stderr, "Buffers not equal in round (%d, %d)\n", i, j);
+        return 0;
+      }
+    }
+  }
+
+  return 1;
+}
+
 static int test_printf(void) {
   /* Test a short output, a very long one, and various sizes around
    * 256 (the size of the buffer) to ensure edge cases are correct. */
@@ -198,6 +319,10 @@ int main(void) {
   }
 
   if (!test_printf()) {
+    return 1;
+  }
+
+  if (!test_zero_copy_bio_pairs()) {
     return 1;
   }
 
