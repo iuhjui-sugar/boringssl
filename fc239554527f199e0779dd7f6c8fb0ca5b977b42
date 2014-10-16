@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "307f4423_bb6f931b",
+        "filename": "include/openssl/ssl3.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-16T00:32:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b00894ac_9294d94c",
+      "range": {
+        "startLine": 479,
+        "startChar": 18,
+        "endLine": 479,
+        "endChar": 20
+      },
+      "revId": "fc239554527f199e0779dd7f6c8fb0ca5b977b42",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b00894ac_ceeab786",
         "filename": "ssl/s3_clnt.c",
         "patchSetId": 2
@@ -36,6 +60,24 @@
       "writtenOn": "2014-10-14T21:46:04Z",
       "side": 1,
       "message": "Ick. Is there any reason ssl3_do_write has to ssl3_finish_mac only after it finishes ssl3_write_bytes? It\u0027d save us holding on to the premaster if we swapped the order and then had a mode where the caller was in charge of the hashing. Like the SSL_GET_MESSAGE_HASH_MESSAGE/SSL_GET_MESSAGE_DONT_HASH_MESSAGE change.",
+      "revId": "fc239554527f199e0779dd7f6c8fb0ca5b977b42",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "307f4423_466c96a3",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 2305,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-16T00:32:18Z",
+      "side": 1,
+      "message": "Good idea, thanks. Done.",
+      "parentUuid": "b00894ac_ceeab786",
       "revId": "fc239554527f199e0779dd7f6c8fb0ca5b977b42",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "307f4423_e657c2ca",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-16T00:32:18Z",
+      "side": 1,
+      "message": "Yea, no BOOLEAN support. However, ASN.1 is variable-length so it\u0027ll be a single byte in the data anyway.",
+      "parentUuid": "b00894ac_f2bd55e0",
+      "revId": "fc239554527f199e0779dd7f6c8fb0ca5b977b42",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b00894ac_f256751e",
         "filename": "ssl/ssl_asn1.c",
         "patchSetId": 2
@@ -70,6 +130,30 @@
       "writtenOn": "2014-10-14T21:46:04Z",
       "side": 1,
       "message": "I believe this depends on an uninitialized value.",
+      "range": {
+        "startLine": 285,
+        "startChar": 32,
+        "endLine": 285,
+        "endChar": 37
+      },
+      "revId": "fc239554527f199e0779dd7f6c8fb0ca5b977b42",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "307f4423_26462a19",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-16T00:32:18Z",
+      "side": 1,
+      "message": "The contents of ibuf7 are uninit. But, this should be writing to it.",
+      "parentUuid": "b00894ac_f256751e",
       "range": {
         "startLine": 285,
         "startChar": 32,
@@ -105,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "307f4423_46433608",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-16T00:32:18Z",
+      "side": 1,
+      "message": "Thanks. Weirdly didn\u0027t crash for me.",
+      "parentUuid": "b00894ac_7263a5fe",
+      "range": {
+        "startLine": 327,
+        "startChar": 29,
+        "endLine": 327,
+        "endChar": 42
+      },
+      "revId": "fc239554527f199e0779dd7f6c8fb0ca5b977b42",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b00894ac_122ea983",
         "filename": "ssl/t1_enc.c",
         "patchSetId": 2
@@ -116,6 +224,30 @@
       "writtenOn": "2014-10-14T21:46:04Z",
       "side": 1,
       "message": "Nit: space. Also on line 1210.",
+      "range": {
+        "startLine": 1212,
+        "startChar": 7,
+        "endLine": 1212,
+        "endChar": 8
+      },
+      "revId": "fc239554527f199e0779dd7f6c8fb0ca5b977b42",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "307f4423_a6c8da31",
+        "filename": "ssl/t1_enc.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1212,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-16T00:32:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b00894ac_122ea983",
       "range": {
         "startLine": 1212,
         "startChar": 7,
@@ -145,6 +277,24 @@
     },
     {
       "key": {
+        "uuid": "307f4423_c6cde640",
+        "filename": "ssl/t1_enc.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1220,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-16T00:32:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b00894ac_5225419e",
+      "revId": "fc239554527f199e0779dd7f6c8fb0ca5b977b42",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b00894ac_ce5cf7f1",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 2
@@ -156,6 +306,24 @@
       "writtenOn": "2014-10-14T21:46:04Z",
       "side": 1,
       "message": "May as well reset the field here too, even though we don\u0027t care about server renego. (I really should pick some time to tackle that TODO...)",
+      "revId": "fc239554527f199e0779dd7f6c8fb0ca5b977b42",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "307f4423_46da56f8",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1876,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-16T00:32:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b00894ac_ce5cf7f1",
       "revId": "fc239554527f199e0779dd7f6c8fb0ca5b977b42",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -179,6 +347,24 @@
     },
     {
       "key": {
+        "uuid": "307f4423_06ebee8b",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-16T00:32:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b00894ac_2e46f318",
+      "revId": "fc239554527f199e0779dd7f6c8fb0ca5b977b42",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b00894ac_f25f95ba",
         "filename": "ssl/test/runner/recordingconn.go",
         "patchSetId": 2
@@ -190,6 +376,30 @@
       "writtenOn": "2014-10-14T21:46:04Z",
       "side": 1,
       "message": "This comment seems wrong.",
+      "range": {
+        "startLine": 65,
+        "startChar": 18,
+        "endLine": 65,
+        "endChar": 32
+      },
+      "revId": "fc239554527f199e0779dd7f6c8fb0ca5b977b42",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "307f4423_c6e406b9",
+        "filename": "ssl/test/runner/recordingconn.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-16T00:32:18Z",
+      "side": 1,
+      "message": "Yep, thanks. Old behaviour.",
+      "parentUuid": "b00894ac_f25f95ba",
       "range": {
         "startLine": 65,
         "startChar": 18,
