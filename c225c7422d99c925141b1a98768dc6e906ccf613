@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5019182f_be0c9ddf",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1557,
+      "author": {
+        "id": 5145
+      },
+      "writtenOn": "2014-10-17T03:32:47Z",
+      "side": 1,
+      "message": "Either \"resumeSession: true\" is missing or this comment is wrong.",
+      "range": {
+        "startLine": 1557,
+        "startChar": 0,
+        "endLine": 1557,
+        "endChar": 1
+      },
+      "revId": "c225c7422d99c925141b1a98768dc6e906ccf613",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
