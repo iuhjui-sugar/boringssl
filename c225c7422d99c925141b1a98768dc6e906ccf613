@@ -22,6 +22,30 @@
       "revId": "c225c7422d99c925141b1a98768dc6e906ccf613",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3072e491_f4e3b8e5",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1557,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-17T18:03:04Z",
+      "side": 1,
+      "message": "Thanks! I\u0027ve changed the test runner to reject expectedError or expectedLocalError being set without shouldFail in order to catch this in the future.",
+      "parentUuid": "5019182f_be0c9ddf",
+      "range": {
+        "startLine": 1557,
+        "startChar": 0,
+        "endLine": 1557,
+        "endChar": 1
+      },
+      "revId": "c225c7422d99c925141b1a98768dc6e906ccf613",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
