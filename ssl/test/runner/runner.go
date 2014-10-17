@@ -1542,6 +1542,29 @@ func addExtensionTests() {
 		expectedNextProtoType: alpn,
 		resumeSession:         true,
 	})
+	// Resume with a corrupt ticket.
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "CorruptTicket",
+		config: Config{
+			Bugs: ProtocolBugs{
+				CorruptTicket: true,
+			},
+		},
+		resumeSession: true,
+		flags:         []string{"-expect-session-miss"},
+	})
+	// Resume with an oversized session id.
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "OversizedSessionId",
+		config: Config{
+			Bugs: ProtocolBugs{
+				OversizedSessionId: true,
+			},
+		},
+		expectedError: ":DECODE_ERROR:",
+	})
 }
 
 func addResumptionVersionTests() {
