@@ -15,6 +15,7 @@
 #include <openssl/bytestring.h>
 
 #include <assert.h>
+#include <stdio.h>
 
 #include <openssl/mem.h>
 
@@ -32,6 +33,7 @@ static int cbb_init(CBB *cbb, uint8_t *buf, size_t cap) {
   base->len = 0;
   base->cap = cap;
   base->can_resize = 1;
+  base->length_only = 0;
 
   memset(cbb, 0, sizeof(CBB));
   cbb->base = base;
@@ -59,6 +61,16 @@ int CBB_init_fixed(CBB *cbb, uint8_t *buf, size_t len) {
   return 1;
 }
 
+int CBB_init_length_only(CBB *cbb) {
+  if (!cbb_init(cbb, NULL, 0)) {
+    return 0;
+  }
+
+  cbb->base->can_resize = 0;
+  cbb->base->length_only = 1;
+  return 1;
+}
+
 void CBB_cleanup(CBB *cbb) {
   if (cbb->base) {
     if (cbb->base->buf && cbb->base->can_resize) {
@@ -81,6 +93,14 @@ static int cbb_buffer_add(struct cbb_buffer_st *base, uint8_t **out,
   if (newlen < base->len) {
     /* Overflow */
     return 0;
+  }
+
+  if (base->length_only) {
+    if (out) {
+      *out = NULL;
+    }
+    base->len = newlen;
+    return 1;
   }
 
   if (newlen > base->cap) {
@@ -122,9 +142,11 @@ static int cbb_buffer_add_u(struct cbb_buffer_st *base, uint32_t v,
     return 0;
   }
 
-  for (i = len_len - 1; i < len_len; i--) {
-    buf[i] = v;
-    v >>= 8;
+  if (!base->length_only) {
+    for (i = len_len - 1; i < len_len; i--) {
+      buf[i] = v;
+      v >>= 8;
+    }
   }
   return 1;
 }
@@ -139,7 +161,12 @@ int CBB_finish(CBB *cbb, uint8_t **out_data, size_t *out_len) {
   }
 
   if (cbb->base->can_resize && (out_data == NULL || out_len == NULL)) {
-    /* |out_data| and |out_len| can only be NULL if the CBB is fixed. */
+    /* |out_data| and |out_len| may not be NULL if the CBB's buffer is
+     *  resizable. */
+    return 0;
+  }
+  if (cbb->base->length_only && out_len == NULL) {
+    /* |out_len| may not be NULL if the CBB is length-only. */
     return 0;
   }
 
@@ -214,17 +241,26 @@ int CBB_flush(CBB *cbb) {
       if (!cbb_buffer_add(cbb->base, NULL, extra_bytes)) {
         return 0;
       }
-      memmove(cbb->base->buf + child_start + extra_bytes,
-              cbb->base->buf + child_start, len);
+      if (!cbb->base->length_only) {
+        memmove(cbb->base->buf + child_start + extra_bytes,
+                cbb->base->buf + child_start, len);
+      }
     }
-    cbb->base->buf[cbb->offset++] = initial_length_byte;
+    if (!cbb->base->length_only) {
+      cbb->base->buf[cbb->offset++] = initial_length_byte;
+    }
     cbb->pending_len_len = len_len - 1;
   }
 
-  for (i = cbb->pending_len_len - 1; i < cbb->pending_len_len; i--) {
-    cbb->base->buf[cbb->offset + i] = len;
-    len >>= 8;
+  if (!cbb->base->length_only) {
+    for (i = cbb->pending_len_len - 1; i < cbb->pending_len_len; i--) {
+      cbb->base->buf[cbb->offset + i] = len;
+      len >>= 8;
+    }
+  } else {
+    len >>= 8 * cbb->pending_len_len;
   }
+
   if (len != 0) {
     return 0;
   }
@@ -251,8 +287,10 @@ static int cbb_add_length_prefixed(CBB *cbb, CBB *out_contents,
   if (!cbb_buffer_add(cbb->base, &prefix_bytes, len_len)) {
     return 0;
   }
+  if (!cbb->base->length_only) {
+    memset(prefix_bytes, 0, len_len);
+  }
 
-  memset(prefix_bytes, 0, len_len);
   memset(out_contents, 0, sizeof(CBB));
   out_contents->base = cbb->base;
   cbb->child = out_contents;
@@ -301,7 +339,9 @@ int CBB_add_bytes(CBB *cbb, const uint8_t *data, size_t len) {
       !cbb_buffer_add(cbb->base, &dest, len)) {
     return 0;
   }
-  memcpy(dest, data, len);
+  if (!cbb->base->length_only) {
+    memcpy(dest, data, len);
+  }
   return 1;
 }
 

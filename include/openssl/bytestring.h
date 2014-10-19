@@ -183,10 +183,12 @@ OPENSSL_EXPORT int CBS_get_asn1_uint64(CBS *cbs, uint64_t *out);
 
 struct cbb_buffer_st {
   uint8_t *buf;
-  size_t len;      /* The number of valid bytes. */
-  size_t cap;      /* The size of buf. */
-  char can_resize; /* One iff |buf| is owned by this object. If not then |buf|
-                      cannot be resized. */
+  size_t len;       /* The number of valid bytes. */
+  size_t cap;       /* The size of buf. */
+  char can_resize;  /* One iff |buf| is owned by this object. If not then |buf|
+                       cannot be resized. */
+  char length_only; /* One iff no buffer is allocated. Only the length is
+                       maintained. */
 };
 
 struct cbb_st {
@@ -215,19 +217,26 @@ OPENSSL_EXPORT int CBB_init(CBB *cbb, size_t initial_capacity);
  * functions to fail. It returns one on success or zero on error. */
 OPENSSL_EXPORT int CBB_init_fixed(CBB *cbb, uint8_t *buf, size_t len);
 
+/* CBB_init_length_only initialises a length-only |cbb|. CBB functions
+ * will maintain how much data would have been written but not write
+ * anything. If returns one on success or zero on error. */
+OPENSSL_EXPORT int CBB_init_length_only(CBB *cbb);
+
 /* CBB_cleanup frees all resources owned by |cbb| and other |CBB| objects
  * writing to the same buffer. This should be used in an error case where a
  * serialisation is abandoned. */
 OPENSSL_EXPORT void CBB_cleanup(CBB *cbb);
 
-/* CBB_finish completes any pending length prefix and sets |*out_data| to a
- * malloced buffer and |*out_len| to the length of that buffer. The caller
- * takes ownership of the buffer and, unless the buffer was fixed with
- * |CBB_init_fixed|, must call |OPENSSL_free| when done.
+/* CBB_finish completes any pending length prefix and sets |*out_data|
+ * to a buffer and |*out_len| to the length of that buffer. If the CBB
+ * was initialized with |CBB_init|, the caller takes ownership of the
+ * buffer and must call |OPENSSL_free| when done. If the CBB was
+ * initialized with |CBB_init_length_only|, |*out_data| will be NULL
+ * and only the length is returned.
  *
- * It can only be called on a "top level" |CBB|, i.e. one initialised with
- * |CBB_init| or |CBB_init_fixed|. It returns one on success and zero on
- * error. */
+ * It can only be called on a "top level" |CBB|, i.e. one initialised
+ * with |CBB_init|, |CBB_init_fixed|, or |CBB_init_length_only|. It
+ * returns one on success and zero on error. */
 OPENSSL_EXPORT int CBB_finish(CBB *cbb, uint8_t **out_data, size_t *out_len);
 
 /* CBB_flush causes any pending length prefixes to be written out and any child
@@ -262,7 +271,7 @@ OPENSSL_EXPORT int CBB_add_bytes(CBB *cbb, const uint8_t *data, size_t len);
 /* CBB_add_space appends |len| bytes to |cbb| and sets |*out_data| to point to
  * the beginning of that space. The caller must then write |len| bytes of
  * actual contents to |*out_data|. It returns one on success and zero
- * otherwise. */
+ * otherwise. Note: if |cbb| is length-only, |*out_data| will be NULL. */
 OPENSSL_EXPORT int CBB_add_space(CBB *cbb, uint8_t **out_data, size_t len);
 
 /* CBB_add_u8 appends an 8-bit number from |value| to |cbb|. It returns one on

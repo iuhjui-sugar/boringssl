@@ -234,28 +234,46 @@ static int test_cbb_prefixed(void) {
   uint8_t *buf;
   size_t buf_len;
   CBB cbb, contents, inner_contents, inner_inner_contents;
-  int ok;
+  int length_only;
 
-  if (!CBB_init(&cbb, 0) ||
-      !CBB_add_u8_length_prefixed(&cbb, &contents) ||
-      !CBB_add_u8_length_prefixed(&cbb, &contents) ||
-      !CBB_add_u8(&contents, 1) ||
-      !CBB_add_u16_length_prefixed(&cbb, &contents) ||
-      !CBB_add_u16(&contents, 0x203) ||
-      !CBB_add_u24_length_prefixed(&cbb, &contents) ||
-      !CBB_add_u24(&contents, 0x40506) ||
-      !CBB_add_u8_length_prefixed(&cbb, &contents) ||
-      !CBB_add_u8_length_prefixed(&contents, &inner_contents) ||
-      !CBB_add_u8(&inner_contents, 1) ||
-      !CBB_add_u16_length_prefixed(&inner_contents, &inner_inner_contents) ||
-      !CBB_add_u8(&inner_inner_contents, 2) ||
-      !CBB_finish(&cbb, &buf, &buf_len)) {
-    return 0;
+  /* Test in both length-only and normal mode. */
+  for (length_only = 0; length_only < 2; length_only++) {
+    if (length_only) {
+      if (!CBB_init_length_only(&cbb)) {
+        return 0;
+      }
+    } else {
+      if (!CBB_init(&cbb, 0)) {
+        return 0;
+      }
+    }
+
+    if (!CBB_add_u8_length_prefixed(&cbb, &contents) ||
+        !CBB_add_u8_length_prefixed(&cbb, &contents) ||
+        !CBB_add_u8(&contents, 1) ||
+        !CBB_add_u16_length_prefixed(&cbb, &contents) ||
+        !CBB_add_u16(&contents, 0x203) ||
+        !CBB_add_u24_length_prefixed(&cbb, &contents) ||
+        !CBB_add_u24(&contents, 0x40506) ||
+        !CBB_add_u8_length_prefixed(&cbb, &contents) ||
+        !CBB_add_u8_length_prefixed(&contents, &inner_contents) ||
+        !CBB_add_u8(&inner_contents, 1) ||
+        !CBB_add_u16_length_prefixed(&inner_contents, &inner_inner_contents) ||
+        !CBB_add_u8(&inner_inner_contents, 2) ||
+        !CBB_finish(&cbb, &buf, &buf_len)) {
+      return 0;
+    }
+
+    if (buf_len != sizeof(kExpected) ||
+        length_only != (buf == NULL) ||
+        (buf && (memcmp(buf, kExpected, buf_len) != 0))) {
+      free(buf);
+      return 0;
+    }
+    free(buf);
   }
 
-  ok = buf_len == sizeof(kExpected) && memcmp(buf, kExpected, buf_len) == 0;
-  free(buf);
-  return ok;
+  return 1;
 }
 
 static int test_cbb_misuse(void) {
@@ -294,12 +312,26 @@ static int test_cbb_misuse(void) {
   return 1;
 }
 
+typedef struct {
+  size_t contents_len;
+  const char *prefix;
+  size_t prefix_len;
+} ASN1_LENGTH_TEST;
+
+static const ASN1_LENGTH_TEST kAsn1LengthTests[] = {
+  {3, "\x30\x03", 2},
+  {130, "\x30\x81\x82", 3},
+  {1000, "\x30\x82\x03\xe8", 4},
+  {100000, "\x30\x83\x01\x86\xa0", 5},
+};
+
 static int test_cbb_asn1(void) {
   static const uint8_t kExpected[] = {0x30, 3, 1, 2, 3};
   uint8_t *buf, *test_data;
-  size_t buf_len;
+  size_t buf_len, i;
   CBB cbb, contents, inner_contents;
 
+  /* Test encoding a basic ASN.1 element. */
   if (!CBB_init(&cbb, 0) ||
       !CBB_add_asn1(&cbb, &contents, 0x30) ||
       !CBB_add_bytes(&contents, (const uint8_t*) "\x01\x02\x03", 3) ||
@@ -315,34 +347,38 @@ static int test_cbb_asn1(void) {
   test_data = malloc(100000);
   memset(test_data, 0x42, 100000);
 
-  if (!CBB_init(&cbb, 0) ||
-      !CBB_add_asn1(&cbb, &contents, 0x30) ||
-      !CBB_add_bytes(&contents, test_data, 130) ||
-      !CBB_finish(&cbb, &buf, &buf_len)) {
-    return 0;
+  /* Test encoding ASN.1 elements with a range of different element
+   * sizes. */
+  for (i = 0; i < sizeof(kAsn1LengthTests) / sizeof(kAsn1LengthTests[0]); i++) {
+    const ASN1_LENGTH_TEST *test = &kAsn1LengthTests[i];
+
+    /* Length-only pass. */
+    if (!CBB_init_length_only(&cbb) ||
+        !CBB_add_asn1(&cbb, &contents, 0x30) ||
+        !CBB_add_bytes(&contents, test_data, test->contents_len) ||
+        !CBB_finish(&cbb, NULL, &buf_len) ||
+        buf_len != test->prefix_len + test->contents_len) {
+      return 0;
+    }
+
+    /* Encode the actual element. */
+    if (!CBB_init(&cbb, 0) ||
+        !CBB_add_asn1(&cbb, &contents, 0x30) ||
+        !CBB_add_bytes(&contents, test_data, test->contents_len) ||
+        !CBB_finish(&cbb, &buf, &buf_len)) {
+      return 0;
+    }
+
+    if (buf_len != test->prefix_len + test->contents_len ||
+        memcmp(buf, test->prefix, test->prefix_len) != 0 ||
+        memcmp(buf + test->prefix_len, test_data, test->contents_len) != 0) {
+      free(buf);
+      return 0;
+    }
+    free(buf);
   }
 
-  if (buf_len != 3 + 130 ||
-      memcmp(buf, "\x30\x81\x82", 3) != 0 ||
-      memcmp(buf + 3, test_data, 130) != 0) {
-    return 0;
-  }
-  free(buf);
-
-  if (!CBB_init(&cbb, 0) ||
-      !CBB_add_asn1(&cbb, &contents, 0x30) ||
-      !CBB_add_bytes(&contents, test_data, 1000) ||
-      !CBB_finish(&cbb, &buf, &buf_len)) {
-    return 0;
-  }
-
-  if (buf_len != 4 + 1000 ||
-      memcmp(buf, "\x30\x82\x03\xe8", 4) != 0 ||
-      memcmp(buf + 4, test_data, 1000)) {
-    return 0;
-  }
-  free(buf);
-
+  /* Test encoding a nested ASN.1 element. */
   if (!CBB_init(&cbb, 0) ||
       !CBB_add_asn1(&cbb, &contents, 0x30) ||
       !CBB_add_asn1(&contents, &inner_contents, 0x30) ||
