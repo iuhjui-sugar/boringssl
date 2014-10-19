@@ -473,6 +473,18 @@ typedef struct ssl3_state_st
 		 * negotiated and the server is expected to send a
 		 * CertificateStatus message. */
 		char certificate_status_expected;
+
+		/* peer_ecpointformatlist contains the EC point
+		 * formats advertised by the peer. */
+		uint8_t *peer_ecpointformatlist;
+		size_t peer_ecpointformatlist_length;
+
+		/* Client-only: peer_ellipticcurvelist contains the EC
+		 * curve IDs advertised by the peer. This is only set
+		 * on the client as the server does not supply this
+		 * extension. */
+		uint16_t *peer_ellipticcurvelist;
+		size_t peer_ellipticcurvelist_length;
 		} tmp;
 
         /* Connection binding to prevent renegotiation attacks */
