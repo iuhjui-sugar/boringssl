@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3072e491_037ab8ae",
+        "filename": "include/openssl/ssl3.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-20T19:13:32Z",
+      "side": 1,
+      "message": "isn\u0027t this set on the server side of the connection?",
+      "range": {
+        "startLine": 484,
+        "startChar": 5,
+        "endLine": 484,
+        "endChar": 18
+      },
+      "revId": "d8a88d6fa2e04c4a919c6c38b5483205462d53e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
