@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3072e491_230174a2",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-20T20:22:26Z",
+      "side": 1,
+      "message": "Also check that ssl_version \u003e\u003e 16 \u003d\u003d 0?",
+      "revId": "d00f9cb91f13c2b5d093f20038d7b6a852abe397",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3072e491_c35fe0ba",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-20T20:22:26Z",
+      "side": 1,
+      "message": "This pattern seems to warrant a function:\n\nstatic int d2i_SSL_SESSION_get_string(CBS *cbs, char *out, int tag);",
+      "revId": "d00f9cb91f13c2b5d093f20038d7b6a852abe397",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3072e491_e364dc91",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-20T20:22:26Z",
+      "side": 1,
+      "message": "CBS_stow\u0027ing an OCTET STRING might also be a useful function by the looks of it.",
+      "range": {
+        "startLine": 687,
+        "startChar": 6,
+        "endLine": 687,
+        "endChar": 23
+      },
+      "revId": "d00f9cb91f13c2b5d093f20038d7b6a852abe397",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
