@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "3072e491_89434907",
+        "filename": "crypto/bio/pair.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-20T23:56:45Z",
+      "side": 1,
+      "message": "extra space",
+      "range": {
+        "startLine": 78,
+        "startChar": 58,
+        "endLine": 78,
+        "endChar": 59
+      },
+      "revId": "05b95792203da766f018f3d22dba8370f0983552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3072e491_696fcd99",
+        "filename": "include/openssl/bio.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-20T23:56:45Z",
+      "side": 1,
+      "message": "uint8_t for binary data in new APIs.",
+      "range": {
+        "startLine": 596,
+        "startChar": 49,
+        "endLine": 596,
+        "endChar": 53
+      },
+      "revId": "05b95792203da766f018f3d22dba8370f0983552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "502d9828_7b9a7702",
         "filename": "include/openssl/bio.h",
         "patchSetId": 1
@@ -13,6 +59,64 @@
       "writtenOn": "2014-10-14T13:44:28Z",
       "side": 1,
       "message": "I did not add these to the bio_ctrl system, as that seems to add more complexity than needed in this case.",
+      "revId": "05b95792203da766f018f3d22dba8370f0983552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3072e491_c95c61f2",
+        "filename": "include/openssl/bio.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-20T23:56:45Z",
+      "side": 1,
+      "message": "size_t for lengths, and no overloading of return values with error values in new APIs. (i.e. this would look like:\n\nOPENSSL_EXPORT int BIO_zero_copy_get_read_buf(BIO* bio, uint8_t **out_buf, size_t *out_len);\n\nWhy return an offset too rather than adjusting the output pointer?",
+      "parentUuid": "502d9828_7b9a7702",
+      "revId": "05b95792203da766f018f3d22dba8370f0983552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3072e491_e9511dd7",
+        "filename": "include/openssl/bio.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-20T23:56:45Z",
+      "side": 1,
+      "message": "size_t",
+      "range": {
+        "startLine": 637,
+        "startChar": 61,
+        "endLine": 637,
+        "endChar": 64
+      },
+      "revId": "05b95792203da766f018f3d22dba8370f0983552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3072e491_294cf539",
+        "filename": "include/openssl/bio.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-20T23:56:45Z",
+      "side": 1,
+      "message": "ditto as above.",
       "revId": "05b95792203da766f018f3d22dba8370f0983552",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
