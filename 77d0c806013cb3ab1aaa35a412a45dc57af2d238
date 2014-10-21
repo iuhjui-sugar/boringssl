@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "95f62248_029c8cfa",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-21T18:47:58Z",
+      "side": 1,
+      "message": "Yeah, I wasn\u0027t sure about that either. I don\u0027t have strong feelings either way. I\u0027d actually originally been envisioning that everything would just use CBS_peek_asn1_tag for OPTIONAL and DEFAULT fields, though it turned out slightly long for SSL_SESSION. Not sure if they\u0027re generically useful enough. I see a couple INTEGERs with DEFAULTs in X.509 and PKCS#1, but that seems to be it.\n\nThe testing thing aside, that would probably suggest they should stay static in ssl/ and moved out as we need to parse more interesting structures. Though hopefully X.509 is the last remaining complex one.",
+      "parentUuid": "3072e491_de3252e7",
+      "range": {
+        "startLine": 174,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 14
+      },
+      "revId": "77d0c806013cb3ab1aaa35a412a45dc57af2d238",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3072e491_7e3cdeb6",
         "filename": "ssl/ssl_asn1.c",
         "patchSetId": 3
