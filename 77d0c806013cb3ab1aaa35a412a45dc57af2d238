@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3072e491_de3252e7",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-21T18:21:40Z",
+      "side": 1,
+      "message": "nit: I hadn\u0027t imagined these functions being in bytestring.h, but rather being static in ssl_sess.c. Are there sufficient, imminent uses to put them here?\n\n(Although the fact that it makes testing easier is probably sufficient motivation.)",
+      "range": {
+        "startLine": 174,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 14
+      },
+      "revId": "77d0c806013cb3ab1aaa35a412a45dc57af2d238",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3072e491_7e3cdeb6",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-21T18:21:40Z",
+      "side": 1,
+      "message": "On entry, if",
+      "range": {
+        "startLine": 408,
+        "startChar": 64,
+        "endLine": 408,
+        "endChar": 66
+      },
+      "revId": "77d0c806013cb3ab1aaa35a412a45dc57af2d238",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3072e491_5e3f22ac",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-21T18:21:40Z",
+      "side": 1,
+      "message": "it",
+      "range": {
+        "startLine": 408,
+        "startChar": 52,
+        "endLine": 408,
+        "endChar": 53
+      },
+      "revId": "77d0c806013cb3ab1aaa35a412a45dc57af2d238",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3072e491_bed4b600",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-21T18:21:40Z",
+      "side": 1,
+      "message": "in",
+      "range": {
+        "startLine": 436,
+        "startChar": 55,
+        "endLine": 436,
+        "endChar": 56
+      },
+      "revId": "77d0c806013cb3ab1aaa35a412a45dc57af2d238",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3072e491_fede2e1e",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-21T18:21:40Z",
+      "side": 1,
+      "message": "On entry, if",
+      "range": {
+        "startLine": 437,
+        "startChar": 15,
+        "endLine": 437,
+        "endChar": 17
+      },
+      "revId": "77d0c806013cb3ab1aaa35a412a45dc57af2d238",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3072e491_de0092db",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-21T18:21:40Z",
+      "side": 1,
+      "message": "if (CBS_len(\u0026sid_ctx) \u003e sizeof(ret-\u003esid_ctx)) {\n  ...\n}",
+      "revId": "77d0c806013cb3ab1aaa35a412a45dc57af2d238",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3072e491_fef54e96",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-21T18:21:40Z",
+      "side": 1,
+      "message": "if (CBS_len(\u0026original_handshake_hash) \u003e sizeof(ret-\u003eoriginal_handshake_hash)) {\n  ...\n}",
+      "revId": "77d0c806013cb3ab1aaa35a412a45dc57af2d238",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
