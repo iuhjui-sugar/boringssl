@@ -1568,7 +1568,7 @@ func addExtensionTests() {
 			},
 		},
 		resumeSession: true,
-		shouldFail: true,
+		shouldFail:    true,
 		expectedError: ":DECODE_ERROR:",
 	})
 }
