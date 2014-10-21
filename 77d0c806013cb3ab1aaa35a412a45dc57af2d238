@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "95f62248_c55d8e6f",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-21T21:45:06Z",
+      "side": 1,
+      "message": "Left as-is for now since the tests are probably useful, though I suspect other parsers aren\u0027t likely to use them much. (Well, maybe CBS_get_optional_asn1 will be useful.) If you prefer, I can also move them out and try to generate a pile of SSL_SESSIONs that stress those cases.",
+      "parentUuid": "95f62248_029c8cfa",
+      "range": {
+        "startLine": 174,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 14
+      },
+      "revId": "77d0c806013cb3ab1aaa35a412a45dc57af2d238",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3072e491_7e3cdeb6",
         "filename": "ssl/ssl_asn1.c",
         "patchSetId": 3
@@ -95,6 +119,54 @@
     },
     {
       "key": {
+        "uuid": "95f62248_c5c10eba",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-21T21:45:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3072e491_5e3f22ac",
+      "range": {
+        "startLine": 408,
+        "startChar": 52,
+        "endLine": 408,
+        "endChar": 53
+      },
+      "revId": "77d0c806013cb3ab1aaa35a412a45dc57af2d238",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "95f62248_a5be0a34",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-21T21:45:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3072e491_7e3cdeb6",
+      "range": {
+        "startLine": 408,
+        "startChar": 64,
+        "endLine": 408,
+        "endChar": 66
+      },
+      "revId": "77d0c806013cb3ab1aaa35a412a45dc57af2d238",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3072e491_bed4b600",
         "filename": "ssl/ssl_asn1.c",
         "patchSetId": 3
@@ -106,6 +178,30 @@
       "writtenOn": "2014-10-21T18:21:40Z",
       "side": 1,
       "message": "in",
+      "range": {
+        "startLine": 436,
+        "startChar": 55,
+        "endLine": 436,
+        "endChar": 56
+      },
+      "revId": "77d0c806013cb3ab1aaa35a412a45dc57af2d238",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "95f62248_85ed4650",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-21T21:45:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3072e491_bed4b600",
       "range": {
         "startLine": 436,
         "startChar": 55,
@@ -141,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "95f62248_65f24232",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-21T21:45:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3072e491_fede2e1e",
+      "range": {
+        "startLine": 437,
+        "startChar": 15,
+        "endLine": 437,
+        "endChar": 17
+      },
+      "revId": "77d0c806013cb3ab1aaa35a412a45dc57af2d238",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3072e491_de0092db",
         "filename": "ssl/ssl_asn1.c",
         "patchSetId": 3
@@ -158,6 +278,24 @@
     },
     {
       "key": {
+        "uuid": "95f62248_25ec3a4e",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-21T21:45:06Z",
+      "side": 1,
+      "message": "Yikes, that got lost? Done.",
+      "parentUuid": "3072e491_de0092db",
+      "revId": "77d0c806013cb3ab1aaa35a412a45dc57af2d238",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3072e491_fef54e96",
         "filename": "ssl/ssl_asn1.c",
         "patchSetId": 3
@@ -169,6 +307,24 @@
       "writtenOn": "2014-10-21T18:21:40Z",
       "side": 1,
       "message": "if (CBS_len(\u0026original_handshake_hash) \u003e sizeof(ret-\u003eoriginal_handshake_hash)) {\n  ...\n}",
+      "revId": "77d0c806013cb3ab1aaa35a412a45dc57af2d238",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "95f62248_05e13656",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-21T21:45:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3072e491_fef54e96",
       "revId": "77d0c806013cb3ab1aaa35a412a45dc57af2d238",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
