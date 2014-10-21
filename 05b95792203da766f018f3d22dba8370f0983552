@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "f064ccc9_ee3be761",
+        "filename": "include/openssl/bio.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 5230
+      },
+      "writtenOn": "2014-10-21T14:18:52Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "3072e491_696fcd99",
+      "range": {
+        "startLine": 596,
+        "startChar": 49,
+        "endLine": 596,
+        "endChar": 53
+      },
+      "revId": "05b95792203da766f018f3d22dba8370f0983552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "502d9828_7b9a7702",
         "filename": "include/openssl/bio.h",
         "patchSetId": 1
@@ -83,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "f064ccc9_4e085396",
+        "filename": "include/openssl/bio.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 5230
+      },
+      "writtenOn": "2014-10-21T14:18:52Z",
+      "side": 1,
+      "message": "Since the bio pair api now becomes a bit inconsistent it\u0027s a bit unclear if the error codes should be negative as in BIO_read. I decided to go with one for success as that seems to be the standard when not overwriting.\n\n\u003eWhy return an offset too rather than adjusting the output pointer?\n\nReturning offset makes it easier to use external buffers along with a class taking care of memory ownership. This way it\u0027s possible simply do buffer_object-\u003eSetOffset(out_buf_offset). This simply makes it a bit more explicit. \n\nAn alternative is to let the caller calculate the offset by subtracting the external buffer (which is known when external buffers are used) from the memory buffer given by this api. I\u0027m happy to change if that is preferred.",
+      "parentUuid": "3072e491_c95c61f2",
+      "revId": "05b95792203da766f018f3d22dba8370f0983552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3072e491_e9511dd7",
         "filename": "include/openssl/bio.h",
         "patchSetId": 1
@@ -106,6 +148,30 @@
     },
     {
       "key": {
+        "uuid": "309904fa_30f0d0a3",
+        "filename": "include/openssl/bio.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 5230
+      },
+      "writtenOn": "2014-10-21T14:18:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3072e491_e9511dd7",
+      "range": {
+        "startLine": 637,
+        "startChar": 61,
+        "endLine": 637,
+        "endChar": 64
+      },
+      "revId": "05b95792203da766f018f3d22dba8370f0983552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3072e491_294cf539",
         "filename": "include/openssl/bio.h",
         "patchSetId": 1
@@ -117,6 +183,24 @@
       "writtenOn": "2014-10-20T23:56:45Z",
       "side": 1,
       "message": "ditto as above.",
+      "revId": "05b95792203da766f018f3d22dba8370f0983552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1096c0c9_4f35bdf9",
+        "filename": "include/openssl/bio.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 5230
+      },
+      "writtenOn": "2014-10-21T14:18:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3072e491_294cf539",
       "revId": "05b95792203da766f018f3d22dba8370f0983552",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
