@@ -358,7 +358,7 @@ static int decode_base64(uint8_t **out, size_t *out_len, const char *in) {
 static int test_ssl_session_asn1(const char *input_b64,
                                  const char *expected_b64) {
   int ret = 0, len;
-  size_t input_len, expected_len;
+  size_t input_len, expected_len, encoded_len;
   uint8_t *input = NULL, *expected = NULL, *encoded = NULL;
   const uint8_t *cptr;
   uint8_t *ptr;
@@ -379,6 +379,19 @@ static int test_ssl_session_asn1(const char *input_b64,
   }
 
   /* Verify the SSL_SESSION encoding round-trips. */
+  if (!SSL_SESSION_to_bytes(session, &encoded, &encoded_len)) {
+    fprintf(stderr, "SSL_SESSION_to_bytes failed\n");
+    goto done;
+  }
+  if (encoded_len != expected_len ||
+      memcmp(expected, encoded, expected_len) != 0) {
+    fprintf(stderr, "SSL_SESSION_to_bytes did not round-trip\n");
+    goto done;
+  }
+  OPENSSL_free(encoded);
+  encoded = NULL;
+
+  /* Verify the SSL_SESSION encoding round-trips via the legacy API. */
   len = i2d_SSL_SESSION(session, NULL);
   if (len < 0 || (size_t)len != expected_len) {
     fprintf(stderr, "i2d_SSL_SESSION(NULL) returned invalid length\n");
