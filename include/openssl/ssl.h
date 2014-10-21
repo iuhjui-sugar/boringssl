@@ -1952,14 +1952,50 @@ OPENSSL_EXPORT int	SSL_SESSION_print_fp(FILE *fp,const SSL_SESSION *ses);
 OPENSSL_EXPORT int	SSL_SESSION_print(BIO *fp,const SSL_SESSION *ses);
 #endif
 OPENSSL_EXPORT void	SSL_SESSION_free(SSL_SESSION *ses);
-OPENSSL_EXPORT int	i2d_SSL_SESSION(SSL_SESSION *in,unsigned char **pp);
 OPENSSL_EXPORT int	SSL_set_session(SSL *to, SSL_SESSION *session);
 OPENSSL_EXPORT int	SSL_CTX_add_session(SSL_CTX *s, SSL_SESSION *c);
 OPENSSL_EXPORT int	SSL_CTX_remove_session(SSL_CTX *,SSL_SESSION *c);
 OPENSSL_EXPORT int	SSL_CTX_set_generate_session_id(SSL_CTX *, GEN_SESSION_CB);
 OPENSSL_EXPORT int	SSL_set_generate_session_id(SSL *, GEN_SESSION_CB);
 OPENSSL_EXPORT int	SSL_has_matching_session_id(const SSL *ssl, const unsigned char *id, unsigned int id_len);
-OPENSSL_EXPORT SSL_SESSION *d2i_SSL_SESSION(SSL_SESSION **a,const unsigned char **pp, long length);
+
+/* SSL_SESSION_to_bytes serializes |in| into a newly allocated buffer
+ * and sets |*out_data| to that buffer and |*out_len| to its
+ * length. The caller takes ownership of the buffer and must call
+ * |OPENSSL_free| when done. It returns one on success and zero on
+ * error. */
+OPENSSL_EXPORT int SSL_SESSION_to_bytes(SSL_SESSION *in, uint8_t **out_data,
+                                        size_t *out_len);
+
+/* SSL_SESSION_to_bytes_for_ticket serializes |in|, but excludes the
+ * session ID which is not necessary in a session ticket. */
+OPENSSL_EXPORT int SSL_SESSION_to_bytes_for_ticket(SSL_SESSION *in,
+                                                   uint8_t **out_data,
+                                                   size_t *out_len);
+
+/* Deprecated: i2d_SSL_SESSION serializes |in| to the bytes pointed to
+ * by |*pp|. On success, it returns the number of bytes written and
+ * advances |*pp| by that many bytes. On failure, it returns -1. If
+ * |pp| is NULL, no bytes are written and only the length is
+ * returned.
+ *
+ * Use SSL_SESSION_to_bytes instead. */
+OPENSSL_EXPORT int i2d_SSL_SESSION(SSL_SESSION *in, uint8_t **pp);
+
+/* d2i_SSL_SESSION deserializes a serialized buffer contained in the
+ * |length| bytes pointed to by |*pp|. It returns the new SSL_SESSION
+ * and advances |*pp| by the number of bytes consumed on success and
+ * NULL on failure. If |a| is NULL, the caller takes ownership of the
+ * new session and must call |SSL_SESSION_free| when done.
+ *
+ * If |a| and |*a| are not NULL, the SSL_SESSION at |*a| is overridden
+ * with the deserialized session rather than allocating a new one. In
+ * addition, |a| is not NULL, but |*a| is, |*a| is set to the new
+ * SSL_SESSION.
+ *
+ * Passing a value other than NULL to |a| is deprecated. */
+OPENSSL_EXPORT SSL_SESSION *d2i_SSL_SESSION(SSL_SESSION **a, const uint8_t **pp,
+                                            long length);
 
 #ifdef HEADER_X509_H
 OPENSSL_EXPORT X509 *	SSL_get_peer_certificate(const SSL *s);
