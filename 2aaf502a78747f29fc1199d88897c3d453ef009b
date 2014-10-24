@@ -1,0 +1,129 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f5d11ee3_b25d0037",
+        "filename": "ssl/d1_lib.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-24T20:54:00Z",
+      "side": 1,
+      "message": "I really don\u0027t understand the DTLS code, but I assume that scribbling over the initial portion of the output buffer here is fine because dtls1_do_write probably does its own scribbling and/or ignores it later as part of fragmenting the message anyway. Does these interfere with buffering the message for rexmit? I still haven\u0027t written the tests for that...\n\nI guess the other option would be to assemble the header in a scratch buffer and make two calls to ssl3_finish_mac.",
+      "revId": "2aaf502a78747f29fc1199d88897c3d453ef009b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f5d11ee3_3244b073",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 2110,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-24T20:54:00Z",
+      "side": 1,
+      "message": "This comment is (thankfully. yeesh... that\u0027s the handshake output buffer!) no longer accurate.",
+      "revId": "2aaf502a78747f29fc1199d88897c3d453ef009b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f5d11ee3_d238c4f5",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 2179,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-24T20:54:00Z",
+      "side": 1,
+      "message": "(Annoyingly, this one is still true. That probably doesn\u0027t need to be true anymore, although it makes the PSK bit a slightly messier. I can sort that out when doing the same PSK refactor I did to the server half. Paying an extra malloc + copy seems fine.)",
+      "revId": "2aaf502a78747f29fc1199d88897c3d453ef009b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f5d11ee3_526a94df",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 2214,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-24T20:54:00Z",
+      "side": 1,
+      "message": "Existing bug, but I think this wants to update n at the end, or the memset(p, 0, n) at the bottom doesn\u0027t actually clean up all of the premaster from the output buffer. That or stop using p because that\u0027s crazy.",
+      "revId": "2aaf502a78747f29fc1199d88897c3d453ef009b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f5d11ee3_72d31869",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-24T20:54:00Z",
+      "side": 1,
+      "message": "Nit: this comment should gain a line.",
+      "revId": "2aaf502a78747f29fc1199d88897c3d453ef009b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f5d11ee3_d2e1a42f",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 1129,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-24T20:54:00Z",
+      "side": 1,
+      "message": "Nit: its",
+      "range": {
+        "startLine": 1129,
+        "startChar": 63,
+        "endLine": 1129,
+        "endChar": 64
+      },
+      "revId": "2aaf502a78747f29fc1199d88897c3d453ef009b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f5d11ee3_b2018029",
+        "filename": "ssl/test/runner/ticket.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-24T20:54:00Z",
+      "side": 1,
+      "message": "(When/if this gets ported over to upstream, I assume you\u0027ll want to accept the old tickets too.)",
+      "revId": "2aaf502a78747f29fc1199d88897c3d453ef009b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
