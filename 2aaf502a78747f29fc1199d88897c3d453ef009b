@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5594aafe_6c356380",
+        "filename": "ssl/d1_lib.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-24T21:13:08Z",
+      "side": 1,
+      "message": "Right, it was what dtls1_do_write did anyway. However, I think your right and that it\u0027s better not to have to worry about this so I\u0027ve switched to writing to a scratch buffer.",
+      "parentUuid": "f5d11ee3_b25d0037",
+      "revId": "2aaf502a78747f29fc1199d88897c3d453ef009b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f5d11ee3_3244b073",
         "filename": "ssl/s3_clnt.c",
         "patchSetId": 6
@@ -30,6 +48,24 @@
       "writtenOn": "2014-10-24T20:54:00Z",
       "side": 1,
       "message": "This comment is (thankfully. yeesh... that\u0027s the handshake output buffer!) no longer accurate.",
+      "revId": "2aaf502a78747f29fc1199d88897c3d453ef009b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5594aafe_8c3a2f6e",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 2110,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-24T21:13:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5d11ee3_3244b073",
       "revId": "2aaf502a78747f29fc1199d88897c3d453ef009b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "5594aafe_ac77eb42",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 2179,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-24T21:13:08Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "f5d11ee3_d238c4f5",
+      "revId": "2aaf502a78747f29fc1199d88897c3d453ef009b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f5d11ee3_526a94df",
         "filename": "ssl/s3_clnt.c",
         "patchSetId": 6
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "5594aafe_ec6df372",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 2214,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-24T21:13:08Z",
+      "side": 1,
+      "message": "I assume you mean on line 2228? What value do you think that it should have? |p| contains |n| bytes of shared key still, no?",
+      "parentUuid": "f5d11ee3_526a94df",
+      "revId": "2aaf502a78747f29fc1199d88897c3d453ef009b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f5d11ee3_72d31869",
         "filename": "ssl/ssl_asn1.c",
         "patchSetId": 6
@@ -81,6 +153,24 @@
       "writtenOn": "2014-10-24T20:54:00Z",
       "side": 1,
       "message": "Nit: this comment should gain a line.",
+      "revId": "2aaf502a78747f29fc1199d88897c3d453ef009b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5594aafe_6c4323e0",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-24T21:13:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5d11ee3_72d31869",
       "revId": "2aaf502a78747f29fc1199d88897c3d453ef009b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -110,6 +200,30 @@
     },
     {
       "key": {
+        "uuid": "5594aafe_2c3d1b56",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 1129,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-24T21:13:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5d11ee3_d2e1a42f",
+      "range": {
+        "startLine": 1129,
+        "startChar": 63,
+        "endLine": 1129,
+        "endChar": 64
+      },
+      "revId": "2aaf502a78747f29fc1199d88897c3d453ef009b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f5d11ee3_b2018029",
         "filename": "ssl/test/runner/ticket.go",
         "patchSetId": 6
@@ -121,6 +235,24 @@
       "writtenOn": "2014-10-24T20:54:00Z",
       "side": 1,
       "message": "(When/if this gets ported over to upstream, I assume you\u0027ll want to accept the old tickets too.)",
+      "revId": "2aaf502a78747f29fc1199d88897c3d453ef009b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5594aafe_4c42e7d9",
+        "filename": "ssl/test/runner/ticket.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-24T21:13:08Z",
+      "side": 1,
+      "message": "Nah, probably not. It\u0027s only a transient blip in resumption.",
+      "parentUuid": "f5d11ee3_b2018029",
       "revId": "2aaf502a78747f29fc1199d88897c3d453ef009b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
