@@ -16,6 +16,24 @@
       "revId": "abb44eecf77e394179943c3189a5caa4d2d2a654",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "159eb222_c1a24638",
+        "filename": "crypto/bytestring/bytestring_test.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-24T18:24:46Z",
+      "side": 1,
+      "message": "Oops, good catch. Done.",
+      "parentUuid": "f583dec2_a934bed4",
+      "revId": "abb44eecf77e394179943c3189a5caa4d2d2a654",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
