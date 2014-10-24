@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "159eb222_01826e8e",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 2559,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-24T18:32:31Z",
+      "side": 0,
+      "message": "Does this do anything other than drop the session ID? Seems a lot of effort to save 32 bytes... I\u0027m not super-thrilled by the alternate entry point, but it seems less hairy than serializing and deserializing.",
+      "revId": "591eb052925087b76882baa2e9749313954157fd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
