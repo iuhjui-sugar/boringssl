@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "157792c2_e79bca02",
+        "filename": "crypto/bytestring/bytestring_test.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 5145
+      },
+      "writtenOn": "2014-10-24T22:27:17Z",
+      "side": 1,
+      "message": "Oops, looks that I added one leading space too many here... but it\u0027s already merged and definitely not worth a separate commit to fix it.",
+      "range": {
+        "startLine": 564,
+        "startChar": 0,
+        "endLine": 564,
+        "endChar": 4
+      },
+      "revId": "3b73c18fca8e5591697e914f0e65ad281d160b27",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
