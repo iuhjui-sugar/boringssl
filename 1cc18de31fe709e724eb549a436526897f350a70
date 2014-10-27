@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f5d11ee3_f22f08f8",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 2547,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-27T19:19:20Z",
+      "side": 1,
+      "message": "Doesn\u0027t quiiiite fit in 80.",
+      "parentUuid": "5594aafe_313d7856",
+      "revId": "1cc18de31fe709e724eb549a436526897f350a70",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5594aafe_f156309d",
         "filename": "ssl/s3_srvr.c",
         "patchSetId": 4
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "95b9c2ac_ca0fa34d",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 2555,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-27T19:19:20Z",
+      "side": 1,
+      "message": "Made it compute the maximum overhead more tidily. Although probably better later would be to do it as part of CBB_add_u16_length_prefixed having a built-in overflow check.",
+      "parentUuid": "5594aafe_f156309d",
+      "range": {
+        "startLine": 2555,
+        "startChar": 33,
+        "endLine": 2555,
+        "endChar": 39
+      },
+      "revId": "1cc18de31fe709e724eb549a436526897f350a70",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5594aafe_d14d3404",
         "filename": "ssl/s3_srvr.c",
         "patchSetId": 4
@@ -53,6 +95,24 @@
       "writtenOn": "2014-10-24T18:35:18Z",
       "side": 1,
       "message": "Rather than kill the connection, how about freeing the real one and setting |session| and |session_len| to a dummy value in order to carry on? Something like \"TICKET TOO LARGE\" to make it obvious in debugging. It\u0027ll be harmlessly echoed in the future.",
+      "revId": "1cc18de31fe709e724eb549a436526897f350a70",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "95b9c2ac_aa74af3e",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 2557,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-27T19:19:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5594aafe_d14d3404",
       "revId": "1cc18de31fe709e724eb549a436526897f350a70",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
