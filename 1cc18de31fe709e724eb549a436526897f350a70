@@ -116,6 +116,24 @@
       "revId": "1cc18de31fe709e724eb549a436526897f350a70",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5594aafe_fcb5a0c5",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 2557,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-27T22:04:58Z",
+      "side": 1,
+      "message": "Ah, but we don\u0027t want to encrypt and MAC this string because, then, we\u0027ll try to parse it when it\u0027s echoed. I think we literally want to send this string on the wire for debugging and because we can be sure that it\u0027ll be discarded if not MACed correctly.",
+      "parentUuid": "95b9c2ac_aa74af3e",
+      "revId": "1cc18de31fe709e724eb549a436526897f350a70",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
