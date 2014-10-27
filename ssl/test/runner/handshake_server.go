@@ -397,11 +397,13 @@ func (hs *serverHandshakeState) doFullHandshake() error {
 
 	c.writeRecord(recordTypeHandshake, hs.hello.marshal())
 
-	certMsg := new(certificateMsg)
-	certMsg.certificates = hs.cert.Certificate
-	if !config.Bugs.UnauthenticatedECDH {
-		hs.writeServerHash(certMsg.marshal())
-		c.writeRecord(recordTypeHandshake, certMsg.marshal())
+	if hs.suite.flags&suitePSK == 0 {
+		certMsg := new(certificateMsg)
+		certMsg.certificates = hs.cert.Certificate
+		if !config.Bugs.UnauthenticatedECDH {
+			hs.writeServerHash(certMsg.marshal())
+			c.writeRecord(recordTypeHandshake, certMsg.marshal())
+		}
 	}
 
 	if hs.hello.ocspStapling {
@@ -466,6 +468,7 @@ func (hs *serverHandshakeState) doFullHandshake() error {
 	// If we requested a client certificate, then the client must send a
 	// certificate message, even if it's empty.
 	if config.ClientAuth >= RequestClientCert {
+		var certMsg *certificateMsg
 		if certMsg, ok = msg.(*certificateMsg); !ok {
 			c.sendAlert(alertUnexpectedMessage)
 			return unexpectedMessageError(certMsg, msg)
