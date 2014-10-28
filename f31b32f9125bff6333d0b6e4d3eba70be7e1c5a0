@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5594aafe_f06aa186",
+        "filename": "ssl/test/runner/key_agreement.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-28T22:00:40Z",
+      "side": 1,
+      "message": "other comments have a period at the end.",
+      "range": {
+        "startLine": 738,
+        "startChar": 49,
+        "endLine": 738,
+        "endChar": 50
+      },
+      "revId": "f31b32f9125bff6333d0b6e4d3eba70be7e1c5a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
