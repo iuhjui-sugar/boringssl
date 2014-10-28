@@ -1,0 +1,170 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5594aafe_d023e59b",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-28T21:56:18Z",
+      "side": 1,
+      "message": "out_identity?",
+      "range": {
+        "startLine": 184,
+        "startChar": 42,
+        "endLine": 184,
+        "endChar": 50
+      },
+      "revId": "2695b54cf35b5e57ebceb2050cb2b7bea64272cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5594aafe_f0206191",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-28T21:56:18Z",
+      "side": 1,
+      "message": "out_psk?",
+      "range": {
+        "startLine": 185,
+        "startChar": 45,
+        "endLine": 185,
+        "endChar": 48
+      },
+      "revId": "2695b54cf35b5e57ebceb2050cb2b7bea64272cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5594aafe_3017a93a",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-28T21:56:18Z",
+      "side": 1,
+      "message": "if (config-\u003epsk_identity.size() \u003e\u003d max_identity_len ||\n\n(In order to avoid adding and thus overflowing. Even though overflow is basically impossible there, it still makes me uncomfortable.)",
+      "revId": "2695b54cf35b5e57ebceb2050cb2b7bea64272cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5594aafe_d03c45b8",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-28T21:56:18Z",
+      "side": 1,
+      "message": "max_identity_len ?\n\n(It should be a no-op because of the check, but anyway.)",
+      "range": {
+        "startLine": 200,
+        "startChar": 10,
+        "endLine": 200,
+        "endChar": 39
+      },
+      "revId": "2695b54cf35b5e57ebceb2050cb2b7bea64272cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5594aafe_90fd5d82",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-28T21:56:18Z",
+      "side": 1,
+      "message": "out_psk?",
+      "range": {
+        "startLine": 206,
+        "startChar": 45,
+        "endLine": 206,
+        "endChar": 48
+      },
+      "revId": "2695b54cf35b5e57ebceb2050cb2b7bea64272cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5594aafe_10b62dd2",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-28T21:56:18Z",
+      "side": 1,
+      "message": "isPSK :\u003d hs.suite.flags\u0026suitePSK !\u003d 0\nif !isPSK \u0026\u0026 hs.clientHello.ocspStapling \u0026\u0026 len(hs.cert.OCSPStaple) \u003e 0 {\n  ..\n}\n\nand use isPSK below too.",
+      "revId": "2695b54cf35b5e57ebceb2050cb2b7bea64272cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5594aafe_b090992c",
+        "filename": "ssl/test/runner/key_agreement.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-28T21:56:18Z",
+      "side": 1,
+      "message": "out :\u003d make([]byte, 0, 2+len(otherSecret)+2+len(psk))\np \u003d append(out, byte(len(otherSecret) \u003e\u003e 8), byte(len(otherSecret)))\np \u003d append(p, otherSecret...)\np \u003d append(p, byte(len(psk) \u003e\u003e 8), byte(len(psk)))\np \u003d append(p, psk...)\nreturn out",
+      "revId": "2695b54cf35b5e57ebceb2050cb2b7bea64272cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5594aafe_b075f971",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 870,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-28T21:56:18Z",
+      "side": 1,
+      "message": "if strings.HasPrefix(suite.name, \"PSK-\") || strings.Contains(suite.name, \"-PSK-\") {",
+      "range": {
+        "startLine": 870,
+        "startChar": 35,
+        "endLine": 870,
+        "endChar": 39
+      },
+      "revId": "2695b54cf35b5e57ebceb2050cb2b7bea64272cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
