@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5594aafe_95d46f02",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 2560,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-28T19:00:14Z",
+      "side": 1,
+      "message": "long",
+      "range": {
+        "startLine": 2560,
+        "startChar": 31,
+        "endLine": 2560,
+        "endChar": 33
+      },
+      "revId": "168f92f0b8627a6813e4402a8b680417f89e63fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
