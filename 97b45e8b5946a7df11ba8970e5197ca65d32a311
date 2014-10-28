@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "95b9c2ac_e1a5ea13",
+        "filename": "tool/client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-28T22:53:07Z",
+      "side": 1,
+      "message": "This probably wants to be false?",
+      "range": {
+        "startLine": 50,
+        "startChar": 16,
+        "endLine": 50,
+        "endChar": 20
+      },
+      "revId": "97b45e8b5946a7df11ba8970e5197ca65d32a311",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
