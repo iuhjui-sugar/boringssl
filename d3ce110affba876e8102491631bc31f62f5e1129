@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "95b9c2ac_f6392e17",
+        "filename": "crypto/evp/digestsign.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-28T20:15:35Z",
+      "side": 1,
+      "message": "Already 0/1 clean.",
+      "range": {
+        "startLine": 171,
+        "startChar": 11,
+        "endLine": 171,
+        "endChar": 24
+      },
+      "revId": "d3ce110affba876e8102491631bc31f62f5e1129",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "95b9c2ac_364826a6",
+        "filename": "crypto/evp/digestsign.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-28T20:15:35Z",
+      "side": 1,
+      "message": "Only implemented by hmac_signctx which is 0/1 clean.",
+      "range": {
+        "startLine": 174,
+        "startChar": 31,
+        "endLine": 174,
+        "endChar": 38
+      },
+      "revId": "d3ce110affba876e8102491631bc31f62f5e1129",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "95b9c2ac_9636b226",
+        "filename": "crypto/evp/digestsign.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-28T20:15:35Z",
+      "side": 1,
+      "message": "Already 0/1 clean",
+      "range": {
+        "startLine": 177,
+        "startChar": 13,
+        "endLine": 177,
+        "endChar": 26
+      },
+      "revId": "d3ce110affba876e8102491631bc31f62f5e1129",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "95b9c2ac_1643a28e",
+        "filename": "crypto/evp/digestsign.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-28T20:15:35Z",
+      "side": 1,
+      "message": "Nothing actually implements this.",
+      "range": {
+        "startLine": 195,
+        "startChar": 29,
+        "endLine": 195,
+        "endChar": 38
+      },
+      "revId": "d3ce110affba876e8102491631bc31f62f5e1129",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "95b9c2ac_b633b635",
+        "filename": "crypto/evp/digestsign.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-28T20:15:35Z",
+      "side": 1,
+      "message": "Already 0/1 clean. (And the !r would have otherwise broken anyway.)",
+      "range": {
+        "startLine": 197,
+        "startChar": 8,
+        "endLine": 197,
+        "endChar": 26
+      },
+      "revId": "d3ce110affba876e8102491631bc31f62f5e1129",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "95b9c2ac_81d3ce67",
+        "filename": "crypto/evp/digestsign.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-28T20:15:35Z",
+      "side": 1,
+      "message": "Already 0/1 clean.",
+      "range": {
+        "startLine": 204,
+        "startChar": 9,
+        "endLine": 204,
+        "endChar": 24
+      },
+      "revId": "d3ce110affba876e8102491631bc31f62f5e1129",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
