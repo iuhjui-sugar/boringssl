@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "15631229_76de2e20",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-29T20:28:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5594aafe_d023e59b",
+      "range": {
+        "startLine": 184,
+        "startChar": 42,
+        "endLine": 184,
+        "endChar": 50
+      },
+      "revId": "2695b54cf35b5e57ebceb2050cb2b7bea64272cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5594aafe_f0206191",
         "filename": "ssl/test/bssl_shim.cc",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2014-10-28T21:56:18Z",
       "side": 1,
       "message": "out_psk?",
+      "range": {
+        "startLine": 185,
+        "startChar": 45,
+        "endLine": 185,
+        "endChar": 48
+      },
+      "revId": "2695b54cf35b5e57ebceb2050cb2b7bea64272cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "15631229_56e332e8",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-29T20:28:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5594aafe_f0206191",
       "range": {
         "startLine": 185,
         "startChar": 45,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "15631229_b6c7264f",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-29T20:28:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5594aafe_3017a93a",
+      "revId": "2695b54cf35b5e57ebceb2050cb2b7bea64272cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5594aafe_d03c45b8",
         "filename": "ssl/test/bssl_shim.cc",
         "patchSetId": 3
@@ -76,6 +142,30 @@
       "writtenOn": "2014-10-28T21:56:18Z",
       "side": 1,
       "message": "max_identity_len ?\n\n(It should be a no-op because of the check, but anyway.)",
+      "range": {
+        "startLine": 200,
+        "startChar": 10,
+        "endLine": 200,
+        "endChar": 39
+      },
+      "revId": "2695b54cf35b5e57ebceb2050cb2b7bea64272cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "15631229_36fdd680",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-29T20:28:20Z",
+      "side": 1,
+      "message": "Switched to BUF_strlcpy with max_identity_len.",
+      "parentUuid": "5594aafe_d03c45b8",
       "range": {
         "startLine": 200,
         "startChar": 10,
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "15631229_76f74ea0",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-29T20:28:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5594aafe_90fd5d82",
+      "range": {
+        "startLine": 206,
+        "startChar": 45,
+        "endLine": 206,
+        "endChar": 48
+      },
+      "revId": "2695b54cf35b5e57ebceb2050cb2b7bea64272cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5594aafe_10b62dd2",
         "filename": "ssl/test/runner/handshake_server.go",
         "patchSetId": 3
@@ -122,6 +236,24 @@
       "writtenOn": "2014-10-28T21:56:18Z",
       "side": 1,
       "message": "isPSK :\u003d hs.suite.flags\u0026suitePSK !\u003d 0\nif !isPSK \u0026\u0026 hs.clientHello.ocspStapling \u0026\u0026 len(hs.cert.OCSPStaple) \u003e 0 {\n  ..\n}\n\nand use isPSK below too.",
+      "revId": "2695b54cf35b5e57ebceb2050cb2b7bea64272cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "15631229_96edcacb",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-29T20:28:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5594aafe_10b62dd2",
       "revId": "2695b54cf35b5e57ebceb2050cb2b7bea64272cb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -145,6 +277,24 @@
     },
     {
       "key": {
+        "uuid": "15631229_d6e742e7",
+        "filename": "ssl/test/runner/key_agreement.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-29T20:28:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5594aafe_b090992c",
+      "revId": "2695b54cf35b5e57ebceb2050cb2b7bea64272cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5594aafe_b075f971",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 3
@@ -156,6 +306,30 @@
       "writtenOn": "2014-10-28T21:56:18Z",
       "side": 1,
       "message": "if strings.HasPrefix(suite.name, \"PSK-\") || strings.Contains(suite.name, \"-PSK-\") {",
+      "range": {
+        "startLine": 870,
+        "startChar": 35,
+        "endLine": 870,
+        "endChar": 39
+      },
+      "revId": "2695b54cf35b5e57ebceb2050cb2b7bea64272cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "15631229_36a2f68f",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 870,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-29T20:28:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5594aafe_b075f971",
       "range": {
         "startLine": 870,
         "startChar": 35,
