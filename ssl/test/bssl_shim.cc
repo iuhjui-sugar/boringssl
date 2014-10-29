@@ -563,6 +563,11 @@ static int do_exchange(SSL_SESSION **out_session,
         n = SSL_read(ssl, buf, sizeof(buf));
       } while (config->async && retry_async(ssl, n, bio));
       if (n < 0) {
+        switch (SSL_get_error(ssl, n)) {
+          case SSL_ERROR_WANT_WRITE:
+          case SSL_ERROR_WANT_READ:
+            continue;
+        }
         SSL_free(ssl);
         BIO_print_errors_fp(stdout);
         return 3;
