@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "55c58a5b_958e8489",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-30T19:52:20Z",
+      "side": 1,
+      "message": "Why is this block end up being needed in synchronous mode. (Probably worth a comment.)",
+      "revId": "cfca6257f156adb3fcb2a0dfe04851ea77307393",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55c58a5b_3565b03e",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1034,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-30T19:52:20Z",
+      "side": 1,
+      "message": "This won\u0027t allow for the client sending data before receiving the HelloRequest, right? (Which seems fine---can\u0027t imagine we\u0027d need it for a test---but probably worth a comment.)",
+      "revId": "cfca6257f156adb3fcb2a0dfe04851ea77307393",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
