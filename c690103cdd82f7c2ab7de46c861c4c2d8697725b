@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1594f24f_b1c4584b",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-30T23:39:16Z",
+      "side": 1,
+      "message": "I think so, yes. At least it\u0027s how we\u0027ve done it internally for testing for ages.",
+      "parentUuid": "55c58a5b_55e14ca7",
+      "revId": "c690103cdd82f7c2ab7de46c861c4c2d8697725b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "55c58a5b_d57e3c06",
         "filename": "ssl/test/runner/conn.go",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "1594f24f_91f03ca6",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-30T23:39:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55c58a5b_d57e3c06",
+      "revId": "c690103cdd82f7c2ab7de46c861c4c2d8697725b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "55c58a5b_9584c49c",
         "filename": "ssl/test/runner/handshake_messages.go",
         "patchSetId": 2
@@ -47,6 +83,24 @@
       "writtenOn": "2014-10-30T19:45:07Z",
       "side": 1,
       "message": "Should this have an equal method like the others? Though it doesn\u0027t seem to be used for much anyway.",
+      "revId": "c690103cdd82f7c2ab7de46c861c4c2d8697725b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1594f24f_b1b298da",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 1679,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-30T23:39:16Z",
+      "side": 1,
+      "message": "The equals methods are only used in testing in the Go standard library. I removed the tests when I imported the code because it\u0027s now it\u0027s always testing!",
+      "parentUuid": "55c58a5b_9584c49c",
       "revId": "c690103cdd82f7c2ab7de46c861c4c2d8697725b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -76,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "1594f24f_3190682b",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-30T23:39:16Z",
+      "side": 1,
+      "message": "Reasonably standard, yes.",
+      "parentUuid": "55c58a5b_b5dd4099",
+      "range": {
+        "startLine": 697,
+        "startChar": 25,
+        "endLine": 697,
+        "endChar": 43
+      },
+      "revId": "c690103cdd82f7c2ab7de46c861c4c2d8697725b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "55c58a5b_75a1e806",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 2
@@ -87,6 +165,24 @@
       "writtenOn": "2014-10-30T19:45:07Z",
       "side": 1,
       "message": "Maybe leave a TODO to add tests around TLS_EMPTY_RENEGOTIATION_INFO_SCSV behavior. (Presence in the initial handshake should be sufficient for the server to do secure renego. Presence in renegotiation handshakes should abort.)`",
+      "revId": "c690103cdd82f7c2ab7de46c861c4c2d8697725b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1594f24f_1159acff",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 1740,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-10-30T23:39:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55c58a5b_75a1e806",
       "revId": "c690103cdd82f7c2ab7de46c861c4c2d8697725b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
