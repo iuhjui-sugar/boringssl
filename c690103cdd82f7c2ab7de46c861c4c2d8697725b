@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "55c58a5b_55e14ca7",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-30T19:45:07Z",
+      "side": 1,
+      "message": "What\u0027s this bit for? Is this just how you do renego in OpenSSL\u0027s API?",
+      "revId": "c690103cdd82f7c2ab7de46c861c4c2d8697725b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55c58a5b_d57e3c06",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-30T19:45:07Z",
+      "side": 1,
+      "message": "Maybe add a comment that the !c.isClient check is because the client needs to process HelloRequest from the server.",
+      "revId": "c690103cdd82f7c2ab7de46c861c4c2d8697725b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55c58a5b_9584c49c",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 1679,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-30T19:45:07Z",
+      "side": 1,
+      "message": "Should this have an equal method like the others? Though it doesn\u0027t seem to be used for much anyway.",
+      "revId": "c690103cdd82f7c2ab7de46c861c4c2d8697725b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55c58a5b_b5dd4099",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-30T19:45:07Z",
+      "side": 1,
+      "message": "Aside: is this a standard Go pattern? Took me a couple seconds to realize what was going on there.",
+      "range": {
+        "startLine": 697,
+        "startChar": 25,
+        "endLine": 697,
+        "endChar": 43
+      },
+      "revId": "c690103cdd82f7c2ab7de46c861c4c2d8697725b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55c58a5b_75a1e806",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 1740,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-30T19:45:07Z",
+      "side": 1,
+      "message": "Maybe leave a TODO to add tests around TLS_EMPTY_RENEGOTIATION_INFO_SCSV behavior. (Presence in the initial handshake should be sufficient for the server to do secure renego. Presence in renegotiation handshakes should abort.)`",
+      "revId": "c690103cdd82f7c2ab7de46c861c4c2d8697725b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
