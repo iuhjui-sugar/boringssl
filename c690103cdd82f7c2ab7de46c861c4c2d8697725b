@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "35701618_8dabc995",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-31T20:53:46Z",
+      "side": 1,
+      "message": "Ick. Yeah, you\u0027re right. That\u0027s... really horrific. Looks like your options are to SSL_read and then the type mismatch logic kicks in and resets s-\u003estate for you, or you have to manually set the state or the handshake state machine doesn\u0027t think it\u0027s expecting a ClientHello.\n\nThere appears to be SSL_set_state function which is what mod_ssl uses. Perhaps use that instead?",
+      "parentUuid": "1594f24f_b1c4584b",
+      "revId": "c690103cdd82f7c2ab7de46c861c4c2d8697725b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "55c58a5b_d57e3c06",
         "filename": "ssl/test/runner/conn.go",
         "patchSetId": 2
