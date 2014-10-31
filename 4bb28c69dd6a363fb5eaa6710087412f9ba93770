@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "35701618_6da04dac",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-10-31T20:54:55Z",
+      "side": 1,
+      "message": "(transfering comment)\nProbably this ought to be SSL_set_state? Though it doesn\u0027t make it any less terrifying.",
+      "revId": "4bb28c69dd6a363fb5eaa6710087412f9ba93770",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
