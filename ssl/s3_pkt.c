@@ -944,6 +944,8 @@ int ssl3_read_bytes(SSL *s, int type, unsigned char *buf, int len, int peek)
 	unsigned int n;
 	SSL3_RECORD *rr;
 	void (*cb)(const SSL *ssl,int type2,int val)=NULL;
+	uint8_t alert_buffer[2];
+	int alert_present = 0;
 
 	if (s->s3->rbuf.buf == NULL) /* Not initialized yet */
 		if (!ssl3_setup_read_buffer(s))
@@ -1077,44 +1079,38 @@ start:
 	/* In case of record types for which we have 'fragment' storage,
 	 * fill that so that we can process the data at a fixed place.
 	 */
+
+	n = 0;
+	if (rr->type == SSL3_RT_HANDSHAKE)
 		{
-		unsigned int dest_maxlen = 0;
-		unsigned char *dest = NULL;
-		unsigned int *dest_len = NULL;
-
-		if (rr->type == SSL3_RT_HANDSHAKE)
+		n = (rr->length < s->s3->handshake_fragment_len) ?
+			rr->length : s->s3->handshake_fragment_len;
+		memcpy(s->s3->handshake_fragment, &rr->data[rr->off], n);
+		rr->off += n;
+		rr->length -= n;
+		if (n < s->s3->handshake_fragment_len)
 			{
-			dest_maxlen = sizeof s->s3->handshake_fragment;
-			dest = s->s3->handshake_fragment;
-			dest_len = &s->s3->handshake_fragment_len;
+			goto start; /* fragment was too small */
 			}
-		else if (rr->type == SSL3_RT_ALERT)
+		}
+	else if (rr->type == SSL3_RT_ALERT)
+		{
+		/* Note that this will still allow multiple alerts to
+		 * be processed in the same record */
+		if (rr->length < sizeof(alert_buffer))
 			{
-			dest_maxlen = sizeof s->s3->alert_fragment;
-			dest = s->s3->alert_fragment;
-			dest_len = &s->s3->alert_fragment_len;
+			al = SSL_AD_DECODE_ERROR;
+			OPENSSL_PUT_ERROR(SSL, ssl3_read_bytes, SSL_R_BAD_ALERT);
+			goto f_err;
 			}
-
-		if (dest_maxlen > 0)
-			{
-			n = dest_maxlen - *dest_len; /* available space in 'dest' */
-			if (rr->length < n)
-				n = rr->length; /* available bytes */
-
-			/* now move 'n' bytes: */
-			while (n-- > 0)
-				{
-				dest[(*dest_len)++] = rr->data[rr->off++];
-				rr->length--;
-				}
-
-			if (*dest_len < dest_maxlen)
-				goto start; /* fragment was too small */
-			}
+		n = sizeof(alert_buffer);
+		memcpy(alert_buffer, &rr->data[rr->off], n);
+		alert_present = 1;
+		rr->off += n;
+		rr->length -= n;
 		}
 
 	/* s->s3->handshake_fragment_len == 4  iff  rr->type == SSL3_RT_HANDSHAKE;
-	 * s->s3->alert_fragment_len == 2      iff  rr->type == SSL3_RT_ALERT.
 	 * (Possibly rr is 'empty' now, i.e. rr->length may be 0.) */
 
 	/* If we are a client, check for an incoming 'Hello Request': */
@@ -1193,15 +1189,13 @@ start:
 		ssl3_send_alert(s,SSL3_AL_WARNING, SSL_AD_NO_RENEGOTIATION);
 		goto start;
 		}
-	if (s->s3->alert_fragment_len >= 2)
+	if (alert_present)
 		{
-		int alert_level = s->s3->alert_fragment[0];
-		int alert_descr = s->s3->alert_fragment[1];
-
-		s->s3->alert_fragment_len = 0;
+		uint8_t alert_level = alert_buffer[0];
+		uint8_t alert_descr = alert_buffer[1];
 
 		if (s->msg_callback)
-			s->msg_callback(0, s->version, SSL3_RT_ALERT, s->s3->alert_fragment, 2, s, s->msg_callback_arg);
+			s->msg_callback(0, s->version, SSL3_RT_ALERT, alert_buffer, 2, s, s->msg_callback_arg);
 
 		if (s->info_callback != NULL)
 			cb=s->info_callback;
