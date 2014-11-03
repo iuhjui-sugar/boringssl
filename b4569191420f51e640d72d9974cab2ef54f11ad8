@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "55d10a3e_9b41b3d6",
+        "filename": "include/openssl/ssl3.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-03T21:50:13Z",
+      "side": 1,
+      "message": "update comment.",
+      "revId": "b4569191420f51e640d72d9974cab2ef54f11ad8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55d10a3e_1e20f136",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 1086,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-03T21:50:13Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem right. |handshake_fragment| is a 4 byte buffer, but it seems that you\u0027re treating it like it\u0027s |handshake_fragment_len| long.",
+      "range": {
+        "startLine": 1086,
+        "startChar": 2,
+        "endLine": 1086,
+        "endChar": 8
+      },
+      "revId": "b4569191420f51e640d72d9974cab2ef54f11ad8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
