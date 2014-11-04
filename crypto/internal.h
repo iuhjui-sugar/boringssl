@@ -176,17 +176,12 @@ void OPENSSL_cpuid_setup(void);
  * However, this is not ensured by the C standard so you may need to replace
  * this with something else on odd CPUs. */
 static inline unsigned int constant_time_msb(unsigned int a) {
-  return (unsigned int)((int)(a) >> (sizeof(int) * 8 - 1));
+  return -(a >> (sizeof(unsigned int) * 8 - 1));
 }
 
 /* constant_time_lt returns 0xff..f if a < b and 0 otherwise. */
 static inline unsigned int constant_time_lt(unsigned int a, unsigned int b) {
-  unsigned int lt;
-  /* Case 1: msb(a) == msb(b). a < b iff the MSB of a - b is set.*/
-  lt = ~(a ^ b) & (a - b);
-  /* Case 2: msb(a) != msb(b). a < b iff the MSB of b is set. */
-  lt |= ~a & b;
-  return constant_time_msb(lt);
+  return constant_time_msb(a^((a^b)|((a-b)^b)));
 }
 
 /* constant_time_lt_8 acts like |constant_time_lt| but returns an 8-bit mask. */
@@ -196,12 +191,7 @@ static inline unsigned char constant_time_lt_8(unsigned int a, unsigned int b) {
 
 /* constant_time_gt returns 0xff..f if a >= b and 0 otherwise. */
 static inline unsigned int constant_time_ge(unsigned int a, unsigned int b) {
-  unsigned int ge;
-  /* Case 1: msb(a) == msb(b). a >= b iff the MSB of a - b is not set.*/
-  ge = ~((a ^ b) | (a - b));
-  /* Case 2: msb(a) != msb(b). a >= b iff the MSB of a is set. */
-  ge |= a & ~b;
-  return constant_time_msb(ge);
+  return ~constant_time_lt(a, b);
 }
 
 /* constant_time_ge_8 acts like |constant_time_ge| but returns an 8-bit mask. */
