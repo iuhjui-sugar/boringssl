@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f50e7eb4_2ab6dfff",
+        "filename": "crypto/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-04T22:21:08Z",
+      "side": 1,
+      "message": "This comment is no longer accurate.",
+      "range": {
+        "startLine": 175,
+        "startChar": 15,
+        "endLine": 177,
+        "endChar": 39
+      },
+      "revId": "111c76505c4e3e9d16ffb7ed1f39e9945a5e3002",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f50e7eb4_aa9acf78",
+        "filename": "crypto/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-04T22:21:08Z",
+      "side": 1,
+      "message": "This and the change below don\u0027t seem to have anything to do with the commit message. It wouldn\u0027t be bad to have a comment explaining why this one works too. :-/ It looks right, but I only figured it out by checking all the cases for msb(a) and msb(b). I dunno if there\u0027s a simpler explanation.",
+      "revId": "111c76505c4e3e9d16ffb7ed1f39e9945a5e3002",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
