@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f50e7eb4_cabce3e4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-04T22:06:58Z",
+      "side": 1,
+      "message": "Upstream has the same number, but this appears to be wrong. It should be 3552.\n\nhttps://rt.openssl.org/Ticket/Display.html?id\u003d3553\nhttps://rt.openssl.org/Ticket/Display.html?id\u003d3552",
+      "range": {
+        "startLine": 7,
+        "startChar": 63,
+        "endLine": 7,
+        "endChar": 67
+      },
+      "revId": "e93939f2451515c96209bed54687d7473739f0e9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
