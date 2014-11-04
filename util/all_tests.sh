@@ -33,6 +33,7 @@ TESTS="
 ./crypto/cipher/cipher_test $SRC/crypto/cipher/cipher_test.txt
 ./crypto/dh/dh_test
 ./crypto/dsa/dsa_test
+./crypto/ec/ec_test
 ./crypto/ec/example_mul
 ./crypto/ecdsa/ecdsa_test
 ./crypto/err/err_test
