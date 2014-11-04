@@ -230,6 +230,28 @@ static inline unsigned char constant_time_eq_8(unsigned int a, unsigned int b) {
   return (unsigned char)(constant_time_eq(a, b));
 }
 
+/* constant_time_select returns (mask & a) | (~mask & b). When |mask| is all 1s
+ * or all 0s (as returned by the methods above), the select methods return
+ * either |a| (if |mask| is nonzero) or |b| (if |mask| is zero). */
+static inline unsigned int constant_time_select(unsigned int mask,
+                                                unsigned int a, unsigned int b) {
+  return (mask & a) | (~mask & b);
+}
+
+/* constant_time_select_8 acts like |constant_time_select| but operates on
+ * 8-bit values. */
+static inline unsigned char constant_time_select_8(unsigned char mask,
+                                                   unsigned char a,
+                                                   unsigned char b) {
+  return (unsigned char)(constant_time_select(mask, a, b));
+}
+
+/* constant_time_select_int acts like |constant_time_select| but operates on
+ * ints. */
+static inline int constant_time_select_int(unsigned int mask, int a, int b) {
+  return (int)(constant_time_select(mask, (unsigned)(a), (unsigned)(b)));
+}
+
 
 #if defined(__cplusplus)
 }  /* extern C */
