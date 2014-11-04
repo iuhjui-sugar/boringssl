@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "15cb1296_1c211994",
+        "filename": "crypto/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-04T21:19:04Z",
+      "side": 1,
+      "message": "[I assume we\u0027ll want to size_t all these or add variants at some point when we get around to making everything size_t clean. But that\u0027s not in my queue until later.]",
+      "range": {
+        "startLine": 178,
+        "startChar": 14,
+        "endLine": 178,
+        "endChar": 26
+      },
+      "revId": "0ea43e2d618e08abdb31a6497c6ed8cdaae2e4b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "15cb1296_7cac8dad",
+        "filename": "crypto/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-04T21:19:04Z",
+      "side": 1,
+      "message": "nit: May as well make these uint8_t",
+      "range": {
+        "startLine": 193,
+        "startChar": 14,
+        "endLine": 193,
+        "endChar": 27
+      },
+      "revId": "0ea43e2d618e08abdb31a6497c6ed8cdaae2e4b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
