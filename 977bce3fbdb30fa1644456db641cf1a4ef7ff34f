@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "15cb1296_f3e690c2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-04T00:44:12Z",
+      "side": 1,
+      "message": "Moreover, wouldn\u0027t it block on renego anyway? I don\u0027t think the handshake_func calls will return until the entire handshake completes.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 31
+      },
+      "revId": "977bce3fbdb30fa1644456db641cf1a4ef7ff34f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
