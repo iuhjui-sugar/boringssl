@@ -541,7 +541,7 @@ static int old_ec_priv_encode(const EVP_PKEY *pkey, uint8_t **pder) {
 static int ec_pkey_ctrl(EVP_PKEY *pkey, int op, long arg1, void *arg2) {
   switch (op) {
     case ASN1_PKEY_CTRL_DEFAULT_MD_NID:
-      *(int *)arg2 = NID_sha1;
+      *(int *)arg2 = NID_sha256;
       return 2;
 
     default:

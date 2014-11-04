@@ -413,7 +413,7 @@ static int rsa_pkey_ctrl(EVP_PKEY *pkey, int op, long arg1, void *arg2) {
   X509_ALGOR *alg = NULL;
   switch (op) {
     case ASN1_PKEY_CTRL_DEFAULT_MD_NID:
-      *(int *)arg2 = NID_sha1;
+      *(int *)arg2 = NID_sha256;
       return 1;
 
     default:
