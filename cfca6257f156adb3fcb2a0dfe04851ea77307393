@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "55d10a3e_ca3e2fe2",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-04T00:24:50Z",
+      "side": 1,
+      "message": "I\u0027ve removed the code that\u0027s causing this in a different change and have thus removed this chunk too.",
+      "parentUuid": "55c58a5b_958e8489",
+      "revId": "cfca6257f156adb3fcb2a0dfe04851ea77307393",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "55c58a5b_3565b03e",
         "filename": "ssl/test/runner/conn.go",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2014-10-30T19:52:20Z",
       "side": 1,
       "message": "This won\u0027t allow for the client sending data before receiving the HelloRequest, right? (Which seems fine---can\u0027t imagine we\u0027d need it for a test---but probably worth a comment.)",
+      "revId": "cfca6257f156adb3fcb2a0dfe04851ea77307393",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55d10a3e_aa2ad3a1",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1034,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-04T00:24:50Z",
+      "side": 1,
+      "message": "It can receive data before the HelloRequest, but it can\u0027t interleave data with the renegotiation handshake, no.",
+      "parentUuid": "55c58a5b_3565b03e",
       "revId": "cfca6257f156adb3fcb2a0dfe04851ea77307393",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
