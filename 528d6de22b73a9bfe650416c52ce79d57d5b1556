@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "154eb20c_3b5e3732",
+        "filename": "ssl/s3_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1052,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-05T06:16:21Z",
+      "side": 1,
+      "message": "Poking at this more, since SSL_clear is supposed to reset things for a new handshake, I would be extremely surprised if this weren\u0027t possible. Though we\u0027d need to be a bit careful. s-\u003epacket points into rbuf and that doesn\u0027t get reset here. There may be other raw pointers flying around too... perhaps this needs to get filed further under \"properly organize all the state\".\n\n(Alternatively, I wonder if we could just kill SSL_clear. I saw some calls right after SSL_new which are no-ops and some calls before destroying it, which is also a no-op. It\u0027s specifically re-using an SSL for a new connection that\u0027s a little weird.)",
+      "revId": "528d6de22b73a9bfe650416c52ce79d57d5b1556",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "154eb20c_5b7ea3a1",
         "filename": "ssl/s3_lib.c",
         "patchSetId": 2
