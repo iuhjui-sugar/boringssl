@@ -1050,9 +1050,16 @@ void ssl3_clear(SSL *s)
 	ssl3_cleanup_key_block(s);
 	if (s->s3->tmp.ca_names != NULL)
 		sk_X509_NAME_pop_free(s->s3->tmp.ca_names,X509_NAME_free);
+	s->s3->tmp.ca_names = NULL;
 	if (s->s3->tmp.certificate_types != NULL)
 		OPENSSL_free(s->s3->tmp.certificate_types);
-	s->s3->tmp.num_certificate_types = 0;
+	s->s3->tmp.certificate_types = NULL;
+	if (s->s3->tmp.peer_ecpointformatlist)
+		OPENSSL_free(s->s3->tmp.peer_ecpointformatlist);
+	s->s3->tmp.peer_ecpointformatlist = NULL;
+	if (s->s3->tmp.peer_ellipticcurvelist)
+		OPENSSL_free(s->s3->tmp.peer_ellipticcurvelist);
+	s->s3->tmp.peer_ellipticcurvelist = NULL;
 
 	if (s->s3->tmp.dh != NULL)
 		{
