@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "55f02a0f_1d8cb38f",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1935,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-06T01:10:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f50e7eb4_2a1a5f8f",
+      "range": {
+        "startLine": 1935,
+        "startChar": 62,
+        "endLine": 1935,
+        "endChar": 63
+      },
+      "revId": "2b9a952768ecad989ba5934c0cd394b40bea52bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f50e7eb4_ea69e7ea",
         "filename": "ssl/s3_srvr.c",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2014-11-04T21:55:39Z",
       "side": 1,
       "message": "Could probably just do a single |good| variable now and keep |\u0026\u003d|ing it.",
+      "range": {
+        "startLine": 1966,
+        "startChar": 2,
+        "endLine": 1966,
+        "endChar": 14
+      },
+      "revId": "2b9a952768ecad989ba5934c0cd394b40bea52bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55f02a0f_7d89777f",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1966,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-06T01:10:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f50e7eb4_ea69e7ea",
       "range": {
         "startLine": 1966,
         "startChar": 2,
