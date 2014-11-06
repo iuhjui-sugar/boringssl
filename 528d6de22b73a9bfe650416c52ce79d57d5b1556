@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "55f02a0f_03d8d280",
+        "filename": "ssl/s3_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1052,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-06T01:57:26Z",
+      "side": 1,
+      "message": "I don\u0027t think that we can remove SSL_clear, from looking at the callers list.\n\nBut I think that we could certainly rework things so that it\u0027s just ssl3_free + ssl3_new.",
+      "parentUuid": "154eb20c_3b5e3732",
+      "revId": "528d6de22b73a9bfe650416c52ce79d57d5b1556",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "154eb20c_5b7ea3a1",
         "filename": "ssl/s3_lib.c",
         "patchSetId": 2
