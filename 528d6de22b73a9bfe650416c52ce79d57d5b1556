@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "1596b2c9_be7f55d6",
+        "filename": "ssl/s3_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1052,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-07T00:28:45Z",
+      "side": 1,
+      "message": "Yeah, especially since SSL_clear actually has a case where it just calls those two anyway. I\u0027ll want to double-check it\u0027s safe (that nothing resets s-\u003epacket makes me uneasy), but I\u0027ve added it to my TODO list.",
+      "parentUuid": "55f02a0f_03d8d280",
+      "revId": "528d6de22b73a9bfe650416c52ce79d57d5b1556",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "154eb20c_5b7ea3a1",
         "filename": "ssl/s3_lib.c",
         "patchSetId": 2
