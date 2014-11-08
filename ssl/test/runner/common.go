@@ -505,6 +505,10 @@ type ProtocolBugs struct {
 	// 1. This is to stress the replay bitmap window by simulating
 	// extreme packet loss and retransmit at the record layer.
 	SkipSequenceNumbers byte
+
+	// RSAServerKeyExchange, if true, causes the server to send a
+	// ServerKeyExchange message in the plain RSA key exchange.
+	RSAServerKeyExchange bool
 }
 
 func (c *Config) serverInit() {
