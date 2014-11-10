@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a497f7c_32548ec3",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-10T22:38:14Z",
+      "side": 1,
+      "message": "I think this can be a simpler with something like this: (it\u0027s just a sketch)\n\nstart :\u003d 7\nlimit :\u003d 0\nincrement :\u003d 1\n\nif hc.isDTLS {\n  limit \u003d 2\n  if c.config.Bugs.SkipSequenceNumbers !\u003d 0 {\n    increment :\u003d c.config.Bugs.SkipSequenceNumbers\n  }\n}\n\nfor i :\u003d start; i \u003e\u003d limit; i-- {\n  increment +\u003d int(hc.seq[i])\n  hc.seq[i] \u003d byte(increment)\n  increment \u003e\u003e\u003d 8\n}\n\nif increment !\u003d 0 {\n  panic(\"wrap\")\n}",
+      "revId": "d8a3acdca71f3a2bdf36697971a4ac7506fb5e5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a497f7c_92446212",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-10T22:38:14Z",
+      "side": 1,
+      "message": "this only makes sense for DTLS, right? Maybe comment that and move the \"if test.replyWrites\" inside the \"if test.protocol \u003d\u003d dtls\"",
+      "revId": "d8a3acdca71f3a2bdf36697971a4ac7506fb5e5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a497f7c_32824ee3",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1876,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-10T22:38:14Z",
+      "side": 1,
+      "message": "looks like it needs a go fmt.",
+      "revId": "d8a3acdca71f3a2bdf36697971a4ac7506fb5e5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
