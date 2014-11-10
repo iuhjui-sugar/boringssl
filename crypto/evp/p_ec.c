@@ -220,8 +220,17 @@ static int pkey_ec_derive(EVP_PKEY_CTX *ctx, uint8_t *key,
 
   if (!key) {
     const EC_GROUP *group;
+    BIGNUM *order = BN_new();
+    if (!order) {
+      return 0;
+    }
     group = EC_KEY_get0_group(eckey);
-    *keylen = (EC_GROUP_get_degree(group) + 7) / 8;
+    if (!EC_GROUP_get_order(group, order, NULL)) {
+      BN_free(order);
+      return 0;
+    }
+    *keylen = BN_num_bytes(order);
+    BN_free(order);
     return 1;
   }
   pubkey = EC_KEY_get0_public_key(ctx->peerkey->pkey.ec);
