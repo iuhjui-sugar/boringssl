@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ac51b23_a301282b",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 895,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-11T18:27:30Z",
+      "side": 1,
+      "message": "\"negotiated \"... version?",
+      "revId": "8fdaa0757e7f6ed99d49ae53566f7833458e0b4f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
