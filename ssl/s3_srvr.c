@@ -881,21 +881,28 @@ int ssl3_get_client_hello(SSL *s)
 		}
 	else
 		{
-		i=ssl_get_prev_session(s, &early_ctx);
-		if (i == 1)
-			{ /* previous session */
-			s->hit=1;
-			}
-		else if (i == -1)
-			goto err;
-		else if (i == PENDING_SESSION)
+		i = ssl_get_prev_session(s, &early_ctx);
+		if (i == PENDING_SESSION)
 			{
 			ret = PENDING_SESSION;
 			goto err;
 			}
-		else /* i == 0 */
+		else if (i == -1)
 			{
-			if (!ssl_get_new_session(s,1))
+			goto err;
+			}
+
+		/* If a session was found and it matches the negotiated, resume
+		 * it. Only resume if the version matches: most clients do not
+		 * accept a mismatch. */
+		if (i == 1 && s->version == s->session->ssl_version)
+			{
+			s->hit = 1;
+			}
+		else
+			{
+			/* No session was found or it was unacceptable. */
+			if (!ssl_get_new_session(s, 1))
 				goto err;
 			}
 		}
