@@ -1,0 +1,232 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa582b71_fd60632b",
+        "filename": "crypto/base64/base64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-12T22:56:07Z",
+      "side": 1,
+      "message": "We can leave this for a follow-up, but want to start documenting this function while you\u0027re here? Unlike the other one, I can actually understand what it\u0027s doing...\n\n  /* If the input doesn\u0027t fill up a line, buffer it. */\n\n(The other function looks scary and probably should just get rewritten later...)",
+      "revId": "d67d6833578fff1b3398f0ac639a020f96c6f79c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa582b71_1d4f17b6",
+        "filename": "crypto/base64/base64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-12T22:56:07Z",
+      "side": 1,
+      "message": "/* Complete the partial line and encode it. */",
+      "revId": "d67d6833578fff1b3398f0ac639a020f96c6f79c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa582b71_7d445396",
+        "filename": "crypto/base64/base64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-12T22:56:07Z",
+      "side": 1,
+      "message": "/* Encode any complete lines in the input. */",
+      "revId": "d67d6833578fff1b3398f0ac639a020f96c6f79c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa582b71_5d498fac",
+        "filename": "crypto/base64/base64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-12T22:56:07Z",
+      "side": 1,
+      "message": "/* If there\u0027s any left over, save it for later. */",
+      "revId": "d67d6833578fff1b3398f0ac639a020f96c6f79c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa582b71_dd347f1d",
+        "filename": "crypto/base64/base64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-12T22:56:07Z",
+      "side": 1,
+      "message": "/* Encode the final partial line, if any. */",
+      "revId": "d67d6833578fff1b3398f0ac639a020f96c6f79c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa582b71_7de8d33e",
+        "filename": "crypto/base64/base64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-12T22:56:07Z",
+      "side": 1,
+      "message": "[Aside: ...does this function not strip out trailing padding here? Yeesh. I guess no one noticed because OpenSSL also tends not to enforce that you don\u0027t have trailing data after an ASN.1 element.]",
+      "revId": "d67d6833578fff1b3398f0ac639a020f96c6f79c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa582b71_1d5f17e4",
+        "filename": "crypto/pem/pem_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-12T22:56:07Z",
+      "side": 1,
+      "message": "Nit: indent with a tab. (There\u0027s an emacs .el file you can pull from OpenSSL upstream for the stuff that hasn\u0027t been clang-formatted.)",
+      "range": {
+        "startLine": 550,
+        "startChar": 0,
+        "endLine": 550,
+        "endChar": 2
+      },
+      "revId": "d67d6833578fff1b3398f0ac639a020f96c6f79c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa582b71_fd47c314",
+        "filename": "crypto/pem/pem_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-12T22:56:07Z",
+      "side": 1,
+      "message": "This cast doesn\u0027t make much sense now. (Buh. And, of course, len is a long, so it\u0027s neither of these.)",
+      "range": {
+        "startLine": 581,
+        "startChar": 4,
+        "endLine": 581,
+        "endChar": 9
+      },
+      "revId": "d67d6833578fff1b3398f0ac639a020f96c6f79c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa582b71_7d5453c4",
+        "filename": "crypto/pem/pem_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-12T22:56:07Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 632,
+        "startChar": 0,
+        "endLine": 632,
+        "endChar": 2
+      },
+      "revId": "d67d6833578fff1b3398f0ac639a020f96c6f79c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa582b71_fd0ce3dc",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-12T22:56:07Z",
+      "side": 1,
+      "message": "Are stdbool\u0027s bool and C++\u0027s bool always the same size? C++\u0027s is definitely not the same size as the ints that C code tends to yet.\n\n(I\u0027ll defer to Adam on whether he wants us to jump into this brave new stdbool world.)",
+      "revId": "d67d6833578fff1b3398f0ac639a020f96c6f79c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa582b71_dd6d9fa3",
+        "filename": "include/openssl/base64.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-12T22:56:07Z",
+      "side": 1,
+      "message": "This function is still going to have to return a signed type because it signals error with -1. (Hence why it checks against INT_MAX.)\n\nssize_t also doesn\u0027t work because yay Windows. This guy is deprecated in favor of the saner one anyway, so may as well leave it as int. Better to move everything off it.",
+      "range": {
+        "startLine": 158,
+        "startChar": 15,
+        "endLine": 158,
+        "endChar": 21
+      },
+      "revId": "d67d6833578fff1b3398f0ac639a020f96c6f79c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa582b71_fd4d0308",
+        "filename": "include/openssl/base64.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-12T22:56:07Z",
+      "side": 1,
+      "message": "Nit: I think the original comments came from OpenSSL. Comments in BoringSSL are usually Go-style, so\n\n  num is the number of bytes saved in a partial encode/decode.",
+      "revId": "d67d6833578fff1b3398f0ac639a020f96c6f79c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
