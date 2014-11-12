@@ -546,7 +546,8 @@ int PEM_write(FILE *fp, const char *name, const char *header,
 int PEM_write_bio(BIO *bp, const char *name, const char *header,
 		  const unsigned char *data, long len)
 	{
-	int nlen,n,i,j,outl;
+	int nlen,i,j;
+  size_t n, outl;
 	unsigned char *buf = NULL;
 	EVP_ENCODE_CTX ctx;
 	int reason=ERR_R_BUF_LIB;
@@ -627,7 +628,8 @@ int PEM_read_bio(BIO *bp, char **name, char **header, unsigned char **data,
 	     long *len)
 	{
 	EVP_ENCODE_CTX ctx;
-	int end=0,i,k,bl=0,hl=0,nohead=0;
+	int end=0,i,hl=0,nohead=0;
+  size_t k, bl = 0;
 	char buf[256];
 	BUF_MEM *nameB;
 	BUF_MEM *headerB;

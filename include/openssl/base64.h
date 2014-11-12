@@ -88,13 +88,13 @@ OPENSSL_EXPORT void EVP_EncodeInit(EVP_ENCODE_CTX *ctx);
  * Some state may be contained in |ctx| so |EVP_EncodeFinal| must be used to
  * flush it before using the encoded data. */
 OPENSSL_EXPORT void EVP_EncodeUpdate(EVP_ENCODE_CTX *ctx, uint8_t *out,
-                                     int *out_len, const uint8_t *in,
+                                     size_t *out_len, const uint8_t *in,
                                      size_t in_len);
 
 /* EVP_EncodeFinal flushes any remaining output bytes from |ctx| to |out| and
  * sets |*out_len| to the number of bytes written. */
 OPENSSL_EXPORT void EVP_EncodeFinal(EVP_ENCODE_CTX *ctx, uint8_t *out,
-                                    int *out_len);
+                                    size_t *out_len);
 
 /* EVP_EncodeBlock encodes |src_len| bytes from |src| and writes the
  * result to |dst| with a trailing NUL. It returns the number of bytes
@@ -139,14 +139,14 @@ OPENSSL_EXPORT void EVP_DecodeInit(EVP_ENCODE_CTX *ctx);
  * It returns -1 on error, one if a full line of input was processed and zero
  * if the line was short (i.e. it was the last line). */
 OPENSSL_EXPORT int EVP_DecodeUpdate(EVP_ENCODE_CTX *ctx, uint8_t *out,
-                                    int *out_len, const uint8_t *in,
+                                    size_t *out_len, const uint8_t *in,
                                     size_t in_len);
 
 /* EVP_DecodeFinal flushes any remaining output bytes from |ctx| to |out| and
  * sets |*out_len| to the number of bytes written. It returns one on success
  * and minus one on error. */
 OPENSSL_EXPORT int EVP_DecodeFinal(EVP_ENCODE_CTX *ctx, uint8_t *out,
-                                   int *out_len);
+                                   size_t *out_len);
 
 /* Deprecated: EVP_DecodeBlock encodes |src_len| bytes from |src| and
  * writes the result to |dst|. It returns the number of bytes written
@@ -155,19 +155,21 @@ OPENSSL_EXPORT int EVP_DecodeFinal(EVP_ENCODE_CTX *ctx, uint8_t *out,
  * WARNING: EVP_DecodeBlock's return value does not take padding into
  * account. It also strips leading whitespace and trailing
  * whitespace. */
-OPENSSL_EXPORT int EVP_DecodeBlock(uint8_t *dst, const uint8_t *src,
-                                   size_t src_len);
+OPENSSL_EXPORT size_t EVP_DecodeBlock(uint8_t *dst, const uint8_t *src,
+                                      size_t src_len);
 
 struct evp_encode_ctx_st {
-  unsigned num;    /* number saved in a partial encode/decode */
-  unsigned length; /* The length is either the output line length
-               * (in input bytes) or the shortest input line
-               * length that is ok.  Once decoding begins,
-               * the length is adjusted up each time a longer
-               * line is decoded */
-  uint8_t enc_data[80]; /* data to encode */
-  unsigned line_num;    /* number read on current line */
-  int expect_nl;
+  /* Number of bytes saved in a partial encode/decode. */
+  size_t num;
+  /* The length is either the output line length (in input bytes) or the
+   * shortest input line length that is OK. Once decoding begins, the length
+   * is adjusted up each time a longer line is decoded. */
+  size_t length;
+  /* Data to encode. */
+  uint8_t enc_data[80];
+  /* Number read on current line. */
+  size_t line_num;
+  bool expect_nl;
 };
 
 
