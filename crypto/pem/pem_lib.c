@@ -546,11 +546,12 @@ int PEM_write(FILE *fp, const char *name, const char *header,
 int PEM_write_bio(BIO *bp, const char *name, const char *header,
 		  const unsigned char *data, long len)
 	{
-	int nlen,n,i,j,outl;
+	int nlen,i,j;
+	size_t n, outl;
 	unsigned char *buf = NULL;
 	EVP_ENCODE_CTX ctx;
 	int reason=ERR_R_BUF_LIB;
-	
+
 	EVP_EncodeInit(&ctx);
 	nlen=strlen(name);
 
@@ -577,7 +578,7 @@ int PEM_write_bio(BIO *bp, const char *name, const char *header,
 	i=j=0;
 	while (len > 0)
 		{
-		n=(int)((len>(PEM_BUFSIZE*5))?(PEM_BUFSIZE*5):len);
+		n = len > (PEM_BUFSIZE * 5) ? (PEM_BUFSIZE * 5) : len;
 		EVP_EncodeUpdate(&ctx,buf,&outl,&(data[j]),n);
 		if ((outl) && (BIO_write(bp,(char *)buf,outl) != outl))
 			goto err;
@@ -627,12 +628,13 @@ int PEM_read_bio(BIO *bp, char **name, char **header, unsigned char **data,
 	     long *len)
 	{
 	EVP_ENCODE_CTX ctx;
-	int end=0,i,k,bl=0,hl=0,nohead=0;
+	int end=0,i,hl=0,nohead=0;
+	size_t k, bl = 0;
 	char buf[256];
 	BUF_MEM *nameB;
 	BUF_MEM *headerB;
 	BUF_MEM *dataB,*tmpB;
-	
+
 	nameB=BUF_MEM_new();
 	headerB=BUF_MEM_new();
 	dataB=BUF_MEM_new();

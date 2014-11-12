@@ -116,11 +116,8 @@ void EVP_EncodeInit(EVP_ENCODE_CTX *ctx) {
   ctx->line_num = 0;
 }
 
-void EVP_EncodeUpdate(EVP_ENCODE_CTX *ctx, uint8_t *out, int *out_len,
+void EVP_EncodeUpdate(EVP_ENCODE_CTX *ctx, uint8_t *out, size_t *out_len,
                       const uint8_t *in, size_t in_len) {
-  unsigned i, j;
-  unsigned total = 0;
-
   *out_len = 0;
   if (in_len == 0) {
     return;
@@ -128,25 +125,31 @@ void EVP_EncodeUpdate(EVP_ENCODE_CTX *ctx, uint8_t *out, int *out_len,
 
   assert(ctx->length <= sizeof(ctx->enc_data));
 
+  /* If the input doesn't fill up a line, buffer it. */
   if (ctx->num + in_len < ctx->length) {
     memcpy(&ctx->enc_data[ctx->num], in, in_len);
     ctx->num += in_len;
     return;
   }
+
+  /* Complete the partial line and encode it. */
+  size_t total = 0;
   if (ctx->num != 0) {
-    i = ctx->length - ctx->num;
+    size_t i = ctx->length - ctx->num;
     memcpy(&ctx->enc_data[ctx->num], in, i);
     in += i;
     in_len -= i;
-    j = EVP_EncodeBlock(out, ctx->enc_data, ctx->length);
+    size_t j = EVP_EncodeBlock(out, ctx->enc_data, ctx->length);
     ctx->num = 0;
     out += j;
     *(out++) = '\n';
     *out = '\0';
     total = j + 1;
   }
+
+  /* Encode any complete lines in the input. */
   while (in_len >= ctx->length) {
-    j = EVP_EncodeBlock(out, in, ctx->length);
+    size_t j = EVP_EncodeBlock(out, in, ctx->length);
     in += ctx->length;
     in_len -= ctx->length;
     out += j;
@@ -154,6 +157,8 @@ void EVP_EncodeUpdate(EVP_ENCODE_CTX *ctx, uint8_t *out, int *out_len,
     *out = '\0';
     total += j + 1;
   }
+
+  /* If there's any left over, save it for later. */
   if (in_len != 0) {
     memcpy(&ctx->enc_data[0], in, in_len);
   }
@@ -161,9 +166,10 @@ void EVP_EncodeUpdate(EVP_ENCODE_CTX *ctx, uint8_t *out, int *out_len,
   *out_len = total;
 }
 
-void EVP_EncodeFinal(EVP_ENCODE_CTX *ctx, uint8_t *out, int *out_len) {
-  unsigned ret = 0;
+void EVP_EncodeFinal(EVP_ENCODE_CTX *ctx, uint8_t *out, size_t *out_len) {
+  size_t ret = 0;
 
+  /* Encode the final partial line, if any. */
   if (ctx->num != 0) {
     ret = EVP_EncodeBlock(out, ctx->enc_data, ctx->num);
     out[ret++] = '\n';
@@ -174,19 +180,18 @@ void EVP_EncodeFinal(EVP_ENCODE_CTX *ctx, uint8_t *out, int *out_len) {
 }
 
 size_t EVP_EncodeBlock(uint8_t *dst, const uint8_t *src, size_t src_len) {
-  uint32_t l;
   size_t remaining = src_len, ret = 0;
 
   while (remaining) {
     if (remaining >= 3) {
-      l = (((uint32_t)src[0]) << 16L) | (((uint32_t)src[1]) << 8L) | src[2];
+      uint32_t l = (((uint32_t)src[0]) << 16L) | (((uint32_t)src[1]) << 8L) | src[2];
       *(dst++) = conv_bin2ascii(l >> 18L);
       *(dst++) = conv_bin2ascii(l >> 12L);
       *(dst++) = conv_bin2ascii(l >> 6L);
       *(dst++) = conv_bin2ascii(l);
       remaining -= 3;
     } else {
-      l = ((uint32_t)src[0]) << 16L;
+      uint32_t l = ((uint32_t)src[0]) << 16L;
       if (remaining == 2) {
         l |= ((uint32_t)src[1] << 8L);
       }
@@ -268,16 +273,15 @@ void EVP_DecodeInit(EVP_ENCODE_CTX *ctx) {
   ctx->expect_nl = 0;
 }
 
-int EVP_DecodeUpdate(EVP_ENCODE_CTX *ctx, uint8_t *out, int *out_len,
+int EVP_DecodeUpdate(EVP_ENCODE_CTX *ctx, uint8_t *out, size_t *out_len,
                      const uint8_t *in, size_t in_len) {
-  int seof = -1, eof = 0, rv = -1, v, tmp, exp_nl;
-  uint8_t *d;
-  unsigned i, n, ln, ret = 0;
+  int seof = -1, eof = 0, rv = -1, v, tmp;
+  size_t ret = 0;
 
-  n = ctx->num;
-  d = ctx->enc_data;
-  ln = ctx->line_num;
-  exp_nl = ctx->expect_nl;
+  size_t n = ctx->num;
+  uint8_t *d = ctx->enc_data;
+  size_t ln = ctx->line_num;
+  bool exp_nl = ctx->expect_nl;
 
   /* last line of input. */
   if (in_len == 0 || (n == 0 && conv_ascii2bin(in[0]) == B64_EOF)) {
@@ -286,8 +290,9 @@ int EVP_DecodeUpdate(EVP_ENCODE_CTX *ctx, uint8_t *out, int *out_len,
   }
 
   /* We parse the input data */
+  size_t i;
   for (i = 0; i < in_len; i++) {
-    /* If the current line is > 80 characters, scream alot */
+    /* If the current line is > 80 characters, scream a lot. */
     if (ln >= 80) {
       rv = -1;
       goto end;
@@ -337,7 +342,7 @@ int EVP_DecodeUpdate(EVP_ENCODE_CTX *ctx, uint8_t *out, int *out_len,
         continue;
       }
     }
-    exp_nl = 0;
+    exp_nl = false;
 
     /* If we are at the end of input and it looks like a
      * line, process it. */
@@ -362,13 +367,13 @@ int EVP_DecodeUpdate(EVP_ENCODE_CTX *ctx, uint8_t *out, int *out_len,
        * lines.  We process the line and then need to
        * accept the '\n' */
       if (v != B64_EOF && n >= 64) {
-        exp_nl = 1;
+        exp_nl = true;
       }
       if (n > 0) {
         /* TODO(davidben): Switch this to EVP_DecodeBase64. */
         v = EVP_DecodeBlock(out, d, n);
         n = 0;
-        if (v < 0) {
+        if (v == -1) {
           rv = 0;
           goto end;
         }
@@ -404,27 +409,23 @@ end:
   return rv;
 }
 
-int EVP_DecodeFinal(EVP_ENCODE_CTX *ctx, uint8_t *out, int *outl) {
-  int i;
-
-  *outl = 0;
+int EVP_DecodeFinal(EVP_ENCODE_CTX *ctx, uint8_t *out, size_t *out_len) {
+  *out_len = 0;
   if (ctx->num != 0) {
     /* TODO(davidben): Switch this to EVP_DecodeBase64. */
-    i = EVP_DecodeBlock(out, ctx->enc_data, ctx->num);
-    if (i < 0) {
+    size_t i = EVP_DecodeBlock(out, ctx->enc_data, ctx->num);
+    if (i == -1) {
       return -1;
     }
     ctx->num = 0;
-    *outl = i;
+    *out_len = i;
     return 1;
   } else {
     return 1;
   }
 }
 
-int EVP_DecodeBlock(uint8_t *dst, const uint8_t *src, size_t src_len) {
-  size_t dst_len;
-
+size_t EVP_DecodeBlock(uint8_t *dst, const uint8_t *src, size_t src_len) {
   /* trim white space from the start of the line. */
   while (conv_ascii2bin(*src) == B64_WS && src_len > 0) {
     src++;
@@ -437,6 +438,7 @@ int EVP_DecodeBlock(uint8_t *dst, const uint8_t *src, size_t src_len) {
     src_len--;
   }
 
+  size_t dst_len;
   if (!EVP_DecodedLength(&dst_len, src_len) || dst_len > INT_MAX) {
     return -1;
   }

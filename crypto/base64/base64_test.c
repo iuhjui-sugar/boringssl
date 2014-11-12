@@ -79,7 +79,7 @@ static int test_decode(void) {
     /* Test that the padding behavior of the deprecated API is
      * preserved. */
     ret = EVP_DecodeBlock(out, (const uint8_t*)t->encoded, strlen(t->encoded));
-    if (ret < 0) {
+    if (ret == -1) {
       fprintf(stderr, "decode(\"%s\") failed\n", t->encoded);
       return 0;
     }

@@ -56,6 +56,7 @@
 
 /* This file should be the first included by all BoringSSL headers. */
 
+#include <stdbool.h>
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
