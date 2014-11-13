@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da9e076c_d11c848b",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 1099,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-13T22:04:40Z",
+      "side": 1,
+      "message": "size_t",
+      "range": {
+        "startLine": 1099,
+        "startChar": 2,
+        "endLine": 1099,
+        "endChar": 5
+      },
+      "revId": "e705a9e2fe47726540dfbd325c4f285deec8dff1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da9e076c_b1362004",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 1157,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-13T22:04:40Z",
+      "side": 1,
+      "message": "I\u0027m confused why this is SSL3_RT_HANDSHAKE not SSL3_RT_ALERT.",
+      "revId": "e705a9e2fe47726540dfbd325c4f285deec8dff1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
