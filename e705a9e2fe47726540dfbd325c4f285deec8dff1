@@ -39,6 +39,24 @@
       "revId": "e705a9e2fe47726540dfbd325c4f285deec8dff1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baaeb391_81b000d4",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 1157,
+      "author": {
+        "id": 5130
+      },
+      "writtenOn": "2014-11-13T22:15:43Z",
+      "side": 1,
+      "message": "Huh. My guess is merge resolution gone wrong.",
+      "parentUuid": "da9e076c_b1362004",
+      "revId": "e705a9e2fe47726540dfbd325c4f285deec8dff1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
