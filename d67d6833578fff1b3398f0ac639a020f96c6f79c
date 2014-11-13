@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7af19ba1_14789c64",
+        "filename": "crypto/base64/base64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5380
+      },
+      "writtenOn": "2014-11-13T00:49:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa582b71_fd60632b",
+      "revId": "d67d6833578fff1b3398f0ac639a020f96c6f79c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa582b71_1d4f17b6",
         "filename": "crypto/base64/base64.c",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2014-11-12T22:56:07Z",
       "side": 1,
       "message": "/* Complete the partial line and encode it. */",
+      "revId": "d67d6833578fff1b3398f0ac639a020f96c6f79c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af19ba1_548224da",
+        "filename": "crypto/base64/base64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5380
+      },
+      "writtenOn": "2014-11-13T00:49:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa582b71_1d4f17b6",
       "revId": "d67d6833578fff1b3398f0ac639a020f96c6f79c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "7af19ba1_9463ecb6",
+        "filename": "crypto/base64/base64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5380
+      },
+      "writtenOn": "2014-11-13T00:49:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa582b71_7d445396",
+      "revId": "d67d6833578fff1b3398f0ac639a020f96c6f79c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa582b71_5d498fac",
         "filename": "crypto/base64/base64.c",
         "patchSetId": 1
@@ -64,6 +118,24 @@
       "writtenOn": "2014-11-12T22:56:07Z",
       "side": 1,
       "message": "/* If there\u0027s any left over, save it for later. */",
+      "revId": "d67d6833578fff1b3398f0ac639a020f96c6f79c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af19ba1_145ffce3",
+        "filename": "crypto/base64/base64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5380
+      },
+      "writtenOn": "2014-11-13T00:49:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa582b71_5d498fac",
       "revId": "d67d6833578fff1b3398f0ac639a020f96c6f79c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "7af19ba1_545984fa",
+        "filename": "crypto/base64/base64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5380
+      },
+      "writtenOn": "2014-11-13T00:49:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa582b71_dd347f1d",
+      "revId": "d67d6833578fff1b3398f0ac639a020f96c6f79c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa582b71_7de8d33e",
         "filename": "crypto/base64/base64.c",
         "patchSetId": 1
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "7af19ba1_74ff600e",
+        "filename": "crypto/base64/base64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 5380
+      },
+      "writtenOn": "2014-11-13T00:49:24Z",
+      "side": 1,
+      "message": "Well, also, now that EVP_DecodeBlock returns size_t instead of int, the i \u003c 0 check needs to become i \u003d\u003d -1. Done.",
+      "parentUuid": "fa582b71_7de8d33e",
+      "revId": "d67d6833578fff1b3398f0ac639a020f96c6f79c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa582b71_1d5f17e4",
         "filename": "crypto/pem/pem_lib.c",
         "patchSetId": 1
@@ -115,6 +223,30 @@
       "writtenOn": "2014-11-12T22:56:07Z",
       "side": 1,
       "message": "Nit: indent with a tab. (There\u0027s an emacs .el file you can pull from OpenSSL upstream for the stuff that hasn\u0027t been clang-formatted.)",
+      "range": {
+        "startLine": 550,
+        "startChar": 0,
+        "endLine": 550,
+        "endChar": 2
+      },
+      "revId": "d67d6833578fff1b3398f0ac639a020f96c6f79c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af19ba1_741640b6",
+        "filename": "crypto/pem/pem_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 5380
+      },
+      "writtenOn": "2014-11-13T00:49:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa582b71_1d5f17e4",
       "range": {
         "startLine": 550,
         "startChar": 0,
@@ -150,6 +282,30 @@
     },
     {
       "key": {
+        "uuid": "7af19ba1_37cddac5",
+        "filename": "crypto/pem/pem_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 5380
+      },
+      "writtenOn": "2014-11-13T00:49:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa582b71_fd47c314",
+      "range": {
+        "startLine": 581,
+        "startChar": 4,
+        "endLine": 581,
+        "endChar": 9
+      },
+      "revId": "d67d6833578fff1b3398f0ac639a020f96c6f79c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa582b71_7d5453c4",
         "filename": "crypto/pem/pem_lib.c",
         "patchSetId": 1
@@ -161,6 +317,30 @@
       "writtenOn": "2014-11-12T22:56:07Z",
       "side": 1,
       "message": "Ditto.",
+      "range": {
+        "startLine": 632,
+        "startChar": 0,
+        "endLine": 632,
+        "endChar": 2
+      },
+      "revId": "d67d6833578fff1b3398f0ac639a020f96c6f79c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af19ba1_b7070a40",
+        "filename": "crypto/pem/pem_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 5380
+      },
+      "writtenOn": "2014-11-13T00:49:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa582b71_7d5453c4",
       "range": {
         "startLine": 632,
         "startChar": 0,
@@ -190,6 +370,24 @@
     },
     {
       "key": {
+        "uuid": "7af19ba1_97792eb8",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5380
+      },
+      "writtenOn": "2014-11-13T00:49:24Z",
+      "side": 1,
+      "message": "sizeof(bool) --\u003e 1 for both C and C++ on my machine.",
+      "parentUuid": "fa582b71_fd0ce3dc",
+      "revId": "d67d6833578fff1b3398f0ac639a020f96c6f79c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa582b71_dd6d9fa3",
         "filename": "include/openssl/base64.h",
         "patchSetId": 1
@@ -213,6 +411,30 @@
     },
     {
       "key": {
+        "uuid": "7af19ba1_f7223299",
+        "filename": "include/openssl/base64.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5380
+      },
+      "writtenOn": "2014-11-13T00:49:24Z",
+      "side": 1,
+      "message": "Checking the return value against -1 specifically still works. (I\u0027ll make sure the callers check properly.)",
+      "parentUuid": "fa582b71_dd6d9fa3",
+      "range": {
+        "startLine": 158,
+        "startChar": 15,
+        "endLine": 158,
+        "endChar": 21
+      },
+      "revId": "d67d6833578fff1b3398f0ac639a020f96c6f79c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa582b71_fd4d0308",
         "filename": "include/openssl/base64.h",
         "patchSetId": 1
@@ -224,6 +446,24 @@
       "writtenOn": "2014-11-12T22:56:07Z",
       "side": 1,
       "message": "Nit: I think the original comments came from OpenSSL. Comments in BoringSSL are usually Go-style, so\n\n  num is the number of bytes saved in a partial encode/decode.",
+      "revId": "d67d6833578fff1b3398f0ac639a020f96c6f79c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af19ba1_b7b42ac7",
+        "filename": "include/openssl/base64.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5380
+      },
+      "writtenOn": "2014-11-13T00:49:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa582b71_fd4d0308",
       "revId": "d67d6833578fff1b3398f0ac639a020f96c6f79c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
