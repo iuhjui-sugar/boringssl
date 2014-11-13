@@ -435,6 +435,30 @@
     },
     {
       "key": {
+        "uuid": "1a117f99_c3d776ca",
+        "filename": "include/openssl/base64.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-13T01:48:25Z",
+      "side": 1,
+      "message": "It seems weird to have size_t sometimes be a size and sometimes being [0, SIZE_MAX-1] \u003d\u003e size, SIZE_MAX \u003d\u003e error. Okay, EVP_DecodeBlock can\u0027t actually return SIZE_MAX legitimately, but it still seems weird.\n\nI feel like it\u0027s tidier to say that EVP_DecodeBlock will fail if the output would not have fit in an int. This function is crazy anyway (caller deals with padding), so it ought to just be deprecated.\n\n(Note: it already does this INT_MAX check; I made sure to do that when I added EVP_DecodeBase64. If we\u0027re going with the SIZE_MAX version, you probably want to remove it at least. :-P)\n\nAlso we won\u0027t catch with a compile failure for existing code that saves in an int and checks \u003c 0. (At a glance, some code internally does. It\u0027s still not used much, but more so than the EVP_ENCODE_CTX ones.)",
+      "parentUuid": "7af19ba1_f7223299",
+      "range": {
+        "startLine": 158,
+        "startChar": 15,
+        "endLine": 158,
+        "endChar": 21
+      },
+      "revId": "d67d6833578fff1b3398f0ac639a020f96c6f79c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa582b71_fd4d0308",
         "filename": "include/openssl/base64.h",
         "patchSetId": 1
