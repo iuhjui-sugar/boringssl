@@ -1554,7 +1554,6 @@ int ssl3_get_certificate_request(SSL *s)
 	{
 	int ok,ret=0;
 	unsigned long n;
-	unsigned int i;
 	X509_NAME *xn=NULL;
 	STACK_OF(X509_NAME) *ca_sk=NULL;
 	CBS cbs;
@@ -1638,18 +1637,14 @@ int ssl3_get_certificate_request(SSL *s)
 			OPENSSL_PUT_ERROR(SSL, ssl3_get_certificate_request, SSL_R_DECODE_ERROR);
 			goto err;
 			}
-		/* Clear certificate digests and validity flags */
-		for (i = 0; i < SSL_PKEY_NUM; i++)
-			{
-			s->cert->pkeys[i].digest = NULL;
-			s->cert->pkeys[i].valid_flags = 0;
-			}
-		if (!tls1_process_sigalgs(s, &supported_signature_algorithms))
+		if (!tls1_save_peer_sigalgs(s, &supported_signature_algorithms))
 			{
 			ssl3_send_alert(s,SSL3_AL_FATAL,SSL_AD_DECODE_ERROR);
 			OPENSSL_PUT_ERROR(SSL, ssl3_get_certificate_request, SSL_R_SIGNATURE_ALGORITHMS_ERROR);
 			goto err;
 			}
+		/* Don't process the shared signature algorithms yet: the client
+		 * certificate and key are not yet known. */
 		}
 
 	/* get the CA RDNs */
@@ -2334,9 +2329,28 @@ static int ssl3_check_client_certificate(SSL *s)
 	{
 	if (!s->cert || !s->cert->key->x509 || !s->cert->key->privatekey)
 		return 0;
-	/* If no suitable signature algorithm can't use certificate */
-	if (SSL_USE_SIGALGS(s) && !s->cert->key->digest)
-		return 0;
+
+        if (SSL_USE_SIGALGS(s))
+		{
+		size_t i;
+
+		/* Clear certificate digests and validity flags */
+		for (i = 0; i < SSL_PKEY_NUM; i++)
+			{
+			s->cert->pkeys[i].digest = NULL;
+			s->cert->pkeys[i].valid_flags = 0;
+			}
+
+		/* Process the shared signature algorithms computed from the
+		 * CertificateRequest to determine which digest to use. */
+		tls1_process_shared_sigalgs(s);
+
+		/* If no suitable algorithm is found, we can't use the
+		 * certificate. */
+		if (!s->cert->key->digest)
+			return 0;
+		}
+
 	/* If strict mode check suitability of chain before using it.
 	 */
 	if (s->cert->cert_flags & SSL_CERT_FLAGS_CHECK_TLS_STRICT &&

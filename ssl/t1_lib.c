@@ -1714,20 +1714,24 @@ static int ssl_scan_clienthello_tlsext(SSL *s, CBS *cbs, int *out_alert)
 				return 0;
 				}
 
-			if (!tls1_process_sigalgs(s, &supported_signature_algorithms))
+			if (!tls1_save_peer_sigalgs(s, &supported_signature_algorithms))
 				{
 				*out_alert = SSL_AD_DECODE_ERROR;
 				return 0;
 				}
-			/* If sigalgs received and no shared algorithms fatal
-			 * error.
-			 */
+
+			/* If signature algorithms were received, but no shared
+			 * ones were found, fail the handshake. */
 			if (s->cert->peer_sigalgs && !s->cert->shared_sigalgs)
 				{
 				OPENSSL_PUT_ERROR(SSL, ssl_add_serverhello_tlsext, SSL_R_NO_SHARED_SIGATURE_ALGORITHMS);
 				*out_alert = SSL_AD_ILLEGAL_PARAMETER;
 				return 0;
 				}
+
+			/* The server key and certificate are known, so process
+			 * shared signature algorithms now. */
+			tls1_process_shared_sigalgs(s);
 			}
 
 		else if (type == TLSEXT_TYPE_next_proto_neg &&
@@ -2708,17 +2712,10 @@ static int tls1_set_shared_sigalgs(SSL *s)
 	c->shared_sigalgslen = nmatch;
 	return 1;
 	}
-		
 
-/* Set preferred digest for each key type */
-
-int tls1_process_sigalgs(SSL *s, const CBS *sigalgs)
+int tls1_save_peer_sigalgs(SSL *s, const CBS *sigalgs)
 	{
-	int idx;
-	size_t i;
-	const EVP_MD *md;
 	CERT *c = s->cert;
-	TLS_SIGALGS *sigptr;
 
 	/* Extension ignored for inappropriate versions */
 	if (!SSL_USE_SIGALGS(s))
@@ -2734,14 +2731,34 @@ int tls1_process_sigalgs(SSL *s, const CBS *sigalgs)
 		return 0;
 
 	tls1_set_shared_sigalgs(s);
+	return 1;
+	}
+
+void tls1_process_shared_sigalgs(SSL *s)
+	{
+	size_t i;
+	CERT *c = s->cert;
+	TLS_SIGALGS *sigptr;
 
 	for (i = 0, sigptr = c->shared_sigalgs;
 			i < c->shared_sigalgslen; i++, sigptr++)
 		{
-		idx = tls12_get_pkey_idx(sigptr->rsign);
+		int idx = tls12_get_pkey_idx(sigptr->rsign);
 		if (idx > 0 && c->pkeys[idx].digest == NULL)
 			{
-			md = tls12_get_hash(sigptr->rhash);
+			EVP_PKEY *pkey = c->pkeys[idx].privatekey;
+			const EVP_MD *md = tls12_get_hash(sigptr->rhash);
+
+			/* Skip digests not supported by the current private key.
+			 *
+			 * TODO(davidben): Ideally, digest preferences would
+			 * never resolve before the key were selected, but
+			 * historically OpenSSL has not behaved this way. If the
+			 * private key isn't currently set, conservatively allow
+			 * it, but this should be cleaned up later. */
+			if (pkey && !EVP_PKEY_supports_digest(pkey, md))
+				continue;
+
 			c->pkeys[idx].digest = md;
 			c->pkeys[idx].valid_flags = CERT_PKEY_EXPLICIT_SIGN;
 			if (idx == SSL_PKEY_RSA_SIGN)
@@ -2768,7 +2785,6 @@ int tls1_process_sigalgs(SSL *s, const CBS *sigalgs)
 		if (!c->pkeys[SSL_PKEY_ECC].digest)
 			c->pkeys[SSL_PKEY_ECC].digest = EVP_sha1();
 		}
-	return 1;
 	}
 
 

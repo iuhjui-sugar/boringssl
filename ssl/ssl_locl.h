@@ -1088,7 +1088,18 @@ int ssl_add_clienthello_renegotiate_ext(SSL *s, unsigned char *p, int *len,
 					int maxlen);
 int ssl_parse_clienthello_renegotiate_ext(SSL *s, CBS *cbs, int *out_alert);
 long ssl_get_algorithm2(SSL *s);
-int tls1_process_sigalgs(SSL *s, const CBS *sigalgs);
+
+/* tls1_save_peer_sigalgs parses a list of signature algorithms from
+ * the peer. It also computes the set of shared signature algorithms
+ * between |s| and the peer. Both are saved in |s->cert|. It returns
+ * one on success and zero on failure. */
+int tls1_save_peer_sigalgs(SSL *s, const CBS *sigalgs);
+
+/* tls1_process_shared_sigalgs iterates over the shared signature
+ * algorithms in |s| and selects a preferred digest for each key
+ * type. */
+void tls1_process_shared_sigalgs(SSL *s);
+
 size_t tls12_get_psigalgs(SSL *s, const unsigned char **psigs);
 int tls12_check_peer_sigalg(const EVP_MD **out_md, int *out_alert, SSL *s,
 	CBS *cbs, EVP_PKEY *pkey);
