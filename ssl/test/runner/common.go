@@ -128,8 +128,12 @@ const (
 
 // Hash functions for TLS 1.2 (See RFC 5246, section A.4.1)
 const (
+	hashMD5    uint8 = 1
 	hashSHA1   uint8 = 2
+	hashSHA224 uint8 = 3
 	hashSHA256 uint8 = 4
+	hashSHA384 uint8 = 5
+	hashSHA512 uint8 = 6
 )
 
 // Signature algorithms for TLS 1.2 (See RFC 5246, section A.4.1)
@@ -334,6 +338,11 @@ type Config struct {
 	// with the PSK cipher suites.
 	PreSharedKeyIdentity string
 
+	// SignatureAndHashes, if not nil, overrides the default set of
+	// supported signature and hash algorithms to advertise in
+	// CertificateRequest.
+	SignatureAndHashes []signatureAndHash
+
 	// Bugs specifies optional misbehaviour to be used for testing other
 	// implementations.
 	Bugs ProtocolBugs
@@ -513,6 +522,12 @@ type ProtocolBugs struct {
 	// RSAServerKeyExchange, if true, causes the server to send a
 	// ServerKeyExchange message in the plain RSA key exchange.
 	RSAServerKeyExchange bool
+
+	// NoSignatureAndHashes, if true, causes the client to omit the
+	// signature and hashes extension. The server will send a empty list
+	// CertificateRequest. However, the configured set will still be
+	// enforced.
+	NoSignatureAndHashes bool
 }
 
 func (c *Config) serverInit() {
@@ -625,6 +640,20 @@ func (c *Config) getCertificateForName(name string) *Certificate {
 
 	// If nothing matches, return the first certificate.
 	return &c.Certificates[0]
+}
+
+func (c *Config) signatureAndHashesForServer() []signatureAndHash {
+	if c.SignatureAndHashes != nil {
+		return c.SignatureAndHashes
+	}
+	return supportedClientCertSignatureAlgorithms
+}
+
+func (c *Config) signatureAndHashesForClient() []signatureAndHash {
+	if c.SignatureAndHashes != nil {
+		return c.SignatureAndHashes
+	}
+	return supportedSKXSignatureAlgorithms
 }
 
 // BuildNameToCertificate parses c.Certificates and builds c.NameToCertificate
@@ -777,4 +806,13 @@ func initDefaultCipherSuites() {
 
 func unexpectedMessageError(wanted, got interface{}) error {
 	return fmt.Errorf("tls: received unexpected handshake message of type %T when waiting for %T", got, wanted)
+}
+
+func isSupportedSignatureAndHash(sigHash signatureAndHash, sigHashes []signatureAndHash) bool {
+	for _, s := range sigHashes {
+		if s == sigHash {
+			return true
+		}
+	}
+	return false
 }
