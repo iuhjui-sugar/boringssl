@@ -23,7 +23,6 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <sys/types.h>
-#include <sys/socket.h>
 
 #include <openssl/err.h>
 #include <openssl/ssl.h>
@@ -33,8 +32,8 @@
 
 static const struct argument kArguments[] = {
     {
-     "-connect", true,
-     "The hostname and port of the server to connect to, e.g. foo.com:443",
+     "-port", true,
+     "The port of the server to bind on; eg 45102",
     },
     {
      "-cipher", false,
@@ -45,7 +44,7 @@ static const struct argument kArguments[] = {
     },
 };
 
-bool Client(const std::vector<std::string> &args) {
+bool Server(const std::vector<std::string> &args) {
   std::map<std::string, std::string> args_map;
 
   if (!ParseKeyValueArguments(&args_map, args, kArguments)) {
@@ -53,16 +52,14 @@ bool Client(const std::vector<std::string> &args) {
     return false;
   }
 
-  SSL_CTX *ctx = SSL_CTX_new(SSLv23_client_method());
+  SSL_CTX *ctx = SSL_CTX_new(SSLv23_server_method());
 
-  const char *keylog_file = getenv("SSLKEYLOGFILE");
-  if (keylog_file) {
-    BIO *keylog_bio = BIO_new_file(keylog_file, "a");
-    if (!keylog_bio) {
-      ERR_print_errors_cb(PrintErrorCallback, stderr);
-      return false;
-    }
-    SSL_CTX_set_keylog_bio(ctx, keylog_bio);
+  // Server authentication is required.
+  if (SSL_CTX_use_PrivateKey_file(ctx, "server.key", SSL_FILETYPE_PEM) <= 0) {
+    return false;
+  }
+  if (SSL_CTX_use_certificate_chain_file(ctx, "server.cert") != 1) {
+    return false;
   }
 
   if (args_map.count("-cipher") != 0) {
@@ -70,7 +67,7 @@ bool Client(const std::vector<std::string> &args) {
   }
 
   int sock = -1;
-  if (!Connect(&sock, args_map["-connect"])) {
+  if (!Accept(&sock, args_map["-port"])) {
     return false;
   }
 
@@ -78,7 +75,7 @@ bool Client(const std::vector<std::string> &args) {
   SSL *ssl = SSL_new(ctx);
   SSL_set_bio(ssl, bio, bio);
 
-  int ret = SSL_connect(ssl);
+  int ret = SSL_accept(ssl);
   if (ret != 1) {
     int ssl_err = SSL_get_error(ssl, ret);
     fprintf(stderr, "Error while connecting: %d\n", ssl_err);
