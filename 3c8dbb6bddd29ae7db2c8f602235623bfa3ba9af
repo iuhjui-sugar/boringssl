@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da1367da_6ce2b35e",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-17T20:26:25Z",
+      "side": 1,
+      "message": "when",
+      "range": {
+        "startLine": 537,
+        "startChar": 22,
+        "endLine": 537,
+        "endChar": 24
+      },
+      "revId": "3c8dbb6bddd29ae7db2c8f602235623bfa3ba9af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da1367da_8cecc752",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-17T20:26:25Z",
+      "side": 1,
+      "message": "that the",
+      "range": {
+        "startLine": 537,
+        "startChar": 4,
+        "endLine": 537,
+        "endChar": 5
+      },
+      "revId": "3c8dbb6bddd29ae7db2c8f602235623bfa3ba9af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da1367da_2cdcbb97",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-17T20:26:25Z",
+      "side": 1,
+      "message": "the ServerHello",
+      "range": {
+        "startLine": 542,
+        "startChar": 24,
+        "endLine": 542,
+        "endChar": 25
+      },
+      "revId": "3c8dbb6bddd29ae7db2c8f602235623bfa3ba9af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da1367da_4cdfef8e",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-17T20:26:25Z",
+      "side": 1,
+      "message": "that the",
+      "range": {
+        "startLine": 542,
+        "startChar": 4,
+        "endLine": 542,
+        "endChar": 5
+      },
+      "revId": "3c8dbb6bddd29ae7db2c8f602235623bfa3ba9af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da1367da_ec77c3fc",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-17T20:26:25Z",
+      "side": 1,
+      "message": "selected",
+      "range": {
+        "startLine": 684,
+        "startChar": 41,
+        "endLine": 684,
+        "endChar": 51
+      },
+      "revId": "3c8dbb6bddd29ae7db2c8f602235623bfa3ba9af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da1367da_0c833763",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-17T20:26:25Z",
+      "side": 1,
+      "message": "we should probably delete this function at some point -- it\u0027s not used in the BoringSSL fork of crypto/tls.",
+      "range": {
+        "startLine": 36,
+        "startChar": 25,
+        "endLine": 36,
+        "endChar": 30
+      },
+      "revId": "3c8dbb6bddd29ae7db2c8f602235623bfa3ba9af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da1367da_4c548f48",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-17T20:26:25Z",
+      "side": 1,
+      "message": "len(m.srtpProtectionProfiles) \u003e 0\n\n(A nil slice is not an empty slice, but I don\u0027t think that we want to send the extension with no elements.)",
+      "range": {
+        "startLine": 131,
+        "startChar": 4,
+        "endLine": 131,
+        "endChar": 35
+      },
+      "revId": "3c8dbb6bddd29ae7db2c8f602235623bfa3ba9af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
