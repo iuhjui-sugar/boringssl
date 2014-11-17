@@ -15,9 +15,9 @@ import (
 	"io"
 )
 
-// sessionState contains the information that is serialized into a session
-// ticket in order to later resume a connection.
-type sessionState struct {
+// ServerSessionState contains the information that is serialized into
+// a session ticket in order to later resume a connection.
+type ServerSessionState struct {
 	vers                 uint16
 	cipherSuite          uint16
 	masterSecret         []byte
@@ -26,8 +26,8 @@ type sessionState struct {
 	extendedMasterSecret bool
 }
 
-func (s *sessionState) equal(i interface{}) bool {
-	s1, ok := i.(*sessionState)
+func (s *ServerSessionState) equal(i interface{}) bool {
+	s1, ok := i.(*ServerSessionState)
 	if !ok {
 		return false
 	}
@@ -53,7 +53,7 @@ func (s *sessionState) equal(i interface{}) bool {
 	return true
 }
 
-func (s *sessionState) marshal() []byte {
+func (s *ServerSessionState) marshal() []byte {
 	length := 2 + 2 + 2 + len(s.masterSecret) + 2 + len(s.handshakeHash) + 2
 	for _, cert := range s.certificates {
 		length += 4 + len(cert)
@@ -99,7 +99,7 @@ func (s *sessionState) marshal() []byte {
 	return ret
 }
 
-func (s *sessionState) unmarshal(data []byte) bool {
+func (s *ServerSessionState) unmarshal(data []byte) bool {
 	if len(data) < 8 {
 		return false
 	}
@@ -169,7 +169,7 @@ func (s *sessionState) unmarshal(data []byte) bool {
 	return true
 }
 
-func (c *Conn) encryptTicket(state *sessionState) ([]byte, error) {
+func (c *Conn) encryptTicket(state *ServerSessionState) ([]byte, error) {
 	serialized := state.marshal()
 	encrypted := make([]byte, aes.BlockSize+len(serialized)+sha256.Size)
 	iv := encrypted[:aes.BlockSize]
@@ -191,7 +191,7 @@ func (c *Conn) encryptTicket(state *sessionState) ([]byte, error) {
 	return encrypted, nil
 }
 
-func (c *Conn) decryptTicket(encrypted []byte) (*sessionState, bool) {
+func (c *Conn) decryptTicket(encrypted []byte) (*ServerSessionState, bool) {
 	if len(encrypted) < aes.BlockSize+sha256.Size {
 		return nil, false
 	}
@@ -215,7 +215,7 @@ func (c *Conn) decryptTicket(encrypted []byte) (*sessionState, bool) {
 	plaintext := make([]byte, len(ciphertext))
 	cipher.NewCTR(block, iv).XORKeyStream(plaintext, ciphertext)
 
-	state := new(sessionState)
+	state := new(ServerSessionState)
 	ok := state.unmarshal(plaintext)
 	return state, ok
 }
