@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a42cfda_82003ca0",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 3003,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-17T22:26:08Z",
+      "side": 0,
+      "message": "Now that I see the next patch -- are you sure that deleting the assignment to |check_flags| here and two lines down is valid?",
+      "range": {
+        "startLine": 3003,
+        "startChar": 3,
+        "endLine": 3003,
+        "endChar": 14
+      },
+      "revId": "8458e6b94b06268a428084d1e3e140050dfec02b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
