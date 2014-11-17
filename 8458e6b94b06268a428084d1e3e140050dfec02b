@@ -22,6 +22,30 @@
       "revId": "8458e6b94b06268a428084d1e3e140050dfec02b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da38c75e_04d2f861",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 3003,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-17T22:32:44Z",
+      "side": 0,
+      "message": "This code only runs when idx \u003d\u003d -1. That only happens with SSL_check_chain. The others supply an explicit index or -2.\n\nThis is what I was alluding to with SSL_check_chain\u0027s implementation being kinda complex. It\u0027s using a function intended to check one of the CERT_PKEY indices. However, when you use SSL_check_chain, you supply your own X509/EVP_PKEY/STACK_OF(X509).\n\nIt then looks up the corresponding index and still refers to one of the CERT_PKEY indices, even though the supplied certificate isn\u0027t actually installed.",
+      "parentUuid": "9a42cfda_82003ca0",
+      "range": {
+        "startLine": 3003,
+        "startChar": 3,
+        "endLine": 3003,
+        "endChar": 14
+      },
+      "revId": "8458e6b94b06268a428084d1e3e140050dfec02b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
