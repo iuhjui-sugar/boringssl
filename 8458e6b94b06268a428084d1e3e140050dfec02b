@@ -46,6 +46,30 @@
       "revId": "8458e6b94b06268a428084d1e3e140050dfec02b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a42cfda_33d500f4",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 3003,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-18T00:27:18Z",
+      "side": 0,
+      "message": "Sorry, I read the comment (\"/* idx \u003d\u003d -1 means \"...) and thought that was the condition.\n\nNm, carry on.",
+      "parentUuid": "da38c75e_04d2f861",
+      "range": {
+        "startLine": 3003,
+        "startChar": 3,
+        "endLine": 3003,
+        "endChar": 14
+      },
+      "revId": "8458e6b94b06268a428084d1e3e140050dfec02b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
