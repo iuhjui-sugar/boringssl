@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "da38c75e_616736c5",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-18T20:05:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da1367da_8cecc752",
+      "range": {
+        "startLine": 537,
+        "startChar": 4,
+        "endLine": 537,
+        "endChar": 5
+      },
+      "revId": "3c8dbb6bddd29ae7db2c8f602235623bfa3ba9af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da38c75e_c18162d6",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-18T20:05:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da1367da_6ce2b35e",
+      "range": {
+        "startLine": 537,
+        "startChar": 22,
+        "endLine": 537,
+        "endChar": 24
+      },
+      "revId": "3c8dbb6bddd29ae7db2c8f602235623bfa3ba9af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da1367da_2cdcbb97",
         "filename": "ssl/test/runner/common.go",
         "patchSetId": 1
@@ -94,6 +142,54 @@
     },
     {
       "key": {
+        "uuid": "da38c75e_015f4ae3",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-18T20:05:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da1367da_2cdcbb97",
+      "range": {
+        "startLine": 542,
+        "startChar": 24,
+        "endLine": 542,
+        "endChar": 25
+      },
+      "revId": "3c8dbb6bddd29ae7db2c8f602235623bfa3ba9af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da38c75e_c15882fa",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-18T20:05:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da1367da_4cdfef8e",
+      "range": {
+        "startLine": 542,
+        "startChar": 4,
+        "endLine": 542,
+        "endChar": 5
+      },
+      "revId": "3c8dbb6bddd29ae7db2c8f602235623bfa3ba9af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da1367da_ec77c3fc",
         "filename": "ssl/test/runner/handshake_client.go",
         "patchSetId": 1
@@ -105,6 +201,30 @@
       "writtenOn": "2014-11-17T20:26:25Z",
       "side": 1,
       "message": "selected",
+      "range": {
+        "startLine": 684,
+        "startChar": 41,
+        "endLine": 684,
+        "endChar": 51
+      },
+      "revId": "3c8dbb6bddd29ae7db2c8f602235623bfa3ba9af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da38c75e_e1bca694",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-18T20:05:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da1367da_ec77c3fc",
       "range": {
         "startLine": 684,
         "startChar": 41,
@@ -151,6 +271,30 @@
       "writtenOn": "2014-11-17T20:26:25Z",
       "side": 1,
       "message": "len(m.srtpProtectionProfiles) \u003e 0\n\n(A nil slice is not an empty slice, but I don\u0027t think that we want to send the extension with no elements.)",
+      "range": {
+        "startLine": 131,
+        "startChar": 4,
+        "endLine": 131,
+        "endChar": 35
+      },
+      "revId": "3c8dbb6bddd29ae7db2c8f602235623bfa3ba9af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da38c75e_61d176d9",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-18T20:05:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da1367da_4c548f48",
       "range": {
         "startLine": 131,
         "startChar": 4,
