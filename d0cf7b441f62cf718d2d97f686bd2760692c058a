@@ -1,0 +1,170 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da38c75e_c7fc1282",
+        "filename": "crypto/evp/evp_ctx.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-18T05:22:30Z",
+      "side": 1,
+      "message": "[This requires that init functions, on failure, do not leave half-initialized state to clean up, but that seems reasonable and I checked it\u0027s true of all of them.]",
+      "revId": "d0cf7b441f62cf718d2d97f686bd2760692c058a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da38c75e_47e9e2bc",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2275,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-18T05:22:30Z",
+      "side": 1,
+      "message": "All of the early returns should cleanup ctx-\u003eex_data now, right?",
+      "revId": "d0cf7b441f62cf718d2d97f686bd2760692c058a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da38c75e_e7a0368a",
+        "filename": "ssl/s3_cbc.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-18T05:22:30Z",
+      "side": 1,
+      "message": "Unless it checks *md_out_size, this caller doesn\u0027t seem to have any way to notice the malloc failure. (And if md_out_size is NULL, it really can\u0027t tell.)\n\nUpdate: Oh, I see the callers were updated to check. Maybe remove the NULL md_out_size case. No one seems to use it and, if we\u0027re to care about malloc failures, we can\u0027t check for failure. Might be worth giving this a proper return code anyway though?",
+      "revId": "d0cf7b441f62cf718d2d97f686bd2760692c058a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da38c75e_67b506c1",
+        "filename": "ssl/s3_enc.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-18T05:22:30Z",
+      "side": 1,
+      "message": "This one wasn\u0027t updated like t1_enc.c to check for failure.",
+      "range": {
+        "startLine": 735,
+        "startChar": 7,
+        "endLine": 735,
+        "endChar": 15
+      },
+      "revId": "d0cf7b441f62cf718d2d97f686bd2760692c058a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da38c75e_a781cedf",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-18T05:22:30Z",
+      "side": 1,
+      "message": "Probably better to have SetConfigPtr return bool and not run the test if it\u0027s null. Less tedious for the callbacks.",
+      "range": {
+        "startLine": 73,
+        "startChar": 6,
+        "endLine": 73,
+        "endChar": 27
+      },
+      "revId": "d0cf7b441f62cf718d2d97f686bd2760692c058a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da38c75e_c78652f5",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-18T05:22:30Z",
+      "side": 1,
+      "message": "goto err? (Not that we\u0027re very good about cleaning up on test failures... I kinda want to unique_ptr our tests.)",
+      "range": {
+        "startLine": 279,
+        "startChar": 4,
+        "endLine": 279,
+        "endChar": 16
+      },
+      "revId": "d0cf7b441f62cf718d2d97f686bd2760692c058a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da38c75e_078d1a13",
+        "filename": "ssl/test/packeted_bio.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-18T05:22:30Z",
+      "side": 1,
+      "message": "This should probably be -1, since it\u0027s an error, not an EOF.",
+      "range": {
+        "startLine": 71,
+        "startChar": 11,
+        "endLine": 71,
+        "endChar": 12
+      },
+      "revId": "d0cf7b441f62cf718d2d97f686bd2760692c058a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da38c75e_0778ba64",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-18T05:22:30Z",
+      "side": 1,
+      "message": "Nit: lowercase?",
+      "range": {
+        "startLine": 711,
+        "startChar": 4,
+        "endLine": 711,
+        "endChar": 5
+      },
+      "revId": "d0cf7b441f62cf718d2d97f686bd2760692c058a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
