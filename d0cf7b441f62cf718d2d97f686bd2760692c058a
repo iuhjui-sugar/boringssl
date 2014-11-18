@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1a55ffac_23106aba",
+        "filename": "crypto/evp/evp_ctx.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-18T21:47:07Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "da38c75e_c7fc1282",
+      "revId": "d0cf7b441f62cf718d2d97f686bd2760692c058a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da38c75e_47e9e2bc",
         "filename": "crypto/x509/x509_vfy.c",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2014-11-18T05:22:30Z",
       "side": 1,
       "message": "All of the early returns should cleanup ctx-\u003eex_data now, right?",
+      "revId": "d0cf7b441f62cf718d2d97f686bd2760692c058a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a55ffac_c6ede451",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2275,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-18T21:47:07Z",
+      "side": 1,
+      "message": "Yes, thanks. Have cleaned that up a bit too.",
+      "parentUuid": "da38c75e_47e9e2bc",
       "revId": "d0cf7b441f62cf718d2d97f686bd2760692c058a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "1a55ffac_2c937731",
+        "filename": "ssl/s3_cbc.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-18T21:47:07Z",
+      "side": 1,
+      "message": "Removed NULL |md_out_size| case and make it return an int.",
+      "parentUuid": "da38c75e_e7a0368a",
+      "revId": "d0cf7b441f62cf718d2d97f686bd2760692c058a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da38c75e_67b506c1",
         "filename": "ssl/s3_enc.c",
         "patchSetId": 1
@@ -64,6 +118,30 @@
       "writtenOn": "2014-11-18T05:22:30Z",
       "side": 1,
       "message": "This one wasn\u0027t updated like t1_enc.c to check for failure.",
+      "range": {
+        "startLine": 735,
+        "startChar": 7,
+        "endLine": 735,
+        "endChar": 15
+      },
+      "revId": "d0cf7b441f62cf718d2d97f686bd2760692c058a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a55ffac_4cd113d9",
+        "filename": "ssl/s3_enc.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-18T21:47:07Z",
+      "side": 1,
+      "message": "Done and handled error returns from |EVP_MD_CTX_init| below too.",
+      "parentUuid": "da38c75e_67b506c1",
       "range": {
         "startLine": 735,
         "startChar": 7,
@@ -99,6 +177,30 @@
     },
     {
       "key": {
+        "uuid": "1a55ffac_ec131ffc",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-18T21:47:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da38c75e_a781cedf",
+      "range": {
+        "startLine": 73,
+        "startChar": 6,
+        "endLine": 73,
+        "endChar": 27
+      },
+      "revId": "d0cf7b441f62cf718d2d97f686bd2760692c058a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da38c75e_c78652f5",
         "filename": "ssl/test/bssl_shim.cc",
         "patchSetId": 1
@@ -110,6 +212,30 @@
       "writtenOn": "2014-11-18T05:22:30Z",
       "side": 1,
       "message": "goto err? (Not that we\u0027re very good about cleaning up on test failures... I kinda want to unique_ptr our tests.)",
+      "range": {
+        "startLine": 279,
+        "startChar": 4,
+        "endLine": 279,
+        "endChar": 16
+      },
+      "revId": "d0cf7b441f62cf718d2d97f686bd2760692c058a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a55ffac_6c008f9f",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-18T21:47:07Z",
+      "side": 1,
+      "message": "Done. (And you can use unique_ptr if you like I think. I think Windows would be the only worry.)",
+      "parentUuid": "da38c75e_c78652f5",
       "range": {
         "startLine": 279,
         "startChar": 4,
@@ -145,6 +271,30 @@
     },
     {
       "key": {
+        "uuid": "1a55ffac_ec5d5fc2",
+        "filename": "ssl/test/packeted_bio.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-18T21:47:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da38c75e_078d1a13",
+      "range": {
+        "startLine": 71,
+        "startChar": 11,
+        "endLine": 71,
+        "endChar": 12
+      },
+      "revId": "d0cf7b441f62cf718d2d97f686bd2760692c058a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da38c75e_0778ba64",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 1
@@ -156,6 +306,30 @@
       "writtenOn": "2014-11-18T05:22:30Z",
       "side": 1,
       "message": "Nit: lowercase?",
+      "range": {
+        "startLine": 711,
+        "startChar": 4,
+        "endLine": 711,
+        "endChar": 5
+      },
+      "revId": "d0cf7b441f62cf718d2d97f686bd2760692c058a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a55ffac_4c6d9373",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-18T21:47:07Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "da38c75e_0778ba64",
       "range": {
         "startLine": 711,
         "startChar": 4,
