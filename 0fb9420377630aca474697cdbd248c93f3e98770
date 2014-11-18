@@ -16,6 +16,24 @@
       "revId": "0fb9420377630aca474697cdbd248c93f3e98770",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a5efbd0_c69162df",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 2946,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-18T20:06:11Z",
+      "side": 1,
+      "message": "Done. (Next CL trims this all down anyway.)",
+      "parentUuid": "9a42cfda_73b5c8c0",
+      "revId": "0fb9420377630aca474697cdbd248c93f3e98770",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
