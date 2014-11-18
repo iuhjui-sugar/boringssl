@@ -84,6 +84,24 @@
     },
     {
       "key": {
+        "uuid": "1a55ffac_d21efa86",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 646,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-18T22:29:57Z",
+      "side": 1,
+      "message": "It varies. You used to before I changed some things in 1.3 and you still can in some cases: https://godoc.org/crypto/tls#Dial\n\nIn any case, many of the functions test for it and it can be useful.",
+      "parentUuid": "7a5efbd0_86184a1a",
+      "revId": "797589327492d551d44914a7f4ded2afd0812c37",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a42cfda_02dc2c24",
         "filename": "ssl/test/runner/common.go",
         "patchSetId": 2
