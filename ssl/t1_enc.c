@@ -447,6 +447,8 @@ static int tls1_change_cipher_state_cipher(
 
 		cipher_ctx = s->enc_read_ctx;
 		mac_ctx = ssl_replace_hash(&s->read_hash, NULL);
+		if (mac_ctx == NULL)
+			goto err;
 
 		memcpy(s->s3->read_mac_secret, mac_secret, mac_secret_len);
 		s->s3->read_mac_secret_size = mac_secret_len;
@@ -476,7 +478,11 @@ static int tls1_change_cipher_state_cipher(
 			s->write_hash = mac_ctx;
 			}
 		else
+			{
 			mac_ctx = ssl_replace_hash(&s->write_hash, NULL);
+			if (mac_ctx == NULL)
+				goto err;
+			}
 
 		memcpy(s->s3->write_mac_secret, mac_secret, mac_secret_len);
 		s->s3->write_mac_secret_size = mac_secret_len;
@@ -487,10 +493,15 @@ static int tls1_change_cipher_state_cipher(
 				     NULL, mac_secret, mac_secret_len);
 	if (!mac_key)
 		return 0;
-	EVP_DigestSignInit(mac_ctx, NULL, s->s3->tmp.new_hash, NULL, mac_key);
+	if (!EVP_DigestSignInit(mac_ctx, NULL, s->s3->tmp.new_hash, NULL, mac_key))
+		{
+		EVP_PKEY_free(mac_key);
+		goto err;
+		}
 	EVP_PKEY_free(mac_key);
 
-	EVP_CipherInit_ex(cipher_ctx, cipher, NULL /* engine */, key, iv, !is_read);
+	if (!EVP_CipherInit_ex(cipher_ctx, cipher, NULL /* engine */, key, iv, !is_read))
+		goto err;
 
 	return 1;
 
@@ -1132,10 +1143,11 @@ int tls1_mac(SSL *ssl, unsigned char *md, int send)
 		{
 		EVP_DigestSignUpdate(mac_ctx,header,sizeof(header));
 		EVP_DigestSignUpdate(mac_ctx,rec->input,rec->length);
-		t=EVP_DigestSignFinal(mac_ctx,md,&md_size);
-		assert(t > 0);
+		t = EVP_DigestSignFinal(mac_ctx,md,&md_size);
+		if (t <= 0)
+			md_size = 0;
 		}
-		
+
 	EVP_MD_CTX_cleanup(&hmac);
 
 	if (!SSL_IS_DTLS(ssl))
@@ -1147,7 +1159,9 @@ int tls1_mac(SSL *ssl, unsigned char *md, int send)
 			}
 		}
 
-	return(md_size);
+	if (md_size == 0)
+		return -1;
+	return md_size;
 	}
 
 int tls1_generate_master_secret(SSL *s, unsigned char *out, unsigned char *p,

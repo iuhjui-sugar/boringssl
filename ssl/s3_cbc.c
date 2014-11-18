@@ -591,7 +591,14 @@ void ssl3_cbc_digest_record(
 		}
 
 	EVP_MD_CTX_init(&md_ctx);
-	EVP_DigestInit_ex(&md_ctx, ctx->digest, NULL /* engine */);
+	if (!EVP_DigestInit_ex(&md_ctx, ctx->digest, NULL /* engine */))
+		{
+		EVP_MD_CTX_cleanup(&md_ctx);
+		if (md_out_size)
+			*md_out_size = 0;
+		return;
+		}
+
 	if (is_sslv3)
 		{
 		/* We repurpose |hmac_pad| to contain the SSLv3 pad2 block. */

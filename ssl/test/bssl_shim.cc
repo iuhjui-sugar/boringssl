@@ -70,7 +70,7 @@ static int select_certificate_callback(const struct ssl_early_callback_ctx *ctx)
 
   const TestConfig *config = GetConfigPtr(ctx->ssl);
 
-  if (config->expected_server_name.empty()) {
+  if (config == nullptr || config->expected_server_name.empty()) {
     return 1;
   }
 
@@ -115,7 +115,7 @@ static int next_protos_advertised_callback(SSL *ssl,
                                            unsigned int *out_len,
                                            void *arg) {
   const TestConfig *config = GetConfigPtr(ssl);
-  if (config->advertise_npn.empty())
+  if (config == nullptr || config->advertise_npn.empty())
     return SSL_TLSEXT_ERR_NOACK;
 
   *out = (const uint8_t*)config->advertise_npn.data();
@@ -130,7 +130,7 @@ static int next_proto_select_callback(SSL* ssl,
                                       unsigned inlen,
                                       void* arg) {
   const TestConfig *config = GetConfigPtr(ssl);
-  if (config->select_next_proto.empty())
+  if (config == nullptr || config->select_next_proto.empty())
     return SSL_TLSEXT_ERR_NOACK;
 
   *out = (uint8_t*)config->select_next_proto.data();
@@ -145,7 +145,7 @@ static int alpn_select_callback(SSL* ssl,
                                 unsigned inlen,
                                 void* arg) {
   const TestConfig *config = GetConfigPtr(ssl);
-  if (config->select_alpn.empty())
+  if (config == nullptr || config->select_alpn.empty())
     return SSL_TLSEXT_ERR_NOACK;
 
   if (!config->expected_advertised_alpn.empty() &&
@@ -187,6 +187,10 @@ static unsigned psk_client_callback(SSL *ssl, const char *hint,
                                     uint8_t *out_psk, unsigned max_psk_len) {
   const TestConfig *config = GetConfigPtr(ssl);
 
+  if (config == nullptr) {
+    return 0;
+  }
+
   if (strcmp(hint ? hint : "", config->psk_identity.c_str()) != 0) {
     fprintf(stderr, "Server PSK hint did not match.\n");
     return 0;
@@ -208,6 +212,10 @@ static unsigned psk_client_callback(SSL *ssl, const char *hint,
 static unsigned psk_server_callback(SSL *ssl, const char *identity,
                                     uint8_t *out_psk, unsigned max_psk_len) {
   const TestConfig *config = GetConfigPtr(ssl);
+
+  if (config == nullptr) {
+    return 0;
+  }
 
   if (strcmp(identity, config->psk_identity.c_str()) != 0) {
     fprintf(stderr, "Client PSK identity did not match.\n");
@@ -267,6 +275,9 @@ static SSL_CTX *setup_ctx(const TestConfig *config) {
   }
 
   dh = DH_get_2048_256(NULL);
+  if (dh == NULL) {
+    return NULL;
+  }
   if (!SSL_CTX_set_tmp_dh(ssl_ctx, dh)) {
     goto err;
   }

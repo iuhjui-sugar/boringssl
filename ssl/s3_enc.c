@@ -185,7 +185,11 @@ static int ssl3_generate_key_block(SSL *s, unsigned char *km, int num)
 		for (j=0; j<k; j++)
 			buf[j]=c;
 		c++;
-		EVP_DigestInit_ex(&s1,EVP_sha1(), NULL);
+		if (!EVP_DigestInit_ex(&s1,EVP_sha1(), NULL))
+			{
+			OPENSSL_PUT_ERROR(SSL, ssl3_generate_key_block, ERR_LIB_EVP);
+			return 0;
+			}
 		EVP_DigestUpdate(&s1,buf,k);
 		EVP_DigestUpdate(&s1,s->session->master_key,
 			s->session->master_key_length);
@@ -193,7 +197,11 @@ static int ssl3_generate_key_block(SSL *s, unsigned char *km, int num)
 		EVP_DigestUpdate(&s1,s->s3->client_random,SSL3_RANDOM_SIZE);
 		EVP_DigestFinal_ex(&s1,smd,NULL);
 
-		EVP_DigestInit_ex(&m5,EVP_md5(), NULL);
+		if (!EVP_DigestInit_ex(&m5,EVP_md5(), NULL))
+			{
+			OPENSSL_PUT_ERROR(SSL, ssl3_generate_key_block, ERR_LIB_EVP);
+			return 0;
+			}
 		EVP_DigestUpdate(&m5,s->session->master_key,
 			s->session->master_key_length);
 		EVP_DigestUpdate(&m5,smd,SHA_DIGEST_LENGTH);
@@ -470,12 +478,17 @@ int ssl3_enc(SSL *s, int send)
 	return(1);
 	}
 
-void ssl3_init_finished_mac(SSL *s)
+int ssl3_init_finished_mac(SSL *s)
 	{
 	if (s->s3->handshake_buffer) BIO_free(s->s3->handshake_buffer);
 	if (s->s3->handshake_dgst) ssl3_free_digest_list(s);
-    s->s3->handshake_buffer=BIO_new(BIO_s_mem());	
+	s->s3->handshake_buffer = BIO_new(BIO_s_mem());
+	if (s->s3->handshake_buffer == NULL) {
+		return 0;
+	}
 	(void)BIO_set_close(s->s3->handshake_buffer,BIO_CLOSE);
+
+	return 1;
 	}
 
 void ssl3_free_digest_list(SSL *s) 
@@ -521,6 +534,12 @@ int ssl3_digest_cached_records(SSL *s, enum should_free_handshake_buffer_t shoul
 	/* Allocate handshake_dgst array */
 	ssl3_free_digest_list(s);
 	s->s3->handshake_dgst = OPENSSL_malloc(SSL_MAX_DIGEST * sizeof(EVP_MD_CTX *));
+	if (s->s3->handshake_dgst == NULL)
+		{
+		OPENSSL_PUT_ERROR(SSL, ssl3_digest_cached_records, ERR_R_MALLOC_FAILURE);
+		return 0;
+		}
+
 	memset(s->s3->handshake_dgst,0,SSL_MAX_DIGEST *sizeof(EVP_MD_CTX *));
 	if (!BIO_mem_contents(s->s3->handshake_buffer, &hdata, &hdatalen))
 		{
@@ -533,8 +552,18 @@ int ssl3_digest_cached_records(SSL *s, enum should_free_handshake_buffer_t shoul
 		{
 		if ((mask & ssl_get_algorithm2(s)) && md) 
 			{
-			s->s3->handshake_dgst[i]=EVP_MD_CTX_create();
-			EVP_DigestInit_ex(s->s3->handshake_dgst[i],md,NULL);
+			s->s3->handshake_dgst[i] = EVP_MD_CTX_create();
+			if (s->s3->handshake_dgst[i] == NULL)
+				{
+				OPENSSL_PUT_ERROR(SSL, ssl3_digest_cached_records, ERR_LIB_EVP);
+				return 0;
+				}
+			if (!EVP_DigestInit_ex(s->s3->handshake_dgst[i], md, NULL))
+				{
+				EVP_MD_CTX_destroy(s->s3->handshake_dgst[i]);
+				OPENSSL_PUT_ERROR(SSL, ssl3_digest_cached_records, ERR_LIB_EVP);
+				return 0;
+				}
 			EVP_DigestUpdate(s->s3->handshake_dgst[i],hdata,hdatalen);
 			} 
 		else 
@@ -603,7 +632,12 @@ static int ssl3_handshake_mac(SSL *s, int md_nid,
 		return 0;
 	}	
 	EVP_MD_CTX_init(&ctx);
-	EVP_MD_CTX_copy_ex(&ctx,d);
+	if (!EVP_MD_CTX_copy_ex(&ctx,d))
+		{
+		EVP_MD_CTX_cleanup(&ctx);
+		OPENSSL_PUT_ERROR(SSL, ssl3_generate_key_block, ERR_LIB_EVP);
+		return 0;
+		}
 	n=EVP_MD_CTX_size(&ctx);
 	if (n < 0)
 		return 0;
@@ -616,7 +650,12 @@ static int ssl3_handshake_mac(SSL *s, int md_nid,
 	EVP_DigestUpdate(&ctx,ssl3_pad_1,npad);
 	EVP_DigestFinal_ex(&ctx,md_buf,&i);
 
-	EVP_DigestInit_ex(&ctx,EVP_MD_CTX_md(&ctx), NULL);
+	if (!EVP_DigestInit_ex(&ctx,EVP_MD_CTX_md(&ctx), NULL))
+		{
+		EVP_MD_CTX_cleanup(&ctx);
+		OPENSSL_PUT_ERROR(SSL, ssl3_generate_key_block, ERR_LIB_EVP);
+		return 0;
+		}
 	EVP_DigestUpdate(&ctx,s->session->master_key,
 		s->session->master_key_length);
 	EVP_DigestUpdate(&ctx,ssl3_pad_2,npad);
@@ -761,7 +800,12 @@ int ssl3_generate_master_secret(SSL *s, unsigned char *out, unsigned char *p,
 	EVP_MD_CTX_init(&ctx);
 	for (i=0; i<3; i++)
 		{
-		EVP_DigestInit_ex(&ctx, EVP_sha1(), NULL);
+		if (!EVP_DigestInit_ex(&ctx, EVP_sha1(), NULL))
+			{
+			ret = 0;
+			break;
+			}
+
 		EVP_DigestUpdate(&ctx,salt[i],strlen((const char *)salt[i]));
 		EVP_DigestUpdate(&ctx,p,len);
 		EVP_DigestUpdate(&ctx,&(s->s3->client_random[0]),
@@ -770,7 +814,12 @@ int ssl3_generate_master_secret(SSL *s, unsigned char *out, unsigned char *p,
 			SSL3_RANDOM_SIZE);
 		EVP_DigestFinal_ex(&ctx,buf,&n);
 
-		EVP_DigestInit_ex(&ctx, EVP_md5(), NULL);
+		if (!EVP_DigestInit_ex(&ctx, EVP_md5(), NULL))
+			{
+			ret = 0;
+			break;
+			}
+
 		EVP_DigestUpdate(&ctx,p,len);
 		EVP_DigestUpdate(&ctx,buf,n);
 		EVP_DigestFinal_ex(&ctx,out,&n);
