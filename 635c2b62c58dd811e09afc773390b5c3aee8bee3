@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a42cfda_736708c5",
+        "filename": "ssl/ssl_locl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 826,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-18T00:33:35Z",
+      "side": 1,
+      "message": "drop \"ly\"?",
+      "range": {
+        "startLine": 826,
+        "startChar": 14,
+        "endLine": 826,
+        "endChar": 16
+      },
+      "revId": "635c2b62c58dd811e09afc773390b5c3aee8bee3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
