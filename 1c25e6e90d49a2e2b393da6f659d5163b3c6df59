@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a5efbd0_ecf9df2a",
+        "filename": "ssl/t1_enc.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1146,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-19T00:53:22Z",
+      "side": 1,
+      "message": "Nit: This can just be ok \u003d EVP_DigestSignFinal(....); now that we\u0027ve tightened the return value.",
+      "revId": "1c25e6e90d49a2e2b393da6f659d5163b3c6df59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
