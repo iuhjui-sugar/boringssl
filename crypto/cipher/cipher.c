@@ -63,6 +63,7 @@
 #include <openssl/mem.h>
 #include <openssl/obj.h>
 
+#include "../internal.h"
 #include "internal.h"
 
 
@@ -416,21 +417,21 @@ int EVP_DecryptUpdate(EVP_CIPHER_CTX *ctx, uint8_t *out, int *out_len,
 }
 
 int EVP_DecryptFinal_ex(EVP_CIPHER_CTX *ctx, unsigned char *out, int *out_len) {
-  int i, n;
-  unsigned int b;
+  unsigned int i, block_size;
+  uint8_t pad, padding_good;
   *out_len = 0;
 
   if (ctx->cipher->flags & EVP_CIPH_FLAG_CUSTOM_CIPHER) {
-    i = ctx->cipher->cipher(ctx, out, NULL, 0);
-    if (i < 0) {
+    int ret = ctx->cipher->cipher(ctx, out, NULL, 0);
+    if (ret < 0) {
       return 0;
     } else {
-      *out_len = i;
+      *out_len = ret;
     }
     return 1;
   }
 
-  b = ctx->cipher->block_size;
+  block_size = ctx->cipher->block_size;
   if (ctx->flags & EVP_CIPH_NO_PADDING) {
     if (ctx->buf_len) {
       OPENSSL_PUT_ERROR(CIPHER, EVP_DecryptFinal_ex,
@@ -441,39 +442,40 @@ int EVP_DecryptFinal_ex(EVP_CIPHER_CTX *ctx, unsigned char *out, int *out_len) {
     return 1;
   }
 
-  if (b > 1) {
-    if (ctx->buf_len || !ctx->final_used) {
-      OPENSSL_PUT_ERROR(CIPHER, EVP_DecryptFinal_ex,
-                        CIPHER_R_WRONG_FINAL_BLOCK_LENGTH);
-      return 0;
-    }
-    assert(b <= sizeof(ctx->final));
-
-    /* The following assumes that the ciphertext has been authenticated.
-     * Otherwise it provides a padding oracle. */
-    n = ctx->final[b - 1];
-    if (n == 0 || n > (int)b) {
-      OPENSSL_PUT_ERROR(CIPHER, EVP_DecryptFinal_ex, CIPHER_R_BAD_DECRYPT);
-      return 0;
-    }
-
-    for (i = 0; i < n; i++) {
-      if (ctx->final[--b] != n) {
-        OPENSSL_PUT_ERROR(CIPHER, EVP_DecryptFinal_ex, CIPHER_R_BAD_DECRYPT);
-        return 0;
-      }
-    }
-
-    n = ctx->cipher->block_size - n;
-    for (i = 0; i < n; i++) {
-      out[i] = ctx->final[i];
-    }
-    *out_len = n;
-  } else {
+  if (block_size == 0) {
     *out_len = 0;
+    return 1;
   }
 
-  return 1;
+  if (ctx->buf_len || !ctx->final_used) {
+    OPENSSL_PUT_ERROR(CIPHER, EVP_DecryptFinal_ex,
+                      CIPHER_R_WRONG_FINAL_BLOCK_LENGTH);
+    return 0;
+  }
+  assert(block_size <= sizeof(ctx->final));
+
+  pad = ctx->final[block_size - 1];
+
+  padding_good = ~constant_time_is_zero_8(pad);
+  padding_good &= constant_time_ge_8(block_size, pad);
+
+  for (i = 1; i < block_size; ++i) {
+    uint8_t is_pad_index = constant_time_lt_8(i, pad);
+    uint8_t pad_byte_good =
+        constant_time_eq_8(ctx->final[block_size - i - 1], pad);
+    padding_good &= constant_time_select_8(is_pad_index, pad_byte_good, 0xff);
+  }
+
+  /* At least 1 byte is always padding, so we always write b - 1
+   * bytes to avoid a timing leak. The caller is required to have |b|
+   * bytes space in |out| by the API contract. */
+  for (i = 0; i < block_size - 1; ++i) {
+    out[i] = ctx->final[i] & padding_good;
+  }
+
+  /* Safe cast: for a good padding, EVP_MAX_IV_LENGTH >= b >= pad */
+  *out_len = padding_good & ((uint8_t)(block_size - pad));
+  return padding_good & 1;
 }
 
 int EVP_Cipher(EVP_CIPHER_CTX *ctx, uint8_t *out, const uint8_t *in,
