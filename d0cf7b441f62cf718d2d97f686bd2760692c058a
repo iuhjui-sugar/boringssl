@@ -248,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "7a5efbd0_ac90c7d7",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-19T00:53:12Z",
+      "side": 1,
+      "message": "Hrm. Actually, I bet it\u0027ll be a problem (though not on Windows? I think more other platforms). We\u0027re allowed C++11 language features, but I\u0027m not sure all the libraries are up to snuff yet. And I\u0027m still hoping to run these tests on Chromium infra...\n\nAnyway, I\u0027ll figure something out. Either with unique_ptr or a custom thing.",
+      "parentUuid": "1a55ffac_6c008f9f",
+      "range": {
+        "startLine": 279,
+        "startChar": 4,
+        "endLine": 279,
+        "endChar": 16
+      },
+      "revId": "d0cf7b441f62cf718d2d97f686bd2760692c058a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da38c75e_078d1a13",
         "filename": "ssl/test/packeted_bio.cc",
         "patchSetId": 1
