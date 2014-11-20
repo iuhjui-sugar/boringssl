@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a26fb9d_4c23139f",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1169,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-20T20:11:00Z",
+      "side": 1,
+      "message": "This block was originally in this function anyway, and then the EAP-FAST CL moved it earlier so they could use it in some hook or another (ugh, does wpa_supplicant sniff at the server_random directly too?).",
+      "revId": "663e5bd2ef0817e5b531a3ae1a4585978ddf2b16",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
