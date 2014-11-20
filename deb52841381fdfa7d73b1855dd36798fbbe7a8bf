@@ -16,6 +16,24 @@
       "revId": "deb52841381fdfa7d73b1855dd36798fbbe7a8bf",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ff64148_45417e65",
+        "filename": "crypto/cipher/cipher.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-20T19:13:16Z",
+      "side": 0,
+      "message": "If the ciphertext is authenticated, it doesn\u0027t matter.\n\nIf it\u0027s not, the caller will probably mess up and leak the information anyway, yes.\n\nI think this change is probably moot, but it\u0027s not a point that I wanted to diverge from upstream on.\n\nHowever, I hadn\u0027t looked at the internal uses of (CIPHER|EVP)_R_BAD_DECRYPT which are quite numerous, sadly. So I\u0027m going to ditch this as not worth it.",
+      "parentUuid": "7a5efbd0_ac71a700",
+      "revId": "deb52841381fdfa7d73b1855dd36798fbbe7a8bf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
