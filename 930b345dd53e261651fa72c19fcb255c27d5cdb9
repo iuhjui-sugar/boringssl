@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ff64148_a56ccaa5",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-20T19:34:31Z",
+      "side": 1,
+      "message": "remove one space",
+      "range": {
+        "startLine": 235,
+        "startChar": 22,
+        "endLine": 235,
+        "endChar": 23
+      },
+      "revId": "930b345dd53e261651fa72c19fcb255c27d5cdb9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ff64148_45c61e29",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-20T19:34:31Z",
+      "side": 1,
+      "message": "hello.ticketSupported \u003d !c.config.SessionTicketsDisabled",
+      "revId": "930b345dd53e261651fa72c19fcb255c27d5cdb9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ff64148_05f9365d",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-20T19:34:31Z",
+      "side": 1,
+      "message": "ticketOk :\u003d !c.config.SessionTicketsDisabled || candidateSession.sessionTicket \u003d\u003d nil",
+      "revId": "930b345dd53e261651fa72c19fcb255c27d5cdb9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ff64148_25b9da6e",
+        "filename": "ssl/test/runner/ticket.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-20T19:34:31Z",
+      "side": 1,
+      "message": "any reason to export this?",
+      "range": {
+        "startLine": 20,
+        "startChar": 4,
+        "endLine": 20,
+        "endChar": 5
+      },
+      "revId": "930b345dd53e261651fa72c19fcb255c27d5cdb9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
