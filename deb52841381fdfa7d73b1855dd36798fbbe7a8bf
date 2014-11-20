@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a5efbd0_ac71a700",
+        "filename": "crypto/cipher/cipher.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-20T04:24:56Z",
+      "side": 0,
+      "message": "This does somewhat change the contract of this function. Normally OpenSSL always pushes an error on the queue if it would return 0. I do see some internal code that checks the error queue after this fails, and even some code which checks for EVP_R_BAD_PADDING (we\u0027ll need to change it to CIPHER_R_BAD_PADDING when we move it).\n\nYou could imagine something that\u0027d break badly (ERR_get_error() returning zero getting misinterpreted as success later down the line), but I don\u0027t see any instances. Just some error messages may look confused.\n\nDoing this bit in constant time is also only useful if the caller intends to then use this as part of an s3_cbc.c-like implementation that carefully checks the plaintext\u0027s authentication, right? Does anything do that? (And if the ciphertext is authenticated, this shouldn\u0027t matter?)\n\nI suppose if this hypothetical scheme did mac-then-encrypt with the MAC in the front rather than the end or did mac-and-encrypt, it wouldn\u0027t be that scary to get right?\n\nI don\u0027t have strong opinions. If we wanted to be conservative, the other option would be to split out the decrypt from a padding check specifically documented to not push an error a la RSA_message_index_PKCS1_type_2.",
+      "revId": "deb52841381fdfa7d73b1855dd36798fbbe7a8bf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
