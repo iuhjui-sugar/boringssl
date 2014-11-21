@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "7f526d24_49cbe5df",
+        "filename": "crypto/bio/pair.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 5225
+      },
+      "writtenOn": "2014-11-21T21:25:14Z",
+      "side": 1,
+      "message": "Huh, this must have sneaked in during the review of the first Cl of zero copy ap. Removed.",
+      "range": {
+        "startLine": 355,
+        "startChar": 0,
+        "endLine": 355,
+        "endChar": 80
+      },
+      "revId": "f72c8dc00311a9c9cc069b9299983cdd67445c7a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ff357dd2_b81bc18f",
         "filename": "crypto/bio/pair.c",
         "patchSetId": 1
@@ -13,6 +36,47 @@
       "writtenOn": "2014-11-21T19:12:06Z",
       "side": 1,
       "message": "I think we\u0027re better off removing this ctrl outright from BIO pairs. (The more I look at this code, the more I\u0027d rather we used a custom BIO for Chromium instead... :-/)\n\nNote that nothing outside of bio_make_pair will allocate b-\u003ebuf. It\u0027s not safe to externally call BIO_set_write_buffer_size anyway. Nor is it documented to work for a BIO pair.",
+      "revId": "f72c8dc00311a9c9cc069b9299983cdd67445c7a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "df3a79c4_f42a761b",
+        "filename": "crypto/bio/pair.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 5225
+      },
+      "writtenOn": "2014-11-21T21:25:14Z",
+      "side": 1,
+      "message": "I don\u0027t see that this function is used anywhere either. Agree and done.",
+      "parentUuid": "ff357dd2_b81bc18f",
+      "revId": "f72c8dc00311a9c9cc069b9299983cdd67445c7a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9f448158_d2fe623d",
+        "filename": "crypto/bio/pair.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 5225
+      },
+      "writtenOn": "2014-11-21T21:25:14Z",
+      "side": 1,
+      "message": "I think I\u0027ll remove this one also. It always returns 0 (other implementations returns 1 for success), and I don\u0027t see it\u0027s called from anywhere.",
+      "range": {
+        "startLine": 726,
+        "startChar": 9,
+        "endLine": 726,
+        "endChar": 23
+      },
       "revId": "f72c8dc00311a9c9cc069b9299983cdd67445c7a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -42,6 +106,30 @@
     },
     {
       "key": {
+        "uuid": "9f448158_f20166a5",
+        "filename": "crypto/bio/pair.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 792,
+      "author": {
+        "id": 5225
+      },
+      "writtenOn": "2014-11-21T21:25:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff357dd2_b834e1fd",
+      "range": {
+        "startLine": 792,
+        "startChar": 64,
+        "endLine": 792,
+        "endChar": 68
+      },
+      "revId": "f72c8dc00311a9c9cc069b9299983cdd67445c7a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ff357dd2_d878c5b2",
         "filename": "crypto/bio/pair.c",
         "patchSetId": 1
@@ -53,6 +141,30 @@
       "writtenOn": "2014-11-21T19:12:06Z",
       "side": 1,
       "message": "Let\u0027s unexport this because you can\u0027t actually do anything useful with it without using BIO_new_pair*. Nothing else can allocate the underlying buffer or link two BIOs together.",
+      "range": {
+        "startLine": 842,
+        "startChar": 18,
+        "endLine": 842,
+        "endChar": 27
+      },
+      "revId": "f72c8dc00311a9c9cc069b9299983cdd67445c7a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "df3a79c4_14361a89",
+        "filename": "crypto/bio/pair.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 5225
+      },
+      "writtenOn": "2014-11-21T21:25:14Z",
+      "side": 1,
+      "message": "Agree. Done",
+      "parentUuid": "ff357dd2_d878c5b2",
       "range": {
         "startLine": 842,
         "startChar": 18,
