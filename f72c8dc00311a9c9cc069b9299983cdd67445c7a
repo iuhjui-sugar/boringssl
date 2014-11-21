@@ -83,6 +83,30 @@
     },
     {
       "key": {
+        "uuid": "ff357dd2_db0e7f53",
+        "filename": "crypto/bio/pair.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-21T22:00:35Z",
+      "side": 1,
+      "message": "Sadly lots of things don\u0027t bother to check the return value of BIO_reset. But I\u0027ve confirmed that no internal Google code that creates BIO pairs also calls BIO_reset, so that sounds good.",
+      "parentUuid": "9f448158_d2fe623d",
+      "range": {
+        "startLine": 726,
+        "startChar": 9,
+        "endLine": 726,
+        "endChar": 23
+      },
+      "revId": "f72c8dc00311a9c9cc069b9299983cdd67445c7a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ff357dd2_b834e1fd",
         "filename": "crypto/bio/pair.c",
         "patchSetId": 1
