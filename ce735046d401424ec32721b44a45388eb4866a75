@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff357dd2_fb96e352",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-21T22:02:12Z",
+      "side": 1,
+      "message": "Oh, one minor thing: this loses mention that it fixed a bug if you didn\u0027t use the default buffer sizes.",
+      "revId": "ce735046d401424ec32721b44a45388eb4866a75",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
