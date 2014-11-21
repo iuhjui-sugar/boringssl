@@ -91,11 +91,9 @@ static int bio_new(BIO *bio) {
   if (b == NULL) {
     return 0;
   }
+  memset(b, 0, sizeof(struct bio_bio_st));
 
-  b->peer = NULL;
   b->size = 17 * 1024; /* enough for one TLS record (just a default) */
-  b->buf = NULL;
-
   bio->ptr = b;
   return 1;
 }
@@ -580,8 +578,9 @@ static int bio_write(BIO *bio, const char *buf, int num_) {
   return num;
 }
 
-static int bio_make_pair(BIO* bio1, BIO* bio2, uint8_t* ext_writebuf1,
-                         uint8_t* ext_writebuf2) {
+static int bio_make_pair(BIO* bio1, BIO* bio2,
+                         size_t writebuf1_len, uint8_t* ext_writebuf1,
+                         size_t writebuf2_len, uint8_t* ext_writebuf2) {
   struct bio_bio_st *b1, *b2;
 
   assert(bio1 != NULL);
@@ -595,7 +594,13 @@ static int bio_make_pair(BIO* bio1, BIO* bio2, uint8_t* ext_writebuf1,
     return 0;
   }
 
+  assert(b1->buf_externally_allocated == 0);
+  assert(b2->buf_externally_allocated == 0);
+
   if (b1->buf == NULL) {
+    if (writebuf1_len) {
+      b1->size = writebuf1_len;
+    }
     if (!ext_writebuf1) {
       b1->buf_externally_allocated = 0;
       b1->buf = OPENSSL_malloc(b1->size);
@@ -612,6 +617,9 @@ static int bio_make_pair(BIO* bio1, BIO* bio2, uint8_t* ext_writebuf1,
   }
 
   if (b2->buf == NULL) {
+    if (writebuf2_len) {
+      b2->size = writebuf2_len;
+    }
     if (!ext_writebuf2) {
       b2->buf_externally_allocated = 0;
       b2->buf = OPENSSL_malloc(b2->size);
@@ -660,14 +668,12 @@ static long bio_ctrl(BIO *bio, int cmd, long num, void *ptr) {
       } else if (num == 0) {
         OPENSSL_PUT_ERROR(BIO, bio_ctrl, BIO_R_INVALID_ARGUMENT);
         ret = 0;
+      } else if (b->buf_externally_allocated) {
+        /* Don't change the size of externally allocated buffers. */
+        OPENSSL_PUT_ERROR(BIO, bio_ctrl, BIO_R_INVALID_ARGUMENT);
+        ret = 0;
       } else {
         size_t new_size = num;
-
-        /* Don't change the size of externally allocated buffers. */
-        if (b->buf && !b->buf_externally_allocated) {
-          return 0;
-        }
-
         if (b->size != new_size) {
           if (b->buf) {
             OPENSSL_free(b->buf);
@@ -718,7 +724,8 @@ static long bio_ctrl(BIO *bio, int cmd, long num, void *ptr) {
     /* standard CTRL codes follow */
 
     case BIO_CTRL_RESET:
-      if (b->buf != NULL) {
+      if (b->buf != NULL && !b->zero_copy_read_lock &&
+          !b->zero_copy_write_lock) {
         b->len = 0;
         b->offset = 0;
       }
@@ -782,16 +789,15 @@ int BIO_new_bio_pair(BIO** bio1_p, size_t writebuf1,
                                        writebuf2, NULL);
 }
 
-int BIO_new_bio_pair_external_buf(BIO** bio1_p, size_t writebuf1,
+int BIO_new_bio_pair_external_buf(BIO** bio1_p, size_t writebuf1_len,
                                   uint8_t* ext_writebuf1,
-                                  BIO** bio2_p, size_t writebuf2,
+                                  BIO** bio2_p, size_t writebuf2_len,
                                   uint8_t* ext_writebuf2) {
   BIO *bio1 = NULL, *bio2 = NULL;
-  long r;
   int ret = 0;
 
   /* External buffers must have sizes greater than 0. */
-  if ((ext_writebuf1 && !writebuf1) || (ext_writebuf2 && !writebuf2)) {
+  if ((ext_writebuf1 && !writebuf1_len) || (ext_writebuf2 && !writebuf2_len)) {
     return 0;
   }
 
@@ -804,20 +810,8 @@ int BIO_new_bio_pair_external_buf(BIO** bio1_p, size_t writebuf1,
     goto err;
   }
 
-  if (writebuf1) {
-    r = BIO_set_write_buffer_size(bio1, writebuf1);
-    if (!r) {
-      goto err;
-    }
-  }
-  if (writebuf2) {
-    r = BIO_set_write_buffer_size(bio2, writebuf2);
-    if (!r) {
-      goto err;
-    }
-  }
-
-  if (!bio_make_pair(bio1, bio2, ext_writebuf1, ext_writebuf2)) {
+  if (!bio_make_pair(bio1, bio2, writebuf1_len, ext_writebuf1, writebuf2_len,
+                     ext_writebuf2)) {
     goto err;
   }
   ret = 1;
