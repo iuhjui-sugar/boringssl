@@ -378,6 +378,9 @@ type Config struct {
 	Bugs ProtocolBugs
 
 	serverInitOnce sync.Once // guards calling (*Config).serverInit
+
+	// Enable or disable extra padding to fast forward 3G radio
+	fastradio_padding_enabled bool
 }
 
 type BadValue int

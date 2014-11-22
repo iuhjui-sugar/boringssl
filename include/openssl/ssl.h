@@ -1367,6 +1367,14 @@ struct ssl_st
 	/* fallback_scsv is non-zero iff we are sending the TLS_FALLBACK_SCSV
 	 * cipher suite value. Only applies to a client. */
 	char fallback_scsv;
+
+        /* fastradio_padding is a control flag which determines whether the
+         * clienthello message should be padded to 1024 bytes so that the
+         * cellular radio is fast forwarded to DCH (high data rate) state
+         * in 3g networks assuming TLSEXT_TYPE_padding is defined (0: default
+         * TLSEXT_TYPE_padding; >0: pad to 1024 bytes). Otherwise, this flag
+         * should be ignored. */
+         uint8_t fastradio_padding;
 	};
 
 #endif
@@ -1646,6 +1654,7 @@ DECLARE_PEM_rw(SSL_SESSION, SSL_SESSION)
 #define SSL_CTRL_SET_CHANNEL_ID			119
 
 #define SSL_CTRL_FALLBACK_SCSV			120
+#define SSL_CTRL_FASTRADIO_PADDING		121
 
 #define DTLSv1_get_timeout(ssl, arg) \
 	SSL_ctrl(ssl,DTLS_CTRL_GET_TIMEOUT,0, (void *)arg)
@@ -1812,6 +1821,12 @@ DECLARE_PEM_rw(SSL_SESSION, SSL_SESSION)
 
 #define SSL_enable_fallback_scsv(s) \
 	SSL_ctrl(s, SSL_CTRL_FALLBACK_SCSV, 0, NULL)
+
+#define SSL_enable_fastradio_padding(s) \
+        SSL_ctrl(s, SSL_CTRL_FASTRADIO_PADDING, 1, NULL)
+
+#define SSL_disable_fastradio_padding(s) \
+        SSL_ctrl(s, SSL_CTRL_FASTRADIO_PADDING, 0, NULL)
 
 #ifndef OPENSSL_NO_BIO
 OPENSSL_EXPORT BIO_METHOD *BIO_f_ssl(void);
