@@ -429,6 +429,9 @@ static int do_exchange(SSL_SESSION **out_session,
       return 1;
     }
   }
+  if (config->fastradio_padding) {
+    SSL_enable_fastradio_padding(ssl);
+  }
   if (!config->srtp_profiles.empty()) {
     if (!SSL_set_srtp_profiles(ssl, config->srtp_profiles.c_str())) {
       BIO_print_errors_fp(stdout);
