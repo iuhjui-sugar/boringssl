@@ -2055,6 +2055,27 @@ func addDTLSReplayTests() {
 	})
 }
 
+func addFastRadioPaddingTests() {
+	testCases = append(testCases, testCase {
+		protocol:	tls,
+		name:		"FastRadio-Padding-Enabled",
+		config: Config{
+			fastradio_padding_enabled: true,
+		},
+		flags:		[]string{"-fastradio"},
+		shouldFail:	false,
+	})
+	testCases = append(testCases, testCase {
+		protocol:	dtls,
+		name:		"FastRadio-Padding-Enabled",
+		config: Config{
+			fastradio_padding_enabled: true,
+		},
+		flags:		[]string{"-fastradio"},
+		shouldFail:	false,
+	})
+}
+
 var testHashes = []struct {
 	name string
 	id   uint8
@@ -2065,6 +2086,7 @@ var testHashes = []struct {
 	{"SHA384", hashSHA384},
 	{"SHA512", hashSHA512},
 }
+
 
 func addSigningHashTests() {
 	// Make sure each hash works. Include some fake hashes in the list and
@@ -2236,6 +2258,7 @@ func main() {
 	addRenegotiationTests()
 	addDTLSReplayTests()
 	addSigningHashTests()
+	addFastRadioPaddingTests()
 	for _, async := range []bool{false, true} {
 		for _, splitHandshake := range []bool{false, true} {
 			for _, protocol := range []protocol{tls, dtls} {

@@ -1428,6 +1428,13 @@ long ssl3_ctrl(SSL *s, int cmd, long larg, void *parg)
 		ret = 1;
 		break;
 
+        case SSL_CTRL_FASTRADIO_PADDING:
+                if (s->server)
+                  break;
+                s->fastradio_padding = larg;
+                ret = 1;
+                break;
+
 	default:
 		break;
 		}

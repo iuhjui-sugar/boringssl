@@ -1168,9 +1168,16 @@ unsigned char *ssl_add_clienthello_tlsext(SSL *s, unsigned char *buf, unsigned c
 	if (header_len > 0)
 		{
 		header_len += ret - orig;
-		if (header_len > 0xff && header_len < 0x200)
+                /* revert to default padding size 0x200 if fastradio_padding
+                 * is not enabled. Note that when fastradio_padding is
+                 * enabled, even if the header_len is less than 255 (0xff), the
+                 * padding will be applied regardless. This is slightly
+                 * different from the TLS padding extension suggested in
+                 * https://tools.ietf.org/html/draft-agl-tls-padding-03 */
+                uint16_t clienthello_minsize = (s->fastradio_padding==1) ? 0x400 : 0x200;
+		if ((header_len > 0xff || s->fastradio_padding==1) && header_len < clienthello_minsize)
 			{
-			size_t padding_len = 0x200 - header_len;
+			size_t padding_len = clienthello_minsize - header_len;
 			/* Extensions take at least four bytes to encode. Always
 			 * include least one byte of data if including the
 			 * extension. WebSphere Application Server 7.0 is
