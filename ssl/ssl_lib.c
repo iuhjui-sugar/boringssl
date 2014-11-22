@@ -239,6 +239,9 @@ int SSL_clear(SSL *s)
 	 * so, revert back if we are not doing session-id reuse. */
 	if (!s->in_handshake && (s->session == NULL) && (s->method != s->ctx->method))
 		{
+		/* TODO(davidben): This is still needed because method switches
+		 * happen from SSLv23 to a version-specific one. When the
+		 * version-specific methods are unified, it can be removed. */
 		s->method->ssl_free(s);
 		s->method=s->ctx->method;
 		if (!s->method->ssl_new(s))
@@ -2304,33 +2307,6 @@ const SSL_METHOD *SSL_CTX_get_ssl_method(SSL_CTX *ctx)
 const SSL_METHOD *SSL_get_ssl_method(SSL *s)
 	{
 	return(s->method);
-	}
-
-int SSL_set_ssl_method(SSL *s, const SSL_METHOD *meth)
-	{
-	int conn= -1;
-	int ret=1;
-
-	if (s->method != meth)
-		{
-		if (s->handshake_func != NULL)
-			conn=(s->handshake_func == s->method->ssl_connect);
-
-		if (s->method->version == meth->version)
-			s->method=meth;
-		else
-			{
-			s->method->ssl_free(s);
-			s->method=meth;
-			ret=s->method->ssl_new(s);
-			}
-
-		if (conn == 1)
-			s->handshake_func=meth->ssl_connect;
-		else if (conn == 0)
-			s->handshake_func=meth->ssl_accept;
-		}
-	return(ret);
 	}
 
 int SSL_get_error(const SSL *s,int i)

@@ -116,24 +116,12 @@
 
 #include "ssl_locl.h"
 
-static const SSL_METHOD *ssl23_get_client_method(int ver);
 static int ssl23_client_hello(SSL *s);
 static int ssl23_get_server_hello(SSL *s);
-static const SSL_METHOD *ssl23_get_client_method(int ver)
-	{
-	/* When SSL_set_session is called, do NOT switch to the version-specific
-	 * method table. The server may still negotiate a different version when
-	 * rejecting the session.
-	 *
-	 * TODO(davidben): Clean this up. This duplicates logic from the
-	 * version-specific tables. https://crbug.com/403378 */
-	return SSLv23_client_method();
-	}
 
 IMPLEMENT_ssl23_meth_func(SSLv23_client_method,
 			ssl_undefined_function,
-			ssl23_connect,
-			ssl23_get_client_method)
+			ssl23_connect)
 
 int ssl23_connect(SSL *s)
 	{
