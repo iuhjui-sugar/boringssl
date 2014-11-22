@@ -62,6 +62,7 @@ const BoolFlag kBoolFlags[] = {
   { "-renegotiate", &TestConfig::renegotiate },
   { "-allow-unsafe-legacy-renegotiation",
     &TestConfig::allow_unsafe_legacy_renegotiation },
+  { "-fastradio-padding", &TestConfig::fastradio_padding },
 };
 
 const size_t kNumBoolFlags = sizeof(kBoolFlags) / sizeof(kBoolFlags[0]);
@@ -116,7 +117,8 @@ TestConfig::TestConfig()
       expect_session_miss(false),
       expect_extended_master_secret(false),
       renegotiate(false),
-      allow_unsafe_legacy_renegotiation(false) {
+      allow_unsafe_legacy_renegotiation(false),
+      fastradio_padding(false) {
 }
 
 bool ParseConfig(int argc, char **argv, TestConfig *out_config) {

@@ -59,6 +59,7 @@ struct TestConfig {
   bool renegotiate;
   bool allow_unsafe_legacy_renegotiation;
   std::string srtp_profiles;
+  bool fastradio_padding;
 };
 
 bool ParseConfig(int argc, char **argv, TestConfig *out_config);

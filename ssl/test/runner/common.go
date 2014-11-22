@@ -576,6 +576,10 @@ type ProtocolBugs struct {
 	// CertificateRequest message. None the less, the configured set will
 	// still be enforced.
 	NoSignatureAndHashes bool
+
+	// RequireFastradioPadding, if ture, causes the client to pad the
+	// ClientHello record to be 1024 bytes.
+	RequireFastradioPadding bool
 }
 
 func (c *Config) serverInit() {

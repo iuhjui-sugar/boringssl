@@ -1367,6 +1367,12 @@ struct ssl_st
 	/* fallback_scsv is non-zero iff we are sending the TLS_FALLBACK_SCSV
 	 * cipher suite value. Only applies to a client. */
 	char fallback_scsv;
+
+	/* fastradio_padding is a control flag that determines whether the
+	 * ClientHello message should be padded to 1024 bytes so that the
+	 * cellular radio is fast forwarded to DCH (high data rate) state
+	 * in 3G networks. */
+	 char fastradio_padding;
 	};
 
 #endif
@@ -2141,6 +2147,7 @@ OPENSSL_EXPORT int SSL_CTX_get_ex_new_index(long argl, void *argp, CRYPTO_EX_new
 	CRYPTO_EX_dup *dup_func, CRYPTO_EX_free *free_func);
 
 OPENSSL_EXPORT int SSL_get_ex_data_X509_STORE_CTX_idx(void );
+OPENSSL_EXPORT void SSL_config_fastradio_padding(SSL *, char);
 
 #define SSL_CTX_sess_set_cache_size(ctx,t) \
 	SSL_CTX_ctrl(ctx,SSL_CTRL_SET_SESS_CACHE_SIZE,t,NULL)

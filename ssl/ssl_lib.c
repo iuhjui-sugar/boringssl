@@ -3191,3 +3191,8 @@ int SSL_is_server(SSL *s)
 	{
 	return s->server;
 	}
+
+void SSL_config_fastradio_padding(SSL *s, char on_off)
+	{
+	s->fastradio_padding = on_off;
+	}
