@@ -88,6 +88,52 @@
     },
     {
       "key": {
+        "uuid": "1f77b1c2_99b7dbf9",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1374,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-24T20:36:18Z",
+      "side": 1,
+      "message": "Nit: I think 3G is usually capitalized.",
+      "range": {
+        "startLine": 1374,
+        "startChar": 15,
+        "endLine": 1374,
+        "endChar": 16
+      },
+      "revId": "29951367cacb8123ac751ab55c14016de0328104",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1f77b1c2_b9b417f5",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1377,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-24T20:36:18Z",
+      "side": 1,
+      "message": "Nit: char would be more consistent with the other random booleans in this struct.",
+      "range": {
+        "startLine": 1377,
+        "startChar": 9,
+        "endLine": 1377,
+        "endChar": 16
+      },
+      "revId": "29951367cacb8123ac751ab55c14016de0328104",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "df3a79c4_37fec011",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 2
@@ -145,6 +191,29 @@
     },
     {
       "key": {
+        "uuid": "1f77b1c2_59a383bd",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-24T20:36:18Z",
+      "side": 1,
+      "message": "Nit: Most of these errors are prefixed \u0027tls\u0027.",
+      "range": {
+        "startLine": 124,
+        "startChar": 28,
+        "endLine": 124,
+        "endChar": 39
+      },
+      "revId": "29951367cacb8123ac751ab55c14016de0328104",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f448158_55f93c27",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 2
@@ -190,6 +259,23 @@
       "writtenOn": "2014-11-24T12:57:17Z",
       "side": 1,
       "message": "remove extra line.",
+      "revId": "29951367cacb8123ac751ab55c14016de0328104",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1f77b1c2_79a8bf96",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-11-24T20:36:18Z",
+      "side": 1,
+      "message": "Better to keep the flag and variable name the same (underscores and hyphens aside).",
       "revId": "29951367cacb8123ac751ab55c14016de0328104",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
