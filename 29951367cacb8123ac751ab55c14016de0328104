@@ -1,0 +1,198 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "df3a79c4_57f94427",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-24T12:57:17Z",
+      "side": 1,
+      "message": "(It\u0027s ClientHello in the specs.)\n\nPlease write more here :)",
+      "revId": "29951367cacb8123ac751ab55c14016de0328104",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9f448158_55981c00",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1371,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-24T12:57:17Z",
+      "side": 1,
+      "message": "that",
+      "range": {
+        "startLine": 1371,
+        "startChar": 47,
+        "endLine": 1371,
+        "endChar": 52
+      },
+      "revId": "29951367cacb8123ac751ab55c14016de0328104",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f526d24_ac382710",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1372,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-24T12:57:17Z",
+      "side": 1,
+      "message": "ClientHello",
+      "range": {
+        "startLine": 1372,
+        "startChar": 11,
+        "endLine": 1372,
+        "endChar": 22
+      },
+      "revId": "29951367cacb8123ac751ab55c14016de0328104",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f526d24_8c356b1a",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1374,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-24T12:57:17Z",
+      "side": 1,
+      "message": "period here then delete everything afterwards. (It can be assumed in BoringSSL that TLSEXT_TYPE_padding is defined.)",
+      "range": {
+        "startLine": 1374,
+        "startChar": 25,
+        "endLine": 1374,
+        "endChar": 26
+      },
+      "revId": "29951367cacb8123ac751ab55c14016de0328104",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "df3a79c4_37fec011",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1657,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-24T12:57:17Z",
+      "side": 1,
+      "message": "Please add normal functions rather than another ctrl value. The ctrl interface is a hangover from OpenSSL rather than a pattern that should be copied.",
+      "revId": "29951367cacb8123ac751ab55c14016de0328104",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9f448158_159294e0",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1161,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-24T12:57:17Z",
+      "side": 1,
+      "message": "this is C89 -- you can\u0027t have variable decls after statements. (I.e. move above the assignment to |header_len|.)\n\nAnd how about:\n\nuint16_t clienthello_minsize \u003d 0;\nif (header_len \u003e 0xff \u0026\u0026 header_len \u003c 0x200)\n        {\n        /* Add padding to workaround bugs in F5 terminators.\n         * See https://tools.ietf.org/html/draft-agl-tls-padding-03 */\n         clienthello_minsize \u003d 0x200;\n        }\nif (s-\u003efastradio_padding)\n        {\n        /* ... */\n        clienthello_minsize \u003d 0x400;\n        }\n\nif (clienthello_minsize \u003e 0) {\n        {\n         ...",
+      "revId": "29951367cacb8123ac751ab55c14016de0328104",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "df3a79c4_f7071888",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-24T12:57:17Z",
+      "side": 1,
+      "message": "This should be in ProtocolBugs, should be called RequireFastradioPadding and the comment should be updated.",
+      "range": {
+        "startLine": 383,
+        "startChar": 1,
+        "endLine": 383,
+        "endChar": 26
+      },
+      "revId": "29951367cacb8123ac751ab55c14016de0328104",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9f448158_55f93c27",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 2087,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-24T12:57:17Z",
+      "side": 1,
+      "message": "false is the default value for shouldFail so doesn\u0027t need to be mentioned.",
+      "revId": "29951367cacb8123ac751ab55c14016de0328104",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f526d24_8fe67d45",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 2091,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-24T12:57:17Z",
+      "side": 1,
+      "message": "tests should have the same name.",
+      "revId": "29951367cacb8123ac751ab55c14016de0328104",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f526d24_6ff581e6",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 2110,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-11-24T12:57:17Z",
+      "side": 1,
+      "message": "remove extra line.",
+      "revId": "29951367cacb8123ac751ab55c14016de0328104",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
