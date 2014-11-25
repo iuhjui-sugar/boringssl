@@ -435,6 +435,18 @@ static int do_exchange(SSL_SESSION **out_session,
       return 1;
     }
   }
+  if (config->enable_ocsp_stapling) {
+    if (!SSL_enable_ocsp_stapling(ssl)) {
+      BIO_print_errors_fp(stdout);
+      return 1;
+    }
+  }
+  if (config->enable_signed_cert_timestamps) {
+    if (!SSL_enable_signed_cert_timestamps(ssl)) {
+      BIO_print_errors_fp(stdout);
+      return 1;
+    }
+  }
 
   BIO *bio = BIO_new_fd(fd, 1 /* take ownership */);
   if (bio == NULL) {
@@ -551,6 +563,29 @@ static int do_exchange(SSL_SESSION **out_session,
   if (config->expect_extended_master_secret) {
     if (!ssl->session->extended_master_secret) {
       fprintf(stderr, "No EMS for session when expected");
+      return 2;
+    }
+  }
+
+  if (!config->expected_ocsp_response.empty()) {
+    const uint8_t *data;
+    size_t len;
+    SSL_get0_ocsp_response(ssl, &data, &len);
+    if (config->expected_ocsp_response.size() != len ||
+        memcmp(config->expected_ocsp_response.data(), data, len) != 0) {
+      fprintf(stderr, "OCSP response mismatch\n");
+      return 2;
+    }
+  }
+
+  if (!config->expected_signed_cert_timestamps.empty()) {
+    const uint8_t *data;
+    size_t len;
+    SSL_get0_signed_cert_timestamp_list(ssl, &data, &len);
+    if (config->expected_signed_cert_timestamps.size() != len ||
+        memcmp(config->expected_signed_cert_timestamps.data(),
+               data, len) != 0) {
+      fprintf(stderr, "SCT list mismatch\n");
       return 2;
     }
   }
