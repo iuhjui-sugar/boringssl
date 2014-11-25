@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3f4d55af_ffe97b16",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5420
+      },
+      "writtenOn": "2014-11-25T22:53:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df3a79c4_57f94427",
+      "revId": "29951367cacb8123ac751ab55c14016de0328104",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f448158_55981c00",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 2
@@ -42,6 +60,24 @@
     },
     {
       "key": {
+        "uuid": "3f4d55af_7fef2b17",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1371,
+      "author": {
+        "id": 5420
+      },
+      "writtenOn": "2014-11-25T22:53:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f448158_55981c00",
+      "revId": "29951367cacb8123ac751ab55c14016de0328104",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f526d24_ac382710",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 2
@@ -59,6 +95,24 @@
         "endLine": 1372,
         "endChar": 22
       },
+      "revId": "29951367cacb8123ac751ab55c14016de0328104",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f4d55af_5ff4efe7",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1372,
+      "author": {
+        "id": 5420
+      },
+      "writtenOn": "2014-11-25T22:53:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f526d24_ac382710",
       "revId": "29951367cacb8123ac751ab55c14016de0328104",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -111,6 +165,24 @@
     },
     {
       "key": {
+        "uuid": "3f4d55af_bf089350",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1374,
+      "author": {
+        "id": 5420
+      },
+      "writtenOn": "2014-11-25T22:53:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f77b1c2_99b7dbf9",
+      "revId": "29951367cacb8123ac751ab55c14016de0328104",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1f77b1c2_b9b417f5",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 2
@@ -134,6 +206,24 @@
     },
     {
       "key": {
+        "uuid": "3f4d55af_9f05d73a",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1377,
+      "author": {
+        "id": 5420
+      },
+      "writtenOn": "2014-11-25T22:53:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f77b1c2_b9b417f5",
+      "revId": "29951367cacb8123ac751ab55c14016de0328104",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "df3a79c4_37fec011",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 2
@@ -151,6 +241,24 @@
     },
     {
       "key": {
+        "uuid": "3f4d55af_ff021b2e",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1657,
+      "author": {
+        "id": 5420
+      },
+      "writtenOn": "2014-11-25T22:53:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df3a79c4_37fec011",
+      "revId": "29951367cacb8123ac751ab55c14016de0328104",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f448158_159294e0",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 2
@@ -162,6 +270,24 @@
       "writtenOn": "2014-11-24T12:57:17Z",
       "side": 1,
       "message": "this is C89 -- you can\u0027t have variable decls after statements. (I.e. move above the assignment to |header_len|.)\n\nAnd how about:\n\nuint16_t clienthello_minsize \u003d 0;\nif (header_len \u003e 0xff \u0026\u0026 header_len \u003c 0x200)\n        {\n        /* Add padding to workaround bugs in F5 terminators.\n         * See https://tools.ietf.org/html/draft-agl-tls-padding-03 */\n         clienthello_minsize \u003d 0x200;\n        }\nif (s-\u003efastradio_padding)\n        {\n        /* ... */\n        clienthello_minsize \u003d 0x400;\n        }\n\nif (clienthello_minsize \u003e 0) {\n        {\n         ...",
+      "revId": "29951367cacb8123ac751ab55c14016de0328104",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f4d55af_dfff5fbe",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1161,
+      "author": {
+        "id": 5420
+      },
+      "writtenOn": "2014-11-25T22:53:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f448158_159294e0",
       "revId": "29951367cacb8123ac751ab55c14016de0328104",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -208,6 +334,24 @@
         "endLine": 124,
         "endChar": 39
       },
+      "revId": "29951367cacb8123ac751ab55c14016de0328104",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f4d55af_9f0e7752",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5420
+      },
+      "writtenOn": "2014-11-25T22:53:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f77b1c2_59a383bd",
       "revId": "29951367cacb8123ac751ab55c14016de0328104",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -276,6 +420,24 @@
       "writtenOn": "2014-11-24T20:36:18Z",
       "side": 1,
       "message": "Better to keep the flag and variable name the same (underscores and hyphens aside).",
+      "revId": "29951367cacb8123ac751ab55c14016de0328104",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f4d55af_ff1b3b8e",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5420
+      },
+      "writtenOn": "2014-11-25T22:53:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f77b1c2_79a8bf96",
       "revId": "29951367cacb8123ac751ab55c14016de0328104",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
