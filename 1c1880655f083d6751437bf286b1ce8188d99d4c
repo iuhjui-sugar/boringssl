@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5f692905_3e580dd1",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1171,
+      "author": {
+        "id": 5420
+      },
+      "writtenOn": "2014-11-26T17:09:03Z",
+      "side": 1,
+      "message": "change to: \nif (clienthello_minsize \u003e 0 \u0026\u0026 header_len \u003c clienthello_minsize)",
+      "revId": "1c1880655f083d6751437bf286b1ce8188d99d4c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
