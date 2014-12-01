@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5fa849a2_20738456",
+        "filename": "include/openssl/ssl3.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-12-01T23:52:31Z",
+      "side": 1,
+      "message": "char?",
+      "range": {
+        "startLine": 370,
+        "startChar": 1,
+        "endLine": 370,
+        "endChar": 4
+      },
+      "revId": "073f1f0740d36da9e5956b8affe1cc3d8f569a70",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
