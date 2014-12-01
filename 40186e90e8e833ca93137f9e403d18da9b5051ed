@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5fa849a2_c0406065",
+        "filename": "ssl/d1_pkt.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-12-01T23:37:08Z",
+      "side": 1,
+      "message": "silently",
+      "range": {
+        "startLine": 597,
+        "startChar": 19,
+        "endLine": 597,
+        "endChar": 25
+      },
+      "revId": "40186e90e8e833ca93137f9e403d18da9b5051ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
