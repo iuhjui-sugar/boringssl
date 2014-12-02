@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "df87d927_5227aaa7",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-02T07:23:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bfa145bc_20094ac9",
+      "range": {
+        "startLine": 438,
+        "startChar": 4,
+        "endLine": 438,
+        "endChar": 5
+      },
+      "revId": "cb4239e84bcc7a4deb7bacab2331aa7746dba91f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bfa145bc_00376688",
         "filename": "ssl/test/bssl_shim.cc",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2014-12-01T21:23:57Z",
       "side": 1,
       "message": "ditto.",
+      "range": {
+        "startLine": 444,
+        "startChar": 5,
+        "endLine": 444,
+        "endChar": 6
+      },
+      "revId": "cb4239e84bcc7a4deb7bacab2331aa7746dba91f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "df87d927_722cae89",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-02T07:23:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bfa145bc_00376688",
       "range": {
         "startLine": 444,
         "startChar": 5,
