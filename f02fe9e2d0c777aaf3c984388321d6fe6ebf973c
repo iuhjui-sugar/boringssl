@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5fa849a2_83126276",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 620,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-12-02T00:08:27Z",
+      "side": 1,
+      "message": "Can this pattern be:\n\nif (!(options \u0026 SSL_OP_NO_FOO)) {\n  return FOO_VERSION;\n}\n\n?\n\nThat way you don\u0027t have to worry about checking that NO_FOO+1 isn\u0027t set because, if it weren\u0027t, the function would have returned. The |version| variable can also be removed.",
+      "revId": "f02fe9e2d0c777aaf3c984388321d6fe6ebf973c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
