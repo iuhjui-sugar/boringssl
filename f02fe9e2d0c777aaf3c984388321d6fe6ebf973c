@@ -16,6 +16,24 @@
       "revId": "f02fe9e2d0c777aaf3c984388321d6fe6ebf973c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "df87d927_8f6579bf",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 620,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-02T00:18:25Z",
+      "side": 1,
+      "message": "I don\u0027t think that\u0027s quite the same. If you set just SSL_OP_NO_TLSv1_1, TLS 1.2 is implicitly disabled and the range is SSLv3..TLSv1.\n\nHowever, if you set SSL_OP_NO_SSLv3|SSL_OP_NO_TLSv1|SSL_OP_NO_TLSv1_1, then TLS 1.2 isn\u0027t implicitly disabled and the range is TLSv1.2..\n\nIt\u0027s really weird and what the giant comment was trying to allude to. This should be equivalent to the bizarre mask thing in the original code I believe.",
+      "parentUuid": "5fa849a2_83126276",
+      "revId": "f02fe9e2d0c777aaf3c984388321d6fe6ebf973c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
