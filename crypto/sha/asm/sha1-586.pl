@@ -324,7 +324,7 @@ if ($xmm) {
   &set_label("pic_point");
 	&blindpop($tmp1);
 	&picmeup($T,"OPENSSL_ia32cap_P",$tmp1,&label("pic_point"));
-	&lea	($tmp1,&DWP(&label("K_XX_XX")."-".&label("pic_point"),$tmp1));
+	&picmeup_local($tmp1, &label("K_XX_XX"), $tmp1, &label("pic_point"));
 
 	&mov	($A,&DWP(0,$T));
 	&mov	($D,&DWP(4,$T));
@@ -438,10 +438,7 @@ sub sha1msg1	{ sha1op38(0xc9,@_); }
 sub sha1msg2	{ sha1op38(0xca,@_); }
 
 &function_begin("_sha1_block_data_order_shaext");
-	&call	(&label("pic_point"));	# make it PIC!
-	&set_label("pic_point");
-	&blindpop($tmp1);
-	&lea	($tmp1,&DWP(&label("K_XX_XX")."-".&label("pic_point"),$tmp1));
+	&picmeup_local($tmp1, &label("K_XX_XX"));
 &set_label("shaext_shortcut");
 	&mov	($ctx,&wparam(0));
 	&mov	("ebx","esp");
@@ -561,10 +558,7 @@ my $_rol=sub { &rol(@_) };
 my $_ror=sub { &ror(@_) };
 
 &function_begin("_sha1_block_data_order_ssse3");
-	&call	(&label("pic_point"));	# make it PIC!
-	&set_label("pic_point");
-	&blindpop($tmp1);
-	&lea	($tmp1,&DWP(&label("K_XX_XX")."-".&label("pic_point"),$tmp1));
+	&picmeup_local($tmp1, &label("K_XX_XX"));
 &set_label("ssse3_shortcut");
 
 	&movdqa	(@X[3],&QWP(0,$tmp1));		# K_00_19
@@ -1104,10 +1098,7 @@ my $_rol=sub { &shld(@_[0],@_) };
 my $_ror=sub { &shrd(@_[0],@_) };
 
 &function_begin("_sha1_block_data_order_avx");
-	&call	(&label("pic_point"));	# make it PIC!
-	&set_label("pic_point");
-	&blindpop($tmp1);
-	&lea	($tmp1,&DWP(&label("K_XX_XX")."-".&label("pic_point"),$tmp1));
+	&picmeup_local($tmp1, &label("K_XX_XX"));
 &set_label("avx_shortcut");
 	&vzeroall();
 

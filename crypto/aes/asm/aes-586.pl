@@ -1183,7 +1183,7 @@ sub enclast()
 	&set_label("pic_point");
 	&blindpop($tbl);
 	&picmeup($s0,"OPENSSL_ia32cap_P",$tbl,&label("pic_point")) if (!$x86only);
-	&lea    ($tbl,&DWP(&label("AES_Te")."-".&label("pic_point"),$tbl));
+	&picmeup_local($tbl, "AES_Te", $tbl, &label("pic_point"));
 
 	# pick Te4 copy which can't "overlap" with stack frame or key schedule
 	&lea	($s1,&DWP(768-4,"esp"));
@@ -1974,7 +1974,7 @@ sub declast()
 	&set_label("pic_point");
 	&blindpop($tbl);
 	&picmeup($s0,"OPENSSL_ia32cap_P",$tbl,&label("pic_point")) if(!$x86only);
-	&lea    ($tbl,&DWP(&label("AES_Td")."-".&label("pic_point"),$tbl));
+	&picmeup_local($tbl, "AES_Td", $tbl, &label("pic_point"));
 
 	# pick Td4 copy which can't "overlap" with stack frame or key schedule
 	&lea	($s1,&DWP(768-4,"esp"));
@@ -2047,7 +2047,7 @@ my $mark=&DWP(76+240,"esp");	# copy of aes_key->rounds
 	&picmeup($s0,"OPENSSL_ia32cap_P",$tbl,&label("pic_point")) if(!$x86only);
 
 	&cmp	(&wparam(5),0);
-	&lea    ($tbl,&DWP(&label("AES_Te")."-".&label("pic_point"),$tbl));
+	&picmeup_local($tbl, "AES_Te", $tbl, &label("pic_point"));
 	&jne	(&label("picked_te"));
 	&lea	($tbl,&DWP(&label("AES_Td")."-".&label("AES_Te"),$tbl));
 	&set_label("picked_te");
@@ -2666,10 +2666,7 @@ sub enckey()
 	&test	("edi",-1);
 	&jz	(&label("badpointer"));
 
-	&call	(&label("pic_point"));
-	&set_label("pic_point");
-	&blindpop($tbl);
-	&lea	($tbl,&DWP(&label("AES_Te")."-".&label("pic_point"),$tbl));
+	&picmeup_local($tbl, "AES_Te");
 	&lea	($tbl,&DWP(2048+128,$tbl));
 
 	# prefetch Te4

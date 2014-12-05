@@ -187,10 +187,7 @@ sub BODY_00_15() {
 	&mov	("eax",wparam(2));	# num
 	&mov	("ebx","esp");		# saved sp
 
-	&call	(&label("pic_point"));	# make it PIC!
-&set_label("pic_point");
-	&blindpop($K256);
-	&lea	($K256,&DWP(&label("K256")."-".&label("pic_point"),$K256));
+	&picmeup_local($K256, &label("K256"));
 
 	&sub	("esp",16);
 	&and	("esp",-64);

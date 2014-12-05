@@ -149,7 +149,7 @@ sub cbc
 	&call(&label("PIC_point"));
 &set_label("PIC_point");
 	&blindpop("edx");
-	&lea("ecx",&DWP(&label("cbc_enc_jmp_table")."-".&label("PIC_point"),"edx"));
+	&picmeup_local("ecx", &label("cbc_enc_jmp_table"), "edx", &label("PIC_point"));
 	&mov($count,&DWP(0,"ecx",$count,4));
 	&add($count,"edx");
 	&xor("ecx","ecx");

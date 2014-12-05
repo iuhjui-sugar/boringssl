@@ -286,10 +286,7 @@ sub BODY_00_15_x86 {
 	&mov	("eax",wparam(2));	# num
 	&mov	("ebx","esp");		# saved sp
 
-	&call	(&label("pic_point"));	# make it PIC!
-&set_label("pic_point");
-	&blindpop($K512);
-	&lea	($K512,&DWP(&label("K512")."-".&label("pic_point"),$K512));
+	&picmeup_local($K512, &label("K512"));
 
 	&sub	("esp",16);
 	&and	("esp",-64);
