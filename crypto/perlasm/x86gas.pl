@@ -185,8 +185,8 @@ sub ::align
     push(@out,".align\t$val\n");
 }
 
-sub ::picmeup
-{ my($dst,$sym,$base,$reflabel)=@_;
+sub ::picmeup_impl
+{ my ($external, $dst, $sym, $base, $reflabel)=@_;
 
     if (($::pic && ($::elf || $::aout)) || $::macosx)
     {	if (!defined($base))
@@ -196,21 +196,28 @@ sub ::picmeup
 	    $base=$dst;
 	    $reflabel=&::label("PIC_me_up");
 	}
-	if ($::macosx)
-	{   my $indirect=&::static_label("$nmdecor$sym\$non_lazy_ptr");
+	if ($::macosx && $external)
+	{   # OS X does not allow subtraction expressions to include symbols
+            # outside the current compilation unit.
+	    my $indirect=&::static_label("$nmdecor$sym\$non_lazy_ptr");
 	    &::mov($dst,&::DWP("$indirect-$reflabel",$base));
 	    $non_lazy_ptr{"$nmdecor$sym"}=$indirect;
 	}
-	elsif ($sym eq "OPENSSL_ia32cap_P" && $::elf>0)
-	{   &::lea($dst,&::DWP("$sym-$reflabel",$base));   }
 	else
-	{   &::lea($dst,&::DWP("_GLOBAL_OFFSET_TABLE_+[.-$reflabel]",
-			    $base));
-	    &::mov($dst,&::DWP("$sym\@GOT",$dst));
-	}
+	{   &::lea($dst,&::DWP("$sym-$reflabel",$base));   }
     }
     else
     {	&::lea($dst,&::DWP($sym));	}
+}
+
+sub ::picmeup
+{   my ($dst, $sym, $base, $reflabel) = @_;
+    &::picmeup_impl(1, $dst, $sym, $base, $reflabel);
+}
+
+sub ::picmeup_local
+{   my ($dst, $sym, $base, $reflabel) = @_;
+    &::picmeup_impl(0, $dst, $sym, $base, $reflabel);
 }
 
 sub ::initseg

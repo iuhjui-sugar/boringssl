@@ -179,6 +179,9 @@ sub ::picmeup
     &::lea($dst,&::DWP($sym));
 }
 
+sub ::picmeup_local
+{   &::picmeup(@_);	}
+
 sub ::initseg
 { my $f=$nmdecor.shift;
 
