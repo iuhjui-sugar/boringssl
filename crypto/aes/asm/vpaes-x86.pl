@@ -53,6 +53,30 @@ require "x86asm.pl";
 
 &asm_init($ARGV[0],"vpaes-x86.pl",$x86only = $ARGV[$#ARGV] eq "386");
 
+# call_with_pic_param calls $func, placing $sym in register $dst. If
+# PIC is enabled, it places the difference between $sym and the return
+# address. $func should use get_pic_param to retrieve the value.
+sub call_with_pic_param {
+    my ($func, $dst, $sym) = @_;
+    if (($::pic && ($::elf || $::aout)) || $::macosx) {
+        &lea($dst, &DWP($sym . "-" . &label("pic_point")));
+        &call($func);
+        &set_label("pic_point");
+    } else {
+        &lea($dst, &DWP($sym));
+        &call($func);
+    }
+}
+
+# get_pic_param retrives the value loaded into $dst by
+# call_with_pic_param.
+sub get_pic_param {
+    my ($dst) = @_;
+    if (($::pic && ($::elf || $::aout)) || $::macosx) {
+        &add($dst, &DWP(0, "esp"));
+    }
+}
+
 $PREFIX="vpaes";
 
 my  ($round, $base, $magic, $key, $const, $inp, $out)=
@@ -158,7 +182,7 @@ $k_dsbo=0x2c0;		# decryption sbox final output
 &align	(64);
 
 &function_begin_B("_vpaes_preheat");
-	&add	($const,&DWP(0,"esp"));
+	&get_pic_param($const);
 	&movdqa	("xmm7",&QWP($k_inv,$const));
 	&movdqa	("xmm6",&QWP($k_s0F,$const));
 	&ret	();
@@ -368,7 +392,7 @@ $k_dsbo=0x2c0;		# decryption sbox final output
 ##                                                    ##
 ########################################################
 &function_begin_B("_vpaes_schedule_core");
-	&add	($const,&DWP(0,"esp"));
+	&get_pic_param($const);
 	&movdqu	("xmm0",&QWP(0,$inp));		# load key (unaligned)
 	&movdqa	("xmm2",&QWP($k_rcon,$const));	# load rcon
 
@@ -762,9 +786,8 @@ $k_dsbo=0x2c0;		# decryption sbox final output
 	&mov	($magic,0x30);
 	&mov	($out,0);
 
-	&lea	($const,&DWP(&label("_vpaes_consts")."+0x30-".&label("pic_point")));
-	&call	("_vpaes_schedule_core");
-&set_label("pic_point");
+	&call_with_pic_param("_vpaes_schedule_core", $const,
+                             &label("_vpaes_consts")."+0x30");
 
 	&mov	("esp",&DWP(48,"esp"));
 	&xor	("eax","eax");
@@ -792,18 +815,16 @@ $k_dsbo=0x2c0;		# decryption sbox final output
 	&and	($magic,32);
 	&xor	($magic,32);			# nbist==192?0:32;
 
-	&lea	($const,&DWP(&label("_vpaes_consts")."+0x30-".&label("pic_point")));
-	&call	("_vpaes_schedule_core");
-&set_label("pic_point");
+	&call_with_pic_param("_vpaes_schedule_core", $const,
+                             &label("_vpaes_consts")."+0x30");
 
 	&mov	("esp",&DWP(48,"esp"));
 	&xor	("eax","eax");
 &function_end("${PREFIX}_set_decrypt_key");
 
 &function_begin("${PREFIX}_encrypt");
-	&lea	($const,&DWP(&label("_vpaes_consts")."+0x30-".&label("pic_point")));
-	&call	("_vpaes_preheat");
-&set_label("pic_point");
+	&call_with_pic_param("_vpaes_preheat", $const,
+                             &label("_vpaes_consts")."+0x30");
 	&mov	($inp,&wparam(0));		# inp
 	&lea	($base,&DWP(-56,"esp"));
 	&mov	($out,&wparam(1));		# out
@@ -820,9 +841,8 @@ $k_dsbo=0x2c0;		# decryption sbox final output
 &function_end("${PREFIX}_encrypt");
 
 &function_begin("${PREFIX}_decrypt");
-	&lea	($const,&DWP(&label("_vpaes_consts")."+0x30-".&label("pic_point")));
-	&call	("_vpaes_preheat");
-&set_label("pic_point");
+	&call_with_pic_param("_vpaes_preheat", $const,
+                             &label("_vpaes_consts")."+0x30");
 	&mov	($inp,&wparam(0));		# inp
 	&lea	($base,&DWP(-56,"esp"));
 	&mov	($out,&wparam(1));		# out
@@ -859,9 +879,8 @@ $k_dsbo=0x2c0;		# decryption sbox final output
 	&mov	(&DWP(8,"esp"),$const);		# save ivp
 	&mov	($out,$round);			# $out works as $len
 
-	&lea	($const,&DWP(&label("_vpaes_consts")."+0x30-".&label("pic_point")));
-	&call	("_vpaes_preheat");
-&set_label("pic_point");
+	&call_with_pic_param("_vpaes_preheat", $const,
+                             &label("_vpaes_consts")."+0x30");
 	&cmp	($magic,0);
 	&je	(&label("cbc_dec_loop"));
 	&jmp	(&label("cbc_enc_loop"));
