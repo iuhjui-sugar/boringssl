@@ -423,10 +423,7 @@ $S=12;		# shift factor for rem_4bit
 	&mov	($inp,&wparam(0));	# load Xi
 	&mov	($Htbl,&wparam(1));	# load Htable
 
-	&call	(&label("pic_point"));
-	&set_label("pic_point");
-	&blindpop("eax");
-	&lea	("eax",&DWP(&label("rem_4bit")."-".&label("pic_point"),"eax"));
+	&picmeup_local("eax", "rem_4bit");
 
 	&movz	($Zll,&BP(15,$inp));
 
@@ -448,10 +445,7 @@ $S=12;		# shift factor for rem_4bit
 	&mov	($inp,&wparam(2));	# load in
 	&mov	($Zlh,&wparam(3));	# load len
 
-	&call	(&label("pic_point"));
-	&set_label("pic_point");
-	&blindpop("eax");
-	&lea	("eax",&DWP(&label("rem_4bit")."-".&label("pic_point"),"eax"));
+	&picmeup_local("eax", "rem_4bit");
 
 	&add	($Zlh,$inp);
 	&mov	(&wparam(3),$Zlh);	# len to point at the end of input
@@ -596,10 +590,7 @@ sub mmx_loop() {
 	&mov	($inp,&wparam(0));	# load Xi
 	&mov	($Htbl,&wparam(1));	# load Htable
 
-	&call	(&label("pic_point"));
-	&set_label("pic_point");
-	&blindpop("eax");
-	&lea	("eax",&DWP(&label("rem_4bit")."-".&label("pic_point"),"eax"));
+	&picmeup_local("eax", "rem_4bit");
 
 	&movz	($Zll,&BP(15,$inp));
 
@@ -630,10 +621,7 @@ sub mmx_loop() {
     &mov	("ecx",&wparam(2));		# inp
     &mov	("edx",&wparam(3));		# len
     &mov	("ebp","esp");			# original %esp
-    &call	(&label("pic_point"));
-    &set_label	("pic_point");
-    &blindpop	($rem_8bit);
-    &lea	($rem_8bit,&DWP(&label("rem_8bit")."-".&label("pic_point"),$rem_8bit));
+    &picmeup_local($rem_8bit, "rem_8bit");
 
     &sub	("esp",512+16+16);		# allocate stack frame...
     &and	("esp",-64);			# ...and align it
@@ -924,10 +912,7 @@ my ($Xhi,$Xi) = @_;
 	&mov		($Htbl,&wparam(0));
 	&mov		($Xip,&wparam(1));
 
-	&call		(&label("pic"));
-&set_label("pic");
-	&blindpop	($const);
-	&lea		($const,&DWP(&label("bswap")."-".&label("pic"),$const));
+	&picmeup_local	($const, &label("bswap"));
 
 	&movdqu		($Hkey,&QWP(0,$Xip));
 	&pshufd		($Hkey,$Hkey,0b01001110);# dword swap
@@ -967,10 +952,7 @@ my ($Xhi,$Xi) = @_;
 	&mov		($Xip,&wparam(0));
 	&mov		($Htbl,&wparam(1));
 
-	&call		(&label("pic"));
-&set_label("pic");
-	&blindpop	($const);
-	&lea		($const,&DWP(&label("bswap")."-".&label("pic"),$const));
+	&picmeup_local	($const, &label("bswap"));
 
 	&movdqu		($Xi,&QWP(0,$Xip));
 	&movdqa		($T3,&QWP(0,$const));
@@ -993,10 +975,7 @@ my ($Xhi,$Xi) = @_;
 	&mov		($inp,&wparam(2));
 	&mov		($len,&wparam(3));
 
-	&call		(&label("pic"));
-&set_label("pic");
-	&blindpop	($const);
-	&lea		($const,&DWP(&label("bswap")."-".&label("pic"),$const));
+	&picmeup_local	($const, &label("bswap"));
 
 	&movdqu		($Xi,&QWP(0,$Xip));
 	&movdqa		($T3,&QWP(0,$const));
@@ -1189,10 +1168,7 @@ my ($Xhi,$Xi)=@_;
 	&mov		($Htbl,&wparam(0));
 	&mov		($Xip,&wparam(1));
 
-	&call		(&label("pic"));
-&set_label("pic");
-	&blindpop	($const);
-	&lea		($const,&DWP(&label("bswap")."-".&label("pic"),$const));
+	&picmeup_local	($const, &label("bswap"));
 
 	&movdqu		($Hkey,&QWP(0,$Xip));
 	&pshufd		($Hkey,$Hkey,0b01001110);# dword swap
@@ -1212,10 +1188,7 @@ my ($Xhi,$Xi)=@_;
 	&mov		($Xip,&wparam(0));
 	&mov		($Htbl,&wparam(1));
 
-	&call		(&label("pic"));
-&set_label("pic");
-	&blindpop	($const);
-	&lea		($const,&DWP(&label("bswap")."-".&label("pic"),$const));
+	&picmeup_local	($const, &label("bswap"));
 
 	&movdqu		($Xi,&QWP(0,$Xip));
 	&movdqa		($Xn,&QWP(0,$const));
@@ -1237,10 +1210,7 @@ my ($Xhi,$Xi)=@_;
 	&mov		($inp,&wparam(2));
 	&mov		($len,&wparam(3));
 
-	&call		(&label("pic"));
-&set_label("pic");
-	&blindpop	($const);
-	&lea		($const,&DWP(&label("bswap")."-".&label("pic"),$const));
+	&picmeup_local	($const, &label("bswap"));
 
 	&movdqu		($Xi,&QWP(0,$Xip));
 	&movdqa		($T3,&QWP(0,$const));
