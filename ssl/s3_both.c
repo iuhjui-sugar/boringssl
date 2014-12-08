@@ -731,4 +731,3 @@ int ssl3_release_read_buffer(SSL *s)
 		}
 	return 1;
 	}
-
