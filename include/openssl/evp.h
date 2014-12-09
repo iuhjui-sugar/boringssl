@@ -407,6 +407,11 @@ OPENSSL_EXPORT int PKCS5_PBKDF2_HMAC_SHA1(const char *password,
                                           size_t salt_len, unsigned iterations,
                                           size_t key_len, uint8_t *out_key);
 
+OPENSSL_EXPORT int HKDF_CTR(const uint8_t *ikm, size_t ikm_len,
+                            const uint8_t *salt, size_t salt_len,
+                            const uint8_t *info, size_t info_len,
+                            const EVP_MD *digest, size_t key_len,
+                            uint8_t *out_key);
 
 /* Public key contexts.
  *
