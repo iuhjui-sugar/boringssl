@@ -41,6 +41,7 @@ const ERR_STRING_DATA EVP_error_string_data[] = {
   {ERR_PACK(ERR_LIB_EVP, EVP_F_EVP_PKEY_sign_init, 0), "EVP_PKEY_sign_init"},
   {ERR_PACK(ERR_LIB_EVP, EVP_F_EVP_PKEY_verify, 0), "EVP_PKEY_verify"},
   {ERR_PACK(ERR_LIB_EVP, EVP_F_EVP_PKEY_verify_init, 0), "EVP_PKEY_verify_init"},
+  {ERR_PACK(ERR_LIB_EVP, EVP_F_HKDF, 0), "HKDF"},
   {ERR_PACK(ERR_LIB_EVP, EVP_F_check_padding_md, 0), "check_padding_md"},
   {ERR_PACK(ERR_LIB_EVP, EVP_F_d2i_AutoPrivateKey, 0), "d2i_AutoPrivateKey"},
   {ERR_PACK(ERR_LIB_EVP, EVP_F_d2i_PrivateKey, 0), "d2i_PrivateKey"},

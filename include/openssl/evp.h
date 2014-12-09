@@ -407,6 +407,21 @@ OPENSSL_EXPORT int PKCS5_PBKDF2_HMAC_SHA1(const char *password,
                                           size_t salt_len, unsigned iterations,
                                           size_t key_len, uint8_t *out_key);
 
+/* Key Derivation.
+ *
+ * Key derivation functions take some source of initial keying material and
+ * derive from it one or more cryptographically strong secret keys. */
+
+/* Computes HKDF (as specified by RFC 5869) of initial keying material |ikm|
+ * with |salt| and |info| using |digest|, and outputs |key_len| bytes to
+ * |out_key|. It returns one on success and zero on error.
+ *
+ * HKDF is an Extract-and-Expand algorithm. It does not do any key stretching,
+ * and as such, is not suited to be used alone to generate a key from a
+ * password. */
+OPENSSL_EXPORT int HKDF(const uint8_t *ikm, size_t ikm_len, const uint8_t *salt,
+                        size_t salt_len, const uint8_t *info, size_t info_len,
+                        const EVP_MD *digest, size_t key_len, uint8_t *out_key);
 
 /* Public key contexts.
  *
@@ -830,6 +845,7 @@ struct evp_pkey_st {
 #define EVP_F_EVP_DigestSignAlgorithm 156
 #define EVP_F_rsa_digest_verify_init_from_algorithm 157
 #define EVP_F_EVP_PKEY_CTX_dup 158
+#define EVP_F_HKDF 159
 #define EVP_R_UNSUPPORTED_PUBLIC_KEY_TYPE 100
 #define EVP_R_UNSUPPORTED_SIGNATURE_TYPE 101
 #define EVP_R_INVALID_DIGEST_TYPE 102
@@ -881,5 +897,6 @@ struct evp_pkey_st {
 #define EVP_R_WRONG_PUBLIC_KEY_TYPE 148
 #define EVP_R_UNKNOWN_SIGNATURE_ALGORITHM 149
 #define EVP_R_UNKNOWN_MESSAGE_DIGEST_ALGORITHM 150
+#define EVP_R_KEY_LEN_TOO_LONG 151
 
 #endif  /* OPENSSL_HEADER_EVP_H */

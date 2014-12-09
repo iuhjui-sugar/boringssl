@@ -40,6 +40,7 @@ TESTS="
 ./crypto/ecdsa/ecdsa_test
 ./crypto/err/err_test
 ./crypto/evp/evp_test
+./crypto/evp/hkdf_test
 ./crypto/hmac/hmac_test
 ./crypto/lhash/lhash_test
 ./crypto/modes/gcm_test

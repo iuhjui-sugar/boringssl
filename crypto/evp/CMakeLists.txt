@@ -11,6 +11,7 @@ add_library(
 	evp.c
 	evp_ctx.c
 	evp_error.c
+	hkdf.c
 	p_ec.c
 	p_ec_asn1.c
 	p_hmac.c
@@ -29,3 +30,11 @@ add_executable(
 )
 
 target_link_libraries(evp_test crypto)
+
+add_executable(
+	hkdf_test
+
+	hkdf_test.c
+)
+
+target_link_libraries(hkdf_test crypto)
