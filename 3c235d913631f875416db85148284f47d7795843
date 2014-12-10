@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c45d4e61_9c3cc905",
+        "filename": "tool/server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5405
+      },
+      "writtenOn": "2014-12-10T01:59:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a42cfda_ffaf5f26",
+      "revId": "3c235d913631f875416db85148284f47d7795843",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a42cfda_1fa9e31e",
         "filename": "tool/server.cc",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2014-11-17T21:59:30Z",
       "side": 1,
       "message": "this should be -accept to match OpenSSL.",
+      "revId": "3c235d913631f875416db85148284f47d7795843",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c45d4e61_7c4615a2",
+        "filename": "tool/server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5405
+      },
+      "writtenOn": "2014-12-10T01:59:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a42cfda_1fa9e31e",
       "revId": "3c235d913631f875416db85148284f47d7795843",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "c45d4e61_8dc77174",
+        "filename": "tool/server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5405
+      },
+      "writtenOn": "2014-12-10T01:59:51Z",
+      "side": 1,
+      "message": "No it didn\u0027t seem to work for me. Tried both ways. Both lines were needed to make it work.",
+      "parentUuid": "9a42cfda_7f2d8f02",
+      "range": {
+        "startLine": 58,
+        "startChar": 40,
+        "endLine": 58,
+        "endChar": 50
+      },
+      "revId": "3c235d913631f875416db85148284f47d7795843",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a42cfda_bfd55778",
         "filename": "tool/transport_common.cc",
         "patchSetId": 1
@@ -70,6 +130,24 @@
       "writtenOn": "2014-11-17T21:59:30Z",
       "side": 1,
       "message": "extra blank line after this one.",
+      "revId": "3c235d913631f875416db85148284f47d7795843",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c45d4e61_df13d37b",
+        "filename": "tool/transport_common.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5405
+      },
+      "writtenOn": "2014-12-10T01:59:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a42cfda_bfd55778",
       "revId": "3c235d913631f875416db85148284f47d7795843",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "c45d4e61_1f454b75",
+        "filename": "tool/transport_common.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5405
+      },
+      "writtenOn": "2014-12-10T01:59:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a42cfda_3fd947a8",
+      "revId": "3c235d913631f875416db85148284f47d7795843",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a42cfda_1fafa3f4",
         "filename": "tool/transport_common.h",
         "patchSetId": 1
@@ -104,6 +200,24 @@
       "writtenOn": "2014-11-17T21:59:30Z",
       "side": 1,
       "message": "Function comments should start with the name of the function in question:\n\n// Accept sets |*out_sock| to ...",
+      "revId": "3c235d913631f875416db85148284f47d7795843",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8457d640_3a65bd3a",
+        "filename": "tool/transport_common.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5405
+      },
+      "writtenOn": "2014-12-10T01:59:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a42cfda_1fafa3f4",
       "revId": "3c235d913631f875416db85148284f47d7795843",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
