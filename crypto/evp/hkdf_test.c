@@ -12,18 +12,9 @@
  * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. */
 
-#include <stdint.h>
 #include <stdio.h>
-#include <stdlib.h>
 
-#include <openssl/bio.h>
-#include <openssl/bytestring.h>
-#include <openssl/crypto.h>
-#include <openssl/digest.h>
-#include <openssl/err.h>
 #include <openssl/evp.h>
-#include <openssl/rsa.h>
-#include <openssl/x509.h>
 
 typedef struct {
   const char *hash;
@@ -212,8 +203,6 @@ static const hkdf_test_vector_t kTests[NUM_TESTS] = {
 };
 
 int main(void) {
-  CRYPTO_library_init();
-  ERR_load_crypto_strings();
 
   uint8_t buf[82];
   int i;

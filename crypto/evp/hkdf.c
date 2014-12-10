@@ -65,7 +65,7 @@ int HKDF_CTR(const uint8_t *ikm, size_t ikm_len, const uint8_t *salt,
              const EVP_MD *digest, size_t key_len, uint8_t *out_key) {
   /* Extract input keying material into pseudorandom key prk */
   uint8_t prk[EVP_MAX_MD_SIZE], digest_tmp[EVP_MAX_MD_SIZE];
-  size_t prk_len;
+  size_t prk_len = 0;
   if (HMAC(digest, salt, salt_len, ikm, ikm_len, prk, (unsigned int *) &prk_len) == NULL) {
     return 0;
   }
@@ -114,7 +114,9 @@ int HKDF_CTR(const uint8_t *ikm, size_t ikm_len, const uint8_t *salt,
       bytes_to_copy = key_len - prk_len * i;
     }
     memcpy(out_key + prk_len * i, digest_tmp, bytes_to_copy);
+    HMAC_CTX_cleanup(&hctx);
   }
 
+  HMAC_CTX_cleanup(&hctx_tpl);
   return 1;
 }
