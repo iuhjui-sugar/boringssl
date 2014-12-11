@@ -1,0 +1,289 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "64766214_86aacadd",
+        "filename": "crypto/evp/hkdf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-11T17:44:58Z",
+      "side": 1,
+      "message": "This looks like actual HKDF (HKDR-CTR isn\u0027t a thing) rather than the WebCrypto one. Just call it HKDF and reference the RFC in a comment.",
+      "range": {
+        "startLine": 63,
+        "startChar": 4,
+        "endLine": 63,
+        "endChar": 12
+      },
+      "revId": "fccac8de63e5d03cd54ad3a33e12492206e1673f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64766214_0cbb5b9a",
+        "filename": "crypto/evp/hkdf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-11T17:44:58Z",
+      "side": 1,
+      "message": "Nit: period at the end.",
+      "range": {
+        "startLine": 66,
+        "startChar": 60,
+        "endLine": 66,
+        "endChar": 61
+      },
+      "revId": "fccac8de63e5d03cd54ad3a33e12492206e1673f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64766214_6674eeed",
+        "filename": "crypto/evp/hkdf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-11T17:44:58Z",
+      "side": 1,
+      "message": "Nit: newline here.",
+      "revId": "fccac8de63e5d03cd54ad3a33e12492206e1673f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64766214_a6a7c614",
+        "filename": "crypto/evp/hkdf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-11T17:44:58Z",
+      "side": 1,
+      "message": "This cast isn\u0027t safe. prk_len needs to be an unsigned.",
+      "range": {
+        "startLine": 69,
+        "startChar": 54,
+        "endLine": 69,
+        "endChar": 79
+      },
+      "revId": "fccac8de63e5d03cd54ad3a33e12492206e1673f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64766214_ec46ff1a",
+        "filename": "crypto/evp/hkdf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-11T17:44:58Z",
+      "side": 1,
+      "message": "Nit: period at the end.",
+      "range": {
+        "startLine": 73,
+        "startChar": 42,
+        "endLine": 73,
+        "endChar": 43
+      },
+      "revId": "fccac8de63e5d03cd54ad3a33e12492206e1673f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64766214_6cca0f2e",
+        "filename": "crypto/evp/hkdf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-11T17:44:58Z",
+      "side": 1,
+      "message": "This should OPENSSL_PUT_ERROR something to the error stack since there isn\u0027t another function that would have pushed one for you. To allocate a new one, add the OPENSSL_PUT_ERROR line, cd into crypto/evp and then\n\ngo run ../../util/make_errors.go",
+      "revId": "fccac8de63e5d03cd54ad3a33e12492206e1673f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64766214_2cc0170c",
+        "filename": "crypto/evp/hkdf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-11T17:44:58Z",
+      "side": 1,
+      "message": "Nit: period at the end.",
+      "range": {
+        "startLine": 87,
+        "startChar": 14,
+        "endLine": 87,
+        "endChar": 15
+      },
+      "revId": "fccac8de63e5d03cd54ad3a33e12492206e1673f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64766214_86580a86",
+        "filename": "crypto/evp/hkdf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-11T17:44:58Z",
+      "side": 1,
+      "message": "Nit: I\u0027m not sure if we still need to do this (apparently MSVC 2013 finally doesn\u0027t care), but existing code tries to still declare all variables at the top of a block. (Yay C89!)",
+      "revId": "fccac8de63e5d03cd54ad3a33e12492206e1673f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64766214_ac65e7b6",
+        "filename": "crypto/evp/hkdf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-11T17:44:58Z",
+      "side": 1,
+      "message": "Nit: write -\u003e Write, period at the end.",
+      "revId": "fccac8de63e5d03cd54ad3a33e12492206e1673f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64766214_2c61f7a4",
+        "filename": "crypto/evp/hkdf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-11T17:44:58Z",
+      "side": 1,
+      "message": "Nit: ditto about hoisting this to line 89 if we still care about C89.",
+      "revId": "fccac8de63e5d03cd54ad3a33e12492206e1673f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64766214_6c5beffa",
+        "filename": "crypto/evp/hkdf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-11T17:44:58Z",
+      "side": 1,
+      "message": "It might be clearer if you kept a running total of bytes copied. (Also saves you from doing a multiply, though I imagine the compiler would pick the better version itself anyway.)",
+      "revId": "fccac8de63e5d03cd54ad3a33e12492206e1673f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64766214_067edad9",
+        "filename": "crypto/evp/hkdf_test.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-11T17:44:58Z",
+      "side": 1,
+      "message": "I\u0027d just do\n\n  const EVP_MD *(*md_func)(void); \n\nlike in digest_test.c. You can use EVP_MD_name to get a name out.",
+      "revId": "fccac8de63e5d03cd54ad3a33e12492206e1673f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64766214_2683d66a",
+        "filename": "crypto/evp/hkdf_test.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-11T17:44:58Z",
+      "side": 1,
+      "message": "Nit: no blank line.",
+      "revId": "fccac8de63e5d03cd54ad3a33e12492206e1673f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64766214_667dced9",
+        "filename": "crypto/evp/hkdf_test.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-11T17:44:58Z",
+      "side": 1,
+      "message": "Add a call to\n\n  CRYPTO_library_init();\n\nMay as well also ERR_load_crypto_strings() and then BIO_print_errors_fp(stderr); if HKDF fails, though not all the existing tests are good about this either.",
+      "revId": "fccac8de63e5d03cd54ad3a33e12492206e1673f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64766214_0665fa39",
+        "filename": "include/openssl/evp.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-11T17:44:58Z",
+      "side": 1,
+      "message": "Add a documentation string. Notably, it should document that |out_key| gets |key_len| bytes written. |ikm| is probably worth expanding out in the comment too.",
+      "revId": "fccac8de63e5d03cd54ad3a33e12492206e1673f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
