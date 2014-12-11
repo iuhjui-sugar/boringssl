@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a4a13abc_60e992b9",
+        "filename": "tool/client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-12-11T00:00:52Z",
+      "side": 1,
+      "message": "These two ifs can just be if (a \u0026\u0026 b) {",
+      "revId": "a7846ef88d96c56018ca7281a8d6c5b524729ad1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4a13abc_40e68ee9",
+        "filename": "tool/server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-12-11T00:00:52Z",
+      "side": 1,
+      "message": "Private-key",
+      "range": {
+        "startLine": 45,
+        "startChar": 14,
+        "endLine": 45,
+        "endChar": 16
+      },
+      "revId": "a7846ef88d96c56018ca7281a8d6c5b524729ad1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4a13abc_c0873ef3",
+        "filename": "tool/server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-12-11T00:00:52Z",
+      "side": 1,
+      "message": "This makes the server TLS 1.2 only – which would be surprising to most, I think.",
+      "range": {
+        "startLine": 60,
+        "startChar": 29,
+        "endLine": 60,
+        "endChar": 50
+      },
+      "revId": "a7846ef88d96c56018ca7281a8d6c5b524729ad1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4a13abc_609f523d",
+        "filename": "tool/server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-12-11T00:00:52Z",
+      "side": 1,
+      "message": "ditto with if (a \u0026\u0026 b)",
+      "revId": "a7846ef88d96c56018ca7281a8d6c5b524729ad1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
