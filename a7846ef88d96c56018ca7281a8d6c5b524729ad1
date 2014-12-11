@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "64766214_66122e4f",
+        "filename": "tool/client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5405
+      },
+      "writtenOn": "2014-12-11T00:16:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4a13abc_60e992b9",
+      "revId": "a7846ef88d96c56018ca7281a8d6c5b524729ad1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4a13abc_40e68ee9",
         "filename": "tool/server.cc",
         "patchSetId": 2
@@ -30,6 +48,30 @@
       "writtenOn": "2014-12-11T00:00:52Z",
       "side": 1,
       "message": "Private-key",
+      "range": {
+        "startLine": 45,
+        "startChar": 14,
+        "endLine": 45,
+        "endChar": 16
+      },
+      "revId": "a7846ef88d96c56018ca7281a8d6c5b524729ad1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64766214_2608361d",
+        "filename": "tool/server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5405
+      },
+      "writtenOn": "2014-12-11T00:16:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4a13abc_40e68ee9",
       "range": {
         "startLine": 45,
         "startChar": 14,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "64766214_06033a03",
+        "filename": "tool/server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5405
+      },
+      "writtenOn": "2014-12-11T00:16:08Z",
+      "side": 1,
+      "message": "I couldn\u0027t get it to connect otherwise. I was getting handshake failures because no common cipher suite even though I\u0027d set both sides to \"ALL\".\n\nI saw some cipher suite exclusions when in version 1.2 and I thought I was hitting that. \n\nI didn\u0027t have time to debug it so I just set it as 1.2 for the server side.",
+      "parentUuid": "a4a13abc_c0873ef3",
+      "range": {
+        "startLine": 60,
+        "startChar": 29,
+        "endLine": 60,
+        "endChar": 50
+      },
+      "revId": "a7846ef88d96c56018ca7281a8d6c5b524729ad1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4a13abc_609f523d",
         "filename": "tool/server.cc",
         "patchSetId": 2
@@ -76,6 +142,24 @@
       "writtenOn": "2014-12-11T00:00:52Z",
       "side": 1,
       "message": "ditto with if (a \u0026\u0026 b)",
+      "revId": "a7846ef88d96c56018ca7281a8d6c5b524729ad1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64766214_460d322c",
+        "filename": "tool/server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5405
+      },
+      "writtenOn": "2014-12-11T00:16:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4a13abc_609f523d",
       "revId": "a7846ef88d96c56018ca7281a8d6c5b524729ad1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
