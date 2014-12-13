@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "846356c3_b7ab0866",
+        "filename": "ssl/s23_clnt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-12-13T22:38:21Z",
+      "side": 1,
+      "message": "I\u0027ll put this back after.",
+      "revId": "01b55a0ceb101a14caa2020f72f2585d8dccde87",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
