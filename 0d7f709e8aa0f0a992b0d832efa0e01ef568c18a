@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "24c46ad1_27b1b404",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-13T06:39:48Z",
+      "side": 1,
+      "message": "This one wants pretty careful review. May be worth setting up a ClientHello fuzzer and throwing it at american fuzzy lop.",
+      "revId": "0d7f709e8aa0f0a992b0d832efa0e01ef568c18a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
