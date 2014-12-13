@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "846356c3_f783c0dd",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 739,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-12-13T23:19:00Z",
+      "side": 1,
+      "message": "I\u0027ll fix the indentation here when changing all the indentation next week.",
+      "revId": "83a87b2a86fc24bab8f8538f3d8d9a4bcce90264",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
