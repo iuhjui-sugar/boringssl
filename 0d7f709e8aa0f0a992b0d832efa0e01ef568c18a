@@ -16,6 +16,23 @@
       "revId": "0d7f709e8aa0f0a992b0d832efa0e01ef568c18a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "846356c3_77997055",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-12-13T23:11:53Z",
+      "side": 1,
+      "message": "I think this is correct, but I\u0027ll follow up and put ( ) around the \u0026 operation.",
+      "revId": "0d7f709e8aa0f0a992b0d832efa0e01ef568c18a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
