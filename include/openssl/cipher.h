@@ -79,11 +79,13 @@ OPENSSL_EXPORT const EVP_CIPHER *EVP_des_ede3_cbc(void);
 
 OPENSSL_EXPORT const EVP_CIPHER *EVP_aes_128_ecb(void);
 OPENSSL_EXPORT const EVP_CIPHER *EVP_aes_128_cbc(void);
+OPENSSL_EXPORT const EVP_CIPHER *EVP_aes_128_cfb(void);
 OPENSSL_EXPORT const EVP_CIPHER *EVP_aes_128_ctr(void);
 OPENSSL_EXPORT const EVP_CIPHER *EVP_aes_128_gcm(void);
 
 OPENSSL_EXPORT const EVP_CIPHER *EVP_aes_256_ecb(void);
 OPENSSL_EXPORT const EVP_CIPHER *EVP_aes_256_cbc(void);
+OPENSSL_EXPORT const EVP_CIPHER *EVP_aes_256_cfb(void);
 OPENSSL_EXPORT const EVP_CIPHER *EVP_aes_256_ctr(void);
 OPENSSL_EXPORT const EVP_CIPHER *EVP_aes_256_gcm(void);
 

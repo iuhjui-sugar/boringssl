@@ -317,6 +317,10 @@ static int test_cipher(const char *cipher, const uint8_t *key, int kn,
     c = EVP_aes_256_ctr();
   } else if (strcmp(cipher, "AES-256-GCM") == 0) {
     c = EVP_aes_256_gcm();
+  } else if (strcmp(cipher, "AES-128-CFB") == 0) {
+    c = EVP_aes_128_cfb();
+  } else if (strcmp(cipher, "AES-256-CFB") == 0) {
+    c = EVP_aes_256_cfb();
   } else {
     fprintf(stderr, "Unknown cipher type %s\n", cipher);
     return 0;
