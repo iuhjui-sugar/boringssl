@@ -281,6 +281,17 @@ static int aes_cbc_cipher(EVP_CIPHER_CTX *ctx, unsigned char *out,
   return 1;
 }
 
+static int aes_cfb_cipher(EVP_CIPHER_CTX *ctx, unsigned char *out,
+                          const unsigned char *in,size_t len)
+{
+  EVP_AES_KEY *dat = (EVP_AES_KEY *)ctx->cipher_data;
+
+  CRYPTO_cfb128_encrypt(in, out, len, &dat->ks, ctx->iv, &ctx->num,
+                        ctx->encrypt, dat->block);
+
+  return 1;
+}
+
 static int aes_ecb_cipher(EVP_CIPHER_CTX *ctx, unsigned char *out,
                           const unsigned char *in, size_t len) {
   size_t bl = ctx->cipher->block_size;
@@ -604,6 +615,12 @@ static const EVP_CIPHER aes_128_cbc = {
     NULL /* app_data */, aes_init_key,        aes_cbc_cipher,
     NULL /* cleanup */,  NULL /* ctrl */};
 
+static const EVP_CIPHER aes_128_cfb = {
+    NID_aes_128_cfb128,  1 /* block_size */, 16 /* key_size */,
+    16 /* iv_len */,     sizeof(EVP_AES_KEY), EVP_CIPH_CFB_MODE,
+    NULL /* app_data */, aes_init_key,        aes_cfb_cipher,
+    NULL /* cleanup */,  NULL /* ctrl */};
+
 static const EVP_CIPHER aes_128_ctr = {
     NID_aes_128_ctr,     1 /* block_size */,  16 /* key_size */,
     16 /* iv_len */,     sizeof(EVP_AES_KEY), EVP_CIPH_CTR_MODE,
@@ -630,6 +647,12 @@ static const EVP_CIPHER aes_256_cbc = {
     NID_aes_256_cbc,     16 /* block_size */, 32 /* key_size */,
     16 /* iv_len */,     sizeof(EVP_AES_KEY), EVP_CIPH_CBC_MODE,
     NULL /* app_data */, aes_init_key,        aes_cbc_cipher,
+    NULL /* cleanup */,  NULL /* ctrl */};
+
+static const EVP_CIPHER aes_256_cfb = {
+    NID_aes_256_cfb128,  1 /* block_size */, 32 /* key_size */,
+    16 /* iv_len */,     sizeof(EVP_AES_KEY), EVP_CIPH_CFB_MODE,
+    NULL /* app_data */, aes_init_key,        aes_cfb_cipher,
     NULL /* cleanup */,  NULL /* ctrl */};
 
 static const EVP_CIPHER aes_256_ctr = {
@@ -801,6 +824,11 @@ static const EVP_CIPHER aesni_256_gcm = {
     NULL /* app_data */, aesni_gcm_init_key, aes_gcm_cipher, aes_gcm_cleanup,
     aes_gcm_ctrl};
 
+/* CFB mode is not implemented with aesni,
+ * we use the standard version instead. */
+#define aesni_128_cfb aes_128_cfb
+#define aesni_256_cfb aes_256_cfb
+
 #define EVP_CIPHER_FUNCTION(keybits, mode)             \
   const EVP_CIPHER *EVP_aes_##keybits##_##mode(void) { \
     if (aesni_capable()) {                             \
@@ -824,11 +852,13 @@ static char aesni_capable(void) {
 #endif
 
 EVP_CIPHER_FUNCTION(128, cbc)
+EVP_CIPHER_FUNCTION(128, cfb)
 EVP_CIPHER_FUNCTION(128, ctr)
 EVP_CIPHER_FUNCTION(128, ecb)
 EVP_CIPHER_FUNCTION(128, gcm)
 
 EVP_CIPHER_FUNCTION(256, cbc)
+EVP_CIPHER_FUNCTION(256, cfb)
 EVP_CIPHER_FUNCTION(256, ctr)
 EVP_CIPHER_FUNCTION(256, ecb)
 EVP_CIPHER_FUNCTION(256, gcm)
