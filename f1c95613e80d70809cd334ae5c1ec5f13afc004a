@@ -16,6 +16,24 @@
       "revId": "f1c95613e80d70809cd334ae5c1ec5f13afc004a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "618014c5_1625dc98",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 804,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-12-16T19:15:57Z",
+      "side": 0,
+      "message": "One basically never wants to use a random nonce with GCM – it\u0027s too small for the collision probability to be comfortable.",
+      "parentUuid": "013038e8_4b52c561",
+      "revId": "f1c95613e80d70809cd334ae5c1ec5f13afc004a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
