@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "013038e8_4b52c561",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 804,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-16T13:09:26Z",
+      "side": 0,
+      "message": "That this was commented out was pretty freaky. Upstream\u0027s 338a61b94e39e3db628ff862853255b8d71615ee references a seemingly unrelated PR. But it seems fine. For AES-GCM, we don\u0027t use a random nonce anyway and override it. For 1.1+ CBC mode IVs, t1_enc.c does it at line 900.",
+      "revId": "f1c95613e80d70809cd334ae5c1ec5f13afc004a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
