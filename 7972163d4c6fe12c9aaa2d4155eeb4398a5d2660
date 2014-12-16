@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "046f66ad_79a87f14",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-16T03:17:05Z",
+      "side": 1,
+      "message": "Probably should fix the variable names in ssl_locl.h too.",
+      "revId": "7972163d4c6fe12c9aaa2d4155eeb4398a5d2660",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "046f66ad_399e07f9",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-16T03:17:05Z",
+      "side": 1,
+      "message": "Does anything explode if we turn this into an assert?",
+      "revId": "7972163d4c6fe12c9aaa2d4155eeb4398a5d2660",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "046f66ad_19a14b32",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-16T03:17:05Z",
+      "side": 1,
+      "message": "Are we deciding to no longer bother with hoisting variable declarations (SGTM) now that MSVC doesn\u0027t mind?",
+      "revId": "7972163d4c6fe12c9aaa2d4155eeb4398a5d2660",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "046f66ad_99ac7b30",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-16T03:17:05Z",
+      "side": 1,
+      "message": "Apparently clang-format doesn\u0027t have a knob for this:\nhttp://lists.cs.uiuc.edu/pipermail/cfe-dev/2014-May/037031.html\n\nBut it looks like a sufficiently new clang-tidy can do it?\nhttp://llvm.org/viewvc/llvm-project?view\u003drevision\u0026revision\u003d218898",
+      "revId": "7972163d4c6fe12c9aaa2d4155eeb4398a5d2660",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
