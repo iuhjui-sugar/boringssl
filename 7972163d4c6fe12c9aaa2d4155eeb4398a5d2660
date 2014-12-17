@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "21a8dc5a_242792da",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-12-17T00:15:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "046f66ad_79a87f14",
+      "revId": "7972163d4c6fe12c9aaa2d4155eeb4398a5d2660",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "046f66ad_399e07f9",
         "filename": "ssl/s3_both.c",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2014-12-16T03:17:05Z",
       "side": 1,
       "message": "Does anything explode if we turn this into an assert?",
+      "revId": "7972163d4c6fe12c9aaa2d4155eeb4398a5d2660",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "21a8dc5a_c40b1e45",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-12-17T00:15:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "046f66ad_399e07f9",
       "revId": "7972163d4c6fe12c9aaa2d4155eeb4398a5d2660",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "21a8dc5a_e4089a4a",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-12-17T00:15:27Z",
+      "side": 1,
+      "message": "Is Chromium\u0027s MSVC all fixed now then? Assuming so, then yes.",
+      "parentUuid": "046f66ad_19a14b32",
+      "revId": "7972163d4c6fe12c9aaa2d4155eeb4398a5d2660",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "046f66ad_99ac7b30",
         "filename": "ssl/s3_both.c",
         "patchSetId": 1
@@ -64,6 +118,24 @@
       "writtenOn": "2014-12-16T03:17:05Z",
       "side": 1,
       "message": "Apparently clang-format doesn\u0027t have a knob for this:\nhttp://lists.cs.uiuc.edu/pipermail/cfe-dev/2014-May/037031.html\n\nBut it looks like a sufficiently new clang-tidy can do it?\nhttp://llvm.org/viewvc/llvm-project?view\u003drevision\u0026revision\u003d218898",
+      "revId": "7972163d4c6fe12c9aaa2d4155eeb4398a5d2660",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "21a8dc5a_043b76ef",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-12-17T00:15:27Z",
+      "side": 1,
+      "message": "I\u0027m just doing it by hand at the moment.",
+      "parentUuid": "046f66ad_99ac7b30",
       "revId": "7972163d4c6fe12c9aaa2d4155eeb4398a5d2660",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
