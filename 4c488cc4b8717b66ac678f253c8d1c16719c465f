@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c19c6086_a7a44e14",
+        "filename": "crypto/evp/evp_error.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-12-18T20:12:43Z",
+      "side": 1,
+      "message": "Thanks. Forgot to revert this file.",
+      "parentUuid": "e1b404e0_3a1da18f",
+      "range": {
+        "startLine": 44,
+        "startChar": 1,
+        "endLine": 44,
+        "endChar": 49
+      },
+      "revId": "4c488cc4b8717b66ac678f253c8d1c16719c465f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e1b404e0_da00252b",
         "filename": "include/openssl/hkdf.h",
         "patchSetId": 4
@@ -36,6 +60,24 @@
       "writtenOn": "2014-12-18T03:55:18Z",
       "side": 1,
       "message": "OPENSSL_EXPORT int HKDF\n\n(it isn\u0027t linking properly on the chromium side without it)",
+      "revId": "4c488cc4b8717b66ac678f253c8d1c16719c465f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c19c6086_27b15e52",
+        "filename": "include/openssl/hkdf.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-12-18T20:12:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1b404e0_da00252b",
       "revId": "4c488cc4b8717b66ac678f253c8d1c16719c465f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
