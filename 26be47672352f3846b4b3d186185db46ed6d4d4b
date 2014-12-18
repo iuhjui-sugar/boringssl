@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0194b84f_8b572d55",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-18T16:10:19Z",
+      "side": 1,
+      "message": "For TLS 1.1, the current implementation just prepends a random block and has that randomize the IV. There\u0027s currently no EVP_CIPHER API to change the IV and not the key, so probably just do the same? That or SSL_CIPHER_STATE should hold on to the key material rather than CTXs with them burned in.",
+      "range": {
+        "startLine": 192,
+        "startChar": 5,
+        "endLine": 192,
+        "endChar": 11
+      },
+      "revId": "26be47672352f3846b4b3d186185db46ed6d4d4b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0194b84f_eb5ef16c",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-18T16:10:19Z",
+      "side": 1,
+      "message": "This is more mallocs than before with _new rather than _init, but DTLS rexmit taking ownership and NULL cipher are a little awkward with _init. I assume optimizing for avoiding one-time mallocs is a thing of the past.",
+      "range": {
+        "startLine": 202,
+        "startChar": 34,
+        "endLine": 202,
+        "endChar": 38
+      },
+      "revId": "26be47672352f3846b4b3d186185db46ed6d4d4b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0194b84f_cb61352a",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-18T16:10:19Z",
+      "side": 1,
+      "message": "Other possibility is that it passes in the key block, but then the caller needs to separately compute the keyblock size for |cipher|",
+      "range": {
+        "startLine": 205,
+        "startChar": 54,
+        "endLine": 205,
+        "endChar": 67
+      },
+      "revId": "26be47672352f3846b4b3d186185db46ed6d4d4b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0194b84f_6b73e106",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-18T16:10:19Z",
+      "side": 1,
+      "message": "(Maybe hold onto the side so we can assert on it, though the current code doesn\u0027t and assumes you didn\u0027t mix it up.)",
+      "range": {
+        "startLine": 217,
+        "startChar": 29,
+        "endLine": 217,
+        "endChar": 44
+      },
+      "revId": "26be47672352f3846b4b3d186185db46ed6d4d4b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0194b84f_ab54e950",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-18T16:10:19Z",
+      "side": 1,
+      "message": "Might want to explicitly document |scs| \u003d\u003d NULL means NULL cipher. We\u0027ll see if it\u0027s convenient. You can\u0027t easily SSL_CIPHER_STATE_new that thing since there\u0027s no concrete SSL_CIPHER for the NULL cipher, nor is |version| very well defined. I think current logic also does something magical with NULL ctx\u0027s at one layer or another.",
+      "range": {
+        "startLine": 219,
+        "startChar": 47,
+        "endLine": 219,
+        "endChar": 50
+      },
+      "revId": "26be47672352f3846b4b3d186185db46ed6d4d4b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
