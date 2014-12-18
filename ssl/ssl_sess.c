@@ -645,23 +645,11 @@ static int remove_session_lock(SSL_CTX *ctx, SSL_SESSION *c, int lck)
 
 void SSL_SESSION_free(SSL_SESSION *ss)
 	{
-	int i;
-
 	if(ss == NULL)
 	    return;
 
-	i=CRYPTO_add(&ss->references,-1,CRYPTO_LOCK_SSL_SESSION);
-#ifdef REF_PRINT
-	REF_PRINT("SSL_SESSION",ss);
-#endif
-	if (i > 0) return;
-#ifdef REF_CHECK
-	if (i < 0)
-		{
-		fprintf(stderr,"SSL_SESSION_free, bad reference count\n");
-		abort(); /* ok */
-		}
-#endif
+	if (CRYPTO_add(&ss->references, -1, CRYPTO_LOCK_SSL_SESSION) > 0)
+		return;
 
 	CRYPTO_free_ex_data(CRYPTO_EX_INDEX_SSL_SESSION, ss, &ss->ex_data);
 

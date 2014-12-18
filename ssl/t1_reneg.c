@@ -133,10 +133,6 @@ int ssl_add_clienthello_renegotiate_ext(SSL *s, unsigned char *p, int *len,
 
         memcpy(p, s->s3->previous_client_finished,
 	       s->s3->previous_client_finished_len);
-#ifdef OPENSSL_RI_DEBUG
-    fprintf(stderr, "%s RI extension sent by client\n",
-		s->s3->previous_client_finished_len ? "Non-empty" : "Empty");
-#endif
         }
     
     *len=s->s3->previous_client_finished_len + 1;
@@ -197,10 +193,6 @@ int ssl_add_serverhello_renegotiate_ext(SSL *s, unsigned char *p, int *len,
 
         memcpy(p, s->s3->previous_server_finished,
 	       s->s3->previous_server_finished_len);
-#ifdef OPENSSL_RI_DEBUG
-    fprintf(stderr, "%s RI extension sent by server\n",
-    		s->s3->previous_client_finished_len ? "Non-empty" : "Empty");
-#endif
         }
     
     *len=s->s3->previous_client_finished_len

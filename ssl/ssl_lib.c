@@ -554,23 +554,11 @@ void SSL_certs_clear(SSL *s)
 
 void SSL_free(SSL *s)
 	{
-	int i;
-
 	if(s == NULL)
 	    return;
 
-	i=CRYPTO_add(&s->references,-1,CRYPTO_LOCK_SSL);
-#ifdef REF_PRINT
-	REF_PRINT("SSL",s);
-#endif
-	if (i > 0) return;
-#ifdef REF_CHECK
-	if (i < 0)
-		{
-		fprintf(stderr,"SSL_free, bad reference count\n");
-		abort(); /* ok */
-		}
-#endif
+	if (CRYPTO_add(&s->references, -1, CRYPTO_LOCK_SSL) > 0)
+		return;
 
 	if (s->param)
 		X509_VERIFY_PARAM_free(s->param);
@@ -1960,22 +1948,10 @@ err2:
 
 void SSL_CTX_free(SSL_CTX *a)
 	{
-	int i;
-
 	if (a == NULL) return;
 
-	i=CRYPTO_add(&a->references,-1,CRYPTO_LOCK_SSL_CTX);
-#ifdef REF_PRINT
-	REF_PRINT("SSL_CTX",a);
-#endif
-	if (i > 0) return;
-#ifdef REF_CHECK
-	if (i < 0)
-		{
-		fprintf(stderr,"SSL_CTX_free, bad reference count\n");
-		abort(); /* ok */
-		}
-#endif
+	if (CRYPTO_add(&a->references, -1, CRYPTO_LOCK_SSL_CTX) > 0)
+		return;
 
 	if (a->param)
 		X509_VERIFY_PARAM_free(a->param);
@@ -2561,10 +2537,7 @@ void ssl_free_wbio_buffer(SSL *s)
 		{
 		/* remove buffering */
 		s->wbio=BIO_pop(s->wbio);
-#ifdef REF_CHECK /* not the usual REF_CHECK, but this avoids adding one more preprocessor symbol */
-		assert(s->wbio != NULL);
-#endif
-	}
+		}
 	BIO_free(s->bbio);
 	s->bbio=NULL;
 	}
@@ -2751,21 +2724,6 @@ void SSL_set_tmp_rsa_callback(SSL *ssl,RSA *(*cb)(SSL *ssl,
     {
     SSL_callback_ctrl(ssl,SSL_CTRL_SET_TMP_RSA_CB,(void (*)(void))cb);
     }
-
-#ifdef DOXYGEN
-/*!
- * \brief The RSA temporary key callback function.
- * \param ssl the SSL session.
- * \param is_export \c TRUE if the temp RSA key is for an export ciphersuite.
- * \param keylength if \c is_export is \c TRUE, then \c keylength is the size
- * of the required key in bits.
- * \return the temporary RSA key.
- * \sa SSL_CTX_set_tmp_rsa_callback, SSL_set_tmp_rsa_callback
- */
-
-RSA *cb(SSL *ssl,int is_export,int keylength)
-    {}
-#endif
 
 /*!
  * \brief Set the callback for generating temporary DH keys.

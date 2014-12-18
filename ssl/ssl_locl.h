@@ -545,19 +545,6 @@ struct tls_sigalgs_st
 	unsigned char rhash;
 	};
 
-/*#define MAC_DEBUG	*/
-
-/*#define ERR_DEBUG	*/
-/*#define ABORT_DEBUG	*/
-/*#define PKT_DEBUG 1   */
-/*#define DES_DEBUG	*/
-/*#define DES_OFB_DEBUG	*/
-/*#define SSL_DEBUG	*/
-/*#define RSA_DEBUG	*/ 
-/*#define IDEA_DEBUG	*/ 
-
-#define FP_ICC  (int (*)(const void *,const void *))
-
 /* SSL_METHOD is a compatibility structure to support the legacy
  * version-locked methods. */
 struct ssl_method_st

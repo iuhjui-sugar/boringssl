@@ -672,20 +672,8 @@ int tls1_setup_key_block(SSL *s)
 		goto err;
 		}
 
-#ifdef TLS_DEBUG
-printf("client random\n");
-{ int z; for (z=0; z<SSL3_RANDOM_SIZE; z++) printf("%02X%c",s->s3->client_random[z],((z+1)%16)?' ':'\n'); }
-printf("server random\n");
-{ int z; for (z=0; z<SSL3_RANDOM_SIZE; z++) printf("%02X%c",s->s3->server_random[z],((z+1)%16)?' ':'\n'); }
-printf("pre-master\n");
-{ int z; for (z=0; z<s->session->master_key_length; z++) printf("%02X%c",s->session->master_key[z],((z+1)%16)?' ':'\n'); }
-#endif
 	if (!tls1_generate_key_block(s,p1,p2,num))
 		goto err;
-#ifdef TLS_DEBUG
-printf("\nkey block\n");
-{ int z; for (z=0; z<num; z++) printf("%02X%c",p1[z],((z+1)%16)?' ':'\n'); }
-#endif
 
 	if (!SSL_USE_EXPLICIT_IV(s) &&
 	    (s->mode & SSL_MODE_CBC_RECORD_SPLITTING) != 0)
@@ -1210,35 +1198,6 @@ int tls1_generate_master_secret(SSL *s, unsigned char *out, unsigned char *p,
 			p, len,
 			s->session->master_key,buff,sizeof buff);
 		}
-
-#ifdef SSL_DEBUG
-	fprintf(stderr, "Premaster Secret:\n");
-	BIO_dump_fp(stderr, (char *)p, len);
-	fprintf(stderr, "Client Random:\n");
-	BIO_dump_fp(stderr, (char *)s->s3->client_random, SSL3_RANDOM_SIZE);
-	fprintf(stderr, "Server Random:\n");
-	BIO_dump_fp(stderr, (char *)s->s3->server_random, SSL3_RANDOM_SIZE);
-	fprintf(stderr, "Master Secret:\n");
-	BIO_dump_fp(stderr, (char *)s->session->master_key, SSL3_MASTER_SECRET_SIZE);
-#endif
-
-#ifdef OPENSSL_SSL_TRACE_CRYPTO
-	if (s->msg_callback)
-		{
-		s->msg_callback(2, s->version, TLS1_RT_CRYPTO_PREMASTER,
-						p, len, s, s->msg_callback_arg);
-		s->msg_callback(2, s->version, TLS1_RT_CRYPTO_CLIENT_RANDOM,
-					s->s3->client_random, SSL3_RANDOM_SIZE,
-						s, s->msg_callback_arg);
-		s->msg_callback(2, s->version, TLS1_RT_CRYPTO_SERVER_RANDOM,
-					s->s3->server_random, SSL3_RANDOM_SIZE,
-					s, s->msg_callback_arg);
-		s->msg_callback(2, s->version, TLS1_RT_CRYPTO_MASTER,
-					s->session->master_key,
-					SSL3_MASTER_SECRET_SIZE,
-					s, s->msg_callback_arg);
-		}
-#endif
 
 	return(SSL3_MASTER_SECRET_SIZE);
 	}
