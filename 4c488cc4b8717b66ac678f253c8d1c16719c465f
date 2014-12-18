@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e1b404e0_3a1da18f",
+        "filename": "crypto/evp/evp_error.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2014-12-18T03:55:18Z",
+      "side": 1,
+      "message": "Remove this line (it causes a compile error:\ncrypto/evp/evp_error.c:44:26: error: use of undeclared identifier \u0027EVP_F_HKDF\u0027\n)",
+      "range": {
+        "startLine": 44,
+        "startChar": 1,
+        "endLine": 44,
+        "endChar": 49
+      },
+      "revId": "4c488cc4b8717b66ac678f253c8d1c16719c465f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e1b404e0_da00252b",
+        "filename": "include/openssl/hkdf.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2014-12-18T03:55:18Z",
+      "side": 1,
+      "message": "OPENSSL_EXPORT int HKDF\n\n(it isn\u0027t linking properly on the chromium side without it)",
+      "revId": "4c488cc4b8717b66ac678f253c8d1c16719c465f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
