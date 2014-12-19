@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6102d48e_80c48a4f",
+        "filename": "crypto/err/err_impl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-12-19T20:36:04Z",
+      "side": 1,
+      "message": "note that this assumes that ERR_remove_thread_state() has been called to free all the per-thread data structures. One possible worry here is that people calling ERR_free_strings  could have \"still reachable\" memory leaks turn into \"real\" memory leaks.\n\nHowever, the per-thread information is a higher-level concept and I don\u0027t want to complicate the code too much just in order to support fuzzing.",
+      "revId": "01111cfe696323eaa3ac918fa268f19aa837b9f9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
