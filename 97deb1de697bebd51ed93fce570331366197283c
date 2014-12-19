@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6102d48e_e646bef2",
+        "filename": "crypto/hmac/hmac.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2014-12-19T01:44:45Z",
+      "side": 1,
+      "message": "No need to add another call to HMAC_CTX_init.",
+      "revId": "97deb1de697bebd51ed93fce570331366197283c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
