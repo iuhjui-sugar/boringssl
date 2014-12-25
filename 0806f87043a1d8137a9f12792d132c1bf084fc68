@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e17b245e_a8bf1f33",
+        "filename": "crypto/cipher/e_ssl3.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-25T14:26:33Z",
+      "side": 1,
+      "message": "Like e_tls.c, this is all new code (well, adapted from the e_tls.c version) and wants careful review.",
+      "revId": "0806f87043a1d8137a9f12792d132c1bf084fc68",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
