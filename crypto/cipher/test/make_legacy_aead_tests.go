@@ -119,9 +119,11 @@ type testCase struct {
 	ad         []byte
 	ciphertext []byte
 	tag        []byte
+	noSeal     bool
+	fails      bool
 }
 
-func makeTestCase(length int) (*testCase, error) {
+func makeTestCase(length int, extraPadding, wrongBytes, noPadding bool) (*testCase, error) {
 	rand, err := newRc4Stream("input stream")
 	if err != nil {
 		return nil, err
@@ -172,6 +174,7 @@ func makeTestCase(length int) (*testCase, error) {
 	var fixedIV []byte
 	var nonce []byte
 	var sealed []byte
+	var noSeal, fails bool
 	if *bulkCipher == "rc4" {
 		if *implicitIV {
 			return nil, fmt.Errorf("implicit IV enabled on a stream cipher")
@@ -206,18 +209,39 @@ func makeTestCase(length int) (*testCase, error) {
 		sealed = append(sealed, input...)
 		sealed = append(sealed, digest...)
 		paddingLen := cbc.BlockSize() - (len(sealed) % cbc.BlockSize())
-		// TODO(davidben): Add tests for non-minimal padding (SSL3
-		// forbids, TLS allows) and arbitrary padding bytes (SSL3
-		// allows, TLS forbids).
-		if *ssl3 {
-			sealed = append(sealed, make([]byte, paddingLen-1)...)
-			sealed = append(sealed, byte(paddingLen-1))
-		} else {
-			pad := make([]byte, paddingLen)
-			for i := range pad {
-				pad[i] = byte(paddingLen - 1)
+		if noPadding {
+			if paddingLen != cbc.BlockSize() {
+				return nil, fmt.Errorf("invalid length for noPadding")
 			}
-			sealed = append(sealed, pad...)
+			noSeal = true;
+			fails = true
+		} else {
+			if extraPadding {
+				paddingLen += cbc.BlockSize()
+				noSeal = true
+				if *ssl3 {
+					// SSLv3 padding must be minimal.
+					fails = true
+				}
+			}
+			if *ssl3 {
+				sealed = append(sealed, make([]byte, paddingLen-1)...)
+				sealed = append(sealed, byte(paddingLen-1))
+			} else {
+				pad := make([]byte, paddingLen)
+				for i := range pad {
+					pad[i] = byte(paddingLen - 1)
+				}
+				sealed = append(sealed, pad...)
+			}
+			if wrongBytes && paddingLen > 1 {
+				sealed[len(sealed)-2]++
+				noSeal = true
+				if !*ssl3 {
+					// TLS specifies the all the padding bytes.
+					fails = true
+				}
+			}
 		}
 		cbc.CryptBlocks(sealed, sealed)
 	}
@@ -234,8 +258,26 @@ func makeTestCase(length int) (*testCase, error) {
 		ad:         ad,
 		ciphertext: sealed[:len(sealed)-hash.Size()],
 		tag:        sealed[len(sealed)-hash.Size():],
+		noSeal:     noSeal,
+		fails:      fails,
 	}
 	return t, nil
+}
+
+func printTestCase(t *testCase) {
+	fmt.Printf("# DIGEST: %s\n", hex.EncodeToString(t.digest))
+	fmt.Printf("KEY: %s\n", hex.EncodeToString(t.key))
+	fmt.Printf("NONCE: %s\n", hex.EncodeToString(t.nonce))
+	fmt.Printf("IN: %s\n", hex.EncodeToString(t.input))
+	fmt.Printf("AD: %s\n", hex.EncodeToString(t.ad))
+	fmt.Printf("CT: %s\n", hex.EncodeToString(t.ciphertext))
+	fmt.Printf("TAG: %s\n", hex.EncodeToString(t.tag))
+	if t.noSeal {
+		fmt.Printf("NO_SEAL: 01\n")
+	}
+	if t.fails {
+		fmt.Printf("FAILS: 01\n")
+	}
 }
 
 func main() {
@@ -257,21 +299,49 @@ func main() {
 	fmt.Printf("# each test case.\n")
 	fmt.Printf("\n")
 
-	// Generate long enough of input to cover a non-zero num_starting_blocks
-	// value in the constant-time CBC logic.
-	for l := 0; l < 500; l += 5 {
-		t, err := makeTestCase(l)
+	// For CBC-mode ciphers, emit tests for padding flexibility.
+	if *bulkCipher != "rc4" {
+		fmt.Printf("# Test with non-minimal padding.\n")
+		t, err := makeTestCase(5, true, false, false)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "%s\n", err)
 			os.Exit(1)
 		}
-		fmt.Printf("# DIGEST: %s\n", hex.EncodeToString(t.digest))
-		fmt.Printf("KEY: %s\n", hex.EncodeToString(t.key))
-		fmt.Printf("NONCE: %s\n", hex.EncodeToString(t.nonce))
-		fmt.Printf("IN: %s\n", hex.EncodeToString(t.input))
-		fmt.Printf("AD: %s\n", hex.EncodeToString(t.ad))
-		fmt.Printf("CT: %s\n", hex.EncodeToString(t.ciphertext))
-		fmt.Printf("TAG: %s\n", hex.EncodeToString(t.tag))
+		printTestCase(t)
+		fmt.Printf("\n")
+
+		fmt.Printf("# Test with bad padding values.\n")
+		t, err = makeTestCase(5, false, true, false)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "%s\n", err)
+			os.Exit(1)
+		}
+		printTestCase(t)
+		fmt.Printf("\n")
+
+		fmt.Printf("# Test with no padding.\n")
+		hash, ok := getHash(*mac)
+		if !ok {
+			panic("unknown hash")
+		}
+		t, err = makeTestCase(64 - hash.Size(), false, false, true)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "%s\n", err)
+			os.Exit(1)
+		}
+		printTestCase(t)
+		fmt.Printf("\n")
+	}
+
+	// Generate long enough of input to cover a non-zero num_starting_blocks
+	// value in the constant-time CBC logic.
+	for l := 0; l < 500; l += 5 {
+		t, err := makeTestCase(l, false, false, false)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "%s\n", err)
+			os.Exit(1)
+		}
+		printTestCase(t)
 		fmt.Printf("\n")
 	}
 }
