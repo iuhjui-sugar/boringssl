@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e17b245e_6810b7c3",
+        "filename": "ssl/s3_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-25T14:25:36Z",
+      "side": 0,
+      "message": "This was moved to a get_evp_aead output parameter. It only varies on the bulk cipher and not the full cipher suite.",
+      "revId": "f07dc06f3628b80dcb7ffed6099423a798e3c88f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

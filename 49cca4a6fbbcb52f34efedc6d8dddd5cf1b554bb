@@ -1,0 +1,146 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e17b245e_68835796",
+        "filename": "crypto/cipher/e_tls.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-25T14:25:36Z",
+      "side": 1,
+      "message": "This file is basically all new code, so review carefully.",
+      "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e17b245e_c8f62338",
+        "filename": "crypto/cipher/e_tls.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-25T14:25:36Z",
+      "side": 1,
+      "message": "Note re deferral: although no error is returned if you EVP_EncryptInit a previously EVP_DecryptInit\u0027d context, it breaks because the cipher\u0027s init hook conditions based on this. (AES_set_(en|de)crypt_key are separate.) So you have to pass the key in. But if you pass the key in, you re-init the cipher, so you aren\u0027t gaining anything over storing the key and creating a fresh context and passing in key/iv anew each time.\n\nSwitching directions also doesn\u0027t make any sense for the ones that are actually stateful anyway.\n\nAnother option I considered was to maintain both encrypt_ctx and decrypt_ctx, but only one of those contexts will be ever used, so just deferring initialization seemed cleaner.",
+      "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e17b245e_e88e87bf",
+        "filename": "crypto/cipher/e_tls.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-25T14:25:36Z",
+      "side": 1,
+      "message": "You should double-check my claim here, but I believe this is a true statement. I think it\u0027s fine either way, but it\u0027s interesting that the failure case needs to not only keep the \"MAC\" in bounds, but also avoid introducing other leaks.",
+      "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e17b245e_28894fb6",
+        "filename": "crypto/cipher/e_tls.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-25T14:25:36Z",
+      "side": 1,
+      "message": "The amount of duplication is somewhat annoying. We could probably replace it with macros, but otherwise I don\u0027t see an easy way around it. tls and tls_implicit_iv have different metadata. tls_implicit_iv and ssl3 have the same parameters, but I figured that wasn\u0027t much savings. (Follow-up commit will just introduce a completely separate e_ssl3.c. I figure we can just delete that file wholesale later anyway.)\n\nThough if we ever support RFC 7366 (EtM), we\u0027ll need to again double this set or finally add some config hook to toggle that bit. Not a big deal but a mild nuisance. Keeping them all separate also makes the entry point for any future stitched modes clearer.\n\n(Is there much point to adding EtM? It\u0027ll be gone by 1.3 and we already have AES-GCM and later ChaCha20. The only use I could see is that AES-CBC + EtM is probably preferable to AES-GCM on mobile? So maybe if ChaCha20 standardization drags on. Or maybe if some other vendor makes annoying choices like shipping AES-CBC + EtM and not AES-GCM. Is this your view as well?)",
+      "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e17b245e_2806af8f",
+        "filename": "crypto/cipher/test/make_legacy_aead_tests.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-25T14:25:36Z",
+      "side": 1,
+      "message": "(This flag isn\u0027t used until later on. I did things in a funny order and then patched up history so the tests don\u0027t break.)",
+      "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e17b245e_0801eb77",
+        "filename": "crypto/cipher/test/make_legacy_aead_tests.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-25T14:25:36Z",
+      "side": 1,
+      "message": "(Copied and tweaked slightly from runner)",
+      "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e17b245e_4803f37e",
+        "filename": "crypto/cipher/test/make_legacy_aead_tests.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-25T14:25:36Z",
+      "side": 1,
+      "message": "I believe the original RC4-MD5 goes up to 300.",
+      "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e17b245e_a81abfde",
+        "filename": "ssl/t1_enc.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 786,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-25T14:25:36Z",
+      "side": 1,
+      "message": "Note this changed. I think we want equality here; if \u003c 8, then we may lose the least significant bytes of the seqnum and repeat nonces.\n\n(I guess if we need under 8, we can change it to grab the tail end of seq rather than the front?)",
+      "range": {
+        "startLine": 786,
+        "startChar": 37,
+        "endLine": 786,
+        "endChar": 39
+      },
+      "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
