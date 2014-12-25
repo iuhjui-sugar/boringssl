@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e17b245e_88bb3b41",
+        "filename": "ssl/t1_enc.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2014-12-25T14:26:56Z",
+      "side": 1,
+      "message": "From line 921 on left-hand side.",
+      "revId": "61eb9b625e828022e7cf89db443c54c4e79f0c12",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
