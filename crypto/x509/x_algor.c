@@ -130,15 +130,7 @@ void X509_ALGOR_get0(ASN1_OBJECT **paobj, int *pptype, void **ppval,
 
 void X509_ALGOR_set_md(X509_ALGOR *alg, const EVP_MD *md)
 	{
-	int param_type;
-
-	if (EVP_MD_flags(md) & EVP_MD_FLAG_DIGALGID_ABSENT)
-		param_type = V_ASN1_UNDEF;
-	else
-		param_type = V_ASN1_NULL;
-
-	X509_ALGOR_set0(alg, OBJ_nid2obj(EVP_MD_type(md)), param_type, NULL);
-
+	X509_ALGOR_set0(alg, OBJ_nid2obj(EVP_MD_type(md)), V_ASN1_NULL, NULL);
 	}
 
 /* X509_ALGOR_cmp returns 0 if |a| and |b| are equal and non-zero otherwise. */

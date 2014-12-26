@@ -70,8 +70,6 @@ int EVP_MD_type(const EVP_MD *md) { return md->type; }
 
 const char *EVP_MD_name(const EVP_MD *md) { return OBJ_nid2sn(md->type); }
 
-uint32_t EVP_MD_flags(const EVP_MD *md) { return md->flags; }
-
 size_t EVP_MD_size(const EVP_MD *md) { return md->md_size; }
 
 size_t EVP_MD_block_size(const EVP_MD *md) { return md->block_size; }

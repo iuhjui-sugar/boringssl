@@ -177,25 +177,11 @@ OPENSSL_EXPORT int EVP_MD_type(const EVP_MD *md);
 /* EVP_MD_name returns the short name for |md| or NULL if no name is known. */
 OPENSSL_EXPORT const char *EVP_MD_name(const EVP_MD *md);
 
-/* EVP_MD_flags returns the flags for |md|, which is a set of |EVP_MD_FLAG_*|
- * values, ORed together. */
-OPENSSL_EXPORT uint32_t EVP_MD_flags(const EVP_MD *md);
-
 /* EVP_MD_size returns the digest size of |md|, in bytes. */
 OPENSSL_EXPORT size_t EVP_MD_size(const EVP_MD *md);
 
 /* EVP_MD_block_size returns the native block-size of |md|. */
 OPENSSL_EXPORT size_t EVP_MD_block_size(const EVP_MD *md);
-
-/* EVP_MD_FLAG_PKEY_DIGEST indicates the the digest function is used with a
- * specific public key in order to verify signatures. (For example,
- * EVP_dss1.) */
-#define EVP_MD_FLAG_PKEY_DIGEST 1
-
-/* EVP_MD_FLAG_DIGALGID_ABSENT indicates that the parameter type in an X.509
- * DigestAlgorithmIdentifier representing this digest function should be
- * undefined rather than NULL. */
-#define EVP_MD_FLAG_DIGALGID_ABSENT 2
 
 
 /* Deprecated functions. */

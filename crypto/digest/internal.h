@@ -72,9 +72,6 @@ struct env_md_st {
   /* md_size contains the size, in bytes, of the resulting digest. */
   unsigned md_size;
 
-  /* flags contains the OR of |EVP_MD_FLAG_*| values. */
-  uint32_t flags;
-
   /* init initialises the state in |ctx->md_data|. It returns one on success
    * and zero otherwise. */
   int (*init)(EVP_MD_CTX *ctx);

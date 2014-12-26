@@ -75,7 +75,7 @@ static int md4_final(EVP_MD_CTX *ctx, unsigned char *out) {
 }
 
 static const EVP_MD md4_md = {
-    NID_md4,    MD4_DIGEST_LENGTH, 0 /* flags */,       md4_init,
+    NID_md4,    MD4_DIGEST_LENGTH, md4_init,
     md4_update, md4_final,         64 /* block size */, sizeof(MD4_CTX),
 };
 
@@ -93,7 +93,7 @@ static int md5_final(EVP_MD_CTX *ctx, unsigned char *out) {
 }
 
 static const EVP_MD md5_md = {
-    NID_md5,    MD5_DIGEST_LENGTH, 0 /* flags */,       md5_init,
+    NID_md5,    MD5_DIGEST_LENGTH, md5_init,
     md5_update, md5_final,         64 /* block size */, sizeof(MD5_CTX),
 };
 
@@ -111,7 +111,7 @@ static int sha1_final(EVP_MD_CTX *ctx, unsigned char *md) {
 }
 
 static const EVP_MD sha1_md = {
-    NID_sha1,    SHA_DIGEST_LENGTH, 0 /* flags */,       sha1_init,
+    NID_sha1,    SHA_DIGEST_LENGTH, sha1_init,
     sha1_update, sha1_final,        64 /* block size */, sizeof(SHA_CTX),
 };
 
@@ -129,7 +129,7 @@ static int sha224_final(EVP_MD_CTX *ctx, unsigned char *md) {
 }
 
 static const EVP_MD sha224_md = {
-    NID_sha224,          SHA224_DIGEST_LENGTH, 0 /* flags */,
+    NID_sha224,          SHA224_DIGEST_LENGTH,
     sha224_init,         sha224_update,        sha224_final,
     64 /* block size */, sizeof(SHA256_CTX),
 };
@@ -148,7 +148,7 @@ static int sha256_final(EVP_MD_CTX *ctx, unsigned char *md) {
 }
 
 static const EVP_MD sha256_md = {
-    NID_sha256,          SHA256_DIGEST_LENGTH, 0 /* flags */,
+    NID_sha256,          SHA256_DIGEST_LENGTH,
     sha256_init,         sha256_update,        sha256_final,
     64 /* block size */, sizeof(SHA256_CTX),
 };
@@ -167,7 +167,7 @@ static int sha384_final(EVP_MD_CTX *ctx, unsigned char *md) {
 }
 
 static const EVP_MD sha384_md = {
-    NID_sha384,           SHA384_DIGEST_LENGTH, 0 /* flags */,
+    NID_sha384,           SHA384_DIGEST_LENGTH,
     sha384_init,          sha384_update,        sha384_final,
     128 /* block size */, sizeof(SHA512_CTX),
 };
@@ -186,7 +186,7 @@ static int sha512_final(EVP_MD_CTX *ctx, unsigned char *md) {
 }
 
 static const EVP_MD sha512_md = {
-    NID_sha512,           SHA512_DIGEST_LENGTH, 0 /* flags */,
+    NID_sha512,           SHA512_DIGEST_LENGTH,
     sha512_init,          sha512_update,        sha512_final,
     128 /* block size */, sizeof(SHA512_CTX),
 };
@@ -221,7 +221,6 @@ static int md5_sha1_final(EVP_MD_CTX *md_ctx, unsigned char *out) {
 static const EVP_MD md5_sha1_md = {
     NID_md5_sha1,
     MD5_DIGEST_LENGTH + SHA_DIGEST_LENGTH,
-    0 /* flags */,
     md5_sha1_init,
     md5_sha1_update,
     md5_sha1_final,
