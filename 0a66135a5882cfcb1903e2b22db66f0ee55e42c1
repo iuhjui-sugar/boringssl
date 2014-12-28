@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0144b839_abe709b9",
+        "filename": "crypto/cipher/tls_cbc.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2014-12-28T19:20:47Z",
+      "side": 1,
+      "message": "Looks like this can be static const kVarianceBlocks now.",
+      "revId": "0a66135a5882cfcb1903e2b22db66f0ee55e42c1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
