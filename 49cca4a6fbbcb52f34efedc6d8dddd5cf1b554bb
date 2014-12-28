@@ -19,6 +19,70 @@
     },
     {
       "key": {
+        "uuid": "0144b839_cb7d3553",
+        "filename": "crypto/cipher/e_tls.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2014-12-28T19:17:36Z",
+      "side": 1,
+      "message": "If it\u0027s completely new code then the copyright notice should be the shorter, Google one.",
+      "parentUuid": "e17b245e_68835796",
+      "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0144b839_eb82f1db",
+        "filename": "crypto/cipher/e_tls.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2014-12-28T19:17:36Z",
+      "side": 1,
+      "message": "mac_key",
+      "range": {
+        "startLine": 71,
+        "startChar": 5,
+        "endLine": 71,
+        "endChar": 15
+      },
+      "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0144b839_0b681d8d",
+        "filename": "crypto/cipher/e_tls.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2014-12-28T19:17:36Z",
+      "side": 1,
+      "message": "enc_key",
+      "range": {
+        "startLine": 75,
+        "startChar": 5,
+        "endLine": 75,
+        "endChar": 16
+      },
+      "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e17b245e_c8f62338",
         "filename": "crypto/cipher/e_tls.c",
         "patchSetId": 5
@@ -30,6 +94,155 @@
       "writtenOn": "2014-12-25T14:25:36Z",
       "side": 1,
       "message": "Note re deferral: although no error is returned if you EVP_EncryptInit a previously EVP_DecryptInit\u0027d context, it breaks because the cipher\u0027s init hook conditions based on this. (AES_set_(en|de)crypt_key are separate.) So you have to pass the key in. But if you pass the key in, you re-init the cipher, so you aren\u0027t gaining anything over storing the key and creating a fresh context and passing in key/iv anew each time.\n\nSwitching directions also doesn\u0027t make any sense for the ones that are actually stateful anyway.\n\nAnother option I considered was to maintain both encrypt_ctx and decrypt_ctx, but only one of those contexts will be ever used, so just deferring initialization seemed cleaner.",
+      "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0144b839_2b65d9b5",
+        "filename": "crypto/cipher/e_tls.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2014-12-28T19:17:36Z",
+      "side": 1,
+      "message": "ack.",
+      "parentUuid": "e17b245e_c8f62338",
+      "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0144b839_4b722581",
+        "filename": "crypto/cipher/e_tls.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2014-12-28T19:17:36Z",
+      "side": 1,
+      "message": "It\u0027s usually the case that an AEAD can be used concurrently once initialised. It\u0027s no problem for this usage, but worth noting in a comment.",
+      "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0144b839_6b6fe193",
+        "filename": "crypto/cipher/e_tls.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2014-12-28T19:17:36Z",
+      "side": 1,
+      "message": "this line can just be a \u0026\u0026 from the surrounding if.",
+      "range": {
+        "startLine": 220,
+        "startChar": 9,
+        "endLine": 220,
+        "endChar": 27
+      },
+      "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0144b839_8b5c0df5",
+        "filename": "crypto/cipher/e_tls.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2014-12-28T19:17:36Z",
+      "side": 1,
+      "message": "\u0027that\u0027 after \u0027requires\u0027.",
+      "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0144b839_cb5615d3",
+        "filename": "crypto/cipher/e_tls.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2014-12-28T19:17:36Z",
+      "side": 1,
+      "message": "check that the input is a multiple of the block size?",
+      "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0144b839_ab61c9a7",
+        "filename": "crypto/cipher/e_tls.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2014-12-28T19:17:36Z",
+      "side": 1,
+      "message": "can also be merged into the enclosing if.",
+      "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0144b839_eb5bd1f7",
+        "filename": "crypto/cipher/e_tls.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2014-12-28T19:17:36Z",
+      "side": 1,
+      "message": "(Note to myself to look into the behaviour of these functions when reviewing for real.)",
+      "range": {
+        "startLine": 325,
+        "startChar": 7,
+        "endLine": 325,
+        "endChar": 24
+      },
+      "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0144b839_0b51fdd8",
+        "filename": "crypto/cipher/e_tls.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2014-12-28T19:17:36Z",
+      "side": 1,
+      "message": "this line is at the end of both branches and can be moved out of the if.",
       "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -64,6 +277,24 @@
       "writtenOn": "2014-12-25T14:25:36Z",
       "side": 1,
       "message": "The amount of duplication is somewhat annoying. We could probably replace it with macros, but otherwise I don\u0027t see an easy way around it. tls and tls_implicit_iv have different metadata. tls_implicit_iv and ssl3 have the same parameters, but I figured that wasn\u0027t much savings. (Follow-up commit will just introduce a completely separate e_ssl3.c. I figure we can just delete that file wholesale later anyway.)\n\nThough if we ever support RFC 7366 (EtM), we\u0027ll need to again double this set or finally add some config hook to toggle that bit. Not a big deal but a mild nuisance. Keeping them all separate also makes the entry point for any future stitched modes clearer.\n\n(Is there much point to adding EtM? It\u0027ll be gone by 1.3 and we already have AES-GCM and later ChaCha20. The only use I could see is that AES-CBC + EtM is probably preferable to AES-GCM on mobile? So maybe if ChaCha20 standardization drags on. Or maybe if some other vendor makes annoying choices like shipping AES-CBC + EtM and not AES-GCM. Is this your view as well?)",
+      "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0144b839_2b4eb935",
+        "filename": "crypto/cipher/e_tls.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2014-12-28T19:17:36Z",
+      "side": 1,
+      "message": "I\u0027m hoping that we don\u0027t need to bother with EtM modes.",
+      "parentUuid": "e17b245e_28894fb6",
       "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -121,6 +352,57 @@
     },
     {
       "key": {
+        "uuid": "0144b839_4b4b0525",
+        "filename": "include/openssl/ssl3.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2014-12-28T19:17:36Z",
+      "side": 1,
+      "message": "uint8_t for these to save some space?",
+      "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0144b839_6b48c127",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 3129,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2014-12-28T19:17:36Z",
+      "side": 1,
+      "message": "if (!SSL_IS_DTLS(s)) {\n  return wire_version;\n}\n\n...",
+      "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0144b839_4bd86502",
+        "filename": "ssl/t1_enc.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 780,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2014-12-28T19:17:36Z",
+      "side": 1,
+      "message": "It occurs that this will trigger a read from /dev/urandom for each outbound TLS record. I guess we\u0027re already doing this with CBC-mode ciphers though?\n\nAnother argument for enabling caching in crypto/rand, although the uncached behaviour is nice and simple.",
+      "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e17b245e_a81abfde",
         "filename": "ssl/t1_enc.c",
         "patchSetId": 5
@@ -132,6 +414,30 @@
       "writtenOn": "2014-12-25T14:25:36Z",
       "side": 1,
       "message": "Note this changed. I think we want equality here; if \u003c 8, then we may lose the least significant bytes of the seqnum and repeat nonces.\n\n(I guess if we need under 8, we can change it to grab the tail end of seq rather than the front?)",
+      "range": {
+        "startLine": 786,
+        "startChar": 37,
+        "endLine": 786,
+        "endChar": 39
+      },
+      "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0144b839_6bd521c9",
+        "filename": "ssl/t1_enc.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 786,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2014-12-28T19:17:36Z",
+      "side": 1,
+      "message": "LGTM.",
+      "parentUuid": "e17b245e_a81abfde",
       "range": {
         "startLine": 786,
         "startChar": 37,
