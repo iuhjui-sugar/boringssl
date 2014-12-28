@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0144b839_2ba07975",
+        "filename": "ssl/t1_enc.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1123,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2014-12-28T17:30:04Z",
+      "side": 1,
+      "message": "This call can fail now so the return value should be checked.",
+      "range": {
+        "startLine": 1123,
+        "startChar": 4,
+        "endLine": 1123,
+        "endChar": 12
+      },
+      "revId": "108081ad48d025e8c0b8029fa0c21d2b401daaa3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0144b839_4b9dc540",
+        "filename": "ssl/t1_enc.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1128,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2014-12-28T17:30:04Z",
+      "side": 1,
+      "message": "(ditto)",
+      "revId": "108081ad48d025e8c0b8029fa0c21d2b401daaa3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
