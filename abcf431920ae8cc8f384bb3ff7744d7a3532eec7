@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8e445558_556c9c27",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 757,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-06T17:14:38Z",
+      "side": 1,
+      "message": "See https://codereview.chromium.org/834313002/diff/20001/net/ssl/openssl_ssl_util.cc",
+      "range": {
+        "startLine": 757,
+        "startChar": 21,
+        "endLine": 757,
+        "endChar": 71
+      },
+      "revId": "abcf431920ae8cc8f384bb3ff7744d7a3532eec7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
