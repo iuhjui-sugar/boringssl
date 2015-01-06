@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ee5eb12a_2a3c1fe4",
+        "filename": "ssl/t1_enc.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-06T01:41:59Z",
+      "side": 1,
+      "message": "seed1_len (and likewise in the next two lines).",
+      "range": {
+        "startLine": 172,
+        "startChar": 7,
+        "endLine": 172,
+        "endChar": 12
+      },
+      "revId": "61a919e2d79467febbd43f0186662edf2ac595db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ee5eb12a_ea35e7f6",
+        "filename": "ssl/t1_enc.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-06T01:41:59Z",
+      "side": 1,
+      "message": "seed1_len (and likewise in the next two lines).",
+      "range": {
+        "startLine": 184,
+        "startChar": 9,
+        "endLine": 184,
+        "endChar": 14
+      },
+      "revId": "61a919e2d79467febbd43f0186662edf2ac595db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
