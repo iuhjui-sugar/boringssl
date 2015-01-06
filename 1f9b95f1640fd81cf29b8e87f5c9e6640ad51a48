@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ee8311c3_85aa0463",
+        "filename": "crypto/cipher/aead_test.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-06T23:50:59Z",
+      "side": 1,
+      "message": "The else block that was just closed if !length[FAILS], right? If so, this if can be eliminated.",
+      "revId": "1f9b95f1640fd81cf29b8e87f5c9e6640ad51a48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ee8311c3_a5c2a830",
+        "filename": "crypto/cipher/test/make_legacy_aead_tests.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-06T23:50:59Z",
+      "side": 1,
+      "message": "This is probably too many bool arguments. Either define constants for \"extraPadding\", \"noExtraPadding\", \"wrongBytes\", \"notWrongBytes\" etc for the callsites, or define an options struct and give struct literals at the call sites.",
+      "range": {
+        "startLine": 125,
+        "startChar": 30,
+        "endLine": 125,
+        "endChar": 42
+      },
+      "revId": "1f9b95f1640fd81cf29b8e87f5c9e6640ad51a48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
