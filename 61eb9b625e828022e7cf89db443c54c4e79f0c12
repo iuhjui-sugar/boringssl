@@ -16,6 +16,23 @@
       "revId": "61eb9b625e828022e7cf89db443c54c4e79f0c12",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ee5eb12a_aad7ef77",
+        "filename": "ssl/t1_enc.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-06T02:26:20Z",
+      "side": 1,
+      "message": "Gerrit\u0027s diff has gone nuts here. I\u0027m assuming that nothing changed in this code.",
+      "revId": "61eb9b625e828022e7cf89db443c54c4e79f0c12",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
