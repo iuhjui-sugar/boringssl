@@ -16,6 +16,207 @@
       "revId": "0806f87043a1d8137a9f12792d132c1bf084fc68",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ee5eb12a_cab583be",
+        "filename": "crypto/cipher/e_ssl3.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-06T02:15:56Z",
+      "side": 1,
+      "message": "If it\u0027s completely new then it should be Google copyright (i.e. the shorter notice).",
+      "parentUuid": "e17b245e_a8bf1f33",
+      "revId": "0806f87043a1d8137a9f12792d132c1bf084fc68",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ee5eb12a_6a28d774",
+        "filename": "crypto/cipher/e_ssl3.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-06T02:15:56Z",
+      "side": 1,
+      "message": "enc_key.",
+      "range": {
+        "startLine": 71,
+        "startChar": 5,
+        "endLine": 71,
+        "endChar": 16
+      },
+      "revId": "0806f87043a1d8137a9f12792d132c1bf084fc68",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ee5eb12a_2a22df92",
+        "filename": "crypto/cipher/e_ssl3.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-06T02:15:56Z",
+      "side": 1,
+      "message": "uint8_t? (Saving per-connection memory is useful on the server.)",
+      "range": {
+        "startLine": 75,
+        "startChar": 2,
+        "endLine": 75,
+        "endChar": 8
+      },
+      "revId": "0806f87043a1d8137a9f12792d132c1bf084fc68",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ee5eb12a_0a271ba3",
+        "filename": "crypto/cipher/e_ssl3.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-06T02:15:56Z",
+      "side": 1,
+      "message": "uint8_t?",
+      "range": {
+        "startLine": 80,
+        "startChar": 2,
+        "endLine": 80,
+        "endChar": 8
+      },
+      "revId": "0806f87043a1d8137a9f12792d132c1bf084fc68",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ee5eb12a_ca110346",
+        "filename": "crypto/cipher/e_ssl3.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-06T02:15:56Z",
+      "side": 1,
+      "message": "remove extra blank line.",
+      "revId": "0806f87043a1d8137a9f12792d132c1bf084fc68",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ee5eb12a_8a4e6b05",
+        "filename": "crypto/cipher/e_ssl3.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-06T02:15:56Z",
+      "side": 1,
+      "message": "Worth noting in the comment that these AEADs can\u0027t be used concurrently.",
+      "revId": "0806f87043a1d8137a9f12792d132c1bf084fc68",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ee5eb12a_2ab9bf6c",
+        "filename": "crypto/cipher/e_ssl3.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-06T02:15:56Z",
+      "side": 1,
+      "message": "an",
+      "range": {
+        "startLine": 220,
+        "startChar": 35,
+        "endLine": 220,
+        "endChar": 36
+      },
+      "revId": "0806f87043a1d8137a9f12792d132c1bf084fc68",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ee5eb12a_aae7efe5",
+        "filename": "crypto/cipher/e_ssl3.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-06T02:15:56Z",
+      "side": 1,
+      "message": "just checking that we\u0027re ok with variables in the middle of functions now?",
+      "revId": "0806f87043a1d8137a9f12792d132c1bf084fc68",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ee5eb12a_4ab4f374",
+        "filename": "crypto/cipher/e_ssl3.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-06T02:15:56Z",
+      "side": 1,
+      "message": "\"that\" after \"requires\".",
+      "revId": "0806f87043a1d8137a9f12792d132c1bf084fc68",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ee5eb12a_0abefb54",
+        "filename": "crypto/cipher/e_ssl3.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-06T02:15:56Z",
+      "side": 1,
+      "message": "an",
+      "range": {
+        "startLine": 319,
+        "startChar": 35,
+        "endLine": 319,
+        "endChar": 36
+      },
+      "revId": "0806f87043a1d8137a9f12792d132c1bf084fc68",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
