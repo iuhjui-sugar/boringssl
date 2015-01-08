@@ -51,6 +51,24 @@
       "revId": "61eb9b625e828022e7cf89db443c54c4e79f0c12",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_41c43673",
+        "filename": "ssl/t1_enc.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T18:00:30Z",
+      "side": 1,
+      "message": "Okay, Gerrit is still going a little nuts at the unindent step, but slightly less so. Patch set 9 should be identical to patch set 7. Easiest review would be:\n\nBase -\u003e Patch set 8\nPatch set 8 -\u003e Patch set 9",
+      "parentUuid": "0ee6a5ff_0116ae6b",
+      "revId": "61eb9b625e828022e7cf89db443c54c4e79f0c12",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
