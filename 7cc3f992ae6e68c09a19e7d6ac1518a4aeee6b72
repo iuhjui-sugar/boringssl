@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0ee6a5ff_0f16d56b",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T22:51:43Z",
+      "side": 0,
+      "message": "[If the BN_MASK2 isn\u0027t a no-op (which it always is in our code), this looks like there\u0027s a bug in the old code. If BN_ULONG is larger than needed (not the case for us), t2 fails to get masked and that\u0027ll affect the overflow comparison on line 684.\n\nOtherwise, LHS and RHS both look fine and this too seems a no-op. Though it was much harder to follow the LHS.]",
+      "range": {
+        "startLine": 681,
+        "startChar": 22,
+        "endLine": 681,
+        "endChar": 26
+      },
+      "revId": "7cc3f992ae6e68c09a19e7d6ac1518a4aeee6b72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_2ffab183",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T22:51:43Z",
+      "side": 0,
+      "message": "[For self: at this point t2 can\u0027t have its least significant bit set, so there\u0027s no overflow.]",
+      "range": {
+        "startLine": 719,
+        "startChar": 7,
+        "endLine": 719,
+        "endChar": 9
+      },
+      "revId": "7cc3f992ae6e68c09a19e7d6ac1518a4aeee6b72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_6ff4b994",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T22:51:43Z",
+      "side": 0,
+      "message": "Is this the bug? I can\u0027t prove to myself that this t2 addition couldn\u0027t overflow. (Haven\u0027t tried too hard though.)",
+      "range": {
+        "startLine": 721,
+        "startChar": 7,
+        "endLine": 721,
+        "endChar": 9
+      },
+      "revId": "7cc3f992ae6e68c09a19e7d6ac1518a4aeee6b72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_efac492d",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 779,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T22:51:43Z",
+      "side": 0,
+      "message": "[It got tedious, so I did not check if the old version on this codepath had the bug or no. New version still reviewed.]",
+      "revId": "7cc3f992ae6e68c09a19e7d6ac1518a4aeee6b72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

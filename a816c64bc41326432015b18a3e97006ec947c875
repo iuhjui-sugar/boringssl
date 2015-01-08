@@ -1,0 +1,621 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0ee6a5ff_2fd3911b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T22:51:43Z",
+      "side": 1,
+      "message": "This file is generic.c in our repo.",
+      "range": {
+        "startLine": 7,
+        "startChar": 34,
+        "endLine": 7,
+        "endChar": 40
+      },
+      "revId": "a816c64bc41326432015b18a3e97006ec947c875",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_2ff1d13d",
+        "filename": "crypto/bn/asm/x86_64-gcc.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T22:51:43Z",
+      "side": 1,
+      "message": "This is missing a j parameter.",
+      "range": {
+        "startLine": 292,
+        "startChar": 16,
+        "endLine": 292,
+        "endChar": 17
+      },
+      "revId": "a816c64bc41326432015b18a3e97006ec947c875",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_cffb0d49",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T22:51:43Z",
+      "side": 1,
+      "message": "I got a little carried away on this file.\n\nSquare brackets are unactionable notes to myself, though maybe some of them are worth turning into comments. Other comments probably shouldn\u0027t be done here, but it may be worth doing a further cleanup pass and upstreaming. There\u0027s a TON of duplicate or similar logic.",
+      "revId": "a816c64bc41326432015b18a3e97006ec947c875",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_cf6dcd71",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T22:51:43Z",
+      "side": 1,
+      "message": "[For self:\n - on entry, l,h and bl,bh are two numbers, if you ignore their top halves, which are zero\n - on exit, l and h contain the product of those two numbers]",
+      "revId": "a816c64bc41326432015b18a3e97006ec947c875",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_ef7a8924",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T22:51:43Z",
+      "side": 1,
+      "message": "[For self: this sets lo,hi to the square of in]",
+      "revId": "a816c64bc41326432015b18a3e97006ec947c875",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_ef936962",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T22:51:43Z",
+      "side": 1,
+      "message": "[I\u0027m assuming all these functions require that the c+\u003dblah computation would not have overflowed.]",
+      "revId": "a816c64bc41326432015b18a3e97006ec947c875",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_e43b9007",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 659,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T22:51:43Z",
+      "side": 1,
+      "message": "This comment is missing a j parameter. We probably ought to fix that separately so it\u0027s easier to remember to upstream it.",
+      "range": {
+        "startLine": 659,
+        "startChar": 16,
+        "endLine": 659,
+        "endChar": 18
+      },
+      "revId": "a816c64bc41326432015b18a3e97006ec947c875",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_64cdc0f6",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 661,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T22:51:43Z",
+      "side": 1,
+      "message": "[Note: this codepath is never hit in BoringSSL; we currently don\u0027t define BN_LLONG. (I believe it\u0027s if we have uint64_t on 32-bit and uint128_t on 64-bit.)]",
+      "range": {
+        "startLine": 661,
+        "startChar": 7,
+        "endLine": 661,
+        "endChar": 15
+      },
+      "revId": "a816c64bc41326432015b18a3e97006ec947c875",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_446c4428",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 664,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T22:51:43Z",
+      "side": 1,
+      "message": "[Agreed. Put another way: if BN_ULONG has N bits, line 669 and friends cannot overflow because it\u0027s at most\n\n  (2^N - 1)^2 + (2^N - 1) \u003d 2^N * (2^N - 1) \u003c 2^2N\n]",
+      "range": {
+        "startLine": 663,
+        "startChar": 0,
+        "endLine": 664,
+        "endChar": 47
+      },
+      "revId": "a816c64bc41326432015b18a3e97006ec947c875",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_24673846",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 665,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T22:51:43Z",
+      "side": 1,
+      "message": "[This one appears to be a no-op and just some cleanup.]",
+      "range": {
+        "startLine": 665,
+        "startChar": 8,
+        "endLine": 665,
+        "endChar": 17
+      },
+      "revId": "a816c64bc41326432015b18a3e97006ec947c875",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_c48cd49a",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 672,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T22:51:43Z",
+      "side": 1,
+      "message": "In the original and not worth diverging, but I believe this is redundant. (I guess upstream doesn\u0027t use uint\u003cN\u003e_t, so it\u0027s possible that BN_ULONG is wider than necessary.)",
+      "range": {
+        "startLine": 672,
+        "startChar": 21,
+        "endLine": 672,
+        "endChar": 29
+      },
+      "revId": "a816c64bc41326432015b18a3e97006ec947c875",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_44536461",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T22:51:43Z",
+      "side": 1,
+      "message": "[For self: at this point, c0,c1,c2 is the result of mul_add_c. The code\u0027s the same except t gets saved and t+c0 goes in a.]",
+      "revId": "a816c64bc41326432015b18a3e97006ec947c875",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_644860af",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T22:51:43Z",
+      "side": 1,
+      "message": "[For self: and now we repeat the same thing again.]",
+      "revId": "a816c64bc41326432015b18a3e97006ec947c875",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_8f41056b",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 695,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T22:51:43Z",
+      "side": 1,
+      "message": "I\u0027m not sure why this isn\u0027t just expanding to mul_add_c(a[i], a[i], c0, c1, c2), but okay. It\u0027s not even bothering to only evaluate parameters once.\n\nAlso appears to be a no-op correctness-wise.",
+      "range": {
+        "startLine": 695,
+        "startChar": 8,
+        "endLine": 695,
+        "endChar": 17
+      },
+      "revId": "a816c64bc41326432015b18a3e97006ec947c875",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_4f59bd50",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T22:51:43Z",
+      "side": 1,
+      "message": "[Amusing aside: every implementation of sqr_add_c2 just calls out to mul_add_c2.]",
+      "revId": "a816c64bc41326432015b18a3e97006ec947c875",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_2f6d51f5",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T22:51:43Z",
+      "side": 1,
+      "message": "[This codepath we care about as it\u0027s used on Windows. This is also defined on x64 gcc, but I believe we get assembly in that case.]",
+      "range": {
+        "startLine": 709,
+        "startChar": 14,
+        "endLine": 709,
+        "endChar": 27
+      },
+      "revId": "a816c64bc41326432015b18a3e97006ec947c875",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_6fa039aa",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T22:51:43Z",
+      "side": 1,
+      "message": "[Agreed. For same reason the other comment is true.]",
+      "revId": "a816c64bc41326432015b18a3e97006ec947c875",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_6fc9198a",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T22:51:43Z",
+      "side": 1,
+      "message": "[Pretty clearly a no-op correctness-wise.]",
+      "range": {
+        "startLine": 713,
+        "startChar": 8,
+        "endLine": 713,
+        "endChar": 17
+      },
+      "revId": "a816c64bc41326432015b18a3e97006ec947c875",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_cfaf8d9f",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 718,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T22:51:43Z",
+      "side": 1,
+      "message": "[More cases where their code assumes BN_MASK2 isn\u0027t a no-op.]",
+      "range": {
+        "startLine": 718,
+        "startChar": 4,
+        "endLine": 718,
+        "endChar": 12
+      },
+      "revId": "a816c64bc41326432015b18a3e97006ec947c875",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_0f91755a",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T22:51:43Z",
+      "side": 1,
+      "message": "[For self: no overflow check needed because of line 711.]",
+      "range": {
+        "startLine": 719,
+        "startChar": 7,
+        "endLine": 719,
+        "endChar": 9
+      },
+      "revId": "a816c64bc41326432015b18a3e97006ec947c875",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_6f0bd91b",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T22:51:43Z",
+      "side": 1,
+      "message": "[For self: no overflow check needed because of line 711.]",
+      "range": {
+        "startLine": 730,
+        "startChar": 12,
+        "endLine": 730,
+        "endChar": 13
+      },
+      "revId": "a816c64bc41326432015b18a3e97006ec947c875",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_2f28f173",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T22:51:43Z",
+      "side": 1,
+      "message": "[For self: at this point, mul_add_c has happened. Code is identical except hi -\u003e tt and old value of hi is retained.]",
+      "revId": "a816c64bc41326432015b18a3e97006ec947c875",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_4f2d3d83",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T22:51:43Z",
+      "side": 1,
+      "message": "[For self: and then we repeat that block again.]",
+      "revId": "a816c64bc41326432015b18a3e97006ec947c875",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_cf64ed05",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 739,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T22:51:43Z",
+      "side": 1,
+      "message": "Ditto that this may as well be mul_add_c.",
+      "revId": "a816c64bc41326432015b18a3e97006ec947c875",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_4faa9d65",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T22:51:43Z",
+      "side": 1,
+      "message": "I believe this codepath is dead for us; every configuration that defines BN_UMULT_HIGH also defines BN_UMULT_LOHI.\n\nIt\u0027s also identical to the BN_UMULT_LOHI ones. It would have been more reasonable I think to just define BN_UMULT_LOHI in terms of a*b and BN_UMULT_HIGH and write it once.",
+      "range": {
+        "startLine": 752,
+        "startChar": 14,
+        "endLine": 752,
+        "endChar": 27
+      },
+      "revId": "a816c64bc41326432015b18a3e97006ec947c875",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_8fb4a5c4",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T22:51:43Z",
+      "side": 1,
+      "message": "[Agreed for same reasons as before, etc.]",
+      "revId": "a816c64bc41326432015b18a3e97006ec947c875",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_6faf5974",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 756,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T22:51:43Z",
+      "side": 1,
+      "message": "[Pretty clearly a no-op.]",
+      "range": {
+        "startLine": 756,
+        "startChar": 8,
+        "endLine": 756,
+        "endChar": 17
+      },
+      "revId": "a816c64bc41326432015b18a3e97006ec947c875",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_6f2cb937",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 798,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T22:51:43Z",
+      "side": 1,
+      "message": "[Ditto.]",
+      "revId": "a816c64bc41326432015b18a3e97006ec947c875",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_cf54ed97",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 804,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T22:51:43Z",
+      "side": 1,
+      "message": "From this point on, this is the same algorithm as the LOHI cases, but spelled differently and with BN_MASK2s for some reason.",
+      "revId": "a816c64bc41326432015b18a3e97006ec947c875",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_cf9f8df1",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 818,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T22:51:43Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "a816c64bc41326432015b18a3e97006ec947c875",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_8f9585cd",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 837,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T22:51:43Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "a816c64bc41326432015b18a3e97006ec947c875",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
