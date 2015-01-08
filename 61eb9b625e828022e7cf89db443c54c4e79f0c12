@@ -33,6 +33,24 @@
       "revId": "61eb9b625e828022e7cf89db443c54c4e79f0c12",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_0116ae6b",
+        "filename": "ssl/t1_enc.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T17:52:47Z",
+      "side": 1,
+      "message": "Hrm, that\u0027s annoying. It should be identical but for an unindent yeah. I\u0027ll go upload an intermediate patchset that leaves it indented and maybe it\u0027ll be reviewable by fiddling with the versions diffed.\n\nApologies for the amount of email that\u0027ll generate. :-) I\u0027ll try to trigger it on just this CL.",
+      "parentUuid": "ee5eb12a_aad7ef77",
+      "revId": "61eb9b625e828022e7cf89db443c54c4e79f0c12",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
