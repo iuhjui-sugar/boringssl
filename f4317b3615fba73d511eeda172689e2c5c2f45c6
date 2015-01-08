@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0ee6a5ff_5ee41166",
+        "filename": "ssl/s3_enc.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T19:35:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee5eb12a_0acefb92",
+      "range": {
+        "startLine": 196,
+        "startChar": 8,
+        "endLine": 196,
+        "endChar": 13
+      },
+      "revId": "f4317b3615fba73d511eeda172689e2c5c2f45c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ee5eb12a_caafc39f",
         "filename": "ssl/s3_enc.c",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2015-01-06T01:48:26Z",
       "side": 1,
       "message": "seed2_len",
+      "range": {
+        "startLine": 199,
+        "startChar": 8,
+        "endLine": 199,
+        "endChar": 13
+      },
+      "revId": "f4317b3615fba73d511eeda172689e2c5c2f45c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_7ee9cd3c",
+        "filename": "ssl/s3_enc.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T19:35:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee5eb12a_caafc39f",
       "range": {
         "startLine": 199,
         "startChar": 8,
