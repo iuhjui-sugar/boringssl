@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0ee6a5ff_0a3323e0",
+        "filename": "ssl/d1_pkt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T23:25:03Z",
+      "side": 0,
+      "message": "I think this is removed because ssl3_read_n can\u0027t return error with extend\u003d1 now.",
+      "range": {
+        "startLine": 560,
+        "startChar": 4,
+        "endLine": 560,
+        "endChar": 5
+      },
+      "revId": "a816c64bc41326432015b18a3e97006ec947c875",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
