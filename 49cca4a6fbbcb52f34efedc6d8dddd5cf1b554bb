@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "ce2badc1_4cef2f13",
+        "filename": "crypto/cipher/aead_test.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T19:34:58Z",
+      "side": 1,
+      "message": "Added an ERR_clear_error() here to clear the error queue from the intentionally failing EVP_AEAD_CTX_open.",
+      "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e17b245e_68835796",
         "filename": "crypto/cipher/e_tls.c",
         "patchSetId": 5
@@ -37,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "ce2badc1_898639a6",
+        "filename": "crypto/cipher/e_tls.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T19:34:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0144b839_cb7d3553",
+      "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0144b839_eb82f1db",
         "filename": "crypto/cipher/e_tls.c",
         "patchSetId": 5
@@ -60,6 +95,53 @@
     },
     {
       "key": {
+        "uuid": "ce2badc1_e90895cc",
+        "filename": "crypto/cipher/e_tls.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T19:34:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0144b839_eb82f1db",
+      "range": {
+        "startLine": 71,
+        "startChar": 5,
+        "endLine": 71,
+        "endChar": 15
+      },
+      "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ce2badc1_0937e982",
+        "filename": "crypto/cipher/e_tls.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T19:34:58Z",
+      "side": 1,
+      "message": "Switched to uint8_t per the SSLv3 comment.",
+      "range": {
+        "startLine": 74,
+        "startChar": 2,
+        "endLine": 74,
+        "endChar": 8
+      },
+      "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0144b839_0b681d8d",
         "filename": "crypto/cipher/e_tls.c",
         "patchSetId": 5
@@ -71,6 +153,30 @@
       "writtenOn": "2014-12-28T19:17:36Z",
       "side": 1,
       "message": "enc_key",
+      "range": {
+        "startLine": 75,
+        "startChar": 5,
+        "endLine": 75,
+        "endChar": 16
+      },
+      "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ce2badc1_2932ad92",
+        "filename": "crypto/cipher/e_tls.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T19:34:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0144b839_0b681d8d",
       "range": {
         "startLine": 75,
         "startChar": 5,
@@ -135,6 +241,24 @@
     },
     {
       "key": {
+        "uuid": "ce2badc1_099b6903",
+        "filename": "crypto/cipher/e_tls.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T19:34:58Z",
+      "side": 1,
+      "message": "Done. Also pulled this logic out to a helper function.",
+      "parentUuid": "0144b839_4b722581",
+      "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0144b839_6b6fe193",
         "filename": "crypto/cipher/e_tls.c",
         "patchSetId": 5
@@ -146,6 +270,30 @@
       "writtenOn": "2014-12-28T19:17:36Z",
       "side": 1,
       "message": "this line can just be a \u0026\u0026 from the surrounding if.",
+      "range": {
+        "startLine": 220,
+        "startChar": 9,
+        "endLine": 220,
+        "endChar": 27
+      },
+      "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ce2badc1_499561ca",
+        "filename": "crypto/cipher/e_tls.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T19:34:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0144b839_6b6fe193",
       "range": {
         "startLine": 220,
         "startChar": 9,
@@ -175,6 +323,24 @@
     },
     {
       "key": {
+        "uuid": "ce2badc1_a9897dba",
+        "filename": "crypto/cipher/e_tls.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T19:34:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0144b839_8b5c0df5",
+      "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0144b839_cb5615d3",
         "filename": "crypto/cipher/e_tls.c",
         "patchSetId": 5
@@ -192,6 +358,24 @@
     },
     {
       "key": {
+        "uuid": "ce2badc1_8c0be747",
+        "filename": "crypto/cipher/e_tls.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T19:34:58Z",
+      "side": 1,
+      "message": "EVP_DecryptFinal_ex should do that for us at the end (CIPHER_R_DATA_NOT_MULTIPLE_OF_BLOCK_LENGTH). I can add an early check too if you prefer.\n\nAdded a test to aead_test.c that AEADs reject garbage at the end.",
+      "parentUuid": "0144b839_cb5615d3",
+      "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0144b839_ab61c9a7",
         "filename": "crypto/cipher/e_tls.c",
         "patchSetId": 5
@@ -203,6 +387,24 @@
       "writtenOn": "2014-12-28T19:17:36Z",
       "side": 1,
       "message": "can also be merged into the enclosing if.",
+      "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ce2badc1_e9837594",
+        "filename": "crypto/cipher/e_tls.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T19:34:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0144b839_ab61c9a7",
       "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -249,6 +451,24 @@
     },
     {
       "key": {
+        "uuid": "ce2badc1_09f6c935",
+        "filename": "crypto/cipher/e_tls.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T19:34:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0144b839_0b51fdd8",
+      "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e17b245e_e88e87bf",
         "filename": "crypto/cipher/e_tls.c",
         "patchSetId": 5
@@ -260,6 +480,24 @@
       "writtenOn": "2014-12-25T14:25:36Z",
       "side": 1,
       "message": "You should double-check my claim here, but I believe this is a true statement. I think it\u0027s fine either way, but it\u0027s interesting that the failure case needs to not only keep the \"MAC\" in bounds, but also avoid introducing other leaks.",
+      "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ce2badc1_cc879f38",
+        "filename": "crypto/cipher/e_tls.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T19:34:58Z",
+      "side": 1,
+      "message": "Moved parts of this comment to the padding check.",
+      "parentUuid": "e17b245e_e88e87bf",
       "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -369,6 +607,24 @@
     },
     {
       "key": {
+        "uuid": "ce2badc1_e964153c",
+        "filename": "include/openssl/ssl3.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T19:34:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0144b839_4b4b0525",
+      "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0144b839_6b48c127",
         "filename": "ssl/ssl_lib.c",
         "patchSetId": 5
@@ -386,6 +642,24 @@
     },
     {
       "key": {
+        "uuid": "ce2badc1_69e4a566",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 3129,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T19:34:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0144b839_6b48c127",
+      "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0144b839_4bd86502",
         "filename": "ssl/t1_enc.c",
         "patchSetId": 5
@@ -397,6 +671,24 @@
       "writtenOn": "2014-12-28T19:17:36Z",
       "side": 1,
       "message": "It occurs that this will trigger a read from /dev/urandom for each outbound TLS record. I guess we\u0027re already doing this with CBC-mode ciphers though?\n\nAnother argument for enabling caching in crypto/rand, although the uncached behaviour is nice and simple.",
+      "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c13700c2_0972e951",
+        "filename": "ssl/t1_enc.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 780,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T19:34:58Z",
+      "side": 1,
+      "message": "Yeah, though we\u0027re already doing that prior to this change. I did check that both Windows and POSIX implementations of RAND_bytes will return pretty early if len is 0, so it should only kick in for the CBC-mode ciphers.",
+      "parentUuid": "0144b839_4bd86502",
       "revId": "49cca4a6fbbcb52f34efedc6d8dddd5cf1b554bb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
