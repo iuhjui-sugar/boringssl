@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ce2badc1_0991a930",
+        "filename": "ssl/t1_enc.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1123,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T19:33:14Z",
+      "side": 1,
+      "message": "(I think it could have failed before anyway with EVP_DigestSignInit in tls1_P_hash.)\n\nDone.",
+      "parentUuid": "0144b839_2ba07975",
+      "range": {
+        "startLine": 1123,
+        "startChar": 4,
+        "endLine": 1123,
+        "endChar": 12
+      },
+      "revId": "108081ad48d025e8c0b8029fa0c21d2b401daaa3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0144b839_4b9dc540",
         "filename": "ssl/t1_enc.c",
         "patchSetId": 1
@@ -36,6 +60,24 @@
       "writtenOn": "2014-12-28T17:30:04Z",
       "side": 1,
       "message": "(ditto)",
+      "revId": "108081ad48d025e8c0b8029fa0c21d2b401daaa3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ce2badc1_498ba102",
+        "filename": "ssl/t1_enc.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1128,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-08T19:33:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0144b839_4b9dc540",
       "revId": "108081ad48d025e8c0b8029fa0c21d2b401daaa3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
