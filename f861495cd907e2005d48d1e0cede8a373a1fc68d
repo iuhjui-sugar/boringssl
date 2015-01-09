@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4ed17d3e_b82475d6",
+        "filename": "ssl/d1_pkt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-09T15:37:02Z",
+      "side": 1,
+      "message": "It seems this:\n\n(a) Uses a decent amount of memory. Each buffered record owns a SSL3_RT_MAX_PLAIN_LENGTH (plus overhead) buffer? With SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER (in SSL_OP_ALL), it then eats an additional 16k. They limit it to size 100, so I suppose it\u0027s capped to 1.5MB (or 3MB).\n\n(b) Assumes there is only one record in the UDP packet, which also may not be true. (Although, the only place our implementation does this is during the handshake[*], and there\u0027s only one post-CCS handshake message.)\n\n[*] I still need to double-check this, but I think it turns on the buffer BIO. Which is not a good plan for DTLS and probably breaks all MTU-related cleverness.\n\n(Not a new bug, so I\u0027ve just left a note in my spreadsheet that this too is questionable.)",
+      "revId": "f861495cd907e2005d48d1e0cede8a373a1fc68d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ed17d3e_78049d3f",
+        "filename": "ssl/d1_pkt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-09T15:37:02Z",
+      "side": 1,
+      "message": "This function\u0027s return value seems... confused. It could also hit an internal error at line 237, but that one returns 0. To make matters worse, the fixed calls to dtls1_buffer_record check for \u003c 0 which will miss the return 0.\n\nThis is in upstream too, so we probably should tell them.",
+      "range": {
+        "startLine": 271,
+        "startChar": 9,
+        "endLine": 271,
+        "endChar": 11
+      },
+      "revId": "f861495cd907e2005d48d1e0cede8a373a1fc68d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
