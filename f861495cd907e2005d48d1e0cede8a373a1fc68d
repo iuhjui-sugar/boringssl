@@ -39,6 +39,30 @@
       "revId": "f861495cd907e2005d48d1e0cede8a373a1fc68d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2efc49c4_84f82689",
+        "filename": "ssl/d1_pkt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-09T19:19:57Z",
+      "side": 1,
+      "message": "It looked like they might be aiming for a malloc failure not being important in DTLS. But ssl3_setup_buffers fails on malloc failure and that\u0027s changed to -1 so, yea, it\u0027s inconsistent. I\u0027ve changed the return on 238 to be -1 so at least malloc failures are always triggering an error.",
+      "parentUuid": "4ed17d3e_78049d3f",
+      "range": {
+        "startLine": 271,
+        "startChar": 9,
+        "endLine": 271,
+        "endChar": 11
+      },
+      "revId": "f861495cd907e2005d48d1e0cede8a373a1fc68d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
