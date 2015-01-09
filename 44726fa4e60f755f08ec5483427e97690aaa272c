@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4ed17d3e_9bbd335a",
+        "filename": "crypto/x509/x_algor.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-09T19:39:17Z",
+      "side": 1,
+      "message": "This should be documented that it does /not/ provide an ordering, despite the name and almost providing one.\n\nProblems:\n- if only one of the parameters is non-NULL, ASN1_TYPE_cmp\u0027s NULL check always gives -1.\n- if they have different types, ASN1_TYPE_cmp always gives -1.",
+      "revId": "44726fa4e60f755f08ec5483427e97690aaa272c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
