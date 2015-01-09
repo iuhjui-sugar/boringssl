@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2efc49c4_e45c7acc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-09T19:19:53Z",
+      "side": 1,
+      "message": "Thanks! I had missed a hunk in the patch file.",
+      "parentUuid": "4ed17d3e_f841cd6c",
+      "revId": "d326e7e9670da43c71b5e2b915428acd1336e933",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0ee6a5ff_50ff9a72",
         "filename": "crypto/dsa/dsa.c",
         "patchSetId": 2
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "2efc49c4_c4b3be8c",
+        "filename": "crypto/dsa/dsa.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-09T19:19:53Z",
+      "side": 1,
+      "message": "Done. I think the reencoding is a good check for robustness\u0027s sake. It\u0027s too easy otherwise to relax the parsing somewhere else and never notice the knock-on implications.",
+      "parentUuid": "0ee6a5ff_50ff9a72",
+      "range": {
+        "startLine": 254,
+        "startChar": 44,
+        "endLine": 254,
+        "endChar": 45
+      },
+      "revId": "d326e7e9670da43c71b5e2b915428acd1336e933",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0ee6a5ff_10cef26e",
         "filename": "crypto/ecdsa/ecdsa.c",
         "patchSetId": 2
@@ -53,6 +95,24 @@
       "writtenOn": "2015-01-09T15:41:03Z",
       "side": 1,
       "message": "If we\u0027re going to be completely strict here, may as well also check that sigp \u003d sig + sig_len.\n\nAside: I\u0027m not at all confident of the crypto/asn1 DER decoder implementing DER and only DER, but if we were to replace this with CBS, should we drop the re-encoding later, or do you think it\u0027s still better to re-encode and check to be extra sure?",
+      "revId": "d326e7e9670da43c71b5e2b915428acd1336e933",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2efc49c4_84bdc659",
+        "filename": "crypto/ecdsa/ecdsa.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-09T19:19:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ee6a5ff_10cef26e",
       "revId": "d326e7e9670da43c71b5e2b915428acd1336e933",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -93,6 +153,30 @@
       "writtenOn": "2015-01-09T15:41:03Z",
       "side": 1,
       "message": "0",
+      "range": {
+        "startLine": 90,
+        "startChar": 9,
+        "endLine": 90,
+        "endChar": 11
+      },
+      "revId": "d326e7e9670da43c71b5e2b915428acd1336e933",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2efc49c4_c4f5fe29",
+        "filename": "crypto/x509/a_verify.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-09T19:19:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ee6a5ff_d0c3aa45",
       "range": {
         "startLine": 90,
         "startChar": 9,
