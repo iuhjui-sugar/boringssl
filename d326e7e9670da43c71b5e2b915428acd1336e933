@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4ed17d3e_f841cd6c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-09T15:41:03Z",
+      "side": 1,
+      "message": "This bit is missing. I think it\u0027s the x_all.c changes in\nhttps://git.openssl.org/gitweb/?p\u003dopenssl.git;a\u003dcommit;h\u003d684400ce192dac51df3d3e92b61830a6ef90be3e\n\nalong with this compile fix\nhttps://git.openssl.org/gitweb/?p\u003dopenssl.git;a\u003dcommit;h\u003d4c52816d35681c0533c25fdd3abb4b7c6962302d",
+      "revId": "d326e7e9670da43c71b5e2b915428acd1336e933",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_50ff9a72",
+        "filename": "crypto/dsa/dsa.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-09T15:41:03Z",
+      "side": 1,
+      "message": "If we\u0027re going to be completely strict here, may as well also check that sigp \u003d sig + sig_len.\n\nAside: I\u0027m not at all confident of the crypto/asn1 DER decoder implementing DER and only DER, but if we were to replace this with CBS, should we drop the re-encoding later, or do you think it\u0027s still better to re-encode and check to be extra sure?",
+      "range": {
+        "startLine": 254,
+        "startChar": 44,
+        "endLine": 254,
+        "endChar": 45
+      },
+      "revId": "d326e7e9670da43c71b5e2b915428acd1336e933",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_10cef26e",
+        "filename": "crypto/ecdsa/ecdsa.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-09T15:41:03Z",
+      "side": 1,
+      "message": "If we\u0027re going to be completely strict here, may as well also check that sigp \u003d sig + sig_len.\n\nAside: I\u0027m not at all confident of the crypto/asn1 DER decoder implementing DER and only DER, but if we were to replace this with CBS, should we drop the re-encoding later, or do you think it\u0027s still better to re-encode and check to be extra sure?",
+      "revId": "d326e7e9670da43c71b5e2b915428acd1336e933",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_f0d0a609",
+        "filename": "crypto/x509/a_verify.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-09T15:41:03Z",
+      "side": 1,
+      "message": "Not sure this part is needed. This is already known to be a bit string. (Although I think the compiler doesn\u0027t type-check the ASN1_BIT_STRING bit up there; all the strings are the same type in C. Possibly we should do something about that...)",
+      "range": {
+        "startLine": 87,
+        "startChar": 5,
+        "endLine": 87,
+        "endChar": 45
+      },
+      "revId": "d326e7e9670da43c71b5e2b915428acd1336e933",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ee6a5ff_d0c3aa45",
+        "filename": "crypto/x509/a_verify.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-09T15:41:03Z",
+      "side": 1,
+      "message": "0",
+      "range": {
+        "startLine": 90,
+        "startChar": 9,
+        "endLine": 90,
+        "endChar": 11
+      },
+      "revId": "d326e7e9670da43c71b5e2b915428acd1336e933",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
