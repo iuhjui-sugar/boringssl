@@ -130,40 +130,8 @@
     BN_UMULT_LOHI(r0, r1, tmp, tmp); \
   }
 
-#elif defined(BN_UMULT_HIGH)
-#define mul_add(r, a, w, c)             \
-  {                                     \
-    BN_ULONG high, low, ret, tmp = (a); \
-    ret = (r);                          \
-    high = BN_UMULT_HIGH(w, tmp);       \
-    ret += (c);                         \
-    low = (w) * tmp;                    \
-    (c) = (ret < (c)) ? 1 : 0;          \
-    (c) += high;                        \
-    ret += low;                         \
-    (c) += (ret < low) ? 1 : 0;         \
-    (r) = ret;                          \
-  }
-
-#define mul(r, a, w, c)                \
-  {                                    \
-    BN_ULONG high, low, ret, ta = (a); \
-    low = (w) * ta;                    \
-    high = BN_UMULT_HIGH(w, ta);       \
-    ret = low + (c);                   \
-    (c) = high;                        \
-    (c) += (ret < low) ? 1 : 0;        \
-    (r) = ret;                         \
-  }
-
-#define sqr(r0, r1, a)              \
-  {                                 \
-    BN_ULONG tmp = (a);             \
-    (r0) = tmp * tmp;               \
-    (r1) = BN_UMULT_HIGH(tmp, tmp); \
-  }
-
 #else
+
 /*************************************************************
  * No long long type
  */
@@ -745,49 +713,6 @@ BN_ULONG bn_sub_words(BN_ULONG *r, const BN_ULONG *a, const BN_ULONG *b,
     hi += (c0 < lo) ? 1 : 0;        \
     c1 += hi;                       \
     c2 += (c1 < hi) ? 1 : 0;        \
-  } while (0)
-
-#define sqr_add_c2(a, i, j, c0, c1, c2) mul_add_c2((a)[i], (a)[j], c0, c1, c2)
-
-#elif defined(BN_UMULT_HIGH)
-
-/* Keep in mind that additions to hi can not overflow, because
- * the high word of a multiplication result cannot be all-ones. */
-#define mul_add_c(a, b, c0, c1, c2)      \
-  do {                                   \
-    BN_ULONG ta = (a), tb = (b);         \
-    BN_ULONG lo = ta * tb;               \
-    BN_ULONG hi = BN_UMULT_HIGH(ta, tb); \
-    c0 += lo;                            \
-    hi += (c0 < lo) ? 1 : 0;             \
-    c1 += hi;                            \
-    c2 += (c1 < hi) ? 1 : 0;             \
-  } while (0)
-
-#define mul_add_c2(a, b, c0, c1, c2)     \
-  do {                                   \
-    BN_ULONG ta = (a), tb = (b), tt;     \
-    BN_ULONG lo = ta * tb;               \
-    BN_ULONG hi = BN_UMULT_HIGH(ta, tb); \
-    c0 += lo;                            \
-    tt = hi + ((c0 < lo) ? 1 : 0);       \
-    c1 += tt;                            \
-    c2 += (c1 < tt) ? 1 : 0;             \
-    c0 += lo;                            \
-    hi += (c0 < lo) ? 1 : 0;             \
-    c1 += hi;                            \
-    c2 += (c1 < hi) ? 1 : 0;             \
-  } while (0)
-
-#define sqr_add_c(a, i, c0, c1, c2)      \
-  do {                                   \
-    BN_ULONG ta = (a)[i];                \
-    BN_ULONG lo = ta * ta;               \
-    BN_ULONG hi = BN_UMULT_HIGH(ta, ta); \
-    c0 += lo;                            \
-    hi += (c0 < lo) ? 1 : 0;             \
-    c1 += hi;                            \
-    c2 += (c1 < hi) ? 1 : 0;             \
   } while (0)
 
 #define sqr_add_c2(a, i, j, c0, c1, c2) mul_add_c2((a)[i], (a)[j], c0, c1, c2)

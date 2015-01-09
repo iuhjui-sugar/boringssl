@@ -5,7 +5,11 @@ if(APPLE)
 	set(ASM_EXT S)
 	enable_language(ASM)
 elseif(UNIX)
-	set(PERLASM_STYLE elf)
+	if (${ARCH} STREQUAL "aarch64")
+		set(PERLASM_STYLE linux64)
+	else()
+		set(PERLASM_STYLE elf)
+	endif()
 	set(ASM_EXT S)
 	enable_language(ASM)
 else()
@@ -59,7 +63,14 @@ if (${ARCH} STREQUAL "arm")
 	set(
 		CRYPTO_ARCH_SOURCES
 
-		cpu-x86-asm.${ASM_EXT}
+		cpu-arm.c
+	)
+endif()
+
+if (${ARCH} STREQUAL "aarch64")
+	set(
+		CRYPTO_ARCH_SOURCES
+
 		cpu-arm.c
 	)
 endif()
