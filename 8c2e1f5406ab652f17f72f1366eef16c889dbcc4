@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aee9192d_6081d28c",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-11T17:21:52Z",
+      "side": 1,
+      "message": "Note: this was updated since initial review to account for the explicit IV. I forgot about that bit.",
+      "revId": "8c2e1f5406ab652f17f72f1366eef16c889dbcc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
