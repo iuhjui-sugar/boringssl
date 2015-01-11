@@ -280,32 +280,38 @@ int dtls1_do_write(SSL *s, int type) {
       curr_mtu = s->d1->mtu - DTLS1_RT_HEADER_LENGTH - mac_size - blocksize;
     }
 
-    if (s->init_num > curr_mtu) {
-      len = curr_mtu;
-    } else {
-      len = s->init_num;
-    }
-
     /* XDTLS: this function is too long.  split out the CCS part */
     if (type == SSL3_RT_HANDSHAKE) {
       if (s->init_off != 0) {
         assert(s->init_off > DTLS1_HM_HEADER_LENGTH);
         s->init_off -= DTLS1_HM_HEADER_LENGTH;
         s->init_num += DTLS1_HM_HEADER_LENGTH;
-
-        if (s->init_num > curr_mtu) {
-          len = curr_mtu;
-        } else {
-          len = s->init_num;
-        }
       }
 
-      dtls1_fix_message_header(s, frag_off, len - DTLS1_HM_HEADER_LENGTH);
+      if (s->init_num > curr_mtu) {
+        len = curr_mtu;
+      } else {
+        len = s->init_num;
+      }
 
+      if (len < DTLS1_HM_HEADER_LENGTH ||
+          (len == DTLS1_HM_HEADER_LENGTH && len < s->init_num)) {
+        /* To make forward progress, the MTU must, at minimum, fit the handshake
+         * header and one byte of handshake body. */
+        OPENSSL_PUT_ERROR(SSL, dtls1_do_write, SSL_R_MTU_TOO_SMALL);
+        return -1;
+      }
+      dtls1_fix_message_header(s, frag_off, len - DTLS1_HM_HEADER_LENGTH);
       dtls1_write_message_header(
           s, (uint8_t *)&s->init_buf->data[s->init_off]);
-
-      assert(len >= DTLS1_HM_HEADER_LENGTH);
+    } else {
+      assert(type == SSL3_RT_CHANGE_CIPHER_SPEC);
+      /* ChangeCipherSpec cannot be fragmented. */
+      if (s->init_num > curr_mtu) {
+        OPENSSL_PUT_ERROR(SSL, dtls1_do_write, SSL_R_MTU_TOO_SMALL);
+        return -1;
+      }
+      len = s->init_num;
     }
 
     ret = dtls1_write_bytes(s, type, &s->init_buf->data[s->init_off], len);
