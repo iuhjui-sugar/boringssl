@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2eab69f1_1b9de741",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-12T22:53:06Z",
+      "side": 1,
+      "message": "I\u0027m worried that this will cause compiler warnings about always being true. sizeof(long) is \u003e\u003d sizeof(int) by the standard and often equal in practice. So UINT_MAX is probably larger than the largest long.\n\nA long is at least 32-bit, so can we set the limit to 1B or so?",
+      "range": {
+        "startLine": 248,
+        "startChar": 27,
+        "endLine": 248,
+        "endChar": 35
+      },
+      "revId": "8daeb156f9a638236c5cac6e4ef8a23dbb464f43",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2eab69f1_fb80dbd7",
+        "filename": "ssl/d1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-12T22:53:06Z",
+      "side": 1,
+      "message": "ditto.",
+      "range": {
+        "startLine": 376,
+        "startChar": 27,
+        "endLine": 376,
+        "endChar": 35
+      },
+      "revId": "8daeb156f9a638236c5cac6e4ef8a23dbb464f43",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
