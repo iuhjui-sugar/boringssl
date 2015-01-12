@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2eab69f1_9baa778b",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-12T22:42:32Z",
+      "side": 1,
+      "message": "This conditional took a long time to understand.\n\nWhy not a test that curr_mtu \u003e DTLS1_HM_HEADER_LENGTH?",
+      "revId": "e0dec04b97057a0a353619ebed7180a083ece2f1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
