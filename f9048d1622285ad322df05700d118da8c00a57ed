@@ -45,6 +45,30 @@
       "revId": "f9048d1622285ad322df05700d118da8c00a57ed",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2eab69f1_7bd18b0b",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-12T22:47:42Z",
+      "side": 1,
+      "message": "Nevermind, this gets deleted soon anyway.",
+      "parentUuid": "2eab69f1_9b055709",
+      "range": {
+        "startLine": 320,
+        "startChar": 67,
+        "endLine": 320,
+        "endChar": 70
+      },
+      "revId": "f9048d1622285ad322df05700d118da8c00a57ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
