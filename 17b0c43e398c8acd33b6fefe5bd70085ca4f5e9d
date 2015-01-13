@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ec449d1_8452265c",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-13T04:13:25Z",
+      "side": 1,
+      "message": "Ugh! Amended this comment to document yet another bug. Though I don\u0027t know if datagram sockets tend to have asynchronous writes in practice? It\u0027s probably saner to leave this all as TODOs until the DTLS code gets revamped.",
+      "revId": "17b0c43e398c8acd33b6fefe5bd70085ca4f5e9d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
