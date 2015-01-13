@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2ec449d1_a7b8049c",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-13T04:12:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2eab69f1_1b9de741",
+      "range": {
+        "startLine": 248,
+        "startChar": 27,
+        "endLine": 248,
+        "endChar": 35
+      },
+      "revId": "8daeb156f9a638236c5cac6e4ef8a23dbb464f43",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2eab69f1_fb80dbd7",
         "filename": "ssl/d1_lib.c",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2015-01-12T22:53:06Z",
       "side": 1,
       "message": "ditto.",
+      "range": {
+        "startLine": 376,
+        "startChar": 27,
+        "endLine": 376,
+        "endChar": 35
+      },
+      "revId": "8daeb156f9a638236c5cac6e4ef8a23dbb464f43",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2ec449d1_87bd088c",
+        "filename": "ssl/d1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-13T04:12:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2eab69f1_fb80dbd7",
       "range": {
         "startLine": 376,
         "startChar": 27,
