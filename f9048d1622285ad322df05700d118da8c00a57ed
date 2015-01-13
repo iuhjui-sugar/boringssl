@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2ec449d1_44878e71",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-13T04:12:20Z",
+      "side": 1,
+      "message": "(I just took this commit message from upstream.) Reworded.",
+      "parentUuid": "2eab69f1_7b94eb4b",
+      "range": {
+        "startLine": 7,
+        "startChar": 55,
+        "endLine": 7,
+        "endChar": 58
+      },
+      "revId": "f9048d1622285ad322df05700d118da8c00a57ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2eab69f1_9b055709",
         "filename": "ssl/d1_both.c",
         "patchSetId": 1
