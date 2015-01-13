@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ec449d1_ea1123c1",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-13T17:20:24Z",
+      "side": 0,
+      "message": "This case is not used in any port, but to confirm, that\u0027s why it was removed? (SGTM. If a port lacks BN_UMULT_LOHI but has BN_UMULT_HIGH, it can just implement BN_UMULT_LOHI in terms of it and move on.)",
+      "range": {
+        "startLine": 133,
+        "startChar": 14,
+        "endLine": 133,
+        "endChar": 27
+      },
+      "revId": "a307dfd29fccb830b1c59b25060ded9a11254db4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

@@ -1,0 +1,346 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ec449d1_474f9002",
+        "filename": "crypto/aes/asm/aesv8-armx.pl",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-13T17:20:24Z",
+      "side": 1,
+      "message": "(rubber stamp)",
+      "revId": "ef84dd2d5749c10ef536cc4100503d7414ad999a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2ec449d1_6ac1b3bd",
+        "filename": "crypto/bn/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-13T17:20:24Z",
+      "side": 1,
+      "message": "BN_ULLONG is also (wrongly) used in n2l6. That macro\u0027s never used, so I don\u0027t think will break. Nonetheless, mind either fixing it to use uint64_t or just deleting it (along with l2n6)? I\u0027m guessing it was added for DTLS sequence numbers and never used.\n\n(Actually, come to think of it, files that include ssl_locl.h also don\u0027t include bn/internal.h, so it can\u0027t work anyway.)",
+      "range": {
+        "startLine": 145,
+        "startChar": 4,
+        "endLine": 145,
+        "endChar": 22
+      },
+      "revId": "ef84dd2d5749c10ef536cc4100503d7414ad999a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2ec449d1_8aeeaf46",
+        "filename": "crypto/bn/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-13T17:20:24Z",
+      "side": 1,
+      "message": "Verified that cl.exe building for 32-bit has a uint64_t.",
+      "revId": "ef84dd2d5749c10ef536cc4100503d7414ad999a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2ec449d1_4ad5d76d",
+        "filename": "crypto/bn/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-13T17:20:24Z",
+      "side": 1,
+      "message": "Shouldn\u0027t these three be in in a BN_LLONG #ifdef? Everything that checks for BN_DIV2W also checks for BN_LLONG (nevermind that it\u0027s BN_ULLONG we use), but none of those makes sense when you can\u0027t represent two-word values to begin with.\n\n(Actually, are there any cases when you have BN_LLONG but not BN_DIV2W? If you have a type, surely the compiler can implement division. Maybe we don\u0027t need BN_DIV2 at all, though it would be some diverging.)",
+      "revId": "ef84dd2d5749c10ef536cc4100503d7414ad999a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2ec449d1_0a291ff4",
+        "filename": "crypto/bn/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-13T17:20:24Z",
+      "side": 1,
+      "message": "These three are duplicated in line 79 of generic.c. Is it needed in the header? The other cases define it in generic.c, so that would be more consistent than up here.",
+      "revId": "ef84dd2d5749c10ef536cc4100503d7414ad999a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2ec449d1_0aa63f1b",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-13T17:20:24Z",
+      "side": 1,
+      "message": "I believe extern on function declarations is redundant.",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 7
+      },
+      "revId": "ef84dd2d5749c10ef536cc4100503d7414ad999a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2ec449d1_2a905ba9",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-13T17:20:24Z",
+      "side": 1,
+      "message": "Yeah, it\u0027s true of the others too. Probably they should be called blah_cbc_cipher or something. They get passed the direction as the final argument and I imagine set_(en|de)crypt_key also potentially sets up state.\n\nInterestingly, bsaes-armv7.pl has a comment that says \"it is up to the caller to make sure we are called with enc \u003d\u003d 0\", which is consistent with line 319 only kicking in for enc \u003d\u003d 1 on CTR mode, not CBC mode. However, bsaes-x86_64.pl has a \"pull direction flag\" comment, so it\u0027s possible we\u0027re missing out on something.",
+      "revId": "ef84dd2d5749c10ef536cc4100503d7414ad999a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2ec449d1_87b3488d",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1358,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-13T17:20:24Z",
+      "side": 1,
+      "message": "Does this need an equivalent check for a good GHASH implementation? (If so, maybe crypto_gcm_clmul_enabled() should be generalized to EVP_has_ghash_hardware() or something.)",
+      "range": {
+        "startLine": 1358,
+        "startChar": 9,
+        "endLine": 1358,
+        "endChar": 22
+      },
+      "revId": "ef84dd2d5749c10ef536cc4100503d7414ad999a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2ec449d1_edd2dd63",
+        "filename": "crypto/cpu-arm.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-13T17:20:24Z",
+      "side": 1,
+      "message": "We\u0027ll need something else later for iOS, right? Google comes up with this which suggests iOS wants some sysctlbyname incants?\n\nhttp://stackoverflow.com/questions/17712590/is-there-a-way-to-detect-vfp-neon-thumb-on-ios-at-runtime",
+      "revId": "ef84dd2d5749c10ef536cc4100503d7414ad999a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2ec449d1_cdd72152",
+        "filename": "crypto/cpu-arm.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-13T17:20:24Z",
+      "side": 1,
+      "message": "How does this relate to the old logic where we relied on the embedder to CRYPTO_set_NEON_*? Will AT_HWCAP always return 0 on those Androids?",
+      "revId": "ef84dd2d5749c10ef536cc4100503d7414ad999a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2ec449d1_0ddad97a",
+        "filename": "crypto/cpu-arm.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-13T17:20:24Z",
+      "side": 1,
+      "message": "I was not able to find these in hwcap.h. At least not in the copy of the Android NDK in my Chromium checkout.",
+      "revId": "ef84dd2d5749c10ef536cc4100503d7414ad999a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2ec449d1_8dcd29ca",
+        "filename": "crypto/cpu-arm.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-13T17:20:24Z",
+      "side": 1,
+      "message": "I\u0027m assuming this is the same as HWCAP_ASIMD.",
+      "range": {
+        "startLine": 115,
+        "startChar": 29,
+        "endLine": 115,
+        "endChar": 34
+      },
+      "revId": "ef84dd2d5749c10ef536cc4100503d7414ad999a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2ec449d1_4de4d138",
+        "filename": "crypto/cpu-arm.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-13T17:20:24Z",
+      "side": 1,
+      "message": "Should this codepath also set NEON_FUNCTIONAL?",
+      "revId": "ef84dd2d5749c10ef536cc4100503d7414ad999a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2ec449d1_27a3743e",
+        "filename": "crypto/modes/asm/ghashv8-armx.pl",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-13T17:20:24Z",
+      "side": 1,
+      "message": "(rubber stamp)",
+      "revId": "ef84dd2d5749c10ef536cc4100503d7414ad999a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2ec449d1_0702b87b",
+        "filename": "crypto/sha/CMakeLists.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-13T17:20:24Z",
+      "side": 1,
+      "message": "This file seems to be missing.",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 14
+      },
+      "revId": "ef84dd2d5749c10ef536cc4100503d7414ad999a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2ec449d1_07a0f82d",
+        "filename": "crypto/sha/asm/sha1-armv8.pl",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-13T17:20:24Z",
+      "side": 1,
+      "message": "(rubber stamp)",
+      "revId": "ef84dd2d5749c10ef536cc4100503d7414ad999a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2ec449d1_67ad6c26",
+        "filename": "crypto/sha/asm/sha512-armv8.pl",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-13T17:20:24Z",
+      "side": 1,
+      "message": "(rubber stamp)",
+      "revId": "ef84dd2d5749c10ef536cc4100503d7414ad999a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2ec449d1_e78f9cbd",
+        "filename": "crypto/sha/sha512.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-13T17:20:24Z",
+      "side": 1,
+      "message": "AARCH64?",
+      "range": {
+        "startLine": 92,
+        "startChar": 45,
+        "endLine": 92,
+        "endChar": 50
+      },
+      "revId": "ef84dd2d5749c10ef536cc4100503d7414ad999a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
