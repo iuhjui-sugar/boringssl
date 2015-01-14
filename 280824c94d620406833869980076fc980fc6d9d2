@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ebe78392_651ec0d3",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-14T21:03:38Z",
+      "side": 1,
+      "message": "I don\u0027t really understand how this works.\n\nThere\u0027s only a single EVP_AEAD_CTX created for all the records in a session. But this suggests that each DTLS fragment owns an EVP_AEAD_CTX and yet there\u0027s no dup calls.\n\nI\u0027ll take a look again after everything has landed.",
+      "revId": "280824c94d620406833869980076fc980fc6d9d2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
