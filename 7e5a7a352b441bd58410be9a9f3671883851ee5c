@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ebe78392_055374e0",
+        "filename": "crypto/cipher/e_ssl3.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-14T20:55:54Z",
+      "side": 1,
+      "message": "48?",
+      "range": {
+        "startLine": 61,
+        "startChar": 14,
+        "endLine": 61,
+        "endChar": 29
+      },
+      "revId": "7e5a7a352b441bd58410be9a9f3671883851ee5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0e1dc54d_a6482801",
+        "filename": "crypto/cipher/e_ssl3.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-14T20:55:54Z",
+      "side": 1,
+      "message": "better written as \"13 - 2 /* version */ - 2 /* length bytes */\"  ?",
+      "range": {
+        "startLine": 195,
+        "startChar": 16,
+        "endLine": 195,
+        "endChar": 22
+      },
+      "revId": "7e5a7a352b441bd58410be9a9f3671883851ee5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ebe78392_65380071",
+        "filename": "crypto/cipher/e_ssl3.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-14T20:55:54Z",
+      "side": 1,
+      "message": "ditto.",
+      "revId": "7e5a7a352b441bd58410be9a9f3671883851ee5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
