@@ -22,6 +22,30 @@
       "revId": "a307dfd29fccb830b1c59b25060ded9a11254db4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cbec7f7c_c117c268",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-14T23:36:43Z",
+      "side": 0,
+      "message": "Yep: unused and unlikely to be used.",
+      "parentUuid": "2ec449d1_ea1123c1",
+      "range": {
+        "startLine": 133,
+        "startChar": 14,
+        "endLine": 133,
+        "endChar": 27
+      },
+      "revId": "a307dfd29fccb830b1c59b25060ded9a11254db4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }

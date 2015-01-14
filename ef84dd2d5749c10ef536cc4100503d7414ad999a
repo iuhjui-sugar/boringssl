@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "cbec7f7c_0137ea00",
+        "filename": "crypto/bn/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-14T23:36:43Z",
+      "side": 1,
+      "message": "Have removed them.",
+      "parentUuid": "2ec449d1_6ac1b3bd",
+      "range": {
+        "startLine": 145,
+        "startChar": 4,
+        "endLine": 145,
+        "endChar": 22
+      },
+      "revId": "ef84dd2d5749c10ef536cc4100503d7414ad999a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ec449d1_8aeeaf46",
         "filename": "crypto/bn/internal.h",
         "patchSetId": 5
@@ -53,6 +77,24 @@
       "writtenOn": "2015-01-13T17:20:24Z",
       "side": 1,
       "message": "Verified that cl.exe building for 32-bit has a uint64_t.",
+      "revId": "ef84dd2d5749c10ef536cc4100503d7414ad999a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cbec7f7c_c130e206",
+        "filename": "crypto/bn/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-14T23:36:43Z",
+      "side": 1,
+      "message": "ack.",
+      "parentUuid": "2ec449d1_8aeeaf46",
       "revId": "ef84dd2d5749c10ef536cc4100503d7414ad999a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -76,6 +118,24 @@
     },
     {
       "key": {
+        "uuid": "cbec7f7c_a186fe3c",
+        "filename": "crypto/bn/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-14T23:36:43Z",
+      "side": 1,
+      "message": "Let\u0027s say that compilers must implement division for the types that they support. I\u0027ve removed DIV2W and put Lw and Hw in #if defined(BN_LLONG).",
+      "parentUuid": "2ec449d1_4ad5d76d",
+      "revId": "ef84dd2d5749c10ef536cc4100503d7414ad999a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ec449d1_0a291ff4",
         "filename": "crypto/bn/internal.h",
         "patchSetId": 5
@@ -87,6 +147,24 @@
       "writtenOn": "2015-01-13T17:20:24Z",
       "side": 1,
       "message": "These three are duplicated in line 79 of generic.c. Is it needed in the header? The other cases define it in generic.c, so that would be more consistent than up here.",
+      "revId": "ef84dd2d5749c10ef536cc4100503d7414ad999a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cbec7f7c_21cd4e95",
+        "filename": "crypto/bn/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-14T23:36:43Z",
+      "side": 1,
+      "message": "Good point—removed.",
+      "parentUuid": "2ec449d1_0a291ff4",
       "revId": "ef84dd2d5749c10ef536cc4100503d7414ad999a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -116,6 +194,30 @@
     },
     {
       "key": {
+        "uuid": "cbec7f7c_01148a35",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-14T23:36:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ec449d1_0aa63f1b",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 7
+      },
+      "revId": "ef84dd2d5749c10ef536cc4100503d7414ad999a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ec449d1_2a905ba9",
         "filename": "crypto/cipher/e_aes.c",
         "patchSetId": 5
@@ -127,6 +229,24 @@
       "writtenOn": "2015-01-13T17:20:24Z",
       "side": 1,
       "message": "Yeah, it\u0027s true of the others too. Probably they should be called blah_cbc_cipher or something. They get passed the direction as the final argument and I imagine set_(en|de)crypt_key also potentially sets up state.\n\nInterestingly, bsaes-armv7.pl has a comment that says \"it is up to the caller to make sure we are called with enc \u003d\u003d 0\", which is consistent with line 319 only kicking in for enc \u003d\u003d 1 on CTR mode, not CBC mode. However, bsaes-x86_64.pl has a \"pull direction flag\" comment, so it\u0027s possible we\u0027re missing out on something.",
+      "revId": "ef84dd2d5749c10ef536cc4100503d7414ad999a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0e1dc54d_29a6c91b",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-14T23:36:43Z",
+      "side": 1,
+      "message": "I\u0027ve checked against upstream and we appear to be triggering bsaes when they do so I\u0027ll leave it.",
+      "parentUuid": "2ec449d1_2a905ba9",
       "revId": "ef84dd2d5749c10ef536cc4100503d7414ad999a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -156,6 +276,30 @@
     },
     {
       "key": {
+        "uuid": "abf10b52_e0b402c4",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1358,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-14T23:36:43Z",
+      "side": 1,
+      "message": "I was assuming that any chip that implemented AES would also do the much easier clmul stuff. But maybe that\u0027s dangerous. Have updated this test to check the PMULL flag too.",
+      "parentUuid": "2ec449d1_87b3488d",
+      "range": {
+        "startLine": 1358,
+        "startChar": 9,
+        "endLine": 1358,
+        "endChar": 22
+      },
+      "revId": "ef84dd2d5749c10ef536cc4100503d7414ad999a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ec449d1_edd2dd63",
         "filename": "crypto/cpu-arm.c",
         "patchSetId": 5
@@ -167,6 +311,24 @@
       "writtenOn": "2015-01-13T17:20:24Z",
       "side": 1,
       "message": "We\u0027ll need something else later for iOS, right? Google comes up with this which suggests iOS wants some sysctlbyname incants?\n\nhttp://stackoverflow.com/questions/17712590/is-there-a-way-to-detect-vfp-neon-thumb-on-ios-at-runtime",
+      "revId": "ef84dd2d5749c10ef536cc4100503d7414ad999a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4bf88f38_fd04a742",
+        "filename": "crypto/cpu-arm.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-14T23:36:43Z",
+      "side": 1,
+      "message": "Actually, I\u0027m expect that this will break the Chromium ARM build because we\u0027re probably using an SDK version that\u0027s too old to contain auxv.h.\n\nI\u0027m going to try the simple solution to see if it works first however.",
+      "parentUuid": "2ec449d1_edd2dd63",
       "revId": "ef84dd2d5749c10ef536cc4100503d7414ad999a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -190,6 +352,24 @@
     },
     {
       "key": {
+        "uuid": "4bf88f38_bd173f69",
+        "filename": "crypto/cpu-arm.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-14T23:36:43Z",
+      "side": 1,
+      "message": "If the aux vector says that the chip supports NEON then we\u0027ll believe it, even if CRYPTO_set_NEON_ isn\u0027t called.\n\nIf we find that auxv.h is available everywhere that we care about then CRYPTO_set_NEON_ can probably be removed.",
+      "parentUuid": "2ec449d1_cdd72152",
+      "revId": "ef84dd2d5749c10ef536cc4100503d7414ad999a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ec449d1_0ddad97a",
         "filename": "crypto/cpu-arm.c",
         "patchSetId": 5
@@ -201,6 +381,24 @@
       "writtenOn": "2015-01-13T17:20:24Z",
       "side": 1,
       "message": "I was not able to find these in hwcap.h. At least not in the copy of the Android NDK in my Chromium checkout.",
+      "revId": "ef84dd2d5749c10ef536cc4100503d7414ad999a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4bf88f38_fd8a67ab",
+        "filename": "crypto/cpu-arm.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-14T23:36:43Z",
+      "side": 1,
+      "message": "It\u0027s in asm/hwcap.h in gcc-linaro-4.9-2014.11-x86_64_arm-linux-gnueabihf at least. I assume that it\u0027ll make it out eventually.",
+      "parentUuid": "2ec449d1_0ddad97a",
       "revId": "ef84dd2d5749c10ef536cc4100503d7414ad999a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -230,6 +428,30 @@
     },
     {
       "key": {
+        "uuid": "4bf88f38_7d43f775",
+        "filename": "crypto/cpu-arm.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-14T23:36:43Z",
+      "side": 1,
+      "message": "yep.",
+      "parentUuid": "2ec449d1_8dcd29ca",
+      "range": {
+        "startLine": 115,
+        "startChar": 29,
+        "endLine": 115,
+        "endChar": 34
+      },
+      "revId": "ef84dd2d5749c10ef536cc4100503d7414ad999a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ec449d1_4de4d138",
         "filename": "crypto/cpu-arm.c",
         "patchSetId": 5
@@ -241,6 +463,24 @@
       "writtenOn": "2015-01-13T17:20:24Z",
       "side": 1,
       "message": "Should this codepath also set NEON_FUNCTIONAL?",
+      "revId": "ef84dd2d5749c10ef536cc4100503d7414ad999a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4bf88f38_1dff5309",
+        "filename": "crypto/cpu-arm.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-14T23:36:43Z",
+      "side": 1,
+      "message": "Hmm, that\u0027s an interesting point. Chromium always sets it to true or false so it\u0027s safe. It\u0027s a question of whether the Poly1305 code should be enabled by default and actually I guess that it should so I\u0027ve done that.",
+      "parentUuid": "2ec449d1_4de4d138",
       "revId": "ef84dd2d5749c10ef536cc4100503d7414ad999a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -275,6 +515,30 @@
       "writtenOn": "2015-01-13T17:20:24Z",
       "side": 1,
       "message": "This file seems to be missing.",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 14
+      },
+      "revId": "ef84dd2d5749c10ef536cc4100503d7414ad999a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4bf88f38_7d19b7e8",
+        "filename": "crypto/sha/CMakeLists.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-14T23:36:43Z",
+      "side": 1,
+      "message": "It\u0027s generated from sha512-armv8.pl. (Yea, great filename huh?)",
+      "parentUuid": "2ec449d1_0702b87b",
       "range": {
         "startLine": 38,
         "startChar": 2,
@@ -332,6 +596,30 @@
       "writtenOn": "2015-01-13T17:20:24Z",
       "side": 1,
       "message": "AARCH64?",
+      "range": {
+        "startLine": 92,
+        "startChar": 45,
+        "endLine": 92,
+        "endChar": 50
+      },
+      "revId": "ef84dd2d5749c10ef536cc4100503d7414ad999a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4bf88f38_1d1873e1",
+        "filename": "crypto/sha/sha512.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-14T23:36:43Z",
+      "side": 1,
+      "message": "Thanks.",
+      "parentUuid": "2ec449d1_e78f9cbd",
       "range": {
         "startLine": 92,
         "startChar": 45,
