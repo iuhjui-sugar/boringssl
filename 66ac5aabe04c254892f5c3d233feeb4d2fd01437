@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ee3231d2_33655aff",
+        "filename": "crypto/cipher/e_tls.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-14T20:28:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebe78392_423f3249",
+      "revId": "66ac5aabe04c254892f5c3d233feeb4d2fd01437",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ebe78392_c28462a1",
         "filename": "crypto/cipher/e_tls.c",
         "patchSetId": 7
@@ -30,6 +48,24 @@
       "writtenOn": "2015-01-14T20:13:36Z",
       "side": 1,
       "message": "Another followup: the !is_sslv3 param can be removed. (This might be in a change in this series—I\u0027ve not checked.)",
+      "revId": "66ac5aabe04c254892f5c3d233feeb4d2fd01437",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ee3231d2_f352e22a",
+        "filename": "crypto/cipher/e_tls.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-14T20:28:50Z",
+      "side": 1,
+      "message": "It is, yeah. I ended up removing the ssl3-specific bits later and revising history seemed a nuisance.",
+      "parentUuid": "ebe78392_c28462a1",
       "revId": "66ac5aabe04c254892f5c3d233feeb4d2fd01437",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
