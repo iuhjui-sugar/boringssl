@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ee3231d2_be2cb188",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-14T22:24:44Z",
+      "side": 1,
+      "message": "Nah, it\u0027s actually larger. If the MTU is small, then we\u0027ll account for the buffer in the BIO_wpending check and BIO_flush as needed to clear out all of wpending. If the MTU is too large, we may try to write more than the space left in the buffer. The BIO may then internally flush after only buffering half of the fragment and we have troubles.\n\nThe invariant that needs to hold (and doesn\u0027t) is:\n\n  data written \u003c\u003d buf_size - wpending IMPLIED BY\n  data written \u003c\u003d curr_mtu + overhead \u003c\u003d buf_size - wpending IFF\n  mtu - wpending - overhead + overhead \u003c\u003d buf_size - wpending IFF\n  mtu \u003c\u003d buf_size\n\nSo I suppose there\u0027s a little bit of leeway since overhead is variable, but the requirement is roughly that mtu \u003c\u003d buf_size.",
+      "parentUuid": "ebe78392_287c0fda",
+      "range": {
+        "startLine": 280,
+        "startChar": 52,
+        "endLine": 280,
+        "endChar": 58
+      },
+      "revId": "17b0c43e398c8acd33b6fefe5bd70085ca4f5e9d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ec449d1_8452265c",
         "filename": "ssl/d1_both.c",
         "patchSetId": 1
