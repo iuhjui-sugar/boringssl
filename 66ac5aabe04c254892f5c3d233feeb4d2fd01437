@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ebe78392_423f3249",
+        "filename": "crypto/cipher/e_tls.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-14T20:13:36Z",
+      "side": 1,
+      "message": "Here we know that data_plus_mac_len \u003d total \u003d in_len. And we checked that in_len \u003e\u003d HMAC_size(\u0026tls_ctx-\u003ehmac_ctx) at the top of the function, so this check can be replaced with a comment explaining why it\u0027s not done.\n\n(Note: this is for a followup—I don\u0027t want to delay this whole series on another round-trip if I can help it.)",
+      "revId": "66ac5aabe04c254892f5c3d233feeb4d2fd01437",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ebe78392_c28462a1",
+        "filename": "crypto/cipher/e_tls.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-14T20:13:36Z",
+      "side": 1,
+      "message": "Another followup: the !is_sslv3 param can be removed. (This might be in a change in this series—I\u0027ve not checked.)",
+      "revId": "66ac5aabe04c254892f5c3d233feeb4d2fd01437",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
