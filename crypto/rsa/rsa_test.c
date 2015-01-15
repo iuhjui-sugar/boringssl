@@ -314,7 +314,7 @@ err:
 }
 
 static int test_recover_crt_params(void) {
-  RSA *key1, *key2;
+  RSA *k1, *k2;
   BIGNUM *e = BN_new();
   uint8_t buf[128];
   unsigned buf_len = sizeof(buf);
@@ -326,56 +326,55 @@ static int test_recover_crt_params(void) {
   ERR_clear_error();
 
   for (i = 0; i < 1; i++) {
-    key1 = RSA_new();
-    if (!RSA_generate_key_ex(key1, 512, e, NULL)) {
+    k1 = RSA_new();
+    if (!RSA_generate_key_ex(k1, 512, e, NULL)) {
       fprintf(stderr, "RSA_generate_key_ex failed.\n");
       BIO_print_errors_fp(stderr);
       return 0;
     }
 
-    if (!RSA_check_key(key1)) {
+    if (!RSA_check_key(k1)) {
       fprintf(stderr, "RSA_check_key failed with original key.\n");
       BIO_print_errors_fp(stderr);
       return 0;
     }
 
-    key2 = RSA_new();
-    key2->n = BN_dup(key1->n);
-    key2->e = BN_dup(key1->e);
-    key2->d = BN_dup(key1->d);
-    RSA_free(key1);
+    k2 = RSA_new();
+    k2->n = BN_dup(k1->n);
+    k2->e = BN_dup(k1->e);
+    k2->d = BN_dup(k1->d);
+    RSA_free(k1);
 
-    if (!RSA_recover_crt_params(key2)) {
+    if (!RSA_recover_crt_params(k2)) {
       fprintf(stderr, "RSA_recover_crt_params failed.\n");
       BIO_print_errors_fp(stderr);
       return 0;
     }
 
-    if (RSA_size(key2) > buf_len) {
+    if (RSA_size(k2) > buf_len) {
       return 0;
     }
 
-    if (!RSA_check_key(key2)) {
+    if (!RSA_check_key(k2)) {
       fprintf(stderr, "RSA_check_key failed with recovered key.\n");
       BIO_print_errors_fp(stderr);
       return 0;
     }
 
-    if (!RSA_sign(NID_md5, kDummyHash, sizeof(kDummyHash), buf, &buf_len,
-                  key2)) {
+    if (!RSA_sign(NID_md5, kDummyHash, sizeof(kDummyHash), buf, &buf_len, k2)) {
       fprintf(stderr, "RSA_sign failed with recovered key.\n");
       BIO_print_errors_fp(stderr);
       return 0;
     }
 
     if (!RSA_verify(NID_md5, kDummyHash, sizeof(kDummyHash), buf, buf_len,
-                    key2)) {
+                    k2)) {
       fprintf(stderr, "RSA_verify failed with recovered key.\n");
       BIO_print_errors_fp(stderr);
       return 0;
     }
 
-    RSA_free(key2);
+    RSA_free(k2);
   }
 
   BN_free(e);

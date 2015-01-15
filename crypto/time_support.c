@@ -63,14 +63,14 @@
 
 #define SECS_PER_DAY (24 * 60 * 60)
 
-struct tm *OPENSSL_gmtime(const time_t *time, struct tm *result) {
+struct tm *OPENSSL_gmtime(const time_t *timer, struct tm *result) {
 #if defined(OPENSSL_WINDOWS)
-  if (gmtime_s(result, time)) {
+  if (gmtime_s(result, timer)) {
     return NULL;
   }
   return result;
 #else
-  return gmtime_r(time, result);
+  return gmtime_r(timer, result);
 #endif
 }
 

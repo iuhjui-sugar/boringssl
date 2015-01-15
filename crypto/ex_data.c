@@ -151,7 +151,7 @@ int CRYPTO_get_ex_new_index(int class_value, long argl, void *argp,
                              free_func);
 }
 
-int CRYPTO_set_ex_data(CRYPTO_EX_DATA *ad, int index, void *val) {
+int CRYPTO_set_ex_data(CRYPTO_EX_DATA *ad, int idx, void *val) {
   int n, i;
 
   if (ad->sk == NULL) {
@@ -165,14 +165,14 @@ int CRYPTO_set_ex_data(CRYPTO_EX_DATA *ad, int index, void *val) {
   n = sk_void_num(ad->sk);
 
   /* Add NULL values until the stack is long enough. */
-  for (i = n; i <= index; i++) {
+  for (i = n; i <= idx; i++) {
     if (!sk_void_push(ad->sk, NULL)) {
       OPENSSL_PUT_ERROR(CRYPTO, CRYPTO_set_ex_data, ERR_R_MALLOC_FAILURE);
       return 0;
     }
   }
 
-  sk_void_set(ad->sk, index, val);
+  sk_void_set(ad->sk, idx, val);
   return 1;
 }
 

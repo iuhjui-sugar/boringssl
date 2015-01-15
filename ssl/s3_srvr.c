@@ -799,7 +799,7 @@ int ssl3_get_v2_client_hello(SSL *s) {
   uint8_t msg_type;
   uint16_t version, cipher_spec_length, session_id_length, challenge_length;
   CBB client_hello, hello_body, cipher_suites;
-  uint8_t random[SSL3_RANDOM_SIZE];
+  uint8_t client_random[SSL3_RANDOM_SIZE];
 
   /* Read the remainder of the V2ClientHello. We have previously read 8 bytes
    * in ssl3_get_initial_bytes. */
@@ -853,12 +853,12 @@ int ssl3_get_v2_client_hello(SSL *s) {
 
   /* The client_random is the V2ClientHello challenge. Truncate or
    * left-pad with zeros as needed. */
-  memset(random, 0, SSL3_RANDOM_SIZE);
+  memset(client_random, 0, SSL3_RANDOM_SIZE);
   rand_len = CBS_len(&challenge);
   if (rand_len > SSL3_RANDOM_SIZE) {
     rand_len = SSL3_RANDOM_SIZE;
   }
-  memcpy(random + (SSL3_RANDOM_SIZE - rand_len), CBS_data(&challenge),
+  memcpy(client_random + (SSL3_RANDOM_SIZE - rand_len), CBS_data(&challenge),
          rand_len);
 
   /* Write out an equivalent SSLv3 ClientHello. */
@@ -870,7 +870,7 @@ int ssl3_get_v2_client_hello(SSL *s) {
   if (!CBB_add_u8(&client_hello, SSL3_MT_CLIENT_HELLO) ||
       !CBB_add_u24_length_prefixed(&client_hello, &hello_body) ||
       !CBB_add_u16(&hello_body, version) ||
-      !CBB_add_bytes(&hello_body, random, SSL3_RANDOM_SIZE) ||
+      !CBB_add_bytes(&hello_body, client_random, SSL3_RANDOM_SIZE) ||
       /* No session id. */
       !CBB_add_u8(&hello_body, 0) ||
       !CBB_add_u16_length_prefixed(&hello_body, &cipher_suites)) {
