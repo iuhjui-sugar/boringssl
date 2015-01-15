@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b928710_bfae37f0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-15T20:57:44Z",
+      "side": 1,
+      "message": "I guess it\u0027s a question of whether there exists code that calls ERR_free_strings before synchronizing all threads that touch OpenSSL. I\u0027m having a hard time imagining such a use that wouldn\u0027t have races for other reasons, but it\u0027s possible TSAN wouldn\u0027t have flagged it before.",
+      "revId": "af8ec4524e93332e9f06858af18d3288258e2675",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
