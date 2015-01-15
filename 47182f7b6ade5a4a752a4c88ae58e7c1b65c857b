@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b928710_bfd5d771",
+        "filename": "crypto/cpu-arm.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-15T20:53:56Z",
+      "side": 1,
+      "message": "(Verified the numbers match the headers that came up on Google when searching for the symbols.)",
+      "revId": "47182f7b6ade5a4a752a4c88ae58e7c1b65c857b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
