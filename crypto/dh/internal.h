@@ -66,8 +66,14 @@
 extern "C" {
 #endif
 
+/* Frequently offered parameters.
+ *
+ * This functions checks if a given DH parameter set <p,g> is one of
+ * a few commonly offered sets, with p being a 1024-bit safe prime;
+ * if it is, it allows an appropriately smaller private key length
+ * to be used during key generation. */
 
-
+void DH_check_standard_parameters_1024(DH *dh);
 
 #if defined(__cplusplus)
 }  /* extern C */
