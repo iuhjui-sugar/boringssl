@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4bc24f1f_adb83de3",
+        "filename": "crypto/dh/params.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5435
+      },
+      "writtenOn": "2015-01-16T11:26:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2bcfdb48_b2609826",
+      "revId": "b9af0c95175409178bf59949cefa9f633fff5f00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2bcfdb48_12cc0cf9",
         "filename": "crypto/dh/params.c",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "4bc24f1f_4da759c6",
+        "filename": "crypto/dh/params.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 5435
+      },
+      "writtenOn": "2015-01-16T11:26:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2bcfdb48_12cc0cf9",
+      "revId": "b9af0c95175409178bf59949cefa9f633fff5f00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2bcfdb48_d2b52450",
         "filename": "crypto/dh/params.c",
         "patchSetId": 2
@@ -47,6 +83,24 @@
       "writtenOn": "2015-01-16T01:49:32Z",
       "side": 1,
       "message": "|| at the end of the line. (clang-format will take care of all these for you if you have it setup.)",
+      "revId": "b9af0c95175409178bf59949cefa9f633fff5f00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4bc24f1f_6dac95a7",
+        "filename": "crypto/dh/params.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 5435
+      },
+      "writtenOn": "2015-01-16T11:26:40Z",
+      "side": 1,
+      "message": "I clang-formatted the whole function, leaving the four clauses in the condition on separate lines for readability.",
+      "parentUuid": "2bcfdb48_d2b52450",
       "revId": "b9af0c95175409178bf59949cefa9f633fff5f00",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -93,6 +147,48 @@
     },
     {
       "key": {
+        "uuid": "4bc24f1f_0da151ae",
+        "filename": "crypto/dh/params.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5435
+      },
+      "writtenOn": "2015-01-16T11:26:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2bcfdb48_f2db80a3",
+      "revId": "b9af0c95175409178bf59949cefa9f633fff5f00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4bc24f1f_cd9a697a",
+        "filename": "crypto/dh/params.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5435
+      },
+      "writtenOn": "2015-01-16T11:26:40Z",
+      "side": 1,
+      "message": "This one I\u0027m fairly ashamed of. :) Done.",
+      "parentUuid": "2bcfdb48_b2d5f871",
+      "range": {
+        "startLine": 362,
+        "startChar": 13,
+        "endLine": 362,
+        "endChar": 40
+      },
+      "revId": "b9af0c95175409178bf59949cefa9f633fff5f00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2bcfdb48_324ee8ba",
         "filename": "crypto/dh/params.c",
         "patchSetId": 2
@@ -110,6 +206,24 @@
     },
     {
       "key": {
+        "uuid": "4bc24f1f_2da68dc7",
+        "filename": "crypto/dh/params.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 5435
+      },
+      "writtenOn": "2015-01-16T11:26:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2bcfdb48_324ee8ba",
+      "revId": "b9af0c95175409178bf59949cefa9f633fff5f00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2bcfdb48_7282306a",
         "filename": "include/openssl/dh.h",
         "patchSetId": 2
@@ -121,6 +235,24 @@
       "writtenOn": "2015-01-16T01:49:32Z",
       "side": 1,
       "message": "I think that this should be in crypto/dh/internal.h and not OPENSSL_EXPORT.",
+      "revId": "b9af0c95175409178bf59949cefa9f633fff5f00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4bc24f1f_8dbb01e0",
+        "filename": "include/openssl/dh.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5435
+      },
+      "writtenOn": "2015-01-16T11:26:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2bcfdb48_7282306a",
       "revId": "b9af0c95175409178bf59949cefa9f633fff5f00",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
