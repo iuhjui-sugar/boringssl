@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4bab2f57_df044343",
+        "filename": "crypto/hkdf/hkdf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-16T23:40:37Z",
+      "side": 1,
+      "message": "This is a bit nasty. How about an HMAC_reset for this and then HMAC_Init_ex can call that for part of the work?",
+      "revId": "d23aa435ccd512d23d706fddba1b10ea39672aba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
