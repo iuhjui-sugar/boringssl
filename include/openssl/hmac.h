@@ -94,9 +94,8 @@ OPENSSL_EXPORT void HMAC_CTX_init(HMAC_CTX *ctx);
 OPENSSL_EXPORT void HMAC_CTX_cleanup(HMAC_CTX *ctx);
 
 /* HMAC_Init_ex sets up an initialised |HMAC_CTX| to use |md| as the hash
- * function and |key| as the key. Any of |md| or |key| can be NULL, in which
- * case the previous value will be used. It returns one on success or zero
- * otherwise. */
+ * function and |key| as the key. |md| can be NULL, in which case the previous
+ * value will be used. It returns one on success or zero otherwise. */
 OPENSSL_EXPORT int HMAC_Init_ex(HMAC_CTX *ctx, const void *key, size_t key_len,
                                 const EVP_MD *md, ENGINE *impl);
 
@@ -133,9 +132,6 @@ OPENSSL_EXPORT void HMAC_CTX_set_flags(HMAC_CTX *ctx, unsigned long flags);
 
 
 /* Deprecated functions. */
-
-OPENSSL_EXPORT int HMAC_Init(HMAC_CTX *ctx, const void *key, int key_len,
-                             const EVP_MD *md);
 
 /* HMAC_CTX_copy calls |HMAC_CTX_init| on |dest| and then sets it equal to
  * |src|. On entry, |dest| must /not/ be initialised for an operation with
