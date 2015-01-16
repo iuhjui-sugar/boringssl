@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eb2f83b3_22646eb7",
+        "filename": "tool/tool.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5145
+      },
+      "writtenOn": "2015-01-16T23:29:04Z",
+      "side": 1,
+      "message": "That\u0027s just me being pedantic, but: s_client, client, server, s_server could probably be sorted one way or another ;)",
+      "revId": "da379aad182107d72dac1241819cc698ccbba584",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eb2f83b3_e270c675",
+        "filename": "tool/tool.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5145
+      },
+      "writtenOn": "2015-01-16T23:29:04Z",
+      "side": 1,
+      "message": "Nitpicking, but why not use shorter names? i.e. md5, sha1, sha256, etc.\n\nThis would match OpenSSL (and BSD/OSX style binaries as a bonus).",
+      "revId": "da379aad182107d72dac1241819cc698ccbba584",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eb2f83b3_6285d6e5",
+        "filename": "tool/tool.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5145
+      },
+      "writtenOn": "2015-01-16T23:29:04Z",
+      "side": 1,
+      "message": "basename() requires \u003clibgen.h\u003e on both OSX and OpenBSD.",
+      "range": {
+        "startLine": 89,
+        "startChar": 30,
+        "endLine": 89,
+        "endChar": 38
+      },
+      "revId": "da379aad182107d72dac1241819cc698ccbba584",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
