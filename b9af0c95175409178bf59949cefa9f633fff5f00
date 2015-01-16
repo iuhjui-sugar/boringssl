@@ -1,0 +1,129 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2bcfdb48_b2609826",
+        "filename": "crypto/dh/params.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-16T01:49:32Z",
+      "side": 1,
+      "message": "Comment for each of these about where it came from (as best we can tell?)",
+      "revId": "b9af0c95175409178bf59949cefa9f633fff5f00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2bcfdb48_12cc0cf9",
+        "filename": "crypto/dh/params.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-16T01:49:32Z",
+      "side": 1,
+      "message": "Opening brace for the function should be on the same line.",
+      "revId": "b9af0c95175409178bf59949cefa9f633fff5f00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2bcfdb48_d2b52450",
+        "filename": "crypto/dh/params.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-16T01:49:32Z",
+      "side": 1,
+      "message": "|| at the end of the line. (clang-format will take care of all these for you if you have it setup.)",
+      "revId": "b9af0c95175409178bf59949cefa9f633fff5f00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2bcfdb48_b2d5f871",
+        "filename": "crypto/dh/params.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-16T01:49:32Z",
+      "side": 1,
+      "message": "sizeof(dh1024_well_known_p)/sizeof(dh1024_well_known_p[0]).\n\n(Otherwise you\u0027re iterating for each *byte* of the structure, which is far too many.)",
+      "range": {
+        "startLine": 362,
+        "startChar": 13,
+        "endLine": 362,
+        "endChar": 40
+      },
+      "revId": "b9af0c95175409178bf59949cefa9f633fff5f00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2bcfdb48_f2db80a3",
+        "filename": "crypto/dh/params.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-16T01:49:32Z",
+      "side": 1,
+      "message": "space after \"for\".",
+      "revId": "b9af0c95175409178bf59949cefa9f633fff5f00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2bcfdb48_324ee8ba",
+        "filename": "crypto/dh/params.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-16T01:49:32Z",
+      "side": 1,
+      "message": "/* The well-known DH groups are known to have safe primes. In this case we can safely reduce the size of the private key. */",
+      "revId": "b9af0c95175409178bf59949cefa9f633fff5f00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2bcfdb48_7282306a",
+        "filename": "include/openssl/dh.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-16T01:49:32Z",
+      "side": 1,
+      "message": "I think that this should be in crypto/dh/internal.h and not OPENSSL_EXPORT.",
+      "revId": "b9af0c95175409178bf59949cefa9f633fff5f00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
