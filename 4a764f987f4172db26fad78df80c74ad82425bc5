@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b928710_4842d36f",
+        "filename": "tool/speed.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-16T17:39:45Z",
+      "side": 1,
+      "message": "C++11 has some alignment bits, but it seems to critically lack a way to allocate dynamically-sized aligned data. There\u0027s a std::align, but that just adjusts a pointer to an already existing buffer.",
+      "revId": "4a764f987f4172db26fad78df80c74ad82425bc5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
