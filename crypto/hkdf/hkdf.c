@@ -59,8 +59,8 @@ int HKDF(uint8_t *out_key, size_t out_len,
     uint8_t ctr = i + 1;
     size_t todo;
 
-    if (i != 0 && (!HMAC_Init_ex(&hmac, NULL, 0, NULL, NULL) ||
-                   !HMAC_Update(&hmac, previous, digest_len))) {
+    /* Reset the HMAC context using the existing key and digest */
+    if (i != 0 && (!HMAC_Reset(&hmac) || !HMAC_Update(&hmac, previous, digest_len))) {
       goto out;
     }
     if (!HMAC_Update(&hmac, info, info_len) ||
