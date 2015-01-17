@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b928710_6e455fe8",
+        "filename": "crypto/evp/pbkdf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-17T21:20:43Z",
+      "side": 1,
+      "message": "This\u0027ll probably be more of a nuisance than is worth it. There\u0027s a decent number of callers internally (never mind that a lot of them added a cast because the original API wasn\u0027t this), so we\u0027d have to change those. And anything that\u0027s third-party, we\u0027d be maintaining patches for indefinitely, unless we can convince their upstreams to take an #ifdef or (const void *) cast.",
+      "range": {
+        "startLine": 61,
+        "startChar": 28,
+        "endLine": 61,
+        "endChar": 35
+      },
+      "revId": "5d68ea3d738cf33f2202eb369a7e70368d2372a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
