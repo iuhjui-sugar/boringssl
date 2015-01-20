@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b66fb36_b769e295",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5145
+      },
+      "writtenOn": "2015-01-20T02:07:54Z",
+      "side": 1,
+      "message": "VERSION_GREATER 4.5.99 would also include 4.6.0... But it\u0027s just a thought, I\u0027m fine with either.",
+      "range": {
+        "startLine": 14,
+        "startChar": 77,
+        "endLine": 14,
+        "endChar": 78
+      },
+      "revId": "4a04e25498bc91c7f7672043eb6eb34810ade2ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
