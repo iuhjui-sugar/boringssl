@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b4d1baf_9f979752",
+        "filename": "crypto/evp/pbkdf.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-20T16:00:12Z",
+      "side": 0,
+      "message": "I suppose this is a separate change from the -1 thing, but that should be fine too. I assume this is just so you don\u0027t strlen(NULL) because anything else would be insane.",
+      "revId": "e49da742cb8da281bbeaa7a54aad90aa5d3d19fe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
