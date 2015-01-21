@@ -1,0 +1,158 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb9e3f6c_9404aa42",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-21T21:15:12Z",
+      "side": 1,
+      "message": "(Where does this get used? I wasn\u0027t able to find it on my device.)",
+      "range": {
+        "startLine": 9,
+        "startChar": 34,
+        "endLine": 9,
+        "endChar": 40
+      },
+      "revId": "13cd1db0675c3da129495e9733bd9b4112f1fbdd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cb9e3f6c_b401ae31",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-21T21:15:12Z",
+      "side": 1,
+      "message": "Would it be preferable to give them a tool that only does *sum for size reasons? I assume they\u0027re not going to want client, server, speed, or any other random things we happen to toss there in future.",
+      "range": {
+        "startLine": 10,
+        "startChar": 46,
+        "endLine": 10,
+        "endChar": 50
+      },
+      "revId": "13cd1db0675c3da129495e9733bd9b4112f1fbdd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cb9e3f6c_f4fb36cd",
+        "filename": "tool/digest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-21T21:15:12Z",
+      "side": 1,
+      "message": "Isn\u0027t this just func_delete\u003cint, int, close\u003e?",
+      "revId": "13cd1db0675c3da129495e9733bd9b4112f1fbdd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cb9e3f6c_141a7a96",
+        "filename": "tool/digest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-21T21:15:12Z",
+      "side": 1,
+      "message": "You can omit this and leave it to the default constructor.",
+      "range": {
+        "startLine": 53,
+        "startChar": 31,
+        "endLine": 53,
+        "endChar": 44
+      },
+      "revId": "13cd1db0675c3da129495e9733bd9b4112f1fbdd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cb9e3f6c_341f7e87",
+        "filename": "tool/digest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-21T21:15:12Z",
+      "side": 1,
+      "message": "scoped_fd.reset(\u0026fd) is a little shorter.",
+      "revId": "13cd1db0675c3da129495e9733bd9b4112f1fbdd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cb9e3f6c_542402d7",
+        "filename": "tool/digest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-21T21:15:12Z",
+      "side": 1,
+      "message": "Probably better for a follow-up when I get around to RAIing the tests, but it might be worth having a scoped_types.h somewhere for use in the tool and tests.\n\nThough, if we RAII the tests, I think we wouldn\u0027t get std::unique_ptr. I don\u0027t think Chromium\u0027s Android build has it yet (STLport). Chromium isn\u0027t building tool or bssl_test, which is why this hasn\u0027t come up yet.\n\nI probably would have done this one like\n\nclass ScopedEVP_MD_CTX {\n public:\n  ScopedEVP_MD_CTX() {\n    EVP_MD_CTX_init(\u0026ctx_);\n  }\n  ~ScopedEVP_MD_CTX() {\n    EVP_MD_CTX_cleanup(\u0026ctx_);\n  }\n  EVP_MD_CTX *get() const { return \u0026ctx_; }\n private:\n  EVP_MD_CTX ctx_;\n};\n\nThough it\u0027s certainly more code. Might make more sense when separated out.",
+      "revId": "13cd1db0675c3da129495e9733bd9b4112f1fbdd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cb9e3f6c_54c88285",
+        "filename": "tool/digest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-21T21:15:12Z",
+      "side": 1,
+      "message": "Should this fail if line[len - 1] !\u003d \u0027\\n\u0027 \u0026\u0026 !feof(file)? (I suppose it\u0027ll just split the line up and resynchronize at the next \u0027\\n\u0027.)",
+      "revId": "13cd1db0675c3da129495e9733bd9b4112f1fbdd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cb9e3f6c_742906ac",
+        "filename": "tool/digest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-21T21:15:12Z",
+      "side": 1,
+      "message": "Is the intent to emulate coreutils completely? There\u0027s also fun things like -abc, -a -b -c, --binary, --text, -w, getopt_long\u0027s argument/non-argument reordering thing.",
+      "revId": "13cd1db0675c3da129495e9733bd9b4112f1fbdd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
