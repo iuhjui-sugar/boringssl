@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb9e3f6c_114fecb9",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1382,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-21T20:40:45Z",
+      "side": 1,
+      "message": "Maybe add a comment that wpa_supplicant only needs it for EAP-FAST, which we don\u0027t support.",
+      "revId": "bb37d9242228e323ee6b800fca65824710d6c920",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
