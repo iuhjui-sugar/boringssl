@@ -502,6 +502,10 @@ typedef struct ssl3_state_st
 		/* Client-only: peer_psk_identity_hint is the psk_identity_hint
 		 * sent by the server when using a PSK key exchange. */
 		char *peer_psk_identity_hint;
+
+		/* new_mac_secret_size is unused and exists only until
+		 * wpa_supplicant can be updated. */
+		uint8_t new_mac_secret_size;
 		} tmp;
 
         /* Connection binding to prevent renegotiation attacks */
