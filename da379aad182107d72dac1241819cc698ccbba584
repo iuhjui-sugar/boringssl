@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "abd58b01_a69a7278",
+        "filename": "tool/tool.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-21T01:20:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb2f83b3_22646eb7",
+      "revId": "da379aad182107d72dac1241819cc698ccbba584",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eb2f83b3_e270c675",
         "filename": "tool/tool.cc",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "abd58b01_06923e60",
+        "filename": "tool/tool.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-21T01:20:48Z",
+      "side": 1,
+      "message": "The aim is to match the coreutils utilities with those names.",
+      "parentUuid": "eb2f83b3_e270c675",
+      "revId": "da379aad182107d72dac1241819cc698ccbba584",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eb2f83b3_6285d6e5",
         "filename": "tool/tool.cc",
         "patchSetId": 1
@@ -47,6 +83,30 @@
       "writtenOn": "2015-01-16T23:29:04Z",
       "side": 1,
       "message": "basename() requires \u003clibgen.h\u003e on both OSX and OpenBSD.",
+      "range": {
+        "startLine": 89,
+        "startChar": 30,
+        "endLine": 89,
+        "endChar": 38
+      },
+      "revId": "da379aad182107d72dac1241819cc698ccbba584",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "abd58b01_06cdde70",
+        "filename": "tool/tool.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-21T01:20:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb2f83b3_6285d6e5",
       "range": {
         "startLine": 89,
         "startChar": 30,
