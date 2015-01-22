@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2bfc3bc4_e4935ac2",
+        "filename": "ssl/test/runner/packet_adapter.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-22T22:02:37Z",
+      "side": 1,
+      "message": "\u0026\u0026 len(b) \u003e 0",
+      "revId": "70eb50e6905d69e272908daeb95b15cf016acaac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
