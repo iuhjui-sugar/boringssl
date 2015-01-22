@@ -16,6 +16,24 @@
       "revId": "bb37d9242228e323ee6b800fca65824710d6c920",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "abef4bfe_f08c401d",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1382,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-22T19:26:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb9e3f6c_114fecb9",
+      "revId": "bb37d9242228e323ee6b800fca65824710d6c920",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
