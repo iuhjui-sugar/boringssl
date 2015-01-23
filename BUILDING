@@ -1,22 +1,43 @@
-mkdir build
-cd build
-cmake ..
-make
+Build Prerequisites:
+
+  * Perl 5.6.1 or later is required on all platforms. On Windows, Strawberry
+    Perl and MSYS Perl have both been reported to work.
+
+  * On Windows you currently must use Ninja[2] to build; on other platforms,
+    it is not required, but recommended, because it makes builds faster.
+
+  * On Windows only, Yasm[1] is required.
+  
+  * On Windows, MSVC 12 (Visual Studio 2013) or later is required.
+
+  * On non-Windows platforms, recent versions of GCC and Clang should work.
+
+Using Ninja (note the 'N' is capitalized in the cmake invocation):
+
+  mkdir build
+  cd build
+  cmake -GNinja ..
+  ninja
+
+Using makefiles (does not work on Windows):
+
+  mkdir build
+  cd build
+  cmake ..
+  ninja
+
+You usually don't need to run cmake again after changing CMakeLists.txt files
+because the build scripts will detect changes to them and rebuild themselves
+automatically.
 
 Note that the default build flags in the top-leve CMakeLists.txt are for
 debugging - optimisation isn't enabled.
-
-If you'll be building a lot, then installing Ninja[1] is highly recommended.
-Wipe out the build directory and recreate it, but using:
-
-cmake -GNinja ..
-ninja
 
 If you want to cross-compile then there are example toolchain files for 32-bit
 Intel and ARM in util/. Wipe out the build directory, recreate it and run cmake
 like this:
 
-cmake -DCMAKE_TOOLCHAIN_FILE=../util/arm-toolchain.cmake -GNinja ..
+  cmake -DCMAKE_TOOLCHAIN_FILE=../util/arm-toolchain.cmake -GNinja ..
 
 If you want to build as a shared library you need to tweak the STATIC tags in
 the CMakeLists.txts and also define BORINGSSL_SHARED_LIBRARY and
@@ -25,9 +46,15 @@ BORINGSSL_IMPLEMENTATION. On Windows, where functions need to be tagged with
 BORINGSSL_SHARED_LIBRARY defined in the code which #includes the BoringSSL
 headers.
 
-To build on Windows, Yasm[2] is required for assembly. Either ensure yasm.exe
-is in %PATH% or configure CMAKE_ASM_NASM_COMPILER appropriately. Note that
-full Windows support is still in progress.
+On Windows, cmake can also generate Visual Studio projects. However, the
+generated project files don't have steps for assembling the assembly language
+source files, so the build currently fails. Also, the libssl tests and the
+tests written in Go do not work yet on Windows, regardless of which build tool
+is used. Patches welcome.
 
 [1] http://martine.github.io/ninja/
+
 [2] http://yasm.tortall.net/
+
+    Either ensure yasm.exe is in %PATH% or configure CMAKE_ASM_NASM_COMPILER
+    appropriately.
