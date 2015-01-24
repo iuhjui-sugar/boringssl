@@ -16,6 +16,24 @@
       "revId": "05828f4e8327e0b9663a9268fb4096cbd2298972",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6b8f13ae_fe7481ed",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5145
+      },
+      "writtenOn": "2015-01-24T02:49:55Z",
+      "side": 1,
+      "message": "Actually, it looks that crbug.com comes without schema, so should be:\nBUG\u003dcrbug.com/451610",
+      "parentUuid": "6b8f13ae_5e8bb57e",
+      "revId": "05828f4e8327e0b9663a9268fb4096cbd2298972",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
