@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cbdb9fab_0902c934",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-24T04:38:18Z",
+      "side": 0,
+      "message": "Should we be leaving these alone?",
+      "revId": "c5cc15b4f5b1d6e9b9112cb8d30205a638aa2c54",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

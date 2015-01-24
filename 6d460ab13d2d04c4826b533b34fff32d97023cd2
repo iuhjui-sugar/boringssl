@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cbdb9fab_a9429d6f",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-24T04:38:18Z",
+      "side": 1,
+      "message": "clang-format seems to not quite format this one right. Probably a search-replace for \") * \" -\u003e \") *\" would do the trick.",
+      "range": {
+        "startLine": 645,
+        "startChar": 24,
+        "endLine": 645,
+        "endChar": 25
+      },
+      "revId": "6d460ab13d2d04c4826b533b34fff32d97023cd2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cbdb9fab_8947d97f",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1009,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-24T04:38:18Z",
+      "side": 1,
+      "message": "This didn\u0027t get reformatted.",
+      "revId": "6d460ab13d2d04c4826b533b34fff32d97023cd2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cbdb9fab_e93c95e5",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1017,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-24T04:38:18Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "6d460ab13d2d04c4826b533b34fff32d97023cd2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cbdb9fab_ecd14362",
+        "filename": "include/openssl/ssl3.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-24T04:38:18Z",
+      "side": 1,
+      "message": "For a follow-up, but should this be 16 now for CRYPTO_chacha_20_neon?",
+      "range": {
+        "startLine": 213,
+        "startChar": 27,
+        "endLine": 213,
+        "endChar": 28
+      },
+      "revId": "6d460ab13d2d04c4826b533b34fff32d97023cd2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cbdb9fab_2cdcfb74",
+        "filename": "include/openssl/ssl3.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-24T04:38:18Z",
+      "side": 1,
+      "message": "This comment is a bit misaligned.",
+      "range": {
+        "startLine": 316,
+        "startChar": 16,
+        "endLine": 316,
+        "endChar": 22
+      },
+      "revId": "6d460ab13d2d04c4826b533b34fff32d97023cd2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
