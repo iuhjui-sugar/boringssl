@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "6b8f13ae_3e8ee98f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5145
+      },
+      "writtenOn": "2015-01-24T02:44:27Z",
+      "side": 1,
+      "message": "BUG\u003dhttps://crbug.com/451610",
+      "revId": "3b1b1e155bb8d927288429f69688d774c632b73e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b8f13ae_1ea84de7",
         "filename": "BUILDING",
         "patchSetId": 2
