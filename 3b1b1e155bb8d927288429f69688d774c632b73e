@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b8f13ae_1ea84de7",
+        "filename": "BUILDING",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5145
+      },
+      "writtenOn": "2015-01-24T02:41:06Z",
+      "side": 1,
+      "message": "s/chould/should/",
+      "range": {
+        "startLine": 14,
+        "startChar": 52,
+        "endLine": 14,
+        "endChar": 58
+      },
+      "revId": "3b1b1e155bb8d927288429f69688d774c632b73e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
