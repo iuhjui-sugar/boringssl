@@ -227,6 +227,10 @@ static unsigned psk_server_callback(SSL *ssl, const char *identity,
   return config->psk.size();
 }
 
+static void current_time_cb(SSL *ssl, OPENSSL_timeval *clock) {
+  memset(clock, 0, sizeof(*clock));
+}
+
 static SSL_CTX *setup_ctx(const TestConfig *config) {
   SSL_CTX *ssl_ctx = NULL;
   DH *dh = NULL;
@@ -276,6 +280,8 @@ static SSL_CTX *setup_ctx(const TestConfig *config) {
   SSL_CTX_set_cookie_verify_cb(ssl_ctx, cookie_verify_callback);
 
   ssl_ctx->tlsext_channel_id_enabled_new = 1;
+
+  ssl_ctx->current_time_cb = current_time_cb;
 
   DH_free(dh);
   return ssl_ctx;
