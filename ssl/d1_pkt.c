@@ -676,7 +676,12 @@ start:
   if (s->s3->change_cipher_spec && rr->type != SSL3_RT_HANDSHAKE) {
     /* We now have application data between CCS and Finished. Most likely the
      * packets were reordered on their way, so buffer the application data for
-     * later processing rather than dropping the connection. */
+     * later processing rather than dropping the connection.
+     *
+     * TODO(davidben): This will also buffer an alert between CCS and Finished.
+     * It's consistent with the TLS behavior (either app data or alert will meet
+     * with SSL_R_DATA_BETWEEN_CCS_AND_FINISHED). Change either the comment or
+     * both behaviors. */
     if (dtls1_buffer_record(s, &(s->d1->buffered_app_data), rr->seq_num) < 0) {
       OPENSSL_PUT_ERROR(SSL, dtls1_read_bytes, ERR_R_INTERNAL_ERROR);
       return -1;
