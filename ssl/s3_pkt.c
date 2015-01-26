@@ -810,6 +810,8 @@ start:
   if (s->s3->change_cipher_spec /* set when we receive ChangeCipherSpec,
                                  * reset by ssl3_get_finished */
       && rr->type != SSL3_RT_HANDSHAKE) {
+    /* It is illegal to process anything other than remainder of the handshake
+     * between ChangeCipherSpec and Finished. */
     al = SSL_AD_UNEXPECTED_MESSAGE;
     OPENSSL_PUT_ERROR(SSL, ssl3_read_bytes,
                       SSL_R_DATA_BETWEEN_CCS_AND_FINISHED);

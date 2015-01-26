@@ -674,8 +674,8 @@ start:
   /* |change_cipher_spec is set when we receive a ChangeCipherSpec and reset by
    * ssl3_get_finished. */
   if (s->s3->change_cipher_spec && rr->type != SSL3_RT_HANDSHAKE) {
-    /* We now have application data between CCS and Finished. Most likely the
-     * packets were reordered on their way, so buffer the application data for
+    /* We now have application data or an alert between CCS and Finished. Most
+     * likely the packets were reordered on their way, so buffer the record for
      * later processing rather than dropping the connection. */
     if (dtls1_buffer_record(s, &(s->d1->buffered_app_data), rr->seq_num) < 0) {
       OPENSSL_PUT_ERROR(SSL, dtls1_read_bytes, ERR_R_INTERNAL_ERROR);
