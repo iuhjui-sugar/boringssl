@@ -16,6 +16,24 @@
       "revId": "7ada953b481286de5b2abdc36558ed40138e7ee1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b3a4faa_d04ec289",
+        "filename": "crypto/sha/asm/sha256-armv4.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 623,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-26T18:36:59Z",
+      "side": 1,
+      "message": "comm is a \"common symbol\". The linker will only allocate one of them with the given name.",
+      "parentUuid": "cbdb9fab_6c21d33a",
+      "revId": "7ada953b481286de5b2abdc36558ed40138e7ee1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
