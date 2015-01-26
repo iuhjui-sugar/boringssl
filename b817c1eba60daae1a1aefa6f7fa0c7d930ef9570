@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4b3a4faa_701b4e64",
+        "filename": "crypto/bn/CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-26T18:38:30Z",
+      "side": 1,
+      "message": "Also needs to be removed here.",
+      "revId": "b817c1eba60daae1a1aefa6f7fa0c7d930ef9570",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
