@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cbdb9fab_6c21d33a",
+        "filename": "crypto/sha/asm/sha256-armv4.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 623,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-26T00:49:58Z",
+      "side": 1,
+      "message": "NOTE: I\u0027m slightly confused here, despite pulling this patch in. Does .comm set aside some space or declare it externally? We define it in crypto/crypto.c, but every assembly file seems to also define it. Are we relying on the linker to deduplicate here?",
+      "revId": "7ada953b481286de5b2abdc36558ed40138e7ee1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
