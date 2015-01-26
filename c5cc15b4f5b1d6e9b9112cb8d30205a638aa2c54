@@ -16,6 +16,24 @@
       "revId": "c5cc15b4f5b1d6e9b9112cb8d30205a638aa2c54",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cbdb9fab_d2bcda5c",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-26T20:22:55Z",
+      "side": 0,
+      "message": "I\u0027ve been removing trailing whitespace in other places. In general, I\u0027m confident that trailing whitespace is not legally significant :)",
+      "parentUuid": "cbdb9fab_0902c934",
+      "revId": "c5cc15b4f5b1d6e9b9112cb8d30205a638aa2c54",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
