@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cbdb9fab_32045688",
+        "filename": "tool/digest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-26T20:29:17Z",
+      "side": 1,
+      "message": "Nit: Might be easier to read as just arg \u003d\u003d \"-\".",
+      "revId": "10ca0a0438765b0e83f12c2cbcfc64a988422055",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
