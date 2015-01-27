@@ -20,19 +20,22 @@
 
 #if !defined(OPENSSL_WINDOWS)
 #include <libgen.h>
+#else
+#include <fcntl.h>
+#include <io.h>
 #endif
 
 
 #if !defined(OPENSSL_WINDOWS)
 bool Client(const std::vector<std::string> &args);
 bool Server(const std::vector<std::string> &args);
+#endif
 bool MD5Sum(const std::vector<std::string> &args);
 bool SHA1Sum(const std::vector<std::string> &args);
 bool SHA224Sum(const std::vector<std::string> &args);
 bool SHA256Sum(const std::vector<std::string> &args);
 bool SHA384Sum(const std::vector<std::string> &args);
 bool SHA512Sum(const std::vector<std::string> &args);
-#endif
 bool DoPKCS12(const std::vector<std::string> &args);
 bool Speed(const std::vector<std::string> &args);
 
@@ -51,13 +54,13 @@ static const Tool kTools[] = {
   { "s_client", Client },
   { "server", Server },
   { "s_server", Server },
+#endif
   { "md5sum", MD5Sum },
   { "sha1sum", SHA1Sum },
   { "sha224sum", SHA224Sum },
   { "sha256sum", SHA256Sum },
   { "sha384sum", SHA384Sum },
   { "sha512sum", SHA512Sum },
-#endif
   { "", nullptr },
 };
 
@@ -87,6 +90,26 @@ tool_func_t FindTool(const std::string &name) {
 }
 
 int main(int argc, char **argv) {
+
+#ifdef OPENSSL_WINDOWS
+  // Read and write in binary mode.  This makes bssl on Windows consistent with
+  // bssl on other platforms, and also makes it consistent with MSYS's commands
+  // like diff(1) and md5sum(1). This is especially important for the digest
+  // commands.
+  if (_setmode(_fileno(stdin), _O_BINARY) == -1) {
+    perror("_setmode(_fileno(stdin), O_BINARY)");
+    return 1;
+  }
+  if (_setmode(_fileno(stdout), _O_BINARY) == -1) {
+    perror("_setmode(_fileno(stdout), O_BINARY)");
+    return 1;
+  }
+  if (_setmode(_fileno(stderr), _O_BINARY) == -1) {
+    perror("_setmode(_fileno(stderr), O_BINARY)");
+    return 1;
+  }
+#endif
+
   SSL_library_init();
 
   int starting_arg = 1;
