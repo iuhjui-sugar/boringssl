@@ -22,6 +22,64 @@
       "revId": "fceb8bf7b17b7f371bfa36430f0dd8b06d62a332",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b715f330_5c8dd1c8",
+        "filename": "STYLE",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-27T19:28:15Z",
+      "side": 1,
+      "message": "I think preferably enums where the values are 0, 1, 2, 3 etc and possibly typed constants for flags.\n\nHowever, if the values are already #defines and you\u0027re adding to them, use a #define.",
+      "parentUuid": "97f1cf52_e0ee428e",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 15
+      },
+      "revId": "fceb8bf7b17b7f371bfa36430f0dd8b06d62a332",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b715f330_bc750d1c",
+        "filename": "STYLE",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-27T19:28:15Z",
+      "side": 1,
+      "message": "unix_hacker_t?",
+      "revId": "fceb8bf7b17b7f371bfa36430f0dd8b06d62a332",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b715f330_1c251923",
+        "filename": "STYLE",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-27T19:28:15Z",
+      "side": 1,
+      "message": "It\u0027s a C99-ism I think. So the question is whether MSVC supports it and how well it works with a C++ compiler reading the headers.",
+      "revId": "fceb8bf7b17b7f371bfa36430f0dd8b06d62a332",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
