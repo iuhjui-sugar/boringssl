@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "97f1cf52_e0ee428e",
+        "filename": "STYLE",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-27T01:33:55Z",
+      "side": 1,
+      "message": "(This and others are code for \"hey, agl, do you have opinions on this?\")",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 15
+      },
+      "revId": "fceb8bf7b17b7f371bfa36430f0dd8b06d62a332",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
