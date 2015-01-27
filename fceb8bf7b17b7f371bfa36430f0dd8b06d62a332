@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "97f1cf52_46d866f2",
+        "filename": "STYLE",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-27T20:10:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b715f330_5c8dd1c8",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 15
+      },
+      "revId": "fceb8bf7b17b7f371bfa36430f0dd8b06d62a332",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b715f330_bc750d1c",
         "filename": "STYLE",
         "patchSetId": 2
@@ -66,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "97f1cf52_e6f53a54",
+        "filename": "STYLE",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-27T20:10:25Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "b715f330_bc750d1c",
+      "revId": "fceb8bf7b17b7f371bfa36430f0dd8b06d62a332",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b715f330_1c251923",
         "filename": "STYLE",
         "patchSetId": 2
@@ -77,6 +119,24 @@
       "writtenOn": "2015-01-27T19:28:15Z",
       "side": 1,
       "message": "It\u0027s a C99-ism I think. So the question is whether MSVC supports it and how well it works with a C++ compiler reading the headers.",
+      "revId": "fceb8bf7b17b7f371bfa36430f0dd8b06d62a332",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97f1cf52_26ec42cf",
+        "filename": "STYLE",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-27T20:10:25Z",
+      "side": 1,
+      "message": "I think Chromium\u0027s MSVC supports it.\nhttp://blogs.msdn.com/b/vcblog/archive/2013/07/19/c99-library-support-in-visual-studio-2013.aspx (Oh hey, they have va_copy now. I remember that being an issue before dropping BIO_vprintf or something.)\n\nThe ones I checked were the same size as the C++ one, but we probably should check with the local language lawyer.\n\nThe concerns I can think of are:\n\n- MSVC support\n- C++ compat\n- Will (ALL) our C++ compilers silently accept a wholesale change of all existing functions (that have been 0/1-narrowed) to return bool?\n- If no, how much is bool worth the inconsistency?\n\nAlthough, searching around for C++/stdbool.h compatibility suggests that they\u0027re not actually guaranteed to match (good job, guys), but I haven\u0027t checked the spec. :-/ I\u0027ll drop the TODO for now.",
+      "parentUuid": "b715f330_1c251923",
       "revId": "fceb8bf7b17b7f371bfa36430f0dd8b06d62a332",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
