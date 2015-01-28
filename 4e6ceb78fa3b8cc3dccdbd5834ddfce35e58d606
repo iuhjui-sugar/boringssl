@@ -16,6 +16,24 @@
       "revId": "4e6ceb78fa3b8cc3dccdbd5834ddfce35e58d606",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "37abc358_852c4296",
+        "filename": "crypto/hmac/hmac_test.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-28T21:12:53Z",
+      "side": 1,
+      "message": "It assumes kTests[0] is the empty key test. I\u0027ll make that clearer, here and above.",
+      "parentUuid": "97b46fb1_0b5dc1ba",
+      "revId": "4e6ceb78fa3b8cc3dccdbd5834ddfce35e58d606",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
