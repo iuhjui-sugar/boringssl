@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "f7484b7a_63c7e29b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-28T01:19:45Z",
+      "side": 1,
+      "message": "(To be clear, I don\u0027t actually have a format for these. I\u0027ve been mostly sticking them in ad-hoc and out of habit... I\u0027ll see about getting bugdroid set up and find out what\u0027s the syntax it actually wants.)",
+      "parentUuid": "6b8f13ae_de6fc518",
+      "revId": "3b1b1e155bb8d927288429f69688d774c632b73e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b8f13ae_1ea84de7",
         "filename": "BUILDING",
         "patchSetId": 2
