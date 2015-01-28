@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "97b46fb1_ce5337d3",
+        "filename": "crypto/hmac/hmac_test.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5445
+      },
+      "writtenOn": "2015-01-28T21:48:55Z",
+      "side": 1,
+      "message": "nit: not sure that \"HMAC_CTX\" is the right word here. In a later test (205) you call this failure \"HMAC failed.\" so I suggest the same naming here.",
+      "range": {
+        "startLine": 153,
+        "startChar": 18,
+        "endLine": 153,
+        "endChar": 26
+      },
+      "revId": "b12fddd283008b608244e9822c24b46e7d8aa1e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97b46fb1_6ebc8b9c",
+        "filename": "crypto/hmac/hmac_test.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5445
+      },
+      "writtenOn": "2015-01-28T21:48:55Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 168,
+        "startChar": 27,
+        "endLine": 168,
+        "endChar": 33
+      },
+      "revId": "b12fddd283008b608244e9822c24b46e7d8aa1e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97b46fb1_0e262f61",
+        "filename": "crypto/hmac/hmac_test.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5445
+      },
+      "writtenOn": "2015-01-28T21:48:55Z",
+      "side": 1,
+      "message": "nit: Not sure what is more idiomatic for BoringSSL, however fprintf(stderr, ...) seems to be in wider use in the tests. I guess this matches consistency of this file though.",
+      "range": {
+        "startLine": 175,
+        "startChar": 15,
+        "endLine": 175,
+        "endChar": 16
+      },
+      "revId": "b12fddd283008b608244e9822c24b46e7d8aa1e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
