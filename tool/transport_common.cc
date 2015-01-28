@@ -14,17 +14,12 @@
 
 #include <openssl/base.h>
 
-// TODO(davidben): bssl client does not work on Windows.
-#if !defined(OPENSSL_WINDOWS)
-
 #include <string>
 #include <vector>
 
 #include <errno.h>
 #include <stdlib.h>
 #include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
 
 #if !defined(OPENSSL_WINDOWS)
 #include <arpa/inet.h>
@@ -32,11 +27,17 @@
 #include <netdb.h>
 #include <netinet/in.h>
 #include <sys/select.h>
+#include <sys/socket.h>
 #include <unistd.h>
 #else
+#define WIN32_LEAN_AND_MEAN // prevent conflicting defines of X509_* names
+#define NOMINMAX
+#include <io.h>
 #include <WinSock2.h>
 #include <WS2tcpip.h>
 typedef int socklen_t;
+
+#pragma comment(lib, "Ws2_32.lib")
 #endif
 
 #include <openssl/err.h>
@@ -44,6 +45,24 @@ typedef int socklen_t;
 
 #include "internal.h"
 
+// XXX: copied from crypto/bio/socket.c
+#if !defined(OPENSSL_WINDOWS)
+static int closesocket(int sock) {
+  return close(sock);
+}
+#endif
+
+bool InitSocketLibrary() {
+#if defined(OPENSSL_WINDOWS)
+  WSADATA wsaData;
+  int err = WSAStartup(MAKEWORD(2, 2), &wsaData);
+  if (err != 0) {
+    fprintf(stderr, "WSAStartup failed with error %d\n", err);
+    return false;
+  }
+#endif
+  return true;
+}
 
 // Connect sets |*out_sock| to be a socket connected to the destination given
 // in |hostname_and_port|, which should be of the form "www.example.com:123".
@@ -140,7 +159,7 @@ bool Accept(int *out_sock, const std::string &port) {
   ok = true;
 
 out:
-  close(server_sock);
+  closesocket(server_sock);
   return ok;
 }
 
@@ -158,7 +177,7 @@ bool SocketSetNonBlocking(int sock, bool is_non_blocking) {
 
 #if defined(OPENSSL_WINDOWS)
   u_long arg = is_non_blocking;
-  ok = 0 == ioctlsocket(sock, FIOBIO, &arg);
+  ok = 0 == ioctlsocket(sock, FIONBIO, &arg);
 #else
   int flags = fcntl(sock, F_GETFL, 0);
   if (flags < 0) {
@@ -208,16 +227,28 @@ bool TransferData(SSL *ssl, int sock) {
 
     if (FD_ISSET(0, &read_fds)) {
       uint8_t buffer[512];
+#if !defined(OPENSSL_WINDOWS)
       ssize_t n;
+#else
+      int n;
+#endif
 
       do {
+#if !defined(OPENSSL_WINDOWS)
         n = read(0, buffer, sizeof(buffer));
+#else
+        n = _read(0, buffer, sizeof(buffer));
+#endif
       } while (n == -1 && errno == EINTR);
 
       if (n == 0) {
         FD_CLR(0, &read_fds);
         stdin_open = false;
+#if !defined(OPENSSL_WINDOWS)
         shutdown(sock, SHUT_WR);
+#else
+        shutdown(sock, SD_SEND);
+#endif
         continue;
       } else if (n < 0) {
         perror("read from stdin");
@@ -259,9 +290,17 @@ bool TransferData(SSL *ssl, int sock) {
         return true;
       }
 
+#if !defined(OPENSSL_WINDOWS)
       ssize_t n;
+#else
+      int n;
+#endif
       do {
+#if !defined(OPENSSL_WINDOWS)
         n = write(1, buffer, ssl_ret);
+#else
+        n = _write(1, buffer, ssl_ret);
+#endif
       } while (n == -1 && errno == EINTR);
 
       if (n != ssl_ret) {
@@ -271,6 +310,3 @@ bool TransferData(SSL *ssl, int sock) {
     }
   }
 }
-
-
-#endif  // !OPENSSL_WINDOWS
