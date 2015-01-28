@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "77b9bba9_6ae317aa",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-01-28T23:16:45Z",
+      "side": 1,
+      "message": "I\u0027m not sure this file is supposed to have tabs, but I added a tab for consistency with the lines above. I think another commit should de-tabify the CMakeLists.txt files unless the tabs are important.",
+      "range": {
+        "startLine": 12,
+        "startChar": 36,
+        "endLine": 12,
+        "endChar": 37
+      },
+      "revId": "459175eabbf24344c51408db671f4657d771c7f5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
