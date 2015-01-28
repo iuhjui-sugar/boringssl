@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "97b46fb1_0b5dc1ba",
+        "filename": "crypto/hmac/hmac_test.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-28T21:02:31Z",
+      "side": 1,
+      "message": "Why is key\u003d\u003dNULL, key_len !\u003d 0 supposed to work?",
+      "revId": "4e6ceb78fa3b8cc3dccdbd5834ddfce35e58d606",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
