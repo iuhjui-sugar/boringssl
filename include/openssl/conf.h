@@ -91,27 +91,30 @@ struct conf_st {
 
 
 /* NCONF_new returns a fresh, empty |CONF|, or NULL on error. */
-CONF *NCONF_new(void);
+OPENSSL_EXPORT CONF *NCONF_new(void);
 
 /* NCONF_free frees all the data owned by |conf| and then |conf| itself. */
-void NCONF_free(CONF *conf);
+OPENSSL_EXPORT void NCONF_free(CONF *conf);
 
 /* NCONF_load parses the file named |filename| and adds the values found to
  * |conf|. It returns one on success and zero on error. In the event of an
  * error, if |out_error_line| is not NULL, |*out_error_line| is set to the
  * number of the line that contained the error. */
-int NCONF_load(CONF *conf, const char *filename, long *out_error_line);
+OPENSSL_EXPORT int NCONF_load(CONF *conf, const char *filename,
+                              long *out_error_line);
 
 /* NCONF_get_section returns a stack of values for a given section in |conf|.
  * If |section| is NULL, the default section is returned. It returns NULL on
  * error. */
-STACK_OF(CONF_VALUE) *NCONF_get_section(const CONF *conf, const char *section);
+OPENSSL_EXPORT STACK_OF(CONF_VALUE) *NCONF_get_section(const CONF *conf,
+                                                       const char *section);
 
 /* NCONF_get_string returns the value of the key |name|, in section |section|.
  * The |section| argument may be NULL to indicate the default section. It
  * returns the value or NULL on error. */
-const char *NCONF_get_string(const CONF *conf, const char *section,
-                             const char *name);
+OPENSSL_EXPORT const char *NCONF_get_string(const CONF *conf,
+                                            const char *section,
+                                            const char *name);
 
 
 /* Utility functions */
@@ -122,9 +125,11 @@ const char *NCONF_get_string(const CONF *conf, const char *section,
  * example. If |list_cb| returns <= 0, then the iteration is halted and that
  * value is returned immediately. Otherwise it returns one. Note that |list_cb|
  * may be called on an empty member. */
-int CONF_parse_list(const char *list, char sep, int remove_whitespace,
-                    int (*list_cb)(const char *elem, int len, void *usr),
-                    void *arg);
+OPENSSL_EXPORT int CONF_parse_list(const char *list, char sep,
+                                   int remove_whitespace,
+                                   int (*list_cb)(const char *elem, int len,
+                                                  void *usr),
+                                   void *arg);
 
 #if defined(__cplusplus)
 }  /* extern C */
