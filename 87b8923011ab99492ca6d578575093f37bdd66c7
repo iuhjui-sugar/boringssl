@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7d187e3_52637402",
+        "filename": "crypto/bio/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-01-28T11:19:44Z",
+      "side": 1,
+      "message": "Note: socklen_t is typedef\u0027d in WS2tcpip.h in Platform SDK 8.1 (but not earlier versions), but I don\u0027t want to include that header in a header file. MSVC doesn\u0027t complain about a name being typedef\u0027d multiple times as the same type, so this is OK.",
+      "revId": "87b8923011ab99492ca6d578575093f37bdd66c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

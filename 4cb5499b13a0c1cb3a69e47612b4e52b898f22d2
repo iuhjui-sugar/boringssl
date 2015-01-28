@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7d187e3_327270ce",
+        "filename": "tool/transport_common.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-01-28T11:19:44Z",
+      "side": 0,
+      "message": "This removal relies on the fact that Platform SDK 8.1 provides the typedef in WS2tcpip.h. If you want BoringSSL to be compatible with Platform SDK 8.0 or earlier, then this change should be undone.",
+      "revId": "4cb5499b13a0c1cb3a69e47612b4e52b898f22d2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
