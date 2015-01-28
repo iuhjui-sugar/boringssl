@@ -61,9 +61,23 @@ static int test_cb(const char *elem, int len, void *data) {
 static int test_parse_list(const char *list, int remove_whitespace,
                            const char **expected) {
   const char **next = expected;
+
+#ifdef _MSC_VER
+/* warning C4090: 'function' : different 'const' qualifiers
+ *
+ * MSVC is simply wrong in issuing this warning. There is no const-correctness
+ * problem here.
+ */
+#pragma warning(push)
+#pragma warning(disable: 4090)
+#endif
   if (!CONF_parse_list(list, ',', remove_whitespace, test_cb, &next)) {
     return 0;
   }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
+
   if (*next != NULL) {
     fprintf(stderr, "test_cb called too few times.\n");
     return 0;
