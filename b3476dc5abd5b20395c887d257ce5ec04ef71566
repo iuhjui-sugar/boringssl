@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "37abc358_45a16a40",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-28T22:24:59Z",
+      "side": 1,
+      "message": "This should only be defined on Windows. Move to the MSVC block maybe?",
+      "revId": "b3476dc5abd5b20395c887d257ce5ec04ef71566",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
