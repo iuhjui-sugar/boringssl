@@ -1,0 +1,129 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f7492ba5_7b361f14",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-01-29T01:59:40Z",
+      "side": 1,
+      "message": "I would like to enable the above two warnings, but there are a lot of tiny code changes that are needed for that to be possible, so I deferred it.",
+      "revId": "f14abacdd193c75c87f5b8ccea68f61876a8382a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f7492ba5_5b3b63fa",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-01-29T01:59:40Z",
+      "side": 1,
+      "message": "Similarly, eventually I want to enable this warning.",
+      "revId": "f14abacdd193c75c87f5b8ccea68f61876a8382a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f7492ba5_db2653db",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-01-29T01:59:40Z",
+      "side": 1,
+      "message": "This warning should also be enabled ASAP, IMO.",
+      "revId": "f14abacdd193c75c87f5b8ccea68f61876a8382a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f7492ba5_1b68bbdc",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-01-29T01:59:40Z",
+      "side": 1,
+      "message": "I will remove the tabs in the next version of the patchset.",
+      "revId": "f14abacdd193c75c87f5b8ccea68f61876a8382a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f7492ba5_5bd6c34e",
+        "filename": "crypto/chacha/chacha_generic.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-01-29T01:59:40Z",
+      "side": 1,
+      "message": "Without this change, MSVC warns that sigma isn\u0027t large enough to contain the null terminator, which is usually a useful warning, but not here.",
+      "revId": "f14abacdd193c75c87f5b8ccea68f61876a8382a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f7492ba5_bbda676f",
+        "filename": "crypto/modes/cfb.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-01-29T01:59:40Z",
+      "side": 1,
+      "message": "Since STRICT_ALIGNMENT is a compile-time constant that is zero on Windows, MSVC warns that the expression always evaluates to false. Also, the variable \"l\" is only used in this scope, and we need to move it to avoid an \"unused variable\" warning.",
+      "range": {
+        "startLine": 73,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 20
+      },
+      "revId": "f14abacdd193c75c87f5b8ccea68f61876a8382a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f7492ba5_bb01c733",
+        "filename": "ssl/ssl_sess.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-01-29T01:59:40Z",
+      "side": 1,
+      "message": "MSVC hates forward declarations of const static variables.",
+      "revId": "f14abacdd193c75c87f5b8ccea68f61876a8382a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

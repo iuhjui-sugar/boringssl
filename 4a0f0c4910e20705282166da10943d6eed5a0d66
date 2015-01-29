@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f7492ba5_5b2403df",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-01-29T01:59:40Z",
+      "side": 0,
+      "message": "Without the rewrite, MSVC things that error is dereferenced without having been assigned a value, and warns about that.",
+      "revId": "4a0f0c4910e20705282166da10943d6eed5a0d66",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f7492ba5_dbe13324",
+        "filename": "crypto/rsa/rsa_test.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-01-29T01:59:40Z",
+      "side": 0,
+      "message": "MSVC knows that abort() never returns, so it warns about unreachable code here.",
+      "range": {
+        "startLine": 416,
+        "startChar": 16,
+        "endLine": 416,
+        "endChar": 17
+      },
+      "revId": "4a0f0c4910e20705282166da10943d6eed5a0d66",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f7492ba5_5bed2313",
+        "filename": "crypto/x509v3/pcy_tree.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-01-29T01:59:40Z",
+      "side": 0,
+      "message": "MSVC warns of unreachable code here.",
+      "revId": "4a0f0c4910e20705282166da10943d6eed5a0d66",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
