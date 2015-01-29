@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5743d780_3ecda9eb",
+        "filename": "tool/speed.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-29T02:45:42Z",
+      "side": 1,
+      "message": "There\u0027s also std::align in C++11 which I think does just this, if library support is there.",
+      "revId": "461b1ab9ae44e5247809d9cb2b626191de06c071",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
