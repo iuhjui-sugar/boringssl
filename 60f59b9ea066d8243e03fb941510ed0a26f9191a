@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5743d780_feca21cc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-29T03:03:59Z",
+      "side": 1,
+      "message": "I\u0027m curious how the fast new GCC is without removing the alignment requirement, though I agree this seems a reasonable tradeoff. (And presumably, being a stream cipher, the unaligned reads and writes only account for the actual XORing. Skimming chacha_vec.c this seems to be the case, though I didn\u0027t try to completely follow it.)",
+      "range": {
+        "startLine": 16,
+        "startChar": 40,
+        "endLine": 16,
+        "endChar": 48
+      },
+      "revId": "60f59b9ea066d8243e03fb941510ed0a26f9191a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5743d780_3ef48913",
+        "filename": "crypto/chacha/chacha_vec.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-29T03:03:59Z",
+      "side": 1,
+      "message": "Nit/possibly-not-worth-it: These three loads are already aligned. (Though I would hope gcc is clever enough to optimize away the unaligned memcpy anyway.)",
+      "revId": "60f59b9ea066d8243e03fb941510ed0a26f9191a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5743d780_bec099ae",
+        "filename": "crypto/chacha/chacha_vec_arm.S",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-29T03:03:59Z",
+      "side": 1,
+      "message": "Huh. I didn\u0027t know that\u0027s how this worked. I suppose this is probably less of a nuisance than fighting with buildsystems to compile one file with different compiler flags.",
+      "revId": "60f59b9ea066d8243e03fb941510ed0a26f9191a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
