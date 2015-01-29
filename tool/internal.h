@@ -17,8 +17,17 @@
 
 #include <string>
 #include <vector>
+
+#if defined(_MSC_VER)
+#pragma warning(push)
+#pragma warning(disable: 4702) // unreachable code in MSVC xtree header
+#endif
+
 #include <map>
 
+#if defined(_MSC_VER)
+#pragma warning(pop)
+#endif
 
 struct argument {
   const char name[15];
