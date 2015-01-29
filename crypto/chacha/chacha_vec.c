@@ -25,7 +25,9 @@
 
 #include <openssl/chacha.h>
 
-#if !defined(OPENSSL_WINDOWS) && (defined(OPENSSL_X86_64) || defined(OPENSSL_X86)) && defined(__SSE2__)
+#if defined(ASM_GEN) ||          \
+    !defined(OPENSSL_WINDOWS) && \
+        (defined(OPENSSL_X86_64) || defined(OPENSSL_X86)) && defined(__SSE2__)
 
 #define CHACHA_RNDS 20 /* 8 (high speed), 20 (conservative), 12 (middle) */
 
@@ -42,8 +44,14 @@ typedef unsigned vec __attribute__((vector_size(16)));
 #define GPR_TOO 1
 #define VBPI 2
 #define ONE (vec) vsetq_lane_u32(1, vdupq_n_u32(0), 0)
-#define LOAD(m) (vec)(*((vec *)(m)))
-#define STORE(m, r) (*((vec *)(m))) = (r)
+#define LOAD(m) ({ \
+    memcpy(alignment_buffer, m, 16); \
+    (vec)(*((vec *)(alignment_buffer))); \
+  })
+#define STORE(m, r) ({ \
+    (*((vec *)(alignment_buffer))) = (r); \
+    memcpy(m, alignment_buffer, 16); \
+  })
 #define ROTV1(x) (vec) vextq_u32((uint32x4_t)x, (uint32x4_t)x, 1)
 #define ROTV2(x) (vec) vextq_u32((uint32x4_t)x, (uint32x4_t)x, 2)
 #define ROTV3(x) (vec) vextq_u32((uint32x4_t)x, (uint32x4_t)x, 3)
@@ -149,6 +157,7 @@ void CRYPTO_chacha_20(
 	unsigned iters, i, *op=(unsigned *)out, *ip=(unsigned *)in, *kp;
 #if defined(__ARM_NEON__)
 	unsigned *np;
+	uint8_t alignment_buffer[16] __attribute__((aligned(16)));
 #endif
 	vec s0, s1, s2, s3;
 #if !defined(__ARM_NEON__) && !defined(__SSE2__)
@@ -326,4 +335,4 @@ void CRYPTO_chacha_20(
 		}
 	}
 
-#endif /* !OPENSSL_WINDOWS && (OPENSSL_X86_64 || OPENSSL_X86) && SSE2 */
+#endif /* ASM_GEN || !OPENSSL_WINDOWS && (OPENSSL_X86_64 || OPENSSL_X86) && SSE2 */
