@@ -16,6 +16,24 @@
       "revId": "461b1ab9ae44e5247809d9cb2b626191de06c071",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f7492ba5_7e6d6dec",
+        "filename": "tool/speed.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-29T03:22:54Z",
+      "side": 1,
+      "message": "It\u0027ll be in GCC 5 I understand, so we\u0027re stuck with this for a while.",
+      "parentUuid": "5743d780_3ecda9eb",
+      "revId": "461b1ab9ae44e5247809d9cb2b626191de06c071",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
