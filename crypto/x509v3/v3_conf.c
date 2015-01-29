@@ -256,6 +256,13 @@ static int v3_check_generic(char **value)
 	return gen_type;
 }
 
+/* TODO: Improve control flow so this isn't necessary. */
+#if defined(_MSC_VER)
+/* C4701: potentially uninitialized local variable 'ext_len' used) */
+#pragma warning(push)
+#pragma warning(disable: 4701)
+#endif
+
 /* Create a generic extension: for now just handle DER type */
 static X509_EXTENSION *v3_generic_extension(const char *ext, char *value,
 					    int crit, int gen_type,
@@ -304,6 +311,10 @@ static X509_EXTENSION *v3_generic_extension(const char *ext, char *value,
 	return extension;
 
 	}
+
+#if defined(_MSC_VER)
+#pragma warning(pop)
+#endif
 
 static unsigned char *generic_asn1(char *value, X509V3_CTX *ctx, long *ext_len)
 	{
