@@ -33,8 +33,10 @@
 #else
 #define NOMINMAX
 #define WIN32_LEAN_AND_MEAN
+#pragma warning(push, 3)
 #include <windows.h>
 #include <io.h>
+#pragma warning(pop)
 #define PATH_MAX MAX_PATH
 #define read _read
 typedef int ssize_t;
@@ -105,9 +107,11 @@ static bool OpenFile(int *out_fd, const std::string &filename) {
   *out_fd = fd;
   return true;
 
+#if !defined(OPENSSL_WINDOWS)
 err:
   close(fd);
   return false;
+#endif
 }
 
 // SumFile hashes the contents of |source| with |md| and sets |*out_hex| to the

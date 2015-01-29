@@ -15,10 +15,18 @@
 #ifndef OPENSSL_HEADER_TOOL_INTERNAL_H
 #define OPENSSL_HEADER_TOOL_INTERNAL_H
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4702) // unreachable code in MSVC xtree header
+#endif
+
 #include <string>
 #include <vector>
 #include <map>
 
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 struct argument {
   const char name[15];

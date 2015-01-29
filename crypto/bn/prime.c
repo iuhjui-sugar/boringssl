@@ -138,9 +138,18 @@
 /* NUMPRIMES is the number of primes that fit into a uint16_t. */
 #define NUMPRIMES 2048
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4132) /* C4132: const object should be initialized */
+#endif
+
 /* primes is defined at the bottom of the file and contains all the primes that
  * fit into a uint16_t. */
 static const uint16_t primes[NUMPRIMES];
+
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 static int witness(BIGNUM *w, const BIGNUM *a, const BIGNUM *a1,
                    const BIGNUM *a1_odd, int k, BN_CTX *ctx, BN_MONT_CTX *mont);

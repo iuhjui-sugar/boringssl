@@ -17,6 +17,8 @@
 #if defined(OPENSSL_WINDOWS)
 
 #define WIN32_LEAN_AND_MEAN
+#pragma warning(push, 3)
+
 #include <limits.h>
 #include <stdlib.h>
 #include <Windows.h>
@@ -28,6 +30,7 @@
 #include <NTSecAPI.h>
 #undef SystemFunction036
 
+#pragma warning(pop)
 
 void RAND_cleanup(void) {
 }
@@ -40,7 +43,6 @@ int RAND_bytes(uint8_t *out, size_t requested) {
     }
     if (RtlGenRandom(out, output_bytes_this_pass) == FALSE) {
       abort();
-      return 0;
     }
     requested -= output_bytes_this_pass;
     out += output_bytes_this_pass;
