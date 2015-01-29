@@ -16,6 +16,24 @@
       "revId": "a43692cd47c819b66128c1158aa5d4b411b42867",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9720efdf_eb852d1d",
+        "filename": "crypto/chacha/chacha_vec_arm.S",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-29T20:20:57Z",
+      "side": 1,
+      "message": "Nuts. The asm isn\u0027t from the older GCC, but I forgot to update the command line again when regenerating it. Fixed in d5c0980e33eb3a9df834121cee3b62d437c2946c.",
+      "parentUuid": "5743d780_27e3d8aa",
+      "revId": "a43692cd47c819b66128c1158aa5d4b411b42867",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
