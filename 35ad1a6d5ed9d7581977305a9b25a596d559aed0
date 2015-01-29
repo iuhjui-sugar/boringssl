@@ -87,6 +87,24 @@
     },
     {
       "key": {
+        "uuid": "37690307_fe66953b",
+        "filename": "tool/args.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-01-29T21:50:57Z",
+      "side": 1,
+      "message": "C4702 is a very useful warning and it will be enabled in Chromium soon too. See https://code.google.com/p/chromium/issues/detail?id\u003d346399.\n\nI found that so far in BoringSSL, only \u003cmap\u003e causes this issue, so I\u0027ve reduced the scope covered by the #pragmas to cover only \u003cmap\u003e. Also, I removed the \"#include \u003cmap\u003e\"s from the files that include internal.h to minimize the amount of noise caused by this.",
+      "parentUuid": "9720efdf_8b73d1ce",
+      "revId": "35ad1a6d5ed9d7581977305a9b25a596d559aed0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9720efdf_ab5df532",
         "filename": "tool/transport_common.cc",
         "patchSetId": 4
