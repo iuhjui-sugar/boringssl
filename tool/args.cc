@@ -12,9 +12,18 @@
  * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. */
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4702) // unreachable code in MSVC xtree header
+#endif
+
 #include <string>
 #include <vector>
 #include <map>
+
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 #include <stdio.h>
 #include <string.h>

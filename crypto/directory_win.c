@@ -30,9 +30,11 @@
 
 #if defined(OPENSSL_WINDOWS)
 
+#pragma warning(push, 3)
 #include <windows.h>
 #include <tchar.h>
 #include <errno.h>
+#pragma warning(pop)
 
 #ifndef NAME_MAX
 #define NAME_MAX 255

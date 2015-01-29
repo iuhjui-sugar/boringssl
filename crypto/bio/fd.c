@@ -61,8 +61,10 @@
 #if !defined(OPENSSL_WINDOWS)
 #include <unistd.h>
 #else
+#pragma warning(push, 3)
 #include <io.h>
 #include <Windows.h>
+#pragma warning(pop)
 #endif
 
 #include <openssl/buf.h>

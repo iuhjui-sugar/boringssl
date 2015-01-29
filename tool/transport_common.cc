@@ -32,8 +32,15 @@
 #else
 #define NOMINMAX
 #include <io.h>
+#ifdef _MSC_VER
+#pragma warning(push, 3)
+#endif
 #include <WinSock2.h>
 #include <WS2tcpip.h>
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
+
 typedef int ssize_t;
 #define read _read
 #define write _write
@@ -204,6 +211,14 @@ int PrintErrorCallback(const char *str, size_t len, void *ctx) {
 }
 
 bool TransferData(SSL *ssl, int sock) {
+
+#ifdef _MSC_VER
+// "C4548: expression before comma has no effect; expected expression with
+// side-effect" caused by FD_* macros.
+#pragma warning(push)
+#pragma warning(disable: 4548)
+#endif
+
   bool stdin_open = true;
 
   fd_set read_fds;
@@ -293,4 +308,9 @@ bool TransferData(SSL *ssl, int sock) {
       }
     }
   }
+
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
+
 }
