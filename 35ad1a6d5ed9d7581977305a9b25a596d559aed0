@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9720efdf_4bd6f94e",
+        "filename": "crypto/bn/prime.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-29T20:18:33Z",
+      "side": 1,
+      "message": "I would rather move the list of primes up than add more #ifs.",
+      "revId": "35ad1a6d5ed9d7581977305a9b25a596d559aed0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9720efdf_abda156f",
+        "filename": "crypto/cipher/e_chacha20poly1305.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-29T20:18:33Z",
+      "side": 1,
+      "message": "#if defined(__arm__)",
+      "revId": "35ad1a6d5ed9d7581977305a9b25a596d559aed0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9720efdf_6b1f7d8c",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-29T20:18:33Z",
+      "side": 1,
+      "message": "please drop this assert, the pointer can\u0027t be NULL.",
+      "revId": "35ad1a6d5ed9d7581977305a9b25a596d559aed0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9720efdf_0b6881dc",
+        "filename": "ssl/ssl_sess.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-29T20:18:33Z",
+      "side": 1,
+      "message": "Probably easier just to set this to zero.",
+      "revId": "35ad1a6d5ed9d7581977305a9b25a596d559aed0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9720efdf_8b73d1ce",
+        "filename": "tool/args.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-29T20:18:33Z",
+      "side": 1,
+      "message": "This suggests that 4702 is untenable. If code can\u0027t even include C++ headers like this we\u0027ll be breaking it all the time.",
+      "revId": "35ad1a6d5ed9d7581977305a9b25a596d559aed0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9720efdf_ab5df532",
+        "filename": "tool/transport_common.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-29T20:18:33Z",
+      "side": 1,
+      "message": "I\u0027d also be included to drop this warning too.",
+      "revId": "35ad1a6d5ed9d7581977305a9b25a596d559aed0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
