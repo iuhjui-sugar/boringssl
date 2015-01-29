@@ -22,6 +22,30 @@
       "revId": "459175eabbf24344c51408db671f4657d771c7f5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d72fc7b3_36ccb0bd",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-29T00:35:17Z",
+      "side": 1,
+      "message": "Yea, everything else is two space. I\u0027ll do this.",
+      "parentUuid": "77b9bba9_6ae317aa",
+      "range": {
+        "startLine": 12,
+        "startChar": 36,
+        "endLine": 12,
+        "endChar": 37
+      },
+      "revId": "459175eabbf24344c51408db671f4657d771c7f5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
