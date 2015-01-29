@@ -803,6 +803,15 @@ static int check_revocation(X509_STORE_CTX *ctx)
 	return 1;
 	}
 
+/* TODO: Improve control flow so it is clear we're returning a reasonable
+ * value and so this isn't necessary.
+ */
+#if defined(_MSC_VER)
+/* C4701: potentially uninitialized local variable 'ok' used) */
+#pragma warning(push)
+#pragma warning(disable: 4701)
+#endif
+
 static int check_cert(X509_STORE_CTX *ctx)
 	{
 	X509_CRL *crl = NULL, *dcrl = NULL;
@@ -879,6 +888,10 @@ static int check_cert(X509_STORE_CTX *ctx)
 	return ok;
 
 	}
+
+#if defined(_MSC_VER)
+#pragma warning(pop)
+#endif
 
 /* Check CRL times against values in X509_STORE_CTX */
 

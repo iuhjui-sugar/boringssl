@@ -29,7 +29,6 @@ elseif(MSVC)
               # side-effect" caused by FD_* macros.
       "C4610" # struct 'argument' can never be instantiated - user defined
               # constructor required.
-      "C4701" # potentially uninitialized local variable 'mdlen' used
       "C4706" # assignment within conditional expression
       "C4710" # 'function': function not inlined
       "C4711" # function 'function' selected for inline expansion

@@ -135,6 +135,13 @@ ASN1_TYPE *ASN1_generate_nconf(char *str, CONF *nconf)
 	return ASN1_generate_v3(str, &cnf);
 	}
 
+/* TODO: improve control flow so that this isn't necessary. */
+#if defined(_MSC_VER)
+/* C4701: potentially uninitialized local variable 'hdr_len' used) */
+#pragma warning(push)
+#pragma warning(disable: 4701)
+#endif
+
 ASN1_TYPE *ASN1_generate_v3(char *str, X509V3_CTX *cnf)
 	{
 	ASN1_TYPE *ret;
@@ -276,6 +283,10 @@ ASN1_TYPE *ASN1_generate_v3(char *str, X509V3_CTX *cnf)
 	return ret;
 
 	}
+
+#if defined(_MSC_VER)
+#pragma warning(pop)
+#endif
 
 static int asn1_cb(const char *elem, int len, void *bitstr)
 	{
