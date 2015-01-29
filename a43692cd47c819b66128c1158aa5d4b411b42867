@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5743d780_27e3d8aa",
+        "filename": "crypto/chacha/chacha_vec_arm.S",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-01-29T20:08:36Z",
+      "side": 1,
+      "message": "Did that intentionally switch back to the older gcc?",
+      "revId": "a43692cd47c819b66128c1158aa5d4b411b42867",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
