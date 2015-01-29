@@ -36,7 +36,6 @@
 
 #include "internal.h"
 
-
 #if defined(OPENSSL_WINDOWS)
 typedef int read_result_t;
 #else

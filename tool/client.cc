@@ -27,7 +27,6 @@
 #include "internal.h"
 #include "transport_common.h"
 
-
 static const struct argument kArguments[] = {
     {
      "-connect", true,

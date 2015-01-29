@@ -16,6 +16,7 @@
 #define OPENSSL_HEADER_TOOL_TRANSPORT_COMMON_H
 
 #include <openssl/ssl.h>
+
 #include <string.h>
 
 // InitSocketLibrary calls the Windows socket init functions, if needed.
