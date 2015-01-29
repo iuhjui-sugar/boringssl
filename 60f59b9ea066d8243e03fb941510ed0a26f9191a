@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9720efdf_282c6b42",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-29T20:05:36Z",
+      "side": 1,
+      "message": "Two runs with \"any alignment\" code: 222.0 and 224.8 MB/s\n\nTwo runs with strict alignment: 233.9 233.1\n\nSo we\u0027re dropping ~5% of speed for this.",
+      "parentUuid": "5743d780_feca21cc",
+      "range": {
+        "startLine": 16,
+        "startChar": 40,
+        "endLine": 16,
+        "endChar": 48
+      },
+      "revId": "60f59b9ea066d8243e03fb941510ed0a26f9191a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5743d780_3ef48913",
         "filename": "crypto/chacha/chacha_vec.c",
         "patchSetId": 1
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "9720efdf_08d2478b",
+        "filename": "crypto/chacha/chacha_vec.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-29T20:05:36Z",
+      "side": 1,
+      "message": "Added a LOAD_ALIGNED for them.",
+      "parentUuid": "5743d780_3ef48913",
+      "revId": "60f59b9ea066d8243e03fb941510ed0a26f9191a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5743d780_bec099ae",
         "filename": "crypto/chacha/chacha_vec_arm.S",
         "patchSetId": 1
@@ -53,6 +95,24 @@
       "writtenOn": "2015-01-29T03:03:59Z",
       "side": 1,
       "message": "Huh. I didn\u0027t know that\u0027s how this worked. I suppose this is probably less of a nuisance than fighting with buildsystems to compile one file with different compiler flags.",
+      "revId": "60f59b9ea066d8243e03fb941510ed0a26f9191a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9720efdf_68d7837b",
+        "filename": "crypto/chacha/chacha_vec_arm.S",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-01-29T20:05:36Z",
+      "side": 1,
+      "message": "It\u0027s not just different build flags: you need to build chacha_vec.c with -mfpu\u003dneon but the linker won\u0027t link such an object with objects that don\u0027t have that. The bit below about EABI attr 28 is hacking around that.",
+      "parentUuid": "5743d780_bec099ae",
       "revId": "60f59b9ea066d8243e03fb941510ed0a26f9191a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
