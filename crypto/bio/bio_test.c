@@ -125,7 +125,7 @@ static int test_socket_connect(void) {
 
 /* bio_read_zero_copy_wrapper is a wrapper around the zero-copy APIs to make
  * testing easier. */
-static size_t bio_read_zero_copy_wrapper(BIO *bio, uint8_t *data, size_t len) {
+static size_t bio_read_zero_copy_wrapper(BIO *bio, void *data, size_t len) {
   uint8_t *read_buf;
   size_t read_buf_offset;
   size_t available_bytes;
@@ -150,7 +150,7 @@ static size_t bio_read_zero_copy_wrapper(BIO *bio, uint8_t *data, size_t len) {
 
 /* bio_write_zero_copy_wrapper is a wrapper around the zero-copy APIs to make
  * testing easier. */
-static size_t bio_write_zero_copy_wrapper(BIO *bio, const uint8_t *data,
+static size_t bio_write_zero_copy_wrapper(BIO *bio, const void *data,
                                           size_t len) {
   uint8_t *write_buf;
   size_t write_buf_offset;
@@ -172,6 +172,111 @@ static size_t bio_write_zero_copy_wrapper(BIO *bio, const uint8_t *data,
   } while (len - len_written > 0 && available_bytes > 0);
 
   return len_written;
+}
+
+static int test_set_external_buf(void) {
+  BIO *bio1;
+  BIO *bio2;
+  uint8_t *write_buf;
+  size_t write_buf_offset;
+  size_t available_bytes;
+  const size_t kBioBufferSize = 512;
+  uint8_t app_recv_buffer[1024];
+
+  uint8_t bio1_write_buffer[kBioBufferSize];
+  uint8_t bio2_write_buffer[kBioBufferSize];
+
+  BIO_new_bio_pair_external_buf(&bio1, kBioBufferSize, bio1_write_buffer, &bio2,
+                                kBioBufferSize, bio2_write_buffer);
+
+  if (!BIO_zero_copy_get_write_buf(bio1, &write_buf, &write_buf_offset,
+                                   &available_bytes)) {
+    fprintf(stderr, "Error getting the write buffer)\n");
+    return 0;
+  }
+
+  if (BIO_set_external_buf(bio1, 0, NULL)) {
+    fprintf(
+        stderr,
+        "Error: Succeeded setting an external buffer on a BIO with a pending"
+        " write.\n");
+    return 0;
+  }
+
+  /* Release the write lock. */
+  BIO_zero_copy_get_write_buf_done(bio1, 0);
+
+  if (!BIO_set_external_buf(bio1, 0, NULL)) {
+    fprintf(stderr,
+            "Error: Failed setting an external NULL buffer on a BIO. \n");
+    return 0;
+  }
+  if (BIO_set_external_buf(bio1, 1, NULL)) {
+    fprintf(stderr,
+            "Error: Succeeded setting a NULL buffer having a length different "
+            "than 0.\n");
+    return 0;
+  }
+
+  /* Buffer is now NULL. Attempt to read 5 bytes. */
+  int number_of_bytes = BIO_read(bio2, app_recv_buffer, 5);
+  if (number_of_bytes > 0) {
+    fprintf(stderr, "Error: Read bytes from a BIO with no Buffer.\n");
+    return 0;
+  }
+  if (BIO_write(bio1, "hel", 3) > 0 ||
+      bio_write_zero_copy_wrapper(bio1, "lo", 2) > 0) {
+    fprintf(stderr,
+            "Error: Succeeded writing bytes to a BIO with a NULL buffer.\n");
+    return 0;
+  }
+
+  /* Check that the correct number of requested bytes is set. */
+  if (BIO_ctrl_get_read_request(bio1) != 5) {
+    fprintf(stderr, "Error: Wrong number of requested bytes.\n");
+    return 0;
+  }
+  if (BIO_set_external_buf(bio1, kBioBufferSize - 1, bio1_write_buffer)) {
+    fprintf(stderr, "Error: Succeeded setting a buffer with wrong length.\n");
+    return 0;
+  }
+  if (!BIO_set_external_buf(bio1, kBioBufferSize, bio1_write_buffer)) {
+    fprintf(stderr, "Error: Error setting a buffer with proper length.\n");
+    return 0;
+  }
+
+  /* Check that the correct number of requested bytes survived setting a new
+   * buffer. */
+  if (BIO_ctrl_get_read_request(bio1) != 5) {
+    fprintf(stderr, "Error: Wrong number of requested bytes.\n");
+    return 0;
+  }
+
+  BIO_write(bio1, "hel", 3);
+  bio_write_zero_copy_wrapper(bio1, "lo", 2);
+
+  if (BIO_set_external_buf(bio1, 0, NULL)) {
+    fprintf(stderr, "Error: Succeeded setting a buffer on a nonempty BIO.\n");
+    return 0;
+  }
+
+  if (BIO_read(bio2, app_recv_buffer, 2) != 2) {
+    fprintf(stderr, "Error: Failed reading bytes written to the BIO.\n");
+    return 0;
+  }
+  if (bio_read_zero_copy_wrapper(bio2, app_recv_buffer + 2, 3) != 3) {
+    fprintf(stderr, "Error: Failed reading bytes written to the BIO.\n");
+    return 0;
+  }
+  if (memcmp(app_recv_buffer, "hello", 5)) {
+    fprintf(stderr, "Error: Wrong bytes read from the BIO.\n");
+    return 0;
+  }
+
+  BIO_free(bio1);
+  BIO_free(bio2);
+  ERR_clear_error();
+  return 1;
 }
 
 static int test_zero_copy_bio_pairs(void) {
@@ -354,6 +459,10 @@ int main(void) {
   }
 
   if (!test_zero_copy_bio_pairs()) {
+    return 1;
+  }
+
+  if (!test_set_external_buf()) {
     return 1;
   }
 
