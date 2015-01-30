@@ -598,6 +598,21 @@ OPENSSL_EXPORT int BIO_new_bio_pair_external_buf(BIO** bio1_p,
                                                  size_t writebuf2_len,
                                                  uint8_t* ext_writebuf2);
 
+/* BIO_reset_bio_external_buf resets the memory allocation of a BIO buffer.
+ * The main purpose of this function is to free up memory if the BIO is known to
+ * be idle. Thus, NULL is an accepted value for |buf|. Note that |bio| must have
+ * been created using |BIO_new_bio_pair_external_buf|, the buffer must be empty
+ * and |bio| may not be locked by an ongoing zero copy read or write
+ * operation. This function must be used with care. When it is expected that
+ * data will be written to a BIO, the BIO must be reset to an allocated
+ * buffer. If the buffer is not allocated when needed, the given connection will
+ * fail.
+ *
+ * It returns 1 on success. In case of error it returns 0 and pushes to the
+ * error stack. */
+OPENSSL_EXPORT int BIO_reset_bio_external_buf(BIO *bio, size_t buf_len,
+                                              uint8_t *buf);
+
 /* BIO_ctrl_get_read_request returns the number of bytes that the other side of
  * |bio| tried (unsuccessfully) to read. */
 OPENSSL_EXPORT size_t BIO_ctrl_get_read_request(BIO *bio);
@@ -652,7 +667,7 @@ OPENSSL_EXPORT int BIO_zero_copy_get_read_buf_done(BIO* bio, size_t bytes_read);
  * stack.
  *
  * The zero copy write operation is completed by calling
- * |BIO_zero_copy_write_buf_don|e. Neither |BIO_zero_copy_get_write_buf_done|
+ * |BIO_zero_copy_write_buf_done|. Neither |BIO_zero_copy_get_write_buf_done|
  * nor any other I/O write operation may be called while a zero copy write
  * operation is active. */
 OPENSSL_EXPORT int BIO_zero_copy_get_write_buf(BIO* bio,
@@ -874,6 +889,7 @@ struct bio_st {
 #define BIO_F_BIO_zero_copy_get_write_buf_done 117
 #define BIO_F_BIO_zero_copy_get_read_buf 118
 #define BIO_F_BIO_zero_copy_get_read_buf_done 119
+#define BIO_F_BIO_reset_bio_external_buf 120
 #define BIO_R_UNSUPPORTED_METHOD 100
 #define BIO_R_NO_PORT_SPECIFIED 101
 #define BIO_R_NO_HOSTNAME_SPECIFIED 102
