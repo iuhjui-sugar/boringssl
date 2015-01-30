@@ -59,20 +59,22 @@
 #include <openssl/err.h>
 #include <openssl/mem.h>
 
+const BIO_METHOD* bio_s_bio(void);
 
 struct bio_bio_st {
-  BIO *peer; /* NULL if buf == NULL.
-              * If peer != NULL, then peer->ptr is also a bio_bio_st,
+  BIO *peer; /* If peer != NULL, then peer->ptr is also a bio_bio_st,
               * and its "peer" member points back to us.
               * peer != NULL iff init != 0 in the BIO. */
 
   /* This is for what we write (i.e. reading uses peer's struct): */
   int closed;    /* valid iff peer != NULL */
-  size_t len;    /* valid iff buf != NULL; 0 if peer == NULL */
-  size_t offset; /* valid iff buf != NULL; 0 if len == 0 */
-  size_t size;
-  uint8_t *buf; /* "size" elements (if != NULL) */
-  char buf_externally_allocated; /* true iff buf was externally allocated. */
+  size_t len;    /* 0 if peer == NULL or buf == NULL. */
+  size_t offset; /* 0 if len == 0 && zero_copy_write_lock == 0. */
+  size_t size;   /* maximum number of bytes that can be written to this BIO. */
+  uint8_t *buf;  /* "size" elements (if != NULL).
+                    buf may be NULL if buf_externally_owned == 1 &&
+                    len == 0 && offset == 0. */
+  char buf_externally_owned; /* true iff buf is owned by the caller. */
 
   char zero_copy_read_lock;  /* true iff a zero copy read operation
                               * is in progress. */
@@ -120,13 +122,13 @@ static void bio_destroy_pair(BIO *bio) {
 
   peer_b->peer = NULL;
   peer_bio->init = 0;
-  assert(peer_b->buf != NULL);
+  assert(peer_b->buf != NULL || peer_b->buf_externally_owned);
   peer_b->len = 0;
   peer_b->offset = 0;
 
   b->peer = NULL;
   bio->init = 0;
-  assert(b->buf != NULL);
+  assert(b->buf != NULL || b->buf_externally_owned);
   b->len = 0;
   b->offset = 0;
 }
@@ -145,7 +147,7 @@ static int bio_free(BIO *bio) {
     bio_destroy_pair(bio);
   }
 
-  if (b->buf != NULL && !b->buf_externally_allocated) {
+  if (b->buf != NULL && !b->buf_externally_owned) {
     OPENSSL_free(b->buf);
   }
 
@@ -186,8 +188,7 @@ int BIO_zero_copy_get_read_buf(BIO* bio, uint8_t** out_read_buf,
   }
 
   b = bio->ptr;
-
-  if (!b || !b->peer) {
+  if (bio->method != bio_s_bio() || !b || !b->peer) {
     OPENSSL_PUT_ERROR(BIO, BIO_zero_copy_get_read_buf,
                       BIO_R_UNSUPPORTED_METHOD);
     return 0;
@@ -205,12 +206,20 @@ int BIO_zero_copy_get_read_buf(BIO* bio, uint8_t** out_read_buf,
     return 0;
   }
 
+  assert(peer_b->buf != NULL ||
+         (peer_b->buf_externally_owned && peer_b->len == 0));
+
   peer_b->request = 0;  /* Is not used by zero-copy API. */
+
+  if (peer_b->buf == NULL) {
+    *out_read_buf = NULL;
+    *out_buf_offset = 0;
+    return 1;
+  }
 
   max_available =
       bio_zero_copy_get_read_buf(peer_b, out_read_buf, out_buf_offset);
 
-  assert(peer_b->buf != NULL);
   if (max_available > 0) {
     peer_b->zero_copy_read_lock = 1;
   }
@@ -236,7 +245,7 @@ int BIO_zero_copy_get_read_buf_done(BIO* bio, size_t bytes_read) {
 
   b = bio->ptr;
 
-  if (!b || !b->peer) {
+  if (bio->method != bio_s_bio() || !b || !b->peer) {
     OPENSSL_PUT_ERROR(BIO, BIO_zero_copy_get_read_buf_done,
                       BIO_R_UNSUPPORTED_METHOD);
     return 0;
@@ -254,6 +263,8 @@ int BIO_zero_copy_get_read_buf_done(BIO* bio, size_t bytes_read) {
                       BIO_R_INVALID_ARGUMENT);
     return 0;
   }
+
+  assert(peer_b->buf != NULL);
 
   max_available =
       bio_zero_copy_get_read_buf(peer_b, &dummy_read_buf, &dummy_read_offset);
@@ -324,7 +335,7 @@ int BIO_zero_copy_get_write_buf(BIO* bio, uint8_t** out_write_buf,
 
   b = bio->ptr;
 
-  if (!b || !b->buf || !b->peer) {
+  if (bio->method != bio_s_bio() || !b || !b->peer) {
     OPENSSL_PUT_ERROR(BIO, BIO_zero_copy_get_write_buf,
                       BIO_R_UNSUPPORTED_METHOD);
     return 0;
@@ -336,9 +347,9 @@ int BIO_zero_copy_get_write_buf(BIO* bio, uint8_t** out_write_buf,
     return 0;
   }
 
-  assert(b->buf != NULL);
+  assert(b->buf != NULL || (b->buf_externally_owned && b->len == 0));
 
-  if (b->zero_copy_write_lock) {
+  if (b->zero_copy_write_lock || b->buf == NULL) {
     OPENSSL_PUT_ERROR(BIO, BIO_zero_copy_get_write_buf, BIO_R_INVALID_ARGUMENT);
     return 0;
   }
@@ -351,7 +362,6 @@ int BIO_zero_copy_get_write_buf(BIO* bio, uint8_t** out_write_buf,
   }
 
   max_available = bio_zero_copy_get_write_buf(b, out_write_buf, out_buf_offset);
-
   if (max_available > 0) {
     b->zero_copy_write_lock = 1;
   }
@@ -375,10 +385,8 @@ int BIO_zero_copy_get_write_buf_done(BIO* bio, size_t bytes_written) {
   }
 
   b = bio->ptr;
-
-  if (!b || !b->buf || !b->peer) {
-    OPENSSL_PUT_ERROR(BIO, BIO_zero_copy_get_write_buf_done,
-                      BIO_R_UNSUPPORTED_METHOD);
+  if (bio->method != bio_s_bio() || !b || !b->peer) {
+    OPENSSL_PUT_ERROR(BIO, BIO_set_external_buf, BIO_R_UNSUPPORTED_METHOD);
     return 0;
   }
   peer_b = b->peer->ptr;
@@ -395,7 +403,7 @@ int BIO_zero_copy_get_write_buf_done(BIO* bio, size_t bytes_written) {
     return 0;
   }
 
-  if (!b->zero_copy_write_lock) {
+  if (!b->zero_copy_write_lock || !b->buf) {
     OPENSSL_PUT_ERROR(BIO, BIO_zero_copy_get_write_buf_done,
                       BIO_R_INVALID_ARGUMENT);
     return 0;
@@ -413,6 +421,16 @@ int BIO_zero_copy_get_write_buf_done(BIO* bio, size_t bytes_written) {
   /* Move write offset. */
   b->len += bytes_written;
   b->zero_copy_write_lock = 0;
+
+  if (b->len == 0) {
+    /* Cleanup in case |b->offset| is not 0 when |b->len| is. If a read on the
+     * peer emptied the buffer while it was locked for write, it could not
+     * rewind offset. The caller didn't write anything, so rewind offset now to
+     * uphold the assertion that |b->offset == 0| if |b->len == 0 &&
+     * |b->zero_copy_write_lock| == 0. See also comments in BIO_read and
+     * BIO_zero_copy_get_read_buf_done. */
+    b->offset = 0;
+  }
   return 1;
 }
 
@@ -432,7 +450,8 @@ static int bio_read(BIO *bio, char *buf, int size_) {
   assert(b->peer != NULL);
   peer_b = b->peer->ptr;
   assert(peer_b != NULL);
-  assert(peer_b->buf != NULL);
+  assert(peer_b->buf != NULL ||
+         (peer_b->buf_externally_owned && peer_b->len == 0));
 
   peer_b->request = 0; /* will be set in "retry_read" situation */
 
@@ -455,6 +474,8 @@ static int bio_read(BIO *bio, char *buf, int size_) {
       return -1;
     }
   }
+
+  assert(peer_b->buf);
 
   /* we can read */
   if (peer_b->len < size) {
@@ -516,25 +537,27 @@ static int bio_write(BIO *bio, const char *buf, int num_) {
   b = bio->ptr;
   assert(b != NULL);
   assert(b->peer != NULL);
-  assert(b->buf != NULL);
+  assert(b->buf != NULL || (b->buf_externally_owned && b->len == 0));
 
   if (b->zero_copy_write_lock) {
     return 0;
   }
 
-  b->request = 0;
   if (b->closed) {
     /* we already closed */
+    b->request = 0;
     OPENSSL_PUT_ERROR(BIO, bio_write, BIO_R_BROKEN_PIPE);
     return -1;
   }
 
   assert(b->len <= b->size);
 
-  if (b->len == b->size) {
+  if (b->buf == NULL || b->len == b->size) {
     BIO_set_retry_write(bio); /* buffer is full */
     return -1;
   }
+
+  b->request = 0;
 
   /* we can write */
   if (num > b->size - b->len) {
@@ -594,15 +617,15 @@ static int bio_make_pair(BIO* bio1, BIO* bio2,
     return 0;
   }
 
-  assert(b1->buf_externally_allocated == 0);
-  assert(b2->buf_externally_allocated == 0);
+  assert(b1->buf_externally_owned == 0);
+  assert(b2->buf_externally_owned == 0);
 
   if (b1->buf == NULL) {
     if (writebuf1_len) {
       b1->size = writebuf1_len;
     }
     if (!ext_writebuf1) {
-      b1->buf_externally_allocated = 0;
+      b1->buf_externally_owned = 0;
       b1->buf = OPENSSL_malloc(b1->size);
       if (b1->buf == NULL) {
         OPENSSL_PUT_ERROR(BIO, bio_make_pair, ERR_R_MALLOC_FAILURE);
@@ -610,7 +633,7 @@ static int bio_make_pair(BIO* bio1, BIO* bio2,
       }
     } else {
       b1->buf = ext_writebuf1;
-      b1->buf_externally_allocated = 1;
+      b1->buf_externally_owned = 1;
     }
     b1->len = 0;
     b1->offset = 0;
@@ -621,7 +644,7 @@ static int bio_make_pair(BIO* bio1, BIO* bio2,
       b2->size = writebuf2_len;
     }
     if (!ext_writebuf2) {
-      b2->buf_externally_allocated = 0;
+      b2->buf_externally_owned = 0;
       b2->buf = OPENSSL_malloc(b2->size);
       if (b2->buf == NULL) {
         OPENSSL_PUT_ERROR(BIO, bio_make_pair, ERR_R_MALLOC_FAILURE);
@@ -629,7 +652,7 @@ static int bio_make_pair(BIO* bio1, BIO* bio2,
       }
     } else {
       b2->buf = ext_writebuf2;
-      b2->buf_externally_allocated = 1;
+      b2->buf_externally_owned = 1;
     }
     b2->len = 0;
     b2->offset = 0;
@@ -668,7 +691,7 @@ static long bio_ctrl(BIO *bio, int cmd, long num, void *ptr) {
     case BIO_C_GET_WRITE_GUARANTEE:
       /* How many bytes can the caller feed to the next write
        * without having to keep any? */
-      if (b->peer == NULL || b->closed) {
+      if (b->peer == NULL || b->closed || b->buf == NULL) {
         ret = 0;
       } else {
         ret = (long)b->size - b->len;
@@ -764,15 +787,16 @@ int BIO_new_bio_pair(BIO** bio1_p, size_t writebuf1,
                                        writebuf2, NULL);
 }
 
-int BIO_new_bio_pair_external_buf(BIO** bio1_p, size_t writebuf1_len,
-                                  uint8_t* ext_writebuf1,
-                                  BIO** bio2_p, size_t writebuf2_len,
+int BIO_new_bio_pair_external_buf(BIO** out1, size_t ext_writebuf1_len,
+                                  uint8_t* ext_writebuf1, BIO** out2,
+                                  size_t ext_writebuf2_len,
                                   uint8_t* ext_writebuf2) {
   BIO *bio1 = NULL, *bio2 = NULL;
   int ret = 0;
 
   /* External buffers must have sizes greater than 0. */
-  if ((ext_writebuf1 && !writebuf1_len) || (ext_writebuf2 && !writebuf2_len)) {
+  if ((ext_writebuf1 && !ext_writebuf1_len) ||
+      (ext_writebuf2 && !ext_writebuf2_len)) {
     goto err;
   }
 
@@ -785,8 +809,8 @@ int BIO_new_bio_pair_external_buf(BIO** bio1_p, size_t writebuf1_len,
     goto err;
   }
 
-  if (!bio_make_pair(bio1, bio2, writebuf1_len, ext_writebuf1, writebuf2_len,
-                     ext_writebuf2)) {
+  if (!bio_make_pair(bio1, bio2, ext_writebuf1_len, ext_writebuf1,
+                     ext_writebuf2_len, ext_writebuf2)) {
     goto err;
   }
   ret = 1;
@@ -803,9 +827,35 @@ err:
     }
   }
 
-  *bio1_p = bio1;
-  *bio2_p = bio2;
+  *out1 = bio1;
+  *out2 = bio2;
   return ret;
+}
+
+int BIO_set_external_buf(BIO* bio, size_t buf_len, uint8_t* buf) {
+  struct bio_bio_st* b = bio->ptr;
+
+  if (bio->method != bio_s_bio() || !b || !b->peer || !b->peer->ptr) {
+    OPENSSL_PUT_ERROR(BIO, BIO_set_external_buf, BIO_R_UNSUPPORTED_METHOD);
+    return 0;
+  }
+
+  if (!b->buf_externally_owned || b->len != 0 || b->zero_copy_write_lock ||
+      (buf == NULL && buf_len != 0) || (buf != NULL && buf_len != b->size)) {
+    OPENSSL_PUT_ERROR(BIO, BIO_set_external_buf, BIO_R_INVALID_ARGUMENT);
+    return 0;
+  }
+
+  assert(!b->zero_copy_read_lock); /* Follows from b->len == 0. */
+  assert(b->offset == 0);
+
+  b->buf = buf;
+
+  /* b->size is NOT updated to ensure that get_read_request reports the correct
+   * number of requested bytes in case a read was attempted on a BIO with a NULL
+   * buffer. Thus, buf_len is only used for sanity checking. */
+
+  return 1;
 }
 
 size_t BIO_ctrl_get_read_request(BIO *bio) {
