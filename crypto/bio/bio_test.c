@@ -174,6 +174,137 @@ static size_t bio_write_zero_copy_wrapper(BIO *bio, const uint8_t *data,
   return len_written;
 }
 
+static int test_set_external_buf(void) {
+  BIO *bio1;
+  BIO *bio2;
+  uint8_t *write_buf;
+  size_t write_buf_offset;
+  size_t available_bytes;
+  const size_t kBioBufferSize = 512;
+  uint8_t app_recv_buffer[1024];
+
+  uint8_t bio1_write_buffer[kBioBufferSize];
+  uint8_t bio2_write_buffer[kBioBufferSize];
+
+  BIO_new_bio_pair_external_buf(&bio1, kBioBufferSize, bio1_write_buffer, &bio2,
+                                kBioBufferSize, bio2_write_buffer);
+
+  if (!BIO_zero_copy_get_write_buf(bio1, &write_buf, &write_buf_offset,
+                                   &available_bytes)) {
+    fprintf(stderr, "Error getting the write buffer)\n");
+    return 0;
+  }
+
+  if (BIO_set_external_buf(bio1, 0, NULL)) {
+    fprintf(
+        stderr,
+        "Error: Succeeded setting an external buffer on a BIO with a pending"
+        " write.\n");
+    return 0;
+  }
+
+  /* Release the write lock. */
+  BIO_zero_copy_get_write_buf_done(bio1, 0);
+
+  if (!BIO_set_external_buf(bio1, 0, NULL)) {
+    fprintf(stderr,
+            "Error: Failed setting an external NULL buffer on a BIO. \n");
+    return 0;
+  }
+  if (BIO_set_external_buf(bio1, 1, NULL)) {
+    fprintf(stderr,
+            "Error: Succeeded setting a NULL buffer having a length different "
+            "than 0.\n");
+    return 0;
+  }
+
+  /* Buffer is now NULL. Attempt to read 5 bytes. */
+  if (bio_read_zero_copy_wrapper(bio2, app_recv_buffer, 5) > 0 ||
+      BIO_read(bio2, app_recv_buffer, 5) > 0) {
+    fprintf(stderr, "Error: Read bytes from a BIO with no Buffer.\n");
+    return 0;
+  }
+  if (BIO_write(bio1, "hel", 3) > 0 ||
+      bio_write_zero_copy_wrapper(bio1, (const uint8_t*)"lo", 2) > 0) {
+    fprintf(stderr,
+            "Error: Succeeded writing bytes to a BIO with a NULL buffer.\n");
+    return 0;
+  }
+
+  /* Check that the correct number of requested bytes is set. */
+  if (BIO_ctrl_get_read_request(bio1) != 5) {
+    fprintf(stderr, "Error: Wrong number of requested bytes.\n");
+    return 0;
+  }
+  if (BIO_set_external_buf(bio1, kBioBufferSize - 1, bio1_write_buffer)) {
+    fprintf(stderr, "Error: Succeeded setting a buffer with wrong length.\n");
+    return 0;
+  }
+  if (!BIO_set_external_buf(bio1, kBioBufferSize, bio1_write_buffer)) {
+    fprintf(stderr, "Error: Error setting a buffer with proper length.\n");
+    return 0;
+  }
+
+  /* Check that the correct number of requested bytes survived setting a new
+   * buffer. */
+  if (BIO_ctrl_get_read_request(bio1) != 5) {
+    fprintf(stderr, "Error: Wrong number of requested bytes.\n");
+    return 0;
+  }
+
+  BIO_write(bio1, "hel", 3);
+  bio_write_zero_copy_wrapper(bio1, (const uint8_t*)"lo", 2);
+
+  if (BIO_set_external_buf(bio1, 0, NULL)) {
+    fprintf(stderr, "Error: Succeeded setting a buffer on a nonempty BIO.\n");
+    return 0;
+  }
+
+  if (BIO_read(bio2, app_recv_buffer, 2) != 2) {
+    fprintf(stderr, "Error: Failed reading bytes written to the BIO.\n");
+    return 0;
+  }
+  if (bio_read_zero_copy_wrapper(bio2, app_recv_buffer + 2, 3) != 3) {
+    fprintf(stderr, "Error: Failed reading bytes written to the BIO.\n");
+    return 0;
+  }
+  if (memcmp(app_recv_buffer, "hello", 5)) {
+    fprintf(stderr, "Error: Wrong bytes read from the BIO.\n");
+    return 0;
+  }
+
+  if (BIO_pending(bio1) != 0 || BIO_pending(bio2) != 0) {
+    fprintf(stderr, "Error: BIO buffers should be empty at this point.\n");
+    return 0;
+  }
+
+  /* Test that the offset is correctly winded back to 0. */
+  BIO_write(bio1, "hello", 5);
+  if (!BIO_zero_copy_get_write_buf(bio1, &write_buf, &write_buf_offset,
+                                   &available_bytes)) {
+    fprintf(stderr, "Error while getting the write buffer)\n");
+    return 0;
+  }
+  /* Empty the buffer. */
+  BIO_read(bio2, app_recv_buffer, 5);
+  /* bio1's offset is still 5 due to the write lock. */
+  BIO_zero_copy_get_write_buf_done(bio1, 0);
+  BIO_zero_copy_get_write_buf(bio1, &write_buf, &write_buf_offset,
+                                     &available_bytes);
+  if (write_buf_offset != 0) {
+    fprintf(stderr, "Error: offset of bio1 is not winded back to 0.\n");
+    return 0;
+  }
+  BIO_zero_copy_get_write_buf_done(bio1, 0);
+  /* bio1's offset is now 0, and no assert should fire. */
+  BIO_set_external_buf(bio1, 0, NULL);
+  
+  BIO_free(bio1);
+  BIO_free(bio2);
+  ERR_clear_error();
+  return 1;
+}
+
 static int test_zero_copy_bio_pairs(void) {
   /* Test read and write, especially triggering the ring buffer wrap-around.*/
   BIO* bio1;
@@ -354,6 +485,10 @@ int main(void) {
   }
 
   if (!test_zero_copy_bio_pairs()) {
+    return 1;
+  }
+
+  if (!test_set_external_buf()) {
     return 1;
   }
 
