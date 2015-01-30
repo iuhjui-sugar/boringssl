@@ -22,6 +22,7 @@ const ERR_STRING_DATA BIO_error_string_data[] = {
   {ERR_PACK(ERR_LIB_BIO, BIO_F_BIO_new, 0), "BIO_new"},
   {ERR_PACK(ERR_LIB_BIO, BIO_F_BIO_new_file, 0), "BIO_new_file"},
   {ERR_PACK(ERR_LIB_BIO, BIO_F_BIO_new_mem_buf, 0), "BIO_new_mem_buf"},
+  {ERR_PACK(ERR_LIB_BIO, BIO_F_BIO_reset_bio_external_buf, 0), "BIO_reset_bio_external_buf"},
   {ERR_PACK(ERR_LIB_BIO, BIO_F_BIO_zero_copy_get_read_buf, 0), "BIO_zero_copy_get_read_buf"},
   {ERR_PACK(ERR_LIB_BIO, BIO_F_BIO_zero_copy_get_read_buf_done, 0), "BIO_zero_copy_get_read_buf_done"},
   {ERR_PACK(ERR_LIB_BIO, BIO_F_BIO_zero_copy_get_write_buf, 0), "BIO_zero_copy_get_write_buf"},
