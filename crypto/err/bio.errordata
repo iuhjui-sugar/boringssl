@@ -3,6 +3,7 @@ BIO,function,115,BIO_ctrl
 BIO,function,105,BIO_new
 BIO,function,103,BIO_new_file
 BIO,function,107,BIO_new_mem_buf
+BIO,function,120,BIO_reset_bio_external_buf
 BIO,function,118,BIO_zero_copy_get_read_buf
 BIO,function,119,BIO_zero_copy_get_read_buf_done
 BIO,function,116,BIO_zero_copy_get_write_buf
