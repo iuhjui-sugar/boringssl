@@ -586,17 +586,28 @@ OPENSSL_EXPORT int BIO_set_nbio(BIO *bio, int on);
 OPENSSL_EXPORT int BIO_new_bio_pair(BIO **out1, size_t writebuf1, BIO **out2,
                                     size_t writebuf2);
 
-/* BIO_new_bio_pair_external_buf is the same as |BIO_new_bio_pair| with the
- * difference that the caller keeps ownership of the write buffers
- * |ext_writebuf1_len| and |ext_writebuf2_len|. This is useful when using zero
- * copy API for read and write operations, in cases where the buffers need to
- * outlive the BIO pairs. It returns one on success and zero on error. */
-OPENSSL_EXPORT int BIO_new_bio_pair_external_buf(BIO** bio1_p,
-                                                 size_t writebuf1_len,
-                                                 uint8_t* ext_writebuf1,
-                                                 BIO** bio2_p,
-                                                 size_t writebuf2_len,
-                                                 uint8_t* ext_writebuf2);
+/* BIO_new_bio_pair_external_buf sets |*out1| and |*out2| to a freshly created
+ * BIO pair with write buffers |ext_writebuf1| and |ext_writebuf2|. The caller
+ * must ensure each buffer is valid until |BIO_free| or |BIO_set_external_buf|
+ * is called on the corresponding BIO. This is used with the zero copy API for
+ * read and write operations, in cases where the buffers need to outlive the BIO
+ * pairs. It returns one on success and zero on error. */
+OPENSSL_EXPORT int BIO_new_bio_pair_external_buf(BIO **out1,
+                                                 size_t ext_writebuf1_len,
+                                                 uint8_t *ext_writebuf1,
+                                                 BIO **out2,
+                                                 size_t ext_writebuf2_len,
+                                                 uint8_t *ext_writebuf2);
+
+/* BIO_set_external_buf sets |bio|'s write buffer to |buf|. |bio| must have been
+ * created with |BIO_new_bio_pair_external_buf|. This releases |bio|'s reference
+ * to its current write buffer, which must be empty and idle (|BIO_wpending| is
+ * zero, and there is no pending |BIO_zero_copy_get_write_buf| operation).
+ * |buf_len| may be 0 (with |buf| NULL), in which case write operations will
+ * fail until called again with a non-empty buffer. Otherwise |buf_len| must
+ * be the length given to |BIO_new_bio_pair_external_buf| when the BIO was
+ * created. It returns one on success and zero on error. */
+OPENSSL_EXPORT int BIO_set_external_buf(BIO *bio, size_t buf_len, uint8_t *buf);
 
 /* BIO_ctrl_get_read_request returns the number of bytes that the other side of
  * |bio| tried (unsuccessfully) to read. */
@@ -652,7 +663,7 @@ OPENSSL_EXPORT int BIO_zero_copy_get_read_buf_done(BIO* bio, size_t bytes_read);
  * stack.
  *
  * The zero copy write operation is completed by calling
- * |BIO_zero_copy_write_buf_don|e. Neither |BIO_zero_copy_get_write_buf_done|
+ * |BIO_zero_copy_write_buf_done|. Neither |BIO_zero_copy_get_write_buf_done|
  * nor any other I/O write operation may be called while a zero copy write
  * operation is active. */
 OPENSSL_EXPORT int BIO_zero_copy_get_write_buf(BIO* bio,
@@ -872,6 +883,8 @@ struct bio_st {
 #define BIO_F_file_ctrl 115
 #define BIO_F_file_read 116
 #define BIO_F_mem_write 117
+#define BIO_F_BIO_reset_bio_external_buf 118
+#define BIO_F_BIO_set_external_buf 119
 #define BIO_R_BAD_FOPEN_MODE 100
 #define BIO_R_BROKEN_PIPE 101
 #define BIO_R_CONNECT_ERROR 102
