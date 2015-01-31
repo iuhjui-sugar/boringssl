@@ -20,6 +20,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"math/rand"
 	"net"
 )
 
@@ -151,12 +152,13 @@ func (c *Conn) dtlsWriteRecord(typ recordType, data []byte) (n int, err error) {
 		fragment = append(fragment, byte(m>>16), byte(m>>8), byte(m))
 		fragment = append(fragment, data[:m]...)
 
-		// TODO(davidben): A real DTLS implementation needs to
-		// retransmit handshake messages. For testing purposes, we don't
-		// actually care.
-		_, err = c.dtlsWriteRawRecord(recordTypeHandshake, fragment)
-		if err != nil {
-			break
+		// Buffer the fragment for later. They will be sent (and
+		// reordered) on flush.
+		c.pendingFragments = append(c.pendingFragments, fragment)
+
+		if c.config.Bugs.ReorderHandshakeFragments && m > (maxLen+1)/2 {
+			// Overlap each fragment by half.
+			m = (maxLen + 1) / 2
 		}
 		n += m
 		data = data[m:]
@@ -166,6 +168,39 @@ func (c *Conn) dtlsWriteRecord(typ recordType, data []byte) (n int, err error) {
 	// handshake message.
 	c.sendHandshakeSeq++
 	return
+}
+
+func (c *Conn) dtlsFlushHandshake(duplicate bool) error {
+	if !c.isDTLS {
+		return nil
+	}
+
+	fragments := c.pendingFragments
+	c.pendingFragments = nil
+
+	if c.config.Bugs.ReorderHandshakeFragments {
+		if duplicate {
+			fragments = append(fragments, fragments...)
+		}
+		perm := rand.New(rand.NewSource(0)).Perm(len(fragments))
+		tmp := make([][]byte, len(fragments))
+		for i := range tmp {
+			tmp[i] = fragments[perm[i]]
+		}
+		fragments = tmp
+	}
+
+	// Send them all.
+	for _, fragment := range fragments {
+		// TODO(davidben): A real DTLS implementation needs to
+		// retransmit handshake messages. For testing purposes, we don't
+		// actually care.
+		if _, err := c.dtlsWriteRawRecord(recordTypeHandshake, fragment); err != nil {
+			return err
+		}
+	}
+	c.pendingFragments = nil
+	return nil
 }
 
 func (c *Conn) dtlsWriteRawRecord(typ recordType, data []byte) (n int, err error) {
