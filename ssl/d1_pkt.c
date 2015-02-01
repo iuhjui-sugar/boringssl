@@ -854,8 +854,9 @@ start:
 
   switch (rr->type) {
     default:
-      /* TLS just ignores unknown message types */
-      if (s->version == TLS1_VERSION) {
+      /* DTLS 1.0 just ignores unknown message types. DTLS 1.2 gives an
+       * unexpected message alert. */
+      if (s->version == DTLS1_VERSION) {
         rr->length = 0;
         goto start;
       }
