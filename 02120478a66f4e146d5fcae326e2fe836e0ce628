@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "37190331_185169cb",
+        "filename": "crypto/chacha/chacha_vec.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-02T21:54:03Z",
+      "side": 1,
+      "message": "I think this is the line that originally made me think key[8] was aligned, but... it\u0027s #ifdef\u0027d and... how does it even work? Isn\u0027t this shadowing the parameters?\n\nLooks like dead code though. I don\u0027t think this file works if neither __ARM_NEON__ nor __SSE2__ is defined.",
+      "revId": "02120478a66f4e146d5fcae326e2fe836e0ce628",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
