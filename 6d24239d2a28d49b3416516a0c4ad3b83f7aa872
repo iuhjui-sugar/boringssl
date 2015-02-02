@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "37190331_151db407",
+        "filename": "ssl/d1_pkt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 859,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-02T19:25:02Z",
+      "side": 1,
+      "message": "Alternatively we could just drop this block here and the equivalent one in s3_pkt.c. The spec does say to do this, but it seems kinda stupid. (NSS seems to just reject them.)",
+      "revId": "6d24239d2a28d49b3416516a0c4ad3b83f7aa872",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
