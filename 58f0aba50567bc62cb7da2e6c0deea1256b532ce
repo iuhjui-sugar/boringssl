@@ -16,6 +16,24 @@
       "revId": "58f0aba50567bc62cb7da2e6c0deea1256b532ce",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97b70f4c_13894e3a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-02-02T19:13:44Z",
+      "side": 1,
+      "message": "Android has a fixed config.h for ipsec-tools that doesn\u0027t set HAVE_STRLCAT. Over time, bionic grew support for strlcat but the config.h wasn\u0027t updated.\n\nWithout HAVE_STRLCAT defined, ipsec-tools #defines it to something. In general, that should still be fine but strlcat is declared with __attribute__((asm(\"strlcat\"))) and the sum of all that causes things to go wrong.\n\nThe config.h should be fixed too in Android, but since we don\u0027t need string.h in base.h, this change is also a good idea.",
+      "parentUuid": "37190331_b56200fd",
+      "revId": "58f0aba50567bc62cb7da2e6c0deea1256b532ce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
