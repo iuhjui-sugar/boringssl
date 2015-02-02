@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "97b70f4c_f0d6407d",
+        "filename": "crypto/cpu-arm.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-02-02T19:19:50Z",
+      "side": 1,
+      "message": "No. Signal dispositions are process wide as far as I know. I don\u0027t know what else to do about this however. If there\u0027s a static initialiser then I certainly hope that it\u0027ll happen before there are multiple threads. If BORINGSSL_NO_STATIC_INITIALIZER then disabling this based on calling CRYTPO_set_NEON_capable seems reasonable.\n\nI\u0027ll switch the order in Chromium.",
+      "parentUuid": "37190331_f543d852",
+      "revId": "2b36c7a0143dc7199f83b9c9a1a167507517cb3a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "37190331_d5485c72",
         "filename": "crypto/cpu-arm.c",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "97b70f4c_30e8c832",
+        "filename": "crypto/cpu-arm.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-02-02T19:19:50Z",
+      "side": 1,
+      "message": "Right, it doesn\u0027t matter. I\u0027ve widened it because I guess it saves some code in NO_ASM mode.",
+      "parentUuid": "37190331_d5485c72",
+      "revId": "2b36c7a0143dc7199f83b9c9a1a167507517cb3a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "37190331_f5bab8ee",
         "filename": "crypto/cpu-arm.c",
         "patchSetId": 2
@@ -47,6 +83,30 @@
       "writtenOn": "2015-02-02T18:14:27Z",
       "side": 1,
       "message": "This line requires that CRYPTO_set_NEON_capable be called before CRYPTO_library_init (not currently true in Chromium, but can be changed). You also don\u0027t get a chance to do that without enabling the no-static-initializer mode.",
+      "range": {
+        "startLine": 113,
+        "startChar": 9,
+        "endLine": 113,
+        "endChar": 33
+      },
+      "revId": "2b36c7a0143dc7199f83b9c9a1a167507517cb3a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97b70f4c_9086d47b",
+        "filename": "crypto/cpu-arm.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-02-02T19:19:50Z",
+      "side": 1,
+      "message": "Not quite, although it obviously needs a comment (added):\n\nIf compiled with -mfpu\u003dneon then OPENSSL_armcap_P starts out with ARMV7_NEON defined, so this just disables the test when we already know the answer.",
+      "parentUuid": "37190331_f5bab8ee",
       "range": {
         "startLine": 113,
         "startChar": 9,
