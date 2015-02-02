@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "37190331_f543d852",
+        "filename": "crypto/cpu-arm.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-02T18:14:27Z",
+      "side": 1,
+      "message": "This isn\u0027t actually thread-safe, is it? The process may already be multithreaded even if we\u0027re not being used in multiple threads yet (like in Chromium currently). Maybe key this on having called CRYPTO_is_NEON_capable at all, with either 0 or 1?",
+      "revId": "2b36c7a0143dc7199f83b9c9a1a167507517cb3a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "37190331_d5485c72",
+        "filename": "crypto/cpu-arm.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-02T18:14:27Z",
+      "side": 1,
+      "message": "Doesn\u0027t look like the surrounding sigaction stuff does anything in NO_ASM mode.",
+      "revId": "2b36c7a0143dc7199f83b9c9a1a167507517cb3a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "37190331_f5bab8ee",
+        "filename": "crypto/cpu-arm.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-02T18:14:27Z",
+      "side": 1,
+      "message": "This line requires that CRYPTO_set_NEON_capable be called before CRYPTO_library_init (not currently true in Chromium, but can be changed). You also don\u0027t get a chance to do that without enabling the no-static-initializer mode.",
+      "range": {
+        "startLine": 113,
+        "startChar": 9,
+        "endLine": 113,
+        "endChar": 33
+      },
+      "revId": "2b36c7a0143dc7199f83b9c9a1a167507517cb3a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
