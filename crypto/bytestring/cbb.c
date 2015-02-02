@@ -77,6 +77,13 @@ static int cbb_buffer_add(struct cbb_buffer_st *base, uint8_t **out,
     return 0;
   }
 
+  if (len == 0) {
+    if (out) {
+      *out = NULL;
+    }
+    return 1;
+  }
+
   newlen = base->len + len;
   if (newlen < base->len) {
     /* Overflow */

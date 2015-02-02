@@ -296,7 +296,8 @@ OPENSSL_EXPORT int CBB_add_bytes(CBB *cbb, const uint8_t *data, size_t len);
 
 /* CBB_add_space appends |len| bytes to |cbb| and sets |*out_data| to point to
  * the beginning of that space. The caller must then write |len| bytes of
- * actual contents to |*out_data|. It returns one on success and zero
+ * actual contents to |*out_data|. If |len| is zero, it sets |*out_data| to
+ * NULL since no bytes were added. It returns one on success and zero
  * otherwise. */
 OPENSSL_EXPORT int CBB_add_space(CBB *cbb, uint8_t **out_data, size_t len);
 
