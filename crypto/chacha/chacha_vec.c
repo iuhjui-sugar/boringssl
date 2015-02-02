@@ -40,6 +40,7 @@ typedef unsigned vec __attribute__((vector_size(16)));
  * This implementation supports parallel processing of multiple blocks,
  * including potentially using general-purpose registers. */
 #if __ARM_NEON__
+#include <string.h>
 #include <arm_neon.h>
 #define GPR_TOO 1
 #define VBPI 2
@@ -183,8 +184,8 @@ void CRYPTO_chacha_20(
 	np = (unsigned*) nonce;
 #endif
 	s0 = LOAD_ALIGNED(chacha_const);
-	s1 = LOAD_ALIGNED(&((vec*)kp)[0]);
-	s2 = LOAD_ALIGNED(&((vec*)kp)[1]);
+	s1 = LOAD(&((vec*)kp)[0]);
+	s2 = LOAD(&((vec*)kp)[1]);
 	s3 = (vec){
 		counter & 0xffffffff,
 #if __ARM_NEON__ || defined(OPENSSL_X86)
