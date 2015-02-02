@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "37190331_b56200fd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-02T18:03:35Z",
+      "side": 1,
+      "message": "base.h doesn\u0027t use string.h, so this seems a good plan, but I\u0027m slightly puzzled how something could depend on this.",
+      "revId": "58f0aba50567bc62cb7da2e6c0deea1256b532ce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
