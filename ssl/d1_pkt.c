@@ -854,11 +854,8 @@ start:
 
   switch (rr->type) {
     default:
-      /* TLS just ignores unknown message types */
-      if (s->version == TLS1_VERSION) {
-        rr->length = 0;
-        goto start;
-      }
+      /* Prior to TLS 1.2, unknown records were to be silently ignored, but
+       * there's no need for future-proofing with an extensions system. */
       al = SSL_AD_UNEXPECTED_MESSAGE;
       OPENSSL_PUT_ERROR(SSL, dtls1_read_bytes, SSL_R_UNEXPECTED_RECORD);
       goto f_err;
