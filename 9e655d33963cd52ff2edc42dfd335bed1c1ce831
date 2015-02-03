@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "17ab1ff1_8ccb67a6",
+        "filename": "ssl/test/runner/dtls.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-02-03T00:43:11Z",
+      "side": 1,
+      "message": "I wouldn\u0027t bother with this test. The code will panic anyway in the next line.",
+      "revId": "9e655d33963cd52ff2edc42dfd335bed1c1ce831",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
