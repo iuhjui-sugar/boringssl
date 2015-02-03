@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "17479f3f_72551004",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1053,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-02-03T19:19:34Z",
+      "side": 1,
+      "message": "It is not locally obvious that |frag-\u003emsg_header.epoch| \u003d\u003d 0xffff won\u0027t trigger this when |epoch| is zero. Since only 0 and 1 are possible, how about:\n\nassert(epoch \u003d\u003d 0 || epoch \u003d\u003d 1);\n\nconst int fragment_from_previous_epoch \u003d (epoch \u003d\u003d 1 \u0026\u0026 frag-\u003emsg_header.epoch \u003d\u003d 0);\n\nif (fragment_from_previous_epoch) {\n  ...\n}",
+      "revId": "2b6d999fa2bcf2fb8cbb1df2abe76d0c72301cc2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
