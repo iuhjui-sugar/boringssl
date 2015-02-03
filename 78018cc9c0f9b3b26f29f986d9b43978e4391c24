@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "97538ffc_73e27a29",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1056,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-03T20:31:53Z",
+      "side": 1,
+      "message": "Hrm? If it does, we need more test cases... we shouldn\u0027t have any messages buffered that are prior to the current epoch. (It\u0027s why 0/1 is possible, but 1/0 isn\u0027t.) Or am I misunderstanding you?",
+      "parentUuid": "9cf1f452_63135c59",
+      "revId": "78018cc9c0f9b3b26f29f986d9b43978e4391c24",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d749874e_1502f636",
         "filename": "ssl/test/runner/dtls.go",
         "patchSetId": 3
