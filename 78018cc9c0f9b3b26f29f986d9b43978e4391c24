@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "9cf1f452_6398fc5a",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1056,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-02-03T20:34:03Z",
+      "side": 1,
+      "message": "No, just checking. If it\u0027s really not supposed to happen then an assert is correct.",
+      "parentUuid": "97538ffc_73e27a29",
+      "revId": "78018cc9c0f9b3b26f29f986d9b43978e4391c24",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d749874e_1502f636",
         "filename": "ssl/test/runner/dtls.go",
         "patchSetId": 3
