@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "17479f3f_72c6f038",
+        "filename": "crypto/asn1/a_int.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-02-03T19:32:17Z",
+      "side": 1,
+      "message": "Superfluous parens in conditionals are the local style, but we\u0027re trying to weed it out :)\n\nAlso, why \u003e 1, not \u003e 0?",
+      "revId": "a980a1e1392caaf1199f78c2d41d4ed611df22ab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "17479f3f_d28244e0",
+        "filename": "crypto/asn1/a_object.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-02-03T19:32:17Z",
+      "side": 1,
+      "message": "We do stick to using OPENSSL_malloc still, even though they are wired into malloc/free. So I think this would be OPENSSL_malloc + memset.",
+      "revId": "a980a1e1392caaf1199f78c2d41d4ed611df22ab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "17479f3f_1254ccba",
+        "filename": "crypto/asn1/tasn_new.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-02-03T19:32:17Z",
+      "side": 1,
+      "message": "*/ on the end of the previous line.",
+      "revId": "a980a1e1392caaf1199f78c2d41d4ed611df22ab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "17479f3f_524e542a",
+        "filename": "crypto/asn1/tasn_new.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-02-03T19:32:17Z",
+      "side": 1,
+      "message": "ditto.",
+      "revId": "a980a1e1392caaf1199f78c2d41d4ed611df22ab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "17479f3f_32c8e825",
+        "filename": "crypto/asn1/tasn_new.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-02-03T19:32:17Z",
+      "side": 1,
+      "message": "we don\u0027t want superfluous parens, even though it is the local style.",
+      "revId": "a980a1e1392caaf1199f78c2d41d4ed611df22ab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "17479f3f_b2e218a4",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-02-03T19:32:17Z",
+      "side": 1,
+      "message": "Already taken care of by Brian.",
+      "revId": "a980a1e1392caaf1199f78c2d41d4ed611df22ab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
