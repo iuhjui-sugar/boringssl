@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "578f57ad_ded7c5c0",
+        "filename": "crypto/bytestring/cbb.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-02-03T01:11:29Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be \"if (tag \u003e 30)\"?",
+      "revId": "a74c54fd319b94d418588b830a982be2233b813e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
