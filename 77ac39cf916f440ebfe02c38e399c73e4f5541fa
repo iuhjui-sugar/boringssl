@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "578f57ad_9ea0dd3f",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-02-03T01:18:03Z",
+      "side": 1,
+      "message": "This should be:\n\nif (sig_prefix-\u003enid !\u003d hash_nid) {\n  continue;\n}\n\nThen the body of the loop can be indented one level less. (We now allow C99-style \"declarations in the middle of functions\" in BoringSSL.)",
+      "revId": "77ac39cf916f440ebfe02c38e399c73e4f5541fa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
