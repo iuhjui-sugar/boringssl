@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c0504fe_7c99b98e",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1073,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-03T21:14:00Z",
+      "side": 1,
+      "message": "I\u0027ll squash this all down like with d1_pkt.c once appdata/handshake interleave is gone.",
+      "revId": "e09d4bbaf2864221f1c8ea20d3d1246d10d57a26",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
