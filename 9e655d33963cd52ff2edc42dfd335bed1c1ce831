@@ -16,6 +16,24 @@
       "revId": "9e655d33963cd52ff2edc42dfd335bed1c1ce831",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "778a9b9e_ff871fed",
+        "filename": "ssl/test/runner/dtls.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-03T01:27:07Z",
+      "side": 1,
+      "message": "Removed in next commit.",
+      "parentUuid": "17ab1ff1_8ccb67a6",
+      "revId": "9e655d33963cd52ff2edc42dfd335bed1c1ce831",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
