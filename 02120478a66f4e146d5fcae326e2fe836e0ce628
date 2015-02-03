@@ -16,6 +16,24 @@
       "revId": "02120478a66f4e146d5fcae326e2fe836e0ce628",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f7c04bc1_c62a6424",
+        "filename": "crypto/chacha/chacha_vec.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-02-03T00:34:12Z",
+      "side": 1,
+      "message": "Yes, I think this is dead code. Removed.",
+      "parentUuid": "37190331_185169cb",
+      "revId": "02120478a66f4e146d5fcae326e2fe836e0ce628",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
