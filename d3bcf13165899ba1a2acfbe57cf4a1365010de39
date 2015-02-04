@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9c581443_3135b277",
+        "filename": "crypto/x509/x509_trs.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5535
+      },
+      "writtenOn": "2015-02-04T09:17:05Z",
+      "side": 0,
+      "message": "Right now, these lines won\u0027t do anything useful.  trstandard entries don\u0027t have X509_TRUST_DYNAMIC set so the trtable_free() is a no-op.  From that standpoint, it seems fine to delete these lines.  However, there are problems in the existing code related to static entries in X509_TRUST_cleanup().\n\nThere is a possible memory leak in the existing code.  If the caller used X509_TRUST_add() with one of the static indices, the trstandard name will be changed to point to a dynamically allocated name.  The entry will have the X509_TRUST_DYNAMIC_NAME flag set, but trtable_free() requires that X509_TRUST_DYNAMIC is set as well which won\u0027t be the case for static entries.\n\nThere\u0027s also a consistency issue here.  X509_TRUST_add() can set other fields in the static entries and they are never reset back to the default.  Seems like modifying static entries should be forbidden, they should be reset back when X509_TRUST_cleanup() is called or there should be some new function that resets the static entries.",
+      "revId": "d3bcf13165899ba1a2acfbe57cf4a1365010de39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c581443_31aa521d",
+        "filename": "crypto/x509v3/v3_purp.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 5535
+      },
+      "writtenOn": "2015-02-04T09:17:05Z",
+      "side": 0,
+      "message": "See comment for x509_trs.c as it applies here too.",
+      "revId": "d3bcf13165899ba1a2acfbe57cf4a1365010de39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
