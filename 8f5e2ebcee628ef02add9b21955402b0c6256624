@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c1ee459_b7f2c2a1",
+        "filename": "crypto/engine/engine.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-04T02:25:23Z",
+      "side": 0,
+      "message": "Worth removing references while you\u0027re here? I guess that would cause a tiny bit of turbulence Chromium-side, but nothing significant.",
+      "range": {
+        "startLine": 123,
+        "startChar": 22,
+        "endLine": 123,
+        "endChar": 32
+      },
+      "revId": "8f5e2ebcee628ef02add9b21955402b0c6256624",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
