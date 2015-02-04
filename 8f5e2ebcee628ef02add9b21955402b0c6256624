@@ -22,6 +22,30 @@
       "revId": "8f5e2ebcee628ef02add9b21955402b0c6256624",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c581443_0eebafb8",
+        "filename": "crypto/engine/engine.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5535
+      },
+      "writtenOn": "2015-02-04T04:56:58Z",
+      "side": 0,
+      "message": "If you change the public API by removing references, struct openssl_method_common_st is down to is_static which must now always be true.  Is there any reason to keep the struct around when the code now assumes everything is static and doesn\u0027t ref count?\n\nIf you remove the struct from the headers, METHOD_ref and METHOD_unref are nops that could be removed as well.",
+      "parentUuid": "1c1ee459_b7f2c2a1",
+      "range": {
+        "startLine": 123,
+        "startChar": 22,
+        "endLine": 123,
+        "endChar": 32
+      },
+      "revId": "8f5e2ebcee628ef02add9b21955402b0c6256624",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
