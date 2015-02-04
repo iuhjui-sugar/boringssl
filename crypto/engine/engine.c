@@ -15,6 +15,7 @@
 #include <openssl/engine.h>
 
 #include <string.h>
+#include <assert.h>
 
 #include <openssl/dh.h>
 #include <openssl/dsa.h>
@@ -43,10 +44,7 @@ ENGINE *ENGINE_new(void) {
 }
 
 void ENGINE_free(ENGINE *engine) {
-  if (engine->dh_method != NULL) {
-    METHOD_unref(engine->dh_method);
-  }
-
+  /* Methods are currently required to be static so are not unref'ed. */
   OPENSSL_free(engine);
 }
 
@@ -55,21 +53,12 @@ void ENGINE_free(ENGINE *engine) {
  * long and has zero padding if needed. */
 static int set_method(void **out_member, const void *method, size_t method_size,
                       size_t compiled_size) {
-  void *copy = OPENSSL_malloc(compiled_size);
-  if (copy == NULL) {
+  const struct openssl_method_common_st *common = method;
+  if (method_size != compiled_size || !common->is_static) {
     return 0;
   }
 
-  memset(copy, 0, compiled_size);
-
-  if (method_size > compiled_size) {
-    method_size = compiled_size;
-  }
-  memcpy(copy, method, method_size);
-
-  METHOD_unref(*out_member);
-  *out_member = copy;
-
+  *out_member = (void*) method;
   return 1;
 }
 
@@ -114,25 +103,16 @@ ECDSA_METHOD *ENGINE_get_ECDSA_method(const ENGINE *engine) {
 }
 
 void METHOD_ref(void *method_in) {
-  struct openssl_method_common_st *method = method_in;
-
-  if (method->is_static) {
-    return;
-  }
-
-  CRYPTO_add(&method->references, 1, CRYPTO_LOCK_ENGINE);
+  assert(((struct openssl_method_common_st*) method_in)->is_static);
 }
 
 void METHOD_unref(void *method_in) {
   struct openssl_method_common_st *method = method_in;
 
-  if (method == NULL || method->is_static) {
+  if (method == NULL) {
     return;
   }
-
-  if (CRYPTO_add(&method->references, -1, CRYPTO_LOCK_ENGINE) == 0) {
-    OPENSSL_free(method);
-  }
+  assert(method->is_static);
 }
 
 OPENSSL_DECLARE_ERROR_REASON(ENGINE, OPERATION_NOT_SUPPORTED);
