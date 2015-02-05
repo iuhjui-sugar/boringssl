@@ -214,7 +214,7 @@ static void print_cipher_preference_list(
 
 static int test_cipher_rule(CIPHER_TEST *t) {
   int ret = 0;
-  SSL_CTX *ctx = SSL_CTX_new(SSLv23_server_method());
+  SSL_CTX *ctx = SSL_CTX_new(TLS_method());
   size_t i;
 
   if (!SSL_CTX_set_cipher_list(ctx, t->rule)) {
@@ -434,6 +434,65 @@ int test_default_version(uint16_t version, const SSL_METHOD *(*method)(void)) {
   return ret;
 }
 
+char *cipher_get_rfc_name(const char *name) {
+  SSL_CTX *ctx = SSL_CTX_new(TLS_method());
+  char *ret;
+
+  if (!SSL_CTX_set_cipher_list(ctx, name) ||
+      sk_SSL_CIPHER_num(ctx->cipher_list->ciphers) != 1) {
+    fprintf(stderr, "Error finding cipher '%s'\n", name);
+    BIO_print_errors_fp(stderr);
+    goto done;
+  }
+
+  const SSL_CIPHER *cipher = sk_SSL_CIPHER_value(ctx->cipher_list->ciphers, 0);
+  ret = SSL_CIPHER_get_rfc_name(cipher);
+
+done:
+  SSL_CTX_free(ctx);
+  return ret;
+}
+
+typedef struct {
+  const char *name;
+  const char *rfc_name;
+} CIPHER_RFC_NAME_TEST;
+
+CIPHER_RFC_NAME_TEST kCipherRFCNameTests[] = {
+  { "DES-CBC3-SHA", "TLS_RSA_WITH_3DES_EDE_CBC_SHA" },
+  { "RC4-MD5", "TLS_RSA_WITH_RC4_MD5" },
+  { "AES128-SHA", "TLS_RSA_WITH_AES_128_CBC_SHA" },
+  { "DHE-RSA-AES256-SHA", "TLS_DHE_RSA_WITH_AES_256_CBC_SHA" },
+  { "DHE-RSA-AES256-SHA256", "TLS_DHE_RSA_WITH_AES_256_CBC_SHA256" },
+  { "ECDHE-RSA-AES128-SHA256", "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256" },
+  { "ECDHE-RSA-AES256-SHA384", "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384" },
+  { "ECDHE-RSA-AES128-GCM-SHA256", "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256" },
+  { "ECDHE-ECDSA-AES128-GCM-SHA256", "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256" },
+  { "PSK-RC4-SHA", "TLS_PSK_WITH_RC4_SHA" },
+  /* These names are non-standard: */
+  { "ECDHE-RSA-CHACHA20-POLY1305", "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256" },
+  { "ECDHE-ECDSA-CHACHA20-POLY1305", "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256" },
+  { "ECDHE-PSK-WITH-AES-128-GCM-SHA256", "TLS_ECDHE_PSK_WITH_AES_128_GCM_SHA256" },
+};
+
+int test_cipher_get_rfc_name() {
+  size_t i;
+
+  for (i = 0; i < sizeof(kCipherRFCNameTests) / sizeof(kCipherRFCNameTests[0]);
+       i++) {
+    CIPHER_RFC_NAME_TEST *test = &kCipherRFCNameTests[i];
+    char *rfc_name = cipher_get_rfc_name(test->name);
+    if (strcmp(rfc_name, test->rfc_name) != 0) {
+      fprintf(stderr, "SSL_CIPHER_get_rfc_name: got '%s', wanted '%s'\n",
+              rfc_name, test->rfc_name);
+      OPENSSL_free(rfc_name);
+      return 0;
+    }
+    OPENSSL_free(rfc_name);
+  }
+  return 1;
+}
+
 int main(void) {
   SSL_library_init();
 
@@ -447,7 +506,8 @@ int main(void) {
       !test_default_version(TLS1_2_VERSION, &TLSv1_2_method) ||
       !test_default_version(0, &DTLS_method) ||
       !test_default_version(DTLS1_VERSION, &DTLSv1_method) ||
-      !test_default_version(DTLS1_2_VERSION, &DTLSv1_2_method)) {
+      !test_default_version(DTLS1_2_VERSION, &DTLSv1_2_method) ||
+      !test_cipher_get_rfc_name()) {
     return 1;
   }
 
