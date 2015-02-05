@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5cc85c75_d69004b1",
+        "filename": "ssl/ssl_ciph.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1325,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-05T21:56:59Z",
+      "side": 1,
+      "message": "I switched these over to plain strings because it\u0027s not any more readable or easy to verify correctness, and these are just macros, so we\u0027re not even helping the compiler deduplicate it if wanted to.",
+      "revId": "f64d6baf268ced889d81db801e88de7a4ea7f142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
