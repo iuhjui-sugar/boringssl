@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "7c81a016_aa722fca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5535
+      },
+      "writtenOn": "2015-02-06T02:50:16Z",
+      "side": 1,
+      "message": "I think it\u0027s worth noting that you changed the algorithm2 field for some TLS 1.2 ciphers.",
+      "revId": "f64d6baf268ced889d81db801e88de7a4ea7f142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c81a016_478d2e17",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1817,
+      "author": {
+        "id": 5535
+      },
+      "writtenOn": "2015-02-06T02:50:16Z",
+      "side": 1,
+      "message": "Add quotes around TLS_*_SHA256?",
+      "revId": "f64d6baf268ced889d81db801e88de7a4ea7f142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5cc85c75_d69004b1",
         "filename": "ssl/ssl_ciph.c",
         "patchSetId": 2
@@ -13,6 +47,91 @@
       "writtenOn": "2015-02-05T21:56:59Z",
       "side": 1,
       "message": "I switched these over to plain strings because it\u0027s not any more readable or easy to verify correctness, and these are just macros, so we\u0027re not even helping the compiler deduplicate it if wanted to.",
+      "revId": "f64d6baf268ced889d81db801e88de7a4ea7f142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c81a016_671dd260",
+        "filename": "ssl/ssl_ciph.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1426,
+      "author": {
+        "id": 5535
+      },
+      "writtenOn": "2015-02-06T02:50:16Z",
+      "side": 1,
+      "message": "Typically you would have strlcpy() followed by a series of strlcat().  Not a big deal, but it\u0027s one less thing to worry about whether \u0027ret[0]\u0027 is set to NUL.",
+      "revId": "f64d6baf268ced889d81db801e88de7a4ea7f142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c81a016_07aa566e",
+        "filename": "ssl/ssl_test.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 5535
+      },
+      "writtenOn": "2015-02-06T02:50:16Z",
+      "side": 1,
+      "message": "Need to check for ctx \u003d\u003d NULL since it can fail.  SSL_CTX_set_cipher_list() doesn\u0027t check ctx before deref.",
+      "revId": "f64d6baf268ced889d81db801e88de7a4ea7f142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c81a016_6704f2f4",
+        "filename": "ssl/ssl_test.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 5535
+      },
+      "writtenOn": "2015-02-06T02:50:16Z",
+      "side": 1,
+      "message": "ret should have been initialized by now since it\u0027s being returned.",
+      "revId": "f64d6baf268ced889d81db801e88de7a4ea7f142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c81a016_0a997b8f",
+        "filename": "ssl/ssl_test.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 5535
+      },
+      "writtenOn": "2015-02-06T02:50:16Z",
+      "side": 1,
+      "message": "why not static?",
+      "revId": "f64d6baf268ced889d81db801e88de7a4ea7f142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c81a016_875486be",
+        "filename": "ssl/ssl_test.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 5535
+      },
+      "writtenOn": "2015-02-06T02:50:16Z",
+      "side": 1,
+      "message": "since cipher_get_rfc_name() can return NULL, shouldn\u0027t this check for !rfc_name?  strcmp() doesn\u0027t check for NULL.",
       "revId": "f64d6baf268ced889d81db801e88de7a4ea7f142",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
