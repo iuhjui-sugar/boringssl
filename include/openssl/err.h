@@ -481,17 +481,10 @@ typedef struct err_string_data_st {
   const char *string;
 } ERR_STRING_DATA;
 
-/* ERR_load_strings loads an array of ERR_STRING_DATA into the hash table. The
- * array must be terminated by an entry with a NULL string. */
-OPENSSL_EXPORT void ERR_load_strings(const ERR_STRING_DATA *str);
-
 /* ERR_FNS_st is a structure of function pointers that contains the actual
  * implementation of the error queue handling functions. */
 struct ERR_FNS_st {
   void (*shutdown)(void (*err_state_free_cb)(ERR_STATE*));
-  ERR_STRING_DATA *(*get_item)(uint32_t packed_error);
-  ERR_STRING_DATA *(*set_item)(const ERR_STRING_DATA *);
-  ERR_STRING_DATA *(*del_item)(uint32_t packed_error);
 
   /* get_state returns the ERR_STATE for the current thread. This function
    * never returns NULL. */
