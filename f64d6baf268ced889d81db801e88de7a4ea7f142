@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fc54b0b2_83b91efc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-06T17:09:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c81a016_aa722fca",
+      "revId": "f64d6baf268ced889d81db801e88de7a4ea7f142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c81a016_478d2e17",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2015-02-06T02:50:16Z",
       "side": 1,
       "message": "Add quotes around TLS_*_SHA256?",
+      "revId": "f64d6baf268ced889d81db801e88de7a4ea7f142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc54b0b2_e3b49205",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1817,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-06T17:09:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c81a016_478d2e17",
       "revId": "f64d6baf268ced889d81db801e88de7a4ea7f142",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -70,6 +106,24 @@
     },
     {
       "key": {
+        "uuid": "fc54b0b2_635c2233",
+        "filename": "ssl/ssl_ciph.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1426,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-06T17:09:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c81a016_671dd260",
+      "revId": "f64d6baf268ced889d81db801e88de7a4ea7f142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c81a016_07aa566e",
         "filename": "ssl/ssl_test.c",
         "patchSetId": 2
@@ -81,6 +135,24 @@
       "writtenOn": "2015-02-06T02:50:16Z",
       "side": 1,
       "message": "Need to check for ctx \u003d\u003d NULL since it can fail.  SSL_CTX_set_cipher_list() doesn\u0027t check ctx before deref.",
+      "revId": "f64d6baf268ced889d81db801e88de7a4ea7f142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc54b0b2_4331e617",
+        "filename": "ssl/ssl_test.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-06T17:09:38Z",
+      "side": 1,
+      "message": "Done. (Meh. Test code failing vs. crashing on malloc failure isn\u0027t going to tell us much. But perhaps someday we\u0027ll subject these tests to malloc tests too.)",
+      "parentUuid": "7c81a016_07aa566e",
       "revId": "f64d6baf268ced889d81db801e88de7a4ea7f142",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -104,6 +176,24 @@
     },
     {
       "key": {
+        "uuid": "fc54b0b2_c34ab66a",
+        "filename": "ssl/ssl_test.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-06T17:09:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c81a016_6704f2f4",
+      "revId": "f64d6baf268ced889d81db801e88de7a4ea7f142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c81a016_0a997b8f",
         "filename": "ssl/ssl_test.c",
         "patchSetId": 2
@@ -121,6 +211,24 @@
     },
     {
       "key": {
+        "uuid": "fc54b0b2_230f0a55",
+        "filename": "ssl/ssl_test.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-06T17:09:38Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "7c81a016_0a997b8f",
+      "revId": "f64d6baf268ced889d81db801e88de7a4ea7f142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c81a016_875486be",
         "filename": "ssl/ssl_test.c",
         "patchSetId": 2
@@ -132,6 +240,24 @@
       "writtenOn": "2015-02-06T02:50:16Z",
       "side": 1,
       "message": "since cipher_get_rfc_name() can return NULL, shouldn\u0027t this check for !rfc_name?  strcmp() doesn\u0027t check for NULL.",
+      "revId": "f64d6baf268ced889d81db801e88de7a4ea7f142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc54b0b2_a349ba74",
+        "filename": "ssl/ssl_test.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-06T17:09:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c81a016_875486be",
       "revId": "f64d6baf268ced889d81db801e88de7a4ea7f142",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
