@@ -374,39 +374,47 @@ typedef struct err_state_st {
   void *to_free;
 } ERR_STATE;
 
+#define OPENSSL_ALL_ERROR_LIBS \
+  F(SYS) \
+  F(BN) \
+  F(RSA) \
+  F(DH) \
+  F(EVP) \
+  F(BUF) \
+  F(OBJ) \
+  F(PEM) \
+  F(DSA) \
+  F(X509) \
+  F(ASN1) \
+  F(CONF) \
+  F(CRYPTO) \
+  F(EC) \
+  F(SSL) \
+  F(BIO) \
+  F(PKCS7) \
+  F(PKCS8) \
+  F(X509V3) \
+  F(RAND) \
+  F(ENGINE) \
+  F(OCSP) \
+  F(UI) \
+  F(COMP) \
+  F(ECDSA) \
+  F(ECDH) \
+  F(HMAC) \
+  F(DIGEST) \
+  F(CIPHER) \
+  F(USER) \
+  F(HKDF) \
+
+
 enum {
   ERR_LIB_NONE = 1,
-  ERR_LIB_SYS,
-  ERR_LIB_BN,
-  ERR_LIB_RSA,
-  ERR_LIB_DH,
-  ERR_LIB_EVP,
-  ERR_LIB_BUF,
-  ERR_LIB_OBJ,
-  ERR_LIB_PEM,
-  ERR_LIB_DSA,
-  ERR_LIB_X509,
-  ERR_LIB_ASN1,
-  ERR_LIB_CONF,
-  ERR_LIB_CRYPTO,
-  ERR_LIB_EC,
-  ERR_LIB_SSL,
-  ERR_LIB_BIO,
-  ERR_LIB_PKCS7,
-  ERR_LIB_PKCS8,
-  ERR_LIB_X509V3,
-  ERR_LIB_RAND,
-  ERR_LIB_ENGINE,
-  ERR_LIB_OCSP,
-  ERR_LIB_UI,
-  ERR_LIB_COMP,
-  ERR_LIB_ECDSA,
-  ERR_LIB_ECDH,
-  ERR_LIB_HMAC,
-  ERR_LIB_DIGEST,
-  ERR_LIB_CIPHER,
-  ERR_LIB_USER,
-  ERR_LIB_HKDF,
+
+#define F(lib) ERR_LIB_ ## lib,
+OPENSSL_ALL_ERROR_LIBS
+#undef F
+
   ERR_NUM_LIBS
 };
 
@@ -481,17 +489,10 @@ typedef struct err_string_data_st {
   const char *string;
 } ERR_STRING_DATA;
 
-/* ERR_load_strings loads an array of ERR_STRING_DATA into the hash table. The
- * array must be terminated by an entry with a NULL string. */
-OPENSSL_EXPORT void ERR_load_strings(const ERR_STRING_DATA *str);
-
 /* ERR_FNS_st is a structure of function pointers that contains the actual
  * implementation of the error queue handling functions. */
 struct ERR_FNS_st {
   void (*shutdown)(void (*err_state_free_cb)(ERR_STATE*));
-  ERR_STRING_DATA *(*get_item)(uint32_t packed_error);
-  ERR_STRING_DATA *(*set_item)(const ERR_STRING_DATA *);
-  ERR_STRING_DATA *(*del_item)(uint32_t packed_error);
 
   /* get_state returns the ERR_STATE for the current thread. This function
    * never returns NULL. */
