@@ -42,23 +42,24 @@ int Usage(const char *program) {
   return 1;
 }
 
-struct AsyncState {
-  AsyncState() : cert_ready(false) {}
+struct TestState {
+  TestState() : cert_ready(false), early_callback_called(false) {}
 
   ScopedEVP_PKEY channel_id;
   bool cert_ready;
   ScopedSSL_SESSION session;
   ScopedSSL_SESSION pending_session;
+  bool early_callback_called;
 };
 
-void AsyncExFree(void *parent, void *ptr, CRYPTO_EX_DATA *ad, int index,
-                 long argl, void *argp) {
-  delete ((AsyncState *)ptr);
+void TestStateExFree(void *parent, void *ptr, CRYPTO_EX_DATA *ad, int index,
+                     long argl, void *argp) {
+  delete ((TestState *)ptr);
 }
 
 int g_config_index = 0;
 int g_clock_index = 0;
-int g_async_index = 0;
+int g_state_index = 0;
 
 bool SetConfigPtr(SSL *ssl, const TestConfig *config) {
   return SSL_set_ex_data(ssl, g_config_index, (void *)config) == 1;
@@ -76,16 +77,16 @@ OPENSSL_timeval *GetClockPtr(SSL *ssl) {
   return (OPENSSL_timeval *)SSL_get_ex_data(ssl, g_clock_index);
 }
 
-bool SetAsyncState(SSL *ssl, std::unique_ptr<AsyncState> async) {
-  if (SSL_set_ex_data(ssl, g_async_index, (void *)async.get()) == 1) {
+bool SetTestState(SSL *ssl, std::unique_ptr<TestState> async) {
+  if (SSL_set_ex_data(ssl, g_state_index, (void *)async.get()) == 1) {
     async.release();
     return true;
   }
   return false;
 }
 
-AsyncState *GetAsyncState(SSL *ssl) {
-  return (AsyncState *)SSL_get_ex_data(ssl, g_async_index);
+TestState *GetTestState(SSL *ssl) {
+  return (TestState *)SSL_get_ex_data(ssl, g_state_index);
 }
 
 ScopedEVP_PKEY LoadPrivateKey(const std::string &file) {
@@ -114,12 +115,9 @@ bool InstallCertificate(SSL *ssl) {
   return true;
 }
 
-int g_early_callback_called = 0;
-
 int SelectCertificateCallback(const struct ssl_early_callback_ctx *ctx) {
-  g_early_callback_called = 1;
-
   const TestConfig *config = GetConfigPtr(ctx->ssl);
+  GetTestState(ctx->ssl)->early_callback_called = true;
 
   if (config->expected_server_name.empty()) {
     return 1;
@@ -275,11 +273,11 @@ void CurrentTimeCallback(SSL *ssl, OPENSSL_timeval *out_clock) {
 }
 
 void ChannelIdCallback(SSL *ssl, EVP_PKEY **out_pkey) {
-  *out_pkey = GetAsyncState(ssl)->channel_id.release();
+  *out_pkey = GetTestState(ssl)->channel_id.release();
 }
 
 int CertCallback(SSL *ssl, void *arg) {
-  if (!GetAsyncState(ssl)->cert_ready) {
+  if (!GetTestState(ssl)->cert_ready) {
     return -1;
   }
   if (!InstallCertificate(ssl)) {
@@ -289,7 +287,7 @@ int CertCallback(SSL *ssl, void *arg) {
 }
 
 SSL_SESSION *GetSessionCallback(SSL *ssl, uint8_t *data, int len, int *copy) {
-  AsyncState *async_state = GetAsyncState(ssl);
+  TestState *async_state = GetTestState(ssl);
   if (async_state->session) {
     *copy = 0;
     return async_state->session.release();
@@ -394,15 +392,15 @@ int RetryAsync(SSL *ssl, int ret, BIO *async, OPENSSL_timeval *clock_delta) {
       AsyncBioAllowWrite(async, 1);
       return 1;
     case SSL_ERROR_WANT_CHANNEL_ID_LOOKUP:
-      GetAsyncState(ssl)->channel_id =
+      GetTestState(ssl)->channel_id =
           LoadPrivateKey(GetConfigPtr(ssl)->send_channel_id);
       return 1;
     case SSL_ERROR_WANT_X509_LOOKUP:
-      GetAsyncState(ssl)->cert_ready = true;
+      GetTestState(ssl)->cert_ready = true;
       return 1;
     case SSL_ERROR_PENDING_SESSION:
-      GetAsyncState(ssl)->session =
-          std::move(GetAsyncState(ssl)->pending_session);
+      GetTestState(ssl)->session =
+          std::move(GetTestState(ssl)->pending_session);
       return 1;
     default:
       return 0;
@@ -412,8 +410,6 @@ int RetryAsync(SSL *ssl, int ret, BIO *async, OPENSSL_timeval *clock_delta) {
 int DoExchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
                const TestConfig *config, bool is_resume,
                int fd, SSL_SESSION *session) {
-  g_early_callback_called = 0;
-
   OPENSSL_timeval clock = {0}, clock_delta = {0};
   ScopedSSL ssl(SSL_new(ssl_ctx));
   if (!ssl) {
@@ -423,7 +419,7 @@ int DoExchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
 
   if (!SetConfigPtr(ssl.get(), config) ||
       !SetClockPtr(ssl.get(), &clock) |
-      !SetAsyncState(ssl.get(), std::unique_ptr<AsyncState>(new AsyncState))) {
+      !SetTestState(ssl.get(), std::unique_ptr<TestState>(new TestState))) {
     BIO_print_errors_fp(stdout);
     return 1;
   }
@@ -565,7 +561,7 @@ int DoExchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
     } else if (config->async) {
       // The internal session cache is disabled, so install the session
       // manually.
-      GetAsyncState(ssl.get())->pending_session.reset(
+      GetTestState(ssl.get())->pending_session.reset(
           SSL_SESSION_up_ref(session));
     }
   }
@@ -606,7 +602,7 @@ int DoExchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
         return 2;
       }
 
-      if (!g_early_callback_called) {
+      if (!GetTestState(ssl.get())->early_callback_called) {
         fprintf(stderr, "early callback not called\n");
         return 2;
       }
@@ -826,8 +822,8 @@ int main(int argc, char **argv) {
   }
   g_config_index = SSL_get_ex_new_index(0, NULL, NULL, NULL, NULL);
   g_clock_index = SSL_get_ex_new_index(0, NULL, NULL, NULL, NULL);
-  g_async_index = SSL_get_ex_new_index(0, NULL, NULL, NULL, AsyncExFree);
-  if (g_config_index < 0 || g_clock_index < 0 || g_async_index < 0) {
+  g_state_index = SSL_get_ex_new_index(0, NULL, NULL, NULL, TestStateExFree);
+  if (g_config_index < 0 || g_clock_index < 0 || g_state_index < 0) {
     return 1;
   }
 
