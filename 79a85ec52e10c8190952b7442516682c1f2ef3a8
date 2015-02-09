@@ -16,6 +16,24 @@
       "revId": "79a85ec52e10c8190952b7442516682c1f2ef3a8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f16cdb49_e3c37227",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-09T23:50:32Z",
+      "side": 0,
+      "message": "You mean the overall SSL_accept return value? I don\u0027t think the existing users of these APIs are sensitive to that. You normally detect asynchronous things with SSL_get_error which checks rwstate and returns a corresponding SSL_ERROR_BLAH value. (PENDING_SESSION and CERTIFICATE_SELECTION_PENDING aren\u0027t even exported. They\u0027re defined in ssl_locl.h.) Though you are right that this is a tiny behavior change.\n\nCodesearch suggests callers want the SSL_ERROR_BLAH values, though it\u0027d be hard to tell if they manually check against -10001 or something.",
+      "parentUuid": "71a62bd5_62d6384b",
+      "revId": "79a85ec52e10c8190952b7442516682c1f2ef3a8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
