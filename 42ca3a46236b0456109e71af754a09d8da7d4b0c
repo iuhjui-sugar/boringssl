@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "518da743_4e6b93db",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-09T22:04:44Z",
+      "side": 0,
+      "message": "I\u0027m kind of confused why MSVC didn\u0027t like the old version of this code. First looking up the single matching prefix and then checking it seems a more natural way to express it than the loop. (The loop doesn\u0027t make it obvious that at most one prefix is valid.)\n\nWas it not able to learn that the NULL prefix check in 387 guarded you from using an invalid prefix_len? Just initializing it to 0 in this case seems not wrong. Or perhaps we lift sig_prefix up to the top and replace prefix + prefix_len with accesses through sig_prefix.",
+      "revId": "42ca3a46236b0456109e71af754a09d8da7d4b0c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
