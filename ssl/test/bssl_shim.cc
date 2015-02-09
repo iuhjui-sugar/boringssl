@@ -37,7 +37,7 @@
 
 namespace {
 
-int usage(const char *program) {
+int Usage(const char *program) {
   fprintf(stderr, "Usage: %s [flags...]\n", program);
   return 1;
 }
@@ -114,10 +114,10 @@ bool InstallCertificate(SSL *ssl) {
   return true;
 }
 
-int early_callback_called = 0;
+int g_early_callback_called = 0;
 
-int select_certificate_callback(const struct ssl_early_callback_ctx *ctx) {
-  early_callback_called = 1;
+int SelectCertificateCallback(const struct ssl_early_callback_ctx *ctx) {
+  g_early_callback_called = 1;
 
   const TestConfig *config = GetConfigPtr(ctx->ssl);
 
@@ -157,37 +157,40 @@ int select_certificate_callback(const struct ssl_early_callback_ctx *ctx) {
   return 1;
 }
 
-int skip_verify(int preverify_ok, X509_STORE_CTX *store_ctx) {
+int SkipVerify(int preverify_ok, X509_STORE_CTX *store_ctx) {
   return 1;
 }
 
-int next_protos_advertised_callback(SSL *ssl, const uint8_t **out,
-                                    unsigned int *out_len, void *arg) {
+int NextProtosAdvertisedCallback(SSL *ssl, const uint8_t **out,
+                                 unsigned int *out_len, void *arg) {
   const TestConfig *config = GetConfigPtr(ssl);
-  if (config->advertise_npn.empty())
+  if (config->advertise_npn.empty()) {
     return SSL_TLSEXT_ERR_NOACK;
+  }
 
   *out = (const uint8_t*)config->advertise_npn.data();
   *out_len = config->advertise_npn.size();
   return SSL_TLSEXT_ERR_OK;
 }
 
-int next_proto_select_callback(SSL* ssl, uint8_t** out, uint8_t* outlen,
-                               const uint8_t* in, unsigned inlen, void* arg) {
+int NextProtoSelectCallback(SSL* ssl, uint8_t** out, uint8_t* outlen,
+                            const uint8_t* in, unsigned inlen, void* arg) {
   const TestConfig *config = GetConfigPtr(ssl);
-  if (config->select_next_proto.empty())
+  if (config->select_next_proto.empty()) {
     return SSL_TLSEXT_ERR_NOACK;
+  }
 
   *out = (uint8_t*)config->select_next_proto.data();
   *outlen = config->select_next_proto.size();
   return SSL_TLSEXT_ERR_OK;
 }
 
-int alpn_select_callback(SSL* ssl, const uint8_t** out, uint8_t* outlen,
-                         const uint8_t* in, unsigned inlen, void* arg) {
+int AlpnSelectCallback(SSL* ssl, const uint8_t** out, uint8_t* outlen,
+                       const uint8_t* in, unsigned inlen, void* arg) {
   const TestConfig *config = GetConfigPtr(ssl);
-  if (config->select_alpn.empty())
+  if (config->select_alpn.empty()) {
     return SSL_TLSEXT_ERR_NOACK;
+  }
 
   if (!config->expected_advertised_alpn.empty() &&
       (config->expected_advertised_alpn.size() != inlen ||
@@ -202,7 +205,7 @@ int alpn_select_callback(SSL* ssl, const uint8_t** out, uint8_t* outlen,
   return SSL_TLSEXT_ERR_OK;
 }
 
-int cookie_generate_callback(SSL *ssl, uint8_t *cookie, size_t *cookie_len) {
+int CookieGenerateCallback(SSL *ssl, uint8_t *cookie, size_t *cookie_len) {
   if (*cookie_len < 32) {
     fprintf(stderr, "Insufficient space for cookie\n");
     return 0;
@@ -212,7 +215,7 @@ int cookie_generate_callback(SSL *ssl, uint8_t *cookie, size_t *cookie_len) {
   return 1;
 }
 
-int cookie_verify_callback(SSL *ssl, const uint8_t *cookie, size_t cookie_len) {
+int CookieVerifyCallback(SSL *ssl, const uint8_t *cookie, size_t cookie_len) {
   if (cookie_len != 32) {
     fprintf(stderr, "Cookie length mismatch.\n");
     return 0;
@@ -226,9 +229,9 @@ int cookie_verify_callback(SSL *ssl, const uint8_t *cookie, size_t cookie_len) {
   return 1;
 }
 
-unsigned psk_client_callback(SSL *ssl, const char *hint, char *out_identity,
-                             unsigned max_identity_len, uint8_t *out_psk,
-                             unsigned max_psk_len) {
+unsigned PskClientCallback(SSL *ssl, const char *hint, char *out_identity,
+                           unsigned max_identity_len, uint8_t *out_psk,
+                           unsigned max_psk_len) {
   const TestConfig *config = GetConfigPtr(ssl);
 
   if (strcmp(hint ? hint : "", config->psk_identity.c_str()) != 0) {
@@ -249,8 +252,8 @@ unsigned psk_client_callback(SSL *ssl, const char *hint, char *out_identity,
   return config->psk.size();
 }
 
-unsigned psk_server_callback(SSL *ssl, const char *identity, uint8_t *out_psk,
-                             unsigned max_psk_len) {
+unsigned PskServerCallback(SSL *ssl, const char *identity, uint8_t *out_psk,
+                           unsigned max_psk_len) {
   const TestConfig *config = GetConfigPtr(ssl);
 
   if (strcmp(identity, config->psk_identity.c_str()) != 0) {
@@ -267,15 +270,15 @@ unsigned psk_server_callback(SSL *ssl, const char *identity, uint8_t *out_psk,
   return config->psk.size();
 }
 
-void current_time_cb(SSL *ssl, OPENSSL_timeval *out_clock) {
+void CurrentTimeCallback(SSL *ssl, OPENSSL_timeval *out_clock) {
   *out_clock = *GetClockPtr(ssl);
 }
 
-void channel_id_callback(SSL *ssl, EVP_PKEY **out_pkey) {
+void ChannelIdCallback(SSL *ssl, EVP_PKEY **out_pkey) {
   *out_pkey = GetAsyncState(ssl)->channel_id.release();
 }
 
-int cert_callback(SSL *ssl, void *arg) {
+int CertCallback(SSL *ssl, void *arg) {
   if (!GetAsyncState(ssl)->cert_ready) {
     return -1;
   }
@@ -285,7 +288,7 @@ int cert_callback(SSL *ssl, void *arg) {
   return 1;
 }
 
-SSL_SESSION *get_session_callback(SSL *ssl, uint8_t *data, int len, int *copy) {
+SSL_SESSION *GetSessionCallback(SSL *ssl, uint8_t *data, int len, int *copy) {
   AsyncState *async_state = GetAsyncState(ssl);
   if (async_state->session) {
     *copy = 0;
@@ -297,7 +300,7 @@ SSL_SESSION *get_session_callback(SSL *ssl, uint8_t *data, int len, int *copy) {
   }
 }
 
-ScopedSSL_CTX setup_ctx(const TestConfig *config) {
+ScopedSSL_CTX SetupCtx(const TestConfig *config) {
   ScopedSSL_CTX ssl_ctx(SSL_CTX_new(
       config->is_dtls ? DTLS_method() : TLS_method()));
   if (!ssl_ctx) {
@@ -330,36 +333,36 @@ ScopedSSL_CTX setup_ctx(const TestConfig *config) {
     // we use an external session cache.
     SSL_CTX_set_session_cache_mode(
         ssl_ctx.get(), SSL_SESS_CACHE_BOTH | SSL_SESS_CACHE_NO_INTERNAL);
-    SSL_CTX_sess_set_get_cb(ssl_ctx.get(), get_session_callback);
+    SSL_CTX_sess_set_get_cb(ssl_ctx.get(), GetSessionCallback);
   } else {
     SSL_CTX_set_session_cache_mode(ssl_ctx.get(), SSL_SESS_CACHE_BOTH);
   }
 
-  ssl_ctx->select_certificate_cb = select_certificate_callback;
+  ssl_ctx->select_certificate_cb = SelectCertificateCallback;
 
   SSL_CTX_set_next_protos_advertised_cb(
-      ssl_ctx.get(), next_protos_advertised_callback, NULL);
+      ssl_ctx.get(), NextProtosAdvertisedCallback, NULL);
   if (!config->select_next_proto.empty()) {
-    SSL_CTX_set_next_proto_select_cb(ssl_ctx.get(), next_proto_select_callback,
+    SSL_CTX_set_next_proto_select_cb(ssl_ctx.get(), NextProtoSelectCallback,
                                      NULL);
   }
 
   if (!config->select_alpn.empty()) {
-    SSL_CTX_set_alpn_select_cb(ssl_ctx.get(), alpn_select_callback, NULL);
+    SSL_CTX_set_alpn_select_cb(ssl_ctx.get(), AlpnSelectCallback, NULL);
   }
 
-  SSL_CTX_set_cookie_generate_cb(ssl_ctx.get(), cookie_generate_callback);
-  SSL_CTX_set_cookie_verify_cb(ssl_ctx.get(), cookie_verify_callback);
+  SSL_CTX_set_cookie_generate_cb(ssl_ctx.get(), CookieGenerateCallback);
+  SSL_CTX_set_cookie_verify_cb(ssl_ctx.get(), CookieVerifyCallback);
 
   ssl_ctx->tlsext_channel_id_enabled_new = 1;
-  SSL_CTX_set_channel_id_cb(ssl_ctx.get(), channel_id_callback);
+  SSL_CTX_set_channel_id_cb(ssl_ctx.get(), ChannelIdCallback);
 
-  ssl_ctx->current_time_cb = current_time_cb;
+  ssl_ctx->current_time_cb = CurrentTimeCallback;
 
   return ssl_ctx;
 }
 
-int retry_async(SSL *ssl, int ret, BIO *async, OPENSSL_timeval *clock_delta) {
+int RetryAsync(SSL *ssl, int ret, BIO *async, OPENSSL_timeval *clock_delta) {
   // No error; don't retry.
   if (ret >= 0) {
     return 0;
@@ -385,10 +388,10 @@ int retry_async(SSL *ssl, int ret, BIO *async, OPENSSL_timeval *clock_delta) {
   // the appropriate end to maximally stress the state machine.
   switch (SSL_get_error(ssl, ret)) {
     case SSL_ERROR_WANT_READ:
-      async_bio_allow_read(async, 1);
+      AsyncBioAllowRead(async, 1);
       return 1;
     case SSL_ERROR_WANT_WRITE:
-      async_bio_allow_write(async, 1);
+      AsyncBioAllowWrite(async, 1);
       return 1;
     case SSL_ERROR_WANT_CHANNEL_ID_LOOKUP:
       GetAsyncState(ssl)->channel_id =
@@ -406,10 +409,10 @@ int retry_async(SSL *ssl, int ret, BIO *async, OPENSSL_timeval *clock_delta) {
   }
 }
 
-int do_exchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
-                const TestConfig *config, bool is_resume,
-                int fd, SSL_SESSION *session) {
-  early_callback_called = 0;
+int DoExchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
+               const TestConfig *config, bool is_resume,
+               int fd, SSL_SESSION *session) {
+  g_early_callback_called = 0;
 
   OPENSSL_timeval clock = {0}, clock_delta = {0};
   ScopedSSL ssl(SSL_new(ssl_ctx));
@@ -434,7 +437,7 @@ int do_exchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
   if (config->async) {
     // TODO(davidben): Also test |s->ctx->client_cert_cb| on the client and
     // |s->ctx->select_certificate_cb| on the server.
-    SSL_set_cert_cb(ssl.get(), cert_callback, NULL);
+    SSL_set_cert_cb(ssl.get(), CertCallback, NULL);
   } else {
     if (!InstallCertificate(ssl.get())) {
       BIO_print_errors_fp(stdout);
@@ -443,7 +446,7 @@ int do_exchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
   }
   if (config->require_any_client_certificate) {
     SSL_set_verify(ssl.get(), SSL_VERIFY_PEER|SSL_VERIFY_FAIL_IF_NO_PEER_CERT,
-                   skip_verify);
+                   SkipVerify);
   }
   if (config->false_start) {
     SSL_set_mode(ssl.get(), SSL_MODE_HANDSHAKE_CUTTHROUGH);
@@ -481,7 +484,7 @@ int do_exchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
   if (!config->send_channel_id.empty()) {
     SSL_enable_tls_channel_id(ssl.get());
     if (!config->async) {
-      // The async case will be supplied by |channel_id_callback|.
+      // The async case will be supplied by |ChannelIdCallback|.
       ScopedEVP_PKEY pkey = LoadPrivateKey(config->send_channel_id);
       if (!pkey || !SSL_set1_tls_channel_id(ssl.get(), pkey.get())) {
         BIO_print_errors_fp(stdout);
@@ -497,8 +500,8 @@ int do_exchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
                         config->advertise_alpn.size());
   }
   if (!config->psk.empty()) {
-    SSL_set_psk_client_callback(ssl.get(), psk_client_callback);
-    SSL_set_psk_server_callback(ssl.get(), psk_server_callback);
+    SSL_set_psk_client_callback(ssl.get(), PskClientCallback);
+    SSL_set_psk_server_callback(ssl.get(), PskServerCallback);
   }
   if (!config->psk_identity.empty() &&
       !SSL_use_psk_identity_hint(ssl.get(), config->psk_identity.c_str())) {
@@ -538,14 +541,14 @@ int do_exchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
     return 1;
   }
   if (config->is_dtls) {
-    ScopedBIO packeted = packeted_bio_create(&clock_delta);
+    ScopedBIO packeted = PacketedBioCreate(&clock_delta);
     BIO_push(packeted.get(), bio.release());
     bio = std::move(packeted);
   }
   BIO *async = NULL;
   if (config->async) {
     ScopedBIO async_scoped =
-        config->is_dtls ? async_bio_create_datagram() : async_bio_create();
+        config->is_dtls ? AsyncBioCreateDatagram() : AsyncBioCreate();
     BIO_push(async_scoped.get(), bio.release());
     async = async_scoped.get();
     bio = std::move(async_scoped);
@@ -581,7 +584,7 @@ int do_exchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
       } else {
         ret = SSL_connect(ssl.get());
       }
-    } while (config->async && retry_async(ssl.get(), ret, async, &clock_delta));
+    } while (config->async && RetryAsync(ssl.get(), ret, async, &clock_delta));
     if (ret != 1) {
       BIO_print_errors_fp(stdout);
       return 2;
@@ -603,7 +606,7 @@ int do_exchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
         return 2;
       }
 
-      if (!early_callback_called) {
+      if (!g_early_callback_called) {
         fprintf(stderr, "early callback not called\n");
         return 2;
       }
@@ -745,7 +748,7 @@ int do_exchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
         if (w > 0) {
           off += (size_t) w;
         }
-      } while ((config->async && retry_async(ssl.get(), w, async, &clock_delta)) ||
+      } while ((config->async && RetryAsync(ssl.get(), w, async, &clock_delta)) ||
                (w > 0 && off < len));
 
       if (w < 0 || off != len) {
@@ -758,14 +761,14 @@ int do_exchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
       int w;
       do {
         w = SSL_write(ssl.get(), "hello", 5);
-      } while (config->async && retry_async(ssl.get(), w, async, &clock_delta));
+      } while (config->async && RetryAsync(ssl.get(), w, async, &clock_delta));
     }
     for (;;) {
       uint8_t buf[512];
       int n;
       do {
         n = SSL_read(ssl.get(), buf, sizeof(buf));
-      } while (config->async && retry_async(ssl.get(), n, async, &clock_delta));
+      } while (config->async && RetryAsync(ssl.get(), n, async, &clock_delta));
       int err = SSL_get_error(ssl.get(), n);
       if (err == SSL_ERROR_ZERO_RETURN ||
           (n == 0 && err == SSL_ERROR_SYSCALL)) {
@@ -773,8 +776,8 @@ int do_exchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
           fprintf(stderr, "Invalid SSL_get_error output\n");
           return 3;
         }
-        /* Accept shutdowns with or without close_notify.
-         * TODO(davidben): Write tests which distinguish these two cases. */
+        // Accept shutdowns with or without close_notify.
+        // TODO(davidben): Write tests which distinguish these two cases.
         break;
       } else if (err != SSL_ERROR_NONE) {
         if (n > 0) {
@@ -784,7 +787,7 @@ int do_exchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
         BIO_print_errors_fp(stdout);
         return 3;
       }
-      /* Successfully read data. */
+      // Successfully read data.
       if (n <= 0) {
         fprintf(stderr, "Invalid SSL_get_error output\n");
         return 3;
@@ -795,7 +798,7 @@ int do_exchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
       int w;
       do {
         w = SSL_write(ssl.get(), buf, n);
-      } while (config->async && retry_async(ssl.get(), w, async, &clock_delta));
+      } while (config->async && RetryAsync(ssl.get(), w, async, &clock_delta));
       if (w != n) {
         BIO_print_errors_fp(stdout);
         return 4;
@@ -830,25 +833,25 @@ int main(int argc, char **argv) {
 
   TestConfig config;
   if (!ParseConfig(argc - 1, argv + 1, &config)) {
-    return usage(argv[0]);
+    return Usage(argv[0]);
   }
 
-  ScopedSSL_CTX ssl_ctx = setup_ctx(&config);
+  ScopedSSL_CTX ssl_ctx = SetupCtx(&config);
   if (!ssl_ctx) {
     BIO_print_errors_fp(stdout);
     return 1;
   }
 
   ScopedSSL_SESSION session;
-  int ret = do_exchange(&session, ssl_ctx.get(), &config, false /* is_resume */,
-                        3 /* fd */, NULL /* session */);
+  int ret = DoExchange(&session, ssl_ctx.get(), &config, false /* is_resume */,
+                       3 /* fd */, NULL /* session */);
   if (ret != 0) {
     return ret;
   }
 
   if (config.resume) {
-    ret = do_exchange(NULL, ssl_ctx.get(), &config, true /* is_resume */,
-                      4 /* fd */, session.get());
+    ret = DoExchange(NULL, ssl_ctx.get(), &config, true /* is_resume */,
+                     4 /* fd */, session.get());
     if (ret != 0) {
       return ret;
     }
