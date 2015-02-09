@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "71a62bd5_62d6384b",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-02-09T23:40:16Z",
+      "side": 0,
+      "message": "Ret will not longer be PENDING_SESSION or CERTIFICATE_SELECTION_PENDING in this case. It\u0027s not clear from this change that ret is always reset higher up or something.",
+      "revId": "79a85ec52e10c8190952b7442516682c1f2ef3a8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
