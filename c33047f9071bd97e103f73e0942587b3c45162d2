@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "11140f87_e4043abc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-09T19:15:36Z",
+      "side": 1,
+      "message": "It\u0027s a little awkward to have different styles for C/C++ (so we\u0027d have to rename lots of things if we C++ the other tests), but a FOO_BAR type with a destructor looks really weird to me. I could live with using OpenSSL naming for our C++ code too though.",
+      "revId": "c33047f9071bd97e103f73e0942587b3c45162d2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
