@@ -35,31 +35,33 @@
 #include "scoped_types.h"
 #include "test_config.h"
 
-static int usage(const char *program) {
+namespace {
+
+int usage(const char *program) {
   fprintf(stderr, "Usage: %s [flags...]\n", program);
   return 1;
 }
 
-static int g_ex_data_index = 0;
-static int g_ex_data_clock_index = 0;
+int g_ex_data_index = 0;
+int g_ex_data_clock_index = 0;
 
-static bool SetConfigPtr(SSL *ssl, const TestConfig *config) {
+bool SetConfigPtr(SSL *ssl, const TestConfig *config) {
   return SSL_set_ex_data(ssl, g_ex_data_index, (void *)config) == 1;
 }
 
-static const TestConfig *GetConfigPtr(SSL *ssl) {
+const TestConfig *GetConfigPtr(SSL *ssl) {
   return (const TestConfig *)SSL_get_ex_data(ssl, g_ex_data_index);
 }
 
-static bool SetClockPtr(SSL *ssl, OPENSSL_timeval *clock) {
+bool SetClockPtr(SSL *ssl, OPENSSL_timeval *clock) {
   return SSL_set_ex_data(ssl, g_ex_data_clock_index, (void *)clock) == 1;
 }
 
-static OPENSSL_timeval *GetClockPtr(SSL *ssl) {
+OPENSSL_timeval *GetClockPtr(SSL *ssl) {
   return (OPENSSL_timeval *)SSL_get_ex_data(ssl, g_ex_data_clock_index);
 }
 
-static ScopedEVP_PKEY LoadPrivateKey(const std::string &file) {
+ScopedEVP_PKEY LoadPrivateKey(const std::string &file) {
   ScopedBIO bio(BIO_new(BIO_s_file()));
   if (!bio || !BIO_read_filename(bio.get(), file.c_str())) {
     return nullptr;
@@ -68,9 +70,9 @@ static ScopedEVP_PKEY LoadPrivateKey(const std::string &file) {
   return pkey;
 }
 
-static int early_callback_called = 0;
+int early_callback_called = 0;
 
-static int select_certificate_callback(const struct ssl_early_callback_ctx *ctx) {
+int select_certificate_callback(const struct ssl_early_callback_ctx *ctx) {
   early_callback_called = 1;
 
   const TestConfig *config = GetConfigPtr(ctx->ssl);
@@ -111,14 +113,12 @@ static int select_certificate_callback(const struct ssl_early_callback_ctx *ctx)
   return 1;
 }
 
-static int skip_verify(int preverify_ok, X509_STORE_CTX *store_ctx) {
+int skip_verify(int preverify_ok, X509_STORE_CTX *store_ctx) {
   return 1;
 }
 
-static int next_protos_advertised_callback(SSL *ssl,
-                                           const uint8_t **out,
-                                           unsigned int *out_len,
-                                           void *arg) {
+int next_protos_advertised_callback(SSL *ssl, const uint8_t **out,
+                                    unsigned int *out_len, void *arg) {
   const TestConfig *config = GetConfigPtr(ssl);
   if (config->advertise_npn.empty())
     return SSL_TLSEXT_ERR_NOACK;
@@ -128,12 +128,8 @@ static int next_protos_advertised_callback(SSL *ssl,
   return SSL_TLSEXT_ERR_OK;
 }
 
-static int next_proto_select_callback(SSL* ssl,
-                                      uint8_t** out,
-                                      uint8_t* outlen,
-                                      const uint8_t* in,
-                                      unsigned inlen,
-                                      void* arg) {
+int next_proto_select_callback(SSL* ssl, uint8_t** out, uint8_t* outlen,
+                               const uint8_t* in, unsigned inlen, void* arg) {
   const TestConfig *config = GetConfigPtr(ssl);
   if (config->select_next_proto.empty())
     return SSL_TLSEXT_ERR_NOACK;
@@ -143,12 +139,8 @@ static int next_proto_select_callback(SSL* ssl,
   return SSL_TLSEXT_ERR_OK;
 }
 
-static int alpn_select_callback(SSL* ssl,
-                                const uint8_t** out,
-                                uint8_t* outlen,
-                                const uint8_t* in,
-                                unsigned inlen,
-                                void* arg) {
+int alpn_select_callback(SSL* ssl, const uint8_t** out, uint8_t* outlen,
+                         const uint8_t* in, unsigned inlen, void* arg) {
   const TestConfig *config = GetConfigPtr(ssl);
   if (config->select_alpn.empty())
     return SSL_TLSEXT_ERR_NOACK;
@@ -166,7 +158,7 @@ static int alpn_select_callback(SSL* ssl,
   return SSL_TLSEXT_ERR_OK;
 }
 
-static int cookie_generate_callback(SSL *ssl, uint8_t *cookie, size_t *cookie_len) {
+int cookie_generate_callback(SSL *ssl, uint8_t *cookie, size_t *cookie_len) {
   if (*cookie_len < 32) {
     fprintf(stderr, "Insufficient space for cookie\n");
     return 0;
@@ -176,7 +168,7 @@ static int cookie_generate_callback(SSL *ssl, uint8_t *cookie, size_t *cookie_le
   return 1;
 }
 
-static int cookie_verify_callback(SSL *ssl, const uint8_t *cookie, size_t cookie_len) {
+int cookie_verify_callback(SSL *ssl, const uint8_t *cookie, size_t cookie_len) {
   if (cookie_len != 32) {
     fprintf(stderr, "Cookie length mismatch.\n");
     return 0;
@@ -190,10 +182,9 @@ static int cookie_verify_callback(SSL *ssl, const uint8_t *cookie, size_t cookie
   return 1;
 }
 
-static unsigned psk_client_callback(SSL *ssl, const char *hint,
-                                    char *out_identity,
-                                    unsigned max_identity_len,
-                                    uint8_t *out_psk, unsigned max_psk_len) {
+unsigned psk_client_callback(SSL *ssl, const char *hint, char *out_identity,
+                             unsigned max_identity_len, uint8_t *out_psk,
+                             unsigned max_psk_len) {
   const TestConfig *config = GetConfigPtr(ssl);
 
   if (strcmp(hint ? hint : "", config->psk_identity.c_str()) != 0) {
@@ -214,8 +205,8 @@ static unsigned psk_client_callback(SSL *ssl, const char *hint,
   return config->psk.size();
 }
 
-static unsigned psk_server_callback(SSL *ssl, const char *identity,
-                                    uint8_t *out_psk, unsigned max_psk_len) {
+unsigned psk_server_callback(SSL *ssl, const char *identity, uint8_t *out_psk,
+                             unsigned max_psk_len) {
   const TestConfig *config = GetConfigPtr(ssl);
 
   if (strcmp(identity, config->psk_identity.c_str()) != 0) {
@@ -232,11 +223,11 @@ static unsigned psk_server_callback(SSL *ssl, const char *identity,
   return config->psk.size();
 }
 
-static void current_time_cb(SSL *ssl, OPENSSL_timeval *out_clock) {
+void current_time_cb(SSL *ssl, OPENSSL_timeval *out_clock) {
   *out_clock = *GetClockPtr(ssl);
 }
 
-static ScopedSSL_CTX setup_ctx(const TestConfig *config) {
+ScopedSSL_CTX setup_ctx(const TestConfig *config) {
   ScopedSSL_CTX ssl_ctx(SSL_CTX_new(
       config->is_dtls ? DTLS_method() : TLS_method()));
   if (!ssl_ctx) {
@@ -289,8 +280,7 @@ static ScopedSSL_CTX setup_ctx(const TestConfig *config) {
   return ssl_ctx;
 }
 
-static int retry_async(SSL *ssl, int ret, BIO *async,
-                       OPENSSL_timeval *clock_delta) {
+int retry_async(SSL *ssl, int ret, BIO *async, OPENSSL_timeval *clock_delta) {
   // No error; don't retry.
   if (ret >= 0) {
     return 0;
@@ -325,12 +315,9 @@ static int retry_async(SSL *ssl, int ret, BIO *async,
   return 0;
 }
 
-static int do_exchange(ScopedSSL_SESSION *out_session,
-                       SSL_CTX *ssl_ctx,
-                       const TestConfig *config,
-                       bool is_resume,
-                       int fd,
-                       SSL_SESSION *session) {
+int do_exchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
+                const TestConfig *config, bool is_resume,
+                int fd, SSL_SESSION *session) {
   early_callback_called = 0;
 
   OPENSSL_timeval clock = {0}, clock_delta = {0};
@@ -725,6 +712,8 @@ static int do_exchange(ScopedSSL_SESSION *out_session,
   SSL_shutdown(ssl.get());
   return 0;
 }
+
+}  // namespace
 
 int main(int argc, char **argv) {
 #if !defined(OPENSSL_WINDOWS)
