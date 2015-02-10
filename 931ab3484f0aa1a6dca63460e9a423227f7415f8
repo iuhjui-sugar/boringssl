@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "b1c5037b_7c4c9504",
+        "filename": "include/openssl/err.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-02-10T01:44:57Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "f16cdb49_239f4a74",
+      "revId": "931ab3484f0aa1a6dca63460e9a423227f7415f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f16cdb49_6399428b",
         "filename": "include/openssl/err.h",
         "patchSetId": 4
@@ -47,6 +65,24 @@
       "writtenOn": "2015-02-09T23:42:38Z",
       "side": 0,
       "message": "I found one use of this function in some internal code, but it\u0027s never compiled. (All behind a giant ifdef because it\u0027s unused Windows code.)",
+      "revId": "931ab3484f0aa1a6dca63460e9a423227f7415f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b1c5037b_5c49d1f2",
+        "filename": "include/openssl/err.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-02-10T01:44:57Z",
+      "side": 0,
+      "message": "Ack.",
+      "parentUuid": "f16cdb49_6399428b",
       "revId": "931ab3484f0aa1a6dca63460e9a423227f7415f8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
