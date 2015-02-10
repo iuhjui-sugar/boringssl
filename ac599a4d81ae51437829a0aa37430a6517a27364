@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f1ca1b90_3342c82f",
+        "filename": "crypto/x509/x_name.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-02-10T01:23:24Z",
+      "side": 1,
+      "message": "I don\u0027t know what\u0027s going on here, but this change at least conserves crazyness :)",
+      "revId": "ac599a4d81ae51437829a0aa37430a6517a27364",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
