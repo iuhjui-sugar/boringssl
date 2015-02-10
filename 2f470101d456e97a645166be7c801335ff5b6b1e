@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d10ef7b4_4a08f34f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-10T03:39:23Z",
+      "side": 1,
+      "message": "It occurs to me another option would be to OPENSSL_DECLARE_ERROR_FUNCTION everything in those two files and have them OPENSSL_PUT_ERROR(ASN1, ...) despite living in crypto/x509. Probably do that in combination with teaching make_errors.go to ignore cross-module  OPENSSL_PUT_ERROR lines. I can do that if you prefer.",
+      "range": {
+        "startLine": 9,
+        "startChar": 69,
+        "endLine": 10,
+        "endChar": 5
+      },
+      "revId": "2f470101d456e97a645166be7c801335ff5b6b1e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
