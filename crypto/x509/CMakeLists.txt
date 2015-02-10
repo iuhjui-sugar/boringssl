@@ -9,10 +9,8 @@ add_library(
   a_sign.c
   a_strex.c
   a_verify.c
-  asn1_gen.c
   by_dir.c
   by_file.c
-  i2d_pr.c
   pkcs7.c
   t_crl.c
   t_x509.c

@@ -65,6 +65,9 @@
 #include "../evp/internal.h"
 
 
+/* TODO(davidben): This file is in the crypto/asn1 module so it can emit an
+ * error under ASN.1. Resolve this and move it to EVP. */
+
 int i2d_PrivateKey(const EVP_PKEY *a, unsigned char **pp)
 	{
 	if (a->ameth && a->ameth->old_priv_encode)
@@ -77,7 +80,7 @@ int i2d_PrivateKey(const EVP_PKEY *a, unsigned char **pp)
 		PKCS8_PRIV_KEY_INFO_free(p8);
 		return ret;
 	}
-	OPENSSL_PUT_ERROR(X509, i2d_PrivateKey, ASN1_R_UNSUPPORTED_PUBLIC_KEY_TYPE);
+	OPENSSL_PUT_ERROR(ASN1, i2d_PrivateKey, ASN1_R_UNSUPPORTED_PUBLIC_KEY_TYPE);
 	return -1;
 	}
 

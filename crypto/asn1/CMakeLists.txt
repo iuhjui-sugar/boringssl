@@ -23,6 +23,7 @@ add_library(
   a_type.c
   a_utctm.c
   a_utf8.c
+  asn1_gen.c
   asn1_lib.c
   asn1_par.c
   asn_pack.c
@@ -31,6 +32,7 @@ add_library(
   f_enum.c
   f_int.c
   f_string.c
+  i2d_pr.c
   t_bitst.c
   t_pkey.c
   tasn_dec.c
