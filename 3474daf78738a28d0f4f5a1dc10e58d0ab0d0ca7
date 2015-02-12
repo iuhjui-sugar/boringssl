@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d67b4d5e_622d36b9",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 710,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-12T18:44:15Z",
+      "side": 1,
+      "message": "Note: this is relying on sk_num returning 0 for NULL stacks.",
+      "revId": "3474daf78738a28d0f4f5a1dc10e58d0ab0d0ca7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
