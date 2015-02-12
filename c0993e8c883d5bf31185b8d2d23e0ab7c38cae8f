@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56cafdde_06d59a3d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-12T18:41:51Z",
+      "side": 1,
+      "message": "Not sure this is actually true. (Haven\u0027t checked if it becomes true later on in this patch series yet.) Though it is true for X509_check_ip_asc currently.",
+      "revId": "c0993e8c883d5bf31185b8d2d23e0ab7c38cae8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
