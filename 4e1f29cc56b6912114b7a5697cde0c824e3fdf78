@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d6c0ad6a_dae285e0",
+        "filename": "crypto/x509v3/v3_utl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 974,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-02-12T00:04:02Z",
+      "side": 1,
+      "message": "Upstream allows chklen to be zero, in which case it\u0027s calculated with strlen, and it also allows the last byte of the string to be NUL, in which case it\u0027s silently ignored.\n\nAfter a brief scream, I removed this throughout the patch series and in X509_check_email, below. Since half the point of this series was to resync us with upstream I\u0027ve stopped looking too hard at these changes for fear that I\u0027ll find something else equally bad and be forced to diverge from upstream again.",
+      "revId": "4e1f29cc56b6912114b7a5697cde0c824e3fdf78",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
