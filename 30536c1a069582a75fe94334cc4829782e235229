@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b66979a4_99c39b91",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-12T18:53:08Z",
+      "side": 1,
+      "message": "This is currently never set, but I assume it\u0027s set in the follow-up.",
+      "revId": "30536c1a069582a75fe94334cc4829782e235229",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "76d54178_e7bde294",
+        "filename": "crypto/x509/x509_vpm.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-12T18:53:08Z",
+      "side": 1,
+      "message": "paramid-\u003epeername \u003d NULL;",
+      "revId": "30536c1a069582a75fe94334cc4829782e235229",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
