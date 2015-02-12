@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b66979a4_b9f13ff4",
+        "filename": "crypto/x509v3/v3_utl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 869,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-12T20:15:17Z",
+      "side": 1,
+      "message": "I believe equal only ever returns 0 or 1.",
+      "range": {
+        "startLine": 869,
+        "startChar": 9,
+        "endLine": 869,
+        "endChar": 10
+      },
+      "revId": "30f8e176bffce50f9ec4bdfe3851315c03f5a296",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b66979a4_f9ebb7ff",
+        "filename": "crypto/x509v3/v3_utl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 948,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-12T20:15:17Z",
+      "side": 1,
+      "message": "I\u0027m glad there\u0027s a comment because this is kinda confusing. But I\u0027m not sure this ever goes negative anyway.",
+      "revId": "30f8e176bffce50f9ec4bdfe3851315c03f5a296",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b66979a4_79dfa75b",
+        "filename": "include/openssl/x509v3.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-12T20:15:17Z",
+      "side": 1,
+      "message": "Not that it matters for us, but I thought OpenSSL wasn\u0027t supposed to break ABI.\n\nIf this is neither compatible with existing OpenSSL callers nor of any use to us... (I suppose there\u0027s still not diverging on this module.)",
+      "revId": "30f8e176bffce50f9ec4bdfe3851315c03f5a296",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
