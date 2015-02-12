@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f66e91af_f333d0ee",
+        "filename": "crypto/x509v3/v3_utl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1012,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-12T20:21:43Z",
+      "side": 1,
+      "message": "This function may as well also return size_t I suppose. *shrug*",
+      "range": {
+        "startLine": 1012,
+        "startChar": 18,
+        "endLine": 1012,
+        "endChar": 27
+      },
+      "revId": "c7d68a736735078127abfd0e252d2a802b652560",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
