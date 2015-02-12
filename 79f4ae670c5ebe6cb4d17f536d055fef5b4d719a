@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d67b4d5e_421d925b",
+        "filename": "crypto/x509v3/v3_utl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 975,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-12T18:51:18Z",
+      "side": 1,
+      "message": "Note: Before this, none of these functions returned negative, apart from ip_asc. See comments here:\nhttps://boringssl-review.googlesource.com/#/c/3431/\n\n(No strong opinions on whether it\u0027s better to narrow or avoid divergence.)",
+      "range": {
+        "startLine": 975,
+        "startChar": 9,
+        "endLine": 975,
+        "endChar": 11
+      },
+      "revId": "79f4ae670c5ebe6cb4d17f536d055fef5b4d719a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
