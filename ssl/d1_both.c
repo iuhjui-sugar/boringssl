@@ -900,7 +900,6 @@ int dtls1_send_change_cipher_spec(SSL *s, int a, int b) {
 
 int dtls1_read_failed(SSL *s, int code) {
   if (code > 0) {
-    fprintf(stderr, "invalid state reached %s:%d", __FILE__, __LINE__);
     return 1;
   }
 
@@ -947,7 +946,6 @@ int dtls1_retransmit_buffered_messages(SSL *s) {
                    frag->msg_header.seq, frag->msg_header.is_ccs),
             0, &found) <= 0 &&
         found) {
-      fprintf(stderr, "dtls1_retransmit_message() failed\n");
       return -1;
     }
   }
@@ -1024,7 +1022,6 @@ int dtls1_retransmit_message(SSL *s, unsigned short seq, unsigned long frag_off,
 
   item = pqueue_find(s->d1->sent_messages, seq64be);
   if (item == NULL) {
-    fprintf(stderr, "retransmit:  message %d non-existant\n", seq);
     *found = 0;
     return 0;
   }
