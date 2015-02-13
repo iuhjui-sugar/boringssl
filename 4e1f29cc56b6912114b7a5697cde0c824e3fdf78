@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0bcf7c48_ef1b9d6e",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-02-13T19:02:41Z",
+      "side": 1,
+      "message": "Good point!",
+      "parentUuid": "56f3dd1a_9e671db8",
+      "revId": "4e1f29cc56b6912114b7a5697cde0c824e3fdf78",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f6a77121_0b5abd35",
         "filename": "crypto/x509/x509_vpm.c",
         "patchSetId": 2
@@ -30,6 +48,30 @@
       "writtenOn": "2015-02-12T18:39:15Z",
       "side": 1,
       "message": "strlen(id-\u003ehost)\n\nThis is currently supported, but a later patch set unsupports it.",
+      "range": {
+        "startLine": 236,
+        "startChar": 51,
+        "endLine": 236,
+        "endChar": 52
+      },
+      "revId": "4e1f29cc56b6912114b7a5697cde0c824e3fdf78",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0bcf7c48_af2595a4",
+        "filename": "crypto/x509/x509_vpm.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-02-13T19:02:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6a77121_0b5abd35",
       "range": {
         "startLine": 236,
         "startChar": 51,
@@ -88,6 +130,24 @@
       "side": 1,
       "message": "This behavior is super-distressing, but do_x509_check internally does this too. So I think we need to remove it from there too or continue supporting it in the wrapper.\n\nOn the plus side, it looks like nothing outside of OpenSSL ever calls any of these functions! codesearch comes up with nothing for X509_check_(email|host|ip) + OpenSSL exclusions.",
       "parentUuid": "d6c0ad6a_dae285e0",
+      "revId": "4e1f29cc56b6912114b7a5697cde0c824e3fdf78",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0bcf7c48_2f31a5e4",
+        "filename": "crypto/x509v3/v3_utl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 974,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-02-13T19:02:41Z",
+      "side": 1,
+      "message": "I think they\u0027re new in 1.0.2 so we\u0027re probably ok for a while. But I suspect that will change when other third_party code is updated.",
+      "parentUuid": "d67b4d5e_0248ea6f",
       "revId": "4e1f29cc56b6912114b7a5697cde0c824e3fdf78",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
