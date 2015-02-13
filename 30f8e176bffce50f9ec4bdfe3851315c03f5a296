@@ -56,6 +56,24 @@
       "revId": "30f8e176bffce50f9ec4bdfe3851315c03f5a296",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0bcf7c48_4f8c31d3",
+        "filename": "include/openssl/x509v3.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-02-13T19:08:35Z",
+      "side": 1,
+      "message": "It\u0027s not breaking the ABI because this function wasn\u0027t in any stable release at the time.",
+      "parentUuid": "b66979a4_79dfa75b",
+      "revId": "30f8e176bffce50f9ec4bdfe3851315c03f5a296",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
