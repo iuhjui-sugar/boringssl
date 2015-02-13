@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4bc5f422_8e6a1bfc",
+        "filename": "crypto/chacha/chacha_vec.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-13T20:34:08Z",
+      "side": 1,
+      "message": "Nit: uint32_t ?",
+      "range": {
+        "startLine": 162,
+        "startChar": 1,
+        "endLine": 162,
+        "endChar": 9
+      },
+      "revId": "d528d3ee656690e2236407d64a943c7d962f2270",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
