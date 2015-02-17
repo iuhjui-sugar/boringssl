@@ -16,6 +16,24 @@
       "revId": "98c4ac4f2c0b0b5803c8aeab982c265725dad127",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6b1b9807_b73028e2",
+        "filename": "util/bot/go/bootstrap.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-17T23:28:25Z",
+      "side": 1,
+      "message": "Wow. I didn\u0027t even notice that. Yeesh. They could have at least burned in the hashes. Oh well. If someone wants to attack Chromium\u0027s bot infrastructure, they\u0027d probably have an easier time sending a rogue try job.",
+      "parentUuid": "cb81e44d_b2bd80b3",
+      "revId": "98c4ac4f2c0b0b5803c8aeab982c265725dad127",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
