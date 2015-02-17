@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb97245d_22494ef4",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2420,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-17T18:24:10Z",
+      "side": 1,
+      "message": "We\u0027re woefully inconsistent about return 0 or -1 which is kinda annoying. I\u0027ve just matched the surrounding function for now, but I\u0027d like to dig into this later. At the least normalize to -1/1 with 0 only for EOF on BIO_read, but I kinda wonder if normalizing to 0/1 is possible for handshake.",
+      "range": {
+        "startLine": 2420,
+        "startChar": 13,
+        "endLine": 2420,
+        "endChar": 14
+      },
+      "revId": "7afc887c927ea64ac5b2374de50a0c77e4021d16",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
