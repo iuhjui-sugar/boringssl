@@ -16,6 +16,24 @@
       "revId": "abe2c47ec3d08ce98e17eb35c374e3a516f71561",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b47b4ec_5e053538",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-17T22:26:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0be3fc1f_0f3d69b5",
+      "revId": "abe2c47ec3d08ce98e17eb35c374e3a516f71561",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
