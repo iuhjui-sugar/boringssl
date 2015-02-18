@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68f63e4b_7fc2cf90",
+        "filename": "crypto/bio/pair.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-18T23:39:04Z",
+      "side": 1,
+      "message": "b-\u003elen \u003d\u003d 0?",
+      "revId": "73281f5359369f499bedce7a7a5b6d1a73a38598",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b477c3f_0c1f575e",
+        "filename": "crypto/bio/pair.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 838,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-18T23:39:04Z",
+      "side": 1,
+      "message": "If called on a non-pair BIO, this function will start stomping on memory. Could you check bio-\u003emethod? Same with the other zero-copy APIs. (See BIO_mem_contents.)",
+      "revId": "73281f5359369f499bedce7a7a5b6d1a73a38598",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68f63e4b_5ff02beb",
+        "filename": "crypto/bio/pair.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 852,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-18T23:39:04Z",
+      "side": 1,
+      "message": "I think this is implied by the buf-\u003elen check and may as well be an assert after it.",
+      "range": {
+        "startLine": 852,
+        "startChar": 6,
+        "endLine": 852,
+        "endChar": 28
+      },
+      "revId": "73281f5359369f499bedce7a7a5b6d1a73a38598",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b477c3f_4ceebfba",
+        "filename": "include/openssl/bio.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-18T23:39:04Z",
+      "side": 1,
+      "message": "This should probably mention that you can release the buffer early. (While you\u0027re here, the variable names and comment don\u0027t quite match the style. writebuf1_len should be ext_writebuf1_len) How about:\n\n/* BIO_new_bio_pair_external_buf sets |*out1| and |*out2| to a freshly created\n * BIO pair with write buffers |ext_writebuf1| and |ext_writebuf2|. The caller\n * must ensure each buffer is valid until |BIO_free| or |BIO_set_external_buf|\n * is called on the corresponding BIO. This is used with the zero copy API for\n * read and write operations, in cases where the buffers need to outlive the BIO\n * pairs. It returns one on success and zero on error. */",
+      "revId": "73281f5359369f499bedce7a7a5b6d1a73a38598",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68f63e4b_3fcc47bf",
+        "filename": "include/openssl/bio.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-18T23:39:04Z",
+      "side": 1,
+      "message": "This is kind of wordy and overly complicated; I had to look at the Chromium-side change to understand what was going on. (What does \"resets the memory allocation\" mean if we have to use an external buffer?) The special logic with NULL seems also unnecessary. I think it\u0027s conceptually clearer if you always set both buf/buf_len together and there is no special handling for NULL.\n\nHow about renaming to BIO_set_external_buf and:\n\n/* BIO_set_external_buf sets |bio|\u0027s write buffer to |buf|. |bio| must have been\n * created with |BIO_new_bio_pair_external_buf|. This releases |bio|\u0027s reference\n * to its current write buffer, which must be empty and idle (|BIO_wpending| is\n * zero, and there is no pending |BIO_zero_copy_get_write_buf| operation).\n * |buf_len| may be 0 (with |buf| NULL), in which case write operations will\n * fail until called again with a non-empty buffer. It returns one on success\n * and zero on error. */\n\nI intentionally omitted the mention of read because that\u0027s ambiguous: it\u0027s a read on the *peer* that\u0027s relevant. It should also fall out of the emptiness requirement.",
+      "revId": "73281f5359369f499bedce7a7a5b6d1a73a38598",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b477c3f_ac0483f9",
+        "filename": "include/openssl/bio.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-18T23:39:04Z",
+      "side": 1,
+      "message": "Could you add tests for this? What happens if you switch buffers around call it with bad BIOs, if the write buffer is non-empty, if it\u0027s empty buf there\u0027s a pending write, things fail appropriately with empty buffer, etc.",
+      "revId": "73281f5359369f499bedce7a7a5b6d1a73a38598",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
