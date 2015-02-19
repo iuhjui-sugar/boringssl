@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "28ee06c7_edd545f4",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 936,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-02-19T23:59:34Z",
+      "side": 1,
+      "message": "This diff is unfortunate. I moved dtls1_retransmit_message up in order to make it static, but the diff is treating it like I deleted the two functions above and added them below.",
+      "revId": "aa0ab2112ab77cb8844ce6a093b812719fc71742",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

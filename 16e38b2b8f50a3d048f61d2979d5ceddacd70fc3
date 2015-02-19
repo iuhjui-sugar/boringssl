@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "28ee06c7_6dfb157f",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1026,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-02-19T23:59:34Z",
+      "side": 0,
+      "message": "p.s. I\u0027m not sure that this would actually find the same fragment that\u0027s passed in now. I\u0027m assuming that you know this invariant and will tell me if it\u0027s not true :)",
+      "revId": "16e38b2b8f50a3d048f61d2979d5ceddacd70fc3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
