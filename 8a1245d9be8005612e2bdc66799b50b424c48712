@@ -16,6 +16,24 @@
       "revId": "8a1245d9be8005612e2bdc66799b50b424c48712",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e826ae4e_d6b36218",
+        "filename": "crypto/rc4/rc4.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-02-20T23:44:28Z",
+      "side": 1,
+      "message": "Killed it. There\u0027s enough old stuff in here already.",
+      "parentUuid": "48309a7e_b6182876",
+      "revId": "8a1245d9be8005612e2bdc66799b50b424c48712",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
