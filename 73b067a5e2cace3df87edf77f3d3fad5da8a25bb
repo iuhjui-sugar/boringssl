@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "48309a7e_f6a1c0b6",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-20T23:09:38Z",
+      "side": 1,
+      "message": "Nit: SSL_MODE_SEND_FALLBACK_SCSV sends TLS_FALLBACK_SCSV in the ClientHello.",
+      "revId": "73b067a5e2cace3df87edf77f3d3fad5da8a25bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "48309a7e_d69cc485",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-20T23:09:38Z",
+      "side": 1,
+      "message": "Aside: I think, based on the original mode vs option distinction, this should have been a mode. But whatever. The CHANGES entry that first added it says:\n\n     Introduce \"mode\" for SSL structures (with defaults in SSL_CTX),\n     which largely parallels \"options\", but is for changing API behaviour,\n     whereas \"options\" are about protocol behaviour.\n\nThe distinction seems to have been lost at this point.",
+      "revId": "73b067a5e2cace3df87edf77f3d3fad5da8a25bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "48309a7e_76a5b0c4",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1802,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-20T23:09:38Z",
+      "side": 1,
+      "message": "Maybe as well mark this as deprecated, or perhaps just delete it right here. Chromium\u0027s the only consumer of this spelling and we can easily fix it on the DEPS roll.",
+      "revId": "73b067a5e2cace3df87edf77f3d3fad5da8a25bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
