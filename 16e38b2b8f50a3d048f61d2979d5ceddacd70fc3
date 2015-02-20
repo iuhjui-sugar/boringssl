@@ -16,6 +16,24 @@
       "revId": "16e38b2b8f50a3d048f61d2979d5ceddacd70fc3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a89e766a_3154f013",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1026,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-20T02:15:10Z",
+      "side": 0,
+      "message": "Wow, I hadn\u0027t noticed how crazy |seq| was. So, prior to upstream\u0027s c900a78c99cb536a3df41069bccc6f96bbae3d06, it was just the sequence number. But that doesn\u0027t let you retransmit CCS, so seq was overloaded to fake a seqnum for CCS and that\u0027s what seq is now. The caller calls get_queue_priority and... yes, I believe we end up looking up the same message.\n\nReally this pqueue should just be a STACK_OF. With maximum size about 5. It\u0027s just the last flight of handshake messages and CCS to be retransmitted if you have reason to believe the peer didn\u0027t receive it all.",
+      "parentUuid": "28ee06c7_6dfb157f",
+      "revId": "16e38b2b8f50a3d048f61d2979d5ceddacd70fc3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
