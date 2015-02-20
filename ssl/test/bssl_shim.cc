@@ -401,7 +401,7 @@ static int DoExchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
   }
 
   if (config->fallback_scsv) {
-    if (!SSL_enable_fallback_scsv(ssl.get())) {
+    if (!SSL_set_mode(ssl.get(), SSL_MODE_SEND_FALLBACK_SCSV)) {
       BIO_print_errors_fp(stdout);
       return 1;
     }
