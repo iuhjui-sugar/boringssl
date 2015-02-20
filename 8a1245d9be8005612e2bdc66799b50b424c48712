@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "48309a7e_b6182876",
+        "filename": "crypto/rc4/rc4.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-20T23:17:32Z",
+      "side": 1,
+      "message": "Pretty sure sizeof(uint32_t) can\u0027t change. :-P\n\nNot really sure what to do about this comment, whether to salvage it or drop it altogether. It\u0027s referencing a lot of non-existent things.",
+      "revId": "8a1245d9be8005612e2bdc66799b50b424c48712",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
