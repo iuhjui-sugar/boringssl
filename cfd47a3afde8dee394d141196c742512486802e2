@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "48309a7e_d67b6457",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-20T23:51:41Z",
+      "side": 1,
+      "message": "Perhaps we should try to convince upstream to drop it.",
+      "revId": "cfd47a3afde8dee394d141196c742512486802e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
