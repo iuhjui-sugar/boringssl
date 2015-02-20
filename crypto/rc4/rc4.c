@@ -67,8 +67,6 @@
 #error "Unknown word size"
 #endif
 
-#define RC4_INT uint32_t
-
 
 /* RC4 as implemented from a posting from
  * Newsgroups: sci.crypt
@@ -78,15 +76,14 @@
  * Date: Wed, 14 Sep 1994 06:35:31 GMT */
 
 void RC4(RC4_KEY *key, size_t len, const uint8_t *in, uint8_t *out) {
-  register RC4_INT *d;
-  register RC4_INT x, y, tx, ty;
+  uint32_t *d;
+  uint32_t x, y, tx, ty;
   size_t i;
 
   x = key->x;
   y = key->y;
   d = key->data;
 
-#if defined(RC4_CHUNK)
 /* The original reason for implementing this(*) was the fact that
  * pre-21164a Alpha CPUs don't have byte load/store instructions
  * and e.g. a byte store has to be done with 64-bit load, shift,
@@ -98,7 +95,7 @@ void RC4(RC4_KEY *key, size_t len, const uint8_t *in, uint8_t *out) {
  * But it's not only Alpha users who win here:-) Thanks to the
  * early-n-wide read-ahead this implementation also exhibits
  * >40% speed-up on SPARC and 20-30% on 64-bit MIPS (depending
- * on sizeof(RC4_INT)).
+ * on sizeof(uint32_t)).
  *
  * (*)	"this" means code which recognizes the case when input
  *	and output pointers appear to be aligned at natural CPU
@@ -255,7 +252,6 @@ void RC4(RC4_KEY *key, size_t len, const uint8_t *in, uint8_t *out) {
       return;
     }
   }
-#endif
 #define LOOP(in, out)   \
   x = ((x + 1) & 0xff); \
   tx = d[x];            \
@@ -328,9 +324,9 @@ void RC4(RC4_KEY *key, size_t len, const uint8_t *in, uint8_t *out) {
 }
 
 void RC4_set_key(RC4_KEY *rc4key, unsigned len, const uint8_t *key) {
-  register RC4_INT tmp;
-  register int id1, id2;
-  register RC4_INT *d;
+  uint32_t tmp;
+  int id1, id2;
+  uint32_t *d;
   unsigned int i;
 
   d = &rc4key->data[0];
