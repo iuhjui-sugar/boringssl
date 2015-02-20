@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e826ae4e_76d36e61",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-02-20T23:42:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48309a7e_f6a1c0b6",
+      "revId": "73b067a5e2cace3df87edf77f3d3fad5da8a25bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "48309a7e_d69cc485",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 1
@@ -47,6 +65,24 @@
       "writtenOn": "2015-02-20T23:09:38Z",
       "side": 1,
       "message": "Maybe as well mark this as deprecated, or perhaps just delete it right here. Chromium\u0027s the only consumer of this spelling and we can easily fix it on the DEPS roll.",
+      "revId": "73b067a5e2cace3df87edf77f3d3fad5da8a25bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e826ae4e_56d67252",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1802,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-02-20T23:42:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48309a7e_76a5b0c4",
       "revId": "73b067a5e2cace3df87edf77f3d3fad5da8a25bb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
