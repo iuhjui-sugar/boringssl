@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "48fb3a34_9e80fd28",
+        "filename": "crypto/bio/pair.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 5225
+      },
+      "writtenOn": "2015-02-20T14:49:15Z",
+      "side": 1,
+      "message": "b-\u003ebuf \u003d\u003d NULL only implies b-\u003elen \u003d\u003d 0 when reading. When writing b-\u003elen is allowed, as it only means that no data has been written yet.",
+      "parentUuid": "68f63e4b_7fc2cf90",
+      "revId": "73281f5359369f499bedce7a7a5b6d1a73a38598",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b477c3f_0c1f575e",
         "filename": "crypto/bio/pair.c",
         "patchSetId": 7
@@ -30,6 +48,24 @@
       "writtenOn": "2015-02-18T23:39:04Z",
       "side": 1,
       "message": "If called on a non-pair BIO, this function will start stomping on memory. Could you check bio-\u003emethod? Same with the other zero-copy APIs. (See BIO_mem_contents.)",
+      "revId": "73281f5359369f499bedce7a7a5b6d1a73a38598",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a89cb684_21814e2c",
+        "filename": "crypto/bio/pair.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 838,
+      "author": {
+        "id": 5225
+      },
+      "writtenOn": "2015-02-20T14:49:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b477c3f_0c1f575e",
       "revId": "73281f5359369f499bedce7a7a5b6d1a73a38598",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "48fb3a34_fe6f018d",
+        "filename": "crypto/bio/pair.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 852,
+      "author": {
+        "id": 5225
+      },
+      "writtenOn": "2015-02-20T14:49:15Z",
+      "side": 1,
+      "message": "Done.\n\nYou\u0027re right, it\u0027s not possible to have a read lock on a buffer if nothing is written to it.",
+      "parentUuid": "68f63e4b_5ff02beb",
+      "range": {
+        "startLine": 852,
+        "startChar": 6,
+        "endLine": 852,
+        "endChar": 28
+      },
+      "revId": "73281f5359369f499bedce7a7a5b6d1a73a38598",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b477c3f_4ceebfba",
         "filename": "include/openssl/bio.h",
         "patchSetId": 7
@@ -70,6 +130,24 @@
       "writtenOn": "2015-02-18T23:39:04Z",
       "side": 1,
       "message": "This should probably mention that you can release the buffer early. (While you\u0027re here, the variable names and comment don\u0027t quite match the style. writebuf1_len should be ext_writebuf1_len) How about:\n\n/* BIO_new_bio_pair_external_buf sets |*out1| and |*out2| to a freshly created\n * BIO pair with write buffers |ext_writebuf1| and |ext_writebuf2|. The caller\n * must ensure each buffer is valid until |BIO_free| or |BIO_set_external_buf|\n * is called on the corresponding BIO. This is used with the zero copy API for\n * read and write operations, in cases where the buffers need to outlive the BIO\n * pairs. It returns one on success and zero on error. */",
+      "revId": "73281f5359369f499bedce7a7a5b6d1a73a38598",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a89cb684_c1962263",
+        "filename": "include/openssl/bio.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 5225
+      },
+      "writtenOn": "2015-02-20T14:49:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b477c3f_4ceebfba",
       "revId": "73281f5359369f499bedce7a7a5b6d1a73a38598",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "48fb3a34_61f0f0eb",
+        "filename": "include/openssl/bio.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 5225
+      },
+      "writtenOn": "2015-02-20T14:49:15Z",
+      "side": 1,
+      "message": "Thanks, that sounded better. I put back that buf_len must either be 0 for NULL buffer, or the length given to BIO_new_bio_pair_external_buf though (for now, see below).\n\nI don\u0027t actually change the size of the buffer, so buf_len is only used for sanity checking. The reason for this is that the number of requested bytes must be set correctly when attempting to read from a BIO with no buffer. b-\u003erequested is not supposed to exceed the size of the buffer (see line 452 in \"before version\" of pair.c). \n\nI could remove that requirement though, which leads to a slight behavior change in the API. I don\u0027t see this breaking any applications using this API since you\u0027re not guaranteed to successfully write  the number of requested bytes anyway, and as you say it will simplify the code (Removing it surely don\u0027t break chromium).",
+      "parentUuid": "68f63e4b_3fcc47bf",
+      "revId": "73281f5359369f499bedce7a7a5b6d1a73a38598",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b477c3f_ac0483f9",
         "filename": "include/openssl/bio.h",
         "patchSetId": 7
@@ -104,6 +200,24 @@
       "writtenOn": "2015-02-18T23:39:04Z",
       "side": 1,
       "message": "Could you add tests for this? What happens if you switch buffers around call it with bad BIOs, if the write buffer is non-empty, if it\u0027s empty buf there\u0027s a pending write, things fail appropriately with empty buffer, etc.",
+      "revId": "73281f5359369f499bedce7a7a5b6d1a73a38598",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a89cb684_81637af3",
+        "filename": "include/openssl/bio.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 5225
+      },
+      "writtenOn": "2015-02-20T14:49:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b477c3f_ac0483f9",
       "revId": "73281f5359369f499bedce7a7a5b6d1a73a38598",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
