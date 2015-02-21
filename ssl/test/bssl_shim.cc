@@ -17,9 +17,18 @@
 #if !defined(OPENSSL_WINDOWS)
 #include <arpa/inet.h>
 #include <netinet/in.h>
+#include <netinet/tcp.h>
 #include <signal.h>
 #include <sys/socket.h>
 #include <unistd.h>
+#else
+#include <io.h>
+#pragma warning(push, 3)
+#include <WinSock2.h>
+#include <WS2tcpip.h>
+#pragma warning(pop)
+
+#pragma comment(lib, "Ws2_32.lib")
 #endif
 
 #include <string.h>
@@ -34,6 +43,21 @@
 #include "packeted_bio.h"
 #include "scoped_types.h"
 #include "test_config.h"
+
+
+#if !defined(OPENSSL_WINDOWS)
+static int closesocket(int sock) {
+  return close(sock);
+}
+
+static void PrintSocketError(const char *func) {
+  perror(func);
+}
+#else
+static void PrintSocketError(const char *func) {
+  fprintf(stderr, "%s: %d\n", func, WSAGetLastError());
+}
+#endif
 
 static int Usage(const char *program) {
   fprintf(stderr, "Usage: %s [flags...]\n", program);
@@ -272,6 +296,56 @@ static SSL_SESSION *GetSessionCallback(SSL *ssl, uint8_t *data, int len,
   }
 }
 
+// Connect returns a new socket connected to localhost on |port| or -1 on
+// error.
+static int Connect(uint16_t port) {
+  int sock = socket(AF_INET, SOCK_STREAM, 0);
+  if (sock == -1) {
+    PrintSocketError("socket");
+    return -1;
+  }
+  int nodelay = 1;
+  if (setsockopt(sock, IPPROTO_TCP, TCP_NODELAY,
+          reinterpret_cast<const char*>(&nodelay), sizeof(nodelay)) != 0) {
+    PrintSocketError("setsockopt");
+    closesocket(sock);
+    return -1;
+  }
+  sockaddr_in sin;
+  sin.sin_family = AF_INET;
+  sin.sin_port = htons(port);
+  if (!inet_pton(AF_INET, "127.0.0.1", &sin.sin_addr)) {
+    PrintSocketError("inet_pton");
+    closesocket(sock);
+    return -1;
+  }
+  if (connect(sock, reinterpret_cast<const sockaddr*>(&sin),
+              sizeof(sin)) != 0) {
+    PrintSocketError("connect");
+    closesocket(sock);
+    return -1;
+  }
+  return sock;
+}
+
+// DrainAndClose shuts down |sock|, reads from it until error or EOF, then
+// releases it. This is to prevent write failures in the test runner and seems
+// to be necessary for graceful shutdown on Windows.
+static void DrainAndClose(int sock) {
+#if defined(OPENSSL_WINDOWS)
+  shutdown(sock, SD_SEND);
+#else
+  shutdown(sock, SHUT_WR);
+#endif
+  while (true) {
+    char buf[1024];
+    if (recv(sock, buf, sizeof(buf), 0) <= 0) {
+      break;
+    }
+  }
+  closesocket(sock);
+}
+
 static ScopedSSL_CTX SetupCtx(const TestConfig *config) {
   ScopedSSL_CTX ssl_ctx(SSL_CTX_new(
       config->is_dtls ? DTLS_method() : TLS_method()));
@@ -387,13 +461,13 @@ static bool RetryAsync(SSL *ssl, int ret, BIO *async,
   }
 }
 
-// DoExchange runs a test SSL exchange against the peer on file descriptor
-// |fd|. On success, it returns true and sets |*out_session| to the negotiated
-// SSL session. If the test is a resumption attempt, |is_resume| is true and
-// |session| is the session from the previous exchange.
+// DoExchange runs a test SSL exchange against the peer on |bio|. On success, it
+// returns true and sets |*out_session| to the negotiated SSL session. If the
+// test is a resumption attempt, |is_resume| is true and |session| is the
+// session from the previous exchange.
 static bool DoExchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
                        const TestConfig *config, bool is_resume,
-                       int fd, SSL_SESSION *session) {
+                       ScopedBIO bio, SSL_SESSION *session) {
   OPENSSL_timeval clock = {0}, clock_delta = {0};
   ScopedSSL ssl(SSL_new(ssl_ctx));
   if (!ssl) {
@@ -503,10 +577,6 @@ static bool DoExchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
     SSL_set_mtu(ssl.get(), config->mtu);
   }
 
-  ScopedBIO bio(BIO_new_fd(fd, 1 /* take ownership */));
-  if (!bio) {
-    return false;
-  }
   if (config->is_dtls) {
     ScopedBIO packeted = PacketedBioCreate(&clock_delta);
     BIO_push(packeted.get(), bio.release());
@@ -775,8 +845,21 @@ static bool DoExchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
 }
 
 int main(int argc, char **argv) {
-#if !defined(OPENSSL_WINDOWS)
-  signal(SIGPIPE, SIG_IGN);
+#if defined(OPENSSL_WINDOWS)
+  /* Initialize Winsock. */
+  WORD wsa_version = MAKEWORD(2, 2);
+  WSADATA wsa_data;
+  int wsa_err = WSAStartup(wsa_version, &wsa_data);
+  if (wsa_err != 0) {
+    fprintf(stderr, "WSAStartup failed: %d\n", wsa_err);
+    return 1;
+  }
+  if (wsa_data.wVersion != wsa_version) {
+    fprintf(stderr, "Didn't get expected version: %x\n", wsa_data.wVersion);
+    return 1;
+  }
+#else
+    signal(SIGPIPE, SIG_IGN);
 #endif
 
   if (!SSL_library_init()) {
@@ -801,17 +884,33 @@ int main(int argc, char **argv) {
   }
 
   ScopedSSL_SESSION session;
-  if (!DoExchange(&session, ssl_ctx.get(), &config, false /* is_resume */,
-                  3 /* fd */, NULL /* session */)) {
+  int sock = Connect(config.port);
+  if (sock == -1) {
+    return 1;
+  }
+  ScopedBIO bio(BIO_new_socket(sock, BIO_NOCLOSE));
+  if (!bio || !DoExchange(&session, ssl_ctx.get(), &config,
+                          false /* is_resume */, std::move(bio),
+                          NULL /* session */)) {
+    DrainAndClose(sock);
     BIO_print_errors_fp(stdout);
     return 1;
   }
+  DrainAndClose(sock);
 
-  if (config.resume &&
-      !DoExchange(NULL, ssl_ctx.get(), &config, true /* is_resume */,
-                  4 /* fd */, session.get())) {
-    BIO_print_errors_fp(stdout);
-    return 1;
+  if (config.resume) {
+    sock = Connect(config.port);
+    if (sock == -1) {
+      return 1;
+    }
+    bio.reset(BIO_new_socket(sock, BIO_NOCLOSE));
+    if (!bio || !DoExchange(NULL, ssl_ctx.get(), &config, true /* is_resume */,
+                            std::move(bio), session.get())) {
+      DrainAndClose(sock);
+      BIO_print_errors_fp(stdout);
+      return 1;
+    }
+    DrainAndClose(sock);
   }
 
   return 0;
