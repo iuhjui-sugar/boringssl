@@ -970,27 +970,6 @@ func gdbOf(path string, args ...string) *exec.Cmd {
 	return exec.Command("xterm", xtermArgs...)
 }
 
-func openSocketPair() (shimEnd *os.File, conn net.Conn) {
-	socks, err := syscall.Socketpair(syscall.AF_UNIX, syscall.SOCK_STREAM, 0)
-	if err != nil {
-		panic(err)
-	}
-
-	syscall.CloseOnExec(socks[0])
-	syscall.CloseOnExec(socks[1])
-	shimEnd = os.NewFile(uintptr(socks[0]), "shim end")
-	connFile := os.NewFile(uintptr(socks[1]), "our end")
-	conn, err = net.FileConn(connFile)
-	if err != nil {
-		panic(err)
-	}
-	connFile.Close()
-	if err != nil {
-		panic(err)
-	}
-	return shimEnd, conn
-}
-
 type moreMallocsError struct{}
 
 func (moreMallocsError) Error() string {
@@ -999,16 +978,61 @@ func (moreMallocsError) Error() string {
 
 var errMoreMallocs = moreMallocsError{}
 
+// errorConn is a implementation that fails every non-Close operation with an
+// error.
+type errorConn struct{ err error }
+
+func (e errorConn) Read(b []byte) (int, error)         { return 0, e.err }
+func (e errorConn) Write(b []byte) (int, error)        { return 0, e.err }
+func (e errorConn) Close() error                       { return nil }
+func (e errorConn) LocalAddr() net.Addr                { return nil }
+func (e errorConn) RemoteAddr() net.Addr               { return nil }
+func (e errorConn) SetDeadline(t time.Time) error      { return e.err }
+func (e errorConn) SetReadDeadline(t time.Time) error  { return e.err }
+func (e errorConn) SetWriteDeadline(t time.Time) error { return e.err }
+
+// accept accepts a connection from listener, unless waitChan signals
+// a process exit first. Then it returns a connection that fails every
+// operation and puts the process exit code back into waitChan for the
+// next consumer.
+func acceptOrWait(listener net.Listener, waitChan chan error) (net.Conn, error) {
+	type connOrError struct {
+		conn net.Conn
+		err  error
+	}
+	connChan := make(chan connOrError, 1)
+	go func() {
+		conn, err := listener.Accept()
+		connChan <- connOrError{conn, err}
+		close(connChan)
+	}()
+	select {
+	case result := <-connChan:
+		return result.conn, result.err
+	case childErr := <-waitChan:
+		waitChan <- childErr
+		return &errorConn{fmt.Errorf("child exited early: %s", childErr)}, nil
+	}
+}
+
 func runTest(test *testCase, buildDir string, mallocNumToFail int64) error {
 	if !test.shouldFail && (len(test.expectedError) > 0 || len(test.expectedLocalError) > 0) {
 		panic("Error expected without shouldFail in " + test.name)
 	}
 
-	shimEnd, conn := openSocketPair()
-	shimEndResume, connResume := openSocketPair()
+	listener, err := net.ListenTCP("tcp4", &net.TCPAddr{IP: net.IP{127, 0, 0, 1}})
+	if err != nil {
+		panic(err)
+	}
+	listenerClosed := false
+	defer func() {
+		if !listenerClosed {
+			listener.Close()
+		}
+	}()
 
 	shim_path := path.Join(buildDir, "ssl/test/bssl_shim")
-	var flags []string
+	flags := []string{"-port", strconv.Itoa(listener.Addr().(*net.TCPAddr).Port)}
 	if test.testType == serverTest {
 		flags = append(flags, "-server")
 
@@ -1049,7 +1073,6 @@ func runTest(test *testCase, buildDir string, mallocNumToFail int64) error {
 	} else {
 		shim = exec.Command(shim_path, flags...)
 	}
-	shim.ExtraFiles = []*os.File{shimEnd, shimEndResume}
 	shim.Stdin = os.Stdin
 	var stdoutBuf, stderrBuf bytes.Buffer
 	shim.Stdout = &stdoutBuf
@@ -1066,8 +1089,8 @@ func runTest(test *testCase, buildDir string, mallocNumToFail int64) error {
 	if err := shim.Start(); err != nil {
 		panic(err)
 	}
-	shimEnd.Close()
-	shimEndResume.Close()
+	waitChan := make(chan error, 1)
+	go func() { waitChan <- shim.Wait() }()
 
 	config := test.config
 	config.ClientSessionCache = NewLRUClientSessionCache(1)
@@ -1076,9 +1099,19 @@ func runTest(test *testCase, buildDir string, mallocNumToFail int64) error {
 		if len(config.Certificates) == 0 {
 			config.Certificates = []Certificate{getRSACertificate()}
 		}
+	} else {
+		// Supply a ServerName to ensure a constant session cache key,
+		// rather than falling back to net.Conn.RemoteAddr.
+		if len(config.ServerName) == 0 {
+			config.ServerName = "test"
+		}
 	}
 
-	err := doExchange(test, &config, conn, test.messageLen,
+	conn, err := acceptOrWait(listener, waitChan)
+	if err != nil {
+		return err
+	}
+	err = doExchange(test, &config, conn, test.messageLen,
 		false /* not a resumption */)
 	conn.Close()
 
@@ -1086,6 +1119,9 @@ func runTest(test *testCase, buildDir string, mallocNumToFail int64) error {
 		var resumeConfig Config
 		if test.resumeConfig != nil {
 			resumeConfig = *test.resumeConfig
+			if len(resumeConfig.ServerName) == 0 {
+				resumeConfig.ServerName = config.ServerName
+			}
 			if len(resumeConfig.Certificates) == 0 {
 				resumeConfig.Certificates = []Certificate{getRSACertificate()}
 			}
@@ -1097,12 +1133,22 @@ func runTest(test *testCase, buildDir string, mallocNumToFail int64) error {
 		} else {
 			resumeConfig = config
 		}
+		var connResume net.Conn
+		connResume, err = acceptOrWait(listener, waitChan)
+		if err != nil {
+			return err
+		}
 		err = doExchange(test, &resumeConfig, connResume, test.messageLen,
 			true /* resumption */)
+		connResume.Close()
 	}
-	connResume.Close()
 
-	childErr := shim.Wait()
+	// Close the listener now. This is to avoid hangs should the shim try to
+	// open more connections than expected.
+	listener.Close()
+	listenerClosed = true
+
+	childErr := <-waitChan
 	if exitError, ok := childErr.(*exec.ExitError); ok {
 		if exitError.Sys().(syscall.WaitStatus).ExitStatus() == 88 {
 			return errMoreMallocs
@@ -2784,7 +2830,6 @@ func worker(statusChan chan statusMsg, c chan *testCase, buildDir string, wg *sy
 
 	for test := range c {
 		var err error
-
 		if *mallocTest < 0 {
 			statusChan <- statusMsg{test: test, started: true}
 			err = runTest(test, buildDir, -1)
@@ -2816,7 +2861,11 @@ func statusPrinter(doneChan chan *testOutput, statusChan chan statusMsg, total i
 	for msg := range statusChan {
 		if !*pipe {
 			// Erase the previous status line.
-			fmt.Printf("\x1b[%dD\x1b[K", lineLen)
+			var erase string
+			for i := 0; i < lineLen; i++ {
+				erase += "\b \b"
+			}
+			fmt.Print(erase)
 		}
 
 		if msg.started {
