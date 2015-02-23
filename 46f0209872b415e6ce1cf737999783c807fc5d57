@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c849ea4e_12704c70",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-23T19:55:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "283a86a9_edc2055c",
+      "revId": "46f0209872b415e6ce1cf737999783c807fc5d57",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "283a86a9_ada1ddb7",
         "filename": "ssl/test/bssl_shim.cc",
         "patchSetId": 8
@@ -30,6 +48,24 @@
       "writtenOn": "2015-02-23T19:42:33Z",
       "side": 1,
       "message": "const",
+      "revId": "46f0209872b415e6ce1cf737999783c807fc5d57",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c849ea4e_326d5095",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-23T19:55:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "283a86a9_ada1ddb7",
       "revId": "46f0209872b415e6ce1cf737999783c807fc5d57",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "c849ea4e_d25ec4e1",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 1012,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-23T19:55:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "283a86a9_cdfaa97a",
+      "revId": "46f0209872b415e6ce1cf737999783c807fc5d57",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "283a86a9_2d440d3d",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 8
@@ -64,6 +118,24 @@
       "writtenOn": "2015-02-23T19:42:33Z",
       "side": 1,
       "message": "generally don\u0027t wrap lines in Go.",
+      "revId": "46f0209872b415e6ce1cf737999783c807fc5d57",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c849ea4e_92643cb0",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 1098,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-23T19:55:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "283a86a9_2d440d3d",
       "revId": "46f0209872b415e6ce1cf737999783c807fc5d57",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
