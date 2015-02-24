@@ -1657,6 +1657,18 @@ func addStateMachineCoverageTests(async, splitHandshake bool, protocol protocol)
 		flags:         append(flags, "-implicit-handshake"),
 		resumeSession: true,
 	})
+	testCases = append(testCases, testCase{
+		protocol: protocol,
+		testType: serverTest,
+		name:     "Basic-Server-EarlyCallback" + suffix,
+		config: Config{
+			Bugs: ProtocolBugs{
+				MaxHandshakeRecordLength: maxHandshakeRecordLength,
+			},
+		},
+		flags:         append(flags, "-use-early-callback"),
+		resumeSession: true,
+	})
 
 	// TLS client auth.
 	testCases = append(testCases, testCase{
