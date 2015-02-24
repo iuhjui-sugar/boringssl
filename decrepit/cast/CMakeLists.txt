@@ -6,4 +6,5 @@ add_library(
   OBJECT
 
   cast.c
+  cast_tables.c
 )
