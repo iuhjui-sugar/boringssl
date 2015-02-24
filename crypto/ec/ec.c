@@ -503,7 +503,11 @@ int EC_GROUP_cmp(const EC_GROUP *a, const EC_GROUP *b, BN_CTX *ignored) {
   if (a->curve_name == NID_undef || b->curve_name == NID_undef) {
     return 0;
   }
-  return a->curve_name == b->curve_name;
+
+  if (a->curve_name != b->curve_name) {
+    return 1;
+  }
+  return 0;
 }
 
 const EC_POINT *EC_GROUP_get0_generator(const EC_GROUP *group) {
