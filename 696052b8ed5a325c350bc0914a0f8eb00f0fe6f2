@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "021e8359_342b5078",
+        "filename": "crypto/ec/ec_key.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-25T19:58:55Z",
+      "side": 1,
+      "message": "This not being dest-\u003egroup was really weird. But it\u0027s true in the old code as well, and it seems EC_POINT_new just saves a copy of the shared EC_METHOD and nothing else. I just left it alone because the NULL checks are confusing.",
+      "range": {
+        "startLine": 190,
+        "startChar": 47,
+        "endLine": 190,
+        "endChar": 57
+      },
+      "revId": "696052b8ed5a325c350bc0914a0f8eb00f0fe6f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
