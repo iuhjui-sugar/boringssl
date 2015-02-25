@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "021e8359_546c8c96",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-25T20:02:47Z",
+      "side": 1,
+      "message": "These are also unused in Google code, but I don\u0027t know much about those, so I left them alone.\n\nI\u0027m thinking if we get rid of strange mutable API, then an EC_GROUP can just secretly be a pointer to some const structure. EC_GROUP_free can be a no-op and EC_GROUP_dup can just return its input. That seems more in keeping with doing only named curves.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 17
+      },
+      "revId": "fd43dc2bfd84bb9239e59ec822928deb70f1747a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
