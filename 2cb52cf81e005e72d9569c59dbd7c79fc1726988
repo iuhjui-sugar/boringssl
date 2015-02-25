@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a215b730_f96037ea",
+        "filename": "crypto/ec/ec.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-25T19:45:56Z",
+      "side": 1,
+      "message": "I think this also wants to be 1. (My read of the old code is if the EC_GROUP is uninitialized, the curve name check will fail and then the bignum logic will probably fail at group_get_cruve.)\n\nDo we ever create EC_GROUPs without a curve_name? Everything seems to either eventually call EC_GROUP_copy or set a curve_name.",
+      "range": {
+        "startLine": 504,
+        "startChar": 11,
+        "endLine": 504,
+        "endChar": 12
+      },
+      "revId": "2cb52cf81e005e72d9569c59dbd7c79fc1726988",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
