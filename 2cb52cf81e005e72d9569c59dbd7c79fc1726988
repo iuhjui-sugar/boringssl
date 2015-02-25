@@ -22,6 +22,30 @@
       "revId": "2cb52cf81e005e72d9569c59dbd7c79fc1726988",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e22faf8a_8e6e7b60",
+        "filename": "crypto/ec/ec.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-02-25T21:10:20Z",
+      "side": 1,
+      "message": "Yep, on rereading I think you\u0027re correct, thanks.",
+      "parentUuid": "a215b730_f96037ea",
+      "range": {
+        "startLine": 504,
+        "startChar": 11,
+        "endLine": 504,
+        "endChar": 12
+      },
+      "revId": "2cb52cf81e005e72d9569c59dbd7c79fc1726988",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
