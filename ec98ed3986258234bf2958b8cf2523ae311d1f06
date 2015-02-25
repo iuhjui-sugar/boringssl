@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e5433932_0b79fdaa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-25T17:57:39Z",
+      "side": 1,
+      "message": "See https://codereview.chromium.org/952293002/ and https://boringssl.googlesource.com/boringssl/+/master/crypto/perlasm/x86_64-xlate.pl#524",
+      "range": {
+        "startLine": 10,
+        "startChar": 28,
+        "endLine": 10,
+        "endChar": 49
+      },
+      "revId": "ec98ed3986258234bf2958b8cf2523ae311d1f06",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e5433932_8b640d09",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-25T17:57:39Z",
+      "side": 1,
+      "message": "I wonder if we\u0027re better off importing this guy and then patching in .globl \u003d\u003e .hidden there too? Something for the next upstream newsletter perhaps. (Should have included it in yesterday\u0027s but I missed it.)\n\nhttps://git.openssl.org/gitweb/?p\u003dopenssl.git;a\u003dcommit;h\u003d9b05cbc33e7895ed033b1119e300782d9e0cf23c",
+      "range": {
+        "startLine": 10,
+        "startChar": 52,
+        "endLine": 10,
+        "endChar": 78
+      },
+      "revId": "ec98ed3986258234bf2958b8cf2523ae311d1f06",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
