@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a213f7da_a9465d69",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-26T20:08:23Z",
+      "side": 1,
+      "message": "This should probably (additionally?) point to our version https://boringssl.googlesource.com/boringssl/+/525a0fe315282ca1840f8f9f170c8a26ce5fab2a too, just so it\u0027s clearer why we\u0027re only backporting to M40.",
+      "revId": "ee3429262a084d8a71037a6e264bdba52a88c485",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a213f7da_092689da",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1296,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-26T20:08:23Z",
+      "side": 1,
+      "message": "This entire block can go away; we\u0027ll just fall through to line 143.\n\nNot coincidentally, this matches our version better. :-) Our version is literally this change + removing the peer_rsa_tmp field. Upstream\u0027s looks like this because they haven\u0027t removed the export ciphers.",
+      "range": {
+        "startLine": 1296,
+        "startChar": 1,
+        "endLine": 1296,
+        "endChar": 22
+      },
+      "revId": "ee3429262a084d8a71037a6e264bdba52a88c485",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a213f7da_29826d34",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1299,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-26T20:08:23Z",
+      "side": 1,
+      "message": "Transpose",
+      "range": {
+        "startLine": 1299,
+        "startChar": 53,
+        "endLine": 1299,
+        "endChar": 55
+      },
+      "revId": "ee3429262a084d8a71037a6e264bdba52a88c485",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
