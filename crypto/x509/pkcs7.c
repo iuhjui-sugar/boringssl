@@ -22,21 +22,18 @@
 #include "../bytestring/internal.h"
 
 
-int PKCS7_get_certificates(STACK_OF(X509) *out_certs, CBS *cbs) {
-  uint8_t *der_bytes = NULL;
+static int pkcs7_parse_header(uint8_t **der_bytes, CBS *out, CBS *cbs) {
   size_t der_len;
-  CBS in, content_info, content_type, wrapped_signed_data, signed_data,
-      certificates;
-  const size_t initial_certs_len = sk_X509_num(out_certs);
+  CBS in, content_info, content_type, wrapped_signed_data, signed_data;
   uint64_t version;
-  int ret = 0;
 
   /* The input may be in BER format. */
-  if (!CBS_asn1_ber_to_der(cbs, &der_bytes, &der_len)) {
+  *der_bytes = NULL;
+  if (!CBS_asn1_ber_to_der(cbs, der_bytes, &der_len)) {
     return 0;
   }
-  if (der_bytes != NULL) {
-    CBS_init(&in, der_bytes, der_len);
+  if (*der_bytes != NULL) {
+    CBS_init(&in, *der_bytes, der_len);
   } else {
     CBS_init(&in, CBS_data(cbs), CBS_len(cbs));
   }
@@ -64,9 +61,31 @@ int PKCS7_get_certificates(STACK_OF(X509) *out_certs, CBS *cbs) {
   }
 
   if (version < 1) {
-    OPENSSL_PUT_ERROR(X509, PKCS7_get_certificates,
+    OPENSSL_PUT_ERROR(X509, pkcs7_parse_header,
                       X509_R_BAD_PKCS7_VERSION);
     goto err;
+  }
+
+  CBS_init(out, CBS_data(&signed_data), CBS_len(&signed_data));
+  return 1;
+
+err:
+  if (*der_bytes) {
+    OPENSSL_free(*der_bytes);
+    *der_bytes = NULL;
+  }
+
+  return 0;
+}
+
+int PKCS7_get_certificates(STACK_OF(X509) *out_certs, CBS *cbs) {
+  CBS signed_data, certificates;
+  uint8_t *der_bytes = NULL;
+  int ret = 0;
+  const size_t initial_certs_len = sk_X509_num(out_certs);
+
+  if (!pkcs7_parse_header(&der_bytes, &signed_data, cbs)) {
+    return 0;
   }
 
   if (!CBS_get_asn1(&signed_data, &certificates,
@@ -116,10 +135,76 @@ err:
   return ret;
 }
 
-int PKCS7_bundle_certificates(CBB *out, const STACK_OF(X509) *certs) {
+int PKCS7_get_CRLs(STACK_OF(X509_CRL) *out_crls, CBS *cbs) {
+  CBS signed_data, certificates, crls;
+  uint8_t *der_bytes = NULL;
+  int ret = 0;
+  const size_t initial_crls_len = sk_X509_CRL_num(out_crls);
+
+  if (!pkcs7_parse_header(&der_bytes, &signed_data, cbs)) {
+    return 0;
+  }
+
+  /* Even if only CRLs are included, there may be an empty certificates block.
+   * OpenSSL does this, for example. */
+  if (CBS_peek_asn1_tag(&signed_data,
+                        CBS_ASN1_CONTEXT_SPECIFIC | CBS_ASN1_CONSTRUCTED | 0) &&
+      !CBS_get_asn1(&signed_data, &certificates,
+                    CBS_ASN1_CONTEXT_SPECIFIC | CBS_ASN1_CONSTRUCTED | 0)) {
+    goto err;
+  }
+
+  if (!CBS_get_asn1(&signed_data, &crls,
+                    CBS_ASN1_CONTEXT_SPECIFIC | CBS_ASN1_CONSTRUCTED | 1)) {
+    OPENSSL_PUT_ERROR(X509, PKCS7_get_CRLs,
+                      X509_R_NO_CRLS_INCLUDED);
+    goto err;
+  }
+
+  while (CBS_len(&crls) > 0) {
+    CBS crl_data;
+    X509_CRL *crl;
+    const uint8_t *inp;
+
+    if (!CBS_get_asn1_element(&crls, &crl_data, CBS_ASN1_SEQUENCE)) {
+      goto err;
+    }
+
+    inp = CBS_data(&crl_data);
+    crl = d2i_X509_CRL(NULL, &inp, CBS_len(&crl_data));
+    if (!crl) {
+      goto err;
+    }
+
+    if (inp != CBS_data(&crl_data) + CBS_len(&crl_data)) {
+      /* This suggests a disconnect between the two ASN.1 parsers. */
+      goto err;
+    }
+
+    sk_X509_CRL_push(out_crls, crl);
+  }
+
+  ret = 1;
+
+err:
+  if (der_bytes) {
+    OPENSSL_free(der_bytes);
+  }
+
+  if (!ret) {
+    while (sk_X509_CRL_num(out_crls) != initial_crls_len) {
+      X509_CRL *crl = sk_X509_CRL_pop(out_crls);
+      X509_CRL_free(crl);
+    }
+  }
+
+  return ret;
+}
+
+static int pkcs7_bundle(CBB *out, int (*cb)(CBB *out, const void *arg),
+                        const void *arg) {
   CBB outer_seq, wrapped_seq, seq, version_bytes, digest_algos_set,
-      content_info, certificates;
-  size_t i;
+      content_info;
 
   /* See https://tools.ietf.org/html/rfc2315#section-7 */
   if (!CBB_add_asn1(out, &outer_seq, CBS_ASN1_SEQUENCE) ||
@@ -133,7 +218,19 @@ int PKCS7_bundle_certificates(CBB *out, const STACK_OF(X509) *certs) {
       !CBB_add_asn1(&seq, &digest_algos_set, CBS_ASN1_SET) ||
       !CBB_add_asn1(&seq, &content_info, CBS_ASN1_SEQUENCE) ||
       !OBJ_nid2cbb(&content_info, NID_pkcs7_data) ||
-      !CBB_add_asn1(&seq, &certificates,
+      !cb(&seq, arg)) {
+    return 0;
+  }
+
+  return CBB_flush(out);
+}
+
+static int pkcs7_bundle_certificates_cb(CBB *out, const void *arg) {
+  const STACK_OF(X509) *certs = arg;
+  size_t i;
+  CBB certificates;
+
+  if (!CBB_add_asn1(out, &certificates,
                     CBS_ASN1_CONTEXT_SPECIFIC | CBS_ASN1_CONSTRUCTED | 0)) {
     return 0;
   }
@@ -150,5 +247,38 @@ int PKCS7_bundle_certificates(CBB *out, const STACK_OF(X509) *certs) {
     }
   }
 
-  return CBB_flush(out);
+  return 1;
+}
+
+int PKCS7_bundle_certificates(CBB *out, const STACK_OF(X509) *certs) {
+  return pkcs7_bundle(out, pkcs7_bundle_certificates_cb, certs);
+}
+
+static int pkcs7_bundle_crls_cb(CBB *out, const void *arg) {
+  const STACK_OF(X509_CRL) *crls = arg;
+  size_t i;
+  CBB crl_data;
+
+  if (!CBB_add_asn1(out, &crl_data,
+                    CBS_ASN1_CONTEXT_SPECIFIC | CBS_ASN1_CONSTRUCTED | 1)) {
+    return 0;
+  }
+
+  for (i = 0; i < sk_X509_CRL_num(crls); i++) {
+    X509_CRL *crl = sk_X509_CRL_value(crls, i);
+    uint8_t *buf;
+    int len = i2d_X509_CRL(crl, NULL);
+
+    if (len < 0 ||
+        !CBB_add_space(&crl_data, &buf, len) ||
+        i2d_X509_CRL(crl, &buf) < 0) {
+      return 0;
+    }
+  }
+
+  return 1;
+}
+
+int PKCS7_bundle_CRLs(CBB *out, const STACK_OF(X509_CRL) *crls) {
+  return pkcs7_bundle(out, pkcs7_bundle_crls_cb, crls);
 }
