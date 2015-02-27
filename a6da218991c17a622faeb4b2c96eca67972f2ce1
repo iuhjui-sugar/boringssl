@@ -525,6 +525,30 @@
       "revId": "a6da218991c17a622faeb4b2c96eca67972f2ce1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e26ecfaf_7326e0db",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1176,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-02-27T19:02:49Z",
+      "side": 1,
+      "message": "Opps, missed this one. Done.",
+      "parentUuid": "22c707d7_452caa08",
+      "range": {
+        "startLine": 1176,
+        "startChar": 14,
+        "endLine": 1176,
+        "endChar": 17
+      },
+      "revId": "a6da218991c17a622faeb4b2c96eca67972f2ce1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
