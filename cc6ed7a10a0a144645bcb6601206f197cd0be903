@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "02abe3f0_2c9a330b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-27T23:21:16Z",
+      "side": 1,
+      "message": "(I think the linker actually has to be somewhat clever to drop things at finer than a compilation unit. I don\u0027t know if we do that on final Chrome builds... we might.)",
+      "range": {
+        "startLine": 9,
+        "startChar": 20,
+        "endLine": 9,
+        "endChar": 31
+      },
+      "revId": "cc6ed7a10a0a144645bcb6601206f197cd0be903",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "02abe3f0_0c9777e3",
+        "filename": "include/openssl/des.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-27T23:21:16Z",
+      "side": 1,
+      "message": "const (ditto for two below)",
+      "revId": "cc6ed7a10a0a144645bcb6601206f197cd0be903",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
