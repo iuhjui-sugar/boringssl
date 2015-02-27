@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "02abe3f0_0c6f7790",
+        "filename": "crypto/bio/pair.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-27T22:58:21Z",
+      "side": 0,
+      "message": "To confirm: this is unrelated, right? (It doesn\u0027t actually matter because bio_io in bio.c won\u0027t bother calling bio_read if buf is NULL or size \u003c\u003d 0.)",
+      "range": {
+        "startLine": 439,
+        "startChar": 6,
+        "endLine": 439,
+        "endChar": 21
+      },
+      "revId": "5f237bc843f4a4791667493d8748c903b8e540e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
