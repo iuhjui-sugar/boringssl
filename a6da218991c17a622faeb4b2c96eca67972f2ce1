@@ -1,0 +1,272 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "428f9bad_fe9d617b",
+        "filename": "crypto/x509/pkcs7.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-27T18:01:30Z",
+      "side": 1,
+      "message": "Might be worth a documentation comment for what this unwraps; caller frees |der_bytes| and |out| contains everything after the contentInfo of the SignedData. (Arguably we\u0027re less parsing out the header and more skipping past the data to begin this to only pull out the certificate/CRL footer.)",
+      "revId": "a6da218991c17a622faeb4b2c96eca67972f2ce1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "428f9bad_be511924",
+        "filename": "crypto/x509/pkcs7.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-27T18:01:30Z",
+      "side": 1,
+      "message": "pkcs7_parse_header",
+      "range": {
+        "startLine": 48,
+        "startChar": 28,
+        "endLine": 48,
+        "endChar": 50
+      },
+      "revId": "a6da218991c17a622faeb4b2c96eca67972f2ce1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "428f9bad_5e3f35ac",
+        "filename": "crypto/x509/pkcs7.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-27T18:01:30Z",
+      "side": 1,
+      "message": "Probably worth linking to https://tools.ietf.org/html/rfc2315#section-9.1 now that the other citation is in a different function.",
+      "revId": "a6da218991c17a622faeb4b2c96eca67972f2ce1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "428f9bad_9ed9bd34",
+        "filename": "crypto/x509/pkcs7.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-27T18:01:30Z",
+      "side": 1,
+      "message": "Probably worth linking to https://tools.ietf.org/html/rfc2315#section-9.1 now that the other citation is in a different function.",
+      "revId": "a6da218991c17a622faeb4b2c96eca67972f2ce1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "428f9bad_1e45ad3c",
+        "filename": "crypto/x509/pkcs7.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-27T18:01:30Z",
+      "side": 1,
+      "message": "I think this can just be NULL /* certificates */",
+      "range": {
+        "startLine": 152,
+        "startChar": 34,
+        "endLine": 152,
+        "endChar": 47
+      },
+      "revId": "a6da218991c17a622faeb4b2c96eca67972f2ce1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "428f9bad_3ebd09ad",
+        "filename": "crypto/x509/pkcs7.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-27T18:01:30Z",
+      "side": 1,
+      "message": "This should never happen (maybe even should be an assert), but X509_CRL_free(crl)",
+      "revId": "a6da218991c17a622faeb4b2c96eca67972f2ce1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "428f9bad_7ec7913a",
+        "filename": "crypto/x509/pkcs7.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-27T18:01:30Z",
+      "side": 1,
+      "message": "This can fail on malloc failure (which will also want an X509_CRL_free, or we can just fold it into line 179). Ditto with the certificates one, actually.",
+      "revId": "a6da218991c17a622faeb4b2c96eca67972f2ce1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "428f9bad_5ea3b58b",
+        "filename": "crypto/x509/pkcs7.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-27T18:01:30Z",
+      "side": 1,
+      "message": "Nit: Maybe just X509_CRL_free(sk_X509_CRL_pop(out_crls));",
+      "revId": "a6da218991c17a622faeb4b2c96eca67972f2ce1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "428f9bad_3e58a9f0",
+        "filename": "crypto/x509/pkcs7.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-27T18:01:30Z",
+      "side": 1,
+      "message": "Probably also worth documenting.",
+      "revId": "a6da218991c17a622faeb4b2c96eca67972f2ce1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "428f9bad_5e7c9547",
+        "filename": "crypto/x509/pkcs7.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-27T18:01:30Z",
+      "side": 1,
+      "message": "/* See https://tools.ietf.org/html/rfc2315#section-9.1 */",
+      "revId": "a6da218991c17a622faeb4b2c96eca67972f2ce1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e295efbd_bbeda714",
+        "filename": "crypto/x509/pkcs7.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-27T18:01:30Z",
+      "side": 1,
+      "message": "CBB_flush(out)",
+      "range": {
+        "startLine": 250,
+        "startChar": 9,
+        "endLine": 250,
+        "endChar": 11
+      },
+      "revId": "a6da218991c17a622faeb4b2c96eca67972f2ce1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "428f9bad_7e795156",
+        "filename": "crypto/x509/pkcs7.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-27T18:01:30Z",
+      "side": 1,
+      "message": "/* See https://tools.ietf.org/html/rfc2315#section-9.1 */",
+      "revId": "a6da218991c17a622faeb4b2c96eca67972f2ce1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e295efbd_dbe27323",
+        "filename": "crypto/x509/pkcs7.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-27T18:01:30Z",
+      "side": 1,
+      "message": "CBB_flush(out)",
+      "range": {
+        "startLine": 279,
+        "startChar": 9,
+        "endLine": 279,
+        "endChar": 10
+      },
+      "revId": "a6da218991c17a622faeb4b2c96eca67972f2ce1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "22c707d7_452caa08",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1176,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-27T18:01:30Z",
+      "side": 1,
+      "message": "out? (Or maybe rename the variable. I don\u0027t have opinions on which.)",
+      "range": {
+        "startLine": 1176,
+        "startChar": 14,
+        "endLine": 1176,
+        "endChar": 17
+      },
+      "revId": "a6da218991c17a622faeb4b2c96eca67972f2ce1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
