@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "02abe3f0_2c51939f",
+        "filename": "crypto/cipher/e_ssl3.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-27T23:15:25Z",
+      "side": 1,
+      "message": "NOTE: Because of the delayed initialization, this won\u0027t work until we\u0027ve used the EVP_AEAD_CTX at least once. I think this is fine because Finished will already have been sent?\n\nIf it matters, we could maybe initialize it early for RC4 since encryption and decryption are the same. Or snarf the state out of enc_key and initialize a new RC4_KEY. Though the ownership there becomes complicated... perhaps this API should take an RC4_KEY *out_key and copy it out? It\u0027s not very big.",
+      "revId": "af154a0c0f28a4796fac2a5a9b0243d3a52d0e01",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "02abe3f0_0c4e57ff",
+        "filename": "crypto/cipher/e_tls.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-27T23:15:25Z",
+      "side": 1,
+      "message": "Missing?",
+      "revId": "af154a0c0f28a4796fac2a5a9b0243d3a52d0e01",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
