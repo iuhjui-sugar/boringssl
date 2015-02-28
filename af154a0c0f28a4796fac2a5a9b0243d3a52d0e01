@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f23f82b3_1006241c",
+        "filename": "crypto/cipher/e_ssl3.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-02-28T04:37:30Z",
+      "side": 1,
+      "message": "Actually, better idea: let\u0027s not delay-initialize these things. It\u0027d probably let us cut down on per-connection memory usage. We can add an init_with_direction hook and add EVP_AEAD_init_with_direction. For normal AEADs, this will be the same as EVP_AEAD_init. For legacy AEADs, only _with_direction works. I\u0027ll go do that and send you a CL.",
+      "parentUuid": "02abe3f0_2c51939f",
+      "revId": "af154a0c0f28a4796fac2a5a9b0243d3a52d0e01",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02abe3f0_0c4e57ff",
         "filename": "crypto/cipher/e_tls.c",
         "patchSetId": 1
