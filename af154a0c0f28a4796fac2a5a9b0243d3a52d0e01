@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "f23f82b3_73445a06",
+        "filename": "crypto/cipher/e_ssl3.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-01T00:54:06Z",
+      "side": 1,
+      "message": "https://boringssl-review.googlesource.com/#/c/3731/",
+      "parentUuid": "f23f82b3_1006241c",
+      "revId": "af154a0c0f28a4796fac2a5a9b0243d3a52d0e01",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02abe3f0_0c4e57ff",
         "filename": "crypto/cipher/e_tls.c",
         "patchSetId": 1
