@@ -222,13 +222,13 @@ OPENSSL_EXPORT void *CRYPTO_get_ex_data(const CRYPTO_EX_DATA *ad, int index);
 #define CRYPTO_EX_INDEX_RSA 6
 #define CRYPTO_EX_INDEX_DSA 7
 #define CRYPTO_EX_INDEX_DH 8
-#define CRYPTO_EX_INDEX_ENGINE 9
+     /* CRYPTO_EX_INDEX_ENGINE 9 */
 #define CRYPTO_EX_INDEX_X509 10
-#define CRYPTO_EX_INDEX_UI 11
+     /* CRYPTO_EX_INDEX_UI 11 */
 #define CRYPTO_EX_INDEX_EC_KEY 12
-#define CRYPTO_EX_INDEX_EC_GROUP 13
-#define CRYPTO_EX_INDEX_COMP 14
-#define CRYPTO_EX_INDEX_STORE 15
+     /* CRYPTO_EX_INDEX_EC_GROUP 13 */
+     /* CRYPTO_EX_INDEX_COMP 14 */
+     /* CRYPTO_EX_INDEX_STORE 15 */
 
 
 /* User-defined classes of objects.
