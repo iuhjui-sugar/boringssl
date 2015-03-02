@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "520f6e78_c385b69c",
+        "filename": "crypto/cipher/e_tls.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-02T23:13:28Z",
+      "side": 1,
+      "message": "EVP_MAX_MD_SIZE",
+      "range": {
+        "startLine": 81,
+        "startChar": 23,
+        "endLine": 81,
+        "endChar": 26
+      },
+      "revId": "966198e22b581265390f75759c8d7841c4dbc6e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
