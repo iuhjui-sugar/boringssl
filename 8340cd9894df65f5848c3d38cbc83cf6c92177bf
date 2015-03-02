@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "62581f1b_af2f1932",
+        "filename": "crypto/bio/bio_test.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5225
+      },
+      "writtenOn": "2015-03-02T16:03:50Z",
+      "side": 1,
+      "message": "Done.\n\nI changed to void since that mimics how BIO_read is declared in bio.h (I\u0027m on linux/mac so I can\u0027t easily test). Wouldn\u0027t BIO_read also cause trouble if MSVC reacted on this?",
+      "parentUuid": "02abe3f0_ece30bde",
+      "range": {
+        "startLine": 128,
+        "startChar": 51,
+        "endLine": 128,
+        "endChar": 55
+      },
+      "revId": "8340cd9894df65f5848c3d38cbc83cf6c92177bf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02abe3f0_4c3cdfb6",
         "filename": "crypto/bio/bio_test.c",
         "patchSetId": 9
@@ -36,6 +60,30 @@
       "writtenOn": "2015-02-27T22:58:21Z",
       "side": 1,
       "message": "Ditto.",
+      "range": {
+        "startLine": 153,
+        "startChar": 58,
+        "endLine": 153,
+        "endChar": 62
+      },
+      "revId": "8340cd9894df65f5848c3d38cbc83cf6c92177bf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62581f1b_cf245d59",
+        "filename": "crypto/bio/bio_test.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5225
+      },
+      "writtenOn": "2015-03-02T16:03:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02abe3f0_4c3cdfb6",
       "range": {
         "startLine": 153,
         "startChar": 58,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "62581f1b_ef62017a",
+        "filename": "crypto/bio/bio_test.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5225
+      },
+      "writtenOn": "2015-03-02T16:03:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02abe3f0_ac9e2378",
+      "revId": "8340cd9894df65f5848c3d38cbc83cf6c92177bf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02abe3f0_8c8247e7",
         "filename": "crypto/bio/bio_test.c",
         "patchSetId": 9
@@ -76,6 +142,24 @@
       "writtenOn": "2015-02-27T22:58:21Z",
       "side": 1,
       "message": "Add a test for the edge case at the end of BIO_zero_copy_get_write_buf_done. Probably something like.\n\n1. Write some data in the buffer.\n2. Start a two-step write.\n3. Consume everything in the buffer.\n4. Complete the two-step write with no data.\n5. Swap the buffer to make sure assertions don\u0027t fire.",
+      "revId": "8340cd9894df65f5848c3d38cbc83cf6c92177bf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b2c50a26_6efb2f4d",
+        "filename": "crypto/bio/bio_test.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5225
+      },
+      "writtenOn": "2015-03-02T16:03:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02abe3f0_8c8247e7",
       "revId": "8340cd9894df65f5848c3d38cbc83cf6c92177bf",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -105,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "b2c50a26_ce834301",
+        "filename": "crypto/bio/pair.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5225
+      },
+      "writtenOn": "2015-03-02T16:03:50Z",
+      "side": 1,
+      "message": "Yes, that seems correct.\n\nSince the len and offset now is memset to 0 when the BIO is created (since introduction of zero copy api), isn\u0027t it easier to simply remove \"valid iff buf !\u003d NULL;\", and let them be 0 when buf \u003d\u003d 0 ?",
+      "parentUuid": "02abe3f0_8c51a724",
+      "range": {
+        "startLine": 71,
+        "startChar": 30,
+        "endLine": 71,
+        "endChar": 41
+      },
+      "revId": "8340cd9894df65f5848c3d38cbc83cf6c92177bf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02abe3f0_cc8c4f1b",
         "filename": "crypto/bio/pair.c",
         "patchSetId": 9
@@ -116,6 +224,24 @@
       "writtenOn": "2015-02-27T22:58:21Z",
       "side": 1,
       "message": "Nit: Spell this out explicitly. Maybe:\n\nIf a read on the peer emptied the buffer while it was locked for write, it could not rewind offset. The caller didn\u0027t write anything, so rewind offset now.",
+      "revId": "8340cd9894df65f5848c3d38cbc83cf6c92177bf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b2c50a26_4e1e7363",
+        "filename": "crypto/bio/pair.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 5225
+      },
+      "writtenOn": "2015-03-02T16:03:50Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "02abe3f0_cc8c4f1b",
       "revId": "8340cd9894df65f5848c3d38cbc83cf6c92177bf",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -139,6 +265,24 @@
     },
     {
       "key": {
+        "uuid": "b2c50a26_6eca4f4c",
+        "filename": "crypto/bio/pair.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 5225
+      },
+      "writtenOn": "2015-03-02T16:03:50Z",
+      "side": 1,
+      "message": "I missed this one. I think we should simply return 0 if b-\u003ebuf \u003d\u003d NULL, writing to a BIO with NULL buffer will result in an error.",
+      "parentUuid": "02abe3f0_ac6623b7",
+      "revId": "8340cd9894df65f5848c3d38cbc83cf6c92177bf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02abe3f0_4ce4dfa9",
         "filename": "crypto/bio/pair.c",
         "patchSetId": 9
@@ -150,6 +294,24 @@
       "writtenOn": "2015-02-27T22:58:21Z",
       "side": 1,
       "message": "Nit: You could probably chain all these together with ||s and do\n\n   (buf \u003d\u003d NULL \u0026\u0026 (buf_len !\u003d 0)) ||\n   (buf !\u003d NULL \u0026\u0026 (buf_len !\u003d b-\u003esize))\n\nto make it clearer what buf_len\u0027s requirements are. (It was confusing in the previous pass that this checks !buf !\u003d !buf_len in the first block and then buf_len !\u003d b-\u003esize in the last.)",
+      "revId": "8340cd9894df65f5848c3d38cbc83cf6c92177bf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b2c50a26_4e93d330",
+        "filename": "crypto/bio/pair.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 855,
+      "author": {
+        "id": 5225
+      },
+      "writtenOn": "2015-03-02T16:03:50Z",
+      "side": 1,
+      "message": "Done.\n\nI also need to check for b-\u003elen to make sure the buffer is empty. Since this this check now covers !buf !\u003d !buf_len, I switched !buf !\u003d !buf_len  above with b-\u003elen \u003d\u003d 0.",
+      "parentUuid": "02abe3f0_4ce4dfa9",
       "revId": "8340cd9894df65f5848c3d38cbc83cf6c92177bf",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -179,6 +341,30 @@
     },
     {
       "key": {
+        "uuid": "b2c50a26_6e980f4c",
+        "filename": "crypto/bio/pair.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 856,
+      "author": {
+        "id": 5225
+      },
+      "writtenOn": "2015-03-02T16:03:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02abe3f0_2ced1390",
+      "range": {
+        "startLine": 856,
+        "startChar": 27,
+        "endLine": 856,
+        "endChar": 53
+      },
+      "revId": "8340cd9894df65f5848c3d38cbc83cf6c92177bf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02abe3f0_cc10cffe",
         "filename": "crypto/bio/pair.c",
         "patchSetId": 9
@@ -196,6 +382,24 @@
     },
     {
       "key": {
+        "uuid": "b2c50a26_8eb0dbc2",
+        "filename": "crypto/bio/pair.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 863,
+      "author": {
+        "id": 5225
+      },
+      "writtenOn": "2015-03-02T16:03:50Z",
+      "side": 1,
+      "message": "I\u0027ve changed write_guarantee to be 0 if b-\u003ebuf \u003d\u003d NULL (seems weird guaranteeing something that is not true).\n\nIt\u0027s the callers responsibility to make sure the buffer is allocated when the buffers are needed.",
+      "parentUuid": "02abe3f0_cc10cffe",
+      "revId": "8340cd9894df65f5848c3d38cbc83cf6c92177bf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02abe3f0_0c1c970b",
         "filename": "include/openssl/bio.h",
         "patchSetId": 9
@@ -207,6 +411,24 @@
       "writtenOn": "2015-02-27T22:58:21Z",
       "side": 1,
       "message": "[Transplanting from patch set 7 because otherwise it gets really confusing.]\n\n\u003e The reason for this is that the number of requested bytes must be set correctly\n\nOh, interesting. I didn\u0027t realize get_read_request had that promise. Hrm. I don\u0027t like that the NULL buffer is such a special-case, instead of just being a 0-length buffer. We then have to think about what each operation means in the face of a NULL (but sized) buffer. (write_guarantee is now a little odd. read_request\u0027s promise is similarly tweaked.)\n\n\u003e I could remove that requirement though, which leads to a slight behavior change in the API. I don\u0027t see this breaking any applications using this API since you\u0027re not guaranteed to successfully write the number of requested bytes anyway, and as you say it will simplify the code (Removing it surely don\u0027t break chromium).\n\nAre you sure you weren\u0027t guaranteed this? Apart from the write-lock, which is new, peer-\u003eoffset would always be 0 and so we wouldn\u0027t have wraparound problems.\n\nOne possibility is store the unclamped value in b-\u003erequested and have BIO_ctrl_get_read_request return min(b-\u003erequested, b-\u003esize). But then BIO_set_external_buf(0, NULL) + BIO_read would *not* signal read_requested until you reinstall the buffer. (You\u0027d still get SSL_ERROR_WANT_READ because that comes from the retry flag.)\n\nAnother is to, as you say, break that promise and report the full inl. Chromium only uses it as a boolean (possibly it should be using the retry_read flag...), and I see nothing else in internal Google code. But it means a BIO pair consumer which, like Chromium, never pulls more from the transport than can fit, but ALSO doesn\u0027t read ahead[1] now needs to both get_read_request and get_write_guarantee. No such thing exists today, but we wouldn\u0027t get a compile failure if it did.\n\n(A third option would be to leave this as-is, of course.)\n\n\n[1] Maybe you want to do the crazy thing where you wait bidirectional clean shutdown[2] and then reuse the transport for something else.\n\n[2] Aside: I\u0027m pretty sure this part of the SSL impl doesn\u0027t actually work reliably in some cases. :-) (It\u0027s in my queue to look through internal consumers to see if we have to support it or if I can just remove that bit.)",
+      "revId": "8340cd9894df65f5848c3d38cbc83cf6c92177bf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b2c50a26_0e74eb88",
+        "filename": "include/openssl/bio.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 5225
+      },
+      "writtenOn": "2015-03-02T16:03:50Z",
+      "side": 1,
+      "message": "Going over it again, I think you\u0027re right in that writing requested_bytes is guaranteed as long as requested_bytes \u003c buffer size, since the writer buffer is always empty when requested bytes is set.\n\n\nKeeping the current solution, the read_requests promise should be unchanged, while write_guarantee should be unchanged as long as the caller make sure the buffer is valid when it\u0027s needed to be.\n\n\nI realize this is a somewhat risky change, but it will only kick in if the caller asks for it through BIO_set_external_buf, otherwise the behavior should be exactly as before ( If it isn\u0027t it is a bug). The caller must make sure that buffer !\u003d NULL when write is called on a BIO (from both sides of the BIO pair), that is, during handshake, before calling SSL_Write or BIO_write, and in case of gracious shutdown. Thus, this is a low level api leaving a lot of responsibility to the caller (Hence the original warning).\n\n\nI vote for keeping the current proposed solution. I think this is the version makes the smallest impact to the usage of the API. That is, the caller can start using the function without making changes to other API calls.",
+      "parentUuid": "02abe3f0_0c1c970b",
       "revId": "8340cd9894df65f5848c3d38cbc83cf6c92177bf",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false

@@ -22,6 +22,30 @@
       "revId": "5f237bc843f4a4791667493d8748c903b8e540e4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b2c50a26_4ec51339",
+        "filename": "crypto/bio/pair.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 5225
+      },
+      "writtenOn": "2015-03-02T16:03:50Z",
+      "side": 0,
+      "message": "Oh, I think I must have confused this with peer-\u003ebuf. No reason to remove this, so I put it back.",
+      "parentUuid": "02abe3f0_0c6f7790",
+      "range": {
+        "startLine": 439,
+        "startChar": 6,
+        "endLine": 439,
+        "endChar": 21
+      },
+      "revId": "5f237bc843f4a4791667493d8748c903b8e540e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
