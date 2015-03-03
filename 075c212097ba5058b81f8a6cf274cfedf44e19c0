@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "72b552f7_fc1c2922",
+        "filename": "crypto/cipher/e_tls.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-03T19:23:55Z",
+      "side": 1,
+      "message": "Hrmf. I always forget that gcc (at least in the trusty dev VM on my laptop) doesn\u0027t like compile asserts outside the top-level. I wonder if we can get away with switching that to some combination of C++11 static_assert or C11 _Static_assert.",
+      "revId": "075c212097ba5058b81f8a6cf274cfedf44e19c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
