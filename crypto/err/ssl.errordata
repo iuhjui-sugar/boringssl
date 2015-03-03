@@ -59,7 +59,9 @@ SSL,function,157,dtls1_do_write
 SSL,function,158,dtls1_get_hello_verify
 SSL,function,159,dtls1_get_message
 SSL,function,160,dtls1_get_message_fragment
+SSL,function,263,dtls1_lookup_buffered_message
 SSL,function,161,dtls1_preprocess_fragment
+SSL,function,264,dtls1_process_fragment
 SSL,function,162,dtls1_process_record
 SSL,function,163,dtls1_read_bytes
 SSL,function,164,dtls1_send_hello_verify_request
@@ -216,6 +218,7 @@ SSL,reason,151,EVP_DIGESTSIGNFINAL_FAILED
 SSL,reason,152,EVP_DIGESTSIGNINIT_FAILED
 SSL,reason,153,EXCESSIVE_MESSAGE_SIZE
 SSL,reason,154,EXTRA_DATA_IN_MESSAGE
+SSL,reason,271,FRAGMENT_MISMATCH
 SSL,reason,155,GOT_A_FIN_BEFORE_A_CCS
 SSL,reason,156,GOT_CHANNEL_ID_BEFORE_A_CCS
 SSL,reason,157,GOT_NEXT_PROTO_BEFORE_A_CCS
