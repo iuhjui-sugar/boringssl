@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "977b98ac_b5a2e0a6",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-05T22:09:09Z",
+      "side": 1,
+      "message": "Check for overflow or assert(frag_len \u003c 0x1000000)?",
+      "revId": "db4d17d1b75508383edd6b0935b9fa2756b8103b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "977b98ac_f506181a",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-05T22:09:09Z",
+      "side": 1,
+      "message": "Is end inclusive?",
+      "revId": "db4d17d1b75508383edd6b0935b9fa2756b8103b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "977b98ac_b510a04e",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-05T22:09:09Z",
+      "side": 1,
+      "message": "If |start| can equal |end|, then that suggests that it\u0027s start..end inclusive. In which case, can |end| equal |msg_len|?\n\nEither way, you don\u0027t need to test whether start \u003e msg_len: if start \u003c\u003d end (established by the second clause) then end \u003c\u003d msg_len implies it.",
+      "revId": "db4d17d1b75508383edd6b0935b9fa2756b8103b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "977b98ac_752448b2",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-05T22:09:09Z",
+      "side": 1,
+      "message": "drop parens around \"1 \u003c\u003c (i \u0026 7)\"",
+      "revId": "db4d17d1b75508383edd6b0935b9fa2756b8103b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "977b98ac_952c8495",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-05T22:09:09Z",
+      "side": 1,
+      "message": "(end - 1) \u003e\u003e 3?\n\nMaybe (end \u003e\u003e 3) - 1?",
+      "revId": "db4d17d1b75508383edd6b0935b9fa2756b8103b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "977b98ac_f5b4d8c9",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-05T22:09:09Z",
+      "side": 1,
+      "message": "Are we sure that msg_len can never be zero? If so, add an assert near the top to say so.",
+      "revId": "db4d17d1b75508383edd6b0935b9fa2756b8103b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
