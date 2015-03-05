@@ -122,6 +122,7 @@
 #include <openssl/mem.h>
 #include <openssl/obj.h>
 #include <openssl/rand.h>
+#include <openssl/type_check.h>
 #include <openssl/x509.h>
 
 #include "ssl_locl.h"
@@ -168,12 +169,20 @@ static const uint8_t bitmask_end_values[] = {0xff, 0x01, 0x03, 0x07,
  * protocol's overhead rather than, say, what's needed to hold a minimally-sized
  * handshake fragment plus protocol overhead. */
 
-/* kMinMTU is the minimum acceptable MTU value. */
+/* kMinMTU is the minimum acceptable MTU value and a conservative default to
+ * use. */
 static const unsigned int kMinMTU = 256 - 28;
 
 /* kDefaultMTU is the default MTU value to use if neither the user nor
  * the underlying BIO supplies one. */
-static const unsigned int kDefaultMTU = 1500 - 28;
+static const unsigned int kDefaultMTU = 1024;
+
+OPENSSL_COMPILE_ASSERT(kDefaultMTU >= kMinMTU,
+                       default_mtu_is_large_enough);
+
+OPENSSL_COMPILE_ASSERT(kMinMTU >= 1 + DTLS1_RT_HEADER_LENGTH +
+                                  SSL3_RT_SEND_MAX_ENCRYPTED_OVERHEAD,
+                       enough_room_for_encrypted_handshake_fragment);
 
 static void dtls1_fix_message_header(SSL *s, unsigned long frag_off,
                                      unsigned long frag_len);
@@ -238,7 +247,7 @@ int dtls1_do_write(SSL *s, int type) {
   unsigned int len, frag_off;
   size_t max_overhead = 0;
 
-  /* AHA!  Figure out the MTU, and stick to the right size */
+  /* Determine the MTU to use for fragmenting handshake messages. */
   if (s->d1->mtu < dtls1_min_mtu() &&
       !(SSL_get_options(s) & SSL_OP_NO_QUERY_MTU)) {
     long mtu = BIO_ctrl(SSL_get_wbio(s), BIO_CTRL_DGRAM_QUERY_MTU, 0, NULL);
