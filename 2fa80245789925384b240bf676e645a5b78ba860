@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "974d5888_05a15277",
+        "filename": "include/openssl/dtls1.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-05T17:47:11Z",
+      "side": 1,
+      "message": "I suspect we can just do away with pqueue altogether. Though I\u0027ll have to look at the record_pqueue triumvirate. Given https://boringssl-review.googlesource.com/#/c/2782/2/ssl/d1_pkt.c@244, it probably needs to be reworked anyway.",
+      "revId": "2fa80245789925384b240bf676e645a5b78ba860",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "974d5888_45974a1d",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-05T17:47:11Z",
+      "side": 1,
+      "message": "These changes are all new code, so check over it carefully. (I only noticed that I messed up the msg_callback in reading over it, since we have no test coverage for it. I wonder if we can drop it...)",
+      "revId": "2fa80245789925384b240bf676e645a5b78ba860",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "974d5888_6592462f",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-05T17:47:11Z",
+      "side": 1,
+      "message": "You could maybe argue this test is more of scar tissue than anything meaningful. It\u0027s a consequence of the old logic trying to take lots of different shortcuts around complete fragments and fragments received in order. I don\u0027t expect we\u0027ll ever care enough to resurrect those shortcuts. There\u0027s tidier ways to avoid the extra copy anyway, like the buffer-sharing thing in the commit message.",
+      "revId": "2fa80245789925384b240bf676e645a5b78ba860",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
