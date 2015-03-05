@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "974d5888_455f4a4c",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 807,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-05T17:19:11Z",
+      "side": 0,
+      "message": "It may end up coming back in some form as part of revising the DTLS/TLS common interface, but meh. (This code is weird... it seems to think spurious HelloRequests can happen at any sequence number and don\u0027t increment sequence numbers. This is crazy and I\u0027m not sure that\u0027s how it works, but I\u0027d have to check. Not that we care...)",
+      "revId": "29a495196054d03b031236292575c9c73eb2e009",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
