@@ -36,6 +36,108 @@
     },
     {
       "key": {
+        "uuid": "d76990e5_9af4a9d8",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-05T21:48:01Z",
+      "side": 1,
+      "message": "This function is called \"lookup\", but it actually creates the object if needed. dtls1_get_buffered_message?",
+      "revId": "2fa80245789925384b240bf676e645a5b78ba860",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d76990e5_ba064d47",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-05T21:48:01Z",
+      "side": 1,
+      "message": "comment \"/* reassembly buffer needed */\" after \u00271\u0027 argument.",
+      "revId": "2fa80245789925384b240bf676e645a5b78ba860",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d76990e5_dad1c14d",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-05T21:48:01Z",
+      "side": 1,
+      "message": "const for these variables?",
+      "revId": "2fa80245789925384b240bf676e645a5b78ba860",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d76990e5_3acd5daf",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-05T21:48:01Z",
+      "side": 1,
+      "message": "I think this needs an overflow check for frag_off + frag_len to be safe. (They\u0027re probably u24\u0027s, but that\u0027s not locally clear.)",
+      "revId": "2fa80245789925384b240bf676e645a5b78ba860",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d76990e5_da28e1b3",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-05T21:48:01Z",
+      "side": 1,
+      "message": "10 is a magic number. static const at the toplevel?",
+      "revId": "2fa80245789925384b240bf676e645a5b78ba860",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d76990e5_ba740dcf",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-05T21:48:01Z",
+      "side": 1,
+      "message": "this line of comment probably needs updating.",
+      "revId": "2fa80245789925384b240bf676e645a5b78ba860",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "974d5888_6592462f",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 4
