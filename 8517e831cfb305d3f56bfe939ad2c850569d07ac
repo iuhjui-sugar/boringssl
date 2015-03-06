@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "379aec78_526a549d",
+        "filename": "crypto/perlasm/x86_64-xlate.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-06T21:29:44Z",
+      "side": 1,
+      "message": "Unclear what the difference between flavour \"elf\" and $elf is supposed to be. Oh well.",
+      "revId": "8517e831cfb305d3f56bfe939ad2c850569d07ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
