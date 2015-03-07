@@ -53,6 +53,24 @@
     },
     {
       "key": {
+        "uuid": "d7a6f0c2_efce01d7",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-07T22:41:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d76990e5_9af4a9d8",
+      "revId": "2fa80245789925384b240bf676e645a5b78ba860",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d76990e5_ba064d47",
         "filename": "ssl/d1_both.c",
         "patchSetId": 4
@@ -64,6 +82,24 @@
       "writtenOn": "2015-03-05T21:48:01Z",
       "side": 1,
       "message": "comment \"/* reassembly buffer needed */\" after \u00271\u0027 argument.",
+      "revId": "2fa80245789925384b240bf676e645a5b78ba860",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d7a6f0c2_b2ce1ea8",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-07T22:41:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d76990e5_ba064d47",
       "revId": "2fa80245789925384b240bf676e645a5b78ba860",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -87,6 +123,24 @@
     },
     {
       "key": {
+        "uuid": "d7a6f0c2_f2d8a66e",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-07T22:41:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d76990e5_dad1c14d",
+      "revId": "2fa80245789925384b240bf676e645a5b78ba860",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d76990e5_3acd5daf",
         "filename": "ssl/d1_both.c",
         "patchSetId": 4
@@ -98,6 +152,24 @@
       "writtenOn": "2015-03-05T21:48:01Z",
       "side": 1,
       "message": "I think this needs an overflow check for frag_off + frag_len to be safe. (They\u0027re probably u24\u0027s, but that\u0027s not locally clear.)",
+      "revId": "2fa80245789925384b240bf676e645a5b78ba860",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d7a6f0c2_32114e88",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-07T22:41:22Z",
+      "side": 1,
+      "message": "Done. (Yeah, they\u0027re all u24s.)",
+      "parentUuid": "d76990e5_3acd5daf",
       "revId": "2fa80245789925384b240bf676e645a5b78ba860",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -121,6 +193,24 @@
     },
     {
       "key": {
+        "uuid": "b7dfbc22_be7a7939",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-07T22:41:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d76990e5_da28e1b3",
+      "revId": "2fa80245789925384b240bf676e645a5b78ba860",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d76990e5_ba740dcf",
         "filename": "ssl/test/runner/common.go",
         "patchSetId": 4
@@ -132,6 +222,24 @@
       "writtenOn": "2015-03-05T21:48:01Z",
       "side": 1,
       "message": "this line of comment probably needs updating.",
+      "revId": "2fa80245789925384b240bf676e645a5b78ba860",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b7dfbc22_de8745a4",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-07T22:41:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d76990e5_ba740dcf",
       "revId": "2fa80245789925384b240bf676e645a5b78ba860",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
