@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "37c10c6d_baffd17d",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-07T22:44:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "977b98ac_b5a2e0a6",
+      "revId": "db4d17d1b75508383edd6b0935b9fa2756b8103b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "977b98ac_f506181a",
         "filename": "ssl/d1_both.c",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2015-03-05T22:09:09Z",
       "side": 1,
       "message": "Is end inclusive?",
+      "revId": "db4d17d1b75508383edd6b0935b9fa2756b8103b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "37c10c6d_5a1795c8",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-07T22:44:52Z",
+      "side": 1,
+      "message": "Exclusive. Fixed comment.",
+      "parentUuid": "977b98ac_f506181a",
       "revId": "db4d17d1b75508383edd6b0935b9fa2756b8103b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "37c10c6d_5ac555b4",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-07T22:44:52Z",
+      "side": 1,
+      "message": "They can be equal if the fragment is empty. Which... actually I don\u0027t see why you\u0027d ever want to do that. The old code accepted it I guess. I added a test for it and left it working, though I\u0027m also fine with rejecting them.\n\nDone.",
+      "parentUuid": "977b98ac_b510a04e",
+      "revId": "db4d17d1b75508383edd6b0935b9fa2756b8103b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "977b98ac_752448b2",
         "filename": "ssl/d1_both.c",
         "patchSetId": 5
@@ -64,6 +118,24 @@
       "writtenOn": "2015-03-05T22:09:09Z",
       "side": 1,
       "message": "drop parens around \"1 \u003c\u003c (i \u0026 7)\"",
+      "revId": "db4d17d1b75508383edd6b0935b9fa2756b8103b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "37c10c6d_3ad2a180",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-07T22:44:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "977b98ac_752448b2",
       "revId": "db4d17d1b75508383edd6b0935b9fa2756b8103b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "37c10c6d_baab51d8",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-07T22:44:52Z",
+      "side": 1,
+      "message": "Hrm. I think the original code is correct. It\u0027s weird because bitmask_end_values[0] is 0xff rather than 0. I\u0027ve rewritten it to hopefully be clearer. And that table may as well be some bit tricks.\n\nThough now you\u0027ll want to review that even more carefully. :-)",
+      "parentUuid": "977b98ac_952c8495",
+      "revId": "db4d17d1b75508383edd6b0935b9fa2756b8103b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "977b98ac_f5b4d8c9",
         "filename": "ssl/d1_both.c",
         "patchSetId": 5
@@ -98,6 +188,24 @@
       "writtenOn": "2015-03-05T22:09:09Z",
       "side": 1,
       "message": "Are we sure that msg_len can never be zero? If so, add an assert near the top to say so.",
+      "revId": "db4d17d1b75508383edd6b0935b9fa2756b8103b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "37c10c6d_baf6b111",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-07T22:44:52Z",
+      "side": 1,
+      "message": "Done. (If msg_len is 0, then reassembly will be NULL. New logic also doesn\u0027t care, but the assert is still accurate.)",
+      "parentUuid": "977b98ac_f5b4d8c9",
       "revId": "db4d17d1b75508383edd6b0935b9fa2756b8103b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
