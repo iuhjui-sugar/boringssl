@@ -578,25 +578,22 @@ int ssl_verify_alarm_type(long type) {
 
 int ssl3_setup_read_buffer(SSL *s) {
   uint8_t *p;
-  size_t len, align = 0, headerlen;
-
-  if (SSL_IS_DTLS(s)) {
-    headerlen = DTLS1_RT_HEADER_LENGTH;
-  } else {
-    headerlen = SSL3_RT_HEADER_LENGTH;
-  }
-
-#if defined(SSL3_ALIGN_PAYLOAD) && SSL3_ALIGN_PAYLOAD != 0
-  align = (-SSL3_RT_HEADER_LENGTH) & (SSL3_ALIGN_PAYLOAD - 1);
-#endif
 
   if (s->s3->rbuf.buf == NULL) {
-    len = SSL3_RT_MAX_PLAIN_LENGTH + SSL3_RT_MAX_ENCRYPTED_OVERHEAD +
-          headerlen + align;
-    if (s->options & SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER) {
-      s->s3->init_extra = 1;
-      len += SSL3_RT_MAX_EXTRA;
+    size_t max_alignment_slop = 0, headerlen, len;
+
+    if (SSL_IS_DTLS(s)) {
+      headerlen = DTLS1_RT_HEADER_LENGTH;
+    } else {
+      headerlen = SSL3_RT_HEADER_LENGTH;
     }
+    len = headerlen + SSL3_RT_MAX_ENCRYPTED_LENGTH + max_alignment_slop;
+
+    /* max_alignment_slop is the maximum number of bytes that we'll waste at the
+     * start of the buffer in order to align the payload of a record to the next
+     * |SSL3_ALIGN_PAYLOAD| bytes. */
+    max_alignment_slop = SSL3_ALIGN_PAYLOAD - 1;
+
     p = OPENSSL_malloc(len);
     if (p == NULL) {
       goto err;
@@ -615,24 +612,24 @@ err:
 
 int ssl3_setup_write_buffer(SSL *s) {
   uint8_t *p;
-  size_t len, align = 0, headerlen;
-
-  if (SSL_IS_DTLS(s)) {
-    headerlen = DTLS1_RT_HEADER_LENGTH + 1;
-  } else {
-    headerlen = SSL3_RT_HEADER_LENGTH;
-  }
-
-#if defined(SSL3_ALIGN_PAYLOAD) && SSL3_ALIGN_PAYLOAD != 0
-  align = (-SSL3_RT_HEADER_LENGTH) & (SSL3_ALIGN_PAYLOAD - 1);
-#endif
 
   if (s->s3->wbuf.buf == NULL) {
+    const size_t max_alignment_slop = SSL3_ALIGN_PAYLOAD - 1;
+    size_t len, headerlen;
+
+    if (SSL_IS_DTLS(s)) {
+      headerlen = DTLS1_RT_HEADER_LENGTH + 1;
+    } else {
+      headerlen = SSL3_RT_HEADER_LENGTH;
+    }
+
     len = s->max_send_fragment + SSL3_RT_SEND_MAX_ENCRYPTED_OVERHEAD +
-          headerlen + align;
+          headerlen + max_alignment_slop;
+
     /* Account for 1/n-1 record splitting. */
     if (s->mode & SSL_MODE_CBC_RECORD_SPLITTING) {
-      len += headerlen + align + 1 + SSL3_RT_SEND_MAX_ENCRYPTED_OVERHEAD;
+      len += headerlen + max_alignment_slop + 1 +
+             SSL3_RT_SEND_MAX_ENCRYPTED_OVERHEAD;
     }
 
     p = OPENSSL_malloc(len);

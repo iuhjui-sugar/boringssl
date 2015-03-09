@@ -234,8 +234,6 @@ extern "C" {
 
 /* Maximum plaintext length: defined by SSL/TLS standards */
 #define SSL3_RT_MAX_PLAIN_LENGTH 16384
-/* Maximum compression overhead: defined by SSL/TLS standards */
-#define SSL3_RT_MAX_COMPRESSED_OVERHEAD 1024
 
 /* The standards give a maximum encryption overhead of 1024 bytes. In practice
  * the value is lower than this. The overhead is the maximum number of padding
@@ -257,14 +255,12 @@ OPENSSL_COMPILE_ASSERT(
     max_overheads_are_consistent);
 
 
-/* If compression isn't used don't include the compression overhead */
-
-#define SSL3_RT_MAX_COMPRESSED_LENGTH \
-  (SSL3_RT_MAX_PLAIN_LENGTH + SSL3_RT_MAX_COMPRESSED_OVERHEAD)
-#define SSL3_RT_MAX_ENCRYPTED_LENGTH \
-  (SSL3_RT_MAX_ENCRYPTED_OVERHEAD + SSL3_RT_MAX_COMPRESSED_LENGTH)
-#define SSL3_RT_MAX_PACKET_SIZE \
-  (SSL3_RT_MAX_ENCRYPTED_LENGTH + SSL3_RT_HEADER_LENGTH)
+/* The SSL3_RT_MAX_EXTRA is because of an old Microsoft bug
+ * (SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER) that we're not sure is safe to remove
+ * yet. */
+#define SSL3_RT_MAX_ENCRYPTED_LENGTH                           \
+  (SSL3_RT_MAX_ENCRYPTED_OVERHEAD + SSL3_RT_MAX_PLAIN_LENGTH + \
+   SSL3_RT_MAX_EXTRA)
 
 #define SSL3_MD_CLIENT_FINISHED_CONST "\x43\x4C\x4E\x54"
 #define SSL3_MD_SERVER_FINISHED_CONST "\x53\x52\x56\x52"
@@ -323,11 +319,25 @@ typedef struct ssl3_record_st {
 } SSL3_RECORD;
 
 typedef struct ssl3_buffer_st {
-  uint8_t *buf;       /* at least SSL3_RT_MAX_PACKET_SIZE bytes, see
-                         ssl3_setup_buffers() */
-  size_t len;         /* buffer size */
-  int offset;         /* where to 'copy from' */
-  int left;           /* how many bytes left */
+  /* buf points at header + SSL3_RT_MAX_ENCRYPTED_LENGTH + alignment-slop bytes
+   * of memory for reading, or a value based on |s->max_send_fragment| for
+   * writing. The header length is either 5 (TLS) or 13 (DTLS) and the
+   * alignment slop depends on |SSL3_ALIGN_PAYLOAD|. See
+   * |ssl3_setup_read_buffer| for the actual allocation. */
+  uint8_t *buf;
+  /* len contains the number of bytes in |buf|. */
+  size_t len;
+  /* offset contains the start of the unused data in |buf|. */
+  int offset;
+  /* left contains the number of bytes, starting from |offset|, which are
+   * "unused". In this case, "unused" means that they aren't being pointed to
+   * by |s->packet| and |s->packet_length|.
+   *
+   * For example, if we read-ahead eight bytes at the start of a connection to
+   * check for an SSLv2/TLS style handshake but don't end up consuming those
+   * bytes, |left| will be set to eight so that those bytes will be used by a
+   * subsequent read. */
+  int left;
 } SSL3_BUFFER;
 
 #define SSL3_CT_RSA_SIGN 1
@@ -359,9 +369,6 @@ typedef struct ssl3_state_st {
   /* flags for countermeasure against known-IV weakness */
   int need_record_splitting;
   int record_split_done;
-
-  /* The value of 'extra' when the buffers were initialized */
-  int init_extra;
 
   /* have_version is true if the connection's final version is known. Otherwise
    * the version has not been negotiated yet. */
