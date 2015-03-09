@@ -201,7 +201,9 @@ int ssl3_read_n(SSL *s, int n, int max, int extend) {
     rb->offset = len + align;
   }
 
-  assert(n <= (int)(rb->len - rb->offset));
+  /* The existing packet now starts |rb->buf + align|, thus we can read a packet
+   * of, at most, |rb-len - align| bytes. */
+  assert(n <= (int)(rb->len - align));
 
   if (!s->read_ahead) {
     /* ignore max parameter */

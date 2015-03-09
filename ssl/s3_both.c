@@ -578,7 +578,7 @@ int ssl_verify_alarm_type(long type) {
 
 int ssl3_setup_read_buffer(SSL *s) {
   uint8_t *p;
-  size_t len, align = 0, headerlen;
+  size_t len, max_alignment_slop = 0, headerlen;
 
   if (SSL_IS_DTLS(s)) {
     headerlen = DTLS1_RT_HEADER_LENGTH;
@@ -586,13 +586,14 @@ int ssl3_setup_read_buffer(SSL *s) {
     headerlen = SSL3_RT_HEADER_LENGTH;
   }
 
-#if defined(SSL3_ALIGN_PAYLOAD) && SSL3_ALIGN_PAYLOAD != 0
-  align = (-SSL3_RT_HEADER_LENGTH) & (SSL3_ALIGN_PAYLOAD - 1);
-#endif
+  /* max_alignment_slop is the maximum number of bytes that we'll waste at the
+   * start of the buffer in order to align the payload of a record to the next
+   * |SSL3_ALIGN_PAYLOAD| bytes. */
+  max_alignment_slop = SSL3_ALIGN_PAYLOAD - 1;
 
   if (s->s3->rbuf.buf == NULL) {
     len = SSL3_RT_MAX_PLAIN_LENGTH + SSL3_RT_MAX_ENCRYPTED_OVERHEAD +
-          headerlen + align;
+          headerlen + max_alignment_slop;
     if (s->options & SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER) {
       s->s3->init_extra = 1;
       len += SSL3_RT_MAX_EXTRA;
