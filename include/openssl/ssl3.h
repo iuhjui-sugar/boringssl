@@ -323,11 +323,25 @@ typedef struct ssl3_record_st {
 } SSL3_RECORD;
 
 typedef struct ssl3_buffer_st {
-  uint8_t *buf;       /* at least SSL3_RT_MAX_PACKET_SIZE bytes, see
-                         ssl3_setup_buffers() */
-  size_t len;         /* buffer size */
-  int offset;         /* where to 'copy from' */
-  int left;           /* how many bytes left */
+  /* buf points at SSL3_RT_MAX_PLAIN_LENGTH + SSL3_RT_MAX_ENCRYPTED_OVERHEAD +
+   * header-length + alignment-slop bytes of memory. The header length is
+   * either 5 (TLS) or 13 (DTLS) and the alignment slop depends on
+   * |SSL3_ALIGN_PAYLOAD|. See |ssl3_setup_read_buffer| for the actual
+   * allocation. */
+  uint8_t *buf;
+  /* len contains the number of bytes in |buf|. */
+  size_t len;
+  /* offset contains the start of the unused data in |buf|. */
+  int offset;
+  /* left contains the number of bytes, starting from |offset|, which are
+   * "unused". In this case, "unused" means that they aren't being pointed to
+   * by |s->packet| and |s->packet_length|.
+   *
+   * For example, if we read-ahead eight bytes at the start of a connection to
+   * check for an SSLv2/TLS style handshake but don't end up consuming those
+   * bytes, |left| will be set to eight so that those bytes will be used by a
+   * subsequent read. */
+  int left;
 } SSL3_BUFFER;
 
 #define SSL3_CT_RSA_SIGN 1

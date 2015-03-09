@@ -201,6 +201,8 @@ int ssl3_read_n(SSL *s, int n, int max, int extend) {
     rb->offset = len + align;
   }
 
+  /* The existing packet now starts |rb->buf + align|, thus we can read a packet
+   * of, at most, |rb-len - align| bytes. */
   assert(n <= (int)(rb->len - rb->offset));
 
   if (!s->read_ahead) {
@@ -327,7 +329,7 @@ again:
       goto err;
     }
 
-    if (rr->length > s->s3->rbuf.len - SSL3_RT_HEADER_LENGTH) {
+    if (rr->length > SSL3_RT_MAX_PLAIN_LENGTH + SSL3_RT_MAX_ENCRYPTED_OVERHEAD) {
       al = SSL_AD_RECORD_OVERFLOW;
       OPENSSL_PUT_ERROR(SSL, ssl3_get_record, SSL_R_PACKET_LENGTH_TOO_LONG);
       goto f_err;
