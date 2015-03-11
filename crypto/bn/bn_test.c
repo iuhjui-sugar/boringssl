@@ -1108,8 +1108,9 @@ int test_mod_exp_mont_consttime(BIO *bp, BN_CTX *ctx) {
   return (1);
 }
 
-/* Test constant-time modular exponentiation with 1024-bit inputs,
- * which on x86_64 cause a different code branch to be taken. */
+/* Test constant-time modular exponentiation with 1024-bit inputs, which on
+ * x86_64 causes a different code branch to be taken in other OpenSSL variants.
+ */
 int test_mod_exp_mont5(BIO *bp, BN_CTX *ctx) {
   BIGNUM *a, *p, *m, *d, *e;
 
