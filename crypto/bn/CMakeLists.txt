@@ -7,7 +7,6 @@ if (${ARCH} STREQUAL "x86_64")
     asm/x86_64-gcc.c
     x86_64-mont.${ASM_EXT}
     x86_64-mont5.${ASM_EXT}
-    rsaz-x86_64.${ASM_EXT}
     rsaz-avx2.${ASM_EXT}
 
     rsaz_exp.c
