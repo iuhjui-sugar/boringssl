@@ -64,7 +64,7 @@
 
 
 struct test_st {
-  uint8_t key[16];
+  uint8_t key[32];
   size_t key_len;
   uint8_t data[64];
   size_t data_len;
@@ -76,28 +76,30 @@ struct test_st {
 static const struct test_st kTests[NUM_TESTS] = {
   {
     "", 0, "More text test vectors to stuff up EBCDIC machines :-)", 54,
-    "e9139d1e6ee064ef8cf514fc7dc83e86",
+    "5a3f9959ce1f220eadeb40e4d89b3b8d3ea10e1b6917b5c4bb131624eb740b8e",
   },
   {
     {
       0x0b, 0x0b, 0x0b, 0x0b, 0x0b, 0x0b, 0x0b, 0x0b, 0x0b, 0x0b, 0x0b, 0x0b,
-      0x0b, 0x0b, 0x0b, 0x0b,
+      0x0b, 0x0b, 0x0b, 0x0b, 0x0b, 0x0b, 0x0b, 0x0b, 0x0b, 0x0b, 0x0b, 0x0b,
+      0x0b, 0x0b, 0x0b, 0x0b, 0x0b, 0x0b, 0x0b, 0x0b,
     },
-    16,
+    32,
     "Hi There",
     8,
-    "9294727a3638bb1c13f48ef8158bfc9d",
+    "198a607eb44bfbc69903a0f1cf2bbdc5ba0aa3f3d9ae3c1c7a3b1696a0b68cf7",
   },
   {
     "Jefe", 4, "what do ya want for nothing?", 28,
-    "750c783e6ab0b503eaa86e310a5db738",
+    "5bdcc146bf60754e6a042426089575c75a003f089d2739839dec58b964ec3843",
   },
   {
     {
       0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa,
-      0xaa, 0xaa, 0xaa, 0xaa,
+      0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa,
+      0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa,
     },
-    16,
+    32,
     {
       0xdd, 0xdd, 0xdd, 0xdd, 0xdd, 0xdd, 0xdd, 0xdd, 0xdd, 0xdd, 0xdd, 0xdd,
       0xdd, 0xdd, 0xdd, 0xdd, 0xdd, 0xdd, 0xdd, 0xdd, 0xdd, 0xdd, 0xdd, 0xdd,
@@ -106,7 +108,7 @@ static const struct test_st kTests[NUM_TESTS] = {
       0xdd, 0xdd,
     },
     50,
-    "56be34521d144c88dbb8c733f0e8b3f6",
+    "cdcb1220d1ecccea91e53aba3092f962e549fe6ce9ed7fdc43191fbde45c30b0",
   },
 };
 
@@ -133,7 +135,7 @@ int main(int argc, char *argv[]) {
     const struct test_st *test = &kTests[i];
 
     /* Test using the one-shot API. */
-    if (NULL == HMAC(EVP_md5(), test->key, test->key_len, test->data,
+    if (NULL == HMAC(EVP_sha256(), test->key, test->key_len, test->data,
                      test->data_len, out, &out_len)) {
       fprintf(stderr, "%u: HMAC failed.\n", i);
       err++;
@@ -148,7 +150,7 @@ int main(int argc, char *argv[]) {
     /* Test using HMAC_CTX. */
     HMAC_CTX ctx;
     HMAC_CTX_init(&ctx);
-    if (!HMAC_Init_ex(&ctx, test->key, test->key_len, EVP_md5(), NULL) ||
+    if (!HMAC_Init_ex(&ctx, test->key, test->key_len, EVP_sha256(), NULL) ||
         !HMAC_Update(&ctx, test->data, test->data_len) ||
         !HMAC_Final(&ctx, out, &out_len)) {
       fprintf(stderr, "%u: HMAC failed.\n", i);
@@ -163,7 +165,7 @@ int main(int argc, char *argv[]) {
     }
 
     /* Test that an HMAC_CTX may be reset with the same key. */
-    if (!HMAC_Init_ex(&ctx, NULL, 0, EVP_md5(), NULL) ||
+    if (!HMAC_Init_ex(&ctx, NULL, 0, EVP_sha256(), NULL) ||
         !HMAC_Update(&ctx, test->data, test->data_len) ||
         !HMAC_Final(&ctx, out, &out_len)) {
       fprintf(stderr, "%u: HMAC failed.\n", i);
@@ -183,7 +185,7 @@ int main(int argc, char *argv[]) {
   /* Test that HMAC() uses the empty key when called with key = NULL. */
   const struct test_st *test = &kTests[0];
   assert(test->key_len == 0);
-  if (NULL == HMAC(EVP_md5(), NULL, 0, test->data, test->data_len, out,
+  if (NULL == HMAC(EVP_sha256(), NULL, 0, test->data, test->data_len, out,
                    &out_len)) {
     fprintf(stderr, "HMAC failed.\n");
     err++;
@@ -200,7 +202,7 @@ int main(int argc, char *argv[]) {
   assert(test->key_len == 0);
   HMAC_CTX ctx;
   HMAC_CTX_init(&ctx);
-  if (!HMAC_Init_ex(&ctx, NULL, 0, EVP_md5(), NULL) ||
+  if (!HMAC_Init_ex(&ctx, NULL, 0, EVP_sha256(), NULL) ||
       !HMAC_Update(&ctx, test->data, test->data_len) ||
       !HMAC_Final(&ctx, out, &out_len)) {
     fprintf(stderr, "HMAC failed.\n");
