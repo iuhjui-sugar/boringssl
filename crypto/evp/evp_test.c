@@ -314,7 +314,7 @@ static int test_EVP_DigestSignInit(void) {
 
 out:
   if (!ret) {
-    BIO_print_errors_fp(stderr);
+    ERR_print_errors_fp(stderr);
   }
 
   EVP_MD_CTX_cleanup(&md_ctx);
@@ -347,7 +347,7 @@ static int test_EVP_DigestVerifyInit(void) {
 
 out:
   if (!ret) {
-    BIO_print_errors_fp(stderr);
+    ERR_print_errors_fp(stderr);
   }
 
   EVP_MD_CTX_cleanup(&md_ctx);
@@ -452,7 +452,7 @@ static int test_EVP_DigestSignAlgorithm(void) {
 
 out:
   if (!ret) {
-    BIO_print_errors_fp(stderr);
+    ERR_print_errors_fp(stderr);
   }
 
   EVP_MD_CTX_cleanup(&md_ctx);
@@ -511,7 +511,7 @@ static int test_EVP_DigestVerifyInitFromAlgorithm(void) {
 
 out:
   if (!ret) {
-    BIO_print_errors_fp(stderr);
+    ERR_print_errors_fp(stderr);
   }
 
   EVP_MD_CTX_cleanup(&md_ctx);
@@ -547,7 +547,7 @@ static int test_d2i_AutoPrivateKey(const uint8_t *input, size_t input_len,
 
 done:
   if (!ret) {
-    BIO_print_errors_fp(stderr);
+    ERR_print_errors_fp(stderr);
   }
 
   if (pkey != NULL) {

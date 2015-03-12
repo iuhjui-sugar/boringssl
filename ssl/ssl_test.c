@@ -16,7 +16,6 @@
 #include <string.h>
 
 #include <openssl/base64.h>
-#include <openssl/bio.h>
 #include <openssl/err.h>
 #include <openssl/ssl.h>
 
@@ -223,7 +222,7 @@ static int test_cipher_rule(CIPHER_TEST *t) {
 
   if (!SSL_CTX_set_cipher_list(ctx, t->rule)) {
     fprintf(stderr, "Error testing cipher rule '%s'\n", t->rule);
-    BIO_print_errors_fp(stderr);
+    ERR_print_errors_fp(stderr);
     goto done;
   }
 
@@ -415,7 +414,7 @@ static int test_ssl_session_asn1(const char *input_b64) {
 
  done:
   if (!ret) {
-    BIO_print_errors_fp(stderr);
+    ERR_print_errors_fp(stderr);
   }
 
   if (session) {
