@@ -60,6 +60,8 @@
 #include <openssl/err.h>
 #include <openssl/mem.h>
 
+#include "thread_internal.h"
+
 
 X509_INFO *X509_INFO_new(void)
 	{

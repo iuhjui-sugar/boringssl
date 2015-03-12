@@ -64,6 +64,9 @@
 #include <openssl/x509.h>
 #include <openssl/x509v3.h>
 
+#include "thread_internal.h"
+
+
 /* Method to handle CRL access.
  * In general a CRL could be very large (several Mb) and can consume large
  * amounts of resources if stored in memory by multiple processes.

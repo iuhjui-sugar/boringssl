@@ -57,8 +57,10 @@
 #include <stdio.h>
 
 #include <openssl/asn1t.h>
-#include <openssl/thread.h>
 #include <openssl/x509.h>
+
+#include "thread_internal.h"
+
 
 /* X509_REQ_INFO is handled in an unusual way to get round
  * invalid encodings. Some broken certificate requests don't

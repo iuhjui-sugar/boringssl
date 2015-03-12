@@ -63,6 +63,7 @@
 #include <openssl/x509.h>
 
 #include "../evp/internal.h"
+#include "thread_internal.h"
 
 
 /* Minor tweak to operation: free up EVP_PKEY */

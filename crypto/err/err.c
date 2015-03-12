@@ -123,7 +123,8 @@
 
 #include <openssl/lhash.h>
 #include <openssl/mem.h>
-#include <openssl/thread.h>
+
+#include "thread_internal.h"
 
 
 extern const uint32_t kOpenSSLFunctionValues[];

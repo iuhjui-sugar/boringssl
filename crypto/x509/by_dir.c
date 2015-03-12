@@ -65,6 +65,8 @@
 #include <openssl/mem.h>
 #include <openssl/x509.h>
 
+#include "thread_internal.h"
+
 
 typedef struct lookup_dir_hashes_st
 	{

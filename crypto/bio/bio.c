@@ -63,7 +63,8 @@
 
 #include <openssl/err.h>
 #include <openssl/mem.h>
-#include <openssl/thread.h>
+
+#include "thread_internal.h"
 
 
 /* BIO_set initialises a BIO structure to have the given type and sets the

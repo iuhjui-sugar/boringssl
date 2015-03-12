@@ -69,6 +69,7 @@
 #include <openssl/mem.h>
 
 #include "internal.h"
+#include "thread_internal.h"
 
 
 extern const DSA_METHOD DSA_default_method;

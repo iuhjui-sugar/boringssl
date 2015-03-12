@@ -68,6 +68,7 @@
 #include <openssl/sha.h>
 
 #include "internal.h"
+#include "thread_internal.h"
 
 #define OPENSSL_DSA_MAX_MODULUS_BITS 10000
 

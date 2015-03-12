@@ -114,6 +114,8 @@
 #include <openssl/lhash.h>
 #include <openssl/mem.h>
 
+#include "thread_internal.h"
+
 
 DEFINE_LHASH_OF(ERR_STATE);
 

@@ -63,6 +63,7 @@
 #include <openssl/mem.h>
 
 #include "internal.h"
+#include "thread_internal.h"
 
 
 #define OPENSSL_RSA_MAX_MODULUS_BITS 16384

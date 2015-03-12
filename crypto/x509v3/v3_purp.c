@@ -66,6 +66,8 @@
 #include <openssl/x509_vfy.h>
 #include <openssl/x509v3.h>
 
+#include "thread_internal.h"
+
 
 static void x509v3_cache_extensions(X509 *x);
 

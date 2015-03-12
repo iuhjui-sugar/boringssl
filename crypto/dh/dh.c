@@ -63,9 +63,9 @@
 #include <openssl/err.h>
 #include <openssl/ex_data.h>
 #include <openssl/mem.h>
-#include <openssl/thread.h>
 
 #include "internal.h"
+#include "thread_internal.h"
 
 
 extern const DH_METHOD DH_default_method;

@@ -66,6 +66,7 @@
 #include <openssl/obj.h>
 
 #include "internal.h"
+#include "thread_internal.h"
 
 
 extern const RSA_METHOD RSA_default_method;

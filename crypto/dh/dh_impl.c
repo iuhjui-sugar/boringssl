@@ -60,6 +60,8 @@
 #include <openssl/err.h>
 
 #include "internal.h"
+#include "thread_internal.h"
+
 
 #define OPENSSL_DH_MAX_MODULUS_BITS 10000
 

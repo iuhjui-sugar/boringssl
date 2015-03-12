@@ -114,10 +114,11 @@
 #include <openssl/lhash.h>
 #include <openssl/mem.h>
 #include <openssl/stack.h>
-#include <openssl/thread.h>
 
 #include "crypto_error.h"
 #include "internal.h"
+#include "thread_internal.h"
+
 
 typedef struct crypto_ex_data_func_st {
   long argl;  /* Arbitary long */

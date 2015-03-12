@@ -62,6 +62,8 @@
 #include <openssl/mem.h>
 #include <openssl/err.h>
 
+#include "thread_internal.h"
+
 
 X509_PKEY *X509_PKEY_new(void)
 	{

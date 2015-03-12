@@ -63,6 +63,8 @@
 #include <openssl/x509.h>
 #include <openssl/x509v3.h>
 
+#include "thread_internal.h"
+
 
 X509_LOOKUP *X509_LOOKUP_new(X509_LOOKUP_METHOD *method)
 	{

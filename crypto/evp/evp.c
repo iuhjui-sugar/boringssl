@@ -69,6 +69,7 @@
 #include <openssl/rsa.h>
 
 #include "internal.h"
+#include "thread_internal.h"
 
 
 extern const EVP_PKEY_ASN1_METHOD ec_asn1_meth;

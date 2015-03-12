@@ -67,7 +67,9 @@
 #include <openssl/x509.h>
 #include <openssl/x509v3.h>
 
+#include "thread_internal.h"
 #include "vpm_int.h"
+
 
 /* CRL score values */
 

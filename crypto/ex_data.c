@@ -109,10 +109,10 @@
 #include <openssl/ex_data.h>
 
 #include <openssl/err.h>
-#include <openssl/thread.h>
 
 #include "crypto_error.h"
 #include "internal.h"
+#include "thread_internal.h"
 
 
 /* global_impl is the implementation that we use at runtime. */

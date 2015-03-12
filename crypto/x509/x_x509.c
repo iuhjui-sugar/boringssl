@@ -61,9 +61,10 @@
 #include <openssl/evp.h>
 #include <openssl/mem.h>
 #include <openssl/obj.h>
-#include <openssl/thread.h>
 #include <openssl/x509.h>
 #include <openssl/x509v3.h>
+
+#include "thread_internal.h"
 
 
 ASN1_SEQUENCE_enc(X509_CINF, enc, 0) = {

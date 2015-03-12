@@ -126,6 +126,7 @@
 
 #include "../crypto/dh/internal.h"
 #include "../crypto/directory.h"
+#include "../crypto/thread_internal.h"
 #include "ssl_locl.h"
 
 

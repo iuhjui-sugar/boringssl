@@ -76,6 +76,7 @@
 #include <openssl/mem.h>
 
 #include "internal.h"
+#include "thread_internal.h"
 
 
 EC_KEY *EC_KEY_new(void) { return EC_KEY_new_method(NULL); }
