@@ -150,7 +150,6 @@
 #include <time.h>
 
 #include <openssl/aead.h>
-#include <openssl/bio.h>
 #include <openssl/buf.h>
 #include <openssl/dsa.h>
 #include <openssl/err.h>
