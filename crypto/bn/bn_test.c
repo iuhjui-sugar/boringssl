@@ -70,7 +70,6 @@
 #include <stdio.h>
 #include <string.h>
 
-#include <openssl/bio.h>
 #include <openssl/bn.h>
 #include <openssl/crypto.h>
 #include <openssl/err.h>
@@ -83,40 +82,40 @@ static const int num0 = 100; /* number of tests */
 static const int num1 = 50;  /* additional tests for some functions */
 static const int num2 = 5;   /* number of tests for slow functions */
 
-int test_add(BIO *bp);
-int test_sub(BIO *bp);
-int test_lshift1(BIO *bp);
-int test_lshift(BIO *bp, BN_CTX *ctx, BIGNUM *a_);
-int test_rshift1(BIO *bp);
-int test_rshift(BIO *bp, BN_CTX *ctx);
-int test_sqr(BIO *bp, BN_CTX *ctx);
-int test_mul(BIO *bp);
-int test_div(BIO *bp, BN_CTX *ctx);
+int test_add(FILE *bp);
+int test_sub(FILE *bp);
+int test_lshift1(FILE *bp);
+int test_lshift(FILE *bp, BN_CTX *ctx, BIGNUM *a_);
+int test_rshift1(FILE *bp);
+int test_rshift(FILE *bp, BN_CTX *ctx);
+int test_sqr(FILE *bp, BN_CTX *ctx);
+int test_mul(FILE *bp);
+int test_div(FILE *bp, BN_CTX *ctx);
 int rand_neg(void);
 
-int test_div_word(BIO *bp);
-int test_mont(BIO *bp, BN_CTX *ctx);
-int test_mod(BIO *bp, BN_CTX *ctx);
-int test_mod_mul(BIO *bp, BN_CTX *ctx);
-int test_mod_exp(BIO *bp, BN_CTX *ctx);
-int test_mod_exp_mont_consttime(BIO *bp, BN_CTX *ctx);
-int test_exp(BIO *bp, BN_CTX *ctx);
-int test_mod_sqrt(BIO *bp, BN_CTX *ctx);
+int test_div_word(FILE *bp);
+int test_mont(FILE *bp, BN_CTX *ctx);
+int test_mod(FILE *bp, BN_CTX *ctx);
+int test_mod_mul(FILE *bp, BN_CTX *ctx);
+int test_mod_exp(FILE *bp, BN_CTX *ctx);
+int test_mod_exp_mont_consttime(FILE *bp, BN_CTX *ctx);
+int test_exp(FILE *bp, BN_CTX *ctx);
+int test_mod_sqrt(FILE *bp, BN_CTX *ctx);
 static int test_exp_mod_zero(void);
-int test_small_prime(BIO *bp,BN_CTX *ctx);
-int test_mod_exp_mont5(BIO *bp, BN_CTX *ctx);
-int test_sqrt(BIO *bp, BN_CTX *ctx);
-int test_bn2bin_padded(BIO *bp, BN_CTX *ctx);
+int test_small_prime(FILE *bp,BN_CTX *ctx);
+int test_mod_exp_mont5(FILE *bp, BN_CTX *ctx);
+int test_sqrt(FILE *bp, BN_CTX *ctx);
+int test_bn2bin_padded(FILE *bp, BN_CTX *ctx);
 #if 0
-int test_gf2m_add(BIO *bp);
-int test_gf2m_mod(BIO *bp);
-int test_gf2m_mod_mul(BIO *bp, BN_CTX *ctx);
-int test_gf2m_mod_sqr(BIO *bp, BN_CTX *ctx);
-int test_gf2m_mod_inv(BIO *bp, BN_CTX *ctx);
-int test_gf2m_mod_div(BIO *bp, BN_CTX *ctx);
-int test_gf2m_mod_exp(BIO *bp, BN_CTX *ctx);
-int test_gf2m_mod_sqrt(BIO *bp, BN_CTX *ctx);
-int test_gf2m_mod_solve_quad(BIO *bp, BN_CTX *ctx);
+int test_gf2m_add(FILE *bp);
+int test_gf2m_mod(FILE *bp);
+int test_gf2m_mod_mul(FILE *bp, BN_CTX *ctx);
+int test_gf2m_mod_sqr(FILE *bp, BN_CTX *ctx);
+int test_gf2m_mod_inv(FILE *bp, BN_CTX *ctx);
+int test_gf2m_mod_div(FILE *bp, BN_CTX *ctx);
+int test_gf2m_mod_exp(FILE *bp, BN_CTX *ctx);
+int test_gf2m_mod_sqrt(FILE *bp, BN_CTX *ctx);
+int test_gf2m_mod_solve_quad(FILE *bp, BN_CTX *ctx);
 #endif
 static int results = 0;
 
@@ -124,18 +123,22 @@ static unsigned char lst[] =
     "\xC6\x4F\x43\x04\x2A\xEA\xCA\x6E\x58\x36\x80\x5B\xE8\xC9"
     "\x9B\x04\x5D\x48\x36\xC2\xFD\x16\xC9\x64\xF0";
 
-static void ERR_print_errors_fp(FILE *out) {
+/* A wrapper around puts that takes its arguments in the same order as our *_fp
+ * functions. */
+static void puts_fp(FILE *out, const char* str)
+{
+  fputs(str, out);
 }
 
-static void message(BIO *out, char *m) {
-  BIO_puts(out, "print \"test ");
-  BIO_puts(out, m);
-  BIO_puts(out, "\\n\"\n");
+static void message(FILE *out, char *m) {
+  puts_fp(out, "print \"test ");
+  puts_fp(out, m);
+  puts_fp(out, "\\n\"\n");
 }
 
 int main(int argc, char *argv[]) {
   BN_CTX *ctx;
-  BIO *out = NULL;
+  FILE *out = NULL;
   char *outfile = NULL;
 
   CRYPTO_library_init();
@@ -163,167 +166,165 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
-  out = BIO_new(BIO_s_file());
-  if (out == NULL) {
-    return 1;
-  }
-
   if (outfile == NULL) {
-    BIO_set_fp(out, stdout, BIO_NOCLOSE);
+    out = stdout;
   } else {
-    if (!BIO_write_filename(out, outfile)) {
+    out = fopen(outfile, "wb");
+    if (!out) {
       perror(outfile);
       return 1;
     }
   }
 
   if (!results) {
-    BIO_puts(out, "obase=16\nibase=16\n");
+    puts_fp(out, "obase=16\nibase=16\n");
   }
 
   message(out, "BN_add");
   if (!test_add(out)) {
     goto err;
   }
-  (void)BIO_flush(out);
+  fflush(out);
 
   message(out, "BN_sub");
   if (!test_sub(out)) {
     goto err;
   }
-  (void)BIO_flush(out);
+  fflush(out);
 
   message(out, "BN_lshift1");
   if (!test_lshift1(out)) {
     goto err;
   }
-  (void)BIO_flush(out);
+  fflush(out);
 
   message(out, "BN_lshift (fixed)");
   if (!test_lshift(out, ctx, BN_bin2bn(lst, sizeof(lst) - 1, NULL))) {
     goto err;
   }
-  (void)BIO_flush(out);
+  fflush(out);
 
   message(out, "BN_lshift");
   if (!test_lshift(out, ctx, NULL)) {
     goto err;
   }
-  (void)BIO_flush(out);
+  fflush(out);
 
   message(out, "BN_rshift1");
   if (!test_rshift1(out)) {
     goto err;
   }
-  (void)BIO_flush(out);
+  fflush(out);
 
   message(out, "BN_rshift");
   if (!test_rshift(out, ctx)) {
     goto err;
   }
-  (void)BIO_flush(out);
+  fflush(out);
 
   message(out, "BN_sqr");
   if (!test_sqr(out, ctx)) {
     goto err;
   }
-  (void)BIO_flush(out);
+  fflush(out);
 
   message(out, "BN_mul");
   if (!test_mul(out)) {
     goto err;
   }
-  (void)BIO_flush(out);
+  fflush(out);
 
   message(out, "BN_div");
   if (!test_div(out, ctx)) {
     goto err;
   }
-  (void)BIO_flush(out);
+  fflush(out);
 
   message(out, "BN_div_word");
   if (!test_div_word(out)) {
     goto err;
   }
-  (void)BIO_flush(out);
+  fflush(out);
 
   message(out, "BN_mod");
   if (!test_mod(out, ctx)) {
     goto err;
   }
-  (void)BIO_flush(out);
+  fflush(out);
 
   message(out, "BN_mod_mul");
   if (!test_mod_mul(out, ctx)) {
     goto err;
   }
-  (void)BIO_flush(out);
+  fflush(out);
 
   message(out, "BN_mont");
   if (!test_mont(out, ctx)) {
     goto err;
   }
-  (void)BIO_flush(out);
+  fflush(out);
 
   message(out, "BN_mod_exp");
   if (!test_mod_exp(out, ctx)) {
     goto err;
   }
-  (void)BIO_flush(out);
+  fflush(out);
 
   message(out, "BN_mod_exp_mont_consttime");
   if (!test_mod_exp_mont_consttime(out, ctx) ||
       !test_mod_exp_mont5(out, ctx)) {
     goto err;
   }
-  (void)BIO_flush(out);
+  fflush(out);
 
   message(out, "BN_exp");
   if (!test_exp(out, ctx) ||
       !test_exp_mod_zero()) {
     goto err;
   }
-  (void)BIO_flush(out);
+  fflush(out);
 
   message(out, "BN_mod_sqrt");
   if (!test_mod_sqrt(out, ctx)) {
     goto err;
   }
-  (void)BIO_flush(out);
+  fflush(out);
 
   message(out, "Small prime generation");
   if (!test_small_prime(out, ctx)) {
     goto err;
   }
-  (void)BIO_flush(out);
+  fflush(out);
 
   message(out, "BN_sqrt");
   if (!test_sqrt(out, ctx)) {
     goto err;
   }
-  (void)BIO_flush(out);
+  fflush(out);
 
   message(out, "BN_bn2bin_padded");
   if (!test_bn2bin_padded(out, ctx)) {
     goto err;
   }
-  (void)BIO_flush(out);
+  fflush(out);
 
   BN_CTX_free(ctx);
-  BIO_free(out);
+  if (out != stdout) {
+    fclose(out);
+  }
 
   printf("PASS\n");
   return 0;
 
 err:
-  BIO_puts(out, "1\n"); /* make sure the Perl script fed by bc notices
-                         * the failure, see test_bn in test/Makefile.ssl*/
-  (void)BIO_flush(out);
+  puts_fp(out, "1\n"); /* make sure the Perl script fed by bc notices
+                        * the failure, see test_bn in test/Makefile.ssl*/
+  fflush(out);
 
   return 1;
 }
 
-int test_add(BIO *bp) {
+int test_add(FILE *bp) {
   BIGNUM a, b, c;
   int i;
 
@@ -339,13 +340,13 @@ int test_add(BIO *bp) {
     BN_add(&c, &a, &b);
     if (bp != NULL) {
       if (!results) {
-        BN_print(bp, &a);
-        BIO_puts(bp, " + ");
-        BN_print(bp, &b);
-        BIO_puts(bp, " - ");
+        BN_print_fp(bp, &a);
+        puts_fp(bp, " + ");
+        BN_print_fp(bp, &b);
+        puts_fp(bp, " - ");
       }
-      BN_print(bp, &c);
-      BIO_puts(bp, "\n");
+      BN_print_fp(bp, &c);
+      puts_fp(bp, "\n");
     }
     a.neg = !a.neg;
     b.neg = !b.neg;
@@ -362,7 +363,7 @@ int test_add(BIO *bp) {
   return (1);
 }
 
-int test_sub(BIO *bp) {
+int test_sub(FILE *bp) {
   BIGNUM a, b, c;
   int i;
 
@@ -386,13 +387,13 @@ int test_sub(BIO *bp) {
     BN_sub(&c, &a, &b);
     if (bp != NULL) {
       if (!results) {
-        BN_print(bp, &a);
-        BIO_puts(bp, " - ");
-        BN_print(bp, &b);
-        BIO_puts(bp, " - ");
+        BN_print_fp(bp, &a);
+        puts_fp(bp, " - ");
+        BN_print_fp(bp, &b);
+        puts_fp(bp, " - ");
       }
-      BN_print(bp, &c);
-      BIO_puts(bp, "\n");
+      BN_print_fp(bp, &c);
+      puts_fp(bp, "\n");
     }
     BN_add(&c, &c, &b);
     BN_sub(&c, &c, &a);
@@ -407,7 +408,7 @@ int test_sub(BIO *bp) {
   return (1);
 }
 
-int test_div(BIO *bp, BN_CTX *ctx) {
+int test_div(FILE *bp, BN_CTX *ctx) {
   BIGNUM a, b, c, d, e;
   int i;
 
@@ -431,22 +432,22 @@ int test_div(BIO *bp, BN_CTX *ctx) {
     BN_div(&d, &c, &a, &b, ctx);
     if (bp != NULL) {
       if (!results) {
-        BN_print(bp, &a);
-        BIO_puts(bp, " / ");
-        BN_print(bp, &b);
-        BIO_puts(bp, " - ");
+        BN_print_fp(bp, &a);
+        puts_fp(bp, " / ");
+        BN_print_fp(bp, &b);
+        puts_fp(bp, " - ");
       }
-      BN_print(bp, &d);
-      BIO_puts(bp, "\n");
+      BN_print_fp(bp, &d);
+      puts_fp(bp, "\n");
 
       if (!results) {
-        BN_print(bp, &a);
-        BIO_puts(bp, " % ");
-        BN_print(bp, &b);
-        BIO_puts(bp, " - ");
+        BN_print_fp(bp, &a);
+        puts_fp(bp, " % ");
+        BN_print_fp(bp, &b);
+        puts_fp(bp, " - ");
       }
-      BN_print(bp, &c);
-      BIO_puts(bp, "\n");
+      BN_print_fp(bp, &c);
+      puts_fp(bp, "\n");
     }
     BN_mul(&e, &d, &b, ctx);
     BN_add(&d, &e, &c);
@@ -464,7 +465,7 @@ int test_div(BIO *bp, BN_CTX *ctx) {
   return (1);
 }
 
-int test_lshift1(BIO *bp) {
+int test_lshift1(FILE *bp) {
   BIGNUM *a, *b, *c;
   int i;
 
@@ -478,12 +479,12 @@ int test_lshift1(BIO *bp) {
     BN_lshift1(b, a);
     if (bp != NULL) {
       if (!results) {
-        BN_print(bp, a);
-        BIO_puts(bp, " * 2");
-        BIO_puts(bp, " - ");
+        BN_print_fp(bp, a);
+        puts_fp(bp, " * 2");
+        puts_fp(bp, " - ");
       }
-      BN_print(bp, b);
-      BIO_puts(bp, "\n");
+      BN_print_fp(bp, b);
+      puts_fp(bp, "\n");
     }
     BN_add(c, a, a);
     BN_sub(a, b, c);
@@ -500,7 +501,7 @@ int test_lshift1(BIO *bp) {
   return (1);
 }
 
-int test_rshift(BIO *bp, BN_CTX *ctx) {
+int test_rshift(FILE *bp, BN_CTX *ctx) {
   BIGNUM *a, *b, *c, *d, *e;
   int i;
 
@@ -518,13 +519,13 @@ int test_rshift(BIO *bp, BN_CTX *ctx) {
     BN_add(c, c, c);
     if (bp != NULL) {
       if (!results) {
-        BN_print(bp, a);
-        BIO_puts(bp, " / ");
-        BN_print(bp, c);
-        BIO_puts(bp, " - ");
+        BN_print_fp(bp, a);
+        puts_fp(bp, " / ");
+        BN_print_fp(bp, c);
+        puts_fp(bp, " - ");
       }
-      BN_print(bp, b);
-      BIO_puts(bp, "\n");
+      BN_print_fp(bp, b);
+      puts_fp(bp, "\n");
     }
     BN_div(d, e, a, c, ctx);
     BN_sub(d, d, b);
@@ -541,7 +542,7 @@ int test_rshift(BIO *bp, BN_CTX *ctx) {
   return (1);
 }
 
-int test_rshift1(BIO *bp) {
+int test_rshift1(FILE *bp) {
   BIGNUM *a, *b, *c;
   int i;
 
@@ -555,12 +556,12 @@ int test_rshift1(BIO *bp) {
     BN_rshift1(b, a);
     if (bp != NULL) {
       if (!results) {
-        BN_print(bp, a);
-        BIO_puts(bp, " / 2");
-        BIO_puts(bp, " - ");
+        BN_print_fp(bp, a);
+        puts_fp(bp, " / 2");
+        puts_fp(bp, " - ");
       }
-      BN_print(bp, b);
-      BIO_puts(bp, "\n");
+      BN_print_fp(bp, b);
+      puts_fp(bp, "\n");
     }
     BN_sub(c, a, b);
     BN_sub(c, c, b);
@@ -576,7 +577,7 @@ int test_rshift1(BIO *bp) {
   return (1);
 }
 
-int test_lshift(BIO *bp, BN_CTX *ctx, BIGNUM *a_) {
+int test_lshift(FILE *bp, BN_CTX *ctx, BIGNUM *a_) {
   BIGNUM *a, *b, *c, *d;
   int i;
 
@@ -597,13 +598,13 @@ int test_lshift(BIO *bp, BN_CTX *ctx, BIGNUM *a_) {
     BN_add(c, c, c);
     if (bp != NULL) {
       if (!results) {
-        BN_print(bp, a);
-        BIO_puts(bp, " * ");
-        BN_print(bp, c);
-        BIO_puts(bp, " - ");
+        BN_print_fp(bp, a);
+        puts_fp(bp, " * ");
+        BN_print_fp(bp, c);
+        puts_fp(bp, " - ");
       }
-      BN_print(bp, b);
-      BIO_puts(bp, "\n");
+      BN_print_fp(bp, b);
+      puts_fp(bp, "\n");
     }
     BN_mul(d, a, c, ctx);
     BN_sub(d, d, b);
@@ -628,7 +629,7 @@ int test_lshift(BIO *bp, BN_CTX *ctx, BIGNUM *a_) {
   return (1);
 }
 
-int test_mul(BIO *bp) {
+int test_mul(FILE *bp) {
   BIGNUM a, b, c, d, e;
   int i;
   BN_CTX *ctx;
@@ -656,13 +657,13 @@ int test_mul(BIO *bp) {
     BN_mul(&c, &a, &b, ctx);
     if (bp != NULL) {
       if (!results) {
-        BN_print(bp, &a);
-        BIO_puts(bp, " * ");
-        BN_print(bp, &b);
-        BIO_puts(bp, " - ");
+        BN_print_fp(bp, &a);
+        puts_fp(bp, " * ");
+        BN_print_fp(bp, &b);
+        puts_fp(bp, " - ");
       }
-      BN_print(bp, &c);
-      BIO_puts(bp, "\n");
+      BN_print_fp(bp, &c);
+      puts_fp(bp, "\n");
     }
     BN_div(&d, &e, &c, &a, ctx);
     BN_sub(&d, &d, &b);
@@ -680,7 +681,7 @@ int test_mul(BIO *bp) {
   return (1);
 }
 
-int test_sqr(BIO *bp, BN_CTX *ctx) {
+int test_sqr(FILE *bp, BN_CTX *ctx) {
   BIGNUM *a, *c, *d, *e;
   int i, ret = 0;
 
@@ -698,13 +699,13 @@ int test_sqr(BIO *bp, BN_CTX *ctx) {
     BN_sqr(c, a, ctx);
     if (bp != NULL) {
       if (!results) {
-        BN_print(bp, a);
-        BIO_puts(bp, " * ");
-        BN_print(bp, a);
-        BIO_puts(bp, " - ");
+        BN_print_fp(bp, a);
+        puts_fp(bp, " * ");
+        BN_print_fp(bp, a);
+        puts_fp(bp, " - ");
       }
-      BN_print(bp, c);
-      BIO_puts(bp, "\n");
+      BN_print_fp(bp, c);
+      puts_fp(bp, "\n");
     }
     BN_div(d, e, c, a, ctx);
     BN_sub(d, d, a);
@@ -720,13 +721,13 @@ int test_sqr(BIO *bp, BN_CTX *ctx) {
   BN_sqr(c, a, ctx);
   if (bp != NULL) {
     if (!results) {
-      BN_print(bp, a);
-      BIO_puts(bp, " * ");
-      BN_print(bp, a);
-      BIO_puts(bp, " - ");
+      BN_print_fp(bp, a);
+      puts_fp(bp, " * ");
+      BN_print_fp(bp, a);
+      puts_fp(bp, " - ");
     }
-    BN_print(bp, c);
-    BIO_puts(bp, "\n");
+    BN_print_fp(bp, c);
+    puts_fp(bp, "\n");
   }
   BN_mul(d, a, a, ctx);
   if (BN_cmp(c, d)) {
@@ -742,13 +743,13 @@ int test_sqr(BIO *bp, BN_CTX *ctx) {
   BN_sqr(c, a, ctx);
   if (bp != NULL) {
     if (!results) {
-      BN_print(bp, a);
-      BIO_puts(bp, " * ");
-      BN_print(bp, a);
-      BIO_puts(bp, " - ");
+      BN_print_fp(bp, a);
+      puts_fp(bp, " * ");
+      BN_print_fp(bp, a);
+      puts_fp(bp, " - ");
     }
-    BN_print(bp, c);
-    BIO_puts(bp, "\n");
+    BN_print_fp(bp, c);
+    puts_fp(bp, "\n");
   }
   BN_mul(d, a, a, ctx);
   if (BN_cmp(c, d)) {
@@ -783,11 +784,11 @@ int rand_neg(void) {
   return (sign[(neg++) % 8]);
 }
 
-static void print_word(BIO *bp, BN_ULONG w) {
-  BIO_printf(bp, BN_HEX_FMT1, w);
+static void print_word(FILE *bp, BN_ULONG w) {
+  fprintf(bp, BN_HEX_FMT1, w);
 }
 
-int test_div_word(BIO *bp) {
+int test_div_word(FILE *bp) {
   BIGNUM a, b;
   BN_ULONG r, s;
   int i;
@@ -807,22 +808,22 @@ int test_div_word(BIO *bp) {
 
     if (bp != NULL) {
       if (!results) {
-        BN_print(bp, &a);
-        BIO_puts(bp, " / ");
+        BN_print_fp(bp, &a);
+        puts_fp(bp, " / ");
         print_word(bp, s);
-        BIO_puts(bp, " - ");
+        puts_fp(bp, " - ");
       }
-      BN_print(bp, &b);
-      BIO_puts(bp, "\n");
+      BN_print_fp(bp, &b);
+      puts_fp(bp, "\n");
 
       if (!results) {
-        BN_print(bp, &a);
-        BIO_puts(bp, " % ");
+        BN_print_fp(bp, &a);
+        puts_fp(bp, " % ");
         print_word(bp, s);
-        BIO_puts(bp, " - ");
+        puts_fp(bp, " - ");
       }
       print_word(bp, r);
-      BIO_puts(bp, "\n");
+      puts_fp(bp, "\n");
     }
     BN_mul_word(&b, s);
     BN_add_word(&b, r);
@@ -837,7 +838,7 @@ int test_div_word(BIO *bp) {
   return (1);
 }
 
-int test_mont(BIO *bp, BN_CTX *ctx) {
+int test_mont(FILE *bp, BN_CTX *ctx) {
   BIGNUM a, b, c, d, A, B;
   BIGNUM n;
   int i;
@@ -881,15 +882,15 @@ int test_mont(BIO *bp, BN_CTX *ctx) {
         fprintf(stderr, "%d * %d %% %d\n", BN_num_bits(&a), BN_num_bits(&b),
                 BN_num_bits(mont->N));
 #endif
-        BN_print(bp, &a);
-        BIO_puts(bp, " * ");
-        BN_print(bp, &b);
-        BIO_puts(bp, " % ");
-        BN_print(bp, &(mont->N));
-        BIO_puts(bp, " - ");
+        BN_print_fp(bp, &a);
+        puts_fp(bp, " * ");
+        BN_print_fp(bp, &b);
+        puts_fp(bp, " % ");
+        BN_print_fp(bp, &(mont->N));
+        puts_fp(bp, " - ");
       }
-      BN_print(bp, &A);
-      BIO_puts(bp, "\n");
+      BN_print_fp(bp, &A);
+      puts_fp(bp, "\n");
     }
     BN_mod_mul(&d, &a, &b, &n, ctx);
     BN_sub(&d, &d, &A);
@@ -909,7 +910,7 @@ int test_mont(BIO *bp, BN_CTX *ctx) {
   return (1);
 }
 
-int test_mod(BIO *bp, BN_CTX *ctx) {
+int test_mod(FILE *bp, BN_CTX *ctx) {
   BIGNUM *a, *b, *c, *d, *e;
   int i;
 
@@ -927,13 +928,13 @@ int test_mod(BIO *bp, BN_CTX *ctx) {
     BN_mod(c, a, b, ctx); /**/
     if (bp != NULL) {
       if (!results) {
-        BN_print(bp, a);
-        BIO_puts(bp, " % ");
-        BN_print(bp, b);
-        BIO_puts(bp, " - ");
+        BN_print_fp(bp, a);
+        puts_fp(bp, " % ");
+        BN_print_fp(bp, b);
+        puts_fp(bp, " - ");
       }
-      BN_print(bp, c);
-      BIO_puts(bp, "\n");
+      BN_print_fp(bp, c);
+      puts_fp(bp, "\n");
     }
     BN_div(d, e, a, b, ctx);
     BN_sub(e, e, c);
@@ -950,7 +951,7 @@ int test_mod(BIO *bp, BN_CTX *ctx) {
   return (1);
 }
 
-int test_mod_mul(BIO *bp, BN_CTX *ctx) {
+int test_mod_mul(FILE *bp, BN_CTX *ctx) {
   BIGNUM *a, *b, *c, *d, *e;
   int i, j;
 
@@ -977,24 +978,24 @@ int test_mod_mul(BIO *bp, BN_CTX *ctx) {
       }
       if (bp != NULL) {
         if (!results) {
-          BN_print(bp, a);
-          BIO_puts(bp, " * ");
-          BN_print(bp, b);
-          BIO_puts(bp, " % ");
-          BN_print(bp, c);
+          BN_print_fp(bp, a);
+          puts_fp(bp, " * ");
+          BN_print_fp(bp, b);
+          puts_fp(bp, " % ");
+          BN_print_fp(bp, c);
           if ((a->neg ^ b->neg) && !BN_is_zero(e)) {
             /* If  (a*b) % c  is negative,  c  must be added
              * in order to obtain the normalized remainder
              * (new with OpenSSL 0.9.7, previous versions of
              * BN_mod_mul could generate negative results)
              */
-            BIO_puts(bp, " + ");
-            BN_print(bp, c);
+            puts_fp(bp, " + ");
+            BN_print_fp(bp, c);
           }
-          BIO_puts(bp, " - ");
+          puts_fp(bp, " - ");
         }
-        BN_print(bp, e);
-        BIO_puts(bp, "\n");
+        BN_print_fp(bp, e);
+        puts_fp(bp, "\n");
       }
       BN_mul(d, a, b, ctx);
       BN_sub(d, d, e);
@@ -1014,7 +1015,7 @@ int test_mod_mul(BIO *bp, BN_CTX *ctx) {
   return (1);
 }
 
-int test_mod_exp(BIO *bp, BN_CTX *ctx) {
+int test_mod_exp(FILE *bp, BN_CTX *ctx) {
   BIGNUM *a, *b, *c, *d, *e;
   int i;
 
@@ -1035,15 +1036,15 @@ int test_mod_exp(BIO *bp, BN_CTX *ctx) {
 
     if (bp != NULL) {
       if (!results) {
-        BN_print(bp, a);
-        BIO_puts(bp, " ^ ");
-        BN_print(bp, b);
-        BIO_puts(bp, " % ");
-        BN_print(bp, c);
-        BIO_puts(bp, " - ");
+        BN_print_fp(bp, a);
+        puts_fp(bp, " ^ ");
+        BN_print_fp(bp, b);
+        puts_fp(bp, " % ");
+        BN_print_fp(bp, c);
+        puts_fp(bp, " - ");
       }
-      BN_print(bp, d);
-      BIO_puts(bp, "\n");
+      BN_print_fp(bp, d);
+      puts_fp(bp, "\n");
     }
     BN_exp(e, a, b, ctx);
     BN_sub(e, e, d);
@@ -1061,7 +1062,7 @@ int test_mod_exp(BIO *bp, BN_CTX *ctx) {
   return (1);
 }
 
-int test_mod_exp_mont_consttime(BIO *bp, BN_CTX *ctx) {
+int test_mod_exp_mont_consttime(FILE *bp, BN_CTX *ctx) {
   BIGNUM *a, *b, *c, *d, *e;
   int i;
 
@@ -1082,15 +1083,15 @@ int test_mod_exp_mont_consttime(BIO *bp, BN_CTX *ctx) {
 
     if (bp != NULL) {
       if (!results) {
-        BN_print(bp, a);
-        BIO_puts(bp, " ^ ");
-        BN_print(bp, b);
-        BIO_puts(bp, " % ");
-        BN_print(bp, c);
-        BIO_puts(bp, " - ");
+        BN_print_fp(bp, a);
+        puts_fp(bp, " ^ ");
+        BN_print_fp(bp, b);
+        puts_fp(bp, " % ");
+        BN_print_fp(bp, c);
+        puts_fp(bp, " - ");
       }
-      BN_print(bp, d);
-      BIO_puts(bp, "\n");
+      BN_print_fp(bp, d);
+      puts_fp(bp, "\n");
     }
     BN_exp(e, a, b, ctx);
     BN_sub(e, e, d);
@@ -1110,7 +1111,7 @@ int test_mod_exp_mont_consttime(BIO *bp, BN_CTX *ctx) {
 
 /* Test constant-time modular exponentiation with 1024-bit inputs,
  * which on x86_64 cause a different code branch to be taken. */
-int test_mod_exp_mont5(BIO *bp, BN_CTX *ctx) {
+int test_mod_exp_mont5(FILE *bp, BN_CTX *ctx) {
   BIGNUM *a, *p, *m, *d, *e;
 
   BN_MONT_CTX *mont;
@@ -1179,7 +1180,7 @@ int test_mod_exp_mont5(BIO *bp, BN_CTX *ctx) {
   return 1;
 }
 
-int test_exp(BIO *bp, BN_CTX *ctx) {
+int test_exp(FILE *bp, BN_CTX *ctx) {
   BIGNUM *a, *b, *d, *e, *one;
   int i;
 
@@ -1200,13 +1201,13 @@ int test_exp(BIO *bp, BN_CTX *ctx) {
 
     if (bp != NULL) {
       if (!results) {
-        BN_print(bp, a);
-        BIO_puts(bp, " ^ ");
-        BN_print(bp, b);
-        BIO_puts(bp, " - ");
+        BN_print_fp(bp, a);
+        puts_fp(bp, " ^ ");
+        BN_print_fp(bp, b);
+        puts_fp(bp, " - ");
       }
-      BN_print(bp, d);
-      BIO_puts(bp, "\n");
+      BN_print_fp(bp, d);
+      puts_fp(bp, "\n");
     }
     BN_one(e);
     for (; !BN_is_zero(b); BN_sub(b, b, one)) {
@@ -1279,7 +1280,7 @@ static int genprime_cb(int p, int n, BN_GENCB *arg) {
   return 1;
 }
 
-int test_mod_sqrt(BIO *bp, BN_CTX *ctx) {
+int test_mod_sqrt(FILE *bp, BN_CTX *ctx) {
   BN_GENCB cb;
   BIGNUM *a, *p, *r;
   int i, j;
@@ -1368,7 +1369,7 @@ err:
   return ret;
 }
 
-int test_small_prime(BIO *bp, BN_CTX *ctx) {
+int test_small_prime(FILE *bp, BN_CTX *ctx) {
   static const int bits = 10;
   int ret = 0;
   BIGNUM r;
@@ -1378,7 +1379,7 @@ int test_small_prime(BIO *bp, BN_CTX *ctx) {
     goto err;
   }
   if (BN_num_bits(&r) != bits) {
-    BIO_printf(bp, "Expected %d bit prime, got %d bit number\n", bits,
+    fprintf(bp, "Expected %d bit prime, got %d bit number\n", bits,
                BN_num_bits(&r));
     goto err;
   }
@@ -1390,7 +1391,7 @@ err:
   return ret;
 }
 
-int test_sqrt(BIO *bp, BN_CTX *ctx) {
+int test_sqrt(FILE *bp, BN_CTX *ctx) {
   BIGNUM *n = BN_new(), *nn = BN_new(), *sqrt = BN_new();
   unsigned i;
 
@@ -1400,7 +1401,7 @@ int test_sqrt(BIO *bp, BN_CTX *ctx) {
                  0 /* don't modify bottom bit */) ||
         !BN_mul(nn, n, n, ctx) ||
         !BN_sqrt(sqrt, nn, ctx)) {
-      BIO_print_errors_fp(stderr);
+      ERR_print_errors_fp(stderr);
       return 0;
     }
     if (BN_cmp(n, sqrt) != 0) {
@@ -1415,7 +1416,7 @@ int test_sqrt(BIO *bp, BN_CTX *ctx) {
                  0 /* don't modify bottom bit */) ||
         !BN_mul(nn, n, n, ctx) ||
         !BN_add(nn, nn, BN_value_one())) {
-      BIO_print_errors_fp(stderr);
+      ERR_print_errors_fp(stderr);
       return 0;
     }
 
@@ -1433,7 +1434,7 @@ int test_sqrt(BIO *bp, BN_CTX *ctx) {
   return 1;
 }
 
-int test_bn2bin_padded(BIO *bp, BN_CTX *ctx) {
+int test_bn2bin_padded(FILE *bp, BN_CTX *ctx) {
   BIGNUM *n = BN_new();
   uint8_t zeros[256], out[256], reference[128];
   size_t bytes;
@@ -1461,7 +1462,7 @@ int test_bn2bin_padded(BIO *bp, BN_CTX *ctx) {
   for (bytes = 128 - 7; bytes <= 128; bytes++) {
     if (!BN_rand(n, bytes * 8, 0 /* make sure top bit is 1 */,
                  0 /* don't modify bottom bit */)) {
-      BIO_print_errors_fp(stderr);
+      ERR_print_errors_fp(stderr);
       return 0;
     }
     if (BN_num_bytes(n) != bytes || BN_bn2bin(n, reference) != bytes) {
