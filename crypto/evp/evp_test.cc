@@ -466,52 +466,52 @@ int main(void) {
 
   if (!TestEVP_DigestSignInit()) {
     fprintf(stderr, "EVP_DigestSignInit failed\n");
-    BIO_print_errors_fp(stderr);
+    ERR_print_errors_fp(stderr);
     return 1;
   }
 
   if (!TestEVP_DigestVerifyInit()) {
     fprintf(stderr, "EVP_DigestVerifyInit failed\n");
-    BIO_print_errors_fp(stderr);
+    ERR_print_errors_fp(stderr);
     return 1;
   }
 
   if (!TestEVP_DigestSignAlgorithm()) {
     fprintf(stderr, "EVP_DigestSignInit failed\n");
-    BIO_print_errors_fp(stderr);
+    ERR_print_errors_fp(stderr);
     return 1;
   }
 
   if (!TestEVP_DigestVerifyInitFromAlgorithm()) {
     fprintf(stderr, "EVP_DigestVerifyInitFromAlgorithm failed\n");
-    BIO_print_errors_fp(stderr);
+    ERR_print_errors_fp(stderr);
     return 1;
   }
 
   if (!Testd2i_AutoPrivateKey(kExampleRSAKeyDER, sizeof(kExampleRSAKeyDER),
                               EVP_PKEY_RSA)) {
     fprintf(stderr, "d2i_AutoPrivateKey(kExampleRSAKeyDER) failed\n");
-    BIO_print_errors_fp(stderr);
+    ERR_print_errors_fp(stderr);
     return 1;
   }
 
   if (!Testd2i_AutoPrivateKey(kExampleRSAKeyPKCS8, sizeof(kExampleRSAKeyPKCS8),
                               EVP_PKEY_RSA)) {
     fprintf(stderr, "d2i_AutoPrivateKey(kExampleRSAKeyPKCS8) failed\n");
-    BIO_print_errors_fp(stderr);
+    ERR_print_errors_fp(stderr);
     return 1;
   }
 
   if (!Testd2i_AutoPrivateKey(kExampleECKeyDER, sizeof(kExampleECKeyDER),
                               EVP_PKEY_EC)) {
     fprintf(stderr, "d2i_AutoPrivateKey(kExampleECKeyDER) failed\n");
-    BIO_print_errors_fp(stderr);
+    ERR_print_errors_fp(stderr);
     return 1;
   }
 
   if (!TestEVP_PKCS82PKEY()) {
     fprintf(stderr, "TestEVP_PKCS82PKEY failed\n");
-    BIO_print_errors_fp(stderr);
+    ERR_print_errors_fp(stderr);
     return 1;
   }
 
