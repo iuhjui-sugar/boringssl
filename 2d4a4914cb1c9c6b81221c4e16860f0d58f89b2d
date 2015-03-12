@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c1caaedd_662bae7f",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-12T17:53:34Z",
+      "side": 1,
+      "message": "This apparently makes gcc very unhappy (aargh). NACKing this version for now. :-(",
+      "revId": "2d4a4914cb1c9c6b81221c4e16860f0d58f89b2d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
