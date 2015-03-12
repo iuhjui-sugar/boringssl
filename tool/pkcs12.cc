@@ -31,6 +31,7 @@
 #endif
 
 #include <openssl/bytestring.h>
+#include <openssl/err.h>
 #include <openssl/pem.h>
 #include <openssl/pkcs8.h>
 #include <openssl/stack.h>

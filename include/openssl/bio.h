@@ -331,9 +331,9 @@ OPENSSL_EXPORT int BIO_indent(BIO *bio, unsigned indent, unsigned max_indent);
 OPENSSL_EXPORT int BIO_hexdump(BIO *bio, const uint8_t *data, size_t len,
                                unsigned indent);
 
-/* BIO_print_errors_fp prints the current contents of the error stack to |out|
- * using human readable strings where possible. */
-OPENSSL_EXPORT void BIO_print_errors_fp(FILE *out);
+/* ERR_print_errors_fp was previously called BIO_print_errors_fp. We define
+ * this for compatibility with code that uses the old name. */
+#define BIO_print_errors_fp ERR_print_errors_fp
 
 /* BIO_print_errors prints the current contents of the error stack to |bio|
  * using human readable strings where possible. */

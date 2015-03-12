@@ -619,6 +619,30 @@ void ERR_print_errors_cb(ERR_print_errors_callback_t callback, void *ctx) {
   }
 }
 
+void ERR_print_errors_fp(FILE *fp) {
+  CRYPTO_THREADID current_thread;
+  char buf[ERR_ERROR_STRING_BUF_LEN];
+  unsigned long thread_hash;
+  const char *file, *data;
+  int line, flags;
+  uint32_t packed_error;
+
+  CRYPTO_THREADID_current(&current_thread);
+  thread_hash = CRYPTO_THREADID_hash(&current_thread);
+
+  for (;;) {
+    packed_error = ERR_get_error_line_data(&file, &line, &data, &flags);
+    if (packed_error == 0) {
+      break;
+    }
+
+    ERR_error_string_n(packed_error, buf, sizeof(buf));
+    fprintf(fp, "%lu:%s:%s:%d:%s\n", thread_hash, buf, file, line,
+            (flags & ERR_FLAG_STRING) ? data : "");
+  }
+}
+
+
 /* err_set_error_data sets the data on the most recent error. The |flags|
  * argument is a combination of the |ERR_FLAG_*| values. */
 static void err_set_error_data(char *data, int flags) {

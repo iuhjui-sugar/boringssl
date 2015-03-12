@@ -37,6 +37,7 @@
 #include <openssl/bio.h>
 #include <openssl/buf.h>
 #include <openssl/bytestring.h>
+#include <openssl/err.h>
 #include <openssl/ssl.h>
 
 #include "async_bio.h"
