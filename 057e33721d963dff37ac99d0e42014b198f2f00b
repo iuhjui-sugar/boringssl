@@ -16,6 +16,24 @@
       "revId": "057e33721d963dff37ac99d0e42014b198f2f00b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "86052c00_a3f2796a",
+        "filename": "crypto/des/des.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-13T20:53:31Z",
+      "side": 1,
+      "message": "Copied from OpenSSL so it\u0027s at least bug compatible!",
+      "parentUuid": "02abe3f0_ecaf8b28",
+      "revId": "057e33721d963dff37ac99d0e42014b198f2f00b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
