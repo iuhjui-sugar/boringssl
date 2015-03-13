@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "66191872_4724de2b",
+        "filename": "crypto/hmac/hmac_test.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-03-13T23:50:53Z",
+      "side": 0,
+      "message": "Here is the Python script I used to generate the new test vector data:\n\nimport hashlib\nimport hmac\nimport sys\n\ntest_data \u003d [\n  (\"\", \"More text test vectors to stuff up EBCDIC machines :-)\", 54),\n  (\"\\x0b\" * 32, \"Hi There\", 8),\n  (\"Jefe\", \"what do ya want for nothing?\", 28),\n  (\"\\xaa\" * 32, \"\\xdd\" * 50, 50),\n]\n\nfor key, data, expected_data_len in test_data:\n  if len(data) !\u003d expected_data_len:\n    raise ValueError\n  mac \u003d hmac.new(key, data, hashlib.sha256)\n  print mac.hexdigest()",
+      "revId": "35f739495db60234a831bbc9ca0736653f6e1645",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
