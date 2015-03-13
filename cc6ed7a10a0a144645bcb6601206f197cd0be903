@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "86052c00_43e05546",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-13T20:53:44Z",
+      "side": 1,
+      "message": "Well, people who care about binary size can do it. It\u0027s just a question of -ffunction-sections -fdata-sections and then --gc-sections to the linker.",
+      "parentUuid": "02abe3f0_2c9a330b",
+      "range": {
+        "startLine": 9,
+        "startChar": 20,
+        "endLine": 9,
+        "endChar": 31
+      },
+      "revId": "cc6ed7a10a0a144645bcb6601206f197cd0be903",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02abe3f0_0c9777e3",
         "filename": "include/openssl/des.h",
         "patchSetId": 1
@@ -36,6 +60,24 @@
       "writtenOn": "2015-02-27T23:21:16Z",
       "side": 1,
       "message": "const (ditto for two below)",
+      "revId": "cc6ed7a10a0a144645bcb6601206f197cd0be903",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "86052c00_83453d07",
+        "filename": "include/openssl/des.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-13T20:53:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02abe3f0_0c9777e3",
       "revId": "cc6ed7a10a0a144645bcb6601206f197cd0be903",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
