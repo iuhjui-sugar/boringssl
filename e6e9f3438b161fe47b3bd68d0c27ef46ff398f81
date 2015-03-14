@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a1385ab1_21f976ce",
+        "filename": "crypto/hmac/hmac_test.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-14T00:17:48Z",
+      "side": 1,
+      "message": "A lot of these tests come from RFC 2202. I think it\u0027s worth reusing existing test vectors where possible.\n\nI have a branch I\u0027m working on that adds a file-based test framework based roughly on our aead_test.c and upstream\u0027s new evp_test.c. It imports upstream\u0027s HMAC tests which cover more hash functions. (Those test vectors supposedly come from NIST.)",
+      "revId": "e6e9f3438b161fe47b3bd68d0c27ef46ff398f81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
