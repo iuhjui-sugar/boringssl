@@ -16,6 +16,24 @@
       "revId": "e6e9f3438b161fe47b3bd68d0c27ef46ff398f81",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "66191872_ed7f4927",
+        "filename": "crypto/hmac/hmac_test.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-03-14T01:13:53Z",
+      "side": 1,
+      "message": "OK, great. I will rebase this changeset based on that work then.",
+      "parentUuid": "a1385ab1_21f976ce",
+      "revId": "e6e9f3438b161fe47b3bd68d0c27ef46ff398f81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
