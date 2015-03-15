@@ -60,37 +60,46 @@
 #include <openssl/obj.h>
 #include <openssl/rand.h>
 
+typedef enum {
+  ENCODED_API,
+  RAW_API,
+} API;
+
 /* returns 1 on success, 0 on failure. */
-static int verify_ecdsa_sig(const uint8_t *digest, unsigned int digest_len,
+static int verify_ecdsa_sig(API api, const uint8_t *digest,
+                            unsigned int digest_len,
                             const ECDSA_SIG *ecdsa_sig, EC_KEY *eckey,
-                            int expected_result) {
-  int ret = 0;
+                            int expected_result)
+{
+  int actual_result;
 
-  unsigned int sig_len = ECDSA_size(eckey);
-  if (sig_len == 0) {
-    return 0;
-  }
-  uint8_t *signature = OPENSSL_malloc(sig_len);
-  if (signature == NULL) {
-    return 0;
-  }
-  unsigned char *sig_ptr2 = signature;
-  sig_len = i2d_ECDSA_SIG(ecdsa_sig, &sig_ptr2);
-
-  int actual_result = ECDSA_verify(0, digest, digest_len, signature, sig_len,
+  switch (api) {
+    case ENCODED_API: {
+      unsigned int sig_len = ECDSA_size(eckey);
+      uint8_t *signature = OPENSSL_malloc(sig_len);
+      if (signature == NULL) {
+        return 0;
+      }
+      unsigned char *sig_ptr2 = signature;
+      sig_len = i2d_ECDSA_SIG(ecdsa_sig, &sig_ptr2);
+      actual_result = ECDSA_verify(0, digest, digest_len, signature, sig_len,
                                    eckey);
-  if (expected_result != actual_result) {
-    goto err;
-  }
+      OPENSSL_free(signature);
+      break;
+    }
 
-  ret = 1;     
-err:
-  OPENSSL_free(signature);
-  return ret;
+    case RAW_API:
+      actual_result = ECDSA_do_verify(digest, digest_len, ecdsa_sig, eckey);
+      break;
+
+    default:
+      return 0;
+  }
+  return expected_result == actual_result ? 1 : 0;
 }
 
 /* returns 1 on success, 0 on failure. */
-static int test_garbled_sig(FILE* out, const unsigned char *digest,
+static int test_garbled_sig(FILE* out, API api, const unsigned char *digest,
                             unsigned int digest_len,
                             /*in/out*/ ECDSA_SIG *ecdsa_sig, EC_KEY *eckey,
                             const BIGNUM *order)
@@ -129,7 +138,7 @@ static int test_garbled_sig(FILE* out, const unsigned char *digest,
     goto err;
   }
 
-  if (verify_ecdsa_sig(digest, digest_len, ecdsa_sig, eckey, 0) != 1) {
+  if (verify_ecdsa_sig(api, digest, digest_len, ecdsa_sig, eckey, 0) != 1) {
     goto err;
   }
 
@@ -140,7 +149,7 @@ static int test_garbled_sig(FILE* out, const unsigned char *digest,
     goto err;
   }
 
-  if (verify_ecdsa_sig(digest, digest_len, ecdsa_sig, eckey, 1) != 1) {
+  if (verify_ecdsa_sig(api, digest, digest_len, ecdsa_sig, eckey, 1) != 1) {
     goto err;
   }
 
@@ -152,7 +161,7 @@ err:
   return ret;
 }
 
-static int test_builtin(FILE* out) {
+static int test_builtin(FILE* out, API api) {
   size_t n = 0;
   EC_KEY *eckey = NULL, *wrong_eckey = NULL;
   EC_GROUP *group;
@@ -160,8 +169,6 @@ static int test_builtin(FILE* out) {
   ECDSA_SIG *ecdsa_sig = NULL;
   unsigned char digest[20], wrong_digest[20];
   unsigned char *signature = NULL;
-  const unsigned char *sig_ptr;
-  unsigned int sig_len;
   int nid, ret = 0;
 
   /* fill digest values with some random data */
@@ -175,10 +182,20 @@ static int test_builtin(FILE* out) {
     goto builtin_err;
   }
 
-  /* create and verify a ecdsa signature with every availble curve
-   * (with ) */
-  fprintf(out, "\ntesting ECDSA_sign() and ECDSA_verify() "
-               "with some internal curves:\n");
+  /* create and verify a ecdsa signature with every availble curve */
+  const char* apis;
+  switch (api) {
+    case ENCODED_API:
+      apis = "ECDSA_sign() and ECDSA_verify()";
+      break;
+    case RAW_API:
+      apis = "ECDSA_do_sign() and ECDSA_do_verify()";
+      break;
+    default:
+      goto builtin_err;
+  }
+
+  fprintf(out, "\ntesting %s with some internal curves:\n", apis);
 
   static const struct
   {
@@ -253,54 +270,102 @@ static int test_builtin(FILE* out) {
     }
     fprintf(out, ".");
     fflush(out);
-    /* create signature */
-    sig_len = ECDSA_size(eckey);
-    signature = OPENSSL_malloc(sig_len);
-    if (signature == NULL) {
-      goto builtin_err;
+
+    switch (api) {
+      case ENCODED_API: {
+        /* create signature */
+        unsigned int sig_len = ECDSA_size(eckey);
+        signature = OPENSSL_malloc(sig_len);
+        if (signature == NULL) {
+          goto builtin_err;
+        }
+        if (!ECDSA_sign(0, digest, 20, signature, &sig_len, eckey)) {
+          fprintf(out, " failed\n");
+          goto builtin_err;
+        }
+        fprintf(out, ".");
+        fflush(out);
+        /* verify signature */
+        if (ECDSA_verify(0, digest, 20, signature, sig_len, eckey) != 1) {
+          fprintf(out, " failed\n");
+          goto builtin_err;
+        }
+        fprintf(out, ".");
+        fflush(out);
+        /* verify signature with the wrong key */
+        if (ECDSA_verify(0, digest, 20, signature, sig_len, wrong_eckey)
+            == 1) {
+          fprintf(out, " failed\n");
+          goto builtin_err;
+        }
+        fprintf(out, ".");
+        fflush(out);
+        /* wrong digest */
+        if (ECDSA_verify(0, wrong_digest, 20, signature, sig_len, eckey)
+            == 1) {
+          fprintf(out, " failed\n");
+          goto builtin_err;
+        }
+        fprintf(out, ".");
+        fflush(out);
+        /* wrong length */
+        if (ECDSA_verify(0, digest, 20, signature, sig_len - 1, eckey) == 1) {
+          fprintf(out, " failed\n");
+          goto builtin_err;
+        }
+        fprintf(out, ".");
+        fflush(out);
+        /* garbled */
+        const unsigned char *sig_ptr = signature;
+        ecdsa_sig = d2i_ECDSA_SIG(NULL, &sig_ptr, sig_len);
+        if (ecdsa_sig == NULL) {
+          fprintf(out, " failed\n");
+          goto builtin_err;
+        }
+        /* clean up */
+        OPENSSL_free(signature);
+        signature = NULL;
+        break;
+      }
+
+      case RAW_API:
+        /* create signature */
+        ecdsa_sig = ECDSA_do_sign(digest, 20, eckey);
+        if (!ecdsa_sig) {
+          fprintf(out, " failed\n");
+          goto builtin_err;
+        }
+        fprintf(out, ".");
+        fflush(out);
+        /* verify signature */
+        if (ECDSA_do_verify(digest, 20, ecdsa_sig, eckey) != 1) {
+          fprintf(out, " failed\n");
+          goto builtin_err;
+        }
+        fprintf(out, ".");
+        fflush(out);
+        /* verify signature with the wrong key */
+        if (ECDSA_do_verify(digest, 20, ecdsa_sig, wrong_eckey) == 1) {
+          fprintf(out, " failed\n");
+          goto builtin_err;
+        }
+        fprintf(out, ".");
+        fflush(out);
+        /* wrong digest */
+        if (ECDSA_do_verify(wrong_digest, 20, ecdsa_sig, eckey) == 1) {
+          fprintf(out, " failed\n");
+          goto builtin_err;
+        }
+        fprintf(out, ".");
+        fflush(out);
+        break;
+
+      default:
+        fprintf(out, " failed\n");
+        goto builtin_err;
     }
-    if (!ECDSA_sign(0, digest, 20, signature, &sig_len, eckey)) {
-      fprintf(out, " failed\n");
-      goto builtin_err;
-    }
-    fprintf(out, ".");
-    fflush(out);
-    /* verify signature */
-    if (ECDSA_verify(0, digest, 20, signature, sig_len, eckey) != 1) {
-      fprintf(out, " failed\n");
-      goto builtin_err;
-    }
-    fprintf(out, ".");
-    fflush(out);
-    /* verify signature with the wrong key */
-    if (ECDSA_verify(0, digest, 20, signature, sig_len, wrong_eckey) == 1) {
-      fprintf(out, " failed\n");
-      goto builtin_err;
-    }
-    fprintf(out, ".");
-    fflush(out);
-    /* wrong digest */
-    if (ECDSA_verify(0, wrong_digest, 20, signature, sig_len, eckey) == 1) {
-      fprintf(out, " failed\n");
-      goto builtin_err;
-    }
-    fprintf(out, ".");
-    fflush(out);
-    /* wrong length */
-    if (ECDSA_verify(0, digest, 20, signature, sig_len - 1, eckey) == 1) {
-      fprintf(out, " failed\n");
-      goto builtin_err;
-    }
-    fprintf(out, ".");
-    fflush(out);
-    /* garbled */
-    sig_ptr = signature;
-    ecdsa_sig = d2i_ECDSA_SIG(NULL, &sig_ptr, sig_len);
-    if (ecdsa_sig == NULL) {
-      fprintf(out, " failed\n");
-      goto builtin_err;
-    }
-    if (test_garbled_sig(out, digest, 20, ecdsa_sig, eckey, order) != 1) {
+
+    if (test_garbled_sig(out, api, digest, 20, ecdsa_sig, eckey, order) != 1) {
       fprintf(out, " failed\n");
       goto builtin_err;
     }
@@ -311,8 +376,6 @@ static int test_builtin(FILE* out) {
     /* cleanup */
     /* clean bogus errors */
     ERR_clear_error();
-    OPENSSL_free(signature);
-    signature = NULL;
     EC_KEY_free(eckey);
     eckey = NULL;
     EC_KEY_free(wrong_eckey);
@@ -348,7 +411,10 @@ int main(void) {
   CRYPTO_library_init();
   ERR_load_crypto_strings();
 
-  if (!test_builtin(stdout)) {
+  if (!test_builtin(stdout, ENCODED_API)) {
+    goto err;
+  }
+  if (!test_builtin(stdout, RAW_API)) {
     goto err;
   }
 
