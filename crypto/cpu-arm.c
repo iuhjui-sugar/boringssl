@@ -152,7 +152,7 @@ void OPENSSL_cpuid_setup(void) {
    * these values. */
   static const unsigned long kAES = 1 << 0;
   static const unsigned long kPMULL = 1 << 1;
-  static const unsigned long kSHA1 = 1 << 2;
+  /* static const unsigned long kSHA1 = 1 << 2; */
   static const unsigned long kSHA256 = 1 << 3;
 #elif defined(OPENSSL_AARCH64)
   /* See /usr/include/asm/hwcap.h on an aarch64 installation for the source of
@@ -160,7 +160,7 @@ void OPENSSL_cpuid_setup(void) {
   static const unsigned long kNEON = 1 << 1;
   static const unsigned long kAES = 1 << 3;
   static const unsigned long kPMULL = 1 << 4;
-  static const unsigned long kSHA1 = 1 << 5;
+  /*static const unsigned long kSHA1 = 1 << 5;*/
   static const unsigned long kSHA256 = 1 << 6;
 
   if ((hwcap & kNEON) == 0) {
@@ -175,9 +175,6 @@ void OPENSSL_cpuid_setup(void) {
   }
   if (hwcap & kPMULL) {
     OPENSSL_armcap_P |= ARMV8_PMULL;
-  }
-  if (hwcap & kSHA1) {
-    OPENSSL_armcap_P |= ARMV8_SHA1;
   }
   if (hwcap & kSHA256) {
     OPENSSL_armcap_P |= ARMV8_SHA256;

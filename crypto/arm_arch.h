@@ -123,8 +123,9 @@ extern uint32_t OPENSSL_armcap_P;
 /* ARMV8_AES indicates support for hardware AES instructions. */
 #define ARMV8_AES (1 << 2)
 
-/* ARMV8_SHA1 indicates support for hardware SHA-1 instructions. */
-#define ARMV8_SHA1 (1 << 3)
+/* ARMV8_SHA1 indicates support for hardware SHA-1 instructions, which we don't
+ * use any more.
+ * ARMV8_SHA1 (1 << 3) */
 
 /* ARMV8_SHA256 indicates support for hardware SHA-256 instructions. */
 #define ARMV8_SHA256 (1 << 4)

@@ -61,12 +61,6 @@
 #include <openssl/mem.h>
 
 
-#if !defined(OPENSSL_NO_ASM) &&                         \
-    (defined(OPENSSL_X86) || defined(OPENSSL_X86_64) || \
-     defined(OPENSSL_ARM) || defined(OPENSSL_AARCH64))
-#define SHA1_ASM
-#endif
-
 int SHA1_Init(SHA_CTX *sha) {
   memset(sha, 0, sizeof(SHA_CTX));
   sha->h0 = 0x67452301UL;
@@ -121,10 +115,7 @@ uint8_t *SHA1(const uint8_t *data, size_t len, uint8_t *out) {
 #define Xupdate(a, ix, ia, ib, ic, id) \
   ((a) = (ia ^ ib ^ ic ^ id), ix = (a) = ROTATE((a), 1))
 
-#ifndef SHA1_ASM
-static
-#endif
-void sha1_block_data_order(SHA_CTX *c, const void *p, size_t num);
+static void sha1_block_data_order(SHA_CTX *c, const void *p, size_t num);
 
 #include "../digest/md32_common.h"
 
@@ -185,7 +176,6 @@ void sha1_block_data_order(SHA_CTX *c, const void *p, size_t num);
 *					<appro@fy.chalmers.se> */
 #define X(i)	XX##i
 
-#if !defined(SHA1_ASM)
 static void HASH_BLOCK_DATA_ORDER(SHA_CTX *c, const void *p, size_t num) {
   const uint8_t *data = p;
   register unsigned MD32_REG_T A, B, C, D, E, T, l;
@@ -378,4 +368,3 @@ static void HASH_BLOCK_DATA_ORDER(SHA_CTX *c, const void *p, size_t num) {
     E = c->h4;
   }
 }
-#endif
