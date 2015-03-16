@@ -161,14 +161,6 @@ static void aead_rc4_md5_tls_cleanup(EVP_AEAD_CTX *ctx) {
   OPENSSL_free(rc4_ctx);
 }
 
-#if !defined(OPENSSL_NO_ASM) && defined(OPENSSL_X86_64)
-#define STITCHED_CALL
-
-/* rc4_md5_enc is defined in rc4_md5-x86_64.pl */
-void rc4_md5_enc(RC4_KEY *key, const void *in0, void *out, MD5_CTX *ctx,
-                 const void *inp, size_t blocks);
-#endif
-
 static int aead_rc4_md5_tls_seal(const EVP_AEAD_CTX *ctx, uint8_t *out,
                                  size_t *out_len, size_t max_out_len,
                                  const uint8_t *nonce, size_t nonce_len,
@@ -176,12 +168,8 @@ static int aead_rc4_md5_tls_seal(const EVP_AEAD_CTX *ctx, uint8_t *out,
                                  const uint8_t *ad, size_t ad_len) {
   struct aead_rc4_md5_tls_ctx *rc4_ctx = ctx->aead_state;
   MD5_CTX md;
-#if defined(STITCHED_CALL)
-  size_t rc4_off, md5_off, blocks;
-#else
   const size_t rc4_off = 0;
   const size_t md5_off = 0;
-#endif
   uint8_t digest[MD5_DIGEST_LENGTH];
 
   if (in_len + rc4_ctx->tag_len < in_len) {
@@ -216,38 +204,6 @@ static int aead_rc4_md5_tls_seal(const EVP_AEAD_CTX *ctx, uint8_t *out,
   ad_extra[1] = (uint8_t)(in_len & 0xff);
   MD5_Update(&md, ad_extra, sizeof(ad_extra));
 
-#if defined(STITCHED_CALL)
-  /* 32 is $MOD from rc4_md5-x86_64.pl. */
-  rc4_off = 32 - 1 - (rc4_ctx->rc4.x & (32 - 1));
-  md5_off = MD5_CBLOCK - md.num;
-  /* Ensure RC4 is behind MD5. */
-  if (rc4_off > md5_off) {
-    md5_off += MD5_CBLOCK;
-  }
-  assert(md5_off >= rc4_off);
-
-  if (in_len > md5_off && (blocks = (in_len - md5_off) / MD5_CBLOCK) &&
-      (OPENSSL_ia32cap_P[0] & (1 << 20)) == 0) {
-    /* Process the initial portions of the plaintext normally. */
-    MD5_Update(&md, in, md5_off);
-    RC4(&rc4_ctx->rc4, rc4_off, in, out);
-
-    /* Process the next |blocks| blocks of plaintext with stitched routines. */
-    rc4_md5_enc(&rc4_ctx->rc4, in + rc4_off, out + rc4_off, &md, in + md5_off,
-                blocks);
-    blocks *= MD5_CBLOCK;
-    rc4_off += blocks;
-    md5_off += blocks;
-    md.Nh += blocks >> 29;
-    md.Nl += blocks <<= 3;
-    if (md.Nl < (unsigned int)blocks) {
-      md.Nh++;
-    }
-  } else {
-    rc4_off = 0;
-    md5_off = 0;
-  }
-#endif
   /* Finish computing the MAC. */
   MD5_Update(&md, in + md5_off, in_len - md5_off);
   MD5_Final(digest, &md);
@@ -277,14 +233,8 @@ static int aead_rc4_md5_tls_open(const EVP_AEAD_CTX *ctx, uint8_t *out,
   struct aead_rc4_md5_tls_ctx *rc4_ctx = ctx->aead_state;
   MD5_CTX md;
   size_t plaintext_len;
-#if defined(STITCHED_CALL)
-  unsigned int l;
-  size_t rc4_off, md5_off, blocks;
-  extern unsigned int OPENSSL_ia32cap_P[];
-#else
   const size_t rc4_off = 0;
   const size_t md5_off = 0;
-#endif
   uint8_t digest[MD5_DIGEST_LENGTH];
 
   if (in_len < rc4_ctx->tag_len) {
@@ -315,43 +265,6 @@ static int aead_rc4_md5_tls_open(const EVP_AEAD_CTX *ctx, uint8_t *out,
   ad_extra[0] = (uint8_t)(plaintext_len >> 8);
   ad_extra[1] = (uint8_t)(plaintext_len & 0xff);
   MD5_Update(&md, ad_extra, sizeof(ad_extra));
-
-#if defined(STITCHED_CALL)
-  rc4_off = 32 - 1 - (rc4_ctx->rc4.x & (32 - 1));
-  md5_off = MD5_CBLOCK - md.num;
-  /* Ensure MD5 is a full block behind RC4 so it has plaintext to operate on in
-   * both normal and stitched routines. */
-  if (md5_off > rc4_off) {
-    rc4_off += 2 * MD5_CBLOCK;
-  } else {
-    rc4_off += MD5_CBLOCK;
-  }
-
-  if (in_len > rc4_off && (blocks = (in_len - rc4_off) / MD5_CBLOCK) &&
-      (OPENSSL_ia32cap_P[0] & (1 << 20)) == 0) {
-    /* Decrypt the initial portion of the ciphertext and digest the plaintext
-     * normally. */
-    RC4(&rc4_ctx->rc4, rc4_off, in, out);
-    MD5_Update(&md, out, md5_off);
-
-    /* Decrypt and digest the next |blocks| blocks of ciphertext with the
-     * stitched routines. */
-    rc4_md5_enc(&rc4_ctx->rc4, in + rc4_off, out + rc4_off, &md, out + md5_off,
-                blocks);
-    blocks *= MD5_CBLOCK;
-    rc4_off += blocks;
-    md5_off += blocks;
-    l = (md.Nl + (blocks << 3)) & 0xffffffffU;
-    if (l < md.Nl) {
-      md.Nh++;
-    }
-    md.Nl = l;
-    md.Nh += blocks >> 29;
-  } else {
-    md5_off = 0;
-    rc4_off = 0;
-  }
-#endif
 
   /* Process the remainder of the input. */
   RC4(&rc4_ctx->rc4, in_len - rc4_off, in + rc4_off, out + rc4_off);
