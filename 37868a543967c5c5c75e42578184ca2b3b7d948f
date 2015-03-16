@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2662c0ee_a91dbd94",
+        "filename": "crypto/cipher/cipher.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 587,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-03-16T00:00:01Z",
+      "side": 0,
+      "message": "If external code still uses this function, then I can submit a new changeset that defines EVP_CIPHER_name in crypto/obj/ instead of in crypto/cipher.",
+      "revId": "37868a543967c5c5c75e42578184ca2b3b7d948f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2662c0ee_891af998",
+        "filename": "crypto/digest/digest.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-03-16T00:00:01Z",
+      "side": 0,
+      "message": "If external code is still using this function, I can submit a new changeset that defines it in crypto/obj instead of crypto/digest.",
+      "range": {
+        "startLine": 71,
+        "startChar": 42,
+        "endLine": 71,
+        "endChar": 43
+      },
+      "revId": "37868a543967c5c5c75e42578184ca2b3b7d948f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
