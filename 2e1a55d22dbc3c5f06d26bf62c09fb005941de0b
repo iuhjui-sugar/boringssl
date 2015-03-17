@@ -84,6 +84,24 @@
     },
     {
       "key": {
+        "uuid": "86e9acd1_4b35310a",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1408,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-17T21:18:31Z",
+      "side": 1,
+      "message": "Ah. Darn. :-/ tcmalloc doesn\u0027t save us? I would have hoped that repeated allocations of a fixed size would be cheap.\n\nThis seems a dumb problem to have... maybe we need new HMAC APIs where you supply the context externally or something, so I don\u0027t have to keep reviewing new HMAC implementations. ;-)",
+      "parentUuid": "86e9acd1_b04f00c3",
+      "revId": "2e1a55d22dbc3c5f06d26bf62c09fb005941de0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "86e9acd1_b0eb8022",
         "filename": "crypto/cipher/e_aes.c",
         "patchSetId": 3
