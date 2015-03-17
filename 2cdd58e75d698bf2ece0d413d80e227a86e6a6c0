@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "86e9acd1_f0efc8fb",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 2043,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-17T20:45:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86e9acd1_dcbaed4e",
+      "revId": "2cdd58e75d698bf2ece0d413d80e227a86e6a6c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "86e9acd1_bc9e01af",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2015-03-17T18:55:43Z",
       "side": 1,
       "message": "I think these sets of tests end up testing the same thing right now. The test framework doesn\u0027t really have a good way to pass different flags to the full and resume legs of the test. (I want to rework them so the SSL_SESSION gets serialized into a temporary file and consumed by a separate bssl_shim instance, with each leg having a different set of expect* options, but I haven\u0027t gotten around to those.)\n\nIn the meantime, I guess the callback could condition on the \"-resume\" flag and, if \"-resume\" is set, only fail the connection on the second leg.",
+      "revId": "2cdd58e75d698bf2ece0d413d80e227a86e6a6c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "86e9acd1_10ed1404",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 2062,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-17T20:45:25Z",
+      "side": 1,
+      "message": "Good point. Added a flag to fail the callback the second time.",
+      "parentUuid": "86e9acd1_bc9e01af",
       "revId": "2cdd58e75d698bf2ece0d413d80e227a86e6a6c0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
