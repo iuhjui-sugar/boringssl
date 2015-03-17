@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "86e9acd1_30f850fc",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1397,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-17T20:37:53Z",
+      "side": 1,
+      "message": "May as well replace this with SHA26_DIGEST_LENGTH?",
+      "range": {
+        "startLine": 1397,
+        "startChar": 45,
+        "endLine": 1397,
+        "endChar": 47
+      },
+      "revId": "2e1a55d22dbc3c5f06d26bf62c09fb005941de0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "86e9acd1_50fddcea",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1408,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-17T20:37:53Z",
+      "side": 1,
+      "message": "Is an HMAC_CTX too much overhead here? HMAC_Init_ex with all 0s and NULLs will reset it. It shouldn\u0027t even cost a malloc, outside of initialization, if you care. (Though it will cost some virtual function calls in places, and a handful of mallocs at initialization-time.)",
+      "revId": "2e1a55d22dbc3c5f06d26bf62c09fb005941de0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "86e9acd1_b0eb8022",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1465,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-17T20:37:53Z",
+      "side": 1,
+      "message": "OPENSSL_PUT_ERROR(ERR_R_MALLOC_FAILURE)",
+      "revId": "2e1a55d22dbc3c5f06d26bf62c09fb005941de0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "86e9acd1_50931cab",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1564,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-17T20:37:53Z",
+      "side": 1,
+      "message": "OPENSSL_U64(1)? Or maybe just (uint64_t)1\n\nActually, was there any reason why OPENSSL_U64 wasn\u0027t just defined to be that?",
+      "range": {
+        "startLine": 1564,
+        "startChar": 20,
+        "endLine": 1564,
+        "endChar": 24
+      },
+      "revId": "2e1a55d22dbc3c5f06d26bf62c09fb005941de0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
