@@ -59,6 +59,7 @@
 #include <openssl/rand.h>
 
 #include "internal.h"
+#include "../internal.h"
 #include "../modes/internal.h"
 
 #if defined(OPENSSL_ARM) || defined(OPENSSL_AARCH64)
@@ -281,7 +282,8 @@ void aesni_ctr32_encrypt_blocks(const uint8_t *in, uint8_t *out, size_t blocks,
 #endif
 
 static int aes_init_key(EVP_CIPHER_CTX *ctx, const uint8_t *key,
-                        const uint8_t *iv, int enc) {
+                        const uint8_t *iv, int enc)
+                        OPENSSL_SUPPRESS_UNREACHABLE_CODE_WARNINGS {
   int ret, mode;
   EVP_AES_KEY *dat = (EVP_AES_KEY *)ctx->cipher_data;
 
@@ -391,7 +393,8 @@ static int aes_ctr_cipher(EVP_CIPHER_CTX *ctx, unsigned char *out,
 }
 
 static ctr128_f aes_gcm_set_key(AES_KEY *aes_key, GCM128_CONTEXT *gcm_ctx,
-                                const uint8_t *key, size_t key_len) {
+                                const uint8_t *key, size_t key_len)
+                                OPENSSL_SUPPRESS_UNREACHABLE_CODE_WARNINGS {
   if (hwaes_capable()) {
     aes_v8_set_encrypt_key(key, key_len * 8, aes_key);
     CRYPTO_gcm128_init(gcm_ctx, aes_key, (block128_f)aes_v8_encrypt);
