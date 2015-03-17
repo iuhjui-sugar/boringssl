@@ -186,6 +186,24 @@ add_library(
   $<TARGET_OBJECTS:pkcs8>
 )
 
+set(PKG_CONFIG_PREFIX "${CMAKE_INSTALL_PREFIX}")
+configure_file(
+  libcrypto.pc.in
+  libcrypto.pc
+  @ONLY
+)
+
+install(
+  FILES ${CMAKE_CURRENT_BINARY_DIR}/libcrypto.pc DESTINATION lib/pkgconfig/
+  PERMISSIONS OWNER_WRITE OWNER_READ GROUP_WRITE GROUP_READ WORLD_READ
+)
+
+install(
+  TARGETS crypto
+  LIBRARY DESTINATION lib
+  ARCHIVE DESTINATION lib
+)
+
 add_executable(
   constant_time_test
 
