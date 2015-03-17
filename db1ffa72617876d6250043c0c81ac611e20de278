@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "86e9acd1_6bc58d8b",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-17T20:52:45Z",
+      "side": 0,
+      "message": "This function does appear to be called in external code.",
+      "revId": "db1ffa72617876d6250043c0c81ac611e20de278",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
