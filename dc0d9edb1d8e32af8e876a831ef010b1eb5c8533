@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "86e9acd1_659e9ce5",
+        "filename": "util/bot/find_depot_tools.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-17T19:02:16Z",
+      "side": 1,
+      "message": "endswith /depot_tools?\n\n(Otherwise it might find old_depot_tools or something.)",
+      "revId": "dc0d9edb1d8e32af8e876a831ef010b1eb5c8533",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "86e9acd1_85a3a822",
+        "filename": "util/bot/find_depot_tools.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-17T19:02:16Z",
+      "side": 1,
+      "message": "this function doesn\u0027t need to return anything, right?",
+      "revId": "dc0d9edb1d8e32af8e876a831ef010b1eb5c8533",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "86e9acd1_a597c4c3",
+        "filename": "util/bot/find_depot_tools.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-17T19:02:16Z",
+      "side": 1,
+      "message": "switch these two lines around and use previous_dir in the calculation of root_dir?\n\nAlso root_dir is a very odd name for this. It\u0027s just an iteration variable so call it |dir|?",
+      "revId": "dc0d9edb1d8e32af8e876a831ef010b1eb5c8533",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "86e9acd1_e591ccce",
+        "filename": "util/bot/find_depot_tools.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-17T19:02:16Z",
+      "side": 1,
+      "message": "What\u0027s the point of this? Deserves a comment.",
+      "revId": "dc0d9edb1d8e32af8e876a831ef010b1eb5c8533",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
