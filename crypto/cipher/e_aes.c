@@ -280,6 +280,14 @@ void aesni_ctr32_encrypt_blocks(const uint8_t *in, uint8_t *out, size_t blocks,
 
 #endif
 
+/* MSVC will detect (in release builds, at least) that the functions above that
+ * call abort will never return, and then warn that any code after a call to
+ * one of them is unreachable. */
+#if defined(_MSC_VER)
+#pragma warning(push)
+#pragma warning(disable: 4702) // unreachable code
+#endif
+
 static int aes_init_key(EVP_CIPHER_CTX *ctx, const uint8_t *key,
                         const uint8_t *iv, int enc) {
   int ret, mode;
@@ -342,6 +350,10 @@ static int aes_init_key(EVP_CIPHER_CTX *ctx, const uint8_t *key,
   return 1;
 }
 
+#if defined(_MSC_VER)
+#pragma warning(pop)
+#endif
+
 static int aes_cbc_cipher(EVP_CIPHER_CTX *ctx, unsigned char *out,
                           const unsigned char *in, size_t len) {
   EVP_AES_KEY *dat = (EVP_AES_KEY *)ctx->cipher_data;
@@ -390,6 +402,14 @@ static int aes_ctr_cipher(EVP_CIPHER_CTX *ctx, unsigned char *out,
   return 1;
 }
 
+/* MSVC will detect (in release builds, at least) that the functions above that
+* call abort will never return, and then warn that any code after a call to
+* one of them is unreachable. */
+#if defined(_MSC_VER)
+#pragma warning(push)
+#pragma warning(disable: 4702) // unreachable code
+#endif
+
 static ctr128_f aes_gcm_set_key(AES_KEY *aes_key, GCM128_CONTEXT *gcm_ctx,
                                 const uint8_t *key, size_t key_len) {
   if (hwaes_capable()) {
@@ -414,6 +434,10 @@ static ctr128_f aes_gcm_set_key(AES_KEY *aes_key, GCM128_CONTEXT *gcm_ctx,
   CRYPTO_gcm128_init(gcm_ctx, aes_key, (block128_f)AES_encrypt);
   return NULL;
 }
+
+#if defined(_MSC_VER)
+#pragma warning(pop)
+#endif
 
 static int aes_gcm_init_key(EVP_CIPHER_CTX *ctx, const uint8_t *key,
                             const uint8_t *iv, int enc) {
