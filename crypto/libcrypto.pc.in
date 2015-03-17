@@ -1,0 +1,12 @@
+prefix=@PKG_CONFIG_PREFIX@
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: BoringSSL-libcrypto
+Description: BoringSSL cryptography library
+Version: unknown
+Requires: 
+Libs: -L${libdir} -lcrypto
+Libs.private: -ldl -lz
+Cflags: -I${includedir}
