@@ -35,6 +35,47 @@ add_library(
   $<TARGET_OBJECTS:pqueue>
 )
 
+file(GLOB HDRS ../include/openssl/*.h)
+
+set(PKG_CONFIG_PREFIX "${CMAKE_INSTALL_PREFIX}")
+configure_file(
+  libssl.pc.in
+  libssl.pc
+  @ONLY
+)
+
+set(PKG_CONFIG_PREFIX "${CMAKE_INSTALL_PREFIX}")
+configure_file(
+  openssl.pc.in
+  openssl.pc
+  @ONLY
+)
+
+set_target_properties(
+  ssl
+
+  PROPERTIES
+  PUBLIC_HEADER "${HDRS}"
+)
+
+install(
+  TARGETS ssl
+  LIBRARY DESTINATION lib
+  ARCHIVE DESTINATION lib
+  PUBLIC_HEADER DESTINATION include/openssl
+)
+
+set(PC_FILES)
+list(APPEND PC_FILES
+  ${CMAKE_CURRENT_BINARY_DIR}/libssl.pc
+  ${CMAKE_CURRENT_BINARY_DIR}/openssl.pc
+)
+
+install(
+  FILES ${PC_FILES} DESTINATION lib/pkgconfig/
+  PERMISSIONS OWNER_WRITE OWNER_READ GROUP_WRITE GROUP_READ WORLD_READ
+)
+
 add_executable(
   ssl_test
 
