@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "86e9acd1_f04988bd",
+        "filename": "crypto/cipher/cipher.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 587,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-17T20:51:43Z",
+      "side": 0,
+      "message": "As far as external code goes, I see one caller, but it actually macros EVP_CIPHER_name to OBJ_nid2sn if EVP_CIPHER_name isn\u0027t a macro (and it isn\u0027t here).\n\nDitto with EVP_MD_name.",
+      "parentUuid": "2662c0ee_a91dbd94",
+      "revId": "37868a543967c5c5c75e42578184ca2b3b7d948f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2662c0ee_891af998",
         "filename": "crypto/digest/digest.c",
         "patchSetId": 2
