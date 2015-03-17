@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "86e9acd1_50f79c5b",
+        "filename": "crypto/bio/bio_test.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-17T19:57:45Z",
+      "side": 1,
+      "message": "BIO_read never does pointer arithmetic on it. Note that the BIO_METHOD hooks are all char*.",
+      "parentUuid": "62581f1b_af2f1932",
+      "range": {
+        "startLine": 128,
+        "startChar": 51,
+        "endLine": 128,
+        "endChar": 55
+      },
+      "revId": "8340cd9894df65f5848c3d38cbc83cf6c92177bf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02abe3f0_4c3cdfb6",
         "filename": "crypto/bio/bio_test.c",
         "patchSetId": 9
@@ -429,6 +453,24 @@
       "side": 1,
       "message": "Going over it again, I think you\u0027re right in that writing requested_bytes is guaranteed as long as requested_bytes \u003c buffer size, since the writer buffer is always empty when requested bytes is set.\n\n\nKeeping the current solution, the read_requests promise should be unchanged, while write_guarantee should be unchanged as long as the caller make sure the buffer is valid when it\u0027s needed to be.\n\n\nI realize this is a somewhat risky change, but it will only kick in if the caller asks for it through BIO_set_external_buf, otherwise the behavior should be exactly as before ( If it isn\u0027t it is a bug). The caller must make sure that buffer !\u003d NULL when write is called on a BIO (from both sides of the BIO pair), that is, during handshake, before calling SSL_Write or BIO_write, and in case of gracious shutdown. Thus, this is a low level api leaving a lot of responsibility to the caller (Hence the original warning).\n\n\nI vote for keeping the current proposed solution. I think this is the version makes the smallest impact to the usage of the API. That is, the caller can start using the function without making changes to other API calls.",
       "parentUuid": "02abe3f0_0c1c970b",
+      "revId": "8340cd9894df65f5848c3d38cbc83cf6c92177bf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "86e9acd1_c59e90b0",
+        "filename": "include/openssl/bio.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-17T19:57:45Z",
+      "side": 1,
+      "message": "In general, I prefer prioritizing simple APIs (in terms of conceptually how they behave) over anything else (apart from not breaking stuff that shouldn\u0027t be broken). Otherwise APIs tend to grow in complexity. BIO pair isn\u0027t too bad yet, but look at the SSL layer which is a mess.\n\n\u003e The caller must make sure that buffer !\u003d NULL when write is called on a BIO (from both sides of the BIO pair), that is, during handshake, before calling SSL_Write or BIO_write, and in case of gracious shutdown. Thus, this is a low level api leaving a lot of responsibility to the caller (Hence the original warning).\n\nIncidentally, using this with SSL is subtle enough that your list is missing a case. ;-) SSL_read can call BIO_write, either if it sends an alert or during renego. Your Chromium CL seems to be buggy here too, and our test coverage there is spotty[1]. Conversely, an SSL_write may block on BIO_read because it will not write application data until the pending handshake is cleared[2].\n\nActually, that\u0027s a really good reason to treat a NULL write buffer as an empty buffer that\u0027s always too full to accept data. Then BIO_write will set the retry flag and we could make your Chromium patch instead condition AllocateSendBuffer on SSL_get_error with SSL_ERROR_WANT_WRITE. I think I rather it work that way, rather than make further assumptions about which SSL_* calls can BIO_write.\n\n[1] Too bad Chromium doesn\u0027t allow Go. :-) We already have renego support in ssl/test/runner.\n\n[2] On that note, we probably have a bug in OnRecvComplete there. I\u0027ll need to give that state machine another pass sometime.",
+      "parentUuid": "b2c50a26_0e74eb88",
       "revId": "8340cd9894df65f5848c3d38cbc83cf6c92177bf",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
