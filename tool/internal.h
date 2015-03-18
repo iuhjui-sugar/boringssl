@@ -49,5 +49,17 @@ bool ParseKeyValueArguments(std::map<std::string, std::string> *out_args, const
 
 void PrintUsage(const struct argument *templates);
 
+// Smart pointer utilities.
+
+// Example:
+//
+//   std::unique_ptr<EVP_MD_CTX,
+//                   func_delete<EVP_MD_CTX, int, EVP_MD_CTX_cleanup>> md_ctx;
+template<typename T, typename R, R(*func) (T*)>
+struct func_delete {
+  void operator()(T* obj) {
+    (void) func(obj);
+  }
+};
 
 #endif /* !OPENSSL_HEADER_TOOL_INTERNAL_H */
