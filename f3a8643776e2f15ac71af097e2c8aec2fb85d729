@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e67fc8e4_7bbc87ce",
+        "filename": "crypto/pem/pem_lib.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-03-18T01:30:18Z",
+      "side": 1,
+      "message": "This part of the patch is new.\n\nThis case of C4701 is only detected by the 64-bit MSVC 2013 compiler, not the 32-bit MSVC compiler. I hadn\u0027t built the previous versions of the patch with MSVC 2013 so I hadn\u0027t noticed this failure back then.\n\nNote that this file wasn\u0027t reformatted like the rest of of BoringSSL so I used the existing conventions in the file.",
+      "revId": "f3a8643776e2f15ac71af097e2c8aec2fb85d729",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
