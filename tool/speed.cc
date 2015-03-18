@@ -15,6 +15,7 @@
 #include <string>
 #include <functional>
 #include <memory>
+#include <sstream>
 #include <vector>
 
 #include <stdint.h>
@@ -23,7 +24,9 @@
 
 #include <openssl/aead.h>
 #include <openssl/bio.h>
+#include <openssl/bn.h>
 #include <openssl/digest.h>
+#include <openssl/err.h>
 #include <openssl/obj.h>
 #include <openssl/rsa.h>
 
@@ -35,14 +38,8 @@
 #include <sys/time.h>
 #endif
 
+#include "internal.h"
 
-extern "C" {
-// These values are DER encoded, RSA private keys.
-extern const uint8_t kDERRSAPrivate2048[];
-extern size_t kDERRSAPrivate2048Len;
-extern const uint8_t kDERRSAPrivate4096[];
-extern size_t kDERRSAPrivate4096Len;
-}
 
 // TimeResults represents the results of benchmarking a function.
 struct TimeResults {
@@ -134,34 +131,54 @@ static bool TimeFunction(TimeResults *results, std::function<bool()> func) {
   return true;
 }
 
-static bool SpeedRSA(const std::string& key_name, RSA *key) {
+static bool SpeedRSA(unsigned int modulus_len_in_bits) {
+  std::unique_ptr<RSA, func_delete<RSA, void, RSA_free>> key(RSA_new());
+  if (!key) {
+    return false;
+  }
+  std::unique_ptr<BIGNUM, func_delete<BIGNUM, void, BN_free>> e(BN_new());
+  if (!e) {
+    return false;
+  }
+  if (!BN_set_word(e.get(), 65537)) {
+    return false;
+  }
+  if (!RSA_generate_key_ex(key.get(), modulus_len_in_bits, e.get(), nullptr)) {
+    return false;
+  }
+
   TimeResults results;
 
-  std::unique_ptr<uint8_t[]> sig(new uint8_t[RSA_size(key)]);
+  std::unique_ptr<uint8_t[]> sig(new uint8_t[RSA_size(key.get())]);
   const uint8_t fake_sha256_hash[32] = {0};
   unsigned sig_len;
 
+
   if (!TimeFunction(&results,
-                    [key, &sig, &fake_sha256_hash, &sig_len]() -> bool {
+                    [&key, &sig, &fake_sha256_hash, &sig_len]() -> bool {
         return RSA_sign(NID_sha256, fake_sha256_hash, sizeof(fake_sha256_hash),
-                        sig.get(), &sig_len, key);
+                        sig.get(), &sig_len, key.get());
       })) {
     fprintf(stderr, "RSA_sign failed.\n");
     BIO_print_errors_fp(stderr);
     return false;
   }
-  results.Print(key_name + " signing");
+
+  std::stringstream key_name;
+  key_name << "RSA " << modulus_len_in_bits;
+  results.Print(key_name.str() + " signing");
 
   if (!TimeFunction(&results,
-                    [key, &fake_sha256_hash, &sig, sig_len]() -> bool {
+                    [&key, &fake_sha256_hash, &sig, sig_len]() -> bool {
         return RSA_verify(NID_sha256, fake_sha256_hash,
-                          sizeof(fake_sha256_hash), sig.get(), sig_len, key);
+                          sizeof(fake_sha256_hash), sig.get(), sig_len,
+                          key.get());
       })) {
     fprintf(stderr, "RSA_verify failed.\n");
     BIO_print_errors_fp(stderr);
     return false;
   }
-  results.Print(key_name + " verify");
+  results.Print(key_name.str() + " verify");
 
   return true;
 }
@@ -267,36 +284,6 @@ static bool SpeedHash(const EVP_MD *md, const std::string &name) {
 }
 
 bool Speed(const std::vector<std::string> &args) {
-  const uint8_t *inp;
-
-  RSA *key = NULL;
-  inp = kDERRSAPrivate2048;
-  if (NULL == d2i_RSAPrivateKey(&key, &inp, kDERRSAPrivate2048Len)) {
-    fprintf(stderr, "Failed to parse RSA key.\n");
-    BIO_print_errors_fp(stderr);
-    return false;
-  }
-
-  if (!SpeedRSA("RSA 2048", key)) {
-    return false;
-  }
-
-  RSA_free(key);
-  key = NULL;
-
-  inp = kDERRSAPrivate4096;
-  if (NULL == d2i_RSAPrivateKey(&key, &inp, kDERRSAPrivate4096Len)) {
-    fprintf(stderr, "Failed to parse 4096-bit RSA key.\n");
-    BIO_print_errors_fp(stderr);
-    return 1;
-  }
-
-  if (!SpeedRSA("RSA 4096", key)) {
-    return false;
-  }
-
-  RSA_free(key);
-
   // kTLSADLen is the number of bytes of additional data that TLS passes to
   // AEADs.
   static const size_t kTLSADLen = 13;
@@ -306,7 +293,9 @@ bool Speed(const std::vector<std::string> &args) {
   // knowledge in them and construct a couple of the AD bytes internally.
   static const size_t kLegacyADLen = kTLSADLen - 2;
 
-  if (!SpeedAEAD(EVP_aead_aes_128_gcm(), "AES-128-GCM", kTLSADLen) ||
+  if (!SpeedRSA(2048) ||
+      !SpeedRSA(4096) ||
+      !SpeedAEAD(EVP_aead_aes_128_gcm(), "AES-128-GCM", kTLSADLen) ||
       !SpeedAEAD(EVP_aead_aes_256_gcm(), "AES-256-GCM", kTLSADLen) ||
       !SpeedAEAD(EVP_aead_chacha20_poly1305(), "ChaCha20-Poly1305", kTLSADLen) ||
       !SpeedAEAD(EVP_aead_rc4_md5_tls(), "RC4-MD5", kLegacyADLen) ||
