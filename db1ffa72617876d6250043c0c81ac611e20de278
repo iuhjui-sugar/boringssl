@@ -34,6 +34,24 @@
       "revId": "db1ffa72617876d6250043c0c81ac611e20de278",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a6a6b0d3_031ad271",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-18T19:27:57Z",
+      "side": 0,
+      "message": "(I really need better terms... half the time internal/external means internal to BoringSSL vs external to BoringSSL and half the time it\u0027s about whether it\u0027s internal to Google.)\n\nThere\u0027s code checked into Google\u0027s internal repositories that calls it in places. Unfortunately, that isn\u0027t really something you\u0027d be able to search on your own.",
+      "parentUuid": "e67fc8e4_9bde9be0",
+      "revId": "db1ffa72617876d6250043c0c81ac611e20de278",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
