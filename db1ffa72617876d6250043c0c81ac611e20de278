@@ -16,6 +16,24 @@
       "revId": "db1ffa72617876d6250043c0c81ac611e20de278",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e67fc8e4_9bde9be0",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-03-18T01:44:01Z",
+      "side": 0,
+      "message": "Could you please let me know which external code calls it? I searched Chromium and Conscrypt. Which other things should I be searching? Thanks!",
+      "parentUuid": "86e9acd1_6bc58d8b",
+      "revId": "db1ffa72617876d6250043c0c81ac611e20de278",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
