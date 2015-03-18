@@ -5,7 +5,6 @@ add_executable(
 
   args.cc
   client.cc
-  const.cc
   digest.cc
   pkcs12.cc
   server.cc

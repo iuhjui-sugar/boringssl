@@ -42,17 +42,12 @@ typedef int ssize_t;
 
 #include <openssl/digest.h>
 
+#include "internal.h"
+
 
 struct close_delete {
   void operator()(int *fd) {
     close(*fd);
-  }
-};
-
-template<typename T, typename R, R (*func) (T*)>
-struct func_delete {
-  void operator()(T* obj) {
-    func(obj);
   }
 };
 
