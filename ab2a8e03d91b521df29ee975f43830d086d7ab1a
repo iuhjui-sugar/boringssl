@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e67fc8e4_aa3a2f46",
+        "filename": "crypto/digest/md32_common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-03-18T00:21:59Z",
+      "side": 0,
+      "message": "HASH_LONG_LOG2 is no longer in the code.",
+      "revId": "ab2a8e03d91b521df29ee975f43830d086d7ab1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e67fc8e4_2afd5fec",
+        "filename": "crypto/digest/md32_common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-03-18T00:21:59Z",
+      "side": 0,
+      "message": "Rather than document this here, where it will likely usually be out of date, we can just let people who add new digest functions read the real code for the existing digest functions to figure out what to do.",
+      "range": {
+        "startLine": 117,
+        "startChar": 11,
+        "endLine": 117,
+        "endChar": 32
+      },
+      "revId": "ab2a8e03d91b521df29ee975f43830d086d7ab1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
