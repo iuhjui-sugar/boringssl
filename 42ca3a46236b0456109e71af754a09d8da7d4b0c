@@ -16,6 +16,24 @@
       "revId": "42ca3a46236b0456109e71af754a09d8da7d4b0c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e67fc8e4_90de7ae0",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-03-18T01:04:54Z",
+      "side": 0,
+      "message": "Yes, MSVC\u0027s control flow analysis is complete and it often warns when the use of a conditionally-initialization variable is guarded on the same predicate that the initialization was guarded on.\n\nI can see the merits of looking up the single matching prefix and then checking it. However, usually when I\u0027m reading such code I\u0027m looking for bugs like use of uninitialized values and for that I find the new styles (preferably patchset 1, but otherwise patchset 2) to be superior.\n\nIt is best to avoid unnecessarily initializing a variable to avoid this kind of warning, because that anti-pattern prevents these static analysis from doing their job of finding real bugs.\n\nAnyway, there are lots of potential ways to deal with issue. I am going to submit a new patchset today, where this code is the same as patchset 2 except for the added curly braces. Let me know if you think it needs to be changed.",
+      "parentUuid": "518da743_4e6b93db",
+      "revId": "42ca3a46236b0456109e71af754a09d8da7d4b0c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }

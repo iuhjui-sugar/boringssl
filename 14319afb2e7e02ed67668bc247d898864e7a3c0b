@@ -16,6 +16,24 @@
       "revId": "14319afb2e7e02ed67668bc247d898864e7a3c0b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e67fc8e4_b09d3e6e",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-03-18T01:04:54Z",
+      "side": 1,
+      "message": "Thanks. I got confused between the upstream (must not use braces) and BoringSSL (must use braces) styles.",
+      "parentUuid": "518da743_2e664714",
+      "revId": "14319afb2e7e02ed67668bc247d898864e7a3c0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
