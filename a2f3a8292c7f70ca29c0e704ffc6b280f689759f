@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "068cdc85_b6449077",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-19T22:50:20Z",
+      "side": 1,
+      "message": "Do you need digest and hashFunc declared here? Can\u0027t you just turn \u003d into :\u003d on line 603. You\u0027ll get a local err variable too, but that seems ok if you duplicate lines 623 and 624 at line 593, which also eliminates a goto.",
+      "revId": "a2f3a8292c7f70ca29c0e704ffc6b280f689759f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
