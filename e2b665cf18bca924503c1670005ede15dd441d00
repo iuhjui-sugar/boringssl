@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a6a6b0d3_175c4c83",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2404,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-19T19:13:44Z",
+      "side": 1,
+      "message": "This entire block is really redundant with the one on 1364, but I suppose it\u0027s not locally obvious...",
+      "revId": "e2b665cf18bca924503c1670005ede15dd441d00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a6a6b0d3_d755c456",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2430,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-19T19:13:44Z",
+      "side": 1,
+      "message": "You should check my import; upstream also tweaked stuff around here, but it seems unnecessary and makes the code harder to follow.",
+      "revId": "e2b665cf18bca924503c1670005ede15dd441d00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
