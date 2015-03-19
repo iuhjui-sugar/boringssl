@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a6a6b0d3_068e6083",
+        "filename": "crypto/asn1/tasn_typ.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-19T00:43:23Z",
+      "side": 1,
+      "message": "This appears to be a no-op. I dunno, I guess you avoid a bunch of indirections (you eventually get to the default case of ASN1_primitive_new)? Mostly I pulled it to not diverge.",
+      "revId": "c77f4a9f7ee9275009b3602fdd5fd6bd665460a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
