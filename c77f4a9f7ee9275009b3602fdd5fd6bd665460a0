@@ -16,6 +16,24 @@
       "revId": "c77f4a9f7ee9275009b3602fdd5fd6bd665460a0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "86fc4cc6_6d24edd9",
+        "filename": "crypto/asn1/tasn_typ.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-19T11:47:49Z",
+      "side": 1,
+      "message": "Yep, after a lot of hops it does appear to do the same thing. It\u0027s not worth diverging for this however.",
+      "parentUuid": "a6a6b0d3_068e6083",
+      "revId": "c77f4a9f7ee9275009b3602fdd5fd6bd665460a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
