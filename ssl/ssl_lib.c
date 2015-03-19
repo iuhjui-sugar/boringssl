@@ -1144,37 +1144,19 @@ long SSL_CTX_ctrl(SSL_CTX *ctx, int cmd, long larg, void *parg) {
       return lh_SSL_SESSION_num_items(ctx->sessions);
 
     case SSL_CTRL_SESS_CONNECT:
-      return ctx->stats.sess_connect;
-
     case SSL_CTRL_SESS_CONNECT_GOOD:
-      return ctx->stats.sess_connect_good;
-
     case SSL_CTRL_SESS_CONNECT_RENEGOTIATE:
-      return ctx->stats.sess_connect_renegotiate;
-
     case SSL_CTRL_SESS_ACCEPT:
-      return ctx->stats.sess_accept;
-
     case SSL_CTRL_SESS_ACCEPT_GOOD:
-      return ctx->stats.sess_accept_good;
-
     case SSL_CTRL_SESS_ACCEPT_RENEGOTIATE:
-      return ctx->stats.sess_accept_renegotiate;
-
     case SSL_CTRL_SESS_HIT:
-      return ctx->stats.sess_hit;
-
     case SSL_CTRL_SESS_CB_HIT:
-      return ctx->stats.sess_cb_hit;
-
     case SSL_CTRL_SESS_MISSES:
-      return ctx->stats.sess_miss;
-
     case SSL_CTRL_SESS_TIMEOUTS:
-      return ctx->stats.sess_timeout;
-
     case SSL_CTRL_SESS_CACHE_FULL:
-      return ctx->stats.sess_cache_full;
+      /* Statistics are no longer supported.
+       * TODO(davidben): Try to remove the accessors altogether. */
+      return 0;
 
     case SSL_CTRL_OPTIONS:
       return ctx->options |= larg;
@@ -1797,8 +1779,6 @@ SSL_CTX *SSL_CTX_new(const SSL_METHOD *meth) {
   ret->get_session_cb = 0;
   ret->generate_session_id = 0;
 
-  memset((char *)&ret->stats, 0, sizeof(ret->stats));
-
   ret->references = 1;
   ret->quiet_shutdown = 0;
 
@@ -2182,14 +2162,12 @@ void ssl_update_cache(SSL *s, int mode) {
     }
   }
 
-  /* auto flush every 255 connections */
-  if ((!(i & SSL_SESS_CACHE_NO_AUTO_CLEAR)) && ((i & mode) == mode)) {
-    if ((((mode & SSL_SESS_CACHE_CLIENT)
-              ? s->initial_ctx->stats.sess_connect_good
-              : s->initial_ctx->stats.sess_accept_good) &
-         0xff) == 0xff) {
-      SSL_CTX_flush_sessions(s->initial_ctx, (unsigned long)time(NULL));
-    }
+  /* Automatically flush the session cache every 255 connections. */
+  s->initial_ctx->handshakes_since_cache_flush++;
+  if (!(i & SSL_SESS_CACHE_NO_AUTO_CLEAR) && (i & mode) == mode &&
+      s->initial_ctx->handshakes_since_cache_flush >= 255) {
+    s->initial_ctx->handshakes_since_cache_flush = 0;
+    SSL_CTX_flush_sessions(s->initial_ctx, (unsigned long)time(NULL));
   }
 }
 
