@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "06177cd9_b86d7901",
+        "filename": "crypto/x509/x_x509.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-19T19:50:30Z",
+      "side": 1,
+      "message": "Gotta love two different styles for checking NULL in the same line.",
+      "revId": "f6b0e73d74737ef27fcda3c26195ac9bc4c84876",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
