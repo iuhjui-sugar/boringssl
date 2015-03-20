@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "260c80ed_d901b308",
+        "filename": "include/openssl/ex_data.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-20T23:22:32Z",
+      "side": 1,
+      "message": "We may as well just remove them and reset the numbers. I don\u0027t see any evidence of anything assuming their values are stable. We certainly don\u0027t promise an ABI.\n\n(Also don\u0027t see evidence of anything using anything from CRYPTO_ex_data_new_class through CRYPTO_set_ex_data_implementation, so we could probably just remove and/or unexport them as appropriate.)",
+      "revId": "234b06dabbcec17f151ad7032014db7a531b38fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
