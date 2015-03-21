@@ -16,6 +16,24 @@
       "revId": "2f47d884d841c5e42341d2e2603f0033c55dcdd4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a69cf0d8_90609a32",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2166,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-21T00:14:48Z",
+      "side": 1,
+      "message": "After having chatted with Jeffery, I think this (and the compare, and the reset to zero), need to be under a lock, sadly.",
+      "parentUuid": "a69cf0d8_f0f11e17",
+      "revId": "2f47d884d841c5e42341d2e2603f0033c55dcdd4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
