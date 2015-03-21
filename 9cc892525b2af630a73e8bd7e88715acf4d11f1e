@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "260c80ed_b955dfa9",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 2153,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-21T00:56:07Z",
+      "side": 1,
+      "message": "Doesn\u0027t actually matter, but this is consistent with line 2166.",
+      "range": {
+        "startLine": 2153,
+        "startChar": 39,
+        "endLine": 2153,
+        "endChar": 46
+      },
+      "revId": "9cc892525b2af630a73e8bd7e88715acf4d11f1e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "260c80ed_598ac3b1",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 2158,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-21T00:56:07Z",
+      "side": 1,
+      "message": "This is extremely weird. I don\u0027t see anything that actually sets new_session_cb without NO_INTERNAL_STORE. It might be worth never calling new_session_cb in that case and unraveling this extremely complicated condition...",
+      "revId": "9cc892525b2af630a73e8bd7e88715acf4d11f1e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
