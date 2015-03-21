@@ -34,6 +34,24 @@
       "revId": "2f47d884d841c5e42341d2e2603f0033c55dcdd4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "260c80ed_f978f744",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2166,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-21T00:54:20Z",
+      "side": 1,
+      "message": "Not like the old code was thread-safe either. :-P\n\nCRYPTO_add makes things a little screwy around overflows (of course, the old code didn\u0027t check for that either).\n\nI\u0027ve instead just taken a lock. It\u0027s conditioned now on both NO_AUTO_CLEAR and NO_INTERNAL_STORE to avoid lock contention when it\u0027s not needed. SSL_CTX_flush_sessions does nothing if NO_INTERNAL_STORE; it only knows how to iterate over the internal one. (Though hopefully anything that cared about lock contention set NO_AUTO_CLEAR too.)",
+      "parentUuid": "a69cf0d8_f0f11e17",
+      "revId": "2f47d884d841c5e42341d2e2603f0033c55dcdd4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
