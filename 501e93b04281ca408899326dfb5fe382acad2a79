@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "666d98b3_933ffc6c",
+        "filename": "tool/client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-23T23:16:25Z",
+      "side": 1,
+      "message": "Looks a bit odd but I guess that |args| will live as long as the connection.",
+      "revId": "501e93b04281ca408899326dfb5fe382acad2a79",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
