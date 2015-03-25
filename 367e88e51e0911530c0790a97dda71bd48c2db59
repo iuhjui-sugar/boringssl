@@ -1,0 +1,284 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2339d2d0_da64394c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-25T21:10:14Z",
+      "side": 1,
+      "message": "We could also do away with CRYPTO_library_init now.\n\nAre you thinking that ERR_remove_thread_state will become unnecessary? I\u0027ve been meaning to do a pass in Chromium to make sure we don\u0027t leak that state on threads that don\u0027t live forward. (Basically wherever we call PR_Detach on the NSS side.) But if we can just let thread-local storage deal with it, that\u0027d be nice.",
+      "revId": "367e88e51e0911530c0790a97dda71bd48c2db59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2339d2d0_c5b9fa5a",
+        "filename": "crypto/thread_pthread.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-25T21:10:14Z",
+      "side": 1,
+      "message": "5",
+      "range": {
+        "startLine": 1,
+        "startChar": 20,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "367e88e51e0911530c0790a97dda71bd48c2db59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2339d2d0_65c12ed1",
+        "filename": "crypto/thread_pthread.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-25T21:10:14Z",
+      "side": 1,
+      "message": "Nit: Not sure if you prefer void* or void *, but this dosen\u0027t match line 87.",
+      "range": {
+        "startLine": 92,
+        "startChar": 35,
+        "endLine": 92,
+        "endChar": 36
+      },
+      "revId": "367e88e51e0911530c0790a97dda71bd48c2db59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2339d2d0_e5acfe1a",
+        "filename": "crypto/thread_test.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-25T21:10:14Z",
+      "side": 1,
+      "message": "5",
+      "range": {
+        "startLine": 1,
+        "startChar": 20,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "367e88e51e0911530c0790a97dda71bd48c2db59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2339d2d0_e5f87ec0",
+        "filename": "crypto/thread_test.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-25T21:10:14Z",
+      "side": 1,
+      "message": "[I think this is because C technically doesn\u0027t allow it because data and function pointers might have different sizes on some architectures? Yeah, this is silly.]",
+      "revId": "367e88e51e0911530c0790a97dda71bd48c2db59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2339d2d0_a58f16a7",
+        "filename": "crypto/thread_test.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-25T21:10:14Z",
+      "side": 1,
+      "message": "Probably wants a NULL check since the spec allows this to be called on NULL.",
+      "revId": "367e88e51e0911530c0790a97dda71bd48c2db59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2339d2d0_a5b6f668",
+        "filename": "crypto/thread_win.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-25T21:10:14Z",
+      "side": 1,
+      "message": "5",
+      "range": {
+        "startLine": 1,
+        "startChar": 20,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "367e88e51e0911530c0790a97dda71bd48c2db59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2339d2d0_85bc1251",
+        "filename": "crypto/thread_win.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-25T21:10:14Z",
+      "side": 1,
+      "message": "Given the mingw CL, lowercase?",
+      "range": {
+        "startLine": 20,
+        "startChar": 10,
+        "endLine": 20,
+        "endChar": 11
+      },
+      "revId": "367e88e51e0911530c0790a97dda71bd48c2db59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2339d2d0_a5615681",
+        "filename": "crypto/thread_win.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-25T21:10:14Z",
+      "side": 1,
+      "message": "Nit: #include \u003cstring.h\u003e for memcpy",
+      "revId": "367e88e51e0911530c0790a97dda71bd48c2db59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2339d2d0_a53716ae",
+        "filename": "crypto/thread_win.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-25T21:10:14Z",
+      "side": 1,
+      "message": "(Another option is std::atomic; we have support for it in Chromium\u0027s toolchains. Though you\u0027d need a cast since the std::atomic\u003cLONG\u003e can\u0027t leak out of the header, so that would be a different set of assumptions.)",
+      "revId": "367e88e51e0911530c0790a97dda71bd48c2db59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2339d2d0_255686b3",
+        "filename": "crypto/thread_win.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-25T21:10:14Z",
+      "side": 1,
+      "message": "This line seems wrong. You only want to call this on global library shutdown, right?",
+      "revId": "367e88e51e0911530c0790a97dda71bd48c2db59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2339d2d0_65736e69",
+        "filename": "crypto/thread_win.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-25T21:10:14Z",
+      "side": 1,
+      "message": "Verified this machinery matches what\u0027s in Chromium. I\u0027m a little worried about the long list of caveats below (perhaps in the future Mojo may decide to LoadLibrary a bunch of things; we already had some CL about dlsym). But since we statically link //base, I assume any such weirdness would also affect other uses of base/threading/thread_local_storage.h in that module.\n\nI\u0027ll toss together some code in Chromium to test it manually when rolling it in though.",
+      "revId": "367e88e51e0911530c0790a97dda71bd48c2db59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2339d2d0_a58956f4",
+        "filename": "crypto/thread_win.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-25T21:10:14Z",
+      "side": 1,
+      "message": "Nit: formatting",
+      "range": {
+        "startLine": 190,
+        "startChar": 28,
+        "endLine": 190,
+        "endChar": 30
+      },
+      "revId": "367e88e51e0911530c0790a97dda71bd48c2db59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2339d2d0_05582212",
+        "filename": "crypto/thread_win.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-25T21:10:14Z",
+      "side": 1,
+      "message": "Nit: Dunno if you prefer sizeof(void*) or sizeof(void *), but this and line 199 differ.",
+      "range": {
+        "startLine": 204,
+        "startChar": 35,
+        "endLine": 204,
+        "endChar": 36
+      },
+      "revId": "367e88e51e0911530c0790a97dda71bd48c2db59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
