@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "23d552cf_b4788ebd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-26T22:58:30Z",
+      "side": 1,
+      "message": "Was there any reason you changed it here rather than flip it? (I don\u0027t know if these options have historically been untested or something.) We are decently close to branch point, so I don\u0027t know if it\u0027d be better to hold on this one just in case. Though we can always revert it if there\u0027s problems and we still have a week.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 60
+      },
+      "revId": "0ba5a5a8f58643f328cc65d1d69ccde1e4943667",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
