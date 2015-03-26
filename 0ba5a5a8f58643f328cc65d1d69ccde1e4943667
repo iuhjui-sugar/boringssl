@@ -22,6 +22,30 @@
       "revId": "0ba5a5a8f58643f328cc65d1d69ccde1e4943667",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83cfde46_ecf88bc0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-26T23:35:34Z",
+      "side": 1,
+      "message": "I was just trying to cut down on the amount of build magic because of the number of build systems anticipated. I didn\u0027t notice that it also affected BN.\n\nI\u0027m kind of on the fence about this and could go either way.",
+      "parentUuid": "23d552cf_b4788ebd",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 60
+      },
+      "revId": "0ba5a5a8f58643f328cc65d1d69ccde1e4943667",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
