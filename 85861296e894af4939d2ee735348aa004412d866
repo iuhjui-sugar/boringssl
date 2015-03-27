@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a3a94260_d4cd0ab3",
+        "filename": "crypto/ecdsa/ecdsa_asn1.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-03-27T23:34:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43308612_a23b5e4a",
+      "revId": "85861296e894af4939d2ee735348aa004412d866",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "43308612_62a4b62c",
         "filename": "crypto/ecdsa/ecdsa_asn1.c",
         "patchSetId": 1
@@ -30,6 +48,30 @@
       "writtenOn": "2015-03-27T15:38:30Z",
       "side": 1,
       "message": "Nit: This never got explicitly written in the style guide, but it looks like Adam and I have both been spelling new pointer NULL checks with sig \u003d\u003d NULL and sig !\u003d NULL.",
+      "range": {
+        "startLine": 75,
+        "startChar": 6,
+        "endLine": 75,
+        "endChar": 10
+      },
+      "revId": "85861296e894af4939d2ee735348aa004412d866",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a3a94260_f4ca8698",
+        "filename": "crypto/ecdsa/ecdsa_asn1.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-03-27T23:34:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43308612_62a4b62c",
       "range": {
         "startLine": 75,
         "startChar": 6,
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "a3a94260_94d79243",
+        "filename": "crypto/ecdsa/ecdsa_asn1.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-03-27T23:34:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43308612_2230ee6a",
+      "revId": "85861296e894af4939d2ee735348aa004412d866",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "43308612_622af6f8",
         "filename": "crypto/ecdsa/ecdsa_asn1.c",
         "patchSetId": 1
@@ -70,6 +130,24 @@
       "writtenOn": "2015-03-27T15:38:30Z",
       "side": 1,
       "message": "Nit: extra line.",
+      "revId": "85861296e894af4939d2ee735348aa004412d866",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a3a94260_b4d40e3f",
+        "filename": "crypto/ecdsa/ecdsa_asn1.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-03-27T23:34:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43308612_622af6f8",
       "revId": "85861296e894af4939d2ee735348aa004412d866",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
