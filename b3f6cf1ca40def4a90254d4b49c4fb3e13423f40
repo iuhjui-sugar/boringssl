@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "43308612_e2e3a646",
+        "filename": "tool/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-27T16:26:38Z",
+      "side": 1,
+      "message": "Nit: docstring starts with symbol name.",
+      "revId": "b3f6cf1ca40def4a90254d4b49c4fb3e13423f40",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
