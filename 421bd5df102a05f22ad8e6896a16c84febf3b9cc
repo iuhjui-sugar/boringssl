@@ -1,0 +1,141 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "43308612_8251fabc",
+        "filename": "crypto/ecdsa/ecdsa_test.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-27T15:27:59Z",
+      "side": 1,
+      "message": "Style:\n\n  enum api_t {\n    encoded_api,\n    raw_api,\n  };\n\n(We don\u0027t have that many enums, but I asked Adam for a naming scheme when writing the style guide and he picked that.)",
+      "revId": "421bd5df102a05f22ad8e6896a16c84febf3b9cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "43308612_426ed27f",
+        "filename": "crypto/ecdsa/ecdsa_test.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-27T15:27:59Z",
+      "side": 1,
+      "message": "Can drop this bit.",
+      "range": {
+        "startLine": 98,
+        "startChar": 41,
+        "endLine": 98,
+        "endChar": 49
+      },
+      "revId": "421bd5df102a05f22ad8e6896a16c84febf3b9cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "43308612_627dd630",
+        "filename": "crypto/ecdsa/ecdsa_test.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-27T15:27:59Z",
+      "side": 1,
+      "message": "Since you\u0027ve rewritten this comment, want to capitalize + period it?",
+      "revId": "421bd5df102a05f22ad8e6896a16c84febf3b9cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "43308612_8278da42",
+        "filename": "crypto/ecdsa/ecdsa_test.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-27T15:27:59Z",
+      "side": 1,
+      "message": "transpose",
+      "range": {
+        "startLine": 186,
+        "startChar": 12,
+        "endLine": 186,
+        "endChar": 14
+      },
+      "revId": "421bd5df102a05f22ad8e6896a16c84febf3b9cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "43308612_625676b4",
+        "filename": "crypto/ecdsa/ecdsa_test.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-27T15:27:59Z",
+      "side": 1,
+      "message": "This (and likewise with the other bits) are sort of odd; you\u0027re duplicating all the code between ENCODED_API and RAW_API anyway, apart from a bit of setup code which could probably be done once between the two instances. Seems you may as well just test them both in one function in one rather than pass around an API enum.\n\nOr you could abstract away ECDSA_sign/ECDSA_do_sign... except that would amount to basically reimplementing those functions, at which point I somewhat wonder what\u0027s the point.",
+      "revId": "421bd5df102a05f22ad8e6896a16c84febf3b9cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "43308612_82c61ae8",
+        "filename": "crypto/ecdsa/ecdsa_test.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-27T15:27:59Z",
+      "side": 1,
+      "message": "All of these return 0/1 now, so we can just use boolean operations, by the way. Yay return value narrowing.",
+      "range": {
+        "startLine": 288,
+        "startChar": 66,
+        "endLine": 288,
+        "endChar": 71
+      },
+      "revId": "421bd5df102a05f22ad8e6896a16c84febf3b9cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "43308612_62cb16f0",
+        "filename": "crypto/ecdsa/ecdsa_test.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-27T15:27:59Z",
+      "side": 1,
+      "message": "Nit: chain together with ||",
+      "revId": "421bd5df102a05f22ad8e6896a16c84febf3b9cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
