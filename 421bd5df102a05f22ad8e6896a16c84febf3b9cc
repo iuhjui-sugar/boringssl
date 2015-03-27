@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "43308612_cb0b1dd5",
+        "filename": "crypto/ecdsa/ecdsa_test.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-27T23:29:56Z",
+      "side": 1,
+      "message": "Heh. Yeah, I mostly don\u0027t have opinions on these things. :-) The STYLE file was primarily me writing down all the various precedences that occurred informally thus far.",
+      "parentUuid": "a3a94260_59cab31f",
+      "revId": "421bd5df102a05f22ad8e6896a16c84febf3b9cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "43308612_426ed27f",
         "filename": "crypto/ecdsa/ecdsa_test.c",
         "patchSetId": 4
@@ -171,6 +189,24 @@
       "side": 1,
       "message": "I agree that it seems unfortunate to have so much duplication in the structure of the two cases. However, trying to abstract away the differences beyond what I\u0027ve already done seems counterproductive as more abstract tests are often harder to verify the correctness of than less abstract tests. I think that\u0027s the point you are getting at in the first paragraph of your comment here. But, copy/pasting the code that would be exactly the same doesn\u0027t seem like a good idea to me either. I think the way I wrote it is a good compromise, but I\u0027m willing to change it if you think a change is necessary. Let me know.",
       "parentUuid": "43308612_625676b4",
+      "revId": "421bd5df102a05f22ad8e6896a16c84febf3b9cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "43308612_ab0859d9",
+        "filename": "crypto/ecdsa/ecdsa_test.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-27T23:29:56Z",
+      "side": 1,
+      "message": "By the first paragraph, I meant that you may as well delete the switch-case and just test both sets sequentially, since they are completely different already. I.e. instead of\n\nint test_stuff(api) {\n  common_stuff;\n  switch (api) {\n    case A:\n      version_a_thing;\n      break;\n    case B:\n      version_b_thing;\n      break;\n  }\n  common_stuff;\n}\n\ntest_stuff(A); test_stuff(B);\n\nYou may as well have:\n\nint test_stuff() {\n  common_stuff;\n  version_a_thing;\n  version_b_thing;\n  common_stuff;\n}\ntest_stuff()\n\n(I do still wonder what\u0027s the point of testing both like this though. They convert to each other fairly trivially.)",
+      "parentUuid": "a3a94260_99c34ba5",
       "revId": "421bd5df102a05f22ad8e6896a16c84febf3b9cc",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
