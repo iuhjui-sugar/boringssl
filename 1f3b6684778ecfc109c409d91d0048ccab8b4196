@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a3a94260_b90c073c",
+        "filename": "crypto/ecdsa/ecdsa_test.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-03-27T23:17:03Z",
+      "side": 1,
+      "message": "Done.\n\nNote that there are quite a few cases where the existing documentation uses the sentence fragment \"Returns 1 on success and 0 on failure.\" though.",
+      "parentUuid": "43308612_62279669",
+      "revId": "1f3b6684778ecfc109c409d91d0048ccab8b4196",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "43308612_c20b02d5",
         "filename": "crypto/ecdsa/ecdsa_test.c",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2015-03-27T15:21:24Z",
       "side": 1,
       "message": "unsigned without the int (ditto elsewhere for new code)",
+      "revId": "1f3b6684778ecfc109c409d91d0048ccab8b4196",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a3a94260_591b9374",
+        "filename": "crypto/ecdsa/ecdsa_test.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-03-27T23:17:03Z",
+      "side": 1,
+      "message": "Done. I actually switched every use of |unsigned int| to |size_t|.",
+      "parentUuid": "43308612_c20b02d5",
       "revId": "1f3b6684778ecfc109c409d91d0048ccab8b4196",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "a3a94260_d92ea38a",
+        "filename": "crypto/ecdsa/ecdsa_test.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-03-27T23:17:03Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "43308612_a2087ed9",
+      "revId": "1f3b6684778ecfc109c409d91d0048ccab8b4196",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "43308612_02168aff",
         "filename": "crypto/ecdsa/ecdsa_test.c",
         "patchSetId": 4
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "a3a94260_99282b7d",
+        "filename": "crypto/ecdsa/ecdsa_test.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-03-27T23:17:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43308612_02168aff",
+      "revId": "1f3b6684778ecfc109c409d91d0048ccab8b4196",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "43308612_e2128609",
         "filename": "crypto/ecdsa/ecdsa_test.c",
         "patchSetId": 4
@@ -81,6 +153,30 @@
       "writtenOn": "2015-03-27T15:21:24Z",
       "side": 1,
       "message": "transpose",
+      "range": {
+        "startLine": 93,
+        "startChar": 32,
+        "endLine": 93,
+        "endChar": 34
+      },
+      "revId": "1f3b6684778ecfc109c409d91d0048ccab8b4196",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a3a94260_59c0732e",
+        "filename": "crypto/ecdsa/ecdsa_test.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-03-27T23:17:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43308612_e2128609",
       "range": {
         "startLine": 93,
         "startChar": 32,
@@ -116,6 +212,30 @@
     },
     {
       "key": {
+        "uuid": "a3a94260_79c52f3d",
+        "filename": "crypto/ecdsa/ecdsa_test.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-03-27T23:17:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43308612_4241b2f9",
+      "range": {
+        "startLine": 95,
+        "startChar": 28,
+        "endLine": 95,
+        "endChar": 39
+      },
+      "revId": "1f3b6684778ecfc109c409d91d0048ccab8b4196",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "43308612_823bba7d",
         "filename": "crypto/ecdsa/ecdsa_test.c",
         "patchSetId": 4
@@ -127,6 +247,24 @@
       "writtenOn": "2015-03-27T15:21:24Z",
       "side": 1,
       "message": "Fold up to previous line",
+      "revId": "1f3b6684778ecfc109c409d91d0048ccab8b4196",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a3a94260_d9b303dc",
+        "filename": "crypto/ecdsa/ecdsa_test.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-03-27T23:17:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43308612_823bba7d",
       "revId": "1f3b6684778ecfc109c409d91d0048ccab8b4196",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -156,6 +294,30 @@
     },
     {
       "key": {
+        "uuid": "a3a94260_f9b03fd1",
+        "filename": "crypto/ecdsa/ecdsa_test.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-03-27T23:17:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43308612_c234a28f",
+      "range": {
+        "startLine": 155,
+        "startChar": 28,
+        "endLine": 155,
+        "endChar": 30
+      },
+      "revId": "1f3b6684778ecfc109c409d91d0048ccab8b4196",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "43308612_022faa35",
         "filename": "crypto/ecdsa/ecdsa_test.c",
         "patchSetId": 4
@@ -167,6 +329,24 @@
       "writtenOn": "2015-03-27T15:21:24Z",
       "side": 1,
       "message": "Most of the existing comments don\u0027t match since this dates to OpenSSL, but new comments be sentences, should start with a capital and end in a period, etc.",
+      "revId": "1f3b6684778ecfc109c409d91d0048ccab8b4196",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a3a94260_99bd8ba8",
+        "filename": "crypto/ecdsa/ecdsa_test.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-03-27T23:17:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43308612_022faa35",
       "revId": "1f3b6684778ecfc109c409d91d0048ccab8b4196",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
