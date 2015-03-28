@@ -152,9 +152,7 @@
 #include <openssl/aead.h>
 #include <openssl/bio.h>
 #include <openssl/buf.h>
-#include <openssl/dsa.h>
 #include <openssl/err.h>
-#include <openssl/rsa.h>
 #include <openssl/ssl.h>
 #include <openssl/stack.h>
 
@@ -385,13 +383,6 @@
 #define SSL_PKEY_RSA_SIGN 1
 #define SSL_PKEY_ECC 2
 #define SSL_PKEY_NUM 3
-
-/* SSL_kRSA <- RSA_ENC | (RSA_TMP & RSA_SIGN) |
- * 	    <- (EXPORT & (RSA_ENC | RSA_TMP) & RSA_SIGN)
- * SSL_kDH  <- DH_ENC & (RSA_ENC | RSA_SIGN | DSA_SIGN)
- * SSL_kDHE <- RSA_ENC | RSA_SIGN | DSA_SIGN
- * SSL_aRSA <- RSA_ENC | RSA_SIGN
- * SSL_aDSS <- DSA_SIGN */
 
 #define PENDING_SESSION -10000
 
