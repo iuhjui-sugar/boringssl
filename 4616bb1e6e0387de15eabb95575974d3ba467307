@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a3a94260_545d9a7e",
+        "filename": "ssl/ssl_locl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-03-28T01:30:39Z",
+      "side": 0,
+      "message": "I could not figure out how this comment is useful. It seems out of date since it doesn\u0027t mention anything to do with ECC.",
+      "revId": "4616bb1e6e0387de15eabb95575974d3ba467307",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
