@@ -144,7 +144,6 @@
 #include <openssl/bytestring.h>
 #include <openssl/dh.h>
 #include <openssl/engine.h>
-#include <openssl/lhash.h>
 #include <openssl/mem.h>
 #include <openssl/obj.h>
 #include <openssl/rand.h>

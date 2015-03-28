@@ -58,7 +58,6 @@
 #include <openssl/buf.h>
 #include <openssl/cipher.h>
 #include <openssl/evp.h>
-#include <openssl/lhash.h>
 #include <openssl/mem.h>
 #include <openssl/obj.h>
 #include <openssl/x509.h>

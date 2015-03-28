@@ -58,9 +58,7 @@
 #define OPENSSL_HEADER_RSA_INTERNAL_H
 
 #include <openssl/base.h>
-
 #include <openssl/asn1.h>
-#include <openssl/thread.h>
 
 #if defined(__cplusplus)
 extern "C" {

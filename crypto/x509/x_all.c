@@ -60,7 +60,6 @@
 #include <openssl/dsa.h>
 #include <openssl/evp.h>
 #include <openssl/rsa.h>
-#include <openssl/stack.h>
 #include <openssl/x509.h>
 
 

@@ -55,7 +55,6 @@
 #include <string.h>
 
 #include <openssl/buf.h>
-#include <openssl/lhash.h>
 #include <openssl/mem.h>
 #include <openssl/obj.h>
 #include <openssl/stack.h>
