@@ -61,8 +61,8 @@
 
 #include <openssl/buf.h>
 #include <openssl/err.h>
-#include <openssl/lhash.h>
 #include <openssl/mem.h>
+#include <openssl/thread.h>
 #include <openssl/x509.h>
 
 

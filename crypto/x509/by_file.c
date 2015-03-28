@@ -55,11 +55,12 @@
  * copied and put under another distribution licence
  * [including the GNU Public Licence.] */
 
-#include <openssl/buf.h>
+#include <stdlib.h>
+
 #include <openssl/err.h>
-#include <openssl/lhash.h>
 #include <openssl/pem.h>
-#include <openssl/x509.h>
+#include <openssl/thread.h>
+
 
 #ifndef OPENSSL_NO_STDIO
 

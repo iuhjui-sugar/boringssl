@@ -58,6 +58,10 @@
 
 /* Internal ASN1 structures and functions: not for application use */
 
+#include <openssl/base.h>
+
+struct tm;
+
 int asn1_utctime_to_tm(struct tm *tm, const ASN1_UTCTIME *d);
 int asn1_generalizedtime_to_tm(struct tm *tm, const ASN1_GENERALIZEDTIME *d);
 

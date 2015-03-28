@@ -110,8 +110,7 @@
 #define OPENSSL_HEADER_ERR_H
 
 #include <openssl/base.h>
-#include <openssl/thread.h>
-#include <openssl/lhash.h>
+
 
 #if defined(__cplusplus)
 extern "C" {
@@ -353,23 +352,7 @@ struct err_error_st {
 #define ERR_NUM_ERRORS 16
 
 /* ERR_STATE contains the per-thread, error queue. */
-typedef struct err_state_st {
-  /* tid is the identifier of the thread that owns this queue. */
-  CRYPTO_THREADID tid;
-
-  /* errors contains the ERR_NUM_ERRORS most recent errors, organised as a ring
-   * buffer. */
-  struct err_error_st errors[ERR_NUM_ERRORS];
-  /* top contains the index one past the most recent error. If |top| equals
-   * |bottom| then the queue is empty. */
-  unsigned top;
-  /* bottom contains the index of the last error in the queue. */
-  unsigned bottom;
-
-  /* to_free, if not NULL, contains a pointer owned by this structure that was
-   * previously a |data| pointer of one of the elements of |errors|. */
-  void *to_free;
-} ERR_STATE;
+typedef struct err_state_st ERR_STATE;
 
 enum {
   ERR_LIB_NONE = 1,

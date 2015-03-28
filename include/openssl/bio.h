@@ -59,7 +59,6 @@
 
 #include <openssl/base.h>
 
-#include <stdarg.h>
 #include <stdio.h>  /* For FILE */
 
 #include <openssl/ex_data.h>

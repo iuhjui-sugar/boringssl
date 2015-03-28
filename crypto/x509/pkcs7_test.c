@@ -13,11 +13,11 @@
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. */
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
 #include <openssl/bytestring.h>
 #include <openssl/crypto.h>
+#include <openssl/mem.h>
 #include <openssl/stack.h>
 #include <openssl/x509.h>
 
