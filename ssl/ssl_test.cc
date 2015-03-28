@@ -21,6 +21,7 @@
 #include <openssl/base64.h>
 #include <openssl/bio.h>
 #include <openssl/err.h>
+#include <openssl/mem.h>
 #include <openssl/ssl.h>
 
 #include "test/scoped_types.h"

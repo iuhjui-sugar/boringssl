@@ -107,7 +107,6 @@
  * Hudson (tjh@cryptsoft.com). */
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <assert.h>
 
 #include <openssl/bytestring.h>
