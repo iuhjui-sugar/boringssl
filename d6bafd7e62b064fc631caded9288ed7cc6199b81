@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83143e89_4dcf315c",
+        "filename": "crypto/ecdsa/ecdsa_test.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-31T22:01:57Z",
+      "side": 1,
+      "message": "It\u0027d be slightly better I think to use\n\n   int sig_len \u003d i2d_ECDSA_SIG(ecdsa_sig, NULL);\n\nThen this code doesn\u0027t implicitly assume that |ecdsa_sig| is sized for |eckey|.",
+      "revId": "d6bafd7e62b064fc631caded9288ed7cc6199b81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83143e89_edbd3da7",
+        "filename": "crypto/ecdsa/ecdsa_test.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-31T22:01:57Z",
+      "side": 1,
+      "message": "Why the 2?",
+      "range": {
+        "startLine": 77,
+        "startChar": 18,
+        "endLine": 77,
+        "endChar": 19
+      },
+      "revId": "d6bafd7e62b064fc631caded9288ed7cc6199b81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83143e89_0d9b794c",
+        "filename": "crypto/ecdsa/ecdsa_test.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-31T22:01:57Z",
+      "side": 1,
+      "message": "sig_len is a size_t, so this will mess up the failure check. (I believe the correct failure check for i2d is \u003c 0 anyway.)",
+      "revId": "d6bafd7e62b064fc631caded9288ed7cc6199b81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "630f4a79_311de31f",
+        "filename": "crypto/ecdsa/ecdsa_test.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-31T22:01:57Z",
+      "side": 1,
+      "message": "Nit: can fold this up to the previous one.",
+      "revId": "d6bafd7e62b064fc631caded9288ed7cc6199b81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c3c8f677_96404c14",
+        "filename": "crypto/ecdsa/ecdsa_test.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-03-31T22:01:57Z",
+      "side": 1,
+      "message": "Nit: can fold this up to the previous one.",
+      "revId": "d6bafd7e62b064fc631caded9288ed7cc6199b81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
