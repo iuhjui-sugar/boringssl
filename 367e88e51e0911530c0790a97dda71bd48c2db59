@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "63bd8ac9_13744c00",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-31T22:36:53Z",
+      "side": 1,
+      "message": "We could do away with CRYPTO_library_init, although there are a bunch of places that need it because of CPUID stuff and the dependencies are often subtle (and via asm code). I\u0027m not too enthused about doing that right now.\n\nI do hope that ERR_remove_thread_state becomes superfluous, yes.",
+      "parentUuid": "2339d2d0_da64394c",
+      "revId": "367e88e51e0911530c0790a97dda71bd48c2db59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2339d2d0_c5b9fa5a",
         "filename": "crypto/thread_pthread.c",
         "patchSetId": 2
@@ -30,6 +48,30 @@
       "writtenOn": "2015-03-25T21:10:14Z",
       "side": 1,
       "message": "5",
+      "range": {
+        "startLine": 1,
+        "startChar": 20,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "367e88e51e0911530c0790a97dda71bd48c2db59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "63bd8ac9_93677c4f",
+        "filename": "crypto/thread_pthread.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-31T22:36:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2339d2d0_c5b9fa5a",
       "range": {
         "startLine": 1,
         "startChar": 20,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "63bd8ac9_135d2c80",
+        "filename": "crypto/thread_pthread.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-31T22:36:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2339d2d0_65c12ed1",
+      "range": {
+        "startLine": 92,
+        "startChar": 35,
+        "endLine": 92,
+        "endChar": 36
+      },
+      "revId": "367e88e51e0911530c0790a97dda71bd48c2db59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2339d2d0_e5acfe1a",
         "filename": "crypto/thread_test.c",
         "patchSetId": 2
@@ -76,6 +142,30 @@
       "writtenOn": "2015-03-25T21:10:14Z",
       "side": 1,
       "message": "5",
+      "range": {
+        "startLine": 1,
+        "startChar": 20,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "367e88e51e0911530c0790a97dda71bd48c2db59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "63bd8ac9_b34d58cb",
+        "filename": "crypto/thread_test.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-31T22:36:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2339d2d0_e5acfe1a",
       "range": {
         "startLine": 1,
         "startChar": 20,
@@ -105,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "63bd8ac9_d6d72242",
+        "filename": "crypto/thread_test.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-31T22:36:53Z",
+      "side": 1,
+      "message": "(Right, because function pointers are sometimes \"fat\". But not on any platform that we care about.)",
+      "parentUuid": "2339d2d0_e5f87ec0",
+      "revId": "367e88e51e0911530c0790a97dda71bd48c2db59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2339d2d0_a58f16a7",
         "filename": "crypto/thread_test.c",
         "patchSetId": 2
@@ -122,6 +230,24 @@
     },
     {
       "key": {
+        "uuid": "63bd8ac9_56ddd25c",
+        "filename": "crypto/thread_test.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-31T22:36:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2339d2d0_a58f16a7",
+      "revId": "367e88e51e0911530c0790a97dda71bd48c2db59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2339d2d0_a5b6f668",
         "filename": "crypto/thread_win.c",
         "patchSetId": 2
@@ -133,6 +259,30 @@
       "writtenOn": "2015-03-25T21:10:14Z",
       "side": 1,
       "message": "5",
+      "range": {
+        "startLine": 1,
+        "startChar": 20,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "367e88e51e0911530c0790a97dda71bd48c2db59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3d89a3c_f3543829",
+        "filename": "crypto/thread_win.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-31T22:36:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2339d2d0_a5b6f668",
       "range": {
         "startLine": 1,
         "startChar": 20,
@@ -168,6 +318,30 @@
     },
     {
       "key": {
+        "uuid": "63bd8ac9_360db66d",
+        "filename": "crypto/thread_win.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-31T22:36:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2339d2d0_85bc1251",
+      "range": {
+        "startLine": 20,
+        "startChar": 10,
+        "endLine": 20,
+        "endChar": 11
+      },
+      "revId": "367e88e51e0911530c0790a97dda71bd48c2db59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2339d2d0_a5615681",
         "filename": "crypto/thread_win.c",
         "patchSetId": 2
@@ -179,6 +353,24 @@
       "writtenOn": "2015-03-25T21:10:14Z",
       "side": 1,
       "message": "Nit: #include \u003cstring.h\u003e for memcpy",
+      "revId": "367e88e51e0911530c0790a97dda71bd48c2db59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "63bd8ac9_76172e7f",
+        "filename": "crypto/thread_win.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-31T22:36:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2339d2d0_a5615681",
       "revId": "367e88e51e0911530c0790a97dda71bd48c2db59",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -202,6 +394,24 @@
     },
     {
       "key": {
+        "uuid": "63bd8ac9_562b12ac",
+        "filename": "crypto/thread_win.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-31T22:36:53Z",
+      "side": 1,
+      "message": "Meh at the moment. If we hit Windows-on-ARM, this isn\u0027t too hard to solve and will make itself known.",
+      "parentUuid": "2339d2d0_a53716ae",
+      "revId": "367e88e51e0911530c0790a97dda71bd48c2db59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2339d2d0_255686b3",
         "filename": "crypto/thread_win.c",
         "patchSetId": 2
@@ -219,6 +429,24 @@
     },
     {
       "key": {
+        "uuid": "63bd8ac9_3663f617",
+        "filename": "crypto/thread_win.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-31T22:36:53Z",
+      "side": 1,
+      "message": "Good catch, thanks.",
+      "parentUuid": "2339d2d0_255686b3",
+      "revId": "367e88e51e0911530c0790a97dda71bd48c2db59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2339d2d0_65736e69",
         "filename": "crypto/thread_win.c",
         "patchSetId": 2
@@ -230,6 +458,24 @@
       "writtenOn": "2015-03-25T21:10:14Z",
       "side": 1,
       "message": "Verified this machinery matches what\u0027s in Chromium. I\u0027m a little worried about the long list of caveats below (perhaps in the future Mojo may decide to LoadLibrary a bunch of things; we already had some CL about dlsym). But since we statically link //base, I assume any such weirdness would also affect other uses of base/threading/thread_local_storage.h in that module.\n\nI\u0027ll toss together some code in Chromium to test it manually when rolling it in though.",
+      "revId": "367e88e51e0911530c0790a97dda71bd48c2db59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "63bd8ac9_766d6efe",
+        "filename": "crypto/thread_win.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-31T22:36:53Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "2339d2d0_65736e69",
       "revId": "367e88e51e0911530c0790a97dda71bd48c2db59",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -259,6 +505,30 @@
     },
     {
       "key": {
+        "uuid": "63bd8ac9_b66e26f8",
+        "filename": "crypto/thread_win.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-31T22:36:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2339d2d0_a58956f4",
+      "range": {
+        "startLine": 190,
+        "startChar": 28,
+        "endLine": 190,
+        "endChar": 30
+      },
+      "revId": "367e88e51e0911530c0790a97dda71bd48c2db59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2339d2d0_05582212",
         "filename": "crypto/thread_win.c",
         "patchSetId": 2
@@ -270,6 +540,30 @@
       "writtenOn": "2015-03-25T21:10:14Z",
       "side": 1,
       "message": "Nit: Dunno if you prefer sizeof(void*) or sizeof(void *), but this and line 199 differ.",
+      "range": {
+        "startLine": 204,
+        "startChar": 35,
+        "endLine": 204,
+        "endChar": 36
+      },
+      "revId": "367e88e51e0911530c0790a97dda71bd48c2db59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "63bd8ac9_f6789ebe",
+        "filename": "crypto/thread_win.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-03-31T22:36:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2339d2d0_05582212",
       "range": {
         "startLine": 204,
         "startChar": 35,
