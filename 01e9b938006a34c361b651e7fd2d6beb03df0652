@@ -1,0 +1,163 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e3bdfae6_1d0d816c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-02T22:11:21Z",
+      "side": 1,
+      "message": "Probably worth mentioning that this only imports keys and doesn\u0027t know how to actually perform operations on them for now.",
+      "revId": "01e9b938006a34c361b651e7fd2d6beb03df0652",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3bdfae6_9804ffce",
+        "filename": "crypto/evp/p_dsa_asn1.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-02T22:11:21Z",
+      "side": 1,
+      "message": "This function is, I believe, now reachable from Chrome until we ditch crypto/x509. (It looks fine though.)",
+      "revId": "01e9b938006a34c361b651e7fd2d6beb03df0652",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3bdfae6_12ed7087",
+        "filename": "crypto/evp/p_dsa_asn1.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-02T22:11:21Z",
+      "side": 1,
+      "message": "Nit: Unnecessary parens.",
+      "revId": "01e9b938006a34c361b651e7fd2d6beb03df0652",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3bdfae6_9d6f51f5",
+        "filename": "crypto/evp/p_dsa_asn1.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-02T22:11:21Z",
+      "side": 1,
+      "message": "[verified this function takes ownership of penc]",
+      "revId": "01e9b938006a34c361b651e7fd2d6beb03df0652",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3bdfae6_fdd3edd9",
+        "filename": "crypto/evp/p_dsa_asn1.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-02T22:11:21Z",
+      "side": 1,
+      "message": "Nit: We have the parameters. Now set the private key.",
+      "revId": "01e9b938006a34c361b651e7fd2d6beb03df0652",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3bdfae6_9ddbd1ef",
+        "filename": "crypto/evp/p_dsa_asn1.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-02T22:11:21Z",
+      "side": 1,
+      "message": "Nit: period",
+      "revId": "01e9b938006a34c361b651e7fd2d6beb03df0652",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3bdfae6_bd3fb537",
+        "filename": "crypto/evp/p_dsa_asn1.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-02T22:11:21Z",
+      "side": 1,
+      "message": "It\u0027s a little strange that this bit and the footer are woefully inconsistent about whether FOO_free needs a NULL check and how to do that check. Though I guess you do know either one is NULL or the other.\n\n(Upstream is normalizing on assuming all FOO_free functions accept NULL and removing NULL checks, by the way. I\u0027m a little behind on the import again, so I haven\u0027t gotten there yet.)",
+      "revId": "01e9b938006a34c361b651e7fd2d6beb03df0652",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3bdfae6_bda335f3",
+        "filename": "crypto/evp/p_dsa_asn1.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-02T22:11:21Z",
+      "side": 1,
+      "message": "Nit: period",
+      "revId": "01e9b938006a34c361b651e7fd2d6beb03df0652",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3bdfae6_3895f340",
+        "filename": "crypto/evp/p_dsa_asn1.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-02T22:11:21Z",
+      "side": 1,
+      "message": "(In case you\u0027re curious, I thiiiink the actual bound needed is only BN_num_bytes(n) + 1. ASN1_bn_print is so weird.)",
+      "range": {
+        "startLine": 443,
+        "startChar": 32,
+        "endLine": 443,
+        "endChar": 44
+      },
+      "revId": "01e9b938006a34c361b651e7fd2d6beb03df0652",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
