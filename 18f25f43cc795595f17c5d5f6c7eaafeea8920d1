@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e3bdfae6_0f22eb59",
+        "filename": "crypto/CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-04-02T20:53:58Z",
+      "side": 1,
+      "message": "I don\u0027t think that this will work as you expect. Have you tried the non-shared build with this? I\u0027ve a fix pending but, for now, I suggest leaving this. (Assuming that it worked for the shared build.)",
+      "revId": "18f25f43cc795595f17c5d5f6c7eaafeea8920d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
