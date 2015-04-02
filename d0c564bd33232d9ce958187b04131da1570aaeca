@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "83cefea1_683ccb42",
+        "filename": "crypto/ecdsa/ecdsa_test.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-04-02T21:42:07Z",
+      "side": 1,
+      "message": "Yes, the size_t/int issue was fixed. Also, I fixed the leak of |signature| here.",
+      "parentUuid": "63bd8ac9_b3cab897",
+      "revId": "d0c564bd33232d9ce958187b04131da1570aaeca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "63bd8ac9_1308cc5c",
         "filename": "crypto/ecdsa/ecdsa_test.c",
         "patchSetId": 7
@@ -30,6 +48,24 @@
       "writtenOn": "2015-03-31T22:13:43Z",
       "side": 1,
       "message": "Style: on previous line.",
+      "revId": "d0c564bd33232d9ce958187b04131da1570aaeca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83cefea1_883f2738",
+        "filename": "crypto/ecdsa/ecdsa_test.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-04-02T21:42:07Z",
+      "side": 1,
+      "message": "OK. But now the line is over 80 chars.",
+      "parentUuid": "63bd8ac9_1308cc5c",
       "revId": "d0c564bd33232d9ce958187b04131da1570aaeca",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
