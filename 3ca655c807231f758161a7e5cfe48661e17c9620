@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e3bdfae6_98651f48",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-02T22:23:03Z",
+      "side": 1,
+      "message": "uint8_t",
+      "range": {
+        "startLine": 395,
+        "startChar": 47,
+        "endLine": 395,
+        "endChar": 60
+      },
+      "revId": "3ca655c807231f758161a7e5cfe48661e17c9620",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3bdfae6_03dd245d",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-02T22:23:03Z",
+      "side": 1,
+      "message": "This should be 16, right? Going by upstream\u0027s code and the ivec argument of CRYPTO_ofb128_encrypt.",
+      "range": {
+        "startLine": 746,
+        "startChar": 4,
+        "endLine": 746,
+        "endChar": 5
+      },
+      "revId": "3ca655c807231f758161a7e5cfe48661e17c9620",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3bdfae6_d85b9788",
+        "filename": "include/openssl/cipher.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-02T22:23:03Z",
+      "side": 1,
+      "message": "Could you pull in the tests from upstream for cipher_test? (Note: you\u0027ll need to go to a somewhat older version of upstream than trunk; their new evp_test changes the format. I still need to get around to uploading my version of that.)",
+      "revId": "3ca655c807231f758161a7e5cfe48661e17c9620",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
