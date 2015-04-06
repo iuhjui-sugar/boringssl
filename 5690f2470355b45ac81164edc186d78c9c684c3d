@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "83519eaa_4616c300",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 862,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-06T19:54:06Z",
+      "side": 1,
+      "message": "runner currently only searches stdout for the expected error and not stderr, which is why this had to be a printf.\n\nI\u0027ve switched them all to stderr and made runner expect the error in there. That probably makes more sense. Also frees up the possibility to make stdout contain, I dunno, a stream of key/value pairs or something. I\u0027d always thought it a little odd that the assertions happen half on the runner and half in bssl_shim. Might be easier to have bssl_shim only report on properties while runner asserts, I dunno. Less interesting logic in C.",
+      "revId": "5690f2470355b45ac81164edc186d78c9c684c3d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "83519eaa_2b8d85ff",
         "filename": "ssl/test/runner/conn.go",
         "patchSetId": 2
@@ -13,6 +30,24 @@
       "writtenOn": "2015-04-06T18:00:31Z",
       "side": 1,
       "message": "I think these should be [32]byte (and [12]byte for the masterSecret).",
+      "revId": "5690f2470355b45ac81164edc186d78c9c684c3d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83519eaa_660dff35",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-06T19:54:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83519eaa_2b8d85ff",
       "revId": "5690f2470355b45ac81164edc186d78c9c684c3d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
