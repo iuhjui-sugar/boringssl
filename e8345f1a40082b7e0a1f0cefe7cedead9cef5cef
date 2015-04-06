@@ -16,6 +16,24 @@
       "revId": "e8345f1a40082b7e0a1f0cefe7cedead9cef5cef",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2320f22c_02aaf0f9",
+        "filename": "include/openssl/cipher.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-04-06T23:53:36Z",
+      "side": 1,
+      "message": "Done, again from 1.0.1m. Although there only appear to be tests for AES-192 CBC, not CTR nor GCM.",
+      "parentUuid": "e3bdfae6_63ee2001",
+      "revId": "e8345f1a40082b7e0a1f0cefe7cedead9cef5cef",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
