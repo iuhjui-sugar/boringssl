@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83519eaa_4b9011ca",
+        "filename": "ssl/t1_enc.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 902,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-04-06T18:05:24Z",
+      "side": 1,
+      "message": "There\u0027s only two jumps here and they have seed \u003d\u003d NULL, so I\u0027d change those gotos to \"return 0\", remove this label and simplify.",
+      "revId": "981d9d69f362606b33e30eb9577def799cf6a1d7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
