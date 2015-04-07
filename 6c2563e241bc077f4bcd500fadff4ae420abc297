@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2320f22c_8d3cf143",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-07T00:16:50Z",
+      "side": 1,
+      "message": "Hmrf. Everything\u0027s all ready for a standalone Windows bot once infra provisions me the machine, so hopefully this\u0027ll get noticed automatically later. (This file isn\u0027t built by Chromium, so you\u0027re probably the only person who routinely builds the SSL tests on Windows.) I\u0027ll go sort that out...",
+      "parentUuid": "83cefea1_b4723591",
+      "range": {
+        "startLine": 74,
+        "startChar": 2,
+        "endLine": 74,
+        "endChar": 30
+      },
+      "revId": "6c2563e241bc077f4bcd500fadff4ae420abc297",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "83cefea1_94585915",
         "filename": "ssl/test/bssl_shim.cc",
         "patchSetId": 2
