@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83cefea1_d4c5b1dd",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-04-07T00:36:41Z",
+      "side": 1,
+      "message": "FYI, this also works:\n\n  TestState()\n    : clock({0})\n    , clock_delta({0})\n  {\n  }",
+      "revId": "ff9c74f6f47d2527e1f43e3d52342cf8762cff67",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
