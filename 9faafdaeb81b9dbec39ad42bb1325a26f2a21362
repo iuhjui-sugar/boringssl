@@ -22,6 +22,30 @@
       "revId": "9faafdaeb81b9dbec39ad42bb1325a26f2a21362",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2320f22c_a850c3b7",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-07T00:39:13Z",
+      "side": 1,
+      "message": "Thanks! https://boringssl-review.googlesource.com/4255\n\nYeah, the bit twiddling is pretty messy. Although a shared version between here and the commit you reference would not get rid of the unary minus. They\u0027re computing rather different alignments.\n\nI\u0027ve not done too much to it in this CL because I wanted to disentangle do_ssl3_write first. The entire record-layer logic is quite hairy and I\u0027m quite not sure yet how I want it to look like. (SSL_AEAD_CTX_seal, probably swapping out the out/max_out/out_len trio for a CBB, tweaking CBB slightly so that a fixed version needn\u0027t malloc, alignment being computed both here and in buffer setup, etc.) Mostly working bottom-up, but I needed to fix this first because the fragment craziness got in the way of everything.",
+      "parentUuid": "83cefea1_54e8817b",
+      "range": {
+        "startLine": 618,
+        "startChar": 2,
+        "endLine": 618,
+        "endChar": 46
+      },
+      "revId": "9faafdaeb81b9dbec39ad42bb1325a26f2a21362",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
