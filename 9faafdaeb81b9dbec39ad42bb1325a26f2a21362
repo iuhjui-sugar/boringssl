@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83cefea1_54e8817b",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-04-07T00:22:07Z",
+      "side": 1,
+      "message": "This broke the MSVC build:\n\nwarning C4146: unary minus operator applied to unsigned type, result still unsigned\n\nPersonally, I find this bit-twiddling code too clever to be repeated throughout the code. It would be better to have some reusable inline functions that do these calculations. See also https://boringssl.googlesource.com/boringssl/+/d53b2c3c88e6044ce26df51d48ca6fd02023230a",
+      "range": {
+        "startLine": 618,
+        "startChar": 2,
+        "endLine": 618,
+        "endChar": 46
+      },
+      "revId": "9faafdaeb81b9dbec39ad42bb1325a26f2a21362",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
