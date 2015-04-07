@@ -117,6 +117,8 @@ static const EVP_MD sha1_md = {
 
 const EVP_MD *EVP_sha1(void) { return &sha1_md; }
 
+const EVP_MD *EVP_dss1(void) { return &sha1_md; }
+
 
 static int sha224_init(EVP_MD_CTX *ctx) { return SHA224_Init(ctx->md_data); }
 
