@@ -134,6 +134,7 @@ static bool TimeFunction(TimeResults *results, std::function<bool()> func) {
   return true;
 }
 
+#if 0
 static bool SpeedRSA(const std::string& key_name, RSA *key) {
   TimeResults results;
 
@@ -165,6 +166,7 @@ static bool SpeedRSA(const std::string& key_name, RSA *key) {
 
   return true;
 }
+#endif
 
 static uint8_t *align(uint8_t *in, unsigned alignment) {
   return reinterpret_cast<uint8_t *>(
@@ -173,7 +175,7 @@ static uint8_t *align(uint8_t *in, unsigned alignment) {
 }
 
 static bool SpeedAEADChunk(const EVP_AEAD *aead, const std::string &name,
-                           size_t chunk_len, size_t ad_len) {
+                           size_t chunk_len, size_t ad_len, bool copy) {
   static const unsigned kAlignment = 16;
 
   EVP_AEAD_CTX ctx;
@@ -185,12 +187,12 @@ static bool SpeedAEADChunk(const EVP_AEAD *aead, const std::string &name,
   memset(key.get(), 0, key_len);
   std::unique_ptr<uint8_t[]> nonce(new uint8_t[nonce_len]);
   memset(nonce.get(), 0, nonce_len);
-  std::unique_ptr<uint8_t[]> in_storage(new uint8_t[chunk_len + kAlignment]);
+  std::unique_ptr<uint8_t[]> in_storage(new uint8_t[chunk_len + kAlignment + 3]);
   std::unique_ptr<uint8_t[]> out_storage(new uint8_t[chunk_len + overhead_len + kAlignment]);
   std::unique_ptr<uint8_t[]> ad(new uint8_t[ad_len]);
   memset(ad.get(), 0, ad_len);
 
-  uint8_t *const in = align(in_storage.get(), kAlignment);
+  uint8_t *const in = align(in_storage.get(), kAlignment) + 3;
   memset(in, 0, chunk_len);
   uint8_t *const out = align(out_storage.get(), kAlignment);
   memset(out, 0, chunk_len + overhead_len);
@@ -204,17 +206,33 @@ static bool SpeedAEADChunk(const EVP_AEAD *aead, const std::string &name,
   }
 
   TimeResults results;
-  if (!TimeFunction(&results, [chunk_len, overhead_len, nonce_len, ad_len, in,
-                               out, &ctx, &nonce, &ad]() -> bool {
-        size_t out_len;
+  if (copy) {
+    if (!TimeFunction(&results, [chunk_len, overhead_len, nonce_len, ad_len, in,
+                                 out, &ctx, &nonce, &ad]() -> bool {
+          size_t out_len;
 
-        return EVP_AEAD_CTX_seal(
-            &ctx, out, &out_len, chunk_len + overhead_len, nonce.get(),
-            nonce_len, in, chunk_len, ad.get(), ad_len);
-      })) {
-    fprintf(stderr, "EVP_AEAD_CTX_seal failed.\n");
-    BIO_print_errors_fp(stderr);
-    return false;
+          memcpy(out, in, chunk_len);
+          return EVP_AEAD_CTX_seal(
+              &ctx, out, &out_len, chunk_len + overhead_len, nonce.get(),
+              nonce_len, out, chunk_len, ad.get(), ad_len);
+        })) {
+      fprintf(stderr, "EVP_AEAD_CTX_seal failed.\n");
+      BIO_print_errors_fp(stderr);
+      return false;
+    }
+  } else {
+    if (!TimeFunction(&results, [chunk_len, overhead_len, nonce_len, ad_len, in,
+                                 out, &ctx, &nonce, &ad]() -> bool {
+          size_t out_len;
+
+          return EVP_AEAD_CTX_seal(
+              &ctx, out, &out_len, chunk_len + overhead_len, nonce.get(),
+              nonce_len, in, chunk_len, ad.get(), ad_len);
+        })) {
+      fprintf(stderr, "EVP_AEAD_CTX_seal failed.\n");
+      BIO_print_errors_fp(stderr);
+      return false;
+    }
   }
 
   results.PrintWithBytes(name + " seal", chunk_len);
@@ -226,9 +244,12 @@ static bool SpeedAEADChunk(const EVP_AEAD *aead, const std::string &name,
 
 static bool SpeedAEAD(const EVP_AEAD *aead, const std::string &name,
                       size_t ad_len) {
-  return SpeedAEADChunk(aead, name + " (16 bytes)", 16, ad_len) &&
-         SpeedAEADChunk(aead, name + " (1350 bytes)", 1350, ad_len) &&
-         SpeedAEADChunk(aead, name + " (8192 bytes)", 8192, ad_len);
+  return SpeedAEADChunk(aead, name + " (16 bytes, copy)", 16, ad_len, true) &&
+         SpeedAEADChunk(aead, name + " (16 bytes)", 16, ad_len, false) &&
+         SpeedAEADChunk(aead, name + " (1350 bytes, copy)", 1350, ad_len, true) &&
+         SpeedAEADChunk(aead, name + " (1350 bytes)", 1350, ad_len, false) &&
+         SpeedAEADChunk(aead, name + " (8192 bytes, copy)", 8192, ad_len, true) &&
+         SpeedAEADChunk(aead, name + " (8192 bytes)", 8192, ad_len, false);
 }
 
 static bool SpeedHashChunk(const EVP_MD *md, const std::string &name,
@@ -267,6 +288,7 @@ static bool SpeedHash(const EVP_MD *md, const std::string &name) {
 }
 
 bool Speed(const std::vector<std::string> &args) {
+#if 0
   const uint8_t *inp;
 
   RSA *key = NULL;
@@ -296,6 +318,7 @@ bool Speed(const std::vector<std::string> &args) {
   }
 
   RSA_free(key);
+#endif
 
   // kTLSADLen is the number of bytes of additional data that TLS passes to
   // AEADs.
