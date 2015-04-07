@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83cefea1_b4723591",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-04-07T00:12:49Z",
+      "side": 1,
+      "message": "MSVC 2013 cannot compile this:\n\nerror C2797: \u0027TestState::clock_delta\u0027: list initialization inside member in\nitializer list or non-static data member initializer is not implemented",
+      "range": {
+        "startLine": 74,
+        "startChar": 2,
+        "endLine": 74,
+        "endChar": 30
+      },
+      "revId": "6c2563e241bc077f4bcd500fadff4ae420abc297",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83cefea1_94585915",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-04-07T00:12:49Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 77,
+        "startChar": 2,
+        "endLine": 77,
+        "endChar": 36
+      },
+      "revId": "6c2563e241bc077f4bcd500fadff4ae420abc297",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
