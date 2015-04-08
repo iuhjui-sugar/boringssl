@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2320f22c_85a045a0",
+        "filename": "include/openssl/thread.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-08T02:36:07Z",
+      "side": 1,
+      "message": "Nit: I suppose we ought to document all of none of these as doing nothing.",
+      "revId": "984f4c7152e8e47b73d7705e47897461ec4ce2ec",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

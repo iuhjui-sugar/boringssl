@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a3eea234_dd4b6b36",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-08T02:36:07Z",
+      "side": 0,
+      "message": "It looks like this code came from us. Since you seem to be the author, I\u0027m assuming you know whether or not this starting_index thing matters much. :-)\n\n(Doesn\u0027t look like it would? The whole thing\u0027s under a lock anyway, though I guess if you already have a handful you might get some semblance of thread-affinity which might be better for the cache??)",
+      "revId": "c0cc52310c523de37ef350329253b3d44ee11695",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
