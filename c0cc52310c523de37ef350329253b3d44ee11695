@@ -16,6 +16,24 @@
       "revId": "c0cc52310c523de37ef350329253b3d44ee11695",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "237f124e_6aad0614",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-04-08T23:25:15Z",
+      "side": 0,
+      "message": "It was a flying guess at the time :) I don\u0027t know whether it actually helped, it\u0027s probably just complexity.",
+      "parentUuid": "a3eea234_dd4b6b36",
+      "revId": "c0cc52310c523de37ef350329253b3d44ee11695",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
