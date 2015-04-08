@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a3eea234_bd465f81",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-08T02:25:04Z",
+      "side": 0,
+      "message": "Should be prunable from lhash_macros.h too now.",
+      "range": {
+        "startLine": 156,
+        "startChar": 7,
+        "endLine": 156,
+        "endChar": 26
+      },
+      "revId": "c9abea4ec38687507ca1049731d202cbe606d8d3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
