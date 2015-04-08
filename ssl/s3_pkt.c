@@ -898,6 +898,14 @@ start:
     }
   }
 
+  /* If peer renegotiations are disabled, all out-of-order handshake records are
+   * fatal. */
+  if (s->reject_peer_renegotiations && s->s3->handshake_fragment_len > 0) {
+    al = SSL_AD_NO_RENEGOTIATION;
+    OPENSSL_PUT_ERROR(SSL, ssl3_read_bytes, SSL_R_NO_RENEGOTIATION);
+    goto f_err;
+  }
+
   /* s->s3->handshake_fragment_len == 4  iff  rr->type == SSL3_RT_HANDSHAKE;
    * (Possibly rr is 'empty' now, i.e. rr->length may be 0.) */
 
