@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c3cab6dd_cc4ba336",
+        "filename": "crypto/ec/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-04-09T00:01:59Z",
+      "side": 0,
+      "message": "Is it also worthwhile to update these comments? To what extend do you intend for this code to ever support curves that aren\u0027t GF(p)?",
+      "range": {
+        "startLine": 210,
+        "startChar": 18,
+        "endLine": 211,
+        "endChar": 64
+      },
+      "revId": "32fbdf2025330664bd2a977d3ef62802e0cf817d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c3cab6dd_ccf1e367",
+        "filename": "crypto/ec/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-04-09T00:01:59Z",
+      "side": 0,
+      "message": "These fields should be changed to have better names and types (e.g. s/void *field_data/BN_MONT_CTX *mont/). That change would touch code throughout crypto/ec/. Are you interested in that change?",
+      "range": {
+        "startLine": 233,
+        "startChar": 2,
+        "endLine": 234,
+        "endChar": 19
+      },
+      "revId": "32fbdf2025330664bd2a977d3ef62802e0cf817d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
