@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "234d525a_51e73455",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-09T20:11:05Z",
+      "side": 1,
+      "message": "The warning alert thing is in my queue. I\u0027ll get to it. :-)",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 14
+      },
+      "revId": "41b976c4da871c07785d3148e724e69de3d0ffb1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
