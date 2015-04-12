@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c326369c_b26db583",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-12T07:45:29Z",
+      "side": 1,
+      "message": "(Not that we want users to use the AES-GCM EVP_CIPHER API either. The legacy AEAD EVP_CIPHERs are really weird and deprecated. You should use the EVP_AEAD API for it.)",
+      "range": {
+        "startLine": 10,
+        "startChar": 42,
+        "endLine": 10,
+        "endChar": 60
+      },
+      "revId": "7d897a1bf2abab32f3e6200ee15930d68ae87ad6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
