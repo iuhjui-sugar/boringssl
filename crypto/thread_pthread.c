@@ -17,10 +17,61 @@
 #if !defined(OPENSSL_WINDOWS)
 
 #include <pthread.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include <openssl/mem.h>
+#include <openssl/type_check.h>
 
+
+OPENSSL_COMPILE_ASSERT(sizeof(CRYPTO_mutex_t) >= sizeof(pthread_rwlock_t),
+                       CRYPTO_mutex_t_too_small);
+
+void CRYPTO_mutex_init(CRYPTO_mutex_t *lock) {
+  if (pthread_rwlock_init((pthread_rwlock_t *) lock, NULL) != 0) {
+    abort();
+  }
+}
+
+void CRYPTO_mutex_lock_read(CRYPTO_mutex_t *lock) {
+  if (pthread_rwlock_rdlock((pthread_rwlock_t *) lock) != 0) {
+    abort();
+  }
+}
+
+void CRYPTO_mutex_lock_write(CRYPTO_mutex_t *lock) {
+  if (pthread_rwlock_wrlock((pthread_rwlock_t *) lock) != 0) {
+    abort();
+  }
+}
+
+void CRYPTO_mutex_unlock(CRYPTO_mutex_t *lock) {
+  if (pthread_rwlock_unlock((pthread_rwlock_t *) lock) != 0) {
+    abort();
+  }
+}
+
+void CRYPTO_mutex_clear(CRYPTO_mutex_t *lock) {
+  pthread_rwlock_destroy((pthread_rwlock_t *) lock);
+}
+
+void CRYPTO_static_mutex_lock_read(struct CRYPTO_static_mutex *lock) {
+  if (pthread_rwlock_rdlock(&lock->lock) != 0) {
+    abort();
+  }
+}
+
+void CRYPTO_static_mutex_lock_write(struct CRYPTO_static_mutex *lock) {
+  if (pthread_rwlock_wrlock(&lock->lock) != 0) {
+    abort();
+  }
+}
+
+void CRYPTO_static_mutex_unlock(struct CRYPTO_static_mutex *lock) {
+  if (pthread_rwlock_unlock(&lock->lock) != 0) {
+    abort();
+  }
+}
 
 void CRYPTO_once(CRYPTO_once_t *once, void (*init)(void)) {
   pthread_once(once, init);
