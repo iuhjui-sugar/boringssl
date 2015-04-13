@@ -16,6 +16,24 @@
       "revId": "dca709add7f1b6acd940854e21a1bc21f4c96b0f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0242aae_dbbc364b",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 903,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-13T22:37:51Z",
+      "side": 1,
+      "message": "Some vague desire to want to flag things if a previous handshake record managed to give us a small fragment but not enough to start renego. But that\u0027s kinda weird and non-deterministic since it requires you to pump the read state machine before we notice.\n\nI\u0027ve switched it to as you suggest. The difference is not really meaningful and this behavior is easier to understand.\n\n(I suspect the exact timing of this check w.r.t. partial ClientHellos or HelloRequests is going to change slightly when I get rid of ssl3_read_bytes. Hopefully no one will care. Most consumers would set it at the beginning. The one case I know of that might not isn\u0027t affected by this.)",
+      "parentUuid": "b0242aae_3b1a1aa5",
+      "revId": "dca709add7f1b6acd940854e21a1bc21f4c96b0f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
