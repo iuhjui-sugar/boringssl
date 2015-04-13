@@ -433,6 +433,7 @@ void CRYPTO_static_mutex_unlock(struct CRYPTO_static_mutex *lock);
  * stored. */
 typedef enum {
   OPENSSL_THREAD_LOCAL_ERR = 0,
+  OPENSSL_THREAD_LOCAL_RAND,
   OPENSSL_THREAD_LOCAL_TEST,
   NUM_OPENSSL_THREAD_LOCALS,
 } thread_local_data_t;
