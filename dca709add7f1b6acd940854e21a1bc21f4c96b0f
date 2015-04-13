@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0242aae_3b1a1aa5",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 903,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-04-13T22:13:19Z",
+      "side": 1,
+      "message": "Why not put this above the previous block? I.e. if (rr-\u003etype \u003d\u003d SSL3_RT_HANDSHAKE \u0026\u0026 s-\u003ereject_peer_renegotiations) {\n  ...\n}",
+      "revId": "dca709add7f1b6acd940854e21a1bc21f4c96b0f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
