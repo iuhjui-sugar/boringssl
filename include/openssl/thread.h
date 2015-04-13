@@ -64,6 +64,24 @@ extern "C" {
 #endif
 
 
+#if defined(OPENSSL_WINDOWS)
+/* CRYPTO_mutex_t can appear in public header files, so we really don't want to
+ * pull in windows.h. Elsewhere in the code, it's statically asserted that this
+ * structure is large enough to contain a Windows CRITICAL_SECTION. */
+typedef struct crypto_mutex_st {
+  uint8_t padding[4*sizeof(void*) + 2*sizeof(int)];
+} CRYPTO_mutex_t;
+#else
+/* It is reasonably to include pthread.h on non-Windows systems, however the
+ * |pthread_rwlock_t| that we need is hidden under feature flags, and we can't
+ * ensure that we'll be able to get it. Elsewhere in the code, it's statically
+ * asserted that this structure is large enough to contain a Windows
+ * CRITICAL_SECTION. */
+typedef struct crypto_mutex_st {
+  uint8_t padding[3*sizeof(int) + 5*sizeof(unsigned) + 16 + 8];
+} CRYPTO_mutex_t;
+#endif
+
 /* Functions to support multithreading.
  *
  * OpenSSL can safely be used in multi-threaded applications provided that at
