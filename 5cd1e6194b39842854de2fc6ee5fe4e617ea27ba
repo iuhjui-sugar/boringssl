@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0242aae_b9229a9b",
+        "filename": "include/openssl/bio.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 782,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-13T20:17:23Z",
+      "side": 1,
+      "message": "If we\u0027re okay losing the reference-counting, we can also lose BIO_CTRL_PUSH/BIO_CTRL_POP; they\u0027re only used by the SSL BIO which uses the reference counts.",
+      "range": {
+        "startLine": 782,
+        "startChar": 22,
+        "endLine": 782,
+        "endChar": 48
+      },
+      "revId": "5cd1e6194b39842854de2fc6ee5fe4e617ea27ba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
