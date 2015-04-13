@@ -69,6 +69,7 @@
 #include <openssl/mem.h>
 
 #include "internal.h"
+#include "../internal.h"
 
 
 extern const DSA_METHOD DSA_default_method;
@@ -95,6 +96,8 @@ DSA *DSA_new_method(const ENGINE *engine) {
 
   dsa->write_params = 1;
   dsa->references = 1;
+
+  CRYPTO_mutex_init(&dsa->method_mont_p_lock);
 
   if (!CRYPTO_new_ex_data(CRYPTO_EX_INDEX_DSA, dsa, &dsa->ex_data)) {
     METHOD_unref(dsa->meth);
@@ -149,6 +152,7 @@ void DSA_free(DSA *dsa) {
   if (dsa->r != NULL) {
     BN_clear_free(dsa->r);
   }
+  CRYPTO_mutex_clear(&dsa->method_mont_p_lock);
   OPENSSL_free(dsa);
 }
 
