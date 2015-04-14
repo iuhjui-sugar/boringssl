@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b0242aae_51adb895",
+        "filename": "tool/speed.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-04-14T20:03:33Z",
+      "side": 1,
+      "message": "(Will document RAND_bytes as infallible.)",
+      "parentUuid": "b0242aae_b87cc2e6",
+      "revId": "e0d1978ad8d01fac1f3efab8a82c987160af443d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0242aae_d8a54e05",
         "filename": "tool/speed.cc",
         "patchSetId": 3
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "b0242aae_f19b8470",
+        "filename": "tool/speed.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-04-14T20:03:33Z",
+      "side": 1,
+      "message": "The others match things like \"RSA 2048\" and so on. It\u0027s not quite a substring.",
+      "parentUuid": "b0242aae_d8a54e05",
+      "revId": "e0d1978ad8d01fac1f3efab8a82c987160af443d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0242aae_9886a669",
         "filename": "tool/speed.cc",
         "patchSetId": 3
@@ -47,6 +83,24 @@
       "writtenOn": "2015-04-14T18:06:35Z",
       "side": 1,
       "message": "Usage error if args.size() \u003e 1? Naively I might expect `bssl speed RSA GCM` to work.",
+      "revId": "e0d1978ad8d01fac1f3efab8a82c987160af443d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0242aae_f1f6e4a4",
+        "filename": "tool/speed.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-04-14T20:03:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0242aae_9886a669",
       "revId": "e0d1978ad8d01fac1f3efab8a82c987160af443d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
