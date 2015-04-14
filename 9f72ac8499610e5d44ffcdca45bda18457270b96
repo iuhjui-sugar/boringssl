@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0242aae_a937d210",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-14T19:10:24Z",
+      "side": 1,
+      "message": "Looks like it\u0027s to implement a bunch of custom EVP_CIPHERs? The ones I see are:\n\n- evp_ssh1_3des - some ssh1 thing, I wonder if it\u0027s needed? Looks like you can even build without ssh1 now.\n- evp_ssh1_bf - ditto\n- evp_rijndael - this looks unused...\n- evp_aes_128_ctr - backwards compat for EVP_aes_{128,192,256}_ctr\n\n(Interestingly, they didn\u0027t implement CFLAG_CHACHAPOLY with a custom one.)",
+      "revId": "9f72ac8499610e5d44ffcdca45bda18457270b96",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
