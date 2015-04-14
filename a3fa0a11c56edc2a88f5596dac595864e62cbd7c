@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b0242aae_512018c5",
+        "filename": "crypto/ex_data.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-04-14T20:03:23Z",
+      "side": 1,
+      "message": "Yea, the whole different implementation thing should be scheduled for removal now that we have proper threading support in-library.",
+      "parentUuid": "b0242aae_5d0f10e6",
+      "revId": "a3fa0a11c56edc2a88f5596dac595864e62cbd7c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0242aae_7d764c85",
         "filename": "crypto/ex_data_impl.c",
         "patchSetId": 3
@@ -47,6 +65,24 @@
       "writtenOn": "2015-04-14T17:29:12Z",
       "side": 1,
       "message": "Perhaps just CRYPTO_add?",
+      "revId": "a3fa0a11c56edc2a88f5596dac595864e62cbd7c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0242aae_f1626412",
+        "filename": "crypto/ex_data_impl.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-04-14T20:03:23Z",
+      "side": 1,
+      "message": "(Ditto about a future cleanup.)",
+      "parentUuid": "b0242aae_9d121853",
       "revId": "a3fa0a11c56edc2a88f5596dac595864e62cbd7c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
