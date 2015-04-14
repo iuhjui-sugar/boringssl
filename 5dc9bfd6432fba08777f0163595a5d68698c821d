@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0242aae_0ec14c2d",
+        "filename": "crypto/rand/rand.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-14T18:47:03Z",
+      "side": 1,
+      "message": "If we\u0027re going to go all-out on the \"can never fail\" thing, let\u0027s just document RAND_bytes as returning one, and then we can stop caring about checking its return value.",
+      "range": {
+        "startLine": 25,
+        "startChar": 56,
+        "endLine": 25,
+        "endChar": 65
+      },
+      "revId": "5dc9bfd6432fba08777f0163595a5d68698c821d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0242aae_2e552821",
+        "filename": "crypto/rand/rand.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-14T18:47:03Z",
+      "side": 1,
+      "message": "Should this be after line 128? We don\u0027t need to bump the nonce if we went through the len \u003e\u003d partial_block codepath.",
+      "revId": "5dc9bfd6432fba08777f0163595a5d68698c821d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0242aae_5336e193",
+        "filename": "crypto/rand/urandom.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-14T18:47:03Z",
+      "side": 1,
+      "message": "This comment is no longer accurate. (Hrm, actually it was kinda off before too.)",
+      "revId": "5dc9bfd6432fba08777f0163595a5d68698c821d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0242aae_ae8118d4",
+        "filename": "crypto/rand/urandom.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-14T18:47:03Z",
+      "side": 1,
+      "message": "CRYPTO_once?",
+      "revId": "5dc9bfd6432fba08777f0163595a5d68698c821d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0242aae_aef6b8a3",
+        "filename": "crypto/rand/urandom.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-14T18:47:03Z",
+      "side": 1,
+      "message": "Do we still need all this buffering stuff? I\u0027m guessing the contexts where we might enable this would already use the rdrand codepath.",
+      "revId": "5dc9bfd6432fba08777f0163595a5d68698c821d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
