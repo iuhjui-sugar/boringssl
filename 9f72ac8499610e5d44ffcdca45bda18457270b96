@@ -34,6 +34,24 @@
       "revId": "9f72ac8499610e5d44ffcdca45bda18457270b96",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0242aae_9742f01a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-14T20:45:16Z",
+      "side": 1,
+      "message": "Oh wow, I didn\u0027t notice that.\n\nI\u0027d say yuck, but we did the same thing. :-)",
+      "parentUuid": "b0242aae_f48132d3",
+      "revId": "9f72ac8499610e5d44ffcdca45bda18457270b96",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
