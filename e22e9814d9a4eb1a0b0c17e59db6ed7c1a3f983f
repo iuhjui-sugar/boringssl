@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0242aae_04525a38",
+        "filename": "crypto/thread_win.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-14T00:05:08Z",
+      "side": 1,
+      "message": "For this particular instance, you could also do:\n\n  void (*init_func)(void) \u003d *((void (*)(void))arg);\n\nand\n\n  run_once(in_once, call_once_init, \u0026init);",
+      "revId": "e22e9814d9a4eb1a0b0c17e59db6ed7c1a3f983f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0242aae_6400fe04",
+        "filename": "crypto/thread_win.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-14T00:05:08Z",
+      "side": 1,
+      "message": "Probably worth documenting in crypto/internal.h that, on Windows, this is a mutex. Though I can\u0027t imagine how you might write code that cares, aside from performance.\n\nNit: /* comment style */",
+      "revId": "e22e9814d9a4eb1a0b0c17e59db6ed7c1a3f983f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0242aae_a41dc667",
+        "filename": "crypto/thread_win.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-14T00:05:08Z",
+      "side": 1,
+      "message": "Nit: ditto on comment style",
+      "revId": "e22e9814d9a4eb1a0b0c17e59db6ed7c1a3f983f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0242aae_a15378f0",
+        "filename": "include/openssl/thread.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-14T00:05:08Z",
+      "side": 1,
+      "message": "Is the idea that we\u0027ll put this into SSL_CTX? (And that we probably won\u0027t be able to opaquify it anytime soon if ever.) Since otherwise I don\u0027t see a real need to put them in public header files.\n\nSSL_CTX is the only case I can think of where we might want to embed a lock in a struct but will have a hard time making it opaque. Maybe we should just pay a malloc indirection on that one until we can opaquify it ourselves[*]? See comment below about an issue with this one.\n\n[*] I\u0027m cautiously optimistic that we\u0027ll be able to someday. Since OpenSSL 1.1.x is doing it, once the APIs are available, patches to third-party software to avoid accessing the structs directly should be quite upstreamable.",
+      "range": {
+        "startLine": 68,
+        "startChar": 18,
+        "endLine": 68,
+        "endChar": 51
+      },
+      "revId": "e22e9814d9a4eb1a0b0c17e59db6ed7c1a3f983f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0242aae_c1f0c463",
+        "filename": "include/openssl/thread.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-14T00:05:08Z",
+      "side": 1,
+      "message": "This doesn\u0027t account for any alignment requirements we may have.\n\nI think we\u0027d need to rope in C++11 to be able to statically assert on alignment. C11 also has _Alignof, but we probably don\u0027t get that on MSVC. Maybe we can do something crazy like assert on the offsetof the mutex in:\n\n  struct {\n    char byte;\n    CRYPTO_mutex_t mutex;\n  }",
+      "revId": "e22e9814d9a4eb1a0b0c17e59db6ed7c1a3f983f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
