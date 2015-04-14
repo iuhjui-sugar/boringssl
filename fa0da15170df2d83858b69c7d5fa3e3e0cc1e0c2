@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0242aae_78765a85",
+        "filename": "tool/rand.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-14T18:01:07Z",
+      "side": 1,
+      "message": "Nit: args.back()",
+      "range": {
+        "startLine": 41,
+        "startChar": 34,
+        "endLine": 41,
+        "endChar": 53
+      },
+      "revId": "fa0da15170df2d83858b69c7d5fa3e3e0cc1e0c2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0242aae_983c6676",
+        "filename": "tool/rand.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-14T18:01:07Z",
+      "side": 1,
+      "message": "[verified strtoull is documented to always write something on MSDN and Linux man pages]",
+      "revId": "fa0da15170df2d83858b69c7d5fa3e3e0cc1e0c2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0242aae_98e466d7",
+        "filename": "tool/rand.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-14T18:01:07Z",
+      "side": 1,
+      "message": "Nit: Probably worth an explicit \u003e 0 for clarity. (Also I think MSVC gets grumpy about implicitly casting integers to bool in some contexts, but I could be making that up.)",
+      "range": {
+        "startLine": 59,
+        "startChar": 32,
+        "endLine": 59,
+        "endChar": 33
+      },
+      "revId": "fa0da15170df2d83858b69c7d5fa3e3e0cc1e0c2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0242aae_b8c4c2e3",
+        "filename": "tool/rand.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-14T18:01:07Z",
+      "side": 1,
+      "message": "This should check for failure. (Even though it\u0027ll never happen, I guess we check elsewhere and it\u0027s tidier. Plus we don\u0027t document the aborting thing.)",
+      "revId": "fa0da15170df2d83858b69c7d5fa3e3e0cc1e0c2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0242aae_d801ce8c",
+        "filename": "tool/rand.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-14T18:01:07Z",
+      "side": 1,
+      "message": "Nit: I suppose check for failure for consistency here too.",
+      "revId": "fa0da15170df2d83858b69c7d5fa3e3e0cc1e0c2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
