@@ -16,6 +16,24 @@
       "revId": "9f72ac8499610e5d44ffcdca45bda18457270b96",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0242aae_f48132d3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-04-14T20:16:12Z",
+      "side": 1,
+      "message": "The custom ciphers are only needed if you don\u0027t implement something that they need (or need SSHv1). What really got me is that they reach into the RC4 state and copy it out.",
+      "parentUuid": "b0242aae_a937d210",
+      "revId": "9f72ac8499610e5d44ffcdca45bda18457270b96",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
