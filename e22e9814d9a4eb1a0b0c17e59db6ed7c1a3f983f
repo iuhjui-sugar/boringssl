@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b0242aae_31eb4cf4",
+        "filename": "crypto/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-04-14T20:03:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0242aae_78df7a55",
+      "range": {
+        "startLine": 411,
+        "startChar": 20,
+        "endLine": 411,
+        "endChar": 21
+      },
+      "revId": "e22e9814d9a4eb1a0b0c17e59db6ed7c1a3f983f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0242aae_04525a38",
         "filename": "crypto/thread_win.c",
         "patchSetId": 3
@@ -36,6 +60,24 @@
       "writtenOn": "2015-04-14T00:05:08Z",
       "side": 1,
       "message": "For this particular instance, you could also do:\n\n  void (*init_func)(void) \u003d *((void (*)(void))arg);\n\nand\n\n  run_once(in_once, call_once_init, \u0026init);",
+      "revId": "e22e9814d9a4eb1a0b0c17e59db6ed7c1a3f983f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0242aae_69768a85",
+        "filename": "crypto/thread_win.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-04-14T20:03:16Z",
+      "side": 1,
+      "message": "The memcpy is verbose but clear I think.",
+      "parentUuid": "b0242aae_04525a38",
       "revId": "e22e9814d9a4eb1a0b0c17e59db6ed7c1a3f983f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "b0242aae_a98112d4",
+        "filename": "crypto/thread_win.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-04-14T20:03:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0242aae_6400fe04",
+      "revId": "e22e9814d9a4eb1a0b0c17e59db6ed7c1a3f983f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0242aae_a41dc667",
         "filename": "crypto/thread_win.c",
         "patchSetId": 3
@@ -70,6 +130,24 @@
       "writtenOn": "2015-04-14T00:05:08Z",
       "side": 1,
       "message": "Nit: ditto on comment style",
+      "revId": "e22e9814d9a4eb1a0b0c17e59db6ed7c1a3f983f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0242aae_49906e19",
+        "filename": "crypto/thread_win.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-04-14T20:03:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0242aae_a41dc667",
       "revId": "e22e9814d9a4eb1a0b0c17e59db6ed7c1a3f983f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -123,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "b0242aae_c9f0de63",
+        "filename": "include/openssl/thread.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-04-14T20:03:16Z",
+      "side": 1,
+      "message": "Thanks for the point about the alignment. I\u0027ll use the union{} trick, which should handle that.",
+      "parentUuid": "b0242aae_9dc9f8fc",
+      "range": {
+        "startLine": 68,
+        "startChar": 18,
+        "endLine": 68,
+        "endChar": 51
+      },
+      "revId": "e22e9814d9a4eb1a0b0c17e59db6ed7c1a3f983f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0242aae_c1f0c463",
         "filename": "include/openssl/thread.h",
         "patchSetId": 3
@@ -140,6 +242,24 @@
     },
     {
       "key": {
+        "uuid": "b0242aae_4904eecf",
+        "filename": "include/openssl/thread.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-04-14T20:03:16Z",
+      "side": 1,
+      "message": "(Done with a union.)",
+      "parentUuid": "b0242aae_c1f0c463",
+      "revId": "e22e9814d9a4eb1a0b0c17e59db6ed7c1a3f983f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0242aae_f805aa41",
         "filename": "include/openssl/thread.h",
         "patchSetId": 3
@@ -151,6 +271,24 @@
       "writtenOn": "2015-04-14T17:49:08Z",
       "side": 1,
       "message": "CRYPTO_mutex_t -\u003e CRYPTO_MUTEX? To be honest, I\u0027ve never been very fond of the SHOUTING_CASE type names, though it does match the rest of the code.",
+      "revId": "e22e9814d9a4eb1a0b0c17e59db6ed7c1a3f983f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0242aae_09302692",
+        "filename": "include/openssl/thread.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-04-14T20:03:16Z",
+      "side": 1,
+      "message": "Hmm, I think you\u0027re right that CRYPTO_MUTEX does fit better. Done. (And also CRYPTO_STATIC_MUTEX.)",
+      "parentUuid": "b0242aae_f805aa41",
       "revId": "e22e9814d9a4eb1a0b0c17e59db6ed7c1a3f983f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
