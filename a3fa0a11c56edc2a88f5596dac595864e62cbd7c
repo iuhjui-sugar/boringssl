@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0242aae_5d0f10e6",
+        "filename": "crypto/ex_data.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-14T17:29:12Z",
+      "side": 1,
+      "message": "Note: This new version has slightly different thread-safe guarantees than the old one; the old one wouldn\u0027t have a data race if two threads tried to do it, one would just lose.\n\nBut no one calls this and two threads racing on it would be crazy, so whatever.",
+      "revId": "a3fa0a11c56edc2a88f5596dac595864e62cbd7c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0242aae_7d764c85",
+        "filename": "crypto/ex_data_impl.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-14T17:29:12Z",
+      "side": 1,
+      "message": "(I\u0027ll toy with this as a follow-up, but we can probably get rid of all this and replace it with a CRYPTO_EX_DATA_CLASS struct that each module defines statically somewhere. Saves the hash table, though each CRYPTO_EX_DATA_CLASS will still need a lock internally, unless we do something fancy with atomics. It would preclude using a custom implementation though.)",
+      "revId": "a3fa0a11c56edc2a88f5596dac595864e62cbd7c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0242aae_9d121853",
+        "filename": "crypto/ex_data_impl.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-14T17:29:12Z",
+      "side": 1,
+      "message": "Perhaps just CRYPTO_add?",
+      "revId": "a3fa0a11c56edc2a88f5596dac595864e62cbd7c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
