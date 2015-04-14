@@ -76,6 +76,30 @@
     },
     {
       "key": {
+        "uuid": "b0242aae_9dc9f8fc",
+        "filename": "include/openssl/thread.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-14T17:32:11Z",
+      "side": 1,
+      "message": "Oh, I see. We\u0027ll want to put it on the RSA too, and maybe some other bits.\n\nMaybe we should drop in a C++11 file for now or try to assert on offsetof for alignment.",
+      "parentUuid": "b0242aae_a15378f0",
+      "range": {
+        "startLine": 68,
+        "startChar": 18,
+        "endLine": 68,
+        "endChar": 51
+      },
+      "revId": "e22e9814d9a4eb1a0b0c17e59db6ed7c1a3f983f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0242aae_c1f0c463",
         "filename": "include/openssl/thread.h",
         "patchSetId": 3
