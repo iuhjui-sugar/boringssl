@@ -16,6 +16,24 @@
       "revId": "0a83fcff874535796f071573121b675abd49f1d2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0242aae_f1370410",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-04-14T20:03:19Z",
+      "side": 1,
+      "message": "Reference counting does need attention. I would like to bring it into the library like the mutexes, but there\u0027s no standard library for it. Instead one needs per-arch asm. I\u0027m going to leave that cleanup for the future.",
+      "parentUuid": "b0242aae_44a9825b",
+      "revId": "0a83fcff874535796f071573121b675abd49f1d2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
