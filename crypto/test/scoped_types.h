@@ -74,6 +74,8 @@ using ScopedBIGNUM = ScopedOpenSSLType<BIGNUM, BN_free>;
 using ScopedBN_CTX = ScopedOpenSSLType<BN_CTX, BN_CTX_free>;
 using ScopedBN_MONT_CTX = ScopedOpenSSLType<BN_MONT_CTX, BN_MONT_CTX_free>;
 using ScopedDH = ScopedOpenSSLType<DH, DH_free>;
+using ScopedEC_KEY = ScopedOpenSSLType<EC_KEY, EC_KEY_free>;
+using ScopedEC_POINT = ScopedOpenSSLType<EC_POINT, EC_POINT_free>;
 using ScopedEVP_PKEY = ScopedOpenSSLType<EVP_PKEY, EVP_PKEY_free>;
 using ScopedPKCS8_PRIV_KEY_INFO = ScopedOpenSSLType<PKCS8_PRIV_KEY_INFO,
                                                     PKCS8_PRIV_KEY_INFO_free>;
