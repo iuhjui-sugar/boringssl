@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "707552b8_b38678e4",
+        "filename": "crypto/ec/p256-64.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-15T22:06:56Z",
+      "side": 1,
+      "message": "I did not really look through this code and assume it works.",
+      "revId": "02092cce131257f8431469629fa81b19646033c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "707552b8_736c60b8",
+        "filename": "crypto/ec/p256-64.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-15T22:06:56Z",
+      "side": 1,
+      "message": "This doesn\u0027t look like it\u0027ll work on MSVC. I think we need to limit this to gcc-alikes for now. (There\u0027s several #ifdefs that\u0027ll need touching up.)",
+      "revId": "02092cce131257f8431469629fa81b19646033c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "707552b8_93e6dcb1",
+        "filename": "crypto/ec/p256-64.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1468,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-15T22:06:56Z",
+      "side": 1,
+      "message": "[You mentioned before that this might cause some size hit. bssl_shim in release mode seems to grow by 316 bytes, so I think we\u0027re fine.]",
+      "revId": "02092cce131257f8431469629fa81b19646033c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "707552b8_b338b89c",
+        "filename": "crypto/ec/p256-64.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1921,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-15T22:06:56Z",
+      "side": 1,
+      "message": "I think you can just leave these NULL. EC_GROUP_precompute_mult will return 1 instead of 0, but that seems fine? (\"I successfully did nothing.\")\n\nThere aren\u0027t actually many callers of this stuff to compare, but upstream\u0027s ectest.c (which we don\u0027t have) looks like it\u0027ll bail if this returns 0 instead of 1.",
+      "revId": "02092cce131257f8431469629fa81b19646033c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "707552b8_53f04461",
+        "filename": "crypto/ec/util-64.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-15T22:06:56Z",
+      "side": 1,
+      "message": "I didn\u0027t really look at this file and assume it works.",
+      "revId": "02092cce131257f8431469629fa81b19646033c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "707552b8_d30e94e9",
+        "filename": "tool/speed.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-15T22:06:56Z",
+      "side": 1,
+      "message": "Sort of odd that this is called SpeedECDHCurve, but it\u0027s not actually using crypto/ecdh. It does do a bit extra work, so I guess it\u0027s a question of whether we should be isolating the ECDH bits for better measuring that or including any non-EC overhead that all practically callers will pay for.",
+      "revId": "02092cce131257f8431469629fa81b19646033c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "707552b8_b31518f1",
+        "filename": "tool/speed.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-15T22:06:56Z",
+      "side": 1,
+      "message": "We differ on substring vs. equality here compared to the non-RNG tests. (I\u0027d think substring would be better, so you can run both P-256 tests in one go.)",
+      "revId": "02092cce131257f8431469629fa81b19646033c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "707552b8_93fd7c37",
+        "filename": "tool/speed.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-15T22:06:56Z",
+      "side": 1,
+      "message": "ScopedBIGNUM x(BN_new())? I guess it\u0027s an extra malloc. (Upstream 1.1.x has actually lost BN_init altogether, in the name of opaquifying)",
+      "revId": "02092cce131257f8431469629fa81b19646033c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "707552b8_53428401",
+        "filename": "tool/speed.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-15T22:06:56Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "02092cce131257f8431469629fa81b19646033c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "707552b8_73478010",
+        "filename": "tool/speed.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-15T22:06:56Z",
+      "side": 1,
+      "message": "One of these speed tests includes the key generation, but the other one doesn\u0027t.",
+      "revId": "02092cce131257f8431469629fa81b19646033c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
