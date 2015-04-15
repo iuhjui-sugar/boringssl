@@ -16,6 +16,24 @@
       "revId": "fecdc038d3fa2da62742725e5810fe542f125027",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b07b4aac_12a95d5c",
+        "filename": "crypto/ecdsa/ecdsa_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-04-15T21:11:54Z",
+      "side": 1,
+      "message": "Reviewed locally with difftool.",
+      "parentUuid": "f06942e5_a074e0f8",
+      "revId": "fecdc038d3fa2da62742725e5810fe542f125027",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
