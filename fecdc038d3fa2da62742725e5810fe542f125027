@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f06942e5_a074e0f8",
+        "filename": "crypto/ecdsa/ecdsa_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-15T20:23:16Z",
+      "side": 1,
+      "message": "This changed enough that gerrit doesn\u0027t think it\u0027s a rename anymore. :-/",
+      "revId": "fecdc038d3fa2da62742725e5810fe542f125027",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
