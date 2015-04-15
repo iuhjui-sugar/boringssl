@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "707552b8_d62522d9",
+        "filename": "crypto/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-15T23:51:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "707552b8_f3b5d02d",
+      "range": {
+        "startLine": 465,
+        "startChar": 68,
+        "endLine": 465,
+        "endChar": 69
+      },
+      "revId": "98bf37ae7ffaf1a3b4f47f0f837411b8a06b6399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "707552b8_d3b8d428",
         "filename": "crypto/internal.h",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2015-04-15T23:21:53Z",
       "side": 1,
       "message": "class_value is gone.",
+      "range": {
+        "startLine": 467,
+        "startChar": 9,
+        "endLine": 467,
+        "endChar": 20
+      },
+      "revId": "98bf37ae7ffaf1a3b4f47f0f837411b8a06b6399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "707552b8_f6229ece",
+        "filename": "crypto/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-15T23:51:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "707552b8_d3b8d428",
       "range": {
         "startLine": 467,
         "startChar": 9,
