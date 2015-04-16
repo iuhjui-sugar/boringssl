@@ -69,6 +69,7 @@
 #define OPENSSL_HEADER_EC_H
 
 #include <openssl/base.h>
+#include <openssl/crypto.h>
 
 #if defined(__cplusplus)
 extern "C" {
@@ -90,6 +91,15 @@ typedef enum {
 	/** the point is encoded as z||x||y, where z is the octet 0x02  */
 	POINT_CONVERSION_UNCOMPRESSED = 4
 } point_conversion_form_t;
+
+
+/* Alternative implementations.
+ *
+ * See the section in crypto.h about runtime alternative implementations. */
+
+/* EC_P256_install_64bit installs the 64-bit, optimised implementation of
+ * P-256. */
+OPENSSL_EXPORT enum openssl_altimpl_result_t EC_P256_install_64bit(void);
 
 
 /* Elliptic curve groups. */

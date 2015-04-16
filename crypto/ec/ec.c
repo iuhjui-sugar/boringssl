@@ -70,11 +70,13 @@
 #include <string.h>
 
 #include <openssl/bn.h>
+#include <openssl/crypto.h>
 #include <openssl/err.h>
 #include <openssl/mem.h>
 #include <openssl/obj.h>
 
 #include "internal.h"
+#include "../internal.h"
 
 
 static const struct curve_data P224 = {
@@ -218,16 +220,32 @@ static const struct curve_data P521 = {
      0xA5, 0xD0, 0x3B, 0xB5, 0xC9, 0xB8, 0x89, 0x9C, 0x47, 0xAE, 0xBB, 0x6F,
      0xB7, 0x1E, 0x91, 0x38, 0x64, 0x09}};
 
+static CRYPTO_once_t global_p256_method_once;
+static const EC_METHOD *global_p256_method;
+static const EC_METHOD *global_p256_runtime_method = NULL;
+
+static void p256_method_init(void) {
+  global_p256_method = global_p256_runtime_method;
+}
+
+enum openssl_altimpl_result_t p256_method_set(const EC_METHOD *p256_method) {
+  global_p256_runtime_method = p256_method;
+  CRYPTO_once(&global_p256_method_once, p256_method_init);
+  if (global_p256_method == p256_method) {
+    return OPENSSL_ALTIMPL_SUCCESS;
+  } else {
+    return OPENSSL_ALTIMPL_TOO_LATE;
+  }
+}
+
+const EC_METHOD *p256_method_get(void) {
+  CRYPTO_once(&global_p256_method_once, p256_method_init);
+  return global_p256_method;
+}
+
 const struct built_in_curve OPENSSL_built_in_curves[] = {
     {NID_secp224r1, &P224, 0},
-    {
-        NID_X9_62_prime256v1, &P256,
-#if defined(OPENSSL_64_BIT) && !defined(OPENSSL_WINDOWS)
-        EC_GFp_nistp256_method,
-#else
-        0,
-#endif
-    },
+    {NID_X9_62_prime256v1, &P256, p256_method_get},
     {NID_secp384r1, &P384, 0},
     {NID_secp521r1, &P521, 0},
     {NID_undef, 0, 0},
@@ -294,7 +312,7 @@ static EC_GROUP *ec_group_new_from_data(const struct built_in_curve *curve) {
   BIGNUM *p = NULL, *a = NULL, *b = NULL, *x = NULL, *y = NULL, *order = NULL;
   int ok = 0;
   unsigned param_len;
-  const EC_METHOD *meth;
+  const EC_METHOD *meth = NULL;
   const struct curve_data *data;
   const uint8_t *params;
 
@@ -316,6 +334,8 @@ static EC_GROUP *ec_group_new_from_data(const struct built_in_curve *curve) {
 
   if (curve->method != 0) {
     meth = curve->method();
+  }
+  if (meth != NULL) {
     if (((group = ec_group_new(meth)) == NULL) ||
         (!(group->meth->group_set_curve(group, p, a, b, ctx)))) {
       OPENSSL_PUT_ERROR(EC, ec_group_new_from_data, ERR_R_EC_LIB);

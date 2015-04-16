@@ -414,6 +414,8 @@ bool Speed(const std::vector<std::string> &args) {
     selected = args[0];
   }
 
+  EC_P256_install_64bit();
+
   RSA *key = NULL;
   const uint8_t *inp = kDERRSAPrivate2048;
   if (NULL == d2i_RSAPrivateKey(&key, &inp, kDERRSAPrivate2048Len)) {
