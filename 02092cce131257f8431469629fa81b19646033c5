@@ -107,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "707552b8_27678224",
+        "filename": "crypto/ec/p256-64.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1468,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-16T19:17:58Z",
+      "side": 1,
+      "message": "Okay, yet another set of numbers. If I change CMakeLists.txt to use -O2 -DNDEBUG manually rather than relying on cmake\u0027s default thing (which is apparently -O3), it\u0027s only a 26k increase in release mode which is much less scary than 322k.",
+      "parentUuid": "707552b8_27da2266",
+      "revId": "02092cce131257f8431469629fa81b19646033c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "707552b8_b338b89c",
         "filename": "crypto/ec/p256-64.c",
         "patchSetId": 2
