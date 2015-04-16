@@ -89,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "707552b8_27da2266",
+        "filename": "crypto/ec/p256-64.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1468,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-16T19:13:08Z",
+      "side": 1,
+      "message": "Oof, I got units confused. I\u0027m actually getting a 322k increase on release mode and a 55k increase in debug, which is much more consistent with your numbers. I guess there\u0027s a lot of inlining.",
+      "parentUuid": "30d59acf_14587a8b",
+      "revId": "02092cce131257f8431469629fa81b19646033c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "707552b8_b338b89c",
         "filename": "crypto/ec/p256-64.c",
         "patchSetId": 2
@@ -176,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "707552b8_27154274",
+        "filename": "tool/speed.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-16T19:13:08Z",
+      "side": 1,
+      "message": "Alright. Possibly later we should tighten crypto/ecdh itself up or add a different API (the truncation and auto-KDF is kinda unnecessary...), since that\u0027s what the SSL stack uses for now. I\u0027ll make sure it matches this code in performance.",
+      "parentUuid": "30d59acf_17907c4a",
+      "revId": "02092cce131257f8431469629fa81b19646033c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "707552b8_b31518f1",
         "filename": "tool/speed.cc",
         "patchSetId": 2
@@ -205,6 +241,24 @@
       "side": 1,
       "message": "I think I still don\u0027t understand you here. All the tests of |selected| are equality tests. I could see the point of wanting a substring match, but I think that would be a different change.",
       "parentUuid": "707552b8_b31518f1",
+      "revId": "02092cce131257f8431469629fa81b19646033c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "707552b8_07f126e0",
+        "filename": "tool/speed.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-16T19:13:08Z",
+      "side": 1,
+      "message": "SpeedRSA says:\n\n  if (!selected.empty() \u0026\u0026 key_name.find(selected) \u003d\u003d std::string::npos) {\n\nIf I run bssl speed R right now, it manages to pick up the RSA and RC4 tests just fine. (I don\u0027t mind strict equality either, but it\u0027s weird to have them inconsistent.)",
+      "parentUuid": "30d59acf_f7da9811",
       "revId": "02092cce131257f8431469629fa81b19646033c5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
