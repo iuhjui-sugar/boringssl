@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "707552b8_42d2ac04",
+        "filename": "include/openssl/crypto.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-16T22:03:59Z",
+      "side": 1,
+      "message": "Style guide actually says these should be lowercase. (I asked you to pick. :-P)\n\nThough, FWIW, I think all caps is slightly less strange for constants and matches upstream\u0027s enums. I don\u0027t really care though.",
+      "revId": "aa6119ed82eb9c713414654407c5298db1abce0a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
