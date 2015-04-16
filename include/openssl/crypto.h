@@ -32,6 +32,30 @@ extern "C" {
 OPENSSL_EXPORT void CRYPTO_library_init(void);
 
 
+/* Runtime alternative implementations.
+ *
+ * Some uses of BoringSSL value speed above all, while others are sensitive to
+ * code-size. Where multiple implementations are possible and can be selected
+ * at runtime, BoringSSL may provide alternative implementations that can be
+ * installed for a given primitive. If the call to install the alternative
+ * implementation doesn't appear, the linker should be able to discard its code
+ * from the text segment. */
+
+enum openssl_altimpl_result_t {
+  /* OPENSSL_ALTIMPL_NO_SUPPORT indicates that the alternative implementation
+   * is not availible, probably because it's not applicable on the current
+   * platform. */
+  OPENSSL_ALTIMPL_NO_SUPPORT,
+  /* OPENSSL_ALTIMPL_TOO_LATE indicates that the primitive has already been
+   * used, or that another alternative implementation has already been
+   * installed. */
+  OPENSSL_ALTIMPL_TOO_LATE,
+  /* OPENSSL_ALTIMPL_SUCCESS indicates that the alternative implementations has
+   * been installed and will be used. */
+  OPENSSL_ALTIMPL_SUCCESS,
+};
+
+
 /* Deprecated functions. */
 
 #define OPENSSL_VERSION_TEXT "BoringSSL"

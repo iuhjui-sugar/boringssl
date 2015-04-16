@@ -71,6 +71,7 @@
 #include <openssl/base.h>
 
 #include <openssl/bn.h>
+#include <openssl/crypto.h>
 #include <openssl/ex_data.h>
 
 #if defined(__cplusplus)
@@ -320,7 +321,10 @@ void ec_GFp_nistp_points_make_affine_internal(
 
 void ec_GFp_nistp_recode_scalar_bits(uint8_t *sign, uint8_t *digit, uint8_t in);
 
-const EC_METHOD *EC_GFp_nistp256_method(void);
+/* p256_method_set sets the |EC_METHOD| to use for the P-256 curve. It returns
+ * one if the method was succesfully set and zero otherwise. This function must
+ * be called before any use of P-256 for it to succeed. */
+enum openssl_altimpl_result_t p256_method_set(const EC_METHOD *p256_method);
 
 struct ec_key_st {
   int version;
