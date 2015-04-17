@@ -59,6 +59,7 @@
 
 #include <openssl/base64.h>
 #include <openssl/bio.h>
+#include <openssl/buf.h>
 #include <openssl/cipher.h>
 #include <openssl/digest.h>
 #include <openssl/evp.h>

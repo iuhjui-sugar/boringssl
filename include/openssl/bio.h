@@ -58,6 +58,7 @@
 #define OPENSSL_HEADER_BIO_H
 
 #include <openssl/base.h>
+#include <openssl/buf.h>
 
 #include <stdio.h>  /* For FILE */
 

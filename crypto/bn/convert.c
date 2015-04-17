@@ -189,7 +189,9 @@ int BN_bn2bin_padded(uint8_t *out, size_t len, const BIGNUM *in) {
   return 1;
 }
 
-static const char hextable[] = "0123456789abcdef";
+// Hard to say what all this may fuck up.  certificate serial numbers seem to be
+// the main thing in google3 that is broken by lower-case hex.
+static const char hextable[] = "0123456789ABCDEF";
 
 char *BN_bn2hex(const BIGNUM *bn) {
   int i, j, v, z = 0;

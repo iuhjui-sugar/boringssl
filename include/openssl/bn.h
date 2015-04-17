@@ -124,6 +124,7 @@
 #define OPENSSL_HEADER_BN_H
 
 #include <openssl/base.h>
+#include <openssl/mem.h>
 #include <openssl/thread.h>
 
 #include <stdio.h>  /* for FILE* */

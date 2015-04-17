@@ -80,6 +80,21 @@ static int load_iv(char **fromp,unsigned char *to, int num);
 static int check_pem(const char *nm, const char *name);
 int pem_check_suffix(const char *pem_str, const char *suffix);
 
+// This is enough to make unit tests happy, but there's no guarantee that there
+// isn't some production system somewhere that depends on interactive password
+// entry!
+int PEM_def_callback(char *buf, int num, int w, void *key)
+{
+    int i;
+    if (key) {
+        i = strlen(key);
+        i = (i > num) ? num : i;
+        memcpy(buf, key, i);
+        return (i);
+    }
+    return -1;
+}
+
 void PEM_proc_type(char *buf, int type)
 	{
 	const char *str;
@@ -331,6 +346,8 @@ int PEM_ASN1_write_bio(i2d_of_void *i2d, const char *name, BIO *bp,
 		if (kstr == NULL)
 			{
 			klen = 0;
+      if (!callback)
+        callback = PEM_def_callback;
 			if (callback)
 				klen=(*callback)(buf,PEM_BUFSIZE,1,u);
 			if (klen <= 0)
@@ -403,6 +420,8 @@ int PEM_do_header(EVP_CIPHER_INFO *cipher, unsigned char *data, long *plen,
 	if (cipher->cipher == NULL) return(1);
 
 	klen = 0;
+  if (!callback)
+    callback = PEM_def_callback;
 	if (callback)
 		klen=callback(buf,PEM_BUFSIZE,0,u);
 	if (klen <= 0)
@@ -442,6 +461,8 @@ static const EVP_CIPHER* cipher_by_name(const char *name) {
     return EVP_aes_128_cbc();
   } else if (strcmp(name,  "AES-256-CBC") == 0) {
     return EVP_aes_256_cbc();
+  } else if (strcmp(name, "DES-EDE3-CBC") == 0) {
+    return EVP_des_ede3_cbc();
   } else {
     return NULL;
   }

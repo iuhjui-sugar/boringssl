@@ -59,6 +59,7 @@
 
 #include <openssl/base.h>
 
+#include <openssl/bn.h>
 #include <openssl/engine.h>
 #include <openssl/ex_data.h>
 #include <openssl/thread.h>
@@ -99,7 +100,8 @@ OPENSSL_EXPORT int RSA_up_ref(RSA *rsa);
  * It returns one on success or zero on error. */
 OPENSSL_EXPORT int RSA_generate_key_ex(RSA *rsa, int bits, BIGNUM *e,
                                        BN_GENCB *cb);
-
+OPENSSL_EXPORT RSA *RSA_generate_key(int bits, unsigned long e, void
+                       (*callback) (int, int, void *), void *cb_arg);
 
 /* Encryption / Decryption */
 

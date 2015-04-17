@@ -96,6 +96,8 @@ OPENSSL_EXPORT const EVP_MD *EVP_get_digestbynid(int nid);
  * if no such digest is known. */
 OPENSSL_EXPORT const EVP_MD *EVP_get_digestbyobj(const ASN1_OBJECT *obj);
 
+OPENSSL_EXPORT const EVP_MD *EVP_get_digestbyname(const char *);
+
 
 /* Digest contexts.
  *

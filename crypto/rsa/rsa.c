@@ -182,6 +182,24 @@ int RSA_generate_key_ex(RSA *rsa, int bits, BIGNUM *e_value, BN_GENCB *cb) {
   return RSA_default_method.keygen(rsa, bits, e_value, cb);
 }
 
+// DO NOT SUBMIT ignored args.
+RSA *RSA_generate_key(int bits, unsigned long e, void
+                       (*callback) (int, int, void *), void *cb_arg) {
+  BIGNUM *exponent = BN_new();
+  RSA *r = RSA_new();
+  if (!exponent || !r) {
+    goto err;
+  }
+  BN_set_word(exponent, e);
+  if (RSA_generate_key_ex(r, bits, exponent, NULL)) {
+    return r;
+  }
+ err:
+  if (exponent) BN_free(exponent);
+  if (r) RSA_free(r);
+  return NULL;
+}
+
 int RSA_encrypt(RSA *rsa, size_t *out_len, uint8_t *out, size_t max_out,
                 const uint8_t *in, size_t in_len, int padding) {
   if (rsa->meth->encrypt) {

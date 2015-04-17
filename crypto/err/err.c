@@ -789,6 +789,7 @@ int ERR_pop_to_mark(void) {
 }
 
 void ERR_load_crypto_strings(void) {}
+void ERR_load_ERR_strings(void) {}
 
 void ERR_free_strings(void) {}
 

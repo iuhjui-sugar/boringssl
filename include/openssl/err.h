@@ -144,6 +144,7 @@ extern "C" {
 
 /* ERR_load_crypto_strings does nothing. */
 OPENSSL_EXPORT void ERR_load_crypto_strings(void);
+OPENSSL_EXPORT void ERR_load_ERR_strings(void);
 
 /* ERR_free_strings does nothing. */
 OPENSSL_EXPORT void ERR_free_strings(void);

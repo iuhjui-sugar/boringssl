@@ -66,6 +66,7 @@
 #include <openssl/aead.h>
 #include <openssl/cipher.h>
 #include <openssl/digest.h>
+#include <openssl/mem.h>
 #include <openssl/obj.h>
 
 #if defined(__cplusplus)
@@ -806,5 +807,10 @@ struct evp_pkey_st {
 #define EVP_R_PARAMETER_ENCODING_ERROR 152
 #define EVP_R_UNSUPPORTED_PUBLIC_KEY_TYPE 153
 #define EVP_R_UNSUPPORTED_SIGNATURE_TYPE 154
+
+
+#define EVP_DecryptFinal(a, b, c) EVP_DecryptFinal_ex(a, b, c)
+#define EVP_EncryptFinal(a, b, c) EVP_EncryptFinal_ex(a, b, c)
+
 
 #endif  /* OPENSSL_HEADER_EVP_H */

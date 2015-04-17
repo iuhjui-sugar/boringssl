@@ -147,10 +147,12 @@
 
 #include <openssl/bio.h>
 #include <openssl/buf.h>
+#include <openssl/evp.h>
 #include <openssl/hmac.h>
 #include <openssl/lhash.h>
 #include <openssl/pem.h>
 #include <openssl/x509.h>
+#include <openssl/mem.h>
 
 #if !defined(OPENSSL_WINDOWS)
 #include <sys/time.h>
