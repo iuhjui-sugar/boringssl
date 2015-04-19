@@ -40,12 +40,8 @@ EC,function,161,ec_GFp_nistp256_point_get_affine_coordinates
 EC,function,162,ec_GFp_nistp256_points_mul
 EC,function,137,ec_GFp_simple_group_set_curve
 EC,function,138,ec_GFp_simple_make_affine
-EC,function,139,ec_GFp_simple_oct2point
-EC,function,140,ec_GFp_simple_point2oct
 EC,function,141,ec_GFp_simple_point_get_affine_coordinates
-EC,function,142,ec_GFp_simple_point_set_affine_coordinates
 EC,function,143,ec_GFp_simple_points_make_affine
-EC,function,144,ec_GFp_simple_set_compressed_coordinates
 EC,function,145,ec_asn1_group2pkparameters
 EC,function,146,ec_asn1_pkparameters2group
 EC,function,163,ec_group_copy

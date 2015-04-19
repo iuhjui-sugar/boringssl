@@ -348,12 +348,8 @@ OPENSSL_EXPORT int EC_METHOD_get_field_type(const EC_METHOD *meth);
 #define EC_F_ec_GFp_mont_group_set_curve 135
 #define EC_F_ec_GFp_simple_group_set_curve 137
 #define EC_F_ec_GFp_simple_make_affine 138
-#define EC_F_ec_GFp_simple_oct2point 139
-#define EC_F_ec_GFp_simple_point2oct 140
 #define EC_F_ec_GFp_simple_point_get_affine_coordinates 141
-#define EC_F_ec_GFp_simple_point_set_affine_coordinates 142
 #define EC_F_ec_GFp_simple_points_make_affine 143
-#define EC_F_ec_GFp_simple_set_compressed_coordinates 144
 #define EC_F_ec_asn1_group2pkparameters 145
 #define EC_F_ec_asn1_pkparameters2group 146
 #define EC_F_ec_group_new 147
