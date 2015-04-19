@@ -263,11 +263,6 @@ static EC_GROUP *ec_group_new_curve_GFp(const BIGNUM *p, const BIGNUM *a,
     return NULL;
   }
 
-  if (ret->meth->group_set_curve == 0) {
-    OPENSSL_PUT_ERROR(EC, ec_group_new_curve_GFp,
-                      ERR_R_SHOULD_NOT_HAVE_BEEN_CALLED);
-    return 0;
-  }
   if (!ret->meth->group_set_curve(ret, p, a, b, ctx)) {
     EC_GROUP_free(ret);
     return NULL;
@@ -544,11 +539,6 @@ int EC_GROUP_get_degree(const EC_GROUP *group) {
 }
 
 int EC_GROUP_precompute_mult(EC_GROUP *group, BN_CTX *ctx) {
-  if (group->meth->mul == 0) {
-    /* use default */
-    return ec_wNAF_precompute_mult(group, ctx);
-  }
-
   if (group->meth->precompute_mult != 0) {
     return group->meth->precompute_mult(group, ctx);
   }
@@ -557,11 +547,6 @@ int EC_GROUP_precompute_mult(EC_GROUP *group, BN_CTX *ctx) {
 }
 
 int EC_GROUP_have_precompute_mult(const EC_GROUP *group) {
-  if (group->meth->mul == 0) {
-    /* use default */
-    return ec_wNAF_have_precompute_mult(group);
-  }
-
   if (group->meth->have_precompute_mult != 0) {
     return group->meth->have_precompute_mult(group);
   }
@@ -916,11 +901,6 @@ int EC_POINTs_make_affine(const EC_GROUP *group, size_t num, EC_POINT *points[],
 int EC_POINT_get_affine_coordinates_GFp(const EC_GROUP *group,
                                         const EC_POINT *point, BIGNUM *x,
                                         BIGNUM *y, BN_CTX *ctx) {
-  if (group->meth->point_get_affine_coordinates == 0) {
-    OPENSSL_PUT_ERROR(EC, EC_POINT_get_affine_coordinates_GFp,
-                      ERR_R_SHOULD_NOT_HAVE_BEEN_CALLED);
-    return 0;
-  }
   if (group->meth != point->meth) {
     OPENSSL_PUT_ERROR(EC, EC_POINT_get_affine_coordinates_GFp,
                       EC_R_INCOMPATIBLE_OBJECTS);
@@ -994,11 +974,6 @@ int EC_POINT_mul(const EC_GROUP *group, EC_POINT *r, const BIGNUM *g_scalar,
 int EC_POINTs_mul(const EC_GROUP *group, EC_POINT *r, const BIGNUM *scalar,
                   size_t num, const EC_POINT *points[], const BIGNUM *scalars[],
                   BN_CTX *ctx) {
-  if (group->meth->mul == 0) {
-    /* use default. Warning, not constant-time. */
-    return ec_wNAF_mul(group, r, scalar, num, points, scalars, ctx);
-  }
-
   return group->meth->mul(group, r, scalar, num, points, scalars, ctx);
 }
 

@@ -78,6 +78,7 @@ extern "C" {
 #endif
 
 
+/* All methods must be non-NULL unless otherwise stated. */
 struct ec_method_st {
   /* group_extra_finish is called to destroy the extra,
    * implementation-specific, attributes of the group. It is also called on the
@@ -97,6 +98,8 @@ struct ec_method_st {
   int (*mul)(const EC_GROUP *group, EC_POINT *r, const BIGNUM *scalar,
              size_t num, const EC_POINT *points[], const BIGNUM *scalars[],
              BN_CTX *);
+
+  /* Both of these are optional. */
   int (*precompute_mult)(EC_GROUP *group, BN_CTX *);
   int (*have_precompute_mult)(const EC_GROUP *group);
 
@@ -104,6 +107,8 @@ struct ec_method_st {
                    const BIGNUM *b, BN_CTX *);
   int (*field_sqr)(const EC_GROUP *, BIGNUM *r, const BIGNUM *a, BN_CTX *);
 
+  /* All three of these methods must be non-NULL, or all three must be
+   * NULL. */
   int (*field_encode)(const EC_GROUP *, BIGNUM *r, const BIGNUM *a,
                       BN_CTX *); /* e.g. to Montgomery */
   int (*field_decode)(const EC_GROUP *, BIGNUM *r, const BIGNUM *a,
