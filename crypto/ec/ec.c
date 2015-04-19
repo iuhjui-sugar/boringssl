@@ -833,27 +833,6 @@ end:
   return ret;
 }
 
-int EC_POINT_make_affine(const EC_GROUP *group, EC_POINT *point, BN_CTX *ctx) {
-  if (group->meth != point->meth) {
-    OPENSSL_PUT_ERROR(EC, EC_POINT_make_affine, EC_R_INCOMPATIBLE_OBJECTS);
-    return 0;
-  }
-  return ec_GFp_simple_make_affine(group, point, ctx);
-}
-
-int EC_POINTs_make_affine(const EC_GROUP *group, size_t num, EC_POINT *points[],
-                          BN_CTX *ctx) {
-  size_t i;
-
-  for (i = 0; i < num; i++) {
-    if (group->meth != points[i]->meth) {
-      OPENSSL_PUT_ERROR(EC, EC_POINTs_make_affine, EC_R_INCOMPATIBLE_OBJECTS);
-      return 0;
-    }
-  }
-  return ec_GFp_simple_points_make_affine(group, num, points, ctx);
-}
-
 int EC_POINT_get_affine_coordinates_GFp(const EC_GROUP *group,
                                         const EC_POINT *point, BIGNUM *x,
                                         BIGNUM *y, BN_CTX *ctx) {
@@ -884,34 +863,6 @@ int EC_POINT_set_affine_coordinates_GFp(const EC_GROUP *group, EC_POINT *point,
                                                   BN_value_one(), ctx);
 }
 
-int EC_POINT_add(const EC_GROUP *group, EC_POINT *r, const EC_POINT *a,
-                 const EC_POINT *b, BN_CTX *ctx) {
-  if ((group->meth != r->meth) || (r->meth != a->meth) ||
-      (a->meth != b->meth)) {
-    OPENSSL_PUT_ERROR(EC, EC_POINT_add, EC_R_INCOMPATIBLE_OBJECTS);
-    return 0;
-  }
-  return ec_GFp_simple_add(group, r, a, b, ctx);
-}
-
-
-int EC_POINT_dbl(const EC_GROUP *group, EC_POINT *r, const EC_POINT *a,
-                 BN_CTX *ctx) {
-  if ((group->meth != r->meth) || (r->meth != a->meth)) {
-    OPENSSL_PUT_ERROR(EC, EC_POINT_dbl, EC_R_INCOMPATIBLE_OBJECTS);
-    return 0;
-  }
-  return ec_GFp_simple_dbl(group, r, a, ctx);
-}
-
-
-int EC_POINT_invert(const EC_GROUP *group, EC_POINT *a, BN_CTX *ctx) {
-  if (group->meth != a->meth) {
-    OPENSSL_PUT_ERROR(EC, EC_POINT_invert, EC_R_INCOMPATIBLE_OBJECTS);
-    return 0;
-  }
-  return ec_GFp_simple_invert(group, a, ctx);
-}
 
 int EC_POINT_mul(const EC_GROUP *group, EC_POINT *r, const BIGNUM *g_scalar,
                  const EC_POINT *point, const BIGNUM *p_scalar, BN_CTX *ctx) {
