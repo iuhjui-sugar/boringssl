@@ -346,7 +346,6 @@ OPENSSL_EXPORT int EC_METHOD_get_field_type(const EC_METHOD *meth);
 #define EC_F_ec_GFp_mont_field_set_to_one 133
 #define EC_F_ec_GFp_mont_field_sqr 134
 #define EC_F_ec_GFp_mont_group_set_curve 135
-#define EC_F_ec_GFp_simple_group_check_discriminant 136
 #define EC_F_ec_GFp_simple_group_set_curve 137
 #define EC_F_ec_GFp_simple_make_affine 138
 #define EC_F_ec_GFp_simple_oct2point 139
