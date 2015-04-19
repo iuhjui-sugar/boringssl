@@ -198,18 +198,6 @@ OPENSSL_EXPORT int EC_POINT_is_on_curve(const EC_GROUP *group,
 OPENSSL_EXPORT int EC_POINT_cmp(const EC_GROUP *group, const EC_POINT *a,
                                 const EC_POINT *b, BN_CTX *ctx);
 
-/* EC_POINT_make_affine converts |point| to affine form, internally. It returns
- * one on success and zero otherwise. If |ctx| is not NULL, it may be used. */
-OPENSSL_EXPORT int EC_POINT_make_affine(const EC_GROUP *group, EC_POINT *point,
-                                        BN_CTX *ctx);
-
-/* EC_POINTs_make_affine converts |num| points from |points| to affine form,
- * internally. It returns one on success and zero otherwise. If |ctx| is not
- * NULL, it may be used. */
-OPENSSL_EXPORT int EC_POINTs_make_affine(const EC_GROUP *group, size_t num,
-                                         EC_POINT *points[], BN_CTX *ctx);
-
-
 /* Point conversion. */
 
 /* EC_POINT_get_affine_coordinates_GFp sets |x| and |y| to the affine value of
@@ -253,22 +241,6 @@ OPENSSL_EXPORT int EC_POINT_set_compressed_coordinates_GFp(
 
 
 /* Group operations. */
-
-/* EC_POINT_add sets |r| equal to |a| plus |b|. It returns one on success and
- * zero otherwise. If |ctx| is not NULL, it may be used. */
-OPENSSL_EXPORT int EC_POINT_add(const EC_GROUP *group, EC_POINT *r,
-                                const EC_POINT *a, const EC_POINT *b,
-                                BN_CTX *ctx);
-
-/* EC_POINT_dbl sets |r| equal to |a| plus |a|. It returns one on success and
- * zero otherwise. If |ctx| is not NULL, it may be used. */
-OPENSSL_EXPORT int EC_POINT_dbl(const EC_GROUP *group, EC_POINT *r,
-                                const EC_POINT *a, BN_CTX *ctx);
-
-/* EC_POINT_dbl sets |a| equal to minus |a|. It returns one on success and zero
- * otherwise. If |ctx| is not NULL, it may be used. */
-OPENSSL_EXPORT int EC_POINT_invert(const EC_GROUP *group, EC_POINT *a,
-                                   BN_CTX *ctx);
 
 /* EC_POINT_mul sets r = generator*n + q*m. It returns one on success and zero
  * otherwise. If |ctx| is not NULL, it may be used. */
@@ -319,13 +291,10 @@ OPENSSL_EXPORT int EC_METHOD_get_field_type(const EC_METHOD *meth);
 #define EC_F_EC_KEY_generate_key 106
 #define EC_F_EC_KEY_new_method 107
 #define EC_F_EC_KEY_set_public_key_affine_coordinates 108
-#define EC_F_EC_POINT_add 109
 #define EC_F_EC_POINT_cmp 110
 #define EC_F_EC_POINT_copy 111
-#define EC_F_EC_POINT_dbl 112
 #define EC_F_EC_POINT_dup 113
 #define EC_F_EC_POINT_get_affine_coordinates_GFp 114
-#define EC_F_EC_POINT_invert 115
 #define EC_F_EC_POINT_is_at_infinity 116
 #define EC_F_EC_POINT_is_on_curve 117
 #define EC_F_EC_POINT_make_affine 118
