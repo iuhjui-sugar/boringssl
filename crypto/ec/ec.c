@@ -241,11 +241,6 @@ EC_GROUP *ec_group_new(const EC_METHOD *meth) {
     return NULL;
   }
 
-  if (meth->group_init == 0) {
-    OPENSSL_PUT_ERROR(EC, ec_group_new, ERR_R_SHOULD_NOT_HAVE_BEEN_CALLED);
-    return NULL;
-  }
-
   ret = OPENSSL_malloc(sizeof(EC_GROUP));
   if (ret == NULL) {
     OPENSSL_PUT_ERROR(EC, ec_group_new, ERR_R_MALLOC_FAILURE);
@@ -254,13 +249,6 @@ EC_GROUP *ec_group_new(const EC_METHOD *meth) {
   memset(ret, 0, sizeof(EC_GROUP));
 
   ret->meth = meth;
-  BN_init(&ret->order);
-  BN_init(&ret->cofactor);
-
-  if (!meth->group_init(ret)) {
-    OPENSSL_free(ret);
-    return NULL;
-  }
 
   return ret;
 }
@@ -418,26 +406,23 @@ void EC_GROUP_free(EC_GROUP *group) {
     return;
   }
 
-  if (group->meth->group_finish != 0) {
-    group->meth->group_finish(group);
-  }
-
-  ec_pre_comp_free(group->pre_comp);
-
   if (group->generator != NULL) {
     EC_POINT_free(group->generator);
   }
   BN_free(&group->order);
   BN_free(&group->cofactor);
+  ec_pre_comp_free(group->pre_comp);
+  BN_free(&group->field);
+  BN_free(&group->a);
+  BN_free(&group->b);
+  if (group->meth->group_extra_finish != NULL) {
+    group->meth->group_extra_finish(group);
+  }
 
   OPENSSL_free(group);
 }
 
 int ec_group_copy(EC_GROUP *dest, const EC_GROUP *src) {
-  if (dest->meth->group_copy == 0) {
-    OPENSSL_PUT_ERROR(EC, EC_GROUP_copy, ERR_R_SHOULD_NOT_HAVE_BEEN_CALLED);
-    return 0;
-  }
   if (dest->meth != src->meth) {
     OPENSSL_PUT_ERROR(EC, EC_GROUP_copy, EC_R_INCOMPATIBLE_OBJECTS);
     return 0;
@@ -446,8 +431,9 @@ int ec_group_copy(EC_GROUP *dest, const EC_GROUP *src) {
     return 1;
   }
 
-  ec_pre_comp_free(dest->pre_comp);
-  dest->pre_comp = ec_pre_comp_dup(src->pre_comp);
+  if (dest->meth->group_extra_finish) {
+    dest->meth->group_extra_finish(dest);
+  }
 
   if (src->generator != NULL) {
     if (dest->generator == NULL) {
@@ -474,7 +460,20 @@ int ec_group_copy(EC_GROUP *dest, const EC_GROUP *src) {
 
   dest->curve_name = src->curve_name;
 
-  return dest->meth->group_copy(dest, src);
+  ec_pre_comp_free(dest->pre_comp);
+  dest->pre_comp = ec_pre_comp_dup(src->pre_comp);
+  if (!BN_copy(&dest->field, &src->field) ||
+      !BN_copy(&dest->a, &src->a) ||
+      !BN_copy(&dest->b, &src->b)) {
+    return 0;
+  }
+  dest->a_is_minus3 = src->a_is_minus3;
+
+  if (dest->meth->group_extra_copy) {
+    return dest->meth->group_extra_copy(dest, src);
+  }
+
+  return 1;
 }
 
 EC_GROUP *EC_GROUP_dup(const EC_GROUP *a) {

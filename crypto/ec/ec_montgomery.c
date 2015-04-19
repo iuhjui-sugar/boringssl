@@ -74,16 +74,7 @@
 #include "internal.h"
 
 
-static int ec_GFp_mont_group_init(EC_GROUP *group) {
-  int ok;
-
-  ok = ec_GFp_simple_group_init(group);
-  group->mont = NULL;
-  group->one = NULL;
-  return ok;
-}
-
-static void ec_GFp_mont_group_finish(EC_GROUP *group) {
+static void ec_GFp_mont_group_extra_finish(EC_GROUP *group) {
   if (group->mont != NULL) {
     BN_MONT_CTX_free(group->mont);
     group->mont = NULL;
@@ -92,23 +83,9 @@ static void ec_GFp_mont_group_finish(EC_GROUP *group) {
     BN_free(group->one);
     group->one = NULL;
   }
-  ec_GFp_simple_group_finish(group);
 }
 
-static int ec_GFp_mont_group_copy(EC_GROUP *dest, const EC_GROUP *src) {
-  if (dest->mont != NULL) {
-    BN_MONT_CTX_free(dest->mont);
-    dest->mont = NULL;
-  }
-  if (dest->one != NULL) {
-    BN_clear_free(dest->one);
-    dest->one = NULL;
-  }
-
-  if (!ec_GFp_simple_group_copy(dest, src)) {
-    return 0;
-  }
-
+static int ec_GFp_mont_group_extra_copy(EC_GROUP *dest, const EC_GROUP *src) {
   if (src->mont != NULL) {
     dest->mont = BN_MONT_CTX_new();
     if (dest->mont == NULL) {
@@ -254,9 +231,8 @@ static int ec_GFp_mont_field_set_to_one(const EC_GROUP *group, BIGNUM *r,
 }
 
 const EC_METHOD *EC_GFp_mont_method(void) {
-  static const EC_METHOD ret = {ec_GFp_mont_group_init,
-                                ec_GFp_mont_group_finish,
-                                ec_GFp_mont_group_copy,
+  static const EC_METHOD ret = {ec_GFp_mont_group_extra_finish,
+                                ec_GFp_mont_group_extra_copy,
                                 ec_GFp_mont_group_set_curve,
                                 ec_GFp_simple_point_get_affine_coordinates,
                                 0 /* mul */,
