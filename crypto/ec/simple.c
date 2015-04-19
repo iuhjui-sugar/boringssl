@@ -141,12 +141,6 @@ int ec_GFp_simple_group_set_curve(EC_GROUP *group, const BIGNUM *p,
     goto err;
   }
 
-  /* group->a_is_minus3 */
-  if (!BN_add_word(tmp_a, 3)) {
-    goto err;
-  }
-  group->a_is_minus3 = (0 == BN_cmp(tmp_a, &group->field));
-
   ret = 1;
 
 err:
@@ -549,7 +543,8 @@ int ec_GFp_simple_dbl(const EC_GROUP *group, EC_POINT *r, const EC_POINT *a,
       goto err;
     }
     /* n1 = 3 * X_a^2 + a_curve */
-  } else if (group->a_is_minus3) {
+  } else {
+    /* assume |a| == -3. */
     if (!field_sqr(group, n1, &a->Z, ctx) ||
         !BN_mod_add_quick(n0, &a->X, n1, p) ||
         !BN_mod_sub_quick(n2, &a->X, n1, p) ||
@@ -560,17 +555,6 @@ int ec_GFp_simple_dbl(const EC_GROUP *group, EC_POINT *r, const EC_POINT *a,
     }
     /* n1 = 3 * (X_a + Z_a^2) * (X_a - Z_a^2)
      *    = 3 * X_a^2 - 3 * Z_a^4 */
-  } else {
-    if (!field_sqr(group, n0, &a->X, ctx) ||
-        !BN_mod_lshift1_quick(n1, n0, p) ||
-        !BN_mod_add_quick(n0, n0, n1, p) ||
-        !field_sqr(group, n1, &a->Z, ctx) ||
-        !field_sqr(group, n1, n1, ctx) ||
-        !field_mul(group, n1, n1, &group->a, ctx) ||
-        !BN_mod_add_quick(n1, n1, n0, p)) {
-      goto err;
-    }
-    /* n1 = 3 * X_a^2 + a_curve * Z_a^4 */
   }
 
   /* Z_r */
