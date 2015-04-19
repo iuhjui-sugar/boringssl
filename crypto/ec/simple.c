@@ -199,10 +199,6 @@ err:
   return ret;
 }
 
-int ec_GFp_simple_group_get_degree(const EC_GROUP *group) {
-  return BN_num_bits(&group->field);
-}
-
 int ec_GFp_simple_point_get_affine_coordinates(const EC_GROUP *group,
                                                const EC_POINT *point, BIGNUM *x,
                                                BIGNUM *y, BN_CTX *ctx) {

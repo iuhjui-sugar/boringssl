@@ -219,21 +219,21 @@ static const struct curve_data P521 = {
      0xB7, 0x1E, 0x91, 0x38, 0x64, 0x09}};
 
 const struct built_in_curve OPENSSL_built_in_curves[] = {
-    {NID_secp224r1, &P224, 0},
+    {NID_secp224r1, &P224, EC_GFp_mont_method},
     {
         NID_X9_62_prime256v1, &P256,
 #if defined(OPENSSL_64_BIT) && !defined(OPENSSL_WINDOWS)
         EC_GFp_nistp256_method,
 #else
-        0,
+        EC_GFp_mont_method,
 #endif
     },
-    {NID_secp384r1, &P384, 0},
-    {NID_secp521r1, &P521, 0},
+    {NID_secp384r1, &P384, EC_GFp_mont_method},
+    {NID_secp521r1, &P521, EC_GFp_mont_method},
     {NID_undef, 0, 0},
 };
 
-EC_GROUP *ec_group_new(const EC_METHOD *meth) {
+static EC_GROUP *ec_group_new(const EC_METHOD *meth) {
   EC_GROUP *ret;
 
   if (meth == NULL) {
@@ -253,23 +253,6 @@ EC_GROUP *ec_group_new(const EC_METHOD *meth) {
   return ret;
 }
 
-static EC_GROUP *ec_group_new_curve_GFp(const BIGNUM *p, const BIGNUM *a,
-                                        const BIGNUM *b, BN_CTX *ctx) {
-  const EC_METHOD *meth = EC_GFp_mont_method();
-  EC_GROUP *ret;
-
-  ret = ec_group_new(meth);
-  if (ret == NULL) {
-    return NULL;
-  }
-
-  if (!ret->meth->group_set_curve(ret, p, a, b, ctx)) {
-    EC_GROUP_free(ret);
-    return NULL;
-  }
-  return ret;
-}
-
 static EC_GROUP *ec_group_new_from_data(const struct built_in_curve *curve) {
   EC_GROUP *group = NULL;
   EC_POINT *P = NULL;
@@ -277,7 +260,6 @@ static EC_GROUP *ec_group_new_from_data(const struct built_in_curve *curve) {
   BIGNUM *p = NULL, *a = NULL, *b = NULL, *x = NULL, *y = NULL, *order = NULL;
   int ok = 0;
   unsigned param_len;
-  const EC_METHOD *meth;
   const struct curve_data *data;
   const uint8_t *params;
 
@@ -297,18 +279,10 @@ static EC_GROUP *ec_group_new_from_data(const struct built_in_curve *curve) {
     goto err;
   }
 
-  if (curve->method != 0) {
-    meth = curve->method();
-    if (((group = ec_group_new(meth)) == NULL) ||
-        (!(group->meth->group_set_curve(group, p, a, b, ctx)))) {
-      OPENSSL_PUT_ERROR(EC, ec_group_new_from_data, ERR_R_EC_LIB);
-      goto err;
-    }
-  } else {
-    if ((group = ec_group_new_curve_GFp(p, a, b, ctx)) == NULL) {
-      OPENSSL_PUT_ERROR(EC, ec_group_new_from_data, ERR_R_EC_LIB);
-      goto err;
-    }
+  group = ec_group_new(curve->method());
+  if (group == NULL || !(group->meth->group_set_curve(group, p, a, b, ctx))) {
+    OPENSSL_PUT_ERROR(EC, ec_group_new_from_data, ERR_R_EC_LIB);
+    goto err;
   }
 
   if ((P = EC_POINT_new(group)) == NULL) {
@@ -535,7 +509,7 @@ int EC_GROUP_get_curve_GFp(const EC_GROUP *group, BIGNUM *out_p, BIGNUM *out_a,
 int EC_GROUP_get_curve_name(const EC_GROUP *group) { return group->curve_name; }
 
 int EC_GROUP_get_degree(const EC_GROUP *group) {
-  return ec_GFp_simple_group_get_degree(group);
+  return BN_num_bits(&group->field);
 }
 
 int EC_GROUP_precompute_mult(EC_GROUP *group, BN_CTX *ctx) {

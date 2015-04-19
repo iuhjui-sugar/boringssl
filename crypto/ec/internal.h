@@ -158,8 +158,6 @@ struct ec_point_st {
   int Z_is_one; /* enable optimized point arithmetics for special case */
 } /* EC_POINT */;
 
-EC_GROUP *ec_group_new(const EC_METHOD *meth);
-
 int ec_wNAF_mul(const EC_GROUP *group, EC_POINT *r, const BIGNUM *scalar,
                 size_t num, const EC_POINT *points[], const BIGNUM *scalars[],
                 BN_CTX *);
@@ -174,7 +172,6 @@ int ec_GFp_simple_group_set_curve(EC_GROUP *, const BIGNUM *p, const BIGNUM *a,
                                   const BIGNUM *b, BN_CTX *);
 int ec_GFp_simple_group_get_curve(const EC_GROUP *, BIGNUM *p, BIGNUM *a,
                                   BIGNUM *b, BN_CTX *);
-int ec_GFp_simple_group_get_degree(const EC_GROUP *);
 int ec_GFp_simple_point_get_affine_coordinates(const EC_GROUP *,
                                                const EC_POINT *, BIGNUM *x,
                                                BIGNUM *y, BN_CTX *);
