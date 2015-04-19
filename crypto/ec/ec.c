@@ -427,7 +427,6 @@ int ec_group_copy(EC_GROUP *dest, const EC_GROUP *src) {
       !BN_copy(&dest->b, &src->b)) {
     return 0;
   }
-  dest->a_is_minus3 = src->a_is_minus3;
 
   if (dest->meth->group_extra_copy) {
     return dest->meth->group_extra_copy(dest, src);
@@ -680,20 +679,12 @@ int EC_POINT_is_on_curve(const EC_GROUP *group, const EC_POINT *point,
       goto err;
     }
 
-    /* rh := (rh + a*Z^4)*X */
-    if (group->a_is_minus3) {
-      if (!BN_mod_lshift1_quick(tmp, Z4, p) ||
-          !BN_mod_add_quick(tmp, tmp, Z4, p) ||
-          !BN_mod_sub_quick(rh, rh, tmp, p) ||
-          !field_mul(group, rh, rh, &point->X, ctx)) {
-        goto err;
-      }
-    } else {
-      if (!field_mul(group, tmp, Z4, &group->a, ctx) ||
-          !BN_mod_add_quick(rh, rh, tmp, p) ||
-          !field_mul(group, rh, rh, &point->X, ctx)) {
-        goto err;
-      }
+    /* rh := (rh + a*Z^4)*X, assuming a is -3. */
+    if (!BN_mod_lshift1_quick(tmp, Z4, p) ||
+        !BN_mod_add_quick(tmp, tmp, Z4, p) ||
+        !BN_mod_sub_quick(rh, rh, tmp, p) ||
+        !field_mul(group, rh, rh, &point->X, ctx)) {
+      goto err;
     }
 
     /* rh := rh + b*Z^6 */

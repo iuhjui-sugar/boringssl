@@ -137,9 +137,7 @@ struct ec_group_st {
 
   BIGNUM field; /* For curves over GF(p), this is the modulus. */
 
-  BIGNUM a, b; /* Curve coefficients. */
-
-  int a_is_minus3; /* enable optimized point arithmetics for special case */
+  BIGNUM a, b; /* Curve coefficients. |a| is always -3. */
 
   BN_MONT_CTX *mont; /* Montgomery structure. */
   BIGNUM *one; /* The value one */

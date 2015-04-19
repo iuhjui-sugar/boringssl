@@ -344,29 +344,11 @@ int EC_POINT_set_compressed_coordinates_GFp(const EC_GROUP *group,
     }
   }
 
-  /* tmp1 := tmp1 + a*x */
-  if (group->a_is_minus3) {
-    if (!BN_mod_lshift1_quick(tmp2, x, &group->field) ||
-        !BN_mod_add_quick(tmp2, tmp2, x, &group->field) ||
-        !BN_mod_sub_quick(tmp1, tmp1, tmp2, &group->field)) {
-      goto err;
-    }
-  } else {
-    if (group->meth->field_decode) {
-      if (!group->meth->field_decode(group, tmp2, &group->a, ctx) ||
-          !BN_mod_mul(tmp2, tmp2, x, &group->field, ctx)) {
-        goto err;
-      }
-    } else {
-      /* field_mul works on standard representation */
-      if (!group->meth->field_mul(group, tmp2, &group->a, x, ctx)) {
-        goto err;
-      }
-    }
-
-    if (!BN_mod_add_quick(tmp1, tmp1, tmp2, &group->field)) {
-      goto err;
-    }
+  /* tmp1 := tmp1 + a*x. Assume |a| == -3. */
+  if (!BN_mod_lshift1_quick(tmp2, x, &group->field) ||
+      !BN_mod_add_quick(tmp2, tmp2, x, &group->field) ||
+      !BN_mod_sub_quick(tmp1, tmp1, tmp2, &group->field)) {
+    goto err;
   }
 
   /* tmp1 := tmp1 + b */
