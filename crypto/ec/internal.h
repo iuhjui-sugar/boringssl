@@ -81,34 +81,21 @@ extern "C" {
 typedef struct ec_method_st EC_METHOD;
 
 struct ec_method_st {
-  /* used by EC_GROUP_new, EC_GROUP_free, EC_GROUP_clear_free, EC_GROUP_copy: */
   int (*group_init)(EC_GROUP *);
   void (*group_finish)(EC_GROUP *);
-  void (*group_clear_finish)(EC_GROUP *);
   int (*group_copy)(EC_GROUP *, const EC_GROUP *);
 
-  /* used by EC_GROUP_set_curve_GFp, EC_GROUP_get_curve_GFp, */
-  /* EC_GROUP_set_curve_GF2m, and EC_GROUP_get_curve_GF2m: */
   int (*group_set_curve)(EC_GROUP *, const BIGNUM *p, const BIGNUM *a,
                          const BIGNUM *b, BN_CTX *);
   int (*point_get_affine_coordinates)(const EC_GROUP *, const EC_POINT *,
                                       BIGNUM *x, BIGNUM *y, BN_CTX *);
 
-  /* used by EC_POINTs_mul, EC_POINT_mul, EC_POINT_precompute_mult,
-   * EC_POINT_have_precompute_mult
-   * (default implementations are used if the 'mul' pointer is 0): */
   int (*mul)(const EC_GROUP *group, EC_POINT *r, const BIGNUM *scalar,
              size_t num, const EC_POINT *points[], const BIGNUM *scalars[],
              BN_CTX *);
   int (*precompute_mult)(EC_GROUP *group, BN_CTX *);
   int (*have_precompute_mult)(const EC_GROUP *group);
 
-
-  /* internal functions */
-
-  /* 'field_mul', 'field_sqr', and 'field_div' can be used by 'add' and 'dbl'
-   * so that the same implementations of point operations can be used with
-   * different optimized implementations of expensive field operations: */
   int (*field_mul)(const EC_GROUP *, BIGNUM *r, const BIGNUM *a,
                    const BIGNUM *b, BN_CTX *);
   int (*field_sqr)(const EC_GROUP *, BIGNUM *r, const BIGNUM *a, BN_CTX *);
@@ -181,7 +168,6 @@ int ec_GFp_simple_group_set_curve(EC_GROUP *, const BIGNUM *p, const BIGNUM *a,
 int ec_GFp_simple_group_get_curve(const EC_GROUP *, BIGNUM *p, BIGNUM *a,
                                   BIGNUM *b, BN_CTX *);
 int ec_GFp_simple_group_get_degree(const EC_GROUP *);
-int ec_GFp_simple_group_check_discriminant(const EC_GROUP *, BN_CTX *);
 int ec_GFp_simple_point_init(EC_POINT *);
 void ec_GFp_simple_point_finish(EC_POINT *);
 void ec_GFp_simple_point_clear_finish(EC_POINT *);
@@ -191,10 +177,6 @@ int ec_GFp_simple_set_Jprojective_coordinates_GFp(const EC_GROUP *, EC_POINT *,
                                                   const BIGNUM *x,
                                                   const BIGNUM *y,
                                                   const BIGNUM *z, BN_CTX *);
-int ec_GFp_simple_get_Jprojective_coordinates_GFp(const EC_GROUP *,
-                                                  const EC_POINT *, BIGNUM *x,
-                                                  BIGNUM *y, BIGNUM *z,
-                                                  BN_CTX *);
 int ec_GFp_simple_point_set_affine_coordinates(const EC_GROUP *, EC_POINT *,
                                                const BIGNUM *x, const BIGNUM *y,
                                                BN_CTX *);
