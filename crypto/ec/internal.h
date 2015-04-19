@@ -184,23 +184,6 @@ int ec_GFp_simple_field_mul(const EC_GROUP *, BIGNUM *r, const BIGNUM *a,
 int ec_GFp_simple_field_sqr(const EC_GROUP *, BIGNUM *r, const BIGNUM *a,
                             BN_CTX *);
 
-/* method functions in montgomery.c */
-int ec_GFp_mont_group_init(EC_GROUP *);
-int ec_GFp_mont_group_set_curve(EC_GROUP *, const BIGNUM *p, const BIGNUM *a,
-                                const BIGNUM *b, BN_CTX *);
-void ec_GFp_mont_group_finish(EC_GROUP *);
-void ec_GFp_mont_group_clear_finish(EC_GROUP *);
-int ec_GFp_mont_group_copy(EC_GROUP *, const EC_GROUP *);
-int ec_GFp_mont_field_mul(const EC_GROUP *, BIGNUM *r, const BIGNUM *a,
-                          const BIGNUM *b, BN_CTX *);
-int ec_GFp_mont_field_sqr(const EC_GROUP *, BIGNUM *r, const BIGNUM *a,
-                          BN_CTX *);
-int ec_GFp_mont_field_encode(const EC_GROUP *, BIGNUM *r, const BIGNUM *a,
-                             BN_CTX *);
-int ec_GFp_mont_field_decode(const EC_GROUP *, BIGNUM *r, const BIGNUM *a,
-                             BN_CTX *);
-int ec_GFp_mont_field_set_to_one(const EC_GROUP *, BIGNUM *r, BN_CTX *);
-
 int ec_point_set_Jprojective_coordinates_GFp(const EC_GROUP *group,
                                              EC_POINT *point, const BIGNUM *x,
                                              const BIGNUM *y, const BIGNUM *z,
