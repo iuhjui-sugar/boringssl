@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b03eeaea_e6ea94ed",
+        "filename": "crypto/ec/ec.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-04-19T04:05:54Z",
+      "side": 0,
+      "message": "This chunk and all the calls to |group_init| are redundant with memset(ret, 0, sizeof(EC_GROUP)), which is why I removed it. This assumes that |BN_init(\u0026x)| will always be equivalent to |memset(x, 0, sizeof((*x))|.",
+      "revId": "f1ab31a9d094a229fa9823486365bbee5e07af25",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b03eeaea_c6f318e9",
+        "filename": "crypto/ec/p256-64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1614,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-04-19T04:05:54Z",
+      "side": 0,
+      "message": "group-\u003ea_is_minus3 is set in ec_GFp_simple_group_set_curve. The other group_init methods set group-\u003ea_is_minus3 until then.",
+      "revId": "f1ab31a9d094a229fa9823486365bbee5e07af25",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

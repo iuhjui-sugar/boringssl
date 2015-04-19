@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b03eeaea_2610fc83",
+        "filename": "crypto/ec/ec.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-04-19T04:05:54Z",
+      "side": 1,
+      "message": "I re-sorted this to match the ordering of members of ec_group_st. Note that this is the opposite order of how of how C++ destruction works, but this order seems to be what\u0027s normal in BoringSSL.",
+      "revId": "6ded5338f8e4baf4ee0900c72db450e5d6006146",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
