@@ -225,30 +225,17 @@ int ec_GFp_simple_point_get_affine_coordinates(const EC_GROUP *group,
 
   /* transform  (X, Y, Z)  into  (x, y) := (X/Z^2, Y/Z^3) */
 
-  if (group->meth->field_decode) {
-    if (!group->meth->field_decode(group, Z, &point->Z, ctx)) {
-      goto err;
-    }
-    Z_ = Z;
-  } else {
-    Z_ = &point->Z;
+  if (!group->meth->field_decode(group, Z, &point->Z, ctx)) {
+    goto err;
   }
+  Z_ = Z;
 
   if (BN_is_one(Z_)) {
-    if (group->meth->field_decode) {
-      if (x != NULL && !group->meth->field_decode(group, x, &point->X, ctx)) {
-        goto err;
-      }
-      if (y != NULL && !group->meth->field_decode(group, y, &point->Y, ctx)) {
-        goto err;
-      }
-    } else {
-      if (x != NULL && !BN_copy(x, &point->X)) {
-        goto err;
-      }
-      if (y != NULL && !BN_copy(y, &point->Y)) {
-        goto err;
-      }
+    if (x != NULL && !group->meth->field_decode(group, x, &point->X, ctx)) {
+      goto err;
+    }
+    if (y != NULL && !group->meth->field_decode(group, y, &point->Y, ctx)) {
+      goto err;
     }
   } else {
     if (!BN_mod_inverse(Z_1, Z_, &group->field, ctx)) {
@@ -257,12 +244,7 @@ int ec_GFp_simple_point_get_affine_coordinates(const EC_GROUP *group,
       goto err;
     }
 
-    if (group->meth->field_encode == 0) {
-      /* field_sqr works on standard representation */
-      if (!group->meth->field_sqr(group, Z_2, Z_1, ctx)) {
-        goto err;
-      }
-    } else if (!BN_mod_sqr(Z_2, Z_1, &group->field, ctx)) {
+    if (!BN_mod_sqr(Z_2, Z_1, &group->field, ctx)) {
       goto err;
     }
 
@@ -273,12 +255,7 @@ int ec_GFp_simple_point_get_affine_coordinates(const EC_GROUP *group,
     }
 
     if (y != NULL) {
-      if (group->meth->field_encode == 0) {
-        /* field_mul works on standard representation */
-        if (!group->meth->field_mul(group, Z_3, Z_2, Z_1, ctx)) {
-          goto err;
-        }
-      } else if (!BN_mod_mul(Z_3, Z_2, Z_1, &group->field, ctx)) {
+      if (!BN_mod_mul(Z_3, Z_2, Z_1, &group->field, ctx)) {
         goto err;
       }
 
@@ -710,14 +687,8 @@ int ec_GFp_simple_points_make_affine(const EC_GROUP *group, size_t num,
       goto err;
     }
   } else {
-    if (group->meth->field_set_to_one != 0) {
-      if (!group->meth->field_set_to_one(group, prod_Z[0], ctx)) {
-        goto err;
-      }
-    } else {
-      if (!BN_one(prod_Z[0])) {
-        goto err;
-      }
+    if (!group->meth->field_set_to_one(group, prod_Z[0], ctx)) {
+      goto err;
     }
   }
 
@@ -742,14 +713,12 @@ int ec_GFp_simple_points_make_affine(const EC_GROUP *group, size_t num,
     goto err;
   }
 
-  if (group->meth->field_encode != NULL) {
-    /* In the Montgomery case, we just turned R*H (representing H)
-     * into 1/(R*H), but we need R*(1/H) (representing 1/H);
-     * i.e. we need to multiply by the Montgomery factor twice. */
-    if (!group->meth->field_encode(group, tmp, tmp, ctx) ||
-        !group->meth->field_encode(group, tmp, tmp, ctx)) {
-      goto err;
-    }
+  /* In the Montgomery case, we just turned R*H (representing H)
+    * into 1/(R*H), but we need R*(1/H) (representing 1/H);
+    * i.e. we need to multiply by the Montgomery factor twice. */
+  if (!group->meth->field_encode(group, tmp, tmp, ctx) ||
+      !group->meth->field_encode(group, tmp, tmp, ctx)) {
+    goto err;
   }
 
   for (i = num - 1; i > 0; --i) {
@@ -788,14 +757,8 @@ int ec_GFp_simple_points_make_affine(const EC_GROUP *group, size_t num,
         goto err;
       }
 
-      if (group->meth->field_set_to_one != NULL) {
-        if (!group->meth->field_set_to_one(group, &p->Z, ctx)) {
-          goto err;
-        }
-      } else {
-        if (!BN_one(&p->Z)) {
-          goto err;
-        }
+      if (!group->meth->field_set_to_one(group, &p->Z, ctx)) {
+        goto err;
       }
       p->Z_is_one = 1;
     }
