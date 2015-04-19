@@ -34,7 +34,6 @@ EC,function,160,ec_GFp_nistp256_group_set_curve
 EC,function,161,ec_GFp_nistp256_point_get_affine_coordinates
 EC,function,162,ec_GFp_nistp256_points_mul
 EC,function,137,ec_GFp_simple_group_set_curve
-EC,function,138,ec_GFp_simple_make_affine
 EC,function,141,ec_GFp_simple_point_get_affine_coordinates
 EC,function,143,ec_GFp_simple_points_make_affine
 EC,function,145,ec_asn1_group2pkparameters

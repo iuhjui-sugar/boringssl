@@ -82,9 +82,9 @@ typedef struct ec_method_st EC_METHOD;
 
 /* All methods must be non-NULL unless otherwise stated. */
 struct ec_method_st {
-  /* group_extra_finish is called when a group is destroyed to do any
-   * implementation-specific cleanup. This may be NULL if no
-   * implementation-specific cleanup is necessary. */
+  /* group_extra_finish is called when a group is destroyed to
+   * do any implementation-specific cleanup. This may be NULL if no
+   * implementation-specific cleanup is needed. */
   void (*group_extra_finish)(EC_GROUP *);
   /* group_extra_copy is called to copy the extra, implementation-specific,
    * attributes of the source group to the destination group. */
@@ -101,8 +101,6 @@ struct ec_method_st {
 
   /* Both of these are optional. */
   int (*precompute_mult)(EC_GROUP *group, BN_CTX *);
-  int (*have_precompute_mult)(const EC_GROUP *group);
-
   int (*field_mul)(const EC_GROUP *, BIGNUM *r, const BIGNUM *a,
                    const BIGNUM *b, BN_CTX *);
   int (*field_sqr)(const EC_GROUP *, BIGNUM *r, const BIGNUM *a, BN_CTX *);
@@ -126,7 +124,7 @@ struct ec_group_st {
   const EC_METHOD *meth;
 
   EC_POINT *generator; /* optional */
-  BIGNUM order, cofactor;
+  BIGNUM order;
 
   int curve_name; /* optional NID for named curve */
 
@@ -160,7 +158,6 @@ int ec_wNAF_mul(const EC_GROUP *group, EC_POINT *r, const BIGNUM *scalar,
                 size_t num, const EC_POINT *points[], const BIGNUM *scalars[],
                 BN_CTX *);
 int ec_wNAF_precompute_mult(EC_GROUP *group, BN_CTX *);
-int ec_wNAF_have_precompute_mult(const EC_GROUP *group);
 
 /* method functions in simple.c */
 int ec_GFp_simple_group_init(EC_GROUP *);
@@ -168,8 +165,6 @@ void ec_GFp_simple_group_finish(EC_GROUP *);
 void ec_GFp_simple_group_clear_finish(EC_GROUP *);
 int ec_GFp_simple_group_set_curve(EC_GROUP *, const BIGNUM *p, const BIGNUM *a,
                                   const BIGNUM *b, BN_CTX *);
-int ec_GFp_simple_group_get_curve(const EC_GROUP *, BIGNUM *p, BIGNUM *a,
-                                  BIGNUM *b, BN_CTX *);
 int ec_GFp_simple_point_get_affine_coordinates(const EC_GROUP *,
                                                const EC_POINT *, BIGNUM *x,
                                                BIGNUM *y, BN_CTX *);
@@ -178,7 +173,6 @@ int ec_GFp_simple_add(const EC_GROUP *, EC_POINT *r, const EC_POINT *a,
 int ec_GFp_simple_dbl(const EC_GROUP *, EC_POINT *r, const EC_POINT *a,
                       BN_CTX *);
 int ec_GFp_simple_invert(const EC_GROUP *, EC_POINT *, BN_CTX *);
-int ec_GFp_simple_make_affine(const EC_GROUP *, EC_POINT *, BN_CTX *);
 int ec_GFp_simple_points_make_affine(const EC_GROUP *, size_t num,
                                      EC_POINT * [], BN_CTX *);
 int ec_GFp_simple_field_mul(const EC_GROUP *, BIGNUM *r, const BIGNUM *a,
@@ -229,9 +223,6 @@ struct curve_data {
   const char *comment;
   /* param_len is the number of bytes needed to store a field element. */
   uint8_t param_len;
-  /* cofactor is the cofactor of the group (i.e. the number of elements in the
-   * group divided by the size of the main subgroup. */
-  uint8_t cofactor; /* promoted to BN_ULONG */
   /* data points to an array of 6*|param_len| bytes which hold the field
    * elements of the following (in big-endian order): prime, a, b, generator x,
    * generator y, order. */

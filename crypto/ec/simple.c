@@ -151,48 +151,6 @@ err:
   return ret;
 }
 
-int ec_GFp_simple_group_get_curve(const EC_GROUP *group, BIGNUM *p, BIGNUM *a,
-                                  BIGNUM *b, BN_CTX *ctx) {
-  int ret = 0;
-  BN_CTX *new_ctx = NULL;
-
-  if (p != NULL && !BN_copy(p, &group->field)) {
-    return 0;
-  }
-
-  if (a != NULL || b != NULL) {
-    if (group->meth->field_decode) {
-      if (ctx == NULL) {
-        ctx = new_ctx = BN_CTX_new();
-        if (ctx == NULL) {
-          return 0;
-        }
-      }
-      if (a != NULL && !group->meth->field_decode(group, a, &group->a, ctx)) {
-        goto err;
-      }
-      if (b != NULL && !group->meth->field_decode(group, b, &group->b, ctx)) {
-        goto err;
-      }
-    } else {
-      if (a != NULL && !BN_copy(a, &group->a)) {
-        goto err;
-      }
-      if (b != NULL && !BN_copy(b, &group->b)) {
-        goto err;
-      }
-    }
-  }
-
-  ret = 1;
-
-err:
-  if (new_ctx) {
-    BN_CTX_free(new_ctx);
-  }
-  return ret;
-}
-
 int ec_GFp_simple_point_get_affine_coordinates(const EC_GROUP *group,
                                                const EC_POINT *point, BIGNUM *x,
                                                BIGNUM *y, BN_CTX *ctx) {
@@ -596,49 +554,6 @@ int ec_GFp_simple_invert(const EC_GROUP *group, EC_POINT *point, BN_CTX *ctx) {
   }
 
   return BN_usub(&point->Y, &group->field, &point->Y);
-}
-
-int ec_GFp_simple_make_affine(const EC_GROUP *group, EC_POINT *point,
-                              BN_CTX *ctx) {
-  BN_CTX *new_ctx = NULL;
-  BIGNUM *x, *y;
-  int ret = 0;
-
-  if (point->Z_is_one || EC_POINT_is_at_infinity(group, point)) {
-    return 1;
-  }
-
-  if (ctx == NULL) {
-    ctx = new_ctx = BN_CTX_new();
-    if (ctx == NULL) {
-      return 0;
-    }
-  }
-
-  BN_CTX_start(ctx);
-  x = BN_CTX_get(ctx);
-  y = BN_CTX_get(ctx);
-  if (y == NULL) {
-    goto err;
-  }
-
-  if (!EC_POINT_get_affine_coordinates_GFp(group, point, x, y, ctx) ||
-      !EC_POINT_set_affine_coordinates_GFp(group, point, x, y, ctx)) {
-    goto err;
-  }
-  if (!point->Z_is_one) {
-    OPENSSL_PUT_ERROR(EC, ec_GFp_simple_make_affine, ERR_R_INTERNAL_ERROR);
-    goto err;
-  }
-
-  ret = 1;
-
-err:
-  BN_CTX_end(ctx);
-  if (new_ctx != NULL) {
-    BN_CTX_free(new_ctx);
-  }
-  return ret;
 }
 
 int ec_GFp_simple_points_make_affine(const EC_GROUP *group, size_t num,
