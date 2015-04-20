@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d0aefe64_acbfe70b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-20T17:49:59Z",
+      "side": 1,
+      "message": "We skipped this one earlier, but if upstream has an xlate file and we don\u0027t, that\u0027s slightly iffy. (Also there\u0027s been recent changes to these files, and it\u0027ll probably be useful later for iOS.)\n\nI don\u0027t have easy access to a configuration to test this on right now (working from home today) and we don\u0027t have bots yet, so you\u0027ll probably want to verify this doesn\u0027t break. This is the diff update_gypi_and_asm.py produces with git diff -w:\n\nhttps://drive.google.com/a/chromium.org/file/d/0Bz14lOW5Hke4NEViTlZMdjBqUjg/view?usp\u003dsharing\n\nIt looks mostly cosmetic, but there\u0027s a few changes.",
+      "revId": "d00600e14b951164f674c9005ea7d00b968d6a8e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
