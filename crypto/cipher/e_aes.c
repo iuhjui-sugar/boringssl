@@ -771,6 +771,12 @@ static const EVP_CIPHER aes_192_ctr = {
     NULL /* app_data */, aes_init_key,        aes_ctr_cipher,
     NULL /* cleanup */,  NULL /* ctrl */};
 
+static const EVP_CIPHER aes_192_ecb = {
+    NID_aes_192_ecb,     16 /* block_size */, 24 /* key_size */,
+    0 /* iv_len */,      sizeof(EVP_AES_KEY), EVP_CIPH_ECB_MODE,
+    NULL /* app_data */, aes_init_key,        aes_ecb_cipher,
+    NULL /* cleanup */,  NULL /* ctrl */};
+
 static const EVP_CIPHER aes_192_gcm = {
     NID_aes_192_gcm, 1 /* block_size */, 24 /* key_size */, 12 /* iv_len */,
     sizeof(EVP_AES_GCM_CTX),
@@ -953,6 +959,12 @@ static const EVP_CIPHER aesni_192_ctr = {
     NULL /* app_data */, aesni_init_key,      aes_ctr_cipher,
     NULL /* cleanup */,  NULL /* ctrl */};
 
+static const EVP_CIPHER aesni_192_ecb = {
+    NID_aes_192_ecb,     16 /* block_size */, 24 /* key_size */,
+    0 /* iv_len */,      sizeof(EVP_AES_KEY), EVP_CIPH_ECB_MODE,
+    NULL /* app_data */, aesni_init_key,      aesni_ecb_cipher,
+    NULL /* cleanup */,  NULL /* ctrl */};
+
 static const EVP_CIPHER aesni_192_gcm = {
     NID_aes_192_gcm, 1 /* block_size */, 24 /* key_size */, 12 /* iv_len */,
     sizeof(EVP_AES_GCM_CTX),
@@ -1026,6 +1038,7 @@ EVP_CIPHER_FUNCTION(128, gcm)
 
 EVP_CIPHER_FUNCTION(192, cbc)
 EVP_CIPHER_FUNCTION(192, ctr)
+EVP_CIPHER_FUNCTION(192, ecb)
 EVP_CIPHER_FUNCTION(192, gcm)
 
 EVP_CIPHER_FUNCTION(256, cbc)
@@ -1736,6 +1749,7 @@ static const EVP_AEAD aead_aes_128_ctr_hmac_sha256 = {
     aead_aes_ctr_hmac_sha256_cleanup,
     aead_aes_ctr_hmac_sha256_seal,
     aead_aes_ctr_hmac_sha256_open,
+    NULL /* get_rc4_state */,
 };
 
 static const EVP_AEAD aead_aes_256_ctr_hmac_sha256 = {
@@ -1749,6 +1763,7 @@ static const EVP_AEAD aead_aes_256_ctr_hmac_sha256 = {
     aead_aes_ctr_hmac_sha256_cleanup,
     aead_aes_ctr_hmac_sha256_seal,
     aead_aes_ctr_hmac_sha256_open,
+    NULL /* get_rc4_state */,
 };
 
 const EVP_AEAD *EVP_aead_aes_128_ctr_hmac_sha256(void) {
