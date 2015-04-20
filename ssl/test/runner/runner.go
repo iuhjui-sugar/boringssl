@@ -135,6 +135,9 @@ type testCase struct {
 	// expectedResumeVersion, if non-zero, specifies the TLS version that
 	// must be negotiated on resumption. If zero, expectedVersion is used.
 	expectedResumeVersion uint16
+	// expectedCipher, if non-zero, specifies the TLS cipher suite that
+	// should be negotiated.
+	expectedCipher uint16
 	// expectChannelID controls whether the connection should have
 	// negotiated a Channel ID with channelIDKey.
 	expectChannelID bool
@@ -1058,6 +1061,18 @@ var testCases = []testCase{
 			},
 		},
 	},
+	{
+		testType: serverTest,
+		name:     "NoCommonCurves",
+		config: Config{
+			CipherSuites: []uint16{
+				TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
+				TLS_DHE_RSA_WITH_AES_128_GCM_SHA256,
+			},
+			CurvePreferences: []CurveID{CurveP224},
+		},
+		expectedCipher: TLS_DHE_RSA_WITH_AES_128_GCM_SHA256,
+	},
 }
 
 func doExchange(test *testCase, config *Config, conn net.Conn, messageLen int, isResume bool) error {
@@ -1119,6 +1134,10 @@ func doExchange(test *testCase, config *Config, conn net.Conn, messageLen int, i
 	}
 	if vers := tlsConn.ConnectionState().Version; expectedVersion != 0 && vers != expectedVersion {
 		return fmt.Errorf("got version %x, expected %x", vers, expectedVersion)
+	}
+
+	if cipher := tlsConn.ConnectionState().CipherSuite; test.expectedCipher != 0 && cipher != test.expectedCipher {
+		return fmt.Errorf("got cipher %x, expected %x", cipher, test.expectedCipher)
 	}
 
 	if test.expectChannelID {
