@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "90fba685_00adf696",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-21T19:31:23Z",
+      "side": 1,
+      "message": "As a follow-up it may be worth adding a BIO_up_ref function, so external code needn\u0027t reference CRYPTO_LOCK_BIO. Upstream will probably be receptive given their opaquifying.",
+      "revId": "547486910c6ad26ed1a0aaa9f047adc2577da3e3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
