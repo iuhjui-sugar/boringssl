@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "90fba685_40affe95",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 774,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-21T19:28:22Z",
+      "side": 1,
+      "message": "Did you accidentally squash too changes into one?",
+      "revId": "8c00c42d50e529703a8fda587c5896c8204c51ba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
