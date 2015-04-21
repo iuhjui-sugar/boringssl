@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "90fba685_a054e225",
+        "filename": "crypto/aes/asm/aesv8-armx.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-21T19:26:45Z",
+      "side": 1,
+      "message": "That explains why arm-xlate.pl makes .arch into a no-op if flavour doesn\u0027t  match /linux/. Though it suggests that perlasm isn\u0027t quite conditioning on the right thing here. Might be worth trying to reason with upstream. (Of course, why even bother with perlasm when we can use the C preprocessor?) And upstream\u0027s Configurations/10-main.conf does have iOS builds pass -arch. Though it has \"-arch arm64\" and not \"-arch armv8-a+crypto\". \n\nWhat\u0027s the failure mode if we have neither .arch nor -arch on the command-line? Do we fail to build or does something dumb happen? (It\u0027d be bad if we silently miscompiled on clang when forgetting to pass -arch.)",
+      "revId": "945defe38565239320e4f963ae4aae68cef54a79",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
