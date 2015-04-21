@@ -461,8 +461,6 @@ typedef struct cert_st {
   EC_KEY *(*ecdh_tmp_cb)(SSL *ssl, int is_export, int keysize);
   /* Select ECDH parameters automatically */
   int ecdh_tmp_auto;
-  /* Flags related to certificates */
-  unsigned int cert_flags;
   CERT_PKEY pkeys[SSL_PKEY_NUM];
 
   /* Server-only: client_certificate_types is list of certificate types to
