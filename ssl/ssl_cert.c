@@ -454,9 +454,7 @@ void ssl_sess_cert_free(SESS_CERT *sc) {
     return;
   }
 
-  if (sc->cert_chain != NULL) {
-    sk_X509_pop_free(sc->cert_chain, X509_free);
-  }
+  sk_X509_pop_free(sc->cert_chain, X509_free);
 
   for (i = 0; i < SSL_PKEY_NUM; i++) {
     if (sc->peer_pkeys[i].x509 != NULL) {
