@@ -151,48 +151,6 @@ err:
   return ret;
 }
 
-int ec_GFp_simple_group_get_curve(const EC_GROUP *group, BIGNUM *p, BIGNUM *a,
-                                  BIGNUM *b, BN_CTX *ctx) {
-  int ret = 0;
-  BN_CTX *new_ctx = NULL;
-
-  if (p != NULL && !BN_copy(p, &group->field)) {
-    return 0;
-  }
-
-  if (a != NULL || b != NULL) {
-    if (group->meth->field_decode) {
-      if (ctx == NULL) {
-        ctx = new_ctx = BN_CTX_new();
-        if (ctx == NULL) {
-          return 0;
-        }
-      }
-      if (a != NULL && !group->meth->field_decode(group, a, &group->a, ctx)) {
-        goto err;
-      }
-      if (b != NULL && !group->meth->field_decode(group, b, &group->b, ctx)) {
-        goto err;
-      }
-    } else {
-      if (a != NULL && !BN_copy(a, &group->a)) {
-        goto err;
-      }
-      if (b != NULL && !BN_copy(b, &group->b)) {
-        goto err;
-      }
-    }
-  }
-
-  ret = 1;
-
-err:
-  if (new_ctx) {
-    BN_CTX_free(new_ctx);
-  }
-  return ret;
-}
-
 int ec_GFp_simple_point_get_affine_coordinates(const EC_GROUP *group,
                                                const EC_POINT *point, BIGNUM *x,
                                                BIGNUM *y, BN_CTX *ctx) {
