@@ -107,6 +107,7 @@ static bool test_small_prime(FILE *fp, BN_CTX *ctx);
 static bool test_mod_exp_mont5(FILE *fp, BN_CTX *ctx);
 static bool test_sqrt(FILE *fp, BN_CTX *ctx);
 static bool test_bn2bin_padded(FILE *fp, BN_CTX *ctx);
+static bool test_dec2bn(FILE *fp);
 
 // g_results can be set to true to cause the result of each computation to be
 // printed.
@@ -279,6 +280,12 @@ int main(int argc, char *argv[]) {
 
   message(stdout, "BN_bn2bin_padded");
   if (!test_bn2bin_padded(stdout, ctx.get())) {
+    return 1;
+  }
+  fflush(stdout);
+
+  message(stdout, "BN_dec2bn");
+  if (!test_dec2bn(stdout)) {
     return 1;
   }
   fflush(stdout);
@@ -1404,5 +1411,27 @@ static bool test_bn2bin_padded(FILE *fp, BN_CTX *ctx) {
     }
   }
 
+  return true;
+}
+
+static bool test_dec2bn(FILE *fp) {
+  ScopedBIGNUM n(BN_new());
+  BIGNUM *nptr = n.get();
+  static const char kInput[] = "-01";
+  static const char kOutput[] = "-1";
+
+  if (!BN_dec2bn(&nptr, kInput)) {
+    fprintf(stderr, "BN_dec2bn failed.");
+    return false;
+  }
+
+  char *str = BN_bn2dec(n.get());
+  if (strcmp(str, kOutput) != 0) {
+    fprintf(stderr, "Bad result from BN_bn2dec: got %s, wanted %s.\n", str, kOutput);
+    free(str);
+    return false;
+  }
+
+  free(str);
   return true;
 }

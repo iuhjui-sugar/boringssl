@@ -320,7 +320,6 @@ static int bn_x2bn(BIGNUM **outp, const char *in, decode_func decode, char_test_
     ret = *outp;
     BN_zero(ret);
   }
-  ret->neg = neg;
 
   /* i is the number of hex digests; */
   if (bn_expand(ret, i * 4) == NULL) {
@@ -328,8 +327,8 @@ static int bn_x2bn(BIGNUM **outp, const char *in, decode_func decode, char_test_
   }
 
   decode(ret, in, i);
-
   bn_correct_top(ret);
+  ret->neg = neg;
 
   *outp = ret;
   return num;
