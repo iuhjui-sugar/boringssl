@@ -71,6 +71,7 @@
 #include <openssl/base.h>
 
 #include <openssl/bn.h>
+#include <openssl/ec.h>
 #include <openssl/ex_data.h>
 
 #include "../internal.h"
@@ -101,6 +102,7 @@ typedef struct ec_method_st {
 
   /* Both of these are optional. */
   int (*precompute_mult)(EC_GROUP *group, BN_CTX *);
+
   int (*field_mul)(const EC_GROUP *, BIGNUM *r, const BIGNUM *a,
                    const BIGNUM *b, BN_CTX *);
   int (*field_sqr)(const EC_GROUP *, BIGNUM *r, const BIGNUM *a, BN_CTX *);
@@ -115,6 +117,7 @@ typedef struct ec_method_st {
 } EC_METHOD;
 
 const EC_METHOD* EC_GFp_mont_method(void);
+const EC_METHOD* EC_GFp_nistz256_method(void);
 
 struct ec_pre_comp_st;
 void ec_pre_comp_free(struct ec_pre_comp_st *pre_comp);
@@ -203,6 +206,21 @@ int ec_point_set_Jprojective_coordinates_GFp(const EC_GROUP *group,
                                              EC_POINT *point, const BIGNUM *x,
                                              const BIGNUM *y, const BIGNUM *z,
                                              BN_CTX *ctx);
+
+int ec_GFp_mont_field_encode(const EC_GROUP *group, BIGNUM *r, const BIGNUM *a,
+                             BN_CTX *ctx);
+int ec_GFp_mont_field_decode(const EC_GROUP *group, BIGNUM *r, const BIGNUM *a,
+                             BN_CTX *ctx);
+int ec_GFp_mont_field_set_to_one(const EC_GROUP *group, BIGNUM *r, BN_CTX *ctx);
+int ec_GFp_mont_field_mul(const EC_GROUP *group, BIGNUM *r, const BIGNUM *a,
+                          const BIGNUM *b, BN_CTX *ctx);
+int ec_GFp_mont_field_sqr(const EC_GROUP *group, BIGNUM *r, const BIGNUM *a,
+                          BN_CTX *ctx);
+void ec_GFp_mont_group_extra_finish(EC_GROUP *group);
+int ec_GFp_mont_group_extra_copy(EC_GROUP *dest, const EC_GROUP *src);
+int ec_GFp_mont_group_set_curve(EC_GROUP *group, const BIGNUM *p, const BIGNUM *a,
+                                const BIGNUM *b, BN_CTX *ctx);
+
 
 void ec_GFp_nistp_points_make_affine_internal(
     size_t num, void *point_array, size_t felem_size, void *tmp_felems,

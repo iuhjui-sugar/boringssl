@@ -47,6 +47,9 @@ EC,function,150,ec_point_set_Jprojective_coordinates_GFp
 EC,function,151,ec_pre_comp_new
 EC,function,152,ec_wNAF_mul
 EC,function,153,ec_wNAF_precompute_mult
+EC,function,165,ecp_nistz256_get_affine
+EC,function,166,ecp_nistz256_points_mul
+EC,function,167,ecp_nistz256_windowed_mul
 EC,function,154,i2d_ECPKParameters
 EC,function,155,i2d_ECParameters
 EC,function,156,i2d_ECPrivateKey

@@ -133,6 +133,8 @@
 
 #include <inttypes.h>
 
+#include "../internal.h"
+
 #if defined(OPENSSL_X86_64) && defined(_MSC_VER) && _MSC_VER >= 1400
 #pragma warning(push, 3)
 #include <intrin.h>
@@ -208,6 +210,30 @@ BIGNUM *bn_expand(BIGNUM *bn, unsigned bits);
 #define Lw(t) (((BN_ULONG)(t))&BN_MASK2)
 #define Hw(t) (((BN_ULONG)((t)>>BN_BITS2))&BN_MASK2)
 #endif
+
+inline int bn_copy_words(BN_ULONG *out, const BIGNUM *in, int size) {
+  if (in->top > size || size < 0) {
+    return 0;
+  }
+  int i = 0;
+  while (i < in->top) {
+    out[i] = in->d[i];
+    ++i;
+  }
+  while (i < size) {
+    out[i++] = 0;
+  }
+  return 1;
+}
+inline BN_ULONG *bn_get_words(const BIGNUM *a) { return a->d; }
+inline void bn_set_static_words(BIGNUM *a, BN_ULONG *words, int size) {
+  a->d = words;
+  a->dmax = a->top = size;
+  a->neg = 0;
+  a->flags |= BN_FLG_STATIC_DATA;
+}
+inline int bn_get_top(const BIGNUM *a) { return a->top; }
+
 
 BN_ULONG bn_mul_add_words(BN_ULONG *rp, const BN_ULONG *ap, int num, BN_ULONG w);
 BN_ULONG bn_mul_words(BN_ULONG *rp, const BN_ULONG *ap, int num, BN_ULONG w);

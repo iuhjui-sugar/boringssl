@@ -311,6 +311,9 @@ OPENSSL_EXPORT int EC_POINTs_mul(const EC_GROUP *group, EC_POINT *r,
 #define EC_F_ec_GFp_nistp256_points_mul 162
 #define EC_F_ec_group_copy 163
 #define EC_F_nistp256_pre_comp_new 164
+#define EC_F_ecp_nistz256_get_affine 165
+#define EC_F_ecp_nistz256_points_mul 166
+#define EC_F_ecp_nistz256_windowed_mul 167
 #define EC_R_BUFFER_TOO_SMALL 100
 #define EC_R_COORDINATES_OUT_OF_RANGE 101
 #define EC_R_D2I_ECPKPARAMETERS_FAILURE 102
