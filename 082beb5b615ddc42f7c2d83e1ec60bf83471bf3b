@@ -16,6 +16,24 @@
       "revId": "082beb5b615ddc42f7c2d83e1ec60bf83471bf3b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9070061a_101601fc",
+        "filename": "ssl/s3_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1059,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-24T22:25:30Z",
+      "side": 1,
+      "message": "Oh, it seems the return 1 at the end catches it. Okay then. ctrl functions...",
+      "parentUuid": "9070061a_b00e0de8",
+      "revId": "082beb5b615ddc42f7c2d83e1ec60bf83471bf3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
