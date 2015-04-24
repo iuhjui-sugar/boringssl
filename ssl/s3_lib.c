@@ -648,7 +648,7 @@ long ssl3_ctrl(SSL *s, int cmd, long larg, void *parg) {
     case SSL_CTRL_SET_TMP_ECDH: {
       /* For historical reasons, this API expects an |EC_KEY|, but only the
        * group is used. */
-      EC_KEY *ec_key = (EC_KEY *)parg;
+      const EC_KEY *ec_key = (const EC_KEY *)parg;
       if (ec_key == NULL || EC_KEY_get0_group(ec_key) == NULL) {
         OPENSSL_PUT_ERROR(SSL, ssl3_ctrl, ERR_R_PASSED_NULL_PARAMETER);
         return ret;
@@ -737,7 +737,6 @@ long ssl3_ctrl(SSL *s, int cmd, long larg, void *parg) {
                              &s->tlsext_ellipticcurvelist_length, parg, larg);
 
     case SSL_CTRL_SET_ECDH_AUTO:
-      s->cert->ecdh_tmp_auto = larg;
       return 1;
 
     case SSL_CTRL_SET_SIGALGS:
@@ -911,7 +910,7 @@ long ssl3_ctx_ctrl(SSL_CTX *ctx, int cmd, long larg, void *parg) {
     case SSL_CTRL_SET_TMP_ECDH: {
       /* For historical reasons, this API expects an |EC_KEY|, but only the
        * group is used. */
-      EC_KEY *ec_key = (EC_KEY *)parg;
+      const EC_KEY *ec_key = (const EC_KEY *)parg;
       if (ec_key == NULL || EC_KEY_get0_group(ec_key) == NULL) {
         OPENSSL_PUT_ERROR(SSL, ssl3_ctx_ctrl, ERR_R_PASSED_NULL_PARAMETER);
         return 0;
@@ -960,7 +959,6 @@ long ssl3_ctx_ctrl(SSL_CTX *ctx, int cmd, long larg, void *parg) {
                              &ctx->tlsext_ellipticcurvelist_length, parg, larg);
 
     case SSL_CTRL_SET_ECDH_AUTO:
-      ctx->cert->ecdh_tmp_auto = larg;
       return 1;
 
     case SSL_CTRL_SET_SIGALGS:
