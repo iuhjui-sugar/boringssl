@@ -507,7 +507,6 @@ EC_POINT *EC_POINT_new(const EC_GROUP *group) {
   BN_init(&ret->X);
   BN_init(&ret->Y);
   BN_init(&ret->Z);
-  ret->Z_is_one = 0;
 
   return ret;
 }
@@ -546,7 +545,6 @@ int EC_POINT_copy(EC_POINT *dest, const EC_POINT *src) {
       !BN_copy(&dest->Z, &src->Z)) {
     return 0;
   }
-  dest->Z_is_one = src->Z_is_one;
   return 1;
 }
 
@@ -577,7 +575,6 @@ int EC_POINT_set_to_infinity(const EC_GROUP *group, EC_POINT *point) {
     OPENSSL_PUT_ERROR(EC, EC_POINT_set_to_infinity, EC_R_INCOMPATIBLE_OBJECTS);
     return 0;
   }
-  point->Z_is_one = 0;
   BN_zero(&point->Z);
   return 1;
 }
@@ -587,7 +584,7 @@ int EC_POINT_is_at_infinity(const EC_GROUP *group, const EC_POINT *point) {
     OPENSSL_PUT_ERROR(EC, EC_POINT_is_at_infinity, EC_R_INCOMPATIBLE_OBJECTS);
     return 0;
   }
-  return !point->Z_is_one && BN_is_zero(&point->Z);
+  return BN_is_zero(&point->Z);
 }
 
 int EC_POINT_is_on_curve(const EC_GROUP *group, const EC_POINT *point,
@@ -643,7 +640,7 @@ int EC_POINT_is_on_curve(const EC_GROUP *group, const EC_POINT *point,
     goto err;
   }
 
-  if (!point->Z_is_one) {
+  if (!ec_point_Z_is_one(group, point)) {
     if (!field_sqr(group, tmp, &point->Z, ctx) ||
         !field_sqr(group, Z4, tmp, ctx) ||
         !field_mul(group, Z6, Z4, tmp, ctx)) {
@@ -664,8 +661,6 @@ int EC_POINT_is_on_curve(const EC_GROUP *group, const EC_POINT *point,
       goto err;
     }
   } else {
-    /* point->Z_is_one */
-
     /* rh := (rh + a)*X */
     if (!BN_mod_add_quick(rh, rh, &group->a, p) ||
         !field_mul(group, rh, rh, &point->X, ctx)) {
@@ -714,7 +709,10 @@ int EC_POINT_cmp(const EC_GROUP *group, const EC_POINT *a, const EC_POINT *b,
     return 1;
   }
 
-  if (a->Z_is_one && b->Z_is_one) {
+  const int a_Z_is_one = ec_point_Z_is_one(group, a);
+  const int b_Z_is_one = ec_point_Z_is_one(group, b);
+
+  if (a_Z_is_one && b_Z_is_one) {
     return ((BN_cmp(&a->X, &b->X) == 0) && BN_cmp(&a->Y, &b->Y) == 0) ? 0 : 1;
   }
 
@@ -743,7 +741,7 @@ int EC_POINT_cmp(const EC_GROUP *group, const EC_POINT *a, const EC_POINT *b,
    *     (X_a*Z_b^2, Y_a*Z_b^3) = (X_b*Z_a^2, Y_b*Z_a^3).
    */
 
-  if (!b->Z_is_one) {
+  if (!b_Z_is_one) {
     if (!field_sqr(group, Zb23, &b->Z, ctx) ||
         !field_mul(group, tmp1, &a->X, Zb23, ctx)) {
       goto end;
@@ -752,7 +750,7 @@ int EC_POINT_cmp(const EC_GROUP *group, const EC_POINT *a, const EC_POINT *b,
   } else {
     tmp1_ = &a->X;
   }
-  if (!a->Z_is_one) {
+  if (!a_Z_is_one) {
     if (!field_sqr(group, Za23, &a->Z, ctx) ||
         !field_mul(group, tmp2, &b->X, Za23, ctx)) {
       goto end;
@@ -768,7 +766,7 @@ int EC_POINT_cmp(const EC_GROUP *group, const EC_POINT *a, const EC_POINT *b,
     goto end;
   }
 
-  if (!b->Z_is_one) {
+  if (!b_Z_is_one) {
     if (!field_mul(group, Zb23, Zb23, &b->Z, ctx) ||
         !field_mul(group, tmp1, &a->Y, Zb23, ctx)) {
       goto end;
@@ -777,7 +775,7 @@ int EC_POINT_cmp(const EC_GROUP *group, const EC_POINT *a, const EC_POINT *b,
   } else {
     tmp1_ = &a->Y;
   }
-  if (!a->Z_is_one) {
+  if (!a_Z_is_one) {
     if (!field_mul(group, Za23, Za23, &a->Z, ctx) ||
         !field_mul(group, tmp2, &b->Y, Za23, ctx)) {
       goto end;
@@ -895,14 +893,11 @@ int ec_point_set_Jprojective_coordinates_GFp(const EC_GROUP *group, EC_POINT *po
   }
 
   if (z != NULL) {
-    int Z_is_one;
-
     if (!BN_nnmod(&point->Z, z, &group->field, ctx)) {
       goto err;
     }
-    Z_is_one = BN_is_one(&point->Z);
     if (group->meth->field_encode) {
-      if (Z_is_one && (group->meth->field_set_to_one != 0)) {
+      if (BN_is_one(&point->Z) && (group->meth->field_set_to_one != 0)) {
         if (!group->meth->field_set_to_one(group, &point->Z, ctx)) {
           goto err;
         }
@@ -910,7 +905,6 @@ int ec_point_set_Jprojective_coordinates_GFp(const EC_GROUP *group, EC_POINT *po
         goto err;
       }
     }
-    point->Z_is_one = Z_is_one;
   }
 
   ret = 1;

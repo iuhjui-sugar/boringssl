@@ -188,7 +188,7 @@ int ec_GFp_simple_point_get_affine_coordinates(const EC_GROUP *group,
   }
   Z_ = Z;
 
-  if (BN_is_one(Z_)) {
+  if (ec_point_Z_is_one(group, point)) {
     if (x != NULL && !group->meth->field_decode(group, x, &point->X, ctx)) {
       goto err;
     }
@@ -278,13 +278,16 @@ int ec_GFp_simple_add(const EC_GROUP *group, EC_POINT *r, const EC_POINT *a,
     goto end;
   }
 
+  const int a_Z_is_one = ec_point_Z_is_one(group, a);
+  const int b_Z_is_one = ec_point_Z_is_one(group, b);
+
   /* Note that in this function we must not read components of 'a' or 'b'
    * once we have written the corresponding components of 'r'.
    * ('r' might be one of 'a' or 'b'.)
    */
 
   /* n1, n2 */
-  if (b->Z_is_one) {
+  if (b_Z_is_one) {
     if (!BN_copy(n1, &a->X) || !BN_copy(n2, &a->Y)) {
       goto end;
     }
@@ -305,7 +308,7 @@ int ec_GFp_simple_add(const EC_GROUP *group, EC_POINT *r, const EC_POINT *a,
   }
 
   /* n3, n4 */
-  if (a->Z_is_one) {
+  if (a_Z_is_one) {
     if (!BN_copy(n3, &b->X) || !BN_copy(n4, &b->Y)) {
       goto end;
     }
@@ -343,7 +346,6 @@ int ec_GFp_simple_add(const EC_GROUP *group, EC_POINT *r, const EC_POINT *a,
     } else {
       /* a is the inverse of b */
       BN_zero(&r->Z);
-      r->Z_is_one = 0;
       ret = 1;
       goto end;
     }
@@ -358,16 +360,16 @@ int ec_GFp_simple_add(const EC_GROUP *group, EC_POINT *r, const EC_POINT *a,
   /* 'n8' = n2 + n4 */
 
   /* Z_r */
-  if (a->Z_is_one && b->Z_is_one) {
+  if (a_Z_is_one && b_Z_is_one) {
     if (!BN_copy(&r->Z, n5)) {
       goto end;
     }
   } else {
-    if (a->Z_is_one) {
+    if (a_Z_is_one) {
       if (!BN_copy(n0, &b->Z)) {
         goto end;
       }
-    } else if (b->Z_is_one) {
+    } else if (b_Z_is_one) {
       if (!BN_copy(n0, &a->Z)) {
         goto end;
       }
@@ -378,7 +380,6 @@ int ec_GFp_simple_add(const EC_GROUP *group, EC_POINT *r, const EC_POINT *a,
       goto end;
     }
   }
-  r->Z_is_one = 0;
   /* Z_r = Z_a * Z_b * n5 */
 
   /* X_r */
@@ -440,7 +441,6 @@ int ec_GFp_simple_dbl(const EC_GROUP *group, EC_POINT *r, const EC_POINT *a,
 
   if (EC_POINT_is_at_infinity(group, a)) {
     BN_zero(&r->Z);
-    r->Z_is_one = 0;
     return 1;
   }
 
@@ -464,13 +464,15 @@ int ec_GFp_simple_dbl(const EC_GROUP *group, EC_POINT *r, const EC_POINT *a,
     goto err;
   }
 
+  const int Z_is_one = ec_point_Z_is_one(group, a);
+
   /* Note that in this function we must not read components of 'a'
    * once we have written the corresponding components of 'r'.
    * ('r' might the same as 'a'.)
    */
 
   /* n1 */
-  if (a->Z_is_one) {
+  if (Z_is_one) {
     if (!field_sqr(group, n0, &a->X, ctx) ||
         !BN_mod_lshift1_quick(n1, n0, p) ||
         !BN_mod_add_quick(n0, n0, n1, p) ||
@@ -493,7 +495,7 @@ int ec_GFp_simple_dbl(const EC_GROUP *group, EC_POINT *r, const EC_POINT *a,
   }
 
   /* Z_r */
-  if (a->Z_is_one) {
+  if (Z_is_one) {
     if (!BN_copy(n0, &a->Y)) {
       goto err;
     }
@@ -503,7 +505,6 @@ int ec_GFp_simple_dbl(const EC_GROUP *group, EC_POINT *r, const EC_POINT *a,
   if (!BN_mod_lshift1_quick(&r->Z, n0, p)) {
     goto err;
   }
-  r->Z_is_one = 0;
   /* Z_r = 2 * Y_a * Z_a */
 
   /* n2 */
@@ -562,7 +563,9 @@ int ec_GFp_simple_make_affine(const EC_GROUP *group, EC_POINT *point,
   BIGNUM *x, *y;
   int ret = 0;
 
-  if (point->Z_is_one || EC_POINT_is_at_infinity(group, point)) {
+  const int Z_is_one = ec_point_Z_is_one(group, point);
+
+  if (Z_is_one || EC_POINT_is_at_infinity(group, point)) {
     return 1;
   }
 
@@ -584,7 +587,7 @@ int ec_GFp_simple_make_affine(const EC_GROUP *group, EC_POINT *point,
       !EC_POINT_set_affine_coordinates_GFp(group, point, x, y, ctx)) {
     goto err;
   }
-  if (!point->Z_is_one) {
+  if (!Z_is_one) {
     OPENSSL_PUT_ERROR(EC, ec_GFp_simple_make_affine, ERR_R_INTERNAL_ERROR);
     goto err;
   }
@@ -718,7 +721,6 @@ int ec_GFp_simple_points_make_affine(const EC_GROUP *group, size_t num,
       if (!group->meth->field_set_to_one(group, &p->Z, ctx)) {
         goto err;
       }
-      p->Z_is_one = 1;
     }
   }
 
