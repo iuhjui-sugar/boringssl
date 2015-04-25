@@ -149,6 +149,10 @@ int RAND_pseudo_bytes(uint8_t *buf, size_t len) {
 
 void RAND_seed(const void *buf, int num) {}
 
+int RAND_load_file(const char *path, int num {
+  return 1;
+}
+
 void RAND_add(const void *buf, int num, double entropy) {}
 
 int RAND_poll(void) {

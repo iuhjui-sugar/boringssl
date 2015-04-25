@@ -41,7 +41,10 @@ OPENSSL_EXPORT int RAND_pseudo_bytes(uint8_t *buf, size_t len);
 /* RAND_seed does nothing. */
 OPENSSL_EXPORT void RAND_seed(const void *buf, int num);
 
-/* RAND_add does nothing. */
+/* RAND_load_file returns one. */
+OPENSSL_EXPORT int RAND_load_file(const char *path, int num);
+
+  /* RAND_add does nothing. */
 OPENSSL_EXPORT void RAND_add(const void *buf, int num, double entropy);
 
 /* RAND_poll returns one. */
