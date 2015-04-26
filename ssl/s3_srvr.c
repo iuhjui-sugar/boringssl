@@ -2230,7 +2230,7 @@ int ssl3_get_client_certificate(SSL *s) {
   int is_first_certificate = 1;
 
   n = s->method->ssl_get_message(s, SSL3_ST_SR_CERT_A, SSL3_ST_SR_CERT_B, -1,
-                                 s->max_cert_list, ssl_hash_message, &ok);
+                                 (long)s->max_cert_list, ssl_hash_message, &ok);
 
   if (!ok) {
     return n;
