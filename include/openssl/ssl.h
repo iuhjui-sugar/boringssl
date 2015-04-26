@@ -854,7 +854,7 @@ struct ssl_ctx_st {
 
   uint32_t options;
   uint32_t mode;
-  long max_cert_list;
+  uint32_t max_cert_list;
 
   struct cert_st /* CERT */ *cert;
   int read_ahead;
@@ -894,7 +894,7 @@ struct ssl_ctx_st {
 
   /* Maximum amount of data to send in one fragment. actual record size can be
    * more than this due to padding and MAC overheads. */
-  unsigned int max_send_fragment;
+  uint16_t max_send_fragment;
 
   /* TLS extensions servername callback */
   int (*tlsext_servername_callback)(SSL *, int *, void *);
@@ -1337,10 +1337,10 @@ struct ssl_st {
 
   uint32_t options; /* protocol behaviour */
   uint32_t mode;    /* API behaviour */
-  long max_cert_list;
+  uint32_t max_cert_list;
   int client_version; /* what was passed, used for
                        * SSLv3/TLS rollback check */
-  unsigned int max_send_fragment;
+  uint16_t max_send_fragment;
   char *tlsext_hostname;
   /* should_ack_sni is true if the SNI extension should be acked. This is
    * only used by a server. */
@@ -1581,11 +1581,6 @@ DECLARE_PEM_rw(SSL_SESSION, SSL_SESSION)
 #define SSL_CTRL_GET_SESS_CACHE_SIZE 43
 #define SSL_CTRL_SET_SESS_CACHE_MODE 44
 #define SSL_CTRL_GET_SESS_CACHE_MODE 45
-
-#define SSL_CTRL_GET_MAX_CERT_LIST 50
-#define SSL_CTRL_SET_MAX_CERT_LIST 51
-
-#define SSL_CTRL_SET_MAX_SEND_FRAGMENT 52
 
 /* see tls1.h for macros based on these */
 #define SSL_CTRL_SET_TLSEXT_SERVERNAME_ARG 54
@@ -2135,19 +2130,37 @@ OPENSSL_EXPORT int SSL_get_ex_data_X509_STORE_CTX_idx(void);
  * is resolved. */
 OPENSSL_EXPORT int SSL_CTX_get_read_ahead(const SSL_CTX *ctx);
 OPENSSL_EXPORT void SSL_CTX_set_read_ahead(SSL_CTX *ctx, int yes);
-#define SSL_CTX_get_max_cert_list(ctx) \
-  SSL_CTX_ctrl(ctx, SSL_CTRL_GET_MAX_CERT_LIST, 0, NULL)
-#define SSL_CTX_set_max_cert_list(ctx, m) \
-  SSL_CTX_ctrl(ctx, SSL_CTRL_SET_MAX_CERT_LIST, m, NULL)
-#define SSL_get_max_cert_list(ssl) \
-  SSL_ctrl(ssl, SSL_CTRL_GET_MAX_CERT_LIST, 0, NULL)
-#define SSL_set_max_cert_list(ssl, m) \
-  SSL_ctrl(ssl, SSL_CTRL_SET_MAX_CERT_LIST, m, NULL)
 
-#define SSL_CTX_set_max_send_fragment(ctx, m) \
-  SSL_CTX_ctrl(ctx, SSL_CTRL_SET_MAX_SEND_FRAGMENT, m, NULL)
-#define SSL_set_max_send_fragment(ssl, m) \
-  SSL_ctrl(ssl, SSL_CTRL_SET_MAX_SEND_FRAGMENT, m, NULL)
+/* SSL_CTX_get_max_cert_list returns the maximum length of a certificate chain
+ * for |ctx|. */
+OPENSSL_EXPORT size_t SSL_CTX_get_max_cert_list(const SSL_CTX *ctx);
+
+/* SSL_CTX_set_max_cert_list sets the maximum length of a certificate chain to
+ * |max_cert_list|. This controls how much memory may be consumed during the
+ * handshake. */
+OPENSSL_EXPORT void SSL_CTX_set_max_cert_list(SSL_CTX *ctx,
+                                              size_t max_cert_list);
+
+/* SSL_get_max_cert_list returns the maximum length of a certificate chain
+ * for |ssl|. */
+OPENSSL_EXPORT size_t SSL_get_max_cert_list(const SSL *ssl);
+
+/* SSL_set_max_cert_list sets the maximum length of a certificate chain to
+ * |max_cert_list|. This controls how much memory may be consumed during the
+ * handshake. */
+OPENSSL_EXPORT void SSL_set_max_cert_list(SSL *ssl, size_t max_cert_list);
+
+/* SSL_CTX_set_max_send_fragment sets the maximum size of records sent by |ctx|.
+ * Handshake messages and application data will be fragmented beyond this
+ * size. */
+OPENSSL_EXPORT void SSL_CTX_set_max_send_fragment(SSL_CTX *ctx,
+                                                  size_t max_send_fragment);
+
+/* SSL_set_max_send_fragment sets the maximum size of records sent by |ctx|.
+ * Handshake messages and application data will be fragmented beyond this
+ * size. */
+OPENSSL_EXPORT void SSL_set_max_send_fragment(SSL *ssl,
+                                              size_t max_send_fragment);
 
 /* SSL_CTX_set_tmp_dh_callback configures |ctx| to use |callback| to determine
  * the group for DHE ciphers. |callback| should ignore |is_export| and
@@ -2364,6 +2377,9 @@ OPENSSL_EXPORT const char *SSLeay_version(int unused);
 #define SSL_CTRL_MODE 33
 #define SSL_CTRL_GET_READ_AHEAD 40
 #define SSL_CTRL_SET_READ_AHEAD 41
+#define SSL_CTRL_GET_MAX_CERT_LIST 50
+#define SSL_CTRL_SET_MAX_CERT_LIST 51
+#define SSL_CTRL_SET_MAX_SEND_FRAGMENT 52
 #define SSL_CTRL_SET_TLSEXT_SERVERNAME_CB 53
 #define SSL_CTRL_SET_TLSEXT_TICKET_KEY_CB 72
 #define DTLS_CTRL_GET_TIMEOUT 73
@@ -2383,6 +2399,12 @@ OPENSSL_EXPORT const char *SSLeay_version(int unused);
 #define SSL_set_mode SSL_set_mode
 #define SSL_CTX_get_read_ahead SSL_CTX_get_read_ahead
 #define SSL_CTX_set_read_ahead SSL_CTX_set_read_ahead
+#define SSL_CTX_get_max_cert_list SSL_CTX_get_max_cert_list
+#define SSL_get_max_cert_list SSL_get_max_cert_list
+#define SSL_CTX_set_max_cert_list SSL_CTX_set_max_cert_list
+#define SSL_set_max_cert_list SSL_set_max_cert_list
+#define SSL_CTX_set_max_send_fragment SSL_CTX_set_max_send_fragment
+#define SSL_set_max_send_fragment SSL_set_max_send_fragment
 #define SSL_CTX_set_tlsext_servername_callback \
     SSL_CTX_set_tlsext_servername_callback
 #define SSL_CTX_set_tlsext_ticket_key_cb SSL_CTX_set_tlsext_ticket_key_cb
