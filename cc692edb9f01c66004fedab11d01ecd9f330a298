@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "108c1686_10624487",
+        "filename": "include/openssl/rand.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-04-28T21:24:28Z",
+      "side": 1,
+      "message": "I think this should return:\n\n1, if num \u003c 0\nnum, if num \u003c\u003d INT_MAX\nINT_MAX otherwise.\n\nThe upstream file returns the number of bytes read and some things (e.g. cURL) care about that.",
+      "revId": "cc692edb9f01c66004fedab11d01ecd9f330a298",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "108c1686_904dd420",
+        "filename": "include/openssl/rand.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-04-28T21:24:28Z",
+      "side": 1,
+      "message": "long",
+      "range": {
+        "startLine": 45,
+        "startChar": 52,
+        "endLine": 45,
+        "endChar": 55
+      },
+      "revId": "cc692edb9f01c66004fedab11d01ecd9f330a298",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
