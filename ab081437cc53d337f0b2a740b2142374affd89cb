@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0d42a38_34417af9",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1816,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-04-28T20:18:54Z",
+      "side": 1,
+      "message": "Could thus just be #defined to be 1? Then SSL_CTRL_SET_ECDH_AUTO can be removed and so can the code in the ctrl switch. Up to you.",
+      "revId": "ab081437cc53d337f0b2a740b2142374affd89cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
