@@ -92,6 +92,10 @@ OPENSSL_EXPORT const EVP_MD *EVP_md5_sha1(void);
  * such digest is known. */
 OPENSSL_EXPORT const EVP_MD *EVP_get_digestbynid(int nid);
 
+/* EVP_get_cipherbyname returns an |EVP_MD| given a human readable name in
+ * |name|, or NULL if the name is unknown. */
+OPENSSL_EXPORT const EVP_MD *EVP_get_digestbyname(const char *);
+
 /* EVP_get_digestbyobj returns an |EVP_MD| for the given |ASN1_OBJECT|, or NULL
  * if no such digest is known. */
 OPENSSL_EXPORT const EVP_MD *EVP_get_digestbyobj(const ASN1_OBJECT *obj);
