@@ -793,3 +793,5 @@ void ERR_load_crypto_strings(void) {}
 void ERR_free_strings(void) {}
 
 void ERR_load_BIO_strings(void) {}
+
+void ERR_load_ERR_strings(void) {}
