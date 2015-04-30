@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "905806e7_5e369593",
+        "filename": "BUILDING",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-30T21:53:10Z",
+      "side": 1,
+      "message": "I don\u0027t suppose you know why it needs to be run twice?",
+      "range": {
+        "startLine": 65,
+        "startChar": 52,
+        "endLine": 65,
+        "endChar": 57
+      },
+      "revId": "efe1d307a7cdc9b0cac017f4546643e929a4296c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "905806e7_1ee81d26",
+        "filename": "BUILDING",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-30T21:53:10Z",
+      "side": 1,
+      "message": "[Confirmed this works]",
+      "revId": "efe1d307a7cdc9b0cac017f4546643e929a4296c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "905806e7_9e3bad7d",
+        "filename": "crypto/CMakeLists.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-30T21:53:10Z",
+      "side": 1,
+      "message": "Why isn\u0027t this wanted on Android? I thought it was just a Linux system.",
+      "revId": "efe1d307a7cdc9b0cac017f4546643e929a4296c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "905806e7_de6cc58a",
+        "filename": "tool/CMakeLists.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-04-30T21:53:10Z",
+      "side": 1,
+      "message": "I just tried without this on Linux and it built just fine. It dates to the initial comment. Do you know what it was added for? Maybe we can just remove it everywhere.",
+      "revId": "efe1d307a7cdc9b0cac017f4546643e929a4296c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
