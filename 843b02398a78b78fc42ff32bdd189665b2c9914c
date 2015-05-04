@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5065aec2_89b0a5bc",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-04T19:19:26Z",
+      "side": 1,
+      "message": "Alternatively, we could remember to check OPENSSL_NO_ASM everywhere we use perlasm, but this seemed simpler. Even though it does preclude the possibility of non-assembly arch-specific bits.",
+      "revId": "843b02398a78b78fc42ff32bdd189665b2c9914c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
