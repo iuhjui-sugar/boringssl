@@ -1,0 +1,176 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d026fe9b_d271515e",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 2134,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-05T19:22:38Z",
+      "side": 1,
+      "message": ", in bytes,",
+      "range": {
+        "startLine": 2134,
+        "startChar": 55,
+        "endLine": 2134,
+        "endChar": 56
+      },
+      "revId": "988b59a646fe5b7117cfbb25ed6796bd3de869ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d026fe9b_b26cd589",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 2138,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-05T19:22:38Z",
+      "side": 1,
+      "message": ", in bytes,",
+      "range": {
+        "startLine": 2138,
+        "startChar": 52,
+        "endLine": 2138,
+        "endChar": 53
+      },
+      "revId": "988b59a646fe5b7117cfbb25ed6796bd3de869ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d026fe9b_127cc932",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 2144,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-05T19:22:38Z",
+      "side": 1,
+      "message": "(ditto)",
+      "range": {
+        "startLine": 2144,
+        "startChar": 51,
+        "endLine": 2144,
+        "endChar": 52
+      },
+      "revId": "988b59a646fe5b7117cfbb25ed6796bd3de869ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d026fe9b_527e412b",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 2148,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-05T19:22:38Z",
+      "side": 1,
+      "message": "(ditto)",
+      "range": {
+        "startLine": 2148,
+        "startChar": 48,
+        "endLine": 2148,
+        "endChar": 49
+      },
+      "revId": "988b59a646fe5b7117cfbb25ed6796bd3de869ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d026fe9b_9288b9bb",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 2153,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-05T19:22:38Z",
+      "side": 1,
+      "message": ", in bytes,",
+      "range": {
+        "startLine": 2153,
+        "startChar": 54,
+        "endLine": 2153,
+        "endChar": 55
+      },
+      "revId": "988b59a646fe5b7117cfbb25ed6796bd3de869ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d026fe9b_f24d6d1f",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 2159,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-05T19:22:38Z",
+      "side": 1,
+      "message": ", in bytes,",
+      "range": {
+        "startLine": 2159,
+        "startChar": 50,
+        "endLine": 2159,
+        "endChar": 51
+      },
+      "revId": "988b59a646fe5b7117cfbb25ed6796bd3de869ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d026fe9b_12ce8902",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 1015,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-05T19:22:38Z",
+      "side": 1,
+      "message": "(At file-level:)\n\n/* The protocol specifies that no handshake message may exceed kMaxHandshakeSize. */\nstatic const size_t kMaxHandshakeSize \u003d (1u \u003c\u003c 24) - 1;\n\n(At function-level:)\n\nif (max_cert_list \u003e kMaxHandshakeSize) {\n  max_cert_list \u003d kMaxHandshakeSize;\n}",
+      "revId": "988b59a646fe5b7117cfbb25ed6796bd3de869ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d026fe9b_b2a5b52d",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 1027,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-05T19:22:38Z",
+      "side": 1,
+      "message": "(ditto)",
+      "revId": "988b59a646fe5b7117cfbb25ed6796bd3de869ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
