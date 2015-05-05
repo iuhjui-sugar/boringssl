@@ -114,6 +114,11 @@ void EVP_PKEY_free(EVP_PKEY *pkey) {
   OPENSSL_free(pkey);
 }
 
+EVP_PKEY *EVP_PKEY_up_ref(EVP_PKEY *pkey) {
+  CRYPTO_add(&pkey->references, 1, CRYPTO_LOCK_EVP_PKEY);
+  return pkey;
+}
+
 int EVP_PKEY_is_opaque(const EVP_PKEY *pkey) {
   if (pkey->ameth && pkey->ameth->pkey_opaque) {
     return pkey->ameth->pkey_opaque(pkey);
