@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4de8b565_429e123a",
+        "filename": "crypto/evp/evp.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-05T17:47:56Z",
+      "side": 1,
+      "message": "Nit: toss this near the end of the file to match the header order? (Looks like it\u0027s just above OpenSSL_add_all_algorithms.)",
+      "revId": "5c3cd60e79f7e3a56c7df1a3dccdf2a96f58732f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
