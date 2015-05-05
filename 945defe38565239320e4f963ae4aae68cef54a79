@@ -16,6 +16,24 @@
       "revId": "945defe38565239320e4f963ae4aae68cef54a79",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d026fe9b_00d8faf2",
+        "filename": "crypto/aes/asm/aesv8-armx.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-05T00:27:52Z",
+      "side": 1,
+      "message": "If the arch isn\u0027t specified somehow Clang will throw an error for each crypto instruction saying that the instruction isn\u0027t supported by the current arch.\n\nRather than worry too much about this in perlasm (esp since we risk having different prebuilt asm directories for gcc and clang then), I think the preprocessor trick is probably best.",
+      "parentUuid": "90fba685_a054e225",
+      "revId": "945defe38565239320e4f963ae4aae68cef54a79",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
