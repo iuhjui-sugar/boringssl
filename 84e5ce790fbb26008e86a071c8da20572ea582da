@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d026fe9b_4190311a",
+        "filename": "include/openssl/evp.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-05T17:37:40Z",
+      "side": 1,
+      "message": "This already exists as EVP_PKEY_dup. Sadly, both names exist for different types in upstream. I wouldn\u0027t be opposed to adding this and demoting _dup to a deprecated alias. At a glance, it seems EVP_PKEY is the only _dup in upstream\u0027s API which is secretly an _up_ref. We could also just leave EVP_PKEY in the status quo.",
+      "revId": "84e5ce790fbb26008e86a071c8da20572ea582da",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
