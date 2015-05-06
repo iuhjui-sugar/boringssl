@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0d595d45_485abfd6",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-06T02:17:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d026fe9b_921d1992",
+      "revId": "70cdd5014265f1df7f5ffc88e063cc9460aede42",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d026fe9b_9278b9bd",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2015-05-05T19:01:10Z",
       "side": 1,
       "message": "SSL_CTX_clear_options disables all options set in |options| (which should be one or more of the |SSL_OP_*| values, ORed together) for |ctx|. It returns a bitmask representing the resulting, enabled options.",
+      "revId": "70cdd5014265f1df7f5ffc88e063cc9460aede42",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d595d45_0854c7a6",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-06T02:17:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d026fe9b_9278b9bd",
       "revId": "70cdd5014265f1df7f5ffc88e063cc9460aede42",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "0d595d45_e8685369",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-06T02:17:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d026fe9b_3258e55a",
+      "revId": "70cdd5014265f1df7f5ffc88e063cc9460aede42",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d026fe9b_5255611f",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 4
@@ -64,6 +118,24 @@
       "writtenOn": "2015-05-05T19:01:10Z",
       "side": 1,
       "message": "(ditto)",
+      "revId": "70cdd5014265f1df7f5ffc88e063cc9460aede42",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d595d45_a8625b85",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-06T02:17:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d026fe9b_5255611f",
       "revId": "70cdd5014265f1df7f5ffc88e063cc9460aede42",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "0d595d45_885f97bf",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 587,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-06T02:17:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d026fe9b_72525d3a",
+      "revId": "70cdd5014265f1df7f5ffc88e063cc9460aede42",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d026fe9b_924fd991",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 4
@@ -98,6 +188,24 @@
       "writtenOn": "2015-05-05T19:01:10Z",
       "side": 1,
       "message": "(ditto)",
+      "revId": "70cdd5014265f1df7f5ffc88e063cc9460aede42",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d595d45_68bea348",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-06T02:17:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d026fe9b_924fd991",
       "revId": "70cdd5014265f1df7f5ffc88e063cc9460aede42",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "0d595d45_28c8abf4",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-06T02:17:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d026fe9b_b295b53f",
+      "revId": "70cdd5014265f1df7f5ffc88e063cc9460aede42",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d026fe9b_328aa51e",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 4
@@ -132,6 +258,24 @@
       "writtenOn": "2015-05-05T19:01:10Z",
       "side": 1,
       "message": "SSL_CTX_clear_mode disables all modes set in |mode| (which should be one or more of the |SSL_MODE_*| values, ORed together) for |ctx|. It returns a bitmask representing the resulting, enabled modes.",
+      "revId": "70cdd5014265f1df7f5ffc88e063cc9460aede42",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d595d45_08a60737",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-06T02:17:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d026fe9b_328aa51e",
       "revId": "70cdd5014265f1df7f5ffc88e063cc9460aede42",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "0d595d45_e89a93e9",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-06T02:17:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d026fe9b_52872113",
+      "revId": "70cdd5014265f1df7f5ffc88e063cc9460aede42",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d026fe9b_32054514",
         "filename": "ssl/ssl_lib.c",
         "patchSetId": 4
@@ -166,6 +328,24 @@
       "writtenOn": "2015-05-05T19:01:10Z",
       "side": 1,
       "message": "blank line between functions.",
+      "revId": "70cdd5014265f1df7f5ffc88e063cc9460aede42",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d595d45_a8949bbd",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-06T02:17:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d026fe9b_32054514",
       "revId": "70cdd5014265f1df7f5ffc88e063cc9460aede42",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
