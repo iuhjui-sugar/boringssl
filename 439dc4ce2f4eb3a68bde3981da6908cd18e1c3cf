@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4d8435cc_17b386db",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-06T22:53:15Z",
+      "side": 1,
+      "message": "I don\u0027t understand why \"10\". Should this be |l|?\n\n(Not going to stop the series for this.)",
+      "range": {
+        "startLine": 310,
+        "startChar": 41,
+        "endLine": 310,
+        "endChar": 43
+      },
+      "revId": "439dc4ce2f4eb3a68bde3981da6908cd18e1c3cf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d8435cc_f7a70288",
+        "filename": "ssl/ssl_cert.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 839,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-06T22:53:15Z",
+      "side": 1,
+      "message": "This auto-chaining is a pretty superfluous feature—esp since it appears to calculate the chain every time.",
+      "revId": "439dc4ce2f4eb3a68bde3981da6908cd18e1c3cf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
