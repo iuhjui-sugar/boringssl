@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4d8435cc_e9cc06e7",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-06T23:25:33Z",
+      "side": 1,
+      "message": "Ack. I\u0027m not quite sure that I understand the need here. I work in a Chromium checkout and use git diff to review perlasm changes.",
+      "parentUuid": "4d8435cc_65c82028",
+      "range": {
+        "startLine": 15,
+        "startChar": 38,
+        "endLine": 15,
+        "endChar": 41
+      },
+      "revId": "8f3acdcdff06ee3a10f3997534cbb56f9f1f49a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0d595d45_31249266",
         "filename": "util/generate_build_files.py",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2015-05-06T20:18:27Z",
       "side": 1,
       "message": "generate_build_files",
+      "range": {
+        "startLine": 56,
+        "startChar": 26,
+        "endLine": 56,
+        "endChar": 45
+      },
+      "revId": "8f3acdcdff06ee3a10f3997534cbb56f9f1f49a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d8435cc_89fbfaf5",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-06T23:25:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d595d45_31249266",
       "range": {
         "startLine": 56,
         "startChar": 26,
