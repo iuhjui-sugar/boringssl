@@ -789,3 +789,7 @@ void ERR_free_strings(void) {}
 void ERR_load_BIO_strings(void) {}
 
 void ERR_load_ERR_strings(void) {}
+
+void ERR_remove_state(unsigned long pid) {
+  ERR_clear_error();
+}
