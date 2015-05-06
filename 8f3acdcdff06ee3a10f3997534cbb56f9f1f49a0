@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4d8435cc_65c82028",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-06T20:18:27Z",
+      "side": 1,
+      "message": "It might be nice to later rework this so, say, src was derived from __file__ and the output was cwd or maybe an argument. But this is fine. (Mostly I\u0027m thinking to make it easier to preview the result of a perlasm change. I normally work in a checkout completely detached from Chromium, which made previewing all the ARM perlasm gunk harder.)",
+      "range": {
+        "startLine": 15,
+        "startChar": 38,
+        "endLine": 15,
+        "endChar": 41
+      },
+      "revId": "8f3acdcdff06ee3a10f3997534cbb56f9f1f49a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d595d45_31249266",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-06T20:18:27Z",
+      "side": 1,
+      "message": "generate_build_files",
+      "range": {
+        "startLine": 56,
+        "startChar": 26,
+        "endLine": 56,
+        "endChar": 45
+      },
+      "revId": "8f3acdcdff06ee3a10f3997534cbb56f9f1f49a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
