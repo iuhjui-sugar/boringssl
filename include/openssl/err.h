@@ -285,6 +285,12 @@ OPENSSL_EXPORT void ERR_remove_thread_state(const CRYPTO_THREADID *tid);
 OPENSSL_EXPORT int ERR_get_next_error_library(void);
 
 
+/* Deprecated functions. */
+
+/* |ERR_remove_state| does nothing. */
+OPENSSL_EXPORT void ERR_remove_state(unsigned long pid);
+
+
 /* Private functions. */
 
 /* ERR_clear_system_error clears the system's error value (i.e. errno). */
@@ -494,15 +500,6 @@ enum {
  * |OPENSSL_PUT_ERROR| * macro. The resulting define will be
  * ${lib}_F_${reason}. */
 #define OPENSSL_DECLARE_ERROR_FUNCTION(lib, function_name)
-
-
-/* Android compatibility section.
- *
- * These functions are declared, temporarily, for Android because
- * wpa_supplicant will take a little time to sync with upstream. Outside of
- * Android they'll have no definition. */
-
-OPENSSL_EXPORT void ERR_remove_state(unsigned long pid);
 
 
 #if defined(__cplusplus)
