@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ed5b293d_90cc5ae6",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-06T23:14:08Z",
+      "side": 1,
+      "message": "I suspect it\u0027s a made up number. :-) I agree that l is correct. I\u0027ll go upload a CL for that, though it\u0027s a no-op anyway because init_buf starts out large enough and the majority of this logic doesn\u0027t check such things. It\u0027ll all kind of a mess.",
+      "parentUuid": "4d8435cc_17b386db",
+      "range": {
+        "startLine": 310,
+        "startChar": 41,
+        "endLine": 310,
+        "endChar": 43
+      },
+      "revId": "439dc4ce2f4eb3a68bde3981da6908cd18e1c3cf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d8435cc_f7a70288",
         "filename": "ssl/ssl_cert.c",
         "patchSetId": 3
@@ -36,6 +60,24 @@
       "writtenOn": "2015-05-06T22:53:15Z",
       "side": 1,
       "message": "This auto-chaining is a pretty superfluous feature—esp since it appears to calculate the chain every time.",
+      "revId": "439dc4ce2f4eb3a68bde3981da6908cd18e1c3cf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed5b293d_d0c2d2b3",
+        "filename": "ssl/ssl_cert.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 839,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-06T23:14:08Z",
+      "side": 1,
+      "message": "Agreed. I\u0027d like to try to get rid both of that and having multiple slots of CERT_PKEYs for each key type. The latter isn\u0027t in itself an inherently pointless feature, but the early callback (or cert_cb) can do the same thing and take more things into account.\n\nIt\u0027s also unlikely that anything was using it. Apache does expose this, but before 1.0.2 there was no way to configure a separate chain per slot. You either used the auto-chaining feature or you appended extra_chains which is always the same for each slot.",
+      "parentUuid": "4d8435cc_f7a70288",
       "revId": "439dc4ce2f4eb3a68bde3981da6908cd18e1c3cf",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
