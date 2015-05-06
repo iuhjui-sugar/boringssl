@@ -1,0 +1,238 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d595d45_51c70649",
+        "filename": "crypto/cmac/cmac.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-06T19:58:36Z",
+      "side": 1,
+      "message": "This can legitimately fail due to malloc failures within EVP_CIPHER_CTX.",
+      "revId": "ccbabefed8648d62a94a27f558011bffc47d7a32",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d595d45_11d18eff",
+        "filename": "crypto/cmac/cmac.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-06T19:58:36Z",
+      "side": 1,
+      "message": "Nit: line 110 uses !\u003d NULL",
+      "revId": "ccbabefed8648d62a94a27f558011bffc47d7a32",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d595d45_2e879369",
+        "filename": "crypto/cmac/cmac.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-06T19:58:36Z",
+      "side": 1,
+      "message": ".",
+      "range": {
+        "startLine": 134,
+        "startChar": 43,
+        "endLine": 134,
+        "endChar": 44
+      },
+      "revId": "ccbabefed8648d62a94a27f558011bffc47d7a32",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d595d45_91bc5ea8",
+        "filename": "crypto/cmac/cmac.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-06T19:58:36Z",
+      "side": 1,
+      "message": "|in|?",
+      "range": {
+        "startLine": 134,
+        "startChar": 11,
+        "endLine": 134,
+        "endChar": 18
+      },
+      "revId": "ccbabefed8648d62a94a27f558011bffc47d7a32",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d595d45_11a3ce7f",
+        "filename": "crypto/cmac/cmac.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-06T19:58:36Z",
+      "side": 1,
+      "message": "Any reason not to cut out c and next_c and just write\n\n  for (i \u003d 0; i \u003c 15; i++) {\n    out[i] \u003d (in[i] \u003c\u003c 1) | (in[i+1] \u003e\u003e 7);\n  }",
+      "revId": "ccbabefed8648d62a94a27f558011bffc47d7a32",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d595d45_0e8ccf87",
+        "filename": "crypto/cmac/cmac.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-06T19:58:36Z",
+      "side": 1,
+      "message": ".",
+      "range": {
+        "startLine": 140,
+        "startChar": 28,
+        "endLine": 140,
+        "endChar": 29
+      },
+      "revId": "ccbabefed8648d62a94a27f558011bffc47d7a32",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d595d45_d1a41686",
+        "filename": "crypto/cmac/cmac.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-06T19:58:36Z",
+      "side": 1,
+      "message": "Probably also good to do\n\n  EVP_CIPHER_key_length(cipher) !\u003d key_len\n\nsince you\u0027re passed it in and everything.",
+      "revId": "ccbabefed8648d62a94a27f558011bffc47d7a32",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d595d45_eea05bea",
+        "filename": "crypto/cmac/cmac.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-06T19:58:36Z",
+      "side": 1,
+      "message": ".",
+      "range": {
+        "startLine": 159,
+        "startChar": 53,
+        "endLine": 159,
+        "endChar": 54
+      },
+      "revId": "ccbabefed8648d62a94a27f558011bffc47d7a32",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d595d45_9187bee2",
+        "filename": "crypto/cmac/cmac.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-06T19:58:36Z",
+      "side": 1,
+      "message": "This comment isn\u0027t right, is it? (Rather if in_len \u003e 0 then we must have ctx-\u003eblock_used \u003d\u003d AES_BLOCK_SIZE.) Maybe s/must/may still/.",
+      "revId": "ccbabefed8648d62a94a27f558011bffc47d7a32",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d595d45_717d6a69",
+        "filename": "crypto/cmac/cmac.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-06T19:58:36Z",
+      "side": 1,
+      "message": "Probably worth a\n\n  assert(ctx-\u003eblock_used \u003d\u003d AES_BLOCK_SIZE);\n\nbecause it\u0027s not immediately obvious this invariant holds.",
+      "revId": "ccbabefed8648d62a94a27f558011bffc47d7a32",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d595d45_4e92c7a7",
+        "filename": "include/openssl/cmac.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-06T19:58:36Z",
+      "side": 1,
+      "message": "Add to doc.config?",
+      "revId": "ccbabefed8648d62a94a27f558011bffc47d7a32",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d595d45_4ea9a7dd",
+        "filename": "include/openssl/cmac.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-06T19:58:36Z",
+      "side": 1,
+      "message": "Nit: align to parens",
+      "range": {
+        "startLine": 58,
+        "startChar": 12,
+        "endLine": 58,
+        "endChar": 14
+      },
+      "revId": "ccbabefed8648d62a94a27f558011bffc47d7a32",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
