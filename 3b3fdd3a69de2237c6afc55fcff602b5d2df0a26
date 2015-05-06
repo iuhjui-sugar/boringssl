@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0d595d45_c87c6f33",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-06T02:17:54Z",
+      "side": 1,
+      "message": "Done. Although this callback is kind of ridiculous.",
+      "parentUuid": "d026fe9b_37361793",
+      "revId": "3b3fdd3a69de2237c6afc55fcff602b5d2df0a26",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d026fe9b_573393a1",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2015-05-05T18:44:54Z",
       "side": 1,
       "message": "ditto.",
+      "revId": "3b3fdd3a69de2237c6afc55fcff602b5d2df0a26",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d595d45_a8893bbf",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-06T02:17:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d026fe9b_573393a1",
       "revId": "3b3fdd3a69de2237c6afc55fcff602b5d2df0a26",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
