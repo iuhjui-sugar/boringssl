@@ -14,7 +14,7 @@
 
 #include "internal.h"
 
-#if defined(OPENSSL_WINDOWS)
+#if defined(OPENSSL_WINDOWS) && !defined(OPENSSL_NO_THREADS)
 
 #pragma warning(push, 3)
 #include <windows.h>
@@ -280,4 +280,4 @@ int CRYPTO_set_thread_local(thread_local_data_t index, void *value,
   return 1;
 }
 
-#endif  /* OPENSSL_WINDOWS */
+#endif  /* OPENSSL_WINDOWS && !OPENSSL_NO_THREADS */
