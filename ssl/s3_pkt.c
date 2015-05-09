@@ -278,13 +278,6 @@ static int ssl3_get_record(SSL *s) {
     extra = 0;
   }
 
-  if (extra && !s->s3->init_extra) {
-    /* An application error: SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER set after
-     * ssl3_setup_buffers() was done */
-    OPENSSL_PUT_ERROR(SSL, ssl3_get_record, ERR_R_INTERNAL_ERROR);
-    return -1;
-  }
-
 again:
   /* check if we have the header */
   if (s->rstate != SSL_ST_READ_BODY ||
@@ -294,6 +287,13 @@ again:
       return n; /* error or non-blocking */
     }
     s->rstate = SSL_ST_READ_BODY;
+
+    if (!extra == s->s3->init_extra) {
+      /* An application error: SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER was set or
+       * unset after ssl3_setup_read_buffer was called. */
+      OPENSSL_PUT_ERROR(SSL, ssl3_get_record, ERR_R_INTERNAL_ERROR);
+      return -1;
+    }
 
     p = s->packet;
     if (s->msg_callback) {
@@ -776,11 +776,6 @@ int ssl3_read_bytes(SSL *s, int type, uint8_t *buf, int len, int peek) {
       OPENSSL_PUT_ERROR(SSL, ssl3_read_bytes, SSL_R_SSL_HANDSHAKE_FAILURE);
       return -1;
     }
-  }
-
-  if (s->s3->rbuf.buf == NULL && !ssl3_setup_read_buffer(s)) {
-    /* TODO(davidben): Is this redundant with the calls in the handshake? */
-    return -1;
   }
 
 start:
