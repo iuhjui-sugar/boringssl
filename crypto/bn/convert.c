@@ -54,6 +54,11 @@
  * copied and put under another distribution licence
  * [including the GNU Public Licence.] */
 
+/* For BIGNUM format macros. */
+#if !defined(__STDC_FORMAT_MACROS)
+#define __STDC_FORMAT_MACROS
+#endif
+
 #include <openssl/bn.h>
 
 #include <ctype.h>

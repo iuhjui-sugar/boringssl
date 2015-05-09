@@ -67,6 +67,11 @@
  * Sheueling Chang Shantz and Douglas Stebila of Sun Microsystems
  * Laboratories. */
 
+/* For BIGNUM format macros. */
+#if !defined(__STDC_FORMAT_MACROS)
+#define __STDC_FORMAT_MACROS
+#endif
+
 #include <stdio.h>
 #include <string.h>
 
