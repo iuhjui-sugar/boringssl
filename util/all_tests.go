@@ -75,6 +75,7 @@ var tests = []test{
 	{"crypto/ecdsa/ecdsa_test"},
 	{"crypto/err/err_test"},
 	{"crypto/evp/evp_extra_test"},
+	{"crypto/evp/evp_test", "crypto/evp/evp_tests.txt"},
 	{"crypto/evp/pbkdf_test"},
 	{"crypto/hkdf/hkdf_test"},
 	{"crypto/hmac/hmac_test", "crypto/hmac/hmac_tests.txt"},
