@@ -88,7 +88,7 @@ static const EVP_MD *GetDigest(const std::string &name) {
   return nullptr;
 }
 
-static bool TestHMAC(FileTest *t) {
+static bool TestHMAC(FileTest *t, void *arg) {
   const EVP_MD *digest = GetDigest(t->GetAttribute("HMAC"));
   if (digest == nullptr) {
     t->PrintLine("Unknown digest '%s'", t->GetAttribute("HMAC").c_str());
@@ -165,5 +165,5 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
-  return FileTestMain(&TestHMAC, argv[1]);
+  return FileTestMain(&TestHMAC, nullptr, argv[1]);
 }
