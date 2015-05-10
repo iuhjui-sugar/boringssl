@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad921112_6ca48309",
+        "filename": "crypto/evp/evp_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-10T23:30:12Z",
+      "side": 1,
+      "message": "(It\u0027s quite possible this is sufficiently detached from upstream\u0027s to warrant the new license, I\u0027m not sure. The original original version of this file was a stripped down version of upstream\u0027s, but I\u0027d since rewritten it several times for different iterations of file_test and post-C++ing the tests.)",
+      "revId": "d4198aa7bf6523513b59ec559afee383aaff13cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
