@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4d6d15ec_77967c4a",
+        "filename": "crypto/hmac/hmac_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-11T19:06:21Z",
+      "side": 1,
+      "message": "If the attribute is missing, GetAttribute returns an empty string and DecodeBytes considers that an empty byte string. I guess it\u0027s not actually important because one hopes that the HMAC would fail if a value was omitted.",
+      "revId": "06c0085ea49ce39c41bdc4ad6ab6f9d162052099",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d6d15ec_d752e838",
+        "filename": "crypto/test/file_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-11T19:06:21Z",
+      "side": 1,
+      "message": "why support NUL bytes in test files?",
+      "range": {
+        "startLine": 118,
+        "startChar": 33,
+        "endLine": 118,
+        "endChar": 47
+      },
+      "revId": "06c0085ea49ce39c41bdc4ad6ab6f9d162052099",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
