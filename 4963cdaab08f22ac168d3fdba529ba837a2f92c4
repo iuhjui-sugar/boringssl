@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4d6d15ec_1c808793",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-11T18:45:34Z",
+      "side": 1,
+      "message": "Should this be a !\u003d?",
+      "revId": "4963cdaab08f22ac168d3fdba529ba837a2f92c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
