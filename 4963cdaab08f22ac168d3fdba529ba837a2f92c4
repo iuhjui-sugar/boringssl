@@ -16,6 +16,24 @@
       "revId": "4963cdaab08f22ac168d3fdba529ba837a2f92c4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ddcfdfb_d00d1ced",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-11T19:11:29Z",
+      "side": 1,
+      "message": "It should be this or !!extra !\u003d s-\u003es3-\u003einit_extra. Actually, this is silly to begin with. I\u0027ll go do it differently and make extra be a function of what\u0027s currently in the buffer rather than what\u0027s currently in options. That seems less roundabout.\n\nThis needs more cleanup, but what we\u0027re interested in in this code is what the state of SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER was at the time the buffer was allocated, because that controls what our size limits for the next record should be.",
+      "parentUuid": "4d6d15ec_1c808793",
+      "revId": "4963cdaab08f22ac168d3fdba529ba837a2f92c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
