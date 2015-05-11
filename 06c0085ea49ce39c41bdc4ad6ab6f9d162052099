@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0ddcfdfb_b05f38bf",
+        "filename": "crypto/hmac/hmac_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-11T20:29:08Z",
+      "side": 1,
+      "message": "Hrm. I thought checking missing would just be unnecessary tediousness, but almost everything uses DecodeBytes anyway which already checks failure. Done.",
+      "parentUuid": "4d6d15ec_77967c4a",
+      "revId": "06c0085ea49ce39c41bdc4ad6ab6f9d162052099",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d6d15ec_d752e838",
         "filename": "crypto/test/file_test.cc",
         "patchSetId": 10
@@ -30,6 +48,30 @@
       "writtenOn": "2015-05-11T19:06:21Z",
       "side": 1,
       "message": "why support NUL bytes in test files?",
+      "range": {
+        "startLine": 118,
+        "startChar": 33,
+        "endLine": 118,
+        "endChar": 47
+      },
+      "revId": "06c0085ea49ce39c41bdc4ad6ab6f9d162052099",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ddcfdfb_50be0c48",
+        "filename": "crypto/test/file_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-11T20:29:08Z",
+      "side": 1,
+      "message": "That\u0027s to check for the empty string.",
+      "parentUuid": "4d6d15ec_d752e838",
       "range": {
         "startLine": 118,
         "startChar": 33,
