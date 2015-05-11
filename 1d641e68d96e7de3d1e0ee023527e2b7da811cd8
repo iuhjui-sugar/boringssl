@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4d6d15ec_4314d3c6",
+        "filename": "crypto/cipher/aead.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-11T22:56:38Z",
+      "side": 1,
+      "message": "Good plan. Done.",
+      "parentUuid": "0ddcfdfb_b3e50250",
+      "revId": "1d641e68d96e7de3d1e0ee023527e2b7da811cd8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0ddcfdfb_33e1124e",
         "filename": "include/openssl/aead.h",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2015-05-11T22:22:14Z",
       "side": 1,
       "message": "Should this explicitly document that it is legal to call _cleanup on a ctx that has been memset to 0, or have we not decided on that yet?",
+      "revId": "1d641e68d96e7de3d1e0ee023527e2b7da811cd8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd43c57f_7e2d71c1",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-11T22:56:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ddcfdfb_33e1124e",
       "revId": "1d641e68d96e7de3d1e0ee023527e2b7da811cd8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
