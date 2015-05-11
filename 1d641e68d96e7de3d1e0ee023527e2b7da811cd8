@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0ddcfdfb_b3e50250",
+        "filename": "crypto/cipher/aead.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-11T22:22:14Z",
+      "side": 1,
+      "message": "How about having EVP_AEAD_CTX_init* only leave ctx-\u003eaead non-NULL if that AEAD was successfully initialized? It\u0027s not what the other FOO_CTXs do, but their method tables all include the ctx size and allocate it for you.\n\nSince aead_state is managed by the EVP_AEAD implementation, I think we should say that EVP_AEAD_CTX gets to decide what that pointer means (maybe it\u0027s a reinterpret_cast\u0027d int that secretly indexes into a global hash table... nevermind that being stupid).\n\nAnd so we could instead say that, if aead-\u003einit fail, the AEAD is expected to leave the EVP_AEAD_CTX unmodified and clean up intermediate state itself (which they already do, modulo your fixes). EVP_AEAD_CTX promises only to call aead-\u003ecleanup if aead-\u003einit succeeded.",
+      "revId": "1d641e68d96e7de3d1e0ee023527e2b7da811cd8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ddcfdfb_33e1124e",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-11T22:22:14Z",
+      "side": 1,
+      "message": "Should this explicitly document that it is legal to call _cleanup on a ctx that has been memset to 0, or have we not decided on that yet?",
+      "revId": "1d641e68d96e7de3d1e0ee023527e2b7da811cd8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
