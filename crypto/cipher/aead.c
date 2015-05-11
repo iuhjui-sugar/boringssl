@@ -35,6 +35,7 @@ int EVP_AEAD_CTX_init(EVP_AEAD_CTX *ctx, const EVP_AEAD *aead,
                       ENGINE *impl) {
   if (!aead->init) {
     OPENSSL_PUT_ERROR(CIPHER, EVP_AEAD_CTX_init, CIPHER_R_NO_DIRECTION_SET);
+    memset(ctx, 0, sizeof(*ctx));
     return 0;
   }
   return EVP_AEAD_CTX_init_with_direction(ctx, aead, key, key_len, tag_len,
@@ -46,6 +47,7 @@ int EVP_AEAD_CTX_init_with_direction(EVP_AEAD_CTX *ctx, const EVP_AEAD *aead,
                                      size_t tag_len,
                                      enum evp_aead_direction_t dir) {
   ctx->aead = aead;
+  ctx->aead_state = NULL;
   if (key_len != aead->key_len) {
     OPENSSL_PUT_ERROR(CIPHER, EVP_AEAD_CTX_init_with_direction,
                       CIPHER_R_UNSUPPORTED_KEY_SIZE);
@@ -59,7 +61,8 @@ int EVP_AEAD_CTX_init_with_direction(EVP_AEAD_CTX *ctx, const EVP_AEAD *aead,
 }
 
 void EVP_AEAD_CTX_cleanup(EVP_AEAD_CTX *ctx) {
-  if (ctx->aead == NULL) {
+  if (ctx->aead == NULL ||
+      ctx->aead_state == NULL) {
     return;
   }
   ctx->aead->cleanup(ctx);
