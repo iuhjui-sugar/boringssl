@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0ddcfdfb_760f8868",
+        "filename": "crypto/cipher/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-11T23:05:16Z",
+      "side": 1,
+      "message": "Probably for a separate commit, but is there any reason for this and below to refer to and forward declare evp_aead_ctx_st rather than EVP_AEAD_CTX? It already includes aead.h. (Seems odd to ever use a struct name in internal.h. Presumably any header which wants internal.h also wants public.h and public.h can never depend on internal.h.)",
+      "range": {
+        "startLine": 82,
+        "startChar": 26,
+        "endLine": 82,
+        "endChar": 41
+      },
+      "revId": "8a069ff1d6f5cbef5fe75bc7dbd954ab7d112539",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
