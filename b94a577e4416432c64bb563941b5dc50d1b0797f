@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad3e91ea_e691f4cc",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 793,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-12T01:03:42Z",
+      "side": 1,
+      "message": "Move just above ERR_clear_system_error to match .h order.",
+      "revId": "b94a577e4416432c64bb563941b5dc50d1b0797f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad3e91ea_86a11021",
+        "filename": "include/openssl/err.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-12T01:03:42Z",
+      "side": 1,
+      "message": "/* ERR_remove_state calls |ERR_clear_error|. */",
+      "revId": "b94a577e4416432c64bb563941b5dc50d1b0797f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
