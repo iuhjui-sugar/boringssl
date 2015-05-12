@@ -2904,6 +2904,7 @@ func addRenegotiationTests() {
 		testType:    serverTest,
 		name:        "Renegotiate-Server-ClientInitiated",
 		renegotiate: true,
+		flags:       []string{"-accept-peer-renegotiations"},
 	})
 	testCases = append(testCases, testCase{
 		testType:    serverTest,
@@ -2914,6 +2915,7 @@ func addRenegotiationTests() {
 				NoRenegotiationInfo: true,
 			},
 		},
+		flags:         []string{"-accept-peer-renegotiations"},
 		shouldFail:    true,
 		expectedError: ":UNSAFE_LEGACY_RENEGOTIATION_DISABLED:",
 	})
@@ -2926,13 +2928,15 @@ func addRenegotiationTests() {
 				NoRenegotiationInfo: true,
 			},
 		},
-		flags: []string{"-allow-unsafe-legacy-renegotiation"},
+		flags: []string{
+			"-accept-peer-renegotiations",
+			"-allow-unsafe-legacy-renegotiation",
+		},
 	})
 	testCases = append(testCases, testCase{
 		testType:           serverTest,
 		name:               "Renegotiate-Server-ClientInitiated-Forbidden",
 		renegotiate:        true,
-		flags:              []string{"-reject-peer-renegotiations"},
 		shouldFail:         true,
 		expectedError:      ":NO_RENEGOTIATION:",
 		expectedLocalError: "remote error: no renegotiation",
@@ -2954,6 +2958,7 @@ func addRenegotiationTests() {
 	testCases = append(testCases, testCase{
 		name:        "Renegotiate-Client",
 		renegotiate: true,
+		flags:       []string{"-accept-peer-renegotiations"},
 	})
 	testCases = append(testCases, testCase{
 		name: "Renegotiate-Client-Full",
@@ -2963,6 +2968,7 @@ func addRenegotiationTests() {
 			},
 		},
 		renegotiate: true,
+		flags:       []string{"-accept-peer-renegotiations"},
 	})
 	testCases = append(testCases, testCase{
 		name:        "Renegotiate-Client-EmptyExt",
@@ -2972,6 +2978,7 @@ func addRenegotiationTests() {
 				EmptyRenegotiationInfo: true,
 			},
 		},
+		flags:         []string{"-accept-peer-renegotiations"},
 		shouldFail:    true,
 		expectedError: ":RENEGOTIATION_MISMATCH:",
 	})
@@ -2983,6 +2990,7 @@ func addRenegotiationTests() {
 				BadRenegotiationInfo: true,
 			},
 		},
+		flags:         []string{"-accept-peer-renegotiations"},
 		shouldFail:    true,
 		expectedError: ":RENEGOTIATION_MISMATCH:",
 	})
@@ -2992,6 +3000,7 @@ func addRenegotiationTests() {
 		config: Config{
 			CipherSuites: []uint16{TLS_RSA_WITH_RC4_128_SHA},
 		},
+		flags:              []string{"-accept-peer-renegotiations"},
 		renegotiateCiphers: []uint16{TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256},
 	})
 	testCases = append(testCases, testCase{
@@ -3000,12 +3009,12 @@ func addRenegotiationTests() {
 		config: Config{
 			CipherSuites: []uint16{TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256},
 		},
+		flags:              []string{"-accept-peer-renegotiations"},
 		renegotiateCiphers: []uint16{TLS_RSA_WITH_RC4_128_SHA},
 	})
 	testCases = append(testCases, testCase{
 		name:               "Renegotiate-Client-Forbidden",
 		renegotiate:        true,
-		flags:              []string{"-reject-peer-renegotiations"},
 		shouldFail:         true,
 		expectedError:      ":NO_RENEGOTIATION:",
 		expectedLocalError: "remote error: no renegotiation",
@@ -3013,6 +3022,7 @@ func addRenegotiationTests() {
 	testCases = append(testCases, testCase{
 		name:        "Renegotiate-SameClientVersion",
 		renegotiate: true,
+		flags:       []string{"-accept-peer-renegotiations"},
 		config: Config{
 			MaxVersion: VersionTLS10,
 			Bugs: ProtocolBugs{
