@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ad3e91ea_c3c5cabe",
+        "filename": "include/openssl/rand.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-05-12T00:31:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "108c1686_10624487",
+      "revId": "cc692edb9f01c66004fedab11d01ecd9f330a298",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "108c1686_904dd420",
         "filename": "include/openssl/rand.h",
         "patchSetId": 5
@@ -30,6 +48,30 @@
       "writtenOn": "2015-04-28T21:24:28Z",
       "side": 1,
       "message": "long",
+      "range": {
+        "startLine": 45,
+        "startChar": 52,
+        "endLine": 45,
+        "endChar": 55
+      },
+      "revId": "cc692edb9f01c66004fedab11d01ecd9f330a298",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad3e91ea_a3c23eb2",
+        "filename": "include/openssl/rand.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-05-12T00:31:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "108c1686_904dd420",
       "range": {
         "startLine": 45,
         "startChar": 52,
