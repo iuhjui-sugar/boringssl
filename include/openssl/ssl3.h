@@ -414,6 +414,10 @@ typedef struct ssl3_state_st {
   int renegotiate;
   int total_renegotiations;
 
+  /* current_cipher is the current outgoing cipher. It gets set right after
+   * sending a ChangeCipherSpec. */
+  const SSL_CIPHER *current_cipher;
+
   /* State pertaining to the pending handshake.
    *
    * TODO(davidben): State is current spread all over the place. Move

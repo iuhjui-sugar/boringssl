@@ -2229,11 +2229,7 @@ EVP_PKEY *SSL_CTX_get0_privatekey(const SSL_CTX *ctx) {
 }
 
 const SSL_CIPHER *SSL_get_current_cipher(const SSL *s) {
-  if (s->session != NULL && s->session->cipher != NULL) {
-    return s->session->cipher;
-  }
-
-  return NULL;
+  return s->s3->current_cipher;
 }
 
 const void *SSL_get_current_compression(SSL *s) { return NULL; }

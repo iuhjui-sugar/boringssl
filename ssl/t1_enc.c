@@ -470,8 +470,15 @@ int tls1_change_cipher_state(SSL *s, int which) {
     return 0;
   }
 
-  return tls1_change_cipher_state_aead(s, is_read, key, key_len, iv, iv_len,
-                                       mac_secret, mac_secret_len);
+  if (!tls1_change_cipher_state_aead(s, is_read, key, key_len, iv, iv_len,
+                                     mac_secret, mac_secret_len)) {
+    return 0;
+  }
+
+  if (!is_read) {
+    s->s3->current_cipher = s->session->cipher;
+  }
+  return 1;
 }
 
 int tls1_setup_key_block(SSL *s) {
