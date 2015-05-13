@@ -16,6 +16,24 @@
       "revId": "2826a8fd6b954d54c7e1b5e833172efe6b8dde43",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed0a495c_d5e28c9d",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 908,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-13T17:44:08Z",
+      "side": 1,
+      "message": "Not really, no. I guess the server might not know we don\u0027t bother with ID-based caching either, and so this avoids the peer stuffing something in the session cache. Kinda pointless though, and fewer handshake flows.\n\nActually, if we change our mind on whether session tickets are advertised, that\u0027ll might break any servers which predate this patch:\nhttps://git.openssl.org/gitweb/?p\u003dopenssl.git;a\u003dcommit;h\u003d3c3f0259238594d77264a78944d409f2127642c4\n\nAmong other things, it makes tls1_process_ticket reset tlsext_ticket_expected. Otherwise the server will just carry over the previous value and try to send another NewSessionTicket.\n\nI\u0027ve switched it to add a comment about this. If you think this isn\u0027t terribly important, I\u0027m happy to also make it not advertise and ignore the extension. (We can also not advertise but still accept the extension, but that seems worse.)",
+      "parentUuid": "ad15b184_5affe177",
+      "revId": "2826a8fd6b954d54c7e1b5e833172efe6b8dde43",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
