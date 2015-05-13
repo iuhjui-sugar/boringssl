@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad15b184_5affe177",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 908,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-13T17:28:41Z",
+      "side": 1,
+      "message": "So we will let the server send us a ticket in a renegotiation, but Chromium will never store it? So is this useful?",
+      "revId": "2826a8fd6b954d54c7e1b5e833172efe6b8dde43",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
