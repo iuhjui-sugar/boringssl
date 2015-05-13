@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed0a495c_35fb18f8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-13T18:11:21Z",
+      "side": 1,
+      "message": "Or do we want a higher-level halfConn/ssl3CipherSpec equivalent that owns the SSL_AEAD_CTX? I dunno. Stuff can always be shuffled around I suppose.",
+      "revId": "3fbf8fbd3971f3917039fda9c333c9040e27dc68",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
