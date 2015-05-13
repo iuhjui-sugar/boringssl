@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed0a495c_151ed461",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-13T16:43:29Z",
+      "side": 1,
+      "message": "The other direction we could go is to just always allow resumption, fix the bugs, and get rid of the new_session/OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION behavior. This seems marginally better, though it does mean we have to keep the code to enforce it.",
+      "revId": "dbfdc0caefc57d73c6dffcbce8354dac8bbff76b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
