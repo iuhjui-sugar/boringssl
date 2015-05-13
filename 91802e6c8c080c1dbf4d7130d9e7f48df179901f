@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed0a495c_83d28ed3",
+        "filename": "crypto/ec/ec.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-13T23:53:05Z",
+      "side": 1,
+      "message": "This should probably bail if curve_name is set.",
+      "revId": "91802e6c8c080c1dbf4d7130d9e7f48df179901f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "edb169f2_d720fcc8",
+        "filename": "include/openssl/ec.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-13T23:53:05Z",
+      "side": 1,
+      "message": "Dunno how much you this to bleed into the documentation of things like EC_GROUP_cmp and EC_GROUP_get_curve_name.",
+      "revId": "91802e6c8c080c1dbf4d7130d9e7f48df179901f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
