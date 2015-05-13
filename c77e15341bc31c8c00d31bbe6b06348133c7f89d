@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed0a495c_63bdeac6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-13T22:20:53Z",
+      "side": 1,
+      "message": "What does OS X on Android mean? (I\u0027m assuming this is a typo for \"Android on x86_64\" or something?)",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 22
+      },
+      "revId": "c77e15341bc31c8c00d31bbe6b06348133c7f89d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
