@@ -905,7 +905,8 @@ uint8_t *ssl_add_clienthello_tlsext(SSL *s, uint8_t *buf, uint8_t *limit,
 
   if (!(SSL_get_options(s) & SSL_OP_NO_TICKET)) {
     int ticklen = 0;
-    if (!s->new_session && s->session && s->session->tlsext_tick) {
+    if (!s->s3->initial_handshake_complete && s->session != NULL &&
+        s->session->tlsext_tick != NULL) {
       ticklen = s->session->tlsext_ticklen;
     }
 
