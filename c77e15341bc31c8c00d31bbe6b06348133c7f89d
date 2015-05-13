@@ -22,6 +22,30 @@
       "revId": "c77e15341bc31c8c00d31bbe6b06348133c7f89d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad15b184_f3a7d287",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-13T22:27:07Z",
+      "side": 1,
+      "message": "Sorry, wrong way around: Android on OS X. (I\u0027m not sure what it\u0027s used for.)",
+      "parentUuid": "ed0a495c_63bdeac6",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 22
+      },
+      "revId": "c77e15341bc31c8c00d31bbe6b06348133c7f89d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
