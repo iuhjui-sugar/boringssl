@@ -4,7 +4,6 @@ if (${ARCH} STREQUAL "x86_64")
   set(
     BN_ARCH_SOURCES
 
-    asm/x86_64-gcc.c
     x86_64-mont.${ASM_EXT}
     x86_64-mont5.${ASM_EXT}
     rsaz-x86_64.${ASM_EXT}
@@ -38,6 +37,9 @@ add_library(
   OBJECT
 
   add.c
+  # Unconditionally build this file as most consumers will. The preprocessor
+  # guards on it should filter it out.
+  asm/x86_64-gcc.c
   bn.c
   cmp.c
   convert.c
