@@ -414,7 +414,7 @@ struct ssl_session_st {
    * not ok, we must remember the error for session reuse: */
   long verify_result; /* only for servers */
 
-  int references;
+  CRYPTO_refcount_t references;
   long timeout;
   long time;
 
@@ -849,7 +849,7 @@ struct ssl_ctx_st {
   SSL_SESSION *(*get_session_cb)(struct ssl_st *ssl, uint8_t *data, int len,
                                  int *copy);
 
-  int references;
+  CRYPTO_refcount_t references;
 
   /* if defined, these override the X509_verify_cert() calls */
   int (*app_verify_callback)(X509_STORE_CTX *, void *);
