@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4d9a7579_ef6356c1",
+        "filename": "crypto/bn/CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-15T22:25:15Z",
+      "side": 1,
+      "message": "Drop this comment. Using preprocessor guards is very common in BoringSSL and doesn\u0027t warrant a comment.",
+      "revId": "d1c6a0f192ad7dce77de60fe1b4d4818a70f0c93",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
