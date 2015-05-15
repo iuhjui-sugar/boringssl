@@ -397,10 +397,16 @@ int ec_wNAF_mul(const EC_GROUP *group, EC_POINT *r, const BIGNUM *scalar,
   /* num_val will be the total number of temporarily precomputed points */
   num_val = 0;
 
+  const unsigned group_order_bits = BN_num_bits(&group->order);
+
   for (i = 0; i < num + num_scalar; i++) {
     size_t bits;
 
     bits = i < num ? BN_num_bits(scalars[i]) : BN_num_bits(scalar);
+    if (bits > group_order_bits) {
+      OPENSSL_PUT_ERROR(EC, ec_wNAF_mul, EC_R_SCALAR_OUT_OF_RANGE);
+      goto err;
+    }
     wsize[i] = EC_window_bits_for_scalar_size(bits);
     num_val += (size_t)1 << (wsize[i] - 1);
     wNAF[i + 1] = NULL; /* make sure we always have a pivot */

@@ -409,5 +409,6 @@ OPENSSL_EXPORT void EC_GROUP_set_point_conversion_form(
 #define EC_R_WRONG_ORDER 125
 #define EC_R_BIGNUM_OUT_OF_RANGE 126
 #define EC_R_WRONG_CURVE_PARAMETERS 127
+#define EC_R_SCALAR_OUT_OF_RANGE 128
 
 #endif  /* OPENSSL_HEADER_EC_H */

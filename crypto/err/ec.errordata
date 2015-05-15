@@ -6,6 +6,7 @@ EC,function,103,EC_GROUP_new_by_curve_name
 EC,function,104,EC_KEY_check_key
 EC,function,105,EC_KEY_copy
 EC,function,106,EC_KEY_generate_key
+EC,function,165,EC_KEY_new_by_curve_name
 EC,function,107,EC_KEY_new_method
 EC,function,108,EC_KEY_set_public_key_affine_coordinates
 EC,function,109,EC_POINT_add
@@ -85,6 +86,7 @@ EC,reason,117,NOT_INITIALIZED
 EC,reason,118,PKPARAMETERS2GROUP_FAILURE
 EC,reason,119,POINT_AT_INFINITY
 EC,reason,120,POINT_IS_NOT_ON_CURVE
+EC,reason,128,SCALAR_OUT_OF_RANGE
 EC,reason,121,SLOT_FULL
 EC,reason,122,UNDEFINED_GENERATOR
 EC,reason,123,UNKNOWN_GROUP

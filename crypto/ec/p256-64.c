@@ -1815,17 +1815,12 @@ int ec_GFp_nistp256_points_mul(const EC_GROUP *group, EC_POINT *r,
       }
       if (p_scalar != NULL && p != NULL) {
         /* reduce scalar to 0 <= scalar < 2^256 */
-        if (BN_num_bits(p_scalar) > 256 || BN_is_negative(p_scalar)) {
-          /* this is an unusual input, and we don't guarantee
-           * constant-timeness. */
-          if (!BN_nnmod(tmp_scalar, p_scalar, &group->order, ctx)) {
-            OPENSSL_PUT_ERROR(EC, ec_GFp_nistp256_points_mul, ERR_R_BN_LIB);
-            goto err;
-          }
-          num_bytes = BN_bn2bin(tmp_scalar, tmp);
-        } else {
-          num_bytes = BN_bn2bin(p_scalar, tmp);
+        if (p_scalar->top*BN_BITS2 > 256 || BN_is_negative(p_scalar)) {
+          OPENSSL_PUT_ERROR(EC, ec_GFp_nistp256_points_mul,
+                            EC_R_SCALAR_OUT_OF_RANGE);
+          goto err;
         }
+        num_bytes = BN_bn2bin(p_scalar, tmp);
         flip_endian(secrets[i], tmp, num_bytes);
         /* precompute multiples */
         if (!BN_to_felem(x_out, &p->X) ||
@@ -1860,17 +1855,12 @@ int ec_GFp_nistp256_points_mul(const EC_GROUP *group, EC_POINT *r,
   if (scalar != NULL && have_pre_comp) {
     memset(g_secret, 0, sizeof(g_secret));
     /* reduce scalar to 0 <= scalar < 2^256 */
-    if (BN_num_bits(scalar) > 256 || BN_is_negative(scalar)) {
-      /* this is an unusual input, and we don't guarantee
-       * constant-timeness. */
-      if (!BN_nnmod(tmp_scalar, scalar, &group->order, ctx)) {
-        OPENSSL_PUT_ERROR(EC, ec_GFp_nistp256_points_mul, ERR_R_BN_LIB);
-        goto err;
-      }
-      num_bytes = BN_bn2bin(tmp_scalar, tmp);
-    } else {
-      num_bytes = BN_bn2bin(scalar, tmp);
+    if (scalar->top*BN_BITS2 > 256 || BN_is_negative(scalar)) {
+      OPENSSL_PUT_ERROR(EC, ec_GFp_nistp256_points_mul,
+                        EC_R_SCALAR_OUT_OF_RANGE);
+      goto err;
     }
+    num_bytes = BN_bn2bin(scalar, tmp);
     flip_endian(g_secret, tmp, num_bytes);
     /* do the multiplication with generator precomputation */
     batch_mul(x_out, y_out, z_out, (const felem_bytearray(*))secrets,

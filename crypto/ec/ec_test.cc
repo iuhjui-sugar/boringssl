@@ -170,12 +170,36 @@ static bool TestZeroPadding() {
   return true;
 }
 
+static bool TestOversizedScalar() {
+  ScopedEC_GROUP group(EC_GROUP_new_by_curve_name(NID_X9_62_prime256v1));
+  ScopedEC_POINT result(EC_POINT_new(group.get()));
+  ScopedBIGNUM scalar(BN_new());
+  ScopedBN_CTX ctx(BN_CTX_new());
+
+  if (!BN_set_word(scalar.get(), 1) ||
+      !BN_lshift(scalar.get(), scalar.get(), 256)) {
+    return false;
+  }
+
+  const bool ok = EC_POINT_mul(group.get(), result.get(), scalar.get(), NULL,
+                               NULL, ctx.get());
+  if (ok) {
+    fprintf(stderr,
+            "EC_POINT_mul returned successfully with invalid scalar.\n");
+    return false;
+  }
+
+  ERR_clear_error();
+  return true;
+}
+
 int main(void) {
   CRYPTO_library_init();
   ERR_load_crypto_strings();
 
   if (!Testd2i_ECPrivateKey() ||
-      !TestZeroPadding()) {
+      !TestZeroPadding() ||
+      !TestOversizedScalar()) {
     fprintf(stderr, "failed\n");
     return 1;
   }
