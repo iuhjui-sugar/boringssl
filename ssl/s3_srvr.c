@@ -208,7 +208,6 @@ int ssl3_accept(SSL *s) {
 
     switch (s->state) {
       case SSL_ST_ACCEPT:
-      case SSL_ST_BEFORE | SSL_ST_ACCEPT:
         /* This state is the entry point for the handshake itself (initial and
          * renegotiation).  */
         if (cb != NULL) {

@@ -2110,7 +2110,7 @@ int SSL_do_handshake(SSL *s) {
 void SSL_set_accept_state(SSL *ssl) {
   ssl->server = 1;
   ssl->shutdown = 0;
-  ssl->state = SSL_ST_ACCEPT | SSL_ST_BEFORE;
+  ssl->state = SSL_ST_ACCEPT;
   ssl->handshake_func = ssl->method->ssl_accept;
   /* clear the current cipher */
   ssl_clear_cipher_ctx(ssl);
@@ -2119,7 +2119,7 @@ void SSL_set_accept_state(SSL *ssl) {
 void SSL_set_connect_state(SSL *ssl) {
   ssl->server = 0;
   ssl->shutdown = 0;
-  ssl->state = SSL_ST_CONNECT | SSL_ST_BEFORE;
+  ssl->state = SSL_ST_CONNECT;
   ssl->handshake_func = ssl->method->ssl_connect;
   /* clear the current cipher */
   ssl_clear_cipher_ctx(ssl);
