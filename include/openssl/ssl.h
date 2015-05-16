@@ -274,6 +274,47 @@ OPENSSL_EXPORT int SSL_CIPHER_get_bits(const SSL_CIPHER *cipher,
                                        int *out_alg_bits);
 
 
+/* SSL contexts. */
+
+/* An SSL_METHOD selects whether to use TLS or DTLS. */
+typedef struct ssl_method_st SSL_METHOD;
+
+/* TLS_method is the |SSL_METHOD| used for TLS (and SSLv3) connections. */
+OPENSSL_EXPORT const SSL_METHOD *TLS_method(void);
+
+/* DTLS_method is the |SSL_METHOD| used for DTLS connections. */
+OPENSSL_EXPORT const SSL_METHOD *DTLS_method(void);
+
+/* SSL_CTX_new returns a newly-allocated |SSL_CTX| with default settings or NULL
+ * on error. An |SSL_CTX| manages shared state and configuration between
+ * multiple TLS or DTLS connections. */
+OPENSSL_EXPORT SSL_CTX *SSL_CTX_new(const SSL_METHOD *method);
+
+/* SSL_CTX_free releases memory associated with |ctx|. */
+OPENSSL_EXPORT void SSL_CTX_free(SSL_CTX *ctx);
+
+
+/* SSL connections. */
+
+/* SSL_new returns a newly-allocated |SSL| using |ctx| on NULL on error. An
+ * |SSL| object represents a single TLS or DTLS connection. It inherits settings
+ * from |ctx| at the time of creation. Settings may also be individually
+ * configured on the connection.
+ *
+ * On creation, an |SSL| is not assigned to either client or server. Call
+ * |SSL_set_connect_state| or |SSL_set_accept_state| to configure this. */
+OPENSSL_EXPORT SSL *SSL_new(SSL_CTX *ctx);
+
+/* SSL_free releases memory associated with |ssl|. */
+OPENSSL_EXPORT void SSL_free(SSL *ssl);
+
+/* SSL_set_connect_state configures |ssl| to be a client. */
+OPENSSL_EXPORT void SSL_set_connect_state(SSL *ssl);
+
+/* SSL_set_accept_state configures |ssl| to be a server. */
+OPENSSL_EXPORT void SSL_set_accept_state(SSL *ssl);
+
+
 /* Underdocumented functions.
  *
  * Functions below here haven't been touched up and may be underdocumented. */
@@ -366,7 +407,6 @@ OPENSSL_EXPORT int SSL_CIPHER_get_bits(const SSL_CIPHER *cipher,
 #define SSL_FILETYPE_ASN1 X509_FILETYPE_ASN1
 #define SSL_FILETYPE_PEM X509_FILETYPE_PEM
 
-typedef struct ssl_method_st SSL_METHOD;
 typedef struct ssl_protocol_method_st SSL_PROTOCOL_METHOD;
 typedef struct ssl_session_st SSL_SESSION;
 typedef struct tls_sigalgs_st TLS_SIGALGS;
@@ -1794,14 +1834,11 @@ OPENSSL_EXPORT size_t SSL_get_tls_channel_id(SSL *ssl, uint8_t *out,
 
 OPENSSL_EXPORT int SSL_CTX_set_cipher_list(SSL_CTX *, const char *str);
 OPENSSL_EXPORT int SSL_CTX_set_cipher_list_tls11(SSL_CTX *, const char *str);
-OPENSSL_EXPORT SSL_CTX *SSL_CTX_new(const SSL_METHOD *meth);
-OPENSSL_EXPORT void SSL_CTX_free(SSL_CTX *);
 OPENSSL_EXPORT long SSL_CTX_set_timeout(SSL_CTX *ctx, long t);
 OPENSSL_EXPORT long SSL_CTX_get_timeout(const SSL_CTX *ctx);
 OPENSSL_EXPORT X509_STORE *SSL_CTX_get_cert_store(const SSL_CTX *);
 OPENSSL_EXPORT void SSL_CTX_set_cert_store(SSL_CTX *, X509_STORE *);
 OPENSSL_EXPORT int SSL_want(const SSL *s);
-OPENSSL_EXPORT int SSL_clear(SSL *s);
 
 OPENSSL_EXPORT void SSL_CTX_flush_sessions(SSL_CTX *ctx, long tm);
 
@@ -1976,7 +2013,6 @@ OPENSSL_EXPORT int SSL_CTX_set_session_id_context(SSL_CTX *ctx,
                                                   const uint8_t *sid_ctx,
                                                   unsigned int sid_ctx_len);
 
-OPENSSL_EXPORT SSL *SSL_new(SSL_CTX *ctx);
 OPENSSL_EXPORT int SSL_set_session_id_context(SSL *ssl, const uint8_t *sid_ctx,
                                               unsigned int sid_ctx_len);
 
@@ -1992,7 +2028,6 @@ OPENSSL_EXPORT X509_VERIFY_PARAM *SSL_CTX_get0_param(SSL_CTX *ctx);
 OPENSSL_EXPORT X509_VERIFY_PARAM *SSL_get0_param(SSL *ssl);
 
 OPENSSL_EXPORT void SSL_certs_clear(SSL *s);
-OPENSSL_EXPORT void SSL_free(SSL *ssl);
 OPENSSL_EXPORT int SSL_accept(SSL *ssl);
 OPENSSL_EXPORT int SSL_connect(SSL *ssl);
 OPENSSL_EXPORT int SSL_read(SSL *ssl, void *buf, int num);
@@ -2008,12 +2043,6 @@ OPENSSL_EXPORT const char *SSL_get_version(const SSL *s);
 /* SSL_SESSION_get_version returns a string describing the TLS version used by
  * |sess|. For example, "TLSv1.2" or "SSLv3". */
 OPENSSL_EXPORT const char *SSL_SESSION_get_version(const SSL_SESSION *sess);
-
-/* TLS_method is the SSL_METHOD used for TLS (and SSLv3) connections. */
-OPENSSL_EXPORT const SSL_METHOD *TLS_method(void);
-
-/* DTLS_method is the SSL_METHOD used for DTLS connections. */
-OPENSSL_EXPORT const SSL_METHOD *DTLS_method(void);
 
 OPENSSL_EXPORT STACK_OF(SSL_CIPHER) *SSL_get_ciphers(const SSL *s);
 
@@ -2036,9 +2065,6 @@ OPENSSL_EXPORT STACK_OF(X509_NAME) *
     SSL_CTX_get_client_CA_list(const SSL_CTX *s);
 OPENSSL_EXPORT int SSL_add_client_CA(SSL *ssl, X509 *x);
 OPENSSL_EXPORT int SSL_CTX_add_client_CA(SSL_CTX *ctx, X509 *x);
-
-OPENSSL_EXPORT void SSL_set_connect_state(SSL *s);
-OPENSSL_EXPORT void SSL_set_accept_state(SSL *s);
 
 OPENSSL_EXPORT long SSL_get_default_timeout(const SSL *s);
 
@@ -2300,6 +2326,13 @@ OPENSSL_EXPORT const SSL_METHOD *DTLSv1_server_method(void);
 OPENSSL_EXPORT const SSL_METHOD *DTLSv1_client_method(void);
 OPENSSL_EXPORT const SSL_METHOD *DTLSv1_2_server_method(void);
 OPENSSL_EXPORT const SSL_METHOD *DTLSv1_2_client_method(void);
+
+/* SSL_clear resets |ssl| to allow another connection and returns one on success
+ * or zero on failure. It returns most configuration state but releases memory
+ * associated with the current connection.
+ *
+ * Free |ssl| and create a new one instead. */
+OPENSSL_EXPORT int SSL_clear(SSL *ssl);
 
 /* SSL_CTX_set_tmp_rsa_callback does nothing. */
 OPENSSL_EXPORT void SSL_CTX_set_tmp_rsa_callback(
