@@ -1,0 +1,187 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0dbb1df3_d8704d5c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-05-17T07:08:10Z",
+      "side": 1,
+      "message": "I think the reason was to avoid leaks of the sort that would materialize due to calling BN_num_bits/BN_num_bytes/BN_bn2bin on the number. However, the cure was probably worse than the disease.",
+      "range": {
+        "startLine": 10,
+        "startChar": 50,
+        "endLine": 10,
+        "endChar": 64
+      },
+      "revId": "e35762ec6b16f9a11ed54f6922922b3df7547d14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0dbb1df3_b875994a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-05-17T07:08:10Z",
+      "side": 1,
+      "message": "With my non-understanding of the p256-64.c code, I cannot verify whether this is true or not. In particular, I don\u0027t know if it really matters whether the scalar is smaller than 2^256 or whether the scalar is smaller than |q| (the field modulus).\n\nJust IMO, I don\u0027t like the confusion that the check for \u003c 2^256 adds since we when doing ECC math we never check against 2^256 (vs |q| or |n|) except maybe when doing Montgomery/Barrett reductions.",
+      "range": {
+        "startLine": 14,
+        "startChar": 64,
+        "endLine": 15,
+        "endChar": 64
+      },
+      "revId": "e35762ec6b16f9a11ed54f6922922b3df7547d14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0dbb1df3_987ad536",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-05-17T07:08:10Z",
+      "side": 1,
+      "message": "As I mentioned in my comment in wnaf.c, it\u0027s good to also put this into a comment above the check in wnaf.c.",
+      "revId": "e35762ec6b16f9a11ed54f6922922b3df7547d14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0dbb1df3_182ec539",
+        "filename": "crypto/ec/ec_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-05-17T07:08:10Z",
+      "side": 1,
+      "message": "As far as I understand the code, this doesn\u0027t test all the changed code paths, because the case where |scalars| contains a too-large scalar isn\u0027t considered.\n\nAlso, the case where a negative scalar is passed (in both positions) is not tested.",
+      "revId": "e35762ec6b16f9a11ed54f6922922b3df7547d14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0dbb1df3_9841b5fc",
+        "filename": "crypto/ec/p256-64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1817,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-05-17T07:08:10Z",
+      "side": 1,
+      "message": "This comment is no longer correct because no reduction is happening.\n\nI think we should instead document why we check that there aren\u0027t too many bits, but avoid the more exact check that p_scalar is larger than 0 and less than the group order.\n\nNote that this check really doesn\u0027t make sense here. IMO, it would be much better to move the check to the interface points where external-to-BoringSSL code might break this rule, because for internal-to-BoringSSL code, this is dead code. Note that those external interface points already need code to do the actual reduction, if maintaining backward compatibility is important.",
+      "range": {
+        "startLine": 1817,
+        "startChar": 8,
+        "endLine": 1817,
+        "endChar": 50
+      },
+      "revId": "e35762ec6b16f9a11ed54f6922922b3df7547d14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0dbb1df3_78370190",
+        "filename": "crypto/ec/p256-64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1818,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-05-17T07:08:10Z",
+      "side": 1,
+      "message": "I understand that you are probably avoiding BN_num_bits() to better ensure constant-time behavior. But, then, why not also route around BN_is_negative too? It is confusing to be inconsistent there, though I agree that the *current* implementation of BN_is_negative seems to be safe as far as timing issues are concerned.",
+      "range": {
+        "startLine": 1818,
+        "startChar": 12,
+        "endLine": 1818,
+        "endChar": 68
+      },
+      "revId": "e35762ec6b16f9a11ed54f6922922b3df7547d14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0dbb1df3_58343d89",
+        "filename": "crypto/ec/p256-64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1823,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-05-17T07:08:10Z",
+      "side": 1,
+      "message": "BN_bn2bin calls BN_num_bytes which calls BN_num_bits, so you changing the above code to avoid BN_num_bits doesn\u0027t seem to have any positive effect.\n\nIt is worth, at least, adding a comment that bn2bin isn\u0027t constant time, and that in unusual cases where the scalar\u0027s length less than P256_LIMBS words, a timing leak of undetermined significance is present.\n\nIt is actually possible to make this code constant time by having it take a different type of input (instead of a BIGNUM) that is always represented in 256 bits.\n\nAnd/or, in the ECDSA_do_sign code and ECDH code, ensure that the BIGNUM passed in is 256 bits but possibly not \"correct\" in the BN_correct_top sense.",
+      "revId": "e35762ec6b16f9a11ed54f6922922b3df7547d14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0dbb1df3_38318999",
+        "filename": "crypto/ec/p256-64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1863,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-05-17T07:08:10Z",
+      "side": 1,
+      "message": "ditto everything here.",
+      "range": {
+        "startLine": 1858,
+        "startChar": 4,
+        "endLine": 1863,
+        "endChar": 39
+      },
+      "revId": "e35762ec6b16f9a11ed54f6922922b3df7547d14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0dbb1df3_f86b116f",
+        "filename": "crypto/ec/wnaf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-05-17T07:08:10Z",
+      "side": 1,
+      "message": "Again, it would be helpful here to document why we\u0027re testing a necessary-but-not-sufficient or unnecessary (for wNAF) condition. In particular, is this here just to be consistent with the p256-64.c code (so that the code passes whether ot not p256-64.c is in use), or does it actually matter for the wNAF code?",
+      "revId": "e35762ec6b16f9a11ed54f6922922b3df7547d14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

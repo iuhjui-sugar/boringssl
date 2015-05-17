@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0dbb1df3_78802195",
+        "filename": "crypto/ecdsa/ecdsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-05-17T07:08:10Z",
+      "side": 0,
+      "message": "As I noted elsewhere, now we\u0027re trading one timing leak for another one. It would be good to add a comment noting that we will leak the length of the order at granularity of |BN_BITS2| bits approximately every |BN_BITS2/BN_num_bits(order)|th time. (I guess that leak is already present due to the way |BN_rand_range| works and how it is used above.)",
+      "revId": "785e07b23d965e1e984c2ee9f6a0dbe06d3d658e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
