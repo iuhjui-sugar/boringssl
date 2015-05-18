@@ -505,9 +505,10 @@ static void DES_encrypt2(uint32_t *data, const DES_key_schedule *ks, int enc) {
   data[1] = ROTATE(r, 3) & 0xffffffffL;
 }
 
-static void DES_encrypt3(uint32_t *data, const DES_key_schedule *ks1,
-                         const DES_key_schedule *ks2,
-                         const DES_key_schedule *ks3) {
+/* Not static because used in decrepit. */
+void DES_encrypt3(uint32_t *data, const DES_key_schedule *ks1,
+                  const DES_key_schedule *ks2,
+                  const DES_key_schedule *ks3) {
   uint32_t l, r;
 
   l = data[0];
@@ -525,7 +526,8 @@ static void DES_encrypt3(uint32_t *data, const DES_key_schedule *ks1,
   data[1] = r;
 }
 
-static void DES_decrypt3(uint32_t *data, const DES_key_schedule *ks1,
+/* Not static because used in decrepit. */
+void DES_decrypt3(uint32_t *data, const DES_key_schedule *ks1,
                          const DES_key_schedule *ks2,
                          const DES_key_schedule *ks3) {
   uint32_t l, r;
