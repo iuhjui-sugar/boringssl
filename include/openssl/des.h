@@ -142,6 +142,25 @@ OPENSSL_EXPORT void DES_ede2_cbc_encrypt(const uint8_t *in, uint8_t *out,
                                          DES_cblock *ivec, int enc);
 
 
+/* Deprecated functions. */
+
+OPENSSL_EXPORT void DES_ede3_cfb64_encrypt(const unsigned char *in,
+                                           unsigned char *out,
+                                           long length,
+                                           DES_key_schedule *ks1,
+                                           DES_key_schedule *ks2,
+                                           DES_key_schedule *ks3,
+                                           DES_cblock *ivec, int *num, int enc);
+
+OPENSSL_EXPORT void DES_ede3_cfb_encrypt(const unsigned char *in,
+                                         unsigned char *out,
+                                         int numbits, long length,
+                                         DES_key_schedule *ks1,
+                                         DES_key_schedule *ks2,
+                                         DES_key_schedule *ks3,
+                                         DES_cblock *ivec, int enc);
+
+
 #if defined(__cplusplus)
 }  /* extern C */
 #endif
