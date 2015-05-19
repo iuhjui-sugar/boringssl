@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d2aad12_ba5329c0",
+        "filename": "crypto/refcount_c11.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-19T23:23:04Z",
+      "side": 1,
+      "message": "This doesn\u0027t require a cast?",
+      "revId": "1b4b8516c63c235f1e9b43960fa0e552c5665a76",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d2aad12_5a69b56a",
+        "filename": "crypto/refcount_c11.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-19T23:23:04Z",
+      "side": 1,
+      "message": "Nit: /* OPENSSL_C11_ATOMIC */",
+      "revId": "1b4b8516c63c235f1e9b43960fa0e552c5665a76",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d2aad12_7a66f19d",
+        "filename": "crypto/refcount_test.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-19T23:23:04Z",
+      "side": 1,
+      "message": "Might be worth putting this in refcount_{lock,c11}.c since Android doesn\u0027t build these tests. (Or we could fix this...)",
+      "revId": "1b4b8516c63c235f1e9b43960fa0e552c5665a76",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d2aad12_1a633d8d",
+        "filename": "crypto/refcount_test.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-19T23:23:04Z",
+      "side": 1,
+      "message": "Probably also worth a test that a non-saturated non-freeing dec_and_test_zero returns 0, since that\u0027s a slightly different case.",
+      "revId": "1b4b8516c63c235f1e9b43960fa0e552c5665a76",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
