@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d2aad12_da54e5ac",
+        "filename": "include/openssl/type_check.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-19T23:14:08Z",
+      "side": 1,
+      "message": "Sadly, this still doesn\u0027t let us use static consts inside an OPENSSL_COMPILE_ASSERT. (C++11\u0027s static_assert does allow it, however.)",
+      "revId": "1b54691552e28ca1a7dc9f5b4c1418f65c51947f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
