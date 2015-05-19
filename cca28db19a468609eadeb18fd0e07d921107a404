@@ -22,6 +22,30 @@
       "revId": "cca28db19a468609eadeb18fd0e07d921107a404",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d37016d_01e66a30",
+        "filename": "crypto/ecdh/ecdh_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-19T02:05:17Z",
+      "side": 1,
+      "message": "Yep, sorry. I still had changes outstanding in my working directory, but BoringSSL does return -1 and:\n\n6645392:error:0f09806a:elliptic curve routines:ec_wNAF_mul:INCOMPATIBLE_OBJECTS:../crypto/ec/wnaf.c:328:\n6645392:error:1b064066:ECDH routines:ECDH_compute_key:POINT_ARITHMETIC_FAILURE:../crypto/ecdh/ecdh.c:111:",
+      "parentUuid": "4d98b58f_76883823",
+      "range": {
+        "startLine": 38,
+        "startChar": 40,
+        "endLine": 38,
+        "endChar": 43
+      },
+      "revId": "cca28db19a468609eadeb18fd0e07d921107a404",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
