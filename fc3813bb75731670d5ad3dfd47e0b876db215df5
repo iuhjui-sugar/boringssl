@@ -16,6 +16,24 @@
       "revId": "fc3813bb75731670d5ad3dfd47e0b876db215df5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d6e217b_0c37975e",
+        "filename": "crypto/thread.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-20T19:14:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d2aad12_7a24b1db",
+      "revId": "fc3813bb75731670d5ad3dfd47e0b876db215df5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
