@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d2aad12_3d7713ce",
+        "filename": "crypto/x509/by_dir.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-20T02:52:50Z",
+      "side": 1,
+      "message": "[Verified ent-\u003ehashes is only filled in when BY_DIR_ENTRYs are allocated, so this is safe.]",
+      "range": {
+        "startLine": 343,
+        "startChar": 30,
+        "endLine": 343,
+        "endChar": 41
+      },
+      "revId": "60b017c98b0b5a218d98baeea7fe11205d869e18",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d2aad12_fd375b10",
+        "filename": "crypto/x509/x509_lu.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-20T02:52:50Z",
+      "side": 1,
+      "message": "This is missing a CRYPTO_MUTEX_cleanup.",
+      "revId": "60b017c98b0b5a218d98baeea7fe11205d869e18",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d2aad12_7d6d8bfd",
+        "filename": "crypto/x509v3/v3_purp.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-20T02:52:50Z",
+      "side": 1,
+      "message": "Some of these locks were all one CRYPTO_LOCK_X509 lock before. But I doubt anything is successfully using an X509 across threads and it looks fine. Although I actually don\u0027t know off-hand what the compiler promises w.r.t. reads and writes to fields on the same struct not secretly stomping on each other.",
+      "revId": "60b017c98b0b5a218d98baeea7fe11205d869e18",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d2aad12_fa91a1a2",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1759,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-20T02:52:50Z",
+      "side": 1,
+      "message": "This function is missing a CRYPTO_MUTEX_cleanup.",
+      "revId": "60b017c98b0b5a218d98baeea7fe11205d869e18",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d2aad12_da8ce58d",
+        "filename": "ssl/ssl_sess.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-20T02:52:50Z",
+      "side": 1,
+      "message": "This bug isn\u0027t new, but there should be an unlock here.",
+      "revId": "60b017c98b0b5a218d98baeea7fe11205d869e18",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

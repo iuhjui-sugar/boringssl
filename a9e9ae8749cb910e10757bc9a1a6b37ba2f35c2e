@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d2aad12_fa7a01e9",
+        "filename": "ssl/ssl_cert.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-20T02:52:50Z",
+      "side": 0,
+      "message": "[Mostly tangential, but if you\u0027re idly curious, this is because upstream calls readdir instead of readdir_r. We use readdir_r, so that\u0027s fine...\n\n...except readdir_r is insane POSIX doesn\u0027t say much useful about the size of the buffer you\u0027re supposed to allocate. Though it looks like Linux\u0027s sizeof(dirent) is large enough. And Chromium assumes as much.\n\nWe could ditch all this directory stuff by just dropping this one function. It has only two callers. I... think it\u0027s safe to no-op this, but I\u0027m not sure. Will send email privately with call sites.\n\nIncidentally, glibc just recommends calling readdir and documents it to be thread-safe.\nhttp://www.gnu.org/software/libc/manual/html_node/Reading_002fClosing-Directory.html#Reading_002fClosing-Directory]",
+      "revId": "a9e9ae8749cb910e10757bc9a1a6b37ba2f35c2e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
