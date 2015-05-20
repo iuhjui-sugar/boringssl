@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d2aad12_7a24b1db",
+        "filename": "crypto/thread.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-20T02:53:41Z",
+      "side": 1,
+      "message": "This probably should return 1 rather than 0. If 0, then consumers will call malloc(0) which will return NULL and trip up any malloc failure checks. (I didn\u0027t do a thorough check, but the first hit for CRYPTO_num_locks in cs.corp would be affected by this.)",
+      "revId": "fc3813bb75731670d5ad3dfd47e0b876db215df5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
