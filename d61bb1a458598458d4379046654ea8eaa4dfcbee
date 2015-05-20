@@ -16,6 +16,24 @@
       "revId": "d61bb1a458598458d4379046654ea8eaa4dfcbee",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d6e217b_ec70035c",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-20T19:14:01Z",
+      "side": 1,
+      "message": "Yea, I guess that code can continue in its evil ways now...",
+      "parentUuid": "8d2aad12_fad68179",
+      "revId": "d61bb1a458598458d4379046654ea8eaa4dfcbee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
