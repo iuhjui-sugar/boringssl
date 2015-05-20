@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "2d6e217b_ac53ebbf",
+        "filename": "crypto/x509/x509_lu.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-20T19:14:17Z",
+      "side": 1,
+      "message": "Thanks! I forgot that we even needed to do that. (Silly Windows.)",
+      "parentUuid": "8d2aad12_fd375b10",
+      "revId": "60b017c98b0b5a218d98baeea7fe11205d869e18",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d2aad12_7d6d8bfd",
         "filename": "crypto/x509v3/v3_purp.c",
         "patchSetId": 2
@@ -53,6 +71,24 @@
       "writtenOn": "2015-05-20T02:52:50Z",
       "side": 1,
       "message": "Some of these locks were all one CRYPTO_LOCK_X509 lock before. But I doubt anything is successfully using an X509 across threads and it looks fine. Although I actually don\u0027t know off-hand what the compiler promises w.r.t. reads and writes to fields on the same struct not secretly stomping on each other.",
+      "revId": "60b017c98b0b5a218d98baeea7fe11205d869e18",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d6e217b_2c1b7bf5",
+        "filename": "crypto/x509v3/v3_purp.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-20T19:14:17Z",
+      "side": 1,
+      "message": "I assume that compilers don\u0027t allow non-bitfield members of structs to be stomped. If not, I\u0027m going to have to Have Words with them.\n\nI don\u0027t think this locking actually worked previously, as noted in the comment, so I\u0027m not too worried.",
+      "parentUuid": "8d2aad12_7d6d8bfd",
       "revId": "60b017c98b0b5a218d98baeea7fe11205d869e18",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -76,6 +112,24 @@
     },
     {
       "key": {
+        "uuid": "2d6e217b_2cb93b57",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1759,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-20T19:14:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d2aad12_fa91a1a2",
+      "revId": "60b017c98b0b5a218d98baeea7fe11205d869e18",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d2aad12_da8ce58d",
         "filename": "ssl/ssl_sess.c",
         "patchSetId": 2
@@ -87,6 +141,24 @@
       "writtenOn": "2015-05-20T02:52:50Z",
       "side": 1,
       "message": "This bug isn\u0027t new, but there should be an unlock here.",
+      "revId": "60b017c98b0b5a218d98baeea7fe11205d869e18",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d6e217b_aca52b2b",
+        "filename": "ssl/ssl_sess.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-20T19:14:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d2aad12_da8ce58d",
       "revId": "60b017c98b0b5a218d98baeea7fe11205d869e18",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
