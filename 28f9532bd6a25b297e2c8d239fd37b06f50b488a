@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d2aad12_63f5eccd",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2334,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-20T20:01:03Z",
+      "side": 1,
+      "message": "Probably can\u0027t get rid of this easily, but better no one new use it I think.",
+      "revId": "28f9532bd6a25b297e2c8d239fd37b06f50b488a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
