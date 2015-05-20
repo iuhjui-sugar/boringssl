@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d6e217b_35d09b78",
+        "filename": "ssl/ssl_aead_ctx.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-20T23:05:01Z",
+      "side": 1,
+      "message": "Is this brand new code? If so, it should have the Google license.",
+      "revId": "1db569b64aea292e758682182757f75b6658b4a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d6e217b_75a133ec",
+        "filename": "ssl/ssl_aead_ctx.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-20T23:05:01Z",
+      "side": 1,
+      "message": "doesnt_fit ?",
+      "range": {
+        "startLine": 123,
+        "startChar": 42,
+        "endLine": 123,
+        "endChar": 46
+      },
+      "revId": "1db569b64aea292e758682182757f75b6658b4a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d6e217b_f55e8379",
+        "filename": "ssl/ssl_aead_ctx.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-20T23:05:01Z",
+      "side": 1,
+      "message": "memset(aead_ctx, 0, sizeof(SSL_AEAD_CTX)) (and then setting some variables to zero can be omitted below.)",
+      "revId": "1db569b64aea292e758682182757f75b6658b4a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
