@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d2aad12_68ef0b31",
+        "filename": "crypto/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-20T19:23:17Z",
+      "side": 1,
+      "message": "Could probably also merge into a defined(__STDC_VERSION__ ) \u0026\u0026 [stuff]. *shrug*",
+      "revId": "aaca50e1a2d090a8f8b6ee5d81b4661746b54cfc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
