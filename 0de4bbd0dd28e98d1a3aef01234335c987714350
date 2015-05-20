@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d2aad12_a33ea4da",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-20T20:21:49Z",
+      "side": 1,
+      "message": "I considered putting rr-\u003eversion in SSL3_RECORD, but it\u0027s unnecessary state. I\u0027m thinking perhaps revising everything between this function and SSL_AEAD_CTX in one go since I suspect a lot of the state around reading and writing packets is unnecessary. Lots of redundancy. (E.g. we could just parse the header out at the last iteration rather than have this weirdness where local variables may or may not exist.)\n\nWebRTC is sorting out their packet stuff, so that unblocks cleaning up this mess.",
+      "revId": "0de4bbd0dd28e98d1a3aef01234335c987714350",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d2aad12_437790cc",
+        "filename": "ssl/ssl_aead_ctx.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-20T20:21:49Z",
+      "side": 1,
+      "message": "This file should get reviewed carefully. open/seal should be locally correct w.r.t. bounds checks and overflow.",
+      "revId": "0de4bbd0dd28e98d1a3aef01234335c987714350",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
