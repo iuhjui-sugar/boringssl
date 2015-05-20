@@ -16,6 +16,24 @@
       "revId": "0970fd429280329c8f18a0228f06614f6d564869",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d6e217b_8ceaa771",
+        "filename": "crypto/x509/x_info.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-20T19:13:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d2aad12_7a3a7147",
+      "revId": "0970fd429280329c8f18a0228f06614f6d564869",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
