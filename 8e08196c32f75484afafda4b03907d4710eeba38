@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d6e217b_3eaf1d5f",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-20T21:49:04Z",
+      "side": 1,
+      "message": "This should be killed.",
+      "revId": "8e08196c32f75484afafda4b03907d4710eeba38",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d6e217b_9e76498c",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-20T21:49:04Z",
+      "side": 1,
+      "message": "This should be made the default (and then the mode removed).",
+      "revId": "8e08196c32f75484afafda4b03907d4710eeba38",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
