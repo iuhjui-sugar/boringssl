@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d2aad12_a3da2463",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1886,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-20T19:59:51Z",
+      "side": 1,
+      "message": "Gerrit seems to be doing dumb things to do this diff. git diff is more readable.",
+      "revId": "38692106ed1e71177b3f6f4fd76bbc3961a7f396",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
