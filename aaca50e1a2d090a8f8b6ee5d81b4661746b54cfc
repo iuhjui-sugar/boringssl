@@ -34,6 +34,24 @@
       "revId": "aaca50e1a2d090a8f8b6ee5d81b4661746b54cfc",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d2aad12_83fb68b9",
+        "filename": "crypto/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-20T20:09:10Z",
+      "side": 1,
+      "message": "Oh good point. Yeah, I dunno either.",
+      "parentUuid": "2d6e217b_92b722e9",
+      "revId": "aaca50e1a2d090a8f8b6ee5d81b4661746b54cfc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
