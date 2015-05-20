@@ -356,8 +356,10 @@ OPENSSL_EXPORT void CRYPTO_once(CRYPTO_once_t *once, void (*init)(void));
 
 /* Reference counting. */
 
+#if defined(__STDC_VERSION__)
 #if __STDC_VERSION__ >= 201112L && !defined(__STDC_NO_ATOMICS__)
 #define OPENSSL_C11_ATOMIC
+#endif
 #endif
 
 /* CRYPTO_REFCOUNT_MAX is the value at which the reference count saturates. */
