@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d2aad12_fad68179",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-20T00:51:57Z",
+      "side": 1,
+      "message": "This include needn\u0027t have a disclaimer anymore. (Or perhaps we should still document that, I dunno.)",
+      "revId": "d61bb1a458598458d4379046654ea8eaa4dfcbee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
