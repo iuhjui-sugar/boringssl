@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6df819fb_bb32e721",
+        "filename": "crypto/modes/cbc.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-21T21:02:47Z",
+      "side": 1,
+      "message": "(Unrelated, but this doesn\u0027t allow for NULL in/out and zero len. I\u0027ll go fix that.)",
+      "revId": "3d59e04bce96474099ba76786a2337e99ae14505",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6df819fb_1b24bbda",
+        "filename": "crypto/modes/cbc.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-21T21:02:47Z",
+      "side": 1,
+      "message": "Probably deserves a comment, but I think this is correct.",
+      "revId": "3d59e04bce96474099ba76786a2337e99ae14505",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6df819fb_7b085f5a",
+        "filename": "crypto/modes/cbc.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-21T21:02:47Z",
+      "side": 1,
+      "message": "If this is true, then we also require that inptr + len \u003c\u003d outptr, but that was required before. Might be worth an assert or something since this function otherwise can\u0027t fail.",
+      "range": {
+        "startLine": 127,
+        "startChar": 47,
+        "endLine": 127,
+        "endChar": 61
+      },
+      "revId": "3d59e04bce96474099ba76786a2337e99ae14505",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
