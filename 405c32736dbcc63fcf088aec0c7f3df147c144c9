@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4d0995dc_5a82b503",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 861,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-21T20:53:25Z",
+      "side": 1,
+      "message": "\"int server\" should be \"int is_server\" and be the last argument.",
+      "revId": "405c32736dbcc63fcf088aec0c7f3df147c144c9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
