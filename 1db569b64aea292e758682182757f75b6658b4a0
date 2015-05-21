@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8d2aad12_09b3f9ff",
+        "filename": "ssl/ssl_aead_ctx.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-21T02:49:43Z",
+      "side": 1,
+      "message": "Most of it\u0027s brand new. SSL_AEAD_CTX_new is derived from t1_enc.c. It\u0027s derived from code that mostly came from us though. Is that enough to use the new license? I\u0027m unclear on the criteria.",
+      "parentUuid": "2d6e217b_35d09b78",
+      "revId": "1db569b64aea292e758682182757f75b6658b4a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d6e217b_75a133ec",
         "filename": "ssl/ssl_aead_ctx.c",
         "patchSetId": 3
