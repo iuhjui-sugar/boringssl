@@ -831,12 +831,7 @@ start:
     return n;
   }
 
-
-  /* If we get here, then type != rr->type; if we have a handshake message,
-   * then it was unexpected (Hello Request or Client Hello). */
-
-  /* In case of record types for which we have 'fragment' storage, fill that so
-   * that we can process the data at a fixed place. */
+  /* Process unexpected records. */
 
   if (rr->type == SSL3_RT_HANDSHAKE) {
     /* If peer renegotiations are disabled, all out-of-order handshake records
@@ -847,6 +842,7 @@ start:
       goto f_err;
     }
 
+    /* HelloRequests may be fragmented across multiple records. */
     const size_t size = sizeof(s->s3->handshake_fragment);
     const size_t avail = size - s->s3->handshake_fragment_len;
     const size_t todo = (rr->length < avail) ? rr->length : avail;
@@ -858,45 +854,53 @@ start:
     if (s->s3->handshake_fragment_len < size) {
       goto start; /* fragment was too small */
     }
-  }
 
-  /* s->s3->handshake_fragment_len == 4  iff  rr->type == SSL3_RT_HANDSHAKE;
-   * (Possibly rr is 'empty' now, i.e. rr->length may be 0.) */
-
-  /* If we are a client, check for an incoming 'Hello Request': */
-  if (!s->server && s->s3->handshake_fragment_len >= 4 &&
-      s->s3->handshake_fragment[0] == SSL3_MT_HELLO_REQUEST &&
-      s->session != NULL && s->session->cipher != NULL) {
-    s->s3->handshake_fragment_len = 0;
-
-    if (s->s3->handshake_fragment[1] != 0 ||
+    /* Parse out and consume a HelloRequest. */
+    if (s->s3->handshake_fragment[0] != SSL3_MT_HELLO_REQUEST ||
+        s->s3->handshake_fragment[1] != 0 ||
         s->s3->handshake_fragment[2] != 0 ||
         s->s3->handshake_fragment[3] != 0) {
       al = SSL_AD_DECODE_ERROR;
       OPENSSL_PUT_ERROR(SSL, ssl3_read_bytes, SSL_R_BAD_HELLO_REQUEST);
       goto f_err;
     }
+    s->s3->handshake_fragment_len = 0;
 
     if (s->msg_callback) {
       s->msg_callback(0, s->version, SSL3_RT_HANDSHAKE,
                       s->s3->handshake_fragment, 4, s, s->msg_callback_arg);
     }
 
-    if (SSL_is_init_finished(s) && !s->s3->renegotiate) {
-      ssl3_renegotiate(s);
-      if (ssl3_renegotiate_check(s)) {
-        i = s->handshake_func(s);
-        if (i < 0) {
-          return i;
-        }
-        if (i == 0) {
-          OPENSSL_PUT_ERROR(SSL, ssl3_read_bytes, SSL_R_SSL_HANDSHAKE_FAILURE);
-          return -1;
-        }
-      }
+    if (!SSL_is_init_finished(s) || !s->s3->initial_handshake_complete) {
+      /* This cannot happen. If a handshake is in progress, |type| must be
+       * |SSL3_RT_HANDSHAKE|. */
+      assert(0);
+      OPENSSL_PUT_ERROR(SSL, ssl3_read_bytes, ERR_R_INTERNAL_ERROR);
+      goto err;
     }
-    /* we either finished a handshake or ignored the request, now try again to
-     * obtain the (application) data we were asked for */
+
+    /* Renegotiation is only supported at quiescent points in the application
+     * protocol, namely in HTTPS, just before reading the HTTP response. Require
+     * the record-layer be idle and avoid complexities of sending a handshake
+     * record while an application_data record is being written. */
+    if (s->s3->wbuf.left != 0 || s->s3->rbuf.left != 0) {
+      al = SSL_AD_NO_RENEGOTIATION;
+      OPENSSL_PUT_ERROR(SSL, ssl3_read_bytes, SSL_R_NO_RENEGOTIATION);
+      goto f_err;
+    }
+
+    /* Begin a new handshake. */
+    s->state = SSL_ST_CONNECT;
+    i = s->handshake_func(s);
+    if (i < 0) {
+      return i;
+    }
+    if (i == 0) {
+      OPENSSL_PUT_ERROR(SSL, ssl3_read_bytes, SSL_R_SSL_HANDSHAKE_FAILURE);
+      return -1;
+    }
+
+    /* The handshake completed synchronously. Continue reading records. */
     goto start;
   }
 
