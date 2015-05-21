@@ -840,8 +840,8 @@ start:
 
   if (rr->type == SSL3_RT_HANDSHAKE) {
     /* If peer renegotiations are disabled, all out-of-order handshake records
-     * are fatal. */
-    if (!s->accept_peer_renegotiations) {
+     * are fatal. Renegotiations as a server are never supported. */
+    if (!s->accept_peer_renegotiations || s->server) {
       al = SSL_AD_NO_RENEGOTIATION;
       OPENSSL_PUT_ERROR(SSL, ssl3_read_bytes, SSL_R_NO_RENEGOTIATION);
       goto f_err;
@@ -1013,24 +1013,6 @@ start:
     } else {
       goto start;
     }
-  }
-
-  /* Unexpected handshake message (Client Hello, or protocol violation) */
-  if (s->s3->handshake_fragment_len >= 4 && !s->in_handshake) {
-    if ((s->state & SSL_ST_MASK) == SSL_ST_OK) {
-      s->state = s->server ? SSL_ST_ACCEPT : SSL_ST_CONNECT;
-      s->renegotiate = 1;
-    }
-    i = s->handshake_func(s);
-    if (i < 0) {
-      return i;
-    }
-    if (i == 0) {
-      OPENSSL_PUT_ERROR(SSL, ssl3_read_bytes, SSL_R_SSL_HANDSHAKE_FAILURE);
-      return -1;
-    }
-
-    goto start;
   }
 
   /* We already handled these. */
