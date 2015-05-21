@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d2aad12_dbe944ae",
+        "filename": "ssl/d1_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-21T17:27:01Z",
+      "side": 0,
+      "message": "The diff on this is funny. It should be unindenting 185 through 196 and removing the else block and HELLO_REQ cases.",
+      "revId": "89eff67dde3e41c3f3950f878edd30e7f430f707",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
