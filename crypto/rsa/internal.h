@@ -90,7 +90,6 @@ BN_BLINDING *BN_BLINDING_create_param(
     BN_MONT_CTX *m_ctx);
 BN_BLINDING *rsa_setup_blinding(RSA *rsa, BN_CTX *in_ctx);
 
-
 int RSA_padding_add_PKCS1_type_1(uint8_t *to, unsigned to_len,
                                  const uint8_t *from, unsigned from_len);
 int RSA_padding_check_PKCS1_type_1(uint8_t *to, unsigned to_len,
@@ -132,6 +131,22 @@ typedef struct rsa_oaep_params_st {
   X509_ALGOR *maskGenFunc;
   X509_ALGOR *pSourceFunc;
 } RSA_OAEP_PARAMS;
+
+/* RSA_additional_prime contains information about the third, forth etc prime
+ * in a multi-prime RSA key. */
+typedef struct RSA_additional_prime_st {
+  BIGNUM *prime;
+  BIGNUM *exp;   /* d^{prime-1} mod prime */
+  BIGNUM *coeff; /* r * coeff = 1 mod prime. */
+
+  /* Values below here are not in the ASN.1 */
+  BIGNUM *r;               /* the product of all primes (including p and q)
+                              prior to this one. */
+  BN_MONT_CTX *method_mod; /* Used to cache montgomery values. */
+} RSA_additional_prime;
+
+void int_rsa_free_additional_prime(RSA_additional_prime *prime);
+
 
 #if defined(__cplusplus)
 } /* extern C */
