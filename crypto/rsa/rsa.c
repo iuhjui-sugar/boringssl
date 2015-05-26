@@ -145,6 +145,19 @@ void RSA_free(RSA *rsa) {
   }
   OPENSSL_free(rsa->blindings);
   OPENSSL_free(rsa->blindings_inuse);
+  if (rsa->additional_primes != NULL) {
+    size_t j;
+    for (j = 0; j < sk_RSA_additional_prime_num(rsa->additional_primes); j++) {
+      RSA_additional_prime *ap =
+          sk_RSA_additional_prime_value(rsa->additional_primes, j);
+      BN_clear_free(ap->prime);
+      BN_clear_free(ap->exp);
+      BN_clear_free(ap->coeff);
+      BN_clear_free(ap->r);
+    }
+    sk_RSA_additional_prime_pop_free(
+        rsa->additional_primes, (void (*)(RSA_additional_prime *))OPENSSL_free);
+  }
   CRYPTO_MUTEX_cleanup(&rsa->lock);
   OPENSSL_free(rsa);
 }
