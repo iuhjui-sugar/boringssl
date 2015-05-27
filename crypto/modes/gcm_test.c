@@ -356,7 +356,7 @@ static int run_test_case(unsigned test_num, const struct test_case *test) {
   }
 
   CRYPTO_gcm128_init(&ctx, &aes_key, (block128_f) AES_encrypt);
-  CRYPTO_gcm128_setiv(&ctx, nonce, nonce_len);
+  CRYPTO_gcm128_setiv(&ctx, nonce, nonce_len, gcm_ek0_not_precomputed);
   memset(out, 0, plaintext_len);
   if (additional_data) {
     CRYPTO_gcm128_aad(&ctx, additional_data, additional_data_len);
@@ -372,7 +372,7 @@ static int run_test_case(unsigned test_num, const struct test_case *test) {
     goto out;
   }
 
-  CRYPTO_gcm128_setiv(&ctx, nonce, nonce_len);
+  CRYPTO_gcm128_setiv(&ctx, nonce, nonce_len, gcm_ek0_not_precomputed);
   memset(out, 0, plaintext_len);
   if (additional_data) {
     CRYPTO_gcm128_aad(&ctx, additional_data, additional_data_len);

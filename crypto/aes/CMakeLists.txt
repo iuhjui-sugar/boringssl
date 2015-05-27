@@ -6,6 +6,7 @@ if (${ARCH} STREQUAL "x86_64")
 
     aes-x86_64.${ASM_EXT}
     aesni-x86_64.${ASM_EXT}
+    aesni-schedule-and-encrypt-x86_64.${ASM_EXT}
     bsaes-x86_64.${ASM_EXT}
     vpaes-x86_64.${ASM_EXT}
   )
@@ -52,6 +53,7 @@ add_library(
 
 perlasm(aes-x86_64.${ASM_EXT} asm/aes-x86_64.pl)
 perlasm(aesni-x86_64.${ASM_EXT} asm/aesni-x86_64.pl)
+perlasm(aesni-schedule-and-encrypt-x86_64.${ASM_EXT} asm/aesni-schedule-and-encrypt-x86_64.pl)
 perlasm(bsaes-x86_64.${ASM_EXT} asm/bsaes-x86_64.pl)
 perlasm(vpaes-x86_64.${ASM_EXT} asm/vpaes-x86_64.pl)
 perlasm(aes-586.${ASM_EXT} asm/aes-586.pl)

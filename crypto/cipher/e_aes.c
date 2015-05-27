@@ -475,14 +475,14 @@ static int aes_gcm_init_key(EVP_CIPHER_CTX *ctx, const uint8_t *key,
       iv = gctx->iv;
     }
     if (iv) {
-      CRYPTO_gcm128_setiv(&gctx->gcm, iv, gctx->ivlen);
+      CRYPTO_gcm128_setiv(&gctx->gcm, iv, gctx->ivlen, gcm_ek0_not_precomputed);
       gctx->iv_set = 1;
     }
     gctx->key_set = 1;
   } else {
     /* If key set use IV, otherwise copy */
     if (gctx->key_set) {
-      CRYPTO_gcm128_setiv(&gctx->gcm, iv, gctx->ivlen);
+      CRYPTO_gcm128_setiv(&gctx->gcm, iv, gctx->ivlen, gcm_ek0_not_precomputed);
     } else {
       memcpy(gctx->iv, iv, gctx->ivlen);
     }
@@ -586,7 +586,8 @@ static int aes_gcm_ctrl(EVP_CIPHER_CTX *c, int type, int arg, void *ptr) {
       if (gctx->iv_gen == 0 || gctx->key_set == 0) {
         return 0;
       }
-      CRYPTO_gcm128_setiv(&gctx->gcm, gctx->iv, gctx->ivlen);
+      CRYPTO_gcm128_setiv(&gctx->gcm, gctx->iv, gctx->ivlen,
+                          gcm_ek0_not_precomputed);
       if (arg <= 0 || arg > gctx->ivlen) {
         arg = gctx->ivlen;
       }
@@ -603,7 +604,8 @@ static int aes_gcm_ctrl(EVP_CIPHER_CTX *c, int type, int arg, void *ptr) {
         return 0;
       }
       memcpy(gctx->iv + gctx->ivlen - arg, ptr, arg);
-      CRYPTO_gcm128_setiv(&gctx->gcm, gctx->iv, gctx->ivlen);
+      CRYPTO_gcm128_setiv(&gctx->gcm, gctx->iv, gctx->ivlen,
+                          gcm_ek0_not_precomputed);
       gctx->iv_set = 1;
       return 1;
 
@@ -880,15 +882,86 @@ static int aesni_ecb_cipher(EVP_CIPHER_CTX *ctx, uint8_t *out,
   return 1;
 }
 
+#if defined(OPENSSL_X86_64) && !defined(OPENSSL_NO_ASM) && \
+    !defined(OPENSSL_WINDOWS)
+
+/* On non-Windows platforms we have some x86-64 ASM that speeds up the key
+ * schedule for AES-GCM. */
+
+static const char kHaveScheduleAndEncrypt = 1;
+
+/* aesni_schedule_and_encrypt_128 calculates the expansion of the 128-bit AES
+ * key in |key| and writes it to |out_key_schedule|. It also encrypts
+ * |plaintext| and the all-zero block under that key and writes their
+ * respective ciphertexts to |out_ciphertext| and |out_zero_ciphertext|. */
+extern void aesni_schedule_and_encrypt_128(uint8_t out_ciphertext[16],
+                                           uint8_t out_zero_ciphertext[16],
+                                           AES_KEY *out_key_schedule,
+                                           const uint8_t key[16],
+                                           const uint8_t plaintext[16]);
+
+/* aesni_schedule_and_encrypt_256 calculates the expansion of the 256-bit AES
+ * key in |key| and writes it to |out_key_schedule|. It also encrypts
+ * |plaintext| and the all-zero block under that key and writes their
+ * respective ciphertexts to |out_ciphertext| and |out_zero_ciphertext|. */
+extern void aesni_schedule_and_encrypt_256(uint8_t out_ciphertext[16],
+                                           uint8_t out_zero_ciphertext[16],
+                                           AES_KEY *out_key_schedule,
+                                           const uint8_t key[32],
+                                           const uint8_t plaintext[16]);
+
+#else
+
+static const char kHaveScheduleAndEncrypt = 0;
+
+static void aesni_schedule_and_encrypt_128(uint8_t out_ciphertext[16],
+                                           uint8_t out_zero_ciphertext[16],
+                                           AES_KEY *out_key_schedule,
+                                           const uint8_t key[16],
+                                           const uint8_t plaintext[16]) {
+  abort();
+}
+
+static void aesni_schedule_and_encrypt_256(uint8_t out_ciphertext[16],
+                                           uint8_t out_zero_ciphertext[16],
+                                           AES_KEY *out_key_schedule,
+                                           const uint8_t key[32],
+                                           const uint8_t plaintext[16]) {
+  abort();
+}
+
+#endif
+
 static int aesni_gcm_init_key(EVP_CIPHER_CTX *ctx, const uint8_t *key,
                               const uint8_t *iv, int enc) {
   EVP_AES_GCM_CTX *gctx = ctx->cipher_data;
   if (!iv && !key) {
     return 1;
   }
+
+  gcm_ek0_precomputed_state_t ek0_state = gcm_ek0_not_precomputed;
   if (key) {
-    aesni_set_encrypt_key(key, ctx->key_len * 8, &gctx->ks.ks);
-    CRYPTO_gcm128_init(&gctx->gcm, &gctx->ks, (block128_f)aesni_encrypt);
+    if (kHaveScheduleAndEncrypt &&
+        gctx->ivlen == 12 &&
+        (ctx->key_len == 16 || ctx->key_len == 32)) {
+      GCM128_CONTEXT *gcm_ctx = &gctx->gcm;
+      memcpy(gcm_ctx->Yi.c, iv, 12);
+      gcm_ctx->Yi.c[12] = 0;
+      gcm_ctx->Yi.c[13] = 0;
+      gcm_ctx->Yi.c[14] = 0;
+      gcm_ctx->Yi.c[15] = 1;
+      if (ctx->key_len == 16) {
+        aesni_schedule_and_encrypt_128(gcm_ctx->EK0.c, gcm_ctx->H.c, &gctx->ks.ks, key, gcm_ctx->Yi.c);
+      } else {
+        aesni_schedule_and_encrypt_256(gcm_ctx->EK0.c, gcm_ctx->H.c, &gctx->ks.ks, key, gcm_ctx->Yi.c);
+      }
+      ek0_state = gcm_ek0_precomputed;
+      CRYPTO_gcm128_init(&gctx->gcm, &gctx->ks, (block128_f) NULL);
+      gcm_ctx->block = (block128_f)aesni_encrypt;
+    } else {
+      aesni_set_encrypt_key(key, ctx->key_len * 8, &gctx->ks.ks);
+      CRYPTO_gcm128_init(&gctx->gcm, &gctx->ks, (block128_f)aesni_encrypt);
+    }
     gctx->ctr = (ctr128_f)aesni_ctr32_encrypt_blocks;
     /* If we have an iv can set it directly, otherwise use
      * saved IV. */
@@ -896,14 +969,14 @@ static int aesni_gcm_init_key(EVP_CIPHER_CTX *ctx, const uint8_t *key,
       iv = gctx->iv;
     }
     if (iv) {
-      CRYPTO_gcm128_setiv(&gctx->gcm, iv, gctx->ivlen);
+      CRYPTO_gcm128_setiv(&gctx->gcm, iv, gctx->ivlen, ek0_state);
       gctx->iv_set = 1;
     }
     gctx->key_set = 1;
   } else {
     /* If key set use IV, otherwise copy */
     if (gctx->key_set) {
-      CRYPTO_gcm128_setiv(&gctx->gcm, iv, gctx->ivlen);
+      CRYPTO_gcm128_setiv(&gctx->gcm, iv, gctx->ivlen, ek0_state);
     } else {
       memcpy(gctx->iv, iv, gctx->ivlen);
     }
@@ -1118,7 +1191,7 @@ static int aead_aes_gcm_seal(const EVP_AEAD_CTX *ctx, uint8_t *out,
   }
 
   memcpy(&gcm, &gcm_ctx->gcm, sizeof(gcm));
-  CRYPTO_gcm128_setiv(&gcm, nonce, nonce_len);
+  CRYPTO_gcm128_setiv(&gcm, nonce, nonce_len, gcm_ek0_not_precomputed);
 
   if (ad_len > 0 && !CRYPTO_gcm128_aad(&gcm, ad, ad_len)) {
     return 0;
@@ -1164,7 +1237,7 @@ static int aead_aes_gcm_open(const EVP_AEAD_CTX *ctx, uint8_t *out,
   }
 
   memcpy(&gcm, &gcm_ctx->gcm, sizeof(gcm));
-  CRYPTO_gcm128_setiv(&gcm, nonce, nonce_len);
+  CRYPTO_gcm128_setiv(&gcm, nonce, nonce_len, gcm_ek0_not_precomputed);
 
   if (!CRYPTO_gcm128_aad(&gcm, ad, ad_len)) {
     return 0;

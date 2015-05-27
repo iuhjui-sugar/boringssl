@@ -420,11 +420,12 @@ void CRYPTO_gcm128_init(GCM128_CONTEXT *ctx, void *key, block128_f block) {
     char little;
   } is_endian = {1};
 
-  memset(ctx, 0, sizeof(*ctx));
+  if (block != NULL) {
+    memset(ctx, 0, sizeof(*ctx));
+    (*block)(ctx->H.c, ctx->H.c, key);
+  }
   ctx->block = block;
   ctx->key = key;
-
-  (*block)(ctx->H.c, ctx->H.c, key);
 
   if (is_endian.little) {
 /* H is stored in host byte order */
@@ -488,7 +489,8 @@ void CRYPTO_gcm128_init(GCM128_CONTEXT *ctx, void *key, block128_f block) {
 #endif
 }
 
-void CRYPTO_gcm128_setiv(GCM128_CONTEXT *ctx, const uint8_t *iv, size_t len) {
+void CRYPTO_gcm128_setiv(GCM128_CONTEXT *ctx, const uint8_t *iv, size_t len,
+                         gcm_ek0_precomputed_state_t ek0_state) {
   const union {
     long one;
     char little;
@@ -556,7 +558,9 @@ void CRYPTO_gcm128_setiv(GCM128_CONTEXT *ctx, const uint8_t *iv, size_t len) {
     }
   }
 
-  (*ctx->block)(ctx->Yi.c, ctx->EK0.c, ctx->key);
+  if (ek0_state == gcm_ek0_not_precomputed) {
+    (*ctx->block)(ctx->Yi.c, ctx->EK0.c, ctx->key);
+  }
   ++ctr;
   if (is_endian.little) {
     PUTU32(ctx->Yi.c + 12, ctr);
