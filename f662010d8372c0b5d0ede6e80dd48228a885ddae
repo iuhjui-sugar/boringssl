@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "cd3d85a0_f57f27d6",
+        "filename": "crypto/bio/bio.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-27T22:22:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6df819fb_7b3dff8a",
+      "revId": "f662010d8372c0b5d0ede6e80dd48228a885ddae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6df819fb_3b0537cd",
         "filename": "crypto/bio/bio_test.cc",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "cd3d85a0_55671b50",
+        "filename": "crypto/bio/bio_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-27T22:22:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6df819fb_3b0537cd",
+      "revId": "f662010d8372c0b5d0ede6e80dd48228a885ddae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6df819fb_fb6f4fa8",
         "filename": "include/openssl/bio.h",
         "patchSetId": 1
@@ -47,6 +83,30 @@
       "writtenOn": "2015-05-21T22:29:21Z",
       "side": 1,
       "message": "This is an odd contract for a function. If the caller is okay with over-reading, then why not just read the whole thing? And if it isn\u0027t okay, then this wouldn\u0027t work.\n\n(If we really wanted, we could find the bounds of the indefinite-length element by reading until the EOC. Sounds somewhat obnoxious though.)",
+      "range": {
+        "startLine": 347,
+        "startChar": 57,
+        "endLine": 349,
+        "endChar": 59
+      },
+      "revId": "f662010d8372c0b5d0ede6e80dd48228a885ddae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd3d85a0_98d37a54",
+        "filename": "include/openssl/bio.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-27T22:22:23Z",
+      "side": 1,
+      "message": "The actual story is:\n\n\"Nobody depends on reading single ASN.1 values from the input, right?\"\n\n\"Oh nuts, Android does.\"\n\nBut, based on that, punting on the indefinite length problem saves a bit of complexity and people using BER deserve everything they get.",
+      "parentUuid": "6df819fb_fb6f4fa8",
       "range": {
         "startLine": 347,
         "startChar": 57,
