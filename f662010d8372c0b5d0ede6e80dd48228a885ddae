@@ -116,6 +116,30 @@
       "revId": "f662010d8372c0b5d0ede6e80dd48228a885ddae",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d470d3e_2cdc130c",
+        "filename": "include/openssl/bio.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-27T22:28:24Z",
+      "side": 1,
+      "message": "Oh, I see. It\u0027s used in NativeCrypto.PEM_read_bio_PKCS7 and PKCS7 can be BER. Bleh.",
+      "parentUuid": "cd3d85a0_98d37a54",
+      "range": {
+        "startLine": 347,
+        "startChar": 57,
+        "endLine": 349,
+        "endChar": 59
+      },
+      "revId": "f662010d8372c0b5d0ede6e80dd48228a885ddae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
