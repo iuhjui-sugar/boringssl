@@ -329,6 +329,39 @@ OPENSSL_EXPORT int RSA_add_pkcs1_prefix(uint8_t **out_msg, size_t *out_msg_len,
                                         int *is_alloced, int hash_nid,
                                         const uint8_t *msg, size_t msg_len);
 
+/* RSA_padding_check_PKCS1_OAEP_mgf1 validates OAEP padding of the message in
+ * |from|, a buffer of |flen| bytes, and, if successful, writes the unpadded
+ * message into |to|, a buffer of |tlen| bytes.  |plen| bytes at |param| are
+ * used as the OAEP label.  |param| may be NULL if |plen| == 0.  |md| specifies
+ * the hash function used to generate padding bytes.  If NULL, EVP_sha1() is
+ * used.  |mgf1md| specifies the hash function for mask generation.  If NULL,
+ * |md| is used, or EVP_sha1() if |md| is also NULL.
+ *
+ * It returns one on success or zero on error.
+ */
+OPENSSL_EXPORT int RSA_padding_check_PKCS1_OAEP_mgf1(uint8_t *to, unsigned tlen,
+                                                     const uint8_t *from,
+                                                     unsigned flen,
+                                                     const uint8_t *param,
+                                                     unsigned plen,
+                                                     const EVP_MD *md,
+                                                     const EVP_MD *mgf1md);
+
+/* RSA_padding_add_PKCS1_OAEP_mgf1 writes an OAEP padding of |from|, a buffer of
+ * |flen| bytes, to |to|, a buffer of |tlen| bytes.  |plen| bytes at |param| are
+ * used as the OAEP label.  |param| may be NULL if |plen| == 0.  |md| specifies
+ * the hash function used to generate padding bytes.  If NULL, EVP_sha1() is
+ * used.  |mgf1md| specifies the hash function for mask generation.  If NULL,
+ * |md| is used, or EVP_sha1() if |md| is also NULL.
+ *
+ * It returns one on success or zero on error. */
+OPENSSL_EXPORT int RSA_padding_add_PKCS1_OAEP_mgf1(uint8_t *to, unsigned tlen,
+                                                   const uint8_t *from,
+                                                   unsigned flen,
+                                                   const uint8_t *param,
+                                                   unsigned plen,
+                                                   const EVP_MD *md,
+                                                   const EVP_MD *mgf1md);
 
 /* ASN.1 functions. */
 
