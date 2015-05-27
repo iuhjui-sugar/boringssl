@@ -329,6 +329,38 @@ OPENSSL_EXPORT int RSA_add_pkcs1_prefix(uint8_t **out_msg, size_t *out_msg_len,
                                         int *is_alloced, int hash_nid,
                                         const uint8_t *msg, size_t msg_len);
 
+/* RSA_padding_check_PKCS1_OAEP_mgf1 validates the OAEP padding of the
+ * |from_len| bytes at |from| and, if successful, writes the unpadded message
+ * to |to|, a buffer of |to_len| bytes. The expected OAEP label is given by
+ * |param_len| bytes at |param|. The hash function used to generate padding
+ * bytes is given in |md| and |mgf1md| specifies the hash function for mask
+ * generation.
+ *
+ * It returns one on success or zero on error.
+ *
+ * (Historical: if |md| is NULL then SHA-1 is used and, if |mgf1md| is NULL,
+ * the value of |md| is used after that default is applied. Do not depend on
+ * this in new code.) */
+OPENSSL_EXPORT int RSA_padding_check_PKCS1_OAEP_mgf1(
+    uint8_t *to, size_t to_len, const uint8_t *from, size_t from_len,
+    const uint8_t *param, size_t param_len, const EVP_MD *md,
+    const EVP_MD *mgf1md);
+
+/* RSA_padding_add_PKCS1_OAEP_mgf1 writes an OAEP padding of |from_len| bytes
+ * at |from| to |to|, a buffer of |to_len| bytes. The OAEP label is given by
+ * |param_len| bytes at |param|. The hash function used to generate padding
+ * bytes is given by |md| and |mgf1md| specifies the hash function for mask
+ * generation.
+ *
+ * It returns one on success or zero on error.
+ *
+ * (Historical: if |md| is NULL then SHA-1 is used and, if |mgf1md| is NULL,
+ * the value of |md| is used after that default is applied. Do not depend on
+ * this in new code.) */
+OPENSSL_EXPORT int RSA_padding_add_PKCS1_OAEP_mgf1(
+    uint8_t *to, size_t to_len, const uint8_t *from, size_t from_len,
+    const uint8_t *param, size_t param_len, const EVP_MD *md,
+    const EVP_MD *mgf1md);
 
 /* ASN.1 functions. */
 
