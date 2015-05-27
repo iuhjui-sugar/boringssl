@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd3d85a0_9550a331",
+        "filename": "crypto/obj/obj.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-05-27T21:57:55Z",
+      "side": 1,
+      "message": "We shouldn\u0027t avoid calling memcmp with NULL. If we\u0027re worried, we should add a test for that case to catch any sociopathic compilers.",
+      "revId": "d7f82cf9e1b8689b16c12ac2554c80c2fa0c1093",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
