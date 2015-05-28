@@ -658,6 +658,18 @@ end:
   return ret;
 }
 
+int SSL_CTX_use_private_key_method(SSL_CTX *ctx,
+                                   const SSL_PRIVATE_KEY_METHOD *method,
+                                   void *key) {
+  return ssl_set_pkey(ctx->cert, method, key);
+}
+
+int SSL_use_private_key_method(SSL *ssl,
+                               const SSL_PRIVATE_KEY_METHOD *method,
+                               void *key) {
+  return ssl_set_pkey(ssl->cert, method, key);
+}
+
 static void *ssl_evp_pkey_up_ref(void *key) {
   return EVP_PKEY_up_ref((EVP_PKEY *)key);
 }

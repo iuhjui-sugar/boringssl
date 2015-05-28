@@ -541,7 +541,11 @@ typedef struct ssl_private_key_method_st {
    * DigestInfo is prepended.
    *
    * It is an error to call |sign| while another private key operation is in
-   * progress on |ssl|. */
+   * progress on |ssl|. |sign| may not assume |out| remains valid beyond the
+   * duration of the function call.
+   *
+   * TODO(davidben): Asynchronous signing is currently only supported on the
+   * client. */
   enum ssl_private_key_result_t (*sign)(void *key, SSL *ssl, uint8_t *out,
                                         size_t *out_len, size_t max_out,
                                         const EVP_MD *md, const uint8_t *in,
@@ -571,6 +575,18 @@ typedef struct ssl_private_key_method_st {
   int (*decrypt)(void *key, SSL *ssl, uint8_t *out, size_t *out_len, size_t max_out,
                  const uint8_t *in, size_t in_len);
 } SSL_PRIVATE_KEY_METHOD;
+
+/* SSL_use_private_key_method configures a custom private key on |ctx|. |method|
+ * must remain valid for the lifetime of |ctx|. It returns one on success and
+ * zero on failure. */
+OPENSSL_EXPORT int SSL_CTX_use_private_key_method(
+    SSL_CTX *ctx, const SSL_PRIVATE_KEY_METHOD *method, void *key);
+
+/* SSL_use_private_key_method configures a custom private key on |ssl|. |method|
+ * must remain valid for the lifetime of |ssl|. It returns one on success and
+ * zero on failure. */
+OPENSSL_EXPORT int SSL_use_private_key_method(
+    SSL *ssl, const SSL_PRIVATE_KEY_METHOD *method, void *key);
 
 
 /* Underdocumented functions.
@@ -1325,6 +1341,7 @@ OPENSSL_EXPORT const char *SSL_get_psk_identity(const SSL *s);
 #define SSL_CHANNEL_ID_LOOKUP 5
 #define SSL_PENDING_SESSION 7
 #define SSL_CERTIFICATE_SELECTION_PENDING 8
+#define SSL_PRIVATE_KEY_OPERATION 9
 
 /* These will only be used when doing non-blocking IO */
 #define SSL_want_nothing(s) (SSL_want(s) == SSL_NOTHING)
@@ -1335,6 +1352,8 @@ OPENSSL_EXPORT const char *SSL_get_psk_identity(const SSL *s);
 #define SSL_want_session(s) (SSL_want(s) == SSL_PENDING_SESSION)
 #define SSL_want_certificate(s) \
   (SSL_want(s) == SSL_CERTIFICATE_SELECTION_PENDING)
+#define SSL_want_private_key_operation(s) \
+  (SSL_want(s) == SSL_PRIVATE_KEY_OPERATION)
 
 struct ssl_st {
   /* version is the protocol version. */
@@ -1683,6 +1702,7 @@ DECLARE_PEM_rw(SSL_SESSION, SSL_SESSION)
 #define SSL_ERROR_WANT_CHANNEL_ID_LOOKUP 9
 #define SSL_ERROR_PENDING_SESSION 11
 #define SSL_ERROR_PENDING_CERTIFICATE 12
+#define SSL_ERROR_WANT_PRIVATE_KEY_OPERATION 13
 
 #define SSL_CTRL_EXTRA_CHAIN_CERT 14
 

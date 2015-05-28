@@ -356,6 +356,7 @@ int ssl3_connect(SSL *s) {
 
       case SSL3_ST_CW_CERT_VRFY_A:
       case SSL3_ST_CW_CERT_VRFY_B:
+      case SSL3_ST_CW_CERT_VRFY_C:
         ret = ssl3_send_cert_verify(s);
         if (ret <= 0) {
           goto end;
@@ -1974,63 +1975,84 @@ err:
 }
 
 int ssl3_send_cert_verify(SSL *s) {
-  uint8_t *buf, *p;
-  const EVP_MD *md = NULL;
-  uint8_t digest[EVP_MAX_MD_SIZE];
-  size_t digest_length;
-  CERT_PKEY *cert_pkey;
-  size_t signature_length = 0;
-  unsigned long n = 0;
+  if (s->state == SSL3_ST_CW_CERT_VRFY_A ||
+      s->state == SSL3_ST_CW_CERT_VRFY_B) {
+    enum ssl_private_key_result_t sign_result;
+    uint8_t *p = ssl_handshake_start(s);
+    CERT_PKEY *cert_pkey = s->cert->key;
+    size_t signature_length = 0;
+    unsigned long n = 0;
 
-  buf = (uint8_t *)s->init_buf->data;
+    if (s->state == SSL3_ST_CW_CERT_VRFY_A) {
+      uint8_t *buf = (uint8_t *)s->init_buf->data;
+      const EVP_MD *md = NULL;
+      uint8_t digest[EVP_MAX_MD_SIZE];
+      size_t digest_length;
 
-  if (s->state == SSL3_ST_CW_CERT_VRFY_A) {
-    p = ssl_handshake_start(s);
-    cert_pkey = s->cert->key;
+      /* Write out the digest type if needbe. */
+      if (SSL_USE_SIGALGS(s)) {
+        md = tls1_choose_signing_digest(s, cert_pkey);
+        if (!tls12_get_sigandhash(p, cert_pkey, md)) {
+          OPENSSL_PUT_ERROR(SSL, ssl3_send_cert_verify, ERR_R_INTERNAL_ERROR);
+          return -1;
+        }
+        p += 2;
+        n += 2;
+      }
 
-    /* Write out the digest type if needbe. */
-    if (SSL_USE_SIGALGS(s)) {
-      md = tls1_choose_signing_digest(s, cert_pkey);
-      if (!tls12_get_sigandhash(p, cert_pkey, md)) {
-        OPENSSL_PUT_ERROR(SSL, ssl3_send_cert_verify, ERR_R_INTERNAL_ERROR);
+      /* Compute the digest. */
+      if (!ssl3_cert_verify_hash(s, digest, &digest_length, &md,
+                                 cert_pkey->key_method->type(cert_pkey->key))) {
         return -1;
       }
-      p += 2;
-      n += 2;
+
+      /* The handshake buffer is no longer necessary. */
+      if (s->s3->handshake_buffer &&
+          !ssl3_digest_cached_records(s, free_handshake_buffer)) {
+        return -1;
+      }
+
+      /* Sign the digest. */
+      signature_length =
+          cert_pkey->key_method->max_signature_len(cert_pkey->key);
+      if (p + 2 + signature_length > buf + SSL3_RT_MAX_PLAIN_LENGTH) {
+        OPENSSL_PUT_ERROR(SSL, ssl3_send_cert_verify,
+                          SSL_R_DATA_LENGTH_TOO_LONG);
+        return -1;
+      }
+
+      s->rwstate = SSL_PRIVATE_KEY_OPERATION;
+      sign_result = cert_pkey->key_method->sign(
+          cert_pkey->key, s, &p[2], &signature_length, signature_length, md,
+          digest, digest_length);
+    } else {
+      if (SSL_USE_SIGALGS(s)) {
+        /* The digest has already been selected and written. */
+        p += 2;
+        n += 2;
+      }
+      signature_length =
+          cert_pkey->key_method->max_signature_len(cert_pkey->key);
+      s->rwstate = SSL_PRIVATE_KEY_OPERATION;
+      sign_result = cert_pkey->key_method->sign_complete(
+          cert_pkey->key, s, &p[2], &signature_length, signature_length);
     }
 
-    /* Compute the digest. */
-    if (!ssl3_cert_verify_hash(s, digest, &digest_length, &md,
-                               cert_pkey->key_method->type(cert_pkey->key))) {
+    if (sign_result == ssl_private_key_retry) {
+      s->state = SSL3_ST_CW_CERT_VRFY_B;
       return -1;
     }
-
-    /* The handshake buffer is no longer necessary. */
-    if (s->s3->handshake_buffer &&
-        !ssl3_digest_cached_records(s, free_handshake_buffer)) {
-      return -1;
-    }
-
-    /* Sign the digest. */
-    signature_length = cert_pkey->key_method->max_signature_len(cert_pkey->key);
-    if (p + 2 + signature_length > buf + SSL3_RT_MAX_PLAIN_LENGTH) {
-      OPENSSL_PUT_ERROR(SSL, ssl3_send_cert_verify, SSL_R_DATA_LENGTH_TOO_LONG);
-      return -1;
-    }
-    /* TODO(davidben): Support asynchronous operation. */
-    if (cert_pkey->key_method->sign(cert_pkey->key, s, &p[2], &signature_length,
-                                    signature_length, md, digest,
-                                    digest_length) != ssl_private_key_success) {
+    s->rwstate = SSL_NOTHING;
+    if (sign_result != ssl_private_key_success) {
       return -1;
     }
 
     s2n(signature_length, p);
     n += signature_length + 2;
-
     if (!ssl_set_handshake_header(s, SSL3_MT_CERTIFICATE_VERIFY, n)) {
       return -1;
     }
-    s->state = SSL3_ST_CW_CERT_VRFY_B;
+    s->state = SSL3_ST_CW_CERT_VRFY_C;
   }
 
   return ssl_do_write(s);
