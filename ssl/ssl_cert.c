@@ -213,16 +213,17 @@ CERT *ssl_cert_dup(CERT *cert) {
       rpk->x509 = X509_up_ref(cpk->x509);
     }
 
-    if (cpk->privatekey != NULL) {
-      rpk->privatekey = EVP_PKEY_up_ref(cpk->privatekey);
-    }
-
     if (cpk->chain) {
       rpk->chain = X509_chain_up_ref(cpk->chain);
       if (!rpk->chain) {
         OPENSSL_PUT_ERROR(SSL, ssl_cert_dup, ERR_R_MALLOC_FAILURE);
         goto err;
       }
+    }
+
+    if (cpk->key_method != NULL) {
+      rpk->key_method = cpk->key_method;
+      rpk->key = rpk->key_method->up_ref(cpk->key);
     }
   }
 
@@ -274,6 +275,14 @@ err:
   return NULL;
 }
 
+void ssl_cert_pkey_clear_key(CERT_PKEY *cert_pkey) {
+  if (cert_pkey->key_method != NULL) {
+    cert_pkey->key_method->free(cert_pkey->key);
+  }
+  cert_pkey->key_method = NULL;
+  cert_pkey->key = NULL;
+}
+
 /* Free up and clear all certificates and chains */
 void ssl_cert_clear_certs(CERT *c) {
   int i;
@@ -283,18 +292,11 @@ void ssl_cert_clear_certs(CERT *c) {
 
   for (i = 0; i < SSL_PKEY_NUM; i++) {
     CERT_PKEY *cpk = c->pkeys + i;
-    if (cpk->x509) {
-      X509_free(cpk->x509);
-      cpk->x509 = NULL;
-    }
-    if (cpk->privatekey) {
-      EVP_PKEY_free(cpk->privatekey);
-      cpk->privatekey = NULL;
-    }
-    if (cpk->chain) {
-      sk_X509_pop_free(cpk->chain, X509_free);
-      cpk->chain = NULL;
-    }
+    X509_free(cpk->x509);
+    cpk->x509 = NULL;
+    sk_X509_pop_free(cpk->chain, X509_free);
+    cpk->chain = NULL;
+    ssl_cert_pkey_clear_key(cpk);
   }
 }
 

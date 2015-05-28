@@ -1214,7 +1214,7 @@ int ssl3_send_server_key_exchange(SSL *s) {
   BN_CTX *bn_ctx = NULL;
   const char *psk_identity_hint = NULL;
   size_t psk_identity_hint_len = 0;
-  EVP_PKEY *pkey;
+  CERT_PKEY *cert_pkey;
   uint8_t *p, *d;
   int al, i;
   uint32_t alg_k;
@@ -1375,14 +1375,14 @@ int ssl3_send_server_key_exchange(SSL *s) {
     }
 
     if (ssl_cipher_has_server_public_key(s->s3->tmp.new_cipher)) {
-      pkey = ssl_get_sign_pkey(s, s->s3->tmp.new_cipher);
-      if (pkey == NULL) {
+      cert_pkey = ssl_get_sign_pkey(s, s->s3->tmp.new_cipher);
+      if (cert_pkey == NULL || cert_pkey->key_method == NULL) {
         al = SSL_AD_DECODE_ERROR;
         goto f_err;
       }
-      kn = EVP_PKEY_size(pkey);
+      kn = cert_pkey->key_method->max_signature_len(cert_pkey->key);
     } else {
-      pkey = NULL;
+      cert_pkey = NULL;
       kn = 0;
     }
 
@@ -1427,16 +1427,16 @@ int ssl3_send_server_key_exchange(SSL *s) {
     }
 
     /* not anonymous */
-    if (pkey != NULL) {
+    if (cert_pkey != NULL) {
       /* n is the length of the params, they start at &(d[4]) and p points to
        * the space at the end. */
       const EVP_MD *md;
-      size_t sig_len = EVP_PKEY_size(pkey);
+      size_t sig_len = cert_pkey->key_method->max_signature_len(cert_pkey->key);
 
       /* Determine signature algorithm. */
       if (SSL_USE_SIGALGS(s)) {
-        md = tls1_choose_signing_digest(s, pkey);
-        if (!tls12_get_sigandhash(p, pkey, md)) {
+        md = tls1_choose_signing_digest(s, cert_pkey);
+        if (!tls12_get_sigandhash(p, cert_pkey, md)) {
           /* Should never happen */
           al = SSL_AD_INTERNAL_ERROR;
           OPENSSL_PUT_ERROR(SSL, ssl3_send_server_key_exchange,
@@ -1444,7 +1444,7 @@ int ssl3_send_server_key_exchange(SSL *s) {
           goto f_err;
         }
         p += 2;
-      } else if (pkey->type == EVP_PKEY_RSA) {
+      } else if (cert_pkey->key_method->type(cert_pkey->key) == EVP_PKEY_RSA) {
         md = EVP_md5_sha1();
       } else {
         md = EVP_sha1();
@@ -1461,16 +1461,12 @@ int ssl3_send_server_key_exchange(SSL *s) {
         goto err;
       }
 
-      EVP_PKEY_CTX *pctx = EVP_PKEY_CTX_new(pkey, NULL);
-      if (!pctx ||
-          !EVP_PKEY_sign_init(pctx) ||
-          !EVP_PKEY_CTX_set_signature_md(pctx, md) ||
-          !EVP_PKEY_sign(pctx, &p[2], &sig_len, digest, digest_len)) {
-        EVP_PKEY_CTX_free(pctx);
-        OPENSSL_PUT_ERROR(SSL, ssl3_send_server_key_exchange, ERR_LIB_EVP);
+      /* TODO(davidben): Support asynchronous operation. */
+      if (cert_pkey->key_method->sign(cert_pkey->key, s, &p[2], &sig_len,
+                                      sig_len, md, digest, digest_len) !=
+          ssl_private_key_success) {
         goto err;
       }
-      EVP_PKEY_CTX_free(pctx);
 
       s2n(sig_len, p);
       n += sig_len + 2;
@@ -1573,9 +1569,8 @@ int ssl3_get_client_key_exchange(SSL *s) {
   uint32_t alg_a;
   uint8_t *premaster_secret = NULL;
   size_t premaster_secret_len = 0;
-  RSA *rsa = NULL;
   uint8_t *decrypt_buf = NULL;
-  EVP_PKEY *pkey = NULL;
+  CERT_PKEY *cert_pkey = NULL;
   BIGNUM *pub = NULL;
   DH *dh_srvr;
 
@@ -1660,14 +1655,14 @@ int ssl3_get_client_key_exchange(SSL *s) {
     uint8_t good;
     size_t rsa_size, decrypt_len, premaster_index, j;
 
-    pkey = s->cert->pkeys[SSL_PKEY_RSA_ENC].privatekey;
-    if (pkey == NULL || pkey->type != EVP_PKEY_RSA || pkey->pkey.rsa == NULL) {
+    cert_pkey = &s->cert->pkeys[SSL_PKEY_RSA_ENC];
+    if (cert_pkey->key_method == NULL ||
+        cert_pkey->key_method->type(cert_pkey->key) != EVP_PKEY_RSA) {
       al = SSL_AD_HANDSHAKE_FAILURE;
       OPENSSL_PUT_ERROR(SSL, ssl3_get_client_key_exchange,
                         SSL_R_MISSING_RSA_CERTIFICATE);
       goto f_err;
     }
-    rsa = pkey->pkey.rsa;
 
     /* TLS and [incidentally] DTLS{0xFEFF} */
     if (s->version > SSL3_VERSION) {
@@ -1692,7 +1687,7 @@ int ssl3_get_client_key_exchange(SSL *s) {
      * size makes it safe to iterate over the entire size of a premaster secret
      * (SSL_MAX_MASTER_KEY_LENGTH). The actual expected size is larger due to
      * RSA padding, but the bound is sufficient to be safe. */
-    rsa_size = RSA_size(rsa);
+    rsa_size = cert_pkey->key_method->max_signature_len(cert_pkey->key);
     if (rsa_size < SSL_MAX_MASTER_KEY_LENGTH) {
       al = SSL_AD_DECRYPT_ERROR;
       OPENSSL_PUT_ERROR(SSL, ssl3_get_client_key_exchange,
@@ -1719,9 +1714,10 @@ int ssl3_get_client_key_exchange(SSL *s) {
 
     /* Decrypt with no padding. PKCS#1 padding will be removed as part of the
      * timing-sensitive code below. */
-    if (!RSA_decrypt(rsa, &decrypt_len, decrypt_buf, rsa_size,
-                     CBS_data(&encrypted_premaster_secret),
-                     CBS_len(&encrypted_premaster_secret), RSA_NO_PADDING)) {
+    if (!cert_pkey->key_method->decrypt(cert_pkey->key, s, decrypt_buf,
+                                        &decrypt_len, rsa_size,
+                                        CBS_data(&encrypted_premaster_secret),
+                                        CBS_len(&encrypted_premaster_secret))) {
       goto err;
     }
     if (decrypt_len != rsa_size) {
@@ -2048,7 +2044,7 @@ int ssl3_get_cert_verify(SSL *s) {
   }
 
   /* Compute the digest. */
-  if (!ssl3_cert_verify_hash(s, digest, &digest_length, &md, pkey)) {
+  if (!ssl3_cert_verify_hash(s, digest, &digest_length, &md, pkey->type)) {
     goto err;
   }
 

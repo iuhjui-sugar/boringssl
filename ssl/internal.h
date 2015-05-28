@@ -506,10 +506,14 @@ enum ssl_hash_message_t {
 };
 
 typedef struct cert_pkey_st {
+  /* x509 is the leaf certificate to be sent. */
   X509 *x509;
-  EVP_PKEY *privatekey;
-  /* Chain for this certificate */
+  /* chain is the list of additional certificates to be sent. */
   STACK_OF(X509) *chain;
+  /* key_method describes how to sign and decrypt. */
+  const SSL_PRIVATE_KEY_METHOD *key_method;
+  /* key is the private key used to sign and decrypt. */
+  void *key;
 } CERT_PKEY;
 
 typedef struct cert_st {
@@ -811,6 +815,7 @@ void ssl_clear_cipher_ctx(SSL *s);
 int ssl_clear_bad_session(SSL *s);
 CERT *ssl_cert_new(void);
 CERT *ssl_cert_dup(CERT *cert);
+void ssl_cert_pkey_clear_key(CERT_PKEY *cert_pkey);
 void ssl_cert_clear_certs(CERT *c);
 void ssl_cert_free(CERT *c);
 SESS_CERT *ssl_sess_cert_new(void);
@@ -842,9 +847,9 @@ int ssl_add_cert_chain(SSL *s, CERT_PKEY *cpk, unsigned long *l);
 int ssl_build_cert_chain(CERT *c, X509_STORE *chain_store, int flags);
 int ssl_cert_set_cert_store(CERT *c, X509_STORE *store, int chain, int ref);
 CERT_PKEY *ssl_get_server_send_pkey(const SSL *s);
-EVP_PKEY *ssl_get_sign_pkey(SSL *s, const SSL_CIPHER *c);
+CERT_PKEY *ssl_get_sign_pkey(SSL *s, const SSL_CIPHER *c);
 void ssl_update_cache(SSL *s, int mode);
-int ssl_cert_type(EVP_PKEY *pkey);
+int ssl_cert_type(int pkey_type);
 
 /* ssl_get_compatible_server_ciphers determines the key exchange and
  * authentication cipher suite masks compatible with the server configuration
@@ -886,11 +891,10 @@ int ssl3_hash_current_message(SSL *s);
 /* ssl3_cert_verify_hash writes the CertificateVerify hash into the bytes
  * pointed to by |out| and writes the number of bytes to |*out_len|. |out| must
  * have room for EVP_MAX_MD_SIZE bytes. For TLS 1.2 and up, |*out_md| is used
- * for the hash function, otherwise the hash function depends on the type of
- * |pkey| and is written to |*out_md|. It returns one on success and zero on
- * failure. */
+ * for the hash function, otherwise the hash function depends on |pkey_type| and
+ * is written to |*out_md|. It returns one on success and zero on failure. */
 int ssl3_cert_verify_hash(SSL *s, uint8_t *out, size_t *out_len,
-                          const EVP_MD **out_md, EVP_PKEY *pkey);
+                          const EVP_MD **out_md, int pkey_type);
 
 int ssl3_send_finished(SSL *s, int a, int b, const char *sender, int slen);
 size_t ssl3_num_ciphers(void);
@@ -1095,8 +1099,8 @@ int ssl_prepare_serverhello_tlsext(SSL *s);
 int tls1_process_ticket(SSL *s, const struct ssl_early_callback_ctx *ctx,
                         SSL_SESSION **ret);
 
-int tls12_get_sigandhash(uint8_t *p, const EVP_PKEY *pk, const EVP_MD *md);
-int tls12_get_sigid(const EVP_PKEY *pk);
+int tls12_get_sigandhash(uint8_t *p, CERT_PKEY *cert_pkey, const EVP_MD *md);
+int tls12_get_sigid(int pkey_type);
 const EVP_MD *tls12_get_hash(uint8_t hash_alg);
 
 int tls1_channel_id_hash(EVP_MD_CTX *ctx, SSL *s);
@@ -1166,9 +1170,10 @@ int ssl_parse_clienthello_renegotiate_ext(SSL *s, CBS *cbs, int *out_alert);
 uint32_t ssl_get_algorithm2(SSL *s);
 int tls1_process_sigalgs(SSL *s, const CBS *sigalgs);
 
-/* tls1_choose_signing_digest returns a digest for use with |pkey| based on the
- * peer's preferences recorded for |s| and the digests supported by |pkey|. */
-const EVP_MD *tls1_choose_signing_digest(SSL *s, EVP_PKEY *pkey);
+/* tls1_choose_signing_digest returns a digest for use with |cert_pkey| based on
+ * the peer's preferences recorded for |s| and the digests supported by
+ * |cert_pkey|. */
+const EVP_MD *tls1_choose_signing_digest(SSL *s, CERT_PKEY *cert_pkey);
 
 size_t tls12_get_psigalgs(SSL *s, const uint8_t **psigs);
 int tls12_check_peer_sigalg(const EVP_MD **out_md, int *out_alert, SSL *s,
@@ -1179,5 +1184,13 @@ int ssl_add_clienthello_use_srtp_ext(SSL *s, uint8_t *p, int *len, int maxlen);
 int ssl_parse_clienthello_use_srtp_ext(SSL *s, CBS *cbs, int *out_alert);
 int ssl_add_serverhello_use_srtp_ext(SSL *s, uint8_t *p, int *len, int maxlen);
 int ssl_parse_serverhello_use_srtp_ext(SSL *s, CBS *cbs, int *out_alert);
+
+/* ssl_cert_pkey_get_evp_pkey returns the EVP_PKEY underlying |cert_pkey| or
+ * NULL if |cert_pkey| is a custom key. */
+EVP_PKEY *ssl_cert_pkey_get_evp_pkey(CERT_PKEY *cert_pkey);
+
+/* ssl_cert_pkey_is_consistent returns one if |cert_pkey|'s certificate and key
+ * are consistent and zero otherwise. */
+int ssl_cert_pkey_is_consistent(CERT_PKEY *cert_pkey);
 
 #endif /* OPENSSL_HEADER_SSL_INTERNAL_H */

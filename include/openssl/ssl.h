@@ -495,6 +495,84 @@ OPENSSL_EXPORT uint32_t SSL_clear_mode(SSL *ssl, uint32_t mode);
 OPENSSL_EXPORT uint32_t SSL_get_mode(const SSL *ssl);
 
 
+/* Certificates and private keys.
+ *
+ * TODO(davidben): Move the other, more conventional, certificate and key
+ * configuration functions here, possibly after simplifying the multiple slots
+ * machinery first. https://crbug.com/486295. */
+
+enum ssl_private_key_result_t {
+  ssl_private_key_success,
+  ssl_private_key_retry,
+  ssl_private_key_failure,
+};
+
+/* SSL_PRIVATE_KEY_METHOD describes private key hooks. This is used to off-load
+ * signing operations to a custom, potentially asynchronous, backend. */
+typedef struct ssl_private_key_method_st {
+  /* up_ref returns a new reference to |key|. */
+  void *(*up_ref)(void *key);
+
+  /* free releases memory associated with |key|. */
+  void (*free)(void *key);
+
+  /* type returns either |EVP_PKEY_RSA| or |EVP_PKEY_EC| to denote the type of
+   * key. */
+  int (*type)(void *key);
+
+  /* supports_digest returns one if |key| supports signing digests of type
+   * |md|. */
+  int (*supports_digest)(void *key, const EVP_MD *md);
+
+  /* max_signature_len returns the maximum length of a signature signed by
+   * |key|. For an RSA key, this is the size of the RSA modulus in bytes. */
+  size_t (*max_signature_len)(void *key);
+
+  /* sign signs |in_len| bytes of digest from |in|. |md| is the hash function
+   * used to calculate |in|. On success, it returns |ssl_private_key_success|
+   * and writes at most |max_out| bytes of signature data to |out|. On failure,
+   * it returns |ssl_private_key_failure|. If the operation has not completed,
+   * it returns |ssl_private_key_retry|. |sign| should arrange for the
+   * high-level operation on |ssl| to be retried when the operation is
+   * completed. This will result in a call to |sign_complete|.
+   *
+   * If the key is an RSA key, the signature uses PKCS#1 padding with a
+   * DigestInfo prefix determined by |md|. If |md| is |EVP_md5_sha1|, no
+   * DigestInfo is prepended.
+   *
+   * It is an error to call |sign| while another private key operation is in
+   * progress on |ssl|. */
+  enum ssl_private_key_result_t (*sign)(void *key, SSL *ssl, uint8_t *out,
+                                        size_t *out_len, size_t max_out,
+                                        const EVP_MD *md, const uint8_t *in,
+                                        size_t in_len);
+
+  /* sign_complete completes a pending |sign| operation. If the operation has
+   * completed, it returns |ssl_private_key_success| and writes the result to
+   * |out| as in |sign|. Otherwise, it returns |ssl_private_key_failure| on
+   * failure and and |ssl_private_key_retry| if the operation is still in
+   * progress.
+   *
+   * |sign_complete| may be called arbitrarily many times before completion, but
+   * it is an error to call |sign_complete| if there is no pending |sign|
+   * operation in progress on |ssl|. */
+  enum ssl_private_key_result_t (*sign_complete)(void *key, SSL *ssl,
+                                                 uint8_t *out, size_t *out_len,
+                                                 size_t max_out);
+
+  /* decrypt decrypts |in_len| bytes from |in| and writes the result to
+   * |out|. |key| must be an RSA key, and |decrypt| must not remove any
+   * padding. It returns one on success and zero on failure.
+   *
+   * It is an error to call |decrypt| while another private key operation is in
+   * progress on |ssl|.
+   *
+   * TODO(davidben): Asynchronous decryption is currently unsupported. */
+  int (*decrypt)(void *key, SSL *ssl, uint8_t *out, size_t *out_len, size_t max_out,
+                 const uint8_t *in, size_t in_len);
+} SSL_PRIVATE_KEY_METHOD;
+
+
 /* Underdocumented functions.
  *
  * Functions below here haven't been touched up and may be underdocumented. */
@@ -2724,6 +2802,7 @@ OPENSSL_EXPORT const char *SSLeay_version(int unused);
 #define SSL_F_SSL_AEAD_CTX_open 277
 #define SSL_F_SSL_AEAD_CTX_seal 278
 #define SSL_F_dtls1_seal_record 279
+#define SSL_F_ssl_evp_pkey_decrypt 280
 #define SSL_R_APP_DATA_IN_HANDSHAKE 100
 #define SSL_R_ATTEMPT_TO_REUSE_SESSION_IN_DIFFERENT_CONTEXT 101
 #define SSL_R_BAD_ALERT 102

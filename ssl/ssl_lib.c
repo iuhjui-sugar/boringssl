@@ -800,14 +800,13 @@ int SSL_CTX_check_private_key(const SSL_CTX *ctx) {
     return 0;
   }
 
-  if (ctx->cert->key->privatekey == NULL) {
+  if (ctx->cert->key->key_method == NULL) {
     OPENSSL_PUT_ERROR(SSL, SSL_CTX_check_private_key,
                       SSL_R_NO_PRIVATE_KEY_ASSIGNED);
     return 0;
   }
 
-  return X509_check_private_key(ctx->cert->key->x509,
-                                ctx->cert->key->privatekey);
+  return ssl_cert_pkey_is_consistent(ctx->cert->key);
 }
 
 /* Fix this function so that it takes an optional type parameter */
@@ -829,14 +828,13 @@ int SSL_check_private_key(const SSL *ssl) {
     return 0;
   }
 
-  if (ssl->cert->key->privatekey == NULL) {
+  if (ssl->cert->key->key_method == NULL) {
     OPENSSL_PUT_ERROR(SSL, SSL_check_private_key,
                       SSL_R_NO_PRIVATE_KEY_ASSIGNED);
     return 0;
   }
 
-  return X509_check_private_key(ssl->cert->key->x509,
-                                ssl->cert->key->privatekey);
+  return ssl_cert_pkey_is_consistent(ssl->cert->key);
 }
 
 int SSL_accept(SSL *s) {
@@ -1808,7 +1806,7 @@ void SSL_set_cert_cb(SSL *s, int (*cb)(SSL *ssl, void *arg), void *arg) {
 
 static int ssl_has_key(SSL *s, size_t idx) {
   CERT_PKEY *cpk = &s->cert->pkeys[idx];
-  return cpk->x509 && cpk->privatekey;
+  return cpk->x509 && cpk->key_method;
 }
 
 void ssl_get_compatible_server_ciphers(SSL *s, uint32_t *out_mask_k,
@@ -1928,19 +1926,23 @@ CERT_PKEY *ssl_get_server_send_pkey(const SSL *s) {
   return &s->cert->pkeys[i];
 }
 
-EVP_PKEY *ssl_get_sign_pkey(SSL *s, const SSL_CIPHER *cipher) {
+CERT_PKEY *ssl_get_sign_pkey(SSL *s, const SSL_CIPHER *cipher) {
+  /* TODO(davidben): This function does the same thing as
+   * ssl_get_server_send_pkey but differently where SSL_PKEY_RSA_SIGN and
+   * SSL_PKEY_RSA_ENC is concerned. Rather than try to clean up this mess,
+   * collapse CERT_PKEY slots altogether. https://crbug.com/486295. */
   uint32_t alg_a = cipher->algorithm_auth;
   CERT *c = s->cert;
   int idx = -1;
 
   if (alg_a & SSL_aRSA) {
-    if (c->pkeys[SSL_PKEY_RSA_SIGN].privatekey != NULL) {
+    if (c->pkeys[SSL_PKEY_RSA_SIGN].key_method != NULL) {
       idx = SSL_PKEY_RSA_SIGN;
-    } else if (c->pkeys[SSL_PKEY_RSA_ENC].privatekey != NULL) {
+    } else if (c->pkeys[SSL_PKEY_RSA_ENC].key_method != NULL) {
       idx = SSL_PKEY_RSA_ENC;
     }
   } else if ((alg_a & SSL_aECDSA) &&
-             (c->pkeys[SSL_PKEY_ECC].privatekey != NULL)) {
+             (c->pkeys[SSL_PKEY_ECC].key_method != NULL)) {
     idx = SSL_PKEY_ECC;
   }
 
@@ -1949,7 +1951,7 @@ EVP_PKEY *ssl_get_sign_pkey(SSL *s, const SSL_CIPHER *cipher) {
     return NULL;
   }
 
-  return c->pkeys[idx].privatekey;
+  return &c->pkeys[idx];
 }
 
 void ssl_update_cache(SSL *s, int mode) {
@@ -2176,7 +2178,7 @@ X509 *SSL_get_certificate(const SSL *s) {
 
 EVP_PKEY *SSL_get_privatekey(const SSL *s) {
   if (s->cert != NULL) {
-    return s->cert->key->privatekey;
+    return ssl_cert_pkey_get_evp_pkey(s->cert->key);
   }
 
   return NULL;
@@ -2192,7 +2194,7 @@ X509 *SSL_CTX_get0_certificate(const SSL_CTX *ctx) {
 
 EVP_PKEY *SSL_CTX_get0_privatekey(const SSL_CTX *ctx) {
   if (ctx->cert != NULL) {
-    return ctx->cert->key->privatekey;
+    return ssl_cert_pkey_get_evp_pkey(ctx->cert->key);
   }
 
   return NULL;

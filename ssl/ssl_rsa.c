@@ -67,7 +67,32 @@
 #include "internal.h"
 
 static int ssl_set_cert(CERT *c, X509 *x509);
-static int ssl_set_pkey(CERT *c, EVP_PKEY *pkey);
+static int ssl_set_pkey(CERT *c, const SSL_PRIVATE_KEY_METHOD *method, void *key);
+
+static const SSL_PRIVATE_KEY_METHOD g_evp_pkey_method;
+
+EVP_PKEY *ssl_cert_pkey_get_evp_pkey(CERT_PKEY *cert_pkey) {
+  if (cert_pkey->key_method != &g_evp_pkey_method) {
+    return NULL;
+  }
+  return (EVP_PKEY *)cert_pkey->key;
+}
+
+int ssl_cert_pkey_is_consistent(CERT_PKEY *cert_pkey) {
+  if (cert_pkey->x509 == NULL || cert_pkey->key_method == NULL) {
+    /* |cert_pkey| is not fully configured. */
+    return 0;
+  }
+
+  EVP_PKEY *pkey = ssl_cert_pkey_get_evp_pkey(cert_pkey);
+  if (pkey == NULL) {
+    /* Can't check consistency for custom keys. */
+    return 1;
+  }
+
+  return EVP_PKEY_is_opaque(pkey) ||
+         X509_check_private_key(cert_pkey->x509, pkey);
+}
 
 int SSL_use_certificate(SSL *ssl, X509 *x) {
   if (x == NULL) {
@@ -153,36 +178,33 @@ int SSL_use_RSAPrivateKey(SSL *ssl, RSA *rsa) {
   RSA_up_ref(rsa);
   EVP_PKEY_assign_RSA(pkey, rsa);
 
-  ret = ssl_set_pkey(ssl->cert, pkey);
+  ret = ssl_set_pkey(ssl->cert, &g_evp_pkey_method, pkey);
   EVP_PKEY_free(pkey);
 
   return ret;
 }
 
-static int ssl_set_pkey(CERT *c, EVP_PKEY *pkey) {
+static int ssl_set_pkey(CERT *c, const SSL_PRIVATE_KEY_METHOD *method,
+                        void *key) {
   int i;
 
-  i = ssl_cert_type(pkey);
+  i = ssl_cert_type(method->type(key));
   if (i < 0) {
     OPENSSL_PUT_ERROR(SSL, ssl_set_pkey, SSL_R_UNKNOWN_CERTIFICATE_TYPE);
     return 0;
   }
 
-  if (c->pkeys[i].x509 != NULL) {
-    /* Sanity-check that the private key and the certificate match, unless the
-     * key is opaque (in case of, say, a smartcard). */
-    if (!EVP_PKEY_is_opaque(pkey) &&
-        !X509_check_private_key(c->pkeys[i].x509, pkey)) {
-      X509_free(c->pkeys[i].x509);
-      c->pkeys[i].x509 = NULL;
-      return 0;
-    }
+  ssl_cert_pkey_clear_key(&c->pkeys[i]);
+  c->pkeys[i].key_method = method;
+  c->pkeys[i].key = method->up_ref(key);
+  c->key = &c->pkeys[i];
+
+  if (c->pkeys[i].x509 != NULL &&
+      !ssl_cert_pkey_is_consistent(&c->pkeys[i])) {
+    X509_free(c->pkeys[i].x509);
+    c->pkeys[i].x509 = NULL;
+    return 0;
   }
-
-  EVP_PKEY_free(c->pkeys[i].privatekey);
-  c->pkeys[i].privatekey = EVP_PKEY_up_ref(pkey);
-  c->key = &(c->pkeys[i]);
-
   return 1;
 }
 
@@ -245,15 +267,12 @@ int SSL_use_RSAPrivateKey_ASN1(SSL *ssl, uint8_t *d, long len) {
 }
 
 int SSL_use_PrivateKey(SSL *ssl, EVP_PKEY *pkey) {
-  int ret;
-
   if (pkey == NULL) {
     OPENSSL_PUT_ERROR(SSL, SSL_use_PrivateKey, ERR_R_PASSED_NULL_PARAMETER);
     return 0;
   }
 
-  ret = ssl_set_pkey(ssl->cert, pkey);
-  return ret;
+  return ssl_set_pkey(ssl->cert, &g_evp_pkey_method, pkey);
 }
 
 int SSL_use_PrivateKey_file(SSL *ssl, const char *file, int type) {
@@ -333,33 +352,27 @@ static int ssl_set_cert(CERT *c, X509 *x) {
     return 0;
   }
 
-  i = ssl_cert_type(pkey);
+  i = ssl_cert_type(pkey->type);
   if (i < 0) {
     OPENSSL_PUT_ERROR(SSL, ssl_set_cert, SSL_R_UNKNOWN_CERTIFICATE_TYPE);
     EVP_PKEY_free(pkey);
     return 0;
   }
-
-  if (c->pkeys[i].privatekey != NULL) {
-    /* Sanity-check that the private key and the certificate match, unless the
-     * key is opaque (in case of, say, a smartcard). */
-    if (!EVP_PKEY_is_opaque(c->pkeys[i].privatekey) &&
-        !X509_check_private_key(x, c->pkeys[i].privatekey)) {
-      /* don't fail for a cert/key mismatch, just free current private key
-       * (when switching to a different cert & key, first this function should
-       * be used, then ssl_set_pkey */
-      EVP_PKEY_free(c->pkeys[i].privatekey);
-      c->pkeys[i].privatekey = NULL;
-      /* clear error queue */
-      ERR_clear_error();
-    }
-  }
-
   EVP_PKEY_free(pkey);
 
   X509_free(c->pkeys[i].x509);
   c->pkeys[i].x509 = X509_up_ref(x);
   c->key = &(c->pkeys[i]);
+
+  if (c->pkeys[i].key_method != NULL &&
+      !ssl_cert_pkey_is_consistent(&c->pkeys[i])) {
+    /* don't fail for a cert/key mismatch, just free current private key
+     * (when switching to a different cert & key, first this function should
+     * be used, then ssl_set_pkey */
+    ssl_cert_pkey_clear_key(&c->pkeys[i]);
+    /* clear error queue */
+    ERR_clear_error();
+  }
 
   return 1;
 }
@@ -441,7 +454,7 @@ int SSL_CTX_use_RSAPrivateKey(SSL_CTX *ctx, RSA *rsa) {
   RSA_up_ref(rsa);
   EVP_PKEY_assign_RSA(pkey, rsa);
 
-  ret = ssl_set_pkey(ctx->cert, pkey);
+  ret = ssl_set_pkey(ctx->cert, &g_evp_pkey_method, pkey);
   EVP_PKEY_free(pkey);
   return ret;
 }
@@ -510,7 +523,7 @@ int SSL_CTX_use_PrivateKey(SSL_CTX *ctx, EVP_PKEY *pkey) {
     return 0;
   }
 
-  return ssl_set_pkey(ctx->cert, pkey);
+  return ssl_set_pkey(ctx->cert, &g_evp_pkey_method, pkey);
 }
 
 int SSL_CTX_use_PrivateKey_file(SSL_CTX *ctx, const char *file, int type) {
@@ -644,3 +657,70 @@ end:
   BIO_free(in);
   return ret;
 }
+
+static void *ssl_evp_pkey_up_ref(void *key) {
+  return EVP_PKEY_up_ref((EVP_PKEY *)key);
+}
+
+static void ssl_evp_pkey_free(void *key) {
+  EVP_PKEY_free((EVP_PKEY *)key);
+}
+
+static int ssl_evp_pkey_type(void *key) {
+  return EVP_PKEY_id((EVP_PKEY *)key);
+}
+
+static int ssl_evp_pkey_supports_digest(void *key, const EVP_MD *md) {
+  return EVP_PKEY_supports_digest((EVP_PKEY *)key, md);
+}
+
+static size_t ssl_evp_pkey_max_signature_len(void *key) {
+  return EVP_PKEY_size((EVP_PKEY *)key);
+}
+
+static enum ssl_private_key_result_t ssl_evp_pkey_sign(
+    void *key, SSL *ssl, uint8_t *out, size_t *out_len, size_t max_out,
+    const EVP_MD *md, const uint8_t *in, size_t in_len) {
+  enum ssl_private_key_result_t ret = ssl_private_key_failure;
+  EVP_PKEY *pkey = (EVP_PKEY *)key;
+  EVP_PKEY_CTX *ctx = EVP_PKEY_CTX_new(pkey, NULL);
+  if (ctx == NULL) {
+    goto end;
+  }
+
+  size_t len = max_out;
+  if (!EVP_PKEY_sign_init(ctx) ||
+      !EVP_PKEY_CTX_set_signature_md(ctx, md) ||
+      !EVP_PKEY_sign(ctx, out, &len, in, in_len)) {
+    goto end;
+  }
+  *out_len = len;
+  ret = ssl_private_key_success;
+
+end:
+  EVP_PKEY_CTX_free(ctx);
+  return ret;
+}
+
+static int ssl_evp_pkey_decrypt(void *key, SSL *ssl, uint8_t *out,
+                                size_t *out_len, size_t max_out,
+                                const uint8_t *in, size_t in_len) {
+  EVP_PKEY *pkey = (EVP_PKEY *)key;
+  if (EVP_PKEY_id(pkey) != EVP_PKEY_RSA) {
+    OPENSSL_PUT_ERROR(SSL, ssl_evp_pkey_decrypt, ERR_R_INTERNAL_ERROR);
+    return 0;
+  }
+  RSA *rsa = pkey->pkey.rsa;
+  return RSA_decrypt(rsa, out_len, out, max_out, in, in_len, RSA_NO_PADDING);
+}
+
+static const SSL_PRIVATE_KEY_METHOD g_evp_pkey_method = {
+    ssl_evp_pkey_up_ref,
+    ssl_evp_pkey_free,
+    ssl_evp_pkey_type,
+    ssl_evp_pkey_supports_digest,
+    ssl_evp_pkey_max_signature_len,
+    ssl_evp_pkey_sign,
+    NULL, /* sign_complete */
+    ssl_evp_pkey_decrypt,
+};

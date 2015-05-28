@@ -147,6 +147,7 @@ SSL,function,229,ssl_create_cipher_list
 SSL,function,230,ssl_ctx_log_master_secret
 SSL,function,231,ssl_ctx_log_rsa_client_key_exchange
 SSL,function,232,ssl_ctx_make_profiles
+SSL,function,280,ssl_evp_pkey_decrypt
 SSL,function,233,ssl_get_new_session
 SSL,function,234,ssl_get_prev_session
 SSL,function,235,ssl_get_server_cert_index

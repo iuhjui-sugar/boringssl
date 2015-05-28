@@ -998,7 +998,7 @@ int ssl3_get_server_certificate(SSL *s) {
     goto f_err;
   }
 
-  i = ssl_cert_type(pkey);
+  i = ssl_cert_type(pkey->type);
   if (i < 0) {
     x = NULL;
     al = SSL3_AL_FATAL;
@@ -1978,8 +1978,7 @@ int ssl3_send_cert_verify(SSL *s) {
   const EVP_MD *md = NULL;
   uint8_t digest[EVP_MAX_MD_SIZE];
   size_t digest_length;
-  EVP_PKEY *pkey;
-  EVP_PKEY_CTX *pctx = NULL;
+  CERT_PKEY *cert_pkey;
   size_t signature_length = 0;
   unsigned long n = 0;
 
@@ -1987,74 +1986,60 @@ int ssl3_send_cert_verify(SSL *s) {
 
   if (s->state == SSL3_ST_CW_CERT_VRFY_A) {
     p = ssl_handshake_start(s);
-    pkey = s->cert->key->privatekey;
+    cert_pkey = s->cert->key;
 
     /* Write out the digest type if needbe. */
     if (SSL_USE_SIGALGS(s)) {
-      md = tls1_choose_signing_digest(s, pkey);
-      if (!tls12_get_sigandhash(p, pkey, md)) {
+      md = tls1_choose_signing_digest(s, cert_pkey);
+      if (!tls12_get_sigandhash(p, cert_pkey, md)) {
         OPENSSL_PUT_ERROR(SSL, ssl3_send_cert_verify, ERR_R_INTERNAL_ERROR);
-        goto err;
+        return -1;
       }
       p += 2;
       n += 2;
     }
 
     /* Compute the digest. */
-    if (!ssl3_cert_verify_hash(s, digest, &digest_length, &md, pkey)) {
-      goto err;
+    if (!ssl3_cert_verify_hash(s, digest, &digest_length, &md,
+                               cert_pkey->key_method->type(cert_pkey->key))) {
+      return -1;
     }
 
     /* The handshake buffer is no longer necessary. */
     if (s->s3->handshake_buffer &&
         !ssl3_digest_cached_records(s, free_handshake_buffer)) {
-      goto err;
+      return -1;
     }
 
     /* Sign the digest. */
-    pctx = EVP_PKEY_CTX_new(pkey, NULL);
-    if (pctx == NULL) {
-      goto err;
-    }
-
-    /* Initialize the EVP_PKEY_CTX and determine the size of the signature. */
-    if (!EVP_PKEY_sign_init(pctx) || !EVP_PKEY_CTX_set_signature_md(pctx, md) ||
-        !EVP_PKEY_sign(pctx, NULL, &signature_length, digest, digest_length)) {
-      OPENSSL_PUT_ERROR(SSL, ssl3_send_cert_verify, ERR_R_EVP_LIB);
-      goto err;
-    }
-
+    signature_length = cert_pkey->key_method->max_signature_len(cert_pkey->key);
     if (p + 2 + signature_length > buf + SSL3_RT_MAX_PLAIN_LENGTH) {
       OPENSSL_PUT_ERROR(SSL, ssl3_send_cert_verify, SSL_R_DATA_LENGTH_TOO_LONG);
-      goto err;
+      return -1;
     }
-
-    if (!EVP_PKEY_sign(pctx, &p[2], &signature_length, digest, digest_length)) {
-      OPENSSL_PUT_ERROR(SSL, ssl3_send_cert_verify, ERR_R_EVP_LIB);
-      goto err;
+    /* TODO(davidben): Support asynchronous operation. */
+    if (cert_pkey->key_method->sign(cert_pkey->key, s, &p[2], &signature_length,
+                                    signature_length, md, digest,
+                                    digest_length) != ssl_private_key_success) {
+      return -1;
     }
 
     s2n(signature_length, p);
     n += signature_length + 2;
 
     if (!ssl_set_handshake_header(s, SSL3_MT_CERTIFICATE_VERIFY, n)) {
-      goto err;
+      return -1;
     }
     s->state = SSL3_ST_CW_CERT_VRFY_B;
   }
 
-  EVP_PKEY_CTX_free(pctx);
   return ssl_do_write(s);
-
-err:
-  EVP_PKEY_CTX_free(pctx);
-  return -1;
 }
 
 /* ssl3_has_client_certificate returns true if a client certificate is
  * configured. */
 static int ssl3_has_client_certificate(SSL *s) {
-  return s->cert && s->cert->key->x509 && s->cert->key->privatekey;
+  return s->cert && s->cert->key->x509 && s->cert->key->key_method;
 }
 
 int ssl3_send_client_certificate(SSL *s) {
