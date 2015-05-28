@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8d470d3e_ac53a3f1",
+        "filename": "crypto/bn/bn_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-28T14:43:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd3d85a0_15d753c5",
+      "revId": "2ea3a9f3f9b74f6ff14f25a989789d7ed809d3a2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd3d85a0_95fc2338",
         "filename": "crypto/bn/bn_test.cc",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2015-05-27T22:12:05Z",
       "side": 1,
       "message": "just do \" \u003d nullptr\" and drop the constructor?",
+      "revId": "2ea3a9f3f9b74f6ff14f25a989789d7ed809d3a2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d470d3e_4c64ffca",
+        "filename": "crypto/bn/bn_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-28T14:43:49Z",
+      "side": 1,
+      "message": "I think the ctor is still needed, but probably a better plan would be to just lean on unique_ptr.",
+      "parentUuid": "cd3d85a0_95fc2338",
       "revId": "2ea3a9f3f9b74f6ff14f25a989789d7ed809d3a2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "8d470d3e_8c6507cf",
+        "filename": "crypto/bn/convert.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-28T14:43:49Z",
+      "side": 1,
+      "message": "Alright then. :-) I suppose it\u0027s extremely unlikely very much code actually depends on the casing of BN_print_fp.",
+      "parentUuid": "cd3d85a0_753df78a",
+      "revId": "2ea3a9f3f9b74f6ff14f25a989789d7ed809d3a2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd3d85a0_95b98359",
         "filename": "include/openssl/bn.h",
         "patchSetId": 1
@@ -64,6 +118,24 @@
       "writtenOn": "2015-05-27T22:12:05Z",
       "side": 1,
       "message": "(ditto.)",
+      "revId": "2ea3a9f3f9b74f6ff14f25a989789d7ed809d3a2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d470d3e_6c88dbf1",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-05-28T14:43:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd3d85a0_95b98359",
       "revId": "2ea3a9f3f9b74f6ff14f25a989789d7ed809d3a2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
