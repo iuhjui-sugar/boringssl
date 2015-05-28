@@ -1450,16 +1450,27 @@ int ssl3_send_server_key_exchange(SSL *s) {
         md = EVP_sha1();
       }
 
-      if (!EVP_DigestSignInit(&md_ctx, NULL, md, NULL, pkey) ||
-          !EVP_DigestSignUpdate(&md_ctx, s->s3->client_random,
-                                SSL3_RANDOM_SIZE) ||
-          !EVP_DigestSignUpdate(&md_ctx, s->s3->server_random,
-                                SSL3_RANDOM_SIZE) ||
-          !EVP_DigestSignUpdate(&md_ctx, d, n) ||
-          !EVP_DigestSignFinal(&md_ctx, &p[2], &sig_len)) {
+      uint8_t digest[EVP_MAX_MD_SIZE];
+      unsigned digest_len;
+      if (!EVP_DigestInit_ex(&md_ctx, md, NULL) ||
+          !EVP_DigestUpdate(&md_ctx, s->s3->client_random, SSL3_RANDOM_SIZE) ||
+          !EVP_DigestUpdate(&md_ctx, s->s3->server_random, SSL3_RANDOM_SIZE) ||
+          !EVP_DigestUpdate(&md_ctx, d, n) ||
+          !EVP_DigestFinal_ex(&md_ctx, digest, &digest_len)) {
         OPENSSL_PUT_ERROR(SSL, ssl3_send_server_key_exchange, ERR_LIB_EVP);
         goto err;
       }
+
+      EVP_PKEY_CTX *pctx = EVP_PKEY_CTX_new(pkey, NULL);
+      if (!pctx ||
+          !EVP_PKEY_sign_init(pctx) ||
+          !EVP_PKEY_CTX_set_signature_md(pctx, md) ||
+          !EVP_PKEY_sign(pctx, &p[2], &sig_len, digest, digest_len)) {
+        EVP_PKEY_CTX_free(pctx);
+        OPENSSL_PUT_ERROR(SSL, ssl3_send_server_key_exchange, ERR_LIB_EVP);
+        goto err;
+      }
+      EVP_PKEY_CTX_free(pctx);
 
       s2n(sig_len, p);
       n += sig_len + 2;
