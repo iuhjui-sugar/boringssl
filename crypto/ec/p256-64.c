@@ -21,7 +21,8 @@
 
 #include <openssl/base.h>
 
-#if defined(OPENSSL_64_BIT) && !defined(OPENSSL_WINDOWS)
+#if defined(OPENSSL_64_BIT) && defined(OPENSSL_LITTLE_ENDIAN) && \
+    !defined(OPENSSL_WINDOWS)
 
 #include <openssl/bn.h>
 #include <openssl/ec.h>
@@ -1932,4 +1933,4 @@ const EC_METHOD *EC_GFp_nistp256_method(void) {
   return &ret;
 }
 
-#endif  /* 64_BIT && !WINDOWS */
+#endif  /* 64_BIT && LITTLE_ENDIAN && !WINDOWS */

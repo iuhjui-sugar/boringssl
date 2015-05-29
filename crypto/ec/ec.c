@@ -222,7 +222,8 @@ const struct built_in_curve OPENSSL_built_in_curves[] = {
     {NID_secp224r1, &P224, 0},
     {
         NID_X9_62_prime256v1, &P256,
-#if defined(OPENSSL_64_BIT) && !defined(OPENSSL_WINDOWS)
+#if defined(OPENSSL_64_BIT) && defined(OPENSSL_LITTLE_ENDIAN) && \
+    !defined(OPENSSL_WINDOWS)
         EC_GFp_nistp256_method,
 #else
         0,
