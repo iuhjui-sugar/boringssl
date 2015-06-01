@@ -16,6 +16,24 @@
       "revId": "4c35c6384d4f8c535709f435966eb07eb45b2804",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "397028c3_790a075c",
+        "filename": "ssl/s3_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1149,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-01T22:45:48Z",
+      "side": 0,
+      "message": "Pretty much.\n\nI\u0027m actually not convinced this works very well. It\u0027ll get slightly confused if you get a record with type 0. I\u0027m also dubious of the SSL_SENT_SHUTDOWN check if the peer has some app_data to clear through before you get the close_notify.\n\nEven the API is insane. And doesn\u0027t really allow for asynchronous write + don\u0027t care about receiving close_notify.\n\nOh, also it cannot possibly work in DTLS because DTLS doesn\u0027t have any story for retransmitting alerts.\n\nI\u0027m kinda hoping we can just do away with this, but I haven\u0027t looked carefully yet. The only case where you might care is if you use clean bidirectional shutdown to let you know when the underlying socket can be reused for another protocol. Which... why the hell would you want to do that?",
+      "parentUuid": "f990500b_5f15abfa",
+      "revId": "4c35c6384d4f8c535709f435966eb07eb45b2804",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
