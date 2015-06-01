@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "397028c3_99127b0d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-01T23:57:37Z",
+      "side": 1,
+      "message": "The internal consumer should be dealt with shortly. Android is the other one. That one is a bit more involved, but getting them off it shouldn\u0027t be too crazy.",
+      "range": {
+        "startLine": 11,
+        "startChar": 25,
+        "endLine": 11,
+        "endChar": 35
+      },
+      "revId": "29028928430b4a26d4f6ac1f3671ff9efe4dd3ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
