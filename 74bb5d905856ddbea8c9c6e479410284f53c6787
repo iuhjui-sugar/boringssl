@@ -16,6 +16,24 @@
       "revId": "74bb5d905856ddbea8c9c6e479410284f53c6787",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "397028c3_392b2fba",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1123,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-01T22:51:07Z",
+      "side": 1,
+      "message": "Yeah, I\u0027m thinking we can turn algorithm2 into algorithm_prf or something. There\u0027s one bit left (variable nonce) and it\u0027s redundant with algorithm_enc. We can probably make SSL_CIPHER\u0027s behavior entirely a function of the individual components. (So when IETF-CHACHA20 becomes a thing, we\u0027ll need separate SSL_CHACHA20POLY1305 and SSL_CHACHA20POLY1305_LEGACY, but that seems tidier than trying to come up with a bunch of flags and repeating them across the Cartesian product of cipher suites.)",
+      "parentUuid": "f990500b_9f9fb3af",
+      "revId": "74bb5d905856ddbea8c9c6e479410284f53c6787",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
