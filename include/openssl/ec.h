@@ -169,6 +169,9 @@ OPENSSL_EXPORT void EC_POINT_free(EC_POINT *point);
  * then frees |point| itself. */
 OPENSSL_EXPORT void EC_POINT_clear_free(EC_POINT *point);
 
+/* for privacy/blinders */
+#define EC_GROUP_clear_free(g) EC_GROUP_free(g)
+
 /* EC_POINT_copy sets |*dest| equal to |*src|. It returns one on success and
  * zero otherwise. */
 OPENSSL_EXPORT int EC_POINT_copy(EC_POINT *dest, const EC_POINT *src);
