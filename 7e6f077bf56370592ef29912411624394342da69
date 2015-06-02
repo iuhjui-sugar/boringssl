@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b9a97860_14096234",
+        "filename": "crypto/bytestring/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-02T23:26:20Z",
+      "side": 1,
+      "message": "Nit: |CBS_get_any_asn1_element|",
+      "range": {
+        "startLine": 41,
+        "startChar": 49,
+        "endLine": 41,
+        "endChar": 73
+      },
+      "revId": "7e6f077bf56370592ef29912411624394342da69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b9a97860_340ede3d",
+        "filename": "crypto/bytestring/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-02T23:26:20Z",
+      "side": 1,
+      "message": "Nit: indentation",
+      "range": {
+        "startLine": 46,
+        "startChar": 39,
+        "endLine": 46,
+        "endChar": 42
+      },
+      "revId": "7e6f077bf56370592ef29912411624394342da69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
