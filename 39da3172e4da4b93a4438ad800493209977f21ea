@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b9a97860_3981f7d2",
+        "filename": "util/bot/vs_toolchain.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-02T21:01:29Z",
+      "side": 0,
+      "message": "(This is also defined as a global at the top of the file.)",
+      "revId": "39da3172e4da4b93a4438ad800493209977f21ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
