@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b9a97860_14aba292",
+        "filename": "crypto/bio/bio_mem.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-02T23:24:10Z",
+      "side": 1,
+      "message": "Sort of a puzzling set of casts. 176 does an overflow check for int. Then the first blen+inl adds as ints and casts to size_t. And then we cast blen to size_t and add it to an int to compare to a size_t.\n\nGiven that b-\u003elength itself is a size_t and everything, maybe blen should be size_t and inl should get converted to size_t early and we forget about INT_MAX. I think the only thing that cares is BIO_get_mem_data, but it was already sad. I guess it can do an INT_MAX check at that point.",
+      "range": {
+        "startLine": 179,
+        "startChar": 44,
+        "endLine": 179,
+        "endChar": 52
+      },
+      "revId": "0baac78b2dd9f5e549ea83aac42cda1c6646ec46",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b9a97860_949eb26a",
+        "filename": "crypto/bio/printf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-02T23:24:10Z",
+      "side": 1,
+      "message": "Is this actually possible? Not sure if it is, though checking is good. Maybe if it internally fails to malloc error or something. In that case, we also ought to check after line 106.",
+      "revId": "0baac78b2dd9f5e549ea83aac42cda1c6646ec46",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
