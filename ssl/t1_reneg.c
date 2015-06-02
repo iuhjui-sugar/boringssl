@@ -197,7 +197,7 @@ int ssl_add_serverhello_renegotiate_ext(SSL *s, unsigned char *p, int *len,
 
 /* Parse the server's renegotiation binding and abort if it's not right */
 int ssl_parse_serverhello_renegotiate_ext(SSL *s, CBS *cbs, int *out_alert) {
-  int expected_len =
+  size_t expected_len =
       s->s3->previous_client_finished_len + s->s3->previous_server_finished_len;
   CBS renegotiated_connection;
   const uint8_t *d;
