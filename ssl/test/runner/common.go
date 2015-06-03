@@ -188,6 +188,14 @@ type ConnectionState struct {
 	VerifiedChains             [][]*x509.Certificate // verified chains built from PeerCertificates
 	ChannelID                  *ecdsa.PublicKey      // the channel ID for this connection
 	SRTPProtectionProfile      uint16                // the negotiated DTLS-SRTP protection profile
+
+	// TLSUnique contains the "tls-unique" channel binding value (see RFC
+	// 5929, section 3). For resumed sessions this value will be nil
+	// because resumption does not include enough context (see
+	// https://secure-resumption.com/#channelbindings). This will change in
+	// future versions of Go once the TLS master-secret fix has been
+	// standardized and implemented.
+	TLSUnique []byte
 }
 
 // ClientAuthType declares the policy the server will follow for
