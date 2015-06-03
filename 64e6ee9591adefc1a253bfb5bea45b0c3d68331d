@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b967b830_f53358fc",
+        "filename": "crypto/digest/digest_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-03T18:12:20Z",
+      "side": 1,
+      "message": "if (EVP_… \u003d\u003d NULL ||\n    EVP_… \u003d\u003d NULL ||\n    …) {\n  return false;\n}",
+      "revId": "64e6ee9591adefc1a253bfb5bea45b0c3d68331d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b967b830_f59eb86a",
+        "filename": "crypto/digest/digests.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-03T18:12:20Z",
+      "side": 1,
+      "message": "move just below #include \u003cassert.h\u003e",
+      "revId": "64e6ee9591adefc1a253bfb5bea45b0c3d68331d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b967b830_f57518ab",
+        "filename": "crypto/digest/digests.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-03T18:12:20Z",
+      "side": 1,
+      "message": "strcmp(short_name, name) \u003d\u003d 0\n\n(It\u0027s the same thing, but it\u0027s nice with the *cmp functions to have the \"\u003d\u003d\" when they are checking for string equality.)",
+      "revId": "64e6ee9591adefc1a253bfb5bea45b0c3d68331d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b967b830_950f8436",
+        "filename": "include/openssl/digest.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-03T18:12:20Z",
+      "side": 1,
+      "message": "Move to the \"Deprecated functions\" section.",
+      "revId": "64e6ee9591adefc1a253bfb5bea45b0c3d68331d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
