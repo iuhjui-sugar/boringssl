@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b967b830_b549e0e4",
+        "filename": "crypto/rsa/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-03T21:33:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9a97860_ee507358",
+      "range": {
+        "startLine": 145,
+        "startChar": 43,
+        "endLine": 145,
+        "endChar": 44
+      },
+      "revId": "23cf96a729c2534e39be2b7ce724e9752b724d03",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b9a97860_f9735f5d",
         "filename": "crypto/rsa/internal.h",
         "patchSetId": 2
@@ -36,6 +60,24 @@
       "writtenOn": "2015-06-03T03:27:28Z",
       "side": 1,
       "message": "Probably worth a comment that this is managed by the RSA_METHOD? It was puzzling that this one is freed by rsa_impl.c while everything else is freed by rsa.c. But I suppose this is consistent with _method_mod_*",
+      "revId": "23cf96a729c2534e39be2b7ce724e9752b724d03",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b967b830_75e7485d",
+        "filename": "crypto/rsa/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-03T21:33:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9a97860_f9735f5d",
       "revId": "23cf96a729c2534e39be2b7ce724e9752b724d03",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "b967b830_d5d73c64",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-03T21:33:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9a97860_b926476a",
+      "range": {
+        "startLine": 149,
+        "startChar": 11,
+        "endLine": 149,
+        "endChar": 12
+      },
+      "revId": "23cf96a729c2534e39be2b7ce724e9752b724d03",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b9a97860_4e7987f3",
         "filename": "crypto/rsa/rsa.c",
         "patchSetId": 2
@@ -76,6 +142,24 @@
       "writtenOn": "2015-06-03T03:27:28Z",
       "side": 1,
       "message": "Put the BN_clear_free and friends into RSA_additional_prime_free and sk_pop_free that?",
+      "revId": "23cf96a729c2534e39be2b7ce724e9752b724d03",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b967b830_b5a56004",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-03T21:33:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9a97860_4e7987f3",
       "revId": "23cf96a729c2534e39be2b7ce724e9752b724d03",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -99,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "b967b830_bbda6fdf",
+        "filename": "crypto/rsa/rsa_asn1.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-03T21:33:17Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "b9a97860_59c7130b",
+      "revId": "23cf96a729c2534e39be2b7ce724e9752b724d03",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b9a97860_59b15382",
         "filename": "crypto/rsa/rsa_impl.c",
         "patchSetId": 2
@@ -110,6 +212,24 @@
       "writtenOn": "2015-06-03T03:27:28Z",
       "side": 1,
       "message": "This, and a lot of others, actually don\u0027t need the null check because sk_num works fine. Though being explicit is good.\n\nThen again, if we want our C to mimic Go... ;-)",
+      "revId": "23cf96a729c2534e39be2b7ce724e9752b724d03",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b967b830_3b15bffc",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-03T21:33:17Z",
+      "side": 1,
+      "message": "I don\u0027t really like the magic behaviour of the sk_* functions with NULL so aren\u0027t depending on it. (But nor can we reasonably remove it.)",
+      "parentUuid": "b9a97860_59b15382",
       "revId": "23cf96a729c2534e39be2b7ce724e9752b724d03",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -133,6 +253,24 @@
     },
     {
       "key": {
+        "uuid": "b967b830_3bb13f84",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 749,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-03T21:33:17Z",
+      "side": 1,
+      "message": "I don\u0027t think it\u0027s makes a difference because |c| has the flag set and |BN_div| only cares if either has CONSTTIME set.\n\nBut why worry? I\u0027ve moved this down and used |prime| to be clear.",
+      "parentUuid": "b9a97860_b43acea0",
+      "revId": "23cf96a729c2534e39be2b7ce724e9752b724d03",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b9a97860_144ac229",
         "filename": "crypto/rsa/rsa_impl.c",
         "patchSetId": 2
@@ -144,6 +282,24 @@
       "writtenOn": "2015-06-03T03:27:28Z",
       "side": 1,
       "message": "r1^exp mod prime?\n\nThe old comment seems to imply the prime is named r, but r is something else.",
+      "revId": "23cf96a729c2534e39be2b7ce724e9752b724d03",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b967b830_9ba1732f",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-03T21:33:17Z",
+      "side": 1,
+      "message": "You\u0027re right. Removed comment—it\u0027s not really helpful anyway.",
+      "parentUuid": "b9a97860_144ac229",
       "revId": "23cf96a729c2534e39be2b7ce724e9752b724d03",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -167,6 +323,24 @@
     },
     {
       "key": {
+        "uuid": "b967b830_1b9d63ec",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 773,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-03T21:33:17Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "b9a97860_94e472a5",
+      "revId": "23cf96a729c2534e39be2b7ce724e9752b724d03",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b9a97860_5f637392",
         "filename": "crypto/rsa/rsa_impl.c",
         "patchSetId": 2
@@ -184,6 +358,24 @@
     },
     {
       "key": {
+        "uuid": "b967b830_1b1443ce",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 776,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-03T21:33:17Z",
+      "side": 1,
+      "message": "Everything is done modulo the right thing so I believe it all works out. Certainly seems to in practice!",
+      "parentUuid": "b9a97860_5f637392",
+      "revId": "23cf96a729c2534e39be2b7ce724e9752b724d03",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b9a97860_b4e16e94",
         "filename": "crypto/rsa/rsa_impl.c",
         "patchSetId": 2
@@ -195,6 +387,24 @@
       "writtenOn": "2015-06-03T03:27:28Z",
       "side": 1,
       "message": "[Existing code: ...does the CRT logic sometimes not actually work or something?]",
+      "revId": "23cf96a729c2534e39be2b7ce724e9752b724d03",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b967b830_5b97dbc9",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-03T21:33:17Z",
+      "side": 1,
+      "message": "It\u0027s an anti-glitching defense. The CRT only goes wrong if the CPU miscalculates something.",
+      "parentUuid": "b9a97860_b4e16e94",
       "revId": "23cf96a729c2534e39be2b7ce724e9752b724d03",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -224,6 +434,30 @@
     },
     {
       "key": {
+        "uuid": "b967b830_9b1fb3e8",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 932,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-03T21:33:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9a97860_9faecb1c",
+      "range": {
+        "startLine": 932,
+        "startChar": 29,
+        "endLine": 932,
+        "endChar": 35
+      },
+      "revId": "23cf96a729c2534e39be2b7ce724e9752b724d03",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b9a97860_7f9d0feb",
         "filename": "crypto/rsa/rsa_impl.c",
         "patchSetId": 2
@@ -235,6 +469,24 @@
       "writtenOn": "2015-06-03T03:27:28Z",
       "side": 1,
       "message": "Shouldn\u0027t this also compute ap-\u003eexp and ap-\u003ecoeff? This function allocates BIGNUMs for them but never actually computes them, while the CRT parameters for p and q are computed below.",
+      "revId": "23cf96a729c2534e39be2b7ce724e9752b724d03",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b967b830_4f639192",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1019,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-03T21:33:17Z",
+      "side": 1,
+      "message": "Gah, thanks. I missed a hunk from Intel\u0027s patch. Done and test added.",
+      "parentUuid": "b9a97860_7f9d0feb",
       "revId": "23cf96a729c2534e39be2b7ce724e9752b724d03",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -258,6 +510,24 @@
     },
     {
       "key": {
+        "uuid": "b967b830_1b3ba35d",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1083,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-03T21:33:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9a97860_bfab870b",
+      "revId": "23cf96a729c2534e39be2b7ce724e9752b724d03",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b9a97860_bf7dc72b",
         "filename": "crypto/rsa/rsa_impl.c",
         "patchSetId": 2
@@ -275,6 +545,24 @@
     },
     {
       "key": {
+        "uuid": "b967b830_bbbeef1f",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1100,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-03T21:33:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9a97860_bf7dc72b",
+      "revId": "23cf96a729c2534e39be2b7ce724e9752b724d03",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b9a97860_d9ca238f",
         "filename": "crypto/rsa/rsa_test.c",
         "patchSetId": 2
@@ -286,6 +574,30 @@
       "writtenOn": "2015-06-03T03:27:28Z",
       "side": 1,
       "message": "uint8_t",
+      "range": {
+        "startLine": 536,
+        "startChar": 55,
+        "endLine": 536,
+        "endChar": 68
+      },
+      "revId": "23cf96a729c2534e39be2b7ce724e9752b724d03",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b967b830_bbf70f04",
+        "filename": "crypto/rsa/rsa_test.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-03T21:33:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9a97860_d9ca238f",
       "range": {
         "startLine": 536,
         "startChar": 55,
@@ -321,6 +633,30 @@
     },
     {
       "key": {
+        "uuid": "b967b830_9bf4d300",
+        "filename": "crypto/rsa/rsa_test.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-03T21:33:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9a97860_f9c7df83",
+      "range": {
+        "startLine": 546,
+        "startChar": 2,
+        "endLine": 546,
+        "endChar": 15
+      },
+      "revId": "23cf96a729c2534e39be2b7ce724e9752b724d03",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b9a97860_3939f701",
         "filename": "tool/const.cc",
         "patchSetId": 2
@@ -338,6 +674,24 @@
     },
     {
       "key": {
+        "uuid": "b967b830_6f492d03",
+        "filename": "tool/const.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-03T21:33:17Z",
+      "side": 1,
+      "message": "Setting them to be const causes errors:\n\n../tool/const.cc:433:14: error: unused variable \u0027kDERRSAPrivate3Prime2048Len\u0027 [-Werror,-Wunused-const-variable]\n\nWe might want to move them, but not in this change.",
+      "parentUuid": "b9a97860_3939f701",
+      "revId": "23cf96a729c2534e39be2b7ce724e9752b724d03",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b9a97860_d94d4390",
         "filename": "tool/const.cc",
         "patchSetId": 2
@@ -349,6 +703,24 @@
       "writtenOn": "2015-06-03T03:27:28Z",
       "side": 1,
       "message": "const?",
+      "revId": "23cf96a729c2534e39be2b7ce724e9752b724d03",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b967b830_cf5de1c2",
+        "filename": "tool/const.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-03T21:33:17Z",
+      "side": 1,
+      "message": "ditto.",
+      "parentUuid": "b9a97860_d94d4390",
       "revId": "23cf96a729c2534e39be2b7ce724e9752b724d03",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false

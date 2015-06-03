@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b967b830_3b501fdb",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-03T21:33:17Z",
+      "side": 0,
+      "message": "Good point. RSA_check_key is a bit silly, but I\u0027m not quite at the point where I want to throw it out.\n\nI punted on checking the CRT values for multi-prime keys, but otherwise fixed up this function for them.",
+      "parentUuid": "b9a97860_ff5a5fc7",
+      "revId": "eb930b87032bce94efd2c54e8d843f283231f6fd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b9a97860_1fbbbb64",
         "filename": "crypto/rsa/rsa.c",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2015-06-03T03:27:28Z",
       "side": 0,
       "message": "This function also isn\u0027t aware of the new mechanism.",
+      "revId": "eb930b87032bce94efd2c54e8d843f283231f6fd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b967b830_1b5563cb",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-03T21:33:17Z",
+      "side": 0,
+      "message": "I don\u0027t think it\u0027s reasonable to try supporting multi-prime keys in this function so I\u0027ve just added a check-and-return.",
+      "parentUuid": "b9a97860_1fbbbb64",
       "revId": "eb930b87032bce94efd2c54e8d843f283231f6fd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
