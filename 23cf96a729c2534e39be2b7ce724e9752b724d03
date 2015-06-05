@@ -376,6 +376,24 @@
     },
     {
       "key": {
+        "uuid": "19afe490_6c5da34a",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 776,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-05T17:20:34Z",
+      "side": 1,
+      "message": "Oh right, because the numbers modulo p and q (or prime and r) are already the smallest representatives, so the correction term has to be non-negative.",
+      "parentUuid": "b967b830_1b1443ce",
+      "revId": "23cf96a729c2534e39be2b7ce724e9752b724d03",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b9a97860_b4e16e94",
         "filename": "crypto/rsa/rsa_impl.c",
         "patchSetId": 2
@@ -686,6 +704,24 @@
       "side": 1,
       "message": "Setting them to be const causes errors:\n\n../tool/const.cc:433:14: error: unused variable \u0027kDERRSAPrivate3Prime2048Len\u0027 [-Werror,-Wunused-const-variable]\n\nWe might want to move them, but not in this change.",
       "parentUuid": "b9a97860_3939f701",
+      "revId": "23cf96a729c2534e39be2b7ce724e9752b724d03",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b9ec18cf_0d3b715d",
+        "filename": "tool/const.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-05T17:20:34Z",
+      "side": 1,
+      "message": "...fascinating. I guess if we put it in a header, the compiler will be appeased. Follow-up SGTM.",
+      "parentUuid": "b967b830_6f492d03",
       "revId": "23cf96a729c2534e39be2b7ce724e9752b724d03",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
