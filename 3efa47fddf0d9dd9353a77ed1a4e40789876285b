@@ -1,0 +1,129 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19afe490_0c6ee7f4",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-05T17:20:34Z",
+      "side": 1,
+      "message": "Nit: For consistency with other FOO_frees, it should probably check for NULL. Though I don\u0027t think we care.",
+      "revId": "3efa47fddf0d9dd9353a77ed1a4e40789876285b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b9ec18cf_4dba992f",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-05T17:20:34Z",
+      "side": 1,
+      "message": "Isn\u0027t sigma usually for sums? Maybe lcm(p-1 ∀p), so you still get to use a unicode character. :-)",
+      "revId": "3efa47fddf0d9dd9353a77ed1a4e40789876285b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b9ec18cf_adbe9d1f",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-05T17:20:34Z",
+      "side": 1,
+      "message": "Ditto",
+      "range": {
+        "startLine": 595,
+        "startChar": 26,
+        "endLine": 595,
+        "endChar": 27
+      },
+      "revId": "3efa47fddf0d9dd9353a77ed1a4e40789876285b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "19afe490_6cabe391",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 868,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-05T17:20:34Z",
+      "side": 1,
+      "message": "RSA_additional_prime_free(ap), otherwise it leaks.",
+      "revId": "3efa47fddf0d9dd9353a77ed1a4e40789876285b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "19afe490_cc4a2f76",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1100,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-05T17:20:34Z",
+      "side": 1,
+      "message": "Nit: nowadays we just assume the free functions check for NULL.",
+      "revId": "3efa47fddf0d9dd9353a77ed1a4e40789876285b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "19afe490_ecd45334",
+        "filename": "crypto/rsa/rsa_test.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-05T17:20:34Z",
+      "side": 1,
+      "message": "BN_free\n\nBN_clear just memsets to zero while BN_free is the combined BN_free/BN_cleanup which checks some flag (yay).",
+      "revId": "3efa47fddf0d9dd9353a77ed1a4e40789876285b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "19afe490_eceb73eb",
+        "filename": "crypto/rsa/rsa_test.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-05T17:20:34Z",
+      "side": 1,
+      "message": "This should be sizeof(two_prime_key)-1 to remove the trailing NUL, right? Since it\u0027s a string literal. Ditto below.\n\n(I wish byte literals weren\u0027t so tedious...)",
+      "revId": "3efa47fddf0d9dd9353a77ed1a4e40789876285b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
