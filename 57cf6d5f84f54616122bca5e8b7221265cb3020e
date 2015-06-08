@@ -81,6 +81,24 @@
       "revId": "57cf6d5f84f54616122bca5e8b7221265cb3020e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b9d41838_dcb5d96f",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 941,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-08T22:43:22Z",
+      "side": 1,
+      "message": "I think the history here is that, when OpenSSL supported ECDH cipher suites, a client could get the server to perform an ECDH operation using the EC key of a certificate. That\u0027s not fatal, but ECDH provides lots more opportunities for an attacker to do nasty things than ECDSA and it\u0027s doubtful that anyone wanted to support ECDH with an ECDSA cert.\n\nSo a KU check (and getting CAs to set the KU correctly) prevented that. Since we removed ECDH, we removed that check and only this one remains. It\u0027s a little moot, but, probably nice enough to keep.",
+      "parentUuid": "59c15c6b_8ed16b76",
+      "revId": "57cf6d5f84f54616122bca5e8b7221265cb3020e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
