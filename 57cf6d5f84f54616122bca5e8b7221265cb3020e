@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b9d41838_9c619109",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 920,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-08T22:26:57Z",
+      "side": 1,
+      "message": "No worries for this CL, but this appears to be a no-op. It\u0027s nothing for RSA keys and, for ECDSA keys it just checks that the group is not NULL, but we should never return from parsing with a NULL group anyway.",
+      "range": {
+        "startLine": 920,
+        "startChar": 22,
+        "endLine": 920,
+        "endChar": 49
+      },
+      "revId": "57cf6d5f84f54616122bca5e8b7221265cb3020e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b9d41838_1c45a162",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 941,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-08T22:26:57Z",
+      "side": 1,
+      "message": "It might be nice to enforce that ECDHE_RSA has a signature key-usage and plain RSA has key-encipherment, but I don\u0027t know whether it\u0027s viable on the internet to enforce that.",
+      "revId": "57cf6d5f84f54616122bca5e8b7221265cb3020e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
