@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "59c15c6b_ee08e79b",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 920,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-08T22:36:01Z",
+      "side": 1,
+      "message": "Oh yeah, let\u0027s get rid of that...",
+      "parentUuid": "b9d41838_9c619109",
+      "range": {
+        "startLine": 920,
+        "startChar": 22,
+        "endLine": 920,
+        "endChar": 49
+      },
+      "revId": "57cf6d5f84f54616122bca5e8b7221265cb3020e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b9d41838_1c45a162",
         "filename": "ssl/s3_clnt.c",
         "patchSetId": 2
@@ -36,6 +60,24 @@
       "writtenOn": "2015-06-08T22:26:57Z",
       "side": 1,
       "message": "It might be nice to enforce that ECDHE_RSA has a signature key-usage and plain RSA has key-encipherment, but I don\u0027t know whether it\u0027s viable on the internet to enforce that.",
+      "revId": "57cf6d5f84f54616122bca5e8b7221265cb3020e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59c15c6b_8ed16b76",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 941,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-08T22:36:01Z",
+      "side": 1,
+      "message": "Yeah, that was mostly why I didn\u0027t make it consistent then and there. NSS, as far as I can tell, doesn\u0027t enforce anything. Probably doesn\u0027t matter? Dunno, I didn\u0027t feel sufficiently justified in removing it outright.",
+      "parentUuid": "b9d41838_1c45a162",
       "revId": "57cf6d5f84f54616122bca5e8b7221265cb3020e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
