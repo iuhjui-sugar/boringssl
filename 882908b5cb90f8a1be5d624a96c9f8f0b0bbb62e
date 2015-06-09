@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "59c15c6b_2f55b994",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-09T17:00:31Z",
+      "side": 1,
+      "message": "[Note for when merging to Android: you may need to put the TLS1_PRF_* macros back in, depending on where they\u0027re sync\u0027d.]",
+      "range": {
+        "startLine": 440,
+        "startChar": 5,
+        "endLine": 440,
+        "endChar": 30
+      },
+      "revId": "882908b5cb90f8a1be5d624a96c9f8f0b0bbb62e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59c15c6b_8f5e05bc",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-09T17:00:31Z",
+      "side": 1,
+      "message": "Nit: This probably wants to go just under line 504, since it\u0027s a perfectly standard name.",
+      "revId": "882908b5cb90f8a1be5d624a96c9f8f0b0bbb62e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
