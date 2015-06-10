@@ -1,0 +1,141 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d9754c3f_14e23cc1",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-10T23:27:29Z",
+      "side": 1,
+      "message": "... zero otherwise.",
+      "revId": "24d2721d17cddea6bb7d4bdcf6fdf61a642aa223",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9754c3f_14fc7c35",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-10T23:27:29Z",
+      "side": 1,
+      "message": "... This must be a constant value for a given |ssl|.",
+      "revId": "24d2721d17cddea6bb7d4bdcf6fdf61a642aa223",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9754c3f_14b9dcb6",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-10T23:27:29Z",
+      "side": 1,
+      "message": "It\u0027s unclear whether this means that the DigestInfo is already taken care of before |sign| is called, or whether this is telling an implementor that they need to worry about it.",
+      "range": {
+        "startLine": 533,
+        "startChar": 35,
+        "endLine": 533,
+        "endChar": 49
+      },
+      "revId": "24d2721d17cddea6bb7d4bdcf6fdf61a642aa223",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9754c3f_5496841d",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-10T23:27:29Z",
+      "side": 1,
+      "message": "remove word",
+      "range": {
+        "startLine": 546,
+        "startChar": 13,
+        "endLine": 546,
+        "endChar": 17
+      },
+      "revId": "24d2721d17cddea6bb7d4bdcf6fdf61a642aa223",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9754c3f_b477a87c",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-10T23:27:29Z",
+      "side": 1,
+      "message": "blank lines between these?",
+      "revId": "24d2721d17cddea6bb7d4bdcf6fdf61a642aa223",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9754c3f_346418c2",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-10T23:27:29Z",
+      "side": 1,
+      "message": "const and a blank line afterwards.",
+      "revId": "24d2721d17cddea6bb7d4bdcf6fdf61a642aa223",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9754c3f_54444419",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1998,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-10T23:27:29Z",
+      "side": 1,
+      "message": "need be",
+      "range": {
+        "startLine": 1998,
+        "startChar": 38,
+        "endLine": 1998,
+        "endChar": 44
+      },
+      "revId": "24d2721d17cddea6bb7d4bdcf6fdf61a642aa223",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
