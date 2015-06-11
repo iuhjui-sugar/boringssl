@@ -16,6 +16,24 @@
       "revId": "58eaa16e65c52ed547c0f481524e32a0dde19c31",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "997f5421_e0feca7c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-11T22:38:10Z",
+      "side": 1,
+      "message": "Done. Also generally improved the wording of this.",
+      "parentUuid": "d9754c3f_d4ccb460",
+      "revId": "58eaa16e65c52ed547c0f481524e32a0dde19c31",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
