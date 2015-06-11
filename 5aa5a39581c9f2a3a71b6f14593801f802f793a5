@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "997f5421_5230d4a3",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-11T14:54:22Z",
+      "side": 1,
+      "message": "test_support_headers?\n\nThe tool even uses those headers now too (without the sources)... which perhaps suggests I should move some stuff around.",
+      "range": {
+        "startLine": 220,
+        "startChar": 21,
+        "endLine": 220,
+        "endChar": 50
+      },
+      "revId": "5aa5a39581c9f2a3a71b6f14593801f802f793a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "997f5421_926cfc81",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-11T14:54:22Z",
+      "side": 1,
+      "message": "[I imagine we\u0027ll want to make that JSON format smarter in the future, but we can deal with it then. I\u0027m not going to toy with it much on the Chromium side until I\u0027ve figured out what running the tests on Android would entail.]",
+      "revId": "5aa5a39581c9f2a3a71b6f14593801f802f793a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "997f5421_9235dc97",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-11T14:54:22Z",
+      "side": 1,
+      "message": "Nit: This is slightly more idiomatic:\n\n  with open(\u0027src/util/all_tests.json\u0027, \u0027r\u0027) as f:\n    tests \u003d json.loads(f.read())\n\nOr just\n\n  with open(\u0027src/util/all_tests.json\u0027, \u0027r\u0027) as f:\n    tests \u003d json.load(f)\n\nPython can\u0027t decide whether it promises deterministic destruction or not.",
+      "revId": "5aa5a39581c9f2a3a71b6f14593801f802f793a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
