@@ -19,6 +19,7 @@
 import os
 import subprocess
 import sys
+import json
 
 
 # OS_ARCH_COMBOS maps from OS and platform to the OpenSSL assembly "style" for
@@ -207,6 +208,71 @@ class Bazel(object):
           continue
         self.PrintVariableSection(
             out, 'crypto_sources_%s' % arch, asm_files)
+
+    with open('BUILD.generated_tests', 'w+') as out:
+      out.write(self.header)
+
+      out.write('test_support_sources = [\n')
+      for filename in files['test_support']:
+        if os.path.basename(filename) == 'malloc.cc':
+          continue
+        out.write('    "%s",\n' % filename)
+      out.write('] + glob(["src/crypto/test/*.h"])\n\n')
+
+      name_counts = {}
+      for test in files['tests']:
+        name = os.path.basename(test[0])
+        name_counts[name] = name_counts.get(name, 0) + 1
+
+      first = True
+      for test in files['tests']:
+        name = os.path.basename(test[0])
+        if name_counts[name] > 1:
+          if '/' in test[1]:
+            name += '_' + os.path.splitext(os.path.basename(test[1]))[0]
+          else:
+            name += '_' + test[1].replace('-', '_')
+
+        if not first:
+          out.write('\n')
+        first = False
+
+        src_prefix = 'src/' + test[0]
+        for src in files['test']:
+          if src.startswith(src_prefix):
+            src = src
+            break
+        else:
+          raise ValueError("Can't find source for %s" % test[0])
+
+        out.write('cc_test(\n')
+        out.write('    name = "%s",\n' % name)
+        out.write('    srcs = ["%s"] + test_support_sources,\n' % src)
+        out.write('    copts = boringssl_copts,\n')
+        out.write('    size = "small",\n')
+        if len(test) > 1:
+          data_files = []
+
+          out.write('    args = [\n')
+          for arg in test[1:]:
+            if '/' in arg:
+              out.write('        "$(location src/%s)",\n' % arg)
+              data_files.append('src/%s' % arg)
+            else:
+              out.write('        "%s",\n' % arg)
+          out.write('    ],\n')
+
+          if len(data_files) > 0:
+            out.write('    data = [\n')
+            for filename in data_files:
+              out.write('        "%s",\n' % filename)
+            out.write('    ],\n')
+
+        if 'ssl/' in test[0]:
+          out.write('    deps = [":crypto", ":ssl"],\n')
+        else:
+          out.write('    deps = [":crypto"],\n')
+        out.write(')\n')
 
 
 def FindCMakeFiles(directory):
@@ -410,6 +476,22 @@ def main(platforms):
   crypto_internal_h_files = FindHeaderFiles(
       os.path.join('src', 'crypto'), NoTests)
 
+  tests = json.loads(file('src/util/all_tests.json', 'r').read())
+  test_binaries = set([test[0] for test in tests])
+  test_sources = set([
+      test.replace('.cc', '').replace('.c', '').replace(
+          'src/',
+          '')
+      for test in test_c_files])
+  if test_binaries != test_sources:
+    print 'Test sources and configured tests do not match'
+    a = test_binaries.difference(test_sources)
+    if len(a) > 0:
+      print 'These tests are configured without sources: ' + str(a)
+    b = test_sources.difference(test_binaries)
+    if len(b) > 0:
+      print 'These test sources are not configured: ' + str(b)
+
   files = {
       'crypto': crypto_c_files,
       'crypto_headers': crypto_h_files,
@@ -420,6 +502,7 @@ def main(platforms):
       'tool': tool_cc_files,
       'test': test_c_files,
       'test_support': test_support_cc_files,
+      'tests': tests,
   }
 
   asm_outputs = sorted(WriteAsmFiles(ReadPerlAsmOperations()).iteritems())
