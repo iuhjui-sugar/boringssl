@@ -1420,9 +1420,6 @@ struct ssl_st {
                        * SSLv3/TLS rollback check */
   uint16_t max_send_fragment;
   char *tlsext_hostname;
-  /* should_ack_sni is true if the SNI extension should be acked. This is
-   * only used by a server. */
-  char should_ack_sni;
   /* RFC4507 session ticket expected to be received or sent */
   int tlsext_ticket_expected;
   size_t tlsext_ecpointformatlist_length;
