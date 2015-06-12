@@ -783,6 +783,20 @@ OPENSSL_EXPORT int BN_mod_exp2_mont(BIGNUM *r, const BIGNUM *a1,
                                     BN_CTX *ctx, BN_MONT_CTX *m_ctx);
 
 
+/* ASN.1 functions.
+ *
+ * For now, negative numbers are not supported. If negative numbers are needed,
+ * we can add |BN_parse_asn1| and make |BN_marshal_asn1| no longer fail. */
+
+/* BN_parse_asn1_unsigned parses a non-negative DER INTEGER from |cbs| and
+ * returns a newly-allocated |BIGNUM| with the result or NULL on failure. */
+OPENSSL_EXPORT BIGNUM *BN_parse_asn1_unsigned(CBS *cbs);
+
+/* BN_marshal_asn1 marshals |bn| as a non-negative DER INTEGER and appends the
+ * result to |cbb|. It returns one on success and zero on failure. */
+OPENSSL_EXPORT int BN_marshal_asn1(CBB *cbb, const BIGNUM *bn);
+
+
 /* Private functions */
 
 struct bignum_st {
@@ -855,6 +869,8 @@ OPENSSL_EXPORT BIGNUM *get_rfc3526_prime_1536(BIGNUM *bn);
 #define BN_F_mod_exp_recp 124
 #define BN_F_BN_lshift 125
 #define BN_F_BN_rshift 126
+#define BN_F_BN_marshal_asn1 127
+#define BN_F_BN_parse_asn1_unsigned 128
 #define BN_R_ARG2_LT_ARG3 100
 #define BN_R_BAD_RECIPROCAL 101
 #define BN_R_BIGNUM_TOO_LONG 102
@@ -872,5 +888,7 @@ OPENSSL_EXPORT BIGNUM *get_rfc3526_prime_1536(BIGNUM *bn);
 #define BN_R_P_IS_NOT_PRIME 114
 #define BN_R_TOO_MANY_ITERATIONS 115
 #define BN_R_TOO_MANY_TEMPORARY_VARIABLES 116
+#define BN_R_BAD_ENCODING 117
+#define BN_R_ENCODE_ERROR 118
 
 #endif  /* OPENSSL_HEADER_BN_H */
