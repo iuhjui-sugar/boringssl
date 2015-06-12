@@ -9,6 +9,7 @@ BN,function,107,BN_exp
 BN,function,108,BN_generate_dsa_nonce
 BN,function,109,BN_generate_prime_ex
 BN,function,125,BN_lshift
+BN,function,127,BN_marshal_asn1
 BN,function,110,BN_mod_exp2_mont
 BN,function,111,BN_mod_exp_mont
 BN,function,112,BN_mod_exp_mont_consttime
@@ -18,6 +19,7 @@ BN,function,115,BN_mod_inverse_no_branch
 BN,function,116,BN_mod_lshift_quick
 BN,function,117,BN_mod_sqrt
 BN,function,118,BN_new
+BN,function,128,BN_parse_asn1_unsigned
 BN,function,119,BN_rand
 BN,function,120,BN_rand_range
 BN,function,126,BN_rshift
@@ -26,11 +28,13 @@ BN,function,122,BN_usub
 BN,function,123,bn_wexpand
 BN,function,124,mod_exp_recp
 BN,reason,100,ARG2_LT_ARG3
+BN,reason,117,BAD_ENCODING
 BN,reason,101,BAD_RECIPROCAL
 BN,reason,102,BIGNUM_TOO_LONG
 BN,reason,103,BITS_TOO_SMALL
 BN,reason,104,CALLED_WITH_EVEN_MODULUS
 BN,reason,105,DIV_BY_ZERO
+BN,reason,118,ENCODE_ERROR
 BN,reason,106,EXPAND_ON_STATIC_BIGNUM_DATA
 BN,reason,107,INPUT_NOT_REDUCED
 BN,reason,108,INVALID_RANGE
