@@ -52,23 +52,16 @@
 
 #include <openssl/ecdsa.h>
 
-#include <openssl/asn1.h>
-#include <openssl/asn1t.h>
+#include <limits.h>
+#include <string.h>
+
+#include <openssl/bytestring.h>
+#include <openssl/err.h>
 #include <openssl/ec_key.h>
 #include <openssl/mem.h>
 
 #include "../ec/internal.h"
 
-
-DECLARE_ASN1_FUNCTIONS_const(ECDSA_SIG);
-DECLARE_ASN1_ENCODE_FUNCTIONS_const(ECDSA_SIG, ECDSA_SIG);
-
-ASN1_SEQUENCE(ECDSA_SIG) = {
-    ASN1_SIMPLE(ECDSA_SIG, r, CBIGNUM),
-    ASN1_SIMPLE(ECDSA_SIG, s, CBIGNUM),
-} ASN1_SEQUENCE_END(ECDSA_SIG);
-
-IMPLEMENT_ASN1_ENCODE_FUNCTIONS_const_fname(ECDSA_SIG, ECDSA_SIG, ECDSA_SIG);
 
 size_t ECDSA_size(const EC_KEY *key) {
   if (key == NULL) {
@@ -100,8 +93,20 @@ size_t ECDSA_size(const EC_KEY *key) {
   return ECDSA_SIG_max_len(group_order_size);
 }
 
-ECDSA_SIG *ECDSA_SIG_new(void) {
+/* ecdsa_sig_new allocates a new |ECDSA_SIG| without initializing |r| and |s| to
+ * empty |BIGNUM|s. */
+static ECDSA_SIG *ecdsa_sig_new(void) {
   ECDSA_SIG *sig = OPENSSL_malloc(sizeof(ECDSA_SIG));
+  if (sig == NULL) {
+    OPENSSL_PUT_ERROR(ECDSA, ecdsa_sig_new, ERR_R_MALLOC_FAILURE);
+    return NULL;
+  }
+  memset(sig, 0, sizeof(ECDSA_SIG));
+  return sig;
+}
+
+ECDSA_SIG *ECDSA_SIG_new(void) {
+  ECDSA_SIG *sig = ecdsa_sig_new();
   if (sig == NULL) {
     return NULL;
   }
@@ -122,6 +127,75 @@ void ECDSA_SIG_free(ECDSA_SIG *sig) {
   BN_free(sig->r);
   BN_free(sig->s);
   OPENSSL_free(sig);
+}
+
+ECDSA_SIG *ECDSA_SIG_parse(CBS *cbs) {
+  ECDSA_SIG *ret = ecdsa_sig_new();
+  if (ret == NULL) {
+    goto err;
+  }
+
+  CBS child;
+  if (!CBS_get_asn1(cbs, &child, CBS_ASN1_SEQUENCE)) {
+    OPENSSL_PUT_ERROR(ECDSA, ECDSA_SIG_parse, ECDSA_R_BAD_SIGNATURE);
+    goto err;
+  }
+  ret->r = BN_parse_asn1_unsigned(&child);
+  if (ret->r == NULL) {
+    goto err;
+  }
+  ret->s = BN_parse_asn1_unsigned(&child);
+  if (ret->s == NULL) {
+    goto err;
+  }
+  if (CBS_len(&child) != 0) {
+    OPENSSL_PUT_ERROR(ECDSA, ECDSA_SIG_parse, ECDSA_R_BAD_SIGNATURE);
+    goto err;
+  }
+
+  return ret;
+
+err:
+  ECDSA_SIG_free(ret);
+  return NULL;
+}
+
+ECDSA_SIG *ECDSA_SIG_from_bytes(const uint8_t *in, size_t in_len) {
+  CBS cbs;
+  CBS_init(&cbs, in, in_len);
+  ECDSA_SIG *ret = ECDSA_SIG_parse(&cbs);
+  if (ret == NULL || CBS_len(&cbs) != 0) {
+    OPENSSL_PUT_ERROR(ECDSA, ECDSA_SIG_from_bytes, ECDSA_R_BAD_SIGNATURE);
+    ECDSA_SIG_free(ret);
+    return NULL;
+  }
+  return ret;
+}
+
+int ECDSA_SIG_marshal(CBB *cbb, const ECDSA_SIG *sig) {
+  CBB child;
+  if (!CBB_add_asn1(cbb, &child, CBS_ASN1_SEQUENCE) ||
+      !BN_marshal_asn1(&child, sig->r) ||
+      !BN_marshal_asn1(&child, sig->s) ||
+      !CBB_flush(cbb)) {
+    OPENSSL_PUT_ERROR(ECDSA, ECDSA_SIG_marshal, ECDSA_R_ENCODE_ERROR);
+    return 0;
+  }
+  return 1;
+}
+
+int ECDSA_SIG_to_bytes(uint8_t **out_bytes, size_t *out_len,
+                       const ECDSA_SIG *sig) {
+  CBB cbb;
+  CBB_zero(&cbb);
+  if (!CBB_init(&cbb, 0) ||
+      !ECDSA_SIG_marshal(&cbb, sig) ||
+      !CBB_finish(&cbb, out_bytes, out_len)) {
+    OPENSSL_PUT_ERROR(ECDSA, ECDSA_SIG_to_bytes, ECDSA_R_ENCODE_ERROR);
+    CBB_cleanup(&cbb);
+    return 0;
+  }
+  return 1;
 }
 
 /* der_len_len returns the number of bytes needed to represent a length of |len|
@@ -156,4 +230,46 @@ size_t ECDSA_SIG_max_len(size_t order_len) {
     return 0;
   }
   return ret;
+}
+
+ECDSA_SIG *d2i_ECDSA_SIG(ECDSA_SIG **out, const uint8_t **inp, long len) {
+  if (len < 0) {
+    return NULL;
+  }
+  CBS cbs;
+  CBS_init(&cbs, *inp, (size_t)len);
+  ECDSA_SIG *ret = ECDSA_SIG_parse(&cbs);
+  if (ret == NULL) {
+    return NULL;
+  }
+  if (out != NULL) {
+    ECDSA_SIG_free(*out);
+    *out = ret;
+  }
+  *inp += (size_t)len - CBS_len(&cbs);
+  return ret;
+}
+
+int i2d_ECDSA_SIG(const ECDSA_SIG *sig, uint8_t **outp) {
+  uint8_t *der;
+  size_t der_len;
+  if (!ECDSA_SIG_to_bytes(&der, &der_len, sig)) {
+    return -1;
+  }
+  if (der_len > INT_MAX) {
+    OPENSSL_PUT_ERROR(ECDSA, i2d_ECDSA_SIG, ERR_R_OVERFLOW);
+    OPENSSL_free(der);
+    return -1;
+  }
+  if (outp != NULL) {
+    if (*outp == NULL) {
+      *outp = der;
+      der = NULL;
+    } else {
+      memcpy(*outp, der, der_len);
+      *outp += der_len;
+    }
+  }
+  OPENSSL_free(der);
+  return (int)der_len;
 }
