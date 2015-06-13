@@ -2747,6 +2747,7 @@ OPENSSL_EXPORT const char *SSLeay_version(int unused);
 #define SSL_F_SSL_AEAD_CTX_open 277
 #define SSL_F_SSL_AEAD_CTX_seal 278
 #define SSL_F_dtls1_seal_record 279
+#define SSL_F_ssl3_check_certificate_for_cipher 280
 #define SSL_R_APP_DATA_IN_HANDSHAKE 100
 #define SSL_R_ATTEMPT_TO_REUSE_SESSION_IN_DIFFERENT_CONTEXT 101
 #define SSL_R_BAD_ALERT 102
