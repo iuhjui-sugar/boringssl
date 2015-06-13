@@ -78,6 +78,8 @@ SSL,function,163,dtls1_read_bytes
 SSL,function,279,dtls1_seal_record
 SSL,function,164,dtls1_send_hello_verify_request
 SSL,function,165,dtls1_write_app_data
+SSL,function,281,ext_ri_parse_clienthello
+SSL,function,282,ext_ri_parse_serverhello
 SSL,function,166,i2d_SSL_SESSION
 SSL,function,167,ssl3_accept
 SSL,function,169,ssl3_cert_verify_hash
@@ -353,6 +355,7 @@ SSL,reason,237,TOO_MANY_EMPTY_FRAGMENTS
 SSL,reason,278,TOO_MANY_WARNING_ALERTS
 SSL,reason,238,UNABLE_TO_FIND_ECDH_PARAMETERS
 SSL,reason,239,UNABLE_TO_FIND_PUBLIC_KEY_PARAMETERS
+SSL,reason,279,UNEXPECTED_EXTENSION
 SSL,reason,240,UNEXPECTED_GROUP_CLOSE
 SSL,reason,241,UNEXPECTED_MESSAGE
 SSL,reason,242,UNEXPECTED_OPERATOR_IN_GROUP

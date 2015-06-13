@@ -1268,9 +1268,11 @@ int ssl_cipher_list_to_bytes(SSL *s, STACK_OF(SSL_CIPHER) *sk, uint8_t *p) {
     return 0;
   }
 
-  /* Add SCSVs. */
-  if (!s->s3->initial_handshake_complete) {
-    s2n(SSL3_CK_SCSV & 0xffff, p);
+  /* For SSLv3, the SCSV is added. Otherwise the renegotiation extension is
+   * added. */
+  if (s->client_version == SSL3_VERSION &&
+      !s->s3->initial_handshake_complete) {
+    s2n(SSL3_CK_FALLBACK_SCSV & 0xffff, p);
   }
 
   if (s->mode & SSL_MODE_SEND_FALLBACK_SCSV) {

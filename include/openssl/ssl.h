@@ -2745,6 +2745,8 @@ OPENSSL_EXPORT const char *SSLeay_version(int unused);
 #define SSL_F_SSL_AEAD_CTX_seal 278
 #define SSL_F_dtls1_seal_record 279
 #define SSL_F_ssl3_check_certificate_for_cipher 280
+#define SSL_F_ext_ri_parse_clienthello 281
+#define SSL_F_ext_ri_parse_serverhello 282
 #define SSL_R_APP_DATA_IN_HANDSHAKE 100
 #define SSL_R_ATTEMPT_TO_REUSE_SESSION_IN_DIFFERENT_CONTEXT 101
 #define SSL_R_BAD_ALERT 102
@@ -2924,6 +2926,7 @@ OPENSSL_EXPORT const char *SSLeay_version(int unused);
 #define SSL_R_EMS_STATE_INCONSISTENT 276
 #define SSL_R_RESUMED_NON_EMS_SESSION_WITH_EMS_EXTENSION 277
 #define SSL_R_TOO_MANY_WARNING_ALERTS 278
+#define SSL_R_UNEXPECTED_EXTENSION 279
 #define SSL_R_SSLV3_ALERT_CLOSE_NOTIFY 1000
 #define SSL_R_SSLV3_ALERT_UNEXPECTED_MESSAGE 1010
 #define SSL_R_SSLV3_ALERT_BAD_RECORD_MAC 1020
