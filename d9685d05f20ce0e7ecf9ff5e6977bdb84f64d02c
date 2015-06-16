@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d978ec71_bf303b28",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-16T17:11:59Z",
+      "side": 1,
+      "message": "Make sure I imported this one correctly. We still use the old formatting, so I had to apply it manually.",
+      "revId": "d9685d05f20ce0e7ecf9ff5e6977bdb84f64d02c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
