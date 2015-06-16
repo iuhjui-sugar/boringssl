@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f95690ec_b26dbeaf",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-16T18:07:01Z",
+      "side": 1,
+      "message": "They probably do need to be moved around. But this\u0027ll do for now.",
+      "parentUuid": "997f5421_5230d4a3",
+      "range": {
+        "startLine": 220,
+        "startChar": 21,
+        "endLine": 220,
+        "endChar": 50
+      },
+      "revId": "5aa5a39581c9f2a3a71b6f14593801f802f793a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "997f5421_926cfc81",
         "filename": "util/generate_build_files.py",
         "patchSetId": 2
@@ -53,6 +77,24 @@
       "writtenOn": "2015-06-11T14:54:22Z",
       "side": 1,
       "message": "Nit: This is slightly more idiomatic:\n\n  with open(\u0027src/util/all_tests.json\u0027, \u0027r\u0027) as f:\n    tests \u003d json.loads(f.read())\n\nOr just\n\n  with open(\u0027src/util/all_tests.json\u0027, \u0027r\u0027) as f:\n    tests \u003d json.load(f)\n\nPython can\u0027t decide whether it promises deterministic destruction or not.",
+      "revId": "5aa5a39581c9f2a3a71b6f14593801f802f793a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f95690ec_f277467b",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-16T18:07:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "997f5421_9235dc97",
       "revId": "5aa5a39581c9f2a3a71b6f14593801f802f793a5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
