@@ -16,6 +16,24 @@
       "revId": "291337905f1ce3aef507415b62d44ca5b7683ba4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5965dcc2_d4579429",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-16T01:01:29Z",
+      "side": 1,
+      "message": "Nah, because we really hope not to do anything specific for PPC.",
+      "parentUuid": "d978ec71_594e67ba",
+      "revId": "291337905f1ce3aef507415b62d44ca5b7683ba4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
