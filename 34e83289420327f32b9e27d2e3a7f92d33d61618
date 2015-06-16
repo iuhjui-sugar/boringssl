@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d978ec71_bfe2fb13",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-16T17:05:18Z",
+      "side": 1,
+      "message": "I\u0027m hopeful that, for the d2i functions we care enough about to get off crypto/asn1, we can use this simplified reuse story. Otherwise the reuse craziness will just bleed into everything.\n\nI did find one thing that would break. But it\u0027s not built.",
+      "revId": "34e83289420327f32b9e27d2e3a7f92d33d61618",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d978ec71_bfbbdb13",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2184,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-16T17:05:18Z",
+      "side": 1,
+      "message": "This function and its callers are kind of a mess. I\u0027ll send you another branch later to tidy it up.",
+      "revId": "34e83289420327f32b9e27d2e3a7f92d33d61618",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
