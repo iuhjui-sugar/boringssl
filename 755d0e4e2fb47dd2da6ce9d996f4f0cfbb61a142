@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f95690ec_15f2f4e4",
+        "filename": "include/openssl/ssl3.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-16T19:02:42Z",
+      "side": 1,
+      "message": "single space.",
+      "range": {
+        "startLine": 459,
+        "startChar": 21,
+        "endLine": 459,
+        "endChar": 23
+      },
+      "revId": "755d0e4e2fb47dd2da6ce9d996f4f0cfbb61a142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f95690ec_d5c06c72",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-16T19:02:42Z",
+      "side": 1,
+      "message": "remove.",
+      "range": {
+        "startLine": 801,
+        "startChar": 55,
+        "endLine": 801,
+        "endChar": 59
+      },
+      "revId": "755d0e4e2fb47dd2da6ce9d996f4f0cfbb61a142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f95690ec_35c8d895",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-16T19:02:42Z",
+      "side": 1,
+      "message": "This is taken from the existing code but, if someone sends an unknown name type, we don\u0027t skip over its contents. (In fact, the RFC doesn\u0027t specify its contents. We would have to assume that it has the same outer structure as a host name.)\n\nAlthough, since OpenSSL is broken in this way, we would never clean up the Internet enough to actually deploy any other name type.",
+      "revId": "755d0e4e2fb47dd2da6ce9d996f4f0cfbb61a142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
