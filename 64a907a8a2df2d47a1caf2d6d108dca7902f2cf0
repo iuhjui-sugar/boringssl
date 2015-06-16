@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f95690ec_52b9f2b5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-16T18:00:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9fdf8c1_4bbeb9b1",
+      "range": {
+        "startLine": 9,
+        "startChar": 18,
+        "endLine": 9,
+        "endChar": 21
+      },
+      "revId": "64a907a8a2df2d47a1caf2d6d108dca7902f2cf0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "997f5421_12900c1d",
         "filename": "util/generate_build_files.py",
         "patchSetId": 2
@@ -36,6 +60,24 @@
       "writtenOn": "2015-06-11T14:37:45Z",
       "side": 1,
       "message": "This will still generate the asm files for non-Linux targets. I\u0027m assuming you don\u0027t mind?",
+      "revId": "64a907a8a2df2d47a1caf2d6d108dca7902f2cf0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f95690ec_92819ad8",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-16T18:00:02Z",
+      "side": 1,
+      "message": "Nah, that\u0027s fine.",
+      "parentUuid": "997f5421_12900c1d",
       "revId": "64a907a8a2df2d47a1caf2d6d108dca7902f2cf0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
