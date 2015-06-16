@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d978ec71_bfd11bf9",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 3060,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-16T19:23:56Z",
+      "side": 0,
+      "message": "Might be worth keeping this one there, so we test that we default to allowing both the initial handshake and a renego for such servers.",
+      "revId": "80623a22078d128eeafb097427eafac37668935e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
