@@ -16,6 +16,24 @@
       "revId": "8855bc75939d5aec77adaa28f1314e88cd561cbf",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d978ec71_e5814005",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1513,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-17T15:27:45Z",
+      "side": 1,
+      "message": "Oops, I must have never published this comment!",
+      "parentUuid": "d978ec71_7fe943f3",
+      "revId": "8855bc75939d5aec77adaa28f1314e88cd561cbf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
