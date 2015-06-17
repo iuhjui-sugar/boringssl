@@ -112,6 +112,7 @@
 #include <stdio.h>
 
 #include <openssl/base.h>
+#include <openssl/bio.h>
 
 #if defined(__cplusplus)
 extern "C" {
@@ -262,6 +263,10 @@ OPENSSL_EXPORT void ERR_print_errors_cb(ERR_print_errors_callback_t callback,
 /* ERR_print_errors_fp prints the current contents of the error stack to |file|
  * using human readable strings where possible. */
 OPENSSL_EXPORT void ERR_print_errors_fp(FILE *file);
+
+/* ERR_print_errors prints the current contents of the error stack to |bio|
+ * using human readable strings where possible. */
+OPENSSL_EXPORT void ERR_print_errors(BIO *bio);
 
 /* Clearing errors. */
 
