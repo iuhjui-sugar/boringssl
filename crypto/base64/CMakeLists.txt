@@ -6,6 +6,7 @@ add_library(
   OBJECT
 
   base64.c
+  bio_b64.c
 )
 
 add_executable(
