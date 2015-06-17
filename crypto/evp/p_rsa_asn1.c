@@ -69,16 +69,14 @@
 
 
 static int rsa_pub_encode(X509_PUBKEY *pk, const EVP_PKEY *pkey) {
-  uint8_t *encoded = NULL;
-  int len;
-  len = i2d_RSAPublicKey(pkey->pkey.rsa, &encoded);
-
-  if (len <= 0) {
+  uint8_t *encoded;
+  size_t encoded_len;
+  if (!RSA_public_key_to_bytes(&encoded, &encoded_len, pkey->pkey.rsa)) {
     return 0;
   }
 
   if (!X509_PUBKEY_set0_param(pk, OBJ_nid2obj(EVP_PKEY_RSA), V_ASN1_NULL, NULL,
-                              encoded, len)) {
+                              encoded, encoded_len)) {
     OPENSSL_free(encoded);
     return 0;
   }
@@ -94,7 +92,7 @@ static int rsa_pub_decode(EVP_PKEY *pkey, X509_PUBKEY *pubkey) {
   if (!X509_PUBKEY_get0_param(NULL, &p, &pklen, NULL, pubkey)) {
     return 0;
   }
-  rsa = d2i_RSAPublicKey(NULL, &p, pklen);
+  rsa = RSA_public_key_from_bytes(p, pklen);
   if (rsa == NULL) {
     OPENSSL_PUT_ERROR(EVP, rsa_pub_decode, ERR_R_RSA_LIB);
     return 0;
@@ -109,20 +107,17 @@ static int rsa_pub_cmp(const EVP_PKEY *a, const EVP_PKEY *b) {
 }
 
 static int rsa_priv_encode(PKCS8_PRIV_KEY_INFO *p8, const EVP_PKEY *pkey) {
-  uint8_t *rk = NULL;
-  int rklen;
-
-  rklen = i2d_RSAPrivateKey(pkey->pkey.rsa, &rk);
-
-  if (rklen <= 0) {
+  uint8_t *der;
+  size_t der_len;
+  if (!RSA_public_key_to_bytes(&der, &der_len, pkey->pkey.rsa)) {
     OPENSSL_PUT_ERROR(EVP, rsa_priv_encode, ERR_R_MALLOC_FAILURE);
     return 0;
   }
 
   /* TODO(fork): const correctness in next line. */
   if (!PKCS8_pkey_set0(p8, (ASN1_OBJECT *)OBJ_nid2obj(NID_rsaEncryption), 0,
-                       V_ASN1_NULL, NULL, rk, rklen)) {
-    OPENSSL_free(rk);
+                       V_ASN1_NULL, NULL, der, der_len)) {
+    OPENSSL_free(der);
     OPENSSL_PUT_ERROR(EVP, rsa_priv_encode, ERR_R_MALLOC_FAILURE);
     return 0;
   }
