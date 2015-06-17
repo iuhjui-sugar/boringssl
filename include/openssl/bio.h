@@ -719,6 +719,12 @@ OPENSSL_EXPORT int BIO_zero_copy_get_write_buf_done(BIO* bio,
 #define BIO_CTRL_SET_FILENAME	30	/* BIO_s_file special */
 
 
+/* Deprecated functions. */
+
+/* ERR_print_errors is an alias for |ERR_print_errors|. */
+OPENSSL_EXPORT void ERR_print_errors(BIO *bio);
+
+
 /* Android compatibility section.
  *
  * A previous version of BoringSSL used in Android renamed ERR_print_errors_fp
