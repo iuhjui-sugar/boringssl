@@ -67,6 +67,7 @@
 
 
 const EVP_CIPHER *EVP_get_cipherbynid(int nid) {
+  /* This list is incomplete.  Is that intentional or inadvertent? */
   switch (nid) {
     case NID_des_ede3_cbc:
       return EVP_des_ede3_cbc();
@@ -626,6 +627,13 @@ int EVP_add_cipher_alias(const char *a, const char *b) {
 }
 
 const EVP_CIPHER *EVP_get_cipherbyname(const char *name) {
+  /* The list of ciphers below is incomplete, and the name are
+   * irregular.  For example, |SN_des_ede3_cbc| is "DES-EDE3-CBC", but
+   * here we look for "3DES" or "3DES-CBC".  What depends on these
+   * names?
+   *
+   * This is similar to |cipher_by_name| in pem_lib.c, though that
+   * function is case-sensitive. */
   if (OPENSSL_strcasecmp(name, "rc4") == 0) {
     return EVP_rc4();
   } else if (OPENSSL_strcasecmp(name, "des-cbc") == 0) {
