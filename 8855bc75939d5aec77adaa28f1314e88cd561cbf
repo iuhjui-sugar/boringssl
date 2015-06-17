@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d978ec71_7fe943f3",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1513,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-17T15:27:09Z",
+      "side": 1,
+      "message": "I can go write an actual dup function if you prefer. This was simpler and I doubt the performance matters any.",
+      "revId": "8855bc75939d5aec77adaa28f1314e88cd561cbf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
