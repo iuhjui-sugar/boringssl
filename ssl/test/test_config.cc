@@ -82,6 +82,8 @@ const Flag<bool> kBoolFlags[] = {
   { "-reject-peer-renegotiations", &TestConfig::reject_peer_renegotiations },
   { "-no-legacy-server-connect", &TestConfig::no_legacy_server_connect },
   { "-tls-unique", &TestConfig::tls_unique },
+  { "-expect-ticket-renewal", &TestConfig::expect_ticket_renewal },
+  { "-expect-no-session", &TestConfig::expect_no_session },
 };
 
 const Flag<std::string> kStringFlags[] = {

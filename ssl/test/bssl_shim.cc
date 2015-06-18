@@ -90,6 +90,7 @@ struct TestState {
   ScopedSSL_SESSION pending_session;
   bool early_callback_called = false;
   bool handshake_done = false;
+  bool got_new_session = false;
 };
 
 static void TestStateExFree(void *parent, void *ptr, CRYPTO_EX_DATA *ad,
@@ -341,6 +342,13 @@ static void InfoCallback(const SSL *ssl, int type, int val) {
   }
 }
 
+static int NewSessionCallback(SSL *ssl, SSL_SESSION *session) {
+  GetTestState(ssl)->got_new_session = true;
+  // BoringSSL passes a reference to |session|.
+  SSL_SESSION_free(session);
+  return 1;
+}
+
 // Connect returns a new socket connected to localhost on |port| or -1 on
 // error.
 static int Connect(uint16_t port) {
@@ -444,6 +452,7 @@ static ScopedSSL_CTX SetupCtx(const TestConfig *config) {
   ssl_ctx->current_time_cb = CurrentTimeCallback;
 
   SSL_CTX_set_info_callback(ssl_ctx.get(), InfoCallback);
+  SSL_CTX_sess_set_new_cb(ssl_ctx.get(), NewSessionCallback);
 
   return ssl_ctx;
 }
@@ -554,6 +563,18 @@ static bool CheckHandshakeProperties(SSL *ssl, bool is_resume) {
     fprintf(stderr, "handshake was%s completed\n",
             GetTestState(ssl)->handshake_done ? "" : " not");
     return false;
+  }
+
+  if (expect_handshake_done && !config->is_server) {
+    bool expect_new_session =
+        !config->expect_no_session &&
+        (!SSL_session_reused(ssl) || config->expect_ticket_renewal);
+    if (expect_new_session != GetTestState(ssl)->got_new_session) {
+      fprintf(stderr,
+              "new session was%s established, but we expected the opposite\n",
+              GetTestState(ssl)->got_new_session ? "" : " not");
+      return false;
+    }
   }
 
   if (config->is_server && !GetTestState(ssl)->early_callback_called) {
@@ -862,6 +883,9 @@ static bool DoExchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
       return false;
     }
 
+    // Reset the state to assert later that the callback isn't called in
+    // renegotations.
+    GetTestState(ssl.get())->got_new_session = false;
   }
 
   if (config->export_keying_material > 0) {
@@ -969,6 +993,13 @@ static bool DoExchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
         return false;
       }
     }
+  }
+
+  if (!config->is_server && !config->false_start &&
+      !config->implicit_handshake &&
+      GetTestState(ssl.get())->got_new_session) {
+    fprintf(stderr, "new session was establish after the handshake\n");
+    return false;
   }
 
   if (out_session) {

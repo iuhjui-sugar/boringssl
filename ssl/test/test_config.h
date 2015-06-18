@@ -79,6 +79,8 @@ struct TestConfig {
   bool reject_peer_renegotiations = false;
   bool no_legacy_server_connect = false;
   bool tls_unique = false;
+  bool expect_ticket_renewal = false;
+  bool expect_no_session = false;
 };
 
 bool ParseConfig(int argc, char **argv, TestConfig *out_config);
