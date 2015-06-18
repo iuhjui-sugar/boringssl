@@ -56,6 +56,7 @@
 
 #include <openssl/rsa.h>
 
+#include <assert.h>
 #include <string.h>
 
 #include <openssl/bn.h>
@@ -801,4 +802,38 @@ int RSA_private_transform(RSA *rsa, uint8_t *out, const uint8_t *in,
 
 int RSA_blinding_on(RSA *rsa, BN_CTX *ctx) {
   return 1;
+}
+
+RSA *RSA_generate_key(int bits, unsigned long e_value,
+                      void *callback, void *cb_arg) {
+  assert(callback == NULL);
+  assert(cb_arg == NULL);
+
+  RSA *rsa = RSA_new();
+  BIGNUM *e = BN_new();
+  if (!rsa || !e) {
+    goto err;
+  }
+
+  /* Annoyingly, we can't use a reasonable API to create our |BIGNUM|,
+   * because the reasonable API takes a |BN_ULONG| parameter, which
+   * may be narrower than |unsigned long|. */
+  int i;
+  for (i = 0; i < (int)sizeof(unsigned long) * 8; i++) {
+    if (e_value & (1UL << i)) {
+      if (BN_set_bit(e, i) == 0) {
+        goto err;
+      }
+    }
+  }
+
+  if (RSA_generate_key_ex(rsa, bits, e, NULL)) {
+    BN_free(e);
+    return rsa;
+  }
+
+err:
+  BN_free(e);
+  RSA_free(rsa);
+  return NULL;
 }
