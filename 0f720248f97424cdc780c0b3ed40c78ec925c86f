@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e7adaa8_a34e24b7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-18T22:42:49Z",
+      "side": 1,
+      "message": "If I were clever I would have patched that into Chromium before sending it out... :-)\n\nOh well. This time there\u0027s tests.",
+      "revId": "0f720248f97424cdc780c0b3ed40c78ec925c86f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
