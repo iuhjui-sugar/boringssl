@@ -108,7 +108,10 @@ int RAND_bytes(uint8_t *buf, size_t len) {
     state->partial_block_used = sizeof(state->partial_block);
   }
 
-  CRYPTO_hwrand(buf, len);
+  if (!CRYPTO_hwrand(buf, len)) {
+    CRYPTO_sysrand(buf, len);
+    return 1;
+  }
 
   if (len >= sizeof(state->partial_block)) {
     size_t remaining = len;
