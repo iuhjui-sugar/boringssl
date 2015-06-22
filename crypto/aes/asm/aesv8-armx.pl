@@ -45,6 +45,7 @@ open OUT,"| \"$^X\" $xlate $flavour $output";
 $prefix="aes_v8";
 
 $code=<<___;
+#if defined(__arm__) || defined(__aarch64__)
 #include "arm_arch.h"
 
 #if __ARM_MAX_ARCH__>=7
@@ -888,6 +889,7 @@ $code.=<<___;
 ___
 }}}
 $code.=<<___;
+#endif
 #endif
 ___
 ########################################
