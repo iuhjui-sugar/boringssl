@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ecf3a47_b5df22f5",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 5775
+      },
+      "writtenOn": "2015-06-22T17:22:12Z",
+      "side": 1,
+      "message": "sgjesse suggests that arm64 and arm32, without the x, would be better.  I don\u0027t think there are any references to the names except in the generated gypi file, and in the actual generated files\u0027 names.",
+      "range": {
+        "startLine": 439,
+        "startChar": 34,
+        "endLine": 439,
+        "endChar": 40
+      },
+      "revId": "c7c4e997ea466e39fbb23136b15078b0669a0b19",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
