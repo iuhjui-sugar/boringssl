@@ -2502,7 +2502,7 @@ ___
 
 $code =~ s/\`([^\`]*)\`/eval($1)/gem;
 
-print "#if defined(__arm__)\n"
+print "#if defined(__arm__)\n";
 open SELF,$0;
 while(<SELF>) {
 	next if (/^#!/);
@@ -2512,6 +2512,6 @@ while(<SELF>) {
 close SELF;
 
 print $code;
-print "#endif\n"
+print "#endif\n";
 
 close STDOUT;

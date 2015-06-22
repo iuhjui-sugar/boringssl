@@ -1234,7 +1234,7 @@ ___
 $code =~ s/\bbx\s+lr\b/.word\t0xe12fff1e/gm;	# make it possible to compile with -march=armv4
 $code =~ s/\bret\b/bx\tlr/gm;
 
-print "#if defined(__arm__)\n"
+print "#if defined(__arm__)\n";
 open SELF,$0;
 while(<SELF>) {
 	next if (/^#!/);
@@ -1244,5 +1244,5 @@ while(<SELF>) {
 close SELF;
 
 print $code;
-print "#endif\n"
+print "#endif\n";
 close STDOUT;	# enforce flush
