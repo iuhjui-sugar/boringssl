@@ -22,6 +22,30 @@
       "revId": "c7c4e997ea466e39fbb23136b15078b0669a0b19",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e7adaa8_1a3babd9",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-22T21:42:19Z",
+      "side": 1,
+      "message": "How about just \u0027arm\u0027 and \u0027aarch64\u0027?",
+      "parentUuid": "9ecf3a47_b5df22f5",
+      "range": {
+        "startLine": 439,
+        "startChar": 34,
+        "endLine": 439,
+        "endChar": 40
+      },
+      "revId": "c7c4e997ea466e39fbb23136b15078b0669a0b19",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
