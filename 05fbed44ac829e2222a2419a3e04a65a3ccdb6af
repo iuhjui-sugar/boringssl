@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ed56ecf_3af48581",
+        "filename": "crypto/rand/asm/rdrand-x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-22T17:09:50Z",
+      "side": 1,
+      "message": "(From before, but this file probably needs a license header.)",
+      "revId": "05fbed44ac829e2222a2419a3e04a65a3ccdb6af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ed56ecf_dae8d9a3",
+        "filename": "crypto/rand/asm/rdrand-x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-22T17:09:50Z",
+      "side": 1,
+      "message": "Why not\n\n  addq \\$8, %rdi\n  subq \\$8, %rsi\n\nOr is putting the constant in a register more compact or something?",
+      "revId": "05fbed44ac829e2222a2419a3e04a65a3ccdb6af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ed56ecf_fae59dca",
+        "filename": "crypto/rand/rand.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-22T17:09:50Z",
+      "side": 1,
+      "message": "This can probably be moved up to line 81 and merged into that conditional.\n\n(Or perhaps just fold CRYPTO_have_hwrand into the top of CRYPTO_hwrand and have it always return 0 if unavailable?)",
+      "revId": "05fbed44ac829e2222a2419a3e04a65a3ccdb6af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
