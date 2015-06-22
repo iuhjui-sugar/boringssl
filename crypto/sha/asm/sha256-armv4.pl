@@ -690,6 +690,7 @@ $code.=<<___;
 #endif
 ___
 
+print "#if defined(__arm__) || defined(__aarch64__)\n"
 open SELF,$0;
 while(<SELF>) {
 	next if (/^#!/);
@@ -731,5 +732,6 @@ foreach (split($/,$code)) {
 
 	print $_,"\n";
 }
+print "#endif\n"
 
 close STDOUT; # enforce flush
