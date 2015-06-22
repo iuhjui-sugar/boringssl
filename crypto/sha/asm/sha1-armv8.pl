@@ -162,6 +162,7 @@ ___
 }
 
 $code.=<<___;
+#if defined(__aarch64__)
 #include "arm_arch.h"
 
 .text
@@ -313,6 +314,7 @@ $code.=<<___;
 .asciz	"SHA1 block transform for ARMv8, CRYPTOGAMS by <appro\@openssl.org>"
 .align	2
 .comm	OPENSSL_armcap_P,4,4
+#endif
 ___
 }}}
 
