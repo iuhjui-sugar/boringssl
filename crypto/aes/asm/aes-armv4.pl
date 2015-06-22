@@ -63,7 +63,6 @@ $key="r11";
 $rounds="r12";
 
 $code=<<___;
-#if defined(__arm__)
 #ifndef __KERNEL__
 # include "arm_arch.h"
 #else
@@ -1230,13 +1229,12 @@ _armv4_AES_decrypt:
 .size	_armv4_AES_decrypt,.-_armv4_AES_decrypt
 .asciz	"AES for ARMv4, CRYPTOGAMS by <appro\@openssl.org>"
 .align	2
-
-#endif
 ___
 
 $code =~ s/\bbx\s+lr\b/.word\t0xe12fff1e/gm;	# make it possible to compile with -march=armv4
 $code =~ s/\bret\b/bx\tlr/gm;
 
+print "#if defined(__arm__)\n";
 open SELF,$0;
 while(<SELF>) {
 	next if (/^#!/);
@@ -1246,4 +1244,5 @@ while(<SELF>) {
 close SELF;
 
 print $code;
+print "#endif\n";
 close STDOUT;	# enforce flush

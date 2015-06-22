@@ -164,6 +164,7 @@ ___
 }
 
 $code.=<<___;
+#if defined(__aarch64__)
 #include "arm_arch.h"
 
 .text
@@ -404,6 +405,7 @@ ___
 
 $code.=<<___;
 .comm	OPENSSL_armcap_P,4,4
+#endif
 ___
 
 {   my  %opcode = (

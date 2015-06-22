@@ -43,8 +43,13 @@ open OUT,"| \"$^X\" $xlate $flavour $output";
 *STDOUT=*OUT;
 
 $prefix="aes_v8";
+$gcc_define="__arm__";
+if ($flavour =~ /64/) {
+    $gcc_define="__aarch64__";
+}
 
 $code=<<___;
+#if defined(${gcc_define})
 #include "arm_arch.h"
 
 #if __ARM_MAX_ARCH__>=7
@@ -888,6 +893,7 @@ $code.=<<___;
 ___
 }}}
 $code.=<<___;
+#endif
 #endif
 ___
 ########################################
