@@ -46,6 +46,30 @@
       "revId": "c7c4e997ea466e39fbb23136b15078b0669a0b19",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e7adaa8_95aa2cdd",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-22T23:29:41Z",
+      "side": 1,
+      "message": "(William replied outside of Gerrit.)",
+      "parentUuid": "9e7adaa8_1a3babd9",
+      "range": {
+        "startLine": 439,
+        "startChar": 34,
+        "endLine": 439,
+        "endChar": 40
+      },
+      "revId": "c7c4e997ea466e39fbb23136b15078b0669a0b19",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
