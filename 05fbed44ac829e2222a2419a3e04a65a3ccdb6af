@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7eca863a_115bac7f",
+        "filename": "crypto/rand/asm/rdrand-x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2015-06-23T03:54:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ed56ecf_3af48581",
+      "revId": "05fbed44ac829e2222a2419a3e04a65a3ccdb6af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3ed56ecf_dae8d9a3",
         "filename": "crypto/rand/asm/rdrand-x86_64.pl",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "7eca863a_3160282b",
+        "filename": "crypto/rand/asm/rdrand-x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2015-06-23T03:54:40Z",
+      "side": 1,
+      "message": "It\u0027s certainly more compact. It might even be faster. It\u0027s probably just a hangover from asm programming many years ago!",
+      "parentUuid": "3ed56ecf_dae8d9a3",
+      "revId": "05fbed44ac829e2222a2419a3e04a65a3ccdb6af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3ed56ecf_fae59dca",
         "filename": "crypto/rand/rand.c",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2015-06-22T17:09:50Z",
       "side": 1,
       "message": "This can probably be moved up to line 81 and merged into that conditional.\n\n(Or perhaps just fold CRYPTO_have_hwrand into the top of CRYPTO_hwrand and have it always return 0 if unavailable?)",
+      "revId": "05fbed44ac829e2222a2419a3e04a65a3ccdb6af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7eca863a_d154444f",
+        "filename": "crypto/rand/rand.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2015-06-23T03:54:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ed56ecf_fae59dca",
       "revId": "05fbed44ac829e2222a2419a3e04a65a3ccdb6af",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
