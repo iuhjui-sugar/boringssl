@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "9e7adaa8_20451817",
+        "filename": "crypto/rand/asm/rdrand-x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-23T20:56:31Z",
+      "side": 1,
+      "message": "It\u0027s certainly more compact, it might even be faster.",
+      "parentUuid": "3ed56ecf_dae8d9a3",
+      "revId": "05fbed44ac829e2222a2419a3e04a65a3ccdb6af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3ed56ecf_fae59dca",
         "filename": "crypto/rand/rand.c",
         "patchSetId": 1
