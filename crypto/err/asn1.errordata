@@ -62,6 +62,8 @@ ASN1,function,160,i2d_ASN1_TIME
 ASN1,function,161,i2d_PrivateKey
 ASN1,function,162,long_c2i
 ASN1,function,163,parse_tagging
+ASN1,function,164,X509_REQ_print_ex
+ASN1,function,165,X509_REQ_print_fp
 ASN1,reason,100,ASN1_LENGTH_MISMATCH
 ASN1,reason,101,AUX_ERROR
 ASN1,reason,102,BAD_GET_ASN1_OBJECT_CALL

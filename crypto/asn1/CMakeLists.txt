@@ -33,6 +33,7 @@ add_library(
   f_string.c
   t_bitst.c
   t_pkey.c
+  t_req.c
   tasn_dec.c
   tasn_enc.c
   tasn_fre.c

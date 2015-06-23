@@ -1142,6 +1142,8 @@ OPENSSL_EXPORT int BIO_asn1_get_suffix(BIO *b, asn1_ps_func **psuffix, asn1_ps_f
 #define ASN1_F_i2d_PrivateKey 161
 #define ASN1_F_long_c2i 162
 #define ASN1_F_parse_tagging 163
+#define ASN1_F_X509_REQ_print_ex 164
+#define ASN1_F_X509_REQ_print_fp 165
 #define ASN1_R_ASN1_LENGTH_MISMATCH 100
 #define ASN1_R_AUX_ERROR 101
 #define ASN1_R_BAD_GET_ASN1_OBJECT_CALL 102
