@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "be8a3e9d_3d918f5c",
+        "filename": "include/openssl/tls1.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-25T22:14:49Z",
+      "side": 1,
+      "message": "Could also document this as telling you the length, but there\u0027s only one caller and it hard-codes 48.",
+      "range": {
+        "startLine": 327,
+        "startChar": 3,
+        "endLine": 327,
+        "endChar": 5
+      },
+      "revId": "f2b75648b0a3b6f257874caa043c74c3b2829b2e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
