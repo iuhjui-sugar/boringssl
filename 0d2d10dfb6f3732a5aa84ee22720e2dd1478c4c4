@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "be731e93_18aea96e",
+        "filename": "ssl/ssl_sess.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-25T22:59:22Z",
+      "side": 1,
+      "message": "const int internal_cache_enabled \u003d !!(ssl-\u003einitial_ctx-\u003esession_cache_mode \u0026 SSL_SESS_CACHE_NO_INTERNAL_LOOKUP);\n\nthen use it here and below.",
+      "revId": "0d2d10dfb6f3732a5aa84ee22720e2dd1478c4c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "be731e93_3842850f",
+        "filename": "ssl/ssl_sess.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-25T22:59:22Z",
+      "side": 1,
+      "message": "This comment seems wrong. |SSL_CTX_add_session| returns one in the event that it added a new entry, which is the point here, no?",
+      "revId": "0d2d10dfb6f3732a5aa84ee22720e2dd1478c4c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "be731e93_f8ed6d83",
+        "filename": "ssl/ssl_sess.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-25T22:59:22Z",
+      "side": 1,
+      "message": "SSL_SESSION_free(c) here?",
+      "revId": "0d2d10dfb6f3732a5aa84ee22720e2dd1478c4c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
