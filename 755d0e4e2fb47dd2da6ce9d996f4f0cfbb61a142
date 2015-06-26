@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "732e4192_6bcfc156",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-26T21:51:05Z",
+      "side": 1,
+      "message": "What about doing a CBB_len instead? Seems equally natural for all the callers and also is well-defined for both fixed and non-fixed CBBs.",
+      "revId": "755d0e4e2fb47dd2da6ce9d996f4f0cfbb61a142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "732e4192_ab3129f5",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-26T21:51:05Z",
+      "side": 1,
+      "message": "Probably should mention this doesn\u0027t implicitly CBB_flush since most of the other operations do. It matters for ASN.1",
+      "revId": "755d0e4e2fb47dd2da6ce9d996f4f0cfbb61a142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f95690ec_15f2f4e4",
         "filename": "include/openssl/ssl3.h",
         "patchSetId": 1
@@ -48,6 +82,120 @@
     },
     {
       "key": {
+        "uuid": "732e4192_eb2171d8",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-26T21:51:05Z",
+      "side": 1,
+      "message": "[I\u0027d actually been thinking we should parse the extensions earlier, before resolving s-\u003ehit and friends, so we don\u0027t have this mismatch between extensions processed here and via early_callback_ctx. The extensions that we want to process after we could throw into CBS\u0027s somewhere and process afterwards. But I\u0027m not sure what this should look like and this is already an improvement.]",
+      "revId": "755d0e4e2fb47dd2da6ce9d996f4f0cfbb61a142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e7adaa8_69a46391",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 819,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-26T21:51:05Z",
+      "side": 1,
+      "message": "uint8_t? I guess it depends on whether SSL_AD_* are ints that map to the protocol-specific numbers (since SSL 3 sends a subset) or if they\u0027re uint8_t and the mapping is just some weird SSL 3 thing. (tls1_alert_code and ssl3_alert_code)\n\nI guess you have the -1 thing, but we could just initialize it with decode_error.",
+      "range": {
+        "startLine": 819,
+        "startChar": 37,
+        "endLine": 819,
+        "endChar": 40
+      },
+      "revId": "755d0e4e2fb47dd2da6ce9d996f4f0cfbb61a142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "732e4192_6b510135",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 863,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-26T21:51:05Z",
+      "side": 1,
+      "message": "!\u003d NULL?",
+      "revId": "755d0e4e2fb47dd2da6ce9d996f4f0cfbb61a142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "732e4192_cb1eb592",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-26T21:51:05Z",
+      "side": 1,
+      "message": "While you\u0027re here, maybe stick the *\u0027s on the left column?",
+      "revId": "755d0e4e2fb47dd2da6ce9d996f4f0cfbb61a142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "732e4192_0b371d0d",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 888,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-26T21:51:05Z",
+      "side": 1,
+      "message": "callback is\n\n(Hrm. Related to the ALPN issue upstream mailed us about, resolving SNI before session resumption makes way more sense. Though I guess that will interact weirdly with things like client auth unless you\u0027re careful to shard the session cache by SNI context.)",
+      "range": {
+        "startLine": 888,
+        "startChar": 49,
+        "endLine": 888,
+        "endChar": 59
+      },
+      "revId": "755d0e4e2fb47dd2da6ce9d996f4f0cfbb61a142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "732e4192_eb4bb17b",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 901,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-26T21:51:05Z",
+      "side": 1,
+      "message": "Probably can get rid of this bullet point.",
+      "revId": "755d0e4e2fb47dd2da6ce9d996f4f0cfbb61a142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f95690ec_35c8d895",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 1
@@ -59,6 +207,121 @@
       "writtenOn": "2015-06-16T19:02:42Z",
       "side": 1,
       "message": "This is taken from the existing code but, if someone sends an unknown name type, we don\u0027t skip over its contents. (In fact, the RFC doesn\u0027t specify its contents. We would have to assume that it has the same outer structure as a host name.)\n\nAlthough, since OpenSSL is broken in this way, we would never clean up the Internet enough to actually deploy any other name type.",
+      "revId": "755d0e4e2fb47dd2da6ce9d996f4f0cfbb61a142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d978ec71_1fbf6f1e",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-26T21:51:05Z",
+      "side": 1,
+      "message": "I think I\u0027m pretty okay with not being able to deploy new name types. I\u0027m really not sure what they were thinking there. :-) Just allocate a new extension.\n\nBut, yeah, the spec even mentions that:\n\n\u003e For backward compatibility, all future data structures associated with new NameTypes MUST begin with a 16-bit length field.\n\nSo I suppose we may as well parse it properly.",
+      "parentUuid": "f95690ec_35c8d895",
+      "revId": "755d0e4e2fb47dd2da6ce9d996f4f0cfbb61a142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "732e4192_4b29a592",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 995,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-26T21:51:05Z",
+      "side": 1,
+      "message": "static const? Saves having to bother with macros. Otherwise there\u0027s missing parens around the expression.",
+      "revId": "755d0e4e2fb47dd2da6ce9d996f4f0cfbb61a142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "732e4192_ab6ec9f5",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1655,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-26T21:51:05Z",
+      "side": 1,
+      "message": "I think one of our compilers gets grumpy if OPENSSL_COMPILE_ASSERT isn\u0027t at the top-level. Though maybe this has changed now that we default to the C11 one? I think it complains about an unused typedef.",
+      "revId": "755d0e4e2fb47dd2da6ce9d996f4f0cfbb61a142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "732e4192_eb3731e9",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1811,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-26T21:51:05Z",
+      "side": 1,
+      "message": "ri_check -\u003e no_extensions?",
+      "range": {
+        "startLine": 1811,
+        "startChar": 0,
+        "endLine": 1811,
+        "endChar": 8
+      },
+      "revId": "755d0e4e2fb47dd2da6ce9d996f4f0cfbb61a142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "732e4192_6b38e1fe",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1930,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-26T21:51:05Z",
+      "side": 1,
+      "message": "Could merge the ext !\u003d NULL checks of this block and the following one.",
+      "revId": "755d0e4e2fb47dd2da6ce9d996f4f0cfbb61a142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "732e4192_4b3d25ed",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2099,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-26T21:51:05Z",
+      "side": 1,
+      "message": "ri_check -\u003e no_extensions?",
+      "range": {
+        "startLine": 2099,
+        "startChar": 0,
+        "endLine": 2099,
+        "endChar": 8
+      },
       "revId": "755d0e4e2fb47dd2da6ce9d996f4f0cfbb61a142",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
