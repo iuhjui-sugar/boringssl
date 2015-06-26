@@ -903,3 +903,7 @@ void EC_GROUP_set_point_conversion_form(EC_GROUP *group,
     abort();
   }
 }
+
+void EC_GROUP_clear_free(EC_GROUP *g) {
+  EC_GROUP_free(g);
+}

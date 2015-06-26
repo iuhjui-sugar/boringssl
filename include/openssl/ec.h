@@ -323,6 +323,10 @@ OPENSSL_EXPORT int EC_METHOD_get_field_type(const EC_METHOD *meth);
 OPENSSL_EXPORT void EC_GROUP_set_point_conversion_form(
     EC_GROUP *group, point_conversion_form_t form);
 
+/* EC_GROUP_clear_free calls |EC_GROUP_free|.  It doesn't do anything special to
+ * sanitize memory. */
+OPENSSL_EXPORT void EC_GROUP_clear_free(EC_GROUP *group);
+
 
 /* Old code expects to get EC_KEY from ec.h. */
 #if !defined(OPENSSL_HEADER_EC_KEY_H)
