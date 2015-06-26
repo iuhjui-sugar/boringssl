@@ -169,9 +169,6 @@ OPENSSL_EXPORT void EC_POINT_free(EC_POINT *point);
  * then frees |point| itself. */
 OPENSSL_EXPORT void EC_POINT_clear_free(EC_POINT *point);
 
-/* for privacy/blinders */
-#define EC_GROUP_clear_free(g) EC_GROUP_free(g)
-
 /* EC_POINT_copy sets |*dest| equal to |*src|. It returns one on success and
  * zero otherwise. */
 OPENSSL_EXPORT int EC_POINT_copy(EC_POINT *dest, const EC_POINT *src);
@@ -325,6 +322,10 @@ OPENSSL_EXPORT int EC_METHOD_get_field_type(const EC_METHOD *meth);
  * |POINT_CONVERSION_UNCOMPRESSED| and otherwise does nothing. */
 OPENSSL_EXPORT void EC_GROUP_set_point_conversion_form(
     EC_GROUP *group, point_conversion_form_t form);
+
+/* EC_GROUP_clear_free calls |EC_GROUP_free|.  It doesn't do anything special to
+ * sanitize memory. */
+OPENSSL_EXPORT void C_GROUP_clear_free(EC_GROUP *group);
 
 
 /* Old code expects to get EC_KEY from ec.h. */
