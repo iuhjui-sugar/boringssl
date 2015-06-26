@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "53d21de8_b2e66024",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1275,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-26T23:01:29Z",
+      "side": 1,
+      "message": "SSL3_CK_SCSV?",
+      "range": {
+        "startLine": 1275,
+        "startChar": 16,
+        "endLine": 1275,
+        "endChar": 25
+      },
+      "revId": "bc3beee72c3a3d840d811471751262d136569825",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "53d21de8_32db505e",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1009,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-26T23:01:29Z",
+      "side": 1,
+      "message": "This doesn\u0027t actually check for the initial handshake. (The code seems to be the same in upstream. I guess they forgot?)\n\nI suppose we can just fix the comment and ignore it. Or we could do\n\n  LEGACY_SERVER_CONNECT \u003d\u003e don\u0027t require it on initial\n  ALLOW_UNSAFE_LEGACY_RENEG \u003d\u003e don\u0027t require it on initial or renego\n\n(Though that would probably mean I\u0027d have to go turn it on the flag in Chrome. Trying to enforce either is probably not worth the effort.)",
+      "range": {
+        "startLine": 1009,
+        "startChar": 34,
+        "endLine": 1009,
+        "endChar": 56
+      },
+      "revId": "bc3beee72c3a3d840d811471751262d136569825",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "53d21de8_f2ece809",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1086,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-26T23:01:29Z",
+      "side": 1,
+      "message": "Can probably just drop this since servers never renegotiate.",
+      "revId": "bc3beee72c3a3d840d811471751262d136569825",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "53d21de8_92e9dcf8",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1741,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-26T23:01:29Z",
+      "side": 1,
+      "message": "What\u0027s this assert for?",
+      "revId": "bc3beee72c3a3d840d811471751262d136569825",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
