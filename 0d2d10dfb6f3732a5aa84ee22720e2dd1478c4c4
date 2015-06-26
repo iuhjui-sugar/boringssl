@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "be8a3e9d_3d38afda",
+        "filename": "ssl/ssl_sess.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-26T20:26:41Z",
+      "side": 1,
+      "message": "The two checks aren\u0027t quiiiite the same. One\u0027s LOOKUP and the other\u0027s STORE. (Of course, I\u0027m sure all of zero consumers care about the distinction.)",
+      "parentUuid": "be731e93_18aea96e",
+      "revId": "0d2d10dfb6f3732a5aa84ee22720e2dd1478c4c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "be731e93_3842850f",
         "filename": "ssl/ssl_sess.c",
         "patchSetId": 3
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "732e4192_0bdb9d5d",
+        "filename": "ssl/ssl_sess.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-26T20:26:41Z",
+      "side": 1,
+      "message": "Yeah, you\u0027re right... removed it. It seems not a very helpful comment.",
+      "parentUuid": "be731e93_3842850f",
+      "revId": "0d2d10dfb6f3732a5aa84ee22720e2dd1478c4c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "be731e93_f8ed6d83",
         "filename": "ssl/ssl_sess.c",
         "patchSetId": 3
@@ -47,6 +83,24 @@
       "writtenOn": "2015-06-25T22:59:22Z",
       "side": 1,
       "message": "SSL_SESSION_free(c) here?",
+      "revId": "0d2d10dfb6f3732a5aa84ee22720e2dd1478c4c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "732e4192_cbf7d5c8",
+        "filename": "ssl/ssl_sess.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-26T20:26:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be731e93_f8ed6d83",
       "revId": "0d2d10dfb6f3732a5aa84ee22720e2dd1478c4c4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
