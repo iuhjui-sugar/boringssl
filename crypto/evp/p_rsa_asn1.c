@@ -224,8 +224,7 @@ static int do_rsa_print(BIO *out, const RSA *rsa, int off,
   }
 
   if (include_private && rsa->d) {
-    if (BIO_printf(out, "Private-Key: (%d bit)\nversion: %ld\n", mod_len,
-                   rsa->version) <= 0) {
+    if (BIO_printf(out, "Private-Key: (%d bit)\n", mod_len) <= 0) {
       goto err;
     }
     str = "modulus:";
