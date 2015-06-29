@@ -685,6 +685,14 @@ long SSL_SESSION_set_time(SSL_SESSION *s, long t) {
   return t;
 }
 
+int SSL_SESSION_get_key_exchange_bit_strength(SSL_SESSION *s) {
+  if (s == NULL) {
+    return -1;
+  }
+
+  return s->key_exchange_bit_strength;
+}
+
 X509 *SSL_SESSION_get0_peer(SSL_SESSION *s) { return s->peer; }
 
 int SSL_SESSION_set1_id_context(SSL_SESSION *s, const uint8_t *sid_ctx,

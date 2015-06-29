@@ -734,6 +734,13 @@ struct ssl_session_st {
 
   const SSL_CIPHER *cipher;
 
+  /* key_exchange_bit_strength is the security strength, in bits, of the last
+   * successful SSL key exchange on the session.
+   * Note: Different algorithms are not directly comparable, e.g. 384
+   *       bit ECDHE is stronger than 1024 bit DHE.
+   * -1 means the strength is unknown. */
+  int key_exchange_bit_strength;
+
   CRYPTO_EX_DATA ex_data; /* application specific data */
 
   /* These are used to make removal of session-ids more efficient and to
@@ -2003,6 +2010,7 @@ OPENSSL_EXPORT long SSL_SESSION_get_time(const SSL_SESSION *s);
 OPENSSL_EXPORT long SSL_SESSION_set_time(SSL_SESSION *s, long t);
 OPENSSL_EXPORT long SSL_SESSION_get_timeout(const SSL_SESSION *s);
 OPENSSL_EXPORT long SSL_SESSION_set_timeout(SSL_SESSION *s, long t);
+OPENSSL_EXPORT int SSL_SESSION_get_key_exchange_bit_strength(SSL_SESSION *s);
 OPENSSL_EXPORT X509 *SSL_SESSION_get0_peer(SSL_SESSION *s);
 OPENSSL_EXPORT int SSL_SESSION_set1_id_context(SSL_SESSION *s,
                                                const uint8_t *sid_ctx,
