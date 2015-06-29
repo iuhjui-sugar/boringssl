@@ -300,7 +300,7 @@ OPENSSL_EXPORT void ERR_clear_system_error(void);
 
 /* OPENSSL_PUT_ERROR is used by OpenSSL code to add an error to the error
  * queue. */
-#define OPENSSL_PUT_ERROR(library, func, reason)                         \
+#define OPENSSL_PUT_ERROR(library, reason)                               \
   ERR_put_error(ERR_LIB_##library, reason, __func__, __FILE__, __LINE__)
 
 /* OPENSSL_PUT_SYSTEM_ERROR is used by OpenSSL code to add an error from the
