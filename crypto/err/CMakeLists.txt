@@ -11,7 +11,6 @@ add_custom_command(
   buf.errordata
   cipher.errordata
   conf.errordata
-  crypto.errordata
   dh.errordata
   digest.errordata
   dsa.errordata

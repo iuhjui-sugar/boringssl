@@ -173,11 +173,6 @@ OPENSSL_EXPORT size_t ECDSA_SIG_max_len(size_t order_len);
 }  /* extern C */
 #endif
 
-#define ECDSA_F_ECDSA_do_sign_ex 100
-#define ECDSA_F_ECDSA_do_verify 101
-#define ECDSA_F_ECDSA_sign_ex 102
-#define ECDSA_F_digest_to_bn 103
-#define ECDSA_F_ecdsa_sign_setup 104
 #define ECDSA_R_BAD_SIGNATURE 100
 #define ECDSA_R_MISSING_PARAMETERS 101
 #define ECDSA_R_NEED_NEW_SETUP_VALUES 102
