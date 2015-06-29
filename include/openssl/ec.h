@@ -283,6 +283,10 @@ OPENSSL_EXPORT int EC_POINTs_mul(const EC_GROUP *group, EC_POINT *r,
                                  const EC_POINT *p[], const BIGNUM *m[],
                                  BN_CTX *ctx);
 
+/* EC_num_bits returns the minimum number of bits needed to represent the
+ * size of the main subgroup. */
+OPENSSL_EXPORT unsigned EC_num_bits(const EC_KEY *key);
+
 
 /* Deprecated functions. */
 

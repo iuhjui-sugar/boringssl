@@ -336,14 +336,15 @@ char SSL_early_callback_ctx_extension_get(
 struct tls_curve {
   uint16_t curve_id;
   int nid;
+  const char curve_name[8];
 };
 
 /* ECC curves from RFC4492. */
 static const struct tls_curve tls_curves[] = {
-    {21, NID_secp224r1},
-    {23, NID_X9_62_prime256v1},
-    {24, NID_secp384r1},
-    {25, NID_secp521r1},
+    {21, NID_secp224r1, "P-224"},
+    {23, NID_X9_62_prime256v1, "P-256"},
+    {24, NID_secp384r1, "P-384"},
+    {25, NID_secp521r1, "P-521"},
 };
 
 static const uint16_t eccurves_default[] = {
@@ -366,6 +367,17 @@ int tls1_ec_nid2curve_id(uint16_t *out_curve_id, int nid) {
   for (i = 0; i < sizeof(tls_curves) / sizeof(tls_curves[0]); i++) {
     if (nid == tls_curves[i].nid) {
       *out_curve_id = tls_curves[i].curve_id;
+      return 1;
+    }
+  }
+  return 0;
+}
+
+int tls1_ec_curve_id2name(uint16_t curve_id, const char** out_name) {
+  size_t i;
+  for (i = 0; i < sizeof(tls_curves) / sizeof(tls_curves[0]); i++) {
+    if (curve_id == tls_curves[i].curve_id) {
+      *out_name = tls_curves[i].curve_name;
       return 1;
     }
   }
