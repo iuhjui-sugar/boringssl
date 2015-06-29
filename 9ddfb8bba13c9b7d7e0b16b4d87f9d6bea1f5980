@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "93665535_d4f61c53",
+        "filename": "crypto/bn/asn1.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-29T20:28:47Z",
+      "side": 1,
+      "message": "I ended up going with having the functions participate in crypto/err on a per-module basis, rather than per-flavor of function. Part of the reason is that these will call things like BN_bin2bn or RSA_new or whatever and those already push to err.",
+      "revId": "9ddfb8bba13c9b7d7e0b16b4d87f9d6bea1f5980",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "93665535_14f1b460",
         "filename": "include/openssl/bn.h",
         "patchSetId": 2
