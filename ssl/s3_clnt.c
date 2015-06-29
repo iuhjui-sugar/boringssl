@@ -1188,7 +1188,8 @@ int ssl3_get_server_key_exchange(SSL *s) {
       goto err;
     }
 
-    if (DH_num_bits(dh) < 1024) {
+    s->key_exchange_bit_strength = DH_num_bits(dh);
+    if (s->key_exchange_bit_strength < 1024) {
       OPENSSL_PUT_ERROR(SSL, ssl3_get_server_key_exchange,
                         SSL_R_BAD_DH_P_LENGTH);
       goto err;
@@ -1226,6 +1227,7 @@ int ssl3_get_server_key_exchange(SSL *s) {
     }
 
     ecdh = EC_KEY_new_by_curve_name(curve_nid);
+    s->key_exchange_bit_strength = EC_num_bits(ecdh);
     if (ecdh == NULL) {
       OPENSSL_PUT_ERROR(SSL, ssl3_get_server_key_exchange,
                         ERR_R_EC_LIB);
@@ -1713,6 +1715,7 @@ int ssl3_send_client_key_exchange(SSL *s) {
         goto err;
       }
 
+      s->key_exchange_bit_strength = EVP_PKEY_bits(pkey);
       rsa = pkey->pkey.rsa;
       EVP_PKEY_free(pkey);
 
