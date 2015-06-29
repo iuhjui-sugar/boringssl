@@ -685,6 +685,22 @@ long SSL_SESSION_set_time(SSL_SESSION *s, long t) {
   return t;
 }
 
+int SSL_SESSION_get_key_exchange_info(SSL_SESSION *s) {
+  if (s == NULL) {
+    return -1;
+  }
+
+  return s->key_exchange_info;
+}
+
+char* SSL_get_EC_curve_name(int key_exchange_info) {
+  char* name;
+  if (!tls1_ec_curve_id2name(key_exchange_info, &name)) {
+    return NULL;
+  }
+  return name;
+}
+
 X509 *SSL_SESSION_get0_peer(SSL_SESSION *s) { return s->peer; }
 
 int SSL_SESSION_set1_id_context(SSL_SESSION *s, const uint8_t *sid_ctx,

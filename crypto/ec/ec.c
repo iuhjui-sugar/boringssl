@@ -870,6 +870,10 @@ int EC_POINTs_mul(const EC_GROUP *group, EC_POINT *r, const BIGNUM *scalar,
   return group->meth->mul(group, r, scalar, num, points, scalars, ctx);
 }
 
+unsigned EC_num_bits(const EC_KEY *key) {
+  return BN_num_bits(&key->group->order);
+}
+
 int ec_point_set_Jprojective_coordinates_GFp(const EC_GROUP *group, EC_POINT *point,
                                              const BIGNUM *x, const BIGNUM *y,
                                              const BIGNUM *z, BN_CTX *ctx) {
