@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "93665535_b4ff202b",
+        "filename": "crypto/ecdsa/ecdsa.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-29T20:31:04Z",
+      "side": 1,
+      "message": "Maybe we can do away with this after running a fuzzer to ensure crypto/bytestring is perfectly strict.",
+      "revId": "6088988a721ceb1c0c87645f41f3992708d13b5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "93665535_54268c7a",
+        "filename": "crypto/ecdsa/ecdsa_asn1.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-29T20:31:04Z",
+      "side": 1,
+      "message": "Alternative: if BIGNUM\u0027s parse function used the T**, we could say that reuse is not required but legal (since BN_bin2bn does it anyway) and then this could call ECDSA_SIG_new and chain with ||s. But I\u0027m not very fond of the reuse pattern.",
+      "revId": "6088988a721ceb1c0c87645f41f3992708d13b5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "93665535_94fca437",
+        "filename": "include/openssl/ecdsa.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-29T20:31:04Z",
+      "side": 1,
+      "message": "I\u0027m not thrilled with there being 2x the number of functions for each structure. The motivation was partly that the pre-CBB_zero CBB was really tedious. Though it also avoids forgetting the CBB_len check (and crypto/err consistency). I dunno. Thoughts? I\u0027m not super-attached to these and do away with them too.",
+      "revId": "6088988a721ceb1c0c87645f41f3992708d13b5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
