@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "93665535_34ecb08c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-29T20:24:57Z",
+      "side": 1,
+      "message": "This you\u0027ll want to review with the rest of the series as one unit.",
+      "revId": "9ddfb8bba13c9b7d7e0b16b4d87f9d6bea1f5980",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "93665535_14f1b460",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 793,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-29T20:24:57Z",
+      "side": 1,
+      "message": "Another option is\n\n  int BN_parse_asn1_unsigned(CBS *cbs, BIGNUM **out);\n\nIt\u0027s that obnoxious T** pattern again, but it does chain better with ||s. But if we do that, probably all the CBS variants want to be T**. Though it\u0027s less scary than the upstream T** because\n\n- We update pointer/length in tandem. Upstream\u0027s T** isn\u0027t actually chainable.\n- We can say that T_free(*out); *out \u003d ret is explicitly a legal thing for these methods to do. And so it\u0027s akin to doing:\n\n  bool BN_parse_asn1_unsigned(CBS *cbs, ScopedBIGNUM *out);\n\nDo you have a preference?\n\nContext: https://boringssl-review.googlesource.com/#/c/5273/2/crypto/rsa/rsa_asn1.c@71",
+      "revId": "9ddfb8bba13c9b7d7e0b16b4d87f9d6bea1f5980",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "93665535_74e628ac",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 797,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-29T20:24:57Z",
+      "side": 1,
+      "message": "Not attached to these names. serialize is somewhat a mouthful. (And it\u0027d get confusing since we spell that word differently. ;-)) These mostly match the verbs used in the i2d/d2i documentation.",
+      "range": {
+        "startLine": 797,
+        "startChar": 22,
+        "endLine": 797,
+        "endChar": 29
+      },
+      "revId": "9ddfb8bba13c9b7d7e0b16b4d87f9d6bea1f5980",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
