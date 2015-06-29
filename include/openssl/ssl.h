@@ -1304,6 +1304,12 @@ struct ssl_st {
   SSL_AEAD_CTX *aead_read_ctx;
   SSL_AEAD_CTX *aead_write_ctx;
 
+  /* The security strength, in bits, of the SSL connection handshake.
+   * Note: Different algorithms are not directly comparable, e.g. 384
+   *       bit ECDHE is stronger than 1024 bit DHE.
+   * -1 means the security strength is unknown. */
+  int handshake_bit_strength;
+
   /* session info */
 
   /* client cert? */

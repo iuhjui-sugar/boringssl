@@ -292,6 +292,7 @@ SSL *SSL_new(SSL_CTX *ctx) {
   X509_VERIFY_PARAM_inherit(s->param, ctx->param);
   s->quiet_shutdown = ctx->quiet_shutdown;
   s->max_send_fragment = ctx->max_send_fragment;
+  s->handshake_bit_strength = -1;
 
   CRYPTO_add(&ctx->references, 1, CRYPTO_LOCK_SSL_CTX);
   s->ctx = ctx;
