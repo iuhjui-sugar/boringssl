@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "93665535_74bf48fe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-29T18:20:33Z",
+      "side": 1,
+      "message": "[Confirmed we have a CLA on file.]",
+      "range": {
+        "startLine": 2,
+        "startChar": 26,
+        "endLine": 2,
+        "endChar": 44
+      },
+      "revId": "e25d4193af995745559e2deb0b6bbf83cc385f83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "53d21de8_95e9c6f8",
+        "filename": "crypto/ec/ec.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 874,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-29T18:20:33Z",
+      "side": 1,
+      "message": "Adam should correct me if I\u0027m wrong, but I believe this should be BN_num_bits (\u0026key-\u003egroup-\u003eorder). They\u0027re the same for the groups we support, but the order is the more analogous measure to what you\u0027re measuring on the DH size.\n\n(Also update the documentation.)",
+      "revId": "e25d4193af995745559e2deb0b6bbf83cc385f83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "53d21de8_5507de54",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1307,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-29T18:20:33Z",
+      "side": 1,
+      "message": "key_exchange_bit_strength is [...]",
+      "revId": "e25d4193af995745559e2deb0b6bbf83cc385f83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "53d21de8_d5faeeb2",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1307,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-29T18:20:33Z",
+      "side": 1,
+      "message": "What is the meaning of this field during and after a renegotiation handshake?",
+      "range": {
+        "startLine": 1307,
+        "startChar": 44,
+        "endLine": 1307,
+        "endChar": 73
+      },
+      "revId": "e25d4193af995745559e2deb0b6bbf83cc385f83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "53d21de8_b5e64a24",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1311,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-29T18:20:33Z",
+      "side": 1,
+      "message": "Things hanging directly off the ssl should only be configuration state because of SSL_clear. (Some things still need to be moved and reorganized.)\n\nAre you intending this be\n- connection state (ssl-\u003es3)\n- handshake state (ssl-\u003es3.tmp)\n- session state (field on SSL_SESSION, must be serialized)\n\nWhat happens if you resume a session? Should this still show anything?\n\ns3 vs s3.tmp isn\u0027t terribly clear right now, unfortunately. Handshake state should be destroyed after each handshake but isn\u0027t consistently right now. I\u0027m not sure how that should look... I\u0027m considering, especially since a lot of stuff is queried just after the handshake and never looked at again, that maybe we should hold onto some handshake info and have an explicit \"release handshake info\" method. Or maybe a SSL_do_handshake variant should have an output parameter.\n\nPart of the nuisance is a lot of this stuff is consumer-specific (do we remember the key exchange bit size across resumptions) and consumers that don\u0027t care have to pay in memory and SSL_SESSION serialization sizes. Stapling ex_data to the SSL_SESSION is an option.\n\nYou also mention this isn\u0027t directly comparable depending on the key exchange, so perhaps we shouldn\u0027t be exposing it that way. (It\u0027s not even necessarily meaningful for DHE; the server may not even have sent us a prime! Also note [0] re applicability to DHE in the future.)\n\nWe actually already hold on to peer_dh_tmp and peer_ecdh_tmp right now. (Even kinda-sorta across session resumption although that has issues with serialization. I\u0027m not planning on serializing them into the SSL_SESSION and hope to make them more temporary. See https://boringssl.googlesource.com/boringssl/+/680ca961f993ac0c7f191dcf289c442cf96c4d2c )\n\nThere\u0027s even a SSL_get_server_tmp_key to access it. But it\u0027s broken right now because EVP_PKEY_DH isn\u0027t hooked up. I was going to just remove it since nothing at Google uses it. Adding API like get_server_ecdh_key and get_server_dh_key is an option. Though there\u0027ll still be the resumption question.\n\n[0] https://groups.google.com/a/chromium.org/d/msg/security-dev/WyGIpevBV1s/68W-VMOoxqkJ",
+      "revId": "e25d4193af995745559e2deb0b6bbf83cc385f83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "53d21de8_f5f7f2c7",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1312,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-29T18:20:33Z",
+      "side": 1,
+      "message": "This should have a public accessor. We\u0027re not likely to be able to opaquify SSL anytime soon, if ever, but we shouldn\u0027t encourage mucking about with the struct.",
+      "revId": "e25d4193af995745559e2deb0b6bbf83cc385f83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
