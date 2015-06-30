@@ -142,7 +142,7 @@ static size_t INLINE poly1305_min(size_t a, size_t b) {
   return (a < b) ? a : b;
 }
 
-void CRYPTO_poly1305_init(poly1305_state *state, const uint8_t key[32]) {
+void CRYPTO_poly1305_init_mmx(poly1305_state *state, const uint8_t key[32]) {
   poly1305_state_internal *st = poly1305_aligned_state(state);
   poly1305_power *p;
   uint64_t r0, r1, r2;
@@ -710,7 +710,7 @@ static size_t poly1305_combine(poly1305_state_internal *st, const uint8_t *m,
   return consumed;
 }
 
-void CRYPTO_poly1305_update(poly1305_state *state, const uint8_t *m,
+void CRYPTO_poly1305_update_mmx(poly1305_state *state, const uint8_t *m,
                             size_t bytes) {
   poly1305_state_internal *st = poly1305_aligned_state(state);
   size_t want;
@@ -764,7 +764,7 @@ void CRYPTO_poly1305_update(poly1305_state *state, const uint8_t *m,
   }
 }
 
-void CRYPTO_poly1305_finish(poly1305_state *state, uint8_t mac[16]) {
+void CRYPTO_poly1305_finish_mmx(poly1305_state *state, uint8_t mac[16]) {
   poly1305_state_internal *st = poly1305_aligned_state(state);
   size_t leftover = st->leftover;
   uint8_t *m = st->buffer;

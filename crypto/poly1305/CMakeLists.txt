@@ -1,5 +1,14 @@
 include_directories(. .. ../../include)
 
+if (${ARCH} STREQUAL "x86_64")
+  set(
+    POLY1305_ARCH_SOURCES
+
+    poly1305_avx.${ASM_EXT}
+    poly1305_avx2.${ASM_EXT}
+  )
+endif()
+
 if (${ARCH} STREQUAL "arm")
   set(
     POLY1305_ARCH_SOURCES
@@ -19,3 +28,6 @@ add_library(
 
   ${POLY1305_ARCH_SOURCES}
 )
+
+perlasm(poly1305_avx.${ASM_EXT} asm/poly1305_avx.pl)
+perlasm(poly1305_avx2.${ASM_EXT} asm/poly1305_avx2.pl)

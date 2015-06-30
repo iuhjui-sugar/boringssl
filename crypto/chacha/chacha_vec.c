@@ -142,14 +142,7 @@ typedef unsigned vec __attribute__((vector_size(16)));
 	STORE(op + d + 8, LOAD(in + d + 8) ^ REVV_BE(v2));      \
 	STORE(op + d +12, LOAD(in + d +12) ^ REVV_BE(v3));
 
-#if __ARM_NEON__
-/* For ARM, we can't depend on NEON support, so this function is compiled with
- * a different name, along with the generic code, and can be enabled at
- * run-time. */
-void CRYPTO_chacha_20_neon(
-#else
-void CRYPTO_chacha_20(
-#endif
+void CRYPTO_chacha_20_compiler_vec(
 	uint8_t *out,
 	const uint8_t *in,
 	size_t inlen,
