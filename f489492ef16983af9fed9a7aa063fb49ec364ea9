@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "d3d44d30_f94793f2",
+        "filename": "crypto/rand/urandom.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-30T21:23:11Z",
+      "side": 1,
+      "message": "The lock does need to be taken here.\n\nIf someone forked while multithreaded and the lock gets stuck, well, that happens. You can\u0027t fork when multithreaded.",
+      "parentUuid": "d3ab6d9c_fedb015e",
+      "revId": "f489492ef16983af9fed9a7aa063fb49ec364ea9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d3d44d30_f62d60d1",
         "filename": "crypto/rand/urandom.c",
         "patchSetId": 2
@@ -90,6 +108,30 @@
       "side": 1,
       "message": "The rest of it\u0027s also just abort(). Doing that to signal handlers and abort seems rather bad manners. :-) Since this is already an issue elsewhere, it probably should be resolved separately so we can fix it in one go. (Adam, thoughts?)",
       "parentUuid": "d3d44d30_f62d60d1",
+      "range": {
+        "startLine": 128,
+        "startChar": 9,
+        "endLine": 128,
+        "endChar": 12
+      },
+      "revId": "f489492ef16983af9fed9a7aa063fb49ec364ea9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d3d44d30_99465ff4",
+        "filename": "crypto/rand/urandom.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-06-30T21:23:11Z",
+      "side": 1,
+      "message": "Yea, don\u0027t address this in this CL. We could do an OPENSSL_abort but has anyone actually observed abort not working in practice? We only really have to worry about Google code, after all.",
+      "parentUuid": "3386892e_4911c18a",
       "range": {
         "startLine": 128,
         "startChar": 9,
