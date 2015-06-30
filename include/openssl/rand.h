@@ -33,6 +33,22 @@ OPENSSL_EXPORT int RAND_bytes(uint8_t *buf, size_t len);
 OPENSSL_EXPORT void RAND_cleanup(void);
 
 
+/* Obscure functions. */
+
+#if !defined(OPENSSL_WINDOWS)
+/* RAND_set_urandom_fd causes the module to use a copy of |fd| for system
+ * randomness rather opening /dev/urandom internally. The caller retains
+ * ownership of |fd| and is at liberty to close it at any time. This is useful
+ * if, due to a sandbox, /dev/urandom isn't available. If used, it must be
+ * called before |RAND_bytes| is called in the current address space.
+ *
+ * It is safe to call |RAND_set_urandom_fd| before a call to |fork| and
+ * |RAND_bytes| after it. It will not buffer any entropy or use any threading
+ * APIs. */
+OPENSSL_EXPORT void RAND_set_urandom_fd(int fd);
+#endif
+
+
 /* Deprecated functions */
 
 /* RAND_pseudo_bytes is a wrapper around |RAND_bytes|. */

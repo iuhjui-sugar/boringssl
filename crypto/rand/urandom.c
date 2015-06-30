@@ -118,6 +118,21 @@ void RAND_cleanup(void) {
   CRYPTO_STATIC_MUTEX_unlock(&global_lock);
 }
 
+void RAND_set_urandom_fd(int fd) {
+  /* Intentionally do not hold |global_lock| here to meet fork-safety
+   * obligations and avoid problems with any pthreads/fork
+   * interaction. |RAND_set_urandom_fd| may not be called after the RNG is
+   * used. Do a best-effort sanity check to catch callers violating that
+   * contract. */
+  if (urandom_fd != -2) {
+    abort();
+  }
+  urandom_fd = dup(fd);
+  if (urandom_fd < 0) {
+    abort();
+  }
+}
+
 /* read_full reads exactly |len| bytes from |fd| into |out| and returns 1. In
  * the case of an error it returns 0. */
 static char read_full(int fd, uint8_t *out, size_t len) {
