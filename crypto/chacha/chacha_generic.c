@@ -20,9 +20,6 @@
 
 #include <openssl/cpu.h>
 
-
-#if defined(OPENSSL_WINDOWS) || (!defined(OPENSSL_X86_64) && !defined(OPENSSL_X86)) || !defined(__SSE2__)
-
 /* sigma contains the ChaCha constants, which happen to be an ASCII string. */
 static const uint8_t sigma[16] = { 'e', 'x', 'p', 'a', 'n', 'd', ' ', '3',
                                    '2', '-', 'b', 'y', 't', 'e', ' ', 'k' };
@@ -51,13 +48,19 @@ static const uint8_t sigma[16] = { 'e', 'x', 'p', 'a', 'n', 'd', ' ', '3',
   x[a] = PLUS(x[a],x[b]); x[d] = ROTATE(XOR(x[d],x[a]), 8); \
   x[c] = PLUS(x[c],x[d]); x[b] = ROTATE(XOR(x[b],x[c]), 7);
 
-#if defined(OPENSSL_ARM) && !defined(OPENSSL_NO_ASM)
+#if defined(__ARM_NEON__) ||          \
+    !defined(OPENSSL_WINDOWS) && \
+        (defined(OPENSSL_X86_64) || defined(OPENSSL_X86)) && defined(__SSE2__)
+#define CHACHA20_HAS_COMPILER_VECTORIZED
 /* Defined in chacha_vec.c */
-void CRYPTO_chacha_20_neon(uint8_t *out, const uint8_t *in, size_t in_len,
+void CRYPTO_chacha_20_compiler_vec(uint8_t *out, const uint8_t *in, size_t in_len,
                            const uint8_t key[32], const uint8_t nonce[8],
                            size_t counter);
 #endif
 
+#if defined(OPENSSL_NO_ASM) \
+    || defined(OPENSSL_ARM) \
+    || !defined(CHACHA20_HAS_COMPILER_VECTORIZED)
 /* chacha_core performs 20 rounds of ChaCha on the input words in
  * |input| and writes the 64 output bytes to |output|. */
 static void chacha_core(uint8_t output[64], const uint32_t input[16]) {
@@ -84,19 +87,12 @@ static void chacha_core(uint8_t output[64], const uint32_t input[16]) {
   }
 }
 
-void CRYPTO_chacha_20(uint8_t *out, const uint8_t *in, size_t in_len,
-                      const uint8_t key[32], const uint8_t nonce[8],
-                      size_t counter) {
+static void chacha_20_simple(uint8_t *out, const uint8_t *in, size_t in_len,
+                             const uint8_t key[32], const uint8_t nonce[8],
+                             size_t counter) {
   uint32_t input[16];
   uint8_t buf[64];
   size_t todo, i;
-
-#if defined(OPENSSL_ARM) && !defined(OPENSSL_NO_ASM)
-  if (CRYPTO_is_NEON_capable()) {
-    CRYPTO_chacha_20_neon(out, in, in_len, key, nonce, counter);
-    return;
-  }
-#endif
 
   input[0] = U8TO32_LITTLE(sigma + 0);
   input[1] = U8TO32_LITTLE(sigma + 4);
@@ -139,5 +135,70 @@ void CRYPTO_chacha_20(uint8_t *out, const uint8_t *in, size_t in_len,
     }
   }
 }
+#endif  /* OPENSSL_NO_ASM || OPENSSL_ARM || !CHACHA20_HAS_COMPILER_VECTORIZED */
 
-#endif /* OPENSSL_WINDOWS || !OPENSSL_X86_64 && !OPENSSL_X86 || !__SSE2__ */
+#if defined(OPENSSL_X86_64) && !defined(OPENSSL_NO_ASM)
+#define CHACHA20_HAS_AVX
+void chacha_20_core_avx(uint8_t *out, const uint8_t *in, size_t in_len,
+                      const uint8_t key[32], const uint8_t nonce[8],
+                      size_t counter);
+void chacha_20_core_avx2(uint8_t *out, const uint8_t *in, size_t in_len,
+                      const uint8_t key[32], const uint8_t nonce[8],
+                      size_t counter);
+
+typedef void (*chacha_core_function)(uint8_t*, const uint8_t*, size_t,
+                                     const uint8_t[32], const uint8_t[8], size_t);
+
+void CRYPTO_chacha_20_avx_or_avx2(uint8_t *out, const uint8_t *in, size_t in_len,
+                      const uint8_t key[32], const uint8_t nonce[8],
+                      size_t counter) {
+  uint8_t buffer[256];
+  size_t todo, buffer_size, counter_mask;
+  chacha_core_function core_function;
+
+  if (CRYPTO_has_AVX2()) {
+    buffer_size = 128;
+    counter_mask = -2;
+    core_function = chacha_20_core_avx2;
+  } else {
+    buffer_size = 64;
+    counter_mask = -1;
+    core_function = chacha_20_core_avx;
+  }
+
+  chacha_20_core_avx2(out, in, in_len, key, nonce, counter);
+  todo = in_len & (~(-buffer_size));
+  if (todo) {
+    out += in_len&(-buffer_size);
+    in += in_len&(-buffer_size);
+    counter += (in_len/64) & counter_mask;
+    memcpy(buffer, in, todo);
+    core_function(buffer, buffer, buffer_size, key, nonce, counter);
+    memcpy(out, buffer, todo);
+    memset(buffer, 0, buffer_size);
+  }
+}
+#endif
+
+void CRYPTO_chacha_20(uint8_t *out, const uint8_t *in, size_t in_len,
+                      const uint8_t key[32], const uint8_t nonce[8],
+                      size_t counter) {
+#ifdef CHACHA20_HAS_AVX
+  if (CRYPTO_has_AVX()) {
+    CRYPTO_chacha_20_avx_or_avx2(out, in, in_len, key, nonce, counter);
+    return;
+  }
+#endif
+
+#if defined(OPENSSL_ARM) && !defined(OPENSSL_NO_ASM)
+  if (CRYPTO_is_NEON_capable()) {
+    CRYPTO_chacha_20_compiler_vec(out, in, in_len, key, nonce, counter);
+  } else {
+    chacha_20_simple(out, in, in_len, key, nonce, counter);
+  }
+#elif defined(CHACHA20_HAS_COMPILER_VECTORIZED) && !defined(OPENSSL_NO_ASM)
+  CRYPTO_chacha_20_compiler_vec(out, in, in_len, key, nonce, counter);
+#else
+  chacha_20_simple(out, in, in_len, key, nonce, counter);
+#endif
+}

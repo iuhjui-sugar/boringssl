@@ -86,6 +86,9 @@ extern "C" {
  * Note: the CPUID bits are pre-adjusted for the OSXSAVE bit and the YMM and XMM
  * bits in XCR0, so it is not necessary to check those. */
 extern uint32_t OPENSSL_ia32cap_P[4];
+
+#define CRYPTO_has_AVX()  ((OPENSSL_ia32cap_P[1] >> 28) & 1)
+#define CRYPTO_has_AVX2()  ((OPENSSL_ia32cap_P[2] >> 5) & 1)
 #endif
 
 #if defined(OPENSSL_ARM) || defined(OPENSSL_AARCH64)
