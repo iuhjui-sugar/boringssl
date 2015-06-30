@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3386892e_290c8d77",
+        "filename": "crypto/rand/urandom.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-30T19:40:15Z",
+      "side": 1,
+      "message": "I wanted to avoid touching threading APIs just in case bouncing on a pthread lock left it in a state that wasn\u0027t amenable to fork without exec. Is that guaranteed to be safe?",
+      "parentUuid": "d3d44d30_962cecd2",
+      "revId": "f489492ef16983af9fed9a7aa063fb49ec364ea9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d3d44d30_f62d60d1",
         "filename": "crypto/rand/urandom.c",
         "patchSetId": 2
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "3386892e_4911c18a",
+        "filename": "crypto/rand/urandom.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-30T19:40:15Z",
+      "side": 1,
+      "message": "The rest of it\u0027s also just abort(). Doing that to signal handlers and abort seems rather bad manners. :-) Since this is already an issue elsewhere, it probably should be resolved separately so we can fix it in one go. (Adam, thoughts?)",
+      "parentUuid": "d3d44d30_f62d60d1",
+      "range": {
+        "startLine": 128,
+        "startChar": 9,
+        "endLine": 128,
+        "endChar": 12
+      },
+      "revId": "f489492ef16983af9fed9a7aa063fb49ec364ea9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d3d44d30_f6db205e",
         "filename": "include/openssl/rand.h",
         "patchSetId": 2
@@ -53,6 +95,30 @@
       "writtenOn": "2015-06-30T19:27:57Z",
       "side": 1,
       "message": "Unimportant nit: this feels a little like an implementation detail. I would phrase it more along the lines of \"The caller retains ownership of |fd| and is at liberty to close it at any time.\"",
+      "range": {
+        "startLine": 40,
+        "startChar": 52,
+        "endLine": 40,
+        "endChar": 53
+      },
+      "revId": "f489492ef16983af9fed9a7aa063fb49ec364ea9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3386892e_69168585",
+        "filename": "include/openssl/rand.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-30T19:40:15Z",
+      "side": 1,
+      "message": "Done. Also added \"a copy of\" to the first sentence.",
+      "parentUuid": "d3d44d30_f6db205e",
       "range": {
         "startLine": 40,
         "startChar": 52,
