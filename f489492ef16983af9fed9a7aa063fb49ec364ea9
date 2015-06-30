@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "3386892e_e97435ad",
+        "filename": "crypto/rand/urandom.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-30T21:28:47Z",
+      "side": 1,
+      "message": "Right, but is:\n\n  pthread_rwlock_wrlock(lock);\n  pthread_rwlock_unlock(lock);\n  fork();\n  pthread_rwlock_wrlock(lock);\n  pthread_rwlock_unlock(lock);\n\ngoing to cause problems? I dunno if we have to care about the locks secretly having reference to some kernel object that doesn\u0027t get copied across fork().",
+      "parentUuid": "d3d44d30_f94793f2",
+      "revId": "f489492ef16983af9fed9a7aa063fb49ec364ea9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d3d44d30_f62d60d1",
         "filename": "crypto/rand/urandom.c",
         "patchSetId": 2
