@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d3d44d30_962cecd2",
+        "filename": "crypto/rand/urandom.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5810
+      },
+      "writtenOn": "2015-06-30T19:27:57Z",
+      "side": 1,
+      "message": "don\u0027t you need to hold global_lock here?",
+      "revId": "f489492ef16983af9fed9a7aa063fb49ec364ea9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d3d44d30_f62d60d1",
+        "filename": "crypto/rand/urandom.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5810
+      },
+      "writtenOn": "2015-06-30T19:27:57Z",
+      "side": 1,
+      "message": "Unrelated: do you always use abort() for critical things like this?\n\nIt may be worth having your own very conservative \"NoNoNoCrashNow()\" function along the lines of:\n\nvoid NoNoNoCrashNow() {\n\n  abort(); // might not work because of signal handlers issues\n\n  if (*(volatile char*)0) {\n  }\n  // same\n\n  for(;;) {\n    syscall(SYS_exit_group, 1);  // might not work because of seccomp or other sandboxing mechanism\n  }  // should at least loop forever in all cases (syscall().. should never be considered \"noreturn\" by the compiler)\n\n}",
+      "range": {
+        "startLine": 128,
+        "startChar": 9,
+        "endLine": 128,
+        "endChar": 12
+      },
+      "revId": "f489492ef16983af9fed9a7aa063fb49ec364ea9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d3d44d30_f6db205e",
+        "filename": "include/openssl/rand.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5810
+      },
+      "writtenOn": "2015-06-30T19:27:57Z",
+      "side": 1,
+      "message": "Unimportant nit: this feels a little like an implementation detail. I would phrase it more along the lines of \"The caller retains ownership of |fd| and is at liberty to close it at any time.\"",
+      "range": {
+        "startLine": 40,
+        "startChar": 52,
+        "endLine": 40,
+        "endChar": 53
+      },
+      "revId": "f489492ef16983af9fed9a7aa063fb49ec364ea9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
