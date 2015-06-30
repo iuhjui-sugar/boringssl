@@ -109,6 +109,24 @@
     },
     {
       "key": {
+        "uuid": "3386892e_89101957",
+        "filename": "crypto/rand/urandom.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-06-30T21:39:14Z",
+      "side": 1,
+      "message": "Good point. Taking the lock and revising the documentation.",
+      "parentUuid": "d3d44d30_59d0c76c",
+      "revId": "f489492ef16983af9fed9a7aa063fb49ec364ea9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d3d44d30_f62d60d1",
         "filename": "crypto/rand/urandom.c",
         "patchSetId": 2
