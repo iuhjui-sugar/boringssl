@@ -177,6 +177,24 @@
     },
     {
       "key": {
+        "uuid": "3386892e_cc9dbfb6",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1311,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-01T21:10:57Z",
+      "side": 1,
+      "message": "(What\u0027s [0]? I\u0027m assuming it\u0027s some compat bug from the logjam check?)\n\nI\u0027m not sure this would actually help give you more options for weak DH. What you\u0027d want is an SSL_OP_BLAH value to allow weak DH, if a click-through. If a fallback, the existing APIs are sufficient. You just retry with DHE turned off. (I don\u0027t think either should be implemented though. And hopefully DHE is not long for this world.)\n\nThis is really only useful if you want to put information about the group in the UI. But if you\u0027re doing that, I don\u0027t think you want the bit strength for ECDHE. If DevTools were to show ECDHE information, they would probably want the name of the curve and not a number.",
+      "parentUuid": "13bb45f3_b8747978",
+      "revId": "e25d4193af995745559e2deb0b6bbf83cc385f83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "53d21de8_f5f7f2c7",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 2
