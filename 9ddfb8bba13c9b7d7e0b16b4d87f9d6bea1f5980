@@ -53,6 +53,24 @@
     },
     {
       "key": {
+        "uuid": "d3760d12_e92ef195",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 793,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-07-01T20:27:08Z",
+      "side": 1,
+      "message": "All the CBS_get_* take an out-arg, so I think this should too.\n\nHowever, what if it\u0027s BN_cbs2unsigned(CBS *, BIGNUM *)? (Note, just made up BN_cbs2unsigned. Not sure if I like it, but it matches OBJ_cbs2nid.)\n\nI.e. the function doesn\u0027t allocate a BIGNUM for you. You have to BN_init or BN_new one.",
+      "parentUuid": "93665535_14f1b460",
+      "revId": "9ddfb8bba13c9b7d7e0b16b4d87f9d6bea1f5980",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "93665535_74e628ac",
         "filename": "include/openssl/bn.h",
         "patchSetId": 2
