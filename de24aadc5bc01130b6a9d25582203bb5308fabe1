@@ -22,6 +22,30 @@
       "revId": "de24aadc5bc01130b6a9d25582203bb5308fabe1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3386892e_c9f93146",
+        "filename": "crypto/rand/urandom.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-01T00:38:57Z",
+      "side": 1,
+      "message": "Oh, good call. Same with the open above. (Doesn\u0027t look like we have the macro. Chromium\u0027s uses decltype which probably isn\u0027t that friendly to C? Though we don\u0027t care about MSVC here, so that helps. Meh. Other bits just use do/while.)\n\nhttps://boringssl-review.googlesource.com/5311",
+      "parentUuid": "d3d44d30_ea844fe8",
+      "range": {
+        "startLine": 127,
+        "startChar": 21,
+        "endLine": 127,
+        "endChar": 23
+      },
+      "revId": "de24aadc5bc01130b6a9d25582203bb5308fabe1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
