@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d3760d12_c9e935f8",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2015-07-01T18:18:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "732e4192_6bcfc156",
+      "revId": "755d0e4e2fb47dd2da6ce9d996f4f0cfbb61a142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "732e4192_ab3129f5",
         "filename": "include/openssl/bytestring.h",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "d3760d12_e9e6f124",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2015-07-01T18:18:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "732e4192_ab3129f5",
+      "revId": "755d0e4e2fb47dd2da6ce9d996f4f0cfbb61a142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f95690ec_15f2f4e4",
         "filename": "include/openssl/ssl3.h",
         "patchSetId": 1
@@ -47,6 +83,30 @@
       "writtenOn": "2015-06-16T19:02:42Z",
       "side": 1,
       "message": "single space.",
+      "range": {
+        "startLine": 459,
+        "startChar": 21,
+        "endLine": 459,
+        "endChar": 23
+      },
+      "revId": "755d0e4e2fb47dd2da6ce9d996f4f0cfbb61a142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d3760d12_e64c5ec4",
+        "filename": "include/openssl/ssl3.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2015-07-01T18:18:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f95690ec_15f2f4e4",
       "range": {
         "startLine": 459,
         "startChar": 21,
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "d3760d12_09b50d1e",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2015-07-01T18:18:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f95690ec_d5c06c72",
+      "range": {
+        "startLine": 801,
+        "startChar": 55,
+        "endLine": 801,
+        "endChar": 59
+      },
+      "revId": "755d0e4e2fb47dd2da6ce9d996f4f0cfbb61a142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "732e4192_eb2171d8",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 1
@@ -93,6 +177,24 @@
       "writtenOn": "2015-06-26T21:51:05Z",
       "side": 1,
       "message": "[I\u0027d actually been thinking we should parse the extensions earlier, before resolving s-\u003ehit and friends, so we don\u0027t have this mismatch between extensions processed here and via early_callback_ctx. The extensions that we want to process after we could throw into CBS\u0027s somewhere and process afterwards. But I\u0027m not sure what this should look like and this is already an improvement.]",
+      "revId": "755d0e4e2fb47dd2da6ce9d996f4f0cfbb61a142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d3760d12_29bac90e",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2015-07-01T18:18:58Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "732e4192_eb2171d8",
       "revId": "755d0e4e2fb47dd2da6ce9d996f4f0cfbb61a142",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -122,6 +224,30 @@
     },
     {
       "key": {
+        "uuid": "d3760d12_49bf05fe",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 819,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2015-07-01T18:18:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e7adaa8_69a46391",
+      "range": {
+        "startLine": 819,
+        "startChar": 37,
+        "endLine": 819,
+        "endChar": 40
+      },
+      "revId": "755d0e4e2fb47dd2da6ce9d996f4f0cfbb61a142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "732e4192_6b510135",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 1
@@ -139,6 +265,24 @@
     },
     {
       "key": {
+        "uuid": "d3760d12_69c4c185",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 863,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2015-07-01T18:18:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "732e4192_6b510135",
+      "revId": "755d0e4e2fb47dd2da6ce9d996f4f0cfbb61a142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "732e4192_cb1eb592",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 1
@@ -150,6 +294,24 @@
       "writtenOn": "2015-06-26T21:51:05Z",
       "side": 1,
       "message": "While you\u0027re here, maybe stick the *\u0027s on the left column?",
+      "revId": "755d0e4e2fb47dd2da6ce9d996f4f0cfbb61a142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d3760d12_89c81d9a",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2015-07-01T18:18:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "732e4192_cb1eb592",
       "revId": "755d0e4e2fb47dd2da6ce9d996f4f0cfbb61a142",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -179,6 +341,30 @@
     },
     {
       "key": {
+        "uuid": "d3760d12_a9c5d980",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 888,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2015-07-01T18:18:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "732e4192_0b371d0d",
+      "range": {
+        "startLine": 888,
+        "startChar": 49,
+        "endLine": 888,
+        "endChar": 59
+      },
+      "revId": "755d0e4e2fb47dd2da6ce9d996f4f0cfbb61a142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "732e4192_eb4bb17b",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 1
@@ -190,6 +376,24 @@
       "writtenOn": "2015-06-26T21:51:05Z",
       "side": 1,
       "message": "Probably can get rid of this bullet point.",
+      "revId": "755d0e4e2fb47dd2da6ce9d996f4f0cfbb61a142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d3760d12_c9d21544",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 901,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2015-07-01T18:18:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "732e4192_eb4bb17b",
       "revId": "755d0e4e2fb47dd2da6ce9d996f4f0cfbb61a142",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -231,6 +435,24 @@
     },
     {
       "key": {
+        "uuid": "d3760d12_e9cfd19c",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2015-07-01T18:18:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d978ec71_1fbf6f1e",
+      "revId": "755d0e4e2fb47dd2da6ce9d996f4f0cfbb61a142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "732e4192_4b29a592",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 1
@@ -248,6 +470,24 @@
     },
     {
       "key": {
+        "uuid": "d3760d12_09dc2d56",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 995,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2015-07-01T18:18:58Z",
+      "side": 1,
+      "message": "Sadly it\u0027s can\u0027t be static const because that\u0027s not const-enough for OPENSSL_COMPILE_ASSERT without C11. Parens added.",
+      "parentUuid": "732e4192_4b29a592",
+      "revId": "755d0e4e2fb47dd2da6ce9d996f4f0cfbb61a142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "732e4192_ab6ec9f5",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 1
@@ -259,6 +499,24 @@
       "writtenOn": "2015-06-26T21:51:05Z",
       "side": 1,
       "message": "I think one of our compilers gets grumpy if OPENSSL_COMPILE_ASSERT isn\u0027t at the top-level. Though maybe this has changed now that we default to the C11 one? I think it complains about an unused typedef.",
+      "revId": "755d0e4e2fb47dd2da6ce9d996f4f0cfbb61a142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d3760d12_29e1e912",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1655,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2015-07-01T18:18:58Z",
+      "side": 1,
+      "message": "I\u0027d like to keep it here so I\u0027ll see what the builders think.",
+      "parentUuid": "732e4192_ab6ec9f5",
       "revId": "755d0e4e2fb47dd2da6ce9d996f4f0cfbb61a142",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -288,6 +546,30 @@
     },
     {
       "key": {
+        "uuid": "d3760d12_49d62536",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1811,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2015-07-01T18:18:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "732e4192_eb3731e9",
+      "range": {
+        "startLine": 1811,
+        "startChar": 0,
+        "endLine": 1811,
+        "endChar": 8
+      },
+      "revId": "755d0e4e2fb47dd2da6ce9d996f4f0cfbb61a142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "732e4192_6b38e1fe",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 1
@@ -305,6 +587,24 @@
     },
     {
       "key": {
+        "uuid": "d3760d12_89ef3dfd",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1930,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2015-07-01T18:18:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "732e4192_6b38e1fe",
+      "revId": "755d0e4e2fb47dd2da6ce9d996f4f0cfbb61a142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "732e4192_4b3d25ed",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 1
@@ -316,6 +616,30 @@
       "writtenOn": "2015-06-26T21:51:05Z",
       "side": 1,
       "message": "ri_check -\u003e no_extensions?",
+      "range": {
+        "startLine": 2099,
+        "startChar": 0,
+        "endLine": 2099,
+        "endChar": 8
+      },
+      "revId": "755d0e4e2fb47dd2da6ce9d996f4f0cfbb61a142",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d3760d12_a9ecf908",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2099,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2015-07-01T18:18:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "732e4192_4b3d25ed",
       "range": {
         "startLine": 2099,
         "startChar": 0,
