@@ -1172,8 +1172,8 @@ static const struct tls_extension *tls_extension_find(uint32_t *out_index,
 /* header_len is the length of the ClientHello header written so far, used to
  * compute padding. It does not include the record header. Pass 0 if no padding
  * is to be done. */
-uint8_t *ssl_add_clienthello_tlsext(SSL *s, uint8_t *const buf,
-                                    uint8_t *const limit, size_t header_len) {
+uint8_t *ssl_add_clienthello_tlsext(SSL *s, uint8_t *buf, uint8_t *limit,
+                                    size_t header_len) {
   int extdatalen = 0;
   uint8_t *ret = buf;
   uint8_t *orig = buf;
