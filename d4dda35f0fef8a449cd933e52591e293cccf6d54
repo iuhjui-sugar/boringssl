@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3386892e_aca08bf3",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-01T21:10:57Z",
+      "side": 1,
+      "message": "This will not work on ticket renewals. There should not be anything on the SSL_SESSION that\u0027s not serialized. (The few things on it that aren\u0027t serialized are bugs I need to fix.)\n\n(Unfortunately, adding things to the serialized bit incurs a cost on everyone using the library forever. This is client-only, so it\u0027s not a huge deal. An alternative would be for it to be the consumer\u0027s job to staple it to the session via ex_data in the new_session callback.)",
+      "revId": "d4dda35f0fef8a449cd933e52591e293cccf6d54",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3386892e_0c7b57ec",
+        "filename": "ssl/ssl_sess.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-01T21:10:57Z",
+      "side": 1,
+      "message": "session",
+      "range": {
+        "startLine": 688,
+        "startChar": 59,
+        "endLine": 688,
+        "endChar": 60
+      },
+      "revId": "d4dda35f0fef8a449cd933e52591e293cccf6d54",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3386892e_ec9a83bb",
+        "filename": "ssl/ssl_sess.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-01T21:10:57Z",
+      "side": 1,
+      "message": "I\u0027m not sure why 679 has a NULL check, but this seems unnecessary.",
+      "revId": "d4dda35f0fef8a449cd933e52591e293cccf6d54",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
