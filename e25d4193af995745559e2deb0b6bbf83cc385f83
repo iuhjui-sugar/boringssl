@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "b3cfd99d_9588642b",
+        "filename": "crypto/ec/ec.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 874,
+      "author": {
+        "id": 5805
+      },
+      "writtenOn": "2015-07-01T11:08:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53d21de8_95e9c6f8",
+      "revId": "e25d4193af995745559e2deb0b6bbf83cc385f83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "53d21de8_5507de54",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 2
@@ -82,6 +100,48 @@
     },
     {
       "key": {
+        "uuid": "b3cfd99d_35a190ae",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1307,
+      "author": {
+        "id": 5805
+      },
+      "writtenOn": "2015-07-01T11:08:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53d21de8_5507de54",
+      "revId": "e25d4193af995745559e2deb0b6bbf83cc385f83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b3cfd99d_159e9468",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1307,
+      "author": {
+        "id": 5805
+      },
+      "writtenOn": "2015-07-01T11:08:22Z",
+      "side": 1,
+      "message": "Until a key exchange is complete, it will remember the last data. I expect that if a new key exchange takes place, the relevant code to update the field will be hit, and I need not take any action.\n\nI updated the comment to hopefully be slightly clearer.",
+      "parentUuid": "53d21de8_d5faeeb2",
+      "range": {
+        "startLine": 1307,
+        "startChar": 44,
+        "endLine": 1307,
+        "endChar": 73
+      },
+      "revId": "e25d4193af995745559e2deb0b6bbf83cc385f83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "53d21de8_b5e64a24",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 2
@@ -99,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "13bb45f3_b8747978",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1311,
+      "author": {
+        "id": 5805
+      },
+      "writtenOn": "2015-07-01T11:08:22Z",
+      "side": 1,
+      "message": "I expect this to be available to among others the badge popout with security warnings. Thus it needs to sit across sessions, so I moved it to SSL_SESSION.\n\nThis is in part in order to be able to properly address [0], by bubbling the relevant information higher up, so there will be more possible actions than allow and hard-block, such as warnings, downgrades or information (including on resumed sessions). The alternative would be to bubble up a flag (instead of an int).\n\nA consumer will have to handle dh and ecdh more differently if we get different accessors for each, always checking the cipher and using the right accessor. Right now, with one field, for connection information, the field can be used raw, without the dh/ecdh check.",
+      "parentUuid": "53d21de8_b5e64a24",
+      "revId": "e25d4193af995745559e2deb0b6bbf83cc385f83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "53d21de8_f5f7f2c7",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 2
@@ -110,6 +188,24 @@
       "writtenOn": "2015-06-29T18:20:33Z",
       "side": 1,
       "message": "This should have a public accessor. We\u0027re not likely to be able to opaquify SSL anytime soon, if ever, but we shouldn\u0027t encourage mucking about with the struct.",
+      "revId": "e25d4193af995745559e2deb0b6bbf83cc385f83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "53c13d6b_5a7b159f",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1312,
+      "author": {
+        "id": 5805
+      },
+      "writtenOn": "2015-07-01T11:08:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53d21de8_f5f7f2c7",
       "revId": "e25d4193af995745559e2deb0b6bbf83cc385f83",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
