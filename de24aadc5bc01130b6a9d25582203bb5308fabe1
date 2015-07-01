@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d3d44d30_ea844fe8",
+        "filename": "crypto/rand/urandom.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5810
+      },
+      "writtenOn": "2015-07-01T00:27:13Z",
+      "side": 1,
+      "message": "You probably want a HANDLE_EINTR() or equivalent in there.",
+      "range": {
+        "startLine": 127,
+        "startChar": 21,
+        "endLine": 127,
+        "endChar": 23
+      },
+      "revId": "de24aadc5bc01130b6a9d25582203bb5308fabe1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
