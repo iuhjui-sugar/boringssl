@@ -195,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "93abb5ef_2cfb53b9",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1311,
+      "author": {
+        "id": 5805
+      },
+      "writtenOn": "2015-07-02T08:51:45Z",
+      "side": 1,
+      "message": "[0] is the link you posted, which states that DHE support is likely to change. Possibly be removed completely, or possibly only support \u003e1024 bits.\n\nI don\u0027t mind DHE disappearing, but while we do support it, we should also bubble up the key exchange strength. It is equally important as bubbling up the cipher suite. Yes, I plan for this to be available in the UI. While other solutions might work for other cases, since this full solution is required for the UI, this solution might be reused also for other cases.\n\nBubbling up the ECDHE curve name (enum) is a good idea. Technically, the RSA key strength doesn\u0027t have to be kept, as it can be deduced later. So we can choose not to store the int if this is not DH. A wrapper function can return a string for the key exchange strength regardless of the underlying cipher. If the ECDHE strength is needed, it can be fetched based on the curve name.\n\nSo how would you suggest doing this? An int for DH, an enum for ECDHE, and nothing for RSA. Presumably all serialized on the session. And a wrapper somewhere for translating the relevant data to a string. One possibility is to always keep an int, stuff DH and RSA in there as is done so far, and the enum value for ECDHE. Call the int e.g. key_exchange_method. Alternatively, if we are concerned about the cost of an int, find a way to only incur the cost when necessary (is the main cost in serializing?).",
+      "parentUuid": "3386892e_cc9dbfb6",
+      "revId": "e25d4193af995745559e2deb0b6bbf83cc385f83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "53d21de8_f5f7f2c7",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 2
