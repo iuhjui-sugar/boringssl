@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "931655ff_b4a200b7",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 5805
+      },
+      "writtenOn": "2015-07-02T08:51:45Z",
+      "side": 1,
+      "message": "Will serialize if we decide to keep a solution like this (and given that I figure out where to serialize it - it already worked for session resumptions from cache, not certain if that is related at all)",
+      "parentUuid": "3386892e_aca08bf3",
+      "revId": "d4dda35f0fef8a449cd933e52591e293cccf6d54",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3386892e_0c7b57ec",
         "filename": "ssl/ssl_sess.c",
         "patchSetId": 3
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "13b8a53c_9032542c",
+        "filename": "ssl/ssl_sess.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 5805
+      },
+      "writtenOn": "2015-07-02T08:51:45Z",
+      "side": 1,
+      "message": "Done purely to keep consistent with other code. Will change if we decide to keep this function.",
+      "parentUuid": "3386892e_0c7b57ec",
+      "range": {
+        "startLine": 688,
+        "startChar": 59,
+        "endLine": 688,
+        "endChar": 60
+      },
+      "revId": "d4dda35f0fef8a449cd933e52591e293cccf6d54",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3386892e_ec9a83bb",
         "filename": "ssl/ssl_sess.c",
         "patchSetId": 3
@@ -53,6 +95,24 @@
       "writtenOn": "2015-07-01T21:10:57Z",
       "side": 1,
       "message": "I\u0027m not sure why 679 has a NULL check, but this seems unnecessary.",
+      "revId": "d4dda35f0fef8a449cd933e52591e293cccf6d54",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "13d1858c_c82c2fd4",
+        "filename": "ssl/ssl_sess.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 5805
+      },
+      "writtenOn": "2015-07-02T08:51:45Z",
+      "side": 1,
+      "message": "Most similar functions have a similar NULL check. Done purely to keep consistent with other code. Will change if we decide to keep this function.",
+      "parentUuid": "3386892e_ec9a83bb",
       "revId": "d4dda35f0fef8a449cd933e52591e293cccf6d54",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
