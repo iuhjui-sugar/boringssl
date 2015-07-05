@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1386e596_c31b682d",
+        "filename": "crypto/ecdsa/ecdsa.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-05T23:22:06Z",
+      "side": 1,
+      "message": "Maybe we can do away with this after running a fuzzer to ensure crypto/bytestring is perfectly strict.",
+      "revId": "4cc142e7e690c8a7a5748ff635c0513a011c215d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1386e596_a3166404",
+        "filename": "include/openssl/ecdsa.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-05T23:22:06Z",
+      "side": 1,
+      "message": "I\u0027m not thrilled with there being 2x the number of functions for each structure. The motivation was partly that the pre-CBB_zero CBB was really tedious. Though it also avoids forgetting the CBB_len check (and crypto/err consistency). I dunno. Thoughts? I\u0027m not super-attached to these and could do away with them too.",
+      "revId": "4cc142e7e690c8a7a5748ff635c0513a011c215d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
