@@ -71,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "336e897b_69ede502",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 793,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-05T23:20:50Z",
+      "side": 1,
+      "message": "Hrm, that\u0027s reasonable. Given that BIGNUM is fairly consistently value-typed and can be stack-allocated, it makes sense that this function would also take a BIGNUM*.\n\nBN_cbs2unsigned is a very strange name, but it does match BN_bn2bin and friends.\n\nDone. I\u0027ve left the higher-level ones the same for now. Dunno what convention you\u0027d prefer there. Types like RSA* are sufficiently complicated that an RSA* output parameter might be a bit of a nuisance. Still, the current one is kinda verbose.",
+      "parentUuid": "d3760d12_e92ef195",
+      "revId": "9ddfb8bba13c9b7d7e0b16b4d87f9d6bea1f5980",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "93665535_74e628ac",
         "filename": "include/openssl/bn.h",
         "patchSetId": 2
