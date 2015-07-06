@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1386e596_29d3157c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-06T19:55:20Z",
+      "side": 1,
+      "message": "Might want some API like this eventually (like that Opera CL), but since this incarnation is broken and unused, it seems simpler to go our own way there rather than make EVP_PKEY_DH work again.",
+      "revId": "f11489645132756617cd42e08e802ad933222483",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
