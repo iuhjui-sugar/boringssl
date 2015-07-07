@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "58115a41_9d9b67bf",
+        "filename": "crypto/rsa/rsa_asn1.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-07T05:31:21Z",
+      "side": 1,
+      "message": "Realized that was yet another consideration. It seemed prudent to do it everywhere since RSA objects are initialized with them all NULL. (crypto/asn1 has a NULL check deep in bn_i2c.)\n\nThere\u0027s a test in the private key CL.",
+      "revId": "3268df2e5f48c8dafd0c9d6847dab20e339390af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
