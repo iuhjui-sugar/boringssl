@@ -46,6 +46,30 @@
       "revId": "25ddb36cd84bf415dda372dbe3ef99905e377918",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f356b1ec_09165d83",
+        "filename": "crypto/evp/p_rsa_asn1.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-07-07T22:39:12Z",
+      "side": 1,
+      "message": "No worries! I wasn\u0027t actually sure that this was wrong. I wouldn\u0027t have been surprised if some magic in the PKCS#8 code serialised the private bits later...",
+      "parentUuid": "58115a41_ddf79f01",
+      "range": {
+        "startLine": 112,
+        "startChar": 11,
+        "endLine": 112,
+        "endChar": 17
+      },
+      "revId": "25ddb36cd84bf415dda372dbe3ef99905e377918",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
