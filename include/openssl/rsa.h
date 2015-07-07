@@ -59,6 +59,7 @@
 
 #include <openssl/base.h>
 
+#include <openssl/asn1.h>
 #include <openssl/engine.h>
 #include <openssl/ex_data.h>
 #include <openssl/thread.h>
@@ -115,6 +116,15 @@ OPENSSL_EXPORT int RSA_generate_multi_prime_key(RSA *rsa, int bits,
 #define RSA_PKCS1_OAEP_PADDING 4
 /* RSA_PKCS1_PSS_PADDING can only be used via the EVP interface. */
 #define RSA_PKCS1_PSS_PADDING 6
+
+typedef struct rsa_pss_params_st {
+  X509_ALGOR *hashAlgorithm;
+  X509_ALGOR *maskGenAlgorithm;
+  ASN1_INTEGER *saltLength;
+  ASN1_INTEGER *trailerField;
+} RSA_PSS_PARAMS;
+
+DECLARE_ASN1_FUNCTIONS(RSA_PSS_PARAMS)
 
 /* RSA_encrypt encrypts |in_len| bytes from |in| to the public key from |rsa|
  * and writes, at most, |max_out| bytes of encrypted data to |out|. The
