@@ -69,6 +69,24 @@
       "revId": "4cc142e7e690c8a7a5748ff635c0513a011c215d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f356b1ec_587831a1",
+        "filename": "include/openssl/ecdsa.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-07-07T02:28:36Z",
+      "side": 1,
+      "message": "Folks said that they can\u0027t take C++ anyway.\n\nNone of the alternatives seem very attractive so let\u0027s go with this for now.",
+      "parentUuid": "58115a41_9ddec7ce",
+      "revId": "4cc142e7e690c8a7a5748ff635c0513a011c215d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
