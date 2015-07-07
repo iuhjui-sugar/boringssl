@@ -33,6 +33,24 @@
       "revId": "4cc142e7e690c8a7a5748ff635c0513a011c215d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f356b1ec_95a8a4ea",
+        "filename": "include/openssl/ecdsa.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-07-07T01:09:07Z",
+      "side": 1,
+      "message": "This does seem like a bit of a mess. I\u0027ve just sent an email to check if it would mess someone up, but maybe we can switch to C++ and use higher-order functions here?\n\ntemplate\u003ctypename T\u003e\nT* CBS_parse_from_bytes(T* (*func)(CBS *cbs), const uint8_t *in, size_t in_len);",
+      "parentUuid": "1386e596_a3166404",
+      "revId": "4cc142e7e690c8a7a5748ff635c0513a011c215d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
