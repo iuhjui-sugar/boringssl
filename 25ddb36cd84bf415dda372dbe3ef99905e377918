@@ -22,6 +22,30 @@
       "revId": "25ddb36cd84bf415dda372dbe3ef99905e377918",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58115a41_ddf79f01",
+        "filename": "crypto/evp/p_rsa_asn1.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-07T05:06:36Z",
+      "side": 1,
+      "message": "*headdesk* Fixed.\n\nChromium\u0027s WebCrypto tests would have caught this, but we really ought to have some standalone PKCS #8 tests.",
+      "parentUuid": "f356b1ec_b8283d91",
+      "range": {
+        "startLine": 112,
+        "startChar": 11,
+        "endLine": 112,
+        "endChar": 17
+      },
+      "revId": "25ddb36cd84bf415dda372dbe3ef99905e377918",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
