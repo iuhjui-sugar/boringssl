@@ -51,6 +51,24 @@
       "revId": "4cc142e7e690c8a7a5748ff635c0513a011c215d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58115a41_9ddec7ce",
+        "filename": "include/openssl/ecdsa.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-07T01:39:26Z",
+      "side": 1,
+      "message": "Hrm, maybe. Though C++ doesn\u0027t know that, should CBS_len \u003d\u003d 0 fail, you free the temporary with T_free. C++ also doesn\u0027t know what errors to put on the queue. (err is kind of nasty, but I do think we should try to make individual functions either uniformly do or don\u0027t use err.)\n\nOther options:\n\n1. Macros. This is annoying since part of crypto/asn1\u0027s pain is macros, but these might be more tasteful. There\u0027s also some duplication in the i2d/d2i compatibility functions as it is.\n\n2. Short type-casting macros along with a base function that takes void* a la sk and lh.\n\n3. Don\u0027t bother with these and only have the CBB/CBS ones. CBB_zero makes it a lot less tedious and i2d/d2i took a bit of boilerplate too. It does mean you have to remember to push to err though, since CBB doesn\u0027t use err. But we could make CBB_init_err and CBB_finish_err if we really want. I would be sad to lose the CBS_len check though. Seems easy to forget.",
+      "parentUuid": "f356b1ec_95a8a4ea",
+      "revId": "4cc142e7e690c8a7a5748ff635c0513a011c215d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
