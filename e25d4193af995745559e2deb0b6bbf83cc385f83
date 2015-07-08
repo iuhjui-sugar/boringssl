@@ -213,6 +213,24 @@
     },
     {
       "key": {
+        "uuid": "58115a41_eff74101",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1311,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-08T19:01:15Z",
+      "side": 1,
+      "message": "Enums for the ECDHE curve name should either be the OID (NIDs should not be considered stable) or the TLS supported_curves number. I dunno if TLS Curve25519 will end up having an OID or not... TLS never actually uses OIDs, so the latter is probably better? We currently use a NID internally, but I\u0027d been thinking the curve number might be better.",
+      "parentUuid": "93abb5ef_2cfb53b9",
+      "revId": "e25d4193af995745559e2deb0b6bbf83cc385f83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "53d21de8_f5f7f2c7",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 2
