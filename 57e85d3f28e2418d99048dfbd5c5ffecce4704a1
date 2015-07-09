@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "58115a41_77ad47f6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-09T05:15:46Z",
+      "side": 1,
+      "message": "Not sure if this was intentional or an oversight, but this is what I meant when I suggested doing CBB_len rather than CBB_remaining. (If you prefer the current semantics, the original CBB_remaining is probably a better name.)\n\nMy motivation was mostly to avoid having APIs which distinguished fixed and non-fixed CBB. Hopefully the ret +\u003d CBB_len(\u0026cbb) call can go away when it\u0027s all converted, but I expect the len_before/len_after check will remain.\n\nRight now init_buf is this weird mix of fixed buffer and growable buffer (some messages call BUF_MEM_grow). I was thinking eventually it could just be a growable CBB, on grounds that we don\u0027t care terribly much about being allocation-averse during the handshake. (Likewise, I\u0027m thinking the future buffer-free API won\u0027t bother being in-place in the handshake and just give you a newly-allocated buffer[*]. That way we don\u0027t have to worry about what happens if the user supplies a buffer that\u0027s too small.)\n\n\n[*] Well. List of buffers... DTLS has interesting packeting constraints.",
+      "revId": "57e85d3f28e2418d99048dfbd5c5ffecce4704a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58115a41_f7f71701",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-09T05:15:46Z",
+      "side": 1,
+      "message": "It\u0027d be mildly prettier if it were counting up to the offset of |cbb| when it was created, but that\u0027s stored in the parent |CBB|, which we don\u0027t have access to. This is sufficient for our purposes though.",
+      "range": {
+        "startLine": 287,
+        "startChar": 58,
+        "endLine": 287,
+        "endChar": 67
+      },
+      "revId": "57e85d3f28e2418d99048dfbd5c5ffecce4704a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
