@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "387026c3_7ffc2769",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1246,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-09T18:56:01Z",
+      "side": 1,
+      "message": "[Hopefully we can eventually figure out how to unify that... :-) ]",
+      "revId": "86577b4bb7fc65b276d59f0fa8dd86860a043add",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "387026c3_ffa83764",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1257,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-09T18:56:01Z",
+      "side": 1,
+      "message": "[Documenting for posterity: the reason this assert has to happen after line 1251 is that, even if SSL_OP_NO_TICKET is set, parse_clienthello may be called---we\u0027ll just ignore the ticket---and so the extension system\u0027s automatic ignoring of unsent extensions will not kick in.]",
+      "revId": "86577b4bb7fc65b276d59f0fa8dd86860a043add",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
