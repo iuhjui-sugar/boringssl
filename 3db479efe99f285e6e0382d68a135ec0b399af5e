@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "387026c3_5f3fe376",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1431,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-09T19:26:20Z",
+      "side": 1,
+      "message": "any",
+      "range": {
+        "startLine": 1431,
+        "startChar": 8,
+        "endLine": 1431,
+        "endChar": 14
+      },
+      "revId": "3db479efe99f285e6e0382d68a135ec0b399af5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "387026c3_dfa5333e",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1456,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-09T19:26:20Z",
+      "side": 1,
+      "message": "It would be an application error, but do we want to check that selected_len fits in a uint8_t, just so it locally avoids overflow?",
+      "revId": "3db479efe99f285e6e0382d68a135ec0b399af5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "387026c3_ff1cb7f2",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1479,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-09T19:26:20Z",
+      "side": 1,
+      "message": "Now that they\u0027re not close together, this check probably warrants a comment like:\n\n/* If the ALPN extension is seen before NPN, ignore it. (If ALPN is seen afterwards, parsing the ALPN extension will clear |next_proto_neg_seen|. */\n\n[That logic is kinda awkward. I wonder if we should later revise this to separate parsing out all the extensions from processing them, so we can\u0027t be sensitive to the order. Eh. I guess NPN/ALPN is really the only case of them interacting and that\u0027ll go away later.]",
+      "revId": "3db479efe99f285e6e0382d68a135ec0b399af5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "387026c3_1f2f2b18",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1497,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-09T19:26:20Z",
+      "side": 1,
+      "message": "Do you prefer unsigned int or unsigned? I\u0027d gotten the impression \u0027unsigned\u0027 was the preference before, but I don\u0027t terribly care myself. I just don\u0027t like unnecessary degrees of freedom. :-)",
+      "range": {
+        "startLine": 1497,
+        "startChar": 2,
+        "endLine": 1497,
+        "endChar": 14
+      },
+      "revId": "3db479efe99f285e6e0382d68a135ec0b399af5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
