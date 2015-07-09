@@ -39,6 +39,30 @@
       "revId": "57e85d3f28e2418d99048dfbd5c5ffecce4704a1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58115a41_37b7cf46",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-09T05:16:27Z",
+      "side": 1,
+      "message": "s/counting up to/counting up from/",
+      "parentUuid": "58115a41_f7f71701",
+      "range": {
+        "startLine": 287,
+        "startChar": 58,
+        "endLine": 287,
+        "endChar": 67
+      },
+      "revId": "57e85d3f28e2418d99048dfbd5c5ffecce4704a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
