@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "387026c3_ffb83732",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 945,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-09T19:44:26Z",
+      "side": 1,
+      "message": "Maybe add, just so marshal/unmarshal stay opposites.\n\nm.alpnProtocolEmpty \u003d l \u003d\u003d 0\n\n(Or perhaps have this reject l \u003d\u003d 0 so that it only parses standard ones. Minor bug in the original code it seems.)",
+      "revId": "643adbd7a10a915589bf22a5e62b4f22a67801ba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
