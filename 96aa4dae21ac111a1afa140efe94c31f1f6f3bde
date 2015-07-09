@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "387026c3_df00d3c2",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1295,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-09T19:00:17Z",
+      "side": 1,
+      "message": "Probably want a:\n *out_alert \u003d SSL_AD_UNSUPPORTED_EXTENSION;\n?",
+      "revId": "96aa4dae21ac111a1afa140efe94c31f1f6f3bde",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
