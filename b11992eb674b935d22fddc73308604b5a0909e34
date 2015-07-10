@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d880eac6_bfb2bbce",
+        "filename": "crypto/poly1305/poly1305_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-10T03:44:05Z",
+      "side": 1,
+      "message": "Language-wise, this should be fine I think. alignas seems to be a keyword in C++11, so we don\u0027t need library support.\n\nThe documentation says _finish always needs alignment, but e_chacha20poly1305.c only does it for ARM. For a 16-byte output, perhaps we should just remove this requirement? It seems kinda annoying.",
+      "range": {
+        "startLine": 44,
+        "startChar": 2,
+        "endLine": 44,
+        "endChar": 13
+      },
+      "revId": "b11992eb674b935d22fddc73308604b5a0909e34",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
