@@ -22,6 +22,30 @@
       "revId": "b11992eb674b935d22fddc73308604b5a0909e34",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38d586cf_74e2261a",
+        "filename": "crypto/poly1305/poly1305_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-07-10T18:43:59Z",
+      "side": 1,
+      "message": "I think only the ARM code needs the alignment, but all callers are expected to provide it. For callers within BoringSSL, it\u0027s somewhat ok to cheat.\n\nThe alignment is annoying and I go back and forth on it. It\u0027s pleasing to have everything lined up working smoothly but, without type-system support, it\u0027s difficult to get right. If you wrote a patch to do the needed memcpy, I would very likely cave.",
+      "parentUuid": "d880eac6_bfb2bbce",
+      "range": {
+        "startLine": 44,
+        "startChar": 2,
+        "endLine": 44,
+        "endChar": 13
+      },
+      "revId": "b11992eb674b935d22fddc73308604b5a0909e34",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
