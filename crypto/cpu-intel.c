@@ -63,13 +63,58 @@
 
 #if !defined(OPENSSL_NO_ASM) && (defined(OPENSSL_X86) || defined(OPENSSL_X86_64))
 
+#include <assert.h>
 #include <inttypes.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
-/* OPENSSL_ia32_cpuid is defined in cpu-x86_64-asm.pl. */
-extern uint64_t OPENSSL_ia32_cpuid(uint32_t*);
+#if defined(OPENSSL_WINDOWS)
+#include <immintrin.h>
+#include <intrin.h>
+#endif
+
+
+#define INDEX_EAX 0
+#define INDEX_EBX 1
+#define INDEX_ECX 2
+#define INDEX_EDX 3
+
+#if !defined(OPENSSL_WINDOWS)
+/* __cpuid runs the cpuid instruction. |info_type| is passed in as EAX and ECX
+ * is set to zero. It writes EAX, EBX, ECX, and EDX to |out_cpu_info|, in that
+ * order. */
+void __cpuid(uint32_t out_cpu_info[4], uint32_t info_type) {
+#if defined(__pic__) && defined(__i386__)
+  __asm__ volatile (
+    "xor %%ecx, %%ecx\n"
+    "mov %%ebx, %%edi\n"
+    "cpuid\n"
+    "xchg %%edi, %%ebx\n"
+    : "=a"(out_cpu_info[0]), "=D"(out_cpu_info[1]), "=c"(out_cpu_info[2]),
+      "=d"(out_cpu_info[3])
+    : "a"(info_type)
+  );
+#else
+  __asm__ volatile (
+    "xor %%ecx, %%ecx\n"
+    "cpuid\n"
+    : "=a"(out_cpu_info[0]), "=b"(out_cpu_info[1]), "=c"(out_cpu_info[2]),
+      "=d"(out_cpu_info[3])
+    : "a"(info_type)
+  );
+#endif
+}
+
+/* _xgetbv returns the value of an Intel Extended Control Register (XCR).
+ * Currently only XCR0 is defined by Intel so |xcr| should always be zero. */
+uint64_t _xgetbv(uint32_t xcr) {
+  uint32_t eax, edx;
+
+  __asm__ volatile ("xgetbv" : "=a"(eax), "=d"(edx) : "c"(xcr));
+  return (((uint64_t)edx) << 32) | eax;
+}
+#endif /* !OPENSSL_WINDOWS */
 
 /* handle_cpu_env applies the value from |in| to the CPUID values in |out[0]|
  * and |out[1]|. See the comment in |OPENSSL_cpuid_setup| about this. */
@@ -91,18 +136,123 @@ static void handle_cpu_env(uint32_t *out, const char *in) {
 }
 
 void OPENSSL_cpuid_setup(void) {
+  /* Determine the vendor and maximum input value. */
+  uint32_t cpu_info[4];
+  __cpuid(cpu_info, 0);
+
+  uint32_t num_ids = cpu_info[INDEX_EAX];
+
+  int is_intel = cpu_info[INDEX_EBX] == 0x756e6547 /* Genu */ &&
+                 cpu_info[INDEX_EDX] == 0x49656e69 /* ineI */ &&
+                 cpu_info[INDEX_ECX] == 0x6c65746e /* ntel */;
+  int is_amd = cpu_info[INDEX_EBX] == 0x68747541 /* Auth */ &&
+               cpu_info[INDEX_EDX] == 0x69746e65 /* enti */ &&
+               cpu_info[INDEX_ECX] == 0x444d4163 /* cAMD */;
+
+  int has_amd_xop = 0;
+  uint32_t num_amd_extended_ids = 0;
+  if (is_amd) {
+    /* AMD-specific logic.
+     * See http://developer.amd.com/wordpress/media/2012/10/254811.pdf */
+    __cpuid(cpu_info, 0x80000000);
+    num_amd_extended_ids = cpu_info[INDEX_EAX];
+    if (num_amd_extended_ids >= 0x80000001) {
+      __cpuid(cpu_info, 0x80000001);
+      if (cpu_info[INDEX_ECX] & (1 << 11)) {
+        has_amd_xop = 1;
+      }
+    }
+  }
+
+  uint32_t extended_features = 0;
+  if (num_ids >= 7) {
+    __cpuid(cpu_info, 7);
+    extended_features = cpu_info[INDEX_EBX];
+  }
+
+  /* Query the main feature flags and adjust the hyper-threading bit.
+   *
+   * TODO(davidben): Can the AMD half of logic be trimmed down? I haven't found
+   * evidence that any current AMD CPUs share an L1 data cache between threads,
+   * and the CPUID manual suggests this code will always clear HTT on AMD. Only
+   * aes-586.pl queries this, so hopefully any future CPUs will use better
+   * implementations. */
+  if (num_amd_extended_ids >= 0x80000008) {
+    assert(is_amd);
+    __cpuid(cpu_info, 0x80000008);
+    uint32_t num_physical_cores = 1 + (cpu_info[INDEX_ECX] & 0xff);
+
+    __cpuid(cpu_info, 1);
+
+    /* Correct the hyper-threading bit. */
+    if (cpu_info[INDEX_EDX] & (1 << 28)) {
+      uint32_t num_logical_cores = (cpu_info[INDEX_EBX] >> 16) & 0xff;
+      if (num_logical_cores <= num_physical_cores) {
+        cpu_info[INDEX_EDX] &= ~(1 << 28);
+      }
+    }
+  } else {
+    uint32_t cores_per_cache = 0;
+    if (num_ids >= 4) {
+      /* TODO(davidben): The Intel manual says this CPUID leaf enumerates all
+       * caches using ECX and doesn't say which is first. Does this matter? */
+      __cpuid(cpu_info, 4);
+      cores_per_cache = 1 + ((cpu_info[INDEX_EAX] >> 14) & 0xfff);
+    }
+
+    __cpuid(cpu_info, 1);
+
+    /* Correct the hyper-threading bit if the data cache isn't shared between
+     * logical cores. */
+    if (cpu_info[INDEX_EDX] & (1 << 28)) {
+      uint32_t num_logical_cores = (cpu_info[INDEX_EBX] >> 16) & 0xff;
+      if (cores_per_cache == 1 || num_logical_cores <= 1) {
+        cpu_info[INDEX_EDX] &= ~(1 << 28);
+      }
+    }
+  }
+
+  /* Reserved bit #20 was historically repurposed to control the in-memory
+   * representation of RC4 state. Always set it to zero. */
+  cpu_info[INDEX_EDX] &= ~(1 << 20);
+
+  /* Reserved bit #30 is repurposed to signal an Intel CPU. */
+  if (is_intel) {
+    cpu_info[INDEX_EDX] |= (1 << 30);
+  } else {
+    cpu_info[INDEX_EDX] &= ~(1 << 30);
+  }
+
+  /* The SDBG bit is repurposed to denote AMD XOP support. */
+  if (has_amd_xop) {
+    cpu_info[INDEX_ECX] |= (1 << 11);
+  } else {
+    cpu_info[INDEX_ECX] &= ~(1 << 11);
+  }
+
+  uint64_t xcr0 = 0;
+  if (cpu_info[INDEX_ECX] & (1 << 27)) {
+    /* XCR0 may only be queried if the OSXSAVE bit is set. */
+    xcr0 = _xgetbv(0);
+  }
+  /* TODO(davidben): Should this just be xcr0 & 4? */
+  if ((xcr0 & 6) != 6) {
+    /* YMM registers cannot be used. */
+    cpu_info[INDEX_ECX] &= ~(1 << 28); /* AVX */
+    cpu_info[INDEX_ECX] &= ~(1 << 12); /* FMA */
+    cpu_info[INDEX_ECX] &= ~(1 << 11); /* AMD XOP */
+    extended_features &= ~(1 << 5); /* AVX2 */
+  }
+
+  /* TODO(davidben): Should all the XMM-using instructions preadjust for the
+   * FXSR bit? Notably, e_aes.c doesn't check it. */
+
+  OPENSSL_ia32cap_P[0] = cpu_info[INDEX_EDX];
+  OPENSSL_ia32cap_P[1] = cpu_info[INDEX_ECX];
+  OPENSSL_ia32cap_P[2] = extended_features;
+  OPENSSL_ia32cap_P[3] = 0;
+
   const char *env1, *env2;
-
-#if defined(OPENSSL_X86_64)
-  OPENSSL_ia32_cpuid(OPENSSL_ia32cap_P);
-#else
-  uint64_t vec = OPENSSL_ia32_cpuid(OPENSSL_ia32cap_P);
-  /* 1<<10 sets a reserved bit to indicate that the variable
-   * was already initialised. */
-  OPENSSL_ia32cap_P[0] = ((uint32_t)vec) | (1 << 10);
-  OPENSSL_ia32cap_P[1] = vec >> 32;
-#endif
-
   env1 = getenv("OPENSSL_ia32cap");
   if (env1 == NULL) {
     return;
