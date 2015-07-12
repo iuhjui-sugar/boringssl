@@ -150,13 +150,12 @@ void OPENSSL_cpuid_setup(void) {
                cpu_info[INDEX_ECX] == 0x444d4163 /* cAMD */;
 
   int has_amd_xop = 0;
-  uint32_t num_amd_extended_ids = 0;
   if (is_amd) {
     /* AMD-specific logic.
      * See http://developer.amd.com/wordpress/media/2012/10/254811.pdf */
     __cpuid(cpu_info, 0x80000000);
-    num_amd_extended_ids = cpu_info[INDEX_EAX];
-    if (num_amd_extended_ids >= 0x80000001) {
+    uint32_t num_extended_ids = cpu_info[INDEX_EAX];
+    if (num_extended_ids >= 0x80000001) {
       __cpuid(cpu_info, 0x80000001);
       if (cpu_info[INDEX_ECX] & (1 << 11)) {
         has_amd_xop = 1;
@@ -170,45 +169,27 @@ void OPENSSL_cpuid_setup(void) {
     extended_features = cpu_info[INDEX_EBX];
   }
 
-  /* Query the main feature flags and adjust the hyper-threading bit.
-   *
-   * TODO(davidben): Can the AMD half of logic be trimmed down? I haven't found
-   * evidence that any current AMD CPUs share an L1 data cache between threads,
-   * and the CPUID manual suggests this code will always clear HTT on AMD. Only
-   * aes-586.pl queries this, so hopefully any future CPUs will use better
-   * implementations. */
-  if (num_amd_extended_ids >= 0x80000008) {
-    assert(is_amd);
-    __cpuid(cpu_info, 0x80000008);
-    uint32_t num_physical_cores = 1 + (cpu_info[INDEX_ECX] & 0xff);
+  /* Determine the number of cores sharing an L1 data cache to adjust the
+   * hyper-threading bit. */
+  uint32_t cores_per_cache = 0;
+  if (is_amd) {
+    /* AMD CPUs never share an L1 data cache between threads but do set the HTT
+     * bit on multi-core CPUs. */
+    cores_per_cache = 1;
+  } else if (num_ids >= 4) {
+    /* TODO(davidben): The Intel manual says this CPUID leaf enumerates all
+     * caches using ECX and doesn't say which is first. Does this matter? */
+    __cpuid(cpu_info, 4);
+    cores_per_cache = 1 + ((cpu_info[INDEX_EAX] >> 14) & 0xfff);
+  }
 
-    __cpuid(cpu_info, 1);
+  __cpuid(cpu_info, 1);
 
-    /* Correct the hyper-threading bit. */
-    if (cpu_info[INDEX_EDX] & (1 << 28)) {
-      uint32_t num_logical_cores = (cpu_info[INDEX_EBX] >> 16) & 0xff;
-      if (num_logical_cores <= num_physical_cores) {
-        cpu_info[INDEX_EDX] &= ~(1 << 28);
-      }
-    }
-  } else {
-    uint32_t cores_per_cache = 0;
-    if (num_ids >= 4) {
-      /* TODO(davidben): The Intel manual says this CPUID leaf enumerates all
-       * caches using ECX and doesn't say which is first. Does this matter? */
-      __cpuid(cpu_info, 4);
-      cores_per_cache = 1 + ((cpu_info[INDEX_EAX] >> 14) & 0xfff);
-    }
-
-    __cpuid(cpu_info, 1);
-
-    /* Correct the hyper-threading bit if the data cache isn't shared between
-     * logical cores. */
-    if (cpu_info[INDEX_EDX] & (1 << 28)) {
-      uint32_t num_logical_cores = (cpu_info[INDEX_EBX] >> 16) & 0xff;
-      if (cores_per_cache == 1 || num_logical_cores <= 1) {
-        cpu_info[INDEX_EDX] &= ~(1 << 28);
-      }
+  /* Adjust the hyper-threading bit. */
+  if (cpu_info[INDEX_EDX] & (1 << 28)) {
+    uint32_t num_logical_cores = (cpu_info[INDEX_EBX] >> 16) & 0xff;
+    if (cores_per_cache == 1 || num_logical_cores <= 1) {
+      cpu_info[INDEX_EDX] &= ~(1 << 28);
     }
   }
 
