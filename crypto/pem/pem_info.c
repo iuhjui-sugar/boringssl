@@ -312,7 +312,6 @@ err:
 int PEM_X509_INFO_write_bio(BIO *bp, X509_INFO *xi, EVP_CIPHER *enc,
 	     unsigned char *kstr, int klen, pem_password_cb *cb, void *u)
 	{
-	EVP_CIPHER_CTX ctx;
 	int i,ret=0;
 	unsigned char *data=NULL;
 	const char *objstr=NULL;
@@ -398,7 +397,5 @@ int PEM_X509_INFO_write_bio(BIO *bp, X509_INFO *xi, EVP_CIPHER *enc,
 	ret=1;
 
 err:
-	OPENSSL_cleanse((char *)&ctx,sizeof(ctx));
-	OPENSSL_cleanse(buf,PEM_BUFSIZE);
 	return(ret);
 	}

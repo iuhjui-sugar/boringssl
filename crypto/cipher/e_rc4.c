@@ -157,7 +157,6 @@ aead_rc4_md5_tls_init(EVP_AEAD_CTX *ctx, const uint8_t *key, size_t key_len,
 
 static void aead_rc4_md5_tls_cleanup(EVP_AEAD_CTX *ctx) {
   struct aead_rc4_md5_tls_ctx *rc4_ctx = ctx->aead_state;
-  OPENSSL_cleanse(rc4_ctx, sizeof(struct aead_rc4_md5_tls_ctx));
   OPENSSL_free(rc4_ctx);
 }
 

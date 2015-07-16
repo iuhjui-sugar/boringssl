@@ -277,7 +277,6 @@ int tls1_prf(SSL *s, uint8_t *out, size_t out_len, const uint8_t *secret,
   ret = 1;
 
 err:
-  OPENSSL_cleanse(tmp, out_len);
   OPENSSL_free(tmp);
   return ret;
 }

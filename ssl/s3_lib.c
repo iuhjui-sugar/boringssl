@@ -235,7 +235,6 @@ void ssl3_free(SSL *s) {
   ssl3_free_digest_list(s);
   OPENSSL_free(s->s3->alpn_selected);
 
-  OPENSSL_cleanse(s->s3, sizeof *s->s3);
   OPENSSL_free(s->s3);
   s->s3 = NULL;
 }

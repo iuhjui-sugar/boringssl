@@ -1094,7 +1094,6 @@ static int aead_aes_gcm_init(EVP_AEAD_CTX *ctx, const uint8_t *key,
 
 static void aead_aes_gcm_cleanup(EVP_AEAD_CTX *ctx) {
   struct aead_aes_gcm_ctx *gcm_ctx = ctx->aead_state;
-  OPENSSL_cleanse(gcm_ctx, sizeof(struct aead_aes_gcm_ctx));
   OPENSSL_free(gcm_ctx);
 }
 
@@ -1267,7 +1266,6 @@ static int aead_aes_key_wrap_init(EVP_AEAD_CTX *ctx, const uint8_t *key,
 
 static void aead_aes_key_wrap_cleanup(EVP_AEAD_CTX *ctx) {
   struct aead_aes_key_wrap_ctx *kw_ctx = ctx->aead_state;
-  OPENSSL_cleanse(kw_ctx, sizeof(struct aead_aes_key_wrap_ctx));
   OPENSSL_free(kw_ctx);
 }
 
@@ -1567,7 +1565,6 @@ static int aead_aes_ctr_hmac_sha256_init(EVP_AEAD_CTX *ctx, const uint8_t *key,
 
 static void aead_aes_ctr_hmac_sha256_cleanup(EVP_AEAD_CTX *ctx) {
   struct aead_aes_ctr_hmac_sha256_ctx *aes_ctx = ctx->aead_state;
-  OPENSSL_cleanse(aes_ctx, sizeof(struct aead_aes_ctr_hmac_sha256_ctx));
   OPENSSL_free(aes_ctx);
 }
 

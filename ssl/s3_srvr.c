@@ -1953,7 +1953,6 @@ int ssl3_get_client_key_exchange(SSL *s) {
       goto err;
     }
 
-    OPENSSL_cleanse(premaster_secret, premaster_secret_len);
     OPENSSL_free(premaster_secret);
     premaster_secret = new_data;
     premaster_secret_len = new_len;
@@ -1967,19 +1966,13 @@ int ssl3_get_client_key_exchange(SSL *s) {
   }
   s->session->extended_master_secret = s->s3->tmp.extended_master_secret;
 
-  OPENSSL_cleanse(premaster_secret, premaster_secret_len);
   OPENSSL_free(premaster_secret);
   return 1;
 
 f_err:
   ssl3_send_alert(s, SSL3_AL_FATAL, al);
 err:
-  if (premaster_secret) {
-    if (premaster_secret_len) {
-      OPENSSL_cleanse(premaster_secret, premaster_secret_len);
-    }
-    OPENSSL_free(premaster_secret);
-  }
+  OPENSSL_free(premaster_secret);
   OPENSSL_free(decrypt_buf);
   EVP_PKEY_free(clnt_pub_pkey);
   EC_POINT_free(clnt_ecpoint);

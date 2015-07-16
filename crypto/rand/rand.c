@@ -66,7 +66,6 @@ static void rand_thread_state_free(void *state) {
     return;
   }
 
-  OPENSSL_cleanse(state, sizeof(struct rand_thread_state));
   OPENSSL_free(state);
 }
 

@@ -136,7 +136,6 @@ p8err:
 
 err:
 	OPENSSL_free(nm);
-	OPENSSL_cleanse(data, len);
 	OPENSSL_free(data);
 	return(ret);
 	}

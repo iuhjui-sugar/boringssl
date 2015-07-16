@@ -72,32 +72,54 @@
 #include <strings.h>
 #endif
 
-
-void *OPENSSL_realloc_clean(void *ptr, size_t old_size, size_t new_size) {
-  void *ret = NULL;
-
+void *OPENSSL_malloc(size_t size) {
+  if (size + sizeof(size_t) < size) {
+    return NULL;
+  }
+  void *ptr = malloc(size + sizeof(size_t));
   if (ptr == NULL) {
+    return NULL;
+  }
+
+  memcpy(ptr, &size, sizeof(size_t));
+
+  return ((uint8_t*) ptr) + sizeof(size_t);
+}
+
+void OPENSSL_free(void *orig_ptr) {
+  if (orig_ptr == NULL) {
+    return;
+  }
+
+  void *ptr = ((uint8_t*) orig_ptr) - sizeof(size_t);
+  size_t size;
+  memcpy(&size, ptr, sizeof(size_t));
+  OPENSSL_cleanse(orig_ptr, size);
+  free(ptr);
+}
+
+void *OPENSSL_realloc(void *const orig_ptr, size_t new_size) {
+  if (orig_ptr == NULL) {
     return OPENSSL_malloc(new_size);
   }
 
-  if (new_size == 0) {
-    return NULL;
-  }
+  void *ptr = ((uint8_t*) orig_ptr) - sizeof(size_t);
+  size_t old_size;
+  memcpy(&old_size, ptr, sizeof(size_t));
 
-  /* We don't support shrinking the buffer. Note the memcpy that copies
-   * |old_size| bytes to the new buffer, below. */
-  if (new_size < old_size) {
-    return NULL;
-  }
-
-  ret = OPENSSL_malloc(new_size);
+  void *ret = OPENSSL_malloc(new_size);
   if (ret == NULL) {
     return NULL;
   }
 
-  memcpy(ret, ptr, old_size);
-  OPENSSL_cleanse(ptr, old_size);
-  OPENSSL_free(ptr);
+  size_t to_copy = new_size;
+  if (old_size < to_copy) {
+    to_copy = old_size;
+  }
+
+  memcpy(ret, orig_ptr, to_copy);
+  OPENSSL_free(orig_ptr);
+
   return ret;
 }
 

@@ -644,7 +644,6 @@ void EC_POINT_clear_free(EC_POINT *point) {
   } else if (point->meth->point_finish != 0) {
     point->meth->point_finish(point);
   }
-  OPENSSL_cleanse(point, sizeof *point);
   OPENSSL_free(point);
 }
 

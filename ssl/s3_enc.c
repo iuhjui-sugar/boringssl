@@ -228,7 +228,6 @@ int ssl3_prf(SSL *s, uint8_t *out, size_t out_len, const uint8_t *secret,
 
 void ssl3_cleanup_key_block(SSL *s) {
   if (s->s3->tmp.key_block != NULL) {
-    OPENSSL_cleanse(s->s3->tmp.key_block, s->s3->tmp.key_block_length);
     OPENSSL_free(s->s3->tmp.key_block);
     s->s3->tmp.key_block = NULL;
   }
