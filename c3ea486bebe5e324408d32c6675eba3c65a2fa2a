@@ -1,0 +1,220 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d8f38a19_fee621aa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-17T15:04:22Z",
+      "side": 1,
+      "message": "There isn\u0027t a very easy way to grep for this unfortunately. :-/ We\u0027d probably just have to try it and see what breaks.",
+      "revId": "c3ea486bebe5e324408d32c6675eba3c65a2fa2a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "98fd92eb_9ca605cb",
+        "filename": "crypto/bn/bn.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-17T15:04:22Z",
+      "side": 1,
+      "message": "This is actually kind of weird; I was going to say, in the spirit of this change, you could make BN_free and BN_clear_free do the same thing. But they\u0027re not compatible in the BN_FLG_STATIC_DATA case. I wonder if we should be cleansing BN_FLG_STATIC_DATA at all. It\u0027s used in:\n\n- BN_with_flags; one would think mutating that data is verboten and you should be cleansing at the original one. (I haven\u0027t checked all the\n- crypto/dh STATIC_BIGNUMS. Well, that data\u0027s const anyway, and we don\u0027t BN_(clear_)free it.\n- Some temporary in exponentiation.c? Probably also shouldn\u0027t do anything, but it doesn\u0027t call BN_clear_free on it.\n\n(Nothing outside the project uses BN_with_flags.)",
+      "revId": "c3ea486bebe5e324408d32c6675eba3c65a2fa2a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "98fd92eb_1cfe752d",
+        "filename": "crypto/bn/bn.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-17T15:04:22Z",
+      "side": 1,
+      "message": "OPENSSL_cleanse(bn, sizeof(BIGNUM))?",
+      "revId": "c3ea486bebe5e324408d32c6675eba3c65a2fa2a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "18ea8220_00744677",
+        "filename": "crypto/bn/random.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-17T15:04:22Z",
+      "side": 1,
+      "message": "This check can go away now.",
+      "revId": "c3ea486bebe5e324408d32c6675eba3c65a2fa2a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d81c6a21_56c9f447",
+        "filename": "crypto/buf/buf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-17T15:04:22Z",
+      "side": 1,
+      "message": "This can just call BUF_MEM_grow now and buf_mem_grow folded in. (Could even deprecate BUF_MEM_grow_clean. There aren\u0027t any external callers, which makes sense---why would you use BUF_MEM if you aren\u0027t internal to the library?)",
+      "revId": "c3ea486bebe5e324408d32c6675eba3c65a2fa2a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "98fd92eb_3c96d153",
+        "filename": "crypto/cipher/cipher.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-17T15:04:22Z",
+      "side": 1,
+      "message": "!\u003d NULL?",
+      "range": {
+        "startLine": 97,
+        "startChar": 45,
+        "endLine": 97,
+        "endChar": 46
+      },
+      "revId": "c3ea486bebe5e324408d32c6675eba3c65a2fa2a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38e3c64b_81333afd",
+        "filename": "crypto/digest/digest.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-17T15:04:22Z",
+      "side": 1,
+      "message": "I think this entire check can go away now that we don\u0027t have an OPENSSL_cleanse to guard.",
+      "revId": "c3ea486bebe5e324408d32c6675eba3c65a2fa2a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f805aec3_b7f68889",
+        "filename": "crypto/mem.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-17T15:04:22Z",
+      "side": 1,
+      "message": "I like that this\u0027ll make OPENSSL_malloc(0) not return NULL. :-) Having to special-case length \u003d 0 is a little awkward.",
+      "revId": "c3ea486bebe5e324408d32c6675eba3c65a2fa2a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "18ea8220_c069bea5",
+        "filename": "crypto/mem.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-17T15:04:22Z",
+      "side": 1,
+      "message": "If anything prefers \u003e sizeof(size_t) alignment and we were getting some performance out of malloc happening to return aligned data in practice, this\u0027ll break this somewhat. This is probably fine? The only giant buffer we allocate internally is already explicitly aligned.",
+      "revId": "c3ea486bebe5e324408d32c6675eba3c65a2fa2a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58e07a3c_225b4e03",
+        "filename": "crypto/mem.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-17T15:04:22Z",
+      "side": 1,
+      "message": "This const needs to be in the header too or MSVC will throw a fit.",
+      "range": {
+        "startLine": 101,
+        "startChar": 28,
+        "endLine": 101,
+        "endChar": 33
+      },
+      "revId": "c3ea486bebe5e324408d32c6675eba3c65a2fa2a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38e3c64b_2136aeee",
+        "filename": "crypto/pem/pem_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-17T15:04:22Z",
+      "side": 1,
+      "message": "NULL check can go away now.",
+      "revId": "c3ea486bebe5e324408d32c6675eba3c65a2fa2a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f805aec3_97fb8471",
+        "filename": "include/openssl/mem.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-17T15:04:22Z",
+      "side": 1,
+      "message": "Not true anymore.",
+      "revId": "c3ea486bebe5e324408d32c6675eba3c65a2fa2a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

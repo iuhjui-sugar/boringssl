@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d8f38a19_7ea051ab",
+        "filename": "include/openssl/mem.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-17T15:04:22Z",
+      "side": 0,
+      "message": "Losing this does mean that clang scan-build will probably no longer realize this is a malloc. I think this is fine---I have found a couple of bugs with it, but honestly it\u0027s mostly noise. It\u0027s a pretty dumb tool. I could just locally patch the macros back in the next time I feel like running it.",
+      "revId": "7d7fdc8c6234a3d7011a6da57f16d50c0e8a1b73",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
