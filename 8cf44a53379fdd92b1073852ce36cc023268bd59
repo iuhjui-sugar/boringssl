@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "38858659_74714655",
+        "filename": "crypto/cpu-x86-asm.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-07-17T01:10:00Z",
+      "side": 0,
+      "message": "Do we need to worry about CPUs without cpuid?",
+      "revId": "8cf44a53379fdd92b1073852ce36cc023268bd59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38858659_347bbe35",
+        "filename": "crypto/cpu-x86-asm.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-07-17T01:10:00Z",
+      "side": 0,
+      "message": "This bit seems different in the C code.",
+      "revId": "8cf44a53379fdd92b1073852ce36cc023268bd59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

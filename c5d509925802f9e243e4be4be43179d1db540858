@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "38858659_54744246",
+        "filename": "crypto/cpu-intel.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-07-17T01:10:00Z",
+      "side": 1,
+      "message": "Technically we shouldn\u0027t be defining double-underscore symbols. Can we call this |cpuid| and, if |OPENSSL_WINDOWS|, #define cpuid __cpuid?",
+      "revId": "c5d509925802f9e243e4be4be43179d1db540858",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38858659_142d5a49",
+        "filename": "crypto/cpu-intel.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-07-17T01:10:00Z",
+      "side": 1,
+      "message": "Why save EBX? Is it used specifically for PIC? If so, comment?",
+      "revId": "c5d509925802f9e243e4be4be43179d1db540858",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38858659_f464569d",
+        "filename": "crypto/cpu-intel.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-07-17T01:10:00Z",
+      "side": 1,
+      "message": "Reference page 27.",
+      "revId": "c5d509925802f9e243e4be4be43179d1db540858",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38858659_94694a74",
+        "filename": "crypto/cpu-intel.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-07-17T01:10:00Z",
+      "side": 1,
+      "message": "reference page 13.",
+      "revId": "c5d509925802f9e243e4be4be43179d1db540858",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38858659_f44d3613",
+        "filename": "crypto/cpu-intel.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-07-17T01:10:00Z",
+      "side": 1,
+      "message": "The Intel manual says to use 6.",
+      "revId": "c5d509925802f9e243e4be4be43179d1db540858",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38858659_d4b11284",
+        "filename": "crypto/cpu-intel.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-07-17T01:10:00Z",
+      "side": 1,
+      "message": "Do you mean that OSFXSR bit in CR4? Section 13.5 of the Intel manual doesn\u0027t care so I don\u0027t think we need to.",
+      "revId": "c5d509925802f9e243e4be4be43179d1db540858",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
