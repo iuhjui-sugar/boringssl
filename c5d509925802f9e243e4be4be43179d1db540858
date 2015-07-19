@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "98fd92eb_bff65389",
+        "filename": "crypto/cpu-intel.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-19T02:08:48Z",
+      "side": 1,
+      "message": "Done. Also made it take four output variables so we can ditch the INDEX_FOO macros. I noticed that this didn\u0027t work on Windows anyway because I\u0027d changed the types away from int. If there\u0027s a wrapper anyway, individual eax-edx variables seems better? There\u0027s not really any information content in the names outside the registers anyway.",
+      "parentUuid": "38858659_54744246",
+      "revId": "c5d509925802f9e243e4be4be43179d1db540858",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "38858659_142d5a49",
         "filename": "crypto/cpu-intel.c",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2015-07-17T01:10:00Z",
       "side": 1,
       "message": "Why save EBX? Is it used specifically for PIC? If so, comment?",
+      "revId": "c5d509925802f9e243e4be4be43179d1db540858",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d8f38a19_de89a52e",
+        "filename": "crypto/cpu-intel.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-19T02:08:48Z",
+      "side": 1,
+      "message": "Dunno, I cribbed this from Chromium. :-) Seems gcc didn\u0027t let you clobber the PIC register. Found the gcc bug and added a comment.\n\n(The bug also references a cpuid.h, but it doesn\u0027t look like that one zeros ECX, so we can\u0027t use it for anything that requires subleafs (EAX\u003d7). MSVC documents __cpuid as setting ECX to zero.)",
+      "parentUuid": "38858659_142d5a49",
       "revId": "c5d509925802f9e243e4be4be43179d1db540858",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "f805aec3_fa8aa571",
+        "filename": "crypto/cpu-intel.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-19T02:08:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38858659_f464569d",
+      "revId": "c5d509925802f9e243e4be4be43179d1db540858",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "38858659_94694a74",
         "filename": "crypto/cpu-intel.c",
         "patchSetId": 2
@@ -64,6 +118,24 @@
       "writtenOn": "2015-07-17T01:10:00Z",
       "side": 1,
       "message": "reference page 13.",
+      "revId": "c5d509925802f9e243e4be4be43179d1db540858",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b8eed634_6040acb6",
+        "filename": "crypto/cpu-intel.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-19T02:08:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38858659_94694a74",
       "revId": "c5d509925802f9e243e4be4be43179d1db540858",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "f805aec3_1a6b1919",
+        "filename": "crypto/cpu-intel.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-19T02:08:48Z",
+      "side": 1,
+      "message": "Oh hrm. Replaced with Intel manual citation. Weird though. I would have thought that checking XCR0[1] is unnecessary for using XMM registers with AVX for the same reason checking them is unnecessary for using XMM registers with SSE2; the OS could decide to save those with FXSAVE rather than XSAVE.\n\n*shrug* This is all moot since I\u0027m sure every OS that does XSAVE also puts the SSE state in there when available.",
+      "parentUuid": "38858659_f44d3613",
+      "revId": "c5d509925802f9e243e4be4be43179d1db540858",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "38858659_d4b11284",
         "filename": "crypto/cpu-intel.c",
         "patchSetId": 2
@@ -98,6 +188,24 @@
       "writtenOn": "2015-07-17T01:10:00Z",
       "side": 1,
       "message": "Do you mean that OSFXSR bit in CR4? Section 13.5 of the Intel manual doesn\u0027t care so I don\u0027t think we need to.",
+      "revId": "c5d509925802f9e243e4be4be43179d1db540858",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "98fd92eb_fff0db8e",
+        "filename": "crypto/cpu-intel.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-19T02:08:48Z",
+      "side": 1,
+      "message": "I meant the FXSR bit of EDX, but looking through the Intel manual again, section 11.6 doesn\u0027t say anything about checking either, and EDX.FXSR just means the processor supports it, not that the operating system knows to use it.\n\nI guess there isn\u0027t any way to detect that and you\u0027re just supposed to know out-of-band that the operating system does. Which should be a perfectly reasonable assumption for us. Removed the TODO and the note in cpu.h because that didn\u0027t make much sense then.\n\nAlthough, strangely, many of our existing places still check the FXSR bit. Just not e_aes.c. Oh well.",
+      "parentUuid": "38858659_d4b11284",
       "revId": "c5d509925802f9e243e4be4be43179d1db540858",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false

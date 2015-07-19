@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "98fd92eb_bc8ae122",
+        "filename": "crypto/cpu-x86-asm.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-19T02:08:48Z",
+      "side": 0,
+      "message": "Oh right. I forgot to mention in the commit message.\n\nChromium\u0027s base/cpu.cc doesn\u0027t bother. (But we assume SSE these days.) Would our other consumers care? We do set OPENSSL_IA32_SSE2 unconditionally when building perlasm, so I\u0027m guessing the rest of our consumers are equally fine with assuming SSE2 as baseline.",
+      "parentUuid": "38858659_74714655",
+      "revId": "8cf44a53379fdd92b1073852ce36cc023268bd59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "38858659_347bbe35",
         "filename": "crypto/cpu-x86-asm.pl",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2015-07-17T01:10:00Z",
       "side": 0,
       "message": "This bit seems different in the C code.",
+      "revId": "8cf44a53379fdd92b1073852ce36cc023268bd59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38e3c64b_e40a1429",
+        "filename": "crypto/cpu-x86-asm.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-19T02:08:48Z",
+      "side": 0,
+      "message": "Yeah, I probably should have split that out. I believe this is equivalent after dropping the clear_xmm block. (See commit message.)",
+      "parentUuid": "38858659_347bbe35",
       "revId": "8cf44a53379fdd92b1073852ce36cc023268bd59",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
