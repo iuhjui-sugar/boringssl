@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f82f6e6e_673e3295",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1986,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-21T18:55:42Z",
+      "side": 1,
+      "message": "Probably for a follow-up, but I think we can change this whole thing to a boolean. We only do uncompressed and it seems 1.3 is ditching this.",
+      "revId": "eebd41503e7dc62521d72943d2de367abd734452",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
