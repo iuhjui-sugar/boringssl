@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f8568eec_230182c5",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-07-21T20:48:59Z",
+      "side": 1,
+      "message": "why needed?",
+      "revId": "b9ff19522a1b6047bd2f89bccb0032841c8961c2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f8568eec_43fe862e",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1270,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-07-21T20:48:59Z",
+      "side": 1,
+      "message": "\u0026\u0026 at the end of the line.",
+      "revId": "b9ff19522a1b6047bd2f89bccb0032841c8961c2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f8568eec_63fb8a3d",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1276,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-07-21T20:48:59Z",
+      "side": 1,
+      "message": "this can just be an \"else\", right? Or, better yet:\n\npkey \u003d s-\u003ecert-\u003eprivatekey;\nif (pkey \u003d\u003d NULL) {\n  al \u003d SSL_AD_DECODE_ERROR;\n  goto f_err;\n}\nkn \u003d EVP_PKEY_size(pkey);",
+      "revId": "b9ff19522a1b6047bd2f89bccb0032841c8961c2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f8568eec_a31572fc",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1476,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-07-21T20:48:59Z",
+      "side": 1,
+      "message": "We can do C99 now, so this line can be:\n\nconst int pkey_type \u003d ssl_private_key_type(s);\n\n(Likewise for other variables.)",
+      "revId": "b9ff19522a1b6047bd2f89bccb0032841c8961c2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f8568eec_e31f7a16",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1517,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-07-21T20:48:59Z",
+      "side": 1,
+      "message": "comma on the left.",
+      "revId": "b9ff19522a1b6047bd2f89bccb0032841c8961c2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
