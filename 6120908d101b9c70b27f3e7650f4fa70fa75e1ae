@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f82f6e6e_e75142dd",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1723,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-21T18:50:18Z",
+      "side": 1,
+      "message": "assert(ssl-\u003etlsext_channel_id_enabled);",
+      "revId": "6120908d101b9c70b27f3e7650f4fa70fa75e1ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f82f6e6e_875246e2",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-21T18:50:18Z",
+      "side": 1,
+      "message": "SSL_CTX_enable_tls_channel_id(ssl_ctx.get());",
+      "revId": "6120908d101b9c70b27f3e7650f4fa70fa75e1ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f82f6e6e_a7574ad1",
+        "filename": "tool/client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-21T18:50:18Z",
+      "side": 1,
+      "message": "I think this isn\u0027t actually needed since SSL_CTX_set1_tls_channel_id already sets it.",
+      "revId": "6120908d101b9c70b27f3e7650f4fa70fa75e1ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
