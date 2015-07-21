@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f8568eec_436be617",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-07-21T21:42:59Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "f82f6e6e_c7e6feaa",
+      "range": {
+        "startLine": 11,
+        "startChar": 13,
+        "endLine": 11,
+        "endChar": 65
+      },
+      "revId": "32ec66d39f3c518d18b22a5970c304727866792d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f82f6e6e_4714cef8",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 1
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "f8568eec_beb82516",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2295,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-07-21T21:42:59Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "f82f6e6e_4714cef8",
+      "revId": "32ec66d39f3c518d18b22a5970c304727866792d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f82f6e6e_2730baa1",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 1
@@ -53,6 +95,24 @@
       "writtenOn": "2015-07-21T20:23:43Z",
       "side": 1,
       "message": "Possible follow-up: We could remove this now and replace it with a check on the bitmask. Though it wouldn\u0027t catch extensions we don\u0027t know about.",
+      "revId": "32ec66d39f3c518d18b22a5970c304727866792d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f8568eec_8375cef1",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2417,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-07-21T21:42:59Z",
+      "side": 1,
+      "message": "I think it\u0027s nice to catch the unknown extensions too.",
+      "parentUuid": "f82f6e6e_2730baa1",
       "revId": "32ec66d39f3c518d18b22a5970c304727866792d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
