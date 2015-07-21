@@ -169,6 +169,7 @@ static CRYPTO_EX_DATA_CLASS g_ex_data_class_ssl =
 static CRYPTO_EX_DATA_CLASS g_ex_data_class_ssl_ctx =
     CRYPTO_EX_DATA_CLASS_INIT_WITH_APP_DATA;
 
+
 int SSL_clear(SSL *ssl) {
   if (ssl->method == NULL) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_NO_METHOD_SPECIFIED);
@@ -1836,7 +1837,14 @@ void ssl_get_compatible_server_ciphers(SSL *s, uint32_t *out_mask_k,
     } else if (s->cert->privatekey->type == EVP_PKEY_EC) {
       have_ecc_cert = 1;
     }
+  } else if (s->cert->key_method != NULL) {
+    if (s->cert->key_method->type(s) == EVP_PKEY_RSA) {
+      have_rsa_cert = 1;
+    } else if (s->cert->key_method->type(s) == EVP_PKEY_EC) {
+      have_ecc_cert = 1;
+    }
   }
+
   mask_k = 0;
   mask_a = 0;
 

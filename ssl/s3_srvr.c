@@ -312,6 +312,8 @@ int ssl3_accept(SSL *s) {
 
       case SSL3_ST_SW_KEY_EXCH_A:
       case SSL3_ST_SW_KEY_EXCH_B:
+      case SSL3_ST_SW_KEY_EXCH_C:
+      case SSL3_ST_SW_KEY_EXCH_D:
         alg_a = s->s3->tmp.new_cipher->algorithm_auth;
 
         /* Send a ServerKeyExchange message if:
@@ -1252,6 +1254,7 @@ int ssl3_send_server_key_exchange(SSL *s) {
   const char *psk_identity_hint = NULL;
   size_t psk_identity_hint_len = 0;
   EVP_PKEY *pkey;
+  size_t sig_len;
   uint8_t *p, *d;
   int al, i;
   uint32_t alg_k;
@@ -1264,6 +1267,19 @@ int ssl3_send_server_key_exchange(SSL *s) {
   EVP_MD_CTX md_ctx;
 
   EVP_MD_CTX_init(&md_ctx);
+  if (ssl_cipher_has_server_public_key(s->s3->tmp.new_cipher) &&
+      s->cert->key_method == NULL) {
+    pkey = s->cert->privatekey;
+    if (pkey == NULL) {
+      al = SSL_AD_DECODE_ERROR;
+      goto f_err;
+    }
+    kn = EVP_PKEY_size(pkey);
+  } else {
+    pkey = NULL;
+    kn = 0;
+  }
+
   if (s->state == SSL3_ST_SW_KEY_EXCH_A) {
     alg_k = s->s3->tmp.new_cipher->algorithm_mkey;
     alg_a = s->s3->tmp.new_cipher->algorithm_auth;
@@ -1404,18 +1420,6 @@ int ssl3_send_server_key_exchange(SSL *s) {
       n += 2 + nr[i];
     }
 
-    if (ssl_cipher_has_server_public_key(s->s3->tmp.new_cipher)) {
-      pkey = s->cert->privatekey;
-      if (pkey == NULL) {
-        al = SSL_AD_DECODE_ERROR;
-        goto f_err;
-      }
-      kn = EVP_PKEY_size(pkey);
-    } else {
-      pkey = NULL;
-      kn = 0;
-    }
-
     if (!BUF_MEM_grow_clean(buf, n + SSL_HM_HEADER_LENGTH(s) + kn)) {
       OPENSSL_PUT_ERROR(SSL, ERR_LIB_BUF);
       goto err;
@@ -1457,11 +1461,15 @@ int ssl3_send_server_key_exchange(SSL *s) {
     }
 
     /* not anonymous */
-    if (pkey != NULL) {
+    if (pkey != NULL || s->cert->key_method != NULL) {
       /* n is the length of the params, they start at &(d[4]) and p points to
        * the space at the end. */
       const EVP_MD *md;
-      size_t sig_len = EVP_PKEY_size(pkey);
+      uint8_t digest[EVP_MAX_MD_SIZE];
+      unsigned int digest_length;
+
+      sig_len = ssl_private_key_max_signature_len(s);
+      const int pkey_type = ssl_private_key_type(s);
 
       /* Determine signature algorithm. */
       if (SSL_USE_SIGALGS(s)) {
@@ -1473,23 +1481,62 @@ int ssl3_send_server_key_exchange(SSL *s) {
           goto f_err;
         }
         p += 2;
-      } else if (pkey->type == EVP_PKEY_RSA) {
+      } else if (pkey_type == EVP_PKEY_RSA) {
         md = EVP_md5_sha1();
       } else {
         md = EVP_sha1();
       }
 
-      if (!EVP_DigestSignInit(&md_ctx, NULL, md, NULL, pkey) ||
-          !EVP_DigestSignUpdate(&md_ctx, s->s3->client_random,
-                                SSL3_RANDOM_SIZE) ||
-          !EVP_DigestSignUpdate(&md_ctx, s->s3->server_random,
-                                SSL3_RANDOM_SIZE) ||
-          !EVP_DigestSignUpdate(&md_ctx, d, n) ||
-          !EVP_DigestSignFinal(&md_ctx, &p[2], &sig_len)) {
+      if (!EVP_DigestInit_ex(&md_ctx, md, NULL) ||
+          !EVP_DigestUpdate(&md_ctx, s->s3->client_random,
+                            SSL3_RANDOM_SIZE) ||
+          !EVP_DigestUpdate(&md_ctx, s->s3->server_random,
+                            SSL3_RANDOM_SIZE) ||
+          !EVP_DigestUpdate(&md_ctx, d, n) ||
+          !EVP_DigestFinal_ex(&md_ctx, digest,
+                              &digest_length)) {
         OPENSSL_PUT_ERROR(SSL, ERR_LIB_EVP);
         goto err;
       }
 
+      const enum ssl_private_key_result_t sign_result = ssl_private_key_sign(
+          s, &p[2], &sig_len, sig_len, EVP_MD_CTX_md(&md_ctx),
+          digest, digest_length);
+      if (sign_result == ssl_private_key_retry) {
+        s->rwstate = SSL_PRIVATE_KEY_OPERATION;
+        /* stash away 'p' */
+        s->init_num = p - ssl_handshake_start(s) + SSL_HM_HEADER_LENGTH(s);
+        s->state = SSL3_ST_SW_KEY_EXCH_B;
+        goto err;
+      } else if (sign_result != ssl_private_key_success) {
+        OPENSSL_PUT_ERROR(SSL, ERR_LIB_EVP);
+        goto err;
+      }
+    }
+    s->state = SSL3_ST_SW_KEY_EXCH_C;
+  } else if (s->state == SSL3_ST_SW_KEY_EXCH_B) {
+    /* complete async sign */
+    sig_len = ssl_private_key_max_signature_len(s);
+
+    /* restore 'p', and 'n' */
+    p = ssl_handshake_start(s) + s->init_num - SSL_HM_HEADER_LENGTH(s);
+    n = p - ssl_handshake_start(s) - (SSL_USE_SIGALGS(s) ? 2 : 0);
+    const enum ssl_private_key_result_t sign_result =
+        ssl_private_key_sign_complete(s, &p[2], &sig_len, sig_len);
+    if (sign_result == ssl_private_key_retry) {
+      s->rwstate = SSL_PRIVATE_KEY_OPERATION;
+      goto err;
+    } else if (sign_result != ssl_private_key_success) {
+      OPENSSL_PUT_ERROR(SSL, ERR_LIB_EVP);
+      goto err;
+    }
+
+    s->rwstate = SSL_NOTHING;
+    s->state = SSL3_ST_SW_KEY_EXCH_C;
+  }
+
+  if (s->state == SSL3_ST_SW_KEY_EXCH_C) {
+    if (pkey != NULL || s->cert->key_method != NULL) {
       s2n(sig_len, p);
       n += sig_len + 2;
       if (SSL_USE_SIGALGS(s)) {
@@ -1500,9 +1547,10 @@ int ssl3_send_server_key_exchange(SSL *s) {
     if (!ssl_set_handshake_header(s, SSL3_MT_SERVER_KEY_EXCHANGE, n)) {
       goto err;
     }
+    s->state = SSL3_ST_SW_KEY_EXCH_D;
   }
 
-  s->state = SSL3_ST_SW_KEY_EXCH_B;
+  /* state SSL3_ST_SW_KEY_EXCH_D */
   EVP_MD_CTX_cleanup(&md_ctx);
   return ssl_do_write(s);
 
