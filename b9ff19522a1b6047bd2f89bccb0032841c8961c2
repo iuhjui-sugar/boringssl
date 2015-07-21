@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f8568eec_632d4a49",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 5865
+      },
+      "writtenOn": "2015-07-21T21:23:24Z",
+      "side": 1,
+      "message": "I thought it might be clearer to have an abstraction, but in the end they don\u0027t do much.  Removed.",
+      "parentUuid": "f8568eec_230182c5",
+      "revId": "b9ff19522a1b6047bd2f89bccb0032841c8961c2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f8568eec_43fe862e",
         "filename": "ssl/s3_srvr.c",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2015-07-21T20:48:59Z",
       "side": 1,
       "message": "\u0026\u0026 at the end of the line.",
+      "revId": "b9ff19522a1b6047bd2f89bccb0032841c8961c2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f8568eec_832a2e30",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1270,
+      "author": {
+        "id": 5865
+      },
+      "writtenOn": "2015-07-21T21:23:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8568eec_43fe862e",
       "revId": "b9ff19522a1b6047bd2f89bccb0032841c8961c2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "f8568eec_23742246",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1276,
+      "author": {
+        "id": 5865
+      },
+      "writtenOn": "2015-07-21T21:23:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8568eec_63fb8a3d",
+      "revId": "b9ff19522a1b6047bd2f89bccb0032841c8961c2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f8568eec_a31572fc",
         "filename": "ssl/s3_srvr.c",
         "patchSetId": 1
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "f8568eec_637e2a26",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1476,
+      "author": {
+        "id": 5865
+      },
+      "writtenOn": "2015-07-21T21:23:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8568eec_a31572fc",
+      "revId": "b9ff19522a1b6047bd2f89bccb0032841c8961c2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f8568eec_e31f7a16",
         "filename": "ssl/s3_srvr.c",
         "patchSetId": 1
@@ -81,6 +153,24 @@
       "writtenOn": "2015-07-21T20:48:59Z",
       "side": 1,
       "message": "comma on the left.",
+      "revId": "b9ff19522a1b6047bd2f89bccb0032841c8961c2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f8568eec_c3399662",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1517,
+      "author": {
+        "id": 5865
+      },
+      "writtenOn": "2015-07-21T21:23:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8568eec_e31f7a16",
       "revId": "b9ff19522a1b6047bd2f89bccb0032841c8961c2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
