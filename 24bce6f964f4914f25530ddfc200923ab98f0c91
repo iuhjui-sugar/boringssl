@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f82f6e6e_07a65649",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1256,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-21T21:41:04Z",
+      "side": 1,
+      "message": "In general, you should be able to do away with this variable and have it all folded into ssl_private_key_foo helpers.",
+      "revId": "24bce6f964f4914f25530ddfc200923ab98f0c91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f82f6e6e_879a46f1",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1464,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-21T21:41:04Z",
+      "side": 1,
+      "message": "Since we don\u0027t have pkey anymore, I think this should be\n\n  if (ssl_cipher_has_server_public_key(...)) {\n\nConceivably you might configure both PSK and a private key and have either work, even though that would be crazy.",
+      "revId": "24bce6f964f4914f25530ddfc200923ab98f0c91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f82f6e6e_c7943ec7",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1507,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-21T21:41:04Z",
+      "side": 1,
+      "message": "Stash away |p|.",
+      "revId": "24bce6f964f4914f25530ddfc200923ab98f0c91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f82f6e6e_e79942fc",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1518,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-21T21:41:04Z",
+      "side": 1,
+      "message": "Complete async sign.",
+      "revId": "24bce6f964f4914f25530ddfc200923ab98f0c91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f82f6e6e_078f36b1",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1521,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-21T21:41:04Z",
+      "side": 1,
+      "message": "Restore |p| and |n|.",
+      "revId": "24bce6f964f4914f25530ddfc200923ab98f0c91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f82f6e6e_870b26b0",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1544,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-21T21:41:04Z",
+      "side": 1,
+      "message": "You can probably simplify this by incorporating n into the assembly earlier, before the async step. Or perhaps if we didn\u0027t use n outside the A state at all? You needn\u0027t even restore it if you just use p in line 1547.\n\nI dunno. This logic is kind of a scary mess (not your fault; it was pretty scary before). I don\u0027t have a good answer for how to clean it up. The client half does a similar thing with pausing halfway through writing the handshake message, but it wrote something far less complex.",
+      "revId": "24bce6f964f4914f25530ddfc200923ab98f0c91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f82f6e6e_c7bb5e5f",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-21T21:41:04Z",
+      "side": 1,
+      "message": "Stray change?",
+      "revId": "24bce6f964f4914f25530ddfc200923ab98f0c91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f82f6e6e_e7c062c4",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1834,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-21T21:41:04Z",
+      "side": 1,
+      "message": "This should be:\n\n- Change s-\u003ecert-\u003eprivatekey !\u003d NULL check to (s-\u003ecert-\u003eprivatekey !\u003d NULL || s-\u003ecert-\u003ekey_method !\u003d NULL). It might be worth factoring that out into an ssl_has_private_key, since it comes up a few times.\n- Change s-\u003ecert-\u003eprivatekey-\u003etype to ssl_private_key_type(s)\n\nThen you don\u0027t need extra cases",
+      "revId": "24bce6f964f4914f25530ddfc200923ab98f0c91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

@@ -34,6 +34,23 @@
       "revId": "209b2562235f7dab66b8260624e7b3c5b00d14a6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f82f6e6e_47b04e79",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1417,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-21T21:41:04Z",
+      "side": 0,
+      "message": "I believe what you want to do here is to leave this code here and do:\n\n\n  if (ssl_cipher_has_server....) {\n    if (s-\u003ecert-\u003eprivatekey \u003d\u003d NULL \u0026\u0026 s-\u003ecert-\u003ekey_method \u003d\u003d NULL) { (see suggestion in other comment for ssl_has_private_key helper)\n      al \u003d SSL_AD_DECODE_ERROR; (decode error? probably should have been INTERNAL_ERROR)\n      goto f_err;\n    }\n    kn \u003d ssl_private_key_max_signature_len(s);\n  } else {\n    kn \u003d 0;\n  }",
+      "revId": "209b2562235f7dab66b8260624e7b3c5b00d14a6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
