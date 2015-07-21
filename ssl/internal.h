@@ -363,7 +363,6 @@ enum ssl_private_key_result_t ssl_private_key_sign(
 enum ssl_private_key_result_t ssl_private_key_sign_complete(
     SSL *ssl, uint8_t *out, size_t *out_len, size_t max_out);
 
-
 /* Underdocumented functions.
  *
  * Functions below here haven't been touched up and may be underdocumented. */
@@ -673,6 +672,9 @@ struct ssl3_enc_method {
 #define ssl_set_handshake_header(s, htype, len) \
   s->method->set_handshake_header(s, htype, len)
 #define ssl_do_write(s) s->method->do_write(s)
+
+void ssl_set_init_num(SSL *s, int len);
+int ssl_get_init_num(SSL *s);
 
 /* Values for enc_flags */
 

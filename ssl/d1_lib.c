@@ -315,7 +315,7 @@ int dtls1_set_handshake_header(SSL *s, int htype, unsigned long len) {
   s->d1->next_handshake_write_seq++;
 
   dtls1_set_message_header(s, htype, len, s->d1->handshake_write_seq, 0, len);
-  s->init_num = (int)len + DTLS1_HM_HEADER_LENGTH;
+  ssl_set_init_num(s, (int)len + DTLS1_HM_HEADER_LENGTH);
   s->init_off = 0;
 
   /* Buffer the message to handle re-xmits */
