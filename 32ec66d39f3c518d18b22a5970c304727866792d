@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f82f6e6e_c7e6feaa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-21T20:23:43Z",
+      "side": 1,
+      "message": "[Confirmed with experiment folks that the idea is being dropped. I\u0027ll go upload a CL to unwind the Chromium half.]",
+      "range": {
+        "startLine": 11,
+        "startChar": 13,
+        "endLine": 11,
+        "endChar": 65
+      },
+      "revId": "32ec66d39f3c518d18b22a5970c304727866792d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f82f6e6e_4714cef8",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2295,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-21T20:23:43Z",
+      "side": 1,
+      "message": "I think this is correct, but this also seems kinda fragile and the tests don\u0027t quite check that we get the boundary cases right. CBB_len measures what\u0027s in the root CBB, which means that if this function ever changes to take a CBB input, it\u0027ll break. I don\u0027t have a good suggestion though.\n\nI guess we could separately test this by adding a non-Go test to ssl_test.cc which, given a hostname, runs just enough of the handshake to get out the ClientHello and sample the length. Then we start with a short hostname, measuring the resulting size, and then we can check the interesting boundary points. I can try to throw that together.\n\nEdit: Hrm. Then again, given the logic in line 2330, I guess we\u0027ll always need this to be somewhat weird. I wonder if we\u0027re going to need a CBB_discard someday to throw away a child and its length prefix. Or perhaps you sample CBB_len and CBB_rewind.",
+      "revId": "32ec66d39f3c518d18b22a5970c304727866792d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f82f6e6e_2730baa1",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2417,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-21T20:23:43Z",
+      "side": 1,
+      "message": "Possible follow-up: We could remove this now and replace it with a check on the bitmask. Though it wouldn\u0027t catch extensions we don\u0027t know about.",
+      "revId": "32ec66d39f3c518d18b22a5970c304727866792d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
