@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f82f6e6e_a7c82a1c",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2056,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-21T19:16:19Z",
+      "side": 1,
+      "message": "Should we even be doing that? Seems we should either be outright ignoring it or hard-rejecting it, depending on whether or not we\u0027re worried about compatibility issues with servers sending it inappropriately.\n\nIt looks like NSS ignores it completely. They do check that the server doesn\u0027t send extensions not sent in the ClientHello, but I guess the spec doesn\u0027t strictly say you can\u0027t send unexpected ServerHello extensions, just that you can\u0027t send unadvertised ones.\n\n(There certainly exist other extensions where the ClientHello and ServerHello syntaxes are different. Though usually it\u0027s when one is empty and the other is not.)",
+      "revId": "6ae5a097af8a06fe0fd160b6f68a8fc16ed9dd94",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f82f6e6e_c7cd1e2b",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2083,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-21T19:16:19Z",
+      "side": 1,
+      "message": "A lot of this stuff and the line 2108 bits are now redundant with init. Then again, this is more local. *shrug*",
+      "revId": "6ae5a097af8a06fe0fd160b6f68a8fc16ed9dd94",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
