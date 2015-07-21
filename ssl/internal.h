@@ -667,6 +667,24 @@ struct ssl3_enc_method {
   unsigned int enc_flags;
 };
 
+// ssl_custom_extension (a.k.a. SSL_CUSTOM_EXTENSION) is a structure that
+// contains information about custom-extension callbacks.
+struct ssl_custom_extension {
+  SSL_custom_ext_add_cb add_callback;
+  void *add_arg;
+  SSL_custom_ext_free_cb free_callback;
+  SSL_custom_ext_parse_cb parse_callback;
+  void *parse_arg;
+  uint16_t value;
+};
+
+int custom_ext_add_clienthello(SSL *ssl, CBB *extensions);
+int custom_ext_parse_serverhello(SSL *ssl, int *out_alert, uint16_t value,
+                                 CBS *extension);
+int custom_ext_parse_clienthello(SSL *ssl, int *out_alert, uint16_t value,
+                                 CBS *extension);
+int custom_ext_add_serverhello(SSL *ssl, CBB *extensions);
+
 #define SSL_HM_HEADER_LENGTH(s) s->method->hhlen
 #define ssl_handshake_start(s) \
   (((uint8_t *)s->init_buf->data) + s->method->hhlen)
