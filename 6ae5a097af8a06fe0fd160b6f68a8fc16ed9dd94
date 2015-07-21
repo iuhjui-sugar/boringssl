@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f8568eec_839ceeb7",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2056,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-07-21T21:40:12Z",
+      "side": 1,
+      "message": "The RFC is a little unclear. However, it doesn\u0027t seem to be implausible that servers would want to echo this extension. E.g. clients selecting ECC client certs.\n\nBut I guess it\u0027s a little odd to check its format so I\u0027ve changed this to ignore it.",
+      "parentUuid": "f82f6e6e_a7c82a1c",
+      "revId": "6ae5a097af8a06fe0fd160b6f68a8fc16ed9dd94",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f82f6e6e_c7cd1e2b",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2015-07-21T19:16:19Z",
       "side": 1,
       "message": "A lot of this stuff and the line 2108 bits are now redundant with init. Then again, this is more local. *shrug*",
+      "revId": "6ae5a097af8a06fe0fd160b6f68a8fc16ed9dd94",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f8568eec_e383fa55",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2083,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-07-21T21:40:12Z",
+      "side": 1,
+      "message": "I think that dropping it from 2108 would be dangerous, but this bit is purely redundant. Removed.",
+      "parentUuid": "f82f6e6e_c7cd1e2b",
       "revId": "6ae5a097af8a06fe0fd160b6f68a8fc16ed9dd94",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
