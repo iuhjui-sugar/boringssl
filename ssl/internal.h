@@ -350,6 +350,8 @@ int SSL_AEAD_CTX_seal(SSL_AEAD_CTX *ctx, uint8_t *out, size_t *out_len,
  * |SSL_PRIVATE_KEY_METHOD| for |ssl|, if configured. Otherwise, they implement
  * the operation with |EVP_PKEY|. */
 
+int ssl_cipher_has_private_key(SSL *ssl, const SSL_CIPHER *cipher);
+
 int ssl_private_key_type(SSL *ssl);
 
 int ssl_private_key_supports_digest(SSL *ssl, const EVP_MD *md);

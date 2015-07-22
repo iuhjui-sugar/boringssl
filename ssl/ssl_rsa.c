@@ -632,6 +632,11 @@ void SSL_set_private_key_method(SSL *ssl,
   ssl->cert->key_method = key_method;
 }
 
+int ssl_cipher_has_private_key(SSL *ssl, const SSL_CIPHER *cipher) {
+  return (cipher == NULL || ssl_cipher_has_server_public_key(cipher)) &&
+      (ssl->cert->privatekey != NULL || ssl->cert->key_method != NULL);
+}
+
 int ssl_private_key_type(SSL *ssl) {
   if (ssl->cert->key_method != NULL) {
     return ssl->cert->key_method->type(ssl);
