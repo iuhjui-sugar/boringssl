@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "58115a41_34159078",
+        "filename": "crypto/chacha/chacha_vec.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-22T19:01:00Z",
+      "side": 0,
+      "message": "If this is changing, the ARM NEON assembly file will also need to be re-generated (might be simpler to just keep it named NEON).",
+      "revId": "7ed35fb9fd52d1336242a25424a2ea725b75aebb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

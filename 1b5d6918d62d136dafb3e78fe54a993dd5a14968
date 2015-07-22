@@ -1,0 +1,525 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "58115a41_a974a9f4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-22T19:01:00Z",
+      "side": 1,
+      "message": "Paste in bssl speed numbers?",
+      "revId": "1b5d6918d62d136dafb3e78fe54a993dd5a14968",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d8d46a30_9dbc0427",
+        "filename": "crypto/chacha/asm/chacha20_avx.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-22T19:01:00Z",
+      "side": 1,
+      "message": "This should get copied over to the LICENSE file with something like:\n\n\"On x86-64, some files may be built with the following license:\"",
+      "revId": "1b5d6918d62d136dafb3e78fe54a993dd5a14968",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58115a41_8963253d",
+        "filename": "crypto/chacha/asm/chacha20_avx.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-22T19:01:00Z",
+      "side": 1,
+      "message": "May as well delete these lines I think. I added line 72 to make this actually work. Ditto for the corresponding lines in the other four files.",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 1
+      },
+      "revId": "1b5d6918d62d136dafb3e78fe54a993dd5a14968",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58115a41_d413f40f",
+        "filename": "crypto/chacha/asm/chacha20_avx.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-22T19:01:00Z",
+      "side": 1,
+      "message": "This file has trouble on Windows. Changing all the labels from .rol8 to .Lrol8 seems to resolve it.",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 5
+      },
+      "revId": "1b5d6918d62d136dafb3e78fe54a993dd5a14968",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58115a41_54d7e431",
+        "filename": "crypto/chacha/chacha_generic.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-22T19:01:00Z",
+      "side": 1,
+      "message": "These can go after line 63, I think.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 59
+      },
+      "revId": "1b5d6918d62d136dafb3e78fe54a993dd5a14968",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58115a41_697fb1d6",
+        "filename": "crypto/chacha/chacha_generic.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-22T19:01:00Z",
+      "side": 1,
+      "message": "Nit: generic? Matches the filename.",
+      "range": {
+        "startLine": 90,
+        "startChar": 22,
+        "endLine": 90,
+        "endChar": 28
+      },
+      "revId": "1b5d6918d62d136dafb3e78fe54a993dd5a14968",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58115a41_4984ed5e",
+        "filename": "crypto/chacha/chacha_generic.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-22T19:01:00Z",
+      "side": 1,
+      "message": "Nit: Maybe just call this avx? The check later on in the file is gated on avx anyway.",
+      "range": {
+        "startLine": 152,
+        "startChar": 22,
+        "endLine": 152,
+        "endChar": 33
+      },
+      "revId": "1b5d6918d62d136dafb3e78fe54a993dd5a14968",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58115a41_2989b974",
+        "filename": "crypto/chacha/chacha_generic.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-22T19:01:00Z",
+      "side": 1,
+      "message": "Nit: (size_t)-2? Not sure if any compiler will get grumpy, but it\u0027s a little clearer.",
+      "range": {
+        "startLine": 161,
+        "startChar": 19,
+        "endLine": 161,
+        "endChar": 21
+      },
+      "revId": "1b5d6918d62d136dafb3e78fe54a993dd5a14968",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58115a41_096ef528",
+        "filename": "crypto/chacha/chacha_generic.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-22T19:01:00Z",
+      "side": 1,
+      "message": "0-buffer_size.\n\nMSVC gets grumpy about unary minus on a size_t. (Seriously...)",
+      "range": {
+        "startLine": 170,
+        "startChar": 21,
+        "endLine": 170,
+        "endChar": 22
+      },
+      "revId": "1b5d6918d62d136dafb3e78fe54a993dd5a14968",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58115a41_e96aa112",
+        "filename": "crypto/chacha/chacha_generic.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-22T19:01:00Z",
+      "side": 1,
+      "message": "Nit: spaces around \u0026",
+      "range": {
+        "startLine": 172,
+        "startChar": 17,
+        "endLine": 172,
+        "endChar": 18
+      },
+      "revId": "1b5d6918d62d136dafb3e78fe54a993dd5a14968",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58115a41_14fa8cb2",
+        "filename": "crypto/chacha/chacha_vec.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-22T19:01:00Z",
+      "side": 1,
+      "message": "Maybe just vec?",
+      "range": {
+        "startLine": 145,
+        "startChar": 22,
+        "endLine": 145,
+        "endChar": 34
+      },
+      "revId": "1b5d6918d62d136dafb3e78fe54a993dd5a14968",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "adcf7646_8c8467ad",
+        "filename": "crypto/poly1305/asm/poly1305_avx.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-22T19:01:00Z",
+      "side": 1,
+      "message": "[Judging by line 81, this appears to be correct.]",
+      "revId": "1b5d6918d62d136dafb3e78fe54a993dd5a14968",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58115a41_b47520aa",
+        "filename": "crypto/poly1305/asm/poly1305_avx.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-22T19:01:00Z",
+      "side": 1,
+      "message": "This doesn\u0027t build on Windows. I think we need to turn these into proper labels.",
+      "range": {
+        "startLine": 264,
+        "startChar": 0,
+        "endLine": 264,
+        "endChar": 2
+      },
+      "revId": "1b5d6918d62d136dafb3e78fe54a993dd5a14968",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "adcf7646_ac81239c",
+        "filename": "crypto/poly1305/asm/poly1305_avx2.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-22T19:01:00Z",
+      "side": 1,
+      "message": "Judging by line 81, this comment is wrong. The correct values seem to be:\n\n # TODO(davidben): Is the layout of the |r| values correct?\n # state:\n #  0: r[0] || r^2[0] || r^3[0] || r^4[0]\n # 32: r[1] || r^2[1] || r^3[1] || r^4[1]\n # 64: r[2] || r^2[2] || r^3[2] || r^4[2]\n # 96: r[3] || r^2[3] || r^3[3] || r^4[3]\n #128: r[4] || r^2[4] || r^3[4] || r^4[4]\n #160: r[1]*5 || r^2[1]*5 || r^3[1]*5 || r^4[1]*5\n #192: r[2]*5 || r^2[2]*5 || r^3[2]*5 || r^4[2]*5\n #224: r[3]*5 || r^2[3]*5 || r^3[3]*5 || r^4[3]*5\n #256: r[4]*5 || r^2[4]*5 || r^3[4]*5 || r^4[4]*5\n #288: k\n #304: A0\n #308: A1\n #312: A2\n #316: A3\n #320: A4\n #324: END\n\nEND is 4 past since $_A4_ is used with VMOVD. I didn\u0027t check all the remaining deltas or symbols carefully.",
+      "revId": "1b5d6918d62d136dafb3e78fe54a993dd5a14968",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58115a41_f42f1842",
+        "filename": "crypto/poly1305/poly1305.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-22T19:01:00Z",
+      "side": 1,
+      "message": "Optional: if you want to put these in a header and share with the other C file, internal header files are crypto/poly1305/internal.h.",
+      "revId": "1b5d6918d62d136dafb3e78fe54a993dd5a14968",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58115a41_b429a03e",
+        "filename": "crypto/poly1305/poly1305.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-22T19:01:00Z",
+      "side": 1,
+      "message": "Nit: delete",
+      "range": {
+        "startLine": 70,
+        "startChar": 9,
+        "endLine": 70,
+        "endChar": 10
+      },
+      "revId": "1b5d6918d62d136dafb3e78fe54a993dd5a14968",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58115a41_9460dc89",
+        "filename": "crypto/poly1305/poly1305.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-22T19:01:00Z",
+      "side": 1,
+      "message": "Nit: Not obvious whether this is 128 or multiple of 128. (I assume you mean s/byte/bit/) Maybe:\n\nHowever, since the implementation expects all non-final update calls to end at a 16-byte boundary, [...]",
+      "range": {
+        "startLine": 70,
+        "startChar": 66,
+        "endLine": 71,
+        "endChar": 9
+      },
+      "revId": "1b5d6918d62d136dafb3e78fe54a993dd5a14968",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58115a41_d42c1450",
+        "filename": "crypto/poly1305/poly1305.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-22T19:01:00Z",
+      "side": 1,
+      "message": "assembly",
+      "range": {
+        "startLine": 74,
+        "startChar": 9,
+        "endLine": 74,
+        "endChar": 18
+      },
+      "revId": "1b5d6918d62d136dafb3e78fe54a993dd5a14968",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "adcf7646_ec772b46",
+        "filename": "crypto/poly1305/poly1305.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-22T19:01:00Z",
+      "side": 1,
+      "message": "It seems what happened here is that the two files have different sizes and the comment for avx2.pl is wrong. See comment on both those files. (324 seems to be correct for AVX2 and 180 for AVX. You can probably just rephase the comment with more confidence.)",
+      "revId": "1b5d6918d62d136dafb3e78fe54a993dd5a14968",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "adcf7646_cca82f11",
+        "filename": "crypto/poly1305/poly1305.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-22T19:01:00Z",
+      "side": 1,
+      "message": "Nit: I\u0027d put a newline here.",
+      "revId": "1b5d6918d62d136dafb3e78fe54a993dd5a14968",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "adcf7646_eca5eb35",
+        "filename": "crypto/poly1305/poly1305.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-22T19:01:00Z",
+      "side": 1,
+      "message": "Nit: avx?",
+      "range": {
+        "startLine": 83,
+        "startChar": 32,
+        "endLine": 83,
+        "endChar": 35
+      },
+      "revId": "1b5d6918d62d136dafb3e78fe54a993dd5a14968",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58115a41_14960c54",
+        "filename": "crypto/poly1305/poly1305.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-22T19:01:00Z",
+      "side": 1,
+      "message": "This function got lost. (It was moved below.)",
+      "range": {
+        "startLine": 104,
+        "startChar": 7,
+        "endLine": 104,
+        "endChar": 16
+      },
+      "revId": "1b5d6918d62d136dafb3e78fe54a993dd5a14968",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58115a41_348a3022",
+        "filename": "crypto/poly1305/poly1305.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-22T19:01:00Z",
+      "side": 1,
+      "message": "This also got lost.",
+      "range": {
+        "startLine": 119,
+        "startChar": 9,
+        "endLine": 119,
+        "endChar": 20
+      },
+      "revId": "1b5d6918d62d136dafb3e78fe54a993dd5a14968",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58115a41_343eb078",
+        "filename": "crypto/poly1305/poly1305.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-22T19:01:00Z",
+      "side": 1,
+      "message": "Maybe pull this out into a CRYPTO_poly1305_init_generic, etc., so we don\u0027t mix the dispatch code with the implementation? Ditto with the other functions.",
+      "revId": "1b5d6918d62d136dafb3e78fe54a993dd5a14968",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58115a41_74442800",
+        "filename": "include/openssl/cpu.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-22T19:01:00Z",
+      "side": 1,
+      "message": "Nit: All-caps these since they\u0027re macros?",
+      "revId": "1b5d6918d62d136dafb3e78fe54a993dd5a14968",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
