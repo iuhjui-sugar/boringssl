@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "adcf7646_6cb49b3f",
+        "filename": "ssl/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-22T22:46:16Z",
+      "side": 1,
+      "message": "Move this above the comment, since it doesn\u0027t describe it, and add a documentation comment for this function.",
+      "revId": "8ebfe9a6bfa3f81b0bcdd96967f42d2287c5c174",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "adcf7646_4caf5fec",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 1460,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-22T22:46:16Z",
+      "side": 1,
+      "message": "This should just be ssl_cipher_has_server_public_key. We already check up in line 1410 that this implies we have a private key. (It doesn\u0027t make sense to check both; it\u0027s not that, if we don\u0027t have a private key configured, we don\u0027t need to sign stuff. If the cipher suite is involves a server public key like this, we *always* need to sign it. If we\u0027re not able to sign it, it should fail, not silently not sign.)\n\nIt doesn\u0027t matter here, but if this were instead on, say, the client half, we could easily get a bug where, if the server didn\u0027t supply a public key, we silently don\u0027t bother to check the signature.",
+      "revId": "8ebfe9a6bfa3f81b0bcdd96967f42d2287c5c174",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "adcf7646_0cb95736",
+        "filename": "ssl/ssl_rsa.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-22T22:46:16Z",
+      "side": 1,
+      "message": "ssl3_has_client_certificate in s3_clnt.c could also use this new function.",
+      "revId": "8ebfe9a6bfa3f81b0bcdd96967f42d2287c5c174",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "adcf7646_acea8312",
+        "filename": "ssl/ssl_rsa.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 636,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-22T22:46:16Z",
+      "side": 1,
+      "message": "I was thinking to call it just ssl_has_private_key and have it only check ssl-\u003ecert. That is, \"ssl_has_private_key\" means \"do I have a private key configured?\" while \"ssl_cipher_has_server_public_key\" is \"does this cipher need a server public key?\". (I probably should have used a different verb for the ssl_cipher thing.)\n\nI prefer keeping them separate just to not mix \"has\" vs \"need\". This avoids the weirdness with NULL cipher input too. The intent with these ssl_private_key helpers is just to abstract the pre-key_method operations you\u0027d do on ssl-\u003ecert-\u003eprivatekey. It shouldn\u0027t do extra convenience things on top.",
+      "revId": "8ebfe9a6bfa3f81b0bcdd96967f42d2287c5c174",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
