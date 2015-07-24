@@ -345,6 +345,9 @@ int SSL_AEAD_CTX_seal(SSL_AEAD_CTX *ctx, uint8_t *out, size_t *out_len,
 
 
 /* Private key operations. */
+/* ssl_has_private_key returns one if |ssl| has a private key
+ * configured and zero otherwise. */
+int ssl_has_private_key(SSL *ssl);
 
 /* ssl_private_key_* call the corresponding function on the
  * |SSL_PRIVATE_KEY_METHOD| for |ssl|, if configured. Otherwise, they implement
