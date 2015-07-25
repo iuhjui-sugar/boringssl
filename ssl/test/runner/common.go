@@ -589,11 +589,9 @@ type ProtocolBugs struct {
 	// error if the server doesn't reply with the renegotiation extension.
 	RequireRenegotiationInfo bool
 
-	// SequenceNumberIncrement, if non-zero, causes outgoing sequence
-	// numbers in DTLS to increment by that value rather by 1. This is to
-	// stress the replay bitmap window by simulating extreme packet loss and
-	// retransmit at the record layer.
-	SequenceNumberIncrement uint64
+	// SequenceNumberMapping, if non-nil, is the mapping function to apply to
+	// the sequence number of outgoing packets.
+	SequenceNumberMapping func(uint64) uint64
 
 	// RSAEphemeralKey, if true, causes the server to send a
 	// ServerKeyExchange message containing an ephemeral key (as in
