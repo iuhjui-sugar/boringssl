@@ -1041,7 +1041,6 @@ int bn_mul_mont(BN_ULONG *rp, const BN_ULONG *ap, const BN_ULONG *bp,
   BN_ULONG mh;
 #endif
   volatile BN_ULONG *vp;
-  int i = 0, j;
 
 #if 0 /* template for platform-specific implementation */
 	if (ap==bp)	return bn_sqr_mont(rp,ap,np,n0p,num);
@@ -1055,37 +1054,37 @@ int bn_mul_mont(BN_ULONG *rp, const BN_ULONG *ap, const BN_ULONG *bp,
 #ifdef mul64
   mh = HBITS(ml);
   ml = LBITS(ml);
-  for (j = 0; j < num; ++j) {
+  for (int j = 0; j < num; ++j) {
     mul(tp[j], ap[j], ml, mh, c0);
   }
 #else
-  for (j = 0; j < num; ++j) {
+  for (int j = 0; j < num; ++j) {
     mul(tp[j], ap[j], ml, c0);
   }
 #endif
 
   tp[num] = c0;
   tp[num + 1] = 0;
-  goto enter;
 
-  for (i = 0; i < num; i++) {
-    c0 = 0;
-    ml = bp[i];
+  for (int i = 0; i < num; ++i) {
+    if (i != 0) {
+      c0 = 0;
+      ml = bp[i];
 #ifdef mul64
-    mh = HBITS(ml);
-    ml = LBITS(ml);
-    for (j = 0; j < num; ++j) {
-      mul_add(tp[j], ap[j], ml, mh, c0);
-    }
+      mh = HBITS(ml);
+      ml = LBITS(ml);
+      for (int j = 0; j < num; ++j) {
+        mul_add(tp[j], ap[j], ml, mh, c0);
+      }
 #else
-    for (j = 0; j < num; ++j) {
-      mul_add(tp[j], ap[j], ml, c0);
-    }
+      for (int j = 0; j < num; ++j) {
+        mul_add(tp[j], ap[j], ml, c0);
+      }
 #endif
-    c1 = (tp[num] + c0) & BN_MASK2;
-    tp[num] = c1;
-    tp[num + 1] = (c1 < c0 ? 1 : 0);
-  enter:
+      c1 = (tp[num] + c0) & BN_MASK2;
+      tp[num] = c1;
+      tp[num + 1] = (c1 < c0 ? 1 : 0);
+    }
     c1 = tp[0];
     ml = (c1 * n0) & BN_MASK2;
     c0 = 0;
