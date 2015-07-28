@@ -216,6 +216,16 @@ size_t CRYPTO_cts128_encrypt_block(const uint8_t *in, uint8_t *out, size_t len,
                                    block128_f block);
 
 
+/* XTS. */
+
+typedef struct xts128_context XTS128_CONTEXT;
+
+/* CRYPTO_xts128_encrypt encrypts (or decrypts, if |enc| is zero) |len| bytes
+ * from |in| to |out| in XTS mode.  It returns 1 on success and 0 otherwise. */
+size_t CRYPTO_xts128_encrypt(const XTS128_CONTEXT *ctx, const uint8_t ivec[16],
+                             const uint8_t *in, uint8_t *out, size_t len,
+                             int enc);
+
 #if defined(__cplusplus)
 }  /* extern C */
 #endif
