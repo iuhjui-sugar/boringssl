@@ -95,6 +95,18 @@ typedef struct {
   ctr128_f ctr;
 } EVP_AES_GCM_CTX;
 
+typedef struct {
+  union {
+    double align;
+    AES_KEY ks;
+  } ks1, ks2;                 /* AES key schedules to use */
+  XTS128_CONTEXT xts;
+  void (*stream) (const uint8_t *in,
+                  uint8_t *out, size_t length,
+                  const AES_KEY *key1, const AES_KEY *key2,
+                  const uint8_t iv[16]);
+} EVP_AES_XTS_CTX;
+
 #if !defined(OPENSSL_NO_ASM) && \
     (defined(OPENSSL_X86_64) || defined(OPENSSL_X86))
 #define VPAES
@@ -633,6 +645,82 @@ static int aes_gcm_ctrl(EVP_CIPHER_CTX *c, int type, int arg, void *ptr) {
   }
 }
 
+static int aes_xts_init_key(EVP_CIPHER_CTX *ctx, const uint8_t *key,
+                            const uint8_t *iv, int enc)
+{
+    EVP_AES_XTS_CTX *xctx = ctx->cipher_data;
+    if (!iv && !key)
+        return 1;
+
+    if (key)
+        do {
+            xctx->stream = NULL;
+            /* key_len is two AES keys */
+
+            if (enc) {
+                AES_set_encrypt_key(key, ctx->key_len * 4, &xctx->ks1.ks);
+                xctx->xts.block1 = (block128_f) AES_encrypt;
+            } else {
+                AES_set_decrypt_key(key, ctx->key_len * 4, &xctx->ks1.ks);
+                xctx->xts.block1 = (block128_f) AES_decrypt;
+            }
+
+            AES_set_encrypt_key(key + ctx->key_len / 2,
+                                ctx->key_len * 4, &xctx->ks2.ks);
+            xctx->xts.block2 = (block128_f) AES_encrypt;
+
+            xctx->xts.key1 = &xctx->ks1;
+        } while (0);
+
+    if (iv) {
+        xctx->xts.key2 = &xctx->ks2;
+        memcpy(ctx->iv, iv, 16);
+    }
+
+    return 1;
+}
+
+static int aes_xts_ctrl(EVP_CIPHER_CTX *c, int type, int arg, void *ptr)
+{
+    EVP_AES_XTS_CTX *xctx = c->cipher_data;
+    if (type == EVP_CTRL_COPY) {
+        EVP_CIPHER_CTX *out = ptr;
+        EVP_AES_XTS_CTX *xctx_out = out->cipher_data;
+        if (xctx->xts.key1) {
+            if (xctx->xts.key1 != &xctx->ks1)
+                return 0;
+            xctx_out->xts.key1 = &xctx_out->ks1;
+        }
+        if (xctx->xts.key2) {
+            if (xctx->xts.key2 != &xctx->ks2)
+                return 0;
+            xctx_out->xts.key2 = &xctx_out->ks2;
+        }
+        return 1;
+    } else if (type != EVP_CTRL_INIT)
+        return -1;
+    /* key1 and key2 are used as an indicator both key and IV are set */
+    xctx->xts.key1 = NULL;
+    xctx->xts.key2 = NULL;
+    return 1;
+}
+
+static int aes_xts_cipher(EVP_CIPHER_CTX *ctx, uint8_t *out,
+                          const uint8_t *in, size_t len) {
+    EVP_AES_XTS_CTX *xctx = ctx->cipher_data;
+    if (!xctx->xts.key1 || !xctx->xts.key2)
+        return 0;
+    if (!out || !in || len < AES_BLOCK_SIZE)
+        return 0;
+    if (xctx->stream)
+        (*xctx->stream) (in, out, len,
+                         xctx->xts.key1, xctx->xts.key2, ctx->iv);
+    else if (CRYPTO_xts128_encrypt(&xctx->xts, ctx->iv, in, out, len,
+                                   ctx->encrypt))
+        return 0;
+    return 1;
+}
+
 static int aes_gcm_cipher(EVP_CIPHER_CTX *ctx, uint8_t *out, const uint8_t *in,
                           size_t len) {
   EVP_AES_GCM_CTX *gctx = ctx->cipher_data;
@@ -811,6 +899,13 @@ static const EVP_CIPHER aes_256_ofb = {
     NULL /* app_data */, aes_init_key,        aes_ofb_cipher,
     NULL /* cleanup */,  NULL /* ctrl */};
 
+static const EVP_CIPHER aes_256_xts = {
+    NID_aes_256_xts,     1 /* block_size */,  32 /* key_size */,
+    16 /* iv_len */,     sizeof(EVP_AES_XTS_CTX), EVP_CIPH_XTS_MODE | EVP_CIPH_CUSTOM_IV
+                         | EVP_CIPH_ALWAYS_CALL_INIT | EVP_CIPH_CTRL_INIT | EVP_CIPH_CUSTOM_COPY,
+    NULL /* app_data */, aes_xts_init_key,    aes_xts_cipher,
+    NULL /* cleanup */,  aes_xts_ctrl};
+
 static const EVP_CIPHER aes_256_gcm = {
     NID_aes_256_gcm, 1 /* block_size */, 32 /* key_size */, 12 /* iv_len */,
     sizeof(EVP_AES_GCM_CTX),
@@ -819,6 +914,7 @@ static const EVP_CIPHER aes_256_gcm = {
         EVP_CIPH_FLAG_AEAD_CIPHER,
     NULL /* app_data */, aes_gcm_init_key, aes_gcm_cipher, aes_gcm_cleanup,
     aes_gcm_ctrl};
+
 
 #if !defined(OPENSSL_NO_ASM) && \
     (defined(OPENSSL_X86_64) || defined(OPENSSL_X86))
@@ -1046,6 +1142,8 @@ EVP_CIPHER_FUNCTION(256, ctr)
 EVP_CIPHER_FUNCTION(256, ecb)
 EVP_CIPHER_FUNCTION(256, ofb)
 EVP_CIPHER_FUNCTION(256, gcm)
+
+const EVP_CIPHER *EVP_aes_256_xts(void) { return &aes_256_xts; }
 
 
 #define EVP_AEAD_AES_GCM_TAG_LEN 16

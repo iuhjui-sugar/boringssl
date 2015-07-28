@@ -44,6 +44,7 @@ add_library(
   ofb.c
   cfb.c
   gcm.c
+  xts128.c
 
   ${MODES_ARCH_SOURCES}
 )
