@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d7d46ed_88c2d798",
+        "filename": "ssl/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-30T21:32:38Z",
+      "side": 1,
+      "message": "/* ssl_has_private_key returns one if |ssl| has a private key configured and zero otherwise. */",
+      "revId": "2b735ca0ab3961e7fdc83dcb12de6bcf9ca750c9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
