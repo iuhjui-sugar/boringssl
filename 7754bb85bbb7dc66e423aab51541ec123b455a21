@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8a7538bb_732ea0c7",
+        "filename": "ssl/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-30T23:58:04Z",
+      "side": 1,
+      "message": "Newline here.",
+      "revId": "7754bb85bbb7dc66e423aab51541ec123b455a21",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8a7538bb_1323acde",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 1492,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-30T23:58:04Z",
+      "side": 1,
+      "message": "Style nit: I suspect this (and possibly line 1487/1489) can fit on the previous line now?",
+      "revId": "7754bb85bbb7dc66e423aab51541ec123b455a21",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8a7538bb_332828b6",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 1507,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-30T23:58:04Z",
+      "side": 1,
+      "message": "I\u0027d probably omit this line. ssl_private_key_sign may not be implemented with EVP and if it doesn\u0027t push to the error queue, ERR_LIB_EVP will be at the top. (Whereas we probably want SSL_get_error to return SSL_ERROR_SYSCALL to signal \"the failure was somewhere in your code, sorry\")",
+      "revId": "7754bb85bbb7dc66e423aab51541ec123b455a21",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8a7538bb_d31c54a2",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 1523,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-30T23:58:04Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "7754bb85bbb7dc66e423aab51541ec123b455a21",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8a7538bb_532924bc",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-30T23:58:04Z",
+      "side": 1,
+      "message": "(Whoops. Good catch.)",
+      "revId": "7754bb85bbb7dc66e423aab51541ec123b455a21",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
