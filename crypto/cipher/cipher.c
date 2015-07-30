@@ -623,22 +623,23 @@ int EVP_add_cipher_alias(const char *a, const char *b) {
 const EVP_CIPHER *EVP_get_cipherbyname(const char *name) {
   if (OPENSSL_strcasecmp(name, "rc4") == 0) {
     return EVP_rc4();
-  } else if (OPENSSL_strcasecmp(name, "des-cbc") == 0) {
+  } else if (OPENSSL_strcasecmp(name, LN_des_cbc) == 0) {
     return EVP_des_cbc();
-  } else if (OPENSSL_strcasecmp(name, "3des-cbc") == 0 ||
+  } else if (OPENSSL_strcasecmp(name, LN_des_ede3_cbc) == 0 ||
+             OPENSSL_strcasecmp(name, "3des-cbc") == 0 ||
              OPENSSL_strcasecmp(name, "3des") == 0) {
     return EVP_des_ede3_cbc();
-  } else if (OPENSSL_strcasecmp(name, "aes-128-cbc") == 0) {
+  } else if (OPENSSL_strcasecmp(name, LN_aes_128_cbc) == 0) {
     return EVP_aes_128_cbc();
-  } else if (OPENSSL_strcasecmp(name, "aes-256-cbc") == 0) {
+  } else if (OPENSSL_strcasecmp(name, LN_aes_256_cbc) == 0) {
     return EVP_aes_256_cbc();
-  } else if (OPENSSL_strcasecmp(name, "aes-128-ctr") == 0) {
+  } else if (OPENSSL_strcasecmp(name, LN_aes_128_ctr) == 0) {
     return EVP_aes_128_ctr();
-  } else if (OPENSSL_strcasecmp(name, "aes-256-ctr") == 0) {
+  } else if (OPENSSL_strcasecmp(name, LN_aes_256_ctr) == 0) {
     return EVP_aes_256_ctr();
-  } else if (OPENSSL_strcasecmp(name, "aes-128-ecb") == 0) {
+  } else if (OPENSSL_strcasecmp(name, LN_aes_128_ecb) == 0) {
     return EVP_aes_128_ecb();
-  } else if (OPENSSL_strcasecmp(name, "aes-256-ecb") == 0) {
+  } else if (OPENSSL_strcasecmp(name, LN_aes_256_ecb) == 0) {
     return EVP_aes_256_ecb();
   }
 
