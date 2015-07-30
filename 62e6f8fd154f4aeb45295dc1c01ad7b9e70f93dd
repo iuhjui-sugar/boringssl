@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6a5f2428_2deb199e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5865
+      },
+      "writtenOn": "2015-07-30T23:03:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aaa11c60_5cdb7d64",
+      "revId": "62e6f8fd154f4aeb45295dc1c01ad7b9e70f93dd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8a9c582b_9bcfcba0",
         "filename": "ssl/s3_srvr.c",
         "patchSetId": 6
@@ -30,6 +48,30 @@
       "writtenOn": "2015-07-30T21:32:38Z",
       "side": 1,
       "message": "Shouldn\u0027t this be d?",
+      "range": {
+        "startLine": 1460,
+        "startChar": 54,
+        "endLine": 1460,
+        "endChar": 61
+      },
+      "revId": "62e6f8fd154f4aeb45295dc1c01ad7b9e70f93dd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6a5f2428_2d0af95c",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 1460,
+      "author": {
+        "id": 5865
+      },
+      "writtenOn": "2015-07-30T23:03:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a9c582b_9bcfcba0",
       "range": {
         "startLine": 1460,
         "startChar": 54,
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "6a5f2428_8dc20527",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 1498,
+      "author": {
+        "id": 5865
+      },
+      "writtenOn": "2015-07-30T23:03:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a9c582b_dbc55384",
+      "revId": "62e6f8fd154f4aeb45295dc1c01ad7b9e70f93dd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ea8074c6_76b77025",
         "filename": "ssl/s3_srvr.c",
         "patchSetId": 6
@@ -70,6 +130,24 @@
       "writtenOn": "2015-07-30T21:32:38Z",
       "side": 1,
       "message": "This line isn\u0027t needed; ssl_private_key_sign_complete, unlike EVP_DigestSignFinal has separate input max_out and output out_len parameters. (Whereas EVP_DigestSignFinal is Windows-style and has a single input/output parameter.)",
+      "revId": "62e6f8fd154f4aeb45295dc1c01ad7b9e70f93dd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6a5f2428_cdb8fdc0",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 1521,
+      "author": {
+        "id": 5865
+      },
+      "writtenOn": "2015-07-30T23:03:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea8074c6_76b77025",
       "revId": "62e6f8fd154f4aeb45295dc1c01ad7b9e70f93dd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
