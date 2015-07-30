@@ -1,0 +1,284 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea8074c6_f6c2a079",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-30T23:47:28Z",
+      "side": 1,
+      "message": "|*out_len|",
+      "range": {
+        "startLine": 785,
+        "startChar": 22,
+        "endLine": 785,
+        "endChar": 31
+      },
+      "revId": "abaf45a6e795e4cdb418a2a86f39e0debb542079",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ea8074c6_96cfaca0",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 786,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-30T23:47:28Z",
+      "side": 1,
+      "message": "|SSL_custom_ext_free_cb|?",
+      "range": {
+        "startLine": 786,
+        "startChar": 32,
+        "endLine": 786,
+        "endChar": 36
+      },
+      "revId": "abaf45a6e795e4cdb418a2a86f39e0debb542079",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ea8074c6_b6cc28ac",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-30T23:47:28Z",
+      "side": 1,
+      "message": "Slightly tighter: This is to free any dynamically allocated data created by the add callback.",
+      "range": {
+        "startLine": 800,
+        "startChar": 21,
+        "endLine": 801,
+        "endChar": 44
+      },
+      "revId": "abaf45a6e795e4cdb418a2a86f39e0debb542079",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8a7538bb_d3c53484",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-30T23:47:28Z",
+      "side": 1,
+      "message": "This is somewhat of an odd API. If it returns one, presumably that means that the extension you want is implemented internally and you need to use the real API to configure it. If you predate that, you don\u0027t know what it is and can\u0027t react differently. If you know about the API, presumably you can just rely on it. (And if you need to support multiple versions, you have access to a check by way of dlsym/preprocessor/linker/whatever anyway.)\n\nSeems it\u0027d be better to omit this function and have callers check the return code on SSL_CTX_add_*. If it returns zero, explode.",
+      "revId": "abaf45a6e795e4cdb418a2a86f39e0debb542079",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "adcf7646_4c6d1faa",
+        "filename": "ssl/custom_extensions.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-30T23:47:28Z",
+      "side": 1,
+      "message": "Servers",
+      "range": {
+        "startLine": 69,
+        "startChar": 9,
+        "endLine": 69,
+        "endChar": 17
+      },
+      "revId": "abaf45a6e795e4cdb418a2a86f39e0debb542079",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8a7538bb_130acc5c",
+        "filename": "ssl/custom_extensions.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-30T23:47:28Z",
+      "side": 1,
+      "message": "Why not CBB_add_bytes(extensions, contents, contents_len)\n\nOr even CBB_add_u16_length_prefixed which will take care of line 81 for you too. (Though I suppose you don\u0027t get a custom error code.)",
+      "revId": "abaf45a6e795e4cdb418a2a86f39e0debb542079",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8a7538bb_330fc86d",
+        "filename": "ssl/custom_extensions.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-30T23:47:28Z",
+      "side": 1,
+      "message": "!\u003d NULL",
+      "range": {
+        "startLine": 143,
+        "startChar": 25,
+        "endLine": 143,
+        "endChar": 26
+      },
+      "revId": "abaf45a6e795e4cdb418a2a86f39e0debb542079",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8a7538bb_7305404d",
+        "filename": "ssl/custom_extensions.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-30T23:47:28Z",
+      "side": 1,
+      "message": "This isn\u0027t possible, right? The two callers ensure it\u0027s non-NULL.",
+      "revId": "abaf45a6e795e4cdb418a2a86f39e0debb542079",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8a7538bb_93fd7ca8",
+        "filename": "ssl/custom_extensions.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-30T23:47:28Z",
+      "side": 1,
+      "message": "Maybe pull ssl_lib\u0027s SSL_CUSTOM_EXTENSION_free here and into ssl/internal.h, just so it\u0027s using the same type consistently? Though I suppose it is locally obvious in this function that OPENSSL_free is all you need.",
+      "revId": "abaf45a6e795e4cdb418a2a86f39e0debb542079",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8a7538bb_93e81ced",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-30T23:47:28Z",
+      "side": 1,
+      "message": "Since these are all nicely grouped anyway, maybe put this in a \"Custom extensions\" block rather than the \"Underdocumented functions\" bit that I\u0027ve been completely failing to clear out.",
+      "revId": "abaf45a6e795e4cdb418a2a86f39e0debb542079",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8a7538bb_f3eb90e7",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-30T23:47:28Z",
+      "side": 1,
+      "message": "/* C-style comment */",
+      "revId": "abaf45a6e795e4cdb418a2a86f39e0debb542079",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8a7538bb_d3f3f4db",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-30T23:47:28Z",
+      "side": 1,
+      "message": "const? (We don\u0027t expect the caller to consume it or anything it seems.)",
+      "range": {
+        "startLine": 683,
+        "startChar": 33,
+        "endLine": 683,
+        "endChar": 36
+      },
+      "revId": "abaf45a6e795e4cdb418a2a86f39e0debb542079",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8a7538bb_f3f070d1",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 685,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-30T23:47:28Z",
+      "side": 1,
+      "message": "Ditto",
+      "range": {
+        "startLine": 685,
+        "startChar": 33,
+        "endLine": 685,
+        "endChar": 36
+      },
+      "revId": "abaf45a6e795e4cdb418a2a86f39e0debb542079",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8a7538bb_d3ee94fa",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 3701,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-30T23:47:28Z",
+      "side": 1,
+      "message": "Might be clearer to put it in a random variable.",
+      "revId": "abaf45a6e795e4cdb418a2a86f39e0debb542079",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
