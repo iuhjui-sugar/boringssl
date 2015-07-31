@@ -212,12 +212,72 @@ static ssl_private_key_result_t AsyncPrivateKeySignComplete(
   return ssl_private_key_success;
 }
 
+static ssl_private_key_result_t AsyncPrivateKeyDecryptNoPadding(
+    SSL *ssl, uint8_t *out, size_t *out_len, size_t max_out,
+    const uint8_t *in, size_t in_len) {
+  TestState *test_state = GetTestState(ssl);
+  if (!test_state->signature.empty()) {
+    fprintf(stderr,
+            "AsyncPrivateKeyDecryptNoPadding called with operation pending.\n");
+    abort();
+  }
+
+  EVP_PKEY *pkey = test_state->private_key.get();
+  if (pkey->type != EVP_PKEY_RSA || pkey->pkey.rsa == NULL) {
+    fprintf(stderr,
+            "AsyncPrivateKeyDecryptNoPadding called with incorrect key type.\n");
+    abort();
+  }
+  RSA *rsa = pkey->pkey.rsa;
+  test_state->signature.resize(RSA_size(rsa));
+  if (!RSA_decrypt(rsa, out_len, bssl::vector_data(&test_state->signature),
+                   RSA_size(rsa), in, in_len, RSA_NO_PADDING)) {
+    return ssl_private_key_failure;
+  }
+
+  test_state->signature.resize(*out_len);
+
+  // The signature will be released asynchronously in
+  // |AsyncPrivateKeyDecryptComplete|.
+  return ssl_private_key_retry;
+}
+
+static ssl_private_key_result_t AsyncPrivateKeyDecryptComplete(
+    SSL *ssl, uint8_t *out, size_t *out_len, size_t max_out) {
+  TestState *test_state = GetTestState(ssl);
+  if (test_state->signature.empty()) {
+    fprintf(stderr,
+            "AsyncPrivateKeyDecryptComplete called without operation pending.\n");
+    abort();
+  }
+
+  if (test_state->signature_retries < 2) {
+    // Only return the signature on the second attempt, to test both incomplete
+    // |sign| and |sign_complete|.
+    return ssl_private_key_retry;
+  }
+
+  if (max_out < test_state->signature.size()) {
+    fprintf(stderr, "Output buffer too small.\n");
+    return ssl_private_key_failure;
+  }
+  memcpy(out, bssl::vector_data(&test_state->signature),
+         test_state->signature.size());
+  *out_len = test_state->signature.size();
+
+  test_state->signature.clear();
+  test_state->signature_retries = 0;
+  return ssl_private_key_success;
+}
+
 static const SSL_PRIVATE_KEY_METHOD g_async_private_key_method = {
     AsyncPrivateKeyType,
     AsyncPrivateKeySupportsDigest,
     AsyncPrivateKeyMaxSignatureLen,
     AsyncPrivateKeySign,
     AsyncPrivateKeySignComplete,
+    AsyncPrivateKeyDecryptNoPadding,
+    AsyncPrivateKeyDecryptComplete
 };
 
 static bool InstallCertificate(SSL *ssl) {

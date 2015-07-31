@@ -1750,71 +1750,47 @@ func addBasicTests() {
 
 func addCipherSuiteTests() {
 	for _, suite := range testCipherSuites {
-		const psk = "12345"
-		const pskIdentity = "luggage combo"
+		for _, async := range []bool{false, true} {
 
-		var cert Certificate
-		var certFile string
-		var keyFile string
-		if hasComponent(suite.name, "ECDSA") {
-			cert = getECDSACertificate()
-			certFile = ecdsaCertificateFile
-			keyFile = ecdsaKeyFile
-		} else {
-			cert = getRSACertificate()
-			certFile = rsaCertificateFile
-			keyFile = rsaKeyFile
-		}
+			const psk = "12345"
+			const pskIdentity = "luggage combo"
 
-		var flags []string
-		if hasComponent(suite.name, "PSK") {
-			flags = append(flags,
-				"-psk", psk,
-				"-psk-identity", pskIdentity)
-		}
-
-		for _, ver := range tlsVersions {
-			if ver.version < VersionTLS12 && isTLS12Only(suite.name) {
-				continue
+			var cert Certificate
+			var certFile string
+			var keyFile string
+			if hasComponent(suite.name, "ECDSA") {
+				cert = getECDSACertificate()
+				certFile = ecdsaCertificateFile
+				keyFile = ecdsaKeyFile
+			} else {
+				cert = getRSACertificate()
+				certFile = rsaCertificateFile
+				keyFile = rsaKeyFile
 			}
 
-			testCases = append(testCases, testCase{
-				testType: clientTest,
-				name:     ver.name + "-" + suite.name + "-client",
-				config: Config{
-					MinVersion:           ver.version,
-					MaxVersion:           ver.version,
-					CipherSuites:         []uint16{suite.id},
-					Certificates:         []Certificate{cert},
-					PreSharedKey:         []byte(psk),
-					PreSharedKeyIdentity: pskIdentity,
-				},
-				flags:         flags,
-				resumeSession: true,
-			})
+			var flags []string
+			if hasComponent(suite.name, "PSK") {
+				flags = append(flags,
+					"-psk", psk,
+					"-psk-identity", pskIdentity)
+			}
+			var suffix = ""
+			if async {
+				flags = append(flags,
+					"-use-async-private-key",
+					"-async",
+				)
+				suffix = "-Async"
+			}
 
-			testCases = append(testCases, testCase{
-				testType: serverTest,
-				name:     ver.name + "-" + suite.name + "-server",
-				config: Config{
-					MinVersion:           ver.version,
-					MaxVersion:           ver.version,
-					CipherSuites:         []uint16{suite.id},
-					Certificates:         []Certificate{cert},
-					PreSharedKey:         []byte(psk),
-					PreSharedKeyIdentity: pskIdentity,
-				},
-				certFile:      certFile,
-				keyFile:       keyFile,
-				flags:         flags,
-				resumeSession: true,
-			})
+			for _, ver := range tlsVersions {
+				if ver.version < VersionTLS12 && isTLS12Only(suite.name) {
+					continue
+				}
 
-			if ver.hasDTLS && isDTLSCipher(suite.name) {
 				testCases = append(testCases, testCase{
 					testType: clientTest,
-					protocol: dtls,
-					name:     "D" + ver.name + "-" + suite.name + "-client",
+					name:     ver.name + "-" + suite.name + "-client" + suffix,
 					config: Config{
 						MinVersion:           ver.version,
 						MaxVersion:           ver.version,
@@ -1826,10 +1802,10 @@ func addCipherSuiteTests() {
 					flags:         flags,
 					resumeSession: true,
 				})
+
 				testCases = append(testCases, testCase{
 					testType: serverTest,
-					protocol: dtls,
-					name:     "D" + ver.name + "-" + suite.name + "-server",
+					name:     ver.name + "-" + suite.name + "-server" + suffix,
 					config: Config{
 						MinVersion:           ver.version,
 						MaxVersion:           ver.version,
@@ -1843,6 +1819,41 @@ func addCipherSuiteTests() {
 					flags:         flags,
 					resumeSession: true,
 				})
+
+				if ver.hasDTLS && isDTLSCipher(suite.name) {
+					testCases = append(testCases, testCase{
+						testType: clientTest,
+						protocol: dtls,
+						name:     "D" + ver.name + "-" + suite.name + "-client" + suffix,
+						config: Config{
+							MinVersion:           ver.version,
+							MaxVersion:           ver.version,
+							CipherSuites:         []uint16{suite.id},
+							Certificates:         []Certificate{cert},
+							PreSharedKey:         []byte(psk),
+							PreSharedKeyIdentity: pskIdentity,
+						},
+						flags:         flags,
+						resumeSession: true,
+					})
+					testCases = append(testCases, testCase{
+						testType: serverTest,
+						protocol: dtls,
+						name:     "D" + ver.name + "-" + suite.name + "-server" + suffix,
+						config: Config{
+							MinVersion:           ver.version,
+							MaxVersion:           ver.version,
+							CipherSuites:         []uint16{suite.id},
+							Certificates:         []Certificate{cert},
+							PreSharedKey:         []byte(psk),
+							PreSharedKeyIdentity: pskIdentity,
+						},
+						certFile:      certFile,
+						keyFile:       keyFile,
+						flags:         flags,
+						resumeSession: true,
+					})
+				}
 			}
 		}
 	}
@@ -3661,10 +3672,10 @@ func addCustomExtensionTests() {
 
 		testCases = append(testCases, testCase{
 			testType: testType,
-			name: "CustomExtensions-" + suffix,
+			name:     "CustomExtensions-" + suffix,
 			config: Config{
-				Bugs: ProtocolBugs {
-					CustomExtension: expectedContents,
+				Bugs: ProtocolBugs{
+					CustomExtension:         expectedContents,
 					ExpectedCustomExtension: &expectedContents,
 				},
 			},
@@ -3674,30 +3685,30 @@ func addCustomExtensionTests() {
 		// If the parse callback fails, the handshake should also fail.
 		testCases = append(testCases, testCase{
 			testType: testType,
-			name: "CustomExtensions-ParseError-" + suffix,
+			name:     "CustomExtensions-ParseError-" + suffix,
 			config: Config{
-				Bugs: ProtocolBugs {
-					CustomExtension: expectedContents + "foo",
+				Bugs: ProtocolBugs{
+					CustomExtension:         expectedContents + "foo",
 					ExpectedCustomExtension: &expectedContents,
 				},
 			},
-			flags: []string{flag},
-			shouldFail: true,
+			flags:         []string{flag},
+			shouldFail:    true,
 			expectedError: ":CUSTOM_EXTENSION_ERROR:",
 		})
 
 		// If the add callback fails, the handshake should also fail.
 		testCases = append(testCases, testCase{
 			testType: testType,
-			name: "CustomExtensions-FailAdd-" + suffix,
+			name:     "CustomExtensions-FailAdd-" + suffix,
 			config: Config{
-				Bugs: ProtocolBugs {
-					CustomExtension: expectedContents,
+				Bugs: ProtocolBugs{
+					CustomExtension:         expectedContents,
 					ExpectedCustomExtension: &expectedContents,
 				},
 			},
-			flags: []string{flag, "-custom-extension-fail-add"},
-			shouldFail: true,
+			flags:         []string{flag, "-custom-extension-fail-add"},
+			shouldFail:    true,
 			expectedError: ":CUSTOM_EXTENSION_ERROR:",
 		})
 
@@ -3711,10 +3722,10 @@ func addCustomExtensionTests() {
 		}
 		testCases = append(testCases, testCase{
 			testType: testType,
-			name: "CustomExtensions-Skip-" + suffix,
+			name:     "CustomExtensions-Skip-" + suffix,
 			config: Config{
-				Bugs: ProtocolBugs {
-					CustomExtension: skipCustomExtension,
+				Bugs: ProtocolBugs{
+					CustomExtension:         skipCustomExtension,
 					ExpectedCustomExtension: &emptyString,
 				},
 			},
@@ -3726,9 +3737,9 @@ func addCustomExtensionTests() {
 	// doesn't send the extension.
 	testCases = append(testCases, testCase{
 		testType: serverTest,
-		name: "CustomExtensions-NotCalled-Server",
+		name:     "CustomExtensions-NotCalled-Server",
 		config: Config{
-			Bugs: ProtocolBugs {
+			Bugs: ProtocolBugs{
 				ExpectedCustomExtension: &emptyString,
 			},
 		},
