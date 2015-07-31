@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6a5f2428_30bc9005",
+        "filename": "ssl/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 5865
+      },
+      "writtenOn": "2015-07-31T01:03:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a7538bb_732ea0c7",
+      "revId": "7754bb85bbb7dc66e423aab51541ec123b455a21",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8a7538bb_1323acde",
         "filename": "ssl/s3_srvr.c",
         "patchSetId": 7
@@ -30,6 +48,24 @@
       "writtenOn": "2015-07-30T23:58:04Z",
       "side": 1,
       "message": "Style nit: I suspect this (and possibly line 1487/1489) can fit on the previous line now?",
+      "revId": "7754bb85bbb7dc66e423aab51541ec123b455a21",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6a5f2428_b0e880ec",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 1492,
+      "author": {
+        "id": 5865
+      },
+      "writtenOn": "2015-07-31T01:03:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a7538bb_1323acde",
       "revId": "7754bb85bbb7dc66e423aab51541ec123b455a21",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "6a5f2428_5005c44c",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 1507,
+      "author": {
+        "id": 5865
+      },
+      "writtenOn": "2015-07-31T01:03:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a7538bb_332828b6",
+      "revId": "7754bb85bbb7dc66e423aab51541ec123b455a21",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8a7538bb_d31c54a2",
         "filename": "ssl/s3_srvr.c",
         "patchSetId": 7
@@ -64,6 +118,24 @@
       "writtenOn": "2015-07-30T23:58:04Z",
       "side": 1,
       "message": "Ditto.",
+      "revId": "7754bb85bbb7dc66e423aab51541ec123b455a21",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6a5f2428_300a505d",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 1523,
+      "author": {
+        "id": 5865
+      },
+      "writtenOn": "2015-07-31T01:03:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a7538bb_d31c54a2",
       "revId": "7754bb85bbb7dc66e423aab51541ec123b455a21",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
