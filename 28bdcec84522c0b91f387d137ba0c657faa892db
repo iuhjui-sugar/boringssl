@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0adf88f3_afccb9ab",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1943,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-31T03:14:55Z",
+      "side": 1,
+      "message": "This is a slight compatibility risk since we\u0027d not enforce this before if not using an ECC cipher. But it\u0027s probably safe? If you\u0027d prefer, we can also just completely ignore the contents of the extension or just check the syntax only. It doesn\u0027t seem worth keeping track of a boolean for whether uncompressed shows up in the list.",
+      "revId": "28bdcec84522c0b91f387d137ba0c657faa892db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

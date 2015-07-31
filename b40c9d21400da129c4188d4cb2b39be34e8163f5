@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0adf88f3_4fdbcd64",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2002,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-31T03:14:55Z",
+      "side": 0,
+      "message": "I believe this used to be in lieu of checking if the peer sent this extension, but the framework does it for us now.",
+      "range": {
+        "startLine": 2002,
+        "startChar": 24,
+        "endLine": 2002,
+        "endChar": 71
+      },
+      "revId": "b40c9d21400da129c4188d4cb2b39be34e8163f5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
