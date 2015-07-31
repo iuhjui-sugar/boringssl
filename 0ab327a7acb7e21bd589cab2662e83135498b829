@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4a5c2064_39294fbe",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1069,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-07-31T22:30:16Z",
+      "side": 1,
+      "message": "Aaaahhhhh. I really don\u0027t like this do/while fake for loop. I think the old one was clearer, despite the goto enter. MSVC\u0027s unreachable code check seems to have been fairly dumb thus far, so contortions to appease it don\u0027t seem very worthwhile. Though, honestly, both LHS and RHS are pretty bad what with the goto enter in there. This code can do with cleanup regardless.\n\nThis bit is *almost* the same as what\u0027s in the loop. I think you actually can just delete all this and replace it with initializing tp with 0. (Although the compiler won\u0027t be able to optimize that away, if we care. Probably not? We can see what bssl speed thinks. Otherwise, could also just stick an if in there. It seems to just be skipping the memset.)\n\n(It\u0027s also potentially different if num is 0, but that would break anyway due to line 1109 on the LHS.)",
+      "range": {
+        "startLine": 1053,
+        "startChar": 0,
+        "endLine": 1069,
+        "endChar": 13
+      },
+      "revId": "0ab327a7acb7e21bd589cab2662e83135498b829",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
