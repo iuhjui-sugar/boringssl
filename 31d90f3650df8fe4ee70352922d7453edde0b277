@@ -1,0 +1,215 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0ad9483e_02714cd1",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-05T17:42:31Z",
+      "side": 1,
+      "message": "Perhaps add:\n\n|decrypt| is only supported for an RSA key. It should perform a raw RSA decryption operation with no padding.",
+      "revId": "31d90f3650df8fe4ee70352922d7453edde0b277",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cadad034_800f186b",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 750,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-05T17:42:31Z",
+      "side": 1,
+      "message": "e",
+      "range": {
+        "startLine": 750,
+        "startChar": 30,
+        "endLine": 750,
+        "endChar": 31
+      },
+      "revId": "31d90f3650df8fe4ee70352922d7453edde0b277",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d6242c0_2036d0ec",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-05T17:42:31Z",
+      "side": 1,
+      "message": "This should match the name of the function in the method table. Currently one\u0027s decrypt_no_padding and the other\u0027s just decrypt. decrypt_no_padding is a bit wordy. decrypt_raw? Or just plain decrypt is probably fine too.",
+      "range": {
+        "startLine": 370,
+        "startChar": 53,
+        "endLine": 370,
+        "endChar": 64
+      },
+      "revId": "31d90f3650df8fe4ee70352922d7453edde0b277",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eac87477_962ccc4b",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1714,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-05T17:42:31Z",
+      "side": 1,
+      "message": "[This allocates and deallocates |decrypt_buf| each time. Though fixing it would require more state. I suppose that\u0027s an option, but this is probably fine? Your call, since Chromium doesn\u0027t really care one way or another.]",
+      "revId": "31d90f3650df8fe4ee70352922d7453edde0b277",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed788e71_bf583b09",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1757,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-05T17:42:31Z",
+      "side": 1,
+      "message": "This needs to get moved to the SSL3_ST_SR_KEY_EXCH_D block.",
+      "revId": "31d90f3650df8fe4ee70352922d7453edde0b277",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed788e71_ffd1d3c9",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1797,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-05T17:42:31Z",
+      "side": 1,
+      "message": "Note that this does mean that anything that implements this API exposes an oracle for arbitrary RSA private key operations. If it\u0027s just for asynchronicity, that\u0027s fine, but if it\u0027s for some kind of isolation, it might matter. Is this okay?\n\nThe other option I can see is to see that the private key instead provides an API like:\n\n  /* TODO: Write documentation. Notably it needs extra\n   * load warnings that the implementation is responsible\n   * for dealing with the timing-sensitive bits. */\n  int (*decrypt_premaster)(uint8_t *out, size_t *out_len, size_t max_out,\n                           const uint8_t *in, size_t in_len,\n                           uint16_t wire_version);\n\nWhich does the decryption and constant-time padding check and random swap all in one go. We\u0027d have to then factor out the constant-time bit below into an exposed helper function so people don\u0027t implement it themselves.\n\nBut I\u0027m not sure that actually does much. You\u0027d have to make sure decrypt_premaster doesn\u0027t just give you the Bleichenbacher oracle. The random premaster would be detectable by just calling it twice, so you need something like SHA-256(padded result). I think that\u0027s fine?\n\nBut then you can still detect it because the wire_version will be wrong, so you have to fix those two bytes in the output.\n\nBut then you can detect the wire_version check by trying a few legal wire_versions and seeing if one value gives different results. I think you then get to do http://eprint.iacr.org/2003/052.pdf\n\nMmmmaybe if we do the SHA-256 thing and then not bother with a version check. Instead just blindly \"correct\" the premaster. Then we might actually be good???\n\nExcept for the part, of course, where, if all checks succeed, we outright give you the raw decrypted bits. That\u0027s way more information than a one-bit oracle and one could probably do something with it.\n\n(Of course, there may be something to be said for all these being much harder than the straight-up RSA private key operation oracle...)\n\n\nI don\u0027t know how much we care about this... I imagine the \"turning off the oracle prevents all future use of the key\" is the much more interesting property here, apart from just being able to do it async. If the oracles matter, probably the right thing is to offload considerably more of the handshake and key derivation.\n\n(If we don\u0027t care, I think the current boundary is a much simpler story, so we can leave it.)",
+      "revId": "31d90f3650df8fe4ee70352922d7453edde0b277",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6a9ac479_52d5f42d",
+        "filename": "ssl/ssl_rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-05T17:42:31Z",
+      "side": 1,
+      "message": "This should probably first check:\n\nif (ssl-\u003ecert-\u003eprivatekey-\u003etype !\u003d EVP_PKEY_RSA) {\n  OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);\n  return ssl_private_key_failure;\n}\n\n(This can\u0027t happen, but it\u0027s not locally obvious.)",
+      "revId": "31d90f3650df8fe4ee70352922d7453edde0b277",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ab228f6_d7cb9cb2",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-05T17:42:31Z",
+      "side": 1,
+      "message": "Perhaps private_key_result now, and private_key_retries below.",
+      "range": {
+        "startLine": 98,
+        "startChar": 23,
+        "endLine": 98,
+        "endChar": 32
+      },
+      "revId": "31d90f3650df8fe4ee70352922d7453edde0b277",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed788e71_3f5eebf8",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-05T17:42:31Z",
+      "side": 1,
+      "message": "sign -\u003e private key",
+      "range": {
+        "startLine": 99,
+        "startChar": 62,
+        "endLine": 99,
+        "endChar": 66
+      },
+      "revId": "31d90f3650df8fe4ee70352922d7453edde0b277",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d6d52b6_bcb9256a",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1753,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-05T17:42:31Z",
+      "side": 1,
+      "message": "Probably put this next to the other async tests, just so we don\u0027t have to maintain two sets of them. Just pick your favorite RSA key exchange cipher suite and specify that one. Probably Basic-Server-RSAAsyncKey should also explicitly specify an ECDHE_RSA or whatever else, just so we\u0027re not relying on the default cipher order. Maybe Basic-Server-AsyncKey-RSA and Basic-Server-AsyncKey-ECDHE_RSA?\n\nIn fact, now that it works everywhere, perhaps -use-async-private-key should merge into -async, like our other random async callback tests. And then we make addStateMachineCoverageTests include RSA / ECDHE_RSA / ECDHE_ECDSA key exchanges since they have slightly different key types and handshake shapes.\n\n(See test_config.cc for how that\u0027s all set up.)",
+      "revId": "31d90f3650df8fe4ee70352922d7453edde0b277",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a2a60c0_ac1d0bf6",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 3675,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-05T17:42:31Z",
+      "side": 1,
+      "message": "[If you rebase, this\u0027ll go away.]",
+      "revId": "31d90f3650df8fe4ee70352922d7453edde0b277",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
