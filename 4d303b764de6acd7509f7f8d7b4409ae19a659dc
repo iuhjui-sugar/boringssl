@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0aa5c8c6_e25a4857",
+        "filename": "ssl/d1_pkt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-05T21:23:03Z",
+      "side": 1,
+      "message": "(Hopefully this if statement is redundant.)",
+      "revId": "4d303b764de6acd7509f7f8d7b4409ae19a659dc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
