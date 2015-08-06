@@ -70,6 +70,30 @@
       "revId": "0ab327a7acb7e21bd589cab2662e83135498b829",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2aa44cb9_306a280a",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1069,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-08-06T18:57:46Z",
+      "side": 1,
+      "message": "That sounds about right to me. I found this when I had to temporarily -DOPENSSL_NO_ASM for some Windows builds.\n\nAre you suggesting that the code should just be removed? What about the MIPS build?\n\nThis code is used if you build on any platform with OPENSSL_NO_ASM. Removing the code completely would break all OPENSSL_NO_ASM builds. Right now, the code builds fine with OPENSSL_NO_ASM for arm7[e]-m, but it fails to build without OPENSSL_NO_ASM for that architecture.",
+      "parentUuid": "2aa44cb9_30814852",
+      "range": {
+        "startLine": 1053,
+        "startChar": 0,
+        "endLine": 1069,
+        "endChar": 13
+      },
+      "revId": "0ab327a7acb7e21bd589cab2662e83135498b829",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
