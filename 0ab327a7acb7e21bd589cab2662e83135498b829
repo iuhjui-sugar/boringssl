@@ -118,6 +118,30 @@
       "revId": "0ab327a7acb7e21bd589cab2662e83135498b829",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2aa44cb9_33e07209",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1069,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-08-06T19:42:32Z",
+      "side": 1,
+      "message": "Yes, you are right. I just uploaded a new changeset that just deletes this definition completely.\n\nI verified that the build succeeds with OPENSSL_NO_ASM and non-OPENSSL_NO_ASM builds:\nhttps://travis-ci.org/briansmith/ring/builds/74462777\nhttps://ci.appveyor.com/project/briansmith/ring/build/1.0.61",
+      "parentUuid": "2aa44cb9_7064b03c",
+      "range": {
+        "startLine": 1053,
+        "startChar": 0,
+        "endLine": 1069,
+        "endChar": 13
+      },
+      "revId": "0ab327a7acb7e21bd589cab2662e83135498b829",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
