@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2aa44cb9_10336482",
+        "filename": "crypto/bn/bn_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1195,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-06T15:26:37Z",
+      "side": 1,
+      "message": "These can be chained together with ||.",
+      "revId": "11b44063e50b6605763aaa32d47dc70c047cabe3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
