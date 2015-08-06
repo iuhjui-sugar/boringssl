@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2aa44cb9_332eb2c6",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1037,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-06T20:16:39Z",
+      "side": 0,
+      "message": "There\u0027s a prototype in bn/internal.h probably would ideally have #ifdefs to match the assembly files. Though what the right set are, I\u0027m not sure...",
+      "revId": "07bf9f69ba54294113bac938934180fb42ed3c4e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
