@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2aa44cb9_b3662219",
+        "filename": "crypto/ec/wnaf.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-06T21:16:01Z",
+      "side": 1,
+      "message": "Alternatively, this only ever runs if we\u0027ve done EC_GROUP_precompute_mult. I don\u0027t think anyone ever calls this function. Is it worth keeping this code around at all, or should we just ditch it all?\n\n(Ditching it means that EC_GROUPs are finally immutable, which means we can save all the EC_GROUP_dups and make them .rodata. Although we could do that anyway and just burn the precomputed bits into rodata too if that\u0027s valuable.)",
+      "range": {
+        "startLine": 421,
+        "startChar": 7,
+        "endLine": 421,
+        "endChar": 24
+      },
+      "revId": "c305fea1aa8ce485f824e497a54f0f21309c9bb6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
