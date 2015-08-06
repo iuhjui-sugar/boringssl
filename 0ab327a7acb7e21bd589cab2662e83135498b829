@@ -22,6 +22,30 @@
       "revId": "0ab327a7acb7e21bd589cab2662e83135498b829",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2aa44cb9_90c11499",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1069,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-08-06T18:15:10Z",
+      "side": 1,
+      "message": "RE MSVC\u0027s unreachable code check: It is technically correct here, so it\u0027s hard to blame it. I personally do find that check useful. It is also a prerequisite for other static analysis stuff, so I\u0027d like to find a way to improve the readability of the code while also facilitating the static analysis. I think this new version does that.\n\nRe-reading your comment just now, I think you may be suggesting a more extensive change than what I made here. I think there are probably lots of ways to improve this code, but I think they are better deferred to later, if at all reasonable.",
+      "parentUuid": "4a5c2064_39294fbe",
+      "range": {
+        "startLine": 1053,
+        "startChar": 0,
+        "endLine": 1069,
+        "endChar": 13
+      },
+      "revId": "0ab327a7acb7e21bd589cab2662e83135498b829",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
