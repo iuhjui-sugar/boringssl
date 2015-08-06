@@ -46,6 +46,30 @@
       "revId": "0ab327a7acb7e21bd589cab2662e83135498b829",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2aa44cb9_30814852",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1069,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-06T18:48:30Z",
+      "side": 1,
+      "message": "So, poking around some more, I\u0027m now fairly convinced that this code never runs. First, it\u0027s only defined if:\n\n #if defined(OPENSSL_NO_ASM) || (!defined(OPENSSL_ARM) \u0026\u0026 \\\n                                 !defined(OPENSSL_X86_64))\n\nNext, every caller seems to be guarded by either:\n\n #if !defined(OPENSSL_NO_ASM) \u0026\u0026 \\\n     (defined(OPENSSL_X86) || defined(OPENSSL_X86_64))\n #define OPENSSL_BN_ASM_MONT\n #endif\n\nOr:\n\n #if !defined(OPENSSL_NO_ASM) \u0026\u0026 defined(OPENSSL_X86_64)\n #define OPENSSL_BN_ASM_MONT5\n #define RSAZ_ENABLED\n \n #include \"rsaz_exp.h\"\n #endif\n\n\nThat leaves OPENSSL_X86 without OPENSSL_NO_ASM. However, in that case, bn_mont_mul is provided by x86-mont.pl.\n\n\nMoreover, that entire file is guarded by:\n\n #if defined(OPENSSL_NO_ASM) || \\\n     (!defined(OPENSSL_X86_64) \u0026\u0026 !defined(OPENSSL_X86)) || \\\n     (defined(OPENSSL_X86_64) \u0026\u0026 defined(OPENSSL_WINDOWS))\n\nSo this is really:\n\n #if defined(OPENSSL_NO_ASM) || \\\n   (!defined(OPENSSL_ARM) \u0026\u0026 !defined(OPENSSL_X86_64) \u0026\u0026 \\\n    !defined(OPENSSL_X86_64))",
+      "parentUuid": "2aa44cb9_90c11499",
+      "range": {
+        "startLine": 1053,
+        "startChar": 0,
+        "endLine": 1069,
+        "endChar": 13
+      },
+      "revId": "0ab327a7acb7e21bd589cab2662e83135498b829",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
