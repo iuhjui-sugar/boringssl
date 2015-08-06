@@ -94,6 +94,30 @@
       "revId": "0ab327a7acb7e21bd589cab2662e83135498b829",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2aa44cb9_7064b03c",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1069,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-06T19:00:57Z",
+      "side": 1,
+      "message": "I don\u0027t think it breaks OPENSSL_NO_ASM builds. It true that the function is built in those cases, but, as far as I can tell, it has no callers. I just renamed it to bn_mul_montzzzz and OPENSSL_NO_ASM builds still linked. Does that not match what you\u0027re seeing?\n\nI was trying to test my \"we can just memset tp to 0 because mul(a, b) \u003d\u003d mul_add(0, a, b)\" theory and was unable to find a build configuration that would actually hit this codepath.",
+      "parentUuid": "2aa44cb9_306a280a",
+      "range": {
+        "startLine": 1053,
+        "startChar": 0,
+        "endLine": 1069,
+        "endChar": 13
+      },
+      "revId": "0ab327a7acb7e21bd589cab2662e83135498b829",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
