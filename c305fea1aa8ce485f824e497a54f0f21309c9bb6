@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa72fc8e_54fe2ca3",
+        "filename": "crypto/rand/hwrand.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-06T23:29:21Z",
+      "side": 0,
+      "message": "The only reason this compiled was that we didn\u0027t include internal.h.",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 4
+      },
+      "revId": "c305fea1aa8ce485f824e497a54f0f21309c9bb6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
