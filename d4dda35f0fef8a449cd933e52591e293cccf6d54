@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "6ae6442a_92b29c01",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 5805
+      },
+      "writtenOn": "2015-08-06T12:13:42Z",
+      "side": 1,
+      "message": "Serialized in patch set 4, updated the comment in patch set 5",
+      "parentUuid": "931655ff_b4a200b7",
+      "revId": "d4dda35f0fef8a449cd933e52591e293cccf6d54",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3386892e_0c7b57ec",
         "filename": "ssl/ssl_sess.c",
         "patchSetId": 3
@@ -84,6 +102,30 @@
     },
     {
       "key": {
+        "uuid": "4a37c06b_81503a2d",
+        "filename": "ssl/ssl_sess.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 5805
+      },
+      "writtenOn": "2015-08-06T12:13:42Z",
+      "side": 1,
+      "message": "Fixed in patch set 5",
+      "parentUuid": "13b8a53c_9032542c",
+      "range": {
+        "startLine": 688,
+        "startChar": 59,
+        "endLine": 688,
+        "endChar": 60
+      },
+      "revId": "d4dda35f0fef8a449cd933e52591e293cccf6d54",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3386892e_ec9a83bb",
         "filename": "ssl/ssl_sess.c",
         "patchSetId": 3
@@ -113,6 +155,24 @@
       "side": 1,
       "message": "Most similar functions have a similar NULL check. Done purely to keep consistent with other code. Will change if we decide to keep this function.",
       "parentUuid": "3386892e_ec9a83bb",
+      "revId": "d4dda35f0fef8a449cd933e52591e293cccf6d54",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a37c06b_214dae8f",
+        "filename": "ssl/ssl_sess.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 5805
+      },
+      "writtenOn": "2015-08-06T12:13:42Z",
+      "side": 1,
+      "message": "Fixed in patch set 5",
+      "parentUuid": "13d1858c_c82c2fd4",
       "revId": "d4dda35f0fef8a449cd933e52591e293cccf6d54",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
