@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2aa44cb9_73659a0f",
+        "filename": "crypto/des/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-06T21:14:05Z",
+      "side": 1,
+      "message": "Note: S changed from double the iteration to just the iteration.",
+      "range": {
+        "startLine": 190,
+        "startChar": 29,
+        "endLine": 190,
+        "endChar": 30
+      },
+      "revId": "f656095497d9a4865d29874af249f8b5a37600fd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
