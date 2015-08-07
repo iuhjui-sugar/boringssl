@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "07430351_4ff76d82",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-07T16:47:59Z",
+      "side": 1,
+      "message": "Apparently I had this branch lying around from more than a year ago!\n\nI don\u0027t know if this is worth bothering with. It\u0027s only interesting because we actually care about RSA_decrypt + RSA_PADDING_NONE.",
+      "range": {
+        "startLine": 3,
+        "startChar": 12,
+        "endLine": 3,
+        "endChar": 22
+      },
+      "revId": "1f3455fdea26aa1d31e4f951b15fb9635c4d404e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
