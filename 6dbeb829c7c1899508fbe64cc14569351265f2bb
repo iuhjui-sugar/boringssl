@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "07430351_afba59a3",
+        "filename": "include/openssl/ec.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-07T17:08:26Z",
+      "side": 1,
+      "message": "Is this API even useful for this purpose anymore? The SSL_SESSION now stores the TLS curve id which the public API only lets you exchange for a human-readable string name of the curve.\n\nI could imagine doing:\n- Keep SSL_get_curve_name and drop this.\n- Replace SSL_get_curve_name with an API that gives back a NID and add EC_GROUP_num_bits, to be called with EC_GROUP_new_by_curve_name.\n- Maybe not bother with either and instead define constants for the curves we implement and let the caller switch/case and figure the rest out themselves.",
+      "revId": "6dbeb829c7c1899508fbe64cc14569351265f2bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "07430351_cfad9d71",
+        "filename": "include/openssl/ec.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-07T17:08:26Z",
+      "side": 1,
+      "message": "Since this acts on EC_KEY, move to ec_key.h and EC_num_bits -\u003e EC_KEY_num_bits?",
+      "revId": "6dbeb829c7c1899508fbe64cc14569351265f2bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "07430351_0facc574",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-07T17:08:26Z",
+      "side": 1,
+      "message": "Probably should omit the field if 0? More consistent with how the others work.",
+      "revId": "6dbeb829c7c1899508fbe64cc14569351265f2bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "07430351_4fa2cd84",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-07T17:08:26Z",
+      "side": 1,
+      "message": "Could also have this just return const char * or NULL since pointers are inherently nullable.",
+      "revId": "6dbeb829c7c1899508fbe64cc14569351265f2bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
