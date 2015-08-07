@@ -175,134 +175,6 @@ static int rsa_bits(const EVP_PKEY *pkey) {
 
 static void int_rsa_free(EVP_PKEY *pkey) { RSA_free(pkey->pkey.rsa); }
 
-static void update_buflen(const BIGNUM *b, size_t *pbuflen) {
-  size_t i;
-
-  if (!b) {
-    return;
-  }
-
-  i = BN_num_bytes(b);
-  if (*pbuflen < i) {
-    *pbuflen = i;
-  }
-}
-
-static int do_rsa_print(BIO *out, const RSA *rsa, int off,
-                        int include_private) {
-  char *str;
-  const char *s;
-  uint8_t *m = NULL;
-  int ret = 0, mod_len = 0;
-  size_t buf_len = 0;
-
-  update_buflen(rsa->n, &buf_len);
-  update_buflen(rsa->e, &buf_len);
-
-  if (include_private) {
-    update_buflen(rsa->d, &buf_len);
-    update_buflen(rsa->p, &buf_len);
-    update_buflen(rsa->q, &buf_len);
-    update_buflen(rsa->dmp1, &buf_len);
-    update_buflen(rsa->dmq1, &buf_len);
-    update_buflen(rsa->iqmp, &buf_len);
-
-    if (rsa->additional_primes != NULL) {
-      size_t i;
-
-      for (i = 0; i < sk_RSA_additional_prime_num(rsa->additional_primes);
-           i++) {
-        const RSA_additional_prime *ap =
-            sk_RSA_additional_prime_value(rsa->additional_primes, i);
-        update_buflen(ap->prime, &buf_len);
-        update_buflen(ap->exp, &buf_len);
-        update_buflen(ap->coeff, &buf_len);
-      }
-    }
-  }
-
-  m = (uint8_t *)OPENSSL_malloc(buf_len + 10);
-  if (m == NULL) {
-    OPENSSL_PUT_ERROR(EVP, ERR_R_MALLOC_FAILURE);
-    goto err;
-  }
-
-  if (rsa->n != NULL) {
-    mod_len = BN_num_bits(rsa->n);
-  }
-
-  if (!BIO_indent(out, off, 128)) {
-    goto err;
-  }
-
-  if (include_private && rsa->d) {
-    if (BIO_printf(out, "Private-Key: (%d bit)\n", mod_len) <= 0) {
-      goto err;
-    }
-    str = "modulus:";
-    s = "publicExponent:";
-  } else {
-    if (BIO_printf(out, "Public-Key: (%d bit)\n", mod_len) <= 0) {
-      goto err;
-    }
-    str = "Modulus:";
-    s = "Exponent:";
-  }
-  if (!ASN1_bn_print(out, str, rsa->n, m, off) ||
-      !ASN1_bn_print(out, s, rsa->e, m, off)) {
-    goto err;
-  }
-
-  if (include_private) {
-    if (!ASN1_bn_print(out, "privateExponent:", rsa->d, m, off) ||
-        !ASN1_bn_print(out, "prime1:", rsa->p, m, off) ||
-        !ASN1_bn_print(out, "prime2:", rsa->q, m, off) ||
-        !ASN1_bn_print(out, "exponent1:", rsa->dmp1, m, off) ||
-        !ASN1_bn_print(out, "exponent2:", rsa->dmq1, m, off) ||
-        !ASN1_bn_print(out, "coefficient:", rsa->iqmp, m, off)) {
-      goto err;
-    }
-
-    if (rsa->additional_primes != NULL &&
-        sk_RSA_additional_prime_num(rsa->additional_primes) > 0) {
-      size_t i;
-
-      if (BIO_printf(out, "otherPrimeInfos:\n") <= 0) {
-        goto err;
-      }
-      for (i = 0; i < sk_RSA_additional_prime_num(rsa->additional_primes);
-           i++) {
-        const RSA_additional_prime *ap =
-            sk_RSA_additional_prime_value(rsa->additional_primes, i);
-
-        if (BIO_printf(out, "otherPrimeInfo (prime %u):\n",
-                       (unsigned)(i + 3)) <= 0 ||
-            !ASN1_bn_print(out, "prime:", ap->prime, m, off) ||
-            !ASN1_bn_print(out, "exponent:", ap->exp, m, off) ||
-            !ASN1_bn_print(out, "coeff:", ap->coeff, m, off)) {
-          goto err;
-        }
-      }
-    }
-  }
-  ret = 1;
-
-err:
-  OPENSSL_free(m);
-  return ret;
-}
-
-static int rsa_pub_print(BIO *bp, const EVP_PKEY *pkey, int indent,
-                         ASN1_PCTX *ctx) {
-  return do_rsa_print(bp, pkey->pkey.rsa, indent, 0);
-}
-
-
-static int rsa_priv_print(BIO *bp, const EVP_PKEY *pkey, int indent,
-                          ASN1_PCTX *ctx) {
-  return do_rsa_print(bp, pkey->pkey.rsa, indent, 1);
-}
-
 /* Given an MGF1 Algorithm ID decode to an Algorithm Identifier */
 static X509_ALGOR *rsa_mgf1_decode(X509_ALGOR *alg) {
   const uint8_t *p;
@@ -319,8 +191,7 @@ static X509_ALGOR *rsa_mgf1_decode(X509_ALGOR *alg) {
   return d2i_X509_ALGOR(NULL, &p, plen);
 }
 
-static RSA_PSS_PARAMS *rsa_pss_decode(const X509_ALGOR *alg,
-                                      X509_ALGOR **pmaskHash) {
+RSA_PSS_PARAMS *rsa_pss_decode(const X509_ALGOR *alg, X509_ALGOR **pmaskHash) {
   const uint8_t *p;
   int plen;
   RSA_PSS_PARAMS *pss;
@@ -341,113 +212,6 @@ static RSA_PSS_PARAMS *rsa_pss_decode(const X509_ALGOR *alg,
   *pmaskHash = rsa_mgf1_decode(pss->maskGenAlgorithm);
 
   return pss;
-}
-
-static int rsa_pss_param_print(BIO *bp, RSA_PSS_PARAMS *pss,
-                               X509_ALGOR *maskHash, int indent) {
-  int rv = 0;
-
-  if (!pss) {
-    if (BIO_puts(bp, " (INVALID PSS PARAMETERS)\n") <= 0) {
-      return 0;
-    }
-    return 1;
-  }
-
-  if (BIO_puts(bp, "\n") <= 0 ||
-      !BIO_indent(bp, indent, 128) ||
-      BIO_puts(bp, "Hash Algorithm: ") <= 0) {
-    goto err;
-  }
-
-  if (pss->hashAlgorithm) {
-    if (i2a_ASN1_OBJECT(bp, pss->hashAlgorithm->algorithm) <= 0) {
-      goto err;
-    }
-  } else if (BIO_puts(bp, "sha1 (default)") <= 0) {
-    goto err;
-  }
-
-  if (BIO_puts(bp, "\n") <= 0 ||
-      !BIO_indent(bp, indent, 128) ||
-      BIO_puts(bp, "Mask Algorithm: ") <= 0) {
-    goto err;
-  }
-
-  if (pss->maskGenAlgorithm) {
-    if (i2a_ASN1_OBJECT(bp, pss->maskGenAlgorithm->algorithm) <= 0 ||
-        BIO_puts(bp, " with ") <= 0) {
-      goto err;
-    }
-
-    if (maskHash) {
-      if (i2a_ASN1_OBJECT(bp, maskHash->algorithm) <= 0) {
-        goto err;
-      }
-    } else if (BIO_puts(bp, "INVALID") <= 0) {
-      goto err;
-    }
-  } else if (BIO_puts(bp, "mgf1 with sha1 (default)") <= 0) {
-    goto err;
-  }
-  BIO_puts(bp, "\n");
-
-  if (!BIO_indent(bp, indent, 128) ||
-      BIO_puts(bp, "Salt Length: 0x") <= 0) {
-    goto err;
-  }
-
-  if (pss->saltLength) {
-    if (i2a_ASN1_INTEGER(bp, pss->saltLength) <= 0) {
-      goto err;
-    }
-  } else if (BIO_puts(bp, "14 (default)") <= 0) {
-    goto err;
-  }
-  BIO_puts(bp, "\n");
-
-  if (!BIO_indent(bp, indent, 128) ||
-      BIO_puts(bp, "Trailer Field: 0x") <= 0) {
-    goto err;
-  }
-
-  if (pss->trailerField) {
-    if (i2a_ASN1_INTEGER(bp, pss->trailerField) <= 0) {
-      goto err;
-    }
-  } else if (BIO_puts(bp, "BC (default)") <= 0) {
-    goto err;
-  }
-  BIO_puts(bp, "\n");
-
-  rv = 1;
-
-err:
-  return rv;
-}
-
-static int rsa_sig_print(BIO *bp, const X509_ALGOR *sigalg,
-                         const ASN1_STRING *sig, int indent, ASN1_PCTX *pctx) {
-  if (OBJ_obj2nid(sigalg->algorithm) == NID_rsassaPss) {
-    int rv;
-    RSA_PSS_PARAMS *pss;
-    X509_ALGOR *maskHash;
-
-    pss = rsa_pss_decode(sigalg, &maskHash);
-    rv = rsa_pss_param_print(bp, pss, maskHash, indent);
-    RSA_PSS_PARAMS_free(pss);
-    X509_ALGOR_free(maskHash);
-    if (!rv) {
-      return 0;
-    }
-  } else if (!sig && BIO_puts(bp, "\n") <= 0) {
-    return 0;
-  }
-
-  if (sig) {
-    return X509_signature_dump(bp, sig, indent);
-  }
-  return 1;
 }
 
 static int old_rsa_priv_decode(EVP_PKEY *pkey, const uint8_t **pder,
@@ -712,11 +476,9 @@ const EVP_PKEY_ASN1_METHOD rsa_asn1_meth = {
   rsa_pub_decode,
   rsa_pub_encode,
   rsa_pub_cmp,
-  rsa_pub_print,
 
   rsa_priv_decode,
   rsa_priv_encode,
-  rsa_priv_print,
 
   rsa_opaque,
   rsa_supports_digest,
@@ -724,9 +486,8 @@ const EVP_PKEY_ASN1_METHOD rsa_asn1_meth = {
   int_rsa_size,
   rsa_bits,
 
-  0,0,0,0,
+  0,0,0,
 
-  rsa_sig_print,
   int_rsa_free,
 
   old_rsa_priv_decode,
