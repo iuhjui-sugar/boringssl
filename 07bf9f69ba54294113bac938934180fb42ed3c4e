@@ -16,6 +16,24 @@
       "revId": "07bf9f69ba54294113bac938934180fb42ed3c4e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a3068cc_0a49fb35",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1037,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-07T02:14:05Z",
+      "side": 0,
+      "message": "I think it\u0027s !NO_ASM \u0026\u0026 (X86 || X86-64 || ARM). However, now I\u0027m wondering whether the ASM version of bn_mul_mont is getting called. I need an Android build for that, which means the office tomorrow.",
+      "parentUuid": "2aa44cb9_332eb2c6",
+      "revId": "07bf9f69ba54294113bac938934180fb42ed3c4e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
