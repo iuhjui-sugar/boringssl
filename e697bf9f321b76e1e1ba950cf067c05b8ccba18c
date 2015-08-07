@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a3068cc_ca38c3fc",
+        "filename": "ssl/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-07T01:47:18Z",
+      "side": 1,
+      "message": "No reason for these to be distinct bits rather than distinct values, right? In fact, could it be an enum? Then the compiler right tell us statically if we miss a case in a switch.",
+      "revId": "e697bf9f321b76e1e1ba950cf067c05b8ccba18c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
