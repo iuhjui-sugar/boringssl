@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "07430351_6f8471ec",
+        "filename": "include/openssl/ec.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-07T17:09:39Z",
+      "side": 1,
+      "message": "(Er, that list was the OR of some options, not AND. I don\u0027t have hugely strong opinions? Depends on what you\u0027re planning on doing, really.)",
+      "parentUuid": "07430351_afba59a3",
+      "revId": "6dbeb829c7c1899508fbe64cc14569351265f2bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "07430351_cfad9d71",
         "filename": "include/openssl/ec.h",
         "patchSetId": 7
