@@ -34,6 +34,24 @@
       "revId": "07bf9f69ba54294113bac938934180fb42ed3c4e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "07430351_af7b7998",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1037,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-07T15:20:36Z",
+      "side": 0,
+      "message": "I don\u0027t think it currently is. Whether it\u0027s supposed to be or not is another question... :-) I believe upstream does call it, actually. They define OPENSSL_BN_ASM_MONT and OPENSSL_BN_ASM_MONT5 based purely on whether the crypto/bn file list matches /-mont/ and /-mont5/, respectively. For armv4, we\u0027ve got armv4-mont.pl.\n\n(Upstream, by the way, also has an armv8-mont.pl, but we don\u0027t.)\n\nActually, probably we should hoist OPENSSL_BN_ASM_MONT and OPENSSL_BN_ASM_MONT5 into crypto/bn/internal.h and then gate bn_mul_mont on OPENSSL_BN_ASM_MONT. \n\nMay also be good to move the declarations of bn_mul_mont_gather5 and friends from crypto/bn/exponentiation.c to crypto/bn/internal.h and gate those on OPENSSL_BN_ASM_MONT5.\n\nThen we can separately decide:\n\n1. Do we drop armv4-mont.pl or enable OPENSSL_BN_ASM_MONT on ARM? Probably a question for bssl speed.\n\n2. Do we import armv8-mont.pl from upstream and let OPENSSL_AARCH64 play too? (Looks like upstream only gained that one quite recently actually).",
+      "parentUuid": "0a3068cc_0a49fb35",
+      "revId": "07bf9f69ba54294113bac938934180fb42ed3c4e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
