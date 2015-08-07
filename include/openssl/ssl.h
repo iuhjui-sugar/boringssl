@@ -740,7 +740,35 @@ typedef struct ssl_private_key_method_st {
    * it is an error to call |sign_complete| if there is no pending |sign|
    * operation in progress on |ssl|. */
   enum ssl_private_key_result_t (*sign_complete)(SSL *ssl, uint8_t *out,
-                                                 size_t *out_len, size_t max_out);
+                                                 size_t *out_len,
+                                                 size_t max_out);
+
+  /* decrypt decrypts |in_len| bytes of encrypted data from |in|. On success, it
+   * returns |ssl_private_key_success| and writes at most |max_out| bytes of
+   * decrypted data to |out|. On failure, it returns |ssl_private_key_failure|.
+   * If the operation has not completed, it returns |ssl_private_key_retry|.
+   * |decrypt| should arrange for the high-level operation on |ssl| to be
+   * retried when the operation is completed. This will result in a call to
+   * |decrypt_complete|. |decrypt| is only supported for an RSA key.  It
+   * should perform a raw RSA decryption operation with no padding.
+   *
+   * It is an error to call |decrypt| while another private key operation is in
+   * progress on |ssl|. */
+  enum ssl_private_key_result_t (*decrypt)(SSL *ssl, uint8_t *out,
+                                           size_t *out_len, size_t max_out,
+                                           const uint8_t *in, size_t in_len);
+
+  /* decrypt_complete completes a pending |decrypt| operation. If the operation
+   * has completed, it returns |ssl_private_key_success| and writes the result to
+   * |out| as in |decrypt|. Otherwise, it returns |ssl_private_key_failure| on
+   * failure and |ssl_private_key_retry| if the operation is still in progress.
+   *
+   * |decrypt_complete| may be called arbitrarily many times before completion, but
+   * it is an error to call |decrypt_complete| if there is no pending |decrypt|
+   * operation in progress on |ssl|. */
+  enum ssl_private_key_result_t (*decrypt_complete)(SSL *ssl, uint8_t *out,
+                                                    size_t *out_len,
+                                                    size_t max_out);
 } SSL_PRIVATE_KEY_METHOD;
 
 /* SSL_use_private_key_method configures a custom private key on |ssl|.
