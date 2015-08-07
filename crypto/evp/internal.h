@@ -59,6 +59,8 @@
 
 #include <openssl/base.h>
 
+#include <openssl/rsa.h>
+
 #if defined(__cplusplus)
 extern "C" {
 #endif
@@ -94,12 +96,9 @@ struct evp_pkey_asn1_method_st {
   int (*pub_decode)(EVP_PKEY *pk, X509_PUBKEY *pub);
   int (*pub_encode)(X509_PUBKEY *pub, const EVP_PKEY *pk);
   int (*pub_cmp)(const EVP_PKEY *a, const EVP_PKEY *b);
-  int (*pub_print)(BIO *out, const EVP_PKEY *pkey, int indent, ASN1_PCTX *pctx);
 
   int (*priv_decode)(EVP_PKEY *pk, PKCS8_PRIV_KEY_INFO *p8inf);
   int (*priv_encode)(PKCS8_PRIV_KEY_INFO *p8, const EVP_PKEY *pk);
-  int (*priv_print)(BIO *out, const EVP_PKEY *pkey, int indent,
-                    ASN1_PCTX *pctx);
 
   /* pkey_opaque returns 1 if the |pk| is opaque. Opaque keys are backed by
    * custom implementations which do not expose key material and parameters.*/
@@ -119,10 +118,6 @@ struct evp_pkey_asn1_method_st {
   int (*param_missing)(const EVP_PKEY *pk);
   int (*param_copy)(EVP_PKEY *to, const EVP_PKEY *from);
   int (*param_cmp)(const EVP_PKEY *a, const EVP_PKEY *b);
-  int (*param_print)(BIO *out, const EVP_PKEY *pkey, int indent,
-                     ASN1_PCTX *pctx);
-  int (*sig_print)(BIO *out, const X509_ALGOR *sigalg, const ASN1_STRING *sig,
-                   int indent, ASN1_PCTX *pctx);
 
 
   void (*pkey_free)(EVP_PKEY *pkey);
@@ -262,6 +257,17 @@ struct evp_pkey_method_st {
 
   int (*ctrl)(EVP_PKEY_CTX *ctx, int type, int p1, void *p2);
 } /* EVP_PKEY_METHOD */;
+
+/* rsa_pss_decode decodes |alg| as an RSASSA-PSS-params and returns a newly
+ * allocated |RSA_PSS_PARAMS| or NULL on error. It then decodes the
+ * maskGenAlgorithm and, if MGF1, sets |*pmaskHash| to a newly-allocated
+ * |X509_ALGOR| containing the MGF1 parameter. */
+RSA_PSS_PARAMS *rsa_pss_decode(const X509_ALGOR *alg, X509_ALGOR **pmaskHash);
+
+/* EVP_PKEY_print_sig prints out a textual representation of the signature in
+ * |sig| to |out|. */
+int EVP_PKEY_print_sig(BIO *out, const X509_ALGOR *sigalg,
+                       const ASN1_STRING *sig, int indent, ASN1_PCTX *pctx);
 
 
 #if defined(__cplusplus)
