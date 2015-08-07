@@ -22,6 +22,30 @@
       "revId": "c305fea1aa8ce485f824e497a54f0f21309c9bb6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a3068cc_0a9bbb49",
+        "filename": "crypto/ec/wnaf.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-07T02:00:33Z",
+      "side": 1,
+      "message": "Do we not have pre-calculated generator multiples then? From looking at the code it appears that we actually might not.\n\nIt seems that we should build them in for P-256 at least. Then EC_GROUPs can be static.\n\nSo don\u0027t delete this code, I think it should be used.",
+      "parentUuid": "2aa44cb9_b3662219",
+      "range": {
+        "startLine": 421,
+        "startChar": 7,
+        "endLine": 421,
+        "endChar": 24
+      },
+      "revId": "c305fea1aa8ce485f824e497a54f0f21309c9bb6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
