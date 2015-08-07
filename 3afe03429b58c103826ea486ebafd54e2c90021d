@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a3068cc_ca2283d9",
+        "filename": "ssl/s3_enc.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-07T01:11:41Z",
+      "side": 0,
+      "message": "Well, that solves the superfluous call then :)",
+      "revId": "3afe03429b58c103826ea486ebafd54e2c90021d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
