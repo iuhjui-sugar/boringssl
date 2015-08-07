@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a3068cc_4ae933ef",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 866,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-07T01:10:30Z",
+      "side": 1,
+      "message": "This is just saying |TLS1_2_VERSION \u003c\u003d version|, right?\n\n(I guess I\u0027m saying that I\u0027m not sure what the point of |SSL_USE_SIGALGS| is.)",
+      "range": {
+        "startLine": 866,
+        "startChar": 7,
+        "endLine": 866,
+        "endChar": 25
+      },
+      "revId": "3afe03429b58c103826ea486ebafd54e2c90021d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a3068cc_0af49bc3",
+        "filename": "ssl/s3_enc.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-07T01:10:30Z",
+      "side": 1,
+      "message": "(Note to self: this call appears to be superfluous.)",
+      "revId": "3afe03429b58c103826ea486ebafd54e2c90021d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a3068cc_4afe93a3",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1120,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-07T01:10:30Z",
+      "side": 1,
+      "message": "(ditto)",
+      "range": {
+        "startLine": 1120,
+        "startChar": 7,
+        "endLine": 1120,
+        "endChar": 22
+      },
+      "revId": "3afe03429b58c103826ea486ebafd54e2c90021d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
