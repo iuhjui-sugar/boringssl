@@ -383,29 +383,6 @@ long ssl3_ctrl(SSL *s, int cmd, long larg, void *parg) {
   int ret = 0;
 
   switch (cmd) {
-    case SSL_CTRL_GET_CURVES: {
-      const uint16_t *clist = s->s3->tmp.peer_ellipticcurvelist;
-      size_t clistlen = s->s3->tmp.peer_ellipticcurvelist_length;
-      if (parg) {
-        size_t i;
-        int *cptr = parg;
-        int nid;
-        for (i = 0; i < clistlen; i++) {
-          nid = tls1_ec_curve_id2nid(clist[i]);
-          if (nid != NID_undef) {
-            cptr[i] = nid;
-          } else {
-            cptr[i] = TLSEXT_nid_unknown | clist[i];
-          }
-        }
-      }
-      return (int)clistlen;
-    }
-
-    case SSL_CTRL_SET_CURVES:
-      return tls1_set_curves(&s->tlsext_ellipticcurvelist,
-                             &s->tlsext_ellipticcurvelist_length, parg, larg);
-
     case SSL_CTRL_SET_SIGALGS:
       return tls1_set_sigalgs(s->cert, parg, larg, 0);
 
@@ -421,10 +398,6 @@ long ssl3_ctrl(SSL *s, int cmd, long larg, void *parg) {
 
 long ssl3_ctx_ctrl(SSL_CTX *ctx, int cmd, long larg, void *parg) {
   switch (cmd) {
-    case SSL_CTRL_SET_CURVES:
-      return tls1_set_curves(&ctx->tlsext_ellipticcurvelist,
-                             &ctx->tlsext_ellipticcurvelist_length, parg, larg);
-
     case SSL_CTRL_SET_SIGALGS:
       return tls1_set_sigalgs(ctx->cert, parg, larg, 0);
 

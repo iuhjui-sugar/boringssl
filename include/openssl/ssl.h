@@ -1436,10 +1436,6 @@ struct ssl_ctx_st {
   /* SRTP profiles we are willing to do from RFC 5764 */
   STACK_OF(SRTP_PROTECTION_PROFILE) *srtp_profiles;
 
-  /* EC extension values inherited by SSL structure */
-  size_t tlsext_ellipticcurvelist_length;
-  uint16_t *tlsext_ellipticcurvelist;
-
   /* If true, a client will advertise the Channel ID extension and a server
    * will echo it. */
   char tlsext_channel_id_enabled;
@@ -1787,8 +1783,6 @@ struct ssl_st {
   char *tlsext_hostname;
   /* RFC4507 session ticket expected to be received or sent */
   int tlsext_ticket_expected;
-  size_t tlsext_ellipticcurvelist_length;
-  uint16_t *tlsext_ellipticcurvelist; /* our list */
 
   SSL_CTX *initial_ctx; /* initial ctx, used to store sessions */
 
@@ -1985,8 +1979,6 @@ DECLARE_PEM_rw(SSL_SESSION, SSL_SESSION)
 #define SSL_ERROR_PENDING_CERTIFICATE 12
 #define SSL_ERROR_WANT_PRIVATE_KEY_OPERATION 13
 
-#define SSL_CTRL_GET_CURVES 90
-#define SSL_CTRL_SET_CURVES 91
 #define SSL_CTRL_SET_SIGALGS 97
 #define SSL_CTRL_SET_CLIENT_SIGALGS 101
 
@@ -2082,12 +2074,6 @@ OPENSSL_EXPORT size_t SSL_get_tls_channel_id(SSL *ssl, uint8_t *out,
  * length of the array. */
 OPENSSL_EXPORT size_t SSL_get0_certificate_types(SSL *ssl,
                                                  const uint8_t **out_types);
-
-#define SSL_get1_curves(ctx, s) SSL_ctrl(ctx, SSL_CTRL_GET_CURVES, 0, (char *)s)
-#define SSL_CTX_set1_curves(ctx, clist, clistlen) \
-  SSL_CTX_ctrl(ctx, SSL_CTRL_SET_CURVES, clistlen, (char *)clist)
-#define SSL_set1_curves(ctx, clist, clistlen) \
-  SSL_ctrl(ctx, SSL_CTRL_SET_CURVES, clistlen, (char *)clist)
 
 #define SSL_CTX_set1_sigalgs(ctx, slist, slistlen) \
   SSL_CTX_ctrl(ctx, SSL_CTRL_SET_SIGALGS, slistlen, (int *)slist)
