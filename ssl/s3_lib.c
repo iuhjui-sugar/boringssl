@@ -379,36 +379,6 @@ size_t SSL_get0_certificate_types(SSL *ssl, const uint8_t **out_types) {
   return ssl->s3->tmp.num_certificate_types;
 }
 
-long ssl3_ctrl(SSL *s, int cmd, long larg, void *parg) {
-  int ret = 0;
-
-  switch (cmd) {
-    case SSL_CTRL_SET_SIGALGS:
-      return tls1_set_sigalgs(s->cert, parg, larg, 0);
-
-    case SSL_CTRL_SET_CLIENT_SIGALGS:
-      return tls1_set_sigalgs(s->cert, parg, larg, 1);
-
-    default:
-      break;
-  }
-
-  return ret;
-}
-
-long ssl3_ctx_ctrl(SSL_CTX *ctx, int cmd, long larg, void *parg) {
-  switch (cmd) {
-    case SSL_CTRL_SET_SIGALGS:
-      return tls1_set_sigalgs(ctx->cert, parg, larg, 0);
-
-    case SSL_CTRL_SET_CLIENT_SIGALGS:
-      return tls1_set_sigalgs(ctx->cert, parg, larg, 1);
-
-    default:
-      return 0;
-  }
-}
-
 int SSL_CTX_set_tlsext_servername_callback(
     SSL_CTX *ctx, int (*callback)(SSL *ssl, int *out_alert, void *arg)) {
   ctx->tlsext_servername_callback = callback;
