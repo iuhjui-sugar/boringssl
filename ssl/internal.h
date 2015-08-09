@@ -1083,13 +1083,6 @@ int tls1_check_curve(SSL *s, CBS *cbs, uint16_t *out_curve_id);
  * NID_undef. */
 int tls1_get_shared_curve(SSL *s);
 
-/* tls1_set_curves converts the array of |ncurves| NIDs pointed to by |curves|
- * into a newly allocated array of TLS curve IDs. On success, the function
- * returns one and writes the array to |*out_curve_ids| and its size to
- * |*out_curve_ids_len|. Otherwise, it returns zero. */
-int tls1_set_curves(uint16_t **out_curve_ids, size_t *out_curve_ids_len,
-                    const int *curves, size_t ncurves);
-
 /* tls1_check_ec_cert returns one if |x| is an ECC certificate with curve and
  * point format compatible with the client's preferences. Otherwise it returns
  * zero. */

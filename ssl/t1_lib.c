@@ -387,12 +387,8 @@ static void tls1_get_curvelist(SSL *s, int get_peer_curves,
     return;
   }
 
-  *out_curve_ids = s->tlsext_ellipticcurvelist;
-  *out_curve_ids_len = s->tlsext_ellipticcurvelist_length;
-  if (!*out_curve_ids) {
-    *out_curve_ids = eccurves_default;
-    *out_curve_ids_len = sizeof(eccurves_default) / sizeof(eccurves_default[0]);
-  }
+  *out_curve_ids = eccurves_default;
+  *out_curve_ids_len = sizeof(eccurves_default) / sizeof(eccurves_default[0]);
 }
 
 int tls1_check_curve(SSL *s, CBS *cbs, uint16_t *out_curve_id) {
@@ -459,30 +455,6 @@ int tls1_get_shared_curve(SSL *s) {
   }
 
   return NID_undef;
-}
-
-int tls1_set_curves(uint16_t **out_curve_ids, size_t *out_curve_ids_len,
-                    const int *curves, size_t ncurves) {
-  uint16_t *curve_ids;
-  size_t i;
-
-  curve_ids = (uint16_t *)OPENSSL_malloc(ncurves * sizeof(uint16_t));
-  if (curve_ids == NULL) {
-    return 0;
-  }
-
-  for (i = 0; i < ncurves; i++) {
-    if (!tls1_ec_nid2curve_id(&curve_ids[i], curves[i])) {
-      OPENSSL_free(curve_ids);
-      return 0;
-    }
-  }
-
-  OPENSSL_free(*out_curve_ids);
-  *out_curve_ids = curve_ids;
-  *out_curve_ids_len = ncurves;
-
-  return 1;
 }
 
 /* tls1_curve_params_from_ec_key sets |*out_curve_id| and |*out_comp_id| to the
