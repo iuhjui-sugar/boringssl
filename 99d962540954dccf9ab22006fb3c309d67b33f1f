@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c7d48b39_ad5f7d6c",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 1190,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-10T17:26:15Z",
+      "side": 1,
+      "message": "Hrm. The maximum handshake message size is 2^24. That\u0027s large enough that the server could actually request a DH group of size larger than 2^16 bits, overflowing this number. Although it does require configuring max_cert_list to something large; it defaults to 100k.",
+      "revId": "99d962540954dccf9ab22006fb3c309d67b33f1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c7d48b39_8d64c13d",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 1701,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-10T17:26:15Z",
+      "side": 1,
+      "message": "Likewise, this could overflow a uint16_t if max_cert_list was large enough.",
+      "revId": "99d962540954dccf9ab22006fb3c309d67b33f1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
