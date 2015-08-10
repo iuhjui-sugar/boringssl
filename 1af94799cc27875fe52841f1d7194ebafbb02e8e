@@ -16,6 +16,24 @@
       "revId": "1af94799cc27875fe52841f1d7194ebafbb02e8e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c7d48b39_f029dec1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-10T18:34:26Z",
+      "side": 1,
+      "message": "As things currently stand, the main use case is not a server. It\u0027s a client configuring what curves it will accept since, as you say, OpenSSL\u0027s default list is unreasonable, and there\u0027s no other way to tweak the client list.\n\nIf you want to configure just P-256 on the server, you already can with SSL_set_tmp_ecdh. Everything should work as it\u0027s supposed to. (I should probably add a test for some of the weirder cases though.) SSL_set_tmp_ecdh_callback will do dumb things, but that\u0027s expected. Though, yeah, perhaps when Curve25519 is available, we\u0027ll want clients to accept P-384 but servers only offer P-256 + Curve25519? (I\u0027ll defer that to Adam re hard-coding vs SSL_CTX_set1_curves vs just using the early callback.)\n\nAutomatic negotiation should work just fine. SSL_CTX_set_ecdh_auto itself is gone, but that\u0027s because it\u0027s always on when a group isn\u0027t explicitly configured. Making ECDHE not work by default was a rather silly API wart. (There was a no-op stub that was removed by mistake. I haven\u0027t bothered putting it back since there hasn\u0027t been a need for it.)\n\nI could certainly believe that SSL_CTX_set1_curves didn\u0027t work---there are no tests for it---but it seems to be fine from this diff. Anyway, all the more reason for getting rid of API surfaces we don\u0027t need. Fewer things to have to test.",
+      "parentUuid": "47c41b7d_3c117d0c",
+      "revId": "1af94799cc27875fe52841f1d7194ebafbb02e8e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
