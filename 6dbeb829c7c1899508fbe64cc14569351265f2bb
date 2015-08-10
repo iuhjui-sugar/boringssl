@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "271727da_f8c53107",
+        "filename": "include/openssl/ec.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5805
+      },
+      "writtenOn": "2015-08-10T13:02:13Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "07430351_6f8471ec",
+      "revId": "6dbeb829c7c1899508fbe64cc14569351265f2bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "07430351_cfad9d71",
         "filename": "include/openssl/ec.h",
         "patchSetId": 7
@@ -48,6 +66,24 @@
       "writtenOn": "2015-08-07T17:08:26Z",
       "side": 1,
       "message": "Since this acts on EC_KEY, move to ec_key.h and EC_num_bits -\u003e EC_KEY_num_bits?",
+      "revId": "6dbeb829c7c1899508fbe64cc14569351265f2bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6782ff52_b2d90022",
+        "filename": "include/openssl/ec.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 5805
+      },
+      "writtenOn": "2015-08-10T13:02:13Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "07430351_cfad9d71",
       "revId": "6dbeb829c7c1899508fbe64cc14569351265f2bb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -71,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "c7d48b39_cd5089af",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 5805
+      },
+      "writtenOn": "2015-08-10T13:02:13Z",
+      "side": 1,
+      "message": "Made this optional. Required updated test expectancies as well.",
+      "parentUuid": "07430351_0facc574",
+      "revId": "6dbeb829c7c1899508fbe64cc14569351265f2bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "07430351_4fa2cd84",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 7
@@ -82,6 +136,24 @@
       "writtenOn": "2015-08-07T17:08:26Z",
       "side": 1,
       "message": "Could also have this just return const char * or NULL since pointers are inherently nullable.",
+      "revId": "6dbeb829c7c1899508fbe64cc14569351265f2bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c7d48b39_8d4a81fd",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 5805
+      },
+      "writtenOn": "2015-08-10T13:02:13Z",
+      "side": 1,
+      "message": "Simplified as suggested",
+      "parentUuid": "07430351_4fa2cd84",
       "revId": "6dbeb829c7c1899508fbe64cc14569351265f2bb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
