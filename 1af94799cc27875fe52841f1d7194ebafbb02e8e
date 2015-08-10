@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "47c41b7d_3c117d0c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5885
+      },
+      "writtenOn": "2015-08-10T18:16:00Z",
+      "side": 1,
+      "message": "The use case for this API (at least in OpenSSL) is to limit the number of available curves when automatic negotiation is enabled via SSL_CTX_set_ecdh_auto(), for example, to protect from DoS attacks that would negotiate the most CPU-intensive curve available in OpenSSL.\n\nThis is a bit less useful in BoringSSL, because the default list contains only two curves (P-256 \u0026 P-384), but it can still be used to limit the automatic negotiation to P-256 only.\n\nBut, as far as I recall, the automatic negotiation (or this API?) didn\u0027t work in BoringSSL last time I checked, anyway.",
+      "revId": "1af94799cc27875fe52841f1d7194ebafbb02e8e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
