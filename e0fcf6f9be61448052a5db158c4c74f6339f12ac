@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "076223c0_d7023c16",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-11T22:55:58Z",
+      "side": 1,
+      "message": "Think it\u0027s worth bothering importing the other half?\n\nhttps://git.openssl.org/gitweb/?p\u003dopenssl.git;a\u003dcommitdiff;h\u003d61e72d761c945e128ca13599a98a187ac23650dd\n\nWe could certainly check for zero, but as long as we don\u0027t explode, I think that just falls under \"the server is intentionally being dumb and we can\u0027t actually validate the DHE group\".",
+      "revId": "e0fcf6f9be61448052a5db158c4c74f6339f12ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
