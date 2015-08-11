@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a72a3712_57f74ec6",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 1190,
+      "author": {
+        "id": 5805
+      },
+      "writtenOn": "2015-08-11T09:18:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7d48b39_ad5f7d6c",
+      "revId": "99d962540954dccf9ab22006fb3c309d67b33f1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c7d48b39_8d64c13d",
         "filename": "ssl/s3_clnt.c",
         "patchSetId": 8
@@ -30,6 +48,24 @@
       "writtenOn": "2015-08-10T17:26:15Z",
       "side": 1,
       "message": "Likewise, this could overflow a uint16_t if max_cert_list was large enough.",
+      "revId": "99d962540954dccf9ab22006fb3c309d67b33f1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a72a3712_77f4cac0",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 1701,
+      "author": {
+        "id": 5805
+      },
+      "writtenOn": "2015-08-11T09:18:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7d48b39_8d64c13d",
       "revId": "99d962540954dccf9ab22006fb3c309d67b33f1f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
