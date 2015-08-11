@@ -73,6 +73,7 @@ uint8_t *MD5(const uint8_t *data, size_t len, uint8_t *out) {
   MD5_Init(&ctx);
   MD5_Update(&ctx, data, len);
   MD5_Final(out, &ctx);
+  OPENSSL_cleanse(&ctx, sizeof(ctx));
 
   return out;
 }
