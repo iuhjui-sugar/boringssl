@@ -517,3 +517,76 @@ BN_ULONG BN_get_word(const BIGNUM *bn) {
       return BN_MASK2;
   }
 }
+
+size_t BN_bn2mpi(const BIGNUM *in, uint8_t *out) {
+  unsigned bits;
+  size_t bytes = 0;
+  size_t extend = 0;
+  size_t len;
+
+  bits = BN_num_bits(in);
+  bytes = (bits + 7) / 8;
+  /* If the number of bits is a multiple of 8, i.e. if the MSB is set,
+   * prefix with a null byte. */
+  if (bytes > 0 && ((bits & 0x07) == 0)) {
+    extend = 1;
+  }
+  if (out == NULL) {
+    return bytes + 4 + extend;
+  }
+
+  len = bytes + extend;
+  out[0] = (uint8_t) (len >> 24) & 0xff;
+  out[1] = (uint8_t) (len >> 16) & 0xff;
+  out[2] = (uint8_t) (len >> 8) & 0xff;
+  out[3] = (uint8_t) (len) & 0xff;
+  if (extend) {
+    out[4] = 0;
+  }
+  bytes = BN_bn2bin(in, out + 4 + extend);
+  if (in->neg) {
+    out[4] |= 0x80;
+  }
+  return bytes + 4 + extend;
+}
+
+BIGNUM *BN_mpi2bn(const uint8_t *in, size_t len, BIGNUM *out) {
+  size_t in_len;
+
+  if (len < 4) {
+    OPENSSL_PUT_ERROR(BN, BN_R_BAD_ENCODING);
+    return NULL;
+  }
+  /* Check supplied length is correct. */
+  in_len = ((size_t) in[0] << 24) |
+           ((size_t) in[1] << 16) |
+           ((size_t) in[2] << 8) |
+           ((size_t) in[3]);
+  if ((in_len + 4) != len) {
+    OPENSSL_PUT_ERROR(BN, BN_R_BAD_ENCODING);
+    return NULL;
+  }
+
+  if (out == NULL) {
+    out = BN_new();
+  }
+  if (out == NULL) {
+    OPENSSL_PUT_ERROR(BN, ERR_R_MALLOC_FAILURE);
+    return NULL;
+  }
+
+  if (len == 0) {
+    out->neg = 0;
+    out->top = 0;
+    return out;
+  }
+  in += 4;
+  if (BN_bin2bn(in, len, out) == NULL) {
+    return NULL;
+  }
+  out->neg = (*in) & 0x80;
+  if (out->neg) {
+    BN_clear_bit(out, BN_num_bits(out) - 1);
+  }
+  return out;
+}
