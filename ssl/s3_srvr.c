@@ -310,6 +310,16 @@ int ssl3_accept(SSL *s) {
         s->init_num = 0;
         break;
 
+      case SSL3_ST_SW_CERT_STATUS_A:
+      case SSL3_ST_SW_CERT_STATUS_B:
+        ret = ssl3_send_certificate_status(s);
+        if (ret <= 0) {
+          goto end;
+        }
+        s->state = SSL3_ST_SW_KEY_EXCH_A;
+        s->init_num = 0;
+        break;
+
       case SSL3_ST_SW_KEY_EXCH_A:
       case SSL3_ST_SW_KEY_EXCH_B:
       case SSL3_ST_SW_KEY_EXCH_C:
@@ -1229,6 +1239,41 @@ int ssl3_send_server_hello(SSL *s) {
   }
 
   /* SSL3_ST_SW_SRVR_HELLO_B */
+  return ssl_do_write(s);
+}
+
+int ssl3_send_certificate_status(SSL *s) {
+  if (s->state == SSL3_ST_SW_CERT_STATUS_A) {
+    unsigned char *p;
+    /* Grow buffer if need be: the length calculation is as follows:
+     * handshake_header_length + 1 (ocsp response type) +
+     * 3 (ocsp response length) + ocsp_server_response_length
+     */
+    if (!BUF_MEM_grow(s->init_buf, SSL_HM_HEADER_LENGTH(s) + 4 +
+                                       s->ocsp_server_response_length)) {
+      OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
+      return -1;
+    }
+
+    p = ssl_handshake_start(s);
+
+    /* status type */
+    *(p++) = TLSEXT_STATUSTYPE_ocsp;
+    /* length of OCSP response */
+    l2n3(s->ocsp_server_response_length, p);
+    /* actual response */
+    memcpy(p, s->ocsp_server_response, s->ocsp_server_response_length);
+    p += s->ocsp_server_response_length;
+
+    if (!ssl_set_handshake_header(s, SSL3_MT_CERTIFICATE_STATUS,
+                                  p - ssl_handshake_start(s))) {
+      return -1;
+    }
+
+    s->state = SSL3_ST_SW_CERT_STATUS_B;
+  }
+
+  /* SSL3_ST_SW_CERT_STATUS_B */
   return ssl_do_write(s);
 }
 
