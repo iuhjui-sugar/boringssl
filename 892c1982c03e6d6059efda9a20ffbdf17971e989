@@ -16,6 +16,24 @@
       "revId": "892c1982c03e6d6059efda9a20ffbdf17971e989",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "076223c0_7751705a",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 1190,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-12T16:28:38Z",
+      "side": 1,
+      "message": "(Arguably this goes together with the \"more complex types should have something key-exchange-specific\" note. Even aliasing DHE and ECDHE\u0027s needs together doesn\u0027t make a whole lot of sense. DHE wants a number and ECDHE wants a 16-bit enum. But I\u0027m fine aliasing the two together for simplicity.)",
+      "parentUuid": "076223c0_3757f852",
+      "revId": "892c1982c03e6d6059efda9a20ffbdf17971e989",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
