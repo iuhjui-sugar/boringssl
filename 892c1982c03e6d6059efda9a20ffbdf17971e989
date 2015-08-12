@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "076223c0_3757f852",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 1190,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-12T16:27:12Z",
+      "side": 1,
+      "message": "Why don\u0027t we just make this a uint32_t or unsigned or something?\n\n(Also, /* C-style comment */ and this is C, not C++. You don\u0027t get min. :-) )",
+      "revId": "892c1982c03e6d6059efda9a20ffbdf17971e989",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
