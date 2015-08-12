@@ -35,9 +35,52 @@ static const struct argument kArguments[] = {
       "Private-key file to use (default is server.pem)",
     },
     {
+      "-ocsp-response", kOptionalArgument,
+      "OCSP response file to send",
+    },
+    {
      "", kOptionalArgument, "",
     },
 };
+
+static bool LoadOCSPResponse(SSL_CTX *ctx, const char *filename) {
+  FILE *f = NULL;
+  void *data = NULL;
+  bool ret = false;
+  long length;
+
+  if ((f = fopen(filename, "rb")) == NULL) {
+    goto out;
+  }
+
+  if (fseek(f, 0, SEEK_END) != 0) {
+    goto out;
+  }
+  if ((length = ftell(f)) < 0) {
+    goto out;
+  }
+  if ((data = malloc(length)) == NULL) {
+    goto out;
+  }
+  rewind(f);
+
+  fread(data, 1, length, f);
+  if (ferror(f) != 0) {
+    goto out;
+  }
+
+  if (!SSL_CTX_set_ocsp_response(ctx, (uint8_t*)data, length)) {
+    goto out;
+  }
+
+  ret = true;
+out:
+  if (f != NULL) {
+      fclose(f);
+  }
+  free(data);
+  return ret;
+}
 
 bool Server(const std::vector<std::string> &args) {
   if (!InitSocketLibrary()) {
@@ -71,6 +114,12 @@ bool Server(const std::vector<std::string> &args) {
   if (args_map.count("-cipher") != 0 &&
       !SSL_CTX_set_cipher_list(ctx, args_map["-cipher"].c_str())) {
     fprintf(stderr, "Failed setting cipher list\n");
+    return false;
+  }
+
+  if (args_map.count("-ocsp-response") != 0 &&
+      !LoadOCSPResponse(ctx, args_map["-ocsp-response"].c_str())) {
+    fprintf(stderr, "Failed to load OCSP response: %s\n", args_map["-ocsp-response"].c_str());
     return false;
   }
 

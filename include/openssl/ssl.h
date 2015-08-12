@@ -772,6 +772,20 @@ OPENSSL_EXPORT int SSL_get_tls_unique(const SSL *ssl, uint8_t *out,
                                       size_t *out_len, size_t max_out);
 
 
+/* SSL_CTX_set_ocsp_response sets the OCSP reponse sent to clients which request
+ * it. It returns one on success and zero on failure. The caller retains ownership
+ * of |response|. */
+OPENSSL_EXPORT int SSL_CTX_set_ocsp_response(SSL_CTX* ctx,
+                                             const uint8_t *response,
+                                             size_t response_length);
+
+/* SSL_set_ocsp_response sets the OCSP reponse sent to clients which request
+ * it. It returns one on success and zero on failure. The caller retains ownership
+ * of |response|. */
+OPENSSL_EXPORT int SSL_set_ocsp_response(SSL* ssl,
+                                         const uint8_t *response,
+                                         size_t response_length);
+
 /* Custom extensions.
  *
  * The custom extension functions allow TLS extensions to be added to
@@ -1452,6 +1466,10 @@ struct ssl_ctx_st {
   /* If true, a client will request a stapled OCSP response. */
   char ocsp_stapling_enabled;
 
+  /* OCSP Response to be sent to the client, if requested. */
+  uint8_t *ocsp_server_response;
+  size_t ocsp_server_response_length;
+
   /* If not NULL, session key material will be logged to this BIO for debugging
    * purposes. The format matches NSS's and is readable by Wireshark. */
   BIO *keylog_bio;
@@ -1818,10 +1836,12 @@ struct ssl_st {
   /* Enable signed certificate time stamps. Currently client only. */
   char signed_cert_timestamps_enabled;
 
-  /* Enable OCSP stapling. Currently client only.
-   * TODO(davidben): Add a server-side implementation when it becomes
-   * necesary. */
+  /* If true, a client will request a stapled OCSP response. */
   char ocsp_stapling_enabled;
+
+  /* OCSP Response to be sent to the client, if requested. */
+  uint8_t *ocsp_server_response;
+  size_t ocsp_server_response_length;
 
   /* For a client, this contains the list of supported protocols in wire
    * format. */
