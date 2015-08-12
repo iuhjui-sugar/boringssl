@@ -240,6 +240,11 @@ static bool InstallCertificate(SSL *ssl) {
                                 SSL_FILETYPE_PEM)) {
     return false;
   }
+  if (!config->ocsp_response.empty() &&
+      !SSL_set_ocsp_response(ssl, (const uint8_t *)config->ocsp_response.data(),
+                             config->ocsp_response.size())) {
+    return false;
+  }
   return true;
 }
 

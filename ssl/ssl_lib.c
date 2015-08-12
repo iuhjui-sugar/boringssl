@@ -352,6 +352,15 @@ SSL *SSL_new(SSL_CTX *ctx) {
   s->signed_cert_timestamps_enabled = s->ctx->signed_cert_timestamps_enabled;
   s->ocsp_stapling_enabled = s->ctx->ocsp_stapling_enabled;
 
+  if (s->ctx->ocsp_server_response) {
+    s->ocsp_server_response = BUF_memdup(s->ctx->ocsp_server_response,
+                                         s->ctx->ocsp_server_response_length);
+    if (s->ocsp_server_response == NULL) {
+      goto err;
+    }
+    s->ocsp_server_response_length = s->ctx->ocsp_server_response_length;
+  }
+
   return s;
 
 err:
@@ -559,6 +568,7 @@ void SSL_free(SSL *ssl) {
   sk_X509_NAME_pop_free(ssl->client_CA, X509_NAME_free);
   OPENSSL_free(ssl->next_proto_negotiated);
   sk_SRTP_PROTECTION_PROFILE_free(ssl->srtp_profiles);
+  OPENSSL_free(ssl->ocsp_server_response);
 
   if (ssl->method != NULL) {
     ssl->method->ssl_free(ssl);
@@ -1385,6 +1395,32 @@ void SSL_get0_ocsp_response(const SSL *ssl, const uint8_t **out,
   *out_len = session->ocsp_response_length;
 }
 
+int SSL_CTX_set_ocsp_response(SSL_CTX *ctx, const uint8_t *response,
+                              size_t response_length) {
+  OPENSSL_free(ctx->ocsp_server_response);
+  ctx->ocsp_server_response = BUF_memdup(response, response_length);
+  if (!ctx->ocsp_server_response) {
+    ctx->ocsp_server_response_length = 0;
+    return 0;
+  }
+  ctx->ocsp_server_response_length = response_length;
+
+  return 1;
+}
+
+int SSL_set_ocsp_response(SSL *ssl, const uint8_t *response,
+                          size_t response_length) {
+  OPENSSL_free(ssl->ocsp_server_response);
+  ssl->ocsp_server_response = BUF_memdup(response, response_length);
+  if (!ssl->ocsp_server_response) {
+    ssl->ocsp_server_response_length = 0;
+    return 0;
+  }
+  ssl->ocsp_server_response_length = response_length;
+
+  return 1;
+}
+
 /* SSL_select_next_proto implements the standard protocol selection. It is
  * expected that this function is called from the callback set by
  * SSL_CTX_set_next_proto_select_cb.
@@ -1753,6 +1789,7 @@ void SSL_CTX_free(SSL_CTX *ctx) {
   OPENSSL_free(ctx->psk_identity_hint);
   OPENSSL_free(ctx->tlsext_ellipticcurvelist);
   OPENSSL_free(ctx->alpn_client_proto_list);
+  OPENSSL_free(ctx->ocsp_server_response);
   EVP_PKEY_free(ctx->tlsext_channel_id_private);
   BIO_free(ctx->keylog_bio);
 
