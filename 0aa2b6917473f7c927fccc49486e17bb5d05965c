@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e46c2d17_79baa309",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-14T20:18:30Z",
+      "side": 1,
+      "message": "Oh, interesting! It seems upstream\u0027s is different but we inverted what CRYPTO_gcm128_finish returns. I\u0027m guessing you just did a giant sed at some point to put a ! in front?",
+      "revId": "0aa2b6917473f7c927fccc49486e17bb5d05965c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
