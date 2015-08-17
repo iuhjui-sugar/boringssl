@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e46c2d17_f95a33c7",
+        "filename": "ssl/dtls_record.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-17T19:59:42Z",
+      "side": 1,
+      "message": "I don\u0027t think it matters, but a copy seemed better because I didn\u0027t have an explicit alias check. Plus it\u0027s all of 8 bytes.",
+      "revId": "1d41231381cf33b563506cc878edc34285d706d8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e46c2d17_394dcb18",
+        "filename": "ssl/ssl_buffer.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-17T19:59:42Z",
+      "side": 1,
+      "message": "I can make this return int instead. Every violation is a programmer error, so it seemed easier to just blow up. Otherwise I need all these extra return ssl_open_record_error codepaths.",
+      "revId": "1d41231381cf33b563506cc878edc34285d706d8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e46c2d17_9974df43",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-17T19:59:42Z",
+      "side": 1,
+      "message": "This is kind of annoying. The old code got by by assuming the block size was a multiple of 8 (which is true). But if we want tls_seal_record to be usable in-place, then the bounds on whether out can be relative to in need to be precise.\n\nI also didn\u0027t really want to call this function ssl_seal_prefix_which_is_actually_wrong_but_good_enough_if_aligning_to_8.",
+      "revId": "1d41231381cf33b563506cc878edc34285d706d8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

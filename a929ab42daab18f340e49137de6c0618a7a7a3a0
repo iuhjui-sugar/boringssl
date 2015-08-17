@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e46c2d17_995dffc3",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 2189,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-17T19:59:42Z",
+      "side": 0,
+      "message": "No callers for this or the other one.",
+      "revId": "a929ab42daab18f340e49137de6c0618a7a7a3a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e46c2d17_b960bb79",
+        "filename": "include/openssl/ssl3.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-17T19:59:42Z",
+      "side": 0,
+      "message": "(This was unnecessary. It could have been a local variable.)",
+      "revId": "a929ab42daab18f340e49137de6c0618a7a7a3a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e46c2d17_594c0719",
+        "filename": "ssl/d1_pkt.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-17T19:59:42Z",
+      "side": 0,
+      "message": "I believe this didn\u0027t do anything.",
+      "revId": "a929ab42daab18f340e49137de6c0618a7a7a3a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e46c2d17_19528fb6",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 773,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-17T19:59:42Z",
+      "side": 0,
+      "message": "I believe this didn\u0027t do anything.",
+      "revId": "a929ab42daab18f340e49137de6c0618a7a7a3a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e46c2d17_794743f8",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 900,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-17T19:59:42Z",
+      "side": 0,
+      "message": "This check is lost. It seems kind of irrelevant, actually. It\u0027s always true right new, but it meant whether we had read ahead anything.",
+      "range": {
+        "startLine": 900,
+        "startChar": 33,
+        "endLine": 900,
+        "endChar": 54
+      },
+      "revId": "a929ab42daab18f340e49137de6c0618a7a7a3a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e46c2d17_d97e571f",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-17T19:59:42Z",
+      "side": 0,
+      "message": "I believe this didn\u0027t do anything.",
+      "revId": "a929ab42daab18f340e49137de6c0618a7a7a3a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
