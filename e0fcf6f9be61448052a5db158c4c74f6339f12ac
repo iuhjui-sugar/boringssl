@@ -16,6 +16,24 @@
       "revId": "e0fcf6f9be61448052a5db158c4c74f6339f12ac",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4aeed64_cdc6daae",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-17T20:32:31Z",
+      "side": 1,
+      "message": "Probably worth a test in runner is all.",
+      "parentUuid": "076223c0_d7023c16",
+      "revId": "e0fcf6f9be61448052a5db158c4c74f6339f12ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
