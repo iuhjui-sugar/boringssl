@@ -287,6 +287,11 @@ int ssl3_connect(SSL *s) {
 
       case SSL3_ST_CR_KEY_EXCH_A:
       case SSL3_ST_CR_KEY_EXCH_B:
+        ret = ssl3_verify_server_cert(s);
+        if (ret <= 0) {
+          goto end;
+        }
+
         ret = ssl3_get_server_key_exchange(s);
         if (ret <= 0) {
           goto end;
@@ -946,7 +951,7 @@ err:
 }
 
 int ssl3_get_server_certificate(SSL *s) {
-  int al, i, ok, ret = -1;
+  int al, ok, ret = -1;
   unsigned long n;
   X509 *x = NULL;
   STACK_OF(X509) *sk = NULL;
@@ -1003,14 +1008,6 @@ int ssl3_get_server_certificate(SSL *s) {
     }
     x = NULL;
   }
-
-  i = ssl_verify_cert_chain(s, sk);
-  if (s->verify_mode != SSL_VERIFY_NONE && i <= 0) {
-    al = ssl_verify_alarm_type(s->verify_result);
-    OPENSSL_PUT_ERROR(SSL, SSL_R_CERTIFICATE_VERIFY_FAILED);
-    goto f_err;
-  }
-  ERR_clear_error(); /* but we keep s->verify_result */
 
   X509 *leaf = sk_X509_value(sk, 0);
   if (!ssl3_check_certificate_for_cipher(leaf, s->s3->tmp.new_cipher)) {
@@ -2196,4 +2193,22 @@ int ssl_do_client_cert_cb(SSL *s, X509 **px509, EVP_PKEY **ppkey) {
     i = s->ctx->client_cert_cb(s, px509, ppkey);
   }
   return i;
+}
+
+int ssl3_verify_server_cert(SSL *s) {
+  int ret = 1, al;
+
+  if (ssl_cipher_has_server_public_key(s->s3->tmp.new_cipher)) {
+    ret = ssl_verify_cert_chain(s, s->session->sess_cert->cert_chain);
+    if (s->verify_mode != SSL_VERIFY_NONE && ret <= 0) {
+      al = ssl_verify_alarm_type(s->verify_result);
+      ssl3_send_alert(s, SSL3_AL_FATAL, al);
+      OPENSSL_PUT_ERROR(SSL, SSL_R_CERTIFICATE_VERIFY_FAILED);
+    } else {
+      ret = 1;
+      ERR_clear_error(); /* but we keep s->verify_result */
+    }
+  }
+
+  return ret;
 }
