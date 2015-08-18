@@ -87,6 +87,9 @@ struct TestConfig {
   bool custom_extension_skip = false;
   bool custom_extension_fail_add = false;
   std::string ocsp_response;
+  bool verify_fail = false;
+  bool verify_peer = false;
+  bool expect_verify_result = false;
 };
 
 bool ParseConfig(int argc, char **argv, TestConfig *out_config);

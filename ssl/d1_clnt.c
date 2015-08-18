@@ -271,6 +271,11 @@ int dtls1_connect(SSL *s) {
 
       case SSL3_ST_CR_KEY_EXCH_A:
       case SSL3_ST_CR_KEY_EXCH_B:
+        ret = ssl3_verify_server_cert(s);
+        if (ret <= 0) {
+          goto end;
+        }
+
         ret = ssl3_get_server_key_exchange(s);
         if (ret <= 0) {
           goto end;
