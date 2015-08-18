@@ -1,0 +1,146 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e4aeed64_72021d4b",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-18T22:23:26Z",
+      "side": 1,
+      "message": "The OCSP response is specific to a certificate so I think we only want to be able to set it on an SSL_CTX. (Otherwise we\u0027re wasting 16 bytes per connection.)",
+      "revId": "341b70cb8a81ea5dd8a1811325ce1a19ef1588d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4aeed64_5211218e",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1206,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-18T22:23:26Z",
+      "side": 1,
+      "message": "uint8_t",
+      "range": {
+        "startLine": 1206,
+        "startChar": 4,
+        "endLine": 1206,
+        "endChar": 17
+      },
+      "revId": "341b70cb8a81ea5dd8a1811325ce1a19ef1588d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4aeed64_f2f5adbf",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1211,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-18T22:23:26Z",
+      "side": 1,
+      "message": "Use CBB functions.",
+      "revId": "341b70cb8a81ea5dd8a1811325ce1a19ef1588d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4aeed64_d2fc31a9",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-18T22:23:26Z",
+      "side": 1,
+      "message": "(This will disappear once setting OCSP responses on a specific SSL is dropped.)",
+      "revId": "341b70cb8a81ea5dd8a1811325ce1a19ef1588d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4aeed64_9230f922",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1421,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-18T22:23:26Z",
+      "side": 1,
+      "message": "set |ctx-\u003eocsp_server_response_length| to zero here.",
+      "revId": "341b70cb8a81ea5dd8a1811325ce1a19ef1588d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4aeed64_b21895a8",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1754,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-18T22:23:26Z",
+      "side": 1,
+      "message": "No need to add these: the SSL_CTX is zeroed after allocation. (The other statements setting things to zero are superfluous and I\u0027ll remove them.)",
+      "revId": "341b70cb8a81ea5dd8a1811325ce1a19ef1588d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4aeed64_d2151171",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-18T22:23:26Z",
+      "side": 1,
+      "message": "(indentation)",
+      "revId": "341b70cb8a81ea5dd8a1811325ce1a19ef1588d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4aeed64_3237c50b",
+        "filename": "tool/server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-18T22:23:26Z",
+      "side": 1,
+      "message": "Don\u0027t merge assignments into conditionals and compose conditionals with || where possible.",
+      "revId": "341b70cb8a81ea5dd8a1811325ce1a19ef1588d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
