@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "24a485b9_f0b0a075",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 5915
+      },
+      "writtenOn": "2015-08-19T13:02:08Z",
+      "side": 1,
+      "message": "Certificates can also be set on a per connection basis using SSL_use_certificate_*.\nI was thinking this could be needed for swapping certificate during the handshake, for SNI or to match the cipher (Using SSL_set_cert_cb).",
+      "parentUuid": "e4aeed64_72021d4b",
+      "revId": "341b70cb8a81ea5dd8a1811325ce1a19ef1588d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e4aeed64_5211218e",
         "filename": "ssl/s3_srvr.c",
         "patchSetId": 2
@@ -59,6 +77,24 @@
     },
     {
       "key": {
+        "uuid": "a4c23555_b7954214",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1211,
+      "author": {
+        "id": 5915
+      },
+      "writtenOn": "2015-08-19T13:02:08Z",
+      "side": 1,
+      "message": "I\u0027m not too sure how to integrate CBB with the already allocated buffer.\nI\u0027ve given it a try, not sure if it\u0027s the best way though.",
+      "parentUuid": "e4aeed64_f2f5adbf",
+      "revId": "341b70cb8a81ea5dd8a1811325ce1a19ef1588d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e4aeed64_d2fc31a9",
         "filename": "ssl/ssl_lib.c",
         "patchSetId": 2
@@ -93,6 +129,24 @@
     },
     {
       "key": {
+        "uuid": "e4c8ad77_797d6356",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1421,
+      "author": {
+        "id": 5915
+      },
+      "writtenOn": "2015-08-19T13:02:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4aeed64_9230f922",
+      "revId": "341b70cb8a81ea5dd8a1811325ce1a19ef1588d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e4aeed64_b21895a8",
         "filename": "ssl/ssl_lib.c",
         "patchSetId": 2
@@ -104,6 +158,24 @@
       "writtenOn": "2015-08-18T22:23:26Z",
       "side": 1,
       "message": "No need to add these: the SSL_CTX is zeroed after allocation. (The other statements setting things to zero are superfluous and I\u0027ll remove them.)",
+      "revId": "341b70cb8a81ea5dd8a1811325ce1a19ef1588d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04b221f6_3736986f",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1754,
+      "author": {
+        "id": 5915
+      },
+      "writtenOn": "2015-08-19T13:02:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4aeed64_b21895a8",
       "revId": "341b70cb8a81ea5dd8a1811325ce1a19ef1588d5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -127,6 +199,24 @@
     },
     {
       "key": {
+        "uuid": "e4c8ad77_99615fb7",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5915
+      },
+      "writtenOn": "2015-08-19T13:02:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4aeed64_d2151171",
+      "revId": "341b70cb8a81ea5dd8a1811325ce1a19ef1588d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e4aeed64_3237c50b",
         "filename": "tool/server.cc",
         "patchSetId": 2
@@ -138,6 +228,24 @@
       "writtenOn": "2015-08-18T22:23:26Z",
       "side": 1,
       "message": "Don\u0027t merge assignments into conditionals and compose conditionals with || where possible.",
+      "revId": "341b70cb8a81ea5dd8a1811325ce1a19ef1588d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "24a485b9_30df8887",
+        "filename": "tool/server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5915
+      },
+      "writtenOn": "2015-08-19T13:02:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4aeed64_3237c50b",
       "revId": "341b70cb8a81ea5dd8a1811325ce1a19ef1588d5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
