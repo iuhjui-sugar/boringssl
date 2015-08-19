@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "e4aeed64_dd0f61e9",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-19T23:38:22Z",
+      "side": 1,
+      "message": "Yes, we do have these functions left over from OpenSSL and not having OCSP be per-connection is inconsistent with them.\n\nBut consider a service that, say, holds open TLS connections from all Android phones and the amount of memory that having an extra copy of the OCSP staple for every connection would be.\n\nIf we do need the per-connection OCSP stapling in the future (hopefully not) then something reference counted would be needed. But with a bit of luck we never will.",
+      "parentUuid": "24a485b9_f0b0a075",
+      "revId": "341b70cb8a81ea5dd8a1811325ce1a19ef1588d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e4aeed64_5211218e",
         "filename": "ssl/s3_srvr.c",
         "patchSetId": 2
@@ -89,6 +107,24 @@
       "side": 1,
       "message": "I\u0027m not too sure how to integrate CBB with the already allocated buffer.\nI\u0027ve given it a try, not sure if it\u0027s the best way though.",
       "parentUuid": "e4aeed64_f2f5adbf",
+      "revId": "341b70cb8a81ea5dd8a1811325ce1a19ef1588d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4aeed64_9d3b2986",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1211,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-19T23:38:22Z",
+      "side": 1,
+      "message": "Yea, sorry. I guess we don\u0027t have as many handshake messages done with CBB as I thought. Looks good however.",
+      "parentUuid": "a4c23555_b7954214",
       "revId": "341b70cb8a81ea5dd8a1811325ce1a19ef1588d5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
