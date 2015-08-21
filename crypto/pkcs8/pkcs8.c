@@ -69,6 +69,7 @@
 #include <openssl/mem.h>
 #include <openssl/x509.h>
 
+#include "internal.h"
 #include "../bytestring/internal.h"
 #include "../evp/internal.h"
 
@@ -286,6 +287,9 @@ static const struct pbe_suite kBuiltinPBE[] = {
     {
      NID_pbe_WithSHA1And3_Key_TripleDES_CBC, EVP_des_ede3_cbc, EVP_sha1,
      pkcs12_pbe_keyivgen,
+    },
+    {
+      NID_pbes2, NULL, NULL,  PKCS5_v2_PBE_keyivgen,
     },
 };
 
