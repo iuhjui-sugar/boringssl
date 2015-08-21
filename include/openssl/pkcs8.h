@@ -83,6 +83,7 @@ extern "C" {
  * TODO(davidben): Really? An X509_SIG? OpenSSL probably did that because it has
  * the same structure as EncryptedPrivateKeyInfo. */
 OPENSSL_EXPORT X509_SIG *PKCS8_encrypt_pbe(int pbe_nid,
+                                           const EVP_CIPHER *cipher,
                                            const uint8_t *pass_raw,
                                            size_t pass_raw_len,
                                            uint8_t *salt, size_t salt_len,
@@ -195,5 +196,11 @@ OPENSSL_EXPORT void PKCS12_free(PKCS12 *p12);
 #define PKCS8_R_UNKNOWN_DIGEST 122
 #define PKCS8_R_UNKNOWN_HASH 123
 #define PKCS8_R_UNSUPPORTED_PRIVATE_KEY_ALGORITHM 124
+#define PKCS8_R_UNSUPPORTED_KEYLENGTH 125
+#define PKCS8_R_UNSUPPORTED_SALT_TYPE 126
+#define PKCS8_R_UNSUPPORTED_CIPHER 127
+#define PKCS8_R_UNSUPPORTED_KEY_DERIVATION_FUNCTION 128
+#define PKCS8_R_BAD_ITERATION_COUNT 129
+#define PKCS8_R_UNSUPPORTED_PRF 130
 
 #endif  /* OPENSSL_HEADER_PKCS8_H */

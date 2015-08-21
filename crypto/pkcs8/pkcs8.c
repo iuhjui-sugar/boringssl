@@ -69,6 +69,7 @@
 #include <openssl/mem.h>
 #include <openssl/x509.h>
 
+#include "internal.h"
 #include "../bytestring/internal.h"
 #include "../evp/internal.h"
 
@@ -274,20 +275,39 @@ struct pbe_suite {
   const EVP_CIPHER* (*cipher_func)(void);
   const EVP_MD* (*md_func)(void);
   keygen_func keygen;
+  int flags;
 };
+
+#define PBE_UCS2_CONVERT_PASSWORD 0x1
 
 static const struct pbe_suite kBuiltinPBE[] = {
     {
-     NID_pbe_WithSHA1And40BitRC2_CBC, EVP_rc2_40_cbc, EVP_sha1, pkcs12_pbe_keyivgen,
+     NID_pbe_WithSHA1And40BitRC2_CBC, EVP_rc2_40_cbc, EVP_sha1,
+     pkcs12_pbe_keyivgen, PBE_UCS2_CONVERT_PASSWORD
     },
     {
      NID_pbe_WithSHA1And128BitRC4, EVP_rc4, EVP_sha1, pkcs12_pbe_keyivgen,
+     PBE_UCS2_CONVERT_PASSWORD
     },
     {
      NID_pbe_WithSHA1And3_Key_TripleDES_CBC, EVP_des_ede3_cbc, EVP_sha1,
-     pkcs12_pbe_keyivgen,
+     pkcs12_pbe_keyivgen, PBE_UCS2_CONVERT_PASSWORD
+    },
+    {
+      NID_pbes2, NULL, NULL,  PKCS5_v2_PBE_keyivgen, 0
     },
 };
+
+static const struct pbe_suite *get_pbe_suite(int pbe_nid) {
+  unsigned i;
+  for (i = 0; i < sizeof(kBuiltinPBE) / sizeof(struct pbe_suite); i++) {
+    if (kBuiltinPBE[i].pbe_nid == pbe_nid) {
+      return &kBuiltinPBE[i];
+      break;
+    }
+  }
+  return NULL;
+}
 
 static int pbe_cipher_init(ASN1_OBJECT *pbe_obj,
                            const uint8_t *pass_raw, size_t pass_raw_len,
@@ -295,18 +315,8 @@ static int pbe_cipher_init(ASN1_OBJECT *pbe_obj,
                            EVP_CIPHER_CTX *ctx, int is_encrypt) {
   const EVP_CIPHER *cipher;
   const EVP_MD *md;
-  unsigned i;
 
-  const struct pbe_suite *suite = NULL;
-  const int pbe_nid = OBJ_obj2nid(pbe_obj);
-
-  for (i = 0; i < sizeof(kBuiltinPBE) / sizeof(struct pbe_suite); i++) {
-    if (kBuiltinPBE[i].pbe_nid == pbe_nid) {
-      suite = &kBuiltinPBE[i];
-      break;
-    }
-  }
-
+  const struct pbe_suite *suite = get_pbe_suite(OBJ_obj2nid(pbe_obj));
   if (suite == NULL) {
     char obj_str[80];
     OPENSSL_PUT_ERROR(PKCS8, PKCS8_R_UNKNOWN_ALGORITHM);
@@ -433,9 +443,18 @@ PKCS8_PRIV_KEY_INFO *PKCS8_decrypt(X509_SIG *pkcs8, const char *pass,
     if (pass_len == -1) {
       pass_len = strlen(pass);
     }
-    if (!ascii_to_ucs2(pass, pass_len, &pass_raw, &pass_raw_len)) {
-      OPENSSL_PUT_ERROR(PKCS8, PKCS8_R_DECODE_ERROR);
-      return NULL;
+    const struct pbe_suite *suite = get_pbe_suite(
+        OBJ_obj2nid(pkcs8->algor->algorithm));
+    if (suite && suite->flags & PBE_UCS2_CONVERT_PASSWORD) {
+      if (!ascii_to_ucs2(pass, pass_len, &pass_raw, &pass_raw_len)) {
+        OPENSSL_PUT_ERROR(PKCS8, PKCS8_R_DECODE_ERROR);
+        return NULL;
+      }
+    } else {
+      if (pass) {
+        pass_raw = (uint8_t*) OPENSSL_strdup(pass);
+        pass_raw_len = (size_t) pass_len;
+      }
     }
   }
 
@@ -497,13 +516,21 @@ X509_SIG *PKCS8_encrypt(int pbe_nid, const EVP_CIPHER *cipher, const char *pass,
     if (pass_len == -1) {
       pass_len = strlen(pass);
     }
-    if (!ascii_to_ucs2(pass, pass_len, &pass_raw, &pass_raw_len)) {
-      OPENSSL_PUT_ERROR(PKCS8, PKCS8_R_DECODE_ERROR);
-      return NULL;
+    const struct pbe_suite *suite = get_pbe_suite(pbe_nid);
+    if (suite && suite->flags & PBE_UCS2_CONVERT_PASSWORD) {
+      if (!ascii_to_ucs2(pass, pass_len, &pass_raw, &pass_raw_len)) {
+        OPENSSL_PUT_ERROR(PKCS8, PKCS8_R_DECODE_ERROR);
+        return NULL;
+      }
+    } else {
+      if (pass) {
+        pass_raw = (uint8_t *) OPENSSL_strdup(pass);
+        pass_raw_len = (size_t) pass_len;
+      }
     }
   }
 
-  ret = PKCS8_encrypt_pbe(pbe_nid, pass_raw, pass_raw_len,
+  ret = PKCS8_encrypt_pbe(pbe_nid, cipher, pass_raw, pass_raw_len,
                           salt, salt_len, iterations, p8inf);
 
   if (pass_raw) {
@@ -513,7 +540,7 @@ X509_SIG *PKCS8_encrypt(int pbe_nid, const EVP_CIPHER *cipher, const char *pass,
   return ret;
 }
 
-X509_SIG *PKCS8_encrypt_pbe(int pbe_nid,
+X509_SIG *PKCS8_encrypt_pbe(int pbe_nid, const EVP_CIPHER *cipher,
                             const uint8_t *pass_raw, size_t pass_raw_len,
                             uint8_t *salt, size_t salt_len,
                             int iterations, PKCS8_PRIV_KEY_INFO *p8inf) {
@@ -526,7 +553,11 @@ X509_SIG *PKCS8_encrypt_pbe(int pbe_nid,
     goto err;
   }
 
-  pbe = PKCS5_pbe_set(pbe_nid, iterations, salt, salt_len);
+  if (pbe_nid == -1) {
+    pbe = PKCS5_pbe2_set(cipher, iterations, salt, salt_len);
+  } else {
+    pbe = PKCS5_pbe_set(pbe_nid, iterations, salt, salt_len);
+  }
   if (!pbe) {
     OPENSSL_PUT_ERROR(PKCS8, ERR_R_ASN1_LIB);
     goto err;

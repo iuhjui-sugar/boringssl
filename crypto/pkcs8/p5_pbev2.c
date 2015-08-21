@@ -53,6 +53,7 @@
  * (eay@cryptsoft.com).  This product includes software written by Tim
  * Hudson (tjh@cryptsoft.com). */
 
+#include <assert.h>
 #include <string.h>
 
 #include <openssl/asn1t.h>
@@ -84,6 +85,25 @@ ASN1_SEQUENCE(PBKDF2PARAM) = {
 
 IMPLEMENT_ASN1_FUNCTIONS(PBKDF2PARAM);
 
+/* Returns the number of bytes copied from |a| into |data|, or -1 on error. */
+static int ASN1_TYPE_get_octetstring(ASN1_TYPE *a, uint8_t *data,
+                                     size_t max_len) {
+  if (a->type != V_ASN1_OCTET_STRING || a->value.octet_string == NULL) {
+    return -1;
+  }
+
+  size_t num;
+  unsigned char *p = M_ASN1_STRING_data(a->value.octet_string);
+  int ret = M_ASN1_STRING_length(a->value.octet_string);
+  if (ret < max_len) {
+    num = ret;
+  } else {
+    num = max_len;
+  }
+  memcpy(data, p, num);
+  return num;  // Was ret.  ???
+}
+
 static int ASN1_TYPE_set_octetstring(ASN1_TYPE *a, unsigned char *data, int len)
 	{
 	ASN1_STRING *os;
@@ -105,6 +125,24 @@ static int param_to_asn1(EVP_CIPHER_CTX *c, ASN1_TYPE *type)
 	iv_len = EVP_CIPHER_CTX_iv_length(c);
 	return ASN1_TYPE_set_octetstring(type, c->oiv, iv_len);
 	}
+
+/* Returns -1 on error; otherwise the number of bytes copied into the IV.
+ * Originally called |EVP_CIPHER_get_asn1_iv|. */
+static int set_iv_from_asn1(EVP_CIPHER_CTX *ctx, ASN1_TYPE *type) {
+  if (type == NULL) {
+    return 0;
+  }
+  size_t iv_len = EVP_CIPHER_CTX_iv_length(ctx);
+  assert(iv_len <= sizeof(ctx->iv));
+  int i = ASN1_TYPE_get_octetstring(type, ctx->oiv, iv_len);
+  if (i != (int) iv_len) {
+    return -1;
+  } else if (i > 0) {
+    memcpy(ctx->iv, ctx->oiv, iv_len);
+    return iv_len;
+  }
+  return i;
+}
 
 /* Return an algorithm identifier for a PKCS#5 v2.0 PBE algorithm:
  * yes I know this is horrible!
@@ -301,3 +339,122 @@ X509_ALGOR *PKCS5_pbkdf2_set(int iter, unsigned char *salt, int saltlen,
 	return NULL;
 	}
 
+static int PKCS5_v2_PBKDF2_keyivgen(EVP_CIPHER_CTX *ctx,
+                                    const uint8_t *pass_raw,
+                                    size_t pass_raw_len, ASN1_TYPE *param,
+                                    int enc) {
+  int rv = 0;
+
+  uint8_t key[EVP_MAX_KEY_LENGTH];
+  size_t keylen = EVP_CIPHER_CTX_key_length(ctx);
+  assert(keylen <= sizeof key);
+
+  PBKDF2PARAM *pbkdf2param = NULL;
+
+  if (EVP_CIPHER_CTX_cipher(ctx) == NULL) {
+    OPENSSL_PUT_ERROR(PKCS8, CIPHER_R_NO_CIPHER_SET);
+    goto err;
+  }
+
+  /* Decode parameters. */
+  if (!param || param->type != V_ASN1_SEQUENCE) {
+    OPENSSL_PUT_ERROR(PKCS8, PKCS8_R_DECODE_ERROR);
+    goto err;
+  }
+
+  const uint8_t *pbuf = param->value.sequence->data;
+  size_t plen = param->value.sequence->length;
+  pbkdf2param = d2i_PBKDF2PARAM(NULL, &pbuf, plen);
+  if (!pbkdf2param) {
+    OPENSSL_PUT_ERROR(PKCS8, PKCS8_R_DECODE_ERROR);
+    goto err;
+  }
+
+  /* Now check the parameters. */
+  if (pbkdf2param->keylength &&
+      ASN1_INTEGER_get(pbkdf2param->keylength) != (int) keylen) {
+    OPENSSL_PUT_ERROR(PKCS8, PKCS8_R_UNSUPPORTED_KEYLENGTH);
+    goto err;
+  }
+  int prf_nid = pbkdf2param->prf ?
+      OBJ_obj2nid(pbkdf2param->prf->algorithm) : NID_hmacWithSHA1;
+  if (prf_nid != NID_hmacWithSHA1) {
+    OPENSSL_PUT_ERROR(PKCS8, PKCS8_R_UNSUPPORTED_PRF);
+    goto err;
+  }
+
+  if (pbkdf2param->salt->type != V_ASN1_OCTET_STRING) {
+    OPENSSL_PUT_ERROR(PKCS8, PKCS8_R_UNSUPPORTED_SALT_TYPE);
+    goto err;
+  }
+
+  if (pbkdf2param->iter->type != V_ASN1_INTEGER) {
+    OPENSSL_PUT_ERROR(PKCS8, PKCS8_R_BAD_ITERATION_COUNT);
+    goto err;
+  }
+
+  /* It seems that it's all OK! */
+  if (!PKCS5_PBKDF2_HMAC_SHA1((const char *) pass_raw, pass_raw_len,
+                              pbkdf2param->salt->value.octet_string->data,
+                              pbkdf2param->salt->value.octet_string->length,
+                              ASN1_INTEGER_get(pbkdf2param->iter), keylen,
+                              key)) {
+      goto err;
+  }
+  rv = EVP_CipherInit_ex(ctx, NULL /* cipher */, NULL /* engine */, key,
+                         NULL /* iv */, enc);
+ err:
+  OPENSSL_cleanse(key, keylen);
+  PBKDF2PARAM_free(pbkdf2param);
+  return rv;
+}
+
+int PKCS5_v2_PBE_keyivgen(EVP_CIPHER_CTX *ctx, const uint8_t *pass_raw,
+                          size_t pass_raw_len, ASN1_TYPE *param,
+                          const EVP_CIPHER *unused, const EVP_MD *unused2,
+                          int enc) {
+  PBE2PARAM *pbe2param = NULL;
+  int rv = 0;
+
+  if (param == NULL || param->type != V_ASN1_SEQUENCE ||
+      param->value.sequence == NULL) {
+    OPENSSL_PUT_ERROR(PKCS8, PKCS8_R_DECODE_ERROR);
+    goto err;
+  }
+
+  const uint8_t *pbuf = param->value.sequence->data;
+  int plen = param->value.sequence->length;
+  if (!(pbe2param = d2i_PBE2PARAM(NULL, &pbuf, plen))) {
+    OPENSSL_PUT_ERROR(PKCS8, PKCS8_R_DECODE_ERROR);
+    goto err;
+  }
+
+  /* Check that the key derivation function is PBKDF2. */
+  if (OBJ_obj2nid(pbe2param->keyfunc->algorithm) != NID_id_pbkdf2) {
+    OPENSSL_PUT_ERROR(PKCS8, PKCS8_R_UNSUPPORTED_KEY_DERIVATION_FUNCTION);
+    goto err;
+  }
+
+  /* See if we recognise the encryption algorithm. */
+  const EVP_CIPHER *cipher = EVP_get_cipherbynid(
+      OBJ_obj2nid(pbe2param->encryption->algorithm));
+  if (!cipher) {
+    OPENSSL_PUT_ERROR(PKCS8, PKCS8_R_UNSUPPORTED_CIPHER);
+    goto err;
+  }
+
+  /* Fixup cipher based on AlgorithmIdentifier */
+  if (!EVP_CipherInit_ex(ctx, cipher, NULL /* engine */, NULL /* key */,
+                         NULL /* iv */, enc)) {
+    goto err;
+  }
+  if (set_iv_from_asn1(ctx, pbe2param->encryption->parameter) < 0) {
+    OPENSSL_PUT_ERROR(PKCS8, PKCS8_R_ERROR_SETTING_CIPHER_PARAMS);
+    goto err;
+  }
+  rv = PKCS5_v2_PBKDF2_keyivgen(ctx, pass_raw, pass_raw_len,
+                                pbe2param->keyfunc->parameter, enc);
+ err:
+  PBE2PARAM_free(pbe2param);
+  return rv;
+}
