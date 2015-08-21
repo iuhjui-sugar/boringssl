@@ -69,6 +69,7 @@
 #include <openssl/mem.h>
 #include <openssl/x509.h>
 
+#include "internal.h"
 #include "../bytestring/internal.h"
 #include "../evp/internal.h"
 
@@ -287,6 +288,9 @@ static const struct pbe_suite kBuiltinPBE[] = {
      NID_pbe_WithSHA1And3_Key_TripleDES_CBC, EVP_des_ede3_cbc, EVP_sha1,
      pkcs12_pbe_keyivgen,
     },
+    {
+      NID_pbes2, NULL, NULL,  PKCS5_v2_PBE_keyivgen,
+    },
 };
 
 static int pbe_cipher_init(ASN1_OBJECT *pbe_obj,
@@ -429,13 +433,22 @@ PKCS8_PRIV_KEY_INFO *PKCS8_decrypt(X509_SIG *pkcs8, const char *pass,
   size_t pass_raw_len = 0;
   PKCS8_PRIV_KEY_INFO *ret;
 
+  int pbe_nid = OBJ_obj2nid(pkcs8->algor->algorithm);
+
   if (pass) {
     if (pass_len == -1) {
       pass_len = strlen(pass);
     }
-    if (!ascii_to_ucs2(pass, pass_len, &pass_raw, &pass_raw_len)) {
-      OPENSSL_PUT_ERROR(PKCS8, PKCS8_R_DECODE_ERROR);
-      return NULL;
+    if (pbe_nid == NID_pbes2 || pbe_nid == -1) {
+      if (pass) {
+        pass_raw = (uint8_t*) OPENSSL_strdup(pass);
+        pass_raw_len = (size_t) pass_len;
+      }
+    } else {
+      if (!ascii_to_ucs2(pass, pass_len, &pass_raw, &pass_raw_len)) {
+        OPENSSL_PUT_ERROR(PKCS8, PKCS8_R_DECODE_ERROR);
+        return NULL;
+      }
     }
   }
 
@@ -497,13 +510,20 @@ X509_SIG *PKCS8_encrypt(int pbe_nid, const EVP_CIPHER *cipher, const char *pass,
     if (pass_len == -1) {
       pass_len = strlen(pass);
     }
-    if (!ascii_to_ucs2(pass, pass_len, &pass_raw, &pass_raw_len)) {
-      OPENSSL_PUT_ERROR(PKCS8, PKCS8_R_DECODE_ERROR);
-      return NULL;
+    if (pbe_nid == NID_pbes2 || pbe_nid == -1) {
+      if (pass) {
+        pass_raw = (uint8_t *) OPENSSL_strdup(pass);
+        pass_raw_len = (size_t) pass_len;
+      }
+    } else {
+      if (!ascii_to_ucs2(pass, pass_len, &pass_raw, &pass_raw_len)) {
+        OPENSSL_PUT_ERROR(PKCS8, PKCS8_R_DECODE_ERROR);
+        return NULL;
+      }
     }
   }
 
-  ret = PKCS8_encrypt_pbe(pbe_nid, pass_raw, pass_raw_len,
+  ret = PKCS8_encrypt_pbe(pbe_nid, cipher, pass_raw, pass_raw_len,
                           salt, salt_len, iterations, p8inf);
 
   if (pass_raw) {
@@ -513,7 +533,7 @@ X509_SIG *PKCS8_encrypt(int pbe_nid, const EVP_CIPHER *cipher, const char *pass,
   return ret;
 }
 
-X509_SIG *PKCS8_encrypt_pbe(int pbe_nid,
+X509_SIG *PKCS8_encrypt_pbe(int pbe_nid, const EVP_CIPHER *cipher,
                             const uint8_t *pass_raw, size_t pass_raw_len,
                             uint8_t *salt, size_t salt_len,
                             int iterations, PKCS8_PRIV_KEY_INFO *p8inf) {
@@ -526,7 +546,11 @@ X509_SIG *PKCS8_encrypt_pbe(int pbe_nid,
     goto err;
   }
 
-  pbe = PKCS5_pbe_set(pbe_nid, iterations, salt, salt_len);
+  if (pbe_nid == -1) {
+    pbe = PKCS5_pbe2_set(cipher, iterations, salt, salt_len);
+  } else {
+    pbe = PKCS5_pbe_set(pbe_nid, iterations, salt, salt_len);
+  }
   if (!pbe) {
     OPENSSL_PUT_ERROR(PKCS8, ERR_R_ASN1_LIB);
     goto err;
