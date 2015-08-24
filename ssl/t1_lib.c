@@ -2932,6 +2932,17 @@ const EVP_MD *tls1_choose_signing_digest(SSL *ssl) {
     return md;
   }
 
+  /* If there is no shared digest supported by our key, ignore key
+   * preferences in preference of those supported by server. */
+  for (i = 0; i < cert->shared_sigalgslen; i++) {
+    const EVP_MD *md = tls12_get_hash(cert->shared_sigalgs[i].rhash);
+    if (md == NULL ||
+        tls12_get_pkey_type(cert->shared_sigalgs[i].rsign) != type) {
+      continue;
+    }
+    return md;
+  }
+
   /* If no suitable digest may be found, default to SHA-1. */
   return EVP_sha1();
 }
