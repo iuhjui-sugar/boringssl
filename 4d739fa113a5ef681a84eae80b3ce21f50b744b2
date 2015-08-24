@@ -1,0 +1,395 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c42ba915_6dc5d030",
+        "filename": "ssl/d1_pkt.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-24T23:27:48Z",
+      "side": 1,
+      "message": "Could a zero-length packet be read?",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_0df3fc98",
+        "filename": "ssl/d1_pkt.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-24T23:27:48Z",
+      "side": 1,
+      "message": "Check that len is \u003c\u003d 0xffff?",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_edf1e08c",
+        "filename": "ssl/d1_pkt.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-24T23:27:48Z",
+      "side": 1,
+      "message": "assert(0) then?",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_8de70cd1",
+        "filename": "ssl/d1_pkt.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-24T23:27:48Z",
+      "side": 1,
+      "message": "blank line after switch.",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_4de1f4b9",
+        "filename": "ssl/dtls_record.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-24T23:27:48Z",
+      "side": 1,
+      "message": "(assuming that the bitmap functions are a copy-and-paste.)",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_adad2870",
+        "filename": "ssl/dtls_record.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-24T23:27:48Z",
+      "side": 1,
+      "message": "This is expressed differently in the TLS code, no? (i.e. version \u003e\u003e 8 !\u003d SSL3_VERSION_MAJOR.) Good to have the same expression.",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_0d853ce8",
+        "filename": "ssl/dtls_record.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-24T23:27:48Z",
+      "side": 1,
+      "message": "don\u0027t we assume that we have a single packet at |in|. If so, why subtract |CBS_len(\u0026cbs)| from |in_len|?",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_4d93342e",
+        "filename": "ssl/dtls_record.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-24T23:27:48Z",
+      "side": 1,
+      "message": "(ditto)",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_0d6e9ca8",
+        "filename": "ssl/dtls_record.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-24T23:27:48Z",
+      "side": 1,
+      "message": "(ditto)",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_8d62acb8",
+        "filename": "ssl/dtls_record.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-24T23:27:48Z",
+      "side": 1,
+      "message": "I\u0027d flip these two terms around for readability. Also \u003c\u003d for the (currently) second term and maybe a |- 1| after |DTLS1_RT_HEADER_LENGTH|?",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_728a91a3",
+        "filename": "ssl/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-24T23:27:48Z",
+      "side": 1,
+      "message": "Do you really mean \u003e\u003d? Usually writing out to half-way through the input buffer is the problem.",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_320df9c6",
+        "filename": "ssl/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-24T23:27:48Z",
+      "side": 1,
+      "message": "|out|",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_921c0df7",
+        "filename": "ssl/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-24T23:27:48Z",
+      "side": 1,
+      "message": "(ditto about \u003e\u003d.)",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_92ce4dd7",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-24T23:27:48Z",
+      "side": 1,
+      "message": "overflow check?",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_d28e058a",
+        "filename": "ssl/ssl_buffer.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-24T23:27:48Z",
+      "side": 1,
+      "message": "Maybe a static assert that (SSL3_ALIGN_PAYLOAD \u0026 (SSL3_ALIGN_PAYLOAD - 1)) \u003d\u003d 0?\n\n(Which checks that it\u0027s a power of two, or zero.)\n\nAlso, does this really work? How does it ensure alignment when |buf-\u003ebuf| isn\u0027t an input?",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_72a051ee",
+        "filename": "ssl/ssl_buffer.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-24T23:27:48Z",
+      "side": 1,
+      "message": "need to reject packets \u003e 0xffff bytes before truncating |ret|.",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_b26fc91e",
+        "filename": "ssl/ssl_buffer.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-24T23:27:48Z",
+      "side": 1,
+      "message": "extend is an odd name for a function that takes an absolute length rather than a number of bytes to read. Maybe _buffer_extend_to is a clearer name?",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_d260452d",
+        "filename": "ssl/ssl_buffer.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-24T23:27:48Z",
+      "side": 1,
+      "message": "ensure that |len - buf-\u003elen| fits in an int?\n\nsize_t todo \u003d len - buf-\u003elen;\nif (todo \u003e INT_MAX) {\n  todo \u003d INT_MAX;\n}\nint ret \u003d BIO_read(…);",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_326c1926",
+        "filename": "ssl/ssl_buffer.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-24T23:27:48Z",
+      "side": 1,
+      "message": "Need to check that ret \u003c\u003d 0xffff and need to check that buf-\u003elen doesn\u0027t overflow.",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_0dd9bc69",
+        "filename": "ssl/ssl_buffer.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-24T23:27:48Z",
+      "side": 1,
+      "message": "ditto about maybe calling it …_buffer_extend_to, although up to you.",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_edd7a032",
+        "filename": "ssl/ssl_buffer.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-24T23:27:48Z",
+      "side": 1,
+      "message": "( ) around \u0026 operator.",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_6d487081",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-24T23:27:48Z",
+      "side": 1,
+      "message": "I would switch the order of these terms so that it reads more like x \u003c y \u003c z. Also, \u003c\u003d rather than \u003c for the (currently) second term? Any maybe a |- 1| after SSL3_RT_HEADER_LENGTH?",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_0d21bca8",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-24T23:27:48Z",
+      "side": 1,
+      "message": "I would flip the first term around to make this easier to read.",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
