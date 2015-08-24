@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c4fd69c1_4b4eb990",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 2936,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-24T17:59:16Z",
+      "side": 1,
+      "message": "Nit: I\u0027d probably say: \"If [...] our key, try again ignoring key constraints.\"\n\nThere\u0027s three things being juggled. There\u0027s the server preferences and the local preferences which are hard-coded. Those together form shared_sigalgs (I should stop storing that explicitly at some point). Then there\u0027s what the key supports which is this supports_digest thing.\n\nHuh. Actually, now that I\u0027ve typed that... arguably we should instead merge the local preferences with the key preferences.  The key just supplies a list of hashes and we feed that in. \n\nAnd then the probably-SHA1-only keys turn into SHA1-preferring keys which gets us all the behavior we want.\n\nI.e. replace the SupportsHash() method with a GetHashPreferences() method or something which returns them in order. The interface is SSLPrivateKey, so it seems fine to make it SSL-specific. Then on the BoringSSL side, we can have\n\n  SSL_set_private_key_digests(SSL *ssl, const int *digests,\n                              size_t digests_len);\n\nor something to configure the sigalgs we\u0027re capable of producing (as opposed to the ones we\u0027re capable of accepting, which can stay hardcoded until we have a need for it).\n\nAnd then we can just ditch EVP_PKEY_supports_digest since I\u0027d only added it for this Estonian smartcard hack back when we were trying to be an EVP_PKEY.",
+      "revId": "678f2aa97b11ffd9b59b58dc4dbf36a2475c5c0a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
