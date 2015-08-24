@@ -16,6 +16,24 @@
       "revId": "678f2aa97b11ffd9b59b58dc4dbf36a2475c5c0a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4fd69c1_ab01ad14",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 2936,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-24T19:15:08Z",
+      "side": 1,
+      "message": "+agl in case he has opinions here. EVP_PKEY_supports_digest was probably a silly idea and we should have configured it at the SSL level, given that we can never /actually/ query \"supports digest\" in any of our keys.\n\nIronically, I recently deleted the sigalg APIs, but those APIs were terrible so I don\u0027t feel that bad about it. :-)",
+      "parentUuid": "c4fd69c1_4b4eb990",
+      "revId": "678f2aa97b11ffd9b59b58dc4dbf36a2475c5c0a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
