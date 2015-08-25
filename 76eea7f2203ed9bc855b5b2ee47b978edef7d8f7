@@ -22,6 +22,30 @@
       "revId": "76eea7f2203ed9bc855b5b2ee47b978edef7d8f7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_a3a7793f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-25T19:12:06Z",
+      "side": 1,
+      "message": "Thanks for the details.  I ought to have looked deeper.  The context of this change is adding support for PBES2; see https://boringssl-review.googlesource.com/#/c/5745/ (which is not yet complete, but you get the idea).\n\nConsider calls to |PKCS8_decrypt| and |PKCS8_encrypt|, the deprecated functions that perform the UCS-2 conversion, from BoringSSL\u0027s pem_pk8.c and pem_pkey.c.  For the use cases I\u0027m looking at, which use PBES2, this conversion is the problem.\n\nSo it seems like there are 3 options here:\n\n#1 Make encoding the responsibility of the ultimate caller of, e.g. |PEM_write_bio_PKCS8PrivateKey|, which would require removing UCS-2 encoding from lower levels.  (N.B. not compatible with OpenSSL\u0027s behavior.)\n \n#2 Change callers in pem_pk8.c and pem_pkey.c to request UCS-2 encoding conditionally, rather than in all cases, based on what PBE scheme is in use.\n\n#3 Push the decision back into keyivgen functions, as in OpenSSL.\n\nLet me know if I\u0027m understanding this correctly.  #3 seems sanest to me, but goes against the spirit of what you did in e216d6bb9.",
+      "parentUuid": "c4fd69c1_8b01517c",
+      "range": {
+        "startLine": 10,
+        "startChar": 45,
+        "endLine": 10,
+        "endChar": 67
+      },
+      "revId": "76eea7f2203ed9bc855b5b2ee47b978edef7d8f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
