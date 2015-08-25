@@ -66,7 +66,7 @@ extern "C" {
 #endif
 
 
-/* PKCS8_encrypt_pbe serializes and encrypts a PKCS8_PRIV_KEY_INFO with PBES1 as
+/* PKCS8_encrypt serializes and encrypts a PKCS8_PRIV_KEY_INFO with PBES1 as
  * defined in PKCS #5. Only pbeWithSHAAnd128BitRC4,
  * pbeWithSHAAnd3-KeyTripleDES-CBC and pbeWithSHA1And40BitRC2, defined in PKCS
  * #12, are supported. The |pass_raw_len| bytes pointed to by |pass_raw| are
@@ -82,14 +82,13 @@ extern "C" {
  *
  * TODO(davidben): Really? An X509_SIG? OpenSSL probably did that because it has
  * the same structure as EncryptedPrivateKeyInfo. */
-OPENSSL_EXPORT X509_SIG *PKCS8_encrypt_pbe(int pbe_nid,
-                                           const uint8_t *pass_raw,
-                                           size_t pass_raw_len,
-                                           uint8_t *salt, size_t salt_len,
-                                           int iterations,
-                                           PKCS8_PRIV_KEY_INFO *p8inf);
+OPENSSL_EXPORT X509_SIG *PKCS8_encrypt(int pbe_nid, const EVP_CIPHER *cipher,
+                                       const uint8_t *pass_raw,
+                                       size_t pass_raw_len, uint8_t *salt,
+                                       size_t salt_len, int iterations,
+                                       PKCS8_PRIV_KEY_INFO *p8inf);
 
-/* PKCS8_decrypt_pbe decrypts and decodes a PKCS8_PRIV_KEY_INFO with PBES1 as
+/* PKCS8_decrypt decrypts and decodes a PKCS8_PRIV_KEY_INFO with PBES1 as
  * defined in PKCS #5. Only pbeWithSHAAnd128BitRC4,
  * pbeWithSHAAnd3-KeyTripleDES-CBC and pbeWithSHA1And40BitRC2, defined in PKCS
  * #12, are supported. The |pass_raw_len| bytes pointed to by |pass_raw| are
@@ -98,28 +97,12 @@ OPENSSL_EXPORT X509_SIG *PKCS8_encrypt_pbe(int pbe_nid,
  * be performed by the caller.
  *
  * The resulting structure must be freed by the caller. */
-OPENSSL_EXPORT PKCS8_PRIV_KEY_INFO *PKCS8_decrypt_pbe(X509_SIG *pkcs8,
-                                                      const uint8_t *pass_raw,
-                                                      size_t pass_raw_len);
+OPENSSL_EXPORT PKCS8_PRIV_KEY_INFO *PKCS8_decrypt(X509_SIG *pkcs8,
+                                                  const uint8_t *pass_raw,
+                                                  size_t pass_raw_len);
 
 
 /* Deprecated functions. */
-
-/* PKCS8_encrypt calls PKCS8_encrypt_pbe after treating |pass| as an ASCII
- * string, appending U+0000, and converting to UCS-2. (So the empty password
- * encodes as two NUL bytes.) The |cipher| argument is ignored. */
-OPENSSL_EXPORT X509_SIG *PKCS8_encrypt(int pbe_nid, const EVP_CIPHER *cipher,
-                                       const char *pass, int pass_len,
-                                       uint8_t *salt, size_t salt_len,
-                                       int iterations,
-                                       PKCS8_PRIV_KEY_INFO *p8inf);
-
-/* PKCS8_decrypt calls PKCS8_decrypt_pbe after treating |pass| as an ASCII
- * string, appending U+0000, and converting to UCS-2. (So the empty password
- * encodes as two NUL bytes.) */
-OPENSSL_EXPORT PKCS8_PRIV_KEY_INFO *PKCS8_decrypt(X509_SIG *pkcs8,
-                                                  const char *pass,
-                                                  int pass_len);
 
 /* PKCS12_get_key_and_certs parses a PKCS#12 structure from |in|, authenticates
  * and decrypts it using |password|, sets |*out_key| to the included private

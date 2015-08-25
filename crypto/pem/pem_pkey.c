@@ -113,7 +113,7 @@ EVP_PKEY *PEM_read_bio_PrivateKey(BIO *bp, EVP_PKEY **x, pem_password_cb *cb, vo
 			X509_SIG_free(p8);
 			goto err;
 		}
-		p8inf = PKCS8_decrypt(p8, psbuf, klen);
+		p8inf = PKCS8_decrypt(p8, (uint8_t *) psbuf, klen);
 		X509_SIG_free(p8);
 		if(!p8inf) goto p8err;
 		ret = EVP_PKCS82PKEY(p8inf);

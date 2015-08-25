@@ -134,7 +134,7 @@ static int do_pk8pkey(BIO *bp, EVP_PKEY *x, int isder, int nid, const EVP_CIPHER
 				
 			kstr = buf;
 		}
-		p8 = PKCS8_encrypt(nid, enc, kstr, klen, NULL, 0, 0, p8inf);
+		p8 = PKCS8_encrypt(nid, enc, (uint8_t *) kstr, klen, NULL, 0, 0, p8inf);
 		if(kstr == buf) OPENSSL_cleanse(buf, klen);
 		PKCS8_PRIV_KEY_INFO_free(p8inf);
 		if(isder) ret = i2d_PKCS8_bio(bp, p8);
@@ -167,7 +167,7 @@ EVP_PKEY *d2i_PKCS8PrivateKey_bio(BIO *bp, EVP_PKEY **x, pem_password_cb *cb, vo
 		X509_SIG_free(p8);
 		return NULL;	
 	}
-	p8inf = PKCS8_decrypt(p8, psbuf, klen);
+	p8inf = PKCS8_decrypt(p8, (uint8_t *) psbuf, klen);
 	X509_SIG_free(p8);
 	if(!p8inf) return NULL;
 	ret = EVP_PKCS82PKEY(p8inf);
