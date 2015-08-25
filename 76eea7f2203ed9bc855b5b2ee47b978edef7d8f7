@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c4fd69c1_8b01517c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-25T18:26:41Z",
+      "side": 1,
+      "message": "You sure? So it\u0027s actually kind of a mess.\n\nhttps://code.google.com/p/chromium/issues/detail?id\u003d399121\n\nPKCS#12 says you do this dumb double-NULL-terminated UCS-2 thing, whereas PKCS#5 (which defines PBE1) doesn\u0027t say anything about the password encoding.\n\nBoringSSL currently only implements the PBE1 OIDs that are in PKCS#12, so the ascii_to_ucs2 thing always happens. OpenSSL implements a ton more. The code is more round-a-about, but what happens is...\n\nhttps://git.openssl.org/gitweb/?p\u003dopenssl.git;a\u003dblob;f\u003dcrypto/pkcs12/p12_p8d.c;h\u003d983eadf43e1604ce11d703bebe517f113091d1eb;hb\u003dHEAD#l64\ncalls\nhttps://git.openssl.org/gitweb/?p\u003dopenssl.git;a\u003dblob;f\u003dcrypto/pkcs12/p12_decr.c;h\u003d8996b9ed8470661a6d02d5c47d4182a941a7864d;hb\u003dHEAD#l128\ncalls\nhttps://git.openssl.org/gitweb/?p\u003dopenssl.git;a\u003dblob;f\u003dcrypto/pkcs12/p12_decr.c;h\u003d8996b9ed8470661a6d02d5c47d4182a941a7864d;hb\u003dHEAD#l74\ncalls\nhttps://git.openssl.org/gitweb/?p\u003dopenssl.git;a\u003dblob;f\u003dcrypto/evp/evp_pbe.c;h\u003d13d96587a3096717fdc86aea2ba925fe8025a2b7;hb\u003dHEAD#l150\n\nThat gets a keygen function pointer out of EVP_PBE_find. EVP_PBE_find eventually looks up a builtin_pbe table:\n\nhttps://git.openssl.org/gitweb/?p\u003dopenssl.git;a\u003dblob;f\u003dcrypto/evp/evp_pbe.c;h\u003d13d96587a3096717fdc86aea2ba925fe8025a2b7;hb\u003dHEAD#l82\n\nwhich has two different keygen functions. There\u0027s PKCS5_PBE_keyivgen and PKCS12_PBE_keyivgen.\n\nPKCS5_PBE_keyivgen is sane and leaves the key unmodified:\nhttps://git.openssl.org/gitweb/?p\u003dopenssl.git;a\u003dblob;f\u003dcrypto/evp/p5_crpt.c;h\u003d2d37d08f98bcdbb42f65469aff1da7f068060eb8;hb\u003dHEAD#l74\n\nBut PKCS12_PBE_keyivgen is crazy.\nhttps://git.openssl.org/gitweb/?p\u003dopenssl.git;a\u003dblob;f\u003dcrypto/pkcs12/p12_crpt.c;h\u003d08be40c61ffd486703e5f371cd1c4423af3174d8;hb\u003dHEAD#l70\n\nIt calls PKCS12_key_gen, which is a #define that\u0027s always PKCS12_key_gen_asc:\nhttps://git.openssl.org/gitweb/?p\u003dopenssl.git;a\u003dblob;f\u003dinclude/openssl/pkcs12.h;h\u003dba8b9441a9a7ac9e2ae892ae77cabf8deb57aa06;hb\u003dHEAD#l85\n\nhttps://git.openssl.org/gitweb/?p\u003dopenssl.git;a\u003dblob;f\u003dcrypto/pkcs12/p12_key.c;h\u003d879f157be0cbff31b5c3b46a32b7b972f72aa976;hb\u003dHEAD#l80\n\nWhich... calls OPENSSL_asc2uni, our favorite ASCII to double-NUL-terminated UCS-2 function.\nhttps://git.openssl.org/gitweb/?p\u003dopenssl.git;a\u003dblob;f\u003dcrypto/pkcs12/p12_utl.c;h\u003d5656cdc20a8d22bd5726ddd99b7c0947635daae7;hb\u003dHEAD#l66\n\n\nI hate everything. :-(",
+      "range": {
+        "startLine": 10,
+        "startChar": 45,
+        "endLine": 10,
+        "endChar": 67
+      },
+      "revId": "76eea7f2203ed9bc855b5b2ee47b978edef7d8f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
