@@ -46,6 +46,30 @@
       "revId": "76eea7f2203ed9bc855b5b2ee47b978edef7d8f7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4fd69c1_8b9391b0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-25T19:26:01Z",
+      "side": 1,
+      "message": "Chromium needs to be able to use one of the PKCS#12 OIDs without encoding because we use an empty password without the NULs. (That we call this function at all is gloriously dumb, but switching that off won\u0027t be immediate. It\u0027s literally always the empty password.) Which means putting the logic in keyivgen functions is a nuisance since PKCS8_decrypt_pbe becomes unimplementable.\n\nI would phrase the options as:\n\na) Ditch the auto-conversion completely (this is basically your CL as-is and option #1). In Chromium, I don\u0027t know of any consumers of the PKCS#12 OIDs apart from our PKCS8_(de|en)crypt_pbe callers which don\u0027t want the encoding. So that\u0027s fine there.\n\nIt does, however, change the behavior of all the PKCS#12 OIDs. I don\u0027t know how safe that is.\n\nb) Remain compatible with OpenSSL and have the non-raw functions continue to special-case PKCS#12. It can\u0027t be in the keyivgen functions, so I think we\u0027d need to add another function pointer (or just a boolean) to the kBuiltinPBE table. It would mean that we have to query that table twice in PKCS8_(en|de)crypt, but it\u0027s probably not the end of the world?",
+      "parentUuid": "c42ba915_a3a7793f",
+      "range": {
+        "startLine": 10,
+        "startChar": 45,
+        "endLine": 10,
+        "endChar": 67
+      },
+      "revId": "76eea7f2203ed9bc855b5b2ee47b978edef7d8f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
