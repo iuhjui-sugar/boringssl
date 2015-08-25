@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c4fd69c1_0b8a01a2",
+        "filename": "include/openssl/arm_arch.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-25T15:53:34Z",
+      "side": 1,
+      "message": "ARM_ARCH",
+      "range": {
+        "startLine": 136,
+        "startChar": 26,
+        "endLine": 136,
+        "endChar": 32
+      },
+      "revId": "015a78c34d748671a03e3e9d7d7ca0acadf2936b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
