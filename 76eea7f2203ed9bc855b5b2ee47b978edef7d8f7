@@ -94,6 +94,30 @@
       "revId": "76eea7f2203ed9bc855b5b2ee47b978edef7d8f7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4fd69c1_2eceeba6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-25T22:16:40Z",
+      "side": 1,
+      "message": "Works for me. Though I probably would have factored out the bsearch into a get_pbe_suite(nid) function and added a boolean or flags field to struct pbe_suite. Otherwise the next time we need to add one of these, we might not realize we need to pick a bucket for them.",
+      "parentUuid": "c42ba915_83235c32",
+      "range": {
+        "startLine": 10,
+        "startChar": 45,
+        "endLine": 10,
+        "endChar": 67
+      },
+      "revId": "76eea7f2203ed9bc855b5b2ee47b978edef7d8f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
