@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c4fd69c1_799a6f7c",
+        "filename": "crypto/pkcs8/p5_pbev2.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-26T19:26:06Z",
+      "side": 1,
+      "message": "Nit: I\u0027d probably leave this one out since any access of ctx-\u003eiv is internal to EVP_CipherInit_ex at this point.",
+      "revId": "dfa9cded634ac7834ad711066be780c45f8fb0cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4fd69c1_b9afc799",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-26T19:26:06Z",
+      "side": 1,
+      "message": "pass_len is a size_t, so it can\u0027t be -1. (Perhaps do the strlen nonsense in PKCS8_encrypt and PKCS8_decrypt, just so we can get to size_t as quickly as possible.)",
+      "revId": "dfa9cded634ac7834ad711066be780c45f8fb0cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4fd69c1_19481b80",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-26T19:26:06Z",
+      "side": 1,
+      "message": "pass_len is already a size_t.",
+      "range": {
+        "startLine": 345,
+        "startChar": 24,
+        "endLine": 345,
+        "endChar": 32
+      },
+      "revId": "dfa9cded634ac7834ad711066be780c45f8fb0cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4fd69c1_394bd780",
+        "filename": "crypto/pkcs8/pkcs8_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-26T19:26:06Z",
+      "side": 1,
+      "message": "Doesn\u0027t look like this parameter\u0027s used for anything.",
+      "range": {
+        "startLine": 65,
+        "startChar": 28,
+        "endLine": 65,
+        "endChar": 32
+      },
+      "revId": "dfa9cded634ac7834ad711066be780c45f8fb0cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4fd69c1_79514f2e",
+        "filename": "crypto/pkcs8/pkcs8_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-26T19:26:06Z",
+      "side": 1,
+      "message": "Nit: This can return bool and true/false in C++.",
+      "range": {
+        "startLine": 65,
+        "startChar": 7,
+        "endLine": 65,
+        "endChar": 10
+      },
+      "revId": "dfa9cded634ac7834ad711066be780c45f8fb0cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4fd69c1_594e9390",
+        "filename": "crypto/pkcs8/pkcs8_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-26T19:26:06Z",
+      "side": 1,
+      "message": "(Yeah, using ScopedPKCS8_PRIV_KEY_INFO would be great too. Destructors are great. :-) )",
+      "revId": "dfa9cded634ac7834ad711066be780c45f8fb0cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
