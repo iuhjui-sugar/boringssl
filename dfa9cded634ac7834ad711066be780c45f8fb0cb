@@ -19,6 +19,47 @@
     },
     {
       "key": {
+        "uuid": "c42ba915_32ee5080",
+        "filename": "crypto/pkcs8/p5_pbev2.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-26T23:42:14Z",
+      "side": 1,
+      "message": "Good point, done.",
+      "parentUuid": "c4fd69c1_799a6f7c",
+      "revId": "dfa9cded634ac7834ad711066be780c45f8fb0cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_d2e27c93",
+        "filename": "crypto/pkcs8/p5_pbev2.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-26T23:42:14Z",
+      "side": 1,
+      "message": "Would it be appropriate to use M_ASN1_STRING_length and M_ASN1_STRING_data here?",
+      "range": {
+        "startLine": 378,
+        "startChar": 49,
+        "endLine": 378,
+        "endChar": 54
+      },
+      "revId": "dfa9cded634ac7834ad711066be780c45f8fb0cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4fd69c1_b9afc799",
         "filename": "crypto/pkcs8/pkcs8.c",
         "patchSetId": 6
@@ -36,6 +77,24 @@
     },
     {
       "key": {
+        "uuid": "c42ba915_5210ac08",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-26T23:42:14Z",
+      "side": 1,
+      "message": "Eh, if it\u0027s got to be done, it might as well be done in only one place.\n\n(size_t was a typo on my part; I meant int.  Added a bounds check.)",
+      "parentUuid": "c4fd69c1_b9afc799",
+      "revId": "dfa9cded634ac7834ad711066be780c45f8fb0cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4fd69c1_19481b80",
         "filename": "crypto/pkcs8/pkcs8.c",
         "patchSetId": 6
@@ -47,6 +106,30 @@
       "writtenOn": "2015-08-26T19:26:06Z",
       "side": 1,
       "message": "pass_len is already a size_t.",
+      "range": {
+        "startLine": 345,
+        "startChar": 24,
+        "endLine": 345,
+        "endChar": 32
+      },
+      "revId": "dfa9cded634ac7834ad711066be780c45f8fb0cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_123b1488",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-26T23:42:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4fd69c1_19481b80",
       "range": {
         "startLine": 345,
         "startChar": 24,
@@ -105,6 +188,54 @@
     },
     {
       "key": {
+        "uuid": "c42ba915_f239b88b",
+        "filename": "crypto/pkcs8/pkcs8_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-26T23:42:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4fd69c1_79514f2e",
+      "range": {
+        "startLine": 65,
+        "startChar": 7,
+        "endLine": 65,
+        "endChar": 10
+      },
+      "revId": "dfa9cded634ac7834ad711066be780c45f8fb0cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_d234bc96",
+        "filename": "crypto/pkcs8/pkcs8_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-26T23:42:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4fd69c1_394bd780",
+      "range": {
+        "startLine": 65,
+        "startChar": 28,
+        "endLine": 65,
+        "endChar": 32
+      },
+      "revId": "dfa9cded634ac7834ad711066be780c45f8fb0cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4fd69c1_594e9390",
         "filename": "crypto/pkcs8/pkcs8_test.cc",
         "patchSetId": 6
@@ -116,6 +247,24 @@
       "writtenOn": "2015-08-26T19:26:06Z",
       "side": 1,
       "message": "(Yeah, using ScopedPKCS8_PRIV_KEY_INFO would be great too. Destructors are great. :-) )",
+      "revId": "dfa9cded634ac7834ad711066be780c45f8fb0cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_b22ca04b",
+        "filename": "crypto/pkcs8/pkcs8_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-26T23:42:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4fd69c1_594e9390",
       "revId": "dfa9cded634ac7834ad711066be780c45f8fb0cb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
