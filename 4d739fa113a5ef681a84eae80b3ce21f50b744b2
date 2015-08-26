@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c4fd69c1_cba0697e",
+        "filename": "ssl/d1_pkt.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-26T00:03:06Z",
+      "side": 1,
+      "message": "The check for BIO_read is \u003c\u003d 0, so I don\u0027t think so. (Is that actually possible? I expect most things, include OpenSSL, will get that confused with EOF. If it is, that would suggest that DTLS wants a \u003c 0 check and then to drop this assert.)\n\nBut recv(2) says:\n\u003e  The return value will be 0 when the peer has performed an orderly shutdown.\n\nAnd read(2) says:\n\u003e On success, the number of bytes read is returned (zero indicates end of file)\n\nSo I\u0027m not sure what happens on zero-length packets. Perhaps the kernel drops it on the floor?",
+      "parentUuid": "c42ba915_6dc5d030",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c42ba915_0df3fc98",
         "filename": "ssl/d1_pkt.c",
         "patchSetId": 7
@@ -30,6 +48,24 @@
       "writtenOn": "2015-08-24T23:27:48Z",
       "side": 1,
       "message": "Check that len is \u003c\u003d 0xffff?",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4fd69c1_cefcf77e",
+        "filename": "ssl/d1_pkt.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-26T00:03:06Z",
+      "side": 1,
+      "message": "Done. Shouldn\u0027t be possible, but that\u0027s not locally obvious. Also added to the TLS half.",
+      "parentUuid": "c42ba915_0df3fc98",
       "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "c4fd69c1_eb7d65da",
+        "filename": "ssl/d1_pkt.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-26T00:03:06Z",
+      "side": 1,
+      "message": "Done, but put it outside the switch-case.",
+      "parentUuid": "c42ba915_edf1e08c",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c42ba915_8de70cd1",
         "filename": "ssl/d1_pkt.c",
         "patchSetId": 7
@@ -64,6 +118,24 @@
       "writtenOn": "2015-08-24T23:27:48Z",
       "side": 1,
       "message": "blank line after switch.",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4fd69c1_0ba0c1ec",
+        "filename": "ssl/d1_pkt.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-26T00:03:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c42ba915_8de70cd1",
       "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "c4fd69c1_6bb055c7",
+        "filename": "ssl/dtls_record.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-26T00:03:06Z",
+      "side": 1,
+      "message": "They are.",
+      "parentUuid": "c42ba915_4de1f4b9",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c42ba915_adad2870",
         "filename": "ssl/dtls_record.c",
         "patchSetId": 7
@@ -98,6 +188,24 @@
       "writtenOn": "2015-08-24T23:27:48Z",
       "side": 1,
       "message": "This is expressed differently in the TLS code, no? (i.e. version \u003e\u003e 8 !\u003d SSL3_VERSION_MAJOR.) Good to have the same expression.",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4fd69c1_ebd9e5a2",
+        "filename": "ssl/dtls_record.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-26T00:03:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c42ba915_adad2870",
       "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "c4fd69c1_cb898904",
+        "filename": "ssl/dtls_record.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-26T00:03:06Z",
+      "side": 1,
+      "message": "A single packet may have multiple records.\n\nFor this one I think we want to drop just the record. You could imagine that the peer decided to send a packet containing, say, a ChangeCipherSpec from one epoch and a Finished from the next.\n\nIf, for some reason, we\u0027ve seen a ChangeCipherSpec but not all of the Finished, we\u0027ll want to process that chunk of Finished. Although this does require that the peer change its framing on rexmit, so it\u0027s arguably a little unlikely...\n\n(Hrm. Actually not thaaaat unlikely. OpenSSL doesn\u0027t have the buffer BIO enabled if you\u0027re rexmitting the last leg of the handshake, which causes the CCS and Finished to split into separate packets. We have that bug too actually. Need to change the packing to not use the buffer BIO because that\u0027s nonsense.)",
+      "parentUuid": "c42ba915_0d853ce8",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c42ba915_4d93342e",
         "filename": "ssl/dtls_record.c",
         "patchSetId": 7
@@ -132,6 +258,24 @@
       "writtenOn": "2015-08-24T23:27:48Z",
       "side": 1,
       "message": "(ditto)",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4fd69c1_eb8445ee",
+        "filename": "ssl/dtls_record.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-26T00:03:06Z",
+      "side": 1,
+      "message": "This one we actually may as well drop the whole thing. The old code would drop just that record, so I kept it as-is.",
+      "parentUuid": "c42ba915_4d93342e",
       "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "c4fd69c1_2bba5da5",
+        "filename": "ssl/dtls_record.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-26T00:03:06Z",
+      "side": 1,
+      "message": "Multiple records may be in a single packet. (OpenSSL will do this, in fact. ChangeCipherSpec forces things to be in a new record, but it\u0027ll still packet them into a packet.)",
+      "parentUuid": "c42ba915_0d6e9ca8",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c42ba915_8d62acb8",
         "filename": "ssl/dtls_record.c",
         "patchSetId": 7
@@ -166,6 +328,24 @@
       "writtenOn": "2015-08-24T23:27:48Z",
       "side": 1,
       "message": "I\u0027d flip these two terms around for readability. Also \u003c\u003d for the (currently) second term and maybe a |- 1| after |DTLS1_RT_HEADER_LENGTH|?",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4fd69c1_2ba37dfd",
+        "filename": "ssl/dtls_record.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-26T00:03:06Z",
+      "side": 1,
+      "message": "Switched the order. I\u0027m not sure the \u003c\u003d and -1 actually makes it clearer though. Because of the + DTLS1_RT_HEADER_LENGTH, it\u0027s not really A \\in [B, C). I suppose it could be changed to:\n\n  in - DTLS1_RT_HEADER_LENGTH + 1 \u003c\u003d out \u0026\u0026 out \u003c in + in_len\n\nBut that might underflow and doesn\u0027t seem much clearer. It\u0027s really: is [out, out+LENGTH) \\intersect [in, in+in_len) empty? So in/out are pretty symmetric here.",
+      "parentUuid": "c42ba915_8d62acb8",
       "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -189,6 +369,24 @@
     },
     {
       "key": {
+        "uuid": "c4fd69c1_8b2f1111",
+        "filename": "ssl/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-26T00:03:06Z",
+      "side": 1,
+      "message": "Oops. Done.",
+      "parentUuid": "c42ba915_728a91a3",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c42ba915_320df9c6",
         "filename": "ssl/internal.h",
         "patchSetId": 7
@@ -200,6 +398,24 @@
       "writtenOn": "2015-08-24T23:27:48Z",
       "side": 1,
       "message": "|out|",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4fd69c1_2b3ffd3d",
+        "filename": "ssl/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-26T00:03:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c42ba915_320df9c6",
       "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -223,6 +439,24 @@
     },
     {
       "key": {
+        "uuid": "c4fd69c1_4b4239c6",
+        "filename": "ssl/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-26T00:03:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c42ba915_921c0df7",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c42ba915_92ce4dd7",
         "filename": "ssl/s3_pkt.c",
         "patchSetId": 7
@@ -234,6 +468,24 @@
       "writtenOn": "2015-08-24T23:27:48Z",
       "side": 1,
       "message": "overflow check?",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4fd69c1_0b3c4145",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-26T00:03:06Z",
+      "side": 1,
+      "message": "Done. (Not possible since len is bounded by SSL3_RT_MAX_PLAIN_LENGTH and ssl_max_seal_overhead is small, but good to check.)",
+      "parentUuid": "c42ba915_92ce4dd7",
       "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -257,6 +509,24 @@
     },
     {
       "key": {
+        "uuid": "c4fd69c1_eb30c574",
+        "filename": "ssl/ssl_buffer.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-26T00:03:06Z",
+      "side": 1,
+      "message": "Done.\n\n*headdesk* Fixed alignment. I suspect it worked anyway because malloc needs to return something sufficiently aligned so that (T*)malloc(sizeof(T)) works.",
+      "parentUuid": "c42ba915_d28e058a",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c42ba915_72a051ee",
         "filename": "ssl/ssl_buffer.c",
         "patchSetId": 7
@@ -268,6 +538,24 @@
       "writtenOn": "2015-08-24T23:27:48Z",
       "side": 1,
       "message": "need to reject packets \u003e 0xffff bytes before truncating |ret|.",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4fd69c1_8baa7158",
+        "filename": "ssl/ssl_buffer.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-26T00:03:06Z",
+      "side": 1,
+      "message": "We won\u0027t read more than buf-\u003ecap which is a uint16_t. If we get that far, we\u0027ve written past buf-\u003ecap and are in worse trouble. Added a comment.",
+      "parentUuid": "c42ba915_72a051ee",
       "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -291,6 +579,24 @@
     },
     {
       "key": {
+        "uuid": "c4fd69c1_0b232134",
+        "filename": "ssl/ssl_buffer.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-26T00:03:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c42ba915_b26fc91e",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c42ba915_d260452d",
         "filename": "ssl/ssl_buffer.c",
         "patchSetId": 7
@@ -302,6 +608,24 @@
       "writtenOn": "2015-08-24T23:27:48Z",
       "side": 1,
       "message": "ensure that |len - buf-\u003elen| fits in an int?\n\nsize_t todo \u003d len - buf-\u003elen;\nif (todo \u003e INT_MAX) {\n  todo \u003d INT_MAX;\n}\nint ret \u003d BIO_read(…);",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4fd69c1_aba52d8c",
+        "filename": "ssl/ssl_buffer.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-26T00:03:06Z",
+      "side": 1,
+      "message": "The fields in question are all bounded by uint16_t. I dunno how locally obvious that counts as. I added a compile assert up top that 0xffff fits in int. (Though the standard might just promise that one...)\n\nIf we want overflow checks and whatnot here, we probably want one in the DTLS version too, since it also goes from uint16_t to int.",
+      "parentUuid": "c42ba915_d260452d",
       "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -325,6 +649,24 @@
     },
     {
       "key": {
+        "uuid": "c4fd69c1_cb82a958",
+        "filename": "ssl/ssl_buffer.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-26T00:03:06Z",
+      "side": 1,
+      "message": "If it overflows or doesn\u0027t fit, that would mean we\u0027ve written past buf-\u003ecap and are in worse trouble. I\u0027ve added some comments.",
+      "parentUuid": "c42ba915_326c1926",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c42ba915_0dd9bc69",
         "filename": "ssl/ssl_buffer.c",
         "patchSetId": 7
@@ -336,6 +678,24 @@
       "writtenOn": "2015-08-24T23:27:48Z",
       "side": 1,
       "message": "ditto about maybe calling it …_buffer_extend_to, although up to you.",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4fd69c1_cb350963",
+        "filename": "ssl/ssl_buffer.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-26T00:03:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c42ba915_0dd9bc69",
       "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -359,6 +719,24 @@
     },
     {
       "key": {
+        "uuid": "c4fd69c1_ab2acd00",
+        "filename": "ssl/ssl_buffer.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-26T00:03:06Z",
+      "side": 1,
+      "message": "Done. (Do we still need to make record-splitting configurable? I imagine it was more of a compatibility risk when it was 0/n rather than 1/n-1.)",
+      "parentUuid": "c42ba915_edd7a032",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c42ba915_6d487081",
         "filename": "ssl/tls_record.c",
         "patchSetId": 7
@@ -376,6 +754,24 @@
     },
     {
       "key": {
+        "uuid": "c4fd69c1_4b191904",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-26T00:03:06Z",
+      "side": 1,
+      "message": "I think \u003c is correct. If either end is equal, then their boundaries match up and we\u0027re fine.\n\nThat is, this is just checking if [in, in+in_len) and [out, out+LENGTH) alias. Switched the order. Although it seems in and out are symmetric here.",
+      "parentUuid": "c42ba915_6d487081",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c42ba915_0d21bca8",
         "filename": "ssl/tls_record.c",
         "patchSetId": 7
@@ -387,6 +783,24 @@
       "writtenOn": "2015-08-24T23:27:48Z",
       "side": 1,
       "message": "I would flip the first term around to make this easier to read.",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4fd69c1_2b26dd43",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-26T00:03:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c42ba915_0d21bca8",
       "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
