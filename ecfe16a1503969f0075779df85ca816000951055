@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c42ba915_86136a64",
+        "filename": "crypto/pkcs8/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-26T01:00:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4fd69c1_aeaf7b99",
+      "range": {
+        "startLine": 70,
+        "startChar": 3,
+        "endLine": 70,
+        "endChar": 4
+      },
+      "revId": "ecfe16a1503969f0075779df85ca816000951055",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4fd69c1_8eb4bfec",
         "filename": "crypto/pkcs8/internal.h",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2015-08-25T23:20:21Z",
       "side": 1,
       "message": "It returns one on success and zero on error.",
+      "range": {
+        "startLine": 72,
+        "startChar": 33,
+        "endLine": 72,
+        "endChar": 34
+      },
+      "revId": "ecfe16a1503969f0075779df85ca816000951055",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_262136a9",
+        "filename": "crypto/pkcs8/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-26T01:00:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4fd69c1_8eb4bfec",
       "range": {
         "startLine": 72,
         "startChar": 33,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "c42ba915_e646defa",
+        "filename": "crypto/pkcs8/p5_pbev2.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-26T01:00:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4fd69c1_ee3c53ef",
+      "range": {
+        "startLine": 88,
+        "startChar": 3,
+        "endLine": 88,
+        "endChar": 30
+      },
+      "revId": "ecfe16a1503969f0075779df85ca816000951055",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4fd69c1_8e627f09",
         "filename": "crypto/pkcs8/p5_pbev2.c",
         "patchSetId": 4
@@ -82,6 +154,24 @@
       "writtenOn": "2015-08-25T23:20:21Z",
       "side": 1,
       "message": "Remnant of something?",
+      "revId": "ecfe16a1503969f0075779df85ca816000951055",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_0620baa0",
+        "filename": "crypto/pkcs8/p5_pbev2.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-26T01:00:43Z",
+      "side": 1,
+      "message": "Sorry, yes.  OpenSSL returned |ret| here (i.e. the length of the octet string, even if longer than max_len), rather than the number of bytes actually copied.  I\u0027ve removed the comment.",
+      "parentUuid": "c4fd69c1_8e627f09",
       "revId": "ecfe16a1503969f0075779df85ca816000951055",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -105,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "c42ba915_064c3a17",
+        "filename": "crypto/pkcs8/p5_pbev2.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-26T01:00:43Z",
+      "side": 1,
+      "message": "I didn\u0027t quite parse that but I think I take your meaning.  Done.",
+      "parentUuid": "c4fd69c1_ae365b0b",
+      "revId": "ecfe16a1503969f0075779df85ca816000951055",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4fd69c1_8e3b9ff3",
         "filename": "crypto/pkcs8/p5_pbev2.c",
         "patchSetId": 4
@@ -116,6 +224,30 @@
       "writtenOn": "2015-08-25T23:20:21Z",
       "side": 1,
       "message": "Nit: sizeof(key)",
+      "range": {
+        "startLine": 350,
+        "startChar": 26,
+        "endLine": 350,
+        "endChar": 29
+      },
+      "revId": "ecfe16a1503969f0075779df85ca816000951055",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_862cca99",
+        "filename": "crypto/pkcs8/p5_pbev2.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-26T01:00:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4fd69c1_8e3b9ff3",
       "range": {
         "startLine": 350,
         "startChar": 26,
@@ -151,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "c42ba915_26ca9649",
+        "filename": "crypto/pkcs8/p5_pbev2.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-26T01:00:43Z",
+      "side": 1,
+      "message": "YM param \u003d\u003d NULL.  Done.",
+      "parentUuid": "c4fd69c1_6e51832e",
+      "range": {
+        "startLine": 360,
+        "startChar": 6,
+        "endLine": 360,
+        "endChar": 12
+      },
+      "revId": "ecfe16a1503969f0075779df85ca816000951055",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4fd69c1_4e4ec790",
         "filename": "crypto/pkcs8/p5_pbev2.c",
         "patchSetId": 4
@@ -162,6 +318,30 @@
       "writtenOn": "2015-08-25T23:20:21Z",
       "side": 1,
       "message": "Nit: pbkdf2param !\u003d NULL.\n\nShould you check that there isn\u0027t trailing garbage too?",
+      "range": {
+        "startLine": 368,
+        "startChar": 6,
+        "endLine": 368,
+        "endChar": 18
+      },
+      "revId": "ecfe16a1503969f0075779df85ca816000951055",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_66b40e69",
+        "filename": "crypto/pkcs8/p5_pbev2.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-26T01:00:43Z",
+      "side": 1,
+      "message": "YM pbkdf2param \u003d\u003d NULL.  Done.",
+      "parentUuid": "c4fd69c1_4e4ec790",
       "range": {
         "startLine": 368,
         "startChar": 6,
@@ -197,6 +377,30 @@
     },
     {
       "key": {
+        "uuid": "c42ba915_46cf9257",
+        "filename": "crypto/pkcs8/p5_pbev2.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-26T01:00:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4fd69c1_0e48cf7f",
+      "range": {
+        "startLine": 374,
+        "startChar": 28,
+        "endLine": 374,
+        "endChar": 30
+      },
+      "revId": "ecfe16a1503969f0075779df85ca816000951055",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4fd69c1_eea573bd",
         "filename": "crypto/pkcs8/p5_pbev2.c",
         "patchSetId": 4
@@ -208,6 +412,30 @@
       "writtenOn": "2015-08-25T23:20:21Z",
       "side": 1,
       "message": "This returns -1 if the result doesn\u0027t fit in a long, and the parameter is unsigned, so I think you need to check bounds.",
+      "range": {
+        "startLine": 400,
+        "startChar": 30,
+        "endLine": 400,
+        "endChar": 45
+      },
+      "revId": "ecfe16a1503969f0075779df85ca816000951055",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_a64546ce",
+        "filename": "crypto/pkcs8/p5_pbev2.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-26T01:00:43Z",
+      "side": 1,
+      "message": "Done, let me know if I expressed it idiomatically.",
+      "parentUuid": "c4fd69c1_eea573bd",
       "range": {
         "startLine": 400,
         "startChar": 30,
@@ -237,6 +465,24 @@
     },
     {
       "key": {
+        "uuid": "c42ba915_e6d33e00",
+        "filename": "crypto/pkcs8/p5_pbev2.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-26T01:00:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4fd69c1_2e4b8b80",
+      "revId": "ecfe16a1503969f0075779df85ca816000951055",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4fd69c1_4e65a70e",
         "filename": "crypto/pkcs8/p5_pbev2.c",
         "patchSetId": 4
@@ -248,6 +494,24 @@
       "writtenOn": "2015-08-25T23:20:21Z",
       "side": 1,
       "message": "pbe2param \u003d [...]\n if (pbe2param \u003d\u003d NULL) {\n\n(Check for trailing garbage?)",
+      "revId": "ecfe16a1503969f0075779df85ca816000951055",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_46df9285",
+        "filename": "crypto/pkcs8/p5_pbev2.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-26T01:00:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4fd69c1_4e65a70e",
       "revId": "ecfe16a1503969f0075779df85ca816000951055",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -271,6 +535,24 @@
     },
     {
       "key": {
+        "uuid": "c42ba915_06d99a1e",
+        "filename": "crypto/pkcs8/p5_pbev2.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-26T01:00:43Z",
+      "side": 1,
+      "message": "YM cipher \u003d\u003d NULL.  Done.",
+      "parentUuid": "c4fd69c1_2e726bd6",
+      "revId": "ecfe16a1503969f0075779df85ca816000951055",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4fd69c1_ceaab78b",
         "filename": "crypto/pkcs8/p5_pbev2.c",
         "patchSetId": 4
@@ -282,6 +564,24 @@
       "writtenOn": "2015-08-25T23:20:21Z",
       "side": 1,
       "message": "Nit: period at end.",
+      "revId": "ecfe16a1503969f0075779df85ca816000951055",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_a6bea6a8",
+        "filename": "crypto/pkcs8/p5_pbev2.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-26T01:00:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4fd69c1_ceaab78b",
       "revId": "ecfe16a1503969f0075779df85ca816000951055",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -305,6 +605,24 @@
     },
     {
       "key": {
+        "uuid": "c42ba915_e6ec9eb7",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-26T01:00:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4fd69c1_ce06375c",
+      "revId": "ecfe16a1503969f0075779df85ca816000951055",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4fd69c1_ae0bfb61",
         "filename": "crypto/pkcs8/pkcs8.c",
         "patchSetId": 4
@@ -316,6 +634,24 @@
       "writtenOn": "2015-08-25T23:20:21Z",
       "side": 1,
       "message": "Nit: parens around suite-\u003eflags \u0026 PBE_UCS2_CONVERT_PASSWORD\nNit: suite -\u003e suite !\u003d NULL",
+      "revId": "ecfe16a1503969f0075779df85ca816000951055",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_06f2fa90",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-26T01:00:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4fd69c1_ae0bfb61",
       "revId": "ecfe16a1503969f0075779df85ca816000951055",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -345,6 +681,30 @@
     },
     {
       "key": {
+        "uuid": "c42ba915_c6ade26f",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-26T01:00:43Z",
+      "side": 1,
+      "message": "Youch, good catch.  Done.",
+      "parentUuid": "c4fd69c1_0ee44f18",
+      "range": {
+        "startLine": 455,
+        "startChar": 30,
+        "endLine": 455,
+        "endChar": 44
+      },
+      "revId": "ecfe16a1503969f0075779df85ca816000951055",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4fd69c1_2e194bac",
         "filename": "crypto/pkcs8/pkcs8_test.c",
         "patchSetId": 4
@@ -356,6 +716,24 @@
       "writtenOn": "2015-08-25T23:20:21Z",
       "side": 1,
       "message": "Unused",
+      "revId": "ecfe16a1503969f0075779df85ca816000951055",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_2685b6e8",
+        "filename": "crypto/pkcs8/pkcs8_test.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-26T01:00:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4fd69c1_2e194bac",
       "revId": "ecfe16a1503969f0075779df85ca816000951055",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -379,6 +757,24 @@
     },
     {
       "key": {
+        "uuid": "c42ba915_468a32f9",
+        "filename": "crypto/pkcs8/pkcs8_test.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-26T01:00:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4fd69c1_0e168f7c",
+      "revId": "ecfe16a1503969f0075779df85ca816000951055",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4fd69c1_ce58775f",
         "filename": "crypto/pkcs8/pkcs8_test.c",
         "patchSetId": 4
@@ -396,6 +792,24 @@
     },
     {
       "key": {
+        "uuid": "c42ba915_e67ede5b",
+        "filename": "crypto/pkcs8/pkcs8_test.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-26T01:00:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4fd69c1_ce58775f",
+      "revId": "ecfe16a1503969f0075779df85ca816000951055",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4fd69c1_ee533342",
         "filename": "crypto/pkcs8/pkcs8_test.c",
         "patchSetId": 4
@@ -407,6 +821,24 @@
       "writtenOn": "2015-08-25T23:20:21Z",
       "side": 1,
       "message": "Unused",
+      "revId": "ecfe16a1503969f0075779df85ca816000951055",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_06843ae8",
+        "filename": "crypto/pkcs8/pkcs8_test.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-26T01:00:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4fd69c1_ee533342",
       "revId": "ecfe16a1503969f0075779df85ca816000951055",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -436,6 +868,30 @@
     },
     {
       "key": {
+        "uuid": "c42ba915_a699c64f",
+        "filename": "crypto/pkcs8/pkcs8_test.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-26T01:00:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4fd69c1_ae5d3b4d",
+      "range": {
+        "startLine": 28,
+        "startChar": 3,
+        "endLine": 28,
+        "endChar": 7
+      },
+      "revId": "ecfe16a1503969f0075779df85ca816000951055",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4fd69c1_ae241be7",
         "filename": "crypto/pkcs8/pkcs8_test.c",
         "patchSetId": 4
@@ -453,6 +909,24 @@
     },
     {
       "key": {
+        "uuid": "c42ba915_c696421e",
+        "filename": "crypto/pkcs8/pkcs8_test.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-26T01:00:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4fd69c1_ae241be7",
+      "revId": "ecfe16a1503969f0075779df85ca816000951055",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4fd69c1_8e295fbf",
         "filename": "crypto/pkcs8/pkcs8_test.c",
         "patchSetId": 4
@@ -464,6 +938,30 @@
       "writtenOn": "2015-08-25T23:20:21Z",
       "side": 1,
       "message": "uint8_t",
+      "range": {
+        "startLine": 67,
+        "startChar": 8,
+        "endLine": 67,
+        "endChar": 21
+      },
+      "revId": "ecfe16a1503969f0075779df85ca816000951055",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_6693ae2e",
+        "filename": "crypto/pkcs8/pkcs8_test.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-26T01:00:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4fd69c1_8e295fbf",
       "range": {
         "startLine": 67,
         "startChar": 8,
@@ -499,6 +997,30 @@
     },
     {
       "key": {
+        "uuid": "c42ba915_266e16a9",
+        "filename": "crypto/pkcs8/pkcs8_test.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-26T01:00:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4fd69c1_ce2f57c2",
+      "range": {
+        "startLine": 68,
+        "startChar": 12,
+        "endLine": 68,
+        "endChar": 16
+      },
+      "revId": "ecfe16a1503969f0075779df85ca816000951055",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4fd69c1_6e1f4393",
         "filename": "crypto/pkcs8/pkcs8_test.c",
         "patchSetId": 4
@@ -510,6 +1032,24 @@
       "writtenOn": "2015-08-25T23:20:21Z",
       "side": 1,
       "message": "|| data !\u003d der + der_len\n\nJust test code, but may as well reject trailing garbage nicely.",
+      "revId": "ecfe16a1503969f0075779df85ca816000951055",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_4673128f",
+        "filename": "crypto/pkcs8/pkcs8_test.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-26T01:00:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4fd69c1_6e1f4393",
       "revId": "ecfe16a1503969f0075779df85ca816000951055",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -539,6 +1079,30 @@
     },
     {
       "key": {
+        "uuid": "c42ba915_067d1a56",
+        "filename": "crypto/pkcs8/pkcs8_test.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-26T01:00:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4fd69c1_4e1c879c",
+      "range": {
+        "startLine": 75,
+        "startChar": 99,
+        "endLine": 75,
+        "endChar": 103
+      },
+      "revId": "ecfe16a1503969f0075779df85ca816000951055",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4fd69c1_0efd6fa2",
         "filename": "crypto/pkcs8/pkcs8_test.c",
         "patchSetId": 4
@@ -556,6 +1120,24 @@
     },
     {
       "key": {
+        "uuid": "c42ba915_26037687",
+        "filename": "crypto/pkcs8/pkcs8_test.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-26T01:00:43Z",
+      "side": 1,
+      "message": "Done.  I could do ScopedPKCS8_PRIV_KEY_INFO too, if you want.",
+      "parentUuid": "c4fd69c1_0efd6fa2",
+      "revId": "ecfe16a1503969f0075779df85ca816000951055",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4fd69c1_ee2a13b4",
         "filename": "crypto/pkcs8/pkcs8_test.c",
         "patchSetId": 4
@@ -567,6 +1149,24 @@
       "writtenOn": "2015-08-25T23:20:21Z",
       "side": 1,
       "message": "Optional: We seem to be inconsistent about it, but this doesn\u0027t do anything anymore so feel free to ditch it.",
+      "revId": "ecfe16a1503969f0075779df85ca816000951055",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_a6cea6d6",
+        "filename": "crypto/pkcs8/pkcs8_test.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-26T01:00:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4fd69c1_ee2a13b4",
       "revId": "ecfe16a1503969f0075779df85ca816000951055",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -596,6 +1196,30 @@
     },
     {
       "key": {
+        "uuid": "c42ba915_c6f402fc",
+        "filename": "include/openssl/pkcs8.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-26T01:00:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4fd69c1_6ef623cd",
+      "range": {
+        "startLine": 112,
+        "startChar": 57,
+        "endLine": 112,
+        "endChar": 62
+      },
+      "revId": "ecfe16a1503969f0075779df85ca816000951055",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4fd69c1_4ef367db",
         "filename": "include/openssl/pkcs8.h",
         "patchSetId": 4
@@ -607,6 +1231,30 @@
       "writtenOn": "2015-08-25T23:20:21Z",
       "side": 1,
       "message": "Ditto.",
+      "range": {
+        "startLine": 122,
+        "startChar": 55,
+        "endLine": 122,
+        "endChar": 60
+      },
+      "revId": "ecfe16a1503969f0075779df85ca816000951055",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_66f16e08",
+        "filename": "include/openssl/pkcs8.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-26T01:00:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4fd69c1_4ef367db",
       "range": {
         "startLine": 122,
         "startChar": 55,
