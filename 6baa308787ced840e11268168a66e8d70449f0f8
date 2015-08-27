@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c42ba915_5d2f5d8e",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-27T02:28:10Z",
+      "side": 1,
+      "message": "From the little research I did, nothing guarantees that this is impossible, though of course happy to have advice on the best way to express bounds checks.",
+      "parentUuid": "c4fd69c1_b91b4730",
+      "range": {
+        "startLine": 331,
+        "startChar": 29,
+        "endLine": 331,
+        "endChar": 50
+      },
+      "revId": "6baa308787ced840e11268168a66e8d70449f0f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4fd69c1_99208b5b",
         "filename": "crypto/pkcs8/pkcs8.c",
         "patchSetId": 8
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "c42ba915_7d2c9998",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-27T02:28:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4fd69c1_99208b5b",
+      "revId": "6baa308787ced840e11268168a66e8d70449f0f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4fd69c1_7906efda",
         "filename": "crypto/pkcs8/pkcs8_test.cc",
         "patchSetId": 8
@@ -53,6 +95,24 @@
       "writtenOn": "2015-08-27T01:52:41Z",
       "side": 1,
       "message": "Nit: !keypair works just fine too for unique_ptrs.",
+      "revId": "6baa308787ced840e11268168a66e8d70449f0f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_1dca4549",
+        "filename": "crypto/pkcs8/pkcs8_test.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-27T02:28:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4fd69c1_7906efda",
       "revId": "6baa308787ced840e11268168a66e8d70449f0f8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
