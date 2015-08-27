@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c4fd69c1_b91b4730",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-27T01:52:41Z",
+      "side": 1,
+      "message": "(Is it even possible for INT_MAX to not fit in a size_t? *shrug*)",
+      "range": {
+        "startLine": 331,
+        "startChar": 29,
+        "endLine": 331,
+        "endChar": 50
+      },
+      "revId": "6baa308787ced840e11268168a66e8d70449f0f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4fd69c1_99208b5b",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-27T01:52:41Z",
+      "side": 1,
+      "message": "Probably want a:\n\n  OPENSSL_PUT_ERROR(PKCS8, ERR_R_OVERFLOW);\n\nJust so all exits are covered.",
+      "revId": "6baa308787ced840e11268168a66e8d70449f0f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4fd69c1_7906efda",
+        "filename": "crypto/pkcs8/pkcs8_test.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-27T01:52:41Z",
+      "side": 1,
+      "message": "Nit: !keypair works just fine too for unique_ptrs.",
+      "revId": "6baa308787ced840e11268168a66e8d70449f0f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
