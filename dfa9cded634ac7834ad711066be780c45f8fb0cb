@@ -60,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "c4fd69c1_d93f2370",
+        "filename": "crypto/pkcs8/p5_pbev2.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-27T01:52:41Z",
+      "side": 1,
+      "message": "*shrug* Whichever I think. These structs aren\u0027t terribly opaque.",
+      "parentUuid": "c42ba915_d2e27c93",
+      "range": {
+        "startLine": 378,
+        "startChar": 49,
+        "endLine": 378,
+        "endChar": 54
+      },
+      "revId": "dfa9cded634ac7834ad711066be780c45f8fb0cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4fd69c1_b9afc799",
         "filename": "crypto/pkcs8/pkcs8.c",
         "patchSetId": 6
