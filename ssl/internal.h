@@ -360,8 +360,6 @@ int ssl_has_private_key(SSL *ssl);
 
 int ssl_private_key_type(SSL *ssl);
 
-int ssl_private_key_supports_digest(SSL *ssl, const EVP_MD *md);
-
 size_t ssl_private_key_max_signature_len(SSL *ssl);
 
 enum ssl_private_key_result_t ssl_private_key_sign(
@@ -607,17 +605,17 @@ typedef struct cert_st {
    * |SSL_CTX_set_tmp_ecdh_callback|. */
   EC_KEY *(*ecdh_tmp_cb)(SSL *ssl, int is_export, int keysize);
 
-  /* signature algorithms peer reports: e.g. supported signature
-   * algorithms extension for server or as part of a certificate
-   * request for client. */
-  uint8_t *peer_sigalgs;
-  /* Size of above array */
+  /* peer_sigalgs are the algorithm/hash pairs that the peer supports. These
+   * are taken from the contents of signature algorithms extension for a server
+   * or from the CertificateRequest for a client. */
+  TLS_SIGALGS *peer_sigalgs;
+  /* peer_sigalgslen is the number of entries in |peer_sigalgs|. */
   size_t peer_sigalgslen;
 
-  /* Signature algorithms shared by client and server: cached
-   * because these are used most often. */
-  TLS_SIGALGS *shared_sigalgs;
-  size_t shared_sigalgslen;
+  /* digest_nids, if non-NULL, is the set of digests supported by |privatekey|
+   * in decreasing order of preference. */
+  int *digest_nids;
+  size_t num_digest_nids;
 
   /* Certificate setup callback: if set is called whenever a
    * certificate may be required (client or server). the callback
