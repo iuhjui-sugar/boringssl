@@ -84,6 +84,30 @@
     },
     {
       "key": {
+        "uuid": "c42ba915_9d35f5e0",
+        "filename": "crypto/pkcs8/p5_pbev2.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-08-27T02:28:10Z",
+      "side": 1,
+      "message": "OK, I\u0027ll go with the shorter formula above, then, instead of changing this one.",
+      "parentUuid": "c4fd69c1_d93f2370",
+      "range": {
+        "startLine": 378,
+        "startChar": 49,
+        "endLine": 378,
+        "endChar": 54
+      },
+      "revId": "dfa9cded634ac7834ad711066be780c45f8fb0cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4fd69c1_b9afc799",
         "filename": "crypto/pkcs8/pkcs8.c",
         "patchSetId": 6
