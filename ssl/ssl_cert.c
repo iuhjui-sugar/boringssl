@@ -242,7 +242,7 @@ void ssl_cert_free(CERT *c) {
 
   ssl_cert_clear_certs(c);
   OPENSSL_free(c->peer_sigalgs);
-  OPENSSL_free(c->shared_sigalgs);
+  OPENSSL_free(c->pkey_sigalgs);
 
   OPENSSL_free(c);
 }

@@ -143,10 +143,6 @@ static int AsyncPrivateKeyType(SSL *ssl) {
   return EVP_PKEY_id(GetTestState(ssl)->private_key.get());
 }
 
-static int AsyncPrivateKeySupportsDigest(SSL *ssl, const EVP_MD *md) {
-  return EVP_PKEY_supports_digest(GetTestState(ssl)->private_key.get(), md);
-}
-
 static size_t AsyncPrivateKeyMaxSignatureLen(SSL *ssl) {
   return EVP_PKEY_size(GetTestState(ssl)->private_key.get());
 }
@@ -214,7 +210,6 @@ static ssl_private_key_result_t AsyncPrivateKeySignComplete(
 
 static const SSL_PRIVATE_KEY_METHOD g_async_private_key_method = {
     AsyncPrivateKeyType,
-    AsyncPrivateKeySupportsDigest,
     AsyncPrivateKeyMaxSignatureLen,
     AsyncPrivateKeySign,
     AsyncPrivateKeySignComplete,
