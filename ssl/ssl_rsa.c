@@ -632,6 +632,12 @@ void SSL_set_private_key_method(SSL *ssl,
   ssl->cert->key_method = key_method;
 }
 
+void SSL_set_digest_prefs(SSL *ssl,
+                          int* digests, size_t digests_len) {
+  ssl->cert->pkey_sigalgs = digests;
+  ssl->cert->pkey_sigalgslen = digests_len;
+}
+
 int ssl_has_private_key(SSL *ssl) {
   return ssl->cert->privatekey != NULL || ssl->cert->key_method != NULL;
 }
@@ -641,13 +647,6 @@ int ssl_private_key_type(SSL *ssl) {
     return ssl->cert->key_method->type(ssl);
   }
   return EVP_PKEY_id(ssl->cert->privatekey);
-}
-
-int ssl_private_key_supports_digest(SSL *ssl, const EVP_MD *md) {
-  if (ssl->cert->key_method != NULL) {
-    return ssl->cert->key_method->supports_digest(ssl, md);
-  }
-  return EVP_PKEY_supports_digest(ssl->cert->privatekey, md);
 }
 
 size_t ssl_private_key_max_signature_len(SSL *ssl) {

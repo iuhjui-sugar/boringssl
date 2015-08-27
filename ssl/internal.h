@@ -360,8 +360,6 @@ int ssl_has_private_key(SSL *ssl);
 
 int ssl_private_key_type(SSL *ssl);
 
-int ssl_private_key_supports_digest(SSL *ssl, const EVP_MD *md);
-
 size_t ssl_private_key_max_signature_len(SSL *ssl);
 
 enum ssl_private_key_result_t ssl_private_key_sign(
@@ -610,14 +608,14 @@ typedef struct cert_st {
   /* signature algorithms peer reports: e.g. supported signature
    * algorithms extension for server or as part of a certificate
    * request for client. */
-  uint8_t *peer_sigalgs;
+  TLS_SIGALGS *peer_sigalgs;
   /* Size of above array */
   size_t peer_sigalgslen;
 
-  /* Signature algorithms shared by client and server: cached
-   * because these are used most often. */
-  TLS_SIGALGS *shared_sigalgs;
-  size_t shared_sigalgslen;
+  /* digest_prefs, if non-NULL, is the set of digests supported by
+   * |privatekey| in decreasing order of preference. */
+  int *pkey_sigalgs;
+  size_t pkey_sigalgslen;
 
   /* Certificate setup callback: if set is called whenever a
    * certificate may be required (client or server). the callback
@@ -1172,7 +1170,7 @@ int ssl3_is_version_enabled(SSL *s, uint16_t version);
 uint16_t ssl3_version_from_wire(SSL *s, uint16_t wire_version);
 
 uint32_t ssl_get_algorithm_prf(SSL *s);
-int tls1_process_sigalgs(SSL *s, const CBS *sigalgs);
+int tls1_process_sigalgs(SSL *s, CBS *sigalgs);
 
 /* tls1_choose_signing_digest returns a digest for use with |ssl|'s private key
  * based on the peer's preferences the digests supported. */

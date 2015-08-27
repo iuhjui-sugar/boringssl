@@ -712,10 +712,6 @@ typedef struct ssl_private_key_method_st {
    * key used by |ssl|. */
   int (*type)(SSL *ssl);
 
-  /* supports_digest returns one if the key used by |ssl| supports signing
-   * digests of type |md| and zero otherwise. */
-  int (*supports_digest)(SSL *ssl, const EVP_MD *md);
-
   /* max_signature_len returns the maximum length of a signature signed by the
    * key used by |ssl|. This must be a constant value for a given |ssl|. */
   size_t (*max_signature_len)(SSL *ssl);
@@ -750,11 +746,15 @@ typedef struct ssl_private_key_method_st {
                                                  size_t *out_len, size_t max_out);
 } SSL_PRIVATE_KEY_METHOD;
 
-/* SSL_use_private_key_method configures a custom private key on |ssl|.
+/* SSL_set_private_key_method configures a custom private key on |ssl|.
  * |key_method| must remain valid for the lifetime of |ssl|. */
 OPENSSL_EXPORT void SSL_set_private_key_method(
     SSL *ssl, const SSL_PRIVATE_KEY_METHOD *key_method);
 
+/* SSL_set_digest_prefs sets the list of digest methods on |ssl| supported
+ * by the private key in decreasing order of preference. */
+OPENSSL_EXPORT void SSL_set_digest_prefs(
+    SSL *ssl, int* digests, size_t digests_len);
 
 /* Connection information. */
 
