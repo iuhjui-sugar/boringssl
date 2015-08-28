@@ -22,6 +22,30 @@
       "revId": "27a4754a73acdff361d81f03304ce56e9826985f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_e096b91d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-28T22:45:57Z",
+      "side": 1,
+      "message": "I don\u0027t think that client session serialisation is worry.",
+      "parentUuid": "c4fd69c1_da2f11c2",
+      "range": {
+        "startLine": 21,
+        "startChar": 51,
+        "endLine": 21,
+        "endChar": 69
+      },
+      "revId": "27a4754a73acdff361d81f03304ce56e9826985f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
