@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "c42ba915_857cb7d8",
+        "filename": "ssl/d1_pkt.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-28T22:00:49Z",
+      "side": 1,
+      "message": "Yea, I guess a zero-length packet can\u0027t be expressed by the kernel for the usual APIs.",
+      "parentUuid": "c4fd69c1_cba0697e",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c42ba915_0df3fc98",
         "filename": "ssl/d1_pkt.c",
         "patchSetId": 7
@@ -346,6 +364,24 @@
       "side": 1,
       "message": "Switched the order. I\u0027m not sure the \u003c\u003d and -1 actually makes it clearer though. Because of the + DTLS1_RT_HEADER_LENGTH, it\u0027s not really A \\in [B, C). I suppose it could be changed to:\n\n  in - DTLS1_RT_HEADER_LENGTH + 1 \u003c\u003d out \u0026\u0026 out \u003c in + in_len\n\nBut that might underflow and doesn\u0027t seem much clearer. It\u0027s really: is [out, out+LENGTH) \\intersect [in, in+in_len) empty? So in/out are pretty symmetric here.",
       "parentUuid": "c42ba915_8d62acb8",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_20bfd1f8",
+        "filename": "ssl/dtls_record.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-28T22:00:49Z",
+      "side": 1,
+      "message": "Ah, I see what you\u0027re trying to express now. I think it\u0027s correct.",
+      "parentUuid": "c4fd69c1_2ba37dfd",
       "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -737,6 +773,24 @@
     },
     {
       "key": {
+        "uuid": "c42ba915_00d3b54a",
+        "filename": "ssl/ssl_buffer.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-28T22:00:49Z",
+      "side": 1,
+      "message": "We can probably remove the option, yea.",
+      "parentUuid": "c4fd69c1_ab2acd00",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c42ba915_6d487081",
         "filename": "ssl/tls_record.c",
         "patchSetId": 7
@@ -766,6 +820,24 @@
       "side": 1,
       "message": "I think \u003c is correct. If either end is equal, then their boundaries match up and we\u0027re fine.\n\nThat is, this is just checking if [in, in+in_len) and [out, out+LENGTH) alias. Switched the order. Although it seems in and out are symmetric here.",
       "parentUuid": "c42ba915_6d487081",
+      "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42ba915_c0edbd00",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-28T22:00:49Z",
+      "side": 1,
+      "message": "(yep, now that I understand the intent, this is correct.)",
+      "parentUuid": "c4fd69c1_4b191904",
       "revId": "4d739fa113a5ef681a84eae80b3ce21f50b744b2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
