@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c4fd69c1_3aa4e5b9",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1265,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-28T20:21:54Z",
+      "side": 1,
+      "message": "I\u0027m not sure why more of the state machines don\u0027t do this. The Channel ID one does and it\u0027s much simpler...\n\nOr we could rip it out of the state machine altogether.",
+      "revId": "d07ef41ac032a65e8f2d402ae4e2ffaf49ad1289",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4fd69c1_5a97a152",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1499,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-28T20:21:54Z",
+      "side": 1,
+      "message": "Not necessary, but to appease any compilers w.r.t the ssl_cipher_has_server_public_key check later.",
+      "revId": "d07ef41ac032a65e8f2d402ae4e2ffaf49ad1289",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

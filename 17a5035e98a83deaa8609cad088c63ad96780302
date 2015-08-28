@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c4fd69c1_7a9a5d7c",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1455,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-28T20:21:54Z",
+      "side": 0,
+      "message": "(Removed this because it\u0027s not true anymore. It\u0027s actually PSK that doesn\u0027t use this now.)",
+      "revId": "17a5035e98a83deaa8609cad088c63ad96780302",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
