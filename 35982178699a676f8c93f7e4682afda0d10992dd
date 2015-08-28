@@ -16,6 +16,24 @@
       "revId": "35982178699a676f8c93f7e4682afda0d10992dd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4fd69c1_7a625dbb",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-28T22:21:05Z",
+      "side": 1,
+      "message": "From the original code:\n\nhttps://git.openssl.org/gitweb/?p\u003dopenssl.git;a\u003dblob;f\u003dssl/ssl_asn1.c;h\u003d39d48eabf03b95c07a8cab1312ca941c6e1a2e71;hb\u003drefs/heads/OpenSSL_1_0_1-stable#l505\n\nOf course, serializing uses 0 as the default instead:\nhttps://git.openssl.org/gitweb/?p\u003dopenssl.git;a\u003dblob;f\u003dssl/ssl_asn1.c;h\u003d39d48eabf03b95c07a8cab1312ca941c6e1a2e71;hb\u003drefs/heads/OpenSSL_1_0_1-stable#l219\n\nSo it\u0027s all kind of ridiculous.",
+      "parentUuid": "c42ba915_e04eb98e",
+      "revId": "35982178699a676f8c93f7e4682afda0d10992dd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
