@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c4fd69c1_da2f11c2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-08-28T19:32:42Z",
+      "side": 1,
+      "message": "Actually, it\u0027s a pretty large session for a client. :-/ I can try to make the session consistently not serialize the root if you think it\u0027s important. My assumption is that clients don\u0027t really serialize sessions much, so this is mostly a no-op. If they do, perhaps we want a retain_cert_chain option for clients that don\u0027t need the cert chain on resumption (serialized or no).",
+      "range": {
+        "startLine": 21,
+        "startChar": 51,
+        "endLine": 21,
+        "endChar": 69
+      },
+      "revId": "27a4754a73acdff361d81f03304ce56e9826985f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
