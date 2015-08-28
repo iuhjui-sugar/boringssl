@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c42ba915_4021ada7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-28T22:25:49Z",
+      "side": 1,
+      "message": "Do you mean that the difference of two pointers is signed, even though it\u0027s always non-negative here?",
+      "revId": "6d94eb76250148c23e96c55e0f3b3e9868fcda21",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
