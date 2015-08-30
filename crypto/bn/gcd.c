@@ -108,6 +108,7 @@
 
 #include <openssl/bn.h>
 
+#include <assert.h>
 #include <openssl/err.h>
 
 #include "internal.h"
@@ -223,18 +224,26 @@ err:
 }
 
 /* solves ax == 1 (mod n) */
-static BIGNUM *BN_mod_inverse_no_branch(BIGNUM *out, const BIGNUM *a,
-                                        const BIGNUM *n, BN_CTX *ctx);
+static enum bn_mod_inverse_result_t BN_mod_inverse_no_branch_returning_flag(
+                                      BIGNUM *out, const BIGNUM *a,
+                                      const BIGNUM *n, BN_CTX *ctx);
 
-BIGNUM *BN_mod_inverse(BIGNUM *out, const BIGNUM *a, const BIGNUM *n,
-                       BN_CTX *ctx) {
-  BIGNUM *A, *B, *X, *Y, *M, *D, *T, *R = NULL;
-  BIGNUM *ret = NULL;
+enum bn_mod_inverse_result_t BN_mod_inverse_returning_flag(BIGNUM *out,
+                                                           const BIGNUM *a,
+                                                           const BIGNUM *n,
+                                                           BN_CTX *ctx) {
+  if (out == NULL) {
+    OPENSSL_PUT_ERROR(RSA, ERR_R_PASSED_NULL_PARAMETER);
+    return BN_MOD_INVERSE_ERROR;
+  }
+
+  BIGNUM *A, *B, *X, *Y, *M, *D, *T;
+  enum bn_mod_inverse_result_t ret = BN_MOD_INVERSE_ERROR;
   int sign;
 
   if ((a->flags & BN_FLG_CONSTTIME) != 0 ||
       (n->flags & BN_FLG_CONSTTIME) != 0) {
-    return BN_mod_inverse_no_branch(out, a, n, ctx);
+    return BN_mod_inverse_no_branch_returning_flag(out, a, n, ctx);
   }
 
   BN_CTX_start(ctx);
@@ -246,15 +255,6 @@ BIGNUM *BN_mod_inverse(BIGNUM *out, const BIGNUM *a, const BIGNUM *n,
   Y = BN_CTX_get(ctx);
   T = BN_CTX_get(ctx);
   if (T == NULL) {
-    goto err;
-  }
-
-  if (out == NULL) {
-    R = BN_new();
-  } else {
-    R = out;
-  }
-  if (R == NULL) {
     goto err;
   }
 
@@ -513,36 +513,33 @@ BIGNUM *BN_mod_inverse(BIGNUM *out, const BIGNUM *a, const BIGNUM *n,
   if (BN_is_one(A)) {
     /* Y*a == 1  (mod |n|) */
     if (!Y->neg && BN_ucmp(Y, n) < 0) {
-      if (!BN_copy(R, Y)) {
+      if (!BN_copy(out, Y)) {
         goto err;
       }
     } else {
-      if (!BN_nnmod(R, Y, n, ctx)) {
+      if (!BN_nnmod(out, Y, n, ctx)) {
         goto err;
       }
     }
+    ret = BN_MOD_INVERSE_OK;
   } else {
-    OPENSSL_PUT_ERROR(BN, BN_R_NO_INVERSE);
-    goto err;
+    ret = BN_MOD_INVERSE_NO_INVERSE;
   }
-  ret = R;
 
 err:
-  if (ret == NULL && out == NULL) {
-    BN_free(R);
-  }
   BN_CTX_end(ctx);
   return ret;
 }
 
 /* BN_mod_inverse_no_branch is a special version of BN_mod_inverse.
  * It does not contain branches that may leak sensitive information. */
-static BIGNUM *BN_mod_inverse_no_branch(BIGNUM *out, const BIGNUM *a,
-                                        const BIGNUM *n, BN_CTX *ctx) {
-  BIGNUM *A, *B, *X, *Y, *M, *D, *T, *R = NULL;
+enum bn_mod_inverse_result_t BN_mod_inverse_no_branch_returning_flag(
+                               BIGNUM *out, const BIGNUM *a, const BIGNUM *n,
+                               BN_CTX *ctx) {
+  BIGNUM *A, *B, *X, *Y, *M, *D, *T;
   BIGNUM local_A, local_B;
   BIGNUM *pA, *pB;
-  BIGNUM *ret = NULL;
+  enum bn_mod_inverse_result_t ret = BN_MOD_INVERSE_ERROR;
   int sign;
 
   BN_CTX_start(ctx);
@@ -557,14 +554,7 @@ static BIGNUM *BN_mod_inverse_no_branch(BIGNUM *out, const BIGNUM *a,
     goto err;
   }
 
-  if (out == NULL) {
-    R = BN_new();
-  } else {
-    R = out;
-  }
-  if (R == NULL) {
-    goto err;
-  }
+  assert(out != NULL);
 
   BN_zero(Y);
   if (!BN_one(X) || BN_copy(B, a) == NULL || BN_copy(A, n) == NULL) {
@@ -673,25 +663,53 @@ static BIGNUM *BN_mod_inverse_no_branch(BIGNUM *out, const BIGNUM *a,
   if (BN_is_one(A)) {
     /* Y*a == 1  (mod |n|) */
     if (!Y->neg && BN_ucmp(Y, n) < 0) {
-      if (!BN_copy(R, Y)) {
+      if (!BN_copy(out, Y)) {
         goto err;
       }
     } else {
-      if (!BN_nnmod(R, Y, n, ctx)) {
+      if (!BN_nnmod(out, Y, n, ctx)) {
         goto err;
       }
     }
+    ret = BN_MOD_INVERSE_OK;
   } else {
-    OPENSSL_PUT_ERROR(BN, BN_R_NO_INVERSE);
-    goto err;
+    ret = BN_MOD_INVERSE_NO_INVERSE;
   }
-  ret = R;
 
 err:
-  if (ret == NULL && out == NULL) {
+  BN_CTX_end(ctx);
+  return ret;
+}
+
+BIGNUM *BN_mod_inverse(BIGNUM *out, const BIGNUM *a, const BIGNUM *n,
+                       BN_CTX *ctx) {
+  BIGNUM *R;
+
+  if (out != NULL) {
+    R = out;
+  } else {
+    R = BN_new();
+    if (R == NULL) {
+      return NULL;
+    }
+  }
+
+  enum bn_mod_inverse_result_t flag = BN_mod_inverse_returning_flag(R, a, n,
+                                                                    ctx);
+  switch (flag) {
+    case BN_MOD_INVERSE_OK:
+      return R;
+    case BN_MOD_INVERSE_NO_INVERSE:
+      OPENSSL_PUT_ERROR(BN, BN_R_NO_INVERSE);
+      break;
+    default:
+      assert(flag == BN_MOD_INVERSE_ERROR);
+      break;
+  }
+
+  if (out == NULL) {
     BN_free(R);
   }
 
-  BN_CTX_end(ctx);
-  return ret;
+  return NULL;
 }

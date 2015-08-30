@@ -108,6 +108,7 @@
 
 #include <openssl/rsa.h>
 
+#include <assert.h>
 #include <string.h>
 
 #include <openssl/bn.h>
@@ -286,7 +287,6 @@ BN_BLINDING *BN_BLINDING_create_param(
     int (*bn_mod_exp)(BIGNUM *r, const BIGNUM *a, const BIGNUM *p,
                       const BIGNUM *m, BN_CTX *ctx, BN_MONT_CTX *m_ctx),
     BN_MONT_CTX *m_ctx) {
-  int retry_counter = 32;
   BN_BLINDING *ret = NULL;
 
   if (b == NULL) {
@@ -321,46 +321,44 @@ BN_BLINDING *BN_BLINDING_create_param(
     ret->m_ctx = m_ctx;
   }
 
-  do {
+  int tries; /* Some compilers don't accept this declaration within the loop. */
+  for (tries = 32; tries > 0; --tries) {
     if (!BN_rand_range(ret->A, ret->mod)) {
       goto err;
     }
-    if (BN_mod_inverse(ret->Ai, ret->A, ret->mod, ctx) == NULL) {
-      /* this should almost never happen for good RSA keys */
-      uint32_t error = ERR_peek_last_error();
-      if (ERR_GET_REASON(error) == BN_R_NO_INVERSE) {
-        if (retry_counter-- == 0) {
-          OPENSSL_PUT_ERROR(RSA, RSA_R_TOO_MANY_ITERATIONS);
+    enum bn_mod_inverse_result_t flag = BN_mod_inverse_returning_flag(ret->Ai,
+                                                                      ret->A,
+                                                                      ret->mod,
+                                                                      ctx);
+    switch (flag) {
+      case BN_MOD_INVERSE_OK:
+        if (ret->bn_mod_exp != NULL && ret->m_ctx != NULL) {
+          if (!ret->bn_mod_exp(ret->A, ret->A, ret->e, ret->mod, ctx,
+              ret->m_ctx)) {
+            goto err;
+          }
+        } else if (!BN_mod_exp(ret->A, ret->A, ret->e, ret->mod, ctx)) {
           goto err;
         }
-        ERR_clear_error();
-      } else {
-        goto err;
-      }
-    } else {
-      break;
-    }
-  } while (1);
+        return ret;
 
-  if (ret->bn_mod_exp != NULL && ret->m_ctx != NULL) {
-    if (!ret->bn_mod_exp(ret->A, ret->A, ret->e, ret->mod, ctx, ret->m_ctx)) {
-      goto err;
-    }
-  } else {
-    if (!BN_mod_exp(ret->A, ret->A, ret->e, ret->mod, ctx)) {
-      goto err;
+      case BN_MOD_INVERSE_NO_INVERSE:
+        continue;
+
+      default:
+        assert(flag == BN_MOD_INVERSE_ERROR);
+        goto err;
     }
   }
 
-  return ret;
+  OPENSSL_PUT_ERROR(RSA, RSA_R_TOO_MANY_ITERATIONS);
 
 err:
   if (b == NULL) {
     BN_BLINDING_free(ret);
-    ret = NULL;
   }
 
-  return ret;
+  return NULL;
 }
 
 static BIGNUM *rsa_get_public_exp(const BIGNUM *d, const BIGNUM *p,
