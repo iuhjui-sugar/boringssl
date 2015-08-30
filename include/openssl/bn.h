@@ -699,6 +699,28 @@ OPENSSL_EXPORT int BN_is_prime_ex(const BIGNUM *candidate, int checks,
 OPENSSL_EXPORT int BN_gcd(BIGNUM *r, const BIGNUM *a, const BIGNUM *b,
                           BN_CTX *ctx);
 
+enum bn_mod_inverse_result_t {
+  /* BN_MOD_INVERSE_NO_INVERSE indicates that the value has no inverse in the
+   * given field. */
+  BN_MOD_INVERSE_NO_INVERSE = 0,
+  /* BN_MOD_INVERSE_OK indicates success. */
+  BN_MOD_INVERSE_OK = 1,
+  /* BN_MOD_INVERSE_ERROR indicates that an internal error occurred. */
+  BN_MOD_INVERSE_ERROR,
+};
+
+/* BN_mod_inverse_returning_enum sets |out| equal to |a|^-1, mod |n|. If either
+ * of |a| or |n| have |BN_FLG_CONSTTIME| set then the operation is performed in
+ * constant time. |out| must not be NULL. It returns |BN_MOD_INVERSE_OK| on
+ * success. If |a| has no inverse then it returns |BN_NOD_INVERSE_NO_INVERSE|
+ * without changing the error stack. Otherwise, it puts an error on the error
+ * stack and returns |BN_MOD_INVERSE_ERROR|.
+ *
+ * The awkward name is intended to draw attention to the fact that this
+ * function does not return a boolean result like most others. */
+OPENSSL_EXPORT enum bn_mod_inverse_result_t BN_mod_inverse_returning_enum(
+    BIGNUM *out, const BIGNUM *a, const BIGNUM *n, BN_CTX *ctx);
+
 /* BN_mod_inverse sets |out| equal to |a|^-1, mod |n|. If either of |a| or |n|
  * have |BN_FLG_CONSTTIME| set then the operation is performed in constant
  * time. If |out| is NULL, a fresh BIGNUM is allocated. It returns the result
