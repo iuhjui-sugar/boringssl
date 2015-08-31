@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8429b287_4e6773ae",
+        "filename": "crypto/rsa/blinding.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-08-31T19:30:58Z",
+      "side": 1,
+      "message": "I compiled this with VS2013, which I thought is the minimum requirement for Chromium.",
+      "parentUuid": "8429b287_8ef9db47",
+      "revId": "ab9ea4f1184c95914a2ce663f86ced2f334ee197",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8429b287_6e2d8f5e",
         "filename": "crypto/rsa/blinding.c",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2015-08-31T19:16:41Z",
       "side": 1,
       "message": "continue?",
+      "revId": "ab9ea4f1184c95914a2ce663f86ced2f334ee197",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8429b287_ee75ff54",
+        "filename": "crypto/rsa/blinding.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-08-31T19:30:58Z",
+      "side": 1,
+      "message": "In this case, either works, but I think \"break\" is better. Note that this is a \"break\" for the switch statement, not for the for loop.",
+      "parentUuid": "8429b287_6e2d8f5e",
       "revId": "ab9ea4f1184c95914a2ce663f86ced2f334ee197",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
