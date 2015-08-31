@@ -54,6 +54,7 @@
 
 #include <openssl/bn.h>
 
+#include <assert.h>
 #include <openssl/err.h>
 
 
@@ -62,8 +63,15 @@
  * using the Tonelli/Shanks algorithm (cf. Henri Cohen, "A Course
  * in Algebraic Computational Number Theory", algorithm 1.5.1).
  * 'p' must be prime! */
-BIGNUM *BN_mod_sqrt(BIGNUM *in, const BIGNUM *a, const BIGNUM *p, BN_CTX *ctx) {
-  BIGNUM *ret = in;
+enum bn_mod_inverse_result_t BN_mod_sqrt_returning_flag(BIGNUM *out,
+                                                        const BIGNUM *a,
+                                                        const BIGNUM *p,
+                                                        BN_CTX *ctx) {
+  if (!out) {
+    OPENSSL_PUT_ERROR(BN, ERR_R_PASSED_NULL_PARAMETER);
+    return BN_MOD_INVERSE_ERROR;
+  }
+
   int err = 1;
   int r;
   BIGNUM *A, *b, *q, *t, *x, *y;
@@ -71,40 +79,24 @@ BIGNUM *BN_mod_sqrt(BIGNUM *in, const BIGNUM *a, const BIGNUM *p, BN_CTX *ctx) {
 
   if (!BN_is_odd(p) || BN_abs_is_word(p, 1)) {
     if (BN_abs_is_word(p, 2)) {
-      if (ret == NULL) {
-        ret = BN_new();
+      if (!BN_set_word(out, BN_is_bit_set(a, 0))) {
+        return BN_MOD_INVERSE_ERROR;
       }
-      if (ret == NULL) {
-        goto end;
-      }
-      if (!BN_set_word(ret, BN_is_bit_set(a, 0))) {
-        if (ret != in) {
-          BN_free(ret);
-        }
-        return NULL;
-      }
-      return ret;
+      return BN_MOD_INVERSE_OK;
     }
 
     OPENSSL_PUT_ERROR(BN, BN_R_P_IS_NOT_PRIME);
-    return (NULL);
+    return BN_MOD_INVERSE_ERROR;
   }
 
   if (BN_is_zero(a) || BN_is_one(a)) {
-    if (ret == NULL) {
-      ret = BN_new();
+    if (!BN_set_word(out, BN_is_one(a))) {
+      return BN_MOD_INVERSE_ERROR;
     }
-    if (ret == NULL) {
-      goto end;
-    }
-    if (!BN_set_word(ret, BN_is_one(a))) {
-      if (ret != in) {
-        BN_free(ret);
-      }
-      return NULL;
-    }
-    return ret;
+    return BN_MOD_INVERSE_OK;
   }
+
+  enum bn_mod_inverse_result_t ret = BN_MOD_INVERSE_ERROR;
 
   BN_CTX_start(ctx);
   A = BN_CTX_get(ctx);
@@ -114,13 +106,6 @@ BIGNUM *BN_mod_sqrt(BIGNUM *in, const BIGNUM *a, const BIGNUM *p, BN_CTX *ctx) {
   x = BN_CTX_get(ctx);
   y = BN_CTX_get(ctx);
   if (y == NULL) {
-    goto end;
-  }
-
-  if (ret == NULL) {
-    ret = BN_new();
-  }
-  if (ret == NULL) {
     goto end;
   }
 
@@ -149,7 +134,7 @@ BIGNUM *BN_mod_sqrt(BIGNUM *in, const BIGNUM *a, const BIGNUM *p, BN_CTX *ctx) {
     }
     q->neg = 0;
     if (!BN_add_word(q, 1) ||
-        !BN_mod_exp(ret, A, q, p, ctx)) {
+        !BN_mod_exp(out, A, q, p, ctx)) {
       goto end;
     }
     err = 0;
@@ -215,7 +200,7 @@ BIGNUM *BN_mod_sqrt(BIGNUM *in, const BIGNUM *a, const BIGNUM *p, BN_CTX *ctx) {
       goto end;
     }
 
-    if (!BN_copy(ret, x)) {
+    if (!BN_copy(out, x)) {
       goto end;
     }
     err = 0;
@@ -321,7 +306,7 @@ BIGNUM *BN_mod_sqrt(BIGNUM *in, const BIGNUM *a, const BIGNUM *p, BN_CTX *ctx) {
     }
     if (BN_is_zero(t)) {
       /* special case: a == 0  (mod p) */
-      BN_zero(ret);
+      BN_zero(out);
       err = 0;
       goto end;
     } else if (!BN_one(x)) {
@@ -333,7 +318,7 @@ BIGNUM *BN_mod_sqrt(BIGNUM *in, const BIGNUM *a, const BIGNUM *p, BN_CTX *ctx) {
     }
     if (BN_is_zero(x)) {
       /* special case: a == 0  (mod p) */
-      BN_zero(ret);
+      BN_zero(out);
       err = 0;
       goto end;
     }
@@ -361,7 +346,7 @@ BIGNUM *BN_mod_sqrt(BIGNUM *in, const BIGNUM *a, const BIGNUM *p, BN_CTX *ctx) {
      */
 
     if (BN_is_one(b)) {
-      if (!BN_copy(ret, x)) {
+      if (!BN_copy(out, x)) {
         goto end;
       }
       err = 0;
@@ -408,25 +393,53 @@ vrfy:
     /* verify the result -- the input might have been not a square
      * (test added in 0.9.8) */
 
-    if (!BN_mod_sqr(x, ret, p, ctx)) {
+    if (!BN_mod_sqr(x, out, p, ctx)) {
       err = 1;
     }
 
     if (!err && 0 != BN_cmp(x, A)) {
-      OPENSSL_PUT_ERROR(BN, BN_R_NOT_A_SQUARE);
-      err = 1;
+      ret = BN_MOD_INVERSE_NO_INVERSE;
+    } else {
+      ret = BN_MOD_INVERSE_OK;
     }
   }
 
 end:
-  if (err) {
-    if (ret != in) {
-      BN_clear_free(ret);
-    }
-    ret = NULL;
+  if (err != 0) {
+    ret = BN_MOD_INVERSE_ERROR;
   }
   BN_CTX_end(ctx);
   return ret;
+}
+
+BIGNUM *BN_mod_sqrt(BIGNUM *out, const BIGNUM *a, const BIGNUM *p,
+                    BN_CTX *ctx) {
+  BIGNUM *ret;
+  if (out != NULL) {
+    ret = out;
+  } else {
+    ret = BN_new();
+    if (ret == NULL) {
+      return NULL;
+    }
+  }
+
+  enum bn_mod_inverse_result_t flag = BN_mod_sqrt_returning_flag(ret, a, p, ctx);
+  switch (flag) {
+    case BN_MOD_INVERSE_OK:
+      return ret;
+    case BN_MOD_INVERSE_NO_INVERSE:
+      OPENSSL_PUT_ERROR(BN, BN_R_NOT_A_SQUARE);
+      break;
+    default:
+      assert(flag == BN_MOD_INVERSE_ERROR);
+      break;
+  }
+
+  if (ret != out) {
+    BN_clear_free(ret);
+  }
+  return NULL;
 }
 
 int BN_sqrt(BIGNUM *out_sqrt, const BIGNUM *in, BN_CTX *ctx) {

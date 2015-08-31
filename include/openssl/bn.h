@@ -161,6 +161,12 @@ extern "C" {
 #error "Must define either OPENSSL_32_BIT or OPENSSL_64_BIT"
 #endif
 
+enum bn_mod_inverse_result_t {
+  BN_MOD_INVERSE_NO_INVERSE = 0, /* The given value has no inverse. */
+  BN_MOD_INVERSE_OK = 1, /* Success. */
+  BN_MOD_INVERSE_ERROR, /* An error occurred. */
+};
+
 
 /* Allocation and freeing. */
 
@@ -553,8 +559,14 @@ OPENSSL_EXPORT int BN_mod_lshift1(BIGNUM *r, const BIGNUM *a, const BIGNUM *m,
 OPENSSL_EXPORT int BN_mod_lshift1_quick(BIGNUM *r, const BIGNUM *a,
                                         const BIGNUM *m);
 
-/* BN_mod_sqrt returns a |BIGNUM|, r, such that r^2 == a (mod p). */
-OPENSSL_EXPORT BIGNUM *BN_mod_sqrt(BIGNUM *in, const BIGNUM *a, const BIGNUM *p,
+/* BN_mod_sqrt calculates r, such that r^2 == a (mod p) and stores r into
+ * |out|. |out| must not be NULL. */
+enum bn_mod_inverse_result_t BN_mod_sqrt_returning_flag(BIGNUM *out, const BIGNUM *a,
+                                                 const BIGNUM *p, BN_CTX *ctx);
+
+/* BN_mod_sqrt returns a |BIGNUM|, r, such that r^2 == a (mod p). If |out| is
+ * NULL, a fresh BIGNUM is allocated. It returns the result or NULL on error. */
+OPENSSL_EXPORT BIGNUM *BN_mod_sqrt(BIGNUM *out, const BIGNUM *a, const BIGNUM *p,
                                    BN_CTX *ctx);
 
 
@@ -698,12 +710,6 @@ OPENSSL_EXPORT int BN_is_prime_ex(const BIGNUM *candidate, int checks,
  * otherwise. */
 OPENSSL_EXPORT int BN_gcd(BIGNUM *r, const BIGNUM *a, const BIGNUM *b,
                           BN_CTX *ctx);
-
-enum bn_mod_inverse_result_t {
-  BN_MOD_INVERSE_NO_INVERSE = 0, /* The given value has no inverse. */
-  BN_MOD_INVERSE_OK = 1, /* Success. */
-  BN_MOD_INVERSE_ERROR, /* An error occurred. */
-};
 
 /* BN_mod_inverse sets |out| equal to |a|^-1, mod |n|. If either of |a| or |n|
  * have |BN_FLG_CONSTTIME| set then the operation is performed in constant
