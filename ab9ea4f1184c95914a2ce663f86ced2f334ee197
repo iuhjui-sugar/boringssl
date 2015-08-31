@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8429b287_8ef9db47",
+        "filename": "crypto/rsa/blinding.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-31T19:16:41Z",
+      "side": 1,
+      "message": "I don\u0027t think that this C99-ism is allowed on the Windows configurations that Chromium needs to support.\n\n(Can just put \"int tries \u003d 32;\" above the for loop.)",
+      "revId": "ab9ea4f1184c95914a2ce663f86ced2f334ee197",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8429b287_6e2d8f5e",
+        "filename": "crypto/rsa/blinding.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-31T19:16:41Z",
+      "side": 1,
+      "message": "continue?",
+      "revId": "ab9ea4f1184c95914a2ce663f86ced2f334ee197",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8429b287_ae137721",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-08-31T19:16:41Z",
+      "side": 1,
+      "message": "Shouldn\u0027t be a typedef and should be named bn_mod_inverse_result_t.",
+      "revId": "ab9ea4f1184c95914a2ce663f86ced2f334ee197",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
