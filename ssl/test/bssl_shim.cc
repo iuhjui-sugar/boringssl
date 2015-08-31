@@ -143,10 +143,6 @@ static int AsyncPrivateKeyType(SSL *ssl) {
   return EVP_PKEY_id(GetTestState(ssl)->private_key.get());
 }
 
-static int AsyncPrivateKeySupportsDigest(SSL *ssl, const EVP_MD *md) {
-  return EVP_PKEY_supports_digest(GetTestState(ssl)->private_key.get(), md);
-}
-
 static size_t AsyncPrivateKeyMaxSignatureLen(SSL *ssl) {
   return EVP_PKEY_size(GetTestState(ssl)->private_key.get());
 }
@@ -214,7 +210,6 @@ static ssl_private_key_result_t AsyncPrivateKeySignComplete(
 
 static const SSL_PRIVATE_KEY_METHOD g_async_private_key_method = {
     AsyncPrivateKeyType,
-    AsyncPrivateKeySupportsDigest,
     AsyncPrivateKeyMaxSignatureLen,
     AsyncPrivateKeySign,
     AsyncPrivateKeySignComplete,
@@ -223,6 +218,11 @@ static const SSL_PRIVATE_KEY_METHOD g_async_private_key_method = {
 static bool InstallCertificate(SSL *ssl) {
   const TestConfig *config = GetConfigPtr(ssl);
   TestState *test_state = GetTestState(ssl);
+
+  int digest_list[] = {NID_sha512, NID_sha384, NID_sha256, NID_sha224,
+                       NID_sha1};
+  SSL_set_digest_prefs(ssl, digest_list, sizeof(digest_list)/sizeof(int));
+
   if (!config->key_file.empty()) {
     if (config->use_async_private_key) {
       test_state->private_key = LoadPrivateKey(config->key_file.c_str());
