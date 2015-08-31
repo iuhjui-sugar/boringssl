@@ -67,6 +67,7 @@
 
 #include <openssl/ec.h>
 
+#include <assert.h>
 #include <openssl/bn.h>
 #include <openssl/err.h>
 
@@ -398,17 +399,18 @@ int ec_GFp_simple_set_compressed_coordinates(const EC_GROUP *group,
     }
   }
 
-  if (!BN_mod_sqrt(y, tmp1, &group->field, ctx)) {
-    unsigned long err = ERR_peek_last_error();
-
-    if (ERR_GET_LIB(err) == ERR_LIB_BN &&
-        ERR_GET_REASON(err) == BN_R_NOT_A_SQUARE) {
-      ERR_clear_error();
+  BN_MOD_INVERSE_RESULT flag = BN_mod_sqrt_returning_flag(y, tmp1,
+                                                          &group->field, ctx);
+  switch (flag) {
+    case BN_MOD_INVERSE_OK:
+      break;
+    case BN_MOD_INVERSE_NO_INVERSE:
       OPENSSL_PUT_ERROR(EC, EC_R_INVALID_COMPRESSED_POINT);
-    } else {
+      goto err;
+    default:
+      assert(flag == BN_MOD_INVERSE_ERROR);
       OPENSSL_PUT_ERROR(EC, ERR_R_BN_LIB);
-    }
-    goto err;
+      goto err;
   }
 
   if (y_bit != BN_is_odd(y)) {
