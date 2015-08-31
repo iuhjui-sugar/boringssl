@@ -544,9 +544,8 @@ type ProtocolBugs struct {
 	// must specify in the server_name extension.
 	ExpectServerName string
 
-	// SwapNPNAndALPN switches the relative order between NPN and
-	// ALPN on the server. This is to test that server preference
-	// of ALPN works regardless of their relative order.
+	// SwapNPNAndALPN switches the relative order between NPN and ALPN in
+	// both ClientHello and ServerHello.
 	SwapNPNAndALPN bool
 
 	// ALPNProtocol, if not nil, sets the ALPN protocol that a server will
@@ -753,6 +752,10 @@ type ProtocolBugs struct {
 	// ExpectedCustomExtension, if not nil, contains the expected contents
 	// of a custom extension.
 	ExpectedCustomExtension *string
+
+	// NegotiateALPNAndNPN, if true, causes the server to negotiate both
+	// ALPN and NPN in the same connetion.
+	NegotiateALPNAndNPN bool
 }
 
 func (c *Config) serverInit() {
