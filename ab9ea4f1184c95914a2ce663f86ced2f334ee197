@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "44333af5_af9815f7",
+        "filename": "crypto/rsa/blinding.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-01T00:33:32Z",
+      "side": 1,
+      "message": "There was definitely some build configuration which complained last time we tried this. Although I wonder if it was some overzealous gcc or clang... perhaps we just need to convince all our buildsystems to build in C99 mode.",
+      "parentUuid": "8429b287_4e6773ae",
+      "revId": "ab9ea4f1184c95914a2ce663f86ced2f334ee197",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8429b287_6e2d8f5e",
         "filename": "crypto/rsa/blinding.c",
         "patchSetId": 1
