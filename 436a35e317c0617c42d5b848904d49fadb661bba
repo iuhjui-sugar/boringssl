@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "44333af5_32e92879",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2015-09-01T14:10:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44333af5_4f59b1fe",
+      "revId": "436a35e317c0617c42d5b848904d49fadb661bba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44333af5_6f06ade8",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 6
@@ -30,6 +48,30 @@
       "writtenOn": "2015-09-01T00:08:31Z",
       "side": 1,
       "message": "Nit: I think I\u0027d include \"private key\" in the name somewhere (SSL_set_private_key_digests?), to distinguish it from configuring the sigalgs we accept. Nevermind that currently we don\u0027t let you do that.",
+      "range": {
+        "startLine": 754,
+        "startChar": 3,
+        "endLine": 754,
+        "endChar": 23
+      },
+      "revId": "436a35e317c0617c42d5b848904d49fadb661bba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44333af5_d2ef8479",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2015-09-01T14:10:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44333af5_6f06ade8",
       "range": {
         "startLine": 754,
         "startChar": 3,
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "44333af5_b2fcf837",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 756,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2015-09-01T14:10:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44333af5_4f0bf1ee",
+      "revId": "436a35e317c0617c42d5b848904d49fadb661bba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44333af5_2f5b0521",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 6
@@ -70,6 +130,30 @@
       "writtenOn": "2015-09-01T00:08:31Z",
       "side": 1,
       "message": "const int",
+      "range": {
+        "startLine": 757,
+        "startChar": 51,
+        "endLine": 757,
+        "endChar": 54
+      },
+      "revId": "436a35e317c0617c42d5b848904d49fadb661bba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44333af5_92f9fc47",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 757,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2015-09-01T14:10:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44333af5_2f5b0521",
       "range": {
         "startLine": 757,
         "startChar": 51,
@@ -99,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "44333af5_720690e8",
+        "filename": "ssl/ssl_rsa.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2015-09-01T14:10:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44333af5_af4ed557",
+      "revId": "436a35e317c0617c42d5b848904d49fadb661bba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44333af5_6f38edb8",
         "filename": "ssl/ssl_rsa.c",
         "patchSetId": 6
@@ -116,6 +218,24 @@
     },
     {
       "key": {
+        "uuid": "44333af5_520b94ee",
+        "filename": "ssl/ssl_rsa.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2015-09-01T14:10:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44333af5_6f38edb8",
+      "revId": "436a35e317c0617c42d5b848904d49fadb661bba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44333af5_2fe9c578",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 6
@@ -127,6 +247,24 @@
       "writtenOn": "2015-09-01T00:08:31Z",
       "side": 1,
       "message": "I think this is no longer used.",
+      "revId": "436a35e317c0617c42d5b848904d49fadb661bba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44333af5_12050cd7",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2015-09-01T14:10:55Z",
+      "side": 1,
+      "message": "Still used to verify that the selected sigalg is one of the allowed ones.",
+      "parentUuid": "44333af5_2fe9c578",
       "revId": "436a35e317c0617c42d5b848904d49fadb661bba",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -156,6 +294,30 @@
     },
     {
       "key": {
+        "uuid": "44333af5_9210dc15",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 2810,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2015-09-01T14:10:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44333af5_6f2d8d5e",
+      "range": {
+        "startLine": 2810,
+        "startChar": 4,
+        "endLine": 2810,
+        "endChar": 24
+      },
+      "revId": "436a35e317c0617c42d5b848904d49fadb661bba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44333af5_eff29d63",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 6
@@ -167,6 +329,24 @@
       "writtenOn": "2015-09-01T00:08:31Z",
       "side": 1,
       "message": "This might be empty if not explicitly configured I think? The old logic had a wrapper function (tls_get_psigalgs) which would either return a pointer to cert-\u003edigest_nids or a pointer to a static list, depending on whether anything was configured. Perhaps do something similar.\n\nI think the only reason the tests are working is because you\u0027re always configuring one.",
+      "revId": "436a35e317c0617c42d5b848904d49fadb661bba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44333af5_f2196045",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 2862,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2015-09-01T14:10:55Z",
+      "side": 1,
+      "message": "Wasn\u0027t the idea that if the client isn\u0027t declaring which digests the private key supports, we should just fallback to SHA1 per spec?",
+      "parentUuid": "44333af5_eff29d63",
       "revId": "436a35e317c0617c42d5b848904d49fadb661bba",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -190,6 +370,24 @@
     },
     {
       "key": {
+        "uuid": "44333af5_722d705e",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2015-09-01T14:10:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44333af5_6f510dff",
+      "revId": "436a35e317c0617c42d5b848904d49fadb661bba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44333af5_8f279977",
         "filename": "ssl/test/bssl_shim.cc",
         "patchSetId": 6
@@ -201,6 +399,24 @@
       "writtenOn": "2015-09-01T00:08:31Z",
       "side": 1,
       "message": "Probably best to not configure this without some TestConfig getting set somewhere, to make sure the default case works as expected. And then a flag to configure a list somehow. (Not sure exactly what. I guess you could parse a comma-separated list. Or you could have some booleans that set some preset ones if you want to be lazy.)",
+      "revId": "436a35e317c0617c42d5b848904d49fadb661bba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44333af5_523274c0",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2015-09-01T14:10:55Z",
+      "side": 1,
+      "message": "Is this whether or not private_key_digest_prefs are set? Or would the TestConfig be the actual list of digests?",
+      "parentUuid": "44333af5_8f279977",
       "revId": "436a35e317c0617c42d5b848904d49fadb661bba",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
