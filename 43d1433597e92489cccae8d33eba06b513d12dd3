@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c4fd69c1_9439728d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-01T00:08:31Z",
+      "side": 1,
+      "message": "This seems out-of-date now.",
+      "revId": "43d1433597e92489cccae8d33eba06b513d12dd3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4fd69c1_d43fea6f",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 2831,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-01T00:08:31Z",
+      "side": 1,
+      "message": "Check for malloc failure.",
+      "revId": "43d1433597e92489cccae8d33eba06b513d12dd3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4fd69c1_140d82f0",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 2838,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-01T00:08:31Z",
+      "side": 1,
+      "message": "Nit: I\u0027d probably just write\n\n  \u0026c-\u003epeer_sigalgs[i]-\u003ersign\n\nAs well as the other one. You already have an index and stuff, which I thing tends to be more obvious than bumping a pointer.",
+      "revId": "43d1433597e92489cccae8d33eba06b513d12dd3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
