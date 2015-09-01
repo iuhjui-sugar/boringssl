@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "44333af5_4f59b1fe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-01T00:10:13Z",
+      "side": 1,
+      "message": "This seems out-of-date now.",
+      "revId": "436a35e317c0617c42d5b848904d49fadb661bba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44333af5_6f06ade8",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 6
