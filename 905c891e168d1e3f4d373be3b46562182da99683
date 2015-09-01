@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "44333af5_55325ec0",
+        "filename": "ssl/t1_enc.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-01T22:26:02Z",
+      "side": 1,
+      "message": "I\u0027m not sure I follow. (There\u0027s an early return on line 351 if you missed it. I can put it back in an else to be more symmetric. There was just more code so an early return avoided the indent.)",
+      "parentUuid": "8429b287_e8bf2fe3",
+      "revId": "905c891e168d1e3f4d373be3b46562182da99683",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8429b287_28be57eb",
         "filename": "ssl/t1_enc.c",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2015-09-01T22:21:37Z",
       "side": 1,
       "message": "I would tend to unconditionally set s-\u003es3-\u003eneed_record_splitting \u003d 0 before the if and drop the else.",
+      "revId": "905c891e168d1e3f4d373be3b46562182da99683",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44333af5_3537d2b0",
+        "filename": "ssl/t1_enc.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-01T22:26:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8429b287_28be57eb",
       "revId": "905c891e168d1e3f4d373be3b46562182da99683",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
