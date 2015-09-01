@@ -64,7 +64,11 @@
  * The elliptic curve binary polynomial software is originally written by
  * Sheueling Chang Shantz and Douglas Stebila of Sun Microsystems
  * Laboratories. */
-
+/* ====================================================================
+ * !!! !! ****  INTEL CODE INCLUDED WATCH OUT !!111
+ *
+ * This file has been modified (relative to upstream BoringSSL) to include
+ * code that is Copyright 2014 Intel corporation, and Apache licensed.  */
 #include <openssl/ec.h>
 
 #include <string.h>
@@ -237,7 +241,11 @@ const struct built_in_curve OPENSSL_built_in_curves[] = {
     {
         NID_X9_62_prime256v1, &P256,
 #if defined(BORINGSSL_USE_INT128_CODE)
+  #if !defined(OPENSSL_NO_ASM) && defined(OPENSSL_X86_64)
+        EC_GFp_nistz256_method,
+  #else
         EC_GFp_nistp256_method,
+  #endif
 #else
         0,
 #endif
@@ -335,7 +343,44 @@ int EC_GROUP_set_generator(EC_GROUP *group, const EC_POINT *generator,
     BN_zero(&group->cofactor);
   }
 
-  return 1;
+  return ec_precompute_mont_data(group);
+}
+
+BN_MONT_CTX *EC_GROUP_get_mont_data(const EC_GROUP *group) {
+  return group->mont_data;
+}
+
+/* ec_precompute_mont_data sets |group->mont_data| from |group->order| and
+ * returns one on success. On error it returns zero. */
+int ec_precompute_mont_data(EC_GROUP *group) {
+  BN_CTX *ctx = BN_CTX_new();
+  int ret = 0;
+
+  if (group->mont_data) {
+    BN_MONT_CTX_free(group->mont_data);
+    group->mont_data = NULL;
+  }
+
+  if (ctx == NULL) {
+      goto err;
+  }
+
+  group->mont_data = BN_MONT_CTX_new();
+  if (!group->mont_data) {
+    goto err;
+  }
+
+  if (!BN_MONT_CTX_set(group->mont_data, &group->order, ctx)) {
+    BN_MONT_CTX_free(group->mont_data);
+    group->mont_data = NULL;
+    goto err;
+  }
+
+  ret = 1;
+
+ err:
+  BN_CTX_free(ctx);
+  return ret;
 }
 
 static EC_GROUP *ec_group_new_from_data(const struct built_in_curve *curve) {
@@ -451,6 +496,7 @@ void EC_GROUP_free(EC_GROUP *group) {
   }
 
   ec_pre_comp_free(group->pre_comp);
+  BN_MONT_CTX_free(group->mont_data);
 
   EC_POINT_free(group->generator);
   BN_free(&group->order);
@@ -475,6 +521,24 @@ int ec_group_copy(EC_GROUP *dest, const EC_GROUP *src) {
   ec_pre_comp_free(dest->pre_comp);
   dest->pre_comp = ec_pre_comp_dup(src->pre_comp);
 
+  if (src->mont_data != NULL) {
+    if (dest->mont_data == NULL) {
+      dest->mont_data = BN_MONT_CTX_new();
+      if (dest->mont_data == NULL) {
+        return 0;
+      }
+    }
+    if (!BN_MONT_CTX_copy(dest->mont_data, src->mont_data)) {
+      return 0;
+    }
+  } else {
+    /* src->generator == NULL */
+    if (dest->mont_data != NULL) {
+      BN_MONT_CTX_free(dest->mont_data);
+      dest->mont_data = NULL;
+    }
+  }
+
   if (src->generator != NULL) {
     if (dest->generator == NULL) {
       dest->generator = EC_POINT_new(dest);
@@ -485,12 +549,9 @@ int ec_group_copy(EC_GROUP *dest, const EC_GROUP *src) {
     if (!EC_POINT_copy(dest->generator, src->generator)) {
       return 0;
     }
-  } else {
-    /* src->generator == NULL */
-    if (dest->generator != NULL) {
-      EC_POINT_clear_free(dest->generator);
-      dest->generator = NULL;
-    }
+  } else if (dest->generator != NULL) {
+    EC_POINT_clear_free(dest->generator);
+    dest->generator = NULL;
   }
 
   if (!BN_copy(&dest->order, &src->order) ||

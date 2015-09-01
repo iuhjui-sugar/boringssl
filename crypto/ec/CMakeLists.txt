@@ -1,5 +1,13 @@
 include_directories(../../include)
 
+if (${ARCH} STREQUAL "x86_64")
+  set(
+    EC_ARCH_SOURCES
+
+    ecp_nistz256-x86_64.${ASM_EXT}
+  )
+endif()
+
 add_library(
   ec
 
@@ -9,13 +17,18 @@ add_library(
   ec_asn1.c
   ec_key.c
   ec_montgomery.c
+  ecp_nistz256.c
   oct.c
   p224-64.c
   p256-64.c
   util-64.c
   simple.c
   wnaf.c
+
+  ${EC_ARCH_SOURCES}
 )
+
+perlasm(ecp_nistz256-x86_64.${ASM_EXT} asm/ecp_nistz256-x86_64.pl)
 
 add_executable(
   example_mul
