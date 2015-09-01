@@ -134,6 +134,7 @@ struct ec_group_st {
   int curve_name; /* optional NID for named curve */
 
   struct ec_pre_comp_st *pre_comp;
+  BN_MONT_CTX *mont_data; /* data for ECDSA inverse */
 
   /* The following members are handled by the method functions,
    * even if they appear generic */
@@ -168,6 +169,8 @@ int ec_wNAF_mul(const EC_GROUP *group, EC_POINT *r, const BIGNUM *scalar,
                 size_t num, const EC_POINT *points[], const BIGNUM *scalars[],
                 BN_CTX *);
 int ec_wNAF_precompute_mult(EC_GROUP *group, BN_CTX *);
+
+int ec_precompute_mont_data(EC_GROUP *);
 
 /* method functions in simple.c */
 int ec_GFp_simple_group_init(EC_GROUP *);
@@ -254,6 +257,10 @@ void ec_GFp_nistp_recode_scalar_bits(uint8_t *sign, uint8_t *digit, uint8_t in);
 
 const EC_METHOD *EC_GFp_nistp224_method(void);
 const EC_METHOD *EC_GFp_nistp256_method(void);
+
+/* Returns GFp methods using montgomery multiplication, with x86-64
+ * optimized P256. See http://eprint.iacr.org/2013/816. */
+const EC_METHOD *EC_GFp_nistz256_method(void);
 
 struct ec_key_st {
   int version;

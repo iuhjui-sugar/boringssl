@@ -120,6 +120,10 @@ OPENSSL_EXPORT int EC_GROUP_cmp(const EC_GROUP *a, const EC_GROUP *b,
  * in |group| that specifies the generator for the group. */
 OPENSSL_EXPORT const EC_POINT *EC_GROUP_get0_generator(const EC_GROUP *group);
 
+/* Returns the Montgomery data for order(Generator). Returns the
+ * currently used generator (possibly NULL). */
+OPENSSL_EXPORT BN_MONT_CTX *EC_GROUP_get_mont_data(const EC_GROUP *group);
+
 /* EC_GROUP_get_order sets |*order| to the order of |group|, if it's not
  * NULL. It returns one on success and zero otherwise. |ctx| is ignored. */
 OPENSSL_EXPORT int EC_GROUP_get_order(const EC_GROUP *group, BIGNUM *order,
