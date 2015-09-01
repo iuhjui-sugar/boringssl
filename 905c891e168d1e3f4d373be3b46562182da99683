@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8429b287_e8bf2fe3",
+        "filename": "ssl/t1_enc.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-09-01T22:21:37Z",
+      "side": 1,
+      "message": "This seems odd, doesn\u0027t it cause us to setup the write AEAD_CTX twice sometimes? I.e. if we\u0027re a client doing a resumption handshake, doesn\u0027t this get called with |is_read| true (when we get the CCS from the server) and then again with it false when we send a CCS?",
+      "revId": "905c891e168d1e3f4d373be3b46562182da99683",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8429b287_28be57eb",
+        "filename": "ssl/t1_enc.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-09-01T22:21:37Z",
+      "side": 1,
+      "message": "I would tend to unconditionally set s-\u003es3-\u003eneed_record_splitting \u003d 0 before the if and drop the else.",
+      "revId": "905c891e168d1e3f4d373be3b46562182da99683",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
