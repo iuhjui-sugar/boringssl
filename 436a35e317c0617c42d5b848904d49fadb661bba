@@ -271,6 +271,24 @@
     },
     {
       "key": {
+        "uuid": "44333af5_d28b04a1",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-01T15:31:00Z",
+      "side": 1,
+      "message": "Oh right, to get the list of sigalgs to accept rather than produce. I guess the diff was collapsed so I missed those or something. Or Gerrit\u0027s UI confused me.",
+      "parentUuid": "44333af5_12050cd7",
+      "revId": "436a35e317c0617c42d5b848904d49fadb661bba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44333af5_6f2d8d5e",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 6
@@ -347,6 +365,24 @@
       "side": 1,
       "message": "Wasn\u0027t the idea that if the client isn\u0027t declaring which digests the private key supports, we should just fallback to SHA1 per spec?",
       "parentUuid": "44333af5_eff29d63",
+      "revId": "436a35e317c0617c42d5b848904d49fadb661bba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44333af5_f28e00b3",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 2862,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-01T15:31:00Z",
+      "side": 1,
+      "message": "The spec says that, as a server signing ServerKeyExchange, if the client (peer) doesn\u0027t give you a list in ClientHello, then you fallback to SHA-1. That\u0027s if peer_sigalgs is empty.\n\nIt doesn\u0027t really say anything about a client signing CertificateVerify, but we can probably assume the analogous (if the server (peer) doesn\u0027t give you a list in CertificateRequest, then you fallback to SHA-1. Also if peer_sigalgs is empty).\n\nIt doesn\u0027t generally say much about how local configuration (digest_nids) works. The existing behavior is that, absent any (nonexistent) APIs to configure it otherwise, the local configuration is tls12_sigalgs. If not specified, it should probably continue to pick a default. Most consumers would be using in-memory keys and likely don\u0027t have opinions on what hashes to prefer.",
+      "parentUuid": "44333af5_f2196045",
       "revId": "436a35e317c0617c42d5b848904d49fadb661bba",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
