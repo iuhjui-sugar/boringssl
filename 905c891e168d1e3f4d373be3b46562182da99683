@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "8429b287_e8e60f1d",
+        "filename": "ssl/t1_enc.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-09-01T22:30:17Z",
+      "side": 1,
+      "message": "Oh, sorry, totally missed the early return. (The code should probably never have had an else after a return.)",
+      "parentUuid": "44333af5_55325ec0",
+      "revId": "905c891e168d1e3f4d373be3b46562182da99683",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8429b287_28be57eb",
         "filename": "ssl/t1_enc.c",
         "patchSetId": 2
