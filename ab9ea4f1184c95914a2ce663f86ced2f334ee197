@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "8429b287_e814cf7c",
+        "filename": "crypto/rsa/blinding.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-09-01T22:38:17Z",
+      "side": 1,
+      "message": "OK. I changed it.\n\nI believe the compiler in question is GCC or clang, and its behavior can be fixed by with some -W flag. I cannot remember what that flag is, though.",
+      "parentUuid": "44333af5_af9815f7",
+      "revId": "ab9ea4f1184c95914a2ce663f86ced2f334ee197",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8429b287_6e2d8f5e",
         "filename": "crypto/rsa/blinding.c",
         "patchSetId": 1
@@ -90,6 +108,24 @@
     },
     {
       "key": {
+        "uuid": "8429b287_c811138b",
+        "filename": "crypto/rsa/blinding.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-09-01T22:38:17Z",
+      "side": 1,
+      "message": "I changed it to \"continue\" so that people wouldn\u0027t be confused over which of the two meanings of \"break\" were intended.",
+      "parentUuid": "8429b287_ee75ff54",
+      "revId": "ab9ea4f1184c95914a2ce663f86ced2f334ee197",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8429b287_ae137721",
         "filename": "include/openssl/bn.h",
         "patchSetId": 1
@@ -101,6 +137,24 @@
       "writtenOn": "2015-08-31T19:16:41Z",
       "side": 1,
       "message": "Shouldn\u0027t be a typedef and should be named bn_mod_inverse_result_t.",
+      "revId": "ab9ea4f1184c95914a2ce663f86ced2f334ee197",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8429b287_c868f302",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-09-01T22:38:17Z",
+      "side": 1,
+      "message": "I made this change. Keep in mind that in C (as opposed to C++), enums that aren\u0027t typedefs have to have \"enum\" prefixed to the name everywhere they are used.",
+      "parentUuid": "8429b287_ae137721",
       "revId": "ab9ea4f1184c95914a2ce663f86ced2f334ee197",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
