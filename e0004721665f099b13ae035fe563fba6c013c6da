@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44333af5_6fdfcdce",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 1293,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-01T00:08:31Z",
+      "side": 0,
+      "message": "Agreed that this is unnecessary---whatever we do, we should behave the same whether there are no shared algorithms before or after filtering by private key type. But it\u0027s worth documenting this in the commit message.\n\n(Incidentally, I\u0027m not sure it\u0027s quite the same behavior since we just fall back to SHA-1 now. Dunno how much we care.)",
+      "revId": "e0004721665f099b13ae035fe563fba6c013c6da",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

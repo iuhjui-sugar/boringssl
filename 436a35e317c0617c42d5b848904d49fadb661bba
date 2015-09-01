@@ -1,0 +1,192 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44333af5_6f06ade8",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-01T00:08:31Z",
+      "side": 1,
+      "message": "Nit: I think I\u0027d include \"private key\" in the name somewhere (SSL_set_private_key_digests?), to distinguish it from configuring the sigalgs we accept. Nevermind that currently we don\u0027t let you do that.",
+      "range": {
+        "startLine": 754,
+        "startChar": 3,
+        "endLine": 754,
+        "endChar": 23
+      },
+      "revId": "436a35e317c0617c42d5b848904d49fadb661bba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44333af5_4f0bf1ee",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 756,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-01T00:08:31Z",
+      "side": 1,
+      "message": "I\u0027d probably put this up in the \"Configuring certificates and private keys\" section. It\u0027s perfectly serviceable for both normal and custom private keys.",
+      "revId": "436a35e317c0617c42d5b848904d49fadb661bba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44333af5_2f5b0521",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 757,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-01T00:08:31Z",
+      "side": 1,
+      "message": "const int",
+      "range": {
+        "startLine": 757,
+        "startChar": 51,
+        "endLine": 757,
+        "endChar": 54
+      },
+      "revId": "436a35e317c0617c42d5b848904d49fadb661bba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44333af5_af4ed557",
+        "filename": "ssl/ssl_rsa.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-01T00:08:31Z",
+      "side": 1,
+      "message": "Check for malloc failure and have this return one/zero.",
+      "revId": "436a35e317c0617c42d5b848904d49fadb661bba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44333af5_6f38edb8",
+        "filename": "ssl/ssl_rsa.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-01T00:08:31Z",
+      "side": 1,
+      "message": "There\u0027s a BUF_memdup that might be simpler.",
+      "revId": "436a35e317c0617c42d5b848904d49fadb661bba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44333af5_2fe9c578",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-01T00:08:31Z",
+      "side": 1,
+      "message": "I think this is no longer used.",
+      "revId": "436a35e317c0617c42d5b848904d49fadb661bba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44333af5_6f2d8d5e",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 2810,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-01T00:08:31Z",
+      "side": 1,
+      "message": "Optional: Perhaps call this tls1_save_peer_sigalgs or tls1_parse_peer_sigalgs or something? It\u0027s not really doing much with them anymore.",
+      "range": {
+        "startLine": 2810,
+        "startChar": 4,
+        "endLine": 2810,
+        "endChar": 24
+      },
+      "revId": "436a35e317c0617c42d5b848904d49fadb661bba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44333af5_eff29d63",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 2862,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-01T00:08:31Z",
+      "side": 1,
+      "message": "This might be empty if not explicitly configured I think? The old logic had a wrapper function (tls_get_psigalgs) which would either return a pointer to cert-\u003edigest_nids or a pointer to a static list, depending on whether anything was configured. Perhaps do something similar.\n\nI think the only reason the tests are working is because you\u0027re always configuring one.",
+      "revId": "436a35e317c0617c42d5b848904d49fadb661bba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44333af5_6f510dff",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-01T00:08:31Z",
+      "side": 1,
+      "message": "Adjectives are fun, so let\u0027s do\n\n  static const int kDigestList[]",
+      "revId": "436a35e317c0617c42d5b848904d49fadb661bba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44333af5_8f279977",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-01T00:08:31Z",
+      "side": 1,
+      "message": "Probably best to not configure this without some TestConfig getting set somewhere, to make sure the default case works as expected. And then a flag to configure a list somehow. (Not sure exactly what. I guess you could parse a comma-separated list. Or you could have some booleans that set some preset ones if you want to be lazy.)",
+      "revId": "436a35e317c0617c42d5b848904d49fadb661bba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
