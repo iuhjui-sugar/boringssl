@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a40a365b_129eea58",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1658,
+      "author": {
+        "id": 5865
+      },
+      "writtenOn": "2015-09-02T21:21:11Z",
+      "side": 1,
+      "message": "I\u0027d prefer to have separate functions for SSL3_ST_SR_KEY_EXCH_C/D states.  Is it ok if I did that in a follow up change?",
+      "parentUuid": "c7d48b39_d3594c63",
+      "revId": "0a0ba015d57675fd8aa3d15b2517064eb360dc8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c7d48b39_704a8e2f",
         "filename": "ssl/ssl_rsa.c",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2015-08-13T22:08:13Z",
       "side": 1,
       "message": "Optional: I was actually just thinking to do the check after ssl-\u003ecert-\u003ekey_method. It\u0027s more about protecting the invariant that you won\u0027t touch pkey.rsa on a non-RSA EVP_PKEY (line 708 below).\n\nI imagine the decrypt implementation will internally DCHECK or CHECK or whatever, so there\u0027s no need to bounce into the type method. And it\u0027s more consistent with the other wrappers which unconditionally delegate to the method table.\n\nThis is fine too though. Maybe better? Dunno. I don\u0027t really care much either way, so your call.",
+      "revId": "0a0ba015d57675fd8aa3d15b2517064eb360dc8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a40a365b_92893a1c",
+        "filename": "ssl/ssl_rsa.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 701,
+      "author": {
+        "id": 5865
+      },
+      "writtenOn": "2015-09-02T21:21:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7d48b39_704a8e2f",
       "revId": "0a0ba015d57675fd8aa3d15b2517064eb360dc8f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "a40a365b_727ad6b8",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5865
+      },
+      "writtenOn": "2015-09-02T21:21:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7d48b39_106a2a8f",
+      "revId": "0a0ba015d57675fd8aa3d15b2517064eb360dc8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c7d48b39_d05a62fe",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 3
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "a40a365b_320e8e40",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 2270,
+      "author": {
+        "id": 5865
+      },
+      "writtenOn": "2015-09-02T21:21:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7d48b39_d05a62fe",
+      "revId": "0a0ba015d57675fd8aa3d15b2517064eb360dc8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c7d48b39_9054dacf",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 3
@@ -81,6 +153,30 @@
       "writtenOn": "2015-08-13T22:08:13Z",
       "side": 1,
       "message": "For consistency, maybe call this ECDHE-ECDSA.",
+      "range": {
+        "startLine": 2299,
+        "startChar": 26,
+        "endLine": 2299,
+        "endChar": 33
+      },
+      "revId": "0a0ba015d57675fd8aa3d15b2517064eb360dc8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a40a365b_72081631",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 2299,
+      "author": {
+        "id": 5865
+      },
+      "writtenOn": "2015-09-02T21:21:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7d48b39_9054dacf",
       "range": {
         "startLine": 2299,
         "startChar": 26,
