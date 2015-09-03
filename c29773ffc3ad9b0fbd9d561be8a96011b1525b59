@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "240f267a_069fdc9d",
+        "filename": "ssl/d1_clnt.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-09-03T19:02:06Z",
+      "side": 1,
+      "message": "Should this go to VERIFY_SERVER_CERT?",
+      "revId": "c29773ffc3ad9b0fbd9d561be8a96011b1525b59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "240f267a_4699d4b4",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 2206,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-09-03T19:02:06Z",
+      "side": 1,
+      "message": "You don\u0027t need to declare variables at the top of the function. This line can be \"int ret \u003d …\".",
+      "revId": "c29773ffc3ad9b0fbd9d561be8a96011b1525b59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "240f267a_a6ad28d5",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 2208,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-09-03T19:02:06Z",
+      "side": 1,
+      "message": "… and this can be \"int al \u003d …\".",
+      "revId": "c29773ffc3ad9b0fbd9d561be8a96011b1525b59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
