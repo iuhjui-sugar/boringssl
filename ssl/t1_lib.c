@@ -1500,61 +1500,6 @@ static int ext_npn_add_serverhello(SSL *ssl, CBB *out) {
 }
 
 
-/* Signed certificate timestamps.
- *
- * https://tools.ietf.org/html/rfc6962#section-3.3.1 */
-
-static int ext_sct_add_clienthello(SSL *ssl, CBB *out) {
-  if (!ssl->signed_cert_timestamps_enabled) {
-    return 1;
-  }
-
-  if (!CBB_add_u16(out, TLSEXT_TYPE_certificate_timestamp) ||
-      !CBB_add_u16(out, 0 /* length */)) {
-    return 0;
-  }
-
-  return 1;
-}
-
-static int ext_sct_parse_serverhello(SSL *ssl, uint8_t *out_alert,
-                                     CBS *contents) {
-  if (contents == NULL) {
-    return 1;
-  }
-
-  /* If this is false then we should never have sent the SCT extension in the
-   * ClientHello and thus this function should never have been called. */
-  assert(ssl->signed_cert_timestamps_enabled);
-
-  if (CBS_len(contents) == 0) {
-    *out_alert = SSL_AD_DECODE_ERROR;
-    return 0;
-  }
-
-  /* Session resumption uses the original session information. */
-  if (!ssl->hit &&
-      !CBS_stow(contents, &ssl->session->tlsext_signed_cert_timestamp_list,
-                &ssl->session->tlsext_signed_cert_timestamp_list_length)) {
-    *out_alert = SSL_AD_INTERNAL_ERROR;
-    return 0;
-  }
-
-  return 1;
-}
-
-static int ext_sct_parse_clienthello(SSL *ssl, uint8_t *out_alert,
-                                     CBS *contents) {
-  /* The SCT extension is not supported as a server. */
-  return 1;
-}
-
-static int ext_sct_add_serverhello(SSL *ssl, CBB *out) {
-  /* The SCT extension is not supported as a server. */
-  return 1;
-}
-
-
 /* Application-level Protocol Negotiation.
  *
  * https://tools.ietf.org/html/rfc7301 */
@@ -2150,14 +2095,6 @@ static const struct tls_extension kExtensions[] = {
     ext_npn_parse_serverhello,
     ext_npn_parse_clienthello,
     ext_npn_add_serverhello,
-  },
-  {
-    TLSEXT_TYPE_certificate_timestamp,
-    NULL,
-    ext_sct_add_clienthello,
-    ext_sct_parse_serverhello,
-    ext_sct_parse_clienthello,
-    ext_sct_add_serverhello,
   },
   {
     TLSEXT_TYPE_application_layer_protocol_negotiation,
