@@ -30,56 +30,19 @@
 
 
 /* This file implements a PRNG by reading from /dev/urandom, optionally with a
- * fork-safe buffer.
- *
- * If buffering is enabled then it maintains a global, linked list of buffers.
- * Threads which need random bytes grab a buffer from the list under a lock and
- * copy out the bytes that they need. In the rare case that the buffer is
- * empty, it's refilled from /dev/urandom outside of the lock.
- *
- * Large requests are always serviced from /dev/urandom directly.
- *
- * Each buffer contains the PID of the process that created it and it's tested
- * against the current PID each time. Thus processes that fork will discard all
- * the buffers filled by the parent process. There are two problems with this:
- *
- * 1) glibc maintains a cache of the current PID+PPID and, if this cache isn't
- *    correctly invalidated, the getpid() will continue to believe that
- *    it's the old process. Glibc depends on the glibc wrappers for fork,
- *    vfork and clone being used in order to invalidate the getpid() cache.
- *
- * 2) If a process forks, dies and then its child forks, it's possible that
- *    the third process will end up with the same PID as the original process.
- *    If the second process never used any random values then this will mean
- *    that the third process has stale, cached values and won't notice.
- */
+ * buffer, which is dangerously unsafe across |fork|.  To use it, the caller
+ * must promise never to fork. */
 
-/* BUF_SIZE is intended to be a 4K allocation with malloc overhead. struct
- * rand_buffer also fits in this space and the remainder is entropy. */
-#define BUF_SIZE (4096 - 16)
+#define BUF_SIZE 4096
 
-/* rand_buffer contains unused, random bytes. These structures form a linked
- * list via the |next| pointer, which is NULL in the final element. */
+/* rand_buffer contains unused, random bytes, some of which may have been
+ * consumed already. */
 struct rand_buffer {
-  size_t used; /* used contains the number of bytes of |rand| that have
-                  been consumed. */
-  struct rand_buffer *next;
-  pid_t pid; /* pid contains the pid at the time that the buffer was
-                created so that data is not duplicated after a fork. */
-  pid_t ppid; /* ppid contains the parent pid in order to try and reduce
-                 the possibility of duplicated PID confusing the
-                 detection of a fork. */
-  uint8_t rand[];
+  size_t used;
+  uint8_t rand[BUF_SIZE];
 };
 
-/* rand_bytes_per_buf is the number of actual entropy bytes in a buffer. */
-static const size_t rand_bytes_per_buf = BUF_SIZE - sizeof(struct rand_buffer);
-
 static struct CRYPTO_STATIC_MUTEX global_lock = CRYPTO_STATIC_MUTEX_INIT;
-
-/* list_head is the start of a global, linked-list of rand_buffer objects. It's
- * protected by |global_lock|. */
-static struct rand_buffer *list_head;
 
 /* urandom_fd is a file descriptor to /dev/urandom. It's protected by
  * |global_lock|. */
@@ -102,22 +65,16 @@ static int urandom_get_fd_locked(void) {
   return urandom_fd;
 }
 
-/* RAND_cleanup frees all buffers, closes any cached file descriptor
- * and resets the global state. */
+/* RAND_cleanup close any cached file descriptor. */
 void RAND_cleanup(void) {
-  struct rand_buffer *cur;
-
   CRYPTO_STATIC_MUTEX_lock_write(&global_lock);
-  while ((cur = list_head)) {
-    list_head = cur->next;
-    OPENSSL_free(cur);
-  }
   if (urandom_fd >= 0) {
     close(urandom_fd);
   }
   urandom_fd = -2;
-  list_head = NULL;
   CRYPTO_STATIC_MUTEX_unlock(&global_lock);
+  /* Don't touch thread-local storage.  That's got its own cleanup
+   * mechanism. */
 }
 
 void RAND_set_urandom_fd(int fd) {
@@ -133,6 +90,27 @@ void RAND_set_urandom_fd(int fd) {
     abort();
   }
   CRYPTO_STATIC_MUTEX_unlock(&global_lock);
+}
+
+void RAND_I_promise_not_to_fork(void) {
+  CRYPTO_STATIC_MUTEX_lock_write(&global_lock);
+  urandom_buffering = 1;
+  CRYPTO_STATIC_MUTEX_unlock(&global_lock);
+}
+
+static struct rand_buffer *get_thread_local_buffer(void) {
+  struct rand_buffer *buf =
+      CRYPTO_get_thread_local(OPENSSL_THREAD_LOCAL_URANDOM_BUF);
+  if (buf == NULL) {
+    buf = (struct rand_buffer *) OPENSSL_malloc(sizeof(struct rand_buffer));
+    if (buf == NULL) {
+      abort();
+    }
+    buf->used = BUF_SIZE;  /* To trigger a |read_full| on first use. */
+    CRYPTO_set_thread_local(OPENSSL_THREAD_LOCAL_URANDOM_BUF, buf,
+                            OPENSSL_free);
+  }
+  return buf;
 }
 
 /* read_full reads exactly |len| bytes from |fd| into |out| and returns 1. In
@@ -155,110 +133,69 @@ static char read_full(int fd, uint8_t *out, size_t len) {
   return 1;
 }
 
-/* CRYPTO_sysrand puts |num| random bytes into |out|. */
-void CRYPTO_sysrand(uint8_t *out, size_t requested) {
-  int fd;
-  struct rand_buffer *buf;
-  size_t todo;
-  pid_t pid, ppid;
+/* Puts |requested| random bytes from the buffer into |out|.  Acquires its own
+ * locks. */
+static void read_from_buffer(uint8_t *out, size_t requested) {
+  struct rand_buffer *buf = get_thread_local_buffer();
+  size_t remaining = BUF_SIZE - buf->used;
 
+  if (requested > remaining) {
+    /* Open urandom and loop until the buffer has enough bytes that we can fall
+     * through to the fast path. */
+    CRYPTO_STATIC_MUTEX_lock_write(&global_lock);
+    int fd = urandom_get_fd_locked();
+    if (fd < 0) {
+      CRYPTO_STATIC_MUTEX_unlock(&global_lock);
+      abort();
+      return;
+    }
+    CRYPTO_STATIC_MUTEX_unlock(&global_lock);
+
+    while (requested > remaining) {
+      memcpy(out, &buf->rand[buf->used], remaining);
+      buf->used += remaining;
+      out += remaining;
+      requested -= remaining;
+
+      if (!read_full(fd, buf->rand, BUF_SIZE)) {
+        abort();
+        return;
+      }
+      buf->used = 0;
+      remaining = BUF_SIZE;
+    }
+  }
+
+  memcpy(out, &buf->rand[buf->used], requested);
+  buf->used += requested;
+}
+
+/* CRYPTO_sysrand puts |requested| random bytes into |out|. */
+void CRYPTO_sysrand(uint8_t *out, size_t requested) {
   if (requested == 0) {
     return;
   }
 
-  CRYPTO_STATIC_MUTEX_lock_write(&global_lock);
-  fd = urandom_get_fd_locked();
-
-  if (fd < 0) {
+  CRYPTO_STATIC_MUTEX_lock_read(&global_lock);  /* read |urandom_buffering| */
+  if (urandom_buffering) {
     CRYPTO_STATIC_MUTEX_unlock(&global_lock);
-    abort();
-    return;
-  }
+    read_from_buffer(out, requested);
+  } else {
+    CRYPTO_STATIC_MUTEX_unlock(&global_lock);  /* can't upgrade lock */
 
-  /* If buffering is not enabled, or if the request is large, then the
-   * result comes directly from urandom. */
-  if (!urandom_buffering || requested > BUF_SIZE / 2) {
+    CRYPTO_STATIC_MUTEX_lock_write(&global_lock);
+    int fd = urandom_get_fd_locked();
+    if (fd < 0) {
+      CRYPTO_STATIC_MUTEX_unlock(&global_lock);
+      abort();
+      return;
+    }
     CRYPTO_STATIC_MUTEX_unlock(&global_lock);
+
     if (!read_full(fd, out, requested)) {
       abort();
     }
-    return;
   }
-
-  pid = getpid();
-  ppid = getppid();
-
-  for (;;) {
-    buf = list_head;
-    if (buf && buf->pid == pid && buf->ppid == ppid &&
-        rand_bytes_per_buf - buf->used >= requested) {
-      memcpy(out, &buf->rand[buf->used], requested);
-      buf->used += requested;
-      CRYPTO_STATIC_MUTEX_unlock(&global_lock);
-      return;
-    }
-
-    /* If we don't immediately have enough entropy with the correct
-     * PID, remove the buffer from the list in order to gain
-     * exclusive access and unlock. */
-    if (buf) {
-      list_head = buf->next;
-    }
-    CRYPTO_STATIC_MUTEX_unlock(&global_lock);
-
-    if (!buf) {
-      buf = (struct rand_buffer *)OPENSSL_malloc(BUF_SIZE);
-      if (!buf) {
-        abort();
-        return;
-      }
-      /* The buffer doesn't contain any random bytes yet
-       * so we mark it as fully used so that it will be
-       * filled below. */
-      buf->used = rand_bytes_per_buf;
-      buf->next = NULL;
-      buf->pid = pid;
-      buf->ppid = ppid;
-    }
-
-    if (buf->pid == pid && buf->ppid == ppid) {
-      break;
-    }
-
-    /* We have forked and so cannot use these bytes as they
-     * may have been used in another process. */
-    OPENSSL_free(buf);
-    CRYPTO_STATIC_MUTEX_lock_write(&global_lock);
-  }
-
-  while (requested > 0) {
-    todo = rand_bytes_per_buf - buf->used;
-    if (todo > requested) {
-      todo = requested;
-    }
-    memcpy(out, &buf->rand[buf->used], todo);
-    requested -= todo;
-    out += todo;
-    buf->used += todo;
-
-    if (buf->used < rand_bytes_per_buf) {
-      break;
-    }
-
-    if (!read_full(fd, buf->rand, rand_bytes_per_buf)) {
-      OPENSSL_free(buf);
-      abort();
-      return;
-    }
-
-    buf->used = 0;
-  }
-
-  CRYPTO_STATIC_MUTEX_lock_write(&global_lock);
-  assert(list_head != buf);
-  buf->next = list_head;
-  list_head = buf;
-  CRYPTO_STATIC_MUTEX_unlock(&global_lock);
 }
 
 #endif  /* !OPENSSL_WINDOWS */

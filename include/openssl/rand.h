@@ -45,6 +45,13 @@ OPENSSL_EXPORT void RAND_cleanup(void);
  * |RAND_set_urandom_fd| does not buffer any entropy, so it is safe to call
  * |fork| between |RAND_set_urandom_fd| and the first call to |RAND_bytes|. */
 OPENSSL_EXPORT void RAND_set_urandom_fd(int fd);
+
+/* RAND_I_promise_not_to_fork enables efficient buffered reading of
+ * /dev/urandom.  It has that name because the buffer is unsafe across
+ * calls to |fork|.  It may be called at any time.
+ *
+ * Obviously, this function is not safe to be called by libraries. */
+OPENSSL_EXPORT void RAND_I_promise_not_to_fork(void);
 #endif
 
 
