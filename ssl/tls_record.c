@@ -220,6 +220,10 @@ enum ssl_open_record_t tls_open_record(
                       SSL3_RT_HEADER_LENGTH, ssl, ssl->msg_callback_arg);
   }
 
+  /* |SSL_AEAD_CTX_open| will handle decrypting |body| in-place, but must not
+   * overwrite the remaining input in |cbs|. Clamp |max_out| accordingly. */
+  max_out = truncate_output(out, max_out, CBS_data(&cbs), CBS_len(&cbs));
+
   /* Decrypt the body. */
   size_t plaintext_len;
   if (!SSL_AEAD_CTX_open(ssl->aead_read_ctx, out, &plaintext_len, max_out,
@@ -278,7 +282,7 @@ static int do_seal_record(SSL *ssl, uint8_t *out, size_t *out_len,
   }
   /* Check the record header does not alias any part of the input.
    * |SSL_AEAD_CTX_seal| will internally enforce other aliasing requirements. */
-  if (in < out + SSL3_RT_HEADER_LENGTH && out < in + in_len) {
+  if (buffers_alias(in, in_len, out, SSL3_RT_HEADER_LENGTH)) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_OUTPUT_ALIASES_INPUT);
     return 0;
   }
@@ -325,17 +329,9 @@ int tls_seal_record(SSL *ssl, uint8_t *out, size_t *out_len, size_t max_out,
   size_t frag_len = 0;
   if (ssl->s3->need_record_splitting && type == SSL3_RT_APPLICATION_DATA &&
       in_len > 1) {
-    /* |do_seal_record| will notice if it clobbers |in[0]|, but not if it
-     * aliases the rest of |in|. */
-    if (in + 1 <= out && out < in + in_len) {
-      OPENSSL_PUT_ERROR(SSL, SSL_R_OUTPUT_ALIASES_INPUT);
-      return 0;
-    }
-    /* Ensure |do_seal_record| does not write beyond |in[0]|. */
-    size_t frag_max_out = max_out;
-    if (out <= in + 1 && in + 1 < out + frag_max_out) {
-      frag_max_out = (size_t)(in + 1 - out);
-    }
+    /* |do_seal_record| will handle encrypting |in[0]| in-place, but must not
+     * overwrite the rest of |in|. Clamp |max_out| accordingly. */
+    size_t frag_max_out = truncate_output(out, max_out, in + 1, in_len - 1);
     if (!do_seal_record(ssl, out, &frag_len, frag_max_out, type, in, 1)) {
       return 0;
     }

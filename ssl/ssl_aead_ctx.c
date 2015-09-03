@@ -23,6 +23,7 @@
 #include <openssl/type_check.h>
 
 #include "internal.h"
+#include "../crypto/internal.h"
 
 
 OPENSSL_COMPILE_ASSERT(EVP_AEAD_MAX_NONCE_LENGTH < 256,
@@ -241,7 +242,7 @@ int SSL_AEAD_CTX_seal(SSL_AEAD_CTX *aead, uint8_t *out, size_t *out_len,
       OPENSSL_PUT_ERROR(SSL, SSL_R_BUFFER_TOO_SMALL);
       return 0;
     }
-    if (out < in + in_len && in < out + aead->variable_nonce_len) {
+    if (buffers_alias(out, aead->variable_nonce_len, in, in_len)) {
       OPENSSL_PUT_ERROR(SSL, SSL_R_OUTPUT_ALIASES_INPUT);
       return 0;
     }
