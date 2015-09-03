@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44333af5_46b99601",
+        "filename": "crypto/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-03T17:55:59Z",
+      "side": 1,
+      "message": "I don\u0027t really like this name. Can you think of something better?",
+      "range": {
+        "startLine": 346,
+        "startChar": 21,
+        "endLine": 346,
+        "endChar": 36
+      },
+      "revId": "66b05a86776d239c203822b38b0d2da13711867d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

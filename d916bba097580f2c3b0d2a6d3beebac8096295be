@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44333af5_86af7eb7",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-03T17:55:59Z",
+      "side": 0,
+      "message": "This no longer happens, but I think clamping to 0 is correct. In the open case, if we were to output 0 bytes, then it\u0027s fine to \"output\" it anywhere.",
+      "revId": "d916bba097580f2c3b0d2a6d3beebac8096295be",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
