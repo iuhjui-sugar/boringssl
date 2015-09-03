@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c4d56a01_e0cc62a3",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 5915
+      },
+      "writtenOn": "2015-09-03T16:44:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44333af5_9b9a37d5",
+      "revId": "6faa0ae8be359414b3197b7ae6630e2c44d3c0af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44333af5_7b178bdd",
         "filename": "crypto/bytestring/cbs.c",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2015-09-03T15:25:33Z",
       "side": 1,
       "message": "Ditto.",
+      "revId": "6faa0ae8be359414b3197b7ae6630e2c44d3c0af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4d56a01_00ca2684",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 5915
+      },
+      "writtenOn": "2015-09-03T16:44:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44333af5_7b178bdd",
       "revId": "6faa0ae8be359414b3197b7ae6630e2c44d3c0af",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
