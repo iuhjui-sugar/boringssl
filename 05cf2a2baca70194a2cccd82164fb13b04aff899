@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "240f267a_637a02b9",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-09-03T00:38:41Z",
+      "side": 1,
+      "message": "The history is interesting, but not the most important thing.  I\u0027d demote it below the paragraph below, about user expectations.",
+      "range": {
+        "startLine": 8,
+        "startChar": 19,
+        "endLine": 8,
+        "endChar": 27
+      },
+      "revId": "05cf2a2baca70194a2cccd82164fb13b04aff899",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "240f267a_e36d52fa",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-09-03T00:38:41Z",
+      "side": 1,
+      "message": "And yet, the macro |OPENSSL_IS_BORINGSSL| seems intended specifically to permit code to work with both BoringSSL and OpenSSL.  Maybe it\u0027s appropriate here to state your long-term intentions for that macro.",
+      "range": {
+        "startLine": 12,
+        "startChar": 27,
+        "endLine": 12,
+        "endChar": 36
+      },
+      "revId": "05cf2a2baca70194a2cccd82164fb13b04aff899",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "240f267a_03134e68",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-09-03T00:38:41Z",
+      "side": 1,
+      "message": "IMO this is the most important statement in this paragraph, and so should go first.  Also, I think it sounds a bit defensive (\"implied duty\").\n\n\"Although BoringSSL is an open source project, it is not intended for general use, as OpenSSL is.  We don\u0027t recommend that third parties depend upon it, because doing so is likely to be frustrating.\"",
+      "revId": "05cf2a2baca70194a2cccd82164fb13b04aff899",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "240f267a_831e1e6b",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-09-03T00:38:41Z",
+      "side": 1,
+      "message": "Nit: this may be read to imply that Chromium and Android are \"programs produced by Google\", which I don\u0027t think is what you intend to say.",
+      "range": {
+        "startLine": 22,
+        "startChar": 45,
+        "endLine": 22,
+        "endChar": 53
+      },
+      "revId": "05cf2a2baca70194a2cccd82164fb13b04aff899",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
