@@ -16,6 +16,24 @@
       "revId": "97cdec578cd4d3ce0893d98f8b02da860104eec4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4d56a01_20fd6aa9",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5915
+      },
+      "writtenOn": "2015-09-03T17:07:37Z",
+      "side": 1,
+      "message": "Hadn\u0027t though about that. Thanks.\nI\u0027ve added an extra state for certificate verification, it should be fine now.",
+      "parentUuid": "44333af5_dba0bf0a",
+      "revId": "97cdec578cd4d3ce0893d98f8b02da860104eec4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
