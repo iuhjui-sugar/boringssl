@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44333af5_fb513ba4",
+        "filename": "BUILDING.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-03T16:13:50Z",
+      "side": 1,
+      "message": "Apparently Markdown knows how to handle these if you format it right.",
+      "range": {
+        "startLine": 5,
+        "startChar": 12,
+        "endLine": 5,
+        "endChar": 15
+      },
+      "revId": "2bca406228163adae2fa950e2575b3114d93ff16",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
