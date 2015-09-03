@@ -118,6 +118,7 @@
 #include <openssl/err.h>
 
 #include "internal.h"
+#include "../crypto/internal.h"
 
 
 /* to_u64_be treats |in| as a 8-byte big-endian integer and returns the value as
@@ -211,6 +212,10 @@ enum ssl_open_record_t dtls_open_record(
     return ssl_open_record_discard;
   }
 
+  /* |SSL_AEAD_CTX_open| will handle decrypting |body| in-place, but must not
+   * overwrite the remaining input in |cbs|. Clamp |max_out| accordingly. */
+  max_out = truncate_output(out, max_out, CBS_data(&cbs), CBS_len(&cbs));
+
   /* Decrypt the body. */
   size_t plaintext_len;
   if (!SSL_AEAD_CTX_open(ssl->aead_read_ctx, out, &plaintext_len, max_out,
@@ -267,7 +272,7 @@ int dtls_seal_record(SSL *ssl, uint8_t *out, size_t *out_len, size_t max_out,
   }
   /* Check the record header does not alias any part of the input.
    * |SSL_AEAD_CTX_seal| will internally enforce other aliasing requirements. */
-  if (in < out + DTLS1_RT_HEADER_LENGTH && out < in + in_len) {
+  if (buffers_alias(in, in_len, out, DTLS1_RT_HEADER_LENGTH)) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_OUTPUT_ALIASES_INPUT);
     return 0;
   }
