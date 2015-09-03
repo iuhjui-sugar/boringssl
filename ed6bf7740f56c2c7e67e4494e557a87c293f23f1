@@ -22,6 +22,23 @@
       "revId": "ed6bf7740f56c2c7e67e4494e557a87c293f23f1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44333af5_3b38e365",
+        "filename": "README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-03T16:12:26Z",
+      "side": 1,
+      "message": "Oh, do we want to add:\n\n  * include/openssl: public headers with API documentation in comments.\n\nOr mention elsewhere that API documentation may be found there (at least until they\u0027re generated somewhere).",
+      "revId": "ed6bf7740f56c2c7e67e4494e557a87c293f23f1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
