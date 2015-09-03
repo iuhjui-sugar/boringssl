@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "240f267a_69ef812e",
+        "filename": "crypto/rand/urandom.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-09-03T22:41:22Z",
+      "side": 1,
+      "message": "test the return value of this and return NULL if it fails?",
+      "revId": "bc7a09b03fa0e3709286c48ff8ad2ddba0f1a83b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "240f267a_89d59d59",
+        "filename": "crypto/rand/urandom.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-09-03T22:41:22Z",
+      "side": 1,
+      "message": "function comments should start with the name of the function.",
+      "revId": "bc7a09b03fa0e3709286c48ff8ad2ddba0f1a83b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "240f267a_c9cdd5bd",
+        "filename": "crypto/rand/urandom.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-09-03T22:41:22Z",
+      "side": 1,
+      "message": "This is going to be a really hot lock.\n\nHow about this:\n\n|urandom_buffering| is protected by a once function that copies the contents of |urandom_buffering_requested| into it. The *same* once also copies |urandom_fd_requested| into |urandom_fd| if not -1, else opens /dev/urandom.\n\n|RAND_I_promise_not_to_fork| sets |urandom_buffering_requested| to one and calls the once. If |urandom_buffering| is one after that, it succeeded.\n\n|RAND_set_urandom_fd| takes a global lock sets |urandom_fd_requested| to a dup of the given fd and calls the once. If |urandom_fd| is equal to |urandom_fd_requested| afterwards then it succeeded. (Otherwise abort.)\n\nCRYPTO_sysrand calls the once and then has |urandom_fd| and |urandom_buffering| read to read.",
+      "revId": "bc7a09b03fa0e3709286c48ff8ad2ddba0f1a83b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
