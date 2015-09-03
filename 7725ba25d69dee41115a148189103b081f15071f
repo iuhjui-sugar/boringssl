@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44333af5_862d3e61",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 2150,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-03T22:19:41Z",
+      "side": 1,
+      "message": "Maybe use AES256-SHA or something, just so we have different behaviors for each group.",
+      "range": {
+        "startLine": 2150,
+        "startChar": 4,
+        "endLine": 2150,
+        "endChar": 11
+      },
+      "revId": "7725ba25d69dee41115a148189103b081f15071f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
