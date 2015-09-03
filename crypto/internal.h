@@ -331,6 +331,30 @@ static inline int constant_time_select_int(unsigned int mask, int a, int b) {
 }
 
 
+/* Buffer aliasing utility functions. */
+
+/* buffers_alias returns one if the |a_len| bytes from |a| and |b_len| bytes
+ * from |b| overlap and zero otherwise. */
+static inline int buffers_alias(const uint8_t *a, size_t a_len,
+                                const uint8_t *b, size_t b_len) {
+  return a < b + b_len && b < a + a_len;
+}
+
+/* truncate_output returns a new |max_out| value for an operation that would
+ * write up to |max_out| bytes to |out|, truncated such that it would not alias
+ * |in|. */
+static inline size_t truncate_output(const uint8_t *out, size_t max_out,
+                                     const uint8_t *in, size_t in_len) {
+  if (!buffers_alias(out, max_out, in, in_len)) {
+    return max_out;
+  }
+  if (out > in) {
+    return 0;
+  }
+  return (size_t)(in - out);
+}
+
+
 /* Thread-safe initialisation. */
 
 #if defined(OPENSSL_NO_THREADS)
