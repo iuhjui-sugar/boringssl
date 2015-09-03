@@ -415,6 +415,8 @@ func (hc *halfConn) decrypt(b *block) (ok bool, prefixLen int, alertValue alert)
 			//
 			// However, our behavior matches OpenSSL, so we leak
 			// only as much as they do.
+		case nullCipher:
+			break
 		default:
 			panic("unknown cipher type")
 		}
@@ -520,6 +522,8 @@ func (hc *halfConn) encrypt(b *block, explicitIVLen int) (bool, alert) {
 			b.resize(recordHeaderLen + explicitIVLen + len(prefix) + len(finalBlock))
 			c.CryptBlocks(b.data[recordHeaderLen+explicitIVLen:], prefix)
 			c.CryptBlocks(b.data[recordHeaderLen+explicitIVLen+len(prefix):], finalBlock)
+		case nullCipher:
+			break
 		default:
 			panic("unknown cipher type")
 		}
