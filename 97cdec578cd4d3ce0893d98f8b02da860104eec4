@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44333af5_dba0bf0a",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-03T15:24:59Z",
+      "side": 1,
+      "message": "This will result in ssl3_verify_server_cert being called multiple times if the SKX doesn\u0027t come in synchronous. Perhaps put it in a separate state?",
+      "revId": "97cdec578cd4d3ce0893d98f8b02da860104eec4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
