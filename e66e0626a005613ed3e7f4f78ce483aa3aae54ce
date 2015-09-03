@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "240f267a_e3771299",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-09-03T00:52:05Z",
+      "side": 1,
+      "message": "\"We don\u0027t recommend that third parties depend upon it.  Doing so is likely to be frustrating, because there are no guarantees of API or ABI stability.\"",
+      "range": {
+        "startLine": 6,
+        "startChar": 20,
+        "endLine": 8,
+        "endChar": 32
+      },
+      "revId": "e66e0626a005613ed3e7f4f78ce483aa3aae54ce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
