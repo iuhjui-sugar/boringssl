@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "240f267a_4990c580",
+        "filename": "crypto/cipher/e_tls.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-09-03T22:51:33Z",
+      "side": 1,
+      "message": "zero means /* no implicit IV */ rather than the opposite. But, before you change that, I think I\u0027d just change this to \u00271\u0027.",
+      "range": {
+        "startLine": 451,
+        "startChar": 37,
+        "endLine": 451,
+        "endChar": 53
+      },
+      "revId": "007de7e351a30d6d5263ba920c578460e88b0759",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
