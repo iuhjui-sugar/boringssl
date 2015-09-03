@@ -40,11 +40,21 @@ OPENSSL_EXPORT void RAND_cleanup(void);
  * randomness rather opening /dev/urandom internally. The caller retains
  * ownership of |fd| and is at liberty to close it at any time. This is useful
  * if, due to a sandbox, /dev/urandom isn't available. If used, it must be
- * called before |RAND_bytes| is called in the current address space.
+ * called before the first call to |RAND_bytes|, and it is mutually exclusive
+ * with |RAND_I_promise_not_to_fork|.
  *
  * |RAND_set_urandom_fd| does not buffer any entropy, so it is safe to call
- * |fork| between |RAND_set_urandom_fd| and the first call to |RAND_bytes|. */
+ * |fork| at any time after calling |RAND_set_urandom_fd|.
 OPENSSL_EXPORT void RAND_set_urandom_fd(int fd);
+
+/* RAND_I_promise_not_to_fork enables efficient buffered reading of
+ * /dev/urandom. It adds an overhead of a few KB per thread. It must be called
+ * before the first call to |RAND_bytes|, and it is mutually exclusive with calls
+ * to |RAND_set_urandom_fd|.
+ *
+ * It has an unusual name because the buffer is unsafe across calls to |fork|.
+ * Hence, this function should never be called by libraries. */
+OPENSSL_EXPORT void RAND_I_promise_not_to_fork(void);
 #endif
 
 
