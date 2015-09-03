@@ -333,9 +333,13 @@ int CBS_get_optional_asn1(CBS *cbs, CBS *out, int *out_present, unsigned tag) {
     if (!CBS_get_asn1(cbs, out, tag)) {
       return 0;
     }
-    *out_present = 1;
+    if (out_present != NULL) {
+      *out_present = 1;
+    }
   } else {
-    *out_present = 0;
+    if (out_present != NULL) {
+      *out_present = 0;
+    }
   }
   return 1;
 }
