@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44333af5_db279f48",
+        "filename": "README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-03T15:52:06Z",
+      "side": 1,
+      "message": "Judging by https://chromium.googlesource.com/chromium/src/+/master/net/docs/bug-triage.md, you can do [PORTING.md](PORTING.md) to link to the other file. Dunno if it also works in the internal viewer or if it works for the non-Markdown files (I suppose I could go convert them...).",
+      "range": {
+        "startLine": 26,
+        "startChar": 4,
+        "endLine": 26,
+        "endChar": 14
+      },
+      "revId": "ed6bf7740f56c2c7e67e4494e557a87c293f23f1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
