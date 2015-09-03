@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44333af5_9b9a37d5",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-03T15:25:33Z",
+      "side": 1,
+      "message": "Nit: out_present !\u003d NULL",
+      "revId": "6faa0ae8be359414b3197b7ae6630e2c44d3c0af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44333af5_7b178bdd",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-03T15:25:33Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "6faa0ae8be359414b3197b7ae6630e2c44d3c0af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
