@@ -44,15 +44,17 @@
 #include <openssl/rand.h>
 #include <openssl/ssl.h>
 
+#include <iterator>
 #include <memory>
 #include <vector>
+#include <string>
+#include <sstream>
 
 #include "../../crypto/test/scoped_types.h"
 #include "async_bio.h"
 #include "packeted_bio.h"
 #include "scoped_types.h"
 #include "test_config.h"
-
 
 #if !defined(OPENSSL_WINDOWS)
 static int closesocket(int sock) {
@@ -143,10 +145,6 @@ static int AsyncPrivateKeyType(SSL *ssl) {
   return EVP_PKEY_id(GetTestState(ssl)->private_key.get());
 }
 
-static int AsyncPrivateKeySupportsDigest(SSL *ssl, const EVP_MD *md) {
-  return EVP_PKEY_supports_digest(GetTestState(ssl)->private_key.get(), md);
-}
-
 static size_t AsyncPrivateKeyMaxSignatureLen(SSL *ssl) {
   return EVP_PKEY_size(GetTestState(ssl)->private_key.get());
 }
@@ -214,7 +212,6 @@ static ssl_private_key_result_t AsyncPrivateKeySignComplete(
 
 static const SSL_PRIVATE_KEY_METHOD g_async_private_key_method = {
     AsyncPrivateKeyType,
-    AsyncPrivateKeySupportsDigest,
     AsyncPrivateKeyMaxSignatureLen,
     AsyncPrivateKeySign,
     AsyncPrivateKeySignComplete,
@@ -223,6 +220,38 @@ static const SSL_PRIVATE_KEY_METHOD g_async_private_key_method = {
 static bool InstallCertificate(SSL *ssl) {
   const TestConfig *config = GetConfigPtr(ssl);
   TestState *test_state = GetTestState(ssl);
+
+  if (!config->digest_prefs.empty()) {
+    std::stringstream digest_stream(config->digest_prefs);
+    std::istream_iterator<std::string> digest_start(digest_stream), digest_end;
+    std::vector<std::string> digest_strs(digest_start, digest_end);
+    size_t num_digests = digest_strs.size();
+
+    int digest_list [num_digests];
+    for (size_t i = 0; i < num_digests; i++) {
+      std::string digest_string = digest_strs[i];
+      if (digest_string == "MD4") {
+        digest_list[i] = NID_md4;
+      } else if (digest_string == "MD5") {
+        digest_list[i] = NID_md5;
+      } else if (digest_string == "SHA1") {
+        digest_list[i] = NID_sha1;
+      } else if (digest_string == "SHA224") {
+        digest_list[i] = NID_sha224;
+      } else if (digest_string == "SHA256") {
+        digest_list[i] = NID_sha256;
+      } else if (digest_string == "SHA384") {
+        digest_list[i] = NID_sha384;
+      } else if (digest_string == "SHA512") {
+        digest_list[i] = NID_sha512;
+      } else if (digest_string == "MD5-SHA1") {
+        digest_list[i] = NID_md5_sha1;
+      }
+    }
+
+    SSL_set_private_key_digest_prefs(ssl, digest_list, num_digests);
+  }
+
   if (!config->key_file.empty()) {
     if (config->use_async_private_key) {
       test_state->private_key = LoadPrivateKey(config->key_file.c_str());
