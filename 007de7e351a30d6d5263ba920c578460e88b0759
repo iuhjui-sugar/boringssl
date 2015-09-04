@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "240f267a_17b4240a",
+        "filename": "crypto/cipher/e_tls.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-09-04T03:41:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "240f267a_4990c580",
+      "range": {
+        "startLine": 451,
+        "startChar": 37,
+        "endLine": 451,
+        "endChar": 53
+      },
+      "revId": "007de7e351a30d6d5263ba920c578460e88b0759",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44333af5_c6c6a6d0",
         "filename": "ssl/ssl_cipher.c",
         "patchSetId": 3
@@ -36,6 +60,24 @@
       "writtenOn": "2015-09-03T23:57:07Z",
       "side": 1,
       "message": "If we care, there might be a few other rules to restore, like COMPLEMENTOFALL and COMPLEMENTOFDEFAULT. Though you\u0027ve instead sprinkled ~SSL_eNULL below, so perhaps we don\u0027t care.\n\nI could imagine someone writing a rule like \"RSA:COMPLEMENTOFALL\" in OpenSSL to avoid selecting eNULL.",
+      "revId": "007de7e351a30d6d5263ba920c578460e88b0759",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "240f267a_b7c2706c",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-09-04T03:41:15Z",
+      "side": 1,
+      "message": "I don\u0027t think we care?  With the current code, if somebody writes that, it will fail, correct?",
+      "parentUuid": "44333af5_c6c6a6d0",
       "revId": "007de7e351a30d6d5263ba920c578460e88b0759",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
