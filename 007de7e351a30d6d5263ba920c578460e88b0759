@@ -81,6 +81,24 @@
       "revId": "007de7e351a30d6d5263ba920c578460e88b0759",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64dafe36_9d2a2312",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-04T20:31:43Z",
+      "side": 1,
+      "message": "Yeah, that\u0027s true. Sprinkling ~SSL_eNULL everywhere probably takes care of anything any sane person would ever write and then some. Works for me.",
+      "parentUuid": "240f267a_b7c2706c",
+      "revId": "007de7e351a30d6d5263ba920c578460e88b0759",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
