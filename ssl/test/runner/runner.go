@@ -162,6 +162,8 @@ type testCase struct {
 	messageLen int
 	// messageCount is the number of test messages that will be sent.
 	messageCount int
+	// digestPrefs is the list of digest preferences from the client.
+	digestPrefs string
 	// certFile is the path to the certificate to use for the server.
 	certFile string
 	// keyFile is the path to the private key to use for the server.
@@ -546,6 +548,11 @@ func runTest(test *testCase, shimPath string, mallocNumToFail int64) error {
 		} else {
 			flags = append(flags, path.Join(*resourceDir, test.certFile))
 		}
+	}
+
+	if test.digestPrefs != "" {
+		flags = append(flags, "-digest-prefs")
+		flags = append(flags, test.digestPrefs)
 	}
 
 	if test.protocol == dtls {
