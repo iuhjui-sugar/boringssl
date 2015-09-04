@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "240f267a_0ccedbee",
+        "filename": "crypto/rand/urandom.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-09-04T03:20:22Z",
+      "side": 1,
+      "message": "Done.  (Although, why is |CRYPTO_set_thread_local| not void?)",
+      "parentUuid": "240f267a_69ef812e",
+      "revId": "bc7a09b03fa0e3709286c48ff8ad2ddba0f1a83b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "240f267a_89d59d59",
         "filename": "crypto/rand/urandom.c",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "240f267a_6cd30f97",
+        "filename": "crypto/rand/urandom.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-09-04T03:20:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "240f267a_89d59d59",
+      "revId": "bc7a09b03fa0e3709286c48ff8ad2ddba0f1a83b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "240f267a_c9cdd5bd",
         "filename": "crypto/rand/urandom.c",
         "patchSetId": 2
@@ -47,6 +83,24 @@
       "writtenOn": "2015-09-03T22:41:22Z",
       "side": 1,
       "message": "This is going to be a really hot lock.\n\nHow about this:\n\n|urandom_buffering| is protected by a once function that copies the contents of |urandom_buffering_requested| into it. The *same* once also copies |urandom_fd_requested| into |urandom_fd| if not -1, else opens /dev/urandom.\n\n|RAND_I_promise_not_to_fork| sets |urandom_buffering_requested| to one and calls the once. If |urandom_buffering| is one after that, it succeeded.\n\n|RAND_set_urandom_fd| takes a global lock sets |urandom_fd_requested| to a dup of the given fd and calls the once. If |urandom_fd| is equal to |urandom_fd_requested| afterwards then it succeeded. (Otherwise abort.)\n\nCRYPTO_sysrand calls the once and then has |urandom_fd| and |urandom_buffering| read to read.",
+      "revId": "bc7a09b03fa0e3709286c48ff8ad2ddba0f1a83b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "240f267a_8c580b99",
+        "filename": "crypto/rand/urandom.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-09-04T03:20:22Z",
+      "side": 1,
+      "message": "Done.\n\n- |RAND_cleanup| is a little dodgy, in that writes urandom_fd, which we count upon being read-only after initialization.  (The one caller I found for this function called it as part of a cleanup, in a child process, immediately after fork.)\n\n- This scheme makes |RAND_I_promise_not_to_fork| and |RAND_set_urandom_fd| exclusive, so I documented that clearly.\n\n- You mention a global lock for |RAND_set_urandom_fd|.  Why?  What makes it different from |RAND_I_promise_not_to_fork|?",
+      "parentUuid": "240f267a_c9cdd5bd",
       "revId": "bc7a09b03fa0e3709286c48ff8ad2ddba0f1a83b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
