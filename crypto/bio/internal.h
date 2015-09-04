@@ -60,7 +60,7 @@
 #include <openssl/base.h>
 
 #if !defined(OPENSSL_WINDOWS)
-#if defined(OPENSSL_PNACL)
+#if defined(OPENSSL_NACL)
 /* newlib uses u_short in socket.h without defining it. */
 typedef unsigned short u_short;
 #endif

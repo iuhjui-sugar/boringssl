@@ -38,7 +38,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#if defined(OPENSSL_PNACL)
+#if defined(OPENSSL_NACL)
 /* pnacl doesn't include readdir_r! So we do the best we can. */
 int readdir_r(DIR *dirp, struct dirent *entry, struct dirent **result) {
   errno = 0;
