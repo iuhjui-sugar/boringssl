@@ -44,7 +44,10 @@
 #include <openssl/rand.h>
 #include <openssl/ssl.h>
 
+#include <iterator>
 #include <memory>
+#include <sstream>
+#include <string>
 #include <vector>
 
 #include "../../crypto/test/scoped_types.h"
@@ -143,10 +146,6 @@ static int AsyncPrivateKeyType(SSL *ssl) {
   return EVP_PKEY_id(GetTestState(ssl)->private_key.get());
 }
 
-static int AsyncPrivateKeySupportsDigest(SSL *ssl, const EVP_MD *md) {
-  return EVP_PKEY_supports_digest(GetTestState(ssl)->private_key.get(), md);
-}
-
 static size_t AsyncPrivateKeyMaxSignatureLen(SSL *ssl) {
   return EVP_PKEY_size(GetTestState(ssl)->private_key.get());
 }
@@ -214,15 +213,44 @@ static ssl_private_key_result_t AsyncPrivateKeySignComplete(
 
 static const SSL_PRIVATE_KEY_METHOD g_async_private_key_method = {
     AsyncPrivateKeyType,
-    AsyncPrivateKeySupportsDigest,
     AsyncPrivateKeyMaxSignatureLen,
     AsyncPrivateKeySign,
     AsyncPrivateKeySignComplete,
 };
 
+template<typename T>
+struct Free {
+  void operator()(T *buf) {
+    free(buf);
+  }
+};
+
 static bool InstallCertificate(SSL *ssl) {
   const TestConfig *config = GetConfigPtr(ssl);
   TestState *test_state = GetTestState(ssl);
+
+  if (!config->digest_prefs.empty()) {
+    std::unique_ptr<char, Free<char>> digest_prefs(
+        strdup(config->digest_prefs.c_str()));
+    char *tokptr = nullptr;
+    std::vector<int> digest_list;
+
+    for (;;) {
+      char *token = strtok_r(digest_list.empty() ? digest_prefs.get() : nullptr,
+                             ",", &tokptr);
+      if (token == nullptr) {
+        break;
+      }
+
+      digest_list.push_back(EVP_MD_type(EVP_get_digestbyname(token)));
+    }
+
+    if (!SSL_set_private_key_digest_prefs(ssl, digest_list.data(),
+                                          digest_list.size())) {
+      return false;
+    }
+  }
+
   if (!config->key_file.empty()) {
     if (config->use_async_private_key) {
       test_state->private_key = LoadPrivateKey(config->key_file.c_str());
