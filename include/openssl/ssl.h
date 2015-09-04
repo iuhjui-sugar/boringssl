@@ -2176,9 +2176,6 @@ OPENSSL_EXPORT int SSL_SESSION_set1_id_context(SSL_SESSION *s,
 OPENSSL_EXPORT SSL_SESSION *SSL_SESSION_new(void);
 OPENSSL_EXPORT const uint8_t *SSL_SESSION_get_id(const SSL_SESSION *s,
                                                  unsigned int *len);
-OPENSSL_EXPORT int SSL_SESSION_print_fp(FILE *fp, const SSL_SESSION *ses);
-OPENSSL_EXPORT int SSL_SESSION_print(BIO *fp, const SSL_SESSION *ses);
-
 /* SSL_SESSION_up_ref, if |session| is not NULL, increments the reference count
  * of |session|. It then returns |session|. */
 OPENSSL_EXPORT SSL_SESSION *SSL_SESSION_up_ref(SSL_SESSION *session);
