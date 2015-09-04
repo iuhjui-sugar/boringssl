@@ -79,21 +79,6 @@ int SSL_use_certificate(SSL *ssl, X509 *x) {
   return ssl_set_cert(ssl->cert, x);
 }
 
-int SSL_use_certificate_ASN1(SSL *ssl, const uint8_t *d, int len) {
-  X509 *x;
-  int ret;
-
-  x = d2i_X509(NULL, &d, (long)len);
-  if (x == NULL) {
-    OPENSSL_PUT_ERROR(SSL, ERR_R_ASN1_LIB);
-    return 0;
-  }
-
-  ret = SSL_use_certificate(ssl, x);
-  X509_free(x);
-  return ret;
-}
-
 int SSL_use_RSAPrivateKey(SSL *ssl, RSA *rsa) {
   EVP_PKEY *pkey;
   int ret;
@@ -141,18 +126,6 @@ static int ssl_set_pkey(CERT *c, EVP_PKEY *pkey) {
   return 1;
 }
 
-int SSL_use_RSAPrivateKey_ASN1(SSL *ssl, const uint8_t *der, size_t der_len) {
-  RSA *rsa = RSA_private_key_from_bytes(der, der_len);
-  if (rsa == NULL) {
-    OPENSSL_PUT_ERROR(SSL, ERR_R_ASN1_LIB);
-    return 0;
-  }
-
-  int ret = SSL_use_RSAPrivateKey(ssl, rsa);
-  RSA_free(rsa);
-  return ret;
-}
-
 int SSL_use_PrivateKey(SSL *ssl, EVP_PKEY *pkey) {
   int ret;
 
@@ -162,23 +135,6 @@ int SSL_use_PrivateKey(SSL *ssl, EVP_PKEY *pkey) {
   }
 
   ret = ssl_set_pkey(ssl->cert, pkey);
-  return ret;
-}
-
-int SSL_use_PrivateKey_ASN1(int type, SSL *ssl, const uint8_t *d, long len) {
-  int ret;
-  const uint8_t *p;
-  EVP_PKEY *pkey;
-
-  p = d;
-  pkey = d2i_PrivateKey(type, NULL, &p, (long)len);
-  if (pkey == NULL) {
-    OPENSSL_PUT_ERROR(SSL, ERR_R_ASN1_LIB);
-    return 0;
-  }
-
-  ret = SSL_use_PrivateKey(ssl, pkey);
-  EVP_PKEY_free(pkey);
   return ret;
 }
 
@@ -265,19 +221,6 @@ int SSL_CTX_use_RSAPrivateKey(SSL_CTX *ctx, RSA *rsa) {
   return ret;
 }
 
-int SSL_CTX_use_RSAPrivateKey_ASN1(SSL_CTX *ctx, const uint8_t *der,
-                                   size_t der_len) {
-  RSA *rsa = RSA_private_key_from_bytes(der, der_len);
-  if (rsa == NULL) {
-    OPENSSL_PUT_ERROR(SSL, ERR_R_ASN1_LIB);
-    return 0;
-  }
-
-  int ret = SSL_CTX_use_RSAPrivateKey(ctx, rsa);
-  RSA_free(rsa);
-  return ret;
-}
-
 int SSL_CTX_use_PrivateKey(SSL_CTX *ctx, EVP_PKEY *pkey) {
   if (pkey == NULL) {
     OPENSSL_PUT_ERROR(SSL, ERR_R_PASSED_NULL_PARAMETER);
@@ -285,24 +228,6 @@ int SSL_CTX_use_PrivateKey(SSL_CTX *ctx, EVP_PKEY *pkey) {
   }
 
   return ssl_set_pkey(ctx->cert, pkey);
-}
-
-int SSL_CTX_use_PrivateKey_ASN1(int type, SSL_CTX *ctx, const uint8_t *d,
-                                long len) {
-  int ret;
-  const uint8_t *p;
-  EVP_PKEY *pkey;
-
-  p = d;
-  pkey = d2i_PrivateKey(type, NULL, &p, (long)len);
-  if (pkey == NULL) {
-    OPENSSL_PUT_ERROR(SSL, ERR_R_ASN1_LIB);
-    return 0;
-  }
-
-  ret = SSL_CTX_use_PrivateKey(ctx, pkey);
-  EVP_PKEY_free(pkey);
-  return ret;
 }
 
 void SSL_set_private_key_method(SSL *ssl,
