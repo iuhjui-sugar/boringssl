@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "64dafe36_dd6f4b80",
+        "filename": "ssl/ssl_file.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-04T19:25:26Z",
+      "side": 1,
+      "message": "This function is, incidentally, the only thing in the entire library that cares about reading directories.",
+      "revId": "f571cc22c7c856ef2ed398023ddd82546a14f705",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
