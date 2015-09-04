@@ -289,6 +289,24 @@
     },
     {
       "key": {
+        "uuid": "64dafe36_5d325bd7",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2015-09-04T16:52:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44333af5_d28b04a1",
+      "revId": "436a35e317c0617c42d5b848904d49fadb661bba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44333af5_6f2d8d5e",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 6
@@ -383,6 +401,24 @@
       "side": 1,
       "message": "The spec says that, as a server signing ServerKeyExchange, if the client (peer) doesn\u0027t give you a list in ClientHello, then you fallback to SHA-1. That\u0027s if peer_sigalgs is empty.\n\nIt doesn\u0027t really say anything about a client signing CertificateVerify, but we can probably assume the analogous (if the server (peer) doesn\u0027t give you a list in CertificateRequest, then you fallback to SHA-1. Also if peer_sigalgs is empty).\n\nIt doesn\u0027t generally say much about how local configuration (digest_nids) works. The existing behavior is that, absent any (nonexistent) APIs to configure it otherwise, the local configuration is tls12_sigalgs. If not specified, it should probably continue to pick a default. Most consumers would be using in-memory keys and likely don\u0027t have opinions on what hashes to prefer.",
       "parentUuid": "44333af5_f2196045",
+      "revId": "436a35e317c0617c42d5b848904d49fadb661bba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64dafe36_3d3d8fa8",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 2862,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2015-09-04T16:52:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44333af5_f28e00b3",
       "revId": "436a35e317c0617c42d5b848904d49fadb661bba",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
