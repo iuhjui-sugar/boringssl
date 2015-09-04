@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "64dafe36_3d1cafff",
+        "filename": "ssl/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-04T20:30:02Z",
+      "side": 1,
+      "message": "The end of tls1_change_cipher_state needs to be updated to not record-split SSL_eNULL. (I wouldn\u0027t object to having that call some SSL_CIPHER_is_block_cipher function instead.)",
+      "range": {
+        "startLine": 185,
+        "startChar": 8,
+        "endLine": 185,
+        "endChar": 17
+      },
+      "revId": "d22053eaf5d9634da7403b1fb11344730bc7ffa6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64dafe36_5d217b36",
+        "filename": "ssl/test/runner/cipher_suites.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-04T20:30:02Z",
+      "side": 1,
+      "message": "I assume you meant this to say TLS_RSA_WITH_NULL_SHA ? :-)",
+      "range": {
+        "startLine": 378,
+        "startChar": 1,
+        "endLine": 378,
+        "endChar": 22
+      },
+      "revId": "d22053eaf5d9634da7403b1fb11344730bc7ffa6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64dafe36_1d17f3dd",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-04T20:30:02Z",
+      "side": 1,
+      "message": "I believe as currently implemented, the NULL cipher exists in DTLS. We should either test that or, in dtls1_supports_cipher, turn it off.",
+      "revId": "d22053eaf5d9634da7403b1fb11344730bc7ffa6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
