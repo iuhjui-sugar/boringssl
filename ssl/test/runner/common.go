@@ -616,6 +616,10 @@ type ProtocolBugs struct {
 	// still be enforced.
 	NoSignatureAndHashes bool
 
+	// DetermineHash, if true, causes the client to fail with the value
+	// of the selected Hash Digest.
+	DetermineHash bool
+
 	// NoSupportedCurves, if true, causes the client to omit the
 	// supported_curves extension.
 	NoSupportedCurves bool

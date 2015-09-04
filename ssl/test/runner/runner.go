@@ -162,6 +162,8 @@ type testCase struct {
 	messageLen int
 	// messageCount is the number of test messages that will be sent.
 	messageCount int
+	// digestPrefs is the list of digest preferences from the client.
+	digestPrefs string
 	// certFile is the path to the certificate to use for the server.
 	certFile string
 	// keyFile is the path to the private key to use for the server.
@@ -546,6 +548,11 @@ func runTest(test *testCase, shimPath string, mallocNumToFail int64) error {
 		} else {
 			flags = append(flags, path.Join(*resourceDir, test.certFile))
 		}
+	}
+
+	if test.digestPrefs != "" {
+		flags = append(flags, "-digest-prefs")
+		flags = append(flags, test.digestPrefs)
 	}
 
 	if test.protocol == dtls {
@@ -3760,6 +3767,88 @@ func addSigningHashTests() {
 		},
 		shouldFail:    true,
 		expectedError: ":WRONG_SIGNATURE_TYPE:",
+	})
+
+	// Test that the choosen digest respects the client preferences.
+	testCases = append(testCases, testCase{
+		name: "Agree-Digest-Fallback",
+		config: Config{
+			ClientAuth: RequireAnyClientCert,
+			Bugs: ProtocolBugs{
+				DetermineHash: true,
+			},
+			SignatureAndHashes: []signatureAndHash{
+				{signatureRSA, hashSHA512},
+				{signatureRSA, hashSHA1},
+			},
+		},
+		flags: []string{
+			"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
+			"-key-file", path.Join(*resourceDir, rsaKeyFile),
+			"-digest-prefs", "SHA256",
+		},
+		shouldFail:         true,
+		expectedLocalError: fmt.Sprintf("tls: selected hash %d", hashSHA1),
+	})
+	testCases = append(testCases, testCase{
+		name: "Agree-Digest-SHA256",
+		config: Config{
+			ClientAuth: RequireAnyClientCert,
+			Bugs: ProtocolBugs{
+				DetermineHash: true,
+			},
+			SignatureAndHashes: []signatureAndHash{
+				{signatureRSA, hashSHA1},
+				{signatureRSA, hashSHA256},
+			},
+		},
+		flags: []string{
+			"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
+			"-key-file", path.Join(*resourceDir, rsaKeyFile),
+			"-digest-prefs", "SHA256 SHA1",
+		},
+		shouldFail:         true,
+		expectedLocalError: fmt.Sprintf("tls: selected hash %d", hashSHA256),
+	})
+	testCases = append(testCases, testCase{
+		name: "Agree-Digest-SHA1",
+		config: Config{
+			ClientAuth: RequireAnyClientCert,
+			Bugs: ProtocolBugs{
+				DetermineHash: true,
+			},
+			SignatureAndHashes: []signatureAndHash{
+				{signatureRSA, hashSHA1},
+			},
+		},
+		flags: []string{
+			"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
+			"-key-file", path.Join(*resourceDir, rsaKeyFile),
+			"-digest-prefs", "SHA512 SHA256 SHA1",
+		},
+		shouldFail:         true,
+		expectedLocalError: fmt.Sprintf("tls: selected hash %d", hashSHA1),
+	})
+	testCases = append(testCases, testCase{
+		name: "Agree-Digest-Default",
+		config: Config{
+			ClientAuth: RequireAnyClientCert,
+			Bugs: ProtocolBugs{
+				DetermineHash: true,
+			},
+			SignatureAndHashes: []signatureAndHash{
+				{signatureRSA, hashSHA256},
+				{signatureECDSA, hashSHA256},
+				{signatureRSA, hashSHA1},
+				{signatureECDSA, hashSHA1},
+			},
+		},
+		flags: []string{
+			"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
+			"-key-file", path.Join(*resourceDir, rsaKeyFile),
+		},
+		shouldFail:         true,
+		expectedLocalError: fmt.Sprintf("tls: selected hash %d", hashSHA256),
 	})
 }
 
