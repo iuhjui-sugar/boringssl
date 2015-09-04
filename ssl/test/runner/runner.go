@@ -162,6 +162,8 @@ type testCase struct {
 	messageLen int
 	// messageCount is the number of test messages that will be sent.
 	messageCount int
+	// digestPrefs is the list of digest preferences from the client.
+	digestPrefs string
 	// certFile is the path to the certificate to use for the server.
 	certFile string
 	// keyFile is the path to the private key to use for the server.
@@ -546,6 +548,11 @@ func runTest(test *testCase, shimPath string, mallocNumToFail int64) error {
 		} else {
 			flags = append(flags, path.Join(*resourceDir, test.certFile))
 		}
+	}
+
+	if test.digestPrefs != "" {
+		flags = append(flags, "-digest-prefs")
+		flags = append(flags, test.digestPrefs)
 	}
 
 	if test.protocol == dtls {
@@ -2247,6 +2254,95 @@ func addClientAuthTests() {
 				},
 			})
 		}
+		if ver.version >= VersionTLS12 {
+			testCases = append(testCases, testCase{
+				testType: clientTest,
+				name:     ver.name + "-No-Valid-Digest",
+				config: Config{
+					MinVersion: ver.version,
+					MaxVersion: ver.version,
+					ClientAuth: RequireAnyClientCert,
+					ClientCAs:  certPool,
+				},
+				flags: []string{
+					"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
+					"-key-file", path.Join(*resourceDir, rsaKeyFile),
+					"-digest-prefs", "MD5-SHA1",
+				},
+				shouldFail:         true,
+				expectedLocalError: "tls: unsupported hash function for client certificate",
+			})
+
+			testCases = append(testCases, testCase{
+				testType: clientTest,
+				name:     "Agree-Digest-SHA256",
+				config: Config{
+					MinVersion: ver.version,
+					MaxVersion: ver.version,
+					ClientAuth: RequireAnyClientCert,
+					ClientCAs:  certPool,
+					Bugs: ProtocolBugs{
+						DetermineHash: true,
+					},
+					SignatureAndHashes: []signatureAndHash{
+						{signatureRSA, hashSHA1},
+						{signatureRSA, hashSHA256},
+					},
+				},
+				flags: []string{
+					"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
+					"-key-file", path.Join(*resourceDir, rsaKeyFile),
+					"-digest-prefs", "SHA256 SHA1",
+				},
+				shouldFail:         true,
+				expectedLocalError: "tls: selected hash " + strconv.Itoa(int(hashSHA256)),
+			})
+
+			testCases = append(testCases, testCase{
+				testType: clientTest,
+				name:     "Agree-Digest-SHA1",
+				config: Config{
+					MinVersion: ver.version,
+					MaxVersion: ver.version,
+					ClientAuth: RequireAnyClientCert,
+					ClientCAs:  certPool,
+					Bugs: ProtocolBugs{
+						DetermineHash: true,
+					},
+					SignatureAndHashes: []signatureAndHash{
+						{signatureRSA, hashSHA1},
+					},
+				},
+				flags: []string{
+					"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
+					"-key-file", path.Join(*resourceDir, rsaKeyFile),
+					"-digest-prefs", "SHA512 SHA256 SHA1",
+				},
+				shouldFail:         true,
+				expectedLocalError: "tls: selected hash " + strconv.Itoa(int(hashSHA1)),
+			})
+
+			testCases = append(testCases, testCase{
+				testType: clientTest,
+				name:     "Agree-Digest-Default",
+				config: Config{
+					MinVersion: ver.version,
+					MaxVersion: ver.version,
+					ClientAuth: RequireAnyClientCert,
+					ClientCAs:  certPool,
+					Bugs: ProtocolBugs{
+						DetermineHash: true,
+					},
+				},
+				flags: []string{
+					"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
+					"-key-file", path.Join(*resourceDir, rsaKeyFile),
+				},
+				shouldFail:         true,
+				expectedLocalError: "tls: selected hash " + strconv.Itoa(int(hashSHA256)),
+			})
+		}
+
 	}
 }
 

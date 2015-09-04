@@ -17,6 +17,7 @@ import (
 	"fmt"
 	"io"
 	"math/big"
+	"strconv"
 )
 
 // serverHandshakeState contains details of a server handshake in progress.
@@ -684,6 +685,8 @@ func (hs *serverHandshakeState) doFullHandshake() error {
 			signatureAndHash = certVerify.signatureAndHash
 			if !isSupportedSignatureAndHash(signatureAndHash, config.signatureAndHashesForServer()) {
 				return errors.New("tls: unsupported hash function for client certificate")
+			} else if config.Bugs.DetermineHash {
+				return errors.New("tls: selected hash " + strconv.Itoa(int(signatureAndHash.hash)))
 			}
 		} else {
 			// Before TLS 1.2 the signature algorithm was implicit
