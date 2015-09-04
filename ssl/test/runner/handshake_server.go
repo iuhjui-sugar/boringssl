@@ -684,6 +684,8 @@ func (hs *serverHandshakeState) doFullHandshake() error {
 			signatureAndHash = certVerify.signatureAndHash
 			if !isSupportedSignatureAndHash(signatureAndHash, config.signatureAndHashesForServer()) {
 				return errors.New("tls: unsupported hash function for client certificate")
+			} else if config.Bugs.DetermineHash {
+				return fmt.Errorf("tls: selected hash %d", signatureAndHash.hash)
 			}
 		} else {
 			// Before TLS 1.2 the signature algorithm was implicit
