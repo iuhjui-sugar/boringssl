@@ -125,8 +125,10 @@ const Flag<std::string> kBase64Flags[] = {
   { "-expect-certificate-types", &TestConfig::expected_certificate_types },
   { "-expect-channel-id", &TestConfig::expected_channel_id },
   { "-expect-ocsp-response", &TestConfig::expected_ocsp_response },
-  { "-expect-signed-cert-timestamps",
+  { "-expect-signed-cert-timestamps",  // For client test.
     &TestConfig::expected_signed_cert_timestamps },
+  { "-expect-signed-cert-timestamp-response",  // For server test.
+    &TestConfig::expected_signed_cert_timestamp_response },
   { "-ocsp-response", &TestConfig::ocsp_response },
 };
 

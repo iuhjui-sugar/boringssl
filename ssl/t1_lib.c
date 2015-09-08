@@ -1545,12 +1545,37 @@ static int ext_sct_parse_serverhello(SSL *ssl, uint8_t *out_alert,
 
 static int ext_sct_parse_clienthello(SSL *ssl, uint8_t *out_alert,
                                      CBS *contents) {
-  /* The SCT extension is not supported as a server. */
+  if (contents == NULL) {
+    return 1;
+  }
+
+  if (CBS_len(contents) != 0) {
+    /* There should be no payload in the SCT extension. */
+    *out_alert = SSL3_AD_HANDSHAKE_FAILURE;
+    return 0;
+  }
+
+  ssl->s3->tmp.signed_cert_timestamp_requested = 1;
+
   return 1;
 }
 
 static int ext_sct_add_serverhello(SSL *ssl, CBB *out) {
-  /* The SCT extension is not supported as a server. */
+  if (!ssl->s3->tmp.signed_cert_timestamp_requested ||
+      ssl->ctx->signed_cert_timestamp_response_len == 0 ||
+      ssl->ctx->signed_cert_timestamp_response == NULL) {
+    return 1;
+  }
+
+  CBB contents;
+  if (!CBB_add_u16(out, TLSEXT_TYPE_certificate_timestamp) ||
+      !CBB_add_u16_length_prefixed(out, &contents) ||
+      !CBB_add_bytes(&contents, ssl->ctx->signed_cert_timestamp_response,
+                     ssl->ctx->signed_cert_timestamp_response_len) ||
+      !CBB_flush(out)) {
+    return 0;
+  }
+
   return 1;
 }
 
