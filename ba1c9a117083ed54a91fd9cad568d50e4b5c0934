@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "64dafe36_c3fccae2",
+        "filename": "crypto/directory_posix.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-08T21:28:04Z",
+      "side": 1,
+      "message": "NaCl",
+      "range": {
+        "startLine": 42,
+        "startChar": 3,
+        "endLine": 42,
+        "endChar": 8
+      },
+      "revId": "ba1c9a117083ed54a91fd9cad568d50e4b5c0934",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64dafe36_03f792fa",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-08T21:28:04Z",
+      "side": 1,
+      "message": "/* C-style comments */",
+      "revId": "ba1c9a117083ed54a91fd9cad568d50e4b5c0934",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64dafe36_63bdb60e",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-08T21:28:04Z",
+      "side": 1,
+      "message": "It looks like the way Chromium does it, NaCl is an operating system while PNaCl is an architecture. And so we\u0027d keep OPENSSL_PNACL here and set an OPENSSL_NACL down with the OS\u0027s.\n\nArguably you want OPENSSL_64_BIT to be set for 64-bit NaCl anyway. That controls whether BIGNUMs are implemented with uint64_t or uint32_t and uint64_t operations are still legal in x86_64 NaCl I believe. It\u0027s just pointers are 32-bit. (Hopefully we don\u0027t have any code which assumes the pointer size is the same as the bittedness?)",
+      "revId": "ba1c9a117083ed54a91fd9cad568d50e4b5c0934",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
