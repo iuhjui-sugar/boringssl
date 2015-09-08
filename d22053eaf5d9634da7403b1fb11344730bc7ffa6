@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e4c34e74_7c2b7518",
+        "filename": "ssl/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-09-08T22:15:52Z",
+      "side": 1,
+      "message": "Done.  (Though just for my education, does my having enabled explicit IVs per agl\u0027s comment double-cover this case?)",
+      "parentUuid": "64dafe36_3d1cafff",
+      "range": {
+        "startLine": 185,
+        "startChar": 8,
+        "endLine": 185,
+        "endChar": 17
+      },
+      "revId": "d22053eaf5d9634da7403b1fb11344730bc7ffa6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64dafe36_5d217b36",
         "filename": "ssl/test/runner/cipher_suites.go",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "e4c34e74_9c89a9ae",
+        "filename": "ssl/test/runner/cipher_suites.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-09-08T22:15:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64dafe36_5d217b36",
+      "range": {
+        "startLine": 378,
+        "startChar": 1,
+        "endLine": 378,
+        "endChar": 22
+      },
+      "revId": "d22053eaf5d9634da7403b1fb11344730bc7ffa6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64dafe36_1d17f3dd",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 4
@@ -59,6 +107,24 @@
       "writtenOn": "2015-09-04T20:30:02Z",
       "side": 1,
       "message": "I believe as currently implemented, the NULL cipher exists in DTLS. We should either test that or, in dtls1_supports_cipher, turn it off.",
+      "revId": "d22053eaf5d9634da7403b1fb11344730bc7ffa6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4c34e74_1c3fd97b",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-09-08T22:15:52Z",
+      "side": 1,
+      "message": "Went with the latter.  SG?",
+      "parentUuid": "64dafe36_1d17f3dd",
       "revId": "d22053eaf5d9634da7403b1fb11344730bc7ffa6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
