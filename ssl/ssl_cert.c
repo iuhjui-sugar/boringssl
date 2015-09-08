@@ -372,20 +372,19 @@ STACK_OF(X509_NAME) *SSL_CTX_get_client_CA_list(const SSL_CTX *ctx) {
   return ctx->client_CA;
 }
 
-STACK_OF(X509_NAME) *SSL_get_client_CA_list(const SSL *s) {
-  if (s->server) {
-    if (s->client_CA != NULL) {
-      return s->client_CA;
-    } else {
-      return s->ctx->client_CA;
-    }
-  } else {
-    if ((s->version >> 8) == SSL3_VERSION_MAJOR && s->s3 != NULL) {
-      return s->s3->tmp.ca_names;
-    } else {
-      return NULL;
-    }
+STACK_OF(X509_NAME) *SSL_get_client_CA_list(const SSL *ssl) {
+  /* For historical reasons, this function is used both to query configuration
+   * state on a server as well as handshake state on a client. However, whether
+   * an |SSL| is a client or server is not known until explicitly configured
+   * with |SSL_set_connect_state|, so also check |handshake_func|. */
+  if (ssl->handshake_func != NULL && !ssl->server) {
+    return ssl->s3->tmp.ca_names;
   }
+
+  if (ssl->client_CA != NULL) {
+    return ssl->client_CA;
+  }
+  return ssl->ctx->client_CA;
 }
 
 static int add_client_CA(STACK_OF(X509_NAME) **sk, X509 *x) {
