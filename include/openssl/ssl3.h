@@ -494,6 +494,9 @@ typedef struct ssl3_state_st {
     /* ocsp_stapling_requested is true if a client requested OCSP stapling. */
     unsigned ocsp_stapling_requested:1;
 
+    /* signed_cert_timestamp_requested is true if a client requested SCTs. */
+    unsigned signed_cert_timestamp_requested:1;
+
     /* Server-only: peer_ellipticcurvelist contains the EC curve IDs advertised
      * by the peer. This is only set on the server's end. The server does not
      * advertise this extension to the client. */

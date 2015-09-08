@@ -40,6 +40,7 @@ type Conn struct {
 	extendedMasterSecret bool // whether this session used an extended master secret
 	cipherSuite          *cipherSuite
 	ocspResponse         []byte // stapled OCSP response
+	scts                 []byte // signed certificate timestamps from server
 	peerCertificates     []*x509.Certificate
 	// verifiedChains contains the certificate chains that we built, as
 	// opposed to the ones presented by the server.
@@ -1355,6 +1356,13 @@ func (c *Conn) OCSPResponse() []byte {
 	defer c.handshakeMutex.Unlock()
 
 	return c.ocspResponse
+}
+
+func (c *Conn) SCTList() []byte {
+	c.handshakeMutex.Lock()
+	defer c.handshakeMutex.Unlock()
+
+	return c.scts
 }
 
 // VerifyHostname checks that the peer certificate chain is valid for

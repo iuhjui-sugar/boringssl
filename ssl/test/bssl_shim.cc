@@ -246,6 +246,15 @@ static bool InstallCertificate(SSL *ssl) {
                                  config->ocsp_response.size())) {
     return false;
   }
+  if (!config->expected_signed_cert_timestamp_response.empty() &&
+      !SSL_CTX_set_signed_cert_timestamp_response(
+          ssl->ctx,
+          (const uint8_t *)config->
+              expected_signed_cert_timestamp_response.data(),
+          config->expected_signed_cert_timestamp_response.size())) {
+    return false;
+  }
+
   return true;
 }
 

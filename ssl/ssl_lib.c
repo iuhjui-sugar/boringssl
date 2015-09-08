@@ -1399,6 +1399,25 @@ int SSL_CTX_set_ocsp_response(SSL_CTX *ctx, const uint8_t *response,
   return 1;
 }
 
+int SSL_CTX_set_signed_cert_timestamp_response(SSL_CTX *ctx,
+                                               const uint8_t *response,
+                                               size_t response_len) {
+  OPENSSL_free(ctx->signed_cert_timestamp_response);
+  ctx->signed_cert_timestamp_response_len = 0;
+  ctx->signed_cert_timestamp_response = NULL;
+
+  if (response == NULL || response_len == 0) {
+    return 1;
+  }
+
+  ctx->signed_cert_timestamp_response = BUF_memdup(response, response_len);
+  if (ctx->signed_cert_timestamp_response == NULL) {
+    return 0;
+  }
+  ctx->signed_cert_timestamp_response_len = response_len;
+  return 1;
+}
+
 /* SSL_select_next_proto implements the standard protocol selection. It is
  * expected that this function is called from the callback set by
  * SSL_CTX_set_next_proto_select_cb.
@@ -1739,6 +1758,7 @@ void SSL_CTX_free(SSL_CTX *ctx) {
   OPENSSL_free(ctx->tlsext_ellipticcurvelist);
   OPENSSL_free(ctx->alpn_client_proto_list);
   OPENSSL_free(ctx->ocsp_response);
+  OPENSSL_free(ctx->signed_cert_timestamp_response);
   EVP_PKEY_free(ctx->tlsext_channel_id_private);
   BIO_free(ctx->keylog_bio);
 

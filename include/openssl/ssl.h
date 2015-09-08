@@ -635,6 +635,12 @@ OPENSSL_EXPORT int SSL_CTX_set_ocsp_response(SSL_CTX *ctx,
                                              const uint8_t *response,
                                              size_t response_len);
 
+/* SSL_CTX_set_signed_cert_timestamp_list sets the SCT list that is sent to
+ * clients that request it. It returns one on success and zero on error. The
+ * caller retains ownership of |response|. */
+OPENSSL_EXPORT int SSL_CTX_set_signed_cert_timestamp_response(
+    SSL_CTX *ctx, const uint8_t *response, size_t response_len);
+
 
 /* Certificate and private key convenience functions. */
 
@@ -1482,6 +1488,11 @@ struct ssl_ctx_st {
   /* OCSP response to be sent to the client, if requested. */
   uint8_t *ocsp_response;
   size_t ocsp_response_length;
+
+  /* Signed Certificate Timestamp list to be sent to the client, if
+   * requested. */
+  uint8_t *signed_cert_timestamp_response;
+  size_t signed_cert_timestamp_response_len;
 
   /* If not NULL, session key material will be logged to this BIO for debugging
    * purposes. The format matches NSS's and is readable by Wireshark. */

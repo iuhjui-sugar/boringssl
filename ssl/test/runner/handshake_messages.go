@@ -992,11 +992,14 @@ func (m *serverHelloMsg) unmarshal(data []byte) bool {
 			if length < 2 {
 				return false
 			}
+                        // We could do a lot more validation here, but we stop
+                        // arbitrarily at checking the SCT list's advertised
+                        // length.
 			l := int(data[0])<<8 | int(data[1])
-			if l != len(data)-2 {
+			if l != len(data[:length])-2 {
 				return false
 			}
-			m.sctList = data[2:length]
+			m.sctList = data[:length]
 		case extensionCustom:
 			m.customExtension = string(data[:length])
 		}

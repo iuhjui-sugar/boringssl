@@ -61,6 +61,7 @@ func (c *Conn) clientHandshake() error {
 		compressionMethods:      []uint8{compressionNone},
 		random:                  make([]byte, 32),
 		ocspStapling:            true,
+		sctListSupported:        true,
 		serverName:              c.config.ServerName,
 		supportedCurves:         c.config.curvePreferences(),
 		supportedPoints:         []uint8{pointFormatUncompressed},
@@ -716,6 +717,7 @@ func (hs *clientHandshakeState) processServerHello() (bool, error) {
 		c.clientProtocolFallback = false
 		c.usedALPN = true
 	}
+        c.scts = hs.serverHello.sctList
 
 	if !hs.hello.channelIDSupported && hs.serverHello.channelIDRequested {
 		c.sendAlert(alertHandshakeFailure)
