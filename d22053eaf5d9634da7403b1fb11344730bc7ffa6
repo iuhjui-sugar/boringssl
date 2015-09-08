@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "64dafe36_4602884a",
+        "filename": "ssl/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-08T22:44:50Z",
+      "side": 1,
+      "message": "Nah, that parameter doesn\u0027t do anything when the underlying EVP_CIPHER has no IV. EVP_AEAD doesn\u0027t farm out a \"has implicit IV you need to compensate for\" bit or anything. Though arguably something, be it SSL_AEAD_CTX or EVP_AEAD, should be plumbing that bit up to replace the whole need_record_splitting mess. Eh, I\u0027ll toy with that later. :-)",
+      "parentUuid": "e4c34e74_7c2b7518",
+      "range": {
+        "startLine": 185,
+        "startChar": 8,
+        "endLine": 185,
+        "endChar": 17
+      },
+      "revId": "d22053eaf5d9634da7403b1fb11344730bc7ffa6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64dafe36_5d217b36",
         "filename": "ssl/test/runner/cipher_suites.go",
         "patchSetId": 4
@@ -125,6 +149,24 @@
       "side": 1,
       "message": "Went with the latter.  SG?",
       "parentUuid": "64dafe36_1d17f3dd",
+      "revId": "d22053eaf5d9634da7403b1fb11344730bc7ffa6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64dafe36_c6e6981d",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-08T22:44:50Z",
+      "side": 1,
+      "message": "Works for me!",
+      "parentUuid": "e4c34e74_1c3fd97b",
       "revId": "d22053eaf5d9634da7403b1fb11344730bc7ffa6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
