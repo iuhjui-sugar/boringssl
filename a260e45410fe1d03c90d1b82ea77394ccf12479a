@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "64dafe36_c3584a9a",
+        "filename": "ssl/ssl_cert.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-08T21:51:41Z",
+      "side": 1,
+      "message": "This is sort of a weird check, but it\u0027s consistent the check that SSL_connect uses. There\u0027s something to be said for making this tri-state somewhat more sane, but we can fix this function and SSL_connect uniformly.",
+      "revId": "a260e45410fe1d03c90d1b82ea77394ccf12479a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
