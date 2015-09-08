@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "64dafe36_4650c84a",
+        "filename": "ssl/d1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-08T22:44:50Z",
+      "side": 1,
+      "message": "(DTLS can also do AEADs, though I see your SSL_CIPHER_is_block_cipher function also includes AEADs right now. See comment in ssl_cipher.c.)",
+      "revId": "ab96634d4b099225ed2424edbd698cb1d6686432",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64dafe36_26249cf1",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1394,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-08T22:44:50Z",
+      "side": 1,
+      "message": "No OPENSSL_EXPORT in C files. (I think MSVC will actually hate you if you do this, but I could be making it up. Anyway, consistency. :-) )",
+      "range": {
+        "startLine": 1394,
+        "startChar": 0,
+        "endLine": 1394,
+        "endChar": 15
+      },
+      "revId": "ab96634d4b099225ed2424edbd698cb1d6686432",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64dafe36_a617cc7f",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1395,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-08T22:44:50Z",
+      "side": 1,
+      "message": "AEADs (SSL_AEAD) aren\u0027t block ciphers either.\n\nBackground in case you weren\u0027t familiar: so there\u0027s three/four kinds of ciphers in TLS:\n\n1. Null ciphers and stream ciphers. The spec lumps the two together. The only stream cipher defined is RC4 and it\u0027s bad.\n\n2. Block ciphers. These are used with CBC mode and, for our purposes are, AES_128_CBC, AES_256_CBC, and 3DES_EDE_CBC. These are also bad.\n\n3. AEADs. These are sane. For our purposes, they are AES_128_GCM, AES_256_GCM, and CHACHA20_POLY1305. These are good. Hopefully the TLSWG will be sane and never define any new ones that are not in this category.\n\nPrior to TLS 1.1, block ciphers were especially bad (rather than just bad) and require record-splitting to work around a bug. (This is the BEAST attack.)\n\nAEADs are new as of TLS 1.2 and don\u0027t exist before then.\n\nDTLS can do block ciphers, AEADs, the NULL cipher, but not stream ciphers because they\u0027re stateful.\n\n(DTLS also would not be able to do the TLS 1.0 block cipher construction, but it\u0027s fine because DTLS 1.0 is really TLS 1.1, just because everything is confusing.)",
+      "revId": "ab96634d4b099225ed2424edbd698cb1d6686432",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
