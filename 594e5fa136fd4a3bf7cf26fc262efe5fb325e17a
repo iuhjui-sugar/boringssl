@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e4c34e74_dfb953b5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-09-08T23:32:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "240f267a_1d3283bf",
+      "revId": "594e5fa136fd4a3bf7cf26fc262efe5fb325e17a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "240f267a_7d3737af",
         "filename": "/COMMIT_MSG",
         "patchSetId": 4
@@ -30,6 +48,30 @@
       "writtenOn": "2015-09-04T22:13:51Z",
       "side": 1,
       "message": "Remove \"code\" here?",
+      "range": {
+        "startLine": 11,
+        "startChar": 48,
+        "endLine": 11,
+        "endChar": 52
+      },
+      "revId": "594e5fa136fd4a3bf7cf26fc262efe5fb325e17a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4c34e74_bfbe9f99",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-09-08T23:32:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "240f267a_7d3737af",
       "range": {
         "startLine": 11,
         "startChar": 48,
