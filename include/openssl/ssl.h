@@ -624,6 +624,13 @@ OPENSSL_EXPORT int SSL_CTX_get_extra_chain_certs(const SSL_CTX *ctx,
 OPENSSL_EXPORT int SSL_get0_chain_certs(const SSL *ssl,
                                         STACK_OF(X509) **out_chain);
 
+/* SSL_CTX_set_signed_cert_timestamp_list sets the list of signed certificate
+ * timestamps that is sent to clients that request it. It returns one on
+ * success and zero on error. The caller retains ownership of |list|. */
+OPENSSL_EXPORT int SSL_CTX_set_signed_cert_timestamp_list(SSL_CTX *ctx,
+                                                          const uint8_t *list,
+                                                          size_t list_len);
+
 /* SSL_CTX_set_ocsp_response sets the OCSP reponse that is sent to clients
  * which request it. It returns one on success and zero on error. The caller
  * retains ownership of |response|. */
@@ -1471,6 +1478,10 @@ struct ssl_ctx_st {
 
   /* If true, a client will request certificate timestamps. */
   char signed_cert_timestamps_enabled;
+
+  /* Signed certificate timestamp list to be sent to the client, if requested */
+  uint8_t *signed_cert_timestamp_list;
+  size_t signed_cert_timestamp_list_length;
 
   /* If true, a client will request a stapled OCSP response. */
   char ocsp_stapling_enabled;
