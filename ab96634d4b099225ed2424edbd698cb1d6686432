@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e4c34e74_4240c86b",
+        "filename": "ssl/d1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-09-09T02:08:06Z",
+      "side": 1,
+      "message": "Fixed the implementatin to omit AEADs.  This does mean that the change to t1_enc.c is now different from what it was, but I assume that\u0027s okay?  (\u003d test changes from \"not RC4\" to \"not a block cipher\").",
+      "parentUuid": "64dafe36_4650c84a",
+      "revId": "ab96634d4b099225ed2424edbd698cb1d6686432",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64dafe36_26249cf1",
         "filename": "ssl/ssl_cipher.c",
         "patchSetId": 5
@@ -30,6 +48,30 @@
       "writtenOn": "2015-09-08T22:44:50Z",
       "side": 1,
       "message": "No OPENSSL_EXPORT in C files. (I think MSVC will actually hate you if you do this, but I could be making it up. Anyway, consistency. :-) )",
+      "range": {
+        "startLine": 1394,
+        "startChar": 0,
+        "endLine": 1394,
+        "endChar": 15
+      },
+      "revId": "ab96634d4b099225ed2424edbd698cb1d6686432",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4c34e74_a230c41d",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1394,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-09-09T02:08:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64dafe36_26249cf1",
       "range": {
         "startLine": 1394,
         "startChar": 0,
