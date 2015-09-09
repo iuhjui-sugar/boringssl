@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e4c34e74_e828dbc7",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-09-09T19:09:21Z",
+      "side": 1,
+      "message": "Interesting: I did this in |InstallCertificates|",
+      "range": {
+        "startLine": 708,
+        "startChar": 2,
+        "endLine": 708,
+        "endChar": 3
+      },
+      "revId": "b2ced8aee286cba879f8a4560bcc1b9b3519121e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4c34e74_a822e3e1",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-09-09T19:09:21Z",
+      "side": 1,
+      "message": "Just to double-check: is this used?",
+      "revId": "b2ced8aee286cba879f8a4560bcc1b9b3519121e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
