@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "442a5a15_d4691cc4",
+        "filename": "ssl/d1_lib.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-09T13:16:30Z",
+      "side": 1,
+      "message": "Maybe \"Also disable the NULL cipher as it\u0027s not needed.\"? :-)",
+      "range": {
+        "startLine": 155,
+        "startChar": 43,
+        "endLine": 156,
+        "endChar": 16
+      },
+      "revId": "81c5bbd924423acf8d23df2bfabca9b66a27bae5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "442a5a15_349e5023",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 1383,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-09T13:16:30Z",
+      "side": 1,
+      "message": "(Whoops. Uploaded https://boringssl-review.googlesource.com/#/c/5850/ )",
+      "range": {
+        "startLine": 1383,
+        "startChar": 28,
+        "endLine": 1383,
+        "endChar": 31
+      },
+      "revId": "81c5bbd924423acf8d23df2bfabca9b66a27bae5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "442a5a15_b4910017",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 1400,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-09T13:16:30Z",
+      "side": 1,
+      "message": "Nit: I\u0027d probably do a whitelist rather than a blacklist. Or perhaps do algorithm_mac !\u003d SSL_AEAD and then blacklist SSL_RC4 and SSL_eNULL. Hopefully we won\u0027t be adding any new block ciphers, while more AEADs is believable.",
+      "revId": "81c5bbd924423acf8d23df2bfabca9b66a27bae5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
