@@ -486,6 +486,9 @@ typedef struct ssl3_state_st {
      * requested. */
     int cert_request;
 
+    /* Server-only */
+    unsigned signed_cert_timestamps_requested:1;
+
     /* certificate_status_expected is true if OCSP stapling was negotiated and
      * the server is expected to send a CertificateStatus message. (This is
      * used on both the client and server sides.) */
