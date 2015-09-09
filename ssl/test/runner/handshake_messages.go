@@ -993,7 +993,7 @@ func (m *serverHelloMsg) unmarshal(data []byte) bool {
 				return false
 			}
 			l := int(data[0])<<8 | int(data[1])
-			if l != len(data)-2 {
+			if l != length - 2 {
 				return false
 			}
 			m.sctList = data[2:length]

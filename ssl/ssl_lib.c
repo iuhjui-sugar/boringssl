@@ -1385,6 +1385,21 @@ void SSL_get0_ocsp_response(const SSL *ssl, const uint8_t **out,
   *out_len = session->ocsp_response_length;
 }
 
+int SSL_CTX_set_signed_cert_timestamp_list(SSL_CTX *ctx, const uint8_t *list,
+                                           size_t list_len) {
+  OPENSSL_free(ctx->signed_cert_timestamp_list);
+  ctx->signed_cert_timestamp_list_length = 0;
+
+  ctx->signed_cert_timestamp_list = BUF_memdup(list, list_len);
+  if (ctx->signed_cert_timestamp_list == NULL) {
+    return 0;
+  }
+  ctx->signed_cert_timestamp_list_length = list_len;
+
+  return 1;
+}
+
+
 int SSL_CTX_set_ocsp_response(SSL_CTX *ctx, const uint8_t *response,
                               size_t response_len) {
   OPENSSL_free(ctx->ocsp_response);

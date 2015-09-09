@@ -1545,13 +1545,34 @@ static int ext_sct_parse_serverhello(SSL *ssl, uint8_t *out_alert,
 
 static int ext_sct_parse_clienthello(SSL *ssl, uint8_t *out_alert,
                                      CBS *contents) {
-  /* The SCT extension is not supported as a server. */
+  ssl->s3->tmp.signed_cert_timestamps_requested = 0;
+
+  if (contents == NULL) {
+    return 1;
+  }
+
+
+  if (CBS_len(contents) != 0) {
+    return 0;
+  }
+
+  ssl->s3->tmp.signed_cert_timestamps_requested = 1;
   return 1;
 }
 
 static int ext_sct_add_serverhello(SSL *ssl, CBB *out) {
-  /* The SCT extension is not supported as a server. */
-  return 1;
+  if (!ssl->s3->tmp.signed_cert_timestamps_requested ||
+      ssl->ctx->signed_cert_timestamp_list_length == 0) {
+    return 1;
+  }
+
+  CBB contents, sct_list;
+  return CBB_add_u16(out, TLSEXT_TYPE_certificate_timestamp) &&
+         CBB_add_u16_length_prefixed(out, &contents) &&
+         CBB_add_u16_length_prefixed(&contents, &sct_list) &&
+         CBB_add_bytes(&sct_list, ssl->ctx->signed_cert_timestamp_list,
+                       ssl->ctx->signed_cert_timestamp_list_length) &&
+         CBB_flush(out);
 }
 
 
