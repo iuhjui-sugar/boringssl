@@ -16,6 +16,24 @@
       "revId": "a260e45410fe1d03c90d1b82ea77394ccf12479a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4c34e74_aed42b25",
+        "filename": "ssl/ssl_cert.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-09-10T00:42:18Z",
+      "side": 1,
+      "message": "Spell that out just a little bit more: the non-NULL handshake func tells you that it\u0027s really in client mode, rather than in an indeterminate state.",
+      "parentUuid": "64dafe36_c3584a9a",
+      "revId": "a260e45410fe1d03c90d1b82ea77394ccf12479a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
