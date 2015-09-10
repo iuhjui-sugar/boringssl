@@ -34,6 +34,24 @@
       "revId": "a260e45410fe1d03c90d1b82ea77394ccf12479a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "442a5a15_1a1c9d71",
+        "filename": "ssl/ssl_cert.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-10T14:32:50Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "e4c34e74_aed42b25",
+      "revId": "a260e45410fe1d03c90d1b82ea77394ccf12479a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
