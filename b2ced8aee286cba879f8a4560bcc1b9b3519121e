@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "848ff2ac_fec1e18b",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-09-11T21:38:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4d31695_07e7561a",
+      "range": {
+        "startLine": 633,
+        "startChar": 63,
+        "endLine": 633,
+        "endChar": 71
+      },
+      "revId": "b2ced8aee286cba879f8a4560bcc1b9b3519121e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4d31695_87018647",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 2
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "848ff2ac_7eceb1b9",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1548,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-09-11T21:38:39Z",
+      "side": 1,
+      "message": "(Moot: removed.)",
+      "parentUuid": "a4d31695_87018647",
+      "revId": "b2ced8aee286cba879f8a4560bcc1b9b3519121e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4d31695_27f1bad0",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 2
@@ -53,6 +95,24 @@
       "writtenOn": "2015-09-11T19:26:34Z",
       "side": 1,
       "message": "Hrm. Is it possible for this to be false here? add_serverhello doesn\u0027t get called if the extension wasn\u0027t present. And so we could make the parse_clienthello hook\u0027s purpose in life just be to enforce the extension is empty.",
+      "revId": "b2ced8aee286cba879f8a4560bcc1b9b3519121e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "848ff2ac_9e99bdbb",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1564,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-09-11T21:38:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4d31695_27f1bad0",
       "revId": "b2ced8aee286cba879f8a4560bcc1b9b3519121e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
