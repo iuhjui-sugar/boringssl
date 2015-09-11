@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "442a5a15_5d752f0a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-11T14:30:29Z",
+      "side": 1,
+      "message": "That\u0027s because the default used to be an EVP_PKEY_ctrl, so you had to check if the key failed to give back a default. I goofed and forgot to remove that check after folding the ctrl hook away since they were all SHA-1.",
+      "range": {
+        "startLine": 10,
+        "startChar": 4,
+        "endLine": 10,
+        "endChar": 22
+      },
+      "revId": "1685881d5c4dbf8c673a0299dfd432c234266ab9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
