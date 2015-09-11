@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "a4d31695_676e12f7",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 753,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-11T20:24:51Z",
+      "side": 0,
+      "message": "[Hah. Oops. :-) Remnant of when I was trying to match the other APIs I think.]",
+      "range": {
+        "startLine": 753,
+        "startChar": 6,
+        "endLine": 753,
+        "endChar": 10
+      },
+      "revId": "e0004721665f099b13ae035fe563fba6c013c6da",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44333af5_6fdfcdce",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 6
@@ -31,6 +54,23 @@
       "side": 0,
       "message": "Done",
       "parentUuid": "44333af5_6fdfcdce",
+      "revId": "e0004721665f099b13ae035fe563fba6c013c6da",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4d31695_c7a7fea9",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-11T20:24:51Z",
+      "side": 0,
+      "message": "Nit: BoringSSL has an extra line after the #includes.",
       "revId": "e0004721665f099b13ae035fe563fba6c013c6da",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false

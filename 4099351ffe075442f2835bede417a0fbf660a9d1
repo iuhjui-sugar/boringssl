@@ -1,0 +1,311 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a4d31695_071f5669",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-11T20:24:51Z",
+      "side": 1,
+      "message": "This seems a bit off still. Maybe:\n\n\nAllow configuring digest preferences for the private key.\n\nSome smartcards have limited support for signing digests,\nnotably Windows CAPI keys and old Estonian smartcards. Chromium\nused the supports_digest hook in SSL_PRIVATE_KEY_METHOD to\nlimit such keys to SHA1. However, detecting those keys was a\nheuristic, so some SHA256-capable keys authenticating to\nSHA256-only servers regressed in the switch to BoringSSL.\n\nReplace this mechanism with an API to configure digest preference\norder. This way heuristically-detected SHA1-only keys may be\nconfigured by Chromium as SHA1-preferring rather than\nSHA1-requiring.\n\nIn doing so, clean up the shared_sigalgs machinery somewhat.",
+      "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4d31695_077116d7",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-11T20:24:51Z",
+      "side": 1,
+      "message": "It returns one on success and zero on error.",
+      "range": {
+        "startLine": 639,
+        "startChar": 35,
+        "endLine": 639,
+        "endChar": 36
+      },
+      "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4d31695_27741ac7",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 1399,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-11T20:24:51Z",
+      "side": 1,
+      "message": "Optional: can fold this up with line 1393 and chain with ||. The distinct error code is pretty meh.",
+      "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4d31695_e77962c4",
+        "filename": "ssl/ssl_rsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-11T20:24:51Z",
+      "side": 1,
+      "message": "Nit: extra space.",
+      "range": {
+        "startLine": 637,
+        "startChar": 36,
+        "endLine": 637,
+        "endChar": 37
+      },
+      "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4d31695_c77edea9",
+        "filename": "ssl/ssl_rsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-11T20:24:51Z",
+      "side": 1,
+      "message": "This\u0027ll need to start with a:\n\n  OPENSSL_free(ssl-\u003ecerts-\u003edigest_nids);\n\n(OPENSSL_free has a built-in NULL check which you can assume.)",
+      "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4d31695_8784e6fd",
+        "filename": "ssl/ssl_rsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-11T20:24:51Z",
+      "side": 1,
+      "message": "Nit: Space after if, !\u003d NULL instead of !",
+      "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4d31695_a7e64ae8",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-11T20:24:51Z",
+      "side": 1,
+      "message": "Nit: Oh wow, we\u0027re really bad about including that one in this directory. I guess to match Google style and the more cleaned up directories, this should be above the system headers.\n\nAlternatively, I can just go do a pass to stick it on top of everything.",
+      "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4d31695_27fb7a83",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 2832,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-11T20:24:51Z",
+      "side": 1,
+      "message": "This line doesn\u0027t do anything.",
+      "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4d31695_07f8f682",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 2837,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-11T20:24:51Z",
+      "side": 1,
+      "message": "(I think this\u0027ll fit on one line.)",
+      "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4d31695_6705721b",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 2864,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-11T20:24:51Z",
+      "side": 1,
+      "message": "Nit:\n\n  static const int kDefaultDigestList[]\n\nBecause adjectives are fun. Also stuffing things into .rodata is handy.",
+      "range": {
+        "startLine": 2864,
+        "startChar": 4,
+        "endLine": 2864,
+        "endChar": 21
+      },
+      "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4d31695_a70daa44",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 2867,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-11T20:24:51Z",
+      "side": 1,
+      "message": "Rather than have this mutate |ssl| (and thus have to check for the malloc failure), I would instead suggest:\n\nconst int *digest_nids \u003d kDefaultDigestList;\nsize_t num_digest_nids \u003d sizeof(kDefaultDigestList) / int;\nif (cert-\u003edigest_nids !\u003d NULL) {\n  digest_nids \u003d cert-\u003edigest_nids;\n  num_digest_nids \u003d cert-\u003enum_digest_nids;\n}\n\nand then loop over that instead.",
+      "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4d31695_e7a2029c",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-11T20:24:51Z",
+      "side": 1,
+      "message": "Nit: alphabetize",
+      "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4d31695_078ab60e",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-11T20:24:51Z",
+      "side": 1,
+      "message": "[Huh. Spiffy. Too bad C++ doesn\u0027t have reasonable string functions.]",
+      "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4d31695_278d3a27",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-11T20:24:51Z",
+      "side": 1,
+      "message": "This won\u0027t build on MSVC. std::vector?",
+      "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4d31695_4794ae30",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-11T20:24:51Z",
+      "side": 1,
+      "message": "This switch-case can be EVP_MD_type(EVP_get_digestbyname(digest_strs[i].c_str()).",
+      "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4d31695_a77f6aa8",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-11T20:24:51Z",
+      "side": 1,
+      "message": "Check for failure.",
+      "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4d31695_47194e81",
+        "filename": "ssl/test/test_config.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-11T20:24:51Z",
+      "side": 1,
+      "message": "Did you forget to add the runner.go half? :-)",
+      "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
