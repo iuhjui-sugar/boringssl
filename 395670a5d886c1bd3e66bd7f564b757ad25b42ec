@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "442a5a15_1da817c0",
+        "filename": "crypto/evp/p_ec.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-11T14:26:29Z",
+      "side": 1,
+      "message": "Probably ought to be a separate CL, but EVP_PKEY_CTX_get_signature_md is never called, so we can also ditch this, which would let us ditch storing md on the EC_PKEY_CTX altogether.\n\nThere\u0027s still the checks above, but I\u0027m not sure they actually do anything useful.",
+      "revId": "395670a5d886c1bd3e66bd7f564b757ad25b42ec",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
