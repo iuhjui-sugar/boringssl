@@ -2789,6 +2789,11 @@ int SSL_clear(SSL *ssl) {
   return 1;
 }
 
+long SSL_CTX_ctrl(SSL_CTX *ctx, int cmd, long larg, void *parg) {
+  abort();
+  return 0;
+}
+
 int SSL_CTX_sess_connect(const SSL_CTX *ctx) { return 0; }
 int SSL_CTX_sess_connect_good(const SSL_CTX *ctx) { return 0; }
 int SSL_CTX_sess_connect_renegotiate(const SSL_CTX *ctx) { return 0; }

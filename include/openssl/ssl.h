@@ -2870,6 +2870,10 @@ OPENSSL_EXPORT void SSL_set_tmp_rsa_callback(SSL *ssl,
                                              RSA *(*cb)(SSL *ssl, int is_export,
                                                         int keylength));
 
+/* SSL_CTX_ctrl calls |abort|.  It's only here to preserve a semblance
+ * of ABI compatibility for p4sdk.  TODO(mab): Remove when unneeded. */
+OPENSSL_EXPORT long SSL_CTX_ctrl(SSL_CTX *ctx, int cmd, long larg, void *parg);
+
 /* SSL_CTX_sess_connect returns zero. */
 OPENSSL_EXPORT int SSL_CTX_sess_connect(const SSL_CTX *ctx);
 
