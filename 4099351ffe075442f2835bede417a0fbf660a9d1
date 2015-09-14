@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a4d31695_0a43db7a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2015-09-14T14:54:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4d31695_071f5669",
+      "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4d31695_077116d7",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 8
@@ -30,6 +48,30 @@
       "writtenOn": "2015-09-11T20:24:51Z",
       "side": 1,
       "message": "It returns one on success and zero on error.",
+      "range": {
+        "startLine": 639,
+        "startChar": 35,
+        "endLine": 639,
+        "endChar": 36
+      },
+      "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4d31695_4a3dd3f0",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2015-09-14T14:54:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4d31695_077116d7",
       "range": {
         "startLine": 639,
         "startChar": 35,
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "a4d31695_aa98cf6d",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 1399,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2015-09-14T14:54:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4d31695_27741ac7",
+      "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4d31695_e77962c4",
         "filename": "ssl/ssl_rsa.c",
         "patchSetId": 8
@@ -70,6 +130,30 @@
       "writtenOn": "2015-09-11T20:24:51Z",
       "side": 1,
       "message": "Nit: extra space.",
+      "range": {
+        "startLine": 637,
+        "startChar": 36,
+        "endLine": 637,
+        "endChar": 37
+      },
+      "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4d31695_8a9d0b5e",
+        "filename": "ssl/ssl_rsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2015-09-14T14:54:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4d31695_e77962c4",
       "range": {
         "startLine": 637,
         "startChar": 36,
@@ -99,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "a4d31695_eaa2c79b",
+        "filename": "ssl/ssl_rsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2015-09-14T14:54:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4d31695_c77edea9",
+      "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4d31695_8784e6fd",
         "filename": "ssl/ssl_rsa.c",
         "patchSetId": 8
@@ -110,6 +212,24 @@
       "writtenOn": "2015-09-11T20:24:51Z",
       "side": 1,
       "message": "Nit: Space after if, !\u003d NULL instead of !",
+      "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4d31695_caa703aa",
+        "filename": "ssl/ssl_rsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2015-09-14T14:54:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4d31695_8784e6fd",
       "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -133,6 +253,24 @@
     },
     {
       "key": {
+        "uuid": "a4d31695_2a8dff26",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2015-09-14T14:54:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4d31695_a7e64ae8",
+      "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4d31695_27fb7a83",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 8
@@ -150,6 +288,24 @@
     },
     {
       "key": {
+        "uuid": "a4d31695_0a8abb0e",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 2832,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2015-09-14T14:54:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4d31695_27fb7a83",
+      "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4d31695_07f8f682",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 8
@@ -161,6 +317,24 @@
       "writtenOn": "2015-09-11T20:24:51Z",
       "side": 1,
       "message": "(I think this\u0027ll fit on one line.)",
+      "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4d31695_6a97f736",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 2837,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2015-09-14T14:54:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4d31695_07f8f682",
       "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -190,6 +364,30 @@
     },
     {
       "key": {
+        "uuid": "a4d31695_4a94b330",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 2864,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2015-09-14T14:54:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4d31695_6705721b",
+      "range": {
+        "startLine": 2864,
+        "startChar": 4,
+        "endLine": 2864,
+        "endChar": 21
+      },
+      "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4d31695_a70daa44",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 8
@@ -201,6 +399,24 @@
       "writtenOn": "2015-09-11T20:24:51Z",
       "side": 1,
       "message": "Rather than have this mutate |ssl| (and thus have to check for the malloc failure), I would instead suggest:\n\nconst int *digest_nids \u003d kDefaultDigestList;\nsize_t num_digest_nids \u003d sizeof(kDefaultDigestList) / int;\nif (cert-\u003edigest_nids !\u003d NULL) {\n  digest_nids \u003d cert-\u003edigest_nids;\n  num_digest_nids \u003d cert-\u003enum_digest_nids;\n}\n\nand then loop over that instead.",
+      "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4d31695_aa7f2fa8",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 2867,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2015-09-14T14:54:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4d31695_a70daa44",
       "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -224,6 +440,24 @@
     },
     {
       "key": {
+        "uuid": "a4d31695_8a84ebfd",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2015-09-14T14:54:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4d31695_e7a2029c",
+      "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4d31695_078ab60e",
         "filename": "ssl/test/bssl_shim.cc",
         "patchSetId": 8
@@ -235,6 +469,24 @@
       "writtenOn": "2015-09-11T20:24:51Z",
       "side": 1,
       "message": "[Huh. Spiffy. Too bad C++ doesn\u0027t have reasonable string functions.]",
+      "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4d31695_ca7ee3a9",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2015-09-14T14:54:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4d31695_078ab60e",
       "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -258,6 +510,24 @@
     },
     {
       "key": {
+        "uuid": "a4d31695_2a74dfc6",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2015-09-14T14:54:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4d31695_278d3a27",
+      "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4d31695_4794ae30",
         "filename": "ssl/test/bssl_shim.cc",
         "patchSetId": 8
@@ -269,6 +539,24 @@
       "writtenOn": "2015-09-11T20:24:51Z",
       "side": 1,
       "message": "This switch-case can be EVP_MD_type(EVP_get_digestbyname(digest_strs[i].c_str()).",
+      "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4d31695_0a711bd7",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2015-09-14T14:54:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4d31695_4794ae30",
       "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -292,6 +580,24 @@
     },
     {
       "key": {
+        "uuid": "a4d31695_6a6ed7f6",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2015-09-14T14:54:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4d31695_a77f6aa8",
+      "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4d31695_47194e81",
         "filename": "ssl/test/test_config.h",
         "patchSetId": 8
@@ -303,6 +609,24 @@
       "writtenOn": "2015-09-11T20:24:51Z",
       "side": 1,
       "message": "Did you forget to add the runner.go half? :-)",
+      "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4d31695_4a6b13e5",
+        "filename": "ssl/test/test_config.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2015-09-14T14:54:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4d31695_47194e81",
       "revId": "4099351ffe075442f2835bede417a0fbf660a9d1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
