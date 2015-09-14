@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8929cb87_6e558fc4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-14T21:58:36Z",
+      "side": 1,
+      "message": "This looks like it\u0027s actually pretty easy, so I might just do it at some point soon when I\u0027m bored...",
+      "range": {
+        "startLine": 14,
+        "startChar": 49,
+        "endLine": 14,
+        "endChar": 68
+      },
+      "revId": "95bd27bfb34660b66ded920530f9aaabadea47bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
