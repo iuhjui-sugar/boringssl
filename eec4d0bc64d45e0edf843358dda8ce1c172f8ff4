@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8929cb87_d1ee667d",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-15T18:05:40Z",
+      "side": 1,
+      "message": "Nit: I\u0027d do fmt.Errorf",
+      "revId": "eec4d0bc64d45e0edf843358dda8ce1c172f8ff4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8929cb87_d126664e",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 2260,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-15T18:05:40Z",
+      "side": 1,
+      "message": "[Discussed in person.]\n\nLooks like this is effectively testing that we fall back to SHA-1 when there is no overlap in preferences, but it\u0027s not obvious. (Arguably the spec only says to do this when the peer doesn\u0027t send a list, but we can do that separately.) It implicitly assumes that runner doesn\u0027t accept SHA-1 and such. This probably should be a DetermineHash test.",
+      "revId": "eec4d0bc64d45e0edf843358dda8ce1c172f8ff4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8929cb87_510cb604",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 2274,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-15T18:05:40Z",
+      "side": 1,
+      "message": "I\u0027d probably toss these over in addSigningHashTests. A lot fewer things to fuss with like ver.version/certPool/etc. There\u0027s also some overlap in the tests.",
+      "revId": "eec4d0bc64d45e0edf843358dda8ce1c172f8ff4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8929cb87_31012acd",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 2298,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-15T18:05:40Z",
+      "side": 1,
+      "message": "fmt.Sprintf. Ditto below.",
+      "range": {
+        "startLine": 2298,
+        "startChar": 44,
+        "endLine": 2298,
+        "endChar": 55
+      },
+      "revId": "eec4d0bc64d45e0edf843358dda8ce1c172f8ff4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8929cb87_5144b6e5",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 2335,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-15T18:05:40Z",
+      "side": 1,
+      "message": "Nit: I\u0027d probably explicitly list out SignatureAndHashes or add a comment so it\u0027s clear what you\u0027re assuming about runner.",
+      "revId": "eec4d0bc64d45e0edf843358dda8ce1c172f8ff4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
