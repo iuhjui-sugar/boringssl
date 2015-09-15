@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8929cb87_d192e617",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-15T15:19:50Z",
+      "side": 1,
+      "message": "Nit: Maybe s/a/|ssl|\u0027s/, to distinguish between, say, signing with our Channel ID private key.",
+      "range": {
+        "startLine": 640,
+        "startChar": 21,
+        "endLine": 640,
+        "endChar": 22
+      },
+      "revId": "49a8f9bb6e54f04aa3d75a280bc6ae71c6c1661b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8929cb87_f195e201",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-15T15:19:50Z",
+      "side": 1,
+      "message": "Nit: Indent.",
+      "range": {
+        "startLine": 643,
+        "startChar": 52,
+        "endLine": 643,
+        "endChar": 53
+      },
+      "revId": "49a8f9bb6e54f04aa3d75a280bc6ae71c6c1661b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8929cb87_11918e15",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-15T15:19:50Z",
+      "side": 1,
+      "message": "Nit: Newline here. (Sorry, missed that earlier. Two newlines between sections. The doc generator actually knows to parse that. I should document this...)",
+      "revId": "49a8f9bb6e54f04aa3d75a280bc6ae71c6c1661b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8929cb87_b19f5a1e",
+        "filename": "ssl/ssl_rsa.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-15T15:19:50Z",
+      "side": 1,
+      "message": "\u003d\u003d :-)\n\n(Oops, apparently I said !\u003d in my review comment too.)",
+      "range": {
+        "startLine": 640,
+        "startChar": 29,
+        "endLine": 640,
+        "endChar": 31
+      },
+      "revId": "49a8f9bb6e54f04aa3d75a280bc6ae71c6c1661b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8929cb87_517036a7",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-15T15:19:50Z",
+      "side": 1,
+      "message": "Nit: Probably better do: digest_list.data() which is new in C++11.\n\n(Or bssl::vector_data, but this file is allowed to assume C++11 since we never build it in Chromium. Although apparently I\u0027d forgotten this and used bssl::vector_data elsewhere here. Oh well.)",
+      "range": {
+        "startLine": 237,
+        "startChar": 47,
+        "endLine": 237,
+        "endChar": 62
+      },
+      "revId": "49a8f9bb6e54f04aa3d75a280bc6ae71c6c1661b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8929cb87_919c5e2a",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-15T15:19:50Z",
+      "side": 1,
+      "message": "Test which uses this? :-)",
+      "revId": "49a8f9bb6e54f04aa3d75a280bc6ae71c6c1661b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
