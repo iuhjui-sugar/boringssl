@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8929cb87_d1fd46dc",
+        "filename": "ssl/d1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-15T18:24:20Z",
+      "side": 1,
+      "message": "(Did it this way per the \"condition includes after the others\" rule.)",
+      "revId": "2e6e795c944b4558771eaf72de6cd029fd8eb006",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
