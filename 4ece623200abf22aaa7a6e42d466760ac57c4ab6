@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "848ff2ac_fe5b96e5",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1555,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-09-16T17:17:21Z",
+      "side": 1,
+      "message": "Possible to test this case as well?",
+      "range": {
+        "startLine": 1555,
+        "startChar": 15,
+        "endLine": 1555,
+        "endChar": 17
+      },
+      "revId": "4ece623200abf22aaa7a6e42d466760ac57c4ab6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
