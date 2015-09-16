@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2947ff68_a34dda5d",
+        "filename": "crypto/ecdh/ecdh_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-16T22:18:57Z",
+      "side": 1,
+      "message": "So EC_POINT_oct2point actually checks this internally (and so the SSL code already doesn\u0027t have a problem). What do you think about making EC_POINT_set_affine_coordinates_GFp check it?\n\nI.e. have the type system and API enforce that \"if you successfully got an EC_POINT, it\u0027s actually in the corresponding EC_GROUP\". Also it means we only check once. :-)\n\nOr is that a check we don\u0027t want to do when just creating points willy-nilly? Other than performance, my main worry is about code which assumes today EC_POINT_set_affine_coordinates_GFp only fails on malloc errors or something.",
+      "revId": "d457f3a1af805e781a47e85cdbd354205ea14ea9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
