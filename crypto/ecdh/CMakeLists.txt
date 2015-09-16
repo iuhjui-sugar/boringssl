@@ -7,3 +7,13 @@ add_library(
 
   ecdh.c
 )
+
+add_executable(
+  ecdh_test
+
+  ecdh_test.cc
+
+  $<TARGET_OBJECTS:test_support>
+)
+
+target_link_libraries(ecdh_test crypto)
