@@ -107,6 +107,12 @@ int ECDH_compute_key(void *out, size_t outlen, const EC_POINT *pub_key,
     goto err;
   }
 
+  if (EC_POINT_is_at_infinity(group, pub_key) ||
+      !EC_POINT_is_on_curve(group, pub_key, ctx)) {
+    OPENSSL_PUT_ERROR(ECDH, ECDH_R_POINT_ARITHMETIC_FAILURE);
+    goto err;
+  }
+
   if (!EC_POINT_mul(group, tmp, NULL, pub_key, priv, ctx)) {
     OPENSSL_PUT_ERROR(ECDH, ECDH_R_POINT_ARITHMETIC_FAILURE);
     goto err;
