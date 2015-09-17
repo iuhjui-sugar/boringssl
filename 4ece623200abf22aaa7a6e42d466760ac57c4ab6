@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e986c7d4_a1fb7e3d",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1368,
+      "author": {
+        "id": 5915
+      },
+      "writtenOn": "2015-09-17T09:53:24Z",
+      "side": 1,
+      "message": "Done.\nThe RFC doesn\u0027t say anything about OCSP stapling while resuming connections, but as you said CertificateStatus doesn\u0027t even get sent, so it makes sense not to send the extension.",
+      "parentUuid": "a456b6eb_5212d28f",
+      "revId": "4ece623200abf22aaa7a6e42d466760ac57c4ab6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "848ff2ac_fe5b96e5",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 1
@@ -54,6 +72,30 @@
       "side": 1,
       "message": "Could be done by making handshake_server.go treat the extension as fatal on resumption and then adding a resumeSession: true to the SCT test.\n\n(It might trip up expectedSCTList. Depending on how much it\u0027s worth bothering, the most Correct (TM) thing to do would be for the SCT to be serialized in sessionState in ticket.go.)",
       "parentUuid": "848ff2ac_fe5b96e5",
+      "range": {
+        "startLine": 1555,
+        "startChar": 15,
+        "endLine": 1555,
+        "endChar": 17
+      },
+      "revId": "4ece623200abf22aaa7a6e42d466760ac57c4ab6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e986c7d4_c1f80243",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1555,
+      "author": {
+        "id": 5915
+      },
+      "writtenOn": "2015-09-17T09:53:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a456b6eb_32154e77",
       "range": {
         "startLine": 1555,
         "startChar": 15,
