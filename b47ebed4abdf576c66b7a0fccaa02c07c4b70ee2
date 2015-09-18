@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c97ca3f3_c8e12f3e",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2015-09-18T14:53:15Z",
+      "side": 1,
+      "message": "Changing the tests to use it.",
+      "parentUuid": "09febb6f_b2f9e089",
+      "revId": "b47ebed4abdf576c66b7a0fccaa02c07c4b70ee2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "09febb6f_92f65c97",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 11
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "c97ca3f3_080d07b2",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2015-09-18T14:53:15Z",
+      "side": 1,
+      "message": "As above.",
+      "parentUuid": "09febb6f_92f65c97",
+      "revId": "b47ebed4abdf576c66b7a0fccaa02c07c4b70ee2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "09febb6f_320fb03c",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 11
@@ -47,6 +83,30 @@
       "writtenOn": "2015-09-17T20:20:15Z",
       "side": 1,
       "message": "What\u0027s \"Agree\" mean in this context?",
+      "range": {
+        "startLine": 3774,
+        "startChar": 9,
+        "endLine": 3774,
+        "endChar": 14
+      },
+      "revId": "b47ebed4abdf576c66b7a0fccaa02c07c4b70ee2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c97ca3f3_2812cbd4",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 3774,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2015-09-18T14:53:15Z",
+      "side": 1,
+      "message": "That we are Agree\u0027ing on the correct digest across Server/Peer and Client preferences. Updated the comment.",
+      "parentUuid": "09febb6f_320fb03c",
       "range": {
         "startLine": 3774,
         "startChar": 9,
