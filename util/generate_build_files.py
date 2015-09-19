@@ -130,7 +130,7 @@ class Android(object):
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
@@ -177,6 +177,27 @@ class Bazel(object):
     self.header = \
 """# This file is created by generate_build_files.py. Do not edit manually.
 
+licenses(["notice"])
+
+config_setting(
+  name = "linux_x32",
+  values = {"cpu": "piii"},
+)
+
+config_setting(
+  name = "linux_x64",
+  values = {"cpu": "k8"},
+)
+
+config_setting(
+  name = "linux_arm",
+  values = {"cpu": "arm"},
+)
+
+config_setting(
+  name = "linux_aarch64",
+  values = {"cpu": "aarch64"},
+)
 """
 
   def PrintVariableSection(self, out, name, files):
@@ -190,9 +211,11 @@ class Bazel(object):
     out.write(']\n')
 
   def WriteFiles(self, files, asm_outputs):
-    with open('BUILD.generated', 'w+') as out:
+    with open('BUILD', 'w+') as out:
       out.write(self.header)
 
+      self.PrintVariableSection(out, 'boringssl_copts', [
+      ])
       self.PrintVariableSection(out, 'ssl_headers', files['ssl_headers'])
       self.PrintVariableSection(
           out, 'ssl_internal_headers', files['ssl_internal_headers'])
@@ -201,6 +224,7 @@ class Bazel(object):
       self.PrintVariableSection(
           out, 'crypto_internal_headers', files['crypto_internal_headers'])
       self.PrintVariableSection(out, 'crypto_sources', files['crypto'])
+
       self.PrintVariableSection(out, 'tool_sources', files['tool'])
 
       for ((osname, arch), asm_files) in asm_outputs:
@@ -209,8 +233,63 @@ class Bazel(object):
         self.PrintVariableSection(
             out, 'crypto_sources_%s' % arch, asm_files)
 
-    with open('BUILD.generated_tests', 'w+') as out:
-      out.write(self.header)
+      out.write('''
+cc_library(
+  name = 'crypto',
+  visibility = ["//visibility:public"],
+  hdrs = crypto_headers,
+  srcs = crypto_internal_headers + crypto_sources + select({
+    ":linux_x32": crypto_sources_x86,
+    ":linux_x64": crypto_sources_x86_64,
+    ":linux_arm": crypto_sources_arm,
+    ":linux_aarch64": crypto_sources_aarch64,
+    "//conditions:default": crypto_sources_x86_64,
+  }),
+  defines = [
+    'BORINGSSL_IMPLEMENTATION',
+    'BORINGSSL_NO_STATIC_INITIALIZER',
+  ],
+  includes = [
+    'src/include'
+  ],
+  copts = boringssl_copts,
+  linkopts = [
+    '-pthread'
+  ]
+)
+
+cc_library(
+  name = 'ssl',
+  visibility = ["//visibility:public"],
+  hdrs = ssl_headers,
+  srcs = ssl_internal_headers + ssl_sources,
+  defines = [
+    'BORINGSSL_IMPLEMENTATION',
+    'BORINGSSL_NO_STATIC_INITIALIZER',
+  ],
+  includes = [
+    'src/include'
+  ],
+  copts = boringssl_copts,
+  linkopts = [
+    '-pthread'
+  ],
+  deps = [
+    ':crypto',
+  ]
+)
+
+cc_binary(
+  name = 'tool',
+  srcs = tool_sources,
+  deps = [
+    ':crypto',
+    ':ssl',
+  ]
+)
+''')
+
+      # Test support and test targets
 
       out.write('test_support_sources = [\n')
       for filename in files['test_support']:
