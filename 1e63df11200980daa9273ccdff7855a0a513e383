@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "492a7315_d454bcca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-21T17:08:42Z",
+      "side": 1,
+      "message": "Things to pay special attention to in review:\n\n- No success paths other than the one that updates *inp.\n- No failure path passes through the *inp update code.",
+      "revId": "1e63df11200980daa9273ccdff7855a0a513e383",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
