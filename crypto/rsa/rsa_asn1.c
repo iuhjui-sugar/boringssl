@@ -217,8 +217,9 @@ RSA *RSA_parse_private_key(CBS *cbs) {
     goto err;
   }
 
-  /* Multi-prime RSA requires a newer version. */
-  if (version == kVersionMulti &&
+  /* Multi-prime RSA requires a newer version but we ignore that for now until
+   * we can fix some existing keys that include the wrong version. */
+  if (/* version == kVersionMulti && */
       CBS_peek_asn1_tag(&child, CBS_ASN1_SEQUENCE)) {
     CBS other_prime_infos;
     if (!CBS_get_asn1(&child, &other_prime_infos, CBS_ASN1_SEQUENCE) ||
