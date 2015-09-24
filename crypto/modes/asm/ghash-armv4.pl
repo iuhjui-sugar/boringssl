@@ -133,7 +133,6 @@ ___
 }
 
 $code=<<___;
-#if defined(__arm__)
 #include <openssl/arm_arch.h>
 
 .syntax unified
@@ -505,7 +504,6 @@ $code.=<<___;
 .asciz  "GHASH for ARMv4/NEON, CRYPTOGAMS by <appro\@openssl.org>"
 .align  2
 
-#endif
 ___
 
 foreach (split("\n",$code)) {
