@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0e4a4142_32be30e7",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 843,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-24T21:58:08Z",
+      "side": 1,
+      "message": "[I really should add a check to doc.go somewhere that asserts the bolded word is \"compatible\" with the name extracted from the decl sometime. Would also help catch instances where we currently end up highlight words like \"These\" and \"The [following]\".]",
+      "revId": "82279fc00a06e26bfd677bc46c910fe9a038081c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
