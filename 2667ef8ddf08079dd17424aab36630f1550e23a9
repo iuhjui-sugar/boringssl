@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "336bf232_43b60613",
+        "filename": "crypto/aes/asm/aes-armv4.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-25T17:38:45Z",
+      "side": 1,
+      "message": ".global_with_section? There\u0027s a .pushsection referencing it.",
+      "revId": "2667ef8ddf08079dd17424aab36630f1550e23a9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "336bf232_63bb02f8",
+        "filename": "crypto/aes/asm/aes-armv4.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 977,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-25T17:38:45Z",
+      "side": 1,
+      "message": ".global_with_section? (.pushsection above)",
+      "revId": "2667ef8ddf08079dd17424aab36630f1550e23a9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "53706618_84bf26e2",
+        "filename": "crypto/aes/asm/aesv8-armx.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-25T17:38:45Z",
+      "side": 1,
+      "message": ".global_with_section? (Or remove the pushsection around the data? Though there\u0027s also a bunch of other functions in this file.)",
+      "revId": "2667ef8ddf08079dd17424aab36630f1550e23a9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b37fe2e5_27dafa51",
+        "filename": "crypto/aes/asm/bsaes-armv7.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 2052,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-25T17:38:45Z",
+      "side": 1,
+      "message": "Why just this one? Is it because we hope to drop it, but not the others?",
+      "revId": "2667ef8ddf08079dd17424aab36630f1550e23a9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7371ea1a_45b60a13",
+        "filename": "crypto/bn/asm/armv4-mont.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-25T17:38:45Z",
+      "side": 1,
+      "message": "global_with_section? (Or perhaps remove the pushsection above since it looks like this is all one function.)",
+      "revId": "2667ef8ddf08079dd17424aab36630f1550e23a9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b3a602c2_efc60182",
+        "filename": "crypto/perlasm/arm-xlate.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-25T17:38:45Z",
+      "side": 1,
+      "message": "This\u0027ll end up skipping the other logic that happens up in $globl above. I think you want to define a $global_with_section function, though I honestly can\u0027t tell what expand_line is going to do with the argument. I guess the other option would be to transform $line into a .global line and then fall through.\n\n(I also expect we may need to define popsection/pushsection functions on iOS to make those do nothing, but we\u0027ll deal with that when it comes up I suppose.)",
+      "revId": "2667ef8ddf08079dd17424aab36630f1550e23a9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
