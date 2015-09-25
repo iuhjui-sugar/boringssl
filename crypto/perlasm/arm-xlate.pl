@@ -119,6 +119,8 @@ sub expand_line {
 print "#if defined(__arm__)\n" if ($flavour eq "linux32");
 print "#if defined(__aarch64__)\n" if ($flavour eq "linux64");
 
+my $in_section = 0;
+
 while($line=<>) {
 
     if ($line =~ m/^\s*(#|@|\/\/)/)	{ print $line; next; }
@@ -138,6 +140,26 @@ while($line=<>) {
 	if ($label) {
 	    printf "%s:",($GLOBALS{$label} or $label);
 	}
+    }
+
+    if ($line =~ m/^.global_with_section[ \t]+([^,]*), *(.*)/) {
+	if ($in_section == 1) {
+	  printf ".popsection\n";
+	}
+	$in_section = 1;
+
+	printf ".pushsection .text.$2,\"ax\",%%progbits\n";
+	printf ".global $1\n";
+	next;
+    }
+
+    if ($line =~ m/^.globa?l[ \t]+(.*)/) {
+	if ($in_section == 1) {
+	  printf ".popsection\n";
+	}
+	$in_section = 1;
+
+	printf ".pushsection .text.$1,\"ax\",%%progbits\n";
     }
 
     if ($line !~ m/^[#@]/) {
