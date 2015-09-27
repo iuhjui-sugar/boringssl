@@ -306,7 +306,7 @@ static int run_test_case(unsigned test_num, const struct test_case *test) {
           *nonce = NULL, *ciphertext = NULL, *tag = NULL, *out = NULL;
   int ret = 0;
   AES_KEY aes_key;
-  GCM128_CONTEXT ctx;
+  GCM128_CONTEXT_SK ctx;
 
   if (!decode_hex(&key, &key_len, test->key, test_num, "key") ||
       !decode_hex(&plaintext, &plaintext_len, test->plaintext, test_num,
@@ -345,16 +345,16 @@ static int run_test_case(unsigned test_num, const struct test_case *test) {
     goto out;
   }
 
-  CRYPTO_gcm128_init(&ctx, &aes_key, (block128_f) AES_encrypt);
-  CRYPTO_gcm128_setiv(&ctx, nonce, nonce_len);
+  CRYPTO_gcm128_init_sk(&ctx, &aes_key, (block128_f) AES_encrypt);
+  CRYPTO_gcm128_setiv_sk(&ctx, &aes_key, nonce, nonce_len);
   memset(out, 0, plaintext_len);
   if (additional_data) {
-    CRYPTO_gcm128_aad(&ctx, additional_data, additional_data_len);
+    CRYPTO_gcm128_aad_sk(&ctx, &aes_key, additional_data, additional_data_len);
   }
   if (plaintext) {
-    CRYPTO_gcm128_encrypt(&ctx, plaintext, out, plaintext_len);
+    CRYPTO_gcm128_encrypt_sk(&ctx, &aes_key, plaintext, out, plaintext_len);
   }
-  if (!CRYPTO_gcm128_finish(&ctx, tag, tag_len) ||
+  if (!CRYPTO_gcm128_finish_sk(&ctx, &aes_key, tag, tag_len) ||
       (ciphertext && memcmp(out, ciphertext, plaintext_len) != 0)) {
     fprintf(stderr, "%u: encrypt failed.\n", test_num);
     hexdump(stderr, "got :", out, plaintext_len);
@@ -362,15 +362,15 @@ static int run_test_case(unsigned test_num, const struct test_case *test) {
     goto out;
   }
 
-  CRYPTO_gcm128_setiv(&ctx, nonce, nonce_len);
+  CRYPTO_gcm128_setiv_sk(&ctx, &aes_key, nonce, nonce_len);
   memset(out, 0, plaintext_len);
   if (additional_data) {
-    CRYPTO_gcm128_aad(&ctx, additional_data, additional_data_len);
+    CRYPTO_gcm128_aad_sk(&ctx, &aes_key, additional_data, additional_data_len);
   }
   if (ciphertext) {
-    CRYPTO_gcm128_decrypt(&ctx, ciphertext, out, plaintext_len);
+    CRYPTO_gcm128_decrypt_sk(&ctx, &aes_key, ciphertext, out, plaintext_len);
   }
-  if (!CRYPTO_gcm128_finish(&ctx, tag, tag_len)) {
+  if (!CRYPTO_gcm128_finish_sk(&ctx, &aes_key, tag, tag_len)) {
     fprintf(stderr, "%u: decrypt failed.\n", test_num);
     goto out;
   }
