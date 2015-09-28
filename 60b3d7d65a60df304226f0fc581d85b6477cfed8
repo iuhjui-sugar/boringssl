@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2e2e2591_48d3de3b",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 929,
+      "author": {
+        "id": 5190
+      },
+      "writtenOn": "2015-09-28T20:28:58Z",
+      "side": 1,
+      "message": "When reviewing this, I found this final sentence confusing. They\u0027re disabled, so what does highest preference mean?\n\nThat is, I can see several possible interpretations/implementations:\na) Disabling a ciphersuite, and then later renabling it, preserves its original order\n\nb) Disabling a ciphersuite, and then later reenabling it, adds it to the end (thus, lowest priority), but it remains in the order of the group that it was originally disabled in.\n\nConsider, for example, DEFAULT:-SHA384:ECDHE-RSA-AES256-SHA384 vs DEFAULT:-SHA384:+ECDHE-RSA-AES256-SHA384\n\nLet\u0027s say the internal order was\nECDHE-RSA-RC4\nECDHE-RSA-AES128-SHA384\nECDHE-RSA-AES256-SHA384\nECDHE-RSA-AESGCM-AES256\n\n[I have no idea if those are valid strings, just needed dummy examples]\n\nIf I go with interpretation a), then the \":ECDHE\" case would be\nECDHE-RSA-RC4\nECDHE-RSA-AES256-SHA384\nECDHE-RSA-AESGCM-AES256\n\nIf I go with interpretation b), then the \":ECDHE\" case would be\nECDHE-RSA-RC4\nECDHE-RSA-AESGCM-AES256\nECDHE-RSA-AES256-SHA384\n\nIf I go with the \"+ECDHE\" case, based on the comment, I would expect\n\nECDHE-RSA-RC4\nECDHE-RSA-AESGCM-AES256\nECDHE-RSA-AES256-SHA384\n\nand if I went with \"-SHA384:SHA384\", then based on a) I would expect\nECDHE-RSA-RC4\nECDHE-RSA-AES128-SHA384\nECDHE-RSA-AES256-SHA384\nECHDE-RSA-AESGCM-AES256\n(aka the original order)\n\nwhile if I went with b, then I\u0027d expect it\u0027d be the same as \"-SHA384:+SHA384\", which would be\n\nECDHE-RSA-RC4\nECDHE-RSA-AESGCM-AES256\nECDHE-RSA-AES128-SHA384\nECDHE-RSA-AES256-SHA384\n\n(e.g. moved to the end)\n\n\nThe reason I get confused is both \"prepends to the disable list, with order preserved\" and \"recently disabled ciphers get highest preference\" (which suggests some form of non-order preservation, but which would further only make sense if they\u0027re later reenabled, and that leaves ambiguity with respect to + vs :)",
+      "revId": "60b3d7d65a60df304226f0fc581d85b6477cfed8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
