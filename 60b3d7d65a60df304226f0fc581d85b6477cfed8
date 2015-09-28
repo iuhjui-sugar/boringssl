@@ -16,6 +16,24 @@
       "revId": "60b3d7d65a60df304226f0fc581d85b6477cfed8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d829d3cb_29abcda8",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 929,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-28T21:36:56Z",
+      "side": 1,
+      "message": "(b) is the interpretation. Tweaked the wording some more so that\u0027s hopefully clearer.\n\nIt actually doesn\u0027t interact with + at all. + only ever matches enabled ciphers. The disabled cipher ordering only interacts with the default opcode-less operation.\n\n(a) would require that there is one list, some of which are and aren\u0027t enabled. This is actually how it\u0027s implemented, but I intentionally described it as two ordered lists because that is the behavior. They never interleave and the one ordered list always looks like all the disabled ciphers followed by all the enabled ones.\n\n(And, yes, this completely insane behavior is in upstream too.)",
+      "parentUuid": "2e2e2591_48d3de3b",
+      "revId": "60b3d7d65a60df304226f0fc581d85b6477cfed8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
