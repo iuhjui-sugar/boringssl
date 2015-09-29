@@ -108,6 +108,30 @@
     },
     {
       "key": {
+        "uuid": "2e2e2591_a0bc96a2",
+        "filename": "include/openssl/pkcs8.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-09-29T20:30:30Z",
+      "side": 1,
+      "message": "Oh, I see. I\u0027m of the opinion that we should treat the pointer the same as |PKCS12_parse| as much as possible here.",
+      "parentUuid": "783d479e_6ec60f85",
+      "range": {
+        "startLine": 173,
+        "startChar": 42,
+        "endLine": 173,
+        "endChar": 66
+      },
+      "revId": "55d297a7cc10edcf1f809f7eb250b919cbfbc9ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "98611bbe_77c6d084",
         "filename": "include/openssl/pkcs8.h",
         "patchSetId": 1
