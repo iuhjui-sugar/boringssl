@@ -17,6 +17,7 @@
 
 #include <openssl/bio.h>
 #include <openssl/err.h>
+#include <openssl/mem.h>
 
 #include <fcntl.h>
 #include <string.h>
