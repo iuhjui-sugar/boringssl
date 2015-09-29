@@ -84,6 +84,30 @@
     },
     {
       "key": {
+        "uuid": "783d479e_6ec60f85",
+        "filename": "include/openssl/pkcs8.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-29T18:41:11Z",
+      "side": 1,
+      "message": "I mean that we could do something like:\n\n   if (memchr(password, 0, password_len) !\u003d NULL) {\n     return 0;\n   }\n   char *password_c \u003d OPENSSL_malloc(password_len + 1);\n   memcpy(password_c, password, password_len);\n   password_c[password_len] \u003d \u0027\\0\u0027;\n\n   // Pass password_c into PKCS12_parse.\n   // TODO: malloc failure, NULL password is apparently\n   // distinct from empty password, just to make things\n   // more confusing.\n\nI don\u0027t actually think this is really worth the trouble. :-) This would just be if we want to behave like other ptr/length APIs where you only read length bytes, not length+1.\n\nThat PKCS12_parse can\u0027t take a pointer-length means that the length+1\u0027th byte had to be valid and 0 anyway, unless someone was being ridiculous and passed a different pointer to PKCS12_parse (say, a malloc\u0027d copy with a NUL put on the end).",
+      "parentUuid": "2e2e2591_7d39b59f",
+      "range": {
+        "startLine": 173,
+        "startChar": 42,
+        "endLine": 173,
+        "endChar": 66
+      },
+      "revId": "55d297a7cc10edcf1f809f7eb250b919cbfbc9ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "98611bbe_77c6d084",
         "filename": "include/openssl/pkcs8.h",
         "patchSetId": 1
