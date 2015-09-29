@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "788f07ae_5ef735be",
+        "filename": "crypto/pkcs8/pkcs12_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-29T18:18:33Z",
+      "side": 1,
+      "message": "ERR_clear_error() here since you\u0027re expecting this one to fail. (Otherwise a failure in PKCS12_parse will get mixed in with this failure.)",
+      "revId": "55d297a7cc10edcf1f809f7eb250b919cbfbc9ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3872ef91_d4b4fc07",
+        "filename": "include/openssl/pkcs8.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-29T18:18:33Z",
+      "side": 1,
+      "message": "[Another option could be to malloc a password_len + 1 buffer if you want to slightly more honor the types and not read password_len + 1 bytes, but the code in question doesn\u0027t care, so this seems fine.]",
+      "range": {
+        "startLine": 173,
+        "startChar": 42,
+        "endLine": 173,
+        "endChar": 66
+      },
+      "revId": "55d297a7cc10edcf1f809f7eb250b919cbfbc9ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "98611bbe_77c6d084",
+        "filename": "include/openssl/pkcs8.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-29T18:18:33Z",
+      "side": 1,
+      "message": "[FYI, upstream allowed this to be -1. I think we don\u0027t need to care.]",
+      "range": {
+        "startLine": 177,
+        "startChar": 37,
+        "endLine": 177,
+        "endChar": 43
+      },
+      "revId": "55d297a7cc10edcf1f809f7eb250b919cbfbc9ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
