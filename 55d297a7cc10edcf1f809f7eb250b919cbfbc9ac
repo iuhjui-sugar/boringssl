@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2e2e2591_7d83f58e",
+        "filename": "crypto/pkcs8/pkcs12_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-09-29T18:32:48Z",
+      "side": 1,
+      "message": "There\u0027s an |ERR_clear_error| in |PKCS12_verify_mac| so I don\u0027t think that it\u0027s needed here.",
+      "parentUuid": "788f07ae_5ef735be",
+      "revId": "55d297a7cc10edcf1f809f7eb250b919cbfbc9ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3872ef91_d4b4fc07",
         "filename": "include/openssl/pkcs8.h",
         "patchSetId": 1
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "2e2e2591_7d39b59f",
+        "filename": "include/openssl/pkcs8.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-09-29T18:32:48Z",
+      "side": 1,
+      "message": "I\u0027m not sure what you\u0027re suggesting here. If we want to check that the \"final\" byte is NUL then we have to read off the \"end\" of the given buffer. Basically I wanted the semantics to be that, if this function returns one then PKCS12_parse with the same |password| should work.",
+      "parentUuid": "3872ef91_d4b4fc07",
+      "range": {
+        "startLine": 173,
+        "startChar": 42,
+        "endLine": 173,
+        "endChar": 66
+      },
+      "revId": "55d297a7cc10edcf1f809f7eb250b919cbfbc9ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "98611bbe_77c6d084",
         "filename": "include/openssl/pkcs8.h",
         "patchSetId": 1
@@ -53,6 +95,30 @@
       "writtenOn": "2015-09-29T18:18:33Z",
       "side": 1,
       "message": "[FYI, upstream allowed this to be -1. I think we don\u0027t need to care.]",
+      "range": {
+        "startLine": 177,
+        "startChar": 37,
+        "endLine": 177,
+        "endChar": 43
+      },
+      "revId": "55d297a7cc10edcf1f809f7eb250b919cbfbc9ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2e2e2591_5d3ef989",
+        "filename": "include/openssl/pkcs8.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-09-29T18:32:48Z",
+      "side": 1,
+      "message": "Ah thanks. Actually that\u0027s easy to cope with and having a size_t argument (and thus crashing in that case) would probably be a bit sharp.",
+      "parentUuid": "98611bbe_77c6d084",
       "range": {
         "startLine": 177,
         "startChar": 37,
