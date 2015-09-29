@@ -550,7 +550,7 @@ func runTest(test *testCase, shimPath string, mallocNumToFail int64) error {
 		panic("expectedClientCertSignatureHash non-zero with serverTest in " + test.name)
 	}
 
-	listener, err := net.ListenTCP("tcp4", &net.TCPAddr{IP: net.IP{127, 0, 0, 1}})
+	listener, err := net.ListenTCP("tcp6", &net.TCPAddr{IP: net.IPv6loopback})
 	if err != nil {
 		panic(err)
 	}
