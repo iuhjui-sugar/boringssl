@@ -71,18 +71,20 @@ class ScopedSocket {
 static bool TestSocketConnect() {
   static const char kTestMessage[] = "test";
 
-  int listening_sock = socket(AF_INET, SOCK_STREAM, 0);
+  int listening_sock = socket(AF_INET6, SOCK_STREAM, 0);
   if (listening_sock == -1) {
     PrintSocketError("socket");
     return false;
   }
   ScopedSocket listening_sock_closer(listening_sock);
 
-  struct sockaddr_in sin;
+  struct sockaddr_in6 sin;
   memset(&sin, 0, sizeof(sin));
-  sin.sin_family = AF_INET;
-  if (!inet_pton(AF_INET, "127.0.0.1", &sin.sin_addr)) {
-    PrintSocketError("inet_pton");
+  sin.sin6_family = AF_INET6;
+  int r = inet_pton(AF_INET6, "::1", &sin.sin6_addr);
+  if (r <= 0) {
+    if (r < 0) PrintSocketError("inet_pton");
+    else fprintf(stderr, "not in presentation format\n");
     return false;
   }
   if (bind(listening_sock, (struct sockaddr *)&sin, sizeof(sin)) != 0) {
@@ -101,8 +103,7 @@ static bool TestSocketConnect() {
   }
 
   char hostname[80];
-  BIO_snprintf(hostname, sizeof(hostname), "%s:%d", "127.0.0.1",
-               ntohs(sin.sin_port));
+  BIO_snprintf(hostname, sizeof(hostname), "[::1]:%d", ntohs(sin.sin6_port));
   ScopedBIO bio(BIO_new_connect(hostname));
   if (!bio) {
     fprintf(stderr, "BIO_new_connect failed.\n");

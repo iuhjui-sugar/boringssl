@@ -17,6 +17,7 @@
 
 #include <openssl/bio.h>
 #include <openssl/err.h>
+#include <openssl/mem.h>
 
 #include <fcntl.h>
 #include <string.h>
@@ -47,14 +48,30 @@ int bio_ip_and_port_to_socket_and_addr(int *out_sock,
 
   memset(&hint, 0, sizeof(hint));
   hint.ai_family = AF_UNSPEC;
+  hint.ai_flags = 0 /* AI_NUMERICSERV | AI_NUMERICHOST */;  /* port is a number not a name */
   hint.ai_socktype = SOCK_STREAM;
+
+  if (port_str == NULL) {
+    char* colon = strrchr(hostname, ':');
+    if (colon == NULL) {
+      return 0;
+    }
+    port_str = colon + 1;
+    hostname = OPENSSL_strdup(hostname);
+    colon = strrchr(hostname, ':');
+    *colon = '\0';
+  } else {
+    hostname = OPENSSL_strdup(hostname);
+  }
 
   ret = getaddrinfo(hostname, port_str, &hint, &result);
   if (ret != 0) {
     OPENSSL_PUT_ERROR(SYS, 0);
-    ERR_add_error_data(1, gai_strerror(ret));
+    ERR_add_error_dataf("name='%s', port='%s': %s", hostname, port_str, gai_strerror(ret));
+    OPENSSL_free((char*) hostname);
     return 0;
   }
+  OPENSSL_free((char *) hostname);
 
   ret = 0;
 

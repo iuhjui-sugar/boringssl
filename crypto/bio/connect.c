@@ -128,9 +128,56 @@ static void maybe_copy_ipv4_address(uint8_t *ipv4,
   memcpy(ipv4, &sin->sin_addr, 4);
 }
 
+/* Take a null-terminated string and split it into host and port
+ * portions.  The port may be missing.  The results must be freed by
+ * the caller. */
+static int split_host_and_port(const char *name, char **out_host, char **out_port) {
+  const char *host, *port = NULL;
+  size_t host_len = 0;
+
+  if (name[0] == '[') {  /* bracketed IPv6 address */
+    const char *close = strchr(name, ']');
+    if (close == NULL) {
+      return 0;
+    }
+    host = name + 1;
+    host_len = close - name - 1;
+    if (close[1] == ':') {  /* [IP]:port */
+      port = close + 2;
+    }
+  } else {
+    const char *colon = strchr(name, ':');
+    if (colon == NULL) {
+      host = name;
+	  host_len = strlen(name);
+    } else if (strchr(colon + 1, ':') != NULL) {  /* IPv6 address */
+      host = name;
+	  host_len = strlen(name);
+    } else {  /* host:port */
+      host = name;
+      host_len = colon - name;
+      port = colon + 1;
+    }
+  }
+
+  *out_host = BUF_strndup(host, host_len);  /* DO NOT SUBMIT len includes null terminator? */
+  if (*out_host == NULL) {
+    return 0;
+  }
+  if (port == NULL) {
+    *out_port = NULL;
+    return 1;
+  }
+  *out_port = OPENSSL_strdup(port);
+  if (*out_port == NULL) {
+    OPENSSL_free(*out_host);
+    return 0;
+  }
+  return 1;
+}
+
 static int conn_state(BIO *bio, BIO_CONNECT *c) {
   int ret = -1, i;
-  char *p, *q;
   int (*cb)(const BIO *, int, int) = NULL;
 
   if (c->info_callback != NULL) {
@@ -140,36 +187,28 @@ static int conn_state(BIO *bio, BIO_CONNECT *c) {
   for (;;) {
     switch (c->state) {
       case BIO_CONN_S_BEFORE:
-        p = c->param_hostname;
-        if (p == NULL) {
+        if (c->param_hostname == NULL) {
           OPENSSL_PUT_ERROR(BIO, BIO_R_NO_HOSTNAME_SPECIFIED);
           goto exit_loop;
         }
-        for (; *p != 0; p++) {
-          if (*p == ':' || *p == '/') {
-            break;
-          }
-        }
-
-        i = *p;
-        if (i == ':' || i == '/') {
-          *(p++) = 0;
-          if (i == ':') {
-            for (q = p; *q; q++) {
-              if (*q == '/') {
-                *q = 0;
-                break;
-              }
-            }
-            OPENSSL_free(c->param_port);
-            c->param_port = BUF_strdup(p);
-          }
-        }
 
         if (c->param_port == NULL) {
-          OPENSSL_PUT_ERROR(BIO, BIO_R_NO_PORT_SPECIFIED);
-          ERR_add_error_data(2, "host=", c->param_hostname);
-          goto exit_loop;
+          char *host, *port;
+          if (!split_host_and_port(c->param_hostname, &host, &port)) {
+            OPENSSL_PUT_ERROR(BIO, BIO_R_NO_PORT_SPECIFIED);
+            ERR_add_error_data(2, "host=", c->param_hostname);
+            goto exit_loop;
+          }
+          if (port == NULL) {
+            OPENSSL_free(port);
+            OPENSSL_PUT_ERROR(BIO, BIO_R_NO_PORT_SPECIFIED);
+            ERR_add_error_data(2, "host=", c->param_hostname);
+            goto exit_loop;
+          }
+          OPENSSL_free(c->param_port);
+          OPENSSL_free(c->param_hostname);
+          c->param_hostname = host;
+          c->param_port = port;
         }
 
         if (!bio_ip_and_port_to_socket_and_addr(
