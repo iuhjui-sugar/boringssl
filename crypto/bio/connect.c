@@ -93,7 +93,6 @@ typedef struct bio_connect_st {
   char *param_port;
   int nbio;
 
-  uint8_t ip[4];
   unsigned short port;
 
   struct sockaddr_storage them;
@@ -114,23 +113,54 @@ static int closesocket(int sock) {
 }
 #endif
 
-/* maybe_copy_ipv4_address sets |*ipv4| to the IPv4 address from |ss| (in
- * big-endian order), if |ss| contains an IPv4 socket address. */
-static void maybe_copy_ipv4_address(uint8_t *ipv4,
-                                    const struct sockaddr_storage *ss) {
-  const struct sockaddr_in *sin;
+/* Take a null-terminated string and split it into host and port
+ * portions.  The port may be missing.  The results must be freed by
+ * the caller. */
+static int split_host_and_port(const char *name, char **out_host, char **out_port) {
+  const char *host, *port = NULL;
+  size_t host_len = 0;
 
-  if (ss->ss_family != AF_INET) {
-    return;
+  if (name[0] == '[') {  /* bracketed IPv6 address */
+    const char *close = strchr(name, ']');
+    if (close == NULL) {
+      return 0;
+    }
+    host = name + 1;
+    host_len = close - name - 1;
+    if (close[1] == ':') {  /* [IP]:port */
+      port = close + 2;
+    }
+  } else {
+    const char *colon = strchr(name, ':');
+    if (colon == NULL || strchr(colon + 1, ':') != NULL) {  /* IPv6 address */
+      host = name;
+      host_len = strlen(name);
+    } else {  /* host:port */
+      host = name;
+      host_len = colon - name;
+      port = colon + 1;
+    }
   }
 
-  sin = (const struct sockaddr_in*) ss;
-  memcpy(ipv4, &sin->sin_addr, 4);
+  *out_host = BUF_strndup(host, host_len);
+  if (*out_host == NULL) {
+    return 0;
+  }
+  if (port == NULL) {
+    *out_port = NULL;
+    return 1;
+  }
+  *out_port = OPENSSL_strdup(port);
+  if (*out_port == NULL) {
+    OPENSSL_free(*out_host);
+    *out_host = NULL;
+    return 0;
+  }
+  return 1;
 }
 
 static int conn_state(BIO *bio, BIO_CONNECT *c) {
   int ret = -1, i;
-  char *p, *q;
   int (*cb)(const BIO *, int, int) = NULL;
 
   if (c->info_callback != NULL) {
@@ -140,36 +170,32 @@ static int conn_state(BIO *bio, BIO_CONNECT *c) {
   for (;;) {
     switch (c->state) {
       case BIO_CONN_S_BEFORE:
-        p = c->param_hostname;
-        if (p == NULL) {
+        /* If there's a hostname and a port, assume that both are
+         * exactly what they say.  If there is only a hostname, try
+         * (just once) to split it into a hostname and port. */
+
+        if (c->param_hostname == NULL) {
           OPENSSL_PUT_ERROR(BIO, BIO_R_NO_HOSTNAME_SPECIFIED);
           goto exit_loop;
         }
-        for (; *p != 0; p++) {
-          if (*p == ':' || *p == '/') {
-            break;
-          }
-        }
-
-        i = *p;
-        if (i == ':' || i == '/') {
-          *(p++) = 0;
-          if (i == ':') {
-            for (q = p; *q; q++) {
-              if (*q == '/') {
-                *q = 0;
-                break;
-              }
-            }
-            OPENSSL_free(c->param_port);
-            c->param_port = BUF_strdup(p);
-          }
-        }
 
         if (c->param_port == NULL) {
-          OPENSSL_PUT_ERROR(BIO, BIO_R_NO_PORT_SPECIFIED);
-          ERR_add_error_data(2, "host=", c->param_hostname);
-          goto exit_loop;
+          char *host, *port;
+          if (!split_host_and_port(c->param_hostname, &host, &port)) {
+            OPENSSL_PUT_ERROR(BIO, BIO_R_NO_PORT_SPECIFIED);
+            ERR_add_error_data(2, "host=", c->param_hostname);
+            goto exit_loop;
+          }
+          if (port == NULL) {
+            OPENSSL_free(host);
+            OPENSSL_PUT_ERROR(BIO, BIO_R_NO_PORT_SPECIFIED);
+            ERR_add_error_data(2, "host=", c->param_hostname);
+            goto exit_loop;
+          }
+          OPENSSL_free(c->param_port);
+          OPENSSL_free(c->param_hostname);
+          c->param_hostname = host;
+          c->param_port = port;
         }
 
         if (!bio_ip_and_port_to_socket_and_addr(
@@ -179,9 +205,6 @@ static int conn_state(BIO *bio, BIO_CONNECT *c) {
           ERR_add_error_data(4, "host=", c->param_hostname, ":", c->param_port);
           goto exit_loop;
         }
-
-        memset(c->ip, 0, 4);
-        maybe_copy_ipv4_address(c->ip, &c->them);
 
         if (c->nbio) {
           if (!bio_socket_nbio(bio->num, 1)) {
@@ -376,7 +399,6 @@ static int conn_write(BIO *bio, const char *in, int in_len) {
 
 static long conn_ctrl(BIO *bio, int cmd, long num, void *ptr) {
   int *ip;
-  const char **pptr;
   long ret = 1;
   BIO_CONNECT *data;
 
@@ -394,25 +416,6 @@ static long conn_ctrl(BIO *bio, int cmd, long num, void *ptr) {
       if (data->state != BIO_CONN_S_OK) {
         ret = (long)conn_state(bio, data);
       } else {
-        ret = 1;
-      }
-      break;
-    case BIO_C_GET_CONNECT:
-      /* TODO(fork): can this be removed? (Or maybe this whole file). */
-      if (ptr != NULL) {
-        pptr = (const char **)ptr;
-        if (num == 0) {
-          *pptr = data->param_hostname;
-        } else if (num == 1) {
-          *pptr = data->param_port;
-        } else if (num == 2) {
-          *pptr = (char *) &data->ip[0];
-        } else if (num == 3) {
-          *((int *)ptr) = data->port;
-        }
-        if (!bio->init) {
-          *pptr = "not initialized";
-        }
         ret = 1;
       }
       break;
