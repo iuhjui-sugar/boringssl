@@ -91,11 +91,6 @@ OPENSSL_EXPORT const EVP_CIPHER *EVP_aes_256_ctr(void);
 OPENSSL_EXPORT const EVP_CIPHER *EVP_aes_256_ofb(void);
 OPENSSL_EXPORT const EVP_CIPHER *EVP_aes_256_xts(void);
 
-/* Deprecated AES-GCM implementations that set |EVP_CIPH_FLAG_CUSTOM_CIPHER|.
- * Use |EVP_aead_aes_128_gcm| and |EVP_aead_aes_256_gcm| instead. */
-OPENSSL_EXPORT const EVP_CIPHER *EVP_aes_128_gcm(void);
-OPENSSL_EXPORT const EVP_CIPHER *EVP_aes_256_gcm(void);
-
 /* Deprecated 192-bit version of AES. */
 OPENSSL_EXPORT const EVP_CIPHER *EVP_aes_192_ecb(void);
 OPENSSL_EXPORT const EVP_CIPHER *EVP_aes_192_cbc(void);
@@ -211,12 +206,7 @@ OPENSSL_EXPORT int EVP_DecryptFinal_ex(EVP_CIPHER_CTX *ctx, unsigned char *out,
  * blocks are maintained between calls. However, any internal cipher state is
  * still updated. For CBC-mode ciphers, the IV is updated to the final
  * ciphertext block. For stream ciphers, the stream is advanced past the bytes
- * used. It returns one on success and zero otherwise, unless |EVP_CIPHER_flags|
- * has |EVP_CIPH_FLAG_CUSTOM_CIPHER| set. Then it returns the number of bytes
- * written or -1 on error.
- *
- * WARNING: this differs from the usual return value convention when using
- * |EVP_CIPH_FLAG_CUSTOM_CIPHER|.
+ * used. It returns one on success and zero otherwise.
  *
  * TODO(davidben): The normal ciphers currently never fail, even if, e.g.,
  * |in_len| is not a multiple of the block size for CBC-mode decryption. The
@@ -344,7 +334,7 @@ OPENSSL_EXPORT int EVP_BytesToKey(const EVP_CIPHER *type, const EVP_MD *md,
 #define EVP_CIPH_CFB_MODE 0x3
 #define EVP_CIPH_OFB_MODE 0x4
 #define EVP_CIPH_CTR_MODE 0x5
-#define EVP_CIPH_GCM_MODE 0x6
+     /* EVP_CIPH_GCM_MODE 0x6 */
 #define EVP_CIPH_XTS_MODE 0x7
 
 
@@ -366,15 +356,6 @@ OPENSSL_EXPORT int EVP_BytesToKey(const EVP_CIPHER *type, const EVP_MD *md,
 /* EVP_CIPH_CTRL_INIT indicates that EVP_CTRL_INIT should be used when
  * initialising an |EVP_CIPHER_CTX|. */
 #define EVP_CIPH_CTRL_INIT 0x200
-
-/* EVP_CIPH_FLAG_CUSTOM_CIPHER indicates that the cipher manages blocking
- * itself. This causes EVP_(En|De)crypt_ex to be simple wrapper functions. */
-#define EVP_CIPH_FLAG_CUSTOM_CIPHER 0x400
-
-/* EVP_CIPH_FLAG_AEAD_CIPHER specifies that the cipher is an AEAD. This is an
- * older version of the proper AEAD interface. See aead.h for the current
- * one. */
-#define EVP_CIPH_FLAG_AEAD_CIPHER 0x800
 
 /* EVP_CIPH_CUSTOM_COPY indicates that the |ctrl| callback should be called
  * with |EVP_CTRL_COPY| at the end of normal |EVP_CIPHER_CTX_copy|

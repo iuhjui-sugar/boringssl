@@ -255,16 +255,6 @@ int EVP_EncryptUpdate(EVP_CIPHER_CTX *ctx, uint8_t *out, int *out_len,
                       const uint8_t *in, int in_len) {
   int i, j, bl;
 
-  if (ctx->cipher->flags & EVP_CIPH_FLAG_CUSTOM_CIPHER) {
-    i = ctx->cipher->cipher(ctx, out, in, in_len);
-    if (i < 0) {
-      return 0;
-    } else {
-      *out_len = i;
-    }
-    return 1;
-  }
-
   if (in_len <= 0) {
     *out_len = 0;
     return in_len == 0;
@@ -324,16 +314,6 @@ int EVP_EncryptFinal_ex(EVP_CIPHER_CTX *ctx, uint8_t *out, int *out_len) {
   int n, ret;
   unsigned int i, b, bl;
 
-  if (ctx->cipher->flags & EVP_CIPH_FLAG_CUSTOM_CIPHER) {
-    ret = ctx->cipher->cipher(ctx, out, NULL, 0);
-    if (ret < 0) {
-      return 0;
-    } else {
-      *out_len = ret;
-    }
-    return 1;
-  }
-
   b = ctx->cipher->block_size;
   assert(b <= sizeof(ctx->buf));
   if (b == 1) {
@@ -368,17 +348,6 @@ int EVP_DecryptUpdate(EVP_CIPHER_CTX *ctx, uint8_t *out, int *out_len,
                       const uint8_t *in, int in_len) {
   int fix_len;
   unsigned int b;
-
-  if (ctx->cipher->flags & EVP_CIPH_FLAG_CUSTOM_CIPHER) {
-    int r = ctx->cipher->cipher(ctx, out, in, in_len);
-    if (r < 0) {
-      *out_len = 0;
-      return 0;
-    } else {
-      *out_len = r;
-    }
-    return 1;
-  }
 
   if (in_len <= 0) {
     *out_len = 0;
@@ -425,16 +394,6 @@ int EVP_DecryptFinal_ex(EVP_CIPHER_CTX *ctx, unsigned char *out, int *out_len) {
   int i, n;
   unsigned int b;
   *out_len = 0;
-
-  if (ctx->cipher->flags & EVP_CIPH_FLAG_CUSTOM_CIPHER) {
-    i = ctx->cipher->cipher(ctx, out, NULL, 0);
-    if (i < 0) {
-      return 0;
-    } else {
-      *out_len = i;
-    }
-    return 1;
-  }
 
   b = ctx->cipher->block_size;
   if (ctx->flags & EVP_CIPH_NO_PADDING) {
