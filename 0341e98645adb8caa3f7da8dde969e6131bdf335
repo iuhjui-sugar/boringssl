@@ -16,6 +16,24 @@
       "revId": "0341e98645adb8caa3f7da8dde969e6131bdf335",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b5398a03_e398ccfa",
+        "filename": "include/openssl/modes.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-09-30T19:29:45Z",
+      "side": 1,
+      "message": "David, I have another patch that addresses that by removing the \"key\" field from the struct. I will post that patch in a separate patchset that explains why I did so.",
+      "parentUuid": "d5cefe75_214e4eb3",
+      "revId": "0341e98645adb8caa3f7da8dde969e6131bdf335",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
