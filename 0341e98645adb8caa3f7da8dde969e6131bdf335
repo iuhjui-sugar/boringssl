@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d5cefe75_214e4eb3",
+        "filename": "include/openssl/modes.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-30T15:19:36Z",
+      "side": 1,
+      "message": "This and the below probably want to also add \"|key| must remain valid for the lifetime of the context.\" so make it clear we\u0027re not copying the key and just storing a pointer.",
+      "revId": "0341e98645adb8caa3f7da8dde969e6131bdf335",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
