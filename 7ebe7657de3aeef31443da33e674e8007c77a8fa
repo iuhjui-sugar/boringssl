@@ -16,6 +16,24 @@
       "revId": "7ebe7657de3aeef31443da33e674e8007c77a8fa",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b5398a03_238bd4ea",
+        "filename": "crypto/sha/asm/sha256-armv4.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-09-30T18:35:22Z",
+      "side": 1,
+      "message": "I don\u0027t think it\u0027s a no-op. The .global will now expand into a section directive too and thus (empirically) the alignment would be ignored.",
+      "parentUuid": "95bac635_6fc8b190",
+      "revId": "7ebe7657de3aeef31443da33e674e8007c77a8fa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
