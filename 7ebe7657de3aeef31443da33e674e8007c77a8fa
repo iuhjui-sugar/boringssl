@@ -34,6 +34,24 @@
       "revId": "7ebe7657de3aeef31443da33e674e8007c77a8fa",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d5b0be55_51de3446",
+        "filename": "crypto/sha/asm/sha256-armv4.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-30T18:37:50Z",
+      "side": 1,
+      "message": "Oh right, I forgot you made .global also push sections.",
+      "parentUuid": "b5398a03_238bd4ea",
+      "revId": "7ebe7657de3aeef31443da33e674e8007c77a8fa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
