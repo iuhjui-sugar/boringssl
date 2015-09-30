@@ -16,6 +16,24 @@
       "revId": "f28602a689c57847f67c52d5c7e4ced268a51d0c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2e2e2591_c398ccb4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-09-30T00:24:55Z",
+      "side": 1,
+      "message": "(Not planning on landing this or the internal version until tomorrow.)",
+      "parentUuid": "35a11a5f_9cc7c581",
+      "revId": "f28602a689c57847f67c52d5c7e4ced268a51d0c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
