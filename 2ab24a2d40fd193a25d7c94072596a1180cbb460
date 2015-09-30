@@ -16,6 +16,24 @@
       "revId": "2ab24a2d40fd193a25d7c94072596a1180cbb460",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b5398a03_83b46008",
+        "filename": "crypto/sha/asm/sha256-armv4.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-09-30T17:42:27Z",
+      "side": 1,
+      "message": "Thanks for that! I\u0027m afraid that we don\u0027t have immediate ARM builders, rather we only have ARM builders when we roll into Chromium. https://boringssl-review.googlesource.com/#/c/6050/ written to fix this.",
+      "parentUuid": "b5398a03_20a10a96",
+      "revId": "2ab24a2d40fd193a25d7c94072596a1180cbb460",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
