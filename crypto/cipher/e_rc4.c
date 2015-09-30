@@ -106,25 +106,11 @@ struct aead_rc4_md5_tls_ctx {
 static int
 aead_rc4_md5_tls_init(EVP_AEAD_CTX *ctx, const uint8_t *key, size_t key_len,
                       size_t tag_len) {
+  aead_assert_init_preconditions(ctx, key, key_len, tag_len);
+
   struct aead_rc4_md5_tls_ctx *rc4_ctx;
   size_t i;
   uint8_t hmac_key[MD5_CBLOCK];
-
-  if (tag_len == EVP_AEAD_DEFAULT_TAG_LENGTH) {
-    tag_len = MD5_DIGEST_LENGTH;
-  }
-
-  if (tag_len > MD5_DIGEST_LENGTH) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_TOO_LARGE);
-    return 0;
-  }
-
-  /* The keys consists of |MD5_DIGEST_LENGTH| bytes of HMAC(MD5) key followed
-   * by some number of bytes of RC4 key. */
-  if (key_len <= MD5_DIGEST_LENGTH) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_BAD_KEY_LENGTH);
-    return 0;
-  }
 
   rc4_ctx = OPENSSL_malloc(sizeof(struct aead_rc4_md5_tls_ctx));
   if (rc4_ctx == NULL) {
@@ -174,6 +160,9 @@ static int aead_rc4_md5_tls_seal(const EVP_AEAD_CTX *ctx, uint8_t *out,
                                  const uint8_t *nonce, size_t nonce_len,
                                  const uint8_t *in, size_t in_len,
                                  const uint8_t *ad, size_t ad_len) {
+  aead_assert_open_seal_preconditions(ctx, out, out_len, nonce, nonce_len, in,
+                                      in_len, ad, ad_len);
+
   struct aead_rc4_md5_tls_ctx *rc4_ctx = ctx->aead_state;
   MD5_CTX md;
 #if defined(STITCHED_CALL)
@@ -184,23 +173,14 @@ static int aead_rc4_md5_tls_seal(const EVP_AEAD_CTX *ctx, uint8_t *out,
 #endif
   uint8_t digest[MD5_DIGEST_LENGTH];
 
-  if (in_len + rc4_ctx->tag_len < in_len) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_TOO_LARGE);
+  if (!aead_seal_out_max_out_in_tag_len(out_len, max_out_len, in_len,
+                                        rc4_ctx->tag_len)) {
+    /* |aead_seal_out_max_out_in_tag_len| already called |OPENSSL_PUT_ERROR|. */
     return 0;
   }
 
   if (nonce_len != 0) {
     OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_IV_TOO_LARGE);
-    return 0;
-  }
-
-  if (max_out_len < in_len + rc4_ctx->tag_len) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_BUFFER_TOO_SMALL);
-    return 0;
-  }
-
-  if (nonce_len != 0) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_TOO_LARGE);
     return 0;
   }
 
@@ -265,7 +245,6 @@ static int aead_rc4_md5_tls_seal(const EVP_AEAD_CTX *ctx, uint8_t *out,
   RC4(&rc4_ctx->rc4, in_len - rc4_off, in + rc4_off, out + rc4_off);
   RC4(&rc4_ctx->rc4, MD5_DIGEST_LENGTH, out + in_len, out + in_len);
 
-  *out_len = in_len + rc4_ctx->tag_len;
   return 1;
 }
 
@@ -274,6 +253,9 @@ static int aead_rc4_md5_tls_open(const EVP_AEAD_CTX *ctx, uint8_t *out,
                                  const uint8_t *nonce, size_t nonce_len,
                                  const uint8_t *in, size_t in_len,
                                  const uint8_t *ad, size_t ad_len) {
+  aead_assert_open_seal_preconditions(ctx, out, out_len, nonce, nonce_len, in,
+                                      in_len, ad, ad_len);
+
   struct aead_rc4_md5_tls_ctx *rc4_ctx = ctx->aead_state;
   MD5_CTX md;
   size_t plaintext_len;
@@ -287,17 +269,18 @@ static int aead_rc4_md5_tls_open(const EVP_AEAD_CTX *ctx, uint8_t *out,
 #endif
   uint8_t digest[MD5_DIGEST_LENGTH];
 
-  if (in_len < rc4_ctx->tag_len) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_BAD_DECRYPT);
+  if (!aead_open_out_max_out_in_tag_len(out_len, max_out_len, in_len,
+                                        rc4_ctx->tag_len)) {
+    /* |aead_open_out_max_out_in_tag_len| already called |OPENSSL_PUT_ERROR|. */
     return 0;
   }
-
-  plaintext_len = in_len - rc4_ctx->tag_len;
 
   if (nonce_len != 0) {
     OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_TOO_LARGE);
     return 0;
   }
+
+  plaintext_len = in_len - rc4_ctx->tag_len;
 
   if (max_out_len < in_len) {
     /* This requires that the caller provide space for the MAC, even though it
@@ -370,7 +353,6 @@ static int aead_rc4_md5_tls_open(const EVP_AEAD_CTX *ctx, uint8_t *out,
     return 0;
   }
 
-  *out_len = plaintext_len;
   return 1;
 }
 
