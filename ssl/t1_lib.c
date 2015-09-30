@@ -122,6 +122,7 @@
 #include <openssl/mem.h>
 #include <openssl/obj.h>
 #include <openssl/rand.h>
+#include <openssl/type_check.h>
 
 #include "internal.h"
 
@@ -2470,7 +2471,7 @@ int ssl_parse_clienthello_tlsext(SSL *s, CBS *cbs) {
 
 static int ssl_scan_serverhello_tlsext(SSL *s, CBS *cbs, int *out_alert) {
   uint32_t received = 0;
-  assert(kNumExtensions <= sizeof(received) * 8);
+  OPENSSL_COMPILE_ASSERT(kNumExtensions <= sizeof(received) * 8, too_many_bits);
 
   if (CBS_len(cbs) != 0) {
     /* Decode the extensions block and check it is valid. */

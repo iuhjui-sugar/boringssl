@@ -47,6 +47,7 @@
  * ==================================================================== */
 
 #include <openssl/modes.h>
+#include <openssl/type_check.h>
 
 #include <assert.h>
 #include <string.h>
@@ -61,7 +62,7 @@ void CRYPTO_cfb128_encrypt(const uint8_t *in, uint8_t *out, size_t len,
   size_t l = 0;
 
   assert(in && out && key && ivec && num);
-  assert((16 % sizeof(size_t)) == 0);
+  OPENSSL_COMPILE_ASSERT((16 % sizeof(size_t)) == 0, bad_size_t_size);
 
   n = *num;
 

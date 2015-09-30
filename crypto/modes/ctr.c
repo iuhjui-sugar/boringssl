@@ -46,6 +46,7 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  * ==================================================================== */
 #include <openssl/modes.h>
+#include <openssl/type_check.h>
 
 #include <assert.h>
 #include <string.h>
@@ -91,7 +92,7 @@ void CRYPTO_ctr128_encrypt(const uint8_t *in, uint8_t *out, size_t len,
   assert(key && ecount_buf && num);
   assert(len == 0 || (in && out));
   assert(*num < 16);
-  assert((16 % sizeof(size_t)) == 0);
+  OPENSSL_COMPILE_ASSERT((16 % sizeof(size_t)) == 0, bad_size_t_size);
 
   n = *num;
 
