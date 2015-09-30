@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "95bac635_6fe1d100",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-09-30T18:20:18Z",
+      "side": 1,
+      "message": "I\u0027m unclear on whether google3\u0027s version is also 1.5.1. If not, we may want to pin to that version instead? I dunno.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 12
+      },
+      "revId": "f1c24c22c474383bafba72edf2576db36ed30449",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
