@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b5398a03_20a10a96",
+        "filename": "crypto/sha/asm/sha256-armv4.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 6055
+      },
+      "writtenOn": "2015-09-30T04:30:47Z",
+      "side": 1,
+      "message": "This does not work anymore. The .align applies only to the outer section, but the \"sub\t$Ktbl,r3,#256+32\t@ K256\" line below assumes it made the gap between K256 and sha256_block_data_order exactly 256+32 bytes. At least that is what I assume caused this code to produce a different hash than before.",
+      "revId": "2ab24a2d40fd193a25d7c94072596a1180cbb460",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
