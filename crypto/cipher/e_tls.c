@@ -55,14 +55,10 @@ static int aead_tls_init(EVP_AEAD_CTX *ctx, const uint8_t *key, size_t key_len,
                          size_t tag_len, enum evp_aead_direction_t dir,
                          const EVP_CIPHER *cipher, const EVP_MD *md,
                          char implicit_iv) {
-  if (tag_len != EVP_AEAD_DEFAULT_TAG_LENGTH &&
-      tag_len != EVP_MD_size(md)) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_UNSUPPORTED_TAG_SIZE);
-    return 0;
-  }
+  aead_assert_init_preconditions(ctx, key, key_len, tag_len);
 
-  if (key_len != EVP_AEAD_key_length(ctx->aead)) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_BAD_KEY_LENGTH);
+  if (tag_len != EVP_MD_size(md)) {
+    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_UNSUPPORTED_TAG_SIZE);
     return 0;
   }
 
@@ -104,6 +100,9 @@ static int aead_tls_seal(const EVP_AEAD_CTX *ctx, uint8_t *out,
                          const uint8_t *nonce, size_t nonce_len,
                          const uint8_t *in, size_t in_len,
                          const uint8_t *ad, size_t ad_len) {
+  aead_assert_open_seal_preconditions(ctx, out, out_len, nonce, nonce_len, in,
+                                      in_len, ad, ad_len);
+
   AEAD_TLS_CTX *tls_ctx = (AEAD_TLS_CTX *)ctx->aead_state;
   size_t total = 0;
 
@@ -210,6 +209,9 @@ static int aead_tls_open(const EVP_AEAD_CTX *ctx, uint8_t *out,
                          const uint8_t *nonce, size_t nonce_len,
                          const uint8_t *in, size_t in_len,
                          const uint8_t *ad, size_t ad_len) {
+  aead_assert_open_seal_preconditions(ctx, out, out_len, nonce, nonce_len, in,
+                                      in_len, ad, ad_len);
+
   AEAD_TLS_CTX *tls_ctx = (AEAD_TLS_CTX *)ctx->aead_state;
 
   if (tls_ctx->cipher_ctx.encrypt) {
