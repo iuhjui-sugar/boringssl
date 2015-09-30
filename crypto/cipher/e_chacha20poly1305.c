@@ -35,20 +35,9 @@ struct aead_chacha20_poly1305_ctx {
 
 static int aead_chacha20_poly1305_init(EVP_AEAD_CTX *ctx, const uint8_t *key,
                                        size_t key_len, size_t tag_len) {
+  aead_assert_init_preconditions(ctx, key, key_len, tag_len);
+
   struct aead_chacha20_poly1305_ctx *c20_ctx;
-
-  if (tag_len == 0) {
-    tag_len = POLY1305_TAG_LEN;
-  }
-
-  if (tag_len > POLY1305_TAG_LEN) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_TOO_LARGE);
-    return 0;
-  }
-
-  if (key_len != sizeof(c20_ctx->key)) {
-    return 0; /* internal error - EVP_AEAD_CTX_init should catch this. */
-  }
 
   c20_ctx = OPENSSL_malloc(sizeof(struct aead_chacha20_poly1305_ctx));
   if (c20_ctx == NULL) {
@@ -94,37 +83,24 @@ static int aead_chacha20_poly1305_seal(const EVP_AEAD_CTX *ctx, uint8_t *out,
                                        const uint8_t *nonce, size_t nonce_len,
                                        const uint8_t *in, size_t in_len,
                                        const uint8_t *ad, size_t ad_len) {
-  const struct aead_chacha20_poly1305_ctx *c20_ctx = ctx->aead_state;
-  uint8_t poly1305_key[32] ALIGNED;
-  poly1305_state poly1305;
-  const uint64_t in_len_64 = in_len;
-
-  /* The underlying ChaCha implementation may not overflow the block
-   * counter into the second counter word. Therefore we disallow
-   * individual operations that work on more than 256GB at a time.
-   * |in_len_64| is needed because, on 32-bit platforms, size_t is only
-   * 32-bits and this produces a warning because it's always false.
-   * Casting to uint64_t inside the conditional is not sufficient to stop
-   * the warning. */
-  if (in_len_64 >= (1ull << 32) * 64 - 64) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_TOO_LARGE);
-    return 0;
-  }
-
-  if (in_len + c20_ctx->tag_len < in_len) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_TOO_LARGE);
-    return 0;
-  }
-
-  if (max_out_len < in_len + c20_ctx->tag_len) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_BUFFER_TOO_SMALL);
-    return 0;
-  }
+  aead_assert_open_seal_preconditions(ctx, out, out_len, nonce, nonce_len, in,
+                                      in_len, ad, ad_len);
 
   if (nonce_len != CHACHA20_NONCE_LEN) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_IV_TOO_LARGE);
+    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_INVALID_NONCE_SIZE);
     return 0;
   }
+
+  const struct aead_chacha20_poly1305_ctx *c20_ctx = ctx->aead_state;
+
+  if (!aead_seal_out_max_out_in_tag_len(out_len, max_out_len, in_len,
+                                        c20_ctx->tag_len)) {
+    /* |aead_seal_out_max_out_in_tag_len| already called |OPENSSL_PUT_ERROR|. */
+    return 0;
+  }
+
+  uint8_t poly1305_key[32] ALIGNED;
+  poly1305_state poly1305;
 
   memset(poly1305_key, 0, sizeof(poly1305_key));
   CRYPTO_chacha_20(poly1305_key, poly1305_key, sizeof(poly1305_key),
@@ -138,7 +114,6 @@ static int aead_chacha20_poly1305_seal(const EVP_AEAD_CTX *ctx, uint8_t *out,
   uint8_t tag[POLY1305_TAG_LEN] ALIGNED;
   CRYPTO_poly1305_finish(&poly1305, tag);
   memcpy(out + in_len, tag, c20_ctx->tag_len);
-  *out_len = in_len + c20_ctx->tag_len;
   return 1;
 }
 
@@ -147,41 +122,29 @@ static int aead_chacha20_poly1305_open(const EVP_AEAD_CTX *ctx, uint8_t *out,
                                        const uint8_t *nonce, size_t nonce_len,
                                        const uint8_t *in, size_t in_len,
                                        const uint8_t *ad, size_t ad_len) {
+  aead_assert_open_seal_preconditions(ctx, out, out_len, nonce, nonce_len, in,
+                                      in_len, ad, ad_len);
+
+  if (nonce_len != CHACHA20_NONCE_LEN) {
+    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_INVALID_NONCE_SIZE);
+    return 0;
+  }
+
   const struct aead_chacha20_poly1305_ctx *c20_ctx = ctx->aead_state;
+
+  if (!aead_open_out_max_out_in_tag_len(out_len, max_out_len, in_len,
+                                        c20_ctx->tag_len)) {
+    /* |aead_open_out_max_out_in_tag_len| already called
+     * |OPENSSL_PUT_ERROR|. */
+    return 0;
+  }
+
   uint8_t mac[POLY1305_TAG_LEN];
   uint8_t poly1305_key[32] ALIGNED;
   size_t plaintext_len;
   poly1305_state poly1305;
-  const uint64_t in_len_64 = in_len;
-
-  if (in_len < c20_ctx->tag_len) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_BAD_DECRYPT);
-    return 0;
-  }
-
-  /* The underlying ChaCha implementation may not overflow the block
-   * counter into the second counter word. Therefore we disallow
-   * individual operations that work on more than 256GB at a time.
-   * |in_len_64| is needed because, on 32-bit platforms, size_t is only
-   * 32-bits and this produces a warning because it's always false.
-   * Casting to uint64_t inside the conditional is not sufficient to stop
-   * the warning. */
-  if (in_len_64 >= (1ull << 32) * 64 - 64) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_TOO_LARGE);
-    return 0;
-  }
-
-  if (nonce_len != CHACHA20_NONCE_LEN) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_IV_TOO_LARGE);
-    return 0;
-  }
 
   plaintext_len = in_len - c20_ctx->tag_len;
-
-  if (max_out_len < plaintext_len) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_BUFFER_TOO_SMALL);
-    return 0;
-  }
 
   memset(poly1305_key, 0, sizeof(poly1305_key));
   CRYPTO_chacha_20(poly1305_key, poly1305_key, sizeof(poly1305_key),
@@ -198,7 +161,6 @@ static int aead_chacha20_poly1305_open(const EVP_AEAD_CTX *ctx, uint8_t *out,
   }
 
   CRYPTO_chacha_20(out, in, plaintext_len, c20_ctx->key, nonce, 1);
-  *out_len = plaintext_len;
   return 1;
 }
 
