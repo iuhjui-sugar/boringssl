@@ -639,7 +639,7 @@ int CRYPTO_gcm128_encrypt(GCM128_CONTEXT *ctx, const unsigned char *in,
   size_t i;
   uint64_t mlen = ctx->len.u[1];
   block128_f block = ctx->block;
-  void *key = ctx->key;
+  const void *key = ctx->key;
 #ifdef GCM_FUNCREF_4BIT
   void (*gcm_gmult_p)(uint64_t Xi[2], const u128 Htable[16]) = ctx->gmult;
 #ifdef GHASH
@@ -799,7 +799,7 @@ int CRYPTO_gcm128_decrypt(GCM128_CONTEXT *ctx, const unsigned char *in,
   size_t i;
   uint64_t mlen = ctx->len.u[1];
   block128_f block = ctx->block;
-  void *key = ctx->key;
+  const void *key = ctx->key;
 #ifdef GCM_FUNCREF_4BIT
   void (*gcm_gmult_p)(uint64_t Xi[2], const u128 Htable[16]) = ctx->gmult;
 #ifdef GHASH
@@ -965,7 +965,7 @@ int CRYPTO_gcm128_encrypt_ctr32(GCM128_CONTEXT *ctx, const uint8_t *in,
   unsigned int n, ctr;
   size_t i;
   uint64_t mlen = ctx->len.u[1];
-  void *key = ctx->key;
+  const void *key = ctx->key;
 #ifdef GCM_FUNCREF_4BIT
   void (*gcm_gmult_p)(uint64_t Xi[2], const u128 Htable[16]) = ctx->gmult;
 #ifdef GHASH
@@ -1075,7 +1075,7 @@ int CRYPTO_gcm128_decrypt_ctr32(GCM128_CONTEXT *ctx, const uint8_t *in,
   unsigned int n, ctr;
   size_t i;
   uint64_t mlen = ctx->len.u[1];
-  void *key = ctx->key;
+  const void *key = ctx->key;
 #ifdef GCM_FUNCREF_4BIT
   void (*gcm_gmult_p)(uint64_t Xi[2], const u128 Htable[16]) = ctx->gmult;
 #ifdef GHASH
