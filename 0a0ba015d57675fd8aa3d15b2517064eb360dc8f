@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "22c9de9c_13c46c7b",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1658,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-10-01T17:47:05Z",
+      "side": 1,
+      "message": "We can do the more aggressive bits separately, but it seems that both MSVC and clang hate you for different reasons, so we\u0027ll have to fix that now. Will suggest fixes on patch set 4.",
+      "parentUuid": "a40a365b_129eea58",
+      "revId": "0a0ba015d57675fd8aa3d15b2517064eb360dc8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c7d48b39_704a8e2f",
         "filename": "ssl/ssl_rsa.c",
         "patchSetId": 3
