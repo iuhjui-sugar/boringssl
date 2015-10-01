@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "427fb221_ec51eb51",
+        "filename": "crypto/evp/pbkdf_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-10-01T21:21:05Z",
+      "side": 1,
+      "message": "Might be better to just call PKCS5_PBKDF2_HMAC directly with whatever inputs you like and then make sure it fails on you. Then you don\u0027t rely on 0 acting like 1 before.",
+      "revId": "b77ed6fc8e0b7b252326ae02e6e6f9060d093182",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
