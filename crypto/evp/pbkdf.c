@@ -69,6 +69,12 @@ int PKCS5_PBKDF2_HMAC(const char *password, size_t password_len,
   uint32_t i = 1;
   HMAC_CTX hctx_tpl, hctx;
 
+  if (iterations == 0) {
+    // RFC 2898 describes iterations (c) as being a "positive integer". A value
+    // of 0 is therefore not well defined and should be rejected.
+    return 0;
+  }
+
   mdlen = EVP_MD_size(digest);
   HMAC_CTX_init(&hctx_tpl);
   p = out_key;

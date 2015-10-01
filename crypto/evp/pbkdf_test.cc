@@ -149,6 +149,32 @@ static bool TestSHA2() {
   return true;
 }
 
+// Tests key derivation using iterations=0.
+//
+// RFC 2898 defines the iteration count (c) as a "positive integer". So doing a
+// key derivation with iterations=0 is ill-defined and should result in a
+// failure.
+static bool TestZeroIterations() {
+  const char password[] = "password";
+  size_t password_len = strlen(password);
+  const uint8_t salt[] = {1, 2, 3, 4};
+  size_t salt_len = sizeof(salt);
+  const EVP_MD *digest = EVP_sha1();
+  uint8_t key[10];
+  size_t key_len = sizeof(key);
+
+  // Verify the calling with iterations=1 works.
+  if (!PKCS5_PBKDF2_HMAC(password, password_len, salt, salt_len,
+                         1 /*iterations*/, digest, key_len, key)) {
+    fprintf(stderr, "PBKDF2 failed with iterations=1\n");
+    return false;
+  }
+
+  // However calling it with iterations=0 fails.
+  return !PKCS5_PBKDF2_HMAC(password, password_len, salt, salt_len,
+                            0 /*iterations*/, digest, key_len, key);
+}
+
 int main(void) {
   CRYPTO_library_init();
   ERR_load_crypto_strings();
@@ -170,6 +196,11 @@ int main(void) {
 
   if (!TestSHA2()) {
     fprintf(stderr, "TestSHA2 failed\n");
+    return 1;
+  }
+
+  if (!TestZeroIterations()) {
+    fprintf(stderr, "TestZeroIterations failed\n");
     return 1;
   }
 
