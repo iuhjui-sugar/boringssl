@@ -1120,8 +1120,9 @@ int SSL_set_wfd(SSL *s, int fd) {
   int ret = 0;
   BIO *bio = NULL;
 
+  int rfd;
   if (s->rbio == NULL || BIO_method_type(s->rbio) != BIO_TYPE_FD ||
-      (int)BIO_get_fd(s->rbio, NULL) != fd) {
+      !BIO_get_fd(s->rbio, &rfd) || rfd != fd) {
     bio = BIO_new(BIO_s_fd());
 
     if (bio == NULL) {
@@ -1144,8 +1145,9 @@ int SSL_set_rfd(SSL *s, int fd) {
   int ret = 0;
   BIO *bio = NULL;
 
+  int wfd;
   if (s->wbio == NULL || BIO_method_type(s->wbio) != BIO_TYPE_FD ||
-      (int)BIO_get_fd(s->wbio, NULL) != fd) {
+      !BIO_get_fd(s->wbio, &wfd) || wfd != fd) {
     bio = BIO_new(BIO_s_fd());
 
     if (bio == NULL) {
