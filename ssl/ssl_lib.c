@@ -2475,7 +2475,7 @@ int ssl3_can_false_start(const SSL *s) {
       cipher->algorithm_mkey == SSL_kECDHE &&
       (cipher->algorithm_enc == SSL_AES128GCM ||
        cipher->algorithm_enc == SSL_AES256GCM ||
-       cipher->algorithm_enc == SSL_CHACHA20POLY1305);
+       cipher->algorithm_enc == SSL_CHACHA20POLY1305_DEPRECATED);
 }
 
 const SSL3_ENC_METHOD *ssl3_get_enc_method(uint16_t version) {
