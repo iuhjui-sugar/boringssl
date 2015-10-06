@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b829c51_f2d22833",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1931,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-10-06T01:17:10Z",
+      "side": 1,
+      "message": "Not super-attached to the name if you prefer a different color. SSL_CTX_set_accept_signature_algorithms? accepted_signature_algorithms?",
+      "range": {
+        "startLine": 1931,
+        "startChar": 19,
+        "endLine": 1931,
+        "endChar": 58
+      },
+      "revId": "a23e72fcb3ec00268279953dec04da1f3d692fff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2b829c51_92c71c70",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1938,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-10-06T01:17:10Z",
+      "side": 1,
+      "message": "Didn\u0027t bother adding SSL variants since it didn\u0027t seem worth bothering. Chrome is kind of awkward because we still have a singleton SSL_CTX. I need to fix that. But this is one of the few things that can reasonably be globally configured.",
+      "range": {
+        "startLine": 1938,
+        "startChar": 10,
+        "endLine": 1938,
+        "endChar": 17
+      },
+      "revId": "a23e72fcb3ec00268279953dec04da1f3d692fff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
