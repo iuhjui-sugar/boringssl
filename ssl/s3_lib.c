@@ -537,17 +537,16 @@ const SSL_CIPHER *ssl3_choose_cipher(
   return ret;
 }
 
-int ssl3_get_req_cert_type(SSL *s, uint8_t *p) {
+int ssl3_get_req_cert_type(SSL *ssl, uint8_t *p) {
   int ret = 0;
-  const uint8_t *sig;
-  size_t i, siglen;
+  const SSL_SIGNATURE_ALGORITHM *sigalgs;
+  size_t i, sigalgs_len;
   int have_rsa_sign = 0;
   int have_ecdsa_sign = 0;
 
-  /* get configured sigalgs */
-  siglen = tls12_get_psigalgs(s, &sig);
-  for (i = 0; i < siglen; i += 2, sig += 2) {
-    switch (sig[1]) {
+  SSL_CTX_get_verify_signature_algorithms(ssl->ctx, &sigalgs, &sigalgs_len);
+  for (i = 0; i < sigalgs_len; i++) {
+    switch (sigalgs[i].signature) {
       case TLSEXT_signature_rsa:
         have_rsa_sign = 1;
         break;
@@ -564,7 +563,7 @@ int ssl3_get_req_cert_type(SSL *s, uint8_t *p) {
 
   /* ECDSA certs can be used with RSA cipher suites as well so we don't need to
    * check for SSL_kECDH or SSL_kECDHE. */
-  if (s->version >= TLS1_VERSION && have_ecdsa_sign) {
+  if (ssl->version >= TLS1_VERSION && have_ecdsa_sign) {
       p[ret++] = TLS_CT_ECDSA_SIGN;
   }
 

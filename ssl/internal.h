@@ -715,12 +715,6 @@ enum ssl_hash_message_t {
   ssl_hash_message,
 };
 
-/* Structure containing decoded values of signature algorithms extension */
-typedef struct tls_sigalgs_st {
-  uint8_t rsign;
-  uint8_t rhash;
-} TLS_SIGALGS;
-
 typedef struct cert_st {
   X509 *x509;
   EVP_PKEY *privatekey;
@@ -758,7 +752,7 @@ typedef struct cert_st {
   /* peer_sigalgs are the algorithm/hash pairs that the peer supports. These
    * are taken from the contents of signature algorithms extension for a server
    * or from the CertificateRequest for a client. */
-  TLS_SIGALGS *peer_sigalgs;
+  SSL_SIGNATURE_ALGORITHM *peer_sigalgs;
   /* peer_sigalgslen is the number of entries in |peer_sigalgs|. */
   size_t peer_sigalgslen;
 
@@ -1022,7 +1016,7 @@ int ssl3_prf(SSL *s, uint8_t *out, size_t out_len, const uint8_t *secret,
 void ssl3_cleanup_key_block(SSL *s);
 int ssl3_do_write(SSL *s, int type);
 int ssl3_send_alert(SSL *s, int level, int desc);
-int ssl3_get_req_cert_type(SSL *s, uint8_t *p);
+int ssl3_get_req_cert_type(SSL *ssl, uint8_t *p);
 long ssl3_get_message(SSL *s, int header_state, int body_state, int msg_type,
                       long max, enum ssl_hash_message_t hash_message, int *ok);
 
@@ -1300,7 +1294,6 @@ int tls1_parse_peer_sigalgs(SSL *s, const CBS *sigalgs);
  * based on the peer's preferences the digests supported. */
 const EVP_MD *tls1_choose_signing_digest(SSL *ssl);
 
-size_t tls12_get_psigalgs(SSL *s, const uint8_t **psigs);
 int tls12_check_peer_sigalg(const EVP_MD **out_md, int *out_alert, SSL *s,
                             CBS *cbs, EVP_PKEY *pkey);
 void ssl_set_client_disabled(SSL *s);

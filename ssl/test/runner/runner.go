@@ -3989,6 +3989,25 @@ func addSigningHashTests() {
 		},
 		expectedClientCertSignatureHash: hashSHA256,
 	})
+	testCases = append(testCases, testCase{
+		name: "ECDSADisabled",
+		config: Config{
+			Bugs: ProtocolBugs{
+				ExpectECDSADisabled: true,
+			},
+		},
+		flags: []string{"-disable-ecdsa"},
+	})
+	testCases = append(testCases, testCase{
+		name: "ECDSAEnabled",
+		config: Config{
+			Bugs: ProtocolBugs{
+				ExpectECDSADisabled: true,
+			},
+		},
+		shouldFail:         true,
+		expectedLocalError: "tls: client offered ECDSA",
+	})
 }
 
 // timeouts is the retransmit schedule for BoringSSL. It doubles and

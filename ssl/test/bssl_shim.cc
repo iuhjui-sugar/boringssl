@@ -732,6 +732,24 @@ static ScopedSSL_CTX SetupCtx(const TestConfig *config) {
     return nullptr;
   }
 
+  if (config->disable_ecdsa) {
+    const SSL_SIGNATURE_ALGORITHM *sigalgs;
+    size_t sigalgs_len;
+    SSL_CTX_get_verify_signature_algorithms(ssl_ctx.get(), &sigalgs,
+                                            &sigalgs_len);
+
+    std::vector<SSL_SIGNATURE_ALGORITHM> new_sigalgs;
+    for (size_t i = 0; i < sigalgs_len; i++) {
+      if (sigalgs[i].signature != TLSEXT_signature_ecdsa) {
+        new_sigalgs.push_back(sigalgs[i]);
+      }
+    }
+    if (!SSL_CTX_set_verify_signature_algorithms(
+            ssl_ctx.get(), new_sigalgs.data(), new_sigalgs.size())) {
+      return nullptr;
+    }
+  }
+
   return ssl_ctx;
 }
 

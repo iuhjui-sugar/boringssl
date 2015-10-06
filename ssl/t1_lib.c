@@ -618,36 +618,14 @@ int tls1_check_ec_tmp_key(SSL *s) {
   return tls1_get_shared_curve(s) != NID_undef;
 }
 
-/* List of supported signature algorithms and hashes. Should make this
- * customisable at some point, for now include everything we support. */
-
-#define tlsext_sigalg_rsa(md) md, TLSEXT_signature_rsa,
-
-#define tlsext_sigalg_ecdsa(md) md, TLSEXT_signature_ecdsa,
-
-#define tlsext_sigalg(md) tlsext_sigalg_rsa(md) tlsext_sigalg_ecdsa(md)
-
-static const uint8_t tls12_sigalgs[] = {
-    tlsext_sigalg(TLSEXT_hash_sha512)
-    tlsext_sigalg(TLSEXT_hash_sha384)
-    tlsext_sigalg(TLSEXT_hash_sha256)
-    tlsext_sigalg(TLSEXT_hash_sha224)
-    tlsext_sigalg(TLSEXT_hash_sha1)
-};
-
-size_t tls12_get_psigalgs(SSL *s, const uint8_t **psigs) {
-  *psigs = tls12_sigalgs;
-  return sizeof(tls12_sigalgs);
-}
-
 /* tls12_check_peer_sigalg parses a SignatureAndHashAlgorithm out of |cbs|. It
  * checks it is consistent with |s|'s sent supported signature algorithms and,
  * if so, writes the relevant digest into |*out_md| and returns 1. Otherwise it
  * returns 0 and writes an alert into |*out_alert|. */
 int tls12_check_peer_sigalg(const EVP_MD **out_md, int *out_alert, SSL *s,
                             CBS *cbs, EVP_PKEY *pkey) {
-  const uint8_t *sent_sigs;
-  size_t sent_sigslen, i;
+  const SSL_SIGNATURE_ALGORITHM *sent_sigalgs;
+  size_t sent_sigalgs_len, i;
   int sigalg = tls12_get_sigid(pkey->type);
   uint8_t hash, signature;
 
@@ -689,16 +667,18 @@ int tls12_check_peer_sigalg(const EVP_MD **out_md, int *out_alert, SSL *s,
     }
   }
 
-  /* Check signature matches a type we sent */
-  sent_sigslen = tls12_get_psigalgs(s, &sent_sigs);
-  for (i = 0; i < sent_sigslen; i += 2, sent_sigs += 2) {
-    if (hash == sent_sigs[0] && signature == sent_sigs[1]) {
+  /* Check the signature matches a type we sent. */
+  SSL_CTX_get_verify_signature_algorithms(s->ctx, &sent_sigalgs,
+                                          &sent_sigalgs_len);
+  for (i = 0; i < sent_sigalgs_len; i++) {
+    if (hash == sent_sigalgs[i].hash &&
+        signature == sent_sigalgs[i].signature) {
       break;
     }
   }
 
   /* Allow fallback to SHA-1. */
-  if (i == sent_sigslen && hash != TLSEXT_hash_sha1) {
+  if (i == sent_sigalgs_len && hash != TLSEXT_hash_sha1) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_WRONG_SIGNATURE_TYPE);
     *out_alert = SSL_AD_ILLEGAL_PARAMETER;
     return 0;
@@ -720,8 +700,8 @@ int tls12_check_peer_sigalg(const EVP_MD **out_md, int *out_alert, SSL *s,
  * settings. */
 void ssl_set_client_disabled(SSL *s) {
   CERT *c = s->cert;
-  const uint8_t *sigalgs;
-  size_t i, sigalgslen;
+  const SSL_SIGNATURE_ALGORITHM *sigalgs;
+  size_t i, sigalgs_len;
   int have_rsa = 0, have_ecdsa = 0;
   c->mask_a = 0;
   c->mask_k = 0;
@@ -733,11 +713,11 @@ void ssl_set_client_disabled(SSL *s) {
     c->mask_ssl = 0;
   }
 
-  /* Now go through all signature algorithms seeing if we support any for RSA,
-   * DSA, ECDSA. Do this for all versions not just TLS 1.2. */
-  sigalgslen = tls12_get_psigalgs(s, &sigalgs);
-  for (i = 0; i < sigalgslen; i += 2, sigalgs += 2) {
-    switch (sigalgs[1]) {
+  /* Now go through all signature algorithms seeing if we support any for RSA
+   * and ECDSA. Do this for all versions not just TLS 1.2. */
+  SSL_CTX_get_verify_signature_algorithms(s->ctx, &sigalgs, &sigalgs_len);
+  for (i = 0; i < sigalgs_len; i++) {
+    switch (sigalgs[i].signature) {
       case TLSEXT_signature_rsa:
         have_rsa = 1;
         break;
@@ -1236,19 +1216,26 @@ static int ext_sigalgs_add_clienthello(SSL *ssl, CBB *out) {
     return 1;
   }
 
-  const uint8_t *sigalgs_data;
-  const size_t sigalgs_len = tls12_get_psigalgs(ssl, &sigalgs_data);
+  const SSL_SIGNATURE_ALGORITHM *sigalgs;
+  size_t sigalgs_len;
+  SSL_CTX_get_verify_signature_algorithms(ssl->ctx, &sigalgs, &sigalgs_len);
 
-  CBB contents, sigalgs;
+  CBB contents, sigalgs_cbb;
   if (!CBB_add_u16(out, TLSEXT_TYPE_signature_algorithms) ||
       !CBB_add_u16_length_prefixed(out, &contents) ||
-      !CBB_add_u16_length_prefixed(&contents, &sigalgs) ||
-      !CBB_add_bytes(&sigalgs, sigalgs_data, sigalgs_len) ||
-      !CBB_flush(out)) {
+      !CBB_add_u16_length_prefixed(&contents, &sigalgs_cbb)) {
     return 0;
   }
 
-  return 1;
+  size_t i;
+  for (i = 0; i < sigalgs_len; i++) {
+    if (!CBB_add_u8(&sigalgs_cbb, sigalgs[i].hash) ||
+        !CBB_add_u8(&sigalgs_cbb, sigalgs[i].signature)) {
+      return 0;
+    }
+  }
+
+  return CBB_flush(out);
 }
 
 static int ext_sigalgs_parse_serverhello(SSL *ssl, uint8_t *out_alert,
@@ -2837,8 +2824,8 @@ static int tls12_get_pkey_type(uint8_t sig_alg) {
   }
 }
 
-OPENSSL_COMPILE_ASSERT(sizeof(TLS_SIGALGS) == 2,
-    sizeof_tls_sigalgs_is_not_two);
+OPENSSL_COMPILE_ASSERT(sizeof(SSL_SIGNATURE_ALGORITHM) == 2,
+                       sizeof_ssl_signature_algorithm_is_not_two);
 
 int tls1_parse_peer_sigalgs(SSL *ssl, const CBS *in_sigalgs) {
   /* Extension ignored for inappropriate versions */
@@ -2864,9 +2851,11 @@ int tls1_parse_peer_sigalgs(SSL *ssl, const CBS *in_sigalgs) {
     return 1;
   }
 
-  /* This multiplication doesn't overflow because sizeof(TLS_SIGALGS) is two
-   * (statically asserted above) and we just divided |num_sigalgs| by two. */
-  cert->peer_sigalgs = OPENSSL_malloc(num_sigalgs * sizeof(TLS_SIGALGS));
+  /* This multiplication doesn't overflow because
+   * sizeof(SSL_SIGNATURE_ALGORITHM) is two (statically asserted above) and we
+   * just divided |num_sigalgs| by two. */
+  cert->peer_sigalgs = OPENSSL_malloc(num_sigalgs *
+                                      sizeof(SSL_SIGNATURE_ALGORITHM));
   if (cert->peer_sigalgs == NULL) {
     return 0;
   }
@@ -2877,9 +2866,9 @@ int tls1_parse_peer_sigalgs(SSL *ssl, const CBS *in_sigalgs) {
 
   size_t i;
   for (i = 0; i < num_sigalgs; i++) {
-    TLS_SIGALGS *const sigalg = &cert->peer_sigalgs[i];
-    if (!CBS_get_u8(&sigalgs, &sigalg->rhash) ||
-        !CBS_get_u8(&sigalgs, &sigalg->rsign)) {
+    SSL_SIGNATURE_ALGORITHM *const sigalg = &cert->peer_sigalgs[i];
+    if (!CBS_get_u8(&sigalgs, &sigalg->hash) ||
+        !CBS_get_u8(&sigalgs, &sigalg->signature)) {
       return 0;
     }
   }
@@ -2906,10 +2895,10 @@ const EVP_MD *tls1_choose_signing_digest(SSL *ssl) {
   for (i = 0; i < num_digest_nids; i++) {
     const int digest_nid = digest_nids[i];
     for (j = 0; j < cert->peer_sigalgslen; j++) {
-      const EVP_MD *md = tls12_get_hash(cert->peer_sigalgs[j].rhash);
+      const EVP_MD *md = tls12_get_hash(cert->peer_sigalgs[j].hash);
       if (md == NULL ||
           digest_nid != EVP_MD_type(md) ||
-          tls12_get_pkey_type(cert->peer_sigalgs[j].rsign) != type) {
+          tls12_get_pkey_type(cert->peer_sigalgs[j].signature) != type) {
         continue;
       }
 

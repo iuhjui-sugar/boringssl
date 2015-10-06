@@ -95,7 +95,8 @@ const Flag<bool> kBoolFlags[] = {
   { "-microsoft-big-sslv3-buffer", &TestConfig::microsoft_big_sslv3_buffer },
   { "-verify-fail", &TestConfig::verify_fail },
   { "-verify-peer", &TestConfig::verify_peer },
-  { "-expect-verify-result", &TestConfig::expect_verify_result }
+  { "-expect-verify-result", &TestConfig::expect_verify_result },
+  { "-disable-ecdsa", &TestConfig::disable_ecdsa },
 };
 
 const Flag<std::string> kStringFlags[] = {

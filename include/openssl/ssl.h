@@ -1917,6 +1917,26 @@ OPENSSL_EXPORT void SSL_CTX_enable_ocsp_stapling(SSL_CTX *ctx);
 OPENSSL_EXPORT void SSL_get0_ocsp_response(const SSL *ssl, const uint8_t **out,
                                            size_t *out_len);
 
+/* An SSL_SIGNATURE_ALGORITHM is a hash and signature algorithm pair. |hash| is
+ * one of |TLSEXT_hash_*| values and |signature| one of |TLSEXT_signature_*|. */
+struct ssl_signature_algorithm_st {
+  uint8_t hash;
+  uint8_t signature;
+} /* SSL_SIGNATURE_ALGORITHM */;
+
+/* SSL_CTX_set_verify_signature_algorithms sets the accepted signature
+ * algorithms for |ctx| to |sigalgs|. It returns one on success and zero on
+ * allocation error. |sigalgs| should be ordered in decreasing preference.
+ * The caller retains ownership of |sigalgs|. */
+OPENSSL_EXPORT int SSL_CTX_set_verify_signature_algorithms(
+    SSL_CTX *ctx, const SSL_SIGNATURE_ALGORITHM *sigalgs, size_t sigalgs_len);
+
+/* SSL_CTX_get_verify_signature_algorithms sets |*out| and |*out_len| to the
+ * accepted signature algorithms for |ctx|. The returned list is valid until the
+ * next operation on |ctx|. */
+OPENSSL_EXPORT void SSL_CTX_get_verify_signature_algorithms(
+    const SSL_CTX *ctx, const SSL_SIGNATURE_ALGORITHM **out, size_t *out_len);
+
 
 /* Client certificate CA list.
  *
@@ -3381,6 +3401,9 @@ struct ssl_ctx_st {
   /* OCSP response to be sent to the client, if requested. */
   uint8_t *ocsp_response;
   size_t ocsp_response_length;
+
+  SSL_SIGNATURE_ALGORITHM *verify_signature_algorithms;
+  size_t verify_signature_algorithms_len;
 
   /* If not NULL, session key material will be logged to this BIO for debugging
    * purposes. The format matches NSS's and is readable by Wireshark. */

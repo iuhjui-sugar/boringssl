@@ -342,6 +342,7 @@ void SSL_CTX_free(SSL_CTX *ctx) {
   OPENSSL_free(ctx->alpn_client_proto_list);
   OPENSSL_free(ctx->ocsp_response);
   OPENSSL_free(ctx->signed_cert_timestamp_list);
+  OPENSSL_free(ctx->verify_signature_algorithms);
   EVP_PKEY_free(ctx->tlsext_channel_id_private);
   BIO_free(ctx->keylog_bio);
 
@@ -1843,6 +1844,50 @@ void SSL_CTX_set_cert_cb(SSL_CTX *ctx, int (*cb)(SSL *ssl, void *arg),
 
 void SSL_set_cert_cb(SSL *ssl, int (*cb)(SSL *ssl, void *arg), void *arg) {
   ssl_cert_set_cert_cb(ssl->cert, cb, arg);
+}
+
+int SSL_CTX_set_verify_signature_algorithms(
+    SSL_CTX *ctx, const SSL_SIGNATURE_ALGORITHM *sigalgs, size_t sigalgs_len) {
+  ctx->verify_signature_algorithms_len = 0;
+
+  OPENSSL_free(ctx->verify_signature_algorithms);
+  ctx->verify_signature_algorithms =
+      BUF_memdup(sigalgs, sigalgs_len * sizeof(sigalgs[0]));
+  if (ctx->verify_signature_algorithms == NULL) {
+    OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
+    return 0;
+  }
+
+  ctx->verify_signature_algorithms_len = sigalgs_len;
+  return 1;
+}
+
+/* kDefaultSignatureAlgorithms are the default accepted signature algorithms, in
+ * decreasing preference. */
+static const SSL_SIGNATURE_ALGORITHM kDefaultSignatureAlgorithms[] = {
+    {TLSEXT_hash_sha512, TLSEXT_signature_ecdsa},
+    {TLSEXT_hash_sha512, TLSEXT_signature_rsa},
+    {TLSEXT_hash_sha384, TLSEXT_signature_ecdsa},
+    {TLSEXT_hash_sha384, TLSEXT_signature_rsa},
+    {TLSEXT_hash_sha256, TLSEXT_signature_ecdsa},
+    {TLSEXT_hash_sha256, TLSEXT_signature_rsa},
+    {TLSEXT_hash_sha224, TLSEXT_signature_ecdsa},
+    {TLSEXT_hash_sha224, TLSEXT_signature_rsa},
+    {TLSEXT_hash_sha1, TLSEXT_signature_ecdsa},
+    {TLSEXT_hash_sha1, TLSEXT_signature_rsa},
+};
+
+void SSL_CTX_get_verify_signature_algorithms(
+    const SSL_CTX *ctx, const SSL_SIGNATURE_ALGORITHM **out, size_t *out_len) {
+  if (ctx->verify_signature_algorithms == NULL) {
+    *out = kDefaultSignatureAlgorithms;
+    *out_len = sizeof(kDefaultSignatureAlgorithms) /
+               sizeof(kDefaultSignatureAlgorithms[0]);
+    return;
+  }
+
+  *out = ctx->verify_signature_algorithms;
+  *out_len = ctx->verify_signature_algorithms_len;
 }
 
 void ssl_get_compatible_server_ciphers(SSL *s, uint32_t *out_mask_k,

@@ -1556,12 +1556,16 @@ int ssl3_send_certificate_request(SSL *s) {
     n++;
 
     if (SSL_USE_SIGALGS(s)) {
-      const uint8_t *psigs;
-      nl = tls12_get_psigalgs(s, &psigs);
-      s2n(nl, p);
-      memcpy(p, psigs, nl);
-      p += nl;
-      n += nl + 2;
+      const SSL_SIGNATURE_ALGORITHM *sigalgs;
+      size_t sigalgs_len;
+      SSL_CTX_get_verify_signature_algorithms(s->ctx, &sigalgs, &sigalgs_len);
+
+      s2n(sigalgs_len * 2, p);
+      for (i = 0; i < sigalgs_len; i++) {
+        *p++ = sigalgs[i].hash;
+        *p++ = sigalgs[i].signature;
+      }
+      n += 2 + sigalgs_len * 2;
     }
 
     off = n;

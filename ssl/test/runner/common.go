@@ -773,6 +773,10 @@ type ProtocolBugs struct {
 	// NegotiateALPNAndNPN, if true, causes the server to negotiate both
 	// ALPN and NPN in the same connetion.
 	NegotiateALPNAndNPN bool
+
+	// ExpectECDSADisabled, if true, causes the server to expect the client
+	// cipher suites and signature algorithms to omit ECDSA.
+	ExpectECDSADisabled bool
 }
 
 func (c *Config) serverInit() {

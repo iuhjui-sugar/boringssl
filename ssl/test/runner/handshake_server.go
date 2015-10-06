@@ -188,6 +188,12 @@ func (hs *serverHandshakeState) readClientHello() (isResume bool, err error) {
 		hs.clientHello = newClientHello
 	}
 
+	if config.Bugs.ExpectECDSADisabled {
+		if hasECDSACipher(hs.clientHello.cipherSuites) || hasECDSASignature(hs.clientHello.signatureAndHashes) {
+			return false, fmt.Errorf("tls: client offered ECDSA")
+		}
+	}
+
 	if config.Bugs.RequireSameRenegoClientVersion && c.clientVersion != 0 {
 		if c.clientVersion != hs.clientHello.vers {
 			return false, fmt.Errorf("tls: client offered different version on renego")
@@ -1046,4 +1052,24 @@ func (c *Conn) tryCipherSuite(id uint16, supportedCipherSuites []uint16, version
 	}
 
 	return nil
+}
+
+func hasECDSACipher(ciphers []uint16) bool {
+	for _, cipher := range ciphers {
+		for _, supported := range cipherSuites {
+			if cipher == supported.id && supported.flags&suiteECDSA != 0 {
+				return true
+			}
+		}
+	}
+	return false
+}
+
+func hasECDSASignature(peerSignatureAndHashes []signatureAndHash) bool {
+	for _, signatureAndHash := range peerSignatureAndHashes {
+		if signatureAndHash.signature == signatureECDSA {
+			return true
+		}
+	}
+	return false
 }
