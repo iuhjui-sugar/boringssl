@@ -39,6 +39,8 @@ add_library(
   $<TARGET_OBJECTS:pqueue>
 )
 
+target_link_libraries(ssl crypto)
+
 add_executable(
   ssl_test
 
