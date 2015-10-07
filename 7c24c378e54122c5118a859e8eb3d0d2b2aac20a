@@ -1,0 +1,164 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "05330921_61b4b60f",
+        "filename": "crypto/ec/p224-64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-10-07T23:49:30Z",
+      "side": 1,
+      "message": "Reviewed the diff between a clang-formatted copy of upstream\u0027s, but otherwise a rubber stamp.",
+      "revId": "7c24c378e54122c5118a859e8eb3d0d2b2aac20a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5b1f1f2_17a514e0",
+        "filename": "crypto/ec/p224-64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-10-07T23:49:30Z",
+      "side": 1,
+      "message": "Nit: This is wrapped a little funny.",
+      "revId": "7c24c378e54122c5118a859e8eb3d0d2b2aac20a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5c87d76_56af94bf",
+        "filename": "crypto/ec/p224-64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-10-07T23:49:30Z",
+      "side": 1,
+      "message": "Nit: space. (Also if you feel like it, capitalization + period, but there\u0027s a lot of it and I didn\u0027t want to look for all of them.)",
+      "range": {
+        "startLine": 513,
+        "startChar": 46,
+        "endLine": 513,
+        "endChar": 47
+      },
+      "revId": "7c24c378e54122c5118a859e8eb3d0d2b2aac20a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "85c37959_15a514e0",
+        "filename": "crypto/ec/p224-64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-10-07T23:49:30Z",
+      "side": 1,
+      "message": "Nit: This is wrapped a little funny.",
+      "revId": "7c24c378e54122c5118a859e8eb3d0d2b2aac20a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "85c37959_55af8cbf",
+        "filename": "crypto/ec/p224-64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-10-07T23:49:30Z",
+      "side": 1,
+      "message": "Nit: This is wrapped kinda funny. (Or do you prefer it this way?)",
+      "revId": "7c24c378e54122c5118a859e8eb3d0d2b2aac20a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "85c37959_b5b5400b",
+        "filename": "crypto/ec/p224-64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 989,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-10-07T23:49:30Z",
+      "side": 1,
+      "message": "[Fun fact: Upstream at some point changed this comment to a line comment above:\n\n/* value 1 below is argument for \"mixed\" */\n\nbecause they use GNU indent instead of clang-format and GNU indent barfs on comments like this. :-) ]",
+      "range": {
+        "startLine": 989,
+        "startChar": 60,
+        "endLine": 989,
+        "endChar": 71
+      },
+      "revId": "7c24c378e54122c5118a859e8eb3d0d2b2aac20a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "85c37959_f5bfb8e6",
+        "filename": "crypto/ec/p224-64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1293,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-10-07T23:49:30Z",
+      "side": 1,
+      "message": "Nit: space",
+      "range": {
+        "startLine": 1293,
+        "startChar": 57,
+        "endLine": 1293,
+        "endChar": 59
+      },
+      "revId": "7c24c378e54122c5118a859e8eb3d0d2b2aac20a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "85c37959_95df6437",
+        "filename": "crypto/ec/p224-64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1359,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-10-07T23:49:30Z",
+      "side": 1,
+      "message": "These two in upstream use a ec_GFp_nist_field_{mul,sqr}. I\u0027m assuming the simple ones are compatible and that we don\u0027t actually care about using this machinery for those operations.",
+      "range": {
+        "startLine": 1358,
+        "startChar": 32,
+        "endLine": 1359,
+        "endChar": 56
+      },
+      "revId": "7c24c378e54122c5118a859e8eb3d0d2b2aac20a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
