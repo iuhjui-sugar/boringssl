@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d03c51f4_b4d556ca",
+        "filename": "BUILDING.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-10-08T16:55:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c58e5180_cff65dc2",
+      "range": {
+        "startLine": 30,
+        "startChar": 18,
+        "endLine": 30,
+        "endChar": 44
+      },
+      "revId": "35224097179d5f84b1c9b79ba502b14a4cce78c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c58e5180_0fda2546",
         "filename": "BUILDING.md",
         "patchSetId": 1
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "d03c51f4_f4cfde31",
+        "filename": "BUILDING.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-10-08T16:55:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c58e5180_2fd7e91c",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 6
+      },
+      "revId": "35224097179d5f84b1c9b79ba502b14a4cce78c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e564359c_88ae17c2",
         "filename": "BUILDING.md",
         "patchSetId": 1
@@ -82,6 +130,24 @@
       "writtenOn": "2015-10-08T16:03:37Z",
       "side": 1,
       "message": "[Seems the script also lets you pass in a different path on the command-line, if you prefer.]",
+      "revId": "35224097179d5f84b1c9b79ba502b14a4cce78c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d03c51f4_74990e44",
+        "filename": "BUILDING.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-10-08T16:55:29Z",
+      "side": 1,
+      "message": "Yes, but this is still a good way to do it. People can read the code to learn about the alternatives.",
+      "parentUuid": "e564359c_88ae17c2",
       "revId": "35224097179d5f84b1c9b79ba502b14a4cce78c7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
