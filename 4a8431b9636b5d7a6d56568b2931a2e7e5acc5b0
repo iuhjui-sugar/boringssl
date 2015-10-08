@@ -22,6 +22,30 @@
       "revId": "4a8431b9636b5d7a6d56568b2931a2e7e5acc5b0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d03c51f4_f4b6bec5",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-10-08T16:49:50Z",
+      "side": 1,
+      "message": "I am hoping/expecting that OpenSSH will eventually adopt the RFC 7539 variant too.\n\nI will let you guys decide the naming in BoringSSL. In the *ring* Rust API, this will have the name |ring::aead::CHACHA20_POLY1305_DEPRECATED|.",
+      "parentUuid": "e564359c_c8cbaf80",
+      "range": {
+        "startLine": 108,
+        "startChar": 57,
+        "endLine": 108,
+        "endChar": 68
+      },
+      "revId": "4a8431b9636b5d7a6d56568b2931a2e7e5acc5b0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
