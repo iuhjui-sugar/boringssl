@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "25d72d80_aa1d6fac",
+        "filename": "crypto/ecdsa/ecdsa.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-10-08T19:54:02Z",
+      "side": 1,
+      "message": "goto err doesn\u0027t actually do any good here. s is NULL. It should be:\n\n  ECDSA_SIG *s \u003d ECDSA_SIG_from_bytes(sig, sig_len);\n  if (s \u003d\u003d NULL) {\n    return 0;\n  }\n  \n  int ret \u003d ECDSA_do_verify(digest, digest_len, s, eckey);\n  ECDSA_SIG_free(s);\n  return ret;",
+      "revId": "26e9cd36eb8d78a2fcd9b1ea16479fc970b62461",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
