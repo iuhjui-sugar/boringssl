@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e564359c_c8cbaf80",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-10-08T16:20:40Z",
+      "side": 1,
+      "message": "There aren\u0027t that many callers, but I\u0027m not sure it\u0027s worth the churn to rename it.\n\n(Besides if you\u0027re implementing, I dunno, chacha20-poly1305@openssh.com you still need this variant.)",
+      "range": {
+        "startLine": 108,
+        "startChar": 57,
+        "endLine": 108,
+        "endChar": 68
+      },
+      "revId": "4a8431b9636b5d7a6d56568b2931a2e7e5acc5b0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
