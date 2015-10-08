@@ -75,33 +75,21 @@ int ECDSA_sign(int type, const uint8_t *digest, size_t digest_len, uint8_t *sig,
 
 int ECDSA_verify(int type, const uint8_t *digest, size_t digest_len,
                  const uint8_t *sig, size_t sig_len, EC_KEY *eckey) {
-  ECDSA_SIG *s;
-  int ret = 0;
-  uint8_t *der = NULL;
-
   if (eckey->ecdsa_meth && eckey->ecdsa_meth->verify) {
     return eckey->ecdsa_meth->verify(digest, digest_len, sig, sig_len, eckey);
   }
 
-  /* Decode the ECDSA signature. */
-  s = ECDSA_SIG_from_bytes(sig, sig_len);
-  if (s == NULL) {
-    goto err;
-  }
+  int ret = 0;
 
-  /* Defend against potential laxness in the DER parser. */
-  size_t der_len;
-  if (!ECDSA_SIG_to_bytes(&der, &der_len, s) ||
-      der_len != sig_len || memcmp(sig, der, sig_len) != 0) {
-    /* This should never happen. crypto/bytestring is strictly DER. */
-    OPENSSL_PUT_ERROR(ECDSA, ERR_R_INTERNAL_ERROR);
+  /* Decode the ECDSA signature. */
+  ECDSA_SIG *s = ECDSA_SIG_from_bytes(sig, sig_len);
+  if (s == NULL) {
     goto err;
   }
 
   ret = ECDSA_do_verify(digest, digest_len, s, eckey);
 
 err:
-  OPENSSL_free(der);
   ECDSA_SIG_free(s);
   return ret;
 }
