@@ -2413,6 +2413,12 @@ static int ssl_scan_clienthello_tlsext(SSL *s, CBS *cbs, int *out_alert) {
         return 0;
       }
 
+      /* RFC 5746 made the existence of extensions in SSL 3.0 somewhat
+       * ambiguous. Ignore all but the renegotiation_info extension. */
+      if (s->version == SSL3_VERSION && type != TLSEXT_TYPE_renegotiate) {
+        continue;
+      }
+
       unsigned ext_index;
       const struct tls_extension *const ext =
           tls_extension_find(&ext_index, type);
