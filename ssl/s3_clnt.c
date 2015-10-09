@@ -1735,7 +1735,7 @@ int ssl3_send_client_key_exchange(SSL *s) {
     } else if (alg_k & SSL_kECDHE) {
       const EC_GROUP *srvr_group = NULL;
       EC_KEY *tkey;
-      int field_size = 0, ecdh_len;
+      int ecdh_len;
 
       if (s->s3->tmp.peer_ecdh_tmp == NULL) {
         OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
@@ -1768,12 +1768,14 @@ int ssl3_send_client_key_exchange(SSL *s) {
         goto err;
       }
 
-      field_size = EC_GROUP_get_degree(srvr_group);
-      if (field_size <= 0) {
+      unsigned field_size = EC_GROUP_get_degree(srvr_group);
+      if (field_size == 0) {
         OPENSSL_PUT_ERROR(SSL, ERR_R_ECDH_LIB);
         goto err;
       }
 
+      OPENSSL_COMPILE_ASSERT(sizeof(pms_len) >= sizeof(field_size),
+                             SIZE_T_IS_SMALLER_THAN_UNSIGNED);
       pms_len = (field_size + 7) / 8;
       pms = OPENSSL_malloc(pms_len);
       if (pms == NULL) {

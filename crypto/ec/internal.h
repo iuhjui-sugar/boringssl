@@ -100,7 +100,7 @@ struct ec_method_st {
                          BN_CTX *);
 
   /* used by EC_GROUP_get_degree: */
-  int (*group_get_degree)(const EC_GROUP *);
+  unsigned (*group_get_degree)(const EC_GROUP *);
 
   /* used by EC_GROUP_check: */
   int (*group_check_discriminant)(const EC_GROUP *, BN_CTX *);
@@ -245,7 +245,7 @@ int ec_GFp_simple_group_set_curve(EC_GROUP *, const BIGNUM *p, const BIGNUM *a,
                                   const BIGNUM *b, BN_CTX *);
 int ec_GFp_simple_group_get_curve(const EC_GROUP *, BIGNUM *p, BIGNUM *a,
                                   BIGNUM *b, BN_CTX *);
-int ec_GFp_simple_group_get_degree(const EC_GROUP *);
+unsigned ec_GFp_simple_group_get_degree(const EC_GROUP *);
 int ec_GFp_simple_group_check_discriminant(const EC_GROUP *, BN_CTX *);
 int ec_GFp_simple_point_init(EC_POINT *);
 void ec_GFp_simple_point_finish(EC_POINT *);
