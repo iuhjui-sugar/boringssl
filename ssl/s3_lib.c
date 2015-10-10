@@ -336,8 +336,13 @@ int SSL_CTX_set1_tls_channel_id(SSL_CTX *ctx, EVP_PKEY *private_key) {
 
 int SSL_set1_tls_channel_id(SSL *ssl, EVP_PKEY *private_key) {
   ssl->tlsext_channel_id_enabled = 1;
-  if (EVP_PKEY_id(private_key) != EVP_PKEY_EC ||
-      EVP_PKEY_bits(private_key) != 256) {
+  if (EVP_PKEY_id(private_key) != EVP_PKEY_EC) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_CHANNEL_ID_NOT_P256);
+    return 0;
+  }
+  int curve_nid =
+      EC_GROUP_get_curve_name(EC_KEY_get0_group(private_key->pkey.ec));
+  if (curve_nid != NID_X9_62_prime256v1) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_CHANNEL_ID_NOT_P256);
     return 0;
   }
