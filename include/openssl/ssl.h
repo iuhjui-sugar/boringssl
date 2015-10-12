@@ -2368,10 +2368,27 @@ OPENSSL_EXPORT void SSL_set_msg_callback_arg(SSL *ssl, void *arg);
  * https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS/Key_Log_Format. */
 OPENSSL_EXPORT void SSL_CTX_set_keylog_bio(SSL_CTX *ctx, BIO *keylog_bio);
 
-/* SSL_set_reject_peer_renegotiations controls whether renegotiation attempts by
- * the peer are rejected. It may be set at any point in a connection's lifetime
- * to control future renegotiations programmatically. By default, renegotiations
- * are rejected. (Renegotiations requested by a client are always rejected.) */
+enum ssl_renegotiate_mode_t {
+  ssl_never_renegotiate,
+  ssl_renegotiate_once,
+  ssl_renegotiate_freely,
+};
+
+/* SSL_set_renegotiate_mode configures how |ssl| reacts to renegotiation
+ * attempts by the peer. It may be set at any point in a connection's
+ * lifetime. The default setting is |ssl_never_renegotiate| which forbids all
+ * renegotiations. Set it to |ssl_renegotiate_once| to allow one renegotiation
+ * and |ssl_renegotiate_freely| to allow all renegotiations.
+ *
+ * If |ssl| is a server, peer-initiated renegotiations are always rejected and
+ * this function does nothing. There is no support for initiating renegotiations
+ * as a client or server. */
+OPENSSL_EXPORT void SSL_set_renegotiate_mode(SSL *ssl,
+                                             enum ssl_renegotiate_mode_t mode);
+
+/* SSL_set_reject_peer_renegotiations calls |SSL_set_renegotiate_mode| with
+ * |ssl_never_renegotiate| if |reject| is one and |ssl_renegotiate_freely| if
+ * zero. */
 OPENSSL_EXPORT void SSL_set_reject_peer_renegotiations(SSL *ssl, int reject);
 
 
@@ -3567,9 +3584,8 @@ struct ssl_st {
   uint8_t *alpn_client_proto_list;
   unsigned alpn_client_proto_list_len;
 
-  /* accept_peer_renegotiations, if one, accepts renegotiation attempts from the
-   * peer. Otherwise, they will be rejected with a fatal error. */
-  char accept_peer_renegotiations;
+  /* renegotiate_mode controls how peer renegotiation attempts are handled. */
+  enum ssl_renegotiate_mode_t renegotiate_mode;
 
   /* These fields are always NULL and exist only to keep wpa_supplicant happy
    * about the change to EVP_AEAD. They are only needed for EAP-FAST, which we
