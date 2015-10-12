@@ -2119,6 +2119,7 @@ func addCipherSuiteTests() {
 		}
 	}
 
+	/* Disabled for now. See b/24709632.
 	testCases = append(testCases, testCase{
 		name: "WeakDH",
 		config: Config{
@@ -2132,7 +2133,7 @@ func addCipherSuiteTests() {
 		},
 		shouldFail:    true,
 		expectedError: "BAD_DH_P_LENGTH",
-	})
+	})*/
 
 	// versionSpecificCiphersTest specifies a test for the TLS 1.0 and TLS
 	// 1.1 specific cipher suite settings. A server is setup with the given

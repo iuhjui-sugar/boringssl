@@ -1158,7 +1158,7 @@ int ssl3_get_server_key_exchange(SSL *s) {
     }
 
     s->session->key_exchange_info = DH_num_bits(dh);
-    if (s->session->key_exchange_info < 1024) {
+    if (s->session->key_exchange_info < 512) {
       OPENSSL_PUT_ERROR(SSL, SSL_R_BAD_DH_P_LENGTH);
       goto err;
     }
