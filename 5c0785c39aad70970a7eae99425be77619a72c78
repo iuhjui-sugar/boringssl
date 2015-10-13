@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dfe9c22c_80d85654",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-10-13T04:53:39Z",
+      "side": 1,
+      "message": "My other thought was int CBB_rewind(CBB *cbb, size_t len), but that\u0027s actually hard to bounds-check because cbb doesn\u0027t know its starting point. Only its parent knows that (by way of parent-\u003eoffset).",
+      "revId": "5c0785c39aad70970a7eae99425be77619a72c78",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff0be6d4_99a73be1",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-10-13T04:53:39Z",
+      "side": 1,
+      "message": "[Still need to revise this one to be less unnecessarily stateful.]",
+      "revId": "5c0785c39aad70970a7eae99425be77619a72c78",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1f099add_baa2f1d0",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2303,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-10-13T04:53:39Z",
+      "side": 1,
+      "message": "This feels mildly weird because orig_len was sampled from out, but it does work since it\u0027s the global length. Ditto with line 2272.\n\nThese we could replace with a CBB_child_len. But it doesn\u0027t replace the one at line 2255 without length-prefix-less scope-only child CBB and at some point it\u0027s not clear that machinery is better than a slightly confusing CBB_len.\n\n(The one invariant I\u0027d like to preserve is that, if you\u0027re passed a CBB *out, your behavior doesn\u0027t vary whether |out| is fixed vs allocating, and no matter how much was written to |out| already. Using CBB_len takes some care to ensure this.)",
+      "revId": "5c0785c39aad70970a7eae99425be77619a72c78",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

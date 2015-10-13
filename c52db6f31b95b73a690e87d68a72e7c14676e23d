@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff0be6d4_b9a2ffd0",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1499,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-10-13T04:53:39Z",
+      "side": 0,
+      "message": "[Moved to s3_clnt.c. It\u0027s got only one caller.]",
+      "revId": "c52db6f31b95b73a690e87d68a72e7c14676e23d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
