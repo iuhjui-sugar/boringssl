@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9fae6a64_3aa569ef",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 2387,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-10-13T18:08:17Z",
+      "side": 1,
+      "message": "Nit: above, you could say \"... reacts to renegotiation attempts initiated by a server\", for parallelism.",
+      "range": {
+        "startLine": 2387,
+        "startChar": 14,
+        "endLine": 2387,
+        "endChar": 16
+      },
+      "revId": "d65aa24a4bb7c944fce840d47274b4ca837b20c8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
