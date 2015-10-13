@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "dfe9c22c_e0c84286",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2377,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-10-13T04:38:48Z",
+      "side": 1,
+      "message": "Chromium needs to be able to set it after ALPN is resolved (we block it for HTTP/2 and SPDY, but not HTTP/1.1), so I\u0027ll need to be able to do it per-SSL somehow.\n\nThis is yet another different API, but maybe:\n\n  /* cb returns one to accept the renego and zero to fail the connection. */\n  void SSL_CTX_set_accept_renegotiate_callback(SSL_CTX *ctx, int (*cb)(SSL *ssl));\n\nThen I could just store a single callback on the SSL_CTX and query stuff hanging off ssl\u0027s ex_data as always. What do you think?",
+      "parentUuid": "9fae6a64_6fc48199",
+      "revId": "39067f6ccb39638a0e293b2fb01df22a24b96fda",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "df3d424e_e0f022c6",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 2
