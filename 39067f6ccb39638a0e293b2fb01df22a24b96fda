@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "9fae6a64_6fc48199",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2377,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2015-10-13T02:20:42Z",
+      "side": 1,
+      "message": "SSL_CTX_set_renegotiate_mode? Do we need to set this on the SSL*? (It\u0027s a structure that we have a lot of in servers.)",
+      "revId": "39067f6ccb39638a0e293b2fb01df22a24b96fda",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "df3d424e_e0f022c6",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 2
