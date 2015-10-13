@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "9fae6a64_7a81a1f7",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2377,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2015-10-13T13:12:55Z",
+      "side": 1,
+      "message": "Ah, in that case we probably want to follow the existing practice and have SSL_CTX_ and SSL_ setters, with SSL_new copying.",
+      "parentUuid": "dfe9c22c_e0c84286",
+      "revId": "39067f6ccb39638a0e293b2fb01df22a24b96fda",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "df3d424e_e0f022c6",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 2
