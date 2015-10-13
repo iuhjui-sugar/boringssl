@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9fae6a64_15815e8f",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-10-13T19:32:09Z",
+      "side": 0,
+      "message": "this is used by wpa_supplicant",
+      "range": {
+        "startLine": 655,
+        "startChar": 19,
+        "endLine": 655,
+        "endChar": 43
+      },
+      "revId": "0b136aaff0589582ae1f8e0bcd86ac1f33670768",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9fae6a64_d58ae6aa",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 658,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-10-13T19:32:09Z",
+      "side": 0,
+      "message": "looks ok to drop.",
+      "range": {
+        "startLine": 658,
+        "startChar": 19,
+        "endLine": 658,
+        "endChar": 46
+      },
+      "revId": "0b136aaff0589582ae1f8e0bcd86ac1f33670768",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9fae6a64_f587e29f",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-10-13T19:32:09Z",
+      "side": 0,
+      "message": "used by wpa_supplicant.",
+      "range": {
+        "startLine": 660,
+        "startChar": 19,
+        "endLine": 660,
+        "endChar": 42
+      },
+      "revId": "0b136aaff0589582ae1f8e0bcd86ac1f33670768",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9fae6a64_95946ecf",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-10-13T19:32:09Z",
+      "side": 0,
+      "message": "looks ok to drop.",
+      "range": {
+        "startLine": 663,
+        "startChar": 19,
+        "endLine": 663,
+        "endChar": 49
+      },
+      "revId": "0b136aaff0589582ae1f8e0bcd86ac1f33670768",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9fae6a64_b5916ade",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 666,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-10-13T19:32:09Z",
+      "side": 0,
+      "message": "used by wpa_supplicant.",
+      "range": {
+        "startLine": 666,
+        "startChar": 19,
+        "endLine": 666,
+        "endChar": 45
+      },
+      "revId": "0b136aaff0589582ae1f8e0bcd86ac1f33670768",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
