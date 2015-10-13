@@ -98,6 +98,30 @@
       "revId": "39067f6ccb39638a0e293b2fb01df22a24b96fda",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9fae6a64_7a79a1f6",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2386,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2015-10-13T18:08:17Z",
+      "side": 1,
+      "message": "I find a 2:1 ratio of \"renegotiation\" : \"renegotiate\" in the code base.\n\nHowever, I cannot spell either one (I persistently write \"renegotate\") so if there is a third option I\u0027m all for it.",
+      "parentUuid": "df3d424e_40d54e17",
+      "range": {
+        "startLine": 2386,
+        "startChar": 28,
+        "endLine": 2386,
+        "endChar": 44
+      },
+      "revId": "39067f6ccb39638a0e293b2fb01df22a24b96fda",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
