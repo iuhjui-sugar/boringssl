@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9fae6a64_9a99fdf0",
+        "filename": "README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-10-13T17:52:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44333af5_db279f48",
+      "range": {
+        "startLine": 26,
+        "startChar": 4,
+        "endLine": 26,
+        "endChar": 14
+      },
+      "revId": "ed6bf7740f56c2c7e67e4494e557a87c293f23f1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44333af5_3b38e365",
         "filename": "README.md",
         "patchSetId": 3
@@ -36,6 +60,24 @@
       "writtenOn": "2015-09-03T16:12:26Z",
       "side": 1,
       "message": "Oh, do we want to add:\n\n  * include/openssl: public headers with API documentation in comments.\n\nOr mention elsewhere that API documentation may be found there (at least until they\u0027re generated somewhere).",
+      "revId": "ed6bf7740f56c2c7e67e4494e557a87c293f23f1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9fae6a64_1a250d48",
+        "filename": "README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-10-13T17:52:13Z",
+      "side": 1,
+      "message": "Done and have linked to the online version.",
+      "parentUuid": "44333af5_3b38e365",
       "revId": "ed6bf7740f56c2c7e67e4494e557a87c293f23f1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
