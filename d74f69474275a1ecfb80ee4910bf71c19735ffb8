@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a3956d0_409cd863",
+        "filename": "crypto/perlasm/x86_64-xlate.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-10-14T18:33:42Z",
+      "side": 1,
+      "message": "[I think we\u0027ve thus far just done spelling based on whoever happened to write the code in question, but I felt really really silly writing \"unknown flavor $flavour\". :-) ]",
+      "range": {
+        "startLine": 92,
+        "startChar": 52,
+        "endLine": 92,
+        "endChar": 53
+      },
+      "revId": "d74f69474275a1ecfb80ee4910bf71c19735ffb8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
