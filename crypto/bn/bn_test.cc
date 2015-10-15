@@ -1779,11 +1779,15 @@ static const ASN1InvalidTest kASN1InvalidTests[] = {
 // kASN1BuggyTests are incorrect encodings and how |BN_cbs2unsigned_buggy|
 // should interpret them.
 static const ASN1Test kASN1BuggyTests[] = {
+    // TODO(agl): reenable once the private key stores have been scrubbed of
+    // bad keys.
+#if 0
     // Negative numbers.
     {"128", "\x02\x01\x80", 3},
     {"255", "\x02\x01\xff", 3},
     // Unnecessary leading zeros.
     {"1", "\x02\x02\x00\x01", 4},
+#endif
 };
 
 static bool test_asn1() {
