@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b9f26ee4_55ce5cb9",
+        "filename": "BUILDING.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-10-17T00:09:17Z",
+      "side": 1,
+      "message": "Usually __ARM_NEON__ and __ARM_FEATURE_CRYPTO, are defined by the compiler if the correct compiler flags are given to enable such features. In particular, shouldn\u0027t __ARM_NEON__ imply OPENSSL_STATIC_ARMCAP_NEON and shouldn\u0027t __ARM_FEATURE_CRYPTO imply the last four?\n\nI think it is confusing to have separate flags for the crypto extension features when (AFAICT) either all are available or none are available.\n\nAlso, based on past conversations with Andy Polyakov, he\u0027s more likely to add support for detecting __ARM_NEON__ and __ARM_FEATURE_CRYPTO upstream. So, if that works, it seems preferable.",
+      "revId": "f2c2da00d229c62778be9a6ecf0656d2e16f8de0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
