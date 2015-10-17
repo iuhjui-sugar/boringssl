@@ -682,6 +682,9 @@ const char *SSL_alert_desc_string_long(int value) {
     case TLS1_AD_UNKNOWN_PSK_IDENTITY:
       return "unknown PSK identity";
 
+    case SSL3_AD_INAPPROPRIATE_FALLBACK:
+      return "inappropriate fallback";
+
     default:
       return "unknown";
   }
