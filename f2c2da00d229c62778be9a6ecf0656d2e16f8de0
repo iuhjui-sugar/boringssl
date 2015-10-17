@@ -16,6 +16,23 @@
       "revId": "f2c2da00d229c62778be9a6ecf0656d2e16f8de0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "19c1ba6c_dd827fff",
+        "filename": "include/openssl/cpu.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-10-17T15:14:20Z",
+      "side": 1,
+      "message": "Do we really need to do this stuff? The assembly files all reference OPENSSL_armcap_P (I would love it if that dispatch were moved to C, but that\u0027s another matter...), so that\u0027s going to be available no matter what.\n\nSeems it\u0027d be simpler to just have OPENSSL_STATIC_ARMCAP control the logic that sets up OPENSSL_armcap_P while the rest is kept constant.",
+      "revId": "f2c2da00d229c62778be9a6ecf0656d2e16f8de0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
