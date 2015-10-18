@@ -944,7 +944,7 @@ int ssl3_get_client_hello(SSL *s) {
     session = NULL;
 
     s->verify_result = s->session->verify_result;
-  } else if (!ssl_get_new_session(s, 1)) {
+  } else if (!ssl_get_new_session(s, 1 /* server */)) {
     goto err;
   }
 
