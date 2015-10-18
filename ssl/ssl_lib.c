@@ -1883,29 +1883,32 @@ void ssl_get_compatible_server_ciphers(SSL *s, uint32_t *out_mask_k,
   *out_mask_a = mask_a;
 }
 
-void ssl_update_cache(SSL *s, int mode) {
-  /* Never cache sessions with empty session IDs. */
-  if (s->session->session_id_length == 0) {
+void ssl_update_cache(SSL *ssl, int mode) {
+  /* Never cache sessions with empty session IDs. Also, on a server, don't cache
+   * sessions which were established with tickets. Those are resumed without
+   * server state. */
+  if (ssl->session->session_id_length == 0 ||
+      (ssl->server && ssl->tlsext_ticket_expected)) {
     return;
   }
 
-  int has_new_session = !s->hit;
-  if (!s->server && s->tlsext_ticket_expected) {
+  int has_new_session = !ssl->hit;
+  if (!ssl->server && ssl->tlsext_ticket_expected) {
     /* A client may see new sessions on abbreviated handshakes if the server
      * decides to renew the ticket. Once the handshake is completed, it should
      * be inserted into the cache. */
     has_new_session = 1;
   }
 
-  SSL_CTX *ctx = s->initial_ctx;
+  SSL_CTX *ctx = ssl->initial_ctx;
   if ((ctx->session_cache_mode & mode) == mode && has_new_session &&
       ((ctx->session_cache_mode & SSL_SESS_CACHE_NO_INTERNAL_STORE) ||
-       SSL_CTX_add_session(ctx, s->session)) &&
+       SSL_CTX_add_session(ctx, ssl->session)) &&
       ctx->new_session_cb != NULL) {
     /* Note: |new_session_cb| is called whether the internal session cache is
      * used or not. */
-    if (!ctx->new_session_cb(s, SSL_SESSION_up_ref(s->session))) {
-      SSL_SESSION_free(s->session);
+    if (!ctx->new_session_cb(ssl, SSL_SESSION_up_ref(ssl->session))) {
+      SSL_SESSION_free(ssl->session);
     }
   }
 
