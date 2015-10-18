@@ -606,10 +606,11 @@ int ssl3_send_client_hello(SSL *s) {
       s->client_version = max_version;
     }
 
-    /* If the configured session was created at a version higher than our
-     * maximum version, drop it. */
+    /* If the configured session has expired or was created at a version higher
+     * than our maximum version, drop it. */
     if (s->session &&
         (s->session->session_id_length == 0 || s->session->not_resumable ||
+         s->session->timeout < (long)(time(NULL) - s->session->time) ||
          (!SSL_IS_DTLS(s) && s->session->ssl_version > s->version) ||
          (SSL_IS_DTLS(s) && s->session->ssl_version < s->version))) {
       SSL_set_session(s, NULL);
