@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19c1ba6c_4021e268",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 3211,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-10-19T19:59:25Z",
+      "side": 1,
+      "message": "(I\u0027m pretty sure we can get rid of everything but the protocol version strings.)",
+      "revId": "539c3d5afc18304f6939a4796f415235e0ffd9b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "19c1ba6c_6014e60c",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-10-19T19:59:25Z",
+      "side": 1,
+      "message": "(You should make sure I didn\u0027t mess any of these up. They are not all a straight-forward transformation.)",
+      "revId": "539c3d5afc18304f6939a4796f415235e0ffd9b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
