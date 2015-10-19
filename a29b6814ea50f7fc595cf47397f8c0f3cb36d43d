@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19c1ba6c_2035ce9a",
+        "filename": "ssl/ssl_session.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-10-19T20:34:28Z",
+      "side": 1,
+      "message": "I haven\u0027t done this yet, but would you like this on a toggle so we can experiment with it in isolate, or just deploy with the change and we\u0027ll see what happens.\n\n(Of course, it\u0027s possible I\u0027ll turn out to have missed some other part of the code that does this like with the session tickets, but nothing calls SSL_SESSION_list_add outside of SSL_CTX_add_session.)",
+      "revId": "a29b6814ea50f7fc595cf47397f8c0f3cb36d43d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "19c1ba6c_603bc693",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 840,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-10-19T20:34:28Z",
+      "side": 1,
+      "message": "(Note ctx-\u003esession_cache_tail has type SSL_SESSION*. They don\u0027t use NULL so the first line of SSL_SESSION_list_add works out.)",
+      "revId": "a29b6814ea50f7fc595cf47397f8c0f3cb36d43d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
