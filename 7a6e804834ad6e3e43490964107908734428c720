@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19c1ba6c_a031debc",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 2739,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-10-19T19:58:18Z",
+      "side": 1,
+      "message": "(These are used in SSL_CB_ values.)",
+      "revId": "7a6e804834ad6e3e43490964107908734428c720",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
