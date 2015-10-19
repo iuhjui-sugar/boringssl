@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19c1ba6c_0023ea79",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1116,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-10-19T19:56:51Z",
+      "side": 1,
+      "message": "(Looking at how SSL_set_bio is implemented and how it manages refcounts, the number of different ways you can call SSL_set_bio is really kind of horrifying. I stared at it for a bit and wasn\u0027t able to come up with a clean and simple story. But I\u0027m pretty sure this doesn\u0027t work in all cases. I\u0027ve left it alone for now.)",
+      "revId": "6d11a878796a2be4d2b929b4f00c15f87a2ec693",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
