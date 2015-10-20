@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b9f26ee4_91dccf47",
+        "filename": "BUILDING.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-10-20T22:36:10Z",
+      "side": 1,
+      "message": "I think __ARM_NEON__ and the __ARM_FEATURE_CRYPTO are different: if the compiler has been told to use NEON then all sorts of code will use NEON and so I think you\u0027re correct that it should imply OPENSSL_STATIC_ARMCAP_NEON. However, if you enable the crypto features it\u0027s not as if the compiler is going to recognise SHA-256 and replace it with the hardware instructions, rather that flag just means that the intrinsics are permitted I think.",
+      "parentUuid": "b9f26ee4_55ce5cb9",
+      "revId": "f2c2da00d229c62778be9a6ecf0656d2e16f8de0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19c1ba6c_dd827fff",
         "filename": "include/openssl/cpu.h",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2015-10-17T15:14:20Z",
       "side": 1,
       "message": "Do we really need to do this stuff? The assembly files all reference OPENSSL_armcap_P (I would love it if that dispatch were moved to C, but that\u0027s another matter...), so that\u0027s going to be available no matter what.\n\nSeems it\u0027d be simpler to just have OPENSSL_STATIC_ARMCAP control the logic that sets up OPENSSL_armcap_P while the rest is kept constant.",
+      "revId": "f2c2da00d229c62778be9a6ecf0656d2e16f8de0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b9f26ee4_31ee43e3",
+        "filename": "include/openssl/cpu.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-10-20T22:36:10Z",
+      "side": 1,
+      "message": "The motivation here is so that the compiler can statically discard code when the capabilities are known.\n\nIt does mean duplicating this logic but, for now, I\u0027m ok with that for the benefit.",
+      "parentUuid": "19c1ba6c_dd827fff",
       "revId": "f2c2da00d229c62778be9a6ecf0656d2e16f8de0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
