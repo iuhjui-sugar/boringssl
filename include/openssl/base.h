@@ -110,6 +110,7 @@ extern "C" {
 #define OPENSSL_IS_BORINGSSL
 #define OPENSSL_VERSION_NUMBER 0x10002000
 #define SSLEAY_VERSION_NUMBER OPENSSL_VERSION_NUMBER
+#define BORINGSSL_201510  /* may be removed when unneeded */
 
 #if defined(BORINGSSL_SHARED_LIBRARY)
 
