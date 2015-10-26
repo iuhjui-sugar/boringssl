@@ -16,6 +16,24 @@
       "revId": "4e45090d7c06c0c2c2b33142baf53d25817d0e4c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "96c81977_19c9cf8b",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1453,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-10-26T17:47:48Z",
+      "side": 1,
+      "message": "That bit gets checked again in ssl_update_cache to decide if we have a new session to stuff into the cache. That probably should get a better comment or something. Or maybe even a separate bit?",
+      "parentUuid": "d6d53101_14cee43d",
+      "revId": "4e45090d7c06c0c2c2b33142baf53d25817d0e4c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
