@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d6d53101_8f010154",
+        "filename": "ssl/ssl_session.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2015-10-26T19:18:36Z",
+      "side": 1,
+      "message": "I think it would be fine to just deploy this change. My main worry is the extra locking: the code would have to drop the read lock, get a write lock, check that the session is still in the lhash and then update the list.\n\nThat\u0027s probably fine. The lock isn\u0027t that hot. But I worry more about that than anything else.",
+      "parentUuid": "19c1ba6c_2035ce9a",
+      "revId": "a29b6814ea50f7fc595cf47397f8c0f3cb36d43d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19c1ba6c_603bc693",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 6
