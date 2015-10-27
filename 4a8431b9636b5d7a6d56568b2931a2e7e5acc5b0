@@ -94,6 +94,30 @@
       "revId": "4a8431b9636b5d7a6d56568b2931a2e7e5acc5b0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "96c81977_79764306",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-10-27T06:44:08Z",
+      "side": 1,
+      "message": "Er: \"[...] there\u0027ll probably be some complicated coordination to be done between Chromium\u0027s copy of the QUIC code, the internal copy of it, [...]\"",
+      "parentUuid": "96c81977_397ccbe4",
+      "range": {
+        "startLine": 108,
+        "startChar": 57,
+        "endLine": 108,
+        "endChar": 68
+      },
+      "revId": "4a8431b9636b5d7a6d56568b2931a2e7e5acc5b0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
