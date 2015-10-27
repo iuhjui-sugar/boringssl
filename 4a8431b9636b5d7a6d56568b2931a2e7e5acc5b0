@@ -70,6 +70,30 @@
       "revId": "4a8431b9636b5d7a6d56568b2931a2e7e5acc5b0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "96c81977_397ccbe4",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-10-27T06:42:54Z",
+      "side": 1,
+      "message": "Since it\u0027s both a rename and a repurposing of the original name, there\u0027ll probably be some complicated coordination to be done that copy of the QUIC code, the internal copy of it, their processes for synchronizing between each other, and how BoringSSL gets updated into either half.\n\nI can make the change in the Chromium copy of the QUIC code, but this is why I was thinking we might not want to rename things just yet. I\u0027m not sure how the exact flow between everything works. Though tests will catch things, so perhaps it\u0027s not a huge deal.",
+      "parentUuid": "d6d53101_959bce3e",
+      "range": {
+        "startLine": 108,
+        "startChar": 57,
+        "endLine": 108,
+        "endChar": 68
+      },
+      "revId": "4a8431b9636b5d7a6d56568b2931a2e7e5acc5b0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
