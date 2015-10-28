@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "76fd65bf_eb46853c",
+        "filename": "BUILDING.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-10-28T06:49:04Z",
+      "side": 1,
+      "message": "The backticks are needed to avoid Markdown from interpreting the slashes as italics.",
+      "range": {
+        "startLine": 30,
+        "startChar": 18,
+        "endLine": 30,
+        "endChar": 44
+      },
+      "revId": "953cfc837f50189c6f2a7e27b47abb64a6c685a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "76fd65bf_cb4bc942",
+        "filename": "BUILDING.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-10-28T06:49:04Z",
+      "side": 1,
+      "message": "Not a big deal, but David had asked me to remove the \"$ \" prefix on each line in an earlier review comment.",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 69
+      },
+      "revId": "953cfc837f50189c6f2a7e27b47abb64a6c685a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
