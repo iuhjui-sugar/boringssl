@@ -46,6 +46,30 @@
       "revId": "75885e29c4f69717ddfbfeef259cfabbf5e26363",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56ab01f0_ec9e6ba7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-10-28T18:36:10Z",
+      "side": 1,
+      "message": "Yes, Travis CI is using Precise.",
+      "parentUuid": "763805b1_8df181c9",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 29
+      },
+      "revId": "75885e29c4f69717ddfbfeef259cfabbf5e26363",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
