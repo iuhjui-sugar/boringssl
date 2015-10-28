@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "56ab01f0_4cfe9fc8",
+        "filename": "BUILDING.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-10-28T18:34:02Z",
+      "side": 1,
+      "message": "OK. It seems that the italics are applied in Gerrit but not in the output.",
+      "parentUuid": "76fd65bf_cbcaa9d7",
+      "range": {
+        "startLine": 30,
+        "startChar": 18,
+        "endLine": 30,
+        "endChar": 44
+      },
+      "revId": "953cfc837f50189c6f2a7e27b47abb64a6c685a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76fd65bf_cb4bc942",
         "filename": "BUILDING.md",
         "patchSetId": 5
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "That would make copying and paste easier. Will do, thanks.",
       "parentUuid": "76fd65bf_cb4bc942",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 69
+      },
+      "revId": "953cfc837f50189c6f2a7e27b47abb64a6c685a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56ab01f0_ecc5cb97",
+        "filename": "BUILDING.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-10-28T18:34:02Z",
+      "side": 1,
+      "message": "If we expect people will copy-paste this whole block, appending \"\u0026\u0026 \\\" to each line would be a good idea, so that the sha256sum actually does the right thing for them.",
+      "parentUuid": "76fd65bf_abcf6de5",
       "range": {
         "startLine": 34,
         "startChar": 4,
