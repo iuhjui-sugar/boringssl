@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "76fd65bf_8b45d12f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-10-28T06:59:46Z",
+      "side": 1,
+      "message": "This also broke my GCC (4.8, 5.0) builds, which use gas:\nhttps://travis-ci.org/briansmith/try/builds/87829371",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 29
+      },
+      "revId": "75885e29c4f69717ddfbfeef259cfabbf5e26363",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
