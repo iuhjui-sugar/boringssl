@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "76fd65bf_cbcaa9d7",
+        "filename": "BUILDING.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-10-28T13:16:46Z",
+      "side": 1,
+      "message": "Seems to work ok: https://boringssl.googlesource.com/boringssl/+/HEAD/BUILDING.md",
+      "parentUuid": "76fd65bf_eb46853c",
+      "range": {
+        "startLine": 30,
+        "startChar": 18,
+        "endLine": 30,
+        "endChar": 44
+      },
+      "revId": "953cfc837f50189c6f2a7e27b47abb64a6c685a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76fd65bf_cb4bc942",
         "filename": "BUILDING.md",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2015-10-28T06:49:04Z",
       "side": 1,
       "message": "Not a big deal, but David had asked me to remove the \"$ \" prefix on each line in an earlier review comment.",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 69
+      },
+      "revId": "953cfc837f50189c6f2a7e27b47abb64a6c685a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "76fd65bf_abcf6de5",
+        "filename": "BUILDING.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-10-28T13:16:46Z",
+      "side": 1,
+      "message": "That would make copying and paste easier. Will do, thanks.",
+      "parentUuid": "76fd65bf_cb4bc942",
       "range": {
         "startLine": 34,
         "startChar": 4,
