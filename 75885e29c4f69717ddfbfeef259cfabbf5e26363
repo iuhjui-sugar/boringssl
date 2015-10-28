@@ -22,6 +22,30 @@
       "revId": "75885e29c4f69717ddfbfeef259cfabbf5e26363",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "763805b1_8df181c9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-10-28T17:09:52Z",
+      "side": 1,
+      "message": "That looks like, for whatever reason, the gas that configuration is using doesn\u0027t know about ADX instructions. (Hrm. I don\u0027t think my desktop has those instructions. That would explain why bssl speed was a wash. Note to self: pay attention to what hardware you\u0027re testing on. :-) ) The version check thinks it needs binutils 2.23. Trusty has 2.24, so I\u0027m guessing whatever you\u0027re running on is too old. (Are you on Precise?)\n\nIf needed, I suppose we can manually encode that instructions. I don\u0027t know what kinds of build targets we end up needing to support right now.",
+      "parentUuid": "76fd65bf_8b45d12f",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 29
+      },
+      "revId": "75885e29c4f69717ddfbfeef259cfabbf5e26363",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
