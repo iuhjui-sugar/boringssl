@@ -16,6 +16,41 @@
       "revId": "c62ac730bde116508523c7e7ee3b9485197bc547",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "763805b1_106bea1d",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3864,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-10-29T20:52:01Z",
+      "side": 1,
+      "message": "It shooouuuld be, but I suppose may as well leave it for now. I\u0027ll see if I can just kill it completely. It\u0027s only used to automatically progress the handshake during SSL_read and SSL_write calls to read_bytes / write_bytes which ought to happen at the entry point if possible.",
+      "parentUuid": "56ab01f0_f52bca4c",
+      "revId": "c62ac730bde116508523c7e7ee3b9485197bc547",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "763805b1_33b1d01a",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3879,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-10-29T20:52:01Z",
+      "side": 1,
+      "message": "To be safe, functions like SSL_CTX_set_quiet_shutdown should probably get !!s in there so that someone calling SSL_CTX_set_quiet_shutdown doesn\u0027t accidentally cause problems. Ditto to the two below.",
+      "revId": "c62ac730bde116508523c7e7ee3b9485197bc547",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
