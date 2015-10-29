@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56ab01f0_f52bca4c",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3864,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-10-29T01:59:35Z",
+      "side": 1,
+      "message": "I made this a single bit but then put it back because it wasn\u0027t clear whether it\u0027s actually limited to 0/1. So something for later.",
+      "revId": "c62ac730bde116508523c7e7ee3b9485197bc547",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
