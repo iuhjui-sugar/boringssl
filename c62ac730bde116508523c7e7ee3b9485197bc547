@@ -51,6 +51,24 @@
       "revId": "c62ac730bde116508523c7e7ee3b9485197bc547",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "562a227b_f7615286",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3879,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-10-30T21:00:51Z",
+      "side": 1,
+      "message": "Good point, thanks. The other two don\u0027t accept a value from the outside and just set it equal to one.",
+      "parentUuid": "763805b1_33b1d01a",
+      "revId": "c62ac730bde116508523c7e7ee3b9485197bc547",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
