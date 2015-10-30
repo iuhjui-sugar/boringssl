@@ -22,6 +22,30 @@
       "revId": "89d4a68c434224eb9e8f5259b4f5c9e6a945d74c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "562a227b_5721462f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-10-30T21:11:43Z",
+      "side": 1,
+      "message": "Ninja where the Ninja input is generated from parsing the Makefiles, but it works much better. (The whole build is still a lot of work even for a 16-core machine.)",
+      "parentUuid": "763805b1_56ee4a73",
+      "range": {
+        "startLine": 9,
+        "startChar": 21,
+        "endLine": 9,
+        "endChar": 26
+      },
+      "revId": "89d4a68c434224eb9e8f5259b4f5c9e6a945d74c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
