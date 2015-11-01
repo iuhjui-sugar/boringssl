@@ -69,34 +69,46 @@ extern "C" {
  *
  * DATA_ORDER_IS_BIG_ENDIAN or DATA_ORDER_IS_LITTLE_ENDIAN
  *	this macro defines byte order of input stream.
+ *
  * HASH_CBLOCK
  *	size of a unit chunk HASH_BLOCK operates on.
+ *
  * HASH_LONG
  *	has to be at least 32 bit wide.
+ *
  * HASH_CTX
  *	context structure that at least contains following
  *	members:
  *		typedef struct {
+ *			HASH_LONG	h[HASH_CBLOCK / sizeof(HASH_LONG)];
+ *			HASH_LONG	Nl, Nh;
+ *			unsigned int num;
  *			...
- *			HASH_LONG	Nl,Nh;
- *			either {
- *			HASH_LONG	data[HASH_LBLOCK];
- *			unsigned char	data[HASH_CBLOCK];
- *			};
- *			unsigned int	num;
- *			...
- *			} HASH_CTX;
- *	data[] vector is expected to be zeroed upon first call to
- *	HASH_UPDATE.
+ *		} HASH_CTX;
+ *
  * HASH_UPDATE
  *	name of "Update" function, implemented here.
+ *
  * HASH_TRANSFORM
  *	name of "Transform" function, implemented here.
+ *
  * HASH_FINAL
  *	name of "Final" function, implemented here.
+ *
  * HASH_BLOCK_DATA_ORDER
  *	name of "block" function capable of treating *unaligned* input
- *	message in original (data) byte order, implemented externally.
+ *	message in original (data) byte order, implemented externally. It must
+ *	have this signature:
+ *	
+ *	  void HASH_BLOCK_DATA_ORDER(HASH_LONG *state, const uint8_t *data,
+ *	                             size_t num);
+ *
+ *	|HASH_BLOCK_DATA_ORDER| updates the hash state |state| with |num|
+ *	blocks of data from |data|, where each block is |HASH_CBLOCK| bytes.
+ *	That is, |data| points to a array of |HASH_CBLOCK * num| bytes. |state|
+ *	points to the |h| member of a |HASH_CTX| and this contains
+ *	|HASH_CBLOCK / sizeof(HASH_LONG)| elements.
+ *
  * HASH_MAKE_STRING
  *	macro convering context variables to an ASCII hash string.
  *
@@ -264,7 +276,7 @@ int HASH_UPDATE (HASH_CTX *c, const void *data_, size_t len)
 		if (len >= HASH_CBLOCK || len+n >= HASH_CBLOCK)
 			{
 			memcpy (p+n,data,HASH_CBLOCK-n);
-			HASH_BLOCK_DATA_ORDER (c,p,1);
+			HASH_BLOCK_DATA_ORDER (c->h,p,1);
 			n      = HASH_CBLOCK-n;
 			data  += n;
 			len   -= n;
@@ -282,7 +294,7 @@ int HASH_UPDATE (HASH_CTX *c, const void *data_, size_t len)
 	n = len/HASH_CBLOCK;
 	if (n > 0)
 		{
-		HASH_BLOCK_DATA_ORDER (c,data,n);
+		HASH_BLOCK_DATA_ORDER (c->h,data,n);
 		n    *= HASH_CBLOCK;
 		data += n;
 		len  -= n;
@@ -300,7 +312,7 @@ int HASH_UPDATE (HASH_CTX *c, const void *data_, size_t len)
 
 void HASH_TRANSFORM (HASH_CTX *c, const uint8_t *data)
 	{
-	HASH_BLOCK_DATA_ORDER (c,data,1);
+	HASH_BLOCK_DATA_ORDER (c->h,data,1);
 	}
 
 
@@ -316,7 +328,7 @@ int HASH_FINAL (uint8_t *md, HASH_CTX *c)
 		{
 		memset (p+n,0,HASH_CBLOCK-n);
 		n=0;
-		HASH_BLOCK_DATA_ORDER (c,p,1);
+		HASH_BLOCK_DATA_ORDER (c->h,p,1);
 		}
 	memset (p+n,0,HASH_CBLOCK-8-n);
 
@@ -329,7 +341,7 @@ int HASH_FINAL (uint8_t *md, HASH_CTX *c)
 	(void)HOST_l2c(c->Nh,p);
 #endif
 	p -= HASH_CBLOCK;
-	HASH_BLOCK_DATA_ORDER (c,p,1);
+	HASH_BLOCK_DATA_ORDER (c->h,p,1);
 	c->num=0;
 	memset (p,0,HASH_CBLOCK);
 
