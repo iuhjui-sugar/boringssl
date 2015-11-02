@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "562a227b_037dbcc4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-11-02T20:03:44Z",
+      "side": 1,
+      "message": "Normally, though, the certificate verifier isn\u0027t required to check the end-entity key for anything.\n\nIMO, whatever thing does the signature verification should verify that the key used for the signature verification is good enough.",
+      "range": {
+        "startLine": 17,
+        "startChar": 12,
+        "endLine": 18,
+        "endChar": 20
+      },
+      "revId": "a05b6139f9e84ce6d16a924b0c82a2d0d3f1264c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
