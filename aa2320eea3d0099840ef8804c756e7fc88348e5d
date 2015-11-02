@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "763805b1_616d3eed",
+        "filename": "tool/ciphers.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-02T17:52:29Z",
+      "side": 1,
+      "message": "Nit: SSL_CIPHER_get_name(cipher)\n\nNot that this isn\u0027t sniffing at all kinds of internal structures, but may as well use functions where we can.",
+      "range": {
+        "startLine": 57,
+        "startChar": 19,
+        "endLine": 57,
+        "endChar": 31
+      },
+      "revId": "aa2320eea3d0099840ef8804c756e7fc88348e5d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
