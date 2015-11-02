@@ -1,0 +1,169 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "763805b1_6d91b54b",
+        "filename": "crypto/ec/asm/p256-x86_64-asm.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-02T18:22:12Z",
+      "side": 1,
+      "message": "If we have a CLA, should we be changing this block?",
+      "revId": "6e11cc627696160261a161dea9fab45ce369a576",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "763805b1_2d9ded30",
+        "filename": "crypto/ec/asm/p256-x86_64-asm.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-02T18:22:12Z",
+      "side": 1,
+      "message": "To match what the other perlasm files (now) look like, let\u0027s set these to zero with a comment to enable later. (And mention that $avx goes up to 2 and $addx goes up to 1, so we don\u0027t forget.)\n\nIt might be worth rerunning the bssl speed numbers to make sure your system didn\u0027t set $CC or something, to make sure we\u0027re measuring the same thing.",
+      "revId": "6e11cc627696160261a161dea9fab45ce369a576",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "763805b1_c1ec32c1",
+        "filename": "crypto/ec/ec.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-02T18:22:12Z",
+      "side": 1,
+      "message": "These could fail on malloc failure.",
+      "revId": "6e11cc627696160261a161dea9fab45ce369a576",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "763805b1_81030a26",
+        "filename": "crypto/ec/ecp_nistz256_table.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-02T18:22:12Z",
+      "side": 1,
+      "message": "License header?",
+      "revId": "6e11cc627696160261a161dea9fab45ce369a576",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "763805b1_4db879ac",
+        "filename": "crypto/ec/p256-x86_64.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-02T18:22:12Z",
+      "side": 1,
+      "message": "[rubber stamp]",
+      "revId": "6e11cc627696160261a161dea9fab45ce369a576",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "763805b1_6db535b3",
+        "filename": "crypto/ec/p256-x86_64.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-02T18:22:12Z",
+      "side": 1,
+      "message": "If we have a CLA, should this get switched?",
+      "revId": "6e11cc627696160261a161dea9fab45ce369a576",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "763805b1_edc8453f",
+        "filename": "crypto/ec/p256-x86_64.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-02T18:22:12Z",
+      "side": 1,
+      "message": "Unnecessary?",
+      "range": {
+        "startLine": 688,
+        "startChar": 30,
+        "endLine": 688,
+        "endChar": 45
+      },
+      "revId": "6e11cc627696160261a161dea9fab45ce369a576",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "763805b1_01f71a89",
+        "filename": "crypto/ecdsa/ecdsa.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-02T18:22:12Z",
+      "side": 1,
+      "message": "Isn\u0027t this always going to be the same as BN_sub? (If you need a modulus, you\u0027d want it mod order - 1 anyway I think.)",
+      "revId": "6e11cc627696160261a161dea9fab45ce369a576",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "763805b1_e1f12e96",
+        "filename": "crypto/ecdsa/ecdsa.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-02T18:22:12Z",
+      "side": 1,
+      "message": "[I\u0027m assuming BN_mod_exp_mont_consttime does not modify the BN_MONT_CTX. Should we make this return const and BN_mod_exp_mont_consttime take const?]",
+      "range": {
+        "startLine": 338,
+        "startChar": 35,
+        "endLine": 338,
+        "endChar": 64
+      },
+      "revId": "6e11cc627696160261a161dea9fab45ce369a576",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
