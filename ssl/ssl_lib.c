@@ -2634,6 +2634,10 @@ int SSL_get_rc4_state(const SSL *ssl, const RC4_KEY **read_key,
          EVP_AEAD_CTX_get_rc4_state(&ssl->aead_write_ctx->ctx, write_key);
 }
 
+uint8_t SSL_get_server_key_exchange_hash(const SSL *ssl) {
+  return ssl->s3->tmp.server_key_exchange_hash;
+}
+
 int SSL_clear(SSL *ssl) {
   if (ssl->method == NULL) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_NO_METHOD_SPECIFIED);
