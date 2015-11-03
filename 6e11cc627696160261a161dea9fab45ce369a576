@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "763805b1_e19e8ea7",
+        "filename": "crypto/ec/asm/p256-x86_64-asm.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-03T21:42:14Z",
+      "side": 1,
+      "message": "Oh, I missed this was already changed to the ISC license. Though it\u0027s still different from the top-level LICENSE file, if that matters. (Chromium and Go use \"The Chromium Authors\" and similar.)\n\n*shrug* I have no idea how this is supposed to work. Whatever makes legal happy. :-)",
+      "parentUuid": "562a227b_18588a07",
+      "revId": "6e11cc627696160261a161dea9fab45ce369a576",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "763805b1_2d9ded30",
         "filename": "crypto/ec/asm/p256-x86_64-asm.pl",
         "patchSetId": 2
