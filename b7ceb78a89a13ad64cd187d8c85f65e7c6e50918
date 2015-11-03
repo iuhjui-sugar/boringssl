@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "562a227b_cb58ea80",
+        "filename": "include/openssl/sha.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-11-03T02:58:00Z",
+      "side": 1,
+      "message": "I\u0027m not sure if there is something else I can use to limit this scope further to just wpa_supplicant.",
+      "range": {
+        "startLine": 101,
+        "startChar": 12,
+        "endLine": 101,
+        "endChar": 20
+      },
+      "revId": "b7ceb78a89a13ad64cd187d8c85f65e7c6e50918",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
