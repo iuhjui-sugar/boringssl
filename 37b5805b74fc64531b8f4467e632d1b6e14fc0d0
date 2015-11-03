@@ -22,6 +22,30 @@
       "revId": "37b5805b74fc64531b8f4467e632d1b6e14fc0d0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "562a227b_98f59af2",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 795,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-03T01:54:21Z",
+      "side": 1,
+      "message": "Oh yes, thanks. Done.",
+      "parentUuid": "763805b1_a1a486f9",
+      "range": {
+        "startLine": 795,
+        "startChar": 64,
+        "endLine": 795,
+        "endChar": 67
+      },
+      "revId": "37b5805b74fc64531b8f4467e632d1b6e14fc0d0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
