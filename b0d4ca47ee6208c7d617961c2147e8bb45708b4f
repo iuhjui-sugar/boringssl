@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "562a227b_18e9aa16",
+        "filename": "crypto/ec/asm/p256-x86_64-asm.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-03T01:56:44Z",
+      "side": 1,
+      "message": "I don\u0027t have the access to the same machine to test this again now so I\u0027ll leave the benchmarks and work on getting a Haswell machine running.",
+      "revId": "b0d4ca47ee6208c7d617961c2147e8bb45708b4f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
