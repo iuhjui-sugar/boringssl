@@ -73,23 +73,6 @@
   64 /* exponent limit enforced for "large" modulus only */
 
 
-int rsa_default_finish(RSA *rsa) {
-  BN_MONT_CTX_free(rsa->_method_mod_n);
-  BN_MONT_CTX_free(rsa->_method_mod_p);
-  BN_MONT_CTX_free(rsa->_method_mod_q);
-
-  if (rsa->additional_primes != NULL) {
-    size_t i;
-    for (i = 0; i < sk_RSA_additional_prime_num(rsa->additional_primes); i++) {
-      RSA_additional_prime *ap =
-          sk_RSA_additional_prime_value(rsa->additional_primes, i);
-      BN_MONT_CTX_free(ap->method_mod);
-    }
-  }
-
-  return 1;
-}
-
 size_t rsa_default_size(const RSA *rsa) {
   return BN_num_bytes(rsa->n);
 }

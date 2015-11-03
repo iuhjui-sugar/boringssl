@@ -69,7 +69,6 @@ extern "C" {
 
 extern const RSA_METHOD RSA_default_method;
 
-int rsa_default_finish(RSA *rsa);
 size_t rsa_default_size(const RSA *rsa);
 int rsa_default_encrypt(RSA *rsa, size_t *out_len, uint8_t *out, size_t max_out,
                         const uint8_t *in, size_t in_len, int padding);
@@ -151,7 +150,7 @@ typedef struct RSA_additional_prime_st {
 
   /* r is the product of all primes (including p and q) prior to this one. */
   BIGNUM *r;
-  /* method_mod is managed by the |RSA_METHOD|. */
+  /* method_mod is a |BN_MONT_CTX| modulo |prime|. */
   BN_MONT_CTX *method_mod;
 } RSA_additional_prime;
 
