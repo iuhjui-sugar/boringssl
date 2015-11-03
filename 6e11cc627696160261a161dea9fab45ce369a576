@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "56c6a231_6e96cf71",
+        "filename": "crypto/ec/asm/p256-x86_64-asm.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-03T22:04:28Z",
+      "side": 1,
+      "message": "Yea, but we don\u0027t have an AUTHORS file and we\u0027ve used \"Google Inc\" elsewhere so I\u0027ll make this \"Intel\" for now. Perhaps when upstream relicense we\u0027ll get to make everything uniform.",
+      "parentUuid": "763805b1_e19e8ea7",
+      "revId": "6e11cc627696160261a161dea9fab45ce369a576",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "763805b1_2d9ded30",
         "filename": "crypto/ec/asm/p256-x86_64-asm.pl",
         "patchSetId": 2
