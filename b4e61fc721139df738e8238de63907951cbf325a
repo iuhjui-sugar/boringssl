@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "562a227b_8b9f8275",
+        "filename": "include/openssl/err.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-03T02:23:47Z",
+      "side": 1,
+      "message": "I don\u0027t get why int unused is inserted. If we just removed the const char *function argument then the compiler would already, statically find problems because the number of arguments wouldn\u0027t match.",
+      "revId": "b4e61fc721139df738e8238de63907951cbf325a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
