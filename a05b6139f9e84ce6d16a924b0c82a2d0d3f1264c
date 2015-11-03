@@ -46,6 +46,23 @@
       "revId": "a05b6139f9e84ce6d16a924b0c82a2d0d3f1264c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "96d65a0b_60f772b7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5190
+      },
+      "writtenOn": "2015-11-03T23:14:10Z",
+      "side": 1,
+      "message": "It took me a while to parse this commit description. I\u0027m not sure BoringSSL convention, but I would actually push back against the sort of \u0027conversational\u0027 style of comments, which are less clear (e.g. \"But, either way.\")\n\nHere\u0027s an attempt at wording it, in part, to make sure I understood it.\n\n\n\nStop verifying that the curve sent in the peer\u0027s certificate matches those of the EC parameters sent to the peer.\n\nThis code has several bugs in the existing implementation, but also design concerns about whether it\u0027s correct to begin with:\n- This behaviour only happens for TLS 1.2, so a malicious peer could bypass this behaviour by only offering TLS 1.1.\n-  https://boringssl-review... incorrectly made this check go from a client-only check to a server-only check; both of which are wrong (either both parties should be checking or neither party should be checking).\n- On a design front, this is somewhat suspect, and already a point of interop issues among implementations.\n  - Option A: Validate that all of the certificates sent by the other party match our constraints. However, this doesn\u0027t work if the TLS library isn\u0027t also responsible for the PKI validation, since the peer could have just been sending conforming junk.\n  - Option B: Enforce these requirements during path validation, on the verified chain. However, if this leads to an error, it\u0027s not necessarily the fault of the peer - if these constraints weren\u0027t considered as part of path building, then there might be valid paths that meet these requirements that weren\u0027t considered.\n  - Option C: Do nothing, and leave it up to the caller (e.g. the one responsible for validating certificates) to make decisions about what it will accept; treat this merely as a hint for servers when selecting the set of certificate(s) to send.\n\nThis was originally introduced for Suite B mode in upstream OpenSSL, except there were several issues with that code and both that functionality - and the sheer number of non-Suite B curves - are no longer supported in BoringSSL.",
+      "revId": "a05b6139f9e84ce6d16a924b0c82a2d0d3f1264c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
