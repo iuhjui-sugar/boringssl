@@ -22,6 +22,30 @@
       "revId": "a05b6139f9e84ce6d16a924b0c82a2d0d3f1264c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9653ba54_18dc4507",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-03T22:22:01Z",
+      "side": 1,
+      "message": "\u003e Normally, though, the certificate verifier isn\u0027t required to check the end-entity key for anything.\n\nNot sure about \"Normally\". At least in OpenSSL/BoringSSL, the TLS stack certainly isn\u0027t enforcing anything. No minimum RSA key size or anything. Even this code wasn\u0027t doing anything because it fails to kick in for TLS 1.1. In Chromium, we\u0027ve always enforced such things in the verifier.\n\nAmusingly, OpenSSL 1.0.2 did have some off-by-default code to check the entire certificate chain against signature_algorithms (also as part of Suite B code), but it was a mess, so we\u0027ve ditched it. That I think that one we\u0027d both agree is the verifier\u0027s problem.\n\n\u003e IMO, whatever thing does the signature verification should verify that the key used for the signature verification is good enough\n\nThat did occur to me. I\u0027m not entirely opposed to doing it in the TLS stack, but I think it\u0027s simpler to put it all in the verifier. The verifier will have to enforce the exact same constraints on the rest of the chain, so we\u0027ll just be specifying everything twice. And we\u0027d need to figure out APIs in BoringSSL to specify all of that since OpenSSL/BoringSSL has not historically done any of this. (In fact, I\u0027d probably do it by hooking into a callback that sees the certificate... which is the certificate verifier.)",
+      "parentUuid": "562a227b_037dbcc4",
+      "range": {
+        "startLine": 17,
+        "startChar": 12,
+        "endLine": 18,
+        "endChar": 20
+      },
+      "revId": "a05b6139f9e84ce6d16a924b0c82a2d0d3f1264c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
