@@ -16,6 +16,24 @@
       "revId": "b4e61fc721139df738e8238de63907951cbf325a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "763805b1_61b37e3a",
+        "filename": "include/openssl/err.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-03T02:32:24Z",
+      "side": 1,
+      "message": "It was just to get this function back to aligning with upstream, since it didn\u0027t cost anything. Before, it couldn\u0027t since there was an extra parameter.\n\n(Probably not worth bothering. I just remember there being minor turbulence around this function before, so I figured it was cheap enough to avoid turbulence from third_party imports going forward, in case someone else is using ERR_LIB_USER or whatever. Happy to also just drop the pointless parameter.)",
+      "parentUuid": "562a227b_8b9f8275",
+      "revId": "b4e61fc721139df738e8238de63907951cbf325a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
