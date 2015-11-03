@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "562a227b_18588a07",
+        "filename": "crypto/ec/asm/p256-x86_64-asm.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-03T01:47:52Z",
+      "side": 1,
+      "message": "Maybe, but to what? This is our ISC license that we\u0027ve need using for other (all new) code.",
+      "parentUuid": "763805b1_6d91b54b",
+      "revId": "6e11cc627696160261a161dea9fab45ce369a576",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "763805b1_2d9ded30",
         "filename": "crypto/ec/asm/p256-x86_64-asm.pl",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2015-11-02T18:22:12Z",
       "side": 1,
       "message": "To match what the other perlasm files (now) look like, let\u0027s set these to zero with a comment to enable later. (And mention that $avx goes up to 2 and $addx goes up to 1, so we don\u0027t forget.)\n\nIt might be worth rerunning the bssl speed numbers to make sure your system didn\u0027t set $CC or something, to make sure we\u0027re measuring the same thing.",
+      "revId": "6e11cc627696160261a161dea9fab45ce369a576",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "562a227b_b84e163f",
+        "filename": "crypto/ec/asm/p256-x86_64-asm.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-03T01:47:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "763805b1_2d9ded30",
       "revId": "6e11cc627696160261a161dea9fab45ce369a576",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "562a227b_7890aec2",
+        "filename": "crypto/ec/ec.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-03T01:47:52Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "763805b1_c1ec32c1",
+      "revId": "6e11cc627696160261a161dea9fab45ce369a576",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "763805b1_81030a26",
         "filename": "crypto/ec/ecp_nistz256_table.h",
         "patchSetId": 2
@@ -64,6 +118,24 @@
       "writtenOn": "2015-11-02T18:22:12Z",
       "side": 1,
       "message": "License header?",
+      "revId": "6e11cc627696160261a161dea9fab45ce369a576",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "562a227b_389a26e3",
+        "filename": "crypto/ec/ecp_nistz256_table.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-03T01:47:52Z",
+      "side": 1,
+      "message": "Done. Although whether a table of P-256 points can be copyrighted I\u0027ve no idea.",
+      "parentUuid": "763805b1_81030a26",
       "revId": "6e11cc627696160261a161dea9fab45ce369a576",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -104,6 +176,24 @@
     },
     {
       "key": {
+        "uuid": "562a227b_f89b7ee2",
+        "filename": "crypto/ec/p256-x86_64.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-03T01:47:52Z",
+      "side": 1,
+      "message": "(ditto; this is our ISC license.)",
+      "parentUuid": "763805b1_6db535b3",
+      "revId": "6e11cc627696160261a161dea9fab45ce369a576",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "763805b1_edc8453f",
         "filename": "crypto/ec/p256-x86_64.c",
         "patchSetId": 2
@@ -115,6 +205,30 @@
       "writtenOn": "2015-11-02T18:22:12Z",
       "side": 1,
       "message": "Unnecessary?",
+      "range": {
+        "startLine": 688,
+        "startChar": 30,
+        "endLine": 688,
+        "endChar": 45
+      },
+      "revId": "6e11cc627696160261a161dea9fab45ce369a576",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "562a227b_d84442fa",
+        "filename": "crypto/ec/p256-x86_64.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-03T01:47:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "763805b1_edc8453f",
       "range": {
         "startLine": 688,
         "startChar": 30,
@@ -144,6 +258,24 @@
     },
     {
       "key": {
+        "uuid": "562a227b_38710679",
+        "filename": "crypto/ecdsa/ecdsa.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-03T01:47:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "763805b1_01f71a89",
+      "revId": "6e11cc627696160261a161dea9fab45ce369a576",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "763805b1_e1f12e96",
         "filename": "crypto/ecdsa/ecdsa.c",
         "patchSetId": 2
@@ -155,6 +287,30 @@
       "writtenOn": "2015-11-02T18:22:12Z",
       "side": 1,
       "message": "[I\u0027m assuming BN_mod_exp_mont_consttime does not modify the BN_MONT_CTX. Should we make this return const and BN_mod_exp_mont_consttime take const?]",
+      "range": {
+        "startLine": 338,
+        "startChar": 35,
+        "endLine": 338,
+        "endChar": 64
+      },
+      "revId": "6e11cc627696160261a161dea9fab45ce369a576",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "562a227b_183bea7a",
+        "filename": "crypto/ecdsa/ecdsa.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-03T01:47:52Z",
+      "side": 1,
+      "message": "Done. This change needs https://boringssl-review.googlesource.com/#/c/6403/ now.",
+      "parentUuid": "763805b1_e1f12e96",
       "range": {
         "startLine": 338,
         "startChar": 35,
