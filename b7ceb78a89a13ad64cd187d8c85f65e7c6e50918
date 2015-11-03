@@ -22,6 +22,29 @@
       "revId": "b7ceb78a89a13ad64cd187d8c85f65e7c6e50918",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "562a227b_6b27b6f6",
+        "filename": "include/openssl/sha.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-11-03T02:59:44Z",
+      "side": 1,
+      "message": "I tested this with a compiler that might be different than the one you use for wpa_supplicant. These anonymous unions are in C11. It isn\u0027t clear from the documentation, but some versions of GCC and/or clang may need |#pragma warning| type stuff or compiler flags for this to work.",
+      "range": {
+        "startLine": 106,
+        "startChar": 8,
+        "endLine": 106,
+        "endChar": 9
+      },
+      "revId": "b7ceb78a89a13ad64cd187d8c85f65e7c6e50918",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
