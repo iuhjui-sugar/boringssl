@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9653ba54_5bb4f7a8",
+        "filename": "crypto/cipher/e_ssl3.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-04T17:17:16Z",
+      "side": 1,
+      "message": "It\u0027s the same thing for all these ciphers, but EVP_CIPHER_CTX_iv_length is probably better.",
+      "range": {
+        "startLine": 314,
+        "startChar": 6,
+        "endLine": 314,
+        "endChar": 27
+      },
+      "revId": "859e5c1c010719759ae4fbda03c37962c82bac13",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9653ba54_bb98b339",
+        "filename": "crypto/cipher/e_tls.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-04T17:17:16Z",
+      "side": 1,
+      "message": "It\u0027s the same thing for all these ciphers, but EVP_CIPHER_CTX_iv_length is probably better.",
+      "revId": "859e5c1c010719759ae4fbda03c37962c82bac13",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9653ba54_9b95ef01",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2624,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-04T17:17:16Z",
+      "side": 1,
+      "message": "Nit: ptr, len, ptr seems a slightly odd ordering. :-) ptr, ptr, len maybe, since we typically do len after ptr.",
+      "revId": "859e5c1c010719759ae4fbda03c37962c82bac13",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9653ba54_fba22b67",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 2640,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-04T17:17:16Z",
+      "side": 1,
+      "message": "out_iv_len to match the header.",
+      "range": {
+        "startLine": 2640,
+        "startChar": 24,
+        "endLine": 2640,
+        "endChar": 39
+      },
+      "revId": "859e5c1c010719759ae4fbda03c37962c82bac13",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
