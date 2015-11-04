@@ -91,12 +91,13 @@ OPENSSL_EXPORT const EVP_CIPHER *EVP_aes_256_ctr(void);
 OPENSSL_EXPORT const EVP_CIPHER *EVP_aes_256_ofb(void);
 OPENSSL_EXPORT const EVP_CIPHER *EVP_aes_256_xts(void);
 
-/* Deprecated AES-GCM implementations that set |EVP_CIPH_FLAG_CUSTOM_CIPHER|.
- * Use |EVP_aead_aes_128_gcm| and |EVP_aead_aes_256_gcm| instead. */
+/* These AEADs are deprecated AES-GCM implementations that set
+ * |EVP_CIPH_FLAG_CUSTOM_CIPHER|. Use |EVP_aead_aes_128_gcm| and
+ * |EVP_aead_aes_256_gcm| instead. */
 OPENSSL_EXPORT const EVP_CIPHER *EVP_aes_128_gcm(void);
 OPENSSL_EXPORT const EVP_CIPHER *EVP_aes_256_gcm(void);
 
-/* Deprecated 192-bit version of AES. */
+/* These are deprecated, 192-bit version of AES. */
 OPENSSL_EXPORT const EVP_CIPHER *EVP_aes_192_ecb(void);
 OPENSSL_EXPORT const EVP_CIPHER *EVP_aes_192_cbc(void);
 OPENSSL_EXPORT const EVP_CIPHER *EVP_aes_192_ctr(void);
