@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56c6a231_712c7242",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-04T00:11:04Z",
+      "side": 1,
+      "message": "This is trying to use PMTUD, no?\n\nI.e. if the underlying BIO is wired up to query IP_MTU (see `man 7 ip`) then the kernel\u0027s MTU can be fed in here.\n\nAlthough this seems like a bit of a funky way of doing it to be honest.",
+      "revId": "551b69dc16f443dc1c803e82e7152f7812e71463",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
