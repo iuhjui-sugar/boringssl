@@ -282,7 +282,44 @@ int dtls1_do_write(SSL *s, int type, enum dtls1_use_epoch_t use_epoch) {
   size_t max_overhead = SSL_AEAD_CTX_max_overhead(s->aead_write_ctx);
 
   frag_off = 0;
+  s->rwstate = SSL_NOTHING;
   while (s->init_num) {
+    if (type == SSL3_RT_HANDSHAKE && s->init_off != 0) {
+      /* We must be writing a fragment other than the first one */
+
+      if (frag_off > 0) {
+        /*** BEGIN FIX - this was moved from before the |frag_off| check. ***/
+        if (s->init_off <= DTLS1_HM_HEADER_LENGTH) {
+          /*
+           * Each fragment that was already sent must at least have
+           * contained the message header plus one other byte. Therefore
+           * if |init_off| is non zero then it must have progressed by at
+           * least |DTLS1_HM_HEADER_LENGTH + 1| bytes. If not something
+           * went wrong.
+           */
+          OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
+          return -1;
+        }
+        /*** END FIX ***/
+
+        /*
+         * This is the first attempt at writing out this fragment.
+         * Adjust |init_off| and |init_num| to add a new message
+         * header.
+         */
+        s->init_off -= DTLS1_HM_HEADER_LENGTH;
+        s->init_num += DTLS1_HM_HEADER_LENGTH;
+      } else {
+        /*
+         * We must have been called again after a retry so use the
+         * fragment offset from our last attempt. We do not need
+         * to adjust |init_off| and |init_num| as above, because
+         * that should already have been done before the retry.
+         */
+        frag_off = s->d1->w_msg_hdr.frag_off;
+      }
+    }
+
     /* Account for data in the buffering BIO; multiple records may be packed
      * into a single packet during the handshake.
      *
@@ -301,6 +338,7 @@ int dtls1_do_write(SSL *s, int type, enum dtls1_use_epoch_t use_epoch) {
        * calls to |dtls1_do_write|, |frag_off| will be wrong. */
       ret = BIO_flush(SSL_get_wbio(s));
       if (ret <= 0) {
+        s->rwstate = SSL_WRITING;
         return ret;
       }
       assert(BIO_wpending(SSL_get_wbio(s)) == 0);
@@ -309,14 +347,6 @@ int dtls1_do_write(SSL *s, int type, enum dtls1_use_epoch_t use_epoch) {
 
     /* XDTLS: this function is too long.  split out the CCS part */
     if (type == SSL3_RT_HANDSHAKE) {
-      /* If this isn't the first fragment, reserve space to prepend a new
-       * fragment header. This will override the body of a previous fragment. */
-      if (s->init_off != 0) {
-        assert(s->init_off > DTLS1_HM_HEADER_LENGTH);
-        s->init_off -= DTLS1_HM_HEADER_LENGTH;
-        s->init_num += DTLS1_HM_HEADER_LENGTH;
-      }
-
       if (curr_mtu <= DTLS1_HM_HEADER_LENGTH) {
         /* To make forward progress, the MTU must, at minimum, fit the handshake
          * header and one byte of handshake body. */
@@ -368,7 +398,16 @@ int dtls1_do_write(SSL *s, int type, enum dtls1_use_epoch_t use_epoch) {
     }
     s->init_off += ret;
     s->init_num -= ret;
-    frag_off += (ret -= DTLS1_HM_HEADER_LENGTH);
+    ret -= DTLS1_HM_HEADER_LENGTH;
+    frag_off += ret;
+
+    /*
+     * We save the fragment offset for the next fragment so we have it
+     * available in case of an IO retry. We don't know the length of the
+     * next fragment yet so just set that to 0 for now. It will be
+     * updated again later.
+     */
+    dtls1_fix_message_header(s, frag_off, 0);
   }
 
   return 0;
