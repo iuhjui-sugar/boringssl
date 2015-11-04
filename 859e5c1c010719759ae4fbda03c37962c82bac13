@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b69d1e72_71711878",
+        "filename": "crypto/cipher/e_ssl3.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-04T19:45:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9653ba54_5bb4f7a8",
+      "range": {
+        "startLine": 314,
+        "startChar": 6,
+        "endLine": 314,
+        "endChar": 27
+      },
+      "revId": "859e5c1c010719759ae4fbda03c37962c82bac13",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9653ba54_bb98b339",
         "filename": "crypto/cipher/e_tls.c",
         "patchSetId": 2
@@ -36,6 +60,24 @@
       "writtenOn": "2015-11-04T17:17:16Z",
       "side": 1,
       "message": "It\u0027s the same thing for all these ciphers, but EVP_CIPHER_CTX_iv_length is probably better.",
+      "revId": "859e5c1c010719759ae4fbda03c37962c82bac13",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b69d1e72_919e7cd4",
+        "filename": "crypto/cipher/e_tls.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-04T19:45:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9653ba54_bb98b339",
       "revId": "859e5c1c010719759ae4fbda03c37962c82bac13",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "b69d1e72_31779071",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2624,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-04T19:45:20Z",
+      "side": 1,
+      "message": "Sure, whatever seems most obvious.",
+      "parentUuid": "9653ba54_9b95ef01",
+      "revId": "859e5c1c010719759ae4fbda03c37962c82bac13",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9653ba54_fba22b67",
         "filename": "ssl/ssl_lib.c",
         "patchSetId": 2
@@ -70,6 +130,30 @@
       "writtenOn": "2015-11-04T17:17:16Z",
       "side": 1,
       "message": "out_iv_len to match the header.",
+      "range": {
+        "startLine": 2640,
+        "startChar": 24,
+        "endLine": 2640,
+        "endChar": 39
+      },
+      "revId": "859e5c1c010719759ae4fbda03c37962c82bac13",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b69d1e72_516c14a1",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 2640,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-04T19:45:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9653ba54_fba22b67",
       "range": {
         "startLine": 2640,
         "startChar": 24,
