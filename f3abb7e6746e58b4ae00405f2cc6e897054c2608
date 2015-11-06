@@ -16,6 +16,24 @@
       "revId": "f3abb7e6746e58b4ae00405f2cc6e897054c2608",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b69d1e72_faea38c8",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1421,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-06T19:20:29Z",
+      "side": 1,
+      "message": "Nevermind, I see that there are internal uses in a later change.",
+      "parentUuid": "b69d1e72_1ad1bc20",
+      "revId": "f3abb7e6746e58b4ae00405f2cc6e897054c2608",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
