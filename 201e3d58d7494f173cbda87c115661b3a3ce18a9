@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "b69d1e72_7a548806",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1070,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-06T19:56:28Z",
+      "side": 1,
+      "message": "Ah, fair enough.",
+      "parentUuid": "76a566c6_45ba1e8d",
+      "revId": "201e3d58d7494f173cbda87c115661b3a3ce18a9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b69d1e72_fa86b8f7",
         "filename": "ssl/s3_clnt.c",
         "patchSetId": 2
