@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b69d1e72_7a7d6896",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-06T19:54:55Z",
+      "side": 1,
+      "message": "The use of \"MTU\" here is odd because MTU is at a packet level, but here we mean it to be the maximum UDP payload size that doesn\u0027t cause the packet to exceed the MTU. Maybe mention that in the comment.",
+      "revId": "c87df8bef1af0e6e8aabdc4f296c76005e673bbc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b69d1e72_5a78a4a7",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-06T19:54:55Z",
+      "side": 1,
+      "message": "make a new variable for this? The name |overhead| seems weird.",
+      "revId": "c87df8bef1af0e6e8aabdc4f296c76005e673bbc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b69d1e72_ba86f0c8",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-06T19:54:55Z",
+      "side": 1,
+      "message": "\"\u003d\u003d 0\" would be clearer.",
+      "range": {
+        "startLine": 294,
+        "startChar": 33,
+        "endLine": 294,
+        "endChar": 36
+      },
+      "revId": "c87df8bef1af0e6e8aabdc4f296c76005e673bbc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b69d1e72_fa9078ff",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-06T19:54:55Z",
+      "side": 1,
+      "message": "int ret \u003d -1, in case another goto err is added in the future. (Then remove the assignment on line 329.)",
+      "revId": "c87df8bef1af0e6e8aabdc4f296c76005e673bbc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b69d1e72_1a8e1ce1",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-06T19:54:55Z",
+      "side": 1,
+      "message": "ret \u003d -1;\ngoto err;\n\n(I think.)",
+      "revId": "c87df8bef1af0e6e8aabdc4f296c76005e673bbc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
