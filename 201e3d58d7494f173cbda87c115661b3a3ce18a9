@@ -16,6 +16,23 @@
       "revId": "201e3d58d7494f173cbda87c115661b3a3ce18a9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b69d1e72_fa86b8f7",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-06T19:32:38Z",
+      "side": 1,
+      "message": "\u0026 should be in ( ) for sanity.",
+      "revId": "201e3d58d7494f173cbda87c115661b3a3ce18a9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
