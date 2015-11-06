@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b69d1e72_1a5b7c63",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-06T19:35:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09febb6f_9243fc79",
+      "revId": "eaf4a1ef6f531a2bc4f663147b8b4998f2ed13f5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "09febb6f_1286ec06",
         "filename": "crypto/ec/ec.c",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2015-09-17T20:02:38Z",
       "side": 1,
       "message": "Might be worth expressly mentioning this in ec.h, especially since this differs from OpenSSL which expects the caller do this check.",
+      "revId": "eaf4a1ef6f531a2bc4f663147b8b4998f2ed13f5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b69d1e72_3ad760e6",
+        "filename": "crypto/ec/ec.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 793,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-06T19:35:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09febb6f_1286ec06",
       "revId": "eaf4a1ef6f531a2bc4f663147b8b4998f2ed13f5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
