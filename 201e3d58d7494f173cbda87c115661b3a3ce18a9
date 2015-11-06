@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b69d1e72_1a2d3cd0",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1070,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-06T19:29:02Z",
+      "side": 1,
+      "message": "I\u0027m not sure that this needs to be exported. Do you have a use-case in mind?",
+      "revId": "201e3d58d7494f173cbda87c115661b3a3ce18a9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
