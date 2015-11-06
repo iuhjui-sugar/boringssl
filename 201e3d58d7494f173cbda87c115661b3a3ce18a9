@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "76a566c6_45ba1e8d",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1070,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-06T19:41:57Z",
+      "side": 1,
+      "message": "The original intent was actually to replace go/euing. I just realized afterwards that it would be a good excuse to clean things up a bit.",
+      "parentUuid": "b69d1e72_1a2d3cd0",
+      "revId": "201e3d58d7494f173cbda87c115661b3a3ce18a9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b69d1e72_fa86b8f7",
         "filename": "ssl/s3_clnt.c",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2015-11-06T19:32:38Z",
       "side": 1,
       "message": "\u0026 should be in ( ) for sanity.",
+      "revId": "201e3d58d7494f173cbda87c115661b3a3ce18a9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "76a566c6_25b71aa3",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-06T19:41:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b69d1e72_fa86b8f7",
       "revId": "201e3d58d7494f173cbda87c115661b3a3ce18a9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
