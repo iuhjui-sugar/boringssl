@@ -63,6 +63,7 @@
 #include <openssl/obj.h>
 
 #include "internal.h"
+#include "../ec/ec.h"
 
 
 typedef struct x9_62_fieldid_st {
@@ -355,8 +356,8 @@ EC_KEY *d2i_ECPrivateKey(EC_KEY **a, const uint8_t **inp, long len) {
       goto err;
     }
   } else {
-    if (!EC_POINT_mul(ret->group, ret->pub_key, ret->priv_key, NULL, NULL,
-                      NULL)) {
+    if (!ec_point_twin_mul(ret->group, ret->pub_key, ret->priv_key, NULL, NULL,
+                           NULL)) {
       OPENSSL_PUT_ERROR(EC, ERR_R_EC_LIB);
       goto err;
     }

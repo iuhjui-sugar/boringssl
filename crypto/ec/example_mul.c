@@ -72,8 +72,10 @@
 #include <openssl/ec.h>
 #include <openssl/obj.h>
 
+#include "../ec/ec.h"
 
-int example_EC_POINT_mul(void) {
+
+int example_ec_point_twin_mul(void) {
   /* This example ensures that 10×∞ + G = G, in P-256. */
   EC_GROUP *group = NULL;
   EC_POINT *p = NULL, *result = NULL;
@@ -96,7 +98,7 @@ int example_EC_POINT_mul(void) {
   }
 
   /* First check that 10×∞ = ∞. */
-  if (!EC_POINT_mul(group, result, NULL, p, n, NULL) ||
+  if (!ec_point_twin_mul(group, result, NULL, p, n, NULL) ||
       !EC_POINT_is_at_infinity(group, result)) {
     goto err;
   }
@@ -104,7 +106,7 @@ int example_EC_POINT_mul(void) {
   generator = EC_GROUP_get0_generator(group);
 
   /* Now check that 10×∞ + G = G. */
-  if (!EC_POINT_mul(group, result, BN_value_one(), p, n, NULL) ||
+  if (!ec_point_twin_mul(group, result, BN_value_one(), p, n, NULL) ||
       EC_POINT_cmp(group, result, generator, NULL) != 0) {
     goto err;
   }
@@ -123,7 +125,7 @@ err:
 int main(void) {
   CRYPTO_library_init();
 
-  if (!example_EC_POINT_mul()) {
+  if (!example_ec_point_twin_mul()) {
     fprintf(stderr, "failed\n");
     return 1;
   }

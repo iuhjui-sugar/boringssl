@@ -60,6 +60,7 @@
 #include <openssl/err.h>
 #include <openssl/mem.h>
 
+#include "../ec/ec.h"
 #include "../ec/internal.h"
 
 
@@ -213,7 +214,7 @@ int ECDSA_do_verify(const uint8_t *digest, size_t digest_len,
     OPENSSL_PUT_ERROR(ECDSA, ERR_R_MALLOC_FAILURE);
     goto err;
   }
-  if (!EC_POINT_mul(group, point, u1, pub_key, u2, ctx)) {
+  if (!ec_point_twin_mul(group, point, u1, pub_key, u2, ctx)) {
     OPENSSL_PUT_ERROR(ECDSA, ERR_R_EC_LIB);
     goto err;
   }
@@ -309,7 +310,7 @@ static int ecdsa_sign_setup(EC_KEY *eckey, BN_CTX *ctx_in, BIGNUM **kinvp,
     }
 
     /* compute r the x-coordinate of generator * k */
-    if (!EC_POINT_mul(group, tmp_point, k, NULL, NULL, ctx)) {
+    if (!ec_point_twin_mul(group, tmp_point, k, NULL, NULL, ctx)) {
       OPENSSL_PUT_ERROR(ECDSA, ERR_R_EC_LIB);
       goto err;
     }

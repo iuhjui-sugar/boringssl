@@ -77,6 +77,7 @@
 #include <openssl/thread.h>
 
 #include "internal.h"
+#include "../ec/ec.h"
 #include "../internal.h"
 
 
@@ -330,7 +331,7 @@ int EC_KEY_check_key(const EC_KEY *eckey) {
     OPENSSL_PUT_ERROR(EC, EC_R_INVALID_GROUP_ORDER);
     goto err;
   }
-  if (!EC_POINT_mul(eckey->group, point, NULL, eckey->pub_key, order, ctx)) {
+  if (!ec_point_twin_mul(eckey->group, point, NULL, eckey->pub_key, order, ctx)) {
     OPENSSL_PUT_ERROR(EC, ERR_R_EC_LIB);
     goto err;
   }
@@ -346,7 +347,8 @@ int EC_KEY_check_key(const EC_KEY *eckey) {
       OPENSSL_PUT_ERROR(EC, EC_R_WRONG_ORDER);
       goto err;
     }
-    if (!EC_POINT_mul(eckey->group, point, eckey->priv_key, NULL, NULL, ctx)) {
+    if (!ec_point_twin_mul(eckey->group, point, eckey->priv_key, NULL, NULL,
+                           ctx)) {
       OPENSSL_PUT_ERROR(EC, ERR_R_EC_LIB);
       goto err;
     }
@@ -460,7 +462,7 @@ int EC_KEY_generate_key(EC_KEY *eckey) {
     pub_key = eckey->pub_key;
   }
 
-  if (!EC_POINT_mul(eckey->group, pub_key, priv_key, NULL, NULL, ctx)) {
+  if (!ec_point_twin_mul(eckey->group, pub_key, priv_key, NULL, NULL, ctx)) {
     goto err;
   }
 

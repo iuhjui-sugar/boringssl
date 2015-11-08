@@ -95,9 +95,6 @@ struct ec_method_st {
   int (*point_get_affine_coordinates)(const EC_GROUP *, const EC_POINT *,
                                       BIGNUM *x, BIGNUM *y, BN_CTX *);
 
-  /* used by EC_POINTs_mul, EC_POINT_mul, EC_POINT_precompute_mult,
-   * EC_POINT_have_precompute_mult
-   * (default implementations are used if the 'mul' pointer is 0): */
   int (*mul)(const EC_GROUP *group, EC_POINT *r, const BIGNUM *scalar,
              size_t num, const EC_POINT *points[], const BIGNUM *scalars[],
              BN_CTX *);

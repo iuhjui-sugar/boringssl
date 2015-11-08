@@ -35,6 +35,7 @@
 #include <sys/time.h>
 #endif
 
+#include "../crypto/ec/ec.h"
 #include "../crypto/test/scoped_types.h"
 #include "internal.h"
 
@@ -324,9 +325,9 @@ static bool SpeedECDHCurve(const std::string &name, int nid,
         ScopedBIGNUM y(BN_new());
 
         if (!point || !ctx || !x || !y ||
-            !EC_POINT_mul(group, point.get(), NULL,
-                          EC_KEY_get0_public_key(key.get()),
-                          EC_KEY_get0_private_key(key.get()), ctx.get()) ||
+            !ec_point_twin_mul(group, point.get(), NULL,
+                               EC_KEY_get0_public_key(key.get()),
+                               EC_KEY_get0_private_key(key.get()), ctx.get()) ||
             !EC_POINT_get_affine_coordinates_GFp(group, point.get(), x.get(),
                                                  y.get(), ctx.get())) {
           return false;

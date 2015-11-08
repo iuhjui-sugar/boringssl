@@ -76,6 +76,7 @@
 #include <openssl/obj.h>
 
 #include "internal.h"
+#include "../ec/ec.h"
 #include "../internal.h"
 
 
@@ -855,40 +856,17 @@ int EC_POINT_invert(const EC_GROUP *group, EC_POINT *a, BN_CTX *ctx) {
   return ec_GFp_simple_invert(group, a, ctx);
 }
 
-int EC_POINT_mul(const EC_GROUP *group, EC_POINT *r, const BIGNUM *g_scalar,
-                 const EC_POINT *point, const BIGNUM *p_scalar, BN_CTX *ctx) {
-  /* just a convenient interface to EC_POINTs_mul() */
-
-  const EC_POINT *points[1];
-  const BIGNUM *scalars[1];
-
-  points[0] = point;
-  scalars[0] = p_scalar;
-
-  return EC_POINTs_mul(group, r, g_scalar, (point != NULL && p_scalar != NULL),
-                       points, scalars, ctx);
-}
-
-int EC_POINTs_mul(const EC_GROUP *group, EC_POINT *r, const BIGNUM *scalar,
-                  size_t num, const EC_POINT *points[], const BIGNUM *scalars[],
-                  BN_CTX *ctx) {
-  if (group->meth != r->meth) {
+int ec_point_twin_mul(const EC_GROUP *group, EC_POINT *r,
+                      const BIGNUM *g_scalar, const EC_POINT *point,
+                      const BIGNUM *p_scalar, BN_CTX *ctx) {
+  if (group->meth != r->meth ||
+      (point != NULL && group->meth != point->meth)) {
     OPENSSL_PUT_ERROR(EC, EC_R_INCOMPATIBLE_OBJECTS);
     return 0;
   }
 
-  size_t i;
-  for (i = 0; i < num; i++) {
-    if (points[i]->meth != r->meth) {
-      break;
-    }
-  }
-  if (i != num) {
-    OPENSSL_PUT_ERROR(EC, EC_R_INCOMPATIBLE_OBJECTS);
-    return 0;
-  }
-
-  return group->meth->mul(group, r, scalar, num, points, scalars, ctx);
+  return group->meth->mul(group, r, g_scalar, point != NULL ? 1 : 0, &point,
+                          &p_scalar, ctx);
 }
 
 int ec_point_set_Jprojective_coordinates_GFp(const EC_GROUP *group, EC_POINT *point,
