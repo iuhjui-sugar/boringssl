@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b69d1e72_b06b7136",
+        "filename": "crypto/ec/ec.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-11-08T07:33:50Z",
+      "side": 1,
+      "message": "The nistz code works fine on Windows (at least the OpenSSL version does) but |BORINGSSL_USE_INT218_CODE| is never set on Windows. Further, |BORINGSSL_USE_INT218_CODE| is never set on Msan builds, but you definitely want Msan to run on the nistz code unless it also triggers the false positives that the nistp code triggers. (In that case, please amend the comment about MSan.)\n\nIn particular, this should be something like:\n\nif !defined(OPENSSL_NO_ASM) \u0026\u0026 defined(OPENSSL_X86_64) \u0026\u0026 !defined(OOPENSSL_SMALL)\n    EC_GFp_nistz256_method,\n#elif defined(OPENSSL_USE_INT128_CODE)\n    EC_GFp_nistp256_method,\n#else\n    0\n#endif \n```\n\nIf the nistz code is purposefully being disabled on Windows, it would be worth a comment noting why.",
+      "range": {
+        "startLine": 235,
+        "startChar": 12,
+        "endLine": 235,
+        "endChar": 37
+      },
+      "revId": "18954938684e269ccd59152027d2244040e2b819",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b69d1e72_f065f960",
+        "filename": "crypto/ec/ec.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-11-08T07:33:50Z",
+      "side": 1,
+      "message": "Where does this `5` come from? Worth a comment or some kind of #define to make it clearer.",
+      "range": {
+        "startLine": 300,
+        "startChar": 28,
+        "endLine": 300,
+        "endChar": 29
+      },
+      "revId": "18954938684e269ccd59152027d2244040e2b819",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b69d1e72_10635d5c",
+        "filename": "crypto/ec/ec.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-11-08T07:33:50Z",
+      "side": 1,
+      "message": "Before you free builtin_curve_scalar_field_monts, you should loop through it and free its contents. Otherwise, you will leak |n| of |BN_MONT_CTX| instances if we arrived here from line 297 or line 302.",
+      "revId": "18954938684e269ccd59152027d2244040e2b819",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b69d1e72_53a40fc9",
+        "filename": "crypto/ec/ec.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-11-08T07:33:50Z",
+      "side": 1,
+      "message": "IMO, this should be:\n\n```\nif (built_in_curve_scalar_field_monts \u003d\u003d NULL) {\n    goto err;\n}\n```\n\nAFAICT, there\u0027s no reasonable way that  `built_in_curve_scalar_field_monts_init` can return NULL where continuing would make sense.\n\nOtherwise, if |group-\u003emont_data \u003d\u003d NULL| then the code in ecdsa.c will put the private key at risk of timing attacks unnecessarily.",
+      "revId": "18954938684e269ccd59152027d2244040e2b819",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b69d1e72_73a913a0",
+        "filename": "crypto/ecdsa/ecdsa.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-11-08T07:33:50Z",
+      "side": 1,
+      "message": "IMO, this should be something like:\n\n```\nBN_MONT_CTX *mont_ctx \u003d ec_group_get_mont_data(group);\nif (mont_ctx) {\n} else  if (EC_GROUP_get_curve_name(group) !\u003d NID_undef) {\n  /* All built-in curves have mont_data to enable\n   * constant time inversion. Never use\n   * non-constant-time inversion for them. */   \n  OPENSSL_PUT_ERROR(ECDSA, ERR_R_whateveR);\n  goto err;\n} else if (!BN_mod_inverse(k, k, order, ctx)) {\n```\n\nIn particular, the code should never call the non-constant-time `BN_mod_inverse` for built-in curves.",
+      "revId": "18954938684e269ccd59152027d2244040e2b819",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
