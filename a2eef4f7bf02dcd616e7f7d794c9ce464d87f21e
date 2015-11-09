@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "369daed4_ed4ae558",
+        "filename": "fuzz/client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-09T23:17:34Z",
+      "side": 1,
+      "message": "Probably worth SSL_CTX_free in the destructor so we can have the fuzzer look for leaks.",
+      "revId": "a2eef4f7bf02dcd616e7f7d794c9ce464d87f21e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "369daed4_ed214591",
+        "filename": "fuzz/server.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-09T23:17:34Z",
+      "side": 1,
+      "message": "SSL_CTX_free in destructor?",
+      "revId": "a2eef4f7bf02dcd616e7f7d794c9ce464d87f21e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
