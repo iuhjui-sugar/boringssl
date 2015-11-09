@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "369daed4_0d0011dc",
+        "filename": "fuzz/client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-09T23:45:26Z",
+      "side": 1,
+      "message": "Done. Although the fuzzer runs forever so I think any leak detection would have to happen in LLVMFuzzerTestOneInput.",
+      "parentUuid": "369daed4_ed4ae558",
+      "revId": "a2eef4f7bf02dcd616e7f7d794c9ce464d87f21e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "369daed4_ed214591",
         "filename": "fuzz/server.cc",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2015-11-09T23:17:34Z",
       "side": 1,
       "message": "SSL_CTX_free in destructor?",
+      "revId": "a2eef4f7bf02dcd616e7f7d794c9ce464d87f21e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "369daed4_cd70c977",
+        "filename": "fuzz/server.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-09T23:45:26Z",
+      "side": 1,
+      "message": "(ditto)",
+      "parentUuid": "369daed4_ed214591",
       "revId": "a2eef4f7bf02dcd616e7f7d794c9ce464d87f21e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
