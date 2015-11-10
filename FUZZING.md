@@ -4,15 +4,21 @@ Modern fuzz testers are very effective and we wish to use them to ensure that no
 
 We primarily use Clang's [libFuzzer](http://llvm.org/docs/LibFuzzer.html) for fuzz testing and there are a number of fuzz testing functions in `fuzz/`. They are not built by default because they require libFuzzer at build time.
 
-In order to build the fuzz tests you will need at least Clang 3.7. Pass `-DFUZZ` on the CMake command line and enable building BoringSSL with coverage and AddressSanitizer, and to build the fuzz test binaries. In order for the fuzz tests to link, the linker needs to find libFuzzer. This is not commonly provided and you may need to download the [Clang source code](http://llvm.org/releases/download.html) and do the following:
+In order to build the fuzz tests you will need at least Clang 3.7. Pass `-DFUZZ=1` on the CMake command line to enable building BoringSSL with coverage and AddressSanitizer, and to build the fuzz test binaries. You'll probably need to set the `CC` and `CXX` environment variables too, like this:
+
+```
+CC=clang CXX=clang++ cmake -GNinja -DFUZZ=1 ..
+```
+
+In order for the fuzz tests to link, the linker needs to find libFuzzer. This is not commonly provided and you may need to download the [Clang source code](http://llvm.org/releases/download.html) and do the following:
 
 ```
 cd llvm-3.7.0.src/lib
 clang -c -g -O2 -std=c++11 Fuzzer/*.cpp -IFuzzer
 ar q libFuzzer.a *.o
-sudo cp libFuzzer.a /usr/lib
-sudo chmod a+r /usr/lib/libFuzzer.a
 ```
+
+Then copy `libFuzzer.a` to the top-level of your BoringSSL source directory.
 
 From the `build/` directory, you can then run the fuzzers. For example:
 
