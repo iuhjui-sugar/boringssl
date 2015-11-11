@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "369daed4_42582009",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1175,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-11T22:05:17Z",
+      "side": 1,
+      "message": "(Different error code so as not to confuse Chromium and anyone else consuming them.)",
+      "revId": "ca7f6902269e766db3814827b5cf7c209fadfd48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
