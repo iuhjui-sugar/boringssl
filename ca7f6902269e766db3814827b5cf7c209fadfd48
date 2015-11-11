@@ -16,6 +16,23 @@
       "revId": "ca7f6902269e766db3814827b5cf7c209fadfd48",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "369daed4_62a6fc2c",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 2174,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-11T22:11:10Z",
+      "side": 1,
+      "message": "This is a poor name, it suggests that we\u0027re banning \"strong DH\" as opposed to banning \"silly DH\".",
+      "revId": "ca7f6902269e766db3814827b5cf7c209fadfd48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
