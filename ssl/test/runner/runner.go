@@ -2185,7 +2185,6 @@ func addCipherSuiteTests() {
 		expectedError: ":DH_P_TOO_LONG:",
 	})
 
-
 	// versionSpecificCiphersTest specifies a test for the TLS 1.0 and TLS
 	// 1.1 specific cipher suite settings. A server is setup with the given
 	// cipher lists and then a connection is made for each member of

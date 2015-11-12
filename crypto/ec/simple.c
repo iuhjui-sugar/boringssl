@@ -84,7 +84,6 @@ const EC_METHOD *EC_GFp_simple_method(void) {
                                 ec_GFp_simple_group_set_curve,
                                 ec_GFp_simple_point_get_affine_coordinates,
                                 0 /* mul */,
-                                0 /* precompute_mult */,
                                 ec_GFp_simple_field_mul,
                                 ec_GFp_simple_field_sqr,
                                 0 /* field_encode */,
