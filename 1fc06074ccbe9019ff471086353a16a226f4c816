@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fb2e9f8f_4d0f7079",
+        "filename": "ssl/ssl_rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-16T23:16:44Z",
+      "side": 1,
+      "message": "X509_free(x509) to save a memory leak in the case of trailing data.",
+      "revId": "1fc06074ccbe9019ff471086353a16a226f4c816",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
