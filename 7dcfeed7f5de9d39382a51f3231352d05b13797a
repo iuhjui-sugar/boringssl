@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fb477f65_83d2de7c",
+        "filename": "include/openssl/rand.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-16T18:15:58Z",
+      "side": 1,
+      "message": "I\u0027ve also seen code that uses this function for this purpose, if we care. (I think WebRTC used to before we switched them over to RAND_set_urandom_fd.)",
+      "revId": "7dcfeed7f5de9d39382a51f3231352d05b13797a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
