@@ -16,6 +16,24 @@
       "revId": "7dcfeed7f5de9d39382a51f3231352d05b13797a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb2e9f8f_0a026ee7",
+        "filename": "include/openssl/rand.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-16T21:58:44Z",
+      "side": 1,
+      "message": "We can wait until someone actually requests that change, I think. I don\u0027t much like this change, but OpenSSH is a significant enough code-base that it\u0027s easier to be compatible.",
+      "parentUuid": "fb477f65_83d2de7c",
+      "revId": "7dcfeed7f5de9d39382a51f3231352d05b13797a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
