@@ -1,0 +1,180 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fb477f65_a9f37996",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-17T20:47:43Z",
+      "side": 1,
+      "message": "[Rubber stamp]",
+      "revId": "e8b13c0df63699e38c6b346314607eb548c39fdd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb477f65_29f9c971",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 4835,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-17T20:47:43Z",
+      "side": 1,
+      "message": "Nit: /* C-style comments */",
+      "revId": "e8b13c0df63699e38c6b346314607eb548c39fdd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb477f65_09fe0d5a",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 4857,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-17T20:47:43Z",
+      "side": 1,
+      "message": "Nit: /* C-style comments */",
+      "revId": "e8b13c0df63699e38c6b346314607eb548c39fdd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb477f65_e9e971a6",
+        "filename": "crypto/curve25519/curve25519_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-17T20:47:43Z",
+      "side": 1,
+      "message": "Nit: newline",
+      "revId": "e8b13c0df63699e38c6b346314607eb548c39fdd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb477f65_69ffc159",
+        "filename": "crypto/curve25519/curve25519_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-17T20:47:43Z",
+      "side": 1,
+      "message": "(We could also add a templated uint8_t (*out)[N] version if you like.)",
+      "revId": "e8b13c0df63699e38c6b346314607eb548c39fdd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb477f65_8909dd40",
+        "filename": "include/openssl/curve25519.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-17T20:47:43Z",
+      "side": 1,
+      "message": "Add to doc.config?",
+      "revId": "e8b13c0df63699e38c6b346314607eb548c39fdd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb477f65_895b1d61",
+        "filename": "include/openssl/curve25519.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-17T20:47:43Z",
+      "side": 1,
+      "message": "I believe doc.go will a header-level comment, in addition to section-level ones. Perhaps something like:\n\n\n  /* Curve25519.\n   *\n   * Curve25519 is an elliptic curve. See\n   * https://tools.ietf.org/html/draft-irtf-cfrg-curves-11. */\n  \n  \n  /* X25519.\n   *\n   * X25519 is a Diffie-Hellman primitive built from\n   * curve25519. X25519 is sometimes also called\n   * \"curve25519\", but \"X25519\" is a more precise name\n   * for it, which is the one used here. See\n   * http://cr.yp.to/ecdh.html. */",
+      "revId": "e8b13c0df63699e38c6b346314607eb548c39fdd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb477f65_69d6a1eb",
+        "filename": "include/openssl/curve25519.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-17T20:47:43Z",
+      "side": 1,
+      "message": "out_shared_key",
+      "range": {
+        "startLine": 37,
+        "startChar": 34,
+        "endLine": 37,
+        "endChar": 37
+      },
+      "revId": "e8b13c0df63699e38c6b346314607eb548c39fdd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb477f65_29e0a9bb",
+        "filename": "tool/speed.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-17T20:47:43Z",
+      "side": 1,
+      "message": "[Can this actually happen since you return true?]",
+      "revId": "e8b13c0df63699e38c6b346314607eb548c39fdd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb477f65_09e5edcb",
+        "filename": "tool/speed.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-17T20:47:43Z",
+      "side": 1,
+      "message": "return X25519(...) \u003d\u003d 1?",
+      "revId": "e8b13c0df63699e38c6b346314607eb548c39fdd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
