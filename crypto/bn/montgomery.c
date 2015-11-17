@@ -118,11 +118,8 @@
 #include "../internal.h"
 
 
-#if !defined(OPENSSL_NO_ASM) &&                         \
-    (defined(OPENSSL_X86) || defined(OPENSSL_X86_64) || \
-     defined(OPENSSL_ARM) || defined(OPENSSL_AARCH64))
-#define OPENSSL_BN_ASM_MONT
-#endif
+OPENSSL_COMPILE_ASSERT(BN_MONT_CTX_N0_LIMBS == 1 || BN_MONT_CTX_N0_LIMBS == 2,
+                       BN_MONT_CTX_N0_LIMBS_VALUE_INVALID);
 
 BN_MONT_CTX *BN_MONT_CTX_new(void) {
   BN_MONT_CTX *ret = OPENSSL_malloc(sizeof(BN_MONT_CTX));
@@ -189,14 +186,8 @@ int BN_MONT_CTX_set(BN_MONT_CTX *mont, const BIGNUM *mod, BN_CTX *ctx) {
   tmod.dmax = 2;
   tmod.neg = 0;
 
-#if defined(OPENSSL_BN_ASM_MONT) && (BN_BITS2 <= 32)
-  /* Only certain BN_BITS2<=32 platforms actually make use of
-   * n0[1], and we could use the #else case (with a shorter R
-   * value) for the others.  However, currently only the assembler
-   * files do know which is which. */
-
   BN_zero(R);
-  if (!BN_set_bit(R, 2 * BN_BITS2)) {
+  if (!BN_set_bit(R, BN_MONT_CTX_N0_LIMBS * BN_BITS2)) {
     goto err;
   }
 
@@ -204,73 +195,41 @@ int BN_MONT_CTX_set(BN_MONT_CTX *mont, const BIGNUM *mod, BN_CTX *ctx) {
   if ((buf[0] = mod->d[0])) {
     tmod.top = 1;
   }
-  if ((buf[1] = mod->top > 1 ? mod->d[1] : 0)) {
+  if ((buf[1] = (BN_MONT_CTX_N0_LIMBS == 2 && mod->top > 1) ? mod->d[1] : 0)) {
     tmod.top = 2;
   }
 
   if (BN_mod_inverse(Ri, R, &tmod, ctx) == NULL) {
     goto err;
   }
-  if (!BN_lshift(Ri, Ri, 2 * BN_BITS2)) {
+  if (!BN_lshift(Ri, Ri, BN_MONT_CTX_N0_LIMBS * BN_BITS2)) {
     goto err; /* R*Ri */
   }
+  const BIGNUM *Ri_dividend;
   if (!BN_is_zero(Ri)) {
     if (!BN_sub_word(Ri, 1)) {
       goto err;
     }
+    Ri_dividend = Ri;
   } else {
-    /* if N mod word size == 1 */
-    if (bn_expand(Ri, (int)sizeof(BN_ULONG) * 2) == NULL) {
-      goto err;
-    }
-    /* Ri-- (mod double word size) */
-    Ri->neg = 0;
-    Ri->d[0] = BN_MASK2;
-    Ri->d[1] = BN_MASK2;
-    Ri->top = 2;
-  }
-
-  if (!BN_div(Ri, NULL, Ri, &tmod, ctx)) {
-    goto err;
-  }
-  /* Ni = (R*Ri-1)/N,
-   * keep only couple of least significant words: */
-  mont->n0[0] = (Ri->top > 0) ? Ri->d[0] : 0;
-  mont->n0[1] = (Ri->top > 1) ? Ri->d[1] : 0;
-#else
-  BN_zero(R);
-  if (!BN_set_bit(R, BN_BITS2)) {
-    goto err; /* R */
-  }
-
-  buf[0] = mod->d[0]; /* tmod = N mod word size */
-  buf[1] = 0;
-  tmod.top = buf[0] != 0 ? 1 : 0;
-  /* Ri = R^-1 mod N*/
-  if (BN_mod_inverse(Ri, R, &tmod, ctx) == NULL) {
-    goto err;
-  }
-  if (!BN_lshift(Ri, Ri, BN_BITS2)) {
-    goto err; /* R*Ri */
-  }
-  if (!BN_is_zero(Ri)) {
-    if (!BN_sub_word(Ri, 1)) {
-      goto err;
-    }
-  } else {
-    /* if N mod word size == 1 */
-    if (!BN_set_word(Ri, BN_MASK2)) {
-      goto err; /* Ri-- (mod word size) */
-    }
-  }
-  if (!BN_div(Ri, NULL, Ri, &tmod, ctx)) {
-    goto err;
-  }
-  /* Ni = (R*Ri-1)/N,
-   * keep only least significant word: */
-  mont->n0[0] = (Ri->top > 0) ? Ri->d[0] : 0;
-  mont->n0[1] = 0;
+    /* Ri == 0 so Ri - 1 == -1. -1 % tmod == 0xff..ff. */
+    static const BN_ULONG NEGATIVE_ONE_LIMBS[BN_MONT_CTX_N0_LIMBS] = {
+      BN_MASK2,
+#if BN_MONT_CTX_N0_LIMBS == 2
+      BN_MASK2
 #endif
+    };
+    static const BIGNUM NEGATIVE_ONE = STATIC_BIGNUM(NEGATIVE_ONE_LIMBS);
+    Ri_dividend = &NEGATIVE_ONE;
+  }
+
+  if (!BN_div(Ri, NULL, Ri_dividend, &tmod, ctx)) {
+    goto err;
+  }
+
+  /* Save the least significant word(s) of (R*Ri-1)/N. */
+  mont->n0[0] = (Ri->top > 0) ? Ri->d[0] : 0;
+  mont->n0[1] = (BN_MONT_CTX_N0_LIMBS == 2 && Ri->top > 1) ? Ri->d[1] : 0;
 
   /* RR = (2^ri)^2 == 2^(ri*2) == 1 << (ri*2), which has its (ri*2)th bit set. */
   int ri = (BN_num_bits(mod) + (BN_BITS2 - 1)) / BN_BITS2 * BN_BITS2;

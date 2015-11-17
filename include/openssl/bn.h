@@ -836,10 +836,32 @@ struct bignum_st {
   int flags; /* bitmask of BN_FLG_* values */
 };
 
+#if !defined(OPENSSL_NO_ASM) &&                         \
+    (defined(OPENSSL_X86) || defined(OPENSSL_X86_64) || \
+     defined(OPENSSL_ARM) || defined(OPENSSL_AARCH64))
+#define OPENSSL_BN_ASM_MONT
+#endif
+
+/* On some 32-bit platforms Montgomery multiplication is done using 64-bit
+ * arithmetic, using SIMD instructions. On such platforms, |BN_MONT_CTX::n0|
+ * needs to be two words long. Only certain 32-bit platforms actually make use
+ * of n0[1], and we could a shorter R value for the others. However, currently
+ * only the assembler files do know which is which. */
+#if defined(OPENSSL_BN_ASM_MONT) && (BN_BITS2 <= 32)
+#define BN_MONT_CTX_N0_LIMBS 2
+#else
+#define BN_MONT_CTX_N0_LIMBS 1
+#endif
+
 struct bn_mont_ctx_st {
   BIGNUM RR; /* used to convert to montgomery form */
   BIGNUM N;  /* The modulus */
-  BN_ULONG n0[2]; /* least significant words of (R*Ri-1)/N */
+
+  /* Least significant word(s) of the "magic" Montgomery constant. When
+   * |BN_MONT_CTX_N0_LIMBS == 2|, n0[1] is probably unused, however it is safer
+   * to always use two elements just in case any code from another OpenSSL
+   * variant that assumes |n0| has two elements is imported. */
+  BN_ULONG n0[2];
 };
 
 OPENSSL_EXPORT unsigned BN_num_bits_word(BN_ULONG l);
