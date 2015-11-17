@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fb477f65_29c1c954",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-17T17:50:32Z",
+      "side": 1,
+      "message": "That seems an incredibly unhelpful way for the OS to behave, but okay.\n\nIncidentally, this doesn\u0027t define any errors for this function. Although it does say it can fail, so checking it and aborting seems okay I suppose?\nhttp://pubs.opengroup.org/onlinepubs/007908775/xsh/pthread_once.html",
+      "revId": "415b2f76d331e98b438a73f689f8d218e633d25a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
