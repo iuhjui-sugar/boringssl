@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5b816bc7_bc63a95b",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-17T21:53:55Z",
+      "side": 1,
+      "message": "Good point, thanks.",
+      "parentUuid": "fb477f65_69a4617b",
+      "revId": "6a8b7376b0b8be894e92c24a192596bddbb4596e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fb477f65_e9129170",
         "filename": "crypto/curve25519/curve25519.c",
         "patchSetId": 3
@@ -30,6 +48,30 @@
       "writtenOn": "2015-11-17T20:47:43Z",
       "side": 1,
       "message": "I guess this comment\u0027s slightly inaccurate now.",
+      "range": {
+        "startLine": 4841,
+        "startChar": 44,
+        "endLine": 4841,
+        "endChar": 53
+      },
+      "revId": "6a8b7376b0b8be894e92c24a192596bddbb4596e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5b816bc7_1fa88f9a",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 4841,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-17T21:53:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb477f65_e9129170",
       "range": {
         "startLine": 4841,
         "startChar": 44,
