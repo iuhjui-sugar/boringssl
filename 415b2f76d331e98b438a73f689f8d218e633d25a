@@ -16,6 +16,24 @@
       "revId": "415b2f76d331e98b438a73f689f8d218e633d25a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5b816bc7_fc55a1d0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5885
+      },
+      "writtenOn": "2015-11-17T20:49:25Z",
+      "side": 1,
+      "message": "To be fair, it returns error, so it signals that threading library doesn\u0027t work.",
+      "parentUuid": "fb477f65_29c1c954",
+      "revId": "415b2f76d331e98b438a73f689f8d218e633d25a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
