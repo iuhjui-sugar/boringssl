@@ -22,6 +22,30 @@
       "revId": "2a0686c71b797494c7950c1bdf4525b8ac359a97",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5b816bc7_b052e8e5",
+        "filename": "crypto/bn/montgomery.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-11-18T18:51:39Z",
+      "side": 1,
+      "message": "Yes, fixed.",
+      "parentUuid": "fb477f65_ec973f08",
+      "range": {
+        "startLine": 275,
+        "startChar": 10,
+        "endLine": 275,
+        "endChar": 19
+      },
+      "revId": "2a0686c71b797494c7950c1bdf4525b8ac359a97",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
