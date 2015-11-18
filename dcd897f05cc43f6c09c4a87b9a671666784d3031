@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fb477f65_2cae7759",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-18T18:22:33Z",
+      "side": 1,
+      "message": "I wasn\u0027t able to see any difference within bssl speed\u0027s variance either.\n\nI believe this change also only affects 32-bit.",
+      "revId": "dcd897f05cc43f6c09c4a87b9a671666784d3031",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
