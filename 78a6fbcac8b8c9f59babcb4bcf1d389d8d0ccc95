@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fb477f65_cce6c3d6",
+        "filename": "include/openssl/cpu.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-18T18:01:45Z",
+      "side": 1,
+      "message": "There\u0027s a good chance this\u0027ll eventually neuter the NEON-capable workaround in Chromium someday. Although, looking at the build files, we don\u0027t actually set -mfpu\u003dneon when arm_neon\u003d1. This might be an oversight though.\n\nhttps://code.google.com/p/chromium/issues/detail?id\u003d448055\n\n(I think this is fine. It\u0027s sort of weird that none of our other code ran into problems with that CPU, but I think if Chromium ever decides to build with -mfpu\u003dneon, we should take as corollary that we no longer care about that broken CPU.)",
+      "revId": "78a6fbcac8b8c9f59babcb4bcf1d389d8d0ccc95",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
