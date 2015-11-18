@@ -166,11 +166,10 @@ void BN_clear(BIGNUM *bn) {
 }
 
 const BIGNUM *BN_value_one(void) {
-  static const BN_ULONG data_one = 1;
-  static const BIGNUM const_one = {(BN_ULONG *)&data_one, 1, 1, 0,
-                                   BN_FLG_STATIC_DATA};
+  static const BN_ULONG ONE_LIMBS[1] = { 1 };
+  static const BIGNUM ONE = STATIC_BIGNUM(ONE_LIMBS);
 
-  return &const_one;
+  return &ONE;
 }
 
 void BN_with_flags(BIGNUM *out, const BIGNUM *in, int flags) {
