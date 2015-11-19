@@ -129,8 +129,6 @@ void RSA_additional_prime_free(RSA_additional_prime *ap) {
 }
 
 void RSA_free(RSA *rsa) {
-  unsigned u;
-
   if (rsa == NULL) {
     return;
   }
@@ -157,11 +155,6 @@ void RSA_free(RSA *rsa) {
   BN_MONT_CTX_free(rsa->mont_n);
   BN_MONT_CTX_free(rsa->mont_p);
   BN_MONT_CTX_free(rsa->mont_q);
-  for (u = 0; u < rsa->num_blindings; u++) {
-    BN_BLINDING_free(rsa->blindings[u]);
-  }
-  OPENSSL_free(rsa->blindings);
-  OPENSSL_free(rsa->blindings_inuse);
   if (rsa->additional_primes != NULL) {
     sk_RSA_additional_prime_pop_free(rsa->additional_primes,
                                      RSA_additional_prime_free);
