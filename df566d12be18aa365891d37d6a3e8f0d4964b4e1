@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5b816bc7_5dfdac23",
+        "filename": "crypto/curve25519/asm/x25519-arm.S",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-19T00:20:17Z",
+      "side": 1,
+      "message": "(Ack.)",
+      "parentUuid": "fb477f65_4c04132e",
+      "revId": "df566d12be18aa365891d37d6a3e8f0d4964b4e1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fb477f65_6cffcf59",
         "filename": "crypto/curve25519/asm/x25519-arm.S",
         "patchSetId": 1
@@ -30,6 +48,30 @@
       "writtenOn": "2015-11-18T18:09:14Z",
       "side": 1,
       "message": "Nit: \"in SUPERCOP 20141124 (http://bench.cr.yp.to/supercop.html)\". (Or whatever the version, but I assume it matches the C file.)",
+      "range": {
+        "startLine": 15,
+        "startChar": 74,
+        "endLine": 15,
+        "endChar": 75
+      },
+      "revId": "df566d12be18aa365891d37d6a3e8f0d4964b4e1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5b816bc7_1d1ad457",
+        "filename": "crypto/curve25519/asm/x25519-arm.S",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-19T00:20:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb477f65_6cffcf59",
       "range": {
         "startLine": 15,
         "startChar": 74,
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "5b816bc7_dd13fc40",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-19T00:20:17Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "fb477f65_0cfe1b5a",
+      "revId": "df566d12be18aa365891d37d6a3e8f0d4964b4e1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fb477f65_2cf9d771",
         "filename": "crypto/curve25519/curve25519.c",
         "patchSetId": 1
@@ -76,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "5b816bc7_7dee6874",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-19T00:20:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb477f65_2cf9d771",
+      "revId": "df566d12be18aa365891d37d6a3e8f0d4964b4e1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fb477f65_ec129f70",
         "filename": "crypto/curve25519/curve25519.c",
         "patchSetId": 1
@@ -87,6 +165,24 @@
       "writtenOn": "2015-11-18T18:09:14Z",
       "side": 1,
       "message": "I think this might trip up warnings on some compilers if neither OPENSSL_SMALL nor OPENSSL_ARM are defined. Maybe stick a (void)kMontgomeryBasePoint in the non-SMALL X25519_public_from_private somewhere?",
+      "revId": "df566d12be18aa365891d37d6a3e8f0d4964b4e1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5b816bc7_3df8f034",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 4856,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-19T00:20:17Z",
+      "side": 1,
+      "message": "Ah fair point. (Probably easier to just duplicate it in the two locations.)",
+      "parentUuid": "fb477f65_ec129f70",
       "revId": "df566d12be18aa365891d37d6a3e8f0d4964b4e1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
