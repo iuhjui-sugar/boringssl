@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fb477f65_b70cf050",
+        "filename": "crypto/ec/ec.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-19T16:56:45Z",
+      "side": 1,
+      "message": "Can this ever happen? The curves are all well-known.\n\nExcept for the oddball EC_GROUP_new_curve_GFp thing in the corner, but if that doesn\u0027t fail when the order would be zero, we should fix it.\n\nThat\u0027ll save you a bunch of NULL checks.",
+      "revId": "37f42f667f9f45eed6a5aaaf801b0cb91060b36f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb477f65_9709f440",
+        "filename": "include/openssl/ec.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-19T16:56:45Z",
+      "side": 1,
+      "message": "I don\u0027t think we\u0027ll ever be able to get rid of this, but lumping it in the deprecated bucket in grounds that new code should use the new function SGTM.",
+      "revId": "37f42f667f9f45eed6a5aaaf801b0cb91060b36f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
