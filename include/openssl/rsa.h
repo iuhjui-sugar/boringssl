@@ -408,7 +408,7 @@ OPENSSL_EXPORT void *RSA_get_ex_data(const RSA *r, int idx);
  * created, on demand, for the private key operations. */
 #define RSA_FLAG_CACHE_PRIVATE 4
 
-/* RSA_FLAG_NO_BLINDING disables blinding of private operations. */
+/* RSA_FLAG_NO_BLINDING does nothing; BoringSSL never uses blinding. */
 #define RSA_FLAG_NO_BLINDING 8
 
 /* RSA_FLAG_EXT_PKEY means that private key operations will be handled by
