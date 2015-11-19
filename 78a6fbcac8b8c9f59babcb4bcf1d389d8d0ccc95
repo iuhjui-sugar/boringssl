@@ -16,6 +16,24 @@
       "revId": "78a6fbcac8b8c9f59babcb4bcf1d389d8d0ccc95",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5b816bc7_fd3358ef",
+        "filename": "include/openssl/cpu.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-11-19T00:15:08Z",
+      "side": 1,
+      "message": "The Chromium code for that bad CPU only clears |CRYPTO_is_NEON_functional|, which is different and was only ever tested in the poly1305 code. So I think that even if we set -mfpu\u003dneon for that CPU, things will still work as expected. (It was only the poly1305 that seemed to have a problem on that CPU.)",
+      "parentUuid": "fb477f65_cce6c3d6",
+      "revId": "78a6fbcac8b8c9f59babcb4bcf1d389d8d0ccc95",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
