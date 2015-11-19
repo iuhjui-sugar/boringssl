@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5b816bc7_5d5a8c32",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-11-19T00:18:35Z",
+      "side": 1,
+      "message": "It\u0027s worth pointing out that changing the signedness of     `BN_MASK2` avoids potential undefined behavior, such as this in `BN_mask_bits`: `a-\u003ed[w] \u0026\u003d ~(BN_MASK2 \u003c\u003c b);`",
+      "revId": "629d870c636d9c715efde762c4ef93ac4d7136ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
