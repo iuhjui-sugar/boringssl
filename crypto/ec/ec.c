@@ -613,12 +613,24 @@ const EC_POINT *EC_GROUP_get0_generator(const EC_GROUP *group) {
   return group->generator;
 }
 
+const BIGNUM *EC_GROUP_get0_order(const EC_GROUP *group) {
+  if (BN_is_zero(&group->order)) {
+    OPENSSL_PUT_ERROR(EC, EC_R_INVALID_GROUP_ORDER);
+    return NULL;
+  }
+  return &group->order;
+}
+
 int EC_GROUP_get_order(const EC_GROUP *group, BIGNUM *order, BN_CTX *ctx) {
-  if (!BN_copy(order, &group->order)) {
+  (void)ctx;
+
+  const BIGNUM *group_order = EC_GROUP_get0_order(group);
+  if (group_order == NULL ||
+      BN_copy(order, group_order) == NULL) {
     return 0;
   }
 
-  return !BN_is_zero(order);
+  return 1;
 }
 
 int EC_GROUP_get_cofactor(const EC_GROUP *group, BIGNUM *cofactor,
