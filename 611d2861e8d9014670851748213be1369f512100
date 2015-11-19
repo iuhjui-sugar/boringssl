@@ -22,6 +22,30 @@
       "revId": "611d2861e8d9014670851748213be1369f512100",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3b4e7783_0ee72f66",
+        "filename": "crypto/cipher/e_chacha20poly1305.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5590
+      },
+      "writtenOn": "2015-11-19T20:14:02Z",
+      "side": 1,
+      "message": "Done in patchset 3.  (I picked p for \"poly\", but your name is fine too.)",
+      "parentUuid": "fb477f65_f7126870",
+      "range": {
+        "startLine": 149,
+        "startChar": 11,
+        "endLine": 149,
+        "endChar": 17
+      },
+      "revId": "611d2861e8d9014670851748213be1369f512100",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
