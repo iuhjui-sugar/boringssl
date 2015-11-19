@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5b816bc7_534b5b3b",
+        "filename": "crypto/ec/ec.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-11-19T17:44:32Z",
+      "side": 1,
+      "message": "The problem is that |EC_GROUP_new_curve_GFp| doesn\u0027t set the order. |EC_GROUP_set_generator| does. It would be best if you could combine |EC_GROU_new_curve_GFp| and |EC_GROUP_set_generator| into one function. It would be easy to do if you can also modify the code that us using |EC_GROUP_new_curve_GFp| (I believe it is conscript) to use the new function. That\u0027s something that\u0027s not reasonable for me to do as I don\u0027t deal with conscript.",
+      "parentUuid": "fb477f65_b70cf050",
+      "revId": "37f42f667f9f45eed6a5aaaf801b0cb91060b36f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fb477f65_9709f440",
         "filename": "include/openssl/ec.h",
         "patchSetId": 2
