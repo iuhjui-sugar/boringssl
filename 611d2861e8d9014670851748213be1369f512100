@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fb477f65_f7126870",
+        "filename": "crypto/cipher/e_chacha20poly1305.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-19T16:49:58Z",
+      "side": 1,
+      "message": "Instead of a meaningless \"_p\" suffix, how about something like open_impl? (And seal_impl to match.)",
+      "range": {
+        "startLine": 149,
+        "startChar": 11,
+        "endLine": 149,
+        "endChar": 17
+      },
+      "revId": "611d2861e8d9014670851748213be1369f512100",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
