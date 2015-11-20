@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dbcc7b7f_0255ca45",
+        "filename": "crypto/ec/ec.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-20T21:17:38Z",
+      "side": 1,
+      "message": "Not necessary. (There\u0027s code elsewhere in the project that just ignores unused parameters. Lots of pointless ENGINE parameters all over the place.)",
+      "revId": "f14d7c8f57faf3d40788208d38e2815c030727c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dbcc7b7f_e257064e",
+        "filename": "include/openssl/ec.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-20T21:17:38Z",
+      "side": 1,
+      "message": "Nit: We don\u0027t really bother mentioning it for the others and call out functions that can fail, so I\u0027d probably omit this sentence.",
+      "range": {
+        "startLine": 124,
+        "startChar": 50,
+        "endLine": 125,
+        "endChar": 24
+      },
+      "revId": "f14d7c8f57faf3d40788208d38e2815c030727c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
