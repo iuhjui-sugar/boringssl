@@ -429,7 +429,7 @@ enum ssl_session_result_t ssl_get_prev_session(
   /* This is used only by servers. */
   assert(ssl->server);
   SSL_SESSION *session = NULL;
-  int send_ticket = 0;
+  int renew_ticket = 0;
 
   /* If tickets are disabled, always behave as if no tickets are present. */
   const uint8_t *ticket = NULL;
@@ -439,14 +439,13 @@ enum ssl_session_result_t ssl_get_prev_session(
       ssl->version > SSL3_VERSION &&
       SSL_early_callback_ctx_extension_get(ctx, TLSEXT_TYPE_session_ticket,
                                            &ticket, &ticket_len);
-  if (tickets_supported) {
-    if (!tls_process_ticket(ssl, &session, &send_ticket, ticket, ticket_len,
+  if (tickets_supported && ticket_len > 0) {
+    if (!tls_process_ticket(ssl, &session, &renew_ticket, ticket, ticket_len,
                             ctx->session_id, ctx->session_id_len)) {
       return ssl_session_error;
     }
   } else {
-    /* The client does not support session tickets, so the session ID should be
-     * used instead. */
+    /* The client does send a ticket, so use the session ID instead. */
     enum ssl_session_result_t lookup_ret = ssl_lookup_session(
         ssl, &session, ctx->session_id, ctx->session_id_len);
     if (lookup_ret != ssl_session_success) {
@@ -457,6 +456,8 @@ enum ssl_session_result_t ssl_get_prev_session(
   if (session == NULL ||
       session->sid_ctx_length != ssl->sid_ctx_length ||
       memcmp(session->sid_ctx, ssl->sid_ctx, ssl->sid_ctx_length) != 0) {
+    /* The client did not offer a suitable ticket or session ID. If supported,
+     * the new session should use a ticket. */
     goto no_session;
   }
 
@@ -482,7 +483,7 @@ enum ssl_session_result_t ssl_get_prev_session(
   }
 
   *out_session = session;
-  *out_send_ticket = send_ticket;
+  *out_send_ticket = renew_ticket;
   return ssl_session_success;
 
 fatal_error:

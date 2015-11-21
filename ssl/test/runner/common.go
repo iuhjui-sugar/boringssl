@@ -787,6 +787,10 @@ type ProtocolBugs struct {
 	// HelloRequest handshake message to be sent before each application
 	// data record. This only makes sense for a server.
 	SendHelloRequestBeforeEveryAppDataRecord bool
+
+	// RequireSessionTickets, if true, causes the client to require new
+	// sessions use session tickets instead of session IDs.
+	RequireSessionTickets bool
 }
 
 func (c *Config) serverInit() {

@@ -2007,6 +2007,15 @@ func addBasicTests() {
 			shouldFail:    true,
 			expectedError: ":BAD_ECC_CERT:",
 		},
+		{
+			testType: serverTest,
+			name:     "SupportTicketsWithSessionID",
+			config: Config{
+				SessionTicketsDisabled: true,
+			},
+			resumeConfig:  &Config{},
+			resumeSession: true,
+		},
 	}
 	testCases = append(testCases, basicTests...)
 }
@@ -2184,7 +2193,6 @@ func addCipherSuiteTests() {
 		shouldFail:    true,
 		expectedError: ":DH_P_TOO_LONG:",
 	})
-
 
 	// versionSpecificCiphersTest specifies a test for the TLS 1.0 and TLS
 	// 1.1 specific cipher suite settings. A server is setup with the given
@@ -2573,6 +2581,8 @@ func addStateMachineCoverageTests(async, splitHandshake bool, protocol protocol)
 	tests = append(tests, testCase{
 		name:          "Basic-Client",
 		resumeSession: true,
+		// Ensure session tickets are used, not session IDs.
+		noSessionCache: true,
 	})
 	tests = append(tests, testCase{
 		name: "Basic-Client-RenewTicket",
@@ -2597,8 +2607,13 @@ func addStateMachineCoverageTests(async, splitHandshake bool, protocol protocol)
 		resumeSession: true,
 	})
 	tests = append(tests, testCase{
-		testType:      serverTest,
-		name:          "Basic-Server",
+		testType: serverTest,
+		name:     "Basic-Server",
+		config: Config{
+			Bugs: ProtocolBugs{
+				RequireSessionTickets: true,
+			},
+		},
 		resumeSession: true,
 	})
 	tests = append(tests, testCase{
