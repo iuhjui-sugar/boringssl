@@ -360,8 +360,8 @@ EC_KEY *d2i_ECPrivateKey(EC_KEY **a, const uint8_t **inp, long len) {
       goto err;
     }
   } else {
-    if (!EC_POINT_mul(ret->group, ret->pub_key, ret->priv_key, NULL, NULL,
-                      NULL)) {
+    if (!ret->group->meth->mul_private(ret->group, ret->pub_key, ret->priv_key,
+                                       NULL, NULL, NULL)) {
       OPENSSL_PUT_ERROR(EC, ERR_R_EC_LIB);
       goto err;
     }

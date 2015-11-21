@@ -248,7 +248,7 @@ int EC_KEY_set_group(EC_KEY *key, const EC_GROUP *group) {
   }
   /* XXX: |BN_cmp| is not constant time. */
   if (key->priv_key != NULL &&
-      BN_cmp(key->priv_key, EC_GROUP_get0_order(group)) >= 0) {
+      BN_cmp(key->priv_key, EC_GROUP_get0_order(key->group)) >= 0) {
     return 0;
   }
   return 1;
@@ -339,7 +339,8 @@ int EC_KEY_check_key(const EC_KEY *eckey) {
     }
     point = EC_POINT_new(eckey->group);
     if (point == NULL ||
-        !EC_POINT_mul(eckey->group, point, eckey->priv_key, NULL, NULL, ctx)) {
+        !eckey->group->meth->mul_private(eckey->group, point, eckey->priv_key,
+                                         NULL, NULL, ctx)) {
       OPENSSL_PUT_ERROR(EC, ERR_R_EC_LIB);
       goto err;
     }
@@ -441,7 +442,8 @@ int EC_KEY_generate_key(EC_KEY *eckey) {
     pub_key = eckey->pub_key;
   }
 
-  if (!EC_POINT_mul(eckey->group, pub_key, priv_key, NULL, NULL, NULL)) {
+  if (!eckey->group->meth->mul_private(eckey->group, pub_key, priv_key, NULL,
+                                       NULL, NULL)) {
     goto err;
   }
 

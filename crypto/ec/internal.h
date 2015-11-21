@@ -95,13 +95,25 @@ struct ec_method_st {
   int (*point_get_affine_coordinates)(const EC_GROUP *, const EC_POINT *,
                                       BIGNUM *x, BIGNUM *y, BN_CTX *);
 
-  /* Computes |r = g_scalar*generator + p_scalar*p| if |g_scalar| and |p_scalar|
+  /* Point multiplication for the case where any secret scalars are involved.
+   *
+   * Computes |r = g_scalar*generator + p_scalar*p| if |g_scalar| and |p_scalar|
    * are both non-null. Computes |r = g_scalar*generator| if |p_scalar| is null.
    * Computes |r = p_scalar*p| if g_scalar is null. At least one of |g_scalar|
    * and |p_scalar| must be non-null, and |p| must be non-null if |p_scalar| is
-   * non-null. */
-  int (*mul)(const EC_GROUP *group, EC_POINT *r, const BIGNUM *g_scalar,
-             const EC_POINT *p, const BIGNUM *p_scalar, BN_CTX *ctx);
+   * non-null. The scalars must be in the range [0, group->order-1]. */
+  int (*mul_private)(const EC_GROUP *group, EC_POINT *r, const BIGNUM *g_scalar,
+                     const EC_POINT *p, const BIGNUM *p_scalar, BN_CTX *ctx);
+
+  /* Point multiplication for the case where no private scalars are involved.
+   *
+   * Computes |r = g_scalar*generator + p_scalar*p| if |g_scalar| and |p_scalar|
+   * are both non-null. Computes |r = g_scalar*generator| if |p_scalar| is null.
+   * Computes |r = p_scalar*p| if g_scalar is null. At least one of |g_scalar|
+   * and |p_scalar| must be non-null, and |p| must be non-null if |p_scalar| is
+   * non-null. The scalars must be in the range [0, group->order-1]. */
+  int (*mul_public)(const EC_GROUP *group, EC_POINT *r, const BIGNUM *g_scalar,
+                    const EC_POINT *p, const BIGNUM *p_scalar, BN_CTX *ctx);
 
   /* |check_pub_key_order| checks that the public key is in the proper subgroup
    * by checking that |pub_key*group->order| is the point at infinity. This may
@@ -174,8 +186,12 @@ int ec_group_copy(EC_GROUP *dest, const EC_GROUP *src);
  * a built-in group. */
 const BN_MONT_CTX *ec_group_get_mont_data(const EC_GROUP *group);
 
-int ec_wNAF_mul(const EC_GROUP *group, EC_POINT *r, const BIGNUM *g_scalar,
-                const EC_POINT *p, const BIGNUM *p_scalar, BN_CTX *ctx);
+int ec_wNAF_mul_private(const EC_GROUP *group, EC_POINT *r,
+                        const BIGNUM *g_scalar, const EC_POINT *p,
+                        const BIGNUM *p_scalar, BN_CTX *ctx);
+int ec_wNAF_mul_public(const EC_GROUP *group, EC_POINT *r,
+                       const BIGNUM *g_scalar, const EC_POINT *p,
+                       const BIGNUM *p_scalar, BN_CTX *ctx);
 
 /* method functions in simple.c */
 int ec_GFp_simple_group_init(EC_GROUP *);
