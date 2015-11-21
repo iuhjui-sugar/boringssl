@@ -73,6 +73,8 @@
 #include <openssl/err.h>
 #include <openssl/mem.h>
 
+#include "../ec/internal.h"
+
 
 int ECDH_compute_key(void *out, size_t outlen, const EC_POINT *pub_key,
                      EC_KEY *priv_key,
@@ -101,7 +103,7 @@ int ECDH_compute_key(void *out, size_t outlen, const EC_POINT *pub_key,
     goto err;
   }
 
-  if (!EC_POINT_mul(group, tmp, NULL, pub_key, priv, ctx)) {
+  if (!group->meth->mul_private(group, tmp, NULL, pub_key, priv, ctx)) {
     OPENSSL_PUT_ERROR(ECDH, ECDH_R_POINT_ARITHMETIC_FAILURE);
     goto err;
   }

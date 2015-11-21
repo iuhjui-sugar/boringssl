@@ -857,7 +857,15 @@ int EC_POINT_mul(const EC_GROUP *group, EC_POINT *r, const BIGNUM *g_scalar,
     return 0;
   }
 
-  return group->meth->mul(group, r, g_scalar, p, p_scalar, ctx);
+  const BIGNUM *order = EC_GROUP_get0_order(group);
+
+  if ((g_scalar != NULL && BN_cmp(g_scalar, order) >= 0) ||
+      (p_scalar != NULL && BN_cmp(p_scalar, order) >= 0)) {
+    OPENSSL_PUT_ERROR(EC, EC_R_BIGNUM_OUT_OF_RANGE);
+    return 0;
+  }
+
+  return group->meth->mul_private(group, r, g_scalar, p, p_scalar, ctx);
 }
 
 int ec_point_set_Jprojective_coordinates_GFp(const EC_GROUP *group, EC_POINT *point,

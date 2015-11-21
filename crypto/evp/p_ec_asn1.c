@@ -64,6 +64,7 @@
 #include <openssl/x509.h>
 
 #include "internal.h"
+#include "../ec/internal.h"
 
 
 static int eckey_param2type(int *pptype, void **ppval, EC_KEY *ec_key) {
@@ -255,7 +256,7 @@ static int eckey_priv_decode(EVP_PKEY *pkey, PKCS8_PRIV_KEY_INFO *p8) {
       goto ecliberr;
     }
     priv_key = EC_KEY_get0_private_key(eckey);
-    if (!EC_POINT_mul(group, pub_key, priv_key, NULL, NULL, NULL)) {
+    if (!group->meth->mul_private(group, pub_key, priv_key, NULL, NULL, NULL)) {
       EC_POINT_free(pub_key);
       OPENSSL_PUT_ERROR(EVP, ERR_R_EC_LIB);
       goto ecliberr;
