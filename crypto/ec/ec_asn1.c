@@ -329,13 +329,17 @@ EC_KEY *d2i_ECPrivateKey(EC_KEY **a, const uint8_t **inp, long len) {
     goto err;
   }
 
+  if (BN_cmp(ret->priv_key, EC_GROUP_get0_order(ret->group)) >= 0) {
+    OPENSSL_PUT_ERROR(EC, EC_R_WRONG_ORDER);
+    goto err;
+  }
+
   EC_POINT_free(ret->pub_key);
   ret->pub_key = EC_POINT_new(ret->group);
   if (ret->pub_key == NULL) {
     OPENSSL_PUT_ERROR(EC, ERR_R_EC_LIB);
     goto err;
   }
-
   if (priv_key->publicKey) {
     const uint8_t *pub_oct;
     int pub_oct_len;
