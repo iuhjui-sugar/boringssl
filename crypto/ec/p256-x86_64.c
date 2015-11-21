@@ -238,6 +238,7 @@ static int ecp_nistz256_windowed_mul(const EC_GROUP *group, P256_POINT *r,
                                      BN_CTX *ctx) {
   assert(p != NULL);
   assert(p_scalar != NULL);
+  assert(BN_cmp(p_scalar, EC_GROUP_get0_order(group)) < 0);
 
   static const unsigned kWindowSize = 5;
   static const unsigned kMask = (1 << (5 /* kWindowSize */ + 1)) - 1;
@@ -247,34 +248,6 @@ static int ecp_nistz256_windowed_mul(const EC_GROUP *group, P256_POINT *r,
    * ~1599 ((96 * 16) + 63) bytes of stack space. */
   ALIGN(64) P256_POINT table[16];
   uint8_t p_str[33];
-
-
-  int ret = 0;
-  BN_CTX *new_ctx = NULL;
-  int ctx_started = 0;
-
-  if (BN_num_bits(p_scalar) > 256 || BN_is_negative(p_scalar)) {
-    if (ctx == NULL) {
-      new_ctx = BN_CTX_new();
-      if (new_ctx == NULL) {
-        OPENSSL_PUT_ERROR(EC, ERR_R_MALLOC_FAILURE);
-        goto err;
-      }
-      ctx = new_ctx;
-    }
-    BN_CTX_start(ctx);
-    ctx_started = 1;
-    BIGNUM *mod = BN_CTX_get(ctx);
-    if (mod == NULL) {
-      OPENSSL_PUT_ERROR(EC, ERR_R_MALLOC_FAILURE);
-      goto err;
-    }
-    if (!BN_nnmod(mod, p_scalar, &group->order, ctx)) {
-      OPENSSL_PUT_ERROR(EC, ERR_R_BN_LIB);
-      goto err;
-    }
-    p_scalar = mod;
-  }
 
   int j;
   for (j = 0; j < p_scalar->top * BN_BYTES; j += BN_BYTES) {
@@ -306,7 +279,7 @@ static int ecp_nistz256_windowed_mul(const EC_GROUP *group, P256_POINT *r,
       !ecp_nistz256_bignum_to_field_elem(row[1 - 1].Y, &p->Y) ||
       !ecp_nistz256_bignum_to_field_elem(row[1 - 1].Z, &p->Z)) {
     OPENSSL_PUT_ERROR(EC, EC_R_COORDINATES_OUT_OF_RANGE);
-    goto err;
+    return 0;
   }
 
   ecp_nistz256_point_double(&row[2 - 1], &row[1 - 1]);
@@ -372,14 +345,7 @@ static int ecp_nistz256_windowed_mul(const EC_GROUP *group, P256_POINT *r,
 
   ecp_nistz256_point_add(r, r, &h);
 
-  ret = 1;
-
-err:
-  if (ctx_started) {
-    BN_CTX_end(ctx);
-  }
-  BN_CTX_free(new_ctx);
-  return ret;
+  return 1;
 }
 
 static int ecp_nistz256_points_mul(
@@ -395,44 +361,20 @@ static int ecp_nistz256_points_mul(
     P256_POINT_AFFINE a;
   } t, p;
 
-  int ret = 0;
-  BN_CTX *new_ctx = NULL;
-  int ctx_started = 0;
-
   /* Need 256 bits for space for all coordinates. */
   if (bn_wexpand(&r->X, P256_LIMBS) == NULL ||
       bn_wexpand(&r->Y, P256_LIMBS) == NULL ||
       bn_wexpand(&r->Z, P256_LIMBS) == NULL) {
     OPENSSL_PUT_ERROR(EC, ERR_R_MALLOC_FAILURE);
-    goto err;
+    return 0;
   }
+
   r->X.top = P256_LIMBS;
   r->Y.top = P256_LIMBS;
   r->Z.top = P256_LIMBS;
 
   if (g_scalar != NULL) {
-    if (BN_num_bits(g_scalar) > 256 || BN_is_negative(g_scalar)) {
-      if (ctx == NULL) {
-        new_ctx = BN_CTX_new();
-        if (new_ctx == NULL) {
-          goto err;
-        }
-        ctx = new_ctx;
-      }
-      BN_CTX_start(ctx);
-      ctx_started = 1;
-      BIGNUM *tmp_scalar = BN_CTX_get(ctx);
-      if (tmp_scalar == NULL) {
-        goto err;
-      }
-
-      if (!BN_nnmod(tmp_scalar, g_scalar, &group->order, ctx)) {
-        OPENSSL_PUT_ERROR(EC, ERR_R_BN_LIB);
-        goto err;
-      }
-      g_scalar = tmp_scalar;
-    }
-
+    assert(BN_cmp(g_scalar, EC_GROUP_get0_order(group)) < 0);
     uint8_t p_str[33] = {0};
     int i;
     for (i = 0; i < g_scalar->top * BN_BYTES; i += BN_BYTES) {
@@ -495,7 +437,7 @@ static int ecp_nistz256_points_mul(
     }
 
     if (!ecp_nistz256_windowed_mul(group, out, p_, p_scalar, ctx)) {
-      goto err;
+      return 0;
     }
 
     if (!p_is_infinity) {
@@ -513,14 +455,7 @@ static int ecp_nistz256_points_mul(
   bn_correct_top(&r->Z);
   r->Z_is_one = BN_is_one(&r->Z);
 
-  ret = 1;
-
-err:
-  if (ctx_started) {
-    BN_CTX_end(ctx);
-  }
-  BN_CTX_free(new_ctx);
-  return ret;
+  return 1;
 }
 
 static int ecp_nistz256_get_affine(const EC_GROUP *group, const EC_POINT *point,
@@ -580,6 +515,7 @@ const EC_METHOD *EC_GFp_nistz256_method(void) {
       ec_GFp_mont_group_copy,
       ec_GFp_mont_group_set_curve,
       ecp_nistz256_get_affine,
+      ecp_nistz256_points_mul,
       ecp_nistz256_points_mul,
       0 /* check_pub_key_order */,
       ec_GFp_mont_field_mul,
