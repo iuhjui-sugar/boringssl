@@ -262,12 +262,6 @@ OPENSSL_EXPORT int EC_POINT_dbl(const EC_GROUP *group, EC_POINT *r,
 OPENSSL_EXPORT int EC_POINT_invert(const EC_GROUP *group, EC_POINT *a,
                                    BN_CTX *ctx);
 
-/* EC_POINT_mul sets r = generator*n + q*m. It returns one on success and zero
- * otherwise. If |ctx| is not NULL, it may be used. */
-OPENSSL_EXPORT int EC_POINT_mul(const EC_GROUP *group, EC_POINT *r,
-                                const BIGNUM *n, const EC_POINT *q,
-                                const BIGNUM *m, BN_CTX *ctx);
-
 
 /* Deprecated functions. */
 
@@ -313,6 +307,13 @@ OPENSSL_EXPORT int EC_METHOD_get_field_type(const EC_METHOD *meth);
  * |POINT_CONVERSION_UNCOMPRESSED| and otherwise does nothing. */
 OPENSSL_EXPORT void EC_GROUP_set_point_conversion_form(
     EC_GROUP *group, point_conversion_form_t form);
+
+/* EC_POINT_mul sets r = generator*n + q*m. It returns one on success and zero
+ * otherwise. |n| and |m| must both be within the range
+ * [0, EC_GROUP_get0_order(group) - 1]. If |ctx| is not NULL, it may be used. */
+OPENSSL_EXPORT int EC_POINT_mul(const EC_GROUP *group, EC_POINT *r,
+                                const BIGNUM *n, const EC_POINT *q,
+                                const BIGNUM *m, BN_CTX *ctx);
 
 
 /* Old code expects to get EC_KEY from ec.h. */
