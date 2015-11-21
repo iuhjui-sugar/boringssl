@@ -340,6 +340,7 @@ EC_KEY *d2i_ECPrivateKey(EC_KEY **a, const uint8_t **inp, long len) {
     OPENSSL_PUT_ERROR(EC, ERR_R_EC_LIB);
     goto err;
   }
+
   if (priv_key->publicKey) {
     const uint8_t *pub_oct;
     int pub_oct_len;
@@ -359,8 +360,8 @@ EC_KEY *d2i_ECPrivateKey(EC_KEY **a, const uint8_t **inp, long len) {
       goto err;
     }
   } else {
-    if (!EC_POINT_mul(ret->group, ret->pub_key, ret->priv_key, NULL, NULL,
-                      NULL)) {
+    if (!ret->group->meth->mul_private(ret->group, ret->pub_key, ret->priv_key,
+                                       NULL, NULL, NULL)) {
       OPENSSL_PUT_ERROR(EC, ERR_R_EC_LIB);
       goto err;
     }

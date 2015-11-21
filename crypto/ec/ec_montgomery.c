@@ -246,8 +246,8 @@ static int ec_GFp_mont_check_pub_key_order(const EC_GROUP *group,
   int ret = 0;
 
   if (point == NULL ||
-      !ec_wNAF_mul(group, point, NULL, pub_key, EC_GROUP_get0_order(group),
-                   ctx) ||
+      !ec_wNAF_mul_public(group, point, NULL, pub_key,
+                          EC_GROUP_get0_order(group), ctx) ||
       !EC_POINT_is_at_infinity(group, point)) {
     goto err;
   }
@@ -267,7 +267,8 @@ const EC_METHOD *EC_GFp_mont_method(void) {
     ec_GFp_mont_group_copy,
     ec_GFp_mont_group_set_curve,
     ec_GFp_simple_point_get_affine_coordinates,
-    ec_wNAF_mul /* XXX: Not constant time. */,
+    ec_wNAF_mul_private /* XXX: Not constant time. */,
+    ec_wNAF_mul_public,
     ec_GFp_mont_check_pub_key_order,
     ec_GFp_mont_field_mul,
     ec_GFp_mont_field_sqr,
