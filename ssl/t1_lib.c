@@ -939,22 +939,7 @@ static int ext_ri_parse_serverhello(SSL *ssl, uint8_t *out_alert,
   }
 
   if (contents == NULL) {
-    /* No renegotiation extension received.
-     *
-     * Strictly speaking if we want to avoid an attack we should *always* see
-     * RI even on initial ServerHello because the client doesn't see any
-     * renegotiation during an attack. However this would mean we could not
-     * connect to any server which doesn't support RI.
-     *
-     * A lack of the extension is allowed if SSL_OP_LEGACY_SERVER_CONNECT is
-     * defined. */
-    if (ssl->options & SSL_OP_LEGACY_SERVER_CONNECT) {
-      return 1;
-    }
-
-    *out_alert = SSL_AD_HANDSHAKE_FAILURE;
-    OPENSSL_PUT_ERROR(SSL, SSL_R_UNSAFE_LEGACY_RENEGOTIATION_DISABLED);
-    return 0;
+    return 1;
   }
 
   const size_t expected_len = ssl->s3->previous_client_finished_len +
