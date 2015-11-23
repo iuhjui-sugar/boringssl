@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dbcc7b7f_42b0b21f",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5410
+      },
+      "writtenOn": "2015-11-23T18:35:10Z",
+      "side": 1,
+      "message": "(fwiw, i would\u0027ve been confused for 2 minutes less today if this had had a comment like \"// async is freed by AsyncExFree, called by boringssl.\" or similar)",
+      "revId": "d9e070193f9bc59b002b0a0f1b56fd6e9176d786",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
