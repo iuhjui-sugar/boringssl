@@ -16,6 +16,24 @@
       "revId": "d9e070193f9bc59b002b0a0f1b56fd6e9176d786",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dbcc7b7f_42951263",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-23T18:47:12Z",
+      "side": 1,
+      "message": "How\u0027s this?\nhttps://boringssl-review.googlesource.com/#/c/6555/\n\nIt really should just be passing in async.release(), which hopefully would make that clearer. But a lot of OpenSSL functions are annoying and only take ownership in the success case, which doesn\u0027t really translate to scopers quite so well.\n\n(That function can only fail on allocation error, but we do allow those to happen, so... :-/)",
+      "parentUuid": "dbcc7b7f_42b0b21f",
+      "revId": "d9e070193f9bc59b002b0a0f1b56fd6e9176d786",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
