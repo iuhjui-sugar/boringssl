@@ -63,24 +63,80 @@
 #include "../ec/internal.h"
 
 
+static int ecdsa_sign_setup(EC_KEY *eckey, BN_CTX *ctx_in, BIGNUM **kinvp,
+                            BIGNUM **rp, const uint8_t *digest,
+                            size_t digest_len);
+
+static int digest_to_bn(BIGNUM *out, const uint8_t *digest, size_t digest_len,
+                        const BIGNUM *order);
+
+
 int ECDSA_sign(int type, const uint8_t *digest, size_t digest_len, uint8_t *sig,
                unsigned int *sig_len, EC_KEY *eckey) {
   if (eckey->ecdsa_meth && eckey->ecdsa_meth->sign) {
     return eckey->ecdsa_meth->sign(digest, digest_len, sig, sig_len, eckey);
   }
 
+  const EC_GROUP *group = EC_KEY_get0_group(eckey);
+  const BIGNUM *priv_key = EC_KEY_get0_private_key(eckey);
+  if (group == NULL || priv_key == NULL) {
+    OPENSSL_PUT_ERROR(ECDSA, ERR_R_PASSED_NULL_PARAMETER);
+    return 0;
+  }
+
+  BN_CTX *ctx = BN_CTX_new();
+  if (ctx == NULL) {
+    OPENSSL_PUT_ERROR(ECDSA, ERR_R_MALLOC_FAILURE);
+    return 0;
+  }
+  BN_CTX_start(ctx);
+
   int ret = 0;
 
-  ECDSA_SIG *s = ECDSA_do_sign_ex(digest, digest_len, NULL, NULL, eckey);
-  if (s == NULL) {
+  BIGNUM *k_inv = NULL;
+  BIGNUM *r = NULL;
+
+  BIGNUM *m = BN_CTX_get(ctx);
+  BIGNUM *s = BN_CTX_get(ctx);
+  BIGNUM *tmp = BN_CTX_get(ctx);
+
+  if (m == NULL ||
+      s == NULL ||
+      tmp == NULL) {
+    OPENSSL_PUT_ERROR(ECDSA, ERR_R_MALLOC_FAILURE);
     goto err;
   }
+
+  const BIGNUM *order = EC_GROUP_get0_order(group);
+
+  if (!digest_to_bn(m, digest, digest_len, order)) {
+    goto err;
+  }
+
+  do {
+    if (!ecdsa_sign_setup(eckey, ctx, &k_inv, &r, digest, digest_len)) {
+      OPENSSL_PUT_ERROR(ECDSA, ERR_R_ECDSA_LIB);
+      goto err;
+    }
+    if (!BN_mod_mul(tmp, priv_key, r, order, ctx) ||
+        !BN_mod_add_quick(s, tmp, m, order) ||
+        !BN_mod_mul(s, s, k_inv, order, ctx)) {
+      OPENSSL_PUT_ERROR(ECDSA, ERR_R_BN_LIB);
+      goto err;
+    }
+  } while (BN_is_zero(s));
+
+  /* s != 0 => we have a valid signature */
+
+  ECDSA_SIG ecdsa_sig;
+  ecdsa_sig.r = r;
+  ecdsa_sig.s = s;
 
   CBB cbb;
   CBB_zero(&cbb);
   size_t len;
   if (!CBB_init_fixed(&cbb, sig, ECDSA_size(eckey)) ||
-      !ECDSA_SIG_marshal(&cbb, s) ||
+      !ECDSA_SIG_marshal(&cbb, &ecdsa_sig) ||
       !CBB_finish(&cbb, NULL, &len)) {
     OPENSSL_PUT_ERROR(ECDSA, ECDSA_R_ENCODE_ERROR);
     CBB_cleanup(&cbb);
@@ -93,7 +149,10 @@ err:
   if (!ret) {
     *sig_len = 0;
   }
-  ECDSA_SIG_free(s);
+  BN_free(k_inv);
+  BN_free(r);
+  BN_CTX_end(ctx);
+  BN_CTX_free(ctx);
   return ret;
 }
 
