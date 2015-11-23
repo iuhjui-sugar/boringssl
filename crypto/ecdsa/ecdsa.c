@@ -69,8 +69,32 @@ int ECDSA_sign(int type, const uint8_t *digest, size_t digest_len, uint8_t *sig,
     return eckey->ecdsa_meth->sign(digest, digest_len, sig, sig_len, eckey);
   }
 
-  return ECDSA_sign_ex(type, digest, digest_len, sig, sig_len, NULL, NULL,
-                       eckey);
+  int ret = 0;
+
+  ECDSA_SIG *s = ECDSA_do_sign_ex(digest, digest_len, NULL, NULL, eckey);
+  if (s == NULL) {
+    goto err;
+  }
+
+  CBB cbb;
+  CBB_zero(&cbb);
+  size_t len;
+  if (!CBB_init_fixed(&cbb, sig, ECDSA_size(eckey)) ||
+      !ECDSA_SIG_marshal(&cbb, s) ||
+      !CBB_finish(&cbb, NULL, &len)) {
+    OPENSSL_PUT_ERROR(ECDSA, ECDSA_R_ENCODE_ERROR);
+    CBB_cleanup(&cbb);
+    goto err;
+  }
+  *sig_len = (unsigned)len;
+  ret = 1;
+
+err:
+  if (!ret) {
+    *sig_len = 0;
+  }
+  ECDSA_SIG_free(s);
+  return ret;
 }
 
 int ECDSA_verify(int type, const uint8_t *digest, size_t digest_len,
