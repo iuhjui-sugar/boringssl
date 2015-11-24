@@ -425,13 +425,16 @@ def ArchForAsmFilename(filename):
     raise ValueError('Unknown arch for asm filename: ' + filename)
 
 
-def WriteAsmFiles(perlasms, src_path, dst_path, relative):
+def WriteAsmFiles(perlasms, src_path, dst_path, relative, want_arch):
   """Generates asm files from perlasm directives for each supported OS x
   platform combination."""
   asmfiles = {}
 
   for osarch in OS_ARCH_COMBOS:
     (osname, arch, perlasm_style, extra_args, asm_ext) = osarch
+    if want_arch and arch != want_arch:
+      continue
+
     key = (osname, arch)
     outDir = '%s-%s' % key
 
@@ -455,18 +458,22 @@ def WriteAsmFiles(perlasms, src_path, dst_path, relative):
     src_path = ''
 
   for (key, non_perl_asm_files) in NON_PERL_FILES.iteritems():
+    (osname, arch) = key
+    if want_arch and arch != want_arch:
+      continue
     for asm in non_perl_asm_files:
       asmfiles.setdefault(key, []).append(os.path.join(src_path, asm))
 
   return asmfiles
 
 
-def main(platforms, src_path, dst_path, relative):
+def main(platforms, src_path, dst_path, relative, want_arch):
   if not os.path.isdir(dst_path):
     os.makedirs(dst_path)
 
   asm_outputs = sorted(WriteAsmFiles(ReadPerlAsmOperations(src_path),
-                                     src_path, dst_path, relative).iteritems())
+                                     src_path, dst_path, relative, want_arch)
+                       .iteritems())
 
   if not platforms:
     return 0
@@ -549,6 +556,8 @@ if __name__ == '__main__':
   parser.add_argument('--dst', help='path to destination directory', default='')
   parser.add_argument('--relative', help='write file paths relative to the source directory',
                       action='store_true')
+  parser.add_argument('--arch', help='generate files only for a specific architecture,'
+                                     ' available options: arm, aarch64, x86, x86_64')
   parser.add_argument('platforms',
                       help='target platforms to generate build files for, available options:'
                            ' chromium, android, android-standalone, bazel, asm', nargs='+')
@@ -568,10 +577,14 @@ if __name__ == '__main__':
       parser.print_help()
       sys.exit(1)
 
+  if args.arch not in ('arm', 'aarch64', 'x86', 'x86_64'):
+    parser.print_help()
+    sys.exit(1)
+
   src_path = os.path.normpath(args.src) + '/'
   dst_path = os.path.normpath(args.dst) + '/'
 
   if src_path == './':
     args.relative = True
 
-  sys.exit(main(platforms, src_path, dst_path, args.relative))
+  sys.exit(main(platforms, src_path, dst_path, args.relative, args.arch))
