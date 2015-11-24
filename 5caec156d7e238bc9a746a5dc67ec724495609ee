@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dbcc7b7f_a5626889",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-24T16:00:35Z",
+      "side": 1,
+      "message": "If using in a context that\u0027s okay with perl and Go build dependencies, I wonder if it\u0027s worth emitting build edges for each generated file as the standalone build.",
+      "revId": "5caec156d7e238bc9a746a5dc67ec724495609ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dbcc7b7f_c55f6cbe",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-24T16:00:35Z",
+      "side": 1,
+      "message": "argparse is pretty badly designed:\nhttps://bugs.python.org/issue9334\n\nAlthough I\u0027m not a Python person, so it\u0027s possible the Python world has decided to move to it anyway. Do we prefer optparse or argparse internally?",
+      "range": {
+        "startLine": 19,
+        "startChar": 7,
+        "endLine": 19,
+        "endChar": 15
+      },
+      "revId": "5caec156d7e238bc9a746a5dc67ec724495609ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dbcc7b7f_e55c70cc",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-24T16:00:35Z",
+      "side": 1,
+      "message": "Did you mean dst_path? The default for src_path is \u0027src/\u0027, isn\u0027t it?",
+      "revId": "5caec156d7e238bc9a746a5dc67ec724495609ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
