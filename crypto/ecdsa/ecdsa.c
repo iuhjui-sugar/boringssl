@@ -92,15 +92,25 @@ int ECDSA_sign(int type, const uint8_t *digest, size_t digest_len, uint8_t *sig,
   BN_CTX_start(ctx);
 
   int ret = 0;
-
-  BIGNUM *k_inv = NULL;
-  BIGNUM *r = NULL;
+  EC_POINT *tmp_point = tmp_point = EC_POINT_new(group);
+  if (tmp_point == NULL) {
+    OPENSSL_PUT_ERROR(ECDSA, ERR_R_EC_LIB);
+    goto err;
+  }
 
   BIGNUM *m = BN_CTX_get(ctx);
+  BIGNUM *k = BN_CTX_get(ctx);
+  BIGNUM *k_inv = BN_CTX_get(ctx);
+  BIGNUM *r = BN_CTX_get(ctx);
+  BIGNUM *X = BN_CTX_get(ctx);
   BIGNUM *s = BN_CTX_get(ctx);
   BIGNUM *tmp = BN_CTX_get(ctx);
 
   if (m == NULL ||
+      k == NULL ||
+      k_inv == NULL ||
+      r == NULL ||
+      X == NULL ||
       s == NULL ||
       tmp == NULL) {
     OPENSSL_PUT_ERROR(ECDSA, ERR_R_MALLOC_FAILURE);
@@ -114,10 +124,47 @@ int ECDSA_sign(int type, const uint8_t *digest, size_t digest_len, uint8_t *sig,
   }
 
   do {
-    if (!ecdsa_sign_setup(eckey, ctx, &k_inv, &r, digest, digest_len)) {
-      OPENSSL_PUT_ERROR(ECDSA, ERR_R_ECDSA_LIB);
+    do {
+      do {
+        if (!BN_generate_dsa_nonce(k, order, EC_KEY_get0_private_key(eckey),
+                                   digest, digest_len, ctx)) {
+          OPENSSL_PUT_ERROR(ECDSA, ECDSA_R_RANDOM_NUMBER_GENERATION_FAILED);
+          goto err;
+        }
+      } while (BN_is_zero(k));
+
+      /* Compute |r|, the X coordinate of |generator * k|. */
+      if (!group->meth->mul_private(group, tmp_point, k, NULL, NULL, ctx) ||
+          !EC_POINT_get_affine_coordinates_GFp(group, tmp_point, X, NULL, ctx)) {
+        OPENSSL_PUT_ERROR(ECDSA, ERR_R_EC_LIB);
+        goto err;
+      }
+
+      if (!BN_nnmod(r, X, order, ctx)) {
+        OPENSSL_PUT_ERROR(ECDSA, ERR_R_BN_LIB);
+        goto err;
+      }
+    } while (BN_is_zero(r));
+
+    /* Compute the inverse of |k|. */
+    if (ec_group_get_mont_data(group) != NULL) {
+      /* Compute the inverse in constant time using Fermat's Little Theorem. */
+      if (!BN_set_word(X, 2) ||
+          !BN_sub(X, order, X)) {
+        OPENSSL_PUT_ERROR(ECDSA, ERR_R_BN_LIB);
+        goto err;
+      }
+      BN_set_flags(X, BN_FLG_CONSTTIME);
+      if (!BN_mod_exp_mont_consttime(k_inv, k, X, order, ctx,
+                                     ec_group_get_mont_data(group))) {
+        OPENSSL_PUT_ERROR(ECDSA, ERR_R_BN_LIB);
+        goto err;
+      }
+    } else if (!BN_mod_inverse(k_inv, k, order, ctx)) {
+      OPENSSL_PUT_ERROR(ECDSA, ERR_R_BN_LIB);
       goto err;
     }
+
     if (!BN_mod_mul(tmp, priv_key, r, order, ctx) ||
         !BN_mod_add_quick(s, tmp, m, order) ||
         !BN_mod_mul(s, s, k_inv, order, ctx)) {
@@ -149,8 +196,7 @@ err:
   if (!ret) {
     *sig_len = 0;
   }
-  BN_free(k_inv);
-  BN_free(r);
+  EC_POINT_free(tmp_point);
   BN_CTX_end(ctx);
   BN_CTX_free(ctx);
   return ret;
