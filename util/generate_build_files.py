@@ -12,10 +12,11 @@
 # OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 # CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-"""Enumerates the BoringSSL source in src/ and either generates two gypi files
+"""Enumerates the BoringSSL source and either generates two gypi files
   (boringssl.gypi and boringssl_tests.gypi) for Chromium, or generates
   source-list files for Android."""
 
+import argparse
 import os
 import subprocess
 import sys
@@ -39,10 +40,10 @@ OS_ARCH_COMBOS = [
 # perlasm system.
 NON_PERL_FILES = {
     ('linux', 'arm'): [
-        'src/crypto/chacha/chacha_vec_arm.S',
-        'src/crypto/cpu-arm-asm.S',
-        'src/crypto/curve25519/asm/x25519-arm.S',
-        'src/crypto/poly1305/poly1305_arm_asm.S',
+        'crypto/chacha/chacha_vec_arm.S',
+        'crypto/cpu-arm-asm.S',
+        'crypto/curve25519/asm/x25519-arm.S',
+        'crypto/poly1305/poly1305_arm_asm.S',
     ],
 }
 
@@ -65,8 +66,8 @@ class Chromium(object):
       out.write('      \'%s\',\n' % f)
     out.write('    ],\n')
 
-  def WriteFiles(self, files, asm_outputs):
-    with open('boringssl.gypi', 'w+') as gypi:
+  def WriteFiles(self, files, asm_outputs, src_path, dst_path):
+    with open(os.path.join(dst_path, 'boringssl.gypi'), 'w+') as gypi:
       gypi.write(self.header + '{\n  \'variables\': {\n')
 
       self.PrintVariableSection(
@@ -80,7 +81,7 @@ class Chromium(object):
 
       gypi.write('  }\n}\n')
 
-    with open('boringssl_tests.gypi', 'w+') as test_gypi:
+    with open(os.path.join(dst_path, 'boringssl_tests.gypi'), 'w+') as test_gypi:
       test_gypi.write(self.header + '{\n  \'targets\': [\n')
 
       test_names = []
@@ -146,8 +147,8 @@ class Android(object):
       out.write('  %s\\\n' % f)
     out.write('\n')
 
-  def WriteFiles(self, files, asm_outputs):
-    with open('sources.mk', 'w+') as makefile:
+  def WriteFiles(self, files, asm_outputs, src_path, dst_path):
+    with open(os.path.join(dst_path, 'sources.mk'), 'w+') as makefile:
       makefile.write(self.header)
 
       crypto_files = files['crypto'] + self.ExtraFiles()
@@ -190,8 +191,8 @@ class Bazel(object):
       out.write('    "%s",\n' % f)
     out.write(']\n')
 
-  def WriteFiles(self, files, asm_outputs):
-    with open('BUILD.generated.bzl', 'w+') as out:
+  def WriteFiles(self, files, asm_outputs, src_path, dst_path):
+    with open(os.path.join(dst_path, 'BUILD.generated.bzl'), 'w+') as out:
       out.write(self.header)
 
       self.PrintVariableSection(out, 'ssl_headers', files['ssl_headers'])
@@ -208,7 +209,7 @@ class Bazel(object):
         self.PrintVariableSection(
             out, 'crypto_sources_%s_%s' % (osname, arch), asm_files)
 
-    with open('BUILD.generated_tests.bzl', 'w+') as out:
+    with open(os.path.join(dst_path, 'BUILD.generated_tests.bzl'), 'w+') as out:
       out.write(self.header)
 
       out.write('test_support_sources = [\n')
@@ -221,7 +222,7 @@ class Bazel(object):
 
       out.write('def create_tests(copts):\n')
       out.write('  test_support_sources_complete = test_support_sources + \\\n')
-      out.write('      native.glob(["src/crypto/test/*.h"])\n')
+      out.write('      native.glob(["%scrypto/test/*.h"])\n' % src_path)
       name_counts = {}
       for test in files['tests']:
         name = os.path.basename(test[0])
@@ -240,7 +241,7 @@ class Bazel(object):
           out.write('\n')
         first = False
 
-        src_prefix = 'src/' + test[0]
+        src_prefix = os.path.join(src_path, test[0])
         for src in files['test']:
           if src.startswith(src_prefix):
             src = src
@@ -259,8 +260,8 @@ class Bazel(object):
           out.write('      args = [\n')
           for arg in test[1:]:
             if '/' in arg:
-              out.write('          "$(location src/%s)",\n' % arg)
-              data_files.append('src/%s' % arg)
+              out.write('          "$(location %s%s)",\n' % (src_path, arg))
+              data_files.append('%s%s' % (src_path, arg))
             else:
               out.write('          "%s",\n' % arg)
           out.write('      ],\n')
@@ -321,12 +322,14 @@ def SSLHeaderFiles(dent, is_dir):
   return dent in ['ssl.h', 'tls1.h', 'ssl23.h', 'ssl3.h', 'dtls1.h']
 
 
-def FindCFiles(directory, filter_func):
+def FindCFiles(src_path, directory, relative, filter_func):
   """Recurses through directory and returns a list of paths to all the C source
   files that pass filter_func."""
   cfiles = []
 
-  for (path, dirnames, filenames) in os.walk(directory):
+  for (path, dirnames, filenames) in os.walk(os.path.join(src_path, directory)):
+    if relative:
+      path = path[len(src_path):]
     for filename in filenames:
       if not filename.endswith('.c') and not filename.endswith('.cc'):
         continue
@@ -341,11 +344,13 @@ def FindCFiles(directory, filter_func):
   return cfiles
 
 
-def FindHeaderFiles(directory, filter_func):
+def FindHeaderFiles(src_path, directory, relative, filter_func):
   """Recurses through directory and returns a list of paths to all the header files that pass filter_func."""
   hfiles = []
 
-  for (path, dirnames, filenames) in os.walk(directory):
+  for (path, dirnames, filenames) in os.walk(os.path.join(src_path, directory)):
+    if relative:
+      path = path[len(src_path):]
     for filename in filenames:
       if not filename.endswith('.h'):
         continue
@@ -380,11 +385,10 @@ def ExtractPerlAsmFromCMakeFile(cmakefile):
   return perlasms
 
 
-def ReadPerlAsmOperations():
-  """Returns a list of all perlasm() directives found in CMake config files in
-  src/."""
+def ReadPerlAsmOperations(src_path):
+  """Returns a list of all perlasm() directives found in CMake config files.""" 
   perlasms = []
-  cmakefiles = FindCMakeFiles('src')
+  cmakefiles = FindCMakeFiles(src_path)
 
   for cmakefile in cmakefiles:
     perlasms.extend(ExtractPerlAsmFromCMakeFile(cmakefile))
@@ -421,7 +425,7 @@ def ArchForAsmFilename(filename):
     raise ValueError('Unknown arch for asm filename: ' + filename)
 
 
-def WriteAsmFiles(perlasms):
+def WriteAsmFiles(perlasms, src_path, dst_path, relative):
   """Generates asm files from perlasm directives for each supported OS x
   platform combination."""
   asmfiles = {}
@@ -434,65 +438,72 @@ def WriteAsmFiles(perlasms):
     for perlasm in perlasms:
       filename = os.path.basename(perlasm['input'])
       output = perlasm['output']
-      if not output.startswith('src'):
+      if not output.startswith(src_path):
         raise ValueError('output missing src: %s' % output)
-      output = os.path.join(outDir, output[4:])
+      output = os.path.join(outDir, output[len(src_path):])
       if output.endswith('-armx.${ASM_EXT}'):
         output = output.replace('-armx',
                                 '-armx64' if arch == 'aarch64' else '-armx32')
       output = output.replace('${ASM_EXT}', asm_ext)
 
       if arch in ArchForAsmFilename(filename):
-        PerlAsm(output, perlasm['input'], perlasm_style,
+        PerlAsm(os.path.join(dst_path, output), perlasm['input'], perlasm_style,
                 perlasm['extra_args'] + extra_args)
         asmfiles.setdefault(key, []).append(output)
 
+  if relative:
+    src_path = ''
+
   for (key, non_perl_asm_files) in NON_PERL_FILES.iteritems():
-    asmfiles.setdefault(key, []).extend(non_perl_asm_files)
+    for asm in non_perl_asm_files:
+      asmfiles.setdefault(key, []).append(os.path.join(src_path, asm))
 
   return asmfiles
 
 
-def main(platforms):
-  crypto_c_files = FindCFiles(os.path.join('src', 'crypto'), NoTests)
-  ssl_c_files = FindCFiles(os.path.join('src', 'ssl'), NoTests)
-  tool_cc_files = FindCFiles(os.path.join('src', 'tool'), NoTests)
+def main(platforms, src_path, dst_path, relative):
+  if not os.path.isdir(dst_path):
+    os.makedirs(dst_path)
+
+  crypto_c_files = FindCFiles(src_path, 'crypto', relative, NoTests)
+  ssl_c_files = FindCFiles(src_path, 'ssl', relative, NoTests)
+  tool_cc_files = FindCFiles(src_path, 'tool', relative, NoTests)
 
   # Generate err_data.c
-  with open('err_data.c', 'w+') as err_data:
+  with open(os.path.join(dst_path, 'err_data.c'), 'w+') as err_data:
     subprocess.check_call(['go', 'run', 'err_data_generate.go'],
-                          cwd=os.path.join('src', 'crypto', 'err'),
+                          cwd=os.path.join(src_path, 'crypto', 'err'),
                           stdout=err_data)
   crypto_c_files.append('err_data.c')
 
-  test_support_cc_files = FindCFiles(os.path.join('src', 'crypto', 'test'),
-                                     AllFiles)
+  test_support_cc_files = FindCFiles(src_path, os.path.join('crypto', 'test'),
+                                     relative, AllFiles)
 
-  test_c_files = FindCFiles(os.path.join('src', 'crypto'), OnlyTests)
-  test_c_files += FindCFiles(os.path.join('src', 'ssl'), OnlyTests)
+  test_c_files = FindCFiles(src_path, 'crypto', relative, OnlyTests)
+  test_c_files += FindCFiles(src_path, 'ssl', relative, OnlyTests)
 
   ssl_h_files = (
       FindHeaderFiles(
-          os.path.join('src', 'include', 'openssl'),
+          src_path, os.path.join('include', 'openssl'), relative,
           SSLHeaderFiles))
 
   def NotSSLHeaderFiles(filename, is_dir):
     return not SSLHeaderFiles(filename, is_dir)
   crypto_h_files = (
       FindHeaderFiles(
-          os.path.join('src', 'include', 'openssl'),
+          src_path, os.path.join('include', 'openssl'), relative,
           NotSSLHeaderFiles))
 
-  ssl_internal_h_files = FindHeaderFiles(os.path.join('src', 'ssl'), NoTests)
+  ssl_internal_h_files = FindHeaderFiles(src_path, 'ssl', relative, NoTests)
   crypto_internal_h_files = FindHeaderFiles(
-      os.path.join('src', 'crypto'), NoTests)
+      src_path, 'crypto', relative, NoTests)
 
-  with open('src/util/all_tests.json', 'r') as f:
+  with open(os.path.join(src_path, 'util', 'all_tests.json'), 'r') as f:
     tests = json.load(f)
   test_binaries = set([test[0] for test in tests])
   test_sources = set([
       test.replace('.cc', '').replace('.c', '').replace(
-          'src/',
+          src_path,
           '')
       for test in test_c_files])
   if test_binaries != test_sources:
@@ -517,25 +528,31 @@ def main(platforms):
       'tests': tests,
   }
 
-  asm_outputs = sorted(WriteAsmFiles(ReadPerlAsmOperations()).iteritems())
+  asm_outputs = sorted(WriteAsmFiles(ReadPerlAsmOperations(src_path),
+                                     src_path, dst_path, relative).iteritems())
+
+  if relative:
+    src_path = ''
 
   for platform in platforms:
-    platform.WriteFiles(files, asm_outputs)
+    platform.WriteFiles(files, asm_outputs, src_path, dst_path)
 
   return 0
 
 
-def Usage():
-  print 'Usage: python %s [chromium|android|android-standalone|bazel]' % sys.argv[0]
-  sys.exit(1)
-
-
 if __name__ == '__main__':
-  if len(sys.argv) < 2:
-    Usage()
+  parser = argparse.ArgumentParser()
+  parser.add_argument('--src', help='path to source directory', default='src')
+  parser.add_argument('--dst', help='path to destination directory', default='')
+  parser.add_argument('--relative', help='write file paths relative to the source directory',
+                      action='store_true')
+  parser.add_argument('platforms',
+                      help='target platforms to generate build files for, available options:'
+                           ' chromium, android, android-standalone, bazel', nargs='+')
+  args = parser.parse_args()
 
   platforms = []
-  for s in sys.argv[1:]:
+  for s in args.platforms:
     if s == 'chromium' or s == 'gyp':
       platforms.append(Chromium())
     elif s == 'android':
@@ -545,6 +562,13 @@ if __name__ == '__main__':
     elif s == 'bazel':
       platforms.append(Bazel())
     else:
-      Usage()
+      parser.print_help()
+      sys.exit(1)
 
-  sys.exit(main(platforms))
+  src_path = os.path.normpath(args.src) + '/'
+  dst_path = os.path.normpath(args.dst) + '/'
+
+  if src_path == './':
+    args.relative = True
+
+  sys.exit(main(platforms, src_path, dst_path, args.relative))
