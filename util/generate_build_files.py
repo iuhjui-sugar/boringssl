@@ -465,6 +465,12 @@ def main(platforms, src_path, dst_path, relative):
   if not os.path.isdir(dst_path):
     os.makedirs(dst_path)
 
+  asm_outputs = sorted(WriteAsmFiles(ReadPerlAsmOperations(src_path),
+                                     src_path, dst_path, relative).iteritems())
+
+  if not platforms:
+    return 0
+
   crypto_c_files = FindCFiles(src_path, 'crypto', relative, NoTests)
   ssl_c_files = FindCFiles(src_path, 'ssl', relative, NoTests)
   tool_cc_files = FindCFiles(src_path, 'tool', relative, NoTests)
@@ -528,9 +534,6 @@ def main(platforms, src_path, dst_path, relative):
       'tests': tests,
   }
 
-  asm_outputs = sorted(WriteAsmFiles(ReadPerlAsmOperations(src_path),
-                                     src_path, dst_path, relative).iteritems())
-
   if relative:
     src_path = ''
 
@@ -548,7 +551,7 @@ if __name__ == '__main__':
                       action='store_true')
   parser.add_argument('platforms',
                       help='target platforms to generate build files for, available options:'
-                           ' chromium, android, android-standalone, bazel', nargs='+')
+                           ' chromium, android, android-standalone, bazel, asm', nargs='+')
   args = parser.parse_args()
 
   platforms = []
@@ -561,7 +564,7 @@ if __name__ == '__main__':
       platforms.append(AndroidStandalone())
     elif s == 'bazel':
       platforms.append(Bazel())
-    else:
+    elif s != 'asm':
       parser.print_help()
       sys.exit(1)
 
