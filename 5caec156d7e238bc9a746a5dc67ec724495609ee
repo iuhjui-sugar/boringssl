@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3bed97ca_367799ba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5885
+      },
+      "writtenOn": "2015-11-24T21:44:27Z",
+      "side": 1,
+      "message": "You mean, creating genrule(cmd\u003d\"perlasm ...\") for each target file and not calling this script at all from Bazel? Definitely :)\n\nI need to list CMakeLists and PerlAsms anyway as a sources for genrule(cmd\u003d\"util/generate_build_files.py\"), which is far from perfect, so calling PerlAsms directly might be a cleaner solution in the long run.\n\nHowever, since BoringSSL itself is split only into 7 filesets, that is: {crypto,ssl} x {sources,headers,internal_headers} + tools, adding per file target for generated files feels a bit like overdoing it...\n\nBut I\u0027m more than happy to work on this, if that\u0027s acceptable solution. Should those targets be included in BUILD.generated.bzl or should I create new file?\n\nIn any case, this change still needs to land before that in order to generate BUILD file with sane paths ;)\n\nThanks!",
+      "parentUuid": "dbcc7b7f_a5626889",
+      "revId": "5caec156d7e238bc9a746a5dc67ec724495609ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dbcc7b7f_c55f6cbe",
         "filename": "util/generate_build_files.py",
         "patchSetId": 1
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "3bed97ca_765ac132",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5885
+      },
+      "writtenOn": "2015-11-24T21:44:27Z",
+      "side": 1,
+      "message": "Neither am I... But it\u0027s about 50/50 internally and I found some commits in Chrome from earlier this year that migrated Python code from optparse to argparse, saying that it\u0027s actually better nowadays, so I think we\u0027re going to be fine.",
+      "parentUuid": "dbcc7b7f_c55f6cbe",
+      "range": {
+        "startLine": 19,
+        "startChar": 7,
+        "endLine": 19,
+        "endChar": 15
+      },
+      "revId": "5caec156d7e238bc9a746a5dc67ec724495609ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dbcc7b7f_e55c70cc",
         "filename": "util/generate_build_files.py",
         "patchSetId": 1
@@ -53,6 +95,24 @@
       "writtenOn": "2015-11-24T16:00:35Z",
       "side": 1,
       "message": "Did you mean dst_path? The default for src_path is \u0027src/\u0027, isn\u0027t it?",
+      "revId": "5caec156d7e238bc9a746a5dc67ec724495609ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3bed97ca_d633b5ef",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 5885
+      },
+      "writtenOn": "2015-11-24T21:44:27Z",
+      "side": 1,
+      "message": "No, I meant src_path.\n\nThis doesn\u0027t cover the default case (which is indeed \"--src src/\"), but case with either \"--src .\" or \"--src \u0027\u0027\", which results in \"./crypto/...\" file paths in build files without \"--relative\" flag turned on.",
+      "parentUuid": "dbcc7b7f_e55c70cc",
       "revId": "5caec156d7e238bc9a746a5dc67ec724495609ee",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
