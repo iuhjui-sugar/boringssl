@@ -265,7 +265,28 @@ static int digest_to_bn(BIGNUM *out, const uint8_t *digest, size_t digest_len,
 
 ECDSA_SIG *ECDSA_do_sign(const uint8_t *digest, size_t digest_len,
                          EC_KEY *key) {
-  return ECDSA_do_sign_ex(digest, digest_len, NULL, NULL, key);
+  size_t sig_size = ECDSA_size(key);
+  if (sig_size == 0) {
+    OPENSSL_PUT_ERROR(ECDSA, ERR_R_ECDSA_LIB);
+    return NULL;
+  }
+
+  ECDSA_SIG *ret = NULL;
+
+  uint8_t *sig_bytes = malloc(sig_size);
+  if (sig_bytes == NULL) {
+    OPENSSL_PUT_ERROR(ECDSA, ERR_R_MALLOC_FAILURE);
+    return NULL;
+  }
+  unsigned int sig_len;
+  if (!ECDSA_sign(0, digest, digest_len, sig_bytes, &sig_len, key)) {
+    goto err;
+  }
+  ret = ECDSA_SIG_from_bytes(sig_bytes, sig_len);
+
+err:
+  free(sig_bytes);
+  return ret;
 }
 
 int ECDSA_do_verify(const uint8_t *digest, size_t digest_len,
