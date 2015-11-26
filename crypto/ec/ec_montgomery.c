@@ -96,31 +96,24 @@ int ec_GFp_mont_group_init(EC_GROUP *group) {
 
   ok = ec_GFp_simple_group_init(group);
   group->mont = NULL;
-  group->one = NULL;
   return ok;
 }
 
 void ec_GFp_mont_group_finish(EC_GROUP *group) {
   BN_MONT_CTX_free(group->mont);
   group->mont = NULL;
-  BN_free(group->one);
-  group->one = NULL;
   ec_GFp_simple_group_finish(group);
 }
 
 void ec_GFp_mont_group_clear_finish(EC_GROUP *group) {
   BN_MONT_CTX_free(group->mont);
   group->mont = NULL;
-  BN_clear_free(group->one);
-  group->one = NULL;
   ec_GFp_simple_group_clear_finish(group);
 }
 
 int ec_GFp_mont_group_copy(EC_GROUP *dest, const EC_GROUP *src) {
   BN_MONT_CTX_free(dest->mont);
   dest->mont = NULL;
-  BN_clear_free(dest->one);
-  dest->one = NULL;
 
   if (!ec_GFp_simple_group_copy(dest, src)) {
     return 0;
@@ -132,12 +125,6 @@ int ec_GFp_mont_group_copy(EC_GROUP *dest, const EC_GROUP *src) {
       return 0;
     }
     if (!BN_MONT_CTX_copy(dest->mont, src->mont)) {
-      goto err;
-    }
-  }
-  if (src->one != NULL) {
-    dest->one = BN_dup(src->one);
-    if (dest->one == NULL) {
       goto err;
     }
   }
@@ -154,13 +141,10 @@ int ec_GFp_mont_group_set_curve(EC_GROUP *group, const BIGNUM *p,
                                 const BIGNUM *a, const BIGNUM *b, BN_CTX *ctx) {
   BN_CTX *new_ctx = NULL;
   BN_MONT_CTX *mont = NULL;
-  BIGNUM *one = NULL;
   int ret = 0;
 
   BN_MONT_CTX_free(group->mont);
   group->mont = NULL;
-  BN_free(group->one);
-  group->one = NULL;
 
   if (ctx == NULL) {
     ctx = new_ctx = BN_CTX_new();
@@ -177,29 +161,20 @@ int ec_GFp_mont_group_set_curve(EC_GROUP *group, const BIGNUM *p,
     OPENSSL_PUT_ERROR(EC, ERR_R_BN_LIB);
     goto err;
   }
-  one = BN_new();
-  if (one == NULL || !BN_to_montgomery(one, BN_value_one(), mont, ctx)) {
-    goto err;
-  }
 
   group->mont = mont;
   mont = NULL;
-  group->one = one;
-  one = NULL;
 
   ret = ec_GFp_simple_group_set_curve(group, p, a, b, ctx);
 
   if (!ret) {
     BN_MONT_CTX_free(group->mont);
     group->mont = NULL;
-    BN_free(group->one);
-    group->one = NULL;
   }
 
 err:
   BN_CTX_free(new_ctx);
   BN_MONT_CTX_free(mont);
-  BN_free(one);
   return ret;
 }
 
@@ -245,12 +220,7 @@ int ec_GFp_mont_field_decode(const EC_GROUP *group, BIGNUM *r, const BIGNUM *a,
 
 int ec_GFp_mont_field_set_to_one(const EC_GROUP *group, BIGNUM *r,
                                  BN_CTX *ctx) {
-  if (group->one == NULL) {
-    OPENSSL_PUT_ERROR(EC, EC_R_NOT_INITIALIZED);
-    return 0;
-  }
-
-  if (!BN_copy(r, group->one)) {
+  if (BN_copy(r, &group->one) == NULL) {
     return 0;
   }
   return 1;

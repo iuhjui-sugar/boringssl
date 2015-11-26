@@ -138,10 +138,11 @@ struct ec_group_st {
 
   BIGNUM a, b; /* Curve coefficients. */
 
+  BIGNUM one; /* The value one. */
+
   int a_is_minus3; /* enable optimized point arithmetics for special case */
 
   BN_MONT_CTX *mont; /* Montgomery structure. */
-  BIGNUM *one; /* The value one */
 } /* EC_GROUP */;
 
 struct ec_point_st {
@@ -154,7 +155,6 @@ struct ec_point_st {
   BIGNUM Y;
   BIGNUM Z; /* Jacobian projective coordinates:
              * (X, Y, Z)  represents  (X/Z^2, Y/Z^3)  if  Z != 0 */
-  int Z_is_one; /* enable optimized point arithmetics for special case */
 } /* EC_POINT */;
 
 EC_GROUP *ec_group_new(const EC_METHOD *meth);
