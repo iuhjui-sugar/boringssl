@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "3bed97ca_ea019ee3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5885
+      },
+      "writtenOn": "2015-11-26T02:30:50Z",
+      "side": 1,
+      "message": "Done: https://boringssl-review.googlesource.com/#/c/6577/",
+      "parentUuid": "dbcc7b7f_a5626889",
+      "revId": "5caec156d7e238bc9a746a5dc67ec724495609ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dbcc7b7f_c55f6cbe",
         "filename": "util/generate_build_files.py",
         "patchSetId": 1
