@@ -511,7 +511,7 @@ static int ecp_nistz256_points_mul(
   bn_correct_top(&r->X);
   bn_correct_top(&r->Y);
   bn_correct_top(&r->Z);
-  r->Z_is_one = BN_is_one(&r->Z);
+  r->Z_is_one = BN_cmp(&r->Z, group->one) == 0;
 
   ret = 1;
 
