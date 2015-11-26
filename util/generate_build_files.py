@@ -47,6 +47,14 @@ NON_PERL_FILES = {
     ],
 }
 
+# PERLASM_TRANSLATORS maps from platform to the perlasm translator files.
+PERLASM_TRANSLATORS = [
+    ('arm', ['crypto/perlasm/arm-xlate.pl']),
+    ('win32', ['crypto/perlasm/x86asm.pl', 'crypto/perlasm/x86nasm.pl']),
+    ('x86', ['crypto/perlasm/x86asm.pl', 'crypto/perlasm/x86gas.pl']),
+    ('x86_64', ['crypto/perlasm/x86_64-xlate.pl']),
+]
+
 
 class Chromium(object):
 
@@ -66,7 +74,7 @@ class Chromium(object):
       out.write('      \'%s\',\n' % f)
     out.write('    ],\n')
 
-  def WriteFiles(self, files, asm_outputs, src_path, dst_path):
+  def WriteFiles(self, files, perlasms, asm_outputs, src_path, dst_path):
     with open(os.path.join(dst_path, 'boringssl.gypi'), 'w+') as gypi:
       gypi.write(self.header + '{\n  \'variables\': {\n')
 
@@ -147,7 +155,7 @@ class Android(object):
       out.write('  %s\\\n' % f)
     out.write('\n')
 
-  def WriteFiles(self, files, asm_outputs, src_path, dst_path):
+  def WriteFiles(self, files, perlasms, asm_outputs, src_path, dst_path):
     with open(os.path.join(dst_path, 'sources.mk'), 'w+') as makefile:
       makefile.write(self.header)
 
@@ -191,7 +199,39 @@ class Bazel(object):
       out.write('    "%s",\n' % f)
     out.write(']\n')
 
-  def WriteFiles(self, files, asm_outputs, src_path, dst_path):
+  def PrintPerlAsmFileGroupSection(self, out, arch, srcs, src_path):
+    if not self.firstSection:
+      out.write('\n')
+    self.firstSection = False
+
+    out.write('filegroup(\n')
+    out.write('    name = "crypto_perlasm_%s",\n' % arch)
+    out.write('    srcs = [\n')
+    for f in sorted(srcs):
+      out.write('        "%s%s",\n' % (src_path, f))
+    out.write('    ],\n')
+    out.write(')\n')
+    
+  def PrintPerlAsmGenRuleSection(self, out, asm, src, perlasm, args):
+    if not self.firstSection:
+      out.write('\n')
+    self.firstSection = False
+
+    name = asm.replace('/', '_').replace('-', '_').replace('.', '_')
+
+    out.write('genrule(\n')
+    out.write('    name = "%s",\n' % name)
+    out.write('    srcs = [\n')
+    out.write('        "%s",\n' % src)
+    out.write('        ":crypto_perlasm_%s",\n' % perlasm)
+    out.write('    ],\n')
+    out.write('    outs = [\n')
+    out.write('        "%s",\n' % asm)
+    out.write('    ],\n')
+    out.write('    cmd = "perl $(location %s) %s > $(@)",\n' % (src, ' '.join(args)))
+    out.write(')\n')
+
+  def WriteFiles(self, files, perlasms, asm_outputs, src_path, dst_path):
     with open(os.path.join(dst_path, 'BUILD.generated.bzl'), 'w+') as out:
       out.write(self.header)
 
@@ -208,6 +248,32 @@ class Bazel(object):
       for ((osname, arch), asm_files) in asm_outputs:
         self.PrintVariableSection(
             out, 'crypto_sources_%s_%s' % (osname, arch), asm_files)
+
+    with open(os.path.join(dst_path, 'BUILD.generated_perlasms.bzl'), 'w+') as out:
+      out.write(self.header)
+      self.firstSection = True
+
+      for (perlasm_arch, perlasm_srcs) in PERLASM_TRANSLATORS:
+        self.PrintPerlAsmFileGroupSection(out, perlasm_arch, perlasm_srcs, src_path)
+
+      for osarch in OS_ARCH_COMBOS:
+        (osname, arch, perlasm_style, extra_args, asm_ext) = osarch
+        key = (osname, arch)
+        outDir = '%s-%s' % key
+
+        for perlasm in perlasms:
+          filename = os.path.basename(perlasm['input'])
+          output = os.path.join(outDir, perlasm['output'])
+          if output.endswith('-armx.${ASM_EXT}'):
+            output = output.replace('-armx',
+                                    '-armx64' if arch == 'aarch64' else '-armx32')
+          output = output.replace('${ASM_EXT}', asm_ext)
+
+          if arch in ArchForAsmFilename(filename):
+            self.PrintPerlAsmGenRuleSection(out, output,
+                os.path.join(src_path, perlasm['input']),
+                PerlAsmForArch(arch, perlasm_style),
+                [perlasm_style] + perlasm['extra_args'] + extra_args)
 
     with open(os.path.join(dst_path, 'BUILD.generated_tests.bzl'), 'w+') as out:
       out.write(self.header)
@@ -426,6 +492,23 @@ def ArchForAsmFilename(filename):
     raise ValueError('Unknown arch for asm filename: ' + filename)
 
 
+def PerlAsmForArch(arch, style):
+  """Returns name of the perlasm translator for a given platform and style."""
+  if arch == 'arm' or arch == 'aarch64':
+    return 'arm'
+  elif arch == 'x86':
+    if style == 'elf' or style == 'macosx':
+      return 'x86'
+    elif style == 'win32n':
+      return 'win32'
+    else:
+      raise ValueError('Unknown perlasm style for arch x86: ' + style)
+  elif arch == 'x86_64':
+    return 'x86_64'
+  else:
+    raise ValueError('Unknown arch: ' + arch)
+
+
 def WriteAsmFiles(perlasms, src_path, dst_path, relative):
   """Generates asm files from perlasm directives for each supported OS x
   platform combination."""
@@ -527,15 +610,15 @@ def main(platforms, src_path, dst_path, relative):
       'tests': tests,
   }
 
-  asm_files = WriteAsmFiles(ReadPerlAsmOperations(src_path),
-                            src_path, dst_path, relative)
+  perlasms = ReadPerlAsmOperations(src_path)
+  asm_files = WriteAsmFiles(perlasms, src_path, dst_path, relative)
   asm_outputs = sorted(asm_files.iteritems())
 
   if relative:
     src_path = ''
 
   for platform in platforms:
-    platform.WriteFiles(files, asm_outputs, src_path, dst_path)
+    platform.WriteFiles(files, perlasms, asm_outputs, src_path, dst_path)
 
   return 0
 
