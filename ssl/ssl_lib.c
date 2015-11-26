@@ -607,7 +607,7 @@ int SSL_read(SSL *ssl, void *buf, int num) {
   }
 
   ERR_clear_system_error();
-  return ssl->method->ssl_read_app_data(ssl, buf, num, 0);
+  return ssl->method->ssl_read_app_data(ssl, buf, num, 0 /* no peek */);
 }
 
 int SSL_peek(SSL *ssl, void *buf, int num) {
@@ -621,7 +621,7 @@ int SSL_peek(SSL *ssl, void *buf, int num) {
   }
 
   ERR_clear_system_error();
-  return ssl->method->ssl_read_app_data(ssl, buf, num, 1);
+  return ssl->method->ssl_read_app_data(ssl, buf, num, 1 /* peek */);
 }
 
 int SSL_write(SSL *ssl, const void *buf, int num) {
