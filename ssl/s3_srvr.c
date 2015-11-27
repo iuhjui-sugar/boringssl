@@ -1221,6 +1221,9 @@ int ssl3_send_server_key_exchange(SSL *s) {
   int n;
   CERT *cert;
   BIGNUM *r[4];
+  /* r_pad_bytes[i] contains the number of zero padding bytes that need to
+   * precede |r[i]| when serialising it. */
+  unsigned r_pad_bytes[4] = {0};
   int nr[4];
   BUF_MEM *buf;
   EVP_MD_CTX md_ctx;
@@ -1291,6 +1294,9 @@ int ssl3_send_server_key_exchange(SSL *s) {
       r[0] = dh->p;
       r[1] = dh->g;
       r[2] = dh->pub_key;
+      /* Due to a bug in yaSSL, the public key must be zero padded to the size
+       * of the prime. */
+      r_pad_bytes[2] = BN_num_bytes(dh->p) - BN_num_bytes(dh->pub_key);
     } else if (alg_k & SSL_kECDHE) {
       /* Determine the curve to use. */
       int nid = NID_undef;
@@ -1377,7 +1383,7 @@ int ssl3_send_server_key_exchange(SSL *s) {
     }
 
     for (i = 0; i < 4 && r[i] != NULL; i++) {
-      nr[i] = BN_num_bytes(r[i]);
+      nr[i] = BN_num_bytes(r[i]) + r_pad_bytes[i];
       n += 2 + nr[i];
     }
 
@@ -1389,7 +1395,8 @@ int ssl3_send_server_key_exchange(SSL *s) {
 
     for (i = 0; i < 4 && r[i] != NULL; i++) {
       s2n(nr[i], p);
-      BN_bn2bin(r[i], p);
+      memset(p, 0, r_pad_bytes[i]);
+      BN_bn2bin(r[i], p + r_pad_bytes[i]);
       p += nr[i];
     }
 
