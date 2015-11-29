@@ -333,7 +333,6 @@ static int ecdsa_sign_setup(EC_KEY *eckey, BN_CTX *ctx_in, BIGNUM **kinvp,
       OPENSSL_PUT_ERROR(ECDSA, ERR_R_BN_LIB);
       goto err;
     }
-    BN_set_flags(X, BN_FLG_CONSTTIME);
     if (!BN_mod_exp_mont_consttime(k, k, X, order, ctx,
                                    ec_group_get_mont_data(group))) {
       OPENSSL_PUT_ERROR(ECDSA, ERR_R_BN_LIB);
