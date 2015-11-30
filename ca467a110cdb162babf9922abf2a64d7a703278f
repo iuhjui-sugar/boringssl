@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dbcc7b7f_b67b80cf",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1223,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-30T18:27:15Z",
+      "side": 1,
+      "message": "[I really really need to rework this code. :-/]",
+      "revId": "ca467a110cdb162babf9922abf2a64d7a703278f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dbcc7b7f_d67804d5",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1299,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-30T18:27:15Z",
+      "side": 1,
+      "message": "[Verified that DH_generate_key cannot create a dh-\u003epub_key that\u0027s greater than dh-\u003ep. And since the server supplies dh_tmp to begin with, an attacker doesn\u0027t have input into this process. Your call if you want to check for this anyway.]",
+      "revId": "ca467a110cdb162babf9922abf2a64d7a703278f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dbcc7b7f_f68508ee",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1399,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-30T18:27:15Z",
+      "side": 1,
+      "message": "Could replace these two with BN_bn2bin_padded.",
+      "revId": "ca467a110cdb162babf9922abf2a64d7a703278f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dbcc7b7f_5676b4e5",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-11-30T18:27:15Z",
+      "side": 1,
+      "message": "This\u0027ll crash if !dh (malloc failure). BN_hex2bn and BN_set_word may also fail.\n\n(I suspect BN_hex2bn is clever and reuses the data already allocated for DH_get_2048_256 so probably neither can actually fail, but probably ought to check.)",
+      "revId": "ca467a110cdb162babf9922abf2a64d7a703278f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
