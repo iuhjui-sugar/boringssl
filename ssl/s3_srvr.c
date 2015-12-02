@@ -1678,13 +1678,8 @@ int ssl3_get_client_key_exchange(SSL *s) {
   /* Depending on the key exchange method, compute |premaster_secret| and
    * |premaster_secret_len|. */
   if (alg_k & SSL_kRSA) {
-    CBS encrypted_premaster_secret;
-    uint8_t rand_premaster_secret[SSL_MAX_MASTER_KEY_LENGTH];
-    uint8_t good;
-    size_t decrypt_len, premaster_index, j;
-    const size_t rsa_size = ssl_private_key_max_signature_len(s);
-
     /* Allocate a buffer large enough for an RSA decryption. */
+    const size_t rsa_size = ssl_private_key_max_signature_len(s);
     decrypt_buf = OPENSSL_malloc(rsa_size);
     if (decrypt_buf == NULL) {
       OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
@@ -1692,13 +1687,14 @@ int ssl3_get_client_key_exchange(SSL *s) {
     }
 
     enum ssl_private_key_result_t decrypt_result;
+    size_t decrypt_len;
     if (s->state == SSL3_ST_SR_KEY_EXCH_B) {
       if (!ssl_has_private_key(s) || ssl_private_key_type(s) != EVP_PKEY_RSA) {
         al = SSL_AD_HANDSHAKE_FAILURE;
         OPENSSL_PUT_ERROR(SSL, SSL_R_MISSING_RSA_CERTIFICATE);
         goto f_err;
       }
-      /* TLS and [incidentally] DTLS{0xFEFF} */
+      CBS encrypted_premaster_secret;
       if (s->version > SSL3_VERSION) {
         CBS copy = client_key_exchange;
         if (!CBS_get_u16_length_prefixed(&client_key_exchange,
@@ -1719,16 +1715,6 @@ int ssl3_get_client_key_exchange(SSL *s) {
         }
       } else {
         encrypted_premaster_secret = client_key_exchange;
-      }
-
-      /* Reject overly short RSA keys because we want to be sure that the buffer
-       * size makes it safe to iterate over the entire size of a premaster
-       * secret (SSL_MAX_MASTER_KEY_LENGTH). The actual expected size is larger
-       * due to RSA padding, but the bound is sufficient to be safe. */
-      if (rsa_size < SSL_MAX_MASTER_KEY_LENGTH) {
-        al = SSL_AD_DECRYPT_ERROR;
-        OPENSSL_PUT_ERROR(SSL, SSL_R_DECRYPTION_FAILED);
-        goto f_err;
       }
 
       /* Decrypt with no padding. PKCS#1 padding will be removed as part of the
@@ -1757,66 +1743,28 @@ int ssl3_get_client_key_exchange(SSL *s) {
         goto err;
     }
 
-    if (decrypt_len != rsa_size) {
-      /* This should never happen, but do a check so we do not read
-       * uninitialized memory. */
-      OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
-      goto err;
-    }
+    assert(decrypt_len == rsa_size);
 
-    /* Remove the PKCS#1 padding and adjust |decrypt_len| as appropriate.
-     * |good| will be 0xff if the premaster is acceptable and zero otherwise.
-     * */
-    good =
-        constant_time_eq_int_8(RSA_message_index_PKCS1_type_2(
-                                   decrypt_buf, decrypt_len, &premaster_index),
-                               1);
-    decrypt_len = decrypt_len - premaster_index;
-
-    /* decrypt_len should be SSL_MAX_MASTER_KEY_LENGTH. */
-    good &= constant_time_eq_8(decrypt_len, SSL_MAX_MASTER_KEY_LENGTH);
-
-    /* Copy over the unpadded premaster. Whatever the value of
-     * |decrypt_good_mask|, copy as if the premaster were the right length. It
-     * is important the memory access pattern be constant. */
-    premaster_secret =
-        BUF_memdup(decrypt_buf + (rsa_size - SSL_MAX_MASTER_KEY_LENGTH),
-                   SSL_MAX_MASTER_KEY_LENGTH);
+    premaster_secret_len = SSL_MAX_MASTER_KEY_LENGTH;
+    premaster_secret = OPENSSL_malloc(premaster_secret_len);
     if (premaster_secret == NULL) {
       OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
       goto err;
     }
+
+    if (!RSA_unpad_key_pkcs1(premaster_secret, premaster_secret_len,
+                             decrypt_buf, decrypt_len)) {
+      al = SSL_AD_DECRYPT_ERROR;
+      OPENSSL_PUT_ERROR(SSL, SSL_R_DECRYPTION_FAILED);
+      goto f_err;
+    }
     OPENSSL_free(decrypt_buf);
     decrypt_buf = NULL;
 
-    /* If the version in the decrypted pre-master secret is correct then
-     * version_good will be 0xff, otherwise it'll be zero. The
-     * Klima-Pokorny-Rosa extension of Bleichenbacher's attack
-     * (http://eprint.iacr.org/2003/052/) exploits the version number check as
-     * a "bad version oracle". Thus version checks are done in constant time
-     * and are treated like any other decryption error. */
-    good &= constant_time_eq_8(premaster_secret[0],
-                               (unsigned)(s->client_version >> 8));
-    good &= constant_time_eq_8(premaster_secret[1],
-                               (unsigned)(s->client_version & 0xff));
-
-    /* We must not leak whether a decryption failure occurs because of
-     * Bleichenbacher's attack on PKCS #1 v1.5 RSA padding (see RFC 2246,
-     * section 7.4.7.1). The code follows that advice of the TLS RFC and
-     * generates a random premaster secret for the case that the decrypt
-     * fails. See https://tools.ietf.org/html/rfc5246#section-7.4.7.1 */
-    if (!RAND_bytes(rand_premaster_secret, sizeof(rand_premaster_secret))) {
-      goto err;
-    }
-
-    /* Now copy rand_premaster_secret over premaster_secret using
-     * decrypt_good_mask. */
-    for (j = 0; j < sizeof(rand_premaster_secret); j++) {
-      premaster_secret[j] = constant_time_select_8(good, premaster_secret[j],
-                                                   rand_premaster_secret[j]);
-    }
-
-    premaster_secret_len = sizeof(rand_premaster_secret);
+    /* Per RFC 5246 section 7.4.7.1, unconditionally set the first two bytes
+     * rather than check the version. */
+    premaster_secret[0] = (uint8_t)(s->client_version >> 8);
+    premaster_secret[1] = (uint8_t)(s->client_version & 0xff);
   } else if (alg_k & SSL_kDHE) {
     CBS dh_Yc;
     int dh_len;
