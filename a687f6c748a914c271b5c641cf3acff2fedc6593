@@ -22,6 +22,30 @@
       "revId": "a687f6c748a914c271b5c641cf3acff2fedc6593",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "203484db_efe85da6",
+        "filename": "util/bot/update_clang.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5410
+      },
+      "writtenOn": "2015-12-04T19:50:47Z",
+      "side": 1,
+      "message": "Sounds fine as-is to be honest.\n\n/chromium/src/tools/clang.git is a mirror of src/tools/clang (which e.g. v8 uses) which you could pull to get chromium\u0027s update.py, but then you need to remember to rev that dep up, so that isn\u0027t any better really.",
+      "parentUuid": "203484db_6fd58dd9",
+      "range": {
+        "startLine": 25,
+        "startChar": 18,
+        "endLine": 25,
+        "endChar": 24
+      },
+      "revId": "a687f6c748a914c271b5c641cf3acff2fedc6593",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
