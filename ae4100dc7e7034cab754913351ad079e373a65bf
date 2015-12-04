@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "203484db_0f13a934",
+        "filename": "include/openssl/sha.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-12-04T21:24:22Z",
+      "side": 1,
+      "message": "I think you mean defined without the !. :-)",
+      "range": {
+        "startLine": 101,
+        "startChar": 4,
+        "endLine": 101,
+        "endChar": 5
+      },
+      "revId": "ae4100dc7e7034cab754913351ad079e373a65bf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
