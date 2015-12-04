@@ -16,6 +16,24 @@
       "revId": "1181520755bb88c271138eb46a8aaa1b3c9a36a7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "404ed883_b4baaedf",
+        "filename": "include/openssl/sha.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-12-04T21:23:52Z",
+      "side": 1,
+      "message": "Sorry, didn\u0027t g commit again after the revert.",
+      "parentUuid": "203484db_0ffcc926",
+      "revId": "1181520755bb88c271138eb46a8aaa1b3c9a36a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
