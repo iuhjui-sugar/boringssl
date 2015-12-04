@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "203484db_6fd58dd9",
+        "filename": "util/bot/update_clang.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-12-04T19:47:01Z",
+      "side": 1,
+      "message": "Hrmf. And, predictably, I don\u0027t think I\u0027d ever updated this since I first dropped this script in. Whoops.\n\nDo you have a suggestion for how to do that better? I can go update it now, but I\u0027m going to forget again later. I suppose I can set a monthly or whatever reminder to keep rolling the revisions we get from Chromium forward, and we don\u0027t really care all that much, so this should be fine...",
+      "range": {
+        "startLine": 25,
+        "startChar": 18,
+        "endLine": 25,
+        "endChar": 24
+      },
+      "revId": "a687f6c748a914c271b5c641cf3acff2fedc6593",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
