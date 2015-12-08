@@ -2184,7 +2184,6 @@ int ssl_add_clienthello_tlsext(SSL *ssl, CBB *out, size_t header_len) {
     return 1;
   }
 
-  size_t orig_len = CBB_len(out);
   CBB extensions;
   if (!CBB_add_u16_length_prefixed(out, &extensions)) {
     goto err;
@@ -2218,7 +2217,7 @@ int ssl_add_clienthello_tlsext(SSL *ssl, CBB *out, size_t header_len) {
   }
 
   if (!SSL_IS_DTLS(ssl)) {
-    header_len += CBB_len(&extensions) - orig_len;
+    header_len += 2 + CBB_len(&extensions);
     if (header_len > 0xff && header_len < 0x200) {
       /* Add padding to workaround bugs in F5 terminators. See RFC 7685.
        *
@@ -2245,10 +2244,8 @@ int ssl_add_clienthello_tlsext(SSL *ssl, CBB *out, size_t header_len) {
     }
   }
 
-  /* If only two bytes have been written then the extensions are actually empty
-   * and those two bytes are the zero length. In that case, we don't bother
-   * sending the extensions length. */
-  if (CBB_len(&extensions) - orig_len == 2) {
+  /* Discard empty extensions blocks. */
+  if (CBB_len(&extensions) == 0) {
     CBB_discard_child(out);
   }
 
@@ -2260,8 +2257,6 @@ err:
 }
 
 int ssl_add_serverhello_tlsext(SSL *ssl, CBB *out) {
-  const size_t orig_len = CBB_len(out);
-
   CBB extensions;
   if (!CBB_add_u16_length_prefixed(out, &extensions)) {
     goto err;
@@ -2285,10 +2280,8 @@ int ssl_add_serverhello_tlsext(SSL *ssl, CBB *out) {
     goto err;
   }
 
-  /* If only two bytes have been written then the extensions are actually empty
-   * and those two bytes are the zero length. In that case, we don't bother
-   * sending the extensions length. */
-  if (CBB_len(&extensions) - orig_len == 2) {
+  /* Discard empty extensions blocks. */
+  if (CBB_len(&extensions) == 0) {
     CBB_discard_child(out);
   }
 
