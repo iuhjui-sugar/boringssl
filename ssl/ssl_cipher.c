@@ -560,9 +560,9 @@ static const SSL_CIPHER kCiphers[] = {
      SSL_HANDSHAKE_MAC_DEFAULT,
     },
 
-#if !defined(BORINGSSL_ANDROID_SYSTEM)
     /* ChaCha20-Poly1305 cipher suites. */
 
+#if !defined(BORINGSSL_ANDROID_SYSTEM)
     {
      TLS1_TXT_ECDHE_RSA_WITH_CHACHA20_POLY1305_OLD,
      TLS1_CK_ECDHE_RSA_CHACHA20_POLY1305_OLD,
@@ -583,6 +583,39 @@ static const SSL_CIPHER kCiphers[] = {
      SSL_HANDSHAKE_MAC_SHA256,
     },
 #endif
+
+    /* Cipher CCA8 */
+    {
+     TLS1_TXT_ECDHE_RSA_WITH_CHACHA20_POLY1305,
+     TLS1_CK_ECDHE_RSA_CHACHA20_POLY1305,
+     SSL_kECDHE,
+     SSL_aRSA,
+     SSL_CHACHA20POLY1305,
+     SSL_AEAD,
+     SSL_HANDSHAKE_MAC_SHA256,
+    },
+
+    /* Cipher CCA9 */
+    {
+     TLS1_TXT_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,
+     TLS1_CK_ECDHE_ECDSA_CHACHA20_POLY1305,
+     SSL_kECDHE,
+     SSL_aECDSA,
+     SSL_CHACHA20POLY1305,
+     SSL_AEAD,
+     SSL_HANDSHAKE_MAC_SHA256,
+    },
+
+    /* Cipher CCAB */
+    {
+     TLS1_TXT_ECDHE_PSK_WITH_CHACHA20_POLY1305,
+     TLS1_CK_ECDHE_PSK_CHACHA20_POLY1305,
+     SSL_kECDHE,
+     SSL_aPSK,
+     SSL_CHACHA20POLY1305,
+     SSL_AEAD,
+     SSL_HANDSHAKE_MAC_SHA256,
+    },
 };
 
 static const size_t kCiphersLen = sizeof(kCiphers) / sizeof(kCiphers[0]);
@@ -661,7 +694,8 @@ static const CIPHER_ALIAS kCipherAliases[] = {
     {"AES256", ~0u, ~0u, SSL_AES256 | SSL_AES256GCM, ~0u, 0},
     {"AES", ~0u, ~0u, SSL_AES, ~0u, 0},
     {"AESGCM", ~0u, ~0u, SSL_AES128GCM | SSL_AES256GCM, ~0u, 0},
-    {"CHACHA20", ~0u, ~0u, SSL_CHACHA20POLY1305_OLD, ~0u, 0},
+    {"CHACHA20", ~0u, ~0u, SSL_CHACHA20POLY1305 | SSL_CHACHA20POLY1305_OLD, ~0u,
+     0},
 
     /* MAC aliases */
     {"MD5", ~0u, ~0u, ~0u, SSL_MD5, 0},
@@ -735,6 +769,11 @@ int ssl_cipher_get_evp_aead(const EVP_AEAD **out_aead,
       *out_fixed_iv_len = 0;
       return 1;
 #endif
+
+    case SSL_CHACHA20POLY1305:
+      *out_aead = EVP_aead_chacha20_poly1305();
+      *out_fixed_iv_len = 12;
+      return 1;
 
     case SSL_RC4:
       switch (cipher->algorithm_mac) {
@@ -1358,9 +1397,13 @@ ssl_create_cipher_list(const SSL_PROTOCOL_METHOD *ssl_method,
                           &head, &tail);
     ssl_cipher_apply_rule(0, ~0u, ~0u, SSL_AES128GCM, ~0u, 0, CIPHER_ADD, -1, 0,
                           &head, &tail);
+    ssl_cipher_apply_rule(0, ~0u, ~0u, SSL_CHACHA20POLY1305, ~0u, 0, CIPHER_ADD,
+                          -1, 0, &head, &tail);
     ssl_cipher_apply_rule(0, ~0u, ~0u, SSL_CHACHA20POLY1305_OLD, ~0u, 0,
                           CIPHER_ADD, -1, 0, &head, &tail);
   } else {
+    ssl_cipher_apply_rule(0, ~0u, ~0u, SSL_CHACHA20POLY1305, ~0u, 0, CIPHER_ADD,
+                          -1, 0, &head, &tail);
     ssl_cipher_apply_rule(0, ~0u, ~0u, SSL_CHACHA20POLY1305_OLD, ~0u, 0,
                           CIPHER_ADD, -1, 0, &head, &tail);
     ssl_cipher_apply_rule(0, ~0u, ~0u, SSL_AES256GCM, ~0u, 0, CIPHER_ADD, -1, 0,
@@ -1527,7 +1570,8 @@ int SSL_CIPHER_is_AES256CBC(const SSL_CIPHER *cipher) {
 }
 
 int SSL_CIPHER_is_CHACHA20POLY1305(const SSL_CIPHER *cipher) {
-  return (cipher->algorithm_enc & SSL_CHACHA20POLY1305_OLD) != 0;
+  return (cipher->algorithm_enc &
+          (SSL_CHACHA20POLY1305 | SSL_CHACHA20POLY1305_OLD)) != 0;
 }
 
 int SSL_CIPHER_is_NULL(const SSL_CIPHER *cipher) {
@@ -1621,6 +1665,7 @@ static const char *ssl_cipher_get_enc_name(const SSL_CIPHER *cipher) {
       return "AES_128_GCM";
     case SSL_AES256GCM:
       return "AES_256_GCM";
+    case SSL_CHACHA20POLY1305:
     case SSL_CHACHA20POLY1305_OLD:
       return "CHACHA20_POLY1305";
       break;
@@ -1656,13 +1701,19 @@ char *SSL_CIPHER_get_rfc_name(const SSL_CIPHER *cipher) {
     return NULL;
   }
 
+  /* CHACHA20_POLY1305 ciphers don't include the PRF name.
+   * TODO(davidben): This is really annoying. Can we put the SHA256 back in
+   * there for consistency? */
+  const int include_prf = (cipher->algorithm_enc & SSL_CHACHA20POLY1305) == 0;
+
   const char *kx_name = SSL_CIPHER_get_kx_name(cipher);
   const char *enc_name = ssl_cipher_get_enc_name(cipher);
   const char *prf_name = ssl_cipher_get_prf_name(cipher);
 
-  /* The final name is TLS_{kx_name}_WITH_{enc_name}_{prf_name}. */
-  size_t len = 4 + strlen(kx_name) + 6 + strlen(enc_name) + 1 +
-      strlen(prf_name) + 1;
+  size_t len = 4 + strlen(kx_name) + 6 + strlen(enc_name) + 1;
+  if (include_prf) {
+      len += strlen(prf_name) + 1;
+  }
   char *ret = OPENSSL_malloc(len);
   if (ret == NULL) {
     return NULL;
@@ -1671,8 +1722,9 @@ char *SSL_CIPHER_get_rfc_name(const SSL_CIPHER *cipher) {
       BUF_strlcat(ret, kx_name, len) >= len ||
       BUF_strlcat(ret, "_WITH_", len) >= len ||
       BUF_strlcat(ret, enc_name, len) >= len ||
-      BUF_strlcat(ret, "_", len) >= len ||
-      BUF_strlcat(ret, prf_name, len) >= len) {
+      (include_prf &&
+       (BUF_strlcat(ret, "_", len) >= len ||
+        BUF_strlcat(ret, prf_name, len) >= len))) {
     assert(0);
     OPENSSL_free(ret);
     return NULL;
@@ -1700,6 +1752,7 @@ int SSL_CIPHER_get_bits(const SSL_CIPHER *cipher, int *out_alg_bits) {
 #if !defined(BORINGSSL_ANDROID_SYSTEM)
     case SSL_CHACHA20POLY1305_OLD:
 #endif
+    case SSL_CHACHA20POLY1305:
       alg_bits = 256;
       strength_bits = 256;
       break;
@@ -1802,6 +1855,10 @@ const char *SSL_CIPHER_description(const SSL_CIPHER *cipher, char *buf,
       break;
 
     case SSL_CHACHA20POLY1305_OLD:
+      enc = "ChaCha20-Poly1305-Old";
+      break;
+
+    case SSL_CHACHA20POLY1305:
       enc = "ChaCha20-Poly1305";
       break;
 
