@@ -86,6 +86,8 @@ type cipherSuite struct {
 var cipherSuites = []*cipherSuite{
 	// Ciphersuite order is chosen so that ECDHE comes before plain RSA
 	// and RC4 comes before AES (because of the Lucky13 attack).
+	{TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305, 32, 0, 12, ecdheECDSAKA, suiteECDHE | suiteECDSA | suiteTLS12, nil, nil, aeadCHACHA20POLY1305},
+	{TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305, 32, 0, 12, ecdheRSAKA, suiteECDHE | suiteTLS12, nil, nil, aeadCHACHA20POLY1305},
 	{TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256_OLD, 32, 0, 0, ecdheECDSAKA, suiteECDHE | suiteECDSA | suiteTLS12, nil, nil, aeadCHACHA20POLY1305Old},
 	{TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256_OLD, 32, 0, 0, ecdheRSAKA, suiteECDHE | suiteTLS12, nil, nil, aeadCHACHA20POLY1305Old},
 	{TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256, 16, 0, 4, ecdheRSAKA, suiteECDHE | suiteTLS12, nil, nil, aeadAESGCM},
@@ -119,11 +121,12 @@ var cipherSuites = []*cipherSuite{
 	{TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA, 24, 20, 8, ecdheRSAKA, suiteECDHE, cipher3DES, macSHA1, nil},
 	{TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA, 24, 20, 8, dheRSAKA, 0, cipher3DES, macSHA1, nil},
 	{TLS_RSA_WITH_3DES_EDE_CBC_SHA, 24, 20, 8, rsaKA, 0, cipher3DES, macSHA1, nil},
+	{TLS_ECDHE_PSK_WITH_CHACHA20_POLY1305, 32, 0, 12, ecdhePSKKA, suiteECDHE | suitePSK | suiteTLS12, nil, nil, aeadCHACHA20POLY1305},
+	{TLS_ECDHE_PSK_WITH_AES_128_CBC_SHA, 16, 20, 16, ecdhePSKKA, suiteECDHE | suitePSK, cipherAES, macSHA1, nil},
+	{TLS_ECDHE_PSK_WITH_AES_256_CBC_SHA, 32, 20, 16, ecdhePSKKA, suiteECDHE | suitePSK, cipherAES, macSHA1, nil},
 	{TLS_PSK_WITH_RC4_128_SHA, 16, 20, 0, pskKA, suiteNoDTLS | suitePSK, cipherRC4, macSHA1, nil},
 	{TLS_PSK_WITH_AES_128_CBC_SHA, 16, 20, 16, pskKA, suitePSK, cipherAES, macSHA1, nil},
 	{TLS_PSK_WITH_AES_256_CBC_SHA, 32, 20, 16, pskKA, suitePSK, cipherAES, macSHA1, nil},
-	{TLS_ECDHE_PSK_WITH_AES_128_CBC_SHA, 16, 20, 16, ecdhePSKKA, suiteECDHE | suitePSK, cipherAES, macSHA1, nil},
-	{TLS_ECDHE_PSK_WITH_AES_256_CBC_SHA, 32, 20, 16, ecdhePSKKA, suiteECDHE | suitePSK, cipherAES, macSHA1, nil},
 	{TLS_RSA_WITH_NULL_SHA, 0, 20, 0, rsaKA, suiteNoDTLS, cipherNull, macSHA1, nil},
 }
 
@@ -254,6 +257,52 @@ func aeadCHACHA20POLY1305Old(key, fixedNonce []byte) *tlsAead {
 		panic(err)
 	}
 	return &tlsAead{aead, false}
+}
+
+func xorSlice(out, in []byte) {
+	for i := range out {
+		out[i] ^= in[i]
+	}
+}
+
+// xorNonceAEAD wraps an AEAD and XORs a fixed portion of the nonce, left-padded
+// if necessary, each call.
+type xorNonceAEAD struct {
+	// sealNonce and openNonce are buffers where the larger nonce will be
+	// constructed. Since a seal and open operation may be running
+	// concurrently, there is a separate buffer for each.
+	sealNonce, openNonce []byte
+	aead                 cipher.AEAD
+}
+
+func (x *xorNonceAEAD) NonceSize() int { return 8 }
+func (x *xorNonceAEAD) Overhead() int  { return x.aead.Overhead() }
+
+func (x *xorNonceAEAD) Seal(out, nonce, plaintext, additionalData []byte) []byte {
+	xorSlice(x.sealNonce[len(x.sealNonce)-len(nonce):], nonce)
+	ret := x.aead.Seal(out, x.sealNonce, plaintext, additionalData)
+	xorSlice(x.sealNonce[len(x.sealNonce)-len(nonce):], nonce)
+	return ret
+}
+
+func (x *xorNonceAEAD) Open(out, nonce, plaintext, additionalData []byte) ([]byte, error) {
+	xorSlice(x.openNonce[len(x.openNonce)-len(nonce):], nonce)
+	ret, err := x.aead.Open(out, x.openNonce, plaintext, additionalData)
+	xorSlice(x.openNonce[len(x.openNonce)-len(nonce):], nonce)
+	return ret, err
+}
+
+func aeadCHACHA20POLY1305(key, fixedNonce []byte) *tlsAead {
+	aead, err := newChaCha20Poly1305(key)
+	if err != nil {
+		panic(err)
+	}
+
+	nonce1, nonce2 := make([]byte, len(fixedNonce)), make([]byte, len(fixedNonce))
+	copy(nonce1, fixedNonce)
+	copy(nonce2, fixedNonce)
+
+	return &tlsAead{&xorNonceAEAD{nonce1, nonce2, aead}, false}
 }
 
 // ssl30MAC implements the SSLv3 MAC function, as defined in
@@ -412,6 +461,9 @@ const (
 	TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384   uint16 = 0xc030
 	TLS_ECDHE_PSK_WITH_AES_128_CBC_SHA      uint16 = 0xc035
 	TLS_ECDHE_PSK_WITH_AES_256_CBC_SHA      uint16 = 0xc036
+	TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305    uint16 = 0xcca8
+	TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305  uint16 = 0xcca9
+	TLS_ECDHE_PSK_WITH_CHACHA20_POLY1305    uint16 = 0xccac
 	renegotiationSCSV                       uint16 = 0x00ff
 	fallbackSCSV                            uint16 = 0x5600
 )
