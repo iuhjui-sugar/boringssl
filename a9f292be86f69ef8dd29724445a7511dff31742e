@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "60275c99_4c04f359",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 2432,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-12-10T22:54:09Z",
+      "side": 1,
+      "message": "Totally minor nitpick, but I went ahead and removed that comment since it makes doc.go think this is a separate section and I figure if every couple of values are going to come from a different RFC, giving them separate sections didn\u0027t seem worth it.",
+      "revId": "a9f292be86f69ef8dd29724445a7511dff31742e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
