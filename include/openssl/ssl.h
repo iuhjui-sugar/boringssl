@@ -1061,7 +1061,8 @@ OPENSSL_EXPORT int SSL_CIPHER_is_AES128CBC(const SSL_CIPHER *cipher);
 OPENSSL_EXPORT int SSL_CIPHER_is_AES256CBC(const SSL_CIPHER *cipher);
 
 /* SSL_CIPHER_is_CHACHA20POLY1305 returns one if |cipher| uses
- * CHACHA20_POLY1305. */
+ * CHACHA20_POLY1305. Note this matches both the RFC ???? version and
+ * draft-agl-tls-chacha20poly1305-04. */
 OPENSSL_EXPORT int SSL_CIPHER_is_CHACHA20POLY1305(const SSL_CIPHER *cipher);
 
 /* SSL_CIPHER_is_NULL returns one if |cipher| does not encrypt. */
