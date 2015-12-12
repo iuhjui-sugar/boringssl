@@ -108,6 +108,17 @@ static RSA *parse_public_key(CBS *cbs, int buggy) {
     RSA_free(ret);
     return NULL;
   }
+  BIGNUM three;
+  BN_init(&three);
+  BN_set_word(&three, 3);
+  if (BN_cmp(ret->e, &three) < 0 ||
+      !BN_is_odd(ret->e)) {
+    OPENSSL_PUT_ERROR(RSA, RSA_R_BAD_RSA_PARAMETERS);
+    RSA_free(ret);
+    BN_free(&three);
+    return NULL;
+  }
+  BN_free(&three);
   return ret;
 }
 
