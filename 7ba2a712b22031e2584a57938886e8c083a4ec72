@@ -16,6 +16,24 @@
       "revId": "7ba2a712b22031e2584a57938886e8c083a4ec72",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "25157684_59fb6f2f",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1785,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-12-15T20:01:51Z",
+      "side": 1,
+      "message": "(Is there a different CL that I should be looking at for another version?)",
+      "parentUuid": "5b796b72_b9193bc9",
+      "revId": "7ba2a712b22031e2584a57938886e8c083a4ec72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
