@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "25157684_d95d9f54",
+        "filename": "crypto/rsa/padding.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-12-15T19:39:28Z",
+      "side": 1,
+      "message": "I half expect a 32-bit build to complain about limited range of types here, but we\u0027ll see.",
+      "range": {
+        "startLine": 204,
+        "startChar": 43,
+        "endLine": 204,
+        "endChar": 51
+      },
+      "revId": "22a555bf4dce1abbe3ef849628344880e7fb77ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
