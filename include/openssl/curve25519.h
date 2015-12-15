@@ -27,7 +27,6 @@ extern "C" {
  * Curve25519 is an elliptic curve. See
  * https://tools.ietf.org/html/draft-irtf-cfrg-curves-11. */
 
-
 /* X25519.
  *
  * Curve25519 is an elliptic curve. The same name is also sometimes used for
@@ -61,24 +60,28 @@ OPENSSL_EXPORT void X25519_public_from_private(uint8_t out_public_value[32],
  * Ed25519 is a signature scheme using a twisted-Edwards curve that is
  * birationally equivalent to curve25519. */
 
+typedef uint8_t ED25519_public_key[32];
+typedef uint8_t ED25519_private_key[64];
+typedef uint8_t ED25519_signature[64];
+
 /* ED25519_keypair sets |out_public_key| and |out_private_key| to a freshly
  * generated, public–private key pair. */
-OPENSSL_EXPORT void ED25519_keypair(uint8_t out_public_key[32],
-                                    uint8_t out_private_key[64]);
+OPENSSL_EXPORT void ED25519_keypair(ED25519_public_key out_public_key,
+                                    ED25519_private_key out_private_key);
 
 /* ED25519_sign sets |out_sig| to be a signature of |message_len| bytes from
  * |message| using |private_key|. It returns one on success or zero on
  * error. */
-OPENSSL_EXPORT int ED25519_sign(uint8_t out_sig[64], const uint8_t *message,
-                                size_t message_len,
-                                const uint8_t private_key[64]);
+OPENSSL_EXPORT int ED25519_sign(ED25519_signature out_signature,
+                                const uint8_t *message, size_t message_len,
+                                const ED25519_private_key private_key);
 
 /* ED25519_verify returns one iff |signature| is a valid signature, by
  * |public_key| of |message_len| bytes from |message|. It returns zero
  * otherwise. */
 OPENSSL_EXPORT int ED25519_verify(const uint8_t *message, size_t message_len,
-                                  const uint8_t signature[64],
-                                  const uint8_t public_key[32]);
+                                  const ED25519_signature signature,
+                                  const ED25519_public_key public_key);
 
 
 #if defined(__cplusplus)
