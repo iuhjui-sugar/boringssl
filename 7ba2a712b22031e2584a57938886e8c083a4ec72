@@ -34,6 +34,24 @@
       "revId": "7ba2a712b22031e2584a57938886e8c083a4ec72",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "45d0aa3b_f5eb1863",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1785,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-12-15T20:06:42Z",
+      "side": 1,
+      "message": "Oh, this was the other one.\nhttps://boringssl-review.googlesource.com/#/c/6612\n\nI ended up removing this comment and abandoning that CL. As far as I can tell, the reasoning in the paper for why the alternate strategy would be preferred is pretty nonsense, so I figured we may as well leave the strategy as-is absent any terribly good argument either way.",
+      "parentUuid": "25157684_59fb6f2f",
+      "revId": "7ba2a712b22031e2584a57938886e8c083a4ec72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
