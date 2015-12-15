@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "25157684_5966cfd3",
+        "filename": "crypto/ec/example_mul.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-12-15T20:12:36Z",
+      "side": 0,
+      "message": "I believe the intent of removing this file was to support other patches that require that `p` isn\u0027t ∞. I shouldn\u0027t have submitted this changeset in this unrelated series.",
+      "range": {
+        "startLine": 99,
+        "startChar": 41,
+        "endLine": 99,
+        "endChar": 42
+      },
+      "revId": "3099f21f3adc02c6e7c2a3646f6b789c31f401e1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
