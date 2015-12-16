@@ -16,6 +16,23 @@
       "revId": "791cdc81be62e5f37ad0ecd0bdba22351b120c43",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "057b1238_ab0429a6",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-12-16T18:10:29Z",
+      "side": 1,
+      "message": "This comment needs to be updated to account for CCS I think.",
+      "revId": "791cdc81be62e5f37ad0ecd0bdba22351b120c43",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
