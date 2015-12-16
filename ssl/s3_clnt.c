@@ -173,6 +173,9 @@
 
 
 int ssl3_connect(SSL *s) {
+ssl3_init_handshake_buffer(s);
+return 0;
+
   BUF_MEM *buf = NULL;
   void (*cb)(const SSL *ssl, int type, int value) = NULL;
   int ret = -1;

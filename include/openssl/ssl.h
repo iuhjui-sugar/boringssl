@@ -3760,6 +3760,8 @@ struct ssl_st {
   /* version is the protocol version. */
   int version;
 
+void* f[6];
+
   /* max_version is the maximum acceptable protocol version. If zero, the
    * maximum supported version, currently (D)TLS 1.2, is used. */
   uint16_t max_version;
@@ -3809,7 +3811,7 @@ struct ssl_st {
   int init_num;      /* amount read/written */
   int init_off;      /* amount read/written */
 
-  struct ssl3_state_st *s3;  /* SSLv3 variables */
+  struct ssl3_state_st *s3;  /* XXX SSLv3 variables */
   struct dtls1_state_st *d1; /* DTLSv1 variables */
 
   /* callback that allows applications to peek at protocol messages */
