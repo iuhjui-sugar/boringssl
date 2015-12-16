@@ -34,6 +34,24 @@
       "revId": "1da85b2c43b9a922db91ca131f8dbb81b5e79e58",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "057b1238_6bb4013e",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-12-16T17:51:45Z",
+      "side": 1,
+      "message": "Great, thanks. Just wanted to check.",
+      "parentUuid": "e5e0be3e_828e9ae0",
+      "revId": "1da85b2c43b9a922db91ca131f8dbb81b5e79e58",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
