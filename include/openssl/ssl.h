@@ -3809,7 +3809,7 @@ struct ssl_st {
   int init_num;      /* amount read/written */
   int init_off;      /* amount read/written */
 
-  struct ssl3_state_st *s3;  /* SSLv3 variables */
+  struct ssl3_state_st *s3;  /* XXX SSLv3 variables */
   struct dtls1_state_st *d1; /* DTLSv1 variables */
 
   /* callback that allows applications to peek at protocol messages */
