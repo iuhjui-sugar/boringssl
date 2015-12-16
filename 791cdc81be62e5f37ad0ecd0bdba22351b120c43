@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e5e0be3e_423652e0",
+        "filename": "ssl/d1_pkt.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-12-16T18:19:57Z",
+      "side": 1,
+      "message": "The record layer drops all packets that come from the wrong epoch, so we don\u0027t have to worry about a mismatch between aead_read_ctx and the packet.\n\nApplication data from the unencrypted epoch is always illegal, so that falls through to a fatal error.\n\nLikewise, CCS from the encrypted epoch is always illegal because we don\u0027t do renego, so that also falls through.\n\nBut we might receive encrypted application data between CCS and Finished because packets were reordered. We might also receive an unencrypted CCS before we\u0027re at that point in the handshake\n\n(CCS in DTLS is completely useless anyway. We could just as easily drop every CCS on the floor blindly and still be fine. :-) I figured we may as well be strict or something. The old logic is line 280 on the LHS which let just about anything through between CCS and Finished and line 415 which dropped any unexpected CCS.)\n\nI\u0027ve added a comment here.",
+      "parentUuid": "057b1238_8b460dfe",
+      "revId": "791cdc81be62e5f37ad0ecd0bdba22351b120c43",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "057b1238_ab0429a6",
         "filename": "ssl/s3_pkt.c",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2015-12-16T18:10:29Z",
       "side": 1,
       "message": "This comment needs to be updated to account for CCS I think.",
+      "revId": "791cdc81be62e5f37ad0ecd0bdba22351b120c43",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e5e0be3e_623d56b6",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-12-16T18:19:57Z",
+      "side": 1,
+      "message": "Removed it since it doesn\u0027t seem very useful. :-)",
+      "parentUuid": "057b1238_ab0429a6",
       "revId": "791cdc81be62e5f37ad0ecd0bdba22351b120c43",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
