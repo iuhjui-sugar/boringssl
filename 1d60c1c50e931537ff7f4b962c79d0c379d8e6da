@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e5e0be3e_0219ea03",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 803,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-12-16T22:04:43Z",
+      "side": 1,
+      "message": "Erp. I was about to ask why you put these in in this CL when the C half doesn\u0027t exist yet, but apparently that was actually me. :-)\n\nI guess I must have screwed up the git history. Will fix.",
+      "revId": "1d60c1c50e931537ff7f4b962c79d0c379d8e6da",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
