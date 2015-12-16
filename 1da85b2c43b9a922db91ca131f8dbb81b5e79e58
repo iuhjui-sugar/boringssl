@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "057b1238_cbd975a7",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-12-16T17:45:29Z",
+      "side": 1,
+      "message": "Does this allow an endless stream of empty records to be processed? If so, that\u0027s a worry because the higher-levels will never see anything and so can\u0027t rate-limit it.\n\n(I\u0027ll land anyway)",
+      "revId": "1da85b2c43b9a922db91ca131f8dbb81b5e79e58",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
