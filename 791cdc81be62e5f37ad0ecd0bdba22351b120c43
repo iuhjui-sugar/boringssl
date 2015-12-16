@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "057b1238_8b460dfe",
+        "filename": "ssl/d1_pkt.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-12-16T18:00:55Z",
+      "side": 1,
+      "message": "Can you expand on why the value of |aead_read_ctx| is tested here? If an application-data record is out of order, we might not have completed the handshake from out point of view so it could still arrived when |aead_ctx_ctx| is NULL, no?",
+      "revId": "791cdc81be62e5f37ad0ecd0bdba22351b120c43",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
