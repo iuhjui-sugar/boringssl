@@ -3760,8 +3760,6 @@ struct ssl_st {
   /* version is the protocol version. */
   int version;
 
-void* f[6];
-
   /* max_version is the maximum acceptable protocol version. If zero, the
    * maximum supported version, currently (D)TLS 1.2, is used. */
   uint16_t max_version;
