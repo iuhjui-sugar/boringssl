@@ -16,6 +16,24 @@
       "revId": "1da85b2c43b9a922db91ca131f8dbb81b5e79e58",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e5e0be3e_828e9ae0",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-12-16T17:49:32Z",
+      "side": 1,
+      "message": "Excessive empty records get rejected at a lower level:\nhttps://code.google.com/p/chromium/codesearch#chromium/src/third_party/boringssl/src/ssl/tls_record.c\u0026l\u003d252\n\nThe split is a little wonky in that the low-level function rejects empty but unrejected empty ones still get returned, but if we don\u0027t return them, we silently accept empty records of bogus types. If we move the empty record check elsewhere, we have to worry about all these cases like this one. :-)\n\n(I didn\u0027t want to reject empty records outright here or fragmented ones in case anyone does 0/n record-splitting and splits handshake messages.)",
+      "parentUuid": "057b1238_cbd975a7",
+      "revId": "1da85b2c43b9a922db91ca131f8dbb81b5e79e58",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
