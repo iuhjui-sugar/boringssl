@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a52de678_8b66d1d3",
+        "filename": "tool/tool.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-12-18T23:24:22Z",
+      "side": 1,
+      "message": "I wasn\u0027t a huge fan of \u0027gened25519\u0027 without any separators. Dunno what convention you prefer.",
+      "revId": "de7d71f6abbf6426846c6c465c66c4428d9733d0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
