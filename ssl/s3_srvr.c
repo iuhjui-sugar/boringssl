@@ -1237,6 +1237,7 @@ int ssl3_send_server_key_exchange(SSL *ssl) {
         ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_HANDSHAKE_FAILURE);
         goto err;
       }
+      ssl->session->key_exchange_info = DH_num_bits(params);
 
       /* Generate and save a keypair. */
       DH *dh = DHparams_dup(params);
@@ -1266,6 +1267,7 @@ int ssl3_send_server_key_exchange(SSL *ssl) {
         ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_HANDSHAKE_FAILURE);
         goto err;
       }
+      ssl->session->key_exchange_info = curve_id;
 
       /* Set up ECDH, generate a key, and emit the public half. */
       if (!ssl_init_ecdh(ssl, curve_id) ||
