@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a52de678_2b35e581",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1295,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-12-19T01:04:36Z",
+      "side": 0,
+      "message": "(Removed this assert since we\u0027d just notice when BN_bn2cbb_padded failed. Which is funny since I think I was the one who asked for it. The code must have been using the non-_padded variant at the time which expects the caller to have checked bounds.)",
+      "revId": "a87f74f8a42224ab985e934d36a746b0e923384d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
