@@ -203,6 +203,14 @@ func (hs *serverHandshakeState) readClientHello() (isResume bool, err error) {
 		hs.clientHello.signatureAndHashes = config.signatureAndHashesForServer()
 	}
 
+	for _, id := range hs.clientHello.cipherSuites {
+		for _, id2 := range config.Bugs.MustNotOfferCipherSuites {
+			if id == id2 {
+				return false, fmt.Errorf("tls: client offered forbidden cipher suite %x", id)
+			}
+		}
+	}
+
 	// Check the client cipher list is consistent with the version.
 	if hs.clientHello.vers < VersionTLS12 {
 		for _, id := range hs.clientHello.cipherSuites {

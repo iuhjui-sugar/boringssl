@@ -814,6 +814,10 @@ type ProtocolBugs struct {
 	// BadHelloRequest, if not nil, is what to send instead of a
 	// HelloRequest.
 	BadHelloRequest []byte
+
+	// MustNotOfferCipherSuites contains cipher suite ids that a client
+	// must not offer. Otherwise a fatal error will result.
+	MustNotOfferCipherSuites []uint16
 }
 
 func (c *Config) serverInit() {

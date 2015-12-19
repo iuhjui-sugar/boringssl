@@ -838,6 +838,12 @@ func hasComponent(suiteName, component string) bool {
 	return strings.Contains("-"+suiteName+"-", "-"+component+"-")
 }
 
+func isTLSOnly(suiteName string) bool {
+	// BoringSSL doesn't support ECDHE without a curves extension, and
+	// SSLv3 doesn't contain extensions.
+	return hasComponent(suiteName, "ECDHE")
+}
+
 func isTLS12Only(suiteName string) bool {
 	return hasComponent(suiteName, "GCM") ||
 		hasComponent(suiteName, "SHA256") ||
@@ -1813,6 +1819,8 @@ func addBasicTests() {
 					NoSupportedCurves: true,
 				},
 			},
+			shouldFail:    true,
+			expectedError: ":NO_SHARED_CIPHER:",
 		},
 		{
 			testType: serverTest,
@@ -2118,20 +2126,12 @@ func addCipherSuiteTests() {
 				continue
 			}
 
-			testCases = append(testCases, testCase{
-				testType: clientTest,
-				name:     ver.name + "-" + suite.name + "-client",
-				config: Config{
-					MinVersion:           ver.version,
-					MaxVersion:           ver.version,
-					CipherSuites:         []uint16{suite.id},
-					Certificates:         []Certificate{cert},
-					PreSharedKey:         []byte(psk),
-					PreSharedKeyIdentity: pskIdentity,
-				},
-				flags:         flags,
-				resumeSession: true,
-			})
+			shouldFail := isTLSOnly(suite.name) && ver.version == VersionSSL30
+
+			expectedError := ""
+			if shouldFail {
+				expectedError = ":NO_SHARED_CIPHER:"
+			}
 
 			testCases = append(testCases, testCase{
 				testType: serverTest,
@@ -2146,6 +2146,27 @@ func addCipherSuiteTests() {
 				},
 				certFile:      certFile,
 				keyFile:       keyFile,
+				flags:         flags,
+				resumeSession: true,
+				shouldFail:    shouldFail,
+				expectedError: expectedError,
+			})
+
+			if shouldFail {
+				continue
+			}
+
+			testCases = append(testCases, testCase{
+				testType: clientTest,
+				name:     ver.name + "-" + suite.name + "-client",
+				config: Config{
+					MinVersion:           ver.version,
+					MaxVersion:           ver.version,
+					CipherSuites:         []uint16{suite.id},
+					Certificates:         []Certificate{cert},
+					PreSharedKey:         []byte(psk),
+					PreSharedKeyIdentity: pskIdentity,
+				},
 				flags:         flags,
 				resumeSession: true,
 			})
@@ -3685,6 +3706,24 @@ func addExtensionTests() {
 			},
 		},
 	})
+
+	var ecdheCipherSuiteIDs []uint16
+	for _, cipherSuite := range testCipherSuites {
+		if hasComponent(cipherSuite.name, "ECDHE") {
+			ecdheCipherSuiteIDs = append(ecdheCipherSuiteIDs, cipherSuite.id)
+		}
+	}
+
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name:     "SSLv3-NoECDHE",
+		config: Config{
+			Bugs: ProtocolBugs{
+				MustNotOfferCipherSuites: ecdheCipherSuiteIDs,
+			},
+		},
+		flags: []string{"-min-version", "768", "-max-version", "768"},
+	})
 }
 
 func addResumptionVersionTests() {
@@ -4624,6 +4663,7 @@ var testCurves = []struct {
 	{"P-256", CurveP256},
 	{"P-384", CurveP384},
 	{"P-521", CurveP521},
+	{"X25519", CurveX25519},
 }
 
 func addCurveTests() {
