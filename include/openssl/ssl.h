@@ -3309,6 +3309,7 @@ OPENSSL_EXPORT int SSL_set_tmp_ecdh(SSL *ssl, const EC_KEY *ec_key);
 typedef struct ssl_protocol_method_st SSL_PROTOCOL_METHOD;
 typedef struct ssl3_enc_method SSL3_ENC_METHOD;
 typedef struct ssl_aead_ctx_st SSL_AEAD_CTX;
+typedef struct ssl_ecdh_method_st SSL_ECDH_METHOD;
 
 struct ssl_cipher_st {
   /* name is the OpenSSL name for the cipher. */
@@ -3990,8 +3991,6 @@ typedef struct ssl3_state_st {
     const SSL_CIPHER *new_cipher;
     DH *dh;
 
-    EC_KEY *ecdh; /* holds short lived ECDH key */
-
     /* used when SSL_ST_FLUSH_DATA is entered */
     int next_state;
 
@@ -4094,8 +4093,15 @@ typedef struct ssl3_state_st {
     /* peer_dh_tmp, on a client, is the server's DHE public key. */
     DH *peer_dh_tmp;
 
-    /* peer_ecdh_tmp, on a client, is the server's ECDHE public key. */
-    EC_KEY *peer_ecdh_tmp;
+    /* ecdh_method is the method table for the current ECDH instance. */
+    const SSL_ECDH_METHOD *ecdh_method;
+
+    /* ecdh_data is the state associated with the current ECDH instance. */
+    void *ecdh_data;
+
+    /* peer_key is the peer's ECDH key. */
+    uint8_t *peer_key;
+    uint8_t peer_key_len;
   } tmp;
 
   /* Connection binding to prevent renegotiation attacks */
