@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a52de678_11e20ef6",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 4106,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-12-21T19:27:45Z",
+      "side": 1,
+      "message": "(A little bit more per-connection state, but https://boringssl-review.googlesource.com/#/c/6784/ pays that debt back off and the real fix is to make s3.tmp an allocated structure.)",
+      "revId": "c718d30725154b197faad981ae2c629768fad812",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a52de678_110bee6d",
+        "filename": "ssl/internal.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-12-21T19:27:45Z",
+      "side": 1,
+      "message": "Called these \u0027CURVE\u0027 instead of \u0027ECDH\u0027 because they\u0027re also used for negotiating signatures in both TLS 1.2 and TLS 1.3. (Though I currently think it\u0027s a mistake for 1.3. Sent you an email with thoughts.) Otherwise, they match the TLS 1.3 names.",
+      "range": {
+        "startLine": 519,
+        "startChar": 12,
+        "endLine": 519,
+        "endChar": 17
+      },
+      "revId": "c718d30725154b197faad981ae2c629768fad812",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a52de678_d110769b",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-12-21T19:27:45Z",
+      "side": 1,
+      "message": "Okay to go ahead and enable it by default?",
+      "revId": "c718d30725154b197faad981ae2c629768fad812",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
