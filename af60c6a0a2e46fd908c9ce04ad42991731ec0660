@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a52de678_0e6f4f45",
+        "filename": "crypto/obj/objects.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 1335,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-12-21T18:59:12Z",
+      "side": 1,
+      "message": "\"short\" name uppercase and \"long\" name lowercase doesn\u0027t make a whole lot of sense, but I just mirrored how the hash functions look.\n\n*shrug* I\u0027m hoping we can eventually unship the OID table anyway and just have the few contexts which actually process OIDs just memcmp the 4-5 OIDs needed in each context manually.",
+      "revId": "af60c6a0a2e46fd908c9ce04ad42991731ec0660",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
