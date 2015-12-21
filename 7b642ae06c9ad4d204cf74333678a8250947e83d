@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a52de678_4e4227f1",
+        "filename": "ssl/test/runner/poly1305/poly1305.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-12-21T18:16:36Z",
+      "side": 1,
+      "message": "I assume we\u0027ll be able to promote this and ChaCha20-Poly1305 to the standard library when it comes time to put them in the Go TLS stack?",
+      "range": {
+        "startLine": 19,
+        "startChar": 28,
+        "endLine": 19,
+        "endChar": 41
+      },
+      "revId": "7b642ae06c9ad4d204cf74333678a8250947e83d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a52de678_2e35f381",
+        "filename": "ssl/test/runner/poly1305/sum_ref.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-12-21T18:16:36Z",
+      "side": 1,
+      "message": "(Doesn\u0027t matter, but since we can lump it into a directory, I imported the assembly too so I wouldn\u0027t have to patch those out again.)",
+      "revId": "7b642ae06c9ad4d204cf74333678a8250947e83d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
