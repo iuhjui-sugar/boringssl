@@ -106,6 +106,24 @@
       "revId": "3b822f34f9ef35b4cc3fadb977e00622a2c64ec5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ca01073f_540fc27c",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1731,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-12-22T19:02:30Z",
+      "side": 1,
+      "message": "Agreed that asn12bn is silly. I\u0027ve maybe a slight preference for BN_from_… and BN_to_… because it saves mentioning BN twice, but whatever makes sense really.",
+      "parentUuid": "0a495fa4_db3f73ad",
+      "revId": "3b822f34f9ef35b4cc3fadb977e00622a2c64ec5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
