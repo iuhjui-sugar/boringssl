@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a495fa4_5b5fe3f6",
+        "filename": "ssl/ssl_ecdh.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-12-22T20:38:30Z",
+      "side": 1,
+      "message": "Also want to drop this sentence.",
+      "range": {
+        "startLine": 195,
+        "startChar": 42,
+        "endLine": 197,
+        "endChar": 48
+      },
+      "revId": "38fa9e2261f6175dbcf2a504972bb1aea0841934",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a495fa4_9b504be4",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-12-22T20:38:30Z",
+      "side": 1,
+      "message": "This works? ssl-\u003eversion isn\u0027t finalized at this point. I think you want to muck with SSL_CIPHER_get_min_version.\n\n(Hrm. Although... this does suggest that perhaps we could consider folding SSL_CIPHER_get_min_version into this function.)",
+      "revId": "38fa9e2261f6175dbcf2a504972bb1aea0841934",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a495fa4_7b5a9f08",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 16
+      },
+      "lineNbr": 844,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-12-22T20:38:30Z",
+      "side": 1,
+      "message": "Nit: Doesn\u0027t matter, but I\u0027d probably add || isTLS12Only(suiteName)",
+      "revId": "38fa9e2261f6175dbcf2a504972bb1aea0841934",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
