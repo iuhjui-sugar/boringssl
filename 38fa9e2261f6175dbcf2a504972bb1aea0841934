@@ -60,6 +60,24 @@
     },
     {
       "key": {
+        "uuid": "0a495fa4_db4ad32f",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-12-22T20:57:57Z",
+      "side": 1,
+      "message": "Ah, hrmf. s/version/client_version/ then?\n\nOr maybe just not even bother. This is the only case where we\u0027d want to half-disable a cipher, hopefully we\u0027ll be rid of SSL 3.0 eventually anyway (Chrome won\u0027t do it anymore, though I suppose we still have random other clients), and this hasn\u0027t been a problem thus far.\n\nIf the server wants to take us up on our blind offer of SSLv3 + ECDHE, then that\u0027s its problem. :-) The compatibility risk isn\u0027t going to get worse on the client end unless we manage to remove P-256 or P-384 before SSL 3.0.",
+      "parentUuid": "ca01073f_5411822f",
+      "revId": "38fa9e2261f6175dbcf2a504972bb1aea0841934",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0a495fa4_7b5a9f08",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 16
