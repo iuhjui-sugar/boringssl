@@ -16,6 +16,24 @@
       "revId": "3e88b47adaec0cd13b52f087fb6ee9e80bb91457",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a495fa4_bb36e78a",
+        "filename": "ssl/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 559,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-12-22T22:20:27Z",
+      "side": 1,
+      "message": "Probably. I only realized I could use this for DHE after I wrote it and didn\u0027t think to rename it. :-)\n\nMaybe we should just go ahead and call it SSL_KEY_EXCHANGE_CTX? That\u0027s most consistent with TLS 1.3. It\u0027ll just be documented somewhere that it\u0027s only the standard-looking key exchange and things sufficiently similar to it. I don\u0027t think we should try to route plain RSA into it so long as we have the asynchronous codepath. Making things asynchronous makes the interface significantly more complex.",
+      "parentUuid": "ca01073f_7412c6e7",
+      "revId": "3e88b47adaec0cd13b52f087fb6ee9e80bb91457",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
