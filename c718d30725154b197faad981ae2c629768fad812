@@ -42,6 +42,23 @@
     },
     {
       "key": {
+        "uuid": "ca01073f_b4526e62",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 1240,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-12-22T19:22:55Z",
+      "side": 1,
+      "message": "(I guess we\u0027re missing a test!)",
+      "revId": "c718d30725154b197faad981ae2c629768fad812",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a52de678_d110769b",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 14
@@ -53,6 +70,41 @@
       "writtenOn": "2015-12-21T19:27:45Z",
       "side": 1,
       "message": "Okay to go ahead and enable it by default?",
+      "revId": "c718d30725154b197faad981ae2c629768fad812",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ca01073f_947daac2",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-12-22T19:22:55Z",
+      "side": 1,
+      "message": "Yes, I think so.",
+      "parentUuid": "a52de678_d110769b",
+      "revId": "c718d30725154b197faad981ae2c629768fad812",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ca01073f_3474bed7",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-12-22T19:22:55Z",
+      "side": 1,
+      "message": "I wonder if any clients actually try to omit the extension and will break when our choice goes from P-256 to X25519.",
       "revId": "c718d30725154b197faad981ae2c629768fad812",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
