@@ -78,6 +78,24 @@
     },
     {
       "key": {
+        "uuid": "0a495fa4_7b99fff1",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-12-22T21:01:55Z",
+      "side": 1,
+      "message": "Oh, this doesn\u0027t even affect clients that allow SSL 3.0. They have to set max_version \u003d SSL 3.0, so the client would *also* have to implementing an SSL 3.0 fallback leg. And even then it\u0027d only affect TLS-intolerant servers which hopefully have been largely eradicated.\n\n(Probably do want to test to make sure accepting ECDHE over SSL 3.0 still works though.)",
+      "parentUuid": "0a495fa4_db4ad32f",
+      "revId": "38fa9e2261f6175dbcf2a504972bb1aea0841934",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0a495fa4_7b5a9f08",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 16
