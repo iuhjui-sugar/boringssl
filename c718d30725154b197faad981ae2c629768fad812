@@ -59,6 +59,24 @@
     },
     {
       "key": {
+        "uuid": "0a495fa4_7b0c5f19",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 1240,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-12-22T19:39:49Z",
+      "side": 1,
+      "message": "...and apparently I screwed up a rebase somewhere. That and line 1270 were supposed to be part of https://boringssl-review.googlesource.com/#/c/6783/. Oh well.\n\n(Not rewriting history since you mentioned you were working on the other bit. I\u0027ll go add a test to the tower though. I don\u0027t think we have key_exchange_info tests at all, actually.)",
+      "parentUuid": "ca01073f_b4526e62",
+      "revId": "c718d30725154b197faad981ae2c629768fad812",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a52de678_d110769b",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 14
