@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "ca01073f_5411822f",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-12-22T20:53:44Z",
+      "side": 1,
+      "message": "The problem is that SSL_CIPHER_get_min_version is checked when the ServerHello comes back. So if we send a TLS ClientHello (which offers ECDHE) and the server picks SSLv3+ECDHE then we don\u0027t want to abort, because some servers will do that.",
+      "parentUuid": "0a495fa4_9b504be4",
+      "revId": "38fa9e2261f6175dbcf2a504972bb1aea0841934",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0a495fa4_7b5a9f08",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 16
