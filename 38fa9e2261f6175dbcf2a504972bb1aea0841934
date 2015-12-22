@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ca01073f_d480d268",
+        "filename": "ssl/ssl_ecdh.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-12-22T21:50:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a495fa4_5b5fe3f6",
+      "range": {
+        "startLine": 195,
+        "startChar": 42,
+        "endLine": 197,
+        "endChar": 48
+      },
+      "revId": "38fa9e2261f6175dbcf2a504972bb1aea0841934",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0a495fa4_9b504be4",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 16
@@ -96,6 +120,24 @@
     },
     {
       "key": {
+        "uuid": "ca01073f_34ddde99",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-12-22T21:50:26Z",
+      "side": 1,
+      "message": "Ok. I\u0027ll go with not bothering about this.",
+      "parentUuid": "0a495fa4_7b99fff1",
+      "revId": "38fa9e2261f6175dbcf2a504972bb1aea0841934",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0a495fa4_7b5a9f08",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 16
@@ -107,6 +149,24 @@
       "writtenOn": "2015-12-22T20:38:30Z",
       "side": 1,
       "message": "Nit: Doesn\u0027t matter, but I\u0027d probably add || isTLS12Only(suiteName)",
+      "revId": "38fa9e2261f6175dbcf2a504972bb1aea0841934",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ca01073f_74e76661",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 16
+      },
+      "lineNbr": 844,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-12-22T21:50:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a495fa4_7b5a9f08",
       "revId": "38fa9e2261f6175dbcf2a504972bb1aea0841934",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
