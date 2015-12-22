@@ -88,6 +88,24 @@
       "revId": "3b822f34f9ef35b4cc3fadb977e00622a2c64ec5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a495fa4_db3f73ad",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1731,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-12-22T18:58:25Z",
+      "side": 1,
+      "message": "Hrm. Should we perhaps switch the ASN.1 ones to spelling out the 2 then? Otherwise BN_cbs2bn_unsigned probably wants to become BN_asn12bn_unsigned to match, which looks kind of silly.\n\nI was thinking either BN_bn2cbb_asn1 / BN_cbs2bn_asn1_unsigned or BN_from_asn1_unsigned / BN_to_asn1. Or maybe BN_parse_asn1_unsigned / BN_marshal_asn1.\n\n(Or we could use der, but I guess we\u0027d have to rename everything then.)",
+      "parentUuid": "ca01073f_d1662467",
+      "revId": "3b822f34f9ef35b4cc3fadb977e00622a2c64ec5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
