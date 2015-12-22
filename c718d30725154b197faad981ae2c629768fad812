@@ -112,6 +112,24 @@
     },
     {
       "key": {
+        "uuid": "ca01073f_34eb1e61",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-12-22T20:32:29Z",
+      "side": 1,
+      "message": "(We later decided to target Chrome 50.)",
+      "parentUuid": "ca01073f_947daac2",
+      "revId": "c718d30725154b197faad981ae2c629768fad812",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ca01073f_3474bed7",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 14
