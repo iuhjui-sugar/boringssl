@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ca01073f_7412c6e7",
+        "filename": "ssl/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 559,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-12-22T22:13:31Z",
+      "side": 1,
+      "message": "Probably needs a rename in the future then :)",
+      "revId": "3e88b47adaec0cd13b52f087fb6ee9e80bb91457",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
