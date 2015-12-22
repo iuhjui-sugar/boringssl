@@ -16,6 +16,24 @@
       "revId": "a89b2f02a8ea89fb7e64cb15dbe4ba627dec728a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a495fa4_bbd54716",
+        "filename": "include/openssl/pem.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-12-22T00:26:53Z",
+      "side": 0,
+      "message": "It\u0027s because the corresponding implementations are gone:\n\nhttps://boringssl-review.googlesource.com/#/c/6763/1/crypto/pem/pem_all.c",
+      "parentUuid": "ca01073f_3174d0d7",
+      "revId": "a89b2f02a8ea89fb7e64cb15dbe4ba627dec728a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
