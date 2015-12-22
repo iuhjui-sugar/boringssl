@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ca01073f_d18f444f",
+        "filename": "ssl/test/runner/poly1305/poly1305.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-12-22T17:47:27Z",
+      "side": 1,
+      "message": "Yep.",
+      "parentUuid": "a52de678_4e4227f1",
+      "range": {
+        "startLine": 19,
+        "startChar": 28,
+        "endLine": 19,
+        "endChar": 41
+      },
+      "revId": "7b642ae06c9ad4d204cf74333678a8250947e83d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a52de678_2e35f381",
         "filename": "ssl/test/runner/poly1305/sum_ref.go",
         "patchSetId": 1
