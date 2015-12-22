@@ -34,6 +34,24 @@
       "revId": "3e88b47adaec0cd13b52f087fb6ee9e80bb91457",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ca01073f_d7fa948d",
+        "filename": "ssl/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 559,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-12-22T23:19:19Z",
+      "side": 1,
+      "message": "Since it doesn\u0027t include RSA, I might go for \"key agreement\", but TLS 1.3 doesn\u0027t use that phrase so it might well be best to use \"key exchange\".",
+      "parentUuid": "0a495fa4_bb36e78a",
+      "revId": "3e88b47adaec0cd13b52f087fb6ee9e80bb91457",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
