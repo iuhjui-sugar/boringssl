@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ca01073f_74fbe6df",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 15
+      },
+      "lineNbr": 4700,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2015-12-22T22:01:48Z",
+      "side": 1,
+      "message": "Do you mean that it doesn\u0027t work on a server for RSA specifically?",
+      "revId": "a90f48a8a51fab4db208128882088f23c9d4a018",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
