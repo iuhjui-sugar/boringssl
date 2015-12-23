@@ -285,8 +285,6 @@ struct ec_key_st {
 
 /* curve_data contains data about a built-in elliptic curve. */
 struct curve_data {
-  /* comment is a human-readable string describing the curve. */
-  const char *comment;
   /* param_len is the number of bytes needed to store a field element. */
   uint8_t param_len;
   /* cofactor is the cofactor of the group (i.e. the number of elements in the

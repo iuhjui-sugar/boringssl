@@ -80,7 +80,6 @@
 
 
 static const struct curve_data P224 = {
-    "NIST P-224",
     28,
     1,
     {/* p */
@@ -110,7 +109,6 @@ static const struct curve_data P224 = {
     }};
 
 static const struct curve_data P256 = {
-    "NIST P-256",
     32,
     1,
     {/* p */
@@ -139,7 +137,6 @@ static const struct curve_data P256 = {
      0xF3, 0xB9, 0xCA, 0xC2, 0xFC, 0x63, 0x25, 0x51}};
 
 static const struct curve_data P384 = {
-    "NIST P-384",
     48,
     1,
     {/* p */
@@ -174,7 +171,6 @@ static const struct curve_data P384 = {
      0x48, 0xB0, 0xA7, 0x7A, 0xEC, 0xEC, 0x19, 0x6A, 0xCC, 0xC5, 0x29, 0x73}};
 
 static const struct curve_data P521 = {
-    "NIST P-521",
     66,
     1,
     {/* p */
