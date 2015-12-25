@@ -503,13 +503,9 @@ static int pkey_rsa_keygen(EVP_PKEY_CTX *ctx, EVP_PKEY *pkey) {
 }
 
 const EVP_PKEY_METHOD rsa_pkey_meth = {
-    EVP_PKEY_RSA,         0 /* flags */,        pkey_rsa_init,
-    pkey_rsa_copy,        pkey_rsa_cleanup,     0 /* paramgen_init */,
-    0 /* paramgen */,     0 /* keygen_init */,  pkey_rsa_keygen,
-    0 /* sign_init */,    pkey_rsa_sign,        0 /* verify_init */,
-    pkey_rsa_verify,      0 /* encrypt_init */, pkey_rsa_encrypt,
-    0 /* decrypt_init */, pkey_rsa_decrypt,     0 /* derive_init */,
-    0 /* derive */,       pkey_rsa_ctrl,
+    EVP_PKEY_RSA,     pkey_rsa_init,  pkey_rsa_copy,   pkey_rsa_cleanup,
+    pkey_rsa_keygen,  pkey_rsa_sign,  pkey_rsa_verify, pkey_rsa_encrypt,
+    pkey_rsa_decrypt, 0 /* derive */, pkey_rsa_ctrl,
 };
 
 int EVP_PKEY_CTX_set_rsa_padding(EVP_PKEY_CTX *ctx, int padding) {
