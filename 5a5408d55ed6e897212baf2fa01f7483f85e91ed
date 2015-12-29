@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3bed97ca_b3cba0c9",
+        "filename": "crypto/ecdh/ecdh.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2015-12-29T20:25:28Z",
+      "side": 1,
+      "message": "Note that in the case where WNAF-based multiplication is used, this will do extra additions that were not done before. But, I guess insofar as that mitigation was useful, it should have been done here too anyway.",
+      "range": {
+        "startLine": 106,
+        "startChar": 7,
+        "endLine": 106,
+        "endChar": 31
+      },
+      "revId": "5a5408d55ed6e897212baf2fa01f7483f85e91ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
