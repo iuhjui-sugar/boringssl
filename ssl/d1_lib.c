@@ -110,11 +110,11 @@ int dtls1_new(SSL *ssl) {
 
   ssl->d1 = d1;
 
-  /* Set the version to the highest version for DTLS. This controls the initial
-   * state of |ssl->enc_method| and what the API reports as the version prior to
-   * negotiation.
+  /* Set the version to the highest supported version. This controls what
+   * |SSL_version| reports as the version prior to negotiation.
    *
-   * TODO(davidben): This is fragile and confusing. */
+   * TODO(davidben): Make |SSL_version| explicitly implement this behavior and
+   * move this field into |s3| to ensure nothing reads it directly. */
   ssl->version = DTLS1_2_VERSION;
   return 1;
 }
