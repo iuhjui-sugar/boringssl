@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ca33c71e_21946eba",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1398,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2015-12-31T04:14:10Z",
+      "side": 1,
+      "message": "(Existing, but this probably should have been const.)",
+      "revId": "22284182518ab8fa1497676d8072e5a27df0dd3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
