@@ -328,7 +328,6 @@ OPENSSL_EXPORT int i2d_DSAparams(const DSA *in, unsigned char **outp);
 
 struct dsa_st {
   long version;
-  int write_params;
   BIGNUM *p;
   BIGNUM *q; /* == 20 */
   BIGNUM *g;
