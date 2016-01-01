@@ -66,7 +66,7 @@
 #include "internal.h"
 
 
-static int eckey_param2type(int *pptype, void **ppval, EC_KEY *ec_key) {
+static int eckey_param2type(int *pptype, void **ppval, const EC_KEY *ec_key) {
   const EC_GROUP *group;
   int nid;
 
@@ -180,39 +180,25 @@ static int eckey_pub_cmp(const EVP_PKEY *a, const EVP_PKEY *b) {
   }
 }
 
-static EC_KEY *eckey_type2param(int ptype, void *pval) {
-  EC_KEY *eckey = NULL;
-
+static EC_GROUP *eckey_type2param(int ptype, void *pval) {
   if (ptype == V_ASN1_SEQUENCE) {
     ASN1_STRING *pstr = pval;
-    const uint8_t *pm = pstr->data;
-    int pmlen = pstr->length;
-
-    eckey = d2i_ECParameters(NULL, &pm, pmlen);
-    if (eckey == NULL) {
+    CBS cbs;
+    CBS_init(&cbs, pstr->data, (size_t)pstr->length);
+    EC_GROUP *ret = EC_KEY_parse_parameters(&cbs);
+    if (ret == NULL || CBS_len(&cbs) != 0) {
       OPENSSL_PUT_ERROR(EVP, EVP_R_DECODE_ERROR);
-      goto err;
+      EC_GROUP_free(ret);
+      return NULL;
     }
-  } else if (ptype == V_ASN1_OBJECT) {
-    ASN1_OBJECT *poid = pval;
-
-    /* type == V_ASN1_OBJECT => the parameters are given
-     * by an asn1 OID */
-    eckey = EC_KEY_new_by_curve_name(OBJ_obj2nid(poid));
-    if (eckey == NULL) {
-      goto err;
-    }
-  } else {
-    OPENSSL_PUT_ERROR(EVP, EVP_R_DECODE_ERROR);
-    goto err;
+    return ret;
   }
 
-  return eckey;
-
-err:
-  if (eckey) {
-    EC_KEY_free(eckey);
+  if (ptype == V_ASN1_OBJECT) {
+    return EC_GROUP_new_by_curve_name(OBJ_obj2nid((ASN1_OBJECT *)pval));
   }
+
+  OPENSSL_PUT_ERROR(EVP, EVP_R_DECODE_ERROR);
   return NULL;
 }
 
@@ -220,84 +206,60 @@ static int eckey_priv_decode(EVP_PKEY *pkey, PKCS8_PRIV_KEY_INFO *p8) {
   const uint8_t *p = NULL;
   void *pval;
   int ptype, pklen;
-  EC_KEY *eckey = NULL;
   X509_ALGOR *palg;
-
   if (!PKCS8_pkey_get0(NULL, &p, &pklen, &palg, p8)) {
     return 0;
   }
   X509_ALGOR_get0(NULL, &ptype, &pval, palg);
 
-  eckey = eckey_type2param(ptype, pval);
-
-  if (!eckey) {
-    goto ecliberr;
+  EC_GROUP *group = eckey_type2param(ptype, pval);
+  if (group == NULL) {
+    return 0;
   }
 
-  /* We have parameters now set private key */
-  if (!d2i_ECPrivateKey(&eckey, &p, pklen)) {
+  CBS cbs;
+  CBS_init(&cbs, p, (size_t)pklen);
+  EC_KEY *ec_key = EC_KEY_parse_private_key(&cbs, group);
+  EC_GROUP_free(group);
+  if (ec_key == NULL || CBS_len(&cbs) != 0) {
     OPENSSL_PUT_ERROR(EVP, EVP_R_DECODE_ERROR);
-    goto ecerr;
+    EC_KEY_free(ec_key);
+    return 0;
   }
 
-  EVP_PKEY_assign_EC_KEY(pkey, eckey);
+  EVP_PKEY_assign_EC_KEY(pkey, ec_key);
   return 1;
-
-ecliberr:
-  OPENSSL_PUT_ERROR(EVP, ERR_R_EC_LIB);
-ecerr:
-  if (eckey) {
-    EC_KEY_free(eckey);
-  }
-  return 0;
 }
 
 static int eckey_priv_encode(PKCS8_PRIV_KEY_INFO *p8, const EVP_PKEY *pkey) {
-  EC_KEY *ec_key;
-  uint8_t *ep, *p;
-  int eplen, ptype;
+  const EC_KEY *ec_key = pkey->pkey.ec;
+
+  int ptype;
   void *pval;
-  unsigned int tmp_flags, old_flags;
-
-  ec_key = pkey->pkey.ec;
-
   if (!eckey_param2type(&ptype, &pval, ec_key)) {
-    OPENSSL_PUT_ERROR(EVP, EVP_R_DECODE_ERROR);
+    OPENSSL_PUT_ERROR(EVP, EVP_R_ENCODE_ERROR);
     return 0;
   }
 
-  /* set the private key */
-
-  /* do not include the parameters in the SEC1 private key
-   * see PKCS#11 12.11 */
-  old_flags = EC_KEY_get_enc_flags(ec_key);
-  tmp_flags = old_flags | EC_PKEY_NO_PARAMETERS;
-  EC_KEY_set_enc_flags(ec_key, tmp_flags);
-  eplen = i2d_ECPrivateKey(ec_key, NULL);
-  if (!eplen) {
-    EC_KEY_set_enc_flags(ec_key, old_flags);
-    OPENSSL_PUT_ERROR(EVP, ERR_R_EC_LIB);
+  /* Per PKCS#11 12.11, do not include the parameters in the ECPrivateKey. Note
+   * this is the opposite of RFC 5915's recommendation. */
+  CBB cbb;
+  uint8_t *der;
+  size_t der_len;
+  if (!CBB_init(&cbb, 0) ||
+      /* Preserve the |EC_PKEY_NO_PUBKEY| flag from parsing the key.
+       * TODO(davidben): Remove this. */
+      !EC_KEY_marshal_private_key(
+          &cbb, ec_key, EC_KEY_get_enc_flags(ec_key) | EC_PKEY_NO_PARAMETERS) ||
+      !CBB_finish(&cbb, &der, &der_len)) {
+    CBB_cleanup(&cbb);
+    OPENSSL_PUT_ERROR(EVP, EVP_R_ENCODE_ERROR);
     return 0;
   }
-  ep = (uint8_t *)OPENSSL_malloc(eplen);
-  if (!ep) {
-    EC_KEY_set_enc_flags(ec_key, old_flags);
-    OPENSSL_PUT_ERROR(EVP, ERR_R_MALLOC_FAILURE);
-    return 0;
-  }
-  p = ep;
-  if (!i2d_ECPrivateKey(ec_key, &p)) {
-    EC_KEY_set_enc_flags(ec_key, old_flags);
-    OPENSSL_free(ep);
-    OPENSSL_PUT_ERROR(EVP, ERR_R_EC_LIB);
-    return 0;
-  }
-  /* restore old encoding flags */
-  EC_KEY_set_enc_flags(ec_key, old_flags);
 
   if (!PKCS8_pkey_set0(p8, (ASN1_OBJECT *)OBJ_nid2obj(NID_X9_62_id_ecPublicKey),
-                       0, ptype, pval, ep, eplen)) {
-    OPENSSL_free(ep);
+                       0, ptype, pval, der, der_len)) {
+    OPENSSL_free(der);
     return 0;
   }
 
