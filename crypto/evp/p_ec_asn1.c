@@ -59,6 +59,8 @@
 #include <openssl/bn.h>
 #include <openssl/bytestring.h>
 #include <openssl/ec.h>
+#include <openssl/ec_key.h>
+#include <openssl/ecdsa.h>
 #include <openssl/err.h>
 #include <openssl/mem.h>
 #include <openssl/obj.h>
@@ -144,103 +146,51 @@ static int eckey_pub_cmp(const EVP_PKEY *a, const EVP_PKEY *b) {
   }
 }
 
-static EC_GROUP *eckey_type2param(int ptype, void *pval) {
-  if (ptype == V_ASN1_SEQUENCE) {
-    ASN1_STRING *pstr = pval;
-    CBS cbs;
-    CBS_init(&cbs, pstr->data, (size_t)pstr->length);
-    EC_GROUP *ret = EC_KEY_parse_parameters(&cbs);
-    if (ret == NULL || CBS_len(&cbs) != 0) {
-      OPENSSL_PUT_ERROR(EVP, EVP_R_DECODE_ERROR);
-      EC_GROUP_free(ret);
-      return NULL;
-    }
-    return ret;
-  }
-
-  if (ptype == V_ASN1_OBJECT) {
-    return EC_GROUP_new_by_curve_name(OBJ_obj2nid((ASN1_OBJECT *)pval));
-  }
-
-  OPENSSL_PUT_ERROR(EVP, EVP_R_DECODE_ERROR);
-  return NULL;
-}
-
-static int eckey_priv_decode(EVP_PKEY *pkey, PKCS8_PRIV_KEY_INFO *p8) {
-  const uint8_t *p = NULL;
-  void *pval;
-  int ptype, pklen;
-  X509_ALGOR *palg;
-  if (!PKCS8_pkey_get0(NULL, &p, &pklen, &palg, p8)) {
-    return 0;
-  }
-  X509_ALGOR_get0(NULL, &ptype, &pval, palg);
-
-  EC_GROUP *group = eckey_type2param(ptype, pval);
-  if (group == NULL) {
+static int eckey_priv_decode(EVP_PKEY *out, CBS *params, CBS *key) {
+  /* See RFC 5915. */
+  EC_GROUP *group = EC_KEY_parse_parameters(params);
+  if (group == NULL || CBS_len(params) != 0) {
+    OPENSSL_PUT_ERROR(EVP, EVP_R_DECODE_ERROR);
+    EC_GROUP_free(group);
     return 0;
   }
 
-  CBS cbs;
-  CBS_init(&cbs, p, (size_t)pklen);
-  EC_KEY *ec_key = EC_KEY_parse_private_key(&cbs, group);
+  EC_KEY *ec_key = EC_KEY_parse_private_key(key, group);
   EC_GROUP_free(group);
-  if (ec_key == NULL || CBS_len(&cbs) != 0) {
+  if (ec_key == NULL || CBS_len(key) != 0) {
     OPENSSL_PUT_ERROR(EVP, EVP_R_DECODE_ERROR);
     EC_KEY_free(ec_key);
     return 0;
   }
 
-  EVP_PKEY_assign_EC_KEY(pkey, ec_key);
+  EVP_PKEY_assign_EC_KEY(out, ec_key);
   return 1;
 }
 
-static int eckey_param2type(int *pptype, void **ppval, const EC_KEY *ec_key) {
-  const EC_GROUP *group;
-  int nid;
-
-  if (ec_key == NULL || (group = EC_KEY_get0_group(ec_key)) == NULL) {
-    OPENSSL_PUT_ERROR(EVP, EVP_R_MISSING_PARAMETERS);
-    return 0;
-  }
-
-  nid = EC_GROUP_get_curve_name(group);
-  if (nid == NID_undef) {
+static int eckey_priv_encode(CBB *out, const EVP_PKEY *key) {
+  const EC_KEY *ec_key = key->pkey.ec;
+  int curve_nid = EC_GROUP_get_curve_name(EC_KEY_get0_group(ec_key));
+  if (curve_nid == NID_undef) {
     OPENSSL_PUT_ERROR(EVP, EVP_R_NO_NID_FOR_CURVE);
     return 0;
   }
 
-  *ppval = (void*) OBJ_nid2obj(nid);
-  *pptype = V_ASN1_OBJECT;
-  return 1;
-}
-
-static int eckey_priv_encode(PKCS8_PRIV_KEY_INFO *p8, const EVP_PKEY *pkey) {
-  const EC_KEY *ec_key = pkey->pkey.ec;
-
-  int ptype;
-  void *pval;
-  if (!eckey_param2type(&ptype, &pval, ec_key)) {
+  /* See RFC 5915. */
+  CBB pkcs8, algorithm, private_key;
+  if (!CBB_add_asn1(out, &pkcs8, CBS_ASN1_SEQUENCE) ||
+      !CBB_add_asn1_uint64(&pkcs8, 0 /* version */) ||
+      !CBB_add_asn1(&pkcs8, &algorithm, CBS_ASN1_SEQUENCE) ||
+      !OBJ_nid2cbb(&algorithm, NID_X9_62_id_ecPublicKey) ||
+      !OBJ_nid2cbb(&algorithm, curve_nid) ||
+      !CBB_add_asn1(&pkcs8, &private_key, CBS_ASN1_OCTETSTRING) ||
+      /* Omit the redundant copy of the curve name. This contradicts RFC 5915
+       * but aligns with PKCS #11. SEC 1 only says they may be omitted if known
+       * by other means. Both OpenSSL and NSS omit the redundant parameters, so
+       * we omit them as well. */
+      !EC_KEY_marshal_private_key(&private_key, ec_key,
+                                  EC_PKEY_NO_PARAMETERS) ||
+      !CBB_flush(out)) {
     OPENSSL_PUT_ERROR(EVP, EVP_R_ENCODE_ERROR);
-    return 0;
-  }
-
-  /* Per PKCS#11 12.11, do not include the parameters in the ECPrivateKey. Note
-   * this is the opposite of RFC 5915's recommendation. */
-  CBB cbb;
-  uint8_t *der;
-  size_t der_len;
-  if (!CBB_init(&cbb, 0) ||
-      !EC_KEY_marshal_private_key(&cbb, ec_key, EC_PKEY_NO_PARAMETERS) ||
-      !CBB_finish(&cbb, &der, &der_len)) {
-    CBB_cleanup(&cbb);
-    OPENSSL_PUT_ERROR(EVP, EVP_R_ENCODE_ERROR);
-    return 0;
-  }
-
-  if (!PKCS8_pkey_set0(p8, (ASN1_OBJECT *)OBJ_nid2obj(NID_X9_62_id_ecPublicKey),
-                       0, ptype, pval, der, der_len)) {
-    OPENSSL_free(der);
     return 0;
   }
 
