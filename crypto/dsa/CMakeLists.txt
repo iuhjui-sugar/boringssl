@@ -8,6 +8,7 @@ add_library(
   dsa.c
   dsa_asn1.c
   dsa_asn1_legacy.c
+  dsa_impl.c
 )
 
 add_executable(
