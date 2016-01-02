@@ -61,8 +61,6 @@
 #include <openssl/err.h>
 #include <openssl/mem.h>
 
-#include "internal.h"
-
 
 static int dsa_sig_cb(int operation, ASN1_VALUE **pval, const ASN1_ITEM *it,
                       void *exarg) {
