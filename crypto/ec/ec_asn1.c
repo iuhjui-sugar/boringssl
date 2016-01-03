@@ -151,14 +151,10 @@ EC_KEY *EC_KEY_parse_private_key(CBS *cbs, const EC_GROUP *group) {
       OPENSSL_PUT_ERROR(EC, EC_R_DECODE_ERROR);
       goto err;
     }
-  } else {
     /* Compute the public key instead. */
-    if (!EC_POINT_mul(group, ret->pub_key, ret->priv_key, NULL, NULL, NULL)) {
-      goto err;
-    }
-    /* Remember the original private-key-only encoding.
-     * TODO(davidben): Is making this a property of the key necessary? */
-    ret->enc_flag |= EC_PKEY_NO_PUBKEY;
+  } else if (!EC_POINT_mul(group, ret->pub_key, ret->priv_key, NULL, NULL,
+                           NULL)) {
+    goto err;
   }
 
   if (CBS_len(&ec_private_key) != 0) {
@@ -392,7 +388,7 @@ int i2d_ECPrivateKey(const EC_KEY *key, uint8_t **outp) {
   size_t der_len;
   CBB cbb;
   if (!CBB_init(&cbb, 0) ||
-      !EC_KEY_marshal_private_key(&cbb, key, EC_KEY_get_enc_flags(key)) ||
+      !EC_KEY_marshal_private_key(&cbb, key, 0) ||
       !CBB_finish(&cbb, &der, &der_len)) {
     OPENSSL_PUT_ERROR(EC, EC_R_ENCODE_ERROR);
     return -1;
