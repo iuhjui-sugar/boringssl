@@ -247,10 +247,7 @@ static int eckey_priv_encode(PKCS8_PRIV_KEY_INFO *p8, const EVP_PKEY *pkey) {
   uint8_t *der;
   size_t der_len;
   if (!CBB_init(&cbb, 0) ||
-      /* Preserve the |EC_PKEY_NO_PUBKEY| flag from parsing the key.
-       * TODO(davidben): Remove this. */
-      !EC_KEY_marshal_private_key(
-          &cbb, ec_key, EC_KEY_get_enc_flags(ec_key) | EC_PKEY_NO_PARAMETERS) ||
+      !EC_KEY_marshal_private_key(&cbb, ec_key, EC_PKEY_NO_PARAMETERS) ||
       !CBB_finish(&cbb, &der, &der_len)) {
     CBB_cleanup(&cbb);
     OPENSSL_PUT_ERROR(EVP, EVP_R_ENCODE_ERROR);
