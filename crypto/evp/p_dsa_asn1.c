@@ -256,8 +256,6 @@ const EVP_PKEY_ASN1_METHOD dsa_asn1_meth = {
   EVP_PKEY_DSA,
   0,
 
-  "DSA",
-
   dsa_pub_decode,
   dsa_pub_encode,
   dsa_pub_cmp,
