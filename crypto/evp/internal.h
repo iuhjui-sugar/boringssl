@@ -66,6 +66,11 @@ extern "C" {
 #endif
 
 
+/* EVP_PKEY_asn1_find returns the ASN.1 method table for the given |nid|, which
+ * should be one of the |EVP_PKEY_*| values. It returns NULL if |nid| is
+ * unknown. */
+const EVP_PKEY_ASN1_METHOD *EVP_PKEY_asn1_find(int nid);
+
 /* These values are flags for EVP_PKEY_ASN1_METHOD.flags. */
 
 /* ASN1_PKEY_SIGPARAM_NULL controls whether the default behavior of
