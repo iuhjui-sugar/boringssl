@@ -379,7 +379,7 @@ RSA *d2i_RSAPublicKey(RSA **out, const uint8_t **inp, long len) {
     RSA_free(*out);
     *out = ret;
   }
-  *inp += (size_t)len - CBS_len(&cbs);
+  *inp = CBS_data(&cbs);
   return ret;
 }
 
@@ -421,7 +421,7 @@ RSA *d2i_RSAPrivateKey(RSA **out, const uint8_t **inp, long len) {
     RSA_free(*out);
     *out = ret;
   }
-  *inp += (size_t)len - CBS_len(&cbs);
+  *inp = CBS_data(&cbs);
   return ret;
 }
 
