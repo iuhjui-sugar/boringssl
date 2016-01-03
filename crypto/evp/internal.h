@@ -73,19 +73,6 @@ extern "C" {
  * AlgorithmIdentifier. */
 #define ASN1_PKEY_SIGPARAM_NULL 0x1
 
-/* evp_digest_sign_algorithm_result_t is the return value of the
- * digest_sign_algorithm function in EVP_PKEY_ASN1_METHOD. */
-typedef enum {
-  /* EVP_DIGEST_SIGN_ALGORITHM_ERROR signals an error. */
-  EVP_DIGEST_SIGN_ALGORITHM_ERROR = 0,
-  /* EVP_DIGEST_SIGN_ALGORITHM_SUCCESS signals that the parameters were
-   * serialized in the AlgorithmIdentifier. */
-  EVP_DIGEST_SIGN_ALGORITHM_SUCCESS = 1,
-  /* EVP_DIGEST_SIGN_ALGORITHM_DEFAULT signals that the parameters are
-   * serialized using the default behavior. */
-  EVP_DIGEST_SIGN_ALGORITHM_DEFAULT = 2,
-} evp_digest_sign_algorithm_result_t;
-
 struct evp_pkey_asn1_method_st {
   int pkey_id;
   unsigned long pkey_flags;
@@ -141,15 +128,6 @@ struct evp_pkey_asn1_method_st {
 
   int (*old_priv_decode)(EVP_PKEY *pkey, const uint8_t **pder,
                          int derlen);
-
-  /* Converting parameters to/from AlgorithmIdentifier (X509_ALGOR). */
-  int (*digest_verify_init_from_algorithm)(EVP_MD_CTX *ctx,
-                                           X509_ALGOR *algor,
-                                           EVP_PKEY *pkey);
-  evp_digest_sign_algorithm_result_t (*digest_sign_algorithm)(
-      EVP_MD_CTX *ctx,
-      X509_ALGOR *algor);
-
 } /* EVP_PKEY_ASN1_METHOD */;
 
 
