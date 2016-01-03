@@ -204,10 +204,6 @@ EC_KEY *EC_KEY_copy(EC_KEY *dest, const EC_KEY *src) {
     return NULL;
   }
 
-  /* copy the rest */
-  dest->enc_flag = src->enc_flag;
-  dest->flags = src->flags;
-
   return dest;
 }
 
@@ -274,12 +270,6 @@ int EC_KEY_set_public_key(EC_KEY *key, const EC_POINT *pub_key) {
   EC_POINT_free(key->pub_key);
   key->pub_key = EC_POINT_dup(pub_key, key->group);
   return (key->pub_key == NULL) ? 0 : 1;
-}
-
-unsigned int EC_KEY_get_enc_flags(const EC_KEY *key) { return key->enc_flag; }
-
-void EC_KEY_set_enc_flags(EC_KEY *key, unsigned int flags) {
-  key->enc_flag = flags;
 }
 
 int EC_KEY_check_key(const EC_KEY *eckey) {
