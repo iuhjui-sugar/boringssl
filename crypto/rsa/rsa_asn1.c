@@ -67,6 +67,7 @@
 #include <openssl/mem.h>
 
 #include "internal.h"
+#include "../asn1/internal.h"
 
 
 static int parse_integer_buggy(CBS *cbs, BIGNUM **out, int buggy) {
@@ -365,89 +366,11 @@ int RSA_private_key_to_bytes(uint8_t **out_bytes, size_t *out_len,
   return 1;
 }
 
-RSA *d2i_RSAPublicKey(RSA **out, const uint8_t **inp, long len) {
-  if (len < 0) {
-    return NULL;
-  }
-  CBS cbs;
-  CBS_init(&cbs, *inp, (size_t)len);
-  RSA *ret = RSA_parse_public_key(&cbs);
-  if (ret == NULL) {
-    return NULL;
-  }
-  if (out != NULL) {
-    RSA_free(*out);
-    *out = ret;
-  }
-  *inp += (size_t)len - CBS_len(&cbs);
-  return ret;
-}
+ASN1_DEFINE_LEGACY_D2I(RSA, d2i_RSAPublicKey, RSA_parse_public_key, RSA_free)
+ASN1_DEFINE_LEGACY_I2D(RSA, i2d_RSAPublicKey, RSA_marshal_public_key)
 
-int i2d_RSAPublicKey(const RSA *in, uint8_t **outp) {
-  uint8_t *der;
-  size_t der_len;
-  if (!RSA_public_key_to_bytes(&der, &der_len, in)) {
-    return -1;
-  }
-  if (der_len > INT_MAX) {
-    OPENSSL_PUT_ERROR(RSA, ERR_R_OVERFLOW);
-    OPENSSL_free(der);
-    return -1;
-  }
-  if (outp != NULL) {
-    if (*outp == NULL) {
-      *outp = der;
-      der = NULL;
-    } else {
-      memcpy(*outp, der, der_len);
-      *outp += der_len;
-    }
-  }
-  OPENSSL_free(der);
-  return (int)der_len;
-}
-
-RSA *d2i_RSAPrivateKey(RSA **out, const uint8_t **inp, long len) {
-  if (len < 0) {
-    return NULL;
-  }
-  CBS cbs;
-  CBS_init(&cbs, *inp, (size_t)len);
-  RSA *ret = RSA_parse_private_key(&cbs);
-  if (ret == NULL) {
-    return NULL;
-  }
-  if (out != NULL) {
-    RSA_free(*out);
-    *out = ret;
-  }
-  *inp += (size_t)len - CBS_len(&cbs);
-  return ret;
-}
-
-int i2d_RSAPrivateKey(const RSA *in, uint8_t **outp) {
-  uint8_t *der;
-  size_t der_len;
-  if (!RSA_private_key_to_bytes(&der, &der_len, in)) {
-    return -1;
-  }
-  if (der_len > INT_MAX) {
-    OPENSSL_PUT_ERROR(RSA, ERR_R_OVERFLOW);
-    OPENSSL_free(der);
-    return -1;
-  }
-  if (outp != NULL) {
-    if (*outp == NULL) {
-      *outp = der;
-      der = NULL;
-    } else {
-      memcpy(*outp, der, der_len);
-      *outp += der_len;
-    }
-  }
-  OPENSSL_free(der);
-  return (int)der_len;
-}
+ASN1_DEFINE_LEGACY_D2I(RSA, d2i_RSAPrivateKey, RSA_parse_private_key, RSA_free)
+ASN1_DEFINE_LEGACY_I2D(RSA, i2d_RSAPrivateKey, RSA_marshal_private_key)
 
 ASN1_SEQUENCE(RSA_PSS_PARAMS) = {
   ASN1_EXP_OPT(RSA_PSS_PARAMS, hashAlgorithm, X509_ALGOR,0),

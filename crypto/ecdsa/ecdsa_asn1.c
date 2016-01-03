@@ -61,6 +61,7 @@
 #include <openssl/ec_key.h>
 #include <openssl/mem.h>
 
+#include "../asn1/internal.h"
 #include "../ec/internal.h"
 
 
@@ -197,44 +198,6 @@ size_t ECDSA_SIG_max_len(size_t order_len) {
   return ret;
 }
 
-ECDSA_SIG *d2i_ECDSA_SIG(ECDSA_SIG **out, const uint8_t **inp, long len) {
-  if (len < 0) {
-    return NULL;
-  }
-  CBS cbs;
-  CBS_init(&cbs, *inp, (size_t)len);
-  ECDSA_SIG *ret = ECDSA_SIG_parse(&cbs);
-  if (ret == NULL) {
-    return NULL;
-  }
-  if (out != NULL) {
-    ECDSA_SIG_free(*out);
-    *out = ret;
-  }
-  *inp += (size_t)len - CBS_len(&cbs);
-  return ret;
-}
-
-int i2d_ECDSA_SIG(const ECDSA_SIG *sig, uint8_t **outp) {
-  uint8_t *der;
-  size_t der_len;
-  if (!ECDSA_SIG_to_bytes(&der, &der_len, sig)) {
-    return -1;
-  }
-  if (der_len > INT_MAX) {
-    OPENSSL_PUT_ERROR(ECDSA, ERR_R_OVERFLOW);
-    OPENSSL_free(der);
-    return -1;
-  }
-  if (outp != NULL) {
-    if (*outp == NULL) {
-      *outp = der;
-      der = NULL;
-    } else {
-      memcpy(*outp, der, der_len);
-      *outp += der_len;
-    }
-  }
-  OPENSSL_free(der);
-  return (int)der_len;
-}
+ASN1_DEFINE_LEGACY_D2I(ECDSA_SIG, d2i_ECDSA_SIG, ECDSA_SIG_parse,
+                       ECDSA_SIG_free)
+ASN1_DEFINE_LEGACY_I2D(ECDSA_SIG, i2d_ECDSA_SIG, ECDSA_SIG_marshal)
