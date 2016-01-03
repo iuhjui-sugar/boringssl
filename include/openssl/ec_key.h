@@ -146,14 +146,6 @@ OPENSSL_EXPORT unsigned EC_KEY_get_enc_flags(const EC_KEY *key);
  * bitwise-OR of |EC_PKEY_*| values. */
 OPENSSL_EXPORT void EC_KEY_set_enc_flags(EC_KEY *key, unsigned flags);
 
-/* EC_KEY_get_conv_form returns the conversation form that will be used by
- * |key|. */
-OPENSSL_EXPORT point_conversion_form_t EC_KEY_get_conv_form(const EC_KEY *key);
-
-/* EC_KEY_set_conv_form sets the conversion form to be used by |key|. */
-OPENSSL_EXPORT void EC_KEY_set_conv_form(EC_KEY *key,
-                                         point_conversion_form_t cform);
-
 /* EC_KEY_check_key performs several checks on |key| (possibly including an
  * expensive check that the public key is in the primary subgroup). It returns
  * one if all checks pass and zero otherwise. If it returns zero then detail

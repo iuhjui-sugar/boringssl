@@ -370,7 +370,7 @@ static int do_EC_KEY_print(BIO *bp, const EC_KEY *x, int off, int ktype) {
     public_key = EC_KEY_get0_public_key(x);
     if (public_key != NULL) {
       pub_key_bytes_len = EC_POINT_point2oct(
-          group, public_key, EC_KEY_get_conv_form(x), NULL, 0, ctx);
+          group, public_key, POINT_CONVERSION_UNCOMPRESSED, NULL, 0, ctx);
       if (pub_key_bytes_len == 0) {
         reason = ERR_R_MALLOC_FAILURE;
         goto err;
@@ -381,7 +381,7 @@ static int do_EC_KEY_print(BIO *bp, const EC_KEY *x, int off, int ktype) {
         goto err;
       }
       pub_key_bytes_len =
-          EC_POINT_point2oct(group, public_key, EC_KEY_get_conv_form(x),
+          EC_POINT_point2oct(group, public_key, POINT_CONVERSION_UNCOMPRESSED,
                              pub_key_bytes, pub_key_bytes_len, ctx);
       if (pub_key_bytes_len == 0) {
         reason = ERR_R_MALLOC_FAILURE;

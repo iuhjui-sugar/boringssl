@@ -101,7 +101,6 @@ EC_KEY *EC_KEY_new_method(const ENGINE *engine) {
   }
 
   ret->version = 1;
-  ret->conv_form = POINT_CONVERSION_UNCOMPRESSED;
   ret->references = 1;
 
   CRYPTO_new_ex_data(&ret->ex_data);
@@ -208,7 +207,6 @@ EC_KEY *EC_KEY_copy(EC_KEY *dest, const EC_KEY *src) {
 
   /* copy the rest */
   dest->enc_flag = src->enc_flag;
-  dest->conv_form = src->conv_form;
   dest->version = src->version;
   dest->flags = src->flags;
 
@@ -240,8 +238,8 @@ const EC_GROUP *EC_KEY_get0_group(const EC_KEY *key) { return key->group; }
 
 int EC_KEY_set_group(EC_KEY *key, const EC_GROUP *group) {
   EC_GROUP_free(key->group);
-  /* TODO(fork): duplicating the group seems wasteful but see
-   * |EC_KEY_set_conv_form|. */
+  /* TODO(fork): duplicating the group seems wasteful. Make |EC_GROUP| immutable
+   * so |EC_GROUP_dup| may be a no-op. */
   key->group = EC_GROUP_dup(group);
   if (key->group == NULL) {
     return 0;
@@ -284,14 +282,6 @@ unsigned int EC_KEY_get_enc_flags(const EC_KEY *key) { return key->enc_flag; }
 
 void EC_KEY_set_enc_flags(EC_KEY *key, unsigned int flags) {
   key->enc_flag = flags;
-}
-
-point_conversion_form_t EC_KEY_get_conv_form(const EC_KEY *key) {
-  return key->conv_form;
-}
-
-void EC_KEY_set_conv_form(EC_KEY *key, point_conversion_form_t cform) {
-  key->conv_form = cform;
 }
 
 int EC_KEY_check_key(const EC_KEY *eckey) {

@@ -273,7 +273,6 @@ struct ec_key_st {
   BIGNUM *priv_key;
 
   unsigned int enc_flag;
-  point_conversion_form_t conv_form;
 
   CRYPTO_refcount_t references;
   int flags;
