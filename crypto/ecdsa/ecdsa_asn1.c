@@ -211,7 +211,7 @@ ECDSA_SIG *d2i_ECDSA_SIG(ECDSA_SIG **out, const uint8_t **inp, long len) {
     ECDSA_SIG_free(*out);
     *out = ret;
   }
-  *inp += (size_t)len - CBS_len(&cbs);
+  *inp = CBS_data(&cbs);
   return ret;
 }
 
