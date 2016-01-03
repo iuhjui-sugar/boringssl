@@ -375,8 +375,8 @@ int EVP_DigestVerifyInitFromAlgorithm(EVP_MD_CTX *ctx,
   }
 
   /* Check public key OID matches public key type */
-  ameth = EVP_PKEY_asn1_find(NULL, pkey_nid);
-  if (ameth == NULL || ameth->pkey_id != pkey->type) {
+  ameth = EVP_PKEY_asn1_find(pkey_nid);
+  if (ameth == NULL || pkey_nid != pkey->type) {
     OPENSSL_PUT_ERROR(EVP, EVP_R_WRONG_PUBLIC_KEY_TYPE);
     return 0;
   }
