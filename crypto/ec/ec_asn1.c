@@ -379,7 +379,7 @@ EC_KEY *d2i_ECPrivateKey(EC_KEY **out, const uint8_t **inp, long len) {
     EC_KEY_free(*out);
     *out = ret;
   }
-  *inp += (size_t)len - CBS_len(&cbs);
+  *inp = CBS_data(&cbs);
   return ret;
 }
 
@@ -474,7 +474,7 @@ EC_KEY *d2i_ECParameters(EC_KEY **key, const uint8_t **inp, long len) {
     EC_KEY_free(*key);
     *key = ret;
   }
-  *inp += (size_t)len - CBS_len(&cbs);
+  *inp = CBS_data(&cbs);
   return ret;
 }
 
