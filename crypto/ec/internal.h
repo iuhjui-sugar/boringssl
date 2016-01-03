@@ -270,10 +270,7 @@ struct ec_key_st {
   EC_POINT *pub_key;
   BIGNUM *priv_key;
 
-  unsigned int enc_flag;
-
   CRYPTO_refcount_t references;
-  int flags;
 
   ECDSA_METHOD *ecdsa_meth;
 

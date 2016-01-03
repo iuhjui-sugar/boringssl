@@ -135,17 +135,6 @@ OPENSSL_EXPORT const EC_POINT *EC_KEY_get0_public_key(const EC_KEY *key);
  * It returns one on success and zero otherwise. */
 OPENSSL_EXPORT int EC_KEY_set_public_key(EC_KEY *key, const EC_POINT *pub);
 
-#define EC_PKEY_NO_PARAMETERS 0x001
-#define EC_PKEY_NO_PUBKEY 0x002
-
-/* EC_KEY_get_enc_flags returns the encoding flags for |key|, which is a
- * bitwise-OR of |EC_PKEY_*| values. */
-OPENSSL_EXPORT unsigned EC_KEY_get_enc_flags(const EC_KEY *key);
-
-/* EC_KEY_set_enc_flags sets the encoding flags for |key|, which is a
- * bitwise-OR of |EC_PKEY_*| values. */
-OPENSSL_EXPORT void EC_KEY_set_enc_flags(EC_KEY *key, unsigned flags);
-
 /* EC_KEY_check_key performs several checks on |key| (possibly including an
  * expensive check that the public key is in the primary subgroup). It returns
  * one if all checks pass and zero otherwise. If it returns zero then detail
@@ -176,6 +165,9 @@ OPENSSL_EXPORT int EC_KEY_generate_key(EC_KEY *key);
  * the parameters field is required. */
 OPENSSL_EXPORT EC_KEY *EC_KEY_parse_private_key(CBS *cbs,
                                                 const EC_GROUP *group);
+
+#define EC_PKEY_NO_PARAMETERS 0x001
+#define EC_PKEY_NO_PUBKEY 0x002
 
 /* EC_KEY_marshal_private_key marshals |key| as a DER-encoded ECPrivateKey
  * structure (RFC 5915) and appends the result to |cbb|. It returns one on
