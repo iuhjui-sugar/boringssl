@@ -347,13 +347,6 @@ EC_KEY *d2i_ECPrivateKey(EC_KEY **a, const uint8_t **inp, long len) {
 
     pub_oct = M_ASN1_STRING_data(priv_key->publicKey);
     pub_oct_len = M_ASN1_STRING_length(priv_key->publicKey);
-    /* The first byte (the point conversion form) must be present. */
-    if (pub_oct_len <= 0) {
-      OPENSSL_PUT_ERROR(EC, EC_R_BUFFER_TOO_SMALL);
-      goto err;
-    }
-    /* Save the point conversion form. */
-    ret->conv_form = (point_conversion_form_t)(pub_oct[0] & ~0x01);
     if (!EC_POINT_oct2point(ret->group, ret->pub_key, pub_oct, pub_oct_len,
                             NULL)) {
       OPENSSL_PUT_ERROR(EC, ERR_R_EC_LIB);
@@ -441,8 +434,8 @@ int i2d_ECPrivateKey(const EC_KEY *key, uint8_t **outp) {
       goto err;
     }
 
-    tmp_len = EC_POINT_point2oct(key->group, key->pub_key, key->conv_form, NULL,
-                                 0, NULL);
+    tmp_len = EC_POINT_point2oct(key->group, key->pub_key,
+                                 POINT_CONVERSION_UNCOMPRESSED, NULL, 0, NULL);
 
     if (tmp_len > buf_len) {
       uint8_t *tmp_buffer = OPENSSL_realloc(buffer, tmp_len);
@@ -454,8 +447,9 @@ int i2d_ECPrivateKey(const EC_KEY *key, uint8_t **outp) {
       buf_len = tmp_len;
     }
 
-    if (!EC_POINT_point2oct(key->group, key->pub_key, key->conv_form, buffer,
-                            buf_len, NULL)) {
+    if (!EC_POINT_point2oct(key->group, key->pub_key,
+                            POINT_CONVERSION_UNCOMPRESSED, buffer, buf_len,
+                            NULL)) {
       OPENSSL_PUT_ERROR(EC, ERR_R_EC_LIB);
       goto err;
     }
@@ -538,8 +532,6 @@ EC_KEY *o2i_ECPublicKey(EC_KEY **keyp, const uint8_t **inp, long len) {
     OPENSSL_PUT_ERROR(EC, ERR_R_EC_LIB);
     return 0;
   }
-  /* save the point conversion form */
-  ret->conv_form = (point_conversion_form_t)(*inp[0] & ~0x01);
   *inp += len;
   return ret;
 }
@@ -553,8 +545,8 @@ int i2o_ECPublicKey(const EC_KEY *key, uint8_t **outp) {
     return 0;
   }
 
-  buf_len = EC_POINT_point2oct(key->group, key->pub_key, key->conv_form, NULL,
-                               0, NULL);
+  buf_len = EC_POINT_point2oct(key->group, key->pub_key,
+                               POINT_CONVERSION_UNCOMPRESSED, NULL, 0, NULL);
 
   if (outp == NULL || buf_len == 0) {
     /* out == NULL => just return the length of the octet string */
@@ -569,8 +561,9 @@ int i2o_ECPublicKey(const EC_KEY *key, uint8_t **outp) {
     }
     new_buffer = 1;
   }
-  if (!EC_POINT_point2oct(key->group, key->pub_key, key->conv_form, *outp,
-                          buf_len, NULL)) {
+  if (!EC_POINT_point2oct(key->group, key->pub_key,
+                          POINT_CONVERSION_UNCOMPRESSED, *outp, buf_len,
+                          NULL)) {
     OPENSSL_PUT_ERROR(EC, ERR_R_EC_LIB);
     if (new_buffer) {
       OPENSSL_free(*outp);

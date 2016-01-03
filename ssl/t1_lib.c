@@ -437,45 +437,21 @@ int tls1_set_curves(uint16_t **out_curve_ids, size_t *out_curve_ids_len,
   return 1;
 }
 
-/* tls1_curve_params_from_ec_key sets |*out_curve_id| and |*out_comp_id| to the
- * TLS curve ID and point format, respectively, for |ec|. It returns one on
- * success and zero on failure. */
-static int tls1_curve_params_from_ec_key(uint16_t *out_curve_id,
-                                         uint8_t *out_comp_id, EC_KEY *ec) {
-  int nid;
-  uint16_t id;
-  const EC_GROUP *grp;
-
+/* tls1_curve_id_from_ec_key sets |*out_curve_id| to the TLS curve ID for |ec|.
+ * It returns one on success and zero on failure. */
+static int tls1_curve_id_from_ec_key(uint16_t *out_curve_id, const EC_KEY *ec) {
   if (ec == NULL) {
     return 0;
   }
 
-  grp = EC_KEY_get0_group(ec);
-  if (grp == NULL) {
+  const EC_GROUP *group = EC_KEY_get0_group(ec);
+  if (group == NULL) {
     return 0;
   }
 
   /* Determine curve ID */
-  nid = EC_GROUP_get_curve_name(grp);
-  if (!ssl_nid_to_curve_id(&id, nid)) {
-    return 0;
-  }
-
-  /* Set the named curve ID. Arbitrary explicit curves are not supported. */
-  *out_curve_id = id;
-
-  if (out_comp_id) {
-    if (EC_KEY_get0_public_key(ec) == NULL) {
-      return 0;
-    }
-    if (EC_KEY_get_conv_form(ec) == POINT_CONVERSION_COMPRESSED) {
-      *out_comp_id = TLSEXT_ECPOINTFORMAT_ansiX962_compressed_prime;
-    } else {
-      *out_comp_id = TLSEXT_ECPOINTFORMAT_uncompressed;
-    }
-  }
-
-  return 1;
+  int nid = EC_GROUP_get_curve_name(group);
+  return ssl_nid_to_curve_id(out_curve_id, nid);
 }
 
 /* tls1_check_curve_id returns one if |curve_id| is consistent with both our
@@ -518,16 +494,14 @@ int tls1_check_ec_cert(SSL *ssl, X509 *x) {
   int ret = 0;
   EVP_PKEY *pkey = X509_get_pubkey(x);
   uint16_t curve_id;
-  uint8_t comp_id;
 
   if (!pkey) {
     goto done;
   }
   EC_KEY *ec_key = EVP_PKEY_get0_EC_KEY(pkey);
   if (ec_key == NULL ||
-      !tls1_curve_params_from_ec_key(&curve_id, &comp_id, ec_key) ||
-      !tls1_check_curve_id(ssl, curve_id) ||
-      comp_id != TLSEXT_ECPOINTFORMAT_uncompressed) {
+      !tls1_curve_id_from_ec_key(&curve_id, ec_key) ||
+      !tls1_check_curve_id(ssl, curve_id)) {
     goto done;
   }
 
