@@ -124,13 +124,7 @@ struct evp_pkey_asn1_method_st {
   int (*param_copy)(EVP_PKEY *to, const EVP_PKEY *from);
   int (*param_cmp)(const EVP_PKEY *a, const EVP_PKEY *b);
 
-
   void (*pkey_free)(EVP_PKEY *pkey);
-
-  /* Legacy functions for old PEM */
-
-  int (*old_priv_decode)(EVP_PKEY *pkey, const uint8_t **pder,
-                         int derlen);
 } /* EVP_PKEY_ASN1_METHOD */;
 
 
