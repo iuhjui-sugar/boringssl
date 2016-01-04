@@ -5,11 +5,12 @@ add_library(
 
   OBJECT
 
-  rsa.c
-  rsa_impl.c
   blinding.c
   padding.c
+  rsa.c
   rsa_asn1.c
+  rsa_impl.c
+  rsa_pss_asn1.c
 )
 
 add_executable(
