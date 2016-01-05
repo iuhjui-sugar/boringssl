@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "aa3e9347_0092e63f",
+        "filename": "crypto/curve25519/CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-01-05T16:05:43Z",
+      "side": 1,
+      "message": "Good point, thanks.",
+      "parentUuid": "cac4a77f_d980531f",
+      "revId": "6980a2a008896fb358b1366c60a61423a278a8b1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cac4a77f_997adb01",
         "filename": "crypto/curve25519/CMakeLists.txt",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2016-01-04T19:00:51Z",
       "side": 1,
       "message": "(This file seems to be missing from there too. I\u0027m guessing it\u0027s fine because OPENSSL_SMALL isn\u0027t defined for Chromium.)",
+      "revId": "6980a2a008896fb358b1366c60a61423a278a8b1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aa3e9347_a0969a30",
+        "filename": "crypto/curve25519/CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-01-05T16:05:43Z",
+      "side": 1,
+      "message": "I\u0027ve left this out for now because I need to run and because the asm file doesn\u0027t have !SMALL in it. Hopefully the linker would discard it anyway, but we can add this file when we need it in the future.",
+      "parentUuid": "cac4a77f_997adb01",
       "revId": "6980a2a008896fb358b1366c60a61423a278a8b1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
