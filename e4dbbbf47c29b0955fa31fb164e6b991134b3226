@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa3e9347_0979b1cf",
+        "filename": "crypto/digest/md32_common.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-01-06T03:17:12Z",
+      "side": 1,
+      "message": "Why are these `#ifndef`s retained? Aren\u0027t they all going to evaluate to `#if 1`?",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 16
+      },
+      "revId": "e4dbbbf47c29b0955fa31fb164e6b991134b3226",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
