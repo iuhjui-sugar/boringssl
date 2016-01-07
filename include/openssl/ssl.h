@@ -2888,6 +2888,10 @@ OPENSSL_EXPORT size_t SSL_get_server_random(const SSL *ssl, uint8_t *out,
 OPENSSL_EXPORT void SSL_CTX_set_retain_only_sha256_of_client_certs(SSL_CTX *ctx,
                                                                    int enabled);
 
+/* SSL_get_pending_cipher returns the cipher suite for the current handshake or
+ * NULL if one has not been negotiated yet or there is no pending handshake. */
+OPENSSL_EXPORT const SSL_CIPHER *SSL_get_pending_cipher(const SSL *ssl);
+
 
 /* Deprecated functions. */
 
