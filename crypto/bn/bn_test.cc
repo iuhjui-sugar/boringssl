@@ -83,6 +83,7 @@
 #include <openssl/err.h>
 #include <openssl/mem.h>
 
+#include "bn_test_lib.h"
 #include "../crypto/test/scoped_types.h"
 #include "../crypto/test/test_util.h"
 

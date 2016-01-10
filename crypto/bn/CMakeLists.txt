@@ -80,6 +80,7 @@ add_executable(
   bn_test
 
   bn_test.cc
+  bn_test_lib.c
 
   $<TARGET_OBJECTS:test_support>
 )
