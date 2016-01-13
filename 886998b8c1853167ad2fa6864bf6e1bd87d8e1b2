@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "67acd6b5_fed1c1f5",
+        "filename": "ssl/t1_enc.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-01-13T21:50:56Z",
+      "side": 1,
+      "message": "[Read tls1_setup_key_block first. I\u0027m not sure why they\u0027re in the wrong order.]",
+      "revId": "886998b8c1853167ad2fa6864bf6e1bd87d8e1b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "67acd6b5_bedb3912",
+        "filename": "ssl/t1_enc.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-01-13T21:50:56Z",
+      "side": 1,
+      "message": "(Slightly changed the failure case. Doesn\u0027t matter, but I figured leaving an uninitialized keyblock hanging off the structure was bad manners.)",
+      "revId": "886998b8c1853167ad2fa6864bf6e1bd87d8e1b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
