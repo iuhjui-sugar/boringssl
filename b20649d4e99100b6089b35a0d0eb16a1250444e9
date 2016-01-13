@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "67acd6b5_be6e9902",
+        "filename": "ssl/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1228,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-01-13T21:46:19Z",
+      "side": 1,
+      "message": "This changed because it\u0027s switching from processing the extension (ticket or empty indicator) to only processing a ticket. The caller now decides whether the client actually sent a ticket or just wanted to advertise support, since some of the cases are a little tricky.",
+      "range": {
+        "startLine": 1228,
+        "startChar": 28,
+        "endLine": 1228,
+        "endChar": 44
+      },
+      "revId": "b20649d4e99100b6089b35a0d0eb16a1250444e9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "67acd6b5_9e73ddee",
+        "filename": "ssl/ssl_session.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-01-13T21:46:19Z",
+      "side": 1,
+      "message": "This logic is still kind of a mess, despite being rewritten a couple times already. :-/\n\nIf we lost the sid_ctx stuff and also the SSL_CTX_remove_session call, things could be a lot simpler. (And we\u0027d shave a bit of per-connection memory!) But I\u0027ve left that alone for now since both will want some investigation.\n\n(My initial thought was sid_ctx should be via SSL_CTX, but that probably interacts funny with SNI and SSL_set_SSL_CTX and session resumption.)",
+      "revId": "b20649d4e99100b6089b35a0d0eb16a1250444e9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
