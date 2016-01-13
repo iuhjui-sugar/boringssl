@@ -1,0 +1,111 @@
+From 175d28d9545676ef5b5d670939a7b3412aa559d9 Mon Sep 17 00:00:00 2001
+From: Brian Smith <brian@briansmith.org>
+Date: Tue, 12 Jan 2016 10:47:25 -1000
+Subject: [PATCH] Fix bits vs. bytes confusion in RSA encryption.
+
+rsa_default_encrypt allowed an RSA modulue 8 times larger than the
+intended maximum size due to bits vs. bytes confusion. Besides fixing
+that, use bytes consistently when measuring RSA moduli to reduce the
+likelihood of future problems of this sort.
+
+Further, as |rsa_default_encrypt| got this wrong while
+|RSA_default_verify| got it right, factor out the duplicated logic so
+that such inconsistencies are less likely to occur.
+
+Change-Id: Ic842fadcbb3b140d2ba4295793457af2b62d9444
+---
+ crypto/rsa/rsa_impl.c | 53 ++++++++++++++++++++-------------------------------
+ 1 file changed, 21 insertions(+), 32 deletions(-)
+
+diff --git a/crypto/rsa/rsa_impl.c b/crypto/rsa/rsa_impl.c
+index b1cfaa6..0c7b5dc 100644
+--- a/crypto/rsa/rsa_impl.c
++++ b/crypto/rsa/rsa_impl.c
+@@ -67,11 +67,26 @@
+ #include "../internal.h"
+ 
+ 
+-#define OPENSSL_RSA_MAX_MODULUS_BITS 16384
+-#define OPENSSL_RSA_SMALL_MODULUS_BITS 3072
+-#define OPENSSL_RSA_MAX_PUBEXP_BITS \
+-  64 /* exponent limit enforced for "large" modulus only */
++static int check_modulus_and_exponent(const RSA *rsa) {
++  size_t rsa_size = RSA_size(rsa);
++  if (rsa_size > 16 * 1024 / 8) {
++    OPENSSL_PUT_ERROR(RSA, RSA_R_MODULUS_TOO_LARGE);
++    return 0;
++  }
+ 
++  if (BN_ucmp(rsa->n, rsa->e) <= 0) {
++    OPENSSL_PUT_ERROR(RSA, RSA_R_BAD_E_VALUE);
++    return 0;
++  }
++
++  /* For large moduli only, enforce exponent limit. */
++  if ((rsa_size > 3072 / 8) && (BN_num_bits(rsa->e) > 64)) {
++    OPENSSL_PUT_ERROR(RSA, RSA_R_BAD_E_VALUE);
++    return 0;
++  }
++
++  return 1;
++}
+ 
+ size_t rsa_default_size(const RSA *rsa) {
+   return BN_num_bytes(rsa->n);
+@@ -85,25 +100,12 @@ int rsa_default_encrypt(RSA *rsa, size_t *out_len, uint8_t *out, size_t max_out,
+   BN_CTX *ctx = NULL;
+   int i, ret = 0;
+ 
+-  if (rsa_size > OPENSSL_RSA_MAX_MODULUS_BITS) {
+-    OPENSSL_PUT_ERROR(RSA, RSA_R_MODULUS_TOO_LARGE);
+-    return 0;
+-  }
+-
+   if (max_out < rsa_size) {
+     OPENSSL_PUT_ERROR(RSA, RSA_R_OUTPUT_BUFFER_TOO_SMALL);
+     return 0;
+   }
+ 
+-  if (BN_ucmp(rsa->n, rsa->e) <= 0) {
+-    OPENSSL_PUT_ERROR(RSA, RSA_R_BAD_E_VALUE);
+-    return 0;
+-  }
+-
+-  /* for large moduli, enforce exponent limit */
+-  if (BN_num_bits(rsa->n) > OPENSSL_RSA_SMALL_MODULUS_BITS &&
+-      BN_num_bits(rsa->e) > OPENSSL_RSA_MAX_PUBEXP_BITS) {
+-    OPENSSL_PUT_ERROR(RSA, RSA_R_BAD_E_VALUE);
++  if (!check_modulus_and_exponent(rsa)) {
+     return 0;
+   }
+ 
+@@ -417,25 +419,12 @@ int rsa_default_verify_raw(RSA *rsa, size_t *out_len, uint8_t *out,
+   uint8_t *buf = NULL;
+   BN_CTX *ctx = NULL;
+ 
+-  if (BN_num_bits(rsa->n) > OPENSSL_RSA_MAX_MODULUS_BITS) {
+-    OPENSSL_PUT_ERROR(RSA, RSA_R_MODULUS_TOO_LARGE);
+-    return 0;
+-  }
+-
+-  if (BN_ucmp(rsa->n, rsa->e) <= 0) {
+-    OPENSSL_PUT_ERROR(RSA, RSA_R_BAD_E_VALUE);
+-    return 0;
+-  }
+-
+   if (max_out < rsa_size) {
+     OPENSSL_PUT_ERROR(RSA, RSA_R_OUTPUT_BUFFER_TOO_SMALL);
+     return 0;
+   }
+ 
+-  /* for large moduli, enforce exponent limit */
+-  if (BN_num_bits(rsa->n) > OPENSSL_RSA_SMALL_MODULUS_BITS &&
+-      BN_num_bits(rsa->e) > OPENSSL_RSA_MAX_PUBEXP_BITS) {
+-    OPENSSL_PUT_ERROR(RSA, RSA_R_BAD_E_VALUE);
++  if (!check_modulus_and_exponent(rsa)) {
+     return 0;
+   }
+ 
+-- 
+2.5.3.windows.1
+
