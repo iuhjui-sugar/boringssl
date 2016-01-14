@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "67acd6b5_e17b6056",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-01-14T22:41:46Z",
+      "side": 1,
+      "message": "Verified the output matches up to a few comments (perhaps differences in our version of GNU indent) after also running:\n\ngit checkout crypto/x509/pkcs7_test.c\ngit checkout crypto/x509/pkcs7.c\ngit checkout crypto/x509/x509.c\ngit checkout crypto/x509/t_req.c",
+      "revId": "06e4b47ceea932fa701027d39eaaeb58715eb5dc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
