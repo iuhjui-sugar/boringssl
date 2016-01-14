@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "67acd6b5_61bab089",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-01-14T19:35:16Z",
+      "side": 1,
+      "message": "We should probably fix those anyway because there\u0027s already a codepath that doesn\u0027t do it in-place. I\u0027ll do that or revise my SPKI branch before sending that to you.",
+      "range": {
+        "startLine": 22,
+        "startChar": 10,
+        "endLine": 22,
+        "endChar": 24
+      },
+      "revId": "fdd6c85aabb525dfde920a13361a9f88c89a1f47",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
