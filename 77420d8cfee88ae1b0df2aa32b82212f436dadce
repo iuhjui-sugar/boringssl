@@ -33,6 +33,24 @@
       "revId": "77420d8cfee88ae1b0df2aa32b82212f436dadce",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "07495aa4_53821f27",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-01-14T22:48:59Z",
+      "side": 1,
+      "message": "Even in that case, 33 would be enough, right?",
+      "parentUuid": "07495aa4_fd1dfa41",
+      "revId": "77420d8cfee88ae1b0df2aa32b82212f436dadce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
