@@ -22,6 +22,30 @@
       "revId": "fdd6c85aabb525dfde920a13361a9f88c89a1f47",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "07495aa4_9847a434",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-01-14T19:37:28Z",
+      "side": 1,
+      "message": "https://android-review.googlesource.com/#/c/196590/\nhttps://android-review.googlesource.com/#/c/196610/",
+      "parentUuid": "67acd6b5_61bab089",
+      "range": {
+        "startLine": 22,
+        "startChar": 10,
+        "endLine": 22,
+        "endChar": 24
+      },
+      "revId": "fdd6c85aabb525dfde920a13361a9f88c89a1f47",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
