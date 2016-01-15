@@ -39,6 +39,41 @@
       "revId": "b20649d4e99100b6089b35a0d0eb16a1250444e9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "07495aa4_d098e0ef",
+        "filename": "ssl/ssl_session.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2016-01-15T20:08:47Z",
+      "side": 1,
+      "message": "We currently use sid_ctx and it probably does interact weirdly with SSL_CTX switching.\n\nAlso see thread with ekasper (\"SNI in OpenSSL\") about SNI matching that we currently don\u0027t do. That might do a lot of the work that sid_ctx currently does for us.",
+      "parentUuid": "67acd6b5_9e73ddee",
+      "revId": "b20649d4e99100b6089b35a0d0eb16a1250444e9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "07495aa4_70662cd0",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 2527,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2016-01-15T20:08:47Z",
+      "side": 1,
+      "message": "Do we want to quash this for now? We know that it breaks SChannel until /very/ recently so it\u0027s probably not actually functional on the real Internet.",
+      "revId": "b20649d4e99100b6089b35a0d0eb16a1250444e9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
