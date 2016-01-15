@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "67acd6b5_0122cc4b",
+        "filename": "crypto/test/scoped_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-01-15T00:20:03Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "992daec70cd620e69e0eeb407416f61958769d8a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "67acd6b5_c1f984e7",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-01-15T00:20:03Z",
+      "side": 1,
+      "message": "Do you want to also import the test for the bug, or not worth bothering? (Note: The situation I put together doesn\u0027t work because of some differences between 1.0.1 and 1.0.2. I think 1.0.2 actually requires a cross-signed root be a trust anchor.)",
+      "revId": "992daec70cd620e69e0eeb407416f61958769d8a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "67acd6b5_a1fe78cb",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2328,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-01-15T00:20:03Z",
+      "side": 1,
+      "message": "This comment is kinda weird. I guess because they have both new/free and init/cleanup, but init is required even if you use new, someone might do new + init + cleanup + free. Also their ecdaa1aefd30a3624624a28139a1e78e17993725 makes init call cleanup on failure which, with all the callbacks, I think is wrong.\n\n*shrug*",
+      "revId": "992daec70cd620e69e0eeb407416f61958769d8a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
