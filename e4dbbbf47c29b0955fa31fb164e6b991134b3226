@@ -22,6 +22,30 @@
       "revId": "e4dbbbf47c29b0955fa31fb164e6b991134b3226",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "67acd6b5_24183660",
+        "filename": "crypto/digest/md32_common.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-01-15T17:24:00Z",
+      "side": 1,
+      "message": "You say that as if this CL was intended to be an end state. :-P This CL was just to reduce the number of codepaths in advance of reshuffling things further once this branch had cleared.\n\n(HOST_c2l needs to get split into little-endian and big-endian-specific macros. Right now the include guard and ifdefs are both nonsense. And then move this to a different singly-included header leaving HASH_UPDATE, etc., definitions in a now multiply-included one or turn the multiply-included parts into an IMPLEMENT_HASH_FUNCTIONS macro or other mechanism.)",
+      "parentUuid": "aa3e9347_0979b1cf",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 16
+      },
+      "revId": "e4dbbbf47c29b0955fa31fb164e6b991134b3226",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
