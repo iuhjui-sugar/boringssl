@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "07495aa4_b076f46c",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 2574,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2016-01-15T20:15:27Z",
+      "side": 1,
+      "message": "More special cases :(",
+      "revId": "c061982b8a7eb1c2910f27eadc923fabc715d77e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
