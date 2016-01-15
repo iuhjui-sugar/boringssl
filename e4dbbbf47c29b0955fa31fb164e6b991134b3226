@@ -46,6 +46,30 @@
       "revId": "e4dbbbf47c29b0955fa31fb164e6b991134b3226",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "67acd6b5_a4f8c631",
+        "filename": "crypto/digest/md32_common.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-01-15T17:29:01Z",
+      "side": 1,
+      "message": "Oh, nevermind, I see. They\u0027re acting like a screwed up #else case, not a buggy multiple-inclusion story. Yeah, let\u0027s get rid of those here then. Done.",
+      "parentUuid": "67acd6b5_24183660",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 16
+      },
+      "revId": "e4dbbbf47c29b0955fa31fb164e6b991134b3226",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
