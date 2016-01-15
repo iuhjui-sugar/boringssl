@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "07495aa4_70e10c4d",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 4060,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2016-01-15T20:31:03Z",
+      "side": 1,
+      "message": "I\u0027ll swap these around so that the four uint8_t can pack better together.",
+      "revId": "886998b8c1853167ad2fa6864bf6e1bd87d8e1b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "67acd6b5_fed1c1f5",
         "filename": "ssl/t1_enc.c",
         "patchSetId": 3
