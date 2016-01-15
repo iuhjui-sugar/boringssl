@@ -74,6 +74,24 @@
       "revId": "b20649d4e99100b6089b35a0d0eb16a1250444e9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "67acd6b5_24b03645",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 2527,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-01-15T20:14:46Z",
+      "side": 1,
+      "message": "Yeah, that seems reasonable. This callback is way too complicated as it is anyway. It doesn\u0027t seem very valuable. If it needs to be resurrected, it could be gated on TLS 1.3 or something.\n\nWhat do you think about even dropping client support for ticket renewal as that\u0027s also a mess. We could drop the new ticket on the floor and keep on using old one.\n\nIf the server\u0027s using ticket renewal to soften extremely fast ticket key rotation, they\u0027re still relying on clients connecting frequently. The other possibility is per-client state, but that seems unlikely? Do you know why Cloudflare were doing it?",
+      "parentUuid": "07495aa4_70662cd0",
+      "revId": "b20649d4e99100b6089b35a0d0eb16a1250444e9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
