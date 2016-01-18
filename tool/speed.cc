@@ -12,6 +12,12 @@
  * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. */
 
+#if defined(_MSC_VER)
+// C4265: 'std::_Func_base<_Ret>': class has virtual functions, but destructor
+// is not virtual.
+#pragma warning(disable: 4265)
+#endif
+
 #include <string>
 #include <functional>
 #include <memory>
