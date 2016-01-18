@@ -843,8 +843,13 @@ static int check_revocation(X509_STORE_CTX *ctx)
     return 1;
 }
 
+#if defined(_MSC_VER)
+#pragma warning(push)
+/* C4701: potentially uninitialized local variable 'ok' used. */
+#pragma warning(disable: 4701)
+#endif
+
 static int check_cert(X509_STORE_CTX *ctx)
-    OPENSSL_SUPPRESS_POTENTIALLY_UNINITIALIZED_WARNINGS
 {
     X509_CRL *crl = NULL, *dcrl = NULL;
     X509 *x;
@@ -915,6 +920,10 @@ static int check_cert(X509_STORE_CTX *ctx)
     return ok;
 
 }
+
+#if defined(_MSC_VER)
+#pragma warning(pop)
+#endif
 
 /* Check CRL times against values in X509_STORE_CTX */
 

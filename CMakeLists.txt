@@ -71,6 +71,15 @@ elseif(MSVC)
       "C4996" # 'read': The POSIX name for this item is deprecated. Instead,
               # use the ISO C++ conformant name: _read.
      )
+  if(NOT(CMAKE_C_COMPILER_VERSION VERSION_LESS "19.0.23506"))
+    # MSVC 2015 Update 1.
+    set(MSVC_DISABLED_WARNINGS_LIST
+        ${MSVC_DISABLED_WARNINGS_LIST}
+        "C4464" # relative include path contains '..'
+        "C4623" # default constructor was implicitly defined as deleted
+        "C5027" # move assignment operator was implicitly defined as deleted
+       )
+  endif()
   string(REPLACE "C" " -wd" MSVC_DISABLED_WARNINGS_STR
                             ${MSVC_DISABLED_WARNINGS_LIST})
   set(CMAKE_C_FLAGS   "-Wall -WX ${MSVC_DISABLED_WARNINGS_STR}")

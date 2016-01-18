@@ -702,11 +702,16 @@ static int asn1_template_noexp_d2i(ASN1_VALUE **val,
     return 0;
 }
 
+#if defined(_MSC_VER)
+#pragma warning(push)
+/* C4701: potentially uninitialized local variable 'buf' used. */
+#pragma warning(disable: 4701)
+#endif
+
 static int asn1_d2i_ex_primitive(ASN1_VALUE **pval,
                                  const unsigned char **in, long inlen,
                                  const ASN1_ITEM *it,
                                  int tag, int aclass, char opt, ASN1_TLC *ctx)
-    OPENSSL_SUPPRESS_POTENTIALLY_UNINITIALIZED_WARNINGS
 {
     int ret = 0, utype;
     long plen;
@@ -833,6 +838,10 @@ static int asn1_d2i_ex_primitive(ASN1_VALUE **pval,
         OPENSSL_free(buf.data);
     return ret;
 }
+
+#if defined(_MSC_VER)
+#pragma warning(pop)
+#endif
 
 /* Translate ASN1 content octets into a structure */
 

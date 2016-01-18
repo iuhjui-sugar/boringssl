@@ -54,7 +54,15 @@
  * copied and put under another distribution licence
  * [including the GNU Public Licence.] */
 
+#if defined(_MSC_VER)
+#pragma warning(push, 3)
+#endif
+
 #include <limits.h>
+
+#if defined(_MSC_VER)
+#pragma warning(pop)
+#endif
 
 #include <openssl/asn1.h>
 #include <openssl/asn1t.h>
