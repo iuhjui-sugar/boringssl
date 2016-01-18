@@ -259,11 +259,17 @@ static int v3_check_generic(char **value)
     return gen_type;
 }
 
+
+#if defined(_MSC_VER)
+#pragma warning(push)
+/* C4701: potentially uninitialized local variable 'ext_len' used. */
+#pragma warning(disable: 4701)
+#endif
+
 /* Create a generic extension: for now just handle DER type */
 static X509_EXTENSION *v3_generic_extension(const char *ext, char *value,
                                             int crit, int gen_type,
                                             X509V3_CTX *ctx)
-    OPENSSL_SUPPRESS_POTENTIALLY_UNINITIALIZED_WARNINGS
 {
     unsigned char *ext_der = NULL;
     long ext_len;
@@ -306,6 +312,10 @@ static X509_EXTENSION *v3_generic_extension(const char *ext, char *value,
     return extension;
 
 }
+
+#if defined(_MSC_VER)
+#pragma warning(pop)
+#endif
 
 static unsigned char *generic_asn1(char *value, X509V3_CTX *ctx,
                                    long *ext_len)
