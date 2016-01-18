@@ -119,6 +119,7 @@
 #pragma warning(pop)
 #else
 #include <pthread.h>
+#include <stdalign.h>
 #endif
 
 #if defined(__cplusplus)
@@ -176,6 +177,10 @@ void OPENSSL_cpuid_setup(void);
 
 #if !defined(inline)
 #define inline __inline
+#endif
+
+#if defined(_MSC_VER) && !defined(__cplusplus)
+#define alignas(x) __declspec(align(x))
 #endif
 
 
