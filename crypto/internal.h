@@ -112,6 +112,12 @@
 #include <openssl/ex_data.h>
 #include <openssl/thread.h>
 
+#if defined(_MSC_VER)
+#pragma warning(push, 3)
+#include <intrin.h>
+#pragma warning(pop)
+#endif
+
 #if defined(OPENSSL_NO_THREADS)
 #elif defined(OPENSSL_WINDOWS)
 #pragma warning(push, 3)
@@ -176,6 +182,32 @@ void OPENSSL_cpuid_setup(void);
 
 #if !defined(inline)
 #define inline __inline
+#endif
+
+
+/* Endian detection and conversion. */
+
+#define OPENSSL_LITTLE_ENDIAN 1
+#define OPENSSL_BIG_ENDIAN 2
+
+#if defined(OPENSSL_X86_64) || defined(OPENSSL_X86) || \
+    (defined(__BYTE_ORDER__) && defined(__ORDER_LITTLE_ENDIAN__) && \
+     __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__)
+#define OPENSSL_ENDIAN OPENSSL_LITTLE_ENDIAN
+#elif defined(__BYTE_ORDER__) && defined(__ORDER_BIG_ENDIAN__) && \
+      __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__
+#define OPENSSL_ENDIAN OPENSSL_BIG_ENDIAN
+#else
+#error "Cannot determine endianness"
+#endif
+
+/* STRICT_ALIGNMENT is 1 if unaligned memory access is known to work
+ * (efficiently), otherwise it is 0. */
+#if defined(OPENSSL_X86_64) || defined(OPENSSL_X86) || \
+    defined(__ARM_FEATURE_UNALIGNED)
+#define STRICT_ALIGNMENT 0
+#else
+#define STRICT_ALIGNMENT 1
 #endif
 
 

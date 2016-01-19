@@ -60,6 +60,8 @@
 
 #include <openssl/mem.h>
 
+#include "../internal.h"
+
 
 /* IMPLEMENTATION NOTES.
  *
@@ -77,11 +79,6 @@
     (defined(OPENSSL_X86) || defined(OPENSSL_X86_64) || \
      defined(OPENSSL_ARM) || defined(OPENSSL_AARCH64))
 #define SHA512_ASM
-#endif
-
-#if defined(OPENSSL_X86) || defined(OPENSSL_X86_64) || \
-    defined(__ARM_FEATURE_UNALIGNED)
-#define SHA512_BLOCK_CAN_MANAGE_UNALIGNED_DATA
 #endif
 
 int SHA384_Init(SHA512_CTX *sha) {
@@ -165,7 +162,7 @@ int SHA384_Update(SHA512_CTX *sha, const void *data, size_t len) {
 }
 
 void SHA512_Transform(SHA512_CTX *c, const uint8_t *data) {
-#ifndef SHA512_BLOCK_CAN_MANAGE_UNALIGNED_DATA
+#if STRICT_ALIGNMENT
   if ((size_t)data % sizeof(c->u.d[0]) != 0) {
     memcpy(c->u.p, data, sizeof(c->u.p));
     data = c->u.p;
@@ -208,7 +205,7 @@ int SHA512_Update(SHA512_CTX *c, const void *in_data, size_t len) {
   }
 
   if (len >= sizeof(c->u)) {
-#ifndef SHA512_BLOCK_CAN_MANAGE_UNALIGNED_DATA
+#if STRICT_ALIGNMENT
     if ((size_t)data % sizeof(c->u.d[0]) != 0) {
       while (len >= sizeof(c->u)) {
         memcpy(p, data, sizeof(c->u));
@@ -392,8 +389,7 @@ static const uint64_t K512[80] = {
     __asm__("ror %0, %1, %2" : "=r"(ret) : "r"(a), "I"(n)); \
     ret;                                                    \
   })
-#if defined(__BYTE_ORDER__) && defined(__ORDER_LITTLE_ENDIAN__) && \
-    __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
+#if OPENSSL_ENDIAN == OPENSSL_LITTLE_ENDIAN
 #define PULL64(x)                                                         \
   ({                                                                      \
     uint64_t ret;                                                         \
