@@ -53,6 +53,8 @@
 
 #include <assert.h>
 
+#include "../internal.h"
+
 #if defined(__cplusplus)
 extern "C" {
 #endif
@@ -161,9 +163,8 @@ extern "C" {
     (c) += 4;                                \
     r;                                       \
   })
-#elif defined(__aarch64__) && defined(__BYTE_ORDER__)
-#if defined(__ORDER_LITTLE_ENDIAN__) && \
-    __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
+#elif defined(__aarch64__)
+#if OPENSSL_ENDIAN == OPENSSL_LITTLE_ENDIAN
 #define HOST_c2l(c, l)                                                 \
   (void)({                                                             \
     uint32_t r;                                                        \
@@ -179,7 +180,7 @@ extern "C" {
     (c) += 4;                                               \
     r;                                                      \
   })
-#elif defined(__ORDER_BIG_ENDIAN__) && __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__
+#elif OPENSSL_ENDIAN == OPENSSL_BIG_ENDIAN
 #define HOST_c2l(c, l) (void)((l) = *((const uint32_t *)(c)), (c) += 4)
 #define HOST_l2c(l, c) (*((uint32_t *)(c)) = (l), (c) += 4, (l))
 #endif /* __aarch64__ && __BYTE_ORDER__ */

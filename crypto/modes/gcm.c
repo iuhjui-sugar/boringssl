@@ -63,7 +63,7 @@
 #define GHASH_ASM
 #endif
 
-#if defined(BSWAP4) && STRICT_ALIGNMENT == 1
+#if defined(BSWAP4) && STRICT_ALIGNMENT
 /* redefine, because alignment is ensured */
 #undef GETU32
 #define GETU32(p) BSWAP4(*(const uint32_t *)(p))
