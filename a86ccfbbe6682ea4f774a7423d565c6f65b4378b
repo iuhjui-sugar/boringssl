@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "67acd6b5_1277bc6e",
+        "filename": "crypto/cipher/tls_cbc.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-01-19T21:26:02Z",
+      "side": 1,
+      "message": "Confirmed. 860\u0027s the first failure I get if I try it in a loop.",
+      "range": {
+        "startLine": 183,
+        "startChar": 63,
+        "endLine": 183,
+        "endChar": 66
+      },
+      "revId": "a86ccfbbe6682ea4f774a7423d565c6f65b4378b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "67acd6b5_f27b3056",
+        "filename": "crypto/cipher/tls_cbc.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-01-19T21:26:02Z",
+      "side": 1,
+      "message": "Confirmed. 816\u0027s the first failure I get if I try it in a loop.",
+      "range": {
+        "startLine": 192,
+        "startChar": 63,
+        "endLine": 192,
+        "endChar": 66
+      },
+      "revId": "a86ccfbbe6682ea4f774a7423d565c6f65b4378b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
