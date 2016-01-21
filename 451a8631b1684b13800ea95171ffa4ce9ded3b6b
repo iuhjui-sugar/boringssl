@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d4eb7261_a77e0e3f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-01-21T21:33:45Z",
+      "side": 1,
+      "message": "did you mean \"the compiler\"?",
+      "range": {
+        "startLine": 9,
+        "startChar": 45,
+        "endLine": 9,
+        "endChar": 52
+      },
+      "revId": "451a8631b1684b13800ea95171ffa4ce9ded3b6b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
