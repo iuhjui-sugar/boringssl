@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b440be43_30780808",
+        "filename": "crypto/bn/montgomery.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-01-21T21:06:00Z",
+      "side": 1,
+      "message": "I love how this file is only half-clang-formatted.",
+      "revId": "ac0e951c3afb7f912d01350921d20a90c318cc04",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
