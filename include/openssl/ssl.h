@@ -2574,7 +2574,7 @@ OPENSSL_EXPORT int SSL_CTX_get_ex_new_index(long argl, void *argp,
                                             CRYPTO_EX_free *free_func);
 
 
-/* Obscure functions. */
+/* Low-level record-layer state. */
 
 /* SSL_get_rc4_state sets |*read_key| and |*write_key| to the RC4 states for
  * the read and write directions. It returns one on success or zero if |ssl|
@@ -2599,6 +2599,16 @@ OPENSSL_EXPORT size_t SSL_get_key_block_len(const SSL *ssl);
  * current connection state. */
 OPENSSL_EXPORT int SSL_generate_key_block(const SSL *ssl, uint8_t *out,
                                           size_t out_len);
+
+/* SSL_get_sequence_numbers sets |out_read_sequence| and |out_write_sequence| to
+ * the sequence number of the next incoming and outgoing record, respectively.
+ * In DTLS, |out_read_sequence| will always be zero. */
+OPENSSL_EXPORT void SSL_get_sequence_numbers(const SSL *ssl,
+                                             uint8_t out_read_sequence[8],
+                                             uint8_t out_write_sequence[8]);
+
+
+/* Obscure functions. */
 
 /* SSL_get_structure_sizes returns the sizes of the SSL, SSL_CTX and
  * SSL_SESSION structures so that a test can ensure that outside code agrees on

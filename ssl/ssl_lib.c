@@ -2540,6 +2540,12 @@ int SSL_get_ivs(const SSL *ssl, const uint8_t **out_read_iv,
   return 1;
 }
 
+void SSL_get_sequence_numbers(const SSL *ssl, uint8_t out_read_sequence[8],
+                              uint8_t out_write_sequence[8]) {
+  memcpy(out_read_sequence, ssl->s3->read_sequence, 8);
+  memcpy(out_write_sequence, ssl->s3->write_sequence, 8);
+}
+
 uint8_t SSL_get_server_key_exchange_hash(const SSL *ssl) {
   return ssl->s3->tmp.server_key_exchange_hash;
 }
