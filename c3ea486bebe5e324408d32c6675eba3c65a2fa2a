@@ -184,6 +184,23 @@
     },
     {
       "key": {
+        "uuid": "b440be43_93b33e07",
+        "filename": "crypto/mem.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-01-21T21:24:45Z",
+      "side": 1,
+      "message": "Dunno if you\u0027re still thinking of doing this, but I noticed unrelatedly that this function will also need to be changed should OPENSSL_malloc stop being a macro.",
+      "revId": "c3ea486bebe5e324408d32c6675eba3c65a2fa2a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "38e3c64b_2136aeee",
         "filename": "crypto/pem/pem_lib.c",
         "patchSetId": 1
