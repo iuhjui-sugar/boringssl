@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "b467de0d_bb57334f",
+        "filename": "crypto/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-01-22T22:50:32Z",
+      "side": 1,
+      "message": "That happened already. p224-64.c assumes a little-endian architecture. Noticing that was why I put together that other CL.",
+      "parentUuid": "14cb4a3e_2e19a707",
+      "revId": "b517308a0e35e250bf59166ee5bc27ae6ce1639a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b467de0d_db05475d",
         "filename": "crypto/internal.h",
         "patchSetId": 3
@@ -84,6 +102,24 @@
       "side": 1,
       "message": "If we test `STRICT_ALIGNMENT` than the compiler will (if properly configured) warn us when crypto/internal.h isn\u0027t included. IF we test `defined(STRICT_ALIGNMENT)` then it won\u0027t.\n\nAlso, there are cases where there is code like `if (STRICT_ALIGNMENT \u0026\u0026 ...)`.\n\nSo, I think the way it is done in this patch is better.",
       "parentUuid": "b467de0d_db05475d",
+      "revId": "b517308a0e35e250bf59166ee5bc27ae6ce1639a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b467de0d_7b299bc6",
+        "filename": "crypto/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-01-22T22:50:32Z",
+      "side": 1,
+      "message": "Yeah, that defined(...)-style things have this failure mode always rather bugs me, but I would rather keep it consistent than some of one and some of the other. Every other flag we have along with most compiler flags works this way.",
+      "parentUuid": "14cb4a3e_6e1fafef",
       "revId": "b517308a0e35e250bf59166ee5bc27ae6ce1639a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
