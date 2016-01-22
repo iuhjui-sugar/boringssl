@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b467de0d_3b11e39e",
+        "filename": "crypto/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-01-22T22:29:27Z",
+      "side": 1,
+      "message": "I don\u0027t think we actually support anything little-endian.\nhttps://boringssl-review.googlesource.com/#/c/4946/",
+      "revId": "b517308a0e35e250bf59166ee5bc27ae6ce1639a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b467de0d_db05475d",
+        "filename": "crypto/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-01-22T22:29:27Z",
+      "side": 1,
+      "message": "Our other preprocessor symbols tend to be defined vs not defined rather than having a value. Probably better to be consistent so we don\u0027t have even more of those bugs.",
+      "revId": "b517308a0e35e250bf59166ee5bc27ae6ce1639a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
