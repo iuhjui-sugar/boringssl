@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b467de0d_bbfc1389",
+        "filename": "crypto/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-01-22T22:30:01Z",
+      "side": 1,
+      "message": "Er, s/little-endian/big-endian/, of course.",
+      "parentUuid": "b467de0d_3b11e39e",
+      "revId": "b517308a0e35e250bf59166ee5bc27ae6ce1639a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b467de0d_db05475d",
         "filename": "crypto/internal.h",
         "patchSetId": 3
