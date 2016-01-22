@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "14cb4a3e_2e19a707",
+        "filename": "crypto/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-01-22T22:46:28Z",
+      "side": 1,
+      "message": "I think it does not hurt to keep this for now.\n\nI\u0027ve played with porting BoringSSL to big-endian MIPS32 because that\u0027s what my OpenWrt router uses, so I\u0027m not eager to just drop all the big-endian stuff. Plus, I am helping somebody else rewrite the endian-specific code so that endian-specific logic is minimized (particularly in crypto/modes/gcm.c). Let\u0027s wait until we see how that turns out before we completely drop all big-endian support.",
+      "parentUuid": "b467de0d_bbfc1389",
+      "revId": "b517308a0e35e250bf59166ee5bc27ae6ce1639a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b467de0d_db05475d",
         "filename": "crypto/internal.h",
         "patchSetId": 3
@@ -48,6 +66,24 @@
       "writtenOn": "2016-01-22T22:29:27Z",
       "side": 1,
       "message": "Our other preprocessor symbols tend to be defined vs not defined rather than having a value. Probably better to be consistent so we don\u0027t have even more of those bugs.",
+      "revId": "b517308a0e35e250bf59166ee5bc27ae6ce1639a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "14cb4a3e_6e1fafef",
+        "filename": "crypto/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-01-22T22:46:28Z",
+      "side": 1,
+      "message": "If we test `STRICT_ALIGNMENT` than the compiler will (if properly configured) warn us when crypto/internal.h isn\u0027t included. IF we test `defined(STRICT_ALIGNMENT)` then it won\u0027t.\n\nAlso, there are cases where there is code like `if (STRICT_ALIGNMENT \u0026\u0026 ...)`.\n\nSo, I think the way it is done in this patch is better.",
+      "parentUuid": "b467de0d_db05475d",
       "revId": "b517308a0e35e250bf59166ee5bc27ae6ce1639a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
