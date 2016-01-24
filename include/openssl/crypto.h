@@ -42,7 +42,8 @@ OPENSSL_EXPORT void CRYPTO_library_init(void);
 
 /* Deprecated functions. */
 
-#define OPENSSL_VERSION_TEXT "BoringSSL"
+/* node.js requires a version number in this text. */
+#define OPENSSL_VERSION_TEXT "BoringSSL 1.0.2"
 
 #define SSLEAY_VERSION 0
 
