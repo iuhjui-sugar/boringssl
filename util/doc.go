@@ -203,20 +203,31 @@ func getNameFromDecl(decl string) (string, bool) {
 	for strings.HasPrefix(decl, "#if") || strings.HasPrefix(decl, "#elif") {
 		decl = skipLine(decl)
 	}
-	if strings.HasPrefix(decl, "struct ") {
+
+	if strings.HasPrefix(decl, "typedef ") {
 		return "", false
 	}
-	if strings.HasPrefix(decl, "#define ") {
-		// This is a preprocessor #define. The name is the next symbol.
-		decl = strings.TrimPrefix(decl, "#define ")
-		for len(decl) > 0 && decl[0] == ' ' {
-			decl = decl[1:]
+
+	for _, prefix := range []string{"struct ", "enum ", "#define "} {
+		if strings.HasPrefix(decl, prefix) {
+			decl = strings.TrimPrefix(decl, prefix)
+
+			for len(decl) > 0 && decl[0] == ' ' {
+				decl = decl[1:]
+			}
+
+			// struct and enum types can be the return type of a
+			// function.
+			if prefix[0] != '#' && strings.Index(decl, "{") == -1 {
+				break
+			}
+
+			i := strings.IndexAny(decl, "( ")
+			if i < 0 {
+				return "", false
+			}
+			return decl[:i], true
 		}
-		i := strings.IndexAny(decl, "( ")
-		if i < 0 {
-			return "", false
-		}
-		return decl[:i], true
 	}
 	decl = strings.TrimPrefix(decl, "OPENSSL_EXPORT ")
 	decl = strings.TrimPrefix(decl, "STACK_OF(")
