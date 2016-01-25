@@ -172,6 +172,24 @@
     },
     {
       "key": {
+        "uuid": "b467de0d_3e4a313f",
+        "filename": "crypto/evp/p_ec.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-01-25T20:23:22Z",
+      "side": 1,
+      "message": "Sigh. Well, I do think it\u0027s kinda weird to have them all bunched up like that, so that the new one does this is good I suppose.",
+      "parentUuid": "f4b5d6da_5a0c158b",
+      "revId": "a45168560ec07477d3e28cecfdc3d4a91425dd5f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b467de0d_fe37d9d3",
         "filename": "crypto/evp/p_rsa.c",
         "patchSetId": 1
