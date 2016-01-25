@@ -1,0 +1,227 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b467de0d_1e516d0f",
+        "filename": "crypto/evp/evp_extra_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 664,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-01-25T19:35:59Z",
+      "side": 1,
+      "message": "Check for !pkey and !rsa.",
+      "revId": "a45168560ec07477d3e28cecfdc3d4a91425dd5f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b467de0d_be6641f8",
+        "filename": "crypto/evp/evp_extra_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-01-25T19:35:59Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "range": {
+        "startLine": 670,
+        "startChar": 75,
+        "endLine": 670,
+        "endChar": 88
+      },
+      "revId": "a45168560ec07477d3e28cecfdc3d4a91425dd5f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b467de0d_5e47e558",
+        "filename": "crypto/evp/evp_extra_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-01-25T19:35:59Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "a45168560ec07477d3e28cecfdc3d4a91425dd5f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b467de0d_debd3580",
+        "filename": "crypto/evp/p_ec.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-01-25T19:35:59Z",
+      "side": 1,
+      "message": "[There must be a clang-format knob somewhere to convince it not to bunch up these kinds of struct definitions like that...]",
+      "revId": "a45168560ec07477d3e28cecfdc3d4a91425dd5f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b467de0d_fe37d9d3",
+        "filename": "crypto/evp/p_rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-01-25T19:35:59Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this check *out_len on input to make sure the buffer is large enough?",
+      "revId": "a45168560ec07477d3e28cecfdc3d4a91425dd5f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b467de0d_be41613e",
+        "filename": "crypto/evp/p_rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-01-25T19:35:59Z",
+      "side": 1,
+      "message": "Already set up in line 270.",
+      "revId": "a45168560ec07477d3e28cecfdc3d4a91425dd5f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b467de0d_feba7985",
+        "filename": "decrepit/evp/evp_do_all.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-01-25T19:35:59Z",
+      "side": 1,
+      "message": "6",
+      "range": {
+        "startLine": 1,
+        "startChar": 20,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "a45168560ec07477d3e28cecfdc3d4a91425dd5f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b467de0d_7ecf4939",
+        "filename": "include/openssl/bio.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-01-25T19:35:59Z",
+      "side": 1,
+      "message": "compile",
+      "range": {
+        "startLine": 714,
+        "startChar": 59,
+        "endLine": 714,
+        "endChar": 60
+      },
+      "revId": "a45168560ec07477d3e28cecfdc3d4a91425dd5f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b467de0d_3ec9d131",
+        "filename": "include/openssl/crypto.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-01-25T19:35:59Z",
+      "side": 1,
+      "message": "I almost wonder if this should say something like:\n\n\"BoringSSL, like OpenSSL 1.0.2\"\n\nAlthough this is a little UA-string-y.",
+      "range": {
+        "startLine": 46,
+        "startChar": 39,
+        "endLine": 46,
+        "endChar": 45
+      },
+      "revId": "a45168560ec07477d3e28cecfdc3d4a91425dd5f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b467de0d_fe6cb9dd",
+        "filename": "include/openssl/ec.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-01-25T19:35:59Z",
+      "side": 1,
+      "message": "supported",
+      "range": {
+        "startLine": 315,
+        "startChar": 32,
+        "endLine": 315,
+        "endChar": 39
+      },
+      "revId": "a45168560ec07477d3e28cecfdc3d4a91425dd5f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b467de0d_de6f75d0",
+        "filename": "include/openssl/ec.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-01-25T19:35:59Z",
+      "side": 1,
+      "message": "Nit: should be two spaces I think?",
+      "range": {
+        "startLine": 317,
+        "startChar": 0,
+        "endLine": 317,
+        "endChar": 4
+      },
+      "revId": "a45168560ec07477d3e28cecfdc3d4a91425dd5f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
