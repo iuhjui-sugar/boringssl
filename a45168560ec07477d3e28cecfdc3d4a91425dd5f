@@ -203,6 +203,30 @@
     },
     {
       "key": {
+        "uuid": "b467de0d_5ee92567",
+        "filename": "include/openssl/crypto.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-01-25T19:41:12Z",
+      "side": 1,
+      "message": "Even better! :-)\n\nNit: OpenSSL 1.0.2 (compatible; BoringSSL)\n(Real one\u0027s got a semicolon instead of comma.)",
+      "parentUuid": "14cb4a3e_3a9ebd49",
+      "range": {
+        "startLine": 46,
+        "startChar": 39,
+        "endLine": 46,
+        "endChar": 45
+      },
+      "revId": "a45168560ec07477d3e28cecfdc3d4a91425dd5f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b467de0d_fe6cb9dd",
         "filename": "include/openssl/ec.h",
         "patchSetId": 1
