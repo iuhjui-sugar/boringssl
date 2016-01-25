@@ -154,6 +154,24 @@
     },
     {
       "key": {
+        "uuid": "f4b5d6da_5a0c158b",
+        "filename": "crypto/evp/p_ec.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2016-01-25T20:02:07Z",
+      "side": 1,
+      "message": "Wait, I take it back. clang-format on corp does like four spaces now that I rerun it.",
+      "parentUuid": "14cb4a3e_3af79d79",
+      "revId": "a45168560ec07477d3e28cecfdc3d4a91425dd5f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b467de0d_fe37d9d3",
         "filename": "crypto/evp/p_rsa.c",
         "patchSetId": 1
