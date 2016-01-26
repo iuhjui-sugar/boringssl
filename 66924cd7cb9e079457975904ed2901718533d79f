@@ -22,6 +22,30 @@
       "revId": "66924cd7cb9e079457975904ed2901718533d79f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94be5ae1_ba2a2d22",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2608,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-01-26T22:08:24Z",
+      "side": 1,
+      "message": "Done. On that note, that would be a pretty sensible internal representation. I\u0027ve added a TODO to resolve that, once we\u0027ve removed direct accesses of this field.",
+      "parentUuid": "f4b5d6da_eeaa87ee",
+      "range": {
+        "startLine": 2608,
+        "startChar": 53,
+        "endLine": 2608,
+        "endChar": 71
+      },
+      "revId": "66924cd7cb9e079457975904ed2901718533d79f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
