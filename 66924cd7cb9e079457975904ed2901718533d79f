@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f4b5d6da_eeaa87ee",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2608,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-01-26T20:25:14Z",
+      "side": 1,
+      "message": "Why not do the conversion to uint64 for the caller?",
+      "range": {
+        "startLine": 2608,
+        "startChar": 53,
+        "endLine": 2608,
+        "endChar": 71
+      },
+      "revId": "66924cd7cb9e079457975904ed2901718533d79f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
