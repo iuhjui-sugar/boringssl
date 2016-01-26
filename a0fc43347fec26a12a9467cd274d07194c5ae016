@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f4b5d6da_6ee91736",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 4699,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-01-26T20:30:21Z",
+      "side": 1,
+      "message": "Maybe const BogusCurveID \u003d 0x1234?",
+      "range": {
+        "startLine": 4699,
+        "startChar": 31,
+        "endLine": 4699,
+        "endChar": 37
+      },
+      "revId": "a0fc43347fec26a12a9467cd274d07194c5ae016",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
