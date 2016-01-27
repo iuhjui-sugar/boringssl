@@ -104,9 +104,11 @@ int EVP_CIPHER_CTX_cleanup(EVP_CIPHER_CTX *c) {
     if (c->cipher->cleanup) {
       c->cipher->cleanup(c);
     }
-    CRYPTO_clear(c->cipher_data, c->cipher->ctx_size);
   }
-  OPENSSL_free(c->cipher_data);
+  if (c->cipher_data != NULL) {
+    CRYPTO_clear(c->cipher_data, c->cipher->ctx_size);
+    OPENSSL_free(c->cipher_data);
+  }
 
   memset(c, 0, sizeof(EVP_CIPHER_CTX));
   return 1;
