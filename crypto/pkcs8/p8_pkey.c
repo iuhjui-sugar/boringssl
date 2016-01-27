@@ -68,8 +68,8 @@ static int pkey_cb(int operation, ASN1_VALUE **pval, const ASN1_ITEM *it,
     PKCS8_PRIV_KEY_INFO *key = (PKCS8_PRIV_KEY_INFO *)*pval;
     if (key->pkey && key->pkey->type == V_ASN1_OCTET_STRING &&
         key->pkey->value.octet_string) {
-      OPENSSL_cleanse(key->pkey->value.octet_string->data,
-                      key->pkey->value.octet_string->length);
+      CRYPTO_clear(key->pkey->value.octet_string->data,
+                   key->pkey->value.octet_string->length);
     }
   }
   return 1;

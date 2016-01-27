@@ -191,8 +191,8 @@ void SSL_SESSION_free(SSL_SESSION *session) {
 
   CRYPTO_free_ex_data(&g_ex_data_class, session, &session->ex_data);
 
-  OPENSSL_cleanse(session->master_key, sizeof(session->master_key));
-  OPENSSL_cleanse(session->session_id, sizeof(session->session_id));
+  CRYPTO_clear(session->master_key, sizeof(session->master_key));
+  CRYPTO_clear(session->session_id, sizeof(session->session_id));
   X509_free(session->peer);
   sk_X509_pop_free(session->cert_chain, X509_free);
   OPENSSL_free(session->tlsext_hostname);
@@ -200,7 +200,7 @@ void SSL_SESSION_free(SSL_SESSION *session) {
   OPENSSL_free(session->tlsext_signed_cert_timestamp_list);
   OPENSSL_free(session->ocsp_response);
   OPENSSL_free(session->psk_identity);
-  OPENSSL_cleanse(session, sizeof(*session));
+  CRYPTO_clear(session, sizeof(*session));
   OPENSSL_free(session);
 }
 

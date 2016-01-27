@@ -341,7 +341,7 @@ int PEM_ASN1_write_bio(i2d_of_void *i2d, const char *name, BIO *bp,
             goto err;
 
         if (kstr == (unsigned char *)buf)
-            OPENSSL_cleanse(buf, PEM_BUFSIZE);
+            CRYPTO_clear(buf, PEM_BUFSIZE);
 
         assert(strlen(objstr) + 23 + 2 * iv_len + 13 <= sizeof buf);
 
@@ -369,12 +369,12 @@ int PEM_ASN1_write_bio(i2d_of_void *i2d, const char *name, BIO *bp,
     if (i <= 0)
         ret = 0;
  err:
-    OPENSSL_cleanse(key, sizeof(key));
-    OPENSSL_cleanse(iv, sizeof(iv));
-    OPENSSL_cleanse((char *)&ctx, sizeof(ctx));
-    OPENSSL_cleanse(buf, PEM_BUFSIZE);
+    CRYPTO_clear(key, sizeof(key));
+    CRYPTO_clear(iv, sizeof(iv));
+    CRYPTO_clear(&ctx, sizeof(ctx));
+    CRYPTO_clear(buf, PEM_BUFSIZE);
     if (data != NULL) {
-        OPENSSL_cleanse(data, (unsigned int)dsize);
+        CRYPTO_clear(data, (size_t)dsize);
         OPENSSL_free(data);
     }
     return (ret);
@@ -415,8 +415,8 @@ int PEM_do_header(EVP_CIPHER_INFO *cipher, unsigned char *data, long *plen,
     if (o)
         o = EVP_DecryptFinal_ex(&ctx, &(data[i]), &j);
     EVP_CIPHER_CTX_cleanup(&ctx);
-    OPENSSL_cleanse((char *)buf, sizeof(buf));
-    OPENSSL_cleanse((char *)key, sizeof(key));
+    CRYPTO_clear(buf, sizeof(buf));
+    CRYPTO_clear(key, sizeof(key));
     if (!o) {
         OPENSSL_PUT_ERROR(PEM, PEM_R_BAD_DECRYPT);
         return (0);
@@ -592,7 +592,7 @@ int PEM_write_bio(BIO *bp, const char *name, const char *header,
     EVP_EncodeFinal(&ctx, buf, &outl);
     if ((outl > 0) && (BIO_write(bp, (char *)buf, outl) != outl))
         goto err;
-    OPENSSL_cleanse(buf, PEM_BUFSIZE * 8);
+    CRYPTO_clear(buf, PEM_BUFSIZE * 8);
     OPENSSL_free(buf);
     buf = NULL;
     if ((BIO_write(bp, "-----END ", 9) != 9) ||
@@ -602,7 +602,7 @@ int PEM_write_bio(BIO *bp, const char *name, const char *header,
     return (i + outl);
  err:
     if (buf) {
-        OPENSSL_cleanse(buf, PEM_BUFSIZE * 8);
+        CRYPTO_clear(buf, PEM_BUFSIZE * 8);
         OPENSSL_free(buf);
     }
     OPENSSL_PUT_ERROR(PEM, reason);

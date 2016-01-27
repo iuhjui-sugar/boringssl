@@ -74,9 +74,9 @@ static void CMAC_CTX_init(CMAC_CTX *ctx) {
 
 static void CMAC_CTX_cleanup(CMAC_CTX *ctx) {
   EVP_CIPHER_CTX_cleanup(&ctx->cipher_ctx);
-  OPENSSL_cleanse(ctx->k1, sizeof(ctx->k1));
-  OPENSSL_cleanse(ctx->k2, sizeof(ctx->k2));
-  OPENSSL_cleanse(ctx->block, sizeof(ctx->block));
+  CRYPTO_clear(ctx->k1, sizeof(ctx->k1));
+  CRYPTO_clear(ctx->k2, sizeof(ctx->k2));
+  CRYPTO_clear(ctx->block, sizeof(ctx->block));
 }
 
 int AES_CMAC(uint8_t out[16], const uint8_t *key, size_t key_len,

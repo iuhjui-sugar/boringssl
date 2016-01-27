@@ -89,7 +89,7 @@ EVP_MD_CTX *EVP_MD_CTX_create(void) {
 
 int EVP_MD_CTX_cleanup(EVP_MD_CTX *ctx) {
   if (ctx->digest && ctx->digest->ctx_size && ctx->md_data) {
-    OPENSSL_cleanse(ctx->md_data, ctx->digest->ctx_size);
+    CRYPTO_clear(ctx->md_data, ctx->digest->ctx_size);
     OPENSSL_free(ctx->md_data);
   }
 
@@ -199,7 +199,7 @@ int EVP_DigestFinal_ex(EVP_MD_CTX *ctx, uint8_t *md_out, unsigned int *size) {
   if (size != NULL) {
     *size = ctx->digest->md_size;
   }
-  OPENSSL_cleanse(ctx->md_data, ctx->digest->ctx_size);
+  CRYPTO_clear(ctx->md_data, ctx->digest->ctx_size);
   return 1;
 }
 

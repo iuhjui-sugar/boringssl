@@ -106,7 +106,7 @@ uint8_t *SHA224(const uint8_t *data, size_t len, uint8_t *out) {
   SHA224_Init(&ctx);
   SHA256_Update(&ctx, data, len);
   SHA256_Final(out, &ctx);
-  OPENSSL_cleanse(&ctx, sizeof(ctx));
+  CRYPTO_clear(&ctx, sizeof(ctx));
   return out;
 }
 
@@ -121,7 +121,7 @@ uint8_t *SHA256(const uint8_t *data, size_t len, uint8_t *out) {
   SHA256_Init(&ctx);
   SHA256_Update(&ctx, data, len);
   SHA256_Final(out, &ctx);
-  OPENSSL_cleanse(&ctx, sizeof(ctx));
+  CRYPTO_clear(&ctx, sizeof(ctx));
   return out;
 }
 

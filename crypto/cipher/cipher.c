@@ -104,7 +104,7 @@ int EVP_CIPHER_CTX_cleanup(EVP_CIPHER_CTX *c) {
     if (c->cipher->cleanup) {
       c->cipher->cleanup(c);
     }
-    OPENSSL_cleanse(c->cipher_data, c->cipher->ctx_size);
+    CRYPTO_clear(c->cipher_data, c->cipher->ctx_size);
   }
   OPENSSL_free(c->cipher_data);
 

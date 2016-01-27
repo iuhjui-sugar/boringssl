@@ -180,7 +180,7 @@ err:
     BN_CTX_free(ctx);
   }
   if (buf != NULL) {
-    OPENSSL_cleanse(buf, rsa_size);
+    CRYPTO_clear(buf, rsa_size);
     OPENSSL_free(buf);
   }
 
@@ -337,7 +337,7 @@ int rsa_default_sign_raw(RSA *rsa, size_t *out_len, uint8_t *out,
 
 err:
   if (buf != NULL) {
-    OPENSSL_cleanse(buf, rsa_size);
+    CRYPTO_clear(buf, rsa_size);
     OPENSSL_free(buf);
   }
 
@@ -402,7 +402,7 @@ int rsa_default_decrypt(RSA *rsa, size_t *out_len, uint8_t *out, size_t max_out,
 
 err:
   if (padding != RSA_NO_PADDING && buf != NULL) {
-    OPENSSL_cleanse(buf, rsa_size);
+    CRYPTO_clear(buf, rsa_size);
     OPENSSL_free(buf);
   }
 
@@ -505,7 +505,7 @@ err:
     BN_CTX_free(ctx);
   }
   if (padding != RSA_NO_PADDING && buf != NULL) {
-    OPENSSL_cleanse(buf, rsa_size);
+    CRYPTO_clear(buf, rsa_size);
     OPENSSL_free(buf);
   }
   return ret;

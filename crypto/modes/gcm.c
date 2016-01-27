@@ -1235,7 +1235,7 @@ void CRYPTO_gcm128_tag(GCM128_CONTEXT *ctx, unsigned char *tag, size_t len) {
 
 void CRYPTO_gcm128_release(GCM128_CONTEXT *ctx) {
   if (ctx) {
-    OPENSSL_cleanse(ctx, sizeof(*ctx));
+    CRYPTO_clear(ctx, sizeof(*ctx));
     OPENSSL_free(ctx);
   }
 }

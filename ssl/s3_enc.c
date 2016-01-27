@@ -207,7 +207,7 @@ static int ssl3_prf(const SSL *ssl, uint8_t *out, size_t out_len,
     out += MD5_DIGEST_LENGTH;
   }
 
-  OPENSSL_cleanse(smd, SHA_DIGEST_LENGTH);
+  CRYPTO_clear(smd, SHA_DIGEST_LENGTH);
   EVP_MD_CTX_cleanup(&md5);
   EVP_MD_CTX_cleanup(&sha1);
 
@@ -216,7 +216,7 @@ static int ssl3_prf(const SSL *ssl, uint8_t *out, size_t out_len,
 
 void ssl3_cleanup_key_block(SSL *ssl) {
   if (ssl->s3->tmp.key_block != NULL) {
-    OPENSSL_cleanse(ssl->s3->tmp.key_block, ssl->s3->tmp.key_block_length);
+    CRYPTO_clear(ssl->s3->tmp.key_block, ssl->s3->tmp.key_block_length);
     OPENSSL_free(ssl->s3->tmp.key_block);
     ssl->s3->tmp.key_block = NULL;
   }

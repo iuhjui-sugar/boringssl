@@ -1691,7 +1691,7 @@ int ssl3_get_client_key_exchange(SSL *ssl) {
       goto err;
     }
 
-    OPENSSL_cleanse(premaster_secret, premaster_secret_len);
+    CRYPTO_clear(premaster_secret, premaster_secret_len);
     OPENSSL_free(premaster_secret);
     premaster_secret = new_data;
     premaster_secret_len = new_len;
@@ -1705,7 +1705,7 @@ int ssl3_get_client_key_exchange(SSL *ssl) {
   }
   ssl->session->extended_master_secret = ssl->s3->tmp.extended_master_secret;
 
-  OPENSSL_cleanse(premaster_secret, premaster_secret_len);
+  CRYPTO_clear(premaster_secret, premaster_secret_len);
   OPENSSL_free(premaster_secret);
   return 1;
 
@@ -1713,7 +1713,7 @@ f_err:
   ssl3_send_alert(ssl, SSL3_AL_FATAL, al);
 err:
   if (premaster_secret != NULL) {
-    OPENSSL_cleanse(premaster_secret, premaster_secret_len);
+    CRYPTO_clear(premaster_secret, premaster_secret_len);
     OPENSSL_free(premaster_secret);
   }
   OPENSSL_free(decrypt_buf);

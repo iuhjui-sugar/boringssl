@@ -101,13 +101,13 @@ int ASN1_item_verify(const ASN1_ITEM *it, X509_ALGOR *a,
     }
 
     if (!EVP_DigestVerifyUpdate(&ctx, buf_in, inl)) {
-        OPENSSL_cleanse(buf_in, (unsigned int)inl);
+        CRYPTO_clear(buf_in, (size_t)inl);
         OPENSSL_free(buf_in);
         OPENSSL_PUT_ERROR(X509, ERR_R_EVP_LIB);
         goto err;
     }
 
-    OPENSSL_cleanse(buf_in, (unsigned int)inl);
+    CRYPTO_clear(buf_in, (size_t)inl);
     OPENSSL_free(buf_in);
 
     if (EVP_DigestVerifyFinal(&ctx, signature->data,
