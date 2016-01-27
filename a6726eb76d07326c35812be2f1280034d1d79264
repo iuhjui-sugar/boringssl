@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "94be5ae1_e03fd890",
+        "filename": "crypto/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-01-27T22:06:09Z",
+      "side": 1,
+      "message": "Incidentally, now that we\u0027re through with XP, this can switch to INIT_ONCE. (And maybe CRYPTO_MUTEX to SRWLOCK.)",
+      "range": {
+        "startLine": 337,
+        "startChar": 8,
+        "endLine": 337,
+        "endChar": 21
+      },
+      "revId": "a6726eb76d07326c35812be2f1280034d1d79264",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
