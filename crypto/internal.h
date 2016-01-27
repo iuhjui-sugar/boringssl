@@ -189,8 +189,8 @@ void OPENSSL_cpuid_setup(void);
 
 
 #if !defined(_MSC_VER)
-typedef __uint128_t uint128_t;
 typedef __int128_t int128_t;
+typedef __uint128_t uint128_t;
 #endif
 
 
