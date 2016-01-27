@@ -97,16 +97,18 @@ void *OPENSSL_realloc_clean(void *ptr, size_t old_size, size_t new_size) {
   }
 
   memcpy(ret, ptr, old_size);
-  OPENSSL_cleanse(ptr, old_size);
+  CRYPTO_clear(ptr, old_size);
   OPENSSL_free(ptr);
   return ret;
 }
 
-void OPENSSL_cleanse(void *ptr, size_t len) {
+void CRYPTO_clear(void *ptr, size_t len) {
+  assert(ptr != NULL);
+
 #if defined(OPENSSL_WINDOWS)
-	SecureZeroMemory(ptr, len);
+  SecureZeroMemory(ptr, len);
 #else
-	memset(ptr, 0, len);
+  memset(ptr, 0, len);
 
 #if !defined(OPENSSL_NO_ASM)
   /* As best as we can tell, this is sufficient to break any optimisations that
@@ -128,6 +130,13 @@ int CRYPTO_memcmp(const void *in_a, const void *in_b, size_t len) {
   }
 
   return x;
+}
+
+OPENSSL_EXPORT void OPENSSL_cleanse(void *ptr, size_t len) {
+  if (ptr == NULL) {
+    return;
+  }
+  CRYPTO_clear(ptr, len);
 }
 
 uint32_t OPENSSL_hash32(const void *ptr, size_t len) {

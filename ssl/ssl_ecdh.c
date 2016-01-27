@@ -163,7 +163,7 @@ static void ssl_x25519_cleanup(SSL_ECDH_CTX *ctx) {
   if (ctx->data == NULL) {
     return;
   }
-  OPENSSL_cleanse(ctx->data, 32);
+  CRYPTO_clear(ctx->data, 32);
   OPENSSL_free(ctx->data);
 }
 
@@ -256,7 +256,7 @@ static int ssl_dhe_compute_secret(SSL_ECDH_CTX *ctx, uint8_t **out_secret,
 
 err:
   if (secret_len > 0) {
-    OPENSSL_cleanse(secret, (size_t)secret_len);
+    CRYPTO_clear(secret, (size_t)secret_len);
   }
   OPENSSL_free(secret);
   BN_free(peer_point);

@@ -1736,7 +1736,7 @@ int ssl3_send_client_key_exchange(SSL *ssl) {
       OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
       goto err;
     }
-    OPENSSL_cleanse(pms, pms_len);
+    CRYPTO_clear(pms, pms_len);
     OPENSSL_free(pms);
     pms = new_pms;
     pms_len = new_pms_len;
@@ -1757,7 +1757,7 @@ int ssl3_send_client_key_exchange(SSL *ssl) {
     goto err;
   }
   ssl->session->extended_master_secret = ssl->s3->tmp.extended_master_secret;
-  OPENSSL_cleanse(pms, pms_len);
+  CRYPTO_clear(pms, pms_len);
   OPENSSL_free(pms);
 
   /* SSL3_ST_CW_KEY_EXCH_B */
@@ -1765,7 +1765,7 @@ int ssl3_send_client_key_exchange(SSL *ssl) {
 
 err:
   if (pms != NULL) {
-    OPENSSL_cleanse(pms, pms_len);
+    CRYPTO_clear(pms, pms_len);
     OPENSSL_free(pms);
   }
   return -1;

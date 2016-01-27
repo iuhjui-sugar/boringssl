@@ -90,7 +90,7 @@ uint8_t *SHA1(const uint8_t *data, size_t len, uint8_t *out) {
   }
   SHA1_Update(&ctx, data, len);
   SHA1_Final(out, &ctx);
-  OPENSSL_cleanse(&ctx, sizeof(ctx));
+  CRYPTO_clear(&ctx, sizeof(ctx));
   return out;
 }
 

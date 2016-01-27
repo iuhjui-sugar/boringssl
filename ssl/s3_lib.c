@@ -230,7 +230,7 @@ void ssl3_free(SSL *ssl) {
   SSL_AEAD_CTX_free(ssl->s3->aead_read_ctx);
   SSL_AEAD_CTX_free(ssl->s3->aead_write_ctx);
 
-  OPENSSL_cleanse(ssl->s3, sizeof *ssl->s3);
+  CRYPTO_clear(ssl->s3, sizeof *ssl->s3);
   OPENSSL_free(ssl->s3);
   ssl->s3 = NULL;
 }

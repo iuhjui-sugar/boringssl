@@ -47,7 +47,7 @@ static void aead_tls_cleanup(EVP_AEAD_CTX *ctx) {
   AEAD_TLS_CTX *tls_ctx = (AEAD_TLS_CTX *)ctx->aead_state;
   EVP_CIPHER_CTX_cleanup(&tls_ctx->cipher_ctx);
   HMAC_CTX_cleanup(&tls_ctx->hmac_ctx);
-  OPENSSL_cleanse(&tls_ctx->mac_key, sizeof(tls_ctx->mac_key));
+  CRYPTO_clear(&tls_ctx->mac_key, sizeof(tls_ctx->mac_key));
   OPENSSL_free(tls_ctx);
   ctx->aead_state = NULL;
 }

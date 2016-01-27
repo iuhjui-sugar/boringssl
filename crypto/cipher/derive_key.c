@@ -149,6 +149,6 @@ int EVP_BytesToKey(const EVP_CIPHER *type, const EVP_MD *md,
 
 err:
   EVP_MD_CTX_cleanup(&c);
-  OPENSSL_cleanse(md_buf, EVP_MAX_MD_SIZE);
+  CRYPTO_clear(md_buf, EVP_MAX_MD_SIZE);
   return rv;
 }

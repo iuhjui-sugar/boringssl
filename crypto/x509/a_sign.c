@@ -124,11 +124,11 @@ int ASN1_item_sign_ctx(const ASN1_ITEM *it,
  err:
     EVP_MD_CTX_cleanup(ctx);
     if (buf_in != NULL) {
-        OPENSSL_cleanse((char *)buf_in, (unsigned int)inl);
+        CRYPTO_clear(buf_in, (size_t)inl);
         OPENSSL_free(buf_in);
     }
     if (buf_out != NULL) {
-        OPENSSL_cleanse((char *)buf_out, outll);
+        CRYPTO_clear(buf_out, outll);
         OPENSSL_free(buf_out);
     }
     return (outl);

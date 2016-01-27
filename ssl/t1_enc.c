@@ -220,7 +220,7 @@ err:
   HMAC_CTX_cleanup(&ctx);
   HMAC_CTX_cleanup(&ctx_tmp);
   HMAC_CTX_cleanup(&ctx_init);
-  OPENSSL_cleanse(A1, sizeof(A1));
+  CRYPTO_clear(A1, sizeof(A1));
   return ret;
 }
 

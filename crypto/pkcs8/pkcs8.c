@@ -260,8 +260,8 @@ static int pkcs12_pbe_keyivgen(EVP_CIPHER_CTX *ctx, const uint8_t *pass_raw,
   }
   PBEPARAM_free(pbe);
   ret = EVP_CipherInit_ex(ctx, cipher, NULL, key, iv, is_encrypt);
-  OPENSSL_cleanse(key, EVP_MAX_KEY_LENGTH);
-  OPENSSL_cleanse(iv, EVP_MAX_IV_LENGTH);
+  CRYPTO_clear(key, EVP_MAX_KEY_LENGTH);
+  CRYPTO_clear(iv, EVP_MAX_IV_LENGTH);
   return ret;
 }
 
@@ -467,7 +467,7 @@ static void *pkcs12_item_decrypt_d2i(X509_ALGOR *algor, const ASN1_ITEM *it,
   }
   p = out;
   ret = ASN1_item_d2i(NULL, &p, out_len, it);
-  OPENSSL_cleanse(out, out_len);
+  CRYPTO_clear(out, out_len);
   if (!ret) {
     OPENSSL_PUT_ERROR(PKCS8, PKCS8_R_DECODE_ERROR);
   }
@@ -487,7 +487,7 @@ PKCS8_PRIV_KEY_INFO *PKCS8_decrypt(X509_SIG *pkcs8, const char *pass,
   PKCS8_PRIV_KEY_INFO *ret = PKCS8_decrypt_pbe(pkcs8, pass_raw, pass_raw_len);
 
   if (pass_raw) {
-    OPENSSL_cleanse(pass_raw, pass_raw_len);
+    CRYPTO_clear(pass_raw, pass_raw_len);
     OPENSSL_free(pass_raw);
   }
   return ret;
@@ -526,7 +526,7 @@ static ASN1_OCTET_STRING *pkcs12_item_i2d_encrypt(X509_ALGOR *algor,
     return NULL;
   }
   oct->length = crypt_len;
-  OPENSSL_cleanse(in, in_len);
+  CRYPTO_clear(in, in_len);
   OPENSSL_free(in);
   return oct;
 }
@@ -544,7 +544,7 @@ X509_SIG *PKCS8_encrypt(int pbe_nid, const EVP_CIPHER *cipher, const char *pass,
                                     salt, salt_len, iterations, p8inf);
 
   if (pass_raw) {
-    OPENSSL_cleanse(pass_raw, pass_raw_len);
+    CRYPTO_clear(pass_raw, pass_raw_len);
     OPENSSL_free(pass_raw);
   }
   return ret;

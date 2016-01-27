@@ -107,14 +107,14 @@ void BN_clear_free(BIGNUM *bn) {
   }
 
   if (bn->d != NULL) {
-    OPENSSL_cleanse(bn->d, bn->dmax * sizeof(bn->d[0]));
+    CRYPTO_clear(bn->d, bn->dmax * sizeof(bn->d[0]));
     if ((bn->flags & BN_FLG_STATIC_DATA) == 0) {
       OPENSSL_free(bn->d);
     }
   }
 
   should_free = (bn->flags & BN_FLG_MALLOCED) != 0;
-  OPENSSL_cleanse(bn, sizeof(BIGNUM));
+  CRYPTO_clear(bn, sizeof(BIGNUM));
   if (should_free) {
     OPENSSL_free(bn);
   }

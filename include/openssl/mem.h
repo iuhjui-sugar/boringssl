@@ -84,9 +84,10 @@ extern "C" {
  * to be given the size of the buffer pointed to by |ptr|. */
 void *OPENSSL_realloc_clean(void *ptr, size_t old_size, size_t new_size);
 
-/* OPENSSL_cleanse zeros out |len| bytes of memory at |ptr|. This is similar to
- * |memset_s| from C11. */
-OPENSSL_EXPORT void OPENSSL_cleanse(void *ptr, size_t len);
+/* CRYPTO_clear zeros out |len| bytes of memory at |ptr|. This is similar to
+ * |memset_s| from C11. This is similar to |OPENSSL_cleanse|, except
+ * |OPENSSL_cleanse| allows |ptr| to be NULL. */
+OPENSSL_EXPORT void CRYPTO_clear(void *ptr, size_t len);
 
 /* CRYPTO_memcmp returns zero iff the |len| bytes at |a| and |b| are equal. It
  * takes an amount of time dependent on |len|, but independent of the contents
@@ -122,6 +123,15 @@ OPENSSL_EXPORT int BIO_snprintf(char *buf, size_t n, const char *format, ...)
 OPENSSL_EXPORT int BIO_vsnprintf(char *buf, size_t n, const char *format,
                                  va_list args)
     OPENSSL_PRINTF_FORMAT_FUNC(3, 0);
+
+
+/* Deprecated functions. */
+
+#if !defined(BORINGSSL_IMPLEMENTATION)
+/* OPENSSL_cleanse is equivalent to |CRYPTO_clear(ptr, len)| when |ptr| is not
+ * NULL. When |ptr| is NULL, it does nothing. */
+OPENSSL_EXPORT void CRYPTO_clear(void *ptr, size_t len);
+#endif
 
 
 #if defined(__cplusplus)
