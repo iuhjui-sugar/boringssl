@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "94be5ae1_7d724f28",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 3740,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-01-27T16:55:48Z",
+      "side": 1,
+      "message": "I glanced at Node\u0027s use of this. We just need to send them a patch to call SSL_CTX_clear_extra_chain_certs instead.",
+      "revId": "ce9d85eedd4888848148e3b855e85efb1009224c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94be5ae1_5d6f8b40",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 3741,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-01-27T16:55:48Z",
+      "side": 1,
+      "message": "This one\u0027s a little annoying. OpenSSL never added an accessor for it and 1.1.0\u0027s removed it altogether.",
+      "revId": "ce9d85eedd4888848148e3b855e85efb1009224c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94be5ae1_1d69133a",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 3926,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-01-27T16:55:48Z",
+      "side": 1,
+      "message": "We just need to send them a patch to #ifdef it on NODE__HAVE_TLSEXT_STATUS_CB. They already #ifdef the other OCSP APIs on this.",
+      "revId": "ce9d85eedd4888848148e3b855e85efb1009224c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
