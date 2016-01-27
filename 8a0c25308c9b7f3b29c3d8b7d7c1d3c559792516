@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f4b5d6da_846e4796",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 2888,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2016-01-27T22:02:09Z",
+      "side": 1,
+      "message": "I reworded the comment a little to match the description. We use this name in several other places so I\u0027d like to keep it here too.",
+      "parentUuid": "f4b5d6da_69e91136",
+      "range": {
+        "startLine": 2888,
+        "startChar": 20,
+        "endLine": 2888,
+        "endChar": 66
+      },
+      "revId": "8a0c25308c9b7f3b29c3d8b7d7c1d3c559792516",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f4b5d6da_4ecb73cc",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2016-01-26T23:16:21Z",
       "side": 1,
       "message": "Nit: s/enabled/enable/ for consistency with \"reject\", below.",
+      "range": {
+        "startLine": 2889,
+        "startChar": 67,
+        "endLine": 2889,
+        "endChar": 70
+      },
+      "revId": "8a0c25308c9b7f3b29c3d8b7d7c1d3c559792516",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f4b5d6da_845c8702",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 2889,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2016-01-27T22:02:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4b5d6da_4ecb73cc",
       "range": {
         "startLine": 2889,
         "startChar": 67,
