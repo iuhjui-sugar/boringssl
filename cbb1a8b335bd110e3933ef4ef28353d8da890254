@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b4543ee5_908ef41b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-01-28T23:58:42Z",
+      "side": 1,
+      "message": "I was dismayed to learn some time ago that this was legal in C:\n\n  const typedef int FooBar;",
+      "revId": "cbb1a8b335bd110e3933ef4ef28353d8da890254",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
