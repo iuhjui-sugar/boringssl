@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b4543ee5_f3c82a30",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-01-29T20:39:01Z",
+      "side": 1,
+      "message": "I can wait and gather metrics on the servers if you prefer to be safe. (Only reason I bothered looked at Chrome\u0027s metrics was because I happened to already be gathering them for SHA-1.)",
+      "range": {
+        "startLine": 25,
+        "startChar": 35,
+        "endLine": 25,
+        "endChar": 47
+      },
+      "revId": "589a07741763451c21bc3441f12fc93208b8c6b3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
