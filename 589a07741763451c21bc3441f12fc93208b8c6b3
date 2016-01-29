@@ -22,6 +22,30 @@
       "revId": "589a07741763451c21bc3441f12fc93208b8c6b3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b486fe94_34be087c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-01-29T21:29:58Z",
+      "side": 1,
+      "message": "I think that\u0027s sufficiently unlikely that it\u0027s not worth the time.",
+      "parentUuid": "b4543ee5_f3c82a30",
+      "range": {
+        "startLine": 25,
+        "startChar": 35,
+        "endLine": 25,
+        "endChar": 47
+      },
+      "revId": "589a07741763451c21bc3441f12fc93208b8c6b3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
