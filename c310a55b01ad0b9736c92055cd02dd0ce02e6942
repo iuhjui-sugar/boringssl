@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "51c15418_ed096547",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1085,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-02-01T23:21:38Z",
+      "side": 1,
+      "message": "Not needed with the NULL check inside *_free.",
+      "revId": "c310a55b01ad0b9736c92055cd02dd0ce02e6942",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "51c15418_cd0ca95a",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1090,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-02-01T23:21:38Z",
+      "side": 1,
+      "message": "Worth the usual mention in the header file?",
+      "revId": "c310a55b01ad0b9736c92055cd02dd0ce02e6942",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "51c15418_6dfed557",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-02-01T23:21:38Z",
+      "side": 1,
+      "message": "It looks like this doesn\u0027t happen in upstream because, unlike us, upstream stops reading once the element is completed. We could also do that, but that\u0027d require handling indefinite-length encoding.",
+      "revId": "c310a55b01ad0b9736c92055cd02dd0ce02e6942",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
