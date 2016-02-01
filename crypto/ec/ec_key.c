@@ -100,7 +100,6 @@ EC_KEY *EC_KEY_new_method(const ENGINE *engine) {
     METHOD_ref(ret->ecdsa_meth);
   }
 
-  ret->version = 1;
   ret->references = 1;
 
   CRYPTO_new_ex_data(&ret->ex_data);
@@ -207,7 +206,6 @@ EC_KEY *EC_KEY_copy(EC_KEY *dest, const EC_KEY *src) {
 
   /* copy the rest */
   dest->enc_flag = src->enc_flag;
-  dest->version = src->version;
   dest->flags = src->flags;
 
   return dest;
