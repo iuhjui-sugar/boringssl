@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f1cc087f_a24fbebb",
+        "filename": "crypto/curve25519/asm/x25519-asm-arm.S",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5780
+      },
+      "writtenOn": "2016-02-02T14:54:15Z",
+      "side": 1,
+      "message": "These are identical to the comments on other files, like in chacha.  Note that most assembly files are in the generated files folders created by util/generate_build_files.py.",
+      "range": {
+        "startLine": 21,
+        "startChar": 11,
+        "endLine": 21,
+        "endChar": 12
+      },
+      "revId": "d3a4284363713f5516de977fc5dfb3ecd3f89068",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
