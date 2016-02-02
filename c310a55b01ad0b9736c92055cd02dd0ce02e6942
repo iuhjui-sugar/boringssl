@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f127a8f2_2a7f3ff4",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1085,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-02-02T19:15:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51c15418_ed096547",
+      "revId": "c310a55b01ad0b9736c92055cd02dd0ce02e6942",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51c15418_cd0ca95a",
         "filename": "crypto/pkcs8/pkcs8.c",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "f127a8f2_6a79370b",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1090,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-02-02T19:15:06Z",
+      "side": 1,
+      "message": "The header file says that the input must be NULL, which is technically wrong now but it still seems like the best advice for anyone. I\u0027ve added a note about this behaviour in the most sidebar manner possible in a text comment.",
+      "parentUuid": "51c15418_cd0ca95a",
+      "revId": "c310a55b01ad0b9736c92055cd02dd0ce02e6942",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51c15418_6dfed557",
         "filename": "crypto/pkcs8/pkcs8.c",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2016-02-01T23:21:38Z",
       "side": 1,
       "message": "It looks like this doesn\u0027t happen in upstream because, unlike us, upstream stops reading once the element is completed. We could also do that, but that\u0027d require handling indefinite-length encoding.",
+      "revId": "c310a55b01ad0b9736c92055cd02dd0ce02e6942",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f127a8f2_aa720f25",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-02-02T19:15:06Z",
+      "side": 1,
+      "message": "Yea. I don\u0027t want to do that if it can be avoided.",
+      "parentUuid": "51c15418_6dfed557",
       "revId": "c310a55b01ad0b9736c92055cd02dd0ce02e6942",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
