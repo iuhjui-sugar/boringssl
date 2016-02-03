@@ -1939,6 +1939,71 @@ static int ext_ec_curves_add_serverhello(SSL *ssl, CBB *out) {
   return 1;
 }
 
+/* Maximum Fragment Length
+ *
+ * https://tools.ietf.org/html/rfc6066#section-4 */
+
+static int ext_max_fragment_add_hello(SSL *ssl, CBB *out) {
+  if (ssl->tlsext_mfl_biased_log == 0) {
+    return 1;
+  }
+
+  CBB contents;
+  if (!CBB_add_u16(out, TLSEXT_TYPE_max_fragment_length) ||
+      !CBB_add_u16_length_prefixed(out, &contents) ||
+      !CBB_add_u8(&contents, ssl->tlsext_mfl_biased_log) || !CBB_flush(out)) {
+    return 0;
+  }
+
+  return 1;
+}
+
+static int ext_max_fragment_parse_serverhello(SSL *ssl, uint8_t *out_alert,
+                                              CBS *contents) {
+  if (contents == NULL) {
+    if (ssl->tlsext_mfl_biased_log && ssl->tlsext_mfl_required) {
+      *out_alert = SSL_AD_CLOSE_NOTIFY;
+      return 0;
+    } else {
+      ssl->tlsext_mfl_biased_log = 0;
+      return 1;
+    }
+  }
+
+  uint8_t mfl_biased_log;
+  if (!CBS_get_u8(contents, &mfl_biased_log) || CBS_len(contents) != 0) {
+    return 0;
+  }
+
+  if (ssl->tlsext_mfl_biased_log != mfl_biased_log) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_BAD_LENGTH);
+    *out_alert = SSL_AD_ILLEGAL_PARAMETER;
+    return 0;
+  }
+
+  return 1;
+}
+
+static int ext_max_fragment_parse_clienthello(SSL *ssl, uint8_t *out_alert,
+                                              CBS *contents) {
+  if (contents == NULL) {
+    return 1;
+  }
+
+  uint8_t mfl_biased_log;
+  if (!CBS_get_u8(contents, &mfl_biased_log) || CBS_len(contents) != 0) {
+    return 0;
+  }
+
+  if (mfl_biased_log > 4 ||
+      SSL_set_tlsext_max_fragment(ssl, (1 << (mfl_biased_log + 8)), 0) != 1) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_BAD_LENGTH);
+    *out_alert = SSL_AD_ILLEGAL_PARAMETER;
+    return 0;
+  }
+
+  return 1;
+}
 
 /* kExtensions contains all the supported extensions. */
 static const struct tls_extension kExtensions[] = {
@@ -2048,6 +2113,14 @@ static const struct tls_extension kExtensions[] = {
     ext_ec_curves_parse_serverhello,
     ext_ec_curves_parse_clienthello,
     ext_ec_curves_add_serverhello,
+  },
+  {
+    TLSEXT_TYPE_max_fragment_length,
+    NULL,
+    ext_max_fragment_add_hello,
+    ext_max_fragment_parse_serverhello,
+    ext_max_fragment_parse_clienthello,
+    ext_max_fragment_add_hello,
   },
 };
 

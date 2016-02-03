@@ -3377,6 +3377,106 @@ func addExtensionTests() {
 	})
 	testCases = append(testCases, testCase{
 		testType: clientTest,
+		name:     "MaxFragmentExtensionClient",
+		flags: []string{"-max-fragment", "512"},
+	})
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name:     "MaxFragmentExtensionClientLoose",
+		config: Config{
+			Bugs: ProtocolBugs{
+				NoMaxFragmentLength: true,
+			},
+		},
+		flags: []string{"-max-fragment", "4096"},
+	})
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name:     "MaxFragmentExtensionClientStrict",
+		config: Config{
+			Bugs: ProtocolBugs{
+				NoMaxFragmentLength: true,
+			},
+		},
+		flags: []string{"-max-fragment", "4096", "-strict-max-fragment"},
+		shouldFail: true,
+		expectedError: ":MISSING_EXTENSION:",
+	})
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name:     "MaxFragmentExtensionClientExtra",
+		config: Config{
+			Bugs: ProtocolBugs{
+				BadMaxFragmentLength: 512,
+			},
+		},
+		shouldFail: true,
+		expectedError: ":UNEXPECTED_EXTENSION:",
+		expectedLocalError: "remote error: error decoding message",
+	})
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name:     "MaxFragmentExtensionClientMismatch",
+		config: Config{
+			Bugs: ProtocolBugs{
+				BadMaxFragmentLength: 512,
+			},
+		},
+		flags: []string{"-max-fragment", "4096"},
+		shouldFail: true,
+		expectedError: ":BAD_LENGTH:",
+		expectedLocalError: "remote error: illegal parameter",
+	})
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name:     "MaxFragmentExtensionClientInvalidZero",
+		flags: []string{"-max-fragment", "0"},
+		shouldFail: true,
+		expectedLocalError: "child exited early: exit status 1",
+	})
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name:     "MaxFragmentExtensionClientInvalidLow",
+		flags: []string{"-max-fragment", "511"},
+		shouldFail: true,
+		expectedLocalError: "child exited early: exit status 1",
+	})
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name:     "MaxFragmentExtensionClientInvalidHigh",
+		flags: []string{"-max-fragment", "8192"},
+		shouldFail: true,
+		expectedLocalError: "child exited early: exit status 1",
+	})
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "MaxFragmentExtensionServer",
+		config: Config{
+			MaxFragmentLength: 512,
+		},
+	})
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "MaxFragmentExtensionServerInvalidLow",
+		config: Config{
+			MaxFragmentLength: 256,
+		},
+		shouldFail: true,
+		expectedError: ":BAD_LENGTH:",
+		expectedLocalError: "remote error: illegal parameter",
+	})
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "MaxFragmentExtensionServerInvalidHigh",
+		config: Config{
+			MaxFragmentLength: 8192,
+		},
+		shouldFail: true,
+		expectedError: ":BAD_LENGTH:",
+		expectedLocalError: "remote error: illegal parameter",
+	})
+	testCases = append(testCases, testCase{
+		testType: clientTest,
 		name:     "ALPNClient",
 		config: Config{
 			NextProtos: []string{"foo"},

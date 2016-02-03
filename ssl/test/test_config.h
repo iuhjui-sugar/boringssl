@@ -28,6 +28,8 @@ struct TestConfig {
   std::string key_file;
   std::string cert_file;
   std::string expected_server_name;
+  bool strict_max_fragment = false;
+  int max_fragment = -1;
   std::string expected_certificate_types;
   bool require_any_client_certificate = false;
   std::string advertise_npn;

@@ -386,6 +386,10 @@ SSL *SSL_new(SSL_CTX *ctx) {
   X509_VERIFY_PARAM_inherit(ssl->param, ctx->param);
   ssl->quiet_shutdown = ctx->quiet_shutdown;
   ssl->max_send_fragment = ctx->max_send_fragment;
+  if (ctx->tlsext_mfl_biased_log) {
+    ssl->tlsext_mfl_required = ctx->tlsext_mfl_required;
+    ssl->tlsext_mfl_biased_log = ctx->tlsext_mfl_biased_log;
+  }
 
   CRYPTO_refcount_inc(&ctx->references);
   ssl->ctx = ctx;
@@ -1179,11 +1183,15 @@ void SSL_set_max_cert_list(SSL *ssl, size_t max_cert_list) {
 }
 
 int SSL_CTX_set_max_send_fragment(SSL_CTX *ctx, size_t max_send_fragment) {
+  size_t max = SSL3_RT_MAX_PLAIN_LENGTH;
+  if (ctx->tlsext_mfl_biased_log) {
+    max = 1 << (ctx->tlsext_mfl_biased_log + 8);
+  }
   if (max_send_fragment < 512) {
     max_send_fragment = 512;
   }
-  if (max_send_fragment > SSL3_RT_MAX_PLAIN_LENGTH) {
-    max_send_fragment = SSL3_RT_MAX_PLAIN_LENGTH;
+  if (max_send_fragment > max) {
+    max_send_fragment = max;
   }
   ctx->max_send_fragment = (uint16_t)max_send_fragment;
 
@@ -1191,15 +1199,52 @@ int SSL_CTX_set_max_send_fragment(SSL_CTX *ctx, size_t max_send_fragment) {
 }
 
 int SSL_set_max_send_fragment(SSL *ssl, size_t max_send_fragment) {
+  size_t max = SSL3_RT_MAX_PLAIN_LENGTH;
+  if (ssl->tlsext_mfl_biased_log) {
+    max = 1 << (ssl->tlsext_mfl_biased_log + 8);
+  }
   if (max_send_fragment < 512) {
     max_send_fragment = 512;
   }
-  if (max_send_fragment > SSL3_RT_MAX_PLAIN_LENGTH) {
-    max_send_fragment = SSL3_RT_MAX_PLAIN_LENGTH;
+  if (max_send_fragment > max) {
+    max_send_fragment = max;
   }
   ssl->max_send_fragment = (uint16_t)max_send_fragment;
 
   return 1;
+}
+
+int SSL_CTX_set_tlsext_max_fragment(SSL_CTX *ctx, size_t max_fragment,
+                                    uint8_t strict) {
+  /* Per RFC 6066, section 4, valid values are 2**9, 2**10, 2**11, 2**12. */
+  uint8_t n;
+  for (n = 9; n <= 12; n++) {
+    if (max_fragment == (1UL << n)) {
+      ctx->tlsext_mfl_required = strict & 1;
+      ctx->tlsext_mfl_biased_log = n - 8;
+      if (max_fragment > ctx->max_send_fragment) {
+        ctx->max_send_fragment = max_fragment;
+      }
+      return 1;
+    }
+  }
+  return 0;
+}
+
+int SSL_set_tlsext_max_fragment(SSL *ssl, size_t max_fragment, uint8_t strict) {
+  /* Per RFC 6066, section 4, valid values are 2**9, 2**10, 2**11, 2**12. */
+  uint8_t n;
+  for (n = 9; n <= 12; n++) {
+    if (max_fragment == (1UL << n)) {
+      ssl->tlsext_mfl_required = strict & 1;
+      ssl->tlsext_mfl_biased_log = n - 8;
+      if (max_fragment > ssl->max_send_fragment) {
+        ssl->max_send_fragment = max_fragment;
+      }
+      return 1;
+    }
+  }
+  return 0;
 }
 
 int SSL_set_mtu(SSL *ssl, unsigned mtu) {

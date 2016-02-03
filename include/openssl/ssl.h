@@ -2727,6 +2727,26 @@ OPENSSL_EXPORT int SSL_CTX_set_max_send_fragment(SSL_CTX *ctx,
 OPENSSL_EXPORT int SSL_set_max_send_fragment(SSL *ssl,
                                              size_t max_send_fragment);
 
+/* SSL_CTX_set_tlsext_max_fragment, for a client, configures |ctx| to request
+ * a |max_fragment| size via the TLS maximum fragment length extension.
+ * |max_fragment| must be one of 2**9, 2**10, 2**11, or 2**12. If |strict| is
+ * non-zero, the handshake if the server does not accept the |max_fragment|.
+ * This function returns one on success and zero on error. */
+OPENSSL_EXPORT int SSL_CTX_set_tlsext_max_fragment(SSL_CTX *ctx,
+                                                   size_t max_fragment,
+                                                   uint8_t strict);
+
+/* SSL_set_tlsext_max_fragment, for a client, configures |ssl| to request
+ * a |max_fragment| size via the TLS maximum fragment length extension.
+ * |max_fragment| must be one of 2**9, 2**10, 2**11, or 2**12. If |strict| is
+ * non-zero, the handshake if the server does not accept the |max_fragment|.
+ * This function returns one on success and zero on error.
+ * This function should be called by a client before starting the handshake,
+ * or it will have no effect on the server's behavior. */
+OPENSSL_EXPORT int SSL_set_tlsext_max_fragment(SSL *ssl,
+                                               size_t max_fragment,
+                                               uint8_t strict);
+
 /* ssl_early_callback_ctx is passed to certain callbacks that are called very
  * early on during the server handshake. At this point, much of the SSL* hasn't
  * been filled out and only the ClientHello can be depended on. */
@@ -3754,6 +3774,15 @@ struct ssl_ctx_st {
    * we'll advertise support. */
   unsigned tlsext_channel_id_enabled:1;
 
+  /* tlsext_mfl_biased_log is the biased length in bits of the negotiated
+   * maximum plaintext fragment described by
+   * https://tools.ietf.org/html/rfc6066#section-4 or 0 if not in use. */
+  uint8_t tlsext_mfl_biased_log:3;
+
+  /* tlsext_mfl_required indicates whether the client should fail the handshake
+   * if the server does not honor the TLS max fragment length extension. */
+  uint8_t tlsext_mfl_required:1;
+
   /* extra_certs is a dummy value included for compatibility.
    * TODO(agl): remove once node.js no longer references this. */
   STACK_OF(X509)* extra_certs;
@@ -3936,6 +3965,15 @@ struct ssl_st {
    * means that we'll accept Channel IDs from clients. For a client, means that
    * we'll advertise support. */
   unsigned tlsext_channel_id_enabled:1;
+
+  /* tlsext_mfl_biased_log is the biased length in bits of the negotiated
+   * maximum plaintext fragment described by
+   * https://tools.ietf.org/html/rfc6066#section-4 or 0 if not in use. */
+  uint8_t tlsext_mfl_biased_log:3;
+
+  /* tlsext_mfl_required indicates whether the client should fail the handshake
+   * if the server does not honor the TLS max fragment length extension. */
+  uint8_t tlsext_mfl_required:1;
 
   /* TODO(agl): remove once node.js not longer references this. */
   int tlsext_status_type;
