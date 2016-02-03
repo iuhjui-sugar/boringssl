@@ -2727,6 +2727,19 @@ OPENSSL_EXPORT int SSL_CTX_set_max_send_fragment(SSL_CTX *ctx,
 OPENSSL_EXPORT int SSL_set_max_send_fragment(SSL *ssl,
                                              size_t max_send_fragment);
 
+/* SSL_CTX_set_tlsext_max_fragment, for a client, configures |ctx| to advertise
+ * |max_fragment| in the TLS maximum fragment length extension. It calls
+ * SSL_CTX_set_max_send_fragment. It returns one on success and zero on error.
+ */
+OPENSSL_EXPORT int SSL_CTX_set_tlsext_max_fragment(SSL_CTX *ctx,
+                                                  size_t max_fragment);
+
+/* SSL_set_tlsext_max_fragment, for a client, configures |ssl| to advertise
+ * |max_fragment| in the TLS maximum fragment length extension. It calls
+ * SSL_set_max_send_fragment. It returns one on success and zero on error. */
+OPENSSL_EXPORT int SSL_set_tlsext_max_fragment(SSL *ssl,
+                                              size_t max_fragment);
+
 /* ssl_early_callback_ctx is passed to certain callbacks that are called very
  * early on during the server handshake. At this point, much of the SSL* hasn't
  * been filled out and only the ClientHello can be depended on. */
@@ -3650,6 +3663,9 @@ struct ssl_ctx_st {
    * more than this due to padding and MAC overheads. */
   uint16_t max_send_fragment;
 
+  /* TLS max fragment length extension described in RFC 6066, section 4 */
+  uint16_t tlsext_max_fragment;
+
   /* TLS extensions servername callback */
   int (*tlsext_servername_callback)(SSL *, int *, void *);
   void *tlsext_servername_arg;
@@ -3873,6 +3889,10 @@ struct ssl_st {
   int client_version; /* what was passed, used for
                        * SSLv3/TLS rollback check */
   uint16_t max_send_fragment;
+
+  /* TLS max fragment length extension described in RFC 6066, section 4 */
+  uint16_t tlsext_max_fragment;
+
   char *tlsext_hostname;
   /* RFC4507 session ticket expected to be received or sent */
   int tlsext_ticket_expected;

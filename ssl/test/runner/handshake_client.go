@@ -63,6 +63,7 @@ func (c *Conn) clientHandshake() error {
 		ocspStapling:            true,
 		sctListSupported:        true,
 		serverName:              c.config.ServerName,
+		maxFragmentLength:       c.config.MaxFragmentLength,
 		supportedCurves:         c.config.curvePreferences(),
 		supportedPoints:         []uint8{pointFormatUncompressed},
 		nextProtoNeg:            len(c.config.NextProtos) > 0,
@@ -700,6 +701,16 @@ func (hs *clientHandshakeState) processServerHello() (bool, error) {
 	clientDidALPN := len(hs.hello.alpnProtocols) > 0
 	serverHasNPN := hs.serverHello.nextProtoNeg
 	serverHasALPN := len(hs.serverHello.alpnProtocol) > 0
+
+	if hs.hello.maxFragmentLength == 0 && hs.serverHello.maxFragmentLength != 0 {
+		c.sendAlert(alertHandshakeFailure)
+		return false, errors.New("server advertised unrequested max fragment length")
+	}
+
+	if hs.hello.maxFragmentLength != 0 && hs.hello.maxFragmentLength != hs.serverHello.maxFragmentLength {
+		c.sendAlert(alertHandshakeFailure)
+		return false, errors.New("server changed max fragment length")
+	}
 
 	if !clientDidNPN && serverHasNPN {
 		c.sendAlert(alertHandshakeFailure)

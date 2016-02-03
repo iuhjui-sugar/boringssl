@@ -139,6 +139,7 @@ const Flag<int> kIntFlags[] = {
   { "-min-version", &TestConfig::min_version },
   { "-max-version", &TestConfig::max_version },
   { "-mtu", &TestConfig::mtu },
+  { "-max-fragment", &TestConfig::max_fragment },
   { "-export-keying-material", &TestConfig::export_keying_material },
   { "-expect-total-renegotiations", &TestConfig::expect_total_renegotiations },
   { "-expect-server-key-exchange-hash",

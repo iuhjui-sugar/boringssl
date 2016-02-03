@@ -47,6 +47,9 @@ type Conn struct {
 	verifiedChains [][]*x509.Certificate
 	// serverName contains the server name indicated by the client, if any.
 	serverName string
+	// maxFragmentLength contains the maximum TLS plaintext fragment length
+	// indicated by the client, if any
+	maxFragmentLength uint8
 	// firstFinished contains the first Finished hash sent during the
 	// handshake. This is the "tls-unique" channel binding value.
 	firstFinished [12]byte
@@ -1359,6 +1362,7 @@ func (c *Conn) ConnectionState() ConnectionState {
 		state.PeerCertificates = c.peerCertificates
 		state.VerifiedChains = c.verifiedChains
 		state.ServerName = c.serverName
+		state.MaxFragmentLength = c.maxFragmentLength
 		state.ChannelID = c.channelID
 		state.SRTPProtectionProfile = c.srtpProtectionProfile
 		state.TLSUnique = c.firstFinished[:]

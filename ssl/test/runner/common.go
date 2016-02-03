@@ -73,6 +73,7 @@ const (
 // TLS extension numbers
 const (
 	extensionServerName                 uint16 = 0
+	extensionMaxFragmentLength          uint16 = 1
 	extensionStatusRequest              uint16 = 5
 	extensionSupportedCurves            uint16 = 10
 	extensionSupportedPoints            uint16 = 11
@@ -186,6 +187,7 @@ type ConnectionState struct {
 	NegotiatedProtocolIsMutual bool                  // negotiated protocol was advertised by server
 	NegotiatedProtocolFromALPN bool                  // protocol negotiated with ALPN
 	ServerName                 string                // server name requested by client, if any (server side only)
+	MaxFragmentLength          uint8                 // maximum fragment length requested by the client, if any (server side only)
 	PeerCertificates           []*x509.Certificate   // certificate chain presented by remote peer
 	VerifiedChains             [][]*x509.Certificate // verified chains built from PeerCertificates
 	ChannelID                  *ecdsa.PublicKey      // the channel ID for this connection
@@ -288,6 +290,10 @@ type Config struct {
 	// certificates unless InsecureSkipVerify is given. It is also included
 	// in the client's handshake to support virtual hosting.
 	ServerName string
+
+	// MaxFragmentLength is used by the client to constrain the maximum TLS
+	// plaintext fragment that can be sent in a single record
+	MaxFragmentLength uint8
 
 	// ClientAuth determines the server's policy for
 	// TLS Client Authentication. The default is NoClientCert.

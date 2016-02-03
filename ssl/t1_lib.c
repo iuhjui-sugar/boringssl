@@ -4,21 +4,21 @@
  * This package is an SSL implementation written
  * by Eric Young (eay@cryptsoft.com).
  * The implementation was written so as to conform with Netscapes SSL.
- * 
+ *
  * This library is free for commercial and non-commercial use as long as
  * the following conditions are aheared to.  The following conditions
  * apply to all code found in this distribution, be it the RC4, RSA,
  * lhash, DES, etc., code; not just the SSL code.  The SSL documentation
  * included with this distribution is covered by the same copyright terms
  * except that the holder is Tim Hudson (tjh@cryptsoft.com).
- * 
+ *
  * Copyright remains Eric Young's, and as such any Copyright notices in
  * the code are not to be removed.
  * If this package is used in a product, Eric Young should be given attribution
  * as the author of the parts of the library used.
  * This can be in the form of a textual message at program startup or
  * in documentation (online or textual) provided with the package.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -33,10 +33,10 @@
  *     Eric Young (eay@cryptsoft.com)"
  *    The word 'cryptographic' can be left out if the rouines from the library
  *    being used are not cryptographic related :-).
- * 4. If you include any Windows specific code (or a derivative thereof) from 
+ * 4. If you include any Windows specific code (or a derivative thereof) from
  *    the apps directory (application code) you must include an acknowledgement:
  *    "This product includes software written by Tim Hudson (tjh@cryptsoft.com)"
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY ERIC YOUNG ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -48,7 +48,7 @@
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
- * 
+ *
  * The licence and distribution terms for any publically available version or
  * derivative of this code cannot be changed.  i.e. this code cannot simply be
  * copied and put under another distribution licence
@@ -62,7 +62,7 @@
  * are met:
  *
  * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer. 
+ *    notice, this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in
@@ -1939,6 +1939,74 @@ static int ext_ec_curves_add_serverhello(SSL *ssl, CBB *out) {
   return 1;
 }
 
+/* Maximum Fragment Length
+ *
+ * https://tools.ietf.org/html/rfc6066#section-4 */
+
+static int ext_max_fragment_add_hello(SSL *ssl, CBB *out) {
+  if (ssl->tlsext_max_fragment == 0) {
+    return 1;
+  }
+
+  uint8_t mfl = 0;
+  uint16_t len;
+  for (len = ssl->tlsext_max_fragment >> 8; len != 0; len >>= 1) {
+    mfl++;
+  }
+
+  CBB contents;
+  if (!CBB_add_u16(out, TLSEXT_TYPE_max_fragment_length) ||
+      !CBB_add_u16_length_prefixed(out, &contents) ||
+      !CBB_add_u8(&contents, mfl) ||
+      !CBB_flush(out)) {
+    return 0;
+  }
+
+  return 1;
+}
+
+static int ext_max_fragment_parse_serverhello(SSL *ssl, uint8_t *out_alert,
+                                           CBS *contents) {
+  if (contents == NULL) {
+    return 1;
+  }
+
+  uint8_t mfl = 0;
+  if (!CBS_get_u8(contents, &mfl) ||
+      CBS_len(contents) != 0) {
+    return 0;
+  }
+
+  if (ssl->tlsext_max_fragment != (1 << (mfl + 8))) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_BAD_LENGTH);
+    *out_alert = SSL_AD_ILLEGAL_PARAMETER;
+    return 0;
+  }
+
+  return 1;
+}
+
+static int ext_max_fragment_parse_clienthello(SSL *ssl, uint8_t *out_alert,
+                                           CBS *contents) {
+  if (contents == NULL) {
+    return 1;
+  }
+
+  uint8_t mfl = 0;
+  if (!CBS_get_u8(contents, &mfl) ||
+      CBS_len(contents) != 0) {
+    return 0;
+  }
+
+  if (SSL_set_tlsext_max_fragment(ssl, (1 << (mfl + 8))) != 1) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_BAD_LENGTH);
+    *out_alert = SSL_AD_ILLEGAL_PARAMETER;
+    return 0;
+  }
+
+  return 1;
+}
+
 
 /* kExtensions contains all the supported extensions. */
 static const struct tls_extension kExtensions[] = {
@@ -2048,6 +2116,14 @@ static const struct tls_extension kExtensions[] = {
     ext_ec_curves_parse_serverhello,
     ext_ec_curves_parse_clienthello,
     ext_ec_curves_add_serverhello,
+  },
+  {
+    TLSEXT_TYPE_max_fragment_length,
+    NULL,
+    ext_max_fragment_add_hello,
+    ext_max_fragment_parse_serverhello,
+    ext_max_fragment_parse_clienthello,
+    ext_max_fragment_add_hello,
   },
 };
 

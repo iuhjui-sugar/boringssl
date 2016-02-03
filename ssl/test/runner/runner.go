@@ -3377,6 +3377,23 @@ func addExtensionTests() {
 	})
 	testCases = append(testCases, testCase{
 		testType: clientTest,
+		name:     "MaxFragmentLengthExtensionClient",
+		flags: []string{"-max-fragment", "1"},
+	})
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name:     "MaxFragmentLengthExtensionClientInvalid",
+		flags: []string{"-max-fragment", "5"},
+		shouldFail:         true,
+	})
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "MaxFragmentLengthExtensionServerInvalid",
+		flags: []string{"-max-fragment", "5"},
+		shouldFail:         true,
+	})
+	testCases = append(testCases, testCase{
+		testType: clientTest,
 		name:     "ALPNClient",
 		config: Config{
 			NextProtos: []string{"foo"},
