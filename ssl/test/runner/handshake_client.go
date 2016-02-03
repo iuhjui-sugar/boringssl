@@ -63,6 +63,7 @@ func (c *Conn) clientHandshake() error {
 		ocspStapling:            true,
 		sctListSupported:        true,
 		serverName:              c.config.ServerName,
+		maxFragmentLength:       c.config.MaxFragmentLength,
 		supportedCurves:         c.config.curvePreferences(),
 		supportedPoints:         []uint8{pointFormatUncompressed},
 		nextProtoNeg:            len(c.config.NextProtos) > 0,
@@ -694,6 +695,11 @@ func (hs *clientHandshakeState) processServerHello() (bool, error) {
 	if hs.serverHello.compressionMethod != compressionNone {
 		c.sendAlert(alertUnexpectedMessage)
 		return false, errors.New("tls: server selected unsupported compression format")
+	}
+
+	if hs.serverHello.maxFragmentLength != 0 && hs.hello.maxFragmentLength != hs.serverHello.maxFragmentLength {
+		c.sendAlert(alertHandshakeFailure)
+		return false, errors.New("server changed max fragment length")
 	}
 
 	clientDidNPN := hs.hello.nextProtoNeg

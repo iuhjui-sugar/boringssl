@@ -296,6 +296,15 @@ Curves:
 		c.serverName = hs.clientHello.serverName
 	}
 
+
+	maxFragmentLength := config.Bugs.BadMaxFragmentLength
+	if maxFragmentLength == 0 {
+		maxFragmentLength = hs.clientHello.maxFragmentLength
+	}
+	if maxFragmentLength != 0 && !config.Bugs.NoMaxFragmentLength {
+		hs.hello.maxFragmentLength = maxFragmentLength
+	}
+
 	if len(hs.clientHello.alpnProtocols) > 0 {
 		if proto := c.config.Bugs.ALPNProtocol; proto != nil {
 			hs.hello.alpnProtocol = *proto

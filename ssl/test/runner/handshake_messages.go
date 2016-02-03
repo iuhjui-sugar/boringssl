@@ -4,7 +4,10 @@
 
 package runner
 
-import "bytes"
+import (
+	"bytes"
+	"math"
+)
 
 type clientHelloMsg struct {
 	raw                     []byte
@@ -17,6 +20,7 @@ type clientHelloMsg struct {
 	compressionMethods      []uint8
 	nextProtoNeg            bool
 	serverName              string
+	maxFragmentLength       uint
 	ocspStapling            bool
 	supportedCurves         []CurveID
 	supportedPoints         []uint8
@@ -51,6 +55,7 @@ func (m *clientHelloMsg) equal(i interface{}) bool {
 		bytes.Equal(m.compressionMethods, m1.compressionMethods) &&
 		m.nextProtoNeg == m1.nextProtoNeg &&
 		m.serverName == m1.serverName &&
+		m.maxFragmentLength == m1.maxFragmentLength &&
 		m.ocspStapling == m1.ocspStapling &&
 		eqCurveIDs(m.supportedCurves, m1.supportedCurves) &&
 		bytes.Equal(m.supportedPoints, m1.supportedPoints) &&
@@ -90,6 +95,10 @@ func (m *clientHelloMsg) marshal() []byte {
 	}
 	if len(m.serverName) > 0 {
 		extensionsLength += 5 + len(m.serverName)
+		numExtensions++
+	}
+	if m.maxFragmentLength > 0 {
+		extensionsLength += 1
 		numExtensions++
 	}
 	if len(m.supportedCurves) > 0 {
@@ -227,6 +236,14 @@ func (m *clientHelloMsg) marshal() []byte {
 		z[4] = byte(len(m.serverName))
 		copy(z[5:], []byte(m.serverName))
 		z = z[l:]
+	}
+	if m.maxFragmentLength > 0 {
+		z[0] = byte(extensionMaxFragmentLength >> 8)
+		z[1] = byte(extensionMaxFragmentLength)
+		z[2] = 0
+		z[3] = 1
+		z[4] = byte(math.Log2(float64(m.maxFragmentLength)) - 8)
+		z = z[5:]
 	}
 	if m.ocspStapling {
 		// RFC 4366, section 3.6
@@ -451,6 +468,7 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 
 	m.nextProtoNeg = false
 	m.serverName = ""
+	m.maxFragmentLength = 0
 	m.ocspStapling = false
 	m.ticketSupported = false
 	m.sessionTicket = nil
@@ -507,6 +525,11 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 				}
 				d = d[nameLen:]
 			}
+		case extensionMaxFragmentLength:
+			if length != 1 {
+				return false
+			}
+		m.maxFragmentLength = uint(math.Exp2(float64(data[0] + 8)))
 		case extensionNextProtoNeg:
 			if length > 0 {
 				return false
@@ -641,6 +664,7 @@ type serverHelloMsg struct {
 	ocspStapling            bool
 	ticketSupported         bool
 	secureRenegotiation     []byte
+	maxFragmentLength       uint
 	alpnProtocol            string
 	alpnProtocolEmpty       bool
 	duplicateExtension      bool
@@ -683,6 +707,10 @@ func (m *serverHelloMsg) marshal() []byte {
 	}
 	if m.duplicateExtension {
 		numExtensions += 2
+	}
+	if m.maxFragmentLength > 0 {
+		extensionsLength += 1
+		numExtensions++
 	}
 	if m.channelIDRequested {
 		numExtensions++
@@ -742,6 +770,14 @@ func (m *serverHelloMsg) marshal() []byte {
 		z[0] = 0xff
 		z[1] = 0xff
 		z = z[4:]
+	}
+	if m.maxFragmentLength > 0 {
+		z[0] = byte(extensionMaxFragmentLength >> 8)
+		z[1] = byte(extensionMaxFragmentLength)
+		z[2] = 0
+		z[3] = 1
+		z[4] = byte(math.Log2(float64(m.maxFragmentLength)) - 8)
+		z = z[5:]
 	}
 	if m.nextProtoNeg && !m.npnLast {
 		z[0] = byte(extensionNextProtoNeg >> 8)
@@ -885,6 +921,7 @@ func (m *serverHelloMsg) unmarshal(data []byte) bool {
 	m.compressionMethod = data[2]
 	data = data[3:]
 
+	m.maxFragmentLength = 0
 	m.nextProtoNeg = false
 	m.nextProtos = nil
 	m.ocspStapling = false
@@ -920,6 +957,11 @@ func (m *serverHelloMsg) unmarshal(data []byte) bool {
 		}
 
 		switch extension {
+		case extensionMaxFragmentLength:
+			if length != 1 {
+				return false
+			}
+			m.maxFragmentLength = uint(math.Exp2(float64(data[0] + 8)))
 		case extensionNextProtoNeg:
 			m.nextProtoNeg = true
 			d := data[:length]
