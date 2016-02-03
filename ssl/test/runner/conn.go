@@ -47,6 +47,8 @@ type Conn struct {
 	verifiedChains [][]*x509.Certificate
 	// serverName contains the server name indicated by the client, if any.
 	serverName string
+	// maxFragmentLength contains the client's requested limit on fragments
+	maxFragmentLength int
 	// firstFinished contains the first Finished hash sent during the
 	// handshake. This is the "tls-unique" channel binding value.
 	firstFinished [12]byte
@@ -886,8 +888,12 @@ func (c *Conn) writeRecord(typ recordType, data []byte) (n int, err error) {
 	isClientHello := typ == recordTypeHandshake && len(data) > 0 && data[0] == typeClientHello
 	for len(data) > 0 || first {
 		m := len(data)
-		if m > maxPlaintext && !c.config.Bugs.SendLargeRecords {
-			m = maxPlaintext
+		if !c.config.Bugs.SendLargeRecords {
+			if c.maxFragmentLength != 0 && m > c.maxFragmentLength {
+				m = c.maxFragmentLength
+			} else if m > maxPlaintext {
+				m = maxPlaintext
+			}
 		}
 		if typ == recordTypeHandshake && c.config.Bugs.MaxHandshakeRecordLength > 0 && m > c.config.Bugs.MaxHandshakeRecordLength {
 			m = c.config.Bugs.MaxHandshakeRecordLength

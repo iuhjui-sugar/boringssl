@@ -281,7 +281,7 @@ static int do_ssl3_write(SSL *ssl, int type, const uint8_t *buf, unsigned len) {
     /* if it went, fall through and send more stuff */
   }
 
-  if (len > SSL3_RT_MAX_PLAIN_LENGTH) {
+  if (len > ssl_max_plaintext_len(ssl)) {
     OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
     return -1;
   }

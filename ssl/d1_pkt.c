@@ -473,7 +473,7 @@ int dtls1_write_app_data(SSL *ssl, const void *buf_, int len) {
     }
   }
 
-  if (len > SSL3_RT_MAX_PLAIN_LENGTH) {
+  if (len > 0 && (size_t) len > ssl_max_plaintext_len(ssl)) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_DTLS_MESSAGE_TOO_BIG);
     return -1;
   }
@@ -489,7 +489,7 @@ int dtls1_write_bytes(SSL *ssl, int type, const void *buf, int len,
                       enum dtls1_use_epoch_t use_epoch) {
   int i;
 
-  assert(len <= SSL3_RT_MAX_PLAIN_LENGTH);
+  assert(len >= 0 && (size_t) len <= ssl_max_plaintext_len(ssl));
   ssl->rwstate = SSL_NOTHING;
   i = do_dtls1_write(ssl, type, buf, len, use_epoch);
   return i;
@@ -511,7 +511,7 @@ static int do_dtls1_write(SSL *ssl, int type, const uint8_t *buf,
     /* if it went, fall through and send more stuff */
   }
 
-  if (len > SSL3_RT_MAX_PLAIN_LENGTH) {
+  if (len > ssl_max_plaintext_len(ssl)) {
     OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
     return -1;
   }

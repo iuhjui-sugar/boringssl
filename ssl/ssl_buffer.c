@@ -70,7 +70,8 @@ static void clear_buffer(SSL3_BUFFER *buf) {
   memset(buf, 0, sizeof(SSL3_BUFFER));
 }
 
-OPENSSL_COMPILE_ASSERT(DTLS1_RT_HEADER_LENGTH + SSL3_RT_MAX_ENCRYPTED_LENGTH <=
+OPENSSL_COMPILE_ASSERT(DTLS1_RT_HEADER_LENGTH + SSL3_RT_MAX_ENCRYPTED_OVERHEAD +
+                               SSL3_RT_MAX_PLAIN_LENGTH <=
                            0xffff,
                        maximum_read_buffer_too_large);
 
@@ -84,7 +85,7 @@ static int setup_read_buffer(SSL *ssl) {
   }
 
   size_t header_len = ssl_record_prefix_len(ssl);
-  size_t cap = SSL3_RT_MAX_ENCRYPTED_LENGTH;
+  size_t cap = ssl_max_encrypted_len(ssl);
   if (SSL_IS_DTLS(ssl)) {
     cap += DTLS1_RT_HEADER_LENGTH;
   } else {
@@ -233,7 +234,7 @@ int ssl_write_buffer_init(SSL *ssl, uint8_t **out_ptr, size_t max_len) {
 
   /* TODO(davidben): This matches the original behavior in keeping the malloc
    * size consistent. Does this matter? |cap| could just be |max_len|. */
-  size_t cap = SSL3_RT_MAX_PLAIN_LENGTH + SSL3_RT_SEND_MAX_ENCRYPTED_OVERHEAD;
+  size_t cap = ssl_max_encrypted_len(ssl);
   if (SSL_IS_DTLS(ssl)) {
     cap += DTLS1_RT_HEADER_LENGTH;
   } else {

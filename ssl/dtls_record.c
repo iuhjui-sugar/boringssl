@@ -189,7 +189,7 @@ enum ssl_open_record_t dtls_open_record(
       !CBS_get_u16_length_prefixed(&cbs, &body) ||
       (ssl->s3->have_version && version != ssl->version) ||
       (version >> 8) != DTLS1_VERSION_MAJOR ||
-      CBS_len(&body) > SSL3_RT_MAX_ENCRYPTED_LENGTH) {
+      CBS_len(&body) > ssl_max_encrypted_len(ssl)) {
     /* The record header was incomplete or malformed. Drop the entire packet. */
     *out_consumed = in_len;
     return ssl_open_record_discard;
@@ -228,7 +228,7 @@ enum ssl_open_record_t dtls_open_record(
   }
 
   /* Check the plaintext length. */
-  if (plaintext_len > SSL3_RT_MAX_PLAIN_LENGTH) {
+  if (plaintext_len > ssl_max_plaintext_len(ssl)) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_DATA_LENGTH_TOO_LONG);
     *out_alert = SSL_AD_RECORD_OVERFLOW;
     return ssl_open_record_error;

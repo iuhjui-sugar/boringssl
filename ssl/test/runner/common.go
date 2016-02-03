@@ -73,6 +73,7 @@ const (
 // TLS extension numbers
 const (
 	extensionServerName                 uint16 = 0
+	extensionMaxFragmentLength          uint16 = 1
 	extensionStatusRequest              uint16 = 5
 	extensionSupportedCurves            uint16 = 10
 	extensionSupportedPoints            uint16 = 11
@@ -288,6 +289,11 @@ type Config struct {
 	// certificates unless InsecureSkipVerify is given. It is also included
 	// in the client's handshake to support virtual hosting.
 	ServerName string
+
+	// MaxFragment is used by the client to constrain the maximum TLS
+	// plaintext fragment length that can be sent in a single record. It should
+	// only be 2**9, 2**10, 2**11, and 2**12 bytes.
+	MaxFragmentLength int
 
 	// ClientAuth determines the server's policy for
 	// TLS Client Authentication. The default is NoClientCert.
@@ -508,6 +514,15 @@ type ProtocolBugs struct {
 	// size, not record size; DTLS allows multiple handshake fragments in a
 	// single handshake record. See |PackHandshakeFragments|.
 	MaxHandshakeRecordLength int
+
+	// NoMaxFragmentLength, if true, will cause the server to ignore any
+	// maximum fragment length indication sent by the client.
+	NoMaxFragmentLength bool
+
+	// MaxFragmentLength, if non-zero, is maximum plaintext fragment length
+	// that will be returned by the server in place of the one sent by the
+	// client.
+	BadMaxFragmentLength int
 
 	// FragmentClientVersion will allow MaxHandshakeRecordLength to apply to
 	// the first 6 bytes of the ClientHello.

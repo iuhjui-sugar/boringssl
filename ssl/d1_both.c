@@ -491,7 +491,7 @@ static hm_fragment *dtls1_get_buffered_message(
  * permitted in a DTLS handshake message for |ssl|. The minimum is 16KB, but may
  * be greater if the maximum certificate list size requires it. */
 static size_t dtls1_max_handshake_message_len(const SSL *ssl) {
-  size_t max_len = DTLS1_HM_HEADER_LENGTH + SSL3_RT_MAX_ENCRYPTED_LENGTH;
+  size_t max_len = DTLS1_HM_HEADER_LENGTH + ssl_max_encrypted_len(ssl);
   if (max_len < ssl->max_cert_list) {
     return ssl->max_cert_list;
   }

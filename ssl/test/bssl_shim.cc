@@ -711,6 +711,12 @@ static ScopedSSL_CTX SetupCtx(const TestConfig *config) {
     return nullptr;
   }
 
+  if (0 <= config->max_fragment &&
+      SSL_CTX_set_tlsext_max_fragment(ssl_ctx.get(), config->max_fragment,
+                                      config->strict_max_fragment) != 1) {
+    return nullptr;
+  }
+
   std::string cipher_list = "ALL";
   if (!config->cipher.empty()) {
     cipher_list = config->cipher;

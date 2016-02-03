@@ -123,6 +123,22 @@
  * forever. */
 static const uint8_t kMaxEmptyRecords = 32;
 
+size_t ssl_max_plaintext_len(const SSL *ssl) {
+  if (ssl->tlsext_mfl_biased_log) {
+    return 1UL << (ssl->tlsext_mfl_biased_log + 8);
+  } else {
+    return SSL3_RT_MAX_PLAIN_LENGTH;
+  }
+}
+
+size_t ssl_max_encrypted_len(const SSL *ssl) {
+  return SSL3_RT_MAX_ENCRYPTED_OVERHEAD + ssl_max_compressed_len(ssl);
+}
+
+size_t ssl_max_packet_size(const SSL *ssl) {
+  return SSL3_RT_HEADER_LENGTH + ssl_max_encrypted_len(ssl);
+}
+
 /* ssl_needs_record_splitting returns one if |ssl|'s current outgoing cipher
  * state needs record-splitting and zero otherwise. */
 static int ssl_needs_record_splitting(const SSL *ssl) {
@@ -209,7 +225,7 @@ enum ssl_open_record_t tls_open_record(
   }
 
   /* Check the ciphertext length. */
-  if (ciphertext_len > SSL3_RT_MAX_ENCRYPTED_LENGTH) {
+  if (ciphertext_len > ssl_max_encrypted_len(ssl)) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_ENCRYPTED_LENGTH_TOO_LONG);
     *out_alert = SSL_AD_RECORD_OVERFLOW;
     return ssl_open_record_error;
@@ -242,7 +258,7 @@ enum ssl_open_record_t tls_open_record(
   }
 
   /* Check the plaintext length. */
-  if (plaintext_len > SSL3_RT_MAX_PLAIN_LENGTH) {
+  if (plaintext_len > ssl_max_plaintext_len(ssl)) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_DATA_LENGTH_TOO_LONG);
     *out_alert = SSL_AD_RECORD_OVERFLOW;
     return ssl_open_record_error;

@@ -346,6 +346,24 @@ typedef struct dtls1_bitmap_st {
 
 /* Record layer. */
 
+/* ssl_max_plaintext_len is the maximum length in bytes of a TLS plaintext
+ * fragment.  It has a value of |SSL3_RT_MAX_PLAIN_LENGTH|, unless the client
+ * and server have negotiated a shorter length via |tlsext_mfl_biased_log|. */
+size_t ssl_max_plaintext_len(const SSL *ssl);
+
+/* ssl_max_compressed_len is an alias for |ssl_max_plaintext_len|. Compression
+ * is gone, so don't include the compression overhead. */
+#define ssl_max_compressed_len ssl_max_plaintext_len
+
+/* ssl_max_plaintext_len is the maximum length in bytes of a TLS ciphertext
+ * fragment, which is |ssl_max_plaintext_len| plus the max encrypted overhead.
+ */
+size_t ssl_max_encrypted_len(const SSL *ssl);
+
+/* ssl_max_packet_size is the maximum length in bytes of a TLS packet, which is
+ * |ssl_max_encrypted_len| and the max header length. */
+size_t ssl_max_packet_size(const SSL *ssl);
+
 /* ssl_record_sequence_update increments the sequence number in |seq|. It
  * returns one on success and zero on wraparound. */
 int ssl_record_sequence_update(uint8_t *seq, size_t seq_len);

@@ -212,7 +212,7 @@ int ssl3_accept(SSL *ssl) {
 
         if (ssl->init_buf == NULL) {
           buf = BUF_MEM_new();
-          if (!buf || !BUF_MEM_grow(buf, SSL3_RT_MAX_PLAIN_LENGTH)) {
+          if (!buf || !BUF_MEM_grow(buf, ssl_max_plaintext_len(ssl))) {
             ret = -1;
             goto end;
           }

@@ -48,6 +48,10 @@ static const struct argument kArguments[] = {
      "The server name to advertise",
     },
     {
+     "-max-fragment", kOptionalArgument,
+     "The maximum fragment length in bytes to request of the server",
+    },
+    {
      "-select-next-proto", kOptionalArgument,
      "An NPN protocol to select if the server supports NPN",
     },
@@ -180,6 +184,15 @@ bool Client(const std::vector<std::string> &args) {
       return false;
     }
     SSL_CTX_set_min_version(ctx.get(), version);
+  }
+
+  if (args_map.count("-max-fragment") != 0) {
+    int n = stoi(args_map["-max-fragment"]);
+    if (SSL_CTX_set_tlsext_max_fragment(ctx.get(), n, 1) != 1) {
+      fprintf(stderr, "Invalid fragment length: '%s'\n",
+              args_map["-max-fragment"].c_str());
+      return false;
+    }
   }
 
   if (args_map.count("-select-next-proto") != 0) {
