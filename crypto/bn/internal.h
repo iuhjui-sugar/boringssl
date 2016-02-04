@@ -264,29 +264,14 @@ int bn_mul_mont(BN_ULONG *rp, const BN_ULONG *ap, const BN_ULONG *bp,
 #  define BN_UMULT_HIGH(a, b) __umulh((a), (b))
 #  define BN_UMULT_LOHI(low, high, a, b) ((low) = _umul128((a), (b), &(high)))
 # elif !defined(OPENSSL_NO_ASM) && defined(__GNUC__)
-#  define BN_UMULT_HIGH(a,b)	({	\
-	register BN_ULONG ret,discard;	\
-	__asm__ ("mulq	%3"		\
-	     : "=a"(discard),"=d"(ret)	\
-	     : "a"(a), "g"(b)		\
-	     : "cc");			\
-	ret;			})
-#  define BN_UMULT_LOHI(low,high,a,b)	\
-	__asm__ ("mulq	%3"		\
-		: "=a"(low),"=d"(high)	\
-		: "a"(a),"g"(b)		\
-		: "cc");
+#  define BN_UMULT_HIGH(a,b) nonsense_that_wont_compile()
+#  define BN_UMULT_LOHI(low,high,a,b) nonsense_that_wont_compile()
 # endif
 #endif
 
 #if defined(OPENSSL_AARCH64)
 # if !defined(OPENSSL_NO_ASM) && defined(__GNUC__)
-#  define BN_UMULT_HIGH(a,b)	({	\
-	register BN_ULONG ret;		\
-	__asm__ ("umulh	%0,%1,%2"	\
-	     : "=r"(ret)		\
-	     : "r"(a), "r"(b));		\
-	ret;			})
+#  define BN_UMULT_HIGH(a,b) nonsense_that_wont_compile
 # endif
 #endif
 
