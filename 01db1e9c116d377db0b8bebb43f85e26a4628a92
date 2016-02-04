@@ -94,6 +94,23 @@
     },
     {
       "key": {
+        "uuid": "f127a8f2_1401b94e",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-02-04T19:28:46Z",
+      "side": 1,
+      "message": "The SSL_CTX is memset to zero initially so setting things to 0/NULL isn\u0027t needed.\n\n(We assume that NULL is all-zero bits. This isn\u0027t specified by the C standard but is true of all platforms that we care about.)",
+      "revId": "01db1e9c116d377db0b8bebb43f85e26a4628a92",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f127a8f2_5fa7cfca",
         "filename": "ssl/ssl_lib.c",
         "patchSetId": 1
@@ -111,6 +128,23 @@
         "endLine": 1211,
         "endChar": 22
       },
+      "revId": "01db1e9c116d377db0b8bebb43f85e26a4628a92",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f127a8f2_744bd5b1",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-02-04T19:28:46Z",
+      "side": 1,
+      "message": "If you have some editor that\u0027s doing this automatically, that\u0027s cool, but whitespace changes should be in a different change.",
       "revId": "01db1e9c116d377db0b8bebb43f85e26a4628a92",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -140,6 +174,40 @@
     },
     {
       "key": {
+        "uuid": "f127a8f2_b4354d18",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1974,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-02-04T19:28:46Z",
+      "side": 1,
+      "message": "nit: no need to initialize to zero.",
+      "revId": "01db1e9c116d377db0b8bebb43f85e26a4628a92",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f127a8f2_941f699c",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1980,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-02-04T19:28:46Z",
+      "side": 1,
+      "message": "For paranoia, the code should check that mfl \u003c\u003d 4 or such. (I worry about remote input being able to cause a shift by more than the size of the value, which is undefined/implementation defined behaviour in C.)",
+      "revId": "01db1e9c116d377db0b8bebb43f85e26a4628a92",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f127a8f2_ffce8385",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 1
@@ -163,6 +231,57 @@
     },
     {
       "key": {
+        "uuid": "f127a8f2_14337932",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1995,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-02-04T19:28:46Z",
+      "side": 1,
+      "message": "nit: no need to initialize to zero.",
+      "revId": "01db1e9c116d377db0b8bebb43f85e26a4628a92",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f127a8f2_d438c10f",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2001,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-02-04T19:28:46Z",
+      "side": 1,
+      "message": "ditto about checking mfl.",
+      "revId": "01db1e9c116d377db0b8bebb43f85e26a4628a92",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f127a8f2_9498095d",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-02-04T19:28:46Z",
+      "side": 1,
+      "message": "How is this a uint8? I assume that the value is in bytes (it should be) thus, in Go, that would normally be an \"int\".",
+      "revId": "01db1e9c116d377db0b8bebb43f85e26a4628a92",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f127a8f2_3feadbcc",
         "filename": "ssl/test/runner/common.go",
         "patchSetId": 1
@@ -180,6 +299,23 @@
         "endLine": 295,
         "endChar": 51
       },
+      "revId": "01db1e9c116d377db0b8bebb43f85e26a4628a92",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f127a8f2_d46a81ef",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-02-04T19:28:46Z",
+      "side": 1,
+      "message": "This should contain the length in bytes. The conversion to a biased logarithm should be encapsulated within this file.",
       "revId": "01db1e9c116d377db0b8bebb43f85e26a4628a92",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
