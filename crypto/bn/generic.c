@@ -95,6 +95,11 @@
   }
 
 #elif defined(BN_UMULT_LOHI)
+
+#if !defined(OPENSSL_WINDOWS) || !defined(OPENSSL_X86_64)
+#error "Only Windows has BN_UMULT_LOHI defined when BN_ULLONG isn't defined."
+#endif
+
 #define mul_add(r, a, w, c)             \
   {                                     \
     BN_ULONG high, low, ret, tmp = (a); \
@@ -125,6 +130,7 @@
   }
 
 #else
+#error "Unreachable"
 
 /*************************************************************
  * No long long type
@@ -299,6 +305,7 @@ void bn_sqr_words(BN_ULONG *r, const BN_ULONG *a, int n) {
 }
 
 #else /* !(defined(BN_ULLONG) || defined(BN_UMULT_HIGH)) */
+#error "unreachable"
 
 BN_ULONG bn_mul_add_words(BN_ULONG *rp, const BN_ULONG *ap, int num,
                           BN_ULONG w) {
@@ -675,6 +682,10 @@ BN_ULONG bn_sub_words(BN_ULONG *r, const BN_ULONG *a, const BN_ULONG *b,
 
 #elif defined(BN_UMULT_LOHI)
 
+#if !defined(OPENSSL_WINDOWS) || !defined(OPENSSL_X86_64)
+#error "Only Windows has BN_UMULT_LOHI defined when BN_ULLONG isn't defined."
+#endif
+
 /* Keep in mind that additions to hi can not overflow, because the high word of
  * a multiplication result cannot be all-ones. */
 #define mul_add_c(a, b, c0, c1, c2) \
@@ -717,6 +728,7 @@ BN_ULONG bn_sub_words(BN_ULONG *r, const BN_ULONG *a, const BN_ULONG *b,
 #define sqr_add_c2(a, i, j, c0, c1, c2) mul_add_c2((a)[i], (a)[j], c0, c1, c2)
 
 #else /* !BN_ULLONG */
+#error "unreachable"
 
 /* Keep in mind that additions to hi can not overflow, because
  * the high word of a multiplication result cannot be all-ones. */
