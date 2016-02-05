@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "51c15418_a2efe415",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-02-05T00:51:25Z",
+      "side": 1,
+      "message": "Whatever this changes to should match x86_64-gcc.c. Probably also tweak the comment as appropriate.\n\nActually, since x86_64-gcc.c is using GCC inline asm, arguably that file should be defined(__GCC__) and this !defined(__GCC__), I think.",
+      "range": {
+        "startLine": 70,
+        "startChar": 13,
+        "endLine": 70,
+        "endChar": 21
+      },
+      "revId": "d69fe1e83963367b88634f6192e99bc8db6ed63c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
