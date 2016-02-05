@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f127a8f2_54a2116e",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2733,
+      "author": {
+        "id": 6535
+      },
+      "writtenOn": "2016-02-05T20:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f127a8f2_a486be3e",
+      "range": {
+        "startLine": 2733,
+        "startChar": 1,
+        "endLine": 2733,
+        "endChar": 3
+      },
+      "revId": "01db1e9c116d377db0b8bebb43f85e26a4628a92",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f127a8f2_447f02f3",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "f127a8f2_313faf93",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2739,
+      "author": {
+        "id": 6535
+      },
+      "writtenOn": "2016-02-05T20:25:48Z",
+      "side": 1,
+      "message": "Yes, but it will only affect subsequent messages.  I\u0027ve added comments that the SSL_set_tlsext_max_fragment should be called prior to starting the handshake.",
+      "parentUuid": "f127a8f2_447f02f3",
+      "range": {
+        "startLine": 2739,
+        "startChar": 3,
+        "endLine": 2739,
+        "endChar": 28
+      },
+      "revId": "01db1e9c116d377db0b8bebb43f85e26a4628a92",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f127a8f2_a46fde3e",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2016-02-04T00:30:18Z",
       "side": 1,
       "message": "AIUI there are only 5 allowed values (per the RFC).  Could you use something smaller?",
+      "range": {
+        "startLine": 3667,
+        "startChar": 11,
+        "endLine": 3667,
+        "endChar": 30
+      },
+      "revId": "01db1e9c116d377db0b8bebb43f85e26a4628a92",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f127a8f2_91e81b33",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3667,
+      "author": {
+        "id": 6535
+      },
+      "writtenOn": "2016-02-05T20:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f127a8f2_a46fde3e",
       "range": {
         "startLine": 3667,
         "startChar": 11,
@@ -111,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "f127a8f2_f48ea5e4",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 6535
+      },
+      "writtenOn": "2016-02-05T20:25:48Z",
+      "side": 1,
+      "message": "Yeah, I realized the same before I saw you comment and had already removed it.",
+      "parentUuid": "f127a8f2_1401b94e",
+      "revId": "01db1e9c116d377db0b8bebb43f85e26a4628a92",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f127a8f2_5fa7cfca",
         "filename": "ssl/ssl_lib.c",
         "patchSetId": 1
@@ -122,6 +212,30 @@
       "writtenOn": "2016-02-04T00:30:18Z",
       "side": 1,
       "message": "More readable as\n\nmax_fragment \u003d\u003d 1\u003c\u003c9 ||\nmax_fragment \u003d\u003d 1\u003c\u003c10 ||\nmax_fragment \u003d\u003d 1\u003c\u003c11 ||\nmax_fragment \u003d\u003d 1\u003c\u003c12",
+      "range": {
+        "startLine": 1211,
+        "startChar": 21,
+        "endLine": 1211,
+        "endChar": 22
+      },
+      "revId": "01db1e9c116d377db0b8bebb43f85e26a4628a92",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f127a8f2_940da988",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1211,
+      "author": {
+        "id": 6535
+      },
+      "writtenOn": "2016-02-05T20:25:48Z",
+      "side": 1,
+      "message": "Reworked this whole bit; I *think* it\u0027s clear enough.",
+      "parentUuid": "f127a8f2_5fa7cfca",
       "range": {
         "startLine": 1211,
         "startChar": 21,
@@ -151,6 +265,24 @@
     },
     {
       "key": {
+        "uuid": "f127a8f2_b4926d18",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 6535
+      },
+      "writtenOn": "2016-02-05T20:25:48Z",
+      "side": 1,
+      "message": "Yeah, my sublime-text has \u0027\"trim_trailing_white_space_on_save\": true,\u0027 and out of habit I did \u0027git diff --ignore-space-at-eol\u0027.  I\u0027ll disable that and add them back in here.",
+      "parentUuid": "f127a8f2_744bd5b1",
+      "revId": "01db1e9c116d377db0b8bebb43f85e26a4628a92",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f127a8f2_1fc6f774",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 1
@@ -162,6 +294,30 @@
       "writtenOn": "2016-02-04T00:30:18Z",
       "side": 1,
       "message": "Nit: indent",
+      "range": {
+        "startLine": 1969,
+        "startChar": 48,
+        "endLine": 1969,
+        "endChar": 56
+      },
+      "revId": "01db1e9c116d377db0b8bebb43f85e26a4628a92",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f127a8f2_1407f934",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1969,
+      "author": {
+        "id": 6535
+      },
+      "writtenOn": "2016-02-05T20:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f127a8f2_1fc6f774",
       "range": {
         "startLine": 1969,
         "startChar": 48,
@@ -191,6 +347,24 @@
     },
     {
       "key": {
+        "uuid": "f127a8f2_14b9b98f",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1974,
+      "author": {
+        "id": 6535
+      },
+      "writtenOn": "2016-02-05T20:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f127a8f2_b4354d18",
+      "revId": "01db1e9c116d377db0b8bebb43f85e26a4628a92",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f127a8f2_941f699c",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 1
@@ -202,6 +376,24 @@
       "writtenOn": "2016-02-04T19:28:46Z",
       "side": 1,
       "message": "For paranoia, the code should check that mfl \u003c\u003d 4 or such. (I worry about remote input being able to cause a shift by more than the size of the value, which is undefined/implementation defined behaviour in C.)",
+      "revId": "01db1e9c116d377db0b8bebb43f85e26a4628a92",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f127a8f2_f4b50595",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1980,
+      "author": {
+        "id": 6535
+      },
+      "writtenOn": "2016-02-05T20:25:48Z",
+      "side": 1,
+      "message": "Per mab\u0027s comment about making tlsext_max_fragment track [0,1,2,3] vs [512,1024,2048,4096], this code is a bit different (and safer!) now.",
+      "parentUuid": "f127a8f2_941f699c",
       "revId": "01db1e9c116d377db0b8bebb43f85e26a4628a92",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -231,6 +423,30 @@
     },
     {
       "key": {
+        "uuid": "f127a8f2_f4034524",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1990,
+      "author": {
+        "id": 6535
+      },
+      "writtenOn": "2016-02-05T20:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f127a8f2_ffce8385",
+      "range": {
+        "startLine": 1990,
+        "startChar": 48,
+        "endLine": 1990,
+        "endChar": 56
+      },
+      "revId": "01db1e9c116d377db0b8bebb43f85e26a4628a92",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f127a8f2_14337932",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 1
@@ -242,6 +458,24 @@
       "writtenOn": "2016-02-04T19:28:46Z",
       "side": 1,
       "message": "nit: no need to initialize to zero.",
+      "revId": "01db1e9c116d377db0b8bebb43f85e26a4628a92",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f127a8f2_7483d5c2",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1995,
+      "author": {
+        "id": 6535
+      },
+      "writtenOn": "2016-02-05T20:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f127a8f2_14337932",
       "revId": "01db1e9c116d377db0b8bebb43f85e26a4628a92",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -265,6 +499,24 @@
     },
     {
       "key": {
+        "uuid": "f127a8f2_5474d1ae",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2001,
+      "author": {
+        "id": 6535
+      },
+      "writtenOn": "2016-02-05T20:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f127a8f2_d438c10f",
+      "revId": "01db1e9c116d377db0b8bebb43f85e26a4628a92",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f127a8f2_9498095d",
         "filename": "ssl/test/runner/common.go",
         "patchSetId": 1
@@ -276,6 +528,24 @@
       "writtenOn": "2016-02-04T19:28:46Z",
       "side": 1,
       "message": "How is this a uint8? I assume that the value is in bytes (it should be) thus, in Go, that would normally be an \"int\".",
+      "revId": "01db1e9c116d377db0b8bebb43f85e26a4628a92",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f127a8f2_c70e51c0",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 6535
+      },
+      "writtenOn": "2016-02-05T20:25:48Z",
+      "side": 1,
+      "message": "I actually dropped this, at least for step 1.  Expect to see it return in step 2 as a uint",
+      "parentUuid": "f127a8f2_9498095d",
       "revId": "01db1e9c116d377db0b8bebb43f85e26a4628a92",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -305,6 +575,30 @@
     },
     {
       "key": {
+        "uuid": "f127a8f2_a70b5dae",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 6535
+      },
+      "writtenOn": "2016-02-05T20:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f127a8f2_3feadbcc",
+      "range": {
+        "startLine": 295,
+        "startChar": 45,
+        "endLine": 295,
+        "endChar": 51
+      },
+      "revId": "01db1e9c116d377db0b8bebb43f85e26a4628a92",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f127a8f2_d46a81ef",
         "filename": "ssl/test/runner/handshake_messages.go",
         "patchSetId": 1
@@ -322,6 +616,24 @@
     },
     {
       "key": {
+        "uuid": "f16b2868_0a945b63",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 6535
+      },
+      "writtenOn": "2016-02-05T20:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f127a8f2_d46a81ef",
+      "revId": "01db1e9c116d377db0b8bebb43f85e26a4628a92",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f127a8f2_ff00434c",
         "filename": "ssl/test/test_config.cc",
         "patchSetId": 1
@@ -333,6 +645,30 @@
       "writtenOn": "2016-02-04T00:30:18Z",
       "side": 1,
       "message": "There may be good reasons for the choice, but on first reading it seemed anomalous that this is the wire format (1) rather than the size (2**9).  If that\u0027s more consistent with surrounding code, though, stick with it.",
+      "range": {
+        "startLine": 142,
+        "startChar": 47,
+        "endLine": 142,
+        "endChar": 49
+      },
+      "revId": "01db1e9c116d377db0b8bebb43f85e26a4628a92",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f16b2868_4a8a5346",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 6535
+      },
+      "writtenOn": "2016-02-05T20:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f127a8f2_ff00434c",
       "range": {
         "startLine": 142,
         "startChar": 47,
