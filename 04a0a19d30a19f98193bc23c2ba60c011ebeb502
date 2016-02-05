@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "51c15418_a25604ac",
+        "filename": "crypto/bn/div.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-02-05T00:44:12Z",
+      "side": 0,
+      "message": "With this block gone, am I right that lines 230 through 258 of internal.h can also go?",
+      "revId": "04a0a19d30a19f98193bc23c2ba60c011ebeb502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
