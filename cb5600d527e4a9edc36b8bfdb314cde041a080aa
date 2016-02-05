@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b1ea901e_007e068c",
+        "filename": "crypto/bn/CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-02-05T22:40:40Z",
+      "side": 1,
+      "message": "A change here is actually really really expensive due to our kind of messy build-system situation. Unless we have a very good reason, I\u0027d rather not change the fact that tests are uniformly foo_test.(c,cc) -\u003e foo_test and link with the single test_support target.",
+      "revId": "cb5600d527e4a9edc36b8bfdb314cde041a080aa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b1ea901e_c0737ec6",
+        "filename": "crypto/bn/exponentiation.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-02-05T22:40:40Z",
+      "side": 1,
+      "message": "No need to leave little bits of scar tissue around like that.",
+      "revId": "cb5600d527e4a9edc36b8bfdb314cde041a080aa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
