@@ -427,17 +427,8 @@ int BN_mod_mul(BIGNUM *r, const BIGNUM *a, const BIGNUM *b, const BIGNUM *m,
     goto err;
   }
 
-  if (a == b) {
-    if (!BN_sqr(t, a, ctx)) {
-      goto err;
-    }
-  } else {
-    if (!BN_mul(t, a, b, ctx)) {
-      goto err;
-    }
-  }
-
-  if (!BN_nnmod(r, t, m, ctx)) {
+  if (!BN_mul(t, a, b, ctx) ||
+      !BN_nnmod(r, t, m, ctx)) {
     goto err;
   }
 
@@ -449,12 +440,7 @@ err:
 }
 
 int BN_mod_sqr(BIGNUM *r, const BIGNUM *a, const BIGNUM *m, BN_CTX *ctx) {
-  if (!BN_sqr(r, a, ctx)) {
-    return 0;
-  }
-
-  /* r->neg == 0,  thus we don't need BN_nnmod */
-  return BN_mod(r, r, m, ctx);
+  return BN_mod_mul(r, a, a, m, ctx);
 }
 
 int BN_mod_lshift(BIGNUM *r, const BIGNUM *a, int n, const BIGNUM *m,
