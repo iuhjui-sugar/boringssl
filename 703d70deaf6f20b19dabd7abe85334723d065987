@@ -16,6 +16,24 @@
       "revId": "703d70deaf6f20b19dabd7abe85334723d065987",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b109b0b1_a8a1bbb8",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-02-05T03:05:48Z",
+      "side": 0,
+      "message": "Yes, it will be reachable. I restored it. Thanks!",
+      "parentUuid": "51c15418_e20e4cc0",
+      "revId": "703d70deaf6f20b19dabd7abe85334723d065987",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }

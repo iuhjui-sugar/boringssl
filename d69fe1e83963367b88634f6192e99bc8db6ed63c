@@ -22,6 +22,30 @@
       "revId": "d69fe1e83963367b88634f6192e99bc8db6ed63c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f127a8f2_aab7a43d",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-02-05T03:05:48Z",
+      "side": 1,
+      "message": "I changed it. (How did the x86 builds even work?)",
+      "parentUuid": "51c15418_a2efe415",
+      "range": {
+        "startLine": 70,
+        "startChar": 13,
+        "endLine": 70,
+        "endChar": 21
+      },
+      "revId": "d69fe1e83963367b88634f6192e99bc8db6ed63c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
