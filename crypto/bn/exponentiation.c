@@ -377,14 +377,8 @@ static int BN_mod_mul_reciprocal(BIGNUM *r, const BIGNUM *x, const BIGNUM *y,
   }
 
   if (y != NULL) {
-    if (x == y) {
-      if (!BN_sqr(a, x, ctx)) {
-        goto err;
-      }
-    } else {
-      if (!BN_mul(a, x, y, ctx)) {
-        goto err;
-      }
+    if (!BN_mul(a, x, y, ctx)) {
+      goto err;
     }
     ca = a;
   } else {
