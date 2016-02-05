@@ -62,8 +62,6 @@
 #include "internal.h"
 
 
-#define asm __asm__
-
 #if !defined(OPENSSL_NO_ASM)
 # if defined(__GNUC__) && __GNUC__>=2
 #  if defined(OPENSSL_X86)
@@ -77,31 +75,27 @@
     *
     *					<appro@fy.chalmers.se>
     */
-#undef div_asm
 #  define div_asm(n0,n1,d0)		\
-	({  asm volatile (			\
+	({  __asm__ volatile (			\
 		"divl	%4"			\
 		: "=a"(q), "=d"(rem)		\
 		: "a"(n1), "d"(n0), "g"(d0)	\
 		: "cc");			\
 	    q;					\
 	})
-#  define REMAINDER_IS_ALREADY_CALCULATED
 #  elif defined(OPENSSL_X86_64)
    /*
     * Same story here, but it's 128-bit by 64-bit division. Wow!
     *					<appro@fy.chalmers.se>
     */
-#  undef div_asm
 #  define div_asm(n0,n1,d0)		\
-	({  asm volatile (			\
+	({  __asm__ volatile (			\
 		"divq	%4"			\
 		: "=a"(q), "=d"(rem)		\
 		: "a"(n1), "d"(n0), "g"(d0)	\
 		: "cc");			\
 	    q;					\
 	})
-#  define REMAINDER_IS_ALREADY_CALCULATED
 #  endif /* __<cpu> */
 # endif /* __GNUC__ */
 #endif /* OPENSSL_NO_ASM */
@@ -263,15 +257,10 @@ int BN_div(BIGNUM *dv, BIGNUM *rm, const BIGNUM *num, const BIGNUM *divisor,
 #ifdef BN_ULLONG
       BN_ULLONG t2;
 
-#if defined(BN_ULLONG) && !defined(div_asm)
-      q = (BN_ULONG)(((((BN_ULLONG)n0) << BN_BITS2) | n1) / d0);
-#else
+#if defined(div_asm)
       q = div_asm(n0, n1, d0);
-#endif
-
-#ifndef REMAINDER_IS_ALREADY_CALCULATED
-      /* rem doesn't have to be BN_ULLONG. The least we know it's less that d0,
-       * isn't it? */
+#else
+      q = (BN_ULONG)(((((BN_ULLONG)n0) << BN_BITS2) | n1) / d0);
       rem = (n1 - q * d0) & BN_MASK2;
 #endif
 
