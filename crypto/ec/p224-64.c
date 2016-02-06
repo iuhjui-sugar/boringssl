@@ -1020,50 +1020,6 @@ static void batch_mul(felem x_out, felem y_out, felem z_out,
   felem_assign(z_out, nq[2]);
 }
 
-int ec_GFp_nistp224_group_init(EC_GROUP *group) {
-  int ret;
-  ret = ec_GFp_simple_group_init(group);
-  group->a_is_minus3 = 1;
-  return ret;
-}
-
-int ec_GFp_nistp224_group_set_curve(EC_GROUP *group, const BIGNUM *p,
-                                    const BIGNUM *a, const BIGNUM *b,
-                                    BN_CTX *ctx) {
-  int ret = 0;
-  BN_CTX *new_ctx = NULL;
-  BIGNUM *curve_p, *curve_a, *curve_b;
-
-  if (ctx == NULL) {
-    ctx = BN_CTX_new();
-    new_ctx = ctx;
-    if (ctx == NULL) {
-      return 0;
-    }
-  }
-  BN_CTX_start(ctx);
-  if (((curve_p = BN_CTX_get(ctx)) == NULL) ||
-      ((curve_a = BN_CTX_get(ctx)) == NULL) ||
-      ((curve_b = BN_CTX_get(ctx)) == NULL)) {
-    goto err;
-  }
-  BN_bin2bn(nistp224_curve_params[0], sizeof(felem_bytearray), curve_p);
-  BN_bin2bn(nistp224_curve_params[1], sizeof(felem_bytearray), curve_a);
-  BN_bin2bn(nistp224_curve_params[2], sizeof(felem_bytearray), curve_b);
-  if (BN_cmp(curve_p, p) ||
-      BN_cmp(curve_a, a) ||
-      BN_cmp(curve_b, b)) {
-    OPENSSL_PUT_ERROR(EC, EC_R_WRONG_CURVE_PARAMETERS);
-    goto err;
-  }
-  ret = ec_GFp_simple_group_set_curve(group, p, a, b, ctx);
-
-err:
-  BN_CTX_end(ctx);
-  BN_CTX_free(new_ctx);
-  return ret;
-}
-
 /* Takes the Jacobian coordinates (X, Y, Z) of a point and returns
  * (X', Y') = (X/Z^2, Y/Z^3) */
 int ec_GFp_nistp224_point_get_affine_coordinates(const EC_GROUP *group,
@@ -1286,10 +1242,10 @@ err:
 }
 
 const EC_METHOD *EC_GFp_nistp224_method(void) {
-  static const EC_METHOD ret = {ec_GFp_nistp224_group_init,
+  static const EC_METHOD ret = {ec_GFp_simple_group_init,
                                 ec_GFp_simple_group_finish,
                                 ec_GFp_simple_group_copy,
-                                ec_GFp_nistp224_group_set_curve,
+                                ec_GFp_simple_group_set_curve,
                                 ec_GFp_nistp224_point_get_affine_coordinates,
                                 ec_GFp_nistp224_points_mul,
                                 0 /* check_pub_key_order */,
