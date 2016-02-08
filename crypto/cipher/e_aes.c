@@ -394,7 +394,7 @@ static int aes_ctr_cipher(EVP_CIPHER_CTX *ctx, uint8_t *out, const uint8_t *in,
     CRYPTO_ctr128_encrypt(in, out, len, &dat->ks, ctx->iv, ctx->buf, &num,
                           dat->block);
   }
-  ctx->num = (size_t)num;
+  ctx->num = (int)num;
   return 1;
 }
 
