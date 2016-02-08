@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9d6200ed_29ce6d2e",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-02-08T18:22:28Z",
+      "side": 1,
+      "message": "I don\u0027t think we really need so many copies of this. If this ever changes, it\u0027ll be a bunch of work and for not really any benefit that I can tell. We\u0027d just have another platform where we need to go define BN_UMULT_LOHI. If BN_UMULT_LOHI is missing, the compile error should be pretty straight-forward.",
+      "revId": "aeccce44e5ab114c3d5098fa9bdfb7bb81b45d62",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
