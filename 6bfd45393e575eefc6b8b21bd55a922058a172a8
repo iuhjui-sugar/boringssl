@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bd598475_3ad4a1bf",
+        "filename": "crypto/bn/internal.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-02-08T23:57:22Z",
+      "side": 0,
+      "message": "I don\u0027t actually care about indents either way, but clang-format got rid of them so whatever. :-)",
+      "range": {
+        "startLine": 222,
+        "startChar": 1,
+        "endLine": 222,
+        "endChar": 2
+      },
+      "revId": "6bfd45393e575eefc6b8b21bd55a922058a172a8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
