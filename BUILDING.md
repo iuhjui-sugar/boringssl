@@ -4,24 +4,28 @@
 
   * [CMake] [1] 2.8.8 or later is required.
 
-  * Perl 5.6.1 or later is required. On Windows, [Strawberry Perl] [2] and MSYS
-    Perl have both been reported to work. If not found by CMake, it may be
+  * Perl 5.6.1 or later is required. On Windows, [Active State Perl] [2] has
+    been reported to work, as has MSYS Perl. [Strawberry Perl] [3] also works
+    but it adds GCC to `PATH`, which can confuse some build tools when
+    identifying the compiler (removing `C:\Strawberry\c\bin` from `PATH`
+    should resolve any problems). If Perl is not found by CMake, it may be
     configured explicitly by setting `PERL_EXECUTABLE`.
 
-  * On Windows you currently must use [Ninja] [3] to build; on other platforms,
+  * On Windows you currently must use [Ninja] [4] to build; on other platforms,
     it is not required, but recommended, because it makes builds faster.
 
   * If you need to build Ninja from source, then a recent version of
-    [Python] [4] is required (Python 2.7.5 works).
+    [Python] [5] is required (Python 2.7.5 works).
 
-  * On Windows only, [Yasm] [5] is required. If not found by CMake, it may be
+  * On Windows only, [Yasm] [6] is required. If not found by CMake, it may be
     configured explicitly by setting `CMAKE_ASM_NASM_COMPILER`.
 
-  * A C compiler is required. On Windows, MSVC 12 (Visual Studio 2013) or later
-    with Platform SDK 8.1 or later are supported. Recent versions of GCC and
-    Clang should work on non-Windows platforms, and maybe on Windows too.
+  * A C compiler is required. On Windows, MSVC 12 (Visual Studio 2013)
+    or later with Platform SDK 8.1 or later are supported. Recent versions of
+    GCC (4.8+) and Clang should work on non-Windows platforms, and maybe on
+    Windows too.
 
-  * [Go] [6] is required. If not found by CMake, the go executable may be
+  * [Go] [7] is required. If not found by CMake, the go executable may be
     configured explicitly by setting `GO_EXECUTABLE`.
 
 ## Building
@@ -45,7 +49,8 @@ files because the build scripts will detect changes to them and rebuild
 themselves automatically.
 
 Note that the default build flags in the top-level `CMakeLists.txt` are for
-debugging—optimisation isn't enabled.
+debugging—optimisation isn't enabled. Pass `-DCMAKE_BUILD_TYPE=Release` to
+`cmake` to configure a release build.
 
 If you want to cross-compile then there is an example toolchain file for 32-bit
 Intel in `util/`. Wipe out the build directory, recreate it and run `cmake` like
@@ -57,6 +62,9 @@ If you want to build as a shared library, pass `-DBUILD_SHARED_LIBS=1`. On
 Windows, where functions need to be tagged with `dllimport` when coming from a
 shared library, define `BORINGSSL_SHARED_LIBRARY` in any code which `#include`s
 the BoringSSL headers.
+
+See [CMake's documentation](https://cmake.org/cmake/help/v3.4/manual/cmake-variables.7.html)
+for other variables which may be used to configure the build.
 
 ### Building for Android
 
@@ -100,8 +108,9 @@ from within `ssl/test/runner`.
 
 
  [1]: http://www.cmake.org/download/
- [2]: http://strawberryperl.com/
- [3]: https://martine.github.io/ninja/
- [4]: https://www.python.org/downloads/
- [5]: http://yasm.tortall.net/
- [6]: https://golang.org/dl/
+ [2]: http://www.activestate.com/activeperl/
+ [3]: http://strawberryperl.com/
+ [4]: https://martine.github.io/ninja/
+ [5]: https://www.python.org/downloads/
+ [6]: http://yasm.tortall.net/
+ [7]: https://golang.org/dl/
