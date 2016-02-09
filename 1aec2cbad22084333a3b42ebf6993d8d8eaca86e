@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3dacb4b4_812edcd5",
+        "filename": "BUILDING.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-02-09T19:49:04Z",
+      "side": 0,
+      "message": "What happened to this?",
+      "range": {
+        "startLine": 7,
+        "startChar": 75,
+        "endLine": 8,
+        "endChar": 8
+      },
+      "revId": "1aec2cbad22084333a3b42ebf6993d8d8eaca86e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

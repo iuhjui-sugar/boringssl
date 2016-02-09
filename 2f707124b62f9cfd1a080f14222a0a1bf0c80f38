@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3dacb4b4_c113c49d",
+        "filename": "BUILDING.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-02-09T19:49:04Z",
+      "side": 1,
+      "message": "I might switch this to \"some build tools\" since we\u0027ve already worked around it in CMake at your request. If the concern is people trying to build other Windows software with UNIX-y build tools, this is probably not CMake-specific.",
+      "range": {
+        "startLine": 9,
+        "startChar": 33,
+        "endLine": 9,
+        "endChar": 38
+      },
+      "revId": "2f707124b62f9cfd1a080f14222a0a1bf0c80f38",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3dacb4b4_011accb5",
+        "filename": "BUILDING.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-02-09T19:49:04Z",
+      "side": 1,
+      "message": "I\u0027d probably drop this link. MSVC has lots of random editions with various requirements. I don\u0027t think it actually matters, but it seems poor to link to a specific one without saying something about that. (Chromium\u0027s instructions say \"if its license is appropriate for you\", etc.)",
+      "range": {
+        "startLine": 119,
+        "startChar": 6,
+        "endLine": 119,
+        "endChar": 70
+      },
+      "revId": "2f707124b62f9cfd1a080f14222a0a1bf0c80f38",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
