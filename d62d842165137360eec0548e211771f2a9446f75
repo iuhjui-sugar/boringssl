@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3d8e7442_4e8b930d",
+        "filename": "crypto/bn/asm/x86_64-gcc.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-02-09T06:08:49Z",
+      "side": 1,
+      "message": "__GNUC__?",
+      "range": {
+        "startLine": 539,
+        "startChar": 31,
+        "endLine": 539,
+        "endChar": 40
+      },
+      "revId": "d62d842165137360eec0548e211771f2a9446f75",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3d8e7442_6e904f39",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-02-09T06:08:49Z",
+      "side": 1,
+      "message": "End with period?\n\nIMO, my original comment is better because it helps people understand the contents and organization of this file too. But, I don\u0027t care much either way.",
+      "revId": "d62d842165137360eec0548e211771f2a9446f75",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
