@@ -34,6 +34,24 @@
       "revId": "aeccce44e5ab114c3d5098fa9bdfb7bb81b45d62",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3dacb4b4_1e96ad01",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-02-09T16:20:29Z",
+      "side": 1,
+      "message": "I switched it to a check in bn/internal.h. I think a reasonable interpretation of the current state is that there\u0027s a codepath for BN_ULLONG and a codepath for BN_UMULT_LOHI and one of these must be defined. (Though if you can make the problem go away, that\u0027s even better!)",
+      "parentUuid": "5d91680c_bfdf171e",
+      "revId": "aeccce44e5ab114c3d5098fa9bdfb7bb81b45d62",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
