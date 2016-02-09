@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3dacb4b4_fe61c1e2",
+        "filename": "crypto/bn/asm/x86_64-gcc.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-02-09T16:20:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d8e7442_4e8b930d",
+      "range": {
+        "startLine": 539,
+        "startChar": 31,
+        "endLine": 539,
+        "endChar": 40
+      },
+      "revId": "d62d842165137360eec0548e211771f2a9446f75",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3d8e7442_6e904f39",
         "filename": "crypto/bn/generic.c",
         "patchSetId": 10
@@ -36,6 +60,24 @@
       "writtenOn": "2016-02-09T06:08:49Z",
       "side": 1,
       "message": "End with period?\n\nIMO, my original comment is better because it helps people understand the contents and organization of this file too. But, I don\u0027t care much either way.",
+      "revId": "d62d842165137360eec0548e211771f2a9446f75",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3dacb4b4_7e76d1a9",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-02-09T16:20:29Z",
+      "side": 1,
+      "message": "Done.\n\nI left it to these two to explain why the #ifdef looked like this. That this file itself has two implementations I think is more a symptom of the global BN_ULLONG vs BN_UMULT_LOHI mess. (div.c has the same split.)",
+      "parentUuid": "3d8e7442_6e904f39",
       "revId": "d62d842165137360eec0548e211771f2a9446f75",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
