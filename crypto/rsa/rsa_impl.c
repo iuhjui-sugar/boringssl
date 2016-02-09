@@ -548,7 +548,7 @@ int rsa_default_private_transform(RSA *rsa, uint8_t *out, const uint8_t *in,
       OPENSSL_PUT_ERROR(RSA, ERR_R_INTERNAL_ERROR);
       goto err;
     }
-    if (!BN_BLINDING_convert(f, blinding, ctx)) {
+    if (!BN_BLINDING_convert(f, blinding, ctx, rsa->mont_n)) {
       goto err;
     }
   }
@@ -1116,7 +1116,7 @@ const RSA_METHOD RSA_default_method = {
   NULL /* private_transform (defaults to rsa_default_private_transform) */,
 
   mod_exp,
-  BN_mod_exp_mont /* bn_mod_exp */,
+  NULL /* bn_mod_exp */,
 
   RSA_FLAG_CACHE_PUBLIC | RSA_FLAG_CACHE_PRIVATE,
 
