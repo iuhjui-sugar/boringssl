@@ -313,14 +313,8 @@ BN_BLINDING *BN_BLINDING_create_param(
     }
   } while (1);
 
-  if (ret->bn_mod_exp != NULL && ret->mont != NULL) {
-    if (!ret->bn_mod_exp(ret->A, ret->A, ret->e, ret->mod, ctx, ret->mont)) {
-      goto err;
-    }
-  } else {
-    if (!BN_mod_exp(ret->A, ret->A, ret->e, ret->mod, ctx)) {
-      goto err;
-    }
+  if (!ret->bn_mod_exp(ret->A, ret->A, ret->e, ret->mod, ctx, ret->mont)) {
+    goto err;
   }
 
   return ret;
