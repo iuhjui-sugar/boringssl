@@ -16,6 +16,24 @@
       "revId": "aeccce44e5ab114c3d5098fa9bdfb7bb81b45d62",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5d91680c_bfdf171e",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-02-09T06:08:49Z",
+      "side": 1,
+      "message": "I agree. My intention is to emphasize the badness of having a whole separate code path for just 64-bit MSVC. However, I will do that in a better way. (Also, I intend to make that problem go away.)",
+      "parentUuid": "9d6200ed_29ce6d2e",
+      "revId": "aeccce44e5ab114c3d5098fa9bdfb7bb81b45d62",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
