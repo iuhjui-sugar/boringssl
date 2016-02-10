@@ -84,6 +84,29 @@ OPENSSL_EXPORT int ED25519_verify(const uint8_t *message, size_t message_len,
                                   const uint8_t public_key[32]);
 
 
+// TODO(arnarb): document
+typedef enum {
+  kSpakeRoleInitiator,  // XXX naming convention?
+  kSpakeRoleResponder
+} SPAKE2_role;
+
+typedef struct {
+  SPAKE2_role role;
+  uint8_t private_key[32];
+  uint8_t our_commitment[32];
+  uint8_t pwd[32];
+} SPAKE2_state;
+
+OPENSSL_EXPORT void SPAKE2_commitment(
+    SPAKE2_state *out_state,
+    uint8_t *password, size_t password_length,
+    SPAKE2_role role);
+
+OPENSSL_EXPORT int SPAKE2_get_key(
+    uint8_t out_key[32],
+    SPAKE2_state* state,
+    uint8_t peers_commitment[32]);
+
 #if defined(__cplusplus)
 }  /* extern C */
 #endif

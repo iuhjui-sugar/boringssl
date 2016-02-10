@@ -30,13 +30,6 @@
 
 #include "internal.h"
 
-
-/* fe means field element. Here the field is \Z/(2^255-19). An element t,
- * entries t[0]...t[9], represents the integer t[0]+2^26 t[1]+2^51 t[2]+2^77
- * t[3]+2^102 t[4]+...+2^230 t[9]. Bounds on each t[i] vary depending on
- * context.  */
-typedef int32_t fe[10];
-
 static uint64_t load_3(const uint8_t *in) {
   uint64_t result;
   result = (uint64_t)in[0];
@@ -974,52 +967,7 @@ static void fe_pow22523(fe out, const fe z) {
   fe_mul(out, t0, z);
 }
 
-/* ge means group element.
-
- * Here the group is the set of pairs (x,y) of field elements (see fe.h)
- * satisfying -x^2 + y^2 = 1 + d x^2y^2
- * where d = -121665/121666.
- *
- * Representations:
- *   ge_p2 (projective): (X:Y:Z) satisfying x=X/Z, y=Y/Z
- *   ge_p3 (extended): (X:Y:Z:T) satisfying x=X/Z, y=Y/Z, XY=ZT
- *   ge_p1p1 (completed): ((X:Z),(Y:T)) satisfying x=X/Z, y=Y/T
- *   ge_precomp (Duif): (y+x,y-x,2dxy) */
-
-typedef struct {
-  fe X;
-  fe Y;
-  fe Z;
-} ge_p2;
-
-typedef struct {
-  fe X;
-  fe Y;
-  fe Z;
-  fe T;
-} ge_p3;
-
-typedef struct {
-  fe X;
-  fe Y;
-  fe Z;
-  fe T;
-} ge_p1p1;
-
-typedef struct {
-  fe yplusx;
-  fe yminusx;
-  fe xy2d;
-} ge_precomp;
-
-typedef struct {
-  fe YplusX;
-  fe YminusX;
-  fe Z;
-  fe T2d;
-} ge_cached;
-
-static void ge_tobytes(uint8_t *s, const ge_p2 *h) {
+void ge_tobytes(uint8_t *s, const ge_p2 *h) {
   fe recip;
   fe x;
   fe y;
@@ -1049,7 +997,7 @@ static const fe d = {-10913610, 13857413, -15372611, 6949391,   114729,
 static const fe sqrtm1 = {-32595792, -7943725,  9377950,  3500415, 12389472,
                           -272473,   -25146209, -2005654, 326686,  11406482};
 
-static int ge_frombytes_negate_vartime(ge_p3 *h, const uint8_t *s) {
+int ge_frombytes_negate_vartime(ge_p3 *h, const uint8_t *s) {
   fe u;
   fe v;
   fe v3;
@@ -1105,6 +1053,13 @@ static void ge_p3_0(ge_p3 *h) {
   fe_0(h->T);
 }
 
+static void ge_p1p1_0(ge_p1p1 *h) {
+  fe_0(h->X);
+  fe_1(h->Y);
+  fe_1(h->Z);
+  fe_1(h->T);
+}
+
 static void ge_precomp_0(ge_precomp *h) {
   fe_1(h->yplusx);
   fe_1(h->yminusx);
@@ -1122,7 +1077,7 @@ static const fe d2 = {-21827239, -5839606,  -30745221, 13898782, 229458,
                       15978800,  -12551817, -6495438,  29715968, 9444199};
 
 /* r = p */
-static void ge_p3_to_cached(ge_cached *r, const ge_p3 *p) {
+void ge_p3_to_cached(ge_cached *r, const ge_p3 *p) {
   fe_add(r->YplusX, p->Y, p->X);
   fe_sub(r->YminusX, p->Y, p->X);
   fe_copy(r->Z, p->Z);
@@ -1130,14 +1085,14 @@ static void ge_p3_to_cached(ge_cached *r, const ge_p3 *p) {
 }
 
 /* r = p */
-static void ge_p1p1_to_p2(ge_p2 *r, const ge_p1p1 *p) {
+void ge_p1p1_to_p2(ge_p2 *r, const ge_p1p1 *p) {
   fe_mul(r->X, p->X, p->T);
   fe_mul(r->Y, p->Y, p->Z);
   fe_mul(r->Z, p->Z, p->T);
 }
 
 /* r = p */
-static void ge_p1p1_to_p3(ge_p3 *r, const ge_p1p1 *p) {
+void ge_p1p1_to_p3(ge_p3 *r, const ge_p1p1 *p) {
   fe_mul(r->X, p->X, p->T);
   fe_mul(r->Y, p->Y, p->Z);
   fe_mul(r->Z, p->Z, p->T);
@@ -1199,7 +1154,7 @@ static void ge_msub(ge_p1p1 *r, const ge_p3 *p, const ge_precomp *q) {
 }
 
 /* r = p + q */
-static void ge_add(ge_p1p1 *r, const ge_p3 *p, const ge_cached *q) {
+void ge_add(ge_p1p1 *r, const ge_p3 *p, const ge_cached *q) {
   fe t0;
 
   fe_add(r->X, p->Y, p->X);
@@ -1216,7 +1171,7 @@ static void ge_add(ge_p1p1 *r, const ge_p3 *p, const ge_cached *q) {
 }
 
 /* r = p - q */
-static void ge_sub(ge_p1p1 *r, const ge_p3 *p, const ge_cached *q) {
+void ge_sub(ge_p1p1 *r, const ge_p3 *p, const ge_cached *q) {
   fe t0;
 
   fe_add(r->X, p->Y, p->X);
@@ -1246,6 +1201,58 @@ static void cmov(ge_precomp *t, ge_precomp *u, uint8_t b) {
   fe_cmov(t->yplusx, u->yplusx, b);
   fe_cmov(t->yminusx, u->yminusx, b);
   fe_cmov(t->xy2d, u->xy2d, b);
+}
+
+void ge_scalarmult_small_precomp(ge_p3 *h, const uint8_t a[32],
+		const uint8_t precomp_table[15 * 2 * 32]) {
+  /* precomp_table is first expanded into matching |ge_precomp|
+   * elements. */
+  ge_precomp multiples[15];
+
+  unsigned i;
+  for (i = 0; i < 15; i++) {
+    const uint8_t *bytes = &precomp_table[i*(2 * 32)];
+    fe x, y;
+    fe_frombytes(x, bytes);
+    fe_frombytes(y, bytes + 32);
+
+    ge_precomp *out = &multiples[i];
+    fe_add(out->yplusx, y, x);
+    fe_sub(out->yminusx, y, x);
+    fe_mul(out->xy2d, x, y);
+    fe_mul(out->xy2d, out->xy2d, d2);
+  }
+
+  /* See the comment above |k25519SmallPrecomp| about the structure of the
+   * precomputed elements. This loop does 64 additions and 64 doublings to
+   * calculate the result. */
+  ge_p3_0(h);
+
+  for (i = 63; i < 64; i--) {
+    unsigned j;
+    signed char index = 0;
+
+    for (j = 0; j < 4; j++) {
+      const uint8_t bit = 1 & (a[(8 * j) + (i / 8)] >> (i & 7));
+      index |= (bit << j);
+    }
+
+    ge_precomp e;
+    ge_precomp_0(&e);
+
+    for (j = 1; j < 16; j++) {
+      cmov(&e, &multiples[j-1], equal(index, j));
+    }
+
+    ge_cached cached;
+    ge_p1p1 r;
+    ge_p3_to_cached(&cached, h);
+    ge_add(&r, h, &cached);
+    ge_p1p1_to_p3(h, &r);
+
+    ge_madd(&r, h, &e);
+    ge_p1p1_to_p3(h, &r);
+  }
 }
 
 #if defined(OPENSSL_SMALL)
@@ -1341,55 +1348,8 @@ static const uint8_t k25519SmallPrecomp[15 * 2 * 32] = {
     0x45, 0xc9, 0x8b, 0x17, 0x79, 0xe7, 0xc7, 0x90, 0x99, 0x3a, 0x18, 0x25,
 };
 
-static void ge_scalarmult_base(ge_p3 *h, const uint8_t a[32]) {
-  /* k25519SmallPrecomp is first expanded into matching |ge_precomp|
-   * elements. */
-  ge_precomp multiples[15];
-
-  unsigned i;
-  for (i = 0; i < 15; i++) {
-    const uint8_t *bytes = &k25519SmallPrecomp[i*(2 * 32)];
-    fe x, y;
-    fe_frombytes(x, bytes);
-    fe_frombytes(y, bytes + 32);
-
-    ge_precomp *out = &multiples[i];
-    fe_add(out->yplusx, y, x);
-    fe_sub(out->yminusx, y, x);
-    fe_mul(out->xy2d, x, y);
-    fe_mul(out->xy2d, out->xy2d, d2);
-  }
-
-  /* See the comment above |k25519SmallPrecomp| about the structure of the
-   * precomputed elements. This loop does 64 additions and 64 doublings to
-   * calculate the result. */
-  ge_p3_0(h);
-
-  for (i = 63; i < 64; i--) {
-    unsigned j;
-    signed char index = 0;
-
-    for (j = 0; j < 4; j++) {
-      const uint8_t bit = 1 & (a[(8 * j) + (i / 8)] >> (i & 7));
-      index |= (bit << j);
-    }
-
-    ge_precomp e;
-    ge_precomp_0(&e);
-
-    for (j = 1; j < 16; j++) {
-      cmov(&e, &multiples[j-1], equal(index, j));
-    }
-
-    ge_cached cached;
-    ge_p1p1 r;
-    ge_p3_to_cached(&cached, h);
-    ge_add(&r, h, &cached);
-    ge_p1p1_to_p3(h, &r);
-
-    ge_madd(&r, h, &e);
-    ge_p1p1_to_p3(h, &r);
-  }
+void ge_scalarmult_base(ge_p3 *h, const uint8_t a[32]) {
+  ge_scalarmult_small_precomp(h, a, k25519SmallPrecomp);
 }
 
 #else
@@ -3542,7 +3502,7 @@ static void table_select(ge_precomp *t, int pos, signed char b) {
  *
  * Preconditions:
  *   a[31] <= 127 */
-static void ge_scalarmult_base(ge_p3 *h, const uint8_t *a) {
+void ge_scalarmult_base(ge_p3 *h, const uint8_t *a) {
   signed char e[64];
   signed char carry;
   ge_p1p1 r;
@@ -3591,6 +3551,42 @@ static void ge_scalarmult_base(ge_p3 *h, const uint8_t *a) {
 }
 
 #endif
+
+void ge_scalarmult_slow(
+    ge_p1p1 *out_p,
+    uint8_t scalar[32],
+    const ge_p3 *point) {
+  ge_p1p1 q;
+  ge_p1p1 r;
+  ge_p1p1_0(&q);
+  ge_p1p1_0(&r);
+  ge_p3 q_ext;
+
+  ge_p3 acc; 
+  memcpy(&acc, point, sizeof(acc));
+  ge_cached acc_cached;
+
+  unsigned i;
+  for (i = 0; i < 256; ++i) {
+    ge_p1p1_to_p3(&q_ext, &q);
+    ge_p3_to_cached(&acc_cached, &acc);
+    if (1 & scalar[i >> 3] >> (i & 7)) {
+      ge_add(&q, &q_ext, &acc_cached);
+    } else {
+      ge_add(&r, &q_ext, &acc_cached);
+    }
+    if (i < 255) {
+      ge_p1p1 acc_compl;
+      ge_p3_dbl(&acc_compl, &acc);
+      ge_p1p1_to_p3(&acc, &acc_compl);
+    }
+  }
+
+  // We didn't calculate directly into out_p because 
+  // we want p,q to be close to each other to minimize
+  // risk of caching leaks.
+  memcpy(out_p, &q, sizeof(q));
+}
 
 static void slide(signed char *r, const uint8_t *a) {
   int i;
