@@ -2553,11 +2553,21 @@ static uint64_t be_to_u64(const uint8_t in[8]) {
 
 uint64_t SSL_get_read_sequence(const SSL *ssl) {
   /* TODO(davidben): Internally represent sequence numbers as uint64_t. */
+  if (SSL_IS_DTLS(ssl)) {
+    /* max_seq_num already includes the epoch. */
+    assert(ssl->d1->r_epoch == (ssl->d1->bitmask.max_seq_num >> 48));
+    return ssl->d1->bitmap.max_seq_num;
+  }
   return be_to_u64(ssl->s3->read_sequence);
 }
 
 uint64_t SSL_get_write_sequence(const SSL *ssl) {
-  return be_to_u64(ssl->s3->write_sequence);
+  uint64_t ret = be_to_u64(ssl->s3->write_sequence);
+  if (SSL_IS_DTLS(ssl)) {
+    assert((ret >> 48) == 0);
+    ret |= ((uint64_t)ssl->d1->w_epoch) << 48;
+  }
+  return ret;
 }
 
 uint8_t SSL_get_server_key_exchange_hash(const SSL *ssl) {
