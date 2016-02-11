@@ -1,4 +1,6 @@
 #include <assert.h>
+#include <stddef.h>
+#include <stdint.h>
 
 #include <openssl/ssl.h>
 

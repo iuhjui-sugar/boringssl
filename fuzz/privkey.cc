@@ -1,3 +1,6 @@
+#include <stddef.h>
+#include <stdint.h>
+
 #include <openssl/evp.h>
 
 extern "C" int LLVMFuzzerTestOneInput(uint8_t *buf, size_t len) {
