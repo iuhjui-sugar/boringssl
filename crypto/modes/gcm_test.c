@@ -336,7 +336,7 @@ static int run_test_case(unsigned test_num, const struct test_case *test) {
   }
 
   out = OPENSSL_malloc(plaintext_len);
-  if (out == NULL) {
+  if (plaintext_len != 0 && out == NULL) {
     goto out;
   }
   if (AES_set_encrypt_key(key, key_len*8, &aes_key)) {
@@ -346,15 +346,17 @@ static int run_test_case(unsigned test_num, const struct test_case *test) {
 
   CRYPTO_gcm128_init(&ctx, &aes_key, (block128_f) AES_encrypt);
   CRYPTO_gcm128_setiv(&ctx, &aes_key, nonce, nonce_len);
-  memset(out, 0, plaintext_len);
+  if (out) {
+    memset(out, 0, plaintext_len);
+  }
   if (additional_data) {
     CRYPTO_gcm128_aad(&ctx, additional_data, additional_data_len);
   }
-  if (plaintext) {
+  if (out && plaintext) {
     CRYPTO_gcm128_encrypt(&ctx, &aes_key, plaintext, out, plaintext_len);
   }
   if (!CRYPTO_gcm128_finish(&ctx, tag, tag_len) ||
-      (ciphertext && memcmp(out, ciphertext, plaintext_len) != 0)) {
+      (out && ciphertext && memcmp(out, ciphertext, plaintext_len) != 0)) {
     fprintf(stderr, "%u: encrypt failed.\n", test_num);
     hexdump(stderr, "got :", out, plaintext_len);
     hexdump(stderr, "want:", ciphertext, plaintext_len);
@@ -362,18 +364,20 @@ static int run_test_case(unsigned test_num, const struct test_case *test) {
   }
 
   CRYPTO_gcm128_setiv(&ctx, &aes_key, nonce, nonce_len);
-  memset(out, 0, plaintext_len);
+  if (out) {
+    memset(out, 0, plaintext_len);
+  }
   if (additional_data) {
     CRYPTO_gcm128_aad(&ctx, additional_data, additional_data_len);
   }
-  if (ciphertext) {
+  if (out && ciphertext) {
     CRYPTO_gcm128_decrypt(&ctx, &aes_key, ciphertext, out, plaintext_len);
   }
   if (!CRYPTO_gcm128_finish(&ctx, tag, tag_len)) {
     fprintf(stderr, "%u: decrypt failed.\n", test_num);
     goto out;
   }
-  if (plaintext && memcmp(out, plaintext, plaintext_len)) {
+  if (out && plaintext && memcmp(out, plaintext, plaintext_len)) {
     fprintf(stderr, "%u: plaintext doesn't match.\n", test_num);
     goto out;
   }
