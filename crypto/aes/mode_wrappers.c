@@ -56,8 +56,7 @@
 void AES_ctr128_encrypt(const uint8_t *in, uint8_t *out, size_t len,
                         const AES_KEY *key, uint8_t ivec[AES_BLOCK_SIZE],
                         uint8_t ecount_buf[AES_BLOCK_SIZE], unsigned int *num) {
-  CRYPTO_ctr128_encrypt(in, out, len, key, ivec, ecount_buf, num,
-                        (block128_f)AES_encrypt);
+  CRYPTO_ctr128_encrypt(in, out, len, key, ivec, ecount_buf, num, AES_encrypt);
 }
 
 void AES_ecb_encrypt(const uint8_t *in, uint8_t *out, const AES_KEY *key,
@@ -96,13 +95,11 @@ void AES_cbc_encrypt(const uint8_t *in, uint8_t *out, size_t len,
 
 void AES_ofb128_encrypt(const uint8_t *in, uint8_t *out, size_t length,
                         const AES_KEY *key, uint8_t *ivec, int *num) {
-  CRYPTO_ofb128_encrypt(in, out, length, key, ivec, num,
-                        (block128_f)AES_encrypt);
+  CRYPTO_ofb128_encrypt(in, out, length, key, ivec, num, AES_encrypt);
 }
 
 void AES_cfb128_encrypt(const uint8_t *in, uint8_t *out, size_t length,
                         const AES_KEY *key, uint8_t *ivec, int *num,
                         int enc) {
-  CRYPTO_cfb128_encrypt(in, out, length, key, ivec, num, enc,
-                        (block128_f)AES_encrypt);
+  CRYPTO_cfb128_encrypt(in, out, length, key, ivec, num, enc, AES_encrypt);
 }
