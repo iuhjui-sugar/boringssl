@@ -336,7 +336,7 @@ static int run_test_case(unsigned test_num, const struct test_case *test) {
   }
 
   out = OPENSSL_malloc(plaintext_len);
-  if (out == NULL) {
+  if (plaintext_len != 0 && out == NULL) {
     goto out;
   }
   if (AES_set_encrypt_key(key, key_len*8, &aes_key)) {
@@ -362,7 +362,9 @@ static int run_test_case(unsigned test_num, const struct test_case *test) {
   }
 
   CRYPTO_gcm128_setiv(&ctx, &aes_key, nonce, nonce_len);
-  memset(out, 0, plaintext_len);
+  if (out) {
+    memset(out, 0, plaintext_len);
+  }
   if (additional_data) {
     CRYPTO_gcm128_aad(&ctx, additional_data, additional_data_len);
   }
