@@ -57,8 +57,8 @@
 #endif
 
 void CRYPTO_cbc128_encrypt(const uint8_t *in, uint8_t *out, size_t len,
-                           const void *key, uint8_t ivec[16],
-                           block128_f block) {
+                           const AES_KEY *key, uint8_t ivec[16],
+                           aes_block_f block) {
   size_t n;
   const uint8_t *iv = ivec;
 
@@ -111,8 +111,8 @@ void CRYPTO_cbc128_encrypt(const uint8_t *in, uint8_t *out, size_t len,
 }
 
 void CRYPTO_cbc128_decrypt(const uint8_t *in, uint8_t *out, size_t len,
-                           const void *key, uint8_t ivec[16],
-                           block128_f block) {
+                           const AES_KEY *key, uint8_t ivec[16],
+                           aes_block_f block) {
   size_t n;
   union {
     size_t t[16 / sizeof(size_t)];

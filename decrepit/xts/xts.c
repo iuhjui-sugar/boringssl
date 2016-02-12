@@ -58,7 +58,7 @@
 
 typedef struct xts128_context {
   void *key1, *key2;
-  block128_f block1, block2;
+  aes_block_f block1, block2;
 } XTS128_CONTEXT;
 
 static size_t CRYPTO_xts128_encrypt(const XTS128_CONTEXT *ctx,
@@ -186,15 +186,15 @@ static int aes_xts_init_key(EVP_CIPHER_CTX *ctx, const uint8_t *key,
     /* key_len is two AES keys */
     if (enc) {
       AES_set_encrypt_key(key, ctx->key_len * 4, &xctx->ks1.ks);
-      xctx->xts.block1 = (block128_f) AES_encrypt;
+      xctx->xts.block1 = AES_encrypt;
     } else {
       AES_set_decrypt_key(key, ctx->key_len * 4, &xctx->ks1.ks);
-      xctx->xts.block1 = (block128_f) AES_decrypt;
+      xctx->xts.block1 = AES_decrypt;
     }
 
     AES_set_encrypt_key(key + ctx->key_len / 2,
                         ctx->key_len * 4, &xctx->ks2.ks);
-    xctx->xts.block2 = (block128_f) AES_encrypt;
+    xctx->xts.block2 = AES_encrypt;
     xctx->xts.key1 = &xctx->ks1;
   }
 
