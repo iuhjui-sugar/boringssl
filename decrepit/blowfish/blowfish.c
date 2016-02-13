@@ -491,3 +491,65 @@ void BF_set_key(BF_KEY *key, size_t len, const uint8_t *data) {
     p[i + 1] = in[1];
   }
 }
+
+/*
+ * The input and output encrypted as though 64bit cfb mode is being used.
+ * The extra state information to record how much of the 64bit block we have
+ * used is contained in *num;
+ */
+
+void BF_cfb64_encrypt(const uint8_t *in, uint8_t *out,
+                      long length, const BF_KEY *schedule,
+                      uint8_t *ivec, int *num, int encrypt) {
+  uint32_t v0, v1, t;
+  int n = *num;
+  long l = length;
+  uint32_t ti[2];
+  uint8_t *iv, c, cc;
+
+  iv = ivec;
+  if (encrypt) {
+    while (l--) {
+      if (n == 0) {
+        n2l(iv, v0);
+        ti[0] = v0;
+        n2l(iv, v1);
+        ti[1] = v1;
+        BF_encrypt(ti, schedule);
+        iv = ivec;
+        t = ti[0];
+        l2n(t, iv);
+        t = ti[1];
+        l2n(t, iv);
+        iv = ivec;
+      }
+      c = *(in++) ^ iv[n];
+      *(out++) = c;
+      iv[n] = c;
+      n = (n + 1) & 0x07;
+    }
+  } else {
+    while (l--) {
+      if (n == 0) {
+        n2l(iv, v0);
+        ti[0] = v0;
+        n2l(iv, v1);
+        ti[1] = v1;
+        BF_encrypt(ti, schedule);
+        iv = ivec;
+        t = ti[0];
+        l2n(t, iv);
+        t = ti[1];
+        l2n(t, iv);
+        iv = ivec;
+      }
+      cc = *(in++);
+      c = iv[n];
+      iv[n] = cc;
+      *(out++) = c ^ cc;
+      n = (n + 1) & 0x07;
+    }
+  }
+  v0 = v1 = ti[0] = ti[1] = t = c = cc = 0;
+  *num = n;
+}
