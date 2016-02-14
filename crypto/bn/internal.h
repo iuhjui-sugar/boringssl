@@ -218,7 +218,6 @@ int bn_mul_mont(BN_ULONG *rp, const BN_ULONG *ap, const BN_ULONG *bp,
 
 #if defined(OPENSSL_X86_64) && defined(_MSC_VER)
 #define BN_UMULT_LOHI(low, high, a, b) ((low) = _umul128((a), (b), &(high)))
-BN_ULONG bn_div_words(BN_ULONG h, BN_ULONG l, BN_ULONG d);
 #endif
 
 #if !defined(BN_ULLONG) && !defined(BN_UMULT_LOHI)
