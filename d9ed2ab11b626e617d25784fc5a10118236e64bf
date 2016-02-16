@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dd255844_332508ef",
+        "filename": "include/openssl/curve25519.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 6605
+      },
+      "writtenOn": "2016-02-16T00:34:20Z",
+      "side": 1,
+      "message": "should this be confirmation?",
+      "range": {
+        "startLine": 147,
+        "startChar": 32,
+        "endLine": 147,
+        "endChar": 44
+      },
+      "revId": "d9ed2ab11b626e617d25784fc5a10118236e64bf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
