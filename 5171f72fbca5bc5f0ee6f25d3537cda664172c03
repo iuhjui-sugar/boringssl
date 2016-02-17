@@ -16,6 +16,24 @@
       "revId": "5171f72fbca5bc5f0ee6f25d3537cda664172c03",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1d5a90dd_25f70ea3",
+        "filename": "crypto/evp/evp_asn1.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-02-17T18:18:05Z",
+      "side": 1,
+      "message": "I\u0027m unclear on what the version is supposed to mean. And the spec, of course, doesn\u0027t say anything. My interpretation for RSAPrivateKey was that new numbers should be rejected. I think that\u0027s probably correct?\n\nIf v1 is allowed to change semantics of existing fields, then this is the correct interpretation. If v1 only appends new fields, then allowing larger ones seems decently okay, but v0 parsers that reject trailing data would still fail to parse the v1 key. (And, judging by RSAPrivateKey adding multiprime in v1, a v0 parser allowing trailing data on a v1 key would be quite bad. And RFC 3447 says omitting the multiprime bits and using v1 instead of v0 is not allowed, so that\u0027s consistent with rejecting higher versions.)",
+      "parentUuid": "dd255844_bc0b25bc",
+      "revId": "5171f72fbca5bc5f0ee6f25d3537cda664172c03",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
