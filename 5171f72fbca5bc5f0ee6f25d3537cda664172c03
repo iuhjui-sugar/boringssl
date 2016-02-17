@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dd255844_bc0b25bc",
+        "filename": "crypto/evp/evp_asn1.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-02-17T17:19:17Z",
+      "side": 1,
+      "message": "(Technically, I think the idea with these version numbers is that higher numbers allow extra stuff to be put at the end. Since we can update things (mostly), and since it\u0027s unlikely that the version will ever be incremented, it\u0027s probably not important.)\n\n(Doesn\u0027t apply here in any case because the code\u0027s not enforcing that there\u0027s no trailing data.)",
+      "revId": "5171f72fbca5bc5f0ee6f25d3537cda664172c03",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
