@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dd255844_3cb2b512",
+        "filename": "crypto/evp/p_rsa_asn1.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-02-17T02:09:21Z",
+      "side": 1,
+      "message": "The spec says they must be NULL, but some software used to omit them. It seems like we should be able to get away with being strict here, but it\u0027s possible that some badly-encoded SPKIs still exist.",
+      "revId": "4f35242c06ad76b2c2d29177c098399e52680d81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
