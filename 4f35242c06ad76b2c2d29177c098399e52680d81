@@ -16,6 +16,24 @@
       "revId": "4f35242c06ad76b2c2d29177c098399e52680d81",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3dacb4b4_9494d1bb",
+        "filename": "crypto/evp/p_rsa_asn1.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-02-17T02:31:47Z",
+      "side": 1,
+      "message": "I believe Firefox is strict, but they don\u0027t run everything through this parser. (If mozilla::pkix rejects something, the cert will never verify, but the click-through works.)\nhttps://dxr.mozilla.org/mozilla-central/source/security/pkix/lib/pkixcheck.cpp#309\n\nI\u0027ll check CT logs tomorrow and see if I find anything. NULLs in signature algorithm and hash algorithm OIDs are a completely lost cause (the spec isn\u0027t even clear on which it is sometimes, and mozilla::pkix seems to accept both), but there might still be hope here? Though it\u0027s probably prudent to accept both initially and check UMA for a cycle.",
+      "parentUuid": "dd255844_3cb2b512",
+      "revId": "4f35242c06ad76b2c2d29177c098399e52680d81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
