@@ -185,7 +185,7 @@ static bool SpeedAEADChunk(const EVP_AEAD *aead, const std::string &name,
   memset(key.get(), 0, key_len);
   std::unique_ptr<uint8_t[]> nonce(new uint8_t[nonce_len]);
   memset(nonce.get(), 0, nonce_len);
-  std::unique_ptr<uint8_t[]> in_storage(new uint8_t[chunk_len + kAlignment]);
+  std::unique_ptr<uint8_t[]> in_storage(new uint8_t[chunk_len + overhead_len + kAlignment]);
   std::unique_ptr<uint8_t[]> out_storage(new uint8_t[chunk_len + overhead_len + kAlignment]);
   std::unique_ptr<uint8_t[]> ad(new uint8_t[ad_len]);
   memset(ad.get(), 0, ad_len);
@@ -198,7 +198,7 @@ static bool SpeedAEADChunk(const EVP_AEAD *aead, const std::string &name,
   if (!EVP_AEAD_CTX_init_with_direction(&ctx, aead, key.get(), key_len,
                                         EVP_AEAD_DEFAULT_TAG_LENGTH,
                                         evp_aead_seal)) {
-    fprintf(stderr, "Failed to create EVP_AEAD_CTX.\n");
+    fprintf(stderr, "Failed to create seal EVP_AEAD_CTX.\n");
     ERR_print_errors_fp(stderr);
     return false;
   }
@@ -221,6 +221,33 @@ static bool SpeedAEADChunk(const EVP_AEAD *aead, const std::string &name,
 
   EVP_AEAD_CTX_cleanup(&ctx);
 
+  if (!EVP_AEAD_CTX_init_with_direction(&ctx, aead, key.get(), key_len,
+                                        EVP_AEAD_DEFAULT_TAG_LENGTH,
+                                        evp_aead_open)) {
+    fprintf(stderr, "Failed to create open EVP_AEAD_CTX.\n");
+    ERR_print_errors_fp(stderr);
+    return false;
+  }
+
+  memcpy(in, out, chunk_len + overhead_len);
+
+  if (!TimeFunction(&results, [chunk_len, overhead_len, nonce_len, ad_len, in,
+                               out, &ctx, &nonce, &ad]() -> bool {
+        size_t out_len;
+
+        return EVP_AEAD_CTX_open(
+          &ctx, out, &out_len, chunk_len + overhead_len, nonce.get(),
+          nonce_len, in, chunk_len + overhead_len, ad.get(), ad_len);
+  })) {
+    fprintf(stderr, "EVP_AEAD_CTX_open failed.\n");
+    ERR_print_errors_fp(stderr);
+    return false;
+  }
+
+  results.PrintWithBytes(name + " open", chunk_len);
+
+  EVP_AEAD_CTX_cleanup(&ctx);
+
   return true;
 }
 
@@ -231,7 +258,20 @@ static bool SpeedAEAD(const EVP_AEAD *aead, const std::string &name,
   }
 
   return SpeedAEADChunk(aead, name + " (16 bytes)", 16, ad_len) &&
+         SpeedAEADChunk(aead, name + " (96 bytes)", 96, ad_len) &&
+         SpeedAEADChunk(aead, name + " (192 bytes)", 192, ad_len) &&
+         SpeedAEADChunk(aead, name + " (288 bytes)", 288, ad_len) &&
+         SpeedAEADChunk(aead, name + " (384 bytes)", 384, ad_len) &&
+         SpeedAEADChunk(aead, name + " (480 bytes)", 480, ad_len) &&
+         SpeedAEADChunk(aead, name + " (576 bytes)", 576, ad_len) &&
+         SpeedAEADChunk(aead, name + " (672 bytes)", 672, ad_len) &&
+         SpeedAEADChunk(aead, name + " (768 bytes)", 768, ad_len) &&
+         SpeedAEADChunk(aead, name + " (1056 bytes)", 1056, ad_len) &&
+         SpeedAEADChunk(aead, name + " (1344 bytes)", 1344, ad_len) &&
          SpeedAEADChunk(aead, name + " (1350 bytes)", 1350, ad_len) &&
+         SpeedAEADChunk(aead, name + " (2016 bytes)", 2016, ad_len) &&
+         SpeedAEADChunk(aead, name + " (3072 bytes)", 3072, ad_len) &&
+         SpeedAEADChunk(aead, name + " (4032 bytes)", 4032, ad_len) &&
          SpeedAEADChunk(aead, name + " (8192 bytes)", 8192, ad_len);
 }
 
