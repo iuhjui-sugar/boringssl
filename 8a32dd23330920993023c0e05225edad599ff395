@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e2b0b90b_15b9e443",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5885
+      },
+      "writtenOn": "2016-02-23T21:16:19Z",
+      "side": 1,
+      "message": "We could probably lose this JIRA ID from the commit message.",
+      "revId": "8a32dd23330920993023c0e05225edad599ff395",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
