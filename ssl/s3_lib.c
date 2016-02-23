@@ -353,13 +353,17 @@ size_t SSL_get_tls_channel_id(SSL *ssl, uint8_t *out, size_t max_out) {
 }
 
 int SSL_set_tlsext_host_name(SSL *ssl, const char *name) {
+  size_t len;
+
   OPENSSL_free(ssl->tlsext_hostname);
   ssl->tlsext_hostname = NULL;
 
   if (name == NULL) {
     return 1;
   }
-  if (strlen(name) > TLSEXT_MAXLEN_host_name) {
+
+  len = strlen(name);
+  if (len == 0 || len > TLSEXT_MAXLEN_host_name) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_SSL3_EXT_INVALID_SERVERNAME);
     return 0;
   }
