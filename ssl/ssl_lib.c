@@ -675,6 +675,11 @@ int SSL_shutdown(SSL *ssl) {
       return ret;
     }
   } else if (!(ssl->shutdown & SSL_RECEIVED_SHUTDOWN)) {
+    if (SSL_in_init(ssl)) {
+      /* We can't shutdown properly if we are in the middle of a handshake. */
+      OPENSSL_PUT_ERROR(SSL, SSL_R_SHUTDOWN_WHILE_IN_INIT);
+      return -1;
+    }
     /* If we are waiting for a close from our peer, we are closed */
     ssl->method->ssl_read_close_notify(ssl);
     if (!(ssl->shutdown & SSL_RECEIVED_SHUTDOWN)) {
