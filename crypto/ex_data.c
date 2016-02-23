@@ -280,8 +280,10 @@ void CRYPTO_free_ex_data(CRYPTO_EX_DATA_CLASS *ex_data_class, void *obj,
         sk_CRYPTO_EX_DATA_FUNCS_value(func_pointers, i);
     if (func_pointer->free_func) {
       void *ptr = CRYPTO_get_ex_data(ad, i + ex_data_class->num_reserved);
-      func_pointer->free_func(obj, ptr, ad, i + ex_data_class->num_reserved,
-                              func_pointer->argl, func_pointer->argp);
+      if (ptr) {
+        func_pointer->free_func(obj, ptr, ad, i + ex_data_class->num_reserved,
+                                func_pointer->argl, func_pointer->argp);
+      }
     }
   }
 
