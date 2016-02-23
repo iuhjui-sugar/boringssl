@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c29ad577_8191c4cf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-02-23T23:36:15Z",
+      "side": 1,
+      "message": "We\u0027ve diverged slightly here, but I believe this is our behavior too, yeah. Specifically we\u0027ll ignore the CCS record, but the next one we won\u0027t be able to do anything useful.",
+      "revId": "f51f81f44e733c8039557cbf246a193a5dc8cfde",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c29ad577_c192eccf",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-02-23T23:36:15Z",
+      "side": 1,
+      "message": "I think you also need to remove this block, otherwise this doesn\u0027t do anything.",
+      "revId": "f51f81f44e733c8039557cbf246a193a5dc8cfde",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
