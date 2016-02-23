@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c29ad577_a627be92",
+        "filename": "crypto/chacha/asm/chacha-armv4.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-02-23T16:26:23Z",
+      "side": 1,
+      "message": "It looks like this pattern is in all the other armv4 files too. :-( We\u0027ll probably only be rid of it by moving all dispatch to C.",
+      "range": {
+        "startLine": 186,
+        "startChar": 8,
+        "endLine": 186,
+        "endChar": 24
+      },
+      "revId": "1d427d02a643385a41a14a87db94e2f98790b4ec",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
