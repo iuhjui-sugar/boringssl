@@ -93,7 +93,8 @@ OPENSSL_EXPORT void OPENSSL_cleanse(void *ptr, size_t len);
  * of |a| and |b|. Unlike memcmp, it cannot be used to put elements into a
  * defined order as the return value when a != b is undefined, other than to be
  * non-zero. */
-OPENSSL_EXPORT int CRYPTO_memcmp(const void *a, const void *b, size_t len);
+OPENSSL_EXPORT int CRYPTO_memcmp(const volatile void *a,
+                                 const volatile void *b, size_t len);
 
 /* OPENSSL_hash32 implements the 32 bit, FNV-1a hash. */
 OPENSSL_EXPORT uint32_t OPENSSL_hash32(const void *ptr, size_t len);

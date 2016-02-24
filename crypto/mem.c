@@ -117,7 +117,8 @@ void OPENSSL_cleanse(void *ptr, size_t len) {
 #endif  /* !OPENSSL_NO_ASM */
 }
 
-int CRYPTO_memcmp(const void *in_a, const void *in_b, size_t len) {
+int CRYPTO_memcmp(const volatile void *in_a, const volatile void *in_b,
+                  size_t len) {
   size_t i;
   const uint8_t *a = in_a;
   const uint8_t *b = in_b;
