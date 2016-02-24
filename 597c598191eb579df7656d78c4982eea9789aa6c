@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c29ad577_677b1003",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-02-24T22:07:49Z",
+      "side": 1,
+      "message": "I think this check is better done as a !BN_ULLONG check. That\u0027s when bn_div_words is needed and is what the rest of crypto/bn uses. Either you provide the BN_ULLONG family of support functions or the other family. It turns out that right now only 64-bit MSVC needs the other family.",
+      "range": {
+        "startLine": 205,
+        "startChar": 4,
+        "endLine": 205,
+        "endChar": 48
+      },
+      "revId": "597c598191eb579df7656d78c4982eea9789aa6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
