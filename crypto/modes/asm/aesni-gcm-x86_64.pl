@@ -98,7 +98,6 @@ _aesni_ctr32_ghash_6x:
 	  vmovups	0x10-0x80($key),$T2	# borrow $T2 for $rndkey
 	vpclmulqdq	\$0x01,$Hkey,$Z3,$Z2
 	xor		%r12,%r12
-	cmp		$in0,$end0
 
 	  vaesenc	$T2,$inout0,$inout0
 	vmovdqu		0x30+8(%rsp),$Ii	# I[4]
@@ -443,7 +442,6 @@ $code.=<<___;
 	vmovdqu		0x50($inp),$Z3		# I[5]
 	lea		($inp),$in0
 	vmovdqu		0x40($inp),$Z0
-	lea		-0xc0($inp,$len),$end0
 	vmovdqu		0x30($inp),$Z1
 	shr		\$4,$len
 	xor		$ret,$ret
@@ -648,7 +646,6 @@ $code.=<<___;
 .Lenc_no_key_aliasing:
 
 	lea		($out),$in0
-	lea		-0xc0($out,$len),$end0
 	shr		\$4,$len
 
 	call		_aesni_ctr32_6x
