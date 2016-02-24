@@ -1,0 +1,228 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c29ad577_c7dafc5e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-02-24T21:31:27Z",
+      "side": 1,
+      "message": "[Agreed this is reasonable. BN_mod_exp_mont is always called if the modulus is odd (and if we somehow manage to get an even modulus, we\u0027ll notice and fail). We do lose the call to BN_mod_exp_mont_word, but that seems rather pointless for RSA.]",
+      "range": {
+        "startLine": 9,
+        "startChar": 35,
+        "endLine": 9,
+        "endChar": 45
+      },
+      "revId": "0535e63f63b77212b99ee8841907f22266fbd444",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c29ad577_87d9d46e",
+        "filename": "crypto/rsa/blinding.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-02-24T21:31:27Z",
+      "side": 1,
+      "message": "Isn\u0027t this currently hitting the non-_consttime path? ret-\u003ee the public exponent and it doesn\u0027t look BN_mod_exp_mont checks the modulus\u0027s BN_FLG_CONSTTIME bit.",
+      "range": {
+        "startLine": 306,
+        "startChar": 22,
+        "endLine": 306,
+        "endChar": 32
+      },
+      "revId": "0535e63f63b77212b99ee8841907f22266fbd444",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c29ad577_a7efb811",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-02-24T21:31:27Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be BN_mod_exp_mont? Neither e nor n have the CONSTTIME bit.",
+      "range": {
+        "startLine": 163,
+        "startChar": 22,
+        "endLine": 163,
+        "endChar": 32
+      },
+      "revId": "0535e63f63b77212b99ee8841907f22266fbd444",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c29ad577_c7ecbc1f",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-02-24T21:31:27Z",
+      "side": 1,
+      "message": "[Agreed _mont is correct.]",
+      "revId": "0535e63f63b77212b99ee8841907f22266fbd444",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c29ad577_e7f9c0de",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-02-24T21:31:27Z",
+      "side": 1,
+      "message": "[Agreed _consttime is correct.]",
+      "range": {
+        "startLine": 577,
+        "startChar": 24,
+        "endLine": 577,
+        "endChar": 34
+      },
+      "revId": "0535e63f63b77212b99ee8841907f22266fbd444",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c29ad577_07f7a4eb",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-02-24T21:31:27Z",
+      "side": 1,
+      "message": "[Agreed _consttime is correct.]",
+      "range": {
+        "startLine": 663,
+        "startChar": 22,
+        "endLine": 663,
+        "endChar": 32
+      },
+      "revId": "0535e63f63b77212b99ee8841907f22266fbd444",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c29ad577_27258847",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-02-24T21:31:27Z",
+      "side": 1,
+      "message": "[Agreed _consttime is correct.]",
+      "range": {
+        "startLine": 677,
+        "startChar": 22,
+        "endLine": 677,
+        "endChar": 32
+      },
+      "revId": "0535e63f63b77212b99ee8841907f22266fbd444",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c29ad577_671f90f3",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-02-24T21:31:27Z",
+      "side": 1,
+      "message": "_mont_consttime?",
+      "range": {
+        "startLine": 742,
+        "startChar": 19,
+        "endLine": 742,
+        "endChar": 24
+      },
+      "revId": "0535e63f63b77212b99ee8841907f22266fbd444",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c29ad577_87247449",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-02-24T21:31:27Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be the normal one?",
+      "range": {
+        "startLine": 759,
+        "startChar": 24,
+        "endLine": 759,
+        "endChar": 34
+      },
+      "revId": "0535e63f63b77212b99ee8841907f22266fbd444",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c29ad577_a7189808",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 787,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-02-24T21:31:27Z",
+      "side": 1,
+      "message": "[Agreed _consttime is correct.]",
+      "range": {
+        "startLine": 787,
+        "startChar": 26,
+        "endLine": 787,
+        "endChar": 36
+      },
+      "revId": "0535e63f63b77212b99ee8841907f22266fbd444",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
