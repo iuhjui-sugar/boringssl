@@ -22,6 +22,30 @@
       "revId": "597c598191eb579df7656d78c4982eea9789aa6c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e2b0b90b_38d05074",
+        "filename": "crypto/bn/generic.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-02-25T08:05:52Z",
+      "side": 1,
+      "message": "That won\u0027t work well when it is moved to div.c and made static, because some compilers will detect the unused static function. So, I\u0027d like to leave it as-is unless it is causes a real problem to do so.",
+      "parentUuid": "c29ad577_677b1003",
+      "range": {
+        "startLine": 205,
+        "startChar": 4,
+        "endLine": 205,
+        "endChar": 48
+      },
+      "revId": "597c598191eb579df7656d78c4982eea9789aa6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
