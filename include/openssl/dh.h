@@ -59,9 +59,7 @@
 
 #include <openssl/base.h>
 
-#include <openssl/engine.h>
 #include <openssl/ex_data.h>
-#include <openssl/thread.h>
 
 #if defined(__cplusplus)
 extern "C" {
@@ -214,8 +212,7 @@ struct dh_st {
    * the private value will be the same length as |p|. */
   unsigned priv_length;
 
-  CRYPTO_MUTEX method_mont_p_lock;
-  BN_MONT_CTX *method_mont_p;
+  BN_MONT_CTX *mont_p;
 
   /* Place holders if we want to do X9.42 DH */
   BIGNUM *q;
@@ -225,8 +222,9 @@ struct dh_st {
   BIGNUM *counter;
 
   int flags;
-  CRYPTO_refcount_t references;
   CRYPTO_EX_DATA ex_data;
+
+  /* Additional private fields omitted. See |DH_IMPL|. */
 };
 
 

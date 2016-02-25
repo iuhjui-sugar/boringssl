@@ -62,9 +62,7 @@
 
 #include <openssl/base.h>
 
-#include <openssl/engine.h>
 #include <openssl/ex_data.h>
-#include <openssl/thread.h>
 
 #if defined(__cplusplus)
 extern "C" {
@@ -377,11 +375,11 @@ struct dsa_st {
   BIGNUM *r;    /* Signing pre-calc */
 
   int flags;
-  /* Normally used to cache montgomery values */
-  CRYPTO_MUTEX method_mont_p_lock;
-  BN_MONT_CTX *method_mont_p;
-  CRYPTO_refcount_t references;
+  /* mont_p is used to cache Montgomery values. */
+  BN_MONT_CTX *mont_p;
   CRYPTO_EX_DATA ex_data;
+
+  /* Additional private fields omitted. See |DSA_IMPL|. */
 };
 
 

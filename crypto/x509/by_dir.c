@@ -66,6 +66,7 @@
 #include <openssl/thread.h>
 #include <openssl/x509.h>
 
+#include "internal.h"
 #include "../internal.h"
 
 typedef struct lookup_dir_hashes_st {
@@ -387,12 +388,13 @@ static int get_cert_by_subject(X509_LOOKUP *xl, int type, X509_NAME *name,
             /*
              * we have added it to the cache so now pull it out again
              */
-            CRYPTO_MUTEX_lock_write(&xl->store_ctx->objs_lock);
+            X509_STORE_IMPL *store_impl = TO_X509_STORE_IMPL(xl->store_ctx);
+            CRYPTO_MUTEX_lock_write(&store_impl->objs_lock);
             tmp = NULL;
-            if (sk_X509_OBJECT_find(xl->store_ctx->objs, &idx, &stmp)) {
-                tmp = sk_X509_OBJECT_value(xl->store_ctx->objs, idx);
+            if (sk_X509_OBJECT_find(store_impl->objs, &idx, &stmp)) {
+                tmp = sk_X509_OBJECT_value(store_impl->objs, idx);
             }
-            CRYPTO_MUTEX_unlock(&xl->store_ctx->objs_lock);
+            CRYPTO_MUTEX_unlock(&store_impl->objs_lock);
 
             /*
              * If a CRL, update the last file suffix added for this

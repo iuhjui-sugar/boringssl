@@ -3393,7 +3393,6 @@ typedef struct ssl_ecdh_ctx_st {
 #define SSL_MAX_MASTER_KEY_LENGTH 48
 
 struct ssl_session_st {
-  CRYPTO_refcount_t references;
   int ssl_version; /* what ssl version session info is being kept in here? */
 
   /* key_exchange_info contains an indication of the size of the asymmetric
@@ -3480,6 +3479,8 @@ struct ssl_session_st {
    * Applications can also set this bit for a new session via
    * not_resumable_session_cb to disable session caching and tickets. */
   unsigned not_resumable:1;
+
+  /* Additional private fields omitted. See |SSL_SESSION_IMPL|. */
 };
 
 /* ssl_cipher_preference_list_st contains a list of SSL_CIPHERs with
@@ -3522,9 +3523,6 @@ struct ssl_cipher_preference_list_st {
  * connections. */
 struct ssl_ctx_st {
   const SSL_PROTOCOL_METHOD *method;
-
-  /* lock is used to protect various operations on this object. */
-  CRYPTO_MUTEX lock;
 
   /* max_version is the maximum acceptable protocol version. If zero, the
    * maximum supported version, currently (D)TLS 1.2, is used. */
@@ -3587,8 +3585,6 @@ struct ssl_ctx_st {
   void (*remove_session_cb)(SSL_CTX *ctx, SSL_SESSION *sess);
   SSL_SESSION *(*get_session_cb)(SSL *ssl, uint8_t *data, int len,
                                  int *copy);
-
-  CRYPTO_refcount_t references;
 
   /* if defined, these override the X509_verify_cert() calls */
   int (*app_verify_callback)(X509_STORE_CTX *store_ctx, void *arg);
@@ -3768,6 +3764,8 @@ struct ssl_ctx_st {
    * TODO(agl): remove once node.js no longer references this. */
   STACK_OF(X509)* extra_certs;
   int freelist_max_len;
+
+  /* Additional private fields omitted. See |SSL_CTX_IMPL|. */
 };
 
 struct ssl_st {

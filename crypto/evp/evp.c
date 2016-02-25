@@ -72,19 +72,17 @@
 
 
 EVP_PKEY *EVP_PKEY_new(void) {
-  EVP_PKEY *ret;
-
-  ret = OPENSSL_malloc(sizeof(EVP_PKEY));
+  EVP_PKEY_IMPL *ret = OPENSSL_malloc(sizeof(EVP_PKEY_IMPL));
   if (ret == NULL) {
     OPENSSL_PUT_ERROR(EVP, ERR_R_MALLOC_FAILURE);
     return NULL;
   }
 
-  memset(ret, 0, sizeof(EVP_PKEY));
-  ret->type = EVP_PKEY_NONE;
+  memset(ret, 0, sizeof(EVP_PKEY_IMPL));
+  ret->pkey.type = EVP_PKEY_NONE;
   ret->references = 1;
 
-  return ret;
+  return &ret->pkey;
 }
 
 static void free_it(EVP_PKEY *pkey) {
@@ -100,16 +98,17 @@ void EVP_PKEY_free(EVP_PKEY *pkey) {
     return;
   }
 
-  if (!CRYPTO_refcount_dec_and_test_zero(&pkey->references)) {
+  EVP_PKEY_IMPL *pkey_impl = TO_EVP_PKEY_IMPL(pkey);
+  if (!CRYPTO_refcount_dec_and_test_zero(&pkey_impl->references)) {
     return;
   }
 
   free_it(pkey);
-  OPENSSL_free(pkey);
+  OPENSSL_free(pkey_impl);
 }
 
 EVP_PKEY *EVP_PKEY_up_ref(EVP_PKEY *pkey) {
-  CRYPTO_refcount_inc(&pkey->references);
+  CRYPTO_refcount_inc(&TO_EVP_PKEY_IMPL(pkey)->references);
   return pkey;
 }
 

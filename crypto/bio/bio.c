@@ -65,48 +65,37 @@
 #include <openssl/mem.h>
 #include <openssl/thread.h>
 
+#include "internal.h"
 #include "../internal.h"
 
 
-/* BIO_set initialises a BIO structure to have the given type and sets the
- * reference count to one. It returns one on success or zero on error. */
-static int bio_set(BIO *bio, const BIO_METHOD *method) {
-  /* This function can be called with a stack allocated |BIO| so we have to
-   * assume that the contents of |BIO| are arbitary. This also means that it'll
-   * leak memory if you call |BIO_set| twice on the same BIO. */
-  memset(bio, 0, sizeof(BIO));
-
-  bio->method = method;
-  bio->shutdown = 1;
-  bio->references = 1;
-
-  if (method->create != NULL && !method->create(bio)) {
-    return 0;
-  }
-
-  return 1;
-}
-
 BIO *BIO_new(const BIO_METHOD *method) {
-  BIO *ret = OPENSSL_malloc(sizeof(BIO));
+  BIO_IMPL *ret = OPENSSL_malloc(sizeof(BIO_IMPL));
   if (ret == NULL) {
     OPENSSL_PUT_ERROR(BIO, ERR_R_MALLOC_FAILURE);
     return NULL;
   }
 
-  if (!bio_set(ret, method)) {
+  memset(ret, 0, sizeof(BIO_IMPL));
+
+  ret->bio.method = method;
+  ret->bio.shutdown = 1;
+  ret->references = 1;
+
+  if (method->create != NULL && !method->create(&ret->bio)) {
     OPENSSL_free(ret);
-    ret = NULL;
+    return NULL;
   }
 
-  return ret;
+  return &ret->bio;
 }
 
 int BIO_free(BIO *bio) {
   BIO *next_bio;
 
   for (; bio != NULL; bio = next_bio) {
-    if (!CRYPTO_refcount_dec_and_test_zero(&bio->references)) {
+    BIO_IMPL *bio_impl = TO_BIO_IMPL(bio);
+    if (!CRYPTO_refcount_dec_and_test_zero(&bio_impl->references)) {
       return 0;
     }
 
@@ -123,13 +112,13 @@ int BIO_free(BIO *bio) {
       bio->method->destroy(bio);
     }
 
-    OPENSSL_free(bio);
+    OPENSSL_free(bio_impl);
   }
   return 1;
 }
 
 BIO *BIO_up_ref(BIO *bio) {
-  CRYPTO_refcount_inc(&bio->references);
+  CRYPTO_refcount_inc(&TO_BIO_IMPL(bio)->references);
   return bio;
 }
 

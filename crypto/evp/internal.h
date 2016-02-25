@@ -59,11 +59,21 @@
 
 #include <openssl/base.h>
 
+#include <openssl/evp.h>
 #include <openssl/rsa.h>
+#include <openssl/thread.h>
 
 #if defined(__cplusplus)
 extern "C" {
 #endif
+
+
+typedef struct {
+  EVP_PKEY pkey;
+  CRYPTO_refcount_t references;
+} EVP_PKEY_IMPL;
+
+#define TO_EVP_PKEY_IMPL(pkey) CHECKED_CAST(EVP_PKEY_IMPL *, EVP_PKEY *, pkey)
 
 
 struct evp_pkey_asn1_method_st {

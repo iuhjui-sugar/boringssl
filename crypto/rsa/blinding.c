@@ -398,7 +398,8 @@ BN_BLINDING *rsa_setup_blinding(RSA *rsa, BN_CTX *in_ctx) {
   BN_with_flags(n, rsa->n, BN_FLG_CONSTTIME);
 
   if (rsa->flags & RSA_FLAG_CACHE_PUBLIC) {
-    mont_ctx = BN_MONT_CTX_set_locked(&rsa->mont_n, &rsa->lock, rsa->n, ctx);
+    mont_ctx = BN_MONT_CTX_set_locked(&rsa->mont_n, &TO_RSA_IMPL(rsa)->lock,
+                                      rsa->n, ctx);
     if (mont_ctx == NULL) {
       goto err;
     }

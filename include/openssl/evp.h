@@ -59,8 +59,6 @@
 
 #include <openssl/base.h>
 
-#include <openssl/thread.h>
-
 /* OpenSSL included digest and cipher functions in this header so we include
  * them for users that still expect that.
  *
@@ -722,8 +720,6 @@ OPENSSL_EXPORT EVP_PKEY *d2i_AutoPrivateKey(EVP_PKEY **out, const uint8_t **inp,
 /* Private structures. */
 
 struct evp_pkey_st {
-  CRYPTO_refcount_t references;
-
   /* type contains one of the EVP_PKEY_* values or NID_undef and determines
    * which element (if any) of the |pkey| union is valid. */
   int type;
@@ -739,6 +735,8 @@ struct evp_pkey_st {
   /* ameth contains a pointer to a method table that contains many ASN.1
    * methods for the key type. */
   const EVP_PKEY_ASN1_METHOD *ameth;
+
+  /* Additional private fields omitted. See |EVP_PKEY_IMPL|. */
 } /* EVP_PKEY */;
 
 

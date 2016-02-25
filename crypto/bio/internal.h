@@ -59,6 +59,10 @@
 
 #include <openssl/base.h>
 
+#include <openssl/bio.h>
+#include <openssl/thread.h>
+#include <openssl/type_check.h>
+
 #if !defined(OPENSSL_WINDOWS)
 #if defined(OPENSSL_PNACL)
 /* newlib uses u_short in socket.h without defining it. */
@@ -74,6 +78,13 @@ typedef int socklen_t;
 extern "C" {
 #endif
 
+
+typedef struct {
+  BIO bio;
+  CRYPTO_refcount_t references;
+} BIO_IMPL;
+
+#define TO_BIO_IMPL(bio) CHECKED_CAST(BIO_IMPL *, BIO *, bio)
 
 /* BIO_ip_and_port_to_socket_and_addr creates a socket and fills in |*out_addr|
  * and |*out_addr_length| with the correct values for connecting to |hostname|

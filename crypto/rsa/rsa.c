@@ -76,13 +76,14 @@ static CRYPTO_EX_DATA_CLASS g_ex_data_class = CRYPTO_EX_DATA_CLASS_INIT;
 RSA *RSA_new(void) { return RSA_new_method(NULL); }
 
 RSA *RSA_new_method(const ENGINE *engine) {
-  RSA *rsa = OPENSSL_malloc(sizeof(RSA));
-  if (rsa == NULL) {
+  RSA_IMPL *rsa_impl = OPENSSL_malloc(sizeof(RSA_IMPL));
+  if (rsa_impl == NULL) {
     OPENSSL_PUT_ERROR(RSA, ERR_R_MALLOC_FAILURE);
     return NULL;
   }
+  RSA *rsa = &rsa_impl->rsa;
 
-  memset(rsa, 0, sizeof(RSA));
+  memset(rsa_impl, 0, sizeof(RSA_IMPL));
 
   if (engine) {
     rsa->meth = ENGINE_get_RSA_method(engine);
@@ -93,16 +94,16 @@ RSA *RSA_new_method(const ENGINE *engine) {
   }
   METHOD_ref(rsa->meth);
 
-  rsa->references = 1;
+  rsa_impl->references = 1;
   rsa->flags = rsa->meth->flags;
-  CRYPTO_MUTEX_init(&rsa->lock);
+  CRYPTO_MUTEX_init(&rsa_impl->lock);
   CRYPTO_new_ex_data(&rsa->ex_data);
 
   if (rsa->meth->init && !rsa->meth->init(rsa)) {
     CRYPTO_free_ex_data(&g_ex_data_class, rsa, &rsa->ex_data);
-    CRYPTO_MUTEX_cleanup(&rsa->lock);
+    CRYPTO_MUTEX_cleanup(&rsa_impl->lock);
     METHOD_unref(rsa->meth);
-    OPENSSL_free(rsa);
+    OPENSSL_free(rsa_impl);
     return NULL;
   }
 
@@ -129,7 +130,8 @@ void RSA_free(RSA *rsa) {
     return;
   }
 
-  if (!CRYPTO_refcount_dec_and_test_zero(&rsa->references)) {
+  RSA_IMPL *rsa_impl = TO_RSA_IMPL(rsa);
+  if (!CRYPTO_refcount_dec_and_test_zero(&rsa_impl->references)) {
     return;
   }
 
@@ -160,12 +162,13 @@ void RSA_free(RSA *rsa) {
     sk_RSA_additional_prime_pop_free(rsa->additional_primes,
                                      RSA_additional_prime_free);
   }
-  CRYPTO_MUTEX_cleanup(&rsa->lock);
+  CRYPTO_MUTEX_cleanup(&rsa_impl->lock);
   OPENSSL_free(rsa);
 }
 
 int RSA_up_ref(RSA *rsa) {
-  CRYPTO_refcount_inc(&rsa->references);
+  RSA_IMPL *rsa_impl = TO_RSA_IMPL(rsa);
+  CRYPTO_refcount_inc(&rsa_impl->references);
   return 1;
 }
 

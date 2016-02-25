@@ -75,20 +75,20 @@
 static CRYPTO_EX_DATA_CLASS g_ex_data_class = CRYPTO_EX_DATA_CLASS_INIT;
 
 DH *DH_new(void) {
-  DH *dh = OPENSSL_malloc(sizeof(DH));
-  if (dh == NULL) {
+  DH_IMPL *dh_impl = OPENSSL_malloc(sizeof(DH_IMPL));
+  if (dh_impl == NULL) {
     OPENSSL_PUT_ERROR(DH, ERR_R_MALLOC_FAILURE);
     return NULL;
   }
 
-  memset(dh, 0, sizeof(DH));
+  memset(dh_impl, 0, sizeof(DH_IMPL));
 
-  CRYPTO_MUTEX_init(&dh->method_mont_p_lock);
+  CRYPTO_MUTEX_init(&dh_impl->lock);
 
-  dh->references = 1;
-  CRYPTO_new_ex_data(&dh->ex_data);
+  dh_impl->references = 1;
+  CRYPTO_new_ex_data(&dh_impl->dh.ex_data);
 
-  return dh;
+  return &dh_impl->dh;
 }
 
 void DH_free(DH *dh) {
@@ -96,13 +96,14 @@ void DH_free(DH *dh) {
     return;
   }
 
-  if (!CRYPTO_refcount_dec_and_test_zero(&dh->references)) {
+  DH_IMPL *dh_impl = TO_DH_IMPL(dh);
+  if (!CRYPTO_refcount_dec_and_test_zero(&dh_impl->references)) {
     return;
   }
 
   CRYPTO_free_ex_data(&g_ex_data_class, dh, &dh->ex_data);
 
-  BN_MONT_CTX_free(dh->method_mont_p);
+  BN_MONT_CTX_free(dh->mont_p);
   BN_clear_free(dh->p);
   BN_clear_free(dh->g);
   BN_clear_free(dh->q);
@@ -111,9 +112,9 @@ void DH_free(DH *dh) {
   BN_clear_free(dh->counter);
   BN_clear_free(dh->pub_key);
   BN_clear_free(dh->priv_key);
-  CRYPTO_MUTEX_cleanup(&dh->method_mont_p_lock);
+  CRYPTO_MUTEX_cleanup(&dh_impl->lock);
 
-  OPENSSL_free(dh);
+  OPENSSL_free(dh_impl);
 }
 
 int DH_generate_parameters_ex(DH *dh, int prime_bits, int generator, BN_GENCB *cb) {
@@ -240,6 +241,7 @@ int DH_generate_key(DH *dh) {
   BN_MONT_CTX *mont = NULL;
   BIGNUM *pub_key = NULL, *priv_key = NULL;
   BIGNUM local_priv;
+  DH_IMPL *dh_impl = TO_DH_IMPL(dh);
 
   if (BN_num_bits(dh->p) > OPENSSL_DH_MAX_MODULUS_BITS) {
     OPENSSL_PUT_ERROR(DH, DH_R_MODULUS_TOO_LARGE);
@@ -270,8 +272,7 @@ int DH_generate_key(DH *dh) {
     pub_key = dh->pub_key;
   }
 
-  mont = BN_MONT_CTX_set_locked(&dh->method_mont_p, &dh->method_mont_p_lock,
-                                dh->p, ctx);
+  mont = BN_MONT_CTX_set_locked(&dh->mont_p, &dh_impl->lock, dh->p, ctx);
   if (!mont) {
     goto err;
   }
@@ -324,6 +325,7 @@ int DH_compute_key(unsigned char *out, const BIGNUM *peers_key, DH *dh) {
   int ret = -1;
   int check_result;
   BIGNUM local_priv;
+  DH_IMPL *dh_impl = TO_DH_IMPL(dh);
 
   if (BN_num_bits(dh->p) > OPENSSL_DH_MAX_MODULUS_BITS) {
     OPENSSL_PUT_ERROR(DH, DH_R_MODULUS_TOO_LARGE);
@@ -345,8 +347,7 @@ int DH_compute_key(unsigned char *out, const BIGNUM *peers_key, DH *dh) {
     goto err;
   }
 
-  mont = BN_MONT_CTX_set_locked(&dh->method_mont_p, &dh->method_mont_p_lock,
-                                dh->p, ctx);
+  mont = BN_MONT_CTX_set_locked(&dh->mont_p, &dh_impl->lock, dh->p, ctx);
   if (!mont) {
     goto err;
   }
@@ -379,7 +380,8 @@ int DH_size(const DH *dh) { return BN_num_bytes(dh->p); }
 unsigned DH_num_bits(const DH *dh) { return BN_num_bits(dh->p); }
 
 int DH_up_ref(DH *dh) {
-  CRYPTO_refcount_inc(&dh->references);
+  DH_IMPL *dh_impl = TO_DH_IMPL(dh);
+  CRYPTO_refcount_inc(&dh_impl->references);
   return 1;
 }
 

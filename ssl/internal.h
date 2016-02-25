@@ -148,6 +148,8 @@
 #include <openssl/pqueue.h>
 #include <openssl/ssl.h>
 #include <openssl/stack.h>
+#include <openssl/thread.h>
+#include <openssl/type_check.h>
 
 #if defined(OPENSSL_WINDOWS)
 /* Windows defines struct timeval in winsock2.h. */
@@ -157,6 +159,24 @@
 #else
 #include <sys/time.h>
 #endif
+
+
+typedef struct {
+  SSL_SESSION session;
+  CRYPTO_refcount_t references;
+} SSL_SESSION_IMPL;
+
+#define TO_SSL_SESSION_IMPL(session) \
+  CHECKED_CAST(SSL_SESSION_IMPL *, SSL_SESSION *, session)
+
+typedef struct {
+  SSL_CTX ctx;
+  /* lock is used to protect various operations on this object. */
+  CRYPTO_MUTEX lock;
+  CRYPTO_refcount_t references;
+} SSL_CTX_IMPL;
+
+#define TO_SSL_CTX_IMPL(ctx) CHECKED_CAST(SSL_CTX_IMPL *, SSL_CTX *, ctx)
 
 
 /* Cipher suites. */

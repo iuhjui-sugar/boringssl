@@ -65,6 +65,7 @@
 #include <openssl/x509v3.h>
 
 #include "../internal.h"
+#include "internal.h"
 
 X509_LOOKUP *X509_LOOKUP_new(X509_LOOKUP_METHOD *method)
 {
@@ -184,32 +185,32 @@ static int x509_object_cmp(const X509_OBJECT **a, const X509_OBJECT **b)
 
 X509_STORE *X509_STORE_new(void)
 {
-    X509_STORE *ret;
-
-    if ((ret = (X509_STORE *)OPENSSL_malloc(sizeof(X509_STORE))) == NULL)
+    X509_STORE_IMPL *ret = OPENSSL_malloc(sizeof(X509_STORE_IMPL));
+    if (ret == NULL) {
         return NULL;
+    }
+
     memset(ret, 0, sizeof(*ret));
     CRYPTO_MUTEX_init(&ret->objs_lock);
     ret->objs = sk_X509_OBJECT_new(x509_object_cmp);
     if (ret->objs == NULL)
         goto err;
-    ret->cache = 1;
-    ret->get_cert_methods = sk_X509_LOOKUP_new_null();
-    if (ret->get_cert_methods == NULL)
+    ret->store.get_cert_methods = sk_X509_LOOKUP_new_null();
+    if (ret->store.get_cert_methods == NULL)
         goto err;
-    ret->param = X509_VERIFY_PARAM_new();
-    if (ret->param == NULL)
+    ret->store.param = X509_VERIFY_PARAM_new();
+    if (ret->store.param == NULL)
         goto err;
 
     ret->references = 1;
-    return ret;
+    return &ret->store;
  err:
     if (ret) {
         CRYPTO_MUTEX_cleanup(&ret->objs_lock);
-        if (ret->param)
-            X509_VERIFY_PARAM_free(ret->param);
-        if (ret->get_cert_methods)
-            sk_X509_LOOKUP_free(ret->get_cert_methods);
+        if (ret->store.param)
+            X509_VERIFY_PARAM_free(ret->store.param);
+        if (ret->store.get_cert_methods)
+            sk_X509_LOOKUP_free(ret->store.get_cert_methods);
         if (ret->objs)
             sk_X509_OBJECT_free(ret->objs);
         OPENSSL_free(ret);
@@ -242,11 +243,12 @@ void X509_STORE_free(X509_STORE *vfy)
     if (vfy == NULL)
         return;
 
-    if (!CRYPTO_refcount_dec_and_test_zero(&vfy->references)) {
+    X509_STORE_IMPL *vfy_impl = TO_X509_STORE_IMPL(vfy);
+    if (!CRYPTO_refcount_dec_and_test_zero(&vfy_impl->references)) {
         return;
     }
 
-    CRYPTO_MUTEX_cleanup(&vfy->objs_lock);
+    CRYPTO_MUTEX_cleanup(&vfy_impl->objs_lock);
 
     sk = vfy->get_cert_methods;
     for (j = 0; j < sk_X509_LOOKUP_num(sk); j++) {
@@ -255,11 +257,11 @@ void X509_STORE_free(X509_STORE *vfy)
         X509_LOOKUP_free(lu);
     }
     sk_X509_LOOKUP_free(sk);
-    sk_X509_OBJECT_pop_free(vfy->objs, cleanup);
+    sk_X509_OBJECT_pop_free(vfy_impl->objs, cleanup);
 
     if (vfy->param)
         X509_VERIFY_PARAM_free(vfy->param);
-    OPENSSL_free(vfy);
+    OPENSSL_free(vfy_impl);
 }
 
 X509_LOOKUP *X509_STORE_add_lookup(X509_STORE *v, X509_LOOKUP_METHOD *m)
@@ -294,13 +296,14 @@ int X509_STORE_get_by_subject(X509_STORE_CTX *vs, int type, X509_NAME *name,
                               X509_OBJECT *ret)
 {
     X509_STORE *ctx = vs->ctx;
+    X509_STORE_IMPL *ctx_impl = TO_X509_STORE_IMPL(ctx);
     X509_LOOKUP *lu;
     X509_OBJECT stmp, *tmp;
     int i, j;
 
-    CRYPTO_MUTEX_lock_write(&ctx->objs_lock);
-    tmp = X509_OBJECT_retrieve_by_subject(ctx->objs, type, name);
-    CRYPTO_MUTEX_unlock(&ctx->objs_lock);
+    CRYPTO_MUTEX_lock_write(&ctx_impl->objs_lock);
+    tmp = X509_OBJECT_retrieve_by_subject(ctx_impl->objs, type, name);
+    CRYPTO_MUTEX_unlock(&ctx_impl->objs_lock);
 
     if (tmp == NULL || type == X509_LU_CRL) {
         for (i = vs->current_method;
@@ -336,6 +339,7 @@ int X509_STORE_add_cert(X509_STORE *ctx, X509 *x)
 {
     X509_OBJECT *obj;
     int ret = 1;
+    X509_STORE_IMPL *ctx_impl = TO_X509_STORE_IMPL(ctx);
 
     if (x == NULL)
         return 0;
@@ -347,25 +351,26 @@ int X509_STORE_add_cert(X509_STORE *ctx, X509 *x)
     obj->type = X509_LU_X509;
     obj->data.x509 = x;
 
-    CRYPTO_MUTEX_lock_write(&ctx->objs_lock);
+    CRYPTO_MUTEX_lock_write(&ctx_impl->objs_lock);
 
     X509_OBJECT_up_ref_count(obj);
 
-    if (X509_OBJECT_retrieve_match(ctx->objs, obj)) {
+    if (X509_OBJECT_retrieve_match(ctx_impl->objs, obj)) {
         X509_OBJECT_free_contents(obj);
         OPENSSL_free(obj);
         OPENSSL_PUT_ERROR(X509, X509_R_CERT_ALREADY_IN_HASH_TABLE);
         ret = 0;
     } else
-        sk_X509_OBJECT_push(ctx->objs, obj);
+        sk_X509_OBJECT_push(ctx_impl->objs, obj);
 
-    CRYPTO_MUTEX_unlock(&ctx->objs_lock);
+    CRYPTO_MUTEX_unlock(&ctx_impl->objs_lock);
 
     return ret;
 }
 
 int X509_STORE_add_crl(X509_STORE *ctx, X509_CRL *x)
 {
+    X509_STORE_IMPL *ctx_impl = TO_X509_STORE_IMPL(ctx);
     X509_OBJECT *obj;
     int ret = 1;
 
@@ -379,19 +384,19 @@ int X509_STORE_add_crl(X509_STORE *ctx, X509_CRL *x)
     obj->type = X509_LU_CRL;
     obj->data.crl = x;
 
-    CRYPTO_MUTEX_lock_write(&ctx->objs_lock);
+    CRYPTO_MUTEX_lock_write(&ctx_impl->objs_lock);
 
     X509_OBJECT_up_ref_count(obj);
 
-    if (X509_OBJECT_retrieve_match(ctx->objs, obj)) {
+    if (X509_OBJECT_retrieve_match(ctx_impl->objs, obj)) {
         X509_OBJECT_free_contents(obj);
         OPENSSL_free(obj);
         OPENSSL_PUT_ERROR(X509, X509_R_CERT_ALREADY_IN_HASH_TABLE);
         ret = 0;
     } else
-        sk_X509_OBJECT_push(ctx->objs, obj);
+        sk_X509_OBJECT_push(ctx_impl->objs, obj);
 
-    CRYPTO_MUTEX_unlock(&ctx->objs_lock);
+    CRYPTO_MUTEX_unlock(&ctx_impl->objs_lock);
 
     return ret;
 }
@@ -491,39 +496,40 @@ STACK_OF (X509) * X509_STORE_get1_certs(X509_STORE_CTX *ctx, X509_NAME *nm)
     sk = sk_X509_new_null();
     if (sk == NULL)
         return NULL;
-    CRYPTO_MUTEX_lock_write(&ctx->ctx->objs_lock);
-    idx = x509_object_idx_cnt(ctx->ctx->objs, X509_LU_X509, nm, &cnt);
+    X509_STORE_IMPL *store_impl = TO_X509_STORE_IMPL(ctx->ctx);
+    CRYPTO_MUTEX_lock_write(&store_impl->objs_lock);
+    idx = x509_object_idx_cnt(store_impl->objs, X509_LU_X509, nm, &cnt);
     if (idx < 0) {
         /*
          * Nothing found in cache: do lookup to possibly add new objects to
          * cache
          */
         X509_OBJECT xobj;
-        CRYPTO_MUTEX_unlock(&ctx->ctx->objs_lock);
+        CRYPTO_MUTEX_unlock(&store_impl->objs_lock);
         if (!X509_STORE_get_by_subject(ctx, X509_LU_X509, nm, &xobj)) {
             sk_X509_free(sk);
             return NULL;
         }
         X509_OBJECT_free_contents(&xobj);
-        CRYPTO_MUTEX_lock_write(&ctx->ctx->objs_lock);
-        idx = x509_object_idx_cnt(ctx->ctx->objs, X509_LU_X509, nm, &cnt);
+        CRYPTO_MUTEX_lock_write(&store_impl->objs_lock);
+        idx = x509_object_idx_cnt(store_impl->objs, X509_LU_X509, nm, &cnt);
         if (idx < 0) {
-            CRYPTO_MUTEX_unlock(&ctx->ctx->objs_lock);
+            CRYPTO_MUTEX_unlock(&store_impl->objs_lock);
             sk_X509_free(sk);
             return NULL;
         }
     }
     for (i = 0; i < cnt; i++, idx++) {
-        obj = sk_X509_OBJECT_value(ctx->ctx->objs, idx);
+        obj = sk_X509_OBJECT_value(store_impl->objs, idx);
         x = obj->data.x509;
         if (!sk_X509_push(sk, X509_up_ref(x))) {
-            CRYPTO_MUTEX_unlock(&ctx->ctx->objs_lock);
+            CRYPTO_MUTEX_unlock(&store_impl->objs_lock);
             X509_free(x);
             sk_X509_pop_free(sk, X509_free);
             return NULL;
         }
     }
-    CRYPTO_MUTEX_unlock(&ctx->ctx->objs_lock);
+    CRYPTO_MUTEX_unlock(&store_impl->objs_lock);
     return sk;
 
 }
@@ -544,26 +550,27 @@ STACK_OF (X509_CRL) * X509_STORE_get1_crls(X509_STORE_CTX *ctx, X509_NAME *nm)
         return NULL;
     }
     X509_OBJECT_free_contents(&xobj);
-    CRYPTO_MUTEX_lock_write(&ctx->ctx->objs_lock);
-    idx = x509_object_idx_cnt(ctx->ctx->objs, X509_LU_CRL, nm, &cnt);
+    X509_STORE_IMPL *store_impl = TO_X509_STORE_IMPL(ctx->ctx);
+    CRYPTO_MUTEX_lock_write(&store_impl->objs_lock);
+    idx = x509_object_idx_cnt(store_impl->objs, X509_LU_CRL, nm, &cnt);
     if (idx < 0) {
-        CRYPTO_MUTEX_unlock(&ctx->ctx->objs_lock);
+        CRYPTO_MUTEX_unlock(&store_impl->objs_lock);
         sk_X509_CRL_free(sk);
         return NULL;
     }
 
     for (i = 0; i < cnt; i++, idx++) {
-        obj = sk_X509_OBJECT_value(ctx->ctx->objs, idx);
+        obj = sk_X509_OBJECT_value(store_impl->objs, idx);
         x = obj->data.crl;
         X509_CRL_up_ref(x);
         if (!sk_X509_CRL_push(sk, x)) {
-            CRYPTO_MUTEX_unlock(&ctx->ctx->objs_lock);
+            CRYPTO_MUTEX_unlock(&store_impl->objs_lock);
             X509_CRL_free(x);
             sk_X509_CRL_pop_free(sk, X509_CRL_free);
             return NULL;
         }
     }
-    CRYPTO_MUTEX_unlock(&ctx->ctx->objs_lock);
+    CRYPTO_MUTEX_unlock(&store_impl->objs_lock);
     return sk;
 }
 
@@ -631,13 +638,14 @@ int X509_STORE_CTX_get1_issuer(X509 **issuer, X509_STORE_CTX *ctx, X509 *x)
 
     /* Else find index of first cert accepted by 'check_issued' */
     ret = 0;
-    CRYPTO_MUTEX_lock_write(&ctx->ctx->objs_lock);
-    idx = X509_OBJECT_idx_by_subject(ctx->ctx->objs, X509_LU_X509, xn);
+    X509_STORE_IMPL *store_impl = TO_X509_STORE_IMPL(ctx->ctx);
+    CRYPTO_MUTEX_lock_write(&store_impl->objs_lock);
+    idx = X509_OBJECT_idx_by_subject(store_impl->objs, X509_LU_X509, xn);
     if (idx != -1) {            /* should be true as we've had at least one
                                  * match */
         /* Look through all matching certs for suitable issuer */
-        for (i = idx; i < sk_X509_OBJECT_num(ctx->ctx->objs); i++) {
-            pobj = sk_X509_OBJECT_value(ctx->ctx->objs, i);
+        for (i = idx; i < sk_X509_OBJECT_num(store_impl->objs); i++) {
+            pobj = sk_X509_OBJECT_value(store_impl->objs, i);
             /* See if we've run past the matches */
             if (pobj->type != X509_LU_X509)
                 break;
@@ -651,7 +659,7 @@ int X509_STORE_CTX_get1_issuer(X509 **issuer, X509_STORE_CTX *ctx, X509 *x)
             }
         }
     }
-    CRYPTO_MUTEX_unlock(&ctx->ctx->objs_lock);
+    CRYPTO_MUTEX_unlock(&store_impl->objs_lock);
     return ret;
 }
 

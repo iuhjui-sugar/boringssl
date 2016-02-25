@@ -218,8 +218,6 @@ static int ssl_session_cmp(const SSL_SESSION *a, const SSL_SESSION *b) {
 }
 
 SSL_CTX *SSL_CTX_new(const SSL_METHOD *method) {
-  SSL_CTX *ret = NULL;
-
   if (method == NULL) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_NULL_SSL_METHOD_PASSED);
     return NULL;
@@ -227,19 +225,20 @@ SSL_CTX *SSL_CTX_new(const SSL_METHOD *method) {
 
   if (SSL_get_ex_data_X509_STORE_CTX_idx() < 0) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_X509_VERIFICATION_SETUP_PROBLEMS);
-    goto err;
+    return NULL;
   }
 
-  ret = OPENSSL_malloc(sizeof(SSL_CTX));
-  if (ret == NULL) {
-    goto err;
+  SSL_CTX_IMPL *ret_impl = OPENSSL_malloc(sizeof(SSL_CTX_IMPL));
+  if (ret_impl == NULL) {
+    return NULL;
   }
+  SSL_CTX *ret = &ret_impl->ctx;
 
-  memset(ret, 0, sizeof(SSL_CTX));
+  memset(ret_impl, 0, sizeof(SSL_CTX_IMPL));
 
   ret->method = method->method;
 
-  CRYPTO_MUTEX_init(&ret->lock);
+  CRYPTO_MUTEX_init(&ret_impl->lock);
 
   ret->session_cache_mode = SSL_SESS_CACHE_SERVER;
   ret->session_cache_size = SSL_SESSION_CACHE_MAX_SIZE_DEFAULT;
@@ -247,7 +246,7 @@ SSL_CTX *SSL_CTX_new(const SSL_METHOD *method) {
   /* We take the system default */
   ret->session_timeout = SSL_DEFAULT_SESSION_TIMEOUT;
 
-  ret->references = 1;
+  ret_impl->references = 1;
 
   ret->max_cert_list = SSL_MAX_CERT_LIST_DEFAULT;
   ret->verify_mode = SSL_VERIFY_NONE;
@@ -311,8 +310,12 @@ err2:
 }
 
 void SSL_CTX_free(SSL_CTX *ctx) {
-  if (ctx == NULL ||
-      !CRYPTO_refcount_dec_and_test_zero(&ctx->references)) {
+  if (ctx == NULL) {
+    return;
+  }
+
+  SSL_CTX_IMPL *ctx_impl = TO_SSL_CTX_IMPL(ctx);
+  if (!CRYPTO_refcount_dec_and_test_zero(&ctx_impl->references)) {
     return;
   }
 
@@ -328,7 +331,7 @@ void SSL_CTX_free(SSL_CTX *ctx) {
 
   CRYPTO_free_ex_data(&g_ex_data_class_ssl_ctx, ctx, &ctx->ex_data);
 
-  CRYPTO_MUTEX_cleanup(&ctx->lock);
+  CRYPTO_MUTEX_cleanup(&ctx_impl->lock);
   lh_SSL_SESSION_free(ctx->sessions);
   X509_STORE_free(ctx->cert_store);
   ssl_cipher_preference_list_free(ctx->cipher_list);
@@ -349,7 +352,7 @@ void SSL_CTX_free(SSL_CTX *ctx) {
   OPENSSL_free(ctx->signed_cert_timestamp_list);
   EVP_PKEY_free(ctx->tlsext_channel_id_private);
 
-  OPENSSL_free(ctx);
+  OPENSSL_free(ctx_impl);
 }
 
 SSL *SSL_new(SSL_CTX *ctx) {
@@ -396,9 +399,9 @@ SSL *SSL_new(SSL_CTX *ctx) {
   ssl->quiet_shutdown = ctx->quiet_shutdown;
   ssl->max_send_fragment = ctx->max_send_fragment;
 
-  CRYPTO_refcount_inc(&ctx->references);
+  CRYPTO_refcount_inc(&TO_SSL_CTX_IMPL(ctx)->references);
   ssl->ctx = ctx;
-  CRYPTO_refcount_inc(&ctx->references);
+  CRYPTO_refcount_inc(&TO_SSL_CTX_IMPL(ctx)->references);
   ssl->initial_ctx = ctx;
 
   if (ctx->tlsext_ellipticcurvelist) {
@@ -1768,13 +1771,13 @@ void ssl_update_cache(SSL *ssl, int mode) {
       !(ctx->session_cache_mode & SSL_SESS_CACHE_NO_AUTO_CLEAR)) {
     /* Automatically flush the internal session cache every 255 connections. */
     int flush_cache = 0;
-    CRYPTO_MUTEX_lock_write(&ctx->lock);
+    CRYPTO_MUTEX_lock_write(&TO_SSL_CTX_IMPL(ctx)->lock);
     ctx->handshakes_since_cache_flush++;
     if (ctx->handshakes_since_cache_flush >= 255) {
       flush_cache = 1;
       ctx->handshakes_since_cache_flush = 0;
     }
-    CRYPTO_MUTEX_unlock(&ctx->lock);
+    CRYPTO_MUTEX_unlock(&TO_SSL_CTX_IMPL(ctx)->lock);
 
     if (flush_cache) {
       SSL_CTX_flush_sessions(ctx, (unsigned long)time(NULL));
@@ -1947,7 +1950,7 @@ SSL_CTX *SSL_set_SSL_CTX(SSL *ssl, SSL_CTX *ctx) {
   ssl_cert_free(ssl->cert);
   ssl->cert = ssl_cert_dup(ctx->cert);
 
-  CRYPTO_refcount_inc(&ctx->references);
+  CRYPTO_refcount_inc(&TO_SSL_CTX_IMPL(ctx)->references);
   SSL_CTX_free(ssl->ctx); /* decrement reference count */
   ssl->ctx = ctx;
 

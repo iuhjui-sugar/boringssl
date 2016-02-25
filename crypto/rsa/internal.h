@@ -59,10 +59,23 @@
 
 #include <openssl/base.h>
 
+#include <openssl/rsa.h>
+#include <openssl/thread.h>
+#include <openssl/type_check.h>
+
 
 #if defined(__cplusplus)
 extern "C" {
 #endif
+
+
+typedef struct {
+  RSA rsa;
+  CRYPTO_MUTEX lock;
+  CRYPTO_refcount_t references;
+} RSA_IMPL;
+
+#define TO_RSA_IMPL(rsa) CHECKED_CAST(RSA_IMPL *, RSA *, rsa)
 
 
 /* Default implementations of RSA operations. */

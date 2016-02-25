@@ -74,6 +74,7 @@
 
 #include "../bn/internal.h"
 #include "../internal.h"
+#include "internal.h"
 
 
 #define OPENSSL_DSA_MAX_MODULUS_BITS 10000
@@ -85,17 +86,18 @@
 static CRYPTO_EX_DATA_CLASS g_ex_data_class = CRYPTO_EX_DATA_CLASS_INIT;
 
 DSA *DSA_new(void) {
-  DSA *dsa = OPENSSL_malloc(sizeof(DSA));
-  if (dsa == NULL) {
+  DSA_IMPL *dsa_impl = OPENSSL_malloc(sizeof(DSA_IMPL));
+  if (dsa_impl == NULL) {
     OPENSSL_PUT_ERROR(DSA, ERR_R_MALLOC_FAILURE);
     return NULL;
   }
+  DSA *dsa = &dsa_impl->dsa;
 
-  memset(dsa, 0, sizeof(DSA));
+  memset(dsa_impl, 0, sizeof(DSA_IMPL));
 
-  dsa->references = 1;
+  dsa_impl->references = 1;
 
-  CRYPTO_MUTEX_init(&dsa->method_mont_p_lock);
+  CRYPTO_MUTEX_init(&dsa_impl->lock);
   CRYPTO_new_ex_data(&dsa->ex_data);
 
   return dsa;
@@ -106,7 +108,8 @@ void DSA_free(DSA *dsa) {
     return;
   }
 
-  if (!CRYPTO_refcount_dec_and_test_zero(&dsa->references)) {
+  DSA_IMPL *dsa_impl = TO_DSA_IMPL(dsa);
+  if (!CRYPTO_refcount_dec_and_test_zero(&dsa_impl->references)) {
     return;
   }
 
@@ -119,13 +122,14 @@ void DSA_free(DSA *dsa) {
   BN_clear_free(dsa->priv_key);
   BN_clear_free(dsa->kinv);
   BN_clear_free(dsa->r);
-  BN_MONT_CTX_free(dsa->method_mont_p);
-  CRYPTO_MUTEX_cleanup(&dsa->method_mont_p_lock);
-  OPENSSL_free(dsa);
+  BN_MONT_CTX_free(dsa->mont_p);
+  CRYPTO_MUTEX_cleanup(&dsa_impl->lock);
+  OPENSSL_free(dsa_impl);
 }
 
 int DSA_up_ref(DSA *dsa) {
-  CRYPTO_refcount_inc(&dsa->references);
+  DSA_IMPL *dsa_impl = TO_DSA_IMPL(dsa);
+  CRYPTO_refcount_inc(&dsa_impl->references);
   return 1;
 }
 
@@ -595,6 +599,7 @@ int DSA_do_check_signature(int *out_valid, const uint8_t *digest,
   BN_MONT_CTX *mont = NULL;
   int ret = 0;
   unsigned i;
+  const DSA_IMPL *dsa_impl = TO_DSA_IMPL(dsa);
 
   *out_valid = 0;
 
@@ -663,9 +668,8 @@ int DSA_do_check_signature(int *out_valid, const uint8_t *digest,
     goto err;
   }
 
-  mont = BN_MONT_CTX_set_locked((BN_MONT_CTX **)&dsa->method_mont_p,
-                                (CRYPTO_MUTEX *)&dsa->method_mont_p_lock,
-                                dsa->p, ctx);
+  mont = BN_MONT_CTX_set_locked((BN_MONT_CTX **)&dsa->mont_p,
+                                (CRYPTO_MUTEX *)&dsa_impl->lock, dsa->p, ctx);
   if (!mont) {
     goto err;
   }
@@ -793,6 +797,7 @@ int DSA_sign_setup(const DSA *dsa, BN_CTX *ctx_in, BIGNUM **out_kinv,
   BN_CTX *ctx;
   BIGNUM k, kq, *K, *kinv = NULL, *r = NULL;
   int ret = 0;
+  const DSA_IMPL *dsa_impl = TO_DSA_IMPL(dsa);
 
   if (!dsa->p || !dsa->q || !dsa->g) {
     OPENSSL_PUT_ERROR(DSA, DSA_R_MISSING_PARAMETERS);
@@ -824,8 +829,8 @@ int DSA_sign_setup(const DSA *dsa, BN_CTX *ctx_in, BIGNUM **out_kinv,
 
   BN_set_flags(&k, BN_FLG_CONSTTIME);
 
-  if (BN_MONT_CTX_set_locked((BN_MONT_CTX **)&dsa->method_mont_p,
-                             (CRYPTO_MUTEX *)&dsa->method_mont_p_lock, dsa->p,
+  if (BN_MONT_CTX_set_locked((BN_MONT_CTX **)&dsa->mont_p,
+                             (CRYPTO_MUTEX *)&dsa_impl->lock, dsa->p,
                              ctx) == NULL) {
     goto err;
   }
@@ -850,7 +855,7 @@ int DSA_sign_setup(const DSA *dsa, BN_CTX *ctx_in, BIGNUM **out_kinv,
 
   K = &kq;
 
-  if (!BN_mod_exp_mont(r, dsa->g, K, dsa->p, ctx, dsa->method_mont_p)) {
+  if (!BN_mod_exp_mont(r, dsa->g, K, dsa->p, ctx, dsa->mont_p)) {
     goto err;
   }
   if (!BN_mod(r, r, dsa->q, ctx)) {

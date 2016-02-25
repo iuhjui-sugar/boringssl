@@ -17,11 +17,28 @@
 
 #include <openssl/base.h>
 #include <openssl/evp.h>
+#include <openssl/thread.h>
+#include <openssl/type_check.h>
 #include <openssl/x509.h>
+#include <openssl/x509_vfy.h>
 
 #if defined(__cplusplus)
 extern "C" {
 #endif
+
+
+typedef struct {
+  X509_STORE store;
+
+  /* objs is a cache of all objects. */
+  STACK_OF(X509_OBJECT) *objs;
+  CRYPTO_MUTEX objs_lock;
+
+  CRYPTO_refcount_t references;
+} X509_STORE_IMPL;
+
+#define TO_X509_STORE_IMPL(store) \
+  CHECKED_CAST(X509_STORE_IMPL *, X509_STORE *, store)
 
 
 /* RSA-PSS functions. */

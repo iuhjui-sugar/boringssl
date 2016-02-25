@@ -59,13 +59,22 @@
 
 #include <openssl/base.h>
 
-#include <openssl/bn.h>
-#include <openssl/ex_data.h>
+#include <openssl/dh.h>
+#include <openssl/thread.h>
+#include <openssl/type_check.h>
 
 #if defined(__cplusplus)
 extern "C" {
 #endif
 
+
+typedef struct {
+  DH dh;
+  CRYPTO_MUTEX lock;
+  CRYPTO_refcount_t references;
+} DH_IMPL;
+
+#define TO_DH_IMPL(dh) CHECKED_CAST(DH_IMPL *, DH *, dh)
 
 /* DH_check_standard_parameters checks if the parameters in |dh| are well
  * known and safe. If so, it sets |dh->priv_length| to an appropriately smaller
