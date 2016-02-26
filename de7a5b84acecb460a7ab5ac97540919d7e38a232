@@ -16,6 +16,24 @@
       "revId": "de7a5b84acecb460a7ab5ac97540919d7e38a232",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c29ad577_f2709dac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-02-26T15:49:58Z",
+      "side": 1,
+      "message": "(Extra word, actually. Tweaked message.)",
+      "parentUuid": "e2b0b90b_c923e03f",
+      "revId": "de7a5b84acecb460a7ab5ac97540919d7e38a232",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
