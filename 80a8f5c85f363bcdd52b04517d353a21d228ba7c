@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e2b0b90b_13e8d29a",
+        "filename": "crypto/modes/asm/aesni-gcm-x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2016-02-26T21:42:01Z",
+      "side": 0,
+      "message": "It\u0027s not clear to me that removing the cmp is a no-op. I don\u0027t think that any of the instructions between the cmp and this line set the flags, therefore the carry flag that\u0027s used here would come from that cmp, no?\n\nHowever, I\u0027ve no idea what R12 is doing. It gets set to one here if in0 \u003e end0. Then neg maps 0 → 0 and 1 → 0xff...ff. Then it\u0027s ANDed mapping 0 → 0 and 0xff..ff → 0x60 and that value is added to in0.\n\n?",
+      "revId": "80a8f5c85f363bcdd52b04517d353a21d228ba7c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
