@@ -224,6 +224,14 @@ int bn_mul_mont(BN_ULONG *rp, const BN_ULONG *ap, const BN_ULONG *bp,
 #error "Either BN_ULLONG or BN_UMULT_LOHI must be defined on every platform."
 #endif
 
+/* BN_MONT_CTX_set_locked takes |lock| and checks whether |*pmont| is NULL. If
+ * so, it creates a new |BN_MONT_CTX| and sets the modulus for it to |mod|. It
+ * then stores it as |*pmont| and returns it, or NULL on error.
+ *
+ * If |*pmont| is already non-NULL then the existing value is returned. */
+BN_MONT_CTX *BN_MONT_CTX_set_locked(BN_MONT_CTX **pmont, CRYPTO_MUTEX *lock,
+                                    const BIGNUM *mod, BN_CTX *bn_ctx);
+
 
 #if defined(__cplusplus)
 }  /* extern C */

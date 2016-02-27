@@ -115,6 +115,7 @@
 #include <openssl/err.h>
 
 #include "internal.h"
+#include "../bn/internal.h"
 
 
 #define BN_BLINDING_COUNTER 32

@@ -65,6 +65,7 @@
 #include <openssl/thread.h>
 
 #include "internal.h"
+#include "../bn/internal.h"
 #include "../internal.h"
 
 
