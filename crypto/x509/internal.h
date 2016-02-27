@@ -17,10 +17,11 @@
 
 #include <openssl/base.h>
 #include <openssl/evp.h>
-#include <openssl/thread.h>
 #include <openssl/type_check.h>
 #include <openssl/x509.h>
 #include <openssl/x509_vfy.h>
+
+#include "../internal.h"
 
 #if defined(__cplusplus)
 extern "C" {

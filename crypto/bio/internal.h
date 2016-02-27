@@ -60,8 +60,9 @@
 #include <openssl/base.h>
 
 #include <openssl/bio.h>
-#include <openssl/thread.h>
 #include <openssl/type_check.h>
+
+#include "../internal.h"
 
 #if !defined(OPENSSL_WINDOWS)
 #if defined(OPENSSL_PNACL)

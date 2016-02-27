@@ -61,7 +61,8 @@
 
 #include <openssl/evp.h>
 #include <openssl/rsa.h>
-#include <openssl/thread.h>
+
+#include "../internal.h"
 
 #if defined(__cplusplus)
 extern "C" {

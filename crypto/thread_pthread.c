@@ -22,38 +22,34 @@
 #include <string.h>
 
 #include <openssl/mem.h>
-#include <openssl/type_check.h>
 
-
-OPENSSL_COMPILE_ASSERT(sizeof(CRYPTO_MUTEX) >= sizeof(pthread_rwlock_t),
-                       CRYPTO_MUTEX_too_small);
 
 void CRYPTO_MUTEX_init(CRYPTO_MUTEX *lock) {
-  if (pthread_rwlock_init((pthread_rwlock_t *) lock, NULL) != 0) {
+  if (pthread_rwlock_init(lock, NULL) != 0) {
     abort();
   }
 }
 
 void CRYPTO_MUTEX_lock_read(CRYPTO_MUTEX *lock) {
-  if (pthread_rwlock_rdlock((pthread_rwlock_t *) lock) != 0) {
+  if (pthread_rwlock_rdlock(lock) != 0) {
     abort();
   }
 }
 
 void CRYPTO_MUTEX_lock_write(CRYPTO_MUTEX *lock) {
-  if (pthread_rwlock_wrlock((pthread_rwlock_t *) lock) != 0) {
+  if (pthread_rwlock_wrlock(lock) != 0) {
     abort();
   }
 }
 
 void CRYPTO_MUTEX_unlock(CRYPTO_MUTEX *lock) {
-  if (pthread_rwlock_unlock((pthread_rwlock_t *) lock) != 0) {
+  if (pthread_rwlock_unlock(lock) != 0) {
     abort();
   }
 }
 
 void CRYPTO_MUTEX_cleanup(CRYPTO_MUTEX *lock) {
-  pthread_rwlock_destroy((pthread_rwlock_t *) lock);
+  pthread_rwlock_destroy(lock);
 }
 
 void CRYPTO_STATIC_MUTEX_lock_read(struct CRYPTO_STATIC_MUTEX *lock) {

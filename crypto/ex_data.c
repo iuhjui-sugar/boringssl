@@ -116,7 +116,6 @@
 #include <openssl/lhash.h>
 #include <openssl/mem.h>
 #include <openssl/stack.h>
-#include <openssl/thread.h>
 
 #include "internal.h"
 

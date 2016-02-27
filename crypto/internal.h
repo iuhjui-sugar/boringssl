@@ -110,7 +110,6 @@
 #define OPENSSL_HEADER_CRYPTO_INTERNAL_H
 
 #include <openssl/ex_data.h>
-#include <openssl/thread.h>
 
 #if defined(_MSC_VER)
 #if !defined(__cplusplus) || _MSC_VER < 1900
@@ -359,6 +358,18 @@ OPENSSL_EXPORT void CRYPTO_once(CRYPTO_once_t *once, void (*init)(void));
 
 /* Reference counting. */
 
+/* CRYPTO_refcount_t is the type of a reference count.
+ *
+ * Since public headers are included by C++ programs as well as C code that
+ * might not set -std=c11, this type may not be defined in a public header.
+ * Instead, reference-counted public structs should be split into public and
+ * private halves. See types named |FOO| and |FOO_IMPL| for examples. */
+#if defined(OPENSSL_C11_ATOMIC)
+typedef _Atomic uint32_t CRYPTO_refcount_t;
+#else
+typedef uint32_t CRYPTO_refcount_t;
+#endif
+
 /* CRYPTO_REFCOUNT_MAX is the value at which the reference count saturates. */
 #define CRYPTO_REFCOUNT_MAX 0xffffffff
 
@@ -386,8 +397,10 @@ OPENSSL_EXPORT int CRYPTO_refcount_dec_and_test_zero(CRYPTO_refcount_t *count);
  * a global lock. A global lock must be initialised to the value
  * |CRYPTO_STATIC_MUTEX_INIT|.
  *
- * |CRYPTO_MUTEX| can appear in public structures and so is defined in
- * thread.h.
+ * |CRYPTO_MUTEX| may depend on windows.h or on |pthread_rwlock_t| which is
+ * hidden under feature flags. As a result, it cannot be defined in a public
+ * header. Instead, public structs with locks should be split into public and
+ * private halves. See types named |FOO| and |FOO_IMPL| for examples.
  *
  * The global lock is a different type because there's no static initialiser
  * value on Windows for locks, so global locks have to be coupled with a
@@ -397,17 +410,20 @@ OPENSSL_EXPORT int CRYPTO_refcount_dec_and_test_zero(CRYPTO_refcount_t *count);
 #if defined(OPENSSL_NO_THREADS)
 struct CRYPTO_STATIC_MUTEX {};
 #define CRYPTO_STATIC_MUTEX_INIT {}
+typedef struct {} CRYPTO_MUTEX;
 #elif defined(OPENSSL_WINDOWS)
 struct CRYPTO_STATIC_MUTEX {
   CRYPTO_once_t once;
   CRITICAL_SECTION lock;
 };
 #define CRYPTO_STATIC_MUTEX_INIT { CRYPTO_ONCE_INIT, { 0 } }
+typedef CRITICAL_SECTION CRYPTO_MUTEX;
 #else
 struct CRYPTO_STATIC_MUTEX {
   pthread_rwlock_t lock;
 };
 #define CRYPTO_STATIC_MUTEX_INIT { PTHREAD_RWLOCK_INITIALIZER }
+typedef pthread_rwlock_t CRYPTO_MUTEX;
 #endif
 
 /* CRYPTO_MUTEX_init initialises |lock|. If |lock| is a static variable, use a

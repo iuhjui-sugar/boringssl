@@ -61,7 +61,6 @@
 #include <openssl/evp.h>
 #include <openssl/mem.h>
 #include <openssl/obj.h>
-#include <openssl/thread.h>
 #include <openssl/x509.h>
 #include <openssl/x509v3.h>
 

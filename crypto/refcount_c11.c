@@ -25,17 +25,10 @@
 #include <openssl/type_check.h>
 
 
-/* See comment above the typedef of CRYPTO_refcount_t about these tests. */
-static_assert(alignof(CRYPTO_refcount_t) == alignof(_Atomic CRYPTO_refcount_t),
-              "_Atomic alters the needed alignment of a reference count");
-static_assert(sizeof(CRYPTO_refcount_t) == sizeof(_Atomic CRYPTO_refcount_t),
-              "_Atomic alters the size of a reference count");
-
 static_assert((CRYPTO_refcount_t)-1 == CRYPTO_REFCOUNT_MAX,
               "CRYPTO_REFCOUNT_MAX is incorrect");
 
-void CRYPTO_refcount_inc(CRYPTO_refcount_t *in_count) {
-  _Atomic CRYPTO_refcount_t *count = (_Atomic CRYPTO_refcount_t *) in_count;
+void CRYPTO_refcount_inc(CRYPTO_refcount_t *count) {
   uint32_t expected = atomic_load(count);
 
   while (expected != CRYPTO_REFCOUNT_MAX) {
@@ -46,8 +39,7 @@ void CRYPTO_refcount_inc(CRYPTO_refcount_t *in_count) {
   }
 }
 
-int CRYPTO_refcount_dec_and_test_zero(CRYPTO_refcount_t *in_count) {
-  _Atomic CRYPTO_refcount_t *count = (_Atomic CRYPTO_refcount_t *)in_count;
+int CRYPTO_refcount_dec_and_test_zero(CRYPTO_refcount_t *count) {
   uint32_t expected = atomic_load(count);
 
   for (;;) {

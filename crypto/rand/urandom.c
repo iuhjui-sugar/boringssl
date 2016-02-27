@@ -22,7 +22,6 @@
 #include <string.h>
 #include <unistd.h>
 
-#include <openssl/thread.h>
 #include <openssl/mem.h>
 
 #include "internal.h"

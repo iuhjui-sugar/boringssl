@@ -63,7 +63,6 @@
 #include <openssl/err.h>
 #include <openssl/ex_data.h>
 #include <openssl/mem.h>
-#include <openssl/thread.h>
 
 #include "internal.h"
 #include "../bn/internal.h"

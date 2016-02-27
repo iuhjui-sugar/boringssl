@@ -148,8 +148,9 @@
 #include <openssl/pqueue.h>
 #include <openssl/ssl.h>
 #include <openssl/stack.h>
-#include <openssl/thread.h>
 #include <openssl/type_check.h>
+
+#include "../crypto/internal.h"
 
 #if defined(OPENSSL_WINDOWS)
 /* Windows defines struct timeval in winsock2.h. */

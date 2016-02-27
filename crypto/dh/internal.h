@@ -60,8 +60,9 @@
 #include <openssl/base.h>
 
 #include <openssl/dh.h>
-#include <openssl/thread.h>
 #include <openssl/type_check.h>
+
+#include "../internal.h"
 
 #if defined(__cplusplus)
 extern "C" {
