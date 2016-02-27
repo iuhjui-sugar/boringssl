@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e2b0b90b_d3f02af7",
+        "filename": "crypto/modes/asm/aesni-gcm-x86_64.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-02-27T00:07:05Z",
+      "side": 0,
+      "message": "```\nif ($in0 \u003e $end0) {\n   set the carry flag;\n}\n```\n\nOn the first iteration when called from `aesni_gcm_encrypt`, $in0 \u003c $end0 so the carry flag isn\u0027t set. But, on the first iteration from aesni_gcm_decrypt, that condition does not necessarily hold, so the carry flag might be set. So, it seems like we should get different test results with or without this patch in the decryption case when the input ciphertext length is in [96, 192). But, the tests pass in both cases on my machine. Not sure why yet.",
+      "range": {
+        "startLine": 101,
+        "startChar": 1,
+        "endLine": 101,
+        "endChar": 16
+      },
+      "revId": "a211aee545cb665b5099803e106656e4c3b788bf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e2b0b90b_93faa2d1",
+        "filename": "crypto/modes/asm/aesni-gcm-x86_64.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-02-27T00:07:05Z",
+      "side": 0,
+      "message": "```\nif (the carry flag wasn\u0027t set) {\n    $in0 +\u003d 96;\n}\n```",
+      "range": {
+        "startLine": 126,
+        "startChar": 1,
+        "endLine": 126,
+        "endChar": 22
+      },
+      "revId": "a211aee545cb665b5099803e106656e4c3b788bf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e2b0b90b_73f716eb",
+        "filename": "crypto/modes/asm/aesni-gcm-x86_64.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-02-27T00:07:05Z",
+      "side": 0,
+      "message": "```\nif ($len \u003c 96) {\n  return 0;\n}\n```",
+      "range": {
+        "startLine": 392,
+        "startChar": 1,
+        "endLine": 392,
+        "endChar": 16
+      },
+      "revId": "a211aee545cb665b5099803e106656e4c3b788bf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e2b0b90b_9313c2eb",
+        "filename": "crypto/modes/asm/aesni-gcm-x86_64.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-02-27T00:07:05Z",
+      "side": 0,
+      "message": "```\n$in0 \u003d $inp;\n$end0 \u003d $inp + $len - 192;\n```\n\nNow, we know that $len \u003e\u003d 96 but it might be the case that ($len - 192) \u003c 0 so maybe $end0 \u003c in0.",
+      "range": {
+        "startLine": 446,
+        "startChar": 1,
+        "endLine": 446,
+        "endChar": 28
+      },
+      "revId": "a211aee545cb665b5099803e106656e4c3b788bf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e2b0b90b_53577aa5",
+        "filename": "crypto/modes/asm/aesni-gcm-x86_64.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-02-27T00:07:05Z",
+      "side": 0,
+      "message": "0x60 \u003d\u003d 96, 96 * 3 \u003d\u003d 288. So this is:\n\n```\nif ($len \u003c 288) {\n  return 0;\n}\n```",
+      "range": {
+        "startLine": 603,
+        "startChar": 1,
+        "endLine": 603,
+        "endChar": 19
+      },
+      "revId": "a211aee545cb665b5099803e106656e4c3b788bf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e2b0b90b_b368fe61",
+        "filename": "crypto/modes/asm/aesni-gcm-x86_64.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-02-27T00:07:05Z",
+      "side": 0,
+      "message": "0xC0 is 192 (2 * 96).\n\nSo, this is\n````\n$in0 \u003d $out;\n$end0 \u003d $out + $len - 192\n```.\n\nWe have ($len \u003e\u003d 288) and (288 - 192 \u003e 0) so $end0 \u003e $in0",
+      "revId": "a211aee545cb665b5099803e106656e4c3b788bf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
