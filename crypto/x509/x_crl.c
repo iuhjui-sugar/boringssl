@@ -66,6 +66,7 @@
 #include <openssl/x509v3.h>
 
 #include "../internal.h"
+#include "internal.h"
 
 /*
  * Method to handle CRL access. In general a CRL could be very large (several
@@ -353,11 +354,11 @@ static void setup_idp(X509_CRL *crl, ISSUING_DIST_POINT *idp)
     DIST_POINT_set_dpname(idp->distpoint, X509_CRL_get_issuer(crl));
 }
 
-ASN1_SEQUENCE_ref(X509_CRL, crl_cb) = {
+ASN1_SEQUENCE_ref(X509_CRL, X509_CRL_IMPL, crl_cb) = {
         ASN1_SIMPLE(X509_CRL, crl, X509_CRL_INFO),
         ASN1_SIMPLE(X509_CRL, sig_alg, X509_ALGOR),
         ASN1_SIMPLE(X509_CRL, signature, ASN1_BIT_STRING)
-} ASN1_SEQUENCE_END_ref(X509_CRL, X509_CRL)
+} ASN1_SEQUENCE_END_ref(X509_CRL, X509_CRL_IMPL, X509_CRL)
 
 IMPLEMENT_ASN1_FUNCTIONS(X509_REVOKED)
 

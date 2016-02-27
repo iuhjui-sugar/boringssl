@@ -155,8 +155,8 @@ extern "C" {
 	static const ASN1_AUX tname##_aux = {NULL, ASN1_AFLG_BROKEN, 0, 0, 0}; \
 	ASN1_SEQUENCE(tname)
 
-#define ASN1_SEQUENCE_ref(tname, cb) \
-	static const ASN1_AUX tname##_aux = {NULL, ASN1_AFLG_REFCOUNT, offsetof(tname, references), cb, 0}; \
+#define ASN1_SEQUENCE_ref(tname, stname_impl, cb) \
+	static const ASN1_AUX tname##_aux = {NULL, ASN1_AFLG_REFCOUNT, offsetof(stname_impl, references), cb, 0}; \
 	ASN1_SEQUENCE(tname)
 
 #define ASN1_SEQUENCE_enc(tname, enc, cb) \
@@ -175,13 +175,13 @@ extern "C" {
 		#tname \
 	ASN1_ITEM_end(tname)
 
-#define ASN1_BROKEN_SEQUENCE_END(stname) ASN1_SEQUENCE_END_ref(stname, stname)
+#define ASN1_BROKEN_SEQUENCE_END(stname) ASN1_SEQUENCE_END_ref(stname, stname, stname)
 
-#define ASN1_SEQUENCE_END_enc(stname, tname) ASN1_SEQUENCE_END_ref(stname, tname)
+#define ASN1_SEQUENCE_END_enc(stname, tname) ASN1_SEQUENCE_END_ref(stname, stname, tname)
 
-#define ASN1_SEQUENCE_END_cb(stname, tname) ASN1_SEQUENCE_END_ref(stname, tname)
+#define ASN1_SEQUENCE_END_cb(stname, tname) ASN1_SEQUENCE_END_ref(stname, stname, tname)
 
-#define ASN1_SEQUENCE_END_ref(stname, tname) \
+#define ASN1_SEQUENCE_END_ref(stname, stname_impl, tname) \
 	;\
 	ASN1_ITEM_start(tname) \
 		ASN1_ITYPE_SEQUENCE,\
@@ -189,7 +189,7 @@ extern "C" {
 		tname##_seq_tt,\
 		sizeof(tname##_seq_tt) / sizeof(ASN1_TEMPLATE),\
 		&tname##_aux,\
-		sizeof(stname),\
+		sizeof(stname_impl),\
 		#stname \
 	ASN1_ITEM_end(tname)
 

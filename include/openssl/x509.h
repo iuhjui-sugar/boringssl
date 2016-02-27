@@ -204,7 +204,7 @@ struct X509_req_st
 	X509_REQ_INFO *req_info;
 	X509_ALGOR *sig_alg;
 	ASN1_BIT_STRING *signature;
-	CRYPTO_refcount_t references;
+	/* Additional private fields omitted. See |X509_REQ_IMPL|. */
 	} /* X509_REQ */;
 
 struct x509_cinf_st
@@ -243,7 +243,6 @@ struct x509_st
 	X509_ALGOR *sig_alg;
 	ASN1_BIT_STRING *signature;
 	int valid;
-	CRYPTO_refcount_t references;
 	char *name;
 	CRYPTO_EX_DATA ex_data;
 	/* These contain copies of various extension values */
@@ -261,6 +260,7 @@ struct x509_st
 	NAME_CONSTRAINTS *nc;
 	unsigned char sha1_hash[SHA_DIGEST_LENGTH];
 	X509_CERT_AUX *aux;
+	/* Additional private fields omitted. See |X509_IMPL|. */
 	} /* X509 */;
 
 DECLARE_STACK_OF(X509)
@@ -420,7 +420,6 @@ struct X509_crl_st
 	X509_CRL_INFO *crl;
 	X509_ALGOR *sig_alg;
 	ASN1_BIT_STRING *signature;
-	CRYPTO_refcount_t references;
 	int flags;
 	/* Copies of various extensions */
 	AUTHORITY_KEYID *akid;
@@ -435,6 +434,7 @@ struct X509_crl_st
 	STACK_OF(GENERAL_NAMES) *issuers;
 	const X509_CRL_METHOD *meth;
 	void *meth_data;
+	/* Additional private fields omitted. See |X509_CRL_IMPL|. */
 	} /* X509_CRL */;
 
 DECLARE_STACK_OF(X509_CRL)

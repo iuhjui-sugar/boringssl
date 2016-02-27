@@ -40,6 +40,27 @@ typedef struct {
 #define TO_X509_STORE_IMPL(store) \
   CHECKED_CAST(X509_STORE_IMPL *, X509_STORE *, store)
 
+typedef struct {
+  X509 x509;
+  CRYPTO_refcount_t references;
+} X509_IMPL;
+
+#define TO_X509_IMPL(x509) CHECKED_CAST(X509_IMPL *, X509 *, x509)
+
+typedef struct {
+  X509_CRL crl;
+  CRYPTO_refcount_t references;
+} X509_CRL_IMPL;
+
+#define TO_X509_CRL_IMPL(crl) CHECKED_CAST(X509_CRL_IMPL *, X509_CRL *, crl)
+
+typedef struct {
+  X509_REQ req;
+  CRYPTO_refcount_t references;
+} X509_REQ_IMPL;
+
+#define TO_X509_REQ_IMPL(req) CHECKED_CAST(X509_REQ_IMPL *, X509_REQ *, req)
+
 
 /* RSA-PSS functions. */
 
