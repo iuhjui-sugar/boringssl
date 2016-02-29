@@ -16,6 +16,24 @@
       "revId": "c74b809441f750c786d27e7e0e6b3e41b269cad7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c29ad577_e388cd4e",
+        "filename": "crypto/evp/evp_asn1.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-02-29T22:37:09Z",
+      "side": 1,
+      "message": "Yeah, the issue is that, in the old code, a valid PKCS#8 structure would might have 4 elements and then we\u0027d go through the d2i_PrivateKey(EVP_PKEY_EC) codepath and still work. By only including the fix above, we\u0027d break those keys if they were RSA. I very strongly doubt anyone is making PKCS#8 objects with attributes, but I don\u0027t know.\n\nSuccessfully parsing a PKCS#8 PrivateKeyInfo means it\u0027s got an OID in there, so I\u0027m not too worried about overlap if that\u0027s what you mean. I can certainly go make EVP_parse_private_key enforce syntactic sanity on the attributes if you like. I didn\u0027t bother because I couldn\u0027t think of any contexts where we\u0027d be okay with allowing arbitrary unknown attributes but needed them to be syntactically valid.",
+      "parentUuid": "e2b0b90b_075d2c21",
+      "revId": "c74b809441f750c786d27e7e0e6b3e41b269cad7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
