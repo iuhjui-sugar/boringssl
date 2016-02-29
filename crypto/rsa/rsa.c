@@ -443,7 +443,7 @@ int RSA_sign(int hash_nid, const uint8_t *in, unsigned in_len, uint8_t *out,
   int signed_msg_is_alloced = 0;
   size_t size_t_out_len;
 
-  if (rsa->meth->sign) {
+  if ((rsa->flags & RSA_FLAG_SIGN_VER) && rsa->meth->sign) {
     return rsa->meth->sign(hash_nid, in, in_len, out, out_len, rsa);
   }
 
@@ -480,7 +480,7 @@ int RSA_verify(int hash_nid, const uint8_t *msg, size_t msg_len,
   size_t signed_msg_len, len;
   int signed_msg_is_alloced = 0;
 
-  if (rsa->meth->verify) {
+  if ((rsa->flags & RSA_FLAG_SIGN_VER) && rsa->meth->verify) {
     return rsa->meth->verify(hash_nid, msg, msg_len, sig, sig_len, rsa);
   }
 
