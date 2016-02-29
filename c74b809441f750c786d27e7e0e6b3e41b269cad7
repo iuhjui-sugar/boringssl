@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e2b0b90b_075d2c21",
+        "filename": "crypto/evp/evp_asn1.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-02-29T22:30:15Z",
+      "side": 1,
+      "message": "EVP_parse_private_key doesn\u0027t check that the input is consumed because \"PrivateKeyInfo ends with a SET of Attributes which we ignore\". Thus this seems a bit risky.\n\n(Or is the whole point that num_elements of a PKCS#8 might return 4 and thus we might mis-parse it?)",
+      "revId": "c74b809441f750c786d27e7e0e6b3e41b269cad7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
