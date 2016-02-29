@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c29ad577_6333fdac",
+        "filename": "crypto/modes/ctr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-02-29T21:52:28Z",
+      "side": 1,
+      "message": "[This seems to be an unrelated change, but this works too I suppose... maybe some compiler treats it cleverly.]",
+      "revId": "c3150613790f7d6cf1e6af0df871fa2cc313b157",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c29ad577_e33e0d6f",
+        "filename": "crypto/modes/ctr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-02-29T21:52:28Z",
+      "side": 1,
+      "message": "I believe this is a no-op because, in the first iteration, line 96 implies either n \u003d\u003d 0 or len \u003d\u003d 0 and running this loop implies len !\u003d 0, thus n \u003d\u003d 0. In subsequent iterations, line 130 implies it.\n\nBut this is certainly clearer.",
+      "revId": "c3150613790f7d6cf1e6af0df871fa2cc313b157",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c29ad577_8338e186",
+        "filename": "crypto/modes/ctr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-02-29T21:52:28Z",
+      "side": 1,
+      "message": "[Ditto.]",
+      "revId": "c3150613790f7d6cf1e6af0df871fa2cc313b157",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
