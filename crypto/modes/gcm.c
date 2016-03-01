@@ -1022,7 +1022,8 @@ int CRYPTO_gcm128_encrypt_ctr32(GCM128_CONTEXT *ctx, const void *key,
   if (aesni_gcm_enabled(ctx, stream)) {
     /* |aesni_gcm_encrypt| may not process all the input given to it. It may
      * not process *any* of its input if it is deemed too small. */
-    size_t bulk = aesni_gcm_encrypt(in, out, len, key, ctx->Yi.c, ctx->Xi.u);
+    size_t bulk =
+        aesni_gcm_encrypt(in, out, len & ~15, key, ctx->Yi.c, ctx->Xi.u);
     in += bulk;
     out += bulk;
     len -= bulk;
@@ -1145,7 +1146,8 @@ int CRYPTO_gcm128_decrypt_ctr32(GCM128_CONTEXT *ctx, const void *key,
   if (aesni_gcm_enabled(ctx, stream)) {
     /* |aesni_gcm_decrypt| may not process all the input given to it. It may
      * not process *any* of its input if it is deemed too small. */
-    size_t bulk = aesni_gcm_decrypt(in, out, len, key, ctx->Yi.c, ctx->Xi.u);
+    size_t bulk =
+        aesni_gcm_decrypt(in, out, len & ~15, key, ctx->Yi.c, ctx->Xi.u);
     in += bulk;
     out += bulk;
     len -= bulk;
