@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "c29ad577_e3f9aa30",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-01T22:08:57Z",
+      "side": 1,
+      "message": "Oh, add a BUG\u003d line for whatever the bug number was.",
+      "revId": "a14246fc9d1b9282630938da3d7b8a8fe47f5df6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c29ad577_83eb7e58",
         "filename": "util/generate-asm-lcov.py",
         "patchSetId": 1
