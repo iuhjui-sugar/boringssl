@@ -42,7 +42,12 @@ var (
 	mallocTestDebug = flag.Bool("malloc-test-debug", false, "If true, ask each test to abort rather than fail a malloc. This can be used with a specific value for --malloc-test to identity the malloc failing that is causing problems.")
 )
 
-type test []string
+type baseTest []string
+
+type test struct {
+	Base    baseTest
+	Variant []string
+}
 
 type result struct {
 	Test   test
@@ -139,8 +144,8 @@ func (moreMallocsError) Error() string {
 var errMoreMallocs = moreMallocsError{}
 
 func runTestOnce(test test, mallocNumToFail int64) (passed bool, err error) {
-	prog := path.Join(*buildDir, test[0])
-	args := test[1:]
+	prog := path.Join(*buildDir, test.Base[0])
+	args := test.Base[1:]
 	var cmd *exec.Cmd
 	if *useValgrind {
 		cmd = valgrindOf(false, prog, args...)
@@ -162,6 +167,13 @@ func runTestOnce(test test, mallocNumToFail int64) (passed bool, err error) {
 			cmd.Env = append(cmd.Env, "MALLOC_ABORT_ON_FAIL=1")
 		}
 		cmd.Env = append(cmd.Env, "_MALLOC_CHECK=1")
+	}
+
+	if len(test.Variant) > 0 {
+		if cmd.Env == nil {
+			cmd.Env = os.Environ()
+		}
+		cmd.Env = append(cmd.Env, "BORINGSSL_CAPS="+strings.Join(test.Variant, ":"))
 	}
 
 	if err := cmd.Start(); err != nil {
@@ -208,12 +220,12 @@ func runTest(test test) (bool, error) {
 // relevant to the test's uniqueness.
 func shortTestName(test test) string {
 	var args []string
-	for _, arg := range test {
-		if test[0] == "crypto/evp/evp_test" || !strings.HasSuffix(arg, ".txt") {
+	for _, arg := range test.Base {
+		if test.Base[0] == "crypto/evp/evp_test" || !strings.HasSuffix(arg, ".txt") {
 			args = append(args, arg)
 		}
 	}
-	return strings.Join(args, " ")
+	return strings.Join(args, " ") + "(" + strings.Join(test.Variant, ":") + ")"
 }
 
 // setWorkingDirectory walks up directories as needed until the current working
@@ -229,7 +241,7 @@ func setWorkingDirectory() {
 	panic("Couldn't find BUILDING.md in a parent directory!")
 }
 
-func parseTestConfig(filename string) ([]test, error) {
+func parseTestConfig(filename string) ([]baseTest, error) {
 	in, err := os.Open(filename)
 	if err != nil {
 		return nil, err
@@ -237,7 +249,22 @@ func parseTestConfig(filename string) ([]test, error) {
 	defer in.Close()
 
 	decoder := json.NewDecoder(in)
-	var result []test
+	var result []baseTest
+	if err := decoder.Decode(&result); err != nil {
+		return nil, err
+	}
+	return result, nil
+}
+
+func parseVariantConfig(filename string) ([][]string, error) {
+	in, err := os.Open(filename)
+	if err != nil {
+		return nil, err
+	}
+	defer in.Close()
+
+	decoder := json.NewDecoder(in)
+	var result [][]string
 	if err := decoder.Decode(&result); err != nil {
 		return nil, err
 	}
@@ -256,10 +283,23 @@ func main() {
 	flag.Parse()
 	setWorkingDirectory()
 
-	testCases, err := parseTestConfig("util/all_tests.json")
+	baseTestCases, err := parseTestConfig("util/all_tests.json")
 	if err != nil {
 		fmt.Printf("Failed to parse input: %s\n", err)
 		os.Exit(1)
+	}
+
+	variants, err := parseVariantConfig("util/variants.json")
+	if err != nil {
+		fmt.Printf("Failed to parse input: %s\n", err)
+		os.Exit(1)
+	}
+
+	var testCases []test
+	for _, base := range baseTestCases {
+		for _, variant := range variants {
+			testCases = append(testCases, test{base, variant})
+		}
 	}
 
 	var wg sync.WaitGroup
@@ -286,14 +326,14 @@ func main() {
 	for testResult := range results {
 		test := testResult.Test
 
-		fmt.Printf("%s\n", strings.Join([]string(test), " "))
+		fmt.Printf("%s (%s)\n", strings.Join([]string(test.Base), " "), strings.Join(test.Variant, ":"))
 		name := shortTestName(test)
 		if testResult.Error != nil {
-			fmt.Printf("%s failed to complete: %s\n", test[0], testResult.Error)
+			fmt.Printf("%s failed to complete: %s\n", test.Base[0], testResult.Error)
 			failed = append(failed, test)
 			testOutput.addResult(name, "CRASHED")
 		} else if !testResult.Passed {
-			fmt.Printf("%s failed to print PASS on the last line.\n", test[0])
+			fmt.Printf("%s failed to print PASS on the last line.\n", test.Base[0])
 			failed = append(failed, test)
 			testOutput.addResult(name, "FAIL")
 		} else {
@@ -310,7 +350,8 @@ func main() {
 	if len(failed) > 0 {
 		fmt.Printf("\n%d of %d tests failed:\n", len(failed), len(testCases))
 		for _, test := range failed {
-			fmt.Printf("\t%s\n", strings.Join([]string(test), " "))
+			fmt.Printf("\t%s (%s)\n", strings.Join([]string(test.Base), " "),
+				strings.Join(test.Variant, ":"))
 		}
 		os.Exit(1)
 	}

@@ -235,6 +235,32 @@ void OPENSSL_cpuid_setup(void) {
   OPENSSL_ia32cap_P[2] = extended_features;
   OPENSSL_ia32cap_P[3] = 0;
 
+  char *bcaps, *mode;
+  bcaps = getenv("BORINGSSL_CAPS");
+  if (bcaps != NULL) {
+    uint64_t maskh = (UINT64_C(1) << 28) | (UINT64_C(1) << 58) | (UINT64_C(1) << 0) | (UINT64_C(1) << 9);
+    uint64_t maskl = (UINT64_C(1) << 37);
+    while ((mode = strsep(&bcaps, ":"))) {
+      if (strcmp(mode, "AVX") == 0) {
+        maskh &= ~(UINT64_C(1) << 28);
+      } else if (strcmp(mode, "AVX2") == 0) {
+        maskl &= ~(UINT64_C(1) << 37);
+      } else if (strcmp(mode, "SSE2") == 0) {
+        maskh &= ~(UINT64_C(1) << 58);
+      } else if (strcmp(mode, "SSE3") == 0) {
+        maskh &= ~(UINT64_C(1) << 0) & ~(UINT64_C(1) << 9);
+      } else if (strcmp(mode, "AMD") == 0) {
+        maskh |= UINT64_C(1) << 62;
+      }
+    }
+    maskh = ~maskh;
+    maskl = ~maskl;
+    OPENSSL_ia32cap_P[0] &= (maskh >> 32) & 0xffffffff;
+    OPENSSL_ia32cap_P[1] &= (maskh >>  0) & 0xffffffff;
+    OPENSSL_ia32cap_P[2] &= (maskl >> 32) & 0xffffffff;
+    OPENSSL_ia32cap_P[3] &= (maskl >>  0) & 0xffffffff;
+  }
+
   const char *env1, *env2;
   env1 = getenv("OPENSSL_ia32cap");
   if (env1 == NULL) {
