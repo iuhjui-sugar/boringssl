@@ -130,7 +130,7 @@ func (moreMallocsError) Error() string {
 
 var errMoreMallocs = moreMallocsError{}
 
-func runTestOnce(test test, mallocNumToFail int64) (passed bool, err error) {
+func runTestOnce(test test, variant string, mallocNumToFail int64) (passed bool, err error) {
 	prog := path.Join(*buildDir, test[0])
 	args := test[1:]
 	var cmd *exec.Cmd
@@ -154,6 +154,13 @@ func runTestOnce(test test, mallocNumToFail int64) (passed bool, err error) {
 			cmd.Env = append(cmd.Env, "MALLOC_ABORT_ON_FAIL=1")
 		}
 		cmd.Env = append(cmd.Env, "_MALLOC_CHECK=1")
+	}
+
+	if len(variant) > 0 {
+		if cmd.Env == nil {
+			cmd.Env = os.Environ()
+		}
+		cmd.Env = append(cmd.Env, "BORINGSSL_CAPS="+variant)
 	}
 
 	if err := cmd.Start(); err != nil {
@@ -180,13 +187,13 @@ func runTestOnce(test test, mallocNumToFail int64) (passed bool, err error) {
 	return false, nil
 }
 
-func runTest(test test) (bool, error) {
+func runTest(test test, variant string) (bool, error) {
 	if *mallocTest < 0 {
-		return runTestOnce(test, -1)
+		return runTestOnce(test, variant, -1)
 	}
 
 	for mallocNumToFail := int64(*mallocTest); ; mallocNumToFail++ {
-		if passed, err := runTestOnce(test, mallocNumToFail); err != errMoreMallocs {
+		if passed, err := runTestOnce(test, variant, mallocNumToFail); err != errMoreMallocs {
 			if err != nil {
 				err = fmt.Errorf("at malloc %d: %s", mallocNumToFail, err)
 			}
@@ -198,14 +205,14 @@ func runTest(test test) (bool, error) {
 // shortTestName returns the short name of a test. Except for evp_test, it
 // assumes that any argument which ends in .txt is a path to a data file and not
 // relevant to the test's uniqueness.
-func shortTestName(test test) string {
+func shortTestName(test test, variant string) string {
 	var args []string
 	for _, arg := range test {
 		if test[0] == "crypto/evp/evp_test" || !strings.HasSuffix(arg, ".txt") {
 			args = append(args, arg)
 		}
 	}
-	return strings.Join(args, " ")
+	return strings.Join(args, " ") + "(" + variant + ")"
 }
 
 // setWorkingDirectory walks up directories as needed until the current working
@@ -236,6 +243,21 @@ func parseTestConfig(filename string) ([]test, error) {
 	return result, nil
 }
 
+func parseVariantConfig(filename string) ([][]string, error) {
+	in, err := os.Open(filename)
+	if err != nil {
+		return nil, err
+	}
+	defer in.Close()
+
+	decoder := json.NewDecoder(in)
+	var result [][]string
+	if err := decoder.Decode(&result); err != nil {
+		return nil, err
+	}
+	return result, nil
+}
+
 func main() {
 	flag.Parse()
 	setWorkingDirectory()
@@ -246,23 +268,31 @@ func main() {
 		os.Exit(1)
 	}
 
+	variants, err := parseVariantConfig("util/variants.json")
+	if err != nil {
+		fmt.Printf("Failed to parse input: %s\n", err)
+		os.Exit(1)
+	}
+
 	testOutput := newTestOutput()
 	var failed []test
 	for _, test := range tests {
-		fmt.Printf("%s\n", strings.Join([]string(test), " "))
-
-		name := shortTestName(test)
-		passed, err := runTest(test)
-		if err != nil {
-			fmt.Printf("%s failed to complete: %s\n", test[0], err)
-			failed = append(failed, test)
-			testOutput.addResult(name, "CRASHED")
-		} else if !passed {
-			fmt.Printf("%s failed to print PASS on the last line.\n", test[0])
-			failed = append(failed, test)
-			testOutput.addResult(name, "FAIL")
-		} else {
-			testOutput.addResult(name, "PASS")
+		for _, variant_array := range variants {
+			variant := strings.Join(variant_array, ":")
+			fmt.Printf("%s (%s)\n", strings.Join([]string(test), " "), variant)
+			name := shortTestName(test, variant)
+			passed, err := runTest(test, variant)
+			if err != nil {
+				fmt.Printf("%s failed to complete: %s\n", test[0], err)
+				failed = append(failed, test)
+				testOutput.addResult(name, "CRASHED")
+			} else if !passed {
+				fmt.Printf("%s failed to print PASS on the last line.\n", test[0])
+				failed = append(failed, test)
+				testOutput.addResult(name, "FAIL")
+			} else {
+				testOutput.addResult(name, "PASS")
+			}
 		}
 	}
 
