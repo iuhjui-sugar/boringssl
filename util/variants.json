@@ -1,0 +1,14 @@
+[
+	["AES"],
+	["HTT"],
+	["MOVBE"],
+	["XOP"],
+	["AVX"],
+	["AVX2", "AVX"],
+	["SSE2"],
+	["SSE3", "SSE2"],
+	["SSE3", "SSE2", "AVX2", "AVX"],
+	["VPAES"],
+	["FXSR", "PCMULQDQ"],
+	["AMD"]
+]
