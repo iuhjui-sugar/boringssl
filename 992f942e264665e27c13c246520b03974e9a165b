@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "e2b0b90b_b67ea7b4",
+        "filename": "crypto/bn/exponentiation.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-03-01T17:19:49Z",
+      "side": 1,
+      "message": "Agreed that it actually changes something. I also thing that it\u0027s intentional—things would be obviously broken otherwise.",
+      "parentUuid": "c29ad577_204ba829",
+      "revId": "992f942e264665e27c13c246520b03974e9a165b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c29ad577_c05c9cf7",
         "filename": "crypto/bn/exponentiation.c",
         "patchSetId": 1
@@ -53,6 +71,30 @@
       "writtenOn": "2016-03-01T16:58:19Z",
       "side": 1,
       "message": "Sigh.",
+      "range": {
+        "startLine": 811,
+        "startChar": 2,
+        "endLine": 811,
+        "endChar": 10
+      },
+      "revId": "992f942e264665e27c13c246520b03974e9a165b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e2b0b90b_967babc5",
+        "filename": "crypto/bn/exponentiation.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 811,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-03-01T17:19:49Z",
+      "side": 1,
+      "message": "Indeed. I left it so that we matched upstream.",
+      "parentUuid": "c29ad577_c05c9cf7",
       "range": {
         "startLine": 811,
         "startChar": 2,
@@ -82,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "e2b0b90b_76693ff9",
+        "filename": "crypto/bn/exponentiation.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-03-01T17:19:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c29ad577_e050c0da",
+      "revId": "992f942e264665e27c13c246520b03974e9a165b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c29ad577_4048ac2a",
         "filename": "crypto/bn/exponentiation.c",
         "patchSetId": 1
@@ -93,6 +153,24 @@
       "writtenOn": "2016-03-01T16:58:19Z",
       "side": 1,
       "message": "[This could be moved to lines 833 through 836 if you want to bother.]",
+      "revId": "992f942e264665e27c13c246520b03974e9a165b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e2b0b90b_566e4302",
+        "filename": "crypto/bn/exponentiation.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-03-01T17:19:49Z",
+      "side": 1,
+      "message": "Nah. Match upstream again.",
+      "parentUuid": "c29ad577_4048ac2a",
       "revId": "992f942e264665e27c13c246520b03974e9a165b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
