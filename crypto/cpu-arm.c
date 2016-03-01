@@ -180,6 +180,26 @@ void OPENSSL_cpuid_setup(void) {
   if (hwcap & kSHA256) {
     OPENSSL_armcap_P |= ARMV8_SHA256;
   }
+
+  char *bcaps, *tag;
+  bcaps = getenv("BORINGSSL_CAPS");
+  if (bcaps != NULL) {
+    uint32_t fcap = 0;
+    while ((tag = strsep(&bcaps, ":"))) {
+      if (strcmp(tag, "NEON") == 0) {
+        fcap |= ARMV7_NEON;
+      } else if (strcmp(tag, "AES") == 0) {
+        fcap |= ARMV8_AES;
+      } else if (strcmp(tag, "PMULL") == 0) {
+        fcap |= ARMV8_PMULL;
+      } else if (strcmp(tag, "SHA1") == 0) {
+        fcap |= ARMV8_SHA1;
+      } else if (strcmp(tag, "SHA256") == 0) {
+        fcap |= ARMV8_SHA256;
+      }
+    }
+    OPENSSL_armcap_P &= fcap;
+  }
 }
 
 #endif  /* (defined(OPENSSL_ARM) || defined(OPENSSL_AARCH64)) &&
