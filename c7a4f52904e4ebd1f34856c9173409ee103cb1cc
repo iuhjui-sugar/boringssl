@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c29ad577_c091fcce",
+        "filename": "crypto/bn/asm/rsaz-avx2.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-01T17:02:13Z",
+      "side": 1,
+      "message": "(I think we\u0027ve currently disabled this file, by the way.)",
+      "revId": "c7a4f52904e4ebd1f34856c9173409ee103cb1cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
