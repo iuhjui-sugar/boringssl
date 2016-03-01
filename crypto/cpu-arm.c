@@ -34,5 +34,156 @@ int CRYPTO_is_ARMv8_PMULL_capable(void) {
   return (OPENSSL_armcap_P & ARMV8_PMULL) != 0;
 }
 
+#if !defined(OPENSSL_NO_ASM) && defined(OPENSSL_ARM)
+
+static sigjmp_buf sigill_jmp;
+
+static void sigill_handler(int signal) {
+  siglongjmp(sigill_jmp, signal);
+}
+
+void CRYPTO_arm_neon_probe(void);
+
+// probe_for_NEON returns 1 if a NEON instruction runs successfully. Because
+// getauxval doesn't exist on Android until Jelly Bean, supporting NEON on
+// older devices requires this.
+static int probe_for_NEON(void) {
+  int supported = 0;
+
+  sigset_t sigmask;
+  sigfillset(&sigmask);
+  sigdelset(&sigmask, SIGILL);
+  sigdelset(&sigmask, SIGTRAP);
+  sigdelset(&sigmask, SIGFPE);
+  sigdelset(&sigmask, SIGBUS);
+  sigdelset(&sigmask, SIGSEGV);
+
+  struct sigaction sigill_original_action, sigill_action;
+  memset(&sigill_action, 0, sizeof(sigill_action));
+  sigill_action.sa_handler = sigill_handler;
+  sigill_action.sa_mask = sigmask;
+
+  sigset_t original_sigmask;
+  sigprocmask(SIG_SETMASK, &sigmask, &original_sigmask);
+
+  if (sigsetjmp(sigill_jmp, 1 /* save signals */) == 0) {
+    sigaction(SIGILL, &sigill_action, &sigill_original_action);
+
+    // This function cannot be inline asm because GCC will refuse to compile
+    // inline NEON instructions unless building with -mfpu=neon, which would
+    // defeat the point of probing for support at runtime.
+    CRYPTO_arm_neon_probe();
+    supported = 1;
+  }
+  // Note that Android up to and including Lollipop doesn't restore the signal
+  // mask correctly after returning from a sigsetjmp. So that would need to be
+  // set again here if more probes were added.
+  // See https://android-review.googlesource.com/#/c/127624/
+
+  sigaction(SIGILL, &sigill_original_action, NULL);
+  sigprocmask(SIG_SETMASK, &original_sigmask, NULL);
+
+  return supported;
+}
+
+#else
+
+static int probe_for_NEON(void) {
+  return 0;
+}
+
+#endif  /* !OPENSSL_NO_ASM && OPENSSL_ARM */
+
+void OPENSSL_cpuid_setup(void) {
+  if (getauxval == NULL) {
+    // On ARM, but not AArch64, try a NEON instruction and see whether it works
+    // in order to probe for NEON support.
+    //
+    // Note that |CRYPTO_is_NEON_capable| can be true even if
+    // |CRYPTO_set_NEON_capable| has never been called if the code was compiled
+    // with NEON support enabled (e.g. -mfpu=neon).
+    if (!g_set_neon_called && !CRYPTO_is_NEON_capable() && probe_for_NEON()) {
+      OPENSSL_armcap_P |= ARMV7_NEON;
+    }
+    return;
+  }
+
+  static const unsigned long AT_HWCAP = 16;
+  unsigned long hwcap = getauxval(AT_HWCAP);
+
+#if defined(OPENSSL_ARM)
+  static const unsigned long kNEON = 1 << 12;
+  if ((hwcap & kNEON) == 0) {
+    return;
+  }
+
+  /* In 32-bit mode, the ARMv8 feature bits are in a different aux vector
+   * value. */
+  static const unsigned long AT_HWCAP2 = 26;
+  hwcap = getauxval(AT_HWCAP2);
+
+  /* See /usr/include/asm/hwcap.h on an ARM installation for the source of
+   * these values. */
+  static const unsigned long kAES = 1 << 0;
+  static const unsigned long kPMULL = 1 << 1;
+  static const unsigned long kSHA1 = 1 << 2;
+  static const unsigned long kSHA256 = 1 << 3;
+#elif defined(OPENSSL_AARCH64)
+  /* See /usr/include/asm/hwcap.h on an aarch64 installation for the source of
+   * these values. */
+  static const unsigned long kNEON = 1 << 1;
+  static const unsigned long kAES = 1 << 3;
+  static const unsigned long kPMULL = 1 << 4;
+  static const unsigned long kSHA1 = 1 << 5;
+  static const unsigned long kSHA256 = 1 << 6;
+
+  if ((hwcap & kNEON) == 0) {
+    return;
+  }
+#endif
+
+  OPENSSL_armcap_P |= ARMV7_NEON;
+
+  if (hwcap & kAES) {
+    OPENSSL_armcap_P |= ARMV8_AES;
+  }
+  if (hwcap & kPMULL) {
+    OPENSSL_armcap_P |= ARMV8_PMULL;
+  }
+  if (hwcap & kSHA1) {
+    OPENSSL_armcap_P |= ARMV8_SHA1;
+  }
+  if (hwcap & kSHA256) {
+    OPENSSL_armcap_P |= ARMV8_SHA256;
+  }
+
+  char *bcaps, *tag;
+  bcaps = getenv("BORINGSSL_CAPS");
+  if (bcaps != NULL) {
+    uint32_t capmask = 0;
+    tag = strsep(&bcaps, ":");
+    while (tag) {
+      if (strcmp(tag, "NEON") == 0) {
+        capmask |= ARMV7_NEON;
+      } else if (strcmp(tag, "AES") == 0) {
+        capmask |= ARMV8_AES;
+      } else if (strcmp(tag, "PMULL") == 0) {
+        capmask |= ARMV8_PMULL;
+      } else if (strcmp(tag, "SHA1") == 0) {
+        capmask |= ARMV8_SHA1;
+      } else if (strcmp(tag, "SHA256") == 0) {
+        capmask |= ARMV8_SHA256;
+      } else if (strcmp(tag, "NONE") != 0) {
+        exit(22);
+      }
+      tag = strsep(&bcaps, ":");
+    }
+    OPENSSL_armcap_P &= capmask;
+    if (OPENSSL_armcap_P != capmask) {
+      exit(22);
+    }
+  }
+}
+
 #endif  /* (defined(OPENSSL_ARM) || defined(OPENSSL_AARCH64)) &&
            !defined(OPENSSL_STATIC_ARMCAP) */
