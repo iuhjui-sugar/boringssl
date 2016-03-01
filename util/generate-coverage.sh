@@ -16,7 +16,7 @@ cp -r $BUILD/* $BUILD_SRC
 mkdir "$BUILD/callgrind/"
 
 cd "$SRC"
-go run "$SRC/util/all_tests.go" -build-dir "$BUILD" -callgrind
+go run "$SRC/util/all_tests.go" -build-dir "$BUILD" -callgrind -num-workers 16
 util/generate-asm-lcov.py "$BUILD/callgrind" "$BUILD" > "$BUILD/asm.info"
 
 go run "util/all_tests.go" -build-dir "$BUILD"
