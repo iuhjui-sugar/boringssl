@@ -16,7 +16,7 @@
 set -xe
 
 usage="Usage: $(basename "$0") [-l dir] [--arch (32|64)] [-t binary]\
- [-a args]"
+ [-a args] [-v variant]"
 
 SRC=$PWD
 
@@ -51,6 +51,10 @@ do
       TEST_ARGS="$2"
       shift
       ;;
+    -v|--variant)
+      VARIANT="$2"
+      shift
+      ;;
     *)
       echo $usage
       exit 1
@@ -72,10 +76,17 @@ if [ -n "$TEST" ]; then
   cd "$BUILD"
   TEST=$(readlink -f "$TEST")
   cd "$SRC"
-  valgrind -q --tool=callgrind \
-    --callgrind-out-file="$BUILD/callgrind/callgrind.out.%p" \
-    --dump-instr=yes --collect-jumps=yes $TEST $TEST_ARGS
-  $TEST $TEST_ARGS
+  if [ -n "$VARIANT" ]; then
+    BORINGSSL_CAPS=$VARIANT valgrind -q --tool=callgrind \
+      --callgrind-out-file="$BUILD/callgrind/callgrind.out.%p" \
+      --dump-instr=yes --collect-jumps=yes $TEST $TEST_ARGS
+    BORINGSSL_CAPS=$VARIANT $TEST $TEST_ARGS
+  else
+    valgrind -q --tool=callgrind \
+      --callgrind-out-file="$BUILD/callgrind/callgrind.out.%p" \
+      --dump-instr=yes --collect-jumps=yes $TEST $TEST_ARGS
+    $TEST $TEST_ARGS
+  fi
 else
   cd "$SRC"
   go run "$SRC/util/all_tests.go" -build-dir "$BUILD" -callgrind \

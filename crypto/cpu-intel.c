@@ -142,6 +142,12 @@ static void handle_cpu_env(uint32_t *out, const char *in) {
   }
 }
 
+static void set_cpuid_flag(char *flag, char *name, uint32_t *mask, char offset) {
+  if (strcmp(flag, name) == 0) {
+    *mask |= 1 << offset;
+  }
+}
+
 void OPENSSL_cpuid_setup(void) {
   /* Determine the vendor and maximum input value. */
   uint32_t eax, ebx, ecx, edx;
@@ -236,6 +242,45 @@ void OPENSSL_cpuid_setup(void) {
   OPENSSL_ia32cap_P[1] = ecx;
   OPENSSL_ia32cap_P[2] = extended_features;
   OPENSSL_ia32cap_P[3] = 0;
+
+  char *bcaps, *tag;
+  bcaps = getenv("BORINGSSL_CAPS");
+  if (bcaps != NULL) {
+    // Set the Intel flag unless explicitly disabled.
+    uint32_t fedx = 1 << 30;
+    uint32_t fecx = 0;
+    uint32_t fext = 0;
+    tag = strsep(&bcaps, ":");
+    while (tag) {
+      set_cpuid_flag(tag, "SSE3", &fecx, 0);
+      set_cpuid_flag(tag, "PCLMULQDQ", &fecx, 1);
+      set_cpuid_flag(tag, "SSSE3", &fecx, 9);
+      set_cpuid_flag(tag, "XOP", &fecx, 11);
+      set_cpuid_flag(tag, "MOVBE", &fecx, 22);
+      set_cpuid_flag(tag, "AES", &fecx, 25);
+      set_cpuid_flag(tag, "AVX", &fecx, 28);
+
+      set_cpuid_flag(tag, "FXSR", &fedx, 24);
+      set_cpuid_flag(tag, "SSE", &fedx, 25);
+      set_cpuid_flag(tag, "SSE2", &fedx, 26);
+      set_cpuid_flag(tag, "HTT", &fedx, 28);
+
+      set_cpuid_flag(tag, "AVX2", &fext, 5);
+
+      if (strcmp(tag, "AMD") == 0) {
+        fedx &= ~(1 << 30);
+      }
+      tag = strsep(&bcaps, ":");
+    }
+    OPENSSL_ia32cap_P[0] &= fedx;
+    OPENSSL_ia32cap_P[1] &= fecx;
+    OPENSSL_ia32cap_P[2] &= fext;
+    if (OPENSSL_ia32cap_P[0] != fedx ||
+        OPENSSL_ia32cap_P[1] != fecx ||
+        OPENSSL_ia32cap_P[2] != fext) {
+      exit(22);
+    }
+  }
 
   const char *env1, *env2;
   env1 = getenv("OPENSSL_ia32cap");

@@ -49,7 +49,8 @@ type test struct {
 	args []string
 	// cpu, if not empty, contains an Intel CPU code to simulate. Run
 	// `sde64 -help` to get a list of these codes.
-	cpu string
+	cpu     string
+	variant []string
 }
 
 type result struct {
@@ -171,7 +172,15 @@ func (moreMallocsError) Error() string {
 	return "child process did not exhaust all allocation calls"
 }
 
-var errMoreMallocs = moreMallocsError{}
+var errMoreMallocs = variantSkippedError{}
+
+type variantSkippedError struct{}
+
+func (variantSkippedError) Error() string {
+	return "variant not supported on this device"
+}
+
+var errVariantSkipped = variantSkippedError{}
 
 func runTestOnce(test test, mallocNumToFail int64) (passed bool, err error) {
 	prog := path.Join(*buildDir, test.args[0])
@@ -200,6 +209,13 @@ func runTestOnce(test test, mallocNumToFail int64) (passed bool, err error) {
 		cmd.Env = append(cmd.Env, "_MALLOC_CHECK=1")
 	}
 
+	if len(test.Variant) > 0 {
+		if cmd.Env == nil {
+			cmd.Env = os.Environ()
+		}
+		cmd.Env = append(cmd.Env, "BORINGSSL_CAPS="+strings.Join(test.Variant, ":"))
+	}
+
 	if err := cmd.Start(); err != nil {
 		return false, err
 	}
@@ -207,6 +223,9 @@ func runTestOnce(test test, mallocNumToFail int64) (passed bool, err error) {
 		if exitError, ok := err.(*exec.ExitError); ok {
 			if exitError.Sys().(syscall.WaitStatus).ExitStatus() == 88 {
 				return false, errMoreMallocs
+			}
+			if exitError.Sys().(syscall.WaitStatus).ExitStatus() == 22 {
+				return false, errVariantSkipped
 			}
 		}
 		fmt.Print(string(outBuf.Bytes()))
@@ -257,7 +276,7 @@ func shortTestName(test test) string {
 			args = append(args, arg)
 		}
 	}
-	return strings.Join(args, " ") + test.cpuMsg()
+	return strings.Join(args, " ") + test.cpuMsg() + test.variantMsg()
 }
 
 // setWorkingDirectory walks up directories as needed until the current working
@@ -273,7 +292,7 @@ func setWorkingDirectory() {
 	panic("Couldn't find BUILDING.md in a parent directory!")
 }
 
-func parseTestConfig(filename string) ([]test, error) {
+func parseTestConfig(filename string) ([]baseTest, error) {
 	in, err := os.Open(filename)
 	if err != nil {
 		return nil, err
@@ -289,6 +308,27 @@ func parseTestConfig(filename string) ([]test, error) {
 	var result []test
 	for _, args := range testArgs {
 		result = append(result, test{args: args})
+	}
+	return result, nil
+}
+
+func parseVariantConfig(filename string) ([][]string, error) {
+	in, err := os.Open(filename)
+	if err != nil {
+		return nil, err
+	}
+	defer in.Close()
+
+	decoder := json.NewDecoder(in)
+	var data map[string][][]string
+	if err := decoder.Decode(&data); err != nil {
+		return nil, err
+	}
+
+	var result [][]string
+	result = append(result, data["all"]...)
+	if data[runtime.GOARCH] != nil {
+		result = append(result, data[runtime.GOARCH]...)
 	}
 	return result, nil
 }
@@ -309,14 +349,39 @@ func (t test) cpuMsg() string {
 	return fmt.Sprintf(" (for CPU %q)", t.cpu)
 }
 
+func (t test) variantMsg() string {
+	if len(t.variant) == 0 {
+		return ""
+	}
+
+	return fmt.Sprintf(" (%s)", strings.Join(t.variant, ":"))
+}
+
 func main() {
 	flag.Parse()
 	setWorkingDirectory()
 
-	testCases, err := parseTestConfig("util/all_tests.json")
+	baseTestCases, err := parseTestConfig("util/all_tests.json")
 	if err != nil {
 		fmt.Printf("Failed to parse input: %s\n", err)
 		os.Exit(1)
+	}
+
+	variants, err := parseVariantConfig("util/variants.json")
+	if err != nil {
+		fmt.Printf("Failed to parse input: %s\n", err)
+		os.Exit(1)
+	}
+
+	var testCases []test
+	for _, base := range baseTestCases {
+		if !*useCallgrind {
+			testCases = append(testCases, test{base, nil})
+		}
+
+		for _, variant := range variants {
+			testCases = append(testCases, test{base, variant})
+		}
 	}
 
 	var wg sync.WaitGroup
@@ -352,9 +417,12 @@ func main() {
 		test := testResult.Test
 		args := test.args
 
-		fmt.Printf("%s%s\n", strings.Join(args, " "), test.cpuMsg())
+		fmt.Printf("%s%s%s\n", strings.Join(args, " "), test.cpuMsg(), test.variantMsg())
 		name := shortTestName(test)
-		if testResult.Error != nil {
+		if testResult.Error == errVariantSkipped {
+			fmt.Printf("%s skipped\n", test.Base[0])
+			testOutput.addResult(name, "SKIPPED")
+		} else if testResult.Error != nil {
 			fmt.Printf("%s failed to complete: %s\n", args[0], testResult.Error)
 			failed = append(failed, test)
 			testOutput.addResult(name, "CRASHED")
@@ -376,7 +444,7 @@ func main() {
 	if len(failed) > 0 {
 		fmt.Printf("\n%d of %d tests failed:\n", len(failed), len(testCases))
 		for _, test := range failed {
-			fmt.Printf("\t%s%s\n", strings.Join(test.args, " "), test.cpuMsg())
+			fmt.Printf("\t%s%s%s\n", strings.Join(test.args, " "), test.cpuMsg(), test.variantMsg())
 		}
 		os.Exit(1)
 	}

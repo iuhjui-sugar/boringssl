@@ -1,0 +1,52 @@
+{
+  "all": [
+    ["NONE"]
+  ],
+  "386": [
+    ["AES"],
+    ["AES", "AVX"],
+    ["HTT"],
+    ["MOVBE"],
+    ["MOVBE", "AVX"],
+    ["XOP"],
+    ["AVX"],
+    ["AVX2", "AVX"],
+    ["SSE2", "SSE"],
+    ["SSE3", "SSE2", "SSE"],
+    ["SSE3", "SSE2", "SSE", "AVX2", "AVX"],
+    ["SSSE3", "SSE3", "SSE2", "SSE"],
+    ["SSSE3", "SSE3", "SSE2", "SSE", "AVX2", "AVX"],
+    ["FXSR", "SSSE3", "SSE3", "SSE2", "SSE"],
+    ["VPAES"],
+    ["FXSR", "PCLMULQDQ"],
+    ["AMD"]
+  ],
+  "amd64": [
+    ["AES"],
+    ["AES", "AVX"],
+    ["HTT"],
+    ["MOVBE"],
+    ["MOVBE", "AVX"],
+    ["XOP"],
+    ["AVX"],
+    ["AVX2", "AVX"],
+    ["SSE2", "SSE"],
+    ["SSE3", "SSE2", "SSE"],
+    ["SSE3", "SSE2", "SSE", "AVX2", "AVX"],
+    ["SSSE3", "SSE3", "SSE2", "SSE"],
+    ["SSSE3", "SSE3", "SSE2", "SSE", "AVX2", "AVX"],
+    ["FXSR", "SSSE3", "SSE3", "SSE2", "SSE"],
+    ["VPAES"],
+    ["FXSR", "PCLMULQDQ"],
+    ["AMD"]
+  ],
+  "arm": [
+    ["NEON"],
+    ["NEON", "AES"],
+    ["NEON", "AES", "PMULL"],
+    ["NEON", "PMULL"],
+    ["NEON", "SHA1"],
+    ["NEON", "SHA256"],
+    ["NEON", "AES", "SHA1", "SHA256"]
+  ]
+}
