@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c29ad577_806294b4",
+        "filename": "crypto/bn/exponentiation.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 792,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-01T16:58:19Z",
+      "side": 1,
+      "message": "I guess they switched this to int to be consistent with the function below, which uses int-based constant-time helpers.",
+      "range": {
+        "startLine": 792,
+        "startChar": 2,
+        "endLine": 792,
+        "endChar": 5
+      },
+      "revId": "992f942e264665e27c13c246520b03974e9a165b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c29ad577_204ba829",
+        "filename": "crypto/bn/exponentiation.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-01T16:58:19Z",
+      "side": 1,
+      "message": "[I don\u0027t believe this is actually a no-op. I\u0027m assuming this is intentional.]",
+      "revId": "992f942e264665e27c13c246520b03974e9a165b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c29ad577_c05c9cf7",
+        "filename": "crypto/bn/exponentiation.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 811,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-01T16:58:19Z",
+      "side": 1,
+      "message": "Sigh.",
+      "range": {
+        "startLine": 811,
+        "startChar": 2,
+        "endLine": 811,
+        "endChar": 10
+      },
+      "revId": "992f942e264665e27c13c246520b03974e9a165b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c29ad577_e050c0da",
+        "filename": "crypto/bn/exponentiation.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-01T16:58:19Z",
+      "side": 1,
+      "message": "Nit: curly braces",
+      "revId": "992f942e264665e27c13c246520b03974e9a165b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c29ad577_4048ac2a",
+        "filename": "crypto/bn/exponentiation.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-01T16:58:19Z",
+      "side": 1,
+      "message": "[This could be moved to lines 833 through 836 if you want to bother.]",
+      "revId": "992f942e264665e27c13c246520b03974e9a165b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
