@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c29ad577_00206480",
+        "filename": "crypto/ec/ec_key.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-01T16:37:19Z",
+      "side": 1,
+      "message": "This needs to happen after the ctx \u003d\u003d NULL check. You want:\n\nif (ctx \u003d\u003d NULL) {\n  return 0;\n}\n\nBN_CTX_start(ctx);\n...",
+      "revId": "e692435839f0529412927dbfa8bff70949ed1a71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
