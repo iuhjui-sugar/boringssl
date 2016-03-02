@@ -22,6 +22,30 @@
       "revId": "17bbf1e3d18f1d88760448821f95f8d5ec8b68d6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "42a26512_11430e8c",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-02T22:50:03Z",
+      "side": 1,
+      "message": "This is to enable the fuzzing mode when we build for fuzzing. Normal builds (standalone or generate_build_files.py) won\u0027t add it. Or am I misunderstanding you?",
+      "parentUuid": "e2b0b90b_25849bcb",
+      "range": {
+        "startLine": 99,
+        "startChar": 19,
+        "endLine": 99,
+        "endChar": 48
+      },
+      "revId": "17bbf1e3d18f1d88760448821f95f8d5ec8b68d6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
