@@ -181,7 +181,7 @@ endif()
 add_custom_target(
     run_tests
     COMMAND ${GO_EXECUTABLE} run util/all_tests.go -build-dir
-            ${CMAKE_BINARY_DIR}
+            ${CMAKE_BINARY_DIR} -num-workers 1
     COMMAND cd ssl/test/runner
     COMMAND ${GO_EXECUTABLE} test -shim-path $<TARGET_FILE:bssl_shim>
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
