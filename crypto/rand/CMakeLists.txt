@@ -1,11 +1,8 @@
 include_directories(../../include)
 
-if (${ARCH} STREQUAL "x86_64")
-  set(
-    RAND_ARCH_SOURCES
-
-    rdrand-x86_64.${ASM_EXT}
-  )
+if (((${ARCH} STREQUAL "x86_64") OR (${ARCH} STREQUAL "x86")) AND
+    (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang"))
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mrdrnd")
 endif()
 
 add_library(
@@ -20,5 +17,3 @@ add_library(
 
   ${RAND_ARCH_SOURCES}
 )
-
-perlasm(rdrand-x86_64.${ASM_EXT} asm/rdrand-x86_64.pl)
