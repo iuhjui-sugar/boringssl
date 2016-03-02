@@ -80,6 +80,24 @@
       "revId": "17bbf1e3d18f1d88760448821f95f8d5ec8b68d6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "42a26512_91b09ec1",
+        "filename": "crypto/rand/deterministic.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-02T23:56:51Z",
+      "side": 1,
+      "message": "Oof, good point. I must have been thinking something more afl-style when I wrote this. (This patch series is secretly from back in October or so.)\n\nWe could make it return some constant, but I worry we\u0027ll have a hard time with some generate-and-test loops. What do you think about adding a fuzzer-mode-only RAND_reset_deterministic_prng() function? Or I could maybe hook it up to RAND_cleanup().",
+      "parentUuid": "e2b0b90b_00418d83",
+      "revId": "17bbf1e3d18f1d88760448821f95f8d5ec8b68d6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
