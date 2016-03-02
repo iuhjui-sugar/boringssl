@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "e2b0b90b_af4bea27",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-03-02T07:29:51Z",
+      "side": 1,
+      "message": "It actually operates on blocks of 96 bytes.\n\nIf the current code is wrong, then it isn\u0027t clear that making |$len| be a multiple of 16 makes it correct. Why wouldn\u0027t it need to be a multiple of 96?",
+      "range": {
+        "startLine": 9,
+        "startChar": 63,
+        "endLine": 9,
+        "endChar": 65
+      },
+      "revId": "521956ff41bac53d62a440c091b6eb444d7efcc5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c29ad577_23a01218",
         "filename": "crypto/modes/gcm.c",
         "patchSetId": 1
