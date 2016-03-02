@@ -16,6 +16,24 @@
       "revId": "3bc58234cbb92ed06ea772f642d278f826631297",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "42a26512_31a0ca6a",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-02T23:58:44Z",
+      "side": 1,
+      "message": "Since we\u0027ll never resume the current fuzzers, perhaps it\u0027d be better to just not log the resumptions at all until we figure out how that\u0027ll look?",
+      "parentUuid": "e2b0b90b_e02fc1d0",
+      "revId": "3bc58234cbb92ed06ea772f642d278f826631297",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
