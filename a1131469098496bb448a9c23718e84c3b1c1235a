@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "42a26512_ced3a3d5",
+        "filename": "util/all_tests.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-02T17:21:11Z",
+      "side": 1,
+      "message": "Unused?",
+      "range": {
+        "startLine": 235,
+        "startChar": 12,
+        "endLine": 235,
+        "endChar": 20
+      },
+      "revId": "a1131469098496bb448a9c23718e84c3b1c1235a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "42a26512_eeb5bfaf",
+        "filename": "util/all_tests.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-02T17:21:11Z",
+      "side": 1,
+      "message": "Nit: testCases",
+      "range": {
+        "startLine": 246,
+        "startChar": 1,
+        "endLine": 246,
+        "endChar": 11
+      },
+      "revId": "a1131469098496bb448a9c23718e84c3b1c1235a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "42a26512_2ec98722",
+        "filename": "util/all_tests.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-02T17:21:11Z",
+      "side": 1,
+      "message": "Hrm. This works, although it is a little odd since you don\u0027t necessarily consume results and stuff.\n\nIf you do:\n\n    for testResult :\u003d range results {\n            ...\n    }\n\nThis works except you need to close the channel when all the tests are through. runner puts this in another goroutine with worker taking a sync.WaitGroup. When the WaitGroup clears, you close(results). Then you wait for the printer to finish with another waitGroup or a chan struct{}.",
+      "revId": "a1131469098496bb448a9c23718e84c3b1c1235a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "42a26512_ceba839d",
+        "filename": "util/all_tests.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-02T17:21:11Z",
+      "side": 1,
+      "message": "Nit: testResult",
+      "range": {
+        "startLine": 267,
+        "startChar": 2,
+        "endLine": 267,
+        "endChar": 13
+      },
+      "revId": "a1131469098496bb448a9c23718e84c3b1c1235a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
