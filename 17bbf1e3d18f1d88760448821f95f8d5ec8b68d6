@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e2b0b90b_25849bcb",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-03-02T22:01:31Z",
+      "side": 1,
+      "message": "Is there a way to avoid exposing this?",
+      "range": {
+        "startLine": 99,
+        "startChar": 19,
+        "endLine": 99,
+        "endChar": 48
+      },
+      "revId": "17bbf1e3d18f1d88760448821f95f8d5ec8b68d6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
