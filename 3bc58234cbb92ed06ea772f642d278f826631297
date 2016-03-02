@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e2b0b90b_e02fc1d0",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-03-02T23:57:11Z",
+      "side": 1,
+      "message": "I\u0027m not sure whether we want the resumption to do to a different file since the initial connection might have setup state. But this\u0027ll certainly do for now.",
+      "revId": "3bc58234cbb92ed06ea772f642d278f826631297",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
