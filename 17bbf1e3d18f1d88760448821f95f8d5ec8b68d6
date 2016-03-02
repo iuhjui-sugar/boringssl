@@ -98,6 +98,24 @@
       "revId": "17bbf1e3d18f1d88760448821f95f8d5ec8b68d6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e2b0b90b_a029b9cd",
+        "filename": "crypto/rand/deterministic.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-03-02T23:57:59Z",
+      "side": 1,
+      "message": "RAND_reset_for_fuzzing() sounds good. (Or whatever, better name you come up with :)",
+      "parentUuid": "42a26512_91b09ec1",
+      "revId": "17bbf1e3d18f1d88760448821f95f8d5ec8b68d6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
