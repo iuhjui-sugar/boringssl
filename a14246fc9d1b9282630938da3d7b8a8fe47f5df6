@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "42a26512_8e1fdba2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-02T16:00:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c29ad577_e3f9aa30",
+      "revId": "a14246fc9d1b9282630938da3d7b8a8fe47f5df6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c29ad577_83eb7e58",
         "filename": "util/generate-asm-lcov.py",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2016-03-01T22:08:41Z",
       "side": 1,
       "message": "Might be worth some comments somewhere with roughly what the format is, so it\u0027s clearer what\u0027s going on. :-)",
+      "revId": "a14246fc9d1b9282630938da3d7b8a8fe47f5df6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "42a26512_ae0c578e",
+        "filename": "util/generate-asm-lcov.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-02T16:00:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c29ad577_83eb7e58",
       "revId": "a14246fc9d1b9282630938da3d7b8a8fe47f5df6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "42a26512_8ee87bce",
+        "filename": "util/generate-asm-lcov.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-02T16:00:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c29ad577_2346524a",
+      "revId": "a14246fc9d1b9282630938da3d7b8a8fe47f5df6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c29ad577_03222e9a",
         "filename": "util/generate-asm-lcov.py",
         "patchSetId": 1
@@ -64,6 +118,24 @@
       "writtenOn": "2016-03-01T22:08:41Z",
       "side": 1,
       "message": "Some of these functions probably could do with doc strings. :-)",
+      "revId": "a14246fc9d1b9282630938da3d7b8a8fe47f5df6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "42a26512_0ed5abff",
+        "filename": "util/generate-asm-lcov.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-02T16:00:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c29ad577_03222e9a",
       "revId": "a14246fc9d1b9282630938da3d7b8a8fe47f5df6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -93,6 +165,30 @@
     },
     {
       "key": {
+        "uuid": "42a26512_aee3b7f2",
+        "filename": "util/generate-asm-lcov.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-02T16:00:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c29ad577_e3244aa9",
+      "range": {
+        "startLine": 17,
+        "startChar": 10,
+        "endLine": 17,
+        "endChar": 12
+      },
+      "revId": "a14246fc9d1b9282630938da3d7b8a8fe47f5df6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c29ad577_83361ee3",
         "filename": "util/generate-asm-lcov.py",
         "patchSetId": 1
@@ -104,6 +200,24 @@
       "writtenOn": "2016-03-01T22:08:41Z",
       "side": 1,
       "message": "To avoid relying on ref-counting.\n\n  with open(fn) as f:\n    source \u003d f.read().split(\u0027\\n\u0027)",
+      "revId": "a14246fc9d1b9282630938da3d7b8a8fe47f5df6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "42a26512_4eca1365",
+        "filename": "util/generate-asm-lcov.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-02T16:00:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c29ad577_83361ee3",
       "revId": "a14246fc9d1b9282630938da3d7b8a8fe47f5df6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -127,6 +241,24 @@
     },
     {
       "key": {
+        "uuid": "42a26512_8e119baa",
+        "filename": "util/generate-asm-lcov.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-02T16:00:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c29ad577_431c3659",
+      "revId": "a14246fc9d1b9282630938da3d7b8a8fe47f5df6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c29ad577_63e69a95",
         "filename": "util/generate-asm-lcov.py",
         "patchSetId": 1
@@ -138,6 +270,30 @@
       "writtenOn": "2016-03-01T22:08:41Z",
       "side": 1,
       "message": "path? (Or filename?)",
+      "range": {
+        "startLine": 48,
+        "startChar": 6,
+        "endLine": 48,
+        "endChar": 8
+      },
+      "revId": "a14246fc9d1b9282630938da3d7b8a8fe47f5df6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "42a26512_ee065f6c",
+        "filename": "util/generate-asm-lcov.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-02T16:00:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c29ad577_63e69a95",
       "range": {
         "startLine": 48,
         "startChar": 6,
@@ -173,6 +329,30 @@
     },
     {
       "key": {
+        "uuid": "42a26512_ee3bff20",
+        "filename": "util/generate-asm-lcov.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-02T16:00:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c29ad577_c33026e8",
+      "range": {
+        "startLine": 60,
+        "startChar": 8,
+        "endLine": 60,
+        "endChar": 9
+      },
+      "revId": "a14246fc9d1b9282630938da3d7b8a8fe47f5df6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c29ad577_43435638",
         "filename": "util/generate-asm-lcov.py",
         "patchSetId": 1
@@ -184,6 +364,24 @@
       "writtenOn": "2016-03-01T22:08:41Z",
       "side": 1,
       "message": "Nit: long lines.",
+      "revId": "a14246fc9d1b9282630938da3d7b8a8fe47f5df6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "42a26512_ce40c382",
+        "filename": "util/generate-asm-lcov.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-02T16:00:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c29ad577_43435638",
       "revId": "a14246fc9d1b9282630938da3d7b8a8fe47f5df6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -213,6 +411,30 @@
     },
     {
       "key": {
+        "uuid": "42a26512_8e36bb3a",
+        "filename": "util/generate-asm-lcov.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-02T16:00:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c29ad577_63313aec",
+      "range": {
+        "startLine": 82,
+        "startChar": 11,
+        "endLine": 82,
+        "endChar": 18
+      },
+      "revId": "a14246fc9d1b9282630938da3d7b8a8fe47f5df6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c29ad577_e33b6ace",
         "filename": "util/generate-coverage.sh",
         "patchSetId": 1
@@ -224,6 +446,30 @@
       "writtenOn": "2016-03-01T22:08:41Z",
       "side": 1,
       "message": "The alternative is annoyingly hacky too, but this\u0027ll copy over any random build directories. (Notably, I have a TON.) Perhaps only copy over crypto, include, and ssl? I guess tool and decrepit also have code, but we don\u0027t actually test those.",
+      "range": {
+        "startLine": 14,
+        "startChar": 11,
+        "endLine": 14,
+        "endChar": 12
+      },
+      "revId": "a14246fc9d1b9282630938da3d7b8a8fe47f5df6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "42a26512_ae1a97b2",
+        "filename": "util/generate-coverage.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-02T16:00:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c29ad577_e33b6ace",
       "range": {
         "startLine": 14,
         "startChar": 11,
