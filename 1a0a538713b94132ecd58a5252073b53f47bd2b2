@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "42a26512_9767eef5",
+        "filename": "util/generate-asm-lcov.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-03T22:30:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42a26512_577bc6c5",
+      "revId": "1a0a538713b94132ecd58a5252073b53f47bd2b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "42a26512_b7682af7",
         "filename": "util/generate-asm-lcov.py",
         "patchSetId": 4
@@ -30,6 +48,30 @@
       "writtenOn": "2016-03-03T21:31:05Z",
       "side": 1,
       "message": "callgrind_files",
+      "range": {
+        "startLine": 36,
+        "startChar": 64,
+        "endLine": 36,
+        "endChar": 67
+      },
+      "revId": "1a0a538713b94132ecd58a5252073b53f47bd2b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "42a26512_d76176e1",
+        "filename": "util/generate-asm-lcov.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-03T22:30:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42a26512_b7682af7",
       "range": {
         "startLine": 36,
         "startChar": 64,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "42a26512_37771aa7",
+        "filename": "util/generate-asm-lcov.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-03T22:30:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42a26512_7757e22f",
+      "range": {
+        "startLine": 41,
+        "startChar": 31,
+        "endLine": 41,
+        "endChar": 39
+      },
+      "revId": "1a0a538713b94132ecd58a5252073b53f47bd2b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "42a26512_976d2e07",
         "filename": "util/generate-asm-lcov.py",
         "patchSetId": 4
@@ -76,6 +142,30 @@
       "writtenOn": "2016-03-03T21:31:05Z",
       "side": 1,
       "message": "current",
+      "range": {
+        "startLine": 46,
+        "startChar": 67,
+        "endLine": 46,
+        "endChar": 71
+      },
+      "revId": "1a0a538713b94132ecd58a5252073b53f47bd2b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "42a26512_7771a2ae",
+        "filename": "util/generate-asm-lcov.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-03T22:30:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42a26512_976d2e07",
       "range": {
         "startLine": 46,
         "startChar": 67,
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "42a26512_576e26cc",
+        "filename": "util/generate-asm-lcov.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-03T22:30:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42a26512_57f9066c",
+      "range": {
+        "startLine": 51,
+        "startChar": 5,
+        "endLine": 51,
+        "endChar": 8
+      },
+      "revId": "1a0a538713b94132ecd58a5252073b53f47bd2b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "42a26512_97e24ebd",
         "filename": "util/generate-asm-lcov.py",
         "patchSetId": 4
@@ -122,6 +236,24 @@
       "writtenOn": "2016-03-03T21:31:05Z",
       "side": 1,
       "message": "Maybe have some sample lines here in a comment?",
+      "revId": "1a0a538713b94132ecd58a5252073b53f47bd2b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "42a26512_5743c638",
+        "filename": "util/generate-asm-lcov.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-03T22:30:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42a26512_97e24ebd",
       "revId": "1a0a538713b94132ecd58a5252073b53f47bd2b2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -151,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "42a26512_b7478a4a",
+        "filename": "util/generate-asm-lcov.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-03T22:30:24Z",
+      "side": 1,
+      "message": "equality vs identity (value checking versus whether they are the same thing)",
+      "parentUuid": "42a26512_77fc025e",
+      "range": {
+        "startLine": 59,
+        "startChar": 14,
+        "endLine": 59,
+        "endChar": 16
+      },
+      "revId": "1a0a538713b94132ecd58a5252073b53f47bd2b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "42a26512_57546629",
         "filename": "util/generate-asm-lcov.py",
         "patchSetId": 4
@@ -162,6 +318,24 @@
       "writtenOn": "2016-03-03T21:31:05Z",
       "side": 1,
       "message": "Oh, I see why you made it a while loop before. :-) I suppose you arguably want to skip the \u0027User-annotated source\u0027 check for data[i + 1] and skip the increment? *shrug* It\u0027s also not like this is trying or needs to be the most robust tool ever.\n\n(Either way, probably worth a sentence above line 77 to explain the format.)",
+      "revId": "1a0a538713b94132ecd58a5252073b53f47bd2b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "42a26512_b7302aea",
+        "filename": "util/generate-asm-lcov.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-03T22:30:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42a26512_57546629",
       "revId": "1a0a538713b94132ecd58a5252073b53f47bd2b2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -185,6 +359,24 @@
     },
     {
       "key": {
+        "uuid": "42a26512_97352eda",
+        "filename": "util/generate-asm-lcov.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-03T22:30:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42a26512_970b6e45",
+      "revId": "1a0a538713b94132ecd58a5252073b53f47bd2b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "42a26512_777ec2b7",
         "filename": "util/generate-coverage.sh",
         "patchSetId": 4
@@ -196,6 +388,24 @@
       "writtenOn": "2016-03-03T21:31:05Z",
       "side": 1,
       "message": "Copyright header.",
+      "revId": "1a0a538713b94132ecd58a5252073b53f47bd2b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "42a26512_b762eae5",
+        "filename": "util/generate-coverage.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-03T22:30:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42a26512_777ec2b7",
       "revId": "1a0a538713b94132ecd58a5252073b53f47bd2b2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -219,6 +429,24 @@
     },
     {
       "key": {
+        "uuid": "42a26512_579586f4",
+        "filename": "util/generate-coverage.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-03T22:30:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42a26512_f7891215",
+      "revId": "1a0a538713b94132ecd58a5252073b53f47bd2b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "42a26512_17713ee8",
         "filename": "util/generate-coverage.sh",
         "patchSetId": 4
@@ -236,6 +464,24 @@
     },
     {
       "key": {
+        "uuid": "42a26512_d78856e1",
+        "filename": "util/generate-coverage.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-03T22:30:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42a26512_17713ee8",
+      "revId": "1a0a538713b94132ecd58a5252073b53f47bd2b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "42a26512_37743ad8",
         "filename": "util/generate-coverage.sh",
         "patchSetId": 4
@@ -247,6 +493,24 @@
       "writtenOn": "2016-03-03T21:31:05Z",
       "side": 1,
       "message": "Since we\u0027ll eventually want to productionize this further I expect (though even this is quite useful right now), perhaps we should put the output in some user-specified directory?",
+      "revId": "1a0a538713b94132ecd58a5252073b53f47bd2b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "42a26512_7798822e",
+        "filename": "util/generate-coverage.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-03T22:30:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42a26512_37743ad8",
       "revId": "1a0a538713b94132ecd58a5252073b53f47bd2b2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
