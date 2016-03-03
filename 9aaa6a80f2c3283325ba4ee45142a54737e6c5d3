@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "42a26512_54c0e4f3",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 710,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-03T14:18:31Z",
+      "side": 0,
+      "message": "I removed this giant comment since it\u0027s basically lies at this point.",
+      "revId": "9aaa6a80f2c3283325ba4ee45142a54737e6c5d3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "42a26512_b47948a6",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-03T14:18:31Z",
+      "side": 0,
+      "message": "[Removed this because it\u0027s impossible and CBS_strdup will free the old value anyway, so it\u0027s not a leak or anything.]",
+      "revId": "9aaa6a80f2c3283325ba4ee45142a54737e6c5d3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
