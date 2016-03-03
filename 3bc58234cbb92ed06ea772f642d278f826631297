@@ -34,6 +34,24 @@
       "revId": "3bc58234cbb92ed06ea772f642d278f826631297",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e2b0b90b_e06b415d",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-03-03T01:38:12Z",
+      "side": 1,
+      "message": "I think it\u0027s fine for now. However I think rather than checking in all the outputs (which I see is a change coming up) we should let the fuzzers digest the transcripts then we\u0027ll minimise the corpus and that\u0027ll have the effect of discarding anything that wasn\u0027t actually used.",
+      "parentUuid": "42a26512_31a0ca6a",
+      "revId": "3bc58234cbb92ed06ea772f642d278f826631297",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
