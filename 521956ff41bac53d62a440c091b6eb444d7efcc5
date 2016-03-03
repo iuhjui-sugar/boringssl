@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e2b0b90b_1b521c0c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-03-03T16:20:03Z",
+      "side": 1,
+      "message": "Because it does len \u003e\u003e\u003d 4 and then uses that, so it clearly throws away the bottom four bits. But it looks like we\u0027ve decided that we believe that it\u0027s safe anyway so I\u0027ll discard this.",
+      "parentUuid": "e2b0b90b_af4bea27",
+      "range": {
+        "startLine": 9,
+        "startChar": 63,
+        "endLine": 9,
+        "endChar": 65
+      },
+      "revId": "521956ff41bac53d62a440c091b6eb444d7efcc5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c29ad577_23a01218",
         "filename": "crypto/modes/gcm.c",
         "patchSetId": 1
