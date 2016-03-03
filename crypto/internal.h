@@ -111,6 +111,7 @@
 
 #include <openssl/ex_data.h>
 #include <openssl/thread.h>
+#include <openssl/type_check.h>
 
 #if defined(_MSC_VER)
 #if !defined(__cplusplus) || _MSC_VER < 1900
@@ -186,6 +187,35 @@ void OPENSSL_cpuid_setup(void);
 #if !defined(inline)
 #define inline __inline
 #endif
+
+
+/* When |long| and |long long| are both 64 bits, pointers to each of those
+ * types can't be used 100% interchangeably. Thus, for example, we cannot pass
+ * a |int64_t *| where a |long long *| is expected if |int64_t| is defined as
+ * |long|, even if there would be absolutely no difference semantically. Such
+ * situations arise when compiling with GCC for 64-bit targets. |int64_alt| and
+ * |uint64_alt| can be used the situations where some external code used
+ * |long long| or |unsigned long long| to denote a 64-bit integer instead of
+ * using a |uint64_t|-compatibile type.
+ *
+ * https://stackoverflow.com/questions/32198368/unsigned-long-long-conflict-with-uint64-t
+ */
+#if defined(__GNUC__) && defined(OPENSSL_64_BIT)
+typedef long long int64_alt;
+typedef unsigned long long uint64_alt;
+#else
+typedef int64_t int64_alt;
+typedef uint64_t uint64_alt;
+#endif
+
+OPENSSL_COMPILE_ASSERT(sizeof(int64_alt) == sizeof(int64_t),
+                       wrong_size_of_int64_alt);
+OPENSSL_COMPILE_ASSERT(alignof(int64_alt) == alignof(int64_t),
+                       wrong_alignment_of_int64_alt);
+OPENSSL_COMPILE_ASSERT(sizeof(uint64_alt) == sizeof(uint64_t),
+                       wrong_size_of_uint64_alt);
+OPENSSL_COMPILE_ASSERT(alignof(uint64_alt) == alignof(uint64_t),
+                       wrong_alignment_of_uint64_alt);
 
 
 #if !defined(_MSC_VER) && defined(OPENSSL_64_BIT)
