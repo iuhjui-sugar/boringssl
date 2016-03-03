@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "42a26512_34c438b2",
+        "filename": "FUZZING.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-03T18:05:31Z",
+      "side": 1,
+      "message": "Oh! I completely missed that script was in there.",
+      "range": {
+        "startLine": 46,
+        "startChar": 73,
+        "endLine": 46,
+        "endChar": 90
+      },
+      "revId": "74a1e1b5efad351dffbfb7bab0a379547a381ad6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
