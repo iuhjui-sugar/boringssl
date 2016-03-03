@@ -52,6 +52,24 @@
       "revId": "3bc58234cbb92ed06ea772f642d278f826631297",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "42a26512_11aaeee1",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-03-03T02:41:05Z",
+      "side": 1,
+      "message": "Sounds good. How do I go about doing that?",
+      "parentUuid": "e2b0b90b_e06b415d",
+      "revId": "3bc58234cbb92ed06ea772f642d278f826631297",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
