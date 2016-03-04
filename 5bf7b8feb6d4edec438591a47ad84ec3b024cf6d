@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c27c9559_2296cec5",
+        "filename": "crypto/rand/rand.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-04T17:17:12Z",
+      "side": 1,
+      "message": "Although unlikely, this would give the compiler free reign to emit rdrand without a cpuid check, no? It also makes our build story more complex.",
+      "range": {
+        "startLine": 92,
+        "startChar": 30,
+        "endLine": 92,
+        "endChar": 36
+      },
+      "revId": "5bf7b8feb6d4edec438591a47ad84ec3b024cf6d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c27c9559_427cb246",
+        "filename": "crypto/rand/rand.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-04T17:17:12Z",
+      "side": 1,
+      "message": "I generally prefer functions to not have surprising gaps in what inputs they cover.",
+      "revId": "5bf7b8feb6d4edec438591a47ad84ec3b024cf6d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
