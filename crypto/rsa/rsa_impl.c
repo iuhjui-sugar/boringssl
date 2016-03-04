@@ -426,9 +426,8 @@ err:
   return ret;
 }
 
-int rsa_default_verify_raw(RSA *rsa, size_t *out_len, uint8_t *out,
-                           size_t max_out, const uint8_t *in, size_t in_len,
-                           int padding) {
+int RSA_verify_raw(RSA *rsa, size_t *out_len, uint8_t *out, size_t max_out,
+                   const uint8_t *in, size_t in_len, int padding) {
   const unsigned rsa_size = RSA_size(rsa);
   BIGNUM *f, *result;
   int ret = 0;
