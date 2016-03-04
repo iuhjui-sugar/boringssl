@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c27c9559_829ddade",
+        "filename": "crypto/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-04T17:11:04Z",
+      "side": 1,
+      "message": "I do not believe we currently have a need to support those.",
+      "range": {
+        "startLine": 224,
+        "startChar": 19,
+        "endLine": 224,
+        "endChar": 22
+      },
+      "revId": "df3307d975d76c3232a3e7d59e12febed07b87fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
