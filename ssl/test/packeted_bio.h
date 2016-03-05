@@ -15,12 +15,12 @@
 #ifndef HEADER_PACKETED_BIO
 #define HEADER_PACKETED_BIO
 
-#include <openssl/base.h>
+#include <openssl/e_os2.h>
 #include <openssl/bio.h>
 
 #include "../../crypto/test/scoped_types.h"
 
-#if defined(OPENSSL_WINDOWS)
+#if defined(OPENSSL_SYS_WINDOWS)
 #pragma warning(push, 3)
 #include <winsock2.h>
 #pragma warning(pop)

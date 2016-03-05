@@ -17,12 +17,12 @@
 #include <errno.h>
 #include <string.h>
 
-#include <openssl/mem.h>
+#include <openssl/crypto.h>
 
 
 namespace {
 
-extern const BIO_METHOD g_async_bio_method;
+extern BIO_METHOD g_async_bio_method;
 
 struct AsyncBio {
   bool datagram;
@@ -135,7 +135,7 @@ static long AsyncCallbackCtrl(BIO *bio, int cmd, bio_info_cb fp) {
   return BIO_callback_ctrl(bio->next_bio, cmd, fp);
 }
 
-const BIO_METHOD g_async_bio_method = {
+BIO_METHOD g_async_bio_method = {
   BIO_TYPE_FILTER,
   "async bio",
   AsyncWrite,

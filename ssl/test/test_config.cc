@@ -20,7 +20,7 @@
 
 #include <memory>
 
-#include <openssl/base64.h>
+#include <openssl/evp.h>
 
 namespace {
 
@@ -175,15 +175,11 @@ bool ParseConfig(int argc, char **argv, TestConfig *out_config) {
         fprintf(stderr, "Missing parameter\n");
         return false;
       }
-      size_t len;
-      if (!EVP_DecodedLength(&len, strlen(argv[i]))) {
-        fprintf(stderr, "Invalid base64: %s\n", argv[i]);
-        return false;
-      }
-      std::unique_ptr<uint8_t[]> decoded(new uint8_t[len]);
-      if (!EVP_DecodeBase64(decoded.get(), &len, len,
-                            reinterpret_cast<const uint8_t *>(argv[i]),
-                            strlen(argv[i]))) {
+      std::unique_ptr<uint8_t[]> decoded(new uint8_t[strlen(argv[i])]);
+      int len = EVP_DecodeBlock(decoded.get(),
+                                reinterpret_cast<const uint8_t *>(argv[i]),
+                                strlen(argv[i]));
+      if (len < 0) {
         fprintf(stderr, "Invalid base64: %s\n", argv[i]);
         return false;
       }
