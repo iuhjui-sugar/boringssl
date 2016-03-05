@@ -22,6 +22,30 @@
       "revId": "df3307d975d76c3232a3e7d59e12febed07b87fc",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "825ffdf8_9bbe2fdb",
+        "filename": "crypto/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5075
+      },
+      "writtenOn": "2016-03-05T06:18:22Z",
+      "side": 1,
+      "message": "Come to think of it, x32 is basically what x86-64 NaCl is and I think it mostly builds fine (albeit with NO_ASM because NaCl has other restrictions). Why can\u0027t x32 just set OPENSSL_64_BIT where size_t and pointers are secretly 32-bit? I feel like using the existing defines to condition on size_t and pointer size is rare. I can\u0027t think of any case off-hand.",
+      "parentUuid": "c27c9559_829ddade",
+      "range": {
+        "startLine": 224,
+        "startChar": 19,
+        "endLine": 224,
+        "endChar": 22
+      },
+      "revId": "df3307d975d76c3232a3e7d59e12febed07b87fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
