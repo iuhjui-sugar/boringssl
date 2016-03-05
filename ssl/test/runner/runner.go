@@ -796,6 +796,11 @@ func runTest(test *testCase, shimPath string, mallocNumToFail int64) error {
 
 	failed := err != nil || childErr != nil
 	correctFailure := len(test.expectedError) == 0 || strings.Contains(stderr, test.expectedError)
+	// Don't bother trying to match OpenSSL and BoringSSL's exact error
+	// strings.
+	if strings.Contains(test.expectedError, ":") {
+		correctFailure = strings.Contains(stderr, ":error:")
+	}
 	localError := "none"
 	if err != nil {
 		localError = err.Error()
@@ -804,7 +809,7 @@ func runTest(test *testCase, shimPath string, mallocNumToFail int64) error {
 		correctFailure = correctFailure && strings.Contains(localError, test.expectedLocalError)
 	}
 
-	if failed != test.shouldFail || failed && !correctFailure {
+	if !strings.Contains(stderr, "not supported") && (failed != test.shouldFail || failed && !correctFailure) {
 		childError := "none"
 		if childErr != nil {
 			childError = childErr.Error()
@@ -2494,7 +2499,7 @@ func addBadECDSASignatureTests() {
 					},
 				},
 				shouldFail:    true,
-				expectedError: "SIGNATURE",
+				expectedError: ":BAD_SIGNATURE:",
 			})
 		}
 	}

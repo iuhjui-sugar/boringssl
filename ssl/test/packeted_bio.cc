@@ -19,16 +19,15 @@
 #include <stdio.h>
 #include <string.h>
 
-#include <openssl/mem.h>
+#include <openssl/crypto.h>
 
 
 namespace {
 
-extern const BIO_METHOD g_packeted_bio_method;
+extern BIO_METHOD g_packeted_bio_method;
 
 const uint8_t kOpcodePacket = 'P';
 const uint8_t kOpcodeTimeout = 'T';
-const uint8_t kOpcodeTimeoutAck = 't';
 
 // ReadAll reads |len| bytes from |bio| into |out|. It returns 1 on success and
 // 0 or -1 on error.
@@ -94,38 +93,7 @@ static int PacketedRead(BIO *bio, char *out, int outl) {
   }
 
   if (opcode == kOpcodeTimeout) {
-    // Process the timeout.
-    uint8_t buf[8];
-    ret = ReadAll(bio->next_bio, buf, sizeof(buf));
-    if (ret <= 0) {
-      BIO_copy_next_retry(bio);
-      return ret;
-    }
-    uint64_t timeout = (static_cast<uint64_t>(buf[0]) << 56) |
-        (static_cast<uint64_t>(buf[1]) << 48) |
-        (static_cast<uint64_t>(buf[2]) << 40) |
-        (static_cast<uint64_t>(buf[3]) << 32) |
-        (static_cast<uint64_t>(buf[4]) << 24) |
-        (static_cast<uint64_t>(buf[5]) << 16) |
-        (static_cast<uint64_t>(buf[6]) << 8) |
-        static_cast<uint64_t>(buf[7]);
-    timeout /= 1000;  // Convert nanoseconds to microseconds.
-    timeval *out_timeout = reinterpret_cast<timeval *>(bio->ptr);
-    assert(out_timeout->tv_usec == 0);
-    assert(out_timeout->tv_sec == 0);
-    out_timeout->tv_usec = timeout % 1000000;
-    out_timeout->tv_sec = timeout / 1000000;
-
-    // Send an ACK to the peer.
-    ret = BIO_write(bio->next_bio, &kOpcodeTimeoutAck, 1);
-    if (ret <= 0) {
-      return ret;
-    }
-    assert(ret == 1);
-
-    // Signal to the caller to retry the read, after processing the
-    // new clock.
-    BIO_set_retry_read(bio);
+    fprintf(stderr, "Timeout simulation not supported.\n");
     return -1;
   }
 
@@ -193,7 +161,7 @@ static long PacketedCallbackCtrl(BIO *bio, int cmd, bio_info_cb fp) {
   return BIO_callback_ctrl(bio->next_bio, cmd, fp);
 }
 
-const BIO_METHOD g_packeted_bio_method = {
+BIO_METHOD g_packeted_bio_method = {
   BIO_TYPE_FILTER,
   "packeted bio",
   PacketedWrite,
