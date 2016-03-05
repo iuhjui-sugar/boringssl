@@ -1407,6 +1407,10 @@ func (c *Conn) ExportKeyingMaterial(length int, label, context []byte, useContex
 		return nil, errors.New("tls: handshake has not yet been performed")
 	}
 
+	if c.vers == VersionSSL30 {
+		return nil, errors.New("tls: export keying material not supported in SSL 3.0.")
+	}
+
 	seedLen := len(c.clientRandom) + len(c.serverRandom)
 	if useContext {
 		seedLen += 2 + len(context)
