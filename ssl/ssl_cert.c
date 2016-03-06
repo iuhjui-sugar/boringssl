@@ -185,6 +185,10 @@ CERT *ssl_cert_dup(CERT *cert) {
     }
   }
 
+  if (cert->key_method != NULL) {
+    ret->key_method = cert->key_method;
+  }
+
   ret->cert_cb = cert->cert_cb;
   ret->cert_cb_arg = cert->cert_cb_arg;
 
