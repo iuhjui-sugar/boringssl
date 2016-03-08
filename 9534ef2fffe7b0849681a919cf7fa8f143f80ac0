@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "825ffdf8_41682861",
+        "filename": "decrepit/x509/x509_decrepit.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-08T01:50:06Z",
+      "side": 1,
+      "message": "This is ridiculous, but upstream\u0027s implementation isn\u0027t any better (uninitialized stack-allocated version of heap-allocated type). :-(",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 13
+      },
+      "revId": "9534ef2fffe7b0849681a919cf7fa8f143f80ac0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
