@@ -16,6 +16,24 @@
       "revId": "628dcc4730156f64e538fe5f02afdee7ab3d674f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b70fe5b0_10322cd0",
+        "filename": "crypto/md4/md4.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-03-09T16:30:19Z",
+      "side": 1,
+      "message": "It does not and I\u0027m happy finding any cases that do by having them crash.",
+      "parentUuid": "d7f7f9df_43cd867e",
+      "revId": "628dcc4730156f64e538fe5f02afdee7ab3d674f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
