@@ -51,6 +51,7 @@ add_executable(
   spake25519_test
 
   spake25519_test.cc
+  $<TARGET_OBJECTS:test_support>
 )
 
 target_link_libraries(spake25519_test crypto)
