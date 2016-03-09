@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7f7f9df_a38afa99",
+        "filename": "crypto/ec/p224-64.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1083,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-09T19:46:20Z",
+      "side": 0,
+      "message": "This can also be deleted. (Will do so in an edit.)",
+      "range": {
+        "startLine": 1083,
+        "startChar": 9,
+        "endLine": 1083,
+        "endChar": 19
+      },
+      "revId": "ba70118d8ea7bb0232554bbd70606703bde5bde3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
