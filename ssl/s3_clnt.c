@@ -191,8 +191,6 @@ int ssl3_connect(SSL *ssl) {
     cb = ssl->ctx->info_callback;
   }
 
-  ssl->in_handshake++;
-
   for (;;) {
     state = ssl->state;
 
@@ -576,7 +574,6 @@ int ssl3_connect(SSL *ssl) {
   }
 
 end:
-  ssl->in_handshake--;
   BUF_MEM_free(buf);
   if (cb != NULL) {
     cb(ssl, SSL_CB_CONNECT_EXIT, ret);

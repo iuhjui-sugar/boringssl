@@ -150,8 +150,6 @@ int dtls1_accept(SSL *ssl) {
     cb = ssl->ctx->info_callback;
   }
 
-  ssl->in_handshake++;
-
   for (;;) {
     state = ssl->state;
 
@@ -467,7 +465,6 @@ int dtls1_accept(SSL *ssl) {
   }
 
 end:
-  ssl->in_handshake--;
   BUF_MEM_free(buf);
   if (cb != NULL) {
     cb(ssl, SSL_CB_ACCEPT_EXIT, ret);
