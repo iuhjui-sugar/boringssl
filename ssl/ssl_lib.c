@@ -597,7 +597,7 @@ int SSL_accept(SSL *ssl) {
 }
 
 static int ssl_read_impl(SSL *ssl, void *buf, int num, int peek) {
-  if (ssl->handshake_func == 0) {
+  if (ssl->handshake_func == NULL) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_UNINITIALIZED);
     return -1;
   }
@@ -621,7 +621,7 @@ int SSL_peek(SSL *ssl, void *buf, int num) {
 }
 
 int SSL_write(SSL *ssl, const void *buf, int num) {
-  if (ssl->handshake_func == 0) {
+  if (ssl->handshake_func == NULL) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_UNINITIALIZED);
     return -1;
   }
@@ -655,7 +655,7 @@ int SSL_shutdown(SSL *ssl) {
    * once is usually not enough, even if blocking I/O is used (see
    * ssl3_shutdown). */
 
-  if (ssl->handshake_func == 0) {
+  if (ssl->handshake_func == NULL) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_UNINITIALIZED);
     return -1;
   }
