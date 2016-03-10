@@ -622,6 +622,8 @@ start:
   }
 
   if (ssl->shutdown & SSL_SENT_SHUTDOWN) {
+    /* This may only occur from read_close_notify. */
+    assert(type == 0);
     /* close_notify has been sent, so discard all records other than alerts. */
     rr->length = 0;
     goto start;

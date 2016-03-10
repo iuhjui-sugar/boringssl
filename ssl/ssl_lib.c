@@ -558,6 +558,12 @@ int SSL_do_handshake(SSL *ssl) {
     return -1;
   }
 
+  if (ssl->shutdown & SSL_SENT_SHUTDOWN) {
+    ssl->rwstate = SSL_NOTHING;
+    OPENSSL_PUT_ERROR(SSL, SSL_R_PROTOCOL_IS_SHUTDOWN);
+    return -1;
+  }
+
   if (!SSL_in_init(ssl)) {
     return 1;
   }
@@ -566,7 +572,7 @@ int SSL_do_handshake(SSL *ssl) {
 }
 
 int SSL_connect(SSL *ssl) {
-  if (ssl->handshake_func == 0) {
+  if (ssl->handshake_func == NULL) {
     /* Not properly initialized yet */
     SSL_set_connect_state(ssl);
   }
@@ -577,7 +583,7 @@ int SSL_connect(SSL *ssl) {
 }
 
 int SSL_accept(SSL *ssl) {
-  if (ssl->handshake_func == 0) {
+  if (ssl->handshake_func == NULL) {
     /* Not properly initialized yet */
     SSL_set_accept_state(ssl);
   }
@@ -593,6 +599,12 @@ static int ssl_read_impl(SSL *ssl, void *buf, int num, int peek) {
 
   if (ssl->handshake_func == 0) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_UNINITIALIZED);
+    return -1;
+  }
+
+  if (ssl->shutdown & SSL_SENT_SHUTDOWN) {
+    ssl->rwstate = SSL_NOTHING;
+    OPENSSL_PUT_ERROR(SSL, SSL_R_PROTOCOL_IS_SHUTDOWN);
     return -1;
   }
 
