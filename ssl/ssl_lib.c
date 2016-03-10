@@ -608,11 +608,6 @@ static int ssl_read_impl(SSL *ssl, void *buf, int num, int peek) {
     return -1;
   }
 
-  if (ssl->shutdown & SSL_RECEIVED_SHUTDOWN) {
-    ssl->rwstate = SSL_NOTHING;
-    return 0;
-  }
-
   ERR_clear_system_error();
   return ssl->method->ssl_read_app_data(ssl, buf, num, peek);
 }
