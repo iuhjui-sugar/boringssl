@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7f7f9df_26d17870",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1916,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-10T19:46:16Z",
+      "side": 1,
+      "message": "Intended not to send any alerts on failure?\n\nActually, probably not. Might want to add a comment saying that this gets handled by the caller.",
+      "range": {
+        "startLine": 1916,
+        "startChar": 13,
+        "endLine": 1916,
+        "endChar": 14
+      },
+      "revId": "ca0569df5fa86c47670ce5c1d5cc0c92e68adf2b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d7f7f9df_e6b92044",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2073,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-10T19:46:16Z",
+      "side": 1,
+      "message": "Shouldn\u0027t these be !\u003d?",
+      "range": {
+        "startLine": 2073,
+        "startChar": 16,
+        "endLine": 2073,
+        "endChar": 18
+      },
+      "revId": "ca0569df5fa86c47670ce5c1d5cc0c92e68adf2b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
