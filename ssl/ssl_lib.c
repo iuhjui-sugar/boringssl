@@ -596,7 +596,7 @@ int SSL_accept(SSL *ssl) {
   return SSL_do_handshake(ssl);
 }
 
-int SSL_read(SSL *ssl, void *buf, int num) {
+static int ssl_read_impl(SSL *ssl, void *buf, int num, int peek) {
   if (ssl->handshake_func == 0) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_UNINITIALIZED);
     return -1;
@@ -609,23 +609,15 @@ int SSL_read(SSL *ssl, void *buf, int num) {
   }
 
   ERR_clear_system_error();
-  return ssl->method->ssl_read_app_data(ssl, buf, num, 0);
+  return ssl->method->ssl_read_app_data(ssl, buf, num, peek);
+}
+
+int SSL_read(SSL *ssl, void *buf, int num) {
+  return ssl_read_impl(ssl, buf, num, 0 /* no peek */);
 }
 
 int SSL_peek(SSL *ssl, void *buf, int num) {
-  if (ssl->handshake_func == 0) {
-    OPENSSL_PUT_ERROR(SSL, SSL_R_UNINITIALIZED);
-    return -1;
-  }
-
-  if (ssl->shutdown & SSL_SENT_SHUTDOWN) {
-    ssl->rwstate = SSL_NOTHING;
-    OPENSSL_PUT_ERROR(SSL, SSL_R_PROTOCOL_IS_SHUTDOWN);
-    return -1;
-  }
-
-  ERR_clear_system_error();
-  return ssl->method->ssl_read_app_data(ssl, buf, num, 1);
+  return ssl_read_impl(ssl, buf, num, 1 /* peek */);
 }
 
 int SSL_write(SSL *ssl, const void *buf, int num) {
