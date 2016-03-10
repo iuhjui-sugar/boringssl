@@ -192,21 +192,13 @@ int ssl3_write_bytes(SSL *ssl, int type, const void *buf_, int len) {
   const uint8_t *buf = buf_;
   unsigned tot, n, nw;
 
+  assert(type != SSL3_RT_APPLICATION_DATA || !SSL_in_init(ssl) ||
+         SSL_in_false_start(ssl));
+
   ssl->rwstate = SSL_NOTHING;
   assert(ssl->s3->wnum <= INT_MAX);
   tot = ssl->s3->wnum;
   ssl->s3->wnum = 0;
-
-  if (!ssl->in_handshake && SSL_in_init(ssl) && !SSL_in_false_start(ssl)) {
-    int ret = ssl->handshake_func(ssl);
-    if (ret < 0) {
-      return ret;
-    }
-    if (ret == 0) {
-      OPENSSL_PUT_ERROR(SSL, SSL_R_SSL_HANDSHAKE_FAILURE);
-      return -1;
-    }
-  }
 
   /* Ensure that if we end up with a smaller value of data to write out than
    * the the original len from a write which didn't complete for non-blocking
