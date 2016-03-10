@@ -609,6 +609,21 @@ static int ssl_read_impl(SSL *ssl, void *buf, int num, int peek) {
   }
 
   ERR_clear_system_error();
+
+  /* This may require multiple iterations. False Start will cause
+   * |ssl->handshake_func| to signal success one step early, but the handshake
+   * must be completely finished before other modes are accepted. */
+  while (SSL_in_init(ssl)) {
+    int ret = SSL_do_handshake(ssl);
+    if (ret < 0) {
+      return ret;
+    }
+    if (ret == 0) {
+      OPENSSL_PUT_ERROR(SSL, SSL_R_SSL_HANDSHAKE_FAILURE);
+      return -1;
+    }
+  }
+
   return ssl->method->ssl_read_app_data(ssl, buf, num, peek);
 }
 
