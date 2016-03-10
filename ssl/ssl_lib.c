@@ -608,11 +608,6 @@ int SSL_read(SSL *ssl, void *buf, int num) {
     return -1;
   }
 
-  if (ssl->shutdown & SSL_RECEIVED_SHUTDOWN) {
-    ssl->rwstate = SSL_NOTHING;
-    return 0;
-  }
-
   ERR_clear_system_error();
   return ssl->method->ssl_read_app_data(ssl, buf, num, 0);
 }
@@ -627,10 +622,6 @@ int SSL_peek(SSL *ssl, void *buf, int num) {
     ssl->rwstate = SSL_NOTHING;
     OPENSSL_PUT_ERROR(SSL, SSL_R_PROTOCOL_IS_SHUTDOWN);
     return -1;
-  }
-
-  if (ssl->shutdown & SSL_RECEIVED_SHUTDOWN) {
-    return 0;
   }
 
   ERR_clear_system_error();
