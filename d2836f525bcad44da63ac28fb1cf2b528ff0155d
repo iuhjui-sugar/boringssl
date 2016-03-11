@@ -22,6 +22,30 @@
       "revId": "d2836f525bcad44da63ac28fb1cf2b528ff0155d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "37a21512_dd91973c",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 6630
+      },
+      "writtenOn": "2016-03-11T21:13:37Z",
+      "side": 1,
+      "message": "I might need to use it for just a bit longer (pulling in the BN_bn2cbb -\u003e BN_marshal_asn1 change).",
+      "parentUuid": "97dae1a7_49484106",
+      "range": {
+        "startLine": 111,
+        "startChar": 8,
+        "endLine": 111,
+        "endChar": 24
+      },
+      "revId": "d2836f525bcad44da63ac28fb1cf2b528ff0155d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
