@@ -349,6 +349,7 @@ static bool TestArbitraryCurve() {
       0xff, 0xff, 0xff, 0xff, 0xff, 0xbc, 0xe6, 0xfa, 0xad, 0xa7, 0x17,
       0x9e, 0x84, 0xf3, 0xb9, 0xca, 0xc2, 0xfc, 0x63, 0x25, 0x51,
   };
+  ScopedBN_CTX ctx(BN_CTX_new());
   ScopedBIGNUM p(BN_bin2bn(kP, sizeof(kP), nullptr));
   ScopedBIGNUM a(BN_bin2bn(kA, sizeof(kA), nullptr));
   ScopedBIGNUM b(BN_bin2bn(kB, sizeof(kB), nullptr));
@@ -356,14 +357,22 @@ static bool TestArbitraryCurve() {
   ScopedBIGNUM y(BN_bin2bn(kY, sizeof(kY), nullptr));
   ScopedBIGNUM order(BN_bin2bn(kOrder, sizeof(kOrder), nullptr));
   ScopedBIGNUM cofactor(BN_new());
-  if (!p || !a || !b || !x || !y || !order || !cofactor ||
+  if (!ctx || !p || !a || !b || !x || !y || !order || !cofactor ||
       !BN_set_word(cofactor.get(), 1)) {
     return false;
   }
-  ScopedEC_GROUP group(EC_GROUP_new_arbitrary(p.get(), a.get(), b.get(),
-                                              x.get(), y.get(), order.get(),
-                                              cofactor.get()));
+
+  ScopedEC_GROUP group(
+      EC_GROUP_new_curve_GFp(p.get(), a.get(), b.get(), ctx.get()));
   if (!group) {
+    return false;
+  }
+  ScopedEC_POINT generator(EC_POINT_new(group.get()));
+  if (!generator ||
+      !EC_POINT_set_affine_coordinates_GFp(group.get(), generator.get(),
+                                           x.get(), y.get(), ctx.get()) ||
+      !EC_GROUP_set_generator(group.get(), generator.get(), order.get(),
+                              cofactor.get())) {
     return false;
   }
 
