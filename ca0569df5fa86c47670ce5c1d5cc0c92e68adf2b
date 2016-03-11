@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d7f7f9df_6641b0e3",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1916,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-11T19:10:04Z",
+      "side": 1,
+      "message": "Sending an alert is probably correct. Fixed.",
+      "parentUuid": "d7f7f9df_26d17870",
+      "range": {
+        "startLine": 1916,
+        "startChar": 13,
+        "endLine": 1916,
+        "endChar": 14
+      },
+      "revId": "ca0569df5fa86c47670ce5c1d5cc0c92e68adf2b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d7f7f9df_e6b92044",
         "filename": "ssl/s3_clnt.c",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2016-03-10T19:46:16Z",
       "side": 1,
       "message": "Shouldn\u0027t these be !\u003d?",
+      "range": {
+        "startLine": 2073,
+        "startChar": 16,
+        "endLine": 2073,
+        "endChar": 18
+      },
+      "revId": "ca0569df5fa86c47670ce5c1d5cc0c92e68adf2b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d7f7f9df_863b8c80",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2073,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-11T19:10:04Z",
+      "side": 1,
+      "message": "I think this is correct. It\u0027s a sanity check that the callback doesn\u0027t return 1 and leave one of the outputs NULL. I dunno, I think this is silly but it\u0027s there so okay...",
+      "parentUuid": "d7f7f9df_e6b92044",
       "range": {
         "startLine": 2073,
         "startChar": 16,
