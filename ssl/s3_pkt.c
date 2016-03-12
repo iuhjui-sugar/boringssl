@@ -525,7 +525,7 @@ start:
    * a single record to contain multiple alerts. */
   if (rr->type == SSL3_RT_ALERT) {
     /* Alerts may not be fragmented. */
-    if (rr->length < 2) {
+    if (rr->length != 2) {
       al = SSL_AD_DECODE_ERROR;
       OPENSSL_PUT_ERROR(SSL, SSL_R_BAD_ALERT);
       goto f_err;
