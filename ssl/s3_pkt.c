@@ -203,7 +203,6 @@ int ssl3_write_bytes(SSL *ssl, int type, const void *buf_, int len) {
   assert(type != SSL3_RT_APPLICATION_DATA || !SSL_in_init(ssl) ||
          SSL_in_false_start(ssl));
 
-  ssl->rwstate = SSL_NOTHING;
   assert(ssl->s3->wnum <= INT_MAX);
   tot = ssl->s3->wnum;
   ssl->s3->wnum = 0;
@@ -388,8 +387,6 @@ int ssl3_read_bytes(SSL *ssl, int type, uint8_t *buf, int len, int peek) {
   }
 
 start:
-  ssl->rwstate = SSL_NOTHING;
-
   /* ssl->s3->rrec.type    - is the type of record
    * ssl->s3->rrec.data    - data
    * ssl->s3->rrec.off     - offset into 'data' for next read
@@ -567,7 +564,6 @@ start:
     } else if (alert_level == SSL3_AL_FATAL) {
       char tmp[16];
 
-      ssl->rwstate = SSL_NOTHING;
       OPENSSL_PUT_ERROR(SSL, SSL_AD_REASON_OFFSET + alert_descr);
       BIO_snprintf(tmp, sizeof(tmp), "%d", alert_descr);
       ERR_add_error_data(2, "SSL alert number ", tmp);

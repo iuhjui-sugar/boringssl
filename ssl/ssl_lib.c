@@ -550,6 +550,7 @@ BIO *SSL_get_rbio(const SSL *ssl) { return ssl->rbio; }
 BIO *SSL_get_wbio(const SSL *ssl) { return ssl->wbio; }
 
 int SSL_do_handshake(SSL *ssl) {
+  ssl->rwstate = SSL_NOTHING;
   /* Functions which use SSL_get_error must clear the error queue on entry. */
   ERR_clear_error();
 
@@ -559,7 +560,6 @@ int SSL_do_handshake(SSL *ssl) {
   }
 
   if (ssl->shutdown & SSL_SENT_SHUTDOWN) {
-    ssl->rwstate = SSL_NOTHING;
     OPENSSL_PUT_ERROR(SSL, SSL_R_PROTOCOL_IS_SHUTDOWN);
     return -1;
   }
@@ -594,6 +594,7 @@ int SSL_accept(SSL *ssl) {
 }
 
 static int ssl_read_impl(SSL *ssl, void *buf, int num, int peek) {
+  ssl->rwstate = SSL_NOTHING;
   /* Functions which use SSL_get_error must clear the error queue on entry. */
   ERR_clear_error();
 
@@ -603,7 +604,6 @@ static int ssl_read_impl(SSL *ssl, void *buf, int num, int peek) {
   }
 
   if (ssl->shutdown & SSL_SENT_SHUTDOWN) {
-    ssl->rwstate = SSL_NOTHING;
     OPENSSL_PUT_ERROR(SSL, SSL_R_PROTOCOL_IS_SHUTDOWN);
     return -1;
   }
@@ -636,6 +636,7 @@ int SSL_peek(SSL *ssl, void *buf, int num) {
 }
 
 int SSL_write(SSL *ssl, const void *buf, int num) {
+  ssl->rwstate = SSL_NOTHING;
   /* Functions which use SSL_get_error must clear the error queue on entry. */
   ERR_clear_error();
 
@@ -645,7 +646,6 @@ int SSL_write(SSL *ssl, const void *buf, int num) {
   }
 
   if (ssl->shutdown & SSL_SENT_SHUTDOWN) {
-    ssl->rwstate = SSL_NOTHING;
     OPENSSL_PUT_ERROR(SSL, SSL_R_PROTOCOL_IS_SHUTDOWN);
     return -1;
   }
@@ -668,6 +668,7 @@ int SSL_write(SSL *ssl, const void *buf, int num) {
 }
 
 int SSL_shutdown(SSL *ssl) {
+  ssl->rwstate = SSL_NOTHING;
   /* Functions which use SSL_get_error must clear the error queue on entry. */
   ERR_clear_error();
 
