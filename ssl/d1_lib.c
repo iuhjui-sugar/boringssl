@@ -272,6 +272,8 @@ int dtls1_check_timeout_num(SSL *ssl) {
 }
 
 int DTLSv1_handle_timeout(SSL *ssl) {
+  ssl->rwstate = SSL_NOTHING;
+
   if (!SSL_IS_DTLS(ssl)) {
     return -1;
   }
