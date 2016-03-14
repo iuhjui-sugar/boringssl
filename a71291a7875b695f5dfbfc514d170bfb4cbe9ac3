@@ -22,6 +22,30 @@
       "revId": "a71291a7875b695f5dfbfc514d170bfb4cbe9ac3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97dae1a7_6c627384",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1414,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-14T21:29:27Z",
+      "side": 1,
+      "message": "This is the point at which we no longer take ownership of xn. It\u0027s vaguely equivalent to\n\n  while (...) {\n\n    std::unique_ptr\u003cX509_NAME\u003e xn \u003d d2i_X509_NAME(...);\n    if (!xn) {\n      return false;\n    }\n\n    if (stuff) {\n      return false;\n    }\n\n    // Note xn gets nulled at this point.\n    if (!sk_X509_NAME_push(ca_sk, std::move(xn)) {\n      return false;\n    }\n  }\n\nWith the exception that sk_push takes ownership only on success, so it\u0027s really more like:\n\n    ...\n    if (!sk_X509_NAME_push(ca_sk, xn.get()) {\n      return false;\n    }\n    xn.release();  // We don\u0027t own it anymore.\n    ...\n\nDoing it late means that if line 1416 gains another check like:\n\n  if (stuff) {\n     goto err;\n  }\n\nxn still is handled correctly.",
+      "parentUuid": "97dae1a7_6ca8b3eb",
+      "range": {
+        "startLine": 1414,
+        "startChar": 9,
+        "endLine": 1414,
+        "endChar": 13
+      },
+      "revId": "a71291a7875b695f5dfbfc514d170bfb4cbe9ac3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
