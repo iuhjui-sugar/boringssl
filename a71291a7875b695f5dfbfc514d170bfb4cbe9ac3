@@ -46,6 +46,30 @@
       "revId": "a71291a7875b695f5dfbfc514d170bfb4cbe9ac3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97dae1a7_acfe2bc9",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1414,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-14T21:31:06Z",
+      "side": 1,
+      "message": "Oh, actually, I guess since std::move(xn) on its own doesn\u0027t necessarily result in losing ownership, only if sk_push decides to take ownership, it is equivalent to it. It\u0027s probably a difference of whether that parameter is written as an rvalue reference or not.\n\nAnyway. Point is it\u0027s nulling it right as we lose ownership.",
+      "parentUuid": "97dae1a7_6c627384",
+      "range": {
+        "startLine": 1414,
+        "startChar": 9,
+        "endLine": 1414,
+        "endChar": 13
+      },
+      "revId": "a71291a7875b695f5dfbfc514d170bfb4cbe9ac3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
