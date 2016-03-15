@@ -22,6 +22,30 @@
       "revId": "d2836f525bcad44da63ac28fb1cf2b528ff0155d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97dae1a7_af0bbd08",
+        "filename": "crypto/ec/ec_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-15T18:33:55Z",
+      "side": 0,
+      "message": "I\u0027m not terribly worried, but sure it\u0027s probably good to keep test coverage until we can get rid of it. Done.",
+      "parentUuid": "37a21512_0eaac0b7",
+      "range": {
+        "startLine": 363,
+        "startChar": 23,
+        "endLine": 363,
+        "endChar": 45
+      },
+      "revId": "d2836f525bcad44da63ac28fb1cf2b528ff0155d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
