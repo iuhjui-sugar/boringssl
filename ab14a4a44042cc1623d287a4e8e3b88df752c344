@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "97dae1a7_efee556a",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-15T18:16:21Z",
+      "side": 0,
+      "message": "If we\u0027re to lose the escape hatches, I think this will need checks for missing parameters like the ECDSA bits do. I\u0027m a little concerned that Conscrypt, in particular, will develop a crash since it\u0027s a bindings library and the actual uses of things end to be far from the RSA_METHOD, etc., definitions.",
+      "revId": "ab14a4a44042cc1623d287a4e8e3b88df752c344",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

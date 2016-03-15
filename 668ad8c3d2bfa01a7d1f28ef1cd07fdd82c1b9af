@@ -1,0 +1,199 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "97dae1a7_cf30b1e5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-15T18:16:21Z",
+      "side": 1,
+      "message": "I don\u0027t follow. If you override verify, you are responsible for all of verify\u0027s responsibilities, checks and all. If not, we\u0027ll do those checks.\n\nLikewise, if you override verify_raw, you are responsible for all of verify_raw\u0027s responsibilities.",
+      "revId": "668ad8c3d2bfa01a7d1f28ef1cd07fdd82c1b9af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97dae1a7_2f26adb0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-15T18:16:21Z",
+      "side": 1,
+      "message": "No seems a fine answer here.",
+      "range": {
+        "startLine": 16,
+        "startChar": 56,
+        "endLine": 16,
+        "endChar": 57
+      },
+      "revId": "668ad8c3d2bfa01a7d1f28ef1cd07fdd82c1b9af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97dae1a7_0f23e9a0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-15T18:16:21Z",
+      "side": 1,
+      "message": "Again, no seems a fine answer.",
+      "range": {
+        "startLine": 18,
+        "startChar": 57,
+        "endLine": 18,
+        "endChar": 58
+      },
+      "revId": "668ad8c3d2bfa01a7d1f28ef1cd07fdd82c1b9af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97dae1a7_6f20a592",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-15T18:16:21Z",
+      "side": 1,
+      "message": "I don\u0027t follow.",
+      "range": {
+        "startLine": 19,
+        "startChar": 54,
+        "endLine": 19,
+        "endChar": 55
+      },
+      "revId": "668ad8c3d2bfa01a7d1f28ef1cd07fdd82c1b9af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97dae1a7_4f1de152",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-15T18:16:21Z",
+      "side": 1,
+      "message": "What simplifications are you thinking of? (Again, it\u0027s nice to have a heads-up of what you\u0027re up to for context. Otherwise I\u0027m left reviewing things like uint64_alt without knowing why. :-) )",
+      "range": {
+        "startLine": 21,
+        "startChar": 47,
+        "endLine": 22,
+        "endChar": 8
+      },
+      "revId": "668ad8c3d2bfa01a7d1f28ef1cd07fdd82c1b9af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97dae1a7_afe45d8c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-15T18:16:21Z",
+      "side": 1,
+      "message": "I don\u0027t think this is true. RSA_METHOD consumers tend not to fill in the public half. (Of course, they also tend not to supply verify hooks that do anything.)",
+      "range": {
+        "startLine": 24,
+        "startChar": 35,
+        "endLine": 25,
+        "endChar": 28
+      },
+      "revId": "668ad8c3d2bfa01a7d1f28ef1cd07fdd82c1b9af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97dae1a7_8fe99966",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-15T18:16:21Z",
+      "side": 1,
+      "message": "Agreed there. The only verify hooks I see are no-ops.",
+      "range": {
+        "startLine": 27,
+        "startChar": 28,
+        "endLine": 28,
+        "endChar": 8
+      },
+      "revId": "668ad8c3d2bfa01a7d1f28ef1cd07fdd82c1b9af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97dae1a7_cff3914e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-15T18:16:21Z",
+      "side": 1,
+      "message": "I assume you\u0027re thinking of the DER encode/re-encode? The ECDSA methods all act on byte strings, so I think it\u0027s very natural that the engine would be responsible for that.",
+      "range": {
+        "startLine": 30,
+        "startChar": 39,
+        "endLine": 30,
+        "endChar": 44
+      },
+      "revId": "668ad8c3d2bfa01a7d1f28ef1cd07fdd82c1b9af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97dae1a7_2ff98d2f",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-15T18:16:21Z",
+      "side": 1,
+      "message": "Ditto re checks for missing parameters.",
+      "revId": "668ad8c3d2bfa01a7d1f28ef1cd07fdd82c1b9af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
