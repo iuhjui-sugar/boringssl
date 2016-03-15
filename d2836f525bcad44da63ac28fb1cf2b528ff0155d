@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "37a21512_0eaac0b7",
+        "filename": "crypto/ec/ec_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 6630
+      },
+      "writtenOn": "2016-03-15T00:09:27Z",
+      "side": 0,
+      "message": "Does that mean EC_GROUP_new_arbitrary doesn\u0027t have any test coverage now? Are we okay with that because it\u0027ll go away soon?",
+      "range": {
+        "startLine": 363,
+        "startChar": 23,
+        "endLine": 363,
+        "endChar": 45
+      },
+      "revId": "d2836f525bcad44da63ac28fb1cf2b528ff0155d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
