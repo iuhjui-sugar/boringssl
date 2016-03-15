@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "97dae1a7_bdb93745",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-03-15T22:42:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97dae1a7_cf30b1e5",
+      "revId": "668ad8c3d2bfa01a7d1f28ef1cd07fdd82c1b9af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "97dae1a7_2f26adb0",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -30,6 +48,30 @@
       "writtenOn": "2016-03-15T18:16:21Z",
       "side": 1,
       "message": "No seems a fine answer here.",
+      "range": {
+        "startLine": 16,
+        "startChar": 56,
+        "endLine": 16,
+        "endChar": 57
+      },
+      "revId": "668ad8c3d2bfa01a7d1f28ef1cd07fdd82c1b9af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97dae1a7_9dbef328",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-03-15T22:42:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97dae1a7_2f26adb0",
       "range": {
         "startLine": 16,
         "startChar": 56,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "97dae1a7_fdb3af5e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-03-15T22:42:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97dae1a7_0f23e9a0",
+      "range": {
+        "startLine": 18,
+        "startChar": 57,
+        "endLine": 18,
+        "endChar": 58
+      },
+      "revId": "668ad8c3d2bfa01a7d1f28ef1cd07fdd82c1b9af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "97dae1a7_6f20a592",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -76,6 +142,30 @@
       "writtenOn": "2016-03-15T18:16:21Z",
       "side": 1,
       "message": "I don\u0027t follow.",
+      "range": {
+        "startLine": 19,
+        "startChar": 54,
+        "endLine": 19,
+        "endChar": 55
+      },
+      "revId": "668ad8c3d2bfa01a7d1f28ef1cd07fdd82c1b9af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97dae1a7_ddb86b3e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-03-15T22:42:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97dae1a7_6f20a592",
       "range": {
         "startLine": 19,
         "startChar": 54,
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "97dae1a7_1dab23ea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-03-15T22:42:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97dae1a7_4f1de152",
+      "range": {
+        "startLine": 21,
+        "startChar": 47,
+        "endLine": 22,
+        "endChar": 8
+      },
+      "revId": "668ad8c3d2bfa01a7d1f28ef1cd07fdd82c1b9af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "97dae1a7_afe45d8c",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -122,6 +236,30 @@
       "writtenOn": "2016-03-15T18:16:21Z",
       "side": 1,
       "message": "I don\u0027t think this is true. RSA_METHOD consumers tend not to fill in the public half. (Of course, they also tend not to supply verify hooks that do anything.)",
+      "range": {
+        "startLine": 24,
+        "startChar": 35,
+        "endLine": 25,
+        "endChar": 28
+      },
+      "revId": "668ad8c3d2bfa01a7d1f28ef1cd07fdd82c1b9af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97dae1a7_7da85feb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-03-15T22:42:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97dae1a7_afe45d8c",
       "range": {
         "startLine": 24,
         "startChar": 35,
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "97dae1a7_5da59b0f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-03-15T22:42:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97dae1a7_8fe99966",
+      "range": {
+        "startLine": 27,
+        "startChar": 28,
+        "endLine": 28,
+        "endChar": 8
+      },
+      "revId": "668ad8c3d2bfa01a7d1f28ef1cd07fdd82c1b9af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "97dae1a7_cff3914e",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -168,6 +330,30 @@
       "writtenOn": "2016-03-15T18:16:21Z",
       "side": 1,
       "message": "I assume you\u0027re thinking of the DER encode/re-encode? The ECDSA methods all act on byte strings, so I think it\u0027s very natural that the engine would be responsible for that.",
+      "range": {
+        "startLine": 30,
+        "startChar": 39,
+        "endLine": 30,
+        "endChar": 44
+      },
+      "revId": "668ad8c3d2bfa01a7d1f28ef1cd07fdd82c1b9af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97dae1a7_fd360f97",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-03-15T22:42:26Z",
+      "side": 1,
+      "message": "But, there\u0027s no need to support Engine-provided verification methods for ECDSA, either, right?",
+      "parentUuid": "97dae1a7_cff3914e",
       "range": {
         "startLine": 30,
         "startChar": 39,
