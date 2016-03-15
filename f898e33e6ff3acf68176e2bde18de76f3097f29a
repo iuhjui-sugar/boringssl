@@ -1,0 +1,181 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "97dae1a7_3df9c72f",
+        "filename": "crypto/asn1/tasn_dec.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-15T22:43:28Z",
+      "side": 1,
+      "message": "How can buf be uninitialized here??",
+      "revId": "f898e33e6ff3acf68176e2bde18de76f3097f29a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97dae1a7_3d5267df",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-15T22:43:28Z",
+      "side": 1,
+      "message": "Nit: Extra newline.",
+      "revId": "f898e33e6ff3acf68176e2bde18de76f3097f29a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97dae1a7_1d4fa339",
+        "filename": "crypto/test/test_util.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-15T22:43:28Z",
+      "side": 1,
+      "message": "Well, Chromium\u0027s recently become MSVC 2015. This seems a pretty good reason to raise the requirement. I\u0027ll have to check with a couple consumers though.",
+      "revId": "f898e33e6ff3acf68176e2bde18de76f3097f29a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97dae1a7_9d85538d",
+        "filename": "crypto/x509/asn1_gen.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-15T22:43:28Z",
+      "side": 1,
+      "message": "Let\u0027s just initialize this to zero. It\u0027s what upstream did anyway.",
+      "range": {
+        "startLine": 164,
+        "startChar": 9,
+        "endLine": 164,
+        "endChar": 16
+      },
+      "revId": "f898e33e6ff3acf68176e2bde18de76f3097f29a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97dae1a7_7d4cdf42",
+        "filename": "crypto/x509/pkcs7_test.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-15T22:43:28Z",
+      "side": 1,
+      "message": "Extra /",
+      "range": {
+        "startLine": 25,
+        "startChar": 17,
+        "endLine": 25,
+        "endChar": 18
+      },
+      "revId": "f898e33e6ff3acf68176e2bde18de76f3097f29a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97dae1a7_fd61efa2",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 856,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-15T22:43:28Z",
+      "side": 1,
+      "message": "If we just initialize this to zero, it matches upstream. (Or maybe do/while? But reducing diff with upstream on this directory seems reasonable since we\u0027re not actually working on it.)",
+      "range": {
+        "startLine": 856,
+        "startChar": 8,
+        "endLine": 856,
+        "endChar": 10
+      },
+      "revId": "f898e33e6ff3acf68176e2bde18de76f3097f29a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97dae1a7_fd40cf13",
+        "filename": "crypto/x509/x_pubkey.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-15T22:43:28Z",
+      "side": 1,
+      "message": "What\u0027s going on here? This is definitely not the only limits.h include.",
+      "revId": "f898e33e6ff3acf68176e2bde18de76f3097f29a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97dae1a7_bd3657c8",
+        "filename": "crypto/x509v3/v3_conf.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-15T22:43:28Z",
+      "side": 1,
+      "message": "Let\u0027s just set this to zero. If ext_der gets initialized to NULL, it makes sense for ext_len to get initialized to zero too. They\u0027re morally one value. Also matches upstream.",
+      "range": {
+        "startLine": 275,
+        "startChar": 9,
+        "endLine": 275,
+        "endChar": 16
+      },
+      "revId": "f898e33e6ff3acf68176e2bde18de76f3097f29a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97dae1a7_1d1de345",
+        "filename": "tool/speed.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-15T22:43:28Z",
+      "side": 1,
+      "message": "If MSVC is warning on its own STL implementation, this warning is a waste of time. We don\u0027t have C++ outside of tests anyway, and in the limit all C++ files will just be disabling it individually.\n\nAlternatively, this suggests there\u0027s something more complex one can do here? I\u0027m not familiar with how MSVC warning levels work.\nhttps://connect.microsoft.com/VisualStudio/feedback/details/1217660/warning-c4265-when-using-functional-header",
+      "revId": "f898e33e6ff3acf68176e2bde18de76f3097f29a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
