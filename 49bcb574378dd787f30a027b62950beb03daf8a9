@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "37a21512_09b91a40",
+        "filename": "ssl/d1_pkt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 6630
+      },
+      "writtenOn": "2016-03-15T05:35:16Z",
+      "side": 0,
+      "message": "So just for the sake of my understanding... before this change, after receiving a shutdown, we\u0027d go ahead and try to read another packet, and *then* process the shutdown?",
+      "range": {
+        "startLine": 291,
+        "startChar": 18,
+        "endLine": 291,
+        "endChar": 20
+      },
+      "revId": "49bcb574378dd787f30a027b62950beb03daf8a9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "37a21512_4e768817",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 6630
+      },
+      "writtenOn": "2016-03-15T05:35:16Z",
+      "side": 0,
+      "message": "I don\u0027t understand why this was here before. Wouldn\u0027t it have been redundant with the check in read_bytes()?",
+      "range": {
+        "startLine": 611,
+        "startChar": 22,
+        "endLine": 611,
+        "endChar": 43
+      },
+      "revId": "49bcb574378dd787f30a027b62950beb03daf8a9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
