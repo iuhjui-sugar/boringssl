@@ -1290,6 +1290,32 @@ OPENSSL_EXPORT void SSL_get0_signed_cert_timestamp_list(const SSL *ssl,
 OPENSSL_EXPORT void SSL_get0_ocsp_response(const SSL *ssl, const uint8_t **out,
                                            size_t *out_len);
 
+/* SSL_get_tls_server_end_point writes out the tls-server-end-point value for
+ * |ssl| to |out| and sets |*out_len| to the number of bytes written. It returns
+ * one on success or zero on error.
+ *
+ * The tls-server-end-point channel binding type is described in
+ * https://tools.ietf.org/html/rfc5929#section-4. It is derived solely based on
+ * the server's certificate.
+ *
+ * Clients must complete the initial handshake before calling this function.
+ * Servers may call it at any point. The tls-server-end-point value is shared
+ * and common across all end points that share a certificate.
+ * 
+ * For most certificates, the tls-server-end-point value is a SHA256 digest.
+ * However, some certificates may not have valid tls-server-end-point value. In
+ * the latter case, the call will fail.
+ *
+ * The maximum size required for |out| is bounded by EVP_MAX_MD_SIZE. The call
+ * fails if |max_out| is less than the required size.
+ *
+ * Note that the tls-server-end-point value returned by this function does not
+ * contain the channel binding unique prefix.
+ * */
+OPENSSL_EXPORT int SSL_get_tls_server_end_point(const SSL *ssl, uint8_t *out,
+                                                size_t *out_len,
+                                                size_t max_out);
+
 /* SSL_get_tls_unique writes at most |max_out| bytes of the tls-unique value
  * for |ssl| to |out| and sets |*out_len| to the number of bytes written. It
  * returns one on success or zero on error. In general |max_out| should be at

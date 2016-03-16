@@ -879,6 +879,57 @@ STACK_OF(X509) *SSL_get_peer_cert_chain(const SSL *ssl) {
   return ssl->session->cert_chain;
 }
 
+int SSL_get_tls_server_end_point(const SSL *ssl, uint8_t *out, size_t *out_len,
+                                 size_t max_out) {
+  X509* server_certificate;
+  const EVP_MD *algorithm_evp_md;
+  unsigned int md_out_size;
+
+  if (ssl == NULL || ssl->cert == NULL || ssl->cert->x509 == NULL) {
+    goto err;
+  }
+
+  server_certificate = ssl->cert->x509;
+  algorithm_evp_md =
+      EVP_get_digestbyobj(server_certificate->sig_alg->algorithm);
+  if (algorithm_evp_md == NULL) {
+    goto err;
+  }
+
+  switch (EVP_MD_type(algorithm_evp_md)) {
+    case NID_md5:
+    case NID_sha1:
+      algorithm_evp_md = EVP_sha256();
+      break;
+
+    case NID_sha256:
+      break;
+
+    case NID_md5_sha1:
+      goto err;
+
+    default:
+      break;
+  }
+  if (max_out < EVP_MD_size(algorithm_evp_md)) {
+    goto err;
+  }
+
+  md_out_size = 0;
+  if (!EVP_Digest(server_certificate->cert_info->enc.enc,
+                  server_certificate->cert_info->enc.len, out, &md_out_size,
+                  algorithm_evp_md, NULL)) {
+    goto err;
+  }
+  *out_len = md_out_size;
+  return 1;
+
+err:
+  *out_len = 0;
+  memset(out, 0, max_out);
+  return 0;
+}
+
 int SSL_get_tls_unique(const SSL *ssl, uint8_t *out, size_t *out_len,
                        size_t max_out) {
   /* The tls-unique value is the first Finished message in the handshake, which
