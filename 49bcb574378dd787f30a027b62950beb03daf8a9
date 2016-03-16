@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7c67120f_9ba82feb",
+        "filename": "ssl/d1_pkt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-16T18:48:00Z",
+      "side": 0,
+      "message": "Wow, you\u0027re right. I hadn\u0027t even noticed that behavior. That\u0027s definitely nonsense. Though it kinda didn\u0027t matter because SSL_read checked externally. Except it kinda did because this function could be called during the handshake.\n\nExcept close_notify during a handshake is kinda nonsense. I probably should arrange for us to only honor those in read_app_data and convert to a fatal error in others. Or at least the initial handshake. Renego is weird.",
+      "parentUuid": "37a21512_09b91a40",
+      "range": {
+        "startLine": 291,
+        "startChar": 18,
+        "endLine": 291,
+        "endChar": 20
+      },
+      "revId": "49bcb574378dd787f30a027b62950beb03daf8a9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "37a21512_4e768817",
         "filename": "ssl/ssl_lib.c",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2016-03-15T05:35:16Z",
       "side": 0,
       "message": "I don\u0027t understand why this was here before. Wouldn\u0027t it have been redundant with the check in read_bytes()?",
+      "range": {
+        "startLine": 611,
+        "startChar": 22,
+        "endLine": 611,
+        "endChar": 43
+      },
+      "revId": "49bcb574378dd787f30a027b62950beb03daf8a9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c67120f_7b03dba8",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-16T18:48:00Z",
+      "side": 0,
+      "message": "\"I don\u0027t understand why this was here before\" is a pretty good summary of this whole part of the code. :-) I\u0027m not sure either. It\u0027s in there since the earliest recorded version of OpenSSL/SSLeay, so I can\u0027t divine it from git. Probably EAY wasn\u0027t thinking about it very hard or maybe it made sense to check here in SSL 2.0 but SSL 3.0 needed it internally too.",
+      "parentUuid": "37a21512_4e768817",
       "range": {
         "startLine": 611,
         "startChar": 22,
