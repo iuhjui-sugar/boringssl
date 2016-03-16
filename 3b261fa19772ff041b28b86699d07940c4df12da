@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c67120f_2cabebbb",
+        "filename": "crypto/cpu-intel.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-16T23:55:17Z",
+      "side": 1,
+      "message": "(Was in the wrong order. Though we actually do use sscanf here. Hopefully that can go away soon...)",
+      "revId": "3b261fa19772ff041b28b86699d07940c4df12da",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
