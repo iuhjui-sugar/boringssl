@@ -106,9 +106,12 @@
  * (eay@cryptsoft.com).  This product includes software written by Tim
  * Hudson (tjh@cryptsoft.com). */
 
+#define _POSIX_C_SOURCE 200112L /* for posix_memalign */
+
 #include <openssl/bn.h>
 
 #include <assert.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include <openssl/cpu.h>
@@ -856,9 +859,7 @@ static int copy_from_prebuf(BIGNUM *b, int top, unsigned char *buf, int idx,
 
 /* BN_mod_exp_mont_conttime is based on the assumption that the L1 data cache
  * line width of the target processor is at least the following value. */
-#define MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH (64)
-#define MOD_EXP_CTIME_MIN_CACHE_LINE_MASK \
-  (MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH - 1)
+#define MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH 64
 
 /* Window sizes optimized for fixed window size modular exponentiation
  * algorithm (BN_mod_exp_mont_consttime).
@@ -885,13 +886,6 @@ static int copy_from_prebuf(BIGNUM *b, int top, unsigned char *buf, int idx,
 
 #endif
 
-/* Given a pointer value, compute the next address that is a cache line
- * multiple. */
-#define MOD_EXP_CTIME_ALIGN(x_)          \
-  ((unsigned char *)(x_) +               \
-   (MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH - \
-    (((size_t)(x_)) & (MOD_EXP_CTIME_MIN_CACHE_LINE_MASK))))
-
 /* This variant of BN_mod_exp_mont() uses fixed windows and the special
  * precomputation memory layout to limit data-dependency to a minimum
  * to protect secret exponents (cf. the hyper-threading timing attacks
@@ -906,7 +900,11 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
   BN_MONT_CTX *new_mont = NULL;
 
   int numPowers;
-  unsigned char *powerbufFree = NULL;
+#if !defined(_MSC_VER)
+  void *powerbuf_free = NULL;
+#else
+  void *powerbuf_aligned_free = NULL;
+#endif
   int powerbufLen = 0;
   unsigned char *powerbuf = NULL;
   BIGNUM tmp, am;
@@ -984,26 +982,34 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
   powerbufLen +=
       sizeof(m->d[0]) *
       (top * numPowers + ((2 * top) > numPowers ? (2 * top) : numPowers));
-#ifdef alloca
-  if (powerbufLen < 3072) {
-    powerbufFree = alloca(powerbufLen + MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH);
-  } else
-#endif
-  {
-    if ((powerbufFree = OPENSSL_malloc(
-            powerbufLen + MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH)) == NULL) {
+
+  alignas(MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH) uint8_t powerbuf_stack[3072];
+
+  if (powerbufLen <= 3072) {
+    powerbuf = powerbuf_stack;
+  } else {
+    /* XXX: Mac OS X, Windows, and glibc before 2.16 do not support the C11
+     * standard |aligned_alloc|. */
+#if !defined(_MSC_VER)
+    if (posix_memalign(&powerbuf_free, MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH,
+                       powerbufLen) != 0) {
+      assert(powerbuf_free == NULL);
+      OPENSSL_PUT_ERROR(BN, ERR_R_MALLOC_FAILURE);
       goto err;
     }
-  }
-
-  powerbuf = MOD_EXP_CTIME_ALIGN(powerbufFree);
-  memset(powerbuf, 0, powerbufLen);
-
-#ifdef alloca
-  if (powerbufLen < 3072) {
-    powerbufFree = NULL;
-  }
+    assert(powerbuf_free != NULL);
+    powerbuf = powerbuf_free;
+#else
+    powerbuf_aligned_free = _aligned_malloc(powerbufLen,
+                                            MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH);
+    if (powerbuf_aligned_free == NULL) {
+      goto err;
+    }
+    powerbuf = powerbuf_aligned_free;
 #endif
+  }
+
+  memset(powerbuf, 0, powerbufLen);
 
   /* lay down tmp and am right after powers table */
   tmp.d = (BN_ULONG *)(powerbuf + sizeof(m->d[0]) * top * numPowers);
@@ -1228,8 +1234,14 @@ err:
   BN_MONT_CTX_free(new_mont);
   if (powerbuf != NULL) {
     OPENSSL_cleanse(powerbuf, powerbufLen);
-    OPENSSL_free(powerbufFree);
   }
+
+#if !defined(_MSC_VER)
+  OPENSSL_free(powerbuf_free);
+#else
+  _aligned_free(powerbuf_aligned_free);
+#endif
+
   BN_CTX_end(ctx);
   return (ret);
 }
