@@ -292,6 +292,15 @@ static inline int constant_time_select_int(unsigned int mask, int a, int b) {
 }
 
 
+/* Alignment functions. */
+
+/* Returns one if |p| is aligned on a |alignment| byte boundary and zero
+ * otherwise. */
+static inline int is_aligned(const void *p, size_t alignment) {
+  return (uintptr_t)p % alignment == 0;
+}
+
+
 /* Thread-safe initialisation. */
 
 #if defined(OPENSSL_NO_THREADS)

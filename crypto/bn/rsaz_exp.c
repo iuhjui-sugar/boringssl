@@ -46,8 +46,11 @@
 
 #include "rsaz_exp.h"
 
+#include <assert.h>
+
 #include <openssl/mem.h>
 
+#include "internal.h"
 #include "../internal.h"
 
 
@@ -68,23 +71,28 @@ alignas(64) static const BN_ULONG two80[40] =
 
 void RSAZ_1024_mod_exp_avx2(BN_ULONG result_norm[16],
 	const BN_ULONG base_norm[16], const BN_ULONG exponent[16],
-	const BN_ULONG m_norm[16], const BN_ULONG RR[16], BN_ULONG k0)
+	const BN_ULONG m_norm[16], const BN_ULONG RR[16], BN_ULONG k0,
+    BN_ULONG storage[BN_MOD_EXP_MONT_CONSTTIME_STORAGE_LEN])
 {
-	alignas(64) uint8_t storage[(320 * 3) + (32 * 9 * 16)]; /* 5.5KB */
-	unsigned char	*a_inv, *m, *result,
-			*table_s = storage + (320 * 3),
-			*R2      = table_s;	/* borrow */
+	OPENSSL_COMPILE_ASSERT(
+		BN_MOD_EXP_MONT_CONSTTIME_STORAGE_LEN >= (3 * 40) + (4 * 9 * 16),
+		bn_mod_exp_mont_consttime_storage_len_too_small);
+	assert(is_aligned(storage, 64));
+
+	BN_ULONG *a_inv, *m, *result;
+	BN_ULONG *table_s = storage + (3 * 40);
+	BN_ULONG *R2 = table_s;	/* borrow */
 	int index;
 	int wvalue;
 
-	if (((((uintptr_t)storage & 4095) + 320) >> 12) != 0) {
+	if (((((uintptr_t)storage & 4095) + (8 * 40)) >> 12) != 0) {
 		result = storage;
-		a_inv = storage + 320;
-		m = storage + (320 * 2); /* should not cross page */
+		a_inv = result + 40;
+		m = a_inv + 40; /* should not cross page */
 	} else {
 		m = storage;		/* should not cross page */
-		result = storage + 320;
-		a_inv = storage + (320 * 2);
+		result = m + 40;
+		a_inv = result + 40;
 	}
 
 	rsaz_1024_norm2red_avx2(m, m_norm);
@@ -264,12 +272,18 @@ void rsaz_512_gather4(BN_ULONG *val, const void *tbl, int power);
 
 void RSAZ_512_mod_exp(BN_ULONG result[8],
 	const BN_ULONG base[8], const BN_ULONG exponent[8],
-	const BN_ULONG m[8], BN_ULONG k0, const BN_ULONG RR[8])
+	const BN_ULONG m[8], BN_ULONG k0, const BN_ULONG RR[8],
+	BN_ULONG storage[BN_MOD_EXP_MONT_CONSTTIME_STORAGE_LEN])
 {
-	alignas(64) uint8_t storage[(16*8*8) + (64 * 2)]; /* 1.2KB */
-	unsigned char	*table = storage;
-	BN_ULONG	*a_inv = (BN_ULONG *)(table+16*8*8),
-			*temp  = (BN_ULONG *)(table+16*8*8+8*8);
+	OPENSSL_COMPILE_ASSERT(
+		BN_MOD_EXP_MONT_CONSTTIME_STORAGE_LEN >= (2 * 8 * 8) + (2 * 8),
+		bn_mod_exp_mont_consttime_storage_len_too_small);
+
+	assert(is_aligned(storage, 64));
+
+	BN_ULONG *table = storage;
+	BN_ULONG *a_inv = table + (2 * 8 * 8);
+	BN_ULONG *temp  = a_inv + 8;
 	int index;
 	unsigned int wvalue;
 

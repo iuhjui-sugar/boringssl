@@ -106,9 +106,12 @@
  * (eay@cryptsoft.com).  This product includes software written by Tim
  * Hudson (tjh@cryptsoft.com). */
 
+#define _POSIX_C_SOURCE 200112L /* for posix_memalign */
+
 #include <openssl/bn.h>
 
 #include <assert.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include <openssl/cpu.h>
@@ -787,11 +790,10 @@ err:
  * layout so that accessing any of these table values shows the same access
  * pattern as far as cache lines are concerned. The following functions are
  * used to transfer a BIGNUM from/to that table. */
-static int copy_to_prebuf(const BIGNUM *b, int top, unsigned char *buf, int idx,
+static int copy_to_prebuf(const BIGNUM *b, int top, BN_ULONG *table, int idx,
                           int window) {
   int i, j;
   const int width = 1 << window;
-  BN_ULONG *table = (BN_ULONG *) buf;
 
   if (top > b->top) {
     top = b->top; /* this works because 'buf' is explicitly zeroed */
@@ -804,11 +806,14 @@ static int copy_to_prebuf(const BIGNUM *b, int top, unsigned char *buf, int idx,
   return 1;
 }
 
-static int copy_from_prebuf(BIGNUM *b, int top, unsigned char *buf, int idx,
-                            int window) {
+/* XXX: It seems like |table| should have type |const BN_ULONG *| and not
+ * |volatile BN_ULONG *| but |volatile| is what upstream used, and for now we
+ * should assume they did so for a good reason, e.g. to work around a compiler
+ * bug or some other badness. */
+static int copy_from_prebuf(BIGNUM *b, int top, volatile BN_ULONG *table,
+                            int idx, int window) {
   int i, j;
   const int width = 1 << window;
-  volatile BN_ULONG *table = (volatile BN_ULONG *)buf;
 
   if (bn_wexpand(b, top) == NULL) {
     return 0;
@@ -856,9 +861,7 @@ static int copy_from_prebuf(BIGNUM *b, int top, unsigned char *buf, int idx,
 
 /* BN_mod_exp_mont_conttime is based on the assumption that the L1 data cache
  * line width of the target processor is at least the following value. */
-#define MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH (64)
-#define MOD_EXP_CTIME_MIN_CACHE_LINE_MASK \
-  (MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH - 1)
+#define MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH 64
 
 /* Window sizes optimized for fixed window size modular exponentiation
  * algorithm (BN_mod_exp_mont_consttime).
@@ -885,13 +888,6 @@ static int copy_from_prebuf(BIGNUM *b, int top, unsigned char *buf, int idx,
 
 #endif
 
-/* Given a pointer value, compute the next address that is a cache line
- * multiple. */
-#define MOD_EXP_CTIME_ALIGN(x_)          \
-  ((unsigned char *)(x_) +               \
-   (MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH - \
-    (((size_t)(x_)) & (MOD_EXP_CTIME_MIN_CACHE_LINE_MASK))))
-
 /* This variant of BN_mod_exp_mont() uses fixed windows and the special
  * precomputation memory layout to limit data-dependency to a minimum
  * to protect secret exponents (cf. the hyper-threading timing attacks
@@ -906,9 +902,13 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
   BN_MONT_CTX *new_mont = NULL;
 
   int numPowers;
-  unsigned char *powerbufFree = NULL;
-  int powerbufLen = 0;
-  unsigned char *powerbuf = NULL;
+#if !defined(_MSC_VER)
+  void *powerbuf_free = NULL;
+#else
+  void *powerbuf_aligned_free = NULL;
+#endif
+  size_t powerbuf_count = 0;
+  BN_ULONG *powerbuf = NULL;
   BIGNUM tmp, am;
 
   if (!BN_is_odd(m)) {
@@ -937,6 +937,14 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
     mont = new_mont;
   }
 
+  /* The RSAZ code requires 64 byte alignment and the other code requires
+   * |MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH| alignment. */
+  OPENSSL_COMPILE_ASSERT(64 >= MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH,
+                         storage_alignment_not_large_enough);
+  OPENSSL_COMPILE_ASSERT(64 % MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH == 0,
+                         storage_alignment_not_multiple_of_min_cache_line_width);
+  alignas(64) BN_ULONG storage[BN_MOD_EXP_MONT_CONSTTIME_STORAGE_LEN];
+
 #ifdef RSAZ_ENABLED
   /* If the size of the operands allow it, perform the optimized
    * RSAZ exponentiation. For further information see
@@ -946,7 +954,8 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
     if (NULL == bn_wexpand(rr, 16)) {
       goto err;
     }
-    RSAZ_1024_mod_exp_avx2(rr->d, a->d, p->d, m->d, mont->RR.d, mont->n0[0]);
+    RSAZ_1024_mod_exp_avx2(rr->d, a->d, p->d, m->d, mont->RR.d, mont->n0[0],
+                           storage);
     rr->top = 16;
     rr->neg = 0;
     bn_correct_top(rr);
@@ -956,7 +965,7 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
     if (NULL == bn_wexpand(rr, 8)) {
       goto err;
     }
-    RSAZ_512_mod_exp(rr->d, a->d, p->d, m->d, mont->n0[0], mont->RR.d);
+    RSAZ_512_mod_exp(rr->d, a->d, p->d, m->d, mont->n0[0], mont->RR.d, storage);
     rr->top = 8;
     rr->neg = 0;
     bn_correct_top(rr);
@@ -971,7 +980,7 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
   if (window >= 5) {
     window = 5; /* ~5% improvement for RSA2048 sign, and even for RSA4096 */
     /* reserve space for mont->N.d[] copy */
-    powerbufLen += top * sizeof(mont->N.d[0]);
+    powerbuf_count += top;
   }
 #endif
 
@@ -979,32 +988,37 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
    * powers of am, am itself and tmp.
    */
   numPowers = 1 << window;
-  powerbufLen +=
-      sizeof(m->d[0]) *
-      (top * numPowers + ((2 * top) > numPowers ? (2 * top) : numPowers));
-#ifdef alloca
-  if (powerbufLen < 3072) {
-    powerbufFree = alloca(powerbufLen + MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH);
-  } else
-#endif
-  {
-    if ((powerbufFree = OPENSSL_malloc(
-            powerbufLen + MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH)) == NULL) {
+  powerbuf_count +=
+    top * numPowers + ((2 * top) > numPowers ? (2 * top) : numPowers);
+
+  if (powerbuf_count <= 3072 / sizeof(BN_ULONG)) {
+    powerbuf = storage;
+  } else {
+    /* XXX: Mac OS X, Windows, and glibc before 2.16 do not support the C11
+     * standard |aligned_alloc|. */
+#if !defined(_MSC_VER)
+    if (posix_memalign(&powerbuf_free, MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH,
+                       powerbuf_count * sizeof(BN_ULONG)) != 0) {
+      assert(powerbuf_free == NULL);
+      OPENSSL_PUT_ERROR(BN, ERR_R_MALLOC_FAILURE);
       goto err;
     }
-  }
-
-  powerbuf = MOD_EXP_CTIME_ALIGN(powerbufFree);
-  memset(powerbuf, 0, powerbufLen);
-
-#ifdef alloca
-  if (powerbufLen < 3072) {
-    powerbufFree = NULL;
-  }
+    assert(powerbuf_free != NULL);
+    powerbuf = powerbuf_free;
+#else
+    powerbuf_aligned_free = _aligned_malloc(powerbuf_count * sizeof(BN_ULONG),
+                                            MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH);
+    if (powerbuf_aligned_free == NULL) {
+      goto err;
+    }
+    powerbuf = powerbuf_aligned_free;
 #endif
+  }
+
+  memset(powerbuf, 0, powerbuf_count * sizeof(BN_ULONG));
 
   /* lay down tmp and am right after powers table */
-  tmp.d = (BN_ULONG *)(powerbuf + sizeof(m->d[0]) * top * numPowers);
+  tmp.d = powerbuf + (top * numPowers);
   am.d = tmp.d + top;
   tmp.top = am.top = 0;
   tmp.dmax = am.dmax = top;
@@ -1225,9 +1239,15 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
 err:
   BN_MONT_CTX_free(new_mont);
   if (powerbuf != NULL) {
-    OPENSSL_cleanse(powerbuf, powerbufLen);
-    OPENSSL_free(powerbufFree);
+    OPENSSL_cleanse(powerbuf, powerbuf_count * sizeof(BN_ULONG));
   }
+
+#if !defined(_MSC_VER)
+  OPENSSL_free(powerbuf_free);
+#else
+  _aligned_free(powerbuf_aligned_free);
+#endif
+
   return (ret);
 }
 
