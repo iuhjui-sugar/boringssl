@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c67120f_bec161fb",
+        "filename": "crypto/bn/asm/x86_64-mont.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-16T20:01:28Z",
+      "side": 1,
+      "message": "Hrm. That he sometimes uses 0x66,0x2e and sometimes 0x2e is a little bit confusing.\n\nIntel manual 2.1.1 says 2e is:\n\n  2EH—Branch not taken (used only with Jcc instructions)\n\n66 is apparently:\n\n  Operand-size override prefix is encoded using 66H (66H is also used as a mandatory prefix for some\ninstructions).\n\n\"\"\"\nThe operand-size override prefix allows a program to switch between 16- and 32-bit operand sizes. Either size can\nbe the default; use of the prefix selects the non-default size.\n\nSome SSE2/SSE3/SSSE3/SSE4 instructions and instructions using a three-byte sequence of primary opcode bytes\nmay use 66H as a mandatory prefix to express distinct functionality.\n\nOther use of the 66H prefix is reserved; such use may cause unpredictable behavior\n\"\"\"\n\nI\u0027m not sure how I feel about that being set manually. It seems a little iffy.",
+      "range": {
+        "startLine": 133,
+        "startChar": 7,
+        "endLine": 133,
+        "endChar": 11
+      },
+      "revId": "1fdc4dcee0ca2cb8302844b423121a12ba142562",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
