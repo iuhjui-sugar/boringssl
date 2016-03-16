@@ -787,11 +787,10 @@ err:
  * layout so that accessing any of these table values shows the same access
  * pattern as far as cache lines are concerned. The following functions are
  * used to transfer a BIGNUM from/to that table. */
-static int copy_to_prebuf(const BIGNUM *b, int top, unsigned char *buf, int idx,
+static int copy_to_prebuf(const BIGNUM *b, int top, BN_ULONG *table, int idx,
                           int window) {
   int i, j;
   const int width = 1 << window;
-  BN_ULONG *table = (BN_ULONG *) buf;
 
   if (top > b->top) {
     top = b->top; /* this works because 'buf' is explicitly zeroed */
@@ -804,11 +803,14 @@ static int copy_to_prebuf(const BIGNUM *b, int top, unsigned char *buf, int idx,
   return 1;
 }
 
-static int copy_from_prebuf(BIGNUM *b, int top, unsigned char *buf, int idx,
-                            int window) {
+/* XXX: It seems like |table| should have type |const BN_ULONG *| and not
+ * |volatile BN_ULONG *| but |volatile| is what upstream used, and for now we
+ * should assume they did so for a good reason, e.g. to work around a compiler
+ * bug or some other badness. */
+static int copy_from_prebuf(BIGNUM *b, int top, volatile BN_ULONG *table,
+                            int idx, int window) {
   int i, j;
   const int width = 1 << window;
-  volatile BN_ULONG *table = (volatile BN_ULONG *)buf;
 
   if (bn_wexpand(b, top) == NULL) {
     return 0;
@@ -897,9 +899,9 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
   BN_MONT_CTX *new_mont = NULL;
 
   int numPowers;
-  unsigned char *powerbufFree = NULL;
-  int powerbufLen = 0;
-  unsigned char *powerbuf = NULL;
+  BN_ULONG *powerbufFree = NULL;
+  size_t powerbuf_count = 0;
+  BN_ULONG *powerbuf = NULL;
   BIGNUM tmp, am;
 
   if (!BN_is_odd(m)) {
@@ -964,7 +966,7 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
   if (window >= 5) {
     window = 5; /* ~5% improvement for RSA2048 sign, and even for RSA4096 */
     /* reserve space for mont->N.d[] copy */
-    powerbufLen += top * sizeof(mont->N.d[0]);
+    powerbuf_count += top;
   }
 #endif
 
@@ -972,13 +974,13 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
    * powers of am, am itself and tmp.
    */
   numPowers = 1 << window;
-  powerbufLen +=
-      sizeof(m->d[0]) *
-      (top * numPowers + ((2 * top) > numPowers ? (2 * top) : numPowers));
+  powerbuf_count +=
+    top * numPowers + ((2 * top) > numPowers ? (2 * top) : numPowers);
 
-  alignas(MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH) uint8_t powerbuf_stack[3072];
+  alignas(MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH) BN_ULONG
+    powerbuf_stack[3072 / sizeof(BN_ULONG)];
 
-  if (powerbufLen <= 3072) {
+  if (powerbuf_count <= 3072 / sizeof(BN_ULONG)) {
     powerbuf = powerbuf_stack;
   } else {
 #if !defined(_MSC_VER)
@@ -987,13 +989,14 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
     OPENSSL_COMPILE_ASSERT(MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH == 32 ||
                            MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH == 64,
                            mod_exp_ctime_min_cache_line_width_not_power_of_2);
-    size_t to_allocate = powerbufLen +
+    size_t powerbuf_len = powerbuf_count * sizeof(BN_ULONG);
+    size_t to_allocate = powerbuf_len +
       (MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH -
-       (powerbufLen & (MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH - 1)));
+       (powerbuf_len & (MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH - 1)));
     powerbufFree = aligned_alloc(MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH,
                                  to_allocate);
 #else
-    powerbufFree = _aligned_malloc(powerbufLen,
+    powerbufFree = _aligned_malloc(powerbuf_count * sizeof(BN_ULONG),
                                    MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH);
 #endif
     if (powerbufFree == NULL) {
@@ -1002,10 +1005,10 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
     powerbuf = powerbufFree;
   }
 
-  memset(powerbuf, 0, powerbufLen);
+  memset(powerbuf, 0, powerbuf_count * sizeof(BN_ULONG));
 
   /* lay down tmp and am right after powers table */
-  tmp.d = (BN_ULONG *)(powerbuf + sizeof(m->d[0]) * top * numPowers);
+  tmp.d = powerbuf + (top * numPowers);
   am.d = tmp.d + top;
   tmp.top = am.top = 0;
   tmp.dmax = am.dmax = top;
@@ -1226,7 +1229,7 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
 err:
   BN_MONT_CTX_free(new_mont);
   if (powerbuf != NULL) {
-    OPENSSL_cleanse(powerbuf, powerbufLen);
+    OPENSSL_cleanse(powerbuf, powerbuf_count * sizeof(BN_ULONG));
   }
 
 #if !defined(_MSC_VER)
