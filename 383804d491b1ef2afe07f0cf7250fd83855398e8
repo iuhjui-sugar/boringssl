@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c67120f_470cf81c",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-17T15:26:38Z",
+      "side": 0,
+      "message": "Why was this here/removed?",
+      "range": {
+        "startLine": 397,
+        "startChar": 21,
+        "endLine": 397,
+        "endChar": 32
+      },
+      "revId": "383804d491b1ef2afe07f0cf7250fd83855398e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
