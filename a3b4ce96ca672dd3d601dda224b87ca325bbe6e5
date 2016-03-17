@@ -22,6 +22,30 @@
       "revId": "a3b4ce96ca672dd3d601dda224b87ca325bbe6e5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c7d52ec_280acb43",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-17T22:04:57Z",
+      "side": 1,
+      "message": "It doesn\u0027t really matter since the callback won\u0027t be installed in that case. :-) I figured I\u0027d remove it since making it return empty may be something sensible enough.",
+      "parentUuid": "7c7d52ec_68ebe399",
+      "range": {
+        "startLine": 496,
+        "startChar": 14,
+        "endLine": 496,
+        "endChar": 26
+      },
+      "revId": "a3b4ce96ca672dd3d601dda224b87ca325bbe6e5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
