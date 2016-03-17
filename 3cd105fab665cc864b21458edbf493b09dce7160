@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c67120f_e7266cb1",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-17T14:11:24Z",
+      "side": 1,
+      "message": "Can this be moved up to the other clear_error call?",
+      "range": {
+        "startLine": 611,
+        "startChar": 2,
+        "endLine": 611,
+        "endChar": 24
+      },
+      "revId": "3cd105fab665cc864b21458edbf493b09dce7160",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
