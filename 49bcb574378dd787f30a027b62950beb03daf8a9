@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "5c240ef3_a7a1aa72",
+        "filename": "ssl/d1_pkt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 6630
+      },
+      "writtenOn": "2016-03-17T17:21:26Z",
+      "side": 0,
+      "message": "Ok, makes sense, thanks! I will perhaps file a bug in our fancy new bug tracker for converting close_notify to a fatal error during initial (and maybe subsequent?) handshakes.",
+      "parentUuid": "7c67120f_a71ab44a",
+      "range": {
+        "startLine": 291,
+        "startChar": 18,
+        "endLine": 291,
+        "endChar": 20
+      },
+      "revId": "49bcb574378dd787f30a027b62950beb03daf8a9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "37a21512_4e768817",
         "filename": "ssl/ssl_lib.c",
         "patchSetId": 2
