@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "7c59d244_abfb75d3",
+        "filename": "ssl/d1_pkt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 6630
+      },
+      "writtenOn": "2016-03-17T05:56:07Z",
+      "side": 0,
+      "message": "Actually, wait, why is close_notify during a handshake nonsense? Are you not supposed to send close_notify if you want to close the connection during the handshake? It doesn\u0027t seem different from any other alert that you might send during the handshake.",
+      "parentUuid": "7c67120f_9ba82feb",
+      "range": {
+        "startLine": 291,
+        "startChar": 18,
+        "endLine": 291,
+        "endChar": 20
+      },
+      "revId": "49bcb574378dd787f30a027b62950beb03daf8a9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "37a21512_4e768817",
         "filename": "ssl/ssl_lib.c",
         "patchSetId": 2
