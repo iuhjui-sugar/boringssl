@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c59d244_6b27bd52",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 6630
+      },
+      "writtenOn": "2016-03-17T06:29:03Z",
+      "side": 1,
+      "message": "So you said the end goal is to split up read_bytes... does that mean split it up into separate functions that are called from each of the callers below, rather than having one monster function that branches based on |type|? Or did you mean something else?",
+      "range": {
+        "startLine": 364,
+        "startChar": 20,
+        "endLine": 364,
+        "endChar": 23
+      },
+      "revId": "daf68b6a2aef8cce448371d3eb6f2f90f6f0ecc3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
