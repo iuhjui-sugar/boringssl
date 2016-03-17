@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c240ef3_6a09377d",
+        "filename": "ssl/d1_pkt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 6630
+      },
+      "writtenOn": "2016-03-17T19:00:11Z",
+      "side": 1,
+      "message": "Looks like the comments need to be updated around here? i.e. line 330 should be that we *don\u0027t* allow multiple alerts, and this line (332) should maybe be \"may not be fragmented or contain multiple alerts\". Same in s3_pkt.c",
+      "range": {
+        "startLine": 332,
+        "startChar": 22,
+        "endLine": 332,
+        "endChar": 24
+      },
+      "revId": "56bc9f35d3812ada94e787ff13c8597fcf1092a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
