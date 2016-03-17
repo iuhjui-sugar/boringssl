@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c7d52ec_68ebe399",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-17T21:59:39Z",
+      "side": 1,
+      "message": "Should this be (config-\u003eselect_alpn.empty() || config-\u003edecline_alpn)",
+      "range": {
+        "startLine": 496,
+        "startChar": 14,
+        "endLine": 496,
+        "endChar": 26
+      },
+      "revId": "a3b4ce96ca672dd3d601dda224b87ca325bbe6e5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
