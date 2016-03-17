@@ -46,6 +46,30 @@
       "revId": "49bcb574378dd787f30a027b62950beb03daf8a9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c240ef3_a77c0a47",
+        "filename": "ssl/d1_pkt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 6630
+      },
+      "writtenOn": "2016-03-17T18:19:14Z",
+      "side": 1,
+      "message": "Hrm? I don\u0027t get why the assert is useful for ssl3_write_bytes but not here in dtls1_write-bytes.",
+      "parentUuid": "7c67120f_278a249b",
+      "range": {
+        "startLine": 475,
+        "startChar": 2,
+        "endLine": 475,
+        "endChar": 8
+      },
+      "revId": "49bcb574378dd787f30a027b62950beb03daf8a9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
