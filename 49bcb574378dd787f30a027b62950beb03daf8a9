@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "7c67120f_a71ab44a",
+        "filename": "ssl/d1_pkt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-17T15:49:03Z",
+      "side": 0,
+      "message": "I\u0027m not really sure what you\u0027re supposed to do if you want to close the connection during the handshake. I think OpenSSL just closes the connection without an alert.\n\nclose_notify in the sense of clean shutdown is kind of weird.\n\nTLS tries to (and completely fails) look kinda like TCP. I think the idea was that close_notify corresponded to a secured clean EOF while anything else was an error. This is relevant if you care about truncation.\n\nIf you manage to get an EOF during the initial handshake (morally equivalent to setting up a TCP session), I don\u0027t think it makes sense to surface it as a clean EOF. Because that\u0027s different from successfully setting up a secure connection and learning that, yes, the peer actually securely responded with 0 data.\n\nDoing it mid-handshake (on perhaps a renego) is also kind of weird if you want bidirectional shutdown. The sent and received close_notifies may be differently encrypted. I think you actually can make it work, but OpenSSL recently decided to give up on it and we followed them.\n\n(This is all totally moot because no one enforces close_notify and bidirectional shutdown is silly. That\u0027s for if you want to reuse the underlying transport for something else---kinda like the inverse of STARTTLS---and no one does that. Actually, Chrome never sends close_notify at all. It\u0027d make disconnect async.)",
+      "parentUuid": "7c59d244_abfb75d3",
+      "range": {
+        "startLine": 291,
+        "startChar": 18,
+        "endLine": 291,
+        "endChar": 20
+      },
+      "revId": "49bcb574378dd787f30a027b62950beb03daf8a9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "37a21512_4e768817",
         "filename": "ssl/ssl_lib.c",
         "patchSetId": 2
