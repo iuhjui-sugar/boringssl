@@ -56,12 +56,9 @@ static uint32_t U8TO32_LE(const uint8_t *m) {
 }
 
 #if !defined(OPENSSL_NO_ASM)
-#if defined(OPENSSL_X86)
-/* See comment above |_poly1305_init_sse2| in poly1305-x86.pl. */
-OPENSSL_COMPILE_ASSERT(POLY1305_BLOCK_STATE_SIZE >= 4 * (5 + 1 + 4 + 2 + 4 * 9),
-                       poly1305_block_state_too_small);
-#define POLY1305_ASM
-#elif defined(OPENSSL_X86_64)
+/* TODO(davidben): Re-enable poly1305 assembly on x86 the bugs are fixed. See
+ * https://rt.openssl.org/Ticket/Display.html?id=4439&user=guest&pass=guest. */
+#if defined(OPENSSL_X86_64)
 /* See comment above |__poly1305_block| in poly1305-x86_64.pl. */
 OPENSSL_COMPILE_ASSERT(POLY1305_BLOCK_STATE_SIZE >=
                            4 * (5 + 1 + 2 * 2 + 2 + 4 * 9),
