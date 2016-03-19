@@ -223,7 +223,7 @@ void RSAZ_1024_mod_exp_avx2(BN_ULONG result_norm[16],
 	rsaz_1024_scatter5_avx2(table_s,result,31);
 #endif
 
-	const uint8_t *p_str = (const uint8_t *)exponent;
+	const aliasing_uint8 *p_str = (const aliasing_uint8 *)exponent;
 
 	/* load first window */
 	wvalue = p_str[127] >> 3;
@@ -235,7 +235,7 @@ void RSAZ_1024_mod_exp_avx2(BN_ULONG result_norm[16],
 
 		rsaz_1024_sqr_avx2(result, result, m, k0, 5);
 
-		wvalue = *((const unsigned short*)&p_str[index / 8]);
+		wvalue = (int)from_le_u16_ptr(p_str + (index / 8));
 		wvalue = (wvalue>> (index%8)) & 31;
 		index-=5;
 

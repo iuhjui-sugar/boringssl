@@ -334,12 +334,24 @@ static inline int constant_time_select_int(unsigned int mask, int a, int b) {
 }
 
 
-/* Alignment functions. */
+/* Alignment and endian conversion functions. */
 
-/* Returns one if |p| is aligned on a |alignment| byte boundary and zero
+/* aliasing_uint8 is like |uint8_t|, except guaranteed to be a character type.
+ * The ISO C effective type rules allow reading part of any value by casting
+ * to a character type. |uint8_t| isn't necessarily a typedef of |unsigned char|
+ * and so it isn't necessarily a character type. */
+typedef unsigned char aliasing_uint8;
+
+/* Returns one if |p| is aligned on an |alignment| byte boundary and zero
  * otherwise. */
 static inline int is_aligned(void *p, size_t alignment) {
   return (uintptr_t)p % alignment == 0;
+}
+
+/* Returns the value of the little-endian-encoded 16-bit quantity at |p|. */
+static inline uint16_t from_le_u16_ptr(const void *p) {
+  const aliasing_uint8 *p_bytes = (const aliasing_uint8 *)p;
+  return (uint16_t)p_bytes[0] | ((uint16_t)p_bytes[1] << 8);
 }
 
 
