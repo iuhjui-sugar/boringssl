@@ -181,6 +181,10 @@ BIGNUM *bn_expand(BIGNUM *bn, size_t bits);
 #endif
 
 
+/* ~5.5KB of |BN_ULONG|s. */
+#define BN_MOD_EXP_MONT_CONSTTIME_STORAGE_LEN ((3 * 40) + (4 * 9 * 16))
+
+
 #define STATIC_BIGNUM(x)                                \
   {                                                     \
     (BN_ULONG *)x, sizeof(x) / sizeof(BN_ULONG),        \
