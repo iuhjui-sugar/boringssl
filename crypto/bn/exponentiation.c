@@ -1132,7 +1132,7 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
         bn_mul_mont_gather5(tmp.d, tmp.d, powerbuf, np, n0, top, wvalue);
       }
     } else {
-      const uint8_t *p_bytes = (const uint8_t *)p->d;
+      const aliasing_uint8 *p_bytes = (const aliasing_uint8 *)p->d;
       int max_bits = p->top * BN_BITS2;
       assert(bits < max_bits);
       /* |p = 0| has been handled as a special case, so |max_bits| is at least
@@ -1154,7 +1154,7 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
       while (bits >= 0) {
         /* Read five bits from |bits-4| through |bits|, inclusive. */
         int first_bit = bits - 4;
-        wvalue = *(const uint16_t *) (p_bytes + (first_bit >> 3));
+        wvalue = (int)from_le_u16_ptr(p_bytes);
         wvalue >>= first_bit & 7;
         wvalue &= 0x1f;
         bits -= 5;
