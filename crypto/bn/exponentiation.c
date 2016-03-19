@@ -939,6 +939,14 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
     mont = new_mont;
   }
 
+  /* The RSAZ code requires 64 byte alignment and the other code requires
+   * |MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH| alignment. */
+  OPENSSL_COMPILE_ASSERT(64 >= MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH,
+                         storage_alignment_not_large_enough);
+  OPENSSL_COMPILE_ASSERT(64 % MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH == 0,
+                         storage_alignment_not_multiple_of_min_cache_line_width);
+  alignas(64) BN_ULONG storage[BN_MOD_EXP_MONT_CONSTTIME_STORAGE_LEN];
+
 #ifdef RSAZ_ENABLED
   /* If the size of the operands allow it, perform the optimized
    * RSAZ exponentiation. For further information see
@@ -948,7 +956,8 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
     if (NULL == bn_wexpand(rr, 16)) {
       goto err;
     }
-    RSAZ_1024_mod_exp_avx2(rr->d, a->d, p->d, m->d, mont->RR.d, mont->n0[0]);
+    RSAZ_1024_mod_exp_avx2(rr->d, a->d, p->d, m->d, mont->RR.d, mont->n0[0],
+                           storage);
     rr->top = 16;
     rr->neg = 0;
     bn_correct_top(rr);
@@ -958,7 +967,7 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
     if (NULL == bn_wexpand(rr, 8)) {
       goto err;
     }
-    RSAZ_512_mod_exp(rr->d, a->d, p->d, m->d, mont->n0[0], mont->RR.d);
+    RSAZ_512_mod_exp(rr->d, a->d, p->d, m->d, mont->n0[0], mont->RR.d, storage);
     rr->top = 8;
     rr->neg = 0;
     bn_correct_top(rr);
@@ -984,11 +993,8 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
   powerbuf_count +=
     top * numPowers + ((2 * top) > numPowers ? (2 * top) : numPowers);
 
-  alignas(MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH) BN_ULONG
-    powerbuf_stack[3072 / sizeof(BN_ULONG)];
-
   if (powerbuf_count <= 3072 / sizeof(BN_ULONG)) {
-    powerbuf = powerbuf_stack;
+    powerbuf = storage;
   } else {
     /* XXX: Mac OS X, Windows, and glibc before 2.16 do not support the C11
      * standard |aligned_alloc|. */
