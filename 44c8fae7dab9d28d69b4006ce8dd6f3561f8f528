@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c7d52ec_eb5fcdb1",
+        "filename": "include/openssl/x509v3.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-20T16:43:47Z",
+      "side": 1,
+      "message": "Interestingly, master doesn\u0027t have this function but 1.0.2 does? Meh, we pretend to be 1.0.2 so may as well match. Wonder what happened there.",
+      "range": {
+        "startLine": 650,
+        "startChar": 19,
+        "endLine": 650,
+        "endChar": 34
+      },
+      "revId": "44c8fae7dab9d28d69b4006ce8dd6f3561f8f528",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
