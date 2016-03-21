@@ -217,7 +217,9 @@ err:
  * On success, the index of the assigned BN_BLINDING is written to
  * |*index_used| and must be passed to |rsa_blinding_release| when finished. */
 static BN_BLINDING *rsa_blinding_get(RSA *rsa, unsigned *index_used,
-                                     BN_CTX *ctx) {
+                                     const BN_MONT_CTX *mont_n, BN_CTX *ctx) {
+  assert(mont_n != NULL);
+
   BN_BLINDING *ret = NULL;
   BN_BLINDING **new_blindings;
   uint8_t *new_blindings_inuse;
@@ -246,7 +248,7 @@ static BN_BLINDING *rsa_blinding_get(RSA *rsa, unsigned *index_used,
    * the arrays by one and use the newly created element. */
 
   CRYPTO_MUTEX_unlock(&rsa->lock);
-  ret = rsa_setup_blinding(rsa, ctx);
+  ret = rsa_setup_blinding(rsa, mont_n, ctx);
   if (ret == NULL) {
     return NULL;
   }
@@ -532,6 +534,7 @@ int rsa_default_private_transform(RSA *rsa, uint8_t *out, const uint8_t *in,
                                   size_t len) {
   BIGNUM *f, *result;
   BN_CTX *ctx = NULL;
+  BN_MONT_CTX *mont_n = NULL;
   unsigned blinding_index = 0;
   BN_BLINDING *blinding = NULL;
   int ret = 0;
@@ -560,12 +563,27 @@ int rsa_default_private_transform(RSA *rsa, uint8_t *out, const uint8_t *in,
   }
 
   if (!(rsa->flags & RSA_FLAG_NO_BLINDING)) {
-    blinding = rsa_blinding_get(rsa, &blinding_index, ctx);
+    if (rsa->flags & RSA_FLAG_CACHE_PUBLIC) {
+      mont_n = BN_MONT_CTX_set_locked(&rsa->mont_n, &rsa->lock, rsa->n, ctx);
+      if (mont_n == NULL) {
+        OPENSSL_PUT_ERROR(RSA, ERR_R_INTERNAL_ERROR);
+        goto err;
+      }
+    } else {
+      mont_n = BN_MONT_CTX_new();
+      if (mont_n == NULL ||
+          !BN_MONT_CTX_set(mont_n, rsa->n, ctx)) {
+        OPENSSL_PUT_ERROR(RSA, ERR_R_INTERNAL_ERROR);
+        goto err;
+      }
+    }
+
+    blinding = rsa_blinding_get(rsa, &blinding_index, mont_n, ctx);
     if (blinding == NULL) {
       OPENSSL_PUT_ERROR(RSA, ERR_R_INTERNAL_ERROR);
       goto err;
     }
-    if (!BN_BLINDING_convert(f, blinding, ctx, rsa->mont_n)) {
+    if (!BN_BLINDING_convert(f, blinding, ctx, mont_n)) {
       goto err;
     }
   }
@@ -584,14 +602,16 @@ int rsa_default_private_transform(RSA *rsa, uint8_t *out, const uint8_t *in,
     d = &local_d;
     BN_with_flags(d, rsa->d, BN_FLG_CONSTTIME);
 
-    if (rsa->flags & RSA_FLAG_CACHE_PUBLIC) {
-      if (BN_MONT_CTX_set_locked(&rsa->mont_n, &rsa->lock, rsa->n, ctx) ==
-          NULL) {
-        goto err;
+    if (mont_n == NULL) {
+      if (rsa->flags & RSA_FLAG_CACHE_PUBLIC) {
+        mont_n = BN_MONT_CTX_set_locked(&rsa->mont_n, &rsa->lock, rsa->n, ctx);
+        if (mont_n == NULL) {
+          goto err;
+        }
       }
     }
 
-    if (!BN_mod_exp_mont_consttime(result, f, d, rsa->n, ctx, rsa->mont_n)) {
+    if (!BN_mod_exp_mont_consttime(result, f, d, rsa->n, ctx, mont_n)) {
       goto err;
     }
   }
@@ -613,6 +633,9 @@ err:
   if (ctx != NULL) {
     BN_CTX_end(ctx);
     BN_CTX_free(ctx);
+  }
+  if (mont_n != rsa->mont_n) {
+    BN_MONT_CTX_free(mont_n);
   }
   if (blinding != NULL) {
     rsa_blinding_release(rsa, blinding, blinding_index);
