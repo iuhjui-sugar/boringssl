@@ -22,6 +22,30 @@
       "revId": "8db8b2ba4e58776e55fe70bf710e2865d824e4b2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c7d52ec_110fee85",
+        "filename": "crypto/cpu-arm-linux.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-21T23:15:16Z",
+      "side": 1,
+      "message": "Oh, I just matched Android cpu-features did. Though, yeah, it should distinguish better between 0 and missing. Will revise this and the parent commit.",
+      "parentUuid": "5c240ef3_a9f4d436",
+      "range": {
+        "startLine": 334,
+        "startChar": 4,
+        "endLine": 334,
+        "endChar": 22
+      },
+      "revId": "8db8b2ba4e58776e55fe70bf710e2865d824e4b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
