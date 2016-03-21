@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c240ef3_46054734",
+        "filename": "fuzz/minimise_corpuses.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 6695
+      },
+      "writtenOn": "2016-03-21T20:09:47Z",
+      "side": 1,
+      "message": "You don\u0027t need -runs\u003d0, it\u0027s a no-op with merge\u003d1",
+      "revId": "f5aa8fda474285fcded7a10e7fe339b1dbb9cf0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
