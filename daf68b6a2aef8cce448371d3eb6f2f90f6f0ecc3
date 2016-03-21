@@ -22,6 +22,30 @@
       "revId": "daf68b6a2aef8cce448371d3eb6f2f90f6f0ecc3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c7d52ec_0ec8af9a",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-21T21:05:21Z",
+      "side": 1,
+      "message": "Exactly, yeah. It\u0027s already split into three separate entry-points. So now I\u0027m trimming this down to prepare for moving all the context-specific bits up into the context-specific entry-points.",
+      "parentUuid": "7c59d244_6b27bd52",
+      "range": {
+        "startLine": 364,
+        "startChar": 20,
+        "endLine": 364,
+        "endChar": 23
+      },
+      "revId": "daf68b6a2aef8cce448371d3eb6f2f90f6f0ecc3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
