@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dcb0fe0b_dbbf3324",
+        "filename": "crypto/rsa/blinding.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-03-21T22:06:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c7d52ec_6e268b54",
+      "range": {
+        "startLine": 128,
+        "startChar": 11,
+        "endLine": 128,
+        "endChar": 14
+      },
+      "revId": "41199d8867dea34778ab6a47c879dcfa84440425",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c7d52ec_8e1adffc",
         "filename": "crypto/rsa/blinding.c",
         "patchSetId": 1
@@ -36,6 +60,24 @@
       "writtenOn": "2016-03-21T20:48:05Z",
       "side": 1,
       "message": "Nit: This can probably be shortened to\n\n  return bn_blinding_update(b, ctx, mont_ctx) \u0026\u0026\n         BN_mod_mul(n, n, b-\u003eA, b-\u003emod, ctx);",
+      "revId": "41199d8867dea34778ab6a47c879dcfa84440425",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcb0fe0b_bbb46749",
+        "filename": "crypto/rsa/blinding.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-03-21T22:06:58Z",
+      "side": 1,
+      "message": "I shortened it a different way that\u0027s more consistent with the early return on error pattern in libcrypto (at least).",
+      "parentUuid": "7c7d52ec_8e1adffc",
       "revId": "41199d8867dea34778ab6a47c879dcfa84440425",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "dcb0fe0b_7baffff4",
+        "filename": "crypto/rsa/blinding.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-03-21T22:06:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c7d52ec_ae17a3d5",
+      "revId": "41199d8867dea34778ab6a47c879dcfa84440425",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c7d52ec_4e21c739",
         "filename": "crypto/rsa/rsa_impl.c",
         "patchSetId": 1
@@ -70,6 +130,30 @@
       "writtenOn": "2016-03-21T20:48:05Z",
       "side": 1,
       "message": "There isn\u0027t a BN_MONT_CTX_set_locked call before accessing this. It\u0027s an existing problem, but I think it got masked because creating a blinding would end up calling BN_MONT_CTX_set_locked before.\n\n(That this is so error-prone is a nuisance...)",
+      "range": {
+        "startLine": 568,
+        "startChar": 47,
+        "endLine": 568,
+        "endChar": 58
+      },
+      "revId": "41199d8867dea34778ab6a47c879dcfa84440425",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcb0fe0b_5bac43fe",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-03-21T22:06:58Z",
+      "side": 1,
+      "message": "It\u0027s not wrong, semantically, but it\u0027s wasteful in terms of performance. Regardless, I changed this in https://boringssl-review.googlesource.com/#/c/7521/, which can be merged before this changeset.",
+      "parentUuid": "7c7d52ec_4e21c739",
       "range": {
         "startLine": 568,
         "startChar": 47,
