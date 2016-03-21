@@ -46,6 +46,30 @@
       "revId": "8db8b2ba4e58776e55fe70bf710e2865d824e4b2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c7d52ec_5109667c",
+        "filename": "crypto/cpu-arm-linux.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-21T23:21:44Z",
+      "side": 1,
+      "message": "Actually, apparently it returning ENOENT is a pretty recent thing on glibc. This says \"since 2.19\".\nhttp://man7.org/linux/man-pages/man3/getauxval.3.html\n\nI\u0027m guessing this means other versions just returned zero without touching errno?\n\nAndroid doesn\u0027t use glibc, but this code also needs to run on CrOS ARM devices. Not sure what all they use. Although hopefully they wouldn\u0027t need any of the piles of workarounds? Does Android always return ENOENT?\n\n(Given that the underlying base API doesn\u0027t distinguish 0 success from 0 error, I also figured that falling back when we didn\u0027t need to wasn\u0027t the worst thing in the world. :-/)",
+      "parentUuid": "7c7d52ec_110fee85",
+      "range": {
+        "startLine": 334,
+        "startChar": 4,
+        "endLine": 334,
+        "endChar": 22
+      },
+      "revId": "8db8b2ba4e58776e55fe70bf710e2865d824e4b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
