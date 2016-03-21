@@ -217,9 +217,7 @@ err:
  * On success, the index of the assigned BN_BLINDING is written to
  * |*index_used| and must be passed to |rsa_blinding_release| when finished. */
 static BN_BLINDING *rsa_blinding_get(RSA *rsa, unsigned *index_used,
-                                     const BN_MONT_CTX *mont_n, BN_CTX *ctx) {
-  assert(mont_n != NULL);
-
+                                     BN_CTX *ctx) {
   BN_BLINDING *ret = NULL;
   BN_BLINDING **new_blindings;
   uint8_t *new_blindings_inuse;
@@ -248,7 +246,7 @@ static BN_BLINDING *rsa_blinding_get(RSA *rsa, unsigned *index_used,
    * the arrays by one and use the newly created element. */
 
   CRYPTO_MUTEX_unlock(&rsa->lock);
-  ret = rsa_setup_blinding(rsa, mont_n, ctx);
+  ret = BN_BLINDING_new(rsa, ctx);
   if (ret == NULL) {
     return NULL;
   }
@@ -578,7 +576,7 @@ int rsa_default_private_transform(RSA *rsa, uint8_t *out, const uint8_t *in,
       }
     }
 
-    blinding = rsa_blinding_get(rsa, &blinding_index, mont_n, ctx);
+    blinding = rsa_blinding_get(rsa, &blinding_index, ctx);
     if (blinding == NULL) {
       OPENSSL_PUT_ERROR(RSA, ERR_R_INTERNAL_ERROR);
       goto err;
