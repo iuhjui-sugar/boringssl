@@ -1070,9 +1070,13 @@ int rsa_default_multi_prime_keygen(RSA *rsa, int bits, int num_primes,
     }
   }
 
-  ok = 1;
   rsa->additional_primes = additional_primes;
   additional_primes = NULL;
+
+  ok = RSA_check_key(rsa);
+  if (!ok) {
+    OPENSSL_PUT_ERROR(RSA, RSA_R_INTERNAL_ERROR);
+  }
 
 err:
   if (ok == -1) {
