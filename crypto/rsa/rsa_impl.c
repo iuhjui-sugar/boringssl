@@ -1074,6 +1074,14 @@ int rsa_default_multi_prime_keygen(RSA *rsa, int bits, int num_primes,
   rsa->additional_primes = additional_primes;
   additional_primes = NULL;
 
+  /* The key generation process is complex and thus error-prone. It could be
+   * disastrous to generate and then use a bad key so double-check that the key
+   * makes sense. */
+  ok = RSA_check_key(rsa);
+  if (!ok) {
+    OPENSSL_PUT_ERROR(RSA, RSA_R_INTERNAL_ERROR);
+  }
+
 err:
   if (ok == -1) {
     OPENSSL_PUT_ERROR(RSA, ERR_LIB_BN);
