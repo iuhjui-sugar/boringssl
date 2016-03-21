@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c7d52ec_31995295",
+        "filename": "fuzz/client.options",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-21T22:27:45Z",
+      "side": 1,
+      "message": "This is kind of huge. A couple of the files in client_corpus are apparently 17k. I think this is one of the tests that fragments every handshake message 1 byte at a time, but I didn\u0027t check that carefully.",
+      "range": {
+        "startLine": 2,
+        "startChar": 10,
+        "endLine": 2,
+        "endChar": 15
+      },
+      "revId": "80e2b22a20f7a641711de78a6b4e73f1da36a06e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
