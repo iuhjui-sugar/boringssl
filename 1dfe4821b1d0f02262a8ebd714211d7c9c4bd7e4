@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c7d52ec_aeab23e6",
+        "filename": "crypto/rsa/blinding.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-21T19:09:23Z",
+      "side": 1,
+      "message": "Is this possible to be false? (It looks like no, though maybe it should be part of line 188? Or maybe we shouldn\u0027t have uninitialized BN_BLINDINGs...) If it can be false, it seems this change now allows b-\u003ecounter to increment without bound.",
+      "range": {
+        "startLine": 197,
+        "startChar": 45,
+        "endLine": 197,
+        "endChar": 57
+      },
+      "revId": "1dfe4821b1d0f02262a8ebd714211d7c9c4bd7e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c7d52ec_8eae5ff7",
+        "filename": "crypto/rsa/blinding.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-21T19:09:23Z",
+      "side": 1,
+      "message": "Nit: blinding",
+      "range": {
+        "startLine": 216,
+        "startChar": 33,
+        "endLine": 216,
+        "endChar": 41
+      },
+      "revId": "1dfe4821b1d0f02262a8ebd714211d7c9c4bd7e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
