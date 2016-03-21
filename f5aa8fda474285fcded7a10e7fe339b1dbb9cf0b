@@ -16,6 +16,24 @@
       "revId": "f5aa8fda474285fcded7a10e7fe339b1dbb9cf0b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c7d52ec_2e03b3a9",
+        "filename": "fuzz/minimise_corpuses.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-21T20:22:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c240ef3_46054734",
+      "revId": "f5aa8fda474285fcded7a10e7fe339b1dbb9cf0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
