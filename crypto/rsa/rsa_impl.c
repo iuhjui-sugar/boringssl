@@ -246,7 +246,7 @@ static BN_BLINDING *rsa_blinding_get(RSA *rsa, unsigned *index_used,
    * the arrays by one and use the newly created element. */
 
   CRYPTO_MUTEX_unlock(&rsa->lock);
-  ret = rsa_setup_blinding(rsa, ctx);
+  ret = BN_BLINDING_new(rsa, ctx);
   if (ret == NULL) {
     return NULL;
   }
