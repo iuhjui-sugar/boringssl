@@ -76,7 +76,9 @@ def parse(filename, data, current):
     l = l.strip() + ' '
     if l.startswith('-- line'):
       line = int(l.split(' ')[2]) - 1
-    elif line != None and '=>' not in l:
+    elif l.strip() == 'Ir':
+      line = 0
+    elif line != None and l.strip() and '=>' not in l and 'unidentified lines' not in l:
       count = l.split(' ')[0].replace(',', '').replace('.', '0')
       instruction = l.split(' ', 1)[1].strip()
       if count != '0' or is_asm(instruction):
