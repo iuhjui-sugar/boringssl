@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c7d52ec_516326ab",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-22T15:17:29Z",
+      "side": 1,
+      "message": "I agree, yeah. You need type-\u003ectx_size to be 0, which isn\u0027t possible for any of our digests. Maybe if someone defined the NULL digest in an ENGINE, I dunno, but we don\u0027t allow external EVP_MDs.",
+      "revId": "35b7d7fb886276ee55572fbd11ce1c7ed193f1f4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
