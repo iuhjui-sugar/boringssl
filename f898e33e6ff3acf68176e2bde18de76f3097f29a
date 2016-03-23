@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7c7d52ec_579eb67d",
+        "filename": "crypto/asn1/tasn_dec.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-23T22:39:15Z",
+      "side": 1,
+      "message": "This turns out to be unnecessary.",
+      "parentUuid": "97dae1a7_3df9c72f",
+      "revId": "f898e33e6ff3acf68176e2bde18de76f3097f29a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "97dae1a7_3d5267df",
         "filename": "crypto/cipher/e_aes.c",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2016-03-15T22:43:28Z",
       "side": 1,
       "message": "Nit: Extra newline.",
+      "revId": "f898e33e6ff3acf68176e2bde18de76f3097f29a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c7d52ec_f7aecaac",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-23T22:39:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97dae1a7_3d5267df",
       "revId": "f898e33e6ff3acf68176e2bde18de76f3097f29a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -64,6 +100,30 @@
       "writtenOn": "2016-03-15T22:43:28Z",
       "side": 1,
       "message": "Let\u0027s just initialize this to zero. It\u0027s what upstream did anyway.",
+      "range": {
+        "startLine": 164,
+        "startChar": 9,
+        "endLine": 164,
+        "endChar": 16
+      },
+      "revId": "f898e33e6ff3acf68176e2bde18de76f3097f29a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c7d52ec_17bd1ede",
+        "filename": "crypto/x509/asn1_gen.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-23T22:39:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97dae1a7_9d85538d",
       "range": {
         "startLine": 164,
         "startChar": 9,
@@ -122,6 +182,30 @@
     },
     {
       "key": {
+        "uuid": "7c7d52ec_37c22255",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 856,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-23T22:39:15Z",
+      "side": 1,
+      "message": "Initialized to 0 to align with OpenSSL.",
+      "parentUuid": "97dae1a7_fd61efa2",
+      "range": {
+        "startLine": 856,
+        "startChar": 8,
+        "endLine": 856,
+        "endChar": 10
+      },
+      "revId": "f898e33e6ff3acf68176e2bde18de76f3097f29a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "97dae1a7_fd40cf13",
         "filename": "crypto/x509/x_pubkey.c",
         "patchSetId": 3
@@ -133,6 +217,24 @@
       "writtenOn": "2016-03-15T22:43:28Z",
       "side": 1,
       "message": "What\u0027s going on here? This is definitely not the only limits.h include.",
+      "revId": "f898e33e6ff3acf68176e2bde18de76f3097f29a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c7d52ec_37994295",
+        "filename": "crypto/x509/x_pubkey.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-23T22:39:15Z",
+      "side": 1,
+      "message": "This turns out to be a bug in MSVC\u0027s headers so we don\u0027t want to suppress this. It turns out \u003climits.h\u003e is sensitive to whether other headers are included first.",
+      "parentUuid": "97dae1a7_fd40cf13",
       "revId": "f898e33e6ff3acf68176e2bde18de76f3097f29a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -162,6 +264,30 @@
     },
     {
       "key": {
+        "uuid": "7c7d52ec_57b796fd",
+        "filename": "crypto/x509v3/v3_conf.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-23T22:39:15Z",
+      "side": 1,
+      "message": "Initialized to zero to match OpenSSL.",
+      "parentUuid": "97dae1a7_bd3657c8",
+      "range": {
+        "startLine": 275,
+        "startChar": 9,
+        "endLine": 275,
+        "endChar": 16
+      },
+      "revId": "f898e33e6ff3acf68176e2bde18de76f3097f29a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "97dae1a7_1d1de345",
         "filename": "tool/speed.cc",
         "patchSetId": 3
@@ -173,6 +299,24 @@
       "writtenOn": "2016-03-15T22:43:28Z",
       "side": 1,
       "message": "If MSVC is warning on its own STL implementation, this warning is a waste of time. We don\u0027t have C++ outside of tests anyway, and in the limit all C++ files will just be disabling it individually.\n\nAlternatively, this suggests there\u0027s something more complex one can do here? I\u0027m not familiar with how MSVC warning levels work.\nhttps://connect.microsoft.com/VisualStudio/feedback/details/1217660/warning-c4265-when-using-functional-header",
+      "revId": "f898e33e6ff3acf68176e2bde18de76f3097f29a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c7d52ec_97a74ed5",
+        "filename": "tool/speed.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-23T22:39:15Z",
+      "side": 1,
+      "message": "I\u0027ve set this warning to level 4 per the MS-recommended workaround.",
+      "parentUuid": "97dae1a7_1d1de345",
       "revId": "f898e33e6ff3acf68176e2bde18de76f3097f29a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
