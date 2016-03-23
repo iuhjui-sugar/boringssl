@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c7d52ec_fc1151e0",
+        "filename": "util/generate-asm-lcov.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-23T18:14:29Z",
+      "side": 1,
+      "message": "Nit: This probably needs to be updated, right?",
+      "revId": "33ce91a1b9d8f97f5dfbc6a11fade41b22c1057c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
