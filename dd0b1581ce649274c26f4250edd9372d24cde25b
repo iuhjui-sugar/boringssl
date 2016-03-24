@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bce0aa3d_a2e0feb8",
+        "filename": "crypto/rsa/blinding.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-24T21:01:34Z",
+      "side": 1,
+      "message": "Isn\u0027t this now always NULL? Also, I know the next CL will undo it all anyway, but if you\u0027re planning on splitting this up, it seems this version now ends up making bn_blinding_create_param create a fresh BN_MONT_CTX when it shouldn\u0027t.",
+      "range": {
+        "startLine": 385,
+        "startChar": 50,
+        "endLine": 385,
+        "endChar": 58
+      },
+      "revId": "dd0b1581ce649274c26f4250edd9372d24cde25b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bce0aa3d_6256f631",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-24T21:01:34Z",
+      "side": 1,
+      "message": "The existing logic seems perfectly happy to have the blinding and actual operation create two separate BN_MONT_CTX objects in the non-RSA_FLAG_CACHE_PUBLIC case (which would only occur for custom RSA_METHODs or maybe people messing around with flags).\n\nCould we not save some complexity by not bothering to optimize that?",
+      "revId": "dd0b1581ce649274c26f4250edd9372d24cde25b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bce0aa3d_c2db8205",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-24T21:01:34Z",
+      "side": 1,
+      "message": "[Come to think of it, that you even need this check at all suggests BN_MONT_CTX_set_locked should be returning a const BN_MONT_CTX...]",
+      "revId": "dd0b1581ce649274c26f4250edd9372d24cde25b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
