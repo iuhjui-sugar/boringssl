@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5cbb2e3b_7513607a",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-03-24T22:12:46Z",
+      "side": 1,
+      "message": "The cost is doing it is ~zero, and the cost of a bad key is potentially horrific.",
+      "parentUuid": "7c7d52ec_97758ed5",
+      "revId": "f769737ce6cee894ed7f0adf3b55cae2b84a25c8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c7d52ec_7791fa3a",
         "filename": "crypto/rsa/rsa_test.cc",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2016-03-24T01:24:18Z",
       "side": 1,
       "message": "I dunno, calling RSA_check_key just before serializing seems a bit much. I feel like if you muck with the RSA key to make it invalid, that\u0027s your fault. :-)",
+      "revId": "f769737ce6cee894ed7f0adf3b55cae2b84a25c8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5cbb2e3b_d5bccc98",
+        "filename": "crypto/rsa/rsa_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 696,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-03-24T22:12:46Z",
+      "side": 1,
+      "message": "Do you want me to remove the comment?",
+      "parentUuid": "7c7d52ec_7791fa3a",
       "revId": "f769737ce6cee894ed7f0adf3b55cae2b84a25c8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
