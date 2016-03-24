@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5cbb2e3b_75e400f7",
+        "filename": "crypto/rsa/blinding.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-03-24T21:39:37Z",
+      "side": 1,
+      "message": "Yes, sounds reasonable. I originally wrote  this as a patch on top of the \"next CL\", where this case was already taken care of. I will fix this.",
+      "parentUuid": "bce0aa3d_a2e0feb8",
+      "range": {
+        "startLine": 385,
+        "startChar": 50,
+        "endLine": 385,
+        "endChar": 58
+      },
+      "revId": "dd0b1581ce649274c26f4250edd9372d24cde25b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bce0aa3d_6256f631",
         "filename": "crypto/rsa/rsa_impl.c",
         "patchSetId": 4
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "5cbb2e3b_15d77407",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-03-24T21:39:37Z",
+      "side": 1,
+      "message": "I\u0027d rather keep it the way it is now, because later changes (to use Montgomery multiplication in blinding.c) require a Montgomery context anyway.",
+      "parentUuid": "bce0aa3d_6256f631",
+      "revId": "dd0b1581ce649274c26f4250edd9372d24cde25b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bce0aa3d_c2db8205",
         "filename": "crypto/rsa/rsa_impl.c",
         "patchSetId": 4
@@ -53,6 +95,24 @@
       "writtenOn": "2016-03-24T21:01:34Z",
       "side": 1,
       "message": "[Come to think of it, that you even need this check at all suggests BN_MONT_CTX_set_locked should be returning a const BN_MONT_CTX...]",
+      "revId": "dd0b1581ce649274c26f4250edd9372d24cde25b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5cbb2e3b_f508f07b",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-03-24T21:39:37Z",
+      "side": 1,
+      "message": "Good idea. This should be done in a separate CL because it is actually a little bit more involved than one would expect, due to pre-existing uses of this pattern.",
+      "parentUuid": "bce0aa3d_c2db8205",
       "revId": "dd0b1581ce649274c26f4250edd9372d24cde25b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
