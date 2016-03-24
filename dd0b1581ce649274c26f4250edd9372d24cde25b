@@ -116,6 +116,24 @@
       "revId": "dd0b1581ce649274c26f4250edd9372d24cde25b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bce0aa3d_42193299",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-24T21:48:02Z",
+      "side": 1,
+      "message": "Agreed. Yeah, I have a habit of putting things in square brackets for asides, though I\u0027m pretty sure no one ever knows what I mean by that. :-) I should maybe start saying \"Aside:\" explicitly.\n\nFiled https://bugs.chromium.org/p/boringssl/issues/detail?id\u003d10 so it\u0027s somewhere.\n\n(Oh yeah, I was going to mention to you... we have a separate bugtracker now. Still setting things up, so I haven\u0027t gotten to updating all the various ALL_CAPS.md files. Infra folks have promised us an import tool at some point for the existing stuff.)",
+      "parentUuid": "5cbb2e3b_f508f07b",
+      "revId": "dd0b1581ce649274c26f4250edd9372d24cde25b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
