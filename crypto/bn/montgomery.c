@@ -289,8 +289,9 @@ err:
   return ret;
 }
 
-BN_MONT_CTX *BN_MONT_CTX_set_locked(BN_MONT_CTX **pmont, CRYPTO_MUTEX *lock,
-                                    const BIGNUM *mod, BN_CTX *bn_ctx) {
+const BN_MONT_CTX *BN_MONT_CTX_set_locked(BN_MONT_CTX **pmont,
+                                          CRYPTO_MUTEX *lock, const BIGNUM *mod,
+                                          BN_CTX *bn_ctx) {
   CRYPTO_MUTEX_lock_read(lock);
   BN_MONT_CTX *ctx = *pmont;
   CRYPTO_MUTEX_unlock(lock);
