@@ -84,6 +84,24 @@
     },
     {
       "key": {
+        "uuid": "31206591_75e1c8e4",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-25T05:02:27Z",
+      "side": 1,
+      "message": "I\u0027m not sure I follow why you want it this way. Peeking ahead, the current version of https://boringssl-review.googlesource.com/#/c/7524/ makes it not use mont_n to begin with and instead uses rsa-\u003emont_n.\n\n(Which is fine since BN_mod_exp_mont_consttime allows for a NULL BN_MONT_CTX. I also rather suspect we can just get rid of RSA_FLAG_CACHE_PUBLIC and make it always on.)",
+      "parentUuid": "5cbb2e3b_15d77407",
+      "revId": "dd0b1581ce649274c26f4250edd9372d24cde25b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bce0aa3d_c2db8205",
         "filename": "crypto/rsa/rsa_impl.c",
         "patchSetId": 4
