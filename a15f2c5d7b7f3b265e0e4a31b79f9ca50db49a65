@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "716addda_57e10ce4",
+        "filename": "crypto/rsa/rsa_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 718,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-25T20:51:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "716addda_d7cd1c84",
+      "range": {
+        "startLine": 718,
+        "startChar": 52,
+        "endLine": 718,
+        "endChar": 53
+      },
+      "revId": "a15f2c5d7b7f3b265e0e4a31b79f9ca50db49a65",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b133751f_616b16ed",
         "filename": "crypto/rsa/rsa_test.cc",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2016-03-25T20:34:24Z",
       "side": 1,
       "message": "It would be clearer better to mention `n` here too.",
+      "range": {
+        "startLine": 727,
+        "startChar": 46,
+        "endLine": 727,
+        "endChar": 54
+      },
+      "revId": "a15f2c5d7b7f3b265e0e4a31b79f9ca50db49a65",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "716addda_17eb94c6",
+        "filename": "crypto/rsa/rsa_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 727,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-25T20:51:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b133751f_616b16ed",
       "range": {
         "startLine": 727,
         "startChar": 46,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "716addda_37f018b0",
+        "filename": "crypto/rsa/rsa_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 734,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-25T20:51:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b133751f_c15f824c",
+      "range": {
+        "startLine": 734,
+        "startChar": 49,
+        "endLine": 734,
+        "endChar": 56
+      },
+      "revId": "a15f2c5d7b7f3b265e0e4a31b79f9ca50db49a65",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "716addda_f7caa069",
         "filename": "crypto/rsa/rsa_test.cc",
         "patchSetId": 1
@@ -82,6 +154,24 @@
       "writtenOn": "2016-03-25T20:32:12Z",
       "side": 1,
       "message": "Can you do RSA_check_key?",
+      "revId": "a15f2c5d7b7f3b265e0e4a31b79f9ca50db49a65",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "716addda_77e690ff",
+        "filename": "crypto/rsa/rsa_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 753,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-25T20:51:40Z",
+      "side": 1,
+      "message": "Nope. RSA_check_key complains if callers do something this dumb. I think I\u0027m pretty okay with this. :-)",
+      "parentUuid": "716addda_f7caa069",
       "revId": "a15f2c5d7b7f3b265e0e4a31b79f9ca50db49a65",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "716addda_d7d43c0a",
+        "filename": "crypto/rsa/rsa_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 756,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-25T20:51:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b133751f_015a0a5b",
+      "range": {
+        "startLine": 756,
+        "startChar": 47,
+        "endLine": 756,
+        "endChar": 48
+      },
+      "revId": "a15f2c5d7b7f3b265e0e4a31b79f9ca50db49a65",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "716addda_97c7a460",
         "filename": "crypto/rsa/rsa_test.cc",
         "patchSetId": 1
@@ -122,6 +236,30 @@
       "writtenOn": "2016-03-25T20:32:12Z",
       "side": 1,
       "message": "\"RSA_verify failed with ...\"",
+      "range": {
+        "startLine": 764,
+        "startChar": 29,
+        "endLine": 764,
+        "endChar": 38
+      },
+      "revId": "a15f2c5d7b7f3b265e0e4a31b79f9ca50db49a65",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "716addda_f7d14017",
+        "filename": "crypto/rsa/rsa_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-25T20:51:40Z",
+      "side": 1,
+      "message": "Done, though with a slight variant.",
+      "parentUuid": "716addda_97c7a460",
       "range": {
         "startLine": 764,
         "startChar": 29,
