@@ -424,6 +424,8 @@ err:
   return ret;
 }
 
+static int mod_exp(BIGNUM *r0, const BIGNUM *I, RSA *rsa, BN_CTX *ctx);
+
 int rsa_default_verify_raw(RSA *rsa, size_t *out_len, uint8_t *out,
                            size_t max_out, const uint8_t *in, size_t in_len,
                            int padding) {
@@ -568,10 +570,9 @@ int rsa_default_private_transform(RSA *rsa, uint8_t *out, const uint8_t *in,
     }
   }
 
-  if ((rsa->flags & RSA_FLAG_EXT_PKEY) ||
-      ((rsa->p != NULL) && (rsa->q != NULL) && (rsa->dmp1 != NULL) &&
+  if (((rsa->p != NULL) && (rsa->q != NULL) && (rsa->dmp1 != NULL) &&
        (rsa->dmq1 != NULL) && (rsa->iqmp != NULL))) {
-    if (!rsa->meth->mod_exp(result, f, rsa, ctx)) {
+    if (!mod_exp(result, f, rsa, ctx)) {
       goto err;
     }
   } else {
@@ -614,6 +615,8 @@ err:
 }
 
 static int mod_exp(BIGNUM *r0, const BIGNUM *I, RSA *rsa, BN_CTX *ctx) {
+  assert(ctx != NULL);
+
   BIGNUM *r1, *m1, *vrfy;
   BIGNUM local_dmp1, local_dmq1, local_c, local_r1;
   BIGNUM *dmp1, *dmq1, *c, *pr1;
@@ -1094,7 +1097,9 @@ int rsa_default_keygen(RSA *rsa, int bits, BIGNUM *e_value, BN_GENCB *cb) {
                                         cb);
 }
 
-/* Many of these methods are NULL to more easily drop unused functions. The
+/* All of the methods are NULL so that users of the library cannot call the
+ * default methods by extracting them from the default |RSA_METHOD|. This also
+ * makes it easier for the compiler/linker to drop unused functions. The
  * wrapper functions will select the appropriate |rsa_default_*| for all
  * methods. */
 const RSA_METHOD RSA_default_method = {
@@ -1119,7 +1124,7 @@ const RSA_METHOD RSA_default_method = {
 
   NULL /* private_transform (defaults to rsa_default_private_transform) */,
 
-  mod_exp,
+  NULL /* mod_exp */,
   NULL /* bn_mod_exp */,
 
   RSA_FLAG_CACHE_PUBLIC | RSA_FLAG_CACHE_PRIVATE,
