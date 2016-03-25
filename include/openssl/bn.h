@@ -752,8 +752,9 @@ OPENSSL_EXPORT int BN_MONT_CTX_set(BN_MONT_CTX *mont, const BIGNUM *mod,
  * then stores it as |*pmont| and returns it, or NULL on error.
  *
  * If |*pmont| is already non-NULL then the existing value is returned. */
-BN_MONT_CTX *BN_MONT_CTX_set_locked(BN_MONT_CTX **pmont, CRYPTO_MUTEX *lock,
-                                    const BIGNUM *mod, BN_CTX *bn_ctx);
+const BN_MONT_CTX *BN_MONT_CTX_set_locked(BN_MONT_CTX **pmont,
+                                          CRYPTO_MUTEX *lock, const BIGNUM *mod,
+                                          BN_CTX *bn_ctx);
 
 /* BN_to_montgomery sets |ret| equal to |a| in the Montgomery domain. It
  * returns one on success and zero on error. */
