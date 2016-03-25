@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "716addda_97b00407",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-25T20:04:21Z",
+      "side": 1,
+      "message": "[I see you\u0027ve moved the set_locked call to the next CL. :-) That\u0027s fine too. Whatever. I\u0027m sure you\u0027re sick of rebasing those changes by now.]",
+      "revId": "7716257289433b183a8c2fc96df7c104e2fe05cf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
