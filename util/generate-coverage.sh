@@ -27,8 +27,13 @@ if [ -n "$1" ]; then
 fi
 
 cd "$BUILD"
-cmake "$SRC" -GNinja -DCMAKE_C_FLAGS='-fprofile-arcs -ftest-coverage' \
-  -DCMAKE_CXX_FLAGS='-fprofile-arcs -ftest-coverage' -DCMAKE_ASM_FLAGS='-Wa,-g'
+if [ "$TEST_ARCH" = "x86" ]; then
+  cmake "$SRC" -GNinja -DCMAKE_TOOLCHAIN_FILE='util/32-bit-toolchain.cmake' \
+    -DCALLGRIND=1
+else
+  cmake "$SRC" -GNinja -DCALLGRIND=1
+fi
+
 ninja
 
 cp -r "$SRC/crypto" "$SRC/decrepit" "$SRC/include" "$SRC/ssl" "$SRC/tool" \
