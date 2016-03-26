@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "51c95978_36bf78d6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-26T04:48:14Z",
+      "side": 1,
+      "message": "It does not. I\u0027ll change that as part of the DEPS roll. For now, Chromium is still living the dream of being able to atomically change it and roll DEPS at the same time, so minor tweaks like this are easy.",
+      "parentUuid": "f10fad76_237f6a87",
+      "range": {
+        "startLine": 40,
+        "startChar": 11,
+        "endLine": 40,
+        "endChar": 12
+      },
+      "revId": "9ecb9bb476cca30ad07ed21b7c0696de308c9bd9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f10fad76_03bb4e09",
         "filename": "crypto/cpu-arm-linux.c",
         "patchSetId": 7
@@ -48,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "51c95978_56b4f4f5",
+        "filename": "crypto/cpu-arm-linux.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-26T04:48:14Z",
+      "side": 1,
+      "message": "Done. Yeah, that\u0027s a much better name. I\u0027ll shorten it slightly to remaining.",
+      "parentUuid": "f10fad76_03bb4e09",
+      "revId": "9ecb9bb476cca30ad07ed21b7c0696de308c9bd9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f10fad76_e300b2e9",
         "filename": "crypto/cpu-arm-linux.c",
         "patchSetId": 7
@@ -59,6 +101,24 @@
       "writtenOn": "2016-03-26T00:14:45Z",
       "side": 1,
       "message": "I think maybe this comment belongs right above or below line 301? (i.e. it goes with the condition on 301, not the one on line 305, right?)",
+      "revId": "9ecb9bb476cca30ad07ed21b7c0696de308c9bd9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "51c95978_76b9f0ec",
+        "filename": "crypto/cpu-arm-linux.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-26T04:48:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f10fad76_e300b2e9",
       "revId": "9ecb9bb476cca30ad07ed21b7c0696de308c9bd9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
