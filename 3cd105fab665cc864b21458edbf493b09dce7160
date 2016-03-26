@@ -22,6 +22,30 @@
       "revId": "3cd105fab665cc864b21458edbf493b09dce7160",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "51c95978_b62e28d1",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-26T20:22:41Z",
+      "side": 1,
+      "message": "Done. Did the same for SSL_write. (I suspect this can just go away altogether.)",
+      "parentUuid": "7c67120f_e7266cb1",
+      "range": {
+        "startLine": 611,
+        "startChar": 2,
+        "endLine": 611,
+        "endChar": 24
+      },
+      "revId": "3cd105fab665cc864b21458edbf493b09dce7160",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
