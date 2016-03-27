@@ -230,6 +230,10 @@ int bn_mul_mont(BN_ULONG *rp, const BN_ULONG *ap, const BN_ULONG *bp,
 #endif
 
 
+BIGNUM *bn_mod_inverse_no_branch(BIGNUM *out, int *out_no_inverse,
+                                 const BIGNUM *a, const BIGNUM *n, BN_CTX *ctx);
+
+
 #if defined(__cplusplus)
 }  /* extern C */
 #endif
