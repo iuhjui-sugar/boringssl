@@ -565,7 +565,7 @@ int rsa_default_private_transform(RSA *rsa, uint8_t *out, const uint8_t *in,
       OPENSSL_PUT_ERROR(RSA, ERR_R_INTERNAL_ERROR);
       goto err;
     }
-    if (!BN_BLINDING_convert(f, blinding, rsa->mont_n, ctx)) {
+    if (!BN_BLINDING_convert(f, blinding, rsa->e, rsa->mont_n, ctx)) {
       goto err;
     }
   }
@@ -576,7 +576,7 @@ int rsa_default_private_transform(RSA *rsa, uint8_t *out, const uint8_t *in,
      * cannot protect against fault attacks. In that case, it is too dangerous
      * to use the CRT method.
      *
-     * We could try to recover |e| using |rsa_get_public_exp|, but doing so
+     * We could try to recover |e| from the other parameters, but doing so
      * would leak information about the private key components. We could fall
      * back to the non-CRT method, but doing so seems unnecessary as a key
      * should never have all the CRT components but not have |e|. */
