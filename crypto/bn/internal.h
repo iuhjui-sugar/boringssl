@@ -230,6 +230,15 @@ int bn_mul_mont(BN_ULONG *rp, const BN_ULONG *ap, const BN_ULONG *bp,
 #endif
 
 
+/* BN_mod_inverse_no_branch is a special version of BN_mod_inverse that
+ * attempts to avoid leaking sensitive information to some degree of success by
+ * avoiding some branches. Like |BN_mod_inverse|, it requires |ctx| to be
+ * non-NULL. Unlike |BN_mod_inverse|, it also requires |out| to be non-NULL and
+ * 0 <= |a| < |n|. It returns one on success or zero otherwise. */
+int BN_mod_inverse_no_branch(BIGNUM *out, int *out_no_inverse,
+                             const BIGNUM *a, const BIGNUM *n, BN_CTX *ctx);
+
+
 #if defined(__cplusplus)
 }  /* extern C */
 #endif

@@ -115,6 +115,7 @@
 #include <openssl/err.h>
 
 #include "internal.h"
+#include "../bn/internal.h"
 
 
 #define BN_BLINDING_COUNTER 32
@@ -140,11 +141,13 @@ BN_BLINDING *BN_BLINDING_new(void) {
   if (ret->A == NULL) {
     goto err;
   }
+  BN_set_flags(ret->A, BN_FLG_CONSTTIME);
 
   ret->Ai = BN_new();
   if (ret->Ai == NULL) {
     goto err;
   }
+  BN_set_flags(ret->Ai, BN_FLG_CONSTTIME);
 
   /* The blinding values need to be created before this blinding can be used. */
   ret->counter = BN_BLINDING_COUNTER - 1;
@@ -216,9 +219,6 @@ int BN_BLINDING_invert(BIGNUM *n, const BN_BLINDING *b, BN_MONT_CTX *mont,
 
 static int bn_blinding_create_param(BN_BLINDING *b, const BIGNUM *e,
                                     const BN_MONT_CTX *mont, BN_CTX *ctx) {
-  BIGNUM mont_N_consttime;
-  BN_init(&mont_N_consttime);
-  BN_with_flags(&mont_N_consttime, &mont->N, BN_FLG_CONSTTIME);
   int retry_counter = 32;
 
   do {
@@ -235,8 +235,7 @@ static int bn_blinding_create_param(BN_BLINDING *b, const BIGNUM *e,
     }
 
     int no_inverse;
-    if (BN_mod_inverse_ex(b->Ai, &no_inverse, b->Ai, &mont_N_consttime, ctx) ==
-        NULL) {
+    if (!BN_mod_inverse_no_branch(b->Ai, &no_inverse, b->Ai, &mont->N, ctx)) {
       /* this should almost never happen for good RSA keys */
       if (no_inverse) {
         if (retry_counter-- == 0) {

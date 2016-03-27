@@ -551,10 +551,6 @@ BIGNUM *BN_mod_inverse(BIGNUM *out, const BIGNUM *a, const BIGNUM *n,
   return BN_mod_inverse_ex(out, &no_inverse, a, n, ctx);
 }
 
-static int BN_mod_inverse_no_branch(BIGNUM *out, int *out_no_inverse,
-                                    const BIGNUM *a, const BIGNUM *n,
-                                    BN_CTX *ctx);
-
 /* Like |BN_mod_inverse_no_branch|, but accepts |a| outside the range [0, n). */
 static int bn_mod_inverse_no_branch_reduce(BIGNUM *out, int *out_no_inverse,
                                            const BIGNUM *a, const BIGNUM *n,
@@ -583,13 +579,8 @@ err:
   return ok;
 }
 
-/* bn_mod_inverse_no_branch is a special version of BN_mod_inverse that
- * attempts to avoid leaking sensitive information to some degree of success by
- * avoiding some branches It requires 0 <= |a| < |n|. It returns one on success
- * or zero otherwise. */
-static int BN_mod_inverse_no_branch(BIGNUM *out, int *out_no_inverse,
-                                    const BIGNUM *a, const BIGNUM *n,
-                                    BN_CTX *ctx) {
+int BN_mod_inverse_no_branch(BIGNUM *out, int *out_no_inverse, const BIGNUM *a,
+                             const BIGNUM *n, BN_CTX *ctx) {
   /* |BN_mod_inverse| doesn't have these preconditions. */
   assert(out != NULL);
   assert(!a->neg && BN_ucmp(a, n) < 0);
