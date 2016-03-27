@@ -409,7 +409,6 @@ int DSA_generate_key(DSA *dsa) {
   int ok = 0;
   BN_CTX *ctx = NULL;
   BIGNUM *pub_key = NULL, *priv_key = NULL;
-  BIGNUM prk;
 
   ctx = BN_CTX_new();
   if (ctx == NULL) {
@@ -438,9 +437,8 @@ int DSA_generate_key(DSA *dsa) {
     }
   }
 
-  BN_init(&prk);
+  BIGNUM prk;
   BN_with_flags(&prk, priv_key, BN_FLG_CONSTTIME);
-
   if (!BN_mod_exp(pub_key, dsa->g, &prk, dsa->p, ctx)) {
     goto err;
   }
