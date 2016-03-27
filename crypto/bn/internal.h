@@ -230,6 +230,12 @@ int bn_mul_mont(BN_ULONG *rp, const BN_ULONG *ap, const BN_ULONG *bp,
 #endif
 
 
+/* bn_mod_inverse_no_branch behaves like |BN_mod_inverse_ex| but does not
+ * contain branches that may leak sensitive information. */
+BIGNUM *bn_mod_inverse_no_branch(BIGNUM *out, int *out_no_inverse,
+                                 const BIGNUM *a, const BIGNUM *n, BN_CTX *ctx);
+
+
 #if defined(__cplusplus)
 }  /* extern C */
 #endif
