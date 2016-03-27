@@ -565,7 +565,7 @@ int rsa_default_private_transform(RSA *rsa, uint8_t *out, const uint8_t *in,
       OPENSSL_PUT_ERROR(RSA, ERR_R_INTERNAL_ERROR);
       goto err;
     }
-    if (!BN_BLINDING_convert(f, blinding, rsa->mont_n, ctx)) {
+    if (!BN_BLINDING_convert(f, blinding, rsa->e, rsa->mont_n, ctx)) {
       goto err;
     }
   }
