@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "51c95978_365db8f8",
+        "filename": "crypto/perlasm/x86gas.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-28T16:07:54Z",
+      "side": 0,
+      "message": "Huh. I bet upstream will need to ditch this too with their unified build. (Among other things, it can build in a separate directory, finally.)",
+      "revId": "973aeb28273182d22a8bdcb5113f133065a5fcc7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

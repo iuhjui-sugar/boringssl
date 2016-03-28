@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "51c95978_1658bc07",
+        "filename": "util/generate-coverage.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-28T16:07:54Z",
+      "side": 1,
+      "message": "Hrm. What if we added -fprofile-arcs and friends to a flag in CMakeLists.txt? We could probably also promote -Wa,g to always being there. We do pass in -ggdb already.\n\nI do wonder if this should be one of those tools that\u0027s either integrated into cmake or at least has a -build-dir flag. But needing to enable coverage flags makes it a bit trickier.",
+      "range": {
+        "startLine": 32,
+        "startChar": 22,
+        "endLine": 32,
+        "endChar": 25
+      },
+      "revId": "3543ba166e3583929ca49182576cc60ef1503b7d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
