@@ -232,6 +232,7 @@ int bn_mul_mont(BN_ULONG *rp, const BN_ULONG *ap, const BN_ULONG *bp,
 
 BIGNUM *bn_mod_inverse_no_branch(BIGNUM *out, int *out_no_inverse,
                                  const BIGNUM *a, const BIGNUM *n, BN_CTX *ctx);
+int bn_from_montgomery_word(BIGNUM *ret, BIGNUM *r, const BN_MONT_CTX *mont);
 
 
 #if defined(__cplusplus)

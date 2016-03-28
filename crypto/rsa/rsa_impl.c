@@ -66,6 +66,7 @@
 
 #include "internal.h"
 #include "../internal.h"
+#include "../bn/internal.h"
 
 
 static int check_modulus_and_exponent_sizes(const RSA *rsa) {
@@ -646,6 +647,12 @@ err:
   return ret;
 }
 
+
+static int reduce_mod_exp_mont_consttime(BIGNUM *r, const BIGNUM *b,
+                                         const BIGNUM *e,
+                                         const BN_MONT_CTX *mont_m, BN_CTX *ctx,
+                                         BIGNUM *tmp, size_t reductions);
+
 static int mod_exp(BIGNUM *r0, const BIGNUM *I, RSA *rsa, BN_CTX *ctx) {
   assert(ctx != NULL);
 
@@ -658,7 +665,6 @@ static int mod_exp(BIGNUM *r0, const BIGNUM *I, RSA *rsa, BN_CTX *ctx) {
   assert(rsa->dmq1 != NULL);
   assert(rsa->iqmp != NULL);
 
-  BIGNUM *r1, *m1, *vrfy;
   int ret = 0;
   size_t i, num_additional_primes = 0;
 
@@ -667,56 +673,56 @@ static int mod_exp(BIGNUM *r0, const BIGNUM *I, RSA *rsa, BN_CTX *ctx) {
   }
 
   BN_CTX_start(ctx);
-  r1 = BN_CTX_get(ctx);
-  m1 = BN_CTX_get(ctx);
-  vrfy = BN_CTX_get(ctx);
-  if (r1 == NULL ||
+  BIGNUM *tmp = BN_CTX_get(ctx);
+  BIGNUM *r1 = BN_CTX_get(ctx);
+  BIGNUM *m1 = BN_CTX_get(ctx);
+  BIGNUM *vrfy = BN_CTX_get(ctx);
+  if (tmp == NULL ||
+      r1 == NULL ||
       m1 == NULL ||
       vrfy == NULL) {
     goto err;
   }
 
-  {
+  size_t reductions = 2 + num_additional_primes;
+
+  CRYPTO_MUTEX_lock_read(&rsa->lock);
+  size_t p_reductions = rsa->p_reductions;
+  CRYPTO_MUTEX_unlock(&rsa->lock);
+  if (p_reductions == 0) {
     BIGNUM p;
     BN_with_flags(&p, rsa->p, BN_FLG_CONSTTIME);
 
     BIGNUM q;
     BN_with_flags(&q, rsa->q, BN_FLG_CONSTTIME);
 
-    if (!BN_MONT_CTX_set_locked(&rsa->mont_p, &rsa->lock, &p, ctx) ||
-        !BN_MONT_CTX_set_locked(&rsa->mont_q, &rsa->lock, &q, ctx)) {
+    if (BN_MONT_CTX_set_locked(&rsa->mont_p, &rsa->lock, &p, ctx) == NULL ||
+        BN_MONT_CTX_set_locked(&rsa->mont_q, &rsa->lock, &q, ctx) == NULL) {
       goto err;
     }
+
+    p_reductions = reductions;
+    if (num_additional_primes == 0 && BN_cmp(rsa->p, rsa->q) > 0) {
+      /* Montgomery reduction mod |m| requires an input that is less than |m**2|.
+       * Given |p * q == n| and |p > q| it follows that |X < p**2| for all
+       * |X < n|, so we can reduce |X| mod |p| directly. Otherwise, when
+       * |p| < |q|, we must first reduce |X| mod |p**2|. So, we either need to
+       * do the extra reduction for |p| or we need to do it for |q|. This
+       * optimization leaks through side channels whether |p| > |q|, but this
+       * doesn't matter for good keys because a good key will always have
+       * |p > q|. */
+      p_reductions = 1;
+    }
+    CRYPTO_MUTEX_lock_write(&rsa->lock);
+    rsa->p_reductions = p_reductions;
+    CRYPTO_MUTEX_unlock(&rsa->lock);
   }
 
-  if (!BN_MONT_CTX_set_locked(&rsa->mont_n, &rsa->lock, rsa->n, ctx)) {
-    goto err;
-  }
-
-  BIGNUM c;
-  BN_with_flags(&c, I, BN_FLG_CONSTTIME);
-
-  /* compute I mod q */
-  if (!BN_mod(r1, &c, rsa->q, ctx)) {
-    goto err;
-  }
-
-  /* compute r1^dmq1 mod q */
-  BIGNUM dmq1;
-  BN_with_flags(&dmq1, rsa->dmq1, BN_FLG_CONSTTIME);
-  if (!BN_mod_exp_mont_consttime(m1, r1, &dmq1, rsa->q, ctx, rsa->mont_q)) {
-    goto err;
-  }
-
-  /* compute I mod p */
-  if (!BN_mod(r1, &c, rsa->p, ctx)) {
-    goto err;
-  }
-
-  /* compute r1^dmp1 mod p */
-  BIGNUM dmp1;
-  BN_with_flags(&dmp1, rsa->dmp1, BN_FLG_CONSTTIME);
-  if (!BN_mod_exp_mont_consttime(r0, r1, &dmp1, rsa->p, ctx, rsa->mont_p)) {
+  /* m1 := I**dmq1 mod q. r0 := I**dmp1 mod p. */
+  if (!reduce_mod_exp_mont_consttime(m1, I, rsa->dmq1, rsa->mont_q, ctx, tmp,
+                                     reductions) ||
+      !reduce_mod_exp_mont_consttime(r0, I, rsa->dmp1, rsa->mont_p, ctx, tmp,
+                                     reductions)) {
     goto err;
   }
 
@@ -764,19 +770,12 @@ static int mod_exp(BIGNUM *r0, const BIGNUM *I, RSA *rsa, BN_CTX *ctx) {
     RSA_additional_prime *ap =
         sk_RSA_additional_prime_value(rsa->additional_primes, i);
 
-    BIGNUM exp;
-    BN_with_flags(&exp, ap->exp, BN_FLG_CONSTTIME);
-
     BIGNUM prime;
     BN_with_flags(&prime, ap->prime, BN_FLG_CONSTTIME);
 
-    /* c will already point to a BIGNUM with the correct flags. */
-    if (!BN_mod(r1, &c, &prime, ctx)) {
-      goto err;
-    }
-
-    if (!BN_MONT_CTX_set_locked(&ap->mont, &rsa->lock, &prime, ctx) ||
-        !BN_mod_exp_mont_consttime(m1, r1, &exp, &prime, ctx, ap->mont)) {
+    if (BN_MONT_CTX_set_locked(&ap->mont, &rsa->lock, &prime, ctx) == NULL ||
+        !reduce_mod_exp_mont_consttime(m1, I, ap->exp, ap->mont, ctx, tmp,
+                                       reductions)) {
       goto err;
     }
 
@@ -797,6 +796,27 @@ static int mod_exp(BIGNUM *r0, const BIGNUM *I, RSA *rsa, BN_CTX *ctx) {
 err:
   BN_CTX_end(ctx);
   return ret;
+}
+
+static int reduce_mod_exp_mont_consttime(BIGNUM *r, const BIGNUM *b,
+                                         const BIGNUM *e,
+                                         const BN_MONT_CTX *mont_m, BN_CTX *ctx,
+                                         BIGNUM *tmp, size_t reductions) {
+  if (!BN_copy(tmp, b)) {
+    return 0;
+  }
+  while (reductions > 0) {
+    if (!bn_from_montgomery_word(r, tmp, mont_m) ||
+        !BN_to_montgomery(tmp, r, mont_m, ctx)) {
+      return 0;
+    }
+    --reductions;
+  }
+
+  BIGNUM e_consttime;
+  BN_with_flags(&e_consttime, e, BN_FLG_CONSTTIME);
+  return BN_mod_exp_mont_consttime(r, tmp, &e_consttime, &mont_m->N, ctx,
+                                   mont_m);
 }
 
 int rsa_default_multi_prime_keygen(RSA *rsa, int bits, int num_primes,

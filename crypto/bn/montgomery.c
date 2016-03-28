@@ -108,6 +108,7 @@
 
 #include <openssl/bn.h>
 
+#include <assert.h>
 #include <string.h>
 
 #include <openssl/err.h>
@@ -417,6 +418,7 @@ static int BN_from_montgomery_word(BIGNUM *ret, BIGNUM *r,
 
 static int BN_from_montgomery_word(BIGNUM *ret, BIGNUM *r, const BN_MONT_CTX *mont)
 	{
+        assert(ret != r);
 	BN_ULONG *ap,*np,*rp,n0,v,carry;
 	int nl,max,i;
 
@@ -491,23 +493,24 @@ static int BN_from_montgomery_word(BIGNUM *ret, BIGNUM *r, const BN_MONT_CTX *mo
 	return(1);
 	}
 
-int BN_from_montgomery(BIGNUM *ret, const BIGNUM *a, const BN_MONT_CTX *mont,
+int BN_from_montgomery(BIGNUM *r, const BIGNUM *a, const BN_MONT_CTX *mont,
                        BN_CTX *ctx) {
-  int retn = 0;
+  int ret = 0;
   BIGNUM *t;
 
   BN_CTX_start(ctx);
   t = BN_CTX_get(ctx);
-  if (t == NULL) {
-    return 0;
+  if (t == NULL ||
+      !BN_copy(t, a)) {
+    goto err;
   }
 
-  if (BN_copy(t, a)) {
-    retn = BN_from_montgomery_word(ret, t, mont);
-  }
+  ret = bn_from_montgomery_word(r, t, mont);
+
+err:
   BN_CTX_end(ctx);
 
-  return retn;
+  return ret;
 }
 
 int BN_mod_mul_montgomery(BIGNUM *r, const BIGNUM *a, const BIGNUM *b,
@@ -548,7 +551,7 @@ int BN_mod_mul_montgomery(BIGNUM *r, const BIGNUM *a, const BIGNUM *b,
   }
 
   /* reduce from aRR to aR */
-  if (!BN_from_montgomery_word(r, tmp, mont)) {
+  if (!bn_from_montgomery_word(r, tmp, mont)) {
     goto err;
   }
 

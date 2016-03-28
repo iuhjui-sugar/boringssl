@@ -575,6 +575,7 @@ struct rsa_st {
   BN_MONT_CTX *mont_n;
   BN_MONT_CTX *mont_p;
   BN_MONT_CTX *mont_q;
+  size_t p_reductions;
 
   /* num_blindings contains the size of the |blindings| and |blindings_inuse|
    * arrays. This member and the |blindings_inuse| array are protected by
