@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "51c95978_d6d2c479",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-28T17:27:46Z",
+      "side": 1,
+      "message": "Probably should have a better format now that we have two bug trackers... (Consider crbug.com/... for linkability?)",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 19
+      },
+      "revId": "4e42987c6b013b8bd45bf44a7a8b418c9050300b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "51c95978_76e49053",
+        "filename": "crypto/evp/p_dsa_asn1.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-28T17:27:46Z",
+      "side": 1,
+      "message": "nit: Extra dot seems to imply sub-oids.",
+      "range": {
+        "startLine": 247,
+        "startChar": 22,
+        "endLine": 247,
+        "endChar": 23
+      },
+      "revId": "4e42987c6b013b8bd45bf44a7a8b418c9050300b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "51c95978_96c84ccc",
+        "filename": "crypto/evp/p_ec_asn1.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-28T17:27:46Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 235,
+        "startChar": 22,
+        "endLine": 235,
+        "endChar": 23
+      },
+      "revId": "4e42987c6b013b8bd45bf44a7a8b418c9050300b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "51c95978_b6c548b3",
+        "filename": "crypto/evp/p_rsa_asn1.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-28T17:27:46Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 181,
+        "startChar": 25,
+        "endLine": 181,
+        "endChar": 26
+      },
+      "revId": "4e42987c6b013b8bd45bf44a7a8b418c9050300b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
