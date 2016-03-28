@@ -22,6 +22,30 @@
       "revId": "bbd99f57052794e2cfae99940d5587b33215ef14",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "51c95978_d9c7575f",
+        "filename": "crypto/bn/montgomery.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-28T22:24:51Z",
+      "side": 1,
+      "message": "I\u0027m not sure I follow. I suppose 0 should be 0u, I can fix that. But m was an unsigned value in the original code too (size_t). The rest of the computation is unsigned everywhere. Note that the LHS of this diff is *not* the original code. The original code uses PTR_SIZE_INT which is size_t.\n\nAlthough, now that I look at this again, I see it\u0027s trying to pick one of two pointers in constant time?? That seems kind of ridiculous. The memory access pattern won\u0027t be constant anyway.\n\n(Hilariously, OpenSSL uses size_t for PTR_SIZE_INT as well, except on VMS, where it\u0027s either a *signed* int or long long!)",
+      "parentUuid": "f10fad76_571fbcf6",
+      "range": {
+        "startLine": 382,
+        "startChar": 4,
+        "endLine": 382,
+        "endChar": 26
+      },
+      "revId": "bbd99f57052794e2cfae99940d5587b33215ef14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
