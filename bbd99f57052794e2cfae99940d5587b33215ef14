@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f10fad76_571fbcf6",
+        "filename": "crypto/bn/montgomery.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-03-28T22:19:11Z",
+      "side": 1,
+      "message": "(signed value) - (unsigned value) -\u003e signed value.\n\nThen we assign that to an variable with an unsigned type.\n\nThat\u0027s confusing as we have unsigned-\u003esigned-\u003eunsigned for no reason. It\u0027s better to reduce the number of signed/unsigned conversions.\n\nI would write `intptr_t m \u003d (intptr_t)0 - (intptr_t)v;` because then there\u0027s only one conversion from unsigned to signed.\n\nAnyway, I\u0027m pretty sure that this was the train of thought of the person who did the unfinished reformatting.\n\nIt might also be useful to `assert(v \u003d\u003d 0 || v \u003d\u003d 1);` and `assert(carry \u003d\u003d 0 || carry \u003d\u003d 1)`;",
+      "range": {
+        "startLine": 382,
+        "startChar": 4,
+        "endLine": 382,
+        "endChar": 26
+      },
+      "revId": "bbd99f57052794e2cfae99940d5587b33215ef14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
