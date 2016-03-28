@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "51c95978_96e20c15",
+        "filename": "crypto/rsa/blinding.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-28T21:18:55Z",
+      "side": 1,
+      "message": "These were underdocumented before anyway, but now that we\u0027re changing what it means, do you mind documenting A and Ai are? (Specifically that they\u0027re now in the Montgomery domain.)",
+      "revId": "366429e0dabf8320ce4c2241a344a086b09f112c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "51c95978_76de505c",
+        "filename": "crypto/rsa/blinding.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-28T21:18:55Z",
+      "side": 1,
+      "message": "It wasn\u0027t immediately obvious to me why this didn\u0027t need some BN_to_montgomery and BN_from_montgomery calls in there because the n and the output aren\u0027t in the Montgomery domain. Maybe add a brief comment for why this ends up working out?\n\nDitto below.",
+      "revId": "366429e0dabf8320ce4c2241a344a086b09f112c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "51c95978_56d95471",
+        "filename": "crypto/rsa/blinding.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-28T21:18:55Z",
+      "side": 1,
+      "message": "Nit: Just return BN_mod_mul_[...]",
+      "revId": "366429e0dabf8320ce4c2241a344a086b09f112c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
