@@ -22,6 +22,30 @@
       "revId": "6cd61ec6354902de893f63fcb4a709baee5a075d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "51c95978_563b14af",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 672,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-28T16:00:42Z",
+      "side": 1,
+      "message": "Hrm. I think I like disabled better since it parallels with ssl3_is_version_enabled.",
+      "parentUuid": "7c7d52ec_d7caa665",
+      "range": {
+        "startLine": 672,
+        "startChar": 63,
+        "endLine": 672,
+        "endChar": 71
+      },
+      "revId": "6cd61ec6354902de893f63fcb4a709baee5a075d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
