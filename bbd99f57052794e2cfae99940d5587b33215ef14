@@ -46,6 +46,23 @@
       "revId": "bbd99f57052794e2cfae99940d5587b33215ef14",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "51c95978_39e68bfe",
+        "filename": "crypto/bn/montgomery.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-28T22:28:02Z",
+      "side": 1,
+      "message": "...dammit, is someone trying to optimize the instruction scheduling in *C*???",
+      "revId": "bbd99f57052794e2cfae99940d5587b33215ef14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
