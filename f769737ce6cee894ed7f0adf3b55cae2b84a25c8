@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "51c95978_1687dc97",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-28T16:47:27Z",
+      "side": 1,
+      "message": "Mmm. I suppose it\u0027s a drop in the bucket compared to the absurdly high cost to generating one of these. Are you concerned about a fault in key generation that makes the CRT values bad?\n\nCould you move this into rsa_default_multi_prime_keygen in rsa_impl.c? Good not to have weird extra logic in the RSA_METHOD wrapper function. Also you\u0027re missing RSA_generate_multi_prime_key. Also with a comment as to the motivation.",
+      "parentUuid": "5cbb2e3b_7513607a",
+      "revId": "f769737ce6cee894ed7f0adf3b55cae2b84a25c8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c7d52ec_7791fa3a",
         "filename": "crypto/rsa/rsa_test.cc",
         "patchSetId": 1
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "Do you want me to remove the comment?",
       "parentUuid": "7c7d52ec_7791fa3a",
+      "revId": "f769737ce6cee894ed7f0adf3b55cae2b84a25c8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "31206591_35eb50c7",
+        "filename": "crypto/rsa/rsa_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 696,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-28T16:47:27Z",
+      "side": 1,
+      "message": "*shrug* I\u0027d probably just remove it, yeah.",
+      "parentUuid": "5cbb2e3b_d5bccc98",
       "revId": "f769737ce6cee894ed7f0adf3b55cae2b84a25c8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
