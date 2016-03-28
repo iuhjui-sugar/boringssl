@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "f10fad76_f7c34872",
+        "filename": "crypto/bn/montgomery.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-03-28T22:33:57Z",
+      "side": 1,
+      "message": "I think s/0/0u/ or maybe s/0/(uintptr_t)0/ also makes sense. Then we\u0027ve eliminated the signed/unsigned conversions completely.\n\nYes, this is trying to do a constant-time select between the two pointers in a bad way. I believe some of the assembly language implementations may also be doing this. It should eventually be fixed. That is far from the worst problem with this code, unfortunately. Solving the worse problems will eventually make this problem go away, I think.",
+      "parentUuid": "51c95978_d9c7575f",
+      "range": {
+        "startLine": 382,
+        "startChar": 4,
+        "endLine": 382,
+        "endChar": 26
+      },
+      "revId": "bbd99f57052794e2cfae99940d5587b33215ef14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51c95978_39e68bfe",
         "filename": "crypto/bn/montgomery.c",
         "patchSetId": 1
