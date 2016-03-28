@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "51c95978_b63b887b",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 705,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-28T17:44:32Z",
+      "side": 1,
+      "message": "Should SSL_AD_UNRECOGNIZED_NAME be set for !\u003d type?",
+      "revId": "34ce103a778b237924a9a520f5ee3306c8a20619",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
