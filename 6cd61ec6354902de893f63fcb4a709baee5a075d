@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c7d52ec_d7caa665",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 672,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-28T15:23:38Z",
+      "side": 1,
+      "message": "nit: Possibly reword? (invalid?)",
+      "range": {
+        "startLine": 672,
+        "startChar": 63,
+        "endLine": 672,
+        "endChar": 71
+      },
+      "revId": "6cd61ec6354902de893f63fcb4a709baee5a075d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
