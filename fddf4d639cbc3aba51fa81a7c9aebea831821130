@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "51c95978_f6c0a068",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 1102,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-28T21:32:15Z",
+      "side": 1,
+      "message": "Nit: Hrm? Is that really much of a concern? Apart from mod_exp and bn_mod_exp, which you\u0027ve removed, they\u0027re all just wrappers over the normal function. We don\u0027t expose RSA_get_default_method, so it would already take some *serious* sniffing around of internal structs.",
+      "range": {
+        "startLine": 1101,
+        "startChar": 31,
+        "endLine": 1102,
+        "endChar": 68
+      },
+      "revId": "fddf4d639cbc3aba51fa81a7c9aebea831821130",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
