@@ -22,6 +22,30 @@
       "revId": "3543ba166e3583929ca49182576cc60ef1503b7d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "314305e4_dd92ab78",
+        "filename": "util/generate-coverage.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-29T15:25:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51c95978_1658bc07",
+      "range": {
+        "startLine": 32,
+        "startChar": 22,
+        "endLine": 32,
+        "endChar": 25
+      },
+      "revId": "3543ba166e3583929ca49182576cc60ef1503b7d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
