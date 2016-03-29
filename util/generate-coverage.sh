@@ -15,25 +15,52 @@
 
 set -xe
 
+usage="Usage: $(basename "$0") [-l dir] [--arch (32|64)] [-t binary]\
+ [-a args]"
+
 SRC=$PWD
 
 BUILD=$(mktemp -d '/tmp/boringssl.XXXXXX')
 BUILD_SRC=$(mktemp -d '/tmp/boringssl-src.XXXXXX')
 LCOV=$(mktemp -d '/tmp/boringssl-lcov.XXXXXX')
 
-if [ -n "$1" ]; then
-  LCOV=$(readlink -f "$1")
-  mkdir -p "$LCOV"
+if [[ $# == 1 ]]; then
+  echo $usage
+  exit 1
 fi
+
+while [[ $# > 1 ]]
+do
+  case $1 in
+    -l|--lcov)
+      LCOV=$(readlink -f "$2")
+      mkdir -p "$LCOV"
+      shift
+      ;;
+    --arch)
+      if [ "$2" == "32" ]; then
+        BUILD_FLAGS="-DCMAKE_TOOLCHAIN_FILE='util/32-bit-toolchain.cmake'"
+      fi
+      shift
+      ;;
+    -t|--test)
+      TEST="$2"
+      shift
+      ;;
+    -a|--args)
+      TEST_ARGS="$2"
+      shift
+      ;;
+    *)
+      echo $usage
+      exit 1
+      ;;
+  esac
+  shift
+done
 
 cd "$BUILD"
-if [ "$TEST_ARCH" = "x86" ]; then
-  cmake "$SRC" -GNinja -DCMAKE_TOOLCHAIN_FILE='util/32-bit-toolchain.cmake' \
-    -DCALLGRIND=1
-else
-  cmake "$SRC" -GNinja -DCALLGRIND=1
-fi
-
+cmake "$SRC" -GNinja -DCALLGRIND=1 $BUILD_FLAGS
 ninja
 
 cp -r "$SRC/crypto" "$SRC/decrepit" "$SRC/include" "$SRC/ssl" "$SRC/tool" \
@@ -41,14 +68,25 @@ cp -r "$SRC/crypto" "$SRC/decrepit" "$SRC/include" "$SRC/ssl" "$SRC/tool" \
 cp -r "$BUILD"/* "$BUILD_SRC"
 mkdir "$BUILD/callgrind/"
 
+if [ -n "$TEST" ]; then
+  cd "$BUILD"
+  TEST=$(readlink -f "$TEST")
+  cd "$SRC"
+  valgrind -q --tool=callgrind \
+    --callgrind-out-file="$BUILD/callgrind/callgrind.out.%p" \
+    --dump-instr=yes --collect-jumps=yes $TEST $TEST_ARGS
+  $TEST $TEST_ARGS
+else
+  cd "$SRC"
+  go run "$SRC/util/all_tests.go" -build-dir "$BUILD" -callgrind \
+    -num-workers 16
+  go run "util/all_tests.go" -build-dir "$BUILD"
+  cd "$SRC/ssl/test/runner"
+  go test -shim-path "$BUILD/ssl/test/bssl_shim" -num-workers 1
+fi
+
 cd "$SRC"
-go run "$SRC/util/all_tests.go" -build-dir "$BUILD" -callgrind -num-workers 16
 util/generate-asm-lcov.py "$BUILD/callgrind" "$BUILD" > "$BUILD/asm.info"
-
-go run "util/all_tests.go" -build-dir "$BUILD"
-
-cd "$SRC/ssl/test/runner"
-go test -shim-path "$BUILD/ssl/test/bssl_shim" -num-workers 1
 
 cd "$LCOV"
 lcov -c -d "$BUILD" -b "$BUILD" -o "$BUILD/lcov.info"
