@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "51c95978_b95c5b59",
+        "filename": "include/openssl/rsa.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-29T00:49:18Z",
+      "side": 1,
+      "message": "do not use / avoid using?",
+      "range": {
+        "startLine": 412,
+        "startChar": 27,
+        "endLine": 412,
+        "endChar": 40
+      },
+      "revId": "f192b2432261e43bccc32ffba95ccaf6c25f0321",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
