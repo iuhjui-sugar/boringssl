@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f10fad76_bd31af35",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-03-29T02:22:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51c95978_99a6bfd1",
+      "range": {
+        "startLine": 573,
+        "startChar": 6,
+        "endLine": 573,
+        "endChar": 41
+      },
+      "revId": "fddf4d639cbc3aba51fa81a7c9aebea831821130",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51c95978_f6c0a068",
         "filename": "crypto/rsa/rsa_impl.c",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "f10fad76_5d1d1bad",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 1102,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-03-29T02:22:36Z",
+      "side": 1,
+      "message": "I updated the comment a little bit. I made this change to guarantee that my future changes didn\u0027t break anything. e.g. This guarantees it is safe to move the verification of the modular exponentiation result from `mod_exp` to `rsa_default_private_transform`.",
+      "parentUuid": "51c95978_f6c0a068",
+      "range": {
+        "startLine": 1101,
+        "startChar": 31,
+        "endLine": 1102,
+        "endChar": 68
+      },
+      "revId": "fddf4d639cbc3aba51fa81a7c9aebea831821130",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51c95978_79a2c3c0",
         "filename": "include/openssl/rsa.h",
         "patchSetId": 4
@@ -59,6 +107,24 @@
       "writtenOn": "2016-03-28T21:54:39Z",
       "side": 1,
       "message": "This comment needs an update. (Unfortunately, this project used the flag without realizing what it was for. I\u0027ll go send them a patch to get rid of it. Let\u0027s just leave it at \"does nothing\" for now and I\u0027ll send them a patch to get rid of it.)\n\nhttps://android.googlesource.com/platform/system/security/+/master/keystore-engine/android_engine.cpp#220",
+      "revId": "fddf4d639cbc3aba51fa81a7c9aebea831821130",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f10fad76_9d2e73d1",
+        "filename": "include/openssl/rsa.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-03-29T02:22:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51c95978_79a2c3c0",
       "revId": "fddf4d639cbc3aba51fa81a7c9aebea831821130",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
