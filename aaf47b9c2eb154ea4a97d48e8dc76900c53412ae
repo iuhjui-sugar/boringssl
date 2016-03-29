@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "314305e4_bd5b1f2a",
+        "filename": "crypto/rsa/blinding.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-29T22:05:37Z",
+      "side": 1,
+      "message": "I\u0027m assuming this was a mismerge across 95b97693403d5c8f09b2870ad9a6d7d198246da4. (I\u0027ll go ahead and remove it to save a round trip.)",
+      "range": {
+        "startLine": 191,
+        "startChar": 41,
+        "endLine": 191,
+        "endChar": 57
+      },
+      "revId": "aaf47b9c2eb154ea4a97d48e8dc76900c53412ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
