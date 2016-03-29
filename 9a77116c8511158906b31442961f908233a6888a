@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "51c95978_99315f36",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-29T00:33:04Z",
+      "side": 1,
+      "message": "If we\u0027re worried about the CRYPTO_memcmp below, shouldn\u0027t this also be done in constant-time?",
+      "range": {
+        "startLine": 618,
+        "startChar": 9,
+        "endLine": 618,
+        "endChar": 24
+      },
+      "revId": "9a77116c8511158906b31442961f908233a6888a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
