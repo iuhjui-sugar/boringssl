@@ -1,0 +1,158 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "314305e4_7d5d9752",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-29T19:11:41Z",
+      "side": 1,
+      "message": "BUG\u003dsomething",
+      "revId": "3657ff17f601d8bb550736c744f6beb5a1a3e2bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "314305e4_fddf67f6",
+        "filename": "crypto/cpu-arm.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-29T19:11:41Z",
+      "side": 1,
+      "message": "What\u0027s fcap mean?",
+      "range": {
+        "startLine": 187,
+        "startChar": 13,
+        "endLine": 187,
+        "endChar": 17
+      },
+      "revId": "3657ff17f601d8bb550736c744f6beb5a1a3e2bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "314305e4_9de423c5",
+        "filename": "crypto/cpu-arm.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-29T19:11:41Z",
+      "side": 1,
+      "message": "Nit: No assignments in literals.",
+      "range": {
+        "startLine": 188,
+        "startChar": 16,
+        "endLine": 188,
+        "endChar": 17
+      },
+      "revId": "3657ff17f601d8bb550736c744f6beb5a1a3e2bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "314305e4_1d5a535c",
+        "filename": "crypto/cpu-arm.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-29T19:11:41Z",
+      "side": 1,
+      "message": "Probably good to notice unknown strings.",
+      "revId": "3657ff17f601d8bb550736c744f6beb5a1a3e2bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "314305e4_bde9df9d",
+        "filename": "crypto/cpu-arm.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-29T19:11:41Z",
+      "side": 1,
+      "message": "Do a check that (OPENSSL_armcap_P \u0026 fcap) \u003d\u003d fcap and, if not, abort with some exit code so that all_tests.go notices.",
+      "revId": "3657ff17f601d8bb550736c744f6beb5a1a3e2bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "314305e4_3d570f33",
+        "filename": "crypto/cpu-intel.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-29T19:11:41Z",
+      "side": 1,
+      "message": "Nit: No spaces. :-)",
+      "range": {
+        "startLine": 253,
+        "startChar": 33,
+        "endLine": 253,
+        "endChar": 37
+      },
+      "revId": "3657ff17f601d8bb550736c744f6beb5a1a3e2bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "314305e4_9d65031a",
+        "filename": "util/variants.json",
+        "patchSetId": 12
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-29T19:11:41Z",
+      "side": 1,
+      "message": "Probably worth a different list of variants per architecture, so we don\u0027t end up running lots of copies of the same thing?",
+      "revId": "3657ff17f601d8bb550736c744f6beb5a1a3e2bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "314305e4_dd6b8bee",
+        "filename": "util/variants.json",
+        "patchSetId": 12
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-29T19:11:41Z",
+      "side": 1,
+      "message": "We\u0027d probably want to be able to test when AES+PMULL are both available, right? That\u0027s when we get a good AES-GCM implementation. They\u0027re also new in ARMv8 and I don\u0027t think ARMv8 without NEON is a thing. (And the armcap code will never report anything without reporting NEON.)\n\n(Actually, probably we could just merge all of the crypto extensions into one thing? They appear to have a single name, the \"ARMv8 Cryptography Extensions\".)",
+      "revId": "3657ff17f601d8bb550736c744f6beb5a1a3e2bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
