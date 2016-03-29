@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "314305e4_1d225395",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-29T22:23:43Z",
+      "side": 1,
+      "message": "Hrm. I suppose this already is something I can\u0027t easily grep for w.r.t. rsa-\u003ee and friends. I\u0027ll hold on thus until things are unstuck (hopefully soon!) and then land this and the other missing-exponent CL.",
+      "revId": "dbdb54fecf9ef6620f6177d262aad8712a19f870",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
