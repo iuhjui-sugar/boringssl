@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "314305e4_dd338bef",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 1102,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-29T22:15:36Z",
+      "side": 1,
+      "message": "Right, but simply making mod_exp a non-existent part of RSA_METHOD is sufficient for that goal. mod_exp and bn_mod_exp at this point are only in there because updating RSA_METHOD consumers is obnoxious and easier to batch up.",
+      "parentUuid": "f10fad76_5d1d1bad",
+      "range": {
+        "startLine": 1101,
+        "startChar": 31,
+        "endLine": 1102,
+        "endChar": 68
+      },
+      "revId": "fddf4d639cbc3aba51fa81a7c9aebea831821130",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51c95978_79a2c3c0",
         "filename": "include/openssl/rsa.h",
         "patchSetId": 4
