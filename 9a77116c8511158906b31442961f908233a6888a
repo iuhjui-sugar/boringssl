@@ -22,6 +22,30 @@
       "revId": "9a77116c8511158906b31442961f908233a6888a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f10fad76_928dc264",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-03-29T01:26:26Z",
+      "side": 1,
+      "message": "Yes and no.\n\nAFAICT, `BN_mod_exp_mont_consttime` is designed to protect the exponent and the base, and `BN_mod_exp_mont` is *supposed* to protect the base. The main (maybe only) difference between the two is that `BN_mod_exp_mont` does a bunch of BN_correct_tops and related badness. So in theory `BN_mod_exp_mont` would be better but `BN_mod_exp_mont_consttime` is probably slightly better. But, the same could be said for RSA_encrypt and every other use of `BN_mod_exp_mont` except signature verification.\n\nI believe in one of my earler patches, I\u0027d tried to switch this to `BN_mod_exp_mont_consttime` to account for the badness in `BN_mod_exp_mont` but I think we agreed to not do so. If we want to change to `BN_mod_exp_consttime` then let\u0027s due so in another CL that also adjust other, similar, cases.",
+      "parentUuid": "51c95978_99315f36",
+      "range": {
+        "startLine": 618,
+        "startChar": 9,
+        "endLine": 618,
+        "endChar": 24
+      },
+      "revId": "9a77116c8511158906b31442961f908233a6888a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
