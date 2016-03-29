@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "51c95978_398a0b0f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-29T00:38:29Z",
+      "side": 1,
+      "message": "It\u0027s not actually public. It even references CRYPTO_MUTEX. Upstream\u0027s is:\n\nBN_MONT_CTX *BN_MONT_CTX_set_locked(BN_MONT_CTX **pmont, int lock,\n                                    const BIGNUM *mod, BN_CTX *ctx);\n\nSo feel free to make it an int.",
+      "range": {
+        "startLine": 10,
+        "startChar": 56,
+        "endLine": 10,
+        "endChar": 66
+      },
+      "revId": "598d94faa2209fe201923ae926e1ae283034b44a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "51c95978_f92893c5",
+        "filename": "crypto/dh/dh.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-29T00:38:29Z",
+      "side": 1,
+      "message": "[Should be] unused variable.",
+      "revId": "598d94faa2209fe201923ae926e1ae283034b44a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "51c95978_19854ffe",
+        "filename": "crypto/dh/dh.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-29T00:38:29Z",
+      "side": 1,
+      "message": "dh-\u003emethod_mont_p",
+      "range": {
+        "startLine": 358,
+        "startChar": 23,
+        "endLine": 358,
+        "endChar": 27
+      },
+      "revId": "598d94faa2209fe201923ae926e1ae283034b44a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
