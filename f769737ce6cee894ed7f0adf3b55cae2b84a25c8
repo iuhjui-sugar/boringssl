@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "d1e0e93e_6279d651",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-03-30T02:58:27Z",
+      "side": 1,
+      "message": "I\u0027m not so concerned with faults. It\u0027s just purely defensive. I added a comment like you suggested.",
+      "parentUuid": "51c95978_1687dc97",
+      "revId": "f769737ce6cee894ed7f0adf3b55cae2b84a25c8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c7d52ec_7791fa3a",
         "filename": "crypto/rsa/rsa_test.cc",
         "patchSetId": 1
