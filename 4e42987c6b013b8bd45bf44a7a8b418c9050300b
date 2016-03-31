@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d13389d5_aa2f0f39",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-31T20:49:46Z",
+      "side": 1,
+      "message": "It\u0027s what bugdroid parses.",
+      "parentUuid": "51c95978_d6d2c479",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 19
+      },
+      "revId": "4e42987c6b013b8bd45bf44a7a8b418c9050300b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51c95978_76e49053",
         "filename": "crypto/evp/p_dsa_asn1.c",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2016-03-28T17:27:46Z",
       "side": 1,
       "message": "nit: Extra dot seems to imply sub-oids.",
+      "range": {
+        "startLine": 247,
+        "startChar": 22,
+        "endLine": 247,
+        "endChar": 23
+      },
+      "revId": "4e42987c6b013b8bd45bf44a7a8b418c9050300b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d13389d5_ca344390",
+        "filename": "crypto/evp/p_dsa_asn1.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-31T20:49:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51c95978_76e49053",
       "range": {
         "startLine": 247,
         "startChar": 22,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "d13389d5_ea390787",
+        "filename": "crypto/evp/p_ec_asn1.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-31T20:49:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51c95978_96c84ccc",
+      "range": {
+        "startLine": 235,
+        "startChar": 22,
+        "endLine": 235,
+        "endChar": 23
+      },
+      "revId": "4e42987c6b013b8bd45bf44a7a8b418c9050300b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51c95978_b6c548b3",
         "filename": "crypto/evp/p_rsa_asn1.c",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2016-03-28T17:27:46Z",
       "side": 1,
       "message": "same",
+      "range": {
+        "startLine": 181,
+        "startChar": 25,
+        "endLine": 181,
+        "endChar": 26
+      },
+      "revId": "4e42987c6b013b8bd45bf44a7a8b418c9050300b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d13389d5_0a3f3b6a",
+        "filename": "crypto/evp/p_rsa_asn1.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-31T20:49:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51c95978_b6c548b3",
       "range": {
         "startLine": 181,
         "startChar": 25,
