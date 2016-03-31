@@ -34,6 +34,24 @@
       "revId": "0132a3bcdf77063c0e4e73331a5dcea2c4cefb35",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d13389d5_0a9bbbf2",
+        "filename": "fuzz/cert.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-31T19:37:49Z",
+      "side": 1,
+      "message": "I *think* the way this works, we actually won\u0027t run through the EVP_marshal_public_key code. Probably we should go make a separate fuzzer there.\n\nI\u0027ll file bugs.",
+      "parentUuid": "d13389d5_6afef713",
+      "revId": "0132a3bcdf77063c0e4e73331a5dcea2c4cefb35",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
