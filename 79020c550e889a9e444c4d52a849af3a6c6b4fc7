@@ -162,6 +162,30 @@
       "revId": "79020c550e889a9e444c4d52a849af3a6c6b4fc7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d13389d5_2a631f83",
+        "filename": "crypto/ec/ec_asn1.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-31T21:02:42Z",
+      "side": 1,
+      "message": "Agreed. I didn\u0027t realize it was sentencified.",
+      "parentUuid": "d13389d5_8a2a4b2a",
+      "range": {
+        "startLine": 258,
+        "startChar": 54,
+        "endLine": 258,
+        "endChar": 55
+      },
+      "revId": "79020c550e889a9e444c4d52a849af3a6c6b4fc7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
