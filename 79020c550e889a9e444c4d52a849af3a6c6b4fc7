@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d13389d5_6aa7d713",
+        "filename": "crypto/ec/ec.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-31T20:49:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51c95978_b6ac68fb",
+      "range": {
+        "startLine": 233,
+        "startChar": 23,
+        "endLine": 233,
+        "endChar": 24
+      },
+      "revId": "79020c550e889a9e444c4d52a849af3a6c6b4fc7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51c95978_d6a9e4e9",
         "filename": "crypto/ec/ec.c",
         "patchSetId": 2
@@ -105,6 +129,30 @@
       "writtenOn": "2016-03-28T17:40:25Z",
       "side": 1,
       "message": "same",
+      "range": {
+        "startLine": 258,
+        "startChar": 54,
+        "endLine": 258,
+        "endChar": 55
+      },
+      "revId": "79020c550e889a9e444c4d52a849af3a6c6b4fc7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d13389d5_8a2a4b2a",
+        "filename": "crypto/ec/ec_asn1.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-03-31T20:49:42Z",
+      "side": 1,
+      "message": "Hrm. I feel like sentences should end with periods. Though I\u0027ll buy that the others probably want the periods removed.",
+      "parentUuid": "51c95978_3630589a",
       "range": {
         "startLine": 258,
         "startChar": 54,
