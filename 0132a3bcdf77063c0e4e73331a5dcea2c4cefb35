@@ -16,6 +16,24 @@
       "revId": "0132a3bcdf77063c0e4e73331a5dcea2c4cefb35",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d13389d5_6afef713",
+        "filename": "fuzz/cert.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-31T14:53:07Z",
+      "side": 1,
+      "message": "Actually probably not necessary here if there\u0027s separate fuzz testing for i2d alone.",
+      "parentUuid": "d13389d5_2af4ff31",
+      "revId": "0132a3bcdf77063c0e4e73331a5dcea2c4cefb35",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
