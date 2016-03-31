@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d13389d5_2af4ff31",
+        "filename": "fuzz/cert.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-03-31T14:45:58Z",
+      "side": 1,
+      "message": "Hmm, can you add a reserialization before the get_pubkey. Otherwise we never test the i2d codepath with invalid pubkeys.",
+      "revId": "0132a3bcdf77063c0e4e73331a5dcea2c4cefb35",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
