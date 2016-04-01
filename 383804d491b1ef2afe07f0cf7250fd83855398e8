@@ -22,6 +22,30 @@
       "revId": "383804d491b1ef2afe07f0cf7250fd83855398e8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d13389d5_2d76d9db",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-01T20:07:16Z",
+      "side": 0,
+      "message": "I guess I never responded to this. I think it was here due to copy-pasta or something. It\u0027s removed since it\u0027s redundant with the SSL_READING set when BIO_read fails. (And if something else failed, like we got an alert, this was wrong anyway. I think that we check ERR_peek_error worked around this bug.)",
+      "parentUuid": "7c67120f_470cf81c",
+      "range": {
+        "startLine": 397,
+        "startChar": 21,
+        "endLine": 397,
+        "endChar": 32
+      },
+      "revId": "383804d491b1ef2afe07f0cf7250fd83855398e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
