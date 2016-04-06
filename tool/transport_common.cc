@@ -44,6 +44,8 @@ typedef int ssize_t;
 
 #include <openssl/err.h>
 #include <openssl/ssl.h>
+#include <openssl/x509.h>
+#include <openssl/bio.h>
 
 #include "internal.h"
 #include "transport_common.h"
@@ -191,6 +193,19 @@ void PrintConnectionInfo(const SSL *ssl) {
   unsigned alpn_len;
   SSL_get0_alpn_selected(ssl, &alpn, &alpn_len);
   fprintf(stderr, "  ALPN protocol: %.*s\n", alpn_len, alpn);
+
+  // Print the server cert subject and issuer names
+  X509 *peer = SSL_get_peer_certificate(ssl);
+  if (peer != NULL) {
+    BIO *bio = BIO_new_fp(stderr, BIO_NOCLOSE);
+    char buf[1024*8];
+    X509_NAME_oneline(X509_get_subject_name(peer), buf, sizeof buf);
+    BIO_printf(bio, "  Cert subject: %s\n", buf);
+    X509_NAME_oneline(X509_get_issuer_name(peer), buf, sizeof buf);
+    BIO_printf(bio, "  Cert issuer: %s\n", buf);
+    X509_free(peer);
+    BIO_free(bio);
+  }
 }
 
 bool SocketSetNonBlocking(int sock, bool is_non_blocking) {
