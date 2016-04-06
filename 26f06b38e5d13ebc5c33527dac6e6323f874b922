@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "aee950fc_117a2c46",
+        "filename": "tool/transport_common.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 6740
+      },
+      "writtenOn": "2016-04-06T20:55:09Z",
+      "side": 1,
+      "message": "No longer needed.",
+      "parentUuid": "eec9889d_33f768a1",
+      "range": {
+        "startLine": 200,
+        "startChar": 15,
+        "endLine": 200,
+        "endChar": 25
+      },
+      "revId": "26f06b38e5d13ebc5c33527dac6e6323f874b922",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eec9889d_f335702d",
         "filename": "tool/transport_common.cc",
         "patchSetId": 1
@@ -36,6 +60,24 @@
       "writtenOn": "2016-04-06T20:09:19Z",
       "side": 1,
       "message": "This X509_NAME_oneline API is pretty bizarre, but it looks like if you pass in NULL, it\u0027ll put it in a newly-allocated buffer and return it? That\u0027s probably better so you don\u0027t have a magic number.",
+      "revId": "26f06b38e5d13ebc5c33527dac6e6323f874b922",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aee950fc_f1d32884",
+        "filename": "tool/transport_common.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 6740
+      },
+      "writtenOn": "2016-04-06T20:55:09Z",
+      "side": 1,
+      "message": "I was only using it because this is how the code in the openssl tool was written.  But looking at it more closely, it is suboptimal in a number of ways.  I\u0027ve switched to using X509_NAME_print_ex_fp which doesn\u0027t require a buffer at all, and produces slightly nicer output to boot.",
+      "parentUuid": "eec9889d_f335702d",
       "revId": "26f06b38e5d13ebc5c33527dac6e6323f874b922",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -88,6 +130,54 @@
     },
     {
       "key": {
+        "uuid": "aee950fc_d1d824a1",
+        "filename": "tool/transport_common.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 6740
+      },
+      "writtenOn": "2016-04-06T20:55:09Z",
+      "side": 1,
+      "message": "No longer present.",
+      "parentUuid": "eec9889d_13f46c98",
+      "range": {
+        "startLine": 202,
+        "startChar": 63,
+        "endLine": 202,
+        "endChar": 66
+      },
+      "revId": "26f06b38e5d13ebc5c33527dac6e6323f874b922",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aee950fc_b1dda08f",
+        "filename": "tool/transport_common.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 6740
+      },
+      "writtenOn": "2016-04-06T20:55:09Z",
+      "side": 1,
+      "message": "No longer present.",
+      "parentUuid": "eec9889d_53fae488",
+      "range": {
+        "startLine": 202,
+        "startChar": 4,
+        "endLine": 202,
+        "endChar": 21
+      },
+      "revId": "26f06b38e5d13ebc5c33527dac6e6323f874b922",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eec9889d_73fde07e",
         "filename": "tool/transport_common.cc",
         "patchSetId": 1
@@ -99,6 +189,30 @@
       "writtenOn": "2016-04-06T20:09:19Z",
       "side": 1,
       "message": "What\u0027s wrong with fprintf? Saves you making a wrapper BIO.",
+      "range": {
+        "startLine": 203,
+        "startChar": 4,
+        "endLine": 203,
+        "endChar": 14
+      },
+      "revId": "26f06b38e5d13ebc5c33527dac6e6323f874b922",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aee950fc_91e29c47",
+        "filename": "tool/transport_common.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 6740
+      },
+      "writtenOn": "2016-04-06T20:55:09Z",
+      "side": 1,
+      "message": "No longer needed.",
+      "parentUuid": "eec9889d_73fde07e",
       "range": {
         "startLine": 203,
         "startChar": 4,
