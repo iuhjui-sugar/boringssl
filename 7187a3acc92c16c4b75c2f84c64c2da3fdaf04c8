@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b3f12ea_fdc5075b",
+        "filename": "decrepit/ssl/CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-11T22:06:29Z",
+      "side": 1,
+      "message": "This\u0027ll require a slight tweak to the internal build, to include this file.",
+      "revId": "7187a3acc92c16c4b75c2f84c64c2da3fdaf04c8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
