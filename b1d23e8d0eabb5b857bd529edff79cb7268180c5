@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2bc1d219_2d09ad81",
+        "filename": "FUZZING.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-11T21:36:55Z",
+      "side": 1,
+      "message": "This is 4096 in the options file.",
+      "range": {
+        "startLine": 37,
+        "startChar": 14,
+        "endLine": 37,
+        "endChar": 18
+      },
+      "revId": "b1d23e8d0eabb5b857bd529edff79cb7268180c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2b3f12ea_5da07bb8",
+        "filename": "FUZZING.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-11T21:36:55Z",
+      "side": 1,
+      "message": "20000",
+      "range": {
+        "startLine": 38,
+        "startChar": 14,
+        "endLine": 38,
+        "endChar": 18
+      },
+      "revId": "b1d23e8d0eabb5b857bd529edff79cb7268180c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
