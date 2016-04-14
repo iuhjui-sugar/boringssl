@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4b3e069d_b13a1ac1",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-14T20:42:15Z",
+      "side": 1,
+      "message": "Nit: We probably want to give this a somewhat more unique name. boringssl_rename_symbols.h or something. Or maybe openssl/rename_symbols.h? I don\u0027t know whether having it in the openssl/ folder is more or less convenient for include path munging.",
+      "range": {
+        "startLine": 66,
+        "startChar": 10,
+        "endLine": 66,
+        "endChar": 18
+      },
+      "revId": "d7fb85558bde009807f8c79a650bbfd54db5d2ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
