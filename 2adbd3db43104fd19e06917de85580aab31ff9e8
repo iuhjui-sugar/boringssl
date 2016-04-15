@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4b3e069d_75a33723",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-04-15T21:46:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b3e069d_b584bf94",
+      "range": {
+        "startLine": 154,
+        "startChar": 13,
+        "endLine": 154,
+        "endChar": 24
+      },
+      "revId": "2adbd3db43104fd19e06917de85580aab31ff9e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b3e069d_753177c7",
         "filename": "include/openssl/base.h",
         "patchSetId": 2
@@ -36,6 +60,24 @@
       "writtenOn": "2016-04-15T21:24:32Z",
       "side": 1,
       "message": "Could you merge these with the crypto/internal.h definition as well? Probably just\n\ncrypto/internal.h:\nif !defined(inline)\n#define inline OSSL_INLINE\n#endif\n(For better or worse, we seem to be fine with messing with the language\u0027s namespace for our internal stuff.)\n\nLikewise with the d1_both.c copy, though that can probably go away and turn into a #include.",
+      "revId": "2adbd3db43104fd19e06917de85580aab31ff9e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b3e069d_95a0a316",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-04-15T21:46:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b3e069d_753177c7",
       "revId": "2adbd3db43104fd19e06917de85580aab31ff9e8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "4b3e069d_b56bdf80",
+        "filename": "include/openssl/hkdf.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-04-15T21:46:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b3e069d_b5591f0d",
+      "revId": "2adbd3db43104fd19e06917de85580aab31ff9e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b3e069d_d55eabf1",
         "filename": "include/openssl/hmac.h",
         "patchSetId": 2
@@ -70,6 +130,24 @@
       "writtenOn": "2016-04-15T21:24:32Z",
       "side": 1,
       "message": "clang-format",
+      "revId": "2adbd3db43104fd19e06917de85580aab31ff9e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b3e069d_d5706b6b",
+        "filename": "include/openssl/hmac.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-04-15T21:46:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b3e069d_d55eabf1",
       "revId": "2adbd3db43104fd19e06917de85580aab31ff9e8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -99,6 +177,30 @@
     },
     {
       "key": {
+        "uuid": "4b3e069d_b5d67f70",
+        "filename": "include/openssl/sha.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-04-15T21:46:16Z",
+      "side": 1,
+      "message": "Possibly doing this as a separate CL.",
+      "parentUuid": "4b3e069d_1542f31d",
+      "range": {
+        "startLine": 91,
+        "startChar": 31,
+        "endLine": 91,
+        "endChar": 35
+      },
+      "revId": "2adbd3db43104fd19e06917de85580aab31ff9e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b3e069d_15591308",
         "filename": "include/openssl/sha.h",
         "patchSetId": 2
@@ -110,6 +212,24 @@
       "writtenOn": "2016-04-15T21:24:32Z",
       "side": 1,
       "message": "clang-format",
+      "revId": "2adbd3db43104fd19e06917de85580aab31ff9e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b3e069d_f56567aa",
+        "filename": "include/openssl/sha.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-04-15T21:46:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b3e069d_15591308",
       "revId": "2adbd3db43104fd19e06917de85580aab31ff9e8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -133,6 +253,24 @@
     },
     {
       "key": {
+        "uuid": "4b3e069d_156bd37f",
+        "filename": "include/openssl/sha.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-04-15T21:46:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b3e069d_f553a7e6",
+      "revId": "2adbd3db43104fd19e06917de85580aab31ff9e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b3e069d_354e0f42",
         "filename": "include/openssl/sha.h",
         "patchSetId": 2
@@ -144,6 +282,24 @@
       "writtenOn": "2016-04-15T21:24:32Z",
       "side": 1,
       "message": "clang-format",
+      "revId": "2adbd3db43104fd19e06917de85580aab31ff9e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b3e069d_3580cf73",
+        "filename": "include/openssl/sha.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-04-15T21:46:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b3e069d_354e0f42",
       "revId": "2adbd3db43104fd19e06917de85580aab31ff9e8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -167,6 +323,24 @@
     },
     {
       "key": {
+        "uuid": "4b3e069d_557d5b3c",
+        "filename": "include/openssl/sha.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-04-15T21:46:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b3e069d_554b9b30",
+      "revId": "2adbd3db43104fd19e06917de85580aab31ff9e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b3e069d_75489733",
         "filename": "include/openssl/sha.h",
         "patchSetId": 2
@@ -184,6 +358,24 @@
     },
     {
       "key": {
+        "uuid": "4b3e069d_9577c35a",
+        "filename": "include/openssl/sha.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-04-15T21:46:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b3e069d_75489733",
+      "revId": "2adbd3db43104fd19e06917de85580aab31ff9e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b3e069d_9545031b",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 2
@@ -195,6 +387,24 @@
       "writtenOn": "2016-04-15T21:24:32Z",
       "side": 1,
       "message": "Probably worth a comment like\n\n/* If BORINGSSL_PREFIX is set, these are all already macros. */",
+      "revId": "2adbd3db43104fd19e06917de85580aab31ff9e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b3e069d_35cb6fcb",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 4330,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-04-15T21:46:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b3e069d_9545031b",
       "revId": "2adbd3db43104fd19e06917de85580aab31ff9e8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
