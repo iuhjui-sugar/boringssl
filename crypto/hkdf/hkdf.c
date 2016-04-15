@@ -21,11 +21,11 @@
 #include <openssl/hmac.h>
 
 
-int HKDF(uint8_t *out_key, size_t out_len,
-         const EVP_MD *digest,
-         const uint8_t *secret, size_t secret_len,
-         const uint8_t *salt, size_t salt_len,
-         const uint8_t *info, size_t info_len) {
+int CRYPTO_HKDF(uint8_t *out_key, size_t out_len,
+                const EVP_MD *digest,
+                const uint8_t *secret, size_t secret_len,
+                const uint8_t *salt, size_t salt_len,
+                const uint8_t *info, size_t info_len) {
   /* https://tools.ietf.org/html/rfc5869#section-2.2 */
   const size_t digest_len = EVP_MD_size(digest);
   uint8_t prk[EVP_MAX_MD_SIZE], previous[EVP_MAX_MD_SIZE];

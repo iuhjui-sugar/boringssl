@@ -151,6 +151,20 @@ extern "C" {
 #define OPENSSL_PRINTF_FORMAT_FUNC(string_index, first_to_check)
 #endif
 
+#if !defined(OSSL_INLINE)
+#if defined(inline) || defined(__cplusplus) || \
+    (defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L)
+#define OSSL_INLINE inline
+#elif defined(__GNUC__) && __GNUC__ >= 2
+#define OSSL_INLINE __inline__
+#elif defined(_MSC_VER)
+/* Visual Studio: inline is available in C++ only, however __inline is
+ * available for C, see http://msdn.microsoft.com/en-us/library/z8y1yy88.aspx */
+#define OSSL_INLINE __inline
+#else
+#define OSSL_INLINE
+#endif
+#endif
 
 /* CRYPTO_THREADID is a dummy value. */
 typedef int CRYPTO_THREADID;

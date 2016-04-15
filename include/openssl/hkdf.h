@@ -22,6 +22,12 @@ extern "C" {
 #endif
 
 
+OPENSSL_EXPORT int CRYPTO_HKDF(uint8_t *out_key, size_t out_len,
+                               const EVP_MD *digest, const uint8_t *secret,
+                               size_t secret_len, const uint8_t *salt,
+                               size_t salt_len, const uint8_t *info,
+                               size_t info_len);
+
 /* Computes HKDF (as specified by RFC 5869) of initial keying material |secret|
  * with |salt| and |info| using |digest|, and outputs |out_len| bytes to
  * |out_key|. It returns one on success and zero on error.
@@ -29,10 +35,13 @@ extern "C" {
  * HKDF is an Extract-and-Expand algorithm. It does not do any key stretching,
  * and as such, is not suited to be used alone to generate a key from a
  * password. */
-OPENSSL_EXPORT int HKDF(uint8_t *out_key, size_t out_len, const EVP_MD *digest,
-                        const uint8_t *secret, size_t secret_len,
-                        const uint8_t *salt, size_t salt_len,
-                        const uint8_t *info, size_t info_len);
+static OSSL_INLINE int HKDF(uint8_t *out_key, size_t out_len, const EVP_MD *digest,
+                       const uint8_t *secret, size_t secret_len,
+                       const uint8_t *salt, size_t salt_len,
+                       const uint8_t *info, size_t info_len) {
+  return CRYPTO_HKDF(out_key, out_len, digest, secret, secret_len, salt,
+                     salt_len, info, info_len);
+}
 
 
 #if defined(__cplusplus)

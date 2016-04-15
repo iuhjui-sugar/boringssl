@@ -95,7 +95,7 @@ int SHA256_Init(SHA256_CTX *sha) {
   return 1;
 }
 
-uint8_t *SHA224(const uint8_t *data, size_t len, uint8_t *out) {
+uint8_t *CRYPTO_SHA224(const uint8_t *data, size_t len, uint8_t *out) {
   SHA256_CTX ctx;
   static uint8_t buf[SHA224_DIGEST_LENGTH];
 
@@ -110,7 +110,7 @@ uint8_t *SHA224(const uint8_t *data, size_t len, uint8_t *out) {
   return out;
 }
 
-uint8_t *SHA256(const uint8_t *data, size_t len, uint8_t *out) {
+uint8_t *CRYPTO_SHA256(const uint8_t *data, size_t len, uint8_t *out) {
   SHA256_CTX ctx;
   static uint8_t buf[SHA256_DIGEST_LENGTH];
 

@@ -88,10 +88,15 @@ OPENSSL_EXPORT int SHA1_Update(SHA_CTX *sha, const void *data, size_t len);
  * returns one. */
 OPENSSL_EXPORT int SHA1_Final(uint8_t *md, SHA_CTX *sha);
 
+OPENSSL_EXPORT uint8_t *CRYPTO_SHA1(const uint8_t *data, size_t len,
+                                    uint8_t *out);
+
 /* SHA1 writes the digest of |len| bytes from |data| to |out| and returns
  * |out|. There must be at least |SHA_DIGEST_LENGTH| bytes of space in
  * |out|. */
-OPENSSL_EXPORT uint8_t *SHA1(const uint8_t *data, size_t len, uint8_t *out);
+static OSSL_INLINE uint8_t *SHA1(const uint8_t *data, size_t len, uint8_t *out) {
+  return CRYPTO_SHA1(data, len, out);
+}
 
 /* SHA1_Transform is a low-level function that performs a single, SHA-1 block
  * transformation using the state from |sha| and 64 bytes from |block|. */
@@ -139,10 +144,15 @@ OPENSSL_EXPORT int SHA224_Update(SHA256_CTX *sha, const void *data, size_t len);
  * returns one on success and zero on programmer error. */
 OPENSSL_EXPORT int SHA224_Final(uint8_t *md, SHA256_CTX *sha);
 
+OPENSSL_EXPORT uint8_t *CRYPTO_SHA224(const uint8_t *data, size_t len,
+                                      uint8_t *out);
+
 /* SHA224 writes the digest of |len| bytes from |data| to |out| and returns
  * |out|. There must be at least |SHA224_DIGEST_LENGTH| bytes of space in
  * |out|. */
-OPENSSL_EXPORT uint8_t *SHA224(const uint8_t *data, size_t len, uint8_t *out);
+static OSSL_INLINE uint8_t *SHA224(const uint8_t *data, size_t len, uint8_t *out) {
+  return CRYPTO_SHA224(data, len, out);
+}
 
 
 /* SHA-256. */
@@ -164,10 +174,15 @@ OPENSSL_EXPORT int SHA256_Update(SHA256_CTX *sha, const void *data, size_t len);
  * returns one on success and zero on programmer error. */
 OPENSSL_EXPORT int SHA256_Final(uint8_t *md, SHA256_CTX *sha);
 
+OPENSSL_EXPORT uint8_t *CRYPTO_SHA256(const uint8_t *data, size_t len,
+                                      uint8_t *out);
+
 /* SHA256 writes the digest of |len| bytes from |data| to |out| and returns
  * |out|. There must be at least |SHA256_DIGEST_LENGTH| bytes of space in
  * |out|. */
-OPENSSL_EXPORT uint8_t *SHA256(const uint8_t *data, size_t len, uint8_t *out);
+static OSSL_INLINE uint8_t *SHA256(const uint8_t *data, size_t len, uint8_t *out) {
+  return CRYPTO_SHA256(data, len, out);
+}
 
 /* SHA256_Transform is a low-level function that performs a single, SHA-1 block
  * transformation using the state from |sha| and 64 bytes from |block|. */
@@ -200,10 +215,15 @@ OPENSSL_EXPORT int SHA384_Update(SHA512_CTX *sha, const void *data, size_t len);
  * returns one on success and zero on programmer error. */
 OPENSSL_EXPORT int SHA384_Final(uint8_t *md, SHA512_CTX *sha);
 
+OPENSSL_EXPORT uint8_t *CRYPTO_SHA384(const uint8_t *data, size_t len,
+                                      uint8_t *out);
+
 /* SHA384 writes the digest of |len| bytes from |data| to |out| and returns
  * |out|. There must be at least |SHA384_DIGEST_LENGTH| bytes of space in
  * |out|. */
-OPENSSL_EXPORT uint8_t *SHA384(const uint8_t *data, size_t len, uint8_t *out);
+static OSSL_INLINE uint8_t *SHA384(const uint8_t *data, size_t len, uint8_t *out) {
+  return CRYPTO_SHA384(data, len, out);
+}
 
 /* SHA384_Transform is a low-level function that performs a single, SHA-1 block
  * transformation using the state from |sha| and 64 bytes from |block|. */
@@ -229,10 +249,15 @@ OPENSSL_EXPORT int SHA512_Update(SHA512_CTX *sha, const void *data, size_t len);
  * returns one on success and zero on programmer error. */
 OPENSSL_EXPORT int SHA512_Final(uint8_t *md, SHA512_CTX *sha);
 
+OPENSSL_EXPORT uint8_t *CRYPTO_SHA512(const uint8_t *data, size_t len,
+                                      uint8_t *out);
+
 /* SHA512 writes the digest of |len| bytes from |data| to |out| and returns
  * |out|. There must be at least |SHA512_DIGEST_LENGTH| bytes of space in
  * |out|. */
-OPENSSL_EXPORT uint8_t *SHA512(const uint8_t *data, size_t len, uint8_t *out);
+static OSSL_INLINE uint8_t *SHA512(const uint8_t *data, size_t len, uint8_t *out) {
+  return CRYPTO_SHA512(data, len, out);
+}
 
 /* SHA512_Transform is a low-level function that performs a single, SHA-1 block
  * transformation using the state from |sha| and 64 bytes from |block|. */
