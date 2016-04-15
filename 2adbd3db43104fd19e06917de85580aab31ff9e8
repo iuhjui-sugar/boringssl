@@ -1,0 +1,203 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4b3e069d_b584bf94",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-15T21:24:32Z",
+      "side": 1,
+      "message": "Nit: I don\u0027t think we\u0027ve used the \"ossl\" prefix anywhere yet. OPENSSL_INLINE to match the rest? It\u0027s only four more characters. :-)",
+      "range": {
+        "startLine": 154,
+        "startChar": 13,
+        "endLine": 154,
+        "endChar": 24
+      },
+      "revId": "2adbd3db43104fd19e06917de85580aab31ff9e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b3e069d_753177c7",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-15T21:24:32Z",
+      "side": 1,
+      "message": "Could you merge these with the crypto/internal.h definition as well? Probably just\n\ncrypto/internal.h:\nif !defined(inline)\n#define inline OSSL_INLINE\n#endif\n(For better or worse, we seem to be fine with messing with the language\u0027s namespace for our internal stuff.)\n\nLikewise with the d1_both.c copy, though that can probably go away and turn into a #include.",
+      "revId": "2adbd3db43104fd19e06917de85580aab31ff9e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b3e069d_b5591f0d",
+        "filename": "include/openssl/hkdf.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-15T21:24:32Z",
+      "side": 1,
+      "message": "clang-format",
+      "revId": "2adbd3db43104fd19e06917de85580aab31ff9e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b3e069d_d55eabf1",
+        "filename": "include/openssl/hmac.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-15T21:24:32Z",
+      "side": 1,
+      "message": "clang-format",
+      "revId": "2adbd3db43104fd19e06917de85580aab31ff9e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b3e069d_1542f31d",
+        "filename": "include/openssl/sha.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-15T21:24:32Z",
+      "side": 1,
+      "message": "Nit: Maybe lowercase these? We seem to more often than not lower-case the acronyms.",
+      "range": {
+        "startLine": 91,
+        "startChar": 31,
+        "endLine": 91,
+        "endChar": 35
+      },
+      "revId": "2adbd3db43104fd19e06917de85580aab31ff9e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b3e069d_15591308",
+        "filename": "include/openssl/sha.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-15T21:24:32Z",
+      "side": 1,
+      "message": "clang-format",
+      "revId": "2adbd3db43104fd19e06917de85580aab31ff9e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b3e069d_f553a7e6",
+        "filename": "include/openssl/sha.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-15T21:24:32Z",
+      "side": 1,
+      "message": "clang-format",
+      "revId": "2adbd3db43104fd19e06917de85580aab31ff9e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b3e069d_354e0f42",
+        "filename": "include/openssl/sha.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-15T21:24:32Z",
+      "side": 1,
+      "message": "clang-format",
+      "revId": "2adbd3db43104fd19e06917de85580aab31ff9e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b3e069d_554b9b30",
+        "filename": "include/openssl/sha.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-15T21:24:32Z",
+      "side": 1,
+      "message": "clang-format",
+      "revId": "2adbd3db43104fd19e06917de85580aab31ff9e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b3e069d_75489733",
+        "filename": "include/openssl/sha.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-15T21:24:32Z",
+      "side": 1,
+      "message": "clang-format",
+      "revId": "2adbd3db43104fd19e06917de85580aab31ff9e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b3e069d_9545031b",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 4330,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-15T21:24:32Z",
+      "side": 1,
+      "message": "Probably worth a comment like\n\n/* If BORINGSSL_PREFIX is set, these are all already macros. */",
+      "revId": "2adbd3db43104fd19e06917de85580aab31ff9e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
