@@ -62,9 +62,9 @@
 #include <openssl/mem.h>
 
 
-uint8_t *HMAC(const EVP_MD *evp_md, const void *key, size_t key_len,
-              const uint8_t *data, size_t data_len, uint8_t *out,
-              unsigned int *out_len) {
+uint8_t *CRYPTO_HMAC(const EVP_MD *evp_md, const void *key, size_t key_len,
+                     const uint8_t *data, size_t data_len, uint8_t *out,
+                     unsigned int *out_len) {
   HMAC_CTX ctx;
   static uint8_t static_out_buffer[EVP_MAX_MD_SIZE];
 
