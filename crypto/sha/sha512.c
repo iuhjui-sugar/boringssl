@@ -119,7 +119,7 @@ int SHA512_Init(SHA512_CTX *sha) {
   return 1;
 }
 
-uint8_t *SHA384(const uint8_t *data, size_t len, uint8_t *out) {
+uint8_t *CRYPTO_SHA384(const uint8_t *data, size_t len, uint8_t *out) {
   SHA512_CTX ctx;
   static uint8_t buf[SHA384_DIGEST_LENGTH];
 
@@ -135,7 +135,7 @@ uint8_t *SHA384(const uint8_t *data, size_t len, uint8_t *out) {
   return out;
 }
 
-uint8_t *SHA512(const uint8_t *data, size_t len, uint8_t *out) {
+uint8_t *CRYPTO_SHA512(const uint8_t *data, size_t len, uint8_t *out) {
   SHA512_CTX ctx;
   static uint8_t buf[SHA512_DIGEST_LENGTH];
 

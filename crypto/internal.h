@@ -142,7 +142,7 @@ void OPENSSL_cpuid_setup(void);
 #endif
 
 #if !defined(inline)
-#define inline __inline
+#define inline OPENSSL_INLINE
 #endif
 
 

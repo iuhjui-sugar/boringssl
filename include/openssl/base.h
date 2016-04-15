@@ -6,7 +6,7 @@
  * are met:
  *
  * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer. 
+ *    notice, this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in
@@ -151,6 +151,20 @@ extern "C" {
 #define OPENSSL_PRINTF_FORMAT_FUNC(string_index, first_to_check)
 #endif
 
+#if !defined(OPENSSL_INLINE)
+#if defined(inline) || defined(__cplusplus) || \
+    (defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L)
+#define OPENSSL_INLINE inline
+#elif defined(__GNUC__) && __GNUC__ >= 2
+#define OPENSSL_INLINE __inline__
+#elif defined(_MSC_VER)
+/* Visual Studio: inline is available in C++ only, however __inline is
+ * available for C, see http://msdn.microsoft.com/en-us/library/z8y1yy88.aspx */
+#define OPENSSL_INLINE __inline
+#else
+#define OPENSSL_INLINE
+#endif
+#endif
 
 /* CRYPTO_THREADID is a dummy value. */
 typedef int CRYPTO_THREADID;

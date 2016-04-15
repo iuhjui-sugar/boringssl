@@ -77,7 +77,7 @@ int SHA1_Init(SHA_CTX *sha) {
   return 1;
 }
 
-uint8_t *SHA1(const uint8_t *data, size_t len, uint8_t *out) {
+uint8_t *CRYPTO_SHA1(const uint8_t *data, size_t len, uint8_t *out) {
   SHA_CTX ctx;
   static uint8_t buf[SHA_DIGEST_LENGTH];
 
