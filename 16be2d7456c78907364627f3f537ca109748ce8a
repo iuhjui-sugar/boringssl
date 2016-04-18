@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68d9103e_5fb32b0d",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-18T23:15:23Z",
+      "side": 1,
+      "message": "Hrm. I\u0027m not hugely thrilled about crypto/rsa reaching into BIGNUM\u0027s internals though, since that representation\u0027s not entirely trivial. (And has some parts we dislike like bn_correct_top.)\n\nWhat do you think about adding a BN_equal_consttime function or something similar that\u0027s documented to work in constant time if the numbers are the same size?",
+      "range": {
+        "startLine": 618,
+        "startChar": 8,
+        "endLine": 618,
+        "endChar": 17
+      },
+      "revId": "16be2d7456c78907364627f3f537ca109748ce8a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
