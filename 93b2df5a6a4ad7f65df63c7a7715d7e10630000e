@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68d9103e_9fd5b305",
+        "filename": "crypto/rsa/blinding.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-18T23:31:52Z",
+      "side": 1,
+      "message": "These parameters are no longer used (I\u0027ve gone ahead and removed them). In fact, this means BN_BLINDING no longer depends on RSA, which is kinda nice.",
+      "range": {
+        "startLine": 132,
+        "startChar": 29,
+        "endLine": 132,
+        "endChar": 56
+      },
+      "revId": "93b2df5a6a4ad7f65df63c7a7715d7e10630000e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68d9103e_bfd27718",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-18T23:31:52Z",
+      "side": 1,
+      "message": "Added an explicit check here just so we continue to fail semi-gracefully in this case. But Conscrypt, miraculously, does NOT hit this path, so I\u0027m okay merging this and seeing how it goes.",
+      "revId": "93b2df5a6a4ad7f65df63c7a7715d7e10630000e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
