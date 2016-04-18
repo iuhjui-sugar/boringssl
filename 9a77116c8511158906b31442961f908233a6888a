@@ -46,6 +46,30 @@
       "revId": "9a77116c8511158906b31442961f908233a6888a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68d9103e_ffaa3f94",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-18T23:09:36Z",
+      "side": 1,
+      "message": "Ah, yeah, I see this was originally a BN_mod_exp_mont, not BN_mod_exp_mont_consttime, so this is actually a no-op. I think I was looking at the other one and got confused. :-)\n\nAnd, yeah, I buy the reasoning that the normal one is correct here.",
+      "parentUuid": "f10fad76_928dc264",
+      "range": {
+        "startLine": 618,
+        "startChar": 9,
+        "endLine": 618,
+        "endChar": 24
+      },
+      "revId": "9a77116c8511158906b31442961f908233a6888a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
