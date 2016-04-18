@@ -39,6 +39,24 @@
       "revId": "93b2df5a6a4ad7f65df63c7a7715d7e10630000e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68d9103e_1f0b637d",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-18T23:34:05Z",
+      "side": 1,
+      "message": "I suppose I should clarify: as far as I can tell, it doesn\u0027t hit this codepath. :-) (It explicitly disables blinding whenever e is missing, whether or not p and q are.)\n\nWe should probably write code in Conscrypt to recover things based on guesses of public exponents, but I think that sort of thing should be either external or, at least, off to the side and not in-line with the actual operations.",
+      "parentUuid": "68d9103e_bfd27718",
+      "revId": "93b2df5a6a4ad7f65df63c7a7715d7e10630000e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
