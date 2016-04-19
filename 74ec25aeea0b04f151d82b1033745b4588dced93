@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c80f5cb0_6aa4d7cc",
+        "filename": "crypto/thread_test.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 6630
+      },
+      "writtenOn": "2016-04-19T21:25:48Z",
+      "side": 1,
+      "message": "Hrm, is there any way to assert that |CRYPTO_once| gets called while the other thread is sleeping? Like... increment a separate variable after the sleep is over, and check the value in call_once_thread(), or something? (If that makes no sense I\u0027ll blame jetlag.)",
+      "revId": "74ec25aeea0b04f151d82b1033745b4588dced93",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
