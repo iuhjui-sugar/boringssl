@@ -16,6 +16,24 @@
       "revId": "74ec25aeea0b04f151d82b1033745b4588dced93",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "680cb0c0_47ca2e6d",
+        "filename": "crypto/thread_test.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-19T21:30:40Z",
+      "side": 1,
+      "message": "Hrm. Maybe? Though then the test may flakily fail when it should pass instead of flakily pass when it should fail. I don\u0027t know if it can really be made reliable (we\u0027re trying to test a race condition).",
+      "parentUuid": "c80f5cb0_6aa4d7cc",
+      "revId": "74ec25aeea0b04f151d82b1033745b4588dced93",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
