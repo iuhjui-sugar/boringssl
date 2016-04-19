@@ -34,6 +34,24 @@
       "revId": "74ec25aeea0b04f151d82b1033745b4588dced93",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a81228d6_c9bd11da",
+        "filename": "crypto/thread_test.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 6630
+      },
+      "writtenOn": "2016-04-19T21:32:40Z",
+      "side": 1,
+      "message": "Ok, fair enough.",
+      "parentUuid": "680cb0c0_47ca2e6d",
+      "revId": "74ec25aeea0b04f151d82b1033745b4588dced93",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
