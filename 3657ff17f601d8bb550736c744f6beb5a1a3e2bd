@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2bc1d219_edc88575",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-04-20T15:30:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "314305e4_7d5d9752",
+      "revId": "3657ff17f601d8bb550736c744f6beb5a1a3e2bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "314305e4_fddf67f6",
         "filename": "crypto/cpu-arm.c",
         "patchSetId": 12
@@ -30,6 +48,30 @@
       "writtenOn": "2016-03-29T19:11:41Z",
       "side": 1,
       "message": "What\u0027s fcap mean?",
+      "range": {
+        "startLine": 187,
+        "startChar": 13,
+        "endLine": 187,
+        "endChar": 17
+      },
+      "revId": "3657ff17f601d8bb550736c744f6beb5a1a3e2bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2bc1d219_adc27d4f",
+        "filename": "crypto/cpu-arm.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-04-20T15:30:38Z",
+      "side": 1,
+      "message": "Renamed.",
+      "parentUuid": "314305e4_fddf67f6",
       "range": {
         "startLine": 187,
         "startChar": 13,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "2bc1d219_8dc5415c",
+        "filename": "crypto/cpu-arm.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-04-20T15:30:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "314305e4_9de423c5",
+      "range": {
+        "startLine": 188,
+        "startChar": 16,
+        "endLine": 188,
+        "endChar": 17
+      },
+      "revId": "3657ff17f601d8bb550736c744f6beb5a1a3e2bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "314305e4_1d5a535c",
         "filename": "crypto/cpu-arm.c",
         "patchSetId": 12
@@ -76,6 +142,24 @@
       "writtenOn": "2016-03-29T19:11:41Z",
       "side": 1,
       "message": "Probably good to notice unknown strings.",
+      "revId": "3657ff17f601d8bb550736c744f6beb5a1a3e2bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2bc1d219_4de3d9f0",
+        "filename": "crypto/cpu-arm.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-04-20T15:30:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "314305e4_1d5a535c",
       "revId": "3657ff17f601d8bb550736c744f6beb5a1a3e2bd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -99,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "2bc1d219_6de815cc",
+        "filename": "crypto/cpu-arm.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-04-20T15:30:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "314305e4_bde9df9d",
+      "revId": "3657ff17f601d8bb550736c744f6beb5a1a3e2bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "314305e4_3d570f33",
         "filename": "crypto/cpu-intel.c",
         "patchSetId": 12
@@ -110,6 +212,30 @@
       "writtenOn": "2016-03-29T19:11:41Z",
       "side": 1,
       "message": "Nit: No spaces. :-)",
+      "range": {
+        "startLine": 253,
+        "startChar": 33,
+        "endLine": 253,
+        "endChar": 37
+      },
+      "revId": "3657ff17f601d8bb550736c744f6beb5a1a3e2bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2bc1d219_0dedd1da",
+        "filename": "crypto/cpu-intel.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-04-20T15:30:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "314305e4_3d570f33",
       "range": {
         "startLine": 253,
         "startChar": 33,
@@ -150,6 +276,24 @@
       "writtenOn": "2016-03-29T19:11:41Z",
       "side": 1,
       "message": "We\u0027d probably want to be able to test when AES+PMULL are both available, right? That\u0027s when we get a good AES-GCM implementation. They\u0027re also new in ARMv8 and I don\u0027t think ARMv8 without NEON is a thing. (And the armcap code will never report anything without reporting NEON.)\n\n(Actually, probably we could just merge all of the crypto extensions into one thing? They appear to have a single name, the \"ARMv8 Cryptography Extensions\".)",
+      "revId": "3657ff17f601d8bb550736c744f6beb5a1a3e2bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2bc1d219_addd9d29",
+        "filename": "util/variants.json",
+        "patchSetId": 12
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-04-20T15:30:38Z",
+      "side": 1,
+      "message": "Added AES+PMULL, I don\u0027t think merging all the Crypto Extensions is worth it, unless we know for certain that there aren\u0027t any v8 devices with only a subset of the Crypto Extensions.",
+      "parentUuid": "314305e4_dd6b8bee",
       "revId": "3657ff17f601d8bb550736c744f6beb5a1a3e2bd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
