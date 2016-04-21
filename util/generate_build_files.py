@@ -48,7 +48,7 @@ NON_PERL_FILES = {
 }
 
 
-class Chromium(object):
+class GYP(object):
 
   def __init__(self):
     self.header = \
@@ -116,6 +116,78 @@ class Chromium(object):
         test_gypi.write("""      '%s',\n""" % test)
 
       test_gypi.write('    ],\n  }\n}\n')
+
+
+class GN(object):
+
+  def __init__(self):
+    self.firstSection = True
+    self.header = \
+"""# Copyright (c) 2016 The Chromium Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+# This file is created by generate_build_files.py. Do not edit manually.
+
+"""
+
+  def PrintVariableSection(self, out, name, files):
+    if not self.firstSection:
+      out.write('\n')
+    self.firstSection = False
+
+    out.write('%s = [\n' % name)
+    for f in sorted(files):
+      out.write('  "%s",\n' % f)
+    out.write(']\n')
+
+  def WriteFiles(self, files, asm_outputs):
+    with open('BUILD.generated.gni', 'w+') as out:
+      out.write(self.header)
+
+      self.PrintVariableSection(out, 'crypto_sources', files['crypto'])
+      self.PrintVariableSection(out, 'ssl_sources', files['ssl'])
+
+      for ((osname, arch), asm_files) in asm_outputs:
+        self.PrintVariableSection(
+            out, 'crypto_sources_%s_%s' % (osname, arch), asm_files)
+
+      fuzzers = [os.path.splitext(os.path.basename(fuzzer))[0]
+                 for fuzzer in files['fuzz']]
+      self.PrintVariableSection(out, 'fuzzers', fuzzers)
+
+    with open('BUILD.generated_tests.gni', 'w+') as out:
+      self.firstSection = True
+      out.write(self.header)
+
+      self.PrintVariableSection(out, '_test_support_sources',
+                                files['test_support'])
+      out.write('\n')
+
+      out.write('template("create_tests") {\n')
+
+      all_tests = []
+      for test in files['test']:
+        test_name = 'boringssl_%s' % os.path.splitext(os.path.basename(test))[0]
+        all_tests.append(test_name)
+
+        out.write('  executable("%s") {\n' % test_name)
+        out.write('    sources = [\n')
+        out.write('      "%s",\n' % test)
+        out.write('    ]\n')
+        out.write('    sources += _test_support_sources\n')
+        out.write('    configs += invoker.configs\n')
+        out.write('    deps = invoker.deps\n')
+        out.write('  }\n')
+        out.write('\n')
+
+      out.write('  group(target_name) {\n')
+      out.write('    deps = [\n')
+      for test_name in sorted(all_tests):
+        out.write('      ":%s",\n' % test_name)
+      out.write('    ]\n')
+      out.write('  }\n')
+      out.write('}\n')
 
 
 class Android(object):
@@ -457,7 +529,7 @@ def WriteAsmFiles(perlasms):
 def main(platforms):
   crypto_c_files = FindCFiles(os.path.join('src', 'crypto'), NoTests)
   ssl_c_files = FindCFiles(os.path.join('src', 'ssl'), NoTests)
-  tool_cc_files = FindCFiles(os.path.join('src', 'tool'), NoTests)
+  tool_c_files = FindCFiles(os.path.join('src', 'tool'), NoTests)
 
   # Generate err_data.c
   with open('err_data.c', 'w+') as err_data:
@@ -466,11 +538,13 @@ def main(platforms):
                           stdout=err_data)
   crypto_c_files.append('err_data.c')
 
-  test_support_cc_files = FindCFiles(os.path.join('src', 'crypto', 'test'),
-                                     AllFiles)
+  test_support_c_files = FindCFiles(os.path.join('src', 'crypto', 'test'),
+                                    AllFiles)
 
   test_c_files = FindCFiles(os.path.join('src', 'crypto'), OnlyTests)
   test_c_files += FindCFiles(os.path.join('src', 'ssl'), OnlyTests)
+
+  fuzz_c_files = FindCFiles(os.path.join('src', 'fuzz'), NoTests)
 
   ssl_h_files = (
       FindHeaderFiles(
@@ -511,12 +585,13 @@ def main(platforms):
       'crypto': crypto_c_files,
       'crypto_headers': crypto_h_files,
       'crypto_internal_headers': crypto_internal_h_files,
+      'fuzz': fuzz_c_files,
       'ssl': ssl_c_files,
       'ssl_headers': ssl_h_files,
       'ssl_internal_headers': ssl_internal_h_files,
-      'tool': tool_cc_files,
+      'tool': tool_c_files,
       'test': test_c_files,
-      'test_support': test_support_cc_files,
+      'test_support': test_support_c_files,
       'tests': tests,
   }
 
@@ -529,7 +604,7 @@ def main(platforms):
 
 
 def Usage():
-  print 'Usage: python %s [chromium|android|android-standalone|bazel]' % sys.argv[0]
+  print 'Usage: python %s [android|android-standalone|bazel|gn|gyp]' % sys.argv[0]
   sys.exit(1)
 
 
@@ -539,14 +614,16 @@ if __name__ == '__main__':
 
   platforms = []
   for s in sys.argv[1:]:
-    if s == 'chromium' or s == 'gyp':
-      platforms.append(Chromium())
-    elif s == 'android':
+    if s == 'android':
       platforms.append(Android())
     elif s == 'android-standalone':
       platforms.append(AndroidStandalone())
     elif s == 'bazel':
       platforms.append(Bazel())
+    elif s == 'gn':
+      platforms.append(GN())
+    elif s == 'gyp':
+      platforms.append(GYP())
     else:
       Usage()
 
