@@ -1,0 +1,319 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68d4b07d_8d2c0548",
+        "filename": "crypto/newhope/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-21T23:20:05Z",
+      "side": 1,
+      "message": "This won\u0027t build on Windows. crypto/internal.h defines alignas from C11.",
+      "revId": "7752caca49421509210e6848ce7b847453fc2d63",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68d4b07d_4daa0ddf",
+        "filename": "crypto/newhope/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-21T23:20:05Z",
+      "side": 1,
+      "message": "In the static build, these symbols still end up in the global namespace. It\u0027s kind of a pain, but we should probably prefix these with newhope_ or something.",
+      "range": {
+        "startLine": 82,
+        "startChar": 5,
+        "endLine": 82,
+        "endChar": 8
+      },
+      "revId": "7752caca49421509210e6848ce7b847453fc2d63",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68d4b07d_eddf8182",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-21T23:20:05Z",
+      "side": 1,
+      "message": "Could you add this header to util/doc.config and make sure doc.go runs cleanly? That\u0027ll probably catch a bunch of the errors.",
+      "revId": "7752caca49421509210e6848ce7b847453fc2d63",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68d4b07d_2dca39c5",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-21T23:20:05Z",
+      "side": 1,
+      "message": "I think we normally place this under the C++ guard.",
+      "revId": "7752caca49421509210e6848ce7b847453fc2d63",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68d4b07d_cd36fd93",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-21T23:20:05Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem to be a very complex structure. Do we want to just stack-allocate it? (I don\u0027t feel very strongly either way. I guess OpenSSL is making everything opaque, but we don\u0027t have to worry about ABI.)",
+      "range": {
+        "startLine": 32,
+        "startChar": 15,
+        "endLine": 32,
+        "endChar": 27
+      },
+      "revId": "7752caca49421509210e6848ce7b847453fc2d63",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68d4b07d_0db0154d",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-21T23:20:05Z",
+      "side": 1,
+      "message": "The * should hug the variable, not the type. I think our clang-format tries to guess. Want to add\n\n  DerivePointerAlignment: false\n  PointerAlignment: Right\n\nto .clang-format?",
+      "range": {
+        "startLine": 32,
+        "startChar": 27,
+        "endLine": 32,
+        "endChar": 29
+      },
+      "revId": "7752caca49421509210e6848ce7b847453fc2d63",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68d4b07d_6dad51f5",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-21T23:20:05Z",
+      "side": 1,
+      "message": "Why sk?",
+      "range": {
+        "startLine": 35,
+        "startChar": 52,
+        "endLine": 35,
+        "endChar": 54
+      },
+      "revId": "7752caca49421509210e6848ce7b847453fc2d63",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68d4b07d_cde43d58",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-21T23:20:05Z",
+      "side": 1,
+      "message": "NEWHOPE_keygen",
+      "range": {
+        "startLine": 37,
+        "startChar": 3,
+        "endLine": 37,
+        "endChar": 25
+      },
+      "revId": "7752caca49421509210e6848ce7b847453fc2d63",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68d4b07d_4dd16d73",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-21T23:20:05Z",
+      "side": 1,
+      "message": "uint8_t out_msg[NEWHOPE_SERVERMSG_LENGTH]",
+      "range": {
+        "startLine": 40,
+        "startChar": 35,
+        "endLine": 40,
+        "endChar": 51
+      },
+      "revId": "7752caca49421509210e6848ce7b847453fc2d63",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68d4b07d_6dd43165",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-21T23:20:05Z",
+      "side": 1,
+      "message": "uint8_t out_key[SHA256_DIGEST_LENGTH]",
+      "range": {
+        "startLine": 46,
+        "startChar": 47,
+        "endLine": 46,
+        "endChar": 63
+      },
+      "revId": "7752caca49421509210e6848ce7b847453fc2d63",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68d4b07d_adbe2924",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-21T23:20:05Z",
+      "side": 1,
+      "message": "const uint8_t msg[NEWHOPE_CLIENTMSG_LENGTH]",
+      "range": {
+        "startLine": 48,
+        "startChar": 47,
+        "endLine": 48,
+        "endChar": 65
+      },
+      "revId": "7752caca49421509210e6848ce7b847453fc2d63",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68d4b07d_0dc775bd",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-21T23:20:05Z",
+      "side": 1,
+      "message": "uint8_t out_key[SHA256_DIGEST_LENGTH]",
+      "range": {
+        "startLine": 55,
+        "startChar": 47,
+        "endLine": 55,
+        "endChar": 63
+      },
+      "revId": "7752caca49421509210e6848ce7b847453fc2d63",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68d4b07d_edb8213a",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-21T23:20:05Z",
+      "side": 1,
+      "message": "uint8_t out_msg[NEWHOPE_SERVERMSG_LENGTH]",
+      "range": {
+        "startLine": 56,
+        "startChar": 47,
+        "endLine": 56,
+        "endChar": 63
+      },
+      "revId": "7752caca49421509210e6848ce7b847453fc2d63",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68d4b07d_2db3595d",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-21T23:20:05Z",
+      "side": 1,
+      "message": "const uint8_t msg[NEWHOPE_SERVERMSG_LENGTH]",
+      "revId": "7752caca49421509210e6848ce7b847453fc2d63",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68d4b07d_8dc365ac",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-21T23:20:05Z",
+      "side": 1,
+      "message": "Nit: Put these with the various functions so they appear in docs.",
+      "revId": "7752caca49421509210e6848ce7b847453fc2d63",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
