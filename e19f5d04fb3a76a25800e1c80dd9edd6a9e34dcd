@@ -1,0 +1,463 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68683071_c992c8d4",
+        "filename": "crypto/newhope/error_correction.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-04-21T23:13:14Z",
+      "side": 1,
+      "message": "two blank lines after #includes.",
+      "revId": "e19f5d04fb3a76a25800e1c80dd9edd6a9e34dcd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68683071_0956a0aa",
+        "filename": "crypto/newhope/error_correction.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-04-21T23:13:14Z",
+      "side": 1,
+      "message": "I\u0027m not sure that I believe in the rbit stuff myself. (I don\u0027t think that we care about a tiny amount of bias in the bits.)\n\nBut I don\u0027t want to deviate on this point and remove it.\n\nHowever, using RAND_bytes here will make the exchange non-deterministic, I think. That seems unfortunate for test vectors? Maybe it doesn\u0027t matter.",
+      "revId": "e19f5d04fb3a76a25800e1c80dd9edd6a9e34dcd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68683071_a94af4fc",
+        "filename": "crypto/newhope/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-04-21T23:13:14Z",
+      "side": 1,
+      "message": "two blank lines after #includes",
+      "revId": "e19f5d04fb3a76a25800e1c80dd9edd6a9e34dcd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68683071_295fe4b9",
+        "filename": "crypto/newhope/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-04-21T23:13:14Z",
+      "side": 1,
+      "message": "Siz -\u003e Size.\n\n(Better yet:\n\n// KEY_LENGTH is the size of the result …",
+      "revId": "e19f5d04fb3a76a25800e1c80dd9edd6a9e34dcd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68683071_29f844d3",
+        "filename": "crypto/newhope/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-04-21T23:13:14Z",
+      "side": 1,
+      "message": "#include \"../internal.h\" and use alignas before \"struct\" in order not to blow up MSVC.",
+      "revId": "e19f5d04fb3a76a25800e1c80dd9edd6a9e34dcd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68683071_e9222c3d",
+        "filename": "crypto/newhope/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-04-21T23:13:14Z",
+      "side": 1,
+      "message": "It\u0027s the length of the seed, not the seed itself.",
+      "revId": "e19f5d04fb3a76a25800e1c80dd9edd6a9e34dcd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68683071_c9216837",
+        "filename": "crypto/newhope/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-04-21T23:13:14Z",
+      "side": 1,
+      "message": "Ok, I guess test vectors aren\u0027t a big deal. Let\u0027s go with using direct randomness unless it causes a problem later.",
+      "revId": "e19f5d04fb3a76a25800e1c80dd9edd6a9e34dcd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68683071_c94f280c",
+        "filename": "crypto/newhope/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-04-21T23:13:14Z",
+      "side": 1,
+      "message": "two blank lines here.",
+      "revId": "e19f5d04fb3a76a25800e1c80dd9edd6a9e34dcd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68683071_8914d0d6",
+        "filename": "crypto/newhope/newhope.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-04-21T23:13:14Z",
+      "side": 1,
+      "message": "two blank lines.",
+      "revId": "e19f5d04fb3a76a25800e1c80dd9edd6a9e34dcd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68683071_09d1c049",
+        "filename": "crypto/newhope/newhope_test.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-04-21T23:13:14Z",
+      "side": 1,
+      "message": "two blank lines.",
+      "revId": "e19f5d04fb3a76a25800e1c80dd9edd6a9e34dcd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68683071_a9d51436",
+        "filename": "crypto/newhope/newhope_test.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-04-21T23:13:14Z",
+      "side": 1,
+      "message": "CRYPTO_library_init should be superfluous.",
+      "revId": "e19f5d04fb3a76a25800e1c80dd9edd6a9e34dcd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68683071_c9dac863",
+        "filename": "crypto/newhope/ntt.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-04-21T23:13:14Z",
+      "side": 1,
+      "message": "two blank lines.",
+      "revId": "e19f5d04fb3a76a25800e1c80dd9edd6a9e34dcd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68683071_49e7b826",
+        "filename": "crypto/newhope/ntt.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-04-21T23:13:14Z",
+      "side": 1,
+      "message": "Change C++-style comments to C-style",
+      "revId": "e19f5d04fb3a76a25800e1c80dd9edd6a9e34dcd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68683071_e9b46c18",
+        "filename": "crypto/newhope/ntt.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-04-21T23:13:14Z",
+      "side": 1,
+      "message": "ditto.",
+      "revId": "e19f5d04fb3a76a25800e1c80dd9edd6a9e34dcd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68683071_a9ae74c4",
+        "filename": "crypto/newhope/poly.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-04-21T23:13:14Z",
+      "side": 1,
+      "message": "(two blank lines.)",
+      "revId": "e19f5d04fb3a76a25800e1c80dd9edd6a9e34dcd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68683071_29c36479",
+        "filename": "crypto/newhope/poly.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-04-21T23:13:14Z",
+      "side": 1,
+      "message": "static size_t kNBlocks \u003d 168;",
+      "revId": "e19f5d04fb3a76a25800e1c80dd9edd6a9e34dcd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68683071_e99d4c96",
+        "filename": "crypto/newhope/poly.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-04-21T23:13:14Z",
+      "side": 1,
+      "message": "you can drop |zero|, zero |buf|, and encrypt in place.",
+      "revId": "e19f5d04fb3a76a25800e1c80dd9edd6a9e34dcd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68683071_c9ac08c7",
+        "filename": "crypto/newhope/poly.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-04-21T23:13:14Z",
+      "side": 1,
+      "message": "probably want to zero |buf| here if encrypting in place.",
+      "revId": "e19f5d04fb3a76a25800e1c80dd9edd6a9e34dcd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68683071_898ff05a",
+        "filename": "crypto/newhope/precomp.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-04-21T23:13:14Z",
+      "side": 1,
+      "message": "two blank lines.",
+      "revId": "e19f5d04fb3a76a25800e1c80dd9edd6a9e34dcd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68683071_299cc492",
+        "filename": "crypto/newhope/reduce.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-04-21T23:13:14Z",
+      "side": 1,
+      "message": "two blank lines.",
+      "revId": "e19f5d04fb3a76a25800e1c80dd9edd6a9e34dcd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68683071_4999f8a1",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-04-21T23:13:14Z",
+      "side": 1,
+      "message": "two blank lines.",
+      "revId": "e19f5d04fb3a76a25800e1c80dd9edd6a9e34dcd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68683071_c985e836",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-04-21T23:13:14Z",
+      "side": 1,
+      "message": "\"bytes\" after \"|NEWHOPE_SERVERMSG_LENGTH|\".\n\ns/msg/out_msg/\ns/sk/out_sk/",
+      "revId": "e19f5d04fb3a76a25800e1c80dd9edd6a9e34dcd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68683071_2975a404",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-04-21T23:13:14Z",
+      "side": 1,
+      "message": "BoringSSL follows C convention, so outputs come first. (Maybe we don\u0027t worry so much about the internal functions, but we should for API functions.)\n\ns/key/out_key/\n\nNeeds the length of |client_msg| to be passed in and checked.",
+      "revId": "e19f5d04fb3a76a25800e1c80dd9edd6a9e34dcd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68683071_a4a1bbbd",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-04-21T23:13:14Z",
+      "side": 1,
+      "message": "s/key/out_key/, s/msg/out_msg/ and both it and |out_key| should be before |server_msg|.",
+      "revId": "e19f5d04fb3a76a25800e1c80dd9edd6a9e34dcd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68683071_098c6061",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-04-21T23:13:14Z",
+      "side": 1,
+      "message": "move these above the \"extern C\" close.",
+      "revId": "e19f5d04fb3a76a25800e1c80dd9edd6a9e34dcd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68683071_64abc39a",
+        "filename": "tool/speed.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-04-21T23:13:14Z",
+      "side": 1,
+      "message": "indentation seems funky here.",
+      "revId": "e19f5d04fb3a76a25800e1c80dd9edd6a9e34dcd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68683071_24be2bd6",
+        "filename": "tool/speed.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-04-21T23:13:14Z",
+      "side": 1,
+      "message": "This is timing both sides of the exchange together. Really we\u0027re interested in just the server time. You can measure that by having a fixed |client_msg| which just contains random data.",
+      "revId": "e19f5d04fb3a76a25800e1c80dd9edd6a9e34dcd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
