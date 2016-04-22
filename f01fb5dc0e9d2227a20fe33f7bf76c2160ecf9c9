@@ -22,6 +22,30 @@
       "revId": "f01fb5dc0e9d2227a20fe33f7bf76c2160ecf9c9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68683071_bf8d3df4",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-04-22T22:47:38Z",
+      "side": 0,
+      "message": "It is still OK if it is `NULL` as `BN_mod_exp_mont_consttime` will create one in that case. In any case, I fixed it.",
+      "parentUuid": "68d4b07d_f0b8f639",
+      "range": {
+        "startLine": 595,
+        "startChar": 9,
+        "endLine": 595,
+        "endChar": 31
+      },
+      "revId": "f01fb5dc0e9d2227a20fe33f7bf76c2160ecf9c9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }

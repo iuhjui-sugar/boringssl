@@ -16,6 +16,24 @@
       "revId": "a190263409bcaa4bfd6bc3a63eb66d8bbc7412ea",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68683071_3f106da5",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-04-22T22:47:38Z",
+      "side": 1,
+      "message": "I was following the example of `BN_MONT_CTX_set_locked`, which isn\u0027t marked OPENSSL_EXPORT, presumably because we don\u0027t actually want users outside of BoringSSL proper. But, I can put the `OPENSSL_EXPORT` on it if you think it should be exported.",
+      "parentUuid": "68d4b07d_d0bdf227",
+      "revId": "a190263409bcaa4bfd6bc3a63eb66d8bbc7412ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
