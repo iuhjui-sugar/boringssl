@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "68683071_c4b86f3a",
+        "filename": "crypto/newhope/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-04-22T00:43:24Z",
+      "side": 1,
+      "message": "Fixed",
+      "parentUuid": "68d4b07d_8d2c0548",
+      "revId": "7752caca49421509210e6848ce7b847453fc2d63",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "68d4b07d_4daa0ddf",
         "filename": "crypto/newhope/internal.h",
         "patchSetId": 4
@@ -30,6 +48,30 @@
       "writtenOn": "2016-04-21T23:20:05Z",
       "side": 1,
       "message": "In the static build, these symbols still end up in the global namespace. It\u0027s kind of a pain, but we should probably prefix these with newhope_ or something.",
+      "range": {
+        "startLine": 82,
+        "startChar": 5,
+        "endLine": 82,
+        "endChar": 8
+      },
+      "revId": "7752caca49421509210e6848ce7b847453fc2d63",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68683071_e436d393",
+        "filename": "crypto/newhope/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-04-22T00:43:24Z",
+      "side": 1,
+      "message": "No problem, done.",
+      "parentUuid": "68d4b07d_4daa0ddf",
       "range": {
         "startLine": 82,
         "startChar": 5,
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "68683071_84eef712",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-04-22T00:43:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68d4b07d_eddf8182",
+      "revId": "7752caca49421509210e6848ce7b847453fc2d63",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "68d4b07d_2dca39c5",
         "filename": "include/openssl/newhope.h",
         "patchSetId": 4
@@ -70,6 +130,24 @@
       "writtenOn": "2016-04-21T23:20:05Z",
       "side": 1,
       "message": "I think we normally place this under the C++ guard.",
+      "revId": "7752caca49421509210e6848ce7b847453fc2d63",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68683071_4446bf00",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-04-22T00:43:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68d4b07d_2dca39c5",
       "revId": "7752caca49421509210e6848ce7b847453fc2d63",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -122,6 +200,30 @@
     },
     {
       "key": {
+        "uuid": "68683071_445f9fb8",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-04-22T00:43:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68d4b07d_0db0154d",
+      "range": {
+        "startLine": 32,
+        "startChar": 27,
+        "endLine": 32,
+        "endChar": 29
+      },
+      "revId": "7752caca49421509210e6848ce7b847453fc2d63",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "68d4b07d_6dad51f5",
         "filename": "include/openssl/newhope.h",
         "patchSetId": 4
@@ -133,6 +235,30 @@
       "writtenOn": "2016-04-21T23:20:05Z",
       "side": 1,
       "message": "Why sk?",
+      "range": {
+        "startLine": 35,
+        "startChar": 52,
+        "endLine": 35,
+        "endChar": 54
+      },
+      "revId": "7752caca49421509210e6848ce7b847453fc2d63",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68683071_e40813c7",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-04-22T00:43:24Z",
+      "side": 1,
+      "message": "No very good reason; just that it\u0027s the name of the parameter to NEWHOPE_server_compute_key, which is the only context in which a caller sees a NEWHOPE_POLY.",
+      "parentUuid": "68d4b07d_6dad51f5",
       "range": {
         "startLine": 35,
         "startChar": 52,
@@ -168,6 +294,30 @@
     },
     {
       "key": {
+        "uuid": "68683071_44f8ffd3",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-04-22T00:43:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68d4b07d_cde43d58",
+      "range": {
+        "startLine": 37,
+        "startChar": 3,
+        "endLine": 37,
+        "endChar": 25
+      },
+      "revId": "7752caca49421509210e6848ce7b847453fc2d63",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "68d4b07d_4dd16d73",
         "filename": "include/openssl/newhope.h",
         "patchSetId": 4
@@ -179,6 +329,30 @@
       "writtenOn": "2016-04-21T23:20:05Z",
       "side": 1,
       "message": "uint8_t out_msg[NEWHOPE_SERVERMSG_LENGTH]",
+      "range": {
+        "startLine": 40,
+        "startChar": 35,
+        "endLine": 40,
+        "endChar": 51
+      },
+      "revId": "7752caca49421509210e6848ce7b847453fc2d63",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68683071_640e63c7",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-04-22T00:43:24Z",
+      "side": 1,
+      "message": "Is this simply for documentation value?  Done.",
+      "parentUuid": "68d4b07d_4dd16d73",
       "range": {
         "startLine": 40,
         "startChar": 35,
@@ -214,6 +388,30 @@
     },
     {
       "key": {
+        "uuid": "68683071_04cc47b2",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-04-22T00:43:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68d4b07d_6dd43165",
+      "range": {
+        "startLine": 46,
+        "startChar": 47,
+        "endLine": 46,
+        "endChar": 63
+      },
+      "revId": "7752caca49421509210e6848ce7b847453fc2d63",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "68d4b07d_adbe2924",
         "filename": "include/openssl/newhope.h",
         "patchSetId": 4
@@ -225,6 +423,30 @@
       "writtenOn": "2016-04-21T23:20:05Z",
       "side": 1,
       "message": "const uint8_t msg[NEWHOPE_CLIENTMSG_LENGTH]",
+      "range": {
+        "startLine": 48,
+        "startChar": 47,
+        "endLine": 48,
+        "endChar": 65
+      },
+      "revId": "7752caca49421509210e6848ce7b847453fc2d63",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68683071_e4b3332b",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-04-22T00:43:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68d4b07d_adbe2924",
       "range": {
         "startLine": 48,
         "startChar": 47,
@@ -260,6 +482,30 @@
     },
     {
       "key": {
+        "uuid": "68683071_a4c69b86",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-04-22T00:43:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68d4b07d_0dc775bd",
+      "range": {
+        "startLine": 55,
+        "startChar": 47,
+        "endLine": 55,
+        "endChar": 63
+      },
+      "revId": "7752caca49421509210e6848ce7b847453fc2d63",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "68d4b07d_edb8213a",
         "filename": "include/openssl/newhope.h",
         "patchSetId": 4
@@ -283,6 +529,30 @@
     },
     {
       "key": {
+        "uuid": "68683071_64c0a36a",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-04-22T00:43:24Z",
+      "side": 1,
+      "message": "CLIENTMSG_LENGTH, but done.",
+      "parentUuid": "68d4b07d_edb8213a",
+      "range": {
+        "startLine": 56,
+        "startChar": 47,
+        "endLine": 56,
+        "endChar": 63
+      },
+      "revId": "7752caca49421509210e6848ce7b847453fc2d63",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "68d4b07d_2db3595d",
         "filename": "include/openssl/newhope.h",
         "patchSetId": 4
@@ -294,6 +564,24 @@
       "writtenOn": "2016-04-21T23:20:05Z",
       "side": 1,
       "message": "const uint8_t msg[NEWHOPE_SERVERMSG_LENGTH]",
+      "revId": "7752caca49421509210e6848ce7b847453fc2d63",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68683071_049e8792",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-04-22T00:43:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68d4b07d_2db3595d",
       "revId": "7752caca49421509210e6848ce7b847453fc2d63",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
