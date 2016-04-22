@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68683071_f98af5dc",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-04-22T18:33:32Z",
+      "side": 1,
+      "message": "sorted(files[\u0027test\u0027]) probably.",
+      "revId": "0fdcb60a24f6e0c186bdd2e3c8acce49cfa657e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68683071_9990990c",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-04-22T18:33:32Z",
+      "side": 1,
+      "message": "sorted(files[\u0027test\u0027]), probably.",
+      "revId": "0fdcb60a24f6e0c186bdd2e3c8acce49cfa657e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68683071_b98d5df4",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-04-22T18:33:32Z",
+      "side": 1,
+      "message": "s/2014/2016/ to match GN.",
+      "revId": "0fdcb60a24f6e0c186bdd2e3c8acce49cfa657e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68683071_99797994",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-04-22T18:33:32Z",
+      "side": 1,
+      "message": "sorted(test_names)",
+      "revId": "0fdcb60a24f6e0c186bdd2e3c8acce49cfa657e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
