@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "68683071_c2fcda82",
+        "filename": "crypto/newhope/error_correction.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-04-23T00:25:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68683071_9fb3995b",
+      "revId": "7b21f21a715ae19a8a3fad31f0d44bd238d2dc5a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "68683071_1fcc89b2",
         "filename": "crypto/newhope/newhope_test.c",
         "patchSetId": 6
@@ -47,6 +65,24 @@
       "writtenOn": "2016-04-22T23:57:30Z",
       "side": 1,
       "message": "This will flake, no? The random byte might be the same as the one that\u0027s already there. XORing a constant should do it.",
+      "revId": "7b21f21a715ae19a8a3fad31f0d44bd238d2dc5a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68683071_a2ff6675",
+        "filename": "crypto/newhope/newhope_test.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-04-23T00:25:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68683071_1fcc89b2",
       "revId": "7b21f21a715ae19a8a3fad31f0d44bd238d2dc5a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
