@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "48f52d3c_bfda9725",
+        "filename": "crypto/ec/p256-64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-25T17:34:58Z",
+      "side": 1,
+      "message": "Note: we weren\u0027t relying on this before (C obnoxiousness aside), but we will be now.",
+      "revId": "fe435ea4cb063b85017e5080905a788d77b14174",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
