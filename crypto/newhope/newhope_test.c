@@ -77,8 +77,11 @@ static int test_invalid_sk_a() {
       return 0;
     }
 
-    /* Overwrite the secret key */
-    newhope_poly_getnoise(sk);
+    /* Corrupt the secret key */
+    int j;
+    for (j = 0; j < PARAM_N; j++) {
+      sk->coeffs[j] += PARAM_Q/2;
+    }
 
     /* Alice uses Bob's response to get her secret key */
     if (!NEWHOPE_server_compute_key(server_key, sk, clientmsg,
