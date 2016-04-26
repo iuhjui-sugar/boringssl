@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "48f52d3c_df69db16",
+        "filename": "crypto/x509/x_x509.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-26T17:11:53Z",
+      "side": 1,
+      "message": "I... okay...",
+      "range": {
+        "startLine": 212,
+        "startChar": 22,
+        "endLine": 212,
+        "endChar": 31
+      },
+      "revId": "4326f4bceeb1d6fa593042b6ccfece2bfc6f2ebf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
