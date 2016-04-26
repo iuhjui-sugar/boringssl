@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "08c17519_6de255e7",
+        "filename": "crypto/asn1/asn1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-26T18:49:01Z",
+      "side": 1,
+      "message": "...why did they change this to a long? Meh. Whatever.",
+      "revId": "29c5b36f764649d0fbdbfe64d57eb1f3e38fb392",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "08c17519_edcde56e",
+        "filename": "crypto/asn1/asn1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-26T18:49:01Z",
+      "side": 1,
+      "message": "The version on master uses i+1, but I believe i is correct. I\u0027ve emailed benl@ about that.",
+      "range": {
+        "startLine": 220,
+        "startChar": 47,
+        "endLine": 220,
+        "endChar": 48
+      },
+      "revId": "29c5b36f764649d0fbdbfe64d57eb1f3e38fb392",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

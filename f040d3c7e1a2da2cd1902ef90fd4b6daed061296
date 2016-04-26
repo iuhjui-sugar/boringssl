@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "08c17519_0de711f6",
+        "filename": "crypto/asn1/asn1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-26T18:49:01Z",
+      "side": 0,
+      "message": "Hilariously, I think there was an off-by-one in the old code, but in the safer direction. It required that there was i+1 bytes, not i bytes.",
+      "revId": "f040d3c7e1a2da2cd1902ef90fd4b6daed061296",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
