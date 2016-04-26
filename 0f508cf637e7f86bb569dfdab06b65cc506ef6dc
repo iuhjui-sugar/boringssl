@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6853d155_78b0e1ed",
+        "filename": "crypto/newhope/newhope_test.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-04-26T23:16:30Z",
+      "side": 1,
+      "message": "What do you think about this:\n\nNEWHOPE_keygen(servermsg /* not used below */, sk);\n\n(My thought is: if you can achieve the desired effect using the API, why not do it that way?)",
+      "range": {
+        "startLine": 81,
+        "startChar": 25,
+        "endLine": 81,
+        "endChar": 26
+      },
+      "revId": "0f508cf637e7f86bb569dfdab06b65cc506ef6dc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
