@@ -298,6 +298,15 @@ void OPENSSL_cpuid_setup(void) {
   cpuinfo.data = cpuinfo_data;
   cpuinfo.len = cpuinfo_len;
 
+  /* Clear NEON support if known broken. Do so even if |__ARM_NEON__| is
+   * defined and |OPENSSL_armcap_P| is thus initialized with NEON enabled. Thus
+   * far, compilers have not managed to tickle the buggy NEON unit while
+   * hand-written assembly has. */
+  if (has_broken_neon(&cpuinfo)) {
+    OPENSSL_armcap_P = 0;
+    goto done;
+  }
+
   /* |getauxval| is not available on Android until API level 20. If it is
    * unavailable, read from /proc/self/auxv as a fallback. This is unreadable
    * on some versions of Android, so further fall back to /proc/cpuinfo.
@@ -314,11 +323,6 @@ void OPENSSL_cpuid_setup(void) {
   }
   if (hwcap == 0) {
     hwcap = get_hwcap_cpuinfo(&cpuinfo);
-  }
-
-  /* Clear NEON support if known broken. */
-  if (has_broken_neon(&cpuinfo)) {
-    hwcap &= ~HWCAP_NEON;
   }
 
   /* Matching OpenSSL, only report other features if NEON is present. */
@@ -349,6 +353,7 @@ void OPENSSL_cpuid_setup(void) {
     }
   }
 
+done:
   OPENSSL_free(cpuinfo_data);
 }
 
