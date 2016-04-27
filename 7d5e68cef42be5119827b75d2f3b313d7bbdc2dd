@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6853d155_47eed89c",
+        "filename": "INCORPORATING.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-04-27T18:01:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e84d01b0_df30ffda",
+      "range": {
+        "startLine": 21,
+        "startChar": 24,
+        "endLine": 21,
+        "endChar": 27
+      },
+      "revId": "7d5e68cef42be5119827b75d2f3b313d7bbdc2dd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e84d01b0_3f4da363",
         "filename": "INCORPORATING.md",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2016-04-27T17:38:28Z",
       "side": 1,
       "message": "Make? (https://www.gnu.org/software/make/ capitalizes it). Or maybe `make`, but the others are listed by name rather than buildsystem.",
+      "range": {
+        "startLine": 23,
+        "startChar": 30,
+        "endLine": 23,
+        "endChar": 34
+      },
+      "revId": "7d5e68cef42be5119827b75d2f3b313d7bbdc2dd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6853d155_87e8f08d",
+        "filename": "INCORPORATING.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-04-27T18:01:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e84d01b0_3f4da363",
       "range": {
         "startLine": 23,
         "startChar": 30,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "6853d155_67eddc9b",
+        "filename": "INCORPORATING.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-04-27T18:01:22Z",
+      "side": 1,
+      "message": "Thank you. Your wording is clearer. I went back and forth about linker scripts for a bit, but they complicate things and are probably not needed for most people so I\u0027ve dropped that.",
+      "parentUuid": "e84d01b0_9f3677d6",
+      "revId": "7d5e68cef42be5119827b75d2f3b313d7bbdc2dd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e84d01b0_df191f6b",
         "filename": "INCORPORATING.md",
         "patchSetId": 2
@@ -76,6 +142,30 @@
       "writtenOn": "2016-04-27T17:38:28Z",
       "side": 1,
       "message": "other",
+      "range": {
+        "startLine": 76,
+        "startChar": 19,
+        "endLine": 76,
+        "endChar": 24
+      },
+      "revId": "7d5e68cef42be5119827b75d2f3b313d7bbdc2dd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6853d155_c701482b",
+        "filename": "INCORPORATING.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-04-27T18:01:22Z",
+      "side": 1,
+      "message": "(moot)",
+      "parentUuid": "e84d01b0_df191f6b",
       "range": {
         "startLine": 76,
         "startChar": 19,
