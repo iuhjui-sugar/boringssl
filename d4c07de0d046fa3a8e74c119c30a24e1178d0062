@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e84d01b0_857c6864",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-27T22:51:23Z",
+      "side": 1,
+      "message": "The other option is to just not set a default since the getauxval code will kick in anyway. (I think we can reasonably assume anywhere building with __ARM_NEON__ set is either using the static codepath or is served by one of the many many fallbacks in cpu-arm-linux.c.) What do you think?",
+      "range": {
+        "startLine": 10,
+        "startChar": 33,
+        "endLine": 10,
+        "endChar": 64
+      },
+      "revId": "d4c07de0d046fa3a8e74c119c30a24e1178d0062",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
