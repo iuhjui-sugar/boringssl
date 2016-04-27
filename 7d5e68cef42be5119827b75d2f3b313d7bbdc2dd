@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e84d01b0_df30ffda",
+        "filename": "INCORPORATING.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-27T17:38:28Z",
+      "side": 1,
+      "message": "Looks like GYP is usually styled with all caps.",
+      "range": {
+        "startLine": 21,
+        "startChar": 24,
+        "endLine": 21,
+        "endChar": 27
+      },
+      "revId": "7d5e68cef42be5119827b75d2f3b313d7bbdc2dd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e84d01b0_3f4da363",
+        "filename": "INCORPORATING.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-27T17:38:28Z",
+      "side": 1,
+      "message": "Make? (https://www.gnu.org/software/make/ capitalizes it). Or maybe `make`, but the others are listed by name rather than buildsystem.",
+      "range": {
+        "startLine": 23,
+        "startChar": 30,
+        "endLine": 23,
+        "endChar": 34
+      },
+      "revId": "7d5e68cef42be5119827b75d2f3b313d7bbdc2dd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e84d01b0_9f3677d6",
+        "filename": "INCORPORATING.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-27T17:38:28Z",
+      "side": 1,
+      "message": "Is this section quite right? It\u0027s a little weird because BORINGSSL_SHARED_LIBRARY isn\u0027t \"I\u0027m using BoringSSL *in* a shared library\" but \"I\u0027m using BoringSSL *as* a shared library\".\n\nPerhaps something like:\n\nYou cannot link multiple versions of BoringSSL or OpenSSL into a single binary without dealing with symbol conflicts. If you are statically linking multiple versions together, there\u0027s not a lot that can be done because C doesn\u0027t have a module system.\n\nIf you are using multiple versions in a single binary, in different shared objects, ensure you build BoringSSL with `-fvisibility\u003dhidden` and do not export any of BoringSSL\u0027s symbols. This will prevent any collisions with other verisons that may be included in other shared objects. Note that this requires that all callers of BoringSSL APIs live in the same shared object as BoringSSL.\n\nIf you require that BoringSSL APIs be used across shared object boundaries, continue to build with `-fvisibility\u003dhidden` but define `BORINGSSL_SHARED_LIBRARY` in both BoringSSL and consumers. BoringSSL\u0027s own source files must also build with `BORINGSSL_IMPLEMENTATION` defined, but *not* consumers\u0027 source files. This will export BoringSSL\u0027s public symbols in the resulting shared object while hiding private symbols. However note that, as with a static link, this precludes dynamically linking with another version of BoringSSL or OpenSSL.",
+      "revId": "7d5e68cef42be5119827b75d2f3b313d7bbdc2dd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e84d01b0_df191f6b",
+        "filename": "INCORPORATING.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-27T17:38:28Z",
+      "side": 1,
+      "message": "other",
+      "range": {
+        "startLine": 76,
+        "startChar": 19,
+        "endLine": 76,
+        "endChar": 24
+      },
+      "revId": "7d5e68cef42be5119827b75d2f3b313d7bbdc2dd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
