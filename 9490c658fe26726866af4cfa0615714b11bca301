@@ -22,6 +22,30 @@
       "revId": "9490c658fe26726866af4cfa0615714b11bca301",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a8e6a926_e63b668b",
+        "filename": "crypto/x509v3/v3_cpols.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-04-29T16:22:01Z",
+      "side": 1,
+      "message": "Yeah, it should. These aren\u0027t in err because they quickly pass ownership elsewhere, so we\u0027d have to set things to NULL and such. (goto err sadly can\u0027t emulate everything about RAII.)",
+      "parentUuid": "e84d01b0_dc4ac216",
+      "range": {
+        "startLine": 201,
+        "startChar": 12,
+        "endLine": 201,
+        "endChar": 27
+      },
+      "revId": "9490c658fe26726866af4cfa0615714b11bca301",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
