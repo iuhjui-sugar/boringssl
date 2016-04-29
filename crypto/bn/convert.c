@@ -577,12 +577,14 @@ BIGNUM *BN_mpi2bn(const uint8_t *in, size_t len, BIGNUM *out) {
     return NULL;
   }
 
+  int bn_is_alloced = 0;
   if (out == NULL) {
     out = BN_new();
-  }
-  if (out == NULL) {
-    OPENSSL_PUT_ERROR(BN, ERR_R_MALLOC_FAILURE);
-    return NULL;
+    if (out == NULL) {
+      OPENSSL_PUT_ERROR(BN, ERR_R_MALLOC_FAILURE);
+      return NULL;
+    }
+    bn_is_alloced = 1;
   }
 
   if (in_len == 0) {
@@ -592,11 +594,17 @@ BIGNUM *BN_mpi2bn(const uint8_t *in, size_t len, BIGNUM *out) {
 
   in += 4;
   if (BN_bin2bn(in, in_len, out) == NULL) {
-    return NULL;
+    goto err;
   }
   out->neg = ((*in) & 0x80) != 0;
   if (out->neg) {
     BN_clear_bit(out, BN_num_bits(out) - 1);
   }
   return out;
+
+err:
+  if (bn_is_alloced) {
+    BN_free(out);
+  }
+  return NULL;
 }
