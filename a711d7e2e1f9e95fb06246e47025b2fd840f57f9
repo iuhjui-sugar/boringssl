@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e84d01b0_9c415afe",
+        "filename": "crypto/bn/convert.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-04-29T14:40:05Z",
+      "side": 1,
+      "message": "Seems slightly weird to goto for a single case instead of adding the free here or making the other return NULL goto err instead.",
+      "range": {
+        "startLine": 597,
+        "startChar": 8,
+        "endLine": 597,
+        "endChar": 9
+      },
+      "revId": "a711d7e2e1f9e95fb06246e47025b2fd840f57f9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
