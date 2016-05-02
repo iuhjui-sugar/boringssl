@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "c8a67d27_ab8e0935",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1720,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-05-02T19:04:06Z",
+      "side": 1,
+      "message": "Maybe merge to if (ecdsa_ok and tls1_check_ec_cert)? Or are you going to fix all this separately?",
+      "range": {
+        "startLine": 1720,
+        "startChar": 11,
+        "endLine": 1720,
+        "endChar": 29
+      },
+      "revId": "b7f3b51cd49986be6464011a7f4f93c989c41ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e858a1e7_a480e257",
         "filename": "ssl/ssl_lib.c",
         "patchSetId": 1
@@ -13,6 +36,29 @@
       "writtenOn": "2016-05-02T17:19:19Z",
       "side": 1,
       "message": "I\u0027ve left this logic alone for now, but it\u0027s a little odd since we don\u0027t actually select certs here anymore.",
+      "revId": "b7f3b51cd49986be6464011a7f4f93c989c41ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c8a67d27_2ba339b0",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1735,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-05-02T19:04:06Z",
+      "side": 1,
+      "message": "Consider doing DHE flag first, and then ECDHE?",
+      "range": {
+        "startLine": 1735,
+        "startChar": 0,
+        "endLine": 1735,
+        "endChar": 66
+      },
       "revId": "b7f3b51cd49986be6464011a7f4f93c989c41ef8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
