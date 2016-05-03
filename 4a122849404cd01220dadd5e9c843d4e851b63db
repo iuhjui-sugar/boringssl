@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4d0e1f2a_376c78f7",
+        "filename": "crypto/x509/x_name.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-03T16:13:10Z",
+      "side": 1,
+      "message": "I\u0027m really not sure what the motivation is here. I imported it because, following this code, it\u0027s made entirely of integer type confusion, so I suppose this helps. That said, X509_NAME is hardly unique here, so I don\u0027t know why it\u0027s singled out. I\u0027ve asked upstream for clarification.",
+      "revId": "4a122849404cd01220dadd5e9c843d4e851b63db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
