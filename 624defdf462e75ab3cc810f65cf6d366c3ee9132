@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2dfc8b2a_64091ecc",
+        "filename": "crypto/asn1/a_type.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-03T16:48:11Z",
+      "side": 1,
+      "message": "This is a no-op, right? The deleted values will hit the default case anyway?",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 125,
+        "endChar": 4
+      },
+      "revId": "624defdf462e75ab3cc810f65cf6d366c3ee9132",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
