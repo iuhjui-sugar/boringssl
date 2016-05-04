@@ -46,6 +46,30 @@
       "revId": "f01fb5dc0e9d2227a20fe33f7bf76c2160ecf9c9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "48f52d3c_dff43b99",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-04T22:54:33Z",
+      "side": 0,
+      "message": "It isn\u0027t if the RSA* is used on multiple threads, I think. Then we get a read/write race. (Arguably this means BN_MONT_CTX_set_locked is a rather error-prone API.)",
+      "parentUuid": "68683071_bf8d3df4",
+      "range": {
+        "startLine": 595,
+        "startChar": 9,
+        "endLine": 595,
+        "endChar": 31
+      },
+      "revId": "f01fb5dc0e9d2227a20fe33f7bf76c2160ecf9c9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }

@@ -34,6 +34,24 @@
       "revId": "a190263409bcaa4bfd6bc3a63eb66d8bbc7412ea",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0dd0a73a_959ce46d",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-04T22:54:33Z",
+      "side": 1,
+      "message": "Yeah, BN_MONT_CTX_set_locked probably shouldn\u0027t be in public headers anymore to begin with. :-)\n\n*shrug* I think this is reasonable enough to export. Worst case we\u0027ll remove it later. This isn\u0027t likely to be used elsewhere and APIs that aren\u0027t in OpenSSL are relatively easy to change. It hasn\u0027t turned out to be as trivial as I\u0027d like in places, but it\u0027s doable. (When third-party libraries use them, it becomes a pain.)",
+      "parentUuid": "68683071_3f106da5",
+      "revId": "a190263409bcaa4bfd6bc3a63eb66d8bbc7412ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
