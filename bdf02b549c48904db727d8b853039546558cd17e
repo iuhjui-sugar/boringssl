@@ -34,6 +34,24 @@
       "revId": "bdf02b549c48904db727d8b853039546558cd17e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cda68f27_4be165ab",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-06T17:36:41Z",
+      "side": 1,
+      "message": "(Where by \"kinda-sorta desirable\" I mean it\u0027s not actually desirable as an end state, but it\u0027s desirable so long as we decide resuming a rexmit doesn\u0027t work.)",
+      "parentUuid": "cda68f27_0bd75dd1",
+      "revId": "bdf02b549c48904db727d8b853039546558cd17e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
