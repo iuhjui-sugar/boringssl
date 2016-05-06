@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd94cfc3_fb81ef5c",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-06T17:12:33Z",
+      "side": 1,
+      "message": "So if a retransmit fails, we\u0027ll free the buffer and throw away all the other ones. (I don\u0027t know whether that\u0027s a problem.)",
+      "revId": "bdf02b549c48904db727d8b853039546558cd17e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
