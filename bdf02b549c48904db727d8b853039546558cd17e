@@ -16,6 +16,24 @@
       "revId": "bdf02b549c48904db727d8b853039546558cd17e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cda68f27_0bd75dd1",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-06T17:35:53Z",
+      "side": 1,
+      "message": "Yeah. That\u0027s kinda-sorta desirable. That we won\u0027t in the was_buffered case is probably a bug, but this doesn\u0027t make it worse. I haven\u0027t thought about it too carefully and was mostly hoping the future rewritten state machine would have some sound more story for it.\n\nThe existing retransmit API isn\u0027t actually resumable (note we don\u0027t remember which message we were in the middle of rexmitting or anything). If we retry, we\u0027ll just start over from the top anyway, so losing what\u0027s in the buffer is fine. Though it does mean retransmit doesn\u0027t work unless the write BIO can synchronously accept the entire flight in one go (whereas non-rexmit handshake write is actually okay with it after we fixed a ton of bugs), but that\u0027s always been true.",
+      "parentUuid": "cd94cfc3_fb81ef5c",
+      "revId": "bdf02b549c48904db727d8b853039546558cd17e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
