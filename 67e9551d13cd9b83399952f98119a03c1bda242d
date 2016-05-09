@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5256c046_179c141d",
+        "filename": "crypto/dh/dh_asn1.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-09T17:23:40Z",
+      "side": 1,
+      "message": "*shrug* The \u003d 0 case should be covered by DH_parse_parameters, though we could do that too. This matches the other compatibility ones. (The check is more so the size_t cast is legal.)",
+      "parentUuid": "5256c046_578a0cf3",
+      "range": {
+        "startLine": 135,
+        "startChar": 10,
+        "endLine": 135,
+        "endChar": 11
+      },
+      "revId": "67e9551d13cd9b83399952f98119a03c1bda242d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5256c046_b76e0820",
         "filename": "include/openssl/dh.h",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2016-05-09T14:07:39Z",
       "side": 1,
       "message": "Current implementation seems to allocate a fresh DH anyway.",
+      "range": {
+        "startLine": 212,
+        "startChar": 30,
+        "endLine": 212,
+        "endChar": 50
+      },
+      "revId": "67e9551d13cd9b83399952f98119a03c1bda242d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5256c046_77a11059",
+        "filename": "include/openssl/dh.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-09T17:23:40Z",
+      "side": 1,
+      "message": "Done. Thanks for catching that. Updated to match the other compatibility ones.",
+      "parentUuid": "5256c046_b76e0820",
       "range": {
         "startLine": 212,
         "startChar": 30,
