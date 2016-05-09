@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5256c046_578a0cf3",
+        "filename": "crypto/dh/dh_asn1.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-05-09T14:07:39Z",
+      "side": 1,
+      "message": "\u003c\u003d?",
+      "range": {
+        "startLine": 135,
+        "startChar": 10,
+        "endLine": 135,
+        "endChar": 11
+      },
+      "revId": "67e9551d13cd9b83399952f98119a03c1bda242d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5256c046_b76e0820",
+        "filename": "include/openssl/dh.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-05-09T14:07:39Z",
+      "side": 1,
+      "message": "Current implementation seems to allocate a fresh DH anyway.",
+      "range": {
+        "startLine": 212,
+        "startChar": 30,
+        "endLine": 212,
+        "endChar": 50
+      },
+      "revId": "67e9551d13cd9b83399952f98119a03c1bda242d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
