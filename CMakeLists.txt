@@ -176,7 +176,12 @@ endif()
 add_custom_target(all_tests)
 
 add_subdirectory(crypto)
-add_subdirectory(ssl)
+if (OPENSSL_TLS13)
+  add_definitions(-DOPENSSL_TLS13)
+  add_subdirectory(tls)
+else()
+  add_subdirectory(ssl)
+endif()
 add_subdirectory(ssl/test)
 add_subdirectory(tool)
 add_subdirectory(decrepit)
@@ -190,6 +195,19 @@ if (NOT ${CMAKE_VERSION} VERSION_LESS "3.2")
   set(MAYBE_USES_TERMINAL USES_TERMINAL)
 endif()
 
+if (OPENSSL_TLS13)
+add_custom_target(
+    run_tests
+    COMMAND ln -sf $<TARGET_FILE:ssl_test> ${CMAKE_BINARY_DIR}/ssl/
+    COMMAND ${GO_EXECUTABLE} run util/all_tests.go -build-dir
+            ${CMAKE_BINARY_DIR}
+    COMMAND cd ssl/test/runner
+    COMMAND ${GO_EXECUTABLE} test -shim-path $<TARGET_FILE:bssl_shim>
+            ${RUNNER_ARGS}
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+    DEPENDS all_tests bssl_shim
+    ${MAYBE_USES_TERMINAL})
+else()
 add_custom_target(
     run_tests
     COMMAND ${GO_EXECUTABLE} run util/all_tests.go -build-dir
@@ -200,3 +218,4 @@ add_custom_target(
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
     DEPENDS all_tests bssl_shim
     ${MAYBE_USES_TERMINAL})
+endif()

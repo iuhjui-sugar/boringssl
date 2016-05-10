@@ -61,6 +61,12 @@
 #include "test_config.h"
 
 
+#if defined(OPENSSL_TLS13)
+#define DTLS_method TLS_method
+#define SSL_set_srtp_profiles(a,b) true
+#define AsyncBioCreateDatagram AsyncBioCreate
+#endif
+
 #if !defined(OPENSSL_WINDOWS)
 static int closesocket(int sock) {
   return close(sock);
@@ -904,7 +910,11 @@ static bool RetryAsync(SSL *ssl, int ret) {
     if (config->async) {
       AsyncBioEnforceWriteQuota(test_state->async_bio, false);
     }
+#if defined(OPENSSL_TLS13)
+    int timeout_ret = 0;
+#else
     int timeout_ret = DTLSv1_handle_timeout(ssl);
+#endif
     if (config->async) {
       AsyncBioEnforceWriteQuota(test_state->async_bio, true);
     }
