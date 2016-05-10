@@ -365,6 +365,8 @@ enum ssl_open_record_t {
   ssl_open_record_success,
   ssl_open_record_discard,
   ssl_open_record_partial,
+  ssl_open_record_close_notify,
+  ssl_open_record_fatal_alert,
   ssl_open_record_error,
 };
 
@@ -378,6 +380,10 @@ enum ssl_open_record_t {
  * If a record was successfully processed but should be discarded, it returns
  * |ssl_open_record_discard| and sets |*out_consumed| to the number of bytes
  * consumed.
+ *
+ * If a record was successfully processed but is a close_notify or fatal alert,
+ * it returns |ssl_open_record_close_notify| or |ssl_open_record_fatal_alert|
+ * and sets |*out_consumed| to the number of bytes consumed.
  *
  * If the input did not contain a complete record, it returns
  * |ssl_open_record_partial|. It sets |*out_consumed| to the total number of
@@ -447,6 +453,13 @@ void ssl_set_read_state(SSL *ssl, SSL_AEAD_CTX *aead_ctx);
 /* ssl_set_write_state sets |ssl|'s write cipher state to |aead_ctx|. It takes
  * ownership of |aead_ctx|. */
 void ssl_set_write_state(SSL *ssl, SSL_AEAD_CTX *aead_ctx);
+
+/* ssl_process_alert processes |in| as an alert and updates |ssl|'s shutdown
+ * state. It returns one of |ssl_open_record_discard|, |ssl_open_record_error|,
+ * |ssl_open_record_close_notify|, or |ssl_open_record_fatal_alert| as
+ * appropriate. */
+enum ssl_open_record_t ssl_process_alert(SSL *ssl, uint8_t *out_alert,
+                                         const uint8_t *in, size_t in_len);
 
 
 /* Private key operations. */
