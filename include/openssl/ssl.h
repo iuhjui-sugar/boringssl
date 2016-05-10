@@ -527,6 +527,7 @@ OPENSSL_EXPORT int DTLSv1_handle_timeout(SSL *ssl);
 #define TLS1_VERSION 0x0301
 #define TLS1_1_VERSION 0x0302
 #define TLS1_2_VERSION 0x0303
+#define TLS1_3_VERSION 0x0304
 
 #define DTLS1_VERSION 0xfeff
 #define DTLS1_2_VERSION 0xfefd
@@ -3007,6 +3008,7 @@ OPENSSL_EXPORT const SSL_METHOD *SSLv3_method(void);
 OPENSSL_EXPORT const SSL_METHOD *TLSv1_method(void);
 OPENSSL_EXPORT const SSL_METHOD *TLSv1_1_method(void);
 OPENSSL_EXPORT const SSL_METHOD *TLSv1_2_method(void);
+OPENSSL_EXPORT const SSL_METHOD *TLSv1_3_method(void);
 OPENSSL_EXPORT const SSL_METHOD *DTLSv1_method(void);
 OPENSSL_EXPORT const SSL_METHOD *DTLSv1_2_method(void);
 
@@ -3022,6 +3024,8 @@ OPENSSL_EXPORT const SSL_METHOD *TLSv1_1_server_method(void);
 OPENSSL_EXPORT const SSL_METHOD *TLSv1_1_client_method(void);
 OPENSSL_EXPORT const SSL_METHOD *TLSv1_2_server_method(void);
 OPENSSL_EXPORT const SSL_METHOD *TLSv1_2_client_method(void);
+OPENSSL_EXPORT const SSL_METHOD *TLSv1_3_server_method(void);
+OPENSSL_EXPORT const SSL_METHOD *TLSv1_3_client_method(void);
 OPENSSL_EXPORT const SSL_METHOD *DTLS_server_method(void);
 OPENSSL_EXPORT const SSL_METHOD *DTLS_client_method(void);
 OPENSSL_EXPORT const SSL_METHOD *DTLSv1_server_method(void);
@@ -3220,6 +3224,7 @@ DECLARE_STACK_OF(SSL_COMP)
 #define SSL_OP_NO_TLSv1 0x04000000L
 #define SSL_OP_NO_TLSv1_2 0x08000000L
 #define SSL_OP_NO_TLSv1_1 0x10000000L
+#define SSL_OP_NO_TLSv1_3 0x20000000L
 #define SSL_OP_NO_DTLSv1 SSL_OP_NO_TLSv1
 #define SSL_OP_NO_DTLSv1_2 SSL_OP_NO_TLSv1_2
 
@@ -3376,6 +3381,7 @@ OPENSSL_EXPORT const char *SSL_alert_desc_string(int value);
 #define SSL_TXT_TLSV1 "TLSv1"
 #define SSL_TXT_TLSV1_1 "TLSv1.1"
 #define SSL_TXT_TLSV1_2 "TLSv1.2"
+#define SSL_TXT_TLSV1_3 "TLSv1.3"
 #define SSL_TXT_ALL "ALL"
 #define SSL_TXT_CMPDEF "COMPLEMENTOFDEFAULT"
 
@@ -3577,6 +3583,21 @@ struct ssl_cipher_preference_list_st {
   STACK_OF(SSL_CIPHER) *ciphers;
   uint8_t *in_group_flags;
 };
+
+typedef struct message_st {
+  uint8_t *data;
+  size_t len;
+} MESSAGE;
+
+typedef enum handshake_state_t {
+  HS_STATE_CONNECT = 1,
+  HS_STATE_RECV_SERVER_HELLO,
+} HANDSHAKE_STATE;
+
+#define HS_NEED_DONE  0x1
+#define HS_NEED_WRITE 0x2
+#define HS_NEED_READ  0x4
+#define HS_NEED_ERROR 0x8
 
 /* ssl_ctx_st (aka |SSL_CTX|) contains configuration common to several SSL
  * connections. */
@@ -3878,6 +3899,13 @@ struct ssl_st {
                         ssl3_get_message() */
   int init_num;      /* amount read/written */
   int init_off;      /* amount read/written */
+
+  /* New Handshake State Machine */
+  HANDSHAKE_STATE handshake_state;
+  int handshake_interrupt;
+  MESSAGE *in_message;
+  MESSAGE *out_message;
+
 
   struct ssl3_state_st *s3;  /* SSLv3 variables */
   struct dtls1_state_st *d1; /* DTLSv1 variables */
