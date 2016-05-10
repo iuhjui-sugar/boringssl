@@ -755,7 +755,7 @@ class SocketCloser {
 
 static ScopedSSL_CTX SetupCtx(const TestConfig *config) {
   ScopedSSL_CTX ssl_ctx(SSL_CTX_new(
-      config->is_dtls ? DTLS_method() : TLS_method()));
+      config->is_dtls ? DTLS_method() : TLS13_method()));
   if (!ssl_ctx) {
     return nullptr;
   }
