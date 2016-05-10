@@ -239,9 +239,16 @@ enum ssl_open_record_t dtls_open_record(
   /* TODO(davidben): Limit the number of empty records as in TLS? This is only
    * useful if we also limit discarded packets. */
 
+  *out_consumed = in_len - CBS_len(&cbs);
+
+  if (type == SSL3_RT_ALERT) {
+    return ssl_process_alert(ssl, out_alert, out, plaintext_len);
+  }
+
+  ssl->s3->warning_alert_count = 0;
+
   *out_type = type;
   *out_len = plaintext_len;
-  *out_consumed = in_len - CBS_len(&cbs);
   return ssl_open_record_success;
 }
 
