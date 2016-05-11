@@ -348,6 +348,24 @@
     },
     {
       "key": {
+        "uuid": "7254a4e4_9047d46b",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 6880
+      },
+      "writtenOn": "2016-05-11T22:06:46Z",
+      "side": 1,
+      "message": "Ah. So SSL_clear is \"make a new connection with the same configuration\"? Useful if, for example, we were making a new DTLS connection using the same transport, because the remote fingerprint changed (which can happen with WebRTC)? In that case I moved initial_timeout_duration_ms accordingly.",
+      "parentUuid": "12c608da_08c3e79c",
+      "revId": "737050cb47ac403db9d6875400ae075737e23add",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12c608da_6856db19",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 2
