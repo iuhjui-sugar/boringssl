@@ -1,0 +1,198 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "12c608da_e83c8bd2",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-11T17:05:19Z",
+      "side": 1,
+      "message": "That\u0027s a bit of a mounthful. :-) Any reason why \"set_initial_timeout\" doesn\u0027t work?",
+      "range": {
+        "startLine": 497,
+        "startChar": 20,
+        "endLine": 497,
+        "endChar": 55
+      },
+      "revId": "737050cb47ac403db9d6875400ae075737e23add",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12c608da_884cf790",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-11T17:05:19Z",
+      "side": 1,
+      "message": "Nit: We usually write this as just \u0027unsigned\u0027",
+      "range": {
+        "startLine": 498,
+        "startChar": 29,
+        "endLine": 498,
+        "endChar": 32
+      },
+      "revId": "737050cb47ac403db9d6875400ae075737e23add",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12c608da_a847336b",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-11T17:05:19Z",
+      "side": 1,
+      "message": "Shouldn\u0027t be const.",
+      "range": {
+        "startLine": 498,
+        "startChar": 4,
+        "endLine": 498,
+        "endChar": 9
+      },
+      "revId": "737050cb47ac403db9d6875400ae075737e23add",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12c608da_c846ef6c",
+        "filename": "ssl/d1_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-11T17:05:19Z",
+      "side": 1,
+      "message": "Nit: For consistency, we use /* C89-style */ comments (though I suspect all our compilers are happy with both these days).",
+      "revId": "737050cb47ac403db9d6875400ae075737e23add",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12c608da_285ce339",
+        "filename": "ssl/d1_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-11T17:05:19Z",
+      "side": 1,
+      "message": "This comment is now slightly off.",
+      "revId": "737050cb47ac403db9d6875400ae075737e23add",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12c608da_8837d7ec",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-11T17:05:19Z",
+      "side": 1,
+      "message": "Nit: While you\u0027re changing the comment, also match the style to:\n\n   \"timeout is the timeout duration in milliseconds.\"\n\n(We borrow Go style for a lot of things.)",
+      "revId": "737050cb47ac403db9d6875400ae075737e23add",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12c608da_0859274a",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 960,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-11T17:05:19Z",
+      "side": 1,
+      "message": "Nit: We usually write plain unsigned. There\u0027s \u0027unsigned int\u0027 above here too. Lots of remnants of code we\u0027re still working through cleaning up. You might have noticed the state is all over the place. :-)\n\n(Even unsigned short not really our style. I think we would have either just gone with something boring like unsigned or if we really cared, an explicitly sized type. OpenSSL historically didn\u0027t believe in stdint.h and pretended unsigned short was uint16_t, etc.)",
+      "range": {
+        "startLine": 960,
+        "startChar": 11,
+        "endLine": 960,
+        "endChar": 14
+      },
+      "revId": "737050cb47ac403db9d6875400ae075737e23add",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12c608da_a83293fc",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-11T17:05:19Z",
+      "side": 1,
+      "message": "This doesn\u0027t interact with SSL_clear quite right.\n\nI think I\u0027d actually put this on the SSL_CTX and/or SSL (which, because we haven\u0027t been able to opaquify it yet, is sadly still in the public header). If you\u0027re fine doing it on just the SSL_CTX, I think that\u0027d be preferable so we don\u0027t waste per-connection memory.\n\nI\u0027m trying to unify on putting configuration state on SSL_CTX/SSL (maybe to be pulled into an SSL_CONFIG that\u0027s copy-on-write shared between SSL_CTX/SSL), connection state on ssl-\u003es3 (to be renamed to something less dumb like SSL_CONNECTION... and then handwave handwave something sensible for DTLS-only stuff), and handshake state on ssl-\u003es3-\u003etmp (to be pulled into a handshake-only gadget like SSL_HANDSHAKE).\n\nThe motivation is we\u0027d like to drop the handshake temporaries post-handshake to save per-connection memory, so those should be separate (also renego means multiple handshakes can happen). The connection is separate from configuration for two reasons:\n\n1. We have to support this awful SSL_clear API that lets you reuse the configuration bits and destroy the connection. For this reason, I want the connection bits in a separate object we can just destroy and recreate. Thus initial_timeout_duration_ms should be part of the object that doesn\u0027t get destroyed.\n\n2. Eventually I\u0027d like to avoid having the SSL store its own copy of every configuration knob and only the few fields that actually need to vary per-configuration. We still have per-SSL APIs for everything, so this will need some messy copy-on-write-if-you-call-a-deprecated API story. Anyway, the upshot is if you can get away with an SSL_CTX config API over an SSL config API, that\u0027s preferred.\n\nThings are still getting there which is why it\u0027s not self-evident yet in the code. Like I said elsewhere, this thing\u0027s a mess. :-)",
+      "revId": "737050cb47ac403db9d6875400ae075737e23add",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12c608da_6856db19",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-11T17:05:19Z",
+      "side": 1,
+      "message": "Since the Go code doesn\u0027t need to process this flag at all, I\u0027d actually skip this and just add flags: []string{....} to the appropriate tests.",
+      "revId": "737050cb47ac403db9d6875400ae075737e23add",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12c608da_48531f28",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 4593,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-11T17:05:19Z",
+      "side": 1,
+      "message": "Nit: Go style is to write this comment as\n\n\"shortTimeouts is an alternative [...]\"",
+      "revId": "737050cb47ac403db9d6875400ae075737e23add",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
