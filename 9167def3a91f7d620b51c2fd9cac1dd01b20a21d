@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "12c608da_e8100bf2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-11T21:15:21Z",
+      "side": 1,
+      "message": "Is the motivation here so you don\u0027t need to include the non-constant-time code, or do you just prefer to not conditioning on BN_FLG_CONSTTIME? (I don\u0027t have strong opinions either way.)\n\n(The BN_mod_inverse entry-point seems to be called in a number of places as things stand, so it seems it wouldn\u0027t really be droppable.)",
+      "revId": "9167def3a91f7d620b51c2fd9cac1dd01b20a21d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
