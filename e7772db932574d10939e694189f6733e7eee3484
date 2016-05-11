@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68d4b07d_ea5e471f",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-11T20:59:15Z",
+      "side": 1,
+      "message": "COVERAGE maybe?",
+      "range": {
+        "startLine": 29,
+        "startChar": 3,
+        "endLine": 29,
+        "endChar": 12
+      },
+      "revId": "e7772db932574d10939e694189f6733e7eee3484",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68d4b07d_ca6383e5",
+        "filename": "crypto/perlasm/x86gas.pl",
+        "patchSetId": 5
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-11T20:59:15Z",
+      "side": 1,
+      "message": "[Remind me to send this upstream when this lands if I forget.]",
+      "revId": "e7772db932574d10939e694189f6733e7eee3484",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68d4b07d_2a797f92",
+        "filename": "util/generate-coverage.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-11T20:59:15Z",
+      "side": 1,
+      "message": "This is going to get pretty complicated fast. :-) Later we\u0027ll want Android coverage and whatever else. At some point, I think we need to make this a build target that -DCOVERAGE emits or a script that takes in a build directory.\n\n(That way rather than having a parallel mechanism to configure the build settings and manage build directories, we just leave that to how you called CMake.)\n\nI wonder if we should just use drcov since it works on everything already...",
+      "revId": "e7772db932574d10939e694189f6733e7eee3484",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
