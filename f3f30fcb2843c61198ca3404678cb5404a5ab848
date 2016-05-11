@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "12c608da_ab960dfc",
+        "filename": "ssl/d1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-11T22:14:09Z",
+      "side": 1,
+      "message": "This should be in SSL_new.",
+      "revId": "f3f30fcb2843c61198ca3404678cb5404a5ab848",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12c608da_6bfa5553",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 2680,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-11T22:14:09Z",
+      "side": 1,
+      "message": "This is not needed (if you initialize it in SSL_new). The whole point of putting it on ssl is to avoid needing this.",
+      "revId": "f3f30fcb2843c61198ca3404678cb5404a5ab848",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
