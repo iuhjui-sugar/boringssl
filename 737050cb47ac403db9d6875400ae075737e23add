@@ -366,6 +366,24 @@
     },
     {
       "key": {
+        "uuid": "12c608da_0bfda149",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-11T22:14:09Z",
+      "side": 1,
+      "message": "So, to be clear, do not under any circumstances use that API. It\u0027s awful. Make a new SSL object like a civilized person.\n\nI really want to kill it, but I found a ton of callers and it wasn\u0027t clear I could disentangle the no-op uses (people calling SSL_clear followed by SSL_free for no good reason) from the users that need this. In the meantime, we\u0027re supporting it, but it\u0027s explicitly documented as \"Deprecated\" for a reason.",
+      "parentUuid": "7254a4e4_9047d46b",
+      "revId": "737050cb47ac403db9d6875400ae075737e23add",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12c608da_6856db19",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 2
