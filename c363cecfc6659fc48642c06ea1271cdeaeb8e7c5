@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7254a4e4_330b921e",
+        "filename": "crypto/bn/gcd.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 620,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-05-11T23:17:22Z",
+      "side": 1,
+      "message": "Indeed, with the change, there will be some temporary values that have the `BN_FLG_CONSTTIME` flag set that didn\u0027t have it set previously. But, none of the functions called by this function look at `BN_FLG_CONSTTIME` except `BN_div` and `BN_nnmod`, and those calls are the ones that force us to muck with `BN_FLG_CONSTTIME` in the first place.\n\nNote, in particular, that the only non-local (`BN_CTX`-owned) value that is modified in this function is `out`, and that this function never sets any flags on `out`.\n\nI can revert the changes to this function if you still aren\u0027t convinced. The main goal of changing this is to remove `BN_with_flags` from the security analysis of RSA/ECDSA/ECDH, which is something of value (only) when combined with many similar changes to reduce the amount of relevant code.\n\nLMK.",
+      "parentUuid": "12c608da_8bb871d7",
+      "revId": "c363cecfc6659fc48642c06ea1271cdeaeb8e7c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12c608da_4b92f904",
         "filename": "crypto/rsa/rsa_impl.c",
         "patchSetId": 8
