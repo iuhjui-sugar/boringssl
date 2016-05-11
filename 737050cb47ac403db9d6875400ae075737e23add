@@ -330,6 +330,24 @@
     },
     {
       "key": {
+        "uuid": "12c608da_08c3e79c",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-11T20:51:19Z",
+      "side": 1,
+      "message": "Configuration may be per-connection too. SSL_clear is kind of a janky API, but I think we should be consistent about whether configuration is preserved. SSL_set_mtu is similar and is also preserved across SSL_clear. (It lives in DTLS1_STATE because it\u0027s a little confused---I need to split it in two---but SSL_clear goes out of its away to preserve it, behavior that was in OpenSSL too.)",
+      "parentUuid": "926e7879_de4e0161",
+      "revId": "737050cb47ac403db9d6875400ae075737e23add",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12c608da_6856db19",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 2
