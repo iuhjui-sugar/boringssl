@@ -2668,14 +2668,16 @@ int SSL_clear(SSL *ssl) {
   BUF_MEM_free(ssl->init_buf);
   ssl->init_buf = NULL;
 
-  /* The ssl->d1->mtu is simultaneously configuration (preserved across
-   * clear) and connection-specific state (gets reset).
+  /* The ssl->d1->mtu and ssl->initial_timeout_duration_ms are simultaneously
+   * configuration (preserved across clear) and connection-specific state (gets
+   * reset).
    *
    * TODO(davidben): Avoid this. */
   unsigned mtu = 0;
   if (ssl->d1 != NULL) {
     mtu = ssl->d1->mtu;
   }
+  unsigned initial_timeout_duration_ms  = ssl->initial_timeout_duration_ms;
 
   ssl->method->ssl_free(ssl);
   if (!ssl->method->ssl_new(ssl)) {
@@ -2685,6 +2687,7 @@ int SSL_clear(SSL *ssl) {
   if (SSL_IS_DTLS(ssl) && (SSL_get_options(ssl) & SSL_OP_NO_QUERY_MTU)) {
     ssl->d1->mtu = mtu;
   }
+  ssl->initial_timeout_duration_ms = initial_timeout_duration_ms;
 
   ssl->client_version = ssl->version;
 
