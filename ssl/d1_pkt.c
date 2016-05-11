@@ -114,6 +114,7 @@
 #include <assert.h>
 #include <string.h>
 
+#include <openssl/bio.h>
 #include <openssl/buf.h>
 #include <openssl/mem.h>
 #include <openssl/evp.h>
@@ -125,6 +126,27 @@
 
 static int do_dtls1_write(SSL *ssl, int type, const uint8_t *buf,
                           unsigned int len, enum dtls1_use_epoch_t use_epoch);
+
+static int dtls1_read_failed(SSL *ssl, int code) {
+  if (code > 0) {
+    assert(0);
+    return 1;
+  }
+
+  if (!dtls1_is_timer_expired(ssl)) {
+    /* not a timeout, none of our business, let higher layers handle this. In
+     * fact, it's probably an error */
+    return code;
+  }
+
+  if (!SSL_in_init(ssl)) {
+    /* done, no need to send a retransmit */
+    BIO_set_flags(ssl->rbio, BIO_FLAGS_READ);
+    return code;
+  }
+
+  return DTLSv1_handle_timeout(ssl);
+}
 
 /* dtls1_get_record reads a new input record. On success, it places it in
  * |ssl->s3->rrec| and returns one. Otherwise it returns <= 0 on error or if
@@ -145,7 +167,14 @@ again:
   if (ssl_read_buffer_len(ssl) == 0) {
     int ret = ssl_read_buffer_extend_to(ssl, 0 /* unused */);
     if (ret <= 0) {
-      return ret;
+      /* For blocking BIOs, retransmits must be handled internally. */
+      int retry_ret = dtls1_read_failed(ssl, ret);
+      /* Anything other than a timeout is an error. */
+      if (retry_ret <= 0) {
+        return retry_ret;
+      } else {
+        goto again;
+      }
     }
   }
   assert(ssl_read_buffer_len(ssl) > 0);
@@ -264,22 +293,11 @@ start:
    * ssl->s3->rrec.length   - number of bytes. */
   rr = &ssl->s3->rrec;
 
-  /* Check for timeout */
-  if (DTLSv1_handle_timeout(ssl) > 0) {
-    goto start;
-  }
-
   /* get new packet if necessary */
   if (rr->length == 0) {
     ret = dtls1_get_record(ssl);
     if (ret <= 0) {
-      ret = dtls1_read_failed(ssl, ret);
-      /* anything other than a timeout is an error */
-      if (ret <= 0) {
-        return ret;
-      } else {
-        goto start;
-      }
+      return ret;
     }
   }
 
