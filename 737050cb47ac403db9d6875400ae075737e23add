@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "926e7879_9e13a954",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 6880
+      },
+      "writtenOn": "2016-05-11T17:52:01Z",
+      "side": 1,
+      "message": "Well, there\u0027s already \"get_timeout\" which returns a timeval that\u0027s an absolute time. So I thought it may be necessary to differentiate between a timeout (an absolute time) and a duration (a relative time).",
+      "parentUuid": "12c608da_e83c8bd2",
+      "range": {
+        "startLine": 497,
+        "startChar": 20,
+        "endLine": 497,
+        "endChar": 55
+      },
+      "revId": "737050cb47ac403db9d6875400ae075737e23add",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12c608da_884cf790",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 2
@@ -71,6 +95,54 @@
     },
     {
       "key": {
+        "uuid": "926e7879_de192178",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 6880
+      },
+      "writtenOn": "2016-05-11T17:52:01Z",
+      "side": 1,
+      "message": "Oops, copy-paste mistake. I wonder how this compiled.",
+      "parentUuid": "12c608da_a847336b",
+      "range": {
+        "startLine": 498,
+        "startChar": 4,
+        "endLine": 498,
+        "endChar": 9
+      },
+      "revId": "737050cb47ac403db9d6875400ae075737e23add",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "926e7879_5e0e912e",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 6880
+      },
+      "writtenOn": "2016-05-11T17:52:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12c608da_884cf790",
+      "range": {
+        "startLine": 498,
+        "startChar": 29,
+        "endLine": 498,
+        "endChar": 32
+      },
+      "revId": "737050cb47ac403db9d6875400ae075737e23add",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12c608da_c846ef6c",
         "filename": "ssl/d1_lib.c",
         "patchSetId": 2
@@ -82,6 +154,24 @@
       "writtenOn": "2016-05-11T17:05:19Z",
       "side": 1,
       "message": "Nit: For consistency, we use /* C89-style */ comments (though I suspect all our compilers are happy with both these days).",
+      "revId": "737050cb47ac403db9d6875400ae075737e23add",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "926e7879_7e0b551d",
+        "filename": "ssl/d1_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 6880
+      },
+      "writtenOn": "2016-05-11T17:52:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12c608da_c846ef6c",
       "revId": "737050cb47ac403db9d6875400ae075737e23add",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -105,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "926e7879_defcc11c",
+        "filename": "ssl/d1_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 6880
+      },
+      "writtenOn": "2016-05-11T17:52:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12c608da_285ce339",
+      "revId": "737050cb47ac403db9d6875400ae075737e23add",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12c608da_8837d7ec",
         "filename": "ssl/internal.h",
         "patchSetId": 2
@@ -116,6 +224,24 @@
       "writtenOn": "2016-05-11T17:05:19Z",
       "side": 1,
       "message": "Nit: While you\u0027re changing the comment, also match the style to:\n\n   \"timeout is the timeout duration in milliseconds.\"\n\n(We borrow Go style for a lot of things.)",
+      "revId": "737050cb47ac403db9d6875400ae075737e23add",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "926e7879_7e0ef525",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 6880
+      },
+      "writtenOn": "2016-05-11T17:52:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12c608da_8837d7ec",
       "revId": "737050cb47ac403db9d6875400ae075737e23add",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -145,6 +271,30 @@
     },
     {
       "key": {
+        "uuid": "926e7879_1e1b3963",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 960,
+      "author": {
+        "id": 6880
+      },
+      "writtenOn": "2016-05-11T17:52:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12c608da_0859274a",
+      "range": {
+        "startLine": 960,
+        "startChar": 11,
+        "endLine": 960,
+        "endChar": 14
+      },
+      "revId": "737050cb47ac403db9d6875400ae075737e23add",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12c608da_a83293fc",
         "filename": "ssl/internal.h",
         "patchSetId": 2
@@ -156,6 +306,24 @@
       "writtenOn": "2016-05-11T17:05:19Z",
       "side": 1,
       "message": "This doesn\u0027t interact with SSL_clear quite right.\n\nI think I\u0027d actually put this on the SSL_CTX and/or SSL (which, because we haven\u0027t been able to opaquify it yet, is sadly still in the public header). If you\u0027re fine doing it on just the SSL_CTX, I think that\u0027d be preferable so we don\u0027t waste per-connection memory.\n\nI\u0027m trying to unify on putting configuration state on SSL_CTX/SSL (maybe to be pulled into an SSL_CONFIG that\u0027s copy-on-write shared between SSL_CTX/SSL), connection state on ssl-\u003es3 (to be renamed to something less dumb like SSL_CONNECTION... and then handwave handwave something sensible for DTLS-only stuff), and handshake state on ssl-\u003es3-\u003etmp (to be pulled into a handshake-only gadget like SSL_HANDSHAKE).\n\nThe motivation is we\u0027d like to drop the handshake temporaries post-handshake to save per-connection memory, so those should be separate (also renego means multiple handshakes can happen). The connection is separate from configuration for two reasons:\n\n1. We have to support this awful SSL_clear API that lets you reuse the configuration bits and destroy the connection. For this reason, I want the connection bits in a separate object we can just destroy and recreate. Thus initial_timeout_duration_ms should be part of the object that doesn\u0027t get destroyed.\n\n2. Eventually I\u0027d like to avoid having the SSL store its own copy of every configuration knob and only the few fields that actually need to vary per-configuration. We still have per-SSL APIs for everything, so this will need some messy copy-on-write-if-you-call-a-deprecated API story. Anyway, the upshot is if you can get away with an SSL_CTX config API over an SSL config API, that\u0027s preferred.\n\nThings are still getting there which is why it\u0027s not self-evident yet in the code. Like I said elsewhere, this thing\u0027s a mess. :-)",
+      "revId": "737050cb47ac403db9d6875400ae075737e23add",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "926e7879_de4e0161",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 6880
+      },
+      "writtenOn": "2016-05-11T17:52:01Z",
+      "side": 1,
+      "message": "I think it actually should be per-connection. Because if the duration is set based on the network RTT, it could be different for different connections.\n\nSo... Does it still need to be moved? I\u0027m not clear on how SSL_clear is expected to work.",
+      "parentUuid": "12c608da_a83293fc",
       "revId": "737050cb47ac403db9d6875400ae075737e23add",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -179,6 +347,24 @@
     },
     {
       "key": {
+        "uuid": "926e7879_1e6a5974",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 6880
+      },
+      "writtenOn": "2016-05-11T17:52:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12c608da_6856db19",
+      "revId": "737050cb47ac403db9d6875400ae075737e23add",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12c608da_48531f28",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 2
@@ -190,6 +376,24 @@
       "writtenOn": "2016-05-11T17:05:19Z",
       "side": 1,
       "message": "Nit: Go style is to write this comment as\n\n\"shortTimeouts is an alternative [...]\"",
+      "revId": "737050cb47ac403db9d6875400ae075737e23add",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "926e7879_fe0bc5c6",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 4593,
+      "author": {
+        "id": 6880
+      },
+      "writtenOn": "2016-05-11T17:52:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12c608da_48531f28",
       "revId": "737050cb47ac403db9d6875400ae075737e23add",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
