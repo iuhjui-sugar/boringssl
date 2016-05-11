@@ -384,6 +384,24 @@
     },
     {
       "key": {
+        "uuid": "7254a4e4_f3ed8ad6",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 6880
+      },
+      "writtenOn": "2016-05-11T22:33:13Z",
+      "side": 1,
+      "message": "Got it. I won\u0027t be using it any time soon.",
+      "parentUuid": "12c608da_0bfda149",
+      "revId": "737050cb47ac403db9d6875400ae075737e23add",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12c608da_6856db19",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 2
