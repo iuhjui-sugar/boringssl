@@ -956,8 +956,13 @@ typedef struct dtls1_state_st {
    * timeout. */
   struct timeval next_timeout;
 
-  /* Timeout duration */
-  unsigned short timeout_duration;
+  /* timeout_duration_ms is the timeout duration in milliseconds. */
+  unsigned timeout_duration_ms;
+
+  /* initial_timeout_duration_ms is the default timeout duration in
+   * milliseconds. Applied to timeout_duration_ms every time the timer is
+   * restarted. */
+  unsigned initial_timeout_duration_ms;
 } DTLS1_STATE;
 
 extern const SSL3_ENC_METHOD TLSv1_enc_data;
