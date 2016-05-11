@@ -487,6 +487,16 @@ OPENSSL_EXPORT int SSL_get_error(const SSL *ssl, int ret_code);
  * and zero on failure. */
 OPENSSL_EXPORT int SSL_set_mtu(SSL *ssl, unsigned mtu);
 
+/* DTLSv1_set_initial_timeout_duration sets the initial duration for a DTLS
+ * handshake timeout.
+ *
+ * This duration overrides the default of 1 second, which is the strong
+ * recommendation of RFC 6347 (see section 4.2.4.1). However, there may exist
+ * situations where a shorter timeout would be beneficial, such as for
+ * time-sensitive applications. */
+OPENSSL_EXPORT void DTLSv1_set_initial_timeout_duration(
+    const SSL *ssl, unsigned int duration_ms);
+
 /* DTLSv1_get_timeout queries the next DTLS handshake timeout. If there is a
  * timeout in progress, it sets |*out| to the time remaining and returns one.
  * Otherwise, it returns zero.
