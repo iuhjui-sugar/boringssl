@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "12c608da_8bb871d7",
+        "filename": "crypto/bn/gcd.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 620,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-11T22:32:22Z",
+      "side": 1,
+      "message": "With everything getting shuffled around, it\u0027s not obvious switching to BN_set_flags does everything quite the same.",
+      "revId": "c363cecfc6659fc48642c06ea1271cdeaeb8e7c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12c608da_4b92f904",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-11T22:32:22Z",
+      "side": 1,
+      "message": "[I think I agree this is a no-op.]",
+      "range": {
+        "startLine": 725,
+        "startChar": 15,
+        "endLine": 725,
+        "endChar": 17
+      },
+      "revId": "c363cecfc6659fc48642c06ea1271cdeaeb8e7c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12c608da_abbd6d78",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 1020,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-11T22:32:22Z",
+      "side": 1,
+      "message": "[I think I agree this is a no-op.]",
+      "range": {
+        "startLine": 1020,
+        "startChar": 2,
+        "endLine": 1020,
+        "endChar": 14
+      },
+      "revId": "c363cecfc6659fc48642c06ea1271cdeaeb8e7c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
