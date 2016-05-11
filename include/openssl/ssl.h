@@ -494,8 +494,8 @@ OPENSSL_EXPORT int SSL_set_mtu(SSL *ssl, unsigned mtu);
  * recommendation of RFC 6347 (see section 4.2.4.1). However, there may exist
  * situations where a shorter timeout would be beneficial, such as for
  * time-sensitive applications. */
-OPENSSL_EXPORT void DTLSv1_set_initial_timeout_duration(
-    const SSL *ssl, unsigned int duration_ms);
+OPENSSL_EXPORT void DTLSv1_set_initial_timeout_duration(SSL *ssl,
+                                                        unsigned duration_ms);
 
 /* DTLSv1_get_timeout queries the next DTLS handshake timeout. If there is a
  * timeout in progress, it sets |*out| to the time remaining and returns one.

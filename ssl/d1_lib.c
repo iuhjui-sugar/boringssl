@@ -96,8 +96,8 @@ int dtls1_new(SSL *ssl) {
   }
   memset(d1, 0, sizeof *d1);
 
-  // RFC 6347 states that implementations SHOULD use an initial timer value of
-  // 1 second.
+  /* RFC 6347 states that implementations SHOULD use an initial timer value of
+   * 1 second. */
   d1->initial_timeout_duration_ms = 1000;
   d1->buffered_messages = pqueue_new();
   d1->sent_messages = pqueue_new();
@@ -160,13 +160,12 @@ int dtls1_supports_cipher(const SSL_CIPHER *cipher) {
   return cipher->algorithm_enc != SSL_RC4 && cipher->algorithm_enc != SSL_eNULL;
 }
 
-void DTLSv1_set_initial_timeout_duration(const SSL *ssl,
-                                         unsigned int duration_ms) {
+void DTLSv1_set_initial_timeout_duration(SSL *ssl, unsigned int duration_ms) {
   ssl->d1->initial_timeout_duration_ms = duration_ms;
 }
 
 void dtls1_start_timer(SSL *ssl) {
-  /* If timer is not set, initialize duration with 1 second */
+  /* If timer is not set, initialize duration (by default, 1 second) */
   if (ssl->d1->next_timeout.tv_sec == 0 && ssl->d1->next_timeout.tv_usec == 0) {
     ssl->d1->timeout_duration_ms = ssl->d1->initial_timeout_duration_ms;
   }

@@ -243,9 +243,6 @@ type testCase struct {
 	// expectMessageDropped, if true, means the test message is expected to
 	// be dropped by the client rather than echoed back.
 	expectMessageDropped bool
-	// initialTimeoutDurationMs, if non-zero, configures the test to use an
-	// initial timeout for DTLS messages other than the default 1 second.
-	initialTimeoutDurationMs int
 }
 
 var testCases []testCase
@@ -702,10 +699,6 @@ func runTest(test *testCase, shimPath string, mallocNumToFail int64) error {
 
 	if test.testTLSUnique {
 		flags = append(flags, "-tls-unique")
-	}
-
-	if test.initialTimeoutDurationMs > 0 {
-	  flags = append(flags, "-initial-timeout-duration-ms", strconv.Itoa(test.initialTimeoutDurationMs))
 	}
 
 	flags = append(flags, test.flags...)
@@ -4590,8 +4583,8 @@ var timeouts = []time.Duration{
 	60 * time.Second,
 }
 
-// An alternate set of timeouts which would occur if the initial timeout
-// duration was set to 250ms.
+// shortTimeouts is an alternate set of timeouts which would occur if the
+// initial timeout duration was set to 250ms.
 var shortTimeouts = []time.Duration{
 	250 * time.Millisecond,
 	500 * time.Millisecond,
@@ -4694,9 +4687,8 @@ func addDTLSRetransmitTests() {
 	      TimeoutSchedule: shortTimeouts[:len(shortTimeouts)-1],
 	    },
 	  },
-	  initialTimeoutDurationMs: 250,
 	  resumeSession: true,
-	  flags:         []string{"-async"},
+	  flags:         []string{"-async", "-initial-timeout-duration-ms", "250"},
 	})
 	testCases = append(testCases, testCase{
 	  protocol: dtls,
@@ -4707,9 +4699,8 @@ func addDTLSRetransmitTests() {
 	      TimeoutSchedule: shortTimeouts[:len(shortTimeouts)-1],
 	    },
 	  },
-	  initialTimeoutDurationMs: 250,
 	  resumeSession: true,
-	  flags:         []string{"-async"},
+	  flags:         []string{"-async", "-initial-timeout-duration-ms", "250"},
 	})
 }
 
