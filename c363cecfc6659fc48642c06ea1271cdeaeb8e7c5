@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "923678c6_0943c935",
+        "filename": "crypto/bn/gcd.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 620,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-12T15:26:19Z",
+      "side": 1,
+      "message": "By removing BN_with_flags from the security analysis, do you mean that we\u0027ll call into constant-time code without conditioning on BN_FLG_CONSTTIME or just that BN_with_flags is weird since it\u0027s stack-allocated and BN_set_flags is less weird.\n\nThe former sounds like a good idea. I\u0027m not sure how this change helps us get there though. I would think that we\u0027d want the consttime-ness of each operation to be clear locally. The style where BN_with_flags is used just before calling a function is certainly not easy to reason about, but I think it\u0027s clearer than BN_set_flags when BIGNUMs are juggled around everywhere.\n\nAt line 587, B is flagged in some cases, but not others. Then, in each iteration of the loop (which maybe never runs?), whatever\u0027s currently A gets flagged. Then things get shuffled so\n\n   A, B, M, Y, X \u003d B, M, Y, X, A\n\nwhich means reasoning about where the flagged BIGNUMs are is kind of a mess. I would certainly buy that the shuffling ends up not mattering, but that\u0027s additional non-local information needed to understand what\u0027s going on.\n\nI think the trace ends up as:\n\n   A  B  M  Y  X\n  \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n   n  ?  n  n  n   (? means depends on the condition above)\n  ---------------\n   y  ?  n  n  n\n   ?  n  n  n  y\n  ---------------\n   y  n  n  n  y\n   n  n  n  y  y\n  ---------------\n   y  n  n  y  y\n   y  n  n  y  y\n  ---------------\n   n  n  y  y  y\n   y  n  y  y  y\n  ---------------\n   n  y  y  y  y\n   y  y  y  y  y\n\n\nWhat if we just set all the temporaries to CONSTTIME on construction? (I guess now we have to worry about whether the CONSTTIME bit ever goes as a result of some operation. Though I imagine we\u0027re already assuming that? Dunno.)",
+      "parentUuid": "7254a4e4_330b921e",
+      "revId": "c363cecfc6659fc48642c06ea1271cdeaeb8e7c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12c608da_4b92f904",
         "filename": "crypto/rsa/rsa_impl.c",
         "patchSetId": 8
