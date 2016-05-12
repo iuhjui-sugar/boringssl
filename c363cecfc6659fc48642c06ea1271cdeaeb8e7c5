@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "7254a4e4_2a979357",
+        "filename": "crypto/bn/gcd.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 620,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-05-12T19:45:29Z",
+      "side": 1,
+      "message": "David, I think perhaps this is overthinking things quite a bit.\n\nFirst, all of these values are temporary values. We never set `BN_FLG_CONSTTIME` on `out`, in particular. We\u0027re free to do whatever we want with the flag on our local variables knowing that there won\u0027t be non-local effects.\n\nSecond, of all the functions that this function calls, which care about the `BN_FLG_CONSTTIME` flag? Only `BN_nnmod` and `BN_div`. (This is clear to me, but I\u0027d forgive you if it isn\u0027t clear enough to be convincing.) Even if this weren\u0027t the case, the only possible side effect of this change (as far as I could tell) would be to get *more* constant-time behavior, which actually would only help.\n\nWe always set `BN_FLG_CONSTTIME` on the inputs of `BN_nnmod` and `BN_div` just as the function previously did, so those calls are always going to get the constant time behavior. Indeed, everything gets swapped around as your table shows, which is why we set `BN_FLG_CONSTTIME` every time we call those functions, so we don\u0027t have to worry about all that swapping.\n\nAgain, my motivation here is to allow us to eventually forget about `BN_with_flags`, which is very unusual in that it constructs a non-owning `BIGNUM` that aliases another `BIGNUM`.\n\nWe could indeed set the `BN_FLG_CONSTTIME` flag on every local (from `BN_CTX_get`) BIGNUM before the loop starts. But, that has a \"I don\u0027t know what I\u0027m doing so I\u0027ll just do this\" feeling to it that I don\u0027t like, so I\u0027d rather not.\n\nI feel I\u0027ve made a mistake in taking a lot of your time to think about this. I suggest that we don\u0027t think about this *too* much more. If you\u0027re not convinced that this is a good idea, let\u0027s just revert the change to this function. I have a completely different implementation of this function sitting around anyway, so in the (very) long term this would all be moot (if we allow ourselves to be somewhat optimistic).\n\nLMK.",
+      "parentUuid": "923678c6_0943c935",
+      "revId": "c363cecfc6659fc48642c06ea1271cdeaeb8e7c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12c608da_4b92f904",
         "filename": "crypto/rsa/rsa_impl.c",
         "patchSetId": 8
