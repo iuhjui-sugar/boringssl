@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "923678c6_2ffded49",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-13T19:09:19Z",
+      "side": 1,
+      "message": "It\u0027s actually a fairly drastic slowdown, but I do not believe any of the remaining DSA stragglers care.",
+      "revId": "14fe36f19c8c4b86c78635c925e1a12bf5aa3bbe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "923678c6_6ff7e567",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 827,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-13T19:09:19Z",
+      "side": 1,
+      "message": "[Sadly this wasn\u0027t documented before, but verified this is plausible given how DSA uses it. I didn\u0027t want to try to figure out what the old code did. :-)]",
+      "revId": "14fe36f19c8c4b86c78635c925e1a12bf5aa3bbe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
