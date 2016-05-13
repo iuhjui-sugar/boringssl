@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "923678c6_2f596d4a",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-13T20:05:28Z",
+      "side": 1,
+      "message": "I think this one. We could conceivably (but won\u0027t) restore SSL_aNULL or SSL_aKRB5 or something.",
+      "parentUuid": "923678c6_2f9ecd62",
+      "range": {
+        "startLine": 177,
+        "startChar": 8,
+        "endLine": 177,
+        "endChar": 17
+      },
+      "revId": "8ff53151ab4b7071f7176e79b32c14d14da4e776",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "923678c6_0fa109a8",
         "filename": "ssl/internal.h",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2016-05-13T14:38:20Z",
       "side": 1,
       "message": "ssl_cipher_uses_certificate_auth?",
+      "range": {
+        "startLine": 247,
+        "startChar": 4,
+        "endLine": 247,
+        "endChar": 34
+      },
+      "revId": "8ff53151ab4b7071f7176e79b32c14d14da4e776",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "923678c6_4f56a119",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-13T20:05:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "923678c6_0fa109a8",
       "range": {
         "startLine": 247,
         "startChar": 4,
