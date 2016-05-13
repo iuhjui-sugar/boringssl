@@ -16,6 +16,24 @@
       "revId": "9167def3a91f7d620b51c2fd9cac1dd01b20a21d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7254a4e4_a1bd6111",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-05-13T21:34:15Z",
+      "side": 1,
+      "message": "\u003e or do you just prefer to not conditioning on BN_FLG_CONSTTIME?\n\nThis is the main consideration; making it easier to understand the control flow.",
+      "parentUuid": "12c608da_e8100bf2",
+      "revId": "9167def3a91f7d620b51c2fd9cac1dd01b20a21d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
