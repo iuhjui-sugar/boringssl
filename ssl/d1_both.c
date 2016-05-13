@@ -578,8 +578,9 @@ long dtls1_get_message(SSL *ssl, int st1, int stn, int msg_type,
       goto f_err;
     }
     *ok = 1;
+    assert(ssl->init_buf->length >= DTLS1_HM_HEADER_LENGTH);
     ssl->init_msg = (uint8_t *)ssl->init_buf->data + DTLS1_HM_HEADER_LENGTH;
-    ssl->init_num = (int)ssl->s3->tmp.message_size;
+    ssl->init_num = (int)ssl->init_buf->length - DTLS1_HM_HEADER_LENGTH;
     return ssl->init_num;
   }
 
@@ -606,7 +607,7 @@ long dtls1_get_message(SSL *ssl, int st1, int stn, int msg_type,
   if (!BUF_MEM_grow(ssl->init_buf, (size_t)frag->msg_header.msg_len +
                                        DTLS1_HM_HEADER_LENGTH) ||
       !CBB_init_fixed(&cbb, (uint8_t *)ssl->init_buf->data,
-                      ssl->init_buf->max) ||
+                      ssl->init_buf->length) ||
       !CBB_add_u8(&cbb, frag->msg_header.type) ||
       !CBB_add_u24(&cbb, frag->msg_header.msg_len) ||
       !CBB_add_u16(&cbb, frag->msg_header.seq) ||
@@ -618,14 +619,13 @@ long dtls1_get_message(SSL *ssl, int st1, int stn, int msg_type,
     OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
     goto err;
   }
-  assert(len == (size_t)frag->msg_header.msg_len + DTLS1_HM_HEADER_LENGTH);
+  assert(len == ssl->init_buf->length);
 
   ssl->d1->handshake_read_seq++;
 
   /* TODO(davidben): This function has a lot of implicit outputs. Simplify the
    * |ssl_get_message| API. */
   ssl->s3->tmp.message_type = frag->msg_header.type;
-  ssl->s3->tmp.message_size = frag->msg_header.msg_len;
   ssl->init_msg = (uint8_t *)ssl->init_buf->data + DTLS1_HM_HEADER_LENGTH;
   ssl->init_num = frag->msg_header.msg_len;
 
