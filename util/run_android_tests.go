@@ -27,12 +27,14 @@ import (
 )
 
 var (
-	buildDir     = flag.String("build-dir", "build", "Specifies the build directory to push.")
-	device       = flag.String("device", "", "Specifies the device or emulator. See adb's -s argument.")
-	aarch64      = flag.Bool("aarch64", false, "Build the test runners for aarch64 instead of arm.")
-	arm          = flag.Int("arm", 7, "Which arm revision to build for.")
-	allTestsArgs = flag.String("all-tests-args", "", "Specifies space-separated arguments to pass to all_tests.go")
-	runnerArgs   = flag.String("runner-args", "", "Specifies space-separated arguments to pass to ssl/test/runner")
+	buildDir       = flag.String("build-dir", "build", "Specifies the build directory to push.")
+	device         = flag.String("device", "", "Specifies the device or emulator. See adb's -s argument.")
+	aarch64        = flag.Bool("aarch64", false, "Build the test runners for aarch64 instead of arm.")
+	arm            = flag.Int("arm", 7, "Which arm revision to build for.")
+	allTestsArgs   = flag.String("all-tests-args", "", "Specifies space-separated arguments to pass to all_tests.go")
+	runnerArgs     = flag.String("runner-args", "", "Specifies space-separated arguments to pass to ssl/test/runner")
+	allTestsOutput = flag.String("all-tests-json", "", "The file to output all_tests.go JSON results to.")
+	runnerOutput   = flag.String("runner-json", "", "The file to output ssl/test/runner JSON results to.")
 )
 
 func adb(args ...string) error {
@@ -198,14 +200,26 @@ func main() {
 	}
 
 	fmt.Printf("Running unit tests...\n")
-	if err := adb("shell", fmt.Sprintf("cd /data/local/tmp/boringssl-tmp && ./util/all_tests %s", *allTestsArgs)); err != nil {
+	if err := adb("shell", fmt.Sprintf("cd /data/local/tmp/boringssl-tmp && ./util/all_tests -json-output all_tests.json %s", *allTestsArgs)); err != nil {
 		fmt.Printf("Failed to run unit tests: %s\n", err)
 		os.Exit(1)
 	}
+	if *allTestsOutput != "" {
+		if err := adb("pull", "/data/local/tmp/boringssl-tmp/all_tests.json", *allTestsOutput); err != nil {
+			fmt.Printf("Failed to extract all_tests.json: %s\n", err)
+			os.Exit(1)
+		}
+	}
 
 	fmt.Printf("Running SSL tests...\n")
-	if err := adb("shell", fmt.Sprintf("cd /data/local/tmp/boringssl-tmp/ssl/test/runner && ./runner %s", *runnerArgs)); err != nil {
+	if err := adb("shell", fmt.Sprintf("cd /data/local/tmp/boringssl-tmp/ssl/test/runner && ./runner -json-output ../../../all_tests.json %s", *runnerArgs)); err != nil {
 		fmt.Printf("Failed to run SSL tests: %s\n", err)
 		os.Exit(1)
+	}
+	if *runnerOutput != "" {
+		if err := adb("pull", "/data/local/tmp/boringssl-tmp/runner.json", *runnerOutput); err != nil {
+			fmt.Printf("Failed to extract runner.json: %s\n", err)
+			os.Exit(1)
+		}
 	}
 }
