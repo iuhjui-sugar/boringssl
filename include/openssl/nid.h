@@ -4159,5 +4159,7 @@
 #define SN_X25519 "X25519"
 #define NID_X25519 948
 
+#define NID_cecpq1 949
+
 
 #endif  /* OPENSSL_HEADER_NID_H */

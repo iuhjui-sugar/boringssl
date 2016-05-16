@@ -24,8 +24,10 @@
 #include <openssl/err.h>
 #include <openssl/mem.h>
 #include <openssl/nid.h>
+#include <openssl/newhope.h>
 
 #include "internal.h"
+#include "../crypto/newhope/internal.h"
 
 
 /* |EC_POINT| implementation. */
@@ -231,6 +233,149 @@ static int ssl_x25519_client_key_exchange(SSL_ECDH_CTX *ctx, CBB *out_public_key
 }
 
 
+/* Combined X25119 + New Hope (post-quantum) implementation. */
+
+typedef struct {
+  uint8_t x25519_key[32];
+  NEWHOPE_POLY newhope_sk;
+} cecpq1_data;
+
+#define CECPQ1_CLIENTMSG_LENGTH (32 + NEWHOPE_CLIENTMSG_LENGTH)
+#define CECPQ1_SERVERMSG_LENGTH (32 + NEWHOPE_SERVERMSG_LENGTH)
+#define CECPQ1_SECRET_LENGTH (32 + SHA256_DIGEST_LENGTH)
+
+static int ssl_cecpq1_server_generate_keypair(SSL_ECDH_CTX *ctx, CBB *out) {
+  assert(ctx->data == NULL);
+  cecpq1_data *data = OPENSSL_malloc(sizeof(cecpq1_data));
+  if (data == NULL) {
+    OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
+    return 0;
+  }
+  ctx->data = data;
+
+  uint8_t x25519_public_key[32];
+  X25519_keypair(x25519_public_key, data->x25519_key);
+
+  uint8_t newhope_servermsg[NEWHOPE_SERVERMSG_LENGTH];
+  NEWHOPE_keygen(newhope_servermsg, &data->newhope_sk);
+
+  if (!CBB_add_bytes(out, x25519_public_key, sizeof(x25519_public_key)) ||
+      !CBB_add_bytes(out, newhope_servermsg, sizeof(newhope_servermsg))) {
+    return 0;
+  }
+  return 1;
+}
+
+static int ssl_cecpq1_server_finish(SSL_ECDH_CTX *ctx, uint8_t **out_secret,
+                                    size_t *out_secret_len, uint8_t *out_alert,
+                                    const uint8_t *peer_key,
+                                    size_t peer_key_len) {
+  if (peer_key_len != CECPQ1_CLIENTMSG_LENGTH) {
+    *out_alert = SSL_AD_DECODE_ERROR;
+    return 0;
+  }
+
+  *out_alert = SSL_AD_INTERNAL_ERROR;
+
+  assert(ctx->data != NULL);
+  cecpq1_data *data = ctx->data;
+
+  uint8_t *secret = OPENSSL_malloc(CECPQ1_SECRET_LENGTH);
+  if (secret == NULL) {
+    OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
+    return 0;
+  }
+
+  if (!X25519(secret, data->x25519_key, peer_key)) {
+    *out_alert = SSL_AD_DECODE_ERROR;
+    OPENSSL_PUT_ERROR(SSL, SSL_R_BAD_ECPOINT);
+    goto err;
+  }
+
+  if (!NEWHOPE_server_compute_key(secret + 32, &data->newhope_sk, peer_key + 32,
+                                  NEWHOPE_CLIENTMSG_LENGTH)) {
+    *out_alert = SSL_AD_DECODE_ERROR;
+    goto err;
+  }
+
+  *out_secret = secret;
+  *out_secret_len = CECPQ1_SECRET_LENGTH;
+  return 1;
+
+ err:
+  OPENSSL_cleanse(secret, CECPQ1_SECRET_LENGTH);
+  OPENSSL_free(secret);
+  return 0;
+}
+
+static int ssl_cecpq1_client_key_exchange(SSL_ECDH_CTX *ctx, CBB *cbb,
+                                          uint8_t **out_secret,
+                                          size_t *out_secret_len,
+                                          uint8_t *out_alert,
+                                          const uint8_t *peer_key,
+                                          size_t peer_key_len) {
+  if (peer_key_len != CECPQ1_SERVERMSG_LENGTH) {
+    *out_alert = SSL_AD_DECODE_ERROR;
+    return 0;
+  }
+
+  *out_alert = SSL_AD_INTERNAL_ERROR;
+
+  assert(ctx->data == NULL);
+  cecpq1_data *data = OPENSSL_malloc(sizeof(cecpq1_data));
+  if (data == NULL) {
+    OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
+    return 0;
+  }
+  ctx->data = data;
+
+  uint8_t *secret = OPENSSL_malloc(CECPQ1_SECRET_LENGTH);
+  if (secret == NULL) {
+    OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
+    return 0;
+  }
+
+  /* Generate message to server, and secret key, at once. */
+
+  uint8_t x25519_public_key[32];
+  X25519_keypair(x25519_public_key, data->x25519_key);
+  if (!X25519(secret, data->x25519_key, peer_key)) {
+    *out_alert = SSL_AD_DECODE_ERROR;
+    OPENSSL_PUT_ERROR(SSL, SSL_R_BAD_ECPOINT);
+    goto err;
+  }
+
+  uint8_t newhope_clientmsg[NEWHOPE_CLIENTMSG_LENGTH];
+  if (!NEWHOPE_client_compute_key(secret + 32, newhope_clientmsg, peer_key + 32,
+                                  NEWHOPE_SERVERMSG_LENGTH)) {
+    *out_alert = SSL_AD_DECODE_ERROR;
+    goto err;
+  }
+
+  if (!CBB_add_bytes(cbb, x25519_public_key, sizeof(x25519_public_key)) ||
+      !CBB_add_bytes(cbb, newhope_clientmsg, sizeof(newhope_clientmsg))) {
+    goto err;
+  }
+
+  *out_secret = secret;
+  *out_secret_len = CECPQ1_SECRET_LENGTH;
+  return 1;
+
+ err:
+  OPENSSL_cleanse(secret, CECPQ1_SECRET_LENGTH);
+  OPENSSL_free(secret);
+  return 0;
+}
+
+static void ssl_cecpq1_cleanup(SSL_ECDH_CTX *ctx) {
+  if (ctx->data == NULL) {
+    return;
+  }
+  OPENSSL_cleanse(ctx->data, sizeof(cecpq1_data));
+  OPENSSL_free(ctx->data);
+}
+
+
 /* Legacy DHE-based implementation. */
 
 static void ssl_dhe_cleanup(SSL_ECDH_CTX *ctx) {
@@ -348,6 +493,15 @@ static const SSL_ECDH_METHOD kMethods[] = {
         ssl_x25519_generate_keypair,
         ssl_x25519_compute_secret,
         ssl_x25519_client_key_exchange,
+    },
+    {
+        NID_cecpq1,
+        SSL_CURVE_X25519_AND_NEWHOPE,
+        "CECPQ1",
+        ssl_cecpq1_cleanup,
+        ssl_cecpq1_server_generate_keypair,
+        ssl_cecpq1_server_finish,
+        ssl_cecpq1_client_key_exchange,
     },
 };
 
