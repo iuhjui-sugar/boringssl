@@ -1239,7 +1239,8 @@ int ssl3_send_server_key_exchange(SSL *ssl) {
           !CBB_add_u16_length_prefixed(&cbb, &child) ||
           !BN_bn2cbb_padded(&child, BN_num_bytes(params->g), params->g) ||
           !CBB_add_u16_length_prefixed(&cbb, &child) ||
-          !SSL_ECDH_CTX_generate_keypair(&ssl->s3->tmp.ecdh_ctx, &child)) {
+          !SSL_ECDH_CTX_server_generate_keypair(&ssl->s3->tmp.ecdh_ctx,
+                                                &child)) {
         goto err;
       }
     } else if (alg_k & SSL_kECDHE) {
@@ -1257,7 +1258,8 @@ int ssl3_send_server_key_exchange(SSL *ssl) {
           !CBB_add_u8(&cbb, NAMED_CURVE_TYPE) ||
           !CBB_add_u16(&cbb, curve_id) ||
           !CBB_add_u8_length_prefixed(&cbb, &child) ||
-          !SSL_ECDH_CTX_generate_keypair(&ssl->s3->tmp.ecdh_ctx, &child)) {
+          !SSL_ECDH_CTX_server_generate_keypair(&ssl->s3->tmp.ecdh_ctx,
+                                                &child)) {
         goto err;
       }
     } else {
@@ -1641,7 +1643,7 @@ int ssl3_get_client_key_exchange(SSL *ssl) {
 
     /* Compute the premaster. */
     uint8_t alert;
-    if (!SSL_ECDH_CTX_compute_secret(&ssl->s3->tmp.ecdh_ctx, &premaster_secret,
+    if (!SSL_ECDH_CTX_server_finish(&ssl->s3->tmp.ecdh_ctx, &premaster_secret,
                                      &premaster_secret_len, &alert,
                                      CBS_data(&peer_key), CBS_len(&peer_key))) {
       al = alert;
