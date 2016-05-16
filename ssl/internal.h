@@ -544,18 +544,27 @@ struct ssl_ecdh_method_st {
   /* cleanup releases state in |ctx|. */
   void (*cleanup)(SSL_ECDH_CTX *ctx);
 
-  /* generate_keypair generates a keypair and writes the public value to
+  /* initiate generates a keypair and writes the public value to
    * |out_public_key|. It returns one on success and zero on error. */
-  int (*generate_keypair)(SSL_ECDH_CTX *ctx, CBB *out_public_key);
+  int (*initiate)(SSL_ECDH_CTX *ctx, CBB *out_public_key);
 
-  /* compute_secret performs a key exchange against |peer_key| and, on
+  /* accept performs a key exchange against |peer_key|. On success, it returns
+   * one, writes the public value to |out_public_key|, and sets |*out_secret|
+   * and |*out_secret_len| to a newly-allocated buffer containing the shared
+   * secret. The caller must release this buffer with |OPENSSL_free|. Otherwise,
+   * it returns zero and sets |*out_alert| to an alert to send to the peer. */
+  int (*accept)(SSL_ECDH_CTX *ctx, CBB *out_public_key, uint8_t **out_secret,
+                size_t *out_secret_len, uint8_t *out_alert,
+                const uint8_t *peer_key, size_t peer_key_len);
+
+  /* finish performs a key exchange against |peer_key| and, on
    * success, returns one and sets |*out_secret| and |*out_secret_len| to
    * a newly-allocated buffer containing the shared secret. The caller must
    * release this buffer with |OPENSSL_free|. Otherwise, it returns zero and
    * sets |*out_alert| to an alert to send to the peer. */
-  int (*compute_secret)(SSL_ECDH_CTX *ctx, uint8_t **out_secret,
-                        size_t *out_secret_len, uint8_t *out_alert,
-                        const uint8_t *peer_key, size_t peer_key_len);
+  int (*finish)(SSL_ECDH_CTX *ctx, uint8_t **out_secret, size_t *out_secret_len,
+                uint8_t *out_alert, const uint8_t *peer_key,
+                size_t peer_key_len);
 } /* SSL_ECDH_METHOD */;
 
 /* ssl_nid_to_curve_id looks up the curve corresponding to |nid|. On success, it
@@ -564,7 +573,8 @@ struct ssl_ecdh_method_st {
 int ssl_nid_to_curve_id(uint16_t *out_curve_id, int nid);
 
 /* SSL_ECDH_CTX_init sets up |ctx| for use with curve |curve_id|. It returns one
- * on success and zero on error. */
+ * on success and zero on error. Not to be confused with
+ * |SSL_ECDH_CTX_initiate|. */
 int SSL_ECDH_CTX_init(SSL_ECDH_CTX *ctx, uint16_t curve_id);
 
 /* SSL_ECDH_CTX_init_for_dhe sets up |ctx| for use with legacy DHE-based ciphers
@@ -575,13 +585,20 @@ void SSL_ECDH_CTX_init_for_dhe(SSL_ECDH_CTX *ctx, DH *params);
  * call it in the zero state. */
 void SSL_ECDH_CTX_cleanup(SSL_ECDH_CTX *ctx);
 
-/* The following functions call the corresponding method of
- * |SSL_ECDH_METHOD|. */
-int SSL_ECDH_CTX_generate_keypair(SSL_ECDH_CTX *ctx, CBB *out_public_key);
-int SSL_ECDH_CTX_compute_secret(SSL_ECDH_CTX *ctx, uint8_t **out_secret,
-                                size_t *out_secret_len, uint8_t *out_alert,
-                                const uint8_t *peer_key, size_t peer_key_len);
+/* Calls the |initiate| method of |SSL_ECDH_METHOD|. Not to be confused with
+ * |SSL_ECDH_CTX_init|. */
+int SSL_ECDH_CTX_initiate(SSL_ECDH_CTX *ctx, CBB *out_public_key);
 
+/* Calls the |accept| method of |SSL_ECDH_METHOD|. */
+int SSL_ECDH_CTX_accept(SSL_ECDH_CTX *ctx, CBB *out_public_key,
+                        uint8_t **out_secret, size_t *out_secret_len,
+                        uint8_t *out_alert, const uint8_t *peer_key,
+                        size_t peer_key_len);
+
+/* Calls the |finish| method of |SSL_ECDH_METHOD|. */
+int SSL_ECDH_CTX_finish(SSL_ECDH_CTX *ctx, uint8_t **out_secret,
+                        size_t *out_secret_len, uint8_t *out_alert,
+                        const uint8_t *peer_key, size_t peer_key_len);
 
 /* Handshake messages. */
 

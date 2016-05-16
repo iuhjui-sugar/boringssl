@@ -252,13 +252,17 @@ func pickTLS12HashForSignature(sigType uint8, clientList, serverList []signature
 
 // A ecdhCurve is an instance of ECDH-style key agreement for TLS.
 type ecdhCurve interface {
-	// generateKeypair generates a keypair using rand. It returns the
-	// encoded public key.
-	generateKeypair(rand io.Reader) (publicKey []byte, err error)
+	// initiate generates a keypair using rand. It returns the encoded
+	// public key.
+	initiate(rand io.Reader) (publicKey []byte, err error)
 
-	// computeSecret performs a key exchange against peerKey and returns
-	// the resulting shared secret.
-	computeSecret(peerKey []byte) (preMasterSecret []byte, err error)
+	// accept responds to the initiator's public key with the acceptor's public
+	// key, and returns agreed-upon preMaster secret to the acceptor.
+	accept(rand io.Reader, peerKey []byte) (publicKey []byte, preMasterSecret []byte, err error)
+
+	// finish returns the preMasterSecret to the initiator, given the acceptor's
+	// public key.
+	finish(peerKey []byte) (preMasterSecret []byte, err error)
 }
 
 // ellipticECDHCurve implements ecdhCurve with an elliptic.Curve.
@@ -267,7 +271,7 @@ type ellipticECDHCurve struct {
 	privateKey []byte
 }
 
-func (e *ellipticECDHCurve) generateKeypair(rand io.Reader) (publicKey []byte, err error) {
+func (e *ellipticECDHCurve) initiate(rand io.Reader) (publicKey []byte, err error) {
 	var x, y *big.Int
 	e.privateKey, x, y, err = elliptic.GenerateKey(e.curve, rand)
 	if err != nil {
@@ -276,7 +280,19 @@ func (e *ellipticECDHCurve) generateKeypair(rand io.Reader) (publicKey []byte, e
 	return elliptic.Marshal(e.curve, x, y), nil
 }
 
-func (e *ellipticECDHCurve) computeSecret(peerKey []byte) (preMasterSecret []byte, err error) {
+func (e *ellipticECDHCurve) accept(rand io.Reader, peerKey []byte) (publicKey []byte, preMasterSecret []byte, err error) {
+	publicKey, err = e.initiate(rand)
+	if err != nil {
+		return nil, nil, err
+	}
+	preMasterSecret, err = e.finish(peerKey)
+	if err != nil {
+		return nil, nil, err
+	}
+	return
+}
+
+func (e *ellipticECDHCurve) finish(peerKey []byte) (preMasterSecret []byte, err error) {
 	x, y := elliptic.Unmarshal(e.curve, peerKey)
 	if x == nil {
 		return nil, errors.New("tls: invalid peer key")
@@ -294,7 +310,7 @@ type x25519ECDHCurve struct {
 	privateKey [32]byte
 }
 
-func (e *x25519ECDHCurve) generateKeypair(rand io.Reader) (publicKey []byte, err error) {
+func (e *x25519ECDHCurve) initiate(rand io.Reader) (publicKey []byte, err error) {
 	_, err = io.ReadFull(rand, e.privateKey[:])
 	if err != nil {
 		return
@@ -304,7 +320,19 @@ func (e *x25519ECDHCurve) generateKeypair(rand io.Reader) (publicKey []byte, err
 	return out[:], nil
 }
 
-func (e *x25519ECDHCurve) computeSecret(peerKey []byte) (preMasterSecret []byte, err error) {
+func (e *x25519ECDHCurve) accept(rand io.Reader, peerKey []byte) (publicKey []byte, preMasterSecret []byte, err error) {
+	publicKey, err = e.initiate(rand)
+	if err != nil {
+		return nil, nil, err
+	}
+	preMasterSecret, err = e.finish(peerKey)
+	if err != nil {
+		return nil, nil, err
+	}
+	return
+}
+
+func (e *x25519ECDHCurve) finish(peerKey []byte) (preMasterSecret []byte, err error) {
 	if len(peerKey) != 32 {
 		return nil, errors.New("tls: invalid peer key")
 	}
@@ -551,7 +579,7 @@ NextCandidate:
 		return nil, errors.New("tls: preferredCurves includes unsupported curve")
 	}
 
-	publicKey, err := ka.curve.generateKeypair(config.rand())
+	publicKey, err := ka.curve.initiate(config.rand())
 	if err != nil {
 		return nil, err
 	}
@@ -577,7 +605,7 @@ func (ka *ecdheKeyAgreement) processClientKeyExchange(config *Config, cert *Cert
 	if len(ckx.ciphertext) == 0 || int(ckx.ciphertext[0]) != len(ckx.ciphertext)-1 {
 		return nil, errClientKeyExchange
 	}
-	return ka.curve.computeSecret(ckx.ciphertext[1:])
+	return ka.curve.finish(ckx.ciphertext[1:])
 }
 
 func (ka *ecdheKeyAgreement) processServerKeyExchange(config *Config, clientHello *clientHelloMsg, serverHello *serverHelloMsg, cert *x509.Certificate, skx *serverKeyExchangeMsg) error {
@@ -612,11 +640,7 @@ func (ka *ecdheKeyAgreement) generateClientKeyExchange(config *Config, clientHel
 		return nil, nil, errors.New("missing ServerKeyExchange message")
 	}
 
-	publicKey, err := ka.curve.generateKeypair(config.rand())
-	if err != nil {
-		return nil, nil, err
-	}
-	preMasterSecret, err := ka.curve.computeSecret(ka.peerKey)
+	publicKey, preMasterSecret, err := ka.curve.accept(config.rand(), ka.peerKey)
 	if err != nil {
 		return nil, nil, err
 	}
