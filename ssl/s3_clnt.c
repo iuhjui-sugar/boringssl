@@ -1668,17 +1668,13 @@ int ssl3_send_client_key_exchange(SSL *ssl) {
       child_ok = CBB_add_u16_length_prefixed(&cbb, &child);
     }
 
-    if (!child_ok ||
-        !SSL_ECDH_CTX_generate_keypair(&ssl->s3->tmp.ecdh_ctx, &child) ||
-        !CBB_flush(&cbb)) {
-      goto err;
-    }
-
     /* Compute the premaster. */
     uint8_t alert;
-    if (!SSL_ECDH_CTX_compute_secret(&ssl->s3->tmp.ecdh_ctx, &pms, &pms_len,
+    if (!child_ok ||
+        !SSL_ECDH_CTX_client_key_exchange(&ssl->s3->tmp.ecdh_ctx, &child, &pms, &pms_len,
                                      &alert, ssl->s3->tmp.peer_key,
-                                     ssl->s3->tmp.peer_key_len)) {
+                                     ssl->s3->tmp.peer_key_len) ||
+        !CBB_flush(&cbb)) {
       ssl3_send_alert(ssl, SSL3_AL_FATAL, alert);
       goto err;
     }
