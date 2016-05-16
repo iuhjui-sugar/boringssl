@@ -1142,8 +1142,7 @@ int ssl3_get_server_key_exchange(SSL *ssl) {
     CBS point;
     if (!CBS_get_u8(&server_key_exchange, &curve_type) ||
         curve_type != NAMED_CURVE_TYPE ||
-        !CBS_get_u16(&server_key_exchange, &curve_id) ||
-        !CBS_get_u8_length_prefixed(&server_key_exchange, &point)) {
+        !CBS_get_u16(&server_key_exchange, &curve_id)) { 
       al = SSL_AD_DECODE_ERROR;
       OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
       goto f_err;
@@ -1157,13 +1156,27 @@ int ssl3_get_server_key_exchange(SSL *ssl) {
       goto f_err;
     }
 
+    /* Post-quantum hack: because keys are large, we require an extra byte to
+     * represent their length. */
+    int peer_key_ok;
+    if (curve_id == SSL_CURVE_CECPQ1) {
+      peer_key_ok = CBS_get_u16_length_prefixed(&server_key_exchange, &point);
+    } else {
+      peer_key_ok = CBS_get_u8_length_prefixed(&server_key_exchange, &point);
+    }
+    if (!peer_key_ok) {
+      al = SSL_AD_DECODE_ERROR;
+      OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
+      goto f_err;
+    }
+
     /* Initialize ECDH and save the peer public key for later. */
     size_t peer_key_len;
     if (!SSL_ECDH_CTX_init(&ssl->s3->tmp.ecdh_ctx, curve_id) ||
         !CBS_stow(&point, &ssl->s3->tmp.peer_key, &peer_key_len)) {
       goto err;
     }
-    /* |point| has a u8 length prefix, so this fits in a |uint16_t|. */
+    /* |point| has a u8 or u16 length prefix, so this fits in a |uint16_t|. */
     assert(sizeof(ssl->s3->tmp.peer_key_len) == 2 && peer_key_len <= 0xffff);
     ssl->s3->tmp.peer_key_len = (uint16_t)peer_key_len;
   } else if (!(alg_k & SSL_kPSK)) {
@@ -1621,7 +1634,14 @@ int ssl3_send_client_key_exchange(SSL *ssl) {
     CBB child;
     int child_ok;
     if (alg_k & SSL_kECDHE) {
-      child_ok = CBB_add_u8_length_prefixed(&cbb, &child);
+      uint16_t curve_id = ssl->session->key_exchange_info;
+      /* Post-quantum hack: because keys are large, we require an extra byte to
+       * represent their length. */
+      if (curve_id == SSL_CURVE_CECPQ1) {
+        child_ok = CBB_add_u16_length_prefixed(&cbb, &child);
+      } else {
+        child_ok = CBB_add_u8_length_prefixed(&cbb, &child);
+      }
     } else {
       child_ok = CBB_add_u16_length_prefixed(&cbb, &child);
     }

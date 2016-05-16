@@ -1226,8 +1226,18 @@ int ssl3_send_server_key_exchange(SSL *ssl) {
       /* Set up ECDH, generate a key, and emit the public half. */
       if (!SSL_ECDH_CTX_init(&ssl->s3->tmp.ecdh_ctx, curve_id) ||
           !CBB_add_u8(&cbb, NAMED_CURVE_TYPE) ||
-          !CBB_add_u16(&cbb, curve_id) ||
-          !CBB_add_u8_length_prefixed(&cbb, &child) ||
+          !CBB_add_u16(&cbb, curve_id)) {
+        goto err;
+      }
+      /* Post-quantum hack: because keys are large, we require an extra byte to
+       * represent their length. */
+      int child_ok;
+      if (curve_id == SSL_CURVE_CECPQ1) {
+        child_ok = CBB_add_u16_length_prefixed(&cbb, &child);
+      } else {
+        child_ok = CBB_add_u8_length_prefixed(&cbb, &child);
+      }
+      if (!child_ok ||
           !SSL_ECDH_CTX_offer(&ssl->s3->tmp.ecdh_ctx, &child)) {
         goto err;
       }
@@ -1596,7 +1606,16 @@ int ssl3_get_client_key_exchange(SSL *ssl) {
     CBS peer_key;
     int peer_key_ok;
     if (alg_k & SSL_kECDHE) {
-      peer_key_ok = CBS_get_u8_length_prefixed(&client_key_exchange, &peer_key);
+      /* Post-quantum hack: because keys are large, we require an extra byte to
+       * represent their length. */
+      uint16_t curve_id = ssl->session->key_exchange_info;
+      if (curve_id == SSL_CURVE_CECPQ1) {
+        peer_key_ok =
+            CBS_get_u16_length_prefixed(&client_key_exchange, &peer_key);
+      } else {
+        peer_key_ok =
+            CBS_get_u8_length_prefixed(&client_key_exchange, &peer_key);
+      }
     } else {
       peer_key_ok =
           CBS_get_u16_length_prefixed(&client_key_exchange, &peer_key);
