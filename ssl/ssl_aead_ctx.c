@@ -78,7 +78,11 @@ SSL_AEAD_CTX *SSL_AEAD_CTX_new(enum evp_aead_direction_t direction,
     memcpy(aead_ctx->fixed_nonce, fixed_iv, fixed_iv_len);
     aead_ctx->fixed_nonce_len = fixed_iv_len;
 
-    if (cipher->algorithm_enc & SSL_CHACHA20POLY1305) {
+    if (version >= TLS1_3_VERSION) {
+      aead_ctx->xor_fixed_nonce = 1;
+      aead_ctx->variable_nonce_len = 8;
+      aead_ctx->omit_ad = 1;
+    } else if (cipher->algorithm_enc & SSL_CHACHA20POLY1305) {
       /* The fixed nonce into the actual nonce (the sequence number). */
       aead_ctx->xor_fixed_nonce = 1;
       aead_ctx->variable_nonce_len = 8;
@@ -86,11 +90,10 @@ SSL_AEAD_CTX *SSL_AEAD_CTX_new(enum evp_aead_direction_t direction,
       /* The fixed IV is prepended to the nonce. */
       assert(fixed_iv_len <= aead_ctx->variable_nonce_len);
       aead_ctx->variable_nonce_len -= fixed_iv_len;
-    }
-
-    /* AES-GCM uses an explicit nonce. */
-    if (cipher->algorithm_enc & (SSL_AES128GCM | SSL_AES256GCM)) {
-      aead_ctx->variable_nonce_included_in_record = 1;
+      /* AES-GCM uses an explicit nonce. */
+      if (cipher->algorithm_enc & (SSL_AES128GCM | SSL_AES256GCM)) {
+        aead_ctx->variable_nonce_included_in_record = 1;
+      }
     }
 
     /* The TLS 1.3 construction xors the fixed nonce into the actual nonce and
