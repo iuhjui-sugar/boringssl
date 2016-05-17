@@ -853,6 +853,8 @@ struct ssl_protocol_method_st {
   int (*set_handshake_header)(SSL *ssl, int type, unsigned long len);
   /* Write out handshake message */
   int (*do_write)(SSL *ssl);
+  int (*read_handshake)(SSL *ssl, SSL_HS_MESSAGE *msg);
+  int (*write_handshake)(SSL *ssl, SSL_HS_MESSAGE *msg);
 };
 
 /* This is for the SSLv3/TLSv1.0 differences in crypto/hash stuff It is a bit
@@ -1289,5 +1291,27 @@ size_t tls12_get_psigalgs(SSL *ssl, const uint8_t **psigs);
 int tls12_check_peer_sigalg(SSL *ssl, const EVP_MD **out_md, int *out_alert,
                             uint8_t hash, uint8_t signature, EVP_PKEY *pkey);
 void ssl_set_client_disabled(SSL *ssl);
+
+int tls13_handshake(SSL *ssl);
+int set_hs_message(SSL_HS_MESSAGE *out, uint8_t type, uint8_t *data,
+                   size_t length);
+int tls13_handshake_read(SSL *ssl, SSL_HS_MESSAGE *msg);
+int tls13_handshake_write(SSL *ssl, SSL_HS_MESSAGE *msg);
+
+int tls13_update_handshake_keys(SSL *ssl, uint8_t *premaster, size_t premaster_len);
+
+int tls13_client_handshake(SSL *ssl);
+int tls13_send_client_hello(SSL *ssl, SSL_HS_MESSAGE *out);
+int tls13_receive_server_hello(SSL *ssl, SSL_HS_MESSAGE msg);
+int tls13_receive_encrypted_extensions(SSL *ssl, SSL_HS_MESSAGE msg);
+int tls13_receive_certificate_request(SSL *ssl, SSL_HS_MESSAGE msg);
+int tls13_receive_certificate(SSL *ssl, SSL_HS_MESSAGE msg);
+int tls13_receive_certificate_verify(SSL *ssl, SSL_HS_MESSAGE msg);
+int tls13_receive_finished(SSL *ssl, SSL_HS_MESSAGE msg);
+int tls13_send_certificate(SSL *ssl, SSL_HS_MESSAGE *out);
+int tls13_send_certificate_verify(SSL *ssl, SSL_HS_MESSAGE *out);
+int tls13_send_finished(SSL *ssl, SSL_HS_MESSAGE *out);
+
+int tls13_server_handshake(SSL *ssl);
 
 #endif /* OPENSSL_HEADER_SSL_INTERNAL_H */

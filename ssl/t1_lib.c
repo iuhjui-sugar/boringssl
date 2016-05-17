@@ -1809,6 +1809,114 @@ static int ext_ec_point_add_serverhello(SSL *ssl, CBB *out) {
 }
 
 
+/* Key Share
+ *
+ * https://tools.ietf.org/html/draft-ietf-tls-tls13-12 */
+
+static int ext_key_share_add_clienthello(SSL *ssl, CBB *out) {
+  if (!ssl_any_ec_cipher_suites_enabled(ssl)) {
+    return 1;
+  }
+
+  CBB contents, kse_bytes;
+  if (!CBB_add_u16(out, TLSEXT_TYPE_key_share) ||
+      !CBB_add_u16_length_prefixed(out, &contents) ||
+      !CBB_add_u16_length_prefixed(&contents, &kse_bytes)) {
+    return 0;
+  }
+
+  const uint16_t *groups;
+  size_t groups_len;
+  tls1_get_grouplist(ssl, 0, &groups, &groups_len);
+
+  ssl->hs->groups = OPENSSL_malloc(groups_len * sizeof(SSL_ECDH_CTX));
+  memset(ssl->hs->groups, 0, groups_len * sizeof(SSL_ECDH_CTX));
+
+  size_t i;
+  for (i = 0; i < groups_len; i++) {
+    if (!CBB_add_u16(&kse_bytes, groups[i])) {
+      return 0;
+    }
+
+    CBB key_exchange, child;
+    if (!CBB_add_u16_length_prefixed(&kse_bytes, &key_exchange) ||
+        !CBB_add_u8_length_prefixed(&key_exchange, &child)) {
+      return 0;
+    }
+
+    if (!SSL_ECDH_CTX_init(&ssl->hs->groups[i], groups[i]) ||
+        !SSL_ECDH_CTX_generate_keypair(&ssl->hs->groups[i], &child) ||
+        !CBB_flush(&child)) {
+      return 0;
+    }
+  }
+
+  return CBB_flush(out);
+}
+
+static int ext_key_share_parse_serverhello(SSL *ssl, uint8_t *out_alert,
+                                           CBS *contents) {
+  if (contents == NULL) {
+    return 0;
+  }
+
+  CBS key_share, peer_key;
+  uint16_t group;
+  if (!CBS_get_u16(contents, &group) ||
+      !CBS_get_u16_length_prefixed(contents, &key_share) ||
+      CBS_len(&key_share) == 0 ||
+      !CBS_get_u8_length_prefixed(&key_share, &peer_key)) {
+    return 0;
+  }
+
+  const uint16_t *groups;
+  size_t groups_len;
+  tls1_get_grouplist(ssl, 0, &groups, &groups_len);
+
+  size_t i;
+  for (i = 0; i < groups_len; i++) {
+    SSL_ECDH_CTX *group_ctx = &ssl->hs->groups[i];
+    if (group_ctx->method->group_id == group) {
+      ssl->s3->tmp.ecdh_ctx = *group_ctx;
+    } else {
+      SSL_ECDH_CTX_cleanup(group_ctx);
+    }
+  }
+
+  uint8_t *premaster_secret = NULL;
+  size_t premaster_secret_len = 0;
+  if (!SSL_ECDH_CTX_compute_secret(&ssl->s3->tmp.ecdh_ctx, &premaster_secret,
+                                   &premaster_secret_len, out_alert, 
+                                   CBS_data(&peer_key),
+                                   CBS_len(&peer_key))) {
+    return 0;
+  }
+
+  if (!tls13_update_handshake_keys(ssl, premaster_secret,
+                                   premaster_secret_len)) {
+    OPENSSL_cleanse(premaster_secret, premaster_secret_len);
+    OPENSSL_free(premaster_secret);
+    return 0;
+  }
+
+  /* The key exchange state may now be discarded. */
+  SSL_ECDH_CTX_cleanup(&ssl->s3->tmp.ecdh_ctx);
+
+  OPENSSL_cleanse(premaster_secret, premaster_secret_len);
+  OPENSSL_free(premaster_secret);
+  return 1;
+}
+
+static int ext_key_share_parse_clienthello(SSL *ssl, uint8_t *out_alert,
+                                           CBS *contents) {
+  return 1;
+}
+
+static int ext_key_share_add_serverhello(SSL *ssl, CBB *out) {
+  return 1;
+}
+
+
 /* Negotiated Groups
  *
  * https://tools.ietf.org/html/rfc4492#section-5.1.2
@@ -2000,6 +2108,14 @@ static const struct tls_extension kExtensions[] = {
     ext_ec_point_parse_serverhello,
     ext_ec_point_parse_clienthello,
     ext_ec_point_add_serverhello,
+  },
+  {
+    TLSEXT_TYPE_key_share,
+    NULL,
+    ext_key_share_add_clienthello,
+    ext_key_share_parse_serverhello,
+    ext_key_share_parse_clienthello,
+    ext_key_share_add_serverhello,
   },
   /* The final extension must be non-empty. WebSphere Application Server 7.0 is
    * intolerant to the last extension being zero-length. See

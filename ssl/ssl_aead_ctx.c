@@ -192,6 +192,8 @@ int SSL_AEAD_CTX_open(SSL_AEAD_CTX *aead, uint8_t *out, size_t *out_len,
   uint8_t nonce[EVP_AEAD_MAX_NONCE_LENGTH];
   size_t nonce_len = 0;
 
+  printf("N: %d %d", aead->xor_fixed_nonce, aead->variable_nonce_included_in_record);
+
   /* Prepend the fixed nonce, or left-pad with zeros if XORing. */
   if (aead->xor_fixed_nonce) {
     nonce_len = aead->fixed_nonce_len - aead->variable_nonce_len;
@@ -256,6 +258,7 @@ int SSL_AEAD_CTX_seal(SSL_AEAD_CTX *aead, uint8_t *out, size_t *out_len,
   /* Assemble the nonce. */
   uint8_t nonce[EVP_AEAD_MAX_NONCE_LENGTH];
   size_t nonce_len = 0;
+  printf("N: %d %d", aead->xor_fixed_nonce, aead->variable_nonce_included_in_record);
 
   /* Prepend the fixed nonce, or left-pad with zeros if XORing. */
   if (aead->xor_fixed_nonce) {

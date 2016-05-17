@@ -201,8 +201,7 @@ enum ssl_open_record_t tls_open_record(
   }
 
   /* Check the version. */
-  if ((ssl->s3->have_version && version != ssl->version) ||
-      (version >> 8) != SSL3_VERSION_MAJOR) {
+  if ((version >> 8) != SSL3_VERSION_MAJOR) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_WRONG_VERSION_NUMBER);
     *out_alert = SSL_AD_PROTOCOL_VERSION;
     return ssl_open_record_error;
