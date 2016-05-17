@@ -236,6 +236,11 @@ int ssl3_connect(SSL *ssl) {
 
       case SSL3_ST_CR_SRVR_HELLO_A:
         ret = ssl3_get_server_hello(ssl);
+        if (ssl->handshake_func != ssl3_connect) {
+          ssl_free_wbio_buffer(ssl);
+          BUF_MEM_free(buf);
+          return ssl->handshake_func(ssl);
+        }
         if (ret <= 0) {
           goto end;
         }
@@ -724,12 +729,7 @@ int ssl3_get_server_hello(SSL *ssl) {
 
   CBS_init(&server_hello, ssl->init_msg, n);
 
-  if (!CBS_get_u16(&server_hello, &server_version) ||
-      !CBS_get_bytes(&server_hello, &server_random, SSL3_RANDOM_SIZE) ||
-      !CBS_get_u8_length_prefixed(&server_hello, &session_id) ||
-      CBS_len(&session_id) > SSL3_SESSION_ID_SIZE ||
-      !CBS_get_u16(&server_hello, &cipher_suite) ||
-      !CBS_get_u8(&server_hello, &compression_method)) {
+  if (!CBS_get_u16(&server_hello, &server_version)) {
     al = SSL_AD_DECODE_ERROR;
     OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
     goto f_err;
@@ -755,6 +755,23 @@ int ssl3_get_server_hello(SSL *ssl) {
   } else if (server_version != ssl->version) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_WRONG_SSL_VERSION);
     al = SSL_AD_PROTOCOL_VERSION;
+    goto f_err;
+  }
+
+  if (ssl3_protocol_version(ssl) == TLS1_3_VERSION) {
+    set_hs_message(ssl->hs->in_message, SSL3_MT_SERVER_HELLO, ssl->init_msg, n);
+    ssl->hs->handshake_state = HS_STATE_RECV_SERVER_HELLO;
+    ssl->handshake_func = tls13_handshake;
+    return 0;
+  }
+
+  if (!CBS_get_bytes(&server_hello, &server_random, SSL3_RANDOM_SIZE) ||
+      !CBS_get_u8_length_prefixed(&server_hello, &session_id) ||
+      CBS_len(&session_id) > SSL3_SESSION_ID_SIZE ||
+      !CBS_get_u16(&server_hello, &cipher_suite) ||
+      !CBS_get_u8(&server_hello, &compression_method)) {
+    al = SSL_AD_DECODE_ERROR;
+    OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
     goto f_err;
   }
 
