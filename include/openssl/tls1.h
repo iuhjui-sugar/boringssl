@@ -226,6 +226,11 @@ extern "C" {
 /* ExtensionType value from RFC4507 */
 #define TLSEXT_TYPE_session_ticket 35
 
+/* ExtensionType value from TLS 1.3 */
+#define TLSEXT_TYPE_key_share 40
+#define TLSEXT_TYPE_pre_shared_key 41
+#define TLSEXT_TYPE_early_data 42
+
 /* ExtensionType value from RFC5746 */
 #define TLSEXT_TYPE_renegotiate 0xff01
 
