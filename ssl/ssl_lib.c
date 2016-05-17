@@ -369,6 +369,17 @@ SSL *SSL_new(SSL_CTX *ctx) {
   }
   memset(ssl, 0, sizeof(SSL));
 
+  ssl->hs = OPENSSL_malloc(sizeof(SSL_HANDSHAKE));
+  if (ssl->hs == NULL) {
+    goto err;
+  }
+  memset(ssl->hs, 0, sizeof(SSL_HANDSHAKE));
+  ssl->hs->in_message = OPENSSL_malloc(sizeof(SSL_HS_MESSAGE));
+  memset(ssl->hs->in_message, 0, sizeof(SSL_HS_MESSAGE));
+  ssl->hs->out_message = OPENSSL_malloc(sizeof(SSL_HS_MESSAGE));
+  memset(ssl->hs->out_message, 0, sizeof(SSL_HS_MESSAGE));
+  ssl->hs->handshake_state = HS_STATE_CONNECT;
+
   ssl->min_version = ctx->min_version;
   ssl->max_version = ctx->max_version;
 
