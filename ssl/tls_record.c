@@ -201,8 +201,7 @@ enum ssl_open_record_t tls_open_record(
   }
 
   /* Check the version. */
-  if ((ssl->s3->have_version && version != ssl->version) ||
-      (version >> 8) != SSL3_VERSION_MAJOR) {
+  if ((version >> 8) != SSL3_VERSION_MAJOR) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_WRONG_VERSION_NUMBER);
     *out_alert = SSL_AD_PROTOCOL_VERSION;
     return ssl_open_record_error;
@@ -262,6 +261,16 @@ enum ssl_open_record_t tls_open_record(
     ssl->s3->empty_record_count = 0;
   }
 
+  if (ssl->s3->have_version &&
+      ssl3_protocol_version(ssl) >= TLS1_3_VERSION) {
+    while (plaintext_len--) {
+      if (out[plaintext_len]) {
+        type = out[plaintext_len];
+        break;
+      }
+    }
+  }
+
   *out_type = type;
   *out_len = plaintext_len;
   *out_consumed = in_len - CBS_len(&cbs);
@@ -288,6 +297,9 @@ static int do_seal_record(SSL *ssl, uint8_t *out, size_t *out_len,
    * record version number > TLS 1.0. */
   uint16_t wire_version = ssl->version;
   if (!ssl->s3->have_version && ssl->version > SSL3_VERSION) {
+    wire_version = TLS1_VERSION;
+  }
+  if (ssl->s3->have_version && ssl3_protocol_version(ssl) >= TLS1_3_VERSION) {
     wire_version = TLS1_VERSION;
   }
   out[1] = wire_version >> 8;
