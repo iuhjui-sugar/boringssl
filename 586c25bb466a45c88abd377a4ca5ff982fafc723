@@ -73,6 +73,30 @@
       "revId": "586c25bb466a45c88abd377a4ca5ff982fafc723",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "923678c6_a39816dc",
+        "filename": "ssl/ssl_ecdh.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-17T19:09:54Z",
+      "side": 1,
+      "message": "That\u0027s a good point.\n\n(Also, the code needs to ensure that the format is compatible with the ECDHE encoding of a ServerKeyExchange because the \"elliptic-curve\" isn\u0027t otherwise negotiated. Doing the Go tests first will basically ensure that the code is correct w.r.t. this. I suspect that it\u0027s not currently doing that.)\n\nAs for fitting the key exchange in an ECPoint: since the curve-type comes first, I\u0027m tempted to say that we expect a u16 length for this curve type.)",
+      "parentUuid": "923678c6_63953eeb",
+      "range": {
+        "startLine": 244,
+        "startChar": 0,
+        "endLine": 244,
+        "endChar": 1
+      },
+      "revId": "586c25bb466a45c88abd377a4ca5ff982fafc723",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
