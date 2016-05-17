@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "923678c6_52aac5e5",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-17T22:22:53Z",
+      "side": 1,
+      "message": "\"Client\" and \"server\" will be inverted in TLS 1.3 which is a little confusing. GSSAPI uses initiator and acceptor, but they\u0027re kinda wordy.\n\nWhat about:\nserver_generate_keypair -\u003e initiate\nclient_key_exchange -\u003e accept\nserver_finish -\u003e finish\n\nOr perhaps that\u0027s a little too laconic. Having both \"init\" and \"initiate\" seems poor. :-/\n\n(I\u0027m also fine deferring figuring this out for the next CL.)",
+      "range": {
+        "startLine": 546,
+        "startChar": 5,
+        "endLine": 546,
+        "endChar": 11
+      },
+      "revId": "794ff18d6befeff8a7e485f659e3083ff646084b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "923678c6_72c6e97b",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-17T22:22:53Z",
+      "side": 1,
+      "message": "Do you think it\u0027d be clearer if you ordered it server_generate_keypair, client_key_exchange, server_finish? I\u0027m not sure whether time order or server, client order makes more sense.",
+      "revId": "794ff18d6befeff8a7e485f659e3083ff646084b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
