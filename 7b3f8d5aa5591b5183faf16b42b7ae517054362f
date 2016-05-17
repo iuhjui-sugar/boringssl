@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "923678c6_f2ac99b4",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-17T21:26:44Z",
+      "side": 1,
+      "message": "Fixed the one below.",
+      "parentUuid": "923678c6_52c9e58a",
+      "range": {
+        "startLine": 681,
+        "startChar": 55,
+        "endLine": 681,
+        "endChar": 67
+      },
+      "revId": "7b3f8d5aa5591b5183faf16b42b7ae517054362f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "923678c6_92c35d69",
         "filename": "ssl/ssl_lib.c",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2016-05-17T21:19:10Z",
       "side": 1,
       "message": "\u003d\u003d ssl_shutdown_none?",
+      "range": {
+        "startLine": 685,
+        "startChar": 6,
+        "endLine": 685,
+        "endChar": 57
+      },
+      "revId": "7b3f8d5aa5591b5183faf16b42b7ae517054362f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "923678c6_12b20d0c",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 685,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-17T21:26:44Z",
+      "side": 1,
+      "message": "[Discussed out of band. We believe this is correct.]",
+      "parentUuid": "923678c6_92c35d69",
       "range": {
         "startLine": 685,
         "startChar": 6,
