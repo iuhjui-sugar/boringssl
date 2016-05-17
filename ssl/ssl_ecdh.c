@@ -300,10 +300,10 @@ static const SSL_ECDH_METHOD kMethods[] = {
     },
 };
 
-static const SSL_ECDH_METHOD *method_from_curve_id(uint16_t curve_id) {
+static const SSL_ECDH_METHOD *method_from_group_id(uint16_t group_id) {
   size_t i;
   for (i = 0; i < sizeof(kMethods) / sizeof(kMethods[0]); i++) {
-    if (kMethods[i].curve_id == curve_id) {
+    if (kMethods[i].group_id == group_id) {
       return &kMethods[i];
     }
   }
@@ -320,27 +320,27 @@ static const SSL_ECDH_METHOD *method_from_nid(int nid) {
   return NULL;
 }
 
-const char* SSL_get_curve_name(uint16_t curve_id) {
-  const SSL_ECDH_METHOD *method = method_from_curve_id(curve_id);
+const char* SSL_get_curve_name(uint16_t group_id) {
+  const SSL_ECDH_METHOD *method = method_from_group_id(group_id);
   if (method == NULL) {
     return NULL;
   }
   return method->name;
 }
 
-int ssl_nid_to_curve_id(uint16_t *out_curve_id, int nid) {
+int ssl_nid_to_group_id(uint16_t *out_group_id, int nid) {
   const SSL_ECDH_METHOD *method = method_from_nid(nid);
   if (method == NULL) {
     return 0;
   }
-  *out_curve_id = method->curve_id;
+  *out_group_id = method->group_id;
   return 1;
 }
 
-int SSL_ECDH_CTX_init(SSL_ECDH_CTX *ctx, uint16_t curve_id) {
+int SSL_ECDH_CTX_init(SSL_ECDH_CTX *ctx, uint16_t group_id) {
   SSL_ECDH_CTX_cleanup(ctx);
 
-  const SSL_ECDH_METHOD *method = method_from_curve_id(curve_id);
+  const SSL_ECDH_METHOD *method = method_from_group_id(group_id);
   if (method == NULL) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_UNSUPPORTED_ELLIPTIC_CURVE);
     return 0;
