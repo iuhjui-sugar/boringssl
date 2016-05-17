@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7254a4e4_89a15caa",
+        "filename": "include/openssl/nid.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 4162,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2016-05-17T02:23:31Z",
+      "side": 1,
+      "message": "Note that this is a generated file.",
+      "revId": "586c25bb466a45c88abd377a4ca5ff982fafc723",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7254a4e4_09064c78",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2016-05-17T02:23:31Z",
+      "side": 1,
+      "message": "Making this another \"elliptic curve\" is a reasonable idea. We\u0027ll need to make sure that it\u0027s not in the default set so that it can be enabled specially. (The same as X25519 is currently.)\n\nAs for the number: I worry that picking the first reserved value is the obvious thing to do, this others might have picked the same value :)\n\nLet\u0027s go with 65165: which is 65024 + a byte that I just got from /dev/urandom. (http://www.iana.org/assignments/tls-parameters/tls-parameters.xhtml#table-tls-parameters-8)",
+      "revId": "586c25bb466a45c88abd377a4ca5ff982fafc723",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
