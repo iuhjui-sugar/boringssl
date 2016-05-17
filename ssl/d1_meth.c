@@ -75,6 +75,8 @@ static const SSL_PROTOCOL_METHOD DTLS_protocol_method = {
     DTLS1_HM_HEADER_LENGTH,
     dtls1_set_handshake_header,
     dtls1_handshake_write,
+    NULL,
+    NULL,
 };
 
 const SSL_METHOD *DTLS_method(void) {

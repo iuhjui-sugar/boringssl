@@ -51,7 +51,7 @@
  *
  * The licence and distribution terms for any publically available version or
  * derivative of this code cannot be changed.  i.e. this code cannot simply be
- * copied and put under another distribution licence
+ and put under another distribution licence
  * [including the GNU Public Licence.] */
 
 #include <openssl/ssl.h>
@@ -59,110 +59,50 @@
 #include "internal.h"
 
 
-static const SSL_PROTOCOL_METHOD TLS_protocol_method = {
-    0 /* is_dtls */,
+static const SSL_PROTOCOL_METHOD TLS13_protocol_method = {
+    0,
     ssl3_new,
     ssl3_free,
-    ssl3_accept,
-    ssl3_connect,
-    ssl3_get_message,
+    tls13_handshake,
+    tls13_handshake,
+    NULL,
     ssl3_read_app_data,
-    ssl3_read_change_cipher_spec,
+    NULL,
     ssl3_read_close_notify,
     ssl3_write_app_data,
     ssl3_dispatch_alert,
     ssl3_supports_cipher,
-    SSL3_HM_HEADER_LENGTH,
-    ssl3_set_handshake_header,
-    ssl3_handshake_write,
+    0,
     NULL,
     NULL,
+    tls13_handshake_read,
+    tls13_handshake_write,
 };
 
-const SSL_METHOD *TLS_method(void) {
+const SSL_METHOD *TLS13_method(void) {
   static const SSL_METHOD method = {
       0,
-      &TLS_protocol_method,
+      &TLS13_protocol_method,
   };
   return &method;
-}
-
-const SSL_METHOD *SSLv23_method(void) {
-  return TLS_method();
 }
 
 /* Legacy version-locked methods. */
 
-const SSL_METHOD *TLSv1_2_method(void) {
+const SSL_METHOD *TLSv1_3_method(void) {
   static const SSL_METHOD method = {
-      TLS1_2_VERSION,
-      &TLS_protocol_method,
-  };
-  return &method;
-}
-
-const SSL_METHOD *TLSv1_1_method(void) {
-  static const SSL_METHOD method = {
-      TLS1_1_VERSION,
-      &TLS_protocol_method,
-  };
-  return &method;
-}
-
-const SSL_METHOD *TLSv1_method(void) {
-  static const SSL_METHOD method = {
-      TLS1_VERSION,
-      &TLS_protocol_method,
-  };
-  return &method;
-}
-
-const SSL_METHOD *SSLv3_method(void) {
-  static const SSL_METHOD method = {
-      SSL3_VERSION,
-      &TLS_protocol_method,
+      TLS1_3_VERSION,
+      &TLS13_protocol_method,
   };
   return &method;
 }
 
 /* Legacy side-specific methods. */
 
-const SSL_METHOD *TLSv1_2_server_method(void) {
-  return TLSv1_2_method();
+const SSL_METHOD *TLSv1_3_server_method(void) {
+  return TLSv1_3_method();
 }
 
-const SSL_METHOD *TLSv1_1_server_method(void) {
-  return TLSv1_1_method();
-}
-
-const SSL_METHOD *TLSv1_server_method(void) {
-  return TLSv1_method();
-}
-
-const SSL_METHOD *SSLv3_server_method(void) {
-  return SSLv3_method();
-}
-
-const SSL_METHOD *TLSv1_2_client_method(void) {
-  return TLSv1_2_method();
-}
-
-const SSL_METHOD *TLSv1_1_client_method(void) {
-  return TLSv1_1_method();
-}
-
-const SSL_METHOD *TLSv1_client_method(void) {
-  return TLSv1_method();
-}
-
-const SSL_METHOD *SSLv3_client_method(void) {
-  return SSLv3_method();
-}
-
-const SSL_METHOD *SSLv23_server_method(void) {
-  return SSLv23_method();
-}
-
-const SSL_METHOD *SSLv23_client_method(void) {
-  return SSLv23_method();
+const SSL_METHOD *TLSv1_3_client_method(void) {
+  return TLSv1_3_method();
 }

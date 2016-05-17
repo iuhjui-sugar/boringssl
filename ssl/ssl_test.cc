@@ -275,7 +275,7 @@ static void PrintCipherPreferenceList(ssl_cipher_preference_list_st *list) {
 }
 
 static bool TestCipherRule(const CipherTest &t) {
-  ScopedSSL_CTX ctx(SSL_CTX_new(TLS_method()));
+  ScopedSSL_CTX ctx(SSL_CTX_new(TLS13_method()));
   if (!ctx) {
     return false;
   }
@@ -744,7 +744,7 @@ static ScopedSSL_SESSION CreateSessionWithTicket(size_t ticket_len) {
 // |ticket_len| and records the ClientHello. It returns the length of the
 // ClientHello, not including the record header, on success and zero on error.
 static size_t GetClientHelloLen(size_t ticket_len) {
-  ScopedSSL_CTX ctx(SSL_CTX_new(TLS_method()));
+  ScopedSSL_CTX ctx(SSL_CTX_new(TLS13_method()));
   ScopedSSL_SESSION session = CreateSessionWithTicket(ticket_len);
   if (!ctx || !session) {
     return 0;
@@ -825,7 +825,7 @@ static bool TestPaddingExtension() {
 // Test that |SSL_get_client_CA_list| echoes back the configured parameter even
 // before configuring as a server.
 static bool TestClientCAList() {
-  ScopedSSL_CTX ctx(SSL_CTX_new(TLS_method()));
+  ScopedSSL_CTX ctx(SSL_CTX_new(TLS13_method()));
   if (!ctx) {
     return false;
   }
@@ -897,7 +897,7 @@ static ScopedSSL_SESSION CreateTestSession(uint32_t number) {
 
 // Test that the internal session cache behaves as expected.
 static bool TestInternalSessionCache() {
-  ScopedSSL_CTX ctx(SSL_CTX_new(TLS_method()));
+  ScopedSSL_CTX ctx(SSL_CTX_new(TLS13_method()));
   if (!ctx) {
     return false;
   }
@@ -1028,8 +1028,8 @@ static ScopedEVP_PKEY GetTestKey() {
 }
 
 static bool TestSequenceNumber(bool dtls) {
-  ScopedSSL_CTX client_ctx(SSL_CTX_new(dtls ? DTLS_method() : TLS_method()));
-  ScopedSSL_CTX server_ctx(SSL_CTX_new(dtls ? DTLS_method() : TLS_method()));
+  ScopedSSL_CTX client_ctx(SSL_CTX_new(dtls ? DTLS_method() : TLS13_method()));
+  ScopedSSL_CTX server_ctx(SSL_CTX_new(dtls ? DTLS_method() : TLS13_method()));
   if (!client_ctx || !server_ctx) {
     return false;
   }
@@ -1149,6 +1149,8 @@ int main() {
       !TestDefaultVersion(0, &DTLS_method) ||
       !TestDefaultVersion(DTLS1_VERSION, &DTLSv1_method) ||
       !TestDefaultVersion(DTLS1_2_VERSION, &DTLSv1_2_method) ||
+      !TestDefaultVersion(0, &TLS13_method) ||
+      !TestDefaultVersion(TLS1_3_VERSION, &TLS13_method) ||
       !TestCipherGetRFCName() ||
       !TestPaddingExtension() ||
       !TestClientCAList() ||
