@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d761c220_930cbc2c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-17T21:49:30Z",
+      "side": 1,
+      "message": "(typo)",
+      "range": {
+        "startLine": 10,
+        "startChar": 55,
+        "endLine": 10,
+        "endChar": 64
+      },
+      "revId": "a25f3215cb68d51d08849472b14a5db37bd0a9f0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d761c220_33fcc819",
+        "filename": "util/doc.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-17T21:49:30Z",
+      "side": 1,
+      "message": "What\u0027s the invariant designed to be here? I can imagine it being that |lineNo| contains the line number of lines[0], but that\u0027ll be broken at this point when it becomes 2.",
+      "revId": "a25f3215cb68d51d08849472b14a5db37bd0a9f0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
