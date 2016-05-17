@@ -1840,8 +1840,9 @@ OPENSSL_EXPORT int SSL_set1_curves(SSL *ssl, const int *curves,
                                    size_t curves_len);
 
 /* SSL_get_curve_name returns a human-readable name for the elliptic curve
- * specified by the given TLS curve id, or NULL if the curve if unknown. */
-OPENSSL_EXPORT const char *SSL_get_curve_name(uint16_t curve_id);
+ * specified by the given TLS group id, or NULL if the group isn't a curve
+ * or the curve is unknown. */
+OPENSSL_EXPORT const char *SSL_get_curve_name(uint16_t group_id);
 
 
 /* Multiplicative Diffie-Hellman.
@@ -3795,9 +3796,9 @@ struct ssl_ctx_st {
   /* SRTP profiles we are willing to do from RFC 5764 */
   STACK_OF(SRTP_PROTECTION_PROFILE) *srtp_profiles;
 
-  /* EC extension values inherited by SSL structure */
-  size_t tlsext_ellipticcurvelist_length;
-  uint16_t *tlsext_ellipticcurvelist;
+  /* Supported group values inherited by SSL structure */
+  size_t tlsext_supportedgrouplist_length;
+  uint16_t *tlsext_supportedgrouplist;
 
   /* The client's Channel ID private key. */
   EVP_PKEY *tlsext_channel_id_private;
@@ -3960,8 +3961,8 @@ struct ssl_st {
   char *tlsext_hostname;
   /* RFC4507 session ticket expected to be received or sent */
   int tlsext_ticket_expected;
-  size_t tlsext_ellipticcurvelist_length;
-  uint16_t *tlsext_ellipticcurvelist; /* our list */
+  size_t tlsext_supportedgrouplist_length;
+  uint16_t *tlsext_supportedgrouplist; /* our list */
 
   SSL_CTX *initial_ctx; /* initial ctx, used to store sessions */
 
@@ -4193,11 +4194,11 @@ typedef struct ssl3_state_st {
     /* ocsp_stapling_requested is true if a client requested OCSP stapling. */
     unsigned ocsp_stapling_requested:1;
 
-    /* Server-only: peer_ellipticcurvelist contains the EC curve IDs advertised
-     * by the peer. This is only set on the server's end. The server does not
-     * advertise this extension to the client. */
-    uint16_t *peer_ellipticcurvelist;
-    size_t peer_ellipticcurvelist_length;
+    /* Server-only: peer_supportedgrouplist contains the supported group IDs
+     * advertised by the peer. This is only set on the server's end. The server
+     * does not advertise this extension to the client. */
+    uint16_t *peer_supportedgrouplist;
+    size_t peer_supportedgrouplist_length;
 
     /* extended_master_secret indicates whether the extended master secret
      * computation is used in this handshake. Note that this is different from
