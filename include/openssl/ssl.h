@@ -3591,6 +3591,58 @@ struct ssl_cipher_preference_list_st {
   uint8_t *in_group_flags;
 };
 
+typedef struct ssl_hs_message_st {
+  uint8_t type;
+  uint8_t *data;
+  size_t length;
+  size_t offset;
+  uint8_t *raw;
+} SSL_HS_MESSAGE;
+
+typedef enum ssl_handshake_state_t {
+  HS_STATE_CLIENT_HELLO = 1,
+  HS_STATE_HELLO_RETRY_REQUEST,
+  HS_STATE_SERVER_HELLO,
+  HS_STATE_SERVER_ENCRYPTED_EXTENSIONS,
+  HS_STATE_SERVER_CERTIFICATE_REQUEST,
+  HS_STATE_SERVER_CERTIFICATE,
+  HS_STATE_SERVER_CERTIFICATE_VERIFY,
+  HS_STATE_SERVER_FINISHED,
+  HS_STATE_CLIENT_CERTIFICATE,
+  HS_STATE_CLIENT_CERTIFICATE_VERIFY,
+  HS_STATE_CLIENT_FINISHED,
+  HS_STATE_FINISH,
+  HS_STATE_DONE,
+
+  HS_STATE_SESSION_TICKET,
+  HS_STATE_KEY_UPDATE,
+} SSL_HANDSHAKE_STATE;
+
+#define HS_NEED_NONE 0x0
+#define HS_NEED_DONE  0x1
+#define HS_NEED_WRITE 0x2
+#define HS_NEED_READ  0x4
+#define HS_NEED_ERROR 0x8
+
+typedef struct ssl_handshake_st {
+  SSL_HANDSHAKE_STATE handshake_state;
+  int handshake_interrupt;
+  SSL_HS_MESSAGE *in_message;
+  SSL_HS_MESSAGE *out_message;
+  SSL_ECDH_CTX *groups;
+  const SSL_CIPHER *cipher;
+  uint8_t *cert_context;
+  size_t cert_context_len;
+  uint8_t *hs_context;
+  unsigned hs_context_len;
+
+  size_t key_len;
+  uint8_t *xSS;
+  uint8_t *xES;
+  uint8_t *master_secret;
+  uint8_t *traffic_secret;
+} SSL_HANDSHAKE;
+
 /* ssl_ctx_st (aka |SSL_CTX|) contains configuration common to several SSL
  * connections. */
 struct ssl_ctx_st {
@@ -3891,6 +3943,9 @@ struct ssl_st {
                         ssl3_get_message() */
   int init_num;      /* amount read/written */
   int init_off;      /* amount read/written */
+
+  SSL_HANDSHAKE *hs;
+  SSL_HS_MESSAGE *post_message;
 
   struct ssl3_state_st *s3;  /* SSLv3 variables */
   struct dtls1_state_st *d1; /* DTLSv1 variables */
