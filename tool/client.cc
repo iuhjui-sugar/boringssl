@@ -144,7 +144,7 @@ bool Client(const std::vector<std::string> &args) {
     return false;
   }
 
-  ScopedSSL_CTX ctx(SSL_CTX_new(SSLv23_client_method()));
+  ScopedSSL_CTX ctx(SSL_CTX_new(TLS13_method()));
 
   const char *keylog_file = getenv("SSLKEYLOGFILE");
   if (keylog_file) {
