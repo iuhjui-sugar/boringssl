@@ -33,6 +33,46 @@
       "revId": "586c25bb466a45c88abd377a4ca5ff982fafc723",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "923678c6_83a95238",
+        "filename": "ssl/ssl_ecdh.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-17T18:59:16Z",
+      "side": 1,
+      "message": "Nit: newhope sorts before nid",
+      "revId": "586c25bb466a45c88abd377a4ca5ff982fafc723",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "923678c6_63953eeb",
+        "filename": "ssl/ssl_ecdh.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-17T18:59:16Z",
+      "side": 1,
+      "message": "Will this fit? ECDHE uses a u8 length prefix rather than a u16.\n\nFor TLS 1.3, there\u0027s actually a u16 length prefix immediately preceding a u8 length prefix. I\u0027m actually going to propose that they take away the inner one, which would resolve this problem.\n\nFor TLS 1.2, we\u0027d probably need to fudge something.",
+      "range": {
+        "startLine": 244,
+        "startChar": 0,
+        "endLine": 244,
+        "endChar": 1
+      },
+      "revId": "586c25bb466a45c88abd377a4ca5ff982fafc723",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
