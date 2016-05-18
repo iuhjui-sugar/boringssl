@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7f6229d_c06dac25",
+        "filename": "ssl/test/runner/newhope/newhope.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-18T21:48:48Z",
+      "side": 1,
+      "message": "Not going to work on Windows :)\n\nTry this:\n\ntype zr struct {\n\tio.Reader\n}\n\n// Read replaces the contents of dst with zeros.\nfunc (z *zr) Read(dst []byte) (n int, err error) {\n\tfor i :\u003d range dst {\n\t\tdst[i] \u003d 0\n\t}\n\treturn len(dst), nil\n}\n\nvar zeroReader \u003d \u0026zr{}",
+      "revId": "94660591890bafe6649483aa0955c91a36f1799a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d7f6229d_2068f00d",
+        "filename": "ssl/test/runner/newhope/newhope.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-18T21:48:48Z",
+      "side": 1,
+      "message": "return offerMsg, sFreq\n\n(bare returns can easily be overused.)",
+      "revId": "94660591890bafe6649483aa0955c91a36f1799a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d7f6229d_805d646a",
+        "filename": "ssl/test/runner/newhope/newhope.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-18T21:48:48Z",
+      "side": 1,
+      "message": "return sharedKey, acceptMsg, nil",
+      "revId": "94660591890bafe6649483aa0955c91a36f1799a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d7f6229d_80ce043d",
+        "filename": "ssl/test/runner/newhope/newhope_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-18T21:48:48Z",
+      "side": 1,
+      "message": "This test should be disabled or deleted. I only passes probabilistically and it writes out debugging data.",
+      "revId": "94660591890bafe6649483aa0955c91a36f1799a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
