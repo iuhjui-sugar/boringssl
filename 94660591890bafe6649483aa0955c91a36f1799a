@@ -139,6 +139,24 @@
       "revId": "94660591890bafe6649483aa0955c91a36f1799a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d7f6229d_008fb487",
+        "filename": "ssl/test/runner/newhope/newhope_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-18T22:18:54Z",
+      "side": 1,
+      "message": "The `go test` command runs *_test.go. If you have these files laying around, something may end up running them. At the very least, the bit from 73‥85 that writes a file should be dropped, although I\u0027d be tempted to drop it all.\n\nThe expected variance looks reasonable.",
+      "parentUuid": "d7f6229d_8006040e",
+      "revId": "94660591890bafe6649483aa0955c91a36f1799a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
