@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d7f6229d_a03ea0a3",
+        "filename": "ssl/test/runner/newhope/newhope.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-05-18T22:11:17Z",
+      "side": 1,
+      "message": "Whoops, good catch. I\u0027m such a chauvinist. Did something close to this.",
+      "parentUuid": "d7f6229d_c06dac25",
+      "revId": "94660591890bafe6649483aa0955c91a36f1799a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d7f6229d_2068f00d",
         "filename": "ssl/test/runner/newhope/newhope.go",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2016-05-18T21:48:48Z",
       "side": 1,
       "message": "return offerMsg, sFreq\n\n(bare returns can easily be overused.)",
+      "revId": "94660591890bafe6649483aa0955c91a36f1799a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d7f6229d_a00ce02b",
+        "filename": "ssl/test/runner/newhope/newhope.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-05-18T22:11:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7f6229d_2068f00d",
       "revId": "94660591890bafe6649483aa0955c91a36f1799a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "d7f6229d_001a145c",
+        "filename": "ssl/test/runner/newhope/newhope.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-05-18T22:11:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7f6229d_805d646a",
+      "revId": "94660591890bafe6649483aa0955c91a36f1799a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d7f6229d_80ce043d",
         "filename": "ssl/test/runner/newhope/newhope_test.go",
         "patchSetId": 1
@@ -64,6 +118,24 @@
       "writtenOn": "2016-05-18T21:48:48Z",
       "side": 1,
       "message": "This test should be disabled or deleted. I only passes probabilistically and it writes out debugging data.",
+      "revId": "94660591890bafe6649483aa0955c91a36f1799a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d7f6229d_8006040e",
+        "filename": "ssl/test/runner/newhope/newhope_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-05-18T22:11:17Z",
+      "side": 1,
+      "message": "Sure, but nothing runs newhope_test.go automatically.  Should I fix that?  If it\u0027s a manual test, is there any harm in leaving this enabled?\n\nN.B. I had to modify this because it was hardcoded to k\u003d12.  LMK if the variance expectation (line 66) looks reasonable.",
+      "parentUuid": "d7f6229d_80ce043d",
       "revId": "94660591890bafe6649483aa0955c91a36f1799a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
