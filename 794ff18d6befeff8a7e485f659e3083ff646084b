@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d7f6229d_bac88d68",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-05-18T17:41:09Z",
+      "side": 1,
+      "message": "It works for me. Agree |init| and |initiate| is not ideal, but I think confusion between the two is unlikely since most people know \"init\" means \"initialize\"?\n\nI\u0027ve also merged in the identical change to key_agreement.go to that you can review for consistency in the two places.",
+      "parentUuid": "923678c6_52aac5e5",
+      "range": {
+        "startLine": 546,
+        "startChar": 5,
+        "endLine": 546,
+        "endChar": 11
+      },
+      "revId": "794ff18d6befeff8a7e485f659e3083ff646084b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "923678c6_72c6e97b",
         "filename": "ssl/internal.h",
         "patchSetId": 3
@@ -36,6 +60,24 @@
       "writtenOn": "2016-05-17T22:22:53Z",
       "side": 1,
       "message": "Do you think it\u0027d be clearer if you ordered it server_generate_keypair, client_key_exchange, server_finish? I\u0027m not sure whether time order or server, client order makes more sense.",
+      "revId": "794ff18d6befeff8a7e485f659e3083ff646084b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d7f6229d_fac21546",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-05-18T17:41:09Z",
+      "side": 1,
+      "message": "Without the common prefix, time order makes more sense.",
+      "parentUuid": "923678c6_72c6e97b",
       "revId": "794ff18d6befeff8a7e485f659e3083ff646084b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
