@@ -157,6 +157,24 @@
       "revId": "94660591890bafe6649483aa0955c91a36f1799a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d7f6229d_8010c4f1",
+        "filename": "ssl/test/runner/newhope/newhope_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-05-18T22:29:45Z",
+      "side": 1,
+      "message": "OK.  Disabled, but left the code around, since I do think it\u0027s useful.",
+      "parentUuid": "d7f6229d_008fb487",
+      "revId": "94660591890bafe6649483aa0955c91a36f1799a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
