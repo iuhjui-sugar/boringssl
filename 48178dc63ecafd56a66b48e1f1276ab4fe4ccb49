@@ -16,6 +16,24 @@
       "revId": "48178dc63ecafd56a66b48e1f1276ab4fe4ccb49",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d7f6229d_e54d5ab6",
+        "filename": "include/openssl/ssl3.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-18T19:31:42Z",
+      "side": 1,
+      "message": "Can\u0027t we remove it here and update the external code when rolling?",
+      "parentUuid": "17727a20_85dd6280",
+      "revId": "48178dc63ecafd56a66b48e1f1276ab4fe4ccb49",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
