@@ -1175,6 +1175,26 @@ static bool CheckHandshakeProperties(SSL *ssl, bool is_resume) {
   return true;
 }
 
+class SSLErrorPrinter {
+ public:
+  SSLErrorPrinter(const SSL *ssl, const int *ret) : ssl_(ssl), ret_(ret) {}
+  ~SSLErrorPrinter() {
+    if (*ret_ <= 0) {
+      fprintf(stderr, "SSL_get_error(%d) = %d\n", *ret_,
+              SSL_get_error(ssl_, *ret_));
+#if defined(OPENSSL_WINDOWS)
+      fprintf(stderr, "WSAGetLastError() = %d\n", WSAGetLastError());
+#else
+      fprintf(stderr, "errno = %s (%d)\n", strerror(errno), errno);
+#endif
+    }
+  }
+
+ private:
+  const SSL *ssl_;
+  const int *ret_;
+};
+
 // DoExchange runs a test SSL exchange against the peer. On success, it returns
 // true and sets |*out_session| to the negotiated SSL session. If the test is a
 // resumption attempt, |is_resume| is true and |session| is the session from the
@@ -1372,7 +1392,8 @@ static bool DoExchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
     return false;
   }
 
-  int ret;
+  int ret = 1;
+  SSLErrorPrinter error_printer(ssl.get(), &ret);
   if (config->implicit_handshake) {
     if (config->is_server) {
       SSL_set_accept_state(ssl.get());
