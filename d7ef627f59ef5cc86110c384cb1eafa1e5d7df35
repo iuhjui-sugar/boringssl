@@ -22,6 +22,30 @@
       "revId": "d7ef627f59ef5cc86110c384cb1eafa1e5d7df35",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "17727a20_05d33270",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-18T18:58:18Z",
+      "side": 1,
+      "message": "Apparently! This is kinda frustrating. It might be better to invent yet another ad-hoc subprotocol to work around this problem. :-/",
+      "parentUuid": "d7f6229d_7a290529",
+      "range": {
+        "startLine": 9,
+        "startChar": 12,
+        "endLine": 10,
+        "endChar": 24
+      },
+      "revId": "d7ef627f59ef5cc86110c384cb1eafa1e5d7df35",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
