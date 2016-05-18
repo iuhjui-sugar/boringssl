@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "17727a20_85dd6280",
+        "filename": "include/openssl/ssl3.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-18T18:47:59Z",
+      "side": 1,
+      "message": "(This one\u0027s our code. We can switch it to cert_cb which is strictly better here.)",
+      "revId": "48178dc63ecafd56a66b48e1f1276ab4fe4ccb49",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
