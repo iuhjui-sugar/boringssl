@@ -1175,6 +1175,27 @@ static bool CheckHandshakeProperties(SSL *ssl, bool is_resume) {
   return true;
 }
 
+class SSLErrorPrinter {
+ public:
+  SSLErrorPrinter(const SSL *ssl, const int *ret) : ssl_(ssl), ret_(ret) {}
+  ~SSLErrorPrinter() {
+    int ssl_error = SSL_get_error(ssl_, *ret_);
+    if (ssl_error != SSL_ERROR_NONE && ssl_error != SSL_ERROR_ZERO_RETURN) {
+      fprintf(stderr, "SSL_get_error(%d) = %d\n", *ret_,
+              SSL_get_error(ssl_, *ret_));
+#if defined(OPENSSL_WINDOWS)
+      fprintf(stderr, "WSAGetLastError() = %d\n", WSAGetLastError());
+#else
+      fprintf(stderr, "errno = %s (%d)\n", strerror(errno), errno);
+#endif
+    }
+  }
+
+ private:
+  const SSL *ssl_;
+  const int *ret_;
+};
+
 // DoExchange runs a test SSL exchange against the peer. On success, it returns
 // true and sets |*out_session| to the negotiated SSL session. If the test is a
 // resumption attempt, |is_resume| is true and |session| is the session from the
@@ -1372,7 +1393,8 @@ static bool DoExchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
     return false;
   }
 
-  int ret;
+  int ret = 1;
+  SSLErrorPrinter error_printer(ssl.get(), &ret);
   if (config->implicit_handshake) {
     if (config->is_server) {
       SSL_set_accept_state(ssl.get());
@@ -1408,7 +1430,8 @@ static bool DoExchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
       fprintf(stderr, "failed to export keying material\n");
       return false;
     }
-    if (WriteAll(ssl.get(), result.data(), result.size()) < 0) {
+    ret = WriteAll(ssl.get(), result.data(), result.size());
+    if (ret < 0) {
       return false;
     }
   }
@@ -1428,7 +1451,8 @@ static bool DoExchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
       return false;
     }
 
-    if (WriteAll(ssl.get(), tls_unique, tls_unique_len) < 0) {
+    ret = WriteAll(ssl.get(), tls_unique, tls_unique_len);
+    if (ret < 0) {
       return false;
     }
   }
@@ -1452,14 +1476,15 @@ static bool DoExchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
         fprintf(stderr, "Bad kRecordSizes value.\n");
         return false;
       }
-      if (WriteAll(ssl.get(), buf.get(), len) < 0) {
+      ret = WriteAll(ssl.get(), buf.get(), len);
+      if (ret < 0) {
         return false;
       }
     }
   } else {
     if (config->shim_writes_first) {
-      if (WriteAll(ssl.get(), reinterpret_cast<const uint8_t *>("hello"),
-                   5) < 0) {
+      ret = WriteAll(ssl.get(), reinterpret_cast<const uint8_t *>("hello"), 5);
+      if (ret < 0) {
         return false;
       }
     }
@@ -1470,25 +1495,25 @@ static bool DoExchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
 
         // Read only 512 bytes at a time in TLS to ensure records may be
         // returned in multiple reads.
-        int n = DoRead(ssl.get(), buf.get(), config->is_dtls ? kBufLen : 512);
-        int err = SSL_get_error(ssl.get(), n);
+        ret = DoRead(ssl.get(), buf.get(), config->is_dtls ? kBufLen : 512);
+        int err = SSL_get_error(ssl.get(), ret);
         if (err == SSL_ERROR_ZERO_RETURN ||
-            (n == 0 && err == SSL_ERROR_SYSCALL)) {
-          if (n != 0) {
+            (ret == 0 && err == SSL_ERROR_SYSCALL)) {
+          if (ret != 0) {
             fprintf(stderr, "Invalid SSL_get_error output\n");
             return false;
           }
           // Stop on either clean or unclean shutdown.
           break;
         } else if (err != SSL_ERROR_NONE) {
-          if (n > 0) {
+          if (ret > 0) {
             fprintf(stderr, "Invalid SSL_get_error output\n");
             return false;
           }
           return false;
         }
         // Successfully read data.
-        if (n <= 0) {
+        if (ret <= 0) {
           fprintf(stderr, "Invalid SSL_get_error output\n");
           return false;
         }
@@ -1500,10 +1525,11 @@ static bool DoExchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
           return false;
         }
 
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < ret; i++) {
           buf[i] ^= 0xff;
         }
-        if (WriteAll(ssl.get(), buf.get(), n) < 0) {
+        ret = WriteAll(ssl.get(), buf.get(), ret);
+        if (ret < 0) {
           return false;
         }
       }
