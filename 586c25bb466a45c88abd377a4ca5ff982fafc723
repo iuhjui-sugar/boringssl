@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d7f6229d_b43541cc",
+        "filename": "include/openssl/nid.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 4162,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-05-18T23:36:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7254a4e4_89a15caa",
+      "revId": "586c25bb466a45c88abd377a4ca5ff982fafc723",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7254a4e4_09064c78",
         "filename": "ssl/internal.h",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "d7f6229d_d438cdc3",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-05-18T23:36:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7254a4e4_09064c78",
+      "revId": "586c25bb466a45c88abd377a4ca5ff982fafc723",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "923678c6_83a95238",
         "filename": "ssl/ssl_ecdh.c",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2016-05-17T18:59:16Z",
       "side": 1,
       "message": "Nit: newhope sorts before nid",
+      "revId": "586c25bb466a45c88abd377a4ca5ff982fafc723",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d7f6229d_143375e6",
+        "filename": "ssl/ssl_ecdh.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-05-18T23:36:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "923678c6_83a95238",
       "revId": "586c25bb466a45c88abd377a4ca5ff982fafc723",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -88,6 +142,30 @@
       "side": 1,
       "message": "That\u0027s a good point.\n\n(Also, the code needs to ensure that the format is compatible with the ECDHE encoding of a ServerKeyExchange because the \"elliptic-curve\" isn\u0027t otherwise negotiated. Doing the Go tests first will basically ensure that the code is correct w.r.t. this. I suspect that it\u0027s not currently doing that.)\n\nAs for fitting the key exchange in an ECPoint: since the curve-type comes first, I\u0027m tempted to say that we expect a u16 length for this curve type.)",
       "parentUuid": "923678c6_63953eeb",
+      "range": {
+        "startLine": 244,
+        "startChar": 0,
+        "endLine": 244,
+        "endChar": 1
+      },
+      "revId": "586c25bb466a45c88abd377a4ca5ff982fafc723",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d7f6229d_94580521",
+        "filename": "ssl/ssl_ecdh.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-05-18T23:36:42Z",
+      "side": 1,
+      "message": "I haven\u0027t entirely understood your comment, I suspect, but I\u0027ve added a Go test and a special hack to use a u16 length for this curve type.  Yuck.",
+      "parentUuid": "923678c6_a39816dc",
       "range": {
         "startLine": 244,
         "startChar": 0,
