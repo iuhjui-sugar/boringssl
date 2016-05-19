@@ -74,8 +74,6 @@ elseif(MSVC)
       "C4800" # 'int' : forcing value to bool 'true' or 'false'
               # (performance warning)
       "C4820" # 'bytes' bytes padding added after construct 'member_name'
-      "C4996" # 'read': The POSIX name for this item is deprecated. Instead,
-              # use the ISO C++ conformant name: _read.
       "C5027" # move assignment operator was implicitly defined as deleted
       )
   set(MSVC_LEVEL4_WARNINGS_LIST
