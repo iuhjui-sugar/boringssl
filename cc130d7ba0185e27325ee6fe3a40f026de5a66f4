@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "172c3a2d_35c0903d",
+        "filename": "crypto/newhope/newhope_test.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-19T18:12:50Z",
+      "side": 1,
+      "message": "Ah, okay.",
+      "parentUuid": "f7fc06c7_a7ae8490",
+      "revId": "cc130d7ba0185e27325ee6fe3a40f026de5a66f4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d76b822f_66ecf0a1",
         "filename": "include/openssl/newhope.h",
         "patchSetId": 1
