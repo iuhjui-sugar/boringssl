@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "172c3a2d_35f2d0a9",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1639,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-19T19:02:06Z",
+      "side": 1,
+      "message": "I was thinking that, where they\u0027re not handled by the same branch, you could do something like:\n\n  if (alg_k \u0026 (SSL_kECDHE|SSL_kDHE)) {\n    if (alg_k \u0026 SSL_kECDHE) {\n      // Parse ECDHE group.\n    } else {\n      // Parse DHE group.\n    }\n\n    // Common stuff.\n  }\n\nMaybe this isn\u0027t actually worth it. *shrug* Whatever you think is cleanest. Though extracting the curve_id or boolean from the SSL_ECDH_METHOD may still be worthwhile just do you don\u0027t need to go muck about with ssl-\u003esession-\u003ekey_exchange_info.\n\nMoving the CBS/CBB stuff into offer/accept/finish would also work... and it even translates to TLS 1.3 as-is. Except I\u0027m hoping to take it out of TLS 1.3 (will be sending them a PR in not too long) because it\u0027s a completely redundant length prefix.\n\n(TLS 1.3 replaces ServerKeyExchange with KeyShareEntry which s a type followed by a u16-prefixed opaque byte string. The outer one is always u16, but then they currently put the old u8- or u16- (for FFDHE) prefix inside the opaque string which is totally pointless. I want them to get rid of it.)",
+      "parentUuid": "f7fc06c7_840a6610",
+      "revId": "d7ed734126213847c03553453d3bd91950fd83d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "17727a20_e8deebe6",
         "filename": "ssl/ssl_ecdh.c",
         "patchSetId": 3
@@ -83,6 +101,24 @@
       "side": 1,
       "message": "When I added NEWHOPE_POLY_new it was only so that one could call NEWHOPE_keygen without having the definition of NEWHOPE_POLY available.  I didn\u0027t have a lot of intent about stack vs. heap allocation.\n\nIf it\u0027s important to be consistent about that, I can change to heap-allocate here, though that is yucky.\n\nMaybe it is cleaner to simply define NEWHOPE_POLY in a public header?",
       "parentUuid": "17727a20_e8deebe6",
+      "revId": "d7ed734126213847c03553453d3bd91950fd83d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "172c3a2d_15f55490",
+        "filename": "ssl/ssl_ecdh.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-19T19:02:06Z",
+      "side": 1,
+      "message": "Yeah, maybe we should just define it in a public header. Being allowed to stack-allocate it (or embed it in a struct) if you\u0027re okay with something that large seems quite reasonable.\n\nStrictly speaking, we\u0027re okay using internal headers between libcrypto and libssl, but it doesn\u0027t seem necessary to break that boundary here.",
+      "parentUuid": "f7fc06c7_a470c295",
       "revId": "d7ed734126213847c03553453d3bd91950fd83d5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
