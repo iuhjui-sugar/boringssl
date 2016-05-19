@@ -1,0 +1,250 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "172c3a2d_55574c47",
+        "filename": "crypto/hkdf/hkdf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-19T19:55:32Z",
+      "side": 1,
+      "message": "Nit: Cite section 2.2",
+      "revId": "cabb5d0368b43d72b1eb580595ec2c33ba469536",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "172c3a2d_d5c35c18",
+        "filename": "crypto/hkdf/hkdf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-19T19:55:32Z",
+      "side": 1,
+      "message": "I think we normally just leave outputs alone on failure.",
+      "revId": "cabb5d0368b43d72b1eb580595ec2c33ba469536",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "172c3a2d_1551d450",
+        "filename": "crypto/hkdf/hkdf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-19T19:55:32Z",
+      "side": 1,
+      "message": "I suspect compilers will grump about digest_len being unused in release builds. You can do:\n\nassert(*out_len \u003d\u003d EVP_MD_size(digest));",
+      "range": {
+        "startLine": 56,
+        "startChar": 21,
+        "endLine": 56,
+        "endChar": 31
+      },
+      "revId": "cabb5d0368b43d72b1eb580595ec2c33ba469536",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "172c3a2d_354e50b2",
+        "filename": "crypto/hkdf/hkdf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-19T19:55:32Z",
+      "side": 1,
+      "message": "This goto probably isn\u0027t really needed.\n\n if (HMAC(...) \u003d\u003d NULL) {\n   OPENSSL_PUT_ERROR(...);\n   return 0;\n }\n assert(...)\n\n return 1;",
+      "revId": "cabb5d0368b43d72b1eb580595ec2c33ba469536",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "172c3a2d_95cde443",
+        "filename": "crypto/hkdf/hkdf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-19T19:55:32Z",
+      "side": 1,
+      "message": "The spec (and this code) allows for prk_len \u003e digest_len too. We probably want a test for this?",
+      "range": {
+        "startLine": 67,
+        "startChar": 36,
+        "endLine": 67,
+        "endChar": 43
+      },
+      "revId": "cabb5d0368b43d72b1eb580595ec2c33ba469536",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "172c3a2d_7554c841",
+        "filename": "crypto/hkdf/hkdf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-19T19:55:32Z",
+      "side": 1,
+      "message": ".3",
+      "range": {
+        "startLine": 69,
+        "startChar": 50,
+        "endLine": 69,
+        "endChar": 52
+      },
+      "revId": "cabb5d0368b43d72b1eb580595ec2c33ba469536",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "172c3a2d_b561002c",
+        "filename": "crypto/hkdf/hkdf_test.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-19T19:55:32Z",
+      "side": 1,
+      "message": "EVP_MAX_MD_WHATEVER",
+      "range": {
+        "startLine": 34,
+        "startChar": 20,
+        "endLine": 34,
+        "endChar": 22
+      },
+      "revId": "cabb5d0368b43d72b1eb580595ec2c33ba469536",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "172c3a2d_955c046d",
+        "filename": "crypto/hkdf/hkdf_test.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-19T19:55:32Z",
+      "side": 1,
+      "message": "EVP_MAX_MD_WHATEVER",
+      "range": {
+        "startLine": 250,
+        "startChar": 23,
+        "endLine": 250,
+        "endChar": 25
+      },
+      "revId": "cabb5d0368b43d72b1eb580595ec2c33ba469536",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "172c3a2d_f567783e",
+        "filename": "include/openssl/hkdf.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-19T19:55:32Z",
+      "side": 1,
+      "message": "From this API, you can\u0027t tell what the maximum output size is. (Just document that it should be EVP_MAX_MD_SIZE or whatever it is.)",
+      "revId": "cabb5d0368b43d72b1eb580595ec2c33ba469536",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "172c3a2d_d5627c31",
+        "filename": "include/openssl/hkdf.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-19T19:55:32Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "range": {
+        "startLine": 43,
+        "startChar": 80,
+        "endLine": 43,
+        "endChar": 87
+      },
+      "revId": "cabb5d0368b43d72b1eb580595ec2c33ba469536",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "172c3a2d_756b6810",
+        "filename": "include/openssl/hkdf.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-19T19:55:32Z",
+      "side": 1,
+      "message": "Probably HKDF_extract would be more consistent",
+      "range": {
+        "startLine": 43,
+        "startChar": 19,
+        "endLine": 43,
+        "endChar": 31
+      },
+      "revId": "cabb5d0368b43d72b1eb580595ec2c33ba469536",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "172c3a2d_1578f4de",
+        "filename": "include/openssl/hkdf.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-19T19:55:32Z",
+      "side": 1,
+      "message": "ditto.",
+      "revId": "cabb5d0368b43d72b1eb580595ec2c33ba469536",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
