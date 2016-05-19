@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "172c3a2d_d5959cf3",
+        "filename": "tool/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-19T20:30:48Z",
+      "side": 1,
+      "message": "I\u0027m not super-thrilled about this, but ah well. :-/",
+      "revId": "513b8aba5309e0ad2f97a03bf4eac60382204cbf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
