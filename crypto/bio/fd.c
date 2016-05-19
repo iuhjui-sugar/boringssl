@@ -108,215 +108,25 @@ static int bio_fd_non_fatal_error(int err) {
 }
 
 #if defined(OPENSSL_WINDOWS)
+  #define FD_ERRNO (int)GetLastError()
+  #define FD_CLOSE _close
+  #define FD_LSEEK _lseek
+  #define FD_READ _read
+  #define FD_WRITE _write
+#else
+  #define FD_ERRNO errno
+  #define FD_CLOSE close
+  #define FD_LSEEK lseek
+  #define FD_READ read
+  #define FD_WRITE write
+#endif
+
 int bio_fd_should_retry(int i) {
   if (i == -1) {
-    return bio_fd_non_fatal_error((int)GetLastError());
+    return bio_fd_non_fatal_error(FD_ERRNO);
   }
   return 0;
 }
-
-static int fd_free(BIO *bio) {
-  if (bio == NULL) {
-    return 0;
-  }
-
-  if (bio->shutdown) {
-    if (bio->init) {
-      _close(bio->num);
-    }
-    bio->init = 0;
-  }
-  return 1;
-}
-
-static int fd_read(BIO *b, char *out, int outl) {
-  int ret = 0;
-
-  ret = _read(b->num, out, outl);
-  BIO_clear_retry_flags(b);
-  if (ret <= 0) {
-    if (bio_fd_should_retry(ret)) {
-      BIO_set_retry_read(b);
-    }
-  }
-
-  return ret;
-}
-
-static int fd_write(BIO *b, const char *in, int inl) {
-  int ret = _write(b->num, in, inl);
-  BIO_clear_retry_flags(b);
-  if (ret <= 0) {
-    if (bio_fd_should_retry(ret)) {
-      BIO_set_retry_write(b);
-    }
-  }
-
-  return ret;
-}
-
-static long fd_ctrl(BIO *b, int cmd, long num, void *ptr) {
-  long ret = 1;
-  int *ip;
-
-  switch (cmd) {
-    case BIO_CTRL_RESET:
-      num = 0;
-    case BIO_C_FILE_SEEK:
-      ret = 0;
-      if (b->init) {
-        ret = (long)_lseek(b->num, num, SEEK_SET);
-      }
-      break;
-    case BIO_C_FILE_TELL:
-    case BIO_CTRL_INFO:
-      ret = 0;
-      if (b->init) {
-        ret = (long)_lseek(b->num, 0, SEEK_CUR);
-      }
-      break;
-    case BIO_C_SET_FD:
-      fd_free(b);
-      b->num = *((int *)ptr);
-      b->shutdown = (int)num;
-      b->init = 1;
-      break;
-    case BIO_C_GET_FD:
-      if (b->init) {
-        ip = (int *)ptr;
-        if (ip != NULL) {
-          *ip = b->num;
-        }
-        return b->num;
-      } else {
-        ret = -1;
-      }
-      break;
-    case BIO_CTRL_GET_CLOSE:
-      ret = b->shutdown;
-      break;
-    case BIO_CTRL_SET_CLOSE:
-      b->shutdown = (int)num;
-      break;
-    case BIO_CTRL_PENDING:
-    case BIO_CTRL_WPENDING:
-      ret = 0;
-      break;
-    case BIO_CTRL_FLUSH:
-      ret = 1;
-      break;
-    default:
-      ret = 0;
-      break;
-  }
-
-  return ret;
-}
-#else // if defined(OPENSSL_WINDOWS)
-int bio_fd_should_retry(int i) {
-  if (i == -1) {
-    return bio_fd_non_fatal_error(errno);
-  }
-  return 0;
-}
-
-static int fd_free(BIO *bio) {
-  if (bio == NULL) {
-    return 0;
-  }
-
-  if (bio->shutdown) {
-    if (bio->init) {
-      close(bio->num);
-    }
-    bio->init = 0;
-  }
-  return 1;
-}
-static int fd_read(BIO *b, char *out, int outl) {
-  int ret = 0;
-
-  ret = read(b->num, out, outl);
-  BIO_clear_retry_flags(b);
-  if (ret <= 0) {
-    if (bio_fd_should_retry(ret)) {
-      BIO_set_retry_read(b);
-    }
-  }
-
-  return ret;
-}
-
-static int fd_write(BIO *b, const char *in, int inl) {
-  int ret = write(b->num, in, inl);
-  BIO_clear_retry_flags(b);
-  if (ret <= 0) {
-    if (bio_fd_should_retry(ret)) {
-      BIO_set_retry_write(b);
-    }
-  }
-
-  return ret;
-}
-
-static long fd_ctrl(BIO *b, int cmd, long num, void *ptr) {
-  long ret = 1;
-  int *ip;
-
-  switch (cmd) {
-    case BIO_CTRL_RESET:
-      num = 0;
-    case BIO_C_FILE_SEEK:
-      ret = 0;
-      if (b->init) {
-        ret = (long)lseek(b->num, num, SEEK_SET);
-      }
-      break;
-    case BIO_C_FILE_TELL:
-    case BIO_CTRL_INFO:
-      ret = 0;
-      if (b->init) {
-        ret = (long)lseek(b->num, 0, SEEK_CUR);
-      }
-      break;
-    case BIO_C_SET_FD:
-      fd_free(b);
-      b->num = *((int *)ptr);
-      b->shutdown = (int)num;
-      b->init = 1;
-      break;
-    case BIO_C_GET_FD:
-      if (b->init) {
-        ip = (int *)ptr;
-        if (ip != NULL) {
-          *ip = b->num;
-        }
-        return b->num;
-      } else {
-        ret = -1;
-      }
-      break;
-    case BIO_CTRL_GET_CLOSE:
-      ret = b->shutdown;
-      break;
-    case BIO_CTRL_SET_CLOSE:
-      b->shutdown = (int)num;
-      break;
-    case BIO_CTRL_PENDING:
-    case BIO_CTRL_WPENDING:
-      ret = 0;
-      break;
-    case BIO_CTRL_FLUSH:
-      ret = 1;
-      break;
-    default:
-      ret = 0;
-      break;
-  }
-
-  return ret;
-}
-#endif // if defined(OPENSSL_WINDOWS)
 
 BIO *BIO_new_fd(int fd, int close_flag) {
   BIO *ret = BIO_new(BIO_s_fd());
@@ -331,6 +141,104 @@ static int fd_new(BIO *bio) {
   /* num is used to store the file descriptor. */
   bio->num = -1;
   return 1;
+}
+
+static int fd_free(BIO *bio) {
+  if (bio == NULL) {
+    return 0;
+  }
+
+  if (bio->shutdown) {
+    if (bio->init) {
+      FD_CLOSE(bio->num);
+    }
+    bio->init = 0;
+  }
+  return 1;
+}
+
+static int fd_read(BIO *b, char *out, int outl) {
+  int ret = 0;
+
+  ret = FD_READ(b->num, out, outl);
+  BIO_clear_retry_flags(b);
+  if (ret <= 0) {
+    if (bio_fd_should_retry(ret)) {
+      BIO_set_retry_read(b);
+    }
+  }
+
+  return ret;
+}
+
+static int fd_write(BIO *b, const char *in, int inl) {
+  int ret = FD_WRITE(b->num, in, inl);
+  BIO_clear_retry_flags(b);
+  if (ret <= 0) {
+    if (bio_fd_should_retry(ret)) {
+      BIO_set_retry_write(b);
+    }
+  }
+
+  return ret;
+}
+
+static long fd_ctrl(BIO *b, int cmd, long num, void *ptr) {
+  long ret = 1;
+  int *ip;
+
+  switch (cmd) {
+    case BIO_CTRL_RESET:
+      num = 0;
+    case BIO_C_FILE_SEEK:
+      ret = 0;
+      if (b->init) {
+        ret = (long)FD_LSEEK(b->num, num, SEEK_SET);
+      }
+      break;
+    case BIO_C_FILE_TELL:
+    case BIO_CTRL_INFO:
+      ret = 0;
+      if (b->init) {
+        ret = (long)FD_LSEEK(b->num, 0, SEEK_CUR);
+      }
+      break;
+    case BIO_C_SET_FD:
+      fd_free(b);
+      b->num = *((int *)ptr);
+      b->shutdown = (int)num;
+      b->init = 1;
+      break;
+    case BIO_C_GET_FD:
+      if (b->init) {
+        ip = (int *)ptr;
+        if (ip != NULL) {
+          *ip = b->num;
+        }
+        return b->num;
+      } else {
+        ret = -1;
+      }
+      break;
+    case BIO_CTRL_GET_CLOSE:
+      ret = b->shutdown;
+      break;
+    case BIO_CTRL_SET_CLOSE:
+      b->shutdown = (int)num;
+      break;
+    case BIO_CTRL_PENDING:
+    case BIO_CTRL_WPENDING:
+      ret = 0;
+      break;
+    case BIO_CTRL_FLUSH:
+      ret = 1;
+      break;
+    default:
+      ret = 0;
+      break;
+  }
+
+  return ret;
 }
 
 static int fd_puts(BIO *bp, const char *str) {
