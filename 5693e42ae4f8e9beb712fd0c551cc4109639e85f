@@ -34,6 +34,24 @@
       "revId": "5693e42ae4f8e9beb712fd0c551cc4109639e85f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "172c3a2d_b5b340f8",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-19T18:10:16Z",
+      "side": 0,
+      "message": "It looks like a nuisance (we don\u0027t get fopen, only fopen_s which we probably can\u0027t assume exists because it\u0027s C11). You might be able to #define something. If it\u0027s really easy, sure, but don\u0027t waste too much time on it if you don\u0027t want to. I\u0027m fine doing this without the warning.",
+      "parentUuid": "f7fc06c7_84b70604",
+      "revId": "5693e42ae4f8e9beb712fd0c551cc4109639e85f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
