@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "17727a20_48ac5fb2",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-19T17:47:31Z",
+      "side": 0,
+      "message": "Darn. It seems my idea here doesn\u0027t work. This makes a lot of other things illegal like fopen and friends. Let\u0027s leave this in here I guess and we\u0027ll just land it without any enforcement. But you will likely have to tell us if it regresses again.\n\nSorry about the churn. :-(",
+      "revId": "5693e42ae4f8e9beb712fd0c551cc4109639e85f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
