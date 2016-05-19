@@ -114,28 +114,110 @@ int bio_fd_should_retry(int i) {
   }
   return 0;
 }
-#else
+
+static int fd_free(BIO *bio) {
+  if (bio == NULL) {
+    return 0;
+  }
+
+  if (bio->shutdown) {
+    if (bio->init) {
+      _close(bio->num);
+    }
+    bio->init = 0;
+  }
+  return 1;
+}
+
+static int fd_read(BIO *b, char *out, int outl) {
+  int ret = 0;
+
+  ret = _read(b->num, out, outl);
+  BIO_clear_retry_flags(b);
+  if (ret <= 0) {
+    if (bio_fd_should_retry(ret)) {
+      BIO_set_retry_read(b);
+    }
+  }
+
+  return ret;
+}
+
+static int fd_write(BIO *b, const char *in, int inl) {
+  int ret = _write(b->num, in, inl);
+  BIO_clear_retry_flags(b);
+  if (ret <= 0) {
+    if (bio_fd_should_retry(ret)) {
+      BIO_set_retry_write(b);
+    }
+  }
+
+  return ret;
+}
+
+static long fd_ctrl(BIO *b, int cmd, long num, void *ptr) {
+  long ret = 1;
+  int *ip;
+
+  switch (cmd) {
+    case BIO_CTRL_RESET:
+      num = 0;
+    case BIO_C_FILE_SEEK:
+      ret = 0;
+      if (b->init) {
+        ret = (long)_lseek(b->num, num, SEEK_SET);
+      }
+      break;
+    case BIO_C_FILE_TELL:
+    case BIO_CTRL_INFO:
+      ret = 0;
+      if (b->init) {
+        ret = (long)_lseek(b->num, 0, SEEK_CUR);
+      }
+      break;
+    case BIO_C_SET_FD:
+      fd_free(b);
+      b->num = *((int *)ptr);
+      b->shutdown = (int)num;
+      b->init = 1;
+      break;
+    case BIO_C_GET_FD:
+      if (b->init) {
+        ip = (int *)ptr;
+        if (ip != NULL) {
+          *ip = b->num;
+        }
+        return b->num;
+      } else {
+        ret = -1;
+      }
+      break;
+    case BIO_CTRL_GET_CLOSE:
+      ret = b->shutdown;
+      break;
+    case BIO_CTRL_SET_CLOSE:
+      b->shutdown = (int)num;
+      break;
+    case BIO_CTRL_PENDING:
+    case BIO_CTRL_WPENDING:
+      ret = 0;
+      break;
+    case BIO_CTRL_FLUSH:
+      ret = 1;
+      break;
+    default:
+      ret = 0;
+      break;
+  }
+
+  return ret;
+}
+#else // if defined(OPENSSL_WINDOWS)
 int bio_fd_should_retry(int i) {
   if (i == -1) {
     return bio_fd_non_fatal_error(errno);
   }
   return 0;
-}
-#endif
-
-BIO *BIO_new_fd(int fd, int close_flag) {
-  BIO *ret = BIO_new(BIO_s_fd());
-  if (ret == NULL) {
-    return NULL;
-  }
-  BIO_set_fd(ret, fd, close_flag);
-  return ret;
-}
-
-static int fd_new(BIO *bio) {
-  /* num is used to store the file descriptor. */
-  bio->num = -1;
-  return 1;
 }
 
 static int fd_free(BIO *bio) {
@@ -151,7 +233,6 @@ static int fd_free(BIO *bio) {
   }
   return 1;
 }
-
 static int fd_read(BIO *b, char *out, int outl) {
   int ret = 0;
 
@@ -234,6 +315,22 @@ static long fd_ctrl(BIO *b, int cmd, long num, void *ptr) {
   }
 
   return ret;
+}
+#endif // if defined(OPENSSL_WINDOWS)
+
+BIO *BIO_new_fd(int fd, int close_flag) {
+  BIO *ret = BIO_new(BIO_s_fd());
+  if (ret == NULL) {
+    return NULL;
+  }
+  BIO_set_fd(ret, fd, close_flag);
+  return ret;
+}
+
+static int fd_new(BIO *bio) {
+  /* num is used to store the file descriptor. */
+  bio->num = -1;
+  return 1;
 }
 
 static int fd_puts(BIO *bp, const char *str) {
