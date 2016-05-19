@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "17727a20_c8c68f7b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-19T17:43:31Z",
+      "side": 1,
+      "message": "Talked out of band. I misread this comment and thought we wanted to *not* link against libcmt.lib. Instead the problem is those functions are *not* in there and only in some dll which gRPC wants to avoid.",
+      "parentUuid": "17727a20_c86a0f72",
+      "range": {
+        "startLine": 10,
+        "startChar": 18,
+        "endLine": 10,
+        "endChar": 24
+      },
+      "revId": "710ca229f17ff66f3131f678c23359d5e4b6b8a3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "17727a20_88701764",
         "filename": "crypto/bio/fd.c",
         "patchSetId": 1
@@ -94,6 +118,30 @@
       "side": 1,
       "message": "Err ... what is your concern here?",
       "parentUuid": "17727a20_4857ffb9",
+      "range": {
+        "startLine": 164,
+        "startChar": 45,
+        "endLine": 164,
+        "endChar": 52
+      },
+      "revId": "710ca229f17ff66f3131f678c23359d5e4b6b8a3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "17727a20_a8c9538c",
+        "filename": "crypto/mem.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-19T17:43:31Z",
+      "side": 1,
+      "message": "Oh, I was just expressing my shock at strdup being a verboten function.",
+      "parentUuid": "f7fc06c7_6471aa66",
       "range": {
         "startLine": 164,
         "startChar": 45,
