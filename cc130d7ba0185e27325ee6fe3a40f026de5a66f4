@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "f7fc06c7_a7ae8490",
+        "filename": "crypto/newhope/newhope_test.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-05-19T18:10:13Z",
+      "side": 1,
+      "message": "agl had suggested it would be nice to have an un-activated test that could run a huge number of key exchanges, to look for low-probability failures.  So I figured this test could serve in that capacity.",
+      "parentUuid": "b798ce90_45aa1c84",
+      "revId": "cc130d7ba0185e27325ee6fe3a40f026de5a66f4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d76b822f_66ecf0a1",
         "filename": "include/openssl/newhope.h",
         "patchSetId": 1
@@ -59,6 +77,30 @@
     },
     {
       "key": {
+        "uuid": "f7fc06c7_47c6b05d",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-05-19T18:10:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d76b822f_66ecf0a1",
+      "range": {
+        "startLine": 41,
+        "startChar": 48,
+        "endLine": 41,
+        "endChar": 53
+      },
+      "revId": "cc130d7ba0185e27325ee6fe3a40f026de5a66f4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "172c3a2d_9595e442",
         "filename": "include/openssl/newhope.h",
         "patchSetId": 1
@@ -70,6 +112,24 @@
       "writtenOn": "2016-05-19T18:03:32Z",
       "side": 1,
       "message": "Do you think it\u0027s worth mentioning that NEWHOPE_finish is for the offering party?",
+      "revId": "cc130d7ba0185e27325ee6fe3a40f026de5a66f4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f7fc06c7_27c3b44d",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-05-19T18:10:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "172c3a2d_9595e442",
       "revId": "cc130d7ba0185e27325ee6fe3a40f026de5a66f4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
