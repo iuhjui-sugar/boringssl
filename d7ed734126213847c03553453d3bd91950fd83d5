@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "f7fc06c7_840a6610",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1639,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-05-19T17:01:13Z",
+      "side": 1,
+      "message": "You know, it *almost* works to have the |offer|, |accept|, and |finish| methods take care of the length prefix.\n\nThe fly in the ointment is in s3_clnt.c: unfortunately, ssl3_get_server_hello has to read the server\u0027s offer without accepting it.  That\u0027s done later, in ssl3_send_client_key_exchange.\n\nAs far as adding a flag goes, it only helps in the cases where SSL_kDHE and SSL_kECDHE are handled by the same branch, which is only half the cases.\n\nThoughts?",
+      "parentUuid": "17727a20_c8e12fb0",
+      "revId": "d7ed734126213847c03553453d3bd91950fd83d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "17727a20_e8deebe6",
         "filename": "ssl/ssl_ecdh.c",
         "patchSetId": 3
@@ -47,6 +65,24 @@
       "writtenOn": "2016-05-19T01:31:51Z",
       "side": 1,
       "message": "Is NEWHOPE_POLY intended to be a heap- or stack-allocated type? From the public API, it seems to be heap-allocated, but this is using it as if it were stack-allocated.",
+      "revId": "d7ed734126213847c03553453d3bd91950fd83d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f7fc06c7_a470c295",
+        "filename": "ssl/ssl_ecdh.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-05-19T17:01:13Z",
+      "side": 1,
+      "message": "When I added NEWHOPE_POLY_new it was only so that one could call NEWHOPE_keygen without having the definition of NEWHOPE_POLY available.  I didn\u0027t have a lot of intent about stack vs. heap allocation.\n\nIf it\u0027s important to be consistent about that, I can change to heap-allocate here, though that is yucky.\n\nMaybe it is cleaner to simply define NEWHOPE_POLY in a public header?",
+      "parentUuid": "17727a20_e8deebe6",
       "revId": "d7ed734126213847c03553453d3bd91950fd83d5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
