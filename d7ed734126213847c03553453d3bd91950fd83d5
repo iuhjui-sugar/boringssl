@@ -176,6 +176,24 @@
       "revId": "d7ed734126213847c03553453d3bd91950fd83d5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "172c3a2d_9542c45a",
+        "filename": "ssl/ssl_ecdh.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-19T22:17:42Z",
+      "side": 1,
+      "message": "Ah, yeah, our ability to use stuff in public headers is limited since we have less control over build flags and what gets included in with us. You could do something dumb with unions if you wanted.",
+      "parentUuid": "f7fc06c7_8a894f37",
+      "revId": "d7ed734126213847c03553453d3bd91950fd83d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
