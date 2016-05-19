@@ -16,6 +16,24 @@
       "revId": "5693e42ae4f8e9beb712fd0c551cc4109639e85f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f7fc06c7_84b70604",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 6555
+      },
+      "writtenOn": "2016-05-19T17:52:19Z",
+      "side": 0,
+      "message": "Hmm ... maybe we should fix everything now. It will essentially be the same fix everywhere.  WDYT?",
+      "parentUuid": "17727a20_48ac5fb2",
+      "revId": "5693e42ae4f8e9beb712fd0c551cc4109639e85f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
