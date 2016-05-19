@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "17727a20_c81ccf02",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3801,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-05-19T17:13:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "923678c6_721c2901",
+      "revId": "c1c7f01d70e6a210a6484b88c4f501edb17b5d50",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "923678c6_d2d5d529",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2016-05-17T21:13:30Z",
       "side": 1,
       "message": "Ditto.",
+      "revId": "c1c7f01d70e6a210a6484b88c4f501edb17b5d50",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "17727a20_08d0a739",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3965,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-05-19T17:13:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "923678c6_d2d5d529",
       "revId": "c1c7f01d70e6a210a6484b88c4f501edb17b5d50",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "17727a20_28d5632a",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 4201,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-05-19T17:13:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "923678c6_32e5511c",
+      "revId": "c1c7f01d70e6a210a6484b88c4f501edb17b5d50",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "923678c6_f2b1f910",
         "filename": "include/openssl/tls1.h",
         "patchSetId": 1
@@ -64,6 +118,24 @@
       "writtenOn": "2016-05-17T21:13:30Z",
       "side": 1,
       "message": "draft-blahblah? Mostly so we can switch it to the RFC when it exists.",
+      "revId": "c1c7f01d70e6a210a6484b88c4f501edb17b5d50",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "17727a20_e8198b0f",
+        "filename": "include/openssl/tls1.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-05-19T17:13:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "923678c6_f2b1f910",
       "revId": "c1c7f01d70e6a210a6484b88c4f501edb17b5d50",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -93,6 +165,30 @@
     },
     {
       "key": {
+        "uuid": "17727a20_48da9f59",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-05-19T17:13:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "923678c6_122dad35",
+      "range": {
+        "startLine": 310,
+        "startChar": 73,
+        "endLine": 310,
+        "endChar": 74
+      },
+      "revId": "c1c7f01d70e6a210a6484b88c4f501edb17b5d50",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "923678c6_521f25f6",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 1
@@ -104,6 +200,24 @@
       "writtenOn": "2016-05-17T21:13:30Z",
       "side": 1,
       "message": "Link to a section? It might be worth keeping the link to both versions, actually. The 1.2 behavior is going to be different from the 1.3 behavior in places.",
+      "revId": "c1c7f01d70e6a210a6484b88c4f501edb17b5d50",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "17727a20_a8e0730c",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1814,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-05-19T17:13:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "923678c6_521f25f6",
       "revId": "c1c7f01d70e6a210a6484b88c4f501edb17b5d50",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
