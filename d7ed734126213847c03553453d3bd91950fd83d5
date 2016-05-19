@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "17727a20_88d737cf",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1145,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-19T01:31:51Z",
+      "side": 1,
+      "message": "(Nit: trailing space)",
+      "revId": "d7ed734126213847c03553453d3bd91950fd83d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "17727a20_c8e12fb0",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1639,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-19T01:31:51Z",
+      "side": 1,
+      "message": "I\u0027m not sure how well this works, but if you instead added a flag to SSL_ECDH_METHOD, you could probably fold the DHE and CECPQ1 special-cases together.",
+      "revId": "d7ed734126213847c03553453d3bd91950fd83d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "17727a20_e8deebe6",
+        "filename": "ssl/ssl_ecdh.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-19T01:31:51Z",
+      "side": 1,
+      "message": "Is NEWHOPE_POLY intended to be a heap- or stack-allocated type? From the public API, it seems to be heap-allocated, but this is using it as if it were stack-allocated.",
+      "revId": "d7ed734126213847c03553453d3bd91950fd83d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
