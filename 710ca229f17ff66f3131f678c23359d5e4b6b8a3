@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "17727a20_685cbbdb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-19T16:06:16Z",
+      "side": 1,
+      "message": "I think there\u0027s a warning in CMakeLists.txt we should take away if we\u0027re going to do this.",
+      "revId": "710ca229f17ff66f3131f678c23359d5e4b6b8a3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "17727a20_c86a0f72",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-19T16:06:16Z",
+      "side": 1,
+      "message": "...isn\u0027t this the C runtime? It seems rather dubious to not link that into a C library.\n\nAlso, why is this a problem? I would imagine that these deprecated functions just forward to the underscore versions and the static linker would drop everything else.",
+      "range": {
+        "startLine": 10,
+        "startChar": 18,
+        "endLine": 10,
+        "endChar": 24
+      },
+      "revId": "710ca229f17ff66f3131f678c23359d5e4b6b8a3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "17727a20_88701764",
+        "filename": "crypto/bio/fd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-19T16:06:16Z",
+      "side": 1,
+      "message": "This is FAR too much duplicated code. If we\u0027re doing this, it should be with wrapper functions or macros.",
+      "revId": "710ca229f17ff66f3131f678c23359d5e4b6b8a3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "17727a20_4857ffb9",
+        "filename": "crypto/mem.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-19T16:06:16Z",
+      "side": 1,
+      "message": "You\u0027re kidding, right?",
+      "range": {
+        "startLine": 164,
+        "startChar": 45,
+        "endLine": 164,
+        "endChar": 52
+      },
+      "revId": "710ca229f17ff66f3131f678c23359d5e4b6b8a3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
