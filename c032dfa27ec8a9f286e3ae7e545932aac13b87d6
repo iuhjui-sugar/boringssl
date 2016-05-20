@@ -16,6 +16,24 @@
       "revId": "c032dfa27ec8a9f286e3ae7e545932aac13b87d6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b74a8e40_3271d0ce",
+        "filename": "crypto/hkdf/hkdf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-05-20T14:05:48Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "172c3a2d_f5c8d834",
+      "revId": "c032dfa27ec8a9f286e3ae7e545932aac13b87d6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
