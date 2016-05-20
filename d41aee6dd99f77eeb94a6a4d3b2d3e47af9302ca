@@ -22,6 +22,30 @@
       "revId": "d41aee6dd99f77eeb94a6a4d3b2d3e47af9302ca",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b74a8e40_f240284c",
+        "filename": "include/openssl/hkdf.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-05-20T14:28:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b74a8e40_72543810",
+      "range": {
+        "startLine": 42,
+        "startChar": 60,
+        "endLine": 42,
+        "endChar": 75
+      },
+      "revId": "d41aee6dd99f77eeb94a6a4d3b2d3e47af9302ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
