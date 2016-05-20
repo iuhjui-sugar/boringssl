@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "b74a8e40_52573415",
+        "filename": "crypto/hkdf/hkdf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-20T14:18:57Z",
+      "side": 1,
+      "message": "Oh. Uh, don\u0027t do that. We don\u0027t support big-endian and definitely are not UB-clean, but don\u0027t add flagrantly undefined behavior and tempt the compiler when there isn\u0027t any reason to.\n\nDo\n\nunsigned len;\nif (HMAC(..., \u0026len,  ...) \u003d\u003d NULL) {\n  ...\n}\n*out_len \u003d len;\nreturn 1;",
+      "parentUuid": "b74a8e40_f26e68f0",
+      "revId": "cabb5d0368b43d72b1eb580595ec2c33ba469536",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "172c3a2d_1551d450",
         "filename": "crypto/hkdf/hkdf.c",
         "patchSetId": 1
@@ -189,6 +207,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "172c3a2d_95cde443",
+      "range": {
+        "startLine": 67,
+        "startChar": 36,
+        "endLine": 67,
+        "endChar": 43
+      },
+      "revId": "cabb5d0368b43d72b1eb580595ec2c33ba469536",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b74a8e40_92319cfd",
+        "filename": "crypto/hkdf/hkdf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-20T14:18:57Z",
+      "side": 1,
+      "message": "(Where was this? I think you can only get this if you call HKDF_expand on something funny. Meh. Maybe not other bothering.)",
+      "parentUuid": "b74a8e40_d242445b",
       "range": {
         "startLine": 67,
         "startChar": 36,
