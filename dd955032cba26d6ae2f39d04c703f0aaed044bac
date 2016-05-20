@@ -1,0 +1,330 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b74a8e40_3220f03b",
+        "filename": "crypto/base64/base64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-20T20:59:08Z",
+      "side": 1,
+      "message": "Nit: newline here and after line 128, to be consistent with the loop below?",
+      "revId": "dd955032cba26d6ae2f39d04c703f0aaed044bac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b74a8e40_521d74fa",
+        "filename": "crypto/base64/base64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-20T20:59:08Z",
+      "side": 1,
+      "message": "This is kind of odd since, at this point we\u0027ve already written more data than the API is capable of reporting. Either the caller already violated their API contract, or we allow the caller to pass in an input that\u0027s too big, provided they allocate enough space, even though that allocation cannot fit in the output variable.\n\n(Also if we care about overflow, we\u0027re not handling overflow on total since encoding makes data larger. Or if EVP_EncodeBlock is being passed an input that\u0027s too large. Both of which fall under the \"unclear what the caller\u0027s obligations were to begin with\" bucket.)\n\nAlmost seems better to just abort().",
+      "revId": "dd955032cba26d6ae2f39d04c703f0aaed044bac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b74a8e40_721a7805",
+        "filename": "crypto/base64/base64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-20T20:59:08Z",
+      "side": 1,
+      "message": "Set *out_len to zero?",
+      "revId": "dd955032cba26d6ae2f39d04c703f0aaed044bac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b74a8e40_92cfdc9b",
+        "filename": "crypto/base64/base64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-20T20:59:08Z",
+      "side": 1,
+      "message": "kBase64ASCIIToBinData?",
+      "range": {
+        "startLine": 221,
+        "startChar": 21,
+        "endLine": 221,
+        "endChar": 45
+      },
+      "revId": "dd955032cba26d6ae2f39d04c703f0aaed044bac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b74a8e40_12e4cc1f",
+        "filename": "crypto/base64/base64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-20T20:59:08Z",
+      "side": 1,
+      "message": "(This is also kind of an odd case since we\u0027ve already written more data than the API is capable of reporting back, so the caller obligations didn\u0027t make much sense.)",
+      "revId": "dd955032cba26d6ae2f39d04c703f0aaed044bac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b74a8e40_520494b2",
+        "filename": "crypto/base64/base64_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-20T20:59:08Z",
+      "side": 1,
+      "message": "out_vec.data()\n\n(It doesn\u0027t explode with empty vectors.)",
+      "range": {
+        "startLine": 129,
+        "startChar": 19,
+        "endLine": 129,
+        "endChar": 30
+      },
+      "revId": "dd955032cba26d6ae2f39d04c703f0aaed044bac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b74a8e40_720198a1",
+        "filename": "crypto/base64/base64_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-20T20:59:08Z",
+      "side": 1,
+      "message": "out_vec.data()",
+      "range": {
+        "startLine": 158,
+        "startChar": 19,
+        "endLine": 158,
+        "endChar": 30
+      },
+      "revId": "dd955032cba26d6ae2f39d04c703f0aaed044bac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b74a8e40_92051cb7",
+        "filename": "crypto/base64/base64_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-20T20:59:08Z",
+      "side": 1,
+      "message": "These could probably be put in the table as invalid encodings.",
+      "revId": "dd955032cba26d6ae2f39d04c703f0aaed044bac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b74a8e40_32f710e4",
+        "filename": "crypto/base64/base64_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-20T20:59:08Z",
+      "side": 1,
+      "message": "out_vec.data()",
+      "range": {
+        "startLine": 213,
+        "startChar": 19,
+        "endLine": 213,
+        "endChar": 30
+      },
+      "revId": "dd955032cba26d6ae2f39d04c703f0aaed044bac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b74a8e40_12fa0ccb",
+        "filename": "crypto/base64/base64_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-20T20:59:08Z",
+      "side": 1,
+      "message": "out_vec.data()",
+      "range": {
+        "startLine": 259,
+        "startChar": 20,
+        "endLine": 259,
+        "endChar": 32
+      },
+      "revId": "dd955032cba26d6ae2f39d04c703f0aaed044bac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b74a8e40_f214a8e5",
+        "filename": "crypto/base64/base64_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-20T20:59:08Z",
+      "side": 1,
+      "message": "Nit: clang-format",
+      "revId": "dd955032cba26d6ae2f39d04c703f0aaed044bac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b74a8e40_922efc32",
+        "filename": "crypto/base64/base64_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-20T20:59:08Z",
+      "side": 1,
+      "message": "out_vec.data()",
+      "range": {
+        "startLine": 280,
+        "startChar": 19,
+        "endLine": 280,
+        "endChar": 30
+      },
+      "revId": "dd955032cba26d6ae2f39d04c703f0aaed044bac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b74a8e40_f2de684a",
+        "filename": "crypto/base64/base64_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-20T20:59:08Z",
+      "side": 1,
+      "message": "This confused me at first until I read the implementation. Maybe add a comment that we\u0027ll continue through the loop to test that EVP_DecodeUpdate won\u0027t do anything after the - is seen.",
+      "revId": "dd955032cba26d6ae2f39d04c703f0aaed044bac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b74a8e40_f242e801",
+        "filename": "fuzz/read_pem.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-20T20:59:08Z",
+      "side": 1,
+      "message": "Nit: #include \u003copenssl/mem.h\u003e",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 16
+      },
+      "revId": "dd955032cba26d6ae2f39d04c703f0aaed044bac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b74a8e40_f25bc8e1",
+        "filename": "include/openssl/base64.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-20T20:59:08Z",
+      "side": 1,
+      "message": "(I think we\u0027ve usually been using char as our \"I wish we had bool\" type. *shrug*)",
+      "range": {
+        "startLine": 175,
+        "startChar": 2,
+        "endLine": 175,
+        "endChar": 9
+      },
+      "revId": "dd955032cba26d6ae2f39d04c703f0aaed044bac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b74a8e40_d256c4bc",
+        "filename": "include/openssl/base64.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-20T20:59:08Z",
+      "side": 1,
+      "message": "seen",
+      "range": {
+        "startLine": 177,
+        "startChar": 46,
+        "endLine": 177,
+        "endChar": 50
+      },
+      "revId": "dd955032cba26d6ae2f39d04c703f0aaed044bac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
