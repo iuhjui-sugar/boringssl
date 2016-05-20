@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b74a8e40_72e51849",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1880,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-20T18:41:10Z",
+      "side": 1,
+      "message": "I\u0027m pretty sure this doesn\u0027t do anything, but okay...",
+      "range": {
+        "startLine": 1880,
+        "startChar": 7,
+        "endLine": 1880,
+        "endChar": 31
+      },
+      "revId": "cceb0f4b343ed0da41594339780ca86f3d6a3379",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
