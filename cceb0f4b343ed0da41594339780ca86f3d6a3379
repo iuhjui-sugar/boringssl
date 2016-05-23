@@ -22,6 +22,30 @@
       "revId": "cceb0f4b343ed0da41594339780ca86f3d6a3379",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3c91230e_c206c413",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1880,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-23T18:15:00Z",
+      "side": 1,
+      "message": "Agreed. This looks like a no-op because 1 is smaller than the default buffer size.",
+      "parentUuid": "b74a8e40_72e51849",
+      "range": {
+        "startLine": 1880,
+        "startChar": 7,
+        "endLine": 1880,
+        "endChar": 31
+      },
+      "revId": "cceb0f4b343ed0da41594339780ca86f3d6a3379",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
