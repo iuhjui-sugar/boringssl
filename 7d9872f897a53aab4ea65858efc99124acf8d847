@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c91230e_65282223",
+        "filename": "ssl/s3_srvr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2123,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-23T20:36:58Z",
+      "side": 1,
+      "message": "Learn to love clang-format editor integration :)",
+      "revId": "7d9872f897a53aab4ea65858efc99124acf8d847",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
