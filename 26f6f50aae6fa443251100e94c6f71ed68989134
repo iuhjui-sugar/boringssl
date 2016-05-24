@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c91230e_cb2338ef",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-24T16:43:02Z",
+      "side": 1,
+      "message": "Rather than setting one of these flags (which we don\u0027t really like) I\u0027d suggest some logic in SSL_CTX_new when SSL_CTX_set_max_version is called.",
+      "revId": "26f6f50aae6fa443251100e94c6f71ed68989134",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
