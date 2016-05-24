@@ -72,6 +72,7 @@ SSL_AEAD_CTX *SSL_AEAD_CTX_new(enum evp_aead_direction_t direction,
   }
 
   assert(EVP_AEAD_nonce_length(aead) <= EVP_AEAD_MAX_NONCE_LENGTH);
+
   aead_ctx->variable_nonce_len = (uint8_t)EVP_AEAD_nonce_length(aead);
   if (mac_key_len == 0) {
     assert(fixed_iv_len <= sizeof(aead_ctx->fixed_nonce));
@@ -91,6 +92,15 @@ SSL_AEAD_CTX *SSL_AEAD_CTX_new(enum evp_aead_direction_t direction,
     /* AES-GCM uses an explicit nonce. */
     if (cipher->algorithm_enc & (SSL_AES128GCM | SSL_AES256GCM)) {
       aead_ctx->variable_nonce_included_in_record = 1;
+    }
+
+    /* The TLS 1.3 construction xors the fixed nonce into the actual nonce and
+       omits the additional data. */
+    if (version >= TLS1_3_VERSION) {
+      aead_ctx->xor_fixed_nonce = 1;
+      aead_ctx->variable_nonce_len = 8;
+      aead_ctx->variable_nonce_included_in_record = 1;
+      aead_ctx->omit_ad = 1;
     }
   } else {
     aead_ctx->variable_nonce_included_in_record = 1;
@@ -139,6 +149,10 @@ static size_t ssl_aead_ctx_get_ad(SSL_AEAD_CTX *aead, uint8_t out[13],
                                   uint8_t type, uint16_t wire_version,
                                   const uint8_t seqnum[8],
                                   size_t plaintext_len) {
+  if (aead->omit_ad) {
+    return 0;
+  }
+
   memcpy(out, seqnum, 8);
   size_t len = 8;
   out[len++] = type;
