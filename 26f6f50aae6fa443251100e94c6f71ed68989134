@@ -52,6 +52,24 @@
       "revId": "26f6f50aae6fa443251100e94c6f71ed68989134",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5cb5f7aa_eb3f0d0f",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-05-24T18:05:30Z",
+      "side": 1,
+      "message": "Most of the things changed in the latest patchset.",
+      "parentUuid": "5cb5f7aa_2b3e8517",
+      "revId": "26f6f50aae6fa443251100e94c6f71ed68989134",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
