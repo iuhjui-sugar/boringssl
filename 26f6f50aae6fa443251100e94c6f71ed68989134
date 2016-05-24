@@ -16,6 +16,24 @@
       "revId": "26f6f50aae6fa443251100e94c6f71ed68989134",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5cb5f7aa_ebc2ad48",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-05-24T17:23:44Z",
+      "side": 1,
+      "message": "There\u0027s a bunch of extra plumbing that we end up having to do if we use set_max_version instead, since most of the test code hooks into ssl-\u003eoptions.",
+      "parentUuid": "3c91230e_cb2338ef",
+      "revId": "26f6f50aae6fa443251100e94c6f71ed68989134",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
