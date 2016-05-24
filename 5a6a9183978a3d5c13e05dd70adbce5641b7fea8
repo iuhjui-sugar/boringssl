@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5cb5f7aa_4b16599e",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3234,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-24T18:12:24Z",
+      "side": 1,
+      "message": "Do we need to define this at all?\n\nI think the only reason we\u0027d want it is if a future OpenSSL defined it, but they\u0027ve also got min_version / max_version APIs now. (Spelled differently, of course, but we can add another name for ours.) May as well wait and see.",
+      "range": {
+        "startLine": 3234,
+        "startChar": 8,
+        "endLine": 3234,
+        "endChar": 25
+      },
+      "revId": "5a6a9183978a3d5c13e05dd70adbce5641b7fea8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5cb5f7aa_6b1b1dc5",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-24T18:12:24Z",
+      "side": 1,
+      "message": "Nit: /* C-style comments */",
+      "revId": "5a6a9183978a3d5c13e05dd70adbce5641b7fea8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
