@@ -34,6 +34,24 @@
       "revId": "26f6f50aae6fa443251100e94c6f71ed68989134",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5cb5f7aa_2b3e8517",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-05-24T18:02:31Z",
+      "side": 1,
+      "message": "Which test code were you thinking? bssl_shim has flags for both.\n\nI\u0027d really rather SSL_OP_NO_* didn\u0027t exist at all, but we\u0027re stuck with it. At some point I think we ought to remove support for non-contiguous ranges and just do a one-time conversion from SSL_OP_NO_* to min_version/max_version somewhere during initialization.",
+      "parentUuid": "5cb5f7aa_ebc2ad48",
+      "revId": "26f6f50aae6fa443251100e94c6f71ed68989134",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
