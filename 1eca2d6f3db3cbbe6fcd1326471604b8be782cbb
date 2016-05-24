@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c24c3f2_0738768a",
+        "filename": "ssl/ssl_aead_ctx.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-24T18:16:22Z",
+      "side": 1,
+      "message": "s/actual nonce/sequence number/?",
+      "revId": "1eca2d6f3db3cbbe6fcd1326471604b8be782cbb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
