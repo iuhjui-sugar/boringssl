@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3c24c3f2_272f7ae5",
+        "filename": "crypto/base64/base64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-24T17:56:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b74a8e40_3220f03b",
+      "revId": "dd955032cba26d6ae2f39d04c703f0aaed044bac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b74a8e40_521d74fa",
         "filename": "crypto/base64/base64.c",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "3c24c3f2_078236dd",
+        "filename": "crypto/base64/base64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-24T17:56:07Z",
+      "side": 1,
+      "message": "Right, there is no good answer here. Good point about |total| overflowing, I\u0027ve added a test for that. I don\u0027t like abort()ing, it seems like a DoS in waiting. However, I\u0027ve changed the behaviour for overflow to now set |*out_len| to zero, rather than truncating the output.",
+      "parentUuid": "b74a8e40_521d74fa",
+      "revId": "dd955032cba26d6ae2f39d04c703f0aaed044bac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b74a8e40_721a7805",
         "filename": "crypto/base64/base64.c",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2016-05-20T20:59:08Z",
       "side": 1,
       "message": "Set *out_len to zero?",
+      "revId": "dd955032cba26d6ae2f39d04c703f0aaed044bac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3c24c3f2_478c2e10",
+        "filename": "crypto/base64/base64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-24T17:56:07Z",
+      "side": 1,
+      "message": "Yep, thanks.",
+      "parentUuid": "b74a8e40_721a7805",
       "revId": "dd955032cba26d6ae2f39d04c703f0aaed044bac",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -76,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "3c24c3f2_a7708af8",
+        "filename": "crypto/base64/base64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-24T17:56:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b74a8e40_92cfdc9b",
+      "range": {
+        "startLine": 221,
+        "startChar": 21,
+        "endLine": 221,
+        "endChar": 45
+      },
+      "revId": "dd955032cba26d6ae2f39d04c703f0aaed044bac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b74a8e40_12e4cc1f",
         "filename": "crypto/base64/base64.c",
         "patchSetId": 1
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "3c24c3f2_e77a82d6",
+        "filename": "crypto/base64/base64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-24T17:56:07Z",
+      "side": 1,
+      "message": "Yep, but at least we can report an error here.",
+      "parentUuid": "b74a8e40_12e4cc1f",
+      "revId": "dd955032cba26d6ae2f39d04c703f0aaed044bac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b74a8e40_520494b2",
         "filename": "crypto/base64/base64_test.cc",
         "patchSetId": 1
@@ -104,6 +200,30 @@
       "writtenOn": "2016-05-20T20:59:08Z",
       "side": 1,
       "message": "out_vec.data()\n\n(It doesn\u0027t explode with empty vectors.)",
+      "range": {
+        "startLine": 129,
+        "startChar": 19,
+        "endLine": 129,
+        "endChar": 30
+      },
+      "revId": "dd955032cba26d6ae2f39d04c703f0aaed044bac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3c24c3f2_27649a35",
+        "filename": "crypto/base64/base64_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-24T17:56:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b74a8e40_520494b2",
       "range": {
         "startLine": 129,
         "startChar": 19,
@@ -139,6 +259,30 @@
     },
     {
       "key": {
+        "uuid": "3c24c3f2_0769960d",
+        "filename": "crypto/base64/base64_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-24T17:56:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b74a8e40_720198a1",
+      "range": {
+        "startLine": 158,
+        "startChar": 19,
+        "endLine": 158,
+        "endChar": 30
+      },
+      "revId": "dd955032cba26d6ae2f39d04c703f0aaed044bac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b74a8e40_92051cb7",
         "filename": "crypto/base64/base64_test.cc",
         "patchSetId": 1
@@ -156,6 +300,24 @@
     },
     {
       "key": {
+        "uuid": "3c24c3f2_87546648",
+        "filename": "crypto/base64/base64_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-24T17:56:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b74a8e40_92051cb7",
+      "revId": "dd955032cba26d6ae2f39d04c703f0aaed044bac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b74a8e40_32f710e4",
         "filename": "crypto/base64/base64_test.cc",
         "patchSetId": 1
@@ -167,6 +329,30 @@
       "writtenOn": "2016-05-20T20:59:08Z",
       "side": 1,
       "message": "out_vec.data()",
+      "range": {
+        "startLine": 213,
+        "startChar": 19,
+        "endLine": 213,
+        "endChar": 30
+      },
+      "revId": "dd955032cba26d6ae2f39d04c703f0aaed044bac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3c24c3f2_c74e5eb4",
+        "filename": "crypto/base64/base64_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-24T17:56:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b74a8e40_32f710e4",
       "range": {
         "startLine": 213,
         "startChar": 19,
@@ -202,6 +388,30 @@
     },
     {
       "key": {
+        "uuid": "3c24c3f2_27c3fa1b",
+        "filename": "crypto/base64/base64_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-24T17:56:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b74a8e40_12fa0ccb",
+      "range": {
+        "startLine": 259,
+        "startChar": 20,
+        "endLine": 259,
+        "endChar": 32
+      },
+      "revId": "dd955032cba26d6ae2f39d04c703f0aaed044bac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b74a8e40_f214a8e5",
         "filename": "crypto/base64/base64_test.cc",
         "patchSetId": 1
@@ -213,6 +423,24 @@
       "writtenOn": "2016-05-20T20:59:08Z",
       "side": 1,
       "message": "Nit: clang-format",
+      "revId": "dd955032cba26d6ae2f39d04c703f0aaed044bac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3c24c3f2_67cdf244",
+        "filename": "crypto/base64/base64_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-24T17:56:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b74a8e40_f214a8e5",
       "revId": "dd955032cba26d6ae2f39d04c703f0aaed044bac",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -242,6 +470,30 @@
     },
     {
       "key": {
+        "uuid": "3c24c3f2_47d26ee6",
+        "filename": "crypto/base64/base64_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-24T17:56:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b74a8e40_922efc32",
+      "range": {
+        "startLine": 280,
+        "startChar": 19,
+        "endLine": 280,
+        "endChar": 30
+      },
+      "revId": "dd955032cba26d6ae2f39d04c703f0aaed044bac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b74a8e40_f2de684a",
         "filename": "crypto/base64/base64_test.cc",
         "patchSetId": 1
@@ -259,6 +511,24 @@
     },
     {
       "key": {
+        "uuid": "3c24c3f2_0796b603",
+        "filename": "crypto/base64/base64_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-24T17:56:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b74a8e40_f2de684a",
+      "revId": "dd955032cba26d6ae2f39d04c703f0aaed044bac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b74a8e40_f242e801",
         "filename": "fuzz/read_pem.cc",
         "patchSetId": 1
@@ -270,6 +540,30 @@
       "writtenOn": "2016-05-20T20:59:08Z",
       "side": 1,
       "message": "Nit: #include \u003copenssl/mem.h\u003e",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 16
+      },
+      "revId": "dd955032cba26d6ae2f39d04c703f0aaed044bac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3c24c3f2_a7840ac7",
+        "filename": "fuzz/read_pem.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-24T17:56:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b74a8e40_f242e801",
       "range": {
         "startLine": 27,
         "startChar": 4,
