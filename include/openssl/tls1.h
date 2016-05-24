@@ -201,6 +201,9 @@ extern "C" {
 
 /* ExtensionType values from RFC4492 */
 #define TLSEXT_TYPE_ec_point_formats 11
+// TODO(estark): Remove this once callers are migrated to use
+// TLSEXT_TYPE_supported_groups instead.
+#define TLSEXT_TYPE_elliptic_curves TLSEXT_TYPE_supported_groups
 
 /* ExtensionType value from RFC5054 */
 #define TLSEXT_TYPE_srp 12
