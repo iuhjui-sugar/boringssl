@@ -1231,6 +1231,12 @@ int ssl3_send_server_key_exchange(SSL *ssl) {
           !SSL_ECDH_CTX_offer(&ssl->s3->tmp.ecdh_ctx, &child)) {
         goto err;
       }
+    } else if (alg_k & SSL_kCECPQ1) {
+      if (!SSL_ECDH_CTX_init(&ssl->s3->tmp.ecdh_ctx, SSL_GROUP_CECPQ1) ||
+          !SSL_ECDH_CTX_add_key(&ssl->s3->tmp.ecdh_ctx, &cbb, &child) ||
+          !SSL_ECDH_CTX_offer(&ssl->s3->tmp.ecdh_ctx, &child)) {
+        goto err;
+      }
     } else {
       assert(alg_k & SSL_kPSK);
     }
@@ -1590,7 +1596,7 @@ int ssl3_get_client_key_exchange(SSL *ssl) {
 
     OPENSSL_free(decrypt_buf);
     decrypt_buf = NULL;
-  } else if (alg_k & (SSL_kECDHE|SSL_kDHE)) {
+  } else if (alg_k & (SSL_kECDHE|SSL_kDHE|SSL_kCECPQ1)) {
     /* Parse the ClientKeyExchange. */
     CBS peer_key;
     if (!SSL_ECDH_CTX_get_key(&ssl->s3->tmp.ecdh_ctx, &client_key_exchange,
