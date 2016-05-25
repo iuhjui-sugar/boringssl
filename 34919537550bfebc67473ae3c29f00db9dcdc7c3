@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c037f92_8c8babf8",
+        "filename": "ssl/ssl_aead_ctx.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-25T17:52:50Z",
+      "side": 1,
+      "message": "nit: \"*\"s on continuation lines. (I\u0027ve fixed this up, nothing for you to do here.)",
+      "revId": "34919537550bfebc67473ae3c29f00db9dcdc7c3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
