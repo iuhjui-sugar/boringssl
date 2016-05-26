@@ -178,6 +178,8 @@ OPENSSL_EXPORT int EVP_PKEY_CTX_ctrl(EVP_PKEY_CTX *ctx, int keytype, int optype,
 #define EVP_PKEY_CTRL_RSA_OAEP_LABEL (EVP_PKEY_ALG_CTRL + 11)
 #define EVP_PKEY_CTRL_GET_RSA_OAEP_LABEL (EVP_PKEY_ALG_CTRL + 12)
 
+#define EVP_PKEY_CTRL_ECDSA_SIG_FORMAT (EVP_PKEY_ALG_CTRL + 13)
+
 struct evp_pkey_ctx_st {
   /* Method associated with this operation */
   const EVP_PKEY_METHOD *pmeth;

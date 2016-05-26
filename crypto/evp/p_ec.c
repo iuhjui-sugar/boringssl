@@ -75,6 +75,8 @@
 typedef struct {
   /* message digest */
   const EVP_MD *md;
+  /* signature format */
+  int sig_format;
 } EC_PKEY_CTX;
 
 
@@ -85,6 +87,7 @@ static int pkey_ec_init(EVP_PKEY_CTX *ctx) {
     return 0;
   }
   memset(dctx, 0, sizeof(EC_PKEY_CTX));
+  dctx->sig_format = ecdsa_signature_format_asn1;
 
   ctx->data = dctx;
 
@@ -100,6 +103,7 @@ static int pkey_ec_copy(EVP_PKEY_CTX *dst, EVP_PKEY_CTX *src) {
   dctx = dst->data;
 
   dctx->md = sctx->md;
+  dctx->sig_format = sctx->sig_format;
 
   return 1;
 }
@@ -113,29 +117,89 @@ static void pkey_ec_cleanup(EVP_PKEY_CTX *ctx) {
   OPENSSL_free(dctx);
 }
 
-static int pkey_ec_sign(EVP_PKEY_CTX *ctx, uint8_t *sig, size_t *siglen,
-                        const uint8_t *tbs, size_t tbslen) {
-  unsigned int sltmp;
-  EC_KEY *ec = ctx->pkey->pkey.ec;
-
-  if (!sig) {
-    *siglen = ECDSA_size(ec);
+static int ECDSA_SIG_to_raw(ECDSA_SIG *ec_sig, EC_KEY *ec, uint8_t *sig,
+                            size_t *siglen) {
+  const EC_GROUP *group = EC_KEY_get0_group(ec);
+  const BIGNUM *order = EC_GROUP_get0_order(group);
+  size_t len = BN_num_bytes(order);
+  if (sig == NULL) {
+    *siglen = 2 * len;
     return 1;
-  } else if (*siglen < (size_t)ECDSA_size(ec)) {
+  } else if (*siglen < 2 * len) {
     OPENSSL_PUT_ERROR(EVP, EVP_R_BUFFER_TOO_SMALL);
     return 0;
   }
-
-  if (!ECDSA_sign(0, tbs, tbslen, sig, &sltmp, ec)) {
+  if (!BN_bn2bin_padded(sig, len, ec_sig->r) ||
+      !BN_bn2bin_padded(sig + len, len, ec_sig->s)) {
     return 0;
   }
-  *siglen = (size_t)sltmp;
   return 1;
+}
+
+static int pkey_ec_sign(EVP_PKEY_CTX *ctx, uint8_t *sig, size_t *siglen,
+                        const uint8_t *tbs, size_t tbslen) {
+  unsigned int sltmp;
+  EC_PKEY_CTX *dctx = ctx->data;
+  EC_KEY *ec = ctx->pkey->pkey.ec;
+  ECDSA_SIG *raw_sig;
+
+
+  switch (dctx->sig_format) {
+    case ecdsa_signature_format_asn1:
+      if (!sig) {
+        *siglen = ECDSA_size(ec);
+        return 1;
+      } else if (*siglen < (size_t)ECDSA_size(ec)) {
+        OPENSSL_PUT_ERROR(EVP, EVP_R_BUFFER_TOO_SMALL);
+        return 0;
+      }
+      if (!ECDSA_sign(0, tbs, tbslen, sig, &sltmp, ec)) {
+        return 0;
+      }
+      *siglen = (size_t)sltmp;
+      return 1;
+    case ecdsa_signature_format_raw:
+      raw_sig = ECDSA_do_sign(tbs, tbslen, ec);
+      if (raw_sig == NULL) {
+        return 0;
+      }
+      int ret = ECDSA_SIG_to_raw(raw_sig, ec, sig, siglen);
+      ECDSA_SIG_free(raw_sig);
+      return ret;
+    default:
+      return 0;
+  }
+}
+
+static int pkey_ec_verify_raw(EVP_PKEY_CTX *ctx, const uint8_t *sig,
+                              size_t siglen, const uint8_t *tbs,
+                              size_t tbslen) {
+  int ret = 0;
+  EC_KEY *ec = ctx->pkey->pkey.ec;
+  ECDSA_SIG *raw_sig = ECDSA_SIG_new();
+  const EC_GROUP *group = EC_KEY_get0_group(ec);
+  const BIGNUM *order = EC_GROUP_get0_order(group);
+  size_t group_size = BN_num_bytes(order);
+  if (siglen >= group_size * 2 &&
+      BN_bin2bn(sig, group_size, raw_sig->r) != NULL &&
+      BN_bin2bn(sig + group_size, group_size, raw_sig->s) != NULL) {
+    ret = ECDSA_do_verify(tbs, tbslen, raw_sig, ec);
+  }
+  ECDSA_SIG_free(raw_sig);
+  return ret;
 }
 
 static int pkey_ec_verify(EVP_PKEY_CTX *ctx, const uint8_t *sig, size_t siglen,
                           const uint8_t *tbs, size_t tbslen) {
-  return ECDSA_verify(0, tbs, tbslen, sig, siglen, ctx->pkey->pkey.ec);
+  EC_PKEY_CTX *dctx = ctx->data;
+  switch (dctx->sig_format) {
+    case ecdsa_signature_format_asn1:
+      return ECDSA_verify(0, tbs, tbslen, sig, siglen, ctx->pkey->pkey.ec);
+    case ecdsa_signature_format_raw:
+      return pkey_ec_verify_raw(ctx, sig, siglen, tbs, tbslen);
+    default:
+      return 0;
+  }
 }
 
 static int pkey_ec_derive(EVP_PKEY_CTX *ctx, uint8_t *key,
@@ -198,6 +262,10 @@ static int pkey_ec_ctrl(EVP_PKEY_CTX *ctx, int type, int p1, void *p2) {
       /* Default behaviour is OK */
       return 1;
 
+    case EVP_PKEY_CTRL_ECDSA_SIG_FORMAT:
+      dctx->sig_format = p1;
+      return 1;
+
     default:
       OPENSSL_PUT_ERROR(EVP, EVP_R_COMMAND_NOT_SUPPORTED);
       return 0;
@@ -234,3 +302,9 @@ const EVP_PKEY_METHOD ec_pkey_meth = {
     pkey_ec_derive,
     pkey_ec_ctrl,
 };
+
+int EVP_PKEY_CTX_set_ecdsa_sig_format(EVP_PKEY_CTX *ctx,
+                                      enum ecdsa_sig_format_t sig_format) {
+  return EVP_PKEY_CTX_ctrl(ctx, EVP_PKEY_EC, EVP_PKEY_OP_TYPE_SIG,
+                           EVP_PKEY_CTRL_ECDSA_SIG_FORMAT, sig_format, NULL);
+}

@@ -640,6 +640,21 @@ OPENSSL_EXPORT int EVP_PKEY_CTX_set0_rsa_oaep_label(EVP_PKEY_CTX *ctx,
 OPENSSL_EXPORT int EVP_PKEY_CTX_get0_rsa_oaep_label(EVP_PKEY_CTX *ctx,
                                                     const uint8_t **out_label);
 
+/* ECDSA specific control functions. */
+
+/* ECDSA signature formats. */
+enum ecdsa_sig_format_t {
+  ecdsa_signature_format_asn1,
+  ecdsa_signature_format_raw,
+};
+
+/* EVP_PKEY_CTX_set_ecdsa_sig_format sets the format to use for ECDSA
+ * signatures: DER-encoded ASN.1 ECDSA-Sig-Value objects or raw integers R and S
+ * (with leading zeroes as appropriate). Returns one on success or zero on
+ * error. */
+OPENSSL_EXPORT int EVP_PKEY_CTX_set_ecdsa_sig_format(
+    EVP_PKEY_CTX *ctx, enum ecdsa_sig_format_t sig_format);
+
 
 /* Deprecated functions. */
 
