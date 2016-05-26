@@ -354,6 +354,11 @@ int EVP_PKEY_CTX_get_signature_md(EVP_PKEY_CTX *ctx, const EVP_MD **out_md) {
                            0, (void *)out_md);
 }
 
+int EVP_PKEY_CTX_set_ecdsa_sig_format(EVP_PKEY_CTX *ctx, int sig_format) {
+  return EVP_PKEY_CTX_ctrl(ctx, EVP_PKEY_EC, EVP_PKEY_OP_TYPE_SIG,
+                           EVP_PKEY_CTRL_ECDSA_SIG_FORMAT, sig_format, NULL);
+}
+
 void OpenSSL_add_all_algorithms(void) {}
 
 void OpenSSL_add_all_ciphers(void) {}
