@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1c037f92_63cf5593",
+        "filename": "include/openssl/tls1.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-05-26T18:19:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c037f92_8347f111",
+      "revId": "e21aaa03685f7843743e4826f7a008c2a5a05717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c037f92_836ed181",
         "filename": "ssl/s3_clnt.c",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2016-05-26T17:23:50Z",
       "side": 1,
       "message": "The reasoning in this comment isn\u0027t actually true, right? If something has a u16 length prefix then it could be 0xff 0xff \u003c64K of data\u003e and thus have a length of 2^16 + 1, which doesn\u0027t fit in a u16. None the less, in practice the CECPQ1 key obviously will fit in a u16 though.",
+      "revId": "e21aaa03685f7843743e4826f7a008c2a5a05717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c037f92_e3a9059f",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1193,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-05-26T18:19:14Z",
+      "side": 1,
+      "message": "I must be missing something.  How does 0xffff (2^16-1) \u003d\u003d 64K (2^16) \u003d\u003d 2^16+1?  AIUI the bytes on the wire represent the length that CBS_stow deposits in the straightforward way, i.e. the largest 2-byte length prefix is 0xffff \u003d\u003d length of 65535.",
+      "parentUuid": "1c037f92_836ed181",
       "revId": "e21aaa03685f7843743e4826f7a008c2a5a05717",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "1c037f92_26d4cbfb",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-05-26T18:19:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c037f92_c30a89c5",
+      "revId": "e21aaa03685f7843743e4826f7a008c2a5a05717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c037f92_83f5b1d9",
         "filename": "ssl/ssl_cipher.c",
         "patchSetId": 2
@@ -64,6 +118,24 @@
       "writtenOn": "2016-05-26T17:23:50Z",
       "side": 1,
       "message": "Probably best to use SHA-384 with AES_256_GCM in order to match the pairing in all the other cipher suites.",
+      "revId": "e21aaa03685f7843743e4826f7a008c2a5a05717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c037f92_26072b11",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-05-26T18:19:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c037f92_83f5b1d9",
       "revId": "e21aaa03685f7843743e4826f7a008c2a5a05717",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "1c037f92_06fb0f23",
+        "filename": "ssl/test/runner/cipher_suites.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-05-26T18:19:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c037f92_0328a121",
+      "revId": "e21aaa03685f7843743e4826f7a008c2a5a05717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c037f92_c321693d",
         "filename": "ssl/test/runner/cipher_suites.go",
         "patchSetId": 2
@@ -98,6 +188,24 @@
       "writtenOn": "2016-05-26T17:23:50Z",
       "side": 1,
       "message": "The magic values would need to be tweaked here too.",
+      "revId": "e21aaa03685f7843743e4826f7a008c2a5a05717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c037f92_e6ffd30a",
+        "filename": "ssl/test/runner/cipher_suites.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-05-26T18:19:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c037f92_c321693d",
       "revId": "e21aaa03685f7843743e4826f7a008c2a5a05717",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "1c037f92_c604d709",
+        "filename": "ssl/test/runner/key_agreement.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-05-26T18:19:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c037f92_a3266d51",
+      "revId": "e21aaa03685f7843743e4826f7a008c2a5a05717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c037f92_e3db4563",
         "filename": "ssl/test/runner/key_agreement.go",
         "patchSetId": 2
@@ -132,6 +258,24 @@
       "writtenOn": "2016-05-26T17:23:50Z",
       "side": 1,
       "message": "You need to check that skx.key is long enough before trying to slice up to 2+peerKeyLen.",
+      "revId": "e21aaa03685f7843743e4826f7a008c2a5a05717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c037f92_a609db21",
+        "filename": "ssl/test/runner/key_agreement.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-05-26T18:19:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c037f92_e3db4563",
       "revId": "e21aaa03685f7843743e4826f7a008c2a5a05717",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
