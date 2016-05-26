@@ -90,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "1c037f92_c18ba1f7",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1193,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-05-26T19:33:54Z",
+      "side": 1,
+      "message": "OK, I\u0027ve tried to spell it out.  I thought it would make things even clearer to call the explicit-length CBS/CBB functions, where that is possible, which brings the code back even closer to what it was before e25775bc.\n\nThis leaves only one caller each for SSL_ECDH_CTX_add_key/SSL_ECDH_CTX_get_key.",
+      "parentUuid": "1c037f92_06ed4f32",
+      "revId": "e21aaa03685f7843743e4826f7a008c2a5a05717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c037f92_c30a89c5",
         "filename": "ssl/ssl_cipher.c",
         "patchSetId": 2
