@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c037f92_8347f111",
+        "filename": "include/openssl/tls1.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-26T17:23:50Z",
+      "side": 1,
+      "message": "The private-use values aren\u0027t suitable on the public internet. Instead, let\u0027s number them from:\n\n\u003e\u003e\u003e hex(struct.unpack(\u0027\u003cH\u0027, os.urandom(2))[0])\n\u00270x16b7\u0027",
+      "revId": "e21aaa03685f7843743e4826f7a008c2a5a05717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c037f92_836ed181",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1193,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-26T17:23:50Z",
+      "side": 1,
+      "message": "The reasoning in this comment isn\u0027t actually true, right? If something has a u16 length prefix then it could be 0xff 0xff \u003c64K of data\u003e and thus have a length of 2^16 + 1, which doesn\u0027t fit in a u16. None the less, in practice the CECPQ1 key obviously will fit in a u16 though.",
+      "revId": "e21aaa03685f7843743e4826f7a008c2a5a05717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c037f92_c30a89c5",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-26T17:23:50Z",
+      "side": 1,
+      "message": "These comments would need to change with the renumbering too.",
+      "revId": "e21aaa03685f7843743e4826f7a008c2a5a05717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c037f92_83f5b1d9",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-26T17:23:50Z",
+      "side": 1,
+      "message": "Probably best to use SHA-384 with AES_256_GCM in order to match the pairing in all the other cipher suites.",
+      "revId": "e21aaa03685f7843743e4826f7a008c2a5a05717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c037f92_0328a121",
+        "filename": "ssl/test/runner/cipher_suites.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-26T17:23:50Z",
+      "side": 1,
+      "message": "This will need to be tweaked as well to move AES-256-GCM to SHA-384.",
+      "revId": "e21aaa03685f7843743e4826f7a008c2a5a05717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c037f92_c321693d",
+        "filename": "ssl/test/runner/cipher_suites.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-26T17:23:50Z",
+      "side": 1,
+      "message": "The magic values would need to be tweaked here too.",
+      "revId": "e21aaa03685f7843743e4826f7a008c2a5a05717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c037f92_a3266d51",
+        "filename": "ssl/test/runner/key_agreement.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-26T17:23:50Z",
+      "side": 1,
+      "message": "nit: drop space before \u0027.\u0027",
+      "revId": "e21aaa03685f7843743e4826f7a008c2a5a05717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c037f92_e3db4563",
+        "filename": "ssl/test/runner/key_agreement.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-26T17:23:50Z",
+      "side": 1,
+      "message": "You need to check that skx.key is long enough before trying to slice up to 2+peerKeyLen.",
+      "revId": "e21aaa03685f7843743e4826f7a008c2a5a05717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
