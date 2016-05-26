@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "1c037f92_06ed4f32",
+        "filename": "ssl/s3_clnt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1193,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-26T18:36:29Z",
+      "side": 1,
+      "message": "|key| might have a u16 length prefix, but the length prefix itself takes up two bytes, so the overall length could be 2^16+1.\n\nThere\u0027s nothing actually wrong here, but the comment doesn\u0027t make sense because |key| doesn\u0027t actually have a length prefix. I\u0027d say something like:\n\n/* |key| was parsed from a structure that had, at most, a u16 length-prefix. Thus |key|\u0027s length must fit in a uint16_t. */",
+      "parentUuid": "1c037f92_e3a9059f",
+      "revId": "e21aaa03685f7843743e4826f7a008c2a5a05717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c037f92_c30a89c5",
         "filename": "ssl/ssl_cipher.c",
         "patchSetId": 2
