@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1998f132_2449b67f",
+        "filename": "crypto/newhope/newhope.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-05-31T21:38:04Z",
+      "side": 1,
+      "message": "Done.  (I thought the diff might be easier to read as I had it.)",
+      "parentUuid": "1998f132_04c4ba54",
+      "revId": "861661651acfec01a0ec5b7b988b2ae009a89cfa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1998f132_84dd2a29",
         "filename": "include/openssl/newhope.h",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "1998f132_64349ee9",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-05-31T21:38:04Z",
+      "side": 1,
+      "message": "No, it doesn\u0027t.  Good point.",
+      "parentUuid": "1998f132_84dd2a29",
+      "revId": "861661651acfec01a0ec5b7b988b2ae009a89cfa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1998f132_24ad3690",
         "filename": "include/openssl/newhope.h",
         "patchSetId": 2
@@ -47,6 +83,24 @@
       "writtenOn": "2016-05-31T21:03:08Z",
       "side": 1,
       "message": "should be two blank lines here.",
+      "revId": "861661651acfec01a0ec5b7b988b2ae009a89cfa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1998f132_4443a258",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-05-31T21:38:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1998f132_24ad3690",
       "revId": "861661651acfec01a0ec5b7b988b2ae009a89cfa",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
