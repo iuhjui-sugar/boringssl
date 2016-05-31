@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1998f132_04c4ba54",
+        "filename": "crypto/newhope/newhope.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-31T21:03:08Z",
+      "side": 1,
+      "message": "I think these two _computation functions should come after |NEWHOPE_finish|.",
+      "revId": "861661651acfec01a0ec5b7b988b2ae009a89cfa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1998f132_84dd2a29",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-31T21:03:08Z",
+      "side": 1,
+      "message": "Does this actually need to be exported?",
+      "revId": "861661651acfec01a0ec5b7b988b2ae009a89cfa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1998f132_24ad3690",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-05-31T21:03:08Z",
+      "side": 1,
+      "message": "should be two blank lines here.",
+      "revId": "861661651acfec01a0ec5b7b988b2ae009a89cfa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
