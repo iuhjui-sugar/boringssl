@@ -33,6 +33,9 @@ add_library(
   t1_enc.c
   t1_lib.c
   tls_record.c
+  tls13_both.c
+  tls13_client.c
+  tls13_server.c
 
   $<TARGET_OBJECTS:pqueue>
 )
