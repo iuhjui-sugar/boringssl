@@ -1056,6 +1056,22 @@ struct ssl_handshake_st {
   int handshake_interrupt;
   SSL_HS_MESSAGE *in_message;
   SSL_HS_MESSAGE *out_message;
+  SSL_ECDH_CTX *groups;
+  uint8_t *public_key;
+  size_t public_key_len;
+  uint8_t *premaster_secret;
+  size_t premaster_secret_len;
+  const SSL_CIPHER *cipher;
+  uint8_t *cert_context;
+  size_t cert_context_len;
+  uint8_t *hs_context;
+  unsigned hs_context_len;
+
+  size_t key_len;
+  uint8_t *xSS;
+  uint8_t *xES;
+  uint8_t *master_secret;
+  uint8_t *traffic_secret;
 } /* SSL_HANDSHAKE */;
 
 enum ssl_session_result_t {
@@ -1418,5 +1434,30 @@ int tls13_server_handshake(SSL *ssl, SSL_HANDSHAKE *hs);
  * received after the initial handshake has completed. |msg| represents the
  * complete received message. It returns 1 on success and 0 on failure. */
 int tls13_server_post_handshake(SSL *ssl, SSL_HS_MESSAGE msg);
+
+typedef enum tls13_record_type_t {
+  tls13_type_handshake,
+  tls13_type_data,
+  tls13_type_early_handshake,
+  tls13_type_early_data,
+} TLS13_RECORD_TYPE;
+
+int tls13_post_handshake_read(SSL *ssl, uint8_t *buf, uint16_t len);
+
+int tls13_update_traffic_keys(SSL *ssl, TLS13_RECORD_TYPE key_type,
+                              uint8_t *secret, size_t secret_len,
+                              uint8_t *hash, size_t hash_len);
+int tls13_calculate_handshake_secret(SSL *ssl);
+int tls13_update_master_secret(SSL *ssl);
+int tls13_verify_finished(SSL *ssl, uint8_t *out, size_t *out_len,
+                          char is_server);
+
+int tls13_receive_certificate(SSL *ssl, SSL_HS_MESSAGE msg);
+int tls13_send_certificate(SSL *ssl, SSL_HS_MESSAGE *msg);
+int tls13_receive_certificate_verify(SSL *ssl, SSL_HS_MESSAGE msg);
+int tls13_send_certificate_verify(SSL *ssl, SSL_HS_MESSAGE *msg);
+int tls13_receive_finished(SSL *ssl, SSL_HS_MESSAGE msg);
+int tls13_send_finished(SSL *ssl, SSL_HS_MESSAGE *msg);
+int tls13_finalize(SSL *ssl);
 
 #endif /* OPENSSL_HEADER_SSL_INTERNAL_H */
