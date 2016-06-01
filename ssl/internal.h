@@ -938,6 +938,53 @@ void ssl_cert_clear_certs(CERT *c);
 void ssl_cert_free(CERT *c);
 int ssl_get_new_session(SSL *ssl, int is_server);
 
+/* SSL_HS_MESSAGE contains information about messages sent and received as part
+ * of the SSL handshake. */
+struct ssl_hs_message_st {
+  uint8_t type;
+  uint8_t *data;
+  size_t length;
+
+  uint8_t *raw;
+  size_t offset;
+} /* SSL_HS_MESSAGE */;
+
+typedef enum ssl_handshake_state_t {
+  HS_STATE_CLIENT_HELLO = 1,
+  HS_STATE_CLIENT_ENCRYPTED_EXTENSIONS,
+  HS_STATE_HELLO_RETRY_REQUEST,
+  HS_STATE_SERVER_HELLO,
+  HS_STATE_SERVER_ENCRYPTED_EXTENSIONS,
+  HS_STATE_SERVER_CERTIFICATE_REQUEST,
+  HS_STATE_SERVER_CERTIFICATE,
+  HS_STATE_SERVER_CERTIFICATE_VERIFY,
+  HS_STATE_SERVER_FINISHED,
+  HS_STATE_CLIENT_CERTIFICATE,
+  HS_STATE_CLIENT_CERTIFICATE_VERIFY,
+  HS_STATE_CLIENT_FINISHED,
+  HS_STATE_FINISH,
+  HS_STATE_DONE,
+  /* Post Handshake Messages */
+  HS_STATE_SESSION_TICKET,
+  HS_STATE_KEY_UPDATE,
+} SSL_HANDSHAKE_STATE;
+
+#define HS_NEED_NONE  0x0
+#define HS_NEED_DONE  0x1
+#define HS_NEED_WRITE 0x2
+#define HS_NEED_READ  0x4
+#define HS_NEED_CB    0x8
+#define HS_NEED_FLUSH 0x10
+#define HS_NEED_ERROR 0x100
+#define HS_NEED_WRITE_FLIGHT (HS_NEED_WRITE | HS_NEED_FLUSH)
+
+struct ssl_handshake_st {
+  SSL_HANDSHAKE_STATE handshake_state;
+  int handshake_interrupt;
+  SSL_HS_MESSAGE *in_message;
+  SSL_HS_MESSAGE *out_message;
+} /* SSL_HANDSHAKE */;
+
 enum ssl_session_result_t {
   ssl_session_success,
   ssl_session_error,
@@ -1220,5 +1267,54 @@ size_t tls12_get_psigalgs(SSL *ssl, const uint16_t **psigs);
 int tls12_check_peer_sigalg(SSL *ssl, const EVP_MD **out_md, int *out_alert,
                             uint16_t signature_algorithm, EVP_PKEY *pkey);
 void ssl_set_client_disabled(SSL *ssl);
+
+/* assemble_handshake_messsage sets |out| to be the wire encoding of a
+ * handshake message of type |type| containing a body |data| of length
+ * |length|. It returns 1 on success and 0 on failure. */
+int assemble_handshake_message(SSL_HS_MESSAGE *out, uint8_t type, uint8_t *data,
+                               size_t length);
+
+/* tls13_handshake_read consumes records to populate |msg| with the next
+ * handshake message received over the wire. It returns -1 on failure,
+ * 0 if it is waiting for additional records, and 1 on success. */
+int tls13_handshake_read(SSL *ssl, SSL_HS_MESSAGE *msg);
+
+/* tls13_handshake_write sends the handshake message |msg| over the wire to the
+ * peer. It returns -1 on failure, 0 if there is a pending write, and 1 on
+ * success. */
+int tls13_handshake_write(SSL *ssl, SSL_HS_MESSAGE *msg);
+
+/* tls13_handshake is a wrapper the performs part of the TLS 1.3 handshake by
+ * reading/writing handshake messages and then driving the
+ * |tls13_client_handshake| or |tls13_server_handshake| gadgets with the
+ * messages. It sets ssl->rwstate to the reading/writing state and returns the
+ * result of the handshake gadget. */
+int tls13_handshake(SSL *ssl);
+
+/* tls13_client_handshake is a gadget that reads or writes a single handshake
+ * message at a time, before returning to the handshake loop. On success, it
+ * returns 1 and updates the |hs->handshake_interrupt| to indicate whether it is
+ * waiting for an incoming handshake message, it has an outgoing message
+ * (|hs->out_message|) to be written, the write buffer needs to be flushed, or
+ * if there is an error. Otherwise, it returns 0. */
+int tls13_client_handshake(SSL *ssl, SSL_HANDSHAKE *hs);
+
+/* tls13_client_post_handshake is called whenever a new handshake message is
+ * received after the initial handshake has completed. |msg| represents the
+ * complete received message. It returns 1 on success and 0 on failure. */
+int tls13_client_post_handshake(SSL *ssl, SSL_HS_MESSAGE msg);
+
+/* tls13_server_handshake is a gadget that reads or writes a single handshake
+ * message at a time, before returning to the handshake loop. On success, it
+ * returns 1 and updates the |hs->handshake_interrupt| to indicate whether it is
+ * waiting for an incoming handshake message, it has an outgoing message
+ * (|hs->out_message|) to be written, the write buffer needs to be flushed, or
+ * if there is an error. Otherwise, it returns 0. */
+int tls13_server_handshake(SSL *ssl, SSL_HANDSHAKE *hs);
+
+/* tls13_server_post_handshake is called whenever a new handshake message is
+ * received after the initial handshake has completed. |msg| represents the
+ * complete received message. It returns 1 on success and 0 on failure. */
+int tls13_server_post_handshake(SSL *ssl, SSL_HS_MESSAGE msg);
 
 #endif /* OPENSSL_HEADER_SSL_INTERNAL_H */
