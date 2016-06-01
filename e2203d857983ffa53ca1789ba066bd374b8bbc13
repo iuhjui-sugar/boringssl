@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19447187_1e6a6d01",
+        "filename": "include/openssl/ssl3.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-01T15:57:56Z",
+      "side": 1,
+      "message": "Sadly, it looks like cURL is kind enough to consume the old name. :-(",
+      "revId": "e2203d857983ffa53ca1789ba066bd374b8bbc13",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
