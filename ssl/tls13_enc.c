@@ -148,6 +148,31 @@ static int set_traffic_key(SSL *ssl, enum tls_record_type_t type,
     return 0;
   }
 
+  size_t i;
+  printf("SECRET (%zu): ", secret_len);
+  for (i = 0; i < secret_len; i++) {
+    printf("%02x", secret[i]);
+  }
+  printf("\n");
+  if (direction == evp_aead_open) {
+    printf("R_K: ");
+  } else {
+    printf("W_K: ");
+  }
+  for (i = 0; i < key_len; i++) {
+    printf("%02x", key[i]);
+  }
+  printf("\n");
+  if (direction == evp_aead_open) {
+    printf("R_I: ");
+  } else {
+    printf("W_I: ");
+  }
+  for (i = 0; i < iv_len; i++) {
+    printf("%02x", iv[i]);
+  }
+  printf("\n");
+
   if (direction == evp_aead_open) {
     ssl_set_read_state(ssl, traffic_aead);
   } else {
@@ -301,4 +326,117 @@ int tls13_export_keying_material(SSL *ssl, uint8_t *out, size_t out_len,
   return hkdf_expand_label(out, digest,
                            ssl->s3->exporter_secret, ssl->s3->exporter_secret_len,
                            (const uint8_t *)label, label_len, hash, hash_len, out_len);
+}
+
+const uint8_t kTLS13LabelClientFinished[24] = "TLS 1.3, client finished";
+const uint8_t kTLS13LabelServerFinished[24] = "TLS 1.3, server finished";
+const uint8_t kTLS13LabelTraffic[23] = "TLS 1.3, traffic secret";
+
+int tls13_verify_finished(SSL *ssl, uint8_t *out, size_t *out_len,
+                          char is_server) {
+  SSL_HANDSHAKE *hs = ssl->s3->hs;
+  const EVP_MD *digest = ssl_get_handshake_digest(ssl_get_algorithm_prf(ssl));
+
+  uint8_t *key = OPENSSL_malloc(EVP_MAX_MD_SIZE);
+  size_t key_len = EVP_MD_size(digest);
+
+  if (key == NULL) {
+    return 0;
+  }
+
+  const uint8_t *label;
+  if (is_server) {
+    label = (uint8_t *)"server finished";
+  } else {
+    label = (uint8_t *)"client finished";
+  }
+  size_t label_len = 15;
+
+  if (!hkdf_expand_label(key, digest, hs->handshake_secret, hs->key_len,
+                         label, label_len, NULL, 0, hs->key_len)) {
+    return 0;
+  }
+
+  unsigned len;
+  if (HMAC(digest, key, key_len, hs->hs_context, hs->hs_context_len,
+           out, &len) == NULL) {
+    return 0;
+  }
+  *out_len = len;
+
+  size_t i;
+  printf("HASH: ");
+  for (i = 0; i < hs->hs_context_len; i++) {
+    printf("%02x", hs->hs_context[i]);
+  }
+  printf("\n");
+
+  printf("BKEY: ");
+  for (i = 0; i < hs->key_len; i++) {
+    printf("%02x", hs->handshake_secret[i]);
+  }
+  printf("\n");
+
+  printf("FINISHED: ");
+  for (i = 0; i < *out_len; i++) {
+    printf("%02x", out[i]);
+  }
+  printf("\n");
+
+  OPENSSL_free(key);
+  return 1;
+}
+
+int tls13_cert_verify_digest(SSL *ssl, uint8_t *digest, size_t *digest_len, char server,
+                             const EVP_MD *md) {
+  int ret = 0;
+  EVP_MD_CTX mctx;
+  CBB hashed_data;
+
+  if (!CBB_init(&hashed_data, 98 + ssl->s3->hs->hs_context_len)) {
+    goto err;
+  }
+
+  size_t pad;
+  for (pad = 0; pad < 64; pad++) {
+    if (!CBB_add_u8(&hashed_data, 0x20)) {
+      goto err;
+    }
+  }
+
+  if (server) {
+    const uint8_t kContext[] = "TLS 1.3, server CertificateVerify";
+
+    if (!CBB_add_bytes(&hashed_data, kContext, sizeof(kContext))) {
+      goto err;
+    }
+  } else {
+    const uint8_t kContext[] = "TLS 1.3, client CertificateVerify";
+
+    if (!CBB_add_bytes(&hashed_data, kContext, sizeof(kContext))) {
+      goto err;
+    }
+  }
+
+  if (!CBB_add_bytes(&hashed_data, ssl->s3->hs->hs_context,
+                     ssl->s3->hs->hs_context_len)) {
+    goto err;
+  }
+
+  unsigned len;
+  EVP_MD_CTX_init(&mctx);
+  if (!EVP_DigestInit_ex(&mctx, md, NULL) ||
+      !EVP_DigestUpdate(&mctx, CBB_data(&hashed_data), CBB_len(&hashed_data)) ||
+      !EVP_DigestFinal(&mctx, digest, &len)) {
+    OPENSSL_PUT_ERROR(SSL, ERR_R_EVP_LIB);
+    goto err;
+  }
+  *digest_len = len;
+
+  ret = 1;
+
+err:
+  EVP_MD_CTX_cleanup(&mctx);
+  CBB_cleanup(&hashed_data);
+  return ret;
 }
