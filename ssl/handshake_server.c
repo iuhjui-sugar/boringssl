@@ -259,6 +259,10 @@ int ssl3_accept(SSL *ssl) {
       case SSL3_ST_SR_CLNT_HELLO_B:
       case SSL3_ST_SR_CLNT_HELLO_C:
         ret = ssl3_get_client_hello(ssl);
+        if (ssl->state == SSL_ST_TLS13) {
+          skip = 1;
+          break;
+        }
         if (ret <= 0) {
           goto end;
         }
@@ -488,6 +492,21 @@ int ssl3_accept(SSL *ssl) {
         ssl->state = ssl->s3->tmp.next_state;
         if (ssl->state != SSL_ST_OK) {
           ssl->method->expect_flight(ssl);
+        }
+        break;
+
+      case SSL_ST_TLS13:
+        ret = tls13_handshake(ssl);
+        if (ret <= 0) {
+          goto end;
+        }
+        if (ssl->s3->hs->handshake_state == HS_STATE_DONE) {
+          ssl->state = SSL_ST_OK;
+        }
+        if (ssl->s3->hs->handshake_interrupt & HS_NEED_FLUSH) {
+          ssl->s3->hs->handshake_interrupt &= ~HS_NEED_FLUSH;
+          ssl->state = SSL3_ST_SW_FLUSH;
+          ssl->s3->tmp.next_state = SSL_ST_TLS13;
         }
         break;
 
@@ -782,10 +801,7 @@ static int ssl3_get_client_hello(SSL *ssl) {
   }
 
   CBS_init(&client_hello, ssl->init_msg, n);
-  if (!CBS_get_u16(&client_hello, &client_wire_version) ||
-      !CBS_get_bytes(&client_hello, &client_random, SSL3_RANDOM_SIZE) ||
-      !CBS_get_u8_length_prefixed(&client_hello, &session_id) ||
-      CBS_len(&session_id) > SSL_MAX_SSL_SESSION_ID_LENGTH) {
+  if (!CBS_get_u16(&client_hello, &client_wire_version)) {
     al = SSL_AD_DECODE_ERROR;
     OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
     goto f_err;
@@ -796,20 +812,6 @@ static int ssl3_get_client_hello(SSL *ssl) {
   /* use version from inside client hello, not from record header (may differ:
    * see RFC 2246, Appendix E, second paragraph) */
   ssl->client_version = client_wire_version;
-
-  /* Load the client random. */
-  memcpy(ssl->s3->client_random, CBS_data(&client_random), SSL3_RANDOM_SIZE);
-
-  if (SSL_IS_DTLS(ssl)) {
-    CBS cookie;
-
-    if (!CBS_get_u8_length_prefixed(&client_hello, &cookie) ||
-        CBS_len(&cookie) > DTLS1_COOKIE_LENGTH) {
-      al = SSL_AD_DECODE_ERROR;
-      OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
-      goto f_err;
-    }
-  }
 
   uint16_t min_version, max_version;
   if (!ssl_get_version_range(ssl, &min_version, &max_version)) {
@@ -843,6 +845,37 @@ static int ssl3_get_client_hello(SSL *ssl) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_WRONG_VERSION_NUMBER);
     al = SSL_AD_PROTOCOL_VERSION;
     goto f_err;
+  }
+
+  if (ssl3_protocol_version(ssl) == TLS1_3_VERSION) {
+    tls13_assemble_handshake_message(ssl->s3->hs->in_message,
+                                     ssl->s3->tmp.message_type, ssl->init_msg,
+                                     n);
+    ssl->s3->hs->handshake_state = HS_STATE_CLIENT_HELLO;
+    ssl->state = SSL_ST_TLS13;
+    return 1;
+  }
+
+  if (!CBS_get_bytes(&client_hello, &client_random, SSL3_RANDOM_SIZE) ||
+      !CBS_get_u8_length_prefixed(&client_hello, &session_id) ||
+      CBS_len(&session_id) > SSL_MAX_SSL_SESSION_ID_LENGTH) {
+    al = SSL_AD_DECODE_ERROR;
+    OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
+    goto f_err;
+  }
+
+  /* Load the client random. */
+  memcpy(ssl->s3->client_random, CBS_data(&client_random), SSL3_RANDOM_SIZE);
+
+  if (SSL_IS_DTLS(ssl)) {
+    CBS cookie;
+
+    if (!CBS_get_u8_length_prefixed(&client_hello, &cookie) ||
+        CBS_len(&cookie) > DTLS1_COOKIE_LENGTH) {
+      al = SSL_AD_DECODE_ERROR;
+      OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
+      goto f_err;
+    }
   }
 
   ssl->hit = 0;
