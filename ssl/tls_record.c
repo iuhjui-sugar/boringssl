@@ -170,17 +170,21 @@ size_t ssl_seal_prefix_len(const SSL *ssl) {
 }
 
 size_t ssl_max_seal_overhead(const SSL *ssl) {
+  size_t ret = SSL_AEAD_CTX_max_overhead(ssl->s3->aead_write_ctx);
   if (SSL_IS_DTLS(ssl)) {
-    return DTLS1_RT_HEADER_LENGTH +
-           SSL_AEAD_CTX_max_overhead(ssl->s3->aead_write_ctx);
+    ret += DTLS1_RT_HEADER_LENGTH;
   } else {
-    size_t ret = SSL3_RT_HEADER_LENGTH +
-                 SSL_AEAD_CTX_max_overhead(ssl->s3->aead_write_ctx);
-    if (ssl_needs_record_splitting(ssl)) {
-      ret *= 2;
-    }
-    return ret;
+    ret += SSL3_RT_HEADER_LENGTH;
   }
+  /* TLS 1.3 needs an extra byte for the encrypted record type. */
+  if (ssl->s3->have_version &&
+      ssl3_protocol_version(ssl) >= TLS1_3_VERSION) {
+    ret += 1;
+  }
+  if (!SSL_IS_DTLS(ssl) && ssl_needs_record_splitting(ssl)) {
+    ret *= 2;
+  }
+  return ret;
 }
 
 enum ssl_open_record_t tls_open_record(
@@ -200,9 +204,9 @@ enum ssl_open_record_t tls_open_record(
     return ssl_open_record_partial;
   }
 
-  /* Check the version. */
-  if ((ssl->s3->have_version && version != ssl->version) ||
-      (version >> 8) != SSL3_VERSION_MAJOR) {
+  /* Check that the major version in the record matches. As of TLS 1.3, the
+   * minor version is no longer checked.*/
+  if ((version >> 8) != SSL3_VERSION_MAJOR) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_WRONG_VERSION_NUMBER);
     *out_alert = SSL_AD_PROTOCOL_VERSION;
     return ssl_open_record_error;
@@ -248,6 +252,21 @@ enum ssl_open_record_t tls_open_record(
     return ssl_open_record_error;
   }
 
+  /* TLS 1.3 hides the record type inside the encrypted data. */
+  if (ssl->s3->have_version &&
+      ssl3_protocol_version(ssl) >= TLS1_3_VERSION &&
+      ssl->s3->aead_read_ctx != NULL) {
+    do {
+      plaintext_len--;
+    } while (plaintext_len != 0 && out[plaintext_len] == 0);
+    type = out[plaintext_len];
+    if (type == 0) {
+      OPENSSL_PUT_ERROR(SSL, SSL_R_DECRYPTION_FAILED_OR_BAD_RECORD_MAC);
+      *out_alert = SSL_AD_INTERNAL_ERROR;
+      return ssl_open_record_error;
+    }
+  }
+
   /* Limit the number of consecutive empty records. */
   if (plaintext_len == 0) {
     ssl->s3->empty_record_count++;
@@ -284,11 +303,14 @@ static int do_seal_record(SSL *ssl, uint8_t *out, size_t *out_len,
 
   out[0] = type;
 
-  /* Some servers hang if initial ClientHello is larger than 256 bytes and
-   * record version number > TLS 1.0. */
-  uint16_t wire_version = ssl->version;
-  if (!ssl->s3->have_version && ssl->version > SSL3_VERSION) {
-    wire_version = TLS1_VERSION;
+  /* The TLS record-layer version number is meaningless and, starting in
+   * TLS 1.3, is frozen at TLS 1.0. But for historical reasons, SSL 3.0
+   * ClientHellos should use SSL 3.0 and pre-TLS-1.3 expects the version
+   * to change after version negotiation. */
+  uint16_t wire_version = TLS1_VERSION;
+  if (ssl->version == SSL3_VERSION ||
+      (ssl->s3->have_version && ssl3_protocol_version(ssl) < TLS1_3_VERSION)) {
+    wire_version = ssl->version;
   }
   out[1] = wire_version >> 8;
   out[2] = wire_version & 0xff;
@@ -322,6 +344,21 @@ static int do_seal_record(SSL *ssl, uint8_t *out, size_t *out_len,
 int tls_seal_record(SSL *ssl, uint8_t *out, size_t *out_len, size_t max_out,
                     uint8_t type, const uint8_t *in, size_t in_len) {
   size_t frag_len = 0;
+
+  /* TLS 1.3 hides the actual record type inside the encrypted data. */
+  if (ssl->s3->have_version &&
+      ssl3_protocol_version(ssl) >= TLS1_3_VERSION) {
+    if (max_out < in_len + SSL3_RT_HEADER_LENGTH) {
+      return 0;
+    }
+
+    memmove(out + SSL3_RT_HEADER_LENGTH, in, in_len);
+    in = out + SSL3_RT_HEADER_LENGTH;
+    out[SSL3_RT_HEADER_LENGTH + in_len] = type;
+    type = SSL3_RT_APPLICATION_DATA;
+    in_len = in_len + 1;
+  }
+
   if (type == SSL3_RT_APPLICATION_DATA && in_len > 1 &&
       ssl_needs_record_splitting(ssl)) {
     /* |do_seal_record| will notice if it clobbers |in[0]|, but not if it
