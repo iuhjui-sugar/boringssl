@@ -1057,6 +1057,23 @@ struct ssl_handshake_st {
   int handshake_interrupt;
   SSL_HS_MESSAGE *in_message;
   SSL_HS_MESSAGE *out_message;
+  SSL_ECDH_CTX *groups;
+  uint8_t *public_key;
+  size_t public_key_len;
+
+  size_t key_len;
+  uint8_t *early_secret;
+  size_t early_secret_len;
+  uint8_t *handshake_secret;
+  size_t handshake_secret_len;
+  uint8_t *master_secret;
+  size_t master_secret_len;
+
+  const SSL_CIPHER *cipher;
+  uint8_t *cert_context;
+  size_t cert_context_len;
+  uint8_t *hs_context;
+  unsigned hs_context_len;
 } /* SSL_HANDSHAKE */;
 
 enum ssl_session_result_t {
@@ -1427,10 +1444,32 @@ enum tls_record_type {
   type_data,
 };
 
-int derive_secret(uint8_t **out, size_t len, uint8_t *secret, size_t secret_len,
-                  uint8_t *hash, size_t hash_len);
+int tls13_post_handshake_read(SSL *ssl, uint8_t *buf, uint16_t len);
+
+int tls13_store_handshake_context(SSL *ssl);
+int tls13_receive_certificate(SSL *ssl, SSL_HS_MESSAGE msg);
+int tls13_send_certificate(SSL *ssl, SSL_HS_MESSAGE *msg);
+int tls13_receive_certificate_verify(SSL *ssl, SSL_HS_MESSAGE msg);
+int tls13_send_certificate_verify(SSL *ssl, SSL_HS_MESSAGE *msg);
+int tls13_receive_finished(SSL *ssl, SSL_HS_MESSAGE msg);
+int tls13_send_finished(SSL *ssl, SSL_HS_MESSAGE *msg);
+int tls13_finalize(SSL *ssl);
+
+
+int derive_secret(SSL *ssl,
+                  uint8_t *out, size_t len, uint8_t *secret, size_t secret_len,
+                  uint8_t *label, size_t label_len, uint8_t *hash, size_t hash_len,
+                  uint8_t *context, size_t context_len);
 
 int update_traffic_key(SSL *ssl, uint8_t *secret, size_t secret_len,
                        enum tls_record_type type);
+
+int update_traffic_secret(SSL *ssl, enum tls_record_type type);
+
+
+int tls13_verify_finished(SSL *ssl, uint8_t *out, size_t *out_len,
+                          char is_server);
+int tls13_cert_verify_digest(SSL *ssl, uint8_t *digest, size_t *digest_len, char server,
+                             const EVP_MD *md);
 
 #endif /* OPENSSL_HEADER_SSL_INTERNAL_H */
