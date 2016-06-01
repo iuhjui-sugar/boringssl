@@ -39,11 +39,18 @@ int tls13_handshake(SSL *ssl) {
         return ret;
       }
       ssl->hs->handshake_interrupt &= ~HS_NEED_READ;
+      printf("Server Message: %d\n", ssl->hs->in_message->type);
     }
     if (ssl->server) {
       result = tls13_server_handshake(ssl);
     } else {
       result = tls13_client_handshake(ssl);
+    }
+
+    if (ssl->hs->handshake_interrupt & HS_NEED_WRITE) {
+      printf("State: %d (Writing Message %d)\n", ssl->hs->handshake_state, ssl->hs->out_message->type);
+    } else if (ssl->hs->handshake_interrupt & HS_NEED_READ) {
+      printf("State: %d (Reading Message)\n", ssl->hs->handshake_state);
     }
   }
 
@@ -126,6 +133,13 @@ int tls13_handshake_read(SSL *ssl, SSL_HS_MESSAGE *msg) {
                       length, ssl, ssl->msg_callback_arg);
   }
 
+  printf("IN: ");
+  size_t i;
+  for (i = 0; i < length; i++) {
+    printf("%02x", msg->raw[i]);
+  }
+  printf("\n");
+
   msg->offset = 0;
   return 1;
 }
@@ -149,6 +163,91 @@ int tls13_handshake_write(SSL *ssl, SSL_HS_MESSAGE *msg) {
                       length, ssl, ssl->msg_callback_arg);
   }
 
+  printf("OUT: ");
+  size_t i;
+  for (i = 0; i < length; i++) {
+    printf("%02x", msg->raw[i]);
+  }
+  printf("\n");
+
   msg->offset = 0;
+  return 1;
+}
+
+int tls13_post_handshake_read(SSL *ssl, uint8_t *buf, uint16_t len) {
+  size_t buf_offset = 0;
+
+  SSL_HS_MESSAGE *msg = ssl->post_message;
+  if (msg->offset < SSL3_HM_HEADER_LENGTH) {
+    if (msg->raw != NULL) {
+      OPENSSL_free(msg->raw);
+      msg->raw = NULL;
+    }
+
+    if (msg->offset == 0) {
+      msg->data = OPENSSL_malloc(SSL3_HM_HEADER_LENGTH);
+    }
+
+    size_t length = SSL3_HM_HEADER_LENGTH;
+    size_t n = length - msg->offset;
+    if (len - buf_offset < n) {
+      n = len - buf_offset;
+    }
+    memcpy(&msg->data[msg->offset], &buf[buf_offset], n);
+
+    msg->offset += n;
+    buf_offset += n;
+    if (msg->offset < length) {
+      return 0;
+    }
+
+    uint8_t *p = msg->data;
+    msg->type = *(p++);
+    n2l3(p, msg->length);
+    msg->raw = OPENSSL_malloc(SSL3_HM_HEADER_LENGTH + msg->length);
+    if (msg->raw == NULL) {
+      return -1;
+    }
+    memcpy(msg->raw, msg->data, SSL3_HM_HEADER_LENGTH);
+    OPENSSL_free(msg->data);
+    msg->data = &msg->raw[SSL3_HM_HEADER_LENGTH];
+  }
+
+  size_t length = SSL3_HM_HEADER_LENGTH + msg->length;
+  size_t n = length - msg->offset;
+  if (len - buf_offset < n) {
+    n = len - buf_offset;
+  }
+  memcpy(&msg->raw[msg->offset], &buf[buf_offset], n);
+
+  msg->offset += n;
+  ssl3_update_handshake_hash(ssl, msg->raw, length);
+  if (msg->offset < length) {
+    return 0;
+  }
+
+  if (ssl->msg_callback) {
+    ssl->msg_callback(0, ssl->version, SSL3_RT_HANDSHAKE, &msg->raw,
+                      length, ssl, ssl->msg_callback_arg);
+  }
+
+  printf("PH IN: ");
+  size_t i;
+  for (i = 0; i < length; i++) {
+    printf("%02x", msg->raw[i]);
+  }
+  printf("\n");
+
+  msg->offset = 0;
+
+  if (ssl->server) {
+    if (!tls13_server_post_handshake(ssl, *msg)) {
+      return -1;
+    }
+  } else {
+    if (!tls13_client_post_handshake(ssl, *msg)) {
+      return -1;
+    }
+  }
   return 1;
 }
