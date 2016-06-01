@@ -1,0 +1,115 @@
+/* Copyright (c) 2016, Google Inc.
+ *
+ * Permission to use, copy, modify, and/or distribute this software for any
+ * purpose with or without fee is hereby granted, provided that the above
+ * copyright notice and this permission notice appear in all copies.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+ * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
+ * SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+ * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION
+ * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
+ * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. */
+
+#include <string.h>
+
+#include "internal.h"
+
+int tls13_handshake(SSL *ssl) {
+  SSL_HANDSHAKE *hs = ssl->s3->hs;
+
+  int result = 1;
+  while (result && hs->handshake_state != HS_STATE_DONE) {
+    ssl->rwstate = SSL_NOTHING;
+
+    if (hs->handshake_interrupt & HS_NEED_WRITE) {
+      int ret = tls13_handshake_write(ssl, hs->out_message);
+      if (ret <= 0) {
+       ssl->rwstate = SSL_WRITING;
+        return ret;
+      }
+      hs->handshake_interrupt &= ~HS_NEED_WRITE;
+      if (hs->handshake_interrupt & HS_NEED_FLUSH) {
+        return 1;
+      }
+    }
+    if (hs->handshake_interrupt & HS_NEED_READ) {
+      int ret = tls13_handshake_read(ssl, hs->in_message);
+      if (ret <= 0) {
+        ssl->rwstate = SSL_READING;
+        return ret;
+      }
+      hs->handshake_interrupt &= ~HS_NEED_READ;
+    }
+    if (ssl->server) {
+      result = tls13_server_handshake(ssl, hs);
+    } else {
+      result = tls13_client_handshake(ssl, hs);
+    }
+  }
+
+  return result;
+}
+
+int assemble_handshake_message(SSL_HS_MESSAGE *out, uint8_t type, uint8_t *data,
+                               size_t length) {
+  if (out->raw != NULL) {
+    OPENSSL_free(out->raw);
+    out->raw = NULL;
+  }
+
+  out->type = type;
+  out->length = length;
+  out->raw = OPENSSL_malloc(SSL3_HM_HEADER_LENGTH + out->length);
+  if (out->raw == NULL) {
+    return -1;
+  }
+  uint8_t *p = out->raw;
+  *(p++) = out->type;
+  *(p++) = (out->length >> 16) & 0xff;
+  *(p++) = (out->length >> 8) & 0xff;
+  *(p++) = out->length & 0xff;
+  out->data = p;
+  memcpy(out->data, data, out->length);
+  out->offset = 0;
+
+  return 1;
+}
+
+int tls13_handshake_read(SSL *ssl, SSL_HS_MESSAGE *msg) {
+  int ok;
+  long n = ssl->method->ssl_get_message(ssl, -1, ssl_dont_hash_message, &ok);
+
+  if (!ok) {
+    return n;
+  }
+
+  if (!assemble_handshake_message(msg, ssl->s3->tmp.message_type, ssl->init_msg,
+                                  n)) {
+    return -1;
+  }
+
+  ssl3_update_handshake_hash(ssl, msg->raw, n + SSL3_HM_HEADER_LENGTH);
+  return 1;
+}
+
+int tls13_handshake_write(SSL *ssl, SSL_HS_MESSAGE *msg) {
+  if (!msg->offset) {
+    CBB cbb, data;
+    if (!ssl->method->init_message(ssl, &cbb, &data, msg->type) ||
+        !CBB_add_bytes(&data, msg->data, msg->length) ||
+        !ssl->method->finish_message(ssl, &cbb)) {
+      return -1;
+    }
+    msg->offset = 1;
+  }
+
+  int ret = ssl->method->write_message(ssl);
+  if (ret <= 0) {
+    return ret;
+  }
+
+  msg->offset = 0;
+  return 1;
+}
