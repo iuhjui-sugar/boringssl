@@ -952,6 +952,7 @@ struct ssl_hs_message_st {
 typedef enum ssl_handshake_state_t {
   HS_STATE_CLIENT_HELLO = 1,
   HS_STATE_CLIENT_ENCRYPTED_EXTENSIONS,
+  HS_STATE_CLIENT_EARLY_FINISHED,
   HS_STATE_HELLO_RETRY_REQUEST,
   HS_STATE_SERVER_HELLO,
   HS_STATE_SERVER_ENCRYPTED_EXTENSIONS,
@@ -975,6 +976,7 @@ typedef enum ssl_handshake_state_t {
 #define HS_NEED_READ  0x4
 #define HS_NEED_CB    0x8
 #define HS_NEED_FLUSH 0x10
+#define HS_NEED_HASH  0x20
 #define HS_NEED_ERROR 0x100
 #define HS_NEED_WRITE_FLIGHT (HS_NEED_WRITE | HS_NEED_FLUSH)
 
@@ -984,10 +986,10 @@ struct ssl_handshake_st {
   SSL_HS_MESSAGE *in_message;
   SSL_HS_MESSAGE *out_message;
 
-  uint8_t *hs_context;
-  size_t hs_context_len;
   uint8_t *resumption_ctx;
   size_t resumption_ctx_len;
+  uint8_t *hash_context;
+  size_t hash_context_len;
 
   size_t key_len;
   uint8_t *early_secret;
@@ -996,6 +998,26 @@ struct ssl_handshake_st {
   size_t handshake_secret_len;
   uint8_t *master_secret;
   size_t master_secret_len;
+  uint8_t *traffic_secret_0;
+
+  uint8_t *psk_secret;
+  size_t psk_secret_len;
+  uint8_t *dhe_secret;
+  size_t dhe_secret_len;
+
+  SSL_ECDH_CTX *groups;
+  uint8_t *public_key;
+  size_t public_key_len;
+
+  uint8_t *psk_id;
+  size_t psk_id_len;
+  uint8_t *real_psk;
+  size_t real_psk_len;
+
+  int zero_rtt;
+  const SSL_CIPHER *cipher;
+  uint8_t *cert_context;
+  size_t cert_context_len;
 } /* SSL_HANDSHAKE */;
 
 enum ssl_session_result_t {
@@ -1335,12 +1357,27 @@ int tls13_server_handshake(SSL *ssl, SSL_HANDSHAKE *hs);
  * complete received message. It returns 1 on success and 0 on failure. */
 int tls13_server_post_handshake(SSL *ssl, SSL_HS_MESSAGE msg);
 
+int tls13_store_handshake_context(SSL *ssl);
+int tls13_receive_certificate(SSL *ssl, SSL_HS_MESSAGE msg);
+int tls13_send_certificate(SSL *ssl, SSL_HS_MESSAGE *msg);
+int tls13_receive_certificate_verify(SSL *ssl, SSL_HS_MESSAGE msg);
+int tls13_send_certificate_verify(SSL *ssl, SSL_HS_MESSAGE *msg);
+int tls13_receive_finished(SSL *ssl, SSL_HS_MESSAGE msg);
+int tls13_send_finished(SSL *ssl, SSL_HS_MESSAGE *msg);
+int tls13_receive_key_update(SSL *ssl, SSL_HS_MESSAGE msg);
 enum tls_record_type_t {
   type_early_handshake,
   type_early_data,
   type_handshake,
   type_data,
 };
+
+int ext_key_share_parse_clienthello(SSL *ssl, uint8_t *out_alert,
+                                    CBS *contents);
+int ext_pre_shared_key_parse_clienthello(SSL *ssl, uint8_t *out_alert,
+                                         CBS *contents);
+int ext_early_data_parse_clienthello(SSL *ssl, uint8_t *out_alert,
+                                     CBS *contents);
 
 int tls13_update_traffic_secret(SSL *ssl, enum tls_record_type_t type);
 int tls13_finalize_keys(SSL *ssl);
@@ -1351,5 +1388,12 @@ int tls13_export_keying_material(SSL *ssl, uint8_t *out, size_t out_len,
                                  const char *label, size_t label_len,
                                  const uint8_t *context, size_t context_len,
                                  int use_context);
+
+int tls13_derive_secrets(SSL *ssl);
+int tls13_derive_traffic_secret_0(SSL *ssl);
+int tls13_verify_finished(SSL *ssl, uint8_t *out, size_t *out_len,
+                          char is_server);
+int tls13_cert_verify_digest(SSL *ssl, uint8_t *digest, size_t *digest_len, char server,
+                             const EVP_MD *md);
 
 #endif /* OPENSSL_HEADER_SSL_INTERNAL_H */
