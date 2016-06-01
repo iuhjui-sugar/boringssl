@@ -376,7 +376,8 @@ again:
                       ssl->init_buf->data, ssl->init_buf->length);
 
   static const uint8_t kHelloRequest[4] = {SSL3_MT_HELLO_REQUEST, 0, 0, 0};
-  if (!ssl->server && ssl->init_buf->length == sizeof(kHelloRequest) &&
+  if ((!ssl->s3->have_version || ssl3_protocol_version(ssl) < TLS1_3_VERSION) &&
+      !ssl->server && ssl->init_buf->length == sizeof(kHelloRequest) &&
       memcmp(kHelloRequest, ssl->init_buf->data, sizeof(kHelloRequest)) == 0) {
     /* The server may always send 'Hello Request' messages -- we are doing a
      * handshake anyway now, so ignore them if their format is correct.  Does
