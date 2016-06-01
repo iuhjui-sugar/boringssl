@@ -178,7 +178,8 @@ size_t ssl_max_seal_overhead(const SSL *ssl) {
   }
   /* TLS 1.3 needs an extra byte for the encrypted record type. */
   if (ssl->s3->have_version &&
-      ssl3_protocol_version(ssl) >= TLS1_3_VERSION) {
+      ssl3_protocol_version(ssl) >= TLS1_3_VERSION &&
+      ssl->s3->aead_read_ctx != NULL) {
     ret += 1;
   }
   if (!SSL_IS_DTLS(ssl) && ssl_needs_record_splitting(ssl)) {
