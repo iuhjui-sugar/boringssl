@@ -445,6 +445,7 @@ start:
         OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
         goto f_err;
       }
+
       goto start;
     }
 
