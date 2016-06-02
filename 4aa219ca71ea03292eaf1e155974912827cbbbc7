@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "79b1ed56_51f114d9",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-02T21:35:28Z",
+      "side": 1,
+      "message": "Oh hrmf. Looking at the spec, I think the 2^14 limit applies to the unpadded length, so we need to swap the order here too.",
+      "revId": "4aa219ca71ea03292eaf1e155974912827cbbbc7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
