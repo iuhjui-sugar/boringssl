@@ -249,11 +249,8 @@ int dtls1_read_change_cipher_spec(SSL *ssl) {
     return -1;
   }
 
-  if (ssl->msg_callback != NULL) {
-    ssl->msg_callback(0, ssl->version, SSL3_RT_CHANGE_CIPHER_SPEC, &byte, 1,
-                      ssl, ssl->msg_callback_arg);
-  }
-
+  ssl_do_msg_callback(ssl, 0 /* read */, ssl->version,
+                      SSL3_RT_CHANGE_CIPHER_SPEC, &byte, 1);
   return 1;
 }
 
@@ -481,22 +478,11 @@ int dtls1_dispatch_alert(SSL *ssl) {
     BIO_flush(ssl->wbio);
   }
 
-  if (ssl->msg_callback != NULL) {
-    ssl->msg_callback(1 /* write */, ssl->version, SSL3_RT_ALERT,
-                      ssl->s3->send_alert, 2, ssl, ssl->msg_callback_arg);
-  }
+  ssl_do_msg_callback(ssl, 1 /* write */, ssl->version, SSL3_RT_ALERT,
+                      ssl->s3->send_alert, 2);
 
-  void (*cb)(const SSL *ssl, int type, int value) = NULL;
-  if (ssl->info_callback != NULL) {
-    cb = ssl->info_callback;
-  } else if (ssl->ctx->info_callback != NULL) {
-    cb = ssl->ctx->info_callback;
-  }
-
-  if (cb != NULL) {
-    int alert = (ssl->s3->send_alert[0] << 8) | ssl->s3->send_alert[1];
-    cb(ssl, SSL_CB_WRITE_ALERT, alert);
-  }
+  int alert = (ssl->s3->send_alert[0] << 8) | ssl->s3->send_alert[1];
+  ssl_do_info_callback(ssl, SSL_CB_WRITE_ALERT, alert);
 
   return 1;
 }
