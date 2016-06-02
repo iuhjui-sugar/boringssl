@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "79b1ed56_51b91438",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-02T20:56:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79b1ed56_b1704096",
+      "range": {
+        "startLine": 11,
+        "startChar": 19,
+        "endLine": 11,
+        "endChar": 32
+      },
+      "revId": "252139fef011334cd8c834fc392718182976c437",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79b1ed56_7146d846",
         "filename": "ssl/tls_record.c",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2016-06-02T20:12:27Z",
       "side": 1,
       "message": "Nit: space",
+      "range": {
+        "startLine": 208,
+        "startChar": 39,
+        "endLine": 208,
+        "endChar": 40
+      },
+      "revId": "252139fef011334cd8c834fc392718182976c437",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79b1ed56_b1868079",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-02T20:56:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79b1ed56_7146d846",
       "range": {
         "startLine": 208,
         "startChar": 39,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "79b1ed56_918b7c81",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-02T20:56:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79b1ed56_512e3478",
+      "revId": "252139fef011334cd8c834fc392718182976c437",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79b1ed56_b147a046",
         "filename": "ssl/tls_record.c",
         "patchSetId": 3
@@ -76,6 +142,30 @@
       "writtenOn": "2016-06-02T20:12:27Z",
       "side": 1,
       "message": "Not actually an internal error I think. It means the peer sent us a nonsense record.",
+      "range": {
+        "startLine": 265,
+        "startChar": 19,
+        "endLine": 265,
+        "endChar": 40
+      },
+      "revId": "252139fef011334cd8c834fc392718182976c437",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79b1ed56_f180085f",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-02T20:56:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79b1ed56_b147a046",
       "range": {
         "startLine": 265,
         "startChar": 19,
@@ -105,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "79b1ed56_319bb0d2",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-02T20:56:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79b1ed56_914c1c6a",
+      "revId": "252139fef011334cd8c834fc392718182976c437",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79b1ed56_d156a4f9",
         "filename": "ssl/tls_record.c",
         "patchSetId": 3
@@ -116,6 +224,30 @@
       "writtenOn": "2016-06-02T20:12:27Z",
       "side": 1,
       "message": "Overflow check.",
+      "range": {
+        "startLine": 351,
+        "startChar": 18,
+        "endLine": 351,
+        "endChar": 48
+      },
+      "revId": "252139fef011334cd8c834fc392718182976c437",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79b1ed56_7195389a",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-02T20:56:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79b1ed56_d156a4f9",
       "range": {
         "startLine": 351,
         "startChar": 18,
@@ -145,6 +277,24 @@
     },
     {
       "key": {
+        "uuid": "79b1ed56_11982cd2",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-02T20:56:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79b1ed56_f1512804",
+      "revId": "252139fef011334cd8c834fc392718182976c437",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79b1ed56_313c50ab",
         "filename": "ssl/tls_record.c",
         "patchSetId": 3
@@ -156,6 +306,24 @@
       "writtenOn": "2016-06-02T20:12:27Z",
       "side": 1,
       "message": "You actually need to check space for in_len + header + 1 because of this, right?",
+      "revId": "252139fef011334cd8c834fc392718182976c437",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79b1ed56_5192b4b3",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-02T20:56:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79b1ed56_313c50ab",
       "revId": "252139fef011334cd8c834fc392718182976c437",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
