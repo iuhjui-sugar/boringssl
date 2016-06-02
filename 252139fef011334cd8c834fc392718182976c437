@@ -1,0 +1,164 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "79b1ed56_b1704096",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-02T20:12:27Z",
+      "side": 1,
+      "message": "Additionally",
+      "range": {
+        "startLine": 11,
+        "startChar": 19,
+        "endLine": 11,
+        "endChar": 32
+      },
+      "revId": "252139fef011334cd8c834fc392718182976c437",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79b1ed56_7146d846",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-02T20:12:27Z",
+      "side": 1,
+      "message": "Nit: space",
+      "range": {
+        "startLine": 208,
+        "startChar": 39,
+        "endLine": 208,
+        "endChar": 40
+      },
+      "revId": "252139fef011334cd8c834fc392718182976c437",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79b1ed56_512e3478",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-02T20:12:27Z",
+      "side": 1,
+      "message": "Doesn\u0027t this get really confused if plaintext_len \u003d 0?",
+      "revId": "252139fef011334cd8c834fc392718182976c437",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79b1ed56_b147a046",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-02T20:12:27Z",
+      "side": 1,
+      "message": "Not actually an internal error I think. It means the peer sent us a nonsense record.",
+      "range": {
+        "startLine": 265,
+        "startChar": 19,
+        "endLine": 265,
+        "endChar": 40
+      },
+      "revId": "252139fef011334cd8c834fc392718182976c437",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79b1ed56_914c1c6a",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-02T20:12:27Z",
+      "side": 1,
+      "message": "\u0026\u0026 ssl-\u003es3-\u003eaead_read_ctx !\u003d NULL\n\n(Hrm. I wonder if we should have a helper function for the have_version + ssl3_protocol_version combos...)",
+      "revId": "252139fef011334cd8c834fc392718182976c437",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79b1ed56_d156a4f9",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-02T20:12:27Z",
+      "side": 1,
+      "message": "Overflow check.",
+      "range": {
+        "startLine": 351,
+        "startChar": 18,
+        "endLine": 351,
+        "endChar": 48
+      },
+      "revId": "252139fef011334cd8c834fc392718182976c437",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79b1ed56_f1512804",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-02T20:12:27Z",
+      "side": 1,
+      "message": "OPENSSL_PUT_ERROR(SSL, SSL_R_BUFFER_TOO_SMALL)",
+      "revId": "252139fef011334cd8c834fc392718182976c437",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79b1ed56_313c50ab",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-02T20:12:27Z",
+      "side": 1,
+      "message": "You actually need to check space for in_len + header + 1 because of this, right?",
+      "revId": "252139fef011334cd8c834fc392718182976c437",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
