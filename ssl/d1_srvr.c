@@ -130,10 +130,9 @@
 
 int dtls1_accept(SSL *ssl) {
   BUF_MEM *buf = NULL;
-  void (*cb)(const SSL *ssl, int type, int value) = NULL;
   uint32_t alg_a;
   int ret = -1;
-  int new_state, state, skip = 0;
+  int state, skip = 0;
 
   assert(ssl->handshake_func == dtls1_accept);
   assert(ssl->server);
@@ -141,20 +140,12 @@ int dtls1_accept(SSL *ssl) {
 
   ERR_clear_system_error();
 
-  if (ssl->info_callback != NULL) {
-    cb = ssl->info_callback;
-  } else if (ssl->ctx->info_callback != NULL) {
-    cb = ssl->ctx->info_callback;
-  }
-
   for (;;) {
     state = ssl->state;
 
     switch (ssl->state) {
       case SSL_ST_ACCEPT:
-        if (cb != NULL) {
-          cb(ssl, SSL_CB_HANDSHAKE_START, 1);
-        }
+        ssl_do_info_callback(ssl, SSL_CB_HANDSHAKE_START, 1);
 
         if (ssl->init_buf == NULL) {
           buf = BUF_MEM_new();
@@ -413,9 +404,7 @@ int dtls1_accept(SSL *ssl) {
 
         ssl_update_cache(ssl, SSL_SESS_CACHE_SERVER);
 
-        if (cb != NULL) {
-          cb(ssl, SSL_CB_HANDSHAKE_DONE, 1);
-        }
+        ssl_do_info_callback(ssl, SSL_CB_HANDSHAKE_DONE, 1);
 
         ret = 1;
 
@@ -432,21 +421,17 @@ int dtls1_accept(SSL *ssl) {
         goto end;
     }
 
-    if (!ssl->s3->tmp.reuse_message && !skip) {
-      if (cb != NULL && ssl->state != state) {
-        new_state = ssl->state;
-        ssl->state = state;
-        cb(ssl, SSL_CB_ACCEPT_LOOP, 1);
-        ssl->state = new_state;
-      }
+    if (!ssl->s3->tmp.reuse_message && !skip && ssl->state != state) {
+      int new_state = ssl->state;
+      ssl->state = state;
+      ssl_do_info_callback(ssl, SSL_CB_ACCEPT_LOOP, 1);
+      ssl->state = new_state;
     }
     skip = 0;
   }
 
 end:
   BUF_MEM_free(buf);
-  if (cb != NULL) {
-    cb(ssl, SSL_CB_ACCEPT_EXIT, ret);
-  }
+  ssl_do_info_callback(ssl, SSL_CB_ACCEPT_EXIT, ret);
   return ret;
 }

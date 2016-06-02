@@ -227,10 +227,8 @@ enum ssl_open_record_t tls_open_record(
     return ssl_open_record_partial;
   }
 
-  if (ssl->msg_callback != NULL) {
-    ssl->msg_callback(0 /* read */, 0, SSL3_RT_HEADER, in,
-                      SSL3_RT_HEADER_LENGTH, ssl, ssl->msg_callback_arg);
-  }
+  ssl_do_msg_callback(ssl, 0 /* read */, 0, SSL3_RT_HEADER, in,
+                      SSL3_RT_HEADER_LENGTH);
 
   /* Decrypt the body. */
   size_t plaintext_len;
@@ -323,11 +321,8 @@ static int do_seal_record(SSL *ssl, uint8_t *out, size_t *out_len,
 
   *out_len = SSL3_RT_HEADER_LENGTH + ciphertext_len;
 
-  if (ssl->msg_callback) {
-    ssl->msg_callback(1 /* write */, 0, SSL3_RT_HEADER, out,
-                      SSL3_RT_HEADER_LENGTH, ssl, ssl->msg_callback_arg);
-  }
-
+  ssl_do_msg_callback(ssl, 1 /* write */, 0, SSL3_RT_HEADER, out,
+                      SSL3_RT_HEADER_LENGTH);
   return 1;
 }
 
@@ -401,25 +396,14 @@ enum ssl_open_record_t ssl_process_alert(SSL *ssl, uint8_t *out_alert,
     return ssl_open_record_error;
   }
 
-  if (ssl->msg_callback) {
-    ssl->msg_callback(0, ssl->version, SSL3_RT_ALERT, in, in_len, ssl,
-                      ssl->msg_callback_arg);
-  }
+  ssl_do_msg_callback(ssl, 0 /* read */, ssl->version, SSL3_RT_ALERT, in,
+                      in_len);
 
   const uint8_t alert_level = in[0];
   const uint8_t alert_descr = in[1];
 
-  void (*cb)(const SSL *ssl, int type, int value) = NULL;
-  if (ssl->info_callback != NULL) {
-    cb = ssl->info_callback;
-  } else if (ssl->ctx->info_callback != NULL) {
-    cb = ssl->ctx->info_callback;
-  }
-
-  if (cb != NULL) {
-    uint16_t alert = (alert_level << 8) | alert_descr;
-    cb(ssl, SSL_CB_READ_ALERT, alert);
-  }
+  uint16_t alert = (alert_level << 8) | alert_descr;
+  ssl_do_info_callback(ssl, SSL_CB_READ_ALERT, alert);
 
   if (alert_level == SSL3_AL_WARNING) {
     if (alert_descr == SSL_AD_CLOSE_NOTIFY) {
