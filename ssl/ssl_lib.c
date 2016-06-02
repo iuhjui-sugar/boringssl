@@ -302,8 +302,7 @@ SSL_CTX *SSL_CTX_new(const SSL_METHOD *method) {
     SSL_CTX_set_max_version(ret, DTLS1_2_VERSION);
     SSL_CTX_set_min_version(ret, DTLS1_VERSION);
   } else {
-    /* TODO(svaldez): Enable TLS 1.3 once implemented. */
-    SSL_CTX_set_max_version(ret, TLS1_2_VERSION);
+    SSL_CTX_set_max_version(ret, TLS1_3_VERSION);
     SSL_CTX_set_min_version(ret, SSL3_VERSION);
   }
 
