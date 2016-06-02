@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "59afc98f_7b571bf7",
+        "filename": "include/openssl/tls1.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-02T16:10:51Z",
+      "side": 1,
+      "message": "Doesn\u0027t look like this actually defines the numbers. :-/",
+      "range": {
+        "startLine": 439,
+        "startChar": 25,
+        "endLine": 439,
+        "endChar": 52
+      },
+      "revId": "5cdcda210605b2c02b49b1122bbd02022525fd0e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
