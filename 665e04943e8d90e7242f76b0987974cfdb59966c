@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "79b1ed56_f116484a",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-02T19:35:41Z",
+      "side": 1,
+      "message": "Oh hrm, it doesn\u0027t look like this is ever used. One moment...",
+      "revId": "665e04943e8d90e7242f76b0987974cfdb59966c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
