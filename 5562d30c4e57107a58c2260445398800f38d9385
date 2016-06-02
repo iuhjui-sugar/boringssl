@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "79b1ed56_f1e488b6",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-02T18:43:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79b1ed56_71a89884",
+      "revId": "5562d30c4e57107a58c2260445398800f38d9385",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79b1ed56_91b7fce3",
         "filename": "ssl/tls_record.c",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2016-06-02T17:42:50Z",
       "side": 1,
       "message": "This doesn\u0027t handle the case where plaintext_len is 0. Also the empty record check should probably be after this bit. How about...",
+      "revId": "5562d30c4e57107a58c2260445398800f38d9385",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79b1ed56_514914c2",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-02T18:43:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79b1ed56_91b7fce3",
       "revId": "5562d30c4e57107a58c2260445398800f38d9385",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "79b1ed56_11282ccc",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-02T18:43:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79b1ed56_d1b184ef",
+      "revId": "5562d30c4e57107a58c2260445398800f38d9385",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79b1ed56_91dc1c2c",
         "filename": "ssl/tls_record.c",
         "patchSetId": 1
@@ -64,6 +118,30 @@
       "writtenOn": "2016-06-02T17:42:50Z",
       "side": 1,
       "message": ":-(",
+      "range": {
+        "startLine": 271,
+        "startChar": 24,
+        "endLine": 271,
+        "endChar": 26
+      },
+      "revId": "5562d30c4e57107a58c2260445398800f38d9385",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79b1ed56_712538f4",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-02T18:43:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79b1ed56_91dc1c2c",
       "range": {
         "startLine": 271,
         "startChar": 24,
@@ -99,6 +177,30 @@
     },
     {
       "key": {
+        "uuid": "79b1ed56_5122b4ed",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-02T18:43:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79b1ed56_f1e128de",
+      "range": {
+        "startLine": 272,
+        "startChar": 27,
+        "endLine": 272,
+        "endChar": 29
+      },
+      "revId": "5562d30c4e57107a58c2260445398800f38d9385",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79b1ed56_f1fac881",
         "filename": "ssl/tls_record.c",
         "patchSetId": 1
@@ -110,6 +212,24 @@
       "writtenOn": "2016-06-02T17:42:50Z",
       "side": 1,
       "message": "Ugh, that SSL 3.0 check is kind of annoying. Maybe we should just kill it now? I guess it\u0027ll be dead later anyway... it\u0027s also silly and assuming ssl-\u003eversion gets set by ssl3_send_client_hello. Bah.\n\nNow that the newest assumption is TLS 1.0, maybe we should invert it and do:\n\n  /* The TLS record-layer version number is meaningless and, starting in\n   * TLS 1.3, is frozen at TLS 1.0. But for historical reasons, SSL 3.0\n   * ClientHellos should use SSL 3.0 and pre-TLS-1.3 expects the version\n   * to change after version negotiation. */\n  uint16_t wire_version \u003d TLS1_VERSION;\n  if (ssl-\u003eversion \u003d\u003d SSL3_VERSION ||\n      (ssl-\u003es3-\u003ehave_version \u0026\u0026 ssl3_protocol_version(ssl) \u003e\u003d TLS1_3_VERSION)) {\n    wire_version \u003d ssl-\u003eversion;\n  }",
+      "revId": "5562d30c4e57107a58c2260445398800f38d9385",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79b1ed56_b17b20e0",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-02T18:43:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79b1ed56_f1fac881",
       "revId": "5562d30c4e57107a58c2260445398800f38d9385",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
