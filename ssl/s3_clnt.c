@@ -179,8 +179,6 @@ int ssl3_connect(SSL *ssl) {
   assert(!ssl->server);
   assert(!SSL_IS_DTLS(ssl));
 
-  ERR_clear_system_error();
-
   for (;;) {
     state = ssl->state;
 
