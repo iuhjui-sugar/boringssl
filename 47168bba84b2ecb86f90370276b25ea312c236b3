@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "66ea2a22_83a500c0",
+        "filename": "crypto/newhope/newhope_statistical_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-06-03T22:02:33Z",
+      "side": 1,
+      "message": "I think diff should be an int64_t and the abs was correct.",
+      "revId": "47168bba84b2ecb86f90370276b25ea312c236b3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
