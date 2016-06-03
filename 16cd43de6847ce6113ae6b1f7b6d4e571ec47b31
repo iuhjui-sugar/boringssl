@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e6a8da5d_8753e85b",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 3449,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-03T20:00:47Z",
+      "side": 1,
+      "message": "How about we go ahead and opaquify most of ssl-\u003es3 now. We can\u0027t completely lose it yet, but I think we can leave all but like 4 things in ssl-\u003es3.",
+      "revId": "16cd43de6847ce6113ae6b1f7b6d4e571ec47b31",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e6a8da5d_e7565c4d",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-03T20:00:47Z",
+      "side": 1,
+      "message": "None of this is going to work right with SSL_clear. It should be initialized in ssl3_new and hanging off the connection instead so that works without fuss.",
+      "revId": "16cd43de6847ce6113ae6b1f7b6d4e571ec47b31",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e6a8da5d_47c17012",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-03T20:00:47Z",
+      "side": 1,
+      "message": "I don\u0027t want us to have two different implementations of this because the two protocols intersect at ClientHello. What parts of the rewrite do we need to prioritize before it can share the TLS 1.2 handshake message bits?",
+      "revId": "16cd43de6847ce6113ae6b1f7b6d4e571ec47b31",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e6a8da5d_67c6ec2d",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-03T20:00:47Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "16cd43de6847ce6113ae6b1f7b6d4e571ec47b31",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
