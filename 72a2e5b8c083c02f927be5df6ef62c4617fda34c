@@ -124,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "66ea2a22_a0359a92",
+        "filename": "crypto/newhope/newhope_statistical_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-06-03T20:58:34Z",
+      "side": 1,
+      "message": "Then \"% PARAM_Q\" is a no-op above, right?",
+      "parentUuid": "66ea2a22_80f0569d",
+      "revId": "72a2e5b8c083c02f927be5df6ef62c4617fda34c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66178ad9_38a409b0",
         "filename": "crypto/newhope/newhope_statistical_test.cc",
         "patchSetId": 3
@@ -153,6 +171,24 @@
       "side": 1,
       "message": "The knobs we have are increasing kNumTests, or widening the acceptable thresholds, or both.  The thresholds are pretty liberal already.  I can make sure it runs N times without failures if you want to propose N?\n\nYou could also argue that only a test with a really huge kNumTests is interesting, i.e. that a test with liberal thresholds is worthless, \u0026 may be disabled.  Not sure if that is true.",
       "parentUuid": "66178ad9_38a409b0",
+      "revId": "72a2e5b8c083c02f927be5df6ef62c4617fda34c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "66ea2a22_40e92ef4",
+        "filename": "crypto/newhope/newhope_statistical_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-06-03T20:58:34Z",
+      "side": 1,
+      "message": "For the mean test, we have, essentially, 32 * kNumTests * 1024 coin flips and we\u0027re testing whether the count is between 15.5 * 1000 * 1024 and 16.5 * 1000 * 1024. That probability is one, to the extent that Mathematica can calculate.\n\nTesting the variance is more complex. Generally one would divide the std dev of the sample by the expected std dev and multiply by the number of degrees of freedom (1000*1024 here). However, I can\u0027t find any tables that get close to that value. I guess the number of tests is large enough that it should be similar to the mean case.\n\nOk, I\u0027m convinced that this isn\u0027t going to be flakey in a real sense. Let\u0027s see whether it ever causes issues.",
+      "parentUuid": "66ea2a22_40412e9f",
       "revId": "72a2e5b8c083c02f927be5df6ef62c4617fda34c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -293,6 +329,24 @@
       "side": 1,
       "message": "How do you feel about \"PIN number\"?",
       "parentUuid": "26c67231_d7819610",
+      "revId": "72a2e5b8c083c02f927be5df6ef62c4617fda34c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "66ea2a22_03e570e9",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-06-03T20:58:34Z",
+      "side": 1,
+      "message": "I just say \"PIN\" :)",
+      "parentUuid": "66ea2a22_40280ed1",
       "revId": "72a2e5b8c083c02f927be5df6ef62c4617fda34c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
