@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "66ea2a22_236354cd",
+        "filename": "crypto/newhope/newhope_statistical_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-06-03T21:36:27Z",
+      "side": 1,
+      "message": "I just cast them to unsigned for printing and submitted.",
+      "parentUuid": "e6a8da5d_e75c1c40",
+      "range": {
+        "startLine": 136,
+        "startChar": 19,
+        "endLine": 136,
+        "endChar": 21
+      },
+      "revId": "6b7436b0d29ac3018e23cfc0dd734dfd8024a80f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e6a8da5d_a756241a",
         "filename": "include/openssl/newhope.h",
         "patchSetId": 5
