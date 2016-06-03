@@ -160,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "66ea2a22_0341f051",
+        "filename": "crypto/newhope/newhope_statistical_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-06-03T21:26:02Z",
+      "side": 1,
+      "message": "Ah, ok, coeffs is unsigned.",
+      "parentUuid": "66ea2a22_e3a16c56",
+      "revId": "72a2e5b8c083c02f927be5df6ef62c4617fda34c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66178ad9_38a409b0",
         "filename": "crypto/newhope/newhope_statistical_test.cc",
         "patchSetId": 3
