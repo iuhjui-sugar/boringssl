@@ -69,6 +69,30 @@
       "revId": "6b7436b0d29ac3018e23cfc0dd734dfd8024a80f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "66ea2a22_037e1055",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-06-03T21:38:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6a8da5d_a756241a",
+      "range": {
+        "startLine": 96,
+        "startChar": 3,
+        "endLine": 96,
+        "endChar": 21
+      },
+      "revId": "6b7436b0d29ac3018e23cfc0dd734dfd8024a80f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
