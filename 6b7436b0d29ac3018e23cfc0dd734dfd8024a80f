@@ -22,6 +22,29 @@
       "revId": "6b7436b0d29ac3018e23cfc0dd734dfd8024a80f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e6a8da5d_a756241a",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-03T21:36:18Z",
+      "side": 1,
+      "message": "NEWHOPE_POLY_noise_ntt to fix the docs bot.",
+      "range": {
+        "startLine": 96,
+        "startChar": 3,
+        "endLine": 96,
+        "endChar": 21
+      },
+      "revId": "6b7436b0d29ac3018e23cfc0dd734dfd8024a80f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
