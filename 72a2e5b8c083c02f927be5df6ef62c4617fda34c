@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "66ea2a22_00e566e9",
+        "filename": "crypto/newhope/newhope_statistical_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-06-03T19:58:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26c67231_62b01eea",
+      "revId": "72a2e5b8c083c02f927be5df6ef62c4617fda34c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "26c67231_82b50adb",
         "filename": "crypto/newhope/newhope_statistical_test.cc",
         "patchSetId": 3
@@ -47,6 +65,24 @@
       "writtenOn": "2016-06-03T18:20:48Z",
       "side": 1,
       "message": "s/fprintf/printf/ when the output is |stdout|?",
+      "revId": "72a2e5b8c083c02f927be5df6ef62c4617fda34c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "66ea2a22_40cf6e6d",
+        "filename": "crypto/newhope/newhope_statistical_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-06-03T19:58:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26c67231_82b50adb",
       "revId": "72a2e5b8c083c02f927be5df6ef62c4617fda34c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -70,6 +106,24 @@
     },
     {
       "key": {
+        "uuid": "66ea2a22_80f0569d",
+        "filename": "crypto/newhope/newhope_statistical_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-06-03T19:58:19Z",
+      "side": 1,
+      "message": "It works because s is a noise polynomial: its coefficients range from -K to +K (mod q).",
+      "parentUuid": "26c67231_a2d84631",
+      "revId": "72a2e5b8c083c02f927be5df6ef62c4617fda34c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66178ad9_38a409b0",
         "filename": "crypto/newhope/newhope_statistical_test.cc",
         "patchSetId": 3
@@ -81,6 +135,24 @@
       "writtenOn": "2016-06-03T18:20:48Z",
       "side": 1,
       "message": "These tests will obviously be flakey, which we can\u0027t have in our internal builds at least. I\u0027m not entirely sure what to do about that. Perhaps repeat them until this pass?",
+      "revId": "72a2e5b8c083c02f927be5df6ef62c4617fda34c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "66ea2a22_40412e9f",
+        "filename": "crypto/newhope/newhope_statistical_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-06-03T19:58:19Z",
+      "side": 1,
+      "message": "The knobs we have are increasing kNumTests, or widening the acceptable thresholds, or both.  The thresholds are pretty liberal already.  I can make sure it runs N times without failures if you want to propose N?\n\nYou could also argue that only a test with a really huge kNumTests is interesting, i.e. that a test with liberal thresholds is worthless, \u0026 may be disabled.  Not sure if that is true.",
+      "parentUuid": "66178ad9_38a409b0",
       "revId": "72a2e5b8c083c02f927be5df6ef62c4617fda34c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -104,6 +176,24 @@
     },
     {
       "key": {
+        "uuid": "66ea2a22_6048b2c2",
+        "filename": "crypto/newhope/newhope_statistical_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-06-03T19:58:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66178ad9_d8daad2f",
+      "revId": "72a2e5b8c083c02f927be5df6ef62c4617fda34c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66178ad9_d8af0d8c",
         "filename": "crypto/newhope/newhope_statistical_test.cc",
         "patchSetId": 3
@@ -115,6 +205,24 @@
       "writtenOn": "2016-06-03T18:20:48Z",
       "side": 1,
       "message": "static bool TestKeys() {",
+      "revId": "72a2e5b8c083c02f927be5df6ef62c4617fda34c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "66ea2a22_c0137ea9",
+        "filename": "crypto/newhope/newhope_statistical_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-06-03T19:58:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66178ad9_d8af0d8c",
       "revId": "72a2e5b8c083c02f927be5df6ef62c4617fda34c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -138,6 +246,24 @@
     },
     {
       "key": {
+        "uuid": "66ea2a22_000e0683",
+        "filename": "crypto/newhope/newhope_statistical_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-06-03T19:58:19Z",
+      "side": 1,
+      "message": "Dammit.",
+      "parentUuid": "66178ad9_98e435ef",
+      "revId": "72a2e5b8c083c02f927be5df6ef62c4617fda34c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "26c67231_d7819610",
         "filename": "include/openssl/newhope.h",
         "patchSetId": 3
@@ -149,6 +275,24 @@
       "writtenOn": "2016-06-03T18:20:48Z",
       "side": 1,
       "message": "NTT is the \"number-theoretic transform\", so this expands to \"the number-theoretic transform transformation\" :)\n\n(I don\u0027t care though.)",
+      "revId": "72a2e5b8c083c02f927be5df6ef62c4617fda34c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "66ea2a22_40280ed1",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-06-03T19:58:19Z",
+      "side": 1,
+      "message": "How do you feel about \"PIN number\"?",
+      "parentUuid": "26c67231_d7819610",
       "revId": "72a2e5b8c083c02f927be5df6ef62c4617fda34c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
