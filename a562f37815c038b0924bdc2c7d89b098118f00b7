@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e6a8da5d_07461873",
+        "filename": "include/openssl/bio.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-03T21:26:04Z",
+      "side": 1,
+      "message": "Seriously. :-/",
+      "range": {
+        "startLine": 567,
+        "startChar": 51,
+        "endLine": 567,
+        "endChar": 66
+      },
+      "revId": "a562f37815c038b0924bdc2c7d89b098118f00b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
