@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "26c67231_c2a312a8",
+        "filename": "crypto/newhope/newhope_statistical_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-06-03T18:20:48Z",
+      "side": 1,
+      "message": "static const unsigned kNumTests \u003d 1000;",
+      "revId": "72a2e5b8c083c02f927be5df6ef62c4617fda34c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "26c67231_62b01eea",
+        "filename": "crypto/newhope/newhope_statistical_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-06-03T18:20:48Z",
+      "side": 1,
+      "message": "static bool TestNoise() {",
+      "revId": "72a2e5b8c083c02f927be5df6ef62c4617fda34c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "26c67231_82b50adb",
+        "filename": "crypto/newhope/newhope_statistical_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-06-03T18:20:48Z",
+      "side": 1,
+      "message": "s/fprintf/printf/ when the output is |stdout|?",
+      "revId": "72a2e5b8c083c02f927be5df6ef62c4617fda34c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "26c67231_a2d84631",
+        "filename": "crypto/newhope/newhope_statistical_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-06-03T18:20:48Z",
+      "side": 1,
+      "message": "|value| is 0…q, but buckets runs from 0…(1 + 2k). But q \u003e 1+2k.",
+      "revId": "72a2e5b8c083c02f927be5df6ef62c4617fda34c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "66178ad9_38a409b0",
+        "filename": "crypto/newhope/newhope_statistical_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-06-03T18:20:48Z",
+      "side": 1,
+      "message": "These tests will obviously be flakey, which we can\u0027t have in our internal builds at least. I\u0027m not entirely sure what to do about that. Perhaps repeat them until this pass?",
+      "revId": "72a2e5b8c083c02f927be5df6ef62c4617fda34c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "66178ad9_d8daad2f",
+        "filename": "crypto/newhope/newhope_statistical_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-06-03T18:20:48Z",
+      "side": 1,
+      "message": "static const uint8_t kHamming[256] \u003d {",
+      "revId": "72a2e5b8c083c02f927be5df6ef62c4617fda34c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "66178ad9_d8af0d8c",
+        "filename": "crypto/newhope/newhope_statistical_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-06-03T18:20:48Z",
+      "side": 1,
+      "message": "static bool TestKeys() {",
+      "revId": "72a2e5b8c083c02f927be5df6ef62c4617fda34c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "66178ad9_98e435ef",
+        "filename": "crypto/newhope/newhope_statistical_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-06-03T18:20:48Z",
+      "side": 1,
+      "message": "s/damm // I\u0027m afraid.",
+      "revId": "72a2e5b8c083c02f927be5df6ef62c4617fda34c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "26c67231_d7819610",
+        "filename": "include/openssl/newhope.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-06-03T18:20:48Z",
+      "side": 1,
+      "message": "NTT is the \"number-theoretic transform\", so this expands to \"the number-theoretic transform transformation\" :)\n\n(I don\u0027t care though.)",
+      "revId": "72a2e5b8c083c02f927be5df6ef62c4617fda34c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
