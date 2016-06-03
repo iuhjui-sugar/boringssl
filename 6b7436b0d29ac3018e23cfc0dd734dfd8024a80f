@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e6a8da5d_e75c1c40",
+        "filename": "crypto/newhope/newhope_statistical_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-03T21:35:10Z",
+      "side": 1,
+      "message": "Lots of compilers hate you now. :-)\n\nYou want to do \"%\" PRIu64 \"\\n\" from \u003cinttypes.h\u003e. And then because C/C++ hates you, you need to stick\n\n  #if !defined(__STDC_FORMAT_MACROS)\n  #define __STDC_FORMAT_MACROS\n  #endif\n\nat the top of your source file, before the includes.",
+      "range": {
+        "startLine": 136,
+        "startChar": 19,
+        "endLine": 136,
+        "endChar": 21
+      },
+      "revId": "6b7436b0d29ac3018e23cfc0dd734dfd8024a80f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
