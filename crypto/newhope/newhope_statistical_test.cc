@@ -132,7 +132,7 @@ static bool TestKeys(void) {
 
   uint64_t bits = NEWHOPE_KEY_LENGTH * 8 * kNumTests;
   uint64_t diff = bits - 2 * ones;
-  double fraction = (double) abs(diff) / bits;
+  double fraction = (double) diff / bits;
   printf("ones:   %u\n", (unsigned) ones);
   printf("zeroes: %u\n", (unsigned) (bits - ones));
   printf("diff:   got %u (%f), want %ld\n", (unsigned) diff, fraction, 0L);
