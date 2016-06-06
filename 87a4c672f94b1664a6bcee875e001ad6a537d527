@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "662dca76_68144333",
+        "filename": "crypto/thread.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-06T14:07:46Z",
+      "side": 1,
+      "message": "lock_num?",
+      "range": {
+        "startLine": 77,
+        "startChar": 56,
+        "endLine": 77,
+        "endChar": 60
+      },
+      "revId": "87a4c672f94b1664a6bcee875e001ad6a537d527",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
