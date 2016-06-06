@@ -34,6 +34,23 @@
       "revId": "9167def3a91f7d620b51c2fd9cac1dd01b20a21d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c3f6689d_abcde975",
+        "filename": "crypto/rsa/blinding.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-06T20:45:35Z",
+      "side": 1,
+      "message": "I believe this CL actually causes a behavior change here and makes this use the constant-time version. But that\u0027s probably desirable to begin with. We can make it call the _consttime function directly separately I guess. (Beyond that, I\u0027m not sure the BN_FLG_CONSTTIME additions even do anything.)",
+      "revId": "9167def3a91f7d620b51c2fd9cac1dd01b20a21d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
