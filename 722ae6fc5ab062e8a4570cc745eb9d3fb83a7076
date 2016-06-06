@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c3f6689d_ebf0919e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-06T20:45:35Z",
+      "side": 1,
+      "message": "Hrmf. Actually, one last question before I merge this. I\u0027m not sure it\u0027s completely identical. There\u0027s a BN_nnmod call in bn_mod_inverse_no_branch at the bottom which acts on R, Y, and n. BN_nmod eventually calls BN_div which is sensitive to the flag.\n\nIf only a is marked secret but not n, I think this causes different code to be run. I\u0027m going to try to puzzle out what\u0027s going on here, but have you thought about this already? The surrounding code there seems kinda dubious w.r.t. constant-time-ness, so maybe there\u0027s nothing to be done about that just yet.",
+      "range": {
+        "startLine": 14,
+        "startChar": 17,
+        "endLine": 14,
+        "endChar": 28
+      },
+      "revId": "722ae6fc5ab062e8a4570cc745eb9d3fb83a7076",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
