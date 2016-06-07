@@ -51,6 +51,24 @@
       "revId": "9167def3a91f7d620b51c2fd9cac1dd01b20a21d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "03724020_aeca3b59",
+        "filename": "crypto/rsa/blinding.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-06-07T23:07:34Z",
+      "side": 1,
+      "message": "`BN_mod_exp_mont` only calls the `consttime` version if the *exponent* has the `BN_FLG_CONSTTIME` flag. So, this will still execute the non-`consttime` code. But, remember from previous discussion that even the non-`consttime` code is still supposed to be consttime w.r.t. the *base*. The `consttime` variant just also protects the exponent.",
+      "parentUuid": "c3f6689d_abcde975",
+      "revId": "9167def3a91f7d620b51c2fd9cac1dd01b20a21d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
