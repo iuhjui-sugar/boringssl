@@ -1091,8 +1091,12 @@ static int ssl3_send_server_hello(SSL *ssl) {
     ssl->s3->tlsext_channel_id_valid = 0;
   }
 
-  if (!ssl_fill_hello_random(ssl->s3->server_random, SSL3_RANDOM_SIZE,
-                             1 /* server */)) {
+  const uint32_t current_time = time(NULL);
+  ssl->s3->server_random[0] = current_time >> 24;
+  ssl->s3->server_random[1] = current_time >> 16;
+  ssl->s3->server_random[2] = current_time >> 8;
+  ssl->s3->server_random[3] = current_time;
+  if (!RAND_bytes(ssl->s3->server_random + 4, SSL3_RANDOM_SIZE - 4)) {
     OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
     return -1;
   }
