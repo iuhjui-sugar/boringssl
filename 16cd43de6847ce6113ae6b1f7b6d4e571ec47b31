@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c3f6689d_8ecabb59",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 3449,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-07T15:25:03Z",
+      "side": 1,
+      "message": "See other comment.",
+      "parentUuid": "e6a8da5d_8753e85b",
+      "revId": "16cd43de6847ce6113ae6b1f7b6d4e571ec47b31",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e6a8da5d_e7565c4d",
         "filename": "ssl/ssl_lib.c",
         "patchSetId": 12
@@ -30,6 +48,24 @@
       "writtenOn": "2016-06-03T20:00:47Z",
       "side": 1,
       "message": "None of this is going to work right with SSL_clear. It should be initialized in ssl3_new and hanging off the connection instead so that works without fuss.",
+      "revId": "16cd43de6847ce6113ae6b1f7b6d4e571ec47b31",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c3f6689d_aecdf775",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-07T15:25:03Z",
+      "side": 1,
+      "message": "I think we don\u0027t want to hang off of s3, since we probably want to share the handshake state between the dtls/tls code.",
+      "parentUuid": "e6a8da5d_e7565c4d",
       "revId": "16cd43de6847ce6113ae6b1f7b6d4e571ec47b31",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
