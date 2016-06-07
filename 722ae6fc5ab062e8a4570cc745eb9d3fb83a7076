@@ -46,6 +46,30 @@
       "revId": "722ae6fc5ab062e8a4570cc745eb9d3fb83a7076",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23d5842a_d6770489",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-07T23:13:22Z",
+      "side": 1,
+      "message": "SGTM. You may have noticed a recent hilarity with the DSA code. :-) (I was similarly unhappy about the BN_mod_inverse bits, so I stuck with BN_FLG_CONSTTIME so I wouldn\u0027t have to think about it too hard just yet.)",
+      "parentUuid": "03724020_eba0a5af",
+      "range": {
+        "startLine": 14,
+        "startChar": 17,
+        "endLine": 14,
+        "endChar": 28
+      },
+      "revId": "722ae6fc5ab062e8a4570cc745eb9d3fb83a7076",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
