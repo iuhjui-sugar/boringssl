@@ -22,6 +22,30 @@
       "revId": "722ae6fc5ab062e8a4570cc745eb9d3fb83a7076",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "03724020_eba0a5af",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-06-07T23:07:34Z",
+      "side": 1,
+      "message": "I suggest the following course of action:\n1. Let\u0027s drop the changes to `bn_mod_inverse_no_branch` for now.\n2. Let\u0027s replace `bn_mod_inverse_no_branch` with an equivalent that doesn\u0027t use division instructions (which aren\u0027t constant-time anyway). Note that the no-division one is probably slower. I don\u0027t think it matters though.",
+      "parentUuid": "c3f6689d_ebf0919e",
+      "range": {
+        "startLine": 14,
+        "startChar": 17,
+        "endLine": 14,
+        "endChar": 28
+      },
+      "revId": "722ae6fc5ab062e8a4570cc745eb9d3fb83a7076",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
