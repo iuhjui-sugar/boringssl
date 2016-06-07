@@ -69,6 +69,24 @@
       "revId": "9167def3a91f7d620b51c2fd9cac1dd01b20a21d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23d5842a_f672009b",
+        "filename": "crypto/rsa/blinding.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-07T23:13:22Z",
+      "side": 1,
+      "message": "Oh right. Sorry, missed that.",
+      "parentUuid": "03724020_aeca3b59",
+      "revId": "9167def3a91f7d620b51c2fd9cac1dd01b20a21d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
