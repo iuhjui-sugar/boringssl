@@ -16,6 +16,24 @@
       "revId": "aaa8bfdef4f8836fcfee6c044d3889e2c384165d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "03efa033_60d54cf7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-08T18:13:36Z",
+      "side": 1,
+      "message": "Hrm. I think it\u0027s still accurate? There are two rexmits and I am switching it to just one. And then I\u0027m trimming most of the rexmit machinery itself. That is, the DTLSv1_handle_timeout call I added corresponds to dtls1_read_failed, not DTLSv1_handle_timeout. One happened before a read and the other after.",
+      "parentUuid": "03efa033_5d7f5b93",
+      "revId": "aaa8bfdef4f8836fcfee6c044d3889e2c384165d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
