@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "03efa033_7d5b3745",
+        "filename": "util/run_android_tests.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-08T14:42:01Z",
+      "side": 1,
+      "message": "LastIndex",
+      "range": {
+        "startLine": 102,
+        "startChar": 16,
+        "endLine": 102,
+        "endChar": 21
+      },
+      "revId": "9f42228f73baa485d089e4ce0cb44d4eea0d029e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
