@@ -46,6 +46,30 @@
       "revId": "f7b66de08810bc95eea3738558081c69a7410c09",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "03efa033_40af7038",
+        "filename": "ssl/d1_pkt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-08T19:16:24Z",
+      "side": 1,
+      "message": "I guess the SSL half does SSL_R_BAD_LENGTH. I\u0027ll do that.",
+      "parentUuid": "03efa033_608d4ce8",
+      "range": {
+        "startLine": 337,
+        "startChar": 0,
+        "endLine": 339,
+        "endChar": 3
+      },
+      "revId": "f7b66de08810bc95eea3738558081c69a7410c09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
