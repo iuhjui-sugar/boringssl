@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "03efa033_7d34d7e0",
+        "filename": "ssl/d1_pkt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-08T15:14:46Z",
+      "side": 1,
+      "message": "Note that we are dropping them silently as per previous comment.",
+      "range": {
+        "startLine": 222,
+        "startChar": 3,
+        "endLine": 224,
+        "endChar": 24
+      },
+      "revId": "fb3eb415703b9734d8fc891925498d9d9b48e644",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
