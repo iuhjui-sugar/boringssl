@@ -604,6 +604,14 @@ void ssl_set_client_disabled(SSL *ssl) {
   }
 }
 
+enum extension_type {
+  extension_none,      /* This extension is prohibited. */
+  extension_clear,     /* Sent in the ServerHello. */
+  extension_encrypted, /* Sent in the EncryptedExtensions. */
+  extension_client,    /* May only be sent by the client. */
+  extension_early,     /* Sent in the client's 0-RTT EncryptedExtensions. */
+};
+
 /* tls_extension represents a TLS extension that is handled internally. The
  * |init| function is called for each handshake, before any other functions of
  * the extension. Then the add and parse callbacks are called as needed.
@@ -628,6 +636,7 @@ struct tls_extension {
 
   int (*parse_clienthello)(SSL *ssl, uint8_t *out_alert, CBS *contents);
   int (*add_serverhello)(SSL *ssl, CBB *out);
+  enum extension_type tls13_type;
 };
 
 
@@ -1923,6 +1932,7 @@ static const struct tls_extension kExtensions[] = {
     ext_ri_parse_serverhello,
     ext_ri_parse_clienthello,
     ext_ri_add_serverhello,
+    extension_none,
   },
   {
     TLSEXT_TYPE_server_name,
@@ -1931,6 +1941,7 @@ static const struct tls_extension kExtensions[] = {
     ext_sni_parse_serverhello,
     ext_sni_parse_clienthello,
     ext_sni_add_serverhello,
+    extension_encrypted,
   },
   {
     TLSEXT_TYPE_extended_master_secret,
@@ -1939,6 +1950,7 @@ static const struct tls_extension kExtensions[] = {
     ext_ems_parse_serverhello,
     ext_ems_parse_clienthello,
     ext_ems_add_serverhello,
+    extension_none,
   },
   {
     TLSEXT_TYPE_session_ticket,
@@ -1947,6 +1959,7 @@ static const struct tls_extension kExtensions[] = {
     ext_ticket_parse_serverhello,
     ext_ticket_parse_clienthello,
     ext_ticket_add_serverhello,
+    extension_none,
   },
   {
     TLSEXT_TYPE_signature_algorithms,
@@ -1955,6 +1968,7 @@ static const struct tls_extension kExtensions[] = {
     ext_sigalgs_parse_serverhello,
     ext_sigalgs_parse_clienthello,
     ext_sigalgs_add_serverhello,
+    extension_client,
   },
   {
     TLSEXT_TYPE_status_request,
@@ -1963,6 +1977,7 @@ static const struct tls_extension kExtensions[] = {
     ext_ocsp_parse_serverhello,
     ext_ocsp_parse_clienthello,
     ext_ocsp_add_serverhello,
+    extension_none,
   },
   {
     TLSEXT_TYPE_next_proto_neg,
@@ -1971,6 +1986,7 @@ static const struct tls_extension kExtensions[] = {
     ext_npn_parse_serverhello,
     ext_npn_parse_clienthello,
     ext_npn_add_serverhello,
+    extension_none,
   },
   {
     TLSEXT_TYPE_certificate_timestamp,
@@ -1979,6 +1995,7 @@ static const struct tls_extension kExtensions[] = {
     ext_sct_parse_serverhello,
     ext_sct_parse_clienthello,
     ext_sct_add_serverhello,
+    extension_encrypted,
   },
   {
     TLSEXT_TYPE_application_layer_protocol_negotiation,
@@ -1987,6 +2004,7 @@ static const struct tls_extension kExtensions[] = {
     ext_alpn_parse_serverhello,
     ext_alpn_parse_clienthello,
     ext_alpn_add_serverhello,
+    extension_encrypted,
   },
   {
     TLSEXT_TYPE_channel_id,
@@ -1995,6 +2013,7 @@ static const struct tls_extension kExtensions[] = {
     ext_channel_id_parse_serverhello,
     ext_channel_id_parse_clienthello,
     ext_channel_id_add_serverhello,
+    extension_none,
   },
   {
     TLSEXT_TYPE_srtp,
@@ -2003,6 +2022,7 @@ static const struct tls_extension kExtensions[] = {
     ext_srtp_parse_serverhello,
     ext_srtp_parse_clienthello,
     ext_srtp_add_serverhello,
+    extension_none,
   },
   {
     TLSEXT_TYPE_ec_point_formats,
@@ -2011,6 +2031,7 @@ static const struct tls_extension kExtensions[] = {
     ext_ec_point_parse_serverhello,
     ext_ec_point_parse_clienthello,
     ext_ec_point_add_serverhello,
+    extension_none,
   },
   /* The final extension must be non-empty. WebSphere Application Server 7.0 is
    * intolerant to the last extension being zero-length. See
@@ -2022,6 +2043,7 @@ static const struct tls_extension kExtensions[] = {
     ext_supported_groups_parse_serverhello,
     ext_supported_groups_parse_clienthello,
     ext_supported_groups_add_serverhello,
+    extension_encrypted,
   },
 };
 
@@ -2052,6 +2074,30 @@ int SSL_extension_supported(unsigned extension_value) {
   uint32_t index;
   return extension_value == TLSEXT_TYPE_padding ||
          tls_extension_find(&index, extension_value) != NULL;
+}
+
+static int ssl_check_extension_context(SSL *ssl, struct tls_extension ext) {
+  if (ssl3_protocol_version(ssl) < TLS1_3_VERSION) {
+    return 1;
+  }
+
+  if (ssl->s3->hs->handshake_state == HS_STATE_SERVER_HELLO) {
+    return ext.tls13_type == extension_clear;
+  }
+
+  if (ssl->s3->hs->handshake_state == HS_STATE_SERVER_ENCRYPTED_EXTENSIONS) {
+    return ext.tls13_type == extension_encrypted;
+  }
+
+  if (ssl->s3->hs->handshake_state == HS_STATE_CLIENT_ENCRYPTED_EXTENSIONS) {
+    return ext.tls13_type == extension_early;
+  }
+
+  if (ssl->s3->hs->handshake_state == HS_STATE_CLIENT_HELLO) {
+    return ext.tls13_type != extension_none;
+  }
+
+  return 0;
 }
 
 int ssl_add_clienthello_tlsext(SSL *ssl, CBB *out, size_t header_len) {
@@ -2147,15 +2193,20 @@ int ssl_add_serverhello_tlsext(SSL *ssl, CBB *out) {
       continue;
     }
 
-    if (!kExtensions[i].add_serverhello(ssl, &extensions)) {
-      OPENSSL_PUT_ERROR(SSL, SSL_R_ERROR_ADDING_EXTENSION);
-      ERR_add_error_dataf("extension: %u", (unsigned)kExtensions[i].value);
-      goto err;
+    if (ssl_check_extension_context(ssl, kExtensions[i])) {
+      if (!kExtensions[i].add_serverhello(ssl, &extensions)) {
+        OPENSSL_PUT_ERROR(SSL, SSL_R_ERROR_ADDING_EXTENSION);
+        ERR_add_error_dataf("extension: %u", (unsigned)kExtensions[i].value);
+        goto err;
+      }
     }
   }
 
-  if (!custom_ext_add_serverhello(ssl, &extensions)) {
-    goto err;
+  if (ssl3_protocol_version(ssl) < TLS1_3_VERSION ||
+      ssl->s3->hs->handshake_state == HS_STATE_SERVER_ENCRYPTED_EXTENSIONS) {
+    if (!custom_ext_add_serverhello(ssl, &extensions)) {
+      goto err;
+    }
   }
 
   /* Discard empty extensions blocks. */
@@ -2312,6 +2363,15 @@ static int ssl_scan_serverhello_tlsext(SSL *ssl, CBS *cbs, int *out_alert) {
         return 0;
       }
 
+      if (!ssl_check_extension_context(ssl, *ext)) {
+        /* If the extension should is sent in the wrong message then it is
+         * illegal. */
+        OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_EXTENSION);
+        ERR_add_error_dataf("extension :%u", (unsigned)type);
+        *out_alert = SSL_AD_DECODE_ERROR;
+        return 0;
+      }
+
       received |= (1u << ext_index);
 
       uint8_t alert = SSL_AD_DECODE_ERROR;
@@ -2326,6 +2386,10 @@ static int ssl_scan_serverhello_tlsext(SSL *ssl, CBS *cbs, int *out_alert) {
 
   size_t i;
   for (i = 0; i < kNumExtensions; i++) {
+    if (!ssl_check_extension_context(ssl, kExtensions[i])) {
+      continue;
+    }
+
     if (!(received & (1u << i))) {
       /* Extension wasn't observed so call the callback with a NULL
        * parameter. */
