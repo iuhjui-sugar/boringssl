@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "03efa033_dd440b64",
+        "filename": "crypto/bytestring/bytestring_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-08T15:10:47Z",
+      "side": 1,
+      "message": "Check u8 value?",
+      "range": {
+        "startLine": 63,
+        "startChar": 4,
+        "endLine": 64,
+        "endChar": 33
+      },
+      "revId": "b7b9be1916f5a3169e08e5e50a71f7020e89bee1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
