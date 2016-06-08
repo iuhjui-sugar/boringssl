@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "03efa033_5d7f5b93",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-08T14:25:10Z",
+      "side": 1,
+      "message": "wrap?\n\nAlso, maybe simplify the comment since you just are killing most of the machinery?",
+      "revId": "aaa8bfdef4f8836fcfee6c044d3889e2c384165d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
