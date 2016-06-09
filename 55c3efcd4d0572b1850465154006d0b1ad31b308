@@ -1,0 +1,129 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0fc6e430_ce64a338",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-09T18:33:40Z",
+      "side": 1,
+      "message": "Add a sentence for what this is for perhaps?",
+      "revId": "55c3efcd4d0572b1850465154006d0b1ad31b308",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0fc6e430_2e80c7d5",
+        "filename": "crypto/evp/evp.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-09T18:33:40Z",
+      "side": 1,
+      "message": "Since this is completely EVP_PKEY_EC-specific, I\u0027d actually put this in p_ec.c. The RSA-specific ones are like that.",
+      "revId": "55c3efcd4d0572b1850465154006d0b1ad31b308",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0fc6e430_6e76cff5",
+        "filename": "crypto/evp/p_ec.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-09T18:33:40Z",
+      "side": 1,
+      "message": "(This isn\u0027t actually reachable because of line 144.)",
+      "revId": "55c3efcd4d0572b1850465154006d0b1ad31b308",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0fc6e430_ae14b791",
+        "filename": "crypto/evp/p_ec.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-09T18:33:40Z",
+      "side": 1,
+      "message": "This won\u0027t end up giving the right upper-bound here. Or maybe that\u0027s fine since it\u0027s larger?",
+      "revId": "55c3efcd4d0572b1850465154006d0b1ad31b308",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0fc6e430_4e7193fa",
+        "filename": "crypto/evp/p_ec.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-09T18:33:40Z",
+      "side": 1,
+      "message": "Doesn\u0027t do anything. :-)",
+      "revId": "55c3efcd4d0572b1850465154006d0b1ad31b308",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0fc6e430_0e7b8bdc",
+        "filename": "crypto/evp/p_ec.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-09T18:33:40Z",
+      "side": 1,
+      "message": "This isn\u0027t checking siglen anywhere.",
+      "range": {
+        "startLine": 173,
+        "startChar": 37,
+        "endLine": 173,
+        "endChar": 43
+      },
+      "revId": "55c3efcd4d0572b1850465154006d0b1ad31b308",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0fc6e430_ee1abfbf",
+        "filename": "include/openssl/evp.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 647,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-09T18:33:40Z",
+      "side": 1,
+      "message": "enum?",
+      "revId": "55c3efcd4d0572b1850465154006d0b1ad31b308",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
