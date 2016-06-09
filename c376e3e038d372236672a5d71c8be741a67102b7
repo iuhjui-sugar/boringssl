@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0fc6e430_ee5cff05",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-09T21:22:17Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "c376e3e038d372236672a5d71c8be741a67102b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0fc6e430_8e59bb14",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-09T21:22:17Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "c376e3e038d372236672a5d71c8be741a67102b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
