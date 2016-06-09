@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0fc6e430_ee62bff0",
+        "filename": "crypto/chacha/chacha.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-09T19:40:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0fc6e430_ae00372b",
+      "revId": "e394c8da52b022d1c99b1997bcdd7b3b920aaafd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0fc6e430_6ea24f67",
         "filename": "crypto/cipher/aead.c",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2016-06-09T19:04:14Z",
       "side": 1,
       "message": "(ditto uintptr_t)",
+      "revId": "e394c8da52b022d1c99b1997bcdd7b3b920aaafd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0fc6e430_ce6583fb",
+        "filename": "crypto/cipher/aead.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-09T19:40:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0fc6e430_6ea24f67",
       "revId": "e394c8da52b022d1c99b1997bcdd7b3b920aaafd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
