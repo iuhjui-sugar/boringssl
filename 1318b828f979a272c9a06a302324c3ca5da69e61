@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0fc6e430_6efb2f55",
+        "filename": "ssl/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-06-09T18:59:09Z",
+      "side": 1,
+      "message": "ssl_seal_align_prefix_len?",
+      "revId": "1318b828f979a272c9a06a302324c3ca5da69e61",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0fc6e430_2ef5275d",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-06-09T18:59:09Z",
+      "side": 1,
+      "message": "How about casting all the pointers here to uintptr_t? I fear that comparing pointers to different objects like this is undefined behaviour.",
+      "revId": "1318b828f979a272c9a06a302324c3ca5da69e61",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
