@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0fc6e430_8ed21b05",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-09T17:28:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23d5842a_f63560e3",
+      "revId": "c0a8f0dfa8beee159591f1fac201eee4e94dc76a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0fc6e430_6eb32f04",
         "filename": "include/openssl/x509_vfy.h",
         "patchSetId": 1
@@ -30,6 +48,30 @@
       "writtenOn": "2016-06-09T16:43:13Z",
       "side": 1,
       "message": "ERR_ISSUER_LOOKUP or ERR_LOOKUP?",
+      "range": {
+        "startLine": 372,
+        "startChar": 16,
+        "endLine": 372,
+        "endChar": 31
+      },
+      "revId": "c0a8f0dfa8beee159591f1fac201eee4e94dc76a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0fc6e430_eec5df3d",
+        "filename": "include/openssl/x509_vfy.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-09T17:28:50Z",
+      "side": 1,
+      "message": "OpenSSL uses X509_V_ERR_STORE_LOOKUP, so we should match them. This module only exists for OpenSSL compatibility anyway.",
+      "parentUuid": "0fc6e430_6eb32f04",
       "range": {
         "startLine": 372,
         "startChar": 16,
