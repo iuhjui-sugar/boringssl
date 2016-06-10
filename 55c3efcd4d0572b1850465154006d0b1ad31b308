@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "4ff29c56_550126fa",
+        "filename": "crypto/evp/evp.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-06-10T00:42:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0fc6e430_2e80c7d5",
+      "revId": "55c3efcd4d0572b1850465154006d0b1ad31b308",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0fc6e430_6e76cff5",
         "filename": "crypto/evp/p_ec.c",
         "patchSetId": 2
@@ -47,6 +65,24 @@
       "writtenOn": "2016-06-09T18:33:40Z",
       "side": 1,
       "message": "(This isn\u0027t actually reachable because of line 144.)",
+      "revId": "55c3efcd4d0572b1850465154006d0b1ad31b308",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ff29c56_356b42a2",
+        "filename": "crypto/evp/p_ec.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-06-10T00:42:52Z",
+      "side": 1,
+      "message": "Line 144 is moved to only apply to asn.1 sigs. I also copied the siglen check from line 146 to here (checking 2*len instead of ECDSA_size(ec)).",
+      "parentUuid": "0fc6e430_6e76cff5",
       "revId": "55c3efcd4d0572b1850465154006d0b1ad31b308",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -70,6 +106,24 @@
     },
     {
       "key": {
+        "uuid": "4ff29c56_355462e4",
+        "filename": "crypto/evp/p_ec.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-06-10T00:42:52Z",
+      "side": 1,
+      "message": "I folded this check into the switch statement, since the check on line 146 would be wrong for a raw sig (the buffer can be smaller for a raw sig - no need to require it to be big enough to fit an asn.1 sig).",
+      "parentUuid": "0fc6e430_ae14b791",
+      "revId": "55c3efcd4d0572b1850465154006d0b1ad31b308",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0fc6e430_4e7193fa",
         "filename": "crypto/evp/p_ec.c",
         "patchSetId": 2
@@ -81,6 +135,24 @@
       "writtenOn": "2016-06-09T18:33:40Z",
       "side": 1,
       "message": "Doesn\u0027t do anything. :-)",
+      "revId": "55c3efcd4d0572b1850465154006d0b1ad31b308",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ff29c56_15603eb8",
+        "filename": "crypto/evp/p_ec.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-06-10T00:42:52Z",
+      "side": 1,
+      "message": "Removed. I guess I was too careful in freeing everything that was created (:",
+      "parentUuid": "0fc6e430_4e7193fa",
       "revId": "55c3efcd4d0572b1850465154006d0b1ad31b308",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -110,6 +182,30 @@
     },
     {
       "key": {
+        "uuid": "4ff29c56_f55cba05",
+        "filename": "crypto/evp/p_ec.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-06-10T00:42:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0fc6e430_0e7b8bdc",
+      "range": {
+        "startLine": 173,
+        "startChar": 37,
+        "endLine": 173,
+        "endChar": 43
+      },
+      "revId": "55c3efcd4d0572b1850465154006d0b1ad31b308",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0fc6e430_ee1abfbf",
         "filename": "include/openssl/evp.h",
         "patchSetId": 2
@@ -121,6 +217,24 @@
       "writtenOn": "2016-06-09T18:33:40Z",
       "side": 1,
       "message": "enum?",
+      "revId": "55c3efcd4d0572b1850465154006d0b1ad31b308",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ff29c56_e7a411be",
+        "filename": "include/openssl/evp.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 647,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-06-10T00:42:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0fc6e430_ee1abfbf",
       "revId": "55c3efcd4d0572b1850465154006d0b1ad31b308",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
