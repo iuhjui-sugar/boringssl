@@ -24,7 +24,6 @@ add_library(
   a_utctm.c
   a_utf8.c
   asn1_lib.c
-  asn1_par.c
   asn_pack.c
   bio_asn1.c
   bio_ndef.c
