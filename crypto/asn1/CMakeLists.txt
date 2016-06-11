@@ -25,8 +25,6 @@ add_library(
   a_utf8.c
   asn1_lib.c
   asn_pack.c
-  bio_asn1.c
-  bio_ndef.c
   f_enum.c
   f_int.c
   f_string.c
