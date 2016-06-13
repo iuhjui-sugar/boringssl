@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "afa6b825_4b85e569",
+        "filename": "crypto/asn1/bio_ndef.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-13T17:15:19Z",
+      "side": 0,
+      "message": "Sadly, some of this is weaved into the core ASN.1 code as this function and ASN1_TFLG_NDEF. Unraveling that is probably not worth the divergence, but dropping things file-by-file seems sound.",
+      "range": {
+        "startLine": 167,
+        "startChar": 13,
+        "endLine": 167,
+        "endChar": 31
+      },
+      "revId": "168281dc935173f766db0d35e4ca0cc3564bd684",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
