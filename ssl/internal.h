@@ -1420,4 +1420,13 @@ int tls13_server_handshake(SSL *ssl, SSL_HANDSHAKE *hs);
  * complete received message. It returns 1 on success and 0 on failure. */
 int tls13_server_post_handshake(SSL *ssl, SSL_HS_MESSAGE msg);
 
+enum tls_record_type_t {
+  type_early_handshake,
+  type_early_data,
+  type_handshake,
+  type_data,
+};
+
+int tls13_update_traffic_secret(SSL *ssl, enum tls_record_type_t type);
+
 #endif /* OPENSSL_HEADER_SSL_INTERNAL_H */
