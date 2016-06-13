@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cffdacea_c2f54661",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-06-13T18:12:06Z",
+      "side": 1,
+      "message": "The situation is that this function is given a reference to each of rbio and wbio if they differ, but only one reference if they are the same, right?\n\nAnd its behaviour is that it adopts the reference only if ssl-\u003erbio/wbio is changed?\n\nIf so, all that should be nailed down in the comment.\n\nThen how about:\n\nif (rbio !\u003d SSL_get_rbio(ssl)) {\n  ssl_set_rbio(rbio);\n}\n\nif (wbio !\u003d SSL_get_wbio(ssl)) {\n  if (rbio \u003d\u003d wbio \u0026\u0026 wbio !\u003d NULL) {\n    /* Only one reference was granted in this case. */\n    BIO_up_ref(wbio);\n  }\n  ssl_set_wbio(wbio);\n}",
+      "revId": "306d0c4bb909a4545ea89e3567166a94c40b4e55",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
