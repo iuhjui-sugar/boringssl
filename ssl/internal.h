@@ -1000,6 +1000,19 @@ struct ssl_handshake_st {
   int handshake_interrupt;
   SSL_HS_MESSAGE *in_message;
   SSL_HS_MESSAGE *out_message;
+
+  uint8_t *hs_context;
+  size_t hs_context_len;
+  uint8_t *resumption_ctx;
+  size_t resumption_ctx_len;
+
+  size_t key_len;
+  uint8_t *early_secret;
+  size_t early_secret_len;
+  uint8_t *handshake_secret;
+  size_t handshake_secret_len;
+  uint8_t *master_secret;
+  size_t master_secret_len;
 } /* SSL_HANDSHAKE */;
 
 enum ssl_session_result_t {
@@ -1307,5 +1320,22 @@ int tls13_server_handshake(SSL *ssl, SSL_HANDSHAKE *hs);
  * received after the initial handshake has completed. |msg| represents the
  * complete received message. It returns 1 on success and 0 on failure. */
 int tls13_server_post_handshake(SSL *ssl, SSL_HS_MESSAGE msg);
+
+enum tls_record_type_t {
+  type_early_handshake,
+  type_early_data,
+  type_handshake,
+  type_data,
+};
+
+int tls13_update_traffic_secret(SSL *ssl, enum tls_record_type_t type);
+int tls13_finalize_keys(SSL *ssl);
+
+int tls13_rotate_traffic_secret(SSL *ssl, enum evp_aead_direction_t direction);
+
+int tls13_export_keying_material(SSL *ssl, uint8_t *out, size_t out_len,
+                                 const char *label, size_t label_len,
+                                 const uint8_t *context, size_t context_len,
+                                 int use_context);
 
 #endif /* OPENSSL_HEADER_SSL_INTERNAL_H */
