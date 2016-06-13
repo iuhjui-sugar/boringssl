@@ -4153,6 +4153,14 @@ typedef struct ssl3_state_st {
   SSL_HANDSHAKE *hs; /* Handshake State used by TLS 1.3 */
   SSL_HS_MESSAGE *post_message; /* Incoming Post Handshake Message */
 
+  uint8_t *seal_traffic_secret;
+  uint8_t *open_traffic_secret;
+  size_t traffic_secret_len;
+  uint8_t *exporter_secret;
+  size_t exporter_secret_len;
+  uint8_t *resumption_secret;
+  size_t resumption_secret_len;
+
   /* State pertaining to the pending handshake.
    *
    * TODO(davidben): State is current spread all over the place. Move
