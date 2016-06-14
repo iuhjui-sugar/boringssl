@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d43385f3_af0935d1",
+        "filename": "crypto/asn1/asn1_par.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-14T17:39:12Z",
+      "side": 0,
+      "message": "I had to restore this function since it\u0027s apparently reachable. (I did this on a Mac originally and I guess got bit by the linker not checking for missing symbols.)",
+      "range": {
+        "startLine": 391,
+        "startChar": 12,
+        "endLine": 391,
+        "endChar": 24
+      },
+      "revId": "72c2645326fb4a50081a4de10c7a277673fc2afb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
