@@ -22,6 +22,30 @@
       "revId": "62f85464928e273b39724795f4a5817d65c0d453",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d43385f3_6fe0ed36",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-14T15:53:23Z",
+      "side": 1,
+      "message": "Oh we, uh, don\u0027t actually parse CMakeLists.txt... :-/\n\nYou\u0027ll want to look at the code at the bottom that computes test_support_c_files. Add something analogous to ssl_internal_h_files. (Hrm. I should probably tweak the gyp and gn files later to include these too. We list headers in Chromium\u0027s build too, although it doesn\u0027t really do much. I think it\u0027s largely a remnant of when we generated Visual Studio and friends project files.)",
+      "parentUuid": "54595544_6eceab38",
+      "range": {
+        "startLine": 158,
+        "startChar": 67,
+        "endLine": 158,
+        "endChar": 70
+      },
+      "revId": "62f85464928e273b39724795f4a5817d65c0d453",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
