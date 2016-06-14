@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d43385f3_52b4b4eb",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-14T19:28:03Z",
+      "side": 1,
+      "message": "Hrm. To confirm, this is because some of the tests pull in their respective internal.h headers?",
+      "revId": "8f52738b3bf6fc553e9eb1b3b5626eecd2f3b0e9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
