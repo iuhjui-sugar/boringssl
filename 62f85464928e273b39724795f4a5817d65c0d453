@@ -46,6 +46,30 @@
       "revId": "62f85464928e273b39724795f4a5817d65c0d453",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "54595544_d7608623",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-06-14T18:40:43Z",
+      "side": 1,
+      "message": "Done.  Note that the approach I took removes test headers from crypto_internal_headers and ssl_internal_headers.  Does that work?",
+      "parentUuid": "d43385f3_6fe0ed36",
+      "range": {
+        "startLine": 158,
+        "startChar": 67,
+        "endLine": 158,
+        "endChar": 70
+      },
+      "revId": "62f85464928e273b39724795f4a5817d65c0d453",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
