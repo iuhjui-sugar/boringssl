@@ -16,6 +16,24 @@
       "revId": "306d0c4bb909a4545ea89e3567166a94c40b4e55",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d43385f3_0fe969ee",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-14T17:55:29Z",
+      "side": 1,
+      "message": "Yeah, something like that. The two rules (one vs two references and change vs unchanged) interact somewhat though.\n\nAnd, actually, I think neither my version nor yours quite works. How many references get taken if I do:\n\n  SSL_set_bio(ssl, bio, NULL);\n  SSL_set_bio(ssl, bio, bio);\n\nalso:\n\n  SSL_set_bio(ssl, NULL, bio);\n  SSL_set_bio(ssl, bio, bio);\n\nThis isn\u0027t even hypothetical. Those are:\n\n  SSL_set_rfd(ssl, fd);\n  SSL_set_wfd(ssl, fd);\n\nand:\n\n  SSL_set_wfd(ssl, fd);\n  SSL_set_rfd(ssl, fd);\n\nWhich means I believe the answer should be that the second set_bio call takes zero references. Amazingly, the old code actually works in both cases here. I\u0027ll fiddle with this some more.",
+      "parentUuid": "cffdacea_c2f54661",
+      "revId": "306d0c4bb909a4545ea89e3567166a94c40b4e55",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
