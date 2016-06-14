@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "54595544_6eceab38",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-06-14T00:12:05Z",
+      "side": 1,
+      "message": "This is a hack, obvi.  Is there a better way to handle it?  I could add this to CMakeLists.txt if that is legit.",
+      "range": {
+        "startLine": 158,
+        "startChar": 67,
+        "endLine": 158,
+        "endChar": 70
+      },
+      "revId": "62f85464928e273b39724795f4a5817d65c0d453",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
