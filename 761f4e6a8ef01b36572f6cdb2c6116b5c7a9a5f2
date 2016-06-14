@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "54595544_7759da76",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-06-14T18:41:58Z",
+      "side": 1,
+      "message": "Ugh, this is a problem.  Let me see if I can figure out a way to pass in this path.",
+      "revId": "761f4e6a8ef01b36572f6cdb2c6116b5c7a9a5f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
