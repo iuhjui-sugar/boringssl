@@ -16,6 +16,24 @@
       "revId": "8f52738b3bf6fc553e9eb1b3b5626eecd2f3b0e9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "34d9413f_bf8c37f2",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-06-14T19:34:33Z",
+      "side": 1,
+      "message": "That\u0027s correct.  And, if we wanted to, we could certainly be less sloppy about it, i.e. only include foo/internal.h in the deps for foo_test.  But that seems like a pain.",
+      "parentUuid": "d43385f3_52b4b4eb",
+      "revId": "8f52738b3bf6fc553e9eb1b3b5626eecd2f3b0e9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
