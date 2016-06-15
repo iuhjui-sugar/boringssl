@@ -110,6 +110,8 @@
 
 #include <openssl/err.h>
 
+#include <assert.h>
+
 #include "internal.h"
 
 static BIGNUM *euclid(BIGNUM *a, BIGNUM *b) {
@@ -684,21 +686,16 @@ static BIGNUM *BN_mod_inverse_no_branch(BIGNUM *out, int *out_no_inverse,
    */
 
   if (sign < 0) {
+    assert(!Y->neg && BN_ucmp(Y, n) < 0);
     if (!BN_sub(Y, n, Y)) {
       goto err;
     }
   }
   /* Now  Y*a  ==  A  (mod |n|).  */
 
-  /* Y*a == 1  (mod |n|) */
-  if (!Y->neg && BN_ucmp(Y, n) < 0) {
-    if (!BN_copy(R, Y)) {
-      goto err;
-    }
-  } else {
-    if (!BN_nnmod(R, Y, n, ctx)) {
-      goto err;
-    }
+  assert(!Y->neg && BN_ucmp(Y, n) < 0);
+  if (!BN_copy(R, Y)) {
+    goto err;
   }
 
   ret = R;
