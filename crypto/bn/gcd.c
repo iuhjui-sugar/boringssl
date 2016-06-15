@@ -225,9 +225,9 @@ err:
 }
 
 /* solves ax == 1 (mod n) */
-static BIGNUM *BN_mod_inverse_no_branch(BIGNUM *out, int *out_no_inverse,
-                                        const BIGNUM *a, const BIGNUM *n,
-                                        BN_CTX *ctx);
+static int BN_mod_inverse_no_branch(BIGNUM *out, int *out_no_inverse,
+                                    const BIGNUM *a, const BIGNUM *n,
+                                    BN_CTX *ctx);
 
 BIGNUM *BN_mod_inverse_ex(BIGNUM *out, int *out_no_inverse, const BIGNUM *a,
                           const BIGNUM *n, BN_CTX *ctx) {
@@ -235,9 +235,22 @@ BIGNUM *BN_mod_inverse_ex(BIGNUM *out, int *out_no_inverse, const BIGNUM *a,
   BIGNUM *ret = NULL;
   int sign;
 
+  if (out == NULL) {
+    R = BN_new();
+  } else {
+    R = out;
+  }
+  if (R == NULL) {
+    goto err;
+  }
+
   if ((a->flags & BN_FLG_CONSTTIME) != 0 ||
       (n->flags & BN_FLG_CONSTTIME) != 0) {
-    return BN_mod_inverse_no_branch(out, out_no_inverse, a, n, ctx);
+    if (!BN_mod_inverse_no_branch(R, out_no_inverse, a, n, ctx)) {
+      goto done;
+    }
+    ret = R;
+    goto done;
   }
 
   *out_no_inverse = 0;
@@ -251,15 +264,6 @@ BIGNUM *BN_mod_inverse_ex(BIGNUM *out, int *out_no_inverse, const BIGNUM *a,
   Y = BN_CTX_get(ctx);
   T = BN_CTX_get(ctx);
   if (T == NULL) {
-    goto err;
-  }
-
-  if (out == NULL) {
-    R = BN_new();
-  } else {
-    R = out;
-  }
-  if (R == NULL) {
     goto err;
   }
 
@@ -534,10 +538,11 @@ BIGNUM *BN_mod_inverse_ex(BIGNUM *out, int *out_no_inverse, const BIGNUM *a,
   ret = R;
 
 err:
+  BN_CTX_end(ctx);
+done:
   if (ret == NULL && out == NULL) {
     BN_free(R);
   }
-  BN_CTX_end(ctx);
   return ret;
 }
 
@@ -549,13 +554,16 @@ BIGNUM *BN_mod_inverse(BIGNUM *out, const BIGNUM *a, const BIGNUM *n,
 
 /* BN_mod_inverse_no_branch is a special version of BN_mod_inverse.
  * It does not contain branches that may leak sensitive information. */
-static BIGNUM *BN_mod_inverse_no_branch(BIGNUM *out, int *out_no_inverse,
-                                        const BIGNUM *a, const BIGNUM *n,
-                                        BN_CTX *ctx) {
-  BIGNUM *A, *B, *X, *Y, *M, *D, *T, *R = NULL;
+static int BN_mod_inverse_no_branch(BIGNUM *out, int *out_no_inverse,
+                                    const BIGNUM *a, const BIGNUM *n,
+                                    BN_CTX *ctx) {
+  /* |BN_mod_inverse| doesn't have this precondition. */
+  assert(out != NULL);
+
+  BIGNUM *A, *B, *X, *Y, *M, *D, *T;
   BIGNUM local_A, local_B;
   BIGNUM *pA, *pB;
-  BIGNUM *ret = NULL;
+  int ret = 0;
   int sign;
 
   *out_no_inverse = 0;
@@ -569,15 +577,6 @@ static BIGNUM *BN_mod_inverse_no_branch(BIGNUM *out, int *out_no_inverse,
   Y = BN_CTX_get(ctx);
   T = BN_CTX_get(ctx);
   if (T == NULL) {
-    goto err;
-  }
-
-  if (out == NULL) {
-    R = BN_new();
-  } else {
-    R = out;
-  }
-  if (R == NULL) {
     goto err;
   }
 
@@ -693,11 +692,11 @@ static BIGNUM *BN_mod_inverse_no_branch(BIGNUM *out, int *out_no_inverse,
   /* Now  Y*a  ==  A  (mod |n|).  */
 
   assert(!Y->neg && BN_ucmp(Y, n) < 0);
-  if (!BN_copy(R, Y)) {
+  if (!BN_copy(out, Y)) {
     goto err;
   }
 
-  ret = R;
+  ret = 1;
 
 err:
   BN_CTX_end(ctx);
