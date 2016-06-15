@@ -103,3 +103,75 @@ int tls13_handshake_write(SSL *ssl, SSL_HS_MESSAGE *msg) {
   msg->offset = 0;
   return 1;
 }
+
+int tls13_post_handshake_read(SSL *ssl, SSL3_RECORD *rr) {
+  SSL_HS_MESSAGE *msg = ssl->s3->post_message;
+  if (msg->offset < SSL3_HM_HEADER_LENGTH) {
+    if (msg->raw != NULL) {
+      OPENSSL_free(msg->raw);
+      msg->raw = NULL;
+    }
+
+    if (msg->offset == 0) {
+      msg->data = OPENSSL_malloc(SSL3_HM_HEADER_LENGTH);
+    }
+
+    size_t length = SSL3_HM_HEADER_LENGTH;
+    size_t n = length - msg->offset;
+    if (rr->length < n) {
+      n = rr->length;
+    }
+    memcpy(&msg->data[msg->offset], rr->data, n);
+
+    msg->offset += n;
+    rr->data += n;
+    rr->length -= n;
+    if (msg->offset < length) {
+      return 0;
+    }
+
+    const uint8_t *p = msg->data;
+    msg->type = p[0];
+    msg->length = (((uint32_t)p[1]) << 16) | (((uint32_t)p[2]) << 8) | p[3];
+    msg->raw = OPENSSL_malloc(SSL3_HM_HEADER_LENGTH + msg->length);
+    if (msg->raw == NULL) {
+      return -1;
+    }
+    memcpy(msg->raw, msg->data, SSL3_HM_HEADER_LENGTH);
+    OPENSSL_free(msg->data);
+    msg->data = &msg->raw[SSL3_HM_HEADER_LENGTH];
+  }
+
+  size_t length = SSL3_HM_HEADER_LENGTH + msg->length;
+  size_t n = length - msg->offset;
+  if (rr->length < n) {
+    n = rr->length;
+  }
+  memcpy(&msg->raw[msg->offset], rr->data, n);
+
+  msg->offset += n;
+  rr->data += n;
+  rr->length -= n;
+  if (msg->offset < length) {
+    return 0;
+  }
+
+  msg->offset = 0;
+  ssl3_update_handshake_hash(ssl, msg->raw, length);
+  if (ssl->msg_callback) {
+    ssl->msg_callback(0, ssl->version, SSL3_RT_HANDSHAKE, &msg->raw,
+                      length, ssl, ssl->msg_callback_arg);
+  }
+
+  if (ssl->server) {
+    if (!tls13_server_post_handshake(ssl, *msg)) {
+      return -1;
+    }
+  } else {
+    if (!tls13_client_post_handshake(ssl, *msg)) {
+      return -1;
+    }
+  }
+
+  return 1;
+}
