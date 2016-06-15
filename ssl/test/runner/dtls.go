@@ -105,7 +105,7 @@ func (c *Conn) dtlsDoReadRecord(want recordType) (recordType, *block, error) {
 
 	// Process message.
 	b, c.rawInput = c.in.splitBlock(b, recordHeaderLen+n)
-	ok, off, err := c.in.decrypt(b)
+	ok, off, _, err := c.in.decrypt(b)
 	if !ok {
 		c.in.setErrorLocked(c.sendAlert(err))
 	}
@@ -327,7 +327,7 @@ func (c *Conn) dtlsSealRecord(typ recordType, data []byte) (b *block, err error)
 		}
 	}
 	copy(b.data[recordHeaderLen+explicitIVLen:], data)
-	c.out.encrypt(b, explicitIVLen)
+	c.out.encrypt(b, explicitIVLen, typ)
 	return
 }
 
