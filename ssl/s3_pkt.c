@@ -439,6 +439,15 @@ start:
   /* Process unexpected records. */
 
   if (type == SSL3_RT_APPLICATION_DATA && rr->type == SSL3_RT_HANDSHAKE) {
+    if (ssl3_protocol_version(ssl) >= TLS1_3_VERSION) {
+      if (tls13_post_handshake_read(ssl, rr) < 0) {
+        al = SSL_AD_DECODE_ERROR;
+        OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
+        goto f_err;
+      }
+      goto start;
+    }
+
     /* If peer renegotiations are disabled, all out-of-order handshake records
      * are fatal. Renegotiations as a server are never supported. */
     if (ssl->server || !ssl3_can_renegotiate(ssl)) {
