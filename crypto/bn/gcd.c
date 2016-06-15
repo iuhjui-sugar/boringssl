@@ -224,10 +224,9 @@ err:
   return ret;
 }
 
-/* solves ax == 1 (mod n) */
-static int BN_mod_inverse_no_branch(BIGNUM *out, int *out_no_inverse,
-                                    const BIGNUM *a, const BIGNUM *n,
-                                    BN_CTX *ctx);
+static int bn_mod_inverse_no_branch_reduce(BIGNUM *out, int *out_no_inverse,
+                                           const BIGNUM *a, const BIGNUM *n,
+                                           BN_CTX *ctx);
 
 BIGNUM *BN_mod_inverse_ex(BIGNUM *out, int *out_no_inverse, const BIGNUM *a,
                           const BIGNUM *n, BN_CTX *ctx) {
@@ -246,7 +245,7 @@ BIGNUM *BN_mod_inverse_ex(BIGNUM *out, int *out_no_inverse, const BIGNUM *a,
 
   if ((a->flags & BN_FLG_CONSTTIME) != 0 ||
       (n->flags & BN_FLG_CONSTTIME) != 0) {
-    if (!BN_mod_inverse_no_branch(R, out_no_inverse, a, n, ctx)) {
+    if (!bn_mod_inverse_no_branch_reduce(R, out_no_inverse, a, n, ctx)) {
       goto done;
     }
     ret = R;
@@ -553,17 +552,52 @@ BIGNUM *BN_mod_inverse(BIGNUM *out, const BIGNUM *a, const BIGNUM *n,
   return BN_mod_inverse_ex(out, &no_inverse, a, n, ctx);
 }
 
-/* BN_mod_inverse_no_branch is a special version of BN_mod_inverse.
- * It does not contain branches that may leak sensitive information. */
+static int BN_mod_inverse_no_branch(BIGNUM *out, int *out_no_inverse,
+                                    const BIGNUM *a, const BIGNUM *n,
+                                    BN_CTX *ctx);
+
+/* Like |BN_mod_inverse_no_branch|, but accepts |a| outside the range [0, n). */
+static int bn_mod_inverse_no_branch_reduce(BIGNUM *out, int *out_no_inverse,
+                                           const BIGNUM *a, const BIGNUM *n,
+                                           BN_CTX *ctx) {
+  assert(out != NULL); /* Unlike |BN_mod_inverse|. */
+
+  int ok = 0;
+
+  BIGNUM a_mod_n;
+  BN_init(&a_mod_n);
+
+  if (a->neg || (BN_ucmp(a, n) >= 0)) {
+    BIGNUM a_consttime;
+    BN_with_flags(&a_consttime, a, BN_FLG_CONSTTIME);
+    if (!BN_nnmod(&a_mod_n, &a_consttime, n, ctx)) {
+      goto err;
+    }
+    a = &a_mod_n;
+  }
+
+  ok = BN_mod_inverse_no_branch(out, out_no_inverse, a, n, ctx);
+
+err:
+  BN_free(&a_mod_n);
+
+  return ok;
+}
+
+/* bn_mod_inverse_no_branch is a special version of BN_mod_inverse that
+ * attempts to avoid leaking sensitive information to some degree of success by
+ * avoiding some branches It requires 0 <= |a| < |n|. It returns one on success
+ * or zero otherwise. */
 static int BN_mod_inverse_no_branch(BIGNUM *out, int *out_no_inverse,
                                     const BIGNUM *a, const BIGNUM *n,
                                     BN_CTX *ctx) {
-  /* |BN_mod_inverse| doesn't have this precondition. */
+  /* |BN_mod_inverse| doesn't have these preconditions. */
   assert(out != NULL);
+  assert(!a->neg && BN_ucmp(a, n) < 0);
 
   BIGNUM *A, *B, *X, *Y, *M, *D, *T;
-  BIGNUM local_A, local_B;
-  BIGNUM *pA, *pB;
+  BIGNUM local_A;
+  BIGNUM *pA;
   int ret = 0;
   int sign;
 
@@ -587,16 +621,8 @@ static int BN_mod_inverse_no_branch(BIGNUM *out, int *out_no_inverse,
   }
   A->neg = 0;
 
-  if (B->neg || (BN_ucmp(B, A) >= 0)) {
-    /* Turn BN_FLG_CONSTTIME flag on, so that when BN_div is invoked,
-     * BN_div_no_branch will be called eventually.
-     */
-    pB = &local_B;
-    BN_with_flags(pB, B, BN_FLG_CONSTTIME);
-    if (!BN_nnmod(B, pB, A, ctx)) {
-      goto err;
-    }
-  }
+  assert(!B->neg && BN_ucmp(B, A) < 0);
+
   sign = -1;
   /* From  B = a mod |n|,  A = |n|  it follows that
    *
