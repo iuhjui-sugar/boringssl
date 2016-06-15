@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d4162500_dab6c509",
+        "filename": "crypto/newhope/newhope_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-06-15T21:34:28Z",
+      "side": 1,
+      "message": "some style changes for C++ code:\n\n#define NTESTS -\u003e static const int kNumTests\n\nFunction names from test_keys -\u003e TestKeys",
+      "revId": "c1b3a679e90c8ddf8ef233f8ed2af7be5c76a201",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
