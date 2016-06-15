@@ -1317,6 +1317,11 @@ int tls13_handshake_read(SSL *ssl, SSL_HS_MESSAGE *msg);
  * success. */
 int tls13_handshake_write(SSL *ssl, SSL_HS_MESSAGE *msg);
 
+/* tls13_post_handshake_read consumes a record |rr| and upon receiving a
+ * complete message, handles the message before returning. It returns -1
+ * on failure, 0 if it is waiting for additional records, and 1 on success. */
+int tls13_post_handshake_read(SSL *ssl, SSL3_RECORD *rr);
+
 /* tls13_handshake is a wrapper the performs part of the TLS 1.3 handshake by
  * reading/writing handshake messages and then driving the
  * |tls13_client_handshake| or |tls13_server_handshake| gadgets with the
