@@ -873,12 +873,14 @@ func runTest(test *testCase, shimPath string, mallocNumToFail int64) error {
 	return nil
 }
 
-var tlsVersions = []struct {
+type tlsVersion struct {
 	name    string
 	version uint16
 	flag    string
 	hasDTLS bool
-}{
+}
+
+var tlsVersions = []tlsVersion{
 	{"SSL3", VersionSSL30, "-no-ssl3", false},
 	{"TLS1", VersionTLS10, "-no-tls1", true},
 	{"TLS11", VersionTLS11, "-no-tls11", false},
@@ -946,6 +948,10 @@ func isTLS12Only(suiteName string) bool {
 		hasComponent(suiteName, "SHA256") ||
 		hasComponent(suiteName, "SHA384") ||
 		hasComponent(suiteName, "POLY1305")
+}
+
+func isTLS13Suite(suiteName string) bool {
+	return (hasComponent(suiteName, "GCM") || hasComponent(suiteName, "POLY1305")) && hasComponent(suiteName, "ECDHE") && !hasComponent(suiteName, "OLD")
 }
 
 func isDTLSCipher(suiteName string) bool {
@@ -2280,7 +2286,12 @@ func addCipherSuiteTests() {
 			flags = append(flags, "-cipher", "DEFAULT:kCECPQ1")
 		}
 
-		for _, ver := range tlsVersions {
+		versions := append(tlsVersions, tlsVersion{"FakeTLS13", VersionTLS13, "-no-tls13", false})
+		for _, ver := range versions {
+			flagsForVersion := flags
+			if ver.version == VersionTLS13 {
+				flagsForVersion = append(flagsForVersion, "-max-version", strconv.Itoa(VersionTLS13))
+			}
 			for _, protocol := range []protocol{tls, dtls} {
 				var prefix string
 				if protocol == dtls {
@@ -2298,6 +2309,10 @@ func addCipherSuiteTests() {
 					shouldServerFail = true
 				}
 				if isTLS12Only(suite.name) && ver.version < VersionTLS12 {
+					shouldClientFail = true
+					shouldServerFail = true
+				}
+				if !isTLS13Suite(suite.name) && ver.version == VersionTLS13 {
 					shouldClientFail = true
 					shouldServerFail = true
 				}
@@ -2333,7 +2348,7 @@ func addCipherSuiteTests() {
 					},
 					certFile:      certFile,
 					keyFile:       keyFile,
-					flags:         flags,
+					flags:         flagsForVersion,
 					resumeSession: true,
 					shouldFail:    shouldServerFail,
 					expectedError: expectedServerError,
@@ -2355,7 +2370,7 @@ func addCipherSuiteTests() {
 							IgnorePeerCipherPreferences: true,
 						},
 					},
-					flags:         flags,
+					flags:         flagsForVersion,
 					resumeSession: true,
 					shouldFail:    shouldClientFail,
 					expectedError: expectedClientError,
