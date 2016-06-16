@@ -111,6 +111,7 @@ static int rand_neg();
 static bool test_div_word(FILE *fp);
 static bool test_mont(FILE *fp, BN_CTX *ctx);
 static bool test_mod(FILE *fp, BN_CTX *ctx);
+static bool test_mod_inverse(BN_CTX *ctx);
 static bool test_mod_mul(FILE *fp, BN_CTX *ctx);
 static bool test_mod_exp(FILE *fp, BN_CTX *ctx);
 static bool test_mod_exp_mont_consttime(FILE *fp, BN_CTX *ctx);
@@ -262,6 +263,12 @@ int main(int argc, char *argv[]) {
 
   message(bc_file.get(), "BN_mod");
   if (!test_mod(bc_file.get(), ctx.get())) {
+    return 1;
+  }
+  flush_fp(bc_file.get());
+
+  message(bc_file.get(), "BN_mod_inverse");
+  if (!test_mod_inverse(ctx.get())) {
     return 1;
   }
   flush_fp(bc_file.get());
@@ -998,6 +1005,58 @@ static bool test_mod(FILE *fp, BN_CTX *ctx) {
       fprintf(stderr, "Modulo test failed!\n");
       return false;
     }
+  }
+  return true;
+}
+
+// Test the inverse of all the numbers in the range [0, N) mod N, where N is
+// a composite of two (small, due to time constraints) primes, where the input
+// value to the inverse operation has the flags |flags|.
+static bool test_mod_inverse_with_flags(int flags, BN_CTX *ctx) {
+  // (BN_ULONG)65519 * 65521, the product of the two largest 16-bit primes,
+  // makes the test way too slow.
+  static const BN_ULONG N = (BN_ULONG)241 * 251; // Largest 8-bit primes.
+  ScopedBIGNUM n(BN_new());
+  ScopedBIGNUM a(BN_new());
+  ScopedBIGNUM r(BN_new());
+  ScopedBIGNUM a_a_inv(BN_new());
+
+  if (!n ||
+      !a ||
+      !r ||
+      !a_a_inv ||
+      !BN_set_word(n.get(), N)) {
+    return false;
+  }
+
+  for (BN_ULONG i = 0; i < N; ++i) {
+    if (!BN_set_word(a.get(), i)) {
+      return false;
+    }
+    int no_inverse = 0;
+    BN_set_flags(a.get(), flags);
+    if (BN_mod_inverse_ex(r.get(), &no_inverse, a.get(), n.get(), ctx) ==
+        NULL) {
+      if (no_inverse) {
+        continue;
+      }
+      return false;
+    }
+    if (BN_is_negative(r.get()) || BN_cmp(r.get(), n.get()) >= 0) {
+      return false;
+    }
+    if (!BN_mod_mul(a_a_inv.get(), a.get(), r.get(), n.get(), ctx) ||
+        !BN_is_one(a_a_inv.get())) {
+      return false;
+    }
+  }
+  return true;
+}
+
+static bool test_mod_inverse(BN_CTX *ctx) {
+  if (!test_mod_inverse_with_flags(0, ctx) ||
+      !test_mod_inverse_with_flags(BN_FLG_CONSTTIME, ctx)) {
+    return false;
   }
   return true;
 }
