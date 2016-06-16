@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "94d74d7e_7ebdf9c8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-16T16:55:16Z",
+      "side": 1,
+      "message": "Nit: Comment isn\u0027t quite right. (You\u0027re using the TLS 1.2 IV length instead of the TLS 1.3 one.)",
+      "revId": "4e0e18a48b1593d79f80bd35372eda2b1dc88ab5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94d74d7e_dead059c",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 829,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-16T16:55:16Z",
+      "side": 1,
+      "message": "break",
+      "revId": "4e0e18a48b1593d79f80bd35372eda2b1dc88ab5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94d74d7e_1ec03d35",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 955,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-16T16:55:16Z",
+      "side": 1,
+      "message": "Nit: This comment isn\u0027t quite accurate. (The relevant point is that the code above computes the TLS 1.2 (fixed) IV length, but TLS 1.3 uses the unadorned nonce length like it should have from the beginning.)",
+      "revId": "4e0e18a48b1593d79f80bd35372eda2b1dc88ab5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
