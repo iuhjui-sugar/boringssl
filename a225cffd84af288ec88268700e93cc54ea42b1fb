@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "94d74d7e_7e05f93b",
+        "filename": "crypto/dsa/dsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 826,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-16T19:28:25Z",
+      "side": 1,
+      "message": "(These casts are silly. Perhaps this function shouldn\u0027t take a const DSA*...)",
+      "range": {
+        "startLine": 826,
+        "startChar": 30,
+        "endLine": 826,
+        "endChar": 46
+      },
+      "revId": "a225cffd84af288ec88268700e93cc54ea42b1fb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
