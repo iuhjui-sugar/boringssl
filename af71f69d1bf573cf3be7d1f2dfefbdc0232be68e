@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "94d74d7e_5e16359b",
+        "filename": "crypto/bn/gcd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-16T18:46:01Z",
+      "side": 1,
+      "message": "Nit: #include order is\n\n1. This file\u0027s header\n2. C system headers.\n3. (C++ system headers.)\n4. Other library\u0027s headers.\n5. Project headers.\n\n(I dunno. Google C style says \"jump\", so, uh, okay...)\n\nI\u0027ll go fix this to save a round-trip.",
+      "revId": "af71f69d1bf573cf3be7d1f2dfefbdc0232be68e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94d74d7e_de7ea5c8",
+        "filename": "crypto/bn/gcd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-16T18:46:01Z",
+      "side": 1,
+      "message": "[Unrelatedly, I\u0027m kind of dubious this actually avoids leaking the value of A... I guess for DSA uses, we ought to raise to the p-2? There\u0027s some uses in RSA that are against a composite though.]",
+      "revId": "af71f69d1bf573cf3be7d1f2dfefbdc0232be68e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94d74d7e_9e5d4d65",
+        "filename": "crypto/bn/gcd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-16T18:46:01Z",
+      "side": 1,
+      "message": "Is that quite true? It looks like we\u0027re doing:\n\n X, Y \u003d D*X + Y, X\n\nand never actually taking a modulus.",
+      "revId": "af71f69d1bf573cf3be7d1f2dfefbdc0232be68e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
