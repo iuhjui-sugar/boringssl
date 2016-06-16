@@ -5219,6 +5219,19 @@ func addKeyExchangeInfoTests() {
 	})
 }
 
+func addTLS13Tests() {
+	shimVersFlag := strconv.Itoa(VersionTLS13)
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name: "FakeTLS13-Server",
+		config: Config{
+				MaxVersion: VersionTLS13,
+				MinVersion: VersionTLS13,
+		},
+		flags: []string{"-min-version", shimVersFlag, "-max-version", shimVersFlag},
+	})
+}
+
 func worker(statusChan chan statusMsg, c chan *testCase, shimPath string, wg *sync.WaitGroup) {
 	defer wg.Done()
 
@@ -5319,6 +5332,7 @@ func main() {
 	addCurveTests()
 	addCECPQ1Tests()
 	addKeyExchangeInfoTests()
+	addTLS13Tests()
 	for _, async := range []bool{false, true} {
 		for _, splitHandshake := range []bool{false, true} {
 			for _, protocol := range []protocol{tls, dtls} {
