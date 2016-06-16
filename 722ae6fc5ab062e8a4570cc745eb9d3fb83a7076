@@ -70,6 +70,30 @@
       "revId": "722ae6fc5ab062e8a4570cc745eb9d3fb83a7076",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d4162500_c33700f8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-06-16T00:44:27Z",
+      "side": 1,
+      "message": "Actually, in my most recent comments in this bug, I misunderstood your point here. I\u0027m pretty sure that call to `BN_nnmod` is dead code. At least, it seems to not be necessary when executing the BoringSSL test suite! See https://boringssl-review.googlesource.com/#/c/8311/.",
+      "parentUuid": "c3f6689d_ebf0919e",
+      "range": {
+        "startLine": 14,
+        "startChar": 17,
+        "endLine": 14,
+        "endChar": 28
+      },
+      "revId": "722ae6fc5ab062e8a4570cc745eb9d3fb83a7076",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
