@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "94d74d7e_de7865af",
+        "filename": "crypto/bn/bn_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1040,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-16T20:33:08Z",
+      "side": 1,
+      "message": "So this is also tested, perhaps require that no_inverse \u003d\u003d (i % 241 \u003d\u003d 0 || i % 251 \u003d\u003d 0)?",
+      "revId": "6a3c8c3ec668e997c84fab650a7e2db7adfac068",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
