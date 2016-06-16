@@ -22,6 +22,30 @@
       "revId": "a225cffd84af288ec88268700e93cc54ea42b1fb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d4162500_31c5573e",
+        "filename": "crypto/dsa/dsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 826,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-06-16T20:38:29Z",
+      "side": 1,
+      "message": "Conceptually I think taking a const best reflects the semantics of the function. This is effectively a cache, but C doesn\u0027t have \"mutable\".",
+      "parentUuid": "94d74d7e_7e05f93b",
+      "range": {
+        "startLine": 826,
+        "startChar": 30,
+        "endLine": 826,
+        "endChar": 46
+      },
+      "revId": "a225cffd84af288ec88268700e93cc54ea42b1fb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
