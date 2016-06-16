@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "94d74d7e_9ec9cd17",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-16T19:31:33Z",
+      "side": 1,
+      "message": "Actually, do we require this? The field has to be a prime (EC_POINT_set_affine_coordinates_GFp), but I don\u0027t know if the order ends up being a prime. (Or, if not, maybe we should just declare that it needs to be. The arbitrary curve thing was always kinda crazy.)",
+      "range": {
+        "startLine": 10,
+        "startChar": 6,
+        "endLine": 10,
+        "endChar": 40
+      },
+      "revId": "8447067d502b6cd01c110cb5629e29feeb266afb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
