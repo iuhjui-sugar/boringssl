@@ -16,6 +16,24 @@
       "revId": "c1b3a679e90c8ddf8ef233f8ed2af7be5c76a201",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d4162500_ae6bcb70",
+        "filename": "crypto/newhope/newhope_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-06-16T07:12:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4162500_dab6c509",
+      "revId": "c1b3a679e90c8ddf8ef233f8ed2af7be5c76a201",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
