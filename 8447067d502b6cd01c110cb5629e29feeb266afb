@@ -22,6 +22,53 @@
       "revId": "8447067d502b6cd01c110cb5629e29feeb266afb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d4162500_91bd4bcc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-06-16T20:34:29Z",
+      "side": 1,
+      "message": "Let\u0027s test that |cofactor\u003d\u003d1| in EC_GROUP_set_generator. (That implies that the order is prime.)\n\nThere are curves with non-unity cofactor (curve25519 for one) but the sorts of curves used with this code really should have unity cofactor. All the NIST curves have it and so does the Bitcoin curve and the Brainpool curves.",
+      "parentUuid": "94d74d7e_9ec9cd17",
+      "range": {
+        "startLine": 10,
+        "startChar": 6,
+        "endLine": 10,
+        "endChar": 40
+      },
+      "revId": "8447067d502b6cd01c110cb5629e29feeb266afb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d4162500_fe8f2e3d",
+        "filename": "crypto/ecdsa/ecdsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-06-16T20:34:29Z",
+      "side": 1,
+      "message": "can we call it order_minus_2 or something?",
+      "range": {
+        "startLine": 312,
+        "startChar": 19,
+        "endLine": 312,
+        "endChar": 20
+      },
+      "revId": "8447067d502b6cd01c110cb5629e29feeb266afb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
