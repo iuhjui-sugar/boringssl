@@ -267,7 +267,6 @@ const uint8_t *CBB_data(const CBB *cbb) {
 }
 
 size_t CBB_len(const CBB *cbb) {
-  assert(cbb->child == NULL);
   assert(cbb->offset + cbb->pending_len_len <= cbb->base->len);
 
   return cbb->base->len - cbb->offset - cbb->pending_len_len;
