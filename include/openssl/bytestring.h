@@ -316,10 +316,9 @@ OPENSSL_EXPORT int CBB_flush(CBB *cbb);
 OPENSSL_EXPORT const uint8_t *CBB_data(const CBB *cbb);
 
 /* CBB_len returns the number of bytes written to |cbb|. It does not flush
- * |cbb|.
- *
- * To avoid unfinalized length prefixes, it is a fatal error to call this on a
- * CBB with any active children. */
+ * |cbb|. If |cbb| has any active ASN.1 descendants, the value is
+ * undefined. Otherwise, it includes unfinalized length prefixes, as if it were
+ * flushed before call. */
 OPENSSL_EXPORT size_t CBB_len(const CBB *cbb);
 
 /* CBB_add_u8_length_prefixed sets |*out_contents| to a new child of |cbb|. The
