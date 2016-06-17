@@ -1,0 +1,186 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c9fbec84_ecb38baa",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-17T19:23:19Z",
+      "side": 1,
+      "message": "Nit: Could save a line and write\n  var additionalData []byte\n  if ... {\n           additionalData :\u003d make([]byte, 13)\n           ...\n  }",
+      "revId": "bfc1037942fb903f28d0da252e6437a9696d4c52",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c9fbec84_ccb04fa1",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-17T19:23:19Z",
+      "side": 1,
+      "message": "[We\u0027ll want a ProtocolBugs option to add padding later.]",
+      "revId": "bfc1037942fb903f28d0da252e6437a9696d4c52",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c9fbec84_8cb6479c",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-17T19:23:19Z",
+      "side": 1,
+      "message": "Nit: Could save a line and write\n  var additionalData []byte\n  if ... {\n           additionalData :\u003d make([]byte, 13)\n           ...\n  }",
+      "revId": "bfc1037942fb903f28d0da252e6437a9696d4c52",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c9fbec84_ec9c2b23",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-17T19:23:19Z",
+      "side": 1,
+      "message": "c.in.cipher !\u003d nil might be a better check? Not sure.",
+      "range": {
+        "startLine": 759,
+        "startChar": 30,
+        "endLine": 759,
+        "endChar": 41
+      },
+      "revId": "bfc1037942fb903f28d0da252e6437a9696d4c52",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c9fbec84_ac92230c",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-17T19:23:19Z",
+      "side": 1,
+      "message": "Enforce that the outer type is application data?",
+      "revId": "bfc1037942fb903f28d0da252e6437a9696d4c52",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c9fbec84_8c8f67e8",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 953,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-17T19:23:19Z",
+      "side": 1,
+      "message": "I would think that, if we have VersionTLS13, explicitNonce would never be set.",
+      "range": {
+        "startLine": 953,
+        "startChar": 68,
+        "endLine": 953,
+        "endChar": 92
+      },
+      "revId": "bfc1037942fb903f28d0da252e6437a9696d4c52",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c9fbec84_cc996f31",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 967,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-17T19:23:19Z",
+      "side": 1,
+      "message": "[Hrm. I think the C code doesn\u0027t enforce this... that\u0027s a place for a ProtocolBugs later.]",
+      "revId": "bfc1037942fb903f28d0da252e6437a9696d4c52",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c9fbec84_2cc63309",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 969,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-17T19:23:19Z",
+      "side": 1,
+      "message": "Nit: Could probably save a line and write this as:\n\n  b.data[0] \u003d byte(typ)\n  if .... {\n          b.data[0] \u003d recordTypeApplicatoinData\n  }",
+      "revId": "bfc1037942fb903f28d0da252e6437a9696d4c52",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c9fbec84_6ca95b4a",
+        "filename": "ssl/test/runner/dtls.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-17T19:23:19Z",
+      "side": 1,
+      "message": "Maybe leave a TODO for DTLS 1.3? (Or just fill it in since it\u0027s certainly going to be the same.)",
+      "revId": "bfc1037942fb903f28d0da252e6437a9696d4c52",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c9fbec84_4cae1f54",
+        "filename": "ssl/test/runner/dtls.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-17T19:23:19Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "bfc1037942fb903f28d0da252e6437a9696d4c52",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
