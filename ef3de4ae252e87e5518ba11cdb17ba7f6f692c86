@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c9fbec84_4c78dfab",
+        "filename": "ssl/test/runner/cipher_suites.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-17T19:35:15Z",
+      "side": 1,
+      "message": "[Methinks it might be time to refactor this into bulk cipher, PRF, and key exchange halves so we don\u0027t have to duplicate everything. :-) Some other time though.]",
+      "revId": "ef3de4ae252e87e5518ba11cdb17ba7f6f692c86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c9fbec84_8c7927b0",
+        "filename": "ssl/test/runner/cipher_suites.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-17T19:35:15Z",
+      "side": 1,
+      "message": "[Having this illegal in TLS 1.3 is fine, but we need to make sure the C code agrees later. Right now I don\u0027t think it or this file enforces anything.]",
+      "revId": "ef3de4ae252e87e5518ba11cdb17ba7f6f692c86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c9fbec84_ac7ce39f",
+        "filename": "ssl/test/runner/cipher_suites.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-17T19:35:15Z",
+      "side": 1,
+      "message": "suiteTLS13?",
+      "revId": "ef3de4ae252e87e5518ba11cdb17ba7f6f692c86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c9fbec84_6c731bd1",
+        "filename": "ssl/test/runner/cipher_suites.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-17T19:35:15Z",
+      "side": 1,
+      "message": "Seems these two functions share a lot of code. Couldn\u0027t you inline it into aeadAESGCM and just put the last line in the conditional?\n\n(I believe 12 \u003d\u003d len(fixedNonce in fixedNonceAeadAESGCM) \u003d\u003d aead.NonceSize().)\n\nPS: Go style is to leave acronyms all caps, so I think it\u0027d be AEADAESGCM, as silly as that looks. But it\u0027s fine because if you fold them, this isn\u0027t a problem. :-)",
+      "revId": "ef3de4ae252e87e5518ba11cdb17ba7f6f692c86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
