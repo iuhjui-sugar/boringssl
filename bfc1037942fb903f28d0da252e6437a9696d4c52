@@ -189,6 +189,24 @@
     },
     {
       "key": {
+        "uuid": "6985a058_6b307de2",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-20T20:48:15Z",
+      "side": 1,
+      "message": "If the spec says something is sent some way, we should enforce it. Fake record types isn\u0027t a useful extension point in the protocol. (If people decide to change that after the spec is finalized, they\u0027d negotiate it with an extension anyway. But probably not even that since it doesn\u0027t figure into the AD.)",
+      "parentUuid": "6985a058_20ba94d2",
+      "revId": "bfc1037942fb903f28d0da252e6437a9696d4c52",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c9fbec84_8c8f67e8",
         "filename": "ssl/test/runner/conn.go",
         "patchSetId": 3
