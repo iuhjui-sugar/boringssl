@@ -207,6 +207,24 @@
     },
     {
       "key": {
+        "uuid": "6985a058_8b4e0123",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-06-20T22:50:38Z",
+      "side": 1,
+      "message": "The spec also generally says which alert to send when enforcing things. Some things (like the version number in the record layer) the spec says to send a particular value, but also to ignore the value on the receiving end. Given the ambiguity in this case (it neither says to send an alert nor to ignore it), I think ignoring it for now (and leaving a TODO) is reasonable.",
+      "parentUuid": "6985a058_6b307de2",
+      "revId": "bfc1037942fb903f28d0da252e6437a9696d4c52",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c9fbec84_8c8f67e8",
         "filename": "ssl/test/runner/conn.go",
         "patchSetId": 3
