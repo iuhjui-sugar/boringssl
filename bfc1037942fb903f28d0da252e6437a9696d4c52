@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6985a058_c5907a61",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 6825
+      },
+      "writtenOn": "2016-06-20T19:47:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9fbec84_ecb38baa",
+      "revId": "bfc1037942fb903f28d0da252e6437a9696d4c52",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c9fbec84_ccb04fa1",
         "filename": "ssl/test/runner/conn.go",
         "patchSetId": 3
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "6985a058_8583521b",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 6825
+      },
+      "writtenOn": "2016-06-20T19:47:33Z",
+      "side": 1,
+      "message": "Added a TODO.",
+      "parentUuid": "c9fbec84_ccb04fa1",
+      "revId": "bfc1037942fb903f28d0da252e6437a9696d4c52",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c9fbec84_8cb6479c",
         "filename": "ssl/test/runner/conn.go",
         "patchSetId": 3
@@ -47,6 +83,24 @@
       "writtenOn": "2016-06-17T19:23:19Z",
       "side": 1,
       "message": "Nit: Could save a line and write\n  var additionalData []byte\n  if ... {\n           additionalData :\u003d make([]byte, 13)\n           ...\n  }",
+      "revId": "bfc1037942fb903f28d0da252e6437a9696d4c52",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6985a058_008af02c",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 6825
+      },
+      "writtenOn": "2016-06-20T19:47:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9fbec84_8cb6479c",
       "revId": "bfc1037942fb903f28d0da252e6437a9696d4c52",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -76,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "6985a058_c0938862",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 6825
+      },
+      "writtenOn": "2016-06-20T19:47:33Z",
+      "side": 1,
+      "message": "That\u0027s the same check I do on the encrypt side, so that seems reasonable.",
+      "parentUuid": "c9fbec84_ec9c2b23",
+      "range": {
+        "startLine": 759,
+        "startChar": 30,
+        "endLine": 759,
+        "endChar": 41
+      },
+      "revId": "bfc1037942fb903f28d0da252e6437a9696d4c52",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c9fbec84_ac92230c",
         "filename": "ssl/test/runner/conn.go",
         "patchSetId": 3
@@ -87,6 +165,24 @@
       "writtenOn": "2016-06-17T19:23:19Z",
       "side": 1,
       "message": "Enforce that the outer type is application data?",
+      "revId": "bfc1037942fb903f28d0da252e6437a9696d4c52",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6985a058_20ba94d2",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 6825
+      },
+      "writtenOn": "2016-06-20T19:47:33Z",
+      "side": 1,
+      "message": "Skimming through whichever draft of the spec I have open, I didn\u0027t see anything indicating that we should enforce this (i.e. I didn\u0027t see that it says we should send an alert). I added a TODO, and I could also see us adding a ProtocolBugs for this (both enforcing, and sending the wrong outer type).",
+      "parentUuid": "c9fbec84_ac92230c",
       "revId": "bfc1037942fb903f28d0da252e6437a9696d4c52",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -116,6 +212,30 @@
     },
     {
       "key": {
+        "uuid": "6985a058_40b798e7",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 953,
+      "author": {
+        "id": 6825
+      },
+      "writtenOn": "2016-06-20T19:47:33Z",
+      "side": 1,
+      "message": "That\u0027s correct.",
+      "parentUuid": "c9fbec84_8c8f67e8",
+      "range": {
+        "startLine": 953,
+        "startChar": 68,
+        "endLine": 953,
+        "endChar": 92
+      },
+      "revId": "bfc1037942fb903f28d0da252e6437a9696d4c52",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c9fbec84_cc996f31",
         "filename": "ssl/test/runner/conn.go",
         "patchSetId": 3
@@ -127,6 +247,24 @@
       "writtenOn": "2016-06-17T19:23:19Z",
       "side": 1,
       "message": "[Hrm. I think the C code doesn\u0027t enforce this... that\u0027s a place for a ProtocolBugs later.]",
+      "revId": "bfc1037942fb903f28d0da252e6437a9696d4c52",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6985a058_e0d6ccfd",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 967,
+      "author": {
+        "id": 6825
+      },
+      "writtenOn": "2016-06-20T19:47:33Z",
+      "side": 1,
+      "message": "Added TODO.",
+      "parentUuid": "c9fbec84_cc996f31",
       "revId": "bfc1037942fb903f28d0da252e6437a9696d4c52",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -150,6 +288,24 @@
     },
     {
       "key": {
+        "uuid": "6985a058_00dc301c",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 969,
+      "author": {
+        "id": 6825
+      },
+      "writtenOn": "2016-06-20T19:47:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9fbec84_2cc63309",
+      "revId": "bfc1037942fb903f28d0da252e6437a9696d4c52",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c9fbec84_6ca95b4a",
         "filename": "ssl/test/runner/dtls.go",
         "patchSetId": 3
@@ -167,6 +323,24 @@
     },
     {
       "key": {
+        "uuid": "6985a058_a0e0c4d6",
+        "filename": "ssl/test/runner/dtls.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 6825
+      },
+      "writtenOn": "2016-06-20T19:47:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9fbec84_6ca95b4a",
+      "revId": "bfc1037942fb903f28d0da252e6437a9696d4c52",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c9fbec84_4cae1f54",
         "filename": "ssl/test/runner/dtls.go",
         "patchSetId": 3
@@ -178,6 +352,24 @@
       "writtenOn": "2016-06-17T19:23:19Z",
       "side": 1,
       "message": "Ditto.",
+      "revId": "bfc1037942fb903f28d0da252e6437a9696d4c52",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6985a058_60cbbc56",
+        "filename": "ssl/test/runner/dtls.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 6825
+      },
+      "writtenOn": "2016-06-20T19:47:33Z",
+      "side": 1,
+      "message": "I don\u0027t think there\u0027s a TODO that needs to be added here.",
+      "parentUuid": "c9fbec84_4cae1f54",
       "revId": "bfc1037942fb903f28d0da252e6437a9696d4c52",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
