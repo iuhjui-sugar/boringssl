@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6985a058_0be8d11e",
+        "filename": "ssl/test/runner/dtls.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-06-20T22:50:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6985a058_0b2771c0",
+      "revId": "29e7aca8702c3e7944c1dc165e9ffd927e5ba5b1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6985a058_8b6121f1",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 6
@@ -30,6 +48,24 @@
       "writtenOn": "2016-06-20T20:48:15Z",
       "side": 1,
       "message": "This doesn\u0027t end up testing all of the cipher suites. What about adding it to the existing addCipherSuiteTests code which already does the full cross-product?\n\nYou may need to tweak the C code so ciphers an can SSL_CIPHER_get_max_version (to mirror _get_min_version) which gets checked, but that\u0027s probably worth doing anyway.",
+      "revId": "29e7aca8702c3e7944c1dc165e9ffd927e5ba5b1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6985a058_ba71d081",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 5222,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-06-20T22:50:38Z",
+      "side": 1,
+      "message": "I\u0027m not sure I see the value in testing the full cross-product for fake tls1.3, given that it\u0027s such a temporary thing. Once we\u0027re testing real tls1.3, it would make sense to test all cipher suites.\n\nI\u0027ve gone ahead and made some changes to get this working for all cipher suites. It did involve making an SSL_CIPHER_get_max_version, but it probably isn\u0027t called in all of the right places, and it might not be returning the correct values. My opinion is that the addition of an SSL_CIPHER_get_max_version should be in a separate CL and should be better thought out. I prefer PS6 to PS7 in regards to what gets tested.",
+      "parentUuid": "6985a058_8b6121f1",
       "revId": "29e7aca8702c3e7944c1dc165e9ffd927e5ba5b1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
