@@ -4869,6 +4869,13 @@ static void x25519_scalar_mult(uint8_t out[32], const uint8_t scalar[32],
 
 void X25519_keypair(uint8_t out_public_value[32], uint8_t out_private_key[32]) {
   RAND_bytes(out_private_key, 32);
+
+  /* We establish these invariants for private keys we create, though the rest
+   * of the X25519 API also sanitizes private keys before use. */
+  out_private_key[0] &= 248;
+  out_private_key[31] &= 127;
+  out_private_key[31] |= 64;
+
   X25519_public_from_private(out_public_value, out_private_key);
 }
 
