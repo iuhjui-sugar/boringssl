@@ -69,6 +69,24 @@
       "revId": "29e7aca8702c3e7944c1dc165e9ffd927e5ba5b1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "690cc0ee_19832b1d",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 5222,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-21T01:47:22Z",
+      "side": 1,
+      "message": "Well, notably the IV bug only triggered on AES-GCM, not ChaCha20-Poly1305, so we wouldn\u0027t notice cipher-suite-only bugs.\n\nWe can put the max_version bits in another CL if you like. *shrug* It\u0027s a small enough project that I\u0027m fine with it in one CL though. (FWIW, I think those changes are pretty reasonable. The only reason we *might* not end up needing them is if cipher suites in TLS 1.3 end up getting completely reworked. But then we can just remove it.)",
+      "parentUuid": "6985a058_ba71d081",
+      "revId": "29e7aca8702c3e7944c1dc165e9ffd927e5ba5b1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
