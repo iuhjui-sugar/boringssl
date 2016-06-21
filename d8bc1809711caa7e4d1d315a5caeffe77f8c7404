@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2989e8a8_42067414",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 1737,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-21T19:54:15Z",
+      "side": 1,
+      "message": "This falls under 1733 I believe. (ECDHE_PSK is SSL_kECDHE with SSL_aPSK. SSL_kPSK is only plain PSK.)",
+      "revId": "d8bc1809711caa7e4d1d315a5caeffe77f8c7404",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
