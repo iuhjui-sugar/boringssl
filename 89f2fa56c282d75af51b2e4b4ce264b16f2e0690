@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2989e8a8_c22604c3",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7001
+      },
+      "writtenOn": "2016-06-21T19:04:44Z",
+      "side": 1,
+      "message": "this is a popular dimension. You can specify it in common_dimensions at bucket level and override at builder level if needed",
+      "revId": "89f2fa56c282d75af51b2e4b4ce264b16f2e0690",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2989e8a8_c23fe4cc",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 7001
+      },
+      "writtenOn": "2016-06-21T19:04:44Z",
+      "side": 1,
+      "message": "32?",
+      "range": {
+        "startLine": 48,
+        "startChar": 27,
+        "endLine": 48,
+        "endChar": 29
+      },
+      "revId": "89f2fa56c282d75af51b2e4b4ce264b16f2e0690",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2989e8a8_222fb09e",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 7001
+      },
+      "writtenOn": "2016-06-21T19:04:44Z",
+      "side": 1,
+      "message": "32?",
+      "range": {
+        "startLine": 93,
+        "startChar": 27,
+        "endLine": 93,
+        "endChar": 29
+      },
+      "revId": "89f2fa56c282d75af51b2e4b4ce264b16f2e0690",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2989e8a8_6239b8e4",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 2
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 7001
+      },
+      "writtenOn": "2016-06-21T19:04:44Z",
+      "side": 1,
+      "message": "32?",
+      "range": {
+        "startLine": 169,
+        "startChar": 27,
+        "endLine": 169,
+        "endChar": 29
+      },
+      "revId": "89f2fa56c282d75af51b2e4b4ce264b16f2e0690",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2989e8a8_8236bcf1",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 2
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 7001
+      },
+      "writtenOn": "2016-06-21T19:04:44Z",
+      "side": 1,
+      "message": "32?",
+      "range": {
+        "startLine": 187,
+        "startChar": 27,
+        "endLine": 187,
+        "endChar": 29
+      },
+      "revId": "89f2fa56c282d75af51b2e4b4ce264b16f2e0690",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
