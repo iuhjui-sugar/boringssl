@@ -2811,6 +2811,10 @@ uint8_t SSL_get_server_key_exchange_hash(const SSL *ssl) {
   return ssl->s3->tmp.server_key_exchange_hash;
 }
 
+uint16_t SSL_get_server_key_exchange_sig_and_hash_alg(const SSL *ssl) {
+  return ssl->s3->tmp.server_key_exchange_sig_and_hash_alg;
+}
+
 size_t SSL_get_client_random(const SSL *ssl, uint8_t *out, size_t max_out) {
   if (max_out == 0) {
     return sizeof(ssl->s3->client_random);

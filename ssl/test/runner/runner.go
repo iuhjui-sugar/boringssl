@@ -181,10 +181,10 @@ type testCase struct {
 	expectedOCSPResponse []uint8
 	// expectedSCTList, if not nil, is the expected SCT list to be received.
 	expectedSCTList []uint8
-	// expectedClientCertSignatureHash, if not zero, is the TLS id of the
-	// hash function that the client should have used when signing the
+	// expectedClientCertSignatureAlgorithm, if not zero, is the TLS
+	// SignatureScheme that the client should have used when signing the
 	// handshake with a client certificate.
-	expectedClientCertSignatureHash uint8
+	expectedClientCertSignatureAlgorithm signatureScheme
 	// messageLen is the length, in bytes, of the test message that will be
 	// sent.
 	messageLen int
@@ -447,8 +447,8 @@ func doExchange(test *testCase, config *Config, conn net.Conn, isResume bool) er
 		return fmt.Errorf("SCT list mismatch")
 	}
 
-	if expected := test.expectedClientCertSignatureHash; expected != 0 && expected != connState.ClientCertSignatureHash {
-		return fmt.Errorf("expected client to sign handshake with hash %d, but got %d", expected, connState.ClientCertSignatureHash)
+	if expected := test.expectedClientCertSignatureAlgorithm; expected != 0 && expected != connState.ClientCertSignatureAlgorithm {
+		return fmt.Errorf("expected client to use signature algorithm %04x, but got %04x", expected, connState.ClientCertSignatureAlgorithm)
 	}
 
 	if test.exportKeyingMaterial > 0 {
@@ -646,8 +646,8 @@ func runTest(test *testCase, shimPath string, mallocNumToFail int64) error {
 		panic("expectResumeRejected without resumeSession in " + test.name)
 	}
 
-	if test.testType != clientTest && test.expectedClientCertSignatureHash != 0 {
-		panic("expectedClientCertSignatureHash non-zero with serverTest in " + test.name)
+	if test.testType != clientTest && test.expectedClientCertSignatureAlgorithm != 0 {
+		panic("expectedClientCertSignatureAlgorithm non-zero with serverTest in " + test.name)
 	}
 
 	listener, err := net.ListenTCP("tcp4", &net.TCPAddr{IP: net.IP{127, 0, 0, 1}})
@@ -4433,28 +4433,33 @@ func addDTLSReplayTests() {
 	})
 }
 
-var testHashes = []struct {
+type sigScheme struct {
 	name string
-	id   uint8
-}{
-	{"SHA1", hashSHA1},
-	{"SHA256", hashSHA256},
-	{"SHA384", hashSHA384},
-	{"SHA512", hashSHA512},
+	id   signatureScheme
 }
+
+var testSchemes = []sigScheme{
+	{"SHA1", signatureRSAPKCS1SHA1},
+	{"SHA256", signatureRSAPKCS1SHA256},
+	{"SHA384", signatureRSAPKCS1SHA384},
+	{"SHA512", signatureRSAPKCS1SHA512},
+}
+
+var fakeScheme1 signatureScheme = 0x2a01
+var fakeScheme2 signatureScheme = 0xff01
 
 func addSigningHashTests() {
 	// Make sure each hash works. Include some fake hashes in the list and
 	// ensure they're ignored.
-	for _, hash := range testHashes {
+	for _, scheme := range testSchemes {
 		testCases = append(testCases, testCase{
-			name: "SigningHash-ClientAuth-" + hash.name,
+			name: "SigningHash-ClientAuth-" + scheme.name,
 			config: Config{
 				ClientAuth: RequireAnyClientCert,
-				SignatureAndHashes: []signatureAndHash{
-					{signatureRSA, 42},
-					{signatureRSA, hash.id},
-					{signatureRSA, 255},
+				SignatureAndHashes: []signatureScheme{
+					fakeScheme1,
+					scheme.id,
+					fakeScheme2,
 				},
 			},
 			flags: []string{
@@ -4465,28 +4470,28 @@ func addSigningHashTests() {
 
 		testCases = append(testCases, testCase{
 			testType: serverTest,
-			name:     "SigningHash-ServerKeyExchange-Sign-" + hash.name,
+			name:     "SigningHash-ServerKeyExchange-Sign-" + scheme.name,
 			config: Config{
 				CipherSuites: []uint16{TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256},
-				SignatureAndHashes: []signatureAndHash{
-					{signatureRSA, 42},
-					{signatureRSA, hash.id},
-					{signatureRSA, 255},
+				SignatureAndHashes: []signatureScheme{
+					fakeScheme1,
+					scheme.id,
+					fakeScheme2,
 				},
 			},
 		})
 
 		testCases = append(testCases, testCase{
-			name: "SigningHash-ServerKeyExchange-Verify-" + hash.name,
+			name: "SigningHash-ServerKeyExchange-Verify-" + scheme.name,
 			config: Config{
 				CipherSuites: []uint16{TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256},
-				SignatureAndHashes: []signatureAndHash{
-					{signatureRSA, 42},
-					{signatureRSA, hash.id},
-					{signatureRSA, 255},
+				SignatureAndHashes: []signatureScheme{
+					fakeScheme1,
+					scheme.id,
+					fakeScheme2,
 				},
 			},
-			flags: []string{"-expect-server-key-exchange-hash", strconv.Itoa(int(hash.id))},
+			flags: []string{"-expect-server-key-exchange-sig-and-hash-alg", strconv.Itoa(int(scheme.id))},
 		})
 	}
 
@@ -4495,10 +4500,10 @@ func addSigningHashTests() {
 		name: "SigningHash-ClientAuth-SignatureType",
 		config: Config{
 			ClientAuth: RequireAnyClientCert,
-			SignatureAndHashes: []signatureAndHash{
-				{signatureECDSA, hashSHA512},
-				{signatureRSA, hashSHA384},
-				{signatureECDSA, hashSHA1},
+			SignatureAndHashes: []signatureScheme{
+				signatureECDSASECP521R1SHA512,
+				signatureRSAPKCS1SHA384,
+				signatureECDSASECP256R1SHA1,
 			},
 		},
 		flags: []string{
@@ -4512,10 +4517,10 @@ func addSigningHashTests() {
 		name:     "SigningHash-ServerKeyExchange-SignatureType",
 		config: Config{
 			CipherSuites: []uint16{TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256},
-			SignatureAndHashes: []signatureAndHash{
-				{signatureECDSA, hashSHA512},
-				{signatureRSA, hashSHA384},
-				{signatureECDSA, hashSHA1},
+			SignatureAndHashes: []signatureScheme{
+				signatureECDSASECP521R1SHA512,
+				signatureRSAPKCS1SHA384,
+				signatureECDSASECP256R1SHA1,
 			},
 		},
 	})
@@ -4525,8 +4530,8 @@ func addSigningHashTests() {
 		name: "SigningHash-ClientAuth-Fallback",
 		config: Config{
 			ClientAuth: RequireAnyClientCert,
-			SignatureAndHashes: []signatureAndHash{
-				{signatureRSA, hashSHA1},
+			SignatureAndHashes: []signatureScheme{
+				signatureRSAPKCS1SHA1,
 			},
 			Bugs: ProtocolBugs{
 				NoSignatureAndHashes: true,
@@ -4543,8 +4548,8 @@ func addSigningHashTests() {
 		name:     "SigningHash-ServerKeyExchange-Fallback",
 		config: Config{
 			CipherSuites: []uint16{TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256},
-			SignatureAndHashes: []signatureAndHash{
-				{signatureRSA, hashSHA1},
+			SignatureAndHashes: []signatureScheme{
+				signatureRSAPKCS1SHA1,
 			},
 			Bugs: ProtocolBugs{
 				NoSignatureAndHashes: true,
@@ -4559,13 +4564,13 @@ func addSigningHashTests() {
 		name:     "SigningHash-ClientAuth-Enforced",
 		config: Config{
 			Certificates: []Certificate{rsaCertificate},
-			SignatureAndHashes: []signatureAndHash{
-				{signatureRSA, hashMD5},
+			SignatureAndHashes: []signatureScheme{
+				signatureRSAPKCS1MD5,
 				// Advertise SHA-1 so the handshake will
 				// proceed, but the shim's preferences will be
 				// ignored in CertificateVerify generation, so
 				// MD5 will be chosen.
-				{signatureRSA, hashSHA1},
+				signatureRSAPKCS1SHA1,
 			},
 			Bugs: ProtocolBugs{
 				IgnorePeerSignatureAlgorithmPreferences: true,
@@ -4580,8 +4585,8 @@ func addSigningHashTests() {
 		name: "SigningHash-ServerKeyExchange-Enforced",
 		config: Config{
 			CipherSuites: []uint16{TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256},
-			SignatureAndHashes: []signatureAndHash{
-				{signatureRSA, hashMD5},
+			SignatureAndHashes: []signatureScheme{
+				signatureRSAPKCS1MD5,
 			},
 			Bugs: ProtocolBugs{
 				IgnorePeerSignatureAlgorithmPreferences: true,
@@ -4597,65 +4602,65 @@ func addSigningHashTests() {
 		name: "Agree-Digest-Fallback",
 		config: Config{
 			ClientAuth: RequireAnyClientCert,
-			SignatureAndHashes: []signatureAndHash{
-				{signatureRSA, hashSHA512},
-				{signatureRSA, hashSHA1},
+			SignatureAndHashes: []signatureScheme{
+				signatureRSAPKCS1SHA512,
+				signatureRSAPKCS1SHA1,
 			},
 		},
 		flags: []string{
 			"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
 			"-key-file", path.Join(*resourceDir, rsaKeyFile),
 		},
-		digestPrefs:                     "SHA256",
-		expectedClientCertSignatureHash: hashSHA1,
+		digestPrefs:                          "SHA256",
+		expectedClientCertSignatureAlgorithm: signatureRSAPKCS1SHA1,
 	})
 	testCases = append(testCases, testCase{
 		name: "Agree-Digest-SHA256",
 		config: Config{
 			ClientAuth: RequireAnyClientCert,
-			SignatureAndHashes: []signatureAndHash{
-				{signatureRSA, hashSHA1},
-				{signatureRSA, hashSHA256},
+			SignatureAndHashes: []signatureScheme{
+				signatureRSAPKCS1SHA1,
+				signatureRSAPKCS1SHA256,
 			},
 		},
 		flags: []string{
 			"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
 			"-key-file", path.Join(*resourceDir, rsaKeyFile),
 		},
-		digestPrefs:                     "SHA256,SHA1",
-		expectedClientCertSignatureHash: hashSHA256,
+		digestPrefs:                          "SHA256,SHA1",
+		expectedClientCertSignatureAlgorithm: signatureRSAPKCS1SHA256,
 	})
 	testCases = append(testCases, testCase{
 		name: "Agree-Digest-SHA1",
 		config: Config{
 			ClientAuth: RequireAnyClientCert,
-			SignatureAndHashes: []signatureAndHash{
-				{signatureRSA, hashSHA1},
+			SignatureAndHashes: []signatureScheme{
+				signatureRSAPKCS1SHA1,
 			},
 		},
 		flags: []string{
 			"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
 			"-key-file", path.Join(*resourceDir, rsaKeyFile),
 		},
-		digestPrefs:                     "SHA512,SHA256,SHA1",
-		expectedClientCertSignatureHash: hashSHA1,
+		digestPrefs:                          "SHA512,SHA256,SHA1",
+		expectedClientCertSignatureAlgorithm: signatureRSAPKCS1SHA1,
 	})
 	testCases = append(testCases, testCase{
 		name: "Agree-Digest-Default",
 		config: Config{
 			ClientAuth: RequireAnyClientCert,
-			SignatureAndHashes: []signatureAndHash{
-				{signatureRSA, hashSHA256},
-				{signatureECDSA, hashSHA256},
-				{signatureRSA, hashSHA1},
-				{signatureECDSA, hashSHA1},
+			SignatureAndHashes: []signatureScheme{
+				signatureRSAPKCS1SHA256,
+				signatureECDSASECP256R1SHA256,
+				signatureRSAPKCS1SHA1,
+				signatureECDSASECP256R1SHA1,
 			},
 		},
 		flags: []string{
 			"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
 			"-key-file", path.Join(*resourceDir, rsaKeyFile),
 		},
-		expectedClientCertSignatureHash: hashSHA256,
+		expectedClientCertSignatureAlgorithm: signatureRSAPKCS1SHA256,
 	})
 }
 
@@ -5223,10 +5228,10 @@ func addTLS13Tests() {
 	shimVersFlag := strconv.Itoa(VersionTLS13)
 	testCases = append(testCases, testCase{
 		testType: serverTest,
-		name: "FakeTLS13-Server",
+		name:     "FakeTLS13-Server",
 		config: Config{
-				MaxVersion: VersionTLS13,
-				MinVersion: VersionTLS13,
+			MaxVersion: VersionTLS13,
+			MinVersion: VersionTLS13,
 		},
 		flags: []string{"-min-version", shimVersFlag, "-max-version", shimVersFlag},
 	})
