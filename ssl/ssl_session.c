@@ -282,12 +282,12 @@ SSL_SESSION *SSL_magic_pending_session_ptr(void) {
 SSL_SESSION *SSL_get_session(const SSL *ssl)
 {
   /* aka SSL_get0_session; gets 0 objects, just returns a copy of the pointer */
-  return ssl->session;
+  return ssl->s3->new_session;
 }
 
 SSL_SESSION *SSL_get1_session(SSL *ssl) {
   /* variant of SSL_get_session: caller really gets something */
-  return SSL_SESSION_up_ref(ssl->session);
+  return SSL_SESSION_up_ref(SSL_get_session(ssl));
 }
 
 int SSL_SESSION_get_ex_new_index(long argl, void *argp,
@@ -360,8 +360,8 @@ int ssl_get_new_session(SSL *ssl, int is_server) {
 
   session->verify_result = X509_V_OK;
 
-  SSL_SESSION_free(ssl->session);
-  ssl->session = session;
+  SSL_SESSION_free(ssl->s3->new_session);
+  ssl->s3->new_session = session;
   return 1;
 
 err:
