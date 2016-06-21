@@ -487,7 +487,7 @@ void SSL_free(SSL *ssl) {
   sk_SSL_CIPHER_free(ssl->cipher_list_by_id);
 
   ssl_clear_bad_session(ssl);
-  SSL_SESSION_free(ssl->session);
+  SSL_SESSION_free(ssl->s3->new_session);
 
   ssl_cert_free(ssl->cert);
 
@@ -901,17 +901,18 @@ uint32_t SSL_clear_mode(SSL *ssl, uint32_t mode) {
 uint32_t SSL_get_mode(const SSL *ssl) { return ssl->mode; }
 
 X509 *SSL_get_peer_certificate(const SSL *ssl) {
-  if (ssl == NULL || ssl->session == NULL || ssl->session->peer == NULL) {
+  if (ssl == NULL || ssl->s3->new_session == NULL ||
+      ssl->s3->new_session->peer == NULL) {
     return NULL;
   }
-  return X509_up_ref(ssl->session->peer);
+  return X509_up_ref(ssl->s3->new_session->peer);
 }
 
 STACK_OF(X509) *SSL_get_peer_cert_chain(const SSL *ssl) {
-  if (ssl == NULL || ssl->session == NULL) {
+  if (ssl == NULL || ssl->s3->new_session == NULL) {
     return NULL;
   }
-  return ssl->session->cert_chain;
+  return ssl->s3->new_session->cert_chain;
 }
 
 int SSL_get_tls_unique(const SSL *ssl, uint8_t *out, size_t *out_len,
@@ -923,7 +924,7 @@ int SSL_get_tls_unique(const SSL *ssl, uint8_t *out, size_t *out_len,
   size_t finished_len = ssl->s3->previous_client_finished_len;
   if (ssl->hit) {
     /* tls-unique is broken for resumed sessions unless EMS is used. */
-    if (!ssl->session->extended_master_secret) {
+    if (!ssl->s3->new_session->extended_master_secret) {
       goto err;
     }
     finished = ssl->s3->previous_server_finished;
@@ -1566,14 +1567,15 @@ const char *SSL_get_servername(const SSL *ssl, const int type) {
     return ssl->tlsext_hostname;
   }
 
-  if (ssl->session == NULL) {
+  if (ssl->s3->new_session == NULL) {
     return NULL;
   }
-  return ssl->session->tlsext_hostname;
+  return ssl->s3->new_session->tlsext_hostname;
 }
 
 int SSL_get_servername_type(const SSL *ssl) {
-  if (ssl->session != NULL && ssl->session->tlsext_hostname != NULL) {
+  if (ssl->s3->new_session != NULL &&
+      ssl->s3->new_session->tlsext_hostname != NULL) {
     return TLSEXT_NAMETYPE_host_name;
   }
 
@@ -1600,7 +1602,7 @@ int SSL_enable_ocsp_stapling(SSL *ssl) {
 
 void SSL_get0_signed_cert_timestamp_list(const SSL *ssl, const uint8_t **out,
                                          size_t *out_len) {
-  SSL_SESSION *session = ssl->session;
+  SSL_SESSION *session = ssl->s3->new_session;
 
   *out_len = 0;
   *out = NULL;
@@ -1614,7 +1616,7 @@ void SSL_get0_signed_cert_timestamp_list(const SSL *ssl, const uint8_t **out,
 
 void SSL_get0_ocsp_response(const SSL *ssl, const uint8_t **out,
                             size_t *out_len) {
-  SSL_SESSION *session = ssl->session;
+  SSL_SESSION *session = ssl->s3->new_session;
 
   *out_len = 0;
   *out = NULL;
@@ -1928,7 +1930,7 @@ void ssl_get_compatible_server_ciphers(SSL *ssl, uint32_t *out_mask_k,
 void ssl_update_cache(SSL *ssl, int mode) {
   SSL_CTX *ctx = ssl->initial_ctx;
   /* Never cache sessions with empty session IDs. */
-  if (ssl->session->session_id_length == 0 ||
+  if (ssl->s3->new_session->session_id_length == 0 ||
       (ctx->session_cache_mode & mode) != mode) {
     return;
   }
@@ -1942,12 +1944,12 @@ void ssl_update_cache(SSL *ssl, int mode) {
    * inserted into the cache. */
   if (!ssl->hit || (!ssl->server && ssl->tlsext_ticket_expected)) {
     if (use_internal_cache) {
-      SSL_CTX_add_session(ctx, ssl->session);
+      SSL_CTX_add_session(ctx, ssl->s3->new_session);
     }
     if (ctx->new_session_cb != NULL &&
-        !ctx->new_session_cb(ssl, SSL_SESSION_up_ref(ssl->session))) {
+        !ctx->new_session_cb(ssl, SSL_SESSION_up_ref(ssl->s3->new_session))) {
       /* |new_session_cb|'s return value signals whether it took ownership. */
-      SSL_SESSION_free(ssl->session);
+      SSL_SESSION_free(ssl->s3->new_session);
     }
   }
 
@@ -2317,11 +2319,11 @@ const char *SSL_get_psk_identity_hint(const SSL *ssl) {
 }
 
 const char *SSL_get_psk_identity(const SSL *ssl) {
-  if (ssl == NULL || ssl->session == NULL) {
+  if (ssl == NULL || ssl->s3->new_session == NULL) {
     return NULL;
   }
 
-  return ssl->session->psk_identity;
+  return ssl->s3->new_session->psk_identity;
 }
 
 void SSL_set_psk_client_callback(
