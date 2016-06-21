@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2989e8a8_68ec37c7",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 3507,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-21T21:15:55Z",
+      "side": 1,
+      "message": "Nit: If you\u0027re renaming this to serverRecordVers, could you rename clientVers to be consistent too? (I don\u0027t hugely care which way.)",
+      "range": {
+        "startLine": 3507,
+        "startChar": 4,
+        "endLine": 3507,
+        "endChar": 20
+      },
+      "revId": "117a9fcb1f61eae7c2156aff53f9bdd58aeb6fb3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
