@@ -1461,6 +1461,10 @@ DECLARE_PEM_rw(SSL_SESSION, SSL_SESSION)
  * used outside the library. */
 OPENSSL_EXPORT SSL_SESSION *SSL_SESSION_new(void);
 
+/* SSL_SESSION_dup returns a newly-allocated |SSL_SESSION| with a copy of the
+ * fields in |session| or NULL on error. */
+OPENSSL_EXPORT SSL_SESSION *SSL_SESSION_dup(SSL_SESSION *session);
+
 /* SSL_SESSION_up_ref, if |session| is not NULL, increments the reference count
  * of |session|. It then returns |session|. */
 OPENSSL_EXPORT SSL_SESSION *SSL_SESSION_up_ref(SSL_SESSION *session);
@@ -3566,9 +3570,7 @@ struct ssl_session_st {
   /* peer_sha256_valid is non-zero if |peer_sha256| is valid. */
   unsigned peer_sha256_valid:1; /* Non-zero if peer_sha256 is valid */
 
-  /* not_resumable is used to indicate that session resumption is not allowed.
-   * Applications can also set this bit for a new session via
-   * not_resumable_session_cb to disable session caching and tickets. */
+  /* not_resumable is used to indicate that session resumption is not allowed. */
   unsigned not_resumable:1;
 };
 
@@ -3944,7 +3946,7 @@ struct ssl_st {
   unsigned int sid_ctx_length;
   uint8_t sid_ctx[SSL_MAX_SID_CTX_LENGTH];
 
-  /* This can also be in the session once a session is established */
+  /* This is the initial session for resumption */
   SSL_SESSION *session;
 
   int (*verify_callback)(int ok,
@@ -4263,6 +4265,9 @@ typedef struct ssl3_state_st {
     uint8_t *peer_key;
     uint16_t peer_key_len;
   } tmp;
+
+  /* This is the data in the session once it is established */
+  SSL_SESSION *new_session;
 
   /* Connection binding to prevent renegotiation attacks */
   uint8_t previous_client_finished[EVP_MAX_MD_SIZE];

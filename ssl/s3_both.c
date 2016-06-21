@@ -163,8 +163,8 @@ int ssl3_send_finished(SSL *ssl, int a, int b) {
 
     /* Log the master secret, if logging is enabled. */
     if (!ssl_log_master_secret(ssl, ssl->s3->client_random, SSL3_RANDOM_SIZE,
-                               ssl->session->master_key,
-                               ssl->session->master_key_length)) {
+                               ssl->s3->new_session->master_key,
+                               ssl->s3->new_session->master_key_length)) {
       return 0;
     }
 
