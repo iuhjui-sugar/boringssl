@@ -707,28 +707,28 @@ func (hs *serverHandshakeState) doFullHandshake() error {
 		}
 
 		// Determine the signature type.
-		var signatureAndHash signatureAndHash
+		var signatureAndHash signatureScheme
 		if certVerify.hasSignatureAndHash {
 			signatureAndHash = certVerify.signatureAndHash
 			if !isSupportedSignatureAndHash(signatureAndHash, config.signatureAndHashesForServer()) {
 				return errors.New("tls: unsupported hash function for client certificate")
 			}
-			c.clientCertSignatureHash = signatureAndHash.hash
+			c.clientCertSignatureAlgorithm = signatureAndHash
 		} else {
 			// Before TLS 1.2 the signature algorithm was implicit
 			// from the key type, and only one hash per signature
 			// algorithm was possible. Leave the hash as zero.
 			switch pub.(type) {
 			case *ecdsa.PublicKey:
-				signatureAndHash.signature = signatureECDSA
+				signatureAndHash = signatureECDSASECP256R1SHA1
 			case *rsa.PublicKey:
-				signatureAndHash.signature = signatureRSA
+				signatureAndHash = signatureRSAPKCS1SHA1
 			}
 		}
 
 		switch key := pub.(type) {
 		case *ecdsa.PublicKey:
-			if signatureAndHash.signature != signatureECDSA {
+			if !signatureAndHash.isECDSA() {
 				err = errors.New("tls: bad signature type for client's ECDSA certificate")
 				break
 			}
@@ -750,7 +750,7 @@ func (hs *serverHandshakeState) doFullHandshake() error {
 				break
 			}
 		case *rsa.PublicKey:
-			if signatureAndHash.signature != signatureRSA {
+			if !signatureAndHash.isRSA() {
 				err = errors.New("tls: bad signature type for client's RSA certificate")
 				break
 			}

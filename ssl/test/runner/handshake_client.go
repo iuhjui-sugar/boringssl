@@ -611,20 +611,11 @@ func (hs *clientHandshakeState) doFullHandshake() error {
 		}
 
 		// Determine the hash to sign.
-		var signatureType uint8
-		switch c.config.Certificates[0].PrivateKey.(type) {
-		case *ecdsa.PrivateKey:
-			signatureType = signatureECDSA
-		case *rsa.PrivateKey:
-			signatureType = signatureRSA
-		default:
-			c.sendAlert(alertInternalError)
-			return errors.New("unknown private key type")
-		}
+		privKey := c.config.Certificates[0].PrivateKey
 		if c.config.Bugs.IgnorePeerSignatureAlgorithmPreferences {
 			certReq.signatureAndHashes = c.config.signatureAndHashesForClient()
 		}
-		certVerify.signatureAndHash, err = hs.finishedHash.selectClientCertSignatureAlgorithm(certReq.signatureAndHashes, c.config.signatureAndHashesForClient(), signatureType)
+		certVerify.signatureAndHash, err = hs.finishedHash.selectClientCertSignatureAlgorithm(certReq.signatureAndHashes, c.config.signatureAndHashesForClient(), privKey)
 		if err != nil {
 			c.sendAlert(alertInternalError)
 			return err

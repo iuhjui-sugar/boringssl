@@ -24,6 +24,25 @@ import (
 	"./newhope"
 )
 
+type keyType int
+
+const (
+	keyTypeRSA keyType = iota + 1
+	keyTypeECDSA
+)
+
+func pickSignatureSchemeFromLists(keyType keyType, primaryList, secondaryList []signatureScheme) (signatureScheme, error) {
+	for _, sigScheme := range primaryList {
+		if !sigScheme.supportsKeyType(keyType) {
+			continue
+		}
+		if isSupportedSignatureAndHash(sigScheme, secondaryList) {
+			return sigScheme, nil
+		}
+	}
+	return 0, errors.New("tls: no supported signature algorithm found")
+}
+
 var errClientKeyExchange = errors.New("tls: invalid ClientKeyExchange message")
 var errServerKeyExchange = errors.New("tls: invalid ServerKeyExchange message")
 
@@ -59,14 +78,14 @@ func (ka *rsaKeyAgreement) generateServerKeyExchange(config *Config, cert *Certi
 	serverRSAParams = append(serverRSAParams, byte(len(exponent)>>8), byte(len(exponent)))
 	serverRSAParams = append(serverRSAParams, exponent...)
 
-	var tls12HashId uint8
+	sigAlg := signatureRSAPKCS1SHA1
 	if ka.version >= VersionTLS12 {
-		if tls12HashId, err = pickTLS12HashForSignature(signatureRSA, clientHello.signatureAndHashes, config.signatureAndHashesForServer()); err != nil {
+		if sigAlg, err = pickSignatureSchemeFromLists(keyTypeRSA, clientHello.signatureAndHashes, config.signatureAndHashesForServer()); err != nil {
 			return nil, err
 		}
 	}
 
-	digest, hashFunc, err := hashForServerKeyExchange(signatureRSA, tls12HashId, ka.version, clientHello.random, hello.random, serverRSAParams)
+	digest, hashFunc, err := hashForServerKeyExchange(sigAlg, ka.version, clientHello.random, hello.random, serverRSAParams)
 	if err != nil {
 		return nil, err
 	}
@@ -88,8 +107,8 @@ func (ka *rsaKeyAgreement) generateServerKeyExchange(config *Config, cert *Certi
 	copy(skx.key, serverRSAParams)
 	k := skx.key[len(serverRSAParams):]
 	if ka.version >= VersionTLS12 {
-		k[0] = tls12HashId
-		k[1] = signatureRSA
+		k[0] = byte(sigAlg >> 8)
+		k[1] = byte(sigAlg)
 		k = k[2:]
 	}
 	k[0] = byte(len(sig) >> 8)
@@ -210,11 +229,11 @@ func md5SHA1Hash(slices [][]byte) []byte {
 // hashForServerKeyExchange hashes the given slices and returns their digest
 // and the identifier of the hash function used. The hashFunc argument is only
 // used for >= TLS 1.2 and precisely identifies the hash function to use.
-func hashForServerKeyExchange(sigType, hashFunc uint8, version uint16, slices ...[]byte) ([]byte, crypto.Hash, error) {
+func hashForServerKeyExchange(signatureScheme signatureScheme, version uint16, slices ...[]byte) ([]byte, crypto.Hash, error) {
 	if version >= VersionTLS12 {
-		hash, err := lookupTLSHash(hashFunc)
-		if err != nil {
-			return nil, 0, err
+		hash := signatureScheme.hash()
+		if hash == 0 {
+			return nil, 0, errors.New("tls: unsupported hash algorithm")
 		}
 		h := hash.New()
 		for _, slice := range slices {
@@ -222,7 +241,7 @@ func hashForServerKeyExchange(sigType, hashFunc uint8, version uint16, slices ..
 		}
 		return h.Sum(nil), hash, nil
 	}
-	if sigType == signatureECDSA {
+	if signatureScheme.isECDSA() {
 		return sha1Hash(slices), crypto.SHA1, nil
 	}
 	return md5SHA1Hash(slices), crypto.MD5SHA1, nil
@@ -231,24 +250,19 @@ func hashForServerKeyExchange(sigType, hashFunc uint8, version uint16, slices ..
 // pickTLS12HashForSignature returns a TLS 1.2 hash identifier for signing a
 // ServerKeyExchange given the signature type being used and the client's
 // advertized list of supported signature and hash combinations.
-func pickTLS12HashForSignature(sigType uint8, clientList, serverList []signatureAndHash) (uint8, error) {
+func pickTLS12HashForSignature(keyType keyType, clientList, serverList []signatureScheme) (crypto.Hash, error) {
 	if len(clientList) == 0 {
 		// If the client didn't specify any signature_algorithms
 		// extension then we can assume that it supports SHA1. See
 		// http://tools.ietf.org/html/rfc5246#section-7.4.1.4.1
-		return hashSHA1, nil
+		return crypto.SHA1, nil
 	}
 
-	for _, sigAndHash := range clientList {
-		if sigAndHash.signature != sigType {
-			continue
-		}
-		if isSupportedSignatureAndHash(sigAndHash, serverList) {
-			return sigAndHash.hash, nil
-		}
+	sigAlg, err := pickSignatureSchemeFromLists(keyType, clientList, serverList)
+	if err != nil {
+		return 0, err
 	}
-
-	return 0, errors.New("tls: client doesn't support any common hash functions")
+	return sigAlg.hash(), nil
 }
 
 // A ecdhCurve is an instance of ECDH-style key agreement for TLS.
@@ -470,19 +484,26 @@ func maybeCorruptECDSAValue(n *big.Int, typeOfCorruption BadValue, limit *big.In
 // server's private key.
 type signedKeyAgreement struct {
 	version uint16
-	sigType uint8
+	keyType keyType
 }
 
 func (ka *signedKeyAgreement) signParameters(config *Config, cert *Certificate, clientHello *clientHelloMsg, hello *serverHelloMsg, params []byte) (*serverKeyExchangeMsg, error) {
-	var tls12HashId uint8
 	var err error
+	var sigAlg signatureScheme
 	if ka.version >= VersionTLS12 {
-		if tls12HashId, err = pickTLS12HashForSignature(ka.sigType, clientHello.signatureAndHashes, config.signatureAndHashesForServer()); err != nil {
+		if sigAlg, err = pickSignatureSchemeFromLists(ka.keyType, clientHello.signatureAndHashes, config.signatureAndHashesForServer()); err != nil {
 			return nil, err
+		}
+	} else {
+		switch ka.keyType {
+		case keyTypeRSA:
+			sigAlg = signatureRSAPKCS1SHA1
+		case keyTypeECDSA:
+			sigAlg = signatureECDSASECP256R1SHA1
 		}
 	}
 
-	digest, hashFunc, err := hashForServerKeyExchange(ka.sigType, tls12HashId, ka.version, clientHello.random, hello.random, params)
+	digest, hashFunc, err := hashForServerKeyExchange(sigAlg, ka.version, clientHello.random, hello.random, params)
 	if err != nil {
 		return nil, err
 	}
@@ -492,8 +513,8 @@ func (ka *signedKeyAgreement) signParameters(config *Config, cert *Certificate, 
 	}
 
 	var sig []byte
-	switch ka.sigType {
-	case signatureECDSA:
+	switch ka.keyType {
+	case keyTypeECDSA:
 		privKey, ok := cert.PrivateKey.(*ecdsa.PrivateKey)
 		if !ok {
 			return nil, errors.New("ECDHE ECDSA requires an ECDSA server private key")
@@ -506,7 +527,7 @@ func (ka *signedKeyAgreement) signParameters(config *Config, cert *Certificate, 
 		r = maybeCorruptECDSAValue(r, config.Bugs.BadECDSAR, order)
 		s = maybeCorruptECDSAValue(s, config.Bugs.BadECDSAS, order)
 		sig, err = asn1.Marshal(ecdsaSignature{r, s})
-	case signatureRSA:
+	case keyTypeRSA:
 		privKey, ok := cert.PrivateKey.(*rsa.PrivateKey)
 		if !ok {
 			return nil, errors.New("ECDHE RSA requires a RSA server private key")
@@ -531,8 +552,8 @@ func (ka *signedKeyAgreement) signParameters(config *Config, cert *Certificate, 
 		copy(skx.key, params)
 		k := skx.key[len(params):]
 		if ka.version >= VersionTLS12 {
-			k[0] = tls12HashId
-			k[1] = ka.sigType
+			k[0] = byte(sigAlg >> 8)
+			k[1] = byte(sigAlg)
 			k = k[2:]
 		}
 		k[0] = byte(len(sig) >> 8)
@@ -548,21 +569,27 @@ func (ka *signedKeyAgreement) verifyParameters(config *Config, clientHello *clie
 		return errServerKeyExchange
 	}
 
-	var tls12HashId uint8
+	var sigAlg signatureScheme
 	if ka.version >= VersionTLS12 {
+		sigAlg = signatureScheme(sig[0])<<8 | signatureScheme(sig[1])
 		// handle SignatureAndHashAlgorithm
-		var sigAndHash []uint8
-		sigAndHash, sig = sig[:2], sig[2:]
-		if sigAndHash[1] != ka.sigType {
+		sig = sig[2:]
+		if !sigAlg.supportsKeyType(ka.keyType) {
 			return errServerKeyExchange
 		}
-		tls12HashId = sigAndHash[0]
 		if len(sig) < 2 {
 			return errServerKeyExchange
 		}
 
-		if !isSupportedSignatureAndHash(signatureAndHash{ka.sigType, tls12HashId}, config.signatureAndHashesForClient()) {
+		if !isSupportedSignatureAndHash(sigAlg, config.signatureAndHashesForClient()) {
 			return errors.New("tls: unsupported hash function for ServerKeyExchange")
+		}
+	} else {
+		switch ka.keyType {
+		case keyTypeRSA:
+			sigAlg = signatureRSAPKCS1SHA1
+		case keyTypeECDSA:
+			sigAlg = signatureECDSASECP256R1SHA1
 		}
 	}
 	sigLen := int(sig[0])<<8 | int(sig[1])
@@ -571,12 +598,12 @@ func (ka *signedKeyAgreement) verifyParameters(config *Config, clientHello *clie
 	}
 	sig = sig[2:]
 
-	digest, hashFunc, err := hashForServerKeyExchange(ka.sigType, tls12HashId, ka.version, clientHello.random, serverHello.random, params)
+	digest, hashFunc, err := hashForServerKeyExchange(sigAlg, ka.version, clientHello.random, serverHello.random, params)
 	if err != nil {
 		return err
 	}
-	switch ka.sigType {
-	case signatureECDSA:
+	switch ka.keyType {
+	case keyTypeECDSA:
 		pubKey, ok := cert.PublicKey.(*ecdsa.PublicKey)
 		if !ok {
 			return errors.New("ECDHE ECDSA requires a ECDSA server public key")
@@ -591,7 +618,7 @@ func (ka *signedKeyAgreement) verifyParameters(config *Config, clientHello *clie
 		if !ecdsa.Verify(pubKey, digest, ecdsaSig.R, ecdsaSig.S) {
 			return errors.New("ECDSA verification failure")
 		}
-	case signatureRSA:
+	case keyTypeRSA:
 		pubKey, ok := cert.PublicKey.(*rsa.PublicKey)
 		if !ok {
 			return errors.New("ECDHE RSA requires a RSA server public key")

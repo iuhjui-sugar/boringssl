@@ -2964,6 +2964,12 @@ OPENSSL_EXPORT int SSL_get_shutdown(const SSL *ssl);
  * |TLSEXT_hash_none|. */
 OPENSSL_EXPORT uint8_t SSL_get_server_key_exchange_hash(const SSL *ssl);
 
+/* SSL_get_server_key_exchange_sig_and_hash_alg, on a client, returns the
+ * SignatureAndHashAlgorithm the server used to sign the ServerKeyExchange in
+ * TLS 1.2. */
+OPENSSL_EXPORT uint16_t SSL_get_server_key_exchange_sig_and_hash_alg(
+    const SSL *ssl);
+
 /* TODO(davidben): Remove this when wpa_supplicant in Android has synced with
  * upstream. */
 #if !defined(BORINGSSL_SUPPRESS_ACCESSORS)
@@ -4259,6 +4265,11 @@ typedef struct ssl3_state_st {
      * sign the ServerKeyExchange in TLS 1.2. If not applicable, it is
      * |TLSEXT_hash_none|. */
     uint8_t server_key_exchange_hash;
+
+    /* server_key_exchange_sig_and_hash_alg, on a client, is the
+     * SignatureAndHashAlgorithm the server used to sign the ServerKeyExchange
+     * in TLS 1.2. */
+    uint16_t server_key_exchange_sig_and_hash_alg;
 
     /* ecdh_ctx is the current ECDH instance. */
     SSL_ECDH_CTX ecdh_ctx;

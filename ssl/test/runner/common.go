@@ -9,6 +9,7 @@ import (
 	"crypto"
 	"crypto/ecdsa"
 	"crypto/rand"
+	"crypto/rsa"
 	"crypto/x509"
 	"fmt"
 	"io"
@@ -132,43 +133,103 @@ const (
 	// Rest of these are reserved by the TLS spec
 )
 
-// Hash functions for TLS 1.2 (See RFC 5246, section A.4.1)
-const (
-	hashMD5    uint8 = 1
-	hashSHA1   uint8 = 2
-	hashSHA224 uint8 = 3
-	hashSHA256 uint8 = 4
-	hashSHA384 uint8 = 5
-	hashSHA512 uint8 = 6
-)
-
-// Signature algorithms for TLS 1.2 (See RFC 5246, section A.4.1)
-const (
-	signatureRSA   uint8 = 1
-	signatureECDSA uint8 = 3
-)
-
 // signatureAndHash mirrors the TLS 1.2, SignatureAndHashAlgorithm struct. See
 // RFC 5246, section A.4.1.
-type signatureAndHash struct {
-	signature, hash uint8
+type signatureScheme uint16
+
+const (
+	// RSASSA-PKCS-v1_5 algorithms
+	signatureRSAPKCS1MD5    signatureScheme = 0x0101
+	signatureRSAPKCS1SHA1   signatureScheme = 0x0201
+	signatureRSAPKCS1SHA256 signatureScheme = 0x0401
+	signatureRSAPKCS1SHA384 signatureScheme = 0x0501
+	signatureRSAPKCS1SHA512 signatureScheme = 0x0601
+
+	// ECDSA algorithms
+	signatureECDSASECP256R1SHA1   signatureScheme = 0x0203
+	signatureECDSASECP256R1SHA256 signatureScheme = 0x0403
+	signatureECDSASECP384R1SHA384 signatureScheme = 0x0503
+	signatureECDSASECP521R1SHA512 signatureScheme = 0x0603
+
+	// RSASSA-PSS algorithms
+	signatureRSAPSSSHA256 signatureScheme = 0x0700
+	signatureRSAPSSSHA384 signatureScheme = 0x0701
+	signatureRSAPSSSHA512 signatureScheme = 0x0702
+
+	// EdDSA algorithms
+	signatureEd25519 signatureScheme = 0x0703
+	signatureEd448   signatureScheme = 0x0704
+)
+
+func (s signatureScheme) hash() crypto.Hash {
+	switch s {
+	case signatureRSAPKCS1MD5:
+		return crypto.MD5
+	case signatureRSAPKCS1SHA1, signatureECDSASECP256R1SHA1:
+		return crypto.SHA1
+	case signatureRSAPKCS1SHA256, signatureECDSASECP256R1SHA256, signatureRSAPSSSHA256:
+		return crypto.SHA256
+	case signatureRSAPKCS1SHA384, signatureECDSASECP384R1SHA384, signatureRSAPSSSHA384:
+		return crypto.SHA384
+	case signatureRSAPKCS1SHA512, signatureECDSASECP521R1SHA512, signatureRSAPSSSHA512:
+		return crypto.SHA512
+	}
+	return 0
+}
+
+func (s signatureScheme) isRSA() bool {
+	switch s {
+	case signatureRSAPKCS1MD5, signatureRSAPKCS1SHA1, signatureRSAPKCS1SHA256, signatureRSAPKCS1SHA384, signatureRSAPKCS1SHA512:
+		return true
+	}
+	return false
+}
+
+func (s signatureScheme) isECDSA() bool {
+	switch s {
+	case signatureECDSASECP256R1SHA1, signatureECDSASECP256R1SHA256, signatureECDSASECP384R1SHA384, signatureECDSASECP521R1SHA512:
+		return true
+	}
+	return false
+}
+
+func (s signatureScheme) canUseWithKey(key crypto.PrivateKey) bool {
+	switch s {
+	case signatureRSAPKCS1MD5, signatureRSAPKCS1SHA1, signatureRSAPKCS1SHA256, signatureRSAPKCS1SHA384, signatureRSAPKCS1SHA512, signatureRSAPSSSHA256, signatureRSAPSSSHA384, signatureRSAPSSSHA512:
+		_, ok := key.(*rsa.PrivateKey)
+		return ok
+	case signatureECDSASECP256R1SHA1, signatureECDSASECP256R1SHA256, signatureECDSASECP384R1SHA384, signatureECDSASECP521R1SHA512:
+		_, ok := key.(*ecdsa.PrivateKey)
+		return ok
+	}
+	return false
+}
+
+func (s signatureScheme) supportsKeyType(typ keyType) bool {
+	switch s {
+	case signatureRSAPKCS1MD5, signatureRSAPKCS1SHA1, signatureRSAPKCS1SHA256, signatureRSAPKCS1SHA384, signatureRSAPKCS1SHA512:
+		return typ == keyTypeRSA
+	case signatureECDSASECP256R1SHA1, signatureECDSASECP256R1SHA256, signatureECDSASECP384R1SHA384, signatureECDSASECP521R1SHA512:
+		return typ == keyTypeECDSA
+	}
+	return false
 }
 
 // supportedSKXSignatureAlgorithms contains the signature and hash algorithms
 // that the code advertises as supported in a TLS 1.2 ClientHello.
-var supportedSKXSignatureAlgorithms = []signatureAndHash{
-	{signatureRSA, hashSHA256},
-	{signatureECDSA, hashSHA256},
-	{signatureRSA, hashSHA1},
-	{signatureECDSA, hashSHA1},
+var supportedSKXSignatureAlgorithms = []signatureScheme{
+	signatureRSAPKCS1SHA256,
+	signatureECDSASECP256R1SHA256,
+	signatureRSAPKCS1SHA1,
+	signatureECDSASECP256R1SHA1,
 }
 
 // supportedClientCertSignatureAlgorithms contains the signature and hash
 // algorithms that the code advertises as supported in a TLS 1.2
 // CertificateRequest.
-var supportedClientCertSignatureAlgorithms = []signatureAndHash{
-	{signatureRSA, hashSHA256},
-	{signatureECDSA, hashSHA256},
+var supportedClientCertSignatureAlgorithms = []signatureScheme{
+	signatureRSAPKCS1SHA256,
+	signatureECDSASECP256R1SHA256,
 }
 
 // SRTP protection profiles (See RFC 5764, section 4.1.2)
@@ -179,21 +240,21 @@ const (
 
 // ConnectionState records basic TLS details about the connection.
 type ConnectionState struct {
-	Version                    uint16                // TLS version used by the connection (e.g. VersionTLS12)
-	HandshakeComplete          bool                  // TLS handshake is complete
-	DidResume                  bool                  // connection resumes a previous TLS connection
-	CipherSuite                uint16                // cipher suite in use (TLS_RSA_WITH_RC4_128_SHA, ...)
-	NegotiatedProtocol         string                // negotiated next protocol (from Config.NextProtos)
-	NegotiatedProtocolIsMutual bool                  // negotiated protocol was advertised by server
-	NegotiatedProtocolFromALPN bool                  // protocol negotiated with ALPN
-	ServerName                 string                // server name requested by client, if any (server side only)
-	PeerCertificates           []*x509.Certificate   // certificate chain presented by remote peer
-	VerifiedChains             [][]*x509.Certificate // verified chains built from PeerCertificates
-	ChannelID                  *ecdsa.PublicKey      // the channel ID for this connection
-	SRTPProtectionProfile      uint16                // the negotiated DTLS-SRTP protection profile
-	TLSUnique                  []byte                // the tls-unique channel binding
-	SCTList                    []byte                // signed certificate timestamp list
-	ClientCertSignatureHash    uint8                 // TLS id of the hash used by the client to sign the handshake
+	Version                      uint16                // TLS version used by the connection (e.g. VersionTLS12)
+	HandshakeComplete            bool                  // TLS handshake is complete
+	DidResume                    bool                  // connection resumes a previous TLS connection
+	CipherSuite                  uint16                // cipher suite in use (TLS_RSA_WITH_RC4_128_SHA, ...)
+	NegotiatedProtocol           string                // negotiated next protocol (from Config.NextProtos)
+	NegotiatedProtocolIsMutual   bool                  // negotiated protocol was advertised by server
+	NegotiatedProtocolFromALPN   bool                  // protocol negotiated with ALPN
+	ServerName                   string                // server name requested by client, if any (server side only)
+	PeerCertificates             []*x509.Certificate   // certificate chain presented by remote peer
+	VerifiedChains               [][]*x509.Certificate // verified chains built from PeerCertificates
+	ChannelID                    *ecdsa.PublicKey      // the channel ID for this connection
+	SRTPProtectionProfile        uint16                // the negotiated DTLS-SRTP protection profile
+	TLSUnique                    []byte                // the tls-unique channel binding
+	SCTList                      []byte                // signed certificate timestamp list
+	ClientCertSignatureAlgorithm signatureScheme       // TLS signatureScheme used by the client to sign the handshake
 }
 
 // ClientAuthType declares the policy the server will follow for
@@ -381,7 +442,7 @@ type Config struct {
 	// SignatureAndHashes, if not nil, overrides the default set of
 	// supported signature and hash algorithms to advertise in
 	// CertificateRequest.
-	SignatureAndHashes []signatureAndHash
+	SignatureAndHashes []signatureScheme
 
 	// Bugs specifies optional misbehaviour to be used for testing other
 	// implementations.
@@ -962,14 +1023,14 @@ func (c *Config) getCertificateForName(name string) *Certificate {
 	return &c.Certificates[0]
 }
 
-func (c *Config) signatureAndHashesForServer() []signatureAndHash {
+func (c *Config) signatureAndHashesForServer() []signatureScheme {
 	if c != nil && c.SignatureAndHashes != nil {
 		return c.SignatureAndHashes
 	}
 	return supportedClientCertSignatureAlgorithms
 }
 
-func (c *Config) signatureAndHashesForClient() []signatureAndHash {
+func (c *Config) signatureAndHashesForClient() []signatureScheme {
 	if c != nil && c.SignatureAndHashes != nil {
 		return c.SignatureAndHashes
 	}
@@ -1188,7 +1249,7 @@ func unexpectedMessageError(wanted, got interface{}) error {
 	return fmt.Errorf("tls: received unexpected handshake message of type %T when waiting for %T", got, wanted)
 }
 
-func isSupportedSignatureAndHash(sigHash signatureAndHash, sigHashes []signatureAndHash) bool {
+func isSupportedSignatureAndHash(sigHash signatureScheme, sigHashes []signatureScheme) bool {
 	for _, s := range sigHashes {
 		if s == sigHash {
 			return true

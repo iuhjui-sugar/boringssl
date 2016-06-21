@@ -406,7 +406,7 @@ func rsaKA(version uint16) keyAgreement {
 func ecdheECDSAKA(version uint16) keyAgreement {
 	return &ecdheKeyAgreement{
 		auth: &signedKeyAgreement{
-			sigType: signatureECDSA,
+			keyType: keyTypeECDSA,
 			version: version,
 		},
 	}
@@ -415,7 +415,7 @@ func ecdheECDSAKA(version uint16) keyAgreement {
 func cecpq1ECDSAKA(version uint16) keyAgreement {
 	return &cecpq1KeyAgreement{
 		auth: &signedKeyAgreement{
-			sigType: signatureECDSA,
+			keyType: keyTypeECDSA,
 			version: version,
 		},
 	}
@@ -424,7 +424,7 @@ func cecpq1ECDSAKA(version uint16) keyAgreement {
 func ecdheRSAKA(version uint16) keyAgreement {
 	return &ecdheKeyAgreement{
 		auth: &signedKeyAgreement{
-			sigType: signatureRSA,
+			keyType: keyTypeRSA,
 			version: version,
 		},
 	}
@@ -433,7 +433,7 @@ func ecdheRSAKA(version uint16) keyAgreement {
 func cecpq1RSAKA(version uint16) keyAgreement {
 	return &cecpq1KeyAgreement{
 		auth: &signedKeyAgreement{
-			sigType: signatureRSA,
+			keyType: keyTypeRSA,
 			version: version,
 		},
 	}
@@ -442,7 +442,7 @@ func cecpq1RSAKA(version uint16) keyAgreement {
 func dheRSAKA(version uint16) keyAgreement {
 	return &dheKeyAgreement{
 		auth: &signedKeyAgreement{
-			sigType: signatureRSA,
+			keyType: keyTypeRSA,
 			version: version,
 		},
 	}

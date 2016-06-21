@@ -22,7 +22,7 @@ type clientHelloMsg struct {
 	supportedPoints         []uint8
 	ticketSupported         bool
 	sessionTicket           []uint8
-	signatureAndHashes      []signatureAndHash
+	signatureAndHashes      []signatureScheme
 	secureRenegotiation     []byte
 	alpnProtocols           []string
 	duplicateExtension      bool
@@ -294,9 +294,9 @@ func (m *clientHelloMsg) marshal() []byte {
 		z[0] = byte(l >> 8)
 		z[1] = byte(l)
 		z = z[2:]
-		for _, sigAndHash := range m.signatureAndHashes {
-			z[0] = sigAndHash.hash
-			z[1] = sigAndHash.signature
+		for _, sigScheme := range m.signatureAndHashes {
+			z[0] = byte(sigScheme >> 8)
+			z[1] = byte(sigScheme)
 			z = z[2:]
 		}
 	}
@@ -556,10 +556,9 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 			}
 			n := l / 2
 			d := data[2:]
-			m.signatureAndHashes = make([]signatureAndHash, n)
+			m.signatureAndHashes = make([]signatureScheme, n)
 			for i := range m.signatureAndHashes {
-				m.signatureAndHashes[i].hash = d[0]
-				m.signatureAndHashes[i].signature = d[1]
+				m.signatureAndHashes[i] = signatureScheme(d[0])<<8 | signatureScheme(d[1])
 				d = d[2:]
 			}
 		case extensionRenegotiationInfo:
@@ -1302,7 +1301,7 @@ type certificateRequestMsg struct {
 	hasSignatureAndHash bool
 
 	certificateTypes       []byte
-	signatureAndHashes     []signatureAndHash
+	signatureAndHashes     []signatureScheme
 	certificateAuthorities [][]byte
 }
 
@@ -1339,9 +1338,9 @@ func (m *certificateRequestMsg) marshal() (x []byte) {
 		y[0] = uint8(n >> 8)
 		y[1] = uint8(n)
 		y = y[2:]
-		for _, sigAndHash := range m.signatureAndHashes {
-			y[0] = sigAndHash.hash
-			y[1] = sigAndHash.signature
+		for _, sigScheme := range m.signatureAndHashes {
+			y[0] = byte(sigScheme >> 8)
+			y[1] = byte(sigScheme)
 			y = y[2:]
 		}
 	}
@@ -1399,10 +1398,9 @@ func (m *certificateRequestMsg) unmarshal(data []byte) bool {
 			return false
 		}
 		numSigAndHash := sigAndHashLen / 2
-		m.signatureAndHashes = make([]signatureAndHash, numSigAndHash)
+		m.signatureAndHashes = make([]signatureScheme, numSigAndHash)
 		for i := range m.signatureAndHashes {
-			m.signatureAndHashes[i].hash = data[0]
-			m.signatureAndHashes[i].signature = data[1]
+			m.signatureAndHashes[i] = signatureScheme(data[0])<<8 | signatureScheme(data[1])
 			data = data[2:]
 		}
 	}
@@ -1444,7 +1442,7 @@ func (m *certificateRequestMsg) unmarshal(data []byte) bool {
 type certificateVerifyMsg struct {
 	raw                 []byte
 	hasSignatureAndHash bool
-	signatureAndHash    signatureAndHash
+	signatureAndHash    signatureScheme
 	signature           []byte
 }
 
@@ -1466,8 +1464,8 @@ func (m *certificateVerifyMsg) marshal() (x []byte) {
 	x[3] = uint8(length)
 	y := x[4:]
 	if m.hasSignatureAndHash {
-		y[0] = m.signatureAndHash.hash
-		y[1] = m.signatureAndHash.signature
+		y[0] = byte(m.signatureAndHash >> 8)
+		y[1] = byte(m.signatureAndHash)
 		y = y[2:]
 	}
 	y[0] = uint8(siglength >> 8)
@@ -1493,8 +1491,7 @@ func (m *certificateVerifyMsg) unmarshal(data []byte) bool {
 
 	data = data[4:]
 	if m.hasSignatureAndHash {
-		m.signatureAndHash.hash = data[0]
-		m.signatureAndHash.signature = data[1]
+		m.signatureAndHash = signatureScheme(data[0])<<8 | signatureScheme(data[1])
 		data = data[2:]
 	}
 
@@ -1745,13 +1742,13 @@ func eqByteSlices(x, y [][]byte) bool {
 	return true
 }
 
-func eqSignatureAndHashes(x, y []signatureAndHash) bool {
+func eqSignatureAndHashes(x, y []signatureScheme) bool {
 	if len(x) != len(y) {
 		return false
 	}
 	for i, v := range x {
 		v2 := y[i]
-		if v.hash != v2.hash || v.signature != v2.signature {
+		if v != v2 {
 			return false
 		}
 	}

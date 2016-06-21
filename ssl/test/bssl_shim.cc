@@ -1128,12 +1128,12 @@ static bool CheckHandshakeProperties(SSL *ssl, bool is_resume) {
     }
   }
 
-  if (config->expect_server_key_exchange_hash != 0 &&
-      config->expect_server_key_exchange_hash !=
-          SSL_get_server_key_exchange_hash(ssl)) {
-    fprintf(stderr, "ServerKeyExchange hash was %d, wanted %d.\n",
-            SSL_get_server_key_exchange_hash(ssl),
-            config->expect_server_key_exchange_hash);
+  if (config->expect_server_key_exchange_sig_and_hash_alg != 0 &&
+      config->expect_server_key_exchange_sig_and_hash_alg !=
+          SSL_get_server_key_exchange_sig_and_hash_alg(ssl)) {
+    fprintf(stderr, "ServerKeyExchange hash was %04x, wanted %04x.\n",
+            SSL_get_server_key_exchange_sig_and_hash_alg(ssl),
+            config->expect_server_key_exchange_sig_and_hash_alg);
     return false;
   }
 

@@ -1343,6 +1343,7 @@ static int ssl3_get_server_key_exchange(SSL *ssl) {
         goto f_err;
       }
       ssl->s3->tmp.server_key_exchange_hash = hash;
+      ssl->s3->tmp.server_key_exchange_sig_and_hash_alg = hash<<8 | signature;
     } else if (pkey->type == EVP_PKEY_RSA) {
       md = EVP_md5_sha1();
     } else {
