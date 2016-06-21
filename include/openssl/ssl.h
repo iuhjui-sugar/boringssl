@@ -1610,10 +1610,9 @@ OPENSSL_EXPORT int SSL_CTX_get_session_cache_mode(const SSL_CTX *ctx);
  * |session|. */
 OPENSSL_EXPORT int SSL_set_session(SSL *ssl, SSL_SESSION *session);
 
-/* SSL_get_session returns a non-owning pointer to |ssl|'s session. Prior to the
- * initial handshake beginning, this is the session to be offered, set by
- * |SSL_set_session|. After a handshake has finished, this is the currently
- * active session. Its behavior is undefined while a handshake is progress. */
+/* SSL_get_session returns a non-owning pointer to the |ssl|'s active session.
+ * Prior to the initial handshake finishing, this is a poisoned (non-resumable)
+ * session. After the handshake has finished, this is the active session. */
 OPENSSL_EXPORT SSL_SESSION *SSL_get_session(const SSL *ssl);
 
 /* SSL_get0_session is an alias for |SSL_get_session|. */
@@ -3566,9 +3565,7 @@ struct ssl_session_st {
   /* peer_sha256_valid is non-zero if |peer_sha256| is valid. */
   unsigned peer_sha256_valid:1; /* Non-zero if peer_sha256 is valid */
 
-  /* not_resumable is used to indicate that session resumption is not allowed.
-   * Applications can also set this bit for a new session via
-   * not_resumable_session_cb to disable session caching and tickets. */
+  /* not_resumable is used to indicate that session resumption is disallowed. */
   unsigned not_resumable:1;
 };
 
@@ -3944,7 +3941,7 @@ struct ssl_st {
   unsigned int sid_ctx_length;
   uint8_t sid_ctx[SSL_MAX_SID_CTX_LENGTH];
 
-  /* This can also be in the session once a session is established */
+  /* session is the session to be offered by the client. */
   SSL_SESSION *session;
 
   int (*verify_callback)(int ok,
@@ -4263,6 +4260,11 @@ typedef struct ssl3_state_st {
     uint8_t *peer_key;
     uint16_t peer_key_len;
   } tmp;
+
+  /* new_session is the session being established in the connection, either from
+   * the offered |ssl->session| or as a fresh session. This session is not
+   * resumable until the handshake completes. */
+  SSL_SESSION *new_session;
 
   /* Connection binding to prevent renegotiation attacks */
   uint8_t previous_client_finished[EVP_MAX_MD_SIZE];
