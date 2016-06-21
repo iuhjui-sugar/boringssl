@@ -436,7 +436,7 @@ int ssl3_accept(SSL *ssl) {
         }
 
         /* If this is a full handshake with ChannelID then record the hashshake
-         * hashes in |ssl->session| in case we need them to verify a ChannelID
+         * hashes in |ssl->s3->new_session| in case we need them to verify a ChannelID
          * signature on a resumption of this session in the future. */
         if (!ssl->hit && ssl->s3->tlsext_channel_id_valid) {
           ret = tls1_record_handshake_hashes_for_channel_id(ssl);
@@ -518,10 +518,10 @@ int ssl3_accept(SSL *ssl) {
         /* If we aren't retaining peer certificates then we can discard it
          * now. */
         if (ssl->ctx->retain_only_sha256_of_client_certs) {
-          X509_free(ssl->session->peer);
-          ssl->session->peer = NULL;
-          sk_X509_pop_free(ssl->session->cert_chain, X509_free);
-          ssl->session->cert_chain = NULL;
+          X509_free(ssl->s3->new_session->peer);
+          ssl->s3->new_session->peer = NULL;
+          sk_X509_pop_free(ssl->s3->new_session->cert_chain, X509_free);
+          ssl->s3->new_session->cert_chain = NULL;
         }
 
         if (SSL_IS_DTLS(ssl)) {
@@ -896,11 +896,13 @@ static int ssl3_get_client_hello(SSL *ssl) {
 
   if (ssl->hit) {
     /* Use the new session. */
-    SSL_SESSION_free(ssl->session);
+    SSL_SESSION_free(ssl->s3->new_session);
     ssl->session = session;
+    ssl->s3->new_session = OPENSSL_malloc(sizeof(SSL_SESSION));
+    memcpy(ssl->s3->new_session, ssl->session, sizeof(SSL_SESSION));
     session = NULL;
 
-    ssl->verify_result = ssl->session->verify_result;
+    ssl->verify_result = ssl->s3->new_session->verify_result;
   } else {
     if (!ssl_get_new_session(ssl, 1 /* server */)) {
       goto err;
@@ -908,7 +910,7 @@ static int ssl3_get_client_hello(SSL *ssl) {
 
     /* Clear the session ID if we want the session to be single-use. */
     if (!(ssl->ctx->session_cache_mode & SSL_SESS_CACHE_SERVER)) {
-      ssl->session->session_id_length = 0;
+      ssl->s3->new_session->session_id_length = 0;
     }
   }
 
@@ -1015,7 +1017,7 @@ static int ssl3_get_client_hello(SSL *ssl) {
       OPENSSL_PUT_ERROR(SSL, SSL_R_NO_SHARED_CIPHER);
       goto f_err;
     }
-    ssl->session->cipher = c;
+    ssl->s3->new_session->cipher = c;
     ssl->s3->tmp.new_cipher = c;
 
     /* Determine whether to request a client certificate. */
@@ -1031,7 +1033,7 @@ static int ssl3_get_client_hello(SSL *ssl) {
     }
   } else {
     /* Session-id reuse */
-    ssl->s3->tmp.new_cipher = ssl->session->cipher;
+    ssl->s3->tmp.new_cipher = ssl->s3->new_session->cipher;
     ssl->s3->tmp.cert_request = 0;
   }
 
@@ -1053,7 +1055,7 @@ static int ssl3_get_client_hello(SSL *ssl) {
    * ciphers            - the clients prefered list of ciphers
    * compression        - basically ignored right now
    * ssl version is set - sslv3
-   * ssl->session         - The ssl session has been setup.
+   * ssl->s3->new_session         - The ssl session has been setup.
    * ssl->hit             - session reuse flag
    * ssl->tmp.new_cipher  - the new cipher to use. */
 
@@ -1087,7 +1089,7 @@ static int ssl3_send_server_hello(SSL *ssl) {
   /* If this is a resumption and the original handshake didn't support
    * ChannelID then we didn't record the original handshake hashes in the
    * session and so cannot resume with ChannelIDs. */
-  if (ssl->hit && ssl->session->original_handshake_hash_len == 0) {
+  if (ssl->hit && ssl->s3->new_session->original_handshake_hash_len == 0) {
     ssl->s3->tlsext_channel_id_valid = 0;
   }
 
@@ -1105,8 +1107,8 @@ static int ssl3_send_server_hello(SSL *ssl) {
       !CBB_add_u16(&cbb, ssl->version) ||
       !CBB_add_bytes(&cbb, ssl->s3->server_random, SSL3_RANDOM_SIZE) ||
       !CBB_add_u8_length_prefixed(&cbb, &session_id) ||
-      !CBB_add_bytes(&session_id, ssl->session->session_id,
-                     ssl->session->session_id_length) ||
+      !CBB_add_bytes(&session_id, ssl->s3->new_session->session_id,
+                     ssl->s3->new_session->session_id_length) ||
       !CBB_add_u16(&cbb, ssl_cipher_get_value(ssl->s3->tmp.new_cipher)) ||
       !CBB_add_u8(&cbb, 0 /* no compression */) ||
       !ssl_add_serverhello_tlsext(ssl, &cbb) ||
@@ -1197,7 +1199,7 @@ static int ssl3_send_server_key_exchange(SSL *ssl) {
         ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_HANDSHAKE_FAILURE);
         goto err;
       }
-      ssl->session->key_exchange_info = DH_num_bits(params);
+      ssl->s3->new_session->key_exchange_info = DH_num_bits(params);
 
       /* Set up DH, generate a key, and emit the public half. */
       DH *dh = DHparams_dup(params);
@@ -1222,7 +1224,7 @@ static int ssl3_send_server_key_exchange(SSL *ssl) {
         ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_HANDSHAKE_FAILURE);
         goto err;
       }
-      ssl->session->key_exchange_info = group_id;
+      ssl->s3->new_session->key_exchange_info = group_id;
 
       /* Set up ECDH, generate a key, and emit the public half. */
       if (!SSL_ECDH_CTX_init(&ssl->s3->tmp.ecdh_ctx, group_id) ||
@@ -1493,8 +1495,8 @@ static int ssl3_get_client_certificate(SSL *ssl) {
        * certificates in memory, then we hash it right away. */
       SHA256_Init(&sha256);
       SHA256_Update(&sha256, CBS_data(&certificate), CBS_len(&certificate));
-      SHA256_Final(ssl->session->peer_sha256, &sha256);
-      ssl->session->peer_sha256_valid = 1;
+      SHA256_Final(ssl->s3->new_session->peer_sha256, &sha256);
+      ssl->s3->new_session->peer_sha256_valid = 1;
     }
     is_first_certificate = 0;
 
@@ -1542,12 +1544,12 @@ static int ssl3_get_client_certificate(SSL *ssl) {
     }
   }
 
-  X509_free(ssl->session->peer);
-  ssl->session->peer = sk_X509_shift(sk);
-  ssl->session->verify_result = ssl->verify_result;
+  X509_free(ssl->s3->new_session->peer);
+  ssl->s3->new_session->peer = sk_X509_shift(sk);
+  ssl->s3->new_session->verify_result = ssl->verify_result;
 
-  sk_X509_pop_free(ssl->session->cert_chain, X509_free);
-  ssl->session->cert_chain = sk;
+  sk_X509_pop_free(ssl->s3->new_session->cert_chain, X509_free);
+  ssl->s3->new_session->cert_chain = sk;
   /* Inconsistency alert: cert_chain does *not* include the peer's own
    * certificate, while we do include it in s3_clnt.c */
 
@@ -1617,14 +1619,14 @@ static int ssl3_get_client_key_exchange(SSL *ssl) {
       goto f_err;
     }
 
-    if (!CBS_strdup(&psk_identity, &ssl->session->psk_identity)) {
+    if (!CBS_strdup(&psk_identity, &ssl->s3->new_session->psk_identity)) {
       al = SSL_AD_INTERNAL_ERROR;
       OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
       goto f_err;
     }
 
     /* Look up the key for the identity. */
-    psk_len = ssl->psk_server_callback(ssl, ssl->session->psk_identity, psk,
+    psk_len = ssl->psk_server_callback(ssl, ssl->s3->new_session->psk_identity, psk,
                                        sizeof(psk));
     if (psk_len > PSK_MAX_PSK_LEN) {
       OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
@@ -1812,12 +1814,12 @@ static int ssl3_get_client_key_exchange(SSL *ssl) {
   }
 
   /* Compute the master secret */
-  ssl->session->master_key_length = tls1_generate_master_secret(
-      ssl, ssl->session->master_key, premaster_secret, premaster_secret_len);
-  if (ssl->session->master_key_length == 0) {
+  ssl->s3->new_session->master_key_length = tls1_generate_master_secret(
+      ssl, ssl->s3->new_session->master_key, premaster_secret, premaster_secret_len);
+  if (ssl->s3->new_session->master_key_length == 0) {
     goto err;
   }
-  ssl->session->extended_master_secret = ssl->s3->tmp.extended_master_secret;
+  ssl->s3->new_session->extended_master_secret = ssl->s3->tmp.extended_master_secret;
 
   OPENSSL_cleanse(premaster_secret, premaster_secret_len);
   OPENSSL_free(premaster_secret);
@@ -1839,7 +1841,7 @@ static int ssl3_get_cert_verify(SSL *ssl) {
   int al, ok, ret = 0;
   long n;
   CBS certificate_verify, signature;
-  X509 *peer = ssl->session->peer;
+  X509 *peer = ssl->s3->new_session->peer;
   EVP_PKEY *pkey = NULL;
   const EVP_MD *md = NULL;
   uint8_t digest[EVP_MAX_MD_SIZE];
@@ -2116,7 +2118,7 @@ static int ssl3_send_new_session_ticket(SSL *ssl) {
         16 + EVP_MAX_IV_LENGTH + EVP_MAX_BLOCK_LENGTH + EVP_MAX_MD_SIZE;
 
     /* Serialize the SSL_SESSION to be encoded into the ticket. */
-    if (!SSL_SESSION_to_bytes_for_ticket(ssl->session, &session,
+    if (!SSL_SESSION_to_bytes_for_ticket(ssl->s3->new_session, &session,
                                          &session_len)) {
       goto err;
     }
@@ -2175,7 +2177,7 @@ static int ssl3_send_new_session_ticket(SSL *ssl) {
     /* Ticket lifetime hint (advisory only): We leave this unspecified for
      * resumed session (for simplicity), and guess that tickets for new
      * sessions will live as long as their sessions. */
-    l2n(ssl->hit ? 0 : ssl->session->timeout, p);
+    l2n(ssl->hit ? 0 : ssl->s3->new_session->timeout, p);
 
     /* Skip ticket length for now */
     p += 2;

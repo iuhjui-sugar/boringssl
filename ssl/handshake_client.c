@@ -840,6 +840,8 @@ static int ssl3_get_server_hello(SSL *ssl) {
                         SSL_R_ATTEMPT_TO_REUSE_SESSION_IN_DIFFERENT_CONTEXT);
       goto f_err;
     }
+    ssl->s3->new_session = OPENSSL_malloc(sizeof(SSL_SESSION));
+    memcpy(ssl->s3->new_session, ssl->session, sizeof(SSL_SESSION));
     ssl->hit = 1;
   } else {
     /* The session wasn't resumed. Create a fresh SSL_SESSION to
@@ -849,8 +851,8 @@ static int ssl3_get_server_hello(SSL *ssl) {
       goto f_err;
     }
     /* Note: session_id could be empty. */
-    ssl->session->session_id_length = CBS_len(&session_id);
-    memcpy(ssl->session->session_id, CBS_data(&session_id),
+    ssl->s3->new_session->session_id_length = CBS_len(&session_id);
+    memcpy(ssl->s3->new_session->session_id, CBS_data(&session_id),
            CBS_len(&session_id));
   }
 
@@ -879,18 +881,18 @@ static int ssl3_get_server_hello(SSL *ssl) {
   }
 
   if (ssl->hit) {
-    if (ssl->session->cipher != c) {
+    if (ssl->s3->new_session->cipher != c) {
       al = SSL_AD_ILLEGAL_PARAMETER;
       OPENSSL_PUT_ERROR(SSL, SSL_R_OLD_SESSION_CIPHER_NOT_RETURNED);
       goto f_err;
     }
-    if (ssl->session->ssl_version != ssl->version) {
+    if (ssl->s3->new_session->ssl_version != ssl->version) {
       al = SSL_AD_ILLEGAL_PARAMETER;
       OPENSSL_PUT_ERROR(SSL, SSL_R_OLD_SESSION_VERSION_NOT_RETURNED);
       goto f_err;
     }
   } else {
-    ssl->session->cipher = c;
+    ssl->s3->new_session->cipher = c;
   }
   ssl->s3->tmp.new_cipher = c;
 
@@ -930,9 +932,9 @@ static int ssl3_get_server_hello(SSL *ssl) {
 
   if (ssl->hit &&
       ssl->s3->tmp.extended_master_secret !=
-          ssl->session->extended_master_secret) {
+          ssl->s3->new_session->extended_master_secret) {
     al = SSL_AD_HANDSHAKE_FAILURE;
-    if (ssl->session->extended_master_secret) {
+    if (ssl->s3->new_session->extended_master_secret) {
       OPENSSL_PUT_ERROR(SSL, SSL_R_RESUMED_EMS_SESSION_WITHOUT_EMS_EXTENSION);
     } else {
       OPENSSL_PUT_ERROR(SSL, SSL_R_RESUMED_NON_EMS_SESSION_WITH_EMS_EXTENSION);
@@ -1058,14 +1060,14 @@ static int ssl3_get_server_certificate(SSL *ssl) {
 
   /* NOTE: Unlike the server half, the client's copy of |cert_chain| includes
    * the leaf. */
-  sk_X509_pop_free(ssl->session->cert_chain, X509_free);
-  ssl->session->cert_chain = sk;
+  sk_X509_pop_free(ssl->s3->new_session->cert_chain, X509_free);
+  ssl->s3->new_session->cert_chain = sk;
   sk = NULL;
 
-  X509_free(ssl->session->peer);
-  ssl->session->peer = X509_up_ref(leaf);
+  X509_free(ssl->s3->new_session->peer);
+  ssl->s3->new_session->peer = X509_up_ref(leaf);
 
-  ssl->session->verify_result = ssl->verify_result;
+  ssl->s3->new_session->verify_result = ssl->verify_result;
 
   ret = 1;
 
@@ -1111,8 +1113,8 @@ static int ssl3_get_cert_status(SSL *ssl) {
     goto f_err;
   }
 
-  if (!CBS_stow(&ocsp_response, &ssl->session->ocsp_response,
-                &ssl->session->ocsp_response_length)) {
+  if (!CBS_stow(&ocsp_response, &ssl->s3->new_session->ocsp_response,
+                &ssl->s3->new_session->ocsp_response_length)) {
     al = SSL_AD_INTERNAL_ERROR;
     OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
     goto f_err;
@@ -1125,7 +1127,7 @@ f_err:
 }
 
 static int ssl3_verify_server_cert(SSL *ssl) {
-  int ret = ssl_verify_cert_chain(ssl, ssl->session->cert_chain);
+  int ret = ssl_verify_cert_chain(ssl, ssl->s3->new_session->cert_chain);
   if (ssl->verify_mode != SSL_VERIFY_NONE && ret <= 0) {
     int al = ssl_verify_alarm_type(ssl->verify_result);
     ssl3_send_alert(ssl, SSL3_AL_FATAL, al);
@@ -1236,11 +1238,11 @@ static int ssl3_get_server_key_exchange(SSL *ssl) {
       goto err;
     }
 
-    ssl->session->key_exchange_info = DH_num_bits(dh);
-    if (ssl->session->key_exchange_info < 1024) {
+    ssl->s3->new_session->key_exchange_info = DH_num_bits(dh);
+    if (ssl->s3->new_session->key_exchange_info < 1024) {
       OPENSSL_PUT_ERROR(SSL, SSL_R_BAD_DH_P_LENGTH);
       goto err;
-    } else if (ssl->session->key_exchange_info > 4096) {
+    } else if (ssl->s3->new_session->key_exchange_info > 4096) {
       /* Overly large DHE groups are prohibitively expensive, so enforce a limit
        * to prevent a server from causing us to perform too expensive of a
        * computation. */
@@ -1273,7 +1275,7 @@ static int ssl3_get_server_key_exchange(SSL *ssl) {
       OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
       goto f_err;
     }
-    ssl->session->key_exchange_info = group_id;
+    ssl->s3->new_session->key_exchange_info = group_id;
 
     /* Ensure the group is consistent with preferences. */
     if (!tls1_check_group_id(ssl, group_id)) {
@@ -1326,7 +1328,7 @@ static int ssl3_get_server_key_exchange(SSL *ssl) {
 
   /* ServerKeyExchange should be signed by the server's public key. */
   if (ssl_cipher_uses_certificate_auth(ssl->s3->tmp.new_cipher)) {
-    pkey = X509_get_pubkey(ssl->session->peer);
+    pkey = X509_get_pubkey(ssl->s3->new_session->peer);
     if (pkey == NULL) {
       goto err;
     }
@@ -1672,9 +1674,9 @@ static int ssl3_send_client_key_exchange(SSL *ssl) {
     }
     assert(psk_len <= PSK_MAX_PSK_LEN);
 
-    OPENSSL_free(ssl->session->psk_identity);
-    ssl->session->psk_identity = BUF_strdup(identity);
-    if (ssl->session->psk_identity == NULL) {
+    OPENSSL_free(ssl->s3->new_session->psk_identity);
+    ssl->s3->new_session->psk_identity = BUF_strdup(identity);
+    if (ssl->s3->new_session->psk_identity == NULL) {
       OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
       goto err;
     }
@@ -1698,7 +1700,7 @@ static int ssl3_send_client_key_exchange(SSL *ssl) {
       goto err;
     }
 
-    EVP_PKEY *pkey = X509_get_pubkey(ssl->session->peer);
+    EVP_PKEY *pkey = X509_get_pubkey(ssl->s3->new_session->peer);
     if (pkey == NULL) {
       goto err;
     }
@@ -1710,7 +1712,7 @@ static int ssl3_send_client_key_exchange(SSL *ssl) {
       goto err;
     }
 
-    ssl->session->key_exchange_info = EVP_PKEY_bits(pkey);
+    ssl->s3->new_session->key_exchange_info = EVP_PKEY_bits(pkey);
     EVP_PKEY_free(pkey);
 
     pms[0] = ssl->client_version >> 8;
@@ -1811,12 +1813,12 @@ static int ssl3_send_client_key_exchange(SSL *ssl) {
   }
   ssl->state = SSL3_ST_CW_KEY_EXCH_B;
 
-  ssl->session->master_key_length =
-      tls1_generate_master_secret(ssl, ssl->session->master_key, pms, pms_len);
-  if (ssl->session->master_key_length == 0) {
+  ssl->s3->new_session->master_key_length =
+      tls1_generate_master_secret(ssl, ssl->s3->new_session->master_key, pms, pms_len);
+  if (ssl->s3->new_session->master_key_length == 0) {
     goto err;
   }
-  ssl->session->extended_master_secret = ssl->s3->tmp.extended_master_secret;
+  ssl->s3->new_session->extended_master_secret = ssl->s3->tmp.extended_master_secret;
   OPENSSL_cleanse(pms, pms_len);
   OPENSSL_free(pms);
 
@@ -2068,7 +2070,7 @@ static int ssl3_get_new_session_ticket(SSL *ssl) {
      * existing session. */
     uint8_t *bytes;
     size_t bytes_len;
-    if (!SSL_SESSION_to_bytes_for_ticket(ssl->session, &bytes, &bytes_len)) {
+    if (!SSL_SESSION_to_bytes_for_ticket(ssl->s3->new_session, &bytes, &bytes_len)) {
       goto err;
     }
     SSL_SESSION *new_session = SSL_SESSION_from_bytes(bytes, bytes_len);
@@ -2079,22 +2081,22 @@ static int ssl3_get_new_session_ticket(SSL *ssl) {
       goto err;
     }
 
-    SSL_SESSION_free(ssl->session);
-    ssl->session = new_session;
+    SSL_SESSION_free(ssl->s3->new_session);
+    ssl->s3->new_session = new_session;
   }
 
-  if (!CBS_stow(&ticket, &ssl->session->tlsext_tick,
-                &ssl->session->tlsext_ticklen)) {
+  if (!CBS_stow(&ticket, &ssl->s3->new_session->tlsext_tick,
+                &ssl->s3->new_session->tlsext_ticklen)) {
     OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
     goto err;
   }
-  ssl->session->tlsext_tick_lifetime_hint = ticket_lifetime_hint;
+  ssl->s3->new_session->tlsext_tick_lifetime_hint = ticket_lifetime_hint;
 
   /* Generate a session ID for this session based on the session ticket. We use
    * the session ID mechanism for detecting ticket resumption. This also fits in
    * with assumptions elsewhere in OpenSSL.*/
-  if (!EVP_Digest(CBS_data(&ticket), CBS_len(&ticket), ssl->session->session_id,
-                  &ssl->session->session_id_length, EVP_sha256(), NULL)) {
+  if (!EVP_Digest(CBS_data(&ticket), CBS_len(&ticket), ssl->s3->new_session->session_id,
+                  &ssl->s3->new_session->session_id_length, EVP_sha256(), NULL)) {
     goto err;
   }
 

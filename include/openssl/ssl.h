@@ -3944,7 +3944,7 @@ struct ssl_st {
   unsigned int sid_ctx_length;
   uint8_t sid_ctx[SSL_MAX_SID_CTX_LENGTH];
 
-  /* This can also be in the session once a session is established */
+  /* This is the initial session for resumption */
   SSL_SESSION *session;
 
   int (*verify_callback)(int ok,
@@ -4263,6 +4263,9 @@ typedef struct ssl3_state_st {
     uint8_t *peer_key;
     uint16_t peer_key_len;
   } tmp;
+
+  /* This is the data in the session once it is established */
+  SSL_SESSION *new_session;
 
   /* Connection binding to prevent renegotiation attacks */
   uint8_t previous_client_finished[EVP_MAX_MD_SIZE];
