@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "29ed6838_c83a7e76",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 1731,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-06-21T17:48:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "690cc0ee_3986ef2c",
+      "revId": "8be229a0e049c3bdf15d75041dba673ddc64775b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "690cc0ee_597da3fe",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 7
@@ -53,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "690cc0ee_6da09da9",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 954,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-06-21T17:48:09Z",
+      "side": 1,
+      "message": "Done. We should get the sanity-check of suiteTLS13 when we\u0027re actually doing TLS 1.3 (:",
+      "parentUuid": "690cc0ee_597da3fe",
+      "revId": "8be229a0e049c3bdf15d75041dba673ddc64775b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "690cc0ee_dcaa4186",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 7
@@ -64,6 +100,24 @@
       "writtenOn": "2016-06-21T01:47:22Z",
       "side": 1,
       "message": "Why not just in the tlsVersions array?",
+      "revId": "8be229a0e049c3bdf15d75041dba673ddc64775b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "690cc0ee_6d453d84",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 2289,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-06-21T17:48:09Z",
+      "side": 1,
+      "message": "Because it means debugging more tests, and probably having to edit the flags for the shim to get it to work (but there are other things that will probably also break).",
+      "parentUuid": "690cc0ee_dcaa4186",
       "revId": "8be229a0e049c3bdf15d75041dba673ddc64775b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -93,6 +147,30 @@
     },
     {
       "key": {
+        "uuid": "690cc0ee_4d931913",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 2291,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-06-21T17:48:09Z",
+      "side": 1,
+      "message": "There are some tests that are for all cipher suites, but not in the inner loop for versions, so changing the order of the two loops doesn\u0027t work. Likewise, those tests still need flags computed, so I can\u0027t compute flags inside both loops.",
+      "parentUuid": "690cc0ee_bcab0d8d",
+      "range": {
+        "startLine": 2291,
+        "startChar": 3,
+        "endLine": 2291,
+        "endChar": 18
+      },
+      "revId": "8be229a0e049c3bdf15d75041dba673ddc64775b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "690cc0ee_1c967951",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 7
@@ -104,6 +182,24 @@
       "writtenOn": "2016-06-21T01:47:22Z",
       "side": 1,
       "message": "Super nitpick nit: The others condition on suite.name first.",
+      "revId": "8be229a0e049c3bdf15d75041dba673ddc64775b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "690cc0ee_6d9a5d26",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 2315,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-06-21T17:48:09Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "690cc0ee_1c967951",
       "revId": "8be229a0e049c3bdf15d75041dba673ddc64775b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
