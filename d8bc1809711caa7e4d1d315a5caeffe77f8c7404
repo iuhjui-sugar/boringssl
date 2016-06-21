@@ -16,6 +16,24 @@
       "revId": "d8bc1809711caa7e4d1d315a5caeffe77f8c7404",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a994f8c1_0fabb58b",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 1737,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-06-21T20:30:25Z",
+      "side": 1,
+      "message": "I would expect that as well, but the cipher suite tests fail for those ciphers with fake tls1.3.",
+      "parentUuid": "2989e8a8_42067414",
+      "revId": "d8bc1809711caa7e4d1d315a5caeffe77f8c7404",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
