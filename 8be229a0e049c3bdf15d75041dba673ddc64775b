@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "690cc0ee_7cecd5c6",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-21T01:47:22Z",
+      "side": 1,
+      "message": "Oh hrmf. Okay, I need to revise the IgnorePeerPreferences stuff because this should have caught this. This needs to be a check against the minimum TLS version. (client_version is the maximum version.)\n\nUnfortunately, \"minimum\" is pretty confusing because of the SSL_OP_NO_* insanity. :-/ See ssl3_get_max_client_version and other functions near it.\n\nIf you feel like implementing ssl3_get_min_client_version, go ahead, but otherwise I think it\u0027s fine to leave it as a TODO. We will want this for QUIC though. I\u0027ve filed https://crbug.com/boringssl/66 which should hopefully make this simpler to implement.",
+      "revId": "8be229a0e049c3bdf15d75041dba673ddc64775b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "690cc0ee_3986ef2c",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 1731,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-21T01:47:22Z",
+      "side": 1,
+      "message": "Nit: 80 chars.\nYou could also check algorithm_mac against SSL_AEAD and I guess separately exclude SSL_CHACHA20POLY1305.\n\nAlso need to check algorithm_mkey I believe.",
+      "revId": "8be229a0e049c3bdf15d75041dba673ddc64775b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "690cc0ee_597da3fe",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 954,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-21T01:47:22Z",
+      "side": 1,
+      "message": "ECDHE?\n\n(Bah! It hadn\u0027t occurred to me that by unconditionally setting EnableAllCiphers, we don\u0027t get to sanity-check this by way of suiteTLS13. I\u0027ll see about fixing that I guess...)",
+      "revId": "8be229a0e049c3bdf15d75041dba673ddc64775b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "690cc0ee_dcaa4186",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 2289,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-21T01:47:22Z",
+      "side": 1,
+      "message": "Why not just in the tlsVersions array?",
+      "revId": "8be229a0e049c3bdf15d75041dba673ddc64775b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "690cc0ee_bcab0d8d",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 2291,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-21T01:47:22Z",
+      "side": 1,
+      "message": "Another option is to change the order of the two loops. Or move all the flags computations inside the loop.",
+      "range": {
+        "startLine": 2291,
+        "startChar": 3,
+        "endLine": 2291,
+        "endChar": 18
+      },
+      "revId": "8be229a0e049c3bdf15d75041dba673ddc64775b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "690cc0ee_1c967951",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 2315,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-21T01:47:22Z",
+      "side": 1,
+      "message": "Super nitpick nit: The others condition on suite.name first.",
+      "revId": "8be229a0e049c3bdf15d75041dba673ddc64775b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
