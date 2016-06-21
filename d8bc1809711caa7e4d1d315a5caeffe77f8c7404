@@ -34,6 +34,24 @@
       "revId": "d8bc1809711caa7e4d1d315a5caeffe77f8c7404",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2989e8a8_48ef73bc",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 1737,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-21T21:15:55Z",
+      "side": 1,
+      "message": "I dunno, I removed it and it seemed to work fine. :-)",
+      "parentUuid": "a994f8c1_0fabb58b",
+      "revId": "d8bc1809711caa7e4d1d315a5caeffe77f8c7404",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
