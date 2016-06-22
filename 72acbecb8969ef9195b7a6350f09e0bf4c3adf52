@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8e6bba69_8a8dab43",
+        "filename": "tool/transport_common.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-06-22T20:41:46Z",
+      "side": 1,
+      "message": "c.f. split_host_and_port() in crypto/bio/connect.c.",
+      "range": {
+        "startLine": 97,
+        "startChar": 2,
+        "endLine": 97,
+        "endChar": 3
+      },
+      "revId": "72acbecb8969ef9195b7a6350f09e0bf4c3adf52",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
