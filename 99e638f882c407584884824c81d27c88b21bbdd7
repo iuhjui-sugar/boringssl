@@ -2,6 +2,172 @@
   "comments": [
     {
       "key": {
+        "uuid": "ceabf2ee_8c69a77d",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2964,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-22T22:57:36Z",
+      "side": 1,
+      "message": "(Feel free to toss this into the deprecated bucket and leave me a TODO to take it away. It\u0027s only used for one metric which I can easily switch away.)",
+      "revId": "99e638f882c407584884824c81d27c88b21bbdd7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6e7046c4_a24b7f46",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2967,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-22T22:57:36Z",
+      "side": 1,
+      "message": "This is kind of wordy. Perhaps sig_alg? Or just alg?",
+      "range": {
+        "startLine": 2967,
+        "startChar": 31,
+        "endLine": 2967,
+        "endChar": 47
+      },
+      "revId": "99e638f882c407584884824c81d27c88b21bbdd7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6e7046c4_023a6bba",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 4267,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-22T22:57:36Z",
+      "side": 1,
+      "message": "No need to store this. We can compute it from the other one by anding with 0xff. (Not quite right for Ed25519 or RSA-PSS, but the API won\u0027t last long enough for us to care.)",
+      "range": {
+        "startLine": 4267,
+        "startChar": 12,
+        "endLine": 4267,
+        "endChar": 36
+      },
+      "revId": "99e638f882c407584884824c81d27c88b21bbdd7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ceabf2ee_ac0d83e5",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1346,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-22T22:57:36Z",
+      "side": 1,
+      "message": "Nit: parens? I had to go look up precedence, even though I think it\u0027s actually okay. :-) I dunno, the rest of the code all uses them for \u003c\u003c and |.",
+      "range": {
+        "startLine": 1346,
+        "startChar": 58,
+        "endLine": 1346,
+        "endChar": 62
+      },
+      "revId": "99e638f882c407584884824c81d27c88b21bbdd7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ceabf2ee_6c9c3b20",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-22T22:57:36Z",
+      "side": 1,
+      "message": "That\u0027s a lot of capital letters in a row... Adam suggested sticking \"With\". Perhaps signatureRSAPKCS1WithMD5, signatureRSAPKCS1WithSHA1, etc.\n\necdsa_secp256r1_sha256 I guess can be signatureECDSAWithP256AndSHA256. Or maybe just signatureECDSAWithP256? Trouble with that one is that it means (ECDSA, *, SHA-256) in TLS 1.2.",
+      "revId": "99e638f882c407584884824c81d27c88b21bbdd7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4e67020f_93aa4b9f",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-22T22:57:36Z",
+      "side": 1,
+      "message": "This one\u0027s just ecdsa_sha1. It\u0027s a legacy value that doesn\u0027t specify the curve and not legal in TLS 1.3. (Actually it seems it doesn\u0027t exist at all right now. But I have an open PR for it.)",
+      "range": {
+        "startLine": 149,
+        "startChar": 10,
+        "endLine": 149,
+        "endChar": 28
+      },
+      "revId": "99e638f882c407584884824c81d27c88b21bbdd7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ceabf2ee_0cd3f76b",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-22T22:57:36Z",
+      "side": 1,
+      "message": "I\u0027m not sure how exactly we\u0027d want to structure this given we still have to support TLS 1.2 which is weird, TLS 1.0/1.1 which is even weirder, and SSL 3.0 (for now) which is just totally insane...\n\nStill, the intent was that this would actually backport to TLS 1.3 relatively cleanly. A signatureScheme shouldn\u0027t leak the fact that it has these decompositions. Instead a signaureScheme just has a couple of hooks on it:\n\n1. canUseWithKey is probably useful?\n\n2. sign(key, message) \u003d\u003e signature\n\n3. verify(key, message, signature) \u003d\u003e error/bool/something\n\nWe do have a few additional constraints though. Since TLS 1.3 forbids RSA-PKCS1 and TLS 1.2 ignores the curve match, probably this needs to pass in the version.\n\nAnd then maybe also the config so you can get at protocol bugs. We\u0027ll probably need a ProtocolBug to make TLS 1.3 ignore the curve match, so we can test that.\n\nFinally, there\u0027s the ugly nuisance that all the existing code assumes you have it ahead of time. SSL 3.0, in particular, signs a really weird hash construction that can\u0027t be inverted back to a message. But I think there is hope here!\n\nTLS 1.1 and below don\u0027t actually use this list at all. So probably that should just continue to use special-case code that conditions on key type. Maybe do something clever to munge into a fake signature scheme if you can figure one out, but otherwise it\u0027s not a huge deal.\n\nTLS 1.2 does hash first, but it doesn\u0027t have to. Just pass in h.buffer as the message.\n\n(And TLS 1.3 natively signs something random thing, but we\u0027ll deal with that later.)\n\nPS: Rather than putting methods on the enum, it might make more sense to define some appropriate interface that you pass the config pointer in on construction? And then have a function that switch-cases and gives you back an interface instance. The reason I suggest this is that all the ECDSA ones will share code and all the RSAPKCS1 ones will share code. Kinda like how the curve stuff works.",
+      "revId": "99e638f882c407584884824c81d27c88b21bbdd7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8ed2dae5_efc0763a",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-22T22:57:36Z",
+      "side": 1,
+      "message": "signatureSchemes? (Ditto for all the other sigAndHash references which remain.)",
+      "range": {
+        "startLine": 25,
+        "startChar": 1,
+        "endLine": 25,
+        "endChar": 19
+      },
+      "revId": "99e638f882c407584884824c81d27c88b21bbdd7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4edc62fd_e5f2dca2",
         "filename": "ssl/test/runner/key_agreement.go",
         "patchSetId": 2
@@ -19,6 +185,46 @@
         "endLine": 32,
         "endChar": 1
       },
+      "revId": "99e638f882c407584884824c81d27c88b21bbdd7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ceabf2ee_4c14df8f",
+        "filename": "ssl/test/runner/key_agreement.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-22T22:57:36Z",
+      "side": 1,
+      "message": "sigAlgLen?",
+      "range": {
+        "startLine": 102,
+        "startChar": 1,
+        "endLine": 102,
+        "endChar": 14
+      },
+      "revId": "99e638f882c407584884824c81d27c88b21bbdd7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ceabf2ee_0c9bf78a",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 4503,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-22T22:57:36Z",
+      "side": 1,
+      "message": "This should probably switch to testing all supported signatureScheme values rather than all hashes. You\u0027ll need to switch from the RSA and ECDSA keys. For now, since nothing enforces it, just use the one P-256 certificate for all of them. Later we\u0027ll probably need to add more test certs, but that can be separate.\n\n(Maybe that should be the next change we make in C too. Get the SignatureScheme stuff in with 1.3 enforcing curve match and 1.2 not enforcing. Test that this behaves as expected. And then we can route RSA-PSS in there. We\u0027ll have to make a decision as to whether RSA-PSS is allowed in 1.2. As the specs currently stand, my interpretation is no.)",
       "revId": "99e638f882c407584884824c81d27c88b21bbdd7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
