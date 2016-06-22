@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4edc62fd_e5f2dca2",
+        "filename": "ssl/test/runner/key_agreement.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-06-22T19:05:28Z",
+      "side": 1,
+      "message": "Should this be moved to common.go?",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 1
+      },
+      "revId": "99e638f882c407584884824c81d27c88b21bbdd7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
