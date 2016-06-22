@@ -22,6 +22,30 @@
       "revId": "72acbecb8969ef9195b7a6350f09e0bf4c3adf52",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8e83ba1c_ca168399",
+        "filename": "tool/transport_common.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-22T20:49:58Z",
+      "side": 1,
+      "message": "Oh! Yeah, that should probably share code... perhaps we should just use BIOs in the bssl tool. BIO is silly, but I\u0027m not sure why we need to have two copies of the Windows/POSIX abstraction here. :-)\n\n(Not that bssl client/server work on Windows. I believe the select loop needs to be replaced so it can wait on stdin.)",
+      "parentUuid": "8e6bba69_8a8dab43",
+      "range": {
+        "startLine": 97,
+        "startChar": 2,
+        "endLine": 97,
+        "endChar": 3
+      },
+      "revId": "72acbecb8969ef9195b7a6350f09e0bf4c3adf52",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
