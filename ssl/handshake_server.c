@@ -1277,7 +1277,7 @@ static int ssl3_send_server_key_exchange(SSL *ssl) {
       const EVP_MD *md;
       if (ssl3_protocol_version(ssl) >= TLS1_2_VERSION) {
         md = tls1_choose_signing_digest(ssl);
-        if (!tls12_add_sigandhash(ssl, &cbb, md)) {
+        if (!tls12_add_sigalg(ssl, &cbb, md)) {
           OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
           ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
           goto err;
@@ -1374,10 +1374,12 @@ static int ssl3_send_certificate_request(SSL *ssl) {
     n++;
 
     if (ssl3_protocol_version(ssl) >= TLS1_2_VERSION) {
-      const uint8_t *psigs;
+      const uint16_t *psigs;
       nl = tls12_get_psigalgs(ssl, &psigs);
       s2n(nl, p);
-      memcpy(p, psigs, nl);
+      for (j = 0; j < nl; j++) {
+        s2n(psigs[j], p);
+      }
       p += nl;
       n += nl + 2;
     }
@@ -1883,16 +1885,16 @@ static int ssl3_get_cert_verify(SSL *ssl) {
 
   /* Determine the digest type if needbe. */
   if (ssl3_protocol_version(ssl) >= TLS1_2_VERSION) {
-    uint8_t hash, signature_type;
-    if (!CBS_get_u8(&certificate_verify, &hash) ||
-        !CBS_get_u8(&certificate_verify, &signature_type)) {
+    uint16_t signature_algorithm;
+    if (!CBS_get_u16(&certificate_verify, &signature_algorithm)) {
       al = SSL_AD_DECODE_ERROR;
       OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
       goto f_err;
     }
-    if (!tls12_check_peer_sigalg(ssl, &md, &al, hash, signature_type, pkey)) {
+    if (!tls12_check_peer_sigalg(ssl, &md, &al, signature_algorithm, pkey)) {
       goto f_err;
     }
+    ssl->s3->tmp.peer_signature_algorithm = signature_algorithm;
   }
 
   /* Compute the digest. */
