@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83b555dc_5adb352b",
+        "filename": "crypto/bn/prime.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 841,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T20:16:12Z",
+      "side": 1,
+      "message": "Note: this loses short-circuiting. I\u0027m assuming it\u0027s not a huge deal.",
+      "revId": "2045aba69698484c748113cc55b30f399f8b6b0e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
