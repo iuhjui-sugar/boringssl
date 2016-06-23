@@ -261,6 +261,15 @@ extern "C" {
 #define TLSEXT_hash_sha384 5
 #define TLSEXT_hash_sha512 6
 
+#define TLSEXT_sigalg_rsa_pkcs1_sha1         0x0201
+#define TLSEXT_sigalg_rsa_pkcs1_sha256       0x0401
+#define TLSEXT_sigalg_rsa_pkcs1_sha384       0x0501
+#define TLSEXT_sigalg_rsa_pkcs1_sha512       0x0601
+#define TLSEXT_sigalg_ecdsa_secp1r1_sha1     0x0203
+#define TLSEXT_sigalg_ecdsa_secp256r1_sha256 0x0403
+#define TLSEXT_sigalg_ecdsa_secp384r1_sha384 0x0503
+#define TLSEXT_sigalg_ecdsa_secp521r1_sha512 0x0603
+
 /* Flag set for unrecognised algorithms */
 #define TLSEXT_nid_unknown 0x1000000
 

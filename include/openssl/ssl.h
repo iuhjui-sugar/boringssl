@@ -2955,6 +2955,10 @@ OPENSSL_EXPORT SSL_CTX *SSL_set_SSL_CTX(SSL *ssl, SSL_CTX *ctx);
  * respectively. */
 OPENSSL_EXPORT int SSL_get_shutdown(const SSL *ssl);
 
+/* SSL_get_peer_signature_algorithm returns the signature algorithm used by the
+ * peer. */
+OPENSSL_EXPORT uint16_t SSL_get_peer_signature_algorithm(const SSL *ssl);
+
 /* SSL_get_server_key_exchange_hash, on a client, returns the hash the server
  * used to sign the ServerKeyExchange in TLS 1.2. If not applicable, it returns
  * |TLSEXT_hash_none|. */
@@ -4251,10 +4255,9 @@ typedef struct ssl3_state_st {
      * False Start. The client may write data at this point. */
     char in_false_start;
 
-    /* server_key_exchange_hash, on a client, is the hash the server used to
-     * sign the ServerKeyExchange in TLS 1.2. If not applicable, it is
-     * |TLSEXT_hash_none|. */
-    uint8_t server_key_exchange_hash;
+    /* peer_signature_algorithm is the signature algorithm used by the peer for
+     * the key exchange. */
+    uint16_t peer_signature_algorithm;
 
     /* ecdh_ctx is the current ECDH instance. */
     SSL_ECDH_CTX ecdh_ctx;
