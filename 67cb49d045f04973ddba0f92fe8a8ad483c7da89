@@ -16,6 +16,24 @@
       "revId": "67cb49d045f04973ddba0f92fe8a8ad483c7da89",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "832715f4_ca1ae311",
+        "filename": "crypto/bn/div.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T18:53:28Z",
+      "side": 1,
+      "message": "Oh, good call. I just saw line 644 and figured this function already could fail without thinking too hard about it. Evidently upstream did the same.\n\nI think we\u0027d concluded this wasn\u0027t actually reachable (plus we don\u0027t rreeaaallllyyy care about malloc failures), but we should fix this.\n\nIt\u0027s a little annoying we\u0027re adding a new failure case, but even BN_div_word has a failure case with the same return. Probably simplest to just fix those at the call sites and define it can now fail. Third-party code already never checks this sort of thing and implicitly requires an aborting malloc.",
+      "parentUuid": "ee219686_a86c73f3",
+      "revId": "67cb49d045f04973ddba0f92fe8a8ad483c7da89",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
