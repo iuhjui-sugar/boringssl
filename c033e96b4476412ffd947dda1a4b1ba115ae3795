@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "038ec541_4e47135d",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T23:06:15Z",
+      "side": 1,
+      "message": "This reset is pointless since we don\u0027t do renego and I really hope DTLS 1.3 doesn\u0027t do it, but leaving it alone for now I guess.",
+      "revId": "c033e96b4476412ffd947dda1a4b1ba115ae3795",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
