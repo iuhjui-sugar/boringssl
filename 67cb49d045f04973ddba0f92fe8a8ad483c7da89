@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ee219686_a86c73f3",
+        "filename": "crypto/bn/div.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-06-23T03:33:00Z",
+      "side": 1,
+      "message": "I checked the following callers:\n\n* The newly-added test itself.\n* `BN_is_prime_fasttest_ex`:\n* `probable_prime`:\n* `probable_prime_dh`\n* `DH_check`\n\nNone of them seem to correctly handle the case where this functions returns `(BN_ULONG)-1`.\n\nI guess it doesn\u0027t matter much because `BN_dup()` will probably only fail on `malloc` failure, and you usually abort on `malloc` failure. However, usually we don\u0027t rely on that in BoringSSL.",
+      "revId": "67cb49d045f04973ddba0f92fe8a8ad483c7da89",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
