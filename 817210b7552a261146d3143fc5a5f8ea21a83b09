@@ -1,0 +1,586 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "038ec541_eee27fca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T20:52:28Z",
+      "side": 1,
+      "message": "Clarify. (Are you just trying to avoid mixing up config/non-config state right now? Are you trying to deal with the False Start stuff? Are you preparing for TLS 1.3 only having post-handshake tickets?)",
+      "revId": "817210b7552a261146d3143fc5a5f8ea21a83b09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038ec541_0eaa6b83",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T20:52:28Z",
+      "side": 1,
+      "message": "Point out that this changes public API.",
+      "revId": "817210b7552a261146d3143fc5a5f8ea21a83b09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23a749c1_8f965557",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1466,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T20:52:28Z",
+      "side": 1,
+      "message": "Let\u0027s keep this one unexported in ssl/internal.h. This isn\u0027t really an operation anyone should ever do. Apart from test code, callers basically should never create SSL_SESSIONs, only receive, serialize, and deserialize them.",
+      "revId": "817210b7552a261146d3143fc5a5f8ea21a83b09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038ec541_ee9d1f73",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1620,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T20:52:28Z",
+      "side": 1,
+      "message": "Update the documentation for this function. That it no longer returns the configured session. Also you seem to have implemented something about poison sessions already?",
+      "revId": "817210b7552a261146d3143fc5a5f8ea21a83b09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038ec541_6ea92f8b",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3573,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T20:52:28Z",
+      "side": 1,
+      "message": "80 chars",
+      "range": {
+        "startLine": 3573,
+        "startChar": 79,
+        "endLine": 3573,
+        "endChar": 81
+      },
+      "revId": "817210b7552a261146d3143fc5a5f8ea21a83b09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3153184_25d12e0c",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3949,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T20:52:28Z",
+      "side": 1,
+      "message": "/* session is the session to be offered by the client. */",
+      "revId": "817210b7552a261146d3143fc5a5f8ea21a83b09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038ec541_8ebd7bcb",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 4269,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T20:52:28Z",
+      "side": 1,
+      "message": "What\u0027s this mean? Is it scratch space for some of state? Is it the session that we are offering? etc.",
+      "revId": "817210b7552a261146d3143fc5a5f8ea21a83b09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038ec541_cecea365",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 4270,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T20:52:28Z",
+      "side": 1,
+      "message": "(What\u0027s the \"new_\" prefix mean in this context?)",
+      "range": {
+        "startLine": 4270,
+        "startChar": 15,
+        "endLine": 4270,
+        "endChar": 19
+      },
+      "revId": "817210b7552a261146d3143fc5a5f8ea21a83b09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038ec541_aeba37ce",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T20:52:28Z",
+      "side": 1,
+      "message": "Is this CL going the poison session thing right now or in a separate CL? If you\u0027re trying to define against False Start confusion right now, we can\u0027t toggle not_resumable this way. If we\u0027re worried about the peer putting this in the session cache early, we also need to account for this line racing with another connection on another thread.\n\nThat is, as soon as we\u0027re worried the peer may put this in the session cache (so after the handshake has False Started but not fully completed, or the funny TLS 1.3 state), this session needs to become immutable.",
+      "revId": "817210b7552a261146d3143fc5a5f8ea21a83b09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038ec541_ceb783e5",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T20:52:28Z",
+      "side": 1,
+      "message": "Hrm? I think configured makes more sense here. Previous is a little vague.",
+      "range": {
+        "startLine": 663,
+        "startChar": 12,
+        "endLine": 663,
+        "endChar": 20
+      },
+      "revId": "817210b7552a261146d3143fc5a5f8ea21a83b09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038ec541_2eaf2794",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 846,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T20:52:28Z",
+      "side": 1,
+      "message": "Error-handling.",
+      "revId": "817210b7552a261146d3143fc5a5f8ea21a83b09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038ec541_0ed18b0b",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T20:52:28Z",
+      "side": 1,
+      "message": "If we care about this flag getting set, ssl_get_new_session and SSL_SESSION_dup, should just set it internally.",
+      "revId": "817210b7552a261146d3143fc5a5f8ea21a83b09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038ec541_eeb43fe3",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 861,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T20:52:28Z",
+      "side": 1,
+      "message": "Hrm? We really shouldn\u0027t call SSL_set_session on a session that doesn\u0027t even exist yet.",
+      "revId": "817210b7552a261146d3143fc5a5f8ea21a83b09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038ec541_8ec49b47",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1821,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T20:52:28Z",
+      "side": 1,
+      "message": "80 chars",
+      "range": {
+        "startLine": 1821,
+        "startChar": 83,
+        "endLine": 1821,
+        "endChar": 87
+      },
+      "revId": "817210b7552a261146d3143fc5a5f8ea21a83b09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038ec541_aec15736",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1825,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T20:52:28Z",
+      "side": 1,
+      "message": "80 chars",
+      "range": {
+        "startLine": 1825,
+        "startChar": 81,
+        "endLine": 1825,
+        "endChar": 84
+      },
+      "revId": "817210b7552a261146d3143fc5a5f8ea21a83b09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038ec541_4edb932b",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 2077,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T20:52:28Z",
+      "side": 1,
+      "message": "Now that we\u0027re resigned to having SSL_SESSION_dup, we don\u0027t need this silliness anymore.",
+      "range": {
+        "startLine": 2077,
+        "startChar": 9,
+        "endLine": 2077,
+        "endChar": 40
+      },
+      "revId": "817210b7552a261146d3143fc5a5f8ea21a83b09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038ec541_6ee04fcf",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 2102,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T20:52:28Z",
+      "side": 1,
+      "message": "80 chars",
+      "range": {
+        "startLine": 2102,
+        "startChar": 81,
+        "endLine": 2102,
+        "endChar": 86
+      },
+      "revId": "817210b7552a261146d3143fc5a5f8ea21a83b09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038ec541_0ef8ab83",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T20:52:28Z",
+      "side": 1,
+      "message": "80 chars",
+      "range": {
+        "startLine": 439,
+        "startChar": 78,
+        "endLine": 439,
+        "endChar": 86
+      },
+      "revId": "817210b7552a261146d3143fc5a5f8ea21a83b09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038ec541_eecb5f52",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T20:52:28Z",
+      "side": 1,
+      "message": "Ditto re this being odd. Although I don\u0027t think the server needs a poison session until 1.3.",
+      "revId": "817210b7552a261146d3143fc5a5f8ea21a83b09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038ec541_4ef2b3a3",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 902,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T20:52:28Z",
+      "side": 1,
+      "message": "This is still mixing mutable and immutable here, which seems to defeat the purpose of the split. Now instead of ssl-\u003esession, ssl-\u003es3-\u003enew_session is the one where what it is depends very strongly on ssl-\u003ehit, which seems very poor.\n\nIn fact, because of this, lines 917 and 505 will break. Unlike clients, multi-threaded servers are the norm and you\u0027re mutating immutable objects.",
+      "revId": "817210b7552a261146d3143fc5a5f8ea21a83b09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038ec541_2efd6774",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 918,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T20:52:28Z",
+      "side": 1,
+      "message": "Ditto on the other file.",
+      "revId": "817210b7552a261146d3143fc5a5f8ea21a83b09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038ec541_6ef76f92",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1063,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T20:52:28Z",
+      "side": 1,
+      "message": "(I\u0027d just remove this comment. It seems pretty unhelpful.)",
+      "revId": "817210b7552a261146d3143fc5a5f8ea21a83b09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038ec541_8eebbbaa",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 904,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T20:52:28Z",
+      "side": 1,
+      "message": "80 chars",
+      "range": {
+        "startLine": 904,
+        "startChar": 84,
+        "endLine": 904,
+        "endChar": 88
+      },
+      "revId": "817210b7552a261146d3143fc5a5f8ea21a83b09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038ec541_aee877ae",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1576,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T20:52:28Z",
+      "side": 1,
+      "message": "80 chars",
+      "range": {
+        "startLine": 1576,
+        "startChar": 78,
+        "endLine": 1576,
+        "endChar": 86
+      },
+      "revId": "817210b7552a261146d3143fc5a5f8ea21a83b09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038ec541_6e920f67",
+        "filename": "ssl/ssl_session.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T20:52:28Z",
+      "side": 1,
+      "message": "Check for malloc failure throughout this function.",
+      "revId": "817210b7552a261146d3143fc5a5f8ea21a83b09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038ec541_4e8d5344",
+        "filename": "ssl/ssl_session.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T20:52:28Z",
+      "side": 1,
+      "message": "!\u003d NULL",
+      "revId": "817210b7552a261146d3143fc5a5f8ea21a83b09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038ec541_2e880735",
+        "filename": "ssl/ssl_session.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T20:52:28Z",
+      "side": 1,
+      "message": "BUF_memdup throughout the function.",
+      "range": {
+        "startLine": 202,
+        "startChar": 29,
+        "endLine": 202,
+        "endChar": 43
+      },
+      "revId": "817210b7552a261146d3143fc5a5f8ea21a83b09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038ec541_4ea473b4",
+        "filename": "ssl/ssl_session.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T20:52:28Z",
+      "side": 1,
+      "message": "Why are we copying the ticket and not the session ID?",
+      "revId": "817210b7552a261146d3143fc5a5f8ea21a83b09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038ec541_cee5c3d5",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 2735,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T20:52:28Z",
+      "side": 1,
+      "message": "80 chars",
+      "range": {
+        "startLine": 2735,
+        "startChar": 79,
+        "endLine": 2735,
+        "endChar": 82
+      },
+      "revId": "817210b7552a261146d3143fc5a5f8ea21a83b09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a3617921_d91ad311",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1086,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T20:52:28Z",
+      "side": 1,
+      "message": "Urf. Could we switch this to SSL_get_session? It\u0027s test code, but best not to mess with internals like that.",
+      "revId": "817210b7552a261146d3143fc5a5f8ea21a83b09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
