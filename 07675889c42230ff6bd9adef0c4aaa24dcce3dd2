@@ -1,0 +1,279 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "038ec541_8e21fbf3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T21:12:17Z",
+      "side": 1,
+      "message": "You haven\u0027t actually done the full migration in this CL, right? Describe what the CL does and what still needs to be switched.\n\nThe intent of having \"migrate to the combined scheme\" as a separate step was that we could gather up all the logic around signing and try to wrap it all up into a clear and minimal interface. I dunno whether it\u0027d be easier to do it in one go or not. My feeling is that, apart from the edges around SSL_PRIVATE_KEY_METHOD which will need conversions here and there, the more immediate u16/(u8,u8) stuff is fairly small and it\u0027s probably not worth the get_hash/get_sigalgid scaffolding.\n\nProbably could do with TODOs for the parts that are very much not cleaned up yet. Maybe we should even be filing more bugs, I dunno. We should have somewhere written down all the pieces we need to get into place for the sigalgs change.",
+      "revId": "07675889c42230ff6bd9adef0c4aaa24dcce3dd2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038ec541_4e31d34c",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 2963,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T21:12:17Z",
+      "side": 1,
+      "message": "There are lots of cases when it doesn\u0027t return anything useful, right? What does it return and when?",
+      "range": {
+        "startLine": 2963,
+        "startChar": 7,
+        "endLine": 2963,
+        "endChar": 8
+      },
+      "revId": "07675889c42230ff6bd9adef0c4aaa24dcce3dd2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038ec541_2e2c87f5",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 2969,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T21:12:17Z",
+      "side": 1,
+      "message": "Toss in the deprecated bucket and give me a TODO to get rid of it once Chromium\u0027s switched to the other one.",
+      "revId": "07675889c42230ff6bd9adef0c4aaa24dcce3dd2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038ec541_2e13a7b4",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 4260,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T21:12:17Z",
+      "side": 1,
+      "message": "If this says peer, it\u0027s not always going to be the key exchange. \"used to authenticate the peer, or zero if not applicable\"",
+      "range": {
+        "startLine": 4260,
+        "startChar": 71,
+        "endLine": 4260,
+        "endChar": 75
+      },
+      "revId": "07675889c42230ff6bd9adef0c4aaa24dcce3dd2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038ec541_ee18bfcb",
+        "filename": "include/openssl/tls1.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T21:12:17Z",
+      "side": 1,
+      "message": "Hrm. I\u0027m not a huge fan of this name. TLSEXT is kind of a silly prefix. sigalg is also too abbreviated. To be consistent with our usual constants, it\u0027d be SSL_SOMETHING_AND_SHOUTING_CASE",
+      "range": {
+        "startLine": 264,
+        "startChar": 8,
+        "endLine": 264,
+        "endChar": 21
+      },
+      "revId": "07675889c42230ff6bd9adef0c4aaa24dcce3dd2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038ec541_8e3adb27",
+        "filename": "include/openssl/tls1.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T21:12:17Z",
+      "side": 1,
+      "message": "What\u0027s secp1r1?",
+      "range": {
+        "startLine": 268,
+        "startChar": 28,
+        "endLine": 268,
+        "endChar": 36
+      },
+      "revId": "07675889c42230ff6bd9adef0c4aaa24dcce3dd2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038ec541_4e08f37c",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1351,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T21:12:17Z",
+      "side": 1,
+      "message": "Now that we\u0027re calling it the *peer* signature algorithm, this should work for servers and client auth too.",
+      "range": {
+        "startLine": 1351,
+        "startChar": 19,
+        "endLine": 1351,
+        "endChar": 43
+      },
+      "revId": "07675889c42230ff6bd9adef0c4aaa24dcce3dd2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038ec541_6e0daf8b",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1381,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T21:12:17Z",
+      "side": 1,
+      "message": "s2n(psigs[j], p)? Not that any of this is long for this world.",
+      "revId": "07675889c42230ff6bd9adef0c4aaa24dcce3dd2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038ec541_ae1eb7b6",
+        "filename": "ssl/s3_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T21:12:17Z",
+      "side": 1,
+      "message": "sig_algs and sig_algs_len? Weird to rename one and not the other. Also probably should be plural.",
+      "range": {
+        "startLine": 334,
+        "startChar": 18,
+        "endLine": 334,
+        "endChar": 25
+      },
+      "revId": "07675889c42230ff6bd9adef0c4aaa24dcce3dd2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038ec541_ce1b03c6",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T21:12:17Z",
+      "side": 1,
+      "message": "Nit: clang-format actually puts these at 4 spaces.",
+      "revId": "07675889c42230ff6bd9adef0c4aaa24dcce3dd2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038ec541_0e750be4",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 2538,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T21:12:17Z",
+      "side": 1,
+      "message": "Ditto on clang-format.",
+      "range": {
+        "startLine": 2538,
+        "startChar": 0,
+        "endLine": 2538,
+        "endChar": 2
+      },
+      "revId": "07675889c42230ff6bd9adef0c4aaa24dcce3dd2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038ec541_8e681b08",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 2625,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T21:12:17Z",
+      "side": 1,
+      "message": "No longer accurate.",
+      "range": {
+        "startLine": 2625,
+        "startChar": 5,
+        "endLine": 2625,
+        "endChar": 32
+      },
+      "revId": "07675889c42230ff6bd9adef0c4aaa24dcce3dd2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038ec541_6e84cfef",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 2638,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-23T21:12:17Z",
+      "side": 1,
+      "message": "Just put \u0026cert-\u003epeer_sigalgs[i] in here.",
+      "range": {
+        "startLine": 2638,
+        "startChar": 31,
+        "endLine": 2638,
+        "endChar": 37
+      },
+      "revId": "07675889c42230ff6bd9adef0c4aaa24dcce3dd2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
