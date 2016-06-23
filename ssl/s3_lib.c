@@ -331,20 +331,26 @@ const SSL_CIPHER *ssl3_choose_cipher(
 
 int ssl3_get_req_cert_type(SSL *ssl, uint8_t *p) {
   int ret = 0;
-  const uint8_t *sig;
-  size_t i, siglen;
+  const uint16_t *sig_algs;
+  size_t i, sig_algs_len;
   int have_rsa_sign = 0;
   int have_ecdsa_sign = 0;
 
   /* get configured sigalgs */
-  siglen = tls12_get_psigalgs(ssl, &sig);
-  for (i = 0; i < siglen; i += 2, sig += 2) {
-    switch (sig[1]) {
-      case TLSEXT_signature_rsa:
+  sig_algs_len = tls12_get_psigalgs(ssl, &sig_algs);
+  for (i = 0; i < sig_algs_len; i++) {
+    switch (sig_algs[i]) {
+      case SSL_RSA_PKCS1_SHA512:
+      case SSL_RSA_PKCS1_SHA384:
+      case SSL_RSA_PKCS1_SHA256:
+      case SSL_RSA_PKCS1_SHA1:
         have_rsa_sign = 1;
         break;
 
-      case TLSEXT_signature_ecdsa:
+      case SSL_ECDSA_SECP521R1_SHA512:
+      case SSL_ECDSA_SECP384R1_SHA384:
+      case SSL_ECDSA_SECP256R1_SHA256:
+      case SSL_ECDSA_SHA1:
         have_ecdsa_sign = 1;
         break;
     }
