@@ -186,10 +186,6 @@ err:
   return NULL;
 }
 
-#if !defined(inline)
-#define inline __inline
-#endif
-
 /* bit_range returns a |uint8_t| with bits |start|, inclusive, to |end|,
  * exclusive, set. */
 static inline uint8_t bit_range(size_t start, size_t end) {
