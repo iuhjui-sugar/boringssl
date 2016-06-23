@@ -331,15 +331,15 @@ const SSL_CIPHER *ssl3_choose_cipher(
 
 int ssl3_get_req_cert_type(SSL *ssl, uint8_t *p) {
   int ret = 0;
-  const uint8_t *sig;
+  const uint16_t *sig_alg;
   size_t i, siglen;
   int have_rsa_sign = 0;
   int have_ecdsa_sign = 0;
 
   /* get configured sigalgs */
-  siglen = tls12_get_psigalgs(ssl, &sig);
-  for (i = 0; i < siglen; i += 2, sig += 2) {
-    switch (sig[1]) {
+  siglen = tls12_get_psigalgs(ssl, &sig_alg);
+  for (i = 0; i < siglen; i++) {
+    switch (sig_alg[i] & 0xff) {
       case TLSEXT_signature_rsa:
         have_rsa_sign = 1;
         break;
