@@ -125,6 +125,7 @@
 #include <openssl/x509.h>
 
 #include "internal.h"
+#include "../crypto/internal.h"
 
 
 /* TODO(davidben): 28 comes from the size of IP + UDP header. Is this reasonable
@@ -185,10 +186,6 @@ err:
   dtls1_hm_fragment_free(frag);
   return NULL;
 }
-
-#if !defined(inline)
-#define inline __inline
-#endif
 
 /* bit_range returns a |uint8_t| with bits |start|, inclusive, to |end|,
  * exclusive, set. */
