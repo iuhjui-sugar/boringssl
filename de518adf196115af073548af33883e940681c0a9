@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8309d5df_babf9174",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-24T21:55:04Z",
+      "side": 1,
+      "message": "I\u0027d probably add that, for now, the signing code still treats them as decomposed values which will be fixed in a latter commit.",
+      "range": {
+        "startLine": 12,
+        "startChar": 26,
+        "endLine": 12,
+        "endChar": 42
+      },
+      "revId": "de518adf196115af073548af33883e940681c0a9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8309d5df_5a9475fc",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 3198,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-24T21:55:04Z",
+      "side": 1,
+      "message": "Nit: newline here.",
+      "revId": "de518adf196115af073548af33883e940681c0a9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8309d5df_7a97b902",
+        "filename": "include/openssl/tls1.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-24T21:55:04Z",
+      "side": 1,
+      "message": "It\u0027s probably worth giving this a prefix. I don\u0027t have a good idea for a name though. SSL_SIGN_RSA_PKCS1_SHA1??? SSL_SIGNATURE_RSA_PKCS1_SHA1??",
+      "revId": "de518adf196115af073548af33883e940681c0a9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8309d5df_9ac44d02",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 1895,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-24T21:55:04Z",
+      "side": 1,
+      "message": "ssl-\u003es3-\u003etmp.peer_signature_algorithm \u003d signature_algorithm;",
+      "revId": "de518adf196115af073548af33883e940681c0a9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c00583ff_7c82d918",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 2530,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-24T21:55:04Z",
+      "side": 1,
+      "message": "Mind adding a TODO somewhere around here that this should all be recast to not decompose things?",
+      "revId": "de518adf196115af073548af33883e940681c0a9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
