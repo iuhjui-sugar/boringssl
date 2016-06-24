@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "038ec541_514b3649",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 2963,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-24T16:05:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "038ec541_4e31d34c",
+      "range": {
+        "startLine": 2963,
+        "startChar": 7,
+        "endLine": 2963,
+        "endChar": 8
+      },
+      "revId": "07675889c42230ff6bd9adef0c4aaa24dcce3dd2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "038ec541_2e2c87f5",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 3
@@ -59,6 +83,24 @@
     },
     {
       "key": {
+        "uuid": "c3974d53_0ccc37ca",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 2969,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-24T16:05:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "038ec541_2e2c87f5",
+      "revId": "07675889c42230ff6bd9adef0c4aaa24dcce3dd2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "038ec541_2e13a7b4",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 3
@@ -70,6 +112,30 @@
       "writtenOn": "2016-06-23T21:12:17Z",
       "side": 1,
       "message": "If this says peer, it\u0027s not always going to be the key exchange. \"used to authenticate the peer, or zero if not applicable\"",
+      "range": {
+        "startLine": 4260,
+        "startChar": 71,
+        "endLine": 4260,
+        "endChar": 75
+      },
+      "revId": "07675889c42230ff6bd9adef0c4aaa24dcce3dd2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23802913_27eafa12",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 4260,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-24T16:05:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "038ec541_2e13a7b4",
       "range": {
         "startLine": 4260,
         "startChar": 71,
@@ -105,6 +171,30 @@
     },
     {
       "key": {
+        "uuid": "c3974d53_4cc63faa",
+        "filename": "include/openssl/tls1.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-24T16:05:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "038ec541_ee18bfcb",
+      "range": {
+        "startLine": 264,
+        "startChar": 8,
+        "endLine": 264,
+        "endChar": 21
+      },
+      "revId": "07675889c42230ff6bd9adef0c4aaa24dcce3dd2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "038ec541_8e3adb27",
         "filename": "include/openssl/tls1.h",
         "patchSetId": 3
@@ -116,6 +206,30 @@
       "writtenOn": "2016-06-23T21:12:17Z",
       "side": 1,
       "message": "What\u0027s secp1r1?",
+      "range": {
+        "startLine": 268,
+        "startChar": 28,
+        "endLine": 268,
+        "endChar": 36
+      },
+      "revId": "07675889c42230ff6bd9adef0c4aaa24dcce3dd2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c3974d53_2cd1f362",
+        "filename": "include/openssl/tls1.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-24T16:05:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "038ec541_8e3adb27",
       "range": {
         "startLine": 268,
         "startChar": 28,
@@ -168,6 +282,24 @@
     },
     {
       "key": {
+        "uuid": "23682970_6794324f",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1381,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-24T16:05:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "038ec541_6e0daf8b",
+      "revId": "07675889c42230ff6bd9adef0c4aaa24dcce3dd2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "038ec541_ae1eb7b6",
         "filename": "ssl/s3_lib.c",
         "patchSetId": 3
@@ -179,6 +311,30 @@
       "writtenOn": "2016-06-23T21:12:17Z",
       "side": 1,
       "message": "sig_algs and sig_algs_len? Weird to rename one and not the other. Also probably should be plural.",
+      "range": {
+        "startLine": 334,
+        "startChar": 18,
+        "endLine": 334,
+        "endChar": 25
+      },
+      "revId": "07675889c42230ff6bd9adef0c4aaa24dcce3dd2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23682970_4797ae54",
+        "filename": "ssl/s3_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-24T16:05:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "038ec541_ae1eb7b6",
       "range": {
         "startLine": 334,
         "startChar": 18,
@@ -208,6 +364,24 @@
     },
     {
       "key": {
+        "uuid": "23682970_c782be16",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-24T16:05:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "038ec541_ce1b03c6",
+      "revId": "07675889c42230ff6bd9adef0c4aaa24dcce3dd2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "038ec541_0e750be4",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 3
@@ -219,6 +393,30 @@
       "writtenOn": "2016-06-23T21:12:17Z",
       "side": 1,
       "message": "Ditto on clang-format.",
+      "range": {
+        "startLine": 2538,
+        "startChar": 0,
+        "endLine": 2538,
+        "endChar": 2
+      },
+      "revId": "07675889c42230ff6bd9adef0c4aaa24dcce3dd2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23682970_e787c223",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 2538,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-24T16:05:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "038ec541_0e750be4",
       "range": {
         "startLine": 2538,
         "startChar": 0,
@@ -254,6 +452,30 @@
     },
     {
       "key": {
+        "uuid": "23682970_878cc649",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 2625,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-24T16:05:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "038ec541_8e681b08",
+      "range": {
+        "startLine": 2625,
+        "startChar": 5,
+        "endLine": 2625,
+        "endChar": 32
+      },
+      "revId": "07675889c42230ff6bd9adef0c4aaa24dcce3dd2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "038ec541_6e84cfef",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 3
@@ -265,6 +487,30 @@
       "writtenOn": "2016-06-23T21:12:17Z",
       "side": 1,
       "message": "Just put \u0026cert-\u003epeer_sigalgs[i] in here.",
+      "range": {
+        "startLine": 2638,
+        "startChar": 31,
+        "endLine": 2638,
+        "endChar": 37
+      },
+      "revId": "07675889c42230ff6bd9adef0c4aaa24dcce3dd2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23682970_a791ca62",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 2638,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-24T16:05:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "038ec541_6e84cfef",
       "range": {
         "startLine": 2638,
         "startChar": 31,
