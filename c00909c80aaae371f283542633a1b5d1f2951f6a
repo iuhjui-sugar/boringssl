@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c04ca38d_a4284274",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-06-27T21:38:51Z",
+      "side": 0,
+      "message": "how about we delete this word too? I think the compiler will probably make a better decision about inlining than us.",
+      "range": {
+        "startLine": 195,
+        "startChar": 7,
+        "endLine": 195,
+        "endChar": 13
+      },
+      "revId": "c00909c80aaae371f283542633a1b5d1f2951f6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
