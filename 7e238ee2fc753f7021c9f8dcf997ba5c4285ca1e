@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "40599344_288c2b47",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-06-27T21:36:13Z",
+      "side": 1,
+      "message": "given",
+      "range": {
+        "startLine": 308,
+        "startChar": 68,
+        "endLine": 308,
+        "endChar": 72
+      },
+      "revId": "7e238ee2fc753f7021c9f8dcf997ba5c4285ca1e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "40599344_e895f34d",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-06-27T21:36:13Z",
+      "side": 1,
+      "message": "that",
+      "range": {
+        "startLine": 311,
+        "startChar": 3,
+        "endLine": 311,
+        "endChar": 8
+      },
+      "revId": "7e238ee2fc753f7021c9f8dcf997ba5c4285ca1e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c04ca38d_040156ff",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-06-27T21:36:13Z",
+      "side": 1,
+      "message": "CBB only doubles each time that it runs out of space so an initial size of zero will never work well. What about 32? It\u0027s small enough not to waste too much space on small messages, but will still save about half of the allocations.",
+      "range": {
+        "startLine": 459,
+        "startChar": 21,
+        "endLine": 459,
+        "endChar": 22
+      },
+      "revId": "7e238ee2fc753f7021c9f8dcf997ba5c4285ca1e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c04ca38d_e4051a0c",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-06-27T21:36:13Z",
+      "side": 1,
+      "message": "ditto.",
+      "range": {
+        "startLine": 155,
+        "startChar": 21,
+        "endLine": 155,
+        "endChar": 22
+      },
+      "revId": "7e238ee2fc753f7021c9f8dcf997ba5c4285ca1e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
