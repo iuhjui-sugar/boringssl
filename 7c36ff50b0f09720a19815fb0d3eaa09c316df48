@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a31b395a_d75b0ce2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-06-27T19:17:22Z",
+      "side": 1,
+      "message": "Did you mean \"less stateless\"? If so, I think it would be better written \"more stateful\" to avoid the double negative.",
+      "range": {
+        "startLine": 9,
+        "startChar": 32,
+        "endLine": 9,
+        "endChar": 46
+      },
+      "revId": "7c36ff50b0f09720a19815fb0d3eaa09c316df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
