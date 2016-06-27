@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c00583ff_5f9dcf25",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-27T21:45:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40599344_288c2b47",
+      "range": {
+        "startLine": 308,
+        "startChar": 68,
+        "endLine": 308,
+        "endChar": 72
+      },
+      "revId": "7e238ee2fc753f7021c9f8dcf997ba5c4285ca1e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "40599344_e895f34d",
         "filename": "ssl/d1_both.c",
         "patchSetId": 7
@@ -36,6 +60,30 @@
       "writtenOn": "2016-06-27T21:36:13Z",
       "side": 1,
       "message": "that",
+      "range": {
+        "startLine": 311,
+        "startChar": 3,
+        "endLine": 311,
+        "endChar": 8
+      },
+      "revId": "7e238ee2fc753f7021c9f8dcf997ba5c4285ca1e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c00583ff_3fa20362",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-27T21:45:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40599344_e895f34d",
       "range": {
         "startLine": 311,
         "startChar": 3,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "c00583ff_ff8b7bdc",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-27T21:45:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c04ca38d_040156ff",
+      "range": {
+        "startLine": 459,
+        "startChar": 21,
+        "endLine": 459,
+        "endChar": 22
+      },
+      "revId": "7e238ee2fc753f7021c9f8dcf997ba5c4285ca1e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c04ca38d_e4051a0c",
         "filename": "ssl/s3_both.c",
         "patchSetId": 7
@@ -82,6 +154,30 @@
       "writtenOn": "2016-06-27T21:36:13Z",
       "side": 1,
       "message": "ditto.",
+      "range": {
+        "startLine": 155,
+        "startChar": 21,
+        "endLine": 155,
+        "endChar": 22
+      },
+      "revId": "7e238ee2fc753f7021c9f8dcf997ba5c4285ca1e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c00583ff_bf95f3fc",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-27T21:45:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c04ca38d_e4051a0c",
       "range": {
         "startLine": 155,
         "startChar": 21,
