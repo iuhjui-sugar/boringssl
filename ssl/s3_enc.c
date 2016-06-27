@@ -364,8 +364,8 @@ static int ssl3_handshake_mac(SSL *ssl, int md_nid, const char *sender,
   if (sender != NULL) {
     EVP_DigestUpdate(&ctx, sender, sender_len);
   }
-  EVP_DigestUpdate(&ctx, ssl->session->master_key,
-                   ssl->session->master_key_length);
+  EVP_DigestUpdate(&ctx, SSL_get_session(ssl)->master_key,
+                   SSL_get_session(ssl)->master_key_length);
   EVP_DigestUpdate(&ctx, kPad1, npad);
   EVP_DigestFinal_ex(&ctx, md_buf, &i);
 
@@ -374,8 +374,8 @@ static int ssl3_handshake_mac(SSL *ssl, int md_nid, const char *sender,
     OPENSSL_PUT_ERROR(SSL, ERR_LIB_EVP);
     return 0;
   }
-  EVP_DigestUpdate(&ctx, ssl->session->master_key,
-                   ssl->session->master_key_length);
+  EVP_DigestUpdate(&ctx, SSL_get_session(ssl)->master_key,
+                   SSL_get_session(ssl)->master_key_length);
   EVP_DigestUpdate(&ctx, kPad2, npad);
   EVP_DigestUpdate(&ctx, md_buf, i);
   EVP_DigestFinal_ex(&ctx, p, &ret);

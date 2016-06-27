@@ -175,6 +175,90 @@ SSL_SESSION *SSL_SESSION_new(void) {
   return session;
 }
 
+SSL_SESSION *SSL_SESSION_dup(SSL_SESSION *session) {
+  SSL_SESSION *new_session = SSL_SESSION_new();
+  if (new_session == NULL) {
+    return 0;
+  }
+
+  new_session->ssl_version = session->ssl_version;
+  new_session->key_exchange_info = session->key_exchange_info;
+  new_session->master_key_length = session->master_key_length;
+  memcpy(new_session->master_key, session->master_key,
+         session->master_key_length);
+  new_session->session_id_length = session->session_id_length;
+  memcpy(new_session->session_id, session->session_id,
+         session->session_id_length);
+  new_session->sid_ctx_length = session->sid_ctx_length;
+  memcpy(new_session->sid_ctx, session->sid_ctx, session->sid_ctx_length);
+  if (session->psk_identity != NULL) {
+    new_session->psk_identity = BUF_strdup(session->psk_identity);
+    if (new_session->psk_identity == NULL) {
+      return 0;
+    }
+  }
+  if (session->peer != NULL) {
+    new_session->peer = X509_up_ref(session->peer);
+  }
+  if (session->cert_chain != NULL) {
+    new_session->cert_chain = sk_X509_dup(session->cert_chain);
+    if (new_session->cert_chain == NULL) {
+      return 0;
+    }
+  }
+  new_session->verify_result = session->verify_result;
+  new_session->timeout = session->timeout;
+  new_session->time = session->time;
+  new_session->cipher = session->cipher;
+  if (!CRYPTO_dup_ex_data(&g_ex_data_class, &new_session->ex_data,
+                          &session->ex_data)) {
+    return 0;
+  }
+  if (session->tlsext_hostname != NULL) {
+    new_session->tlsext_hostname = BUF_strdup(session->tlsext_hostname);
+    if (new_session->tlsext_hostname == NULL) {
+      return 0;
+    }
+  }
+  if (session->tlsext_tick != NULL) {
+    new_session->tlsext_tick = BUF_memdup(session->tlsext_tick,
+                                          session->tlsext_ticklen);
+    if (new_session->tlsext_tick == NULL) {
+      return 0;
+    }
+  }
+  new_session->tlsext_ticklen = session->tlsext_ticklen;
+  new_session->tlsext_signed_cert_timestamp_list_length =
+      session->tlsext_signed_cert_timestamp_list_length;
+  if (session->tlsext_signed_cert_timestamp_list != NULL) {
+    new_session->tlsext_signed_cert_timestamp_list =
+        BUF_memdup(session->tlsext_signed_cert_timestamp_list,
+                   session->tlsext_signed_cert_timestamp_list_length);
+    if (new_session->tlsext_signed_cert_timestamp_list == NULL) {
+      return 0;
+    }
+  }
+  new_session->ocsp_response_length = session->ocsp_response_length;
+  if (session->ocsp_response != NULL) {
+    new_session->ocsp_response = BUF_memdup(session->ocsp_response,
+                                            session->ocsp_response_length);
+    if (new_session->ocsp_response == NULL) {
+      return 0;
+    }
+  }
+  memcpy(new_session->peer_sha256, session->peer_sha256, SHA256_DIGEST_LENGTH);
+  memcpy(new_session->original_handshake_hash,
+         session->original_handshake_hash,
+         session->original_handshake_hash_len);
+  new_session->original_handshake_hash_len =
+      session->original_handshake_hash_len;
+  new_session->tlsext_tick_lifetime_hint = session->tlsext_tick_lifetime_hint;
+  new_session->extended_master_secret = session->extended_master_secret;
+  new_session->peer_sha256_valid = session->peer_sha256_valid;
+  new_session->not_resumable = 1;
+  return SSL_SESSION_up_ref(new_session);
+}
+
 SSL_SESSION *SSL_SESSION_up_ref(SSL_SESSION *session) {
   if (session != NULL) {
     CRYPTO_refcount_inc(&session->references);
@@ -282,12 +366,18 @@ SSL_SESSION *SSL_magic_pending_session_ptr(void) {
 SSL_SESSION *SSL_get_session(const SSL *ssl)
 {
   /* aka SSL_get0_session; gets 0 objects, just returns a copy of the pointer */
+  if (!SSL_in_init(ssl)) {
+    return ssl->s3->established_session;
+  }
+  if (ssl->s3->new_session != NULL) {
+    return ssl->s3->new_session;
+  }
   return ssl->session;
 }
 
 SSL_SESSION *SSL_get1_session(SSL *ssl) {
   /* variant of SSL_get_session: caller really gets something */
-  return SSL_SESSION_up_ref(ssl->session);
+  return SSL_SESSION_up_ref(SSL_get_session(ssl));
 }
 
 int SSL_SESSION_get_ex_new_index(long argl, void *argp,
@@ -358,10 +448,12 @@ int ssl_get_new_session(SSL *ssl, int is_server) {
   memcpy(session->sid_ctx, ssl->sid_ctx, ssl->sid_ctx_length);
   session->sid_ctx_length = ssl->sid_ctx_length;
 
+  session->not_resumable = 1;
   session->verify_result = X509_V_OK;
 
-  SSL_SESSION_free(ssl->session);
-  ssl->session = session;
+  SSL_SESSION_free(ssl->s3->new_session);
+  ssl->s3->new_session = session;
+  SSL_set_session(ssl, NULL);
   return 1;
 
 err:
