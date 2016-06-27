@@ -46,6 +46,30 @@
       "revId": "71b281bcd0636c9f01e2c9b9b5dd039702316046",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a31b395a_b782106c",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1169,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-06-27T18:59:57Z",
+      "side": 1,
+      "message": "384 \u003d 2048-bit signature + a little bit. Just my guess for a reasonable number.",
+      "parentUuid": "c00583ff_bfe613e0",
+      "range": {
+        "startLine": 1169,
+        "startChar": 24,
+        "endLine": 1169,
+        "endChar": 25
+      },
+      "revId": "71b281bcd0636c9f01e2c9b9b5dd039702316046",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
