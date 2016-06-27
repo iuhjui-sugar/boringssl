@@ -16,6 +16,24 @@
       "revId": "6b39c1df44f8815bfe8828070ab2e1980d61d9d1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c00583ff_7ce41947",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2638,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-27T13:46:34Z",
+      "side": 1,
+      "message": "Hmm, in terms of version \u003d 0 being a bug?",
+      "parentUuid": "c00583ff_fc8b89dc",
+      "revId": "6b39c1df44f8815bfe8828070ab2e1980d61d9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
