@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c00583ff_3ffc430d",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 2550,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-27T23:04:17Z",
+      "side": 1,
+      "message": "Nit: Prefer uint16_t output pointer and return 0/1.\n\nAlternatively, since this is all to be short-lived anyway and there\u0027s no other call, may as well just inline this into tls12_add_sigalg.",
+      "revId": "1760ba42ebfbe46f6bec7931b19b32642146906a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
