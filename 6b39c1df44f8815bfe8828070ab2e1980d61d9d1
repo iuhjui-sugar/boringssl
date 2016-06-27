@@ -34,6 +34,24 @@
       "revId": "6b39c1df44f8815bfe8828070ab2e1980d61d9d1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c00583ff_1ced15f7",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2638,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-27T17:04:34Z",
+      "side": 1,
+      "message": "Yeah. version \u003d 0 means that all versions were disabled. But 0 \u003c ssl-\u003emax_version, if max_version is set, is always true. So we\u0027d end up using advertising a version even though nothing would work.",
+      "parentUuid": "c00583ff_7ce41947",
+      "revId": "6b39c1df44f8815bfe8828070ab2e1980d61d9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
