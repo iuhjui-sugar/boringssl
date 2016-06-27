@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a31b395a_d7614cbd",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1169,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-06-27T18:57:14Z",
+      "side": 1,
+      "message": "384? Same some allocations?",
+      "range": {
+        "startLine": 1169,
+        "startChar": 24,
+        "endLine": 1169,
+        "endChar": 25
+      },
+      "revId": "71b281bcd0636c9f01e2c9b9b5dd039702316046",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
