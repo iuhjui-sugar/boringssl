@@ -1000,6 +1000,12 @@ enum ssl_session_result_t ssl_get_prev_session(
     SSL *ssl, SSL_SESSION **out_session, int *out_send_ticket,
     const struct ssl_early_callback_ctx *ctx);
 
+/* SSL_SESSION_dup returns a newly-allocated |SSL_SESSION| with a copy of the
+ * fields in |session| or NULL on error. The new session is non-resumable and
+ * must be explicitly marked resumable once it has been filled in. */
+OPENSSL_EXPORT SSL_SESSION *SSL_SESSION_dup(SSL_SESSION *session,
+                                            int include_ticket);
+
 STACK_OF(SSL_CIPHER) *
     ssl_bytes_to_cipher_list(SSL *ssl, const CBS *cbs, uint16_t max_version);
 void ssl_cipher_preference_list_free(
