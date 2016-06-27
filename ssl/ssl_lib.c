@@ -488,6 +488,8 @@ void SSL_free(SSL *ssl) {
 
   ssl_clear_bad_session(ssl);
   SSL_SESSION_free(ssl->session);
+  SSL_SESSION_free(ssl->s3->new_session);
+  SSL_SESSION_free(ssl->s3->established_session);
 
   ssl_cert_free(ssl->cert);
 
@@ -901,17 +903,25 @@ uint32_t SSL_clear_mode(SSL *ssl, uint32_t mode) {
 uint32_t SSL_get_mode(const SSL *ssl) { return ssl->mode; }
 
 X509 *SSL_get_peer_certificate(const SSL *ssl) {
-  if (ssl == NULL || ssl->session == NULL || ssl->session->peer == NULL) {
+  if (ssl == NULL) {
     return NULL;
   }
-  return X509_up_ref(ssl->session->peer);
+  SSL_SESSION *session = SSL_get_session(ssl);
+  if (session == NULL || session->peer == NULL) {
+    return NULL;
+  }
+  return X509_up_ref(session->peer);
 }
 
 STACK_OF(X509) *SSL_get_peer_cert_chain(const SSL *ssl) {
-  if (ssl == NULL || ssl->session == NULL) {
+  if (ssl == NULL) {
     return NULL;
   }
-  return ssl->session->cert_chain;
+  SSL_SESSION *session = SSL_get_session(ssl);
+  if (session == NULL) {
+    return NULL;
+  }
+  return session->cert_chain;
 }
 
 int SSL_get_tls_unique(const SSL *ssl, uint8_t *out, size_t *out_len,
@@ -921,7 +931,7 @@ int SSL_get_tls_unique(const SSL *ssl, uint8_t *out, size_t *out_len,
    * https://tools.ietf.org/html/rfc5929#section-3.1. */
   const uint8_t *finished = ssl->s3->previous_client_finished;
   size_t finished_len = ssl->s3->previous_client_finished_len;
-  if (ssl->hit) {
+  if (ssl->session != NULL) {
     /* tls-unique is broken for resumed sessions unless EMS is used. */
     if (!ssl->session->extended_master_secret) {
       goto err;
@@ -1566,18 +1576,19 @@ const char *SSL_get_servername(const SSL *ssl, const int type) {
     return ssl->tlsext_hostname;
   }
 
-  if (ssl->session == NULL) {
+  SSL_SESSION *session = SSL_get_session(ssl);
+  if (session == NULL) {
     return NULL;
   }
-  return ssl->session->tlsext_hostname;
+  return session->tlsext_hostname;
 }
 
 int SSL_get_servername_type(const SSL *ssl) {
-  if (ssl->session != NULL && ssl->session->tlsext_hostname != NULL) {
-    return TLSEXT_NAMETYPE_host_name;
+  SSL_SESSION *session = SSL_get_session(ssl);
+  if (session == NULL || session->tlsext_hostname == NULL) {
+    return -1;
   }
-
-  return -1;
+  return TLSEXT_NAMETYPE_host_name;
 }
 
 void SSL_CTX_enable_signed_cert_timestamps(SSL_CTX *ctx) {
@@ -1600,7 +1611,7 @@ int SSL_enable_ocsp_stapling(SSL *ssl) {
 
 void SSL_get0_signed_cert_timestamp_list(const SSL *ssl, const uint8_t **out,
                                          size_t *out_len) {
-  SSL_SESSION *session = ssl->session;
+  SSL_SESSION *session = SSL_get_session(ssl);
 
   *out_len = 0;
   *out = NULL;
@@ -1614,7 +1625,7 @@ void SSL_get0_signed_cert_timestamp_list(const SSL *ssl, const uint8_t **out,
 
 void SSL_get0_ocsp_response(const SSL *ssl, const uint8_t **out,
                             size_t *out_len) {
-  SSL_SESSION *session = ssl->session;
+  SSL_SESSION *session = SSL_get_session(ssl);
 
   *out_len = 0;
   *out = NULL;
@@ -1928,7 +1939,7 @@ void ssl_get_compatible_server_ciphers(SSL *ssl, uint32_t *out_mask_k,
 void ssl_update_cache(SSL *ssl, int mode) {
   SSL_CTX *ctx = ssl->initial_ctx;
   /* Never cache sessions with empty session IDs. */
-  if (ssl->session->session_id_length == 0 ||
+  if (ssl->s3->established_session->session_id_length == 0 ||
       (ctx->session_cache_mode & mode) != mode) {
     return;
   }
@@ -1940,14 +1951,16 @@ void ssl_update_cache(SSL *ssl, int mode) {
   /* A client may see new sessions on abbreviated handshakes if the server
    * decides to renew the ticket. Once the handshake is completed, it should be
    * inserted into the cache. */
-  if (!ssl->hit || (!ssl->server && ssl->tlsext_ticket_expected)) {
+  if (ssl->s3->established_session != ssl->session ||
+      (!ssl->server && ssl->tlsext_ticket_expected)) {
     if (use_internal_cache) {
-      SSL_CTX_add_session(ctx, ssl->session);
+      SSL_CTX_add_session(ctx, ssl->s3->established_session);
     }
     if (ctx->new_session_cb != NULL &&
-        !ctx->new_session_cb(ssl, SSL_SESSION_up_ref(ssl->session))) {
+        !ctx->new_session_cb(ssl, SSL_SESSION_up_ref(
+            ssl->s3->established_session))) {
       /* |new_session_cb|'s return value signals whether it took ownership. */
-      SSL_SESSION_free(ssl->session);
+      SSL_SESSION_free(ssl->s3->established_session);
     }
   }
 
@@ -2045,7 +2058,7 @@ const SSL_CIPHER *SSL_get_current_cipher(const SSL *ssl) {
 }
 
 int SSL_session_reused(const SSL *ssl) {
-  return ssl->hit;
+  return ssl->session != NULL;
 }
 
 const COMP_METHOD *SSL_get_current_compression(SSL *ssl) { return NULL; }
@@ -2317,11 +2330,14 @@ const char *SSL_get_psk_identity_hint(const SSL *ssl) {
 }
 
 const char *SSL_get_psk_identity(const SSL *ssl) {
-  if (ssl == NULL || ssl->session == NULL) {
+  if (ssl == NULL) {
     return NULL;
   }
-
-  return ssl->session->psk_identity;
+  SSL_SESSION *session = SSL_get_session(ssl);
+  if (session == NULL) {
+    return NULL;
+  }
+  return session->psk_identity;
 }
 
 void SSL_set_psk_client_callback(
@@ -2854,8 +2870,6 @@ int SSL_clear(SSL *ssl) {
     SSL_SESSION_free(ssl->session);
     ssl->session = NULL;
   }
-
-  ssl->hit = 0;
 
   /* SSL_clear may be called before or after the |ssl| is initialized in either
    * accept or connect state. In the latter case, SSL_clear should preserve the
