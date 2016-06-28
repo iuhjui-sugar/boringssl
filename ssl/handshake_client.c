@@ -368,9 +368,7 @@ int ssl3_connect(SSL *ssl) {
         break;
 
       case SSL3_ST_CW_CHANGE_A:
-      case SSL3_ST_CW_CHANGE_B:
-        ret = ssl->method->send_change_cipher_spec(ssl, SSL3_ST_CW_CHANGE_A,
-                                                   SSL3_ST_CW_CHANGE_B);
+        ret = ssl->method->send_change_cipher_spec(ssl);
         if (ret <= 0) {
           goto end;
         }
