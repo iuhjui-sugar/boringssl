@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "00987b32_a1285874",
+        "filename": "ssl/d1_meth.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-29T15:11:41Z",
+      "side": 1,
+      "message": "Can I convince you to just use a switch statement for from_wire instead.",
+      "revId": "bf390667fd8540894290b55e48b820b49699f9c3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00987b32_c125649d",
+        "filename": "ssl/d1_meth.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-29T15:11:41Z",
+      "side": 1,
+      "message": "Can you not assert(version \u003e\u003d 0x0201) and get rid of all the overflow checks later?",
+      "range": {
+        "startLine": 66,
+        "startChar": 21,
+        "endLine": 66,
+        "endChar": 32
+      },
+      "revId": "bf390667fd8540894290b55e48b820b49699f9c3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00987b32_01310cdb",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-29T15:11:41Z",
+      "side": 1,
+      "message": "Reorder version_from_wire \u003c min_version || version_from_wire \u003e max_version",
+      "range": {
+        "startLine": 653,
+        "startChar": 19,
+        "endLine": 653,
+        "endChar": 20
+      },
+      "revId": "bf390667fd8540894290b55e48b820b49699f9c3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00987b32_e133c0e3",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 850,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-29T15:11:41Z",
+      "side": 1,
+      "message": "!\u003d?",
+      "range": {
+        "startLine": 850,
+        "startChar": 28,
+        "endLine": 850,
+        "endChar": 29
+      },
+      "revId": "bf390667fd8540894290b55e48b820b49699f9c3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00987b32_61401027",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-29T15:11:41Z",
+      "side": 1,
+      "message": "Is this needed with the s3_meth max version?",
+      "range": {
+        "startLine": 305,
+        "startChar": 38,
+        "endLine": 305,
+        "endChar": 39
+      },
+      "revId": "bf390667fd8540894290b55e48b820b49699f9c3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00987b32_214a0845",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 844,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-29T15:11:41Z",
+      "side": 1,
+      "message": "Add a mention to the CL description if you are adding version clamping.",
+      "range": {
+        "startLine": 844,
+        "startChar": 9,
+        "endLine": 844,
+        "endChar": 11
+      },
+      "revId": "bf390667fd8540894290b55e48b820b49699f9c3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
