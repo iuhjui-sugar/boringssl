@@ -1,0 +1,203 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "00987b32_01efccee",
+        "filename": "include/openssl/tls1.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-29T18:58:21Z",
+      "side": 1,
+      "message": "This probably deserves a comment here, especially since it\u0027s not actually a wire protocol value but we\u0027re pretending it is one.",
+      "revId": "4cd6b07d9ed42ba8ee3450b2a7613628b2dff601",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00987b32_61ded04e",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1338,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-29T18:58:21Z",
+      "side": 1,
+      "message": "Null check?",
+      "revId": "4cd6b07d9ed42ba8ee3450b2a7613628b2dff601",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00987b32_21120808",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-29T18:58:21Z",
+      "side": 1,
+      "message": ":-P",
+      "range": {
+        "startLine": 697,
+        "startChar": 30,
+        "endLine": 697,
+        "endChar": 49
+      },
+      "revId": "4cd6b07d9ed42ba8ee3450b2a7613628b2dff601",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00987b32_c11b2414",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1279,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-29T18:58:21Z",
+      "side": 1,
+      "message": "NULL check?",
+      "revId": "4cd6b07d9ed42ba8ee3450b2a7613628b2dff601",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00987b32_a11e1805",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1939,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-29T18:58:21Z",
+      "side": 1,
+      "message": "NULL check?",
+      "revId": "4cd6b07d9ed42ba8ee3450b2a7613628b2dff601",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00987b32_212be825",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-29T18:58:21Z",
+      "side": 1,
+      "message": "Check if it returns NULL?",
+      "revId": "4cd6b07d9ed42ba8ee3450b2a7613628b2dff601",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00987b32_81367c8f",
+        "filename": "ssl/ssl_rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-29T18:58:21Z",
+      "side": 1,
+      "message": "Check if it returns NULL?",
+      "revId": "4cd6b07d9ed42ba8ee3450b2a7613628b2dff601",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00987b32_c1f804b7",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-29T18:58:21Z",
+      "side": 1,
+      "message": "Do we need to filter out the fake value here? I guess tls12_get_psigalgs can\u0027t match it right now.",
+      "revId": "4cd6b07d9ed42ba8ee3450b2a7613628b2dff601",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00987b32_e1242055",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2547,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-29T18:58:21Z",
+      "side": 1,
+      "message": "I take it you\u0027re standardizing on \u0027sigalg\u0027 rather than \u0027sig_alg\u0027? (I don\u0027t particularly care. I wrote sigAlg for Go when abbreviating.)",
+      "range": {
+        "startLine": 2547,
+        "startChar": 14,
+        "endLine": 2547,
+        "endChar": 20
+      },
+      "revId": "4cd6b07d9ed42ba8ee3450b2a7613628b2dff601",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00987b32_01226c46",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2610,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-29T18:58:21Z",
+      "side": 1,
+      "message": "This is probably worth a comment.",
+      "revId": "4cd6b07d9ed42ba8ee3450b2a7613628b2dff601",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00987b32_a1fb78b1",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2636,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-29T18:58:21Z",
+      "side": 1,
+      "message": "This should filter out SSL_SIGN_RSA_MD5_SHA1. I think eventually it\u0027d get filtered out by virtue of the signature algorithm implementations doing version checks as needed, but we\u0027re not there yet.",
+      "revId": "4cd6b07d9ed42ba8ee3450b2a7613628b2dff601",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
