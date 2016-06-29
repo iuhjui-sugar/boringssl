@@ -408,6 +408,24 @@
       "revId": "4cd6b07d9ed42ba8ee3450b2a7613628b2dff601",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00987b32_44916260",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2636,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-29T19:54:13Z",
+      "side": 1,
+      "message": "The digest list is a bunch of NIDs and there is a NID_md5_sha1 value. (Also why I was a little worried about the other half. Although accepted signature algorithms aren\u0027t currently configurable, so it is fine there.)",
+      "parentUuid": "00987b32_4194f459",
+      "revId": "4cd6b07d9ed42ba8ee3450b2a7613628b2dff601",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
