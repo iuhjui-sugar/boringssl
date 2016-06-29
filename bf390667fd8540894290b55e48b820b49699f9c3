@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "00987b32_e15c200a",
+        "filename": "ssl/d1_meth.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-29T21:34:27Z",
+      "side": 1,
+      "message": "from_wire specifically needs to be able map versions that don\u0027t exist. That\u0027s why it\u0027s clamping. (Otherwise ClientHello becomes version-intolerant.)",
+      "parentUuid": "00987b32_a1285874",
+      "revId": "bf390667fd8540894290b55e48b820b49699f9c3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00987b32_c125649d",
         "filename": "ssl/d1_meth.c",
         "patchSetId": 2
@@ -30,6 +48,30 @@
       "writtenOn": "2016-06-29T15:11:41Z",
       "side": 1,
       "message": "Can you not assert(version \u003e\u003d 0x0201) and get rid of all the overflow checks later?",
+      "range": {
+        "startLine": 66,
+        "startChar": 21,
+        "endLine": 66,
+        "endChar": 32
+      },
+      "revId": "bf390667fd8540894290b55e48b820b49699f9c3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00987b32_015a6c0b",
+        "filename": "ssl/d1_meth.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-29T21:34:27Z",
+      "side": 1,
+      "message": "Ditto.",
+      "parentUuid": "00987b32_c125649d",
       "range": {
         "startLine": 66,
         "startChar": 21,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "00987b32_a41ce6be",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-29T21:34:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00987b32_01310cdb",
+      "range": {
+        "startLine": 653,
+        "startChar": 19,
+        "endLine": 653,
+        "endChar": 20
+      },
+      "revId": "bf390667fd8540894290b55e48b820b49699f9c3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00987b32_e133c0e3",
         "filename": "ssl/handshake_server.c",
         "patchSetId": 2
@@ -76,6 +142,30 @@
       "writtenOn": "2016-06-29T15:11:41Z",
       "side": 1,
       "message": "!\u003d?",
+      "range": {
+        "startLine": 850,
+        "startChar": 28,
+        "endLine": 850,
+        "endChar": 29
+      },
+      "revId": "bf390667fd8540894290b55e48b820b49699f9c3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00987b32_a15618e6",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 850,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-29T21:34:27Z",
+      "side": 1,
+      "message": "It\u0027s \u003c. See the LHS. This was here before because of renego; due to compatibility problems, renego ClientHellos have to send the same client_version they sent previously, not the negotiated version.\n\nWe don\u0027t do server renego anymore, but codepath still runs because we end up processing the ClientHello twice. See comment on line 828.\n\n(Arguably that should be an assert or something with renego gone...)",
+      "parentUuid": "00987b32_e133c0e3",
       "range": {
         "startLine": 850,
         "startChar": 28,
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "00987b32_c15324f5",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-29T21:34:27Z",
+      "side": 1,
+      "message": "The method\u0027s max_version is set to TLS1_3_VERSION. That max_version is intended to be the highest version implemented. I.e., beyond this point, versions don\u0027t exist. (Fake) TLS 1.3 certainly exists since we\u0027re running tests with it and such.",
+      "parentUuid": "00987b32_61401027",
+      "range": {
+        "startLine": 305,
+        "startChar": 38,
+        "endLine": 305,
+        "endChar": 39
+      },
+      "revId": "bf390667fd8540894290b55e48b820b49699f9c3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00987b32_214a0845",
         "filename": "ssl/ssl_lib.c",
         "patchSetId": 2
@@ -122,6 +236,30 @@
       "writtenOn": "2016-06-29T15:11:41Z",
       "side": 1,
       "message": "Add a mention to the CL description if you are adding version clamping.",
+      "range": {
+        "startLine": 844,
+        "startChar": 9,
+        "endLine": 844,
+        "endChar": 11
+      },
+      "revId": "bf390667fd8540894290b55e48b820b49699f9c3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00987b32_6196d0bf",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 844,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-29T21:34:27Z",
+      "side": 1,
+      "message": "It\u0027s not a change in behavior. That said, it is a little confusing here. I\u0027ll move the clamping to get_version_range.",
+      "parentUuid": "00987b32_214a0845",
       "range": {
         "startLine": 844,
         "startChar": 9,
