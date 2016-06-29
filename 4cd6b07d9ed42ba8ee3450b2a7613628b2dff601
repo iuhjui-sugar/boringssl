@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "00987b32_61ac90b6",
+        "filename": "include/openssl/tls1.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-29T19:38:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00987b32_01efccee",
+      "revId": "4cd6b07d9ed42ba8ee3450b2a7613628b2dff601",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00987b32_61ded04e",
         "filename": "ssl/handshake_client.c",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2016-06-29T18:58:21Z",
       "side": 1,
       "message": "Null check?",
+      "revId": "4cd6b07d9ed42ba8ee3450b2a7613628b2dff601",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00987b32_81b19c11",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1338,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-29T19:38:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00987b32_61ded04e",
       "revId": "4cd6b07d9ed42ba8ee3450b2a7613628b2dff601",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "00987b32_21b68808",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-29T19:38:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00987b32_21120808",
+      "range": {
+        "startLine": 697,
+        "startChar": 30,
+        "endLine": 697,
+        "endChar": 49
+      },
+      "revId": "4cd6b07d9ed42ba8ee3450b2a7613628b2dff601",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00987b32_c11b2414",
         "filename": "ssl/handshake_server.c",
         "patchSetId": 1
@@ -70,6 +130,24 @@
       "writtenOn": "2016-06-29T18:58:21Z",
       "side": 1,
       "message": "NULL check?",
+      "revId": "4cd6b07d9ed42ba8ee3450b2a7613628b2dff601",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00987b32_e19f407b",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1279,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-29T19:38:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00987b32_c11b2414",
       "revId": "4cd6b07d9ed42ba8ee3450b2a7613628b2dff601",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "00987b32_019d8c82",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1939,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-29T19:38:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00987b32_a11e1805",
+      "revId": "4cd6b07d9ed42ba8ee3450b2a7613628b2dff601",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00987b32_212be825",
         "filename": "ssl/s3_both.c",
         "patchSetId": 1
@@ -104,6 +200,24 @@
       "writtenOn": "2016-06-29T18:58:21Z",
       "side": 1,
       "message": "Check if it returns NULL?",
+      "revId": "4cd6b07d9ed42ba8ee3450b2a7613628b2dff601",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00987b32_a1a938a1",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-29T19:38:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00987b32_212be825",
       "revId": "4cd6b07d9ed42ba8ee3450b2a7613628b2dff601",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -127,6 +241,24 @@
     },
     {
       "key": {
+        "uuid": "00987b32_61957058",
+        "filename": "ssl/ssl_rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-29T19:38:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00987b32_81367c8f",
+      "revId": "4cd6b07d9ed42ba8ee3450b2a7613628b2dff601",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00987b32_c1f804b7",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 1
@@ -138,6 +270,24 @@
       "writtenOn": "2016-06-29T18:58:21Z",
       "side": 1,
       "message": "Do we need to filter out the fake value here? I guess tls12_get_psigalgs can\u0027t match it right now.",
+      "revId": "4cd6b07d9ed42ba8ee3450b2a7613628b2dff601",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00987b32_819afc85",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-29T19:38:25Z",
+      "side": 1,
+      "message": "Don\u0027t need to since kDefaultSignatureAlgorithms doesn\u0027t match it.",
+      "parentUuid": "00987b32_c1f804b7",
       "revId": "4cd6b07d9ed42ba8ee3450b2a7613628b2dff601",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -167,6 +317,30 @@
     },
     {
       "key": {
+        "uuid": "00987b32_218f6846",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2547,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-29T19:38:25Z",
+      "side": 1,
+      "message": "Yeah, seems cleaner.",
+      "parentUuid": "00987b32_e1242055",
+      "range": {
+        "startLine": 2547,
+        "startChar": 14,
+        "endLine": 2547,
+        "endChar": 20
+      },
+      "revId": "4cd6b07d9ed42ba8ee3450b2a7613628b2dff601",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00987b32_01226c46",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 1
@@ -184,6 +358,24 @@
     },
     {
       "key": {
+        "uuid": "00987b32_e188a03b",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2610,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-29T19:38:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00987b32_01226c46",
+      "revId": "4cd6b07d9ed42ba8ee3450b2a7613628b2dff601",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00987b32_a1fb78b1",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 1
@@ -195,6 +387,24 @@
       "writtenOn": "2016-06-29T18:58:21Z",
       "side": 1,
       "message": "This should filter out SSL_SIGN_RSA_MD5_SHA1. I think eventually it\u0027d get filtered out by virtue of the signature algorithm implementations doing version checks as needed, but we\u0027re not there yet.",
+      "revId": "4cd6b07d9ed42ba8ee3450b2a7613628b2dff601",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00987b32_4194f459",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2636,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-06-29T19:38:25Z",
+      "side": 1,
+      "message": "I mean, doesn\u0027t that get filtered out by virtues of the DigestList not including SSL_SIGN_RSA_MD5_SHA1?",
+      "parentUuid": "00987b32_a1fb78b1",
       "revId": "4cd6b07d9ed42ba8ee3450b2a7613628b2dff601",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
