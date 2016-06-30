@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bd4d1ab1_7f2c4b3f",
+        "filename": "util/BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-06-30T21:22:29Z",
+      "side": 1,
+      "message": "note that this is future-looking: I\u0027ve not updated INCORPORATING.md yet because the with-bazel branches aren\u0027t yet ready.",
+      "range": {
+        "startLine": 16,
+        "startChar": 12,
+        "endLine": 16,
+        "endChar": 32
+      },
+      "revId": "5f20410e3d1f8b166ee50bbe778651a7757f5228",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
