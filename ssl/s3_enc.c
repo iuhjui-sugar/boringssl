@@ -146,10 +146,6 @@
 
 #include "internal.h"
 
-
-static int ssl3_handshake_mac(SSL *ssl, int md_nid, const char *sender,
-                              size_t sender_len, uint8_t *p);
-
 static int ssl3_prf(const SSL *ssl, uint8_t *out, size_t out_len,
                     const uint8_t *secret, size_t secret_len, const char *label,
                     size_t label_len, const uint8_t *seed1, size_t seed1_len,
@@ -294,10 +290,6 @@ int ssl3_update_handshake_hash(SSL *ssl, const uint8_t *in, size_t in_len) {
   return 1;
 }
 
-static int ssl3_cert_verify_mac(SSL *ssl, int md_nid, uint8_t *p) {
-  return ssl3_handshake_mac(ssl, md_nid, NULL, 0, p);
-}
-
 static int ssl3_final_finish_mac(SSL *ssl, int from_server, uint8_t *out) {
   const char *sender = from_server ? SSL3_MD_SERVER_FINISHED_CONST
                                    : SSL3_MD_CLIENT_FINISHED_CONST;
@@ -319,8 +311,8 @@ static int ssl3_final_finish_mac(SSL *ssl, int from_server, uint8_t *out) {
   return ret;
 }
 
-static int ssl3_handshake_mac(SSL *ssl, int md_nid, const char *sender,
-                              size_t sender_len, uint8_t *p) {
+int ssl3_handshake_mac(SSL *ssl, int md_nid, const char *sender,
+                       size_t sender_len, uint8_t *p) {
   unsigned int ret;
   size_t npad, n;
   unsigned int i;
@@ -390,5 +382,4 @@ static int ssl3_handshake_mac(SSL *ssl, int md_nid, const char *sender,
 const SSL3_ENC_METHOD SSLv3_enc_data = {
     ssl3_prf,
     ssl3_final_finish_mac,
-    ssl3_cert_verify_mac,
 };

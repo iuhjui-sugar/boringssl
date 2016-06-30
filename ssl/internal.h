@@ -483,6 +483,11 @@ enum ssl_private_key_result_t ssl_private_key_sign(
 enum ssl_private_key_result_t ssl_private_key_sign_complete(
     SSL *ssl, uint8_t *out, size_t *out_len, size_t max_out);
 
+int ssl_public_key_verify(
+    SSL *ssl, const uint8_t *signature, size_t signature_len,
+    uint16_t signature_algorithm, EVP_PKEY *pkey,
+    const uint8_t *in, size_t in_len);
+
 enum ssl_private_key_result_t ssl_private_key_decrypt(
     SSL *ssl, uint8_t *out, size_t *out_len, size_t max_out,
     const uint8_t *in, size_t in_len);
@@ -541,6 +546,9 @@ void ssl3_free_handshake_hash(SSL *ssl);
 /* ssl3_update_handshake_hash adds |in| to the handshake buffer and handshake
  * hash, whichever is enabled. It returns one on success and zero on failure. */
 int ssl3_update_handshake_hash(SSL *ssl, const uint8_t *in, size_t in_len);
+
+int ssl3_handshake_mac(SSL *ssl, int md_nid, const char *sender,
+                       size_t sender_len, uint8_t *p);
 
 
 /* ECDH groups. */
@@ -853,7 +861,6 @@ struct ssl3_enc_method {
              size_t label_len, const uint8_t *seed1, size_t seed1_len,
              const uint8_t *seed2, size_t seed2_len);
   int (*final_finish_mac)(SSL *ssl, int from_server, uint8_t *out);
-  int (*cert_verify_mac)(SSL *, int, uint8_t *);
 };
 
 /* lengths of messages */
@@ -997,9 +1004,7 @@ int ssl3_hash_current_message(SSL *ssl);
 
 /* ssl3_cert_verify_hash writes the CertificateVerify hash into the bytes
  * pointed to by |out| and writes the number of bytes to |*out_len|. |out| must
- * have room for EVP_MAX_MD_SIZE bytes. For TLS 1.2 and up,
- * |signature_algorithm| is used to determine the hash function, otherwise the
- * hash function depends on the pkey type. It returns one on success and zero on
+ * have room for EVP_MAX_MD_SIZE bytes. It returns one on success and zero on
  * failure. */
 int ssl3_cert_verify_hash(SSL *ssl, uint8_t *out, size_t *out_len,
                           uint16_t signature_algorithm);

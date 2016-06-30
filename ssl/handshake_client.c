@@ -877,11 +877,10 @@ static int ssl3_get_server_hello(SSL *ssl) {
     goto f_err;
   }
 
-  /* If doing a full handshake with TLS 1.2, the server may request a client
-   * certificate which requires hashing the handshake transcript under a
-   * different hash. Otherwise, the handshake buffer may be released. */
-  if (ssl->hit || ssl3_protocol_version(ssl) < TLS1_2_VERSION ||
-      !ssl_cipher_uses_certificate_auth(ssl->s3->tmp.new_cipher)) {
+  /* If doing a full handshake, the server may request a client certificate
+   * which requires hashing the handshake transcript. Otherwise, the handshake
+   * buffer may be released. */
+  if (ssl->hit || !ssl_cipher_uses_certificate_auth(ssl->s3->tmp.new_cipher)) {
     ssl3_free_handshake_buffer(ssl);
   }
 
@@ -1117,7 +1116,6 @@ static int ssl3_verify_server_cert(SSL *ssl) {
 }
 
 static int ssl3_get_server_key_exchange(SSL *ssl) {
-  EVP_MD_CTX md_ctx;
   int al, ok;
   EVP_PKEY *pkey = NULL;
   DH *dh = NULL;
@@ -1155,7 +1153,6 @@ static int ssl3_get_server_key_exchange(SSL *ssl) {
 
   uint32_t alg_k = ssl->s3->tmp.new_cipher->algorithm_mkey;
   uint32_t alg_a = ssl->s3->tmp.new_cipher->algorithm_auth;
-  EVP_MD_CTX_init(&md_ctx);
 
   if (alg_a & SSL_aPSK) {
     CBS psk_identity_hint;
@@ -1335,21 +1332,21 @@ static int ssl3_get_server_key_exchange(SSL *ssl) {
       goto f_err;
     }
 
-    const EVP_MD *md = tls12_get_hash(signature_algorithm);
-    if (md == NULL) {
-      al = SSL_AD_ILLEGAL_PARAMETER;
-      OPENSSL_PUT_ERROR(SSL, SSL_R_WRONG_SIGNATURE_TYPE);
+    CBB transcript;
+    if (!CBB_init(&transcript, 2*SSL3_RANDOM_SIZE + CBS_len(&parameter)) ||
+        !CBB_add_bytes(&transcript, ssl->s3->client_random, SSL3_RANDOM_SIZE) ||
+        !CBB_add_bytes(&transcript, ssl->s3->server_random, SSL3_RANDOM_SIZE) ||
+        !CBB_add_bytes(&transcript, CBS_data(&parameter), CBS_len(&parameter)) ||
+        !CBB_flush(&transcript)) {
+      al = SSL_AD_DECODE_ERROR;
+      OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
       goto f_err;
     }
-    int sig_ok = EVP_DigestVerifyInit(&md_ctx, NULL, md, NULL, pkey) &&
-                 EVP_DigestVerifyUpdate(&md_ctx, ssl->s3->client_random,
-                                        SSL3_RANDOM_SIZE) &&
-                 EVP_DigestVerifyUpdate(&md_ctx, ssl->s3->server_random,
-                                        SSL3_RANDOM_SIZE) &&
-                 EVP_DigestVerifyUpdate(&md_ctx, CBS_data(&parameter),
-                                        CBS_len(&parameter)) &&
-                 EVP_DigestVerifyFinal(&md_ctx, CBS_data(&signature),
-                                       CBS_len(&signature));
+
+    int sig_ok = ssl_public_key_verify(
+        ssl, CBS_data(&signature), CBS_len(&signature), signature_algorithm,
+        pkey, CBB_data(&transcript), CBB_len(&transcript));
+
 #if defined(BORINGSSL_UNSAFE_FUZZER_MODE)
     sig_ok = 1;
     ERR_clear_error();
@@ -1371,7 +1368,6 @@ static int ssl3_get_server_key_exchange(SSL *ssl) {
     }
   }
   EVP_PKEY_free(pkey);
-  EVP_MD_CTX_cleanup(&md_ctx);
   return 1;
 
 f_err:
@@ -1381,7 +1377,6 @@ err:
   DH_free(dh);
   EC_POINT_free(srvr_ecpoint);
   EC_KEY_free(ecdh);
-  EVP_MD_CTX_cleanup(&md_ctx);
   return -1;
 }
 
@@ -1840,23 +1835,36 @@ static int ssl3_send_cert_verify(SSL *ssl) {
     goto err;
   }
 
-  size_t sig_len;
+  size_t sig_len = max_sig_len;
   enum ssl_private_key_result_t sign_result;
   if (ssl->state == SSL3_ST_CW_CERT_VRFY_A) {
-    /* Compute the digest. In TLS 1.1 and below, the digest type is also
-     * selected here. */
-    uint8_t digest[EVP_MAX_MD_SIZE];
-    size_t digest_len;
-    if (!ssl3_cert_verify_hash(ssl, digest, &digest_len, signature_algorithm)) {
-      goto err;
+    if (ssl3_protocol_version(ssl) == SSL3_VERSION) {
+      uint8_t digest[EVP_MAX_MD_SIZE];
+      size_t digest_len;
+      if (!ssl3_cert_verify_hash(ssl, digest, &digest_len,
+                                 signature_algorithm)) {
+        goto err;
+      }
+
+      sign_result = ssl_private_key_success;
+
+      EVP_PKEY_CTX *pctx = EVP_PKEY_CTX_new(ssl->cert->privatekey, NULL);
+      if (pctx == NULL ||
+          !EVP_PKEY_sign_init(pctx) ||
+          !EVP_PKEY_sign(pctx, ptr, &sig_len, digest, digest_len)) {
+        sign_result = ssl_private_key_failure;
+        goto err;
+      }
+      EVP_PKEY_CTX_free(pctx);
+    } else {
+      sign_result = ssl_private_key_sign(
+          ssl, ptr, &sig_len, max_sig_len, signature_algorithm,
+          (const uint8_t *)ssl->s3->handshake_buffer->data,
+          ssl->s3->handshake_buffer->length);
     }
 
     /* The handshake buffer is no longer necessary. */
     ssl3_free_handshake_buffer(ssl);
-
-    /* Sign the digest. */
-    sign_result = ssl_private_key_sign(ssl, ptr, &sig_len, max_sig_len,
-                                       signature_algorithm, digest, digest_len);
   } else {
     assert(ssl->state == SSL3_ST_CW_CERT_VRFY_B);
     sign_result =
