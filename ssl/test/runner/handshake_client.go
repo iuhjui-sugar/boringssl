@@ -880,7 +880,7 @@ func (hs *clientHandshakeState) sendFinished(out []byte, isResume bool) error {
 	}
 
 	if hs.serverHello.channelIDRequested {
-		encryptedExtensions := new(encryptedExtensionsMsg)
+		encryptedExtensions := new(encryptedExtensionsOldMsg)
 		if c.config.ChannelID.Curve != elliptic.P256() {
 			return fmt.Errorf("tls: Channel ID is not on P-256.")
 		}

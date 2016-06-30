@@ -793,7 +793,7 @@ func (hs *serverHandshakeState) readFinished(out []byte, isResume bool) error {
 		if err != nil {
 			return err
 		}
-		encryptedExtensions, ok := msg.(*encryptedExtensionsMsg)
+		encryptedExtensions, ok := msg.(*encryptedExtensionsOldMsg)
 		if !ok {
 			c.sendAlert(alertUnexpectedMessage)
 			return unexpectedMessageError(encryptedExtensions, msg)
