@@ -1,0 +1,340 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bd1efa57_f4f038cf",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-30T21:11:33Z",
+      "side": 1,
+      "message": "It\u0027s probably worth a mention in the commit message that we\u0027re explicitly doing that.",
+      "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd1efa57_34e7d01c",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1340,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-30T21:11:33Z",
+      "side": 1,
+      "message": "CBB_flush isn\u0027t necessary if you never add a child.",
+      "range": {
+        "startLine": 1340,
+        "startChar": 9,
+        "endLine": 1340,
+        "endChar": 18
+      },
+      "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd1efa57_74dd484e",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1340,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-30T21:11:33Z",
+      "side": 1,
+      "message": "This currently leaks the data in transcript. Unfortunately, all the cleanup paths in this function are a bit of a mess.\n\nYou need to CBB_cleanup(\u0026transcript) if any of CBB_add_bytes through CBB_flush fails (which is actually impossible, but nevermind that). If you CBB_finish (which you don\u0027t here) you\u0027ll need to OPENSSL_free the memory.\n\nOne option is:\n\n  CBB transcript;\n  uint8_t *transcript_data;\n  size_t transcript_len;\n  if (!CBB_init(....) ||\n      ... ||\n      !CBB_finish(...)) {\n    CBB_cleanup(\u0026transcript);\n  }\n\n  int sig_ok \u003d ....;\n  OPENSSL_free(transcript_data);\n#if ...\n\nAnother option is to hoist the variables up to the top and deal with the goto err stuff. But then you\u0027ll need to deal with there being two cleanup paths. If you go with that option, you\u0027ll need to hoist CBB as:\n\n  CBB transcript;\n  CBB_zero(\u0026transcript);\n\nAfter that, CBB_cleanup(\u0026transcript) is safe no matter what operations were done on it.",
+      "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd1efa57_54e24c0c",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1348,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-30T21:11:33Z",
+      "side": 1,
+      "message": "(Hah. I suppose that works...)",
+      "range": {
+        "startLine": 1348,
+        "startChar": 13,
+        "endLine": 1348,
+        "endChar": 57
+      },
+      "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd1efa57_d4ed3cf9",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1841,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-30T21:11:33Z",
+      "side": 1,
+      "message": "if (ssl-\u003ecert-\u003ekey_method !\u003d NULL) {\n  OPENSSL_PUT_ERROR(SSL, SSL_R_UNSUPPORTED_PROTOCOL_FOR_CUSTOM_KEY);\n  goto err;\n}\n\nOr something of the sort. Also probably worth a comment explaining why the special case.",
+      "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd1efa57_b4fac0ab",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1856,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-30T21:11:33Z",
+      "side": 1,
+      "message": "Leaks pctx on error.",
+      "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd1efa57_74c42874",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1272,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-30T21:11:33Z",
+      "side": 1,
+      "message": "Ditto about leaking transcript.",
+      "range": {
+        "startLine": 1272,
+        "startChar": 10,
+        "endLine": 1272,
+        "endChar": 20
+      },
+      "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd1efa57_94f7c4c3",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1279,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-30T21:11:33Z",
+      "side": 1,
+      "message": "Ditto about CBB_flush not being needed.",
+      "range": {
+        "startLine": 1279,
+        "startChar": 11,
+        "endLine": 1279,
+        "endChar": 20
+      },
+      "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd1efa57_14c3b46a",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1915,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-30T21:11:33Z",
+      "side": 1,
+      "message": "Ditto on comment explaining why the special case.",
+      "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd1efa57_f794ba4f",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1923,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-30T21:11:33Z",
+      "side": 1,
+      "message": "Optional: Maybe fill this in at line 1901 and 1903?",
+      "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd1efa57_b4d1a02d",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1931,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-30T21:11:33Z",
+      "side": 1,
+      "message": "Fold into line 1930?",
+      "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd1efa57_d4d41c1f",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1932,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-30T21:11:33Z",
+      "side": 1,
+      "message": "Optional: Probably could save a couple of lines by putting this check into the sig_ok \u0026\u0026 chain. (FOO_free(NULL) is defined to always work.)",
+      "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd1efa57_f4d71821",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1936,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-30T21:11:33Z",
+      "side": 1,
+      "message": "Nit: clang-format.",
+      "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd1efa57_17a736bb",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1953,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-30T21:11:33Z",
+      "side": 1,
+      "message": "I\u0027d probably move this to after the sig_ok check. It doesn\u0027t hugely matter, but I feel a little iffy having the #ifdef far from the sig_ok definition.",
+      "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd1efa57_f7bb9ad1",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-30T21:11:33Z",
+      "side": 1,
+      "message": "Probably move this down a bit and document since it\u0027s not about SSL_PRIVATE_KEY_METHOD.",
+      "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd1efa57_97b226f2",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1005,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-30T21:11:33Z",
+      "side": 1,
+      "message": "I\u0027d mention this is specifically for SSL 3.0. It\u0027d be nice if the \u0027ssl3_\u0027 prefix told you that but \u0027ssl3_\u0027 means too much else right now. :-(",
+      "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd1efa57_34b910f5",
+        "filename": "ssl/ssl_rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-30T21:11:33Z",
+      "side": 1,
+      "message": "Nit: I don\u0027t think this needs to be zero-initialized.",
+      "range": {
+        "startLine": 377,
+        "startChar": 19,
+        "endLine": 377,
+        "endChar": 23
+      },
+      "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd1efa57_14be14dd",
+        "filename": "ssl/ssl_rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-30T21:11:33Z",
+      "side": 1,
+      "message": "You could probably just write this as:\n\n  EVP_MD_CTX md_ctx;\n  EVP_MD_CTX_init(\u0026md_ctx);\n  int ret \u003d EVP_DigestVerifyInit(...) \u0026\u0026\n            EVP_DigestVerifyUpdate(...) \u0026\u0026\n            EVP_DigestVerifyFinal(...);\n  EVP_MD_CTX_cleanup(\u0026md_ctx);\n  return ret;\n\nRather than this combination of the two.",
+      "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

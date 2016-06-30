@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bd1efa57_b7b522de",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-30T21:11:33Z",
+      "side": 0,
+      "message": "If you put this in s3_enc.c, then ssl3_handshake_mac can stay static.",
+      "revId": "51ff902f3e6d2f60b4e347c52347cf3770b173be",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
