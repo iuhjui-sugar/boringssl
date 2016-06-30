@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bd1efa57_57812e69",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-06-30T23:44:05Z",
+      "side": 1,
+      "message": "43 is ticket_age which I\u0027ve punted because it\u0027s likely to go away. Otherwise the state machine is a nightmare.\n\nhttps://github.com/tlswg/tls13-spec/pull/503",
+      "revId": "1aabfcdd16006e0d4b4e639b115c6a4fa37a141e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
