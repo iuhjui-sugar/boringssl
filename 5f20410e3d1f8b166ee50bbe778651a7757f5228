@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "bd4d1ab1_c2dca6f1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5885
+      },
+      "writtenOn": "2016-06-30T22:49:50Z",
+      "side": 1,
+      "message": "I haven\u0027t?",
+      "range": {
+        "startLine": 13,
+        "startChar": 25,
+        "endLine": 13,
+        "endChar": 29
+      },
+      "revId": "5f20410e3d1f8b166ee50bbe778651a7757f5228",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd4d1ab1_7f2c4b3f",
         "filename": "util/BUILD",
         "patchSetId": 1
@@ -18,6 +41,75 @@
         "startChar": 12,
         "endLine": 16,
         "endChar": 32
+      },
+      "revId": "5f20410e3d1f8b166ee50bbe778651a7757f5228",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd4d1ab1_62d832fc",
+        "filename": "util/BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5885
+      },
+      "writtenOn": "2016-06-30T22:49:50Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be necessary, since we already use \"includes\".",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 20
+      },
+      "revId": "5f20410e3d1f8b166ee50bbe778651a7757f5228",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd4d1ab1_425ed664",
+        "filename": "util/BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5885
+      },
+      "writtenOn": "2016-06-30T22:49:50Z",
+      "side": 1,
+      "message": "This should be just \"include\", right? or are you going to move everything under \"src\" in *-with-bazel?",
+      "range": {
+        "startLine": 84,
+        "startChar": 17,
+        "endLine": 84,
+        "endChar": 28
+      },
+      "revId": "5f20410e3d1f8b166ee50bbe778651a7757f5228",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd4d1ab1_024cceb5",
+        "filename": "util/BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5885
+      },
+      "writtenOn": "2016-06-30T22:49:50Z",
+      "side": 1,
+      "message": "Nitpicking, but the order looks kind of random. Maybe \"ssl_sources + ssl_internal_headers + crypto_internal_headers\"?",
+      "range": {
+        "startLine": 94,
+        "startChar": 11,
+        "endLine": 94,
+        "endChar": 71
       },
       "revId": "5f20410e3d1f8b166ee50bbe778651a7757f5228",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
