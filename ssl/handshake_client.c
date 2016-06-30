@@ -1684,7 +1684,6 @@ static int ssl3_send_client_key_exchange(SSL *ssl) {
       goto err;
     }
 
-    ssl->session->key_exchange_info = EVP_PKEY_bits(pkey);
     EVP_PKEY_free(pkey);
 
     pms[0] = ssl->client_version >> 8;
