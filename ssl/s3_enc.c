@@ -146,10 +146,6 @@
 
 #include "internal.h"
 
-
-static int ssl3_handshake_mac(SSL *ssl, int md_nid, const char *sender,
-                              size_t sender_len, uint8_t *p);
-
 static int ssl3_prf(const SSL *ssl, uint8_t *out, size_t out_len,
                     const uint8_t *secret, size_t secret_len, const char *label,
                     size_t label_len, const uint8_t *seed1, size_t seed1_len,
@@ -229,6 +225,10 @@ int ssl3_init_handshake_buffer(SSL *ssl) {
   return ssl->s3->handshake_buffer != NULL;
 }
 
+static int ssl3_handshake_mac(SSL *ssl, int md_nid, const char *sender,
+                              size_t sender_len, uint8_t *p);
+
+
 /* init_digest_with_data calls |EVP_DigestInit_ex| on |ctx| with |md| and then
  * writes the data in |buf| to it. */
 static int init_digest_with_data(EVP_MD_CTX *ctx, const EVP_MD *md,
@@ -292,10 +292,6 @@ int ssl3_update_handshake_hash(SSL *ssl, const uint8_t *in, size_t in_len) {
     EVP_DigestUpdate(&ssl->s3->handshake_md5, in, in_len);
   }
   return 1;
-}
-
-static int ssl3_cert_verify_mac(SSL *ssl, int md_nid, uint8_t *p) {
-  return ssl3_handshake_mac(ssl, md_nid, NULL, 0, p);
 }
 
 static int ssl3_final_finish_mac(SSL *ssl, int from_server, uint8_t *out) {
@@ -385,10 +381,36 @@ static int ssl3_handshake_mac(SSL *ssl, int md_nid, const char *sender,
   return ret;
 }
 
+/* ssl3_cert_verify_hash is documented as needing EVP_MAX_MD_SIZE because that
+ * is sufficient pre-TLS1.2 as well. */
+OPENSSL_COMPILE_ASSERT(EVP_MAX_MD_SIZE > MD5_DIGEST_LENGTH + SHA_DIGEST_LENGTH,
+                       combined_tls_hash_fits_in_max);
 
+int ssl3_cert_verify_hash(SSL *ssl, uint8_t *out, size_t *out_len,
+                          uint16_t signature_algorithm) {
+  assert(ssl3_protocol_version(ssl) == SSL3_VERSION);
+
+  if (signature_algorithm == SSL_SIGN_RSA_MD5_SHA1) {
+    if (ssl3_handshake_mac(ssl, NID_md5, NULL, 0, out) == 0 ||
+        ssl3_handshake_mac(ssl, NID_sha1, NULL, 0,
+                           out + MD5_DIGEST_LENGTH) == 0) {
+      return 0;
+    }
+    *out_len = MD5_DIGEST_LENGTH + SHA_DIGEST_LENGTH;
+  } else if (signature_algorithm == SSL_SIGN_ECDSA_SHA1) {
+    if (ssl3_handshake_mac(ssl, NID_sha1, NULL, 0, out) == 0) {
+      return 0;
+    }
+    *out_len = SHA_DIGEST_LENGTH;
+  } else {
+    OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
+    return 0;
+  }
+
+  return 1;
+}
 
 const SSL3_ENC_METHOD SSLv3_enc_data = {
     ssl3_prf,
     ssl3_final_finish_mac,
-    ssl3_cert_verify_mac,
 };
