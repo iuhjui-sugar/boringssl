@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ddccafc_f3c38a3d",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-06-30T18:22:11Z",
+      "side": 1,
+      "message": "There\u0027s also dheKeyAgreement and cecpq1KeyAgreement. Do we care about the signature algorithm used for them?",
+      "revId": "d4e6e0c56451d27f65148ca2c6e6a1ec5ca60863",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd4d1ab1_fc406923",
+        "filename": "ssl/test/runner/sign.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-06-30T18:22:11Z",
+      "side": 1,
+      "message": "This is basically the same function as above. Maybe a single function to return the signer can be wrapped in a couple of very small functions to call the expected method?",
+      "revId": "d4e6e0c56451d27f65148ca2c6e6a1ec5ca60863",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
