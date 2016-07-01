@@ -22,6 +22,30 @@
       "revId": "f7fa52104d56ebf2b4fde347d43fae393bbd6cd6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5db89ed4_39d3ef6a",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2016-07-01T21:46:08Z",
+      "side": 1,
+      "message": "Yep, good point. Might as well just document that it returns one. (I\u0027ll align our other *_up_ref calls with upstream\u0027s convention too in a later change.)",
+      "parentUuid": "bd1efa57_3df1f303",
+      "range": {
+        "startLine": 197,
+        "startChar": 69,
+        "endLine": 198,
+        "endChar": 27
+      },
+      "revId": "f7fa52104d56ebf2b4fde347d43fae393bbd6cd6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
