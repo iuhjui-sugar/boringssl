@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bd1efa57_3df1f303",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-01T15:33:04Z",
+      "side": 1,
+      "message": "Just leave it at \"It returns one\" maybe? Unless we actually intend that callers account for implementations where bumping a reference may fail, which seems rather unfriendly.\n\nAt a glance, upstream\u0027s isn\u0027t even about the reference overflowing, which they don\u0027t check. it\u0027s because they believe either taking a write lock or releasing it may fail. (If taking it succeeds and releasing it fails, there\u0027s problems...) They also don\u0027t handle this case right anyway. If taking the write lock fails when decrementing the refcount, they end up conditioning on uninitialized memory half the time...",
+      "range": {
+        "startLine": 197,
+        "startChar": 69,
+        "endLine": 198,
+        "endChar": 27
+      },
+      "revId": "f7fa52104d56ebf2b4fde347d43fae393bbd6cd6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
