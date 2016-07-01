@@ -122,6 +122,30 @@
     },
     {
       "key": {
+        "uuid": "bd1efa57_ddb8bfd7",
+        "filename": "util/BUILD",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5885
+      },
+      "writtenOn": "2016-07-01T01:54:51Z",
+      "side": 1,
+      "message": "How else are 3rd-party apps that depend on BoringSSL and include the headers using:\n\n    #include \u003copenssl/ssl.h\u003e\n\nsupposed to find it?",
+      "parentUuid": "bd1efa57_9a1c8d0d",
+      "range": {
+        "startLine": 79,
+        "startChar": 28,
+        "endLine": 79,
+        "endChar": 31
+      },
+      "revId": "3c1c1bd16e14f875d370aadeb9513ee35cd2909c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd1efa57_7add314e",
         "filename": "util/BUILD",
         "patchSetId": 2
