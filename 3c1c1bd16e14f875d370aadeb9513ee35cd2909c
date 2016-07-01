@@ -170,6 +170,30 @@
     },
     {
       "key": {
+        "uuid": "5db89ed4_1c18d96d",
+        "filename": "util/BUILD",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5885
+      },
+      "writtenOn": "2016-07-01T23:32:29Z",
+      "side": 1,
+      "message": "1. Bazel expands \"includes\" to the external repository path, so\n\n    includes \u003d [\"src/include\"]\n\nis expanded into\n\n    -isystem external/boringssl/src/include -isystem bazel-out/local-fastbuild/genfiles/external/boringssl/src/include\n\n\n2. Using -I would require 2-step process for adding dependency on BoringSSL:\n\n(a) add BoringSSL target to \"deps\"\n\n_and_\n\n(b) add correct include path to \"copts\"\n\nalso, if third-party app forgets to add (b), then system-wide headers (read: most likely OpenSSL headers) are going to be pulled instead of BoringSSL\u0027s.\n\n\nHopefully 1 \u0026 2 are good enough reasons to allow use of \"includes\" :)",
+      "parentUuid": "bd1efa57_48bcef7c",
+      "range": {
+        "startLine": 79,
+        "startChar": 28,
+        "endLine": 79,
+        "endChar": 31
+      },
+      "revId": "3c1c1bd16e14f875d370aadeb9513ee35cd2909c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd1efa57_7add314e",
         "filename": "util/BUILD",
         "patchSetId": 2
