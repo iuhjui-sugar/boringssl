@@ -146,6 +146,30 @@
     },
     {
       "key": {
+        "uuid": "bd1efa57_48bcef7c",
+        "filename": "util/BUILD",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-07-01T07:10:56Z",
+      "side": 1,
+      "message": "The reason I\u0027m pointing it out is only that once done, it is very difficult to undo.  I don\u0027t know who is the expected beneficiary of this change; it may very well be reasonable.\n\nBut since you ask, the alternative is to rewrite the headers of third_party apps to be relative to a single common include directory, so that all of the pathnames are unambiguous, rather than (potentially) finding the first openssl/ssl.h in one of many -I arguments.  :-)",
+      "parentUuid": "bd1efa57_ddb8bfd7",
+      "range": {
+        "startLine": 79,
+        "startChar": 28,
+        "endLine": 79,
+        "endChar": 31
+      },
+      "revId": "3c1c1bd16e14f875d370aadeb9513ee35cd2909c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd1efa57_7add314e",
         "filename": "util/BUILD",
         "patchSetId": 2
