@@ -16,6 +16,24 @@
       "revId": "02f869bd9d8d48ef1f8cc44b716c1f196c46704e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd1efa57_77c42a74",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-01T00:28:20Z",
+      "side": 1,
+      "message": "Yeah, I figured since you didn\u0027t bother checking and the original code doesn\u0027t either, I\u0027d just take it out. :-)\n\nMaybe the *[]byte should actually be a pointer to a structure with a []byte and an isPoisoned bool, this way we don\u0027t have to check everywhere.",
+      "parentUuid": "600cd7ee_3cfc1dbb",
+      "revId": "02f869bd9d8d48ef1f8cc44b716c1f196c46704e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
