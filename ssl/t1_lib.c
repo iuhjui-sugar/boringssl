@@ -1796,6 +1796,35 @@ static int ext_ec_point_add_serverhello(SSL *ssl, CBB *out) {
 }
 
 
+/* Draft Version Extension */
+
+static int ext_draft_version_add_clienthello(SSL *ssl, CBB *out) {
+  CBB contents;
+  if (!CBB_add_u16(out, TLSEXT_TYPE_draft_version) ||
+      !CBB_add_u16_length_prefixed(out, &contents) ||
+      !CBB_add_u16(&contents, TLS1_3_DRAFT_VERSION)) {
+    return 0;
+  }
+
+  return CBB_flush(out);
+}
+
+int ext_draft_version_parse_clienthello(SSL *ssl, uint8_t *out_alert,
+                                        CBS *contents) {
+  if (contents == NULL) {
+    return ssl3_protocol_version(ssl) != TLS1_3_VERSION;
+  }
+
+  uint16_t draft_version;
+  if (!CBS_get_u16(contents, &draft_version) ||
+      draft_version != TLS1_3_DRAFT_VERSION) {
+    return 0;
+  }
+
+  return 1;
+}
+
+
 /* Negotiated Groups
  *
  * https://tools.ietf.org/html/rfc4492#section-5.1.2
@@ -1987,6 +2016,14 @@ static const struct tls_extension kExtensions[] = {
     ext_ec_point_parse_serverhello,
     ext_ec_point_parse_clienthello,
     ext_ec_point_add_serverhello,
+  },
+  {
+    TLSEXT_TYPE_draft_version,
+    NULL,
+    ext_draft_version_add_clienthello,
+    NULL,
+    NULL,
+    NULL,
   },
   /* The final extension must be non-empty. WebSphere Application Server 7.0 is
    * intolerant to the last extension being zero-length. See
