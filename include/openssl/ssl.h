@@ -194,6 +194,10 @@ OPENSSL_EXPORT const SSL_METHOD *DTLS_method(void);
  * on error. */
 OPENSSL_EXPORT SSL_CTX *SSL_CTX_new(const SSL_METHOD *method);
 
+/* SSL_CTX_up_ref increments the reference count of |ctx|. It returns one on
+ * success or zero on error. */
+OPENSSL_EXPORT int SSL_CTX_up_ref(SSL_CTX *ctx);
+
 /* SSL_CTX_free releases memory associated with |ctx|. */
 OPENSSL_EXPORT void SSL_CTX_free(SSL_CTX *ctx);
 
