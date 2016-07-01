@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bd1efa57_579b6e8a",
+        "filename": "util/BUILD",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5885
+      },
+      "writtenOn": "2016-07-01T01:01:44Z",
+      "side": 1,
+      "message": "I\u0027m not sure if you want to add support for all those architectures, but if not, then we might want to stop loading them for now.",
+      "revId": "3c1c1bd16e14f875d370aadeb9513ee35cd2909c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd1efa57_17be16dd",
+        "filename": "util/BUILD",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5885
+      },
+      "writtenOn": "2016-07-01T01:01:44Z",
+      "side": 1,
+      "message": "Maybe let\u0027s call it \"linux_x86_64\", since we\u0027re referring to OS+CPU throughout rest of the BUILD file?",
+      "range": {
+        "startLine": 38,
+        "startChar": 12,
+        "endLine": 38,
+        "endChar": 14
+      },
+      "revId": "3c1c1bd16e14f875d370aadeb9513ee35cd2909c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd1efa57_da91e55d",
+        "filename": "util/BUILD",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5885
+      },
+      "writtenOn": "2016-07-01T01:01:44Z",
+      "side": 1,
+      "message": "Maybe also add \"freebsd\" here? It works fine with ASM for Linux... However, the issue is that Bazel doesn\u0027t differentiate between 32 \u0026 64 bit versions, both are \"freebsd\" :(",
+      "revId": "3c1c1bd16e14f875d370aadeb9513ee35cd2909c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd1efa57_7afad17c",
+        "filename": "util/BUILD",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5885
+      },
+      "writtenOn": "2016-07-01T01:01:44Z",
+      "side": 1,
+      "message": "Can we add compiler warnings here?\n\nRight now, I\u0027m compiling BoringSSL with:\n\n    boringssl_copts \u003d [\n        \"-fno-common\",\n        \"-fvisibility\u003dhidden\",\n        \"-Wa,--noexecstack\",\n        \"-Wall\",\n        \"-Werror\",\n        \"-Wextra\",\n        \"-Wformat\u003d2\",\n        \"-Wlong-long\",\n        \"-Wpointer-arith\",\n        \"-Wshadow\",\n        \"-Wwrite-strings\",\n        \"-Wno-unused-parameter\",\n        \"-D_XOPEN_SOURCE\u003d700\",\n    ]\n\n    boringssl_copts_c11 \u003d boringssl_copts + [\n        \"-Wmissing-prototypes\",\n        \"-Wold-style-definition\",\n        \"-Wstrict-prototypes\",\n        \"-std\u003dc11\",\n    ]\n\n    boringssl_copts_cxx \u003d boringssl_copts + [\n        \"-Wmissing-declarations\",\n        \"-std\u003dc++11\",\n    ]\n\nbut feel free to remove some.\n\nPlease note that \"-Wlong-long\" breaks :tool because of \"unsigned long long\" in tool/rand.cc.",
+      "revId": "3c1c1bd16e14f875d370aadeb9513ee35cd2909c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd1efa57_1a251db1",
+        "filename": "util/BUILD",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5885
+      },
+      "writtenOn": "2016-07-01T01:01:44Z",
+      "side": 1,
+      "message": "Missing \"copts\".",
+      "revId": "3c1c1bd16e14f875d370aadeb9513ee35cd2909c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
