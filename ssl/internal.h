@@ -1021,6 +1021,20 @@ struct ssl_handshake_st {
   size_t psk_secret_len;
   uint8_t *dhe_secret;
   size_t dhe_secret_len;
+
+  SSL_ECDH_CTX *groups;
+  uint8_t *public_key;
+  size_t public_key_len;
+
+  uint8_t *psk_id;
+  size_t psk_id_len;
+  uint8_t *real_psk;
+  size_t real_psk_len;
+
+  int zero_rtt;
+  const SSL_CIPHER *cipher;
+  uint8_t *cert_context;
+  size_t cert_context_len;
 } /* SSL_HANDSHAKE */;
 
 enum ssl_session_result_t {
@@ -1334,12 +1348,42 @@ int tls13_server_handshake(SSL *ssl, SSL_HANDSHAKE *hs);
  * complete received message. It returns 1 on success and 0 on failure. */
 int tls13_server_post_handshake(SSL *ssl, SSL_HS_MESSAGE msg);
 
+int tls13_store_handshake_context(SSL *ssl);
+int tls13_receive_certificate(SSL *ssl, SSL_HS_MESSAGE msg);
+int tls13_send_certificate(SSL *ssl, SSL_HS_MESSAGE *msg);
+int tls13_receive_certificate_verify(SSL *ssl, SSL_HS_MESSAGE msg);
+int tls13_send_certificate_verify(SSL *ssl, SSL_HS_MESSAGE *msg);
+int tls13_receive_finished(SSL *ssl, SSL_HS_MESSAGE msg);
+int tls13_send_finished(SSL *ssl, SSL_HS_MESSAGE *msg);
+int tls13_receive_key_update(SSL *ssl, SSL_HS_MESSAGE msg);
 enum tls_record_type_t {
   type_early_handshake,
   type_early_data,
   type_handshake,
   type_data,
 };
+
+
+int ext_draft_version_parse_clienthello(SSL *ssl, uint8_t *out_alert,
+                                        CBS *contents);
+
+int ext_pre_shared_key_parse_serverhello(SSL *ssl, uint8_t *out_alert,
+                                         CBS *contents);
+int ext_pre_shared_key_parse_clienthello(SSL *ssl, uint8_t *out_alert,
+                                         CBS *contents);
+int ext_pre_shared_key_add_serverhello(SSL *ssl, CBB *out);
+
+int ext_key_share_parse_serverhello(SSL *ssl, uint8_t *out_alert,
+                                    CBS *contents);
+int ext_key_share_parse_clienthello(SSL *ssl, uint8_t *out_alert,
+                                    CBS *contents);
+int ext_key_share_add_serverhello(SSL *ssl, CBB *out);
+
+int ext_early_data_parse_serverhello(SSL *ssl, uint8_t *out_alert,
+                                     CBS *contents);
+int ext_early_data_parse_clienthello(SSL *ssl, uint8_t *out_alert,
+                                     CBS *contents);
+int ext_early_data_add_serverhello(SSL *ssl, CBB *out);
 
 int tls13_update_traffic_secret(SSL *ssl, enum tls_record_type_t type);
 int tls13_finalize_keys(SSL *ssl);
@@ -1353,5 +1397,8 @@ int tls13_export_keying_material(SSL *ssl, uint8_t *out, size_t out_len,
 
 int tls13_derive_secrets(SSL *ssl);
 int tls13_derive_traffic_secret_0(SSL *ssl);
+
+int tls13_verify_finished(SSL *ssl, uint8_t *out, size_t *out_len,
+                          char is_server);
 
 #endif /* OPENSSL_HEADER_SSL_INTERNAL_H */
