@@ -234,6 +234,7 @@ extern "C" {
 #define TLSEXT_TYPE_early_data 42
 #define TLSEXT_TYPE_ticket_age 43
 #define TLSEXT_TYPE_cookie 44
+#define TLSEXT_TYPE_draft_version 0xff02
 
 /* ExtensionType value from RFC5746 */
 #define TLSEXT_TYPE_renegotiate 0xff01
