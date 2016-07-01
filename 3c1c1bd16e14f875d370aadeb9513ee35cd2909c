@@ -76,6 +76,75 @@
     },
     {
       "key": {
+        "uuid": "bd1efa57_3ae7b91c",
+        "filename": "util/BUILD",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-07-01T01:29:46Z",
+      "side": 1,
+      "message": "You don\u0027t use any other copts.  Maybe just roll this into boringssl_copts?",
+      "range": {
+        "startLine": 72,
+        "startChar": 50,
+        "endLine": 72,
+        "endChar": 52
+      },
+      "revId": "3c1c1bd16e14f875d370aadeb9513ee35cd2909c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd1efa57_9a1c8d0d",
+        "filename": "util/BUILD",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-07-01T01:29:46Z",
+      "side": 1,
+      "message": "Are you sure you want this?  It\u0027s polluting.\nhttp://www.bazel.io/docs/be/c-cpp.html#cc_library.includes\n\n(and below)",
+      "range": {
+        "startLine": 79,
+        "startChar": 28,
+        "endLine": 79,
+        "endChar": 31
+      },
+      "revId": "3c1c1bd16e14f875d370aadeb9513ee35cd2909c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd1efa57_7add314e",
+        "filename": "util/BUILD",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-07-01T01:29:46Z",
+      "side": 1,
+      "message": "Why do you need crypto_internal_headers?",
+      "range": {
+        "startLine": 89,
+        "startChar": 71,
+        "endLine": 89,
+        "endChar": 72
+      },
+      "revId": "3c1c1bd16e14f875d370aadeb9513ee35cd2909c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd1efa57_1a251db1",
         "filename": "util/BUILD",
         "patchSetId": 2
@@ -87,6 +156,29 @@
       "writtenOn": "2016-07-01T01:01:44Z",
       "side": 1,
       "message": "Missing \"copts\".",
+      "revId": "3c1c1bd16e14f875d370aadeb9513ee35cd2909c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd1efa57_faf021cf",
+        "filename": "util/BUILD",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-07-01T01:29:46Z",
+      "side": 1,
+      "message": "This seems like something that could be cleaned up.",
+      "range": {
+        "startLine": 101,
+        "startChar": 36,
+        "endLine": 101,
+        "endChar": 38
+      },
       "revId": "3c1c1bd16e14f875d370aadeb9513ee35cd2909c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
