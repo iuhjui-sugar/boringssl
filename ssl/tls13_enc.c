@@ -39,6 +39,24 @@ static int hkdf_expand_label(uint8_t *out, const EVP_MD *digest,
     return 0;
   }
 
+  size_t i;
+  printf("PRK (%zu): ", secret_len);
+  for (i = 0; i < secret_len; i++) {
+    printf("%02x", secret[i]);
+  }
+  printf("\n");
+  printf("LABEL (%zu): ", CBB_len(&cbb));
+  for (i = 0; i < CBB_len(&cbb); i++) {
+    printf("%02x", CBB_data(&cbb)[i]);
+  }
+  printf("\n");
+  printf("HASH (%zu): ", hash_len);
+  for (i = 0; i < hash_len; i++) {
+    printf("%02x", hash[i]);
+  }
+  printf("\n");
+
+
   return HKDF_expand(out, len, digest, secret, secret_len, CBB_data(&cbb),
                      CBB_len(&cbb));
 }
@@ -49,14 +67,28 @@ static int derive_secret(SSL *ssl, uint8_t *out, size_t len,
   SSL_HANDSHAKE *hs = ssl->s3->hs;
   const EVP_MD *digest = ssl_get_handshake_digest(ssl_get_algorithm_prf(ssl));
 
-  CBB msg;
-  if (!CBB_init(&msg, hs->hs_context_len + hs->resumption_ctx_len) ||
-      !CBB_add_bytes(&msg, hs->hs_context, hs->hs_context_len) ||
-      !CBB_add_bytes(&msg, hs->resumption_ctx, hs->resumption_ctx_len)) {
-   return 0;
+  size_t i;
+  printf("DS:\n");
+  printf("\tMSG: ");
+  for (i = 0; i < label_len; i++) {
+    printf("%02x", label[i]);
   }
+  printf("\n");
+  printf("\tSECRET: ");
+  for (i = 0; i < secret_len; i++) {
+    printf("%02x", secret[i]);
+  }
+  printf("\n");
+  printf("\tHASH: ");
+  for (i = 0; i < hs->hash_context_len; i++) {
+    printf("%02x", hs->hash_context[i]);
+  }
+  printf("\n");
+
+
+
   return hkdf_expand_label(out, digest, secret, secret_len, label, label_len,
-                           CBB_data(&msg), CBB_len(&msg), len);
+                           hs->hash_context, hs->hash_context_len, len);
 }
 
 const uint8_t kTLS13LabelServerKey[16] = "server write key";
@@ -151,6 +183,26 @@ static int set_traffic_key(SSL *ssl, enum tls_record_type_t type,
   if (traffic_aead == NULL) {
     return 0;
   }
+  size_t i;
+
+  if (direction == evp_aead_open) {
+    printf("R_K: ");
+  } else {
+    printf("W_K: ");
+  }
+  for (i = 0; i < key_len; i++) {
+    printf("%02x", key[i]);
+  }
+  printf("\n");
+  if (direction == evp_aead_open) {
+    printf("R_I: ");
+  } else {
+    printf("W_I: ");
+  }
+  for (i = 0; i < iv_len; i++) {
+    printf("%02x", iv[i]);
+  }
+  printf("\n");
 
   if (direction == evp_aead_open) {
     ssl_set_read_state(ssl, traffic_aead);
@@ -199,6 +251,13 @@ int tls13_update_traffic_secret(SSL *ssl, enum tls_record_type_t type) {
       secret_len = hs->master_secret_len;
       break;
   }
+
+  size_t i;
+  printf("SECRET (%zu): ", secret_len);
+  for (i = 0; i < secret_len; i++) {
+    printf("%02x", secret[i]);
+  }
+  printf("\n");
 
   if (!derive_secret(ssl, ssl->s3->open_traffic_secret,
                      ssl->s3->traffic_secret_len,
@@ -261,6 +320,13 @@ int tls13_derive_secrets(SSL *ssl) {
     return 0;
   }
 
+  size_t i;
+  printf("MS: ");
+  for(i = 0; i < hs->master_secret_len; i++) {
+    printf("%02x", hs->master_secret[i]);
+  }
+  printf("\n");
+
   return 1;
 }
 
@@ -303,6 +369,10 @@ int tls13_finalize_keys(SSL *ssl) {
   if (ssl->s3->resumption_secret == NULL) {
     ssl->s3->resumption_secret = OPENSSL_malloc(hs->key_len);
     ssl->s3->resumption_secret_len = hs->key_len;
+  }
+
+  if (!tls13_store_handshake_context(ssl)) {
+    return 0;
   }
 
   if (!derive_secret(ssl,
@@ -370,4 +440,76 @@ int tls13_export_keying_material(SSL *ssl, uint8_t *out, size_t out_len,
   return hkdf_expand_label(out, digest,
                            ssl->s3->exporter_secret, ssl->s3->exporter_secret_len,
                            (const uint8_t *)label, label_len, hash, hash_len, out_len);
+}
+
+const uint8_t kTLS13LabelClientFinished[24] = "TLS 1.3, client finished";
+const uint8_t kTLS13LabelServerFinished[24] = "TLS 1.3, server finished";
+const uint8_t kTLS13LabelTraffic[23] = "TLS 1.3, traffic secret";
+
+int tls13_verify_finished(SSL *ssl, uint8_t *out, size_t *out_len,
+                          char is_server) {
+  SSL_HANDSHAKE *hs = ssl->s3->hs;
+  const EVP_MD *digest = ssl_get_handshake_digest(ssl_get_algorithm_prf(ssl));
+
+  uint8_t *key = OPENSSL_malloc(EVP_MAX_MD_SIZE);
+  size_t key_len = EVP_MD_size(digest);
+
+  if (key == NULL) {
+    return 0;
+  }
+
+  uint8_t *traffic_secret;
+  const uint8_t *label;
+  if (is_server) {
+    label = (uint8_t *)"server finished";
+    if (ssl->server) {
+      traffic_secret = ssl->s3->seal_traffic_secret;
+    } else {
+      traffic_secret = ssl->s3->open_traffic_secret;
+    }
+  } else {
+    label = (uint8_t *)"client finished";
+    if (!ssl->server) {
+      traffic_secret = ssl->s3->seal_traffic_secret;
+    } else {
+      traffic_secret = ssl->s3->open_traffic_secret;
+    }
+  }
+  size_t label_len = 15;
+
+
+
+  if (!hkdf_expand_label(key, digest, traffic_secret, hs->key_len,
+                         label, label_len, NULL, 0, hs->key_len)) {
+    return 0;
+  }
+
+  unsigned len;
+  if (HMAC(digest, key, key_len, hs->hash_context, hs->hash_context_len,
+           out, &len) == NULL) {
+    return 0;
+  }
+  *out_len = len;
+
+  size_t i;
+  printf("HASH+RESUMPTION: ");
+  for (i = 0; i < hs->hash_context_len; i++) {
+    printf("%02x", hs->hash_context[i]);
+  }
+  printf("\n");
+
+  printf("BKEY: ");
+  for (i = 0; i < hs->key_len; i++) {
+    printf("%02x", traffic_secret[i]);
+  }
+  printf("\n");
+
+  printf("FINISHED: ");
+  for (i = 0; i < *out_len; i++) {
+    printf("%02x", out[i]);
+  }
+  printf("\n");
+
+  OPENSSL_free(key);
+  return 1;
 }
