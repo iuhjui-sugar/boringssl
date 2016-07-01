@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bd1efa57_6e65739a",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1344,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-01T18:52:01Z",
+      "side": 1,
+      "message": "SSL_AD_INTERNAL_ERROR",
+      "range": {
+        "startLine": 1344,
+        "startChar": 11,
+        "endLine": 1344,
+        "endChar": 30
+      },
+      "revId": "d423812c20162be68c0cad15fe4c9c4a8bf7cc39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd1efa57_4e5ab7de",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1345,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-01T18:52:01Z",
+      "side": 1,
+      "message": "ERR_R_INTERNAL_ERROR",
+      "range": {
+        "startLine": 1345,
+        "startChar": 29,
+        "endLine": 1345,
+        "endChar": 47
+      },
+      "revId": "d423812c20162be68c0cad15fe4c9c4a8bf7cc39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd1efa57_0e26ff5c",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1283,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-01T18:52:01Z",
+      "side": 1,
+      "message": "Ditto re the wrong error.",
+      "range": {
+        "startLine": 1283,
+        "startChar": 31,
+        "endLine": 1283,
+        "endChar": 49
+      },
+      "revId": "d423812c20162be68c0cad15fe4c9c4a8bf7cc39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd1efa57_0ef15fd1",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1936,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-01T18:52:01Z",
+      "side": 1,
+      "message": "This is really more of an internal error than anything else. (Also impossible, but nevermind that.)",
+      "range": {
+        "startLine": 1936,
+        "startChar": 11,
+        "endLine": 1936,
+        "endChar": 35
+      },
+      "revId": "d423812c20162be68c0cad15fe4c9c4a8bf7cc39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd1efa57_eed4e31e",
+        "filename": "ssl/s3_enc.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-01T18:52:01Z",
+      "side": 1,
+      "message": "(Stray change?) Actually we can probably just reorder two functions and avoid this...",
+      "revId": "d423812c20162be68c0cad15fe4c9c4a8bf7cc39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
