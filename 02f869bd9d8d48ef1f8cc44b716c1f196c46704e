@@ -34,6 +34,24 @@
       "revId": "02f869bd9d8d48ef1f8cc44b716c1f196c46704e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd1efa57_1aa75dbb",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-07-01T00:40:12Z",
+      "side": 1,
+      "message": "If we wanted an isPoisoned, it could be added to byteBuilder with 1-3 lines of code in flush() to set it, and change 2 lines in finish() to return isPoisoned with the buf. However, this is used in the marshal() which currently can\u0027t fail, so it\u0027s probably not worth it in this CL.",
+      "parentUuid": "bd1efa57_77c42a74",
+      "revId": "02f869bd9d8d48ef1f8cc44b716c1f196c46704e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
