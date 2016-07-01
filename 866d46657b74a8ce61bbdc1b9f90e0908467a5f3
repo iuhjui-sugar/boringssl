@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "bd1efa57_43ddf01b",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-01T16:16:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd1efa57_f4f038cf",
+      "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd1efa57_34e7d01c",
         "filename": "ssl/handshake_client.c",
         "patchSetId": 1
@@ -59,6 +77,24 @@
     },
     {
       "key": {
+        "uuid": "bd1efa57_c3d0e001",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1340,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-01T16:16:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd1efa57_74dd484e",
+      "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd1efa57_54e24c0c",
         "filename": "ssl/handshake_client.c",
         "patchSetId": 1
@@ -70,6 +106,30 @@
       "writtenOn": "2016-06-30T21:11:33Z",
       "side": 1,
       "message": "(Hah. I suppose that works...)",
+      "range": {
+        "startLine": 1348,
+        "startChar": 13,
+        "endLine": 1348,
+        "endChar": 57
+      },
+      "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd1efa57_a3cde46b",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1348,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-01T16:16:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd1efa57_54e24c0c",
       "range": {
         "startLine": 1348,
         "startChar": 13,
@@ -99,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "bd1efa57_43f4d08b",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1841,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-01T16:16:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd1efa57_d4ed3cf9",
+      "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd1efa57_b4fac0ab",
         "filename": "ssl/handshake_client.c",
         "patchSetId": 1
@@ -116,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "bd1efa57_23f9d483",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1856,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-01T16:16:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd1efa57_b4fac0ab",
+      "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd1efa57_74c42874",
         "filename": "ssl/handshake_server.c",
         "patchSetId": 1
@@ -127,6 +223,30 @@
       "writtenOn": "2016-06-30T21:11:33Z",
       "side": 1,
       "message": "Ditto about leaking transcript.",
+      "range": {
+        "startLine": 1272,
+        "startChar": 10,
+        "endLine": 1272,
+        "endChar": 20
+      },
+      "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd1efa57_8325480e",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1272,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-01T16:16:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd1efa57_74c42874",
       "range": {
         "startLine": 1272,
         "startChar": 10,
@@ -162,6 +282,30 @@
     },
     {
       "key": {
+        "uuid": "bd1efa57_632a2cde",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1279,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-01T16:16:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd1efa57_94f7c4c3",
+      "range": {
+        "startLine": 1279,
+        "startChar": 11,
+        "endLine": 1279,
+        "endChar": 20
+      },
+      "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd1efa57_14c3b46a",
         "filename": "ssl/handshake_server.c",
         "patchSetId": 1
@@ -173,6 +317,24 @@
       "writtenOn": "2016-06-30T21:11:33Z",
       "side": 1,
       "message": "Ditto on comment explaining why the special case.",
+      "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd1efa57_432f30ec",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1915,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-01T16:16:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd1efa57_14c3b46a",
       "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -196,6 +358,24 @@
     },
     {
       "key": {
+        "uuid": "bd1efa57_23531429",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1923,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-01T16:16:41Z",
+      "side": 1,
+      "message": "?, but we don\u0027t need an md at all in the other branch.",
+      "parentUuid": "bd1efa57_f794ba4f",
+      "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd1efa57_b4d1a02d",
         "filename": "ssl/handshake_server.c",
         "patchSetId": 1
@@ -207,6 +387,24 @@
       "writtenOn": "2016-06-30T21:11:33Z",
       "side": 1,
       "message": "Fold into line 1930?",
+      "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd1efa57_036818cf",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1931,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-01T16:16:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd1efa57_b4d1a02d",
       "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -230,6 +428,24 @@
     },
     {
       "key": {
+        "uuid": "bd1efa57_c36100eb",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1932,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-01T16:16:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd1efa57_d4d41c1f",
+      "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd1efa57_f4d71821",
         "filename": "ssl/handshake_server.c",
         "patchSetId": 1
@@ -241,6 +457,24 @@
       "writtenOn": "2016-06-30T21:11:33Z",
       "side": 1,
       "message": "Nit: clang-format.",
+      "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd1efa57_c342209a",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1936,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-01T16:16:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd1efa57_f4d71821",
       "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -264,6 +498,24 @@
     },
     {
       "key": {
+        "uuid": "bd1efa57_a33f2414",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1953,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-01T16:16:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd1efa57_17a736bb",
+      "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd1efa57_f7bb9ad1",
         "filename": "ssl/internal.h",
         "patchSetId": 1
@@ -281,6 +533,24 @@
     },
     {
       "key": {
+        "uuid": "bd1efa57_2334343a",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-01T16:16:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd1efa57_f7bb9ad1",
+      "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd1efa57_97b226f2",
         "filename": "ssl/internal.h",
         "patchSetId": 1
@@ -292,6 +562,24 @@
       "writtenOn": "2016-06-30T21:11:33Z",
       "side": 1,
       "message": "I\u0027d mention this is specifically for SSL 3.0. It\u0027d be nice if the \u0027ssl3_\u0027 prefix told you that but \u0027ssl3_\u0027 means too much else right now. :-(",
+      "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd1efa57_03393832",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1005,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-01T16:16:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd1efa57_97b226f2",
       "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -321,6 +609,30 @@
     },
     {
       "key": {
+        "uuid": "bd1efa57_c3e7c0dd",
+        "filename": "ssl/ssl_rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-01T16:16:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd1efa57_34b910f5",
+      "range": {
+        "startLine": 377,
+        "startChar": 19,
+        "endLine": 377,
+        "endChar": 23
+      },
+      "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd1efa57_14be14dd",
         "filename": "ssl/ssl_rsa.c",
         "patchSetId": 1
@@ -332,6 +644,24 @@
       "writtenOn": "2016-06-30T21:11:33Z",
       "side": 1,
       "message": "You could probably just write this as:\n\n  EVP_MD_CTX md_ctx;\n  EVP_MD_CTX_init(\u0026md_ctx);\n  int ret \u003d EVP_DigestVerifyInit(...) \u0026\u0026\n            EVP_DigestVerifyUpdate(...) \u0026\u0026\n            EVP_DigestVerifyFinal(...);\n  EVP_MD_CTX_cleanup(\u0026md_ctx);\n  return ret;\n\nRather than this combination of the two.",
+      "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd1efa57_a3e4c4d9",
+        "filename": "ssl/ssl_rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-01T16:16:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd1efa57_14be14dd",
       "revId": "866d46657b74a8ce61bbdc1b9f90e0908467a5f3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
