@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "600cd7ee_3cfc1dbb",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-07-01T00:21:19Z",
+      "side": 1,
+      "message": "This doesn\u0027t check that bb.child.len() is short enough to fit in the number of bytes for the length prefix. Then again, I never checked the return value of flush() when it returned an error.",
+      "revId": "02f869bd9d8d48ef1f8cc44b716c1f196c46704e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
