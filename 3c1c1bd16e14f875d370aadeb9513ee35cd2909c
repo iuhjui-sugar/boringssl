@@ -218,6 +218,30 @@
     },
     {
       "key": {
+        "uuid": "5db89ed4_3f866f2c",
+        "filename": "util/BUILD",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5885
+      },
+      "writtenOn": "2016-07-02T01:04:56Z",
+      "side": 1,
+      "message": "Oh, right... This is intended to be used as Bazel external repository [1], so there is no \"full/path/to/openssl\".\n\nAlso, a lot of projects currently using Bazel, use it as one of many build systems, so I don\u0027t see them migrating to this Google-unique (AFAIK) design.\n\n[1] http://www.bazel.io/docs/external.html",
+      "parentUuid": "5db89ed4_7cbe35de",
+      "range": {
+        "startLine": 79,
+        "startChar": 28,
+        "endLine": 79,
+        "endChar": 31
+      },
+      "revId": "3c1c1bd16e14f875d370aadeb9513ee35cd2909c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd1efa57_7add314e",
         "filename": "util/BUILD",
         "patchSetId": 2
