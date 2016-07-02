@@ -496,8 +496,8 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 	var certRequested bool
 	var certRequestContext []byte
 	if hs.suite.flags&suitePSK == 0 {
-		// TODO(davidben): Save OCSP response and SCT list. Forbid them
-		// if not negotiating a certificate-based extension.
+		c.ocspResponse = encryptedExtensions.extensions.ocspResponse
+		c.sctList = encryptedExtensions.extensions.sctList
 
 		msg, err := c.readHandshake()
 		if err != nil {
@@ -550,6 +550,15 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 		}
 
 		hs.writeServerHash(certVerifyMsg.marshal())
+	} else {
+		if encryptedExtensions.extensions.ocspResponse != nil {
+			c.sendAlert(alertUnsupportedExtension)
+			return errors.New("tls: server sent OCSP response without a certificate")
+		}
+		if encryptedExtensions.extensions.sctList != nil {
+			c.sendAlert(alertUnsupportedExtension)
+			return errors.New("tls: server sent SCT list without a certificate")
+		}
 	}
 
 	msg, err = c.readHandshake()
