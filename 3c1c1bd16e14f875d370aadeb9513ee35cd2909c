@@ -194,6 +194,30 @@
     },
     {
       "key": {
+        "uuid": "5db89ed4_7cbe35de",
+        "filename": "util/BUILD",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-07-02T00:46:40Z",
+      "side": 1,
+      "message": "I\u0027m not objecting to this; I\u0027m only asking if this library may someday support a cleaner set of #include practices than you\u0027re describing.  (I\u0027m still unclear what environments are targeted by this change.)\n\nFor example, do we want two targets, e.g. :crypto means \"for use by well-behaved packages that write out #include \u003cfull/path/to/openssl/ssl.h\u003e\", whereas :crypto_system means \"for use by third-party software that expects #include \u003copenssl/ssl.h\u003e to do something reasonable\"?",
+      "parentUuid": "5db89ed4_1c18d96d",
+      "range": {
+        "startLine": 79,
+        "startChar": 28,
+        "endLine": 79,
+        "endChar": 31
+      },
+      "revId": "3c1c1bd16e14f875d370aadeb9513ee35cd2909c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd1efa57_7add314e",
         "filename": "util/BUILD",
         "patchSetId": 2
