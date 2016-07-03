@@ -227,6 +227,20 @@ func main() {
 				r := new(big.Int).Exp(test.Values["A"], test.Values["E"], nil)
 				checkResult(test, "A ^ E", "Exp", r)
 			}
+		case "ModSqrt":
+			if checkKeys(test, "A", "P", "ModSqrt", "ModSqrt2") {
+				test.Values["A"].Mod(test.Values["A"], test.Values["P"])
+
+				r := new(big.Int).Mul(test.Values["ModSqrt"], test.Values["ModSqrt"])
+				r = r.Mod(r, test.Values["P"])
+				checkResult(test, "ModSqrt ^ 2 (mod P)", "A", r)
+
+				r = r.Add(test.Values["ModSqrt"], test.Values["ModSqrt2"])
+				r = r.Mod(r, test.Values["P"])
+				if r.Sign() != 0 {
+					fmt.Fprintf(os.Stderr, "Line %d: ModSqrt + ModSqrt2 != 0 (mod P).\n", test.LineNumber)
+				}
+			}
 		default:
 			fmt.Fprintf(os.Stderr, "Line %d: unknown test type %q.\n", test.LineNumber, test.Type)
 		}
