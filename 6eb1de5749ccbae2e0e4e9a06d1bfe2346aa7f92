@@ -16,6 +16,24 @@
       "revId": "6eb1de5749ccbae2e0e4e9a06d1bfe2346aa7f92",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5db89ed4_62ce873e",
+        "filename": "ssl/test/runner/hkdf.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-06T22:25:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5db89ed4_ee4b639d",
+      "revId": "6eb1de5749ccbae2e0e4e9a06d1bfe2346aa7f92",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
