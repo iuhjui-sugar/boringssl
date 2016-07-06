@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5db89ed4_734d805e",
+        "filename": "util/BUILD",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5885
+      },
+      "writtenOn": "2016-07-06T20:08:10Z",
+      "side": 1,
+      "message": "Nit: macos_x86_64?",
+      "range": {
+        "startLine": 39,
+        "startChar": 12,
+        "endLine": 39,
+        "endChar": 22
+      },
+      "revId": "93c9bd0e42a961e91039fc9dedee5c31d8747089",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5db89ed4_53ecfc2f",
+        "filename": "util/BUILD",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5885
+      },
+      "writtenOn": "2016-07-06T20:08:10Z",
+      "side": 1,
+      "message": "buildifier wants to remove empty line, if there is no comment after it.",
+      "revId": "93c9bd0e42a961e91039fc9dedee5c31d8747089",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5db89ed4_53815c69",
+        "filename": "util/BUILD",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5885
+      },
+      "writtenOn": "2016-07-06T20:08:10Z",
+      "side": 1,
+      "message": "buildifier puts \"copts\" after \"srcs\".",
+      "revId": "93c9bd0e42a961e91039fc9dedee5c31d8747089",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
