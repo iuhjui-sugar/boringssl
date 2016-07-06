@@ -22,6 +22,30 @@
       "revId": "289b3f208bfe567c0f159239340a5b9af98f50be",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5db89ed4_2edd5b4f",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 627,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-06T22:03:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5db89ed4_8e0bc779",
+      "range": {
+        "startLine": 627,
+        "startChar": 10,
+        "endLine": 627,
+        "endChar": 11
+      },
+      "revId": "289b3f208bfe567c0f159239340a5b9af98f50be",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
