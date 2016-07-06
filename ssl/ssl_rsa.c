@@ -400,8 +400,31 @@ enum ssl_private_key_result_t ssl_private_key_sign(
 
   size_t len = max_out;
   if (!EVP_PKEY_sign_init(ctx) ||
-      !EVP_PKEY_CTX_set_signature_md(ctx, md) ||
-      !EVP_PKEY_sign(ctx, out, &len, hash, hash_len)) {
+      !EVP_PKEY_CTX_set_signature_md(ctx, md)) {
+    goto end;
+  }
+
+  switch (signature_algorithm) {
+    case SSL_SIGN_RSA_PSS_SHA512:
+    case SSL_SIGN_RSA_PSS_SHA384:
+    case SSL_SIGN_RSA_PSS_SHA256:
+      if (!EVP_PKEY_CTX_set_rsa_padding(ctx, RSA_PKCS1_PSS_PADDING) ||
+          !EVP_PKEY_CTX_set_rsa_pss_saltlen(ctx, -1)) {
+        goto end;
+      }
+      break;
+    case SSL_SIGN_RSA_PKCS1_SHA512:
+    case SSL_SIGN_RSA_PKCS1_SHA384:
+    case SSL_SIGN_RSA_PKCS1_SHA256:
+    case SSL_SIGN_RSA_PKCS1_SHA1:
+      if (ssl3_protocol_version(ssl) == TLS1_3_VERSION) {
+        /* TODO(svaldez): Make PKCS1 invalid for TLS 1.3. */
+      }
+    default:
+      break;
+  }
+
+  if (!EVP_PKEY_sign(ctx, out, &len, hash, hash_len)) {
     goto end;
   }
   *out_len = len;
@@ -426,11 +449,39 @@ int ssl_public_key_verify(SSL *ssl, const uint8_t *signature,
     return 0;
   }
 
+  int ret = 0;
+
   EVP_MD_CTX md_ctx;
   EVP_MD_CTX_init(&md_ctx);
-  int ret = EVP_DigestVerifyInit(&md_ctx, NULL, md, NULL, pkey) &&
-            EVP_DigestVerifyUpdate(&md_ctx, in, in_len) &&
-            EVP_DigestVerifyFinal(&md_ctx, signature, signature_len);
+  EVP_PKEY_CTX *pctx = NULL;
+  if (!EVP_DigestVerifyInit(&md_ctx, &pctx, md, NULL, pkey)) {
+    goto end;
+  }
+
+  switch (signature_algorithm) {
+    case SSL_SIGN_RSA_PSS_SHA512:
+    case SSL_SIGN_RSA_PSS_SHA384:
+    case SSL_SIGN_RSA_PSS_SHA256:
+      if (!EVP_PKEY_CTX_set_rsa_padding(pctx, RSA_PKCS1_PSS_PADDING) ||
+          !EVP_PKEY_CTX_set_rsa_pss_saltlen(pctx, -1)) {
+        goto end;
+      }
+      break;
+    case SSL_SIGN_RSA_PKCS1_SHA512:
+    case SSL_SIGN_RSA_PKCS1_SHA384:
+    case SSL_SIGN_RSA_PKCS1_SHA256:
+    case SSL_SIGN_RSA_PKCS1_SHA1:
+      if (ssl3_protocol_version(ssl) == TLS1_3_VERSION) {
+        /* TODO(svaldez): Make PKCS1 invalid for TLS 1.3. */
+      }
+    default:
+      break;
+  }
+
+  ret = EVP_DigestVerifyUpdate(&md_ctx, in, in_len) &&
+        EVP_DigestVerifyFinal(&md_ctx, signature, signature_len);
+
+end:
   EVP_MD_CTX_cleanup(&md_ctx);
   return ret;
 }

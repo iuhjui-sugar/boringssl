@@ -512,7 +512,30 @@ static const uint16_t kDefaultSignatureAlgorithms[] = {
     SSL_SIGN_ECDSA_SHA1,
 };
 
+static const uint16_t kDefaultTLS13SignatureAlgorithms[] = {
+    SSL_SIGN_RSA_PSS_SHA512,
+    SSL_SIGN_RSA_PKCS1_SHA512,
+    SSL_SIGN_ECDSA_SECP521R1_SHA512,
+
+    SSL_SIGN_RSA_PSS_SHA384,
+    SSL_SIGN_RSA_PKCS1_SHA384,
+    SSL_SIGN_ECDSA_SECP384R1_SHA384,
+
+    SSL_SIGN_RSA_PSS_SHA256,
+    SSL_SIGN_RSA_PKCS1_SHA256,
+    SSL_SIGN_ECDSA_SECP256R1_SHA256,
+
+    SSL_SIGN_RSA_PKCS1_SHA1,
+    SSL_SIGN_ECDSA_SHA1,
+};
+
 size_t tls12_get_psigalgs(SSL *ssl, const uint16_t **psigs) {
+  if (ssl->method->version_from_wire(ssl->client_version) == TLS1_3_VERSION) {
+    *psigs = kDefaultTLS13SignatureAlgorithms;
+    return sizeof(kDefaultTLS13SignatureAlgorithms) /
+           sizeof(kDefaultTLS13SignatureAlgorithms[0]);
+  }
+
   *psigs = kDefaultSignatureAlgorithms;
   return sizeof(kDefaultSignatureAlgorithms) /
          sizeof(kDefaultSignatureAlgorithms[0]);
@@ -566,6 +589,9 @@ void ssl_set_client_disabled(SSL *ssl) {
   sigalgslen = tls12_get_psigalgs(ssl, &sigalgs);
   for (i = 0; i < sigalgslen; i++) {
     switch (sigalgs[i]) {
+      case SSL_SIGN_RSA_PSS_SHA512:
+      case SSL_SIGN_RSA_PSS_SHA384:
+      case SSL_SIGN_RSA_PSS_SHA256:
       case SSL_SIGN_RSA_PKCS1_SHA512:
       case SSL_SIGN_RSA_PKCS1_SHA384:
       case SSL_SIGN_RSA_PKCS1_SHA256:
