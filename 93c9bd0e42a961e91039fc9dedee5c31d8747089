@@ -89,6 +89,30 @@
     },
     {
       "key": {
+        "uuid": "5db89ed4_82f47b8d",
+        "filename": "util/BUILD",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-07-06T22:14:40Z",
+      "side": 1,
+      "message": "Sorry to make you write all that out.  I\u0027m not questioning the value of warnings; I love warnings.\n\nBut as I understand it, this isn\u0027t going to affect any of the compiles done during BoringSSL development.  Wouldn\u0027t it be better to put the warnings in CMakeLists.txt so that we\u0027ll see them earlier?",
+      "parentUuid": "5db89ed4_eeb2835b",
+      "range": {
+        "startLine": 61,
+        "startChar": 20,
+        "endLine": 61,
+        "endChar": 22
+      },
+      "revId": "93c9bd0e42a961e91039fc9dedee5c31d8747089",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5db89ed4_53815c69",
         "filename": "util/BUILD",
         "patchSetId": 3
