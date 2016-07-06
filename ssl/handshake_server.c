@@ -1343,6 +1343,9 @@ static int add_cert_types(SSL *ssl, CBB *cbb) {
   size_t i;
   for (i = 0; i < sig_algs_len; i++) {
     switch (sig_algs[i]) {
+      case SSL_SIGN_RSA_PSS_SHA512:
+      case SSL_SIGN_RSA_PSS_SHA384:
+      case SSL_SIGN_RSA_PSS_SHA256:
       case SSL_SIGN_RSA_PKCS1_SHA512:
       case SSL_SIGN_RSA_PKCS1_SHA384:
       case SSL_SIGN_RSA_PKCS1_SHA256:

@@ -400,8 +400,21 @@ enum ssl_private_key_result_t ssl_private_key_sign(
 
   size_t len = max_out;
   if (!EVP_PKEY_sign_init(ctx) ||
-      !EVP_PKEY_CTX_set_signature_md(ctx, md) ||
-      !EVP_PKEY_sign(ctx, out, &len, hash, hash_len)) {
+      !EVP_PKEY_CTX_set_signature_md(ctx, md)) {
+    goto end;
+  }
+
+  switch (signature_algorithm) {
+    case SSL_SIGN_RSA_PSS_SHA512:
+    case SSL_SIGN_RSA_PSS_SHA384:
+    case SSL_SIGN_RSA_PSS_SHA256:
+      EVP_PKEY_CTX_set_rsa_padding(ctx, RSA_PKCS1_PSS_PADDING);
+      break;
+    default:
+      break;
+  }
+
+  if (!EVP_PKEY_sign(ctx, out, &len, hash, hash_len)) {
     goto end;
   }
   *out_len = len;
@@ -426,11 +439,29 @@ int ssl_public_key_verify(SSL *ssl, const uint8_t *signature,
     return 0;
   }
 
+  int ret = 0;
+
   EVP_MD_CTX md_ctx;
   EVP_MD_CTX_init(&md_ctx);
-  int ret = EVP_DigestVerifyInit(&md_ctx, NULL, md, NULL, pkey) &&
-            EVP_DigestVerifyUpdate(&md_ctx, in, in_len) &&
-            EVP_DigestVerifyFinal(&md_ctx, signature, signature_len);
+  EVP_PKEY_CTX *pctx = NULL;
+  if (!EVP_DigestVerifyInit(&md_ctx, &pctx, md, NULL, pkey)) {
+    goto end;
+  }
+
+  switch (signature_algorithm) {
+    case SSL_SIGN_RSA_PSS_SHA512:
+    case SSL_SIGN_RSA_PSS_SHA384:
+    case SSL_SIGN_RSA_PSS_SHA256:
+      EVP_PKEY_CTX_set_rsa_padding(pctx, RSA_PKCS1_PSS_PADDING);
+      break;
+    default:
+      break;
+  }
+
+  ret = EVP_DigestVerifyUpdate(&md_ctx, in, in_len) &&
+        EVP_DigestVerifyFinal(&md_ctx, signature, signature_len);
+
+end:
   EVP_MD_CTX_cleanup(&md_ctx);
   return ret;
 }
