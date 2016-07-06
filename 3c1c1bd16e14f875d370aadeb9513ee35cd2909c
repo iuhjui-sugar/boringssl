@@ -119,6 +119,24 @@
     },
     {
       "key": {
+        "uuid": "5db89ed4_d35acc09",
+        "filename": "util/BUILD",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5885
+      },
+      "writtenOn": "2016-07-06T20:08:10Z",
+      "side": 1,
+      "message": "Correct, it would break 32-bit FreeBSD.\n\nMaybe let\u0027s ignore it for now, especially since it\u0027s going to add coverage to -DOPENSSL_NO_ASM on my 3 test platforms (Linux, OSX \u0026 FreeBSD).\n\nI\u0027ll reach out to Bazel folks to see if they have any plans to improve platform identification.",
+      "parentUuid": "5db89ed4_08b96f27",
+      "revId": "3c1c1bd16e14f875d370aadeb9513ee35cd2909c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd1efa57_7afad17c",
         "filename": "util/BUILD",
         "patchSetId": 2
@@ -148,6 +166,24 @@
       "side": 1,
       "message": "I\u0027d copied many of them in. (Although -Wextra implies -Wunused-parameter, for which we aren\u0027t clean.)",
       "parentUuid": "bd1efa57_7afad17c",
+      "revId": "3c1c1bd16e14f875d370aadeb9513ee35cd2909c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5db89ed4_f357d0de",
+        "filename": "util/BUILD",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5885
+      },
+      "writtenOn": "2016-07-06T20:08:10Z",
+      "side": 1,
+      "message": "Thanks!\n\nRegarding -Wunused-parameter, I\u0027m aware of that... That\u0027s why the boringssl_copts above has -Wextra -Wno-unused-parameter, which I think it\u0027s worth adding.",
+      "parentUuid": "5db89ed4_68e74b1b",
       "revId": "3c1c1bd16e14f875d370aadeb9513ee35cd2909c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
