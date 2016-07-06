@@ -39,6 +39,24 @@
       "revId": "3804d679ef66952f4d38722d75bbf4b1571459e8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5db89ed4_4e7c4fce",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1110,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-06T20:45:10Z",
+      "side": 1,
+      "message": "Oh, yeah, I like that better. Done.",
+      "parentUuid": "5db89ed4_73902064",
+      "revId": "3804d679ef66952f4d38722d75bbf4b1571459e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
