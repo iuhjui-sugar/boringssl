@@ -113,6 +113,30 @@
     },
     {
       "key": {
+        "uuid": "5db89ed4_a2d89ffc",
+        "filename": "util/BUILD",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5885
+      },
+      "writtenOn": "2016-07-06T22:27:18Z",
+      "side": 1,
+      "message": "Ah, I see your point now....\n\nThere are warnings in CMakeLists.txt already, although the list is a bit different right now, so we should fix that.\n\nHowever, I\u0027d argue that having warnings enabled outside of core BoringSSL development still provides a lot of value... I personally found number of issues when compiling BoringSSL on OpenBSD and FreeBSD which wouldn\u0027t be visible without those warnings enabled by default.\n\nAlso, compilers are stricter and stricter with each release and it\u0027s not guaranteed that BoringSSL developers are always using the bleeding edge.",
+      "parentUuid": "5db89ed4_82f47b8d",
+      "range": {
+        "startLine": 61,
+        "startChar": 20,
+        "endLine": 61,
+        "endChar": 22
+      },
+      "revId": "93c9bd0e42a961e91039fc9dedee5c31d8747089",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5db89ed4_53815c69",
         "filename": "util/BUILD",
         "patchSetId": 3
