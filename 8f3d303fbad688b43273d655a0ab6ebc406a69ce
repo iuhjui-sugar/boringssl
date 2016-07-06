@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5db89ed4_d3ed6cf9",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 921,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-06T20:20:51Z",
+      "side": 1,
+      "message": "ret :\u003d minVersion",
+      "revId": "8f3d303fbad688b43273d655a0ab6ebc406a69ce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5db89ed4_73be60e7",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 939,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-06T20:20:51Z",
+      "side": 1,
+      "message": "ret :\u003d maxVersion",
+      "revId": "8f3d303fbad688b43273d655a0ab6ebc406a69ce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
