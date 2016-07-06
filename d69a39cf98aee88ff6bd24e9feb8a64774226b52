@@ -1,0 +1,175 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3d8cca86_f06ea0af",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1348,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-06T23:40:01Z",
+      "side": 1,
+      "message": "There aren\u0027t going to be cert types in TLS 1.3, right? I\u0027d leave this alone.",
+      "revId": "d69a39cf98aee88ff6bd24e9feb8a64774226b52",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3d8cca86_d0427c30",
+        "filename": "ssl/ssl_rsa.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-06T23:40:01Z",
+      "side": 1,
+      "message": "We\u0027d need to remove this function and hide it all in switch-cases here before adding RSA-PSS, right? Otherwise this won\u0027t work. Also need to take some care because RSA-PSS + SSL_PRIVATE_KEY_METHOD is not a combo that works right now, so it needs to error out. Or we go do the SSL_PRIVATE_KEY_METHOD transition now.",
+      "range": {
+        "startLine": 370,
+        "startChar": 21,
+        "endLine": 370,
+        "endChar": 35
+      },
+      "revId": "d69a39cf98aee88ff6bd24e9feb8a64774226b52",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3d8cca86_904cf463",
+        "filename": "ssl/ssl_rsa.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-06T23:40:01Z",
+      "side": 1,
+      "message": "Reject if \u003c TLS 1.3.",
+      "revId": "d69a39cf98aee88ff6bd24e9feb8a64774226b52",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3d8cca86_f047803d",
+        "filename": "ssl/ssl_rsa.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-06T23:40:01Z",
+      "side": 1,
+      "message": "I\u0027d leave this out for now, to avoid tempting compiler warnings, and just have the TODO. (Also \u003e\u003d)",
+      "revId": "d69a39cf98aee88ff6bd24e9feb8a64774226b52",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3d8cca86_7034f0c8",
+        "filename": "ssl/ssl_rsa.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-06T23:40:01Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 447,
+        "startChar": 21,
+        "endLine": 447,
+        "endChar": 35
+      },
+      "revId": "d69a39cf98aee88ff6bd24e9feb8a64774226b52",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3d8cca86_b051f8f8",
+        "filename": "ssl/ssl_rsa.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-06T23:40:01Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "d69a39cf98aee88ff6bd24e9feb8a64774226b52",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3d8cca86_50376cce",
+        "filename": "ssl/ssl_rsa.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-06T23:40:01Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "d69a39cf98aee88ff6bd24e9feb8a64774226b52",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3d8cca86_906394c6",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-06T23:40:01Z",
+      "side": 1,
+      "message": "\u003e\u003d",
+      "range": {
+        "startLine": 533,
+        "startChar": 58,
+        "endLine": 533,
+        "endChar": 60
+      },
+      "revId": "d69a39cf98aee88ff6bd24e9feb8a64774226b52",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3d8cca86_705b900f",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-06T23:40:01Z",
+      "side": 1,
+      "message": "Eventually this probably wants to be a function like\n\n  ssl_signature_algorithm_supports_key(sigalgs[i], EVP_PKEY_RSA).",
+      "revId": "d69a39cf98aee88ff6bd24e9feb8a64774226b52",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
