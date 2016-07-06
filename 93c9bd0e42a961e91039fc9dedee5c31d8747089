@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5db89ed4_e23377df",
+        "filename": "util/BUILD",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-06T23:00:10Z",
+      "side": 1,
+      "message": "We use \"mac\" everywhere else so far so I\u0027m going to stick with it for now.",
+      "parentUuid": "5db89ed4_734d805e",
+      "range": {
+        "startLine": 39,
+        "startChar": 12,
+        "endLine": 39,
+        "endChar": 22
+      },
+      "revId": "93c9bd0e42a961e91039fc9dedee5c31d8747089",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5db89ed4_53ecfc2f",
         "filename": "util/BUILD",
         "patchSetId": 3
@@ -36,6 +60,24 @@
       "writtenOn": "2016-07-06T20:08:10Z",
       "side": 1,
       "message": "buildifier wants to remove empty line, if there is no comment after it.",
+      "revId": "93c9bd0e42a961e91039fc9dedee5c31d8747089",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7d82c252_52bc54ca",
+        "filename": "util/BUILD",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-06T23:00:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5db89ed4_53ecfc2f",
       "revId": "93c9bd0e42a961e91039fc9dedee5c31d8747089",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -137,6 +179,30 @@
     },
     {
       "key": {
+        "uuid": "3dd68a0d_7dc8f0b6",
+        "filename": "util/BUILD",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-06T23:00:10Z",
+      "side": 1,
+      "message": "I\u0027ve unified the warnings here with CMakeLists.txt (in several cases by adding them to the latter.)\n\nThere is a risk that this will break people as different compilers might identify different things as triggering those warnings. On the other hand, it might help us if they report these things to us and/or if they\u0027re doing development with the Bazel build.\n\nWe\u0027ll see how it goes, but I think it\u0027s easier to start strict than to move in that direction over time.",
+      "parentUuid": "5db89ed4_a2d89ffc",
+      "range": {
+        "startLine": 61,
+        "startChar": 20,
+        "endLine": 61,
+        "endChar": 22
+      },
+      "revId": "93c9bd0e42a961e91039fc9dedee5c31d8747089",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5db89ed4_53815c69",
         "filename": "util/BUILD",
         "patchSetId": 3
@@ -148,6 +214,24 @@
       "writtenOn": "2016-07-06T20:08:10Z",
       "side": 1,
       "message": "buildifier puts \"copts\" after \"srcs\".",
+      "revId": "93c9bd0e42a961e91039fc9dedee5c31d8747089",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dddace34_5fd32669",
+        "filename": "util/BUILD",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-06T23:00:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5db89ed4_53815c69",
       "revId": "93c9bd0e42a961e91039fc9dedee5c31d8747089",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
