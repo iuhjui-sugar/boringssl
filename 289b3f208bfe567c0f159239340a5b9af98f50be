@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5db89ed4_8e0bc779",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 627,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-06T20:36:02Z",
+      "side": 1,
+      "message": "s/0//",
+      "range": {
+        "startLine": 627,
+        "startChar": 10,
+        "endLine": 627,
+        "endChar": 11
+      },
+      "revId": "289b3f208bfe567c0f159239340a5b9af98f50be",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
