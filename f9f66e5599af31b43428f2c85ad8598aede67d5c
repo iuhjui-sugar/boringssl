@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5db89ed4_6e9f53ce",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-06T21:34:21Z",
+      "side": 1,
+      "message": "just above the code tests flags\u0026suitePSK !\u003d 0, while this is the other way around. I\u0027d tend to want them to match.",
+      "revId": "f9f66e5599af31b43428f2c85ad8598aede67d5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5db89ed4_cea5bf18",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-06T21:34:21Z",
+      "side": 1,
+      "message": "rather than comment every location, the function could take a version number and callers could pass VersionTLS12 etc.",
+      "range": {
+        "startLine": 740,
+        "startChar": 35,
+        "endLine": 740,
+        "endChar": 54
+      },
+      "revId": "f9f66e5599af31b43428f2c85ad8598aede67d5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
