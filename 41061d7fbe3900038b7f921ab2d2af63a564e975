@@ -1,0 +1,193 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5db89ed4_2e3f1bcd",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-06T21:30:20Z",
+      "side": 1,
+      "message": "const?",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 3
+      },
+      "revId": "41061d7fbe3900038b7f921ab2d2af63a564e975",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5db89ed4_ee3c43d3",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 1097,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-06T21:30:20Z",
+      "side": 1,
+      "message": "isn\u0027t this moot? I would imagine that if !enableTLS13Handshake then c.vers would never be set to 1.3.",
+      "range": {
+        "startLine": 1097,
+        "startChar": 45,
+        "endLine": 1097,
+        "endChar": 69
+      },
+      "revId": "41061d7fbe3900038b7f921ab2d2af63a564e975",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5db89ed4_6e2033a2",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-06T21:30:20Z",
+      "side": 1,
+      "message": "if !enableTLS13Handshake \u0026\u0026 serverHello.vers \u003e VersionTLS12 {\n  serverHello.vers \u003d VersionTLS12\n}\n\nThen drop a lot of the tests of enableTLS13Handshake below?",
+      "revId": "41061d7fbe3900038b7f921ab2d2af63a564e975",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5db89ed4_ee13635a",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-06T21:30:20Z",
+      "side": 1,
+      "message": "this is called a bunch below (and once above). Stick it in a variable?",
+      "range": {
+        "startLine": 440,
+        "startChar": 43,
+        "endLine": 440,
+        "endChar": 71
+      },
+      "revId": "41061d7fbe3900038b7f921ab2d2af63a564e975",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5db89ed4_4e1d2f5d",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 809,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-06T21:30:20Z",
+      "side": 1,
+      "message": "There\u0027s no check that data has enough bytes.",
+      "revId": "41061d7fbe3900038b7f921ab2d2af63a564e975",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5db89ed4_6e4d935e",
+        "filename": "ssl/test/runner/prf.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-06T21:30:20Z",
+      "side": 1,
+      "message": "s/4/3/ and put \"1+\" before len(hashValue)",
+      "range": {
+        "startLine": 395,
+        "startChar": 27,
+        "endLine": 395,
+        "endChar": 28
+      },
+      "revId": "41061d7fbe3900038b7f921ab2d2af63a564e975",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5db89ed4_0e3ed7a8",
+        "filename": "ssl/test/runner/prf.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-06T21:30:20Z",
+      "side": 1,
+      "message": "appendContextHashes?",
+      "range": {
+        "startLine": 412,
+        "startChar": 23,
+        "endLine": 412,
+        "endChar": 37
+      },
+      "revId": "41061d7fbe3900038b7f921ab2d2af63a564e975",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5db89ed4_2e6abb9d",
+        "filename": "ssl/test/runner/prf.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-06T21:30:20Z",
+      "side": 1,
+      "message": "trafficDirection or direction?",
+      "range": {
+        "startLine": 465,
+        "startChar": 5,
+        "endLine": 465,
+        "endChar": 16
+      },
+      "revId": "41061d7fbe3900038b7f921ab2d2af63a564e975",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5db89ed4_6e64b3ce",
+        "filename": "ssl/test/runner/prf.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-06T21:30:20Z",
+      "side": 1,
+      "message": "maybe\n\nlabel \u003d label[:len(label)-3]  // remove \"key\" from end\nlabel \u003d append(label, []byte(\"iv\")...)",
+      "revId": "41061d7fbe3900038b7f921ab2d2af63a564e975",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
