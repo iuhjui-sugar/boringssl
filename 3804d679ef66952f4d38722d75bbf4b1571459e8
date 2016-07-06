@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5db89ed4_b3a2b8be",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-06T20:23:34Z",
+      "side": 1,
+      "message": "With hindsight, that\u0027s correct. It was done when it seemed that it might aid its passage at the IETF.",
+      "range": {
+        "startLine": 10,
+        "startChar": 15,
+        "endLine": 10,
+        "endChar": 65
+      },
+      "revId": "3804d679ef66952f4d38722d75bbf4b1571459e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5db89ed4_73902064",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1110,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-06T20:23:34Z",
+      "side": 1,
+      "message": "Myabe just call it typeChannelId and channelIdMsg? That\u0027s what it actually is these days.",
+      "revId": "3804d679ef66952f4d38722d75bbf4b1571459e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
