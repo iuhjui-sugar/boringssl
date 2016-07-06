@@ -137,6 +137,24 @@
     },
     {
       "key": {
+        "uuid": "5db89ed4_d349ec20",
+        "filename": "util/BUILD",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-06T20:13:19Z",
+      "side": 1,
+      "message": "We\u0027d have to do something funny for Windows because yasm doesn\u0027t use the C preprocessor, but other than that, maybe we should. If we ever ship the assembly in Chromium/iOS, we\u0027d need that anyway. (Unless the GN future does things differently.) They currently expect XCode to decide which target to use, which means any GYP-level logic on platform identification won\u0027t work.",
+      "parentUuid": "5db89ed4_08b96f27",
+      "revId": "3c1c1bd16e14f875d370aadeb9513ee35cd2909c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd1efa57_7afad17c",
         "filename": "util/BUILD",
         "patchSetId": 2
