@@ -65,6 +65,30 @@
     },
     {
       "key": {
+        "uuid": "5db89ed4_eeb2835b",
+        "filename": "util/BUILD",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5885
+      },
+      "writtenOn": "2016-07-06T21:35:44Z",
+      "side": 1,
+      "message": "Value is detection of common programmer mistakes.\n\nFWIW, CMakeLists.txt uses those CFLAGS:\n\n    -Wall -Werror -Wformat\u003d2 -Wsign-compare -Wmissing-field-initializers -ggdb -fvisibility\u003dhidden\n\n-Wsign-compare -Wmissing-field-initializers are part of -Wextra, which I suggest is worth adding.\n\nAs for the new ones here:\n\n-Wshadow detects mistakes with accidental reuse of the same variable name for different purpose,\n\n-Wwrite-strings detects mistakes with \"const char *\" vs \"char *\" misuse,\n\n-Wmissing-prototypes and friends are used to detect missing \"static\" keyword in local functions and/or lack of exported prototypes,\n\nI\u0027ve seen all of those enough times in various projects (including BoringSSL) to know that they\u0027re worth adding.\n\nI\u0027m not sure how much value -Wpointer-arith really provides, it\u0027s leftover from \"common\" CFLAGS that I\u0027m using in NGINX.\n\n\nAs for whether or not this is a good place to list CFLAGS... Where else would you put them?",
+      "parentUuid": "5db89ed4_ae808bac",
+      "range": {
+        "startLine": 61,
+        "startChar": 20,
+        "endLine": 61,
+        "endChar": 22
+      },
+      "revId": "93c9bd0e42a961e91039fc9dedee5c31d8747089",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5db89ed4_53815c69",
         "filename": "util/BUILD",
         "patchSetId": 3
