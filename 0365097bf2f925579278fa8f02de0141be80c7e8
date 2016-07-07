@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7d6562c3_5a3d75cb",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-07T15:23:51Z",
+      "side": 1,
+      "message": "Comment needs updating?",
+      "range": {
+        "startLine": 380,
+        "startChar": 7,
+        "endLine": 380,
+        "endChar": 28
+      },
+      "revId": "0365097bf2f925579278fa8f02de0141be80c7e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
