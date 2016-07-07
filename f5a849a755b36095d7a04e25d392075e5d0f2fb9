@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafb1832_e11d20ba",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-07T23:08:23Z",
+      "side": 1,
+      "message": "Why is read_record only set here? Shouldn\u0027t it be set as soon as a record has been read?",
+      "revId": "f5a849a755b36095d7a04e25d392075e5d0f2fb9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
