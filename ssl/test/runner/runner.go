@@ -1181,6 +1181,23 @@ func addBasicTests() {
 				MaxVersion: VersionTLS12,
 				Bugs: ProtocolBugs{
 					FragmentAcrossChangeCipherSpec: true,
+					PackHandshakeFlight:            true,
+				},
+			},
+			shouldFail:    true,
+			expectedError: ":UNEXPECTED_RECORD:",
+		},
+		{
+			name: "FragmentAcrossChangeCipherSpec-Client-Resume",
+			config: Config{
+				MaxVersion: VersionTLS12,
+			},
+			resumeSession: true,
+			resumeConfig: &Config{
+				MaxVersion: VersionTLS12,
+				Bugs: ProtocolBugs{
+					FragmentAcrossChangeCipherSpec: true,
+					PackHandshakeFlight:            true,
 				},
 			},
 			shouldFail:    true,
@@ -1193,6 +1210,24 @@ func addBasicTests() {
 				MaxVersion: VersionTLS12,
 				Bugs: ProtocolBugs{
 					FragmentAcrossChangeCipherSpec: true,
+					PackHandshakeFlight:            true,
+				},
+			},
+			shouldFail:    true,
+			expectedError: ":UNEXPECTED_RECORD:",
+		},
+		{
+			testType: serverTest,
+			name:     "FragmentAcrossChangeCipherSpec-Server-Resume",
+			config: Config{
+				MaxVersion: VersionTLS12,
+			},
+			resumeSession: true,
+			resumeConfig: &Config{
+				MaxVersion: VersionTLS12,
+				Bugs: ProtocolBugs{
+					FragmentAcrossChangeCipherSpec: true,
+					PackHandshakeFlight:            true,
 				},
 			},
 			shouldFail:    true,
@@ -1206,6 +1241,7 @@ func addBasicTests() {
 				NextProtos: []string{"bar"},
 				Bugs: ProtocolBugs{
 					FragmentAcrossChangeCipherSpec: true,
+					PackHandshakeFlight:            true,
 				},
 			},
 			flags: []string{
