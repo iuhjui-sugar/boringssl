@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7d6562c3_ba2a1183",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 777,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-07T16:19:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d8cca86_13848e24",
+      "revId": "56a2b68711acdf34873b55e0d6ccb8e6312bd4c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3d8cca86_93b87ef2",
         "filename": "ssl/internal.h",
         "patchSetId": 19
@@ -30,6 +48,24 @@
       "writtenOn": "2016-07-07T02:46:33Z",
       "side": 1,
       "message": "When would the handshake be waiting on two things?",
+      "revId": "56a2b68711acdf34873b55e0d6ccb8e6312bd4c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7d6562c3_da1fc563",
+        "filename": "ssl/internal.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 995,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-07T16:19:45Z",
+      "side": 1,
+      "message": "When we send a flight of messages, and are then expecting to read a message before continuing. Otherwise we\u0027d need a bunch of intermediate states that just update the handshake_interrupt.",
+      "parentUuid": "3d8cca86_93b87ef2",
       "revId": "56a2b68711acdf34873b55e0d6ccb8e6312bd4c0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "7d6562c3_3a17e14a",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-07T16:19:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d8cca86_13d24e31",
+      "revId": "56a2b68711acdf34873b55e0d6ccb8e6312bd4c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3d8cca86_73d5da17",
         "filename": "ssl/tls13_both.c",
         "patchSetId": 19
@@ -64,6 +118,24 @@
       "writtenOn": "2016-07-07T02:46:33Z",
       "side": 1,
       "message": "This shouldn\u0027t need to get set except at the functions which call BIO_read, etc.",
+      "revId": "56a2b68711acdf34873b55e0d6ccb8e6312bd4c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7d6562c3_5a149543",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-07T16:19:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d8cca86_73d5da17",
       "revId": "56a2b68711acdf34873b55e0d6ccb8e6312bd4c0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "7d6562c3_7a115952",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-07T16:19:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d8cca86_938f1e47",
+      "revId": "56a2b68711acdf34873b55e0d6ccb8e6312bd4c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3d8cca86_538a1637",
         "filename": "ssl/tls13_both.c",
         "patchSetId": 19
@@ -98,6 +188,24 @@
       "writtenOn": "2016-07-07T02:46:33Z",
       "side": 1,
       "message": "Rather than have to make this copy too, how about I get you a pair of hooks like\n\n ssl_get_current_message()\n ssl_read_message()",
+      "revId": "56a2b68711acdf34873b55e0d6ccb8e6312bd4c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7d6562c3_dafa6511",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-07T16:19:45Z",
+      "side": 1,
+      "message": "Copies aren\u0027t super expensive, and we otherwise would need to have a buffer owned my the \"message\" layer that the handshake gadget goes and fills in, which seems like poor layering, since I\u0027d like the gadget not have to worry about lifetime issues.",
+      "parentUuid": "3d8cca86_538a1637",
       "revId": "56a2b68711acdf34873b55e0d6ccb8e6312bd4c0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "7d6562c3_9af0ed33",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-07T16:19:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d8cca86_b394a257",
+      "revId": "56a2b68711acdf34873b55e0d6ccb8e6312bd4c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3d8cca86_d3ae06b1",
         "filename": "ssl/tls13_both.c",
         "patchSetId": 19
@@ -132,6 +258,24 @@
       "writtenOn": "2016-07-07T02:46:33Z",
       "side": 1,
       "message": "Rather than need the copy and the odd msg-\u003eoffset boolean, perhaps have the handshake gadget simply call init_message and finish_message. Then if it gets to finish_message, it asks the caller to pump write_message.",
+      "revId": "56a2b68711acdf34873b55e0d6ccb8e6312bd4c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7d6562c3_baf5b122",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-07T16:19:45Z",
+      "side": 1,
+      "message": "I don\u0027t think an extra copy of the msg is overly onerous, and I\u0027d rather not have the gadget have to worry about assembling messages.\n\nWe also still need msg-\u003eoffset to do post-handshake message parsing.",
+      "parentUuid": "3d8cca86_d3ae06b1",
       "revId": "56a2b68711acdf34873b55e0d6ccb8e6312bd4c0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
