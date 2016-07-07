@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fafb1832_a10a7817",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-07T23:51:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafb1832_61435055",
+      "range": {
+        "startLine": 309,
+        "startChar": 10,
+        "endLine": 309,
+        "endChar": 20
+      },
+      "revId": "10fd14d48b0aeeb706b9da6a6ac61c1a26ddbb8c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafb1832_4148546d",
         "filename": "ssl/test/runner/handshake_client.go",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2016-07-07T23:35:39Z",
       "side": 1,
       "message": "ditto.",
+      "range": {
+        "startLine": 315,
+        "startChar": 10,
+        "endLine": 315,
+        "endChar": 20
+      },
+      "revId": "10fd14d48b0aeeb706b9da6a6ac61c1a26ddbb8c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafb1832_8119bc73",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-07T23:51:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafb1832_4148546d",
       "range": {
         "startLine": 315,
         "startChar": 10,
