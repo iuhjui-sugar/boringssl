@@ -4120,11 +4120,15 @@ typedef struct ssl3_state_st {
 
   /* have_version is true if the connection's final version is known. Otherwise
    * the version has not been negotiated yet. */
-  char have_version;
+  unsigned have_version:1;
+
+  /* read_record is true if at least one record has been read from the
+   * transport. */
+  unsigned read_record:1;
 
   /* initial_handshake_complete is true if the initial handshake has
    * completed. */
-  char initial_handshake_complete;
+  unsigned initial_handshake_complete:1;
 
   /* read_buffer holds data from the transport to be processed. */
   SSL3_BUFFER read_buffer;

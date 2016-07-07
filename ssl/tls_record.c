@@ -244,6 +244,7 @@ enum ssl_open_record_t tls_open_record(SSL *ssl, uint8_t *out_type, CBS *out,
     *out_alert = SSL_AD_BAD_RECORD_MAC;
     return ssl_open_record_error;
   }
+  ssl->s3->read_record = 1;
   *out_consumed = in_len - CBS_len(&cbs);
 
   if (!ssl_record_sequence_update(ssl->s3->read_sequence, 8)) {
