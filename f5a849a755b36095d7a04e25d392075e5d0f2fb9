@@ -34,6 +34,24 @@
       "revId": "f5a849a755b36095d7a04e25d392075e5d0f2fb9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafb1832_01800cab",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-07T23:31:04Z",
+      "side": 1,
+      "message": "Does it work at the end of ssl3_get_message? Then all the logic for this flag is in one function.",
+      "parentUuid": "fafb1832_01dc8cec",
+      "revId": "f5a849a755b36095d7a04e25d392075e5d0f2fb9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
