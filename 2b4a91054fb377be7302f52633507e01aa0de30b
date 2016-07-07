@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fd26b29b_49e785b6",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-07T18:20:04Z",
+      "side": 1,
+      "message": "On other places, parsed values have been slices of the underlying data. Why copy these values?",
+      "revId": "2b4a91054fb377be7302f52633507e01aa0de30b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fd26b29b_69e441b1",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-07T18:20:04Z",
+      "side": 1,
+      "message": "ditto.",
+      "revId": "2b4a91054fb377be7302f52633507e01aa0de30b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
