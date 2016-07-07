@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3d8cca86_13848e24",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 777,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-07T02:46:33Z",
+      "side": 1,
+      "message": "You\u0027ll want to restore the SSL3_MT_SERVER_HELLO check after you\u0027ve decided it\u0027s not TLS 1.3.",
+      "revId": "56a2b68711acdf34873b55e0d6ccb8e6312bd4c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3d8cca86_93b87ef2",
+        "filename": "ssl/internal.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 995,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-07T02:46:33Z",
+      "side": 1,
+      "message": "When would the handshake be waiting on two things?",
+      "revId": "56a2b68711acdf34873b55e0d6ccb8e6312bd4c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3d8cca86_13d24e31",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-07T02:46:33Z",
+      "side": 1,
+      "message": "This shouldn\u0027t need to get set since it gets reset at the entry-point.",
+      "revId": "56a2b68711acdf34873b55e0d6ccb8e6312bd4c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3d8cca86_73d5da17",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-07T02:46:33Z",
+      "side": 1,
+      "message": "This shouldn\u0027t need to get set except at the functions which call BIO_read, etc.",
+      "revId": "56a2b68711acdf34873b55e0d6ccb8e6312bd4c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3d8cca86_938f1e47",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-07T02:46:33Z",
+      "side": 1,
+      "message": "This should get prefixed with something; if it\u0027s not static, we\u0027ll be polluting the global symbol namespace. Because C.",
+      "revId": "56a2b68711acdf34873b55e0d6ccb8e6312bd4c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3d8cca86_538a1637",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-07T02:46:33Z",
+      "side": 1,
+      "message": "Rather than have to make this copy too, how about I get you a pair of hooks like\n\n ssl_get_current_message()\n ssl_read_message()",
+      "revId": "56a2b68711acdf34873b55e0d6ccb8e6312bd4c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3d8cca86_b394a257",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-07T02:46:33Z",
+      "side": 1,
+      "message": "(Seems you could just call ssl_hash_message.)",
+      "revId": "56a2b68711acdf34873b55e0d6ccb8e6312bd4c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3d8cca86_d3ae06b1",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-07T02:46:33Z",
+      "side": 1,
+      "message": "Rather than need the copy and the odd msg-\u003eoffset boolean, perhaps have the handshake gadget simply call init_message and finish_message. Then if it gets to finish_message, it asks the caller to pump write_message.",
+      "revId": "56a2b68711acdf34873b55e0d6ccb8e6312bd4c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
