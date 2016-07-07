@@ -16,6 +16,24 @@
       "revId": "f5a849a755b36095d7a04e25d392075e5d0f2fb9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafb1832_01dc8cec",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-07T23:21:14Z",
+      "side": 1,
+      "message": "This is the point where we\u0027ve first consumed the bytes. Though I suppose we could also just call it as soon as we even try to tls_record_open. What do you think?",
+      "parentUuid": "fafb1832_e11d20ba",
+      "revId": "f5a849a755b36095d7a04e25d392075e5d0f2fb9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
