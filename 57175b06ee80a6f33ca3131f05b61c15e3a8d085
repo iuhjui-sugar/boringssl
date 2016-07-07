@@ -16,6 +16,24 @@
       "revId": "57175b06ee80a6f33ca3131f05b61c15e3a8d085",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafb1832_a1e278a4",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1054,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-07T23:23:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafb1832_c17344f8",
+      "revId": "57175b06ee80a6f33ca3131f05b61c15e3a8d085",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
