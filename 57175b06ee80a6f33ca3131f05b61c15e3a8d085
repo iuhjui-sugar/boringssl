@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafb1832_c17344f8",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1054,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-07T23:17:00Z",
+      "side": 1,
+      "message": "merge if into this line.",
+      "revId": "57175b06ee80a6f33ca3131f05b61c15e3a8d085",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
