@@ -52,6 +52,24 @@
       "revId": "f5a849a755b36095d7a04e25d392075e5d0f2fb9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafb1832_81277cbd",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-07T23:45:35Z",
+      "side": 1,
+      "message": "That should be fine too. It\u0027s probably assuming reasonable things like no one trying to change their mind and read ChangeCipherSpec, but that should be fine. Then it\u0027s less \"have I read any records\" and more \"have I decided not to bother with this V2ClientHello nonsense\".",
+      "parentUuid": "fafb1832_01800cab",
+      "revId": "f5a849a755b36095d7a04e25d392075e5d0f2fb9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
