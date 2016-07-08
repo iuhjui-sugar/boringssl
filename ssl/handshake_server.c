@@ -1723,16 +1723,11 @@ static int ssl3_get_cert_verify(SSL *ssl) {
       goto err;
     }
 
-    const EVP_MD *md = tls12_get_hash(signature_algorithm);
-    assert(md != NULL);
-
     EVP_PKEY_CTX *pctx = EVP_PKEY_CTX_new(pkey, NULL);
     sig_ok = pctx != NULL &&
              EVP_PKEY_verify_init(pctx) &&
-             EVP_PKEY_CTX_set_signature_md(pctx, md) &&
              EVP_PKEY_verify(pctx, CBS_data(&signature), CBS_len(&signature),
                              digest, digest_len);
-
     EVP_PKEY_CTX_free(pctx);
   } else {
     sig_ok = ssl_public_key_verify(
