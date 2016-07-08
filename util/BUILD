@@ -52,6 +52,8 @@ boringssl_copts = [
     # sets the default for all other symbols to be hidden. (Applies only to
     # shared-library builds.)
     "-fvisibility=hidden",
+    "-DBORINGSSL_SHARED_LIBRARY",
+    "-DBORINGSSL_IMPLEMENTATION",
 
     # This list of warnings should match those in the top-level CMakeLists.txt.
     "-Wall",
