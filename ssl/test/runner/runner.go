@@ -4542,6 +4542,17 @@ func addRenegotiationTests() {
 		},
 	})
 
+	// Stray HelloRequests during the handshake are ignored.
+	testCases = append(testCases, testCase{
+		name: "StrayHelloRequest",
+		config: Config{
+			MaxVersion: VersionTLS12,
+			Bugs: ProtocolBugs{
+				SendHelloRequestBeforeEveryHandshakeMessage: true,
+			},
+		},
+	})
+
 	// TODO(davidben): Add a test that HelloRequests are illegal in TLS 1.3.
 }
 
