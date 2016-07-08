@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fa24f8a5_366598cb",
+        "filename": "infra/config/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 6950
+      },
+      "writtenOn": "2016-07-08T18:12:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee735692_b8e69552",
+      "range": {
+        "startLine": 6,
+        "startChar": 32,
+        "endLine": 6,
+        "endChar": 33
+      },
+      "revId": "6a6a4cee32b5998d13269f5a1dbe51bbc855850d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ee735692_38bc451c",
         "filename": "infra/config/cq.cfg",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2016-06-23T01:06:59Z",
       "side": 1,
       "message": "Alphabetize, or comment explaining why this order is meaningful.",
+      "range": {
+        "startLine": 22,
+        "startChar": 38,
+        "endLine": 22,
+        "endChar": 39
+      },
+      "revId": "6a6a4cee32b5998d13269f5a1dbe51bbc855850d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2494af_8d38c1db",
+        "filename": "infra/config/cq.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 6950
+      },
+      "writtenOn": "2016-07-08T18:12:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee735692_38bc451c",
       "range": {
         "startLine": 22,
         "startChar": 38,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "da2494af_6d27d5be",
+        "filename": "infra/config/cq.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 6950
+      },
+      "writtenOn": "2016-07-08T18:12:05Z",
+      "side": 1,
+      "message": "Done.\n\nI couldn\u0027t find immediate equivalent for your Android builders in swarming (see https://boringssl-review.googlesource.com/#/c/8680/2)",
+      "parentUuid": "4ed1c28b_11be6ec5",
+      "range": {
+        "startLine": 33,
+        "startChar": 32,
+        "endLine": 33,
+        "endChar": 33
+      },
+      "revId": "6a6a4cee32b5998d13269f5a1dbe51bbc855850d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ed1c28b_b1d5e2f4",
         "filename": "infra/config/cq.cfg",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2016-06-23T01:06:59Z",
       "side": 1,
       "message": "There also exists a \"docs\" builder, which is worth including, because there is such a thing as a breaking documentation change.",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 1
+      },
+      "revId": "6a6a4cee32b5998d13269f5a1dbe51bbc855850d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da4d7487_657da651",
+        "filename": "infra/config/cq.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 6950
+      },
+      "writtenOn": "2016-07-08T18:12:05Z",
+      "side": 1,
+      "message": "hey, yes, totally missed it the first time.",
+      "parentUuid": "4ed1c28b_b1d5e2f4",
       "range": {
         "startLine": 36,
         "startChar": 0,
