@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafb1832_61eb5018",
+        "filename": "tool/transport_common.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-08T01:10:24Z",
+      "side": 1,
+      "message": "[Apparently we get ssize_t on MSVC now! Although bssl client doesn\u0027t work on Windows anyway, so there\u0027s that...]",
+      "range": {
+        "startLine": 382,
+        "startChar": 6,
+        "endLine": 382,
+        "endChar": 13
+      },
+      "revId": "aad2dc88ba1f2e48790474f459f7882afd8183ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafb1832_8133fc9e",
+        "filename": "tool/transport_common.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-08T01:10:24Z",
+      "side": 1,
+      "message": "Nit: unsigned long?",
+      "range": {
+        "startLine": 421,
+        "startChar": 26,
+        "endLine": 421,
+        "endChar": 29
+      },
+      "revId": "aad2dc88ba1f2e48790474f459f7882afd8183ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafb1832_21966861",
+        "filename": "tool/transport_common.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-08T01:10:24Z",
+      "side": 1,
+      "message": "Did you mean to swap this block with the line below and maybe not condition it? It seems this code, when given:\n\n123-First line\n123-Second line\n123 The last line\n\nwould produce \"First line\\nSecond lineThe last line\". It might also do odd things if the first line is empty.",
+      "revId": "aad2dc88ba1f2e48790474f459f7882afd8183ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
