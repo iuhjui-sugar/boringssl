@@ -16,6 +16,24 @@
       "revId": "7c62b54cbff5aa752ed256e0b17fab1c0454db28",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafb1832_87ae6caf",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7001
+      },
+      "writtenOn": "2016-07-08T18:13:20Z",
+      "side": 1,
+      "message": "oh, we should update the tool to not emit recipe{} if there is nothing to include",
+      "parentUuid": "da4d7487_e5a75620",
+      "revId": "7c62b54cbff5aa752ed256e0b17fab1c0454db28",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
