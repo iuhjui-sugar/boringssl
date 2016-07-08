@@ -1,0 +1,8 @@
+Commit-Queue+1: Andrii Shyshkalov <tandrii@google.com>
+Code-Review+1: Nodir Turakulov <nodir@chromium.org>
+Code-Review+2: Andrii Shyshkalov <tandrii@google.com>
+Submitted-by: Andrii Shyshkalov <tandrii@google.com>
+Submitted-at: Fri, 08 Jul 2016 18:14:57 +0000
+Reviewed-on: https://boringssl-review.googlesource.com/8680
+Project: boringssl
+Branch: refs/heads/infra/config
