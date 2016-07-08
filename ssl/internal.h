@@ -836,6 +836,10 @@ struct ssl_protocol_method_st {
   void (*finish_handshake)(SSL *ssl);
   long (*ssl_get_message)(SSL *ssl, int msg_type,
                           enum ssl_hash_message_t hash_message, int *ok);
+  /* hash_current_message incorporates the current handshake message into the
+   * handshake hash. It returns one on success and zero on allocation
+   * failure. */
+  int (*hash_current_message)(SSL *ssl);
   int (*read_app_data)(SSL *ssl, uint8_t *buf, int len, int peek);
   int (*read_change_cipher_spec)(SSL *ssl);
   void (*read_close_notify)(SSL *ssl);
@@ -1013,9 +1017,6 @@ void ssl3_cleanup_key_block(SSL *ssl);
 int ssl3_send_alert(SSL *ssl, int level, int desc);
 long ssl3_get_message(SSL *ssl, int msg_type,
                       enum ssl_hash_message_t hash_message, int *ok);
-
-/* ssl3_hash_current_message incorporates the current handshake message into the
- * handshake hash. It returns one on success and zero on allocation failure. */
 int ssl3_hash_current_message(SSL *ssl);
 
 /* ssl3_cert_verify_hash writes the SSL 3.0 CertificateVerify hash into the
@@ -1096,6 +1097,7 @@ void dtls1_free(SSL *ssl);
 
 long dtls1_get_message(SSL *ssl, int mt, enum ssl_hash_message_t hash_message,
                        int *ok);
+int dtls1_hash_current_message(SSL *ssl);
 int dtls1_dispatch_alert(SSL *ssl);
 
 /* ssl_is_wbio_buffered returns one if |ssl|'s write BIO is buffered and zero
