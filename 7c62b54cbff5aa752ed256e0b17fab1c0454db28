@@ -34,6 +34,24 @@
       "revId": "7c62b54cbff5aa752ed256e0b17fab1c0454db28",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa523822_663eced0",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 6950
+      },
+      "writtenOn": "2016-07-08T18:14:44Z",
+      "side": 1,
+      "message": "see url above for the CL :)",
+      "parentUuid": "fafb1832_87ae6caf",
+      "revId": "7c62b54cbff5aa752ed256e0b17fab1c0454db28",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
