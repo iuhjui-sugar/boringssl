@@ -2,6 +2,69 @@
   "comments": [
     {
       "key": {
+        "uuid": "da673430_d5b3bcf6",
+        "filename": "crypto/rand/linux.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-09T18:20:46Z",
+      "side": 1,
+      "message": "This probably isn\u0027t quite the right check. Do it by handling ENOSYS or so? Otherwise we\u0027ll have troubles if the build environment supports getrandom but the runtime environment doesn\u0027t.\n\nI\u0027m thinking cases like Chrome and such where we ship client binaries. (Actually, I think we build Chrome against a sysroot, but better to play it safe.)\n\nI suspect we\u0027ll also have a ton of syscall-filtering code to update after this...",
+      "range": {
+        "startLine": 23,
+        "startChar": 4,
+        "endLine": 23,
+        "endChar": 26
+      },
+      "revId": "d1e4e67f4fe37e975109bf01025895dec7d93850",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da673430_15d7f4ff",
+        "filename": "crypto/rand/linux.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-09T18:20:46Z",
+      "side": 1,
+      "message": "Nit: Define variables where they\u0027re used. (We\u0027re not super-consistent here yet, but all our compilers support it fine, so we do it where we can.)",
+      "revId": "d1e4e67f4fe37e975109bf01025895dec7d93850",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da673430_75dc6820",
+        "filename": "crypto/rand/linux.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-09T18:20:46Z",
+      "side": 1,
+      "message": "No need to bother saving and restoring errno I think. I don\u0027t think we generally promise not to muck with errno. The only other place where we do this is some directory reading code inherited from OpenSSL that\u0027s just rotting in a corner of libdecrepit. :-)",
+      "range": {
+        "startLine": 35,
+        "startChar": 2,
+        "endLine": 35,
+        "endChar": 12
+      },
+      "revId": "d1e4e67f4fe37e975109bf01025895dec7d93850",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da673430_b5c56047",
         "filename": "crypto/rand/linux.c",
         "patchSetId": 1
