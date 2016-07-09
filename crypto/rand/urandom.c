@@ -122,9 +122,12 @@ static void init_once(void) {
   CRYPTO_STATIC_MUTEX_unlock_read(&requested_lock);
 
 #if defined(USE_SYS_getrandom)
-  /* Initial test of getrandom to find any unexpected behavior. */
-  uint8_t buf[1];
-  syscall(SYS_getrandom, &buf, 1, GRND_NONBLOCK);
+  /* Check at runtime if getrandom(2) is available and, if so, avoid opening
+   * /dev/urandom or using any requested urandom fd. */
+  if (syscall(SYS_getrandom, NULL, 0, 0) == 0) {
+    urandom_fd = -2;
+    return;
+  }
 #endif
 
   if (fd == -2) {
@@ -217,7 +220,15 @@ static char fill_with_entropy(uint8_t *out, size_t len) {
 
   while (len > 0) {
     do {
-      r = read(urandom_fd, out, len);
+      if (urandom_fd == -2) {
+#if defined(USE_SYS_getrandom)
+        r = syscall(SYS_getrandom, out, len, 0 /* flags */);
+#else
+        return 0;
+#endif
+      } else {
+        r = read(urandom_fd, out, len);
+      }
     } while (r == -1 && errno == EINTR);
 
     if (r <= 0) {
