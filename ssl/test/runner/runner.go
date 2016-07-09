@@ -4695,52 +4695,52 @@ func addSignatureAlgorithmTests() {
 
 			suffix := "-" + alg.name + "-" + ver.name
 
-			// TODO(davidben): Separate signing and verifying sigalg
-			// configuration in Go, so we can run both sides.
-			if !shouldFail {
-				testCases = append(testCases, testCase{
-					name: "SigningHash-ClientAuth-Sign" + suffix,
-					config: Config{
-						MaxVersion: ver.version,
-						// SignatureAlgorithms is shared, so we must
-						// configure a matching server certificate too.
-						Certificates: []Certificate{getRunnerCertificate(alg.cert)},
-						ClientAuth:   RequireAnyClientCert,
-						SignatureAlgorithms: []signatureAlgorithm{
-							fakeSigAlg1,
-							alg.id,
-							fakeSigAlg2,
-						},
+			testCases = append(testCases, testCase{
+				name: "SigningHash-ClientAuth-Sign" + suffix,
+				config: Config{
+					MaxVersion: ver.version,
+					ClientAuth: RequireAnyClientCert,
+					VerifySignatureAlgorithms: []signatureAlgorithm{
+						fakeSigAlg1,
+						alg.id,
+						fakeSigAlg2,
 					},
-					flags: []string{
-						"-cert-file", path.Join(*resourceDir, getShimCertificate(alg.cert)),
-						"-key-file", path.Join(*resourceDir, getShimKey(alg.cert)),
-						"-enable-all-curves",
-					},
-					expectedPeerSignatureAlgorithm: alg.id,
-				})
+				},
+				flags: []string{
+					"-cert-file", path.Join(*resourceDir, getShimCertificate(alg.cert)),
+					"-key-file", path.Join(*resourceDir, getShimKey(alg.cert)),
+					"-enable-all-curves",
+				},
+				shouldFail:                     shouldFail,
+				expectedError:                  signError,
+				expectedPeerSignatureAlgorithm: alg.id,
+			})
 
-				testCases = append(testCases, testCase{
-					testType: serverTest,
-					name:     "SigningHash-ClientAuth-Verify" + suffix,
-					config: Config{
-						MaxVersion:   ver.version,
-						Certificates: []Certificate{getRunnerCertificate(alg.cert)},
-						SignatureAlgorithms: []signatureAlgorithm{
-							alg.id,
-						},
+			testCases = append(testCases, testCase{
+				testType: serverTest,
+				name:     "SigningHash-ClientAuth-Verify" + suffix,
+				config: Config{
+					MaxVersion:   ver.version,
+					Certificates: []Certificate{getRunnerCertificate(alg.cert)},
+					SignSignatureAlgorithms: []signatureAlgorithm{
+						alg.id,
 					},
-					flags: []string{
-						"-require-any-client-certificate",
-						"-expect-peer-signature-algorithm", strconv.Itoa(int(alg.id)),
-						// SignatureAlgorithms is shared, so we must
-						// configure a matching server certificate too.
-						"-cert-file", path.Join(*resourceDir, getShimCertificate(alg.cert)),
-						"-key-file", path.Join(*resourceDir, getShimKey(alg.cert)),
-						"-enable-all-curves",
+					Bugs: ProtocolBugs{
+						SkipECDSACurveCheck:          shouldFail,
+						IgnoreSignatureVersionChecks: shouldFail,
+						// The client won't advertise 1.3-only algorithms after
+						// version negotiation.
+						IgnorePeerSignatureAlgorithmPreferences: shouldFail,
 					},
-				})
-			}
+				},
+				flags: []string{
+					"-require-any-client-certificate",
+					"-expect-peer-signature-algorithm", strconv.Itoa(int(alg.id)),
+					"-enable-all-curves",
+				},
+				shouldFail:    shouldFail,
+				expectedError: verifyError,
+			})
 
 			testCases = append(testCases, testCase{
 				testType: serverTest,
@@ -4751,14 +4751,10 @@ func addSignatureAlgorithmTests() {
 						TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
 						TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
 					},
-					SignatureAlgorithms: []signatureAlgorithm{
+					VerifySignatureAlgorithms: []signatureAlgorithm{
 						fakeSigAlg1,
 						alg.id,
 						fakeSigAlg2,
-					},
-					Bugs: ProtocolBugs{
-						SkipECDSACurveCheck:          shouldFail,
-						IgnoreSignatureVersionChecks: shouldFail,
 					},
 				},
 				flags: []string{
@@ -4780,7 +4776,7 @@ func addSignatureAlgorithmTests() {
 						TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
 						TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
 					},
-					SignatureAlgorithms: []signatureAlgorithm{
+					SignSignatureAlgorithms: []signatureAlgorithm{
 						alg.id,
 					},
 					Bugs: ProtocolBugs{
@@ -4806,7 +4802,7 @@ func addSignatureAlgorithmTests() {
 		config: Config{
 			ClientAuth: RequireAnyClientCert,
 			MaxVersion: VersionTLS12,
-			SignatureAlgorithms: []signatureAlgorithm{
+			VerifySignatureAlgorithms: []signatureAlgorithm{
 				signatureECDSAWithP521AndSHA512,
 				signatureRSAPKCS1WithSHA384,
 				signatureECDSAWithSHA1,
@@ -4825,7 +4821,7 @@ func addSignatureAlgorithmTests() {
 		config: Config{
 			MaxVersion:   VersionTLS12,
 			CipherSuites: []uint16{TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256},
-			SignatureAlgorithms: []signatureAlgorithm{
+			VerifySignatureAlgorithms: []signatureAlgorithm{
 				signatureECDSAWithP521AndSHA512,
 				signatureRSAPKCS1WithSHA384,
 				signatureECDSAWithSHA1,
@@ -4843,7 +4839,7 @@ func addSignatureAlgorithmTests() {
 		config: Config{
 			MaxVersion:   VersionTLS12,
 			Certificates: []Certificate{rsaCertificate},
-			SignatureAlgorithms: []signatureAlgorithm{
+			SignSignatureAlgorithms: []signatureAlgorithm{
 				signatureRSAPKCS1WithSHA256,
 			},
 			Bugs: ProtocolBugs{
@@ -4862,7 +4858,7 @@ func addSignatureAlgorithmTests() {
 		config: Config{
 			MaxVersion:   VersionTLS12,
 			CipherSuites: []uint16{TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256},
-			SignatureAlgorithms: []signatureAlgorithm{
+			SignSignatureAlgorithms: []signatureAlgorithm{
 				signatureRSAPKCS1WithSHA256,
 			},
 			Bugs: ProtocolBugs{
@@ -4880,7 +4876,7 @@ func addSignatureAlgorithmTests() {
 		config: Config{
 			MaxVersion: VersionTLS12,
 			ClientAuth: RequireAnyClientCert,
-			SignatureAlgorithms: []signatureAlgorithm{
+			VerifySignatureAlgorithms: []signatureAlgorithm{
 				signatureRSAPKCS1WithSHA1,
 			},
 			Bugs: ProtocolBugs{
@@ -4899,7 +4895,7 @@ func addSignatureAlgorithmTests() {
 		config: Config{
 			MaxVersion:   VersionTLS12,
 			CipherSuites: []uint16{TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256},
-			SignatureAlgorithms: []signatureAlgorithm{
+			VerifySignatureAlgorithms: []signatureAlgorithm{
 				signatureRSAPKCS1WithSHA1,
 			},
 			Bugs: ProtocolBugs{
@@ -4913,7 +4909,7 @@ func addSignatureAlgorithmTests() {
 		config: Config{
 			MaxVersion: VersionTLS13,
 			ClientAuth: RequireAnyClientCert,
-			SignatureAlgorithms: []signatureAlgorithm{
+			VerifySignatureAlgorithms: []signatureAlgorithm{
 				signatureRSAPKCS1WithSHA1,
 			},
 			Bugs: ProtocolBugs{
@@ -4934,7 +4930,7 @@ func addSignatureAlgorithmTests() {
 		config: Config{
 			MaxVersion:   VersionTLS13,
 			CipherSuites: []uint16{TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256},
-			SignatureAlgorithms: []signatureAlgorithm{
+			VerifySignatureAlgorithms: []signatureAlgorithm{
 				signatureRSAPKCS1WithSHA1,
 			},
 			Bugs: ProtocolBugs{
@@ -4953,7 +4949,7 @@ func addSignatureAlgorithmTests() {
 		config: Config{
 			MaxVersion:   VersionTLS12,
 			Certificates: []Certificate{rsaCertificate},
-			SignatureAlgorithms: []signatureAlgorithm{
+			SignSignatureAlgorithms: []signatureAlgorithm{
 				signatureRSAPKCS1WithMD5,
 				// Advertise SHA-1 so the handshake will
 				// proceed, but the shim's preferences will be
@@ -4975,7 +4971,7 @@ func addSignatureAlgorithmTests() {
 		config: Config{
 			MaxVersion:   VersionTLS12,
 			CipherSuites: []uint16{TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256},
-			SignatureAlgorithms: []signatureAlgorithm{
+			SignSignatureAlgorithms: []signatureAlgorithm{
 				signatureRSAPKCS1WithMD5,
 			},
 			Bugs: ProtocolBugs{
@@ -4995,7 +4991,7 @@ func addSignatureAlgorithmTests() {
 		config: Config{
 			MaxVersion: VersionTLS12,
 			ClientAuth: RequireAnyClientCert,
-			SignatureAlgorithms: []signatureAlgorithm{
+			VerifySignatureAlgorithms: []signatureAlgorithm{
 				signatureRSAPKCS1WithSHA512,
 				signatureRSAPKCS1WithSHA1,
 			},
@@ -5013,7 +5009,7 @@ func addSignatureAlgorithmTests() {
 		config: Config{
 			MaxVersion: VersionTLS12,
 			ClientAuth: RequireAnyClientCert,
-			SignatureAlgorithms: []signatureAlgorithm{
+			VerifySignatureAlgorithms: []signatureAlgorithm{
 				signatureRSAPKCS1WithSHA1,
 				signatureRSAPKCS1WithSHA256,
 			},
@@ -5030,7 +5026,7 @@ func addSignatureAlgorithmTests() {
 		config: Config{
 			MaxVersion: VersionTLS12,
 			ClientAuth: RequireAnyClientCert,
-			SignatureAlgorithms: []signatureAlgorithm{
+			VerifySignatureAlgorithms: []signatureAlgorithm{
 				signatureRSAPKCS1WithSHA1,
 			},
 		},
@@ -5046,7 +5042,7 @@ func addSignatureAlgorithmTests() {
 		config: Config{
 			MaxVersion: VersionTLS12,
 			ClientAuth: RequireAnyClientCert,
-			SignatureAlgorithms: []signatureAlgorithm{
+			VerifySignatureAlgorithms: []signatureAlgorithm{
 				signatureRSAPKCS1WithSHA256,
 				signatureECDSAWithP256AndSHA256,
 				signatureRSAPKCS1WithSHA1,
@@ -5092,7 +5088,7 @@ func addSignatureAlgorithmTests() {
 			MaxVersion:   VersionTLS12,
 			CipherSuites: []uint16{TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256},
 			Certificates: []Certificate{ecdsaP256Certificate},
-			SignatureAlgorithms: []signatureAlgorithm{
+			SignSignatureAlgorithms: []signatureAlgorithm{
 				signatureECDSAWithP384AndSHA384,
 			},
 		},
@@ -5105,7 +5101,7 @@ func addSignatureAlgorithmTests() {
 			MaxVersion:   VersionTLS13,
 			CipherSuites: []uint16{TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256},
 			Certificates: []Certificate{ecdsaP256Certificate},
-			SignatureAlgorithms: []signatureAlgorithm{
+			SignSignatureAlgorithms: []signatureAlgorithm{
 				signatureECDSAWithP384AndSHA384,
 			},
 			Bugs: ProtocolBugs{
@@ -5124,7 +5120,7 @@ func addSignatureAlgorithmTests() {
 		config: Config{
 			MaxVersion:   VersionTLS13,
 			CipherSuites: []uint16{TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256},
-			SignatureAlgorithms: []signatureAlgorithm{
+			VerifySignatureAlgorithms: []signatureAlgorithm{
 				signatureECDSAWithP384AndSHA384,
 				signatureECDSAWithP256AndSHA256,
 			},

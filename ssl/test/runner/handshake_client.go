@@ -168,7 +168,7 @@ NextCipherSuite:
 	}
 
 	if hello.vers >= VersionTLS12 && !c.config.Bugs.NoSignatureAlgorithms {
-		hello.signatureAlgorithms = c.config.signatureAlgorithmsForClient()
+		hello.signatureAlgorithms = c.config.verifySignatureAlgorithms()
 	}
 
 	var session *ClientSessionState
@@ -695,6 +695,9 @@ func (hs *clientHandshakeState) doFullHandshake() error {
 	certReq, ok := msg.(*certificateRequestMsg)
 	if ok {
 		certRequested = true
+		if c.config.Bugs.IgnorePeerSignatureAlgorithmPreferences {
+			certReq.signatureAlgorithms = c.config.signSignatureAlgorithms()
+		}
 
 		hs.writeServerHash(certReq.marshal())
 
@@ -762,12 +765,9 @@ func (hs *clientHandshakeState) doFullHandshake() error {
 
 		// Determine the hash to sign.
 		privKey := c.config.Certificates[0].PrivateKey
-		if c.config.Bugs.IgnorePeerSignatureAlgorithmPreferences {
-			certReq.signatureAlgorithms = c.config.signatureAlgorithmsForClient()
-		}
 
 		if certVerify.hasSignatureAlgorithm {
-			certVerify.signatureAlgorithm, err = selectSignatureAlgorithm(c.vers, privKey, c.config, certReq.signatureAlgorithms, c.config.signatureAlgorithmsForClient())
+			certVerify.signatureAlgorithm, err = selectSignatureAlgorithm(c.vers, privKey, c.config, certReq.signatureAlgorithms, c.config.signSignatureAlgorithms())
 			if err != nil {
 				c.sendAlert(alertInternalError)
 				return err
@@ -1253,7 +1253,7 @@ findCert:
 		// Ensure the private key supports one of the advertised
 		// signature algorithms.
 		if certReq.hasSignatureAlgorithm {
-			if _, err := selectSignatureAlgorithm(c.vers, chain.PrivateKey, c.config, certReq.signatureAlgorithms, c.config.signatureAlgorithmsForClient()); err != nil {
+			if _, err := selectSignatureAlgorithm(c.vers, chain.PrivateKey, c.config, certReq.signatureAlgorithms, c.config.signSignatureAlgorithms()); err != nil {
 				continue
 			}
 		}
