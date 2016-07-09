@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "da673430_157b74d6",
+        "filename": "crypto/rand/linux.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-09T21:01:17Z",
+      "side": 1,
+      "message": "Windows is never going to happen at the same time as the others, right? Just adding something to urandom.c\u0027s CRYPTO_sysrand seems simpler.\n\nActually, it probably wants to do that anyway, so we still have the fork-unsafe buffering. I don\u0027t know how getrandom\u0027s performance compares. Would servers with getrandom but without rdrand still need it to push CBC-mode IVs fast enough?",
+      "parentUuid": "da2494af_ed3505c8",
+      "range": {
+        "startLine": 23,
+        "startChar": 4,
+        "endLine": 23,
+        "endChar": 26
+      },
+      "revId": "d1e4e67f4fe37e975109bf01025895dec7d93850",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da673430_15d7f4ff",
         "filename": "crypto/rand/linux.c",
         "patchSetId": 1
