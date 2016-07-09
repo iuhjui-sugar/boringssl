@@ -12,6 +12,8 @@
  * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. */
 
+#define _GNU_SOURCE
+
 #include <openssl/rand.h>
 
 #if !defined(OPENSSL_WINDOWS) && !defined(BORINGSSL_UNSAFE_FUZZER_MODE)
@@ -21,6 +23,10 @@
 #include <fcntl.h>
 #include <string.h>
 #include <unistd.h>
+
+#ifdef OPENSSL_LINUX
+#include <sys/syscall.h>
+#endif
 
 #include <openssl/thread.h>
 #include <openssl/mem.h>
@@ -72,6 +78,14 @@ static void init_once(void) {
   CRYPTO_STATIC_MUTEX_unlock_read(&requested_lock);
 
   if (fd == -2) {
+#if defined(OPENSSL_LINUX) && defined(SYS_getrandom)
+    /* Check at runtime if getrandom(2) is available, and if so avoid
+     * opening /dev/urandom. */
+    if (!syscall(SYS_getrandom, NULL, 0, 0)) {
+      return;
+    }
+#endif
+
     do {
       fd = open("/dev/urandom", O_RDONLY);
     } while (fd == -1 && errno == EINTR);
@@ -156,14 +170,27 @@ static struct rand_buffer *get_thread_local_buffer(void) {
   return buf;
 }
 
-/* read_full reads exactly |len| bytes from |fd| into |out| and returns 1. In
- * the case of an error it returns 0. */
+/* read_random tries to gather |len| bytes of random data into |out|. If the
+ * getrandom(2) syscall was detected during initialization (meaning |fd|
+ * wasn't initialized) it will be used, othrwise data is read from |fd|. */
+static int read_random(int fd, uint8_t *out, size_t len) {
+#if defined(OPENSSL_LINUX) && defined(SYS_getrandom)
+  if (fd == -2) {
+      return syscall(SYS_getrandom, out, len, 0);
+  }
+#endif
+
+  return read(fd, out, len);
+}
+
+/* read_full reads exactòy |len| bytes using getrandom(2) if available or
+ * from |fd|, and returns 1. In the case of an error it returns 0. */
 static char read_full(int fd, uint8_t *out, size_t len) {
   ssize_t r;
 
   while (len > 0) {
     do {
-      r = read(fd, out, len);
+      r = read_random(fd, out, len);
     } while (r == -1 && errno == EINTR);
 
     if (r <= 0) {
