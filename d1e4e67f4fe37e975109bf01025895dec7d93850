@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da673430_b5c56047",
+        "filename": "crypto/rand/linux.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5885
+      },
+      "writtenOn": "2016-07-09T17:15:32Z",
+      "side": 1,
+      "message": "Why do you call syscall() instead of getrandom()?",
+      "range": {
+        "startLine": 39,
+        "startChar": 18,
+        "endLine": 39,
+        "endChar": 31
+      },
+      "revId": "d1e4e67f4fe37e975109bf01025895dec7d93850",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
