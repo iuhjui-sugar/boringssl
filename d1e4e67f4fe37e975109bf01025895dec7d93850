@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da2494af_ed3505c8",
+        "filename": "crypto/rand/linux.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7060
+      },
+      "writtenOn": "2016-07-09T20:03:43Z",
+      "side": 1,
+      "message": "So, if the runtime doesn\u0027t support getrandom(2) it should be able to fallback to the urandom implementation on ENOSYS, otherwise you\u0027d still get a broken build that always abort()s.\n\nBasically I\u0027m thinking we\u0027d need a single CRYPTO_sysrand() implementation that tries in order all the supported \"flavours\" like:\n\n void CRYPTO_sysrand(...) {\n #ifdef BORINGSSL_UNSAFE_FUZZER_MODE\n   do_the_unsafe_thing(...);\n   return;\n #endif\n \n #ifdef OPENSSL_WINDOWS\n \n   do_the_windows_thing(...);\n   return;\n \n #else\n \n #ifdef SYS_getrandom\n   if (do_the_getrandom_thing(...)) {\n     return;\n   }\n #endif\n \n   if (do_the_urand_thing(...)) {\n     return;\n   }\n #endif\n \n   abort();\n }\n\n(with better function names of course :) ) and then build both urandom.c and linux.c so it would first try getrandom() then urandom.\n\nThough, while IMO a better approach, this would require some additional refactoring to the existing code. I can do that in a separate PR and then update this one to use the new mechanism. Thoughts?",
+      "parentUuid": "da673430_d5b3bcf6",
+      "range": {
+        "startLine": 23,
+        "startChar": 4,
+        "endLine": 23,
+        "endChar": 26
+      },
+      "revId": "d1e4e67f4fe37e975109bf01025895dec7d93850",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da673430_15d7f4ff",
         "filename": "crypto/rand/linux.c",
         "patchSetId": 1
@@ -76,6 +100,30 @@
       "writtenOn": "2016-07-09T17:15:32Z",
       "side": 1,
       "message": "Why do you call syscall() instead of getrandom()?",
+      "range": {
+        "startLine": 39,
+        "startChar": 18,
+        "endLine": 39,
+        "endChar": 31
+      },
+      "revId": "d1e4e67f4fe37e975109bf01025895dec7d93850",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa24f8a5_b620883f",
+        "filename": "crypto/rand/linux.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 7060
+      },
+      "writtenOn": "2016-07-09T20:03:43Z",
+      "side": 1,
+      "message": "AFAICT a getrandom() function is not actually exposed by libc but only mentioned in Linux\u0027s man page.\n\nThere\u0027s this discussion about adding getrandom() (and getentropy()) support to glibc but it didn\u0027t seem to go very far https://sourceware.org/bugzilla/show_bug.cgi?id\u003d17252\n\nI might be wrong though.",
+      "parentUuid": "da673430_b5c56047",
       "range": {
         "startLine": 39,
         "startChar": 18,
