@@ -14,7 +14,12 @@
 
 #include <openssl/rand.h>
 
-#if !defined(OPENSSL_WINDOWS) && !defined(BORINGSSL_UNSAFE_FUZZER_MODE)
+#ifdef OPENSSL_LINUX
+#include <sys/syscall.h>
+#endif
+
+#if !defined(SYS_getrandom) && !defined(OPENSSL_WINDOWS) && \
+    !defined(BORINGSSL_UNSAFE_FUZZER_MODE)
 
 #include <assert.h>
 #include <errno.h>
