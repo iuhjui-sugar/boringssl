@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "da2494af_0d6a9199",
+        "filename": "crypto/rand/linux.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7060
+      },
+      "writtenOn": "2016-07-10T11:11:40Z",
+      "side": 1,
+      "message": "Ok so here\u0027s what I did. During init_once and if no fd was specified, it tries to see if getrandom(2) is supported and if it is it avoids opening /dev/urandom (so that this can be use inside, e.g., chroots where /dev/urandom may not be present). Then when CRYPTO_sysrand is called it checks if the fd was initialized, if not it does getrandom() otherwise does read().\n\nThis way we retain both the buffering support and the ability for clients to set the rand fd (in which case getrandom() is not used).\n\nI did a bit of testing and it seems to work properly in all cases, though you might want to do your own testing.\n\nSounds good?",
+      "parentUuid": "da673430_157b74d6",
+      "range": {
+        "startLine": 23,
+        "startChar": 4,
+        "endLine": 23,
+        "endChar": 26
+      },
+      "revId": "d1e4e67f4fe37e975109bf01025895dec7d93850",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da673430_15d7f4ff",
         "filename": "crypto/rand/linux.c",
         "patchSetId": 1
