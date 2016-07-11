@@ -1005,6 +1005,82 @@ void ssl_cert_clear_certs(CERT *c);
 void ssl_cert_free(CERT *c);
 int ssl_get_new_session(SSL *ssl, int is_server);
 
+/* SSL_HS_MESSAGE contains information about messages sent and received as part
+ * of the SSL handshake. */
+struct ssl_hs_message_st {
+  uint8_t type;
+  uint8_t *data;
+  size_t length;
+
+  uint8_t *raw;
+} /* SSL_HS_MESSAGE */;
+
+typedef enum ssl_handshake_state_t {
+  HS_STATE_CLIENT_HELLO = 1,
+  HS_STATE_CLIENT_ENCRYPTED_EXTENSIONS,
+  HS_STATE_CLIENT_EARLY_FINISHED,
+  HS_STATE_HELLO_RETRY_REQUEST,
+  HS_STATE_SERVER_HELLO,
+  HS_STATE_SERVER_ENCRYPTED_EXTENSIONS,
+  HS_STATE_SERVER_CERTIFICATE_REQUEST,
+  HS_STATE_SERVER_CERTIFICATE,
+  HS_STATE_SERVER_CERTIFICATE_VERIFY,
+  HS_STATE_SERVER_FINISHED,
+  HS_STATE_CLIENT_CERTIFICATE,
+  HS_STATE_CLIENT_CERTIFICATE_VERIFY,
+  HS_STATE_CLIENT_FINISHED,
+  HS_STATE_FINISH,
+  HS_STATE_DONE,
+  /* Post Handshake Messages */
+  HS_STATE_SESSION_TICKET,
+  HS_STATE_KEY_UPDATE,
+} SSL_HANDSHAKE_STATE;
+
+#define HS_NEED_NONE  0x0
+#define HS_NEED_DONE  0x1
+#define HS_NEED_WRITE 0x2
+#define HS_NEED_READ  0x4
+#define HS_NEED_CB    0x8
+#define HS_NEED_FLUSH 0x10
+#define HS_NEED_ERROR 0x100
+#define HS_NEED_WRITE_FLIGHT (HS_NEED_WRITE | HS_NEED_FLUSH)
+
+struct ssl_handshake_st {
+  SSL_HANDSHAKE_STATE handshake_state;
+  int handshake_interrupt;
+  SSL_HS_MESSAGE *in_message;
+
+  uint8_t resumption_ctx[EVP_MAX_MD_SIZE];
+  size_t resumption_ctx_len;
+  uint8_t hash_context[2*EVP_MAX_MD_SIZE];
+  size_t hash_context_len;
+
+  size_t key_len;
+  uint8_t early_secret[EVP_MAX_MD_SIZE];
+  size_t early_secret_len;
+  uint8_t handshake_secret[EVP_MAX_MD_SIZE];
+  size_t handshake_secret_len;
+  uint8_t master_secret[EVP_MAX_MD_SIZE];
+  size_t master_secret_len;
+  uint8_t traffic_secret_0[EVP_MAX_MD_SIZE];
+
+  uint8_t *psk_secret;
+  size_t psk_secret_len;
+  uint8_t *dhe_secret;
+  size_t dhe_secret_len;
+
+  SSL_ECDH_CTX *groups;
+  size_t groups_len;
+  uint8_t *public_key;
+  size_t public_key_len;
+
+  int zero_rtt;
+  int client_auth;
+  const SSL_CIPHER *cipher;
+  uint8_t *cert_context;
+  size_t cert_context_len;
+} /* SSL_HANDSHAKE */;
+
 enum ssl_session_result_t {
   ssl_session_success,
   ssl_session_error,
@@ -1250,5 +1326,92 @@ size_t tls12_get_psigalgs(SSL *ssl, const uint16_t **psigs);
 int tls12_check_peer_sigalg(SSL *ssl, int *out_alert,
                             uint16_t signature_algorithm);
 void ssl_set_client_disabled(SSL *ssl);
+
+/* tls13_handshake_read consumes records to populate |msg| with the next
+ * handshake message received over the wire. It returns -1 on failure,
+ * 0 if it is waiting for additional records, and 1 on success. */
+int tls13_handshake_read(SSL *ssl, SSL_HS_MESSAGE *msg);
+
+int tls13_handshake_write(SSL *ssl);
+
+/* tls13_handshake is a wrapper the performs part of the TLS 1.3 handshake by
+ * reading/writing handshake messages and then driving the
+ * |tls13_client_handshake| or |tls13_server_handshake| gadgets with the
+ * messages. It sets ssl->rwstate to the reading/writing state and returns the
+ * result of the handshake gadget. */
+int tls13_handshake(SSL *ssl);
+
+/* tls13_client_handshake is a gadget that reads or writes a single handshake
+ * message at a time, before returning to the handshake loop. On success, it
+ * returns 1 and updates the |hs->handshake_interrupt| to indicate whether it is
+ * waiting for an incoming handshake message, it has an outgoing message
+ * to be written, the write buffer needs to be flushed. Otherwise, it returns
+ * 0. */
+int tls13_client_handshake(SSL *ssl, SSL_HANDSHAKE *hs);
+
+/* tls13_server_handshake behaves like tls13_client_handshake for the server
+ * part of the handshake. */
+int tls13_server_handshake(SSL *ssl, SSL_HANDSHAKE *hs);
+
+int tls13_store_handshake_context(SSL *ssl);
+int tls13_receive_certificate(SSL *ssl, SSL_HS_MESSAGE msg);
+int tls13_send_certificate(SSL *ssl);
+int tls13_receive_certificate_verify(SSL *ssl, SSL_HS_MESSAGE msg);
+int tls13_send_certificate_verify(SSL *ssl);
+int tls13_receive_finished(SSL *ssl, SSL_HS_MESSAGE msg);
+int tls13_send_finished(SSL *ssl);
+
+int ext_key_share_parse_serverhello(SSL *ssl, uint8_t *out_alert,
+                                    CBS *contents);
+int ext_key_share_parse_clienthello(SSL *ssl, uint8_t *out_alert,
+                                    CBS *contents);
+int ext_key_share_add_serverhello(SSL *ssl, CBB *out);
+
+
+/* tls13_store_handshake_context concatenates a hash of the current handshake
+ * transcript and the resumption context, storing the result in |hash_context|
+ * and the length in |hash_context_len|. */
+int tls13_store_handshake_context(SSL *ssl);
+
+enum tls_record_type_t {
+  type_early_handshake,
+  type_early_data,
+  type_handshake,
+  type_data,
+};
+
+/* tls13_update_traffic_secret updates the open/seal traffic secrets based on
+ * the key schedule for messages of type |type|. */
+int tls13_update_traffic_secret(SSL *ssl, enum tls_record_type_t type);
+
+/* tls13_derive_secrets updates the intermediate handshake secrets based on
+ * the |psk_secret| and |dhe_secret|. */
+int tls13_derive_secrets(SSL *ssl);
+
+/* tls13_derive_traffic_secret_0 derives the initial application data traffic
+ * secret based on the handshake transcripts and |master_secret|. */
+int tls13_derive_traffic_secret_0(SSL *ssl);
+
+/* tls13_finalize_keys updates the open/seal traffic secrets based on the
+ * derived initial traffic secret, and derives the |exporter_secret| and
+ * |resumption_secret|. */
+int tls13_finalize_keys(SSL *ssl);
+
+/* tls13_rotate_traffic_secret rotates the open/seal traffic secret (depending
+ * on |direction|) and updates the corresponding traffic key. */
+int tls13_rotate_traffic_secret(SSL *ssl, enum evp_aead_direction_t direction);
+
+/* tls13_export_keying_material provides and exporter interface to use the
+ * |exporter_secret|. */
+int tls13_export_keying_material(SSL *ssl, uint8_t *out, size_t out_len,
+                                 const char *label, size_t label_len,
+                                 const uint8_t *context, size_t context_len,
+                                 int use_context);
+
+/* tls13_finished_mac calculates the MAC of the handshake transcript to verify
+ * the integrity of the Finished message, and stores the result in |out| and
+ * length in |out_len|. |is_server| is 1 if this is for the Server Finished and
+ * 0 for the Client Finished. */
+int tls13_finished_mac(SSL *ssl, uint8_t *out, size_t *out_len, int is_server);
 
 #endif /* OPENSSL_HEADER_SSL_INTERNAL_H */
