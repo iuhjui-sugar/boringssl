@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ba7a80a8_d703de07",
+        "filename": "ssl/ssl_rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-11T18:30:28Z",
+      "side": 1,
+      "message": "I think silently ignoring is probably fine? That\u0027s what it did before. If the caller says its willing to do SHA-224, that\u0027s fine. We\u0027ll just ignore them.",
+      "parentUuid": "ba7a80a8_77cd2a3e",
+      "range": {
+        "startLine": 377,
+        "startChar": 4,
+        "endLine": 377,
+        "endChar": 5
+      },
+      "revId": "9253437fb7198cbde009bff865a21670788ea7e5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba7a80a8_17d2b6dd",
         "filename": "ssl/ssl_rsa.c",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2016-07-11T15:35:15Z",
       "side": 1,
       "message": "If we\u0027re moving this here, we should rename it to something not tls12 prefixed.",
+      "range": {
+        "startLine": 403,
+        "startChar": 21,
+        "endLine": 403,
+        "endChar": 35
+      },
+      "revId": "9253437fb7198cbde009bff865a21670788ea7e5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba7a80a8_37ffb201",
+        "filename": "ssl/ssl_rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-11T18:30:28Z",
+      "side": 1,
+      "message": "It\u0027s going away in a few commits anyway. Also right now it is very much TLS-1.2-specific since it does sigalg \u003e\u003e 8. (The old RSA-PSS patch didn\u0027t work as a result.)",
+      "parentUuid": "ba7a80a8_17d2b6dd",
       "range": {
         "startLine": 403,
         "startChar": 21,
