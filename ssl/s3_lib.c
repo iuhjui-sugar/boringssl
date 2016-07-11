@@ -182,6 +182,13 @@ int ssl3_new(SSL *ssl) {
   EVP_MD_CTX_init(&s3->handshake_hash);
   EVP_MD_CTX_init(&s3->handshake_md5);
 
+  s3->hs = OPENSSL_malloc(sizeof(SSL_HANDSHAKE));
+  if (s3->hs == NULL) {
+    goto err;
+  }
+  memset(s3->hs, 0, sizeof(SSL_HANDSHAKE));
+  s3->hs->handshake_state = HS_STATE_CLIENT_HELLO;
+
   ssl->s3 = s3;
 
   /* Set the version to the highest supported version.
@@ -193,6 +200,18 @@ int ssl3_new(SSL *ssl) {
   return 1;
 err:
   return 0;
+}
+
+static void ssl_handshake_free(SSL_HANDSHAKE *hs) {
+  if (hs->groups != NULL) {
+    for (size_t i = 0; i < hs->groups_len; i++) {
+      SSL_ECDH_CTX_cleanup(&hs->groups[i]);
+    }
+    OPENSSL_free(hs->groups);
+  }
+  OPENSSL_free(hs->public_key);
+  OPENSSL_free(hs->cert_context);
+  OPENSSL_free(hs);
 }
 
 void ssl3_free(SSL *ssl) {
@@ -213,6 +232,7 @@ void ssl3_free(SSL *ssl) {
   OPENSSL_free(ssl->s3->tmp.peer_psk_identity_hint);
   ssl3_free_handshake_buffer(ssl);
   ssl3_free_handshake_hash(ssl);
+  ssl_handshake_free(ssl->s3->hs);
   OPENSSL_free(ssl->s3->next_proto_negotiated);
   OPENSSL_free(ssl->s3->alpn_selected);
   SSL_AEAD_CTX_free(ssl->s3->aead_read_ctx);
