@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba7a80a8_77cd2a3e",
+        "filename": "ssl/ssl_rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-11T15:35:15Z",
+      "side": 1,
+      "message": "Should this fail with unknown NIDs?",
+      "range": {
+        "startLine": 377,
+        "startChar": 4,
+        "endLine": 377,
+        "endChar": 5
+      },
+      "revId": "9253437fb7198cbde009bff865a21670788ea7e5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba7a80a8_17d2b6dd",
+        "filename": "ssl/ssl_rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-11T15:35:15Z",
+      "side": 1,
+      "message": "If we\u0027re moving this here, we should rename it to something not tls12 prefixed.",
+      "range": {
+        "startLine": 403,
+        "startChar": 21,
+        "endLine": 403,
+        "endChar": 35
+      },
+      "revId": "9253437fb7198cbde009bff865a21670788ea7e5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
