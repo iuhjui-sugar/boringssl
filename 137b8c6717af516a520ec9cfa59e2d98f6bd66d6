@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba7a80a8_37325299",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-11T22:31:26Z",
+      "side": 1,
+      "message": "Having static functions in a namespace only to be called by unnamespace main seems kinda wonky, but I suppose it works. :-) I guess the style guide doesn\u0027t like \u0027using namespace bssl\u0027.",
+      "revId": "137b8c6717af516a520ec9cfa59e2d98f6bd66d6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba7a80a8_57334e9f",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-11T22:31:26Z",
+      "side": 1,
+      "message": "I expect doc.go will hate this and needs updates.",
+      "revId": "137b8c6717af516a520ec9cfa59e2d98f6bd66d6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
