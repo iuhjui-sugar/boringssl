@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba7a80a8_d7699e0c",
+        "filename": "ssl/dtls_method.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-11T14:59:49Z",
+      "side": 1,
+      "message": "Should these be reset in begin_handshake?",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 35
+      },
+      "revId": "14bcacd1983dd6d5f4f2aa70db878d7309d61787",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
