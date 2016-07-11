@@ -917,6 +917,10 @@ static int ext_ri_parse_clienthello(SSL *ssl, uint8_t *out_alert,
 }
 
 static int ext_ri_add_serverhello(SSL *ssl, CBB *out) {
+  if (ssl3_protocol_version(ssl) >= TLS1_3_VERSION) {
+    return 1;
+  }
+
   CBB contents, prev_finished;
   if (!CBB_add_u16(out, TLSEXT_TYPE_renegotiate) ||
       !CBB_add_u16_length_prefixed(out, &contents) ||
@@ -983,6 +987,10 @@ static int ext_ems_parse_clienthello(SSL *ssl, uint8_t *out_alert,
 }
 
 static int ext_ems_add_serverhello(SSL *ssl, CBB *out) {
+  if (ssl3_protocol_version(ssl) >= TLS1_3_VERSION) {
+    return 1;
+  }
+
   if (!ssl->s3->tmp.extended_master_secret) {
     return 1;
   }
@@ -1052,6 +1060,10 @@ static int ext_ticket_parse_serverhello(SSL *ssl, uint8_t *out_alert,
 }
 
 static int ext_ticket_add_serverhello(SSL *ssl, CBB *out) {
+  if (ssl3_protocol_version(ssl) >= TLS1_3_VERSION) {
+    return 1;
+  }
+
   if (!ssl->tlsext_ticket_expected) {
     return 1;
   }
@@ -1185,6 +1197,10 @@ static int ext_ocsp_parse_clienthello(SSL *ssl, uint8_t *out_alert,
 }
 
 static int ext_ocsp_add_serverhello(SSL *ssl, CBB *out) {
+  if (ssl3_protocol_version(ssl) >= TLS1_3_VERSION) {
+    return 1;
+  }
+
   /* The extension shouldn't be sent when resuming sessions. */
   if (ssl->hit ||
       !ssl->s3->tmp.ocsp_stapling_requested ||
@@ -1299,6 +1315,10 @@ static int ext_npn_parse_clienthello(SSL *ssl, uint8_t *out_alert,
 }
 
 static int ext_npn_add_serverhello(SSL *ssl, CBB *out) {
+  if (ssl3_protocol_version(ssl) >= TLS1_3_VERSION) {
+    return 1;
+  }
+
   /* |next_proto_neg_seen| might have been cleared when an ALPN extension was
    * parsed. */
   if (!ssl->s3->next_proto_neg_seen) {
@@ -1583,6 +1603,10 @@ static int ext_channel_id_parse_clienthello(SSL *ssl, uint8_t *out_alert,
 }
 
 static int ext_channel_id_add_serverhello(SSL *ssl, CBB *out) {
+  if (ssl3_protocol_version(ssl) >= TLS1_3_VERSION) {
+    return 1;
+  }
+
   if (!ssl->s3->tlsext_channel_id_valid) {
     return 1;
   }
@@ -1731,6 +1755,10 @@ static int ext_srtp_parse_clienthello(SSL *ssl, uint8_t *out_alert,
 }
 
 static int ext_srtp_add_serverhello(SSL *ssl, CBB *out) {
+  if (ssl3_protocol_version(ssl) >= TLS1_3_VERSION) {
+    return 1;
+  }
+
   if (ssl->srtp_profile == NULL) {
     return 1;
   }
@@ -1824,6 +1852,10 @@ static int ext_ec_point_parse_clienthello(SSL *ssl, uint8_t *out_alert,
 }
 
 static int ext_ec_point_add_serverhello(SSL *ssl, CBB *out) {
+  if (ssl3_protocol_version(ssl) >= TLS1_3_VERSION) {
+    return 1;
+  }
+
   const uint32_t alg_k = ssl->s3->tmp.new_cipher->algorithm_mkey;
   const uint32_t alg_a = ssl->s3->tmp.new_cipher->algorithm_auth;
   const int using_ecc = (alg_k & SSL_kECDHE) || (alg_a & SSL_aECDSA);
@@ -1833,6 +1865,197 @@ static int ext_ec_point_add_serverhello(SSL *ssl, CBB *out) {
   }
 
   return ext_ec_point_add_extension(ssl, out);
+}
+
+
+/* Draft Version Extension */
+
+static int ext_draft_version_add_clienthello(SSL *ssl, CBB *out) {
+  CBB contents;
+  if (!CBB_add_u16(out, TLSEXT_TYPE_draft_version) ||
+      !CBB_add_u16_length_prefixed(out, &contents) ||
+      !CBB_add_u16(&contents, TLS1_3_DRAFT_VERSION)) {
+    return 0;
+  }
+
+  return CBB_flush(out);
+}
+
+
+/* Key Share
+ *
+ * https://tools.ietf.org/html/draft-ietf-tls-tls13-12 */
+
+static int ext_key_share_add_clienthello(SSL *ssl, CBB *out) {
+  uint16_t min_version, max_version;
+  if (!ssl_get_version_range(ssl, &min_version, &max_version)) {
+    return 0;
+  }
+
+  if (max_version < TLS1_3_VERSION || !ssl_any_ec_cipher_suites_enabled(ssl)) {
+    return 1;
+  }
+
+  CBB contents, kse_bytes;
+  if (!CBB_add_u16(out, TLSEXT_TYPE_key_share) ||
+      !CBB_add_u16_length_prefixed(out, &contents) ||
+      !CBB_add_u16_length_prefixed(&contents, &kse_bytes)) {
+    return 0;
+  }
+
+  const uint16_t *groups;
+  size_t groups_len;
+  tls1_get_grouplist(ssl, 0, &groups, &groups_len);
+
+  ssl->s3->hs->groups = OPENSSL_malloc(groups_len * sizeof(SSL_ECDH_CTX));
+  memset(ssl->s3->hs->groups, 0, groups_len * sizeof(SSL_ECDH_CTX));
+  ssl->s3->hs->groups_len = groups_len;
+
+  size_t i;
+  for (i = 0; i < groups_len; i++) {
+    if (!CBB_add_u16(&kse_bytes, groups[i])) {
+      return 0;
+    }
+
+    CBB key_exchange;
+    if (!CBB_add_u16_length_prefixed(&kse_bytes, &key_exchange)) {
+      return 0;
+    }
+
+    if (!SSL_ECDH_CTX_init(&ssl->s3->hs->groups[i], groups[i]) ||
+        !SSL_ECDH_CTX_offer(&ssl->s3->hs->groups[i], &key_exchange)) {
+      return 0;
+    }
+  }
+
+  return CBB_flush(out);
+}
+
+int ext_key_share_parse_serverhello(SSL *ssl, uint8_t *out_alert,
+                                    CBS *contents) {
+  if (contents == NULL) {
+    return ssl3_protocol_version(ssl) < TLS1_3_VERSION;
+  }
+
+  if (ssl->s3->hs->dhe_secret != NULL) {
+    *out_alert = SSL_AD_DECODE_ERROR;
+    return 0;
+  }
+
+  CBS peer_key;
+  uint16_t group;
+  if (!CBS_get_u16(contents, &group) ||
+      !CBS_get_u16_length_prefixed(contents, &peer_key)) {
+    *out_alert = SSL_AD_DECODE_ERROR;
+    return 0;
+  }
+  const uint16_t *groups;
+  size_t groups_len;
+  tls1_get_grouplist(ssl, 0, &groups, &groups_len);
+
+  size_t i;
+  for (i = 0; i < groups_len; i++) {
+    SSL_ECDH_CTX *group_ctx = &ssl->s3->hs->groups[i];
+    if (group_ctx->method->group_id == group) {
+      ssl->s3->tmp.ecdh_ctx = *group_ctx;
+    } else {
+      SSL_ECDH_CTX_cleanup(group_ctx);
+    }
+  }
+  OPENSSL_free(ssl->s3->hs->groups);
+  ssl->s3->hs->groups = NULL;
+
+  if (!SSL_ECDH_CTX_finish(&ssl->s3->tmp.ecdh_ctx,
+                           &ssl->s3->hs->dhe_secret,
+                           &ssl->s3->hs->dhe_secret_len,
+                           out_alert,
+                           CBS_data(&peer_key),
+                           CBS_len(&peer_key))) {
+    *out_alert = SSL_AD_INTERNAL_ERROR;
+    return 0;
+  }
+
+  return 1;
+}
+
+int ext_key_share_parse_clienthello(SSL *ssl, uint8_t *out_alert,
+                                    CBS *contents) {
+  if (contents == NULL) {
+    if (ssl3_protocol_version(ssl) < TLS1_3_VERSION) {
+      return 1;
+    }
+    return ssl->s3->hs->cipher->algorithm_auth & SSL_aPSK;
+  }
+
+  uint16_t group_id;
+  if (!tls1_get_shared_group(ssl, &group_id)) {
+    return 0;
+  }
+
+  CBS key_shares;
+  if (!CBS_get_u16_length_prefixed(contents, &key_shares)) {
+    return 0;
+  }
+
+  int found = 0;
+  while (CBS_len(&key_shares)) {
+    uint16_t id;
+    CBS peer_key;
+    if (!CBS_get_u16(&key_shares, &id) ||
+        !CBS_get_u16_length_prefixed(&key_shares, &peer_key)) {
+      return 0;
+    }
+    if (id == group_id) {
+      SSL_ECDH_CTX group;
+      memset(&group, 0, sizeof(SSL_ECDH_CTX));
+      CBB public_key;
+
+      if (!SSL_ECDH_CTX_init(&group, group_id) ||
+          !CBB_init(&public_key, 0) ||
+          !SSL_ECDH_CTX_accept(&group, &public_key,
+                               &ssl->s3->hs->dhe_secret,
+                               &ssl->s3->hs->dhe_secret_len,
+                               out_alert,
+                               CBS_data(&peer_key),
+                               CBS_len(&peer_key))) {
+        return 0;
+      }
+      ssl->s3->hs->public_key_len = CBB_len(&public_key);
+      ssl->s3->hs->public_key = OPENSSL_malloc(ssl->s3->hs->public_key_len);
+      memcpy(ssl->s3->hs->public_key, CBB_data(&public_key), ssl->s3->hs->public_key_len);
+
+      found = 1;
+    }
+  }
+
+  return found;
+}
+
+int ext_key_share_add_serverhello(SSL *ssl, CBB *out) {
+  if (!ssl_any_ec_cipher_suites_enabled(ssl) ||
+      ssl->s3->hs->public_key == NULL) {
+    return 1;
+  }
+
+  uint16_t group_id;
+  if (!tls1_get_shared_group(ssl, &group_id)) {
+    return 0;
+  }
+
+  CBB kse_bytes;
+  if (!CBB_add_u16(out, TLSEXT_TYPE_key_share) ||
+      !CBB_add_u16_length_prefixed(out, &kse_bytes) ||
+      !CBB_add_u16(&kse_bytes, group_id)) {
+    return 0;
+  }
+
+  CBB public_key;
+  if (!CBB_add_u16_length_prefixed(&kse_bytes, &public_key) ||
+      !CBB_add_bytes(&public_key, ssl->s3->hs->public_key, ssl->s3->hs->public_key_len)) {
+    return 0;
+  }
+
+  return CBB_flush(out);
 }
 
 
@@ -2029,6 +2252,22 @@ static const struct tls_extension kExtensions[] = {
     ext_ec_point_parse_clienthello,
     ext_ec_point_add_serverhello,
   },
+  {
+    TLSEXT_TYPE_draft_version,
+    NULL,
+    ext_draft_version_add_clienthello,
+    forbid_parse_serverhello,
+    ignore_parse_clienthello,
+    dont_add_serverhello,
+  },
+  {
+    TLSEXT_TYPE_key_share,
+    NULL,
+    ext_key_share_add_clienthello,
+    forbid_parse_serverhello,
+    ignore_parse_clienthello,
+    dont_add_serverhello,
+  },
   /* The final extension must be non-empty. WebSphere Application Server 7.0 is
    * intolerant to the last extension being zero-length. See
    * https://crbug.com/363583. */
@@ -2176,7 +2415,8 @@ int ssl_add_serverhello_tlsext(SSL *ssl, CBB *out) {
   }
 
   /* Discard empty extensions blocks. */
-  if (CBB_len(&extensions) == 0) {
+  if (ssl3_protocol_version(ssl) < TLS1_3_VERSION &&
+      CBB_len(&extensions) == 0) {
     CBB_discard_child(out);
   }
 
