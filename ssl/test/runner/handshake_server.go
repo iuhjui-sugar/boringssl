@@ -324,6 +324,10 @@ Curves:
 	}
 
 	hs.hello.cipherSuite = hs.suite.id
+	if c.config.Bugs.SendCipherSuite != 0 {
+		hs.hello.cipherSuite = c.config.Bugs.SendCipherSuite
+	}
+
 	hs.finishedHash = newFinishedHash(c.vers, hs.suite)
 	hs.finishedHash.discardHandshakeBuffer()
 	hs.writeClientHash(hs.clientHello.marshal())
@@ -367,8 +371,17 @@ Curves:
 			return err
 		}
 		hs.hello.hasKeyShare = true
+
+		curveID := selectedKeyShare.group
+		if c.config.Bugs.SendCurve != 0 {
+			curveID = config.Bugs.SendCurve
+		}
+		if c.config.Bugs.InvalidECDHPoint {
+			publicKey[0] ^= 0xff
+		}
+
 		hs.hello.keyShare = keyShareEntry{
-			group:       selectedKeyShare.group,
+			group:       curveID,
 			keyExchange: publicKey,
 		}
 	} else {
@@ -460,6 +473,10 @@ Curves:
 			return err
 		}
 
+		if config.Bugs.SendSignatureAlgorithm != 0 {
+			certVerify.signatureAlgorithm = config.Bugs.SendSignatureAlgorithm
+		}
+
 		hs.writeServerHash(certVerify.marshal())
 		c.writeRecord(recordTypeHandshake, certVerify.marshal())
 	}
@@ -478,6 +495,7 @@ Curves:
 	masterSecret := hs.finishedHash.extractKey(handshakeSecret, hs.finishedHash.zeroSecret())
 	trafficSecret := hs.finishedHash.deriveSecret(masterSecret, applicationTrafficLabel)
 
+	c.out.updateKeys(deriveTrafficAEAD(c.vers, hs.suite, trafficSecret, applicationPhase, serverWrite), c.vers)
 	// If we requested a client certificate, then the client must send a
 	// certificate message, even if it's empty.
 	if config.ClientAuth >= RequestClientCert {
@@ -549,7 +567,6 @@ Curves:
 	hs.writeClientHash(clientFinished.marshal())
 
 	// Switch to application data keys.
-	c.out.updateKeys(deriveTrafficAEAD(c.vers, hs.suite, trafficSecret, applicationPhase, serverWrite), c.vers)
 	c.in.updateKeys(deriveTrafficAEAD(c.vers, hs.suite, trafficSecret, applicationPhase, clientWrite), c.vers)
 
 	// TODO(davidben): Derive and save the resumption master secret for receiving tickets.
@@ -670,7 +687,7 @@ func (hs *serverHandshakeState) processClientExtensions(serverExtensions *server
 	config := hs.c.config
 	c := hs.c
 
-	if c.vers < VersionTLS13 || !enableTLS13Handshake {
+	if c.vers < VersionTLS13 || config.Bugs.NegotiateRenegotiationInfoAtAllVersions || !enableTLS13Handshake {
 		if !bytes.Equal(c.clientVerify, hs.clientHello.secureRenegotiation) {
 			c.sendAlert(alertHandshakeFailure)
 			return errors.New("tls: renegotiation mismatch")
@@ -721,7 +738,7 @@ func (hs *serverHandshakeState) processClientExtensions(serverExtensions *server
 		}
 	}
 
-	if c.vers < VersionTLS13 || !enableTLS13Handshake {
+	if c.vers < VersionTLS13 || config.Bugs.NegotiateNPNAtAllVersions || !enableTLS13Handshake {
 		if len(hs.clientHello.alpnProtocols) == 0 || c.config.Bugs.NegotiateALPNAndNPN {
 			// Although sending an empty NPN extension is reasonable, Firefox has
 			// had a bug around this. Best to send nothing at all if
@@ -733,9 +750,13 @@ func (hs *serverHandshakeState) processClientExtensions(serverExtensions *server
 				serverExtensions.npnLast = config.Bugs.SwapNPNAndALPN
 			}
 		}
+	}
 
+	if c.vers < VersionTLS13 || config.Bugs.NegotiateEMSAtAllVersions || !enableTLS13Handshake {
 		serverExtensions.extendedMasterSecret = c.vers >= VersionTLS10 && hs.clientHello.extendedMasterSecret && !c.config.Bugs.NoExtendedMasterSecret
+	}
 
+	if c.vers < VersionTLS13 || config.Bugs.NegotiateChannelIDAtAllVersions || !enableTLS13Handshake {
 		if hs.clientHello.channelIDSupported && config.RequestChannelID {
 			serverExtensions.channelIDRequested = true
 		}
