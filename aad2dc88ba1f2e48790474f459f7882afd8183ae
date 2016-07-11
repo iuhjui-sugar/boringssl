@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da673430_1b7ba3d6",
+        "filename": "tool/transport_common.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-11T18:37:56Z",
+      "side": 1,
+      "message": "(I hadn\u0027t even thought about Windows and ssize_t!)",
+      "parentUuid": "fafb1832_61eb5018",
+      "range": {
+        "startLine": 382,
+        "startChar": 6,
+        "endLine": 382,
+        "endChar": 13
+      },
+      "revId": "aad2dc88ba1f2e48790474f459f7882afd8183ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafb1832_8133fc9e",
         "filename": "tool/transport_common.cc",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "da673430_db700bee",
+        "filename": "tool/transport_common.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-11T18:37:56Z",
+      "side": 1,
+      "message": "Done. (I guess we write |unsigned| not |unsigned int|, so best match that here too.)",
+      "parentUuid": "fafb1832_8133fc9e",
+      "range": {
+        "startLine": 421,
+        "startChar": 26,
+        "endLine": 421,
+        "endChar": 29
+      },
+      "revId": "aad2dc88ba1f2e48790474f459f7882afd8183ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafb1832_21966861",
         "filename": "tool/transport_common.cc",
         "patchSetId": 1
@@ -59,6 +107,24 @@
       "writtenOn": "2016-07-08T01:10:24Z",
       "side": 1,
       "message": "Did you mean to swap this block with the line below and maybe not condition it? It seems this code, when given:\n\n123-First line\n123-Second line\n123 The last line\n\nwould produce \"First line\\nSecond lineThe last line\". It might also do odd things if the first line is empty.",
+      "revId": "aad2dc88ba1f2e48790474f459f7882afd8183ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da673430_db492ba6",
+        "filename": "tool/transport_common.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-11T18:37:56Z",
+      "side": 1,
+      "message": "Yes, thanks. I brain-farted that.",
+      "parentUuid": "fafb1832_21966861",
       "revId": "aad2dc88ba1f2e48790474f459f7882afd8183ae",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
