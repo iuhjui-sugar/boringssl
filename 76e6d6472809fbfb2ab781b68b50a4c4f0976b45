@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da673430_fbfea737",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-11T18:54:18Z",
+      "side": 1,
+      "message": "check len(hs.clientHello.compressionMethods) \u003d\u003d 1?",
+      "revId": "76e6d6472809fbfb2ab781b68b50a4c4f0976b45",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da673430_dbfbeb45",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-11T18:54:18Z",
+      "side": 1,
+      "message": "Can we proceed with TLS 1.3 without a supported group if !PSK?",
+      "revId": "76e6d6472809fbfb2ab781b68b50a4c4f0976b45",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da673430_bb8d4ff6",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-11T18:54:18Z",
+      "side": 1,
+      "message": "Can this merge into the PSK else block, above? (It\u0027s still the case that, for TLS 1.3, the key exchange is PSK or (EC)DHE, right?)",
+      "revId": "76e6d6472809fbfb2ab781b68b50a4c4f0976b45",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
