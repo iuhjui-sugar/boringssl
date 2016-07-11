@@ -33,6 +33,24 @@
       "revId": "137b8c6717af516a520ec9cfa59e2d98f6bd66d6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba144089_0a823f70",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-11T22:38:23Z",
+      "side": 1,
+      "message": "base.h isn\u0027t processed by doc.go, but I did make one change in case that isn\u0027t always true.",
+      "parentUuid": "ba7a80a8_57334e9f",
+      "revId": "137b8c6717af516a520ec9cfa59e2d98f6bd66d6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
