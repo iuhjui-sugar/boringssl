@@ -439,6 +439,8 @@ start:
   /* Process unexpected records. */
 
   if (type == SSL3_RT_APPLICATION_DATA && rr->type == SSL3_RT_HANDSHAKE) {
+    // TODO(svaldez): Handle TLS 1.3 Post-Handshake Messages.
+
     /* If peer renegotiations are disabled, all out-of-order handshake records
      * are fatal. Renegotiations as a server are never supported. */
     if (ssl->server || !ssl3_can_renegotiate(ssl)) {
