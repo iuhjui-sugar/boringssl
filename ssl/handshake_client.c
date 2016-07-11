@@ -244,6 +244,10 @@ int ssl3_connect(SSL *ssl) {
 
       case SSL3_ST_CR_SRVR_HELLO_A:
         ret = ssl3_get_server_hello(ssl);
+        if (ssl->state == SSL_ST_TLS13) {
+          skip = 1;
+          break;
+        }
         if (ret <= 0) {
           goto end;
         }
@@ -490,6 +494,21 @@ int ssl3_connect(SSL *ssl) {
         }
         break;
 
+      case SSL_ST_TLS13:
+        ret = tls13_handshake(ssl);
+        if (ret <= 0) {
+          goto end;
+        }
+        if (ssl->s3->hs->handshake_state == HS_STATE_DONE) {
+          ssl->state = SSL_ST_OK;
+        }
+        if (ssl->s3->hs->handshake_interrupt & HS_NEED_FLUSH) {
+          ssl->s3->hs->handshake_interrupt &= ~HS_NEED_FLUSH;
+          ssl->state = SSL3_ST_CW_FLUSH;
+          ssl->s3->tmp.next_state = SSL_ST_TLS13;
+        }
+        break;
+
       case SSL_ST_OK:
         /* clean a few things up */
         ssl3_cleanup_key_block(ssl);
@@ -730,8 +749,8 @@ static int ssl3_get_server_hello(SSL *ssl) {
   uint16_t server_wire_version, server_version, cipher_suite;
   uint8_t compression_method;
 
-  int ret =
-      ssl->method->ssl_get_message(ssl, SSL3_MT_SERVER_HELLO, ssl_hash_message);
+  int ret = ssl->method->ssl_get_message(ssl, -1, ssl_hash_message);
+
   if (ret <= 0) {
     uint32_t err = ERR_peek_error();
     if (ERR_GET_LIB(err) == ERR_LIB_SSL &&
@@ -747,14 +766,16 @@ static int ssl3_get_server_hello(SSL *ssl) {
     return ret;
   }
 
+  if (ssl->s3->tmp.message_type != SSL3_MT_SERVER_HELLO &&
+      ssl->s3->tmp.message_type != SSL3_MT_HELLO_RETRY_REQUEST) {
+    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_UNEXPECTED_MESSAGE);
+    OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_MESSAGE);
+    return -1;
+  }
+
   CBS_init(&server_hello, ssl->init_msg, ssl->init_num);
 
-  if (!CBS_get_u16(&server_hello, &server_wire_version) ||
-      !CBS_get_bytes(&server_hello, &server_random, SSL3_RANDOM_SIZE) ||
-      !CBS_get_u8_length_prefixed(&server_hello, &session_id) ||
-      CBS_len(&session_id) > SSL3_SESSION_ID_SIZE ||
-      !CBS_get_u16(&server_hello, &cipher_suite) ||
-      !CBS_get_u8(&server_hello, &compression_method)) {
+  if (!CBS_get_u16(&server_hello, &server_wire_version)) {
     al = SSL_AD_DECODE_ERROR;
     OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
     goto f_err;
@@ -781,6 +802,29 @@ static int ssl3_get_server_hello(SSL *ssl) {
   } else if (server_wire_version != ssl->version) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_WRONG_SSL_VERSION);
     al = SSL_AD_PROTOCOL_VERSION;
+    goto f_err;
+  }
+
+  if (ssl3_protocol_version(ssl) == TLS1_3_VERSION) {
+    ssl->s3->hs->handshake_state = HS_STATE_SERVER_HELLO;
+    ssl->state = SSL_ST_TLS13;
+    return 1;
+  }
+
+  if (ssl->s3->tmp.message_type != SSL3_MT_SERVER_HELLO) {
+    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_UNEXPECTED_MESSAGE);
+    OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_MESSAGE);
+    return -1;
+  }
+
+
+  if (!CBS_get_bytes(&server_hello, &server_random, SSL3_RANDOM_SIZE) ||
+      !CBS_get_u8_length_prefixed(&server_hello, &session_id) ||
+      CBS_len(&session_id) > SSL3_SESSION_ID_SIZE ||
+      !CBS_get_u16(&server_hello, &cipher_suite) ||
+      !CBS_get_u8(&server_hello, &compression_method)) {
+    al = SSL_AD_DECODE_ERROR;
+    OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
     goto f_err;
   }
 
@@ -922,49 +966,6 @@ err:
   return -1;
 }
 
-/* ssl3_check_leaf_certificate returns one if |leaf| is a suitable leaf server
- * certificate for |ssl|. Otherwise, it returns zero and pushes an error on the
- * error queue. */
-static int ssl3_check_leaf_certificate(SSL *ssl, X509 *leaf) {
-  int ret = 0;
-  EVP_PKEY *pkey = X509_get_pubkey(leaf);
-  if (pkey == NULL) {
-    goto err;
-  }
-
-  /* Check the certificate's type matches the cipher. */
-  const SSL_CIPHER *cipher = ssl->s3->tmp.new_cipher;
-  int expected_type = ssl_cipher_get_key_type(cipher);
-  assert(expected_type != EVP_PKEY_NONE);
-  if (pkey->type != expected_type) {
-    OPENSSL_PUT_ERROR(SSL, SSL_R_WRONG_CERTIFICATE_TYPE);
-    goto err;
-  }
-
-  if (cipher->algorithm_auth & SSL_aECDSA) {
-    /* TODO(davidben): This behavior is preserved from upstream. Should key
-     * usages be checked in other cases as well? */
-    /* This call populates the ex_flags field correctly */
-    X509_check_purpose(leaf, -1, 0);
-    if ((leaf->ex_flags & EXFLAG_KUSAGE) &&
-        !(leaf->ex_kusage & X509v3_KU_DIGITAL_SIGNATURE)) {
-      OPENSSL_PUT_ERROR(SSL, SSL_R_ECC_CERT_NOT_FOR_SIGNING);
-      goto err;
-    }
-
-    if (!tls1_check_ec_cert(ssl, leaf)) {
-      OPENSSL_PUT_ERROR(SSL, SSL_R_BAD_ECC_CERT);
-      goto err;
-    }
-  }
-
-  ret = 1;
-
-err:
-  EVP_PKEY_free(pkey);
-  return ret;
-}
-
 static int ssl3_get_server_certificate(SSL *ssl) {
   int ret =
       ssl->method->ssl_get_message(ssl, SSL3_MT_CERTIFICATE, ssl_hash_message);
@@ -988,7 +989,7 @@ static int ssl3_get_server_certificate(SSL *ssl) {
   }
 
   X509 *leaf = sk_X509_value(chain, 0);
-  if (!ssl3_check_leaf_certificate(ssl, leaf)) {
+  if (!ssl_check_leaf_certificate(ssl, leaf)) {
     ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
     goto err;
   }
