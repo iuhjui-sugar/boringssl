@@ -18,8 +18,7 @@ import (
 	"time"
 )
 
-// TODO(davidben): Flip this to true when the C code lands.
-const enableTLS13Handshake = false
+const enableTLS13Handshake = true
 
 const (
 	VersionSSL30 = 0x0300
@@ -919,6 +918,22 @@ type ProtocolBugs struct {
 	// IgnoreSignatureVersionChecks, if true, causes all signature
 	// algorithms to be enabled at all TLS versions.
 	IgnoreSignatureVersionChecks bool
+
+	// NegotiateRenegotiationInfoAtAllVersions, if true, causes
+	// Renegotiation Info to be negotiated at all versions.
+	NegotiateRenegotiationInfoAtAllVersions bool
+
+	// NegotiateChannelIDAtAllVersions, if true, causes Channel ID to be
+	// negotiated at all versions.
+	NegotiateChannelIDAtAllVersions bool
+
+	// NegotiateNPNAtAllVersions, if true, causes NPN to be negotiated at
+	// all versions.
+	NegotiateNPNAtAllVersions bool
+
+	// NegotiateEMSAtAllVersions, if true, causes EMS to be negotiated at
+	// all versions.
+	NegotiateEMSAtAllVersions bool
 }
 
 func (c *Config) serverInit() {
