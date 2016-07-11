@@ -1016,6 +1016,13 @@ OPENSSL_EXPORT ASN1_TYPE *ASN1_generate_v3(char *str, X509V3_CTX *cnf);
 
 #ifdef  __cplusplus
 }
+
+namespace bssl {
+
+using ScopedASN1_TYPE = ScopedType<ASN1_TYPE, ASN1_TYPE_free>;
+
+}  // namespace bssl
+
 #endif
 
 #define ASN1_R_ASN1_LENGTH_MISMATCH 100

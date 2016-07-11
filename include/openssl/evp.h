@@ -747,6 +747,14 @@ struct evp_pkey_st {
 
 #if defined(__cplusplus)
 }  /* extern C */
+
+namespace bssl {
+
+using ScopedEVP_PKEY = ScopedType<EVP_PKEY, EVP_PKEY_free>;
+using ScopedEVP_PKEY_CTX = ScopedType<EVP_PKEY_CTX, EVP_PKEY_CTX_free>;
+
+}  // namespace bssl
+
 #endif
 
 #define EVP_R_BUFFER_TOO_SMALL 100

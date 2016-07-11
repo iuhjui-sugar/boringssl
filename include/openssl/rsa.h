@@ -612,6 +612,13 @@ struct rsa_st {
 
 #if defined(__cplusplus)
 }  /* extern C */
+
+namespace bssl {
+
+using ScopedRSA = ScopedType<RSA, RSA_free>;
+
+}  // namespace bssl
+
 #endif
 
 #define RSA_R_BAD_ENCODING 100

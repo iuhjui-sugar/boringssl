@@ -194,6 +194,13 @@ OPENSSL_EXPORT int i2d_ECDSA_SIG(const ECDSA_SIG *sig, uint8_t **outp);
 
 #if defined(__cplusplus)
 }  /* extern C */
+
+namespace bssl {
+
+using ScopedECDSA_SIG = ScopedType<ECDSA_SIG, ECDSA_SIG_free>;
+
+}  // namespace bssl
+
 #endif
 
 #define ECDSA_R_BAD_SIGNATURE 100

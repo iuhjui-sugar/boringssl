@@ -540,6 +540,15 @@ struct evp_cipher_st {
 
 #if defined(__cplusplus)
 }  /* extern C */
+
+namespace bssl {
+
+using ScopedEVP_CIPHER_CTX =
+    ScopedContext<EVP_CIPHER_CTX, int, EVP_CIPHER_CTX_init,
+                  EVP_CIPHER_CTX_cleanup>;
+
+}  // namespace bssl
+
 #endif
 
 #define CIPHER_R_AES_KEY_SETUP_FAILED 100

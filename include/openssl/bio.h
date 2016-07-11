@@ -895,6 +895,13 @@ struct bio_st {
 
 #if defined(__cplusplus)
 }  /* extern C */
+
+namespace bssl {
+
+using ScopedBIO = ScopedType<BIO, BIO_vfree>;
+
+}  // namespace bssl
+
 #endif
 
 #define BIO_R_BAD_FOPEN_MODE 100
