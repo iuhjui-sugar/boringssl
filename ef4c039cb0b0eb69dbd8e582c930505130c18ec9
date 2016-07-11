@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba7a80a8_977326f9",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 4545,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-11T15:01:53Z",
+      "side": 1,
+      "message": "Can you add a test for stray HelloRequests and packed handshakes? To make sure that the HelloRequest doesn\u0027t cause the entire record to be ignored?",
+      "range": {
+        "startLine": 4545,
+        "startChar": 10,
+        "endLine": 4545,
+        "endChar": 23
+      },
+      "revId": "ef4c039cb0b0eb69dbd8e582c930505130c18ec9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
