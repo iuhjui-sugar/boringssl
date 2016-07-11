@@ -353,14 +353,15 @@ typedef struct {
 OPENSSL_EXPORT size_t EC_get_builtin_curves(EC_builtin_curve *out_curves,
                                             size_t max_num_curves);
 
-/* Old code expects to get EC_KEY from ec.h. */
-#include <openssl/ec_key.h>
-
 
 #if defined(__cplusplus)
 }  /* extern C */
+#endif
 
-#if __cplusplus >= 201103
+/* Old code expects to get EC_KEY from ec.h. */
+#include <openssl/ec_key.h>
+
+#if defined(__cplusplus) && __cplusplus >= 201103
 
 namespace bssl {
 
@@ -368,8 +369,6 @@ using ScopedEC_GROUP = ScopedType<EC_GROUP, EC_GROUP_free>;
 using ScopedEC_POINT = ScopedType<EC_POINT, EC_POINT_free>;
 
 }  // namespace bssl
-
-#endif
 
 #endif
 
