@@ -847,6 +847,7 @@ func (m *serverHelloMsg) unmarshal(data []byte) bool {
 type encryptedExtensionsMsg struct {
 	raw        []byte
 	extensions serverExtensions
+	empty      bool
 }
 
 func (m *encryptedExtensionsMsg) marshal() []byte {
@@ -857,8 +858,10 @@ func (m *encryptedExtensionsMsg) marshal() []byte {
 	encryptedExtensionsMsg := newByteBuilder()
 	encryptedExtensionsMsg.addU8(typeEncryptedExtensions)
 	encryptedExtensions := encryptedExtensionsMsg.addU24LengthPrefixed()
-	extensions := encryptedExtensions.addU16LengthPrefixed()
-	m.extensions.marshal(extensions, VersionTLS13)
+	if !m.empty {
+		extensions := encryptedExtensions.addU16LengthPrefixed()
+		m.extensions.marshal(extensions, VersionTLS13)
+	}
 
 	m.raw = encryptedExtensionsMsg.finish()
 	return m.raw
