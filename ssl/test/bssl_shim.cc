@@ -1045,7 +1045,9 @@ static bool CheckHandshakeProperties(SSL *ssl, bool is_resume) {
   if (expect_handshake_done && !config->is_server) {
     bool expect_new_session =
         !config->expect_no_session &&
-        (!SSL_session_reused(ssl) || config->expect_ticket_renewal);
+        (!SSL_session_reused(ssl) || config->expect_ticket_renewal) &&
+        /* TODO(svaldez): Implement Session Resumption. */
+        SSL_version(ssl) != TLS1_3_VERSION;
     if (expect_new_session != GetTestState(ssl)->got_new_session) {
       fprintf(stderr,
               "new session was%s cached, but we expected the opposite\n",
