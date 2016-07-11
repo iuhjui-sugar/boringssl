@@ -22,6 +22,30 @@
       "revId": "14bcacd1983dd6d5f4f2aa70db878d7309d61787",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba7a80a8_976246ee",
+        "filename": "ssl/dtls_method.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-11T18:20:22Z",
+      "side": 1,
+      "message": "TBH, they probably don\u0027t need to be reset at all because we don\u0027t do DTLS renego and I have no idea what post-handshake messages for DTLS 1.3 will look like. But hopefully they won\u0027t reset the number because that was a mistake. I just left it here because the old code did that.",
+      "parentUuid": "ba7a80a8_d7699e0c",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 35
+      },
+      "revId": "14bcacd1983dd6d5f4f2aa70db878d7309d61787",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
