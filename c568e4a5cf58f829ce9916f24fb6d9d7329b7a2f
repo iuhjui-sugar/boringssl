@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a921c65_eb0431c0",
+        "filename": "ssl/test/runner/sign.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-12T17:03:04Z",
+      "side": 1,
+      "message": "PSS",
+      "range": {
+        "startLine": 226,
+        "startChar": 46,
+        "endLine": 226,
+        "endChar": 51
+      },
+      "revId": "c568e4a5cf58f829ce9916f24fb6d9d7329b7a2f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
