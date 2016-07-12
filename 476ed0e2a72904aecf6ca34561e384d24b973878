@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a921c65_2b38f977",
+        "filename": "ssl/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-12T17:07:22Z",
+      "side": 1,
+      "message": "We should be consistent on sigalg vs signature_algorithm.",
+      "range": {
+        "startLine": 495,
+        "startChar": 68,
+        "endLine": 495,
+        "endChar": 74
+      },
+      "revId": "476ed0e2a72904aecf6ca34561e384d24b973878",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a921c65_4b2d4539",
+        "filename": "ssl/ssl_rsa.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-12T17:07:22Z",
+      "side": 1,
+      "message": "EVP_PKEY_EC",
+      "range": {
+        "startLine": 670,
+        "startChar": 11,
+        "endLine": 670,
+        "endChar": 19
+      },
+      "revId": "476ed0e2a72904aecf6ca34561e384d24b973878",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
