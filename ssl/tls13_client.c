@@ -360,7 +360,9 @@ int tls13_client_handshake(SSL *ssl, SSL_HANDSHAKE *hs) {
         return 0;
       }
       if (tls13_receive_encrypted_extensions(ssl)) {
-        ssl->method->hash_current_message(ssl);
+        if (!ssl->method->hash_current_message(ssl)) {
+          return 0;
+        }
         if (ssl->s3->tmp.new_cipher->algorithm_auth & SSL_aPSK) {
           hs->state = HS_STATE_SERVER_FINISHED;
           hs->interrupt = hs_interrupt_read;
@@ -373,7 +375,9 @@ int tls13_client_handshake(SSL *ssl, SSL_HANDSHAKE *hs) {
     case HS_STATE_SERVER_CERTIFICATE_REQUEST:
       if (ssl->s3->tmp.message_type == SSL3_MT_CERTIFICATE_REQUEST) {
         if (tls13_receive_certificate_request(ssl)) {
-          ssl->method->hash_current_message(ssl);
+          if (!ssl->method->hash_current_message(ssl)) {
+            return 0;
+          }
           hs->state = HS_STATE_SERVER_CERTIFICATE;
           hs->interrupt = hs_interrupt_read;
         }
@@ -389,7 +393,9 @@ int tls13_client_handshake(SSL *ssl, SSL_HANDSHAKE *hs) {
         return 0;
       }
       if (tls13_receive_certificate(ssl)) {
-        ssl->method->hash_current_message(ssl);
+        if (!ssl->method->hash_current_message(ssl)) {
+          return 0;
+        }
         hs->state = HS_STATE_SERVER_CERTIFICATE_VERIFY;
         hs->interrupt = hs_interrupt_read;
       }
@@ -401,7 +407,9 @@ int tls13_client_handshake(SSL *ssl, SSL_HANDSHAKE *hs) {
         return 0;
       }
       if (tls13_receive_certificate_verify(ssl)) {
-        ssl->method->hash_current_message(ssl);
+        if (!ssl->method->hash_current_message(ssl)) {
+          return 0;
+        }
         hs->state = HS_STATE_SERVER_FINISHED;
         hs->interrupt = hs_interrupt_read;
       }
@@ -413,7 +421,9 @@ int tls13_client_handshake(SSL *ssl, SSL_HANDSHAKE *hs) {
         return 0;
       }
       if (tls13_receive_finished(ssl)) {
-        ssl->method->hash_current_message(ssl);
+        if (!ssl->method->hash_current_message(ssl)) {
+          return 0;
+        }
         /* Update the secret to the master secret and derive traffic keys. */
         static const uint8_t kZeroes[EVP_MAX_MD_SIZE] = {0};
         size_t hash_len =

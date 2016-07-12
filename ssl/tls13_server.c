@@ -479,7 +479,9 @@ int tls13_server_handshake(SSL *ssl, SSL_HANDSHAKE *hs) {
         return 0;
       }
       if (tls13_receive_certificate(ssl)) {
-        ssl->method->hash_current_message(ssl);
+        if (!ssl->method->hash_current_message(ssl)) {
+          return 0;
+        }
         hs->state = ssl->session->peer == NULL
                                   ? HS_STATE_CLIENT_FINISHED
                                   : HS_STATE_CLIENT_CERTIFICATE_VERIFY;
@@ -493,7 +495,9 @@ int tls13_server_handshake(SSL *ssl, SSL_HANDSHAKE *hs) {
         return 0;
       }
       if (tls13_receive_certificate_verify(ssl)) {
-        ssl->method->hash_current_message(ssl);
+        if (!ssl->method->hash_current_message(ssl)) {
+          return 0;
+        }
         hs->state = HS_STATE_CLIENT_FINISHED;
         hs->interrupt = hs_interrupt_read;
       }
@@ -505,7 +509,9 @@ int tls13_server_handshake(SSL *ssl, SSL_HANDSHAKE *hs) {
         return 0;
       }
       if (tls13_receive_finished(ssl)) {
-        ssl->method->hash_current_message(ssl);
+        if (!ssl->method->hash_current_message(ssl)) {
+          return 0;
+        }
         hs->state = HS_STATE_FINISH;
         hs->interrupt = hs_interrupt_none;
       }
