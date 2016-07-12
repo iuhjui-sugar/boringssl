@@ -106,7 +106,7 @@ int tls13_receive_certificate(SSL *ssl) {
       CBS_len(&context) != 0) {
     ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
     OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
-    goto err;
+    return 0;
   }
 
   uint8_t alert;
