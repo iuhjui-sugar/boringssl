@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a921c65_0ec34bfe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-12T21:17:10Z",
+      "side": 1,
+      "message": "Probably worth mentioning that this CL does not change the semantics of SSL_get_peer_certificate, etc., mid-renego. It still looks at the scratch space for the current handshake. But it allows us to do so in a later CL and we probably want to.",
+      "revId": "2bfd9e996e3c69178f5f4856aca540227fed7935",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
