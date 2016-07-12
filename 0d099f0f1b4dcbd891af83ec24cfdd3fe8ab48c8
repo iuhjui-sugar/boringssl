@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a921c65_4bb8e5ef",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1010,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-12T18:08:58Z",
+      "side": 0,
+      "message": "Transfer this comment over to the table.",
+      "revId": "0d099f0f1b4dcbd891af83ec24cfdd3fe8ab48c8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

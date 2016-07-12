@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a921c65_2bb39917",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-12T18:08:58Z",
+      "side": 1,
+      "message": "forbid_in_serverhello?",
+      "range": {
+        "startLine": 626,
+        "startChar": 11,
+        "endLine": 626,
+        "endChar": 21
+      },
+      "revId": "7ad2626541cb7031d217d3e462ff0e3131e23de3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a921c65_0baeddb0",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-12T18:08:58Z",
+      "side": 1,
+      "message": "ignore_in_client_hello?",
+      "range": {
+        "startLine": 637,
+        "startChar": 11,
+        "endLine": 637,
+        "endChar": 21
+      },
+      "revId": "7ad2626541cb7031d217d3e462ff0e3131e23de3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
