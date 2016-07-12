@@ -170,6 +170,11 @@ extern "C" {
 #define OPENSSL_MSVC_PRAGMA(arg)
 #endif
 
+/* MSVC does not set __cplusplus to 201103 yet. */
+#if defined(__cplusplus) && (__cplusplus >= 201103 || defined(_MSC_VER))
+#define OPENSSL_CXX11
+#endif
+
 
 /* CRYPTO_THREADID is a dummy value. */
 typedef int CRYPTO_THREADID;
@@ -294,7 +299,7 @@ typedef void *OPENSSL_BLOCK;
 }  /* extern C */
 
 
-#if __cplusplus >= 201103
+#if defined(OPENSSL_CXX11)
 
 namespace bssl {
 
