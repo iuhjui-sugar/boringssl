@@ -1004,13 +1004,6 @@ static int ext_ticket_parse_serverhello(SSL *ssl, uint8_t *out_alert,
   return 1;
 }
 
-static int ext_ticket_parse_clienthello(SSL *ssl, uint8_t *out_alert,
-                                        CBS *contents) {
-  /* This function isn't used because the ticket extension from the client is
-   * handled in ssl_session.c. */
-  return 1;
-}
-
 static int ext_ticket_add_serverhello(SSL *ssl, CBB *out) {
   if (!ssl->tlsext_ticket_expected) {
     return 1;
@@ -1062,18 +1055,6 @@ static int ext_sigalgs_add_clienthello(SSL *ssl, CBB *out) {
   return 1;
 }
 
-static int ext_sigalgs_parse_serverhello(SSL *ssl, uint8_t *out_alert,
-                                         CBS *contents) {
-  if (contents != NULL) {
-    /* Servers MUST NOT send this extension. */
-    *out_alert = SSL_AD_UNSUPPORTED_EXTENSION;
-    OPENSSL_PUT_ERROR(SSL, SSL_R_SIGNATURE_ALGORITHMS_EXTENSION_SENT_BY_SERVER);
-    return 0;
-  }
-
-  return 1;
-}
-
 static int ext_sigalgs_parse_clienthello(SSL *ssl, uint8_t *out_alert,
                                          CBS *contents) {
   OPENSSL_free(ssl->cert->peer_sigalgs);
@@ -1092,11 +1073,6 @@ static int ext_sigalgs_parse_clienthello(SSL *ssl, uint8_t *out_alert,
     return 0;
   }
 
-  return 1;
-}
-
-static int ext_sigalgs_add_serverhello(SSL *ssl, CBB *out) {
-  /* Servers MUST NOT send this extension. */
   return 1;
 }
 
@@ -1938,16 +1914,16 @@ static const struct tls_extension kExtensions[] = {
     NULL,
     ext_ticket_add_clienthello,
     ext_ticket_parse_serverhello,
-    ext_ticket_parse_clienthello,
+    NULL,
     ext_ticket_add_serverhello,
   },
   {
     TLSEXT_TYPE_signature_algorithms,
     NULL,
     ext_sigalgs_add_clienthello,
-    ext_sigalgs_parse_serverhello,
+    NULL,
     ext_sigalgs_parse_clienthello,
-    ext_sigalgs_add_serverhello,
+    NULL,
   },
   {
     TLSEXT_TYPE_status_request,
@@ -2135,7 +2111,8 @@ int ssl_add_serverhello_tlsext(SSL *ssl, CBB *out) {
 
   unsigned i;
   for (i = 0; i < kNumExtensions; i++) {
-    if (!(ssl->s3->tmp.extensions.received & (1u << i))) {
+    if (!(ssl->s3->tmp.extensions.received & (1u << i)) ||
+        kExtensions[i].add_serverhello == NULL) {
       /* Don't send extensions that were not received. */
       continue;
     }
@@ -2219,7 +2196,8 @@ static int ssl_scan_clienthello_tlsext(SSL *ssl, CBS *cbs, int *out_alert) {
 
       ssl->s3->tmp.extensions.received |= (1u << ext_index);
       uint8_t alert = SSL_AD_DECODE_ERROR;
-      if (!ext->parse_clienthello(ssl, &alert, &extension)) {
+      if (ext->parse_clienthello != NULL &&
+          !ext->parse_clienthello(ssl, &alert, &extension)) {
         *out_alert = alert;
         OPENSSL_PUT_ERROR(SSL, SSL_R_ERROR_PARSING_EXTENSION);
         ERR_add_error_dataf("extension: %u", (unsigned)type);
@@ -2233,7 +2211,8 @@ static int ssl_scan_clienthello_tlsext(SSL *ssl, CBS *cbs, int *out_alert) {
       /* Extension wasn't observed so call the callback with a NULL
        * parameter. */
       uint8_t alert = SSL_AD_DECODE_ERROR;
-      if (!kExtensions[i].parse_clienthello(ssl, &alert, NULL)) {
+      if (kExtensions[i].parse_clienthello != NULL &&
+          !kExtensions[i].parse_clienthello(ssl, &alert, NULL)) {
         OPENSSL_PUT_ERROR(SSL, SSL_R_MISSING_EXTENSION);
         ERR_add_error_dataf("extension: %u", (unsigned)kExtensions[i].value);
         *out_alert = alert;
@@ -2307,6 +2286,14 @@ static int ssl_scan_serverhello_tlsext(SSL *ssl, CBS *cbs, int *out_alert) {
 
       received |= (1u << ext_index);
 
+      if (ext->parse_serverhello == NULL) {
+        /* Servers MUST NOT send this extension. */
+        OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_EXTENSION);
+        ERR_add_error_dataf("extension :%u", (unsigned)type);
+        *out_alert = SSL_AD_UNSUPPORTED_EXTENSION;
+        return 0;
+      }
+
       uint8_t alert = SSL_AD_DECODE_ERROR;
       if (!ext->parse_serverhello(ssl, &alert, &extension)) {
         OPENSSL_PUT_ERROR(SSL, SSL_R_ERROR_PARSING_EXTENSION);
@@ -2323,7 +2310,8 @@ static int ssl_scan_serverhello_tlsext(SSL *ssl, CBS *cbs, int *out_alert) {
       /* Extension wasn't observed so call the callback with a NULL
        * parameter. */
       uint8_t alert = SSL_AD_DECODE_ERROR;
-      if (!kExtensions[i].parse_serverhello(ssl, &alert, NULL)) {
+      if (kExtensions[i].parse_serverhello != NULL &&
+          !kExtensions[i].parse_serverhello(ssl, &alert, NULL)) {
         OPENSSL_PUT_ERROR(SSL, SSL_R_MISSING_EXTENSION);
         ERR_add_error_dataf("extension: %u", (unsigned)kExtensions[i].value);
         *out_alert = alert;
