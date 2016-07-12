@@ -549,6 +549,48 @@ int tls12_check_peer_sigalg(SSL *ssl, int *out_alert,
   return 1;
 }
 
+static int ssl_any_ec_cipher_suites_enabled(const SSL *ssl) {
+  if (ssl->version < TLS1_VERSION && !SSL_IS_DTLS(ssl)) {
+    return 0;
+  }
+
+  const STACK_OF(SSL_CIPHER) *cipher_stack = SSL_get_ciphers(ssl);
+
+  size_t i;
+  for (i = 0; i < sk_SSL_CIPHER_num(cipher_stack); i++) {
+    const SSL_CIPHER *cipher = sk_SSL_CIPHER_value(cipher_stack, i);
+
+    const uint32_t alg_k = cipher->algorithm_mkey;
+    const uint32_t alg_a = cipher->algorithm_auth;
+    if ((alg_k & SSL_kECDHE) || (alg_a & SSL_aECDSA)) {
+      return 1;
+    }
+  }
+
+  return 0;
+}
+
+static int ssl_any_psk_cipher_suites_enabled(const SSL *ssl) {
+  if (ssl->version < TLS1_VERSION && !SSL_IS_DTLS(ssl)) {
+    return 0;
+  }
+
+  const STACK_OF(SSL_CIPHER) *cipher_stack = SSL_get_ciphers(ssl);
+
+  size_t i;
+  for (i = 0; i < sk_SSL_CIPHER_num(cipher_stack); i++) {
+    const SSL_CIPHER *cipher = sk_SSL_CIPHER_value(cipher_stack, i);
+
+    const uint32_t alg_k = cipher->algorithm_mkey;
+    const uint32_t alg_a = cipher->algorithm_auth;
+    if ((alg_k & SSL_kPSK) || (alg_a & SSL_aPSK)) {
+      return 1;
+    }
+  }
+
+  return 0;
+}
+
 /* Get a mask of disabled algorithms: an algorithm is disabled if it isn't
  * supported or doesn't appear in supported signature algorithms. Unlike
  * ssl_cipher_get_disabled this applies to a specific session and not global
@@ -1081,6 +1123,11 @@ static int ext_sigalgs_parse_clienthello(SSL *ssl, uint8_t *out_alert,
   ssl->cert->peer_sigalgslen = 0;
 
   if (contents == NULL) {
+    if (ssl3_protocol_version(ssl) >= TLS1_3_VERSION &&
+        !ssl_any_psk_cipher_suites_enabled(ssl)) {
+      *out_alert = SSL_R_MISSING_EXTENSION;
+      return 0;
+    }
     return 1;
   }
 
@@ -1729,27 +1776,6 @@ static int ext_srtp_add_serverhello(SSL *ssl, CBB *out) {
 /* EC point formats.
  *
  * https://tools.ietf.org/html/rfc4492#section-5.1.2 */
-
-static int ssl_any_ec_cipher_suites_enabled(const SSL *ssl) {
-  if (ssl->version < TLS1_VERSION && !SSL_IS_DTLS(ssl)) {
-    return 0;
-  }
-
-  const STACK_OF(SSL_CIPHER) *cipher_stack = SSL_get_ciphers(ssl);
-
-  size_t i;
-  for (i = 0; i < sk_SSL_CIPHER_num(cipher_stack); i++) {
-    const SSL_CIPHER *cipher = sk_SSL_CIPHER_value(cipher_stack, i);
-
-    const uint32_t alg_k = cipher->algorithm_mkey;
-    const uint32_t alg_a = cipher->algorithm_auth;
-    if ((alg_k & SSL_kECDHE) || (alg_a & SSL_aECDSA)) {
-      return 1;
-    }
-  }
-
-  return 0;
-}
 
 static int ext_ec_point_add_extension(SSL *ssl, CBB *out) {
   CBB contents, formats;
