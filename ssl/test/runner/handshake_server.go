@@ -328,13 +328,8 @@ Curves:
 	hs.writeClientHash(hs.clientHello.marshal())
 
 	// Resolve PSK and compute the early secret.
-	var psk []byte
-	if hs.suite.flags&suitePSK != 0 {
-		return errors.New("tls: PSK ciphers not implemented for TLS 1.3")
-	} else {
-		psk = hs.finishedHash.zeroSecret()
-		hs.finishedHash.setResumptionContext(hs.finishedHash.zeroSecret())
-	}
+	psk := hs.finishedHash.zeroSecret()
+	hs.finishedHash.setResumptionContext(hs.finishedHash.zeroSecret())
 
 	earlySecret := hs.finishedHash.extractKey(hs.finishedHash.zeroSecret(), psk)
 
@@ -392,6 +387,8 @@ Curves:
 	c.in.updateKeys(deriveTrafficAEAD(c.vers, hs.suite, handshakeTrafficSecret, handshakePhase, clientWrite), c.vers)
 
 	if hs.suite.flags&suitePSK != 0 {
+		return errors.New("tls: PSK ciphers not implemented for TLS 1.3")
+	} else {
 		if hs.clientHello.ocspStapling {
 			encryptedExtensions.extensions.ocspResponse = hs.cert.OCSPStaple
 		}
