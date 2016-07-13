@@ -16,6 +16,120 @@
       "revId": "2bfd9e996e3c69178f5f4856aca540227fed7935",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba144089_b0654dfa",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1615,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-13T20:26:38Z",
+      "side": 1,
+      "message": "s/handshake/session/?",
+      "range": {
+        "startLine": 1615,
+        "startChar": 63,
+        "endLine": 1615,
+        "endChar": 72
+      },
+      "revId": "2bfd9e996e3c69178f5f4856aca540227fed7935",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba144089_f03865dc",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 2039,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-13T20:26:38Z",
+      "side": 1,
+      "message": "This jumps over the declaration of |session_renewed| and |session|, but those variables are then read in err:.",
+      "revId": "2bfd9e996e3c69178f5f4856aca540227fed7935",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba144089_704d957c",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 2057,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-13T20:26:38Z",
+      "side": 1,
+      "message": "worth adding a /* */ comment about the meaning of 0. (And there was another call to this above, with 1, which could use the same thing.)",
+      "range": {
+        "startLine": 2057,
+        "startChar": 44,
+        "endLine": 2057,
+        "endChar": 45
+      },
+      "revId": "2bfd9e996e3c69178f5f4856aca540227fed7935",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba144089_50f05932",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 1931,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-13T20:26:38Z",
+      "side": 1,
+      "message": "This may be a place where it\u0027s best to use an inline conditional:\n\nSSL_SESSION_to_bytes_for_ticket(ssl-\u003esession !\u003d NULL ? ssl-\u003esession, ssl-\u003es3-\u003enew_session, ...)",
+      "revId": "2bfd9e996e3c69178f5f4856aca540227fed7935",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba144089_301e7d5a",
+        "filename": "ssl/ssl_session.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-13T20:26:38Z",
+      "side": 1,
+      "message": "X509_chain_up_ref cannot fail.",
+      "revId": "2bfd9e996e3c69178f5f4856aca540227fed7935",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba144089_f03ce5b0",
+        "filename": "ssl/ssl_session.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-13T20:26:38Z",
+      "side": 1,
+      "message": "Can we test that this function is complete by doing a handshake, duping the resulting session and checking that serialising both results in the same bytes?",
+      "revId": "2bfd9e996e3c69178f5f4856aca540227fed7935",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
