@@ -4792,7 +4792,7 @@ func addSignatureAlgorithmTests() {
 			suffix := "-" + alg.name + "-" + ver.name
 
 			testCases = append(testCases, testCase{
-				name: "SigningHash-ClientAuth-Sign" + suffix,
+				name: "ClientAuth-Sign" + suffix,
 				config: Config{
 					MaxVersion: ver.version,
 					ClientAuth: RequireAnyClientCert,
@@ -4814,7 +4814,7 @@ func addSignatureAlgorithmTests() {
 
 			testCases = append(testCases, testCase{
 				testType: serverTest,
-				name:     "SigningHash-ClientAuth-Verify" + suffix,
+				name:     "ClientAuth-Verify" + suffix,
 				config: Config{
 					MaxVersion:   ver.version,
 					Certificates: []Certificate{getRunnerCertificate(alg.cert)},
@@ -4840,7 +4840,7 @@ func addSignatureAlgorithmTests() {
 
 			testCases = append(testCases, testCase{
 				testType: serverTest,
-				name:     "SigningHash-ServerKeyExchange-Sign" + suffix,
+				name:     "ServerAuth-Sign" + suffix,
 				config: Config{
 					MaxVersion: ver.version,
 					CipherSuites: []uint16{
@@ -4864,7 +4864,7 @@ func addSignatureAlgorithmTests() {
 			})
 
 			testCases = append(testCases, testCase{
-				name: "SigningHash-ServerKeyExchange-Verify" + suffix,
+				name: "ServerAuth-Verify" + suffix,
 				config: Config{
 					MaxVersion:   ver.version,
 					Certificates: []Certificate{getRunnerCertificate(alg.cert)},
@@ -4894,7 +4894,7 @@ func addSignatureAlgorithmTests() {
 	//
 	// TODO(davidben): Test this in TLS 1.3.
 	testCases = append(testCases, testCase{
-		name: "SigningHash-ClientAuth-SignatureType",
+		name: "ClientAuth-SignatureType",
 		config: Config{
 			ClientAuth: RequireAnyClientCert,
 			MaxVersion: VersionTLS12,
@@ -4913,7 +4913,7 @@ func addSignatureAlgorithmTests() {
 
 	testCases = append(testCases, testCase{
 		testType: serverTest,
-		name:     "SigningHash-ServerKeyExchange-SignatureType",
+		name:     "ServerAuth-SignatureType",
 		config: Config{
 			MaxVersion:   VersionTLS12,
 			CipherSuites: []uint16{TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256},
@@ -4950,7 +4950,7 @@ func addSignatureAlgorithmTests() {
 	})
 
 	testCases = append(testCases, testCase{
-		name: "Verify-ServerKeyExchange-SignatureType",
+		name: "Verify-ServerAuth-SignatureType",
 		config: Config{
 			MaxVersion:   VersionTLS12,
 			CipherSuites: []uint16{TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256},
@@ -4968,7 +4968,7 @@ func addSignatureAlgorithmTests() {
 	// Test that, if the list is missing, the peer falls back to SHA-1 in
 	// TLS 1.2, but not TLS 1.3.
 	testCases = append(testCases, testCase{
-		name: "SigningHash-ClientAuth-Fallback",
+		name: "ClientAuth-SHA1-Fallback",
 		config: Config{
 			MaxVersion: VersionTLS12,
 			ClientAuth: RequireAnyClientCert,
@@ -4987,7 +4987,7 @@ func addSignatureAlgorithmTests() {
 
 	testCases = append(testCases, testCase{
 		testType: serverTest,
-		name:     "SigningHash-ServerKeyExchange-Fallback",
+		name:     "ServerAuth-SHA1-Fallback",
 		config: Config{
 			MaxVersion:   VersionTLS12,
 			CipherSuites: []uint16{TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256},
@@ -5001,7 +5001,7 @@ func addSignatureAlgorithmTests() {
 	})
 
 	testCases = append(testCases, testCase{
-		name: "SigningHash-ClientAuth-Fallback-TLS13",
+		name: "ClientAuth-NoFallback-TLS13",
 		config: Config{
 			MaxVersion: VersionTLS13,
 			ClientAuth: RequireAnyClientCert,
@@ -5022,7 +5022,7 @@ func addSignatureAlgorithmTests() {
 
 	testCases = append(testCases, testCase{
 		testType: serverTest,
-		name:     "SigningHash-ServerKeyExchange-Fallback-TLS13",
+		name:     "ServerAuth-NoFallback-TLS13",
 		config: Config{
 			MaxVersion:   VersionTLS13,
 			CipherSuites: []uint16{TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256},
@@ -5041,7 +5041,7 @@ func addSignatureAlgorithmTests() {
 	// rejecting MD5 signatures.
 	testCases = append(testCases, testCase{
 		testType: serverTest,
-		name:     "SigningHash-ClientAuth-Enforced",
+		name:     "ClientAuth-Enforced",
 		config: Config{
 			MaxVersion:   VersionTLS12,
 			Certificates: []Certificate{rsaCertificate},
@@ -5063,7 +5063,7 @@ func addSignatureAlgorithmTests() {
 	})
 
 	testCases = append(testCases, testCase{
-		name: "SigningHash-ServerKeyExchange-Enforced",
+		name: "ServerAuth-Enforced",
 		config: Config{
 			MaxVersion:   VersionTLS12,
 			CipherSuites: []uint16{TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256},
