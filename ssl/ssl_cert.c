@@ -417,6 +417,10 @@ int SSL_CTX_add_client_CA(SSL_CTX *ctx, X509 *x509) {
   return add_client_CA(&ctx->client_CA, x509);
 }
 
+int ssl_has_certificate(const SSL *ssl) {
+  return ssl->cert->x509 != NULL && ssl_has_private_key(ssl);
+}
+
 int ssl_add_cert_to_cbb(CBB *cbb, X509 *x509) {
   int len = i2d_X509(x509, NULL);
   if (len < 0) {
@@ -441,12 +445,12 @@ static int ssl_add_cert_with_length(CBB *cbb, X509 *x509) {
 }
 
 int ssl_add_cert_chain(SSL *ssl, CBB *cbb) {
+  if (!ssl_has_certificate(ssl)) {
+    return CBB_add_u24(cbb, 0);
+  }
+
   CERT *cert = ssl->cert;
   X509 *x = cert->x509;
-  if (x == NULL) {
-    OPENSSL_PUT_ERROR(SSL, SSL_R_NO_CERTIFICATE_SET);
-    return 0;
-  }
 
   CBB child;
   if (!CBB_add_u24_length_prefixed(cbb, &child)) {

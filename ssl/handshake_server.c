@@ -922,6 +922,11 @@ static int ssl3_send_server_certificate(SSL *ssl) {
     return ssl->method->write_message(ssl);
   }
 
+  if (!ssl_has_certificate(ssl)) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_NO_CERTIFICATE_SET);
+    return 0;
+  }
+
   if (!ssl3_output_cert_chain(ssl)) {
     return 0;
   }
