@@ -153,6 +153,10 @@ const Flag<int> kIntFlags[] = {
   { "-initial-timeout-duration-ms", &TestConfig::initial_timeout_duration_ms },
 };
 
+const Flag<std::vector<int>> kIntVectorFlags[] = {
+  { "-signing-prefs", &TestConfig::signing_prefs },
+};
+
 }  // namespace
 
 bool ParseConfig(int argc, char **argv, TestConfig *out_config) {
@@ -205,6 +209,27 @@ bool ParseConfig(int argc, char **argv, TestConfig *out_config) {
         return false;
       }
       *int_field = atoi(argv[i]);
+      continue;
+    }
+
+    std::vector<int> *int_vector_field =
+        FindField(out_config, kIntVectorFlags, argv[i]);
+    if (int_vector_field) {
+      i++;
+      if (i >= argc) {
+        fprintf(stderr, "Missing parameter\n");
+        return false;
+      }
+
+      int_vector_field->clear();
+      for (;;) {
+        char *token =
+            strtok(int_vector_field->empty() ? argv[i] : nullptr, ",");
+        if (token == nullptr) {
+          break;
+        }
+        int_vector_field->push_back(atoi(token));
+      }
       continue;
     }
 
