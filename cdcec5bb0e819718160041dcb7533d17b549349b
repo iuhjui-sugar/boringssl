@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a921c65_1f80d30f",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 1674,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-14T13:50:00Z",
+      "side": 0,
+      "message": "This is only relevant for signing SSL 3.0, not verifying.",
+      "range": {
+        "startLine": 1674,
+        "startChar": 29,
+        "endLine": 1674,
+        "endChar": 70
+      },
+      "revId": "cdcec5bb0e819718160041dcb7533d17b549349b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
