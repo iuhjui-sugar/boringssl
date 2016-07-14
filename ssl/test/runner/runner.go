@@ -1051,63 +1051,6 @@ func bigFromHex(hex string) *big.Int {
 func addBasicTests() {
 	basicTests := []testCase{
 		{
-			name: "BadRSASignature",
-			config: Config{
-				// TODO(davidben): Add a TLS 1.3 version of this.
-				MaxVersion:   VersionTLS12,
-				CipherSuites: []uint16{TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256},
-				Bugs: ProtocolBugs{
-					InvalidSKXSignature: true,
-				},
-			},
-			shouldFail:    true,
-			expectedError: ":BAD_SIGNATURE:",
-		},
-		{
-			name: "BadECDSASignature",
-			config: Config{
-				// TODO(davidben): Add a TLS 1.3 version of this.
-				MaxVersion:   VersionTLS12,
-				CipherSuites: []uint16{TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256},
-				Bugs: ProtocolBugs{
-					InvalidSKXSignature: true,
-				},
-				Certificates: []Certificate{ecdsaP256Certificate},
-			},
-			shouldFail:    true,
-			expectedError: ":BAD_SIGNATURE:",
-		},
-		{
-			testType: serverTest,
-			name:     "BadRSASignature-ClientAuth",
-			config: Config{
-				// TODO(davidben): Add a TLS 1.3 version of this.
-				MaxVersion: VersionTLS12,
-				Bugs: ProtocolBugs{
-					InvalidCertVerifySignature: true,
-				},
-				Certificates: []Certificate{rsaCertificate},
-			},
-			shouldFail:    true,
-			expectedError: ":BAD_SIGNATURE:",
-			flags:         []string{"-require-any-client-certificate"},
-		},
-		{
-			testType: serverTest,
-			name:     "BadECDSASignature-ClientAuth",
-			config: Config{
-				// TODO(davidben): Add a TLS 1.3 version of this.
-				MaxVersion: VersionTLS12,
-				Bugs: ProtocolBugs{
-					InvalidCertVerifySignature: true,
-				},
-				Certificates: []Certificate{ecdsaP256Certificate},
-			},
-			shouldFail:    true,
-			expectedError: ":BAD_SIGNATURE:",
-			flags:         []string{"-require-any-client-certificate"},
-		},
-		{
 			name: "NoFallbackSCSV",
 			config: Config{
 				Bugs: ProtocolBugs{
@@ -4886,6 +4829,113 @@ func addSignatureAlgorithmTests() {
 				},
 				shouldFail:    shouldFail,
 				expectedError: verifyError,
+			})
+
+			if !shouldFail {
+				testCases = append(testCases, testCase{
+					testType: serverTest,
+					name:     "ClientAuth-InvalidSignature" + suffix,
+					config: Config{
+						MaxVersion:   ver.version,
+						Certificates: []Certificate{getRunnerCertificate(alg.cert)},
+						SignSignatureAlgorithms: []signatureAlgorithm{
+							alg.id,
+						},
+						Bugs: ProtocolBugs{
+							InvalidSignature: true,
+						},
+					},
+					flags: []string{
+						"-require-any-client-certificate",
+						"-enable-all-curves",
+					},
+					shouldFail:    true,
+					expectedError: ":BAD_SIGNATURE:",
+				})
+
+				testCases = append(testCases, testCase{
+					name: "ServerAuth-InvalidSignature" + suffix,
+					config: Config{
+						MaxVersion:   ver.version,
+						Certificates: []Certificate{getRunnerCertificate(alg.cert)},
+						CipherSuites: []uint16{
+							TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
+							TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
+						},
+						SignSignatureAlgorithms: []signatureAlgorithm{
+							alg.id,
+						},
+						Bugs: ProtocolBugs{
+							InvalidSignature: true,
+						},
+					},
+					flags:         []string{"-enable-all-curves"},
+					shouldFail:    true,
+					expectedError: ":BAD_SIGNATURE:",
+				})
+			}
+		}
+	}
+
+	// Add InvalidSignature tests for pre-1.2 versions.
+	for _, ver := range tlsVersions {
+		if ver.version >= VersionTLS12 {
+			continue
+		}
+		testCases = append(testCases, testCase{
+			name: "ServerAuth-InvalidSignature-RSA-" + ver.name,
+			config: Config{
+				MaxVersion:   ver.version,
+				CipherSuites: []uint16{TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA},
+				Bugs: ProtocolBugs{
+					InvalidSignature: true,
+				},
+				Certificates: []Certificate{rsaCertificate},
+			},
+			shouldFail:    true,
+			expectedError: ":BAD_SIGNATURE:",
+		})
+		testCases = append(testCases, testCase{
+			testType: serverTest,
+			name:     "ClientAuth-InvalidSignature-RSA-" + ver.name,
+			config: Config{
+				MaxVersion: ver.version,
+				Bugs: ProtocolBugs{
+					InvalidSignature: true,
+				},
+				Certificates: []Certificate{rsaCertificate},
+			},
+			shouldFail:    true,
+			expectedError: ":BAD_SIGNATURE:",
+			flags:         []string{"-require-any-client-certificate"},
+		})
+		if ver.version != VersionSSL30 {
+			testCases = append(testCases, testCase{
+				name: "ServerAuth-InvalidSignature-ECDSA-" + ver.name,
+				config: Config{
+					MaxVersion:   ver.version,
+					CipherSuites: []uint16{TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA},
+					Bugs: ProtocolBugs{
+						InvalidSignature: true,
+					},
+					Certificates: []Certificate{ecdsaP256Certificate},
+				},
+				shouldFail:    true,
+				expectedError: ":BAD_SIGNATURE:",
+			})
+			testCases = append(testCases, testCase{
+				testType: serverTest,
+				name:     "ClientAuth-InvalidSignature-ECDSA-" + ver.name,
+				config: Config{
+					MaxVersion: ver.version,
+					Bugs: ProtocolBugs{
+						InvalidSignature: true,
+					},
+					Certificates: []Certificate{ecdsaP256Certificate},
+				},
+				shouldFail:    true,
+				expectedError: ":BAD_SIGNATURE:",
+				flags:         []string{"-require-any-client-certificate"},
 			})
 		}
 	}
