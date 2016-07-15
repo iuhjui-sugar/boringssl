@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ab8503d_9f2b7f87",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 3745,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-15T19:01:07Z",
+      "side": 1,
+      "message": "Repeat extensions tests for all versions except SSL 3.0.",
+      "range": {
+        "startLine": 3745,
+        "startChar": 4,
+        "endLine": 3745,
+        "endChar": 52
+      },
+      "revId": "8e9b657f19edd9354b7734be24d354ad584480b3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
