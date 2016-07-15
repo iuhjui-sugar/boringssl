@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba20c083_c4d19eda",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-15T11:07:19Z",
+      "side": 1,
+      "message": "Not necessary check.",
+      "range": {
+        "startLine": 644,
+        "startChar": 6,
+        "endLine": 644,
+        "endChar": 20
+      },
+      "revId": "090725916f6b2772eecb2a6f74caa9fe6cb7f272",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
