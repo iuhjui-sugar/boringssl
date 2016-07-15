@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ab8503d_84985631",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-15T15:54:42Z",
+      "side": 1,
+      "message": "should use strtok_r",
+      "revId": "bd3f81481530c8816cd99c5413d329cd07cbe0ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
