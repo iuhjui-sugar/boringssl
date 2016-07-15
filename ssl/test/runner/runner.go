@@ -948,8 +948,7 @@ var tlsVersions = []struct {
 	{"TLS1", VersionTLS10, "-no-tls1", true},
 	{"TLS11", VersionTLS11, "-no-tls11", false},
 	{"TLS12", VersionTLS12, "-no-tls12", true},
-	// TODO(nharper): Once we have a real implementation of TLS 1.3, update the name here.
-	{"FakeTLS13", VersionTLS13, "-no-tls13", false},
+	{"TLS13", VersionTLS13, "-no-tls13", false},
 }
 
 var testCipherSuites = []struct {
