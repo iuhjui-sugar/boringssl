@@ -34,6 +34,24 @@
       "revId": "bd3f81481530c8816cd99c5413d329cd07cbe0ae",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ab8503d_bf0c8394",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-15T18:10:02Z",
+      "side": 1,
+      "message": "Got damm it, MSVC :(",
+      "parentUuid": "5ada64aa_0cbad7cd",
+      "revId": "bd3f81481530c8816cd99c5413d329cd07cbe0ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
