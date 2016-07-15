@@ -313,9 +313,11 @@ int tls1_change_cipher_state(SSL *ssl, int which) {
   }
 
   if (is_read) {
-    ssl_set_read_state(ssl, aead_ctx);
+    if (!ssl->method->set_read_state(ssl, aead_ctx)) {
+      return 0;
+    }
   } else {
-    ssl_set_write_state(ssl, aead_ctx);
+    ssl->method->set_write_state(ssl, aead_ctx);
   }
   return 1;
 }
