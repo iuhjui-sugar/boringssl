@@ -446,9 +446,6 @@ Curves:
 			certMsg.certificates = hs.cert.Certificate
 		}
 		certMsgBytes := certMsg.marshal()
-		if config.Bugs.WrongCertificateMessageType {
-			certMsgBytes[0] += 42
-		}
 		hs.writeServerHash(certMsgBytes)
 		c.writeRecord(recordTypeHandshake, certMsgBytes)
 
@@ -921,9 +918,6 @@ func (hs *serverHandshakeState) doFullHandshake() error {
 		}
 		if !config.Bugs.UnauthenticatedECDH {
 			certMsgBytes := certMsg.marshal()
-			if config.Bugs.WrongCertificateMessageType {
-				certMsgBytes[0] += 42
-			}
 			hs.writeServerHash(certMsgBytes)
 			c.writeRecord(recordTypeHandshake, certMsgBytes)
 		}
