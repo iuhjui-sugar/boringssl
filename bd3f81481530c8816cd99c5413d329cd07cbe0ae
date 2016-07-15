@@ -16,6 +16,24 @@
       "revId": "bd3f81481530c8816cd99c5413d329cd07cbe0ae",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ada64aa_0cbad7cd",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-15T18:08:59Z",
+      "side": 1,
+      "message": "We don\u0027t get it on MSVC. I just switched it to add a single entry each time the flag shows up. Seems simpler. (So multiple is specified by specifying the flag repeatedly.)",
+      "parentUuid": "3ab8503d_84985631",
+      "revId": "bd3f81481530c8816cd99c5413d329cd07cbe0ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
