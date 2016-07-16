@@ -469,14 +469,7 @@ int ssl3_accept(SSL *ssl) {
         if (ret <= 0) {
           goto end;
         }
-        if (ssl->s3->hs->handshake_state == HS_STATE_DONE) {
-          ssl->state = SSL_ST_OK;
-        }
-        if (ssl->s3->hs->handshake_interrupt & HS_NEED_FLUSH) {
-          ssl->s3->hs->handshake_interrupt &= ~HS_NEED_FLUSH;
-          ssl->state = SSL3_ST_SW_FLUSH;
-          ssl->s3->tmp.next_state = SSL_ST_TLS13;
-        }
+        ssl->state = SSL_ST_OK;
         break;
 
       case SSL_ST_OK:
@@ -640,7 +633,6 @@ static int ssl3_get_client_hello(SSL *ssl) {
   }
 
   if (ssl3_protocol_version(ssl) == TLS1_3_VERSION) {
-    ssl->s3->hs->handshake_state = HS_STATE_CLIENT_HELLO;
     ssl->state = SSL_ST_TLS13;
     return 1;
   }
