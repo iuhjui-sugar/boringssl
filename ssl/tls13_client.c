@@ -129,8 +129,6 @@ static enum ssl_hs_result_t do_process_server_hello(SSL *ssl, SSL_HANDSHAKE *hs)
   }
 
   ssl->session->cipher = cipher;
-  /* TODO(davidben): Too many copies of the cipher! */
-  ssl->s3->hs->cipher = cipher;
   ssl->s3->tmp.new_cipher = cipher;
 
   /* The PRF hash is now known. Set up the key schedule. */

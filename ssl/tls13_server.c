@@ -184,7 +184,6 @@ static enum ssl_hs_result_t do_process_client_hello(SSL *ssl,
   }
 
   ssl->session->cipher = cipher;
-  ssl->s3->hs->cipher = cipher;
   ssl->s3->tmp.new_cipher = cipher;
 
   /* The PRF hash is now known. Set up the key schedule and hash the
@@ -251,7 +250,7 @@ static enum ssl_hs_result_t do_send_server_hello(SSL *ssl,
       !CBB_add_u16(&body, ssl->version) ||
       !RAND_bytes(ssl->s3->server_random, sizeof(ssl->s3->server_random)) ||
       !CBB_add_bytes(&body, ssl->s3->server_random, SSL3_RANDOM_SIZE) ||
-      !CBB_add_u16(&body, ssl_cipher_get_value(ssl->s3->hs->cipher)) ||
+      !CBB_add_u16(&body, ssl_cipher_get_value(ssl->s3->tmp.new_cipher)) ||
       !CBB_add_u16_length_prefixed(&body, &extensions) ||
       !ext_key_share_add_serverhello(ssl, &extensions) ||
       !ssl->method->finish_message(ssl, &cbb)) {
