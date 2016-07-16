@@ -27,6 +27,60 @@
 #include "internal.h"
 
 
+static int tls13_receive_hello_retry_request(SSL *ssl) {
+  CBS cbs;
+  CBS_init(&cbs, ssl->init_msg, ssl->init_num);
+
+  CBS extensions;
+  uint16_t server_wire_version, cipher_suite, group_id;
+  if (!CBS_get_u16(&cbs, &server_wire_version) ||
+      !CBS_get_u16(&cbs, &cipher_suite) ||
+      !CBS_get_u16(&cbs, &group_id) ||
+      !CBS_get_u16_length_prefixed(&cbs, &extensions) ||
+      CBS_len(&cbs) != 0) {
+    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
+    return 0;
+  }
+
+  /* TODO(svaldez): Add HelloRetryRequest extension handling. */
+  /* TODO(svaldez): Remove 0RTT. */
+
+  const uint16_t *groups;
+  size_t groups_len;
+  tls1_get_grouplist(ssl, 0 /* local groups */, &groups, &groups_len);
+  int found = 0;
+  for (size_t i = 0; i < groups_len; i++) {
+    if (groups[i] == group_id) {
+      found = 1;
+      break;
+    }
+  }
+
+  if (!found) {
+    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_HANDSHAKE_FAILURE);
+    return 0;
+  }
+
+  for (size_t i = 0; i < ssl->s3->hs->groups_len; i++) {
+    /* TODO(svaldez): Don't enforce this check when HRR is due to Cookie. */
+    if (SSL_ECDH_CTX_get_id(&ssl->s3->hs->groups[i]) == group_id) {
+      ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_HANDSHAKE_FAILURE);
+      return 0;
+    }
+    SSL_ECDH_CTX_cleanup(&ssl->s3->hs->groups[i]);
+  }
+
+  OPENSSL_free(ssl->s3->hs->groups);
+  ssl->s3->hs->groups = NULL;
+  ssl->s3->hs->hrr_group = group_id;
+
+  return 1;
+}
+
+static int tls13_send_hrr_client_hello(SSL *ssl) {
+  return 1;
+}
+
 static int tls13_receive_server_hello(SSL *ssl) {
   CBS cbs;
   CBS_init(&cbs, ssl->init_msg, ssl->init_num);
@@ -228,10 +282,24 @@ int tls13_client_handshake(SSL *ssl, SSL_HANDSHAKE *hs) {
         hs->handshake_interrupt = HS_NEED_WRITE_FLIGHT | HS_NEED_READ;
       }
       break;
-    case HS_STATE_SERVER_HELLO:
-      if (ssl->s3->tmp.message_type == SSL3_MT_HELLO_RETRY_REQUEST) {
-        /* TODO(svaldez): Handle HelloRetryRequest (might kill 0-RTT) */
+    case HS_STATE_HELLO_RETRY_REQUEST:
+      if (ssl->s3->tmp.message_type != SSL3_MT_HELLO_RETRY_REQUEST) {
+        ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_UNEXPECTED_MESSAGE);
+        OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_MESSAGE);
+        return 0;
       }
+      if (tls13_receive_hello_retry_request(ssl)) {
+        hs->handshake_state = HS_STATE_HRR_CLIENT_HELLO;
+        hs->handshake_interrupt = HS_NEED_NONE;
+      }
+      break;
+    case HS_STATE_HRR_CLIENT_HELLO:
+      if (tls13_send_hrr_client_hello(ssl)) {
+        hs->handshake_state = HS_STATE_SERVER_HELLO;
+        hs->handshake_interrupt = HS_NEED_NONE;
+      }
+      break;
+    case HS_STATE_SERVER_HELLO:
       if (ssl->s3->tmp.message_type != SSL3_MT_SERVER_HELLO) {
         ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_UNEXPECTED_MESSAGE);
         OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_MESSAGE);

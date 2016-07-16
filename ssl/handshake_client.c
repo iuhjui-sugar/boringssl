@@ -811,7 +811,11 @@ static int ssl3_get_server_hello(SSL *ssl) {
   }
 
   if (ssl3_protocol_version(ssl) == TLS1_3_VERSION) {
-    ssl->s3->hs->handshake_state = HS_STATE_SERVER_HELLO;
+    if (ssl->s3->tmp.message_type == SSL3_MT_SERVER_HELLO) {
+      ssl->s3->hs->handshake_state = HS_STATE_SERVER_HELLO;
+    } else if (ssl->s3->tmp.message_type == SSL3_MT_HELLO_RETRY_REQUEST) {
+      ssl->s3->hs->handshake_state = HS_STATE_HELLO_RETRY_REQUEST;
+    }
     ssl->state = SSL_ST_TLS13;
     return 1;
   }

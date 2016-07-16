@@ -827,6 +827,7 @@ typedef enum ssl_handshake_state_t {
   HS_STATE_CLIENT_ENCRYPTED_EXTENSIONS,
   HS_STATE_CLIENT_EARLY_FINISHED,
   HS_STATE_HELLO_RETRY_REQUEST,
+  HS_STATE_HRR_CLIENT_HELLO,
   HS_STATE_SERVER_HELLO,
   HS_STATE_SERVER_ENCRYPTED_EXTENSIONS,
   HS_STATE_SERVER_CERTIFICATE_REQUEST,
@@ -868,8 +869,11 @@ struct ssl_handshake_st {
 
   uint8_t traffic_secret_0[EVP_MAX_MD_SIZE];
 
+  uint16_t hrr_group;
   SSL_ECDH_CTX *groups;
   size_t groups_len;
+  uint8_t *kse_bytes;
+  size_t kse_bytes_len;
   uint8_t *public_key;
   size_t public_key_len;
 
@@ -1303,6 +1307,10 @@ int tls1_generate_master_secret(SSL *ssl, uint8_t *out, const uint8_t *premaster
 
 char ssl_early_callback_init(struct ssl_early_callback_ctx *ctx);
 
+void tls1_get_grouplist(SSL *ssl, int get_peer_groups,
+                        const uint16_t **out_group_ids,
+                        size_t *out_group_ids_len);
+
 /* tls1_check_group_id returns one if |group_id| is consistent with both our
  * and the peer's group preferences. Note: if called as the client, only our
  * preferences are checked; the peer (the server) does not send preferences. */
@@ -1415,7 +1423,7 @@ int tls13_send_finished(SSL *ssl);
 int ext_key_share_parse_serverhello(SSL *ssl, uint8_t **out_secret,
                                     size_t *out_secret_len, uint8_t *out_alert,
                                     CBS *contents);
-int ext_key_share_parse_clienthello(SSL *ssl, uint8_t **out_secret,
+int ext_key_share_parse_clienthello(SSL *ssl, int *found, uint8_t **out_secret,
                                     size_t *out_secret_len, uint8_t *out_alert,
                                     CBS *contents);
 int ext_key_share_add_serverhello(SSL *ssl, CBB *out);
