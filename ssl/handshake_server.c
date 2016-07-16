@@ -633,7 +633,6 @@ static int ssl3_get_client_hello(SSL *ssl) {
   }
 
   if (ssl3_protocol_version(ssl) == TLS1_3_VERSION) {
-    ssl->s3->hs->handshake_state = HS_STATE_CLIENT_HELLO;
     ssl->state = SSL_ST_TLS13;
     return 1;
   }
