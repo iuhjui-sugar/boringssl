@@ -825,6 +825,8 @@ int tls13_derive_traffic_secret_0(SSL *ssl);
 typedef enum ssl_handshake_state_t {
   HS_STATE_CLIENT_HELLO = 1,
   HS_STATE_HELLO_RETRY_REQUEST,
+  HS_STATE_HRR_CLIENT_HELLO,
+  HS_STATE_HRR_FLUSH,
   HS_STATE_SERVER_HELLO,
   HS_STATE_SERVER_ENCRYPTED_EXTENSIONS,
   HS_STATE_SERVER_CERTIFICATE_REQUEST,
@@ -863,8 +865,11 @@ struct ssl_handshake_st {
   uint8_t secret[EVP_MAX_MD_SIZE];
   uint8_t traffic_secret_0[EVP_MAX_MD_SIZE];
 
+  uint16_t hrr_group;
   SSL_ECDH_CTX *groups;
   size_t groups_len;
+  uint8_t *kse_bytes;
+  size_t kse_bytes_len;
   uint8_t *public_key;
   size_t public_key_len;
 
@@ -1194,6 +1199,9 @@ void ssl_get_compatible_server_ciphers(SSL *ssl, uint32_t *out_mask_k,
 STACK_OF(SSL_CIPHER) *ssl_get_ciphers_by_id(SSL *ssl);
 int ssl_verify_alarm_type(long type);
 
+int ssl3_write_client_cipher_list(SSL *ssl, CBB *out,
+                                  uint16_t min_version,
+                                  uint16_t max_version);
 int ssl3_get_finished(SSL *ssl);
 int ssl3_send_change_cipher_spec(SSL *ssl);
 void ssl3_cleanup_key_block(SSL *ssl);
@@ -1296,6 +1304,10 @@ int tls1_generate_master_secret(SSL *ssl, uint8_t *out, const uint8_t *premaster
                                 size_t premaster_len);
 
 char ssl_early_callback_init(struct ssl_early_callback_ctx *ctx);
+
+void tls1_get_grouplist(SSL *ssl, int get_peer_groups,
+                        const uint16_t **out_group_ids,
+                        size_t *out_group_ids_len);
 
 /* tls1_check_group_id returns one if |group_id| is consistent with both our
  * and the peer's group preferences. Note: if called as the client, only our
@@ -1408,7 +1420,7 @@ int tls13_send_finished(SSL *ssl);
 int ext_key_share_parse_serverhello(SSL *ssl, uint8_t **out_secret,
                                     size_t *out_secret_len, uint8_t *out_alert,
                                     CBS *contents);
-int ext_key_share_parse_clienthello(SSL *ssl, uint8_t **out_secret,
+int ext_key_share_parse_clienthello(SSL *ssl, int *found, uint8_t **out_secret,
                                     size_t *out_secret_len, uint8_t *out_alert,
                                     CBS *contents);
 int ext_key_share_add_serverhello(SSL *ssl, CBB *out);
