@@ -550,9 +550,9 @@ end:
   return ret;
 }
 
-static int ssl3_write_client_cipher_list(SSL *ssl, CBB *out,
-                                         uint16_t min_version,
-                                         uint16_t max_version) {
+int ssl3_write_client_cipher_list(SSL *ssl, CBB *out,
+                                  uint16_t min_version,
+                                  uint16_t max_version) {
   /* Prepare disabled cipher masks. */
   ssl_set_client_disabled(ssl);
 
@@ -804,7 +804,11 @@ static int ssl3_get_server_hello(SSL *ssl) {
   }
 
   if (ssl3_protocol_version(ssl) == TLS1_3_VERSION) {
-    ssl->s3->hs->handshake_state = HS_STATE_SERVER_HELLO;
+    if (ssl->s3->tmp.message_type == SSL3_MT_SERVER_HELLO) {
+      ssl->s3->hs->handshake_state = HS_STATE_SERVER_HELLO;
+    } else if (ssl->s3->tmp.message_type == SSL3_MT_HELLO_RETRY_REQUEST) {
+      ssl->s3->hs->handshake_state = HS_STATE_HELLO_RETRY_REQUEST;
+    }
     ssl->state = SSL_ST_TLS13;
     return 1;
   }

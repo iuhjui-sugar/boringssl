@@ -186,19 +186,25 @@ static int tls13_receive_client_hello(SSL *ssl) {
     }
 
     CBS_init(&key_share, key_share_buf, key_share_len);
+    int found_dhe;
     uint8_t *dhe_secret;
     size_t dhe_secret_len;
     uint8_t alert;
-    if (!ext_key_share_parse_clienthello(ssl, &dhe_secret, &dhe_secret_len,
+    if (!ext_key_share_parse_clienthello(ssl, &found_dhe, &dhe_secret, &dhe_secret_len,
                                          &alert, &key_share)) {
       ssl3_send_alert(ssl, SSL3_AL_FATAL, alert);
       goto err;
     }
 
-    int ok = tls13_advance_key_schedule(ssl, dhe_secret, dhe_secret_len);
-    OPENSSL_free(dhe_secret);
-    if (!ok) {
-      return 0;
+    if (found_dhe) {
+      int ok = tls13_advance_key_schedule(ssl, dhe_secret, dhe_secret_len);
+      OPENSSL_free(dhe_secret);
+      if (!ok) {
+        return 0;
+      }
+    } else {
+      /* Couldn't find the KeyShare and must send HelloRetryRequest. */
+      ssl->s3->hs->hrr_group = 1;
     }
   } else if (!tls13_advance_key_schedule(ssl, kZeroes, hash_len)) {
     return 0;
@@ -209,6 +215,80 @@ static int tls13_receive_client_hello(SSL *ssl) {
 err:
   sk_SSL_CIPHER_free(ciphers);
   return ret;
+}
+
+static int tls13_send_hello_retry_request(SSL *ssl) {
+  CBB outer, cbb, extensions;
+  uint16_t group_id;
+  if (!ssl->method->init_message(ssl, &outer, &cbb,
+                                 SSL3_MT_HELLO_RETRY_REQUEST) ||
+      !CBB_add_u16(&cbb, ssl->version) ||
+      !CBB_add_u16(&cbb, ssl_cipher_get_value(ssl->s3->hs->cipher)) ||
+      !tls1_get_shared_group(ssl, &group_id) ||
+      !CBB_add_u16(&cbb, group_id) ||
+      !CBB_add_u16_length_prefixed(&cbb, &extensions) ||
+      !ssl->method->finish_message(ssl, &outer)) {
+    CBB_cleanup(&outer);
+    return 0;
+  }
+
+  return 1;
+}
+
+static int tls13_receive_hrr_client_hello(SSL *ssl) {
+  struct ssl_early_callback_ctx early_ctx;
+
+  memset(&early_ctx, 0, sizeof(early_ctx));
+  early_ctx.ssl = ssl;
+  early_ctx.client_hello = ssl->init_msg;
+  early_ctx.client_hello_len = ssl->init_num;
+  if (!ssl_early_callback_init(&early_ctx)) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_CLIENTHELLO_PARSE_FAILED);
+    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
+    return 0;
+  }
+
+  static const uint8_t kZeroes[EVP_MAX_MD_SIZE] = {0};
+  size_t hash_len = EVP_MD_size(ssl_get_handshake_digest(ssl_get_algorithm_prf(ssl)));
+
+  /* Resolve ECDHE and incorporate it into the secret. */
+  if (ssl->s3->hs->cipher->algorithm_mkey == SSL_kECDHE) {
+    const uint8_t *key_share_buf = NULL;
+    size_t key_share_len = 0;
+    CBS key_share;
+    if (!SSL_early_callback_ctx_extension_get(&early_ctx, TLSEXT_TYPE_key_share,
+                                              &key_share_buf, &key_share_len)) {
+      OPENSSL_PUT_ERROR(SSL, SSL_R_MISSING_KEY_SHARE);
+      ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_MISSING_EXTENSION);
+      return 0;
+    }
+
+    CBS_init(&key_share, key_share_buf, key_share_len);
+    int found_dhe;
+    uint8_t *dhe_secret;
+    size_t dhe_secret_len;
+    uint8_t alert;
+    if (!ext_key_share_parse_clienthello(ssl, &found_dhe, &dhe_secret, &dhe_secret_len,
+                                         &alert, &key_share)) {
+      ssl3_send_alert(ssl, SSL3_AL_FATAL, alert);
+      return 0;
+    }
+
+    if (found_dhe) {
+      int ok = tls13_advance_key_schedule(ssl, dhe_secret, dhe_secret_len);
+      OPENSSL_free(dhe_secret);
+      if (!ok) {
+        return 0;
+      }
+    } else {
+      ssl3_send_alert(ssl, SSL3_AL_FATAL, alert);
+      return 0;
+    }
+  } else if (!tls13_advance_key_schedule(ssl, kZeroes, hash_len)) {
+    return 0;
+  }
+
+  return 1;
 }
 
 static int tls13_send_server_hello(SSL *ssl) {
@@ -289,6 +369,27 @@ int tls13_server_handshake(SSL *ssl, SSL_HANDSHAKE *hs) {
         return 0;
       }
       if (tls13_receive_client_hello(ssl)) {
+        if (hs->hrr_group) {
+          hs->handshake_state = HS_STATE_HELLO_RETRY_REQUEST;
+        } else {
+          hs->handshake_state = HS_STATE_SERVER_HELLO;
+        }
+        hs->handshake_interrupt = HS_NEED_NONE;
+      }
+      break;
+    case HS_STATE_HELLO_RETRY_REQUEST:
+      if (tls13_send_hello_retry_request(ssl)) {
+        hs->handshake_state = HS_STATE_HRR_CLIENT_HELLO;
+        hs->handshake_interrupt = HS_NEED_WRITE_FLIGHT | HS_NEED_READ;
+      }
+      break;
+    case HS_STATE_HRR_CLIENT_HELLO:
+      if (ssl->s3->tmp.message_type != SSL3_MT_CLIENT_HELLO) {
+        ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_UNEXPECTED_MESSAGE);
+        OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_MESSAGE);
+        return 0;
+      }
+      if (tls13_receive_hrr_client_hello(ssl)) {
         hs->handshake_state = HS_STATE_SERVER_HELLO;
         hs->handshake_interrupt = HS_NEED_NONE;
       }
