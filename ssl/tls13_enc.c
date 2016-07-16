@@ -128,11 +128,6 @@ static int derive_secret(SSL *ssl, uint8_t *out, size_t len,
                            label_len, context_hashes, context_hashes_len, len);
 }
 
-int tls13_store_handshake_context(SSL *ssl) {
-  SSL_HANDSHAKE *hs = ssl->s3->hs;
-  return tls13_get_context_hashes(ssl, hs->hash_context, &hs->hash_context_len);
-}
-
 int tls13_set_traffic_key(SSL *ssl, enum tls_record_type_t type,
                           enum evp_aead_direction_t direction,
                           const uint8_t *traffic_secret,
@@ -350,12 +345,15 @@ int tls13_finished_mac(SSL *ssl, uint8_t *out, size_t *out_len, int is_server) {
     }
   }
 
+  uint8_t hash_context[EVP_MAX_MD_SIZE * 2];
+  size_t hash_context_len;
   unsigned len;
   if (!hkdf_expand_label(key, digest, traffic_secret, hs->key_len,
                          (const uint8_t *)label, strlen(label), NULL, 0,
                          hs->key_len) ||
-      HMAC(digest, key, key_len, hs->hash_context, hs->hash_context_len, out,
-           &len) == NULL) {
+      !tls13_get_context_hashes(ssl, hash_context, &hash_context_len) ||
+      HMAC(digest, key, key_len, hash_context, hash_context_len, out, &len) ==
+          NULL) {
     return 0;
   }
   *out_len = len;
