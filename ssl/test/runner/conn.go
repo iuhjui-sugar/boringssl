@@ -1128,6 +1128,8 @@ func (c *Conn) readHandshake() (interface{}, error) {
 		m = &serverHelloMsg{
 			isDTLS: c.isDTLS,
 		}
+	case typeHelloRetryRequest:
+		m = new(helloRetryRequestMsg)
 	case typeNewSessionTicket:
 		m = new(newSessionTicketMsg)
 	case typeEncryptedExtensions:

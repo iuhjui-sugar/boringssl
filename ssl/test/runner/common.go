@@ -259,6 +259,14 @@ type ServerSessionCache interface {
 	Put(sessionId string, session *sessionState)
 }
 
+type KeySharesBehavior int
+
+const (
+	KeySharesDefault KeySharesBehavior = iota
+	KeySharesAll
+	KeySharesNone
+)
+
 // A Config structure is used to configure a TLS client or server.
 // After one has been passed to a TLS function it must not be
 // modified. A Config may be reused; the tls package will also not
@@ -395,6 +403,11 @@ type Config struct {
 	// VerifySignatureAlgorithms, if not nil, overrides the default set of
 	// supported signature algorithms that are accepted.
 	VerifySignatureAlgorithms []signatureAlgorithm
+
+	// KeySharesBehavior is used by the client to decide which curves to send
+	// a KeyShare for. The zero value is KeySharesDefault, which will choose
+	// a sensible subset of curves.
+	KeySharesBehavior KeySharesBehavior
 
 	// Bugs specifies optional misbehaviour to be used for testing other
 	// implementations.

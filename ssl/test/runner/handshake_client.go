@@ -105,13 +105,15 @@ func (c *Conn) clientHandshake() error {
 
 	var keyShares map[CurveID]ecdhCurve
 	if hello.vers >= VersionTLS13 && enableTLS13Handshake {
-		// Offer every supported curve in the initial ClientHello.
-		//
-		// TODO(davidben): For real code, default to a more conservative
-		// set like P-256 and X25519. Make it configurable for tests to
-		// stress the HelloRetryRequest logic when implemented.
 		keyShares = make(map[CurveID]ecdhCurve)
+		hello.hasKeyShares = true
 		for _, curveID := range hello.supportedCurves {
+			if c.config.KeySharesBehavior == KeySharesNone {
+				continue
+			}
+			if c.config.KeySharesBehavior == KeySharesDefault && curveID != CurveP256 && curveID != CurveX25519 {
+				continue
+			}
 			curve, ok := curveForCurveID(curveID)
 			if !ok {
 				continue
@@ -287,7 +289,52 @@ NextCipherSuite:
 		}
 	}
 
-	// TODO(davidben): Handle HelloRetryRequest.
+	helloRetryRequest, haveHelloRetryRequest := msg.(*helloRetryRequestMsg)
+	var secondHelloBytes []byte
+	if haveHelloRetryRequest {
+		fmt.Println("hello retry")
+		hrrCurveFound := false
+		group := helloRetryRequest.selectedGroup
+		for _, curveID := range hello.supportedCurves {
+			if group == curveID {
+				hrrCurveFound = true
+				break
+			}
+		}
+		if !hrrCurveFound || keyShares[group] != nil {
+			c.sendAlert(alertHandshakeFailure)
+			return errors.New("tls: received invalid HelloRetryRequest")
+		}
+		curve, ok := curveForCurveID(group)
+		if !ok {
+			return errors.New("tls: Unable to get curve requested in HelloRetryRequest")
+		}
+		publicKey, err := curve.offer(c.config.rand())
+		if err != nil {
+			return err
+		}
+		keyShares[group] = curve
+		hello.keyShares = append(hello.keyShares, keyShareEntry{
+			group:       group,
+			keyExchange: publicKey,
+		})
+
+		if hello.hasEarlyData {
+			hello.hasEarlyData = false
+			hello.earlyDataContext = nil
+		}
+		hello.raw = nil
+
+		secondHelloBytes = hello.marshal()
+		c.writeRecord(recordTypeHandshake, secondHelloBytes)
+		c.flushHandshake()
+
+		msg, err = c.readHandshake()
+		if err != nil {
+			return err
+		}
+	}
+
 	serverHello, ok := msg.(*serverHelloMsg)
 	if !ok {
 		c.sendAlert(alertUnexpectedMessage)
@@ -322,6 +369,11 @@ NextCipherSuite:
 		return fmt.Errorf("tls: server selected an unsupported cipher suite")
 	}
 
+	if haveHelloRetryRequest && (helloRetryRequest.vers != c.vers || helloRetryRequest.cipherSuite != serverHello.cipherSuite) {
+		c.sendAlert(alertHandshakeFailure)
+		return errors.New("tls: ServerHello parameters did not match HelloRetryRequest")
+	}
+
 	hs := &clientHandshakeState{
 		c:            c,
 		serverHello:  serverHello,
@@ -333,6 +385,10 @@ NextCipherSuite:
 	}
 
 	hs.writeHash(helloBytes, hs.c.sendHandshakeSeq-1)
+	if haveHelloRetryRequest {
+		hs.writeServerHash(helloRetryRequest.marshal())
+		hs.writeClientHash(secondHelloBytes)
+	}
 	hs.writeServerHash(hs.serverHello.marshal())
 
 	if c.vers >= VersionTLS13 && enableTLS13Handshake {
