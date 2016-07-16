@@ -857,7 +857,6 @@ struct ssl_handshake_st {
   uint8_t *public_key;
   size_t public_key_len;
 
-  const SSL_CIPHER *cipher;
   uint8_t *cert_context;
   size_t cert_context_len;
 } /* SSL_HANDSHAKE */;
