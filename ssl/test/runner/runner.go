@@ -7229,8 +7229,44 @@ func addTLS13WrongMessageTypeTests() {
 }
 
 func addTLS13HandshakeTests() {
-	// TODO(davidben): Test the client failing to offer any key shares as
-	// well.
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name:     "MissingKeyShare-Client",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				MissingKeyShare: true,
+			},
+		},
+		shouldFail:    true,
+		expectedError: ":MISSING_KEY_SHARE:",
+	})
+
+	testCases = append(testCases, testCase{
+		name:     "MissingKeyShare-Server",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				MissingKeyShare: true,
+			},
+		},
+		shouldFail:    true,
+		expectedError: ":MISSING_KEY_SHARE:",
+	})
+
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name:     "ClientHelloMissingKeyShare",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				MissingKeyShare: true,
+			},
+		},
+		shouldFail:    true,
+		expectedError: ":MISSING_KEY_SHARE:",
+	})
+
 	testCases = append(testCases, testCase{
 		testType: clientTest,
 		name:     "MissingKeyShare",
