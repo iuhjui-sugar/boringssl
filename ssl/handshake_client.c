@@ -804,7 +804,6 @@ static int ssl3_get_server_hello(SSL *ssl) {
   }
 
   if (ssl3_protocol_version(ssl) == TLS1_3_VERSION) {
-    ssl->s3->hs->state = HS_STATE_SERVER_HELLO;
     ssl->state = SSL_ST_TLS13;
     return 1;
   }
