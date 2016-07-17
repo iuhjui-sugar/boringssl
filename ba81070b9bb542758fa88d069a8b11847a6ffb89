@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4a17f337_f9503709",
+        "filename": "ssl/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 829,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-17T15:23:17Z",
+      "side": 1,
+      "message": "Possibly consider dropping \u0027_message\".",
+      "range": {
+        "startLine": 828,
+        "startChar": 0,
+        "endLine": 829,
+        "endChar": 23
+      },
+      "revId": "ba81070b9bb542758fa88d069a8b11847a6ffb89",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a17f337_d94d736f",
+        "filename": "ssl/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 843,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-17T15:23:17Z",
+      "side": 1,
+      "message": "Could you just grab this from ssl-\u003es3?",
+      "range": {
+        "startLine": 843,
+        "startChar": 47,
+        "endLine": 843,
+        "endChar": 60
+      },
+      "revId": "ba81070b9bb542758fa88d069a8b11847a6ffb89",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a17f337_b95abf25",
+        "filename": "ssl/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 850,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-17T15:23:17Z",
+      "side": 1,
+      "message": "Maybe remove?",
+      "revId": "ba81070b9bb542758fa88d069a8b11847a6ffb89",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a17f337_9957fbfd",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-17T15:23:17Z",
+      "side": 1,
+      "message": "Why not while hs-\u003ewait !\u003d hs_ok?",
+      "revId": "ba81070b9bb542758fa88d069a8b11847a6ffb89",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a17f337_7984276e",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-17T15:23:17Z",
+      "side": 1,
+      "message": "0?",
+      "range": {
+        "startLine": 70,
+        "startChar": 16,
+        "endLine": 70,
+        "endChar": 17
+      },
+      "revId": "ba81070b9bb542758fa88d069a8b11847a6ffb89",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a17f337_1983eb64",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-17T15:23:17Z",
+      "side": 1,
+      "message": "Can we move this up so we don\u0027t double DoS_Callback?",
+      "range": {
+        "startLine": 136,
+        "startChar": 6,
+        "endLine": 136,
+        "endChar": 9
+      },
+      "revId": "ba81070b9bb542758fa88d069a8b11847a6ffb89",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
