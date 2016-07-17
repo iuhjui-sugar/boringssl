@@ -26,6 +26,10 @@ const (
 	VersionTLS13 = 0x0304
 )
 
+// The draft version of TLS 1.3 that is implemented here and sent in the draft
+// indicator extension.
+const tls13DraftVersion = 13
+
 const (
 	maxPlaintext        = 16384        // maximum plaintext payload length
 	maxCiphertext       = 16384 + 2048 // maximum ciphertext payload length

@@ -377,6 +377,11 @@ func (m *clientHelloMsg) marshal() []byte {
 		customExt := extensions.addU16LengthPrefixed()
 		customExt.addBytes([]byte(m.customExtension))
 	}
+	if m.vers == VersionTLS13 {
+		extensions.addU16(0xff02)
+		extValue := extensions.addU16LengthPrefixed()
+		extValue.addU16(tls13DraftVersion)
+	}
 
 	if extensions.len() == 0 {
 		hello.discardChild()
