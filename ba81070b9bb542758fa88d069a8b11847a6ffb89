@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4a17f337_39b58f36",
+        "filename": "ssl/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 829,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-17T15:44:50Z",
+      "side": 1,
+      "message": "I think it\u0027s worth being clear because of CCS and stuff.",
+      "parentUuid": "4a17f337_f9503709",
+      "range": {
+        "startLine": 828,
+        "startChar": 0,
+        "endLine": 829,
+        "endChar": 23
+      },
+      "revId": "ba81070b9bb542758fa88d069a8b11847a6ffb89",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4a17f337_d94d736f",
         "filename": "ssl/internal.h",
         "patchSetId": 11
@@ -36,6 +60,30 @@
       "writtenOn": "2016-07-17T15:23:17Z",
       "side": 1,
       "message": "Could you just grab this from ssl-\u003es3?",
+      "range": {
+        "startLine": 843,
+        "startChar": 47,
+        "endLine": 843,
+        "endChar": 60
+      },
+      "revId": "ba81070b9bb542758fa88d069a8b11847a6ffb89",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a17f337_59b04346",
+        "filename": "ssl/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 843,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-17T15:44:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a17f337_d94d736f",
       "range": {
         "startLine": 843,
         "startChar": 47,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "4a17f337_79ab07dc",
+        "filename": "ssl/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 850,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-17T15:44:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a17f337_b95abf25",
+      "revId": "ba81070b9bb542758fa88d069a8b11847a6ffb89",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4a17f337_9957fbfd",
         "filename": "ssl/tls13_both.c",
         "patchSetId": 11
@@ -76,6 +142,24 @@
       "writtenOn": "2016-07-17T15:23:17Z",
       "side": 1,
       "message": "Why not while hs-\u003ewait !\u003d hs_ok?",
+      "revId": "ba81070b9bb542758fa88d069a8b11847a6ffb89",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a17f337_996edbc3",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-17T15:44:50Z",
+      "side": 1,
+      "message": "hs-\u003ewait \u003d hs_ok on entry means \"you don\u0027t need to wait for anything before calling into the function\". We still need to call it once to actually get completion. It\u0027s wonky. :-/",
+      "parentUuid": "4a17f337_9957fbfd",
       "revId": "ba81070b9bb542758fa88d069a8b11847a6ffb89",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -105,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "4a17f337_b9719fa7",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-17T15:44:50Z",
+      "side": 1,
+      "message": "This is BIO-style, so I think we want -1.",
+      "parentUuid": "4a17f337_7984276e",
+      "range": {
+        "startLine": 70,
+        "startChar": 16,
+        "endLine": 70,
+        "endChar": 17
+      },
+      "revId": "ba81070b9bb542758fa88d069a8b11847a6ffb89",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4a17f337_1983eb64",
         "filename": "ssl/tls13_server.c",
         "patchSetId": 11
@@ -116,6 +224,30 @@
       "writtenOn": "2016-07-17T15:23:17Z",
       "side": 1,
       "message": "Can we move this up so we don\u0027t double DoS_Callback?",
+      "range": {
+        "startLine": 136,
+        "startChar": 6,
+        "endLine": 136,
+        "endChar": 9
+      },
+      "revId": "ba81070b9bb542758fa88d069a8b11847a6ffb89",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a17f337_d9745399",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-17T15:44:50Z",
+      "side": 1,
+      "message": "Yeah, we should do something about this. The 1.2 code does it too, so let\u0027s leave it alone for now and think about it separately.",
+      "parentUuid": "4a17f337_1983eb64",
       "range": {
         "startLine": 136,
         "startChar": 6,
