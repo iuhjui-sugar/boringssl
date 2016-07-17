@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4a17f337_d9f8d31d",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-17T13:31:20Z",
+      "side": 1,
+      "message": "Use check_message_type.",
+      "range": {
+        "startLine": 171,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 57
+      },
+      "revId": "73d9ead71fdf369717eec17d247bd737c487d11a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a17f337_b9f51f24",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-17T13:31:20Z",
+      "side": 1,
+      "message": "UNEXPECTED MESSAGE",
+      "range": {
+        "startLine": 48,
+        "startChar": 11,
+        "endLine": 48,
+        "endChar": 23
+      },
+      "revId": "73d9ead71fdf369717eec17d247bd737c487d11a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a17f337_99f25b38",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-17T13:31:20Z",
+      "side": 1,
+      "message": "Keep state transition and hash_current_message together.",
+      "range": {
+        "startLine": 186,
+        "startChar": 20,
+        "endLine": 186,
+        "endChar": 40
+      },
+      "revId": "73d9ead71fdf369717eec17d247bd737c487d11a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a17f337_5914c346",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-17T13:31:20Z",
+      "side": 1,
+      "message": "Keep state transition and hash_current_message together.",
+      "range": {
+        "startLine": 186,
+        "startChar": 20,
+        "endLine": 186,
+        "endChar": 40
+      },
+      "revId": "73d9ead71fdf369717eec17d247bd737c487d11a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a17f337_39190f7f",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-17T13:31:20Z",
+      "side": 1,
+      "message": "Same.",
+      "range": {
+        "startLine": 222,
+        "startChar": 10,
+        "endLine": 222,
+        "endChar": 12
+      },
+      "revId": "73d9ead71fdf369717eec17d247bd737c487d11a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a17f337_191e4b67",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-17T13:31:20Z",
+      "side": 1,
+      "message": "Can we just keep the message_type check and hash_message in tls13_client/server.",
+      "revId": "73d9ead71fdf369717eec17d247bd737c487d11a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a17f337_f92277a9",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-17T13:31:20Z",
+      "side": 1,
+      "message": "Rename this function.",
+      "range": {
+        "startLine": 327,
+        "startChar": 0,
+        "endLine": 327,
+        "endChar": 70
+      },
+      "revId": "73d9ead71fdf369717eec17d247bd737c487d11a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a17f337_d91fb35f",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-17T13:31:20Z",
+      "side": 1,
+      "message": "Merge with above.",
+      "range": {
+        "startLine": 437,
+        "startChar": 19,
+        "endLine": 437,
+        "endChar": 41
+      },
+      "revId": "73d9ead71fdf369717eec17d247bd737c487d11a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a17f337_b92cff9d",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-17T13:31:20Z",
+      "side": 1,
+      "message": "See comments on tls13_client.",
+      "range": {
+        "startLine": 20,
+        "startChar": 1,
+        "endLine": 20,
+        "endChar": 8
+      },
+      "revId": "73d9ead71fdf369717eec17d247bd737c487d11a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
