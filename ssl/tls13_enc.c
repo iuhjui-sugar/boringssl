@@ -94,7 +94,7 @@ int tls13_get_context_hashes(SSL *ssl, uint8_t *out, size_t *out_len) {
 
   EVP_MD_CTX ctx;
   EVP_MD_CTX_init(&ctx);
-  unsigned handshake_len;
+  unsigned handshake_len = 0;
   int ok = EVP_MD_CTX_copy_ex(&ctx, &ssl->s3->handshake_hash) &&
            EVP_DigestFinal_ex(&ctx, out, &handshake_len);
   EVP_MD_CTX_cleanup(&ctx);
@@ -335,7 +335,6 @@ int tls13_finished_mac(SSL *ssl, uint8_t *out, size_t *out_len, int is_server) {
 
   uint8_t context_hashes[2 * EVP_MAX_MD_SIZE];
   size_t context_hashes_len;
-
   unsigned len;
   if (!hkdf_expand_label(key, digest, traffic_secret, hs->hash_len,
                          (const uint8_t *)label, strlen(label), NULL, 0,

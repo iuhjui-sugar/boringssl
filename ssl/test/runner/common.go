@@ -935,8 +935,9 @@ type ProtocolBugs struct {
 	// all versions.
 	NegotiateEMSAtAllVersions bool
 
-	// MissingKeyShare, if true, causes the TLS 1.3 server to skip sending
-	// a key_share extension and use the zero ECDHE secret instead.
+	// MissingKeyShare, if true, causes the TLS 1.3 implementation to skip
+	// sending a key_share extension and use the zero ECDHE secret
+	// instead.
 	MissingKeyShare bool
 
 	// EmptyEncryptedExtensions, if true, causes the TLS 1.3 server to

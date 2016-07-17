@@ -134,6 +134,10 @@ func (c *Conn) clientHandshake() error {
 			})
 			keyShares[curveID] = curve
 		}
+
+		if c.config.Bugs.MissingKeyShare {
+			hello.keyShares = nil
+		}
 	}
 
 	possibleCipherSuites := c.config.cipherSuites()
@@ -477,7 +481,7 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 
 	// Resolve ECDHE and compute the handshake secret.
 	var ecdheSecret []byte
-	if hs.suite.flags&suiteECDHE != 0 {
+	if hs.suite.flags&suiteECDHE != 0 && !c.config.Bugs.MissingKeyShare {
 		if !hs.serverHello.hasKeyShare {
 			c.sendAlert(alertMissingExtension)
 			return errors.New("tls: server omitted the key share extension")
