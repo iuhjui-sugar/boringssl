@@ -629,10 +629,19 @@ Curves:
 	// Switch to application data keys on read.
 	c.in.updateKeys(deriveTrafficAEAD(c.vers, hs.suite, trafficSecret, applicationPhase, clientWrite), c.vers)
 
-	// TODO(davidben): Derive and save the resumption master secret for receiving tickets.
 	// TODO(davidben): Save the traffic secret for KeyUpdate.
 	c.cipherSuite = hs.suite
 	c.exporterSecret = hs.finishedHash.deriveSecret(masterSecret, exporterLabel)
+	c.resumptionSecret = hs.finishedHash.deriveSecret(masterSecret, resumptionLabel)
+
+	// TODO(davidben): Allow configuring the number of tickets sent for
+	// testing.
+	if !c.config.SessionTicketsDisabled {
+		ticketCount := 2
+		for i := 0; i < ticketCount; i++ {
+			c.SendNewSessionTicket()
+		}
+	}
 	return nil
 }
 
@@ -1414,6 +1423,7 @@ func (hs *serverHandshakeState) processCertsFromClient(certificates [][]byte) (c
 			return nil, fmt.Errorf("tls: client's certificate contains an unsupported public key of type %T", certs[0].PublicKey)
 		}
 		c.peerCertificates = certs
+		c.peerCertificatesRaw = certificates
 		return pub, nil
 	}
 
