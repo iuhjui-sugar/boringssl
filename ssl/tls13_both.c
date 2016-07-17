@@ -28,8 +28,8 @@
 #include "internal.h"
 
 
-SSL_HANDSHAKE *ssl_handshake_new(int (*do_handshake)(SSL *ssl,
-                                                     SSL_HANDSHAKE *hs)) {
+SSL_HANDSHAKE *ssl_handshake_new(
+    enum ssl_hs_wait_t (*do_handshake)(SSL *ssl, SSL_HANDSHAKE *hs)) {
   SSL_HANDSHAKE *hs = OPENSSL_malloc(sizeof(SSL_HANDSHAKE));
   if (hs == NULL) {
     OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
@@ -37,7 +37,7 @@ SSL_HANDSHAKE *ssl_handshake_new(int (*do_handshake)(SSL *ssl,
   }
   memset(hs, 0, sizeof(SSL_HANDSHAKE));
   hs->do_handshake = do_handshake;
-  hs->state = HS_STATE_CLIENT_HELLO;
+  hs->wait = ssl_hs_ok;
   return hs;
 }
 
@@ -62,52 +62,67 @@ void ssl_handshake_free(SSL_HANDSHAKE *hs) {
 int tls13_handshake(SSL *ssl) {
   SSL_HANDSHAKE *hs = ssl->s3->hs;
 
-  while (hs->state != HS_STATE_DONE) {
-    if (hs->interrupt == hs_interrupt_write ||
-        hs->interrupt == hs_interrupt_write_flight) {
-      int ret = ssl->method->write_message(ssl);
-      if (ret <= 0) {
-        return ret;
+  for (;;) {
+    /* Resolve the operation the handshake was waiting on. */
+    switch (hs->wait) {
+      case ssl_hs_error:
+        OPENSSL_PUT_ERROR(SSL, SSL_R_SSL_HANDSHAKE_FAILURE);
+        return -1;
+
+      case ssl_hs_read_message: {
+        int ret = ssl->method->ssl_get_message(ssl, -1, ssl_dont_hash_message);
+        if (ret <= 0) {
+          return ret;
+        }
+        break;
       }
-      if (hs->interrupt == hs_interrupt_write) {
-        hs->interrupt = hs_interrupt_none;
-      } else {
-        hs->interrupt = hs_interrupt_flush;
+
+      case ssl_hs_write_message: {
+        int ret = ssl->method->write_message(ssl);
+        if (ret <= 0) {
+          return ret;
+        }
+        break;
       }
-    }
-    if (hs->interrupt == hs_interrupt_flush) {
-      int ret = BIO_flush(ssl->wbio);
-      if (ret <= 0) {
-        ssl->rwstate = SSL_WRITING;
-        return ret;
+
+      case ssl_hs_flush: {
+        int ret = BIO_flush(ssl->wbio);
+        if (ret <= 0) {
+          ssl->rwstate = SSL_WRITING;
+          return ret;
+        }
+        break;
       }
-      ssl->s3->hs->interrupt = hs_interrupt_none;
-    }
-    if (hs->interrupt == hs_interrupt_read) {
-      int ret = ssl->method->ssl_get_message(ssl, -1, ssl_dont_hash_message);
-      if (ret <= 0) {
-        return ret;
-      }
-      hs->interrupt = hs_interrupt_none;
-    }
-    if (hs->interrupt == hs_interrupt_read_and_hash) {
-      int ret = ssl->method->ssl_get_message(ssl, -1, ssl_hash_message);
-      if (ret <= 0) {
-        return ret;
-      }
-      hs->interrupt = hs_interrupt_none;
+
+      case ssl_hs_x509_lookup:
+        ssl->rwstate = SSL_X509_LOOKUP;
+        hs->wait = ssl_hs_ok;
+        return -1;
+
+      case ssl_hs_private_key_operation:
+        ssl->rwstate = SSL_PRIVATE_KEY_OPERATION;
+        hs->wait = ssl_hs_ok;
+        return -1;
+
+      case ssl_hs_ok:
+        break;
     }
 
-    if (!hs->do_handshake(ssl, hs)) {
-      return 0;
-    }
-
-    if (hs->interrupt == hs_interrupt_cb) {
+    /* Run the state machine again. */
+    hs->wait = hs->do_handshake(ssl, hs);
+    if (hs->wait == ssl_hs_error) {
+      /* Don't loop around to avoid a stray |SSL_R_SSL_HANDSHAKE_FAILURE| the
+       * first time around. */
       return -1;
     }
-  }
+    if (hs->wait == ssl_hs_ok) {
+      /* The handshake has completed. */
+      return 1;
+    }
 
-  return 1;
+    /* Otherwise, loop to the beginning and resolve what was blocking the
+     * handshake. */
+  }
 }
 
 static int tls13_get_cert_verify_signature_input(SSL *ssl, uint8_t **out,
@@ -152,7 +167,17 @@ err:
   return 0;
 }
 
-int tls13_receive_certificate(SSL *ssl) {
+int tls13_process_certificate(SSL *ssl) {
+  if (ssl->s3->tmp.message_type != SSL3_MT_CERTIFICATE) {
+    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_UNEXPECTED_MESSAGE);
+    OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_MESSAGE);
+    return 0;
+  }
+
+  if (!ssl->method->hash_current_message(ssl)) {
+    return 0;
+  }
+
   CBS cbs, context;
   CBS_init(&cbs, ssl->init_msg, ssl->init_num);
   if (!CBS_get_u8_length_prefixed(&cbs, &context) ||
@@ -244,7 +269,11 @@ err:
   return ret;
 }
 
-int tls13_receive_certificate_verify(SSL *ssl) {
+int tls13_process_certificate_verify(SSL *ssl) {
+  if (!tls13_check_message_type(ssl, SSL3_MT_CERTIFICATE_VERIFY)) {
+    return 0;
+  }
+
   int ret = 0;
   X509 *peer = ssl->session->peer;
   EVP_PKEY *pkey = NULL;
@@ -290,6 +319,11 @@ int tls13_receive_certificate_verify(SSL *ssl) {
     goto err;
   }
 
+  /* Now that the signature is verified, add CertificateVerify to the hash. */
+  if (!ssl->method->hash_current_message(ssl)) {
+    return 0;
+  }
+
   ret = 1;
 
 err:
@@ -298,10 +332,21 @@ err:
   return ret;
 }
 
-int tls13_receive_finished(SSL *ssl) {
+int tls13_check_message_type(SSL *ssl, int type) {
+  if (ssl->s3->tmp.message_type != type) {
+    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_UNEXPECTED_MESSAGE);
+    OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_MESSAGE);
+    return 0;
+  }
+
+  return 1;
+}
+
+int tls13_process_finished(SSL *ssl) {
   uint8_t verify_data[EVP_MAX_MD_SIZE];
   size_t verify_data_len;
-  if (!tls13_finished_mac(ssl, verify_data, &verify_data_len, !ssl->server)) {
+  if (!tls13_check_message_type(ssl, SSL3_MT_FINISHED) ||
+      !tls13_finished_mac(ssl, verify_data, &verify_data_len, !ssl->server)) {
     return 0;
   }
 
@@ -312,61 +357,15 @@ int tls13_receive_finished(SSL *ssl) {
     return 0;
   }
 
+  /* Now that the MAC is verified, add CertificateVerify to the hash. */
+  if (!ssl->method->hash_current_message(ssl)) {
+    return 0;
+  }
+
   return 1;
 }
 
-int tls13_send_certificate(SSL *ssl) {
-  if (!ssl->server) {
-    /* Call cert_cb to update the certificate. */
-    if (!ssl->s3->hs->cert_cb && ssl->cert->cert_cb) {
-      int rv = ssl->cert->cert_cb(ssl, ssl->cert->cert_cb_arg);
-      if (rv == 0) {
-        ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
-        OPENSSL_PUT_ERROR(SSL, SSL_R_CERT_CB_ERROR);
-        return 0;
-      } else if (rv < 0) {
-        ssl->rwstate = SSL_X509_LOOKUP;
-        ssl->s3->hs->interrupt = hs_interrupt_cb;
-        return 0;
-      } else {
-        ssl->s3->hs->interrupt = hs_interrupt_none;
-      }
-
-      ssl->s3->hs->cert_cb = 1;
-    }
-
-    if (!ssl_has_certificate(ssl) &&
-        ssl->ctx->client_cert_cb != NULL) {
-      /* Call client_cert_cb to update the certificate. */
-      X509 *x509 = NULL;
-      EVP_PKEY *pkey = NULL;
-
-      int rv = ssl->ctx->client_cert_cb(ssl, &x509, &pkey);
-      if (rv < 0) {
-        ssl->rwstate = SSL_X509_LOOKUP;
-        ssl->s3->hs->interrupt = hs_interrupt_cb;
-        return 0;
-      } else {
-        ssl->s3->hs->interrupt = hs_interrupt_none;
-      }
-
-      int setup_error = rv == 1 && (!SSL_use_certificate(ssl, x509) ||
-                                    !SSL_use_PrivateKey(ssl, pkey));
-      X509_free(x509);
-      EVP_PKEY_free(pkey);
-      if (setup_error) {
-        ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
-        return 0;
-      }
-    }
-
-    if (!ssl_has_certificate(ssl)) {
-      ssl->s3->tmp.cert_request = 0;
-    }
-
-    ssl->s3->hs->cert_cb = 0;
-  }
-
+int tls13_prepare_certificate(SSL *ssl) {
   CBB cbb, body, context;
   if (!ssl->method->init_message(ssl, &cbb, &body, SSL3_MT_CERTIFICATE) ||
       !CBB_add_u8_length_prefixed(&body, &context) ||
@@ -381,8 +380,9 @@ int tls13_send_certificate(SSL *ssl) {
   return 1;
 }
 
-int tls13_send_certificate_verify(SSL *ssl) {
-  int ret = 0;
+enum ssl_private_key_result_t tls13_prepare_certificate_verify(
+    SSL *ssl, int is_first_run) {
+  enum ssl_private_key_result_t ret = ssl_private_key_failure;
   uint8_t *msg = NULL;
   size_t msg_len;
   CBB cbb, body;
@@ -392,7 +392,8 @@ int tls13_send_certificate_verify(SSL *ssl) {
   if (!tls1_choose_signature_algorithm(ssl, &signature_algorithm)) {
     goto err;
   }
-  if (!ssl->method->init_message(ssl, &cbb, &body, SSL3_MT_CERTIFICATE_VERIFY) ||
+  if (!ssl->method->init_message(ssl, &cbb, &body,
+                                 SSL3_MT_CERTIFICATE_VERIFY) ||
       !CBB_add_u16(&body, signature_algorithm)) {
     OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
     goto err;
@@ -401,18 +402,16 @@ int tls13_send_certificate_verify(SSL *ssl) {
   /* Sign the digest. */
   CBB child;
   const size_t max_sig_len = ssl_private_key_max_signature_len(ssl);
-
   uint8_t *sig;
   size_t sig_len;
   if (!CBB_add_u16_length_prefixed(&body, &child) ||
       !CBB_reserve(&child, &sig, max_sig_len)) {
+    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
     goto err;
   }
 
   enum ssl_private_key_result_t sign_result;
-  if (ssl->s3->hs->interrupt == hs_interrupt_cb) {
-    sign_result = ssl_private_key_complete(ssl, sig, &sig_len, max_sig_len);
-  } else {
+  if (is_first_run) {
     if (!tls13_get_cert_verify_signature_input(ssl, &msg, &msg_len,
                                                ssl->server)) {
       ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
@@ -420,19 +419,13 @@ int tls13_send_certificate_verify(SSL *ssl) {
     }
     sign_result = ssl_private_key_sign(ssl, sig, &sig_len, max_sig_len,
                                        signature_algorithm, msg, msg_len);
+  } else {
+    sign_result = ssl_private_key_complete(ssl, sig, &sig_len, max_sig_len);
   }
 
-  switch (sign_result) {
-    case ssl_private_key_success:
-      ssl->s3->hs->interrupt = hs_interrupt_none;
-      break;
-    case ssl_private_key_failure:
-      ssl->s3->hs->interrupt = hs_interrupt_error;
-      goto err;
-    case ssl_private_key_retry:
-      ssl->rwstate = SSL_PRIVATE_KEY_OPERATION;
-      ssl->s3->hs->interrupt = hs_interrupt_cb;
-      goto err;
+  if (sign_result != ssl_private_key_success) {
+    ret = sign_result;
+    goto err;
   }
 
   if (!CBB_did_write(&child, sig_len) ||
@@ -440,7 +433,7 @@ int tls13_send_certificate_verify(SSL *ssl) {
     goto err;
   }
 
-  ret = 1;
+  ret = ssl_private_key_success;
 
 err:
   CBB_cleanup(&cbb);
@@ -448,7 +441,7 @@ err:
   return ret;
 }
 
-int tls13_send_finished(SSL *ssl) {
+int tls13_prepare_finished(SSL *ssl) {
   size_t verify_data_len;
   uint8_t verify_data[EVP_MAX_MD_SIZE];
 
