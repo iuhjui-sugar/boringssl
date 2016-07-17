@@ -822,45 +822,32 @@ int tls13_derive_traffic_secret_0(SSL *ssl);
 
 /* Handshake. */
 
-typedef enum ssl_state_t {
-  HS_STATE_CLIENT_HELLO = 1,
-  HS_STATE_HELLO_RETRY_REQUEST,
-  HS_STATE_SERVER_HELLO,
-  HS_STATE_SERVER_ENCRYPTED_EXTENSIONS,
-  HS_STATE_SERVER_CERTIFICATE_REQUEST,
-  HS_STATE_SERVER_CERTIFICATE,
-  HS_STATE_SERVER_CERTIFICATE_VERIFY,
-  HS_STATE_SERVER_FINISHED,
-  HS_STATE_SERVER_FLUSH,
-  HS_STATE_CLIENT_CERTIFICATE,
-  HS_STATE_CLIENT_CERTIFICATE_VERIFY,
-  HS_STATE_CLIENT_FINISHED,
-  HS_STATE_FINISH,
-  HS_STATE_DONE,
-} SSL_HANDSHAKE_STATE;
-
-enum ssl_interrupt_st {
-  hs_interrupt_none,
-  hs_interrupt_error,
-  hs_interrupt_write,
-  hs_interrupt_write_flight,
-  hs_interrupt_flush,
-  hs_interrupt_read,
-  hs_interrupt_read_and_hash,
-  hs_interrupt_cb,
+enum ssl_hs_wait_t {
+  ssl_hs_error,
+  ssl_hs_ok,
+  ssl_hs_read_message,
+  ssl_hs_write_message,
+  ssl_hs_flush,
+  ssl_hs_x509_lookup,
+  ssl_hs_private_key_operation,
 };
 
 struct ssl_handshake_st {
-  int (*do_handshake)(SSL *ssl, SSL_HANDSHAKE *hs);
+  /* wait contains the operation |do_handshake| is currently blocking on or
+   * |ssl_hs_ok| if none. */
+  enum ssl_hs_wait_t wait;
 
-  SSL_HANDSHAKE_STATE state;
-  enum ssl_interrupt_st interrupt;
+  /* do_handshake runs the handshake. On completion, it returns |ssl_hs_ok|.
+   * Otherwise, it returns a value corresponding to what operation is needed to
+   * progress. */
+  enum ssl_hs_wait_t (*do_handshake)(SSL *ssl, SSL_HANDSHAKE *hs);
+
+  int state;
 
   size_t hash_len;
-
   uint8_t resumption_hash[EVP_MAX_MD_SIZE];
-
   uint8_t secret[EVP_MAX_MD_SIZE];
+
   uint8_t traffic_secret_0[EVP_MAX_MD_SIZE];
 
   SSL_ECDH_CTX *groups;
@@ -868,34 +855,28 @@ struct ssl_handshake_st {
   uint8_t *public_key;
   size_t public_key_len;
 
-  int cert_cb;
   uint8_t *cert_context;
   size_t cert_context_len;
 } /* SSL_HANDSHAKE */;
 
-SSL_HANDSHAKE *ssl_handshake_new(int (*do_handshake)(SSL *ssl,
-                                                     SSL_HANDSHAKE *hs));
+SSL_HANDSHAKE *ssl_handshake_new(
+    enum ssl_hs_wait_t (*do_handshake)(SSL *ssl, SSL_HANDSHAKE *hs));
 
 /* ssl_handshake_free releases all memory associated with |hs|. */
 void ssl_handshake_free(SSL_HANDSHAKE *hs);
 
-/* tls13_handshake is a wrapper the performs part of the TLS 1.3 handshake by
- * reading/writing handshake messages and then driving the
- * |tls13_client_handshake| or |tls13_server_handshake| gadgets with the
- * messages. It sets ssl->rwstate to the reading/writing state and returns the
- * result of the handshake gadget. */
+/* tls13_handshake runs the TLS 1.3 handshake. It returns one on success and <=
+ * 0 on error. */
 int tls13_handshake(SSL *ssl);
 
-/* tls13_client_handshake is a gadget that reads or writes a single handshake
- * message at a time, before returning to the handshake loop. On success, it
- * returns 1 and updates the |hs->interrupt| to indicate whether it is waiting
- * for an incoming handshake message, it has an outgoing message to be written,
- * the write buffer needs to be flushed. Otherwise, it returns 0. */
-int tls13_client_handshake(SSL *ssl, SSL_HANDSHAKE *hs);
+/* The following are implementations of |do_handshake| for the client and
+ * server. */
+enum ssl_hs_wait_t tls13_client_handshake(SSL *ssl, SSL_HANDSHAKE *hs);
+enum ssl_hs_wait_t tls13_server_handshake(SSL *ssl, SSL_HANDSHAKE *hs);
 
-/* tls13_server_handshake behaves like tls13_client_handshake for the server
- * part of the handshake. */
-int tls13_server_handshake(SSL *ssl, SSL_HANDSHAKE *hs);
+/* tls13_check_message_type checks if the current message has type |type|. If so
+ * it returns one. Otherwise, it sends an alert and returns zero. */
+int tls13_check_message_type(SSL *ssl, int type);
 
 
 /* Underdocumented functions.
@@ -1397,12 +1378,14 @@ int tls12_check_peer_sigalg(SSL *ssl, int *out_alert,
                             uint16_t signature_algorithm);
 void ssl_set_client_disabled(SSL *ssl);
 
-int tls13_receive_certificate(SSL *ssl);
-int tls13_send_certificate(SSL *ssl);
-int tls13_receive_certificate_verify(SSL *ssl);
-int tls13_send_certificate_verify(SSL *ssl);
-int tls13_receive_finished(SSL *ssl);
-int tls13_send_finished(SSL *ssl);
+int tls13_process_certificate(SSL *ssl);
+int tls13_process_certificate_verify(SSL *ssl);
+int tls13_process_finished(SSL *ssl);
+
+int tls13_prepare_certificate(SSL *ssl);
+enum ssl_private_key_result_t tls13_prepare_certificate_verify(
+    SSL *ssl, int is_first_run);
+int tls13_prepare_finished(SSL *ssl);
 
 int ext_key_share_parse_serverhello(SSL *ssl, uint8_t **out_secret,
                                     size_t *out_secret_len, uint8_t *out_alert,
@@ -1411,7 +1394,6 @@ int ext_key_share_parse_clienthello(SSL *ssl, uint8_t **out_secret,
                                     size_t *out_secret_len, uint8_t *out_alert,
                                     CBS *contents);
 int ext_key_share_add_serverhello(SSL *ssl, CBB *out);
-
 
 /* tls13_finalize_keys derives the |exporter_secret| and |resumption_secret|. */
 int tls13_finalize_keys(SSL *ssl);
