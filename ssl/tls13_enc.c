@@ -335,7 +335,6 @@ int tls13_finished_mac(SSL *ssl, uint8_t *out, size_t *out_len, int is_server) {
 
   uint8_t context_hashes[2 * EVP_MAX_MD_SIZE];
   size_t context_hashes_len;
-
   unsigned len;
   if (!hkdf_expand_label(key, digest, traffic_secret, hs->hash_len,
                          (const uint8_t *)label, strlen(label), NULL, 0,
