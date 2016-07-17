@@ -22,6 +22,269 @@
       "revId": "95969913ec4496db3099262e1ae8b35bb45afb7f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a17f337_59584363",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-17T08:43:01Z",
+      "side": 1,
+      "message": "How about a []CurveID instead? This will give our tests more flexibility. (We\u0027ll figure out what kind of API upstream Go wants, if any.)",
+      "range": {
+        "startLine": 410,
+        "startChar": 19,
+        "endLine": 410,
+        "endChar": 36
+      },
+      "revId": "95969913ec4496db3099262e1ae8b35bb45afb7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a17f337_793ae7f2",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-17T08:43:01Z",
+      "side": 1,
+      "message": "if helloRetryRequest, ok :\u003d msg.(*helloRetryRequestMsg); ok {",
+      "revId": "95969913ec4496db3099262e1ae8b35bb45afb7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a17f337_b9707fda",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-17T08:43:01Z",
+      "side": 1,
+      "message": "Not sure if it matters, but version negotiation should happen at this point too.",
+      "revId": "95969913ec4496db3099262e1ae8b35bb45afb7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a17f337_996dbb02",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-17T08:43:01Z",
+      "side": 1,
+      "message": "var hrrCurveFound bool",
+      "revId": "95969913ec4496db3099262e1ae8b35bb45afb7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a17f337_39346f01",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-17T08:43:01Z",
+      "side": 1,
+      "message": "group must match?",
+      "revId": "95969913ec4496db3099262e1ae8b35bb45afb7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a17f337_1939abf9",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-17T08:43:01Z",
+      "side": 1,
+      "message": "Is anything using this?",
+      "range": {
+        "startLine": 129,
+        "startChar": 1,
+        "endLine": 129,
+        "endChar": 13
+      },
+      "revId": "95969913ec4496db3099262e1ae8b35bb45afb7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a17f337_d9633314",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 1150,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-17T08:43:01Z",
+      "side": 1,
+      "message": "addU16(0)?",
+      "range": {
+        "startLine": 1150,
+        "startChar": 18,
+        "endLine": 1150,
+        "endChar": 38
+      },
+      "revId": "95969913ec4496db3099262e1ae8b35bb45afb7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a17f337_f94dd797",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-17T08:43:01Z",
+      "side": 1,
+      "message": "Period at end.",
+      "revId": "95969913ec4496db3099262e1ae8b35bb45afb7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a17f337_395d8f53",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-17T08:43:01Z",
+      "side": 1,
+      "message": "\u0026helloRetryRequestMsg{\n  vers: c.vers,\n  cipherSuite: hs.hello.cipherSuite,\n  etc\n}",
+      "range": {
+        "startLine": 356,
+        "startChar": 13,
+        "endLine": 356,
+        "endChar": 33
+      },
+      "revId": "95969913ec4496db3099262e1ae8b35bb45afb7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a17f337_f966f725",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-17T08:43:01Z",
+      "side": 1,
+      "message": "helloRetryRequestMsg",
+      "range": {
+        "startLine": 356,
+        "startChar": 3,
+        "endLine": 356,
+        "endChar": 6
+      },
+      "revId": "95969913ec4496db3099262e1ae8b35bb45afb7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a17f337_1962cb13",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-17T08:43:01Z",
+      "side": 1,
+      "message": "c.vers",
+      "range": {
+        "startLine": 357,
+        "startChar": 17,
+        "endLine": 357,
+        "endChar": 29
+      },
+      "revId": "95969913ec4496db3099262e1ae8b35bb45afb7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a17f337_d94a137e",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-17T08:43:01Z",
+      "side": 1,
+      "message": "Period at end",
+      "revId": "95969913ec4496db3099262e1ae8b35bb45afb7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a17f337_b9475f74",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-17T08:43:01Z",
+      "side": 1,
+      "message": "(I don\u0027t think we use that citation format anywhere.)",
+      "range": {
+        "startLine": 378,
+        "startChar": 6,
+        "endLine": 378,
+        "endChar": 24
+      },
+      "revId": "95969913ec4496db3099262e1ae8b35bb45afb7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
