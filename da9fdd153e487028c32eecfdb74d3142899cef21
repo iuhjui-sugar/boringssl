@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4a17f337_591a8325",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 73
+      },
+      "lineNbr": 750,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-18T09:30:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a17f337_196d2b9c",
+      "revId": "da9fdd153e487028c32eecfdb74d3142899cef21",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4a17f337_f981572a",
         "filename": "ssl/test/runner/common.go",
         "patchSetId": 73
@@ -42,6 +60,24 @@
     },
     {
       "key": {
+        "uuid": "4a17f337_391fcf15",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 73
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-18T09:30:14Z",
+      "side": 1,
+      "message": "(Follow-up commit does this.)",
+      "parentUuid": "4a17f337_f981572a",
+      "revId": "da9fdd153e487028c32eecfdb74d3142899cef21",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4a17f337_d97e9348",
         "filename": "ssl/tls13_both.c",
         "patchSetId": 73
@@ -53,6 +89,30 @@
       "writtenOn": "2016-07-18T09:20:29Z",
       "side": 1,
       "message": "You\u0027ve ASANed the latest copy?",
+      "range": {
+        "startLine": 43,
+        "startChar": 5,
+        "endLine": 43,
+        "endChar": 23
+      },
+      "revId": "da9fdd153e487028c32eecfdb74d3142899cef21",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a17f337_19240b66",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 73
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-18T09:30:14Z",
+      "side": 1,
+      "message": "CQ presubmit ran it.",
+      "parentUuid": "4a17f337_d97e9348",
       "range": {
         "startLine": 43,
         "startChar": 5,
@@ -88,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "4a17f337_d90573be",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 73
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-18T09:30:14Z",
+      "side": 1,
+      "message": "ServerHello isn\u0027t allowed to include extensions we don\u0027t know about.",
+      "parentUuid": "4a17f337_b97bdf56",
+      "revId": "da9fdd153e487028c32eecfdb74d3142899cef21",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4a17f337_99781b5b",
         "filename": "ssl/tls13_enc.c",
         "patchSetId": 73
@@ -105,6 +183,24 @@
         "endLine": 289,
         "endChar": 32
       },
+      "revId": "da9fdd153e487028c32eecfdb74d3142899cef21",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a17f337_b912bf04",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 73
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-18T09:30:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a17f337_99781b5b",
       "revId": "da9fdd153e487028c32eecfdb74d3142899cef21",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
