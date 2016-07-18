@@ -28,7 +28,10 @@
 
 
 enum client_hs_state_t {
-  state_process_server_hello = 0,
+  state_process_hello_retry_request = 0,
+  state_send_hrr_client_hello,
+  state_hrr_flush,
+  state_process_server_hello,
   state_process_encrypted_extensions,
   state_process_certificate_request,
   state_process_server_certificate,
@@ -42,6 +45,106 @@ enum client_hs_state_t {
   state_flush,
   state_done,
 };
+
+static enum ssl_hs_wait_t do_process_hello_retry_request(SSL *ssl,
+                                                         SSL_HANDSHAKE *hs) {
+  if (ssl->s3->tmp.message_type != SSL3_MT_HELLO_RETRY_REQUEST) {
+    hs->state = state_process_server_hello;
+    return ssl_hs_ok;
+  }
+
+  CBS cbs, extensions;
+  uint16_t server_wire_version, cipher_suite, group_id;
+  CBS_init(&cbs, ssl->init_msg, ssl->init_num);
+  if (!CBS_get_u16(&cbs, &server_wire_version) ||
+      !CBS_get_u16(&cbs, &cipher_suite) ||
+      !CBS_get_u16(&cbs, &group_id) ||
+      !CBS_get_u16_length_prefixed(&cbs, &extensions) ||
+      CBS_len(&cbs) != 0) {
+    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
+    return ssl_hs_error;
+  }
+
+  /* TODO(svaldez): Add HelloRetryRequest extension handling. */
+  /* TODO(svaldez): Remove 0RTT. */
+
+  const uint16_t *groups;
+  size_t groups_len;
+  tls1_get_grouplist(ssl, 0 /* local groups */, &groups, &groups_len);
+  int found = 0;
+  for (size_t i = 0; i < groups_len; i++) {
+    if (groups[i] == group_id) {
+      found = 1;
+      break;
+    }
+  }
+
+  if (!found) {
+    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_HANDSHAKE_FAILURE);
+    return ssl_hs_error;
+  }
+
+  for (size_t i = 0; i < ssl->s3->hs->groups_len; i++) {
+    /* TODO(svaldez): Don't enforce this check when HRR is due to Cookie. */
+    if (SSL_ECDH_CTX_get_id(&ssl->s3->hs->groups[i]) == group_id) {
+      ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_HANDSHAKE_FAILURE);
+      return ssl_hs_error;
+    }
+    SSL_ECDH_CTX_cleanup(&ssl->s3->hs->groups[i]);
+  }
+
+  OPENSSL_free(ssl->s3->hs->groups);
+  ssl->s3->hs->groups = NULL;
+  ssl->s3->hs->hrr_group = group_id;
+
+  hs->state = state_send_hrr_client_hello;
+  return ssl_hs_ok;
+}
+
+static enum ssl_hs_wait_t do_send_hrr_client_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
+  CBB cbb;
+  CBB_zero(&cbb);
+
+  uint16_t min_version, max_version;
+  if (!ssl_get_version_range(ssl, &min_version, &max_version)) {
+    goto err;
+  }
+
+  int has_session = ssl->session != NULL &&
+      !ssl->s3->initial_handshake_complete;
+
+  CBB body, child;
+  if (!ssl->method->init_message(ssl, &cbb, &body, SSL3_MT_CLIENT_HELLO) ||
+      !CBB_add_u16(&body, ssl->client_version) ||
+      !CBB_add_bytes(&body, ssl->s3->client_random, SSL3_RANDOM_SIZE) ||
+      !CBB_add_u8_length_prefixed(&body, &child) ||
+      (has_session &&
+       !CBB_add_bytes(&child, ssl->session->session_id,
+                      ssl->session->session_id_length))) {
+    goto err;
+  }
+
+  size_t header_len = SSL3_HM_HEADER_LENGTH;
+  if (!ssl_write_client_cipher_list(ssl, &body, min_version, max_version) ||
+      !CBB_add_u8(&body, 1 /* one compression method */) ||
+      !CBB_add_u8(&body, 0 /* null compression */) ||
+      !ssl_add_clienthello_tlsext(ssl, &body, header_len + CBB_len(&body)) ||
+      !ssl->method->finish_message(ssl, &cbb)) {
+    goto err;
+  }
+
+  hs->state = state_hrr_flush;
+  return ssl_hs_write_message;
+
+err:
+  CBB_cleanup(&cbb);
+  return ssl_hs_error;
+}
+
+static enum ssl_hs_wait_t do_hrr_flush(SSL *ssl, SSL_HANDSHAKE *hs) {
+  hs->state = state_process_server_hello;
+  return ssl_hs_flush_and_read_message;
+}
 
 static enum ssl_hs_wait_t do_process_server_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
   if (!tls13_check_message_type(ssl, SSL3_MT_SERVER_HELLO)) {
@@ -170,6 +273,13 @@ static enum ssl_hs_wait_t do_process_server_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
       return ssl_hs_error;
     }
     return ssl_hs_error;
+  }
+
+  if (ssl->s3->hs->hrr_group != 0) {
+    /* Hash the message if we reached ServerHello through HelloRetryRequest. */
+    if (!ssl->method->hash_current_message(ssl)) {
+      return ssl_hs_error;
+    }
   }
 
   if (!tls13_set_handshake_traffic(ssl)) {
@@ -412,6 +522,15 @@ enum ssl_hs_wait_t tls13_client_handshake(SSL *ssl) {
     enum ssl_hs_wait_t ret = ssl_hs_error;
     enum client_hs_state_t state = hs->state;
     switch (state) {
+      case state_process_hello_retry_request:
+        ret = do_process_hello_retry_request(ssl, hs);
+        break;
+      case state_send_hrr_client_hello:
+        ret = do_send_hrr_client_hello(ssl, hs);
+        break;
+      case state_hrr_flush:
+        ret = do_hrr_flush(ssl, hs);
+        break;
       case state_process_server_hello:
         ret = do_process_server_hello(ssl, hs);
         break;
