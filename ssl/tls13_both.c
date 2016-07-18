@@ -53,6 +53,7 @@ void ssl_handshake_free(SSL_HANDSHAKE *hs) {
     }
     OPENSSL_free(hs->groups);
   }
+  OPENSSL_free(hs->key_share_bytes);
   OPENSSL_free(hs->public_key);
   OPENSSL_free(hs->cert_context);
   OPENSSL_free(hs);
