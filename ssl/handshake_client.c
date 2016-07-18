@@ -548,9 +548,8 @@ end:
   return ret;
 }
 
-static int ssl3_write_client_cipher_list(SSL *ssl, CBB *out,
-                                         uint16_t min_version,
-                                         uint16_t max_version) {
+int ssl_write_client_cipher_list(SSL *ssl, CBB *out, uint16_t min_version,
+                                 uint16_t max_version) {
   /* Prepare disabled cipher masks. */
   ssl_set_client_disabled(ssl);
 
@@ -678,7 +677,7 @@ static int ssl3_send_client_hello(SSL *ssl) {
 
   size_t header_len =
       SSL_IS_DTLS(ssl) ? DTLS1_HM_HEADER_LENGTH : SSL3_HM_HEADER_LENGTH;
-  if (!ssl3_write_client_cipher_list(ssl, &body, min_version, max_version) ||
+  if (!ssl_write_client_cipher_list(ssl, &body, min_version, max_version) ||
       !CBB_add_u8(&body, 1 /* one compression method */) ||
       !CBB_add_u8(&body, 0 /* null compression */) ||
       !ssl_add_clienthello_tlsext(ssl, &body, header_len + CBB_len(&body)) ||
@@ -745,7 +744,7 @@ static int ssl3_get_server_hello(SSL *ssl) {
   uint16_t server_wire_version, server_version, cipher_suite;
   uint8_t compression_method;
 
-  int ret = ssl->method->ssl_get_message(ssl, -1, ssl_hash_message);
+  int ret = ssl->method->ssl_get_message(ssl, -1, ssl_dont_hash_message);
   if (ret <= 0) {
     uint32_t err = ERR_peek_error();
     if (ERR_GET_LIB(err) == ERR_LIB_SSL &&
@@ -907,9 +906,11 @@ static int ssl3_get_server_hello(SSL *ssl) {
   ssl->s3->tmp.new_cipher = c;
 
   /* Now that the cipher is known, initialize the handshake hash. */
-  if (!ssl3_init_handshake_hash(ssl)) {
+  if (!ssl3_init_handshake_hash(ssl) ||
+      !ssl->method->hash_current_message(ssl)) {
     goto f_err;
   }
+
 
   /* If doing a full handshake, the server may request a client certificate
    * which requires hashing the handshake transcript. Otherwise, the handshake
