@@ -36,7 +36,6 @@ enum server_hs_state_t {
   state_send_server_certificate_verify,
   state_complete_server_certificate_verify,
   state_send_server_finished,
-  state_flush,
   state_read_client_second_flight,
   state_process_client_certificate,
   state_process_client_certificate_verify,
@@ -347,13 +346,8 @@ static enum ssl_hs_wait_t do_send_server_finished(SSL *ssl, SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
-  hs->state = state_flush;
-  return ssl_hs_write_message;
-}
-
-static enum ssl_hs_wait_t do_flush(SSL *ssl, SSL_HANDSHAKE *hs) {
   hs->state = state_read_client_second_flight;
-  return ssl_hs_flush;
+  return ssl_hs_write_message_and_flush;
 }
 
 static enum ssl_hs_wait_t do_read_client_second_flight(SSL *ssl,
@@ -453,9 +447,6 @@ enum ssl_hs_wait_t tls13_server_handshake(SSL *ssl) {
       break;
       case state_send_server_finished:
         ret = do_send_server_finished(ssl, hs);
-        break;
-      case state_flush:
-        ret = do_flush(ssl, hs);
         break;
       case state_read_client_second_flight:
         ret = do_read_client_second_flight(ssl, hs);

@@ -76,12 +76,17 @@ int tls13_handshake(SSL *ssl) {
         break;
       }
 
-      case ssl_hs_write_message: {
+      case ssl_hs_write_message:
+      case ssl_hs_write_message_and_flush: {
         int ret = ssl->method->write_message(ssl);
         if (ret <= 0) {
           return ret;
         }
-        break;
+        if (hs->wait != ssl_hs_write_message_and_flush) {
+          break;
+        }
+        hs->wait = ssl_hs_flush;
+        /* Fall-through. */
       }
 
       case ssl_hs_flush: {
