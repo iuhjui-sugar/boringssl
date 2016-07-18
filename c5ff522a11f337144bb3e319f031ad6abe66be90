@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ca22039a_d563fc13",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 2085,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-18T13:53:25Z",
+      "side": 1,
+      "message": "Use private use or reserved?",
+      "range": {
+        "startLine": 2085,
+        "startChar": 21,
+        "endLine": 2085,
+        "endChar": 27
+      },
+      "revId": "c5ff522a11f337144bb3e319f031ad6abe66be90",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
