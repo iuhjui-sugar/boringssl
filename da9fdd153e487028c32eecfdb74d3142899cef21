@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4a17f337_196d2b9c",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 73
+      },
+      "lineNbr": 750,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-18T09:20:29Z",
+      "side": 1,
+      "message": "Extra newline?",
+      "revId": "da9fdd153e487028c32eecfdb74d3142899cef21",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a17f337_f981572a",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 73
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-18T09:20:29Z",
+      "side": 1,
+      "message": "Delete?",
+      "range": {
+        "startLine": 21,
+        "startChar": 6,
+        "endLine": 21,
+        "endChar": 26
+      },
+      "revId": "da9fdd153e487028c32eecfdb74d3142899cef21",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a17f337_d97e9348",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 73
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-18T09:20:29Z",
+      "side": 1,
+      "message": "You\u0027ve ASANed the latest copy?",
+      "range": {
+        "startLine": 43,
+        "startChar": 5,
+        "endLine": 43,
+        "endChar": 23
+      },
+      "revId": "da9fdd153e487028c32eecfdb74d3142899cef21",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a17f337_b97bdf56",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 73
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-18T09:20:29Z",
+      "side": 1,
+      "message": "Technically wrong, since we should be ignoring unknown extensions.",
+      "range": {
+        "startLine": 87,
+        "startChar": 6,
+        "endLine": 87,
+        "endChar": 13
+      },
+      "revId": "da9fdd153e487028c32eecfdb74d3142899cef21",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a17f337_99781b5b",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 73
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-18T09:20:29Z",
+      "side": 1,
+      "message": "Move to bottom",
+      "range": {
+        "startLine": 289,
+        "startChar": 4,
+        "endLine": 289,
+        "endChar": 32
+      },
+      "revId": "da9fdd153e487028c32eecfdb74d3142899cef21",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
