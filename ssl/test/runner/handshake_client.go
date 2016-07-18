@@ -586,8 +586,8 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 
 	// Switch to handshake traffic keys.
 	handshakeTrafficSecret := hs.finishedHash.deriveSecret(handshakeSecret, handshakeTrafficLabel)
-	c.out.updateKeys(deriveTrafficAEAD(c.vers, hs.suite, handshakeTrafficSecret, handshakePhase, clientWrite), c.vers)
-	c.in.updateKeys(deriveTrafficAEAD(c.vers, hs.suite, handshakeTrafficSecret, handshakePhase, serverWrite), c.vers)
+	c.out.useTrafficSecret(c.vers, hs.suite, handshakeTrafficSecret, handshakePhase, clientWrite)
+	c.in.useTrafficSecret(c.vers, hs.suite, handshakeTrafficSecret, handshakePhase, serverWrite)
 
 	msg, err := c.readHandshake()
 	if err != nil {
@@ -759,8 +759,8 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 	c.flushHandshake()
 
 	// Switch to application data keys.
-	c.out.updateKeys(deriveTrafficAEAD(c.vers, hs.suite, trafficSecret, applicationPhase, clientWrite), c.vers)
-	c.in.updateKeys(deriveTrafficAEAD(c.vers, hs.suite, trafficSecret, applicationPhase, serverWrite), c.vers)
+	c.out.useTrafficSecret(c.vers, hs.suite, trafficSecret, applicationPhase, clientWrite)
+	c.in.useTrafficSecret(c.vers, hs.suite, trafficSecret, applicationPhase, serverWrite)
 
 	// TODO(davidben): Save the traffic secret for KeyUpdate.
 	c.exporterSecret = hs.finishedHash.deriveSecret(masterSecret, exporterLabel)
