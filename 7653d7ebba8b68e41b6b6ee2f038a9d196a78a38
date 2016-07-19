@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4ad8d308_513614ee",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-19T14:14:24Z",
+      "side": 1,
+      "message": "How about nil vs non-nil. Go is weird and distinguishes between empty slice and nil slice. len() returns zero for both, but only one is !\u003d nil.",
+      "revId": "7653d7ebba8b68e41b6b6ee2f038a9d196a78a38",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad8d308_313590dd",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-19T14:14:24Z",
+      "side": 1,
+      "message": "I\u0027d call this serverVersion perhaps. Usually we use wire to refer to DTLS\u0027s funny encoding vs. canonicalized ones, but I believe these are all canonicalized.",
+      "revId": "7653d7ebba8b68e41b6b6ee2f038a9d196a78a38",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad8d308_d149a46b",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-19T14:14:24Z",
+      "side": 1,
+      "message": "Nit: newline",
+      "revId": "7653d7ebba8b68e41b6b6ee2f038a9d196a78a38",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad8d308_91431c48",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-19T14:14:24Z",
+      "side": 1,
+      "message": "Nit: I think you don\u0027t need this check.",
+      "revId": "7653d7ebba8b68e41b6b6ee2f038a9d196a78a38",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad8d308_b140a03b",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-19T14:14:24Z",
+      "side": 1,
+      "message": "I think the version check is no longer needed, right?",
+      "range": {
+        "startLine": 412,
+        "startChar": 30,
+        "endLine": 412,
+        "endChar": 62
+      },
+      "revId": "7653d7ebba8b68e41b6b6ee2f038a9d196a78a38",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
