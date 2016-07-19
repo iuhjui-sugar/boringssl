@@ -1,3 +1,4 @@
+TEST.
 # Building BoringSSL
 
 ## Build Prerequisites
