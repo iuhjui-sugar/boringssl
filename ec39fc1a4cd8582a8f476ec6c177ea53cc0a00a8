@@ -16,6 +16,24 @@
       "revId": "ec39fc1a4cd8582a8f476ec6c177ea53cc0a00a8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad8d308_949c6a5c",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1605,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-20T08:02:33Z",
+      "side": 1,
+      "message": "I\u0027ll add a TODO. I didn\u0027t want to add TLS 1.3 until our implementation has stabilized enough that our ClientHello isn\u0027t going to change all the time.",
+      "parentUuid": "4ad8d308_348ede25",
+      "revId": "ec39fc1a4cd8582a8f476ec6c177ea53cc0a00a8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
