@@ -1,0 +1,574 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4ad8d308_54cda261",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 873,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-20T12:35:48Z",
+      "side": 1,
+      "message": "Don\u0027t abbreviate these. Also add comments since exactly what they\u0027re saved for when is not obvious.",
+      "revId": "eea5fcd5085a74d094f50affaec9c3bb6dc370e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad8d308_14d71af4",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 911,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-20T12:35:48Z",
+      "side": 1,
+      "message": "out_found",
+      "range": {
+        "startLine": 911,
+        "startChar": 51,
+        "endLine": 911,
+        "endChar": 56
+      },
+      "revId": "eea5fcd5085a74d094f50affaec9c3bb6dc370e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad8d308_142b9a9a",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1973,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-20T12:35:48Z",
+      "side": 1,
+      "message": "/* Append the new key share to the old list. */",
+      "revId": "eea5fcd5085a74d094f50affaec9c3bb6dc370e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad8d308_f4113663",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2007,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-20T12:35:48Z",
+      "side": 1,
+      "message": "/* Save the contents of the extension to repeat it in the second ClientHello. */\n\nAlso, probably no need to save this the second time around.",
+      "revId": "eea5fcd5085a74d094f50affaec9c3bb6dc370e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad8d308_34301e04",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2013,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-20T12:35:48Z",
+      "side": 1,
+      "message": "BUF_memdup",
+      "revId": "eea5fcd5085a74d094f50affaec9c3bb6dc370e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad8d308_941eaa72",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2058,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-20T12:35:48Z",
+      "side": 1,
+      "message": "out_found",
+      "range": {
+        "startLine": 2058,
+        "startChar": 51,
+        "endLine": 2058,
+        "endChar": 56
+      },
+      "revId": "eea5fcd5085a74d094f50affaec9c3bb6dc370e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad8d308_9470eada",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-20T12:35:48Z",
+      "side": 1,
+      "message": "I think \u0027second\u0027 is better. The \u0027hrr\u0027 abbreviation is also not standard and shouldn\u0027t be used outside of really really local variables.",
+      "range": {
+        "startLine": 32,
+        "startChar": 13,
+        "endLine": 32,
+        "endChar": 16
+      },
+      "revId": "eea5fcd5085a74d094f50affaec9c3bb6dc370e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad8d308_b46dee01",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-20T12:35:48Z",
+      "side": 1,
+      "message": "You\u0027re not flushing the hrr. state_flush_second_client_hello?",
+      "range": {
+        "startLine": 33,
+        "startChar": 2,
+        "endLine": 33,
+        "endChar": 17
+      },
+      "revId": "eea5fcd5085a74d094f50affaec9c3bb6dc370e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad8d308_d44d1298",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-20T12:35:48Z",
+      "side": 1,
+      "message": "OPENSSL_PUT_ERROR of SSL_R_DECODE_ERROR. (Always always use OPENSSL_PUT_ERROR if the error path is triggerable by the peer. Otherwise we will not be able to debug anything.)",
+      "revId": "eea5fcd5085a74d094f50affaec9c3bb6dc370e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad8d308_b4964ee0",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-20T12:35:48Z",
+      "side": 1,
+      "message": "I\u0027d maybe just leave this a non-TODO like:\n\n/* We do not currently parse any HelloRetryRequest extensions. */",
+      "revId": "eea5fcd5085a74d094f50affaec9c3bb6dc370e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad8d308_b43ace18",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-20T12:35:48Z",
+      "side": 1,
+      "message": "Remove 0-RTT extensions? (I was very confused at first. :-) )",
+      "revId": "eea5fcd5085a74d094f50affaec9c3bb6dc370e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad8d308_3439fef9",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-20T12:35:48Z",
+      "side": 1,
+      "message": "This needs an OPENSSL_PUT_ERROR. I\u0027m sure there\u0027s already a suitable error.",
+      "revId": "eea5fcd5085a74d094f50affaec9c3bb6dc370e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad8d308_d4667226",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-20T12:35:48Z",
+      "side": 1,
+      "message": "Nit: Probably worth prepending a comment like:\n\n/* Check that the HelloRetryRequest does not request a key share that was already provided. */\n\nOr something like that.",
+      "revId": "eea5fcd5085a74d094f50affaec9c3bb6dc370e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad8d308_34625e14",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-20T12:35:48Z",
+      "side": 1,
+      "message": "a cookie (I don\u0027t think anything in the spec calls it a proper noun)",
+      "range": {
+        "startLine": 88,
+        "startChar": 66,
+        "endLine": 88,
+        "endChar": 72
+      },
+      "revId": "eea5fcd5085a74d094f50affaec9c3bb6dc370e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad8d308_145dda52",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-20T12:35:48Z",
+      "side": 1,
+      "message": "HelloRetryRequest (In general, prefer to spell it out rather than abbreviate unless there\u0027s a good reason for it. Certainly comments should not abbreviate.)",
+      "range": {
+        "startLine": 88,
+        "startChar": 52,
+        "endLine": 88,
+        "endChar": 55
+      },
+      "revId": "eea5fcd5085a74d094f50affaec9c3bb6dc370e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad8d308_7458e663",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-20T12:35:48Z",
+      "side": 1,
+      "message": "This wants an OPENSSL_PUT_ERROR with some kind of unique error code. (Also helps understanding what this check is even supposed to be.)",
+      "revId": "eea5fcd5085a74d094f50affaec9c3bb6dc370e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad8d308_f4637613",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-20T12:35:48Z",
+      "side": 1,
+      "message": "Don\u0027t have ad-hoc free loops integrated into other logic. It is better to be straight-forward. Add a function that frees ssl-\u003es3-\u003ehs-\u003egroups and have everything else call it.\n\n(Note that your logic will leave freed things in ssl-\u003es3-\u003ehs-\u003egroups, breaking an invariant.)",
+      "revId": "eea5fcd5085a74d094f50affaec9c3bb6dc370e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad8d308_743f86e1",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-20T12:35:48Z",
+      "side": 1,
+      "message": "Rather than CBB_zero, you can make this return 0, and move CBB declaration down to line 116. (In fact, you could even avoid this altogether and chain the two || chains together. That said, see comment below.)",
+      "revId": "eea5fcd5085a74d094f50affaec9c3bb6dc370e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad8d308_543a82f2",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-20T12:35:48Z",
+      "side": 1,
+      "message": "clang-format. I think it prefers to line up with the \u003d.",
+      "revId": "eea5fcd5085a74d094f50affaec9c3bb6dc370e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad8d308_1434fa00",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-20T12:35:48Z",
+      "side": 1,
+      "message": "Rather than duplicate this code, pull it out into a shared ssl_prepare_client_hello or similar function and have it be called by both functions.",
+      "revId": "eea5fcd5085a74d094f50affaec9c3bb6dc370e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad8d308_f44a967d",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-20T12:35:48Z",
+      "side": 1,
+      "message": "Chain with \u0026\u0026",
+      "revId": "eea5fcd5085a74d094f50affaec9c3bb6dc370e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad8d308_94478a74",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-20T12:35:48Z",
+      "side": 1,
+      "message": "Rather than just say what the code is doing, say why:\n\n/* If there was no HelloRetryRequest, the version negotiation logic has already hashed the message. */\n\nBetter yet, let\u0027s switch the old handshake\u0027s call to a ssl_dont_hash_message and uniformly make it the consumer\u0027s job.",
+      "revId": "eea5fcd5085a74d094f50affaec9c3bb6dc370e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad8d308_b4440e70",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-20T12:35:48Z",
+      "side": 1,
+      "message": "flush_hello_retry_request?",
+      "range": {
+        "startLine": 33,
+        "startChar": 8,
+        "endLine": 33,
+        "endChar": 17
+      },
+      "revId": "eea5fcd5085a74d094f50affaec9c3bb6dc370e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad8d308_542122b8",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-20T12:35:48Z",
+      "side": 1,
+      "message": "second",
+      "range": {
+        "startLine": 34,
+        "startChar": 16,
+        "endLine": 34,
+        "endChar": 19
+      },
+      "revId": "eea5fcd5085a74d094f50affaec9c3bb6dc370e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad8d308_7426a6d3",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-20T12:35:48Z",
+      "side": 1,
+      "message": "found_key_share perhaps? (Probably the CBS should be renamed key_shares.)",
+      "range": {
+        "startLine": 200,
+        "startChar": 14,
+        "endLine": 200,
+        "endChar": 17
+      },
+      "revId": "eea5fcd5085a74d094f50affaec9c3bb6dc370e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad8d308_1192cc52",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-20T12:35:48Z",
+      "side": 1,
+      "message": "[We should make this API less silly. It shouldn\u0027t take 5 lines to set up this struct. I\u0027ll do that after this lands so you don\u0027t have to rebase.]",
+      "revId": "eea5fcd5085a74d094f50affaec9c3bb6dc370e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad8d308_719d5863",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-20T12:35:48Z",
+      "side": 1,
+      "message": "Don\u0027t call this multiple times.",
+      "revId": "eea5fcd5085a74d094f50affaec9c3bb6dc370e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad8d308_b41bae81",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-20T12:35:48Z",
+      "side": 1,
+      "message": "To avoid duplicating code, perhaps pull all this logic into something like:\n\nstatic int tls13_resolve_ecdhe_secret(SSL *ssl, int *out_missing_key_share, struct ssl_early_callback_ctx *early_ctx) {\n  /* Do everything, including the SSL_kECDHE check. Caller responsible for doing either state transition or error check. */\n}",
+      "revId": "eea5fcd5085a74d094f50affaec9c3bb6dc370e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad8d308_14a07a8a",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-20T12:35:48Z",
+      "side": 1,
+      "message": "If found_dhe is 1, I think alert is uninitialized. That also needs to have a separate OPENSSL_PUT_ERROR line.",
+      "range": {
+        "startLine": 299,
+        "startChar": 42,
+        "endLine": 299,
+        "endChar": 47
+      },
+      "revId": "eea5fcd5085a74d094f50affaec9c3bb6dc370e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad8d308_74846605",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-20T12:35:48Z",
+      "side": 1,
+      "message": "Switch this to early return. Then perhaps ERR_R_INTERNAL_ERROR and add a comment like:\n\n/* We only request HelloRetryRequest on ECDHE ciphers. */\n\n(Will we ever need to change this? I guess there\u0027s the cookie extension, but the server will only do cookie when stateless, so it will look like one ClientHello.)",
+      "revId": "eea5fcd5085a74d094f50affaec9c3bb6dc370e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
