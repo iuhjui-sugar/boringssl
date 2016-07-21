@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4ad8d308_f1f8681d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-21T13:07:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a921c65_0ec34bfe",
+      "revId": "2bfd9e996e3c69178f5f4856aca540227fed7935",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba144089_b0654dfa",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 4
@@ -30,6 +48,30 @@
       "writtenOn": "2016-07-13T20:26:38Z",
       "side": 1,
       "message": "s/handshake/session/?",
+      "range": {
+        "startLine": 1615,
+        "startChar": 63,
+        "endLine": 1615,
+        "endChar": 72
+      },
+      "revId": "2bfd9e996e3c69178f5f4856aca540227fed7935",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad8d308_91f55c24",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1615,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-21T13:07:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba144089_b0654dfa",
       "range": {
         "startLine": 1615,
         "startChar": 63,
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "4ad8d308_71147847",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 2039,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-21T13:07:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba144089_f03865dc",
+      "revId": "2bfd9e996e3c69178f5f4856aca540227fed7935",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba144089_704d957c",
         "filename": "ssl/handshake_client.c",
         "patchSetId": 4
@@ -70,6 +130,30 @@
       "writtenOn": "2016-07-13T20:26:38Z",
       "side": 1,
       "message": "worth adding a /* */ comment about the meaning of 0. (And there was another call to this above, with 1, which could use the same thing.)",
+      "range": {
+        "startLine": 2057,
+        "startChar": 44,
+        "endLine": 2057,
+        "endChar": 45
+      },
+      "revId": "2bfd9e996e3c69178f5f4856aca540227fed7935",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad8d308_b1f2e037",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 2057,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-21T13:07:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba144089_704d957c",
       "range": {
         "startLine": 2057,
         "startChar": 44,
@@ -99,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "4ad8d308_11196c7e",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 1931,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-21T13:07:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba144089_50f05932",
+      "revId": "2bfd9e996e3c69178f5f4856aca540227fed7935",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba144089_301e7d5a",
         "filename": "ssl/ssl_session.c",
         "patchSetId": 4
@@ -116,6 +218,24 @@
     },
     {
       "key": {
+        "uuid": "4ad8d308_311ef067",
+        "filename": "ssl/ssl_session.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-21T13:07:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba144089_301e7d5a",
+      "revId": "2bfd9e996e3c69178f5f4856aca540227fed7935",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba144089_f03ce5b0",
         "filename": "ssl/ssl_session.c",
         "patchSetId": 4
@@ -127,6 +247,24 @@
       "writtenOn": "2016-07-13T20:26:38Z",
       "side": 1,
       "message": "Can we test that this function is complete by doing a handshake, duping the resulting session and checking that serialising both results in the same bytes?",
+      "revId": "2bfd9e996e3c69178f5f4856aca540227fed7935",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad8d308_912c7c9e",
+        "filename": "ssl/ssl_session.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-21T13:07:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba144089_f03ce5b0",
       "revId": "2bfd9e996e3c69178f5f4856aca540227fed7935",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
