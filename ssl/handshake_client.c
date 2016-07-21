@@ -596,9 +596,11 @@ int ssl_write_client_cipher_list(SSL *ssl, CBB *out, uint16_t min_version,
     ssl->s3->tmp.extensions.sent |= (1u << 0);
   }
 
-  if ((ssl->mode & SSL_MODE_SEND_FALLBACK_SCSV) &&
-      !CBB_add_u16(&child, SSL3_CK_FALLBACK_SCSV & 0xffff)) {
-    return 0;
+  if ((ssl->mode & SSL_MODE_SEND_FALLBACK_SCSV) ||
+      (ssl->true_max_version != 0 && ssl->true_max_version > max_version)) {
+    if (!CBB_add_u16(&child, SSL3_CK_FALLBACK_SCSV & 0xffff)) {
+      return 0;
+    }
   }
 
   return CBB_flush(out);
@@ -843,7 +845,11 @@ static int ssl3_get_server_hello(SSL *ssl) {
    * settled down. */
   static const uint8_t kDowngradeTLS12[8] = {0x44, 0x4f, 0x57, 0x4e,
                                              0x47, 0x52, 0x44, 0x01};
-  if (max_version >= TLS1_3_VERSION &&
+  uint16_t true_max_version = ssl->true_max_version;
+  if (true_max_version == 0) {
+    true_max_version = max_version;
+  }
+  if (true_max_version >= TLS1_3_VERSION &&
       ssl3_protocol_version(ssl) <= TLS1_2_VERSION &&
       memcmp(ssl->s3->server_random + SSL3_RANDOM_SIZE - 8, kDowngradeTLS12,
              8) == 0) {

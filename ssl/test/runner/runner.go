@@ -3853,6 +3853,29 @@ func addVersionNegotiationTests() {
 		shouldFail:    true,
 		expectedError: ":DOWNGRADE_DETECTED:",
 	})
+	// Test that FALLBACK_SCSV is sent when the true maximum version is set
+	// and that the downgrade signal works.
+	testCases = append(testCases, testCase{
+		name: "Downgrade-TLS12-Client-Fallback",
+		config: Config{
+			Bugs: ProtocolBugs{
+				FailIfNotFallbackSCSV: true,
+			},
+		},
+		flags: []string{
+			"-max-version", strconv.Itoa(VersionTLS12),
+			"-true-max-version", strconv.Itoa(VersionTLS13),
+		},
+		shouldFail:    true,
+		expectedError: ":DOWNGRADE_DETECTED:",
+	})
+	testCases = append(testCases, testCase{
+		name: "Downgrade-TLS12-Client-MaxVersion-TLS12",
+		flags: []string{
+			"-max-version", strconv.Itoa(VersionTLS12),
+			"-true-max-version", strconv.Itoa(VersionTLS12),
+		},
+	})
 	testCases = append(testCases, testCase{
 		testType: serverTest,
 		name:     "Downgrade-TLS12-Server",

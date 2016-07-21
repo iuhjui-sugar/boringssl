@@ -860,6 +860,10 @@ void SSL_set_max_version(SSL *ssl, uint16_t version) {
   ssl->max_version = ssl->method->version_from_wire(version);
 }
 
+void SSL_set_true_max_version(SSL *ssl, uint16_t version) {
+  ssl->true_max_version = ssl->method->version_from_wire(version);
+}
+
 uint32_t SSL_CTX_set_options(SSL_CTX *ctx, uint32_t options) {
   ctx->options |= options;
   return ctx->options;

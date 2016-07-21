@@ -681,7 +681,9 @@ OPENSSL_EXPORT uint32_t SSL_get_options(const SSL *ssl);
  * version; see RFC 7507 for details.
  *
  * DO NOT ENABLE THIS if your application attempts a normal handshake. Only use
- * this in explicit fallback retries, following the guidance in RFC 7507. */
+ * this in explicit fallback retries, following the guidance in RFC 7507.
+ *
+ * This flag is deprecated. Use |SSL_set_true_max_version| instead. */
 #define SSL_MODE_SEND_FALLBACK_SCSV 0x00000400L
 
 /* SSL_CTX_set_mode enables all modes set in |mode| (which should be one or more
@@ -3059,6 +3061,19 @@ OPENSSL_EXPORT const SSL_CIPHER *SSL_get_pending_cipher(const SSL *ssl);
 OPENSSL_EXPORT void SSL_CTX_set_retain_only_sha256_of_client_certs(SSL_CTX *ctx,
                                                                    int enable);
 
+/* SSL_set_true_max_version, on a client, sets the true maximum protocol version
+ * for |ssl| to |version|. This may be used when implementing a version fallback
+ * to work around buggy servers. If this value differs from the advertised
+ * maximum version, TLS_FALLBACK_SCSV (see RFC 7507) will be sent. Further, in
+ * the TLS 1.3 anti-downgrade logic, |version| will be used as the maximum
+ * version, but elsewhere in the protocol, the maximum version will be the one
+ * configured with |SSL_set_max_version|.
+ *
+ * For instance, a fallback from a TLS 1.3 ClientHello to a TLS 1.2 ClientHello
+ * should set this value to |TLS1_3_VERSION| and call |SSL_set_max_version| with
+ * |TLS1_2_VERSION|. */
+OPENSSL_EXPORT void SSL_set_true_max_version(SSL *ssl, uint16_t version);
+
 
 /* Deprecated functions. */
 
@@ -3959,6 +3974,11 @@ struct ssl_st {
   /* min_version is the minimum acceptable protocol version. Note this version
    * is normalized in DTLS. */
   uint16_t min_version;
+
+  /* true_max_version is the maximum acceptable protocol version for
+   * anti-downgrade purposes, or zero if unset. Note this version is normalized
+   * in DTLS. */
+  uint16_t true_max_version;
 
   /* method is the method table corresponding to the current protocol (DTLS or
    * TLS). */
