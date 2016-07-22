@@ -179,7 +179,7 @@ $code=<<___;
 .code	32
 #else
 .syntax unified
-# if defined(__thumb2__) && !defined(__APPLE__)
+# if defined(__thumb2__) && !defined(__clang__)
 #  define adrl adr
 .thumb
 # else
@@ -190,6 +190,7 @@ $code=<<___;
 .type	K256,%object
 .align	5
 K256:
+.L_K256:
 .word	0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5
 .word	0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5
 .word	0xd807aa98,0x12835b01,0x243185be,0x550c7dc3
@@ -226,7 +227,7 @@ sha256_block_data_order:
 #if __ARM_MAX_ARCH__>=7 && !defined(__KERNEL__)
 	ldr	r12,.LOPENSSL_armcap
 	ldr	r12,[r3,r12]		@ OPENSSL_armcap_P
-#ifdef	__APPLE__
+#ifdef	__clang__
 	ldr	r12,[r12]
 #endif
 	tst	r12,#ARMV8_SHA256
@@ -479,7 +480,9 @@ sha256_block_data_order_neon:
 	stmdb	sp!,{r4-r12,lr}
 
 	sub	$H,sp,#16*4+16
-	adrl	$Ktbl,K256
+	adr	$Ktbl,.L_K256_temp1
+.L_K256_temp1:
+	.word	(.L_K256-.L_K256_temp1)
 	bic	$H,$H,#15		@ align for 128-bit stores
 	mov	$t2,sp
 	mov	sp,$H			@ alloca
@@ -599,7 +602,7 @@ my $Ktbl="r3";
 $code.=<<___;
 #if __ARM_MAX_ARCH__>=7 && !defined(__KERNEL__)
 
-# if defined(__thumb2__) && !defined(__APPLE__)
+# if defined(__thumb2__) && !defined(__clang__)
 #  define INST(a,b,c,d)	.byte	c,d|0xc,a,b
 # else
 #  define INST(a,b,c,d)	.byte	a,b,c,d
@@ -610,7 +613,7 @@ $code.=<<___;
 sha256_block_data_order_armv8:
 .LARMv8:
 	vld1.32	{$ABCD,$EFGH},[$ctx]
-# ifdef	__APPLE__
+# ifdef	__clang__
 	sub	$Ktbl,$Ktbl,#256+32
 # elif	defined(__thumb2__)
 	adr	$Ktbl,.LARMv8

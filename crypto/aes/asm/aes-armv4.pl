@@ -75,7 +75,7 @@ $code=<<___;
 .code	32
 #else
 .syntax	unified
-# if defined(__thumb2__) && !defined(__APPLE__)
+# if defined(__thumb2__) && !defined(__clang__)
 .thumb
 # else
 .code	32
@@ -200,7 +200,7 @@ asm_AES_encrypt:
 	adr	r3,asm_AES_encrypt
 #endif
 	stmdb   sp!,{r1,r4-r12,lr}
-#ifdef	__APPLE__
+#ifdef	__clang__
 	adr	$tbl,AES_Te
 #else
 	sub	$tbl,r3,#asm_AES_encrypt-AES_Te	@ Te
@@ -478,7 +478,7 @@ _armv4_AES_set_encrypt_key:
 	mov	lr,r1			@ bits
 	mov	$key,r2			@ key
 
-#ifdef	__APPLE__
+#ifdef	__clang__
 	adr	$tbl,AES_Te+1024				@ Te4
 #else
 	sub	$tbl,r3,#_armv4_AES_set_encrypt_key-AES_Te-1024	@ Te4
@@ -976,7 +976,7 @@ asm_AES_decrypt:
 	adr	r3,asm_AES_decrypt
 #endif
 	stmdb   sp!,{r1,r4-r12,lr}
-#ifdef	__APPLE__
+#ifdef	__clang__
 	adr	$tbl,AES_Td
 #else
 	sub	$tbl,r3,#asm_AES_decrypt-AES_Td	@ Td

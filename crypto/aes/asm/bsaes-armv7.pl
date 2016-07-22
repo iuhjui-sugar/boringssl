@@ -727,7 +727,7 @@ $code.=<<___;
 
 .text
 .syntax	unified 	@ ARMv7-capable assembler is expected to handle this
-#if defined(__thumb2__) && !defined(__APPLE__)
+#if defined(__thumb2__) && !defined(__clang__)
 .thumb
 #else
 .code   32
@@ -738,7 +738,7 @@ $code.=<<___;
 _bsaes_decrypt8:
 	adr	$const,_bsaes_decrypt8
 	vldmia	$key!, {@XMM[9]}		@ round 0 key
-#ifdef	__APPLE__
+#ifdef	__clang__
 	adr	$const,.LM0ISR
 #else
 	add	$const,$const,#.LM0ISR-_bsaes_decrypt8
@@ -837,7 +837,7 @@ _bsaes_const:
 _bsaes_encrypt8:
 	adr	$const,_bsaes_encrypt8
 	vldmia	$key!, {@XMM[9]}		@ round 0 key
-#ifdef	__APPLE__
+#ifdef	__clang__
 	adr	$const,.LM0SR
 #else
 	sub	$const,$const,#_bsaes_encrypt8-.LM0SR
@@ -945,7 +945,7 @@ $code.=<<___;
 _bsaes_key_convert:
 	adr	$const,_bsaes_key_convert
 	vld1.8	{@XMM[7]},  [$inp]!		@ load round 0 key
-#ifdef	__APPLE__
+#ifdef	__clang__
 	adr	$const,.LM0
 #else
 	sub	$const,$const,#_bsaes_key_convert-.LM0
@@ -1416,7 +1416,7 @@ bsaes_ctr32_encrypt_blocks:
 	vstmia	r12, {@XMM[7]}			@ save last round key
 
 	vld1.8	{@XMM[0]}, [$ctr]		@ load counter
-#ifdef	__APPLE__
+#ifdef	__clang__
 	mov	$ctr, #:lower16:(.LREVM0SR-.LM0)
 	add	$ctr, $const, $ctr
 #else
@@ -1478,7 +1478,7 @@ bsaes_ctr32_encrypt_blocks:
 	vldmia		$ctr, {@XMM[8]}			@ .LREVM0SR
 	mov		r5, $rounds			@ pass rounds
 	vstmia		$fp, {@XMM[10]}			@ save next counter
-#ifdef	__APPLE__
+#ifdef	__clang__
 	mov		$const, #:lower16:(.LREVM0SR-.LSR)
 	sub		$const, $ctr, $const
 #else
