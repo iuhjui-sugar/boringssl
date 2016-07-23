@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ca45a3e6_8c414f93",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 77
+      },
+      "lineNbr": 1125,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-07-23T20:31:34Z",
+      "side": 1,
+      "message": "This introduces the possibility of a failed assert(ssl-\u003es3-\u003ehave_version).\n\nIs that intended?  If so, we should document that this can now only be called after version negotiation.",
+      "range": {
+        "startLine": 1125,
+        "startChar": 54,
+        "endLine": 1125,
+        "endChar": 56
+      },
+      "revId": "143e8b3fd9b96a4599d303e7800c4043904ff55f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
