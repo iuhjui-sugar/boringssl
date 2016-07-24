@@ -22,6 +22,24 @@
       "revId": "143e8b3fd9b96a4599d303e7800c4043904ff55f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ae11740_a26d9e37",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 77
+      },
+      "lineNbr": 1125,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-24T04:13:23Z",
+      "side": 1,
+      "message": "Oh hrm. Calling this function before the handshake is complete is sort of nonsense, we can stick a have_version check inside the function easily enough. Make it epsilon friendlier I suppose.",
+      "parentUuid": "ca45a3e6_8c414f93",
+      "revId": "143e8b3fd9b96a4599d303e7800c4043904ff55f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
