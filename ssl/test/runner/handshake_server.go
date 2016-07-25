@@ -300,22 +300,44 @@ Curves:
 
 	_, ecdsaOk := hs.cert.PrivateKey.(*ecdsa.PrivateKey)
 
-	// TODO(davidben): Implement PSK support.
 	pskOk := false
-
-	// Select the cipher suite.
-	var preferenceList, supportedList []uint16
-	if config.PreferServerCipherSuites {
-		preferenceList = config.cipherSuites()
-		supportedList = hs.clientHello.cipherSuites
-	} else {
-		preferenceList = hs.clientHello.cipherSuites
-		supportedList = config.cipherSuites()
+	for i, pskIdentity := range hs.clientHello.pskIdentities {
+		var ok bool
+		hs.sessionState, ok = c.decryptTicket(pskIdentity)
+		if !ok {
+			continue
+		}
+		if hs.sessionState.vers != c.vers {
+			continue
+		}
+		suiteId := pskSuite(hs.sessionState.cipherSuite)
+		clientSuite := c.tryCipherSuite(suiteId, hs.clientHello.cipherSuites, c.vers, supportedCurve, false, true)
+		serverSuite := c.tryCipherSuite(suiteId, config.cipherSuites(), c.vers, supportedCurve, false, true)
+		if clientSuite != nil && clientSuite == serverSuite {
+			pskOk = true
+			hs.suite = clientSuite
+			hs.hello.hasPSKIdentity = true
+			hs.hello.pskIdentity = uint16(i)
+			c.didResume = true
+			break
+		}
 	}
 
-	for _, id := range preferenceList {
-		if hs.suite = c.tryCipherSuite(id, supportedList, c.vers, supportedCurve, ecdsaOk, pskOk); hs.suite != nil {
-			break
+	// Select the cipher suite.
+	if hs.suite == nil {
+		var preferenceList, supportedList []uint16
+		if config.PreferServerCipherSuites {
+			preferenceList = config.cipherSuites()
+			supportedList = hs.clientHello.cipherSuites
+		} else {
+			preferenceList = hs.clientHello.cipherSuites
+			supportedList = config.cipherSuites()
+		}
+
+		for _, id := range preferenceList {
+			if hs.suite = c.tryCipherSuite(id, supportedList, c.vers, supportedCurve, ecdsaOk, pskOk); hs.suite != nil {
+				break
+			}
 		}
 	}
 
@@ -334,9 +356,14 @@ Curves:
 	hs.writeClientHash(hs.clientHello.marshal())
 
 	// Resolve PSK and compute the early secret.
-	// TODO(davidben): Implement PSK in TLS 1.3.
-	psk := hs.finishedHash.zeroSecret()
-	hs.finishedHash.setResumptionContext(hs.finishedHash.zeroSecret())
+	var psk []byte
+	if hs.suite.flags&suitePSK != 0 {
+		psk = deriveResumptionPSK(hs.suite, hs.sessionState.masterSecret)
+		hs.finishedHash.setResumptionContext(deriveResumptionContext(hs.suite, hs.sessionState.masterSecret))
+	} else {
+		psk = hs.finishedHash.zeroSecret()
+		hs.finishedHash.setResumptionContext(hs.finishedHash.zeroSecret())
+	}
 
 	earlySecret := hs.finishedHash.extractKey(hs.finishedHash.zeroSecret(), psk)
 
@@ -457,8 +484,6 @@ Curves:
 	c.in.updateKeys(deriveTrafficAEAD(c.vers, hs.suite, handshakeTrafficSecret, handshakePhase, clientWrite), c.vers)
 
 	if hs.suite.flags&suitePSK != 0 {
-		return errors.New("tls: PSK ciphers not implemented for TLS 1.3")
-	} else {
 		if hs.clientHello.ocspStapling {
 			encryptedExtensions.extensions.ocspResponse = hs.cert.OCSPStaple
 		}

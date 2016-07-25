@@ -197,6 +197,8 @@ NextCipherSuite:
 		// Try to resume a previously negotiated TLS session, if
 		// available.
 		cacheKey = clientSessionCacheKey(c.conn.RemoteAddr(), c.config)
+		// TODO(nharper): Support storing more than one session
+		// ticket for TLS 1.3.
 		candidateSession, ok := sessionCache.Get(cacheKey)
 		if ok {
 			ticketOk := !c.config.SessionTicketsDisabled || candidateSession.sessionTicket == nil
@@ -232,7 +234,10 @@ NextCipherSuite:
 		}
 
 		if session.vers >= VersionTLS13 {
-			// TODO(davidben): Offer TLS 1.3 tickets.
+			// TODO(nharper): Support sending more
+			// than one PSK identity.
+			hello.pskIdentities = make([][]uint8, 1)
+			hello.pskIdentities[0] = ticket
 		} else if ticket != nil {
 			hello.sessionTicket = ticket
 			// A random session ID is used to detect when the
@@ -538,9 +543,20 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 			return errors.New("tls: server omitted the PSK identity extension")
 		}
 
-		// TODO(davidben): Support PSK ciphers and PSK resumption. Set
-		// the resumption context appropriately if resuming.
-		return errors.New("tls: PSK ciphers not implemented for TLS 1.3")
+		// TODO(nharper): Once there's support for sending
+		// multiple PSK identities, this will need to check that
+		// the index is valid and then find the corresponding PSK.
+		if hs.serverHello.pskIdentity != 0 {
+			c.sendAlert(alertUnknownPSKIdentity)
+			return errors.New("tls: server sent unknown PSK identity")
+		}
+		if pskSuite(hs.session.cipherSuite) != hs.suite.id {
+			c.sendAlert(alertHandshakeFailure)
+			return errors.New("tls: server sent invalid cipher suite for PSK")
+		}
+		psk = deriveResumptionPSK(hs.suite, hs.session.masterSecret)
+		hs.finishedHash.setResumptionContext(deriveResumptionContext(hs.suite, hs.session.masterSecret))
+		c.didResume = true
 	} else {
 		if hs.serverHello.hasPSKIdentity {
 			c.sendAlert(alertUnsupportedExtension)
@@ -766,6 +782,15 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 	c.exporterSecret = hs.finishedHash.deriveSecret(masterSecret, exporterLabel)
 	c.resumptionSecret = hs.finishedHash.deriveSecret(masterSecret, resumptionLabel)
 	return nil
+}
+
+func (c *Conn) addSessionToCache(state *ClientSessionState) {
+	sessionCache := c.config.ClientSessionCache
+	if sessionCache == nil {
+		return
+	}
+	cacheKey := clientSessionCacheKey(c.conn.RemoteAddr(), c.config)
+	sessionCache.Put(cacheKey, state)
 }
 
 func (hs *clientHandshakeState) doFullHandshake() error {
