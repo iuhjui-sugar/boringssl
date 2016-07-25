@@ -197,3 +197,8 @@ return value patterns in legacy functions.
 
 Document private functions in their `internal.h` header or, if static,
 where defined.
+
+
+## Commit In Style.
+
+Use CQ.
