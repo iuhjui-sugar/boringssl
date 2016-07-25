@@ -181,16 +181,17 @@ int BN_pseudo_rand(BIGNUM *rnd, int bits, int top, int bottom) {
   return BN_rand(rnd, bits, top, bottom);
 }
 
-int BN_rand_range(BIGNUM *r, const BIGNUM *range) {
+int BN_rand_range_ex(BIGNUM *r, BN_ULONG min_inclusive,
+                     const BIGNUM *max_exclusive) {
   unsigned n;
   unsigned count = 100;
 
-  if (range->neg || BN_is_zero(range)) {
+  if (BN_cmp_word(max_exclusive, min_inclusive) <= 0) {
     OPENSSL_PUT_ERROR(BN, BN_R_INVALID_RANGE);
     return 0;
   }
 
-  n = BN_num_bits(range); /* n > 0 */
+  n = BN_num_bits(max_exclusive); /* n > 0 */
 
   if (n == 1) {
     BN_zero(r);
@@ -204,10 +205,15 @@ int BN_rand_range(BIGNUM *r, const BIGNUM *range) {
         OPENSSL_PUT_ERROR(BN, BN_R_TOO_MANY_ITERATIONS);
         return 0;
       }
-    } while (BN_cmp(r, range) >= 0);
+    } while (BN_cmp_word(r, min_inclusive) < 0 ||
+             BN_cmp(r, max_exclusive) >= 0);
   }
 
   return 1;
+}
+
+int BN_rand_range(BIGNUM *r, const BIGNUM *range) {
+  return BN_rand_range_ex(r, 0, range);
 }
 
 int BN_pseudo_rand_range(BIGNUM *r, const BIGNUM *range) {
