@@ -191,9 +191,9 @@ const (
 
 // TicketFlags values (see draft-ietf-tls-tls13-14, section 4.4.1)
 const (
-	ticketAllowEarlyData     = 1
-	ticketAllowDHEResumption = 2
-	ticketAllowPSKResumption = 4
+	ticketAllowEarlyData     uint32 = 1
+	ticketAllowDHEResumption        = 2
+	ticketAllowPSKResumption        = 4
 )
 
 // ConnectionState records basic TLS details about the connection.
@@ -241,6 +241,10 @@ type ClientSessionState struct {
 	extendedMasterSecret bool                // Whether an extended master secret was used to generate the session
 	sctList              []byte
 	ocspResponse         []byte
+	ticketCreationTime   time.Time
+	ticketExpiration     time.Time
+	ticketFlags          uint32
+	ticketAgeAdd         uint32
 }
 
 // ClientSessionCache is a cache of ClientSessionState objects that can be used
