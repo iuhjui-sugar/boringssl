@@ -192,40 +192,10 @@ int BN_rand_range(BIGNUM *r, const BIGNUM *range) {
 
   n = BN_num_bits(range); /* n > 0 */
 
-  /* BN_is_bit_set(range, n - 1) always holds */
   if (n == 1) {
     BN_zero(r);
-  } else if (!BN_is_bit_set(range, n - 2) && !BN_is_bit_set(range, n - 3)) {
-    /* range = 100..._2,
-     * so  3*range (= 11..._2)  is exactly one bit longer than  range */
-    do {
-      if (!BN_rand(r, n + 1, -1 /* don't set most significant bits */,
-                   0 /* don't set least significant bits */)) {
-        return 0;
-      }
-
-      /* If r < 3*range, use r := r MOD range (which is either r, r - range, or
-       * r - 2*range). Otherwise, iterate again. Since 3*range = 11..._2, each
-       * iteration succeeds with probability >= .75. */
-      if (BN_cmp(r, range) >= 0) {
-        if (!BN_sub(r, r, range)) {
-          return 0;
-        }
-        if (BN_cmp(r, range) >= 0) {
-          if (!BN_sub(r, r, range)) {
-            return 0;
-          }
-        }
-      }
-
-      if (!--count) {
-        OPENSSL_PUT_ERROR(BN, BN_R_TOO_MANY_ITERATIONS);
-        return 0;
-      }
-    } while (BN_cmp(r, range) >= 0);
   } else {
     do {
-      /* range = 11..._2  or  range = 101..._2 */
       if (!BN_rand(r, n, -1, 0)) {
         return 0;
       }
