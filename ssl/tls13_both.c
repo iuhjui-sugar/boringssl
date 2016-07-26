@@ -452,3 +452,28 @@ int tls13_prepare_finished(SSL *ssl) {
 
   return 1;
 }
+
+int tls13_post_handshake(SSL *ssl) {
+  int ret = ssl->method->ssl_get_message(ssl, -1, ssl_dont_hash_message);
+  if (ret <= 0) {
+    OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
+    return 0;
+  }
+
+  if (ssl->s3->tmp.message_type == SSL3_MT_KEY_UPDATE) {
+    // TODO(svaldez): Handle KeyUpdate.
+    return 0;
+  } else if (ssl->s3->tmp.message_type == SSL3_MT_NEW_SESSION_TICKET &&
+             !ssl->server) {
+    // TODO(svaldez): Handle NewSessionTicket.
+    return 0;
+  } else if (ssl->s3->tmp.message_type == SSL3_MT_CERTIFICATE_REQUEST &&
+             !ssl->server) {
+    // TODO(svaldez): Handle Post-Handshake Authentication
+    return 0;
+  } else {
+    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_UNEXPECTED_MESSAGE);
+    OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_MESSAGE);
+    return 0;
+  }
+}
