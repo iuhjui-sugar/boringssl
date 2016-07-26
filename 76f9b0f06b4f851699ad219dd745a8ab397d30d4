@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cf22159a_f513986b",
+        "filename": "crypto/asn1/tasn_dec.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-26T17:03:10Z",
+      "side": 1,
+      "message": "0 means \"don\u0027t emit an error\" apparently.",
+      "range": {
+        "startLine": 402,
+        "startChar": 46,
+        "endLine": 402,
+        "endChar": 47
+      },
+      "revId": "76f9b0f06b4f851699ad219dd745a8ab397d30d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
