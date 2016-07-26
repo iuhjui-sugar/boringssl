@@ -453,6 +453,26 @@ int tls13_prepare_finished(SSL *ssl) {
   return 1;
 }
 
+static int tls13_receive_key_update(SSL *ssl) {
+  CBS cbs;
+  CBS_init(&cbs, ssl->init_msg, ssl->init_num);
+  if (CBS_len(&cbs) != 0) {
+    return 0;
+  }
+
+  if (!tls13_rotate_traffic_key(ssl, evp_aead_open)) {
+    return 0;
+  }
+
+  if (ssl->s3->read_traffic_secret_len != ssl->s3->write_traffic_secret_len ||
+      memcmp(ssl->s3->read_traffic_secret, ssl->s3->write_traffic_secret,
+             ssl->s3->read_traffic_secret_len) != 0) {
+    // TODO(svaldez): Send KeyUpdate.
+  }
+
+  return 1;
+}
+
 int tls13_post_handshake(SSL *ssl) {
   int ret = ssl->method->ssl_get_message(ssl, -1, ssl_dont_hash_message);
   if (ret <= 0) {
@@ -461,8 +481,7 @@ int tls13_post_handshake(SSL *ssl) {
   }
 
   if (ssl->s3->tmp.message_type == SSL3_MT_KEY_UPDATE) {
-    // TODO(svaldez): Handle KeyUpdate.
-    return 0;
+    return tls13_receive_key_update(ssl);
   } else if (ssl->s3->tmp.message_type == SSL3_MT_NEW_SESSION_TICKET &&
              !ssl->server) {
     // TODO(svaldez): Handle NewSessionTicket.

@@ -273,6 +273,29 @@ int tls13_derive_traffic_secret_0(SSL *ssl) {
                         hs->hash_len);
 }
 
+int tls13_rotate_traffic_key(SSL *ssl, enum evp_aead_direction_t direction) {
+  const EVP_MD *digest = ssl_get_handshake_digest(ssl_get_algorithm_prf(ssl));
+
+  uint8_t *secret;
+  size_t secret_len;
+  if (direction == evp_aead_open) {
+    secret = ssl->s3->read_traffic_secret;
+    secret_len = ssl->s3->read_traffic_secret_len;
+  } else {
+    secret = ssl->s3->write_traffic_secret;
+    secret_len = ssl->s3->write_traffic_secret_len;
+  }
+
+  if (!hkdf_expand_label(secret, digest, secret, secret_len,
+                         (const uint8_t *)kTLS13LabelApplicationTraffic,
+                         strlen(kTLS13LabelApplicationTraffic), NULL, 0,
+                         secret_len)) {
+    return 0;
+  }
+
+  return tls13_set_traffic_key(ssl, type_data, direction, secret, secret_len);
+}
+
 static const char kTLS13LabelExporter[] = "exporter master secret";
 static const char kTLS13LabelResumption[] = "resumption master secret";
 
