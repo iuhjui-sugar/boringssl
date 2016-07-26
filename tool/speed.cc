@@ -305,6 +305,133 @@ static bool SpeedRandom(const std::string &selected) {
          SpeedRandomChunk("RNG (8192 bytes)", 8192);
 }
 
+static bool SpeedECCInverseCurve(const std::string &name, int nid,
+                                 const std::string &selected) {
+  if (!selected.empty() && name.find(selected) == std::string::npos) {
+    return true;
+  }
+
+  ScopedBN_CTX ctx(BN_CTX_new());
+  ScopedEC_GROUP group(EC_GROUP_new_by_curve_name(nid));
+  ScopedBIGNUM q(BN_new());
+  ScopedBN_MONT_CTX q_mont(BN_MONT_CTX_new());
+  ScopedBIGNUM to_invert(BN_new());
+  ScopedBIGNUM result(BN_new());
+  if (!ctx ||
+      !group ||
+      !q ||
+      !EC_GROUP_get_curve_GFp(group.get(), q.get(), NULL, NULL, ctx.get()) ||
+      !q_mont ||
+      !BN_MONT_CTX_set(q_mont.get(), q.get(), ctx.get()) ||
+      !to_invert ||
+      !result) {
+    return false;
+  }
+
+  TimeResults results;
+
+  if (!BN_rshift1(to_invert.get(), q.get())
+      // !BN_set_word(to_invert.get(), 1)
+      // !BN_copy(to_invert.get(), q.get()) || !BN_sub_word(to_invert.get(), 1)
+      ) {
+    return false;
+  }
+
+  if (!TimeFunction(&results, [&]() -> bool {
+        return BN_mod_inverse(result.get(), to_invert.get(), q.get(),
+                              ctx.get());
+      })) {
+    return false;
+  }
+
+  results.Print(name + " inverse (mod q) via BN_mod_inverse");
+
+  if (!TimeFunction(&results, [&]() -> bool {
+        int no_inverse;
+        return BN_mod_inverse_blinded(result.get(), &no_inverse,
+                                      to_invert.get(), q_mont.get(), ctx.get());
+      })) {
+    return false;
+  }
+
+  results.Print(name + " inverse (mod q) via BN_mod_inverse_blinded");
+
+  ScopedBIGNUM q_minus_2(BN_dup(q.get()));
+  if (!q_minus_2 ||
+      !BN_sub_word(q_minus_2.get(), 2)) {
+    __debugbreak();
+    return false;
+  }
+
+  if (!TimeFunction(&results, [&]() -> bool {
+        return BN_mod_exp_mont_consttime(result.get(), to_invert.get(),
+                                         q_minus_2.get(), q.get(), ctx.get(),
+                                         q_mont.get());
+      })) {
+    return false;
+  }
+
+  results.Print(name + " inverse (mod q) BN_mod_exp_mont_consttime");
+
+  const BIGNUM *n = EC_GROUP_get0_order(group.get());
+  ScopedBN_MONT_CTX n_mont(BN_MONT_CTX_new());
+  if (!n_mont ||
+      !BN_MONT_CTX_set(n_mont.get(), n, ctx.get())) {
+    return false;
+  }
+
+  if (!BN_rshift1(to_invert.get(), n)
+      // !BN_set_word(to_invert.get(), 1)
+      // !BN_copy(to_invert.get(), n) || !BN_sub_word(to_invert.get(), 1)
+      ) {
+    return false;
+  }
+
+  if (!TimeFunction(&results, [&]() -> bool {
+        return BN_mod_inverse(result.get(), to_invert.get(), n, ctx.get());
+      })) {
+    return false;
+  }
+
+  results.Print(name + " inverse (mod n) via BN_mod_inverse");
+
+
+  if (!TimeFunction(&results, [&]() -> bool {
+        int no_inverse;
+        return BN_mod_inverse_blinded(result.get(), &no_inverse,
+                                      to_invert.get(), n_mont.get(), ctx.get());
+      })) {
+    return false;
+  }
+
+  results.Print(name + " inverse (mod n) via BN_mod_inverse_blinded");
+
+  ScopedBIGNUM n_minus_2(BN_dup(n));
+  if (!n_minus_2 ||
+      !BN_sub_word(n_minus_2.get(), 2)) {
+    return false;
+  }
+
+  if (!TimeFunction(&results, [&]() -> bool {
+        return BN_mod_exp_mont_consttime(result.get(), to_invert.get(),
+                                         n_minus_2.get(), n, ctx.get(),
+                                         n_mont.get());
+      })) {
+    return false;
+  }
+
+  results.Print(name + " inverse (mod n) via BN_mod_exp_mont_consttime");
+
+  return true;
+}
+
+static bool SpeedECCInverse(const std::string &selected) {
+  return SpeedECCInverseCurve("inverse P-224", NID_secp224r1, selected) &&
+         SpeedECCInverseCurve("inverse P-256", NID_X9_62_prime256v1, selected) &&
+         SpeedECCInverseCurve("inverse P-384", NID_secp384r1, selected) &&
+         SpeedECCInverseCurve("inverse P-521", NID_secp521r1, selected);
+}
+
 static bool SpeedECDHCurve(const std::string &name, int nid,
                            const std::string &selected) {
   if (!selected.empty() && name.find(selected) == std::string::npos) {
@@ -620,6 +747,7 @@ bool Speed(const std::vector<std::string> &args) {
       !SpeedHash(EVP_sha256(), "SHA-256", selected) ||
       !SpeedHash(EVP_sha512(), "SHA-512", selected) ||
       !SpeedRandom(selected) ||
+      !SpeedECCInverse(selected) ||
       !SpeedECDH(selected) ||
       !SpeedECDSA(selected) ||
       !Speed25519(selected) ||
