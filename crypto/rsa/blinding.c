@@ -216,9 +216,6 @@ int BN_BLINDING_invert(BIGNUM *n, const BN_BLINDING *b, BN_MONT_CTX *mont,
 
 static int bn_blinding_create_param(BN_BLINDING *b, const BIGNUM *e,
                                     const BN_MONT_CTX *mont, BN_CTX *ctx) {
-  BIGNUM mont_N_consttime;
-  BN_init(&mont_N_consttime);
-  BN_with_flags(&mont_N_consttime, &mont->N, BN_FLG_CONSTTIME);
   int retry_counter = 32;
 
   do {
@@ -227,16 +224,15 @@ static int bn_blinding_create_param(BN_BLINDING *b, const BIGNUM *e,
       return 0;
     }
 
-    /* |BN_from_montgomery| + |BN_mod_inverse_no_branch| is equivalent to, but
-     * more efficient than, |BN_mod_inverse_no_branch| + |BN_to_montgomery|. */
+    /* |BN_from_montgomery| + |BN_mod_inverse_blinded| is equivalent to, but
+     * more efficient than, |BN_mod_inverse_blinded| + |BN_to_montgomery|. */
     if (!BN_from_montgomery(b->Ai, b->A, mont, ctx)) {
       OPENSSL_PUT_ERROR(RSA, ERR_R_INTERNAL_ERROR);
       return 0;
     }
 
     int no_inverse;
-    if (BN_mod_inverse_ex(b->Ai, &no_inverse, b->Ai, &mont_N_consttime, ctx) ==
-        NULL) {
+    if (!BN_mod_inverse_blinded(b->Ai, &no_inverse, b->Ai, mont, ctx)) {
       /* this should almost never happen for good RSA keys */
       if (no_inverse) {
         if (retry_counter-- == 0) {
