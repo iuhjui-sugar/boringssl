@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cf22159a_b51d2078",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1018,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-26T17:05:29Z",
+      "side": 1,
+      "message": "Pretty sure sec \u003d\u003d 0 and day \u003e 0 is a legal return for ASN1_TIME_diff...",
+      "revId": "7f489cdf331d63fa71067360d107a460dff3afd1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
