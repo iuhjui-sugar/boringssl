@@ -453,10 +453,20 @@ int tls13_prepare_finished(SSL *ssl) {
   return 1;
 }
 
+static int tls13_receive_key_update(SSL *ssl) {
+  if (ssl->init_num != 0) {
+    OPNESSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
+    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
+    return 0;
+  }
+
+  // TODO(svaldez): Send KeyUpdate.
+  return tls13_rotate_traffic_key(ssl, evp_aead_open);
+}
+
 int tls13_post_handshake(SSL *ssl) {
   if (ssl->s3->tmp.message_type == SSL3_MT_KEY_UPDATE) {
-    // TODO(svaldez): Handle KeyUpdate.
-    return 1;
+    return tls13_receive_key_update(ssl);
   }
 
   if (ssl->s3->tmp.message_type == SSL3_MT_NEW_SESSION_TICKET &&
