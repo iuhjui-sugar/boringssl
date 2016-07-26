@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cf22159a_d5a3fcf4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-26T19:55:57Z",
+      "side": 1,
+      "message": "That\u0027s not quite what this codepath is doing, is it? It\u0027s taking the 0b100[...] case where 3 * range fits in 2^(b+1) and picking a number in [0, 2^(b+1)).\n\nThen if N is in [0, 3 * range), it reduces (well, subtracts range a couple of times). Otherwise, if in [3 * range, 2^(b+1)), it throws it away and retries.",
+      "revId": "170bffdf5d03fdc20bc5ca2db2351168dd195c96",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
