@@ -43,6 +43,8 @@ enum server_hs_state_t {
   state_process_client_certificate,
   state_process_client_certificate_verify,
   state_process_client_finished,
+  state_send_new_session_ticket,
+  state_flush_new_session_ticket,
   state_done,
 };
 
@@ -499,8 +501,47 @@ static enum ssl_hs_wait_t do_process_client_finished(SSL *ssl,
   }
 
   ssl->method->received_flight(ssl);
-  hs->state = state_done;
+  hs->state = state_send_new_session_ticket;
   return ssl_hs_ok;
+}
+
+static enum ssl_hs_wait_t do_send_new_session_ticket(SSL *ssl,
+                                                     SSL_HANDSHAKE *hs) {
+  SSL_SESSION *session = ssl->session;
+  session->tlsext_tick_lifetime_hint = ssl->session->timeout;
+  session->tlsext_tick_flags = 1 | 2 | 4;
+  if (!RAND_bytes((uint8_t *)&session->tlsext_tick_age_add, 4)) {
+    return 0;
+  }
+
+  CBB cbb, body, ticket;
+  if (!ssl->method->init_message(ssl, &cbb, &body,
+                                 SSL3_MT_NEW_SESSION_TICKET) ||
+      !CBB_add_u32(&body, session->tlsext_tick_lifetime_hint) ||
+      !CBB_add_u32(&body, session->tlsext_tick_flags) ||
+      !CBB_add_u32(&body, session->tlsext_tick_age_add) ||
+      !CBB_add_u16(&body, 0 /* no ticket extensions */) ||
+      !CBB_add_u16_length_prefixed(&body, &ticket) ||
+      !ssl_get_new_session_ticket(ssl, &ticket, session) ||
+      !ssl->method->finish_message(ssl, &cbb)) {
+    CBB_cleanup(&cbb);
+    return ssl_hs_error;
+  }
+
+  hs->session_tickets_sent++;
+
+  hs->state = state_flush_new_session_ticket;
+  return ssl_hs_write_message;
+}
+
+static enum ssl_hs_wait_t do_flush_new_session_ticket(SSL *ssl,
+                                                      SSL_HANDSHAKE *hs) {
+  if (hs->session_tickets_sent >= 2) {
+    hs->state = state_done;
+  } else {
+    hs->state = state_send_new_session_ticket;
+  }
+  return ssl_hs_flush;
 }
 
 enum ssl_hs_wait_t tls13_server_handshake(SSL *ssl) {
@@ -554,6 +595,12 @@ enum ssl_hs_wait_t tls13_server_handshake(SSL *ssl) {
         break;
       case state_process_client_finished:
         ret = do_process_client_finished(ssl, hs);
+        break;
+      case state_send_new_session_ticket:
+        ret = do_send_new_session_ticket(ssl, hs);
+        break;
+      case state_flush_new_session_ticket:
+        ret = do_flush_new_session_ticket(ssl, hs);
         break;
       case state_done:
         ret = ssl_hs_ok;
