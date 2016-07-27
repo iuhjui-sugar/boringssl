@@ -55,6 +55,7 @@ var (
 	transcriptDir   = flag.String("transcript-dir", "", "The directory in which to write transcripts.")
 	idleTimeout     = flag.Duration("idle-timeout", 15*time.Second, "The number of seconds to wait for a read or write to bssl_shim.")
 	deterministic   = flag.Bool("deterministic", false, "If true, uses a deterministic PRNG in the runner.")
+	passOnUnimpl    = flag.Bool("unimplemented", false, "If true, report pass even if some tests are unimplemented.")
 )
 
 type testCert int
@@ -689,6 +690,16 @@ func (moreMallocsError) Error() string {
 
 var errMoreMallocs = moreMallocsError{}
 
+
+type unimplementedFlagError struct{}
+
+func (unimplementedFlagError) Error() string {
+	return "child process does not implement flag"
+}
+
+var errUnimplementedFlag = unimplementedFlagError{}
+
+
 // accept accepts a connection from listener, unless waitChan signals a process
 // exit first.
 func acceptOrWait(listener net.Listener, waitChan chan error) (net.Conn, error) {
@@ -885,6 +896,9 @@ func runTest(test *testCase, shimPath string, mallocNumToFail int64) error {
 	if exitError, ok := childErr.(*exec.ExitError); ok {
 		if exitError.Sys().(syscall.WaitStatus).ExitStatus() == 88 {
 			return errMoreMallocs
+		}
+		if exitError.Sys().(syscall.WaitStatus).ExitStatus() == 89 {
+			return errUnimplementedFlag;
 		}
 	}
 
@@ -7693,7 +7707,7 @@ type statusMsg struct {
 }
 
 func statusPrinter(doneChan chan *testOutput, statusChan chan statusMsg, total int) {
-	var started, done, failed, lineLen int
+	var started, done, failed, unimplemented, lineLen int
 
 	testOutput := newTestOutput()
 	for msg := range statusChan {
@@ -7712,9 +7726,18 @@ func statusPrinter(doneChan chan *testOutput, statusChan chan statusMsg, total i
 			done++
 
 			if msg.err != nil {
-				fmt.Printf("FAILED (%s)\n%s\n", msg.test.name, msg.err)
-				failed++
-				testOutput.addResult(msg.test.name, "FAIL")
+				if (msg.err == errUnimplementedFlag) {
+					if *pipe {
+						// Print each test instead of a status line.
+						fmt.Printf("UNIMPLEMENTED (%s)\n", msg.test.name)
+					}
+					unimplemented++
+					testOutput.addResult(msg.test.name, "UNIMPLEMENTED")
+				} else {
+					fmt.Printf("FAILED (%s)\n%s\n", msg.test.name, msg.err)
+					failed++
+					testOutput.addResult(msg.test.name, "FAIL")
+				}
 			} else {
 				if *pipe {
 					// Print each test instead of a status line.
@@ -7726,7 +7749,7 @@ func statusPrinter(doneChan chan *testOutput, statusChan chan statusMsg, total i
 
 		if !*pipe {
 			// Print a new status line.
-			line := fmt.Sprintf("%d/%d/%d/%d", failed, done, started, total)
+			line := fmt.Sprintf("%d/%d/%d/%d/%d", failed, unimplemented, done, started, total)
 			lineLen = len(line)
 			os.Stdout.WriteString(line)
 		}
@@ -7771,6 +7794,7 @@ func main() {
 	addTLS13HandshakeTests()
 
 	var wg sync.WaitGroup
+	var testsStarted int
 
 	statusChan := make(chan statusMsg, *numWorkers)
 	testChan := make(chan *testCase, *numWorkers)
@@ -7788,6 +7812,7 @@ func main() {
 		if len(*testToRun) == 0 || *testToRun == testCases[i].name {
 			foundTest = true
 			testChan <- &testCases[i]
+			testsStarted++
 		}
 	}
 	if !foundTest {
@@ -7809,6 +7834,14 @@ func main() {
 	}
 
 	if !testOutput.allPassed {
-		os.Exit(1)
+		if !*passOnUnimpl {
+			os.Exit(1)
+		} else {
+			if testOutput.NumFailuresByType["PASS"] +
+				testOutput.NumFailuresByType["UNIMPLEMENTED"] !=
+				testsStarted {
+				os.Exit(1)
+			}
+		}
 	}
 }
