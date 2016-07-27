@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cf22159a_d87fb142",
+        "filename": "crypto/ec/ec_montgomery.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-27T17:07:22Z",
+      "side": 1,
+      "message": "(If it turns out it\u0027s not actually faster, let\u0027s just drop this sentence.)",
+      "range": {
+        "startLine": 252,
+        "startChar": 31,
+        "endLine": 254,
+        "endChar": 24
+      },
+      "revId": "0c939897d8765ac08c8d1039526a5792b96a6f2e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
