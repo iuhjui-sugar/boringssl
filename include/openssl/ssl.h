@@ -569,7 +569,7 @@ OPENSSL_EXPORT int DTLSv1_handle_timeout(SSL *ssl);
 #define DTLS1_VERSION 0xfeff
 #define DTLS1_2_VERSION 0xfefd
 
-#define TLS1_3_DRAFT_VERSION 13
+#define TLS1_3_DRAFT_VERSION 14
 
 /* SSL_CTX_set_min_version sets the minimum protocol version for |ctx| to
  * |version|. */
@@ -3679,8 +3679,8 @@ struct ssl_session_st {
   char *tlsext_hostname;
 
   /* RFC4507 info */
-  uint8_t *tlsext_tick;               /* Session ticket */
-  size_t tlsext_ticklen;              /* Session ticket length */
+  uint8_t *ticket;               /* Session ticket */
+  size_t ticket_len;              /* Session ticket length */
 
   size_t tlsext_signed_cert_timestamp_list_length;
   uint8_t *tlsext_signed_cert_timestamp_list; /* Server's list. */
@@ -3699,7 +3699,10 @@ struct ssl_session_st {
   uint8_t original_handshake_hash[EVP_MAX_MD_SIZE];
   unsigned original_handshake_hash_len;
 
-  uint32_t tlsext_tick_lifetime_hint; /* Session lifetime hint in seconds */
+  uint32_t ticket_lifetime_hint; /* Session lifetime hint in seconds */
+
+  uint32_t ticket_flags;
+  uint32_t ticket_age_add;
 
   /* extended_master_secret is true if the master secret in this session was
    * generated using EMS and thus isn't vulnerable to the Triple Handshake

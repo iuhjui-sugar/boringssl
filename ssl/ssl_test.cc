@@ -783,13 +783,13 @@ static ScopedSSL_SESSION CreateSessionWithTicket(size_t ticket_len) {
   }
 
   // Swap out the ticket for a garbage one.
-  OPENSSL_free(session->tlsext_tick);
-  session->tlsext_tick = reinterpret_cast<uint8_t*>(OPENSSL_malloc(ticket_len));
-  if (session->tlsext_tick == nullptr) {
+  OPENSSL_free(session->ticket);
+  session->ticket = reinterpret_cast<uint8_t*>(OPENSSL_malloc(ticket_len));
+  if (session->ticket == nullptr) {
     return nullptr;
   }
-  memset(session->tlsext_tick, 'a', ticket_len);
-  session->tlsext_ticklen = ticket_len;
+  memset(session->ticket, 'a', ticket_len);
+  session->ticket_len = ticket_len;
 
   // Fix up the timeout.
   session->time = time(NULL);
