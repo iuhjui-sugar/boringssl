@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8f601d1d_ed41c940",
+        "filename": "crypto/bn/cmp.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-07-27T17:58:40Z",
+      "side": 1,
+      "message": "We do a very similar thing in BN_MONT_CTX_set.\n\nI was trying to make it obvious that it has the exact same semantics as BN_cmp. My main concern was that I\u0027d screw up the handling of bn-\u003etop. However, in the end I had to be careful about bn-\u003etop anyway when setting it, so maybe it was a failure.\n\nI\u0027ll look at simplifying it and/or using BN_cmp_words.",
+      "parentUuid": "cf22159a_98cb799f",
+      "range": {
+        "startLine": 188,
+        "startChar": 4,
+        "endLine": 188,
+        "endChar": 15
+      },
+      "revId": "0321cb548dcc463aa0bee35af2259c55ada0d97e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf22159a_d85691d4",
         "filename": "crypto/ec/ec_key.c",
         "patchSetId": 2
