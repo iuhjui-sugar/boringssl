@@ -456,8 +456,12 @@ static int read_v2_client_hello(SSL *ssl) {
          rand_len);
 
   /* Write out an equivalent SSLv3 ClientHello. */
+  size_t max_v3_client_hello = SSL3_HM_HEADER_LENGTH + 2 + SSL3_RANDOM_SIZE +
+                               1 + 2 + CBS_len(&cipher_specs);
   CBB client_hello, hello_body, cipher_suites;
-  if (!CBB_init_fixed(&client_hello, (uint8_t *)ssl->init_buf->data,
+  CBB_zero(&client_hello);
+  if (!BUF_MEM_reserve(ssl->init_buf, max_v3_client_hello) ||
+      !CBB_init_fixed(&client_hello, (uint8_t *)ssl->init_buf->data,
                       ssl->init_buf->max) ||
       !CBB_add_u8(&client_hello, SSL3_MT_CLIENT_HELLO) ||
       !CBB_add_u24_length_prefixed(&client_hello, &hello_body) ||
@@ -512,6 +516,14 @@ static int read_v2_client_hello(SSL *ssl) {
 int ssl3_get_message(SSL *ssl, int msg_type,
                      enum ssl_hash_message_t hash_message) {
 again:
+  /* Re-create the handshake buffer if needed. */
+  if (ssl->init_buf == NULL) {
+    ssl->init_buf = BUF_MEM_new();
+    if (ssl->init_buf == NULL) {
+      return -1;
+    }
+  }
+
   if (ssl->server && !ssl->s3->v2_hello_done) {
     /* Bypass the record layer for the first message to handle V2ClientHello. */
     assert(hash_message == ssl_hash_message);
