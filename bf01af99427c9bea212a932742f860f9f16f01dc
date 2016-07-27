@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2fed7107_932e1ea6",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-07-27T22:10:31Z",
+      "side": 1,
+      "message": "What is this needed for?",
+      "range": {
+        "startLine": 45,
+        "startChar": 1,
+        "endLine": 45,
+        "endChar": 20
+      },
+      "revId": "bf01af99427c9bea212a932742f860f9f16f01dc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
