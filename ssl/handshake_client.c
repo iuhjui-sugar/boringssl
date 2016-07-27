@@ -1949,11 +1949,11 @@ static int ssl3_get_new_session_ticket(SSL *ssl) {
     }
   }
 
-  if (!CBS_stow(&ticket, &session->tlsext_tick, &session->tlsext_ticklen)) {
+  if (!CBS_stow(&ticket, &session->ticket, &session->ticket_len)) {
     OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
     goto err;
   }
-  session->tlsext_tick_lifetime_hint = ticket_lifetime_hint;
+  session->ticket_lifetime_hint = ticket_lifetime_hint;
 
   /* Generate a session ID for this session based on the session ticket. We use
    * the session ID mechanism for detecting ticket resumption. This also fits in

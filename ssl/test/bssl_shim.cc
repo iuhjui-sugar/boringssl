@@ -1057,7 +1057,7 @@ static bool CheckHandshakeProperties(SSL *ssl, bool is_resume) {
     bool expect_new_session =
         !config->expect_no_session &&
         (!SSL_session_reused(ssl) || config->expect_ticket_renewal) &&
-        /* TODO(svaldez): Implement Session Resumption. */
+        /* Session Resumption is performed post-handshake in TLS 1.3. */
         SSL_version(ssl) != TLS1_3_VERSION;
     if (expect_new_session != GetTestState(ssl)->got_new_session) {
       fprintf(stderr,
@@ -1569,9 +1569,22 @@ static bool DoExchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
 
   if (!config->is_server && !config->false_start &&
       !config->implicit_handshake &&
+      /* Session Resumption is performed post-handshake in TLS 1.3. */
+      SSL_version(ssl.get()) != TLS1_3_VERSION &&
       GetTestState(ssl.get())->got_new_session) {
     fprintf(stderr, "new session was established after the handshake\n");
     return false;
+  }
+
+  if (SSL_version(ssl.get()) == TLS1_3_VERSION && !config->is_server) {
+    bool expect_new_session =
+        !config->expect_no_session && !config->shim_shuts_down;
+    if (expect_new_session != GetTestState(ssl.get())->got_new_session) {
+      fprintf(stderr,
+              "new session was%s cached, but we expected the opposite\n",
+              GetTestState(ssl.get())->got_new_session ? "" : " not");
+      return false;
+    }
   }
 
   if (out_session) {
