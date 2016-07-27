@@ -484,8 +484,7 @@ int tls13_post_handshake(SSL *ssl) {
     return tls13_receive_key_update(ssl);
   } else if (ssl->s3->tmp.message_type == SSL3_MT_NEW_SESSION_TICKET &&
              !ssl->server) {
-    // TODO(svaldez): Handle NewSessionTicket.
-    return 0;
+    return tls13_process_new_session_ticket(ssl);
   } else if (ssl->s3->tmp.message_type == SSL3_MT_CERTIFICATE_REQUEST &&
              !ssl->server) {
     // TODO(svaldez): Handle Post-Handshake Authentication

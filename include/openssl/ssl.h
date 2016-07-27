@@ -3679,6 +3679,9 @@ struct ssl_session_st {
 
   uint32_t tlsext_tick_lifetime_hint; /* Session lifetime hint in seconds */
 
+  uint32_t tlsext_tick_flags;
+  uint32_t tlsext_tick_age_add;
+
   /* extended_master_secret is true if the master secret in this session was
    * generated using EMS and thus isn't vulnerable to the Triple Handshake
    * attack. */

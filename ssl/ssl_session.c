@@ -466,6 +466,93 @@ err:
   return 0;
 }
 
+int ssl_get_new_session_ticket(SSL *ssl, CBB *out, SSL_SESSION *session) {
+  int ret = 0;
+
+  /* Serialize the SSL_SESSION to be encoded into the ticket. */
+  uint8_t *session_buf = NULL;
+  size_t session_len;
+  if (!SSL_SESSION_to_bytes_for_ticket(session, &session_buf, &session_len)) {
+    return -1;
+  }
+
+  EVP_CIPHER_CTX ctx;
+  EVP_CIPHER_CTX_init(&ctx);
+  HMAC_CTX hctx;
+  HMAC_CTX_init(&hctx);
+
+  /* If the session is too long, emit a dummy value rather than abort the
+   * connection. */
+  const size_t max_ticket_overhead =
+      16 + EVP_MAX_IV_LENGTH + EVP_MAX_BLOCK_LENGTH + EVP_MAX_MD_SIZE;
+  if (session_len > 0xffff - max_ticket_overhead) {
+    static const char kTicketPlaceholder[] = "TICKET TOO LARGE";
+    if (CBB_add_bytes(out, (const uint8_t *)kTicketPlaceholder,
+                      strlen(kTicketPlaceholder))) {
+      ret = 1;
+    }
+    goto err;
+  }
+
+  /* Initialize HMAC and cipher contexts. If callback present it does all the
+   * work otherwise use generated values from parent ctx. */
+  SSL_CTX *tctx = ssl->initial_ctx;
+  uint8_t iv[EVP_MAX_IV_LENGTH];
+  uint8_t key_name[16];
+  if (tctx->tlsext_ticket_key_cb != NULL) {
+    if (tctx->tlsext_ticket_key_cb(ssl, key_name, iv, &ctx, &hctx,
+                                   1 /* encrypt */) < 0) {
+      goto err;
+    }
+  } else {
+    if (!RAND_bytes(iv, 16) ||
+        !EVP_EncryptInit_ex(&ctx, EVP_aes_128_cbc(), NULL,
+                            tctx->tlsext_tick_aes_key, iv) ||
+        !HMAC_Init_ex(&hctx, tctx->tlsext_tick_hmac_key, 16, tlsext_tick_md(),
+                      NULL)) {
+      goto err;
+    }
+    memcpy(key_name, tctx->tlsext_tick_key_name, 16);
+  }
+
+  uint8_t *ptr;
+  if (!CBB_add_bytes(out, key_name, 16) ||
+      !CBB_add_bytes(out, iv, EVP_CIPHER_CTX_iv_length(&ctx)) ||
+      !CBB_reserve(out, &ptr, session_len + EVP_MAX_BLOCK_LENGTH)) {
+    goto err;
+  }
+
+  int len;
+  size_t total = 0;
+  if (!EVP_EncryptUpdate(&ctx, ptr + total, &len, session_buf, session_len)) {
+    goto err;
+  }
+  total += len;
+  if (!EVP_EncryptFinal_ex(&ctx, ptr + total, &len)) {
+    goto err;
+  }
+  total += len;
+  if (!CBB_did_write(out, total)) {
+    goto err;
+  }
+
+  unsigned hlen;
+  if (!HMAC_Update(&hctx, CBB_data(out), CBB_len(out)) ||
+      !CBB_reserve(out, &ptr, EVP_MAX_MD_SIZE) ||
+      !HMAC_Final(&hctx, ptr, &hlen) ||
+      !CBB_did_write(out, hlen)) {
+    goto err;
+  }
+
+  ret = 1;
+
+err:
+  OPENSSL_free(session_buf);
+  EVP_CIPHER_CTX_cleanup(&ctx);
+  HMAC_CTX_cleanup(&hctx);
+  return ret;
+}
+
 /* ssl_lookup_session looks up |session_id| in the session cache and sets
  * |*out_session| to an |SSL_SESSION| object if found. The caller takes
  * ownership of the result. */

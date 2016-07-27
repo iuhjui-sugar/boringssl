@@ -891,6 +891,8 @@ struct ssl_handshake_st {
 
   uint8_t *cert_context;
   size_t cert_context_len;
+
+  uint8_t session_tickets_sent;
 } /* SSL_HANDSHAKE */;
 
 SSL_HANDSHAKE *ssl_handshake_new(enum ssl_hs_wait_t (*do_handshake)(SSL *ssl));
@@ -925,6 +927,8 @@ int tls13_prepare_certificate(SSL *ssl);
 enum ssl_private_key_result_t tls13_prepare_certificate_verify(
     SSL *ssl, int is_first_run);
 int tls13_prepare_finished(SSL *ssl);
+
+int tls13_process_new_session_ticket(SSL *ssl);
 
 int ext_key_share_parse_serverhello(SSL *ssl, uint8_t **out_secret,
                                     size_t *out_secret_len, uint8_t *out_alert,
@@ -1207,6 +1211,7 @@ CERT *ssl_cert_dup(CERT *cert);
 void ssl_cert_clear_certs(CERT *c);
 void ssl_cert_free(CERT *c);
 int ssl_get_new_session(SSL *ssl, int is_server);
+int ssl_get_new_session_ticket(SSL *ssl, CBB *out, SSL_SESSION *session);
 
 enum ssl_session_result_t {
   ssl_session_success,
