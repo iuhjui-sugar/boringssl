@@ -1038,9 +1038,9 @@ static int ext_ticket_add_clienthello(SSL *ssl, CBB *out) {
    * without upstream's 3c3f0259238594d77264a78944d409f2127642c4. */
   if (!ssl->s3->initial_handshake_complete &&
       ssl->session != NULL &&
-      ssl->session->tlsext_tick != NULL) {
-    ticket_data = ssl->session->tlsext_tick;
-    ticket_len = ssl->session->tlsext_ticklen;
+      ssl->session->ticket != NULL) {
+    ticket_data = ssl->session->ticket;
+    ticket_len = ssl->session->ticket_len;
   }
 
   CBB ticket;
