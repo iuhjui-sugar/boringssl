@@ -1569,6 +1569,7 @@ static bool DoExchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
 
   if (!config->is_server && !config->false_start &&
       !config->implicit_handshake &&
+      SSL_version(ssl.get()) < TLS1_3_VERSION &&
       GetTestState(ssl.get())->got_new_session) {
     fprintf(stderr, "new session was established after the handshake\n");
     return false;
