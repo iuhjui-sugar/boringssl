@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cf22159a_98cb799f",
+        "filename": "crypto/bn/cmp.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-27T14:42:51Z",
+      "side": 1,
+      "message": "I\u0027m a little uneasy with this randomly creating a BIGNUM on the stack somewhere. Perhaps something like this??\n\nint BN_cmp_word(const BIGNUM *a, BN_ULONG b) {\n  if (a-\u003etop \u003e 1) {\n    return 1;\n  }\n\n  BN_ULONG a_word \u003d BN_get_word(a);\n  if (a_word \u003c b) {\n    return -1;\n  }\n  if (a_word \u003e b) {\n    return 1;\n  }\n  return 0;\n}\n\nOr were you envisioning we\u0027d get this constant-time by way of BN_cmp somehow? Seems we also have a bn_cmp_words, by the way.\n\n(If we keep the on-stack thing, we ought to have tests to make sure we don\u0027t mess this up. Probably not a bad plan anyway.)",
+      "range": {
+        "startLine": 188,
+        "startChar": 4,
+        "endLine": 188,
+        "endChar": 15
+      },
+      "revId": "0321cb548dcc463aa0bee35af2259c55ada0d97e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cf22159a_d85691d4",
+        "filename": "crypto/ec/ec_key.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-27T14:42:51Z",
+      "side": 1,
+      "message": "There\u0027s another one of these loops over in ssl/ssl_ecdh.c.",
+      "revId": "0321cb548dcc463aa0bee35af2259c55ada0d97e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cf22159a_f8eb8d0c",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-27T14:42:51Z",
+      "side": 1,
+      "message": "Nit: BN_rand_range is equivalent to |BN_rand_range_ex| with |min_inclusive| set to zero. Or something like that.\n\n(I think doc.go will go nuts if you have parens. :-) )",
+      "revId": "0321cb548dcc463aa0bee35af2259c55ada0d97e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
