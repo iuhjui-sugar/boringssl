@@ -120,6 +120,8 @@
  *     extendedMasterSecret    [17] BOOLEAN OPTIONAL,
  *     keyExchangeInfo         [18] INTEGER OPTIONAL,
  *     certChain               [19] SEQUENCE OF Certificate OPTIONAL,
+ *     ticketFlags             [20] INTEGER OPTIONAL,
+ *     ticketAgeAdd            [21] OCTET STRING OPTIONAL,
  * }
  *
  * Note: historically this serialization has included other optional
@@ -164,6 +166,10 @@ static const int kKeyExchangeInfoTag =
     CBS_ASN1_CONSTRUCTED | CBS_ASN1_CONTEXT_SPECIFIC | 18;
 static const int kCertChainTag =
     CBS_ASN1_CONSTRUCTED | CBS_ASN1_CONTEXT_SPECIFIC | 19;
+static const int kTicketFlagsTag =
+    CBS_ASN1_CONSTRUCTED | CBS_ASN1_CONTEXT_SPECIFIC | 20;
+static const int kTicketAgeAddTag =
+    CBS_ASN1_CONSTRUCTED | CBS_ASN1_CONTEXT_SPECIFIC | 21;
 
 static int SSL_SESSION_to_bytes_full(const SSL_SESSION *in, uint8_t **out_data,
                                      size_t *out_len, int for_ticket) {
@@ -338,6 +344,23 @@ static int SSL_SESSION_to_bytes_full(const SSL_SESSION *in, uint8_t **out_data,
       if (!ssl_add_cert_to_cbb(&child, sk_X509_value(in->cert_chain, i))) {
         goto err;
       }
+    }
+  }
+
+  if (in->tlsext_tick_flags > 0) {
+    if (!CBB_add_asn1(&session, &child, kTicketFlagsTag) ||
+        !CBB_add_asn1_uint64(&child, in->tlsext_tick_flags)) {
+      OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
+      goto err;
+    }
+  }
+
+  if (in->tlsext_tick_age_add > 0) {
+    if (!CBB_add_asn1(&session, &child, kTicketAgeAddTag) ||
+        !CBB_add_asn1(&child, &child2, CBS_ASN1_OCTETSTRING) ||
+        !CBB_add_u32(&child2, in->tlsext_tick_age_add)) {
+      OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
+      goto err;
     }
   }
 
@@ -650,6 +673,16 @@ static SSL_SESSION *SSL_SESSION_parse(CBS *cbs) {
         goto err;
       }
     }
+  }
+
+  CBS age_add;
+  if (!SSL_SESSION_parse_u32(&session, &ret->tlsext_tick_flags,
+                             kTicketFlagsTag, 0) ||
+      !CBS_get_optional_asn1_octet_string(&session, &age_add, NULL,
+                                          kTicketAgeAddTag) ||
+      (CBS_len(&age_add) != 0 &&
+       !CBS_get_u32(&age_add, &ret->tlsext_tick_age_add))) {
+    goto err;
   }
 
   if (CBS_len(&session) != 0) {
