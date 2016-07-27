@@ -46,6 +46,24 @@
       "revId": "bf01af99427c9bea212a932742f860f9f16f01dc",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cf8bf531_cd44e953",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-27T22:30:04Z",
+      "side": 1,
+      "message": "The server sessionState struct, but I\u0027m being ridiculous. x509.Certificate has those available anyway. Removed.",
+      "parentUuid": "2fed7107_932e1ea6",
+      "revId": "bf01af99427c9bea212a932742f860f9f16f01dc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
