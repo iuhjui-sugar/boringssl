@@ -491,6 +491,7 @@ NextCipherSuite:
 			// leg of the handshake is retransmited upon re-receiving a
 			// Finished.
 			if err := c.simulatePacketLoss(func() {
+				c.sendHandshakeSeq--
 				c.writeRecord(recordTypeHandshake, hs.finishedBytes)
 				c.flushHandshake()
 			}); err != nil {
@@ -760,6 +761,9 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 		// The first byte has already been sent.
 		c.writeRecord(recordTypeHandshake, finished.marshal()[1:])
 	} else {
+		c.writeRecord(recordTypeHandshake, finished.marshal())
+	}
+	if c.config.Bugs.SendExtraFinished {
 		c.writeRecord(recordTypeHandshake, finished.marshal())
 	}
 	c.flushHandshake()
@@ -1344,6 +1348,11 @@ func (hs *clientHandshakeState) sendFinished(out []byte, isResume bool) error {
 		for _, msg := range postCCSMsgs {
 			c.writeRecord(recordTypeHandshake, msg)
 		}
+
+		if c.config.Bugs.SendExtraFinished {
+			c.writeRecord(recordTypeHandshake, finished.marshal())
+		}
+
 		c.flushHandshake()
 	}
 	return nil
