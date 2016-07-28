@@ -22,6 +22,24 @@
       "revId": "50e455611f3167351ff3ed2a7b54daa65bc5a79d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8ff73d09_db2893ed",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-28T21:55:21Z",
+      "side": 1,
+      "message": "Yeah, the DTLS side doesn\u0027t really have a long-lived buffer to release. We could probably get rid of the free_buffer argument by making init_buf always destroyed and recreated? I guess this way saves some bouncing on mallocs during the handshake? Don\u0027t think that\u0027s likely to matter. We\u0027re already bouncing on mallocs to write messages anywya.",
+      "parentUuid": "af7c012e_8f36199a",
+      "revId": "50e455611f3167351ff3ed2a7b54daa65bc5a79d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
