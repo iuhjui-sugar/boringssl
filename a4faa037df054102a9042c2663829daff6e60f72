@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8ff73d09_9b072b72",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-28T21:58:48Z",
+      "side": 1,
+      "message": "It depends on CBS_len(\u0026cipher_specs).",
+      "parentUuid": "af7c012e_2f9e05aa",
+      "revId": "a4faa037df054102a9042c2663829daff6e60f72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af7c012e_8f0139d7",
         "filename": "ssl/s3_both.c",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2016-07-28T21:02:33Z",
       "side": 1,
       "message": "These bytes need to be accounted for in kMaxV3ClientHelloSize, right?",
+      "revId": "a4faa037df054102a9042c2663829daff6e60f72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8ff73d09_fbfc6f63",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-28T21:58:48Z",
+      "side": 1,
+      "message": "Oops. Fixed. Also made the cipher_specs computation more precise.",
+      "parentUuid": "af7c012e_8f0139d7",
       "revId": "a4faa037df054102a9042c2663829daff6e60f72",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
