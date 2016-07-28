@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "af7c012e_8f36199a",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-28T21:50:08Z",
+      "side": 1,
+      "message": "This argument is unused.",
+      "range": {
+        "startLine": 455,
+        "startChar": 45,
+        "endLine": 455,
+        "endChar": 60
+      },
+      "revId": "50e455611f3167351ff3ed2a7b54daa65bc5a79d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
