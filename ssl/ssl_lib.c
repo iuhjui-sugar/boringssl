@@ -620,6 +620,66 @@ int SSL_accept(SSL *ssl) {
   return SSL_do_handshake(ssl);
 }
 
+static int ssl_do_renegotiate(SSL *ssl) {
+  /* We do not accept renegotiations as a server. */
+  if (ssl->server) {
+    goto no_renegotiation;
+  }
+
+  if (ssl->s3->tmp.message_type != SSL3_MT_HELLO_REQUEST ||
+      ssl->init_num != 0) {
+    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
+    OPENSSL_PUT_ERROR(SSL, SSL_R_BAD_HELLO_REQUEST);
+    return 0;
+  }
+
+  switch (ssl->renegotiate_mode) {
+    case ssl_renegotiate_ignore:
+      /* Ignore the HelloRequest. */
+      return 1;
+
+    case ssl_renegotiate_once:
+      if (ssl->s3->total_renegotiations != 0) {
+        goto no_renegotiation;
+      }
+      break;
+
+    case ssl_renegotiate_never:
+      goto no_renegotiation;
+
+    case ssl_renegotiate_freely:
+      break;
+  }
+
+  /* Renegotiation is only supported at quiescent points in the application
+   * protocol, namely in HTTPS, just before reading the HTTP response. Require
+   * the record-layer be idle and avoid complexities of sending a handshake
+   * record while an application_data record is being written. */
+  if (ssl_write_buffer_is_pending(ssl)) {
+    goto no_renegotiation;
+  }
+
+  /* Begin a new handshake. */
+  ssl->s3->total_renegotiations++;
+  ssl->state = SSL_ST_CONNECT;
+  return 1;
+
+no_renegotiation:
+  ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_NO_RENEGOTIATION);
+  OPENSSL_PUT_ERROR(SSL, SSL_R_NO_RENEGOTIATION);
+  return 0;
+}
+
+static int ssl_do_post_handshake(SSL *ssl) {
+  if (ssl3_protocol_version(ssl) < TLS1_3_VERSION) {
+    return ssl_do_renegotiate(ssl);
+  }
+
+  /* TODO(svaldez): Handle TLS 1.3 post-handshake messages. For now,
+   * silently drop them. */
+  return 1;
+}
+
 static int ssl_read_impl(SSL *ssl, void *buf, int num, int peek) {
   ssl->rwstate = SSL_NOTHING;
   /* Functions which use SSL_get_error must clear the error queue on entry. */
@@ -631,6 +691,7 @@ static int ssl_read_impl(SSL *ssl, void *buf, int num, int peek) {
     return -1;
   }
 
+again:
   /* This may require multiple iterations. False Start will cause
    * |ssl->handshake_func| to signal success one step early, but the handshake
    * must be completely finished before other modes are accepted. */
@@ -645,7 +706,16 @@ static int ssl_read_impl(SSL *ssl, void *buf, int num, int peek) {
     }
   }
 
-  return ssl->method->read_app_data(ssl, buf, num, peek);
+  int got_handshake;
+  int ret = ssl->method->read_app_data(ssl, &got_handshake, buf, num, peek);
+  if (got_handshake) {
+    if (!ssl_do_post_handshake(ssl)) {
+      return -1;
+    }
+    ssl->method->release_current_message(ssl, 1 /* free buffer */);
+    goto again;
+  }
+  return ret;
 }
 
 int SSL_read(SSL *ssl, void *buf, int num) {

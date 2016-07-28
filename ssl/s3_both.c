@@ -337,6 +337,14 @@ size_t ssl_max_handshake_message_len(const SSL *ssl) {
    * not accept peer certificate chains. */
   static const size_t kMaxMessageLen = 16384;
 
+  if (!SSL_in_init(ssl)) {
+    /* Outside of a handshake, the largest acceptable handshake message is a
+     * zero-length HelloRequest.
+     *
+     * TODO(davidben): This will need updates for TLS 1.3. */
+    return 0;
+  }
+
   if ((!ssl->server || (ssl->verify_mode & SSL_VERIFY_PEER)) &&
       kMaxMessageLen < ssl->max_cert_list) {
     return ssl->max_cert_list;
@@ -349,10 +357,9 @@ static int extend_handshake_buffer(SSL *ssl, size_t length) {
     return -1;
   }
   while (ssl->init_buf->length < length) {
-    int ret =
-        ssl3_read_bytes(ssl, SSL3_RT_HANDSHAKE,
-                        (uint8_t *)ssl->init_buf->data + ssl->init_buf->length,
-                        length - ssl->init_buf->length, 0);
+    int ret = ssl3_read_handshake_bytes(
+        ssl, (uint8_t *)ssl->init_buf->data + ssl->init_buf->length,
+        length - ssl->init_buf->length);
     if (ret <= 0) {
       return ret;
     }
@@ -582,9 +589,9 @@ again:
   ssl->init_msg = (uint8_t*)ssl->init_buf->data + SSL3_HM_HEADER_LENGTH;
   ssl->init_num = ssl->init_buf->length - SSL3_HM_HEADER_LENGTH;
 
-  /* Ignore stray HelloRequest messages. Per RFC 5246, section 7.4.1.1, the
-   * server may send HelloRequest at any time. */
-  if (!ssl->server &&
+  /* Ignore stray HelloRequest messages in the handshake before TLS 1.3. Per RFC
+   * 5246, section 7.4.1.1, the server may send HelloRequest at any time. */
+  if (!ssl->server && SSL_in_init(ssl) &&
       (!ssl->s3->have_version || ssl3_protocol_version(ssl) < TLS1_3_VERSION) &&
       ssl->s3->tmp.message_type == SSL3_MT_HELLO_REQUEST &&
       ssl->init_num == 0) {
