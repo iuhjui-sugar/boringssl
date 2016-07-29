@@ -1879,7 +1879,6 @@ static int ssl3_send_new_session_ticket(SSL *ssl) {
       !ssl_encrypt_ticket(ssl, &ticket, ssl->session != NULL
                                             ? ssl->session
                                             : ssl->s3->new_session) ||
-
       !ssl->method->finish_message(ssl, &cbb)) {
     return 0;
   }
