@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "af96c1c6_bf6cb339",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1059,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-29T19:33:12Z",
+      "side": 1,
+      "message": "I was thinking we\u0027d largely shed this style of return as part of getting BIO out of here. Most everything in SSL_PROTOCOL_METHOD still needs to be inverted so it does not call into BIO. (I didn\u0027t do that here because it\u0027d require changing our handshake message strategy slightly. And probably more blockers will come up.)\n\nI\u0027m not sure we can lose the 0/-1 return earlier because our error cases are currently tied up in our EOF cases. For instance, suppose we get half a post-handshake NewSessionTicket and then, in trying to complete the message, the peer gives us an EOF. We currently interpret anything like that as an unclean transport with a zero return from SSL_read. So read_bytes will need logic like:\n\n      int ret \u003d ssl3_get_message(ssl, -1, ssl_dont_hash_message);\n      if (ret \u003c 0) {\n        return 0;\n      }\n      if (ret \u003d\u003d 0) {\n        *out_got_handshake \u003d 0;\n        *out_bytes_read \u003d 0;\n        return 1;\n      }\n      *out_got_handshake \u003d 1;\n      *out_bytes_read \u003d 0;\n      return 1;\n\nOr slightly shorter but still kind of bizarre:\n\n      int ret \u003d ssl3_get_message(ssl, -1, ssl_dont_hash_message);\n      if (ret \u003c 0) {\n        return 0;\n      }\n      *out_got_handshake \u003d (ret !\u003d 0);\n      *out_bytes_read \u003d 0;\n      return 1;\n\nThe call to ssl3_get_record needs a similar ret \u003d\u003d 0 special-case.\n\nHow about we do |*out_got_handshake| being true makes ret \u003d -1 for now? That is at least somewhat sound. \"You asked me to read app data, and I did not succeed. PS: it\u0027s because I got a handshake message instead.\"",
+      "parentUuid": "6f6689d2_6e2b572d",
+      "revId": "263320121ab3a509cbe5b9a37caede90ca6c603c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6f6689d2_ae3c8f7c",
         "filename": "ssl/s3_both.c",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2016-07-29T18:39:51Z",
       "side": 1,
       "message": "The formatting looks odd here. Is this clang-format?",
+      "revId": "263320121ab3a509cbe5b9a37caede90ca6c603c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "af96c1c6_df717f14",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-29T19:33:12Z",
+      "side": 1,
+      "message": "It is, yeah. If it put ssl on the same line, it would be obligated to line everything up at the ( which, with the longer function name, I think ended up increasing its \"badness\" heuristic too much. Even before, it only decided to line up at ( after saving 5 characters by breaking at \u003d.\n\nI\u0027m guessing it really really doesn\u0027t want to break up (uint8_t *)ssl-\u003einit_buf-\u003edata + ssl-\u003einit_buf-\u003elength.",
+      "parentUuid": "6f6689d2_ae3c8f7c",
       "revId": "263320121ab3a509cbe5b9a37caede90ca6c603c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "af96c1c6_3f426397",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-29T19:33:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f6689d2_6e127709",
+      "revId": "263320121ab3a509cbe5b9a37caede90ca6c603c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6f6689d2_4e05b3bc",
         "filename": "ssl/s3_pkt.c",
         "patchSetId": 3
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "af96c1c6_ff763b09",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-29T19:33:12Z",
+      "side": 1,
+      "message": "We still do. The limit is enforced deep in the record-reading functions. Things had to get moved about as part of https://boringssl-review.googlesource.com/5754.\n\nThe low-level record-reading functions count empty records and reject so that it can happen uniformly across all types. However, they do not silently drop those records on the floor. That\u0027s handled by the callers so that we get a chance to run logic like line 375. (Otherwise we accept empty app data records in the handshake, which is harmless but weird.)",
+      "parentUuid": "6f6689d2_4e05b3bc",
+      "revId": "263320121ab3a509cbe5b9a37caede90ca6c603c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6f6689d2_2ef6bfc9",
         "filename": "ssl/ssl_lib.c",
         "patchSetId": 3
@@ -81,6 +153,24 @@
       "writtenOn": "2016-07-29T18:39:51Z",
       "side": 1,
       "message": "(Probably better as a loop.)",
+      "revId": "263320121ab3a509cbe5b9a37caede90ca6c603c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "af96c1c6_5f3f2f0a",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 694,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-29T19:33:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f6689d2_2ef6bfc9",
       "revId": "263320121ab3a509cbe5b9a37caede90ca6c603c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
