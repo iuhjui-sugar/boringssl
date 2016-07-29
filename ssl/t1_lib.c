@@ -1954,6 +1954,113 @@ static int ext_draft_version_add_clienthello(SSL *ssl, CBB *out) {
 }
 
 
+/* Pre Shared Key
+ *
+ * https://tools.ietf.org/html/draft-ietf-tls-tls13-13 */
+
+static int ssl_any_psk_cipher_suites_enabled(const SSL *ssl) {
+  if (ssl->version < TLS1_VERSION && !SSL_IS_DTLS(ssl)) {
+    return 0;
+  }
+
+  const STACK_OF(SSL_CIPHER) *cipher_stack = SSL_get_ciphers(ssl);
+
+  size_t i;
+  for (i = 0; i < sk_SSL_CIPHER_num(cipher_stack); i++) {
+    const SSL_CIPHER *cipher = sk_SSL_CIPHER_value(cipher_stack, i);
+
+    const uint32_t alg_k = cipher->algorithm_mkey;
+    const uint32_t alg_a = cipher->algorithm_auth;
+    if ((alg_k & SSL_kPSK) || (alg_a & SSL_aPSK)) {
+      return 1;
+    }
+  }
+
+  return 0;
+}
+
+static int ext_pre_shared_key_add_clienthello(SSL *ssl, CBB *out) {
+  uint16_t min_version, max_version;
+  if (!ssl_get_version_range(ssl, &min_version, &max_version)) {
+    return 0;
+  }
+
+  if (max_version < TLS1_3_VERSION || !ssl_any_psk_cipher_suites_enabled(ssl) ||
+      ssl->session == NULL) {
+    return 1;
+  }
+
+  CBB contents, psk_bytes;
+  if (!CBB_add_u16(out, TLSEXT_TYPE_pre_shared_key) ||
+      !CBB_add_u16_length_prefixed(out, &contents) ||
+      !CBB_add_u16_length_prefixed(&contents, &psk_bytes)) {
+    return 0;
+  }
+
+  CBB identity;
+  if (!CBB_add_u16_length_prefixed(&psk_bytes, &identity) ||
+      !CBB_add_bytes(&identity, ssl->session->tlsext_tick,
+                     ssl->session->tlsext_ticklen) ||
+      !CBB_flush(&psk_bytes)) {
+    return 0;
+  }
+
+  return CBB_flush(out);
+}
+
+int ext_pre_shared_key_parse_serverhello(SSL *ssl, int *out_reuse_session,
+                                         uint8_t *out_alert, CBS *contents) {
+  uint16_t psk_id;
+  if (!CBS_get_u16(contents, &psk_id)) {
+    *out_alert = SSL_AD_DECODE_ERROR;
+    return 0;
+  }
+
+  if (psk_id != 0) {
+    return 0;
+  }
+
+  *out_reuse_session = 1;
+  return 1;
+}
+
+static const char kTLS13SessionID[] = "TLS 1.3 Session";
+
+int ext_pre_shared_key_parse_clienthello(SSL *ssl, SSL_SESSION **out_session,
+                                         uint8_t *out_alert, CBS *contents) {
+  CBS identities, identity;
+  uint8_t *ticket = NULL;
+  size_t ticket_len;
+  if (!CBS_get_u16_length_prefixed(contents, &identities) ||
+      !CBS_get_u16_length_prefixed(&identities, &identity) ||
+      !CBS_stow(&identity, &ticket, &ticket_len)) {
+    *out_alert = SSL_AD_DECODE_ERROR;
+    return 0;
+  }
+
+  int renew;
+  int ret = tls_process_ticket(ssl, out_session, &renew, ticket, ticket_len,
+                               (const uint8_t *)kTLS13SessionID,
+                               strlen(kTLS13SessionID));
+  OPENSSL_free(ticket);
+  return ret;
+}
+
+int ext_pre_shared_key_add_serverhello(SSL *ssl, CBB *out) {
+  if (ssl->session == NULL) {
+    return 1;
+  }
+
+  if (!CBB_add_u16(out, TLSEXT_TYPE_pre_shared_key) ||
+      !CBB_add_u16(out, 0 /* Use first PSK (SessionTicket) */) ||
+      !CBB_flush(out)) {
+    return 0;
+  }
+
+  return 1;
+}
+
+
 /* Key Share
  *
  * https://tools.ietf.org/html/draft-ietf-tls-tls13-12 */
@@ -2339,6 +2446,14 @@ static const struct tls_extension kExtensions[] = {
     TLSEXT_TYPE_key_share,
     NULL,
     ext_key_share_add_clienthello,
+    forbid_parse_serverhello,
+    ignore_parse_clienthello,
+    dont_add_serverhello,
+  },
+  {
+    TLSEXT_TYPE_pre_shared_key,
+    NULL,
+    ext_pre_shared_key_add_clienthello,
     forbid_parse_serverhello,
     ignore_parse_clienthello,
     dont_add_serverhello,
