@@ -236,6 +236,24 @@
     },
     {
       "key": {
+        "uuid": "af96c1c6_dfd5ffeb",
+        "filename": "ssl/ssl_session.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-29T17:52:14Z",
+      "side": 1,
+      "message": "It can, actually. :-( X509_chain_up_ref is called up_ref, but it really should have been named X509_chain_shallow_copy. Allocating the new STACK_OF(X509) may fail.",
+      "parentUuid": "4ad8d308_311ef067",
+      "revId": "2bfd9e996e3c69178f5f4856aca540227fed7935",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba144089_f03ce5b0",
         "filename": "ssl/ssl_session.c",
         "patchSetId": 4
