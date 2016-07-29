@@ -1,0 +1,34 @@
+  if (dup_flags & SSL_SESSION_INCLUDE_NONAUTH) {
+    new_session->key_exchange_info = session->key_exchange_info;
+    new_session->timeout = session->timeout;
+    new_session->time = session->time;
+
+    /* The new_session does not get a copy of the ex_data. */
+    if (session->tlsext_hostname != NULL) {
+      new_session->tlsext_hostname = BUF_strdup(session->tlsext_hostname);
+      if (new_session->tlsext_hostname == NULL) {
+        goto err;
+      }
+    }
+
+    new_session->tlsext_signed_cert_timestamp_list_length =
+        session->tlsext_signed_cert_timestamp_list_length;
+    if (session->tlsext_signed_cert_timestamp_list != NULL) {
+      new_session->tlsext_signed_cert_timestamp_list =
+          BUF_memdup(session->tlsext_signed_cert_timestamp_list,
+                     session->tlsext_signed_cert_timestamp_list_length);
+      if (new_session->tlsext_signed_cert_timestamp_list == NULL) {
+        goto err;
+      }
+    }
+
+    memcpy(new_session->original_handshake_hash,
+           session->original_handshake_hash,
+           session->original_handshake_hash_len);
+    new_session->original_handshake_hash_len =
+        session->original_handshake_hash_len;
+    new_session->tlsext_tick_lifetime_hint = session->tlsext_tick_lifetime_hint;
+    new_session->ticket_flags = session->ticket_flags;
+    new_session->ticket_age_add = session->ticket_age_add;
+    new_session->extended_master_secret = session->extended_master_secret;
+  }
