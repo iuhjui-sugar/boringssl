@@ -293,6 +293,12 @@ const SSL_CIPHER *ssl3_choose_cipher(
 
     ok = ok && (alg_k & mask_k) && (alg_a & mask_a);
 
+    if (ssl3_protocol_version(ssl) >= TLS1_3_VERSION) {
+      if (ssl->session != NULL) {
+        ok = ok && (alg_a & SSL_aPSK);
+      }
+    }
+
     if (ok && sk_SSL_CIPHER_find(allow, &cipher_index, c)) {
       if (in_group_flags != NULL && in_group_flags[i] == 1) {
         /* This element of |prio| is in a group. Update the minimum index found
