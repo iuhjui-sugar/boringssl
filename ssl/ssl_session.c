@@ -612,6 +612,22 @@ static enum ssl_session_result_t ssl_lookup_session(
     return ssl_session_retry;
   }
 
+  if (session->sid_ctx_length != ssl->sid_ctx_length ||
+      memcmp(session->sid_ctx, ssl->sid_ctx, ssl->sid_ctx_length) != 0) {
+    /* The client did not offer a suitable ticket or session ID. If supported,
+     * the new session should use a ticket. */
+    return ssl_session_success;
+  }
+
+  struct timeval now;
+  ssl_get_current_time(ssl, &now);
+  if (session->timeout < (long)now.tv_sec - session->time) {
+    /* The session was from the cache, so remove it. */
+    SSL_CTX_remove_session(ssl->initial_ctx, session);
+    return ssl_session_success;
+  }
+
+
   /* Increment reference count now if the session callback asks us to do so
    * (note that if the session structures returned by the callback are shared
    * between threads, it must handle the reference count itself [i.e. copy ==
@@ -646,7 +662,6 @@ enum ssl_session_result_t ssl_get_prev_session(
       ssl->version > SSL3_VERSION &&
       SSL_early_callback_ctx_extension_get(ctx, TLSEXT_TYPE_session_ticket,
                                            &ticket, &ticket_len);
-  int from_cache = 0;
   if (tickets_supported && ticket_len > 0) {
     if (!tls_process_ticket(ssl, &session, &renew_ticket, ticket, ticket_len,
                             ctx->session_id, ctx->session_id_len)) {
@@ -659,35 +674,14 @@ enum ssl_session_result_t ssl_get_prev_session(
     if (lookup_ret != ssl_session_success) {
       return lookup_ret;
     }
-    from_cache = 1;
-  }
-
-  if (session == NULL ||
-      session->sid_ctx_length != ssl->sid_ctx_length ||
-      memcmp(session->sid_ctx, ssl->sid_ctx, ssl->sid_ctx_length) != 0) {
-    /* The client did not offer a suitable ticket or session ID. If supported,
-     * the new session should use a ticket. */
-    goto no_session;
-  }
-
-  struct timeval now;
-  ssl_get_current_time(ssl, &now);
-  if (session->timeout < (long)now.tv_sec - session->time) {
-    if (from_cache) {
-      /* The session was from the cache, so remove it. */
-      SSL_CTX_remove_session(ssl->initial_ctx, session);
-    }
-    goto no_session;
   }
 
   *out_session = session;
-  *out_send_ticket = renew_ticket;
-  return ssl_session_success;
-
-no_session:
-  *out_session = NULL;
-  *out_send_ticket = tickets_supported;
-  SSL_SESSION_free(session);
+  if (session != NULL) {
+    *out_send_ticket = renew_ticket;
+  } else {
+    *out_send_ticket = tickets_supported;
+  }
   return ssl_session_success;
 }
 
