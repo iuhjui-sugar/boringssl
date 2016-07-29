@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "af96c1c6_3f76e3a0",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 908,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-29T21:47:56Z",
+      "side": 1,
+      "message": "handshake (lowercase)",
+      "range": {
+        "startLine": 908,
+        "startChar": 41,
+        "endLine": 908,
+        "endChar": 50
+      },
+      "revId": "e837ae31b93306ee482b6e89b9bdd4df71d72262",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "af96c1c6_1f792790",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-29T21:47:56Z",
+      "side": 1,
+      "message": "No elses on early return. (Maybe even switch-case?)",
+      "revId": "e837ae31b93306ee482b6e89b9bdd4df71d72262",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
