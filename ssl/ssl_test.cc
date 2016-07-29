@@ -1300,7 +1300,7 @@ static bool TestSessionDuplication() {
   }
 
   SSL_SESSION *session0 = SSL_get_session(client.get());
-  ScopedSSL_SESSION session1(SSL_SESSION_dup(session0, 1));
+  ScopedSSL_SESSION session1(SSL_SESSION_dup(session0, SSL_SESSION_DUP_ALL));
   if (!session1) {
     return false;
   }
@@ -1795,11 +1795,6 @@ static bool TestSessionIDContext() {
   static const uint8_t kContext2[] = {2};
 
   for (uint16_t version : kVersions) {
-    // TODO(davidben): Enable this when TLS 1.3 resumption is implemented.
-    if (version == TLS1_3_VERSION) {
-      continue;
-    }
-
     ScopedSSL_CTX server_ctx(SSL_CTX_new(TLS_method()));
     ScopedSSL_CTX client_ctx(SSL_CTX_new(TLS_method()));
     if (!server_ctx || !client_ctx ||
@@ -1863,11 +1858,6 @@ static bool TestSessionTimeout() {
   }
 
   for (uint16_t version : kVersions) {
-    // TODO(davidben): Enable this when TLS 1.3 resumption is implemented.
-    if (version == TLS1_3_VERSION) {
-      continue;
-    }
-
     ScopedSSL_CTX server_ctx(SSL_CTX_new(TLS_method()));
     ScopedSSL_CTX client_ctx(SSL_CTX_new(TLS_method()));
     if (!server_ctx || !client_ctx ||
