@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "6f6689d2_a93ac9ee",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1059,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-29T20:08:02Z",
+      "side": 1,
+      "message": "Returning -1 in the case of a handshake message sounds more reasonable but understood, in general, that this change is a larger campaign that doesn\u0027t have to start here.",
+      "parentUuid": "af96c1c6_bf6cb339",
+      "revId": "263320121ab3a509cbe5b9a37caede90ca6c603c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6f6689d2_ae3c8f7c",
         "filename": "ssl/s3_both.c",
         "patchSetId": 3
