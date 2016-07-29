@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "af96c1c6_ff91db9e",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-29T22:02:22Z",
+      "side": 1,
+      "message": "Actually, it\u0027s probably better to remove this completely and fatal error if we ever see these things. Feel free to leave the TODO, just not the check and return 1. Otherwise we\u0027re going to hang. Similar to how we don\u0027t ignore HelloRequest when its forbidden. We violently shut off the connection because we should never silently ignore anything without explicitly deciding to do it. Better to make noise and make it clear something went wrong.\n\nArguably we should do this for KeyUpdate too, but you\u0027re about to go fill that in anyway. And it\u0027ll fail on it\u0027s own.\n\nWhereas it\u0027s okay to silently ignore NewSessionTicket for now since we are explicitly deciding that dropping tickets on the floor is okay. (Although, the limit on warning alerts might want to apply here. Will need to muse on that...)\n\n(Also lowercase.)",
+      "revId": "b93841c8564634866c3614244abb1f327ff4ac26",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
