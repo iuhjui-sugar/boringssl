@@ -101,6 +101,7 @@ struct TestState {
   // operation has been retried.
   unsigned private_key_retries = 0;
   bool got_new_session = false;
+  ScopedSSL_SESSION new_session;
   bool ticket_decrypt_done = false;
   bool alpn_select_done = false;
 };
@@ -645,8 +646,7 @@ static void InfoCallback(const SSL *ssl, int type, int val) {
 
 static int NewSessionCallback(SSL *ssl, SSL_SESSION *session) {
   GetTestState(ssl)->got_new_session = true;
-  // BoringSSL passes a reference to |session|.
-  SSL_SESSION_free(session);
+  GetTestState(ssl)->new_session.reset(session);
   return 1;
 }
 
@@ -1203,6 +1203,7 @@ static bool CheckHandshakeProperties(SSL *ssl, bool is_resume) {
       X509_V_OK;
 
     if (SSL_get_verify_result(ssl) != expected_verify_result) {
+      fprintf(stderr, "%zu %d\n", SSL_get_verify_result(ssl), expected_verify_result);
       fprintf(stderr, "Wrong certificate verification result\n");
       return false;
     }
@@ -1621,7 +1622,7 @@ static bool DoExchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
   }
 
   if (out_session) {
-    out_session->reset(SSL_get1_session(ssl.get()));
+    *out_session = std::move(GetTestState(ssl.get())->new_session);
   }
 
   ret = DoShutdown(ssl.get());
