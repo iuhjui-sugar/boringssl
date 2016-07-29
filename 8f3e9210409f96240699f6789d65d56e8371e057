@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "af96c1c6_1fc04726",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-29T17:52:14Z",
+      "side": 1,
+      "message": "1 /* include ticket */)",
+      "range": {
+        "startLine": 517,
+        "startChar": 57,
+        "endLine": 517,
+        "endChar": 59
+      },
+      "revId": "8f3e9210409f96240699f6789d65d56e8371e057",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "af96c1c6_dfeedfb7",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-29T17:52:14Z",
+      "side": 1,
+      "message": "This is a little odd in that we leave us in SSL_ST_OK which the rest of the stack reads as \"handshake complete\". I\u0027m sure nothing works right if you pump the handshake twice in a row, but that read and write both might implicitly drive the HS and logically run in parallel makes me nervous.\n\nThe TLS 1.3 style gadget doesn\u0027t have this problem since it leaves errors sticky but, in absence of that, how about add an SSL_ST_ERROR state that just always fails with an error and add a state transition here?\n\n(All the other error points will re-run the handshake state which... honestly makes me nervous too, but at least it will work as badly as it worked before. We\u0027ll fix that more comprehensively by converting everything to the new style.)",
+      "revId": "8f3e9210409f96240699f6789d65d56e8371e057",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "af96c1c6_9fcb774e",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-29T17:52:14Z",
+      "side": 1,
+      "message": "These two should be in ssl3_free. (Otherwise we leak on SSL_clear. There really should be tests for that...)",
+      "revId": "8f3e9210409f96240699f6789d65d56e8371e057",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "af96c1c6_fff39ba0",
+        "filename": "ssl/ssl_session.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-29T17:52:14Z",
+      "side": 1,
+      "message": "[Per comment on older patch set, this actually can fail. The function name is a lie.]",
+      "revId": "8f3e9210409f96240699f6789d65d56e8371e057",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "af96c1c6_bff91385",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1289,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-29T17:52:14Z",
+      "side": 1,
+      "message": "This leaks s0_bytes and s1_bytes. There\u0027s ScopedOpenSSLBytes you can use:\n\n  if (!SSL_SESSION_to_bytes(session0, \u0026s0_bytes, \u0026s0_len)) {\n    return false;\n  }\n  ScopedOpenSSLBytes free_s0(s0_bytes);\n  \n  if (!SSL_SESSION_to_bytes(session1, \u0026s1_bytes, \u0026s1_len)) {\n    return false;\n  }\n  ScopedOpenSSLBytes free_s1(s1_bytes);\n\nIt\u0027s much longer, sadly. :-(",
+      "revId": "8f3e9210409f96240699f6789d65d56e8371e057",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
