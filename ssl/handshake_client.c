@@ -605,6 +605,15 @@ static int ssl_write_client_cipher_list(SSL *ssl, CBB *out,
     if (!CBB_add_u16(&child, ssl_cipher_get_value(cipher))) {
       return 0;
     }
+    /* Add PSK ciphers for TLS 1.3 resumption. */
+    if (ssl->session != NULL && max_version >= TLS1_3_VERSION) {
+      uint16_t resumption_cipher = ssl_cipher_get_resumption_cipher(cipher);
+      if (resumption_cipher) {
+        if (!CBB_add_u16(&child, resumption_cipher)) {
+          return 0;
+        }
+      }
+    }
   }
 
   /* If all ciphers were disabled, return the error to the caller. */
@@ -710,7 +719,9 @@ static int ssl3_send_client_hello(SSL *ssl) {
   if (ssl->session != NULL) {
     uint16_t session_version =
         ssl->method->version_from_wire(ssl->session->ssl_version);
-    if (ssl->session->session_id_length == 0 || ssl->session->not_resumable ||
+    if ((session_version < TLS1_3_VERSION &&
+         ssl->session->session_id_length == 0) ||
+        ssl->session->not_resumable ||
         ssl->session->timeout < (long)(time(NULL) - ssl->session->time) ||
         session_version < min_version || session_version > max_version) {
       SSL_set_session(ssl, NULL);
@@ -885,7 +896,12 @@ static int ssl3_get_server_hello(SSL *ssl) {
     goto f_err;
   }
 
-  assert(ssl->session == NULL || ssl->session->session_id_length > 0);
+  if (!ssl->s3->initial_handshake_complete && ssl->session != NULL && ssl->session->session_id_length == 0) {
+    al = SSL_AD_ILLEGAL_PARAMETER;
+    OPENSSL_PUT_ERROR(SSL, SSL_R_OLD_SESSION_VERSION_NOT_RETURNED);
+    goto f_err;
+  }
+
   if (!ssl->s3->initial_handshake_complete && ssl->session != NULL &&
       CBS_mem_equal(&session_id, ssl->session->session_id,
                     ssl->session->session_id_length)) {

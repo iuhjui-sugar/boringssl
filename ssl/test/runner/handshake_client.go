@@ -618,6 +618,9 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 	var chainToSend *Certificate
 	var certReq *certificateRequestMsg
 	if hs.suite.flags&suitePSK != 0 {
+		c.ocspResponse = hs.session.ocspResponse
+		c.sctList = hs.session.sctList
+
 		if encryptedExtensions.extensions.ocspResponse != nil {
 			c.sendAlert(alertUnsupportedExtension)
 			return errors.New("tls: server sent OCSP response without a certificate")

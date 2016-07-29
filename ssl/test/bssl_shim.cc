@@ -99,6 +99,7 @@ struct TestState {
   // operation has been retried.
   unsigned private_key_retries = 0;
   bool got_new_session = false;
+  ScopedSSL_SESSION new_session;
 };
 
 static void TestStateExFree(void *parent, void *ptr, CRYPTO_EX_DATA *ad,
@@ -630,8 +631,7 @@ static void InfoCallback(const SSL *ssl, int type, int val) {
 
 static int NewSessionCallback(SSL *ssl, SSL_SESSION *session) {
   GetTestState(ssl)->got_new_session = true;
-  // BoringSSL passes a reference to |session|.
-  SSL_SESSION_free(session);
+  GetTestState(ssl)->new_session.reset(session);
   return 1;
 }
 
@@ -1057,7 +1057,6 @@ static bool CheckHandshakeProperties(SSL *ssl, bool is_resume) {
     bool expect_new_session =
         !config->expect_no_session &&
         (!SSL_session_reused(ssl) || config->expect_ticket_renewal) &&
-        /* TODO(svaldez): Implement Session Resumption. */
         SSL_version(ssl) != TLS1_3_VERSION;
     if (expect_new_session != GetTestState(ssl)->got_new_session) {
       fprintf(stderr,
@@ -1569,14 +1568,27 @@ static bool DoExchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
 
   if (!config->is_server && !config->false_start &&
       !config->implicit_handshake &&
-      SSL_version(ssl.get()) < TLS1_3_VERSION &&
-      GetTestState(ssl.get())->got_new_session) {
-    fprintf(stderr, "new session was established after the handshake\n");
-    return false;
+      SSL_version(ssl.get()) != TLS1_3_VERSION) {
+    if (GetTestState(ssl.get())->got_new_session) {
+      fprintf(stderr, "new session was established after the handshake\n");
+      return false;
+    }
+  }
+
+  if (SSL_version(ssl.get()) == TLS1_3_VERSION && !config->is_server) {
+    bool expect_new_session =
+        !config->expect_no_session && !config->shim_shuts_down;
+    if (expect_new_session != GetTestState(ssl.get())->got_new_session) {
+      fprintf(stderr,
+              "new session was%s cached, but we expected the opposite\n",
+              GetTestState(ssl.get())->got_new_session ? "" : " not");
+      return false;
+    }
   }
 
   if (out_session) {
-    out_session->reset(SSL_get1_session(ssl.get()));
+    out_session->reset(
+        SSL_SESSION_up_ref(GetTestState(ssl.get())->new_session.get()));
   }
 
   ret = DoShutdown(ssl.get());
