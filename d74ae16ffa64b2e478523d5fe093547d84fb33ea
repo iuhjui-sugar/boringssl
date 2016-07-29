@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6f6689d2_292eb9f6",
+        "filename": "ssl/test/runner/cipher_suites.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-07-29T19:21:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af96c1c6_3fe6e3de",
+      "range": {
+        "startLine": 107,
+        "startChar": 5,
+        "endLine": 107,
+        "endChar": 13
+      },
+      "revId": "d74ae16ffa64b2e478523d5fe093547d84fb33ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af96c1c6_5fe3afcd",
         "filename": "ssl/test/runner/common.go",
         "patchSetId": 5
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "6f6689d2_a902c961",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-07-29T19:21:17Z",
+      "side": 1,
+      "message": "Removed. (I thought they were typed, but everything works fine with the uint32 removed.)",
+      "parentUuid": "af96c1c6_5fe3afcd",
+      "range": {
+        "startLine": 195,
+        "startChar": 26,
+        "endLine": 195,
+        "endChar": 32
+      },
+      "revId": "d74ae16ffa64b2e478523d5fe093547d84fb33ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af96c1c6_5f380f3a",
         "filename": "ssl/test/runner/conn.go",
         "patchSetId": 5
@@ -59,6 +107,24 @@
       "writtenOn": "2016-07-29T18:56:40Z",
       "side": 1,
       "message": "Nit: Probably put a newline here.",
+      "revId": "d74ae16ffa64b2e478523d5fe093547d84fb33ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6f6689d2_c907fd70",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 1668,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-07-29T19:21:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af96c1c6_5f380f3a",
       "revId": "d74ae16ffa64b2e478523d5fe093547d84fb33ea",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -105,6 +171,30 @@
     },
     {
       "key": {
+        "uuid": "6f6689d2_e9fcc163",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-07-29T19:21:17Z",
+      "side": 1,
+      "message": "session.ticketExpiration is only set for TLS 1.3 tickets, so I don\u0027t think moving it out of here would work.",
+      "parentUuid": "af96c1c6_9f029762",
+      "range": {
+        "startLine": 239,
+        "startChar": 59,
+        "endLine": 239,
+        "endChar": 106
+      },
+      "revId": "d74ae16ffa64b2e478523d5fe093547d84fb33ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af96c1c6_bf075371",
         "filename": "ssl/test/runner/handshake_client.go",
         "patchSetId": 5
@@ -116,6 +206,24 @@
       "writtenOn": "2016-07-29T18:56:40Z",
       "side": 1,
       "message": "hello.pskIdentities \u003d [][]uint8{ticket}",
+      "revId": "d74ae16ffa64b2e478523d5fe093547d84fb33ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6f6689d2_0902d560",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-07-29T19:21:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af96c1c6_bf075371",
       "revId": "d74ae16ffa64b2e478523d5fe093547d84fb33ea",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -156,6 +264,24 @@
     },
     {
       "key": {
+        "uuid": "6f6689d2_291799a2",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-07-29T19:21:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af96c1c6_3f14239b",
+      "revId": "d74ae16ffa64b2e478523d5fe093547d84fb33ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af96c1c6_7f0eab88",
         "filename": "ssl/test/runner/handshake_messages.go",
         "patchSetId": 5
@@ -167,6 +293,24 @@
       "writtenOn": "2016-07-29T18:56:40Z",
       "side": 1,
       "message": "var b [8]byte\n\n(And then refer to b as b[:] below.)",
+      "revId": "d74ae16ffa64b2e478523d5fe093547d84fb33ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6f6689d2_4914cd9b",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-07-29T19:21:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af96c1c6_7f0eab88",
       "revId": "d74ae16ffa64b2e478523d5fe093547d84fb33ea",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -190,6 +334,24 @@
     },
     {
       "key": {
+        "uuid": "6f6689d2_890ee585",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-07-29T19:21:17Z",
+      "side": 1,
+      "message": "I was using tryCipherSuite as a way to check that suiteId is in each list - I cleaned this up a little.",
+      "parentUuid": "af96c1c6_7f630b45",
+      "revId": "d74ae16ffa64b2e478523d5fe093547d84fb33ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af96c1c6_9f50d766",
         "filename": "ssl/test/runner/handshake_server.go",
         "patchSetId": 5
@@ -201,6 +363,30 @@
       "writtenOn": "2016-07-29T18:56:40Z",
       "side": 1,
       "message": "\u003d\u003d",
+      "range": {
+        "startLine": 529,
+        "startChar": 28,
+        "endLine": 529,
+        "endChar": 30
+      },
+      "revId": "d74ae16ffa64b2e478523d5fe093547d84fb33ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6f6689d2_a9672956",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-07-29T19:21:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af96c1c6_9f50d766",
       "range": {
         "startLine": 529,
         "startChar": 28,
