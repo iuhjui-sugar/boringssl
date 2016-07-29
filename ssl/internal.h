@@ -241,6 +241,11 @@ ssl_create_cipher_list(const SSL_PROTOCOL_METHOD *ssl_method,
 /* ssl_cipher_get_value returns the cipher suite id of |cipher|. */
 uint16_t ssl_cipher_get_value(const SSL_CIPHER *cipher);
 
+/* ssl_cipher_get_resumption_cipher returns the cipher suite id of the cipher
+ * matching |cipher| with PSK enabled. */
+int ssl_cipher_get_ecdhe_psk_cipher(const SSL_CIPHER *cipher,
+                                    uint16_t *out_cipher);
+
 /* ssl_cipher_get_key_type returns the |EVP_PKEY_*| value corresponding to the
  * server key used in |cipher| or |EVP_PKEY_NONE| if there is none. */
 int ssl_cipher_get_key_type(const SSL_CIPHER *cipher);
@@ -848,6 +853,18 @@ int tls13_export_keying_material(SSL *ssl, uint8_t *out, size_t out_len,
  * 0 for the Client Finished. */
 int tls13_finished_mac(SSL *ssl, uint8_t *out, size_t *out_len, int is_server);
 
+/* tls13_resumption_psk calculates the PSK to use for the resumption of
+ * |session| and stores the result in |out|. It returns one on success, and
+ * zero on failure. */
+int tls13_resumption_psk(SSL *ssl, uint8_t *out, size_t out_len,
+                         const SSL_SESSION *session);
+
+/* tls13_resumption_context derives the context to be used for the handshake
+ * transcript on the resumption of |session|. It returns one on success, and
+ * zero on failure. */
+int tls13_resumption_context(SSL *ssl, uint8_t *out, size_t out_len,
+                             const SSL_SESSION *session);
+
 
 /* Handshake functions. */
 
@@ -937,6 +954,13 @@ int ssl_ext_key_share_parse_clienthello(SSL *ssl, int *out_found,
                                         size_t *out_secret_len,
                                         uint8_t *out_alert, CBS *contents);
 int ssl_ext_key_share_add_serverhello(SSL *ssl, CBB *out);
+
+int ssl_ext_pre_shared_key_parse_serverhello(SSL *ssl, uint8_t *out_alert,
+                                             CBS *contents);
+int ssl_ext_pre_shared_key_parse_clienthello(SSL *ssl,
+                                             SSL_SESSION **out_session,
+                                             uint8_t *out_alert, CBS *contents);
+int ssl_ext_pre_shared_key_add_serverhello(SSL *ssl, CBB *out);
 
 int ssl_add_client_hello_body(SSL *ssl, CBB *body);
 
@@ -1222,6 +1246,13 @@ enum ssl_session_result_t {
   ssl_session_error,
   ssl_session_retry,
 };
+
+/* ssl_session_check_sid_ctx checks whether the |session| sid_ctx matches the
+ * one set on |ssl|. */
+int ssl_session_check_sid_ctx(SSL *ssl, SSL_SESSION *session);
+
+/* ssl_session_valid_time checks whether the |session| has a valid time. */
+int ssl_session_valid_time(SSL *ssl, SSL_SESSION *session);
 
 /* ssl_get_prev_session looks up the previous session based on |ctx|. On
  * success, it sets |*out_session| to the session or NULL if none was found. It
