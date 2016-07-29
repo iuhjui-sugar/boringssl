@@ -605,6 +605,14 @@ static int ssl_write_client_cipher_list(SSL *ssl, CBB *out,
     if (!CBB_add_u16(&child, ssl_cipher_get_value(cipher))) {
       return 0;
     }
+    if (ssl->session != NULL && max_version > TLS1_3_VERSION) {
+      uint16_t resumption_cipher = ssl_cipher_get_resumption_cipher(cipher);
+      if (resumption_cipher) {
+        if (!CBB_add_u16(&child, resumption_cipher)) {
+          return 0;
+        }
+      }
+    }
   }
 
   /* If all ciphers were disabled, return the error to the caller. */
