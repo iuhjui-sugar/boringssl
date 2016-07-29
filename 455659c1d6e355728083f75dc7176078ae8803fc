@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "af96c1c6_df297fa1",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-07-29T20:51:51Z",
+      "side": 1,
+      "message": "Add a TODO to fix this in case post-handshake auth.",
+      "range": {
+        "startLine": 350,
+        "startChar": 13,
+        "endLine": 350,
+        "endChar": 15
+      },
+      "revId": "455659c1d6e355728083f75dc7176078ae8803fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
