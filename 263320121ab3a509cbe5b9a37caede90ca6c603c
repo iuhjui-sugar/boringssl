@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6f6689d2_6e2b572d",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1059,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-29T18:39:51Z",
+      "side": 1,
+      "message": "Perhaps this is the right CL for this, but we should try and move away from this style of return value. In this case, the return value is a length, or it\u0027s negative or zero for an error, unless |*out_got_handshake| is true, in which case it\u0027s just one.\n\nI\u0027d aim for int (*read_app_data)(SSL *ssl, size_t *out_read_bytes, int *out_got_handshake, uint8_t *buf, size_t buf_len, int peek). (Where *out_read_bytes is zero if |*out_got_handshake| and the return value is just zero or one.)",
+      "revId": "263320121ab3a509cbe5b9a37caede90ca6c603c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6f6689d2_ae3c8f7c",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-29T18:39:51Z",
+      "side": 1,
+      "message": "The formatting looks odd here. Is this clang-format?",
+      "revId": "263320121ab3a509cbe5b9a37caede90ca6c603c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6f6689d2_6e127709",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-29T18:39:51Z",
+      "side": 1,
+      "message": "This doesn\u0027t need a goto, it can use a loop.",
+      "revId": "263320121ab3a509cbe5b9a37caede90ca6c603c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6f6689d2_4e05b3bc",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-29T18:39:51Z",
+      "side": 1,
+      "message": "We used to have a limit on the number of consecutive empty records.",
+      "revId": "263320121ab3a509cbe5b9a37caede90ca6c603c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6f6689d2_2ef6bfc9",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 694,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-07-29T18:39:51Z",
+      "side": 1,
+      "message": "(Probably better as a loop.)",
+      "revId": "263320121ab3a509cbe5b9a37caede90ca6c603c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
