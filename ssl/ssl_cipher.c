@@ -1651,6 +1651,18 @@ uint16_t ssl_cipher_get_value(const SSL_CIPHER *cipher) {
   return id & 0xffff;
 }
 
+uint16_t ssl_cipher_get_resumption_cipher(const SSL_CIPHER *cipher) {
+  switch (cipher->id) {
+    case TLS1_CK_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256:
+      return TLS1_CK_ECDHE_PSK_WITH_CHACHA20_POLY1305_SHA256 & 0xffff;
+    case TLS1_CK_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256:
+      return TLS1_CK_ECDHE_PSK_WITH_AES_128_GCM_SHA256 & 0xffff;
+    case TLS1_CK_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384:
+      return TLS1_CK_ECDHE_PSK_WITH_AES_256_GCM_SHA384 & 0xffff;
+  }
+  return 0;
+}
+
 int SSL_CIPHER_is_AES(const SSL_CIPHER *cipher) {
   return (cipher->algorithm_enc & SSL_AES) != 0;
 }
