@@ -22,6 +22,24 @@
       "revId": "455659c1d6e355728083f75dc7176078ae8803fc",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "af96c1c6_7f1b0b82",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-07-29T20:55:34Z",
+      "side": 1,
+      "message": "Per in person chat, we probably won\u0027t bother implementing that, at least for now. Just like we\u0027ll never initiate renego. But I\u0027ll add a sentence about that.",
+      "parentUuid": "af96c1c6_df297fa1",
+      "revId": "455659c1d6e355728083f75dc7176078ae8803fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
