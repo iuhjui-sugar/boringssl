@@ -153,6 +153,8 @@ static enum ssl_hs_wait_t do_process_server_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
   /* Parse out the extensions. */
   int have_key_share = 0;
   CBS key_share;
+  int have_pre_shared_key = 0;
+  CBS pre_shared_key;
   while (CBS_len(&extensions) != 0) {
     uint16_t type;
     CBS extension;
@@ -173,6 +175,15 @@ static enum ssl_hs_wait_t do_process_server_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
         key_share = extension;
         have_key_share = 1;
         break;
+      case TLSEXT_TYPE_pre_shared_key:
+        if (have_pre_shared_key) {
+          OPENSSL_PUT_ERROR(SSL, SSL_R_DUPLICATE_EXTENSION);
+          ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
+          return ssl_hs_error;
+        }
+        pre_shared_key = extension;
+        have_pre_shared_key = 1;
+        break;
       default:
         OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_EXTENSION);
         ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_UNSUPPORTED_EXTENSION);
@@ -183,8 +194,14 @@ static enum ssl_hs_wait_t do_process_server_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
   assert(ssl->s3->have_version);
   memcpy(ssl->s3->server_random, CBS_data(&server_random), SSL3_RANDOM_SIZE);
 
-  SSL_set_session(ssl, NULL);
-  if (!ssl_get_new_session(ssl, 0)) {
+  SSL_SESSION *session = NULL;
+  // TODO: session
+  if (CBS_len(&pre_shared_key) > 0) {
+  }
+
+  SSL_set_session(ssl, session);
+  if (session == NULL &&
+      !ssl_get_new_session(ssl, 0)) {
     ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
     return ssl_hs_error;
   }
@@ -207,7 +224,20 @@ static enum ssl_hs_wait_t do_process_server_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
-  ssl->s3->new_session->cipher = cipher;
+  if (ssl->session != NULL) {
+    if (ssl->session->cipher != cipher) {
+      OPENSSL_PUT_ERROR(SSL, SSL_R_OLD_SESSION_CIPHER_NOT_RETURNED);
+      ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
+      return ssl_hs_error;
+    }
+    if (ssl->session->ssl_version != ssl->version) {
+      OPENSSL_PUT_ERROR(SSL, SSL_R_OLD_SESSION_VERSION_NOT_RETURNED);
+      ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
+      return ssl_hs_error;
+    }
+  } else {
+    ssl->s3->new_session->cipher = cipher;
+  }
   ssl->s3->tmp.new_cipher = cipher;
 
   /* The PRF hash is now known. Set up the key schedule. */
@@ -305,8 +335,10 @@ static enum ssl_hs_wait_t do_process_certificate_request(SSL *ssl,
                                                          SSL_HANDSHAKE *hs) {
   ssl->s3->tmp.cert_request = 0;
 
-  /* CertificateRequest may only be sent in certificate-based ciphers. */
-  if (!ssl_cipher_uses_certificate_auth(ssl->s3->tmp.new_cipher)) {
+  /* CertificateRequest may only be sent in certificate-based ciphers and
+   * non-resumption. */
+  if (!ssl_cipher_uses_certificate_auth(ssl->s3->tmp.new_cipher) ||
+      ssl->session != NULL) {
     hs->state = state_process_server_finished;
     return ssl_hs_ok;
   }
@@ -558,7 +590,7 @@ enum ssl_hs_wait_t tls13_client_handshake(SSL *ssl) {
 }
 
 int tls13_process_new_session_ticket(SSL *ssl) {
-  SSL_SESSION *session = SSL_SESSION_dup(ssl->established_session, 0);
+  SSL_SESSION *session = SSL_SESSION_dup(ssl->s3->established_session, 0);
   if (session == NULL) {
     return 0;
   }

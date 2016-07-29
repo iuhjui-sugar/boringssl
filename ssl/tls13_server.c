@@ -138,8 +138,12 @@ static enum ssl_hs_wait_t do_process_client_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
   /* Load the client random. */
   memcpy(ssl->s3->client_random, CBS_data(&client_random), SSL3_RANDOM_SIZE);
 
-  SSL_set_session(ssl, NULL);
-  if (!ssl_get_new_session(ssl, 1 /* server */)) {
+  // TODO: session???
+  SSL_SESSION *session = NULL;
+
+  SSL_set_session(ssl, session);
+  if (session == NULL &&
+      !ssl_get_new_session(ssl, 1 /* server */)) {
     ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
     return ssl_hs_error;
   }
@@ -214,8 +218,20 @@ static enum ssl_hs_wait_t do_process_client_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
-  ssl->s3->new_session->cipher = cipher;
-  ssl->s3->tmp.new_cipher = cipher;
+  if (ssl->session != NULL) {
+    if (ssl->session->cipher != cipher) {
+      OPENSSL_PUT_ERROR(SSL, SSL_R_OLD_SESSION_CIPHER_NOT_RETURNED);
+      ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
+      return ssl_hs_error;
+    }
+    if (ssl->session->ssl_version != ssl->version) {
+      OPENSSL_PUT_ERROR(SSL, SSL_R_OLD_SESSION_VERSION_NOT_RETURNED);
+      ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
+      return ssl_hs_error;
+    }
+  } else {
+    ssl->s3->new_session->cipher = cipher;
+  }
 
   ssl->method->received_flight(ssl);
 
@@ -507,8 +523,9 @@ static enum ssl_hs_wait_t do_process_client_finished(SSL *ssl,
 
 static enum ssl_hs_wait_t do_send_new_session_ticket(SSL *ssl,
                                                      SSL_HANDSHAKE *hs) {
-  SSL_SESSION *session = ssl->session;
-  session->tlsext_tick_lifetime_hint = ssl->session->timeout;
+  SSL_SESSION *session =
+      ssl->session != NULL ? ssl->session : ssl->s3->new_session;
+  session->tlsext_tick_lifetime_hint = session->timeout;
   session->tlsext_tick_flags = 1 | 2 | 4;
   if (!RAND_bytes((uint8_t *)&session->tlsext_tick_age_add, 4)) {
     return 0;
