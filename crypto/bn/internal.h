@@ -125,6 +125,8 @@
 
 #include <openssl/base.h>
 
+#include <openssl/bn.h>
+
 #if defined(OPENSSL_X86_64) && defined(_MSC_VER)
 OPENSSL_MSVC_PRAGMA(warning(push, 3))
 #include <intrin.h>
@@ -220,6 +222,23 @@ int bn_cmp_part_words(const BN_ULONG *a, const BN_ULONG *b, int cl, int dl);
 
 int bn_mul_mont(BN_ULONG *rp, const BN_ULONG *ap, const BN_ULONG *bp,
                 const BN_ULONG *np, const BN_ULONG *n0, int num);
+
+uint64_t bn_mont_n0(const BIGNUM *n);
+
+
+/* On some 32-bit platforms, Montgomery multiplication is done using 64-bit
+ * arithmetic with SIMD instructions. On such platforms, |BN_MONT_CTX::n0|
+ * needs to be two words long. Only certain 32-bit platforms actually make use
+ * of n0[1] and shorter R value would suffice for the others. However,
+ * currently only the assembly files know which is which. */
+#if BN_BITS2 == 32
+#define BN_MONT_CTX_N0_LIMBS 2
+#define BN_MONT_CTX_N0(hi, lo) TOBN(hi, lo)
+#elif BN_BITS2 == 64
+#define BN_MONT_CTX_N0_LIMBS 1
+#define BN_MONT_CTX_N0(hi, lo) TOBN(hi, lo), 0
+#endif
+
 
 #if defined(OPENSSL_X86_64) && defined(_MSC_VER)
 #define BN_UMULT_LOHI(low, high, a, b) ((low) = _umul128((a), (b), &(high)))
