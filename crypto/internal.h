@@ -300,6 +300,14 @@ static inline int constant_time_select_int(unsigned int mask, int a, int b) {
   return (int)(constant_time_select(mask, (unsigned)(a), (unsigned)(b)));
 }
 
+OPENSSL_COMPILE_ASSERT(sizeof(uint64_t) == 2 * sizeof(unsigned),
+                       uint64_t_must_be_twice_the_size_of_unsigned);
+
+static inline uint64_t constant_time_select_uint64_t(uint64_t mask, uint64_t a,
+                                                     uint64_t b) {
+  return (mask & a) | (~mask & b);
+}
+
 
 /* Thread-safe initialisation. */
 
