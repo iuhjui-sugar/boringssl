@@ -677,24 +677,9 @@ static int mod_exp(BIGNUM *r0, const BIGNUM *I, RSA *rsa, BN_CTX *ctx) {
     goto err;
   }
 
-  {
-    BIGNUM local_p, local_q;
-    BIGNUM *p = NULL, *q = NULL;
-
-    /* Make sure BN_mod_inverse in Montgomery intialization uses the
-     * BN_FLG_CONSTTIME flag. */
-    BN_init(&local_p);
-    p = &local_p;
-    BN_with_flags(p, rsa->p, BN_FLG_CONSTTIME);
-
-    BN_init(&local_q);
-    q = &local_q;
-    BN_with_flags(q, rsa->q, BN_FLG_CONSTTIME);
-
-    if (!BN_MONT_CTX_set_locked(&rsa->mont_p, &rsa->lock, p, ctx) ||
-        !BN_MONT_CTX_set_locked(&rsa->mont_q, &rsa->lock, q, ctx)) {
-      goto err;
-    }
+  if (!BN_MONT_CTX_set_locked(&rsa->mont_p, &rsa->lock, rsa->p, ctx) ||
+      !BN_MONT_CTX_set_locked(&rsa->mont_q, &rsa->lock, rsa->q, ctx)) {
+    goto err;
   }
 
   if (!BN_MONT_CTX_set_locked(&rsa->mont_n, &rsa->lock, rsa->n, ctx)) {

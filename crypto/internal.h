@@ -258,6 +258,17 @@ static inline uint8_t constant_time_is_zero_8(unsigned int a) {
   return (uint8_t)(constant_time_is_zero(a));
 }
 
+OPENSSL_COMPILE_ASSERT(sizeof(uint64_t) == 2 * sizeof(unsigned),
+                       uint64_t_must_be_twice_the_size_of_unsigned);
+
+/* constant_time_is_zero returns 0xff..f if a == 0 and 0 otherwise. */
+static inline uint64_t constant_time_is_zero_uint64_t(uint64_t a) {
+  unsigned lo_mask = constant_time_is_zero((unsigned)a);
+  unsigned hi_mask = constant_time_is_zero((unsigned)(a >> 32));
+  uint64_t result = ((uint64_t)(hi_mask & lo_mask) << 32) | (hi_mask & lo_mask);
+  return result;
+}
+
 /* constant_time_eq returns 0xff..f if a == b and 0 otherwise. */
 static inline unsigned int constant_time_eq(unsigned int a, unsigned int b) {
   return constant_time_is_zero(a ^ b);
@@ -299,6 +310,12 @@ static inline uint8_t constant_time_select_8(uint8_t mask, uint8_t a,
 static inline int constant_time_select_int(unsigned int mask, int a, int b) {
   return (int)(constant_time_select(mask, (unsigned)(a), (unsigned)(b)));
 }
+
+static inline size_t constant_time_select_uint64_t(uint64_t mask, uint64_t a,
+                                                   uint64_t b) {
+  return (mask & a) | (~mask & b);
+}
+
 
 
 /* Thread-safe initialisation. */
