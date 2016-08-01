@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d450ee1d_3a38e583",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-08-01T23:44:31Z",
+      "side": 1,
+      "message": "\u003e\u003d ?",
+      "range": {
+        "startLine": 608,
+        "startChar": 44,
+        "endLine": 608,
+        "endChar": 45
+      },
+      "revId": "2eadaae65532877ae25ff5560e65d73d24287ec5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d450ee1d_5ae6011d",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-08-01T23:44:31Z",
+      "side": 1,
+      "message": "I assume this will be removed once we switch to the new cipher suite negotiation.",
+      "revId": "2eadaae65532877ae25ff5560e65d73d24287ec5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d450ee1d_9afb59ac",
+        "filename": "ssl/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 858,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-08-01T23:44:31Z",
+      "side": 1,
+      "message": "Documentation?",
+      "revId": "2eadaae65532877ae25ff5560e65d73d24287ec5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d450ee1d_fa8dad31",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 1655,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-08-01T23:44:31Z",
+      "side": 1,
+      "message": "RSA cipher suites are missing",
+      "revId": "2eadaae65532877ae25ff5560e65d73d24287ec5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d450ee1d_917d7f19",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-08-01T23:44:31Z",
+      "side": 1,
+      "message": "What is this check accomplishing? I\u0027d expect we only ever put ECDHE ciphers in a ticket, and if not, I think this check should be \"|| cipher-\u003ealgorithm_mkey !\u003d SSL_kECHDE\".",
+      "range": {
+        "startLine": 256,
+        "startChar": 6,
+        "endLine": 256,
+        "endChar": 42
+      },
+      "revId": "2eadaae65532877ae25ff5560e65d73d24287ec5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
