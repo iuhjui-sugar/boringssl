@@ -195,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "d450ee1d_b9e3c7cd",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-01T18:50:01Z",
+      "side": 1,
+      "message": "Could we put it in others too perhaps? That seems a feature we\u0027d want[*] in either both or none. (Don\u0027t worry too much about changing the session serialization format. I think we\u0027d changed it before. The upstreamed version will need a bit more fiddling, but we\u0027ll want it in both there.)\n\n[*] Well, BoGo probably could care less, but yeah.",
+      "parentUuid": "6f6689d2_e9fcc163",
+      "revId": "d74ae16ffa64b2e478523d5fe093547d84fb33ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af96c1c6_bf075371",
         "filename": "ssl/test/runner/handshake_client.go",
         "patchSetId": 5
