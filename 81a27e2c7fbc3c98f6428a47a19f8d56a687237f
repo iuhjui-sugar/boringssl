@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d450ee1d_f9a37ff6",
+        "filename": "crypto/bn/montgomery_inv.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-08-01T19:22:11Z",
+      "side": 1,
+      "message": "/* LG_LITTLE_R is log_2(r) */",
+      "revId": "81a27e2c7fbc3c98f6428a47a19f8d56a687237f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d450ee1d_d99e83fa",
+        "filename": "crypto/bn/montgomery_inv.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-08-01T19:22:11Z",
+      "side": 1,
+      "message": "Should this be LG_LITTLE_R?",
+      "range": {
+        "startLine": 40,
+        "startChar": 51,
+        "endLine": 40,
+        "endChar": 55
+      },
+      "revId": "81a27e2c7fbc3c98f6428a47a19f8d56a687237f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d450ee1d_d948c389",
+        "filename": "crypto/bn/montgomery_inv.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-08-01T19:22:11Z",
+      "side": 1,
+      "message": "where did |b| come from?",
+      "range": {
+        "startLine": 83,
+        "startChar": 77,
+        "endLine": 83,
+        "endChar": 78
+      },
+      "revId": "81a27e2c7fbc3c98f6428a47a19f8d56a687237f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d450ee1d_d9fa0312",
+        "filename": "crypto/bn/montgomery_inv.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-08-01T19:22:11Z",
+      "side": 1,
+      "message": "Where does the invariant start to hold because it looks like it\u0027s not true at this point?\n\n2**(LG_LITTLE_R - i - 1) \u003d\u003d u*2*alpha - v*beta\n2**(LG_LITTLE_R - 0 - 1) \u003d\u003d u*2*alpha - v*beta\n2**(LG_LITTLE_R - 1)     \u003d\u003d u*2*alpha - v*beta\nr/2 \u003d\u003d u*2*alpha - v*beta\nr/2 \u003d\u003d u*2*alpha - 0*beta\nr/2 \u003d\u003d u*2*alpha\nr/2 \u003d\u003d u*2*r/2\nr/2 \u003d\u003d u*r\nr/2 \u003d\u003d r\n\nBut r !\u003d 0.",
+      "revId": "81a27e2c7fbc3c98f6428a47a19f8d56a687237f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d450ee1d_398a376c",
+        "filename": "crypto/bn/montgomery_inv.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-08-01T19:22:11Z",
+      "side": 1,
+      "message": "Can you add to this comment:\n\nDietz calculates (x+y)/2 by (x⊕y)»1 + x\u0026y. This is valid for all (unsigned) x and y, even when x+y overflows.\n\nEvidence for 32-bit values (embedded in 64 bits to so that overflow can be ignored):\n\n(declare-fun x () (_ BitVec 64))\n(declare-fun y () (_ BitVec 64))\n\n(assert (let (\n   (one (_ bv1 64))\n   (thirtyTwo (_ bv32 64)))\n\n   (and\n     (bvult x (bvshl one thirtyTwo))\n     (bvult y (bvshl one thirtyTwo))\n     (not (\u003d\n       (bvadd (bvlshr (bvxor x y) one) (bvand x y)) \n       (bvlshr (bvadd x y) one)))\n)))\n\n(check-sat)",
+      "revId": "81a27e2c7fbc3c98f6428a47a19f8d56a687237f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
