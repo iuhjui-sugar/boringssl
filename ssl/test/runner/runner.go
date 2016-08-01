@@ -6438,8 +6438,9 @@ func addCustomExtensionTests() {
 				CustomExtension: expectedContents,
 			},
 		},
-		shouldFail:    true,
-		expectedError: ":UNEXPECTED_EXTENSION:",
+		shouldFail:         true,
+		expectedError:      ":UNEXPECTED_EXTENSION:",
+		expectedLocalError: "remote error: unsupported extension",
 	})
 	testCases = append(testCases, testCase{
 		testType: clientTest,
@@ -6450,8 +6451,37 @@ func addCustomExtensionTests() {
 				CustomExtension: expectedContents,
 			},
 		},
-		shouldFail:    true,
-		expectedError: ":UNEXPECTED_EXTENSION:",
+		shouldFail:         true,
+		expectedError:      ":UNEXPECTED_EXTENSION:",
+		expectedLocalError: "remote error: unsupported extension",
+	})
+
+	// Test a known but unoffered extension from the server.
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name:     "UnofferedExtension-Client",
+		config: Config{
+			MaxVersion: VersionTLS12,
+			Bugs: ProtocolBugs{
+				SendALPN: "alpn",
+			},
+		},
+		shouldFail:         true,
+		expectedError:      ":UNEXPECTED_EXTENSION:",
+		expectedLocalError: "remote error: unsupported extension",
+	})
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name:     "UnofferedExtension-Client-TLS13",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				SendALPN: "alpn",
+			},
+		},
+		shouldFail:         true,
+		expectedError:      ":UNEXPECTED_EXTENSION:",
+		expectedLocalError: "remote error: unsupported extension",
 	})
 }
 
