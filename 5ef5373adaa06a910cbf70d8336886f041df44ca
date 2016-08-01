@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d450ee1d_39fa3766",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-01T18:50:01Z",
+      "side": 1,
+      "message": "[See response on previous patch set.]",
+      "range": {
+        "startLine": 239,
+        "startChar": 90,
+        "endLine": 239,
+        "endChar": 106
+      },
+      "revId": "5ef5373adaa06a910cbf70d8336886f041df44ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d450ee1d_796b0f26",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-01T18:50:01Z",
+      "side": 1,
+      "message": "I think it\u0027s fine just replacing this with a non-TODO:\n\n// We send at most one PSK identity.\n\nI don\u0027t think we\u0027ll ever do it. The bugs can just give some additional fake ones to send or something.",
+      "revId": "5ef5373adaa06a910cbf70d8336886f041df44ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d450ee1d_b9686723",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-01T18:50:01Z",
+      "side": 1,
+      "message": "Probably better to set this to a local variable and only update hs.sessionState if we actually pick the session.",
+      "range": {
+        "startLine": 310,
+        "startChar": 2,
+        "endLine": 310,
+        "endChar": 5
+      },
+      "revId": "5ef5373adaa06a910cbf70d8336886f041df44ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "af96c1c6_bf73d383",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-01T18:50:01Z",
+      "side": 1,
+      "message": "Don\u0027t you need to update cipherSuites to stuff all the ECDHE-PSK ciphers in there? Otherwise runner needs to be aware of this weirdness, which makes a lot of the combinatorial tests more complex.\n\nEspecially since this is all going away anyway, I think better to not let this leak into the API.",
+      "revId": "5ef5373adaa06a910cbf70d8336886f041df44ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "af96c1c6_7f614bab",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-01T18:50:01Z",
+      "side": 1,
+      "message": "It doesn\u0027t look like this variable is actually doing anything. I guess we should just take out the pskOk logic? Seems it wasn\u0027t useful after all.",
+      "range": {
+        "startLine": 333,
+        "startChar": 3,
+        "endLine": 333,
+        "endChar": 8
+      },
+      "revId": "5ef5373adaa06a910cbf70d8336886f041df44ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
