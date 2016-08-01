@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d450ee1d_6e3463e2",
+        "filename": "ssl/ssl_session.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-01T17:50:12Z",
+      "side": 1,
+      "message": "Remove this line?",
+      "revId": "ece9cee8547e3c7fb06dd139ace75e7063b67714",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
