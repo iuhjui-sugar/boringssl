@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d450ee1d_2821c359",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1016,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-01T15:08:25Z",
+      "side": 1,
+      "message": "Alas, upstream rejected my suggestion to replace this mess with an ASN1_TIME_cmp utility function. They also rejected my suggestion to write a test for this stuff.",
+      "revId": "4e6ab8deef704f41d100ad05d7e1582cb46e51bf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
