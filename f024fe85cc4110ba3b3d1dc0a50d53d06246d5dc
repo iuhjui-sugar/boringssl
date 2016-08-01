@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d450ee1d_9a3eb9bb",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-08-01T22:32:39Z",
+      "side": 1,
+      "message": "This was added so that support for PSK suites doesn\u0027t need to be explicitly configured. However, there\u0027s a bug here, because I didn\u0027t check that session.cipherSuite is in hello.cipherSuites (or c.config.cipherSuites()) before using this PSK.",
+      "revId": "f024fe85cc4110ba3b3d1dc0a50d53d06246d5dc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
