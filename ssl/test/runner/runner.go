@@ -2695,6 +2695,33 @@ func addClientAuthTests() {
 	})
 
 	testCases = append(testCases, testCase{
+		// Even if not configured to expect a certificate, OpenSSL will
+		// return X509_V_OK as the verify_result.
+		testType: serverTest,
+		name: "NoClientCertificateRequested-Server",
+		config: Config{
+			MaxVersion: VersionTLS12,
+		},
+		flags: []string{
+			"-expect-verify-result",
+		},
+	})
+
+	testCases = append(testCases, testCase{
+		// If a client certificate is not provided, OpenSSL will still
+		// return X509_V_OK as the verify_result.
+		testType: serverTest,
+		name: "NoClientCertificate-Server",
+		config: Config{
+			MaxVersion: VersionTLS12,
+		},
+		flags: []string{
+			"-expect-verify-result",
+			"-verify-peer",
+		},
+	})
+
+	testCases = append(testCases, testCase{
 		name: "NoClientCertificate-TLS13",
 		config: Config{
 			MaxVersion: VersionTLS13,
