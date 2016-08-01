@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "d450ee1d_ff7a3fca",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-08-01T22:32:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d450ee1d_796b0f26",
+      "revId": "5ef5373adaa06a910cbf70d8336886f041df44ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d450ee1d_b9686723",
         "filename": "ssl/test/runner/handshake_server.go",
         "patchSetId": 6
@@ -53,6 +71,30 @@
       "writtenOn": "2016-08-01T18:50:01Z",
       "side": 1,
       "message": "Probably better to set this to a local variable and only update hs.sessionState if we actually pick the session.",
+      "range": {
+        "startLine": 310,
+        "startChar": 2,
+        "endLine": 310,
+        "endChar": 5
+      },
+      "revId": "5ef5373adaa06a910cbf70d8336886f041df44ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d450ee1d_5f56f336",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-08-01T22:32:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d450ee1d_b9686723",
       "range": {
         "startLine": 310,
         "startChar": 2,
@@ -82,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "d450ee1d_9af47924",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-08-01T22:32:39Z",
+      "side": 1,
+      "message": "I changed \"if id \u003d\u003d suiteId\" to \"if id \u003d\u003d sessionState.cipherSuite\", i.e. check that the original cipher suite is supported, and then use the psk version.",
+      "parentUuid": "af96c1c6_bf73d383",
+      "revId": "5ef5373adaa06a910cbf70d8336886f041df44ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af96c1c6_7f614bab",
         "filename": "ssl/test/runner/handshake_server.go",
         "patchSetId": 6
@@ -93,6 +153,30 @@
       "writtenOn": "2016-08-01T18:50:01Z",
       "side": 1,
       "message": "It doesn\u0027t look like this variable is actually doing anything. I guess we should just take out the pskOk logic? Seems it wasn\u0027t useful after all.",
+      "range": {
+        "startLine": 333,
+        "startChar": 3,
+        "endLine": 333,
+        "endChar": 8
+      },
+      "revId": "5ef5373adaa06a910cbf70d8336886f041df44ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d450ee1d_df9e63fa",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-08-01T22:32:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af96c1c6_7f614bab",
       "range": {
         "startLine": 333,
         "startChar": 3,
