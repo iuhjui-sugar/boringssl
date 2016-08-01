@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d450ee1d_bf3f2709",
+        "filename": "crypto/bn/montgomery_inv.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-08-01T23:29:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d450ee1d_f9a37ff6",
+      "revId": "81a27e2c7fbc3c98f6428a47a19f8d56a687237f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d450ee1d_d99e83fa",
         "filename": "crypto/bn/montgomery_inv.c",
         "patchSetId": 12
@@ -30,6 +48,30 @@
       "writtenOn": "2016-08-01T19:22:11Z",
       "side": 1,
       "message": "Should this be LG_LITTLE_R?",
+      "range": {
+        "startLine": 40,
+        "startChar": 51,
+        "endLine": 40,
+        "endChar": 55
+      },
+      "revId": "81a27e2c7fbc3c98f6428a47a19f8d56a687237f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d450ee1d_9f3c6b15",
+        "filename": "crypto/bn/montgomery_inv.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-08-01T23:29:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d450ee1d_d99e83fa",
       "range": {
         "startLine": 40,
         "startChar": 51,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "d450ee1d_5fba7387",
+        "filename": "crypto/bn/montgomery_inv.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-08-01T23:29:37Z",
+      "side": 1,
+      "message": "Fixed. The original code used |a| and |b| as the names of what is now |r| and |n|. I renamed them to be consistent with the rest of the Montgomery setup code.",
+      "parentUuid": "d450ee1d_d948c389",
+      "range": {
+        "startLine": 83,
+        "startChar": 77,
+        "endLine": 83,
+        "endChar": 78
+      },
+      "revId": "81a27e2c7fbc3c98f6428a47a19f8d56a687237f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d450ee1d_d9fa0312",
         "filename": "crypto/bn/montgomery_inv.c",
         "patchSetId": 12
@@ -82,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "d450ee1d_dfc54308",
+        "filename": "crypto/bn/montgomery_inv.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-08-01T23:29:37Z",
+      "side": 1,
+      "message": "It was an off-by-one as I forgot the \"2*\" on the RHS. I added some |assert|s to verify the invariant.",
+      "parentUuid": "d450ee1d_d9fa0312",
+      "revId": "81a27e2c7fbc3c98f6428a47a19f8d56a687237f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d450ee1d_398a376c",
         "filename": "crypto/bn/montgomery_inv.c",
         "patchSetId": 12
@@ -93,6 +177,24 @@
       "writtenOn": "2016-08-01T19:22:11Z",
       "side": 1,
       "message": "Can you add to this comment:\n\nDietz calculates (x+y)/2 by (x⊕y)»1 + x\u0026y. This is valid for all (unsigned) x and y, even when x+y overflows.\n\nEvidence for 32-bit values (embedded in 64 bits to so that overflow can be ignored):\n\n(declare-fun x () (_ BitVec 64))\n(declare-fun y () (_ BitVec 64))\n\n(assert (let (\n   (one (_ bv1 64))\n   (thirtyTwo (_ bv32 64)))\n\n   (and\n     (bvult x (bvshl one thirtyTwo))\n     (bvult y (bvshl one thirtyTwo))\n     (not (\u003d\n       (bvadd (bvlshr (bvxor x y) one) (bvand x y)) \n       (bvlshr (bvadd x y) one)))\n)))\n\n(check-sat)",
+      "revId": "81a27e2c7fbc3c98f6428a47a19f8d56a687237f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d450ee1d_3f91f7f3",
+        "filename": "crypto/bn/montgomery_inv.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-08-01T23:29:37Z",
+      "side": 1,
+      "message": "Done. Did you really mean \"»\" or did you mean \"\u003e\u003e\"?",
+      "parentUuid": "d450ee1d_398a376c",
       "revId": "81a27e2c7fbc3c98f6428a47a19f8d56a687237f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
