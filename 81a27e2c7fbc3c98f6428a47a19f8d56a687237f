@@ -198,6 +198,24 @@
       "revId": "81a27e2c7fbc3c98f6428a47a19f8d56a687237f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d450ee1d_519ee74e",
+        "filename": "crypto/bn/montgomery_inv.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-08-01T23:39:45Z",
+      "side": 1,
+      "message": "Maybe \"\u003e\u003e\" is better, done.",
+      "parentUuid": "d450ee1d_3f91f7f3",
+      "revId": "81a27e2c7fbc3c98f6428a47a19f8d56a687237f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
