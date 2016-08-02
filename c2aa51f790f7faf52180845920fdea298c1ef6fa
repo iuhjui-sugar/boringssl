@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d450ee1d_028edb24",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-08-02T20:10:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d450ee1d_078eed2d",
+      "revId": "c2aa51f790f7faf52180845920fdea298c1ef6fa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d450ee1d_2799e973",
         "filename": "tool/client.cc",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "d450ee1d_6287cf0b",
+        "filename": "tool/client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-08-02T20:10:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d450ee1d_2799e973",
+      "revId": "c2aa51f790f7faf52180845920fdea298c1ef6fa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d450ee1d_4794e53b",
         "filename": "tool/client.cc",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2016-08-02T20:08:16Z",
       "side": 1,
       "message": "Optional: I think you could also just return 0 and not bother calling SSL_SESSION_free. It\u0027s \"did I take a reference\" rather than \"did I do anything useful\".",
+      "revId": "c2aa51f790f7faf52180845920fdea298c1ef6fa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d450ee1d_428cd32d",
+        "filename": "tool/client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-08-02T20:10:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d450ee1d_4794e53b",
       "revId": "c2aa51f790f7faf52180845920fdea298c1ef6fa",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
