@@ -1285,9 +1285,8 @@ static bool TestSessionDuplication() {
   }
 
   ScopedSSL client, server;
-  if (!ConnectClientAndServer(
-          &client, &server, client_ctx.get(), server_ctx.get(),
-          /* no session */)) {
+  if (!ConnectClientAndServer(&client, &server, client_ctx.get(),
+                              server_ctx.get(), nullptr /* no session */)) {
     return false;
   }
 
@@ -1567,7 +1566,7 @@ static bool TestRetainOnlySHA256OfCerts() {
 
     ScopedSSL client, server;
     if (!ConnectClientAndServer(&client, &server, ctx.get(), ctx.get(),
-                                /* no session */)) {
+                                nullptr /* no session */)) {
       return false;
     }
 
@@ -1718,14 +1717,21 @@ static bool TestClientHello() {
   return true;
 }
 
+static ScopedSSL_SESSION g_last_session;
+
 static int SaveLastSession(SSL *ssl, SSL_SESSION *session) {
   // Save the most recent session.
-  SSL_SESSION_free(SSL_get_app_data(ssl));
-  SSL_set_app_data(ssl, session);
+  g_last_session.reset(session);
   return 1;
 }
 
 static bool TestSessionIDContext() {
+  ScopedX509 cert = GetTestCertificate();
+  ScopedEVP_PKEY key = GetTestKey();
+  if (!cert || !key) {
+    return false;
+  }
+
   static const uint8_t kContext1[] = {1};
   static const uint8_t kContext2[] = {2};
 
@@ -1738,51 +1744,86 @@ static bool TestSessionIDContext() {
     ScopedSSL_CTX server_ctx(SSL_CTX_new(TLS_method()));
     ScopedSSL_CTX client_ctx(SSL_CTX_new(TLS_method()));
     if (!server_ctx || !client_ctx ||
+        !SSL_CTX_use_certificate(server_ctx.get(), cert.get()) ||
+        !SSL_CTX_use_PrivateKey(server_ctx.get(), key.get()) ||
         !SSL_CTX_set_session_id_context(server_ctx.get(), kContext1,
                                         sizeof(kContext1))) {
       return false;
     }
 
+    SSL_CTX_set_session_cache_mode(client_ctx.get(), SSL_SESS_CACHE_BOTH);
+    SSL_CTX_set_session_cache_mode(server_ctx.get(), SSL_SESS_CACHE_BOTH);
     SSL_CTX_sess_set_new_cb(client_ctx.get(), SaveLastSession);
 
-    // Connect client and server, read some data to account for post-handshake
-    // tickets in TLS 1.3, and shut down cleanly.
-    ScopedSSL client, server;
-    if (!ConnectClientAndServer(client_ctx.get(), server_ctx.get(), &client,
-                                &server, nullptr /* no session */)) {
-      fprintf(stderr, "Failed to connect client and server.\n");
-      return false;
+    {
+      // Connect client and server, read some data to account for post-handshake
+      // tickets in TLS 1.3, and shut down cleanly.
+      ScopedSSL client, server;
+      if (!ConnectClientAndServer(&client, &server, client_ctx.get(),
+                                  server_ctx.get(), nullptr /* no session */)) {
+        fprintf(stderr,
+                "Failed to connect client and server (version = %04x).\n",
+                version);
+        return false;
+      }
+
+      // Run the read loop to account for post-handshake tickets in TLS 1.3.
+      SSL_read(client.get(), nullptr, 0);
     }
 
-    // Run the read loop to account for post-handshake tickets in TLS 1.3.
-    SSL_read(client.get(), nullptr, 0);
-
-    // Grab the session.
-    ScopedSSL_SESSION session(SSL_get_app_data(client.get()));
-    SSL_set_app_data(client.get(), nullptr);
+    ScopedSSL_SESSION session = std::move(g_last_session);
     if (!session) {
-      fprintf(stderr, "Client did not receive a session.\n");
+      fprintf(stderr, "Client did not receive a session (version = %04x).\n",
+              version);
       return false;
     }
 
-    // Attempt to resume it.
-    if (!ConnectClientAndServer(client_ctx.get(), server_ctx.get(), &client,
-                                &server, session.get())) {
-      fprintf(stderr, "Failed to connect client and server.\n");
+    {
+      // Attempt to resume the session.
+      ScopedSSL client, server;
+      if (!ConnectClientAndServer(&client, &server, client_ctx.get(),
+                                  server_ctx.get(), session.get())) {
+        fprintf(stderr,
+                "Failed to connect client and server (version = %04x).\n",
+                version);
+        return false;
+      }
+
+      if (!SSL_session_reused(client.get()) ||
+          !SSL_session_reused(server.get())) {
+        fprintf(stderr, "Session was not resumed (version = %04x).\n", version);
+        return false;
+      }
+    }
+
+    // Change the session ID context.
+    if (!SSL_CTX_set_session_id_context(server_ctx.get(), kContext2,
+                                        sizeof(kContext2))) {
       return false;
     }
 
-    if (!SSL_session_reused(client.get()) ||
-        !SSL_session_reused(server.get())) {
-      fprintf(stderr, "Session was not resumed.\n");
-      return false;
+    {
+      // Attempt to resume the session again.
+      ScopedSSL client, server;
+      if (!ConnectClientAndServer(&client, &server, client_ctx.get(),
+                                  server_ctx.get(), session.get())) {
+        fprintf(stderr,
+                "Failed to connect client and server (version = %04x).\n",
+                version);
+        return false;
+      }
+
+      // This time it should not have resumed.
+      if (SSL_session_reused(client.get()) ||
+          SSL_session_reused(server.get())) {
+        fprintf(stderr, "Session was unexpectedly resumed (version = %04x).\n",
+                version);
+        return false;
+      }
     }
-
-    client.reset();
-    server.reset();
-
-    // Change the
   }
+
+  return true;
 }
 
 int main() {
