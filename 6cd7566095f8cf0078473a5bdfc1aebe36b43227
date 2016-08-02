@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d450ee1d_a2cf075d",
+        "filename": "tool/client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-02T20:22:00Z",
+      "side": 1,
+      "message": "BIO_flush is dumb and needs BIO_flush(...) \u003c\u003d 0, sadly.",
+      "range": {
+        "startLine": 127,
+        "startChar": 9,
+        "endLine": 127,
+        "endChar": 18
+      },
+      "revId": "6cd7566095f8cf0078473a5bdfc1aebe36b43227",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
