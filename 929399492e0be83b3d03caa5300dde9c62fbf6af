@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d450ee1d_87865d77",
+        "filename": "ssl/test/runner/cipher_suites.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-02T18:13:47Z",
+      "side": 1,
+      "message": "Because one can mint a ticket from a resumed session and then resume again, I believe this needs to map the ECDHE_PSK ones to themselves too.",
+      "revId": "929399492e0be83b3d03caa5300dde9c62fbf6af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d450ee1d_678b6181",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-02T18:13:47Z",
+      "side": 1,
+      "message": "I should have done this when we started minting/storing tickets, but mind switching this to 14? We\u0027re just lying now that we\u0027re sending NewSessionTicket and can\u0027t interop with 13 peers anymore.",
+      "range": {
+        "startLine": 31,
+        "startChar": 26,
+        "endLine": 31,
+        "endChar": 28
+      },
+      "revId": "929399492e0be83b3d03caa5300dde9c62fbf6af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d450ee1d_077a6d83",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-02T18:13:47Z",
+      "side": 1,
+      "message": "Nit: Maybe\n\nIf not resuming, select the cipher suite.",
+      "revId": "929399492e0be83b3d03caa5300dde9c62fbf6af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
