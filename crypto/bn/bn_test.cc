@@ -1142,31 +1142,39 @@ static bool TestNegativeZero(BN_CTX *ctx) {
     return false;
   }
 
-  // Test that BN_div never gives negative zero in the quotient.
-  if (!BN_set_word(a.get(), 1) ||
-      !BN_set_word(b.get(), 2)) {
-    return false;
-  }
-  BN_set_negative(a.get(), 1);
-  if (!BN_div(d.get(), c.get(), a.get(), b.get(), ctx)) {
-    return false;
-  }
-  if (!BN_is_zero(d.get()) || BN_is_negative(d.get())) {
-    fprintf(stderr, "Division test failed.\n");
-    return false;
+  for (int consttime = 0; consttime < 2; consttime++) {
+    BN_set_flags(a.get(), consttime ? BN_FLG_CONSTTIME : 0);
+    BN_set_flags(b.get(), consttime ? BN_FLG_CONSTTIME : 0);
+
+    // Test that BN_div never gives negative zero in the quotient.
+    if (!BN_set_word(a.get(), 1) ||
+        !BN_set_word(b.get(), 2)) {
+      return false;
+    }
+    BN_set_negative(a.get(), 1);
+    if (!BN_div(d.get(), c.get(), a.get(), b.get(), ctx)) {
+      return false;
+    }
+    if (!BN_is_zero(d.get()) || BN_is_negative(d.get())) {
+      fprintf(stderr, "Incorrect quotient (consttime = %d).\n", consttime);
+      return false;
+    }
+
+    // Test that BN_div never gives negative zero in the remainder.
+    if (!BN_set_word(b.get(), 1)) {
+      return false;
+    }
+    if (!BN_div(d.get(), c.get(), a.get(), b.get(), ctx)) {
+      return false;
+    }
+    if (!BN_is_zero(c.get()) || BN_is_negative(c.get())) {
+      fprintf(stderr, "Incorrect remainder (consttime = %d).\n", consttime);
+      return false;
+    }
   }
 
-  // Test that BN_div never gives negative zero in the remainder.
-  if (!BN_set_word(b.get(), 1)) {
-    return false;
-  }
-  if (!BN_div(d.get(), c.get(), a.get(), b.get(), ctx)) {
-    return false;
-  }
-  if (!BN_is_zero(c.get()) || BN_is_negative(c.get())) {
-    fprintf(stderr, "Division test failed.\n");
-    return false;
-  }
+  BN_set_flags(a.get(), 0);
+  BN_set_flags(b.get(), 0);
 
   // Test that BN_set_negative will not produce a negative zero.
   BN_zero(a.get());
