@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3464ea09_58529d6b",
+        "filename": "ssl/test/runner/cipher_suites.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-08-02T18:56:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d450ee1d_87865d77",
+      "revId": "929399492e0be83b3d03caa5300dde9c62fbf6af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d450ee1d_678b6181",
         "filename": "ssl/test/runner/common.go",
         "patchSetId": 8
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "3464ea09_184c25ce",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-08-02T18:56:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d450ee1d_678b6181",
+      "range": {
+        "startLine": 31,
+        "startChar": 26,
+        "endLine": 31,
+        "endChar": 28
+      },
+      "revId": "929399492e0be83b3d03caa5300dde9c62fbf6af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d450ee1d_077a6d83",
         "filename": "ssl/test/runner/handshake_server.go",
         "patchSetId": 8
@@ -53,6 +95,24 @@
       "writtenOn": "2016-08-02T18:13:47Z",
       "side": 1,
       "message": "Nit: Maybe\n\nIf not resuming, select the cipher suite.",
+      "revId": "929399492e0be83b3d03caa5300dde9c62fbf6af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3464ea09_f8429196",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-08-02T18:56:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d450ee1d_077a6d83",
       "revId": "929399492e0be83b3d03caa5300dde9c62fbf6af",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
