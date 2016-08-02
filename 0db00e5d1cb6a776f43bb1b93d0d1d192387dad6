@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6f6689d2_b57a1750",
+        "filename": "crypto/bn/bn_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1176,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-08-02T17:37:17Z",
+      "side": 1,
+      "message": "BN_set_flags ORs in the given flags, so this is a no-op.",
+      "range": {
+        "startLine": 1176,
+        "startChar": 24,
+        "endLine": 1176,
+        "endChar": 25
+      },
+      "revId": "0db00e5d1cb6a776f43bb1b93d0d1d192387dad6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
