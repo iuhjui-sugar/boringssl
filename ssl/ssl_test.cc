@@ -1096,13 +1096,16 @@ static ScopedEVP_PKEY GetTestKey() {
 }
 
 static bool ConnectClientAndServer(ScopedSSL *out_client, ScopedSSL *out_server,
-                                   SSL_CTX *client_ctx, SSL_CTX *server_ctx) {
+                                   SSL_CTX *client_ctx, SSL_CTX *server_ctx,
+                                   SSL_SESSION *session) {
   ScopedSSL client(SSL_new(client_ctx)), server(SSL_new(server_ctx));
   if (!client || !server) {
     return false;
   }
   SSL_set_connect_state(client.get());
   SSL_set_accept_state(server.get());
+
+  SSL_set_session(client.get(), session);
 
   BIO *bio1, *bio2;
   if (!BIO_new_bio_pair(&bio1, 0, &bio2, 0)) {
@@ -1159,7 +1162,7 @@ static bool TestSequenceNumber(bool dtls) {
 
   ScopedSSL client, server;
   if (!ConnectClientAndServer(&client, &server, client_ctx.get(),
-                              server_ctx.get())) {
+                              server_ctx.get(), nullptr /* no session */)) {
     return false;
   }
 
@@ -1228,7 +1231,7 @@ static bool TestOneSidedShutdown() {
 
   ScopedSSL client, server;
   if (!ConnectClientAndServer(&client, &server, client_ctx.get(),
-                              server_ctx.get())) {
+                              server_ctx.get(), nullptr /* no session */)) {
     return false;
   }
 
@@ -1283,7 +1286,7 @@ static bool TestSessionDuplication() {
 
   ScopedSSL client, server;
   if (!ConnectClientAndServer(&client, &server, client_ctx.get(),
-                              server_ctx.get())) {
+                              server_ctx.get(), nullptr /* no session */)) {
     return false;
   }
 
@@ -1494,7 +1497,8 @@ static bool TestGetPeerCertificate() {
     SSL_CTX_set_cert_verify_callback(ctx.get(), VerifySucceed, NULL);
 
     ScopedSSL client, server;
-    if (!ConnectClientAndServer(&client, &server, ctx.get(), ctx.get())) {
+    if (!ConnectClientAndServer(&client, &server, ctx.get(), ctx.get(),
+                                nullptr /* no session */)) {
       return false;
     }
 
@@ -1561,7 +1565,8 @@ static bool TestRetainOnlySHA256OfCerts() {
     SSL_CTX_set_retain_only_sha256_of_client_certs(ctx.get(), 1);
 
     ScopedSSL client, server;
-    if (!ConnectClientAndServer(&client, &server, ctx.get(), ctx.get())) {
+    if (!ConnectClientAndServer(&client, &server, ctx.get(), ctx.get(),
+                                nullptr /* no session */)) {
       return false;
     }
 
@@ -1712,6 +1717,115 @@ static bool TestClientHello() {
   return true;
 }
 
+static ScopedSSL_SESSION g_last_session;
+
+static int SaveLastSession(SSL *ssl, SSL_SESSION *session) {
+  // Save the most recent session.
+  g_last_session.reset(session);
+  return 1;
+}
+
+static bool TestSessionIDContext() {
+  ScopedX509 cert = GetTestCertificate();
+  ScopedEVP_PKEY key = GetTestKey();
+  if (!cert || !key) {
+    return false;
+  }
+
+  static const uint8_t kContext1[] = {1};
+  static const uint8_t kContext2[] = {2};
+
+  for (uint16_t version : kVersions) {
+    // TODO(davidben): Enable this when TLS 1.3 resumption is implemented.
+    if (version == TLS1_3_VERSION) {
+      continue;
+    }
+
+    ScopedSSL_CTX server_ctx(SSL_CTX_new(TLS_method()));
+    ScopedSSL_CTX client_ctx(SSL_CTX_new(TLS_method()));
+    if (!server_ctx || !client_ctx ||
+        !SSL_CTX_use_certificate(server_ctx.get(), cert.get()) ||
+        !SSL_CTX_use_PrivateKey(server_ctx.get(), key.get()) ||
+        !SSL_CTX_set_session_id_context(server_ctx.get(), kContext1,
+                                        sizeof(kContext1))) {
+      return false;
+    }
+
+    SSL_CTX_set_session_cache_mode(client_ctx.get(), SSL_SESS_CACHE_BOTH);
+    SSL_CTX_set_session_cache_mode(server_ctx.get(), SSL_SESS_CACHE_BOTH);
+    SSL_CTX_sess_set_new_cb(client_ctx.get(), SaveLastSession);
+
+    {
+      // Connect client and server, read some data to account for post-handshake
+      // tickets in TLS 1.3, and shut down cleanly.
+      ScopedSSL client, server;
+      if (!ConnectClientAndServer(&client, &server, client_ctx.get(),
+                                  server_ctx.get(), nullptr /* no session */)) {
+        fprintf(stderr,
+                "Failed to connect client and server (version = %04x).\n",
+                version);
+        return false;
+      }
+
+      // Run the read loop to account for post-handshake tickets in TLS 1.3.
+      SSL_read(client.get(), nullptr, 0);
+    }
+
+    ScopedSSL_SESSION session = std::move(g_last_session);
+    if (!session) {
+      fprintf(stderr, "Client did not receive a session (version = %04x).\n",
+              version);
+      return false;
+    }
+
+    {
+      // Attempt to resume the session.
+      ScopedSSL client, server;
+      if (!ConnectClientAndServer(&client, &server, client_ctx.get(),
+                                  server_ctx.get(), session.get())) {
+        fprintf(stderr,
+                "Failed to connect client and server (version = %04x).\n",
+                version);
+        return false;
+      }
+
+      if (!SSL_session_reused(client.get()) ||
+          !SSL_session_reused(server.get())) {
+        fprintf(stderr, "Session was not resumed (version = %04x).\n", version);
+        return false;
+      }
+    }
+
+    // Change the session ID context.
+    if (!SSL_CTX_set_session_id_context(server_ctx.get(), kContext2,
+                                        sizeof(kContext2))) {
+      return false;
+    }
+
+    {
+      // Attempt to resume the session again.
+      ScopedSSL client, server;
+      if (!ConnectClientAndServer(&client, &server, client_ctx.get(),
+                                  server_ctx.get(), session.get())) {
+        fprintf(stderr,
+                "Failed to connect client and server (version = %04x).\n",
+                version);
+        return false;
+      }
+
+      // This time it should not have resumed.
+      if (SSL_session_reused(client.get()) ||
+          SSL_session_reused(server.get())) {
+        fprintf(stderr, "Session was unexpectedly resumed (version = %04x).\n",
+                version);
+        return false;
+      }
+    }
+  }
+
+  return true;
+}
+
 int main() {
   CRYPTO_library_init();
 
@@ -1743,7 +1857,8 @@ int main() {
       !TestSetBIO() ||
       !TestGetPeerCertificate() ||
       !TestRetainOnlySHA256OfCerts() ||
-      !TestClientHello()) {
+      !TestClientHello() ||
+      !TestSessionIDContext()) {
     ERR_print_errors_fp(stderr);
     return 1;
   }
