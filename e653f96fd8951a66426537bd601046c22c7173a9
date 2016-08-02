@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "14de06f7_6f8c91e0",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 1884,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-08-02T23:32:26Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "d450ee1d_22143799",
+      "revId": "e653f96fd8951a66426537bd601046c22c7173a9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d450ee1d_e284dfb3",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 8
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "14de06f7_2fad2936",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 2258,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-08-02T23:32:26Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "d450ee1d_e284dfb3",
+      "revId": "e653f96fd8951a66426537bd601046c22c7173a9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "14de06f7_6f8251fd",
         "filename": "ssl/tls13_client.c",
         "patchSetId": 8
@@ -47,6 +83,24 @@
       "writtenOn": "2016-08-02T21:55:33Z",
       "side": 0,
       "message": "[squash into parent]",
+      "revId": "e653f96fd8951a66426537bd601046c22c7173a9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "14de06f7_6f3d71e5",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 587,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-08-02T23:32:26Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "14de06f7_6f8251fd",
       "revId": "e653f96fd8951a66426537bd601046c22c7173a9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
