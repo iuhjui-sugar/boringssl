@@ -1,0 +1,272 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d450ee1d_c72b352e",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 3683,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-02T20:17:40Z",
+      "side": 1,
+      "message": "tlsext_tick -\u003e ticket?\n\ntlsext was always kind of a dumb prefix. :-)",
+      "range": {
+        "startLine": 3683,
+        "startChar": 11,
+        "endLine": 3683,
+        "endChar": 22
+      },
+      "revId": "8bbfc2b72cfa98164f8e81e6d375bdd95aaf91de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d450ee1d_a7fb99ab",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 1881,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-02T20:17:40Z",
+      "side": 1,
+      "message": "How about ssl_add_ticket? Or maybe ssl_encrypt_ticket or something if you want to capture the fact that you\u0027re creating a new one.\n\n(get -\u003e add because get means parsing, new_session_ticket -\u003e ticket because you\u0027re not handling the NewSessionTicket message. Just the ticket field.)",
+      "range": {
+        "startLine": 1881,
+        "startChar": 7,
+        "endLine": 1881,
+        "endChar": 33
+      },
+      "revId": "8bbfc2b72cfa98164f8e81e6d375bdd95aaf91de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d450ee1d_87c89d7d",
+        "filename": "ssl/internal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 1211,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-02T20:17:40Z",
+      "side": 1,
+      "message": "Nit: cite spec.",
+      "revId": "8bbfc2b72cfa98164f8e81e6d375bdd95aaf91de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d450ee1d_67cda18b",
+        "filename": "ssl/internal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 1222,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-02T20:17:40Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 1222,
+        "startChar": 51,
+        "endLine": 1222,
+        "endChar": 62
+      },
+      "revId": "8bbfc2b72cfa98164f8e81e6d375bdd95aaf91de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d450ee1d_27c7a96b",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-02T20:17:40Z",
+      "side": 1,
+      "message": "Maybe add a ticket_age_add_valid to the struct? (There\u0027s a bunch of booleans at the bottom.) I feel a little iffy special-casing the zero value for what\u0027s supposed to be a secret. Not that it matters a whole lot, but still.",
+      "revId": "8bbfc2b72cfa98164f8e81e6d375bdd95aaf91de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d450ee1d_e7d87147",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-02T20:17:40Z",
+      "side": 1,
+      "message": "int age_present; and s/NULL/\u0026age_present/. Then change the CBS_len(\u0026age_add) check to age_add_present and also check that CBS_len(\u0026age_add) is 0 afterwards. This should work:\n\n  !CBS_get_optional... ||\n  (age_add_present \u0026\u0026\n   !CBS_get_u32(...)) ||\n  CBS_len(\u0026age_add) !\u003d 0\n\nAnd then set ticket_age_valid to age_add_present. Or it could be less Clever (TM) and just condition on age_add_present. :-)",
+      "revId": "8bbfc2b72cfa98164f8e81e6d375bdd95aaf91de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d450ee1d_c7d5750d",
+        "filename": "ssl/ssl_session.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-02T20:17:40Z",
+      "side": 1,
+      "message": "static const size_t kMaxTicketOverhead",
+      "revId": "8bbfc2b72cfa98164f8e81e6d375bdd95aaf91de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d450ee1d_e2b17fdc",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1060,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-02T20:17:40Z",
+      "side": 1,
+      "message": "This probably should be switched from a TODO to an explanatory comment.",
+      "revId": "8bbfc2b72cfa98164f8e81e6d375bdd95aaf91de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d450ee1d_8282cbf9",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1572,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-02T20:17:40Z",
+      "side": 1,
+      "message": "Probably warrants a comment. (Hrm. Does this pass tests? What about DTLS? Might need to add a dummy helper function... if it helps, I can go add a public SSL_is_dtls function. OpenSSL 1.1.0 added it and it seems generally useful.)",
+      "revId": "8bbfc2b72cfa98164f8e81e6d375bdd95aaf91de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d450ee1d_02b5bbc8",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1576,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-02T20:17:40Z",
+      "side": 1,
+      "message": "I think we also want a positive test for TLS 1.3 that, after the handshake, we did indeed get a new session.",
+      "revId": "8bbfc2b72cfa98164f8e81e6d375bdd95aaf91de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d450ee1d_2291d741",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-02T20:17:40Z",
+      "side": 1,
+      "message": "0 /* don\u0027t include ticket */",
+      "range": {
+        "startLine": 561,
+        "startChar": 71,
+        "endLine": 561,
+        "endChar": 72
+      },
+      "revId": "8bbfc2b72cfa98164f8e81e6d375bdd95aaf91de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d450ee1d_82a9ab7d",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-02T20:17:40Z",
+      "side": 1,
+      "message": "[Squash in the change to remove this from later CL.]",
+      "revId": "8bbfc2b72cfa98164f8e81e6d375bdd95aaf91de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d450ee1d_22b8b7c1",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-02T20:17:40Z",
+      "side": 1,
+      "message": "I don\u0027t think this actually gets filled in on the server. The server just writes timeout directly. Saves a few bytes in the ticket.",
+      "revId": "8bbfc2b72cfa98164f8e81e6d375bdd95aaf91de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d450ee1d_629eaf4f",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-02T20:17:40Z",
+      "side": 1,
+      "message": "Probably call this kNumTickets and give it a comment.",
+      "range": {
+        "startLine": 539,
+        "startChar": 34,
+        "endLine": 539,
+        "endChar": 35
+      },
+      "revId": "8bbfc2b72cfa98164f8e81e6d375bdd95aaf91de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
