@@ -22,6 +22,24 @@
       "revId": "a5eb112dc2d8764e923346d810014c0ffb72ce7d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d450ee1d_87177dfa",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 646,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-02T19:20:42Z",
+      "side": 1,
+      "message": "Oh hrm, actually there\u0027s a fair amount of auth bits to copy around. It\u0027ll take a stab at it...",
+      "parentUuid": "d450ee1d_07594d02",
+      "revId": "a5eb112dc2d8764e923346d810014c0ffb72ce7d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
