@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d450ee1d_07594d02",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 646,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-08-02T19:09:54Z",
+      "side": 1,
+      "message": "While here, can you set ocspResponse/sctList based on the session values.",
+      "range": {
+        "startLine": 646,
+        "startChar": 1,
+        "endLine": 646,
+        "endChar": 34
+      },
+      "revId": "a5eb112dc2d8764e923346d810014c0ffb72ce7d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
