@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d450ee1d_02c6db13",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-02T20:51:31Z",
+      "side": 1,
+      "message": "rebase?",
+      "range": {
+        "startLine": 383,
+        "startChar": 7,
+        "endLine": 383,
+        "endChar": 41
+      },
+      "revId": "34815eb6a12ad2e07349c6ff59b2b3c691187421",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
