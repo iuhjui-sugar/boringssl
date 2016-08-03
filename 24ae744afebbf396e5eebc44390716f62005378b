@@ -16,6 +16,24 @@
       "revId": "24ae744afebbf396e5eebc44390716f62005378b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94bcb6cf_33aea8ed",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 3407,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-03T22:04:31Z",
+      "side": 1,
+      "message": "Oops. Fixed. I had it right at some point and then tried to be clever with loops and broke it.",
+      "parentUuid": "94dd9660_0b431d6b",
+      "revId": "24ae744afebbf396e5eebc44390716f62005378b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
