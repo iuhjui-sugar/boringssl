@@ -420,9 +420,6 @@ BIGNUM *BN_mod_inverse(BIGNUM *out, const BIGNUM *a, const BIGNUM *n,
     if (a_reduced == NULL) {
       goto err;
     }
-    if (no_branch) {
-      BN_set_flags(a_reduced, BN_FLG_CONSTTIME);
-    }
     if (!BN_nnmod(a_reduced, a_reduced, n, ctx)) {
       goto err;
     }
@@ -487,8 +484,6 @@ static int bn_mod_inverse_general(BIGNUM *out, int *out_no_inverse,
                                   const BIGNUM *a, const BIGNUM *n,
                                   BN_CTX *ctx) {
   BIGNUM *A, *B, *X, *Y, *M, *D, *T;
-  BIGNUM local_A;
-  BIGNUM *pA;
   int ret = 0;
   int sign;
 
@@ -531,14 +526,8 @@ static int bn_mod_inverse_general(BIGNUM *out, int *out_no_inverse,
      *      sign*Y*a  ==  A   (mod |n|)
      */
 
-    /* Turn BN_FLG_CONSTTIME flag on, so that when BN_div is invoked,
-     * BN_div_no_branch will be called eventually.
-     */
-    pA = &local_A;
-    BN_with_flags(pA, A, BN_FLG_CONSTTIME);
-
     /* (D, M) := (A/B, A%B) ... */
-    if (!BN_div(D, M, pA, B, ctx)) {
+    if (!BN_div(D, M, A, B, ctx)) {
       goto err;
     }
 
