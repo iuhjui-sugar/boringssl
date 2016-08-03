@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "94bcb6cf_33b3089b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-08-03T19:37:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94bcb6cf_93c85c22",
+      "revId": "ee9c5a79c5835fbca97a654d10af59b688b00e71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "94bcb6cf_932cdc02",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 12
@@ -30,6 +48,30 @@
       "writtenOn": "2016-08-03T19:28:03Z",
       "side": 1,
       "message": "Alas, we don\u0027t get to rename this field. Let\u0027s just avoid the silly prefix going forward.",
+      "range": {
+        "startLine": 3685,
+        "startChar": 11,
+        "endLine": 3685,
+        "endChar": 17
+      },
+      "revId": "ee9c5a79c5835fbca97a654d10af59b688b00e71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94bcb6cf_33e1489b",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 3685,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-08-03T19:37:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94bcb6cf_932cdc02",
       "range": {
         "startLine": 3685,
         "startChar": 11,
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "94bcb6cf_53d6c4bd",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 1882,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-08-03T19:37:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94bcb6cf_d336544c",
+      "revId": "ee9c5a79c5835fbca97a654d10af59b688b00e71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "94bcb6cf_3305c86b",
         "filename": "ssl/internal.h",
         "patchSetId": 12
@@ -70,6 +130,30 @@
       "writtenOn": "2016-08-03T19:28:03Z",
       "side": 1,
       "message": "Nit: 14, not that it matters",
+      "range": {
+        "startLine": 1208,
+        "startChar": 29,
+        "endLine": 1208,
+        "endChar": 31
+      },
+      "revId": "ee9c5a79c5835fbca97a654d10af59b688b00e71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94bcb6cf_73dbc0e4",
+        "filename": "ssl/internal.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 1208,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-08-03T19:37:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94bcb6cf_3305c86b",
       "range": {
         "startLine": 1208,
         "startChar": 29,
@@ -128,6 +212,54 @@
     },
     {
       "key": {
+        "uuid": "94bcb6cf_338ce8df",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1060,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-08-03T19:37:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94bcb6cf_d3681425",
+      "range": {
+        "startLine": 1060,
+        "startChar": 11,
+        "endLine": 1060,
+        "endChar": 29
+      },
+      "revId": "ee9c5a79c5835fbca97a654d10af59b688b00e71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94bcb6cf_1387ecbd",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1060,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-08-03T19:37:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94bcb6cf_73510062",
+      "range": {
+        "startLine": 1060,
+        "startChar": 8,
+        "endLine": 1060,
+        "endChar": 10
+      },
+      "revId": "ee9c5a79c5835fbca97a654d10af59b688b00e71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "94bcb6cf_13528c6a",
         "filename": "ssl/test/bssl_shim.cc",
         "patchSetId": 12
@@ -139,6 +271,30 @@
       "writtenOn": "2016-08-03T19:28:03Z",
       "side": 1,
       "message": "\u003e\u003d\n(It was \u003d\u003d before because we were lazy and it was expected this would be short-lived. But it seems it won\u0027t be.)\n\nExcept that will make DTLS sad, so I think you\u0027ll want to add a:\n\nstatic uint16_t GetProtocolVersion(const SSL *ssl) {\n  uint16_t version \u003d SSL_version(ssl);\n  if (SSL_is_dtls(ssl)) {\n    return version;\n  }\n  return 0x0201 + ~version;\n}\n\nOr something like that.",
+      "range": {
+        "startLine": 1061,
+        "startChar": 8,
+        "endLine": 1061,
+        "endChar": 42
+      },
+      "revId": "ee9c5a79c5835fbca97a654d10af59b688b00e71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94bcb6cf_13ae0c36",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1061,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-08-03T19:37:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94bcb6cf_13528c6a",
       "range": {
         "startLine": 1061,
         "startChar": 8,
@@ -197,6 +353,54 @@
     },
     {
       "key": {
+        "uuid": "94bcb6cf_937a1cca",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1572,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-08-03T19:37:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94bcb6cf_f365104a",
+      "range": {
+        "startLine": 1572,
+        "startChar": 9,
+        "endLine": 1572,
+        "endChar": 27
+      },
+      "revId": "ee9c5a79c5835fbca97a654d10af59b688b00e71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94bcb6cf_739660ed",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1572,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-08-03T19:37:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94bcb6cf_9345bca2",
+      "range": {
+        "startLine": 1572,
+        "startChar": 6,
+        "endLine": 1572,
+        "endChar": 7
+      },
+      "revId": "ee9c5a79c5835fbca97a654d10af59b688b00e71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "94bcb6cf_3357885b",
         "filename": "ssl/test/bssl_shim.cc",
         "patchSetId": 12
@@ -208,6 +412,30 @@
       "writtenOn": "2016-08-03T19:28:03Z",
       "side": 1,
       "message": "Ditto.",
+      "range": {
+        "startLine": 1573,
+        "startChar": 29,
+        "endLine": 1573,
+        "endChar": 31
+      },
+      "revId": "ee9c5a79c5835fbca97a654d10af59b688b00e71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94bcb6cf_b37718e1",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1573,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-08-03T19:37:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94bcb6cf_3357885b",
       "range": {
         "startLine": 1573,
         "startChar": 29,
@@ -243,6 +471,30 @@
     },
     {
       "key": {
+        "uuid": "94bcb6cf_d38494b4",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1579,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-08-03T19:37:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94bcb6cf_534c04cf",
+      "range": {
+        "startLine": 1579,
+        "startChar": 29,
+        "endLine": 1579,
+        "endChar": 31
+      },
+      "revId": "ee9c5a79c5835fbca97a654d10af59b688b00e71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "94bcb6cf_b342b895",
         "filename": "ssl/tls13_server.c",
         "patchSetId": 12
@@ -254,6 +506,30 @@
       "writtenOn": "2016-08-03T19:28:03Z",
       "side": 1,
       "message": "sizeof(session-\u003eticket_age_add)",
+      "range": {
+        "startLine": 520,
+        "startChar": 55,
+        "endLine": 520,
+        "endChar": 56
+      },
+      "revId": "ee9c5a79c5835fbca97a654d10af59b688b00e71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94bcb6cf_b3ec7891",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-08-03T19:37:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94bcb6cf_b342b895",
       "range": {
         "startLine": 520,
         "startChar": 55,
@@ -295,6 +571,42 @@
       "side": 1,
       "message": "Er, s/make it configurable/possibly make it configurable/?\n\nDunno if we\u0027ll actually need to configure it. I dunno.",
       "parentUuid": "94bcb6cf_53bfa475",
+      "revId": "ee9c5a79c5835fbca97a654d10af59b688b00e71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94bcb6cf_d3e9f47f",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-08-03T19:37:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94bcb6cf_53bfa475",
+      "revId": "ee9c5a79c5835fbca97a654d10af59b688b00e71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94bcb6cf_f3e6f0ac",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-08-03T19:37:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94bcb6cf_f3cfd024",
       "revId": "ee9c5a79c5835fbca97a654d10af59b688b00e71",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
