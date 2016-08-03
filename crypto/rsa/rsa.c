@@ -600,6 +600,7 @@ int RSA_check_key(const RSA *key) {
   }
 
   if (!BN_is_one(&de)) {
+    __debugbreak();
     OPENSSL_PUT_ERROR(RSA, RSA_R_D_E_NOT_CONGRUENT_TO_1);
     goto out;
   }
