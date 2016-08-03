@@ -1,0 +1,285 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "94bcb6cf_93c85c22",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-03T19:28:03Z",
+      "side": 1,
+      "message": "Maybe add a sentence like:\n\nWe will now send tickets as a server and accept them as a client. Correctly offering and resuming them in the handshake will be implemented in a follow-up.",
+      "revId": "ee9c5a79c5835fbca97a654d10af59b688b00e71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94bcb6cf_932cdc02",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 3685,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-03T19:28:03Z",
+      "side": 1,
+      "message": "Alas, we don\u0027t get to rename this field. Let\u0027s just avoid the silly prefix going forward.",
+      "range": {
+        "startLine": 3685,
+        "startChar": 11,
+        "endLine": 3685,
+        "endChar": 17
+      },
+      "revId": "ee9c5a79c5835fbca97a654d10af59b688b00e71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94bcb6cf_d336544c",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 1882,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-03T19:28:03Z",
+      "side": 1,
+      "message": "Nit: stray newline.",
+      "revId": "ee9c5a79c5835fbca97a654d10af59b688b00e71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94bcb6cf_3305c86b",
+        "filename": "ssl/internal.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 1208,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-03T19:28:03Z",
+      "side": 1,
+      "message": "Nit: 14, not that it matters",
+      "range": {
+        "startLine": 1208,
+        "startChar": 29,
+        "endLine": 1208,
+        "endChar": 31
+      },
+      "revId": "ee9c5a79c5835fbca97a654d10af59b688b00e71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94bcb6cf_73510062",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1060,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-03T19:28:03Z",
+      "side": 1,
+      "message": "Super nitpicky nit: //-style comments in this file.",
+      "range": {
+        "startLine": 1060,
+        "startChar": 8,
+        "endLine": 1060,
+        "endChar": 10
+      },
+      "revId": "ee9c5a79c5835fbca97a654d10af59b688b00e71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94bcb6cf_d3681425",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1060,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-03T19:28:03Z",
+      "side": 1,
+      "message": "Session resumption\n\n(Actually, this probably should say \"Session tickets are sent post-handshake in TLS 1.3.\")",
+      "range": {
+        "startLine": 1060,
+        "startChar": 11,
+        "endLine": 1060,
+        "endChar": 29
+      },
+      "revId": "ee9c5a79c5835fbca97a654d10af59b688b00e71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94bcb6cf_13528c6a",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1061,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-03T19:28:03Z",
+      "side": 1,
+      "message": "\u003e\u003d\n(It was \u003d\u003d before because we were lazy and it was expected this would be short-lived. But it seems it won\u0027t be.)\n\nExcept that will make DTLS sad, so I think you\u0027ll want to add a:\n\nstatic uint16_t GetProtocolVersion(const SSL *ssl) {\n  uint16_t version \u003d SSL_version(ssl);\n  if (SSL_is_dtls(ssl)) {\n    return version;\n  }\n  return 0x0201 + ~version;\n}\n\nOr something like that.",
+      "range": {
+        "startLine": 1061,
+        "startChar": 8,
+        "endLine": 1061,
+        "endChar": 42
+      },
+      "revId": "ee9c5a79c5835fbca97a654d10af59b688b00e71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94bcb6cf_9345bca2",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1572,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-03T19:28:03Z",
+      "side": 1,
+      "message": "Super nitpicky nit: //-style comments in this file.",
+      "range": {
+        "startLine": 1572,
+        "startChar": 6,
+        "endLine": 1572,
+        "endChar": 7
+      },
+      "revId": "ee9c5a79c5835fbca97a654d10af59b688b00e71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94bcb6cf_f365104a",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1572,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-03T19:28:03Z",
+      "side": 1,
+      "message": "Ditto",
+      "range": {
+        "startLine": 1572,
+        "startChar": 9,
+        "endLine": 1572,
+        "endChar": 27
+      },
+      "revId": "ee9c5a79c5835fbca97a654d10af59b688b00e71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94bcb6cf_3357885b",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1573,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-03T19:28:03Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 1573,
+        "startChar": 29,
+        "endLine": 1573,
+        "endChar": 31
+      },
+      "revId": "ee9c5a79c5835fbca97a654d10af59b688b00e71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94bcb6cf_534c04cf",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1579,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-03T19:28:03Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 1579,
+        "startChar": 29,
+        "endLine": 1579,
+        "endChar": 31
+      },
+      "revId": "ee9c5a79c5835fbca97a654d10af59b688b00e71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94bcb6cf_b342b895",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-03T19:28:03Z",
+      "side": 1,
+      "message": "sizeof(session-\u003eticket_age_add)",
+      "range": {
+        "startLine": 520,
+        "startChar": 55,
+        "endLine": 520,
+        "endChar": 56
+      },
+      "revId": "ee9c5a79c5835fbca97a654d10af59b688b00e71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94bcb6cf_53bfa475",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-03T19:28:03Z",
+      "side": 1,
+      "message": "(What is a SessionTicket?) Maybe something like:\n\n/* TLS 1.3 recommends single-use tickets, so issue multiple tickets in case the client makes several connections before getting a renewal.\n *\n * TODO(svaldez): Tune this value and make it configurable. */",
+      "revId": "ee9c5a79c5835fbca97a654d10af59b688b00e71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
