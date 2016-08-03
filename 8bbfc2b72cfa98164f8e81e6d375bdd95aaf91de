@@ -213,6 +213,24 @@
     },
     {
       "key": {
+        "uuid": "94bcb6cf_53fa4466",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-03T19:28:03Z",
+      "side": 1,
+      "message": "SSL_SESSION. This way we don\u0027t need to leak when the addition is 0. Not that it really matters, but it costs little and means we don\u0027t have to think about this for what is nominally a secret key.",
+      "parentUuid": "d450ee1d_e2e3bfcc",
+      "revId": "8bbfc2b72cfa98164f8e81e6d375bdd95aaf91de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d450ee1d_e7d87147",
         "filename": "ssl/ssl_asn1.c",
         "patchSetId": 6
