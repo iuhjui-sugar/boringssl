@@ -751,6 +751,30 @@
     },
     {
       "key": {
+        "uuid": "14de06f7_32510e63",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 2042,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-08-03T14:34:51Z",
+      "side": 1,
+      "message": "In fact I think the only relevant check is the expiration?",
+      "parentUuid": "14de06f7_8fb1b5dd",
+      "range": {
+        "startLine": 2042,
+        "startChar": 12,
+        "endLine": 2042,
+        "endChar": 30
+      },
+      "revId": "c37708bccba4c762a77e765e0d052ffe2fecee57",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d450ee1d_42c4d30c",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 8
