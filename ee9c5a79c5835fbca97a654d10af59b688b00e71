@@ -280,6 +280,24 @@
       "revId": "ee9c5a79c5835fbca97a654d10af59b688b00e71",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94bcb6cf_f3cfd024",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-03T19:29:03Z",
+      "side": 1,
+      "message": "Er, s/make it configurable/possibly make it configurable/?\n\nDunno if we\u0027ll actually need to configure it. I dunno.",
+      "parentUuid": "94bcb6cf_53bfa475",
+      "revId": "ee9c5a79c5835fbca97a654d10af59b688b00e71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
