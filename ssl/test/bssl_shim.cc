@@ -844,6 +844,9 @@ static ScopedSSL_CTX SetupCtx(const TestConfig *config) {
     SSL_CTX_set_session_cache_mode(ssl_ctx.get(), SSL_SESS_CACHE_BOTH);
   }
 
+  static const uint8_t kContext[1] = {0};
+  SSL_CTX_set_session_id_context(ssl_ctx.get(), kContext, sizeof(kContext));
+
   SSL_CTX_set_select_certificate_cb(ssl_ctx.get(), SelectCertificateCallback);
 
   if (config->use_old_client_cert_callback) {
@@ -1204,19 +1207,18 @@ static bool CheckHandshakeProperties(SSL *ssl, bool is_resume) {
     }
   }
 
-  if (!config->is_server) {
-    /* Clients should expect a peer certificate chain iff this was not a PSK
-     * cipher suite. */
-    if (config->psk.empty()) {
-      if (SSL_get_peer_cert_chain(ssl) == nullptr) {
-        fprintf(stderr, "Missing peer certificate chain!\n");
-        return false;
-      }
-    } else if (SSL_get_peer_cert_chain(ssl) != nullptr) {
-      fprintf(stderr, "Unexpected peer certificate chain!\n");
+  if (!config->psk.empty()) {
+    if (SSL_get_peer_cert_chain(ssl) != nullptr) {
+      fprintf(stderr, "Received peer certificate on a PSK cipher.\n");
+      return false;
+    }
+  } else if (!config->is_server || config->require_any_client_certificate) {
+    if (SSL_get_peer_cert_chain(ssl) == nullptr) {
+      fprintf(stderr, "Received no peer certificate but expected one.\n");
       return false;
     }
   }
+
   return true;
 }
 
