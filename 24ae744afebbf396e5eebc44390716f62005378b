@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "94dd9660_0b431d6b",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 3407,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-08-03T21:33:48Z",
+      "side": 1,
+      "message": "The test types here are both still |clientTest|, which seems odd.",
+      "revId": "24ae744afebbf396e5eebc44390716f62005378b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
