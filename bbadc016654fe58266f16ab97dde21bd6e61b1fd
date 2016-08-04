@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3414ead3_016430f1",
+        "filename": "API-CONVENTIONS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-08-04T16:39:51Z",
+      "side": 1,
+      "message": "\"test\"?",
+      "range": {
+        "startLine": 33,
+        "startChar": 29,
+        "endLine": 33,
+        "endChar": 31
+      },
+      "revId": "bbadc016654fe58266f16ab97dde21bd6e61b1fd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3414ead3_a168e4c7",
+        "filename": "API-CONVENTIONS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-08-04T16:39:51Z",
+      "side": 1,
+      "message": "\"because reference counts use saturating arithmetic\".",
+      "range": {
+        "startLine": 86,
+        "startChar": 23,
+        "endLine": 86,
+        "endChar": 24
+      },
+      "revId": "bbadc016654fe58266f16ab97dde21bd6e61b1fd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
