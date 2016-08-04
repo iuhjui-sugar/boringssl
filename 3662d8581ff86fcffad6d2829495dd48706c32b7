@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "54b4fe46_d4ddf210",
+        "filename": "crypto/cipher/e_rc2.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-04T21:57:34Z",
+      "side": 1,
+      "message": "Interesting. I\u0027m not sure why the bots hate this. It\u0027s fine on the Windows VM. Whatever. I\u0027ll undo this and figure out how to fix this less absurdly later.\n\n(I believe C\u0027s rules around ptrdiff_t imply that any valid buffer lengths fit in both size_t and ssize_t.)",
+      "range": {
+        "startLine": 216,
+        "startChar": 15,
+        "endLine": 216,
+        "endChar": 22
+      },
+      "revId": "3662d8581ff86fcffad6d2829495dd48706c32b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
