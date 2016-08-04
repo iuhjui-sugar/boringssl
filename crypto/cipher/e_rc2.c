@@ -213,7 +213,7 @@ static void RC2_cbc_encrypt(const uint8_t *in, uint8_t *out, size_t length,
                             RC2_KEY *ks, uint8_t *iv, int encrypt) {
   uint32_t tin0, tin1;
   uint32_t tout0, tout1, xor0, xor1;
-  long l = length;
+  ssize_t l = (ssize_t)length;
   uint32_t tin[2];
 
   if (encrypt) {
