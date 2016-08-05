@@ -35,6 +35,9 @@ var (
 	useValgrind     = flag.Bool("valgrind", false, "If true, run code under valgrind")
 	useCallgrind    = flag.Bool("callgrind", false, "If true, run code under valgrind to generate callgrind traces.")
 	useGDB          = flag.Bool("gdb", false, "If true, run BoringSSL code under gdb")
+	useDrcov        = flag.Bool("drcov", false, "If true, run code under drcov")
+	drrunPath       = flag.String("drrun", "", "The path to drrun for drcov")
+	drrunLogDir     = flag.String("drrun-log-dir", "", "The log directory for drrun")
 	buildDir        = flag.String("build-dir", "build", "The build directory to run the tests from.")
 	numWorkers      = flag.Int("num-workers", 1, "Runs the given number of workers when testing.")
 	jsonOutput      = flag.String("json-output", "", "The file to output JSON results to.")
@@ -130,6 +133,14 @@ func gdbOf(path string, args ...string) *exec.Cmd {
 	return exec.Command("xterm", xtermArgs...)
 }
 
+func drcovOf(path string, args ...string) *exec.Cmd {
+	drrunArgs := []string{"-t", "drcov", "-logdir", *drrunLogDir, "--"}
+	drrunArgs = append(drrunArgs, path)
+	drrunArgs = append(drrunArgs, args...)
+
+	return exec.Command(*drrunPath, drrunArgs...)
+}
+
 type moreMallocsError struct{}
 
 func (moreMallocsError) Error() string {
@@ -148,6 +159,8 @@ func runTestOnce(test test, mallocNumToFail int64) (passed bool, err error) {
 		cmd = callgrindOf(prog, args...)
 	} else if *useGDB {
 		cmd = gdbOf(prog, args...)
+	} else if *useDrcov {
+		cmd = drcovOf(prog, args...)
 	} else {
 		cmd = exec.Command(prog, args...)
 	}
