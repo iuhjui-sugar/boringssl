@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "79ff3b6c_92d3fc59",
+        "filename": "crypto/obj/obj.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-05T23:06:10Z",
+      "side": 1,
+      "message": "Apparently do/while loops don\u0027t get to evaluate their expression within the body\u0027s scope. That seems silly. (I don\u0027t hugely care between for (;;) { if (...) { break; } } and this one if you have a preference.)",
+      "parentUuid": "d97e679c_d8a551b6",
+      "revId": "23581193128daf09128264d72ad0242f09f25b90",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d97e679c_78b75def",
         "filename": "crypto/obj/obj.c",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2016-08-05T18:46:26Z",
       "side": 1,
       "message": "shifts of 64-bit values on 32-bit systems are pretty expensive. Would it be clearer to test whether any of the top seven bits are set with:\n\nif ((v \u003e\u003e (64-7)) !\u003d 0) {\n  return 0;\n}\n\n?",
+      "revId": "23581193128daf09128264d72ad0242f09f25b90",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79ff3b6c_f2d0884e",
+        "filename": "crypto/obj/obj.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-05T23:06:10Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "d97e679c_78b75def",
       "revId": "23581193128daf09128264d72ad0242f09f25b90",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
