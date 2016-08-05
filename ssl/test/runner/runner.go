@@ -44,6 +44,9 @@ var (
 	useValgrind        = flag.Bool("valgrind", false, "If true, run code under valgrind")
 	useGDB             = flag.Bool("gdb", false, "If true, run BoringSSL code under gdb")
 	useLLDB            = flag.Bool("lldb", false, "If true, run BoringSSL code under lldb")
+	useDrcov           = flag.Bool("drcov", false, "If true, run code under drcov")
+	drrunPath          = flag.String("drrun", "", "The path to drrun for drcov")
+	drrunLogDir        = flag.String("drrun-log-dir", "", "The log directory for drrun")
 	flagDebug          = flag.Bool("debug", false, "Hexdump the contents of the connection")
 	mallocTest         = flag.Int64("malloc-test", -1, "If non-negative, run each test with each malloc in turn failing from the given number onwards.")
 	mallocTestDebug    = flag.Bool("malloc-test-debug", false, "If true, ask bssl_shim to abort rather than fail a malloc. This can be used with a specific value for --malloc-test to identity the malloc failing that is causing problems.")
@@ -692,6 +695,14 @@ func lldbOf(path string, args ...string) *exec.Cmd {
 	return exec.Command("xterm", xtermArgs...)
 }
 
+func drcovOf(path string, args ...string) *exec.Cmd {
+	drrunArgs := []string{"-t", "drcov", "-logdir", *drrunLogDir, "--"}
+	drrunArgs = append(drrunArgs, path)
+	drrunArgs = append(drrunArgs, args...)
+
+	return exec.Command(*drrunPath, drrunArgs...)
+}
+
 var (
 	errMoreMallocs   = errors.New("child process did not exhaust all allocation calls")
 	errUnimplemented = errors.New("child process does not implement needed flags")
@@ -798,6 +809,8 @@ func runTest(test *testCase, shimPath string, mallocNumToFail int64) error {
 		shim = gdbOf(shimPath, flags...)
 	} else if *useLLDB {
 		shim = lldbOf(shimPath, flags...)
+	} else if *useDrcov {
+		shim = drcovOf(shimPath, flags...)
 	} else {
 		shim = exec.Command(shimPath, flags...)
 	}
