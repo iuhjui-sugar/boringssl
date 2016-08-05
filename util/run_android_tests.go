@@ -38,7 +38,11 @@ var (
 	allTestsArgs = flag.String("all-tests-args", "", "Specifies space-separated arguments to pass to all_tests.go")
 	runnerArgs   = flag.String("runner-args", "", "Specifies space-separated arguments to pass to ssl/test/runner")
 	jsonOutput   = flag.String("json-output", "", "The file to output JSON results to.")
+	coverage     = flag.String("coverage", "", "Enables code coverage reporting with drcov and specifies the file to output results to.")
+	dynamorio    = flag.String("dynamorio", "", "Specifies the path to the ARM DynamoRIO installation.")
 )
+
+const boringsslTmp = "/data/local/tmp/boringssl-tmp"
 
 func enableUnitTests() bool {
 	return *suite == "all" || *suite == "unit"
@@ -278,16 +282,50 @@ func main() {
 		}
 	}
 
+	if len(*coverage) != 0 {
+		var dynamoRIOFiles = []string{
+			"bin32/drrun",
+			"ext/lib32/release/libdrcovlib.so",
+			"ext/lib32/release/libdrreg.so",
+			"ext/lib32/release/libdrmgr.so",
+			"ext/lib32/release/libdrx.so",
+			"lib32/release/libdrpreload.so",
+			"lib32/release/libdynamorio.so",
+			"tools/bin32/drcov2lcov",
+			"tools/drcov.drrun32",
+			"tools/lib32/release/libdrcov.so",
+		}
+
+		fmt.Printf("Copying DynamoRIO files...\n")
+		for _, file := range dynamoRIOFiles {
+			if err := copyFile(filepath.Join(tmpDir, "dynamorio", file), filepath.Join(*dynamorio, file)); err != nil {
+				fmt.Printf("Failed to copy %s: %s\n", file, err)
+				os.Exit(1)
+			}
+		}
+	}
+
 	fmt.Printf("Uploading files...\n")
-	if err := adb("push", "-p", tmpDir, "/data/local/tmp/boringssl-tmp"); err != nil {
+	if err := adb("push", "-p", tmpDir, boringsslTmp); err != nil {
 		fmt.Printf("Failed to push runner: %s\n", err)
 		os.Exit(1)
+	}
+
+	var commonEnv, commonArgs string
+	if len(*coverage) != 0 {
+		fmt.Printf("Making DynamoRIO log directory...\n")
+		if err := adb("shell", fmt.Sprintf("mkdir %s/dynamorio-logs", boringsslTmp)); err != nil {
+			fmt.Printf("Failed to make directory: %s\n", err)
+			os.Exit(1)
+		}
+
+		commonArgs = fmt.Sprintf("-drcov -drrun %s/dynamorio/bin32/drrun -drrun-log-dir %s/dynamorio-logs", boringsslTmp, boringsslTmp)
 	}
 
 	var unitTestExit int
 	if enableUnitTests() {
 		fmt.Printf("Running unit tests...\n")
-		unitTestExit, err = adbShell(fmt.Sprintf("cd /data/local/tmp/boringssl-tmp && ./util/all_tests -json-output results.json %s", *allTestsArgs))
+		unitTestExit, err = adbShell(fmt.Sprintf("cd %s && %s ./util/all_tests -json-output results.json %s %s", boringsslTmp, commonEnv, commonArgs, *allTestsArgs))
 		if err != nil {
 			fmt.Printf("Failed to run unit tests: %s\n", err)
 			os.Exit(1)
@@ -297,7 +335,7 @@ func main() {
 	var sslTestExit int
 	if enableSSLTests() {
 		fmt.Printf("Running SSL tests...\n")
-		sslTestExit, err = adbShell(fmt.Sprintf("cd /data/local/tmp/boringssl-tmp/ssl/test/runner && ./runner -json-output ../../../results.json %s", *runnerArgs))
+		sslTestExit, err = adbShell(fmt.Sprintf("cd %s/ssl/test/runner && %s ./runner -json-output ../../../results.json %s %s", boringsslTmp, commonEnv, commonArgs, *runnerArgs))
 		if err != nil {
 			fmt.Printf("Failed to run SSL tests: %s\n", err)
 			os.Exit(1)
@@ -305,17 +343,34 @@ func main() {
 	}
 
 	if *jsonOutput != "" {
-		if err := adb("pull", "-p", "/data/local/tmp/boringssl-tmp/results.json", *jsonOutput); err != nil {
+		if err := adb("pull", "-p", boringsslTmp+"/results.json", *jsonOutput); err != nil {
 			fmt.Printf("Failed to extract results.json: %s\n", err)
 			os.Exit(1)
 		}
 	}
 
-	if unitTestExit != 0 {
-		os.Exit(unitTestExit)
-	}
+	if len(*coverage) != 0 {
+		fmt.Printf("Generating coverage.info...\n")
+		// drcov2lcov on Android currently requires LD_LIBRARY_PATH be specified manually.
+		if err := adb("shell", fmt.Sprintf("LD_LIBRARY_PATH=%s/dynamorio/lib32/release %s/dynamorio/tools/bin32/drcov2lcov -dir %s/dynamorio-logs -output %s/coverage.info", boringsslTmp, boringsslTmp, boringsslTmp, boringsslTmp)); err != nil {
+			fmt.Printf("Failed to make directory: %s\n", err)
+			os.Exit(1)
+		}
 
-	if sslTestExit != 0 {
-		os.Exit(sslTestExit)
+		if err := adb("pull", "-p", boringsslTmp+"/coverage.info", *coverage); err != nil {
+			fmt.Printf("Failed to extract coverage.info: %s\n", err)
+			os.Exit(1)
+		}
+	} else {
+		// For now, ignore test failures under drcov. drcov crashes on
+		// some of our assembly. Enforce test failures once this is
+		// fixed.
+		if unitTestExit != 0 {
+			os.Exit(unitTestExit)
+		}
+
+		if sslTestExit != 0 {
+			os.Exit(sslTestExit)
+		}
 	}
 }
