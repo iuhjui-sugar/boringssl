@@ -599,6 +599,10 @@ int RSA_padding_add_PKCS1_PSS_mgf1(RSA *rsa, unsigned char *EM,
                                    const unsigned char *mHash,
                                    const EVP_MD *Hash, const EVP_MD *mgf1Hash,
                                    int sLenRequested) {
+<<<<<<< HEAD
+  int i;
+  int ret = 0;
+=======
   /* Contrary to common practice, the salt is fixed to be all zeroes, which
    * reduces PSS from a probabilistic scheme to a full-domain hashing scheme.
    * See the following for arguments that this doesn't reduce the theoretical
@@ -607,8 +611,7 @@ int RSA_padding_add_PKCS1_PSS_mgf1(RSA *rsa, unsigned char *EM,
    *   * Optimal Security Proofs for Full Domain Hash, Revisited (Saqib A.
    *     Kakvi and Eike Kiltz). Available from
    *     https://www.iacr.org/archive/eurocrypt2012/72370533/72370533.pdf.
-   *   * Another Look at “Provable Security” II, section 4.3 "The
-   *     implausible magic of one bit" (Neal Koblitz and Alfred J.
+   *   * Another Look at “Provable Security”. II (Neal Koblitz and Alfred J.
    *     Menezes, IACR ePrint 2006-229). Available from
    *     https://eprint.iacr.org/2006/229.pdf.
    *   * Efficiency Improvements for Signature Schemes with Tight Security
@@ -621,6 +624,7 @@ int RSA_padding_add_PKCS1_PSS_mgf1(RSA *rsa, unsigned char *EM,
    * on the correctness of the PRNG. This also improves performance. Further,
    * the deterministic output makes testing easier. */
 
+>>>>>>> f09e4de... Make RSA-PSS signing deterministic.
   size_t maskedDBLen, MSBits, emLen;
   size_t hLen;
   unsigned char *H, *p;
@@ -650,10 +654,17 @@ int RSA_padding_add_PKCS1_PSS_mgf1(RSA *rsa, unsigned char *EM,
     return 0;
   }
 
-  /* Negative sLenRequested has special meanings:
+<<<<<<< HEAD
+  /* Negative sLen has special meanings:
    *   -1  sLen == hLen
    *   -2  salt length is maximized
    *   -N  reserved */
+=======
+  /* Negative sLenRequested has special meanings:
+   *    -1  sLen == hLen
+   *    -2  salt length is maximized
+   *    -N  reserved */
+>>>>>>> f09e4de... Make RSA-PSS signing deterministic.
   size_t sLen;
   if (sLenRequested == -1) {
     sLen = hLen;
@@ -661,9 +672,19 @@ int RSA_padding_add_PKCS1_PSS_mgf1(RSA *rsa, unsigned char *EM,
     sLen = emLen - hLen - 2;
   } else if (sLenRequested < 0) {
     OPENSSL_PUT_ERROR(RSA, RSA_R_SLEN_CHECK_FAILED);
+<<<<<<< HEAD
+    goto err;
+  } else {
+    sLen = (size_t)sLenRequested;
+=======
     return 0;
   } else {
     sLen = (size_t)sLenRequested;
+    if (emLen - hLen - 2 < sLen) {
+      OPENSSL_PUT_ERROR(RSA, RSA_R_DATA_TOO_LARGE_FOR_KEY_SIZE);
+      return 0;
+    }
+>>>>>>> f09e4de... Make RSA-PSS signing deterministic.
   }
 
   if (emLen - hLen - 2 < sLen) {
