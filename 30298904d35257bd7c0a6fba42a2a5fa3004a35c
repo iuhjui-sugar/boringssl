@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "79ff3b6c_d8e765a9",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-08T23:33:24Z",
+      "side": 1,
+      "message": "type\n\nActually maybe it should just say \"a BoringSSL error string\". Our error strings aren\u0027t actually the same as OpenSSL. OpenSSL lowercases them and replaces _ with space.",
+      "range": {
+        "startLine": 77,
+        "startChar": 49,
+        "endLine": 77,
+        "endChar": 54
+      },
+      "revId": "30298904d35257bd7c0a6fba42a2a5fa3004a35c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d9dd872d_115fdce4",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 2
@@ -13,6 +36,24 @@
       "writtenOn": "2016-08-08T23:24:35Z",
       "side": 1,
       "message": "I don\u0027t object to this comment, but in the specific case of NSS, this is all the NSS error names, not really textual explanations.",
+      "revId": "30298904d35257bd7c0a6fba42a2a5fa3004a35c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79ff3b6c_388671c2",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-08T23:33:24Z",
+      "side": 1,
+      "message": "Do you have an example NSS error name for :UNEXPECTED_MESSAGE:? May as well stick something real in there. :-)",
+      "parentUuid": "d9dd872d_115fdce4",
       "revId": "30298904d35257bd7c0a6fba42a2a5fa3004a35c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
