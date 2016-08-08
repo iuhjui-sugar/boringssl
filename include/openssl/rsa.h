@@ -309,17 +309,22 @@ OPENSSL_EXPORT int RSA_verify_PKCS1_PSS_mgf1(RSA *rsa, const uint8_t *mHash,
 /* RSA_padding_add_PKCS1_PSS_mgf1 writes a PSS padding of |mHash| to |EM|,
  * where |mHash| is a digest produced by |Hash|. |RSA_size(rsa)| bytes of
  * output will be written to |EM|. The |mgf1Hash| argument specifies the hash
- * function for generating the mask. If NULL, |Hash| is used. The |sLen|
- * argument specifies the expected salt length in bytes. If |sLen| is -1 then
- * the salt length is the same as the hash length. If -2, then the salt length
- * is maximal given the space in |EM|.
- *
- * It returns one on success or zero on error. */
+ * function for generating the mask. If NULL, |Hash| is used. The
+ * |sLenRequested| argument specifies the expected salt length in bytes. If
+ * |sLenRequested| is -1 then the salt length is the same as the hash length;
+ * this is the recommended value in order to maximize interoperability, as some
+ * signature verification implementations may require this. If |sLenRequested|
+ * is -2 then the salt length is maximal given the space in |EM|. Otherwise,
+ * |sLenRequested| must be non-negative and the salt will be |sLenRequested|
+ * bytes long. Although most implementations use a randomized salt as
+ * prescrived in the PSS specification, BoringSSL may use a salt of all zeroes
+ * (which would make the salting a no-op cryptographically) or some other fixed
+ * or deterministic salt. It returns one on success or zero on error. */
 OPENSSL_EXPORT int RSA_padding_add_PKCS1_PSS_mgf1(RSA *rsa, uint8_t *EM,
                                                   const uint8_t *mHash,
                                                   const EVP_MD *Hash,
                                                   const EVP_MD *mgf1Hash,
-                                                  int sLen);
+                                                  int sLenRequested);
 
 /* RSA_padding_add_PKCS1_OAEP_mgf1 writes an OAEP padding of |from| to |to|
  * with the given parameters and hash functions. If |md| is NULL then SHA-1 is
