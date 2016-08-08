@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d9dd872d_03f5d2e7",
+        "filename": "crypto/rand/urandom.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-08-08T20:51:08Z",
+      "side": 1,
+      "message": "Probably put this outside of the \"#if defined(SYS_getrandom)\" and in it\u0027s own \"#if !defined(GRND_NONBLOCK)\"",
+      "revId": "eec428fc368dea5b2371e512cb2a58791637e379",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9dd872d_43e8ba0e",
+        "filename": "crypto/rand/urandom.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-08-08T20:51:08Z",
+      "side": 1,
+      "message": "uint8_t",
+      "range": {
+        "startLine": 106,
+        "startChar": 2,
+        "endLine": 106,
+        "endChar": 6
+      },
+      "revId": "eec428fc368dea5b2371e512cb2a58791637e379",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
