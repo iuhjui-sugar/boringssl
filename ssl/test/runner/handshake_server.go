@@ -33,10 +33,15 @@ type serverHandshakeState struct {
 	certsFromClient [][]byte
 	cert            *Certificate
 	finishedBytes   []byte
+
+	// TODO(nharper): Move the following fields into a key derivation
+	// gadget.
+	handshakeTrafficSecret []byte
+	trafficSecret          []byte
 }
 
 // serverHandshake performs a TLS handshake as a server.
-func (c *Conn) serverHandshake() error {
+func (c *Conn) startServerHandshake() error {
 	config := c.config
 
 	// If this is the first server handshake, we generate a random key to
@@ -123,10 +128,9 @@ func (c *Conn) serverHandshake() error {
 		}
 
 		c.exporterSecret = hs.masterSecret
+		copy(c.clientRandom[:], hs.clientHello.random)
+		copy(c.serverRandom[:], hs.hello.random)
 	}
-	c.handshakeComplete = true
-	copy(c.clientRandom[:], hs.clientHello.random)
-	copy(c.serverRandom[:], hs.hello.random)
 
 	return nil
 }
@@ -369,9 +373,17 @@ Curves:
 			hs.suite = suite
 			hs.hello.hasPSKIdentity = true
 			hs.hello.pskIdentity = uint16(i)
+			if hs.sessionState.ticketFlags&ticketAllowEarlyData != 0 && hs.clientHello.hasEarlyData {
+				hs.hello.earlyDataIndication = true
+				c.supportsEarlyData = true
+			}
 			c.didResume = true
 			break
 		}
+	}
+
+	if hs.clientHello.hasEarlyData && !c.supportsEarlyData {
+		c.rejectedEarlyData = true
 	}
 
 	// If not resuming, select the cipher suite.
@@ -408,12 +420,7 @@ Curves:
 
 	// Resolve PSK and compute the early secret.
 	var psk []byte
-	// The only way for hs.suite to be a PSK suite yet for there to be
-	// no sessionState is if config.Bugs.EnableAllCiphers is true and
-	// the test runner forced us to negotiated a PSK suite. It doesn't
-	// really matter what we do here so long as we continue the
-	// handshake and let the client error out.
-	if hs.suite.flags&suitePSK != 0 && hs.sessionState != nil {
+	if hs.sessionState != nil {
 		psk = deriveResumptionPSK(hs.suite, hs.sessionState.masterSecret)
 		hs.finishedHash.setResumptionContext(deriveResumptionContext(hs.suite, hs.sessionState.masterSecret))
 	} else {
@@ -422,6 +429,31 @@ Curves:
 	}
 
 	earlySecret := hs.finishedHash.extractKey(hs.finishedHash.zeroSecret(), psk)
+	if hs.sessionState != nil {
+		earlyTrafficSecret := hs.finishedHash.deriveSecret(earlySecret, earlyTrafficLabel)
+		c.in.useTrafficSecret(c.vers, hs.suite, earlyTrafficSecret, earlyHandshakePhase, clientWrite)
+
+		msg, err := c.readHandshake()
+		if err != nil {
+			return err
+		}
+		earlyFinished, ok := msg.(*finishedMsg)
+		if !ok {
+			// TODO(nharper): Check the spec to see that this
+			// is the correct behavior.
+			c.sendAlert(alertUnexpectedMessage)
+			return unexpectedMessageError(earlyFinished, msg)
+		}
+
+		verify := hs.finishedHash.clientSum(earlyTrafficSecret)
+		if len(verify) != len(earlyFinished.verifyData) ||
+			subtle.ConstantTimeCompare(verify, earlyFinished.verifyData) != 1 {
+			c.sendAlert(alertHandshakeFailure)
+			return errors.New("tls: client's early Finished message was incorrect")
+		}
+
+		c.in.useTrafficSecret(c.vers, hs.suite, earlyTrafficSecret, earlyApplicationPhase, clientWrite)
+	}
 
 	// Resolve ECDHE and compute the handshake secret.
 	var ecdheSecret []byte
@@ -484,7 +516,7 @@ Curves:
 			oldClientHelloCopy := *hs.clientHello
 			oldClientHelloCopy.raw = nil
 			oldClientHelloCopy.hasEarlyData = false
-			oldClientHelloCopy.earlyDataContext = nil
+			oldClientHelloCopy.obfuscatedTicketAge = 0
 			newClientHelloCopy := *newClientHello
 			newClientHelloCopy.raw = nil
 			newClientHelloCopy.keyShares = newKeyShares[:len(newKeyShares)-1]
@@ -573,9 +605,8 @@ Curves:
 	handshakeSecret := hs.finishedHash.extractKey(earlySecret, ecdheSecret)
 
 	// Switch to handshake traffic keys.
-	handshakeTrafficSecret := hs.finishedHash.deriveSecret(handshakeSecret, handshakeTrafficLabel)
-	c.out.useTrafficSecret(c.vers, hs.suite, handshakeTrafficSecret, handshakePhase, serverWrite)
-	c.in.useTrafficSecret(c.vers, hs.suite, handshakeTrafficSecret, handshakePhase, clientWrite)
+	hs.handshakeTrafficSecret = hs.finishedHash.deriveSecret(handshakeSecret, handshakeTrafficLabel)
+	c.out.useTrafficSecret(c.vers, hs.suite, hs.handshakeTrafficSecret, handshakePhase, serverWrite)
 
 	if hs.suite.flags&suitePSK == 0 {
 		if hs.clientHello.ocspStapling {
@@ -668,7 +699,7 @@ Curves:
 	}
 
 	finished := new(finishedMsg)
-	finished.verifyData = hs.finishedHash.serverSum(handshakeTrafficSecret)
+	finished.verifyData = hs.finishedHash.serverSum(hs.handshakeTrafficSecret)
 	if config.Bugs.BadFinished {
 		finished.verifyData[0]++
 	}
@@ -681,12 +712,31 @@ Curves:
 
 	// The various secrets do not incorporate the client's final leg, so
 	// derive them now before updating the handshake context.
-	masterSecret := hs.finishedHash.extractKey(handshakeSecret, hs.finishedHash.zeroSecret())
-	trafficSecret := hs.finishedHash.deriveSecret(masterSecret, applicationTrafficLabel)
+	hs.masterSecret = hs.finishedHash.extractKey(handshakeSecret, hs.finishedHash.zeroSecret())
+	hs.trafficSecret = hs.finishedHash.deriveSecret(hs.masterSecret, applicationTrafficLabel)
 
 	// Switch to application data keys on write. In particular, any alerts
 	// from the client certificate are sent over these keys.
-	c.out.useTrafficSecret(c.vers, hs.suite, trafficSecret, applicationPhase, serverWrite)
+	c.out.useTrafficSecret(c.vers, hs.suite, hs.trafficSecret, applicationPhase, serverWrite)
+	c.serverHandshakeState = hs
+	return nil
+}
+
+func (c *Conn) finishServerHandshake() error {
+	config := c.config
+
+	if c.vers < VersionTLS13 {
+		return nil
+	}
+
+	if c.supportsEarlyData && !c.finishedReadingEarlyData {
+		return errors.New("tls: invalid call to FinishHandshake")
+	}
+
+	hs := c.serverHandshakeState
+	c.serverHandshakeState = nil
+
+	c.in.useTrafficSecret(c.vers, hs.suite, hs.handshakeTrafficSecret, handshakePhase, clientWrite)
 
 	// If we requested a client certificate, then the client must send a
 	// certificate message, even if it's empty.
@@ -750,7 +800,7 @@ Curves:
 		return unexpectedMessageError(clientFinished, msg)
 	}
 
-	verify := hs.finishedHash.clientSum(handshakeTrafficSecret)
+	verify := hs.finishedHash.clientSum(hs.handshakeTrafficSecret)
 	if len(verify) != len(clientFinished.verifyData) ||
 		subtle.ConstantTimeCompare(verify, clientFinished.verifyData) != 1 {
 		c.sendAlert(alertHandshakeFailure)
@@ -759,11 +809,11 @@ Curves:
 	hs.writeClientHash(clientFinished.marshal())
 
 	// Switch to application data keys on read.
-	c.in.useTrafficSecret(c.vers, hs.suite, trafficSecret, applicationPhase, clientWrite)
+	c.in.useTrafficSecret(c.vers, hs.suite, hs.trafficSecret, applicationPhase, clientWrite)
 
 	c.cipherSuite = hs.suite
-	c.exporterSecret = hs.finishedHash.deriveSecret(masterSecret, exporterLabel)
-	c.resumptionSecret = hs.finishedHash.deriveSecret(masterSecret, resumptionLabel)
+	c.exporterSecret = hs.finishedHash.deriveSecret(hs.masterSecret, exporterLabel)
+	c.resumptionSecret = hs.finishedHash.deriveSecret(hs.masterSecret, resumptionLabel)
 
 	// TODO(davidben): Allow configuring the number of tickets sent for
 	// testing.
@@ -773,6 +823,8 @@ Curves:
 			c.SendNewSessionTicket()
 		}
 	}
+	copy(c.clientRandom[:], hs.clientHello.random)
+	copy(c.serverRandom[:], hs.hello.random)
 	return nil
 }
 
