@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "79ff3b6c_98431d9c",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 8045,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-08T23:09:32Z",
+      "side": 1,
+      "message": "Would it be better if passing -test didn\u0027t ignore disabled tests? I could imagine you\u0027d want to easily check if some test is working now. I could also imagine passing in a very broad -test pattern to run a family of tests would get annoying if disabled tests run. Not sure.\n\nGTest has a --gtest_also_run_disabled_tests flag, so perhaps we should mimic that? EKR, what would be most convenient for you all?",
+      "revId": "30298904d35257bd7c0a6fba42a2a5fa3004a35c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
