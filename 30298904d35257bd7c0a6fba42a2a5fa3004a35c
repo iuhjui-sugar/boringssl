@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "d9dd872d_115fdce4",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 7140
+      },
+      "writtenOn": "2016-08-08T23:24:35Z",
+      "side": 1,
+      "message": "I don\u0027t object to this comment, but in the specific case of NSS, this is all the NSS error names, not really textual explanations.",
+      "revId": "30298904d35257bd7c0a6fba42a2a5fa3004a35c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9dd872d_716740c0",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 743,
+      "author": {
+        "id": 7140
+      },
+      "writtenOn": "2016-08-08T23:24:35Z",
+      "side": 1,
+      "message": "Good catch. I was previously returning UNTRANSLATED_ERROR",
+      "revId": "30298904d35257bd7c0a6fba42a2a5fa3004a35c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79ff3b6c_98431d9c",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 2
@@ -13,6 +47,24 @@
       "writtenOn": "2016-08-08T23:09:32Z",
       "side": 1,
       "message": "Would it be better if passing -test didn\u0027t ignore disabled tests? I could imagine you\u0027d want to easily check if some test is working now. I could also imagine passing in a very broad -test pattern to run a family of tests would get annoying if disabled tests run. Not sure.\n\nGTest has a --gtest_also_run_disabled_tests flag, so perhaps we should mimic that? EKR, what would be most convenient for you all?",
+      "revId": "30298904d35257bd7c0a6fba42a2a5fa3004a35c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9dd872d_d17d744a",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 8045,
+      "author": {
+        "id": 7140
+      },
+      "writtenOn": "2016-08-08T23:24:35Z",
+      "side": 1,
+      "message": "a flag like that would be fine with me.",
+      "parentUuid": "79ff3b6c_98431d9c",
       "revId": "30298904d35257bd7c0a6fba42a2a5fa3004a35c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
