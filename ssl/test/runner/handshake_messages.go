@@ -144,7 +144,7 @@ type clientHelloMsg struct {
 	keyShares               []keyShareEntry
 	pskIdentities           [][]uint8
 	hasEarlyData            bool
-	earlyDataContext        []byte
+	obfuscatedTicketAge     uint32
 	ticketSupported         bool
 	sessionTicket           []uint8
 	signatureAlgorithms     []signatureAlgorithm
@@ -183,7 +183,7 @@ func (m *clientHelloMsg) equal(i interface{}) bool {
 		eqKeyShareEntryLists(m.keyShares, m1.keyShares) &&
 		eqByteSlices(m.pskIdentities, m1.pskIdentities) &&
 		m.hasEarlyData == m1.hasEarlyData &&
-		bytes.Equal(m.earlyDataContext, m1.earlyDataContext) &&
+		m.obfuscatedTicketAge == m1.obfuscatedTicketAge &&
 		m.ticketSupported == m1.ticketSupported &&
 		bytes.Equal(m.sessionTicket, m1.sessionTicket) &&
 		eqSignatureAlgorithms(m.signatureAlgorithms, m1.signatureAlgorithms) &&
@@ -315,8 +315,7 @@ func (m *clientHelloMsg) marshal() []byte {
 		extensions.addU16(extensionEarlyData)
 		earlyDataIndication := extensions.addU16LengthPrefixed()
 
-		context := earlyDataIndication.addU8LengthPrefixed()
-		context.addBytes(m.earlyDataContext)
+		earlyDataIndication.addU32(m.obfuscatedTicketAge)
 	}
 	if m.ticketSupported {
 		// http://tools.ietf.org/html/rfc5077#section-3.2
@@ -466,7 +465,7 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 	m.keyShares = nil
 	m.pskIdentities = nil
 	m.hasEarlyData = false
-	m.earlyDataContext = nil
+	m.obfuscatedTicketAge = 0
 	m.ticketSupported = false
 	m.sessionTicket = nil
 	m.signatureAlgorithms = nil
@@ -612,16 +611,12 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 				d = d[pskLen:]
 			}
 		case extensionEarlyData:
-			// draft-ietf-tls-tls13 section 6.3.2.5
-			if length < 1 {
-				return false
-			}
-			l := int(data[0])
-			if length != l+1 {
+			// draft-ietf-tls-tls13-14 section 4.2.6
+			if length != 4 {
 				return false
 			}
 			m.hasEarlyData = true
-			m.earlyDataContext = data[1:length]
+			m.obfuscatedTicketAge = binary.BigEndian.Uint32(data[:4])
 		case extensionSignatureAlgorithms:
 			// https://tools.ietf.org/html/rfc5246#section-7.4.1.4.1
 			if length < 2 || length&1 != 0 {
