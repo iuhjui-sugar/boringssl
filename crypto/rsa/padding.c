@@ -486,7 +486,9 @@ decoding_err:
   return -1;
 }
 
-static const unsigned char zeroes[] = {0,0,0,0,0,0,0,0};
+/* kZeroes must be at least |kPSSLeadkingZeros| of zeroes. */
+static const uint8_t kZeroes[SHA256_DIGEST_LENGTH] = {0};
+static const size_t kPSSLeadkingZeros = 8;
 
 int RSA_verify_PKCS1_PSS_mgf1(RSA *rsa, const uint8_t *mHash,
                               const EVP_MD *Hash, const EVP_MD *mgf1Hash,
@@ -567,7 +569,7 @@ int RSA_verify_PKCS1_PSS_mgf1(RSA *rsa, const uint8_t *mHash,
     goto err;
   }
   if (!EVP_DigestInit_ex(&ctx, Hash, NULL) ||
-      !EVP_DigestUpdate(&ctx, zeroes, sizeof zeroes) ||
+      !EVP_DigestUpdate(&ctx, kZeroes, kPSSLeadkingZeros) ||
       !EVP_DigestUpdate(&ctx, mHash, hLen)) {
     goto err;
   }
@@ -597,11 +599,47 @@ int RSA_padding_add_PKCS1_PSS_mgf1(RSA *rsa, unsigned char *EM,
                                    const unsigned char *mHash,
                                    const EVP_MD *Hash, const EVP_MD *mgf1Hash,
                                    int sLenRequested) {
-  int i;
-  int ret = 0;
+  /* Contrary to common practice, the salt is fixed to be all zeroes, which
+   * reduces PSS from a probabilistic scheme to a full-domain hashing scheme.
+   * See the following for arguments that this doesn't reduce the theoretical
+   * security of PSS:
+   *
+   *   * Optimal Security Proofs for Full Domain Hash, Revisited (Saqib A.
+   *     Kakvi and Eike Kiltz). Available from
+   *     https://www.iacr.org/archive/eurocrypt2012/72370533/72370533.pdf.
+   *   * Another Look at “Provable Security” II, section 4.3 "The
+   *     implausible magic of one bit" (Neal Koblitz and Alfred J.
+   *     Menezes, IACR ePrint 2006-229). Available from
+   *     https://eprint.iacr.org/2006/229.pdf.
+   *   * Efficiency Improvements for Signature Schemes with Tight Security
+   *     Reductions (Jonathan Katz, Nan Wang, CCCS 2003). Available from
+   *     https://www.cs.umd.edu/~jkatz/papers/CCCS03_sigs.pdf.
+   *
+   * This simpler construction does improve the practical security of the
+   * implementation due to it being simpler. It should also be easier to
+   * analyze and prove its correctness since the correctness no longer depends
+   * on the correctness of the PRNG. This also improves performance. Further,
+   * the deterministic output makes testing easier.
+   *
+   * However, there is also some evidence that suggests that the randomization
+   * is useful:
+   *
+   *   * How Risky is the Random Oracle Model? (Gaëtan Leurent and
+   *     Phong Q. Nguyen, 阮風光): "While RSA-KW has a much better security
+   *     reduction than RSA-FDH, there are essentially the same attacks on both
+   *     RSA-KW and RSA-FDH as soon as there are defects in the full-domain
+   *     hash. On the other hand, RSA-PSS with a large salt seems more
+   *     robust...". Available from https://eprint.iacr.org/2008/441.pdf.
+   *   * Making RSA-PSS Provably Secure Against Non-Random Faults (Gilles
+   *     Barthe, François Dupressoir, Pierre-Alain Fouque, Benjamin Grégoire,
+   *     Mehdi Tibouchi, and Jean-Christophe Zapalowicz). Available from
+   *     https://eprint.iacr.org/2014/252.pdf. However, it seems like the
+   *     existing countermeasure of verifying the result of the private key
+   *     exponentiation using public key exponentiation may make this moot. */
+
   size_t maskedDBLen, MSBits, emLen;
   size_t hLen;
-  unsigned char *H, *salt = NULL, *p;
+  unsigned char *H, *p;
   EVP_MD_CTX ctx;
 
   if (mgf1Hash == NULL) {
@@ -612,7 +650,7 @@ int RSA_padding_add_PKCS1_PSS_mgf1(RSA *rsa, unsigned char *EM,
 
   if (BN_is_zero(rsa->n)) {
     OPENSSL_PUT_ERROR(RSA, RSA_R_EMPTY_PUBLIC_KEY);
-    goto err;
+    return 0;
   }
 
   MSBits = (BN_num_bits(rsa->n) - 1) & 0x7;
@@ -625,7 +663,7 @@ int RSA_padding_add_PKCS1_PSS_mgf1(RSA *rsa, unsigned char *EM,
 
   if (emLen < hLen + 2) {
     OPENSSL_PUT_ERROR(RSA, RSA_R_DATA_TOO_LARGE_FOR_KEY_SIZE);
-    goto err;
+    return 0;
   }
 
   /* Negative sLenRequested has special meanings:
@@ -639,45 +677,41 @@ int RSA_padding_add_PKCS1_PSS_mgf1(RSA *rsa, unsigned char *EM,
     sLen = emLen - hLen - 2;
   } else if (sLenRequested < 0) {
     OPENSSL_PUT_ERROR(RSA, RSA_R_SLEN_CHECK_FAILED);
-    goto err;
+    return 0;
   } else {
     sLen = (size_t)sLenRequested;
   }
 
   if (emLen - hLen - 2 < sLen) {
     OPENSSL_PUT_ERROR(RSA, RSA_R_DATA_TOO_LARGE_FOR_KEY_SIZE);
-    goto err;
+    return 0;
   }
 
-  if (sLen > 0) {
-    salt = OPENSSL_malloc(sLen);
-    if (!salt) {
-      OPENSSL_PUT_ERROR(RSA, ERR_R_MALLOC_FAILURE);
-      goto err;
-    }
-    if (!RAND_bytes(salt, sLen)) {
-      goto err;
-    }
-  }
   maskedDBLen = emLen - hLen - 1;
   H = EM + maskedDBLen;
   EVP_MD_CTX_init(&ctx);
   if (!EVP_DigestInit_ex(&ctx, Hash, NULL) ||
-      !EVP_DigestUpdate(&ctx, zeroes, sizeof zeroes) ||
+      !EVP_DigestUpdate(&ctx, kZeroes, kPSSLeadkingZeros) ||
       !EVP_DigestUpdate(&ctx, mHash, hLen)) {
-    goto err;
+    return 0;
   }
-  if (sLen && !EVP_DigestUpdate(&ctx, salt, sLen)) {
-    goto err;
+  for (size_t i = 0; i < sLen; i += sizeof(kZeroes)) {
+    size_t to_digest = sizeof(kZeroes);
+    if (to_digest > sLen - i) {
+      to_digest = sLen - i;
+    }
+    if (!EVP_DigestUpdate(&ctx, kZeroes, to_digest)) {
+      return 0;
+    }
   }
   if (!EVP_DigestFinal_ex(&ctx, H, NULL)) {
-    goto err;
+    return 0;
   }
   EVP_MD_CTX_cleanup(&ctx);
 
   /* Generate dbMask in place then perform XOR on it */
   if (!PKCS1_MGF1(EM, maskedDBLen, H, hLen, mgf1Hash)) {
-    goto err;
+    return 0;
   }
 
   p = EM;
@@ -687,11 +721,11 @@ int RSA_padding_add_PKCS1_PSS_mgf1(RSA *rsa, unsigned char *EM,
    * be non-negative. */
   p += emLen - sLen - hLen - 2;
   *p++ ^= 0x1;
-  if (sLen > 0) {
-    for (i = 0; i < sLen; i++) {
-      *p++ ^= salt[i];
-    }
-  }
+
+  /* The salt is fixed to be all zeroes, so again XORing here would be a NOP,
+   * so just update the pointer. */
+  p += sLen;
+
   if (MSBits) {
     EM[0] &= 0xFF >> (8 - MSBits);
   }
@@ -700,10 +734,5 @@ int RSA_padding_add_PKCS1_PSS_mgf1(RSA *rsa, unsigned char *EM,
 
   EM[emLen - 1] = 0xbc;
 
-  ret = 1;
-
-err:
-  OPENSSL_free(salt);
-
-  return ret;
+  return 1;
 }
