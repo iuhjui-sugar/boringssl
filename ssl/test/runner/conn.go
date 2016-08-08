@@ -21,6 +21,8 @@ import (
 	"time"
 )
 
+var NO_EARLY_DATA error = errors.New("tls: server rejected early data")
+
 // A Conn represents a secured connection.
 // It implements the net.Conn interface.
 type Conn struct {
@@ -30,18 +32,25 @@ type Conn struct {
 	isClient bool
 
 	// constant after handshake; protected by handshakeMutex
-	handshakeMutex       sync.Mutex // handshakeMutex < in.Mutex, out.Mutex, errMutex
-	handshakeErr         error      // error resulting from handshake
-	vers                 uint16     // TLS version
-	haveVers             bool       // version has been negotiated
-	config               *Config    // configuration passed to constructor
-	handshakeComplete    bool
-	didResume            bool // whether this connection was a session resumption
-	extendedMasterSecret bool // whether this session used an extended master secret
-	cipherSuite          *cipherSuite
-	ocspResponse         []byte // stapled OCSP response
-	sctList              []byte // signed certificate timestamp list
-	peerCertificates     []*x509.Certificate
+	handshakeMutex           sync.Mutex // handshakeMutex < in.Mutex, out.Mutex, errMutex
+	handshakeErr             error      // error resulting from handshake
+	vers                     uint16     // TLS version
+	haveVers                 bool       // version has been negotiated
+	config                   *Config    // configuration passed to constructor
+	handshakeStarted         bool
+	handshakeComplete        bool
+	clientHandshakeState     *clientHandshakeState
+	serverHandshakeState     *serverHandshakeState
+	supportsEarlyData        bool
+	finishedReadingEarlyData bool
+	sentEarlyData            bool
+	rejectedEarlyData        bool
+	didResume                bool // whether this connection was a session resumption
+	extendedMasterSecret     bool // whether this session used an extended master secret
+	cipherSuite              *cipherSuite
+	ocspResponse             []byte // stapled OCSP response
+	sctList                  []byte // signed certificate timestamp list
+	peerCertificates         []*x509.Certificate
 	// verifiedChains contains the certificate chains that we built, as
 	// opposed to the ones presented by the server.
 	verifiedChains [][]*x509.Certificate
@@ -794,6 +803,9 @@ func (c *Conn) doReadRecord(want recordType) (recordType, *block, error) {
 	// Process message.
 	b, c.rawInput = c.in.splitBlock(b, recordHeaderLen+n)
 	ok, off, encTyp, alertValue := c.in.decrypt(b)
+	if !ok && !c.isClient && c.rejectedEarlyData {
+		return c.doReadRecord(want)
+	}
 	if !ok {
 		return 0, nil, c.in.setErrorLocked(c.sendAlert(alertValue))
 	}
@@ -801,7 +813,7 @@ func (c *Conn) doReadRecord(want recordType) (recordType, *block, error) {
 
 	if c.vers >= VersionTLS13 && c.in.cipher != nil {
 		if typ != recordTypeApplicationData {
-			return 0, nil, c.in.setErrorLocked(fmt.Errorf("tls: outer record type is not application data"))
+			return 0, nil, c.in.setErrorLocked(errors.New("tls: outer record type is not application data"))
 		}
 		typ = encTyp
 	}
@@ -825,7 +837,7 @@ func (c *Conn) readRecord(want recordType) error {
 			return c.in.setErrorLocked(errors.New("tls: handshake or ChangeCipherSpec requested after handshake complete"))
 		}
 	case recordTypeApplicationData:
-		if !c.handshakeComplete && !c.config.Bugs.ExpectFalseStart {
+		if !c.handshakeComplete && !c.config.Bugs.ExpectFalseStart && !c.supportsEarlyData {
 			c.sendAlert(alertInternalError)
 			return c.in.setErrorLocked(errors.New("tls: application data record requested before handshake complete"))
 		}
@@ -858,6 +870,11 @@ Again:
 		}
 		if alert(data[1]) == alertCloseNotify {
 			c.in.setErrorLocked(io.EOF)
+			break
+		}
+		if alert(data[1]) == alertEndOfEarlyData {
+			c.finishedReadingEarlyData = true
+			c.FinishHandshake()
 			break
 		}
 		switch data[0] {
@@ -930,7 +947,7 @@ func (c *Conn) sendAlertLocked(level byte, err alert) error {
 // L < c.out.Mutex.
 func (c *Conn) sendAlert(err alert) error {
 	level := byte(alertLevelError)
-	if err == alertNoRenegotiation || err == alertCloseNotify || err == alertNoCertficate {
+	if err == alertNoRenegotiation || err == alertCloseNotify || err == alertNoCertficate || err == alertEndOfEarlyData {
 		level = alertLevelWarning
 	}
 	return c.SendAlert(level, err)
@@ -1046,7 +1063,7 @@ func (c *Conn) doWriteRecord(typ recordType, data []byte) (n int, err error) {
 		}
 		b.resize(recordHeaderLen + explicitIVLen + m)
 		b.data[0] = byte(typ)
-		if c.vers >= VersionTLS13 && c.out.cipher != nil {
+		if (c.vers >= VersionTLS13 || c.vers == 0) && c.out.cipher != nil {
 			b.data[0] = byte(recordTypeApplicationData)
 			if outerType := c.config.Bugs.OuterRecordType; outerType != 0 {
 				b.data[0] = byte(outerType)
@@ -1307,8 +1324,15 @@ func (c *Conn) SendHalfHelloRequest() error {
 
 // Write writes data to the connection.
 func (c *Conn) Write(b []byte) (int, error) {
-	if err := c.Handshake(); err != nil {
-		return 0, err
+	if !c.handshakeStarted {
+		if err := c.StartHandshake(); err != nil {
+			return 0, err
+		}
+	}
+	if !c.handshakeComplete && (c.isClient || c.vers < VersionTLS13) {
+		if err := c.FinishHandshake(); err != nil {
+			return 0, err
+		}
 	}
 
 	c.out.Lock()
@@ -1322,7 +1346,7 @@ func (c *Conn) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if !c.handshakeComplete {
+	if !c.handshakeComplete && (c.isClient || c.vers < VersionTLS13) {
 		return 0, alertInternalError
 	}
 
@@ -1445,12 +1469,24 @@ func (c *Conn) Renegotiate() error {
 // Read can be made to time out and return a net.Error with Timeout() == true
 // after a fixed time limit; see SetDeadline and SetReadDeadline.
 func (c *Conn) Read(b []byte) (n int, err error) {
-	if err = c.Handshake(); err != nil {
-		return
+	if !c.handshakeStarted {
+		if err := c.StartHandshake(); err != nil {
+			return 0, err
+		}
+	}
+	if !c.handshakeComplete && (c.isClient || !c.supportsEarlyData || c.finishedReadingEarlyData || c.vers < VersionTLS13) {
+		if err := c.FinishHandshake(); err != nil {
+			return 0, err
+		}
 	}
 
 	c.in.Lock()
 	defer c.in.Unlock()
+
+	if c.rejectedEarlyData && c.isClient {
+		c.rejectedEarlyData = false
+		return 0, NO_EARLY_DATA
+	}
 
 	// Some OpenSSL servers send empty records in order to randomize the
 	// CBC IV. So this loop ignores a limited number of empty records.
@@ -1548,13 +1584,40 @@ func (c *Conn) Close() error {
 // protocol if it has not yet been run.
 // Most uses of this package need not call Handshake
 // explicitly: the first Read or Write will call it automatically.
+//
+// Handshake will run the whole handshake, without providing an
+// opportunity to read or write early data in TLS 1.3. To read/write early
+// data, use the StartHandshake function, or call Read or Write.
 func (c *Conn) Handshake() error {
-	c.handshakeMutex.Lock()
-	defer c.handshakeMutex.Unlock()
 	if err := c.handshakeErr; err != nil {
 		return err
 	}
 	if c.handshakeComplete {
+		return nil
+	}
+
+	c.handshakeErr = c.startHandshake(true)
+	if c.handshakeErr != nil {
+		return c.handshakeErr
+	}
+	c.handshakeErr = c.FinishHandshake()
+	return c.handshakeErr
+}
+
+// StartHandshake runs the beginning of the client or server handshake.
+// On the client, it returns after writing the ClientHello to allow the
+// caller to EarlyWrite data. On the server, it runs the handshake
+// through sending the server's Finished message to allow the caller to
+// Write data without waiting for the client's Finished message.
+func (c *Conn) StartHandshake() error {
+	return c.startHandshake(false)
+}
+
+func (c *Conn) startHandshake(skipEarlyData bool) error {
+	c.handshakeMutex.Lock()
+	defer c.handshakeMutex.Unlock()
+
+	if c.handshakeStarted {
 		return nil
 	}
 
@@ -1570,15 +1633,82 @@ func (c *Conn) Handshake() error {
 	if data := c.config.Bugs.AppDataBeforeHandshake; data != nil {
 		c.writeRecord(recordTypeApplicationData, data)
 	}
+
+	var err error
 	if c.isClient {
-		c.handshakeErr = c.clientHandshake()
+		err = c.startClientHandshake(skipEarlyData)
 	} else {
-		c.handshakeErr = c.serverHandshake()
+		err = c.startServerHandshake(skipEarlyData)
 	}
-	if c.handshakeErr == nil && c.config.Bugs.SendInvalidRecordType {
+	if err == nil {
+		c.handshakeStarted = true
+	}
+	return err
+}
+
+// EarlyWrite is used by a client endpoint to send early data after the
+// ClientHello but before waiting for any response from the server. This
+// function behaves like Write, with one key difference. The server can
+// reject early data after a call to EarlyWrite has succeeded; in this
+// case the next call to Read will return runner.NO_EARLY_DATA.
+func (c *Conn) EarlyWrite(b []byte) (int, error) {
+	if !c.handshakeStarted {
+		if err := c.StartHandshake(); err != nil {
+			return 0, err
+		}
+	}
+	c.handshakeMutex.Lock()
+	defer c.handshakeMutex.Unlock()
+	if c.handshakeComplete {
+		return 0, errors.New("tls: Attempting to write early data after handshake finished")
+	}
+	if !c.supportsEarlyData {
+		return 0, errors.New("Can't write early data on this connection")
+	}
+
+	c.out.Lock()
+	defer c.out.Unlock()
+
+	// startHandshake already flushed the handshake for us, no need to
+	// do that again here.
+
+	if err := c.out.err; err != nil {
+		return 0, err
+	}
+
+	n, err := c.writeRecord(recordTypeApplicationData, b)
+	return n, c.out.setErrorLocked(err)
+}
+
+// FinishHandshake runs the client or server handshake until the client's
+// Finished message has been sent or received. Read and Write will
+// implicitly run the handshake; this function is generally not needed.
+func (c *Conn) FinishHandshake() error {
+	if !c.handshakeStarted {
+		if err := c.StartHandshake(); err != nil {
+			return err
+		}
+	}
+
+	c.handshakeMutex.Lock()
+	defer c.handshakeMutex.Unlock()
+
+	if c.handshakeComplete {
+		return nil
+	}
+	var err error
+	if c.isClient {
+		err = c.finishClientHandshake()
+	} else {
+		err = c.finishServerHandshake()
+	}
+	if err == nil && c.config.Bugs.SendInvalidRecordType {
 		c.writeRecord(recordType(42), []byte("invalid record"))
 	}
-	return c.handshakeErr
+	if err == nil {
+		c.handshakeComplete = true
+	}
+	return err
 }
 
 // ConnectionState returns basic TLS details about the connection.
@@ -1694,11 +1824,12 @@ func (c *Conn) SendNewSessionTicket() error {
 		return err
 	}
 
-	// TODO(davidben): Allow configuring these values.
+	// TODO(davidben,nharper): Add knobs to Config for ticket lifetime
+	// and sending 0-RTT tickets.
 	m := &newSessionTicketMsg{
 		version:        c.vers,
 		ticketLifetime: uint32(24 * time.Hour / time.Second),
-		ticketFlags:    ticketAllowDHEResumption | ticketAllowPSKResumption,
+		ticketFlags:    ticketAllowDHEResumption | ticketAllowPSKResumption | ticketAllowEarlyData,
 		ticketAgeAdd:   ageAdd,
 	}
 
