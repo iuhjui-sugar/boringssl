@@ -94,11 +94,13 @@ static bool TestSignatureAlgorithms() {
   return true;
 }
 
-static bool ExpectObj2Txt(const uint8_t *der, size_t der_len,
-                          bool dont_return_name,
+static bool ExpectObj2Txt(const char *sn, const char *ln, const uint8_t *der,
+                          size_t der_len, bool dont_return_name,
                           const char *expected) {
   ASN1_OBJECT obj;
   memset(&obj, 0, sizeof(obj));
+  obj.sn = sn;
+  obj.ln = ln;
   obj.data = der;
   obj.length = static_cast<int>(der_len);
 
@@ -167,28 +169,37 @@ static bool TestObj2Txt() {
       0x2a, 0x86, 0x48, 0x86, 0xf7, 0x12, 0x04, 0x01, 0x84, 0xb7, 0x09, 0x00,
   };
 
-  if (!ExpectObj2Txt(kSHA256WithRSAEncryption, sizeof(kSHA256WithRSAEncryption),
+  static const char DesEde3Sn[] = "DES-EDE3";
+  static const char DesEde3Ln[] = "des-ede3";
+
+  if (!ExpectObj2Txt(nullptr, nullptr, kSHA256WithRSAEncryption,
+                     sizeof(kSHA256WithRSAEncryption),
                      true /* don't return name */, "1.2.840.113549.1.1.11") ||
-      !ExpectObj2Txt(kSHA256WithRSAEncryption, sizeof(kSHA256WithRSAEncryption),
-                     false /* return name */, "sha256WithRSAEncryption") ||
-      !ExpectObj2Txt(kBasicConstraints, sizeof(kBasicConstraints),
-                     true /* don't return name */, "2.5.29.19") ||
-      !ExpectObj2Txt(kBasicConstraints, sizeof(kBasicConstraints),
-                     false /* return name */, "X509v3 Basic Constraints") ||
-      !ExpectObj2Txt(kTestOID, sizeof(kTestOID), true /* don't return name */,
+      !ExpectObj2Txt(nullptr, nullptr, kSHA256WithRSAEncryption,
+                     sizeof(kSHA256WithRSAEncryption), false /* return name */,
+                     "sha256WithRSAEncryption") ||
+      !ExpectObj2Txt(nullptr, nullptr, kBasicConstraints,
+                     sizeof(kBasicConstraints), true /* don't return name */,
+                     "2.5.29.19") ||
+      !ExpectObj2Txt(nullptr, nullptr, kBasicConstraints,
+                     sizeof(kBasicConstraints), false /* return name */,
+                     "X509v3 Basic Constraints") ||
+      !ExpectObj2Txt(nullptr, nullptr, kTestOID, sizeof(kTestOID),
+                     true /* don't return name */,
                      "1.2.840.113554.4.1.72585.0") ||
-      !ExpectObj2Txt(kTestOID, sizeof(kTestOID), false /* return name */,
-                     "1.2.840.113554.4.1.72585.0")) {
+      !ExpectObj2Txt(nullptr, nullptr, kTestOID, sizeof(kTestOID),
+                     false /* return name */, "1.2.840.113554.4.1.72585.0") ||
+      // Some objects have an NID, but no OID. Python expects an empty return
+      // value and no error for these.
+      !ExpectObj2Txt(DesEde3Sn, DesEde3Ln, nullptr, 0, false /* return name */,
+                     "") ||
+      !ExpectObj2Txt(DesEde3Sn, DesEde3Ln, nullptr, 0,
+                     true /* don't return name */, "")) {
     return false;
   }
 
   ASN1_OBJECT obj;
   memset(&obj, 0, sizeof(obj));
-
-  if (OBJ_obj2txt(NULL, 0, &obj, 0) != -1) {
-    fprintf(stderr, "OBJ_obj2txt accepted the empty OID.\n");
-    return false;
-  }
 
   // kNonMinimalOID is kBasicConstraints with the final component non-minimally
   // encoded.
