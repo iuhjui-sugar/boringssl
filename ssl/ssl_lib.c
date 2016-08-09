@@ -1630,12 +1630,9 @@ int SSL_set_cipher_list(SSL *ssl, const char *str) {
 }
 
 STACK_OF(SSL_CIPHER) *ssl_bytes_to_cipher_list(SSL *ssl, const uint8_t *in,
-                                               size_t in_len,
-                                               uint16_t max_version) {
+                                               size_t in_len) {
   CBS cipher_suites;
   CBS_init(&cipher_suites, in, in_len);
-
-  ssl->s3->send_connection_binding = 0;
 
   if (CBS_len(&cipher_suites) % 2 != 0) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_ERROR_IN_RECEIVED_CIPHER_LIST);
@@ -1654,28 +1651,6 @@ STACK_OF(SSL_CIPHER) *ssl_bytes_to_cipher_list(SSL *ssl, const uint8_t *in,
     if (!CBS_get_u16(&cipher_suites, &cipher_suite)) {
       OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
       goto err;
-    }
-
-    /* Check for SCSV. */
-    if (ssl->s3 && cipher_suite == (SSL3_CK_SCSV & 0xffff)) {
-      /* SCSV is fatal if renegotiating. */
-      if (ssl->s3->initial_handshake_complete) {
-        OPENSSL_PUT_ERROR(SSL, SSL_R_SCSV_RECEIVED_WHEN_RENEGOTIATING);
-        ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_HANDSHAKE_FAILURE);
-        goto err;
-      }
-      ssl->s3->send_connection_binding = 1;
-      continue;
-    }
-
-    /* Check for FALLBACK_SCSV. */
-    if (ssl->s3 && cipher_suite == (SSL3_CK_FALLBACK_SCSV & 0xffff)) {
-      if (ssl3_protocol_version(ssl) < max_version) {
-        OPENSSL_PUT_ERROR(SSL, SSL_R_INAPPROPRIATE_FALLBACK);
-        ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL3_AD_INAPPROPRIATE_FALLBACK);
-        goto err;
-      }
-      continue;
     }
 
     const SSL_CIPHER *c = SSL_get_cipher_by_value(cipher_suite);
