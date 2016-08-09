@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d9dd872d_6c04c3e7",
+        "filename": "include/openssl/cxx/aead.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-08-09T00:19:42Z",
+      "side": 1,
+      "message": "2016",
+      "revId": "e445ad5298980391d3c49c745b817fba92edf11b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9dd872d_8c090fff",
+        "filename": "include/openssl/cxx/scoped_context.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-08-09T00:19:42Z",
+      "side": 1,
+      "message": "2016",
+      "revId": "e445ad5298980391d3c49c745b817fba92edf11b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9dd872d_ccd31759",
+        "filename": "include/openssl/cxx/scoped_context.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-08-09T00:19:42Z",
+      "side": 1,
+      "message": "This file is likely to end up with ScopedStack as well (and perhaps others in time.) Maybe call it scoped_helpers.h or something likewise more generic?",
+      "revId": "e445ad5298980391d3c49c745b817fba92edf11b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9dd872d_4ce8e70e",
+        "filename": "include/openssl/cxx/scoped_context.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-08-09T00:19:42Z",
+      "side": 1,
+      "message": "(nit: drop superfluous blank line at end.)",
+      "revId": "e445ad5298980391d3c49c745b817fba92edf11b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
