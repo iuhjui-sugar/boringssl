@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f977ab0c_0cafdb31",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 29
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-08-09T21:49:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f977ab0c_0c86fbc1",
+      "revId": "b827ad21bda70ae5d3d097ba47499acb54f359bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f977ab0c_ccea2372",
         "filename": "ssl/tls13_server.c",
         "patchSetId": 29
@@ -47,6 +65,24 @@
       "writtenOn": "2016-08-09T20:00:29Z",
       "side": 1,
       "message": "I\u0027m really really nervous about this function. The 1.2 code has the same problem, but this is nasty. It even resolves the session cache logic twice! I\u0027ll see about moving them both pretty high up since I\u0027m pretty sure it doesn\u0027t do anything useful.",
+      "revId": "b827ad21bda70ae5d3d097ba47499acb54f359bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f977ab0c_cc8303aa",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 29
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-08-09T21:49:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f977ab0c_8cf02b64",
       "revId": "b827ad21bda70ae5d3d097ba47499acb54f359bd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
