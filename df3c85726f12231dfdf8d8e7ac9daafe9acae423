@@ -2,6 +2,46 @@
   "comments": [
     {
       "key": {
+        "uuid": "f977ab0c_ccf8631a",
+        "filename": "crypto/obj/obj.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-09T21:55:51Z",
+      "side": 1,
+      "message": "Would obj-\u003elength \u003d\u003d 0 be better? If someone managed to give us an OID that says {NULL, 27}, I think we\u0027re morally obligated to try to dereference that because they asked us for something dumb.\n\nConversely, you might have a non-NULL data pointer and length 0.",
+      "range": {
+        "startLine": 459,
+        "startChar": 21,
+        "endLine": 459,
+        "endChar": 38
+      },
+      "revId": "df3c85726f12231dfdf8d8e7ac9daafe9acae423",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f977ab0c_6c0a0f2b",
+        "filename": "crypto/obj/obj.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-09T21:55:51Z",
+      "side": 1,
+      "message": "Can probably just do\n\n  if (stuff) {\n    return strlcopy_int(out, \"\", out_len);\n  }",
+      "revId": "df3c85726f12231dfdf8d8e7ac9daafe9acae423",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f98ecb40_6233fe19",
         "filename": "crypto/obj/obj.c",
         "patchSetId": 1
@@ -18,6 +58,47 @@
         "startChar": 2,
         "endLine": 464,
         "endChar": 3
+      },
+      "revId": "df3c85726f12231dfdf8d8e7ac9daafe9acae423",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f977ab0c_0c0c3b3f",
+        "filename": "crypto/obj/obj.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-09T21:55:51Z",
+      "side": 1,
+      "message": "This function seems to otherwise only use |obj| as a weird holder for pointer/length pair, so I\u0027d probably leave it as is. I.e. if I give you the serialization of some other OID with nonsense sn/ln, it won\u0027t pay attention to the nonsense values.",
+      "parentUuid": "f98ecb40_6233fe19",
+      "revId": "df3c85726f12231dfdf8d8e7ac9daafe9acae423",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f977ab0c_2c11f755",
+        "filename": "crypto/obj/obj_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-09T21:55:51Z",
+      "side": 1,
+      "message": "You could probably also just use SN_des_ede3_ecb and LN_des_ede3_ecb. Although, I don\u0027t think OBJ_obj2txt actually cares about this field, so do you actually need these params?",
+      "range": {
+        "startLine": 172,
+        "startChar": 20,
+        "endLine": 172,
+        "endChar": 29
       },
       "revId": "df3c85726f12231dfdf8d8e7ac9daafe9acae423",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
