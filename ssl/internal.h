@@ -1239,9 +1239,11 @@ enum ssl_session_result_t ssl_get_prev_session(
 OPENSSL_EXPORT SSL_SESSION *SSL_SESSION_dup(SSL_SESSION *session,
                                             int include_ticket);
 
+int ssl_list_contains_cipher(const struct ssl_early_callback_ctx *client_hello,
+                             uint16_t id);
+
 STACK_OF(SSL_CIPHER) *ssl_bytes_to_cipher_list(SSL *ssl, const uint8_t *in,
-                                               size_t in_len,
-                                               uint16_t max_version);
+                                               size_t in_len);
 void ssl_cipher_preference_list_free(
     struct ssl_cipher_preference_list_st *cipher_list);
 struct ssl_cipher_preference_list_st *ssl_get_cipher_preferences(SSL *ssl);
