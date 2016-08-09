@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3914e3d3_182025b2",
+        "filename": "crypto/obj/obj.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2016-08-09T22:22:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f977ab0c_ccf8631a",
+      "range": {
+        "startLine": 459,
+        "startChar": 21,
+        "endLine": 459,
+        "endChar": 38
+      },
+      "revId": "df3c85726f12231dfdf8d8e7ac9daafe9acae423",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f977ab0c_6c0a0f2b",
         "filename": "crypto/obj/obj.c",
         "patchSetId": 1
@@ -36,6 +60,24 @@
       "writtenOn": "2016-08-09T21:55:51Z",
       "side": 1,
       "message": "Can probably just do\n\n  if (stuff) {\n    return strlcopy_int(out, \"\", out_len);\n  }",
+      "revId": "df3c85726f12231dfdf8d8e7ac9daafe9acae423",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3914e3d3_d80aad2c",
+        "filename": "crypto/obj/obj.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2016-08-09T22:22:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f977ab0c_6c0a0f2b",
       "revId": "df3c85726f12231dfdf8d8e7ac9daafe9acae423",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -83,6 +125,24 @@
     },
     {
       "key": {
+        "uuid": "3914e3d3_98043520",
+        "filename": "crypto/obj/obj.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2016-08-09T22:22:16Z",
+      "side": 1,
+      "message": "SGTM.",
+      "parentUuid": "f977ab0c_0c0c3b3f",
+      "revId": "df3c85726f12231dfdf8d8e7ac9daafe9acae423",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f977ab0c_2c11f755",
         "filename": "crypto/obj/obj_test.cc",
         "patchSetId": 1
@@ -94,6 +154,30 @@
       "writtenOn": "2016-08-09T21:55:51Z",
       "side": 1,
       "message": "You could probably also just use SN_des_ede3_ecb and LN_des_ede3_ecb. Although, I don\u0027t think OBJ_obj2txt actually cares about this field, so do you actually need these params?",
+      "range": {
+        "startLine": 172,
+        "startChar": 20,
+        "endLine": 172,
+        "endChar": 29
+      },
+      "revId": "df3c85726f12231dfdf8d8e7ac9daafe9acae423",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3914e3d3_f810d153",
+        "filename": "crypto/obj/obj_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2016-08-09T22:22:16Z",
+      "side": 1,
+      "message": "I was including this, assuming that we may want to fall back to using the SN/LN. But I agree with your comment on the other file not to pay attention to them, so we should just remove this again here.\n\nDone.",
+      "parentUuid": "f977ab0c_2c11f755",
       "range": {
         "startLine": 172,
         "startChar": 20,
