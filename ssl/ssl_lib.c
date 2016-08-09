@@ -1629,22 +1629,20 @@ int SSL_set_cipher_list(SSL *ssl, const char *str) {
   return 1;
 }
 
-STACK_OF(SSL_CIPHER) *
-    ssl_bytes_to_cipher_list(SSL *ssl, const CBS *cbs, uint16_t max_version) {
-  CBS cipher_suites = *cbs;
-  const SSL_CIPHER *c;
-  STACK_OF(SSL_CIPHER) *sk;
+STACK_OF(SSL_CIPHER) *ssl_bytes_to_cipher_list(SSL *ssl, const uint8_t *in,
+                                               size_t in_len,
+                                               uint16_t max_version) {
+  CBS cipher_suites;
+  CBS_init(&cipher_suites, in, in_len);
 
-  if (ssl->s3) {
-    ssl->s3->send_connection_binding = 0;
-  }
+  ssl->s3->send_connection_binding = 0;
 
   if (CBS_len(&cipher_suites) % 2 != 0) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_ERROR_IN_RECEIVED_CIPHER_LIST);
     return NULL;
   }
 
-  sk = sk_SSL_CIPHER_new_null();
+  STACK_OF(SSL_CIPHER) *sk = sk_SSL_CIPHER_new_null();
   if (sk == NULL) {
     OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
     goto err;
@@ -1680,7 +1678,7 @@ STACK_OF(SSL_CIPHER) *
       continue;
     }
 
-    c = SSL_get_cipher_by_value(cipher_suite);
+    const SSL_CIPHER *c = SSL_get_cipher_by_value(cipher_suite);
     if (c != NULL && !sk_SSL_CIPHER_push(sk, c)) {
       OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
       goto err;

@@ -1239,8 +1239,9 @@ enum ssl_session_result_t ssl_get_prev_session(
 OPENSSL_EXPORT SSL_SESSION *SSL_SESSION_dup(SSL_SESSION *session,
                                             int include_ticket);
 
-STACK_OF(SSL_CIPHER) *
-    ssl_bytes_to_cipher_list(SSL *ssl, const CBS *cbs, uint16_t max_version);
+STACK_OF(SSL_CIPHER) *ssl_bytes_to_cipher_list(SSL *ssl, const uint8_t *in,
+                                               size_t in_len,
+                                               uint16_t max_version);
 void ssl_cipher_preference_list_free(
     struct ssl_cipher_preference_list_st *cipher_list);
 struct ssl_cipher_preference_list_st *ssl_get_cipher_preferences(SSL *ssl);
@@ -1412,7 +1413,8 @@ int tls1_check_ec_cert(SSL *ssl, X509 *x);
 int ssl_add_clienthello_tlsext(SSL *ssl, CBB *out, size_t header_len);
 
 int ssl_add_serverhello_tlsext(SSL *ssl, CBB *out);
-int ssl_parse_clienthello_tlsext(SSL *ssl, CBS *cbs);
+int ssl_parse_clienthello_tlsext(
+    SSL *ssl, const struct ssl_early_callback_ctx *client_hello);
 int ssl_parse_serverhello_tlsext(SSL *ssl, CBS *cbs);
 
 #define tlsext_tick_md EVP_sha256
