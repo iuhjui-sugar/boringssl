@@ -455,6 +455,11 @@ static int add_decimal(CBB *out, uint64_t v) {
 
 int OBJ_obj2txt(char *out, int out_len, const ASN1_OBJECT *obj,
                 int dont_return_name) {
+  // Python depends on the return value being zero for the empty OID.
+  if (obj == NULL || obj->length == 0) {
+    return strlcpy_int(out, "", out_len);
+  }
+
   if (!dont_return_name) {
     int nid = OBJ_obj2nid(obj);
     if (nid != NID_undef) {
