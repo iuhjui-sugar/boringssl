@@ -537,7 +537,7 @@ static int ssl3_get_client_hello(SSL *ssl) {
   struct ssl_early_callback_ctx early_ctx;
   CBS client_hello;
   uint16_t client_wire_version;
-  CBS client_random, session_id, cipher_suites, compression_methods;
+  CBS client_random, session_id, cipher_suites, cookie, compression_methods;
   SSL_SESSION *session = NULL;
 
   /* We do this so that we will respond with our native type. If we are TLSv1
@@ -644,7 +644,16 @@ static int ssl3_get_client_hello(SSL *ssl) {
 
   if (!CBS_get_bytes(&client_hello, &client_random, SSL3_RANDOM_SIZE) ||
       !CBS_get_u8_length_prefixed(&client_hello, &session_id) ||
-      CBS_len(&session_id) > SSL_MAX_SSL_SESSION_ID_LENGTH) {
+      CBS_len(&session_id) > SSL_MAX_SSL_SESSION_ID_LENGTH ||
+      /* We don't handle DTLS cookies on the server, so discard the cookie. */
+      (SSL_is_dtls(ssl) &&
+       (!CBS_get_u8_length_prefixed(&client_hello, &cookie) ||
+        CBS_len(&cookie) > DTLS1_COOKIE_LENGTH)) ||
+      !CBS_get_u16_length_prefixed(&client_hello, &cipher_suites) ||
+      CBS_len(&cipher_suites) == 0 ||
+      CBS_len(&cipher_suites) % 2 != 0 ||
+      !CBS_get_u8_length_prefixed(&client_hello, &compression_methods) ||
+      CBS_len(&compression_methods) == 0) {
     al = SSL_AD_DECODE_ERROR;
     OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
     goto f_err;
@@ -652,17 +661,6 @@ static int ssl3_get_client_hello(SSL *ssl) {
 
   /* Load the client random. */
   memcpy(ssl->s3->client_random, CBS_data(&client_random), SSL3_RANDOM_SIZE);
-
-  if (SSL_is_dtls(ssl)) {
-    CBS cookie;
-
-    if (!CBS_get_u8_length_prefixed(&client_hello, &cookie) ||
-        CBS_len(&cookie) > DTLS1_COOKIE_LENGTH) {
-      al = SSL_AD_DECODE_ERROR;
-      OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
-      goto f_err;
-    }
-  }
 
   int send_new_ticket = 0;
   switch (ssl_get_prev_session(ssl, &session, &send_new_ticket, &early_ctx)) {
@@ -729,16 +727,6 @@ static int ssl3_get_client_hello(SSL *ssl) {
     /* Connection rejected for DOS reasons. */
     al = SSL_AD_ACCESS_DENIED;
     OPENSSL_PUT_ERROR(SSL, SSL_R_CONNECTION_REJECTED);
-    goto f_err;
-  }
-
-  if (!CBS_get_u16_length_prefixed(&client_hello, &cipher_suites) ||
-      CBS_len(&cipher_suites) == 0 ||
-      CBS_len(&cipher_suites) % 2 != 0 ||
-      !CBS_get_u8_length_prefixed(&client_hello, &compression_methods) ||
-      CBS_len(&compression_methods) == 0) {
-    al = SSL_AD_DECODE_ERROR;
-    OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
     goto f_err;
   }
 

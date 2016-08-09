@@ -119,15 +119,14 @@ static enum ssl_hs_wait_t do_process_client_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
   if (!CBS_get_u16(&cbs, &client_wire_version) ||
       !CBS_get_bytes(&cbs, &client_random, SSL3_RANDOM_SIZE) ||
       !CBS_get_u8_length_prefixed(&cbs, &session_id) ||
-      CBS_len(&session_id) > SSL_MAX_SSL_SESSION_ID_LENGTH) {
+      CBS_len(&session_id) > SSL_MAX_SSL_SESSION_ID_LENGTH ||
+      !CBS_get_u16_length_prefixed(&cbs, &cipher_suites) ||
+      CBS_len(&cipher_suites) == 0 ||
+      CBS_len(&cipher_suites) % 2 != 0 ||
+      !CBS_get_u8_length_prefixed(&cbs, &compression_methods) ||
+      CBS_len(&compression_methods) == 0) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
     ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
-    return ssl_hs_error;
-  }
-
-  uint16_t min_version, max_version;
-  if (!ssl_get_version_range(ssl, &min_version, &max_version)) {
-    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
     return ssl_hs_error;
   }
 
@@ -147,16 +146,6 @@ static enum ssl_hs_wait_t do_process_client_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
     /* Connection rejected for DOS reasons. */
     OPENSSL_PUT_ERROR(SSL, SSL_R_CONNECTION_REJECTED);
     ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ACCESS_DENIED);
-    return ssl_hs_error;
-  }
-
-  if (!CBS_get_u16_length_prefixed(&cbs, &cipher_suites) ||
-      CBS_len(&cipher_suites) == 0 ||
-      CBS_len(&cipher_suites) % 2 != 0 ||
-      !CBS_get_u8_length_prefixed(&cbs, &compression_methods) ||
-      CBS_len(&compression_methods) == 0) {
-    OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
-    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
     return ssl_hs_error;
   }
 
@@ -195,6 +184,12 @@ static enum ssl_hs_wait_t do_process_client_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
       hs->state = state_process_client_hello;
       return ssl_hs_x509_lookup;
     }
+  }
+
+  uint16_t min_version, max_version;
+  if (!ssl_get_version_range(ssl, &min_version, &max_version)) {
+    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
+    return ssl_hs_error;
   }
 
   STACK_OF(SSL_CIPHER) *ciphers =
