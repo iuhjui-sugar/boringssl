@@ -166,15 +166,8 @@ static enum ssl_hs_wait_t do_process_client_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
     }
   }
 
-  STACK_OF(SSL_CIPHER) *ciphers = ssl_bytes_to_cipher_list(
-      ssl, client_hello.cipher_suites, client_hello.cipher_suites_len);
-  if (ciphers == NULL) {
-    return ssl_hs_error;
-  }
-
   const SSL_CIPHER *cipher =
-      ssl3_choose_cipher(ssl, ciphers, ssl_get_cipher_preferences(ssl));
-  sk_SSL_CIPHER_free(ciphers);
+      ssl3_choose_cipher(ssl, &client_hello, ssl_get_cipher_preferences(ssl));
   if (cipher == NULL) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_NO_SHARED_CIPHER);
     ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_HANDSHAKE_FAILURE);
