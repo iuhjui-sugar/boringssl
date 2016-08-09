@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f98ecb40_6233fe19",
+        "filename": "crypto/obj/obj.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2016-08-09T21:31:59Z",
+      "side": 1,
+      "message": "We could also move this further down in order to return the SN or LN if !dont_return_name. This would be a change from the original code, but not break the Python tests. Let me know if you prefer that.",
+      "range": {
+        "startLine": 458,
+        "startChar": 2,
+        "endLine": 464,
+        "endChar": 3
+      },
+      "revId": "df3c85726f12231dfdf8d8e7ac9daafe9acae423",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
