@@ -84,6 +84,24 @@
     },
     {
       "key": {
+        "uuid": "7983bb55_752942ee",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1632,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-10T21:29:32Z",
+      "side": 1,
+      "message": "Hrm, I guess in a later commit I make a different function which takes the ClientHello. I\u0027ll rename and make them match.",
+      "parentUuid": "7983bb55_12624cb4",
+      "revId": "9c4cc2ea29a066c178970ac0b21b0b93cef1e35b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3914e3d3_de3855f8",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 2
