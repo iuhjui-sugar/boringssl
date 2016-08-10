@@ -52,6 +52,24 @@
       "revId": "72e36f845e4eda4803f32b63a782b852b990811b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3914e3d3_4ccfbf25",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-08-10T16:46:54Z",
+      "side": 1,
+      "message": "On reflection I think we should include it and just ignore the case of multi-prime for now. Most of the time, this function makes sense.",
+      "parentUuid": "7983bb55_524d3496",
+      "revId": "72e36f845e4eda4803f32b63a782b852b990811b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
