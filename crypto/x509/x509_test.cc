@@ -17,15 +17,16 @@
 #include <assert.h>
 #include <string.h>
 
+#include <openssl/c++/evp.h>
 #include <openssl/crypto.h>
 #include <openssl/digest.h>
 #include <openssl/err.h>
-#include <openssl/evp.h>
 #include <openssl/pem.h>
 #include <openssl/x509.h>
 
 #include "../test/scoped_types.h"
 
+namespace bssl {
 
 static const char kCrossSigningRootPEM[] =
 "-----BEGIN CERTIFICATE-----\n"
@@ -457,7 +458,7 @@ static bool TestSignCtx() {
   return true;
 }
 
-int main(int argc, char **argv) {
+static int Main() {
   CRYPTO_library_init();
 
   if (!TestVerify() ||
@@ -469,4 +470,10 @@ int main(int argc, char **argv) {
 
   printf("PASS\n");
   return 0;
+}
+
+}  // namespace bssl
+
+int main() {
+  return bssl::Main();
 }
