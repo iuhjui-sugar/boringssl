@@ -1728,6 +1728,14 @@ uint16_t SSL_CIPHER_get_min_version(const SSL_CIPHER *cipher) {
 }
 
 uint16_t SSL_CIPHER_get_max_version(const SSL_CIPHER *cipher) {
+  /* The following ciphers are internal implementation details of TLS 1.3
+   * resumption but are not yet finalized. Disable them at TLS 1.2 until this
+   * has happened. */
+  if (cipher->id == TLS1_CK_ECDHE_PSK_WITH_AES_128_GCM_SHA256 ||
+      cipher->id == TLS1_CK_ECDHE_PSK_WITH_AES_256_GCM_SHA384) {
+    return TLS1_3_VERSION;
+  }
+
   if (cipher->algorithm_mac == SSL_AEAD &&
       (cipher->algorithm_enc & SSL_CHACHA20POLY1305_OLD) == 0 &&
       (cipher->algorithm_mkey & SSL_kECDHE) != 0 &&
