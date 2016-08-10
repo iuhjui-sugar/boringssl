@@ -143,16 +143,16 @@ OPENSSL_EXPORT int OBJ_nid2cbb(CBB *out, int nid);
  * |ASN1_OBJECT| or NULL on error. */
 OPENSSL_EXPORT ASN1_OBJECT *OBJ_txt2obj(const char *s, int dont_search_names);
 
-/* OBJ_obj2txt converts |obj| to a textual representation. If
- * |dont_return_name| is zero then |obj| will be matched against known objects
- * and the long (preferably) or short name will be used if found. Otherwise
- * |obj| will be converted into a dotted sequence of integers. If |out| is not
- * NULL, then at most |out_len| bytes of the textual form will be written
- * there. If |out_len| is at least one, then string written to |out| will
- * always be NUL terminated. It returns the number of characters that could
- * have been written, not including the final NUL, or -1 on error. */
+/* OBJ_obj2txt converts |obj| to a textual representation. If |ignore_names| is
+ * zero then |obj| will be matched against known objects and the long
+ * (preferably) or short name will be used if found. Otherwise |obj| will be
+ * converted into a dotted sequence of integers. If |out| is not NULL, then at
+ * most |out_len| bytes of the textual form will be written there. If |out_len|
+ * is at least one, then string written to |out| will always be NUL terminated.
+ * It returns the number of characters that could have been written, not
+ * including the final NUL, or -1 on error. */
 OPENSSL_EXPORT int OBJ_obj2txt(char *out, int out_len, const ASN1_OBJECT *obj,
-                               int dont_return_name);
+                               int ignore_names);
 
 
 /* Adding objects at runtime. */
