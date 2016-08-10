@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "7983bb55_d2436418",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-08-10T15:08:42Z",
+      "side": 1,
+      "message": "This is slightly different ordering, call it out in the commit message.",
+      "range": {
+        "startLine": 564,
+        "startChar": 0,
+        "endLine": 564,
+        "endChar": 50
+      },
+      "revId": "9c4cc2ea29a066c178970ac0b21b0b93cef1e35b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7983bb55_f248e834",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1632,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-08-10T15:08:42Z",
+      "side": 1,
+      "message": "Can we make this take a CBS from the early_ctx? I don\u0027t think there is anywhere where the cipher_suites/cs_len are used separately?",
+      "range": {
+        "startLine": 1632,
+        "startChar": 22,
+        "endLine": 1632,
+        "endChar": 46
+      },
+      "revId": "9c4cc2ea29a066c178970ac0b21b0b93cef1e35b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3914e3d3_de3855f8",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 2
