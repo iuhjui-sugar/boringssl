@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7983bb55_92dcfc6c",
+        "filename": "tool/transport_common.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-10T14:14:44Z",
+      "side": 1,
+      "message": "If you don\u0027t mind the allocations, we could replace it all with:\n\n(\"\\n\" + reply_250 + \"\\n\").find(\"\\nSTARTTLS\\n\") \u003d\u003d std::string::npos",
+      "revId": "3aa8d2d5984064e5cc9205d0e032da10ae456291",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
