@@ -34,6 +34,24 @@
       "revId": "72e36f845e4eda4803f32b63a782b852b990811b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7983bb55_524d3496",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-10T02:50:02Z",
+      "side": 1,
+      "message": "The call site, for reference:\n\nhttps://github.com/curl/curl/blob/80388edefca58f8199cdfde077efb7f6d91e60fa/lib/vtls/openssl.c#L2471\n\n(Dear cURL, one does not traditionally manage to get p and q out of the RSA public key in the peer certificate...)",
+      "parentUuid": "7983bb55_9232bc14",
+      "revId": "72e36f845e4eda4803f32b63a782b852b990811b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
