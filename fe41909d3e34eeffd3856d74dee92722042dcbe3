@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7983bb55_12d7ac16",
+        "filename": "include/openssl/c++/evp.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-10T18:28:11Z",
+      "side": 1,
+      "message": "Hrm, it\u0027s a little obnoxious that the \u0027c++\u0027 mucks with the sort order.",
+      "revId": "fe41909d3e34eeffd3856d74dee92722042dcbe3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7983bb55_72dab83f",
+        "filename": "include/openssl/c++/evp.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-10T18:28:11Z",
+      "side": 1,
+      "message": "These should perhaps be cipher.h and digest.h, respectively. (Upstream puts it all into one evp.h header, but we split them up a bit.)",
+      "revId": "fe41909d3e34eeffd3856d74dee92722042dcbe3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7983bb55_32d4300f",
+        "filename": "include/openssl/c++/hmac.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-10T18:28:11Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "fe41909d3e34eeffd3856d74dee92722042dcbe3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
