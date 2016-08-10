@@ -16,6 +16,24 @@
       "revId": "72e36f845e4eda4803f32b63a782b852b990811b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7983bb55_9232bc14",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-10T02:48:18Z",
+      "side": 1,
+      "message": "Yeah. I suppose we could abort(), but that seems a bit bad manners.\n\nThe cURL code is, incidentally, hilarious. They\u0027re calling it in some logging code to print out the certificate\u0027s PUBLIC KEY. I can probably send them a patch to not do that. In that case, we could possibly get away with just RSA_get0_key, though I would be surprised if other callers don\u0027t spring up. Think we should just punt on that function until then or just leave it in its multi-prime-blind state?",
+      "parentUuid": "3914e3d3_feb3d998",
+      "revId": "72e36f845e4eda4803f32b63a782b852b990811b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
