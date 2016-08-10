@@ -535,8 +535,10 @@ bool DoSMTPStartTLS(int sock) {
   }
 
   // https://tools.ietf.org/html/rfc1869#section-4.3
-  if (reply_250.find("\nSTARTTLS\n") == std::string::npos &&
-      reply_250.find("\nSTARTTLS") != reply_250.size() - 8) {
+  if (reply_250 != "STARTTLS" &&
+      reply_250.find("STARTTLS\n") != 0 &&
+      reply_250.find("\nSTARTTLS\n") == std::string::npos &&
+      reply_250.find("\nSTARTTLS") != reply_250.size() - 9) {
     fprintf(stderr, "Server does not support STARTTLS\n");
     return false;
   }
