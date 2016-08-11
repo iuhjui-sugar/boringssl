@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f927ab96_a6cd868c",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 701,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-08-11T00:58:05Z",
+      "side": 1,
+      "message": "odd indentation.",
+      "revId": "0c10966367c039475033a2df334dfa8c25b069da",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
