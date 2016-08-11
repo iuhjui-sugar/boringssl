@@ -296,7 +296,17 @@ typedef void *OPENSSL_BLOCK;
 
 
 #if defined(__cplusplus)
+extern "C++" {
+
+template <class T>
+class IAmObviouslyNotC {};
+
+}  // extern C++
+#endif
+
+#if defined(__cplusplus)
 }  /* extern C */
+
 #endif
 
 #endif  /* OPENSSL_HEADER_BASE_H */
