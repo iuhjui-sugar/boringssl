@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f927ab96_a980f9f4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-08-11T01:05:06Z",
+      "side": 1,
+      "message": "missing \"to\"? (Although I quite like the idea of a Good Idea Ship.)",
+      "range": {
+        "startLine": 9,
+        "startChar": 30,
+        "endLine": 9,
+        "endChar": 31
+      },
+      "revId": "9c6d3b3200c31008f533f4dc7d5d2b80f3f5b415",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f927ab96_6997e134",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1731,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-08-11T01:05:06Z",
+      "side": 1,
+      "message": "You\u0027re setting the max version for these from TLS 1.2 to 1.3. Wouldn\u0027t you want to set the min version of these ciphers to 1.3 so that they\u0027re excluded when sending a 1.2 ClientHello? (https://boringssl.googlesource.com/boringssl/+/e14ff0669406eabf5a7402c00867d54a22c3b556/ssl/handshake_client.c#601)",
+      "revId": "9c6d3b3200c31008f533f4dc7d5d2b80f3f5b415",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
