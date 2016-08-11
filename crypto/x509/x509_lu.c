@@ -515,12 +515,12 @@ STACK_OF (X509) * X509_STORE_get1_certs(X509_STORE_CTX *ctx, X509_NAME *nm)
     for (i = 0; i < cnt; i++, idx++) {
         obj = sk_X509_OBJECT_value(ctx->ctx->objs, idx);
         x = obj->data.x509;
-        if (!sk_X509_push(sk, X509_up_ref(x))) {
+        if (!sk_X509_push(sk, x)) {
             CRYPTO_MUTEX_unlock_write(&ctx->ctx->objs_lock);
-            X509_free(x);
             sk_X509_pop_free(sk, X509_free);
             return NULL;
         }
+        X509_up_ref(x);
     }
     CRYPTO_MUTEX_unlock_write(&ctx->ctx->objs_lock);
     return sk;
