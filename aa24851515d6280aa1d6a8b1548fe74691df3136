@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dec3ad20_2d20cd4d",
+        "filename": "crypto/dh/dh.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-08-11T22:26:56Z",
+      "side": 1,
+      "message": "Why do we care about having the top bit set here, but we don\u0027t care about it in the call above to `BN_rand_range_ex`? It seems like the code shouldn\u0027t be forcing the high bit to be set here, but just requiring that the result not be zero.\n\nMore generally, why isn\u0027t this using `BN_rand_range_ex` in the case where `dh-\u003epriv_length \u003d\u003d 0`?",
+      "range": {
+        "startLine": 314,
+        "startChar": 40,
+        "endLine": 314,
+        "endChar": 41
+      },
+      "revId": "aa24851515d6280aa1d6a8b1548fe74691df3136",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
