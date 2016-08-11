@@ -16,6 +16,24 @@
       "revId": "e8e917833e7edcd9fc8e45771ccadeeee18aecba",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e568915_c8e0efbe",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-11T04:52:29Z",
+      "side": 1,
+      "message": "I think that was an earlier iteration that cast to uint16_t instead. I uploaded a new one, but only kicked off a try run on the top CL because I was lazy.",
+      "parentUuid": "f927ab96_267ef645",
+      "revId": "e8e917833e7edcd9fc8e45771ccadeeee18aecba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
