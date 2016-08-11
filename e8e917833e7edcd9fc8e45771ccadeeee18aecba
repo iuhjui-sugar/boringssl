@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f927ab96_267ef645",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-08-11T00:32:48Z",
+      "side": 1,
+      "message": "For some reason MSVC looks like it\u0027s barfing on this.",
+      "revId": "e8e917833e7edcd9fc8e45771ccadeeee18aecba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
