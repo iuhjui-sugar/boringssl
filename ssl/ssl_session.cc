@@ -642,7 +642,7 @@ static enum ssl_session_result_t ssl_lookup_session(
   /* Fall back to the external cache, if it exists. */
   if (!session && ssl->session_ctx->get_session_cb != NULL) {
     int copy = 1;
-    session.reset(ssl->session_ctx->get_session_cb(ssl, (uint8_t *)session_id,
+    session.reset(ssl->session_ctx->get_session_cb(ssl, session_id,
                                                    session_id_len, &copy));
 
     if (!session) {
@@ -918,6 +918,14 @@ int SSL_SESSION_set1_id_context(SSL_SESSION *session, const uint8_t *sid_ctx,
   return 1;
 }
 
+int SSL_SESSION_has_ticket(const SSL_SESSION *session) {
+  return session->tlsext_ticklen > 0;
+}
+
+uint32_t SSL_SESSION_get_ticket_lifetime_hint(const SSL_SESSION *session) {
+  return session->tlsext_tick_lifetime_hint;
+}
+
 SSL_SESSION *SSL_magic_pending_session_ptr(void) {
   return (SSL_SESSION *)&g_pending_session_magic;
 }
@@ -1110,14 +1118,15 @@ void (*SSL_CTX_sess_get_remove_cb(SSL_CTX *ctx))(SSL_CTX *ctx,
 }
 
 void SSL_CTX_sess_set_get_cb(SSL_CTX *ctx,
-                             SSL_SESSION *(*cb)(SSL *ssl,
-                                                uint8_t *id, int id_len,
-                                                int *out_copy)) {
+                             SSL_SESSION *(*cb)(SSL *ssl, const uint8_t *id,
+                                                int id_len, int *out_copy)) {
   ctx->get_session_cb = cb;
 }
 
-SSL_SESSION *(*SSL_CTX_sess_get_get_cb(SSL_CTX *ctx))(
-    SSL *ssl, uint8_t *id, int id_len, int *out_copy) {
+SSL_SESSION *(*SSL_CTX_sess_get_get_cb(SSL_CTX *ctx))(SSL *ssl,
+                                                      const uint8_t *id,
+                                                      int id_len,
+                                                      int *out_copy) {
   return ctx->get_session_cb;
 }
 
