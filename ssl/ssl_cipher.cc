@@ -1455,8 +1455,12 @@ int SSL_CIPHER_has_SHA384_HMAC(const SSL_CIPHER *cipher) {
   return (cipher->algorithm_mac & SSL_SHA384) != 0;
 }
 
-int SSL_CIPHER_is_AEAD(const SSL_CIPHER *cipher) {
+int SSL_CIPHER_is_aead(const SSL_CIPHER *cipher) {
   return (cipher->algorithm_mac & SSL_AEAD) != 0;
+}
+
+int SSL_CIPHER_is_AEAD(const SSL_CIPHER *cipher) {
+  return SSL_CIPHER_is_aead(cipher);
 }
 
 int SSL_CIPHER_is_AESGCM(const SSL_CIPHER *cipher) {

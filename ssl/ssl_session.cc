@@ -918,6 +918,14 @@ int SSL_SESSION_set1_id_context(SSL_SESSION *session, const uint8_t *sid_ctx,
   return 1;
 }
 
+int SSL_SESSION_has_ticket(const SSL_SESSION *session) {
+  return session->tlsext_ticklen > 0;
+}
+
+uint32_t SSL_SESSION_get_ticket_lifetime_hint(const SSL_SESSION *session) {
+  return session->tlsext_tick_lifetime_hint;
+}
+
 SSL_SESSION *SSL_magic_pending_session_ptr(void) {
   return (SSL_SESSION *)&g_pending_session_magic;
 }
