@@ -156,6 +156,10 @@ const char *SSLeay_version(int unused) {
   return "BoringSSL";
 }
 
+const char *OpenSSL_version(int unused) {
+  return "BoringSSL";
+}
+
 unsigned long SSLeay(void) {
   return OPENSSL_VERSION_NUMBER;
 }
@@ -171,3 +175,8 @@ int ENGINE_register_all_complete(void) {
 }
 
 void OPENSSL_load_builtin_modules(void) {}
+
+int OPENSSL_init_crypto(uint64_t opts, const OPENSSL_INIT_SETTINGS *settings) {
+  CRYPTO_library_init();
+  return 1;
+}
