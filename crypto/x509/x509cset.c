@@ -152,6 +152,11 @@ int X509_REVOKED_set_revocationDate(X509_REVOKED *x, ASN1_TIME *tm)
     return (in != NULL);
 }
 
+ASN1_INTEGER *X509_REVOKED_get0_serialNumber(X509_REVOKED *x)
+{
+    return x->serialNumber;
+}
+
 int X509_REVOKED_set_serialNumber(X509_REVOKED *x, ASN1_INTEGER *serial)
 {
     ASN1_INTEGER *in;
