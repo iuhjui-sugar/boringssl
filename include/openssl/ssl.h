@@ -3593,6 +3593,13 @@ OPENSSL_EXPORT int SSL_set_private_key_digest_prefs(SSL *ssl,
                                                     const int *digest_nids,
                                                     size_t num_digests);
 
+#define OPENSSL_INIT_NO_LOAD_SSL_STRINGS 0
+#define OPENSSL_INIT_LOAD_SSL_STRINGS 0
+#define OPENSSL_INIT_SSL_DEFAULT 0
+
+/* OPENSSL_init_ssl calls |CRYPTO_library_init| and returns one. */
+OPENSSL_EXPORT int OPENSSL_init_ssl(uint64_t opts,
+                                    const OPENSSL_INIT_SETTINGS *settings);
 
 /* Private structures.
  *
