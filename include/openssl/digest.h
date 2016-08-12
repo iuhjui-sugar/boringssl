@@ -106,16 +106,17 @@ OPENSSL_EXPORT const EVP_MD *EVP_get_digestbyobj(const ASN1_OBJECT *obj);
  * same as setting the structure to zero. */
 OPENSSL_EXPORT void EVP_MD_CTX_init(EVP_MD_CTX *ctx);
 
-/* EVP_MD_CTX_create allocates and initialises a fresh |EVP_MD_CTX| and returns
- * it, or NULL on allocation failure. */
-OPENSSL_EXPORT EVP_MD_CTX *EVP_MD_CTX_create(void);
+/* EVP_MD_CTX_new allocates and initialises a fresh |EVP_MD_CTX| and returns
+ * it, or NULL on allocation failure. The caller must use |EVP_MD_CTX_free| to
+ * release the resulting object. */
+OPENSSL_EXPORT EVP_MD_CTX *EVP_MD_CTX_new(void);
 
 /* EVP_MD_CTX_cleanup frees any resources owned by |ctx| and resets it to a
  * freshly initialised state. It does not free |ctx| itself. It returns one. */
 OPENSSL_EXPORT int EVP_MD_CTX_cleanup(EVP_MD_CTX *ctx);
 
-/* EVP_MD_CTX_destroy calls |EVP_MD_CTX_cleanup| and then frees |ctx| itself. */
-OPENSSL_EXPORT void EVP_MD_CTX_destroy(EVP_MD_CTX *ctx);
+/* EVP_MD_CTX_free calls |EVP_MD_CTX_cleanup| and then frees |ctx| itself. */
+OPENSSL_EXPORT void EVP_MD_CTX_free(EVP_MD_CTX *ctx);
 
 /* EVP_MD_CTX_copy_ex sets |out|, which must already be initialised, to be a
  * copy of |in|. It returns one on success and zero on error. */
@@ -240,6 +241,15 @@ OPENSSL_EXPORT size_t EVP_MD_CTX_block_size(const EVP_MD_CTX *ctx);
  * (For example, |NID_sha256|.) It will crash if a digest hasn't been set on
  * |ctx|. */
 OPENSSL_EXPORT int EVP_MD_CTX_type(const EVP_MD_CTX *ctx);
+
+
+/* Deprecated functions. */
+
+/* EVP_MD_CTX_create calls |EVP_MD_CTX_new|. */
+OPENSSL_EXPORT EVP_MD_CTX *EVP_MD_CTX_create(void);
+
+/* EVP_MD_CTX_destroy calls |EVP_MD_CTX_free|. */
+OPENSSL_EXPORT void EVP_MD_CTX_destroy(EVP_MD_CTX *ctx);
 
 
 struct evp_md_pctx_ops;

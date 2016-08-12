@@ -87,12 +87,19 @@ OPENSSL_EXPORT uint8_t *HMAC(const EVP_MD *evp_md, const void *key,
 
 /* HMAC_CTX_init initialises |ctx| for use in an HMAC operation. It's assumed
  * that HMAC_CTX objects will be allocated on the stack thus no allocation
- * function is provided. If needed, allocate |sizeof(HMAC_CTX)| and call
- * |HMAC_CTX_init| on it. */
+ * function is provided. */
 OPENSSL_EXPORT void HMAC_CTX_init(HMAC_CTX *ctx);
 
-/* HMAC_CTX_cleanup frees data owned by |ctx|. */
+/* HMAC_CTX_new allocates and initialises a new |HMAC_CTX| and returns it, or
+ * NULL on allocation failure. The caller must use |HMAC_CTX_free| to release
+ * the resulting object. */
+OPENSSL_EXPORT HMAC_CTX *HMAC_CTX_new(void);
+
+/* HMAC_CTX_cleanup frees data owned by |ctx|. It does not free |ctx| itself. */
 OPENSSL_EXPORT void HMAC_CTX_cleanup(HMAC_CTX *ctx);
+
+/* HMAC_CTX_free calls |HMAC_CTX_cleanup| and then frees |ctx| itself. */
+OPENSSL_EXPORT void HMAC_CTX_free(HMAC_CTX *ctx);
 
 /* HMAC_Init_ex sets up an initialised |HMAC_CTX| to use |md| as the hash
  * function and |key| as the key. For a non-initial call, |md| may be NULL, in
