@@ -558,10 +558,10 @@ static int ecp_nistz256_get_affine(const EC_GROUP *group, const EC_POINT *point,
 
 
 const EC_METHOD EC_GFp_nistz256_method = {
-    ec_GFp_mont_group_init,
-    ec_GFp_mont_group_finish,
-    ec_GFp_mont_group_copy,
-    ec_GFp_mont_group_set_curve,
+    NULL /* group_init */,
+    NULL /* group_finish */,
+    NULL /* group_copy */,
+    NULL /* group_set_curve */,
     ecp_nistz256_get_affine,
     ecp_nistz256_points_mul,
     ec_GFp_mont_field_mul,

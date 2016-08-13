@@ -311,9 +311,7 @@ static int ecdsa_sign_setup(EC_KEY *eckey, BN_CTX *ctx_in, BIGNUM **kinvp,
    * Theorem. */
   if (!BN_set_word(tmp, 2) ||
       !BN_sub(tmp, order, tmp) ||
-      /* Note |ec_group_get_mont_data| may return NULL but |BN_mod_exp_mont|
-       * allows it to be. */
-      !BN_mod_exp_mont(k, k, tmp, order, ctx, ec_group_get_mont_data(group))) {
+      !BN_mod_exp_mont(k, k, tmp, order, ctx, group->mont_data)) {
     OPENSSL_PUT_ERROR(ECDSA, ERR_R_BN_LIB);
     goto err;
   }

@@ -164,7 +164,6 @@ EC_KEY *EC_KEY_copy(EC_KEY *dest, const EC_KEY *src) {
   }
   /* Copy the parameters. */
   if (src->group) {
-    /* TODO(fork): duplicating the group seems wasteful. */
     EC_GROUP_free(dest->group);
     dest->group = EC_GROUP_dup(src->group);
     if (dest->group == NULL) {
@@ -237,8 +236,6 @@ const EC_GROUP *EC_KEY_get0_group(const EC_KEY *key) { return key->group; }
 
 int EC_KEY_set_group(EC_KEY *key, const EC_GROUP *group) {
   EC_GROUP_free(key->group);
-  /* TODO(fork): duplicating the group seems wasteful but see
-   * |EC_KEY_set_conv_form|. */
   key->group = EC_GROUP_dup(group);
   if (key->group == NULL) {
     return 0;

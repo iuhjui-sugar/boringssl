@@ -1180,10 +1180,10 @@ err:
 }
 
 const EC_METHOD EC_GFp_nistp224_method = {
-    ec_GFp_simple_group_init,
-    ec_GFp_simple_group_finish,
-    ec_GFp_simple_group_copy,
-    ec_GFp_simple_group_set_curve,
+    NULL /* group_init */,
+    NULL /* group_finish */,
+    NULL /* group_copy */,
+    NULL /* group_set_curve */,
     ec_GFp_nistp224_point_get_affine_coordinates,
     ec_GFp_nistp224_points_mul,
     ec_GFp_simple_field_mul,

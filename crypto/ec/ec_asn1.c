@@ -53,6 +53,7 @@
 
 #include <openssl/ec.h>
 
+#include <assert.h>
 #include <limits.h>
 #include <string.h>
 
@@ -83,7 +84,6 @@ EC_KEY *EC_KEY_parse_private_key(CBS *cbs, const EC_GROUP *group) {
   }
 
   /* Parse the optional parameters field. */
-  EC_GROUP *inner_group = NULL;
   EC_KEY *ret = NULL;
   if (CBS_peek_asn1_tag(&ec_private_key, kParametersTag)) {
     /* Per SEC 1, as an alternative to omitting it, one is allowed to specify
@@ -95,7 +95,7 @@ EC_KEY *EC_KEY_parse_private_key(CBS *cbs, const EC_GROUP *group) {
       OPENSSL_PUT_ERROR(EC, EC_R_DECODE_ERROR);
       goto err;
     }
-    inner_group = EC_KEY_parse_parameters(&child);
+    const EC_GROUP *inner_group = EC_KEY_parse_parameters(&child);
     if (inner_group == NULL) {
       goto err;
     }
@@ -179,12 +179,10 @@ EC_KEY *EC_KEY_parse_private_key(CBS *cbs, const EC_GROUP *group) {
     goto err;
   }
 
-  EC_GROUP_free(inner_group);
   return ret;
 
 err:
   EC_KEY_free(ret);
-  EC_GROUP_free(inner_group);
   return NULL;
 }
 
@@ -255,6 +253,12 @@ static int is_unsigned_integer(const CBS *cbs) {
   return 1;
 }
 
+static void trim_leading_zeros(CBS *cbs) {
+  while (CBS_len(cbs) > 0 && CBS_data(cbs)[0] == 0) {
+    CBS_skip(cbs, 1);
+  }
+}
+
 /* kPrimeFieldOID is the encoding of 1.2.840.10045.1.1. */
 static const uint8_t kPrimeField[] = {0x2a, 0x86, 0x48, 0xce, 0x3d, 0x01, 0x01};
 
@@ -305,25 +309,36 @@ static int parse_explicit_prime_curve(CBS *in, CBS *out_prime, CBS *out_a,
   CBS_init(out_base_x, CBS_data(&base), field_len);
   CBS_init(out_base_y, CBS_data(&base) + field_len, field_len);
 
+  /* Trim leading zeros on each returned integer to simplify comparing against
+   * a |BIGNUM|. Although SEC 1 states that the Field-Element-to-Octet-String
+   * conversion also pads, OpenSSL mis-encodes |a| and |b|, so this comparison
+   * must allow omitting leading zeros. (This is relevant for P-521 whose |b|
+   * has a leading 0.) */
+  trim_leading_zeros(out_prime);
+  trim_leading_zeros(out_a);
+  trim_leading_zeros(out_b);
+  trim_leading_zeros(out_base_x);
+  trim_leading_zeros(out_base_y);
+  trim_leading_zeros(out_order);
+
   return 1;
 }
 
-/* integers_equal returns one if |a| and |b| are equal, up to leading zeros, and
- * zero otherwise. */
-static int integers_equal(const CBS *a, const uint8_t *b, size_t b_len) {
-  /* Remove leading zeros from |a| and |b|. */
-  CBS a_copy = *a;
-  while (CBS_len(&a_copy) > 0 && CBS_data(&a_copy)[0] == 0) {
-    CBS_skip(&a_copy, 1);
+/* integers_equal returns one if |a| is |b|'s big-endian representation and zero
+ * on error. */
+static int integers_equal(const CBS *a, const BIGNUM *b) {
+  /* The largest supported NIST curve, P-521, has components of size 66. */
+  uint8_t buf[66];
+  if (BN_num_bytes(b) > sizeof(buf)) {
+    assert(0);
+    return 0;
   }
-  while (b_len > 0 && b[0] == 0) {
-    b++;
-    b_len--;
-  }
-  return CBS_mem_equal(&a_copy, b, b_len);
+
+  size_t len = BN_bn2bin(b, buf);
+  return CBS_mem_equal(a, buf, len);
 }
 
-EC_GROUP *EC_KEY_parse_curve_name(CBS *cbs) {
+const EC_GROUP *EC_KEY_parse_curve_name(CBS *cbs) {
   CBS named_curve;
   if (!CBS_get_asn1(cbs, &named_curve, CBS_ASN1_OBJECT)) {
     OPENSSL_PUT_ERROR(EC, EC_R_DECODE_ERROR);
@@ -331,12 +346,11 @@ EC_GROUP *EC_KEY_parse_curve_name(CBS *cbs) {
   }
 
   /* Look for a matching curve. */
-  unsigned i;
-  for (i = 0; OPENSSL_built_in_curves[i].nid != NID_undef; i++) {
+  for (unsigned i = 0; OPENSSL_built_in_curves[i].nid != NID_undef; i++) {
     const struct built_in_curve *curve = &OPENSSL_built_in_curves[i];
     if (CBS_len(&named_curve) == curve->oid_len &&
         memcmp(CBS_data(&named_curve), curve->oid, curve->oid_len) == 0) {
-      return EC_GROUP_new_by_curve_name(curve->nid);
+      return curve->group();
     }
   }
 
@@ -351,8 +365,7 @@ int EC_KEY_marshal_curve_name(CBB *cbb, const EC_GROUP *group) {
     return 0;
   }
 
-  unsigned i;
-  for (i = 0; OPENSSL_built_in_curves[i].nid != NID_undef; i++) {
+  for (unsigned i = 0; OPENSSL_built_in_curves[i].nid != NID_undef; i++) {
     const struct built_in_curve *curve = &OPENSSL_built_in_curves[i];
     if (curve->nid == nid) {
       CBB child;
@@ -366,7 +379,7 @@ int EC_KEY_marshal_curve_name(CBB *cbb, const EC_GROUP *group) {
   return 0;
 }
 
-EC_GROUP *EC_KEY_parse_parameters(CBS *cbs) {
+const EC_GROUP *EC_KEY_parse_parameters(CBS *cbs) {
   if (!CBS_peek_asn1_tag(cbs, CBS_ASN1_SEQUENCE)) {
     return EC_KEY_parse_curve_name(cbs);
   }
@@ -381,28 +394,54 @@ EC_GROUP *EC_KEY_parse_parameters(CBS *cbs) {
     return NULL;
   }
 
+  const EC_GROUP *ret = NULL;
+  BIGNUM *bn1 = BN_new();
+  BIGNUM *bn2 = BN_new();
+  if (bn1 == NULL || bn2 == NULL) {
+    goto err;
+  }
+
   /* Look for a matching prime curve. */
-  unsigned i;
-  for (i = 0; OPENSSL_built_in_curves[i].nid != NID_undef; i++) {
+  for (unsigned i = 0; OPENSSL_built_in_curves[i].nid != NID_undef; i++) {
     const struct built_in_curve *curve = &OPENSSL_built_in_curves[i];
-    const unsigned param_len = curve->data->param_len;
-    /* |curve->data->data| is ordered p, a, b, x, y, order, each component
-     * zero-padded up to the field length. Although SEC 1 states that the
-     * Field-Element-to-Octet-String conversion also pads, OpenSSL mis-encodes
-     * |a| and |b|, so this comparison must allow omitting leading zeros. (This
-     * is relevant for P-521 whose |b| has a leading 0.) */
-    if (integers_equal(&prime, curve->data->data, param_len) &&
-        integers_equal(&a, curve->data->data + param_len, param_len) &&
-        integers_equal(&b, curve->data->data + param_len * 2, param_len) &&
-        integers_equal(&base_x, curve->data->data + param_len * 3, param_len) &&
-        integers_equal(&base_y, curve->data->data + param_len * 4, param_len) &&
-        integers_equal(&order, curve->data->data + param_len * 5, param_len)) {
-      return EC_GROUP_new_by_curve_name(curve->nid);
+
+    const EC_GROUP *group = curve->group();
+    if (!integers_equal(&order, &group->order) ||
+        !integers_equal(&prime, &group->field)) {
+      continue;
     }
+
+    if (!EC_GROUP_get_curve_GFp(group, NULL, bn1 /* a */, bn2 /* b */, NULL)) {
+      goto err;
+    }
+
+    if (!integers_equal(&a, bn1) ||
+        !integers_equal(&b, bn2)) {
+      continue;
+    }
+
+    if (!EC_POINT_get_affine_coordinates_GFp(group,
+                                             EC_GROUP_get0_generator(group),
+                                             bn1 /* x */, bn2 /* y */, NULL)) {
+      goto err;
+    }
+
+    if (!integers_equal(&base_x, bn1) ||
+        !integers_equal(&base_y, bn2)) {
+      continue;
+    }
+
+    ret = curve->group();
+    goto err;
   }
 
   OPENSSL_PUT_ERROR(EC, EC_R_UNKNOWN_GROUP);
-  return NULL;
+  goto err;
+
+err:
+  BN_free(bn1);
+  BN_free(bn2);
+  return ret;
 }
 
 EC_KEY *d2i_ECPrivateKey(EC_KEY **out, const uint8_t **inp, long len) {
@@ -448,18 +487,16 @@ EC_KEY *d2i_ECParameters(EC_KEY **out_key, const uint8_t **inp, long len) {
 
   CBS cbs;
   CBS_init(&cbs, *inp, (size_t)len);
-  EC_GROUP *group = EC_KEY_parse_parameters(&cbs);
+  const EC_GROUP *group = EC_KEY_parse_parameters(&cbs);
   if (group == NULL) {
     return NULL;
   }
 
   EC_KEY *ret = EC_KEY_new();
   if (ret == NULL || !EC_KEY_set_group(ret, group)) {
-    EC_GROUP_free(group);
     EC_KEY_free(ret);
     return NULL;
   }
-  EC_GROUP_free(group);
 
   if (out_key != NULL) {
     EC_KEY_free(*out_key);

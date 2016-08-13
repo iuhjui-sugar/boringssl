@@ -171,12 +171,12 @@ static bool TestBuiltin(FILE *out) {
     fprintf(out, "%s: ", kCurves[n].name);
 
     int nid = kCurves[n].nid;
-    ScopedEC_GROUP group(EC_GROUP_new_by_curve_name(nid));
+    const EC_GROUP *group = EC_GROUP_new_by_curve_name(nid);
     if (!group) {
       fprintf(out, " failed\n");
       return false;
     }
-    const BIGNUM *order = EC_GROUP_get0_order(group.get());
+    const BIGNUM *order = EC_GROUP_get0_order(group);
     if (BN_num_bits(order) < 160) {
       // Too small to test.
       fprintf(out, " skipped\n");
@@ -185,14 +185,14 @@ static bool TestBuiltin(FILE *out) {
 
     // Create a new ECDSA key.
     ScopedEC_KEY eckey(EC_KEY_new());
-    if (!eckey || !EC_KEY_set_group(eckey.get(), group.get()) ||
+    if (!eckey || !EC_KEY_set_group(eckey.get(), group) ||
         !EC_KEY_generate_key(eckey.get())) {
       fprintf(out, " failed\n");
       return false;
     }
     // Create a second key.
     ScopedEC_KEY wrong_eckey(EC_KEY_new());
-    if (!wrong_eckey || !EC_KEY_set_group(wrong_eckey.get(), group.get()) ||
+    if (!wrong_eckey || !EC_KEY_set_group(wrong_eckey.get(), group) ||
         !EC_KEY_generate_key(wrong_eckey.get())) {
       fprintf(out, " failed\n");
       return false;

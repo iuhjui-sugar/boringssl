@@ -1736,7 +1736,6 @@ static int ssl3_get_channel_id(SSL *ssl) {
   size_t channel_id_hash_len;
   const uint8_t *p;
   uint16_t extension_type;
-  EC_GROUP *p256 = NULL;
   EC_KEY *key = NULL;
   EC_POINT *point = NULL;
   ECDSA_SIG sig;
@@ -1774,12 +1773,6 @@ static int ssl3_get_channel_id(SSL *ssl) {
     return -1;
   }
 
-  p256 = EC_GROUP_new_by_curve_name(NID_X9_62_prime256v1);
-  if (!p256) {
-    OPENSSL_PUT_ERROR(SSL, SSL_R_NO_P256_SUPPORT);
-    return -1;
-  }
-
   BN_init(&x);
   BN_init(&y);
   sig.r = BN_new();
@@ -1796,14 +1789,14 @@ static int ssl3_get_channel_id(SSL *ssl) {
     goto err;
   }
 
-  point = EC_POINT_new(p256);
+  point = EC_POINT_new(EC_p256());
   if (!point ||
-      !EC_POINT_set_affine_coordinates_GFp(p256, point, &x, &y, NULL)) {
+      !EC_POINT_set_affine_coordinates_GFp(EC_p256(), point, &x, &y, NULL)) {
     goto err;
   }
 
   key = EC_KEY_new();
-  if (!key || !EC_KEY_set_group(key, p256) ||
+  if (!key || !EC_KEY_set_group(key, EC_p256()) ||
       !EC_KEY_set_public_key(key, point)) {
     goto err;
   }
@@ -1826,7 +1819,6 @@ err:
   BN_free(sig.s);
   EC_KEY_free(key);
   EC_POINT_free(point);
-  EC_GROUP_free(p256);
   return ret;
 }
 

@@ -119,7 +119,7 @@ struct ec_group_st {
 
   int curve_name; /* optional NID for named curve */
 
-  const BN_MONT_CTX *mont_data; /* data for ECDSA inverse */
+  BN_MONT_CTX *mont_data; /* data for ECDSA inverse */
 
   /* The following members are handled by the method functions,
    * even if they appear generic */
@@ -146,11 +146,6 @@ struct ec_point_st {
 
 EC_GROUP *ec_group_new(const EC_METHOD *meth);
 int ec_group_copy(EC_GROUP *dest, const EC_GROUP *src);
-
-/* ec_group_get_mont_data returns a Montgomery context for operations in the
- * scalar field of |group|. It may return NULL in the case that |group| is not
- * a built-in group. */
-const BN_MONT_CTX *ec_group_get_mont_data(const EC_GROUP *group);
 
 int ec_wNAF_mul(const EC_GROUP *group, EC_POINT *r, const BIGNUM *g_scalar,
                 const EC_POINT *p, const BIGNUM *p_scalar, BN_CTX *ctx);
@@ -222,13 +217,6 @@ int ec_point_set_Jprojective_coordinates_GFp(const EC_GROUP *group,
 
 void ec_GFp_nistp_recode_scalar_bits(uint8_t *sign, uint8_t *digit, uint8_t in);
 
-extern const EC_METHOD EC_GFp_nistp224_method;
-extern const EC_METHOD EC_GFp_nistp256_method;
-
-/* EC_GFp_nistz256_method is a GFp method using montgomery multiplication, with
- * x86-64 optimized P256. See http://eprint.iacr.org/2013/816. */
-extern const EC_METHOD EC_GFp_nistz256_method;
-
 struct ec_key_st {
   EC_GROUP *group;
 
@@ -245,24 +233,51 @@ struct ec_key_st {
   CRYPTO_EX_DATA ex_data;
 } /* EC_KEY */;
 
-/* curve_data contains data about a built-in elliptic curve. */
-struct curve_data {
-  /* comment is a human-readable string describing the curve. */
-  const char *comment;
-  /* param_len is the number of bytes needed to store a field element. */
-  uint8_t param_len;
-  /* data points to an array of 6*|param_len| bytes which hold the field
-   * elements of the following (in big-endian order): prime, a, b, generator x,
-   * generator y, order. */
-  const uint8_t data[];
-};
 
+/* Built-in curves. */
+
+/* MSan appears to have a bug that causes code to be miscompiled in opt mode.
+ * While that is being looked at, don't run the uint128_t code under MSan. */
+#if defined(OPENSSL_64_BIT) && !defined(OPENSSL_WINDOWS) && \
+    !defined(MEMORY_SANITIZER)
+#define BORINGSSL_USE_INT128_CODE
+#endif
+
+#if defined(BORINGSSL_USE_INT128_CODE) && !defined(OPENSSL_SMALL)
+extern const EC_METHOD EC_GFp_nistp224_method;
+#define EC_METHOD_P224 &EC_GFp_nistp224_method
+#define EC_P224_NO_MONTGOMERY
+#else
+#define EC_METHOD_P224 &EC_GFp_mont_method
+#endif
+
+#if defined(BORINGSSL_USE_INT128_CODE)
+#if !defined(OPENSSL_NO_ASM) && defined(OPENSSL_X86_64) && \
+    !defined(OPENSSL_SMALL)
+/* EC_GFp_nistz256_method is a GFp method using montgomery multiplication, with
+ * x86-64 optimized P256. See http://eprint.iacr.org/2013/816. */
+extern const EC_METHOD EC_GFp_nistz256_method;
+#define EC_METHOD_P256 &EC_GFp_nistz256_method
+#else /* NO_ASM || !X86_64 || SMALL */
+extern const EC_METHOD EC_GFp_nistp256_method;
+#define EC_METHOD_P256 &EC_GFp_nistp256_method
+#define EC_P256_NO_MONTGOMERY
+#endif /* !NO_ASM && X86_64 && !SMALL */
+#else /* !BORINGSSL_USE_INT128_CODE */
+#define EC_METHOD_P256 &EC_GFp_mont_method
+#endif /* BORINGSSL_USE_INT128_CODE */
+
+#define EC_METHOD_P384 &EC_GFp_mont_method
+#define EC_METHOD_P521 &EC_GFp_mont_method
+
+/* built_in_curve contains data about a built-in elliptic curve. */
 struct built_in_curve {
   int nid;
+  /* comment is a human-readable string describing the curve. */
+  const char *comment;
+  const EC_GROUP *(*group)(void);
   uint8_t oid[8];
   uint8_t oid_len;
-  const struct curve_data *data;
-  const EC_METHOD *method;
 };
 
 /* OPENSSL_built_in_curves is terminated with an entry where |nid| is

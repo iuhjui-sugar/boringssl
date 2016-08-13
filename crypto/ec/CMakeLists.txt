@@ -13,6 +13,7 @@ add_library(
 
   OBJECT
 
+  built_in_curves.c
   ec.c
   ec_asn1.c
   ec_key.c

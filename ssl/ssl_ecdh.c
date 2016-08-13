@@ -53,7 +53,7 @@ static int ssl_ec_point_offer(SSL_ECDH_CTX *ctx, CBB *out) {
 
   int ret = 0;
   EC_POINT *public_key = NULL;
-  EC_GROUP *group = EC_GROUP_new_by_curve_name(ctx->method->nid);
+  const EC_GROUP *group = EC_GROUP_new_by_curve_name(ctx->method->nid);
   if (group == NULL) {
     goto err;
   }
@@ -75,7 +75,6 @@ static int ssl_ec_point_offer(SSL_ECDH_CTX *ctx, CBB *out) {
   ret = 1;
 
 err:
-  EC_GROUP_free(group);
   EC_POINT_free(public_key);
   BN_CTX_end(bn_ctx);
   BN_CTX_free(bn_ctx);
@@ -97,7 +96,7 @@ static int ssl_ec_point_finish(SSL_ECDH_CTX *ctx, uint8_t **out_secret,
   BN_CTX_start(bn_ctx);
 
   int ret = 0;
-  EC_GROUP *group = EC_GROUP_new_by_curve_name(ctx->method->nid);
+  const EC_GROUP *group = EC_GROUP_new_by_curve_name(ctx->method->nid);
   EC_POINT *peer_point = NULL, *result = NULL;
   uint8_t *secret = NULL;
   if (group == NULL) {
@@ -136,7 +135,6 @@ static int ssl_ec_point_finish(SSL_ECDH_CTX *ctx, uint8_t **out_secret,
   ret = 1;
 
 err:
-  EC_GROUP_free(group);
   EC_POINT_free(peer_point);
   EC_POINT_free(result);
   BN_CTX_end(bn_ctx);

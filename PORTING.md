@@ -190,6 +190,17 @@ BoringSSL is in the process of deprecating OpenSSL's `d2i` and `i2d` in favor of
 new functions using the much less error-prone `CBS` and `CBB` types.
 BoringSSL-only code should use those functions where available.
 
+### Static EC groups
+
+`EC_GROUP` in BoringSSL is static `const` object like `EVP_MD` or `EVP_CIPHER`
+rather than a heap-allocated object. There are functions like `EC_p256` to
+return a specific group. For compatibility, `EC_GROUP_dup` and `EC_GROUP_free`
+are still defined and do nothing, but there is no need to call them.
+
+The one exception is if the deprecated `EC_GROUP_new_curve_GFp` API is used to
+create arbitrary groups. These groups continue to be heap-allocated objects and
+must be managed with `EC_GROUP_dup` and `EC_GROUP_free`.
+
 
 ## Replacements for `CTRL` values
 

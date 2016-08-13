@@ -101,22 +101,25 @@ typedef enum {
 
 /* Elliptic curve groups. */
 
-/* EC_GROUP_new_by_curve_name returns a fresh EC_GROUP object for the elliptic
- * curve specified by |nid|, or NULL on error.
+/* The following functions return the supported NIST curves. */
+OPENSSL_EXPORT const EC_GROUP *EC_p224(void);
+OPENSSL_EXPORT const EC_GROUP *EC_p256(void);
+OPENSSL_EXPORT const EC_GROUP *EC_p384(void);
+OPENSSL_EXPORT const EC_GROUP *EC_p521(void);
+
+/* EC_GROUP_new_by_curve_name returns an |EC_GROUP| for the elliptic curve
+ * specified by |nid|, or NULL if no such curve is supported.
  *
  * The supported NIDs are:
  *   NID_secp224r1,
  *   NID_X9_62_prime256v1,
  *   NID_secp384r1,
- *   NID_secp521r1 */
+ *   NID_secp521r1
+ *
+ * This function returns a non-const pointer for historical reasons. The caller
+ * does not need to release the group with |EC_GROUP_free| or clone it with
+ * |EC_GROUP_dup|. */
 OPENSSL_EXPORT EC_GROUP *EC_GROUP_new_by_curve_name(int nid);
-
-/* EC_GROUP_free frees |group| and the data that it points to. */
-OPENSSL_EXPORT void EC_GROUP_free(EC_GROUP *group);
-
-/* EC_GROUP_dup returns a fresh |EC_GROUP| which is equal to |a| or NULL on
- * error. */
-OPENSSL_EXPORT EC_GROUP *EC_GROUP_dup(const EC_GROUP *a);
 
 /* EC_GROUP_cmp returns zero if |a| and |b| are the same group and non-zero
  * otherwise. */
@@ -288,7 +291,9 @@ OPENSSL_EXPORT int EC_POINT_mul(const EC_GROUP *group, EC_POINT *r,
 
 /* EC_GROUP_new_curve_GFp creates a new, arbitrary elliptic curve group based
  * on the equation y² = x³ + a·x + b. It returns the new group or NULL on
- * error.
+ * error. Unlike a built-in group, the caller must call |EC_GROUP_free| to
+ * release this group. |EC_GROUP_dup| may be used if a second instance is
+ * needed.
  *
  * This new group has no generator. It is an error to use a generator-less group
  * with any functions except for |EC_GROUP_free|, |EC_POINT_new|,
@@ -302,6 +307,14 @@ OPENSSL_EXPORT int EC_POINT_mul(const EC_GROUP *group, EC_POINT *r,
 OPENSSL_EXPORT EC_GROUP *EC_GROUP_new_curve_GFp(const BIGNUM *p,
                                                 const BIGNUM *a,
                                                 const BIGNUM *b, BN_CTX *ctx);
+
+/* EC_GROUP_free frees |group| and the data that it points to. If |group| is a
+ * built-in curve, it does nothing. */
+OPENSSL_EXPORT void EC_GROUP_free(EC_GROUP *group);
+
+/* EC_GROUP_dup returns a fresh |EC_GROUP| which is equal to |a| or NULL on
+ * error. If |a| is a built-in curve, it returns |a|. */
+OPENSSL_EXPORT EC_GROUP *EC_GROUP_dup(const EC_GROUP *a);
 
 /* EC_GROUP_set_generator sets the generator for |group| to |generator|, which
  * must have the given order and cofactor. It may only be used with |EC_GROUP|
