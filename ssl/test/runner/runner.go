@@ -5451,10 +5451,6 @@ func addSignatureAlgorithmTests() {
 			if ver.version >= VersionTLS13 && alg.id == signatureECDSAWithSHA1 {
 				shouldFail = true
 			}
-			// RSA-PSS does not exist in TLS 1.2.
-			if ver.version == VersionTLS12 && hasComponent(alg.name, "PSS") {
-				shouldFail = true
-			}
 
 			var signError, verifyError string
 			if shouldFail {
