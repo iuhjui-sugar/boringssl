@@ -168,7 +168,7 @@ EC_GROUP *EC_GROUP_new_curve_GFp(const BIGNUM *p, const BIGNUM *a,
 int EC_GROUP_set_generator(EC_GROUP *group, const EC_POINT *generator,
                            const BIGNUM *order, const BIGNUM *cofactor) {
   if (group->curve_name != NID_undef || group->generator != NULL ||
-      group->mont_data != NULL) {
+      group->order_mont != NULL) {
     /* |EC_GROUP_set_generator| may only be used with |EC_GROUP|s returned by
      * |EC_GROUP_new_curve_GFp| and may only used once on each group. */
     return 0;
@@ -185,13 +185,13 @@ int EC_GROUP_set_generator(EC_GROUP *group, const EC_POINT *generator,
     return 0;
   }
 
-  group->mont_data = BN_MONT_CTX_new();
-  int mont_ok = group->mont_data != NULL &&
-                BN_MONT_CTX_set(group->mont_data, order, ctx);
+  group->order_mont = BN_MONT_CTX_new();
+  int mont_ok = group->order_mont != NULL &&
+                BN_MONT_CTX_set(group->order_mont, order, ctx);
   BN_CTX_free(ctx);
   if (!mont_ok) {
-    BN_MONT_CTX_free(group->mont_data);
-    group->mont_data = NULL;
+    BN_MONT_CTX_free(group->order_mont);
+    group->order_mont = NULL;
     return 0;
   }
 
@@ -225,7 +225,7 @@ void EC_GROUP_free(EC_GROUP *group) {
     group->meth->group_finish(group);
   }
 
-  BN_MONT_CTX_free(group->mont_data);
+  BN_MONT_CTX_free(group->order_mont);
   EC_POINT_free(group->generator);
   BN_free(&group->order);
 
@@ -260,9 +260,9 @@ EC_GROUP *EC_GROUP_dup(const EC_GROUP *a) {
     return NULL;
   }
 
-  if (a->mont_data != NULL) {
-    ret->mont_data = bn_mont_ctx_dup(a->mont_data);
-    if (ret->mont_data == NULL) {
+  if (a->order_mont != NULL) {
+    ret->order_mont = bn_mont_ctx_dup(a->order_mont);
+    if (ret->order_mont == NULL) {
       goto err;
     }
   }

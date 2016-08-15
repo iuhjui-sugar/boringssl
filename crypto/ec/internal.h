@@ -119,7 +119,7 @@ struct ec_group_st {
 
   int curve_name; /* optional NID for named curve */
 
-  BN_MONT_CTX *mont_data; /* data for ECDSA inverse */
+  BN_MONT_CTX *order_mont; /* data for ECDSA inverse */
 
   /* The following members are handled by the method functions,
    * even if they appear generic */
