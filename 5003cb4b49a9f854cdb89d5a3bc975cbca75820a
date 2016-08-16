@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7b3733db_417bbc86",
+        "filename": "crypto/modes/ofb.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-16T18:36:39Z",
+      "side": 0,
+      "message": "There\u0027s some of these in all of crypto/modes/*.c. Might be worth replicating the experiment there too.",
+      "range": {
+        "startLine": 71,
+        "startChar": 4,
+        "endLine": 71,
+        "endChar": 20
+      },
+      "revId": "5003cb4b49a9f854cdb89d5a3bc975cbca75820a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
