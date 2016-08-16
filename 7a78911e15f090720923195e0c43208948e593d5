@@ -71,6 +71,183 @@
     },
     {
       "key": {
+        "uuid": "5bd26f19_81d71af6",
+        "filename": "crypto/ec/built_in_curves.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-08-16T21:25:16Z",
+      "side": 1,
+      "message": "I suggest `EC_GROUP_p224, etc.",
+      "parentUuid": "1b0ab75d_af2cd942",
+      "range": {
+        "startLine": 26,
+        "startChar": 16,
+        "endLine": 26,
+        "endChar": 23
+      },
+      "revId": "7a78911e15f090720923195e0c43208948e593d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5bd26f19_a1bb3eb3",
+        "filename": "crypto/ec/built_in_curves.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-08-16T21:25:16Z",
+      "side": 1,
+      "message": "It would be better to define these as `kField[P224_LIMBS]`, etc. In particular...",
+      "revId": "7a78911e15f090720923195e0c43208948e593d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5bd26f19_21f1ee98",
+        "filename": "crypto/ec/built_in_curves.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-08-16T21:25:16Z",
+      "side": 1,
+      "message": "I can see that because you are using this in a BIGNUM that you need it to only have one limb in order to have a \"correct\" top. However, I think it is worth documenting the cases where these shorter-than-Q values so that if/when the code is improved to avoid BIGNUM/bn_correct_top stuff in the future, we don\u0027t accidentally use these values expecting them to have the \"full\" number of limbs.",
+      "revId": "7a78911e15f090720923195e0c43208948e593d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5bd26f19_211e4ecd",
+        "filename": "crypto/ec/built_in_curves.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-08-16T21:25:16Z",
+      "side": 1,
+      "message": "I suggest you use `RR` to mean R**2. The field in BN_MONT_CTX is named `RR`.\n\nPresumably you are going to name the EC_GROUP fields \"field_mont\" and \"order_mont\". In that case, I recommend naming these fields similarly `kFieldMontRR`, `kFieldMont`, etc. so that the correspondence is more obvious.\n\n(For future consideration: My preference is that you use the names \"q\" and \"n\" instead of \"field\" and \"order\". \"order\" is a particularly weird name for the group order because there is a field order (`field`) and group order (`order`). If you have \"q\" and \"n\" then maybe \"field\" and \"group\" make more sense to you.)",
+      "revId": "7a78911e15f090720923195e0c43208948e593d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5bd26f19_e1de2606",
+        "filename": "crypto/ec/built_in_curves.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-08-16T21:25:16Z",
+      "side": 1,
+      "message": "If this doesn\u0027t have `P224_LIMBS` then multiplication by kOne will use the non-`bn_mont_mul` code path in `BN_mod_mul_montgomery` and maybe elsewhere. Not good, though I understand that you need this because it is a value of a `BIGNUM` field. It is good to document this caveat and also it is worth filing a follow-up issue to fix this problem.\n\nI guess this could be why the `BN_div` changes I made cause a performance regression.",
+      "revId": "7a78911e15f090720923195e0c43208948e593d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5bd26f19_81dabae3",
+        "filename": "crypto/ec/built_in_curves.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-08-16T21:25:16Z",
+      "side": 1,
+      "message": "P-256 is Montgomery friendly (n0 \u003d\u003d 1) for both 32-bit and 64-bit and so the 32-bit and 64-bit cases are exactly the same (you don\u0027t need `UINT64_C` below because the value is 1). Not sure if you want this to be clarified in the code.\n\nIt may also be worth pointing out in a comment that the nistz256 code uses the Montgomery case.",
+      "revId": "7a78911e15f090720923195e0c43208948e593d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5bd26f19_817b9aec",
+        "filename": "crypto/ec/built_in_curves.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-08-16T21:25:16Z",
+      "side": 1,
+      "message": "It\u0027s a bit confusing why you use `UINT64_C` for 1 but not for 0. I guess you maybe used some code generator for this and it didn\u0027t special case the small values?",
+      "revId": "7a78911e15f090720923195e0c43208948e593d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5bd26f19_a15fbe7b",
+        "filename": "crypto/ec/built_in_curves.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-08-16T21:25:16Z",
+      "side": 1,
+      "message": "This is dead code.",
+      "revId": "7a78911e15f090720923195e0c43208948e593d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5bd26f19_c1c20202",
+        "filename": "crypto/ec/built_in_curves.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-08-16T21:25:16Z",
+      "side": 1,
+      "message": "The 64-bit case for this is exactly the same as the 32-bit case except that the value of n0 is different. Whether this is an important thing to clarify in the code is up to you.",
+      "revId": "7a78911e15f090720923195e0c43208948e593d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5bd26f19_e19626e7",
+        "filename": "crypto/ec/built_in_curves.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 723,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-08-16T21:25:16Z",
+      "side": 1,
+      "message": "This is dead code unless ecp_nistp521 has been imported in from OpenSSL.",
+      "revId": "7a78911e15f090720923195e0c43208948e593d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1b0ab75d_cf231d4f",
         "filename": "crypto/ec/built_in_curves.c",
         "patchSetId": 1
@@ -173,6 +350,74 @@
     },
     {
       "key": {
+        "uuid": "5bd26f19_014a2a7f",
+        "filename": "crypto/ec/generate_built_in_curves.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-08-16T21:25:16Z",
+      "side": 1,
+      "message": "Although this seems correct, it isn\u0027t using the same math as `montgomery_inv.c`. It may be less confusing to people if you make the math match `montgomery_inv.c` exactly by taking the inverse (mod r) instead of (mod R).",
+      "revId": "7a78911e15f090720923195e0c43208948e593d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5bd26f19_a117be5c",
+        "filename": "crypto/ec/generate_built_in_curves.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-08-16T21:25:16Z",
+      "side": 1,
+      "message": "\"-3 (mod p)\"",
+      "revId": "7a78911e15f090720923195e0c43208948e593d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5bd26f19_011f8a72",
+        "filename": "crypto/ec/generate_built_in_curves.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-08-16T21:25:16Z",
+      "side": 1,
+      "message": "\"p\" is presumably used because the field order is prime. But, for these curves, both the field order and the group order are prime, so \"p\" is a bit ambiguous. This is why I use \"q\" for field orders, \"n\" for group orders, and \"p\" for generic primes. (This is the convention used in the NSA Guides to ECDSA and ECDH, and I might be biased towards using it since those were some of the earliest things I read when learning ECC.)",
+      "revId": "7a78911e15f090720923195e0c43208948e593d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5bd26f19_810c7a48",
+        "filename": "crypto/ec/generate_built_in_curves.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-08-16T21:25:16Z",
+      "side": 1,
+      "message": "s/order/group order/",
+      "revId": "7a78911e15f090720923195e0c43208948e593d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1b0ab75d_8f8d9533",
         "filename": "crypto/ec/generate_built_in_curves.go",
         "patchSetId": 1
@@ -184,6 +429,74 @@
       "writtenOn": "2016-08-16T19:20:11Z",
       "side": 1,
       "message": "(I think just one \"\\n\" here.)",
+      "revId": "7a78911e15f090720923195e0c43208948e593d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5bd26f19_a1009e0b",
+        "filename": "crypto/ec/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-08-16T21:25:16Z",
+      "side": 1,
+      "message": "For future consideration: (mont, mont_data) should be renamed (field_mont, order_mont) or the completely sane (q_mont, n_mont).",
+      "revId": "7a78911e15f090720923195e0c43208948e593d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5bd26f19_c11a0273",
+        "filename": "include/openssl/ec.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-08-16T21:25:16Z",
+      "side": 1,
+      "message": "But, it *can* use `EC_GROUP_free` and `EC_GROUP_dup` if it wants to, right?",
+      "revId": "7a78911e15f090720923195e0c43208948e593d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5bd26f19_0125caab",
+        "filename": "include/openssl/ec_key.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-08-16T21:25:16Z",
+      "side": 1,
+      "message": "This isn\u0027t documented to only work for built-in curves, but it seems like other parts of your patch assume and require that. I think it\u0027s worth adding that to the documentation.",
+      "revId": "7a78911e15f090720923195e0c43208948e593d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5bd26f19_2133aefa",
+        "filename": "include/openssl/ec_key.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-08-16T21:25:16Z",
+      "side": 1,
+      "message": "Ditto.",
       "revId": "7a78911e15f090720923195e0c43208948e593d5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false

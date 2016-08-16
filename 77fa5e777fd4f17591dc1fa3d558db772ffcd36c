@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5bd26f19_4144327a",
+        "filename": "crypto/ec/example_mul.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-08-16T21:25:16Z",
+      "side": 0,
+      "message": "IMO, you should still keep this since in general `..._new_...` should be paired with `..._free`.",
+      "revId": "77fa5e777fd4f17591dc1fa3d558db772ffcd36c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5bd26f19_410fd235",
+        "filename": "crypto/evp/p_ec_asn1.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-08-16T21:25:16Z",
+      "side": 0,
+      "message": "It seems brittle to me that this code would only work for built-in curves that don\u0027t need the group to be freed. Maybe it is worth keeping the `EC_GROUP_free` in case the code is changed later to work for arbitrary curves because some third-party thing requires it to support some weird curve (probably P-192)?",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 2
+      },
+      "revId": "77fa5e777fd4f17591dc1fa3d558db772ffcd36c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
