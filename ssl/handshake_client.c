@@ -851,6 +851,9 @@ static int ssl3_get_server_hello(SSL *ssl) {
     return 1;
   }
 
+  /* No need to retain TLS 1.3 key shares. */
+  ssl_handshake_clear_groups(ssl->s3->hs);
+
   if (ssl->s3->tmp.message_type != SSL3_MT_SERVER_HELLO) {
     ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_UNEXPECTED_MESSAGE);
     OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_MESSAGE);
