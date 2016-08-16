@@ -22,6 +22,24 @@
       "revId": "aa24851515d6280aa1d6a8b1548fe74691df3136",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b3733db_01f014f7",
+        "filename": "crypto/dh/dh.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-16T18:57:21Z",
+      "side": 1,
+      "message": "Looks like it used to do BN_rand_range(p) (shouldn\u0027t it be BN_rand_range(p-1)?), and then was changed here:\nhttps://git.openssl.org/gitweb/?p\u003dopenssl.git;a\u003dcommitdiff;h\u003d6aecef815c3c989f6fa2a7b6edf2984e76306622\n\nIt doesn\u0027t say anything about the top bit. I could believe worrying about bn_correct_top or, probably more likely, just passing in 0s and not realizing BN_rand\u0027s API was silly.",
+      "parentUuid": "dec3ad20_2d20cd4d",
+      "revId": "aa24851515d6280aa1d6a8b1548fe74691df3136",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
