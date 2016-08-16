@@ -353,6 +353,9 @@ type testCase struct {
 	// sendWarningAlerts is the number of consecutive warning alerts to send
 	// before and after the test message.
 	sendWarningAlerts int
+	// sendKeyUpdates is the number of consecutive key updates to send
+	// before and after the test message.
+	sendKeyUpdates int
 	// expectMessageDropped, if true, means the test message is expected to
 	// be dropped by the client rather than echoed back.
 	expectMessageDropped bool
@@ -589,6 +592,10 @@ func doExchange(test *testCase, config *Config, conn net.Conn, isResume bool) er
 		}
 	}
 
+	for i := 0; i < test.sendKeyUpdates; i++ {
+		tlsConn.SendKeyUpdate()
+	}
+
 	for i := 0; i < test.sendEmptyRecords; i++ {
 		tlsConn.Write(nil)
 	}
@@ -644,6 +651,10 @@ func doExchange(test *testCase, config *Config, conn net.Conn, isResume bool) er
 			testMessage[i] = 0x42 ^ byte(j)
 		}
 		tlsConn.Write(testMessage)
+
+		for i := 0; i < test.sendKeyUpdates; i++ {
+			tlsConn.SendKeyUpdate()
+		}
 
 		for i := 0; i < test.sendEmptyRecords; i++ {
 			tlsConn.Write(nil)
@@ -2000,6 +2011,15 @@ func addBasicTests() {
 			flags:             []string{"-async"},
 			shouldFail:        true,
 			expectedError:     ":TOO_MANY_WARNING_ALERTS:",
+		},
+		{
+			name: "SendKeyUpdates",
+			config: Config{
+				MaxVersion: VersionTLS13,
+			},
+			sendKeyUpdates: 33,
+			shouldFail:     true,
+			expectedError:  ":TOO_MANY_KEY_UPDATES:",
 		},
 		{
 			name: "EmptySessionID",
