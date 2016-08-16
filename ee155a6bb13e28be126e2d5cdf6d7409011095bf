@@ -1,0 +1,225 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7b3733db_c1968ce7",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 35
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-16T18:29:04Z",
+      "side": 1,
+      "message": "[Later we should maybe remove this reliance on the fake SHA-256 session ID and instead just send \"0\" for the ticket signaling session ID or something. Eh, whatever.]",
+      "revId": "ee155a6bb13e28be126e2d5cdf6d7409011095bf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b3733db_a19388f5",
+        "filename": "ssl/internal.h",
+        "patchSetId": 35
+      },
+      "lineNbr": 1283,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-16T18:29:04Z",
+      "side": 1,
+      "message": "Nit: 0x for flags just so it\u0027s vaguely clearer they\u0027re not an enum. I\u0027d actually do something like:\n\nAlso add a #define for 0.\n\n/* The following flags determine which parts of the session are duplicated. */\n#define SSL_SESSION_DUP_AUTH_ONLY 0x0\n#define SSL_SESSION_INCLUDE_TICKET 0x1\n#define SSL_SESSION_INCLUDE_NONAUTH 0x2\n#define SSL_SESSION_DUP_ALL \\\n  (SSL_SESSION_INCLUDE_TICKET | SSL_SESSION_INCLUDE_NONAUTH)",
+      "revId": "ee155a6bb13e28be126e2d5cdf6d7409011095bf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b3733db_8156443c",
+        "filename": "ssl/internal.h",
+        "patchSetId": 35
+      },
+      "lineNbr": 1284,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-16T18:29:04Z",
+      "side": 1,
+      "message": "Not a huge fan of the name \u0027NONAUTH\u0027, though I don\u0027t have a better suggestion. :-/ I\u0027ve been saying \u0027connection property\u0027, but it\u0027s wordy. OTHER?",
+      "revId": "ee155a6bb13e28be126e2d5cdf6d7409011095bf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b3733db_21655818",
+        "filename": "ssl/ssl_session.c",
+        "patchSetId": 35
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-16T18:29:04Z",
+      "side": 1,
+      "message": "NONAUTH?",
+      "revId": "ee155a6bb13e28be126e2d5cdf6d7409011095bf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b3733db_016a54e6",
+        "filename": "ssl/ssl_session.c",
+        "patchSetId": 35
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-16T18:29:04Z",
+      "side": 1,
+      "message": "NONAUTH?",
+      "revId": "ee155a6bb13e28be126e2d5cdf6d7409011095bf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b3733db_e1663022",
+        "filename": "ssl/ssl_session.c",
+        "patchSetId": 35
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-16T18:29:04Z",
+      "side": 1,
+      "message": "Not super happy that this and ssl_version need to be set where and not in ssl3_get_new_session. It silently relies on the fact that we correctly do the version and sid_ctx check before resuming a session.\n\nReally the TLS 1.3 code shouldn\u0027t use a SSL_SESSION_dup because, fundamentally, that\u0027s not what\u0027s going on in TLS 1.3. It should be an SSL_SESSION_copy_auth(SSL_SESSION *dst, const SSL_SESSION *src) or something. But since we have to have SSL_SESSION_dup, it\u0027s probably worth it for now to keep it all in one place.",
+      "revId": "ee155a6bb13e28be126e2d5cdf6d7409011095bf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b3733db_615b6064",
+        "filename": "ssl/ssl_session.c",
+        "patchSetId": 35
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-16T18:29:04Z",
+      "side": 1,
+      "message": "NOAUTH?\n\nI guess that\u0027ll require tweaks to the handshake logic. Maybe do a dup(AUTH_ONLY) and then explicitly stash the cipher with a comment like:\n\n/* Stash the cipher so it can be checked later on in ClientHello processing. */\n\nJust so that when it says AUTH_ONLY it is actually AUTH_ONLY and the fact that we do something funny with the cipher is more explicit.",
+      "revId": "ee155a6bb13e28be126e2d5cdf6d7409011095bf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b3733db_41605c08",
+        "filename": "ssl/ssl_session.c",
+        "patchSetId": 35
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-16T18:29:04Z",
+      "side": 1,
+      "message": "Nit: Strange place for the comment now that it\u0027s not in any order. Beginning or end of function?",
+      "revId": "ee155a6bb13e28be126e2d5cdf6d7409011095bf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b3733db_e143d04c",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 35
+      },
+      "lineNbr": 1434,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-16T18:29:04Z",
+      "side": 1,
+      "message": "Hrm. If we ever do cert reauth, this will need tweaking. Ah well. I don\u0027t have a good answer for right now.\n\nPart of the problem is the RFC did not say that the server MUST NOT send it on resumption but it should have. And so it\u0027s unclear how it carries over to TLS 1.3.",
+      "revId": "ee155a6bb13e28be126e2d5cdf6d7409011095bf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b3733db_0147f45c",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 35
+      },
+      "lineNbr": 1206,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-16T18:29:04Z",
+      "side": 1,
+      "message": "Stray debug line?\n\n(Though if you want, you could make it print out the actual and expected verify results. Note that verify_result is a long, so it\u0027s ld, not zu.)",
+      "revId": "ee155a6bb13e28be126e2d5cdf6d7409011095bf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b3733db_2132f8f2",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 35
+      },
+      "lineNbr": 3814,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-16T18:29:04Z",
+      "side": 1,
+      "message": "One more set of tests to enable. (The if resume check below.)",
+      "revId": "ee155a6bb13e28be126e2d5cdf6d7409011095bf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b3733db_c1732ce2",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 35
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-16T18:29:04Z",
+      "side": 1,
+      "message": "I think this wants a short comment for why we\u0027re not duplicating most of the session. Maybe something like:\n\n/* Only authentication information carries over in TLS 1.3. */",
+      "revId": "ee155a6bb13e28be126e2d5cdf6d7409011095bf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b3733db_613800d3",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 35
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-16T18:29:04Z",
+      "side": 1,
+      "message": "Ditto on wanting a comment like:\n\n/* Only authentication information carries over in TLS 1.3. */",
+      "revId": "ee155a6bb13e28be126e2d5cdf6d7409011095bf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
