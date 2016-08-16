@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7b3733db_61b920de",
+        "filename": "ssl/ssl_session.c",
+        "patchSetId": 36
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-16T20:00:50Z",
+      "side": 1,
+      "message": "Bleh. Okay, fine, I think I agree we\u0027re probably better off just copying that rather than finding somewhere else to stash it. In which case, we should probably copy the cipher too. Will go make that change and land this.",
+      "revId": "5f1f2fdf39d34d45a9c7928f702456794680bd95",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
