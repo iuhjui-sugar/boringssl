@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7b3733db_41a3bc45",
+        "filename": "ssl/ssl_session.c",
+        "patchSetId": 34
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-16T18:29:04Z",
+      "side": 1,
+      "message": "SCT lists are auth state.",
+      "revId": "681748ce93f7e52a07e25963725d303849749bb6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
