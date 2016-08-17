@@ -3118,19 +3118,52 @@ func addStateMachineCoverageTests(config stateMachineTestConfig) {
 	})
 
 	// TLS 1.3 basic handshake shapes.
-	tests = append(tests, testCase{
-		name: "TLS13-1RTT-Client",
-		config: Config{
-			MaxVersion: VersionTLS13,
-		},
-	})
-	tests = append(tests, testCase{
-		testType: serverTest,
-		name:     "TLS13-1RTT-Server",
-		config: Config{
-			MaxVersion: VersionTLS13,
-		},
-	})
+	if config.protocol == tls {
+		tests = append(tests, testCase{
+			name: "TLS13-1RTT-Client",
+			config: Config{
+				MaxVersion: VersionTLS13,
+				MinVersion: VersionTLS13,
+			},
+			resumeSession:        true,
+		})
+
+		tests = append(tests, testCase{
+			testType: serverTest,
+			name:     "TLS13-1RTT-Server",
+			config: Config{
+				MaxVersion: VersionTLS13,
+				MinVersion: VersionTLS13,
+			},
+			resumeSession:        true,
+		})
+
+		tests = append(tests, testCase{
+			name: "TLS13-HelloRetryRequest-Client",
+			config: Config{
+				MaxVersion: VersionTLS13,
+				MinVersion: VersionTLS13,
+				// P-384 requires a HelloRetryRequest against
+				// BoringSSL's default configuration.
+				CurvePreferences: []CurveID{CurveP384},
+			},
+			// Cover HelloRetryRequest during an ECDHE-PSK resumption.
+			resumeSession: true,
+		})
+
+		tests = append(tests, testCase{
+			testType: serverTest,
+			name:     "TLS13-HelloRetryRequest-Server",
+			config: Config{
+				MaxVersion: VersionTLS13,
+				MinVersion: VersionTLS13,
+				// Require a HelloRetryRequest for every curve.
+				DefaultCurves: []CurveID{},
+			},
+			// Cover HelloRetryRequest during an ECDHE-PSK resumption.
+			resumeSession: true,
+		})
+	}
 
 	// TLS client auth.
 	tests = append(tests, testCase{

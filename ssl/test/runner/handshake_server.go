@@ -451,6 +451,7 @@ Curves:
 			}
 			hs.writeServerHash(helloRetryRequestMsg.marshal())
 			c.writeRecord(recordTypeHandshake, helloRetryRequestMsg.marshal())
+			c.flushHandshake()
 
 			// Read new ClientHello.
 			newMsg, err := c.readHandshake()
