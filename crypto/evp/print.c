@@ -479,8 +479,7 @@ static EVP_PKEY_PRINT_METHOD kPrintMethods[] = {
     },
 };
 
-static size_t kPrintMethodsLen =
-    sizeof(kPrintMethods) / sizeof(kPrintMethods[0]);
+static size_t kPrintMethodsLen = OPENSSL_ARRAY_SIZE(kPrintMethods);
 
 static EVP_PKEY_PRINT_METHOD *find_method(int type) {
   size_t i;
