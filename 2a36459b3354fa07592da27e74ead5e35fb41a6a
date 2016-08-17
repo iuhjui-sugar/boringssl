@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "db8bbf31_13a9b425",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-08-17T20:52:10Z",
+      "side": 1,
+      "message": "I\u0027m having trouble parsing this",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 56
+      },
+      "revId": "2a36459b3354fa07592da27e74ead5e35fb41a6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "db8bbf31_9c55b1cf",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-08-17T20:52:10Z",
+      "side": 1,
+      "message": "Why not a resumeCount int (to replace both resumeSession and resumeRenewedSession)?",
+      "revId": "2a36459b3354fa07592da27e74ead5e35fb41a6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

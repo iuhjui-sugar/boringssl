@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "db8bbf31_3c703d73",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 2100,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-08-17T20:52:10Z",
+      "side": 0,
+      "message": "I don\u0027t follow why these are being removed here.",
+      "revId": "acf7510709e8aac6f62cf9dec0474cddb9aecfb7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
