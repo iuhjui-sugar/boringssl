@@ -327,7 +327,7 @@ void tls1_get_grouplist(SSL *ssl, int get_peer_groups,
   *out_group_ids_len = ssl->supported_group_list_len;
   if (!*out_group_ids) {
     *out_group_ids = kDefaultGroups;
-    *out_group_ids_len = sizeof(kDefaultGroups) / sizeof(kDefaultGroups[0]);
+    *out_group_ids_len = OPENSSL_ARRAY_SIZE(kDefaultGroups);
   }
 }
 
@@ -552,13 +552,11 @@ size_t tls12_get_psigalgs(SSL *ssl, const uint16_t **psigs) {
 
   if (version >= TLS1_3_VERSION) {
     *psigs = kDefaultTLS13SignatureAlgorithms;
-    return sizeof(kDefaultTLS13SignatureAlgorithms) /
-           sizeof(kDefaultTLS13SignatureAlgorithms[0]);
+    return OPENSSL_ARRAY_SIZE(kDefaultTLS13SignatureAlgorithms);
   }
 
   *psigs = kDefaultSignatureAlgorithms;
-  return sizeof(kDefaultSignatureAlgorithms) /
-         sizeof(kDefaultSignatureAlgorithms[0]);
+  return OPENSSL_ARRAY_SIZE(kDefaultSignatureAlgorithms);
 }
 
 int tls12_check_peer_sigalg(SSL *ssl, int *out_alert, uint16_t sigalg) {
@@ -3069,8 +3067,7 @@ int tls1_choose_signature_algorithm(SSL *ssl, uint16_t *out) {
     static const uint16_t kDefaultPeerAlgorithms[] = {SSL_SIGN_RSA_PKCS1_SHA1,
                                                       SSL_SIGN_ECDSA_SHA1};
     peer_sigalgs = kDefaultPeerAlgorithms;
-    peer_sigalgs_len =
-        sizeof(kDefaultPeerAlgorithms) / sizeof(kDefaultPeerAlgorithms);
+    peer_sigalgs_len = OPENSSL_ARRAY_SIZE(kDefaultPeerAlgorithms);
   }
 
   for (i = 0; i < sigalgs_len; i++) {
