@@ -1395,8 +1395,7 @@ static bool DoExchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
     static const int kAllCurves[] = {
       NID_X9_62_prime256v1, NID_secp384r1, NID_secp521r1, NID_X25519,
     };
-    if (!SSL_set1_curves(ssl.get(), kAllCurves,
-                         sizeof(kAllCurves) / sizeof(kAllCurves[0]))) {
+    if (!SSL_set1_curves(ssl.get(), kAllCurves, ARRAY_SIZE(kAllCurves))) {
       return false;
     }
   }
@@ -1535,8 +1534,7 @@ static bool DoExchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
     memset(buf.get(), 0x42, kBufLen);
     static const size_t kRecordSizes[] = {
         0, 1, 255, 256, 257, 16383, 16384, 16385, 32767, 32768, 32769};
-    for (size_t i = 0; i < sizeof(kRecordSizes) / sizeof(kRecordSizes[0]);
-         i++) {
+    for (size_t i = 0; i < ARRAY_SIZE(kRecordSizes); i++) {
       const size_t len = kRecordSizes[i];
       if (len > kBufLen) {
         fprintf(stderr, "Bad kRecordSizes value.\n");

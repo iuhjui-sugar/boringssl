@@ -252,7 +252,7 @@ int main(void) {
 
   CRYPTO_library_init();
 
-  for (i = 0; i < sizeof(kTests) / sizeof(kTests[0]); i++) {
+  for (i = 0; i < ARRAY_SIZE(kTests); i++) {
     const hkdf_test_vector_t *test = &kTests[i];
     if (!HKDF_extract(prk, &prk_len, test->md_func(), test->ikm, test->ikm_len,
                       test->salt, test->salt_len)) {
