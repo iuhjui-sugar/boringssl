@@ -98,7 +98,7 @@ static const TestVector kTestVectors[] = {
      "=======\n"},
 };
 
-static const size_t kNumTests = sizeof(kTestVectors) / sizeof(kTestVectors[0]);
+static const size_t kNumTests = OPENSSL_ARRAY_SIZE(kTestVectors);
 
 // RemoveNewlines returns a copy of |in| with all '\n' characters removed.
 static std::string RemoveNewlines(const char *in) {
