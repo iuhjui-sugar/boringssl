@@ -906,6 +906,13 @@ struct ssl_handshake_st {
   uint8_t *public_key;
   size_t public_key_len;
 
+  /* peer_sigalgs are the signature algorithms that the peer supports. These are
+   * taken from the contents of signature algorithms extension for a server or
+   * from the CertificateRequest for a client. */
+  uint16_t *peer_sigalgs;
+  /* peer_sigalgslen is the number of entries in |peer_sigalgs|. */
+  size_t peer_sigalgslen;
+
   uint8_t *cert_context;
   size_t cert_context_len;
 
@@ -1032,15 +1039,8 @@ typedef struct cert_st {
   DH *dh_tmp;
   DH *(*dh_tmp_cb)(SSL *ssl, int is_export, int keysize);
 
-  /* peer_sigalgs are the algorithm/hash pairs that the peer supports. These
-   * are taken from the contents of signature algorithms extension for a server
-   * or from the CertificateRequest for a client. */
-  uint16_t *peer_sigalgs;
-  /* peer_sigalgslen is the number of entries in |peer_sigalgs|. */
-  size_t peer_sigalgslen;
-
-  /* sigalgs, if non-NULL, is the set of digests supported by |privatekey| in
-   * decreasing order of preference. */
+  /* sigalgs, if non-NULL, is the set of signature algorithms supported by
+   * |privatekey| in decreasing order of preference. */
   uint16_t *sigalgs;
   size_t sigalgs_len;
 
