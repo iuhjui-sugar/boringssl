@@ -686,7 +686,7 @@ static const SSL_CIPHER kCiphers[] = {
 
 };
 
-static const size_t kCiphersLen = sizeof(kCiphers) / sizeof(kCiphers[0]);
+static const size_t kCiphersLen = SSL_ARRAY_SIZE(kCiphers);
 
 #define CIPHER_ADD 1
 #define CIPHER_KILL 2
@@ -786,8 +786,7 @@ static const CIPHER_ALIAS kCipherAliases[] = {
     {"FIPS", ~SSL_kCECPQ1, ~0u, ~(SSL_eNULL|SSL_RC4), ~0u, 0},
 };
 
-static const size_t kCipherAliasesLen =
-    sizeof(kCipherAliases) / sizeof(kCipherAliases[0]);
+static const size_t kCipherAliasesLen = SSL_ARRAY_SIZE(kCipherAliases);
 
 static int ssl_cipher_id_cmp(const void *in_a, const void *in_b) {
   const SSL_CIPHER *a = in_a;

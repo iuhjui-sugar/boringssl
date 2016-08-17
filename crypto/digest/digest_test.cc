@@ -247,7 +247,7 @@ static int TestGetters() {
 static int Main() {
   CRYPTO_library_init();
 
-  for (size_t i = 0; i < sizeof(kTestVectors) / sizeof(kTestVectors[0]); i++) {
+  for (size_t i = 0; i < SSL_ARRAY_SIZE(kTestVectors); i++) {
     if (!TestDigest(&kTestVectors[i])) {
       fprintf(stderr, "Test %d failed\n", (int)i);
       return 1;
