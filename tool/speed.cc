@@ -319,7 +319,7 @@ static bool SpeedECDHCurve(const std::string &name, int nid,
           return false;
         }
         const EC_GROUP *const group = EC_KEY_get0_group(key.get());
-        ScopedEC_POINT point(EC_POINT_new(group));
+        bssl::unique_ptr<EC_POINT> point = bssl::make_unique<EC_POINT>(group);
         ScopedBN_CTX ctx(BN_CTX_new());
 
         ScopedBIGNUM x(BN_new());

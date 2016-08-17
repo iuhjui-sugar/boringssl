@@ -109,7 +109,6 @@ using ScopedDH = ScopedOpenSSLType<DH, DH_free>;
 using ScopedECDSA_SIG = ScopedOpenSSLType<ECDSA_SIG, ECDSA_SIG_free>;
 using ScopedEC_GROUP = ScopedOpenSSLType<EC_GROUP, EC_GROUP_free>;
 using ScopedEC_KEY = ScopedOpenSSLType<EC_KEY, EC_KEY_free>;
-using ScopedEC_POINT = ScopedOpenSSLType<EC_POINT, EC_POINT_free>;
 using ScopedEVP_PKEY = ScopedOpenSSLType<EVP_PKEY, EVP_PKEY_free>;
 using ScopedEVP_PKEY_CTX = ScopedOpenSSLType<EVP_PKEY_CTX, EVP_PKEY_CTX_free>;
 using ScopedNEWHOPE_POLY = ScopedOpenSSLType<NEWHOPE_POLY, NEWHOPE_POLY_free>;

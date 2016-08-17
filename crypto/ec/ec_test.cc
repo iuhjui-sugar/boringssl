@@ -276,8 +276,8 @@ static bool TestSetAffine(const int nid) {
     return false;
   }
 
-  ScopedEC_POINT point(EC_POINT_new(group));
-  if (!point) {
+  auto point = bssl::make_unique<EC_POINT>(group);
+  if (point == nullptr) {
     return false;
   }
 
@@ -294,8 +294,8 @@ static bool TestSetAffine(const int nid) {
     return false;
   }
 
-  ScopedEC_POINT invalid_point(EC_POINT_new(group));
-  if (!invalid_point) {
+  auto invalid_point = bssl::make_unique<EC_POINT>(group);
+  if (invalid_point == nullptr) {
     return false;
   }
 
@@ -368,7 +368,7 @@ static bool TestArbitraryCurve() {
   if (!group) {
     return false;
   }
-  ScopedEC_POINT generator(EC_POINT_new(group.get()));
+  auto generator = bssl::make_unique<EC_POINT>(group.get());
   if (!generator ||
       !EC_POINT_set_affine_coordinates_GFp(group.get(), generator.get(),
                                            gx.get(), gy.get(), ctx.get()) ||
@@ -384,7 +384,7 @@ static bool TestArbitraryCurve() {
 
   // Copy |key| to |key2| using |group|.
   ScopedEC_KEY key2(EC_KEY_new());
-  ScopedEC_POINT point(EC_POINT_new(group.get()));
+  auto point = bssl::make_unique<EC_POINT>(group.get());
   ScopedBIGNUM x(BN_new()), y(BN_new());
   if (!key2 || !point || !x || !y ||
       !EC_KEY_set_group(key2.get(), group.get()) ||
@@ -422,10 +422,10 @@ static bool TestAddingEqualPoints(int nid) {
     return false;
   }
 
-  ScopedEC_POINT p1(EC_POINT_new(group));
-  ScopedEC_POINT p2(EC_POINT_new(group));
-  ScopedEC_POINT double_p1(EC_POINT_new(group));
-  ScopedEC_POINT p1_plus_p2(EC_POINT_new(group));
+  auto p1 = bssl::make_unique<EC_POINT>(group);
+  auto p2 = bssl::unique_ptr<EC_POINT>(EC_POINT_new(group));
+  auto double_p1 = bssl::make_unique<EC_POINT>(group);
+  auto p1_plus_p2 = bssl::make_unique<EC_POINT>(group);
   if (!p1 || !p2 || !double_p1 || !p1_plus_p2) {
     return false;
   }

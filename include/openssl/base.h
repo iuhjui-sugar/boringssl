@@ -297,6 +297,54 @@ typedef void *OPENSSL_BLOCK;
 
 #if defined(__cplusplus)
 }  /* extern C */
+
+extern "C++" {
+
+#include <assert.h>  // For assert().
+#include <memory>    // For std::unique_ptr
+
+namespace bssl {
+
+namespace internal {
+
+template <typename T>
+struct Tag {
+  using type = T;
+};
+
+void Free(EC_POINT* ptr);
+EC_POINT* Make(Tag<EC_POINT>, const EC_GROUP* group);
+
+}  // namespace internal
+
+template <typename... Ts> using void_t = void;
+
+// A custom deleter to be used with BoringSSL structs and std::unique_ptr.
+// The alias bssl::unique_ptr<T> should be preferred to direct use of
+// std::unique_ptr<T, Deleter<T>>.
+template <typename T, typename = void> struct Deleter;  // rejected
+template <typename T> struct Deleter<
+    T, void_t<decltype(internal::Free(std::declval<T*>()))>> {
+  void operator()(T* ptr) const { internal::Free(ptr); }
+};
+
+// Holds ownership of heap-allocated BoringSSL structures. Sample usage:
+//   auto rsa = bssl::make_unique<RSA>();   // Preferred for 0-arg *_new
+//   bssl::unique_ptr<BIO> rsa(RSA_new());  // Less preferred.
+//   bssl::unique_ptr<BIO> bio(BIO_new(BIO_s_mem()));
+template <typename T>
+using unique_ptr = std::unique_ptr<T, Deleter<T>>;
+template <typename T, typename... A>
+unique_ptr<T> make_unique(A&&... a) {
+  T* ptr = internal::Make(internal::Tag<T>{}, std::forward<A>(a)...);
+  assert(ptr != nullptr);
+  return unique_ptr<T>(ptr);
+}
+
+}  // namespace bssl
+
+}  // extern C++
+
 #endif
 
 #endif  /* OPENSSL_HEADER_BASE_H */
