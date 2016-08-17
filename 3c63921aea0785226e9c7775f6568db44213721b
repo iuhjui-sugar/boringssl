@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "db8bbf31_e7145ea1",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5885
+      },
+      "writtenOn": "2016-08-17T21:15:25Z",
+      "side": 1,
+      "message": "This should be:\n\n    (sizeof(array) / sizeof((array)[0]))",
+      "range": {
+        "startLine": 173,
+        "startChar": 30,
+        "endLine": 173,
+        "endChar": 62
+      },
+      "revId": "3c63921aea0785226e9c7775f6568db44213721b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
