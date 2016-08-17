@@ -451,6 +451,7 @@ Curves:
 			}
 			hs.writeServerHash(helloRetryRequestMsg.marshal())
 			c.writeRecord(recordTypeHandshake, helloRetryRequestMsg.marshal())
+			c.flushHandshake()
 
 			// Read new ClientHello.
 			newMsg, err := c.readHandshake()
@@ -488,6 +489,8 @@ Curves:
 			}
 
 			selectedKeyShare = &newKeyShares[len(newKeyShares)-1]
+		} else if config.Bugs.ExpectMissingKeyShare {
+			return errors.New("tls: expected missing key share")
 		}
 
 		// Once a curve has been selected and a key share identified,
