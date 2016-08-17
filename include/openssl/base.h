@@ -170,6 +170,7 @@ extern "C" {
 #define OPENSSL_MSVC_PRAGMA(arg)
 #endif
 
+#define SSL_ARRAY_SIZE(array) sizeof(array) / sizeof(array[0])
 
 /* CRYPTO_THREADID is a dummy value. */
 typedef int CRYPTO_THREADID;

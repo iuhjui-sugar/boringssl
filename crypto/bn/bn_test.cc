@@ -868,7 +868,7 @@ static const MPITest kMPITests[] = {
 static bool TestMPI() {
   uint8_t scratch[8];
 
-  for (size_t i = 0; i < sizeof(kMPITests) / sizeof(kMPITests[0]); i++) {
+  for (size_t i = 0; i < SSL_ARRAY_SIZE(kMPITests); i++) {
     const MPITest &test = kMPITests[i];
     ScopedBIGNUM bn(ASCIIToBIGNUM(test.base10));
     const size_t mpi_len = BN_bn2mpi(bn.get(), NULL);
