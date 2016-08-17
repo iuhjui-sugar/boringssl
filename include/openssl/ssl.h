@@ -921,6 +921,14 @@ OPENSSL_EXPORT int SSL_CTX_set_ocsp_response(SSL_CTX *ctx,
  * before TLS 1.2. */
 #define SSL_SIGN_RSA_PKCS1_MD5_SHA1 0xff01
 
+/* SSL_CTX_set_signing_algorithm_prefs configures |ssl| to use |prefs| as the
+ * preference list when signing with |ssl|'s private key. It returns one on
+ * success and zero on error. |prefs| should not include the internal-only value
+ * |SSL_SIGN_RSA_PKCS1_MD5_SHA1|. */
+OPENSSL_EXPORT int SSL_CTX_set_signing_algorithm_prefs(SSL_CTX *ctx,
+                                                       const uint16_t *prefs,
+                                                       size_t prefs_len);
+
 /* SSL_set_signing_algorithm_prefs configures |ssl| to use |prefs| as the
  * preference list when signing with |ssl|'s private key. It returns one on
  * success and zero on error. |prefs| should not include the internal-only value

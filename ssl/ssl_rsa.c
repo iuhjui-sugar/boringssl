@@ -336,17 +336,28 @@ void SSL_CTX_set_private_key_method(SSL_CTX *ctx,
   ctx->cert->key_method = key_method;
 }
 
-int SSL_set_signing_algorithm_prefs(SSL *ssl, const uint16_t *prefs,
-                                    size_t prefs_len) {
-  ssl->cert->sigalgs_len = 0;
-  ssl->cert->sigalgs = BUF_memdup(prefs, prefs_len * sizeof(prefs[0]));
-  if (ssl->cert->sigalgs == NULL) {
+static int set_signing_algorithm_prefs(CERT *cert, const uint16_t *prefs,
+                                       size_t prefs_len) {
+  cert->sigalgs_len = 0;
+  cert->sigalgs = BUF_memdup(prefs, prefs_len * sizeof(prefs[0]));
+  if (cert->sigalgs == NULL) {
     OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
     return 0;
   }
-  ssl->cert->sigalgs_len = prefs_len;
+  cert->sigalgs_len = prefs_len;
 
   return 1;
+}
+
+int SSL_CTX_set_signing_algorithm_prefs(SSL_CTX *ctx, const uint16_t *prefs,
+                                        size_t prefs_len) {
+  return set_signing_algorithm_prefs(ctx->cert, prefs, prefs_len);
+}
+
+
+int SSL_set_signing_algorithm_prefs(SSL *ssl, const uint16_t *prefs,
+                                    size_t prefs_len) {
+  return set_signing_algorithm_prefs(ssl->cert, prefs, prefs_len);
 }
 
 OPENSSL_COMPILE_ASSERT(sizeof(int) >= 2 * sizeof(uint16_t),
