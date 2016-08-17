@@ -294,6 +294,9 @@ type testCase struct {
 	// resumeSession controls whether a second connection should be tested
 	// which attempts to resume the first session.
 	resumeSession bool
+	// resumeRenewedSession controls whether a third connection should be
+	// tested which attempts to resume the second connection's session.
+	resumeRenewedSession bool
 	// expectResumeRejected, if true, specifies that the attempted
 	// resumption must be rejected by the client. This is only valid for a
 	// serverTest.
@@ -820,8 +823,16 @@ func runTest(test *testCase, shimPath string, mallocNumToFail int64) error {
 		flags = append(flags, "-dtls")
 	}
 
+	var resumeCount int
 	if test.resumeSession {
-		flags = append(flags, "-resume")
+		resumeCount++
+		if test.resumeRenewedSession {
+			resumeCount++
+		}
+	}
+
+	if resumeCount > 0 {
+		flags = append(flags, "-resume-count", strconv.Itoa(resumeCount))
 	}
 
 	if test.shimWritesFirst {
@@ -887,7 +898,7 @@ func runTest(test *testCase, shimPath string, mallocNumToFail int64) error {
 		conn.Close()
 	}
 
-	if err == nil && test.resumeSession {
+	for i := 0; err == nil && i < resumeCount; i++ {
 		var resumeConfig Config
 		if test.resumeConfig != nil {
 			resumeConfig = *test.resumeConfig
@@ -2095,9 +2106,7 @@ func addBasicTests() {
 					FailIfSessionOffered:   true,
 				},
 			},
-			flags:                []string{"-expect-no-session"},
-			resumeSession:        true,
-			expectResumeRejected: true,
+			flags: []string{"-expect-no-session"},
 		},
 		{
 			name:        "BadHelloRequest-1",
@@ -3059,8 +3068,9 @@ func addStateMachineCoverageTests(config stateMachineTestConfig) {
 				RenewTicketOnResume: true,
 			},
 		},
-		flags:         []string{"-expect-ticket-renewal"},
-		resumeSession: true,
+		flags:                []string{"-expect-ticket-renewal"},
+		resumeSession:        true,
+		resumeRenewedSession: true,
 	})
 	tests = append(tests, testCase{
 		name: "Basic-Client-NoTicket",
@@ -3126,6 +3136,7 @@ func addStateMachineCoverageTests(config stateMachineTestConfig) {
 				MinVersion: VersionTLS13,
 			},
 			resumeSession:        true,
+			resumeRenewedSession: true,
 		})
 
 		tests = append(tests, testCase{
@@ -3136,6 +3147,7 @@ func addStateMachineCoverageTests(config stateMachineTestConfig) {
 				MinVersion: VersionTLS13,
 			},
 			resumeSession:        true,
+			resumeRenewedSession: true,
 		})
 
 		tests = append(tests, testCase{
