@@ -1127,9 +1127,9 @@ static int ext_sigalgs_add_clienthello(SSL *ssl, CBB *out) {
 
 static int ext_sigalgs_parse_clienthello(SSL *ssl, uint8_t *out_alert,
                                          CBS *contents) {
-  OPENSSL_free(ssl->cert->peer_sigalgs);
-  ssl->cert->peer_sigalgs = NULL;
-  ssl->cert->peer_sigalgslen = 0;
+  OPENSSL_free(ssl->s3->hs->peer_sigalgs);
+  ssl->s3->hs->peer_sigalgs = NULL;
+  ssl->s3->hs->peer_sigalgslen = 0;
 
   if (contents == NULL) {
     return 1;
@@ -2994,13 +2994,12 @@ int tls1_parse_peer_sigalgs(SSL *ssl, const CBS *in_sigalgs) {
     return 1;
   }
 
-  CERT *const cert = ssl->cert;
-  OPENSSL_free(cert->peer_sigalgs);
-  cert->peer_sigalgs = NULL;
-  cert->peer_sigalgslen = 0;
+  SSL_HANDSHAKE *hs = ssl->s3->hs;
+  OPENSSL_free(hs->peer_sigalgs);
+  hs->peer_sigalgs = NULL;
+  hs->peer_sigalgslen = 0;
 
   size_t num_sigalgs = CBS_len(in_sigalgs);
-
   if (num_sigalgs % 2 != 0) {
     return 0;
   }
@@ -3014,18 +3013,16 @@ int tls1_parse_peer_sigalgs(SSL *ssl, const CBS *in_sigalgs) {
 
   /* This multiplication doesn't overflow because sizeof(uint16_t) is two
    * and we just divided |num_sigalgs| by two. */
-  cert->peer_sigalgs = OPENSSL_malloc(num_sigalgs * sizeof(uint16_t));
-  if (cert->peer_sigalgs == NULL) {
+  hs->peer_sigalgs = OPENSSL_malloc(num_sigalgs * sizeof(uint16_t));
+  if (hs->peer_sigalgs == NULL) {
     return 0;
   }
-  cert->peer_sigalgslen = num_sigalgs;
+  hs->peer_sigalgslen = num_sigalgs;
 
   CBS sigalgs;
   CBS_init(&sigalgs, CBS_data(in_sigalgs), CBS_len(in_sigalgs));
-
-  size_t i;
-  for (i = 0; i < num_sigalgs; i++) {
-    if (!CBS_get_u16(&sigalgs, &cert->peer_sigalgs[i])) {
+  for (size_t i = 0; i < num_sigalgs; i++) {
+    if (!CBS_get_u16(&sigalgs, &hs->peer_sigalgs[i])) {
       return 0;
     }
   }
@@ -3035,7 +3032,7 @@ int tls1_parse_peer_sigalgs(SSL *ssl, const CBS *in_sigalgs) {
 
 int tls1_choose_signature_algorithm(SSL *ssl, uint16_t *out) {
   CERT *cert = ssl->cert;
-  size_t i, j;
+  SSL_HANDSHAKE *hs = ssl->s3->hs;
 
   /* Before TLS 1.2, the signature algorithm isn't negotiated as part of the
    * handshake. It is fixed at MD5-SHA1 for RSA and SHA1 for ECDSA. */
@@ -3060,8 +3057,8 @@ int tls1_choose_signature_algorithm(SSL *ssl, uint16_t *out) {
     sigalgs_len = cert->sigalgs_len;
   }
 
-  const uint16_t *peer_sigalgs = cert->peer_sigalgs;
-  size_t peer_sigalgs_len = cert->peer_sigalgslen;
+  const uint16_t *peer_sigalgs = hs->peer_sigalgs;
+  size_t peer_sigalgs_len = hs->peer_sigalgslen;
   if (peer_sigalgs_len == 0 && ssl3_protocol_version(ssl) < TLS1_3_VERSION) {
     /* If the client didn't specify any signature_algorithms extension then
      * we can assume that it supports SHA1. See
@@ -3073,7 +3070,7 @@ int tls1_choose_signature_algorithm(SSL *ssl, uint16_t *out) {
         sizeof(kDefaultPeerAlgorithms) / sizeof(kDefaultPeerAlgorithms[0]);
   }
 
-  for (i = 0; i < sigalgs_len; i++) {
+  for (size_t i = 0; i < sigalgs_len; i++) {
     uint16_t sigalg = sigalgs[i];
     /* SSL_SIGN_RSA_PKCS1_MD5_SHA1 is an internal value and should never be
      * negotiated. */
@@ -3082,7 +3079,7 @@ int tls1_choose_signature_algorithm(SSL *ssl, uint16_t *out) {
       continue;
     }
 
-    for (j = 0; j < peer_sigalgs_len; j++) {
+    for (size_t j = 0; j < peer_sigalgs_len; j++) {
       if (sigalg == peer_sigalgs[j]) {
         *out = sigalg;
         return 1;
