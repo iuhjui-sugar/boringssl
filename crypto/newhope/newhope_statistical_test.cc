@@ -108,7 +108,7 @@ static bool TestKeys(void) {
   uint8_t key[NEWHOPE_KEY_LENGTH];
   uint8_t offermsg[NEWHOPE_OFFERMSG_LENGTH];
 
-  ScopedNEWHOPE_POLY sk(NEWHOPE_POLY_new()), pk(NEWHOPE_POLY_new()),
+  std::unique_ptr<NEWHOPE_POLY> sk(NEWHOPE_POLY_new()), pk(NEWHOPE_POLY_new()),
       sp(NEWHOPE_POLY_new()), ep(NEWHOPE_POLY_new()), epp(NEWHOPE_POLY_new()),
       a(NEWHOPE_POLY_new()), bp(NEWHOPE_POLY_new()), rec(NEWHOPE_POLY_new());
 

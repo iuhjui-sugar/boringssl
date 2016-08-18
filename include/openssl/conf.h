@@ -158,6 +158,19 @@ OPENSSL_EXPORT void OPENSSL_config(CONF_MUST_BE_NULL *config_name);
 
 #if defined(__cplusplus)
 }  /* extern C */
+
+extern "C++" {
+
+namespace std {
+
+template<> struct default_delete<CONF> {
+  void operator()(CONF* p) { NCONF_free(p); }
+};
+
+}  // namespace std
+
+}  /* extern C++ */
+
 #endif
 
 #define CONF_R_LIST_CANNOT_BE_NULL 100

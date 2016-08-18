@@ -187,6 +187,23 @@ OPENSSL_EXPORT void PKCS12_free(PKCS12 *p12);
 
 #if defined(__cplusplus)
 }  /* extern C */
+
+extern "C++" {
+
+namespace std {
+
+template<> struct default_delete<PKCS12> {
+  void operator()(PKCS12* p) { PKCS12_free(p); }
+};
+
+template<> struct default_delete<PKCS8_PRIV_KEY_INFO> {
+  void operator()(PKCS8_PRIV_KEY_INFO* p) { PKCS8_PRIV_KEY_INFO_free(p); }
+};
+
+}  // namespace std
+
+}  /* extern C++ */
+
 #endif
 
 #define PKCS8_R_BAD_PKCS12_DATA 100

@@ -411,6 +411,23 @@ struct dsa_st {
 
 #if defined(__cplusplus)
 }  /* extern C */
+
+extern "C++" {
+
+namespace std {
+
+template<> struct default_delete<DSA> {
+  void operator()(DSA* p) { DSA_free(p); }
+};
+
+template<> struct default_delete<DSA_SIG> {
+  void operator()(DSA_SIG* p) { DSA_SIG_free(p); }
+};
+
+}  // namespace std
+
+}  /* extern C++ */
+
 #endif
 
 #define DSA_R_BAD_Q_VALUE 100

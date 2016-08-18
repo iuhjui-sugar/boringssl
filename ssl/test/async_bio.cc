@@ -150,12 +150,12 @@ const BIO_METHOD g_async_bio_method = {
 
 }  // namespace
 
-ScopedBIO AsyncBioCreate() {
-  return ScopedBIO(BIO_new(&g_async_bio_method));
+std::unique_ptr<BIO> AsyncBioCreate() {
+  return std::unique_ptr<BIO>(BIO_new(&g_async_bio_method));
 }
 
-ScopedBIO AsyncBioCreateDatagram() {
-  ScopedBIO ret(BIO_new(&g_async_bio_method));
+std::unique_ptr<BIO> AsyncBioCreateDatagram() {
+  std::unique_ptr<BIO> ret(BIO_new(&g_async_bio_method));
   if (!ret) {
     return nullptr;
   }

@@ -97,10 +97,10 @@ static const uint8_t kECKeyWithZeros[] = {
 
 // DecodeECPrivateKey decodes |in| as an ECPrivateKey structure and returns the
 // result or nullptr on error.
-static ScopedEC_KEY DecodeECPrivateKey(const uint8_t *in, size_t in_len) {
+static std::unique_ptr<EC_KEY> DecodeECPrivateKey(const uint8_t *in, size_t in_len) {
   CBS cbs;
   CBS_init(&cbs, in, in_len);
-  ScopedEC_KEY ret(EC_KEY_parse_private_key(&cbs, NULL));
+  std::unique_ptr<EC_KEY> ret(EC_KEY_parse_private_key(&cbs, NULL));
   if (!ret || CBS_len(&cbs) != 0) {
     return nullptr;
   }
@@ -124,7 +124,7 @@ static bool EncodeECPrivateKey(std::vector<uint8_t> *out, const EC_KEY *key) {
 }
 
 static bool Testd2i_ECPrivateKey() {
-  ScopedEC_KEY key = DecodeECPrivateKey(kECKeyWithoutPublic,
+  std::unique_ptr<EC_KEY> key = DecodeECPrivateKey(kECKeyWithoutPublic,
                                         sizeof(kECKeyWithoutPublic));
   if (!key) {
     fprintf(stderr, "Failed to parse private key.\n");
@@ -152,8 +152,8 @@ static bool Testd2i_ECPrivateKey() {
     return false;
   }
 
-  ScopedBIGNUM x(BN_new());
-  ScopedBIGNUM y(BN_new());
+  std::unique_ptr<BIGNUM> x(BN_new());
+  std::unique_ptr<BIGNUM> y(BN_new());
   if (!x || !y) {
     return false;
   }
@@ -182,7 +182,7 @@ static bool Testd2i_ECPrivateKey() {
 
 static bool TestZeroPadding() {
   // Check that the correct encoding round-trips.
-  ScopedEC_KEY key = DecodeECPrivateKey(kECKeyWithZeros,
+  std::unique_ptr<EC_KEY> key = DecodeECPrivateKey(kECKeyWithZeros,
                                         sizeof(kECKeyWithZeros));
   std::vector<uint8_t> out;
   if (!key || !EncodeECPrivateKey(&out, key.get())) {
@@ -214,7 +214,7 @@ static bool TestZeroPadding() {
 
 static bool TestSpecifiedCurve() {
   // Test keys with specified curves may be decoded.
-  ScopedEC_KEY key =
+  std::unique_ptr<EC_KEY> key =
       DecodeECPrivateKey(kECKeySpecifiedCurve, sizeof(kECKeySpecifiedCurve));
   if (!key) {
     ERR_print_errors_fp(stderr);
@@ -245,7 +245,7 @@ static bool TestSpecifiedCurve() {
 }
 
 static bool TestSetAffine(const int nid) {
-  ScopedEC_KEY key(EC_KEY_new_by_curve_name(nid));
+  std::unique_ptr<EC_KEY> key(EC_KEY_new_by_curve_name(nid));
   if (!key) {
     return false;
   }
@@ -265,8 +265,8 @@ static bool TestSetAffine(const int nid) {
     return false;
   }
 
-  ScopedBIGNUM x(BN_new());
-  ScopedBIGNUM y(BN_new());
+  std::unique_ptr<BIGNUM> x(BN_new());
+  std::unique_ptr<BIGNUM> y(BN_new());
   if (!EC_POINT_get_affine_coordinates_GFp(group,
                                            EC_KEY_get0_public_key(key.get()),
                                            x.get(), y.get(), nullptr)) {
@@ -276,7 +276,7 @@ static bool TestSetAffine(const int nid) {
     return false;
   }
 
-  ScopedEC_POINT point(EC_POINT_new(group));
+  auto point = std::unique_ptr<EC_POINT>(EC_POINT_new(group));
   if (!point) {
     return false;
   }
@@ -294,7 +294,7 @@ static bool TestSetAffine(const int nid) {
     return false;
   }
 
-  ScopedEC_POINT invalid_point(EC_POINT_new(group));
+  std::unique_ptr<EC_POINT> invalid_point(EC_POINT_new(group));
   if (!invalid_point) {
     return false;
   }
@@ -314,7 +314,7 @@ static bool TestSetAffine(const int nid) {
 
 static bool TestArbitraryCurve() {
   // Make a P-256 key and extract the affine coordinates.
-  ScopedEC_KEY key(EC_KEY_new_by_curve_name(NID_X9_62_prime256v1));
+  std::unique_ptr<EC_KEY> key(EC_KEY_new_by_curve_name(NID_X9_62_prime256v1));
   if (!key || !EC_KEY_generate_key(key.get())) {
     return false;
   }
@@ -350,25 +350,25 @@ static bool TestArbitraryCurve() {
       0xff, 0xff, 0xff, 0xff, 0xff, 0xbc, 0xe6, 0xfa, 0xad, 0xa7, 0x17,
       0x9e, 0x84, 0xf3, 0xb9, 0xca, 0xc2, 0xfc, 0x63, 0x25, 0x51,
   };
-  ScopedBN_CTX ctx(BN_CTX_new());
-  ScopedBIGNUM p(BN_bin2bn(kP, sizeof(kP), nullptr));
-  ScopedBIGNUM a(BN_bin2bn(kA, sizeof(kA), nullptr));
-  ScopedBIGNUM b(BN_bin2bn(kB, sizeof(kB), nullptr));
-  ScopedBIGNUM gx(BN_bin2bn(kX, sizeof(kX), nullptr));
-  ScopedBIGNUM gy(BN_bin2bn(kY, sizeof(kY), nullptr));
-  ScopedBIGNUM order(BN_bin2bn(kOrder, sizeof(kOrder), nullptr));
-  ScopedBIGNUM cofactor(BN_new());
+  std::unique_ptr<BN_CTX> ctx(BN_CTX_new());
+  std::unique_ptr<BIGNUM> p(BN_bin2bn(kP, sizeof(kP), nullptr));
+  std::unique_ptr<BIGNUM> a(BN_bin2bn(kA, sizeof(kA), nullptr));
+  std::unique_ptr<BIGNUM> b(BN_bin2bn(kB, sizeof(kB), nullptr));
+  std::unique_ptr<BIGNUM> gx(BN_bin2bn(kX, sizeof(kX), nullptr));
+  std::unique_ptr<BIGNUM> gy(BN_bin2bn(kY, sizeof(kY), nullptr));
+  std::unique_ptr<BIGNUM> order(BN_bin2bn(kOrder, sizeof(kOrder), nullptr));
+  std::unique_ptr<BIGNUM> cofactor(BN_new());
   if (!ctx || !p || !a || !b || !gx || !gy || !order || !cofactor ||
       !BN_set_word(cofactor.get(), 1)) {
     return false;
   }
 
-  ScopedEC_GROUP group(
+  std::unique_ptr<EC_GROUP> group(
       EC_GROUP_new_curve_GFp(p.get(), a.get(), b.get(), ctx.get()));
   if (!group) {
     return false;
   }
-  ScopedEC_POINT generator(EC_POINT_new(group.get()));
+  std::unique_ptr<EC_POINT> generator(EC_POINT_new(group.get()));
   if (!generator ||
       !EC_POINT_set_affine_coordinates_GFp(group.get(), generator.get(),
                                            gx.get(), gy.get(), ctx.get()) ||
@@ -383,9 +383,9 @@ static bool TestArbitraryCurve() {
   }
 
   // Copy |key| to |key2| using |group|.
-  ScopedEC_KEY key2(EC_KEY_new());
-  ScopedEC_POINT point(EC_POINT_new(group.get()));
-  ScopedBIGNUM x(BN_new()), y(BN_new());
+  std::unique_ptr<EC_KEY> key2(EC_KEY_new());
+  std::unique_ptr<EC_POINT> point(EC_POINT_new(group.get()));
+  std::unique_ptr<BIGNUM> x(BN_new()), y(BN_new());
   if (!key2 || !point || !x || !y ||
       !EC_KEY_set_group(key2.get(), group.get()) ||
       !EC_KEY_set_private_key(key2.get(), EC_KEY_get0_private_key(key.get())) ||
@@ -409,7 +409,7 @@ static bool TestArbitraryCurve() {
 }
 
 static bool TestAddingEqualPoints(int nid) {
-  ScopedEC_KEY key(EC_KEY_new_by_curve_name(nid));
+  std::unique_ptr<EC_KEY> key(EC_KEY_new_by_curve_name(nid));
   if (!key) {
     return false;
   }
@@ -422,10 +422,10 @@ static bool TestAddingEqualPoints(int nid) {
     return false;
   }
 
-  ScopedEC_POINT p1(EC_POINT_new(group));
-  ScopedEC_POINT p2(EC_POINT_new(group));
-  ScopedEC_POINT double_p1(EC_POINT_new(group));
-  ScopedEC_POINT p1_plus_p2(EC_POINT_new(group));
+  std::unique_ptr<EC_POINT> p1(EC_POINT_new(group));
+  std::unique_ptr<EC_POINT> p2(EC_POINT_new(group));
+  std::unique_ptr<EC_POINT> double_p1(EC_POINT_new(group));
+  std::unique_ptr<EC_POINT> p1_plus_p2(EC_POINT_new(group));
   if (!p1 || !p2 || !double_p1 || !p1_plus_p2) {
     return false;
   }
@@ -437,7 +437,7 @@ static bool TestAddingEqualPoints(int nid) {
     return false;
   }
 
-  ScopedBN_CTX ctx(BN_CTX_new());
+  std::unique_ptr<BN_CTX> ctx(BN_CTX_new());
   if (!ctx) {
     return false;
   }

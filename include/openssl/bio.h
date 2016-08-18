@@ -895,6 +895,19 @@ struct bio_st {
 
 #if defined(__cplusplus)
 }  /* extern C */
+
+extern "C++" {
+
+namespace std {
+
+template<> struct default_delete<BIO> {
+  void operator()(BIO* p) { BIO_vfree(p); }
+};
+
+}  // namespace std
+
+}  /* extern C++ */
+
 #endif
 
 #define BIO_R_BAD_FOPEN_MODE 100

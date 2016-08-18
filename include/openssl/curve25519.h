@@ -167,6 +167,19 @@ OPENSSL_EXPORT int SPAKE2_process_msg(SPAKE2_CTX *ctx, uint8_t *out_key,
 
 #if defined(__cplusplus)
 }  /* extern C */
+
+extern "C++" {
+
+namespace std {
+
+template<> struct default_delete<SPAKE2_CTX> {
+  void operator()(SPAKE2_CTX* p) { SPAKE2_CTX_free(p); }
+};
+
+}  // namespace std
+
+}  /* extern C++ */
+
 #endif
 
 #endif  /* OPENSSL_HEADER_CURVE25519_H */

@@ -195,6 +195,7 @@ typedef struct asn1_string_st ASN1_UNIVERSALSTRING;
 typedef struct asn1_string_st ASN1_UTCTIME;
 typedef struct asn1_string_st ASN1_UTF8STRING;
 typedef struct asn1_string_st ASN1_VISIBLESTRING;
+typedef struct asn1_type_st ASN1_TYPE ;
 
 typedef struct AUTHORITY_KEYID_st AUTHORITY_KEYID;
 typedef struct BASIC_CONSTRAINTS_st BASIC_CONSTRAINTS;
@@ -286,6 +287,7 @@ typedef struct x509_cert_aux_st X509_CERT_AUX;
 typedef struct x509_cert_pair_st X509_CERT_PAIR;
 typedef struct x509_cinf_st X509_CINF;
 typedef struct x509_crl_method_st X509_CRL_METHOD;
+typedef struct x509_lookup_st X509_LOOKUP;
 typedef struct x509_revoked_st X509_REVOKED;
 typedef struct x509_st X509;
 typedef struct x509_store_ctx_st X509_STORE_CTX;
@@ -297,6 +299,70 @@ typedef void *OPENSSL_BLOCK;
 
 #if defined(__cplusplus)
 }  /* extern C */
+
+extern "C++" {
+
+#include <memory>
+
+namespace std {
+
+// These declarations ensure an error if (somehow) the definition of the deleter
+// is unavailable.  The definitions are colocated with the declarations of the
+// appropriate FOO_free() functions.
+//
+// XXX alternative free functions are noted here, but does it make more sense to
+// do it in the local header files?
+template<> struct default_delete<ASN1_OBJECT>;
+template<> struct default_delete<ASN1_STRING>;
+template<> struct default_delete<ASN1_TYPE>;
+template<> struct default_delete<BIGNUM>;  // BN_clear_free() exists.
+template<> struct default_delete<BIO>;     // BIO_free_all() exists.
+template<> struct default_delete<BN_CTX>;
+template<> struct default_delete<BN_MONT_CTX>;
+template<> struct default_delete<BUF_MEM>;
+template<> struct default_delete<CMAC_CTX>;
+template<> struct default_delete<CONF>;
+template<> struct default_delete<DH>;
+template<> struct default_delete<DSA>;
+template<> struct default_delete<DSA_SIG>;
+template<> struct default_delete<ECDSA_SIG>;
+template<> struct default_delete<EC_GROUP>;
+template<> struct default_delete<EC_KEY>;
+template<> struct default_delete<EC_POINT>; // EC_POINT_clear_free() exists.
+template<> struct default_delete<ENGINE>;
+template<> struct default_delete<EVP_CIPHER_CTX>;
+template<> struct default_delete<EVP_PKEY>;
+template<> struct default_delete<EVP_PKEY_CTX>;
+template<> struct default_delete<NEWHOPE_POLY>;
+template<> struct default_delete<PKCS12>;
+template<> struct default_delete<PKCS8_PRIV_KEY_INFO>;
+template<> struct default_delete<RSA>;
+template<> struct default_delete<SPAKE2_CTX>;
+template<> struct default_delete<SSL>;
+template<> struct default_delete<SSL_CTX>;
+template<> struct default_delete<SSL_SESSION>;
+template<> struct default_delete<X509>;
+template<> struct default_delete<X509_ALGOR>;
+template<> struct default_delete<X509_CRL>;
+template<> struct default_delete<X509_CRL_METHOD>;
+template<> struct default_delete<X509_EXTENSION>;
+template<> struct default_delete<X509_INFO>;
+template<> struct default_delete<X509_LOOKUP>;
+template<> struct default_delete<X509_NAME>;
+template<> struct default_delete<X509_NAME_ENTRY>;
+template<> struct default_delete<X509_PKEY>;
+template<> struct default_delete<X509_POLICY_TREE>;
+template<> struct default_delete<X509_REQ>;
+template<> struct default_delete<X509_REVOKED>;
+template<> struct default_delete<X509_SIG>;
+template<> struct default_delete<X509_STORE>;
+template<> struct default_delete<X509_STORE_CTX>;
+template<> struct default_delete<X509_VERIFY_PARAM>;
+
+}  // namespace std
+
+}  /* extern C++ */
+
 #endif
 
 #endif  /* OPENSSL_HEADER_BASE_H */
