@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fb316383_9d8bc415",
+        "filename": "ssl/ssl_rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-18T19:36:49Z",
+      "side": 1,
+      "message": "[I wonder if can avoid duplicating this...]",
+      "revId": "192bb59913890ace911370dfcdcec5a261ebf080",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb316383_7db7c8d1",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-18T19:36:49Z",
+      "side": 1,
+      "message": "I think this isn\u0027t actually sufficient to work around the NSS bug. We\u0027d have to do all the PKCS1s and then all the PSSs. Let\u0027s just leave this alone for the time being, though I do expect we\u0027ll need to mess around with the order.",
+      "revId": "192bb59913890ace911370dfcdcec5a261ebf080",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
