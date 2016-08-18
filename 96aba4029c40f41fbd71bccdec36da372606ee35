@@ -22,6 +22,29 @@
       "revId": "96aba4029c40f41fbd71bccdec36da372606ee35",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb316383_5d244c57",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5885
+      },
+      "writtenOn": "2016-08-18T20:35:55Z",
+      "side": 1,
+      "message": "Same here (NGINX).",
+      "range": {
+        "startLine": 170,
+        "startChar": 63,
+        "endLine": 170,
+        "endChar": 68
+      },
+      "revId": "96aba4029c40f41fbd71bccdec36da372606ee35",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
