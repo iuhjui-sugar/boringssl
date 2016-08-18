@@ -1224,6 +1224,55 @@ OPENSSL_EXPORT int PKCS7_get_PEM_CRLs(STACK_OF(X509_CRL) *out_crls,
 
 #ifdef  __cplusplus
 }
+
+extern "C++" {
+
+namespace bssl {
+
+namespace internal {
+
+inline void Free(STACK_OF(X509)* ptr) { sk_X509_pop_free(ptr, X509_free); }
+
+inline void Free(X509* ptr) { X509_free(ptr); }
+
+inline void Free(X509_ALGOR* ptr) { X509_ALGOR_free(ptr); }
+
+inline void Free(X509_CRL* ptr) { X509_CRL_free(ptr); }
+
+inline void Free(X509_CRL_METHOD* ptr) { X509_CRL_METHOD_free(ptr); }
+
+inline void Free(X509_EXTENSION* ptr) { X509_EXTENSION_free(ptr); }
+
+inline void Free(X509_INFO* ptr) { X509_INFO_free(ptr); }
+
+inline void Free(X509_LOOKUP* ptr) { X509_LOOKUP_free(ptr); }
+
+inline void Free(X509_NAME* ptr) { X509_NAME_free(ptr); }
+
+inline void Free(X509_NAME_ENTRY* ptr) { X509_NAME_ENTRY_free(ptr); }
+
+inline void Free(X509_PKEY* ptr) { X509_PKEY_free(ptr); }
+
+inline void Free(X509_POLICY_TREE* ptr) { X509_policy_tree_free(ptr); }
+
+inline void Free(X509_REQ* ptr) { X509_REQ_free(ptr); }
+
+inline void Free(X509_REVOKED* ptr) { X509_REVOKED_free(ptr); }
+
+inline void Free(X509_SIG* ptr) { X509_SIG_free(ptr); }
+
+inline void Free(X509_STORE* ptr) { X509_STORE_free(ptr); }
+
+inline void Free(X509_STORE_CTX* ptr) { X509_STORE_CTX_free(ptr); }
+
+inline void Free(X509_VERIFY_PARAM* ptr) { X509_VERIFY_PARAM_free(ptr); }
+
+}  // namespace internal
+
+}  // namespace bssl
+
+}  /* extern C++ */
+
 #endif
 
 #define X509_R_AKID_MISMATCH 100
