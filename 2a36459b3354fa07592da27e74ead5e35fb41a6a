@@ -75,6 +75,24 @@
       "revId": "2a36459b3354fa07592da27e74ead5e35fb41a6a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb316383_e069eb8b",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-08-18T21:31:12Z",
+      "side": 1,
+      "message": "My main thought about combining them was the API surface area, and specifically if resumeRenewedSession is set but resumeSession isn\u0027t (in which case, resumeRenewedSession gets ignored). Rewriting all of the tests does sound like a pain, and I didn\u0027t think through what it would mean for TLS \u003c 1.3.\n\nI\u0027m fine with it as is.",
+      "parentUuid": "fb316383_457b14ca",
+      "revId": "2a36459b3354fa07592da27e74ead5e35fb41a6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
