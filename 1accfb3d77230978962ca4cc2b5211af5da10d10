@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fb316383_90672c1e",
+        "filename": "ssl/test/runner/sign.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-08-18T17:12:54Z",
+      "side": 0,
+      "message": "Should get rid of the IgnoreSignatureVersionChecks bugs",
+      "range": {
+        "startLine": 279,
+        "startChar": 44,
+        "endLine": 279,
+        "endChar": 72
+      },
+      "revId": "1accfb3d77230978962ca4cc2b5211af5da10d10",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
