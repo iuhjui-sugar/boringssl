@@ -697,7 +697,7 @@ static bool Test(const char *name, const uint8_t *der, size_t der_len) {
     ERR_print_errors_fp(stderr);
     return false;
   }
-  ScopedEVP_PKEY delete_key(key);
+  bssl::unique_ptr<EVP_PKEY> delete_key(key);
 
   if (sk_X509_num(certs.get()) != 1 || key == nullptr) {
     fprintf(stderr, "Bad result from %s data.\n", name);
@@ -708,12 +708,12 @@ static bool Test(const char *name, const uint8_t *der, size_t der_len) {
 }
 
 static bool TestCompat(const uint8_t *der, size_t der_len) {
-  ScopedBIO bio(BIO_new_mem_buf(der, der_len));
+  bssl::unique_ptr<BIO> bio(BIO_new_mem_buf(der, der_len));
   if (!bio) {
     return false;
   }
 
-  ScopedPKCS12 p12(d2i_PKCS12_bio(bio.get(), nullptr));
+  bssl::unique_ptr<PKCS12> p12(d2i_PKCS12_bio(bio.get(), nullptr));
   if (!p12) {
     fprintf(stderr, "PKCS12_parse failed.\n");
     ERR_print_errors_fp(stderr);
@@ -738,8 +738,8 @@ static bool TestCompat(const uint8_t *der, size_t der_len) {
     ERR_print_errors_fp(stderr);
     return false;
   }
-  ScopedEVP_PKEY delete_key(key);
-  ScopedX509 delete_cert(cert);
+  bssl::unique_ptr<EVP_PKEY> delete_key(key);
+  bssl::unique_ptr<X509> delete_cert(cert);
   ScopedX509Stack delete_ca_certs(ca_certs);
 
   if (key == nullptr || cert == nullptr) {
