@@ -5491,6 +5491,10 @@ func addSignatureAlgorithmTests() {
 			if ver.version == VersionTLS12 && hasComponent(alg.name, "PSS") {
 				shouldFail = true
 			}
+			// RSA-PKCS1 does not exist in TLS 1.3.
+			if ver.version == VersionTLS13 && hasComponent(alg.name, "PKCS1") {
+				shouldFail = true
+			}
 
 			var signError, verifyError string
 			if shouldFail {
