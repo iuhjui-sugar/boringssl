@@ -91,6 +91,19 @@ struct openssl_method_common_st {
 
 #if defined(__cplusplus)
 }  /* extern C */
+
+extern "C++" {
+
+namespace std {
+
+template<> struct default_delete<ENGINE> {
+  void operator()(ENGINE* p) { ENGINE_free(p); }
+};
+
+}  // namespace std
+
+}  /* extern C++ */
+
 #endif
 
 #define ENGINE_R_OPERATION_NOT_SUPPORTED 100

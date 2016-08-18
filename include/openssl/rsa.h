@@ -636,6 +636,19 @@ struct rsa_st {
 
 #if defined(__cplusplus)
 }  /* extern C */
+
+extern "C++" {
+
+namespace std {
+
+template<> struct default_delete<RSA> {
+  void operator()(RSA* p) { RSA_free(p); }
+};
+
+}  // namespace std
+
+}  /* extern C++ */
+
 #endif
 
 #define RSA_R_BAD_ENCODING 100

@@ -71,6 +71,19 @@ OPENSSL_EXPORT int CMAC_Final(CMAC_CTX *ctx, uint8_t *out, size_t *out_len);
 
 #if defined(__cplusplus)
 }  /* extern C */
+
+extern "C++" {
+
+namespace std {
+
+template<> struct default_delete<CMAC_CTX> {
+  void operator()(CMAC_CTX* p) { CMAC_CTX_free(p); }
+};
+
+}  // namespace std
+
+}  /* extern C++ */
+
 #endif
 
 #endif  /* OPENSSL_HEADER_CMAC_H */

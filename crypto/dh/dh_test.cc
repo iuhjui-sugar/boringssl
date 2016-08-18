@@ -115,7 +115,7 @@ static int GenerateCallback(int p, int n, BN_GENCB *arg) {
 static bool RunBasicTests() {
   BN_GENCB cb;
   BN_GENCB_set(&cb, &GenerateCallback, stdout);
-  ScopedDH a(DH_new());
+  std::unique_ptr<DH> a(DH_new());
   if (!a || !DH_generate_parameters_ex(a.get(), 64, DH_GENERATOR_5, &cb)) {
     return false;
   }
@@ -143,7 +143,7 @@ static bool RunBasicTests() {
   BN_print_fp(stdout, a->g);
   printf("\n");
 
-  ScopedDH b(DH_new());
+  std::unique_ptr<DH> b(DH_new());
   if (!b) {
     return false;
   }
@@ -437,8 +437,8 @@ static bool RunRFC5114Tests() {
   for (unsigned i = 0; i < sizeof(kRFCTestData) / sizeof(RFC5114TestData); i++) {
     const RFC5114TestData *td = kRFCTestData + i;
     /* Set up DH structures setting key components */
-    ScopedDH dhA(td->get_param(nullptr));
-    ScopedDH dhB(td->get_param(nullptr));
+    std::unique_ptr<DH> dhA(td->get_param(nullptr));
+    std::unique_ptr<DH> dhB(td->get_param(nullptr));
     if (!dhA || !dhB) {
       fprintf(stderr, "Initialisation error RFC5114 set %u\n", i + 1);
       return false;
@@ -513,8 +513,8 @@ static const uint8_t kRFC5114_2048_224BadY[] = {
 };
 
 static bool TestBadY() {
-  ScopedDH dh(DH_get_2048_224(nullptr));
-  ScopedBIGNUM pub_key(
+  std::unique_ptr<DH> dh(DH_get_2048_224(nullptr));
+  std::unique_ptr<BIGNUM> pub_key(
       BN_bin2bn(kRFC5114_2048_224BadY, sizeof(kRFC5114_2048_224BadY), nullptr));
   if (!dh || !pub_key || !DH_generate_key(dh.get())) {
     return false;
@@ -544,7 +544,7 @@ static bool BIGNUMEqualsHex(const BIGNUM *bn, const char *hex) {
   if (!BN_hex2bn(&hex_bn, hex)) {
     return false;
   }
-  ScopedBIGNUM free_hex_bn(hex_bn);
+  std::unique_ptr<BIGNUM> free_hex_bn(hex_bn);
   return BN_cmp(bn, hex_bn) == 0;
 }
 
@@ -560,7 +560,7 @@ static bool TestASN1() {
 
   CBS cbs;
   CBS_init(&cbs, kParams, sizeof(kParams));
-  ScopedDH dh(DH_parse_parameters(&cbs));
+  std::unique_ptr<DH> dh(DH_parse_parameters(&cbs));
   if (!dh || CBS_len(&cbs) != 0 ||
       !BIGNUMEqualsHex(
           dh->p,
@@ -628,7 +628,7 @@ static bool TestASN1() {
 }
 
 static bool TestRFC3526() {
-  ScopedBIGNUM bn(BN_get_rfc3526_prime_1536(nullptr));
+  std::unique_ptr<BIGNUM> bn(BN_get_rfc3526_prime_1536(nullptr));
   if (!bn) {
     return false;
   }

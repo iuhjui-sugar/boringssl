@@ -117,6 +117,19 @@ OPENSSL_EXPORT size_t BUF_strlcat(char *dst, const char *src, size_t size);
 
 #if defined(__cplusplus)
 }  /* extern C */
+
+extern "C++" {
+
+namespace std {
+
+template<> struct default_delete<BUF_MEM> {
+  void operator()(BUF_MEM* p) { BUF_MEM_free(p); }
+};
+
+}  // namespace std
+
+}  /* extern C++ */
+
 #endif
 
 #endif  /* OPENSSL_HEADER_BUFFER_H */

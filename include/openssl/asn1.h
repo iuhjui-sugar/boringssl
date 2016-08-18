@@ -475,7 +475,7 @@ typedef const ASN1_ITEM ASN1_ITEM_EXP;
 
 DECLARE_ASN1_SET_OF(ASN1_INTEGER)
 
-typedef struct asn1_type_st
+struct asn1_type_st
 	{
 	int type;
 	union	{
@@ -503,7 +503,7 @@ typedef struct asn1_type_st
 		ASN1_STRING *		sequence;
 		ASN1_VALUE *		asn1_value;
 		} value;
-	} ASN1_TYPE;
+    };
 
 DECLARE_ASN1_SET_OF(ASN1_TYPE)
 
@@ -991,6 +991,27 @@ OPENSSL_EXPORT ASN1_TYPE *ASN1_generate_v3(char *str, X509V3_CTX *cnf);
 
 #ifdef  __cplusplus
 }
+
+extern "C++" {
+
+namespace std {
+
+template<> struct default_delete<ASN1_OBJECT> {
+  void operator()(ASN1_OBJECT* p) { ASN1_OBJECT_free(p); }
+};
+
+template<> struct default_delete<ASN1_STRING> {
+  void operator()(ASN1_STRING* p) { ASN1_STRING_free(p); }
+};
+
+template<> struct default_delete<ASN1_TYPE> {
+  void operator()(ASN1_TYPE* p) { ASN1_TYPE_free(p); }
+};
+
+}  // namespace std
+
+}  /* extern C++ */
+
 #endif
 
 #define ASN1_R_ASN1_LENGTH_MISMATCH 100

@@ -526,7 +526,7 @@ static const uint8_t kExponent1RSAKey[] = {
 static bool TestRSA(const uint8_t *der, size_t der_len,
                     const uint8_t *oaep_ciphertext,
                     size_t oaep_ciphertext_len) {
-  ScopedRSA key(RSA_private_key_from_bytes(der, der_len));
+  std::unique_ptr<RSA> key(RSA_private_key_from_bytes(der, der_len));
   if (!key) {
     return false;
   }
@@ -612,7 +612,7 @@ static bool TestRSA(const uint8_t *der, size_t der_len,
 
 static bool TestMultiPrimeKey(int nprimes, const uint8_t *der, size_t der_size,
                               const uint8_t *enc, size_t enc_size) {
-  ScopedRSA rsa(d2i_RSAPrivateKey(nullptr, &der, der_size));
+  std::unique_ptr<RSA> rsa(d2i_RSAPrivateKey(nullptr, &der, der_size));
   if (!rsa) {
     fprintf(stderr, "%d-prime key failed to parse.\n", nprimes);
     ERR_print_errors_fp(stderr);
@@ -645,8 +645,8 @@ static bool TestMultiPrimeKeygen() {
   uint8_t encrypted[kBits / 8], decrypted[kBits / 8];
   size_t encrypted_len, decrypted_len;
 
-  ScopedRSA rsa(RSA_new());
-  ScopedBIGNUM e(BN_new());
+  std::unique_ptr<RSA> rsa(RSA_new());
+  std::unique_ptr<BIGNUM> e(BN_new());
   if (!rsa || !e ||
       !BN_set_word(e.get(), RSA_F4) ||
       !RSA_generate_multi_prime_key(rsa.get(), kBits, 3, e.get(), nullptr) ||
@@ -666,8 +666,8 @@ static bool TestMultiPrimeKeygen() {
 }
 
 static bool TestBadKey() {
-  ScopedRSA key(RSA_new());
-  ScopedBIGNUM e(BN_new());
+  std::unique_ptr<RSA> key(RSA_new());
+  std::unique_ptr<BIGNUM> e(BN_new());
 
   if (!key || !e || !BN_set_word(e.get(), RSA_F4)) {
     return false;
@@ -705,7 +705,7 @@ static bool TestOnlyDGiven() {
 
   uint8_t buf[64];
   unsigned buf_len = sizeof(buf);
-  ScopedRSA key(RSA_new());
+  std::unique_ptr<RSA> key(RSA_new());
   if (!key ||
       !BN_hex2bn(&key->n, kN) ||
       !BN_hex2bn(&key->e, kE) ||
@@ -739,7 +739,7 @@ static bool TestOnlyDGiven() {
   // Keys without the public exponent must continue to work when blinding is
   // disabled to support Java's RSAPrivateKeySpec API. See
   // https://bugs.chromium.org/p/boringssl/issues/detail?id=12.
-  ScopedRSA key2(RSA_new());
+  std::unique_ptr<RSA> key2(RSA_new());
   if (!key2 ||
       !BN_hex2bn(&key2->n, kN) ||
       !BN_hex2bn(&key2->d, kD)) {
@@ -772,7 +772,7 @@ static bool TestOnlyDGiven() {
 }
 
 static bool TestRecoverCRTParams() {
-  ScopedBIGNUM e(BN_new());
+  std::unique_ptr<BIGNUM> e(BN_new());
   if (!e || !BN_set_word(e.get(), RSA_F4)) {
     return false;
   }
@@ -780,7 +780,7 @@ static bool TestRecoverCRTParams() {
   ERR_clear_error();
 
   for (unsigned i = 0; i < 1; i++) {
-    ScopedRSA key1(RSA_new());
+    std::unique_ptr<RSA> key1(RSA_new());
     if (!key1 ||
         !RSA_generate_key_ex(key1.get(), 512, e.get(), nullptr)) {
       fprintf(stderr, "RSA_generate_key_ex failed.\n");
@@ -794,7 +794,7 @@ static bool TestRecoverCRTParams() {
       return false;
     }
 
-    ScopedRSA key2(RSA_new());
+    std::unique_ptr<RSA> key2(RSA_new());
     if (!key2) {
       return false;
     }
@@ -844,7 +844,7 @@ static bool TestRecoverCRTParams() {
 
 static bool TestASN1() {
   // Test that private keys may be decoded.
-  ScopedRSA rsa(RSA_private_key_from_bytes(kKey1, sizeof(kKey1) - 1));
+  std::unique_ptr<RSA> rsa(RSA_private_key_from_bytes(kKey1, sizeof(kKey1) - 1));
   if (!rsa) {
     return false;
   }
@@ -910,7 +910,7 @@ static bool TestASN1() {
 }
 
 static bool TestBadExponent() {
-  ScopedRSA rsa(RSA_public_key_from_bytes(kExponent1RSAKey,
+  std::unique_ptr<RSA> rsa(RSA_public_key_from_bytes(kExponent1RSAKey,
                                           sizeof(kExponent1RSAKey)));
 
   if (rsa) {

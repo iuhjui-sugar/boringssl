@@ -90,20 +90,20 @@
 #include "../crypto/test/test_util.h"
 
 
-static int HexToBIGNUM(ScopedBIGNUM *out, const char *in) {
+static int HexToBIGNUM(std::unique_ptr<BIGNUM> *out, const char *in) {
   BIGNUM *raw = NULL;
   int ret = BN_hex2bn(&raw, in);
   out->reset(raw);
   return ret;
 }
 
-static ScopedBIGNUM GetBIGNUM(FileTest *t, const char *attribute) {
+static std::unique_ptr<BIGNUM> GetBIGNUM(FileTest *t, const char *attribute) {
   std::string hex;
   if (!t->GetAttribute(&hex, attribute)) {
     return nullptr;
   }
 
-  ScopedBIGNUM ret;
+  std::unique_ptr<BIGNUM> ret;
   if (HexToBIGNUM(&ret, hex.c_str()) != static_cast<int>(hex.size())) {
     t->PrintLine("Could not decode '%s'.", hex.c_str());
     return nullptr;
@@ -112,7 +112,7 @@ static ScopedBIGNUM GetBIGNUM(FileTest *t, const char *attribute) {
 }
 
 static bool GetInt(FileTest *t, int *out, const char *attribute) {
-  ScopedBIGNUM ret = GetBIGNUM(t, attribute);
+  std::unique_ptr<BIGNUM> ret = GetBIGNUM(t, attribute);
   if (!ret) {
     return false;
   }
@@ -146,14 +146,14 @@ static bool ExpectBIGNUMsEqual(FileTest *t, const char *operation,
 }
 
 static bool TestSum(FileTest *t, BN_CTX *ctx) {
-  ScopedBIGNUM a = GetBIGNUM(t, "A");
-  ScopedBIGNUM b = GetBIGNUM(t, "B");
-  ScopedBIGNUM sum = GetBIGNUM(t, "Sum");
+  std::unique_ptr<BIGNUM> a = GetBIGNUM(t, "A");
+  std::unique_ptr<BIGNUM> b = GetBIGNUM(t, "B");
+  std::unique_ptr<BIGNUM> sum = GetBIGNUM(t, "Sum");
   if (!a || !b || !sum) {
     return false;
   }
 
-  ScopedBIGNUM ret(BN_new());
+  std::unique_ptr<BIGNUM> ret(BN_new());
   if (!ret ||
       !BN_add(ret.get(), a.get(), b.get()) ||
       !ExpectBIGNUMsEqual(t, "A + B", sum.get(), ret.get()) ||
@@ -245,16 +245,16 @@ static bool TestSum(FileTest *t, BN_CTX *ctx) {
 }
 
 static bool TestLShift1(FileTest *t, BN_CTX *ctx) {
-  ScopedBIGNUM a = GetBIGNUM(t, "A");
-  ScopedBIGNUM lshift1 = GetBIGNUM(t, "LShift1");
-  ScopedBIGNUM zero(BN_new());
+  std::unique_ptr<BIGNUM> a = GetBIGNUM(t, "A");
+  std::unique_ptr<BIGNUM> lshift1 = GetBIGNUM(t, "LShift1");
+  std::unique_ptr<BIGNUM> zero(BN_new());
   if (!a || !lshift1 || !zero) {
     return false;
   }
 
   BN_zero(zero.get());
 
-  ScopedBIGNUM ret(BN_new()), two(BN_new()), remainder(BN_new());
+  std::unique_ptr<BIGNUM> ret(BN_new()), two(BN_new()), remainder(BN_new());
   if (!ret || !two || !remainder ||
       !BN_set_word(two.get(), 2) ||
       !BN_add(ret.get(), a.get(), a.get()) ||
@@ -286,14 +286,14 @@ static bool TestLShift1(FileTest *t, BN_CTX *ctx) {
 }
 
 static bool TestLShift(FileTest *t, BN_CTX *ctx) {
-  ScopedBIGNUM a = GetBIGNUM(t, "A");
-  ScopedBIGNUM lshift = GetBIGNUM(t, "LShift");
+  std::unique_ptr<BIGNUM> a = GetBIGNUM(t, "A");
+  std::unique_ptr<BIGNUM> lshift = GetBIGNUM(t, "LShift");
   int n = 0;
   if (!a || !lshift || !GetInt(t, &n, "N")) {
     return false;
   }
 
-  ScopedBIGNUM ret(BN_new());
+  std::unique_ptr<BIGNUM> ret(BN_new());
   if (!ret ||
       !BN_lshift(ret.get(), a.get(), n) ||
       !ExpectBIGNUMsEqual(t, "A << N", lshift.get(), ret.get()) ||
@@ -306,14 +306,14 @@ static bool TestLShift(FileTest *t, BN_CTX *ctx) {
 }
 
 static bool TestRShift(FileTest *t, BN_CTX *ctx) {
-  ScopedBIGNUM a = GetBIGNUM(t, "A");
-  ScopedBIGNUM rshift = GetBIGNUM(t, "RShift");
+  std::unique_ptr<BIGNUM> a = GetBIGNUM(t, "A");
+  std::unique_ptr<BIGNUM> rshift = GetBIGNUM(t, "RShift");
   int n = 0;
   if (!a || !rshift || !GetInt(t, &n, "N")) {
     return false;
   }
 
-  ScopedBIGNUM ret(BN_new());
+  std::unique_ptr<BIGNUM> ret(BN_new());
   if (!ret ||
       !BN_rshift(ret.get(), a.get(), n) ||
       !ExpectBIGNUMsEqual(t, "A >> N", rshift.get(), ret.get())) {
@@ -324,16 +324,16 @@ static bool TestRShift(FileTest *t, BN_CTX *ctx) {
 }
 
 static bool TestSquare(FileTest *t, BN_CTX *ctx) {
-  ScopedBIGNUM a = GetBIGNUM(t, "A");
-  ScopedBIGNUM square = GetBIGNUM(t, "Square");
-  ScopedBIGNUM zero(BN_new());
+  std::unique_ptr<BIGNUM> a = GetBIGNUM(t, "A");
+  std::unique_ptr<BIGNUM> square = GetBIGNUM(t, "Square");
+  std::unique_ptr<BIGNUM> zero(BN_new());
   if (!a || !square || !zero) {
     return false;
   }
 
   BN_zero(zero.get());
 
-  ScopedBIGNUM ret(BN_new()), remainder(BN_new());
+  std::unique_ptr<BIGNUM> ret(BN_new()), remainder(BN_new());
   if (!ret ||
       !BN_sqr(ret.get(), a.get(), ctx) ||
       !ExpectBIGNUMsEqual(t, "A^2", square.get(), ret.get()) ||
@@ -353,7 +353,7 @@ static bool TestSquare(FileTest *t, BN_CTX *ctx) {
 
   // BN_sqrt should fail on non-squares and negative numbers.
   if (!BN_is_zero(square.get())) {
-    ScopedBIGNUM tmp(BN_new());
+    std::unique_ptr<BIGNUM> tmp(BN_new());
     if (!tmp || !BN_copy(tmp.get(), square.get())) {
       return false;
     }
@@ -380,17 +380,17 @@ static bool TestSquare(FileTest *t, BN_CTX *ctx) {
 }
 
 static bool TestProduct(FileTest *t, BN_CTX *ctx) {
-  ScopedBIGNUM a = GetBIGNUM(t, "A");
-  ScopedBIGNUM b = GetBIGNUM(t, "B");
-  ScopedBIGNUM product = GetBIGNUM(t, "Product");
-  ScopedBIGNUM zero(BN_new());
+  std::unique_ptr<BIGNUM> a = GetBIGNUM(t, "A");
+  std::unique_ptr<BIGNUM> b = GetBIGNUM(t, "B");
+  std::unique_ptr<BIGNUM> product = GetBIGNUM(t, "Product");
+  std::unique_ptr<BIGNUM> zero(BN_new());
   if (!a || !b || !product || !zero) {
     return false;
   }
 
   BN_zero(zero.get());
 
-  ScopedBIGNUM ret(BN_new()), remainder(BN_new());
+  std::unique_ptr<BIGNUM> ret(BN_new()), remainder(BN_new());
   if (!ret || !remainder ||
       !BN_mul(ret.get(), a.get(), b.get(), ctx) ||
       !ExpectBIGNUMsEqual(t, "A * B", product.get(), ret.get()) ||
@@ -407,15 +407,15 @@ static bool TestProduct(FileTest *t, BN_CTX *ctx) {
 }
 
 static bool TestQuotient(FileTest *t, BN_CTX *ctx) {
-  ScopedBIGNUM a = GetBIGNUM(t, "A");
-  ScopedBIGNUM b = GetBIGNUM(t, "B");
-  ScopedBIGNUM quotient = GetBIGNUM(t, "Quotient");
-  ScopedBIGNUM remainder = GetBIGNUM(t, "Remainder");
+  std::unique_ptr<BIGNUM> a = GetBIGNUM(t, "A");
+  std::unique_ptr<BIGNUM> b = GetBIGNUM(t, "B");
+  std::unique_ptr<BIGNUM> quotient = GetBIGNUM(t, "Quotient");
+  std::unique_ptr<BIGNUM> remainder = GetBIGNUM(t, "Remainder");
   if (!a || !b || !quotient || !remainder) {
     return false;
   }
 
-  ScopedBIGNUM ret(BN_new()), ret2(BN_new());
+  std::unique_ptr<BIGNUM> ret(BN_new()), ret2(BN_new());
   if (!ret || !ret2 ||
       !BN_div(ret.get(), ret2.get(), a.get(), b.get(), ctx) ||
       !ExpectBIGNUMsEqual(t, "A / B", quotient.get(), ret.get()) ||
@@ -456,7 +456,7 @@ static bool TestQuotient(FileTest *t, BN_CTX *ctx) {
 
   // Test BN_nnmod.
   if (!BN_is_negative(b.get())) {
-    ScopedBIGNUM nnmod(BN_new());
+    std::unique_ptr<BIGNUM> nnmod(BN_new());
     if (!nnmod ||
         !BN_copy(nnmod.get(), remainder.get()) ||
         (BN_is_negative(nnmod.get()) &&
@@ -472,15 +472,15 @@ static bool TestQuotient(FileTest *t, BN_CTX *ctx) {
 }
 
 static bool TestModMul(FileTest *t, BN_CTX *ctx) {
-  ScopedBIGNUM a = GetBIGNUM(t, "A");
-  ScopedBIGNUM b = GetBIGNUM(t, "B");
-  ScopedBIGNUM m = GetBIGNUM(t, "M");
-  ScopedBIGNUM mod_mul = GetBIGNUM(t, "ModMul");
+  std::unique_ptr<BIGNUM> a = GetBIGNUM(t, "A");
+  std::unique_ptr<BIGNUM> b = GetBIGNUM(t, "B");
+  std::unique_ptr<BIGNUM> m = GetBIGNUM(t, "M");
+  std::unique_ptr<BIGNUM> mod_mul = GetBIGNUM(t, "ModMul");
   if (!a || !b || !m || !mod_mul) {
     return false;
   }
 
-  ScopedBIGNUM ret(BN_new());
+  std::unique_ptr<BIGNUM> ret(BN_new());
   if (!ret ||
       !BN_mod_mul(ret.get(), a.get(), b.get(), m.get(), ctx) ||
       !ExpectBIGNUMsEqual(t, "A * B (mod M)", mod_mul.get(), ret.get())) {
@@ -489,8 +489,8 @@ static bool TestModMul(FileTest *t, BN_CTX *ctx) {
 
   if (BN_is_odd(m.get())) {
     // Reduce |a| and |b| and test the Montgomery version.
-    ScopedBN_MONT_CTX mont(BN_MONT_CTX_new());
-    ScopedBIGNUM a_tmp(BN_new()), b_tmp(BN_new());
+    std::unique_ptr<BN_MONT_CTX> mont(BN_MONT_CTX_new());
+    std::unique_ptr<BIGNUM> a_tmp(BN_new()), b_tmp(BN_new());
     if (!mont || !a_tmp || !b_tmp ||
         !BN_MONT_CTX_set(mont.get(), m.get(), ctx) ||
         !BN_nnmod(a_tmp.get(), a.get(), m.get(), ctx) ||
@@ -510,15 +510,15 @@ static bool TestModMul(FileTest *t, BN_CTX *ctx) {
 }
 
 static bool TestModExp(FileTest *t, BN_CTX *ctx) {
-  ScopedBIGNUM a = GetBIGNUM(t, "A");
-  ScopedBIGNUM e = GetBIGNUM(t, "E");
-  ScopedBIGNUM m = GetBIGNUM(t, "M");
-  ScopedBIGNUM mod_exp = GetBIGNUM(t, "ModExp");
+  std::unique_ptr<BIGNUM> a = GetBIGNUM(t, "A");
+  std::unique_ptr<BIGNUM> e = GetBIGNUM(t, "E");
+  std::unique_ptr<BIGNUM> m = GetBIGNUM(t, "M");
+  std::unique_ptr<BIGNUM> mod_exp = GetBIGNUM(t, "ModExp");
   if (!a || !e || !m || !mod_exp) {
     return false;
   }
 
-  ScopedBIGNUM ret(BN_new());
+  std::unique_ptr<BIGNUM> ret(BN_new());
   if (!ret ||
       !BN_mod_exp(ret.get(), a.get(), e.get(), m.get(), ctx) ||
       !ExpectBIGNUMsEqual(t, "A ^ E (mod M)", mod_exp.get(), ret.get())) {
@@ -541,14 +541,14 @@ static bool TestModExp(FileTest *t, BN_CTX *ctx) {
 }
 
 static bool TestExp(FileTest *t, BN_CTX *ctx) {
-  ScopedBIGNUM a = GetBIGNUM(t, "A");
-  ScopedBIGNUM e = GetBIGNUM(t, "E");
-  ScopedBIGNUM exp = GetBIGNUM(t, "Exp");
+  std::unique_ptr<BIGNUM> a = GetBIGNUM(t, "A");
+  std::unique_ptr<BIGNUM> e = GetBIGNUM(t, "E");
+  std::unique_ptr<BIGNUM> exp = GetBIGNUM(t, "Exp");
   if (!a || !e || !exp) {
     return false;
   }
 
-  ScopedBIGNUM ret(BN_new());
+  std::unique_ptr<BIGNUM> ret(BN_new());
   if (!ret ||
       !BN_exp(ret.get(), a.get(), e.get(), ctx) ||
       !ExpectBIGNUMsEqual(t, "A ^ E", exp.get(), ret.get())) {
@@ -559,15 +559,15 @@ static bool TestExp(FileTest *t, BN_CTX *ctx) {
 }
 
 static bool TestModSqrt(FileTest *t, BN_CTX *ctx) {
-  ScopedBIGNUM a = GetBIGNUM(t, "A");
-  ScopedBIGNUM p = GetBIGNUM(t, "P");
-  ScopedBIGNUM mod_sqrt = GetBIGNUM(t, "ModSqrt");
+  std::unique_ptr<BIGNUM> a = GetBIGNUM(t, "A");
+  std::unique_ptr<BIGNUM> p = GetBIGNUM(t, "P");
+  std::unique_ptr<BIGNUM> mod_sqrt = GetBIGNUM(t, "ModSqrt");
   if (!a || !p || !mod_sqrt) {
     return false;
   }
 
-  ScopedBIGNUM ret(BN_new());
-  ScopedBIGNUM ret2(BN_new());
+  std::unique_ptr<BIGNUM> ret(BN_new());
+  std::unique_ptr<BIGNUM> ret2(BN_new());
   if (!ret ||
       !ret2 ||
       !BN_mod_sqrt(ret.get(), a.get(), p.get(), ctx) ||
@@ -585,14 +585,14 @@ static bool TestModSqrt(FileTest *t, BN_CTX *ctx) {
 }
 
 static bool TestModInv(FileTest *t, BN_CTX *ctx) {
-  ScopedBIGNUM a = GetBIGNUM(t, "A");
-  ScopedBIGNUM m = GetBIGNUM(t, "M");
-  ScopedBIGNUM mod_inv = GetBIGNUM(t, "ModInv");
+  std::unique_ptr<BIGNUM> a = GetBIGNUM(t, "A");
+  std::unique_ptr<BIGNUM> m = GetBIGNUM(t, "M");
+  std::unique_ptr<BIGNUM> mod_inv = GetBIGNUM(t, "ModInv");
   if (!a || !m || !mod_inv) {
     return false;
   }
 
-  ScopedBIGNUM ret(BN_new());
+  std::unique_ptr<BIGNUM> ret(BN_new());
   if (!ret ||
       !BN_mod_inverse(ret.get(), a.get(), m.get(), ctx) ||
       !ExpectBIGNUMsEqual(t, "inv(A) (mod M)", mod_inv.get(), ret.get())) {
@@ -649,7 +649,7 @@ static bool TestBN2BinPadded(BN_CTX *ctx) {
   memset(zeros, 0, sizeof(zeros));
 
   // Test edge case at 0.
-  ScopedBIGNUM n(BN_new());
+  std::unique_ptr<BIGNUM> n(BN_new());
   if (!n || !BN_bn2bin_padded(NULL, 0, n.get())) {
     fprintf(stderr,
             "BN_bn2bin_padded failed to encode 0 in an empty buffer.\n");
@@ -712,7 +712,7 @@ static bool TestBN2BinPadded(BN_CTX *ctx) {
   return true;
 }
 
-static int DecimalToBIGNUM(ScopedBIGNUM *out, const char *in) {
+static int DecimalToBIGNUM(std::unique_ptr<BIGNUM> *out, const char *in) {
   BIGNUM *raw = NULL;
   int ret = BN_dec2bn(&raw, in);
   out->reset(raw);
@@ -720,7 +720,7 @@ static int DecimalToBIGNUM(ScopedBIGNUM *out, const char *in) {
 }
 
 static bool TestDec2BN(BN_CTX *ctx) {
-  ScopedBIGNUM bn;
+  std::unique_ptr<BIGNUM> bn;
   int ret = DecimalToBIGNUM(&bn, "0");
   if (ret != 1 || !BN_is_zero(bn.get()) || BN_is_negative(bn.get())) {
     fprintf(stderr, "BN_dec2bn gave a bad result.\n");
@@ -755,7 +755,7 @@ static bool TestDec2BN(BN_CTX *ctx) {
 }
 
 static bool TestHex2BN(BN_CTX *ctx) {
-  ScopedBIGNUM bn;
+  std::unique_ptr<BIGNUM> bn;
   int ret = HexToBIGNUM(&bn, "0");
   if (ret != 1 || !BN_is_zero(bn.get()) || BN_is_negative(bn.get())) {
     fprintf(stderr, "BN_hex2bn gave a bad result.\n");
@@ -789,16 +789,16 @@ static bool TestHex2BN(BN_CTX *ctx) {
   return true;
 }
 
-static ScopedBIGNUM ASCIIToBIGNUM(const char *in) {
+static std::unique_ptr<BIGNUM> ASCIIToBIGNUM(const char *in) {
   BIGNUM *raw = NULL;
   if (!BN_asc2bn(&raw, in)) {
     return nullptr;
   }
-  return ScopedBIGNUM(raw);
+  return std::unique_ptr<BIGNUM>(raw);
 }
 
 static bool TestASC2BN(BN_CTX *ctx) {
-  ScopedBIGNUM bn = ASCIIToBIGNUM("0");
+  std::unique_ptr<BIGNUM> bn = ASCIIToBIGNUM("0");
   if (!bn || !BN_is_zero(bn.get()) || BN_is_negative(bn.get())) {
     fprintf(stderr, "BN_asc2bn gave a bad result.\n");
     return false;
@@ -869,7 +869,7 @@ static bool TestMPI() {
 
   for (size_t i = 0; i < sizeof(kMPITests) / sizeof(kMPITests[0]); i++) {
     const MPITest &test = kMPITests[i];
-    ScopedBIGNUM bn(ASCIIToBIGNUM(test.base10));
+    std::unique_ptr<BIGNUM> bn(ASCIIToBIGNUM(test.base10));
     const size_t mpi_len = BN_bn2mpi(bn.get(), NULL);
     if (mpi_len > sizeof(scratch)) {
       fprintf(stderr, "MPI test #%u: MPI size is too large to test.\n",
@@ -891,7 +891,7 @@ static bool TestMPI() {
       return false;
     }
 
-    ScopedBIGNUM bn2(BN_mpi2bn(scratch, mpi_len, NULL));
+    std::unique_ptr<BIGNUM> bn2(BN_mpi2bn(scratch, mpi_len, NULL));
     if (bn2.get() == nullptr) {
       fprintf(stderr, "MPI test #%u: failed to parse\n", (unsigned)i);
       return false;
@@ -907,7 +907,7 @@ static bool TestMPI() {
 }
 
 static bool TestRand() {
-  ScopedBIGNUM bn(BN_new());
+  std::unique_ptr<BIGNUM> bn(BN_new());
   if (!bn) {
     return false;
   }
@@ -992,13 +992,13 @@ static const ASN1Test kASN1BuggyTests[] = {
 
 static bool TestASN1() {
   for (const ASN1Test &test : kASN1Tests) {
-    ScopedBIGNUM bn = ASCIIToBIGNUM(test.value_ascii);
+    std::unique_ptr<BIGNUM> bn = ASCIIToBIGNUM(test.value_ascii);
     if (!bn) {
       return false;
     }
 
     // Test that the input is correctly parsed.
-    ScopedBIGNUM bn2(BN_new());
+    std::unique_ptr<BIGNUM> bn2(BN_new());
     if (!bn2) {
       return false;
     }
@@ -1044,7 +1044,7 @@ static bool TestASN1() {
   }
 
   for (const ASN1InvalidTest &test : kASN1InvalidTests) {
-    ScopedBIGNUM bn(BN_new());
+    std::unique_ptr<BIGNUM> bn(BN_new());
     if (!bn) {
       return false;
     }
@@ -1068,7 +1068,7 @@ static bool TestASN1() {
 
   for (const ASN1Test &test : kASN1BuggyTests) {
     // These broken encodings are rejected by |BN_parse_asn1_unsigned|.
-    ScopedBIGNUM bn(BN_new());
+    std::unique_ptr<BIGNUM> bn(BN_new());
     if (!bn) {
       return false;
     }
@@ -1082,7 +1082,7 @@ static bool TestASN1() {
     ERR_clear_error();
 
     // However |BN_parse_asn1_unsigned_buggy| accepts them.
-    ScopedBIGNUM bn2 = ASCIIToBIGNUM(test.value_ascii);
+    std::unique_ptr<BIGNUM> bn2 = ASCIIToBIGNUM(test.value_ascii);
     if (!bn2) {
       return false;
     }
@@ -1100,7 +1100,7 @@ static bool TestASN1() {
   }
 
   // Serializing negative numbers is not supported.
-  ScopedBIGNUM bn = ASCIIToBIGNUM("-1");
+  std::unique_ptr<BIGNUM> bn = ASCIIToBIGNUM("-1");
   if (!bn) {
     return false;
   }
@@ -1119,9 +1119,9 @@ static bool TestASN1() {
 }
 
 static bool TestNegativeZero(BN_CTX *ctx) {
-  ScopedBIGNUM a(BN_new());
-  ScopedBIGNUM b(BN_new());
-  ScopedBIGNUM c(BN_new());
+  std::unique_ptr<BIGNUM> a(BN_new());
+  std::unique_ptr<BIGNUM> b(BN_new());
+  std::unique_ptr<BIGNUM> c(BN_new());
   if (!a || !b || !c) {
     return false;
   }
@@ -1141,7 +1141,7 @@ static bool TestNegativeZero(BN_CTX *ctx) {
   }
 
   for (int consttime = 0; consttime < 2; consttime++) {
-    ScopedBIGNUM numerator(BN_new()), denominator(BN_new());
+    std::unique_ptr<BIGNUM> numerator(BN_new()), denominator(BN_new());
     if (!numerator || !denominator) {
       return false;
     }
@@ -1202,10 +1202,10 @@ static bool TestNegativeZero(BN_CTX *ctx) {
 }
 
 static bool TestBadModulus(BN_CTX *ctx) {
-  ScopedBIGNUM a(BN_new());
-  ScopedBIGNUM b(BN_new());
-  ScopedBIGNUM zero(BN_new());
-  ScopedBN_MONT_CTX mont(BN_MONT_CTX_new());
+  std::unique_ptr<BIGNUM> a(BN_new());
+  std::unique_ptr<BIGNUM> b(BN_new());
+  std::unique_ptr<BIGNUM> zero(BN_new());
+  std::unique_ptr<BN_MONT_CTX> mont(BN_MONT_CTX_new());
   if (!a || !b || !zero || !mont) {
     return false;
   }
@@ -1289,7 +1289,7 @@ static bool TestBadModulus(BN_CTX *ctx) {
 
 // TestExpModZero tests that 1**0 mod 1 == 0.
 static bool TestExpModZero() {
-  ScopedBIGNUM zero(BN_new()), a(BN_new()), r(BN_new());
+  std::unique_ptr<BIGNUM> zero(BN_new()), a(BN_new()), r(BN_new());
   if (!zero || !a || !r ||
       !BN_rand(a.get(), 1024, BN_RAND_TOP_ONE, BN_RAND_BOTTOM_ANY)) {
     return false;
@@ -1316,7 +1316,7 @@ static bool TestExpModZero() {
 static bool TestSmallPrime(BN_CTX *ctx) {
   static const unsigned kBits = 10;
 
-  ScopedBIGNUM r(BN_new());
+  std::unique_ptr<BIGNUM> r(BN_new());
   if (!r || !BN_generate_prime_ex(r.get(), static_cast<int>(kBits), 0, NULL,
                                   NULL, NULL)) {
     return false;
@@ -1333,7 +1333,7 @@ static bool TestSmallPrime(BN_CTX *ctx) {
 static bool TestCmpWord() {
   static const BN_ULONG kMaxWord = (BN_ULONG)-1;
 
-  ScopedBIGNUM r(BN_new());
+  std::unique_ptr<BIGNUM> r(BN_new());
   if (!r ||
       !BN_set_word(r.get(), 0)) {
     return false;
@@ -1409,7 +1409,7 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
-  ScopedBN_CTX ctx(BN_CTX_new());
+  std::unique_ptr<BN_CTX> ctx(BN_CTX_new());
   if (!ctx) {
     return 1;
   }

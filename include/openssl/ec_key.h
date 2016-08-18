@@ -321,6 +321,19 @@ OPENSSL_EXPORT int i2o_ECPublicKey(const EC_KEY *key, unsigned char **outp);
 
 #if defined(__cplusplus)
 }  /* extern C */
+
+extern "C++" {
+
+namespace std {
+
+template<> struct default_delete<EC_KEY> {
+  void operator()(EC_KEY* p) { EC_KEY_free(p); }
+};
+
+}  // namespace std
+
+}  /* extern C++ */
+
 #endif
 
 #endif  /* OPENSSL_HEADER_EC_KEY_H */

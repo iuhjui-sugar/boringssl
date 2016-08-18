@@ -142,6 +142,19 @@ OPENSSL_EXPORT void NEWHOPE_offer_frommsg(
 
 #if defined(__cplusplus)
 } /* extern "C" */
+
+extern "C++" {
+
+namespace std {
+
+template<> struct default_delete<NEWHOPE_POLY> {
+  void operator()(NEWHOPE_POLY* p) { NEWHOPE_POLY_free(p); }
+};
+
+}  // namespace std
+
+}  /* extern C++ */
+
 #endif
 
 #endif /* OPENSSL_HEADER_NEWHOPE_H */
