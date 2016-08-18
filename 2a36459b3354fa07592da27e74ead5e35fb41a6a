@@ -25,6 +25,24 @@
     },
     {
       "key": {
+        "uuid": "fb316383_a5a22840",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-18T15:13:38Z",
+      "side": 1,
+      "message": "Reworded.",
+      "parentUuid": "db8bbf31_13a9b425",
+      "revId": "2a36459b3354fa07592da27e74ead5e35fb41a6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "db8bbf31_9c55b1cf",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 3
@@ -36,6 +54,24 @@
       "writtenOn": "2016-08-17T20:52:10Z",
       "side": 1,
       "message": "Why not a resumeCount int (to replace both resumeSession and resumeRenewedSession)?",
+      "revId": "2a36459b3354fa07592da27e74ead5e35fb41a6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb316383_457b14ca",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-18T15:13:38Z",
+      "side": 1,
+      "message": "I didn\u0027t want to have to rewrite all the tests. :-)\n\nAlso resumeCount \u003e 1 doesn\u0027t work in TLS 1.2 because you need to set RenewTicketOnResume and it isn\u0027t possible with session IDs at all. (Ticket renewal in TLS 1.2 isn\u0027t really a thing. Turns out older SChannel barfs on it, so no one can do it.) So I figured it\u0027d be good to be explicit. WDYT?",
+      "parentUuid": "db8bbf31_9c55b1cf",
       "revId": "2a36459b3354fa07592da27e74ead5e35fb41a6a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false

@@ -16,6 +16,24 @@
       "revId": "acf7510709e8aac6f62cf9dec0474cddb9aecfb7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "db8bbf31_a7eed680",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 2100,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-18T15:13:38Z",
+      "side": 0,
+      "message": "We\u0027re already passing -expect-no-session. There\u0027s no need to do the second connection because there\u0027s no session to offer. (bssl_shim.cc now checks.) I.e. those two were only doing anything on accident. There was no session to resume and the resumption was less rejected and more not actually offered.",
+      "parentUuid": "db8bbf31_3c703d73",
+      "revId": "acf7510709e8aac6f62cf9dec0474cddb9aecfb7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
