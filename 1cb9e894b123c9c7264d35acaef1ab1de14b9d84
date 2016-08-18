@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fb27a396_a6110666",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-18T23:26:54Z",
+      "side": 1,
+      "message": "OPENSSL_ARRAY_SIZE (SSL_ARRAY_SIZE would mean it\u0027s part of the SSL stack.)",
+      "revId": "1cb9e894b123c9c7264d35acaef1ab1de14b9d84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
