@@ -115,7 +115,7 @@ static int GetKeyType(FileTest *t, const std::string &name) {
   return EVP_PKEY_NONE;
 }
 
-using KeyMap = std::map<std::string, ScopedEVP_PKEY>;
+using KeyMap = std::map<std::string, std::unique_ptr<EVP_PKEY>>;
 
 static bool ImportKey(FileTest *t, KeyMap *key_map,
                       EVP_PKEY *(*parse_func)(CBS *cbs),
@@ -127,7 +127,7 @@ static bool ImportKey(FileTest *t, KeyMap *key_map,
 
   CBS cbs;
   CBS_init(&cbs, input.data(), input.size());
-  ScopedEVP_PKEY pkey(parse_func(&cbs));
+  std::unique_ptr<EVP_PKEY> pkey(parse_func(&cbs));
   if (!pkey) {
     return false;
   }
@@ -215,7 +215,7 @@ static bool TestEVP(FileTest *t, void *arg) {
   }
 
   // Set up the EVP_PKEY_CTX.
-  ScopedEVP_PKEY_CTX ctx(EVP_PKEY_CTX_new(key, nullptr));
+  std::unique_ptr<EVP_PKEY_CTX> ctx(EVP_PKEY_CTX_new(key, nullptr));
   if (!ctx || !key_op_init(ctx.get())) {
     return false;
   }

@@ -38,7 +38,7 @@ OPENSSL_MSVC_PRAGMA(warning(pop))
 // continues reading, subject to the read deadline. Otherwise, it fails
 // immediately. The caller must then call |PacketedBioAdvanceClock| before
 // retrying |BIO_read|.
-ScopedBIO PacketedBioCreate(bool advance_clock);
+std::unique_ptr<BIO> PacketedBioCreate(bool advance_clock);
 
 // PacketedBioGetClock returns the current time for |bio|.
 timeval PacketedBioGetClock(const BIO *bio);

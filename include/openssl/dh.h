@@ -274,6 +274,19 @@ struct dh_st {
 
 #if defined(__cplusplus)
 }  /* extern C */
+
+extern "C++" {
+
+namespace std {
+
+template<> struct default_delete<DH> {
+  void operator()(DH* p) { DH_free(p); }
+};
+
+}  // namespace std
+
+}  /* extern C++ */
+
 #endif
 
 #define DH_R_BAD_GENERATOR 100

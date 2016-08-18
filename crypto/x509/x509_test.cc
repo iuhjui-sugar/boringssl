@@ -226,16 +226,16 @@ static const char kRSAKey[] =
 
 // CertFromPEM parses the given, NUL-terminated pem block and returns an
 // |X509*|.
-static ScopedX509 CertFromPEM(const char *pem) {
-  ScopedBIO bio(BIO_new_mem_buf(pem, strlen(pem)));
-  return ScopedX509(PEM_read_bio_X509(bio.get(), nullptr, nullptr, nullptr));
+static std::unique_ptr<X509> CertFromPEM(const char *pem) {
+  std::unique_ptr<BIO> bio(BIO_new_mem_buf(pem, strlen(pem)));
+  return std::unique_ptr<X509>(PEM_read_bio_X509(bio.get(), nullptr, nullptr, nullptr));
 }
 
 // PrivateKeyFromPEM parses the given, NUL-terminated pem block and returns an
 // |EVP_PKEY*|.
-static ScopedEVP_PKEY PrivateKeyFromPEM(const char *pem) {
-  ScopedBIO bio(BIO_new_mem_buf(const_cast<char *>(pem), strlen(pem)));
-  return ScopedEVP_PKEY(
+static std::unique_ptr<EVP_PKEY> PrivateKeyFromPEM(const char *pem) {
+  std::unique_ptr<BIO> bio(BIO_new_mem_buf(const_cast<char *>(pem), strlen(pem)));
+  return std::unique_ptr<EVP_PKEY>(
       PEM_read_bio_PrivateKey(bio.get(), nullptr, nullptr, nullptr));
 }
 
@@ -266,7 +266,7 @@ static bool Verify(X509 *leaf, const std::vector<X509 *> &roots,
     return false;
   }
 
-  ScopedX509_STORE_CTX ctx(X509_STORE_CTX_new());
+  std::unique_ptr<X509_STORE_CTX> ctx(X509_STORE_CTX_new());
   if (!ctx) {
     return false;
   }
@@ -293,14 +293,14 @@ static bool Verify(X509 *leaf, const std::vector<X509 *> &roots,
 }
 
 static bool TestVerify() {
-  ScopedX509 cross_signing_root(CertFromPEM(kCrossSigningRootPEM));
-  ScopedX509 root(CertFromPEM(kRootCAPEM));
-  ScopedX509 root_cross_signed(CertFromPEM(kRootCrossSignedPEM));
-  ScopedX509 intermediate(CertFromPEM(kIntermediatePEM));
-  ScopedX509 intermediate_self_signed(CertFromPEM(kIntermediateSelfSignedPEM));
-  ScopedX509 leaf(CertFromPEM(kLeafPEM));
-  ScopedX509 leaf_no_key_usage(CertFromPEM(kLeafNoKeyUsagePEM));
-  ScopedX509 forgery(CertFromPEM(kForgeryPEM));
+  std::unique_ptr<X509> cross_signing_root(CertFromPEM(kCrossSigningRootPEM));
+  std::unique_ptr<X509> root(CertFromPEM(kRootCAPEM));
+  std::unique_ptr<X509> root_cross_signed(CertFromPEM(kRootCrossSignedPEM));
+  std::unique_ptr<X509> intermediate(CertFromPEM(kIntermediatePEM));
+  std::unique_ptr<X509> intermediate_self_signed(CertFromPEM(kIntermediateSelfSignedPEM));
+  std::unique_ptr<X509> leaf(CertFromPEM(kLeafPEM));
+  std::unique_ptr<X509> leaf_no_key_usage(CertFromPEM(kLeafNoKeyUsagePEM));
+  std::unique_ptr<X509> forgery(CertFromPEM(kForgeryPEM));
 
   if (!cross_signing_root ||
       !root ||
@@ -380,12 +380,12 @@ static bool TestVerify() {
 }
 
 static bool TestPSS() {
-  ScopedX509 cert(CertFromPEM(kExamplePSSCert));
+  std::unique_ptr<X509> cert(CertFromPEM(kExamplePSSCert));
   if (!cert) {
     return false;
   }
 
-  ScopedEVP_PKEY pkey(X509_get_pubkey(cert.get()));
+  std::unique_ptr<EVP_PKEY> pkey(X509_get_pubkey(cert.get()));
   if (!pkey) {
     return false;
   }
@@ -398,12 +398,12 @@ static bool TestPSS() {
 }
 
 static bool TestBadPSSParameters() {
-  ScopedX509 cert(CertFromPEM(kBadPSSCertPEM));
+  std::unique_ptr<X509> cert(CertFromPEM(kBadPSSCertPEM));
   if (!cert) {
     return false;
   }
 
-  ScopedEVP_PKEY pkey(X509_get_pubkey(cert.get()));
+  std::unique_ptr<EVP_PKEY> pkey(X509_get_pubkey(cert.get()));
   if (!pkey) {
     return false;
   }
@@ -418,7 +418,7 @@ static bool TestBadPSSParameters() {
 
 static bool SignatureRoundTrips(EVP_MD_CTX *md_ctx, EVP_PKEY *pkey) {
   // Make a certificate like signed with |md_ctx|'s settings.'
-  ScopedX509 cert(CertFromPEM(kLeafPEM));
+  std::unique_ptr<X509> cert(CertFromPEM(kLeafPEM));
   if (!cert || !X509_sign_ctx(cert.get(), md_ctx)) {
     return false;
   }
@@ -429,7 +429,7 @@ static bool SignatureRoundTrips(EVP_MD_CTX *md_ctx, EVP_PKEY *pkey) {
 }
 
 static bool TestSignCtx() {
-  ScopedEVP_PKEY pkey(PrivateKeyFromPEM(kRSAKey));
+  std::unique_ptr<EVP_PKEY> pkey(PrivateKeyFromPEM(kRSAKey));
   if (!pkey) {
     return false;
   }

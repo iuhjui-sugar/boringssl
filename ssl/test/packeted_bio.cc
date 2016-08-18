@@ -272,8 +272,8 @@ const BIO_METHOD g_packeted_bio_method = {
 
 }  // namespace
 
-ScopedBIO PacketedBioCreate(bool advance_clock) {
-  ScopedBIO bio(BIO_new(&g_packeted_bio_method));
+std::unique_ptr<BIO> PacketedBioCreate(bool advance_clock) {
+  std::unique_ptr<BIO> bio(BIO_new(&g_packeted_bio_method));
   if (!bio) {
     return nullptr;
   }

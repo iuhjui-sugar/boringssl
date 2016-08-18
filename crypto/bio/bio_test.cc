@@ -103,7 +103,7 @@ static bool TestSocketConnect() {
   char hostname[80];
   BIO_snprintf(hostname, sizeof(hostname), "%s:%d", "127.0.0.1",
                ntohs(sin.sin_port));
-  ScopedBIO bio(BIO_new_connect(hostname));
+  std::unique_ptr<BIO> bio(BIO_new_connect(hostname));
   if (!bio) {
     fprintf(stderr, "BIO_new_connect failed.\n");
     return false;
@@ -216,8 +216,8 @@ static bool TestZeroCopyBioPairs() {
       if (!BIO_new_bio_pair(&bio1, kBufferSize, &bio2, kBufferSize)) {
         return false;
       }
-      ScopedBIO bio1_scoper(bio1);
-      ScopedBIO bio2_scoper(bio2);
+      std::unique_ptr<BIO> bio1_scoper(bio1);
+      std::unique_ptr<BIO> bio2_scoper(bio2);
 
       total_write += BioWriteZeroCopyWrapper(
           bio1, bio1_application_send_buffer, kLengths[i]);
@@ -287,7 +287,7 @@ static bool TestPrintf() {
   // 256 (the size of the buffer) to ensure edge cases are correct.
   static const size_t kLengths[] = { 5, 250, 251, 252, 253, 254, 1023 };
 
-  ScopedBIO bio(BIO_new(BIO_s_mem()));
+  std::unique_ptr<BIO> bio(BIO_new(BIO_s_mem()));
   if (!bio) {
     fprintf(stderr, "BIO_new failed\n");
     return false;
@@ -331,7 +331,7 @@ static bool TestPrintf() {
 
 static bool ReadASN1(bool should_succeed, const uint8_t *data, size_t data_len,
                      size_t expected_len, size_t max_len) {
-  ScopedBIO bio(BIO_new_mem_buf(data, data_len));
+  std::unique_ptr<BIO> bio(BIO_new_mem_buf(data, data_len));
 
   uint8_t *out;
   size_t out_len;

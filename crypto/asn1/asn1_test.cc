@@ -42,7 +42,7 @@ static const uint8_t kTagOverflow[] = {
 
 static bool TestLargeTags() {
   const uint8_t *p = kTag258;
-  ScopedASN1_TYPE obj(d2i_ASN1_TYPE(NULL, &p, sizeof(kTag258)));
+  std::unique_ptr<ASN1_TYPE> obj(d2i_ASN1_TYPE(NULL, &p, sizeof(kTag258)));
   if (obj) {
     fprintf(stderr, "Parsed value with illegal tag (type = %d).\n", obj->type);
     return false;

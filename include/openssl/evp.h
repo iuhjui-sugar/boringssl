@@ -750,6 +750,27 @@ struct evp_pkey_st {
 
 #if defined(__cplusplus)
 }  /* extern C */
+
+extern "C++" {
+
+namespace std {
+
+template<> struct default_delete<EVP_CIPHER_CTX> {
+  void operator()(EVP_CIPHER_CTX* p) { EVP_CIPHER_CTX_free(p); }
+};
+
+template<> struct default_delete<EVP_PKEY> {
+  void operator()(EVP_PKEY* p) { EVP_PKEY_free(p); }
+};
+
+template<> struct default_delete<EVP_PKEY_CTX> {
+  void operator()(EVP_PKEY_CTX* p) { EVP_PKEY_CTX_free(p); }
+};
+
+}  // namespace std
+
+}  /* extern C++ */
+
 #endif
 
 #define EVP_R_BUFFER_TOO_SMALL 100

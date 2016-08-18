@@ -1224,6 +1224,83 @@ OPENSSL_EXPORT int PKCS7_get_PEM_CRLs(STACK_OF(X509_CRL) *out_crls,
 
 #ifdef  __cplusplus
 }
+
+extern "C++" {
+
+namespace std {
+
+template<> struct default_delete<X509> {
+  void operator()(X509* p) { X509_free(p); }
+};
+
+template<> struct default_delete<X509_ALGOR> {
+  void operator()(X509_ALGOR* p) { X509_ALGOR_free(p); }
+};
+
+template<> struct default_delete<X509_CRL> {
+  void operator()(X509_CRL* p) { X509_CRL_free(p); }
+};
+
+template<> struct default_delete<X509_CRL_METHOD> {
+  void operator()(X509_CRL_METHOD* p) { X509_CRL_METHOD_free(p); }
+};
+
+template<> struct default_delete<X509_EXTENSION> {
+  void operator()(X509_EXTENSION* p) { X509_EXTENSION_free(p); }
+};
+
+template<> struct default_delete<X509_INFO> {
+  void operator()(X509_INFO* p) { X509_INFO_free(p); }
+};
+
+template<> struct default_delete<X509_LOOKUP> {
+  void operator()(X509_LOOKUP* p) { X509_LOOKUP_free(p); }
+};
+
+template<> struct default_delete<X509_NAME> {
+  void operator()(X509_NAME* p) { X509_NAME_free(p); }
+};
+
+template<> struct default_delete<X509_NAME_ENTRY> {
+  void operator()(X509_NAME_ENTRY* p) { X509_NAME_ENTRY_free(p); }
+};
+
+template<> struct default_delete<X509_PKEY> {
+  void operator()(X509_PKEY* p) { X509_PKEY_free(p); }
+};
+
+template<> struct default_delete<X509_POLICY_TREE> {
+  void operator()(X509_POLICY_TREE* p) { X509_policy_tree_free(p); }
+};
+
+template<> struct default_delete<X509_REQ> {
+  void operator()(X509_REQ* p) { X509_REQ_free(p); }
+};
+
+template<> struct default_delete<X509_REVOKED> {
+  void operator()(X509_REVOKED* p) { X509_REVOKED_free(p); }
+};
+
+template<> struct default_delete<X509_SIG> {
+  void operator()(X509_SIG* p) { X509_SIG_free(p); }
+};
+
+template<> struct default_delete<X509_STORE> {
+  void operator()(X509_STORE* p) { X509_STORE_free(p); }
+};
+
+template<> struct default_delete<X509_STORE_CTX> {
+  void operator()(X509_STORE_CTX* p) { X509_STORE_CTX_free(p); }
+};
+
+template<> struct default_delete<X509_VERIFY_PARAM> {
+  void operator()(X509_VERIFY_PARAM* p) { X509_VERIFY_PARAM_free(p); }
+};
+
+}  // namespace std
+
+}  /* extern C++ */
+
 #endif
 
 #define X509_R_AKID_MISMATCH 100

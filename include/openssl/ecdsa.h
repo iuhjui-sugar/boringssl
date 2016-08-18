@@ -194,6 +194,19 @@ OPENSSL_EXPORT int i2d_ECDSA_SIG(const ECDSA_SIG *sig, uint8_t **outp);
 
 #if defined(__cplusplus)
 }  /* extern C */
+
+extern "C++" {
+
+namespace std {
+
+template<> struct default_delete<ECDSA_SIG> {
+  void operator()(ECDSA_SIG* p) { ECDSA_SIG_free(p); }
+};
+
+}  // namespace std
+
+}  /* extern C++ */
+
 #endif
 
 #define ECDSA_R_BAD_SIGNATURE 100

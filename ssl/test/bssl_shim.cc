@@ -59,7 +59,6 @@ OPENSSL_MSVC_PRAGMA(warning(pop))
 #include "../../crypto/test/scoped_types.h"
 #include "async_bio.h"
 #include "packeted_bio.h"
-#include "scoped_types.h"
 #include "test_config.h"
 
 namespace bssl {
@@ -88,20 +87,20 @@ struct TestState {
   BIO *async_bio = nullptr;
   // packeted_bio is the packeted BIO which simulates read timeouts.
   BIO *packeted_bio = nullptr;
-  ScopedEVP_PKEY channel_id;
+  std::unique_ptr<EVP_PKEY> channel_id;
   bool cert_ready = false;
-  ScopedSSL_SESSION session;
-  ScopedSSL_SESSION pending_session;
+  std::unique_ptr<SSL_SESSION> session;
+  std::unique_ptr<SSL_SESSION> pending_session;
   bool early_callback_called = false;
   bool handshake_done = false;
   // private_key is the underlying private key used when testing custom keys.
-  ScopedEVP_PKEY private_key;
+  std::unique_ptr<EVP_PKEY> private_key;
   std::vector<uint8_t> private_key_result;
   // private_key_retries is the number of times an asynchronous private key
   // operation has been retried.
   unsigned private_key_retries = 0;
   bool got_new_session = false;
-  ScopedSSL_SESSION new_session;
+  std::unique_ptr<SSL_SESSION> new_session;
   bool ticket_decrypt_done = false;
   bool alpn_select_done = false;
 };
@@ -135,20 +134,20 @@ static TestState *GetTestState(const SSL *ssl) {
   return (TestState *)SSL_get_ex_data(ssl, g_state_index);
 }
 
-static ScopedX509 LoadCertificate(const std::string &file) {
-  ScopedBIO bio(BIO_new(BIO_s_file()));
+static std::unique_ptr<X509> LoadCertificate(const std::string &file) {
+  std::unique_ptr<BIO> bio(BIO_new(BIO_s_file()));
   if (!bio || !BIO_read_filename(bio.get(), file.c_str())) {
     return nullptr;
   }
-  return ScopedX509(PEM_read_bio_X509(bio.get(), NULL, NULL, NULL));
+  return std::unique_ptr<X509>(PEM_read_bio_X509(bio.get(), NULL, NULL, NULL));
 }
 
-static ScopedEVP_PKEY LoadPrivateKey(const std::string &file) {
-  ScopedBIO bio(BIO_new(BIO_s_file()));
+static std::unique_ptr<EVP_PKEY> LoadPrivateKey(const std::string &file) {
+  std::unique_ptr<BIO> bio(BIO_new(BIO_s_file()));
   if (!bio || !BIO_read_filename(bio.get(), file.c_str())) {
     return nullptr;
   }
-  return ScopedEVP_PKEY(PEM_read_bio_PrivateKey(bio.get(), NULL, NULL, NULL));
+  return std::unique_ptr<EVP_PKEY>(PEM_read_bio_PrivateKey(bio.get(), NULL, NULL, NULL));
 }
 
 static int AsyncPrivateKeyType(SSL *ssl) {
@@ -316,8 +315,8 @@ struct Free {
   }
 };
 
-static bool GetCertificate(SSL *ssl, ScopedX509 *out_x509,
-                           ScopedEVP_PKEY *out_pkey) {
+static bool GetCertificate(SSL *ssl, std::unique_ptr<X509> *out_x509,
+                           std::unique_ptr<EVP_PKEY> *out_pkey) {
   const TestConfig *config = GetTestConfig(ssl);
 
   if (!config->digest_prefs.empty()) {
@@ -371,8 +370,8 @@ static bool GetCertificate(SSL *ssl, ScopedX509 *out_x509,
 }
 
 static bool InstallCertificate(SSL *ssl) {
-  ScopedX509 x509;
-  ScopedEVP_PKEY pkey;
+  std::unique_ptr<X509> x509;
+  std::unique_ptr<EVP_PKEY> pkey;
   if (!GetCertificate(ssl, &x509, &pkey)) {
     return false;
   }
@@ -452,8 +451,8 @@ static int ClientCertCallback(SSL *ssl, X509 **out_x509, EVP_PKEY **out_pkey) {
     return -1;
   }
 
-  ScopedX509 x509;
-  ScopedEVP_PKEY pkey;
+  std::unique_ptr<X509> x509;
+  std::unique_ptr<EVP_PKEY> pkey;
   if (!GetCertificate(ssl, &x509, &pkey)) {
     return -1;
   }
@@ -798,8 +797,8 @@ class SocketCloser {
   const int sock_;
 };
 
-static ScopedSSL_CTX SetupCtx(const TestConfig *config) {
-  ScopedSSL_CTX ssl_ctx(SSL_CTX_new(
+static std::unique_ptr<SSL_CTX> SetupCtx(const TestConfig *config) {
+  std::unique_ptr<SSL_CTX> ssl_ctx(SSL_CTX_new(
       config->is_dtls ? DTLS_method() : TLS_method()));
   if (!ssl_ctx) {
     return nullptr;
@@ -830,7 +829,7 @@ static ScopedSSL_CTX SetupCtx(const TestConfig *config) {
     return nullptr;
   }
 
-  ScopedDH dh(DH_get_2048_256(NULL));
+  std::unique_ptr<DH> dh(DH_get_2048_256(NULL));
   if (!dh) {
     return nullptr;
   }
@@ -972,7 +971,7 @@ static bool RetryAsync(SSL *ssl, int ret) {
       AsyncBioAllowWrite(test_state->async_bio, 1);
       return true;
     case SSL_ERROR_WANT_CHANNEL_ID_LOOKUP: {
-      ScopedEVP_PKEY pkey = LoadPrivateKey(GetTestConfig(ssl)->send_channel_id);
+      std::unique_ptr<EVP_PKEY> pkey = LoadPrivateKey(GetTestConfig(ssl)->send_channel_id);
       if (!pkey) {
         return false;
       }
@@ -1255,10 +1254,10 @@ static bool CheckHandshakeProperties(SSL *ssl, bool is_resume) {
 // true and sets |*out_session| to the negotiated SSL session. If the test is a
 // resumption attempt, |is_resume| is true and |session| is the session from the
 // previous exchange.
-static bool DoExchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
+static bool DoExchange(std::unique_ptr<SSL_SESSION> *out_session, SSL_CTX *ssl_ctx,
                        const TestConfig *config, bool is_resume,
                        SSL_SESSION *session) {
-  ScopedSSL ssl(SSL_new(ssl_ctx));
+  std::unique_ptr<SSL> ssl(SSL_new(ssl_ctx));
   if (!ssl) {
     return false;
   }
@@ -1318,7 +1317,7 @@ static bool DoExchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
     SSL_enable_tls_channel_id(ssl.get());
     if (!config->async) {
       // The async case will be supplied by |ChannelIdCallback|.
-      ScopedEVP_PKEY pkey = LoadPrivateKey(config->send_channel_id);
+      std::unique_ptr<EVP_PKEY> pkey = LoadPrivateKey(config->send_channel_id);
       if (!pkey || !SSL_set1_tls_channel_id(ssl.get(), pkey.get())) {
         return false;
       }
@@ -1411,12 +1410,12 @@ static bool DoExchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
   }
   SocketCloser closer(sock);
 
-  ScopedBIO bio(BIO_new_socket(sock, BIO_NOCLOSE));
+  std::unique_ptr<BIO> bio(BIO_new_socket(sock, BIO_NOCLOSE));
   if (!bio) {
     return false;
   }
   if (config->is_dtls) {
-    ScopedBIO packeted = PacketedBioCreate(!config->async);
+    std::unique_ptr<BIO> packeted = PacketedBioCreate(!config->async);
     if (!packeted) {
       return false;
     }
@@ -1425,7 +1424,7 @@ static bool DoExchange(ScopedSSL_SESSION *out_session, SSL_CTX *ssl_ctx,
     bio = std::move(packeted);
   }
   if (config->async) {
-    ScopedBIO async_scoped =
+    std::unique_ptr<BIO> async_scoped =
         config->is_dtls ? AsyncBioCreateDatagram() : AsyncBioCreate();
     if (!async_scoped) {
       return false;
@@ -1692,13 +1691,13 @@ static int Main(int argc, char **argv) {
     return Usage(argv[0]);
   }
 
-  ScopedSSL_CTX ssl_ctx = SetupCtx(&config);
+  std::unique_ptr<SSL_CTX> ssl_ctx = SetupCtx(&config);
   if (!ssl_ctx) {
     ERR_print_errors_fp(stderr);
     return 1;
   }
 
-  ScopedSSL_SESSION session;
+  std::unique_ptr<SSL_SESSION> session;
   if (!DoExchange(&session, ssl_ctx.get(), &config, false /* is_resume */,
                   NULL /* session */)) {
     ERR_print_errors_fp(stderr);

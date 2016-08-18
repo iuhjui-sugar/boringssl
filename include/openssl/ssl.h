@@ -4645,6 +4645,27 @@ OPENSSL_EXPORT int SSL_set_ssl_method(SSL *s, const SSL_METHOD *method);
 
 #if defined(__cplusplus)
 } /* extern C */
+
+extern "C++" {
+
+namespace std {
+
+template<> struct default_delete<SSL> {
+  void operator()(SSL* p) { SSL_free(p); }
+};
+
+template<> struct default_delete<SSL_CTX> {
+  void operator()(SSL_CTX* p) { SSL_CTX_free(p); }
+};
+
+template<> struct default_delete<SSL_SESSION> {
+  void operator()(SSL_SESSION* p) { SSL_SESSION_free(p); }
+};
+
+}  // namespace std
+
+}  /* extern C++ */
+
 #endif
 
 #define SSL_R_APP_DATA_IN_HANDSHAKE 100

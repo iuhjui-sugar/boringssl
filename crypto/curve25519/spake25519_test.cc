@@ -24,13 +24,13 @@
 
 struct SPAKE2Run {
   bool Run() {
-    ScopedSPAKE2_CTX alice(SPAKE2_CTX_new(
+    std::unique_ptr<SPAKE2_CTX> alice(SPAKE2_CTX_new(
         spake2_role_alice,
         reinterpret_cast<const uint8_t *>(alice_names.first.data()),
         alice_names.first.size(),
         reinterpret_cast<const uint8_t *>(alice_names.second.data()),
         alice_names.second.size()));
-    ScopedSPAKE2_CTX bob(SPAKE2_CTX_new(
+    std::unique_ptr<SPAKE2_CTX> bob(SPAKE2_CTX_new(
         spake2_role_bob,
         reinterpret_cast<const uint8_t *>(bob_names.first.data()),
         bob_names.first.size(),
