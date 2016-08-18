@@ -25,12 +25,12 @@
 
 
 static bool TestNewhope(FileTest *t, void *arg) {
-  ScopedNEWHOPE_POLY a(NEWHOPE_POLY_new());
-  ScopedNEWHOPE_POLY s(NEWHOPE_POLY_new()), sp(NEWHOPE_POLY_new());
-  ScopedNEWHOPE_POLY e(NEWHOPE_POLY_new()), ep(NEWHOPE_POLY_new()),
+  bssl::unique_ptr<NEWHOPE_POLY> a(NEWHOPE_POLY_new());
+  bssl::unique_ptr<NEWHOPE_POLY> s(NEWHOPE_POLY_new()), sp(NEWHOPE_POLY_new());
+  bssl::unique_ptr<NEWHOPE_POLY> e(NEWHOPE_POLY_new()), ep(NEWHOPE_POLY_new()),
       epp(NEWHOPE_POLY_new());
-  ScopedNEWHOPE_POLY in_pk(NEWHOPE_POLY_new());
-  ScopedNEWHOPE_POLY in_rec(NEWHOPE_POLY_new());
+  bssl::unique_ptr<NEWHOPE_POLY> in_pk(NEWHOPE_POLY_new());
+  bssl::unique_ptr<NEWHOPE_POLY> in_rec(NEWHOPE_POLY_new());
 
   if (t->GetType() == "InRandA") {
     std::vector<uint8_t> a_bytes, s_bytes, e_bytes, expected_pk;
