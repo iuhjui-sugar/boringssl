@@ -195,6 +195,7 @@ typedef struct asn1_string_st ASN1_UNIVERSALSTRING;
 typedef struct asn1_string_st ASN1_UTCTIME;
 typedef struct asn1_string_st ASN1_UTF8STRING;
 typedef struct asn1_string_st ASN1_VISIBLESTRING;
+typedef struct asn1_type_st ASN1_TYPE;
 
 typedef struct AUTHORITY_KEYID_st AUTHORITY_KEYID;
 typedef struct BASIC_CONSTRAINTS_st BASIC_CONSTRAINTS;
@@ -286,6 +287,7 @@ typedef struct x509_cert_aux_st X509_CERT_AUX;
 typedef struct x509_cert_pair_st X509_CERT_PAIR;
 typedef struct x509_cinf_st X509_CINF;
 typedef struct x509_crl_method_st X509_CRL_METHOD;
+typedef struct x509_lookup_st X509_LOOKUP;
 typedef struct x509_revoked_st X509_REVOKED;
 typedef struct x509_st X509;
 typedef struct x509_store_ctx_st X509_STORE_CTX;
@@ -297,6 +299,34 @@ typedef void *OPENSSL_BLOCK;
 
 #if defined(__cplusplus)
 }  /* extern C */
+
+extern "C++" {
+
+#include <memory>
+
+struct stack_st_X509;
+
+namespace bssl {
+
+namespace internal {
+
+template <class T> struct Deleter {};
+
+#define MAKE_DELETER(TYPE, DELETER) \
+  template <> struct Deleter<TYPE> { void operator()(TYPE* ptr) { DELETER(ptr); } };
+
+}  // namespace internal
+
+// Holds ownership of heap-allocated BoringSSL structures. Sample usage:
+//   bssl::UniquePtr<BIO> rsa(RSA_new());
+//   bssl::UniquePtr<BIO> bio(BIO_new(BIO_s_mem()));
+template <typename T>
+using UniquePtr = std::unique_ptr<T, internal::Deleter<T>>;
+
+}  // namespace bssl
+
+}  /* extern C++ */
+
 #endif
 
 #endif  /* OPENSSL_HEADER_BASE_H */

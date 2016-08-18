@@ -750,6 +750,24 @@ struct evp_pkey_st {
 
 #if defined(__cplusplus)
 }  /* extern C */
+
+extern "C++" {
+namespace bssl {
+
+namespace internal {
+
+MAKE_DELETER(EVP_CIPHER_CTX, EVP_CIPHER_CTX_free)
+
+MAKE_DELETER(EVP_PKEY, EVP_PKEY_free)
+
+MAKE_DELETER(EVP_PKEY_CTX, EVP_PKEY_CTX_free)
+
+}  // namespace internal
+
+}  // namespace bssl
+
+}  /* extern C++ */
+
 #endif
 
 #define EVP_R_BUFFER_TOO_SMALL 100
