@@ -142,6 +142,21 @@ OPENSSL_EXPORT void NEWHOPE_offer_frommsg(
 
 #if defined(__cplusplus)
 } /* extern "C" */
+
+extern "C++" {
+
+namespace bssl {
+
+namespace internal {
+
+inline void Free(NEWHOPE_POLY* ptr) { NEWHOPE_POLY_free(ptr); }
+
+}  // namespace internal
+
+}  // namespace bssl
+
+}  /* extern C++ */
+
 #endif
 
 #endif /* OPENSSL_HEADER_NEWHOPE_H */

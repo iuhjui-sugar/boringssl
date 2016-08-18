@@ -195,6 +195,7 @@ typedef struct asn1_string_st ASN1_UNIVERSALSTRING;
 typedef struct asn1_string_st ASN1_UTCTIME;
 typedef struct asn1_string_st ASN1_UTF8STRING;
 typedef struct asn1_string_st ASN1_VISIBLESTRING;
+typedef struct asn1_type_st ASN1_TYPE;
 
 typedef struct AUTHORITY_KEYID_st AUTHORITY_KEYID;
 typedef struct BASIC_CONSTRAINTS_st BASIC_CONSTRAINTS;
@@ -286,6 +287,7 @@ typedef struct x509_cert_aux_st X509_CERT_AUX;
 typedef struct x509_cert_pair_st X509_CERT_PAIR;
 typedef struct x509_cinf_st X509_CINF;
 typedef struct x509_crl_method_st X509_CRL_METHOD;
+typedef struct x509_lookup_st X509_LOOKUP;
 typedef struct x509_revoked_st X509_REVOKED;
 typedef struct x509_st X509;
 typedef struct x509_store_ctx_st X509_STORE_CTX;
@@ -297,6 +299,85 @@ typedef void *OPENSSL_BLOCK;
 
 #if defined(__cplusplus)
 }  /* extern C */
+
+extern "C++" {
+
+#include <memory>
+
+struct stack_st_X509;
+
+namespace bssl {
+
+namespace internal {
+
+void Free(stack_st_X509* ptr);
+
+void Free(char *ptr);
+void Free(uint8_t* ptr);
+
+void Free(ASN1_OBJECT* ptr);
+void Free(ASN1_STRING* ptr);
+void Free(ASN1_TYPE* ptr);
+void Free(BIO* ptr);
+void Free(BIGNUM* ptr);
+void Free(BN_CTX* ptr);
+void Free(BN_MONT_CTX* ptr);
+void Free(BUF_MEM* ptr);
+void Free(CMAC_CTX* ptr);
+void Free(CONF* ptr);
+void Free(SPAKE2_CTX* ptr);
+void Free(DH* ptr);
+void Free(DSA* ptr);
+void Free(DSA_SIG* ptr);
+void Free(EC_POINT* ptr);
+void Free(EC_GROUP* ptr);
+void Free(EC_KEY* ptr);
+void Free(ECDSA_SIG* ptr);
+void Free(ENGINE* ptr);
+void Free(EVP_CIPHER_CTX* ptr);
+void Free(EVP_PKEY* ptr);
+void Free(EVP_PKEY_CTX* ptr);
+void Free(NEWHOPE_POLY* ptr);
+void Free(PKCS12* ptr);
+void Free(PKCS8_PRIV_KEY_INFO* ptr);
+void Free(RSA* ptr);
+void Free(SSL* ptr);
+void Free(SSL_CTX* ptr);
+void Free(SSL_SESSION* ptr);
+void Free(X509* ptr);
+void Free(X509_ALGOR* ptr);
+void Free(X509_CRL* ptr);
+void Free(X509_CRL_METHOD* ptr);
+void Free(X509_EXTENSION* ptr);
+void Free(X509_INFO* ptr);
+void Free(X509_LOOKUP* ptr);
+void Free(X509_NAME* ptr);
+void Free(X509_NAME_ENTRY* ptr);
+void Free(X509_PKEY* ptr);
+void Free(X509_POLICY_TREE* ptr);
+void Free(X509_REQ* ptr);
+void Free(X509_REVOKED* ptr);
+void Free(X509_SIG* ptr);
+void Free(X509_STORE* ptr);
+void Free(X509_STORE_CTX* ptr);
+void Free(X509_VERIFY_PARAM* ptr);
+
+}  // namespace internal
+
+template <class T> struct Deleter {
+  void operator()(T *ptr) const { internal::Free(ptr); }
+};
+
+// Holds ownership of heap-allocated BoringSSL structures. Sample usage:
+//   bssl::UniquePtr<BIO> rsa(RSA_new());
+//   bssl::UniquePtr<BIO> bio(BIO_new(BIO_s_mem()));
+template <typename T>
+using UniquePtr = std::unique_ptr<T, Deleter<T>>;
+
+}  // namespace bssl
+
+}  /* extern C++ */
+
 #endif
 
 #endif  /* OPENSSL_HEADER_BASE_H */

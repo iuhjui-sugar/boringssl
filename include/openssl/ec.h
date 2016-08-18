@@ -356,6 +356,23 @@ OPENSSL_EXPORT size_t EC_get_builtin_curves(EC_builtin_curve *out_curves,
 
 #if defined(__cplusplus)
 }  /* extern C */
+
+extern "C++" {
+
+namespace bssl {
+
+namespace internal {
+
+inline void Free(EC_POINT* ptr) { EC_POINT_free(ptr); }
+
+inline void Free(EC_GROUP* ptr) { EC_GROUP_free(ptr); }
+
+}  // namespace internal
+
+}  // namespace bssl
+
+}  /* extern C++ */
+
 #endif
 
 #define EC_R_BUFFER_TOO_SMALL 100

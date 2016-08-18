@@ -4646,6 +4646,25 @@ OPENSSL_EXPORT int SSL_set_ssl_method(SSL *s, const SSL_METHOD *method);
 
 #if defined(__cplusplus)
 } /* extern C */
+
+extern "C++" {
+
+namespace bssl {
+
+namespace internal {
+
+inline void Free(SSL* ptr) { SSL_free(ptr); }
+
+inline void Free(SSL_CTX* ptr) { SSL_CTX_free(ptr); }
+
+inline void Free(SSL_SESSION* ptr) { SSL_SESSION_free(ptr); }
+
+}  // namespace internal
+
+}  // namespace bssl
+
+}  /* extern C++ */
+
 #endif
 
 #define SSL_R_APP_DATA_IN_HANDSHAKE 100
