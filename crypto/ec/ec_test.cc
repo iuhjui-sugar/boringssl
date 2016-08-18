@@ -276,7 +276,7 @@ static bool TestSetAffine(const int nid) {
     return false;
   }
 
-  ScopedEC_POINT point(EC_POINT_new(group));
+  auto point = std::unique_ptr<EC_POINT>(EC_POINT_new(group));
   if (!point) {
     return false;
   }
