@@ -750,6 +750,24 @@ struct evp_pkey_st {
 
 #if defined(__cplusplus)
 }  /* extern C */
+
+extern "C++" {
+namespace bssl {
+
+namespace internal {
+
+inline void Free(EVP_CIPHER_CTX* ptr) { EVP_CIPHER_CTX_free(ptr); }
+
+inline void Free(EVP_PKEY* ptr) { EVP_PKEY_free(ptr); }
+
+inline void Free(EVP_PKEY_CTX* ptr) { EVP_PKEY_CTX_free(ptr); }
+
+}  // namespace internal
+
+}  // namespace bssl
+
+}  /* extern C++ */
+
 #endif
 
 #define EVP_R_BUFFER_TOO_SMALL 100

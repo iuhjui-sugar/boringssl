@@ -411,6 +411,23 @@ struct dsa_st {
 
 #if defined(__cplusplus)
 }  /* extern C */
+
+extern "C++" {
+
+namespace bssl {
+
+namespace internal {
+
+inline void Free(DSA* ptr) { DSA_free(ptr); }
+
+inline void Free(DSA_SIG* ptr) { DSA_SIG_free(ptr); }
+
+}  // namespace internal
+
+}  // namespace bssl
+
+}  /* extern C++ */
+
 #endif
 
 #define DSA_R_BAD_Q_VALUE 100
