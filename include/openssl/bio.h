@@ -895,6 +895,21 @@ struct bio_st {
 
 #if defined(__cplusplus)
 }  /* extern C */
+
+extern "C++" {
+
+namespace bssl {
+
+namespace internal {
+
+inline void Free(BIO* ptr) { BIO_free(ptr); }
+
+}  // namespace internal
+
+}  // namespace bssl
+
+}  /* extern C++ */
+
 #endif
 
 #define BIO_R_BAD_FOPEN_MODE 100

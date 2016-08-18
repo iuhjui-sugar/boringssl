@@ -62,7 +62,6 @@
 #include <openssl/nid.h>
 #include <openssl/rand.h>
 
-#include "../test/scoped_types.h"
 
 enum Api {
   kEncodedApi,
@@ -82,7 +81,7 @@ static bool VerifyECDSASig(Api api, const uint8_t *digest,
       if (!ECDSA_SIG_to_bytes(&der, &der_len, ecdsa_sig)) {
         return false;
       }
-      ScopedOpenSSLBytes delete_der(der);
+      bssl::unique_ptr<uint8_t> delete_der(der);
       actual_result = ECDSA_verify(0, digest, digest_len, der, der_len, eckey);
       break;
     }
@@ -171,7 +170,7 @@ static bool TestBuiltin(FILE *out) {
     fprintf(out, "%s: ", kCurves[n].name);
 
     int nid = kCurves[n].nid;
-    ScopedEC_GROUP group(EC_GROUP_new_by_curve_name(nid));
+    bssl::unique_ptr<EC_GROUP> group(EC_GROUP_new_by_curve_name(nid));
     if (!group) {
       fprintf(out, " failed\n");
       return false;
@@ -184,14 +183,14 @@ static bool TestBuiltin(FILE *out) {
     }
 
     // Create a new ECDSA key.
-    ScopedEC_KEY eckey(EC_KEY_new());
+    bssl::unique_ptr<EC_KEY> eckey(EC_KEY_new());
     if (!eckey || !EC_KEY_set_group(eckey.get(), group.get()) ||
         !EC_KEY_generate_key(eckey.get())) {
       fprintf(out, " failed\n");
       return false;
     }
     // Create a second key.
-    ScopedEC_KEY wrong_eckey(EC_KEY_new());
+    bssl::unique_ptr<EC_KEY> wrong_eckey(EC_KEY_new());
     if (!wrong_eckey || !EC_KEY_set_group(wrong_eckey.get(), group.get()) ||
         !EC_KEY_generate_key(wrong_eckey.get())) {
       fprintf(out, " failed\n");
@@ -253,7 +252,7 @@ static bool TestBuiltin(FILE *out) {
     fprintf(out, ".");
     fflush(out);
     // Verify a tampered signature.
-    ScopedECDSA_SIG ecdsa_sig(ECDSA_SIG_from_bytes(
+    bssl::unique_ptr<ECDSA_SIG> ecdsa_sig(ECDSA_SIG_from_bytes(
         signature.data(), signature.size()));
     if (!ecdsa_sig ||
         !TestTamperedSig(out, kEncodedApi, digest, 20, ecdsa_sig.get(),
@@ -313,7 +312,7 @@ static bool TestBuiltin(FILE *out) {
 
 static bool TestECDSA_SIG_max_len(size_t order_len) {
   /* Create the largest possible |ECDSA_SIG| of the given constraints. */
-  ScopedECDSA_SIG sig(ECDSA_SIG_new());
+  bssl::unique_ptr<ECDSA_SIG> sig(ECDSA_SIG_new());
   if (!sig) {
     return false;
   }
@@ -328,7 +327,7 @@ static bool TestECDSA_SIG_max_len(size_t order_len) {
   if (!ECDSA_SIG_to_bytes(&der, &der_len, sig.get())) {
     return false;
   }
-  ScopedOpenSSLBytes delete_der(der);
+  bssl::unique_ptr<uint8_t> delete_der(der);
 
   size_t max_len = ECDSA_SIG_max_len(order_len);
   if (max_len != der_len) {

@@ -187,6 +187,23 @@ OPENSSL_EXPORT void PKCS12_free(PKCS12 *p12);
 
 #if defined(__cplusplus)
 }  /* extern C */
+
+extern "C++" {
+
+namespace bssl {
+
+namespace internal {
+
+inline void Free(PKCS12* ptr) { PKCS12_free(ptr); }
+
+inline void Free(PKCS8_PRIV_KEY_INFO* ptr) { PKCS8_PRIV_KEY_INFO_free(ptr); }
+
+}  // namespace internal
+
+}  // namespace bssl
+
+}  /* extern C++ */
+
 #endif
 
 #define PKCS8_R_BAD_PKCS12_DATA 100

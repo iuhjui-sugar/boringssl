@@ -22,9 +22,13 @@
 #include <string.h>
 
 #include <openssl/aead.h>
+#include <openssl/bn.h>
 #include <openssl/curve25519.h>
 #include <openssl/digest.h>
 #include <openssl/err.h>
+#include <openssl/ec.h>
+#include <openssl/ecdsa.h>
+#include <openssl/ec_key.h>
 #include <openssl/newhope.h>
 #include <openssl/nid.h>
 #include <openssl/rand.h>
@@ -38,7 +42,6 @@ OPENSSL_MSVC_PRAGMA(warning(pop))
 #include <sys/time.h>
 #endif
 
-#include "../crypto/test/scoped_types.h"
 #include "internal.h"
 
 
@@ -316,17 +319,17 @@ static bool SpeedECDHCurve(const std::string &name, int nid,
 
   TimeResults results;
   if (!TimeFunction(&results, [nid]() -> bool {
-        ScopedEC_KEY key(EC_KEY_new_by_curve_name(nid));
+        bssl::unique_ptr<EC_KEY> key(EC_KEY_new_by_curve_name(nid));
         if (!key ||
             !EC_KEY_generate_key(key.get())) {
           return false;
         }
         const EC_GROUP *const group = EC_KEY_get0_group(key.get());
-        ScopedEC_POINT point(EC_POINT_new(group));
-        ScopedBN_CTX ctx(BN_CTX_new());
+        bssl::unique_ptr<EC_POINT> point(EC_POINT_new(group));
+        bssl::unique_ptr<BN_CTX> ctx(BN_CTX_new());
 
-        ScopedBIGNUM x(BN_new());
-        ScopedBIGNUM y(BN_new());
+        bssl::unique_ptr<BIGNUM> x(BN_new());
+        bssl::unique_ptr<BIGNUM> y(BN_new());
 
         if (!point || !ctx || !x || !y ||
             !EC_POINT_mul(group, point.get(), NULL,
@@ -352,7 +355,7 @@ static bool SpeedECDSACurve(const std::string &name, int nid,
     return true;
   }
 
-  ScopedEC_KEY key(EC_KEY_new_by_curve_name(nid));
+  bssl::unique_ptr<EC_KEY> key(EC_KEY_new_by_curve_name(nid));
   if (!key ||
       !EC_KEY_generate_key(key.get())) {
     return false;
@@ -481,7 +484,7 @@ static bool SpeedSPAKE2(const std::string &selected) {
   static const uint8_t kAliceName[] = {'A'};
   static const uint8_t kBobName[] = {'B'};
   static const uint8_t kPassword[] = "password";
-  ScopedSPAKE2_CTX alice(SPAKE2_CTX_new(spake2_role_alice, kAliceName,
+  bssl::unique_ptr<SPAKE2_CTX> alice(SPAKE2_CTX_new(spake2_role_alice, kAliceName,
                                         sizeof(kAliceName), kBobName,
                                         sizeof(kBobName)));
   uint8_t alice_msg[SPAKE2_MAX_MSG_SIZE];
@@ -495,7 +498,7 @@ static bool SpeedSPAKE2(const std::string &selected) {
   }
 
   if (!TimeFunction(&results, [&alice_msg, alice_msg_len]() -> bool {
-        ScopedSPAKE2_CTX bob(SPAKE2_CTX_new(spake2_role_bob, kBobName,
+        bssl::unique_ptr<SPAKE2_CTX> bob(SPAKE2_CTX_new(spake2_role_bob, kBobName,
                                             sizeof(kBobName), kAliceName,
                                             sizeof(kAliceName)));
         uint8_t bob_msg[SPAKE2_MAX_MSG_SIZE], bob_key[64];
