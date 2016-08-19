@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c849337d_e4b3dae0",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-08-19T16:22:34Z",
+      "side": 1,
+      "message": "This comment is written for a function that takes an SSL*, but this takes an SSL_CTX*.\n\nShould also mention that the values in |prefs| are the |SSL_SIGN_*|.",
+      "revId": "71b30a60f9ceba94626639fcd89f47e4c655b64b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb27a396_35a8dacc",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 930,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-08-19T16:22:34Z",
+      "side": 1,
+      "message": "We\u0027re not consistent about this, but it might be worth calling this |num_prefs| rather than |prefs_len|. The latter is unclear about whether it\u0027s an element count or a byte count.",
+      "range": {
+        "startLine": 930,
+        "startChar": 62,
+        "endLine": 930,
+        "endChar": 71
+      },
+      "revId": "71b30a60f9ceba94626639fcd89f47e4c655b64b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb27a396_95fb4ee0",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 910,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-08-19T16:22:34Z",
+      "side": 1,
+      "message": "…the…",
+      "range": {
+        "startLine": 910,
+        "startChar": 31,
+        "endLine": 910,
+        "endChar": 32
+      },
+      "revId": "71b30a60f9ceba94626639fcd89f47e4c655b64b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c849337d_c4b0ded6",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1971,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-08-19T16:22:34Z",
+      "side": 1,
+      "message": "The comment mentions TLS 1.2, but the code doesn\u0027t so I\u0027m not quite sure what the intent of setting the signing prefs here is.",
+      "range": {
+        "startLine": 1971,
+        "startChar": 63,
+        "endLine": 1971,
+        "endChar": 80
+      },
+      "revId": "71b30a60f9ceba94626639fcd89f47e4c655b64b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
