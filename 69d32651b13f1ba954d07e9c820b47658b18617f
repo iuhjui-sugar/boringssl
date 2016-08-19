@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fb27a396_fb0b932d",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-19T18:46:23Z",
+      "side": 1,
+      "message": "Oh, sorry, I didn\u0027t notice this the first time around. Mind tossing this into crypto/internal.h? It doesn\u0027t matter a whole lot, but we don\u0027t need to export this as public API.",
+      "revId": "69d32651b13f1ba954d07e9c820b47658b18617f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
