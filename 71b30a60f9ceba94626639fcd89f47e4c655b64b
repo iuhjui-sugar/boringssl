@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fb27a396_c03d0274",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-19T18:08:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c849337d_e4b3dae0",
+      "revId": "71b30a60f9ceba94626639fcd89f47e4c655b64b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fb27a396_35a8dacc",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 3
@@ -36,6 +54,24 @@
         "endLine": 930,
         "endChar": 71
       },
+      "revId": "71b30a60f9ceba94626639fcd89f47e4c655b64b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb27a396_402af226",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 930,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-19T18:08:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb27a396_35a8dacc",
       "revId": "71b30a60f9ceba94626639fcd89f47e4c655b64b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -65,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "fb27a396_e0bd9eca",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 910,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-19T18:08:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb27a396_95fb4ee0",
+      "revId": "71b30a60f9ceba94626639fcd89f47e4c655b64b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c849337d_c4b0ded6",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 3
@@ -82,6 +136,24 @@
         "endLine": 1971,
         "endChar": 80
       },
+      "revId": "71b30a60f9ceba94626639fcd89f47e4c655b64b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb27a396_408e722e",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1971,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-19T18:08:19Z",
+      "side": 1,
+      "message": "Rephrased. We test at all versions. The bug this CL fixes manifests as only signing SHA-1 in TLS 1.2. The test is actually a sufficient regression test at TLS 1.3 because the SHA-1 fallback is gone in 1.3, but so we also flag in TLS 1.2, the test configures the private key to only sign SHA-256.",
+      "parentUuid": "c849337d_c4b0ded6",
       "revId": "71b30a60f9ceba94626639fcd89f47e4c655b64b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
