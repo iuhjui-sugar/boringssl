@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68d2071a_7bc63f74",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 6766,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-23T15:55:51Z",
+      "side": 1,
+      "message": "[Huh. I wonder why these were at TLS 1.1. Whatever.]",
+      "revId": "6a127a34e8299fa88fc574558769923bc50f8970",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
