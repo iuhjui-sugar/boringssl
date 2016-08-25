@@ -1337,6 +1337,8 @@ static bool TestSessionDuplication() {
     return false;
   }
 
+  session1->not_resumable = 0;
+
   uint8_t *s0_bytes, *s1_bytes;
   size_t s0_len, s1_len;
 

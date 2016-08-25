@@ -175,7 +175,9 @@ static int SSL_SESSION_to_bytes_full(const SSL_SESSION *in, uint8_t **out_data,
                                      size_t *out_len, int for_ticket) {
   CBB cbb, session, child, child2;
 
-  if (in == NULL || in->cipher == NULL) {
+  if (in == NULL || in->cipher == NULL || in->not_resumable) {
+    *out_data = NULL;
+    *out_len = 0;
     return 0;
   }
 

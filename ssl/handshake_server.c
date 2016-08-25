@@ -1848,6 +1848,10 @@ static int ssl3_send_new_session_ticket(SSL *ssl) {
     return ssl->method->write_message(ssl);
   }
 
+  SSL_SESSION *session =
+      ssl->session != NULL ? ssl->session : ssl->s3->new_session;
+  session->not_resumable = 0;
+
   CBB cbb, body, ticket;
   if (!ssl->method->init_message(ssl, &cbb, &body,
                                  SSL3_MT_NEW_SESSION_TICKET) ||
@@ -1857,9 +1861,7 @@ static int ssl3_send_new_session_ticket(SSL *ssl) {
       !CBB_add_u32(&body,
                    ssl->session != NULL ? 0 : ssl->s3->new_session->timeout) ||
       !CBB_add_u16_length_prefixed(&body, &ticket) ||
-      !ssl_encrypt_ticket(ssl, &ticket, ssl->session != NULL
-                                            ? ssl->session
-                                            : ssl->s3->new_session) ||
+      !ssl_encrypt_ticket(ssl, &ticket, session) ||
       !ssl->method->finish_message(ssl, &cbb)) {
     return 0;
   }

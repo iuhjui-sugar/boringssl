@@ -562,6 +562,7 @@ static enum ssl_hs_wait_t do_send_new_session_ticket(SSL *ssl,
     return 0;
   }
   session->ticket_age_add_valid = 1;
+  session->not_resumable = 0;
 
   CBB cbb, body, ticket;
   if (!ssl->method->init_message(ssl, &cbb, &body,
