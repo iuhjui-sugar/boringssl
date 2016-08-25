@@ -171,12 +171,21 @@ static const int kTicketFlagsTag =
 static const int kTicketAgeAddTag =
     CBS_ASN1_CONSTRUCTED | CBS_ASN1_CONTEXT_SPECIFIC | 21;
 
+static const char kNotResumableSession[] = "NOT RESUMABLE";
+
 static int SSL_SESSION_to_bytes_full(const SSL_SESSION *in, uint8_t **out_data,
                                      size_t *out_len, int for_ticket) {
   CBB cbb, session, child, child2;
 
-  if (in == NULL || in->cipher == NULL) {
-    return 0;
+  if (in == NULL || in->cipher == NULL ||
+      (!for_ticket && in->not_resumable)) {
+    *out_len = strlen(kNotResumableSession);
+    *out_data = OPENSSL_malloc(*out_len);
+    if (*out_data == NULL) {
+      return 0;
+    }
+    memcpy(*out_data, kNotResumableSession, *out_len);
+    return 1;
   }
 
   CBB_zero(&cbb);
