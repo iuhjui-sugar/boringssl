@@ -16,6 +16,24 @@
       "revId": "b2c6d92280eb229d1c3f8506117f84f59e136f8c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6589523e_e97c35c1",
+        "filename": "ssl/ssl_session.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-08-26T17:27:52Z",
+      "side": 1,
+      "message": "Ah right. We used to check for session \u003d\u003d NULL after the callback (https://boringssl.googlesource.com/boringssl/+/958aaf1ea1b481e8ef32970d5b0add80504be4b2/ssl/ssl_session.c#607) but SSL_SESSION_up_ref used to eat NULLs too.\n\nHave removed the (now superfluous) check on L653 too.",
+      "parentUuid": "a547ca8e_7bc73f70",
+      "revId": "b2c6d92280eb229d1c3f8506117f84f59e136f8c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
