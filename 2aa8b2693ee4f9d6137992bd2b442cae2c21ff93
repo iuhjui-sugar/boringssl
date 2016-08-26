@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a547ca8e_dbfe5397",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-26T17:18:21Z",
+      "side": 1,
+      "message": "Nit: BORINGSSL_ENABLE_RC4_TLS maybe?",
+      "range": {
+        "startLine": 9,
+        "startChar": 50,
+        "endLine": 9,
+        "endChar": 67
+      },
+      "revId": "2aa8b2693ee4f9d6137992bd2b442cae2c21ff93",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a547ca8e_3bcdb790",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 856,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-26T17:18:21Z",
+      "side": 1,
+      "message": "If you ifdef this block out too, the link to EVP_AEAD_rc4_* will be severed and the static linker can drop a tiny bit of code.",
+      "revId": "2aa8b2693ee4f9d6137992bd2b442cae2c21ff93",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a547ca8e_fb018fa7",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1698,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-26T17:18:21Z",
+      "side": 1,
+      "message": "Rather than have to mess with ifdef soup here, I\u0027d probably just have the SSL_CTX_set_cipher_list take the RC4 ciphers out of there.",
+      "revId": "2aa8b2693ee4f9d6137992bd2b442cae2c21ff93",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
