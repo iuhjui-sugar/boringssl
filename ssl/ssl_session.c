@@ -633,6 +633,10 @@ static enum ssl_session_result_t ssl_lookup_session(
     session = ssl->initial_ctx->get_session_cb(ssl, (uint8_t *)session_id,
                                                session_id_len, &copy);
 
+    if (session == NULL) {
+      return ssl_session_success;
+    }
+
     if (session == SSL_magic_pending_session_ptr()) {
       return ssl_session_retry;
     }
