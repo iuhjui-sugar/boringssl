@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a5afcaab_9b164b4f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-08-26T19:06:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a547ca8e_dbfe5397",
+      "range": {
+        "startLine": 9,
+        "startChar": 50,
+        "endLine": 9,
+        "endChar": 67
+      },
+      "revId": "2aa8b2693ee4f9d6137992bd2b442cae2c21ff93",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a547ca8e_3bcdb790",
         "filename": "ssl/ssl_cipher.c",
         "patchSetId": 2
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "a5afcaab_bb11075b",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 856,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-08-26T19:06:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a547ca8e_3bcdb790",
+      "revId": "2aa8b2693ee4f9d6137992bd2b442cae2c21ff93",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a547ca8e_fb018fa7",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 2
@@ -53,6 +95,24 @@
       "writtenOn": "2016-08-26T17:18:21Z",
       "side": 1,
       "message": "Rather than have to mess with ifdef soup here, I\u0027d probably just have the SSL_CTX_set_cipher_list take the RC4 ciphers out of there.",
+      "revId": "2aa8b2693ee4f9d6137992bd2b442cae2c21ff93",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5afcaab_7bf25f01",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1698,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-08-26T19:06:11Z",
+      "side": 1,
+      "message": "Done.  Any preference whether to keep the reformatting?",
+      "parentUuid": "a547ca8e_fb018fa7",
       "revId": "2aa8b2693ee4f9d6137992bd2b442cae2c21ff93",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
