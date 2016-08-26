@@ -116,6 +116,24 @@
       "revId": "2aa8b2693ee4f9d6137992bd2b442cae2c21ff93",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a560aa1c_53686488",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1698,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-26T19:24:07Z",
+      "side": 1,
+      "message": "No preferences either way.",
+      "parentUuid": "a5afcaab_7bf25f01",
+      "revId": "2aa8b2693ee4f9d6137992bd2b442cae2c21ff93",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
