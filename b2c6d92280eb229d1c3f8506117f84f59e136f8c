@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a547ca8e_7bc73f70",
+        "filename": "ssl/ssl_session.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-26T17:22:09Z",
+      "side": 1,
+      "message": "I think what happened was that this used to effectively be copy \u0026\u0026 session !\u003d NULL. Before b9195402b41a4ec8e6141c31ff7b6c6561a29b3d, SSL_SESSION_up_ref actually worked fine on NULL.\n\nProbably should either make this copy \u0026\u0026 session !\u003d NULL or remove the session !\u003d NULL check on line 653. No strong views here on which one we do.",
+      "revId": "b2c6d92280eb229d1c3f8506117f84f59e136f8c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
