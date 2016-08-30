@@ -1,0 +1,180 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "25611abc_9a1b89da",
+        "filename": "crypto/cmac/cmac_test.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-30T19:55:52Z",
+      "side": 1,
+      "message": "Stray includes?",
+      "revId": "2b15e5e351a24ad2cb1ea0071483f0906f45adfe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "25611abc_ba204d05",
+        "filename": "crypto/ec/ec_test.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-30T19:55:52Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "2b15e5e351a24ad2cb1ea0071483f0906f45adfe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "25611abc_3a2d1df7",
+        "filename": "crypto/pkcs8/pkcs12_test.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 685,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-30T19:55:52Z",
+      "side": 1,
+      "message": "Neat! Okay, I\u0027m sold on the template idea.",
+      "revId": "2b15e5e351a24ad2cb1ea0071483f0906f45adfe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "25611abc_1a30594e",
+        "filename": "crypto/test/scoped_types.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-30T19:55:52Z",
+      "side": 1,
+      "message": "(I guess this can just be moved to tool/generated_ed25519.cc later.)",
+      "revId": "2b15e5e351a24ad2cb1ea0071483f0906f45adfe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "25611abc_9a046976",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-30T19:55:52Z",
+      "side": 1,
+      "message": "Nit: extra space",
+      "range": {
+        "startLine": 198,
+        "startChar": 38,
+        "endLine": 198,
+        "endChar": 39
+      },
+      "revId": "2b15e5e351a24ad2cb1ea0071483f0906f45adfe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "25611abc_dafee153",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-30T19:55:52Z",
+      "side": 1,
+      "message": "I don\u0027t think you need these. I\u0027m not sure it even works!\n\nIf you manage to use bssl::UniquePtr\u003cRSA\u003e and emit code which calls bssl::UniquePtr\u003cRSA\u003e::~UniquePtr and thus bssl::internal::Free(RSA *) only by the forward declaration, you\u0027re relying on some other compilation unit to emit the definition of Free.\n\nBut if no compilation unit happens to emit Free(RSA *), it won\u0027t link. For more fun, compilation units won\u0027t emit a standalone copy of the inline function unless they\u0027re used. Here\u0027s a demonstration:\n\n$ cat /tmp/foo.h\nextern int foo();\n\n$ cat /tmp/foo_inline.h \n#include \"foo.h\"\ninline int foo() { return 0; }\n\n$ cat /tmp/foo.cc \n#include \"foo.h\"\n#include \"foo_inline.h\"\nint bar() { return foo(); }\n\n$ cat /tmp/main.cc \n#include \"foo.h\"\nint main() { return foo(); }\n\n$ g++ -Wall /tmp/foo.cc /tmp/main.cc\n# This works\n\n$ g++ -Wall /tmp/foo.cc /tmp/main.cc -O2\n/tmp/ccvn20cq.o: In function `main\u0027:\nmain.cc:(.text.startup+0x1): undefined reference to `foo()\u0027\ncollect2: error: ld returned 1 exit status \n\nWhat\u0027s going on here is that main.cc manages to link against a foo() iff foo.cc emits it. But whether foo.cc emits it depends on whether foo() got inlined into bar()! (And we want it to always get inlined so we don\u0027t pollute things with common symbols and make link times slow.)\n\nInstead, you say that if a consumer does:\n\n  class Foo {\n   private:\n    bssl::UniquePtr\u003cRSA\u003e rsa_;\n  };\n\nThey must either:\na) declare ~Foo out-of-line by declaring ~Foo();\nb) #include openssl/rsa.h\n\nThis is the same as with std::unique_ptr. You are allowed to std::unique_ptr\u003cT\u003e on a forward decl only if you never emit code that destructs it.",
+      "revId": "2b15e5e351a24ad2cb1ea0071483f0906f45adfe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "25611abc_9a6d4936",
+        "filename": "tool/client.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-30T19:55:52Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "2b15e5e351a24ad2cb1ea0071483f0906f45adfe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "25611abc_ba720d11",
+        "filename": "tool/client.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-30T19:55:52Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "2b15e5e351a24ad2cb1ea0071483f0906f45adfe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "25611abc_da77c1ff",
+        "filename": "tool/client.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-30T19:55:52Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "2b15e5e351a24ad2cb1ea0071483f0906f45adfe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "25611abc_fa7c85e4",
+        "filename": "tool/client.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-30T19:55:52Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "2b15e5e351a24ad2cb1ea0071483f0906f45adfe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
