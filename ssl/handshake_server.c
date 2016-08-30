@@ -563,6 +563,19 @@ static int negotiate_version(
       ssl->method->version_from_wire(client_hello->version);
   ssl->client_version = client_hello->version;
 
+  /* Correct for the TLS 1.3 draft_version extension. */
+  if (client_version == TLS1_3_VERSION) {
+    CBS cbs;
+    uint16_t draft_version;
+    if (!ssl_early_callback_get_extension(client_hello, &cbs,
+                                          TLSEXT_TYPE_draft_version) ||
+        !CBS_get_u16(&cbs, &draft_version) ||
+        CBS_len(&cbs) != 0 ||
+        draft_version != TLS1_3_DRAFT_VERSION) {
+      client_version = TLS1_2_VERSION;
+    }
+  }
+
   /* Select the version to use. */
   uint16_t version = client_version;
   if (version > max_version) {

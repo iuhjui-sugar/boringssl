@@ -4266,6 +4266,30 @@ func addVersionNegotiationTests() {
 		expectedError: ":UNSUPPORTED_PROTOCOL:",
 	})
 
+	// TLS 1.3 requires the draft_version extension.
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "TLS13-DraftVersion-Missing",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				OmitDraftVersion: true,
+			},
+		},
+		expectedVersion: VersionTLS12,
+	})
+
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "TLS13-DraftVersion-Wrong",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				SendDraftVersion: 0xffff,
+			},
+		},
+		expectedVersion: VersionTLS12,
+	})
 }
 
 func addMinimumVersionTests() {

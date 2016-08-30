@@ -1067,6 +1067,14 @@ type ProtocolBugs struct {
 	// SendCompressionMethods, if not nil, is the compression method list to
 	// send in the ClientHello.
 	SendCompressionMethods []byte
+
+	// OmitDraftVersion, if true, causes the TLS 1.3 ClientHello to omit the
+	// draft_version extension.
+	OmitDraftVersion bool
+
+	// SendDraftVersion, if non-zero, causes the TLS 1.3 ClientHello to send
+	// the specified value rather than the usual draft version.
+	SendDraftVersion uint16
 }
 
 func (c *Config) serverInit() {
