@@ -1053,6 +1053,14 @@ type ProtocolBugs struct {
 	// SendRequestContext, if not empty, is the request context to send in
 	// a TLS 1.3 CertificateRequest.
 	SendRequestContext []byte
+
+	// OmitDraftVersion, if true, causes the TLS 1.3 ClientHello to omit the
+	// draft_version extension.
+	OmitDraftVersion bool
+
+	// SendDraftVersion, if non-zero, causes the TLS 1.3 ClientHello to send
+	// the specified value rather than the usual draft version.
+	SendDraftVersion uint16
 }
 
 func (c *Config) serverInit() {

@@ -79,6 +79,16 @@ func (c *Conn) clientHandshake() error {
 		customExtension:         c.config.Bugs.CustomExtension,
 	}
 
+	if hello.vers == VersionTLS13 && !c.config.Bugs.OmitDraftVersion {
+		hello.hasDraftVersion = true
+		hello.draftVersion = tls13DraftVersion
+	}
+
+	if c.config.Bugs.SendDraftVersion != 0 {
+		hello.hasDraftVersion = true
+		hello.draftVersion = c.config.Bugs.SendDraftVersion
+	}
+
 	if c.config.Bugs.NoExtendedMasterSecret {
 		hello.extendedMasterSecret = false
 	}

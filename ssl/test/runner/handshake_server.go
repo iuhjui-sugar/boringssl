@@ -238,7 +238,11 @@ func (hs *serverHandshakeState) readClientHello() error {
 	} else if c.haveVers && config.Bugs.NegotiateVersionOnRenego != 0 {
 		c.vers = config.Bugs.NegotiateVersionOnRenego
 	} else {
-		c.vers, ok = config.mutualVersion(hs.clientHello.vers, c.isDTLS)
+		clientVers := hs.clientHello.vers
+		if clientVers == VersionTLS13 && (!hs.clientHello.hasDraftVersion || hs.clientHello.draftVersion != tls13DraftVersion) {
+			clientVers = VersionTLS12
+		}
+		c.vers, ok = config.mutualVersion(clientVers, c.isDTLS)
 		if !ok {
 			c.sendAlert(alertProtocolVersion)
 			return fmt.Errorf("tls: client offered an unsupported, maximum protocol version of %x", hs.clientHello.vers)

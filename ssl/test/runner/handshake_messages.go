@@ -158,6 +158,8 @@ type clientHelloMsg struct {
 	srtpMasterKeyIdentifier string
 	sctListSupported        bool
 	customExtension         string
+	hasDraftVersion         bool
+	draftVersion            uint16
 }
 
 func (m *clientHelloMsg) equal(i interface{}) bool {
@@ -197,7 +199,9 @@ func (m *clientHelloMsg) equal(i interface{}) bool {
 		eqUint16s(m.srtpProtectionProfiles, m1.srtpProtectionProfiles) &&
 		m.srtpMasterKeyIdentifier == m1.srtpMasterKeyIdentifier &&
 		m.sctListSupported == m1.sctListSupported &&
-		m.customExtension == m1.customExtension
+		m.customExtension == m1.customExtension &&
+		m.hasDraftVersion == m1.hasDraftVersion &&
+		m.draftVersion == m1.draftVersion
 }
 
 func (m *clientHelloMsg) marshal() []byte {
@@ -393,10 +397,10 @@ func (m *clientHelloMsg) marshal() []byte {
 		customExt := extensions.addU16LengthPrefixed()
 		customExt.addBytes([]byte(m.customExtension))
 	}
-	if m.vers == VersionTLS13 {
+	if m.hasDraftVersion {
 		extensions.addU16(extensionTLS13Draft)
 		extValue := extensions.addU16LengthPrefixed()
-		extValue.addU16(tls13DraftVersion)
+		extValue.addU16(m.draftVersion)
 	}
 
 	if extensions.len() == 0 {
@@ -697,6 +701,12 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 			m.sctListSupported = true
 		case extensionCustom:
 			m.customExtension = string(data[:length])
+		case extensionTLS13Draft:
+			if length != 2 {
+				return false
+			}
+			m.draftVersion = uint16(data[0])<<8 | uint16(data[1])
+			m.hasDraftVersion = true
 		}
 		data = data[length:]
 	}
