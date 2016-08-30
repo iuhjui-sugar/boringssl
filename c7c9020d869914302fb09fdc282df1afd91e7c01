@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "25611abc_1ae779da",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1790,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-30T19:07:14Z",
+      "side": 1,
+      "message": "Dunno if it\u0027s worth keeping the funny formatting or not. It\u0027s a bit of a nuisance when updating things. The test normally just gives something we can copy-and-paste and clang-format. I was more thinking this would be more a trip-wire for unexpected changes than anything we\u0027d try to parse out all the time.",
+      "revId": "c7c9020d869914302fb09fdc282df1afd91e7c01",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "25611abc_faf1e594",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-30T19:07:14Z",
+      "side": 1,
+      "message": "Note this means enabling TLS 1.3 and setting BORINGSSL_ANDROID_SYSTEM will result in something that probably doesn\u0027t work. I\u0027m assuming we will take this away before we try to ship anything TLS 1.3 using the system Android BoringSSL.",
+      "revId": "c7c9020d869914302fb09fdc282df1afd91e7c01",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
