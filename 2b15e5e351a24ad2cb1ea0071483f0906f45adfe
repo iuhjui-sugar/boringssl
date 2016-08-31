@@ -278,6 +278,24 @@
     },
     {
       "key": {
+        "uuid": "51b255c6_6847a372",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-31T04:14:30Z",
+      "side": 1,
+      "message": "(Well, whether you get a link-time failure depends on whether you built with optimizations or not which is kinda weird.)\n\nOh! I bet this is two-phase lookup and because internal::Free is not a dependent name. I think if you instead make Deleter\u003cT\u003e get specialized in each header and avoid this internal::Free thing altogether, that might work?\n\nSo base.h just has:\ntemplate \u003cclass T\u003e struct Deleter {};\n\nAnd then rsa.h has:\n\ntemplate \u003c\u003e\nstruct Deleter\u003cRSA\u003e {\n  void operator()(RSA *ptr) const { RSA_free(ptr); }\n};\n\nAlthough this is an annoyingly large amount of typing...\n\nDisclaimer: I don\u0027t actually know how to do template magic so it\u0027s possible my understanding of things is patchy and this is totally nonsense.",
+      "parentUuid": "313c01f2_e5bf32a9",
+      "revId": "2b15e5e351a24ad2cb1ea0071483f0906f45adfe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "25611abc_9a6d4936",
         "filename": "tool/client.cc",
         "patchSetId": 8
