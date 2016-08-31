@@ -296,6 +296,24 @@
     },
     {
       "key": {
+        "uuid": "313c01f2_c5cb0e9a",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-08-31T05:20:14Z",
+      "side": 1,
+      "message": "True, I did not test a release build.  Now I have.  Your suggestion works, and it makes a compile-time error when a header is missing.  Woot!\n\nI did it with a macro for speed, but I can easily expand it out.  What\u0027s your preference?\n\n(I\u0027ll clean up the formatting once we settle that.)",
+      "parentUuid": "51b255c6_6847a372",
+      "revId": "2b15e5e351a24ad2cb1ea0071483f0906f45adfe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "25611abc_9a6d4936",
         "filename": "tool/client.cc",
         "patchSetId": 8
