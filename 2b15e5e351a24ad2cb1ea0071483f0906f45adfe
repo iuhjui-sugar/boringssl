@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "313c01f2_62faf8a7",
+        "filename": "crypto/cmac/cmac_test.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-08-31T02:34:19Z",
+      "side": 1,
+      "message": "For EVP_aes_128_cbc() and CRYPTO_memcmp(), respectively.",
+      "parentUuid": "25611abc_9a1b89da",
+      "revId": "2b15e5e351a24ad2cb1ea0071483f0906f45adfe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "25611abc_ba204d05",
         "filename": "crypto/ec/ec_test.cc",
         "patchSetId": 8
@@ -30,6 +48,24 @@
       "writtenOn": "2016-08-30T19:55:52Z",
       "side": 1,
       "message": "Nit: 80 chars",
+      "revId": "2b15e5e351a24ad2cb1ea0071483f0906f45adfe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "313c01f2_a2fb60a7",
+        "filename": "crypto/ec/ec_test.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-08-31T02:34:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25611abc_ba204d05",
       "revId": "2b15e5e351a24ad2cb1ea0071483f0906f45adfe",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -70,6 +106,24 @@
     },
     {
       "key": {
+        "uuid": "313c01f2_02096cd0",
+        "filename": "crypto/test/scoped_types.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-08-31T02:34:19Z",
+      "side": 1,
+      "message": "I went ahead and did it.  It\u0027s nice to get rid of the file.  If we bring it back, we\u0027d probably put it somewhere else.",
+      "parentUuid": "25611abc_1a30594e",
+      "revId": "2b15e5e351a24ad2cb1ea0071483f0906f45adfe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "25611abc_9a046976",
         "filename": "include/openssl/base.h",
         "patchSetId": 8
@@ -81,6 +135,30 @@
       "writtenOn": "2016-08-30T19:55:52Z",
       "side": 1,
       "message": "Nit: extra space",
+      "range": {
+        "startLine": 198,
+        "startChar": 38,
+        "endLine": 198,
+        "endChar": 39
+      },
+      "revId": "2b15e5e351a24ad2cb1ea0071483f0906f45adfe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "313c01f2_e20568b4",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-08-31T02:34:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25611abc_9a046976",
       "range": {
         "startLine": 198,
         "startChar": 38,
@@ -110,6 +188,24 @@
     },
     {
       "key": {
+        "uuid": "313c01f2_02e04ce6",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-08-31T02:34:19Z",
+      "side": 1,
+      "message": "Yes: the requirement is that if you destruct a bssl::UniquePtr\u003cRSA\u003e, you have to #include rsa.h.  Is that a bad thing?\n\n(Maybe I am missing your point.)",
+      "parentUuid": "25611abc_dafee153",
+      "revId": "2b15e5e351a24ad2cb1ea0071483f0906f45adfe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "25611abc_9a6d4936",
         "filename": "tool/client.cc",
         "patchSetId": 8
@@ -121,6 +217,24 @@
       "writtenOn": "2016-08-30T19:55:52Z",
       "side": 1,
       "message": "Nit: 80 chars",
+      "revId": "2b15e5e351a24ad2cb1ea0071483f0906f45adfe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "313c01f2_42b9b4eb",
+        "filename": "tool/client.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-08-31T02:34:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25611abc_9a6d4936",
       "revId": "2b15e5e351a24ad2cb1ea0071483f0906f45adfe",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -144,6 +258,24 @@
     },
     {
       "key": {
+        "uuid": "313c01f2_82c3bc4b",
+        "filename": "tool/client.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-08-31T02:34:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25611abc_ba720d11",
+      "revId": "2b15e5e351a24ad2cb1ea0071483f0906f45adfe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "25611abc_da77c1ff",
         "filename": "tool/client.cc",
         "patchSetId": 8
@@ -161,6 +293,24 @@
     },
     {
       "key": {
+        "uuid": "313c01f2_62c83868",
+        "filename": "tool/client.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-08-31T02:34:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25611abc_da77c1ff",
+      "revId": "2b15e5e351a24ad2cb1ea0071483f0906f45adfe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "25611abc_fa7c85e4",
         "filename": "tool/client.cc",
         "patchSetId": 8
@@ -172,6 +322,24 @@
       "writtenOn": "2016-08-30T19:55:52Z",
       "side": 1,
       "message": "Nit: 80 chars",
+      "revId": "2b15e5e351a24ad2cb1ea0071483f0906f45adfe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "313c01f2_c2aca4a9",
+        "filename": "tool/client.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-08-31T02:34:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25611abc_fa7c85e4",
       "revId": "2b15e5e351a24ad2cb1ea0071483f0906f45adfe",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
