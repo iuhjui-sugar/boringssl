@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "51b255c6_a89efb00",
+        "filename": "crypto/cmac/cmac_test.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-31T02:39:45Z",
+      "side": 1,
+      "message": "Ah. EVP_aes_128_cbc is probably more natively in cipher.h. We split evp.h into evp.h (EVP_PKEY), cipher.h (EVP_CIPHER), aead.h (EVP_AEAD), and digest.h (EVP_MD)",
+      "parentUuid": "313c01f2_62faf8a7",
+      "revId": "2b15e5e351a24ad2cb1ea0071483f0906f45adfe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "25611abc_ba204d05",
         "filename": "crypto/ec/ec_test.cc",
         "patchSetId": 8
@@ -200,6 +218,24 @@
       "side": 1,
       "message": "Yes: the requirement is that if you destruct a bssl::UniquePtr\u003cRSA\u003e, you have to #include rsa.h.  Is that a bad thing?\n\n(Maybe I am missing your point.)",
       "parentUuid": "25611abc_dafee153",
+      "revId": "2b15e5e351a24ad2cb1ea0071483f0906f45adfe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "51b255c6_485bbf59",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-08-31T02:39:45Z",
+      "side": 1,
+      "message": "Nah, that\u0027s a fine requirement. But I believe it means you don\u0027t want to forward-declare all those Free functions. Otherwise it will instead try to call internal::Free by way of the externally-defined symbol and get confused.",
+      "parentUuid": "313c01f2_02e04ce6",
       "revId": "2b15e5e351a24ad2cb1ea0071483f0906f45adfe",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
