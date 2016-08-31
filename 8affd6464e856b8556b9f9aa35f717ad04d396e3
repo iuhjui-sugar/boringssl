@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f1c6e968_78b39da1",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-08-31T21:00:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51b255c6_4bfad962",
+      "revId": "8affd6464e856b8556b9f9aa35f717ad04d396e3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51b255c6_6bff9d51",
         "filename": "crypto/x509/x509_test.cc",
         "patchSetId": 12
@@ -30,6 +48,24 @@
       "writtenOn": "2016-08-31T19:41:35Z",
       "side": 1,
       "message": "Nit: 80 chars",
+      "revId": "8affd6464e856b8556b9f9aa35f717ad04d396e3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f1c6e968_98a7995a",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-08-31T21:00:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51b255c6_6bff9d51",
       "revId": "8affd6464e856b8556b9f9aa35f717ad04d396e3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "f1c6e968_d8a11145",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-08-31T21:00:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51b255c6_8b30d15a",
+      "revId": "8affd6464e856b8556b9f9aa35f717ad04d396e3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51b255c6_ab2d9501",
         "filename": "crypto/x509/x509_test.cc",
         "patchSetId": 12
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "f1c6e968_f89ecd01",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-08-31T21:00:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51b255c6_ab2d9501",
+      "revId": "8affd6464e856b8556b9f9aa35f717ad04d396e3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51b255c6_ebdced05",
         "filename": "include/openssl/base.h",
         "patchSetId": 12
@@ -81,6 +153,24 @@
       "writtenOn": "2016-08-31T19:41:35Z",
       "side": 1,
       "message": "Unnecessary?",
+      "revId": "8affd6464e856b8556b9f9aa35f717ad04d396e3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f1c6e968_38604504",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-08-31T21:00:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51b255c6_ebdced05",
       "revId": "8affd6464e856b8556b9f9aa35f717ad04d396e3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -110,6 +200,30 @@
     },
     {
       "key": {
+        "uuid": "f1c6e968_58650113",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-08-31T21:00:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51b255c6_eb238d13",
+      "range": {
+        "startLine": 315,
+        "startChar": 8,
+        "endLine": 315,
+        "endChar": 20
+      },
+      "revId": "8affd6464e856b8556b9f9aa35f717ad04d396e3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51b255c6_8b077174",
         "filename": "include/openssl/x509.h",
         "patchSetId": 12
@@ -121,6 +235,24 @@
       "writtenOn": "2016-08-31T19:41:35Z",
       "side": 1,
       "message": "If we\u0027re using macros for the others, maybe this should also have BORINGSSL_MAKE_STACK_DELETER or something? I dunno.",
+      "revId": "8affd6464e856b8556b9f9aa35f717ad04d396e3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f1c6e968_9855d91a",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 1234,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-08-31T21:00:16Z",
+      "side": 1,
+      "message": "Sure.",
+      "parentUuid": "51b255c6_8b077174",
       "revId": "8affd6464e856b8556b9f9aa35f717ad04d396e3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -144,6 +276,24 @@
     },
     {
       "key": {
+        "uuid": "f1c6e968_1829c9aa",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-08-31T21:00:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51b255c6_2b220514",
+      "revId": "8affd6464e856b8556b9f9aa35f717ad04d396e3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51b255c6_4b13b9c8",
         "filename": "ssl/test/bssl_shim.cc",
         "patchSetId": 12
@@ -155,6 +305,24 @@
       "writtenOn": "2016-08-31T19:41:35Z",
       "side": 1,
       "message": "Nit: 80 chars",
+      "revId": "8affd6464e856b8556b9f9aa35f717ad04d396e3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f1c6e968_5833411a",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 977,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-08-31T21:00:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51b255c6_4b13b9c8",
       "revId": "8affd6464e856b8556b9f9aa35f717ad04d396e3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -178,6 +346,24 @@
     },
     {
       "key": {
+        "uuid": "f1c6e968_7838fdf5",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1260,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-08-31T21:00:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51b255c6_0b1dc1d2",
+      "revId": "8affd6464e856b8556b9f9aa35f717ad04d396e3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51b255c6_8bd9b114",
         "filename": "tool/speed.cc",
         "patchSetId": 12
@@ -195,6 +381,24 @@
     },
     {
       "key": {
+        "uuid": "f1c6e968_d82671d4",
+        "filename": "tool/speed.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-08-31T21:00:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51b255c6_8bd9b114",
+      "revId": "8affd6464e856b8556b9f9aa35f717ad04d396e3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51b255c6_abd6f5df",
         "filename": "tool/speed.cc",
         "patchSetId": 12
@@ -206,6 +410,24 @@
       "writtenOn": "2016-08-31T19:41:35Z",
       "side": 1,
       "message": "Nit: 80 chars",
+      "revId": "8affd6464e856b8556b9f9aa35f717ad04d396e3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f1c6e968_f8232dc1",
+        "filename": "tool/speed.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-08-31T21:00:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51b255c6_abd6f5df",
       "revId": "8affd6464e856b8556b9f9aa35f717ad04d396e3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
