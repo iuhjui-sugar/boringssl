@@ -513,20 +513,6 @@ done:
  * customisable at some point, for now include everything we support. */
 
 static const uint16_t kDefaultSignatureAlgorithms[] = {
-    SSL_SIGN_RSA_PKCS1_SHA512,
-    SSL_SIGN_ECDSA_SECP521R1_SHA512,
-
-    SSL_SIGN_RSA_PKCS1_SHA384,
-    SSL_SIGN_ECDSA_SECP384R1_SHA384,
-
-    SSL_SIGN_RSA_PKCS1_SHA256,
-    SSL_SIGN_ECDSA_SECP256R1_SHA256,
-
-    SSL_SIGN_RSA_PKCS1_SHA1,
-    SSL_SIGN_ECDSA_SHA1,
-};
-
-static const uint16_t kDefaultTLS13SignatureAlgorithms[] = {
     SSL_SIGN_RSA_PSS_SHA512,
     SSL_SIGN_RSA_PKCS1_SHA512,
     SSL_SIGN_ECDSA_SECP521R1_SHA512,
@@ -544,25 +530,6 @@ static const uint16_t kDefaultTLS13SignatureAlgorithms[] = {
 };
 
 size_t tls12_get_psigalgs(SSL *ssl, const uint16_t **psigs) {
-  uint16_t min_version, max_version;
-  if (!ssl_get_version_range(ssl, &min_version, &max_version)) {
-    assert(0);  /* This should never happen. */
-
-    /* Return an empty list. */
-    ERR_clear_error();
-    *psigs = NULL;
-    return 0;
-  }
-
-  /* TODO(davidben): Once TLS 1.3 has finalized, probably just advertise the
-   * same algorithm list regardless, as long as no fallback is needed. Note this
-   * may require care due to lingering NSS servers affected by
-   * https://bugzilla.mozilla.org/show_bug.cgi?id=1119983 */
-  if (max_version >= TLS1_3_VERSION) {
-    *psigs = kDefaultTLS13SignatureAlgorithms;
-    return OPENSSL_ARRAY_SIZE(kDefaultTLS13SignatureAlgorithms);
-  }
-
   *psigs = kDefaultSignatureAlgorithms;
   return OPENSSL_ARRAY_SIZE(kDefaultSignatureAlgorithms);
 }
