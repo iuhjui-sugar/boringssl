@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "313c01f2_a587ea0c",
+        "filename": "crypto/cmac/cmac_test.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-08-31T03:08:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51b255c6_a89efb00",
+      "revId": "2b15e5e351a24ad2cb1ea0071483f0906f45adfe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "25611abc_ba204d05",
         "filename": "crypto/ec/ec_test.cc",
         "patchSetId": 8
@@ -236,6 +254,24 @@
       "side": 1,
       "message": "Nah, that\u0027s a fine requirement. But I believe it means you don\u0027t want to forward-declare all those Free functions. Otherwise it will instead try to call internal::Free by way of the externally-defined symbol and get confused.",
       "parentUuid": "313c01f2_02e04ce6",
+      "revId": "2b15e5e351a24ad2cb1ea0071483f0906f45adfe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "313c01f2_e5bf32a9",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-08-31T03:08:57Z",
+      "side": 1,
+      "message": "If the you (say) forget to #include rsa.h when using a bssl::UniquePtr\u003cRSA\u003e, it is true that you get a link-time failure, rather than a compile-time failure, which is not ideal.  (Not sure if that\u0027s what you meant by \"become confused\"?)\n\nHere, you need some kind of forward declaration in order for the use of Free() below to not be an error.\n\nIf you try the naive thing, and replace all the forward declarations with \"template \u003cclass T\u003e void Free(T*)\", that results in the same link-time failure which I suspect results from encountering Free\u003cT\u003e in base.h before encountering the specialization in (say) rsa.h.  I admit my understanding of C++ templates is none too sophisticated, but intuitively it seems wrong to declare a generic Free\u003cT\u003e when no such thing exists.",
+      "parentUuid": "51b255c6_485bbf59",
       "revId": "2b15e5e351a24ad2cb1ea0071483f0906f45adfe",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
