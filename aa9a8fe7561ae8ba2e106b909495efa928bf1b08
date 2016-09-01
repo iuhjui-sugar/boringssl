@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "713af956_a4ceac53",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-01T20:23:05Z",
+      "side": 1,
+      "message": "Super nit-picky nit. Need a space here and the line below.",
+      "revId": "aa9a8fe7561ae8ba2e106b909495efa928bf1b08",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "713af956_04caf842",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-01T20:23:05Z",
+      "side": 1,
+      "message": "I\u0027ve uploaded https://android-review.googlesource.com/c/268512/ for the Android bits.",
+      "range": {
+        "startLine": 308,
+        "startChar": 12,
+        "endLine": 308,
+        "endChar": 28
+      },
+      "revId": "aa9a8fe7561ae8ba2e106b909495efa928bf1b08",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "713af956_64b984c8",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-01T20:23:05Z",
+      "side": 1,
+      "message": "It might be worth adding a comment somewhere that this gives a STACK_OF(T) which owns all its instances of T, rather than one that doesn\u0027t. I think that\u0027s fine since the latter isn\u0027t really common outside of the library (or even within it), but worth clarifying somewhere.\n\nMaybe also name it BORINGSSL_MAKE_STACK_DELETER? It\u0027s a bit weird that one is BORINGSSL_[verb]_[object] and the other is BORINGSSL_[adjective]_[object].",
+      "range": {
+        "startLine": 328,
+        "startChar": 8,
+        "endLine": 328,
+        "endChar": 31
+      },
+      "revId": "aa9a8fe7561ae8ba2e106b909495efa928bf1b08",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "713af956_c4d3b0fc",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-01T20:23:05Z",
+      "side": 1,
+      "message": "Nit: Comment is off now.",
+      "range": {
+        "startLine": 345,
+        "startChar": 8,
+        "endLine": 345,
+        "endChar": 37
+      },
+      "revId": "aa9a8fe7561ae8ba2e106b909495efa928bf1b08",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "713af956_84b608d6",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 1234,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-01T20:23:05Z",
+      "side": 1,
+      "message": "Optional: I might just drop all those newlines here and in other files that define lots of them. I dunno. What do you think?",
+      "revId": "aa9a8fe7561ae8ba2e106b909495efa928bf1b08",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
