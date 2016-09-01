@@ -307,6 +307,10 @@ func (m *clientHelloMsg) marshal() []byte {
 
 		pskIdentities := pskExtension.addU16LengthPrefixed()
 		for _, psk := range m.pskIdentities {
+			keModes := pskIdentities.addU8LengthPrefixed()
+			keModes.addU8(pskDHEKEMode)
+			authModes := pskIdentities.addU8LengthPrefixed()
+			authModes.addU8(pskAuthMode)
 			pskIdentity := pskIdentities.addU16LengthPrefixed()
 			pskIdentity.addBytes(psk)
 		}
@@ -599,6 +603,38 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 			}
 			d := data[2:length]
 			for len(d) > 0 {
+				foundKE := false
+				foundAuth := false
+
+				if len(d) < 1 {
+					return false
+				}
+				keModesLen := int(d[0])
+				d = d[1:]
+				if len(d) < keModesLen {
+					return false
+				}
+				keModes := d[:keModesLen]
+				for len(keModes) > 0 {
+					if int(keModes[0]) == pskDHEKEMode {
+						foundKE = true
+					}
+					keModes = keModes[1:]
+				}
+				d = d[keModesLen:]
+				authModesLen := int(d[0])
+				d = d[1:]
+				if len(d) < authModesLen {
+					return false
+				}
+				authModes := d[:authModesLen]
+				for len(authModes) > 0 {
+					if int(authModes[0]) == pskAuthMode {
+						foundAuth = true
+					}
+					authModes = authModes[1:]
+				}
+				d = d[authModesLen:]
 				if len(d) < 2 {
 					return false
 				}
@@ -608,7 +644,9 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 					return false
 				}
 				psk := d[:pskLen]
-				m.pskIdentities = append(m.pskIdentities, psk)
+				if foundKE && foundAuth {
+					m.pskIdentities = append(m.pskIdentities, psk)
+				}
 				d = d[pskLen:]
 			}
 		case extensionEarlyData:
@@ -1746,10 +1784,10 @@ func (m *newSessionTicketMsg) marshal() []byte {
 	body := ticketMsg.addU24LengthPrefixed()
 	body.addU32(m.ticketLifetime)
 	if m.version >= VersionTLS13 {
-		ke_modes := body.addU8LengthPrefixed()
-		ke_modes.addU8(pskDHEKEMode)
-		auth_modes := body.addU8LengthPrefixed()
-		auth_modes.addU8(pskAuthMode)
+		keModes := body.addU8LengthPrefixed()
+		keModes.addU8(pskDHEKEMode)
+		authModes := body.addU8LengthPrefixed()
+		authModes.addU8(pskAuthMode)
 	}
 
 	ticket := body.addU16LengthPrefixed()
