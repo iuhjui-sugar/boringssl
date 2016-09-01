@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "713af956_c4b2d09d",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-01T22:29:30Z",
+      "side": 1,
+      "message": "Mention this in the commit message?",
+      "range": {
+        "startLine": 123,
+        "startChar": 7,
+        "endLine": 123,
+        "endChar": 19
+      },
+      "revId": "393e7e176c22c3740867ca49b096aa08acc8fa55",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "713af956_84a5a852",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-01T22:29:30Z",
+      "side": 1,
+      "message": "I don\u0027t think we want to actually store the draft_version. Rather something like:\n\nif (TLS 1.3) {\n  serialize draft_version based on some hard-coded number.\n}\n\nand in the parsing code.\n\nif (has draft version) {\n  parse draft version.\n  if (value !\u003d hard-coded number) {\n    parse error.\n  }\n}",
+      "range": {
+        "startLine": 352,
+        "startChar": 41,
+        "endLine": 352,
+        "endChar": 54
+      },
+      "revId": "393e7e176c22c3740867ca49b096aa08acc8fa55",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "713af956_e45a7455",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1752,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-01T22:29:30Z",
+      "side": 1,
+      "message": "These need to be actual fields on the struct so that they can be parsed back out and handled correctly in the handshake logic. It is not illegal for the server to send us a NewSessionTicket we can\u0027t do anything useful with.",
+      "revId": "393e7e176c22c3740867ca49b096aa08acc8fa55",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "713af956_a4646c18",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-01T22:29:30Z",
+      "side": 1,
+      "message": "These values need to be processed and then, if the ticket is one we can\u0027t use, we drop it on the floor.",
+      "range": {
+        "startLine": 652,
+        "startChar": 11,
+        "endLine": 652,
+        "endChar": 19
+      },
+      "revId": "393e7e176c22c3740867ca49b096aa08acc8fa55",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
