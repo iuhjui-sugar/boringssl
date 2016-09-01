@@ -2125,6 +2125,17 @@ func addBasicTests() {
 			flags: []string{"-expect-no-session"},
 		},
 		{
+			name: "TLS13-SendIncompatibleSessionTicket",
+			config: Config{
+				MaxVersion: VersionTLS13,
+				Bugs: ProtocolBugs{
+					SendIncompatibleSessionTicket: true,
+					FailIfSessionOffered:          true,
+				},
+			},
+			flags: []string{"-expect-no-session"},
+		},
+		{
 			name:        "BadHelloRequest-1",
 			renegotiate: 1,
 			config: Config{
