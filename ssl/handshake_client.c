@@ -196,7 +196,7 @@ int ssl3_connect(SSL *ssl) {
     state = ssl->state;
 
     switch (ssl->state) {
-      case SSL_ST_CONNECT:
+      case SSL_ST_INIT:
         ssl_do_info_callback(ssl, SSL_CB_HANDSHAKE_START, 1);
 
         ssl->s3->hs = ssl_handshake_new(tls13_client_handshake);

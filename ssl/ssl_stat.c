@@ -88,11 +88,8 @@
 
 const char *SSL_state_string_long(const SSL *ssl) {
   switch (ssl->state) {
-    case SSL_ST_ACCEPT:
-      return "before accept initialization";
-
-    case SSL_ST_CONNECT:
-      return "before connect initialization";
+    case SSL_ST_INIT:
+      return "before initialization";
 
     case SSL_ST_OK:
       return "SSL negotiation finished successfully";
