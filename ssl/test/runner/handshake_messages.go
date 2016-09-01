@@ -1732,8 +1732,6 @@ type newSessionTicketMsg struct {
 	raw            []byte
 	version        uint16
 	ticketLifetime uint32
-	ticketFlags    uint32
-	ticketAgeAdd   uint32
 	ticket         []byte
 }
 
@@ -1748,16 +1746,22 @@ func (m *newSessionTicketMsg) marshal() []byte {
 	body := ticketMsg.addU24LengthPrefixed()
 	body.addU32(m.ticketLifetime)
 	if m.version >= VersionTLS13 {
-		body.addU32(m.ticketFlags)
-		body.addU32(m.ticketAgeAdd)
+		ke_modes := body.addU8LengthPrefixed()
+		ke_modes.addU8(pskDHEKEMode)
+		auth_modes := body.addU8LengthPrefixed()
+		auth_modes.addU8(pskAuthMode)
+	}
+
+	ticket := body.addU16LengthPrefixed()
+	ticket.addBytes(m.ticket)
+
+	if m.version >= VersionTLS13 {
 		// Send no extensions.
 		//
 		// TODO(davidben): Add an option to send a custom extension to
 		// test we correctly ignore unknown ones.
 		body.addU16(0)
 	}
-	ticket := body.addU16LengthPrefixed()
-	ticket.addBytes(m.ticket)
 
 	m.raw = ticketMsg.finish()
 	return m.raw
@@ -1773,31 +1777,53 @@ func (m *newSessionTicketMsg) unmarshal(data []byte) bool {
 	data = data[8:]
 
 	if m.version >= VersionTLS13 {
-		if len(data) < 10 {
+		if len(data) < 1 {
 			return false
 		}
-		m.ticketFlags = uint32(data[0])<<24 | uint32(data[1])<<16 | uint32(data[2])<<8 | uint32(data[3])
-		m.ticketAgeAdd = uint32(data[4])<<24 | uint32(data[5])<<16 | uint32(data[6])<<8 | uint32(data[7])
-		extsLength := int(data[8])<<8 + int(data[9])
-		data = data[10:]
-		if len(data) < extsLength {
+		keModesLength := int(data[0])
+		if len(data)-1 < keModesLength {
 			return false
 		}
-		data = data[extsLength:]
+		data = data[keModesLength+1:]
+
+		if len(data) < 1 {
+			return false
+		}
+		authModesLength := int(data[0])
+		if len(data)-1 < authModesLength {
+			return false
+		}
+		data = data[authModesLength+1:]
 	}
 
 	if len(data) < 2 {
 		return false
 	}
 	ticketLen := int(data[0])<<8 + int(data[1])
-	if len(data)-2 != ticketLen {
+	data = data[2:]
+	if len(data) < ticketLen {
 		return false
 	}
+
 	if m.version >= VersionTLS13 && ticketLen == 0 {
 		return false
 	}
 
-	m.ticket = data[2:]
+	m.ticket = data[:ticketLen]
+	data = data[ticketLen:]
+
+	if m.version >= VersionTLS13 {
+		extsLength := int(data[0])<<8 + int(data[1])
+		data = data[2:]
+		if len(data) < extsLength {
+			return false
+		}
+		data = data[extsLength:]
+	}
+
+	if len(data) > 0 {
+		return false
+	}
 
 	return true
 }
