@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "713af956_a1c21e47",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1853,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-01T19:47:30Z",
+      "side": 1,
+      "message": "Hrm. This seems kind of iffy.",
+      "revId": "dfed2803fe94e32353319c6fe76dde1557238752",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "713af956_61adf6a1",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-01T19:47:30Z",
+      "side": 1,
+      "message": "Ditto. This is even more fun since the ticket is still modified the next time around, whereas normally setting not_resumable means \"this ticket is now frozen\".",
+      "revId": "dfed2803fe94e32353319c6fe76dde1557238752",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
