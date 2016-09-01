@@ -307,6 +307,10 @@ func (m *clientHelloMsg) marshal() []byte {
 
 		pskIdentities := pskExtension.addU16LengthPrefixed()
 		for _, psk := range m.pskIdentities {
+			keModes := pskIdentities.addU8LengthPrefixed()
+			keModes.addU8(pskDHEKEMode)
+			authModes := pskIdentities.addU8LengthPrefixed()
+			authModes.addU8(pskAuthMode)
 			pskIdentity := pskIdentities.addU16LengthPrefixed()
 			pskIdentity.addBytes(psk)
 		}
@@ -599,6 +603,38 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 			}
 			d := data[2:length]
 			for len(d) > 0 {
+				foundKE := false
+				foundAuth := false
+
+				if len(d) < 1 {
+					return false
+				}
+				keModesLen := int(d[0])
+				d = d[1:]
+				if len(d) < keModesLen {
+					return false
+				}
+				keModes := d[:keModesLen]
+				for len(keModes) > 0 {
+					if int(keModes[0]) == pskDHEKEMode {
+						foundKE = true
+					}
+					keModes = keModes[1:]
+				}
+				d = d[keModesLen:]
+				authModesLen := int(d[0])
+				d = d[1:]
+				if len(d) < authModesLen {
+					return false
+				}
+				authModes := d[:authModesLen]
+				for len(authModes) > 0 {
+					if int(authModes[0]) == pskAuthMode {
+						foundAuth = true
+					}
+					authModes = authModes[1:]
+				}
+				d = d[authModesLen:]
 				if len(d) < 2 {
 					return false
 				}
@@ -608,7 +644,9 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 					return false
 				}
 				psk := d[:pskLen]
-				m.pskIdentities = append(m.pskIdentities, psk)
+				if foundKE && foundAuth {
+					m.pskIdentities = append(m.pskIdentities, psk)
+				}
 				d = d[pskLen:]
 			}
 		case extensionEarlyData:
@@ -1732,8 +1770,8 @@ type newSessionTicketMsg struct {
 	raw            []byte
 	version        uint16
 	ticketLifetime uint32
-	ticketFlags    uint32
-	ticketAgeAdd   uint32
+	keModes        []byte
+	authModes      []byte
 	ticket         []byte
 }
 
@@ -1748,16 +1786,20 @@ func (m *newSessionTicketMsg) marshal() []byte {
 	body := ticketMsg.addU24LengthPrefixed()
 	body.addU32(m.ticketLifetime)
 	if m.version >= VersionTLS13 {
-		body.addU32(m.ticketFlags)
-		body.addU32(m.ticketAgeAdd)
+		body.addU8LengthPrefixed().addBytes(m.keModes)
+		body.addU8LengthPrefixed().addBytes(m.authModes)
+	}
+
+	ticket := body.addU16LengthPrefixed()
+	ticket.addBytes(m.ticket)
+
+	if m.version >= VersionTLS13 {
 		// Send no extensions.
 		//
 		// TODO(davidben): Add an option to send a custom extension to
 		// test we correctly ignore unknown ones.
 		body.addU16(0)
 	}
-	ticket := body.addU16LengthPrefixed()
-	ticket.addBytes(m.ticket)
 
 	m.raw = ticketMsg.finish()
 	return m.raw
@@ -1773,31 +1815,58 @@ func (m *newSessionTicketMsg) unmarshal(data []byte) bool {
 	data = data[8:]
 
 	if m.version >= VersionTLS13 {
-		if len(data) < 10 {
+		if len(data) < 1 {
 			return false
 		}
-		m.ticketFlags = uint32(data[0])<<24 | uint32(data[1])<<16 | uint32(data[2])<<8 | uint32(data[3])
-		m.ticketAgeAdd = uint32(data[4])<<24 | uint32(data[5])<<16 | uint32(data[6])<<8 | uint32(data[7])
-		extsLength := int(data[8])<<8 + int(data[9])
-		data = data[10:]
-		if len(data) < extsLength {
+		keModesLength := int(data[0])
+		if len(data)-1 < keModesLength {
 			return false
 		}
-		data = data[extsLength:]
+		m.keModes = data[1 : 1+keModesLength]
+		data = data[1+keModesLength:]
+
+		if len(data) < 1 {
+			return false
+		}
+		authModesLength := int(data[0])
+		if len(data)-1 < authModesLength {
+			return false
+		}
+		m.authModes = data[1 : 1+authModesLength]
+		data = data[1+authModesLength:]
 	}
 
 	if len(data) < 2 {
 		return false
 	}
 	ticketLen := int(data[0])<<8 + int(data[1])
-	if len(data)-2 != ticketLen {
+	data = data[2:]
+	if len(data) < ticketLen {
 		return false
 	}
+
 	if m.version >= VersionTLS13 && ticketLen == 0 {
 		return false
 	}
 
-	m.ticket = data[2:]
+	m.ticket = data[:ticketLen]
+	data = data[ticketLen:]
+
+	if m.version >= VersionTLS13 {
+		if len(data) < 2 {
+			return false
+		}
+		extsLength := int(data[0])<<8 + int(data[1])
+		data = data[2:]
+		if len(data) < extsLength {
+			return false
+		}
+		data = data[extsLength:]
+	}
+
+	if len(data) > 0 {
+		return false
+	}
 
 	return true
 }

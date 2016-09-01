@@ -333,9 +333,6 @@ Curves:
 			if sessionState.vers != c.vers && c.config.Bugs.AcceptAnySession {
 				continue
 			}
-			if sessionState.ticketFlags&ticketAllowDHEResumption == 0 {
-				continue
-			}
 			if sessionState.ticketExpiration.Before(c.config.time()) {
 				continue
 			}
