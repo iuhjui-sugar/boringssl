@@ -252,10 +252,8 @@ NextCipherSuite:
 		if session.vers >= VersionTLS13 || c.config.Bugs.SendBothTickets {
 			// TODO(nharper): Support sending more
 			// than one PSK identity.
-			if session.ticketFlags&ticketAllowDHEResumption != 0 || c.config.Bugs.SendBothTickets {
-				hello.pskIdentities = [][]uint8{ticket}
-				hello.cipherSuites = append(hello.cipherSuites, ecdhePSKSuite(session.cipherSuite))
-			}
+			hello.pskIdentities = [][]uint8{ticket}
+			hello.cipherSuites = append(hello.cipherSuites, ecdhePSKSuite(session.cipherSuite))
 		}
 
 		if session.vers < VersionTLS13 || c.config.Bugs.SendBothTickets {
@@ -1300,8 +1298,28 @@ func (hs *clientHandshakeState) readSessionTicket() error {
 		return unexpectedMessageError(sessionTicketMsg, msg)
 	}
 
-	session.sessionTicket = sessionTicketMsg.ticket
-	hs.session = session
+	if c.vers >= VersionTLS13 {
+		foundKE := false
+		foundAuth := false
+		for _, mode := range sessionTicketMsg.keModes {
+			if mode == pskDHEKEMode {
+				foundKE = true
+			}
+		}
+		for _, mode := range sessionTicketMsg.authModes {
+			if mode == pskAuthMode {
+				foundAuth = true
+			}
+		}
+
+		if foundKE && foundAuth {
+			session.sessionTicket = sessionTicketMsg.ticket
+			hs.session = session
+		}
+	} else {
+		session.sessionTicket = sessionTicketMsg.ticket
+		hs.session = session
+	}
 
 	hs.writeServerHash(sessionTicketMsg.marshal())
 

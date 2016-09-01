@@ -1391,8 +1391,6 @@ func (c *Conn) handlePostHandshakeMessage() error {
 				ocspResponse:       c.ocspResponse,
 				ticketCreationTime: c.config.time(),
 				ticketExpiration:   c.config.time().Add(time.Duration(newSessionTicket.ticketLifetime) * time.Second),
-				ticketFlags:        newSessionTicket.ticketFlags,
-				ticketAgeAdd:       newSessionTicket.ticketAgeAdd,
 			}
 
 			cacheKey := clientSessionCacheKey(c.conn.RemoteAddr(), c.config)
@@ -1672,17 +1670,17 @@ func (c *Conn) SendNewSessionTicket() error {
 		peerCertificatesRaw = append(peerCertificatesRaw, cert.Raw)
 	}
 
-	var ageAdd uint32
-	if err := binary.Read(c.config.rand(), binary.LittleEndian, &ageAdd); err != nil {
-		return err
-	}
-
 	// TODO(davidben): Allow configuring these values.
 	m := &newSessionTicketMsg{
 		version:        c.vers,
 		ticketLifetime: uint32(24 * time.Hour / time.Second),
-		ticketFlags:    ticketAllowDHEResumption | ticketAllowPSKResumption,
-		ticketAgeAdd:   ageAdd,
+		keModes:        []byte{pskDHEKEMode},
+		authModes:      []byte{pskAuthMode},
+	}
+
+	if c.config.Bugs.SendIncompatibleSessionTicket {
+		m.keModes = []byte{pskKEMode}
+		m.authModes = []byte{pskSignAuthMode}
 	}
 
 	state := sessionState{
@@ -1692,8 +1690,6 @@ func (c *Conn) SendNewSessionTicket() error {
 		certificates:       peerCertificatesRaw,
 		ticketCreationTime: c.config.time(),
 		ticketExpiration:   c.config.time().Add(time.Duration(m.ticketLifetime) * time.Second),
-		ticketFlags:        m.ticketFlags,
-		ticketAgeAdd:       ageAdd,
 	}
 
 	if !c.config.Bugs.SendEmptySessionTicket {

@@ -120,7 +120,7 @@
  *     extendedMasterSecret    [17] BOOLEAN OPTIONAL,
  *     keyExchangeInfo         [18] INTEGER OPTIONAL,
  *     certChain               [19] SEQUENCE OF Certificate OPTIONAL,
- *     ticketFlags             [20] INTEGER OPTIONAL,
+ *     draftVersion            [20] INTEGER OPTIONAL,
  *     ticketAgeAdd            [21] OCTET STRING OPTIONAL,
  * }
  *
@@ -166,7 +166,7 @@ static const int kKeyExchangeInfoTag =
     CBS_ASN1_CONSTRUCTED | CBS_ASN1_CONTEXT_SPECIFIC | 18;
 static const int kCertChainTag =
     CBS_ASN1_CONSTRUCTED | CBS_ASN1_CONTEXT_SPECIFIC | 19;
-static const int kTicketFlagsTag =
+static const int kDraftVersionTag =
     CBS_ASN1_CONSTRUCTED | CBS_ASN1_CONTEXT_SPECIFIC | 20;
 static const int kTicketAgeAddTag =
     CBS_ASN1_CONSTRUCTED | CBS_ASN1_CONTEXT_SPECIFIC | 21;
@@ -347,9 +347,9 @@ static int SSL_SESSION_to_bytes_full(const SSL_SESSION *in, uint8_t **out_data,
     }
   }
 
-  if (in->ticket_flags > 0) {
-    if (!CBB_add_asn1(&session, &child, kTicketFlagsTag) ||
-        !CBB_add_asn1_uint64(&child, in->ticket_flags)) {
+  if (in->ssl_version >= TLS1_3_VERSION) {
+    if (!CBB_add_asn1(&session, &child, kDraftVersionTag) ||
+        !CBB_add_asn1_uint64(&child, TLS1_3_DRAFT_VERSION)) {
       OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
       goto err;
     }
@@ -675,10 +675,13 @@ static SSL_SESSION *SSL_SESSION_parse(CBS *cbs) {
     }
   }
 
+  uint32_t draft_version;
   CBS age_add;
   int age_add_present;
-  if (!SSL_SESSION_parse_u32(&session, &ret->ticket_flags,
-                             kTicketFlagsTag, 0) ||
+  if (!SSL_SESSION_parse_u32(&session, &draft_version,
+                             kDraftVersionTag, 0) ||
+      (draft_version != 0 &&
+       draft_version != TLS1_3_DRAFT_VERSION) ||
       !CBS_get_optional_asn1_octet_string(&session, &age_add, &age_add_present,
                                           kTicketAgeAddTag) ||
       (age_add_present &&
