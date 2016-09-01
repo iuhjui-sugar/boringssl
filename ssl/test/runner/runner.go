@@ -2116,19 +2116,6 @@ func addBasicTests() {
 			expectMessageDropped: true,
 		},
 		{
-			// In TLS 1.2 and below, empty NewSessionTicket messages
-			// mean the server changed its mind on sending a ticket.
-			name: "SendEmptySessionTicket",
-			config: Config{
-				MaxVersion: VersionTLS12,
-				Bugs: ProtocolBugs{
-					SendEmptySessionTicket: true,
-					FailIfSessionOffered:   true,
-				},
-			},
-			flags: []string{"-expect-no-session"},
-		},
-		{
 			name:        "BadHelloRequest-1",
 			renegotiate: 1,
 			config: Config{
@@ -7435,6 +7422,56 @@ func addTLS13RecordTests() {
 	})
 }
 
+func addSessionTicketTests() {
+	testCases = append(testCases, testCase{
+		// In TLS 1.2 and below, empty NewSessionTicket messages
+		// mean the server changed its mind on sending a ticket.
+		name: "SendEmptySessionTicket",
+		config: Config{
+			MaxVersion: VersionTLS12,
+			Bugs: ProtocolBugs{
+				SendEmptySessionTicket: true,
+			},
+		},
+		flags: []string{"-expect-no-session"},
+	})
+
+	testCases = append(testCases, testCase{
+		name: "TLS13-SendUnknownModeSessionTicket",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				SessionTicketKEMode:   []byte{0x1a},
+				SessionTicketAuthMode: []byte{0x1a},
+			},
+		},
+		flags: []string{"-expect-no-session"},
+	})
+
+	testCases = append(testCases, testCase{
+
+		name: "TLS13-SendBadKEModeSessionTicket",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				SessionTicketKEMode: []byte{0x1a},
+			},
+		},
+		flags: []string{"-expect-no-session"},
+	})
+
+	testCases = append(testCases, testCase{
+		name: "TLS13-SendBadAuthModeSessionTicket",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				SessionTicketAuthMode: []byte{0x1a},
+			},
+		},
+		flags: []string{"-expect-no-session"},
+	})
+}
+
 func addChangeCipherSpecTests() {
 	// Test missing ChangeCipherSpecs.
 	testCases = append(testCases, testCase{
@@ -8505,6 +8542,7 @@ func main() {
 	addCurveTests()
 	addCECPQ1Tests()
 	addDHEGroupSizeTests()
+	addSessionTicketTests()
 	addTLS13RecordTests()
 	addAllStateMachineCoverageTests()
 	addChangeCipherSpecTests()
