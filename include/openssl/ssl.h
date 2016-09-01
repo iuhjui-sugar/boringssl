@@ -565,7 +565,7 @@ OPENSSL_EXPORT int DTLSv1_handle_timeout(SSL *ssl);
 #define DTLS1_VERSION 0xfeff
 #define DTLS1_2_VERSION 0xfefd
 
-#define TLS1_3_DRAFT_VERSION 14
+#define TLS1_3_DRAFT_VERSION 15
 
 /* SSL_CTX_set_min_version sets the minimum protocol version for |ctx| to
  * |version|. */
@@ -3503,9 +3503,11 @@ OPENSSL_EXPORT const char *SSL_alert_desc_string(int value);
 #define SSL_TXT_kCECPQ1 "kCECPQ1"
 #define SSL_TXT_kEECDH "kEECDH"
 #define SSL_TXT_kPSK "kPSK"
+#define SSL_TXT_kTLS "kTLS"
 #define SSL_TXT_aRSA "aRSA"
 #define SSL_TXT_aECDSA "aECDSA"
 #define SSL_TXT_aPSK "aPSK"
+#define SSL_TXT_aTLS "aTLS"
 #define SSL_TXT_DH "DH"
 #define SSL_TXT_DHE "DHE"
 #define SSL_TXT_EDH "EDH"
@@ -3704,7 +3706,6 @@ struct ssl_session_st {
 
   uint32_t tlsext_tick_lifetime_hint; /* Session lifetime hint in seconds */
 
-  uint32_t ticket_flags;
   uint32_t ticket_age_add;
 
   /* extended_master_secret is true if the master secret in this session was
@@ -4825,6 +4826,7 @@ BORINGSSL_MAKE_DELETER(SSL_SESSION, SSL_SESSION_free)
 #define SSL_R_BLOCK_CIPHER_PAD_IS_WRONG 261
 #define SSL_R_NO_CIPHERS_SPECIFIED 262
 #define SSL_R_RENEGOTIATION_EMS_MISMATCH 263
+#define SSL_R_NO_SHARED_GROUP 264
 #define SSL_R_SSLV3_ALERT_CLOSE_NOTIFY 1000
 #define SSL_R_SSLV3_ALERT_UNEXPECTED_MESSAGE 1010
 #define SSL_R_SSLV3_ALERT_BAD_RECORD_MAC 1020

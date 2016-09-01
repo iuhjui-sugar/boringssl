@@ -46,6 +46,8 @@ enum client_hs_state_t {
   state_done,
 };
 
+static const uint8_t kZeroes[EVP_MAX_MD_SIZE] = {0};
+
 static enum ssl_hs_wait_t do_process_hello_retry_request(SSL *ssl,
                                                          SSL_HANDSHAKE *hs) {
   if (ssl->s3->tmp.message_type != SSL3_MT_HELLO_RETRY_REQUEST) {
@@ -150,9 +152,30 @@ static enum ssl_hs_wait_t do_process_server_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
+  assert(ssl->s3->have_version);
+  memcpy(ssl->s3->server_random, CBS_data(&server_random), SSL3_RANDOM_SIZE);
+
+  const SSL_CIPHER *cipher = SSL_get_cipher_by_value(cipher_suite);
+  if (cipher == NULL) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_UNKNOWN_CIPHER_RETURNED);
+    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
+    return ssl_hs_error;
+  }
+
+  /* Check if the cipher is disabled. */
+  if ((cipher->algorithm_mkey & ssl->cert->mask_k) ||
+      (cipher->algorithm_auth & ssl->cert->mask_a) ||
+      SSL_CIPHER_get_min_version(cipher) > ssl3_protocol_version(ssl) ||
+      SSL_CIPHER_get_max_version(cipher) < ssl3_protocol_version(ssl) ||
+      !sk_SSL_CIPHER_find(ssl_get_ciphers_by_id(ssl), NULL, cipher)) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_WRONG_CIPHER_RETURNED);
+    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
+    return ssl_hs_error;
+  }
+
   /* Parse out the extensions. */
-  int have_key_share = 0, have_pre_shared_key = 0;
-  CBS key_share, pre_shared_key;
+  int have_key_share = 0, have_pre_shared_key = 0, have_sigalgs = 0;
+  CBS key_share, pre_shared_key, sigalgs;
   while (CBS_len(&extensions) != 0) {
     uint16_t type;
     CBS extension;
@@ -182,15 +205,21 @@ static enum ssl_hs_wait_t do_process_server_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
         pre_shared_key = extension;
         have_pre_shared_key = 1;
         break;
+      case TLSEXT_TYPE_signature_algorithms:
+        if (have_sigalgs) {
+          OPENSSL_PUT_ERROR(SSL, SSL_R_DUPLICATE_EXTENSION);
+          ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
+          return ssl_hs_error;
+        }
+        sigalgs = extension;
+        have_sigalgs = 1;
+        break;
       default:
         OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_EXTENSION);
         ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_UNSUPPORTED_EXTENSION);
         return ssl_hs_error;
     }
   }
-
-  assert(ssl->s3->have_version);
-  memcpy(ssl->s3->server_random, CBS_data(&server_random), SSL3_RANDOM_SIZE);
 
   uint8_t alert = SSL_AD_DECODE_ERROR;
   if (have_pre_shared_key) {
@@ -208,6 +237,12 @@ static enum ssl_hs_wait_t do_process_server_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
 
     if (ssl->session->ssl_version != ssl->version) {
       OPENSSL_PUT_ERROR(SSL, SSL_R_OLD_SESSION_VERSION_NOT_RETURNED);
+      ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
+      return ssl_hs_error;
+    }
+
+    if (ssl->session->cipher != cipher) {
+      OPENSSL_PUT_ERROR(SSL, SSL_R_OLD_SESSION_CIPHER_NOT_RETURNED);
       ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
       return ssl_hs_error;
     }
@@ -230,109 +265,76 @@ static enum ssl_hs_wait_t do_process_server_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
     }
     SSL_set_session(ssl, NULL);
   } else {
+    if (!have_key_share || !have_sigalgs) {
+      OPENSSL_PUT_ERROR(SSL, SSL_R_MISSING_EXTENSION);
+      ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_MISSING_EXTENSION);
+      return ssl_hs_error;
+    }
+
     if (!ssl_get_new_session(ssl, 0)) {
       ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
       return ssl_hs_error;
     }
   }
 
-  const SSL_CIPHER *cipher = SSL_get_cipher_by_value(cipher_suite);
-  if (cipher == NULL) {
-    OPENSSL_PUT_ERROR(SSL, SSL_R_UNKNOWN_CIPHER_RETURNED);
-    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
+  ssl->s3->new_session->cipher = cipher;
+  ssl->s3->tmp.new_cipher = cipher;
+
+  /* The PRF hash is now known. Set up the key schedule. */
+  size_t hash_len =
+      EVP_MD_size(ssl_get_handshake_digest(ssl_get_algorithm_prf(ssl)));
+
+  uint8_t resumption_ctx[EVP_MAX_MD_SIZE] = {0};
+  if (ssl->s3->session_reused &&
+      !tls13_resumption_context(ssl, resumption_ctx, hash_len,
+                                ssl->s3->new_session)) {
     return ssl_hs_error;
   }
 
-  if (!ssl->s3->session_reused) {
-    /* Check if the cipher is disabled. */
-    if ((cipher->algorithm_mkey & ssl->cert->mask_k) ||
-        (cipher->algorithm_auth & ssl->cert->mask_a) ||
-        SSL_CIPHER_get_min_version(cipher) > ssl3_protocol_version(ssl) ||
-        SSL_CIPHER_get_max_version(cipher) < ssl3_protocol_version(ssl) ||
-        !sk_SSL_CIPHER_find(ssl_get_ciphers_by_id(ssl), NULL, cipher)) {
-      OPENSSL_PUT_ERROR(SSL, SSL_R_WRONG_CIPHER_RETURNED);
-      ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
-      return ssl_hs_error;
-    }
-  } else {
-    uint16_t resumption_cipher;
-    if (!ssl_cipher_get_ecdhe_psk_cipher(ssl->s3->new_session->cipher,
-                                         &resumption_cipher) ||
-        resumption_cipher != ssl_cipher_get_value(cipher)) {
-      OPENSSL_PUT_ERROR(SSL, SSL_R_OLD_SESSION_CIPHER_NOT_RETURNED);
-      ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
-      return ssl_hs_error;
-    }
-  }
-
-  ssl->s3->new_session->cipher = cipher;
-  ssl->s3->tmp.new_cipher = cipher;
-  if (ssl_cipher_uses_certificate_auth(cipher)) {
-    hs->use_cert_auth = 1;
-  }
-
-  /* The PRF hash is now known. Set up the key schedule. */
-  static const uint8_t kZeroes[EVP_MAX_MD_SIZE] = {0};
-  size_t resumption_ctx_len =
-      EVP_MD_size(ssl_get_handshake_digest(ssl_get_algorithm_prf(ssl)));
-  if (ssl->s3->session_reused) {
-    uint8_t resumption_ctx[EVP_MAX_MD_SIZE];
-    if (!tls13_resumption_context(ssl, resumption_ctx, resumption_ctx_len,
-                                  ssl->s3->new_session) ||
-        !tls13_init_key_schedule(ssl, resumption_ctx, resumption_ctx_len)) {
-      return ssl_hs_error;
-    }
-  } else if (!tls13_init_key_schedule(ssl, kZeroes, resumption_ctx_len)) {
+  if (!tls13_init_key_schedule(ssl, resumption_ctx, hash_len)) {
     return ssl_hs_error;
   }
 
   /* Resolve PSK and incorporate it into the secret. */
-  if (cipher->algorithm_auth == SSL_aPSK) {
-    if (!ssl->s3->session_reused) {
-      OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
-      return ssl_hs_error;
-    }
-
-    uint8_t resumption_psk[EVP_MAX_MD_SIZE];
-    if (!tls13_resumption_psk(ssl, resumption_psk, hs->hash_len,
-                              ssl->s3->new_session) ||
-        !tls13_advance_key_schedule(ssl, resumption_psk, hs->hash_len)) {
+  uint8_t psk_secret[EVP_MAX_MD_SIZE];
+  if (ssl->s3->session_reused) {
+    if (!tls13_resumption_psk(ssl, psk_secret, hash_len,
+                              ssl->s3->new_session)) {
       OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
       ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
       return ssl_hs_error;
     }
-  } else if (!tls13_advance_key_schedule(ssl, kZeroes, hs->hash_len)) {
+  } else {
+    memcpy(psk_secret, kZeroes, hash_len);
+  }
+
+  if (!tls13_advance_key_schedule(ssl, psk_secret, hash_len)) {
     return ssl_hs_error;
   }
 
   /* Resolve ECDHE and incorporate it into the secret. */
-  if (cipher->algorithm_mkey == SSL_kECDHE) {
-    if (!have_key_share) {
-      OPENSSL_PUT_ERROR(SSL, SSL_R_MISSING_KEY_SHARE);
-      ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_MISSING_EXTENSION);
-      return ssl_hs_error;
-    }
-
-    uint8_t *dhe_secret;
-    size_t dhe_secret_len;
+  uint8_t *dhe_secret;
+  size_t dhe_secret_len = hash_len;
+  if (have_key_share) {
     if (!ssl_ext_key_share_parse_serverhello(ssl, &dhe_secret, &dhe_secret_len,
                                              &alert, &key_share)) {
       ssl3_send_alert(ssl, SSL3_AL_FATAL, alert);
       return ssl_hs_error;
     }
-
-    int ok = tls13_advance_key_schedule(ssl, dhe_secret, dhe_secret_len);
-    OPENSSL_free(dhe_secret);
-    if (!ok) {
-      return ssl_hs_error;
-    }
   } else {
-    if (have_key_share) {
-      OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_EXTENSION);
-      ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_UNSUPPORTED_EXTENSION);
-      return ssl_hs_error;
-    }
-    if (!tls13_advance_key_schedule(ssl, kZeroes, hs->hash_len)) {
+    dhe_secret = OPENSSL_malloc(hash_len);
+    memcpy(dhe_secret, kZeroes, hash_len);
+  }
+
+  if (!tls13_advance_key_schedule(ssl, dhe_secret, dhe_secret_len)) {
+    OPENSSL_free(dhe_secret);
+    return ssl_hs_error;
+  }
+  OPENSSL_free(dhe_secret);
+
+  if (have_sigalgs) {
+    if (!ssl_ext_sigalgs_parse_serverhello(ssl, &alert, &sigalgs)) {
+      ssl3_send_alert(ssl, SSL3_AL_FATAL, alert);
       return ssl_hs_error;
     }
   }
@@ -443,15 +445,6 @@ static enum ssl_hs_wait_t do_process_server_certificate(SSL *ssl,
     return ssl_hs_error;
   }
 
-  /* Check the certificate matches the cipher suite.
-   *
-   * TODO(davidben): Remove this check when switching to the new TLS 1.3 cipher
-   * suite negotiation. */
-  if (!ssl_check_leaf_certificate(ssl, ssl->s3->new_session->peer)) {
-    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
-    return ssl_hs_error;
-  }
-
   hs->state = state_process_server_certificate_verify;
   return ssl_hs_read_message;
 }
@@ -470,8 +463,6 @@ static enum ssl_hs_wait_t do_process_server_certificate_verify(
 
 static enum ssl_hs_wait_t do_process_server_finished(SSL *ssl,
                                                      SSL_HANDSHAKE *hs) {
-  static const uint8_t kZeroes[EVP_MAX_MD_SIZE] = {0};
-
   if (!tls13_check_message_type(ssl, SSL3_MT_FINISHED) ||
       !tls13_process_finished(ssl) ||
       !ssl->method->hash_current_message(ssl) ||
@@ -652,14 +643,16 @@ int tls13_process_new_session_ticket(SSL *ssl) {
     return 0;
   }
 
-  CBS cbs, extensions, ticket;
+  CBS cbs, ke_modes, auth_modes, ticket, extensions;
   CBS_init(&cbs, ssl->init_msg, ssl->init_num);
   if (!CBS_get_u32(&cbs, &session->tlsext_tick_lifetime_hint) ||
-      !CBS_get_u32(&cbs, &session->ticket_flags) ||
-      !CBS_get_u32(&cbs, &session->ticket_age_add) ||
-      !CBS_get_u16_length_prefixed(&cbs, &extensions) ||
+      !CBS_get_u8_length_prefixed(&cbs, &ke_modes) ||
+      CBS_len(&ke_modes) == 0 ||
+      !CBS_get_u8_length_prefixed(&cbs, &auth_modes) ||
+      CBS_len(&auth_modes) == 0 ||
       !CBS_get_u16_length_prefixed(&cbs, &ticket) ||
       !CBS_stow(&ticket, &session->tlsext_tick, &session->tlsext_ticklen) ||
+      !CBS_get_u16_length_prefixed(&cbs, &extensions) ||
       CBS_len(&cbs) != 0) {
     SSL_SESSION_free(session);
     ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
@@ -667,10 +660,14 @@ int tls13_process_new_session_ticket(SSL *ssl) {
     return 0;
   }
 
-  session->ticket_age_add_valid = 1;
+
   session->not_resumable = 0;
 
-  if (ssl->ctx->new_session_cb != NULL &&
+  /* Ignore the ticket unless the server preferences are compatible with us. */
+  if (memchr(CBS_data(&ke_modes), SSL_PSK_DHE_KE, CBS_len(&ke_modes)) != NULL &&
+      memchr(CBS_data(&auth_modes), SSL_PSK_AUTH, CBS_len(&auth_modes)) !=
+          NULL &&
+      ssl->ctx->new_session_cb != NULL &&
       ssl->ctx->new_session_cb(ssl, session)) {
     /* |new_session_cb|'s return value signals that it took ownership. */
     return 1;

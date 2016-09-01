@@ -172,12 +172,14 @@ extern "C" {
 /* SSL_kPSK is only set for plain PSK, not ECDHE_PSK. */
 #define SSL_kPSK 0x00000008L
 #define SSL_kCECPQ1 0x00000010L
+#define SSL_kTLS 0x00000020L
 
 /* Bits for |algorithm_auth| (server authentication). */
 #define SSL_aRSA 0x00000001L
 #define SSL_aECDSA 0x00000002L
 /* SSL_aPSK is set for both PSK and ECDHE_PSK. */
 #define SSL_aPSK 0x00000004L
+#define SSL_aTLS 0x00000008L
 
 #define SSL_aCERT (SSL_aRSA | SSL_aECDSA)
 
@@ -241,11 +243,6 @@ ssl_create_cipher_list(const SSL_PROTOCOL_METHOD *ssl_method,
 
 /* ssl_cipher_get_value returns the cipher suite id of |cipher|. */
 uint16_t ssl_cipher_get_value(const SSL_CIPHER *cipher);
-
-/* ssl_cipher_get_resumption_cipher returns the cipher suite id of the cipher
- * matching |cipher| with PSK enabled. */
-int ssl_cipher_get_ecdhe_psk_cipher(const SSL_CIPHER *cipher,
-                                    uint16_t *out_cipher);
 
 /* ssl_cipher_get_key_type returns the |EVP_PKEY_*| value corresponding to the
  * server key used in |cipher| or |EVP_PKEY_NONE| if there is none. */
@@ -898,6 +895,7 @@ struct ssl_handshake_st {
   uint8_t traffic_secret_0[EVP_MAX_MD_SIZE];
 
   int use_cert_auth;
+  int require_key_exchange;
 
   SSL_ECDH_CTX *groups;
   size_t groups_len;
@@ -952,6 +950,10 @@ enum ssl_private_key_result_t tls13_prepare_certificate_verify(
     SSL *ssl, int is_first_run);
 int tls13_prepare_finished(SSL *ssl);
 int tls13_process_new_session_ticket(SSL *ssl);
+
+int ssl_ext_sigalgs_parse_serverhello(SSL *ssl, uint8_t *out_alert,
+                                      CBS *contents);
+int ssl_ext_sigalgs_add_serverhello(SSL *ssl, CBB *out);
 
 int ssl_ext_key_share_parse_serverhello(SSL *ssl, uint8_t **out_secret,
                                         size_t *out_secret_len,
@@ -1244,10 +1246,12 @@ typedef struct dtls1_state_st {
 extern const SSL3_ENC_METHOD TLSv1_enc_data;
 extern const SSL3_ENC_METHOD SSLv3_enc_data;
 
-/* From draft-ietf-tls-tls13-14, used in determining ticket validity. */
-#define SSL_TICKET_ALLOW_EARLY_DATA 1
-#define SSL_TICKET_ALLOW_DHE_RESUMPTION 2
-#define SSL_TICKET_ALLOW_PSK_RESUMPTION 4
+/* From draft-ietf-tls-tls13-15, used in determining PSK modes. */
+#define SSL_PSK_KE        0x0
+#define SSL_PSK_DHE_KE    0x1
+
+#define SSL_PSK_AUTH      0x0
+#define SSL_PSK_SIGN_AUTH 0x1
 
 CERT *ssl_cert_new(void);
 CERT *ssl_cert_dup(CERT *cert);
