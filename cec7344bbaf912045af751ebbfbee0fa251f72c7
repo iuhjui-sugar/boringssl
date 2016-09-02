@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "31d32198_36b9e6c9",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1377,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-09-02T16:53:17Z",
+      "side": 1,
+      "message": "Why not public?",
+      "range": {
+        "startLine": 1377,
+        "startChar": 3,
+        "endLine": 1377,
+        "endChar": 4
+      },
+      "revId": "cec7344bbaf912045af751ebbfbee0fa251f72c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
