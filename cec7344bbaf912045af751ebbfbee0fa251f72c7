@@ -22,6 +22,24 @@
       "revId": "cec7344bbaf912045af751ebbfbee0fa251f72c7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d19645c8_9f8c57e8",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1377,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-02T17:53:11Z",
+      "side": 1,
+      "message": "Didn\u0027t know there was a need. Would it be convenient for the early callback implementation? We can certainly expose it.\n\n(I wonder if we should use that as an opportunity to typedef struct ssl_early_callback_ctx SSL_CLIENT_HELLO and then name these SSL_CLIENT_HELLO_get_extension or something.)",
+      "parentUuid": "31d32198_36b9e6c9",
+      "revId": "cec7344bbaf912045af751ebbfbee0fa251f72c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
