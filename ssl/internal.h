@@ -1014,6 +1014,19 @@ int ssl_client_cipher_list_contains_cipher(
     const struct ssl_early_callback_ctx *client_hello, uint16_t id);
 
 
+/* GREASE. */
+
+enum ssl_grease_index_t {
+  ssl_grease_cipher = 0,
+  ssl_grease_group,
+  ssl_grease_extension1,
+  ssl_grease_extension2,
+};
+
+/* ssl_get_grease_value returns a GREASE value for |ssl|. */
+uint16_t ssl_get_grease_value(const SSL *ssl, enum ssl_grease_index_t index);
+
+
 /* Underdocumented functions.
  *
  * Functions below here haven't been touched up and may be underdocumented. */
