@@ -516,11 +516,10 @@ void CRYPTO_gcm128_setiv(GCM128_CONTEXT *ctx, const void *key,
     ctx->Yi.c[15] = 1;
     ctr = 1;
   } else {
-    size_t i;
     uint64_t len0 = len;
 
     while (len >= 16) {
-      for (i = 0; i < 16; ++i) {
+      for (size_t i = 0; i < 16; ++i) {
         ctx->Yi.c[i] ^= iv[i];
       }
       GCM_MUL(ctx, Yi);
@@ -528,7 +527,7 @@ void CRYPTO_gcm128_setiv(GCM128_CONTEXT *ctx, const void *key,
       len -= 16;
     }
     if (len) {
-      for (i = 0; i < len; ++i) {
+      for (size_t i = 0; i < len; ++i) {
         ctx->Yi.c[i] ^= iv[i];
       }
       GCM_MUL(ctx, Yi);
@@ -570,7 +569,6 @@ void CRYPTO_gcm128_setiv(GCM128_CONTEXT *ctx, const void *key,
 }
 
 int CRYPTO_gcm128_aad(GCM128_CONTEXT *ctx, const uint8_t *aad, size_t len) {
-  size_t i;
   unsigned int n;
   uint64_t alen = ctx->len.u[0];
 #ifdef GCM_FUNCREF_4BIT
@@ -606,16 +604,17 @@ int CRYPTO_gcm128_aad(GCM128_CONTEXT *ctx, const uint8_t *aad, size_t len) {
     }
   }
 
+  /* Process a whole number of blocks. */
 #ifdef GHASH
-  i = len & kSizeTWithoutLower4Bits;
-  if (i != 0) {
-    GHASH(ctx, aad, i);
-    aad += i;
-    len -= i;
+  size_t len_blocks = len & kSizeTWithoutLower4Bits;
+  if (len_blocks != 0) {
+    GHASH(ctx, aad, len_blocks);
+    aad += len_blocks;
+    len -= len_blocks;
   }
 #else
   while (len >= 16) {
-    for (i = 0; i < 16; ++i) {
+    for (size_t i = 0; i < 16; ++i) {
       ctx->Xi.c[i] ^= aad[i];
     }
     GCM_MUL(ctx, Xi);
@@ -623,9 +622,11 @@ int CRYPTO_gcm128_aad(GCM128_CONTEXT *ctx, const uint8_t *aad, size_t len) {
     len -= 16;
   }
 #endif
-  if (len) {
+
+  /* Process the remainder. */
+  if (len != 0) {
     n = (unsigned int)len;
-    for (i = 0; i < len; ++i) {
+    for (size_t i = 0; i < len; ++i) {
       ctx->Xi.c[i] ^= aad[i];
     }
   }
