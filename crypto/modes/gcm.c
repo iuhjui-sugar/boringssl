@@ -643,7 +643,6 @@ int CRYPTO_gcm128_encrypt(GCM128_CONTEXT *ctx, const void *key,
     char little;
   } is_endian = {1};
   unsigned int n, ctr;
-  size_t i;
   uint64_t mlen = ctx->len.u[1];
   block128_f block = ctx->block;
 #ifdef GCM_FUNCREF_4BIT
@@ -688,7 +687,7 @@ int CRYPTO_gcm128_encrypt(GCM128_CONTEXT *ctx, const void *key,
     }
   }
   if (STRICT_ALIGNMENT && ((size_t)in | (size_t)out) % sizeof(size_t) != 0) {
-    for (i = 0; i < len; ++i) {
+    for (size_t i = 0; i < len; ++i) {
       if (n == 0) {
         (*block)(ctx->Yi.c, ctx->EKi.c, key);
         ++ctr;
@@ -723,7 +722,7 @@ int CRYPTO_gcm128_encrypt(GCM128_CONTEXT *ctx, const void *key,
       } else {
         ctx->Yi.d[3] = ctr;
       }
-      for (i = 0; i < 16 / sizeof(size_t); ++i) {
+      for (size_t i = 0; i < 16 / sizeof(size_t); ++i) {
         out_t[i] = in_t[i] ^ ctx->EKi.t[i];
       }
       out += 16;
@@ -733,9 +732,8 @@ int CRYPTO_gcm128_encrypt(GCM128_CONTEXT *ctx, const void *key,
     GHASH(ctx, out - GHASH_CHUNK, GHASH_CHUNK);
     len -= GHASH_CHUNK;
   }
-  if ((i = (len & (size_t) - 16))) {
-    size_t j = i;
-
+  size_t len_blocks = len & kSizeTWithoutLower4Bits;
+  if (len_blocks != 0) {
     while (len >= 16) {
       size_t *out_t = (size_t *)out;
       const size_t *in_t = (const size_t *)in;
@@ -747,14 +745,14 @@ int CRYPTO_gcm128_encrypt(GCM128_CONTEXT *ctx, const void *key,
       } else {
         ctx->Yi.d[3] = ctr;
       }
-      for (i = 0; i < 16 / sizeof(size_t); ++i) {
+      for (size_t i = 0; i < 16 / sizeof(size_t); ++i) {
         out_t[i] = in_t[i] ^ ctx->EKi.t[i];
       }
       out += 16;
       in += 16;
       len -= 16;
     }
-    GHASH(ctx, out - j, j);
+    GHASH(ctx, out - len_blocks, len_blocks);
   }
 #else
   while (len >= 16) {
@@ -768,7 +766,7 @@ int CRYPTO_gcm128_encrypt(GCM128_CONTEXT *ctx, const void *key,
     } else {
       ctx->Yi.d[3] = ctr;
     }
-    for (i = 0; i < 16 / sizeof(size_t); ++i) {
+    for (size_t i = 0; i < 16 / sizeof(size_t); ++i) {
       ctx->Xi.t[i] ^= out_t[i] = in_t[i] ^ ctx->EKi.t[i];
     }
     GCM_MUL(ctx, Xi);
@@ -803,7 +801,6 @@ int CRYPTO_gcm128_decrypt(GCM128_CONTEXT *ctx, const void *key,
     char little;
   } is_endian = {1};
   unsigned int n, ctr;
-  size_t i;
   uint64_t mlen = ctx->len.u[1];
   block128_f block = ctx->block;
 #ifdef GCM_FUNCREF_4BIT
@@ -850,7 +847,7 @@ int CRYPTO_gcm128_decrypt(GCM128_CONTEXT *ctx, const void *key,
     }
   }
   if (STRICT_ALIGNMENT && ((size_t)in | (size_t)out) % sizeof(size_t) != 0) {
-    for (i = 0; i < len; ++i) {
+    for (size_t i = 0; i < len; ++i) {
       uint8_t c;
       if (n == 0) {
         (*block)(ctx->Yi.c, ctx->EKi.c, key);
@@ -889,7 +886,7 @@ int CRYPTO_gcm128_decrypt(GCM128_CONTEXT *ctx, const void *key,
       } else {
         ctx->Yi.d[3] = ctr;
       }
-      for (i = 0; i < 16 / sizeof(size_t); ++i) {
+      for (size_t i = 0; i < 16 / sizeof(size_t); ++i) {
         out_t[i] = in_t[i] ^ ctx->EKi.t[i];
       }
       out += 16;
@@ -898,9 +895,9 @@ int CRYPTO_gcm128_decrypt(GCM128_CONTEXT *ctx, const void *key,
     }
     len -= GHASH_CHUNK;
   }
-  i = len & kSizeTWithoutLower4Bits;
-  if (i != 0) {
-    GHASH(ctx, in, i);
+  size_t len_blocks = len & kSizeTWithoutLower4Bits;
+  if (len_blocks != 0) {
+    GHASH(ctx, in, len_blocks);
     while (len >= 16) {
       size_t *out_t = (size_t *)out;
       const size_t *in_t = (const size_t *)in;
@@ -912,7 +909,7 @@ int CRYPTO_gcm128_decrypt(GCM128_CONTEXT *ctx, const void *key,
       } else {
         ctx->Yi.d[3] = ctr;
       }
-      for (i = 0; i < 16 / sizeof(size_t); ++i) {
+      for (size_t i = 0; i < 16 / sizeof(size_t); ++i) {
         out_t[i] = in_t[i] ^ ctx->EKi.t[i];
       }
       out += 16;
