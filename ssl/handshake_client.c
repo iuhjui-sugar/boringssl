@@ -605,16 +605,6 @@ static int ssl_write_client_cipher_list(SSL *ssl, CBB *out,
     if (!CBB_add_u16(&child, ssl_cipher_get_value(cipher))) {
       return 0;
     }
-    /* Add PSK ciphers for TLS 1.3 resumption. */
-    if (ssl->session != NULL &&
-        ssl->method->version_from_wire(ssl->session->ssl_version) >=
-            TLS1_3_VERSION) {
-      uint16_t resumption_cipher;
-      if (ssl_cipher_get_ecdhe_psk_cipher(cipher, &resumption_cipher) &&
-          !CBB_add_u16(&child, resumption_cipher)) {
-        return 0;
-      }
-    }
   }
 
   /* If all ciphers were disabled, return the error to the caller. */
