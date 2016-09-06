@@ -1141,6 +1141,16 @@ static int ext_sigalgs_add_clienthello(SSL *ssl, CBB *out) {
   return 1;
 }
 
+int ssl_ext_sigalgs_parse_serverhello(SSL *ssl, uint8_t *out_alert,
+                                      CBS *contents) {
+  if (CBS_len(contents) != 0) {
+    *out_alert = SSL_AD_DECODE_ERROR;
+    return 0;
+  }
+
+  return 1;
+}
+
 static int ext_sigalgs_parse_clienthello(SSL *ssl, uint8_t *out_alert,
                                          CBS *contents) {
   OPENSSL_free(ssl->s3->hs->peer_sigalgs);
@@ -1156,6 +1166,21 @@ static int ext_sigalgs_parse_clienthello(SSL *ssl, uint8_t *out_alert,
       CBS_len(contents) != 0 ||
       CBS_len(&supported_signature_algorithms) == 0 ||
       !tls1_parse_peer_sigalgs(ssl, &supported_signature_algorithms)) {
+    return 0;
+  }
+
+  return 1;
+}
+
+int ssl_ext_sigalgs_add_serverhello(SSL *ssl, CBB *out) {
+  if (ssl3_protocol_version(ssl) < TLS1_3_VERSION ||
+      ssl->s3->session_reused) {
+    return 1;
+  }
+
+  if (!CBB_add_u16(out, TLSEXT_TYPE_signature_algorithms) ||
+      !CBB_add_u16(out, 0) ||
+      !CBB_flush(out)) {
     return 0;
   }
 
@@ -1197,8 +1222,10 @@ static int ext_ocsp_parse_serverhello(SSL *ssl, uint8_t *out_alert,
     return 1;
   }
 
-  /* OCSP stapling is forbidden on a non-certificate cipher. */
-  if (!ssl_cipher_uses_certificate_auth(ssl->s3->tmp.new_cipher)) {
+  /* OCSP stapling is forbidden on resumption. */
+  if (ssl->s3->session_reused ||
+      (ssl3_protocol_version(ssl) < TLS1_3_VERSION &&
+       !ssl_cipher_uses_certificate_auth(ssl->s3->tmp.new_cipher))) {
     return 0;
   }
 
@@ -1251,7 +1278,9 @@ static int ext_ocsp_parse_clienthello(SSL *ssl, uint8_t *out_alert,
 static int ext_ocsp_add_serverhello(SSL *ssl, CBB *out) {
   if (!ssl->s3->tmp.ocsp_stapling_requested ||
       ssl->ctx->ocsp_response_length == 0 ||
-      !ssl_cipher_uses_certificate_auth(ssl->s3->tmp.new_cipher)) {
+      ssl->s3->session_reused ||
+      (ssl3_protocol_version(ssl) < TLS1_3_VERSION &&
+       !ssl_cipher_uses_certificate_auth(ssl->s3->tmp.new_cipher))) {
     return 1;
   }
 
@@ -2192,10 +2221,16 @@ int ssl_ext_key_share_parse_clienthello(SSL *ssl, int *out_found,
                                         uint8_t *out_alert, CBS *contents) {
   uint16_t group_id;
   CBS key_shares;
-  if (!tls1_get_shared_group(ssl, &group_id) ||
-      !CBS_get_u16_length_prefixed(contents, &key_shares) ||
+  if (!tls1_get_shared_group(ssl, &group_id)) {
+      OPENSSL_PUT_ERROR(SSL, SSL_R_NO_SHARED_GROUP);
+    *out_alert = SSL_AD_HANDSHAKE_FAILURE;
+    return 0;
+  }
+
+  if (!CBS_get_u16_length_prefixed(contents, &key_shares) ||
       CBS_len(contents) != 0) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
+    *out_alert = SSL_AD_DECODE_ERROR;
     return 0;
   }
 
@@ -2259,10 +2294,6 @@ int ssl_ext_key_share_parse_clienthello(SSL *ssl, int *out_found,
 }
 
 int ssl_ext_key_share_add_serverhello(SSL *ssl, CBB *out) {
-  if (ssl->s3->tmp.new_cipher->algorithm_mkey != SSL_kECDHE) {
-    return 1;
-  }
-
   uint16_t group_id;
   CBB kse_bytes, public_key;
   if (!tls1_get_shared_group(ssl, &group_id) ||
