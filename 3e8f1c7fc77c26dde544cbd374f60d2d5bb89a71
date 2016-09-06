@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "36deb7f7_b2d89ee5",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-06T22:14:31Z",
+      "side": 1,
+      "message": "What do you think? The motivation here was mostly cipher.h looking very silly defining one of its types in internal and the other not.",
+      "revId": "3e8f1c7fc77c26dde544cbd374f60d2d5bb89a71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
