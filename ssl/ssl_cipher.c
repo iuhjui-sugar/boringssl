@@ -2121,22 +2121,6 @@ int ssl_cipher_get_key_type(const SSL_CIPHER *cipher) {
   return EVP_PKEY_NONE;
 }
 
-int ssl_cipher_uses_certificate_auth(const SSL_CIPHER *cipher) {
-  return (cipher->algorithm_auth & SSL_aCERT) != 0;
-}
-
-int ssl_cipher_requires_server_key_exchange(const SSL_CIPHER *cipher) {
-  /* Ephemeral Diffie-Hellman key exchanges require a ServerKeyExchange. */
-  if (cipher->algorithm_mkey & SSL_kDHE ||
-      cipher->algorithm_mkey & SSL_kECDHE ||
-      cipher->algorithm_mkey & SSL_kCECPQ1) {
-    return 1;
-  }
-
-  /* It is optional in all others. */
-  return 0;
-}
-
 size_t ssl_cipher_get_record_split_len(const SSL_CIPHER *cipher) {
   size_t block_size;
   switch (cipher->algorithm_enc) {
