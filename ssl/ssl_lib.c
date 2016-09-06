@@ -2043,6 +2043,24 @@ void ssl_get_compatible_server_ciphers(SSL *ssl, uint32_t *out_mask_k,
   *out_mask_a = mask_a;
 }
 
+int ssl_uses_certificate_auth(const SSL *ssl) {
+  const SSL_CIPHER *cipher = ssl->s3->tmp.new_cipher;
+  return (cipher->algorithm_auth & SSL_aCERT) != 0;
+}
+
+int ssl_requires_key_exchange(const SSL *ssl) {
+  const SSL_CIPHER *cipher = ssl->s3->tmp.new_cipher;
+  /* Ephemeral Diffie-Hellman key exchanges require a ServerKeyExchange. */
+  if (cipher->algorithm_mkey & SSL_kDHE ||
+      cipher->algorithm_mkey & SSL_kECDHE ||
+      cipher->algorithm_mkey & SSL_kCECPQ1) {
+    return 1;
+  }
+
+  /* It is optional in all others. */
+  return 0;
+}
+
 void ssl_update_cache(SSL *ssl, int mode) {
   SSL_CTX *ctx = ssl->initial_ctx;
   /* Never cache sessions with empty session IDs. */

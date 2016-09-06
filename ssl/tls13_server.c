@@ -381,7 +381,7 @@ static enum ssl_hs_wait_t do_send_certificate_request(SSL *ssl,
   /* Determine whether to request a client certificate. */
   ssl->s3->tmp.cert_request = !!(ssl->verify_mode & SSL_VERIFY_PEER);
   /* CertificateRequest may only be sent in certificate-based ciphers. */
-  if (!ssl_cipher_uses_certificate_auth(ssl->s3->tmp.new_cipher)) {
+  if (!ssl_uses_certificate_auth(ssl)) {
     ssl->s3->tmp.cert_request = 0;
   }
 
@@ -426,7 +426,7 @@ err:
 
 static enum ssl_hs_wait_t do_send_server_certificate(SSL *ssl,
                                                      SSL_HANDSHAKE *hs) {
-  if (!ssl_cipher_uses_certificate_auth(ssl->s3->tmp.new_cipher)) {
+  if (!ssl_uses_certificate_auth(ssl)) {
     hs->state = state_send_server_finished;
     return ssl_hs_ok;
   }

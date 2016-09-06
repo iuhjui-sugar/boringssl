@@ -259,7 +259,7 @@ int ssl3_connect(SSL *ssl) {
         break;
 
       case SSL3_ST_CR_CERT_A:
-        if (ssl_cipher_uses_certificate_auth(ssl->s3->tmp.new_cipher)) {
+        if (ssl_uses_certificate_auth(ssl)) {
           ret = ssl3_get_server_certificate(ssl);
           if (ret <= 0) {
             goto end;
@@ -283,7 +283,7 @@ int ssl3_connect(SSL *ssl) {
         break;
 
       case SSL3_ST_VERIFY_SERVER_CERT:
-        if (ssl_cipher_uses_certificate_auth(ssl->s3->tmp.new_cipher)) {
+        if (ssl_uses_certificate_auth(ssl)) {
           ret = ssl3_verify_server_cert(ssl);
           if (ret <= 0) {
             goto end;
@@ -303,7 +303,7 @@ int ssl3_connect(SSL *ssl) {
         break;
 
       case SSL3_ST_CR_CERT_REQ_A:
-        if (ssl_cipher_uses_certificate_auth(ssl->s3->tmp.new_cipher)) {
+        if (ssl_uses_certificate_auth(ssl)) {
           ret = ssl3_get_certificate_request(ssl);
           if (ret <= 0) {
             goto end;
@@ -969,8 +969,7 @@ static int ssl3_get_server_hello(SSL *ssl) {
   /* If doing a full handshake, the server may request a client certificate
    * which requires hashing the handshake transcript. Otherwise, the handshake
    * buffer may be released. */
-  if (ssl->session != NULL ||
-      !ssl_cipher_uses_certificate_auth(ssl->s3->tmp.new_cipher)) {
+  if (ssl->session != NULL || !ssl_uses_certificate_auth(ssl)) {
     ssl3_free_handshake_buffer(ssl);
   }
 
@@ -1122,7 +1121,7 @@ static int ssl3_get_server_key_exchange(SSL *ssl) {
   }
 
   if (ssl->s3->tmp.message_type != SSL3_MT_SERVER_KEY_EXCHANGE) {
-    if (ssl_cipher_requires_server_key_exchange(ssl->s3->tmp.new_cipher)) {
+    if (ssl_requires_key_exchange(ssl)) {
       OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_MESSAGE);
       ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_UNEXPECTED_MESSAGE);
       return -1;
@@ -1292,7 +1291,7 @@ static int ssl3_get_server_key_exchange(SSL *ssl) {
            CBS_len(&server_key_exchange_orig) - CBS_len(&server_key_exchange));
 
   /* ServerKeyExchange should be signed by the server's public key. */
-  if (ssl_cipher_uses_certificate_auth(ssl->s3->tmp.new_cipher)) {
+  if (ssl_uses_certificate_auth(ssl)) {
     pkey = X509_get_pubkey(ssl->s3->new_session->peer);
     if (pkey == NULL) {
       goto err;
