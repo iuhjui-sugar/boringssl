@@ -1482,7 +1482,8 @@ uint16_t SSL_get_curve_id(const SSL *ssl) {
   SSL_SESSION *session = SSL_get_session(ssl);
   if (session == NULL ||
       session->cipher == NULL ||
-      !SSL_CIPHER_is_ECDHE(session->cipher)) {
+      (ssl3_protocol_version(ssl) < TLS1_3_VERSION &&
+       !SSL_CIPHER_is_ECDHE(session->cipher))) {
     return 0;
   }
 
@@ -2028,6 +2029,11 @@ void ssl_get_compatible_server_ciphers(SSL *ssl, uint32_t *out_mask_k,
   uint16_t unused;
   if (tls1_get_shared_group(ssl, &unused)) {
     mask_k |= SSL_kECDHE;
+  }
+
+  if (ssl3_protocol_version(ssl) >= TLS1_3_VERSION) {
+    mask_k |= SSL_kTLS;
+    mask_a |= SSL_aTLS;
   }
 
   /* CECPQ1 ciphers are always acceptable if supported by both sides. */
