@@ -208,24 +208,10 @@ NextCipherSuite:
 			// Check that the ciphersuite/version used for the
 			// previous session are still valid.
 			cipherSuiteOk := false
-			if candidateSession.vers >= VersionTLS13 {
-				// Account for ciphers changing on resumption.
-				//
-				// TODO(davidben): This will be gone with the
-				// new cipher negotiation scheme.
-				resumeCipher := ecdhePSKSuite(candidateSession.cipherSuite)
-				for _, id := range hello.cipherSuites {
-					if ecdhePSKSuite(id) == resumeCipher {
-						cipherSuiteOk = true
-						break
-					}
-				}
-			} else {
-				for _, id := range hello.cipherSuites {
-					if id == candidateSession.cipherSuite {
-						cipherSuiteOk = true
-						break
-					}
+			for _, id := range hello.cipherSuites {
+				if id == candidateSession.cipherSuite {
+					cipherSuiteOk = true
+					break
 				}
 			}
 
@@ -258,7 +244,6 @@ NextCipherSuite:
 				ticket:    ticket,
 			}
 			hello.pskIdentities = []pskIdentity{psk}
-			hello.cipherSuites = append(hello.cipherSuites, ecdhePSKSuite(session.cipherSuite))
 		}
 
 		if session.vers < VersionTLS13 || c.config.Bugs.SendBothTickets {
@@ -570,32 +555,21 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 	zeroSecret := hs.finishedHash.zeroSecret()
 
 	// Resolve PSK and compute the early secret.
-	//
-	// TODO(davidben): This will need to be handled slightly earlier once
-	// 0-RTT is implemented.
 	var psk []byte
-	if hs.suite.flags&suitePSK != 0 {
-		if !hs.serverHello.hasPSKIdentity {
-			c.sendAlert(alertMissingExtension)
-			return errors.New("tls: server omitted the PSK identity extension")
-		}
-
+	if hs.serverHello.hasPSKIdentity {
 		// We send at most one PSK identity.
 		if hs.session == nil || hs.serverHello.pskIdentity != 0 {
 			c.sendAlert(alertUnknownPSKIdentity)
 			return errors.New("tls: server sent unknown PSK identity")
 		}
-		if ecdhePSKSuite(hs.session.cipherSuite) != hs.suite.id {
-			c.sendAlert(alertHandshakeFailure)
-			return errors.New("tls: server sent invalid cipher suite for PSK")
-		}
+
 		psk = deriveResumptionPSK(hs.suite, hs.session.masterSecret)
 		hs.finishedHash.setResumptionContext(deriveResumptionContext(hs.suite, hs.session.masterSecret))
 		c.didResume = true
 	} else {
-		if hs.serverHello.hasPSKIdentity {
+		if !hs.serverHello.useCertAuth || !hs.serverHello.requireKeyExchange {
 			c.sendAlert(alertUnsupportedExtension)
-			return errors.New("tls: server sent unexpected PSK identity")
+			return errors.New("tls: server omitted KeyShare and SignatureAlgorithms on non-resumption.")
 		}
 
 		psk = zeroSecret
@@ -606,12 +580,7 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 
 	// Resolve ECDHE and compute the handshake secret.
 	var ecdheSecret []byte
-	if hs.suite.flags&suiteECDHE != 0 && !c.config.Bugs.MissingKeyShare && !c.config.Bugs.SecondClientHelloMissingKeyShare {
-		if !hs.serverHello.hasKeyShare {
-			c.sendAlert(alertMissingExtension)
-			return errors.New("tls: server omitted the key share extension")
-		}
-
+	if hs.serverHello.requireKeyExchange && !c.config.Bugs.MissingKeyShare && !c.config.Bugs.SecondClientHelloMissingKeyShare {
 		curve, ok := hs.keyShares[hs.serverHello.keyShare.group]
 		if !ok {
 			c.sendAlert(alertHandshakeFailure)
@@ -625,11 +594,6 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 			return err
 		}
 	} else {
-		if hs.serverHello.hasKeyShare {
-			c.sendAlert(alertUnsupportedExtension)
-			return errors.New("tls: server sent unexpected key share extension")
-		}
-
 		ecdheSecret = zeroSecret
 	}
 
@@ -660,7 +624,7 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 
 	var chainToSend *Certificate
 	var certReq *certificateRequestMsg
-	if hs.suite.flags&suitePSK != 0 {
+	if !hs.serverHello.useCertAuth {
 		if encryptedExtensions.extensions.ocspResponse != nil {
 			c.sendAlert(alertUnsupportedExtension)
 			return errors.New("tls: server sent OCSP response without a certificate")

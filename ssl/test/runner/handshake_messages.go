@@ -742,10 +742,11 @@ type serverHelloMsg struct {
 	random              []byte
 	sessionId           []byte
 	cipherSuite         uint16
-	hasKeyShare         bool
+	requireKeyExchange  bool
 	keyShare            keyShareEntry
 	hasPSKIdentity      bool
 	pskIdentity         uint16
+	useCertAuth         bool
 	earlyDataIndication bool
 	compressionMethod   uint8
 	extensions          serverExtensions
@@ -774,7 +775,7 @@ func (m *serverHelloMsg) marshal() []byte {
 	extensions := hello.addU16LengthPrefixed()
 
 	if m.vers >= VersionTLS13 {
-		if m.hasKeyShare {
+		if m.requireKeyExchange {
 			extensions.addU16(extensionKeyShare)
 			keyShare := extensions.addU16LengthPrefixed()
 			keyShare.addU16(uint16(m.keyShare.group))
@@ -785,6 +786,10 @@ func (m *serverHelloMsg) marshal() []byte {
 			extensions.addU16(extensionPreSharedKey)
 			extensions.addU16(2) // Length
 			extensions.addU16(m.pskIdentity)
+		}
+		if m.useCertAuth {
+			extensions.addU16(extensionSignatureAlgorithms)
+			extensions.addU16(0) // Length
 		}
 		if m.earlyDataIndication {
 			extensions.addU16(extensionEarlyData)
@@ -862,7 +867,7 @@ func (m *serverHelloMsg) unmarshal(data []byte) bool {
 
 			switch extension {
 			case extensionKeyShare:
-				m.hasKeyShare = true
+				m.requireKeyExchange = true
 				if len(d) < 4 {
 					return false
 				}
@@ -879,6 +884,11 @@ func (m *serverHelloMsg) unmarshal(data []byte) bool {
 				}
 				m.pskIdentity = uint16(d[0])<<8 | uint16(d[1])
 				m.hasPSKIdentity = true
+			case extensionSignatureAlgorithms:
+				if len(d) != 0 {
+					return false
+				}
+				m.useCertAuth = true
 			case extensionEarlyData:
 				if len(d) != 0 {
 					return false
