@@ -2030,6 +2030,11 @@ void ssl_get_compatible_server_ciphers(SSL *ssl, uint32_t *out_mask_k,
     mask_k |= SSL_kECDHE;
   }
 
+  if (ssl3_protocol_version(ssl) >= TLS1_3_VERSION) {
+    mask_k |= SSL_kTLS;
+    mask_a |= SSL_aTLS;
+  }
+
   /* CECPQ1 ciphers are always acceptable if supported by both sides. */
   mask_k |= SSL_kCECPQ1;
 

@@ -565,7 +565,7 @@ OPENSSL_EXPORT int DTLSv1_handle_timeout(SSL *ssl);
 #define DTLS1_VERSION 0xfeff
 #define DTLS1_2_VERSION 0xfefd
 
-#define TLS1_3_DRAFT_VERSION 14
+#define TLS1_3_DRAFT_VERSION 15
 
 /* SSL_CTX_set_min_version sets the minimum protocol version for |ctx| to
  * |version|. */
@@ -3503,9 +3503,11 @@ OPENSSL_EXPORT const char *SSL_alert_desc_string(int value);
 #define SSL_TXT_kCECPQ1 "kCECPQ1"
 #define SSL_TXT_kEECDH "kEECDH"
 #define SSL_TXT_kPSK "kPSK"
+#define SSL_TXT_kTLS "kTLS"
 #define SSL_TXT_aRSA "aRSA"
 #define SSL_TXT_aECDSA "aECDSA"
 #define SSL_TXT_aPSK "aPSK"
+#define SSL_TXT_aTLS "aTLS"
 #define SSL_TXT_DH "DH"
 #define SSL_TXT_DHE "DHE"
 #define SSL_TXT_EDH "EDH"

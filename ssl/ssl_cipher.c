@@ -380,6 +380,41 @@ static const SSL_CIPHER kCiphers[] = {
      SSL_HANDSHAKE_MAC_SHA384,
     },
 
+    /* TLS 1.3 suites. */
+
+    /* Cipher 1301 */
+    {
+      TLS1_TXT_TLS_AES_128_GCM_SHA256,
+      TLS1_CK_TLS_AES_128_GCM_SHA256,
+      SSL_kTLS,
+      SSL_aTLS,
+      SSL_AES128GCM,
+      SSL_AEAD,
+      SSL_HANDSHAKE_MAC_SHA256,
+    },
+
+    /* Cipher 1302 */
+    {
+      TLS1_TXT_TLS_AES_256_GCM_SHA384,
+      TLS1_CK_TLS_AES_256_GCM_SHA384,
+      SSL_kTLS,
+      SSL_aTLS,
+      SSL_AES256GCM,
+      SSL_AEAD,
+      SSL_HANDSHAKE_MAC_SHA384,
+    },
+
+    /* Cipher 1303 */
+    {
+      TLS1_TXT_TLS_CHACHA20_POLY1305_SHA256,
+      TLS1_CK_TLS_CHACHA20_POLY1305_SHA256,
+      SSL_kTLS,
+      SSL_aTLS,
+      SSL_CHACHA20POLY1305,
+      SSL_AEAD,
+      SSL_HANDSHAKE_MAC_SHA256,
+    },
+
     /* CECPQ1 (combined elliptic curve + post-quantum) suites. */
 
     /* Cipher 16B7 */
@@ -671,28 +706,6 @@ static const SSL_CIPHER kCiphers[] = {
      SSL_HANDSHAKE_MAC_SHA256,
     },
 
-    /* Cipher D001 */
-    {
-     TLS1_TXT_ECDHE_PSK_WITH_AES_128_GCM_SHA256,
-     TLS1_CK_ECDHE_PSK_WITH_AES_128_GCM_SHA256,
-     SSL_kECDHE,
-     SSL_aPSK,
-     SSL_AES128GCM,
-     SSL_AEAD,
-     SSL_HANDSHAKE_MAC_SHA256,
-    },
-
-    /* Cipher D002 */
-    {
-     TLS1_TXT_ECDHE_PSK_WITH_AES_256_GCM_SHA384,
-     TLS1_CK_ECDHE_PSK_WITH_AES_256_GCM_SHA384,
-     SSL_kECDHE,
-     SSL_aPSK,
-     SSL_AES256GCM,
-     SSL_AEAD,
-     SSL_HANDSHAKE_MAC_SHA384,
-    },
-
 };
 
 static const size_t kCiphersLen = OPENSSL_ARRAY_SIZE(kCiphers);
@@ -751,12 +764,14 @@ static const CIPHER_ALIAS kCipherAliases[] = {
     {"ECDH", SSL_kECDHE, ~0u, ~0u, ~0u, 0},
 
     {"kPSK", SSL_kPSK, ~0u, ~0u, ~0u, 0},
+    {"kTLS", SSL_kTLS, ~0u, ~0u, ~0u, 0},
 
     /* server authentication aliases */
     {"aRSA", ~SSL_kCECPQ1, SSL_aRSA, ~SSL_eNULL, ~0u, 0},
     {"aECDSA", ~SSL_kCECPQ1, SSL_aECDSA, ~0u, ~0u, 0},
     {"ECDSA", ~SSL_kCECPQ1, SSL_aECDSA, ~0u, ~0u, 0},
     {"aPSK", ~0u, SSL_aPSK, ~0u, ~0u, 0},
+    {"aTLS", ~0u, SSL_aTLS, ~0u, ~0u, 0},
 
     /* aliases combining key exchange and server authentication */
     {"DHE", SSL_kDHE, ~0u, ~0u, ~0u, 0},
@@ -1154,14 +1169,6 @@ static void ssl_cipher_apply_rule(
           (min_version != 0 && SSL_CIPHER_get_min_version(cp) != min_version)) {
         continue;
       }
-
-      /* The following ciphers are internal implementation details of TLS 1.3
-       * resumption but are not yet finalized. Disable them by default until
-       * then. */
-      if (cp->id == TLS1_CK_ECDHE_PSK_WITH_AES_128_GCM_SHA256 ||
-          cp->id == TLS1_CK_ECDHE_PSK_WITH_AES_256_GCM_SHA384) {
-        continue;
-      }
     }
 
     /* add the cipher if it has not been added yet. */
@@ -1506,6 +1513,8 @@ ssl_create_cipher_list(const SSL_PROTOCOL_METHOD *ssl_method,
 
   /* Now arrange all ciphers by preference:
    * TODO(davidben): Compute this order once and copy it. */
+  ssl_cipher_apply_rule(0, SSL_kTLS, SSL_aTLS, ~0u, ~0u, 0, CIPHER_ADD, -1, 0,
+                          &head, &tail);
 
   /* Everything else being equal, prefer ECDHE_ECDSA then ECDHE_RSA over other
    * key exchange mechanisms */
@@ -1670,30 +1679,6 @@ uint16_t ssl_cipher_get_value(const SSL_CIPHER *cipher) {
   return id & 0xffff;
 }
 
-int ssl_cipher_get_ecdhe_psk_cipher(const SSL_CIPHER *cipher,
-                                    uint16_t *out_cipher) {
-  switch (cipher->id) {
-    case TLS1_CK_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256:
-    case TLS1_CK_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256:
-    case TLS1_CK_ECDHE_PSK_WITH_CHACHA20_POLY1305_SHA256:
-      *out_cipher = TLS1_CK_ECDHE_PSK_WITH_CHACHA20_POLY1305_SHA256 & 0xffff;
-      return 1;
-
-    case TLS1_CK_ECDHE_RSA_WITH_AES_128_GCM_SHA256:
-    case TLS1_CK_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256:
-    case TLS1_CK_ECDHE_PSK_WITH_AES_128_GCM_SHA256:
-      *out_cipher = TLS1_CK_ECDHE_PSK_WITH_AES_128_GCM_SHA256 & 0xffff;
-      return 1;
-
-    case TLS1_CK_ECDHE_RSA_WITH_AES_256_GCM_SHA384:
-    case TLS1_CK_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384:
-    case TLS1_CK_ECDHE_PSK_WITH_AES_256_GCM_SHA384:
-      *out_cipher = TLS1_CK_ECDHE_PSK_WITH_AES_256_GCM_SHA384 & 0xffff;
-      return 1;
-  }
-  return 0;
-}
-
 int SSL_CIPHER_is_AES(const SSL_CIPHER *cipher) {
   return (cipher->algorithm_enc & SSL_AES) != 0;
 }
@@ -1762,6 +1747,10 @@ int SSL_CIPHER_is_CECPQ1(const SSL_CIPHER *cipher) {
 }
 
 uint16_t SSL_CIPHER_get_min_version(const SSL_CIPHER *cipher) {
+  if (cipher->algorithm_mkey == SSL_kTLS || cipher->algorithm_auth == SSL_aTLS) {
+    return TLS1_3_VERSION;
+  }
+
   if (cipher->algorithm_prf != SSL_HANDSHAKE_MAC_DEFAULT) {
     /* Cipher suites before TLS 1.2 use the default PRF, while all those added
      * afterwards specify a particular hash. */
@@ -1771,11 +1760,7 @@ uint16_t SSL_CIPHER_get_min_version(const SSL_CIPHER *cipher) {
 }
 
 uint16_t SSL_CIPHER_get_max_version(const SSL_CIPHER *cipher) {
-  if (cipher->algorithm_mac == SSL_AEAD &&
-      (cipher->algorithm_enc & SSL_CHACHA20POLY1305_OLD) == 0 &&
-      (cipher->algorithm_mkey & SSL_kECDHE) != 0 &&
-      /* TODO(davidben,svaldez): Support PSK-based ciphers in TLS 1.3. */
-      (cipher->algorithm_auth & SSL_aCERT) != 0) {
+  if (cipher->algorithm_mkey == SSL_kTLS || cipher->algorithm_auth == SSL_aTLS) {
     return TLS1_3_VERSION;
   }
   return TLS1_2_VERSION;
