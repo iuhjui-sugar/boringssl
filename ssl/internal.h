@@ -252,16 +252,28 @@ int ssl_cipher_get_ecdhe_psk_cipher(const SSL_CIPHER *cipher,
 int ssl_cipher_get_key_type(const SSL_CIPHER *cipher);
 
 /* ssl_cipher_uses_certificate_auth returns one if |cipher| authenticates the
- * server and, optionally, the client with a certificate. Otherwise it returns
- * zero. */
+  * server and, optionally, the client with a certificate. Otherwise it returns
+  * zero. */
 int ssl_cipher_uses_certificate_auth(const SSL_CIPHER *cipher);
 
 /* ssl_cipher_requires_server_key_exchange returns 1 if |cipher| requires a
+  * ServerKeyExchange message. Otherwise it returns 0.
+  *
+ * This function may return zero while still allowing |cipher| an optional
+  * ServerKeyExchange. This is the case for plain PSK ciphers. */
+int ssl_cipher_requires_server_key_exchange(const SSL_CIPHER *cipher);
+
+/* ssl_uses_certificate_auth returns if this connection authenticates the
+ * server and, optionally, the client with a certificate. Otherwise it returns
+ * zero. */
+int ssl_uses_certificate_auth(const SSL *ssl);
+
+/* ssl_requires_key_exchange returns 1 if the connection requires a
  * ServerKeyExchange message. Otherwise it returns 0.
  *
- * This function may return zero while still allowing |cipher| an optional
+ * This function may return zero while still allowing for an optional
  * ServerKeyExchange. This is the case for plain PSK ciphers. */
-int ssl_cipher_requires_server_key_exchange(const SSL_CIPHER *cipher);
+int ssl_requires_key_exchange(const SSL *ssl);
 
 /* ssl_cipher_get_record_split_len, for TLS 1.0 CBC mode ciphers, returns the
  * length of an encrypted 1-byte record, for use in record-splitting. Otherwise
@@ -896,6 +908,9 @@ struct ssl_handshake_st {
   uint8_t resumption_hash[EVP_MAX_MD_SIZE];
   uint8_t secret[EVP_MAX_MD_SIZE];
   uint8_t traffic_secret_0[EVP_MAX_MD_SIZE];
+
+  int use_cert_auth;
+  int require_key_exchange;
 
   SSL_ECDH_CTX *groups;
   size_t groups_len;

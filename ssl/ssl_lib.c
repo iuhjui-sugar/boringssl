@@ -2043,6 +2043,14 @@ void ssl_get_compatible_server_ciphers(SSL *ssl, uint32_t *out_mask_k,
   *out_mask_a = mask_a;
 }
 
+int ssl_uses_certificate_auth(const SSL *ssl) {
+  return ssl->s3->hs->use_cert_auth;
+}
+
+int ssl_requires_key_exchange(const SSL *ssl) {
+  return ssl->s3->hs->require_key_exchange;
+}
+
 void ssl_update_cache(SSL *ssl, int mode) {
   SSL_CTX *ctx = ssl->initial_ctx;
   /* Never cache sessions with empty session IDs. */
