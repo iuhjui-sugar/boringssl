@@ -28,7 +28,7 @@ const (
 
 // The draft version of TLS 1.3 that is implemented here and sent in the draft
 // indicator extension.
-const tls13DraftVersion = 14
+const tls13DraftVersion = 15
 
 const (
 	maxPlaintext        = 16384        // maximum plaintext payload length
@@ -1006,6 +1006,22 @@ type ProtocolBugs struct {
 	// AdvertiseTicketExtension, if true, causes the ticket extension to be
 	// advertised in server extensions
 	AdvertiseTicketExtension bool
+
+	// MissingInitialKeyShare, if true, causes the server to omit the key_share
+	// extension in the initial ServerHello.
+	MissingInitialKeyShare bool
+
+	// MissingResumptionKeyShare, if true, causes the server to omit the key_share
+	// extension in the resumption ServerHello.
+	MissingResumptionKeyShare bool
+
+	// MissingInitialSigalgs, if true, causes the server to omit the
+	// signature_algorithms extension in the initial ServerHello.
+	MissingInitialSigalgs bool
+
+	// IncludeResumptionSigalgs, if true, causes the server to include the
+	// signature_algorithms extension in the resumption ServerHello.
+	IncludeResumptionSigalgs bool
 
 	// MissingKeyShare, if true, causes the TLS 1.3 implementation to skip
 	// sending a key_share extension and use the zero ECDHE secret
