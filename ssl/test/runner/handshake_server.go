@@ -440,24 +440,17 @@ Curves:
 			}
 		}
 
-		suiteId := ecdhePSKSuite(sessionState.cipherSuite)
-
 		// Check the client offered the cipher.
 		clientCipherSuites := hs.clientHello.cipherSuites
 		if config.Bugs.AcceptAnySession {
-			clientCipherSuites = []uint16{suiteId}
+			sessionState.cipherSuite = TLS_AES_128_GCM_SHA256
 		}
-		suite := mutualCipherSuite(clientCipherSuites, suiteId)
+		suite := mutualCipherSuite(clientCipherSuites, sessionState.cipherSuite)
 
-		// Check the cipher is enabled by the server or is a resumption
-		// suite of one enabled by the server. Account for the cipher
-		// change on resume.
-		//
-		// TODO(davidben): The ecdhePSKSuite mess will be gone with the
-		// new cipher negotiation scheme.
+		// Check that the cipher is enabled by the server.
 		var found bool
 		for _, id := range config.cipherSuites() {
-			if ecdhePSKSuite(id) == suiteId {
+			if id == sessionState.cipherSuite {
 				found = true
 				break
 			}
@@ -505,9 +498,11 @@ Curves:
 	hs.finishedHash.discardHandshakeBuffer()
 	hs.writeClientHash(hs.clientHello.marshal())
 
+	hs.hello.useCertAuth = hs.sessionState == nil
+
 	// Resolve PSK and compute the early secret.
 	var psk []byte
-	if hs.suite.flags&suitePSK != 0 {
+	if hs.sessionState != nil {
 		psk = deriveResumptionPSK(hs.suite, hs.sessionState.masterSecret)
 		hs.finishedHash.setResumptionContext(deriveResumptionContext(hs.suite, hs.sessionState.masterSecret))
 	} else {
@@ -517,9 +512,24 @@ Curves:
 
 	earlySecret := hs.finishedHash.extractKey(hs.finishedHash.zeroSecret(), psk)
 
+	hs.hello.hasKeyShare = true
+	if hs.sessionState != nil && config.Bugs.NegotiatePSKResumption {
+		hs.hello.hasKeyShare = false
+	}
+
+	if config.Bugs.OmitServerHelloSignatureAlgorithms {
+		hs.hello.useCertAuth = false
+	} else if config.Bugs.IncludeServerHelloSignatureAlgorithms {
+		hs.hello.useCertAuth = true
+	}
+
+	if config.Bugs.MissingKeyShare {
+		hs.hello.hasKeyShare = false
+	}
+
 	// Resolve ECDHE and compute the handshake secret.
 	var ecdheSecret []byte
-	if hs.suite.flags&suiteECDHE != 0 && !config.Bugs.MissingKeyShare {
+	if hs.hello.hasKeyShare {
 		// Look for the key share corresponding to our selected curve.
 		var selectedKeyShare *keyShareEntry
 		for i := range hs.clientHello.keyShares {
@@ -671,7 +681,7 @@ Curves:
 	c.out.useTrafficSecret(c.vers, hs.suite, handshakeTrafficSecret, handshakePhase, serverWrite)
 	c.in.useTrafficSecret(c.vers, hs.suite, handshakeTrafficSecret, handshakePhase, clientWrite)
 
-	if hs.suite.flags&suitePSK == 0 {
+	if hs.hello.useCertAuth {
 		if hs.clientHello.ocspStapling {
 			encryptedExtensions.extensions.ocspResponse = hs.cert.OCSPStaple
 		}
@@ -696,7 +706,7 @@ Curves:
 		c.writeRecord(recordTypeHandshake, encryptedExtensions.marshal())
 	}
 
-	if hs.suite.flags&suitePSK == 0 {
+	if hs.hello.useCertAuth {
 		if config.ClientAuth >= RequestClientCert {
 			// Request a client certificate
 			certReq := &certificateRequestMsg{
@@ -757,7 +767,7 @@ Curves:
 
 		hs.writeServerHash(certVerify.marshal())
 		c.writeRecord(recordTypeHandshake, certVerify.marshal())
-	} else {
+	} else if hs.sessionState != nil {
 		// Pick up certificates from the session instead.
 		if len(hs.sessionState.certificates) > 0 {
 			if _, err := hs.processCertsFromClient(hs.sessionState.certificates); err != nil {
@@ -1153,8 +1163,14 @@ func (hs *serverHandshakeState) checkForResumption() bool {
 		}
 	}
 
+	if c.config.Bugs.AcceptAnySession {
+		hs.sessionState.cipherSuite = TLS_RSA_WITH_AES_128_CBC_SHA
+		hs.sessionState.vers = c.vers
+	}
+
 	// Check that we also support the ciphersuite from the session.
 	hs.suite = c.tryCipherSuite(hs.sessionState.cipherSuite, c.config.cipherSuites(), hs.sessionState.vers, hs.ellipticOk, hs.ecdsaOk, true)
+
 	if hs.suite == nil {
 		return false
 	}
@@ -1740,8 +1756,15 @@ func (c *Conn) tryCipherSuite(id uint16, supportedCipherSuites []uint16, version
 			if candidate == nil {
 				continue
 			}
+
 			// Don't select a ciphersuite which we can't
 			// support for this client.
+			if version >= VersionTLS13 || candidate.flags&suiteTLS13 != 0 {
+				if version < VersionTLS13 || candidate.flags&suiteTLS13 == 0 {
+					continue
+				}
+				return candidate
+			}
 			if (candidate.flags&suitePSK != 0) && !pskOk {
 				continue
 			}
@@ -1752,9 +1775,6 @@ func (c *Conn) tryCipherSuite(id uint16, supportedCipherSuites []uint16, version
 				continue
 			}
 			if version < VersionTLS12 && candidate.flags&suiteTLS12 != 0 {
-				continue
-			}
-			if version >= VersionTLS13 && candidate.flags&suiteTLS13 == 0 {
 				continue
 			}
 			if c.isDTLS && candidate.flags&suiteNoDTLS != 0 {
