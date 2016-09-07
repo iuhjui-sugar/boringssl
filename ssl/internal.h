@@ -183,7 +183,6 @@ extern "C" {
 
 /* Bits for |algorithm_enc| (symmetric encryption). */
 #define SSL_3DES 0x00000001L
-#define SSL_RC4 0x00000002L
 #define SSL_AES128 0x00000004L
 #define SSL_AES256 0x00000008L
 #define SSL_AES128GCM 0x00000010L
