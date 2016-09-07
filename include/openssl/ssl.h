@@ -2759,12 +2759,6 @@ OPENSSL_EXPORT int SSL_CTX_get_ex_new_index(long argl, void *argp,
 
 /* Low-level record-layer state. */
 
-/* SSL_get_rc4_state sets |*read_key| and |*write_key| to the RC4 states for
- * the read and write directions. It returns one on success or zero if |ssl|
- * isn't using an RC4-based cipher suite. */
-OPENSSL_EXPORT int SSL_get_rc4_state(const SSL *ssl, const RC4_KEY **read_key,
-                                     const RC4_KEY **write_key);
-
 /* SSL_get_ivs sets |*out_iv_len| to the length of the IVs for the ciphers
  * underlying |ssl| and sets |*out_read_iv| and |*out_write_iv| to point to the
  * current IVs for the read and write directions. This is only meaningful for
