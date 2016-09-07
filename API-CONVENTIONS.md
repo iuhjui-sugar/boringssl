@@ -17,6 +17,13 @@ them. These are left largely unmodified from upstream and are retained only for
 compatibilty with existing OpenSSL consumers.
 
 
+# Forward declarations
+
+Rather than make assumptions about the `struct` and `typedef` names of types
+(for historical reasons, many do not fit the pattern), include `openssl/base.h`
+which forward-declares each type.
+
+
 ## Error-handling
 
 Most functions in BoringSSL may fail, either due to allocation failures or input
@@ -86,7 +93,10 @@ compatibility, these functions return `int`, but callers may assume they always
 successfully return one because reference counts use saturating arithmetic.
 
 C++ consumers are recommended to use `bssl::UniquePtr` to manage heap-allocated
-objects.
+objects. `bssl::UniquePtr<T>`, like other types, are forward-declared in
+`openssl/base.h`. However, if emitting code that needs access to the free
+function, include the corresponding module's header. (This matches
+`std::unique_ptr`'s relationship with forward declarations.)
 
 
 ### Stack-allocated types
@@ -150,27 +160,8 @@ below the `some_other_operation` call.
 As a rule of thumb, enter the zero state of stack-allocated structs in the
 same place they are declared.
 
-C++ consumers are recommended to implement a type which enters the zero state in
-its constructor and calls the cleanup function in the destructor. For example:
-
-    class ScopedEVP_MD_CTX {
-     public:
-      ScopedEVP_MD_CTX() {
-        EVP_MD_CTX_init(&ctx_);
-      }
-
-      ~ScopedEVP_MD_CTX() {
-        EVP_MD_CTX_cleanup(&ctx_);
-      }
-
-      EVP_MD_CTX *get() { return &ctx_; }
-
-      ScopedEVP_MD_CTX(const EVP_MD_CTX &) = delete;
-      EVP_MD_CTX &operator=(const EVP_MD_CTX &) = delete;
-
-     private:
-      EVP_MD_CTX ctx_;
-    };
+C++ consumers are recommended to use `bssl::ScopedEVP_MD_CTX`, defined in the
+corresponding module's header.
 
 
 ### Data-only types
