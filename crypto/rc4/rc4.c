@@ -81,12 +81,13 @@ void RC4_set_key(RC4_KEY *rc4key, unsigned len, const uint8_t *key) {
   rc4key->x = 0;
   rc4key->y = 0;
 
-  for (unsigned i = 0; i < 256; i++) {
+  unsigned i;
+  for (i = 0; i < 256; i++) {
     d[i] = i;
   }
 
   unsigned id1 = 0, id2 = 0;
-  for (unsigned i = 0; i < 256; i++) {
+  for (i = 0; i < 256; i++) {
     uint32_t tmp = d[i];
     id2 = (key[id1] + tmp + id2) & 0xff;
     if (++id1 == len) {
