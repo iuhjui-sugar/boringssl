@@ -25,6 +25,24 @@
     },
     {
       "key": {
+        "uuid": "56d32b1d_001786ff",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-07T21:24:50Z",
+      "side": 1,
+      "message": "I think some toolchains get upset if you define an already-defined thing.",
+      "parentUuid": "f6efbfc0_165382e1",
+      "revId": "3e8f1c7fc77c26dde544cbd374f60d2d5bb89a71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f6efbfc0_d668da88",
         "filename": "include/openssl/base.h",
         "patchSetId": 1
@@ -42,6 +60,24 @@
         "endLine": 328,
         "endChar": 42
       },
+      "revId": "3e8f1c7fc77c26dde544cbd374f60d2d5bb89a71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56d32b1d_c0911e55",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-07T21:24:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6efbfc0_d668da88",
       "revId": "3e8f1c7fc77c26dde544cbd374f60d2d5bb89a71",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -71,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "56d32b1d_20456afb",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-07T21:24:50Z",
+      "side": 1,
+      "message": "All our APIs take pointers and other get() functions return them.\n\noperator-\u003e doesn\u0027t do anything useful unless we want people to poke at the fields directly, which we don\u0027t. We don\u0027t have methods.",
+      "parentUuid": "f6efbfc0_76712672",
+      "revId": "3e8f1c7fc77c26dde544cbd374f60d2d5bb89a71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f6efbfc0_765806fa",
         "filename": "include/openssl/base.h",
         "patchSetId": 1
@@ -88,6 +142,24 @@
         "endLine": 344,
         "endChar": 2
       },
+      "revId": "3e8f1c7fc77c26dde544cbd374f60d2d5bb89a71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56d32b1d_e08e2230",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-07T21:24:50Z",
+      "side": 1,
+      "message": "Hrm. I feel like it\u0027d just be a wrapper macro anyway. And unlike BORINGSSL_MAKE_DELETER which isn\u0027t defining a concrete type, this one is. Seems good for clicking on \u0027ScopedEVP_MD_CTX\u0027 in codesearch to take you to the actual definition.",
+      "parentUuid": "f6efbfc0_765806fa",
       "revId": "3e8f1c7fc77c26dde544cbd374f60d2d5bb89a71",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
