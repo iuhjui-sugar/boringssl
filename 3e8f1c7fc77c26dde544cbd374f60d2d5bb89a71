@@ -2,6 +2,98 @@
   "comments": [
     {
       "key": {
+        "uuid": "f6efbfc0_165382e1",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-09-07T00:38:48Z",
+      "side": 1,
+      "message": "Drop the test of BORINGSSL_NO_CXX?",
+      "range": {
+        "startLine": 306,
+        "startChar": 76,
+        "endLine": 306,
+        "endChar": 77
+      },
+      "revId": "3e8f1c7fc77c26dde544cbd374f60d2d5bb89a71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f6efbfc0_d668da88",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-09-07T00:38:48Z",
+      "side": 1,
+      "message": "Nit: why the _func suffix?  Seems noisy.",
+      "range": {
+        "startLine": 328,
+        "startChar": 39,
+        "endLine": 328,
+        "endChar": 42
+      },
+      "revId": "3e8f1c7fc77c26dde544cbd374f60d2d5bb89a71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f6efbfc0_76712672",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-09-07T00:38:48Z",
+      "side": 1,
+      "message": "Why pointers rather than references?  If pointers, why not operator-\u003e()?",
+      "range": {
+        "startLine": 335,
+        "startChar": 39,
+        "endLine": 335,
+        "endChar": 40
+      },
+      "revId": "3e8f1c7fc77c26dde544cbd374f60d2d5bb89a71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f6efbfc0_765806fa",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-09-07T00:38:48Z",
+      "side": 1,
+      "message": "I find myself wanting BORINGSSL_MAKE_SCOPED.",
+      "range": {
+        "startLine": 344,
+        "startChar": 0,
+        "endLine": 344,
+        "endChar": 2
+      },
+      "revId": "3e8f1c7fc77c26dde544cbd374f60d2d5bb89a71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "36deb7f7_b2d89ee5",
         "filename": "include/openssl/base.h",
         "patchSetId": 1
@@ -13,6 +105,24 @@
       "writtenOn": "2016-09-06T22:14:31Z",
       "side": 1,
       "message": "What do you think? The motivation here was mostly cipher.h looking very silly defining one of its types in internal and the other not.",
+      "revId": "3e8f1c7fc77c26dde544cbd374f60d2d5bb89a71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f6efbfc0_5676aa6b",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-09-07T00:38:48Z",
+      "side": 1,
+      "message": "Fine by me.",
+      "parentUuid": "36deb7f7_b2d89ee5",
       "revId": "3e8f1c7fc77c26dde544cbd374f60d2d5bb89a71",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false

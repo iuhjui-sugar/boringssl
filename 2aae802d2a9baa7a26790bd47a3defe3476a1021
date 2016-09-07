@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f6efbfc0_364e7e37",
+        "filename": "include/openssl/evp.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-09-07T00:38:48Z",
+      "side": 0,
+      "message": "How come?",
+      "range": {
+        "startLine": 759,
+        "startChar": 58,
+        "endLine": 759,
+        "endChar": 59
+      },
+      "revId": "2aae802d2a9baa7a26790bd47a3defe3476a1021",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
