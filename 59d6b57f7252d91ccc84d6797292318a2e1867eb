@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b641c72d_0e266b27",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 5573,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-08T23:12:23Z",
+      "side": 1,
+      "message": "Actually... given that this is something that would otherwise only work in TLS 1.3, I\u0027m tempted to just take ecdsa_(p521_)sha512 out anyway. In both curves we care about, it gets truncated anyway, so it\u0027s kind of pointless...",
+      "revId": "59d6b57f7252d91ccc84d6797292318a2e1867eb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
