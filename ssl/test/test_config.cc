@@ -98,7 +98,6 @@ const Flag<bool> kBoolFlags[] = {
   { "-renegotiate-ignore", &TestConfig::renegotiate_ignore },
   { "-disable-npn", &TestConfig::disable_npn },
   { "-p384-only", &TestConfig::p384_only },
-  { "-enable-all-curves", &TestConfig::enable_all_curves },
   { "-use-sparse-dh-prime", &TestConfig::use_sparse_dh_prime },
   { "-use-old-client-cert-callback",
     &TestConfig::use_old_client_cert_callback },

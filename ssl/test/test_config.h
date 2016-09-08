@@ -105,7 +105,6 @@ struct TestConfig {
   bool disable_npn = false;
   int expect_peer_signature_algorithm = 0;
   bool p384_only = false;
-  bool enable_all_curves = false;
   bool use_sparse_dh_prime = false;
   int expect_curve_id = 0;
   int expect_dhe_group_size = 0;

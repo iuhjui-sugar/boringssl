@@ -5555,8 +5555,8 @@ func addSignatureAlgorithmTests() {
 
 	// Make sure each signature algorithm works. Include some fake values in
 	// the list and ensure they're ignored.
-	for _, alg := range testSignatureAlgorithms {
-		for _, ver := range tlsVersions {
+	for _, ver := range tlsVersions {
+		for _, alg := range testSignatureAlgorithms {
 			if (ver.version < VersionTLS12) != (alg.id == 0) {
 				continue
 			}
@@ -5565,6 +5565,13 @@ func addSignatureAlgorithmTests() {
 			// or remove it in C.
 			if ver.version == VersionSSL30 && alg.cert != testCertRSA {
 				continue
+			}
+
+			// We do not support P-521 as an ECDH curve in TLS 1.2,
+			// which means it will not work in ECDSA either. In TLS
+			// 1.3 and later, the negotiations are separate.
+			if ver.version < VersionTLS13 && alg.cert == testCertECDSAP521 {
+				alg.cert = testCertECDSAP256
 			}
 
 			var shouldFail bool
@@ -5599,7 +5606,6 @@ func addSignatureAlgorithmTests() {
 				flags: []string{
 					"-cert-file", path.Join(*resourceDir, getShimCertificate(alg.cert)),
 					"-key-file", path.Join(*resourceDir, getShimKey(alg.cert)),
-					"-enable-all-curves",
 				},
 				shouldFail:                     shouldFail,
 				expectedError:                  signError,
@@ -5626,7 +5632,6 @@ func addSignatureAlgorithmTests() {
 				flags: []string{
 					"-require-any-client-certificate",
 					"-expect-peer-signature-algorithm", strconv.Itoa(int(alg.id)),
-					"-enable-all-curves",
 				},
 				shouldFail:    shouldFail,
 				expectedError: verifyError,
@@ -5647,7 +5652,6 @@ func addSignatureAlgorithmTests() {
 				flags: []string{
 					"-cert-file", path.Join(*resourceDir, getShimCertificate(alg.cert)),
 					"-key-file", path.Join(*resourceDir, getShimKey(alg.cert)),
-					"-enable-all-curves",
 				},
 				shouldFail:                     shouldFail,
 				expectedError:                  signError,
@@ -5670,7 +5674,6 @@ func addSignatureAlgorithmTests() {
 				},
 				flags: []string{
 					"-expect-peer-signature-algorithm", strconv.Itoa(int(alg.id)),
-					"-enable-all-curves",
 				},
 				shouldFail:    shouldFail,
 				expectedError: verifyError,
@@ -5692,7 +5695,6 @@ func addSignatureAlgorithmTests() {
 					},
 					flags: []string{
 						"-require-any-client-certificate",
-						"-enable-all-curves",
 					},
 					shouldFail:    true,
 					expectedError: ":BAD_SIGNATURE:",
@@ -5711,7 +5713,6 @@ func addSignatureAlgorithmTests() {
 							InvalidSignature: true,
 						},
 					},
-					flags:         []string{"-enable-all-curves"},
 					shouldFail:    true,
 					expectedError: ":BAD_SIGNATURE:",
 				})
@@ -5728,7 +5729,6 @@ func addSignatureAlgorithmTests() {
 					flags: []string{
 						"-cert-file", path.Join(*resourceDir, getShimCertificate(alg.cert)),
 						"-key-file", path.Join(*resourceDir, getShimKey(alg.cert)),
-						"-enable-all-curves",
 						"-signing-prefs", strconv.Itoa(int(alg.id)),
 					},
 					expectedPeerSignatureAlgorithm: alg.id,
@@ -5745,7 +5745,6 @@ func addSignatureAlgorithmTests() {
 					flags: []string{
 						"-cert-file", path.Join(*resourceDir, getShimCertificate(alg.cert)),
 						"-key-file", path.Join(*resourceDir, getShimKey(alg.cert)),
-						"-enable-all-curves",
 						"-signing-prefs", strconv.Itoa(int(alg.id)),
 					},
 					expectedPeerSignatureAlgorithm: alg.id,
@@ -6866,7 +6865,6 @@ var testCurves = []struct {
 }{
 	{"P-256", CurveP256},
 	{"P-384", CurveP384},
-	{"P-521", CurveP521},
 	{"X25519", CurveX25519},
 }
 
@@ -6882,7 +6880,6 @@ func addCurveTests() {
 				CurvePreferences: []CurveID{curve.id},
 			},
 			flags: []string{
-				"-enable-all-curves",
 				"-expect-curve-id", strconv.Itoa(int(curve.id)),
 			},
 			expectedCurveID: curve.id,
@@ -6895,7 +6892,6 @@ func addCurveTests() {
 				CurvePreferences: []CurveID{curve.id},
 			},
 			flags: []string{
-				"-enable-all-curves",
 				"-expect-curve-id", strconv.Itoa(int(curve.id)),
 			},
 			expectedCurveID: curve.id,
@@ -6909,7 +6905,6 @@ func addCurveTests() {
 				CurvePreferences: []CurveID{curve.id},
 			},
 			flags: []string{
-				"-enable-all-curves",
 				"-expect-curve-id", strconv.Itoa(int(curve.id)),
 			},
 			expectedCurveID: curve.id,
@@ -6923,7 +6918,6 @@ func addCurveTests() {
 				CurvePreferences: []CurveID{curve.id},
 			},
 			flags: []string{
-				"-enable-all-curves",
 				"-expect-curve-id", strconv.Itoa(int(curve.id)),
 			},
 			expectedCurveID: curve.id,

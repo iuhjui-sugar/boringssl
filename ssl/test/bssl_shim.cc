@@ -1395,15 +1395,6 @@ static bool DoExchange(bssl::UniquePtr<SSL_SESSION> *out_session,
       return false;
     }
   }
-  if (config->enable_all_curves) {
-    static const int kAllCurves[] = {
-      NID_X9_62_prime256v1, NID_secp384r1, NID_secp521r1, NID_X25519,
-    };
-    if (!SSL_set1_curves(ssl.get(), kAllCurves,
-                         OPENSSL_ARRAY_SIZE(kAllCurves))) {
-      return false;
-    }
-  }
   if (config->initial_timeout_duration_ms > 0) {
     DTLSv1_set_initial_timeout_duration(ssl.get(),
                                         config->initial_timeout_duration_ms);

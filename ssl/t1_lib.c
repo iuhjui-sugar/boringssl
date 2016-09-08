@@ -307,9 +307,6 @@ static const uint16_t kDefaultGroups[] = {
     SSL_CURVE_X25519,
     SSL_CURVE_SECP256R1,
     SSL_CURVE_SECP384R1,
-#if defined(BORINGSSL_ANDROID_SYSTEM)
-    SSL_CURVE_SECP521R1,
-#endif
 };
 
 void tls1_get_grouplist(SSL *ssl, int get_peer_groups,
