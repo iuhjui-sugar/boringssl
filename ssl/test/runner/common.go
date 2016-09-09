@@ -1059,6 +1059,10 @@ type ProtocolBugs struct {
 	// SendRequestContext, if not empty, is the request context to send in
 	// a TLS 1.3 CertificateRequest.
 	SendRequestContext []byte
+
+	// SendCompressionMethods, if not nil, is the compression method list to
+	// send in the ClientHello.
+	SendCompressionMethods []byte
 }
 
 func (c *Config) serverInit() {
