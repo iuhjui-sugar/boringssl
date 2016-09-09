@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb7772bf_b7342234",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1863,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-09T18:30:20Z",
+      "side": 1,
+      "message": "(Stray change?)",
+      "revId": "515692c604b6b01f58ea2aab939db79d8e4dc9e5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cb7772bf_37cc922d",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-09T18:30:20Z",
+      "side": 1,
+      "message": "Glancing through i2d_SSL_SESSION consumers, no one ever checks for error correctly. I think we need to \"successfully\" serialize this to \"NOT RESUMABLE\" or some garbage like that. :-(\n\nI\u0027ll go fix the important ones, but right now everyone, not all that unreasonably, assumes failure only happens on malloc error.",
+      "revId": "515692c604b6b01f58ea2aab939db79d8e4dc9e5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
