@@ -986,7 +986,7 @@ static int ssl3_get_server_hello(SSL *ssl) {
   if (CBS_len(&server_hello) != 0) {
     /* wrong packet length */
     al = SSL_AD_DECODE_ERROR;
-    OPENSSL_PUT_ERROR(SSL, SSL_R_BAD_PACKET_LENGTH);
+    OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
     goto f_err;
   }
 
@@ -1431,6 +1431,12 @@ static int ssl3_get_certificate_request(SSL *ssl) {
     return -1;
   }
 
+  if (CBS_len(&cbs) != 0) {
+    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
+    OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
+    return -1;
+  }
+
   ssl->s3->tmp.cert_request = 1;
   sk_X509_NAME_pop_free(ssl->s3->tmp.ca_names, X509_NAME_free);
   ssl->s3->tmp.ca_names = ca_sk;
@@ -1447,7 +1453,7 @@ static int ssl3_get_server_hello_done(SSL *ssl) {
   /* ServerHelloDone is empty. */
   if (ssl->init_num > 0) {
     ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
-    OPENSSL_PUT_ERROR(SSL, SSL_R_LENGTH_MISMATCH);
+    OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
     return -1;
   }
 
