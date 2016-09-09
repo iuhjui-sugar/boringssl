@@ -897,8 +897,8 @@ struct ssl_handshake_st {
   uint8_t secret[EVP_MAX_MD_SIZE];
   uint8_t traffic_secret_0[EVP_MAX_MD_SIZE];
 
-  SSL_ECDH_CTX *groups;
-  size_t groups_len;
+  SSL_ECDH_CTX ecdh_ctx;
+
   /* retry_group is the group ID selected by the server in HelloRetryRequest. */
   uint16_t retry_group;
   /* key_share_bytes is the value of the previously sent KeyShare extension. */
@@ -918,8 +918,6 @@ struct ssl_handshake_st {
 } /* SSL_HANDSHAKE */;
 
 SSL_HANDSHAKE *ssl_handshake_new(enum ssl_hs_wait_t (*do_handshake)(SSL *ssl));
-
-void ssl_handshake_clear_groups(SSL_HANDSHAKE *hs);
 
 /* ssl_handshake_free releases all memory associated with |hs|. */
 void ssl_handshake_free(SSL_HANDSHAKE *hs);
