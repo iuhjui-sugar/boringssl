@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4b9f027a_e0a00299",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-09T21:01:29Z",
+      "side": 1,
+      "message": "This is not a concern for us. We have an opaque flag on custom EC_KEYs and generally prefer people not do this anyway. That\u0027s what SSL_PRIVATE_KEY_METHOD is for.",
+      "revId": "9be4acd15b9f6748bcba54e1a1ad2c620f36ecef",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b9f027a_60863215",
+        "filename": "crypto/evp/p_ec_asn1.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-09T21:01:29Z",
+      "side": 1,
+      "message": "Curlies",
+      "revId": "9be4acd15b9f6748bcba54e1a1ad2c620f36ecef",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b9f027a_40932e51",
+        "filename": "crypto/evp/p_ec_asn1.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-09T21:01:29Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "9be4acd15b9f6748bcba54e1a1ad2c620f36ecef",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
