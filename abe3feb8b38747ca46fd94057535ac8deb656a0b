@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb7772bf_978c86e4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-09T19:23:42Z",
+      "side": 1,
+      "message": "Could you staple a bug number and explain why this change?",
+      "revId": "abe3feb8b38747ca46fd94057535ac8deb656a0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cb7772bf_77bbea7a",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-09T19:23:42Z",
+      "side": 1,
+      "message": "It\u0027s not clear to me what we get out of changing this side of things.",
+      "revId": "abe3feb8b38747ca46fd94057535ac8deb656a0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cb7772bf_17b07692",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-09T19:23:42Z",
+      "side": 1,
+      "message": "I don\u0027t think it makes any sense to use the same thing between TLS 1.2 and 1.3 here. They are fundamentally very different things.\n\nThe TLS 1.2 one is because whether the server sends a ServerKeyExchange message depends on lots of funny factors. The TLS 1.3 one is because whether we do a key_share x key_share operation needs to be stored separately.",
+      "revId": "abe3feb8b38747ca46fd94057535ac8deb656a0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cb7772bf_b78982d3",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 2046,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-09T19:23:42Z",
+      "side": 1,
+      "message": "These may as well just be inlined.",
+      "revId": "abe3feb8b38747ca46fd94057535ac8deb656a0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
