@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb7772bf_f43a9821",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 2109,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-09T03:58:36Z",
+      "side": 1,
+      "message": "Old code didn\u0027t quite get this right since malloc(0) doesn\u0027t really work. This will need to be more complicated if we ever do non-resumption pure-PSK (the only case where zero ECDH offers is plausible), but I doubt that will happen.",
+      "revId": "aaf01c2d75b329877ba89ce45831676044ee1bfd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

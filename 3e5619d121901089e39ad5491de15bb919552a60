@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb7772bf_9437a438",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-09T03:58:36Z",
+      "side": 0,
+      "message": "I removed this TODO since the spec is going to change before we do that.",
+      "revId": "3e5619d121901089e39ad5491de15bb919552a60",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
