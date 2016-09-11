@@ -199,8 +199,8 @@ static uint8_t *align(uint8_t *in, unsigned alignment) {
       ~static_cast<size_t>(alignment - 1));
 }
 
-static bool SpeedAEADChunk(const EVP_AEAD *aead, const std::string &name,
-                           size_t chunk_len, size_t ad_len) {
+static bool SpeedAEADSealChunk(const EVP_AEAD *aead, const std::string &name,
+                               size_t chunk_len, size_t ad_len) {
   static const unsigned kAlignment = 16;
 
   EVP_AEAD_CTX ctx;
@@ -251,15 +251,95 @@ static bool SpeedAEADChunk(const EVP_AEAD *aead, const std::string &name,
   return true;
 }
 
+static bool SpeedAEADOpenChunk(const EVP_AEAD *aead, const std::string &name,
+                               size_t chunk_len, size_t ad_len) {
+  static const unsigned kAlignment = 16;
+
+  const size_t key_len = EVP_AEAD_key_length(aead);
+  const size_t nonce_len = EVP_AEAD_nonce_length(aead);
+  const size_t overhead_len = EVP_AEAD_max_overhead(aead);
+
+  std::unique_ptr<uint8_t[]> key(new uint8_t[key_len]);
+  memset(key.get(), 0, key_len);
+  std::unique_ptr<uint8_t[]> nonce(new uint8_t[nonce_len]);
+  memset(nonce.get(), 0, nonce_len);
+  std::unique_ptr<uint8_t[]> in_storage(
+      new uint8_t[chunk_len + overhead_len + kAlignment]);
+  std::unique_ptr<uint8_t[]> out_storage(
+      new uint8_t[chunk_len + overhead_len + kAlignment]);
+  std::unique_ptr<uint8_t[]> ad(new uint8_t[ad_len]);
+  memset(ad.get(), 0, ad_len);
+
+  uint8_t *const in = align(in_storage.get(), kAlignment);
+  memset(in, 0, chunk_len + overhead_len);
+  uint8_t *const out = align(out_storage.get(), kAlignment);
+  memset(out, 0, chunk_len + overhead_len);
+
+  // First compute the input we will actually use.
+  bssl::ScopedEVP_AEAD_CTX seal_ctx;
+  size_t in_len;
+  if (!EVP_AEAD_CTX_init_with_direction(seal_ctx.get(), aead, key.get(),
+                                        key_len, EVP_AEAD_DEFAULT_TAG_LENGTH,
+                                        evp_aead_seal) ||
+      !EVP_AEAD_CTX_seal(seal_ctx.get(), in, &in_len, chunk_len + overhead_len,
+                         nonce.get(), nonce_len, out, chunk_len, ad.get(),
+                         ad_len)) {
+    fprintf(stderr, "Failed to create ciphertext.\n");
+    ERR_print_errors_fp(stderr);
+    return false;
+  }
+
+  bssl::ScopedEVP_AEAD_CTX ctx;
+  if (!EVP_AEAD_CTX_init_with_direction(ctx.get(), aead, key.get(), key_len,
+                                        EVP_AEAD_DEFAULT_TAG_LENGTH,
+                                        evp_aead_open)) {
+    fprintf(stderr, "Failed to create EVP_AEAD_CTX.\n");
+    ERR_print_errors_fp(stderr);
+    return false;
+  }
+
+  TimeResults results;
+  if (!TimeFunction(&results, [chunk_len, overhead_len, in_len, nonce_len,
+                               ad_len, in, out, &ctx, &nonce, &ad]() -> bool {
+        size_t out_len;
+
+        return EVP_AEAD_CTX_open(
+            ctx.get(), out, &out_len, chunk_len + overhead_len, nonce.get(),
+            nonce_len, in, in_len, ad.get(), ad_len);
+      })) {
+    fprintf(stderr, "EVP_AEAD_CTX_open failed.\n");
+    ERR_print_errors_fp(stderr);
+    return false;
+  }
+
+  results.PrintWithBytes(name + " open", chunk_len);
+
+  return true;
+}
+
 static bool SpeedAEAD(const EVP_AEAD *aead, const std::string &name,
                       size_t ad_len, const std::string &selected) {
   if (!selected.empty() && name.find(selected) == std::string::npos) {
     return true;
   }
 
-  return SpeedAEADChunk(aead, name + " (16 bytes)", 16, ad_len) &&
-         SpeedAEADChunk(aead, name + " (1350 bytes)", 1350, ad_len) &&
-         SpeedAEADChunk(aead, name + " (8192 bytes)", 8192, ad_len);
+  return SpeedAEADSealChunk(aead, name + " (16 bytes)", 16, ad_len) &&
+         SpeedAEADSealChunk(aead, name + " (1350 bytes)", 1350, ad_len) &&
+         SpeedAEADSealChunk(aead, name + " (8192 bytes)", 8192, ad_len);
+}
+
+static bool SpeedAEADBoth(const EVP_AEAD *aead, const std::string &name,
+                      size_t ad_len, const std::string &selected) {
+  if (!selected.empty() && name.find(selected) == std::string::npos) {
+    return true;
+  }
+
+  return SpeedAEADSealChunk(aead, name + " (16 bytes)", 16, ad_len) &&
+         SpeedAEADSealChunk(aead, name + " (1350 bytes)", 1350, ad_len) &&
+         SpeedAEADSealChunk(aead, name + " (8192 bytes)", 8192, ad_len) &&
+         SpeedAEADOpenChunk(aead, name + " (16 bytes)", 16, ad_len) &&
+         SpeedAEADOpenChunk(aead, name + " (1350 bytes)", 1350, ad_len) &&
+         SpeedAEADOpenChunk(aead, name + " (8192 bytes)", 8192, ad_len);
 }
 
 static bool SpeedHashChunk(const EVP_MD *md, const std::string &name,
@@ -656,21 +736,20 @@ bool Speed(const std::vector<std::string> &args) {
                  kTLSADLen, selected) ||
       !SpeedAEAD(EVP_aead_rc4_md5_tls(), "RC4-MD5", kLegacyADLen, selected) ||
       !SpeedAEAD(EVP_aead_rc4_sha1_tls(), "RC4-SHA1", kLegacyADLen, selected) ||
-      !SpeedAEAD(EVP_aead_des_ede3_cbc_sha1_tls(), "DES-EDE3-CBC-SHA1",
-                 kLegacyADLen, selected) ||
-      !SpeedAEAD(EVP_aead_aes_128_cbc_sha1_tls(), "AES-128-CBC-SHA1",
-                 kLegacyADLen, selected) ||
-      !SpeedAEAD(EVP_aead_aes_256_cbc_sha1_tls(), "AES-256-CBC-SHA1",
-                 kLegacyADLen, selected) ||
+      // The explicit-IV CBC ciphers have very asymmetric seal and open
+      // performance, so test both directions. Note this requires the AEAD be
+      // stateless, so we do not test the TLS 1.0 implicit-IV variants.
+      !SpeedAEADBoth(EVP_aead_des_ede3_cbc_sha1_tls(), "DES-EDE3-CBC-SHA1",
+                     kLegacyADLen, selected) ||
+      !SpeedAEADBoth(EVP_aead_aes_128_cbc_sha1_tls(), "AES-128-CBC-SHA1",
+                     kLegacyADLen, selected) ||
+      !SpeedAEADBoth(EVP_aead_aes_256_cbc_sha1_tls(), "AES-256-CBC-SHA1",
+                     kLegacyADLen, selected) ||
       !SpeedHash(EVP_sha1(), "SHA-1", selected) ||
       !SpeedHash(EVP_sha256(), "SHA-256", selected) ||
-      !SpeedHash(EVP_sha512(), "SHA-512", selected) ||
-      !SpeedRandom(selected) ||
-      !SpeedECDH(selected) ||
-      !SpeedECDSA(selected) ||
-      !Speed25519(selected) ||
-      !SpeedSPAKE2(selected) ||
-      !SpeedNewHope(selected)) {
+      !SpeedHash(EVP_sha512(), "SHA-512", selected) || !SpeedRandom(selected) ||
+      !SpeedECDH(selected) || !SpeedECDSA(selected) || !Speed25519(selected) ||
+      !SpeedSPAKE2(selected) || !SpeedNewHope(selected)) {
     return false;
   }
 
