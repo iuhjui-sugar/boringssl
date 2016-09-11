@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4b9f027a_804b7655",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-11T04:59:03Z",
+      "side": 1,
+      "message": "This is primarily for humor value when you get back, but we can land this too if you think it\u0027s worthwhile. I was just bored.",
+      "revId": "a9623a4e77f40ab3c44fb0c3e5d3353fc84d8c2e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
