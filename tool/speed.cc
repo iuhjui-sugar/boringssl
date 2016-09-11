@@ -743,7 +743,13 @@ bool Speed(const std::vector<std::string> &args) {
                      kLegacyADLen, selected) ||
       !SpeedAEADBoth(EVP_aead_aes_128_cbc_sha1_tls(), "AES-128-CBC-SHA1",
                      kLegacyADLen, selected) ||
+      !SpeedAEADBoth(EVP_aead_aes_128_cbc_sha256_tls(), "AES-128-CBC-SHA256",
+                     kLegacyADLen, selected) ||
       !SpeedAEADBoth(EVP_aead_aes_256_cbc_sha1_tls(), "AES-256-CBC-SHA1",
+                     kLegacyADLen, selected) ||
+      !SpeedAEADBoth(EVP_aead_aes_256_cbc_sha256_tls(), "AES-256-CBC-SHA256",
+                     kLegacyADLen, selected) ||
+      !SpeedAEADBoth(EVP_aead_aes_256_cbc_sha384_tls(), "AES-256-CBC-SHA384",
                      kLegacyADLen, selected) ||
       !SpeedHash(EVP_sha1(), "SHA-1", selected) ||
       !SpeedHash(EVP_sha256(), "SHA-256", selected) ||
