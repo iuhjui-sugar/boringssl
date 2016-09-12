@@ -1,0 +1,170 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4b9f027a_265e0271",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 7938,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-12T22:32:32Z",
+      "side": 1,
+      "message": "All of the server versions of these tests need to get revised to be semantically accurate. That\u0027s not what this is testing anymore. What you\u0027re actually testing is the server ignoring the client preferences and doing an ECDHE-less exchange. This also needs to be tested in both initial (where it\u0027s always forbidden) and resumption (where you\u0027re testing that our KE mode prefs are honored) handshakes.",
+      "range": {
+        "startLine": 7938,
+        "startChar": 29,
+        "endLine": 7938,
+        "endChar": 34
+      },
+      "revId": "aefc7f31a4b5d8b65ed1da51de553c71d012ec36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b9f027a_46610635",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 7946,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-12T22:32:32Z",
+      "side": 1,
+      "message": "Why did this one not change while the others did? That\u0027s weird.",
+      "range": {
+        "startLine": 7946,
+        "startChar": 19,
+        "endLine": 7946,
+        "endChar": 36
+      },
+      "revId": "aefc7f31a4b5d8b65ed1da51de553c71d012ec36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b9f027a_064adead",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 7951,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-12T22:32:32Z",
+      "side": 1,
+      "message": "...gah. All these tests are identical. I think something got messed up when we added HRR support. I\u0027ll go fix this.",
+      "range": {
+        "startLine": 7951,
+        "startChar": 13,
+        "endLine": 7951,
+        "endChar": 39
+      },
+      "revId": "aefc7f31a4b5d8b65ed1da51de553c71d012ec36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b9f027a_66540a51",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-12T22:32:32Z",
+      "side": 1,
+      "message": "This needs to check !have_sigalgs. (And test.)",
+      "revId": "aefc7f31a4b5d8b65ed1da51de553c71d012ec36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b9f027a_4606a67b",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-12T22:32:32Z",
+      "side": 1,
+      "message": "The have_sigalgs check needs a test. Really it should be if (have_sigalgs !\u003d have_pre_shared_key) with an illegal_parameter alert.",
+      "range": {
+        "startLine": 268,
+        "startChar": 28,
+        "endLine": 268,
+        "endChar": 40
+      },
+      "revId": "aefc7f31a4b5d8b65ed1da51de553c71d012ec36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b9f027a_86570e56",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-12T22:32:32Z",
+      "side": 1,
+      "message": "have_key_share needs to be checked whether or not we\u0027re have a pre-shared key. I think you\u0027ve just implemented plain PSK resumption which we don\u0027t want to support. (Add test!)",
+      "range": {
+        "startLine": 268,
+        "startChar": 9,
+        "endLine": 268,
+        "endChar": 23
+      },
+      "revId": "aefc7f31a4b5d8b65ed1da51de553c71d012ec36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b9f027a_6609aa8b",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-12T22:32:32Z",
+      "side": 1,
+      "message": "Check for malloc failure. Alternatively, early return so you don\u0027t need to. Alternatively alternatively, let\u0027s just remove all these unreachable ECDHE-less codepaths to begin with.",
+      "revId": "aefc7f31a4b5d8b65ed1da51de553c71d012ec36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b9f027a_860cae9d",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-12T22:32:32Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "aefc7f31a4b5d8b65ed1da51de553c71d012ec36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
