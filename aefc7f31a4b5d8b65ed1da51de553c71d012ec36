@@ -25,6 +25,46 @@
     },
     {
       "key": {
+        "uuid": "4b9f027a_86f82e44",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 1138,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-12T22:43:37Z",
+      "side": 1,
+      "message": "This should just be inlined in the handshake.",
+      "revId": "aefc7f31a4b5d8b65ed1da51de553c71d012ec36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b9f027a_66f52a48",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 1140,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-12T22:43:37Z",
+      "side": 1,
+      "message": "Unreachable.",
+      "range": {
+        "startLine": 1140,
+        "startChar": 6,
+        "endLine": 1140,
+        "endChar": 48
+      },
+      "revId": "aefc7f31a4b5d8b65ed1da51de553c71d012ec36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b9f027a_265e0271",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 4
@@ -105,6 +145,24 @@
       "writtenOn": "2016-09-12T22:32:32Z",
       "side": 1,
       "message": "This needs to check !have_sigalgs. (And test.)",
+      "revId": "aefc7f31a4b5d8b65ed1da51de553c71d012ec36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b9f027a_c6dd16d2",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-12T22:43:37Z",
+      "side": 1,
+      "message": "In fact, I think you\u0027ve ended up implementing resumption reauth right now.",
+      "parentUuid": "4b9f027a_66540a51",
       "revId": "aefc7f31a4b5d8b65ed1da51de553c71d012ec36",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
