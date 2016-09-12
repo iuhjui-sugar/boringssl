@@ -1,0 +1,346 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4b9f027a_06ee5eb5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-12T22:11:24Z",
+      "side": 1,
+      "message": "This is no longer true. I think we should just burn that number and not care much about this. Burning numbers is not that big of a deal.",
+      "range": {
+        "startLine": 10,
+        "startChar": 52,
+        "endLine": 12,
+        "endChar": 37
+      },
+      "revId": "9ace5a13819faa5904a8953526ff02f256f92c88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b9f027a_26c28226",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-12T22:11:24Z",
+      "side": 1,
+      "message": "This should have a comment. kDraftVersion is also a very confusing name with the versions being renumbered.",
+      "revId": "9ace5a13819faa5904a8953526ff02f256f92c88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b9f027a_e6f25a95",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-12T22:11:24Z",
+      "side": 1,
+      "message": "This comment doesn\u0027t say why we have this draft version tag, just what it does.",
+      "revId": "9ace5a13819faa5904a8953526ff02f256f92c88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b9f027a_a6ec52ba",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-12T22:11:24Z",
+      "side": 1,
+      "message": "This also needs to reject draft-version-less TLS 1.3 tickets. (Just add an else if.)",
+      "revId": "9ace5a13819faa5904a8953526ff02f256f92c88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b9f027a_a6d572e0",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1395,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-12T22:11:24Z",
+      "side": 1,
+      "message": "// Ignore the ticket if the server preferences do not match a mode we implement.",
+      "revId": "9ace5a13819faa5904a8953526ff02f256f92c88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b9f027a_e6cb7a47",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-12T22:11:24Z",
+      "side": 1,
+      "message": "This should be done in the handshake logic, not the serialization code. We need to be able to write tests which send different values and, in general, this kind of logic does not belong in the serialization code.",
+      "revId": "9ace5a13819faa5904a8953526ff02f256f92c88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b9f027a_06c77e3d",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-12T22:11:24Z",
+      "side": 1,
+      "message": "This should be done in the handshake logic, not the parsing code. In general, the parsing code does not interpret values interestingly.",
+      "revId": "9ace5a13819faa5904a8953526ff02f256f92c88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b9f027a_26d96210",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-12T22:11:24Z",
+      "side": 1,
+      "message": "for _, keMode :\u003d range keModes",
+      "revId": "9ace5a13819faa5904a8953526ff02f256f92c88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b9f027a_66df6af7",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-12T22:11:24Z",
+      "side": 1,
+      "message": "Cast isn\u0027t needed for untyped constants.",
+      "range": {
+        "startLine": 619,
+        "startChar": 8,
+        "endLine": 619,
+        "endChar": 11
+      },
+      "revId": "9ace5a13819faa5904a8953526ff02f256f92c88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b9f027a_8625ce1d",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 624,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-12T22:11:24Z",
+      "side": 1,
+      "message": "Newline",
+      "revId": "9ace5a13819faa5904a8953526ff02f256f92c88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b9f027a_c61ab6d9",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 625,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-12T22:11:24Z",
+      "side": 1,
+      "message": "if len(d) \u003c 1 {\n  return false\n}",
+      "revId": "9ace5a13819faa5904a8953526ff02f256f92c88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b9f027a_0611bebd",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-12T22:11:24Z",
+      "side": 1,
+      "message": "for _, authMode :\u003d range authModes",
+      "revId": "9ace5a13819faa5904a8953526ff02f256f92c88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b9f027a_46dc6600",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-12T22:11:24Z",
+      "side": 1,
+      "message": "Ditto",
+      "range": {
+        "startLine": 632,
+        "startChar": 8,
+        "endLine": 632,
+        "endChar": 11
+      },
+      "revId": "9ace5a13819faa5904a8953526ff02f256f92c88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b9f027a_a61fb2c7",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-12T22:11:24Z",
+      "side": 1,
+      "message": "Newline",
+      "revId": "9ace5a13819faa5904a8953526ff02f256f92c88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b9f027a_66b88ac2",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 2128,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-12T22:11:24Z",
+      "side": 1,
+      "message": "Test that the server behaves correctly when offered sessions with modes it doesn\u0027t understand.",
+      "range": {
+        "startLine": 2128,
+        "startChar": 16,
+        "endLine": 2128,
+        "endChar": 45
+      },
+      "revId": "9ace5a13819faa5904a8953526ff02f256f92c88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b9f027a_46c5862c",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 2132,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-12T22:11:24Z",
+      "side": 1,
+      "message": "This should separately test both mismatching KE mode and mismatching auth mode. Also test that we can pick out the value we want out of a list and tolerance to unknown values.\n\n(Make the ProtocolBugs field configure the entire list.)\n\nYou may want to pull all these out into a separate group of tests.",
+      "range": {
+        "startLine": 2132,
+        "startChar": 5,
+        "endLine": 2132,
+        "endChar": 34
+      },
+      "revId": "9ace5a13819faa5904a8953526ff02f256f92c88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b9f027a_86bb8ebf",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 2133,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-12T22:11:24Z",
+      "side": 1,
+      "message": "This doesn\u0027t do anything because we\u0027re not doing resumeSession. (SendEmptySessionTicket\u0027s copy also shouldn\u0027t be there.)",
+      "range": {
+        "startLine": 2133,
+        "startChar": 5,
+        "endLine": 2133,
+        "endChar": 25
+      },
+      "revId": "9ace5a13819faa5904a8953526ff02f256f92c88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b9f027a_46aa2675",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 672,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-12T22:11:24Z",
+      "side": 1,
+      "message": "Nit: unnecessary newline?",
+      "revId": "9ace5a13819faa5904a8953526ff02f256f92c88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
