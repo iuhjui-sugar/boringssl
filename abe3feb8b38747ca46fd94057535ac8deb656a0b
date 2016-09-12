@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4b9f027a_e35dac4a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-12T17:28:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb7772bf_978c86e4",
+      "revId": "abe3feb8b38747ca46fd94057535ac8deb656a0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cb7772bf_77bbea7a",
         "filename": "ssl/handshake_client.c",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2016-09-09T19:23:42Z",
       "side": 1,
       "message": "It\u0027s not clear to me what we get out of changing this side of things.",
+      "revId": "abe3feb8b38747ca46fd94057535ac8deb656a0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b9f027a_c362a80e",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-12T17:28:45Z",
+      "side": 1,
+      "message": "Having one method that\u0027s shared between the handshake machines seems cleaner than having some determination happen on ssl and other determination happen on ciphersuite.",
+      "parentUuid": "cb7772bf_77bbea7a",
       "revId": "abe3feb8b38747ca46fd94057535ac8deb656a0b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "4b9f027a_a367a41c",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-12T17:28:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb7772bf_17b07692",
+      "revId": "abe3feb8b38747ca46fd94057535ac8deb656a0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cb7772bf_b78982d3",
         "filename": "ssl/ssl_lib.c",
         "patchSetId": 3
@@ -64,6 +118,24 @@
       "writtenOn": "2016-09-09T19:23:42Z",
       "side": 1,
       "message": "These may as well just be inlined.",
+      "revId": "abe3feb8b38747ca46fd94057535ac8deb656a0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b9f027a_836dc0fe",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 2046,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-12T17:28:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb7772bf_b78982d3",
       "revId": "abe3feb8b38747ca46fd94057535ac8deb656a0b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
