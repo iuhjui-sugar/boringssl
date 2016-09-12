@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "4b9f027a_4638e628",
+        "filename": "ssl/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 897,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-12T22:37:31Z",
+      "side": 1,
+      "message": "Actually, this should use the fact that cert_auth is redundant with PSK. We\u0027re just wasting memory and adding more places to introduce bugs. I\u0027ll go upload a CL to revert this change.",
+      "range": {
+        "startLine": 897,
+        "startChar": 6,
+        "endLine": 897,
+        "endChar": 19
+      },
+      "revId": "aefc7f31a4b5d8b65ed1da51de553c71d012ec36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b9f027a_265e0271",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 4
