@@ -2923,15 +2923,11 @@ int SSL_clear(SSL *ssl) {
 }
 
 void ssl_do_info_callback(const SSL *ssl, int type, int value) {
-  void (*cb)(const SSL *ssl, int type, int value) = NULL;
   if (ssl->info_callback != NULL) {
-    cb = ssl->info_callback;
-  } else if (ssl->ctx->info_callback != NULL) {
-    cb = ssl->ctx->info_callback;
+    ssl->info_callback(ssl, type, value);
   }
-
-  if (cb != NULL) {
-    cb(ssl, type, value);
+  if (ssl->ctx->info_callback != NULL) {
+    ssl->ctx->info_callback(ssl, type, value);
   }
 }
 
