@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4b9f027a_a9f66575",
+        "filename": "ssl/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 897,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-13T16:39:42Z",
+      "side": 1,
+      "message": "Cert auth being negotiated should be explicit rather than implicit by the presence of session_reused.",
+      "parentUuid": "4b9f027a_4638e628",
+      "range": {
+        "startLine": 897,
+        "startChar": 6,
+        "endLine": 897,
+        "endChar": 19
+      },
+      "revId": "aefc7f31a4b5d8b65ed1da51de553c71d012ec36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b9f027a_86f82e44",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 4
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "4b9f027a_e9a0ed98",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 1138,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-13T16:39:42Z",
+      "side": 1,
+      "message": "Seems inconsistent to inline this, since we call out for the other SH extensions.",
+      "parentUuid": "4b9f027a_86f82e44",
+      "revId": "aefc7f31a4b5d8b65ed1da51de553c71d012ec36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b9f027a_66f52a48",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 4
@@ -53,6 +95,30 @@
       "writtenOn": "2016-09-12T22:43:37Z",
       "side": 1,
       "message": "Unreachable.",
+      "range": {
+        "startLine": 1140,
+        "startChar": 6,
+        "endLine": 1140,
+        "endChar": 48
+      },
+      "revId": "aefc7f31a4b5d8b65ed1da51de553c71d012ec36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b9f027a_c9952931",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 1140,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-13T16:39:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b9f027a_66f52a48",
       "range": {
         "startLine": 1140,
         "startChar": 6,
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "4b9f027a_09631146",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 7938,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-13T16:39:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b9f027a_265e0271",
+      "range": {
+        "startLine": 7938,
+        "startChar": 29,
+        "endLine": 7938,
+        "endChar": 34
+      },
+      "revId": "aefc7f31a4b5d8b65ed1da51de553c71d012ec36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b9f027a_46610635",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 4
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "4b9f027a_a99ae55e",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 7946,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-13T16:39:42Z",
+      "side": 1,
+      "message": "Because the client and server side check extensions in a different order.",
+      "parentUuid": "4b9f027a_46610635",
+      "range": {
+        "startLine": 7946,
+        "startChar": 19,
+        "endLine": 7946,
+        "endChar": 36
+      },
+      "revId": "aefc7f31a4b5d8b65ed1da51de553c71d012ec36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b9f027a_064adead",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 4
@@ -122,6 +236,30 @@
       "writtenOn": "2016-09-12T22:32:32Z",
       "side": 1,
       "message": "...gah. All these tests are identical. I think something got messed up when we added HRR support. I\u0027ll go fix this.",
+      "range": {
+        "startLine": 7951,
+        "startChar": 13,
+        "endLine": 7951,
+        "endChar": 39
+      },
+      "revId": "aefc7f31a4b5d8b65ed1da51de553c71d012ec36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b9f027a_89b041e3",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 7951,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-13T16:39:42Z",
+      "side": 1,
+      "message": "ack",
+      "parentUuid": "4b9f027a_064adead",
       "range": {
         "startLine": 7951,
         "startChar": 13,
@@ -162,6 +300,42 @@
       "writtenOn": "2016-09-12T22:43:37Z",
       "side": 1,
       "message": "In fact, I think you\u0027ve ended up implementing resumption reauth right now.",
+      "parentUuid": "4b9f027a_66540a51",
+      "revId": "aefc7f31a4b5d8b65ed1da51de553c71d012ec36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b9f027a_890cc19d",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-13T16:39:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b9f027a_c6dd16d2",
+      "revId": "aefc7f31a4b5d8b65ed1da51de553c71d012ec36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b9f027a_69097d8b",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-13T16:39:42Z",
+      "side": 1,
+      "message": "Done",
       "parentUuid": "4b9f027a_66540a51",
       "revId": "aefc7f31a4b5d8b65ed1da51de553c71d012ec36",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
@@ -215,6 +389,54 @@
     },
     {
       "key": {
+        "uuid": "4b9f027a_2903756b",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-13T16:39:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b9f027a_86570e56",
+      "range": {
+        "startLine": 268,
+        "startChar": 9,
+        "endLine": 268,
+        "endChar": 23
+      },
+      "revId": "aefc7f31a4b5d8b65ed1da51de553c71d012ec36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b9f027a_4906b97b",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-13T16:39:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b9f027a_4606a67b",
+      "range": {
+        "startLine": 268,
+        "startChar": 28,
+        "endLine": 268,
+        "endChar": 40
+      },
+      "revId": "aefc7f31a4b5d8b65ed1da51de553c71d012ec36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b9f027a_6609aa8b",
         "filename": "ssl/tls13_server.c",
         "patchSetId": 4
@@ -232,6 +454,24 @@
     },
     {
       "key": {
+        "uuid": "4b9f027a_69adfd8a",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-13T16:39:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b9f027a_6609aa8b",
+      "revId": "aefc7f31a4b5d8b65ed1da51de553c71d012ec36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b9f027a_860cae9d",
         "filename": "ssl/tls13_server.c",
         "patchSetId": 4
@@ -243,6 +483,24 @@
       "writtenOn": "2016-09-12T22:32:32Z",
       "side": 1,
       "message": "Nit: 80 chars",
+      "revId": "aefc7f31a4b5d8b65ed1da51de553c71d012ec36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b9f027a_49aa3975",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-13T16:39:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b9f027a_860cae9d",
       "revId": "aefc7f31a4b5d8b65ed1da51de553c71d012ec36",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
