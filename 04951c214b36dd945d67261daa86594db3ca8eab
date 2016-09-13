@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b1e5af2_019c295d",
+        "filename": "API-CONVENTIONS.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-09-13T05:44:18Z",
+      "side": 1,
+      "message": "IMO this might be better stated more bluntly as \"Don\u0027t write typedef struct foo_st FOO, or try to otherwise define BoringSSL\u0027s types.  An #include of openssl/base.h will do this, without defining toxic macros.\"\n\nOr something like that?",
+      "range": {
+        "startLine": 23,
+        "startChar": 78,
+        "endLine": 23,
+        "endChar": 79
+      },
+      "revId": "04951c214b36dd945d67261daa86594db3ca8eab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8b1e5af2_21a12d9b",
+        "filename": "API-CONVENTIONS.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-09-13T05:44:18Z",
+      "side": 1,
+      "message": "\"Code that needs access to the free function must include the corresponding module\u0027s header.\"",
+      "range": {
+        "startLine": 98,
+        "startChar": 52,
+        "endLine": 98,
+        "endChar": 53
+      },
+      "revId": "04951c214b36dd945d67261daa86594db3ca8eab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8b1e5af2_c195d130",
+        "filename": "API-CONVENTIONS.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-09-13T05:44:18Z",
+      "side": 1,
+      "message": ", which are automatically initialized to the zero state, and are automatically cleaned up.",
+      "range": {
+        "startLine": 164,
+        "startChar": 70,
+        "endLine": 164,
+        "endChar": 71
+      },
+      "revId": "04951c214b36dd945d67261daa86594db3ca8eab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
