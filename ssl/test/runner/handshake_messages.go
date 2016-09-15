@@ -149,6 +149,7 @@ type clientHelloMsg struct {
 	ticketSupported         bool
 	sessionTicket           []uint8
 	signatureAlgorithms     []signatureAlgorithm
+	supportedVersions       []uint16
 	secureRenegotiation     []byte
 	alpnProtocols           []string
 	duplicateExtension      bool
@@ -189,6 +190,7 @@ func (m *clientHelloMsg) equal(i interface{}) bool {
 		m.ticketSupported == m1.ticketSupported &&
 		bytes.Equal(m.sessionTicket, m1.sessionTicket) &&
 		eqSignatureAlgorithms(m.signatureAlgorithms, m1.signatureAlgorithms) &&
+		eqUint16s(m.supportedVersions, m1.supportedVersions) &&
 		bytes.Equal(m.secureRenegotiation, m1.secureRenegotiation) &&
 		(m.secureRenegotiation == nil) == (m1.secureRenegotiation == nil) &&
 		eqStrings(m.alpnProtocols, m1.alpnProtocols) &&
@@ -339,6 +341,14 @@ func (m *clientHelloMsg) marshal() []byte {
 			signatureAlgorithms.addU16(uint16(sigAlg))
 		}
 	}
+	if len(m.supportedVersions) > 0 {
+		extensions.addU16(extensionSupportedVersions)
+		supportedVersionsExtension := extensions.addU16LengthPrefixed()
+		supportedVersions := supportedVersionsExtension.addU8LengthPrefixed()
+		for _, version := range m.supportedVersions {
+			supportedVersions.addU16(versionToWire(uint16(version), m.isDTLS))
+		}
+	}
 	if m.secureRenegotiation != nil {
 		extensions.addU16(extensionRenegotiationInfo)
 		secureRenegoExt := extensions.addU16LengthPrefixed()
@@ -398,11 +408,6 @@ func (m *clientHelloMsg) marshal() []byte {
 		extensions.addU16(extensionCustom)
 		customExt := extensions.addU16LengthPrefixed()
 		customExt.addBytes([]byte(m.customExtension))
-	}
-	if m.vers == VersionTLS13 {
-		extensions.addU16(extensionTLS13Draft)
-		extValue := extensions.addU16LengthPrefixed()
-		extValue.addU16(tls13DraftVersion)
 	}
 
 	if extensions.len() == 0 {
@@ -476,6 +481,7 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 	m.ticketSupported = false
 	m.sessionTicket = nil
 	m.signatureAlgorithms = nil
+	m.supportedVersions = nil
 	m.alpnProtocols = nil
 	m.extendedMasterSecret = false
 	m.customExtension = ""
@@ -642,6 +648,21 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 			m.signatureAlgorithms = make([]signatureAlgorithm, n)
 			for i := range m.signatureAlgorithms {
 				m.signatureAlgorithms[i] = signatureAlgorithm(d[0])<<8 | signatureAlgorithm(d[1])
+				d = d[2:]
+			}
+		case extensionSupportedVersions:
+			if length < 1+2 {
+				return false
+			}
+			l := int(data[0])
+			if l != length-1 || l%2 == 1 {
+				return false
+			}
+			n := l / 2
+			d := data[1:]
+			m.supportedVersions = make([]uint16, n)
+			for i := range m.supportedVersions {
+				m.supportedVersions[i] = wireToVersion(uint16(d[0])<<8|uint16(d[1]), m.isDTLS)
 				d = d[2:]
 			}
 		case extensionRenegotiationInfo:
@@ -1172,6 +1193,7 @@ func (m *serverExtensions) unmarshal(data []byte, version uint16) bool {
 
 type helloRetryRequestMsg struct {
 	raw           []byte
+	isDTLS        bool
 	vers          uint16
 	cipherSuite   uint16
 	selectedGroup CurveID
@@ -1185,7 +1207,8 @@ func (m *helloRetryRequestMsg) marshal() []byte {
 	retryRequestMsg := newByteBuilder()
 	retryRequestMsg.addU8(typeHelloRetryRequest)
 	retryRequest := retryRequestMsg.addU24LengthPrefixed()
-	retryRequest.addU16(m.vers)
+	vers := versionToWire(m.vers, m.isDTLS)
+	retryRequest.addU16(vers)
 	retryRequest.addU16(m.cipherSuite)
 	retryRequest.addU16(uint16(m.selectedGroup))
 	// Extensions field. We have none to send.
@@ -1200,7 +1223,7 @@ func (m *helloRetryRequestMsg) unmarshal(data []byte) bool {
 	if len(data) < 12 {
 		return false
 	}
-	m.vers = uint16(data[4])<<8 | uint16(data[5])
+	m.vers = wireToVersion(uint16(data[4])<<8|uint16(data[5]), m.isDTLS)
 	m.cipherSuite = uint16(data[6])<<8 | uint16(data[7])
 	m.selectedGroup = CurveID(data[8])<<8 | CurveID(data[9])
 	extLen := int(data[10])<<8 | int(data[11])

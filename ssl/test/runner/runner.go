@@ -4143,9 +4143,64 @@ func addVersionNegotiationTests() {
 					flags:           []string{"-max-version", shimVersFlag},
 					expectedVersion: expectedVersion,
 				})
+				testCases = append(testCases, testCase{
+					protocol: protocol,
+					testType: serverTest,
+					name:     "VersionNegotiationExtension-" + suffix,
+					config: Config{
+						MaxVersion: runnerVers.version,
+						Bugs: ProtocolBugs{
+							ExpectInitialRecordVersion: serverVers,
+							SendSupportedVersions:      []uint16{0x1111, expectedVersion, 0x2222},
+						},
+					},
+					flags:           []string{"-max-version", shimVersFlag},
+					expectedVersion: expectedVersion,
+				})
+				testCases = append(testCases, testCase{
+					protocol: protocol,
+					testType: serverTest,
+					name:     "UnknownVersionNegotiationExtension-" + suffix,
+					config: Config{
+						MaxVersion: runnerVers.version,
+						Bugs: ProtocolBugs{
+							ExpectInitialRecordVersion: serverVers,
+							SendSupportedVersions:      []uint16{0x1111},
+						},
+					},
+					flags:         []string{"-max-version", shimVersFlag},
+					shouldFail:    true,
+					expectedError: ":UNSUPPORTED_PROTOCOL:",
+				})
 			}
 		}
 	}
+
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "ClientHelloVersionTooHigh",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				SendClientVersion:     0x0304,
+				OmitSupportedVersions: true,
+			},
+		},
+		expectedVersion: VersionTLS12,
+	})
+
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "ConflictingVersionNegotiation",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				SendClientVersion:     0x0304,
+				SendSupportedVersions: []uint16{0x0303},
+			},
+		},
+		expectedVersion: VersionTLS12,
+	})
 
 	// Test for version tolerance.
 	testCases = append(testCases, testCase{
@@ -4153,28 +4208,32 @@ func addVersionNegotiationTests() {
 		name:     "MinorVersionTolerance",
 		config: Config{
 			Bugs: ProtocolBugs{
-				SendClientVersion: 0x03ff,
+				SendClientVersion:     0x03ff,
+				OmitSupportedVersions: true,
 			},
 		},
-		expectedVersion: VersionTLS13,
+		expectedVersion: VersionTLS12,
 	})
 	testCases = append(testCases, testCase{
 		testType: serverTest,
 		name:     "MajorVersionTolerance",
 		config: Config{
 			Bugs: ProtocolBugs{
-				SendClientVersion: 0x0400,
+				SendClientVersion:     0x0400,
+				OmitSupportedVersions: true,
 			},
 		},
-		expectedVersion: VersionTLS13,
+		expectedVersion: VersionTLS12,
 	})
+
 	testCases = append(testCases, testCase{
 		protocol: dtls,
 		testType: serverTest,
 		name:     "MinorVersionTolerance-DTLS",
 		config: Config{
 			Bugs: ProtocolBugs{
-				SendClientVersion: 0x03ff,
+				SendClientVersion:     0x03ff,
+				OmitSupportedVersions: true,
 			},
 		},
 		expectedVersion: VersionTLS12,
@@ -4185,7 +4244,8 @@ func addVersionNegotiationTests() {
 		name:     "MajorVersionTolerance-DTLS",
 		config: Config{
 			Bugs: ProtocolBugs{
-				SendClientVersion: 0x0400,
+				SendClientVersion:     0x0400,
+				OmitSupportedVersions: true,
 			},
 		},
 		expectedVersion: VersionTLS12,
@@ -4197,7 +4257,8 @@ func addVersionNegotiationTests() {
 		name:     "VersionTooLow",
 		config: Config{
 			Bugs: ProtocolBugs{
-				SendClientVersion: 0x0200,
+				SendClientVersion:     0x0200,
+				OmitSupportedVersions: true,
 			},
 		},
 		shouldFail:    true,

@@ -27,12 +27,20 @@ func versionToWire(vers uint16, isDTLS bool) uint16 {
 	if isDTLS {
 		return ^(vers - 0x0201)
 	}
+	// TODO(svaldez): Remove once draft version is no longer necessary.
+	if vers == VersionTLS13 {
+		return tls13DraftVersion
+	}
 	return vers
 }
 
 func wireToVersion(vers uint16, isDTLS bool) uint16 {
 	if isDTLS {
 		return ^vers + 0x0201
+	}
+	// TODO(svaldez): Remove once draft version is no longer necessary.
+	if vers == tls13DraftVersion {
+		return VersionTLS13
 	}
 	return vers
 }
