@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4b2aa261_3cce0925",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1172,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-09-15T23:30:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0ff0f22_fb402f3a",
+      "revId": "9fb134183b4acdc0e0cb0ffd61259f05561942ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0ff0f22_9b37ebe8",
         "filename": "ssl/d1_lib.c",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "4b2aa261_7cd881e4",
+        "filename": "ssl/d1_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-09-15T23:30:20Z",
+      "side": 1,
+      "message": "I\u0027d rather get rid of the NULL cipher!  I\u0027ve been promised that will one day be possible.",
+      "parentUuid": "b0ff0f22_9b37ebe8",
+      "revId": "9fb134183b4acdc0e0cb0ffd61259f05561942ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0ff0f22_7b565f01",
         "filename": "ssl/internal.h",
         "patchSetId": 2
@@ -47,6 +83,30 @@
       "writtenOn": "2016-09-15T21:15:02Z",
       "side": 1,
       "message": "Want to rebalance the numbers while you\u0027re here? These aren\u0027t exported anywhere.",
+      "range": {
+        "startLine": 186,
+        "startChar": 19,
+        "endLine": 186,
+        "endChar": 30
+      },
+      "revId": "9fb134183b4acdc0e0cb0ffd61259f05561942ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b2aa261_9ce3759c",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-09-15T23:30:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0ff0f22_7b565f01",
       "range": {
         "startLine": 186,
         "startChar": 19,
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "4b2aa261_bce83979",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 729,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-09-15T23:30:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0ff0f22_3b60d7d5",
+      "range": {
+        "startLine": 729,
+        "startChar": 33,
+        "endLine": 729,
+        "endChar": 34
+      },
+      "revId": "9fb134183b4acdc0e0cb0ffd61259f05561942ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0ff0f22_1b651be6",
         "filename": "ssl/ssl_cipher.c",
         "patchSetId": 2
@@ -93,6 +177,30 @@
       "writtenOn": "2016-09-15T21:15:02Z",
       "side": 1,
       "message": "Unnecessary parens",
+      "range": {
+        "startLine": 1650,
+        "startChar": 34,
+        "endLine": 1650,
+        "endChar": 35
+      },
+      "revId": "9fb134183b4acdc0e0cb0ffd61259f05561942ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b2aa261_1cf86542",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1650,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-09-15T23:30:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0ff0f22_1b651be6",
       "range": {
         "startLine": 1650,
         "startChar": 34,
