@@ -148,6 +148,7 @@ type clientHelloMsg struct {
 	ticketSupported         bool
 	sessionTicket           []uint8
 	signatureAlgorithms     []signatureAlgorithm
+	supportedVersions       []uint16
 	secureRenegotiation     []byte
 	alpnProtocols           []string
 	duplicateExtension      bool
@@ -187,6 +188,7 @@ func (m *clientHelloMsg) equal(i interface{}) bool {
 		m.ticketSupported == m1.ticketSupported &&
 		bytes.Equal(m.sessionTicket, m1.sessionTicket) &&
 		eqSignatureAlgorithms(m.signatureAlgorithms, m1.signatureAlgorithms) &&
+		eqUint16s(m.supportedVersions, m1.supportedVersions) &&
 		bytes.Equal(m.secureRenegotiation, m1.secureRenegotiation) &&
 		(m.secureRenegotiation == nil) == (m1.secureRenegotiation == nil) &&
 		eqStrings(m.alpnProtocols, m1.alpnProtocols) &&
@@ -333,6 +335,18 @@ func (m *clientHelloMsg) marshal() []byte {
 			signatureAlgorithms.addU16(uint16(sigAlg))
 		}
 	}
+	if len(m.supportedVersions) > 0 {
+		extensions.addU16(extensionSupportedVersions)
+		supportedVersionsExtension := extensions.addU16LengthPrefixed()
+		supportedVersions := supportedVersionsExtension.addU8LengthPrefixed()
+		for _, version := range m.supportedVersions {
+			// TODO(svaldez): Remove once draft version is no longer necessary.
+			if version == VersionTLS13 {
+				version = tls13DraftVersion
+			}
+			supportedVersions.addU16(uint16(version))
+		}
+	}
 	if m.secureRenegotiation != nil {
 		extensions.addU16(extensionRenegotiationInfo)
 		secureRenegoExt := extensions.addU16LengthPrefixed()
@@ -470,6 +484,7 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 	m.ticketSupported = false
 	m.sessionTicket = nil
 	m.signatureAlgorithms = nil
+	m.supportedVersions = nil
 	m.alpnProtocols = nil
 	m.extendedMasterSecret = false
 	m.customExtension = ""
@@ -636,6 +651,25 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 			m.signatureAlgorithms = make([]signatureAlgorithm, n)
 			for i := range m.signatureAlgorithms {
 				m.signatureAlgorithms[i] = signatureAlgorithm(d[0])<<8 | signatureAlgorithm(d[1])
+				d = d[2:]
+			}
+		case extensionSupportedVersions:
+			if length < 1+2 {
+				return false
+			}
+			l := int(data[0])
+			if l != length-1 {
+				return false
+			}
+			n := l / 2
+			d := data[1:]
+			m.supportedVersions = make([]uint16, n)
+			for i := range m.supportedVersions {
+				m.supportedVersions[i] = uint16(d[0])<<8 | uint16(d[1])
+				// TODO(svaldez): Remove once draft version is no longer necessary.
+				if m.supportedVersions[i] == tls13DraftVersion {
+					m.supportedVersions[i] = VersionTLS13
+				}
 				d = d[2:]
 			}
 		case extensionRenegotiationInfo:

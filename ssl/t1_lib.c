@@ -2252,6 +2252,89 @@ int ssl_ext_key_share_add_serverhello(SSL *ssl, CBB *out) {
 }
 
 
+/* Supported Versions
+ *
+ * https://tools.ietf.org/html/draft-ietf-tls-tls13-16 */
+
+static int ext_supported_versions_add_clienthello(SSL *ssl, CBB *out) {
+  if (ssl->method->version_from_wire(ssl->client_version) <= TLS1_2_VERSION ||
+      ssl->method->is_dtls) {
+    return 1;
+  }
+
+  CBB contents, versions;
+  if (!CBB_add_u16(out, TLSEXT_TYPE_supported_versions) ||
+      !CBB_add_u16_length_prefixed(out, &contents) ||
+      !CBB_add_u8_length_prefixed(&contents, &versions)) {
+    return 0;
+  }
+
+  uint16_t min_version, max_version;
+  if (!ssl_get_version_range(ssl, &min_version, &max_version)) {
+    return 0;
+  }
+  for (uint16_t version = max_version; version >= min_version; version--) {
+    if (version == TLS1_3_VERSION) {
+      if (!CBB_add_u16(&versions, TLS1_3_DRAFT_VERSION)) {
+        return 0;
+      }
+    } else {
+      if (!CBB_add_u16(&versions, version)) {
+        return 0;
+      }
+    }
+  }
+
+  if (!CBB_flush(out)) {
+    return 0;
+  }
+
+  return 1;
+}
+
+int ssl_ext_supported_versions_parse_clienthello(SSL *ssl,
+                                                 uint16_t *out_max_version,
+                                                 uint16_t *out_version,
+                                                 uint8_t *out_alert,
+                                                 CBS *contents) {
+  if (contents == NULL) {
+    return 1;
+  }
+
+  CBS versions;
+  if (!CBS_get_u8_length_prefixed(contents, &versions) ||
+      CBS_len(contents) != 0 ||
+      CBS_len(&versions) == 0) {
+    return 0;
+  }
+
+  uint16_t min_version, max_version;
+  if (!ssl_get_version_range(ssl, &min_version, &max_version)) {
+    *out_alert = SSL_AD_PROTOCOL_VERSION;
+    return 0;
+  }
+
+  *out_max_version = 0;
+  uint16_t version;
+  while (CBS_get_u16(&versions, &version)) {
+    if (version == TLS1_3_DRAFT_VERSION) {
+      version = TLS1_3_VERSION;
+    }
+
+    if (*out_max_version == 0) {
+      *out_max_version = version;
+    }
+    if (min_version <= version && version <= max_version) {
+      *out_version = version;
+      return 1;
+    }
+  }
+
+  *out_alert = SSL_AD_PROTOCOL_VERSION;
+  return 0;
+}
+
+
 /* Negotiated Groups
  *
  * https://tools.ietf.org/html/rfc4492#section-5.1.2
@@ -2463,6 +2546,14 @@ static const struct tls_extension kExtensions[] = {
     TLSEXT_TYPE_pre_shared_key,
     NULL,
     ext_pre_shared_key_add_clienthello,
+    forbid_parse_serverhello,
+    ignore_parse_clienthello,
+    dont_add_serverhello,
+  },
+  {
+    TLSEXT_TYPE_supported_versions,
+    NULL,
+    ext_supported_versions_add_clienthello,
     forbid_parse_serverhello,
     ignore_parse_clienthello,
     dont_add_serverhello,

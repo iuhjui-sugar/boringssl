@@ -4124,6 +4124,24 @@ func addVersionNegotiationTests() {
 					flags:           []string{"-max-version", shimVersFlag},
 					expectedVersion: expectedVersion,
 				})
+				versionExtension := []uint16{}
+				for version := runnerVers.version; version >= VersionSSL30; version-- {
+					versionExtension = append(versionExtension, version)
+				}
+				testCases = append(testCases, testCase{
+					protocol: protocol,
+					testType: serverTest,
+					name:     "VersionNegotiationExtension-" + suffix,
+					config: Config{
+						MaxVersion: runnerVers.version,
+						Bugs: ProtocolBugs{
+							ExpectInitialRecordVersion: serverVers,
+							ClientVersionsExtension:    versionExtension,
+						},
+					},
+					flags:           []string{"-max-version", shimVersFlag},
+					expectedVersion: expectedVersion,
+				})
 			}
 		}
 	}
@@ -4178,7 +4196,19 @@ func addVersionNegotiationTests() {
 		name:     "VersionTooLow",
 		config: Config{
 			Bugs: ProtocolBugs{
-				SendClientVersion: 0x0200,
+				SendClientVersion:     0x0200,
+				OmitSupportedVersions: true,
+			},
+		},
+		shouldFail:    true,
+		expectedError: ":UNSUPPORTED_PROTOCOL:",
+	})
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "VersionExtensionTooLow",
+		config: Config{
+			Bugs: ProtocolBugs{
+				ClientVersionsExtension: []uint16{0x0200},
 			},
 		},
 		shouldFail:    true,
@@ -4245,6 +4275,34 @@ func addVersionNegotiationTests() {
 			"-max-version", strconv.Itoa(VersionTLS12),
 			"-fallback-version", strconv.Itoa(VersionTLS12),
 		},
+	})
+
+	// Test that the ClientHello.max_supported_version field is ignored for TLS
+	// 1.3.
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "IgnoreMaxVersionTLS13",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				OmitSupportedVersions: true,
+			},
+		},
+		expectedVersion: VersionTLS12,
+	})
+
+	// Test that the version field in the ClientHello is ignored in preference
+	// to the supported extensions value.
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "IgnoreVersionField",
+		config: Config{
+			Bugs: ProtocolBugs{
+				SendClientVersion:       VersionTLS12,
+				ClientVersionsExtension: []uint16{0x0301},
+			},
+		},
+		expectedVersion: VersionTLS10,
 	})
 
 	// On TLS 1.2 fallback, 1.3 ServerHellos are forbidden. (We would rather

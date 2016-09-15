@@ -287,6 +287,21 @@ NextCipherSuite:
 		hello.vers = c.config.Bugs.SendClientVersion
 	}
 
+	// TODO(svaldez): Add SupportedVersions support for DTLS.
+	if len(c.config.Bugs.ClientVersionsExtension) > 0 {
+		hello.supportedVersions = c.config.Bugs.ClientVersionsExtension
+	} else if !c.isDTLS && c.config.maxVersion(c.isDTLS) > VersionTLS12 &&
+		!c.config.Bugs.OmitSupportedVersions {
+		if hello.vers >= VersionTLS13 {
+			hello.vers = VersionTLS12
+		}
+		minVersion := c.config.minVersion(c.isDTLS)
+		maxVersion := c.config.maxVersion(c.isDTLS)
+		for version := maxVersion; version >= minVersion; version-- {
+			hello.supportedVersions = append(hello.supportedVersions, version)
+		}
+	}
+
 	var helloBytes []byte
 	if c.config.Bugs.SendV2ClientHello {
 		// Test that the peer left-pads random.
