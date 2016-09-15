@@ -656,6 +656,10 @@ int ssl_add_client_hello_body(SSL *ssl, CBB *body) {
   int has_session = ssl->session != NULL &&
                     !ssl->s3->initial_handshake_complete;
 
+  if (max_version >= TLS1_3_VERSION) {
+    ssl->client_version = TLS1_2_VERSION;
+  }
+
   CBB child;
   if (!CBB_add_u16(body, ssl->client_version) ||
       !CBB_add_bytes(body, ssl->s3->client_random, SSL3_RANDOM_SIZE) ||

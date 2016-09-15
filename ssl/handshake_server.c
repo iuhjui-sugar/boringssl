@@ -575,7 +575,8 @@ static int negotiate_version(
     }
   } else {
     if (client_hello->version >= TLS1_3_VERSION) {
-      version = TLS1_3_VERSION;
+      /* ClientHello version is capped at TLS 1.2. */
+      version = TLS1_2_VERSION;
     } else if (client_hello->version >= TLS1_2_VERSION) {
       version = TLS1_2_VERSION;
     } else if (client_hello->version >= TLS1_1_VERSION) {
@@ -584,6 +585,20 @@ static int negotiate_version(
       version = TLS1_VERSION;
     } else if (client_hello->version >= SSL3_VERSION) {
       version = SSL3_VERSION;
+    }
+  }
+
+  /* Check supported_versions extension if it is present. */
+  CBS supported_versions;
+  if (!SSL_is_dtls(ssl) &&
+      ssl_early_callback_get_extension(client_hello, &supported_versions,
+                                       TLSEXT_TYPE_supported_versions)) {
+    uint8_t alert;
+    if (!ssl_ext_supported_versions_parse_clienthello(ssl, &version, &alert,
+                                                      &supported_versions)) {
+      OPENSSL_PUT_ERROR(SSL, SSL_R_UNSUPPORTED_PROTOCOL);
+      *out_alert = alert;
+      return 0;
     }
   }
 

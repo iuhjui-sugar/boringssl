@@ -4143,6 +4143,20 @@ func addVersionNegotiationTests() {
 					flags:           []string{"-max-version", shimVersFlag},
 					expectedVersion: expectedVersion,
 				})
+				testCases = append(testCases, testCase{
+					protocol: protocol,
+					testType: serverTest,
+					name:     "VersionNegotiationExtension-" + suffix,
+					config: Config{
+						MaxVersion: runnerVers.version,
+						Bugs: ProtocolBugs{
+							ExpectInitialRecordVersion: serverVers,
+							ClientVersionsExtension:    []uint16{0x1111, expectedVersion, 0x2222},
+						},
+					},
+					flags:           []string{"-max-version", shimVersFlag},
+					expectedVersion: expectedVersion,
+				})
 			}
 		}
 	}
@@ -4197,7 +4211,8 @@ func addVersionNegotiationTests() {
 		name:     "VersionTooLow",
 		config: Config{
 			Bugs: ProtocolBugs{
-				SendClientVersion: 0x0200,
+				SendClientVersion:     0x0200,
+				OmitSupportedVersions: true,
 			},
 		},
 		shouldFail:    true,
