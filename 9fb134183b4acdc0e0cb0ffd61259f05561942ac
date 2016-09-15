@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0ff0f22_fb402f3a",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1172,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-15T21:15:02Z",
+      "side": 1,
+      "message": "Want to just delete this? Looks like there are no callers.",
+      "revId": "9fb134183b4acdc0e0cb0ffd61259f05561942ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0ff0f22_9b37ebe8",
+        "filename": "ssl/d1_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-15T21:15:02Z",
+      "side": 1,
+      "message": "[Perhaps we should remove this hook and just make the NULL cipher work if it\u0027s easy. Nice to cut down on a TLS/DTLS special-case. Anyway, later work.]",
+      "revId": "9fb134183b4acdc0e0cb0ffd61259f05561942ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0ff0f22_7b565f01",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-15T21:15:02Z",
+      "side": 1,
+      "message": "Want to rebalance the numbers while you\u0027re here? These aren\u0027t exported anywhere.",
+      "range": {
+        "startLine": 186,
+        "startChar": 19,
+        "endLine": 186,
+        "endChar": 30
+      },
+      "revId": "9fb134183b4acdc0e0cb0ffd61259f05561942ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0ff0f22_3b60d7d5",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 729,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-15T21:15:02Z",
+      "side": 1,
+      "message": "Nit: unnecessary parens",
+      "range": {
+        "startLine": 729,
+        "startChar": 33,
+        "endLine": 729,
+        "endChar": 34
+      },
+      "revId": "9fb134183b4acdc0e0cb0ffd61259f05561942ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0ff0f22_1b651be6",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1650,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-15T21:15:02Z",
+      "side": 1,
+      "message": "Unnecessary parens",
+      "range": {
+        "startLine": 1650,
+        "startChar": 34,
+        "endLine": 1650,
+        "endChar": 35
+      },
+      "revId": "9fb134183b4acdc0e0cb0ffd61259f05561942ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
