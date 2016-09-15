@@ -210,6 +210,7 @@ extern "C" {
 #define TLSEXT_TYPE_pre_shared_key 41
 #define TLSEXT_TYPE_early_data 42
 #define TLSEXT_TYPE_cookie 44
+#define TLSEXT_TYPE_supported_versions 0xff03
 
 /* TLSEXT_TYPE_draft_version is the extension used to advertise the TLS 1.3
  * draft implemented.
