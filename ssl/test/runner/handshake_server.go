@@ -213,9 +213,7 @@ func (hs *serverHandshakeState) readClientHello() error {
 			clientVersion = VersionTLS10
 		}
 	} else {
-		if hs.clientHello.vers >= VersionTLS13 {
-			clientVersion = VersionTLS13
-		} else if hs.clientHello.vers >= VersionTLS12 {
+		if hs.clientHello.vers >= VersionTLS12 {
 			clientVersion = VersionTLS12
 		} else if hs.clientHello.vers >= VersionTLS11 {
 			clientVersion = VersionTLS11
@@ -231,7 +229,23 @@ func (hs *serverHandshakeState) readClientHello() error {
 	} else if c.haveVers && config.Bugs.NegotiateVersionOnRenego != 0 {
 		c.vers = config.Bugs.NegotiateVersionOnRenego
 	} else {
-		c.vers, ok = config.mutualVersion(clientVersion, c.isDTLS)
+		version := clientVersion
+		if len(hs.clientHello.supportedVersions) > 0 {
+			minVersion := c.config.minVersion(c.isDTLS)
+			maxVersion := c.config.maxVersion(c.isDTLS)
+			for _, extVersion := range hs.clientHello.supportedVersions {
+				extVersion, ok = wireToVersion(extVersion, c.isDTLS)
+				if !ok {
+					continue
+				}
+				if minVersion <= extVersion && extVersion <= maxVersion {
+					version = extVersion
+					break
+				}
+			}
+		}
+
+		c.vers, ok = config.mutualVersion(version, c.isDTLS)
 		if !ok {
 			c.sendAlert(alertProtocolVersion)
 			return fmt.Errorf("tls: client offered an unsupported, maximum protocol version of %x", hs.clientHello.vers)
@@ -500,7 +514,8 @@ Curves:
 		ResendHelloRetryRequest:
 			// Send HelloRetryRequest.
 			helloRetryRequestMsg := helloRetryRequestMsg{
-				vers:          c.vers,
+				isDTLS:        c.isDTLS,
+				vers:          versionToWire(c.vers, c.isDTLS),
 				cipherSuite:   hs.hello.cipherSuite,
 				selectedGroup: selectedCurve,
 			}
