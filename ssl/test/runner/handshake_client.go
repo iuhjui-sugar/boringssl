@@ -285,6 +285,22 @@ NextCipherSuite:
 		}
 	}
 
+	if c.config.maxVersion(c.isDTLS) == VersionTLS13 &&
+		!c.config.Bugs.OmitSupportedVersions {
+		if hello.vers >= VersionTLS13 {
+			hello.vers = VersionTLS12
+		}
+		minVersion := c.config.minVersion(c.isDTLS)
+		maxVersion := c.config.maxVersion(c.isDTLS)
+		for version := maxVersion; version >= minVersion; version-- {
+			hello.supportedVersions = append(hello.supportedVersions, versionToWire(version, c.isDTLS))
+		}
+	}
+
+	if len(c.config.Bugs.SendSupportedVersions) > 0 {
+		hello.supportedVersions = c.config.Bugs.SendSupportedVersions
+	}
+
 	if c.config.Bugs.SendClientVersion != 0 {
 		hello.vers = c.config.Bugs.SendClientVersion
 	}
