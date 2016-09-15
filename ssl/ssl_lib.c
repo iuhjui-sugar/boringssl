@@ -951,6 +951,10 @@ static int set_min_version(const SSL_PROTOCOL_METHOD *method, uint16_t *out,
     return 1;
   }
 
+  if (version == TLS1_3_VERSION) {
+    version = TLS1_3_DRAFT_VERSION;
+  }
+
   return method->version_from_wire(out, version);
 }
 
@@ -963,6 +967,10 @@ static int set_max_version(const SSL_PROTOCOL_METHOD *method, uint16_t *out,
       *out = TLS1_2_VERSION;
     }
     return 1;
+  }
+
+  if (version == TLS1_3_VERSION) {
+    version = TLS1_3_DRAFT_VERSION;
   }
 
   return method->version_from_wire(out, version);

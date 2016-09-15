@@ -199,15 +199,28 @@ func (hs *serverHandshakeState) readClientHello() error {
 		hs.clientHello = newClientHello
 	}
 
+	actualClientVersion := hs.clientHello.vers
+
+	if len(hs.clientHello.supportedVersions) > 0 {
+		minVersion := c.config.minVersion(c.isDTLS)
+		maxVersion := c.config.maxVersion(c.isDTLS)
+		for _, version := range hs.clientHello.supportedVersions {
+			if minVersion <= version && version <= maxVersion {
+				actualClientVersion = version
+				break
+			}
+		}
+	}
+
 	if config.Bugs.RequireSameRenegoClientVersion && c.clientVersion != 0 {
-		if c.clientVersion != hs.clientHello.vers {
+		if c.clientVersion != actualClientVersion {
 			return fmt.Errorf("tls: client offered different version on renego")
 		}
 	}
-	c.clientVersion = hs.clientHello.vers
+	c.clientVersion = actualClientVersion
 
 	// Reject < 1.2 ClientHellos with signature_algorithms.
-	if c.clientVersion < VersionTLS12 && len(hs.clientHello.signatureAlgorithms) > 0 {
+	if hs.clientHello.vers < VersionTLS12 && len(hs.clientHello.signatureAlgorithms) > 0 {
 		return fmt.Errorf("tls: client included signature_algorithms before TLS 1.2")
 	}
 
@@ -238,7 +251,7 @@ func (hs *serverHandshakeState) readClientHello() error {
 	} else if c.haveVers && config.Bugs.NegotiateVersionOnRenego != 0 {
 		c.vers = config.Bugs.NegotiateVersionOnRenego
 	} else {
-		c.vers, ok = config.mutualVersion(hs.clientHello.vers, c.isDTLS)
+		c.vers, ok = config.mutualVersion(actualClientVersion, c.isDTLS)
 		if !ok {
 			c.sendAlert(alertProtocolVersion)
 			return fmt.Errorf("tls: client offered an unsupported, maximum protocol version of %x", hs.clientHello.vers)
@@ -451,6 +464,7 @@ Curves:
 		ResendHelloRetryRequest:
 			// Send HelloRetryRequest.
 			helloRetryRequestMsg := helloRetryRequestMsg{
+				isDTLS:        c.isDTLS,
 				vers:          c.vers,
 				cipherSuite:   hs.hello.cipherSuite,
 				selectedGroup: selectedCurve,
