@@ -568,6 +568,27 @@ static int negotiate_version(
       ssl->method->version_from_wire(client_hello->version);
   ssl->client_version = client_hello->version;
 
+  /* ClientHello version is capped at TLS 1.2. */
+  if (client_version > TLS1_2_VERSION) {
+    client_version = TLS1_2_VERSION;
+    ssl->client_version = ssl->method->version_from_wire(client_version);
+  }
+
+  /* Check supported_versions extension if it is present. */
+  CBS supported_versions;
+  if (!ssl->method->is_dtls &&
+      ssl_early_callback_get_extension(client_hello, &supported_versions,
+                                       TLSEXT_TYPE_supported_versions)) {
+    uint8_t alert;
+    if (!ssl_ext_supported_versions_parse_clienthello(
+            ssl, &max_version, &client_version, &alert, &supported_versions)) {
+      OPENSSL_PUT_ERROR(SSL, SSL_R_UNSUPPORTED_PROTOCOL);
+      *out_alert = alert;
+      return 0;
+    }
+    ssl->client_version = ssl->method->version_to_wire(max_version);
+  }
+
   /* Select the version to use. */
   uint16_t version = client_version;
   if (version > max_version) {

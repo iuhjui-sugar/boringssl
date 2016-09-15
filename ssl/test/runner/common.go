@@ -28,7 +28,7 @@ const (
 
 // The draft version of TLS 1.3 that is implemented here and sent in the draft
 // indicator extension.
-const tls13DraftVersion = 14
+const tls13DraftVersion = 0x1313
 
 const (
 	maxPlaintext        = 16384        // maximum plaintext payload length
@@ -94,6 +94,7 @@ const (
 	extensionPreSharedKey               uint16 = 41    // draft-ietf-tls-tls13-13
 	extensionEarlyData                  uint16 = 42    // draft-ietf-tls-tls13-13
 	extensionCookie                     uint16 = 44    // draft-ietf-tls-tls13-13
+	extensionSupportedVersions          uint16 = 46    // draft-ietf-tls-tls13-16
 	extensionCustom                     uint16 = 1234  // not IANA assigned
 	extensionNextProtoNeg               uint16 = 13172 // not IANA assigned
 	extensionRenegotiationInfo          uint16 = 0xff01
@@ -600,6 +601,14 @@ type ProtocolBugs struct {
 	// SendClientVersion, if non-zero, causes the client to send a different
 	// TLS version in the ClientHello than the maximum supported version.
 	SendClientVersion uint16
+
+	// OmitSupportedVersions, if non-zero, causes the client to always send the
+	// version Client Hello version field instead of sending the extension.
+	OmitSupportedVersions bool
+
+	// ForceSupportedVersions, if non-zero, causes the client to always send the
+	// supported versions extension.
+	ForceSupportedVersions bool
 
 	// NegotiateVersion, if non-zero, causes the server to negotiate the
 	// specifed TLS version rather than the version supported by either

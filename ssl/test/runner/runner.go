@@ -4124,6 +4124,34 @@ func addVersionNegotiationTests() {
 					flags:           []string{"-max-version", shimVersFlag},
 					expectedVersion: expectedVersion,
 				})
+				testCases = append(testCases, testCase{
+					protocol: protocol,
+					testType: clientTest,
+					name:     "VersionNegotiationExtension-Client-" + suffix,
+					config: Config{
+						MaxVersion: runnerVers.version,
+						Bugs: ProtocolBugs{
+							ExpectInitialRecordVersion: clientVers,
+							ForceSupportedVersions:     true,
+						},
+					},
+					flags:           []string{"-max-version", shimVersFlag},
+					expectedVersion: expectedVersion,
+				})
+				testCases = append(testCases, testCase{
+					protocol: protocol,
+					testType: serverTest,
+					name:     "VersionNegotiationExtension-Server-" + suffix,
+					config: Config{
+						MaxVersion: runnerVers.version,
+						Bugs: ProtocolBugs{
+							ExpectInitialRecordVersion: serverVers,
+							ForceSupportedVersions:     true,
+						},
+					},
+					flags:           []string{"-max-version", shimVersFlag},
+					expectedVersion: expectedVersion,
+				})
 			}
 		}
 	}
@@ -4245,6 +4273,20 @@ func addVersionNegotiationTests() {
 			"-max-version", strconv.Itoa(VersionTLS12),
 			"-fallback-version", strconv.Itoa(VersionTLS12),
 		},
+	})
+
+	// Test that the ClientHello.max_supported_version field is ignored for TLS
+	// 1.3.
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "IgnoreMaxVersionTLS13",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				OmitSupportedVersions: true,
+			},
+		},
+		expectedVersion: VersionTLS12,
 	})
 
 	// On TLS 1.2 fallback, 1.3 ServerHellos are forbidden. (We would rather
