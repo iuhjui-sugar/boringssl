@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4b2aa261_bdc113f9",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1280,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-09-16T16:32:27Z",
+      "side": 1,
+      "message": "Neat.",
+      "range": {
+        "startLine": 1280,
+        "startChar": 32,
+        "endLine": 1280,
+        "endChar": 34
+      },
+      "revId": "ced00ee10333b4050baa8055ff16482b2049da6b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
