@@ -22,6 +22,24 @@
       "revId": "ced00ee10333b4050baa8055ff16482b2049da6b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0ff0f22_de99e1c9",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1280,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-16T16:34:23Z",
+      "side": 1,
+      "message": "Well, this doesn\u0027t necessarily mean we like all of them. :-) But \"HIGH\" is a sufficiently useless thing that we probably should just leave it at that.",
+      "parentUuid": "4b2aa261_bdc113f9",
+      "revId": "ced00ee10333b4050baa8055ff16482b2049da6b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
