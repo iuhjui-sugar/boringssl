@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0ff0f22_fee5bd35",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 931,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-16T16:42:50Z",
+      "side": 1,
+      "message": "You\u0027ll need to also add a DECLARE_STACK_OF(ASN1_OBJECT) somewhere in this (atrocious) header. I put it after struct asn1_object_st\u0027s definition in mine. Otherwise C++ gets confused depending on the include order.",
+      "revId": "0bbc112ccf0f5f97b8017b693901ba50e0f8542c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
