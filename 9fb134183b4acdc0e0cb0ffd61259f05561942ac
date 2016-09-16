@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "b0ff0f22_beaa9570",
+        "filename": "ssl/d1_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-16T05:07:09Z",
+      "side": 1,
+      "message": "That\u0027ll be good. I went to do some cleanup to e_tls.c post-RC4-removal and realized that it too depended on the NULL going away. I want to fold away all the EVP_CIPH_CBC_MODE checks. After that we may be able to tidy up the Lucky 13 craziness a little. The current three-function split is slightly messy. (No particular rush though.)",
+      "parentUuid": "4b2aa261_7cd881e4",
+      "revId": "9fb134183b4acdc0e0cb0ffd61259f05561942ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0ff0f22_7b565f01",
         "filename": "ssl/internal.h",
         "patchSetId": 2
