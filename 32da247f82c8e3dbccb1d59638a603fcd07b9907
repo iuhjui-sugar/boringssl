@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4b2aa261_c39b4566",
+        "filename": "crypto/cipher/aead.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-09-17T01:01:29Z",
+      "side": 1,
+      "message": "One-liner feels weird outside a header file, but up to you.",
+      "range": {
+        "startLine": 147,
+        "startChar": 78,
+        "endLine": 147,
+        "endChar": 79
+      },
+      "revId": "32da247f82c8e3dbccb1d59638a603fcd07b9907",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
