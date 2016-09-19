@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4b2aa261_d95b3425",
+        "filename": "crypto/bn/bn_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-09-19T01:37:19Z",
+      "side": 1,
+      "message": "Maybe mention the Android reason for this in a comment?",
+      "revId": "1e08c8a1743e154bcc6ae4550b3ef15f66f864c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
