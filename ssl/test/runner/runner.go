@@ -8163,6 +8163,76 @@ func addTLS13HandshakeTests() {
 	})
 }
 
+func addPeekTests() {
+	// Test SSL_peek works.
+	testCases = append(testCases, testCase{
+		name:  "Peek-Basic",
+		flags: []string{"-peek-then-read"},
+	})
+
+	// Test SSL_peek can drive the initial handshake.
+	testCases = append(testCases, testCase{
+		name: "Peek-ImplicitHandshake",
+		flags: []string{
+			"-peek-then-read",
+			"-implicit-handshake",
+		},
+	})
+
+	// Test SSL_peek can discover and drive a renegotiation.
+	testCases = append(testCases, testCase{
+		name: "Peek-Renegotiate",
+		config: Config{
+			MaxVersion: VersionTLS12,
+		},
+		renegotiate: 1,
+		flags: []string{
+			"-peek-then-read",
+			"-renegotiate-freely",
+			"-expect-total-renegotiations", "1",
+		},
+	})
+
+	// Test SSL_peek can discover a close_notify.
+	testCases = append(testCases, testCase{
+		name: "Peek-Shutdown",
+		config: Config{
+			Bugs: ProtocolBugs{
+				ExpectCloseNotify: true,
+			},
+		},
+		flags: []string{
+			"-peek-then-read",
+			"-check-close-notify",
+		},
+	})
+
+	// Test SSL_peek can discover an alert.
+	testCases = append(testCases, testCase{
+		name: "Peek-Alert",
+		config: Config{
+			Bugs: ProtocolBugs{
+				SendSpuriousAlert: alertRecordOverflow,
+			},
+		},
+		flags:         []string{"-peek-then-read"},
+		shouldFail:    true,
+		expectedError: ":TLSV1_ALERT_RECORD_OVERFLOW:",
+	})
+
+	// Test SSL_peek can handle KeyUpdate.
+	testCases = append(testCases, testCase{
+		name: "Peek-KeyUpdate",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				SendKeyUpdateBeforeEveryAppDataRecord: true,
+			},
+		},
+		flags: []string{"-peek-then-read"},
+	})
+}
+
 func worker(statusChan chan statusMsg, c chan *testCase, shimPath string, wg *sync.WaitGroup) {
 	defer wg.Done()
 
@@ -8279,6 +8349,7 @@ func main() {
 	addWrongMessageTypeTests()
 	addTrailingMessageDataTests()
 	addTLS13HandshakeTests()
+	addPeekTests()
 
 	var wg sync.WaitGroup
 
