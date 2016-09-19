@@ -2226,9 +2226,7 @@ int ssl_ext_key_share_parse_clienthello(SSL *ssl, int *out_found,
 }
 
 int ssl_ext_key_share_add_serverhello(SSL *ssl, CBB *out) {
-  if (ssl->s3->tmp.new_cipher->algorithm_mkey != SSL_kECDHE) {
-    return 1;
-  }
+  assert(ssl->s3->tmp.new_cipher->algorithm_mkey == SSL_kECDHE);
 
   uint16_t group_id;
   CBB kse_bytes, public_key;
