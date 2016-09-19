@@ -303,35 +303,25 @@ static enum ssl_hs_wait_t do_process_server_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
   }
 
   /* Resolve ECDHE and incorporate it into the secret. */
-  if (cipher->algorithm_mkey == SSL_kECDHE) {
-    if (!have_key_share) {
-      OPENSSL_PUT_ERROR(SSL, SSL_R_MISSING_KEY_SHARE);
-      ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_MISSING_EXTENSION);
-      return ssl_hs_error;
-    }
+  assert(cipher->algorithm_mkey == SSL_kECDHE);
+  if (!have_key_share) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_MISSING_KEY_SHARE);
+    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_MISSING_EXTENSION);
+    return ssl_hs_error;
+  }
 
-    uint8_t *dhe_secret;
-    size_t dhe_secret_len;
-    if (!ssl_ext_key_share_parse_serverhello(ssl, &dhe_secret, &dhe_secret_len,
-                                             &alert, &key_share)) {
-      ssl3_send_alert(ssl, SSL3_AL_FATAL, alert);
-      return ssl_hs_error;
-    }
+  uint8_t *dhe_secret;
+  size_t dhe_secret_len;
+  if (!ssl_ext_key_share_parse_serverhello(ssl, &dhe_secret, &dhe_secret_len,
+                                           &alert, &key_share)) {
+    ssl3_send_alert(ssl, SSL3_AL_FATAL, alert);
+    return ssl_hs_error;
+  }
 
-    int ok = tls13_advance_key_schedule(ssl, dhe_secret, dhe_secret_len);
-    OPENSSL_free(dhe_secret);
-    if (!ok) {
-      return ssl_hs_error;
-    }
-  } else {
-    if (have_key_share) {
-      OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_EXTENSION);
-      ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_UNSUPPORTED_EXTENSION);
-      return ssl_hs_error;
-    }
-    if (!tls13_advance_key_schedule(ssl, kZeroes, hs->hash_len)) {
-      return ssl_hs_error;
-    }
+  int ok = tls13_advance_key_schedule(ssl, dhe_secret, dhe_secret_len);
+  OPENSSL_free(dhe_secret);
+  if (!ok) {
+    return ssl_hs_error;
   }
 
   /* If there was no HelloRetryRequest, the version negotiation logic has

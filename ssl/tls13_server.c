@@ -71,11 +71,8 @@ static int resolve_psk_secret(SSL *ssl) {
 static int resolve_ecdhe_secret(SSL *ssl, int *out_need_retry,
                                 struct ssl_early_callback_ctx *early_ctx) {
   *out_need_retry = 0;
-  SSL_HANDSHAKE *hs = ssl->s3->hs;
 
-  if (ssl->s3->tmp.new_cipher->algorithm_mkey != SSL_kECDHE) {
-    return tls13_advance_key_schedule(ssl, kZeroes, hs->hash_len);
-  }
+  assert(ssl->s3->tmp.new_cipher->algorithm_mkey == SSL_kECDHE);
 
   CBS key_share;
   if (!ssl_early_callback_get_extension(early_ctx, &key_share,
