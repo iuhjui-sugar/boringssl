@@ -1,0 +1,444 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0ff0f22_0fba75ba",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-19T22:01:57Z",
+      "side": 1,
+      "message": "0x130e maybe? (1, 3, 14) Gives us a pattern to allocate new ones.",
+      "range": {
+        "startLine": 568,
+        "startChar": 31,
+        "endLine": 568,
+        "endChar": 35
+      },
+      "revId": "ac1beb3a4e0a8714902de7f252ac5fb63afb3a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0ff0f22_efdf49f4",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 661,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-19T22:01:57Z",
+      "side": 1,
+      "message": "This needs to reflect what was sent over the wire, or you break RSA key exchange.",
+      "range": {
+        "startLine": 661,
+        "startChar": 31,
+        "endLine": 661,
+        "endChar": 45
+      },
+      "revId": "ac1beb3a4e0a8714902de7f252ac5fb63afb3a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0ff0f22_efb629d6",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 849,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-19T22:01:57Z",
+      "side": 1,
+      "message": "This doesn\u0027t work right anymore.",
+      "revId": "ac1beb3a4e0a8714902de7f252ac5fb63afb3a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0ff0f22_0fe395ca",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-19T22:01:57Z",
+      "side": 1,
+      "message": "This breaks RSA key exchange. Add a test when fixing it.",
+      "revId": "ac1beb3a4e0a8714902de7f252ac5fb63afb3a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0ff0f22_afc0211e",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-19T22:01:57Z",
+      "side": 1,
+      "message": "SSL_is_dtls(ssl). But we should make this work on both sides so we have experience with whether the version_from_wire stuff is okay.",
+      "range": {
+        "startLine": 579,
+        "startChar": 7,
+        "endLine": 579,
+        "endChar": 27
+      },
+      "revId": "ac1beb3a4e0a8714902de7f252ac5fb63afb3a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0ff0f22_cfc36d2a",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-19T22:01:57Z",
+      "side": 1,
+      "message": "Inline this. We shouldn\u0027t continue with this pattern of side functions everywhere. It means we end up with these large numbers of parameters and it\u0027s very confusing because you don\u0027t know what context things get called in. (We really should go back and inline all the others too.)",
+      "range": {
+        "startLine": 583,
+        "startChar": 9,
+        "endLine": 583,
+        "endChar": 53
+      },
+      "revId": "ac1beb3a4e0a8714902de7f252ac5fb63afb3a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0ff0f22_2fee51b2",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 2276,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-19T22:01:57Z",
+      "side": 1,
+      "message": "This should be using the kVersions table elsewhere.",
+      "revId": "ac1beb3a4e0a8714902de7f252ac5fb63afb3a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0ff0f22_4fe99da8",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 2302,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-19T22:01:57Z",
+      "side": 1,
+      "message": "If things were inlined, it\u0027d b clear this is a no-op.",
+      "revId": "ac1beb3a4e0a8714902de7f252ac5fb63afb3a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0ff0f22_6ff45982",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 2315,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-19T22:01:57Z",
+      "side": 1,
+      "message": "Note if things were inlined, this wouldn\u0027t be needed.",
+      "revId": "ac1beb3a4e0a8714902de7f252ac5fb63afb3a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0ff0f22_8fefa5b0",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 2321,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-19T22:01:57Z",
+      "side": 1,
+      "message": "Don\u0027t map this. The point of this extension is that the version field simply is TLS1_3_DRAFT_VERSION. Otherwise we don\u0027t get what we need out of sessions. I think we need the version enums. O",
+      "revId": "ac1beb3a4e0a8714902de7f252ac5fb63afb3a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0ff0f22_cfdc8d02",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-19T22:01:57Z",
+      "side": 1,
+      "message": "This comment is wrong",
+      "range": {
+        "startLine": 97,
+        "startChar": 56,
+        "endLine": 97,
+        "endChar": 79
+      },
+      "revId": "ac1beb3a4e0a8714902de7f252ac5fb63afb3a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0ff0f22_afd94110",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-19T22:01:57Z",
+      "side": 1,
+      "message": "Unused?",
+      "range": {
+        "startLine": 101,
+        "startChar": 1,
+        "endLine": 101,
+        "endChar": 20
+      },
+      "revId": "ac1beb3a4e0a8714902de7f252ac5fb63afb3a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0ff0f22_4f1abdd9",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-19T22:01:57Z",
+      "side": 1,
+      "message": "A bug called OmitSupportedVersions should mean that the supported versions extension is omitted and otherwise nothing changes. If you want to coordinate a change to the ClientHello.version field, also set SendClientVersion.\n\nFor maintainability, bugs should be minimal.",
+      "revId": "ac1beb3a4e0a8714902de7f252ac5fb63afb3a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0ff0f22_8f10c5bb",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-19T22:01:57Z",
+      "side": 1,
+      "message": "SendSupportedVersions\n\nWe always use Send* so it\u0027s clear this affects only what you send and nothing else.",
+      "range": {
+        "startLine": 611,
+        "startChar": 1,
+        "endLine": 611,
+        "endChar": 24
+      },
+      "revId": "ac1beb3a4e0a8714902de7f252ac5fb63afb3a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0ff0f22_2f1f71c9",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-19T22:01:57Z",
+      "side": 1,
+      "message": "All policy goes in the handshake, not the serialization. Otherwise we can\u0027t write tests.",
+      "revId": "ac1beb3a4e0a8714902de7f252ac5fb63afb3a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0ff0f22_0f24b51f",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-19T22:01:57Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "ac1beb3a4e0a8714902de7f252ac5fb63afb3a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0ff0f22_0f0dd597",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 4128,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-19T22:01:57Z",
+      "side": 1,
+      "message": "These should be opaque numbers. No arithmetic on them.",
+      "revId": "ac1beb3a4e0a8714902de7f252ac5fb63afb3a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0ff0f22_2ff89161",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 4134,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-19T22:01:57Z",
+      "side": 1,
+      "message": "What\u0027s this testing? It seems to be redundant with the existing ones. You actually want to test that the server correctly picks out any given version, which means you do it against, say, []uint16{0x1111, version, 0x2222}",
+      "range": {
+        "startLine": 4134,
+        "startChar": 16,
+        "endLine": 4134,
+        "endChar": 43
+      },
+      "revId": "ac1beb3a4e0a8714902de7f252ac5fb63afb3a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0ff0f22_4ff3dd89",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 4208,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-19T22:01:57Z",
+      "side": 1,
+      "message": "Low and high are not meaningful for the version extension. They\u0027re opaque numbers.",
+      "range": {
+        "startLine": 4208,
+        "startChar": 13,
+        "endLine": 4208,
+        "endChar": 35
+      },
+      "revId": "ac1beb3a4e0a8714902de7f252ac5fb63afb3a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0ff0f22_8ff9e56b",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 4280,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-19T22:01:57Z",
+      "side": 1,
+      "message": "If the versions change goes in, that\u0027s not what this field will be called. Nor is it what it\u0027s called prior to TLS 1.3.\n\nPerhaps \"Test that TLS 1.3 is not negotiated via the ClientHello version field.\"",
+      "range": {
+        "startLine": 4280,
+        "startChar": 30,
+        "endLine": 4280,
+        "endChar": 51
+      },
+      "revId": "ac1beb3a4e0a8714902de7f252ac5fb63afb3a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0ff0f22_cf2dad03",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 4302,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-19T22:01:57Z",
+      "side": 1,
+      "message": "VersionTLS10",
+      "range": {
+        "startLine": 4302,
+        "startChar": 38,
+        "endLine": 4302,
+        "endChar": 44
+      },
+      "revId": "ac1beb3a4e0a8714902de7f252ac5fb63afb3a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0ff0f22_ef20690d",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 4307,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-19T22:01:57Z",
+      "side": 1,
+      "message": "Add tests:\n\n- Server tolerance to unknown values.\n- Client notices if the server selects something the client wasn\u0027t expecting.",
+      "revId": "ac1beb3a4e0a8714902de7f252ac5fb63afb3a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
