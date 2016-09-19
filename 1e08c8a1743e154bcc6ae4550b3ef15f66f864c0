@@ -16,6 +16,24 @@
       "revId": "1e08c8a1743e154bcc6ae4550b3ef15f66f864c0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0ff0f22_04737ca8",
+        "filename": "crypto/bn/bn_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-19T15:23:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b2aa261_d95b3425",
+      "revId": "1e08c8a1743e154bcc6ae4550b3ef15f66f864c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
