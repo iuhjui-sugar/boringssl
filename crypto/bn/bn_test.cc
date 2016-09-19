@@ -72,6 +72,10 @@
 #define __STDC_FORMAT_MACROS
 #endif
 
+#if !defined(__STDC_CONSTANT_MACROS)
+#define __STDC_CONSTANT_MACROS
+#endif
+
 #include <assert.h>
 #include <errno.h>
 #include <limits.h>
