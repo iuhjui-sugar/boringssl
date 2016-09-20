@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "90bccb98_24fc6ecf",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-09-20T22:14:49Z",
+      "side": 1,
+      "message": "is explicitIVLen in 1.3 always zero?",
+      "range": {
+        "startLine": 479,
+        "startChar": 30,
+        "endLine": 479,
+        "endChar": 43
+      },
+      "revId": "c03fd25be92bea7fd5d66e0a2fdb53f353d8ee30",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90bccb98_64db466f",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-09-20T22:14:49Z",
+      "side": 1,
+      "message": "(ditto about explicitIVLen.)",
+      "range": {
+        "startLine": 557,
+        "startChar": 31,
+        "endLine": 557,
+        "endChar": 44
+      },
+      "revId": "c03fd25be92bea7fd5d66e0a2fdb53f353d8ee30",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
