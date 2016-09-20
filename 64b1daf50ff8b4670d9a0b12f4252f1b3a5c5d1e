@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10453b84_3ebc8989",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 4024,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-20T21:49:42Z",
+      "side": 1,
+      "message": "I\u0027ll go remove this comment since it\u0027s totally false now. I think SSL_ST_INIT was what finally purged it.",
+      "revId": "64b1daf50ff8b4670d9a0b12f4252f1b3a5c5d1e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
