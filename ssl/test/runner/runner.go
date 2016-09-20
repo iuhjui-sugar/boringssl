@@ -8209,6 +8209,19 @@ func addTLS13HandshakeTests() {
 		shouldFail:    true,
 		expectedError: ":DECODE_ERROR:",
 	})
+
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "TLS13-TrailingKeyShareData",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				TrailingKeyShareData: true,
+			},
+		},
+		shouldFail:    true,
+		expectedError: ":DECODE_ERROR:",
+	})
 }
 
 func worker(statusChan chan statusMsg, c chan *testCase, shimPath string, wg *sync.WaitGroup) {
