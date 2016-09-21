@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "709e777e_c1f2a285",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2206,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-09-21T17:32:33Z",
+      "side": 1,
+      "message": "Protocol suggestion: require ids to be in ascending order so that it\u0027s easy to reject duplicates? (Maybe too late and too different from the rest of TLS.)\n\nDo we want to reject id \u003d\u003d group_id \u0026\u0026 found so that we catch duplicates of the one that we\u0027re looking for at least?",
+      "revId": "6a52046ef00e8047266a8e3a547cb017ac32e088",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
