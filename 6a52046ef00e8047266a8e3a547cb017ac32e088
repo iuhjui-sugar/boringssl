@@ -34,6 +34,24 @@
       "revId": "6a52046ef00e8047266a8e3a547cb017ac32e088",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10453b84_6167901f",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2206,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-21T17:40:23Z",
+      "side": 1,
+      "message": "Actually, the spec currently says:\n\nclient_shares\nA list of offered KeyShareEntry values in descending order of client preference. This vector MAY be empty if the client is requesting a HelloRetryRequest. The ordering of values here SHOULD match that of the ordering of offered support in the “supported_groups” extension.\n\nI could try to get that changed to a MUST and then it\u0027d be reasonably straight-forward to enforce this.",
+      "parentUuid": "10453b84_e1a1e046",
+      "revId": "6a52046ef00e8047266a8e3a547cb017ac32e088",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
