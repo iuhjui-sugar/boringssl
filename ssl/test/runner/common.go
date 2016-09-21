@@ -1076,6 +1076,10 @@ type ProtocolBugs struct {
 	// always send a ServerKeyExchange for PSK ciphers, even if the identity
 	// hint is empty.
 	AlwaysSendPreSharedKeyIdentityHint bool
+
+	// InvalidChannelIDSignature, if true, causes the client to generate an
+	// invalid Channel ID signature.
+	InvalidChannelIDSignature bool
 }
 
 func (c *Config) serverInit() {
