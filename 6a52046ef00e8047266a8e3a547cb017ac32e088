@@ -16,6 +16,24 @@
       "revId": "6a52046ef00e8047266a8e3a547cb017ac32e088",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10453b84_e1a1e046",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2206,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-21T17:39:18Z",
+      "side": 1,
+      "message": "Done.\n\nIs it actually that much easier to look for them? You still need to parse them and can\u0027t binary search because each has different length.\n\nThey\u0027re in preference order... except that the old extension is also the preference order. The relationship between the two is confusing. I think the intent is to allow both servers which select group based on the full preference order (what we do because it\u0027s simpler) and servers which select based first on the predicted list and then the unpredicted list.",
+      "parentUuid": "709e777e_c1f2a285",
+      "revId": "6a52046ef00e8047266a8e3a547cb017ac32e088",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
