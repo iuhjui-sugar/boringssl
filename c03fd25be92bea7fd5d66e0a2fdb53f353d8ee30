@@ -25,6 +25,24 @@
     },
     {
       "key": {
+        "uuid": "10453b84_3ea00900",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-21T00:39:32Z",
+      "side": 1,
+      "message": "Yeah, it\u0027s always zero. Removed.",
+      "parentUuid": "90bccb98_24fc6ecf",
+      "revId": "c03fd25be92bea7fd5d66e0a2fdb53f353d8ee30",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "90bccb98_64db466f",
         "filename": "ssl/test/runner/conn.go",
         "patchSetId": 2
