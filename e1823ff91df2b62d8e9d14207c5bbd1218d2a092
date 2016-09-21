@@ -22,6 +22,24 @@
       "revId": "e1823ff91df2b62d8e9d14207c5bbd1218d2a092",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10453b84_e14ba077",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-21T18:49:38Z",
+      "side": 1,
+      "message": "If the client sends 0x0200, we should reject. Calling version_from_wire also won\u0027t work in future with supported_versions. It\u0027s spelled out right now, but it won\u0027t get any larger either.",
+      "parentUuid": "d011e399_44eeeeb2",
+      "revId": "e1823ff91df2b62d8e9d14207c5bbd1218d2a092",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
