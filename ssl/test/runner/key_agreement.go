@@ -345,8 +345,6 @@ func (e *cecpq1Curve) finish(peerKey []byte) (preMasterSecret []byte, err error)
 
 func curveForCurveID(id CurveID) (ecdhCurve, bool) {
 	switch id {
-	case CurveP224:
-		return &ellipticECDHCurve{curve: elliptic.P224()}, true
 	case CurveP256:
 		return &ellipticECDHCurve{curve: elliptic.P256()}, true
 	case CurveP384:
