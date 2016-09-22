@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b0ff0f22_ef6f49ba",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-22T16:03:07Z",
+      "side": 1,
+      "message": "I was trying to skip sufficiently ahead since we don\u0027t match draft at all, but I guess no one else is going to start using this format.",
+      "parentUuid": "b0ff0f22_0fba75ba",
+      "range": {
+        "startLine": 568,
+        "startChar": 31,
+        "endLine": 568,
+        "endChar": 35
+      },
+      "revId": "ac1beb3a4e0a8714902de7f252ac5fb63afb3a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0ff0f22_efdf49f4",
         "filename": "ssl/handshake_client.c",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2016-09-19T22:01:57Z",
       "side": 1,
       "message": "This needs to reflect what was sent over the wire, or you break RSA key exchange.",
+      "range": {
+        "startLine": 661,
+        "startChar": 31,
+        "endLine": 661,
+        "endChar": 45
+      },
+      "revId": "ac1beb3a4e0a8714902de7f252ac5fb63afb3a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0ff0f22_8fa0c501",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 661,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-22T16:03:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0ff0f22_efdf49f4",
       "range": {
         "startLine": 661,
         "startChar": 31,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "9035ab64_4280f22d",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 849,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-22T16:03:07Z",
+      "side": 1,
+      "message": "Should still work given the current scheme.",
+      "parentUuid": "b0ff0f22_efb629d6",
+      "revId": "ac1beb3a4e0a8714902de7f252ac5fb63afb3a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0ff0f22_0fe395ca",
         "filename": "ssl/handshake_server.c",
         "patchSetId": 3
@@ -82,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "b0ff0f22_0fb4b53d",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-22T16:03:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0ff0f22_0fe395ca",
+      "revId": "ac1beb3a4e0a8714902de7f252ac5fb63afb3a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0ff0f22_afc0211e",
         "filename": "ssl/handshake_server.c",
         "patchSetId": 3
@@ -93,6 +177,30 @@
       "writtenOn": "2016-09-19T22:01:57Z",
       "side": 1,
       "message": "SSL_is_dtls(ssl). But we should make this work on both sides so we have experience with whether the version_from_wire stuff is okay.",
+      "range": {
+        "startLine": 579,
+        "startChar": 7,
+        "endLine": 579,
+        "endChar": 27
+      },
+      "revId": "ac1beb3a4e0a8714902de7f252ac5fb63afb3a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0ff0f22_2faf71ef",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-22T16:03:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0ff0f22_afc0211e",
       "range": {
         "startLine": 579,
         "startChar": 7,
@@ -139,6 +247,24 @@
       "writtenOn": "2016-09-19T22:01:57Z",
       "side": 1,
       "message": "This should be using the kVersions table elsewhere.",
+      "revId": "ac1beb3a4e0a8714902de7f252ac5fb63afb3a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9035ab64_e21d8622",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 2276,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-22T16:03:07Z",
+      "side": 1,
+      "message": "Should work with only the wire protocol change.",
+      "parentUuid": "b0ff0f22_2fee51b2",
       "revId": "ac1beb3a4e0a8714902de7f252ac5fb63afb3a5c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -219,6 +345,30 @@
     },
     {
       "key": {
+        "uuid": "9035ab64_0223ca6d",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-22T16:03:07Z",
+      "side": 1,
+      "message": "?",
+      "parentUuid": "b0ff0f22_cfdc8d02",
+      "range": {
+        "startLine": 97,
+        "startChar": 56,
+        "endLine": 97,
+        "endChar": 79
+      },
+      "revId": "ac1beb3a4e0a8714902de7f252ac5fb63afb3a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0ff0f22_afd94110",
         "filename": "ssl/test/runner/common.go",
         "patchSetId": 3
@@ -230,6 +380,30 @@
       "writtenOn": "2016-09-19T22:01:57Z",
       "side": 1,
       "message": "Unused?",
+      "range": {
+        "startLine": 101,
+        "startChar": 1,
+        "endLine": 101,
+        "endChar": 20
+      },
+      "revId": "ac1beb3a4e0a8714902de7f252ac5fb63afb3a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9035ab64_a2277e76",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-22T16:03:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0ff0f22_afd94110",
       "range": {
         "startLine": 101,
         "startChar": 1,
@@ -299,6 +473,24 @@
     },
     {
       "key": {
+        "uuid": "9035ab64_c22c025b",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-22T16:03:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0ff0f22_2f1f71c9",
+      "revId": "ac1beb3a4e0a8714902de7f252ac5fb63afb3a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0ff0f22_0f24b51f",
         "filename": "ssl/test/runner/handshake_messages.go",
         "patchSetId": 3
@@ -310,6 +502,24 @@
       "writtenOn": "2016-09-19T22:01:57Z",
       "side": 1,
       "message": "Ditto.",
+      "revId": "ac1beb3a4e0a8714902de7f252ac5fb63afb3a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9035ab64_6212d611",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-22T16:03:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0ff0f22_0f24b51f",
       "revId": "ac1beb3a4e0a8714902de7f252ac5fb63afb3a5c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -333,6 +543,24 @@
     },
     {
       "key": {
+        "uuid": "9035ab64_820fdae6",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 4128,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-22T16:03:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0ff0f22_0f0dd597",
+      "revId": "ac1beb3a4e0a8714902de7f252ac5fb63afb3a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0ff0f22_2ff89161",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 3
@@ -344,6 +572,30 @@
       "writtenOn": "2016-09-19T22:01:57Z",
       "side": 1,
       "message": "What\u0027s this testing? It seems to be redundant with the existing ones. You actually want to test that the server correctly picks out any given version, which means you do it against, say, []uint16{0x1111, version, 0x2222}",
+      "range": {
+        "startLine": 4134,
+        "startChar": 16,
+        "endLine": 4134,
+        "endChar": 43
+      },
+      "revId": "ac1beb3a4e0a8714902de7f252ac5fb63afb3a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9035ab64_221cce1e",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 4134,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-22T16:03:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0ff0f22_2ff89161",
       "range": {
         "startLine": 4134,
         "startChar": 16,
@@ -379,6 +631,30 @@
     },
     {
       "key": {
+        "uuid": "9035ab64_4219d22d",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 4208,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-22T16:03:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0ff0f22_4ff3dd89",
+      "range": {
+        "startLine": 4208,
+        "startChar": 13,
+        "endLine": 4208,
+        "endChar": 35
+      },
+      "revId": "ac1beb3a4e0a8714902de7f252ac5fb63afb3a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0ff0f22_8ff9e56b",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 3
@@ -402,6 +678,30 @@
     },
     {
       "key": {
+        "uuid": "9035ab64_e246e608",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 4280,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-22T16:03:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0ff0f22_8ff9e56b",
+      "range": {
+        "startLine": 4280,
+        "startChar": 30,
+        "endLine": 4280,
+        "endChar": 51
+      },
+      "revId": "ac1beb3a4e0a8714902de7f252ac5fb63afb3a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0ff0f22_cf2dad03",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 3
@@ -413,6 +713,30 @@
       "writtenOn": "2016-09-19T22:01:57Z",
       "side": 1,
       "message": "VersionTLS10",
+      "range": {
+        "startLine": 4302,
+        "startChar": 38,
+        "endLine": 4302,
+        "endChar": 44
+      },
+      "revId": "ac1beb3a4e0a8714902de7f252ac5fb63afb3a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9035ab64_024c2a25",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 4302,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-22T16:03:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0ff0f22_cf2dad03",
       "range": {
         "startLine": 4302,
         "startChar": 38,
