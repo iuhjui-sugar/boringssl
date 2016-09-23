@@ -85,6 +85,7 @@ extern "C" {
 #define OPENSSL_ARM
 #elif defined(__PPC64__) || defined(__powerpc64__)
 #define OPENSSL_64_BIT
+#define OPENSSL_PPC64LE
 #elif defined(__mips__) && !defined(__LP64__)
 #define OPENSSL_32_BIT
 #define OPENSSL_MIPS
