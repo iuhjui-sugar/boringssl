@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b041cf2d_4b014512",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3105,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-23T04:56:01Z",
+      "side": 1,
+      "message": "Alternatively, think we can just enable it everywhere? I\u0027m fine with either.",
+      "revId": "ed4f788a89d3616c2d9781f4190ae3f2dd2af3e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
