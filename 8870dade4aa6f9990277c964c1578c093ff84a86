@@ -1,0 +1,483 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b041cf2d_8bd08d1c",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-23T17:53:03Z",
+      "side": 1,
+      "message": "0x7f0e to match the scheme in the draft.",
+      "range": {
+        "startLine": 565,
+        "startChar": 29,
+        "endLine": 565,
+        "endChar": 35
+      },
+      "revId": "8870dade4aa6f9990277c964c1578c093ff84a86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b041cf2d_6b0361b3",
+        "filename": "include/openssl/tls1.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-23T17:53:03Z",
+      "side": 1,
+      "message": "Now that it\u0027s been allocated in the draft, we can go ahead and use 43 I think.",
+      "range": {
+        "startLine": 213,
+        "startChar": 39,
+        "endLine": 213,
+        "endChar": 45
+      },
+      "revId": "8870dade4aa6f9990277c964c1578c093ff84a86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b041cf2d_abbe29cf",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-23T17:53:03Z",
+      "side": 1,
+      "message": "Why is this set here? Set it in ssl3_send_client_hello where client_version is normally set. This is also missing a version_to_wire mapping which ssl3_send_client_hello can do naturally.",
+      "revId": "8870dade4aa6f9990277c964c1578c093ff84a86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b041cf2d_cb9c556e",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-23T17:53:03Z",
+      "side": 1,
+      "message": "Just remove this case altogether and start the tower at \u003e\u003d TLS1_2_VERSION.",
+      "revId": "8870dade4aa6f9990277c964c1578c093ff84a86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b041cf2d_0b973d48",
+        "filename": "ssl/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 894,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-23T17:53:03Z",
+      "side": 1,
+      "message": "Seems to be unused.",
+      "revId": "8870dade4aa6f9990277c964c1578c093ff84a86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b041cf2d_cbc3754e",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 2297,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-23T17:53:03Z",
+      "side": 1,
+      "message": "This should happen in version_to_wire",
+      "revId": "8870dade4aa6f9990277c964c1578c093ff84a86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b041cf2d_ebc8316b",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 2301,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-23T17:53:03Z",
+      "side": 1,
+      "message": "This needs to go through version_to_wire. (Versions are never written to a CBB without that mapping.)",
+      "revId": "8870dade4aa6f9990277c964c1578c093ff84a86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b041cf2d_0bae5da0",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 2314,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-23T17:53:03Z",
+      "side": 1,
+      "message": "Inline this into negotiate_version. Otherwise you have lots of duplicate versions and it\u0027s confusing.",
+      "revId": "8870dade4aa6f9990277c964c1578c093ff84a86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b041cf2d_2bab1991",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 2332,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-23T17:53:03Z",
+      "side": 1,
+      "message": "This does not correctly reject odd-length versions.\n\nwhile (CBS_len(\u0026versions) !\u003d 0) {\n  uint16_t version;\n  if (!CBS_get_u16(\u0026versions, \u0026version)) {\n    return 0;\n  }\n  ...",
+      "revId": "8870dade4aa6f9990277c964c1578c093ff84a86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b041cf2d_6bb521e7",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 2334,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-23T17:53:03Z",
+      "side": 1,
+      "message": "Map in version_from_wire.",
+      "revId": "8870dade4aa6f9990277c964c1578c093ff84a86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b041cf2d_4bb865e0",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 2336,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-23T17:53:03Z",
+      "side": 1,
+      "message": "This needs a version_from_wire.",
+      "revId": "8870dade4aa6f9990277c964c1578c093ff84a86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b041cf2d_eba111ab",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 2341,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-23T17:53:03Z",
+      "side": 1,
+      "message": "If going through supported_versions, require that the negotiation results in TLS 1.2 or higher.",
+      "revId": "8870dade4aa6f9990277c964c1578c093ff84a86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b041cf2d_2b94f940",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-23T17:53:03Z",
+      "side": 1,
+      "message": "Ditto re changing the value.",
+      "range": {
+        "startLine": 30,
+        "startChar": 26,
+        "endLine": 30,
+        "endChar": 32
+      },
+      "revId": "8870dade4aa6f9990277c964c1578c093ff84a86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b041cf2d_4b914550",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-23T17:53:03Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 96,
+        "startChar": 46,
+        "endLine": 96,
+        "endChar": 52
+      },
+      "revId": "8870dade4aa6f9990277c964c1578c093ff84a86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b041cf2d_6b8e0133",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-23T17:53:03Z",
+      "side": 1,
+      "message": "SendSupportedVersions, to match the existing style.",
+      "range": {
+        "startLine": 609,
+        "startChar": 1,
+        "endLine": 609,
+        "endChar": 24
+      },
+      "revId": "8870dade4aa6f9990277c964c1578c093ff84a86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b041cf2d_ce7d430d",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-23T17:53:03Z",
+      "side": 1,
+      "message": "Usually we do these after the main logic, just to avoid cluttering with confusing ifs.",
+      "revId": "8870dade4aa6f9990277c964c1578c093ff84a86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b041cf2d_ee82ff01",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-23T17:53:03Z",
+      "side": 1,
+      "message": "No need for this check. Better to gate it exactly on TLS 1.3.",
+      "range": {
+        "startLine": 294,
+        "startChar": 11,
+        "endLine": 294,
+        "endChar": 20
+      },
+      "revId": "8870dade4aa6f9990277c964c1578c093ff84a86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b041cf2d_ae78f71d",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-23T17:53:03Z",
+      "side": 1,
+      "message": "This needs to happen before SendClientVersion is applied, otherwise we won\u0027t be able to get all the logic right.",
+      "revId": "8870dade4aa6f9990277c964c1578c093ff84a86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b041cf2d_8e733b43",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-23T17:53:03Z",
+      "side": 1,
+      "message": "Ditto in C code with all the versionFromWire business.\n\nProbably versionFromWire should happen here rather than in the messaging bit, even though it doesn\u0027t match hello.vers. We will ultimately need to be able to test that DTLS 1.3 does *not* read 0x0303 as DTLS 1.2.",
+      "revId": "8870dade4aa6f9990277c964c1578c093ff84a86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b041cf2d_2e85e707",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 661,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-23T17:53:03Z",
+      "side": 1,
+      "message": "l can\u0027t be odd.",
+      "revId": "8870dade4aa6f9990277c964c1578c093ff84a86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b041cf2d_8e9c1b5f",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-23T17:53:03Z",
+      "side": 1,
+      "message": "Don\u0027t perturb hs.clientHello.vers. Same story as in C, hs.clientHello.vers is *exactly* what is written in ClientHello.version with no tweaks. (Computing a maximum version from that list isn\u0027t even meaningful. We don\u0027t know what unknown versions are.)",
+      "revId": "8870dade4aa6f9990277c964c1578c093ff84a86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b041cf2d_4e92334f",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-23T17:53:03Z",
+      "side": 1,
+      "message": "I\u0027d rather we not special-case DTLS everywhere. We should make sure this works in DTLS too.",
+      "range": {
+        "startLine": 204,
+        "startChar": 4,
+        "endLine": 204,
+        "endChar": 13
+      },
+      "revId": "8870dade4aa6f9990277c964c1578c093ff84a86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b041cf2d_aea1d79d",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-23T17:53:03Z",
+      "side": 1,
+      "message": "Don\u0027t compute maxClientVersion. All the checks below on the unperturbed ClientHello.version work just fine.",
+      "range": {
+        "startLine": 207,
+        "startChar": 2,
+        "endLine": 207,
+        "endChar": 18
+      },
+      "revId": "8870dade4aa6f9990277c964c1578c093ff84a86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b041cf2d_ee9bdf61",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 4167,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-23T17:53:03Z",
+      "side": 1,
+      "message": "Each of these tests should probably send no supported versions (which means you need to change their expectedVersion).",
+      "range": {
+        "startLine": 4167,
+        "startChar": 25,
+        "endLine": 4167,
+        "endChar": 35
+      },
+      "revId": "8870dade4aa6f9990277c964c1578c093ff84a86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b041cf2d_ce96233d",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 4219,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-23T17:53:03Z",
+      "side": 1,
+      "message": "This is missing all the various test cases on how the two extensions interact.",
+      "revId": "8870dade4aa6f9990277c964c1578c093ff84a86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
