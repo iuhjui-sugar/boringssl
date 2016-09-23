@@ -1483,6 +1483,22 @@ int tls_process_ticket(SSL *ssl, SSL_SESSION **out_session,
                        size_t ticket_len, const uint8_t *session_id,
                        size_t session_id_len);
 
+/* tls1_write_verify_channel_id takes a Channel ID hash, verifies that the
+ * current handshake message (assumed to be a Channel ID message) contains a
+ * valid signature of the Channel ID hash under the public key in the message,
+ * and saves the public key in |ssl->s3->tlsext_channel_id|. This function
+ * returns 1 if the signature can be verified, and 0 otherwise. The public key
+ * is only saved if this function returns 1. */
+int tls1_verify_channel_id(SSL *ssl, uint8_t *channel_id_hash, size_t channel_id_hash_len);
+
+/* tls1_write_channel_id will generate a Channel ID message (containing the
+ * signature of the output of tls1_channel_id_hash). It will call
+ * |ssl->ctx->channel_id_cb| and set |ssl->rwstate| to SSL_CHANNEL_ID_LOOKUP as
+ * necessary to obtain the signing key to use for Channel ID. This function
+ * prepares the Channel ID handshake message, but it is up to the caller to
+ * write the message. This function returns 1 on success and 0 on error. */
+int tls1_write_channel_id(SSL *ssl);
+
 /* tls1_channel_id_hash computes the hash to be signed by Channel ID and writes
  * it to |out|, which must contain at least |EVP_MAX_MD_SIZE| bytes. It returns
  * one on success and zero on failure. */
