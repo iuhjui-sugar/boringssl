@@ -878,6 +878,7 @@ enum ssl_hs_wait_t {
   ssl_hs_flush,
   ssl_hs_flush_and_read_message,
   ssl_hs_x509_lookup,
+  ssl_hs_channel_id_lookup,
   ssl_hs_private_key_operation,
 };
 
@@ -1586,12 +1587,48 @@ int tls_process_ticket(SSL *ssl, SSL_SESSION **out_session,
                        size_t ticket_len, const uint8_t *session_id,
                        size_t session_id_len);
 
+/* tls1_verify_channel_id reads the next handshake message |ssl->init_msg|, for
+ * which it is the caller's responsibility to ensure that it is a Channel ID
+ * message, and verifies that it contains a valid signature of the Channel ID
+ * hash under the public key in the message. If the signature verifies, the
+ * public key is ssaved in |ssl->s3->tlsext_channel_id| and the function returns
+ * 1. Otherwise this function returns 0. */
+int tls1_verify_channel_id(SSL *ssl);
+
+/* tls1_write_channel_id generates a Channel ID message and puts the output in
+ * |cbb|. |ssl->tlsext_channel_id_private| must already be set before calling.
+ * This function returns 1 on success and 0 on error. */
+int tls1_write_channel_id(SSL *ssl, CBB *cbb);
+
 /* tls1_channel_id_hash computes the hash to be signed by Channel ID and writes
  * it to |out|, which must contain at least |EVP_MAX_MD_SIZE| bytes. It returns
  * one on success and zero on failure. */
 int tls1_channel_id_hash(SSL *ssl, uint8_t *out, size_t *out_len);
 
 int tls1_record_handshake_hashes_for_channel_id(SSL *ssl);
+
+/* ssl_do_channel_id_callback checks if |ssl->tlsext_channel_id_private| has
+ * been set, and if not, it calls |ssl->ctx->channel_id_cb| to set it. This
+ * function returns 1 on success and 0 on failure. It is the caller's
+ * responsiblity to check that |ssl->tlsext_channel_id_private| is set, and
+ * return SSL_CHANNEL_ID_LOOKUP if it is not. */
+int ssl_do_channel_id_callback(SSL *ssl);
+
+enum ssl_cert_verify_context_t {
+  ssl_cert_verify_server,
+  ssl_cert_verify_client,
+  ssl_cert_verify_channel_id,
+};
+
+/* tls13_get_cert_verify_signature_input generates the message to be signed for
+ * TLS 1.3's CertificateVerify handshake message. |cert_verify_context|
+ * indicates whether this is for a server certificate, client certificate, or
+ * Channel ID. |*out_len| bytes are written to a new buffer |*out| which the
+ * caller is responsible for freeing. This function returns 1 on success and 0
+ * on failure. */
+int tls13_get_cert_verify_signature_input(
+    SSL *ssl, uint8_t **out, size_t *out_len,
+    enum ssl_cert_verify_context_t cert_verify_context);
 
 /* ssl3_can_false_start returns one if |ssl| is allowed to False Start and zero
  * otherwise. */
