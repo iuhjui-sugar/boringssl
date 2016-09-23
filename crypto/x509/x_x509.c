@@ -104,6 +104,7 @@ static int x509_cb(int operation, ASN1_VALUE **pval, const ASN1_ITEM *it,
         ret->aux = NULL;
         ret->crldp = NULL;
         CRYPTO_new_ex_data(&ret->ex_data);
+        CRYPTO_MUTEX_init(&ret->lock);
         break;
 
     case ASN1_OP_D2I_POST:
@@ -113,6 +114,7 @@ static int x509_cb(int operation, ASN1_VALUE **pval, const ASN1_ITEM *it,
         break;
 
     case ASN1_OP_FREE_POST:
+        CRYPTO_MUTEX_cleanup(&ret->lock);
         CRYPTO_free_ex_data(&g_ex_data_class, ret, &ret->ex_data);
         X509_CERT_AUX_free(ret->aux);
         ASN1_OCTET_STRING_free(ret->skid);
@@ -121,9 +123,7 @@ static int x509_cb(int operation, ASN1_VALUE **pval, const ASN1_ITEM *it,
         policy_cache_free(ret->policy_cache);
         GENERAL_NAMES_free(ret->altname);
         NAME_CONSTRAINTS_free(ret->nc);
-
-        if (ret->name != NULL)
-            OPENSSL_free(ret->name);
+        OPENSSL_free(ret->name);
         break;
 
     }

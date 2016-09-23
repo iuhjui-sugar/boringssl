@@ -261,6 +261,7 @@ struct x509_st
 	NAME_CONSTRAINTS *nc;
 	unsigned char sha1_hash[SHA_DIGEST_LENGTH];
 	X509_CERT_AUX *aux;
+	CRYPTO_MUTEX lock;
 	} /* X509 */;
 
 DECLARE_STACK_OF(X509)
