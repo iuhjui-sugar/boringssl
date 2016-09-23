@@ -942,6 +942,10 @@ static bssl::UniquePtr<SSL_CTX> SetupCtx(const TestConfig *config) {
     SSL_CTX_set_client_CA_list(ssl_ctx.get(), nullptr);
   }
 
+  if (config->disable_rsa_pss) {
+    SSL_CTX_disable_rsa_pss(ssl_ctx.get());
+  }
+
   return ssl_ctx;
 }
 

@@ -105,6 +105,7 @@ const Flag<bool> kBoolFlags[] = {
   { "-use-null-client-ca-list", &TestConfig::use_null_client_ca_list },
   { "-send-alert", &TestConfig::send_alert },
   { "-peek-then-read", &TestConfig::peek_then_read },
+  { "-disable-rsa-pss", &TestConfig::disable_rsa_pss },
 };
 
 const Flag<std::string> kStringFlags[] = {

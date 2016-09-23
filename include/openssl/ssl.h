@@ -3101,6 +3101,13 @@ OPENSSL_EXPORT const SSL_CIPHER *SSL_get_pending_cipher(const SSL *ssl);
 OPENSSL_EXPORT void SSL_CTX_set_retain_only_sha256_of_client_certs(SSL_CTX *ctx,
                                                                    int enable);
 
+/* SSL_CTX_disable_rsa_pss disables RSA-PSS signature algorithms for sockets
+ * initiated from |ctx|. This a short-term hack to work around buggy older
+ * releases of Erlang's TLS code. Do not use this function.
+ *
+ * TODO(davidben): Remove this. */
+OPENSSL_EXPORT void SSL_CTX_disable_rsa_pss(SSL_CTX *ctx);
+
 
 /* Deprecated functions. */
 
@@ -3996,6 +4003,10 @@ struct ssl_ctx_st {
    * means that we'll accept Channel IDs from clients. For a client, means that
    * we'll advertise support. */
   unsigned tlsext_channel_id_enabled:1;
+
+  /* rsa_pss_disabled, if one, causes RSA-PSS to be disabled to work around
+   * buggy older versions of Erlang's TLS code. */
+  unsigned rsa_pss_disabled:1;
 
   /* extra_certs is a dummy value included for compatibility.
    * TODO(agl): remove once node.js no longer references this. */

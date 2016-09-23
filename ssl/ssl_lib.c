@@ -3041,3 +3041,7 @@ int SSL_set_min_version(SSL *ssl, uint16_t version) {
 int SSL_set_max_version(SSL *ssl, uint16_t version) {
   return SSL_set_max_proto_version(ssl, version);
 }
+
+void SSL_CTX_disable_rsa_pss(SSL_CTX *ctx) {
+  ctx->rsa_pss_disabled = 1;
+}

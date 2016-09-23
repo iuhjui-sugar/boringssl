@@ -537,7 +537,26 @@ static const uint16_t kDefaultSignatureAlgorithms[] = {
     SSL_SIGN_ECDSA_SHA1,
 };
 
+static const uint16_t kDefaultSignatureAlgorithmsNoPSS[] = {
+    SSL_SIGN_RSA_PKCS1_SHA512,
+    SSL_SIGN_ECDSA_SECP521R1_SHA512,
+
+    SSL_SIGN_RSA_PKCS1_SHA384,
+    SSL_SIGN_ECDSA_SECP384R1_SHA384,
+
+    SSL_SIGN_RSA_PKCS1_SHA256,
+    SSL_SIGN_ECDSA_SECP256R1_SHA256,
+
+    SSL_SIGN_RSA_PKCS1_SHA1,
+    SSL_SIGN_ECDSA_SHA1,
+};
+
 size_t tls12_get_psigalgs(SSL *ssl, const uint16_t **psigs) {
+  if (ssl->ctx->rsa_pss_disabled) {
+    *psigs = kDefaultSignatureAlgorithmsNoPSS;
+    return OPENSSL_ARRAY_SIZE(kDefaultSignatureAlgorithmsNoPSS);
+  }
+
   *psigs = kDefaultSignatureAlgorithms;
   return OPENSSL_ARRAY_SIZE(kDefaultSignatureAlgorithms);
 }
