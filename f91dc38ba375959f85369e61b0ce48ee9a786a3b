@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b041cf2d_ae171759",
+        "filename": "crypto/CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-23T21:55:33Z",
+      "side": 1,
+      "message": "Nit: Looks like this was otherwise sorted, so up a line?",
+      "revId": "f91dc38ba375959f85369e61b0ce48ee9a786a3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b041cf2d_ee111f65",
+        "filename": "crypto/crypto.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-23T21:55:33Z",
+      "side": 1,
+      "message": "Nit: space",
+      "range": {
+        "startLine": 26,
+        "startChar": 14,
+        "endLine": 26,
+        "endChar": 15
+      },
+      "revId": "f91dc38ba375959f85369e61b0ce48ee9a786a3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b041cf2d_8e125b6a",
+        "filename": "crypto/modes/gcm.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-23T21:55:33Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "f91dc38ba375959f85369e61b0ce48ee9a786a3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
