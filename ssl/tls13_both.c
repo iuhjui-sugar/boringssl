@@ -79,6 +79,11 @@ int tls13_handshake(SSL *ssl) {
         hs->wait = ssl_hs_ok;
         return -1;
 
+      case ssl_hs_channel_id_lookup:
+        ssl->rwstate = SSL_CHANNEL_ID_LOOKUP;
+        hs->wait = ssl_hs_ok;
+        return -1;
+
       case ssl_hs_private_key_operation:
         ssl->rwstate = SSL_PRIVATE_KEY_OPERATION;
         hs->wait = ssl_hs_ok;
@@ -105,8 +110,15 @@ int tls13_handshake(SSL *ssl) {
   }
 }
 
-static int tls13_get_cert_verify_signature_input(SSL *ssl, uint8_t **out,
-                                                 size_t *out_len, int server) {
+enum ssl_cert_verify_context_t {
+  ssl_cert_verify_server,
+  ssl_cert_verify_client,
+  ssl_cert_verify_channel_id,
+};
+
+static int tls13_get_cert_verify_signature_input(
+    SSL *ssl, uint8_t **out, size_t *out_len,
+    enum ssl_cert_verify_context_t context) {
   CBB cbb;
   if (!CBB_init(&cbb, 64 + 33 + 1 + 2 * EVP_MAX_MD_SIZE)) {
     goto err;
@@ -118,17 +130,24 @@ static int tls13_get_cert_verify_signature_input(SSL *ssl, uint8_t **out,
     }
   }
 
-  if (server) {
+  if (context == ssl_cert_verify_server) {
     /* Include the NUL byte. */
     static const char kContext[] = "TLS 1.3, server CertificateVerify";
     if (!CBB_add_bytes(&cbb, (const uint8_t *)kContext, sizeof(kContext))) {
       goto err;
     }
-  } else {
+  } else if (context == ssl_cert_verify_client) {
     static const char kContext[] = "TLS 1.3, client CertificateVerify";
     if (!CBB_add_bytes(&cbb, (const uint8_t *)kContext, sizeof(kContext))) {
       goto err;
     }
+  } else if (context == ssl_cert_verify_channel_id) {
+    static const char kContext[] = "TLS 1.3, Channel ID";
+    if (!CBB_add_bytes(&cbb, (const uint8_t *)kContext, sizeof(kContext))) {
+      goto err;
+    }
+  } else {
+    goto err;
   }
 
   uint8_t context_hashes[2 * EVP_MAX_MD_SIZE];
@@ -245,8 +264,9 @@ int tls13_process_certificate_verify(SSL *ssl) {
   }
   ssl->s3->tmp.peer_signature_algorithm = signature_algorithm;
 
-  if (!tls13_get_cert_verify_signature_input(ssl, &msg, &msg_len,
-                                             !ssl->server)) {
+  if (!tls13_get_cert_verify_signature_input(
+          ssl, &msg, &msg_len,
+          ssl->server ? ssl_cert_verify_client : ssl_cert_verify_server)) {
     ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
     goto err;
   }
@@ -268,6 +288,29 @@ int tls13_process_certificate_verify(SSL *ssl) {
 
 err:
   EVP_PKEY_free(pkey);
+  OPENSSL_free(msg);
+  return ret;
+}
+
+int tls13_process_channel_id(SSL *ssl) {
+  enum ssl_hs_wait_t ret = ssl_hs_error;
+  uint8_t *msg;
+  size_t msg_len;
+  if (!tls13_get_cert_verify_signature_input(ssl, &msg, &msg_len,
+                                             ssl_cert_verify_channel_id)) {
+    return ssl_hs_error;
+  }
+
+  CBS encrypted_extensions;
+  CBS_init(&encrypted_extensions, ssl->init_msg, ssl->init_num);
+  if (!tls13_check_message_type(ssl, SSL3_MT_CHANNEL_ID) ||
+      !tls1_verify_channel_id(ssl, msg, msg_len, &encrypted_extensions) ||
+      !ssl->method->hash_current_message(ssl)) {
+    goto err;
+  }
+  ret = ssl_hs_ok;
+
+err:
   OPENSSL_free(msg);
   return ret;
 }
@@ -352,8 +395,9 @@ enum ssl_private_key_result_t tls13_prepare_certificate_verify(
 
   enum ssl_private_key_result_t sign_result;
   if (is_first_run) {
-    if (!tls13_get_cert_verify_signature_input(ssl, &msg, &msg_len,
-                                               ssl->server)) {
+    if (!tls13_get_cert_verify_signature_input(
+            ssl, &msg, &msg_len,
+            ssl->server ? ssl_cert_verify_server : ssl_cert_verify_client)) {
       ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
       goto err;
     }
@@ -377,6 +421,44 @@ enum ssl_private_key_result_t tls13_prepare_certificate_verify(
 
 err:
   CBB_cleanup(&cbb);
+  OPENSSL_free(msg);
+  return ret;
+}
+
+enum ssl_hs_wait_t tls13_prepare_channel_id(SSL *ssl) {
+  if (ssl->tlsext_channel_id_private == NULL &&
+      ssl->ctx->channel_id_cb != NULL) {
+    EVP_PKEY *key = NULL;
+    ssl->ctx->channel_id_cb(ssl, &key);
+    if (key != NULL && !SSL_set1_tls_channel_id(ssl, key)) {
+      EVP_PKEY_free(key);
+      return ssl_hs_error;
+    }
+    EVP_PKEY_free(key);
+  }
+
+  if (ssl->tlsext_channel_id_private == NULL) {
+    return ssl_hs_channel_id_lookup;
+  }
+
+  enum ssl_hs_wait_t ret = ssl_hs_error;
+  uint8_t *msg;
+  size_t msg_len;
+  if (!tls13_get_cert_verify_signature_input(ssl, &msg, &msg_len,
+                                             ssl_cert_verify_channel_id)) {
+    return ssl_hs_error;
+  }
+
+  CBB cbb, body;
+  if (!ssl->method->init_message(ssl, &cbb, &body, SSL3_MT_CHANNEL_ID) ||
+      !tls1_write_channel_id(ssl, msg, msg_len, &body) ||
+      !ssl->method->finish_message(ssl, &cbb)) {
+    CBB_cleanup(&cbb);
+    goto err;
+  }
+  ret = ssl_hs_ok;
+
+err:
   OPENSSL_free(msg);
   return ret;
 }

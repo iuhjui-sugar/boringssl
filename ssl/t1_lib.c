@@ -1713,10 +1713,6 @@ static int ext_channel_id_parse_serverhello(SSL *ssl, uint8_t *out_alert,
     return 1;
   }
 
-  if (ssl3_protocol_version(ssl) >= TLS1_3_VERSION) {
-    return 0;
-  }
-
   assert(!SSL_is_dtls(ssl));
   assert(ssl->tlsext_channel_id_enabled);
 
@@ -1745,10 +1741,6 @@ static int ext_channel_id_parse_clienthello(SSL *ssl, uint8_t *out_alert,
 }
 
 static int ext_channel_id_add_serverhello(SSL *ssl, CBB *out) {
-  if (ssl3_protocol_version(ssl) >= TLS1_3_VERSION) {
-    return 1;
-  }
-
   if (!ssl->s3->tlsext_channel_id_valid) {
     return 1;
   }
@@ -3235,6 +3227,134 @@ int tls1_choose_signature_algorithm(SSL *ssl, uint16_t *out) {
   return 0;
 }
 
+int tls1_verify_channel_id(SSL *ssl, uint8_t *channel_id_hash, size_t channel_id_hash_len, CBS *encrypted_extensions) {
+  int ret = 0;
+  const uint8_t *p;
+  uint16_t extension_type;
+  EC_GROUP *p256 = NULL;
+  EC_KEY *key = NULL;
+  EC_POINT *point = NULL;
+  ECDSA_SIG sig;
+  BIGNUM x, y;
+  CBS extension;
+  CBS_init(encrypted_extensions, ssl->init_msg, ssl->init_num);
+
+  /* EncryptedExtensions could include multiple extensions, but the only
+   * extension that could be negotiated is Channel ID, so there can only be one
+   * entry. */
+  if (!CBS_get_u16(encrypted_extensions, &extension_type) ||
+      !CBS_get_u16_length_prefixed(encrypted_extensions, &extension) ||
+      CBS_len(encrypted_extensions) != 0 ||
+      extension_type != TLSEXT_TYPE_channel_id ||
+      CBS_len(&extension) != TLSEXT_CHANNEL_ID_SIZE) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
+    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
+    return 0;
+  }
+
+  p256 = EC_GROUP_new_by_curve_name(NID_X9_62_prime256v1);
+  if (!p256) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_NO_P256_SUPPORT);
+    return 0;
+  }
+
+  BN_init(&x);
+  BN_init(&y);
+  sig.r = BN_new();
+  sig.s = BN_new();
+  if (sig.r == NULL || sig.s == NULL) {
+    goto err;
+  }
+
+  p = CBS_data(&extension);
+  if (BN_bin2bn(p + 0, 32, &x) == NULL ||
+      BN_bin2bn(p + 32, 32, &y) == NULL ||
+      BN_bin2bn(p + 64, 32, sig.r) == NULL ||
+      BN_bin2bn(p + 96, 32, sig.s) == NULL) {
+    goto err;
+  }
+
+  point = EC_POINT_new(p256);
+  if (!point ||
+      !EC_POINT_set_affine_coordinates_GFp(p256, point, &x, &y, NULL)) {
+    goto err;
+  }
+
+  key = EC_KEY_new();
+  if (!key || !EC_KEY_set_group(key, p256) ||
+      !EC_KEY_set_public_key(key, point)) {
+    goto err;
+  }
+
+  /* We stored the handshake hash in |tlsext_channel_id| the first time that we
+   * were called. */
+  int sig_ok = ECDSA_do_verify(channel_id_hash, channel_id_hash_len, &sig, key);
+#if defined(BORINGSSL_UNSAFE_FUZZER_MODE)
+  sig_ok = 1;
+#endif
+  if (!sig_ok) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_CHANNEL_ID_SIGNATURE_INVALID);
+    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECRYPT_ERROR);
+    ssl->s3->tlsext_channel_id_valid = 0;
+    goto err;
+  }
+
+  memcpy(ssl->s3->tlsext_channel_id, p, 64);
+  ret = 1;
+
+err:
+  BN_free(&x);
+  BN_free(&y);
+  BN_free(sig.r);
+  BN_free(sig.s);
+  EC_KEY_free(key);
+  EC_POINT_free(point);
+  EC_GROUP_free(p256);
+  return ret;
+}
+
+int tls1_write_channel_id(SSL *ssl, uint8_t *digest, size_t digest_len, CBB *cbb) {
+
+  EC_KEY *ec_key = EVP_PKEY_get0_EC_KEY(ssl->tlsext_channel_id_private);
+  if (ec_key == NULL) {
+    OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
+    return 0;
+  }
+
+  int ret = 0;
+  BIGNUM *x = BN_new();
+  BIGNUM *y = BN_new();
+  ECDSA_SIG *sig = NULL;
+  if (x == NULL || y == NULL ||
+      !EC_POINT_get_affine_coordinates_GFp(EC_KEY_get0_group(ec_key),
+                                           EC_KEY_get0_public_key(ec_key),
+                                           x, y, NULL)) {
+    goto err;
+  }
+
+  sig = ECDSA_do_sign(digest, digest_len, ec_key);
+  if (sig == NULL) {
+    goto err;
+  }
+
+  CBB child;
+  if (!CBB_add_u16(cbb, TLSEXT_TYPE_channel_id) ||
+      !CBB_add_u16_length_prefixed(cbb, &child) ||
+      !BN_bn2cbb_padded(&child, 32, x) || !BN_bn2cbb_padded(&child, 32, y) ||
+      !BN_bn2cbb_padded(&child, 32, sig->r) ||
+      !BN_bn2cbb_padded(&child, 32, sig->s)) {
+    goto err;
+  }
+  ret = 1;
+  CBB_flush(cbb);
+
+err:
+  BN_free(x);
+  BN_free(y);
+  ECDSA_SIG_free(sig);
+  return ret;
+}
+
 int tls1_channel_id_hash(SSL *ssl, uint8_t *out, size_t *out_len) {
   int ret = 0;
   EVP_MD_CTX ctx;
@@ -3247,7 +3367,7 @@ int tls1_channel_id_hash(SSL *ssl, uint8_t *out, size_t *out_len) {
   static const char kClientIDMagic[] = "TLS Channel ID signature";
   EVP_DigestUpdate(&ctx, kClientIDMagic, sizeof(kClientIDMagic));
 
-  if (ssl->session != NULL) {
+  if (ssl->session != NULL && ssl3_protocol_version(ssl) < TLS1_3_VERSION) {
     static const char kResumptionMagic[] = "Resumption";
     EVP_DigestUpdate(&ctx, kResumptionMagic, sizeof(kResumptionMagic));
     if (ssl->session->original_handshake_hash_len == 0) {

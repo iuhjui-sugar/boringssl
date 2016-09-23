@@ -41,6 +41,7 @@ enum client_hs_state_t {
   state_send_client_certificate,
   state_send_client_certificate_verify,
   state_complete_client_certificate_verify,
+  state_send_channel_id,
   state_send_client_finished,
   state_flush,
   state_done,
@@ -482,7 +483,7 @@ static enum ssl_hs_wait_t do_process_server_finished(SSL *ssl,
 static enum ssl_hs_wait_t do_certificate_callback(SSL *ssl, SSL_HANDSHAKE *hs) {
   /* The peer didn't request a certificate. */
   if (!ssl->s3->tmp.cert_request) {
-    hs->state = state_send_client_finished;
+    hs->state = state_send_channel_id;
     return ssl_hs_ok;
   }
 
@@ -529,13 +530,13 @@ static enum ssl_hs_wait_t do_send_client_certificate_verify(SSL *ssl,
                                                             int is_first_run) {
   /* Don't send CertificateVerify if there is no certificate. */
   if (!ssl_has_certificate(ssl)) {
-    hs->state = state_send_client_finished;
+    hs->state = state_send_channel_id;
     return ssl_hs_ok;
   }
 
   switch (tls13_prepare_certificate_verify(ssl, is_first_run)) {
     case ssl_private_key_success:
-      hs->state = state_send_client_finished;
+      hs->state = state_send_channel_id;
       return ssl_hs_write_message;
 
     case ssl_private_key_retry:
@@ -548,6 +549,21 @@ static enum ssl_hs_wait_t do_send_client_certificate_verify(SSL *ssl,
 
   assert(0);
   return ssl_hs_error;
+}
+
+static enum ssl_hs_wait_t do_send_channel_id(SSL *ssl, SSL_HANDSHAKE *hs) {
+  if (!ssl->s3->tlsext_channel_id_valid) {
+    hs->state = state_send_client_finished;
+    return ssl_hs_ok;
+  }
+
+  enum ssl_hs_wait_t ret = tls13_prepare_channel_id(ssl);
+  if (ret != ssl_hs_ok) {
+    return ret;
+  }
+
+  hs->state = state_send_client_finished;
+  return ssl_hs_write_message;
 }
 
 static enum ssl_hs_wait_t do_send_client_finished(SSL *ssl, SSL_HANDSHAKE *hs) {
@@ -618,6 +634,9 @@ enum ssl_hs_wait_t tls13_client_handshake(SSL *ssl) {
       case state_complete_client_certificate_verify:
         ret = do_send_client_certificate_verify(ssl, hs, 0 /* complete */);
       break;
+      case state_send_channel_id:
+        ret = do_send_channel_id(ssl, hs);
+        break;
       case state_send_client_finished:
         ret = do_send_client_finished(ssl, hs);
         break;
