@@ -878,6 +878,7 @@ enum ssl_hs_wait_t {
   ssl_hs_flush,
   ssl_hs_flush_and_read_message,
   ssl_hs_x509_lookup,
+  ssl_hs_channel_id_lookup,
   ssl_hs_private_key_operation,
 };
 
@@ -1030,11 +1031,13 @@ int tls13_check_message_type(SSL *ssl, int type);
 
 int tls13_process_certificate(SSL *ssl, int allow_anonymous);
 int tls13_process_certificate_verify(SSL *ssl);
+int tls13_process_channel_id(SSL *ssl);
 int tls13_process_finished(SSL *ssl);
 
 int tls13_prepare_certificate(SSL *ssl);
 enum ssl_private_key_result_t tls13_prepare_certificate_verify(
     SSL *ssl, int is_first_run);
+int tls13_prepare_channel_id(SSL *ssl);
 int tls13_prepare_finished(SSL *ssl);
 int tls13_process_new_session_ticket(SSL *ssl);
 
@@ -1585,6 +1588,22 @@ int tls_process_ticket(SSL *ssl, SSL_SESSION **out_session,
                        int *out_renew_ticket, const uint8_t *ticket,
                        size_t ticket_len, const uint8_t *session_id,
                        size_t session_id_len);
+
+/* tls1_write_verify_channel_id takes a Channel ID hash |digest|, verifies that
+ * the contents of the message |channel_id| (assumed to be a Channel ID message)
+ * contains a valid signature of the Channel ID hash under the public key in the
+ * message, and saves the public key in |ssl->s3->tlsext_channel_id|.  This
+ * function returns 1 if the signature can be verified, and 0 otherwise.  The
+ * public key is only saved if this function returns 1. */
+int tls1_verify_channel_id(SSL *ssl, const uint8_t *digest, size_t digest_len,
+                           CBS *channel_id);
+
+/* tls1_write_channel_id generates a Channel ID message signing |digest| of
+ * length |digest_len|, and puts the output in |cbb|.
+ * |ssl->tlsext_channel_id_private| must already be set before calling. This
+ * function returns 1 on success and 0 on error. */
+int tls1_write_channel_id(SSL *ssl, CBB *cbb, const uint8_t *digest,
+                          size_t digest_len);
 
 /* tls1_channel_id_hash computes the hash to be signed by Channel ID and writes
  * it to |out|, which must contain at least |EVP_MAX_MD_SIZE| bytes. It returns
