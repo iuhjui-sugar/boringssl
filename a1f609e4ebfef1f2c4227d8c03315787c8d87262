@@ -40,6 +40,30 @@
       "revId": "a1f609e4ebfef1f2c4227d8c03315787c8d87262",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "85bbabd0_9fb4dbcd",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-09-26T22:41:57Z",
+      "side": 1,
+      "message": "We don\u0027t support building on big-endian, but is there a #define that we can use to break it cleanly? I see that _LITTLE_ENDIAN, __LITTLE_ENDIAN__ and __BYTE_ORDER__ \u003d\u003d __ORDER_LITTLE_ENDIAN__ are all defined on a ppc64le machine, but I don\u0027t know if any are canonical.",
+      "parentUuid": "85bbabd0_1f736b41",
+      "range": {
+        "startLine": 88,
+        "startChar": 8,
+        "endLine": 88,
+        "endChar": 23
+      },
+      "revId": "a1f609e4ebfef1f2c4227d8c03315787c8d87262",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
