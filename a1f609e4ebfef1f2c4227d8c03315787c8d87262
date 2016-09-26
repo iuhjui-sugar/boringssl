@@ -64,6 +64,30 @@
       "revId": "a1f609e4ebfef1f2c4227d8c03315787c8d87262",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5c8439b_33352846",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 7240
+      },
+      "writtenOn": "2016-09-26T22:55:21Z",
+      "side": 1,
+      "message": "glibc uses __BYTE_ORDER and __LITTLE_ENDIAN.  https://sourceware.org/git/?p\u003dglibc.git;a\u003dblob;f\u003dsysdeps/powerpc/bits/endian.h;h\u003d9adaf0ce5ed5bce094a39d80929dedb097571878;hb\u003dHEAD\n\nIs BoringSSL expected to work on other C libraries?",
+      "parentUuid": "85bbabd0_9fb4dbcd",
+      "range": {
+        "startLine": 88,
+        "startChar": 8,
+        "endLine": 88,
+        "endChar": 23
+      },
+      "revId": "a1f609e4ebfef1f2c4227d8c03315787c8d87262",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
