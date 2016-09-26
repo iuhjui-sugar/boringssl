@@ -22,6 +22,24 @@
       "revId": "a1f609e4ebfef1f2c4227d8c03315787c8d87262",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "25ad9fb1_5e84350c",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-26T22:39:37Z",
+      "side": 1,
+      "message": "BoringSSL will not work on big endian things at all. Is there perhaps an #ifdef we can add here to kick out the big endian mode?",
+      "parentUuid": "85bbabd0_1f736b41",
+      "revId": "a1f609e4ebfef1f2c4227d8c03315787c8d87262",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
