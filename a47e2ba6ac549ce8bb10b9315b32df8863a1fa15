@@ -1,0 +1,169 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "05f09b9e_4de1f989",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-26T22:06:40Z",
+      "side": 1,
+      "message": "Nit: spaces",
+      "range": {
+        "startLine": 595,
+        "startChar": 4,
+        "endLine": 595,
+        "endChar": 6
+      },
+      "revId": "a47e2ba6ac549ce8bb10b9315b32df8863a1fa15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "05f09b9e_8d7921ce",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-26T22:06:40Z",
+      "side": 1,
+      "message": "Probably worth adding \u0026\u0026 ext_version \u003e\u003d TLS1_2_VERSION, to avoid the client_version / supported_version discrepancy issue, if it turns out to matter. Still waiting back on email there.",
+      "revId": "a47e2ba6ac549ce8bb10b9315b32df8863a1fa15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "05f09b9e_4d98d925",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-26T22:06:40Z",
+      "side": 1,
+      "message": "If we end up not finding any matching versions, then I think we get a little confused. If we want to match the spec\u0027s algorithm, I think you can do:\n\nif (ssl_early_callback...(...)) {\n  ...\n} else {\n  client_version logic\n}",
+      "revId": "a47e2ba6ac549ce8bb10b9315b32df8863a1fa15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "05f09b9e_0db53183",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 2262,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-26T22:06:40Z",
+      "side": 1,
+      "message": "Nit: I\u0027d remove this check. It\u0027s a no-op right now, and as soon as it stops being a no-op, we\u0027ll want it removed.",
+      "range": {
+        "startLine": 2262,
+        "startChar": 6,
+        "endLine": 2262,
+        "endChar": 25
+      },
+      "revId": "a47e2ba6ac549ce8bb10b9315b32df8863a1fa15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "05f09b9e_ada33d49",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 665,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-26T22:06:40Z",
+      "side": 1,
+      "message": "I think this means BoGo won\u0027t notice if we put {3,4} in supported versions on accident, which seems off.\n\nMaybe we can make all the messages not apply version{To,From}Wire. That would probably be saner. Also it means we can write tests better.",
+      "revId": "a47e2ba6ac549ce8bb10b9315b32df8863a1fa15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "05f09b9e_4d45796a",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-26T22:06:40Z",
+      "side": 1,
+      "message": "This needs to figure into the actual version negotiation below. As implemented, you\u0027ll happily negotiate TLS 1.3 based on ClientHello.version and other weird behaviors. (There should never to be an actualClientVersion.)",
+      "revId": "a47e2ba6ac549ce8bb10b9315b32df8863a1fa15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "05f09b9e_6d40355c",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-26T22:06:40Z",
+      "side": 1,
+      "message": "This should be hs.clientHello.vers with no modifications.",
+      "revId": "a47e2ba6ac549ce8bb10b9315b32df8863a1fa15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "05f09b9e_8d564126",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-26T22:06:40Z",
+      "side": 1,
+      "message": "Actual hs.clientHello.vers with no modifications. Otherwise you break RSA premaster.",
+      "revId": "a47e2ba6ac549ce8bb10b9315b32df8863a1fa15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "05f09b9e_cd50492b",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 4224,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-26T22:06:40Z",
+      "side": 1,
+      "message": "Same comment as before. This is missing a bunch of tests:\n\n- Server tolerance to unknown values.\n- Client notices if the server selects something the client wasn\u0027t expecting.\n\nAlso should add that we do NOT negotiate TLS 1.3 when it just says ClientHello.version. Also the TLS 1.2 edge case thing. Also that we treat {3, 4} as an unknown version so that we will not break true TLS 1.3 later.",
+      "revId": "a47e2ba6ac549ce8bb10b9315b32df8863a1fa15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
