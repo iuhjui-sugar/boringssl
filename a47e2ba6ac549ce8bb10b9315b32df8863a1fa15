@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c5dda35f_8bd4ad11",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-27T14:42:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05f09b9e_4de1f989",
+      "range": {
+        "startLine": 595,
+        "startChar": 4,
+        "endLine": 595,
+        "endChar": 6
+      },
+      "revId": "a47e2ba6ac549ce8bb10b9315b32df8863a1fa15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "05f09b9e_8d7921ce",
         "filename": "ssl/handshake_server.c",
         "patchSetId": 6
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "c5dda35f_6bb181fb",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-27T14:42:30Z",
+      "side": 1,
+      "message": "Leaving out until there\u0027s a decision about what we should do when this results in no supported extension.",
+      "parentUuid": "05f09b9e_8d7921ce",
+      "revId": "a47e2ba6ac549ce8bb10b9315b32df8863a1fa15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "05f09b9e_4d98d925",
         "filename": "ssl/handshake_server.c",
         "patchSetId": 6
@@ -53,6 +95,24 @@
       "writtenOn": "2016-09-26T22:06:40Z",
       "side": 1,
       "message": "If we end up not finding any matching versions, then I think we get a little confused. If we want to match the spec\u0027s algorithm, I think you can do:\n\nif (ssl_early_callback...(...)) {\n  ...\n} else {\n  client_version logic\n}",
+      "revId": "a47e2ba6ac549ce8bb10b9315b32df8863a1fa15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5dda35f_4be7e5fd",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-27T14:42:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05f09b9e_4d98d925",
       "revId": "a47e2ba6ac549ce8bb10b9315b32df8863a1fa15",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "c5dda35f_2be499f6",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 2262,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-27T14:42:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05f09b9e_0db53183",
+      "range": {
+        "startLine": 2262,
+        "startChar": 6,
+        "endLine": 2262,
+        "endChar": 25
+      },
+      "revId": "a47e2ba6ac549ce8bb10b9315b32df8863a1fa15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "05f09b9e_ada33d49",
         "filename": "ssl/test/runner/handshake_messages.go",
         "patchSetId": 6
@@ -93,6 +177,24 @@
       "writtenOn": "2016-09-26T22:06:40Z",
       "side": 1,
       "message": "I think this means BoGo won\u0027t notice if we put {3,4} in supported versions on accident, which seems off.\n\nMaybe we can make all the messages not apply version{To,From}Wire. That would probably be saner. Also it means we can write tests better.",
+      "revId": "a47e2ba6ac549ce8bb10b9315b32df8863a1fa15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5dda35f_4baec59b",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 665,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-27T14:42:30Z",
+      "side": 1,
+      "message": "Will magically happen as part of your other CLs so waiting for that rebase.",
+      "parentUuid": "05f09b9e_ada33d49",
       "revId": "a47e2ba6ac549ce8bb10b9315b32df8863a1fa15",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -116,6 +218,24 @@
     },
     {
       "key": {
+        "uuid": "c5dda35f_abc6495e",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-27T14:42:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05f09b9e_4d45796a",
+      "revId": "a47e2ba6ac549ce8bb10b9315b32df8863a1fa15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "05f09b9e_6d40355c",
         "filename": "ssl/test/runner/handshake_server.go",
         "patchSetId": 6
@@ -127,6 +247,24 @@
       "writtenOn": "2016-09-26T22:06:40Z",
       "side": 1,
       "message": "This should be hs.clientHello.vers with no modifications.",
+      "revId": "a47e2ba6ac549ce8bb10b9315b32df8863a1fa15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5dda35f_0be1dde6",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-27T14:42:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05f09b9e_6d40355c",
       "revId": "a47e2ba6ac549ce8bb10b9315b32df8863a1fa15",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -150,6 +288,24 @@
     },
     {
       "key": {
+        "uuid": "c5dda35f_ebbc51da",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-27T14:42:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05f09b9e_8d564126",
+      "revId": "a47e2ba6ac549ce8bb10b9315b32df8863a1fa15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "05f09b9e_cd50492b",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 6
@@ -161,6 +317,24 @@
       "writtenOn": "2016-09-26T22:06:40Z",
       "side": 1,
       "message": "Same comment as before. This is missing a bunch of tests:\n\n- Server tolerance to unknown values.\n- Client notices if the server selects something the client wasn\u0027t expecting.\n\nAlso should add that we do NOT negotiate TLS 1.3 when it just says ClientHello.version. Also the TLS 1.2 edge case thing. Also that we treat {3, 4} as an unknown version so that we will not break true TLS 1.3 later.",
+      "revId": "a47e2ba6ac549ce8bb10b9315b32df8863a1fa15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5dda35f_cba8758c",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 4224,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-27T14:42:30Z",
+      "side": 1,
+      "message": "\u003e Same comment as before. This is missing a bunch of tests:\n \u003e \n \u003e - Server tolerance to unknown values.\nNot sure how this is different from VersionNegotiationExtension tests that use unknown values (0x1111, 0x2222). I added a test expecting failure for only unknown values in SupportedVersions.\n \u003e - Client notices if the server selects something the client wasn\u0027t\n \u003e expecting.\n\n \u003e \n \u003e Also should add that we do NOT negotiate TLS 1.3 when it just says\n \u003e ClientHello.version. Also the TLS 1.2 edge case thing. Also that we\n \u003e treat {3, 4} as an unknown version so that we will not break true\n \u003e TLS 1.3 later.\nDone",
+      "parentUuid": "05f09b9e_cd50492b",
       "revId": "a47e2ba6ac549ce8bb10b9315b32df8863a1fa15",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
