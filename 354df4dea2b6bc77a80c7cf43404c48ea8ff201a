@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c5dda35f_cbdab540",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 747,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-09-27T14:02:50Z",
+      "side": 1,
+      "message": "Not a fan of the versOverride. I guess we can\u0027t bug out wireToVersion to not fail on explicitly specified non-existent versions?",
+      "range": {
+        "startLine": 747,
+        "startChar": 13,
+        "endLine": 747,
+        "endChar": 26
+      },
+      "revId": "354df4dea2b6bc77a80c7cf43404c48ea8ff201a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
