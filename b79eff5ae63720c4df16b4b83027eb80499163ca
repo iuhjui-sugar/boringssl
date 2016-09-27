@@ -1,0 +1,141 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c5dda35f_0e632bd1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-27T21:19:04Z",
+      "side": 1,
+      "message": "(No longer true?)",
+      "revId": "b79eff5ae63720c4df16b4b83027eb80499163ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5dda35f_aed5373f",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 14
+      },
+      "lineNbr": 922,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-27T21:19:04Z",
+      "side": 1,
+      "message": "Mode \u003d\u003e Modes?",
+      "range": {
+        "startLine": 922,
+        "startChar": 1,
+        "endLine": 922,
+        "endChar": 20
+      },
+      "revId": "b79eff5ae63720c4df16b4b83027eb80499163ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5dda35f_8eda7b6d",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 14
+      },
+      "lineNbr": 926,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-27T21:19:04Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 926,
+        "startChar": 1,
+        "endLine": 926,
+        "endChar": 22
+      },
+      "revId": "b79eff5ae63720c4df16b4b83027eb80499163ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5dda35f_6ed06f4c",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 14
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-27T21:19:04Z",
+      "side": 1,
+      "message": "Test what happens when these are not as expected. Perhaps generalize SessionTicketKEMode into SendPSKKeyExchangeModes and SendPSKAuthModes and apply it on both sides.",
+      "revId": "b79eff5ae63720c4df16b4b83027eb80499163ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5dda35f_ae5417ca",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 14
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-27T21:19:04Z",
+      "side": 1,
+      "message": "var psk pskIdentity",
+      "revId": "b79eff5ae63720c4df16b4b83027eb80499163ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5dda35f_6e5f4fe6",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 14
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-27T21:19:04Z",
+      "side": 1,
+      "message": "Was there before, but I think this wants to be !\u003d so we enforce there isn\u0027t trailing data.",
+      "range": {
+        "startLine": 651,
+        "startChar": 14,
+        "endLine": 651,
+        "endChar": 15
+      },
+      "revId": "b79eff5ae63720c4df16b4b83027eb80499163ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5dda35f_4ee6d33a",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 14
+      },
+      "lineNbr": 7452,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-27T21:19:04Z",
+      "side": 1,
+      "message": "Nit: stray newline?",
+      "revId": "b79eff5ae63720c4df16b4b83027eb80499163ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
