@@ -744,7 +744,10 @@ static int ssl3_get_client_hello(SSL *ssl) {
       }
 
       /* Clear the session ID if we want the session to be single-use. */
-      if (!(ssl->ctx->session_cache_mode & SSL_SESS_CACHE_SERVER)) {
+      if (!(ssl->ctx->session_cache_mode & SSL_SESS_CACHE_SERVER) ||
+          /* We do not support session resumption with SSLv3 because some
+           * Android phones would cache sessions for too long. */
+          ssl->version == SSL3_VERSION) {
         ssl->s3->new_session->session_id_length = 0;
       }
     }

@@ -2432,6 +2432,7 @@ func addCipherSuiteTests() {
 					keyFile:       keyFile,
 					flags:         flags,
 					resumeSession: true,
+					expectResumeRejected: ver.version == VersionSSL30,
 					shouldFail:    shouldServerFail,
 					expectedError: expectedServerError,
 				})
@@ -2890,6 +2891,7 @@ func addClientAuthTests() {
 			// TODO(davidben): Switch this to true when TLS 1.3
 			// supports session resumption.
 			resumeSession: ver.version < VersionTLS13,
+			expectResumeRejected: ver.version == VersionSSL30,
 		})
 
 		testCases = append(testCases, testCase{
@@ -2908,6 +2910,7 @@ func addClientAuthTests() {
 			// TODO(davidben): Switch this to true when TLS 1.3
 			// supports session resumption.
 			resumeSession: ver.version < VersionTLS13,
+			expectResumeRejected: ver.version == VersionSSL30,
 		})
 
 		testCases = append(testCases, testCase{
@@ -3677,6 +3680,7 @@ func addStateMachineCoverageTests(config stateMachineTestConfig) {
 					"-expect-verify-result",
 				},
 				resumeSession: true,
+				expectResumeRejected: vers.version == VersionSSL30 && testType == serverTest,
 			})
 			tests = append(tests, testCase{
 				testType: testType,
@@ -4906,7 +4910,6 @@ func addExtensionTests() {
 				NoRenegotiationInfo: true,
 			},
 		},
-		resumeSession: true,
 	})
 	testCases = append(testCases, testCase{
 		testType: serverTest,
@@ -4914,7 +4917,6 @@ func addExtensionTests() {
 		config: Config{
 			MaxVersion: VersionSSL30,
 		},
-		resumeSession: true,
 	})
 
 	// But SSL 3.0 does send and process renegotiation_info.
@@ -5148,7 +5150,7 @@ func addResumptionVersionTests() {
 						CipherSuites: []uint16{cipher},
 					},
 					expectedVersion:      sessionVers.version,
-					expectResumeRejected: sessionVers.version != resumeVers.version,
+					expectResumeRejected: sessionVers.version != resumeVers.version || resumeVers.version == VersionSSL30,
 					resumeConfig: &Config{
 						MaxVersion:   resumeVers.version,
 						CipherSuites: []uint16{cipher},

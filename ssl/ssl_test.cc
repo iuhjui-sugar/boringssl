@@ -1809,7 +1809,7 @@ static int SaveLastSession(SSL *ssl, SSL_SESSION *session) {
 }
 
 static bssl::UniquePtr<SSL_SESSION> CreateClientSession(SSL_CTX *client_ctx,
-                                             SSL_CTX *server_ctx) {
+                                                        SSL_CTX *server_ctx) {
   g_last_session = nullptr;
   SSL_CTX_sess_set_new_cb(client_ctx, SaveLastSession);
 
@@ -1827,7 +1827,6 @@ static bssl::UniquePtr<SSL_SESSION> CreateClientSession(SSL_CTX *client_ctx,
   SSL_CTX_sess_set_new_cb(client_ctx, nullptr);
 
   if (!g_last_session) {
-    fprintf(stderr, "Client did not receive a session.\n");
     return nullptr;
   }
   return std::move(g_last_session);
@@ -1888,6 +1887,15 @@ static bool TestSessionIDContext() {
 
     bssl::UniquePtr<SSL_SESSION> session =
         CreateClientSession(client_ctx.get(), server_ctx.get());
+
+    if (version == SSL3_VERSION) {
+      if (session) {
+        fprintf(stderr, "SSLv3 should not have session resumption.");
+        return false;
+      }
+      continue;
+    }
+
     if (!session) {
       fprintf(stderr, "Error getting session (version = %04x).\n", version);
       return false;
@@ -1930,7 +1938,16 @@ static bool TestSessionTimeout() {
     return false;
   }
 
+  // Time zero causes the time to be omitted when serialising a session so set
+  // the time to one.
+  g_current_time.tv_sec = 1;
+
   for (uint16_t version : kTLSVersions) {
+    if (version == SSL3_VERSION) {
+      // No session resumption supported in SSLv3.
+      continue;
+    }
+
     bssl::UniquePtr<SSL_CTX> server_ctx(SSL_CTX_new(TLS_method()));
     bssl::UniquePtr<SSL_CTX> client_ctx(SSL_CTX_new(TLS_method()));
     if (!server_ctx || !client_ctx ||
