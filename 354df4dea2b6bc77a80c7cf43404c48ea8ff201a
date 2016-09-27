@@ -22,6 +22,24 @@
       "revId": "354df4dea2b6bc77a80c7cf43404c48ea8ff201a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5dda35f_6b98617d",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 747,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-27T15:02:50Z",
+      "side": 1,
+      "message": "No need to bug it out. We\u0027d just pick some value on !ok. But we can\u0027t do that because we need to know the true version for line 758 and others. That is, if runner negotiated TLS 1.2, we serialize the ServerHello as if it were 1.2. If runner negotiated TLS 1.3, we serialize as if it were 1.3. This is relevant for HelloRetryRequest/ServerHello version-mismatch tests.",
+      "parentUuid": "c5dda35f_cbdab540",
+      "revId": "354df4dea2b6bc77a80c7cf43404c48ea8ff201a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
