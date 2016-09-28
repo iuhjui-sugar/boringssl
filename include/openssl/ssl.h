@@ -4533,6 +4533,7 @@ typedef struct ssl3_state_st {
 #define SSL_CTRL_SET_TMP_ECDH_CB doesnt_exist
 #define SSL_CTRL_SET_TMP_RSA doesnt_exist
 #define SSL_CTRL_SET_TMP_RSA_CB doesnt_exist
+#define SSL_CTRL_SET_CURVES_LIST doesnt_exist
 
 #define DTLSv1_get_timeout DTLSv1_get_timeout
 #define DTLSv1_handle_timeout DTLSv1_handle_timeout
