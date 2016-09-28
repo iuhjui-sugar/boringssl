@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "058edbb2_e0a93c2e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-28T21:46:34Z",
+      "side": 1,
+      "message": "That is intentional. X25519 should not be shoehorned into the legacy EC_KEY framework. X25519 has a very different shape from X9.62 ECC. Beta revisions of OpenSSL 1.1.0 tried this and, as a result, serialized the keys wrong and made it not constant-time. I believe the final release fixed this and did it properly.",
+      "range": {
+        "startLine": 13,
+        "startChar": 33,
+        "endLine": 13,
+        "endChar": 61
+      },
+      "revId": "6f20160f736bebeaee4de9c37a4bd540bb470b38",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
