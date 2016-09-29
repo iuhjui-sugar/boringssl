@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "058edbb2_6338d6d7",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1938,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-29T20:10:15Z",
+      "side": 1,
+      "message": "colon?",
+      "range": {
+        "startLine": 1938,
+        "startChar": 3,
+        "endLine": 1938,
+        "endChar": 8
+      },
+      "revId": "d911d03c7dade4844872ac3871f1080b89eb3f6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "058edbb2_8335e2de",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1944,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-29T20:10:15Z",
+      "side": 1,
+      "message": "colon?",
+      "range": {
+        "startLine": 1944,
+        "startChar": 3,
+        "endLine": 1944,
+        "endChar": 8
+      },
+      "revId": "d911d03c7dade4844872ac3871f1080b89eb3f6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "058edbb2_233ecec5",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-29T20:10:15Z",
+      "side": 1,
+      "message": "Stray character?",
+      "range": {
+        "startLine": 613,
+        "startChar": 32,
+        "endLine": 613,
+        "endChar": 34
+      },
+      "revId": "d911d03c7dade4844872ac3871f1080b89eb3f6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "425b693f_27d7ba49",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-29T20:10:15Z",
+      "side": 1,
+      "message": "Thanks for the thorough tests!",
+      "revId": "d911d03c7dade4844872ac3871f1080b89eb3f6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "058edbb2_433bdad4",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-29T20:10:15Z",
+      "side": 1,
+      "message": "Nit: need four more spaces",
+      "range": {
+        "startLine": 406,
+        "startChar": 16,
+        "endLine": 406,
+        "endChar": 18
+      },
+      "revId": "d911d03c7dade4844872ac3871f1080b89eb3f6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e544673c_8c298791",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-29T20:10:15Z",
+      "side": 1,
+      "message": "[Verified that the C spec says passing NULL to realloc does what we want. Neat! I didn\u0027t know that worked.]",
+      "range": {
+        "startLine": 422,
+        "startChar": 32,
+        "endLine": 422,
+        "endChar": 41
+      },
+      "revId": "d911d03c7dade4844872ac3871f1080b89eb3f6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "425b693f_c79fbeb2",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-29T20:10:15Z",
+      "side": 1,
+      "message": "This actually leaks memory on realloc failure. realloc is awkward to use right. You want something like:\n\n  uint16_t *new_group_ids \u003d OPENSSL_realloc(....);\n  if (new_group_ids \u003d\u003d NULL) {\n    goto err;\n  }\n  group_ids \u003d new_group_ids;\n\n(I have no idea whether realloc implementations are generally smart enough to make this kind of loop O(N) rather than O(N^2) but whatever. N \u003d 2, so who cares? :-) )",
+      "range": {
+        "startLine": 422,
+        "startChar": 16,
+        "endLine": 422,
+        "endChar": 31
+      },
+      "revId": "d911d03c7dade4844872ac3871f1080b89eb3f6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "425b693f_8799c6ce",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-09-29T20:10:15Z",
+      "side": 1,
+      "message": "Nit: I\u0027d probably write this\n\n  group_ids[ncurves] \u003d group_id;\n  ncurves++;",
+      "range": {
+        "startLine": 427,
+        "startChar": 14,
+        "endLine": 427,
+        "endChar": 23
+      },
+      "revId": "d911d03c7dade4844872ac3871f1080b89eb3f6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
