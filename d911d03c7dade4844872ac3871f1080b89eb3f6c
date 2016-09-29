@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "82172137_fc2945f2",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1938,
+      "author": {
+        "id": 7060
+      },
+      "writtenOn": "2016-09-29T21:20:20Z",
+      "side": 1,
+      "message": "Of course (faceplam), fixed.",
+      "parentUuid": "058edbb2_6338d6d7",
+      "range": {
+        "startLine": 1938,
+        "startChar": 3,
+        "endLine": 1938,
+        "endChar": 8
+      },
+      "revId": "d911d03c7dade4844872ac3871f1080b89eb3f6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "058edbb2_8335e2de",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "82172137_dc268122",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1944,
+      "author": {
+        "id": 7060
+      },
+      "writtenOn": "2016-09-29T21:20:20Z",
+      "side": 1,
+      "message": "Same.",
+      "parentUuid": "058edbb2_8335e2de",
+      "range": {
+        "startLine": 1944,
+        "startChar": 3,
+        "endLine": 1944,
+        "endChar": 8
+      },
+      "revId": "d911d03c7dade4844872ac3871f1080b89eb3f6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "058edbb2_233ecec5",
         "filename": "ssl/internal.h",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2016-09-29T20:10:15Z",
       "side": 1,
       "message": "Stray character?",
+      "range": {
+        "startLine": 613,
+        "startChar": 32,
+        "endLine": 613,
+        "endChar": 34
+      },
+      "revId": "d911d03c7dade4844872ac3871f1080b89eb3f6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e21b7d68_94b6a4f1",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 7060
+      },
+      "writtenOn": "2016-09-29T21:20:20Z",
+      "side": 1,
+      "message": "Fixed, thanks.",
+      "parentUuid": "058edbb2_233ecec5",
       "range": {
         "startLine": 613,
         "startChar": 32,
@@ -99,6 +171,30 @@
       "writtenOn": "2016-09-29T20:10:15Z",
       "side": 1,
       "message": "Nit: need four more spaces",
+      "range": {
+        "startLine": 406,
+        "startChar": 16,
+        "endLine": 406,
+        "endChar": 18
+      },
+      "revId": "d911d03c7dade4844872ac3871f1080b89eb3f6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e21b7d68_74a548b2",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 7060
+      },
+      "writtenOn": "2016-09-29T21:20:20Z",
+      "side": 1,
+      "message": "Five :) Fixed now.",
+      "parentUuid": "058edbb2_433bdad4",
       "range": {
         "startLine": 406,
         "startChar": 16,
@@ -157,6 +253,30 @@
     },
     {
       "key": {
+        "uuid": "6264ed0a_7877612d",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 7060
+      },
+      "writtenOn": "2016-09-29T21:20:20Z",
+      "side": 1,
+      "message": "Ah good point. Fixed it now, thanks.",
+      "parentUuid": "425b693f_c79fbeb2",
+      "range": {
+        "startLine": 422,
+        "startChar": 16,
+        "endLine": 422,
+        "endChar": 31
+      },
+      "revId": "d911d03c7dade4844872ac3871f1080b89eb3f6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "425b693f_8799c6ce",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 3
@@ -168,6 +288,30 @@
       "writtenOn": "2016-09-29T20:10:15Z",
       "side": 1,
       "message": "Nit: I\u0027d probably write this\n\n  group_ids[ncurves] \u003d group_id;\n  ncurves++;",
+      "range": {
+        "startLine": 427,
+        "startChar": 14,
+        "endLine": 427,
+        "endChar": 23
+      },
+      "revId": "d911d03c7dade4844872ac3871f1080b89eb3f6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "222675ad_b6808831",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 7060
+      },
+      "writtenOn": "2016-09-29T21:20:20Z",
+      "side": 1,
+      "message": "Fixed as well.",
+      "parentUuid": "425b693f_8799c6ce",
       "range": {
         "startLine": 427,
         "startChar": 14,
