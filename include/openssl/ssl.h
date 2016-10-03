@@ -4232,18 +4232,6 @@ typedef struct ssl3_state_st {
   uint8_t server_random[SSL3_RANDOM_SIZE];
   uint8_t client_random[SSL3_RANDOM_SIZE];
 
-  /* have_version is true if the connection's final version is known. Otherwise
-   * the version has not been negotiated yet. */
-  unsigned have_version:1;
-
-  /* v2_hello_done is true if the peer's V2ClientHello, if any, has been handled
-   * and future messages should use the record layer. */
-  unsigned v2_hello_done:1;
-
-  /* initial_handshake_complete is true if the initial handshake has
-   * completed. */
-  unsigned initial_handshake_complete:1;
-
   /* read_buffer holds data from the transport to be processed. */
   SSL3_BUFFER read_buffer;
   /* write_buffer holds data to be written to the transport. */
@@ -4275,7 +4263,6 @@ typedef struct ssl3_state_st {
   enum ssl_shutdown_t send_shutdown;
 
   int alert_dispatch;
-  uint8_t send_alert[2];
 
   int total_renegotiations;
 
@@ -4289,6 +4276,36 @@ typedef struct ssl3_state_st {
   /* key_update_count is the number of consecutive KeyUpdates received. */
   uint8_t key_update_count;
 
+  /* have_version is true if the connection's final version is known. Otherwise
+   * the version has not been negotiated yet. */
+  unsigned have_version:1;
+
+  /* v2_hello_done is true if the peer's V2ClientHello, if any, has been handled
+   * and future messages should use the record layer. */
+  unsigned v2_hello_done:1;
+
+  /* initial_handshake_complete is true if the initial handshake has
+   * completed. */
+  unsigned initial_handshake_complete:1;
+
+  /* session_reused indicates whether a session was resumed. */
+  unsigned session_reused:1;
+
+  /* In a client, this means that the server supported Channel ID and that a
+   * Channel ID was sent. In a server it means that we echoed support for
+   * Channel IDs and that tlsext_channel_id will be valid after the
+   * handshake. */
+  unsigned tlsext_channel_id_valid:1;
+
+  /* Set if we saw the Next Protocol Negotiation extension from our peer. */
+  unsigned next_proto_neg_seen:1;
+
+  unsigned send_connection_binding:1;
+
+  /* pending_message is the current outgoing handshake message. */
+  uint32_t pending_message_len;
+  uint8_t *pending_message;
+
   /* aead_read_ctx is the current read cipher state. */
   SSL_AEAD_CTX *aead_read_ctx;
 
@@ -4299,35 +4316,49 @@ typedef struct ssl3_state_st {
    * version. */
   const SSL3_ENC_METHOD *enc_method;
 
-  /* pending_message is the current outgoing handshake message. */
-  uint8_t *pending_message;
-  uint32_t pending_message_len;
-
   /* hs is the handshake state for the current handshake or NULL if there isn't
    * one. */
   SSL_HANDSHAKE *hs;
 
   uint8_t write_traffic_secret[EVP_MAX_MD_SIZE];
-  uint8_t write_traffic_secret_len;
   uint8_t read_traffic_secret[EVP_MAX_MD_SIZE];
-  uint8_t read_traffic_secret_len;
   uint8_t exporter_secret[EVP_MAX_MD_SIZE];
+  uint8_t write_traffic_secret_len;
+  uint8_t read_traffic_secret_len;
   uint8_t exporter_secret_len;
+  uint8_t send_alert[2];
+
+  /* Connection binding to prevent renegotiation attacks */
+  uint8_t previous_client_finished_len;
+  uint8_t previous_server_finished_len;
+  uint8_t previous_client_finished[EVP_MAX_MD_SIZE];
+  uint8_t previous_server_finished[EVP_MAX_MD_SIZE];
 
   /* State pertaining to the pending handshake.
    *
    * TODO(davidben): Move everything not needed after the handshake completes to
    * |hs| and remove this. */
   struct {
-    uint8_t finish_md[EVP_MAX_MD_SIZE];
-    uint8_t finish_md_len;
-    uint8_t peer_finish_md[EVP_MAX_MD_SIZE];
-    uint8_t peer_finish_md_len;
-
-    int message_type;
-
     /* used to hold the new cipher we are going to use */
     const SSL_CIPHER *new_cipher;
+
+    uint8_t finish_md[EVP_MAX_MD_SIZE];
+    uint8_t peer_finish_md[EVP_MAX_MD_SIZE];
+    uint8_t finish_md_len;
+    uint8_t peer_finish_md_len;
+
+    union {
+      /* sent is a bitset where the bits correspond to elements of
+       * |client_custom_extensions| in the |SSL_CTX|. Each bit is set if that
+       * extension was sent in a ClientHello. It's not used by servers. */
+      uint16_t sent;
+      /* received is a bitset, like |sent|, but is used by servers to record
+       * which custom extensions were received from a client. The bits here
+       * correspond to |server_custom_extensions|. */
+      uint16_t received;
+    } custom_extensions;
+
+    int message_type;
 
     /* used when SSL_ST_FLUSH_DATA is entered */
     int next_state;
@@ -4343,21 +4374,6 @@ typedef struct ssl3_state_st {
        * which extensions were received from a client. */
       uint32_t received;
     } extensions;
-
-    union {
-      /* sent is a bitset where the bits correspond to elements of
-       * |client_custom_extensions| in the |SSL_CTX|. Each bit is set if that
-       * extension was sent in a ClientHello. It's not used by servers. */
-      uint16_t sent;
-      /* received is a bitset, like |sent|, but is used by servers to record
-       * which custom extensions were received from a client. The bits here
-       * correspond to |server_custom_extensions|. */
-      uint16_t received;
-    } custom_extensions;
-
-    /* should_ack_sni is used by a server and indicates that the SNI extension
-     * should be echoed in the ServerHello. */
-    unsigned should_ack_sni:1;
 
     /* Client-only: ca_names contains the list of CAs received in a
      * CertificateRequest message. */
@@ -4375,6 +4391,10 @@ typedef struct ssl3_state_st {
     uint8_t new_key_len;
     uint8_t new_fixed_iv_len;
 
+    /* should_ack_sni is used by a server and indicates that the SNI extension
+     * should be echoed in the ServerHello. */
+    unsigned should_ack_sni:1;
+
     /* cert_request is true if a client certificate was requested and false
      * otherwise. */
     unsigned cert_request:1;
@@ -4386,12 +4406,6 @@ typedef struct ssl3_state_st {
 
     /* ocsp_stapling_requested is true if a client requested OCSP stapling. */
     unsigned ocsp_stapling_requested:1;
-
-    /* Server-only: peer_supported_group_list contains the supported group IDs
-     * advertised by the peer. This is only set on the server's end. The server
-     * does not advertise this extension to the client. */
-    uint16_t *peer_supported_group_list;
-    size_t peer_supported_group_list_len;
 
     /* extended_master_secret indicates whether the extended master secret
      * computation is used in this handshake. Note that this is different from
@@ -4409,12 +4423,18 @@ typedef struct ssl3_state_st {
      * the peer, or zero if not applicable. */
     uint16_t peer_signature_algorithm;
 
-    /* ecdh_ctx is the current ECDH instance. */
-    SSL_ECDH_CTX ecdh_ctx;
+    /* Server-only: peer_supported_group_list contains the supported group IDs
+     * advertised by the peer. This is only set on the server's end. The server
+     * does not advertise this extension to the client. */
+    uint16_t *peer_supported_group_list;
+    size_t peer_supported_group_list_len;
 
     /* peer_key is the peer's ECDH key. */
     uint8_t *peer_key;
     uint16_t peer_key_len;
+
+    /* ecdh_ctx is the current ECDH instance. */
+    SSL_ECDH_CTX ecdh_ctx;
 
     /* server_params stores the ServerKeyExchange parameters to be signed while
      * the signature is being computed. */
@@ -4430,19 +4450,6 @@ typedef struct ssl3_state_st {
    * session is only filled upon the completion of the handshake and is
    * immutable. */
   SSL_SESSION *established_session;
-
-  /* session_reused indicates whether a session was resumed. */
-  unsigned session_reused:1;
-
-  /* Connection binding to prevent renegotiation attacks */
-  uint8_t previous_client_finished[EVP_MAX_MD_SIZE];
-  uint8_t previous_client_finished_len;
-  uint8_t previous_server_finished[EVP_MAX_MD_SIZE];
-  uint8_t previous_server_finished_len;
-  int send_connection_binding;
-
-  /* Set if we saw the Next Protocol Negotiation extension from our peer. */
-  int next_proto_neg_seen;
 
   /* Next protocol negotiation. For the client, this is the protocol that we
    * sent in NextProtocol and is set when handling ServerHello extensions.
@@ -4462,11 +4469,6 @@ typedef struct ssl3_state_st {
   uint8_t *alpn_selected;
   size_t alpn_selected_len;
 
-  /* In a client, this means that the server supported Channel ID and that a
-   * Channel ID was sent. In a server it means that we echoed support for
-   * Channel IDs and that tlsext_channel_id will be valid after the
-   * handshake. */
-  char tlsext_channel_id_valid;
   /* For a server:
    *     If |tlsext_channel_id_valid| is true, then this contains the
    *     verified Channel ID from the client: a P256 point, (x,y), where
