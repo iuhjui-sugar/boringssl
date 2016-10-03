@@ -1,0 +1,129 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62378d0d_264f6237",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1244,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 0,
+      "message": "This logic was also to prevent PSK-based TLS 1.2 ciphers from sending stapled OCSP responses.",
+      "revId": "83de122d322625d41ae1b852b9a1488f9379c399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_86546ecc",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1297,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 0,
+      "message": "Ditto.",
+      "revId": "83de122d322625d41ae1b852b9a1488f9379c399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_66d68a1c",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 16
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 0,
+      "message": "The TODO seems still accurate.",
+      "revId": "83de122d322625d41ae1b852b9a1488f9379c399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_06e5fef4",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 16
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 0,
+      "message": "This check is still necessary. Just no mapping.",
+      "revId": "83de122d322625d41ae1b852b9a1488f9379c399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_c60156b0",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 16
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 0,
+      "message": "This check is still needed. It\u0027s just the ecdhePSKSuite thing that goes. (Note mutualCipherSuite here does not check our list.)",
+      "revId": "83de122d322625d41ae1b852b9a1488f9379c399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_a683723d",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 0,
+      "message": "With all the other changes, I think this doesn\u0027t need to be a global anymore.",
+      "revId": "83de122d322625d41ae1b852b9a1488f9379c399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_a60892e1",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 0,
+      "message": "Stray change? I think it\u0027s still true?",
+      "range": {
+        "startLine": 244,
+        "startChar": 55,
+        "endLine": 245,
+        "endChar": 16
+      },
+      "revId": "83de122d322625d41ae1b852b9a1488f9379c399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

@@ -1,0 +1,968 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62378d0d_2694829b",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 3502,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "Don\u0027t add new ones of these. They\u0027re all deprecated and more-or-less useless. I need to go prune them down to the few that are actually used.",
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_86890e82",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 3506,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_668e8a89",
+        "filename": "include/openssl/tls1.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "TLS1_CK_* are named by IETF names, so remove the TLS_ prefix here.",
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_a69ff2b2",
+        "filename": "include/openssl/tls1.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "Using \"TLS-\" in the OpenSSL names is really confusing. They\u0027re not used by all versions of TLS or anything. I suggest \"AEAD-\"",
+      "range": {
+        "startLine": 613,
+        "startChar": 41,
+        "endLine": 613,
+        "endChar": 45
+      },
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_c6a2f6f6",
+        "filename": "include/openssl/tls1.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 613,
+        "startChar": 16,
+        "endLine": 613,
+        "endChar": 20
+      },
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_069dfeb9",
+        "filename": "ssl/internal.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "Calling these \"TLS\" is confusing. Maybe SSL_kAEADONLY.",
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_e699facd",
+        "filename": "ssl/internal.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_46f426e9",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 704,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "I can\u0027t think of when one would use this alias. Better remove it.",
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_26f922df",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_c6e79636",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1427,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "The new ciphers should be integrated here. Probably in front of the old ones?",
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_66032ae9",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1474,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "This\u0027ll also want an update... maybe it should be a whitelist rather than a blacklist? We\u0027re not going to add new ones of these ciphers.",
+      "range": {
+        "startLine": 1474,
+        "startChar": 26,
+        "endLine": 1474,
+        "endChar": 29
+      },
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_26e2c222",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1648,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_86d74e47",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1661,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_a65a52f1",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 2067,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "If TLS 1.3, then the old ciphers are always cleared. They\u0027re disjoint. Perhaps just add at the very top of the function:\n\nif (ssl3_protocol_version(ssl) \u003e\u003d TLS1_3_VERSION) {\n  *out_mask_k \u003d SSL_kTLS;\n  *out_mask_a \u003d SSL_aTLS;\n  return 1;\n}\n\n(Though the min/max version business also handles this.)",
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_66784a81",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1219,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "Not reachable.\n\nCan we put these in tls13_client.c and tls13_server.c? I think it just ends up being more effort and more confusing to have them here. You can\u0027t tell locally what context they are called in, nor are they documented as standalone functions.",
+      "range": {
+        "startLine": 1219,
+        "startChar": 6,
+        "endLine": 1219,
+        "endChar": 49
+      },
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_8673cea6",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1226,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "No need to flush when there are no children.",
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_261da227",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 2264,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "Why adding SSL_AD_DECODE_ERROR here but, say line 2276 doesn\u0027t have it?\n\n(These should be detached from the extension callback and not mixed half-and-half.)",
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_66404aec",
+        "filename": "ssl/test/runner/cipher_suites.go",
+        "patchSetId": 16
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "Nit: Doesn\u0027t actually matter since it\u0027s BoGo, but put these at the front and with CHACHA20 \u003e AES-GCM since we don\u0027t have hardware AES-GCM in this stack.",
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_863bce85",
+        "filename": "ssl/test/runner/cipher_suites.go",
+        "patchSetId": 16
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "This is never called, so just put nil into the structs.",
+      "range": {
+        "startLine": 479,
+        "startChar": 5,
+        "endLine": 479,
+        "endChar": 10
+      },
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_2646420b",
+        "filename": "ssl/test/runner/cipher_suites.go",
+        "patchSetId": 16
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "Just name them like the spec and without the \"TLS_WITH_\"",
+      "range": {
+        "startLine": 550,
+        "startChar": 5,
+        "endLine": 550,
+        "endChar": 14
+      },
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_46d7061a",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 16
+      },
+      "lineNbr": 1023,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "This is getting rather gnarly. There\u0027s no way we don\u0027t have redundant bugs in here somewhere... here\u0027s an initial pass of simplifications, but could you do a pass and figure out what\u0027s actually necessary?",
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_a631b2a5",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 16
+      },
+      "lineNbr": 1026,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "We won\u0027t get to the resumption if the handshake succeeds, so this can just use MissingKeyShare.",
+      "range": {
+        "startLine": 1026,
+        "startChar": 1,
+        "endLine": 1026,
+        "endChar": 23
+      },
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_26dc823a",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 16
+      },
+      "lineNbr": 1030,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "This isn\u0027t quite an accurate description. It\u0027s actually saying pretend to do pure PSK resumption.",
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_062fbe3d",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 16
+      },
+      "lineNbr": 1032,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "Sigalgs \u003d\u003e SignatureAlgorithms",
+      "range": {
+        "startLine": 1032,
+        "startChar": 18,
+        "endLine": 1032,
+        "endChar": 25
+      },
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_46eee6e7",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 16
+      },
+      "lineNbr": 1034,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "\"initial ServerHello\" is really confusing. Since we won\u0027t get to the resumption anyway, let\u0027s go with OmitServerHelloSignatureAlgorithms?",
+      "range": {
+        "startLine": 1034,
+        "startChar": 1,
+        "endLine": 1034,
+        "endChar": 22
+      },
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_26f3e2d1",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 16
+      },
+      "lineNbr": 1038,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "Ditto. And probably put the word \"ServerHello\" in here to disambiguate between CertificateRequest and ServerHello. This could also just be AlwaysInclude..., to avoid the dependency on the resumption state.",
+      "range": {
+        "startLine": 1038,
+        "startChar": 18,
+        "endLine": 1038,
+        "endChar": 25
+      },
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_e6e1fae8",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 16
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "Same bug as in C previously. This implements ECDHE-less resumption.",
+      "range": {
+        "startLine": 602,
+        "startChar": 52,
+        "endLine": 602,
+        "endChar": 70
+      },
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_46bc26d8",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 16
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "Ditto. This implements PSK-signing.",
+      "range": {
+        "startLine": 602,
+        "startChar": 21,
+        "endLine": 602,
+        "endChar": 32
+      },
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_86c62e60",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 16
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "I\u0027m not sure what\u0027s going on here, but (apart from the bug above), this condition is always true. I.e. even the bugs are irrelevant here.",
+      "range": {
+        "startLine": 615,
+        "startChar": 4,
+        "endLine": 615,
+        "endChar": 36
+      },
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_86f8eeaa",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 16
+      },
+      "lineNbr": 778,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "What\u0027s wrong with hasKeyShare? Require doesn\u0027t make much sense here since it sounds like, if false, doing the ECDH thing is still allowed, but that\u0027s not true.\n\nMoreover, we can\u0027t send the extension without a keyShare anyway, so hasKeyShare is actually preferable.",
+      "range": {
+        "startLine": 778,
+        "startChar": 1,
+        "endLine": 778,
+        "endChar": 19
+      },
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_060cdee2",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 16
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "hs.hello.useCertAuth \u003d hs.sessionState \u003d\u003d nil",
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_e608dad0",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 16
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "Having this get set here, queried later, and then reset even later is confusing. Keep it set in the same place where the key share is configured because we can\u0027t send the extension without a key share anyway. If the Missing*KeyShare logic is confusing, add a temporary variable.",
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_86d10e25",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 16
+      },
+      "lineNbr": 1750,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "TLS 1.3 and TLS 1.2 are a pretty tight divider. Perhaps:\n\n\nif version \u003e\u003d VersionTLS13 {\n  if candidate.flags\u0026suiteTLS13 \u003d\u003d 0 {\n     continue\n  }\n  return candidate\n}\n\nif candidate.flags\u0026suiteTLS13 !\u003d 0 {\n  continue\n}\n\n...all the old stuff...\n\nAnd then optionally move the c.isDTLS check up. Although TLS 1.3 ciphers all work in DTLS, so it\u0027s not really a big deal.",
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_c6af9695",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 16
+      },
+      "lineNbr": 2611,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "Nit: put this right after UnknownCipher?",
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_06ba1ed6",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 16
+      },
+      "lineNbr": 2731,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "This does not actually need to specify a cipher suite. I feel like the fact that the TLS 1.2 one does is a bug. Ah well.",
+      "range": {
+        "startLine": 2731,
+        "startChar": 5,
+        "endLine": 2731,
+        "endChar": 17
+      },
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_26aac281",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 16
+      },
+      "lineNbr": 4409,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "Bah. Here. https://boringssl-review.googlesource.com/11413 :-P",
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_a9822500",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 16
+      },
+      "lineNbr": 5170,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "This kind of defeats the entire purpose of these tests. The only reason these tests specify a cipher is because otherwise you notice the cipher mismatch before the session version mismatch.\n\n(It\u0027s kinda late and I ought to publish the comments I have. Let\u0027s chat about this tomorrow and figure out what we can do.)",
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_897c810f",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 16
+      },
+      "lineNbr": 8197,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "?",
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_06685e82",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "That\u0027s a lot of trouble just to set an error. Better to just use one error code I think.",
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_46738679",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "Why not just set psk_secret \u003d {0} as you did elsewhere and avoid this else branch?",
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_26780252",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "memset(0), not memcpy(kZeros). Also malloc failure checks. With the malloc failure, I suspect the old code was actually shorter. :-P\n\nBut this codepath is unreachable, so just remove it completely.",
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_66720a74",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "if (have_sigalgs \u0026\u0026\n    ...) {\n  ...\n}\n\nAlso inline that function.",
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_c686764f",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "Nit: non-resumption handshakes",
+      "range": {
+        "startLine": 393,
+        "startChar": 58,
+        "endLine": 393,
+        "endChar": 59
+      },
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_4641c6f1",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "Nit: This looks like a documentation comment but isn\u0027t. Move it inside the body maybe? Or perhaps at the call site.",
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_06817e34",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "Why this change? (We usually declare variables close to whether they are used. dhe_secret_len \u003d hs-\u003ehash_len also looks off.)",
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_4618a637",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "Stray change? This is reintroducing a bug the fuzzer found. See 7e1f984a7c4eede37d6297cba141aef7de4509b0. ssl_ext_key_share_... expects alert to be initialized. I see this CL changed that function a bit, but there are still codepaths that expect this. Let\u0027s leave this alone and if we want to change it, change it in later CLs to move them out of t1_lib.c.\n\n(This is another reason why we need to move this out of t1_lib.c. BoringSSL functions never require output parameters to be initialized, except for the extension callbacks. It took the fuzzer to notice we\u0027d previously messed this up.)",
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_8622ae5f",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "This is relying on a u32 -\u003e u16 cast to remove the leading bytes. Elsewhere we usually have an explicit (uint16_t) cast.",
+      "range": {
+        "startLine": 126,
+        "startChar": 26,
+        "endLine": 126,
+        "endChar": 60
+      },
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_6627aa71",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "Certificate-based authentication",
+      "range": {
+        "startLine": 174,
+        "startChar": 5,
+        "endLine": 174,
+        "endChar": 15
+      },
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_06169e07",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "Same as other file. memcpy -\u003e memset -\u003e \u003d {0} in this case.",
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_e6129a11",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T23:21:15Z",
+      "side": 1,
+      "message": "Nit: non-resumption handshakes",
+      "range": {
+        "startLine": 363,
+        "startChar": 57,
+        "endLine": 363,
+        "endChar": 58
+      },
+      "revId": "19d7688cc68a9e652a8e5602ab0693139bb93318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
