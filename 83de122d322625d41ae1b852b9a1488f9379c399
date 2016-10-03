@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "62378d0d_86258eb3",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-10-03T20:14:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62378d0d_66116a61",
+      "revId": "83de122d322625d41ae1b852b9a1488f9379c399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "62378d0d_8668eee8",
         "filename": "ssl/test/runner/handshake_messages.go",
         "patchSetId": 18
@@ -30,6 +48,30 @@
       "writtenOn": "2016-10-03T19:56:42Z",
       "side": 1,
       "message": "[Transplanting thread.]\n\nD: Was there before, but I think this wants to be !\u003d so we enforce there isn\u0027t trailing data.\n\nS: This gets hit through the outer for loop since it\u0027ll just crash when parsing the trailing data\n\nYou sure? The outer loop is just going to take data[length:] and not know whether or not the extension has parsed all length bytes.",
+      "range": {
+        "startLine": 651,
+        "startChar": 14,
+        "endLine": 651,
+        "endChar": 15
+      },
+      "revId": "83de122d322625d41ae1b852b9a1488f9379c399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_e6357adf",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-10-03T20:14:47Z",
+      "side": 1,
+      "message": "d is the remainder of data, if there is trailing data, it would return false on 618. Otherwise we only succeed on len(d) \u003c\u003d 0 for the for loop.",
+      "parentUuid": "62378d0d_8668eee8",
       "range": {
         "startLine": 651,
         "startChar": 14,
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "62378d0d_4650a608",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 7481,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-10-03T20:14:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62378d0d_c608363c",
+      "revId": "83de122d322625d41ae1b852b9a1488f9379c399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "62378d0d_46026618",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 18
@@ -76,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "62378d0d_865aae24",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 7489,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-10-03T20:14:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62378d0d_46026618",
+      "revId": "83de122d322625d41ae1b852b9a1488f9379c399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "62378d0d_06033e1e",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 18
@@ -87,6 +165,24 @@
       "writtenOn": "2016-10-03T19:56:42Z",
       "side": 1,
       "message": "Ditto.",
+      "revId": "83de122d322625d41ae1b852b9a1488f9379c399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_2655a2f8",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 7518,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-10-03T20:14:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62378d0d_06033e1e",
       "revId": "83de122d322625d41ae1b852b9a1488f9379c399",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
