@@ -196,6 +196,12 @@ const (
 	ticketAllowPSKResumption = 4
 )
 
+// KeyUpdateRequest values (see draft-ietf-tls-tls13-16, section 4.5.3)
+const (
+	keyUpdateNotRequested = 0
+	keyUpdateRequested    = 1
+)
+
 // ConnectionState records basic TLS details about the connection.
 type ConnectionState struct {
 	Version                    uint16                // TLS version used by the connection (e.g. VersionTLS12)
