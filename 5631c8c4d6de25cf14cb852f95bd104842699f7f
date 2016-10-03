@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62378d0d_c33e68c4",
+        "filename": "fuzz/ssl_ctx_api.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T18:27:18Z",
+      "side": 1,
+      "message": "Why not CBS_get_u8_length_prefixed?",
+      "revId": "5631c8c4d6de25cf14cb852f95bd104842699f7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_a33b64d2",
+        "filename": "fuzz/ssl_ctx_api.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T18:27:18Z",
+      "side": 1,
+      "message": "CBS_get_u8_length_prefixed?",
+      "revId": "5631c8c4d6de25cf14cb852f95bd104842699f7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_033970d9",
+        "filename": "fuzz/ssl_ctx_api.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T18:27:18Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "5631c8c4d6de25cf14cb852f95bd104842699f7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_e6d45ab8",
+        "filename": "fuzz/ssl_ctx_api.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T18:27:18Z",
+      "side": 1,
+      "message": "This one uses GetString for a u8* ptr/len pair while others alias the input. Ditto for a few of the other GetString calls below.\n\nstd::string is NUL-terminated, so we wouldn\u0027t actually notice if it runs one byte over the buffer. Then again, the ones that alias the input will require the fuzzer to truncate for ASan to notice such things. (Do fuzzers do this?) Not that it matters much since anything which takes ptr/length isn\u0027t likely to parse things.",
+      "revId": "5631c8c4d6de25cf14cb852f95bd104842699f7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_66e20a92",
+        "filename": "fuzz/ssl_ctx_api.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T18:27:18Z",
+      "side": 1,
+      "message": "Optional: It can be a static_assert if you make it an array. Though then getting the size is a bit more annoying.",
+      "revId": "5631c8c4d6de25cf14cb852f95bd104842699f7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
