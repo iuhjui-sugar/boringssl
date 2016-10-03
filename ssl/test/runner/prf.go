@@ -417,11 +417,14 @@ func (h *finishedHash) appendContextHashes(b []byte) []byte {
 
 // The following are labels for traffic secret derivation in TLS 1.3.
 var (
-	earlyTrafficLabel       = []byte("early traffic secret")
-	handshakeTrafficLabel   = []byte("handshake traffic secret")
-	applicationTrafficLabel = []byte("application traffic secret")
-	exporterLabel           = []byte("exporter master secret")
-	resumptionLabel         = []byte("resumption master secret")
+	earlyTrafficLabel             = []byte("early traffic secret")
+	clientHandshakeTrafficLabel   = []byte("client handshake traffic secret")
+	serverHandshakeTrafficLabel   = []byte("server handshake traffic secret")
+	clientApplicationTrafficLabel = []byte("client application traffic secret")
+	serverApplicationTrafficLabel = []byte("server application traffic secret")
+	applicationTrafficLabel       = []byte("application traffic secret")
+	exporterLabel                 = []byte("exporter master secret")
+	resumptionLabel               = []byte("resumption master secret")
 )
 
 // deriveSecret implements TLS 1.3's Derive-Secret function, as defined in
@@ -480,11 +483,7 @@ func deriveTrafficAEAD(version uint16, suite *cipherSuite, secret, phase []byte,
 
 	label := make([]byte, 0, len(phase)+2+16)
 	label = append(label, phase...)
-	if side == clientWrite {
-		label = append(label, []byte(", client write key")...)
-	} else {
-		label = append(label, []byte(", server write key")...)
-	}
+	label = append(label, []byte(", key")...)
 	key := hkdfExpandLabel(suite.hash(), secret, label, nil, suite.keyLen)
 
 	label = label[:len(label)-3] // Remove "key" from the end.

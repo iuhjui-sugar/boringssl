@@ -899,7 +899,8 @@ struct ssl_handshake_st {
   size_t hash_len;
   uint8_t resumption_hash[EVP_MAX_MD_SIZE];
   uint8_t secret[EVP_MAX_MD_SIZE];
-  uint8_t traffic_secret_0[EVP_MAX_MD_SIZE];
+  uint8_t client_traffic_secret_0[EVP_MAX_MD_SIZE];
+  uint8_t server_traffic_secret_0[EVP_MAX_MD_SIZE];
 
   /* ecdh_ctx is the active client ECDH offer in TLS 1.3. */
   SSL_ECDH_CTX ecdh_ctx;
