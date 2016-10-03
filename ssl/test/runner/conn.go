@@ -1330,7 +1330,7 @@ func (c *Conn) Write(b []byte) (int, error) {
 
 	// Catch up with KeyUpdates from the peer.
 	for c.out.keyUpdateGeneration < c.in.keyUpdateGeneration {
-		if err := c.sendKeyUpdateLocked(); err != nil {
+		if err := c.sendKeyUpdateLocked(0); err != nil {
 			return 0, err
 		}
 	}
@@ -1345,7 +1345,7 @@ func (c *Conn) Write(b []byte) (int, error) {
 	}
 
 	if c.config.Bugs.SendKeyUpdateBeforeEveryAppDataRecord {
-		c.sendKeyUpdateLocked()
+		c.sendKeyUpdateLocked(0)
 	}
 
 	// SSL 3.0 and TLS 1.0 are susceptible to a chosen-plaintext
@@ -1729,14 +1729,16 @@ func (c *Conn) SendNewSessionTicket() error {
 	return err
 }
 
-func (c *Conn) SendKeyUpdate() error {
+func (c *Conn) SendKeyUpdate(keyUpdateRequest byte) error {
 	c.out.Lock()
 	defer c.out.Unlock()
-	return c.sendKeyUpdateLocked()
+	return c.sendKeyUpdateLocked(keyUpdateRequest)
 }
 
-func (c *Conn) sendKeyUpdateLocked() error {
-	m := new(keyUpdateMsg)
+func (c *Conn) sendKeyUpdateLocked(keyUpdateRequest byte) error {
+	m := keyUpdateMsg{
+		keyUpdateRequest: keyUpdateRequest,
+	}
 	if _, err := c.writeRecord(recordTypeHandshake, m.marshal()); err != nil {
 		return err
 	}

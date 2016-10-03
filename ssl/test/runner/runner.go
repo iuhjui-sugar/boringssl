@@ -616,7 +616,7 @@ func doExchange(test *testCase, config *Config, conn net.Conn, isResume bool, nu
 	}
 
 	for i := 0; i < test.sendKeyUpdates; i++ {
-		tlsConn.SendKeyUpdate()
+		tlsConn.SendKeyUpdate(0)
 	}
 
 	for i := 0; i < test.sendEmptyRecords; i++ {
@@ -676,7 +676,7 @@ func doExchange(test *testCase, config *Config, conn net.Conn, isResume bool, nu
 		tlsConn.Write(testMessage)
 
 		for i := 0; i < test.sendKeyUpdates; i++ {
-			tlsConn.SendKeyUpdate()
+			tlsConn.SendKeyUpdate(0)
 		}
 
 		for i := 0; i < test.sendEmptyRecords; i++ {
