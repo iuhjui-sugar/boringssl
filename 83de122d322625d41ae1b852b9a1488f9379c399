@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62378d0d_66116a61",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T19:56:42Z",
+      "side": 1,
+      "message": "Nit: A little shorter if you put []byte{pskDHEKEMode} in the struct literal below and then do:\n\n  psk.keModes \u003d c.config.Bugs.SendPSKKeyExchangeModes\n\n\netc. Like you did in the other file.",
+      "revId": "83de122d322625d41ae1b852b9a1488f9379c399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_8668eee8",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T19:56:42Z",
+      "side": 1,
+      "message": "[Transplanting thread.]\n\nD: Was there before, but I think this wants to be !\u003d so we enforce there isn\u0027t trailing data.\n\nS: This gets hit through the outer for loop since it\u0027ll just crash when parsing the trailing data\n\nYou sure? The outer loop is just going to take data[length:] and not know whether or not the extension has parsed all length bytes.",
+      "range": {
+        "startLine": 651,
+        "startChar": 14,
+        "endLine": 651,
+        "endChar": 15
+      },
+      "revId": "83de122d322625d41ae1b852b9a1488f9379c399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_c608363c",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 7481,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T19:56:42Z",
+      "side": 1,
+      "message": "This test seems redundant with the two below. Perhaps:\n\n[]byte{0x1a, pskDHEKEMode, 0x2a}\n[]byte{0x1a, pskAuthMode, 0x2a}\n\n(Or whatever other pattern of fake values you like.)",
+      "revId": "83de122d322625d41ae1b852b9a1488f9379c399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_46026618",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 7489,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T19:56:42Z",
+      "side": 1,
+      "message": "This flag doesn\u0027t really make sense for server test. I think you want resumeSession + expectResumeRejected. Ditto for the three below. I\u0027d also maybe add comments like:\n\n// Test that the server ignores unknown PSK modes.\n// Test that the server declines sessions with no matching key exchange mode.\n// Test that the server declines sessions with no matching auth mode.\n// Test that the client ignores unknown PSK modes.\n// Test that the client ignores tickets with no matching key exchange mode.\n// Test that the client ignores tickets with no matching auth mode.",
+      "revId": "83de122d322625d41ae1b852b9a1488f9379c399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_06033e1e",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 7518,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-03T19:56:42Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "83de122d322625d41ae1b852b9a1488f9379c399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
