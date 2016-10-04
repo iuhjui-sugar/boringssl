@@ -16,6 +16,24 @@
       "revId": "3fab94b3582edf704ecd2fb24c4669768ccbb173",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_c9f68955",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 727,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-04T03:31:05Z",
+      "side": 0,
+      "message": "I figure if we need to restore it, we\u0027ll just fix the callers. Or more likely just write things like crypto_sources + [\"android_new_hacks.c\"].",
+      "parentUuid": "829e417b_81201ab8",
+      "revId": "3fab94b3582edf704ecd2fb24c4669768ccbb173",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
