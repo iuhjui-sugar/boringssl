@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "829e417b_81201ab8",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 727,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-10-04T01:31:45Z",
+      "side": 0,
+      "message": "Does it make sense to keep android-standalone as an alias for android in case we split again in the future?",
+      "revId": "3fab94b3582edf704ecd2fb24c4669768ccbb173",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
