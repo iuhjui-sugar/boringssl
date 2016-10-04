@@ -159,10 +159,10 @@ func (c *Conn) clientHandshake() error {
 NextCipherSuite:
 	for _, suiteId := range possibleCipherSuites {
 		for _, suite := range cipherSuites {
-			if suite.id != suiteId {
-				continue
-			}
-			if !c.config.Bugs.EnableAllCiphers {
+			if !c.config.Bugs.AdvertiseAllConfiguredCiphers {
+				if suite.id != suiteId {
+					continue
+				}
 				// Don't advertise TLS 1.2-only cipher suites unless
 				// we're attempting TLS 1.2.
 				if maxVersion < VersionTLS12 && suite.flags&suiteTLS12 != 0 {
