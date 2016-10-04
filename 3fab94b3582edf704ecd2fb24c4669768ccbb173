@@ -34,6 +34,24 @@
       "revId": "3fab94b3582edf704ecd2fb24c4669768ccbb173",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62378d0d_09f1915a",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 727,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-04T03:32:10Z",
+      "side": 0,
+      "message": "(In the downstream Android.bp file, that is.)",
+      "parentUuid": "62378d0d_c9f68955",
+      "revId": "3fab94b3582edf704ecd2fb24c4669768ccbb173",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
