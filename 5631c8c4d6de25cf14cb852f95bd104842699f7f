@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "62830d88_e06ce295",
+        "filename": "fuzz/ssl_ctx_api.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2016-10-04T22:53:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62378d0d_c33e68c4",
+      "revId": "5631c8c4d6de25cf14cb852f95bd104842699f7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "62378d0d_a33b64d2",
         "filename": "fuzz/ssl_ctx_api.cc",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2016-10-03T18:27:18Z",
       "side": 1,
       "message": "CBS_get_u8_length_prefixed?",
+      "revId": "5631c8c4d6de25cf14cb852f95bd104842699f7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62830d88_200c0af5",
+        "filename": "fuzz/ssl_ctx_api.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2016-10-04T22:53:01Z",
+      "side": 1,
+      "message": "(Switched to GetString.)",
+      "parentUuid": "62378d0d_a33b64d2",
       "revId": "5631c8c4d6de25cf14cb852f95bd104842699f7f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "62830d88_40090ee4",
+        "filename": "fuzz/ssl_ctx_api.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2016-10-04T22:53:01Z",
+      "side": 1,
+      "message": "(Switched to GetString.)",
+      "parentUuid": "62378d0d_033970d9",
+      "revId": "5631c8c4d6de25cf14cb852f95bd104842699f7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "62378d0d_e6d45ab8",
         "filename": "fuzz/ssl_ctx_api.cc",
         "patchSetId": 1
@@ -64,6 +118,24 @@
       "writtenOn": "2016-10-03T18:27:18Z",
       "side": 1,
       "message": "This one uses GetString for a u8* ptr/len pair while others alias the input. Ditto for a few of the other GetString calls below.\n\nstd::string is NUL-terminated, so we wouldn\u0027t actually notice if it runs one byte over the buffer. Then again, the ones that alias the input will require the fuzzer to truncate for ASan to notice such things. (Do fuzzers do this?) Not that it matters much since anything which takes ptr/length isn\u0027t likely to parse things.",
+      "revId": "5631c8c4d6de25cf14cb852f95bd104842699f7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62830d88_00cb8668",
+        "filename": "fuzz/ssl_ctx_api.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2016-10-04T22:53:01Z",
+      "side": 1,
+      "message": "I think fuzzers will truncate the input, but I don\u0027t know whether they freshly allocate the truncated input so that ASAN will know to catch any overrun.\n\nBut, in the interests of keeping things simple, I\u0027ve made the code use GetString everywhere.",
+      "parentUuid": "62378d0d_e6d45ab8",
       "revId": "5631c8c4d6de25cf14cb852f95bd104842699f7f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
