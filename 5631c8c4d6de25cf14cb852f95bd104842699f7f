@@ -156,6 +156,24 @@
       "revId": "5631c8c4d6de25cf14cb852f95bd104842699f7f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62830d88_4383d806",
+        "filename": "fuzz/ssl_ctx_api.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2016-10-04T22:59:11Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "62378d0d_66e20a92",
+      "revId": "5631c8c4d6de25cf14cb852f95bd104842699f7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
