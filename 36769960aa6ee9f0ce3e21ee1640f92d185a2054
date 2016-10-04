@@ -1,0 +1,573 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8223a139_79136769",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 1425,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-04T22:43:26Z",
+      "side": 1,
+      "message": "I don\u0027t think this quite works. This logic is doing some very messy adding and removing of things to get the order right (adding and removing preserves order). Line 1434 ensures everything gets removed, but in the same order as before, so that the EVP_has_aes_hardware ordering is honored.\n\nPut this under the comment, change the comment say something like prefer TLS 1.3 ciphers, then ECDSA_ECDSA, then ECDHE_RSA, then other ciphers. Then fix 1434 to remove everything and not just ECDHE by making it do ~0u.\n\nI use bssl ciphers ALL to make sure the default ordering is sensible. Then patch in a false at the EVP_has_aes_hardware check to make sure that too behaves as expected.\n\n(Relative order of TLS 1.2 and TLS 1.3 ciphers doesn\u0027t really matter, so I think it\u0027s fine if we order all the CHACHAs then all the GCMs as that ends up being a lot more natrual.)",
+      "revId": "36769960aa6ee9f0ce3e21ee1640f92d185a2054",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8223a139_593f83c0",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 1727,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-04T22:43:26Z",
+      "side": 1,
+      "message": "The key exchange being \"AEAD\" is rather confusing. \"GENERIC\"? Maybe we should rename SSL_kRAWAEAD to SSL_kGENERIC too? Ditto everywhere below.\n\nAlso since this is a public API, this should be documented in ssl.h. Something like: Note TLS 1.3 AEAD-only ciphers return the string \"GENERIC\".",
+      "revId": "36769960aa6ee9f0ce3e21ee1640f92d185a2054",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8223a139_d92ab382",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 1787,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-04T22:43:26Z",
+      "side": 1,
+      "message": "This comment is now off.",
+      "revId": "36769960aa6ee9f0ce3e21ee1640f92d185a2054",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8223a139_19202ba4",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 1789,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-04T22:43:26Z",
+      "side": 1,
+      "message": "clang-format",
+      "revId": "36769960aa6ee9f0ce3e21ee1640f92d185a2054",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8223a139_f92f778f",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 1803,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-04T22:43:26Z",
+      "side": 1,
+      "message": "Nit: Use the standard goto pattern or chain with ANDs and ORs.",
+      "revId": "36769960aa6ee9f0ce3e21ee1640f92d185a2054",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8223a139_99243bb6",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 1811,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-04T22:43:26Z",
+      "side": 1,
+      "message": "Nit: indent",
+      "revId": "36769960aa6ee9f0ce3e21ee1640f92d185a2054",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8223a139_9988bb7d",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 1247,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-04T22:43:26Z",
+      "side": 1,
+      "message": "My bad, I think your old code was correct. But rebase over https://boringssl-review.googlesource.com/c/11480/ because I think there\u0027s some cases you don\u0027t tolerate but need to for compatibility.",
+      "revId": "36769960aa6ee9f0ce3e21ee1640f92d185a2054",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8223a139_199d8bb9",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 2292,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-04T22:43:26Z",
+      "side": 1,
+      "message": "[I guess this depends whether you believe a bad peer key is a decode_error or an illegal_parameter. Meh. I suppose by the \"decode_error is for struct mismatches\" theory, it\u0027s the latter.]",
+      "range": {
+        "startLine": 2292,
+        "startChar": 17,
+        "endLine": 2292,
+        "endChar": 41
+      },
+      "revId": "36769960aa6ee9f0ce3e21ee1640f92d185a2054",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8223a139_f91c572c",
+        "filename": "ssl/test/runner/cipher_suites.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-04T22:43:26Z",
+      "side": 1,
+      "message": "Might be worth a comment that this is so we don\u0027t crash on EnableAllCiphers. (It\u0027s EnableAllCiphers, right? I\u0027ll see about avoiding that nastiness later...)\n\nEdit: alternatively, here: https://boringssl-review.googlesource.com/c/11481/",
+      "revId": "36769960aa6ee9f0ce3e21ee1640f92d185a2054",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8223a139_99f75bbb",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 1419,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-04T22:43:26Z",
+      "side": 1,
+      "message": "Not sure why this and the TLS 1.3 version specified cipher suites at all. Me  being dumb I\u0027m guessing. Seems you could just omit them both.",
+      "range": {
+        "startLine": 1419,
+        "startChar": 4,
+        "endLine": 1419,
+        "endChar": 16
+      },
+      "revId": "36769960aa6ee9f0ce3e21ee1640f92d185a2054",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8223a139_79ffe78f",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 4408,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-04T22:43:26Z",
+      "side": 1,
+      "message": "[I think this won\u0027t be needed once you rebase across https://boringssl.googlesource.com/boringssl/+/6dbde984a2e7f0cbd7e18a5a77aa4b936a9c33e4 .]",
+      "revId": "36769960aa6ee9f0ce3e21ee1640f92d185a2054",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8223a139_39096fd3",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 5163,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-04T22:43:26Z",
+      "side": 1,
+      "message": "Having two cipher values defeats the purpose of setting them up to begin with. The only reason we pin the cipher lists at all is to ensure that the two suites are the same, cutting out some confounding factors. If they are allowed to be different, there is no point in pinning them at all.",
+      "revId": "36769960aa6ee9f0ce3e21ee1640f92d185a2054",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8223a139_d9d6331d",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 5200,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-04T22:43:26Z",
+      "side": 1,
+      "message": "If we do this, we now have a TON of dead code around AcceptAnySession which ought to be cleaned up. But better to keep the tests working. Instead of losing these tests, the client half can be tested by fixing the order of the checks in tls13_client.c and then teaching runner to resume at a cipher mismatch. runner is allowed to condition on the error code, so this works out.",
+      "revId": "36769960aa6ee9f0ce3e21ee1640f92d185a2054",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8223a139_59eb03cb",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 6255,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-04T22:43:26Z",
+      "side": 1,
+      "message": "No need to specify cipher suites at all now. (Original was there to force a signature-based cipher.)",
+      "revId": "36769960aa6ee9f0ce3e21ee1640f92d185a2054",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8223a139_79e847cd",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 6417,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-04T22:43:26Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "36769960aa6ee9f0ce3e21ee1640f92d185a2054",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8223a139_19e58bf4",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 6441,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-04T22:43:26Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "36769960aa6ee9f0ce3e21ee1640f92d185a2054",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8223a139_39e2cfed",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 6461,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-04T22:43:26Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "36769960aa6ee9f0ce3e21ee1640f92d185a2054",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8223a139_f9c0d747",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 7092,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-04T22:43:26Z",
+      "side": 1,
+      "message": "No need to specify. Original was there to force an ECDHE cipher.",
+      "revId": "36769960aa6ee9f0ce3e21ee1640f92d185a2054",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8223a139_99c51b57",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 7120,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-04T22:43:26Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "36769960aa6ee9f0ce3e21ee1640f92d185a2054",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8223a139_b9ca5f62",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 7148,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-04T22:43:26Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "36769960aa6ee9f0ce3e21ee1640f92d185a2054",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8223a139_59b0e3f8",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 7173,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-04T22:43:26Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "36769960aa6ee9f0ce3e21ee1640f92d185a2054",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8223a139_79ada79b",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 7215,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-04T22:43:26Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "36769960aa6ee9f0ce3e21ee1640f92d185a2054",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8223a139_19ba6bd7",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 7245,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-04T22:43:26Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "36769960aa6ee9f0ce3e21ee1640f92d185a2054",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8223a139_39b72ff0",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 7274,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-04T22:43:26Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "36769960aa6ee9f0ce3e21ee1640f92d185a2054",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8223a139_d9a4f3b8",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 7302,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-04T22:43:26Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "36769960aa6ee9f0ce3e21ee1640f92d185a2054",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8223a139_d9f39300",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-04T22:43:26Z",
+      "side": 1,
+      "message": "Super nit-picky nit: looking at grep, we usually refer to the project as \"we\" rather than \"BoringSSL\".",
+      "range": {
+        "startLine": 217,
+        "startChar": 5,
+        "endLine": 217,
+        "endChar": 14
+      },
+      "revId": "36769960aa6ee9f0ce3e21ee1640f92d185a2054",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8223a139_f9f8d7dc",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-04T22:43:26Z",
+      "side": 1,
+      "message": "Why initialized to hash_len?",
+      "range": {
+        "startLine": 315,
+        "startChar": 23,
+        "endLine": 315,
+        "endChar": 34
+      },
+      "revId": "36769960aa6ee9f0ce3e21ee1640f92d185a2054",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8223a139_99fd1bcc",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-04T22:43:26Z",
+      "side": 1,
+      "message": "This is always true. (And if not true, you dereference and free an uninitialized pointer.)",
+      "range": {
+        "startLine": 316,
+        "startChar": 6,
+        "endLine": 316,
+        "endChar": 20
+      },
+      "revId": "36769960aa6ee9f0ce3e21ee1640f92d185a2054",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8223a139_b9025fe3",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-04T22:43:26Z",
+      "side": 1,
+      "message": "Why initialized to hs-\u003ehash_len? (Stray change? You ended up reordering the variables. Not that it matters.)",
+      "range": {
+        "startLine": 71,
+        "startChar": 23,
+        "endLine": 71,
+        "endChar": 38
+      },
+      "revId": "36769960aa6ee9f0ce3e21ee1640f92d185a2054",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8223a139_59e8e305",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-04T22:43:26Z",
+      "side": 1,
+      "message": "Nit: I\u0027d probably say \"non-resumption handshakes\". The spec does use the word \"session\" for \"connection\", but no one else does.",
+      "range": {
+        "startLine": 174,
+        "startChar": 58,
+        "endLine": 174,
+        "endChar": 78
+      },
+      "revId": "36769960aa6ee9f0ce3e21ee1640f92d185a2054",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8223a139_397e4f3a",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-04T22:43:26Z",
+      "side": 1,
+      "message": "Is this actually a decode error? Seems this and the logic above could be folded into:\n\n/* Derive resumption material. */\nuint8_t resumption_context[EVP_MAX_MD_SIZE] \u003d {0};\nuint8_t psk_secret[EVP_MAX_MD_SIZE] \u003d {0};\nif (ssl-\u003es3-\u003esession_reused) {\n  if (!tls13_resumption_context(...) ||\n      !tls13_resumption_psk(...)) {\n    return ssl_hs_error;\n  }\n}\n\n/* The PRF hash is now known. Set up the key schedule, hash in the ClientHello, and incorporate the PSK into the running secret. */\nif (!tls13_init_key_schedule(...) ||\n    !tls13_advance_key_schedule(...)) {\n  return ssl_hs_error;\n}",
+      "revId": "36769960aa6ee9f0ce3e21ee1640f92d185a2054",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
