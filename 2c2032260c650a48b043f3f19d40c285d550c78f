@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a24b4545_f213c870",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 4443,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-05T20:26:48Z",
+      "side": 1,
+      "message": "By the way, we should be able to move basically of these into the SSL_HANDSHAKE struct and then they\u0027ll be released after the handshake anyway.",
+      "range": {
+        "startLine": 4443,
+        "startChar": 4,
+        "endLine": 4443,
+        "endChar": 7
+      },
+      "revId": "2c2032260c650a48b043f3f19d40c285d550c78f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
