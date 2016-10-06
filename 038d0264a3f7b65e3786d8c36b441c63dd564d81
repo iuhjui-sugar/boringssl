@@ -22,6 +22,24 @@
       "revId": "038d0264a3f7b65e3786d8c36b441c63dd564d81",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1fc70c2e_8e677bde",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-06T14:32:49Z",
+      "side": 1,
+      "message": "Yeah, we tend to have problems around those because Go zero-initializes everything. :-/ Although we can force it with AlwaysSelectPSKIdentity. If it becomes a problem, we can switch it to a *int.\n\nI figure in that codepath, it\u0027ll otherwise be 0 anyway and if we want to set it when it\u0027s not supposed to, that\u0027s what AlwaysSelectPSKIdentity is for.",
+      "parentUuid": "1fc70c2e_2e6207da",
+      "revId": "038d0264a3f7b65e3786d8c36b441c63dd564d81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
