@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1fc70c2e_2e6207da",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-10-06T14:21:37Z",
+      "side": 1,
+      "message": "Does this mean we can never force identity 0?",
+      "range": {
+        "startLine": 472,
+        "startChar": 46,
+        "endLine": 472,
+        "endChar": 47
+      },
+      "revId": "038d0264a3f7b65e3786d8c36b441c63dd564d81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
