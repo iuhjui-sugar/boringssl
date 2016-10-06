@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1fc70c2e_4eed13ec",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-06T19:01:38Z",
+      "side": 1,
+      "message": "I think you can leave the version at 0 if you\u0027ve gotten the others. SSL_eNULL probably also isn\u0027t needed? Maybe add it to kMustNotIncludeNull to be on the safe side.\n\nWe should come up with a better way to do those exclusions. Or, better, just take that cipher out... I think mab said it may not be needed for much longer.",
+      "range": {
+        "startLine": 742,
+        "startChar": 61,
+        "endLine": 742,
+        "endChar": 75
+      },
+      "revId": "65b2e0d79734b5adedb10a0ef9d97c8125d120f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
