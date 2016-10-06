@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1fc70c2e_8e99bbce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-10-06T14:39:55Z",
+      "side": 1,
+      "message": "must",
+      "range": {
+        "startLine": 9,
+        "startChar": 10,
+        "endLine": 9,
+        "endChar": 14
+      },
+      "revId": "c72406e56242cf20d4fc7418eaf292947491116b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1fc70c2e_ceea6301",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 888,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-10-06T14:39:55Z",
+      "side": 1,
+      "message": "We really should be testing:\n* ServerHello echoes back an extension the client included in the ClientHello that\u0027s not allowed in ServerHello\n* ServerHello echoes back junk extension the client didn\u0027t send.",
+      "range": {
+        "startLine": 888,
+        "startChar": 1,
+        "endLine": 888,
+        "endChar": 27
+      },
+      "revId": "c72406e56242cf20d4fc7418eaf292947491116b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
