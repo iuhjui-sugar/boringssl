@@ -1,0 +1,266 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a24b4545_d2916404",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 1197,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-06T02:36:53Z",
+      "side": 1,
+      "message": "Pretty sure that\u0027s not true. :-)",
+      "range": {
+        "startLine": 1196,
+        "startChar": 61,
+        "endLine": 1197,
+        "endChar": 39
+      },
+      "revId": "b0a807d707c3f9fe8fb8edd1d803321171d9f8e9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a24b4545_f2774890",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 1310,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-06T02:36:53Z",
+      "side": 1,
+      "message": "I believe this check can be punted now.",
+      "revId": "b0a807d707c3f9fe8fb8edd1d803321171d9f8e9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a24b4545_32e5502e",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-06T02:36:53Z",
+      "side": 1,
+      "message": "This was previously implicitly checked by tryCipherSuites but isn\u0027t anymore. Fixed.",
+      "range": {
+        "startLine": 385,
+        "startChar": 1,
+        "endLine": 385,
+        "endChar": 15
+      },
+      "revId": "b0a807d707c3f9fe8fb8edd1d803321171d9f8e9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a24b4545_12e84c05",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-06T02:36:53Z",
+      "side": 1,
+      "message": "Revised to look more like the 1.2 code.",
+      "revId": "b0a807d707c3f9fe8fb8edd1d803321171d9f8e9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a24b4545_72efd80b",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-06T02:36:53Z",
+      "side": 1,
+      "message": "Nit: reordered slightly so things touching the same values are closer.",
+      "revId": "b0a807d707c3f9fe8fb8edd1d803321171d9f8e9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a24b4545_d2d6c44a",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 1168,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-06T02:36:53Z",
+      "side": 1,
+      "message": "Tweaked a bit so this isn\u0027t needed.",
+      "revId": "b0a807d707c3f9fe8fb8edd1d803321171d9f8e9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a24b4545_f202e8e3",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 1745,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-06T02:36:53Z",
+      "side": 1,
+      "message": "This is no longer used.",
+      "range": {
+        "startLine": 1745,
+        "startChar": 110,
+        "endLine": 1745,
+        "endChar": 115
+      },
+      "revId": "b0a807d707c3f9fe8fb8edd1d803321171d9f8e9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1fc70c2e_0e714b03",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 2607,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-06T02:36:53Z",
+      "side": 1,
+      "message": "Slight mismerged fixed.",
+      "revId": "b0a807d707c3f9fe8fb8edd1d803321171d9f8e9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1fc70c2e_2e7687fc",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 5257,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-06T02:36:53Z",
+      "side": 1,
+      "message": "Added a comment.",
+      "revId": "b0a807d707c3f9fe8fb8edd1d803321171d9f8e9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a24b4545_726438d8",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-06T02:36:53Z",
+      "side": 1,
+      "message": "support :-)",
+      "range": {
+        "startLine": 217,
+        "startChar": 13,
+        "endLine": 217,
+        "endChar": 21
+      },
+      "revId": "b0a807d707c3f9fe8fb8edd1d803321171d9f8e9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a24b4545_b29300b4",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-06T02:36:53Z",
+      "side": 1,
+      "message": "Removed dead code.",
+      "revId": "b0a807d707c3f9fe8fb8edd1d803321171d9f8e9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a24b4545_32b71042",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-06T02:36:53Z",
+      "side": 1,
+      "message": "I did the same refactor here as we did on the client half.",
+      "revId": "b0a807d707c3f9fe8fb8edd1d803321171d9f8e9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a24b4545_b2aa20d8",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-06T02:36:53Z",
+      "side": 1,
+      "message": "[I switched the order back since it looks like a stray change. Not that it matters. I figure, absent another order, matching output params makes sense.]",
+      "revId": "b0a807d707c3f9fe8fb8edd1d803321171d9f8e9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a24b4545_f2b4a83f",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-06T02:36:53Z",
+      "side": 1,
+      "message": "I removed this comment since it didn\u0027t seem to be doing anything. Line 176 is a bit more accurate.",
+      "revId": "b0a807d707c3f9fe8fb8edd1d803321171d9f8e9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
