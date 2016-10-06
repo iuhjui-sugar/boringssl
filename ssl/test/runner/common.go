@@ -883,6 +883,10 @@ type ProtocolBugs struct {
 	// that will be added to client/server hellos.
 	CustomExtension string
 
+	// CustomUnencryptedExtension, if not empty, contains the contents of
+	// an extension that will be added to ServerHello in TLS 1.3.
+	CustomUnencryptedExtension string
+
 	// ExpectedCustomExtension, if not nil, contains the expected contents
 	// of a custom extension.
 	ExpectedCustomExtension *string
