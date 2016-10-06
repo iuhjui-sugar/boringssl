@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ffc6b868_55f6ac75",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 3330,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-06T22:53:51Z",
+      "side": 1,
+      "message": "I\u0027m actually a little confused how this is working. It\u0027s possible it works in one iteration, but not two?? (I should fix the tests to always require two iterations...) If the TLS 1.3 side returns ssl_hs_error, it\u0027s supposed to be sticky and a fatal error.\n\nInstead, the TLS 1.3 bits shouldn\u0027t be messing with rwstate. There should be an ssl_hs_wait_t enum for Channel ID. At some point the old state machine will be rewritten to look like the new one and we\u0027ll have this enum throughout the stack.\n\nI would suggest carving things up at slightly different pieces, especially since we want to change what\u0027s signed anyway.",
+      "revId": "5b5b060c89cbe1a7f62871b4811ce970eb92638b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ffc6b868_f5d418dd",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 1431,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-06T22:53:51Z",
+      "side": 1,
+      "message": "This is literally client certificates, so I think it\u0027s better for the TLS 1.3 version to sign the CertificateVerify payload, but with a different label.\n\nNotably, isResume is literally to add in the resumption context in TLS 1.2. But this construction lacks both the fake resumption context and the real one.",
+      "range": {
+        "startLine": 1431,
+        "startChar": 78,
+        "endLine": 1431,
+        "endChar": 94
+      },
+      "revId": "5b5b060c89cbe1a7f62871b4811ce970eb92638b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ffc6b868_551f8ccd",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-06T22:53:51Z",
+      "side": 1,
+      "message": "(When you switch to the new construction, you may find it easier to just hash_current_message at the end instead of sampling and then verifying afterwards.)",
+      "revId": "5b5b060c89cbe1a7f62871b4811ce970eb92638b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
