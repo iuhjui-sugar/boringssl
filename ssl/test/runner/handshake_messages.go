@@ -782,6 +782,7 @@ type serverHelloMsg struct {
 	useCertAuth         bool
 	earlyDataIndication bool
 	compressionMethod   uint8
+	customExtension     string
 	extensions          serverExtensions
 }
 
@@ -839,6 +840,11 @@ func (m *serverHelloMsg) marshal() []byte {
 		if m.earlyDataIndication {
 			extensions.addU16(extensionEarlyData)
 			extensions.addU16(0) // Length
+		}
+		if len(m.customExtension) > 0 {
+			extensions.addU16(extensionCustom)
+			customExt := extensions.addU16LengthPrefixed()
+			customExt.addBytes([]byte(m.customExtension))
 		}
 	} else {
 		m.extensions.marshal(extensions, vers)
