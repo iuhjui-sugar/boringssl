@@ -804,7 +804,18 @@ int ssl_check_leaf_certificate(SSL *ssl, X509 *leaf) {
       goto err;
     }
 
-    if (!tls1_check_ec_cert(ssl, leaf)) {
+    EC_KEY *ec_key = EVP_PKEY_get0_EC_KEY(pkey);
+    if (ec_key == NULL) {
+      OPENSSL_PUT_ERROR(SSL, SSL_R_BAD_ECC_CERT);
+      goto err;
+    }
+
+    /* Check the key's group and point format are acceptable. */
+    uint16_t group_id;
+    if (!ssl_nid_to_group_id(
+            &group_id, EC_GROUP_get_curve_name(EC_KEY_get0_group(ec_key))) ||
+        !tls1_check_group_id(ssl, group_id) ||
+        EC_KEY_get_conv_form(ec_key) != POINT_CONVERSION_UNCOMPRESSED) {
       OPENSSL_PUT_ERROR(SSL, SSL_R_BAD_ECC_CERT);
       goto err;
     }
