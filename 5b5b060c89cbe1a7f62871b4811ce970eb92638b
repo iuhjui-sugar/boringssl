@@ -111,6 +111,24 @@
     },
     {
       "key": {
+        "uuid": "ffc6b868_7541e8ef",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 4979,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-07T14:37:05Z",
+      "side": 1,
+      "message": "We do (and are since resumeSession is true). At TLS 1.2 the hash construction includes a fake resumption context which we want to test. At TLS 1.3, the signature should also cover a resumption context (though this construction doesn\u0027t).",
+      "parentUuid": "1fc70c2e_4ede7365",
+      "revId": "5b5b060c89cbe1a7f62871b4811ce970eb92638b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ffc6b868_551f8ccd",
         "filename": "ssl/tls13_server.c",
         "patchSetId": 2
