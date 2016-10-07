@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8223a139_394baf55",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 5124,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-10-07T14:30:09Z",
+      "side": 0,
+      "message": "Can this bug be removed?",
+      "range": {
+        "startLine": 5124,
+        "startChar": 4,
+        "endLine": 5124,
+        "endChar": 35
+      },
+      "revId": "54afdab5846572b69f8a3bd24d1f6d622268060d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

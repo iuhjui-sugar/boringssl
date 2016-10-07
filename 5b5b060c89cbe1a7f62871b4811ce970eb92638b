@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "8223a139_5916a35a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-10-07T14:30:09Z",
+      "side": 1,
+      "message": "nit: End with \u0027.\u0027",
+      "range": {
+        "startLine": 7,
+        "startChar": 30,
+        "endLine": 7,
+        "endChar": 31
+      },
+      "revId": "5b5b060c89cbe1a7f62871b4811ce970eb92638b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62b5cd43_9076d42e",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1529,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-10-07T14:30:09Z",
+      "side": 1,
+      "message": "Should this be writing into a CBB and the caller handles calling \"begin/end_message\"?",
+      "range": {
+        "startLine": 1529,
+        "startChar": 4,
+        "endLine": 1529,
+        "endChar": 25
+      },
+      "revId": "5b5b060c89cbe1a7f62871b4811ce970eb92638b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ffc6b868_55f6ac75",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 2
@@ -35,6 +81,29 @@
         "startChar": 78,
         "endLine": 1431,
         "endChar": 94
+      },
+      "revId": "5b5b060c89cbe1a7f62871b4811ce970eb92638b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1fc70c2e_4ede7365",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 4979,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-10-07T14:30:09Z",
+      "side": 1,
+      "message": "Do we care about testing ChannelID on resumption?",
+      "range": {
+        "startLine": 4979,
+        "startChar": 21,
+        "endLine": 4979,
+        "endChar": 32
       },
       "revId": "5b5b060c89cbe1a7f62871b4811ce970eb92638b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
