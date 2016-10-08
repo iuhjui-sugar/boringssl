@@ -5678,6 +5678,22 @@ func addRenegotiationTests() {
 		},
 	})
 
+	// Renegotiation is not allowed at SSL 3.0.
+	testCases = append(testCases, testCase{
+		name: "Renegotiate-Client-SSL3",
+		config: Config{
+			MaxVersion: VersionSSL30,
+		},
+		renegotiate: 1,
+		flags: []string{
+			"-renegotiate-freely",
+			"-expect-total-renegotiations", "1",
+		},
+		shouldFail:         true,
+		expectedError:      ":NO_RENEGOTIATION:",
+		expectedLocalError: "remote error: no renegotiation",
+	})
+
 	// Stray HelloRequests during the handshake are ignored in TLS 1.2.
 	testCases = append(testCases, testCase{
 		name: "StrayHelloRequest",
