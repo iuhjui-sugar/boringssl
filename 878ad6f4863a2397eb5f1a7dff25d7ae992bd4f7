@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f23a83a_5901c3ae",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-08T16:12:15Z",
+      "side": 0,
+      "message": "This check was needed back when ssl3_take_mac was called from ssl3_get_message, but that\u0027s long past.",
+      "revId": "878ad6f4863a2397eb5f1a7dff25d7ae992bd4f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

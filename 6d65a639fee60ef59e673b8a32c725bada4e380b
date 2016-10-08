@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f23a83a_b9fb3fa4",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-08T16:12:15Z",
+      "side": 1,
+      "message": "The switch from 0 to -1 is intentional. I think the 0 was just a mistake since that\u0027s usually for EOF or some kind of expected shutdown.",
+      "range": {
+        "startLine": 303,
+        "startChar": 11,
+        "endLine": 303,
+        "endChar": 13
+      },
+      "revId": "6d65a639fee60ef59e673b8a32c725bada4e380b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
