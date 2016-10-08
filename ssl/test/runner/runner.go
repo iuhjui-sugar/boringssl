@@ -8445,9 +8445,10 @@ func addTLS13HandshakeTests() {
 	testCases = append(testCases, testCase{
 		name: "UnnecessaryHelloRetryRequest",
 		config: Config{
-			MaxVersion: VersionTLS13,
+			MaxVersion:       VersionTLS13,
+			CurvePreferences: []CurveID{CurveX25519},
 			Bugs: ProtocolBugs{
-				UnnecessaryHelloRetryRequest: true,
+				SendHelloRetryRequestCurve: CurveX25519,
 			},
 		},
 		shouldFail:    true,
@@ -8466,6 +8467,66 @@ func addTLS13HandshakeTests() {
 		},
 		shouldFail:    true,
 		expectedError: ":UNEXPECTED_MESSAGE:",
+	})
+
+	testCases = append(testCases, testCase{
+		name: "HelloRetryRequest-Empty",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				AlwaysSendHelloRetryRequest: true,
+			},
+		},
+		shouldFail:    true,
+		expectedError: ":DECODE_ERROR:",
+	})
+
+	testCases = append(testCases, testCase{
+		name: "HelloRetryRequest-Cookie",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				SendHelloRetryRequestCookie: []byte("cookie"),
+			},
+		},
+	})
+
+	testCases = append(testCases, testCase{
+		name: "HelloRetryRequest-EmptyCookie",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				SendHelloRetryRequestCookie: []byte{},
+			},
+		},
+		shouldFail:    true,
+		expectedError: ":DECODE_ERROR:",
+	})
+
+	testCases = append(testCases, testCase{
+		name: "HelloRetryRequest-Cookie-Curve",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			// P-384 requires HelloRetryRequest in BoringSSL.
+			CurvePreferences: []CurveID{CurveP384},
+			Bugs: ProtocolBugs{
+				SendHelloRetryRequestCookie: []byte("cookie"),
+				ExpectMissingKeyShare:       true,
+			},
+		},
+	})
+
+	testCases = append(testCases, testCase{
+		name: "HelloRetryRequest-Unknown",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				CustomHelloRetryRequestExtension: "extension",
+			},
+		},
+		shouldFail:         true,
+		expectedError:      ":UNEXPECTED_EXTENSION:",
+		expectedLocalError: "remote error: unsupported extension",
 	})
 
 	testCases = append(testCases, testCase{
