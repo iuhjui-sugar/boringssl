@@ -33,6 +33,24 @@
       "revId": "0a48216c928403b8d8dbe099a2b87f7d1b42f1a8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff007887_11a58f0b",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-10-09T17:09:09Z",
+      "side": 0,
+      "message": "I\u0027ll add an assert for that.",
+      "parentUuid": "ffc6b868_550b0c33",
+      "revId": "0a48216c928403b8d8dbe099a2b87f7d1b42f1a8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
