@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff007887_11490f35",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1081,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-10-09T17:39:14Z",
+      "side": 0,
+      "message": "I assume that it\u0027s ok to ignore |initial_handshake_complete| because the finished_len will be zero?",
+      "revId": "68e19e89778c5ddef83cc7c0ccf62b9fdc5ddcc2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
