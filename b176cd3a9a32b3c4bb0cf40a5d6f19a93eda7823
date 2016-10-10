@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f23a83a_3c4e3d67",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 8519,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-10-10T17:22:57Z",
+      "side": 1,
+      "message": "Test for duplicate HRR extensions?",
+      "range": {
+        "startLine": 8519,
+        "startChar": 13,
+        "endLine": 8519,
+        "endChar": 19
+      },
+      "revId": "b176cd3a9a32b3c4bb0cf40a5d6f19a93eda7823",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f23a83a_1c51f903",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-10-10T17:22:57Z",
+      "side": 1,
+      "message": "Comment about key_share always being sent in CH.",
+      "range": {
+        "startLine": 102,
+        "startChar": 11,
+        "endLine": 102,
+        "endChar": 32
+      },
+      "revId": "b176cd3a9a32b3c4bb0cf40a5d6f19a93eda7823",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
