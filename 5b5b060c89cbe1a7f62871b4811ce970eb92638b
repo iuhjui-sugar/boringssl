@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9f669ccf_9a6f0d8d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-10-11T00:58:16Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "8223a139_5916a35a",
+      "range": {
+        "startLine": 7,
+        "startChar": 30,
+        "endLine": 7,
+        "endChar": 31
+      },
+      "revId": "5b5b060c89cbe1a7f62871b4811ce970eb92638b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "62b5cd43_9076d42e",
         "filename": "ssl/internal.h",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2016-10-07T14:30:09Z",
       "side": 1,
       "message": "Should this be writing into a CBB and the caller handles calling \"begin/end_message\"?",
+      "range": {
+        "startLine": 1529,
+        "startChar": 4,
+        "endLine": 1529,
+        "endChar": 25
+      },
+      "revId": "5b5b060c89cbe1a7f62871b4811ce970eb92638b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9f669ccf_1a84dd46",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1529,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-10-11T00:58:16Z",
+      "side": 1,
+      "message": "Done. Even though it\u0027s the same for both 1.2 and 1.3, I think it\u0027s cleaner to not lump that into this function.",
+      "parentUuid": "62b5cd43_9076d42e",
       "range": {
         "startLine": 1529,
         "startChar": 4,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "9f669ccf_1a5dbdea",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 3330,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-10-11T00:58:16Z",
+      "side": 1,
+      "message": "I\u0027ve moved this out of the shared method, and TLS 1.3 handles returning SSL_CHANNEL_ID_LOOKUP in a more appropriate place now.",
+      "parentUuid": "ffc6b868_55f6ac75",
+      "revId": "5b5b060c89cbe1a7f62871b4811ce970eb92638b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ffc6b868_f5d418dd",
         "filename": "ssl/test/runner/handshake_client.go",
         "patchSetId": 2
@@ -76,6 +142,30 @@
       "writtenOn": "2016-10-06T22:53:51Z",
       "side": 1,
       "message": "This is literally client certificates, so I think it\u0027s better for the TLS 1.3 version to sign the CertificateVerify payload, but with a different label.\n\nNotably, isResume is literally to add in the resumption context in TLS 1.2. But this construction lacks both the fake resumption context and the real one.",
+      "range": {
+        "startLine": 1431,
+        "startChar": 78,
+        "endLine": 1431,
+        "endChar": 94
+      },
+      "revId": "5b5b060c89cbe1a7f62871b4811ce970eb92638b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9f669ccf_7a64f9b0",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 1431,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-10-11T00:58:16Z",
+      "side": 1,
+      "message": "This is now changed to be like client certs, with a different context string.",
+      "parentUuid": "ffc6b868_f5d418dd",
       "range": {
         "startLine": 1431,
         "startChar": 78,

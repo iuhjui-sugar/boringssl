@@ -22,6 +22,30 @@
       "revId": "54afdab5846572b69f8a3bd24d1f6d622268060d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9f669ccf_7a7b1949",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 5124,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-10-11T00:58:16Z",
+      "side": 0,
+      "message": "Yes. Removed.",
+      "parentUuid": "8223a139_394baf55",
+      "range": {
+        "startLine": 5124,
+        "startChar": 4,
+        "endLine": 5124,
+        "endChar": 35
+      },
+      "revId": "54afdab5846572b69f8a3bd24d1f6d622268060d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
