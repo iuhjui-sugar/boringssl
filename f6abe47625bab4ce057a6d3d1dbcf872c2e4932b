@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7f5008f0_31e550f7",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 1333,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-10-11T18:54:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f5008f0_3107102d",
+      "range": {
+        "startLine": 1333,
+        "startChar": 34,
+        "endLine": 1333,
+        "endChar": 35
+      },
+      "revId": "f6abe47625bab4ce057a6d3d1dbcf872c2e4932b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f5008f0_71019814",
         "filename": "ssl/test/runner/handshake_messages.go",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2016-10-11T18:34:58Z",
       "side": 1,
       "message": "I\u0027d probably just use int which avoids the cast on the line below.",
+      "range": {
+        "startLine": 2010,
+        "startChar": 11,
+        "endLine": 2010,
+        "endChar": 17
+      },
+      "revId": "f6abe47625bab4ce057a6d3d1dbcf872c2e4932b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f5008f0_51e2d4ef",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 2010,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-10-11T18:54:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f5008f0_71019814",
       "range": {
         "startLine": 2010,
         "startChar": 11,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "7f5008f0_71dfd828",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 2015,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-10-11T18:54:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f5008f0_51049425",
+      "revId": "f6abe47625bab4ce057a6d3d1dbcf872c2e4932b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f5008f0_9100bc11",
         "filename": "ssl/test/runner/prf.go",
         "patchSetId": 3
@@ -76,6 +142,24 @@
       "writtenOn": "2016-10-11T18:34:58Z",
       "side": 1,
       "message": "Client and server Finished derivations are now the same label since the traffic secrets are split.",
+      "revId": "f6abe47625bab4ce057a6d3d1dbcf872c2e4932b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f5008f0_f1cd887e",
+        "filename": "ssl/test/runner/prf.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-10-11T18:54:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f5008f0_9100bc11",
       "revId": "f6abe47625bab4ce057a6d3d1dbcf872c2e4932b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -99,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "7f5008f0_11b3ec03",
+        "filename": "ssl/test/runner/prf.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-10-11T18:54:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f5008f0_b105c020",
+      "revId": "f6abe47625bab4ce057a6d3d1dbcf872c2e4932b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f5008f0_f114a858",
         "filename": "ssl/test/runner/prf.go",
         "patchSetId": 3
@@ -110,6 +212,24 @@
       "writtenOn": "2016-10-11T18:34:58Z",
       "side": 1,
       "message": "client early traffic secret",
+      "revId": "f6abe47625bab4ce057a6d3d1dbcf872c2e4932b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f5008f0_31b0f0f4",
+        "filename": "ssl/test/runner/prf.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-10-11T18:54:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f5008f0_f114a858",
       "revId": "f6abe47625bab4ce057a6d3d1dbcf872c2e4932b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -133,6 +253,24 @@
     },
     {
       "key": {
+        "uuid": "7f5008f0_51bd74cb",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-10-11T18:54:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f5008f0_f10f483c",
+      "revId": "f6abe47625bab4ce057a6d3d1dbcf872c2e4932b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f5008f0_d10a442f",
         "filename": "ssl/tls13_enc.c",
         "patchSetId": 3
@@ -144,6 +282,24 @@
       "writtenOn": "2016-10-11T18:34:58Z",
       "side": 1,
       "message": "Now what we\u0027re not concatenating together three things, you could probably also just do:\n\n  const char *key_label, iv_label;\n  switch (type) {\n    case type_early_handshake:\n      key_label \u003d \"...\";\n      iv_label \u003d \"...\";\n    ...\n  }\n\nand then use key_label and iv_label. Then we can remove that switch-case too once the phase bit is gone.",
+      "revId": "f6abe47625bab4ce057a6d3d1dbcf872c2e4932b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f5008f0_b1aa2083",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-10-11T18:54:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f5008f0_d10a442f",
       "revId": "f6abe47625bab4ce057a6d3d1dbcf872c2e4932b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
