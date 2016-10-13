@@ -452,6 +452,7 @@ int ssl3_read_app_data(SSL *ssl, bool *out_got_handshake, uint8_t *buf, int len,
       }
 
       ssl->s3->hs->early_data_read += rr->length;
+      ssl->early_data_read += rr->length;
     }
 
     if (rr->length != 0) {
