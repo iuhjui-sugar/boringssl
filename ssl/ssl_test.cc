@@ -2534,7 +2534,7 @@ TEST(SSLTest, SetVersion) {
 
   // Zero is the default version.
   EXPECT_TRUE(SSL_CTX_set_max_proto_version(ctx.get(), 0));
-  EXPECT_EQ(TLS1_2_VERSION, ctx->max_version);
+  EXPECT_EQ(TLS1_3_VERSION, ctx->max_version);
   EXPECT_TRUE(SSL_CTX_set_min_proto_version(ctx.get(), 0));
   EXPECT_EQ(SSL3_VERSION, ctx->min_version);
 
@@ -3115,8 +3115,7 @@ TEST(SSLTest, AllTests) {
       !TestBadSSL_SESSIONEncoding(kBadSessionExtraField) ||
       !TestBadSSL_SESSIONEncoding(kBadSessionVersion) ||
       !TestBadSSL_SESSIONEncoding(kBadSessionTrailingData) ||
-      // TODO(svaldez): Update this when TLS 1.3 is enabled by default.
-      !TestDefaultVersion(SSL3_VERSION, TLS1_2_VERSION, &TLS_method) ||
+      !TestDefaultVersion(SSL3_VERSION, TLS1_3_VERSION, &TLS_method) ||
       !TestDefaultVersion(SSL3_VERSION, SSL3_VERSION, &SSLv3_method) ||
       !TestDefaultVersion(TLS1_VERSION, TLS1_VERSION, &TLSv1_method) ||
       !TestDefaultVersion(TLS1_1_VERSION, TLS1_1_VERSION, &TLSv1_1_method) ||
