@@ -3093,6 +3093,10 @@ struct ssl_st {
 
   uint16_t max_send_fragment = 0;
 
+  /* early_data_read is the amount of early data that has been read by the
+   * record layer. */
+  uint16_t early_data_read = 0;
+
   // There are 2 BIO's even though they are normally both the same. This is so
   // data can be read and written to different handlers
 
