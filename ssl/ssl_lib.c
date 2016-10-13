@@ -946,10 +946,6 @@ static int set_max_version(const SSL_PROTOCOL_METHOD *method, uint16_t *out,
                            uint16_t version) {
   if (version == 0) {
     *out = method->max_version;
-    /* TODO(svaldez): Enable TLS 1.3 by default once fully implemented. */
-    if (*out > TLS1_2_VERSION) {
-      *out = TLS1_2_VERSION;
-    }
     return 1;
   }
 
