@@ -356,6 +356,7 @@ ssl_open_record_t ssl3_open_app_data(SSL *ssl, Span<uint8_t> *out,
     }
 
     ssl->s3->hs->early_data_read += body.size();
+    ssl->early_data_read += body.size();
   }
 
   if (body.empty()) {
