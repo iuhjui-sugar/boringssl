@@ -109,13 +109,24 @@ static bool method_supports_version(const SSL_PROTOCOL_METHOD *method,
 
 static const char *ssl_version_to_string(uint16_t version) {
   switch (version) {
+    // Report TLS 1.3 draft version as TLS 1.3 in the public API.
     case TLS1_3_DRAFT_VERSION:
-    case TLS1_3_DRAFT21_VERSION:
-    case TLS1_3_DRAFT22_VERSION:
+      return "TLSv1.3 Draft 18";
+
     case TLS1_3_EXPERIMENT_VERSION:
+      return "TLSv1.3 Experiment";
+
     case TLS1_3_EXPERIMENT2_VERSION:
+      return "TLSv1.3 Experiment 2";
+
     case TLS1_3_EXPERIMENT3_VERSION:
-      return "TLSv1.3";
+      return "TLSv1.3 Experiment 3";
+
+    case TLS1_3_DRAFT21_VERSION:
+      return "TLSv1.3 Draft 21";
+
+    case TLS1_3_DRAFT22_VERSION:
+      return "TLSv1.3 Draft 22";
 
     case TLS1_2_VERSION:
       return "TLSv1.2";
@@ -209,7 +220,7 @@ static bool set_max_version(const SSL_PROTOCOL_METHOD *method, uint16_t *out,
                             uint16_t version) {
   // Zero is interpreted as the default maximum version.
   if (version == 0) {
-    *out = TLS1_2_VERSION;
+    *out = TLS1_3_VERSION;
     return true;
   }
 
