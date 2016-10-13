@@ -2376,6 +2376,10 @@ struct SSL_CONFIG {
   // further constrainted by |SSL_OP_NO_*|.
   uint16_t conf_min_version = 0;
 
+  /* early_data_read is the amount of early data that has been read by the
+   * record layer. */
+  uint16_t early_data_read = 0;
+
   X509_VERIFY_PARAM *param = nullptr;
 
   // crypto
