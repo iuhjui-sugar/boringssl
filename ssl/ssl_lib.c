@@ -282,7 +282,7 @@ SSL_CTX *SSL_CTX_new(const SSL_METHOD *method) {
   CRYPTO_new_ex_data(&ret->ex_data);
 
   ret->max_send_fragment = SSL3_RT_MAX_PLAIN_LENGTH;
-
+  ret->tls13_variant = tls13_change_cipher_spec_variant;
   /* Setup RFC4507 ticket keys */
   if (!RAND_bytes(ret->tlsext_tick_key_name, 16) ||
       !RAND_bytes(ret->tlsext_tick_hmac_key, 16) ||
