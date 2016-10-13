@@ -2541,7 +2541,7 @@ static bool TestSetVersion() {
   }
 
   if (ctx->min_version != SSL3_VERSION ||
-      ctx->max_version != TLS1_2_VERSION) {
+      ctx->max_version != TLS1_3_VERSION) {
     fprintf(stderr, "Default TLS versions were incorrect (%04x and %04x).\n",
             ctx->min_version, ctx->max_version);
     return false;
@@ -2778,8 +2778,7 @@ int main() {
       !TestBadSSL_SESSIONEncoding(kBadSessionExtraField) ||
       !TestBadSSL_SESSIONEncoding(kBadSessionVersion) ||
       !TestBadSSL_SESSIONEncoding(kBadSessionTrailingData) ||
-      // TODO(svaldez): Update this when TLS 1.3 is enabled by default.
-      !TestDefaultVersion(SSL3_VERSION, TLS1_2_VERSION, &TLS_method) ||
+      !TestDefaultVersion(SSL3_VERSION, TLS1_3_VERSION, &TLS_method) ||
       !TestDefaultVersion(SSL3_VERSION, SSL3_VERSION, &SSLv3_method) ||
       !TestDefaultVersion(TLS1_VERSION, TLS1_VERSION, &TLSv1_method) ||
       !TestDefaultVersion(TLS1_1_VERSION, TLS1_1_VERSION, &TLSv1_1_method) ||
