@@ -379,7 +379,7 @@ static bool SocketSelect(int sock, bool *socket_ready, bool *stdin_ready) {
   read_fds[0] = GetStdHandle(STD_INPUT_HANDLE);
   read_fds[1] = socket_handle;
 
-  switch (WaitForMultipleObjects(2, read_fds, false, 5000)) {
+  switch (WaitForMultipleObjects(2, read_fds, false, INFINITE)) {
     case WAIT_OBJECT_0 + 0:
       *stdin_ready = true;
       return true;
