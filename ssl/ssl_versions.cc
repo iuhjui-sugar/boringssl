@@ -134,7 +134,7 @@ static int set_max_version(const SSL_PROTOCOL_METHOD *method, uint16_t *out,
                            uint16_t version) {
   /* Zero is interpreted as the default maximum version. */
   if (version == 0) {
-    *out = TLS1_2_VERSION;
+    *out = TLS1_3_VERSION;
     return 1;
   }
 
@@ -250,11 +250,14 @@ int SSL_version(const SSL *ssl) {
 
 static const char *ssl_get_version(int version) {
   switch (version) {
-    /* Report TLS 1.3 draft version as TLS 1.3 in the public API. */
     case TLS1_3_DRAFT_VERSION:
+      return "TLSv1.3 Draft 18";
+
     case TLS1_3_EXPERIMENT_VERSION:
+      return "TLSv1.3 Experiment";
+
     case TLS1_3_RECORD_TYPE_EXPERIMENT_VERSION:
-      return "TLSv1.3";
+      return "TLSv1.3 Record Type Experiment";
 
     case TLS1_2_VERSION:
       return "TLSv1.2";
@@ -304,13 +307,7 @@ int ssl_supports_version(SSL_HANDSHAKE *hs, uint16_t version) {
   /* As a client, only allow the configured TLS 1.3 variant. As a server,
    * support all TLS 1.3 variants as long as tls13_variant is set to a
    * non-default value. */
-  if (ssl->server) {
-    if (ssl->tls13_variant == tls13_default &&
-        (version == TLS1_3_EXPERIMENT_VERSION ||
-         version == TLS1_3_RECORD_TYPE_EXPERIMENT_VERSION)) {
-      return 0;
-    }
-  } else {
+  if (!ssl->server) {
     if ((ssl->tls13_variant != tls13_experiment &&
          version == TLS1_3_EXPERIMENT_VERSION) ||
         (ssl->tls13_variant != tls13_record_type_experiment &&
