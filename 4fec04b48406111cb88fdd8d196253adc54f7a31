@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bc528ec4_c642c4f9",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 5218,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-14T18:09:31Z",
+      "side": 0,
+      "message": "Redundant with your other tests now.",
+      "range": {
+        "startLine": 5218,
+        "startChar": 13,
+        "endLine": 5218,
+        "endChar": 38
+      },
+      "revId": "4fec04b48406111cb88fdd8d196253adc54f7a31",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

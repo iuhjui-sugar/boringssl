@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "bc528ec4_267cf83d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-14T18:09:31Z",
+      "side": 1,
+      "message": "It\u0027s probably worth a sentence here or in a comment or somewhere describing the Channel ID construction in TLS 1.3.",
+      "revId": "8c9a7b9765cc0936d6014e09a6fdedee1ac1abc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bc528ec4_4611f4b5",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
@@ -13,6 +30,236 @@
       "writtenOn": "2016-10-14T14:55:55Z",
       "side": 1,
       "message": "Add a bug for this or just for Channel Binding in general.",
+      "revId": "8c9a7b9765cc0936d6014e09a6fdedee1ac1abc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc528ec4_c64e44c4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-14T18:09:31Z",
+      "side": 1,
+      "message": "There\u0027s already a bug (BUG\u003d103).",
+      "parentUuid": "bc528ec4_4611f4b5",
+      "revId": "8c9a7b9765cc0936d6014e09a6fdedee1ac1abc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc528ec4_2692b859",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 3139,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-14T18:09:31Z",
+      "side": 1,
+      "message": "I think we\u0027ve retroactively decided this message is no longer called EncryptedExtensions and just ChannelID or whatever.",
+      "range": {
+        "startLine": 3139,
+        "startChar": 96,
+        "endLine": 3139,
+        "endChar": 116
+      },
+      "revId": "8c9a7b9765cc0936d6014e09a6fdedee1ac1abc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc528ec4_a64d48c6",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 3139,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-14T18:09:31Z",
+      "side": 1,
+      "message": "nit: 80 chars",
+      "revId": "8c9a7b9765cc0936d6014e09a6fdedee1ac1abc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc528ec4_0631bca0",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 3139,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-14T18:09:31Z",
+      "side": 1,
+      "message": "const\nAlso, why is this one called channel_id_hash and the other digest?",
+      "range": {
+        "startLine": 3139,
+        "startChar": 46,
+        "endLine": 3139,
+        "endChar": 61
+      },
+      "revId": "8c9a7b9765cc0936d6014e09a6fdedee1ac1abc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc528ec4_66343092",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 3149,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-14T18:09:31Z",
+      "side": 1,
+      "message": "This looks like you might have gotten some mixup w.r.t. whether it was an output or input parameter.",
+      "revId": "8c9a7b9765cc0936d6014e09a6fdedee1ac1abc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc528ec4_a6fa289e",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 3198,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-14T18:09:31Z",
+      "side": 1,
+      "message": "Not sure this comment is accurate.",
+      "range": {
+        "startLine": 3198,
+        "startChar": 38,
+        "endLine": 3198,
+        "endChar": 55
+      },
+      "revId": "8c9a7b9765cc0936d6014e09a6fdedee1ac1abc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc528ec4_262e3842",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 3225,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-14T18:09:31Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 3225,
+        "startChar": 45,
+        "endLine": 3225,
+        "endChar": 51
+      },
+      "revId": "8c9a7b9765cc0936d6014e09a6fdedee1ac1abc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc528ec4_c6eba4d7",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 3225,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-14T18:09:31Z",
+      "side": 1,
+      "message": "Contexts (ssl) before outputs (cbb) before inputs (digest)",
+      "range": {
+        "startLine": 3225,
+        "startChar": 72,
+        "endLine": 3225,
+        "endChar": 80
+      },
+      "revId": "8c9a7b9765cc0936d6014e09a6fdedee1ac1abc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc528ec4_86484cb7",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 3225,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-14T18:09:31Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "8c9a7b9765cc0936d6014e09a6fdedee1ac1abc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc528ec4_e6f020c4",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 3252,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-14T18:09:31Z",
+      "side": 1,
+      "message": "Nit: newline",
+      "range": {
+        "startLine": 3252,
+        "startChar": 41,
+        "endLine": 3252,
+        "endChar": 42
+      },
+      "revId": "8c9a7b9765cc0936d6014e09a6fdedee1ac1abc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc528ec4_460014ad",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 3258,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-14T18:09:31Z",
+      "side": 1,
+      "message": "This can fail. (Put it in the || chain in line 3254.)",
+      "range": {
+        "startLine": 3258,
+        "startChar": 2,
+        "endLine": 3258,
+        "endChar": 11
+      },
       "revId": "8c9a7b9765cc0936d6014e09a6fdedee1ac1abc1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -42,6 +289,63 @@
     },
     {
       "key": {
+        "uuid": "bc528ec4_e61ee020",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 1741,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-14T18:09:31Z",
+      "side": 1,
+      "message": "This parameter seems to be unused.",
+      "range": {
+        "startLine": 1741,
+        "startChar": 5,
+        "endLine": 1741,
+        "endChar": 31
+      },
+      "revId": "8c9a7b9765cc0936d6014e09a6fdedee1ac1abc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc528ec4_86236c67",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 5024,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-14T18:09:31Z",
+      "side": 1,
+      "message": "These, or at least the first two tests, should stay in the state machine coverage tests so we cover the async stuff and the new message. (Yeah, the split between tests is kind of annoying. I\u0027m thinking that wants to just apply to all tests or something.)",
+      "revId": "8c9a7b9765cc0936d6014e09a6fdedee1ac1abc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc528ec4_e647c006",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 5026,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-14T18:09:31Z",
+      "side": 1,
+      "message": "Hrm. Lacking test coverage at 1.1 and below may just have been a mistake on my part. There is some interesting stuff w.r.t to other versions with the hashes.",
+      "revId": "8c9a7b9765cc0936d6014e09a6fdedee1ac1abc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bc528ec4_060bfc87",
         "filename": "ssl/tls13_both.c",
         "patchSetId": 5
@@ -59,6 +363,86 @@
         "endLine": 146,
         "endChar": 9
       },
+      "revId": "8c9a7b9765cc0936d6014e09a6fdedee1ac1abc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc528ec4_86ce0c81",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-14T18:09:31Z",
+      "side": 1,
+      "message": "This seems off. The TLS 1.2 code passes in a digest, but this side passes in a message. Notably, the message is actually twice the size of the hash, so you\u0027re going to get ECDSA\u0027s truncating stuff and... lose the resumption context. :-)",
+      "range": {
+        "startLine": 454,
+        "startChar": 6,
+        "endLine": 454,
+        "endChar": 57
+      },
+      "revId": "8c9a7b9765cc0936d6014e09a6fdedee1ac1abc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc528ec4_26b958df",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-14T18:09:31Z",
+      "side": 1,
+      "message": "This split is a little awkward. It works but I was hoping to avoid having functions outside the state machine return enum ssl_hs_wait_t since they should alway be paired with a state.\n\nSince the tls13_both.c / tls13_client.c split is kind of arbitrary (the others are split because there\u0027s multiple callers), I would suggest either:\n\na) Expose the cert vfy input in ssl/internal.h and inline the whole function.\nb) Inline the channel ID callback business and have this helper return 0 or 1.",
+      "range": {
+        "startLine": 535,
+        "startChar": 27,
+        "endLine": 535,
+        "endChar": 51
+      },
+      "revId": "8c9a7b9765cc0936d6014e09a6fdedee1ac1abc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc528ec4_06bc5cce",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-14T18:09:31Z",
+      "side": 1,
+      "message": "[Oops. While you\u0027re here, mind fixing up the indent in the two blocks above?]",
+      "revId": "8c9a7b9765cc0936d6014e09a6fdedee1ac1abc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc528ec4_c6a644c1",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-14T18:09:31Z",
+      "side": 1,
+      "message": "Just have this return true/false.",
       "revId": "8c9a7b9765cc0936d6014e09a6fdedee1ac1abc1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
