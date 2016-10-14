@@ -924,7 +924,10 @@ static size_t GetClientHelloLen(size_t ticket_len) {
     return 0;
   }
   bssl::UniquePtr<SSL> ssl(SSL_new(ctx.get()));
-  if (!ssl || !SSL_set_session(ssl.get(), session.get())) {
+  // Set max version to TLS 1.2 since padding is a no-op on TLS 1.3 due to the
+  // Client Hello size.
+  if (!ssl || !SSL_set_session(ssl.get(), session.get()) ||
+      !SSL_set_max_proto_version(ssl.get(), TLS1_2_VERSION)) {
     return 0;
   }
   std::vector<uint8_t> client_hello;
@@ -1291,6 +1294,14 @@ static bool TestSequenceNumber(bool dtls) {
     return false;
   }
 
+  // Drain any post-handshake messages.
+  uint8_t byte = 0;
+  if (SSL_read(client.get(), &byte, 1) > 0 ||
+      SSL_read(server.get(), &byte, 1) > 0) {
+    fprintf(stderr, "Received unexpected data.\n");
+    return false;
+  }
+
   uint64_t client_read_seq = SSL_get_read_sequence(client.get());
   uint64_t client_write_seq = SSL_get_write_sequence(client.get());
   uint64_t server_read_seq = SSL_get_read_sequence(server.get());
@@ -1315,14 +1326,13 @@ static bool TestSequenceNumber(bool dtls) {
   } else {
     // The next record to be written should equal the next to be received.
     if (client_write_seq != server_read_seq ||
-        server_write_seq != client_write_seq) {
+        server_write_seq != client_read_seq) {
       fprintf(stderr, "Inconsistent sequence numbers.\n");
       return false;
     }
   }
 
   // Send a record from client to server.
-  uint8_t byte = 0;
   if (SSL_write(client.get(), &byte, 1) != 1 ||
       SSL_read(server.get(), &byte, 1) != 1) {
     fprintf(stderr, "Could not send byte.\n");
