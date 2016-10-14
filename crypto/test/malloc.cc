@@ -128,7 +128,10 @@ static int should_fail_allocation() {
 
 extern "C" {
 
-void *malloc(size_t size) {
+// Wrapper functions must be marked with default visibility to match the
+// visibility of the real functions. See https://crbug.com/655938.
+
+__attribute__((visibility("default"))) void *malloc(size_t size) {
   if (should_fail_allocation()) {
     errno = ENOMEM;
     return NULL;
@@ -137,7 +140,8 @@ void *malloc(size_t size) {
   return REAL_MALLOC(size);
 }
 
-void *calloc(size_t num_elems, size_t size) {
+__attribute__((visibility("default"))) void *calloc(size_t num_elems,
+                                                    size_t size) {
   if (should_fail_allocation()) {
     errno = ENOMEM;
     return NULL;
@@ -146,7 +150,7 @@ void *calloc(size_t num_elems, size_t size) {
   return REAL_CALLOC(num_elems, size);
 }
 
-void *realloc(void *ptr, size_t size) {
+__attribute__((visibility("default"))) void *realloc(void *ptr, size_t size) {
   if (should_fail_allocation()) {
     errno = ENOMEM;
     return NULL;
@@ -155,9 +159,7 @@ void *realloc(void *ptr, size_t size) {
   return REAL_REALLOC(ptr, size);
 }
 
-void free(void *ptr) {
-  REAL_FREE(ptr);
-}
+__attribute__((visibility("default"))) void free(void *ptr) { REAL_FREE(ptr); }
 
 }  // extern "C"
 
