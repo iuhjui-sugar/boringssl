@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5c0a735e_8f53d552",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-10-17T20:51:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc528ec4_267cf83d",
+      "revId": "8c9a7b9765cc0936d6014e09a6fdedee1ac1abc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bc528ec4_4611f4b5",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
@@ -47,6 +65,24 @@
       "writtenOn": "2016-10-14T18:09:31Z",
       "side": 1,
       "message": "There\u0027s already a bug (BUG\u003d103).",
+      "parentUuid": "bc528ec4_4611f4b5",
+      "revId": "8c9a7b9765cc0936d6014e09a6fdedee1ac1abc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c0a735e_cf5ddd5f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-10-17T20:51:33Z",
+      "side": 1,
+      "message": "Done",
       "parentUuid": "bc528ec4_4611f4b5",
       "revId": "8c9a7b9765cc0936d6014e09a6fdedee1ac1abc1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
