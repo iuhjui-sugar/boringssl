@@ -3943,9 +3943,9 @@ func addStateMachineCoverageTests(config stateMachineTestConfig) {
 
 		// Test Channel ID
 		for _, ver := range tlsVersions {
-				if ver.version < VersionTLS12 {
-					continue
-				}
+			if ver.version < VersionTLS10 {
+				continue
+			}
 			// Client sends a Channel ID.
 			tests = append(tests, testCase{
 				name: "ChannelID-Client-" + ver.name,
