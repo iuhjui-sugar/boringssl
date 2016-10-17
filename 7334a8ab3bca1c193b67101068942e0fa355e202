@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c0a735e_355958a9",
+        "filename": "ssl/test/runner/prf.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-17T23:16:57Z",
+      "side": 1,
+      "message": "You can just use h.Sum() I think. The client/server split is a weird SSLv3 thing because Go\u0027s hash things can\u0027t be copied.",
+      "range": {
+        "startLine": 370,
+        "startChar": 14,
+        "endLine": 370,
+        "endChar": 23
+      },
+      "revId": "7334a8ab3bca1c193b67101068942e0fa355e202",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
