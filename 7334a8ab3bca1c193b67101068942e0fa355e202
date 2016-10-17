@@ -22,6 +22,30 @@
       "revId": "7334a8ab3bca1c193b67101068942e0fa355e202",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c0a735e_757f60d0",
+        "filename": "ssl/test/runner/prf.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-10-17T23:23:37Z",
+      "side": 1,
+      "message": "Tests pass if I use Sum, so I guess that\u0027s good enough.",
+      "parentUuid": "5c0a735e_355958a9",
+      "range": {
+        "startLine": 370,
+        "startChar": 14,
+        "endLine": 370,
+        "endChar": 23
+      },
+      "revId": "7334a8ab3bca1c193b67101068942e0fa355e202",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
