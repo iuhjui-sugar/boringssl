@@ -264,6 +264,16 @@ func (h finishedHash) Sum() []byte {
 	return h.client.Sum(out)
 }
 
+func (h finishedHash) ServerSum() []byte {
+	if h.version >= VersionTLS12 {
+		return h.server.Sum(nil)
+	}
+
+	out := make([]byte, 0, md5.Size+sha1.Size)
+	out = h.serverMD5.Sum(out)
+	return h.client.Sum(out)
+}
+
 // finishedSum30 calculates the contents of the verify_data member of a SSLv3
 // Finished message given the MD5 and SHA1 hashes of a set of handshake
 // messages.
@@ -357,7 +367,7 @@ func (h finishedHash) hashForChannelID(resumeHash []byte) []byte {
 		hash.Write(channelIDResumeLabel)
 		hash.Write(resumeHash)
 	}
-	hash.Write(h.server.Sum(nil))
+	hash.Write(h.ServerSum())
 	return hash.Sum(nil)
 }
 
