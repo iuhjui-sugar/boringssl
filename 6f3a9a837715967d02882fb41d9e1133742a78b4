@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5c0a735e_7e1bbd97",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-10-18T16:30:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c0a735e_9e7f811c",
+      "range": {
+        "startLine": 7,
+        "startChar": 49,
+        "endLine": 7,
+        "endChar": 51
+      },
+      "revId": "6f3a9a837715967d02882fb41d9e1133742a78b4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5c0a735e_fe8ccd1a",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -36,6 +60,24 @@
       "writtenOn": "2016-10-18T14:58:27Z",
       "side": 1,
       "message": "Add BUG\u003d",
+      "revId": "6f3a9a837715967d02882fb41d9e1133742a78b4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c0a735e_be040533",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-10-18T16:30:55Z",
+      "side": 1,
+      "message": "Do I need to open a new bug for this, or can I tack it onto 103?",
+      "parentUuid": "5c0a735e_fe8ccd1a",
       "revId": "6f3a9a837715967d02882fb41d9e1133742a78b4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
