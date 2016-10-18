@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c0a735e_f85d005f",
+        "filename": "crypto/aes/key_wrap.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 7375
+      },
+      "writtenOn": "2016-10-18T20:30:23Z",
+      "side": 1,
+      "message": "This line of code concerns me. I noticed it because it triggers a VC++ /analyze warning:\n\nwarning C6293: Ill-defined for-loop:  counts down from minimum.\n\nThis is not by itself reason to change the code. But it concerns me that I cannot tell from looking at the code whether it is being clever, or wrong. The reliance on unsigned wrap-around together with the use of two \u0027magic\u0027 numbers leads to this uncertainty.\n\nPossible improvements could include a named constant, use of a signed integer to make the loop condition more straightforward, or a comment to clarify that the countdown to zero is intentional.",
+      "revId": "97227dc52d9e6620c8b83eb1dd4d45edf51d9d7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
