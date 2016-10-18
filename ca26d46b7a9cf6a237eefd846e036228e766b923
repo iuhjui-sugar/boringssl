@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c0a735e_5e7eb923",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-10-18T14:56:45Z",
+      "side": 1,
+      "message": "Does this default to the BoringSSL or Chromium bugtracker?",
+      "range": {
+        "startLine": 17,
+        "startChar": 4,
+        "endLine": 17,
+        "endChar": 10
+      },
+      "revId": "ca26d46b7a9cf6a237eefd846e036228e766b923",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
