@@ -1,0 +1,129 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c0a735e_e4da805d",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 1814,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-18T19:11:28Z",
+      "side": 1,
+      "message": "Probably should move this assert into the helper functions. That would have caught the message/digest mixup in this CL.",
+      "revId": "28a9d8e70ec4339e19696aee8f172a85f2c53eb9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c0a735e_0407c4f5",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 1816,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-18T19:11:28Z",
+      "side": 1,
+      "message": "Reorder this so that hash_current_message is called after tls1_verify_channel_id. It doesn\u0027t really matter but then you don\u0027t need that explanatory comment and can chain with ORs.",
+      "revId": "28a9d8e70ec4339e19696aee8f172a85f2c53eb9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c0a735e_04b06428",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 1821,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-18T19:11:28Z",
+      "side": 1,
+      "message": "80 chars",
+      "revId": "28a9d8e70ec4339e19696aee8f172a85f2c53eb9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c0a735e_a467d8d0",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 3180,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-18T19:11:28Z",
+      "side": 1,
+      "message": "(Still named encrypted_extensions.)",
+      "range": {
+        "startLine": 3180,
+        "startChar": 32,
+        "endLine": 3180,
+        "endChar": 52
+      },
+      "revId": "28a9d8e70ec4339e19696aee8f172a85f2c53eb9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c0a735e_646690d9",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 3190,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-18T19:11:28Z",
+      "side": 1,
+      "message": "(This is still unclear on whether it\u0027s an input parameter or not.)",
+      "revId": "28a9d8e70ec4339e19696aee8f172a85f2c53eb9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c0a735e_64a170de",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-18T19:11:28Z",
+      "side": 1,
+      "message": "This is still mixing up digests and messages. tls13_get_cert_verify_signature_input gives back a *message*. The helper functions you made take in *digests*.\n\nBetween all the stuff that goes into the signature input, I believe you are signing 32 bytes of spaces. :-P ECDSA is defined to truncate oversized digests.",
+      "revId": "28a9d8e70ec4339e19696aee8f172a85f2c53eb9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c0a735e_84c5749a",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-18T19:11:28Z",
+      "side": 1,
+      "message": "You could probably factor this into a ssl_do_channel_id_callback that returns one/zero.",
+      "revId": "28a9d8e70ec4339e19696aee8f172a85f2c53eb9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
