@@ -1,0 +1,220 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c0a735e_448a62a6",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 1801,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-19T22:34:21Z",
+      "side": 1,
+      "message": "Nit: I\u0027d move these down to line 1809. Remnants of when we followed C89 rules.",
+      "revId": "2d436ecdd86e030e77dfed9a32f5e322c79935f0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c0a735e_045a1a41",
+        "filename": "ssl/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 1034,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-19T22:34:21Z",
+      "side": 1,
+      "message": "That these functions are in tls13_both.c still bugs me. They don\u0027t actually have any reason to be here because they\u0027re *not* applicable to both. It\u0027s just that tls13_get_cert_verify_signature_input isn\u0027t exposed, but it could be.\n\nEven the split between the TLS-1.3-only functions and the generic ones (called tls1) is kind of odd. tls1_channel_id_hash\u0027s documentation is also now a lie. Why not...\n\n1. tls1_channel_id_hash just returns the right hash regardless. It can do a version check and call into tls13_get_cert_verify_signature_input. That would also deduplicate your SHA-256 code between signing and verifying.\n\n2. tls13_{process,prepare}_channel_id get called in both TLS 1.2 and TLS 1.3 and inline tls1_{verify,write}_channel_id into them.",
+      "range": {
+        "startLine": 1034,
+        "startChar": 4,
+        "endLine": 1034,
+        "endChar": 28
+      },
+      "revId": "2d436ecdd86e030e77dfed9a32f5e322c79935f0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c0a735e_24875e9d",
+        "filename": "ssl/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 1592,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-19T22:34:21Z",
+      "side": 1,
+      "message": "tls1_verify_channel_id",
+      "range": {
+        "startLine": 1592,
+        "startChar": 3,
+        "endLine": 1592,
+        "endChar": 31
+      },
+      "revId": "2d436ecdd86e030e77dfed9a32f5e322c79935f0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c0a735e_e4539651",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 3180,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-19T22:34:21Z",
+      "side": 1,
+      "message": "To be consistent, channel_id before digest and digest_len. Actually, it\u0027s a little awkward that this is really an input/output parameter. Maybe just have it only act on ssl-\u003einit_msg.",
+      "revId": "2d436ecdd86e030e77dfed9a32f5e322c79935f0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c0a735e_a4522e4f",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 3190,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-19T22:34:21Z",
+      "side": 1,
+      "message": "Nit: variables can get reordered.",
+      "revId": "2d436ecdd86e030e77dfed9a32f5e322c79935f0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c0a735e_0457ba41",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 3194,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-19T22:34:21Z",
+      "side": 1,
+      "message": "This comment probably wants to be tweaked.",
+      "revId": "2d436ecdd86e030e77dfed9a32f5e322c79935f0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c0a735e_c44db2b2",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 3298,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-19T22:34:21Z",
+      "side": 1,
+      "message": "Nit: newline",
+      "revId": "2d436ecdd86e030e77dfed9a32f5e322c79935f0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c0a735e_c41bf295",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 3948,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-19T22:34:21Z",
+      "side": 1,
+      "message": "go fmt",
+      "revId": "2d436ecdd86e030e77dfed9a32f5e322c79935f0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c0a735e_0405fa2d",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 5082,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-19T22:34:21Z",
+      "side": 1,
+      "message": "Stray comment?",
+      "revId": "2d436ecdd86e030e77dfed9a32f5e322c79935f0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c0a735e_e401d621",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-19T22:34:21Z",
+      "side": 1,
+      "message": "Nit: newline",
+      "revId": "2d436ecdd86e030e77dfed9a32f5e322c79935f0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c0a735e_240c7e57",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-19T22:34:21Z",
+      "side": 1,
+      "message": "You can save a lot of with a #include \u003copenssl/sha.h\u003e and using the single-shot SHA256. SHA256 can\u0027t even fail. The existing stuff also really ought to use SHA256_CTX which means you don\u0027t need to free anything.\n\n(Also you forgot to EVP_MD_CTX_cleanup. This doc might be handy: https://boringssl.googlesource.com/boringssl/+/HEAD/API-CONVENTIONS.md )",
+      "revId": "2d436ecdd86e030e77dfed9a32f5e322c79935f0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c0a735e_84f8ca11",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-19T22:34:21Z",
+      "side": 1,
+      "message": "Ditto on the single-shot thing.",
+      "revId": "2d436ecdd86e030e77dfed9a32f5e322c79935f0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
