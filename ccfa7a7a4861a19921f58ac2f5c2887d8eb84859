@@ -46,6 +46,24 @@
       "revId": "ccfa7a7a4861a19921f58ac2f5c2887d8eb84859",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc7c072f_e6bca2a6",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 3377,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-20T21:16:13Z",
+      "side": 1,
+      "message": "Yeah, I figured. Maybe we should just document that it \"returns one\" and not worry about it. Or just abort() if the value is wrong because that\u0027s nuts.",
+      "parentUuid": "fc7c072f_6683d2eb",
+      "revId": "ccfa7a7a4861a19921f58ac2f5c2887d8eb84859",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
