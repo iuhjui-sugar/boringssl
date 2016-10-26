@@ -1,0 +1,210 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "01c254c7_64228a6b",
+        "filename": "crypto/pool/pool.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-26T20:53:18Z",
+      "side": 1,
+      "message": "OPENSSL_free, since this is using OPENSSL_malloc. Ditto throughout the file.",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 8
+      },
+      "revId": "1acd728c094d59bd89697a981c5e79db6e53858f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "01c254c7_043e367f",
+        "filename": "crypto/pool/pool.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-26T20:53:18Z",
+      "side": 1,
+      "message": "[Another option is to ref-count this thing and have each CRYPTO_BUFFER take a ref to its CRYPTO_BUFFER_POOL. But, realistically, no one\u0027s going to free these things anyway, so let\u0027s just stick with this.]",
+      "revId": "1acd728c094d59bd89697a981c5e79db6e53858f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "01c254c7_44382e91",
+        "filename": "crypto/pool/pool.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-26T20:53:18Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "1acd728c094d59bd89697a981c5e79db6e53858f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "01c254c7_a4dac232",
+        "filename": "crypto/pool/pool.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-26T20:53:18Z",
+      "side": 1,
+      "message": "I think, in this case, we need to bump the ref-count again. (Do you know if there\u0027s a way we could test this. TSan or whatever other magical tools here.)",
+      "range": {
+        "startLine": 128,
+        "startChar": 11,
+        "endLine": 128,
+        "endChar": 20
+      },
+      "revId": "1acd728c094d59bd89697a981c5e79db6e53858f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "01c254c7_c4a7fea2",
+        "filename": "crypto/pool/pool.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-26T20:53:18Z",
+      "side": 1,
+      "message": "This might be worth an explanatory comment, but I think this is correct. It would go wrong if a non-pool (and thus unlocked) CRYPTO_BUFFER_up_ref races with a CRYPTO_BUFFER_free that hits the |can_free| code, but that can\u0027t happen because CRYPTO_BUFFER_free and CRYPTO_BUFFER_up_ref must each be passed in a valid pointer to buf, and the reference that makes CRYPTO_BUFFER_free legal must be distinct from the one that makes up_ref valid.\n\n(That does suggest that we may as well not include the pool\u0027s reference in buf-\u003ereferences. Then line 108 and 112 can be shared and you can use CRYPTO_refcount_dec_and_test_zero\u0027s return value for |can_free|.)",
+      "revId": "1acd728c094d59bd89697a981c5e79db6e53858f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "01c254c7_648d6a4b",
+        "filename": "crypto/pool/pool_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-26T20:53:18Z",
+      "side": 1,
+      "message": "false?",
+      "range": {
+        "startLine": 25,
+        "startChar": 11,
+        "endLine": 25,
+        "endChar": 15
+      },
+      "revId": "1acd728c094d59bd89697a981c5e79db6e53858f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "01c254c7_8428664e",
+        "filename": "crypto/pool/pool_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-26T20:53:18Z",
+      "side": 1,
+      "message": "false?",
+      "range": {
+        "startLine": 43,
+        "startChar": 11,
+        "endLine": 43,
+        "endChar": 15
+      },
+      "revId": "1acd728c094d59bd89697a981c5e79db6e53858f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "01c254c7_448aee34",
+        "filename": "crypto/pool/pool_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-26T20:53:18Z",
+      "side": 1,
+      "message": "false?",
+      "range": {
+        "startLine": 50,
+        "startChar": 11,
+        "endLine": 50,
+        "endChar": 15
+      },
+      "revId": "1acd728c094d59bd89697a981c5e79db6e53858f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "01c254c7_e42dda5c",
+        "filename": "crypto/pool/pool_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-26T20:53:18Z",
+      "side": 1,
+      "message": "false?",
+      "range": {
+        "startLine": 56,
+        "startChar": 11,
+        "endLine": 56,
+        "endChar": 15
+      },
+      "revId": "1acd728c094d59bd89697a981c5e79db6e53858f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "01c254c7_c47d3e5e",
+        "filename": "include/openssl/lhash.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-26T20:53:18Z",
+      "side": 1,
+      "message": "Nit: Sort?",
+      "revId": "1acd728c094d59bd89697a981c5e79db6e53858f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
