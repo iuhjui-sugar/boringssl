@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c1d83cb2_3041f003",
+        "filename": "crypto/pool/pool.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2016-10-26T21:32:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01c254c7_64228a6b",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 8
+      },
+      "revId": "1acd728c094d59bd89697a981c5e79db6e53858f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "01c254c7_043e367f",
         "filename": "crypto/pool/pool.c",
         "patchSetId": 2
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "c1d83cb2_103e6c7f",
+        "filename": "crypto/pool/pool.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2016-10-26T21:32:46Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "01c254c7_043e367f",
+      "revId": "1acd728c094d59bd89697a981c5e79db6e53858f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "01c254c7_44382e91",
         "filename": "crypto/pool/pool.c",
         "patchSetId": 2
@@ -53,6 +95,24 @@
       "writtenOn": "2016-10-26T20:53:18Z",
       "side": 1,
       "message": "Nit: 80 chars",
+      "revId": "1acd728c094d59bd89697a981c5e79db6e53858f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c1d83cb2_703b688f",
+        "filename": "crypto/pool/pool.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2016-10-26T21:32:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01c254c7_44382e91",
       "revId": "1acd728c094d59bd89697a981c5e79db6e53858f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "c1d83cb2_5038e490",
+        "filename": "crypto/pool/pool.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2016-10-26T21:32:46Z",
+      "side": 1,
+      "message": "Good catch, thank you. (And I believe that we need to increment the refcount under the lock.)\n\nSadly I don\u0027t know of any tools that let us test with interleaving, at least not without making a mess of the real code by adding synchonisation points :(",
+      "parentUuid": "01c254c7_a4dac232",
+      "range": {
+        "startLine": 128,
+        "startChar": 11,
+        "endLine": 128,
+        "endChar": 20
+      },
+      "revId": "1acd728c094d59bd89697a981c5e79db6e53858f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "01c254c7_c4a7fea2",
         "filename": "crypto/pool/pool.c",
         "patchSetId": 2
@@ -99,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "c1d83cb2_b0a84077",
+        "filename": "crypto/pool/pool.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2016-10-26T21:32:46Z",
+      "side": 1,
+      "message": "Comment added.\n\nYou\u0027re correct that we don\u0027t need to explicitly account for the pool\u0027s reference in the count. Done.",
+      "parentUuid": "01c254c7_c4a7fea2",
+      "revId": "1acd728c094d59bd89697a981c5e79db6e53858f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "01c254c7_648d6a4b",
         "filename": "crypto/pool/pool_test.cc",
         "patchSetId": 2
@@ -110,6 +212,30 @@
       "writtenOn": "2016-10-26T20:53:18Z",
       "side": 1,
       "message": "false?",
+      "range": {
+        "startLine": 25,
+        "startChar": 11,
+        "endLine": 25,
+        "endChar": 15
+      },
+      "revId": "1acd728c094d59bd89697a981c5e79db6e53858f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c1d83cb2_90ad3c87",
+        "filename": "crypto/pool/pool_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2016-10-26T21:32:46Z",
+      "side": 1,
+      "message": "Man, I guess I was in a positive mood :)",
+      "parentUuid": "01c254c7_648d6a4b",
       "range": {
         "startLine": 25,
         "startChar": 11,
@@ -145,6 +271,30 @@
     },
     {
       "key": {
+        "uuid": "c1d83cb2_f0a2b894",
+        "filename": "crypto/pool/pool_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2016-10-26T21:32:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01c254c7_8428664e",
+      "range": {
+        "startLine": 43,
+        "startChar": 11,
+        "endLine": 43,
+        "endChar": 15
+      },
+      "revId": "1acd728c094d59bd89697a981c5e79db6e53858f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "01c254c7_448aee34",
         "filename": "crypto/pool/pool_test.cc",
         "patchSetId": 2
@@ -156,6 +306,30 @@
       "writtenOn": "2016-10-26T20:53:18Z",
       "side": 1,
       "message": "false?",
+      "range": {
+        "startLine": 50,
+        "startChar": 11,
+        "endLine": 50,
+        "endChar": 15
+      },
+      "revId": "1acd728c094d59bd89697a981c5e79db6e53858f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c1d83cb2_309d7050",
+        "filename": "crypto/pool/pool_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2016-10-26T21:32:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01c254c7_448aee34",
       "range": {
         "startLine": 50,
         "startChar": 11,
@@ -191,6 +365,30 @@
     },
     {
       "key": {
+        "uuid": "c1d83cb2_109aec57",
+        "filename": "crypto/pool/pool_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2016-10-26T21:32:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01c254c7_e42dda5c",
+      "range": {
+        "startLine": 56,
+        "startChar": 11,
+        "endLine": 56,
+        "endChar": 15
+      },
+      "revId": "1acd728c094d59bd89697a981c5e79db6e53858f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "01c254c7_c47d3e5e",
         "filename": "include/openssl/lhash.h",
         "patchSetId": 2
@@ -202,6 +400,24 @@
       "writtenOn": "2016-10-26T20:53:18Z",
       "side": 1,
       "message": "Nit: Sort?",
+      "revId": "1acd728c094d59bd89697a981c5e79db6e53858f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c1d83cb2_f3776245",
+        "filename": "include/openssl/lhash.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2016-10-26T21:32:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01c254c7_c47d3e5e",
       "revId": "1acd728c094d59bd89697a981c5e79db6e53858f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
