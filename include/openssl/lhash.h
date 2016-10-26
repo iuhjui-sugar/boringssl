@@ -97,7 +97,8 @@ extern "C" {
  *
  * LHASH_OF:ASN1_OBJECT
  * LHASH_OF:CONF_VALUE
- * LHASH_OF:SSL_SESSION */
+ * LHASH_OF:SSL_SESSION
+ * LHASH_OF:CRYPTO_BUFFER */
 
 #define IN_LHASH_H
 #include <openssl/lhash_macros.h>
