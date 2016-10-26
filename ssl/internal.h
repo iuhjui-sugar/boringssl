@@ -1457,6 +1457,7 @@ int ssl3_read_handshake_bytes(SSL *ssl, uint8_t *buf, int len);
 int ssl3_write_app_data(SSL *ssl, const void *buf, int len);
 int ssl3_write_bytes(SSL *ssl, int type, const void *buf, int len);
 int ssl3_output_cert_chain(SSL *ssl);
+int ssl3_valid_cipher(SSL *ssl, const SSL_CIPHER *cipher);
 const SSL_CIPHER *ssl3_choose_cipher(
     SSL *ssl, const struct ssl_early_callback_ctx *client_hello,
     const struct ssl_cipher_preference_list_st *srvr);

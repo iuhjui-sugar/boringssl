@@ -122,7 +122,8 @@ static enum ssl_hs_wait_t do_process_client_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
       /* Only resume if the session's version matches. */
       (session->ssl_version != ssl->version ||
        !ssl_client_cipher_list_contains_cipher(
-           &client_hello, (uint16_t)SSL_CIPHER_get_id(session->cipher)))) {
+           &client_hello, (uint16_t)SSL_CIPHER_get_id(session->cipher)) ||
+       !ssl3_valid_cipher(ssl, session->cipher))) {
     SSL_SESSION_free(session);
     session = NULL;
   }

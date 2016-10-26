@@ -829,7 +829,8 @@ static int ssl3_get_client_hello(SSL *ssl) {
   if (ssl->session != NULL) {
     /* Check that the cipher is in the list. */
     if (!ssl_client_cipher_list_contains_cipher(
-            &client_hello, (uint16_t)ssl->session->cipher->id)) {
+            &client_hello, (uint16_t)ssl->session->cipher->id) ||
+        !ssl3_valid_cipher(ssl, ssl->session->cipher)) {
       al = SSL_AD_ILLEGAL_PARAMETER;
       OPENSSL_PUT_ERROR(SSL, SSL_R_REQUIRED_CIPHER_MISSING);
       goto f_err;

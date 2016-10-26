@@ -5382,6 +5382,18 @@ func addResumptionVersionTests() {
 	}
 
 	testCases = append(testCases, testCase{
+		testType:      serverTest,
+		name:          "Resume-Server-CipherMismatch",
+		resumeSession: true,
+		config: Config{
+			MaxVersion: VersionTLS12,
+		},
+		flags:         []string{"-cipher", "SHA384", "-resume-cipher", "SHA256"},
+		shouldFail:    true,
+		expectedError: ":REQUIRED_CIPHER_MISSING:",
+	})
+
+	testCases = append(testCases, testCase{
 		name:          "Resume-Client-CipherMismatch",
 		resumeSession: true,
 		config: Config{
