@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e16c60ba_36e0d681",
+        "filename": "crypto/rand/urandom.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5885
+      },
+      "writtenOn": "2016-10-27T22:51:23Z",
+      "side": 1,
+      "message": "This needs to go after \u003copenssl/rand.h\u003e is included, otherwise it\u0027s always going to evaluate to false.",
+      "revId": "f12c68472fb12da003038f5fe0571cc87e0ae28b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
