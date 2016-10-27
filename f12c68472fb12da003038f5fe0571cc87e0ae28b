@@ -16,6 +16,24 @@
       "revId": "f12c68472fb12da003038f5fe0571cc87e0ae28b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "81b56446_d7bfabb6",
+        "filename": "crypto/rand/urandom.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2016-10-27T22:54:02Z",
+      "side": 1,
+      "message": "But if it goes after rand.h is included then it doesn\u0027t work :)\n\n(It just needs to be defined at the top without conditions.)",
+      "parentUuid": "e16c60ba_36e0d681",
+      "revId": "f12c68472fb12da003038f5fe0571cc87e0ae28b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
