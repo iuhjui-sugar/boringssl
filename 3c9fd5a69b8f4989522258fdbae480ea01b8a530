@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "81b56446_771fdf1d",
+        "filename": "crypto/rand/urandom.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2016-10-27T22:47:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81b56446_97b1a331",
+      "revId": "3c9fd5a69b8f4989522258fdbae480ea01b8a530",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "81b56446_37b4371f",
         "filename": "crypto/rand/urandom.c",
         "patchSetId": 14
@@ -30,6 +48,24 @@
       "writtenOn": "2016-10-27T22:34:41Z",
       "side": 1,
       "message": "Nit: you\u0027re mixing \"#ifdef X\" and \"#if defined(X)\" in the new code. Not sure what\u0027s the BoringSSL style guide, but it seems that both are used quite heavily throughout the code.",
+      "revId": "3c9fd5a69b8f4989522258fdbae480ea01b8a530",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "81b56446_d74ccb3f",
+        "filename": "crypto/rand/urandom.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2016-10-27T22:47:31Z",
+      "side": 1,
+      "message": "if defined seems to be more common at least.",
+      "parentUuid": "81b56446_37b4371f",
       "revId": "3c9fd5a69b8f4989522258fdbae480ea01b8a530",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
