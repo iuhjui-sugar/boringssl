@@ -238,6 +238,8 @@ const (
 	npn  = 2
 )
 
+type tls13Test map[string]string
+
 type testCase struct {
 	testType      testType
 	protocol      protocol
@@ -364,6 +366,10 @@ type testCase struct {
 	// expectMessageDropped, if true, means the test message is expected to
 	// be dropped by the client rather than echoed back.
 	expectMessageDropped bool
+	// tls13Test, if present, runs the test a second time using MaxVersion VersionTLS13.
+	// You can set the keys 'shouldFail', 'expectedError', and 'expectedLocalError' to
+	// override the values from the original test.
+	tls13Test tls13Test
 }
 
 var testCases []testCase
@@ -1434,17 +1440,9 @@ func addBasicTests() {
 			},
 			shouldFail:    true,
 			expectedError: ":DECODE_ERROR:",
-		},
-		{
-			name: "EmptyCertificateList-TLS13",
-			config: Config{
-				MaxVersion: VersionTLS13,
-				Bugs: ProtocolBugs{
-					EmptyCertificateList: true,
-				},
+			tls13Test: tls13Test{
+				"expectedError": ":PEER_DID_NOT_RETURN_A_CERTIFICATE:",
 			},
-			shouldFail:    true,
-			expectedError: ":PEER_DID_NOT_RETURN_A_CERTIFICATE:",
 		},
 		{
 			name:             "TLSFatalBadPackets",
@@ -1757,17 +1755,7 @@ func addBasicTests() {
 			},
 			shouldFail:    true,
 			expectedError: ":DIGEST_CHECK_FAILED:",
-		},
-		{
-			name: "BadFinished-Client-TLS13",
-			config: Config{
-				MaxVersion: VersionTLS13,
-				Bugs: ProtocolBugs{
-					BadFinished: true,
-				},
-			},
-			shouldFail:    true,
-			expectedError: ":DIGEST_CHECK_FAILED:",
+			tls13Test:     tls13Test{},
 		},
 		{
 			testType: serverTest,
@@ -1780,18 +1768,7 @@ func addBasicTests() {
 			},
 			shouldFail:    true,
 			expectedError: ":DIGEST_CHECK_FAILED:",
-		},
-		{
-			testType: serverTest,
-			name:     "BadFinished-Server-TLS13",
-			config: Config{
-				MaxVersion: VersionTLS13,
-				Bugs: ProtocolBugs{
-					BadFinished: true,
-				},
-			},
-			shouldFail:    true,
-			expectedError: ":DIGEST_CHECK_FAILED:",
+			tls13Test:     tls13Test{},
 		},
 		{
 			name: "FalseStart-BadFinished",
@@ -2226,30 +2203,22 @@ func addBasicTests() {
 		},
 		{
 			testType: serverTest,
-			name:     "ExtraCompressionMethods-TLS12",
+			name:     "ExtraCompressionMethods",
 			config: Config{
 				MaxVersion: VersionTLS12,
 				Bugs: ProtocolBugs{
 					SendCompressionMethods: []byte{1, 2, 3, compressionNone, 4, 5, 6},
 				},
 			},
-		},
-		{
-			testType: serverTest,
-			name:     "ExtraCompressionMethods-TLS13",
-			config: Config{
-				MaxVersion: VersionTLS13,
-				Bugs: ProtocolBugs{
-					SendCompressionMethods: []byte{1, 2, 3, compressionNone, 4, 5, 6},
-				},
+			tls13Test: tls13Test{
+				"shouldFail":         "true",
+				"expectedError":      ":INVALID_COMPRESSION_LIST:",
+				"expectedLocalError": "remote error: illegal parameter",
 			},
-			shouldFail:         true,
-			expectedError:      ":INVALID_COMPRESSION_LIST:",
-			expectedLocalError: "remote error: illegal parameter",
 		},
 		{
 			testType: serverTest,
-			name:     "NoNullCompression-TLS12",
+			name:     "NoNullCompression",
 			config: Config{
 				MaxVersion: VersionTLS12,
 				Bugs: ProtocolBugs{
@@ -2259,50 +2228,33 @@ func addBasicTests() {
 			shouldFail:         true,
 			expectedError:      ":NO_COMPRESSION_SPECIFIED:",
 			expectedLocalError: "remote error: illegal parameter",
-		},
-		{
-			testType: serverTest,
-			name:     "NoNullCompression-TLS13",
-			config: Config{
-				MaxVersion: VersionTLS13,
-				Bugs: ProtocolBugs{
-					SendCompressionMethods: []byte{1, 2, 3, 4, 5, 6},
-				},
+			tls13Test: tls13Test{
+				"expectedError":      ":INVALID_COMPRESSION_LIST:",
+				"expectedLocalError": "remote error: illegal parameter",
 			},
-			shouldFail:         true,
-			expectedError:      ":INVALID_COMPRESSION_LIST:",
-			expectedLocalError: "remote error: illegal parameter",
 		},
 		{
-			name: "GREASE-Client-TLS12",
+			name: "GREASE-Client",
 			config: Config{
 				MaxVersion: VersionTLS12,
 				Bugs: ProtocolBugs{
 					ExpectGREASE: true,
 				},
 			},
-			flags: []string{"-enable-grease"},
-		},
-		{
-			name: "GREASE-Client-TLS13",
-			config: Config{
-				MaxVersion: VersionTLS13,
-				Bugs: ProtocolBugs{
-					ExpectGREASE: true,
-				},
-			},
-			flags: []string{"-enable-grease"},
+			flags:     []string{"-enable-grease"},
+			tls13Test: tls13Test{},
 		},
 		{
 			testType: serverTest,
-			name:     "GREASE-Server-TLS13",
+			name:     "GREASE-Server",
 			config: Config{
-				MaxVersion: VersionTLS13,
+				MaxVersion: VersionTLS12,
 				Bugs: ProtocolBugs{
 					ExpectGREASE: true,
 				},
 			},
-			flags: []string{"-enable-grease"},
+			flags:     []string{"-enable-grease"},
+			tls13Test: tls13Test{},
 		},
 	}
 	testCases = append(testCases, basicTests...)
@@ -2510,16 +2462,7 @@ func addCipherSuiteTests() {
 		},
 		shouldFail:    true,
 		expectedError: ":HANDSHAKE_FAILURE_ON_CLIENT_HELLO:",
-	})
-
-	testCases = append(testCases, testCase{
-		name: "NoSharedCipher-TLS13",
-		config: Config{
-			MaxVersion:   VersionTLS13,
-			CipherSuites: []uint16{},
-		},
-		shouldFail:    true,
-		expectedError: ":HANDSHAKE_FAILURE_ON_CLIENT_HELLO:",
+		tls13Test:     tls13Test{},
 	})
 
 	testCases = append(testCases, testCase{
@@ -2546,17 +2489,7 @@ func addCipherSuiteTests() {
 		},
 		shouldFail:    true,
 		expectedError: ":UNKNOWN_CIPHER_RETURNED:",
-	})
-	testCases = append(testCases, testCase{
-		name: "ServerHelloBogusCipher-TLS13",
-		config: Config{
-			MaxVersion: VersionTLS13,
-			Bugs: ProtocolBugs{
-				SendCipherSuite: bogusCipher,
-			},
-		},
-		shouldFail:    true,
-		expectedError: ":UNKNOWN_CIPHER_RETURNED:",
+		tls13Test:     tls13Test{},
 	})
 
 	testCases = append(testCases, testCase{
@@ -3471,18 +3404,7 @@ func addStateMachineCoverageTests(config stateMachineTestConfig) {
 			"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
 			"-key-file", path.Join(*resourceDir, rsaKeyFile),
 		},
-	})
-	tests = append(tests, testCase{
-		testType: clientTest,
-		name:     "ClientAuth-RSA-Client-TLS13",
-		config: Config{
-			MaxVersion: VersionTLS13,
-			ClientAuth: RequireAnyClientCert,
-		},
-		flags: []string{
-			"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-			"-key-file", path.Join(*resourceDir, rsaKeyFile),
-		},
+		tls13Test: tls13Test{},
 	})
 	tests = append(tests, testCase{
 		testType: clientTest,
@@ -3495,18 +3417,7 @@ func addStateMachineCoverageTests(config stateMachineTestConfig) {
 			"-cert-file", path.Join(*resourceDir, ecdsaP256CertificateFile),
 			"-key-file", path.Join(*resourceDir, ecdsaP256KeyFile),
 		},
-	})
-	tests = append(tests, testCase{
-		testType: clientTest,
-		name:     "ClientAuth-ECDSA-Client-TLS13",
-		config: Config{
-			MaxVersion: VersionTLS13,
-			ClientAuth: RequireAnyClientCert,
-		},
-		flags: []string{
-			"-cert-file", path.Join(*resourceDir, ecdsaP256CertificateFile),
-			"-key-file", path.Join(*resourceDir, ecdsaP256KeyFile),
-		},
+		tls13Test: tls13Test{},
 	})
 	tests = append(tests, testCase{
 		testType: clientTest,
@@ -3515,16 +3426,8 @@ func addStateMachineCoverageTests(config stateMachineTestConfig) {
 			MaxVersion: VersionTLS12,
 			ClientAuth: RequestClientCert,
 		},
-		flags: []string{"-use-old-client-cert-callback"},
-	})
-	tests = append(tests, testCase{
-		testType: clientTest,
-		name:     "ClientAuth-NoCertificate-OldCallback-TLS13",
-		config: Config{
-			MaxVersion: VersionTLS13,
-			ClientAuth: RequestClientCert,
-		},
-		flags: []string{"-use-old-client-cert-callback"},
+		flags:     []string{"-use-old-client-cert-callback"},
+		tls13Test: tls13Test{},
 	})
 	tests = append(tests, testCase{
 		testType: clientTest,
@@ -3538,19 +3441,7 @@ func addStateMachineCoverageTests(config stateMachineTestConfig) {
 			"-key-file", path.Join(*resourceDir, rsaKeyFile),
 			"-use-old-client-cert-callback",
 		},
-	})
-	tests = append(tests, testCase{
-		testType: clientTest,
-		name:     "ClientAuth-OldCallback-TLS13",
-		config: Config{
-			MaxVersion: VersionTLS13,
-			ClientAuth: RequireAnyClientCert,
-		},
-		flags: []string{
-			"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-			"-key-file", path.Join(*resourceDir, rsaKeyFile),
-			"-use-old-client-cert-callback",
-		},
+		tls13Test: tls13Test{},
 	})
 	tests = append(tests, testCase{
 		testType: serverTest,
@@ -3559,16 +3450,8 @@ func addStateMachineCoverageTests(config stateMachineTestConfig) {
 			MaxVersion:   VersionTLS12,
 			Certificates: []Certificate{rsaCertificate},
 		},
-		flags: []string{"-require-any-client-certificate"},
-	})
-	tests = append(tests, testCase{
-		testType: serverTest,
-		name:     "ClientAuth-Server-TLS13",
-		config: Config{
-			MaxVersion:   VersionTLS13,
-			Certificates: []Certificate{rsaCertificate},
-		},
-		flags: []string{"-require-any-client-certificate"},
+		flags:     []string{"-require-any-client-certificate"},
+		tls13Test: tls13Test{},
 	})
 
 	// Test each key exchange on the server side for async keys.
@@ -3662,6 +3545,7 @@ func addStateMachineCoverageTests(config stateMachineTestConfig) {
 			"-verify-peer",
 		},
 		resumeSession: true,
+		tls13Test:     tls13Test{},
 	})
 	tests = append(tests, testCase{
 		testType: serverTest,
@@ -3675,33 +3559,7 @@ func addStateMachineCoverageTests(config stateMachineTestConfig) {
 			base64.StdEncoding.EncodeToString(testOCSPResponse),
 		},
 		resumeSession: true,
-	})
-	tests = append(tests, testCase{
-		testType: clientTest,
-		name:     "OCSPStapling-Client-TLS13",
-		config: Config{
-			MaxVersion: VersionTLS13,
-		},
-		flags: []string{
-			"-enable-ocsp-stapling",
-			"-expect-ocsp-response",
-			base64.StdEncoding.EncodeToString(testOCSPResponse),
-			"-verify-peer",
-		},
-		resumeSession: true,
-	})
-	tests = append(tests, testCase{
-		testType: serverTest,
-		name:     "OCSPStapling-Server-TLS13",
-		config: Config{
-			MaxVersion: VersionTLS13,
-		},
-		expectedOCSPResponse: testOCSPResponse,
-		flags: []string{
-			"-ocsp-response",
-			base64.StdEncoding.EncodeToString(testOCSPResponse),
-		},
-		resumeSession: true,
+		tls13Test:     tls13Test{},
 	})
 
 	// Certificate verification tests.
@@ -4090,15 +3948,7 @@ func addDDoSCallbackTests() {
 			},
 			flags:         []string{"-install-ddos-callback"},
 			resumeSession: resume,
-		})
-		testCases = append(testCases, testCase{
-			testType: serverTest,
-			name:     "Server-DDoS-OK-" + suffix + "-TLS13",
-			config: Config{
-				MaxVersion: VersionTLS13,
-			},
-			flags:         []string{"-install-ddos-callback"},
-			resumeSession: resume,
+			tls13Test:     tls13Test{},
 		})
 
 		failFlag := "-fail-ddos-callback"
@@ -4116,18 +3966,7 @@ func addDDoSCallbackTests() {
 			shouldFail:         true,
 			expectedError:      ":CONNECTION_REJECTED:",
 			expectedLocalError: "remote error: internal error",
-		})
-		testCases = append(testCases, testCase{
-			testType: serverTest,
-			name:     "Server-DDoS-Reject-" + suffix + "-TLS13",
-			config: Config{
-				MaxVersion: VersionTLS13,
-			},
-			flags:              []string{"-install-ddos-callback", failFlag},
-			resumeSession:      resume,
-			shouldFail:         true,
-			expectedError:      ":CONNECTION_REJECTED:",
-			expectedLocalError: "remote error: internal error",
+			tls13Test:          tls13Test{},
 		})
 	}
 }
@@ -5239,9 +5078,9 @@ func addExtensionTests() {
 	})
 
 	// OpenSSL sends the status_request extension on resumption in TLS 1.2. Test that this is
-	// tolerated.
+	// tolerated. Beginning TLS 1.3, enforce this does not happen.
 	testCases = append(testCases, testCase{
-		name: "SendOCSPResponseOnResume-TLS12",
+		name: "SendOCSPResponseOnResume",
 		config: Config{
 			MaxVersion: VersionTLS12,
 			Bugs: ProtocolBugs{
@@ -5254,25 +5093,10 @@ func addExtensionTests() {
 			base64.StdEncoding.EncodeToString(testOCSPResponse),
 		},
 		resumeSession: true,
-	})
-
-	// Beginning TLS 1.3, enforce this does not happen.
-	testCases = append(testCases, testCase{
-		name: "SendOCSPResponseOnResume-TLS13",
-		config: Config{
-			MaxVersion: VersionTLS13,
-			Bugs: ProtocolBugs{
-				SendOCSPResponseOnResume: []byte("bogus"),
-			},
+		tls13Test: tls13Test{
+			"shouldFail":    "true",
+			"expectedError": ":ERROR_PARSING_EXTENSION:",
 		},
-		flags: []string{
-			"-enable-ocsp-stapling",
-			"-expect-ocsp-response",
-			base64.StdEncoding.EncodeToString(testOCSPResponse),
-		},
-		resumeSession: true,
-		shouldFail:    true,
-		expectedError: ":ERROR_PARSING_EXTENSION:",
 	})
 }
 
@@ -5392,18 +5216,7 @@ func addResumptionVersionTests() {
 		flags:                []string{"-cipher", "AES128", "-resume-cipher", "AES256"},
 		shouldFail:           false,
 		expectResumeRejected: true,
-	})
-
-	testCases = append(testCases, testCase{
-		testType:      serverTest,
-		name:          "Resume-Server-CipherMismatch-TLS13",
-		resumeSession: true,
-		config: Config{
-			MaxVersion: VersionTLS13,
-		},
-		flags:                []string{"-cipher", "AES128", "-resume-cipher", "AES256"},
-		shouldFail:           false,
-		expectResumeRejected: true,
+		tls13Test:            tls13Test{},
 	})
 
 	testCases = append(testCases, testCase{
@@ -6362,11 +6175,13 @@ func addSignatureAlgorithmTests() {
 			},
 			Bugs: ProtocolBugs{
 				IgnorePeerSignatureAlgorithmPreferences: true,
+				IgnoreSignatureVersionChecks:            true,
 			},
 		},
 		flags:         []string{"-require-any-client-certificate"},
 		shouldFail:    true,
 		expectedError: ":WRONG_SIGNATURE_TYPE:",
+		tls13Test:     tls13Test{},
 	})
 
 	testCases = append(testCases, testCase{
@@ -6379,26 +6194,9 @@ func addSignatureAlgorithmTests() {
 			},
 			Bugs: ProtocolBugs{
 				IgnorePeerSignatureAlgorithmPreferences: true,
-			},
-		},
-		shouldFail:    true,
-		expectedError: ":WRONG_SIGNATURE_TYPE:",
-	})
-	testCases = append(testCases, testCase{
-		testType: serverTest,
-		name:     "ClientAuth-Enforced-TLS13",
-		config: Config{
-			MaxVersion:   VersionTLS13,
-			Certificates: []Certificate{rsaCertificate},
-			SignSignatureAlgorithms: []signatureAlgorithm{
-				signatureRSAPKCS1WithMD5,
-			},
-			Bugs: ProtocolBugs{
-				IgnorePeerSignatureAlgorithmPreferences: true,
 				IgnoreSignatureVersionChecks:            true,
 			},
 		},
-		flags:         []string{"-require-any-client-certificate"},
 		shouldFail:    true,
 		expectedError: ":WRONG_SIGNATURE_TYPE:",
 	})
@@ -6982,19 +6780,8 @@ func addCustomExtensionTests() {
 					ExpectedCustomExtension: &expectedContents,
 				},
 			},
-			flags: []string{flag},
-		})
-		testCases = append(testCases, testCase{
-			testType: testType,
-			name:     "CustomExtensions-" + suffix + "-TLS13",
-			config: Config{
-				MaxVersion: VersionTLS13,
-				Bugs: ProtocolBugs{
-					CustomExtension:         expectedContents,
-					ExpectedCustomExtension: &expectedContents,
-				},
-			},
-			flags: []string{flag},
+			flags:     []string{flag},
+			tls13Test: tls13Test{},
 		})
 
 		// If the parse callback fails, the handshake should also fail.
@@ -7011,20 +6798,7 @@ func addCustomExtensionTests() {
 			flags:         []string{flag},
 			shouldFail:    true,
 			expectedError: ":CUSTOM_EXTENSION_ERROR:",
-		})
-		testCases = append(testCases, testCase{
-			testType: testType,
-			name:     "CustomExtensions-ParseError-" + suffix + "-TLS13",
-			config: Config{
-				MaxVersion: VersionTLS13,
-				Bugs: ProtocolBugs{
-					CustomExtension:         expectedContents + "foo",
-					ExpectedCustomExtension: &expectedContents,
-				},
-			},
-			flags:         []string{flag},
-			shouldFail:    true,
-			expectedError: ":CUSTOM_EXTENSION_ERROR:",
+			tls13Test:     tls13Test{},
 		})
 
 		// If the add callback fails, the handshake should also fail.
@@ -7041,20 +6815,7 @@ func addCustomExtensionTests() {
 			flags:         []string{flag, "-custom-extension-fail-add"},
 			shouldFail:    true,
 			expectedError: ":CUSTOM_EXTENSION_ERROR:",
-		})
-		testCases = append(testCases, testCase{
-			testType: testType,
-			name:     "CustomExtensions-FailAdd-" + suffix + "-TLS13",
-			config: Config{
-				MaxVersion: VersionTLS13,
-				Bugs: ProtocolBugs{
-					CustomExtension:         expectedContents,
-					ExpectedCustomExtension: &expectedContents,
-				},
-			},
-			flags:         []string{flag, "-custom-extension-fail-add"},
-			shouldFail:    true,
-			expectedError: ":CUSTOM_EXTENSION_ERROR:",
+			tls13Test:     tls13Test{},
 		})
 
 		// If the add callback returns zero, no extension should be
@@ -7075,19 +6836,8 @@ func addCustomExtensionTests() {
 					ExpectedCustomExtension: &emptyString,
 				},
 			},
-			flags: []string{flag, "-custom-extension-skip"},
-		})
-		testCases = append(testCases, testCase{
-			testType: testType,
-			name:     "CustomExtensions-Skip-" + suffix + "-TLS13",
-			config: Config{
-				MaxVersion: VersionTLS13,
-				Bugs: ProtocolBugs{
-					CustomExtension:         skipCustomExtension,
-					ExpectedCustomExtension: &emptyString,
-				},
-			},
-			flags: []string{flag, "-custom-extension-skip"},
+			flags:     []string{flag, "-custom-extension-skip"},
+			tls13Test: tls13Test{},
 		})
 	}
 
@@ -7102,19 +6852,8 @@ func addCustomExtensionTests() {
 				ExpectedCustomExtension: &emptyString,
 			},
 		},
-		flags: []string{"-enable-server-custom-extension", "-custom-extension-fail-add"},
-	})
-
-	testCases = append(testCases, testCase{
-		testType: serverTest,
-		name:     "CustomExtensions-NotCalled-Server-TLS13",
-		config: Config{
-			MaxVersion: VersionTLS13,
-			Bugs: ProtocolBugs{
-				ExpectedCustomExtension: &emptyString,
-			},
-		},
-		flags: []string{"-enable-server-custom-extension", "-custom-extension-fail-add"},
+		flags:     []string{"-enable-server-custom-extension", "-custom-extension-fail-add"},
+		tls13Test: tls13Test{},
 	})
 
 	// Test an unknown extension from the server.
@@ -7130,19 +6869,7 @@ func addCustomExtensionTests() {
 		shouldFail:         true,
 		expectedError:      ":UNEXPECTED_EXTENSION:",
 		expectedLocalError: "remote error: unsupported extension",
-	})
-	testCases = append(testCases, testCase{
-		testType: clientTest,
-		name:     "UnknownExtension-Client-TLS13",
-		config: Config{
-			MaxVersion: VersionTLS13,
-			Bugs: ProtocolBugs{
-				CustomExtension: expectedContents,
-			},
-		},
-		shouldFail:         true,
-		expectedError:      ":UNEXPECTED_EXTENSION:",
-		expectedLocalError: "remote error: unsupported extension",
+		tls13Test:          tls13Test{},
 	})
 	testCases = append(testCases, testCase{
 		testType: clientTest,
@@ -7191,19 +6918,7 @@ func addCustomExtensionTests() {
 		shouldFail:         true,
 		expectedError:      ":UNEXPECTED_EXTENSION:",
 		expectedLocalError: "remote error: unsupported extension",
-	})
-	testCases = append(testCases, testCase{
-		testType: clientTest,
-		name:     "UnofferedExtension-Client-TLS13",
-		config: Config{
-			MaxVersion: VersionTLS13,
-			Bugs: ProtocolBugs{
-				SendALPN: "alpn",
-			},
-		},
-		shouldFail:         true,
-		expectedError:      ":UNEXPECTED_EXTENSION:",
-		expectedLocalError: "remote error: unsupported extension",
+		tls13Test:          tls13Test{},
 	})
 }
 
@@ -8938,6 +8653,29 @@ func statusPrinter(doneChan chan *testOutput, statusChan chan statusMsg, total i
 	doneChan <- testOutput
 }
 
+func makeTLS13Test(test testCase) testCase {
+	var newTest testCase
+	newTest = test
+	newTest.name = test.name + "-TLS13"
+	newTest.config.MaxVersion = VersionTLS13
+
+	for k, v := range test.tls13Test {
+		if k == "shouldFail" {
+			var err error
+			newTest.shouldFail, err = strconv.ParseBool(v)
+			if err != nil {
+				panic("Bad value in " + test.name)
+			}
+		} else if k == "expectedError" {
+			newTest.expectedError = v
+		} else if k == "expectedLocalError" {
+			newTest.expectedLocalError = v
+		}
+	}
+
+	return newTest
+}
+
 func main() {
 	flag.Parse()
 	*resourceDir = path.Clean(*resourceDir)
@@ -8994,7 +8732,15 @@ func main() {
 		}
 	}
 
-	go statusPrinter(doneChan, statusChan, len(testCases))
+	var allTestCases []testCase
+	for i := range testCases {
+		allTestCases = append(allTestCases, testCases[i])
+		if testCases[i].tls13Test != nil {
+			allTestCases = append(allTestCases, makeTLS13Test(testCases[i]))
+		}
+	}
+
+	go statusPrinter(doneChan, statusChan, len(allTestCases))
 
 	for i := 0; i < *numWorkers; i++ {
 		wg.Add(1)
@@ -9002,11 +8748,12 @@ func main() {
 	}
 
 	var foundTest bool
-	for i := range testCases {
+	for i := range allTestCases {
+
 		matched := true
 		if len(*testToRun) != 0 {
 			var err error
-			matched, err = filepath.Match(*testToRun, testCases[i].name)
+			matched, err = filepath.Match(*testToRun, allTestCases[i].name)
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "Error matching pattern: %s\n", err)
 				os.Exit(1)
@@ -9015,7 +8762,7 @@ func main() {
 
 		if !*includeDisabled {
 			for pattern := range shimConfig.DisabledTests {
-				isDisabled, err := filepath.Match(pattern, testCases[i].name)
+				isDisabled, err := filepath.Match(pattern, allTestCases[i].name)
 				if err != nil {
 					fmt.Fprintf(os.Stderr, "Error matching pattern %q from config file: %s\n", pattern, err)
 					os.Exit(1)
@@ -9030,7 +8777,7 @@ func main() {
 
 		if matched {
 			foundTest = true
-			testChan <- &testCases[i]
+			testChan <- &allTestCases[i]
 		}
 	}
 
