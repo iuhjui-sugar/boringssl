@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "01c254c7_470b1040",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 833,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-10-27T15:38:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81b56446_d96407d2",
+      "revId": "db7966cf0a52892d404e8a1bf20f61438490968e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "81b56446_1967afd3",
         "filename": "ssl/internal.h",
         "patchSetId": 1
@@ -30,6 +48,30 @@
       "writtenOn": "2016-10-26T22:45:48Z",
       "side": 1,
       "message": "Documentation?\n\nLet\u0027s try to avoid using the silly \u0027ssl3_\u0027 prefix when we can. Just \u0027ssl_\u0027 is fine. Also probably \"is_valid_cipher\" or \"is_cipher_valid\" since this is a predicate.",
+      "range": {
+        "startLine": 1460,
+        "startChar": 4,
+        "endLine": 1460,
+        "endChar": 21
+      },
+      "revId": "db7966cf0a52892d404e8a1bf20f61438490968e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "01c254c7_e7f2fc2e",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1460,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-10-27T15:38:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81b56446_1967afd3",
       "range": {
         "startLine": 1460,
         "startChar": 4,
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "01c254c7_c72c20b1",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 5386,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-10-27T15:38:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81b56446_b97e635a",
+      "revId": "db7966cf0a52892d404e8a1bf20f61438490968e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "81b56446_5971378d",
         "filename": "ssl/tls13_server.c",
         "patchSetId": 1
@@ -70,6 +130,30 @@
       "writtenOn": "2016-10-26T22:45:48Z",
       "side": 1,
       "message": "(Existing issue, but it\u0027s weird how this is a fatal error in 1.2 and a soft error in 1.3.)",
+      "range": {
+        "startLine": 124,
+        "startChar": 8,
+        "endLine": 124,
+        "endChar": 46
+      },
+      "revId": "db7966cf0a52892d404e8a1bf20f61438490968e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "01c254c7_47e4b063",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-10-27T15:38:03Z",
+      "side": 1,
+      "message": "Probably should be dealt with separately, but I think it should be a soft error? Since its entirely valid for the client list to change between connections.",
+      "parentUuid": "81b56446_5971378d",
       "range": {
         "startLine": 124,
         "startChar": 8,
