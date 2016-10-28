@@ -16,6 +16,24 @@
       "revId": "5e393fedef3f0b9daa886a56b2713451d08f35b5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "064b4a9d_fc72298f",
+        "filename": "crypto/rand/urandom.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-10-28T19:49:56Z",
+      "side": 1,
+      "message": "We don\u0027t, generally, mark ignored return values with (void).\n\nAlso, we\u0027re limited in how much we can test whether this call succeeds because it\u0027ll probably return ENOSYS on most systems. Thus, even if the syscall numbers are nonsense, we couldn\u0027t tell. (At most we could assert that, if it fails, errno is EINTR, EAGAIN or ENOSYS, I guess.)",
+      "parentUuid": "064b4a9d_dc800d47",
+      "revId": "5e393fedef3f0b9daa886a56b2713451d08f35b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
