@@ -25,6 +25,24 @@
     },
     {
       "key": {
+        "uuid": "c1667cd0_9abb82c5",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 784,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-28T16:01:22Z",
+      "side": 1,
+      "message": "Replaced it all with if/else",
+      "parentUuid": "81b56446_26c9a70c",
+      "revId": "77ac6b785b182e4d992d24275f26c2e9398d10cf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "81b56446_a6dd97c7",
         "filename": "ssl/ssl_cipher.c",
         "patchSetId": 3
@@ -48,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "81b56446_866fb316",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 798,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-28T16:01:22Z",
+      "side": 1,
+      "message": "Yeah... I\u0027ll go ping that client and see what the current state of things is.",
+      "parentUuid": "81b56446_a6dd97c7",
+      "revId": "77ac6b785b182e4d992d24275f26c2e9398d10cf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "81b56446_46e02b82",
         "filename": "ssl/ssl_cipher.c",
         "patchSetId": 3
@@ -65,6 +101,24 @@
         "endLine": 815,
         "endChar": 17
       },
+      "revId": "77ac6b785b182e4d992d24275f26c2e9398d10cf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "21c918eb_d8f23481",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 815,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-28T16:01:22Z",
+      "side": 1,
+      "message": "Assert\u0027s removable anyway. The caller has an equivalent assert anyway. I left the TODO thinking of the SSL_AEAD idea, but yeah let\u0027s just take it out.",
+      "parentUuid": "81b56446_46e02b82",
       "revId": "77ac6b785b182e4d992d24275f26c2e9398d10cf",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
