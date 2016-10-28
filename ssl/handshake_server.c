@@ -564,7 +564,7 @@ static int negotiate_version(
     return 0;
   }
 
-  uint16_t version = 0;
+  uint16_t version;
   /* Check supported_versions extension if it is present. */
   CBS supported_versions;
   if (ssl_early_callback_get_extension(client_hello, &supported_versions,
@@ -581,6 +581,11 @@ static int negotiate_version(
     /* Choose the newest commonly-supported version advertised by the client.
      * The client orders the versions according to its preferences, but we're
      * not required to honor the client's preferences. */
+
+    /* TLS 1.2 is the oldest version that is allowed to be negotiated by this
+     * extension. Ignore any older versions. */
+    version = TLS1_2_VERSION;
+
     int found_version = 0;
     while (CBS_len(&versions) != 0) {
       uint16_t ext_version;
@@ -594,7 +599,7 @@ static int negotiate_version(
       }
       if (min_version <= ext_version &&
           ext_version <= max_version) {
-        if (version < ext_version) {
+        if (version <= ext_version) {
           version = ext_version;
           found_version = 1;
         }
