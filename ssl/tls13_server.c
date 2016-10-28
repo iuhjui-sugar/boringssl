@@ -149,6 +149,16 @@ static enum ssl_hs_wait_t do_select_parameters(SSL *ssl, SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
+  /* Negotiate the cipher suite. */
+  ssl->s3->tmp.new_cipher =
+      ssl3_choose_cipher(ssl, &client_hello, ssl_get_cipher_preferences(ssl));
+  if (ssl->s3->tmp.new_cipher == NULL) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_NO_SHARED_CIPHER);
+    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_HANDSHAKE_FAILURE);
+    return ssl_hs_error;
+  }
+
+  /* Decode the ticket. */
   uint8_t alert = SSL_AD_DECODE_ERROR;
   SSL_SESSION *session = NULL;
   CBS pre_shared_key;
@@ -160,20 +170,31 @@ static enum ssl_hs_wait_t do_select_parameters(SSL *ssl, SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
+  /* Only resume if the session's version and cipher match. */
   if (session != NULL &&
-      /* Only resume if the session's version matches. */
       (session->ssl_version != ssl->version ||
-       !ssl_client_cipher_list_contains_cipher(
-           &client_hello, (uint16_t)SSL_CIPHER_get_id(session->cipher)) ||
-       !ssl_is_valid_cipher(ssl, session->cipher))) {
+       session->cipher != ssl->s3->tmp.new_cipher)) {
     SSL_SESSION_free(session);
     session = NULL;
   }
 
+  /* Set up the new session, either using the original one as a template or
+   * creating a fresh one. */
   if (session == NULL) {
     if (!ssl_get_new_session(ssl, 1 /* server */)) {
       ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
       return ssl_hs_error;
+    }
+
+    ssl->s3->new_session->cipher = ssl->s3->tmp.new_cipher;
+
+    /* On new sessions, stash the SNI value in the session. */
+    if (ssl->s3->hs->hostname != NULL) {
+      ssl->s3->new_session->tlsext_hostname = BUF_strdup(ssl->s3->hs->hostname);
+      if (ssl->s3->new_session->tlsext_hostname == NULL) {
+        ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
+        return ssl_hs_error;
+      }
     }
   } else {
     /* Only authentication information carries over in TLS 1.3. */
@@ -193,31 +214,6 @@ static enum ssl_hs_wait_t do_select_parameters(SSL *ssl, SSL_HANDSHAKE *hs) {
     ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
     return ssl_hs_error;
   }
-
-  if (!ssl->s3->session_reused) {
-    const SSL_CIPHER *cipher =
-        ssl3_choose_cipher(ssl, &client_hello, ssl_get_cipher_preferences(ssl));
-    if (cipher == NULL) {
-      OPENSSL_PUT_ERROR(SSL, SSL_R_NO_SHARED_CIPHER);
-      ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_HANDSHAKE_FAILURE);
-      return ssl_hs_error;
-    }
-
-    ssl->s3->new_session->cipher = cipher;
-
-    /* On new sessions, stash the SNI value in the session. */
-    if (ssl->s3->hs->hostname != NULL) {
-      ssl->s3->new_session->tlsext_hostname = BUF_strdup(ssl->s3->hs->hostname);
-      if (ssl->s3->new_session->tlsext_hostname == NULL) {
-        ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
-        return ssl_hs_error;
-      }
-    }
-  }
-
-  ssl->s3->tmp.new_cipher = ssl->s3->new_session->cipher;
-  ssl->method->received_flight(ssl);
-
 
   /* The PRF hash is now known. */
   size_t hash_len =
@@ -241,6 +237,8 @@ static enum ssl_hs_wait_t do_select_parameters(SSL *ssl, SSL_HANDSHAKE *hs) {
       !tls13_advance_key_schedule(ssl, psk_secret, hash_len)) {
     return ssl_hs_error;
   }
+
+  ssl->method->received_flight(ssl);
 
   /* Resolve ECDHE and incorporate it into the secret. */
   int need_retry;
