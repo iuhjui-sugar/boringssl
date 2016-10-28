@@ -108,6 +108,20 @@ static enum ssl_hs_wait_t do_process_client_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
   }
   memcpy(ssl->s3->client_random, client_hello.random, client_hello.random_len);
 
+  /* TLS 1.3 requires the peer only advertise the null compression. */
+  if (client_hello.compression_methods_len != 1 ||
+      client_hello.compression_methods[0] != 0) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_INVALID_COMPRESSION_LIST);
+    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
+    return ssl_hs_error;
+  }
+
+  /* TLS extensions. */
+  if (!ssl_parse_clienthello_tlsext(ssl, &client_hello)) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_PARSE_TLSEXT);
+    return ssl_hs_error;
+  }
+
   uint8_t alert = SSL_AD_DECODE_ERROR;
   SSL_SESSION *session = NULL;
   CBS pre_shared_key;
@@ -153,20 +167,6 @@ static enum ssl_hs_wait_t do_process_client_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
-  /* TLS 1.3 requires the peer only advertise the null compression. */
-  if (client_hello.compression_methods_len != 1 ||
-      client_hello.compression_methods[0] != 0) {
-    OPENSSL_PUT_ERROR(SSL, SSL_R_INVALID_COMPRESSION_LIST);
-    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
-    return ssl_hs_error;
-  }
-
-  /* TLS extensions. */
-  if (!ssl_parse_clienthello_tlsext(ssl, &client_hello)) {
-    OPENSSL_PUT_ERROR(SSL, SSL_R_PARSE_TLSEXT);
-    return ssl_hs_error;
-  }
-
   hs->state = state_select_parameters;
   return ssl_hs_ok;
 }
@@ -206,6 +206,15 @@ static enum ssl_hs_wait_t do_select_parameters(SSL *ssl, SSL_HANDSHAKE *hs) {
     }
 
     ssl->s3->new_session->cipher = cipher;
+
+    /* On new sessions, stash the SNI value in the session. */
+    if (ssl->s3->hs->hostname != NULL) {
+      ssl->s3->new_session->tlsext_hostname = BUF_strdup(ssl->s3->hs->hostname);
+      if (ssl->s3->new_session->tlsext_hostname == NULL) {
+        ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
+        return ssl_hs_error;
+      }
+    }
   }
 
   ssl->s3->tmp.new_cipher = ssl->s3->new_session->cipher;
