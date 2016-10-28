@@ -582,9 +582,9 @@ static int negotiate_version(
      * The client orders the versions according to its preferences, but we're
      * not required to honor the client's preferences. */
 
-    /* TLS 1.2 is the oldest version that is allowed to be negotiated by this
+    /* TLS 1.3 is the oldest version that is allowed to be negotiated by this
      * extension. Ignore any older versions. */
-    version = TLS1_2_VERSION;
+    version = TLS1_3_VERSION;
 
     int found_version = 0;
     while (CBS_len(&versions) != 0) {
@@ -606,8 +606,12 @@ static int negotiate_version(
       }
     }
 
+    /* The client isn't allowed to advertise support for TLS 1.2 or earlier in
+     * the extension, so there's no way to know if the client supports TLS 1.2
+     * or not. We'll assume it does; if we assumed wrongly then the client can
+     * cancel the handshake itself. */
     if (!found_version) {
-      goto unsupported_protocol;
+      version = TLS1_2_VERSION;
     }
   } else {
     /* Process ClientHello.version instead. Note that versions beyond (D)TLS 1.2

@@ -2259,24 +2259,23 @@ static int ext_supported_versions_add_clienthello(SSL *ssl, CBB *out) {
     return 0;
   }
 
-  if (max_version <= TLS1_2_VERSION) {
+  if (max_version < TLS1_3_VERSION) {
     return 1;
   }
 
-  /* There's no need to advertise versions lower than TLS 1.2 since legacy
-   * servers won't use this extension to negotiate the version. Therefore,
-   * advertising older versions would only help an active MitM who wants to
+  /* There's no need to advertise versions lower than TLS 1.3 since legacy
+   * servers won't use this extension to negotiate the version. A server that
+   * doesn't support any draft/release of TLS 1.3+ that we advertise here may
+   * fall back to negotiating TLS 1.2, but not earlier versions.
+   *
+   * Advertising older versions would only help an active MitM who wants to
    * exploit a flaw in an older version, but who only wants to attempt to do so
    * if the client actually supports the older version. In many (but not all)
    * cases A MitM may be able to infer support for older TLS versions anyway by
    * fingerprinting the ClientHello, so the security benefit is limited, but at
-   * least we save 2 or 4 bytes in the ClientHello.
-   *
-   * TLS 1.2 is included to handle the case where the server supports TLS 1.2
-   * and some draft or final variant of TLS 1.3, but not the same variant we
-   * support. */
-  if (min_version < TLS1_2_VERSION) {
-    min_version = TLS1_2_VERSION;
+   * least we save 2-6 bytes in the ClientHello. */
+  if (min_version < TLS1_3_VERSION) {
+    min_version = TLS1_3_VERSION;
   }
 
   CBB contents, versions;
