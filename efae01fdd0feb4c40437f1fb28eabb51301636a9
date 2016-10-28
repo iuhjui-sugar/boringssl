@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "064b4a9d_bfcc13c6",
+        "filename": "crypto/asn1/tasn_utl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2016-10-28T22:25:24Z",
+      "side": 1,
+      "message": "I would like to think that nobody reuses X509 objects like that, but since we\u0027re likely to expose these X509, they should be robust. It\u0027s a bit (more) of a hack, but see what you think.",
+      "parentUuid": "81b56446_3c589646",
+      "revId": "efae01fdd0feb4c40437f1fb28eabb51301636a9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "81b56446_7c521e28",
         "filename": "crypto/x509/x509_test.cc",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2016-10-28T19:31:39Z",
       "side": 1,
       "message": "This a no-op since new throws an exception on failure rather than returning null. (The malloc tests also intentionally let new go through.)",
+      "revId": "efae01fdd0feb4c40437f1fb28eabb51301636a9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "064b4a9d_5f6a2f2f",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 767,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2016-10-28T22:25:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81b56446_7c521e28",
       "revId": "efae01fdd0feb4c40437f1fb28eabb51301636a9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "064b4a9d_9f4b17cc",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 786,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2016-10-28T22:25:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81b56446_bc7006c1",
+      "range": {
+        "startLine": 786,
+        "startChar": 2,
+        "endLine": 786,
+        "endChar": 14
+      },
+      "revId": "efae01fdd0feb4c40437f1fb28eabb51301636a9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "81b56446_9c554211",
         "filename": "crypto/x509/x509_test.cc",
         "patchSetId": 1
@@ -70,6 +130,24 @@
       "writtenOn": "2016-10-28T19:31:39Z",
       "side": 1,
       "message": "It looks like it works out naturally, but probably ought to test that this doesn\u0027t break X509_CINF_set_modified.",
+      "revId": "efae01fdd0feb4c40437f1fb28eabb51301636a9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "064b4a9d_dfbf5f5f",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 812,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2016-10-28T22:25:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81b56446_9c554211",
       "revId": "efae01fdd0feb4c40437f1fb28eabb51301636a9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
