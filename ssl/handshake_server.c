@@ -767,6 +767,15 @@ static int ssl3_get_client_hello(SSL *ssl) {
 
   assert(ssl->state == SSL3_ST_SR_CLNT_HELLO_E);
 
+  /* Negotiate the cipher suite. */
+  ssl->s3->tmp.new_cipher =
+      ssl3_choose_cipher(ssl, &client_hello, ssl_get_cipher_preferences(ssl));
+  if (ssl->s3->tmp.new_cipher == NULL) {
+    al = SSL_AD_HANDSHAKE_FAILURE;
+    OPENSSL_PUT_ERROR(SSL, SSL_R_NO_SHARED_CIPHER);
+    goto f_err;
+  }
+
   /* Determine whether we are doing session resumption. */
   int send_new_ticket = 0;
   switch (
@@ -800,9 +809,8 @@ static int ssl3_get_client_hello(SSL *ssl) {
          * didn't use it, then negotiate a new session. */
         ssl->s3->tmp.extended_master_secret ==
             session->extended_master_secret &&
-        /* Only resume if the session's cipher is still valid under the
-         * current configuration. */
-        ssl_is_valid_cipher(ssl, session->cipher);
+        /* Only resume if the session's cipher matches the negotiated one. */
+        ssl->s3->tmp.new_cipher == session->cipher;
   }
 
   if (has_session) {
@@ -830,27 +838,8 @@ static int ssl3_get_client_hello(SSL *ssl) {
     goto f_err;
   }
 
-  if (ssl->session != NULL) {
-    /* Check that the cipher is in the list. */
-    if (!ssl_client_cipher_list_contains_cipher(
-            &client_hello, (uint16_t)ssl->session->cipher->id)) {
-      al = SSL_AD_ILLEGAL_PARAMETER;
-      OPENSSL_PUT_ERROR(SSL, SSL_R_REQUIRED_CIPHER_MISSING);
-      goto f_err;
-    }
-
-    ssl->s3->tmp.new_cipher = ssl->session->cipher;
-  } else {
-    const SSL_CIPHER *c =
-        ssl3_choose_cipher(ssl, &client_hello, ssl_get_cipher_preferences(ssl));
-    if (c == NULL) {
-      al = SSL_AD_HANDSHAKE_FAILURE;
-      OPENSSL_PUT_ERROR(SSL, SSL_R_NO_SHARED_CIPHER);
-      goto f_err;
-    }
-
-    ssl->s3->new_session->cipher = c;
-    ssl->s3->tmp.new_cipher = c;
+  if (ssl->session == NULL) {
+    ssl->s3->new_session->cipher = ssl->s3->tmp.new_cipher;
 
     /* On new sessions, stash the SNI value in the session. */
     if (ssl->s3->hs->hostname != NULL) {
