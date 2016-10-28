@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "81ce44ee_beada686",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 2274,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-28T16:48:23Z",
+      "side": 1,
+      "message": "Hrm. That seems a bit tenuous. One could find out whether older versions are supported by just fingerprinting the ClientHello. We change ours so aggressively, it\u0027s easy to tell when we do what.\n\n(I\u0027d actually be pretty happy saying that supported_versions means you can\u0027t go below 1.2 at either client or server. And I don\u0027t mind sending a marginally smaller ClientHello. Although we probably should get the spec to decide on it one way or another and make client/server agree.)",
+      "revId": "890f96eae46044bf320dfd51f658f31ea92d288b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
