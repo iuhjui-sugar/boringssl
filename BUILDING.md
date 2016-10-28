@@ -80,14 +80,14 @@ for other variables which may be used to configure the build.
 ### Building for Android
 
 It's possible to build BoringSSL with the Android NDK using CMake. This has
-been tested with version 10d of the NDK.
+been tested with version 13b of the NDK.
 
 Unpack the Android NDK somewhere and export `ANDROID_NDK` to point to the
 directory. Then make a build directory as above and run CMake like this:
 
     cmake -DANDROID_ABI=armeabi-v7a \
-          -DCMAKE_TOOLCHAIN_FILE=../third_party/android-cmake/android.toolchain.cmake \
-          -DANDROID_NATIVE_API_LEVEL=16 \
+          -DOPENSSL_NO_ASM=1 \
+          -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK}/build/cmake/android.toolchain.cmake \
           -GNinja ..
 
 Once you've run that, Ninja should produce Android-compatible binaries.  You
