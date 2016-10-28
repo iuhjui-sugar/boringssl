@@ -206,6 +206,15 @@ static enum ssl_hs_wait_t do_select_parameters(SSL *ssl, SSL_HANDSHAKE *hs) {
     }
 
     ssl->s3->new_session->cipher = cipher;
+
+    /* On new sessions, stash the SNI value in the session. */
+    if (ssl->s3->hs->hostname != NULL) {
+      ssl->s3->new_session->tlsext_hostname = BUF_strdup(ssl->s3->hs->hostname);
+      if (ssl->s3->new_session->tlsext_hostname == NULL) {
+        ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
+        return ssl_hs_error;
+      }
+    }
   }
 
   ssl->s3->tmp.new_cipher = ssl->s3->new_session->cipher;

@@ -865,6 +865,15 @@ static int ssl3_get_client_hello(SSL *ssl) {
     ssl->s3->new_session->cipher = c;
     ssl->s3->tmp.new_cipher = c;
 
+    /* On new sessions, stash the SNI value in the session. */
+    if (ssl->s3->hs->hostname != NULL) {
+      ssl->s3->new_session->tlsext_hostname = BUF_strdup(ssl->s3->hs->hostname);
+      if (ssl->s3->new_session->tlsext_hostname == NULL) {
+        al = SSL_AD_INTERNAL_ERROR;
+        goto f_err;
+      }
+    }
+
     /* Determine whether to request a client certificate. */
     ssl->s3->hs->cert_request = !!(ssl->verify_mode & SSL_VERIFY_PEER);
     /* Only request a certificate if Channel ID isn't negotiated. */

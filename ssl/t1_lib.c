@@ -705,28 +705,19 @@ static int ext_sni_parse_clienthello(SSL *ssl, uint8_t *out_alert,
     return 0;
   }
 
-  /* TODO(davidben): SNI should be resolved before resumption. We have the
-   * early callback as a replacement, but we should fix the current callback
-   * and avoid the need for |SSL_CTX_set_session_id_context|. */
-  if (ssl->session == NULL) {
-    assert(ssl->s3->new_session->tlsext_hostname == NULL);
-
-    /* Copy the hostname as a string. */
-    if (!CBS_strdup(&host_name, &ssl->s3->new_session->tlsext_hostname)) {
-      *out_alert = SSL_AD_INTERNAL_ERROR;
-      return 0;
-    }
-
-    ssl->s3->hs->should_ack_sni = 1;
+  /* Copy the hostname as a string. */
+  if (!CBS_strdup(&host_name, &ssl->s3->hs->hostname)) {
+    *out_alert = SSL_AD_INTERNAL_ERROR;
+    return 0;
   }
 
+  ssl->s3->hs->should_ack_sni = 1;
   return 1;
 }
 
 static int ext_sni_add_serverhello(SSL *ssl, CBB *out) {
-  if (ssl->session != NULL ||
-      !ssl->s3->hs->should_ack_sni ||
-      ssl->s3->new_session->tlsext_hostname == NULL) {
+  if (ssl->s3->session_reused ||
+      !ssl->s3->hs->should_ack_sni) {
     return 1;
   }
 

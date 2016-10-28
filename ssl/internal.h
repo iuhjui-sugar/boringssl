@@ -1005,6 +1005,9 @@ struct ssl_handshake_st {
    * received in a CertificateRequest message. */
   uint8_t *certificate_types;
   size_t num_certificate_types;
+
+  /* hostname, on the server, is the value of the SNI extension. */
+  char *hostname;
 } /* SSL_HANDSHAKE */;
 
 SSL_HANDSHAKE *ssl_handshake_new(enum ssl_hs_wait_t (*do_handshake)(SSL *ssl));
