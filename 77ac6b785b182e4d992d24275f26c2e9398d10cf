@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "81b56446_26c9a70c",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 784,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-10-28T14:27:38Z",
+      "side": 1,
+      "message": "This switch-within-switch action might be clearer using if statements instead.",
+      "range": {
+        "startLine": 784,
+        "startChar": 2,
+        "endLine": 784,
+        "endChar": 8
+      },
+      "revId": "77ac6b785b182e4d992d24275f26c2e9398d10cf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "81b56446_a6dd97c7",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 798,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-10-28T14:27:38Z",
+      "side": 1,
+      "message": "[The existence of this continues to vex]",
+      "range": {
+        "startLine": 798,
+        "startChar": 13,
+        "endLine": 798,
+        "endChar": 37
+      },
+      "revId": "77ac6b785b182e4d992d24275f26c2e9398d10cf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "81b56446_46e02b82",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 815,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-10-28T14:27:38Z",
+      "side": 1,
+      "message": "Can kill the TODO and assert if we just explicitly move this into the inner switch statement:\n\n*out_fixed_iv_len \u003d version \u003e\u003d TLS1_3_VERSION ? EVP_AEAD_nonce_length(*out_aead) : ...;",
+      "range": {
+        "startLine": 815,
+        "startChar": 10,
+        "endLine": 815,
+        "endChar": 17
+      },
+      "revId": "77ac6b785b182e4d992d24275f26c2e9398d10cf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
