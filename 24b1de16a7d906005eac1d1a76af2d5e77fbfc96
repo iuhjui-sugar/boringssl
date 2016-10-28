@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "81b56446_41013521",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-28T16:55:51Z",
+      "side": 1,
+      "message": "NOTE: We need to get that patched before this change is picked up.",
+      "range": {
+        "startLine": 15,
+        "startChar": 42,
+        "endLine": 16,
+        "endChar": 59
+      },
+      "revId": "24b1de16a7d906005eac1d1a76af2d5e77fbfc96",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

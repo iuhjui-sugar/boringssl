@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a16b489a_116037bc",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-28T16:55:51Z",
+      "side": 0,
+      "message": "(ssl_hs_error is zero, somewhat intentionally, so this is fine.)",
+      "range": {
+        "startLine": 133,
+        "startChar": 11,
+        "endLine": 133,
+        "endChar": 12
+      },
+      "revId": "cbd4b0c8ef0d59bb3abdcf0551ee42b5d439e41a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
