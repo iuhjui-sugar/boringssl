@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "064b4a9d_dc800d47",
+        "filename": "crypto/rand/urandom.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-10-28T19:28:04Z",
+      "side": 1,
+      "message": "Should this have a `(void)` prefix in front of it? Maybe it would be useful to assert, at least, that the cal succeeds. In particular, imagine that the syscall constants were wrong; this wouldn\u0027t detect that.",
+      "revId": "5e393fedef3f0b9daa886a56b2713451d08f35b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
