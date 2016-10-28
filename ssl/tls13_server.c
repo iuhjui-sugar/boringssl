@@ -122,6 +122,33 @@ static enum ssl_hs_wait_t do_process_client_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
+  hs->state = state_select_parameters;
+  return ssl_hs_ok;
+}
+
+static enum ssl_hs_wait_t do_select_parameters(SSL *ssl, SSL_HANDSHAKE *hs) {
+  /* Call |cert_cb| to update server certificates if required. */
+  if (ssl->cert->cert_cb != NULL) {
+    int rv = ssl->cert->cert_cb(ssl, ssl->cert->cert_cb_arg);
+    if (rv == 0) {
+      OPENSSL_PUT_ERROR(SSL, SSL_R_CERT_CB_ERROR);
+      ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
+      return ssl_hs_error;
+    }
+    if (rv < 0) {
+      hs->state = state_select_parameters;
+      return ssl_hs_x509_lookup;
+    }
+  }
+
+  struct ssl_early_callback_ctx client_hello;
+  if (!ssl_early_callback_init(ssl, &client_hello, ssl->init_msg,
+                               ssl->init_num)) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_CLIENTHELLO_PARSE_FAILED);
+    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
+    return ssl_hs_error;
+  }
+
   uint8_t alert = SSL_AD_DECODE_ERROR;
   SSL_SESSION *session = NULL;
   CBS pre_shared_key;
@@ -130,7 +157,7 @@ static enum ssl_hs_wait_t do_process_client_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
       !ssl_ext_pre_shared_key_parse_clienthello(ssl, &session, &alert,
                                                 &pre_shared_key)) {
     ssl3_send_alert(ssl, SSL3_AL_FATAL, alert);
-    return 0;
+    return ssl_hs_error;
   }
 
   if (session != NULL &&
@@ -164,35 +191,6 @@ static enum ssl_hs_wait_t do_process_client_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
     /* Connection rejected for DOS reasons. */
     OPENSSL_PUT_ERROR(SSL, SSL_R_CONNECTION_REJECTED);
     ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
-    return ssl_hs_error;
-  }
-
-  hs->state = state_select_parameters;
-  return ssl_hs_ok;
-}
-
-static enum ssl_hs_wait_t do_select_parameters(SSL *ssl, SSL_HANDSHAKE *hs) {
-  if (!ssl->s3->session_reused) {
-    /* Call |cert_cb| to update server certificates if required. */
-    if (ssl->cert->cert_cb != NULL) {
-      int rv = ssl->cert->cert_cb(ssl, ssl->cert->cert_cb_arg);
-      if (rv == 0) {
-        OPENSSL_PUT_ERROR(SSL, SSL_R_CERT_CB_ERROR);
-        ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
-        return ssl_hs_error;
-      }
-      if (rv < 0) {
-        hs->state = state_select_parameters;
-        return ssl_hs_x509_lookup;
-      }
-    }
-  }
-
-  struct ssl_early_callback_ctx client_hello;
-  if (!ssl_early_callback_init(ssl, &client_hello, ssl->init_msg,
-                               ssl->init_num)) {
-    OPENSSL_PUT_ERROR(SSL, SSL_R_CLIENTHELLO_PARSE_FAILED);
-    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
     return ssl_hs_error;
   }
 
