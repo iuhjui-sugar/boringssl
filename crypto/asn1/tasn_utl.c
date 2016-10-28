@@ -134,6 +134,7 @@ void asn1_enc_init(ASN1_VALUE **pval, const ASN1_ITEM *it) {
   if (enc) {
     enc->enc = NULL;
     enc->len = 0;
+    enc->alias_only = 0;
     enc->modified = 1;
   }
 }
@@ -142,11 +143,12 @@ void asn1_enc_free(ASN1_VALUE **pval, const ASN1_ITEM *it) {
   ASN1_ENCODING *enc;
   enc = asn1_get_enc_ptr(pval, it);
   if (enc) {
-    if (enc->enc) {
+    if (enc->enc && !enc->alias_only) {
       OPENSSL_free(enc->enc);
     }
     enc->enc = NULL;
     enc->len = 0;
+    enc->alias_only = 0;
     enc->modified = 1;
   }
 }
@@ -159,14 +161,19 @@ int asn1_enc_save(ASN1_VALUE **pval, const unsigned char *in, int inlen,
     return 1;
   }
 
-  if (enc->enc) {
-    OPENSSL_free(enc->enc);
+  if (enc->alias_only) {
+    enc->enc = (uint8_t *) in;
+  } else {
+    if (enc->enc) {
+      OPENSSL_free(enc->enc);
+    }
+    enc->enc = OPENSSL_malloc(inlen);
+    if (!enc->enc) {
+      return 0;
+    }
+    memcpy(enc->enc, in, inlen);
   }
-  enc->enc = OPENSSL_malloc(inlen);
-  if (!enc->enc) {
-    return 0;
-  }
-  memcpy(enc->enc, in, inlen);
+
   enc->len = inlen;
   enc->modified = 0;
 

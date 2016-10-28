@@ -246,7 +246,11 @@ typedef struct ASN1_ENCODING_st
 	{
 	unsigned char *enc;	/* DER encoding */
 	long len;		/* Length of encoding */
-	int modified;		 /* set to 1 if 'enc' is invalid */
+	int modified;		/* set to 1 if 'enc' is invalid */
+	/* alias_only is zero if |enc| owns the buffer that it points to
+	 * (although |enc| may still be NULL). If one, |enc| points into a
+	 * buffer that is owned elsewhere. */
+	int alias_only;
 	} ASN1_ENCODING;
 
 /* Used with ASN1 LONG type: if a long is set to this it is omitted */
