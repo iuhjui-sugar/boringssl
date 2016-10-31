@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "662326ed_a78fea48",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-31T18:21:35Z",
+      "side": 1,
+      "message": "Nit: TestFromBufferModified.",
+      "range": {
+        "startLine": 860,
+        "startChar": 13,
+        "endLine": 860,
+        "endChar": 27
+      },
+      "revId": "75961c145dac88213d08f0cec96fd52f61d46b59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "662326ed_878c6655",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 869,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-31T18:21:35Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 869,
+        "startChar": 13,
+        "endLine": 869,
+        "endChar": 27
+      },
+      "revId": "75961c145dac88213d08f0cec96fd52f61d46b59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "662326ed_e789e243",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 906,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-31T18:21:35Z",
+      "side": 1,
+      "message": "Nit: TestFromBufferReused.",
+      "revId": "75961c145dac88213d08f0cec96fd52f61d46b59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a6043e4e_71ec9813",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 911,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-31T18:21:35Z",
+      "side": 1,
+      "message": "Probably also want to assert that the ASN1_OP_D2I_PRE did what it was supposed to do and cleared root-\u003ebuf.",
+      "revId": "75961c145dac88213d08f0cec96fd52f61d46b59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a6043e4e_d10584ee",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 920,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-31T18:21:35Z",
+      "side": 1,
+      "message": "This could also be written:\n\n  uint8_t *i2d \u003d nullptr;\n  int i2d_len \u003d i2d_X509(root.get(), \u0026i2d);\n  if (i2d_len \u003c 0) {\n    return false;\n  }\n  bssl::UniquePtr i2d_storage(i2d);\n\nAlthough it\u0027s actually only slightly shorter. (If outp is nullptr, i2d_FOO has an extra special-case where it\u0027ll OPENSSL_malloc some data for you.)",
+      "revId": "75961c145dac88213d08f0cec96fd52f61d46b59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a6043e4e_51f194e5",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-10-31T18:21:35Z",
+      "side": 1,
+      "message": "Maybe just X509_from_buffer or X509_parse_from_buffer? This, thankfully, doesn\u0027t look much like a d2i function anymore.",
+      "range": {
+        "startLine": 645,
+        "startChar": 21,
+        "endLine": 645,
+        "endChar": 41
+      },
+      "revId": "75961c145dac88213d08f0cec96fd52f61d46b59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
