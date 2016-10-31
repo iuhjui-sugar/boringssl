@@ -116,6 +116,8 @@ struct TestConfig {
   bool enable_grease = false;
   int max_cert_list = 0;
   std::string ticket_key;
+  int expect_cipher_aes = 0;
+  int expect_cipher_no_aes = 0;
 };
 
 bool ParseConfig(int argc, char **argv, TestConfig *out_config);
