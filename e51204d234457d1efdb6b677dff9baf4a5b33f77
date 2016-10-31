@@ -22,6 +22,30 @@
       "revId": "e51204d234457d1efdb6b677dff9baf4a5b33f77",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "066eea3f_47c61000",
+        "filename": "include/openssl/curve25519.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-10-31T18:49:28Z",
+      "side": 1,
+      "message": "The numbers are much shorter and save an indirection.",
+      "parentUuid": "a6043e4e_317cd062",
+      "range": {
+        "startLine": 41,
+        "startChar": 60,
+        "endLine": 41,
+        "endChar": 62
+      },
+      "revId": "e51204d234457d1efdb6b677dff9baf4a5b33f77",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
