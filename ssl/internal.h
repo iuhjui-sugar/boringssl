@@ -849,6 +849,9 @@ int tls13_export_keying_material(SSL *ssl, uint8_t *out, size_t out_len,
  * 0 for the Client Finished. */
 int tls13_finished_mac(SSL *ssl, uint8_t *out, size_t *out_len, int is_server);
 
+int tls13_write_psk_binder(SSL *ssl, uint8_t *msg, size_t len);
+int tls13_verify_psk_binder(SSL *ssl, int *out_valid, SSL_SESSION *session, size_t binders_len);
+
 
 /* Handshake functions. */
 
@@ -881,6 +884,8 @@ typedef struct ssl_handshake_st {
   uint8_t client_traffic_secret_0[EVP_MAX_MD_SIZE];
   uint8_t server_traffic_secret_0[EVP_MAX_MD_SIZE];
 
+  uint8_t psk_binder[EVP_MAX_MD_SIZE];
+
   union {
     /* sent is a bitset where the bits correspond to elements of kExtensions
      * in t1_lib.c. Each bit is set if that extension was sent in a
@@ -907,6 +912,9 @@ typedef struct ssl_handshake_st {
 
   /* scts_requested is one if the SCT extension is in the ClientHello. */
   int scts_requested:1;
+
+  /* sent_session is one if a session was sent in the PSK extension. */
+  int sent_session:1;
 
   unsigned received_hello_retry_request:1;
 
@@ -1040,6 +1048,7 @@ int ssl_ext_key_share_parse_clienthello(SSL *ssl, int *out_found,
                                         uint8_t *out_alert, CBS *contents);
 int ssl_ext_key_share_add_serverhello(SSL *ssl, CBB *out);
 
+int ssl_ext_pre_shared_key_add_clienthello(SSL *ssl, CBB *out);
 int ssl_ext_pre_shared_key_parse_serverhello(SSL *ssl, uint8_t *out_alert,
                                              CBS *contents);
 int ssl_ext_pre_shared_key_parse_clienthello(SSL *ssl,
@@ -1051,7 +1060,7 @@ int ssl_ext_psk_key_exchange_modes_parse_clienthello(SSL *ssl,
                                                      uint8_t *out_alert,
                                                      CBS *contents);
 
-int ssl_add_client_hello_body(SSL *ssl, CBB *body);
+int ssl_write_client_hello(SSL *ssl);
 
 /* ssl_clear_tls13_state releases client state only needed for TLS 1.3. It
  * should be called once the version is known to be TLS 1.2 or earlier. */
