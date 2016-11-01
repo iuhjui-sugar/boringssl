@@ -199,25 +199,37 @@ int ssl3_init_message(SSL *ssl, CBB *cbb, CBB *body, uint8_t type) {
   return 1;
 }
 
-int ssl3_finish_message(SSL *ssl, CBB *cbb) {
+int ssl3_dump_message(SSL *ssl, CBB *cbb, uint8_t **out_msg, size_t *out_len) {
   if (ssl->s3->pending_message != NULL) {
     OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
     return 0;
   }
 
-  uint8_t *msg = NULL;
-  size_t len;
-  if (!CBB_finish(cbb, &msg, &len) ||
-      len > 0xffffffffu) {
+  if (!CBB_finish(cbb, out_msg, out_len) ||
+      *out_len > 0xffffffffu) {
     OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
-    OPENSSL_free(msg);
+    OPENSSL_free(*out_msg);
     return 0;
   }
 
+  return 1;
+}
+
+void ssl3_queue_message(SSL *ssl, uint8_t *msg, size_t len) {
   ssl3_update_handshake_hash(ssl, msg, len);
 
   ssl->s3->pending_message = msg;
   ssl->s3->pending_message_len = (uint32_t)len;
+}
+
+int ssl3_finish_message(SSL *ssl, CBB *cbb) {
+  uint8_t *msg;
+  size_t len;
+  if (!ssl3_dump_message(ssl, cbb, &msg, &len)) {
+    return 0;
+  }
+
+  ssl3_queue_message(ssl, msg, len);
   return 1;
 }
 

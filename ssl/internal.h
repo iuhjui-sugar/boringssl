@@ -1709,6 +1709,8 @@ int ssl3_accept(SSL *ssl);
 int ssl3_connect(SSL *ssl);
 
 int ssl3_init_message(SSL *ssl, CBB *cbb, CBB *body, uint8_t type);
+int ssl3_dump_message(SSL *ssl, CBB *cbb, uint8_t **out_msg, size_t *out_len);
+void ssl3_queue_message(SSL *ssl, uint8_t *msg, size_t len);
 int ssl3_finish_message(SSL *ssl, CBB *cbb);
 int ssl3_write_message(SSL *ssl);
 
