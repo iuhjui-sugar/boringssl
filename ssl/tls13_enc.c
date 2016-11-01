@@ -277,15 +277,29 @@ int tls13_derive_resumption_secret(SSL *ssl) {
                        strlen(kTLS13LabelResumption));
 }
 
+static const char kTLS13LabelFinished[] = "finished";
+
+static int tls13_signed_mac(const EVP_MD *digest, uint8_t *out,
+			    size_t *out_len, const uint8_t *secret,
+			    size_t hash_len, uint8_t *context,
+			    size_t context_len) {
+  uint8_t key[EVP_MAX_MD_SIZE];
+  unsigned len;
+  if (!hkdf_expand_label(key, digest, secret, hash_len,
+                         (const uint8_t *)kTLS13LabelFinished,
+			 strlen(kTLS13LabelFinished), NULL, 0, hash_len) ||
+      HMAC(digest, key, hash_len, context, context_len, out, &len) == NULL) {
+    return 0;
+  }
+  *out_len = len;
+  return 1;
+}
+
 int tls13_finished_mac(SSL *ssl, uint8_t *out, size_t *out_len, int is_server) {
   SSL_HANDSHAKE *hs = ssl->s3->hs;
   const EVP_MD *digest = ssl_get_handshake_digest(ssl_get_algorithm_prf(ssl));
 
-  uint8_t key[EVP_MAX_MD_SIZE];
-  size_t key_len = EVP_MD_size(digest);
-
   const uint8_t *traffic_secret;
-  const char *label = "finished";
   if (is_server == ssl->server) {
     traffic_secret = ssl->s3->write_traffic_secret;
   } else {
@@ -294,16 +308,11 @@ int tls13_finished_mac(SSL *ssl, uint8_t *out, size_t *out_len, int is_server) {
 
   uint8_t context_hashes[2 * EVP_MAX_MD_SIZE];
   size_t context_hashes_len;
-  unsigned len;
-  if (!hkdf_expand_label(key, digest, traffic_secret, hs->hash_len,
-                         (const uint8_t *)label, strlen(label), NULL, 0,
-                         hs->hash_len) ||
-      !tls13_get_context_hashes(ssl, context_hashes, &context_hashes_len) ||
-      HMAC(digest, key, key_len, context_hashes, context_hashes_len, out,
-           &len) == NULL) {
+  if (!tls13_get_context_hashes(ssl, context_hashes, &context_hashes_len) ||
+      !tls13_signed_mac(digest, out, out_len, traffic_secret, hs->hash_len,
+			context_hashes, context_hashes_len)) {
     return 0;
   }
-  *out_len = len;
   return 1;
 }
 
@@ -322,4 +331,73 @@ int tls13_export_keying_material(SSL *ssl, uint8_t *out, size_t out_len,
   return hkdf_expand_label(out, digest, ssl->s3->exporter_secret,
                            ssl->s3->exporter_secret_len, (const uint8_t *)label,
                            label_len, hash, hash_len, out_len);
+}
+
+static const char kTLS13LabelPSKBinder[] = "resumption psk binder key";
+
+static int tls13_psk_binder(SSL *ssl, uint8_t *out, const EVP_MD *digest,
+			    uint8_t *psk, size_t psk_len,
+			    uint8_t *data, size_t data_len, size_t hash_len) {
+  EVP_MD_CTX ctx;
+  EVP_MD_CTX_init(&ctx);
+  uint8_t context[EVP_MAX_MD_SIZE];
+  unsigned context_len;
+  if (!EVP_DigestInit_ex(&ctx, digest, NULL) ||
+      !EVP_DigestUpdate(&ctx, data, data_len) ||
+      !EVP_DigestFinal_ex(&ctx, context, &context_len)) {
+    return 0;
+  }
+  
+  uint8_t binder_key[EVP_MAX_MD_SIZE] = {0};
+  size_t len;
+  if (!hkdf_expand_label(binder_key, digest, psk, hash_len,
+			 (const uint8_t *)kTLS13LabelPSKBinder,
+			 strlen(kTLS13LabelPSKBinder),
+			 NULL, 0, hash_len) ||
+      !tls13_signed_mac(digest, out, &len, binder_key, hash_len,
+			context, context_len)) {
+    return 0;
+  }
+  return 1;
+}
+
+int tls13_write_psk_binder(SSL *ssl, uint8_t *msg, size_t len) {
+  const EVP_MD *digest = ssl_get_handshake_digest(ssl->session->cipher->algorithm_prf);
+  size_t hash_len = EVP_MD_size(digest);
+  uint8_t signature[EVP_MAX_MD_SIZE] = {0};
+
+  size_t data_len = ssl->s3->handshake_buffer->length + len - hash_len;
+  uint8_t *data = OPENSSL_malloc(data_len);
+  memcpy(data, ssl->s3->handshake_buffer->data, ssl->s3->handshake_buffer->length);
+  memcpy(data + ssl->s3->handshake_buffer->length, msg, len - hash_len);
+  
+  if (!tls13_psk_binder(ssl, signature, digest, ssl->session->master_key,
+			ssl->session->master_key_length,
+			data,
+			data_len,
+			hash_len)) {
+    return 0;
+  }
+  memcpy(msg + len - hash_len, signature, hash_len);
+  return 1;
+}
+
+int tls13_verify_psk_binder(SSL *ssl, int *out_valid, SSL_SESSION *session) {
+  const EVP_MD *digest = ssl_get_handshake_digest(session->cipher->algorithm_prf);
+  size_t hash_len = EVP_MD_size(digest);
+  uint8_t signature[EVP_MAX_MD_SIZE] = {0};
+
+  size_t data_len = ssl->s3->handshake_buffer->length - hash_len;
+  uint8_t *data = OPENSSL_malloc(data_len);
+  memcpy(data, ssl->s3->handshake_buffer->data,
+	 ssl->s3->handshake_buffer->length - hash_len);
+  if (!tls13_psk_binder(ssl, signature, digest, session->master_key,
+			session->master_key_length, data, data_len, hash_len)) {
+    return 0;
+  }
+
+  *out_valid = CRYPTO_memcmp(ssl->s3->handshake_buffer->data +
+			     ssl->s3->handshake_buffer->length - hash_len,
+			     signature, hash_len) == 0;
+  return 1;
 }

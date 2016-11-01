@@ -459,7 +459,7 @@ int tls13_prepare_certificate(SSL *ssl) {
   }
 
   if (!ssl_has_certificate(ssl)) {
-    if (!ssl->method->finish_message(ssl, &cbb)) {
+    if (!ssl_complete_message(ssl, &cbb)) {
       goto err;
     }
     return 1;
@@ -468,7 +468,7 @@ int tls13_prepare_certificate(SSL *ssl) {
   CERT *cert = ssl->cert;
   CBB leaf, extensions;
   if (!CBB_add_u24_length_prefixed(&certificate_list, &leaf) ||
-      !ssl_add_cert_to_cbb(&leaf, cert->x509) ||
+      !ssl_add_cert_to_cbb(&leaf, cert->x509_leaf) ||
       !CBB_add_u16_length_prefixed(&certificate_list, &extensions)) {
     OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
     goto err;
@@ -499,10 +499,10 @@ int tls13_prepare_certificate(SSL *ssl) {
     }
   }
 
-  for (size_t i = 0; i < sk_X509_num(cert->chain); i++) {
+  for (size_t i = 0; i < sk_X509_num(cert->x509_chain); i++) {
     CBB child;
     if (!CBB_add_u24_length_prefixed(&certificate_list, &child) ||
-        !ssl_add_cert_to_cbb(&child, sk_X509_value(cert->chain, i)) ||
+        !ssl_add_cert_to_cbb(&child, sk_X509_value(cert->x509_chain, i)) ||
         !CBB_add_u16(&certificate_list, 0)) {
       OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
       goto err;
