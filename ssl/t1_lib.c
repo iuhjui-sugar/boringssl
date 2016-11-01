@@ -2041,21 +2041,19 @@ static int ext_key_share_add_clienthello(SSL *ssl, CBB *out) {
     return 0;
   }
 
-  uint16_t group_id;
+  uint16_t group_id = ssl->s3->hs->retry_group;
   if (ssl->s3->hs->received_hello_retry_request) {
-    /* Replay the old key shares. */
-    if (!CBB_add_bytes(&kse_bytes, ssl->s3->hs->key_share_bytes,
-                       ssl->s3->hs->key_share_bytes_len)) {
-      return 0;
+    if (group_id == 0) {
+      /* We received a HelloRetryRequest without a new curve, so there is no new
+       * share to append. Leave |ecdh_ctx| as-is. */
+      if (!CBB_add_bytes(&kse_bytes, ssl->s3->hs->key_share_bytes,
+                         ssl->s3->hs->key_share_bytes_len)) {
+        return 0;
+      }
     }
     OPENSSL_free(ssl->s3->hs->key_share_bytes);
     ssl->s3->hs->key_share_bytes = NULL;
     ssl->s3->hs->key_share_bytes_len = 0;
-
-    group_id = ssl->s3->hs->retry_group;
-
-    /* We received a HelloRetryRequest without a new curve, so there is no new
-     * share to append. Leave |ecdh_ctx| as-is. */
     if (group_id == 0) {
       return CBB_flush(out);
     }

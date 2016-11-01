@@ -8393,33 +8393,6 @@ func addTLS13HandshakeTests() {
 
 	testCases = append(testCases, testCase{
 		testType: clientTest,
-		name:     "OmitServerHelloSignatureAlgorithms",
-		config: Config{
-			MaxVersion: VersionTLS13,
-			Bugs: ProtocolBugs{
-				OmitServerHelloSignatureAlgorithms: true,
-			},
-		},
-		shouldFail:    true,
-		expectedError: ":UNEXPECTED_EXTENSION:",
-	})
-
-	testCases = append(testCases, testCase{
-		testType: clientTest,
-		name:     "IncludeServerHelloSignatureAlgorithms",
-		config: Config{
-			MaxVersion: VersionTLS13,
-			Bugs: ProtocolBugs{
-				IncludeServerHelloSignatureAlgorithms: true,
-			},
-		},
-		resumeSession: true,
-		shouldFail:    true,
-		expectedError: ":UNEXPECTED_EXTENSION:",
-	})
-
-	testCases = append(testCases, testCase{
-		testType: clientTest,
 		name:     "MissingKeyShare-Client",
 		config: Config{
 			MaxVersion: VersionTLS13,

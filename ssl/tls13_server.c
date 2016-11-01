@@ -316,13 +316,6 @@ static enum ssl_hs_wait_t do_send_server_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
     goto err;
   }
 
-  if (!ssl->s3->session_reused) {
-    if (!CBB_add_u16(&extensions, TLSEXT_TYPE_signature_algorithms) ||
-        !CBB_add_u16(&extensions, 0)) {
-      goto err;
-    }
-  }
-
   if (!ssl->method->finish_message(ssl, &cbb)) {
     goto err;
   }
