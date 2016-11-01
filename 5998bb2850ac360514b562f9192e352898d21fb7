@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "660b26aa_e74122a9",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 8762,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-01T17:15:27Z",
+      "side": 1,
+      "message": "This line is not necessary.",
+      "revId": "5998bb2850ac360514b562f9192e352898d21fb7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
