@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "660b26aa_27d73a4e",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 813,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-01T20:59:12Z",
+      "side": 1,
+      "message": "Nit: extra space",
+      "range": {
+        "startLine": 813,
+        "startChar": 26,
+        "endLine": 813,
+        "endChar": 27
+      },
+      "revId": "0a53bc3beb2fbce06ff723c0384ebe755a214dea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "660b26aa_07d43645",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 840,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-01T20:59:12Z",
+      "side": 1,
+      "message": "tls13_derive_application_secrets? I think you could make the case that traffic secrets and exporter secrets are \"application secrets\" in that they\u0027re meant for the application while the resumption secret is an internal thingy. Or maybe derive_half_rtt_secrets?\n\n(If you like half_rtt_secrets, maybe resumption_secret \u003d\u003e one_rtt_secrets below?)",
+      "range": {
+        "startLine": 840,
+        "startChar": 16,
+        "endLine": 840,
+        "endChar": 20
+      },
+      "revId": "0a53bc3beb2fbce06ff723c0384ebe755a214dea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "660b26aa_e79fe299",
+        "filename": "ssl/test/runner/prf.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-01T20:59:12Z",
+      "side": 1,
+      "message": "So we don\u0027t have to allocate it anew each time, I\u0027d probably pull these out into variables like the rest of them.",
+      "range": {
+        "startLine": 456,
+        "startChar": 46,
+        "endLine": 456,
+        "endChar": 59
+      },
+      "revId": "0a53bc3beb2fbce06ff723c0384ebe755a214dea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "660b26aa_c7a4def4",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-01T20:59:12Z",
+      "side": 1,
+      "message": "Check that master_key_length \u003d\u003d hash_len and fail otherwise. (That requires a totally nonsense session so that can just be fatal on both sides.)",
+      "revId": "0a53bc3beb2fbce06ff723c0384ebe755a214dea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "660b26aa_a799eab6",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-01T20:59:12Z",
+      "side": 1,
+      "message": "Ditto re length check.",
+      "revId": "0a53bc3beb2fbce06ff723c0384ebe755a214dea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
