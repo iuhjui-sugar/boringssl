@@ -515,8 +515,6 @@ Curves:
 	hs.finishedHash.discardHandshakeBuffer()
 	hs.writeClientHash(hs.clientHello.marshal())
 
-	hs.hello.useCertAuth = hs.sessionState == nil
-
 	// Resolve PSK and compute the early secret.
 	var psk []byte
 	if hs.sessionState != nil {
@@ -526,12 +524,6 @@ Curves:
 	}
 
 	earlySecret := hs.finishedHash.extractKey(hs.finishedHash.zeroSecret(), psk)
-
-	if config.Bugs.OmitServerHelloSignatureAlgorithms {
-		hs.hello.useCertAuth = false
-	} else if config.Bugs.IncludeServerHelloSignatureAlgorithms {
-		hs.hello.useCertAuth = true
-	}
 
 	hs.hello.hasKeyShare = true
 	if hs.sessionState != nil && config.Bugs.NegotiatePSKResumption {
@@ -625,11 +617,11 @@ ResendHelloRetryRequest:
 
 		if helloRetryRequest.hasSelectedGroup {
 			newKeyShares := newClientHelloCopy.keyShares
-			if len(newKeyShares) == 0 || newKeyShares[len(newKeyShares)-1].group != helloRetryRequest.selectedGroup {
-				return errors.New("tls: KeyShare from HelloRetryRequest not present in new ClientHello")
+			if len(newKeyShares) != 1 || newKeyShares[0].group != helloRetryRequest.selectedGroup {
+				return errors.New("tls: KeyShare from HelloRetryRequest not in new ClientHello")
 			}
-			selectedKeyShare = &newKeyShares[len(newKeyShares)-1]
-			newClientHelloCopy.keyShares = newKeyShares[:len(newKeyShares)-1]
+			selectedKeyShare = &newKeyShares[0]
+			newClientHelloCopy.keyShares = oldClientHelloCopy.keyShares
 		}
 
 		if len(helloRetryRequest.cookie) > 0 {
@@ -730,7 +722,7 @@ ResendHelloRetryRequest:
 	clientHandshakeTrafficSecret := hs.finishedHash.deriveSecret(handshakeSecret, clientHandshakeTrafficLabel)
 	c.in.useTrafficSecret(c.vers, hs.suite, clientHandshakeTrafficSecret, clientWrite)
 
-	if hs.hello.useCertAuth {
+	if hs.sessionState == nil {
 		if hs.clientHello.ocspStapling {
 			encryptedExtensions.extensions.ocspResponse = hs.cert.OCSPStaple
 		}
@@ -755,7 +747,7 @@ ResendHelloRetryRequest:
 		c.writeRecord(recordTypeHandshake, encryptedExtensions.marshal())
 	}
 
-	if hs.hello.useCertAuth {
+	if hs.sessionState == nil {
 		if config.ClientAuth >= RequestClientCert {
 			// Request a client certificate
 			certReq := &certificateRequestMsg{
