@@ -165,11 +165,7 @@ static enum ssl_hs_wait_t do_process_hello_retry_request(SSL *ssl,
 
 static enum ssl_hs_wait_t do_send_second_client_hello(SSL *ssl,
                                                       SSL_HANDSHAKE *hs) {
-  CBB cbb, body;
-  if (!ssl->method->init_message(ssl, &cbb, &body, SSL3_MT_CLIENT_HELLO) ||
-      !ssl_add_client_hello_body(ssl, &body) ||
-      !ssl_complete_message(ssl, &cbb)) {
-    CBB_cleanup(&cbb);
+  if (!ssl_write_client_hello(ssl)) {
     return ssl_hs_error;
   }
 
