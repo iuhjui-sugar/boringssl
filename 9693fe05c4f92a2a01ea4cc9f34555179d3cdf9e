@@ -22,6 +22,30 @@
       "revId": "9693fe05c4f92a2a01ea4cc9f34555179d3cdf9e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "06a98af7_ec802b94",
+        "filename": "include/openssl/curve25519.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-11-01T23:35:33Z",
+      "side": 1,
+      "message": "(Yes, it should probably be \"key\" not \"value\", public-value is a term generally used in DH.)\n\nThe 32-byte private-key is little inconsistent. Although taking a 64-byte input seems odd because either you\u0027re just passing nonsense, or else you already have the public key in the latter bytes and don\u0027t need this function in the first place.\n\nLadar, what\u0027s your use-case here?",
+      "parentUuid": "0656eab8_2a5cbb5e",
+      "range": {
+        "startLine": 77,
+        "startChar": 73,
+        "endLine": 77,
+        "endChar": 75
+      },
+      "revId": "9693fe05c4f92a2a01ea4cc9f34555179d3cdf9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
