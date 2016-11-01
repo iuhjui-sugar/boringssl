@@ -423,10 +423,10 @@ NextCipherSuite:
 				return err
 			}
 			keyShares[group] = curve
-			hello.keyShares = append(hello.keyShares, keyShareEntry{
+			hello.keyShares = []keyShareEntry{{
 				group:       group,
 				keyExchange: publicKey,
-			})
+			}}
 		}
 
 		if c.config.Bugs.SecondClientHelloMissingKeyShare {
@@ -603,11 +603,6 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 	// 0-RTT is implemented.
 	var psk []byte
 	if hs.serverHello.hasPSKIdentity {
-		if hs.serverHello.useCertAuth || !hs.serverHello.hasKeyShare {
-			c.sendAlert(alertUnsupportedExtension)
-			return errors.New("tls: server omitted KeyShare or included SignatureAlgorithms on resumption.")
-		}
-
 		// We send at most one PSK identity.
 		if hs.session == nil || hs.serverHello.pskIdentity != 0 {
 			c.sendAlert(alertUnknownPSKIdentity)
@@ -620,15 +615,15 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 		psk = hs.session.masterSecret
 		c.didResume = true
 	} else {
-		if !hs.serverHello.useCertAuth || !hs.serverHello.hasKeyShare {
-			c.sendAlert(alertUnsupportedExtension)
-			return errors.New("tls: server omitted KeyShare and SignatureAlgorithms on non-resumption.")
-		}
-
 		psk = zeroSecret
 	}
 
 	earlySecret := hs.finishedHash.extractKey(zeroSecret, psk)
+
+	if !hs.serverHello.hasKeyShare {
+		c.sendAlert(alertUnsupportedExtension)
+		return errors.New("tls: server omitted KeyShare on resumption.")
+	}
 
 	// Resolve ECDHE and compute the handshake secret.
 	var ecdheSecret []byte
@@ -677,7 +672,7 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 
 	var chainToSend *Certificate
 	var certReq *certificateRequestMsg
-	if !hs.serverHello.useCertAuth {
+	if c.didResume {
 		if encryptedExtensions.extensions.ocspResponse != nil {
 			c.sendAlert(alertUnsupportedExtension)
 			return errors.New("tls: server sent OCSP response without a certificate")
