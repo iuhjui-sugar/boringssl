@@ -853,6 +853,16 @@ int tls13_export_keying_material(SSL *ssl, uint8_t *out, size_t out_len,
  * 0 for the Client Finished. */
 int tls13_finished_mac(SSL *ssl, uint8_t *out, size_t *out_len, int is_server);
 
+/* tls13_write_psk_binder calculates the PSK binder value and replaces the last
+ * bytes of |msg| with the resulting value. It returns 1 on success, and 0 on
+ * failure. */
+int tls13_write_psk_binder(SSL *ssl, uint8_t *msg, size_t len);
+
+/* tls13_verify_psk_binder verifies that the handshake transcript, truncated
+ * up to the binders has a valid signature using the value of |session|'s
+ * resumption secret. It returns 1 on success, and 0 on failure. */
+int tls13_verify_psk_binder(SSL *ssl, SSL_SESSION *session, CBS *binders);
+
 
 /* Handshake functions. */
 
@@ -911,6 +921,9 @@ typedef struct ssl_handshake_st {
 
   /* scts_requested is one if the SCT extension is in the ClientHello. */
   unsigned scts_requested:1;
+
+  /* sent_session is one if a session was sent in the PSK extension. */
+  int sent_session:1;
 
   unsigned received_hello_retry_request:1;
 
@@ -1044,10 +1057,12 @@ int ssl_ext_key_share_parse_clienthello(SSL *ssl, int *out_found,
                                         uint8_t *out_alert, CBS *contents);
 int ssl_ext_key_share_add_serverhello(SSL *ssl, CBB *out);
 
+int ssl_ext_pre_shared_key_add_clienthello(SSL *ssl, CBB *out);
 int ssl_ext_pre_shared_key_parse_serverhello(SSL *ssl, uint8_t *out_alert,
                                              CBS *contents);
 int ssl_ext_pre_shared_key_parse_clienthello(SSL *ssl,
                                              SSL_SESSION **out_session,
+                                             CBS *out_binders,
                                              uint8_t *out_alert, CBS *contents);
 int ssl_ext_pre_shared_key_add_serverhello(SSL *ssl, CBB *out);
 
@@ -1055,7 +1070,7 @@ int ssl_ext_psk_key_exchange_modes_parse_clienthello(SSL *ssl,
                                                      uint8_t *out_alert,
                                                      CBS *contents);
 
-int ssl_add_client_hello_body(SSL *ssl, CBB *body);
+int ssl_write_client_hello(SSL *ssl);
 
 /* ssl_clear_tls13_state releases client state only needed for TLS 1.3. It
  * should be called once the version is known to be TLS 1.2 or earlier. */
