@@ -364,18 +364,8 @@ static enum ssl_hs_wait_t do_send_server_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
       !CBB_add_u16(&body, ssl_cipher_get_value(ssl->s3->tmp.new_cipher)) ||
       !CBB_add_u16_length_prefixed(&body, &extensions) ||
       !ssl_ext_pre_shared_key_add_serverhello(ssl, &extensions) ||
-      !ssl_ext_key_share_add_serverhello(ssl, &extensions)) {
-    goto err;
-  }
-
-  if (!ssl->s3->session_reused) {
-    if (!CBB_add_u16(&extensions, TLSEXT_TYPE_signature_algorithms) ||
-        !CBB_add_u16(&extensions, 0)) {
-      goto err;
-    }
-  }
-
-  if (!ssl_complete_message(ssl, &cbb)) {
+      !ssl_ext_key_share_add_serverhello(ssl, &extensions) ||
+      !ssl_complete_message(ssl, &cbb)) {
     goto err;
   }
 
