@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "86ed7a09_b98fc37a",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2016-11-01T23:00:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "662326ed_a78fea48",
+      "range": {
+        "startLine": 860,
+        "startChar": 13,
+        "endLine": 860,
+        "endChar": 27
+      },
+      "revId": "75961c145dac88213d08f0cec96fd52f61d46b59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "662326ed_878c6655",
         "filename": "crypto/x509/x509_test.cc",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2016-10-31T18:21:35Z",
       "side": 1,
       "message": "Ditto.",
+      "range": {
+        "startLine": 869,
+        "startChar": 13,
+        "endLine": 869,
+        "endChar": 27
+      },
+      "revId": "75961c145dac88213d08f0cec96fd52f61d46b59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "86ed7a09_9994ff8b",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 869,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2016-11-01T23:00:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "662326ed_878c6655",
       "range": {
         "startLine": 869,
         "startChar": 13,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "86ed7a09_798a7b6b",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 906,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2016-11-01T23:00:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "662326ed_e789e243",
+      "revId": "75961c145dac88213d08f0cec96fd52f61d46b59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a6043e4e_71ec9813",
         "filename": "crypto/x509/x509_test.cc",
         "patchSetId": 2
@@ -76,6 +142,24 @@
       "writtenOn": "2016-10-31T18:21:35Z",
       "side": 1,
       "message": "Probably also want to assert that the ASN1_OP_D2I_PRE did what it was supposed to do and cleared root-\u003ebuf.",
+      "revId": "75961c145dac88213d08f0cec96fd52f61d46b59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a6b43e48_31b9f07f",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 911,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2016-11-01T23:00:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6043e4e_71ec9813",
       "revId": "75961c145dac88213d08f0cec96fd52f61d46b59",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -99,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "46db8268_e30d90ac",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 920,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2016-11-01T23:00:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6043e4e_d10584ee",
+      "revId": "75961c145dac88213d08f0cec96fd52f61d46b59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a6043e4e_51f194e5",
         "filename": "include/openssl/x509.h",
         "patchSetId": 2
@@ -110,6 +212,30 @@
       "writtenOn": "2016-10-31T18:21:35Z",
       "side": 1,
       "message": "Maybe just X509_from_buffer or X509_parse_from_buffer? This, thankfully, doesn\u0027t look much like a d2i function anymore.",
+      "range": {
+        "startLine": 645,
+        "startChar": 21,
+        "endLine": 645,
+        "endChar": 41
+      },
+      "revId": "75961c145dac88213d08f0cec96fd52f61d46b59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a6b43e48_319290df",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2016-11-01T23:00:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6043e4e_51f194e5",
       "range": {
         "startLine": 645,
         "startChar": 21,
