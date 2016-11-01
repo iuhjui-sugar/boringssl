@@ -1064,14 +1064,6 @@ type ProtocolBugs struct {
 	// identity.
 	ExtraPSKIdentity bool
 
-	// OmitServerHelloSignatureAlgorithms, if true, causes the server to omit the
-	// signature_algorithms extension in the ServerHello.
-	OmitServerHelloSignatureAlgorithms bool
-
-	// IncludeServerHelloSignatureAlgorithms, if true, causes the server to
-	// include the signature_algorithms extension in all ServerHellos.
-	IncludeServerHelloSignatureAlgorithms bool
-
 	// MissingKeyShare, if true, causes the TLS 1.3 implementation to skip
 	// sending a key_share extension and use the zero ECDHE secret
 	// instead.

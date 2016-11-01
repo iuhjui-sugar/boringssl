@@ -227,8 +227,8 @@ static enum ssl_hs_wait_t do_process_server_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
   }
 
   /* Parse out the extensions. */
-  int have_key_share = 0, have_pre_shared_key = 0, have_sigalgs = 0;
-  CBS key_share, pre_shared_key, sigalgs;
+  int have_key_share = 0, have_pre_shared_key = 0;
+  CBS key_share, pre_shared_key;
   while (CBS_len(&extensions) != 0) {
     uint16_t type;
     CBS extension;
@@ -258,15 +258,6 @@ static enum ssl_hs_wait_t do_process_server_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
         pre_shared_key = extension;
         have_pre_shared_key = 1;
         break;
-      case TLSEXT_TYPE_signature_algorithms:
-        if (have_sigalgs) {
-          OPENSSL_PUT_ERROR(SSL, SSL_R_DUPLICATE_EXTENSION);
-          ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
-          return ssl_hs_error;
-        }
-        sigalgs = extension;
-        have_sigalgs = 1;
-        break;
       default:
         OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_EXTENSION);
         ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_UNSUPPORTED_EXTENSION);
@@ -274,8 +265,8 @@ static enum ssl_hs_wait_t do_process_server_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
     }
   }
 
-  /* We only support PSK_AUTH and PSK_DHE_KE. */
-  if (!have_key_share || have_sigalgs == have_pre_shared_key) {
+  /* We only support PSK_DHE_KE. */
+  if (!have_key_share) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_EXTENSION);
     ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
     return ssl_hs_error;
@@ -366,12 +357,6 @@ static enum ssl_hs_wait_t do_process_server_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
   OPENSSL_free(dhe_secret);
-
-  if (have_sigalgs &&
-      CBS_len(&sigalgs) != 0) {
-    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
-    return ssl_hs_error;
-  }
 
   /* If there was no HelloRetryRequest, the version negotiation logic has
    * already hashed the message. */
