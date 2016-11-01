@@ -230,10 +230,6 @@ type finishedHash struct {
 	// full buffer is required.
 	buffer []byte
 
-	// TLS 1.3 has a resumption context which is carried over on PSK
-	// resumption.
-	resumptionContextHash []byte
-
 	version uint16
 	prf     func(result, secret, label, seed []byte)
 }
@@ -374,13 +370,6 @@ func (h *finishedHash) zeroSecret() []byte {
 	return make([]byte, h.hash.Size())
 }
 
-// setResumptionContext sets the TLS 1.3 resumption context.
-func (h *finishedHash) setResumptionContext(resumptionContext []byte) {
-	hash := h.hash.New()
-	hash.Write(resumptionContext)
-	h.resumptionContextHash = hash.Sum(nil)
-}
-
 // extractKey combines two secrets together with HKDF-Expand in the TLS 1.3 key
 // derivation schedule.
 func (h *finishedHash) extractKey(salt, ikm []byte) []byte {
@@ -412,7 +401,6 @@ func hkdfExpandLabel(hash crypto.Hash, secret, label, hashValue []byte, length i
 // resumption context hash, as used in TLS 1.3.
 func (h *finishedHash) appendContextHashes(b []byte) []byte {
 	b = h.client.Sum(b)
-	b = append(b, h.resumptionContextHash...)
 	return b
 }
 
@@ -431,10 +419,6 @@ var (
 // deriveSecret implements TLS 1.3's Derive-Secret function, as defined in
 // section 7.1 of draft ietf-tls-tls13-16.
 func (h *finishedHash) deriveSecret(secret, label []byte) []byte {
-	if h.resumptionContextHash == nil {
-		panic("Resumption context not set.")
-	}
-
 	return hkdfExpandLabel(h.hash, secret, label, h.appendContextHashes(nil), h.hash.Size())
 }
 
@@ -459,14 +443,6 @@ func (h *finishedHash) certificateVerifyInput(context []byte) []byte {
 	return b
 }
 
-// The following are phase values for traffic key derivation in TLS 1.3.
-var (
-	earlyHandshakePhase   = []byte("early handshake key expansion")
-	earlyApplicationPhase = []byte("early application data key expansion")
-	handshakePhase        = []byte("handshake key expansion")
-	applicationPhase      = []byte("application data key expansion")
-)
-
 type trafficDirection int
 
 const (
@@ -476,27 +452,13 @@ const (
 
 // deriveTrafficAEAD derives traffic keys and constructs an AEAD given a traffic
 // secret.
-func deriveTrafficAEAD(version uint16, suite *cipherSuite, secret, phase []byte, side trafficDirection) interface{} {
-	label := make([]byte, 0, len(phase)+2+16)
-	label = append(label, phase...)
-	label = append(label, []byte(", key")...)
-	key := hkdfExpandLabel(suite.hash(), secret, label, nil, suite.keyLen)
-
-	label = label[:len(label)-3] // Remove "key" from the end.
-	label = append(label, []byte("iv")...)
-	iv := hkdfExpandLabel(suite.hash(), secret, label, nil, suite.ivLen(version))
+func deriveTrafficAEAD(version uint16, suite *cipherSuite, secret []byte, side trafficDirection) interface{} {
+	key := hkdfExpandLabel(suite.hash(), secret, []byte("key"), nil, suite.keyLen)
+	iv := hkdfExpandLabel(suite.hash(), secret, []byte("iv"), nil, suite.ivLen(version))
 
 	return suite.aead(version, key, iv)
 }
 
 func updateTrafficSecret(hash crypto.Hash, secret []byte) []byte {
 	return hkdfExpandLabel(hash, secret, applicationTrafficLabel, nil, hash.Size())
-}
-
-func deriveResumptionPSK(suite *cipherSuite, resumptionSecret []byte) []byte {
-	return hkdfExpandLabel(suite.hash(), resumptionSecret, []byte("resumption psk"), nil, suite.hash().Size())
-}
-
-func deriveResumptionContext(suite *cipherSuite, resumptionSecret []byte) []byte {
-	return hkdfExpandLabel(suite.hash(), resumptionSecret, []byte("resumption context"), nil, suite.hash().Size())
 }
