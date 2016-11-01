@@ -120,14 +120,25 @@ static enum ssl_hs_wait_t do_process_client_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
   }
 
   SSL_SESSION *session = NULL;
+  CBS binders;
   if (hs->accept_psk_mode) {
     CBS pre_shared_key;
     if (ssl_early_callback_get_extension(&client_hello, &pre_shared_key,
-                                         TLSEXT_TYPE_pre_shared_key) &&
-        !ssl_ext_pre_shared_key_parse_clienthello(ssl, &session, &alert,
-                                                  &pre_shared_key)) {
-      ssl3_send_alert(ssl, SSL3_AL_FATAL, alert);
-      return 0;
+                                         TLSEXT_TYPE_pre_shared_key)) {
+      /* Verify that the pre_shared_key extension is the last extension in
+       * ClientHello. */
+      if (CBS_data(&pre_shared_key) + CBS_len(&pre_shared_key) !=
+          client_hello.extensions + client_hello.extensions_len) {
+        OPENSSL_PUT_ERROR(SSL, SSL_R_PRE_SHARED_KEY_MUST_BE_LAST);
+        ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
+        return 0;
+      }
+
+      if (!ssl_ext_pre_shared_key_parse_clienthello(ssl, &session, &binders,
+                                                    &alert, &pre_shared_key)) {
+        ssl3_send_alert(ssl, SSL3_AL_FATAL, alert);
+        return 0;
+      }
     }
   }
 
@@ -147,6 +158,13 @@ static enum ssl_hs_wait_t do_process_client_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
       return ssl_hs_error;
     }
   } else {
+    /* Check the PSK binder. */
+    if (!tls13_verify_psk_binder(ssl, session, &binders)) {
+      SSL_SESSION_free(session);
+      ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECRYPT_ERROR);
+      return ssl_hs_error;
+    }
+
     /* Only authentication information carries over in TLS 1.3. */
     ssl->s3->new_session = SSL_SESSION_dup(session, SSL_SESSION_DUP_AUTH_ONLY);
     if (ssl->s3->new_session == NULL) {

@@ -1889,11 +1889,32 @@ static int ext_ec_point_add_serverhello(SSL *ssl, CBB *out) {
   return ext_ec_point_add_extension(ssl, out);
 }
 
+
 /* Pre Shared Key
  *
- * https://tools.ietf.org/html/draft-ietf-tls-tls13-16#section-4.2.6 */
+ * https://tools.ietf.org/html/draft-ietf-tls-tls13-18#section-4.2.6 */
 
-static int ext_pre_shared_key_add_clienthello(SSL *ssl, CBB *out) {
+static size_t ext_pre_shared_key_clienthello_length(SSL *ssl) {
+  uint16_t min_version, max_version;
+  if (!ssl_get_version_range(ssl, &min_version, &max_version)) {
+    return 0;
+  }
+
+  uint16_t session_version;
+  if (max_version < TLS1_3_VERSION || ssl->session == NULL ||
+      !ssl->method->version_from_wire(&session_version,
+                                      ssl->session->ssl_version) ||
+      session_version < TLS1_3_VERSION) {
+    return 0;
+  }
+
+  const EVP_MD *digest =
+      ssl_get_handshake_digest(ssl->session->cipher->algorithm_prf);
+  size_t binder_len = EVP_MD_size(digest);
+  return 15 + ssl->session->tlsext_ticklen + binder_len;
+}
+
+int ssl_ext_pre_shared_key_add_clienthello(SSL *ssl, CBB *out) {
   uint16_t min_version, max_version;
   if (!ssl_get_version_range(ssl, &min_version, &max_version)) {
     return 0;
@@ -1912,17 +1933,28 @@ static int ext_pre_shared_key_add_clienthello(SSL *ssl, CBB *out) {
   uint32_t ticket_age = 1000 * (now.tv_sec - ssl->session->time);
   uint32_t obfuscated_ticket_age = ticket_age + ssl->session->ticket_age_add;
 
-  CBB contents, identity, ticket;
+  /* Fill in a placeholder zero binder of the appropriate length. It will be
+   * computed and filled in later after length prefixes are computed. */
+  uint8_t zero_binder[EVP_MAX_MD_SIZE] = {0};
+  const EVP_MD *digest =
+      ssl_get_handshake_digest(ssl->session->cipher->algorithm_prf);
+  size_t binder_len = EVP_MD_size(digest);
+
+  CBB contents, identity, ticket, binders, binder;
   if (!CBB_add_u16(out, TLSEXT_TYPE_pre_shared_key) ||
       !CBB_add_u16_length_prefixed(out, &contents) ||
       !CBB_add_u16_length_prefixed(&contents, &identity) ||
       !CBB_add_u16_length_prefixed(&identity, &ticket) ||
       !CBB_add_bytes(&ticket, ssl->session->tlsext_tick,
                      ssl->session->tlsext_ticklen) ||
-      !CBB_add_u32(&identity, obfuscated_ticket_age)) {
+      !CBB_add_u32(&identity, obfuscated_ticket_age) ||
+      !CBB_add_u16_length_prefixed(&contents, &binders) ||
+      !CBB_add_u8_length_prefixed(&binders, &binder) ||
+      !CBB_add_bytes(&binder, zero_binder, binder_len)) {
     return 0;
   }
 
+  ssl->s3->hs->needs_psk_binder = 1;
   return CBB_flush(out);
 }
 
@@ -1947,15 +1979,28 @@ int ssl_ext_pre_shared_key_parse_serverhello(SSL *ssl, uint8_t *out_alert,
 
 int ssl_ext_pre_shared_key_parse_clienthello(SSL *ssl,
                                              SSL_SESSION **out_session,
+                                             CBS *out_binders,
                                              uint8_t *out_alert,
                                              CBS *contents) {
   /* We only process the first PSK identity since we don't support pure PSK. */
   uint32_t obfuscated_ticket_age;
-  CBS identity, ticket;
+  CBS identity, ticket, binders;
   if (!CBS_get_u16_length_prefixed(contents, &identity) ||
       !CBS_get_u16_length_prefixed(&identity, &ticket) ||
       !CBS_get_u32(&identity, &obfuscated_ticket_age) ||
+      !CBS_get_u16_length_prefixed(contents, &binders) ||
       CBS_len(contents) != 0) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
+    *out_alert = SSL_AD_DECODE_ERROR;
+    return 0;
+  }
+
+  *out_binders = binders;
+
+  /* The PSK identity must have a corresponding binder. */
+  CBS binder;
+  if (!CBS_get_u8_length_prefixed(&binders, &binder)) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
     *out_alert = SSL_AD_DECODE_ERROR;
     return 0;
   }
@@ -2514,14 +2559,6 @@ static const struct tls_extension kExtensions[] = {
     dont_add_serverhello,
   },
   {
-    TLSEXT_TYPE_pre_shared_key,
-    NULL,
-    ext_pre_shared_key_add_clienthello,
-    forbid_parse_serverhello,
-    ignore_parse_clienthello,
-    dont_add_serverhello,
-  },
-  {
     TLSEXT_TYPE_supported_versions,
     NULL,
     ext_supported_versions_add_clienthello,
@@ -2645,7 +2682,8 @@ int ssl_add_clienthello_tlsext(SSL *ssl, CBB *out, size_t header_len) {
   }
 
   if (!SSL_is_dtls(ssl)) {
-    header_len += 2 + CBB_len(&extensions);
+    size_t psk_extension_len = ext_pre_shared_key_clienthello_length(ssl);
+    header_len += 2 + CBB_len(&extensions) + psk_extension_len;
     if (header_len > 0xff && header_len < 0x200) {
       /* Add padding to workaround bugs in F5 terminators. See RFC 7685.
        *
@@ -2671,6 +2709,11 @@ int ssl_add_clienthello_tlsext(SSL *ssl, CBB *out, size_t header_len) {
 
       memset(padding_bytes, 0, padding_len);
     }
+  }
+
+  /* The PSK extension must be last, including after the padding. */
+  if (!ssl_ext_pre_shared_key_add_clienthello(ssl, &extensions)) {
+    goto err;
   }
 
   /* Discard empty extensions blocks. */
