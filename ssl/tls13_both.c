@@ -147,10 +147,10 @@ int tls13_get_cert_verify_signature_input(
     goto err;
   }
 
-  uint8_t context_hashes[2 * EVP_MAX_MD_SIZE];
-  size_t context_hashes_len;
-  if (!tls13_get_context_hashes(ssl, context_hashes, &context_hashes_len) ||
-      !CBB_add_bytes(&cbb, context_hashes, context_hashes_len) ||
+  uint8_t context_hash[EVP_MAX_MD_SIZE];
+  size_t context_hash_len;
+  if (!tls13_get_context_hash(ssl, context_hash, &context_hash_len) ||
+      !CBB_add_bytes(&cbb, context_hash, context_hash_len) ||
       !CBB_finish(&cbb, out, out_len)) {
     goto err;
   }
