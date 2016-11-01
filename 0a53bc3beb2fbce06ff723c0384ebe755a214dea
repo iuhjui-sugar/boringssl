@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "660b26aa_27ae1ad0",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1059,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-01T21:09:33Z",
+      "side": 0,
+      "message": "[Yay less cases to deal with!]",
+      "range": {
+        "startLine": 1059,
+        "startChar": 4,
+        "endLine": 1059,
+        "endChar": 38
+      },
+      "revId": "0a53bc3beb2fbce06ff723c0384ebe755a214dea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
