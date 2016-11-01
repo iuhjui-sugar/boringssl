@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0656eab8_2a5cbb5e",
+        "filename": "include/openssl/curve25519.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-01T23:30:07Z",
+      "side": 1,
+      "message": "This seems a little inconsistent about what a \"private key\" is. ED25519_keypair and ED25519_sign believe that a \"private key\" is 64 bytes, since it secretly has a copy of the public key after it, while this function believes that a \"private key\" is 32 bytes.\n\nNot sure what the appropriate abstraction should be. (Adam?) One thought is this could be ED25519_import_raw_private_key or something like that which takes in a [32]byte and spits out a [64]byte. Though then we need even more machinery to go from a [64]byte private key to a [32]byte public key if there\u0027s need for that. Or maybe ED25519_import_raw_private_key should have both uint8_t out_public_key[32] and uint8_t out_private_key[64].\n\n(Also, nit pick: other Ed25519 functions also believe the public key is a \"public key\" but this one believes it is a \"public value\".)",
+      "range": {
+        "startLine": 77,
+        "startChar": 73,
+        "endLine": 77,
+        "endChar": 75
+      },
+      "revId": "9693fe05c4f92a2a01ea4cc9f34555179d3cdf9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
