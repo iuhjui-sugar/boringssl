@@ -340,20 +340,17 @@ static enum ssl_hs_wait_t do_process_server_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
       EVP_MD_size(ssl_get_handshake_digest(ssl_get_algorithm_prf(ssl)));
 
   /* Derive resumption material. */
-  uint8_t resumption_ctx[EVP_MAX_MD_SIZE] = {0};
   uint8_t psk_secret[EVP_MAX_MD_SIZE] = {0};
   if (ssl->s3->session_reused) {
-    if (!tls13_resumption_context(ssl, resumption_ctx, hash_len,
-                                  ssl->s3->new_session) ||
-        !tls13_resumption_psk(ssl, psk_secret, hash_len,
-                              ssl->s3->new_session)) {
+    if (hash_len != (size_t) ssl->s3->new_session->master_key_length) {
       return ssl_hs_error;
     }
+    memcpy(psk_secret, ssl->s3->new_session->master_key, hash_len);
   }
 
   /* Set up the key schedule, hash in the ClientHello, and incorporate the PSK
    * into the running secret. */
-  if (!tls13_init_key_schedule(ssl, resumption_ctx, hash_len) ||
+  if (!tls13_init_key_schedule(ssl) ||
       !tls13_advance_key_schedule(ssl, psk_secret, hash_len)) {
     return ssl_hs_error;
   }
@@ -508,7 +505,7 @@ static enum ssl_hs_wait_t do_process_server_finished(SSL *ssl,
       !ssl->method->hash_current_message(ssl) ||
       /* Update the secret to the master secret and derive traffic keys. */
       !tls13_advance_key_schedule(ssl, kZeroes, hs->hash_len) ||
-      !tls13_derive_traffic_secret_0(ssl)) {
+      !tls13_derive_application_secrets(ssl)) {
     return ssl_hs_error;
   }
 
@@ -624,11 +621,11 @@ static enum ssl_hs_wait_t do_send_client_finished(SSL *ssl, SSL_HANDSHAKE *hs) {
 }
 
 static enum ssl_hs_wait_t do_flush(SSL *ssl, SSL_HANDSHAKE *hs) {
-  if (!tls13_set_traffic_key(ssl, type_data, evp_aead_open,
-                             hs->server_traffic_secret_0, hs->hash_len) ||
-      !tls13_set_traffic_key(ssl, type_data, evp_aead_seal,
-                             hs->client_traffic_secret_0, hs->hash_len) ||
-      !tls13_finalize_keys(ssl)) {
+  if (!tls13_set_traffic_key(ssl, evp_aead_open, hs->server_traffic_secret_0,
+                             hs->hash_len) ||
+      !tls13_set_traffic_key(ssl, evp_aead_seal, hs->client_traffic_secret_0,
+                             hs->hash_len) ||
+      !tls13_derive_resumption_secret(ssl)) {
     return ssl_hs_error;
   }
 

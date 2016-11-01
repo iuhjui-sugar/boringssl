@@ -801,20 +801,18 @@ int ssl_do_client_cert_cb(SSL *ssl, int *out_should_retry);
 /* TLS 1.3 key derivation. */
 
 /* tls13_init_key_schedule initializes the handshake hash and key derivation
- * state with the given resumption context. The cipher suite and PRF hash must
- * have been selected at this point. It returns one on success and zero on
- * error. */
-int tls13_init_key_schedule(SSL *ssl, const uint8_t *resumption_ctx,
-                            size_t resumption_ctx_len);
+ * state. The cipher suite and PRF hash must have been selected at this point.
+ * It returns one on success and zero on error. */
+int tls13_init_key_schedule(SSL *ssl);
 
 /* tls13_advance_key_schedule incorporates |in| into the key schedule with
  * HKDF-Extract. It returns one on success and zero on error. */
 int tls13_advance_key_schedule(SSL *ssl, const uint8_t *in, size_t len);
 
-/* tls13_get_context_hashes writes Hash(Handshake Context) +
- * Hash(resumption_context) to |out| which much have room for at least 2 *
- * |EVP_MAX_MD_SIZE| bytes. On success, it returns one and sets |*out_len| to
- * the number of bytes written. Otherwise, it returns zero. */
+/* tls13_get_context_hashes writes Hash(Handshake Context) to |out| which much
+ * have room for at least |EVP_MAX_MD_SIZE| bytes. On success, it returns one
+ * and sets |*out_len| to the number of bytes written. Otherwise, it returns
+ * zero. */
 int tls13_get_context_hashes(SSL *ssl, uint8_t *out, size_t *out_len);
 
 enum tls_record_type_t {
@@ -824,11 +822,9 @@ enum tls_record_type_t {
   type_data,
 };
 
-/* tls13_set_traffic_key sets the read or write traffic keys to |traffic_secret|
- * for the given traffic phase |type|. It returns one on success and zero on
- * error. */
-int tls13_set_traffic_key(SSL *ssl, enum tls_record_type_t type,
-                          enum evp_aead_direction_t direction,
+/* tls13_set_traffic_key sets the read or write traffic keys to
+ * |traffic_secret|. It returns one on success and zero on error. */
+int tls13_set_traffic_key(SSL *ssl, enum evp_aead_direction_t direction,
                           const uint8_t *traffic_secret,
                           size_t traffic_secret_len);
 
@@ -841,15 +837,15 @@ int tls13_set_handshake_traffic(SSL *ssl);
  * returns one on success and zero on error. */
 int tls13_rotate_traffic_key(SSL *ssl, enum evp_aead_direction_t direction);
 
-/* tls13_derive_traffic_secret_0 derives the initial application data traffic
- * secret based on the handshake transcripts and |master_secret|. It returns one
- * on success and zero on error. */
-int tls13_derive_traffic_secret_0(SSL *ssl);
+/* tls13_derive_application_secrets derives the initial application data traffic
+ * and exporter secrets based on the handshake transcripts and |master_secret|.
+ * It returns one on success and zero on error. */
+int tls13_derive_application_secrets(SSL *ssl);
 
-/* tls13_finalize_keys derives the |exporter_secret| and |resumption_secret|. */
-int tls13_finalize_keys(SSL *ssl);
+/* tls13_derive_resumption_secret derives the |resumption_secret|. */
+int tls13_derive_resumption_secret(SSL *ssl);
 
-/* tls13_export_keying_material provides and exporter interface to use the
+/* tls13_export_keying_material provides an exporter interface to use the
  * |exporter_secret|. */
 int tls13_export_keying_material(SSL *ssl, uint8_t *out, size_t out_len,
                                  const char *label, size_t label_len,
@@ -861,18 +857,6 @@ int tls13_export_keying_material(SSL *ssl, uint8_t *out, size_t out_len,
  * length in |out_len|. |is_server| is 1 if this is for the Server Finished and
  * 0 for the Client Finished. */
 int tls13_finished_mac(SSL *ssl, uint8_t *out, size_t *out_len, int is_server);
-
-/* tls13_resumption_psk calculates the PSK to use for the resumption of
- * |session| and stores the result in |out|. It returns one on success, and
- * zero on failure. */
-int tls13_resumption_psk(SSL *ssl, uint8_t *out, size_t out_len,
-                         const SSL_SESSION *session);
-
-/* tls13_resumption_context derives the context to be used for the handshake
- * transcript on the resumption of |session|. It returns one on success, and
- * zero on failure. */
-int tls13_resumption_context(SSL *ssl, uint8_t *out, size_t out_len,
-                             const SSL_SESSION *session);
 
 
 /* Handshake functions. */
@@ -902,7 +886,6 @@ typedef struct ssl_handshake_st {
   int state;
 
   size_t hash_len;
-  uint8_t resumption_hash[EVP_MAX_MD_SIZE];
   uint8_t secret[EVP_MAX_MD_SIZE];
   uint8_t client_traffic_secret_0[EVP_MAX_MD_SIZE];
   uint8_t server_traffic_secret_0[EVP_MAX_MD_SIZE];

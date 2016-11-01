@@ -617,8 +617,7 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 			c.sendAlert(alertHandshakeFailure)
 			return errors.New("tls: server sent invalid cipher suite")
 		}
-		psk = deriveResumptionPSK(hs.suite, hs.session.masterSecret)
-		hs.finishedHash.setResumptionContext(deriveResumptionContext(hs.suite, hs.session.masterSecret))
+		psk = hs.session.masterSecret
 		c.didResume = true
 	} else {
 		if !hs.serverHello.useCertAuth || !hs.serverHello.hasKeyShare {
@@ -627,7 +626,6 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 		}
 
 		psk = zeroSecret
-		hs.finishedHash.setResumptionContext(zeroSecret)
 	}
 
 	earlySecret := hs.finishedHash.extractKey(zeroSecret, psk)
@@ -656,9 +654,9 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 
 	// Switch to handshake traffic keys.
 	clientHandshakeTrafficSecret := hs.finishedHash.deriveSecret(handshakeSecret, clientHandshakeTrafficLabel)
-	c.out.useTrafficSecret(c.vers, hs.suite, clientHandshakeTrafficSecret, handshakePhase, clientWrite)
+	c.out.useTrafficSecret(c.vers, hs.suite, clientHandshakeTrafficSecret, clientWrite)
 	serverHandshakeTrafficSecret := hs.finishedHash.deriveSecret(handshakeSecret, serverHandshakeTrafficLabel)
-	c.in.useTrafficSecret(c.vers, hs.suite, serverHandshakeTrafficSecret, handshakePhase, serverWrite)
+	c.in.useTrafficSecret(c.vers, hs.suite, serverHandshakeTrafficSecret, serverWrite)
 
 	msg, err := c.readHandshake()
 	if err != nil {
@@ -854,8 +852,8 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 	c.flushHandshake()
 
 	// Switch to application data keys.
-	c.out.useTrafficSecret(c.vers, hs.suite, clientTrafficSecret, applicationPhase, clientWrite)
-	c.in.useTrafficSecret(c.vers, hs.suite, serverTrafficSecret, applicationPhase, serverWrite)
+	c.out.useTrafficSecret(c.vers, hs.suite, clientTrafficSecret, clientWrite)
+	c.in.useTrafficSecret(c.vers, hs.suite, serverTrafficSecret, serverWrite)
 
 	c.exporterSecret = hs.finishedHash.deriveSecret(masterSecret, exporterLabel)
 	c.resumptionSecret = hs.finishedHash.deriveSecret(masterSecret, resumptionLabel)
