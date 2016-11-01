@@ -4622,22 +4622,26 @@ static void sc_muladd(uint8_t *s, const uint8_t *a, const uint8_t *b,
   s[31] = s11 >> 17;
 }
 
-void ED25519_keypair(uint8_t out_public_key[32], uint8_t out_private_key[64]) {
-  uint8_t seed[32];
-  RAND_bytes(seed, 32);
-
+void ED25519_public_from_private(uint8_t out_public_key[32],
+                                 const uint8_t private_key[32]) {
+  ge_p3 A;
   uint8_t az[SHA512_DIGEST_LENGTH];
-  SHA512(seed, 32, az);
+
+  SHA512(private_key, 32, az);
 
   az[0] &= 248;
   az[31] &= 63;
   az[31] |= 64;
 
-  ge_p3 A;
   x25519_ge_scalarmult_base(&A, az);
   ge_p3_tobytes(out_public_key, &A);
+}
 
-  memcpy(out_private_key, seed, 32);
+void ED25519_keypair(uint8_t out_public_key[32], uint8_t out_private_key[64]) {
+  uint8_t seed[32];
+  RAND_bytes(seed, 32);
+
+  ED25519_public_from_private(out_public_key, seed);
   memmove(out_private_key + 32, out_public_key, 32);
 }
 

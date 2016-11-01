@@ -32,6 +32,14 @@ static bool TestSignature(FileTest *t, void *arg) {
     return false;
   }
 
+  uint8_t derived_public_key[32];
+  ED25519_public_from_private(derived_public_key, private_key.data());
+  if (!t->ExpectBytesEqual(public_key.data(), public_key.size(),
+                           derived_public_key, sizeof(derived_public_key))) {
+    t->PrintLine("ED25519_public_from_private failed");
+    return false;
+  }
+
   uint8_t signature[64];
   if (!ED25519_sign(signature, message.data(), message.size(),
                     private_key.data())) {
