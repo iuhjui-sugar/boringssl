@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a6827e80_6afeeb46",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2049,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-11-02T21:28:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "660b26aa_67b4121e",
+      "revId": "f1ab8841deda3bae9f3d95b66d836fb0b5a4e16a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "660b26aa_07ab16c0",
         "filename": "ssl/test/runner/handshake_client.go",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2016-11-01T21:09:33Z",
       "side": 1,
       "message": "You can omit the inner keyShareEntry. Poking at code search, I see this a bunch:\n\n  hello.keyShares \u003d []keyShareEntry{{\n          group:       group,\n          keyExchange: publicKey,\n  }}\n\nAdam confirms it\u0027s idiomatic.",
+      "revId": "f1ab8841deda3bae9f3d95b66d836fb0b5a4e16a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a6827e80_aa5ab399",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-11-02T21:28:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "660b26aa_07ab16c0",
       "revId": "f1ab8841deda3bae9f3d95b66d836fb0b5a4e16a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "a6827e80_ca5ff788",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-11-02T21:28:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "660b26aa_e70a4205",
+      "revId": "f1ab8841deda3bae9f3d95b66d836fb0b5a4e16a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "660b26aa_47b10e2c",
         "filename": "ssl/tls13_server.c",
         "patchSetId": 1
@@ -64,6 +118,24 @@
       "writtenOn": "2016-11-01T21:09:33Z",
       "side": 1,
       "message": "Can just || this into the previous block now that we don\u0027t have the thing in the middle.",
+      "revId": "f1ab8841deda3bae9f3d95b66d836fb0b5a4e16a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a6827e80_ea64bb63",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-11-02T21:28:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "660b26aa_47b10e2c",
       "revId": "f1ab8841deda3bae9f3d95b66d836fb0b5a4e16a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
