@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "06a98af7_f5f3ca2e",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 647,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-11-02T18:54:45Z",
+      "side": 1,
+      "message": "This would forbid configuring 1.2–1.3 as the version range but disabling all TLS 1.2 ciphers. Not a big deal, but I\u0027ll change this to only fail if 1.3 is also disabled.",
+      "revId": "19fc0095dafcb91ebd22e57f9028f8e5abe557df",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
