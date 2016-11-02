@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "06a98af7_d5696e3b",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2340,
+      "author": {
+        "id": 5885
+      },
+      "writtenOn": "2016-11-02T18:04:02Z",
+      "side": 1,
+      "message": "You should also test if SSL_get_version() is available, since HTTP/2 requires TLS v1.2+.",
+      "revId": "99d0939ee8013055feebef4cc6a859a181df9f69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
