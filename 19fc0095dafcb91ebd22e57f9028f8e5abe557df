@@ -16,6 +16,24 @@
       "revId": "19fc0095dafcb91ebd22e57f9028f8e5abe557df",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a6827e80_67c1c639",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 647,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-02T20:40:59Z",
+      "side": 1,
+      "message": "We actually don\u0027t let you disable all ciphers to begin with. SSL_CTX_set_cipher_list will fail if it resolves to nothing. Though I guess you could configure only PSK ciphers and not set PSK callbacks...",
+      "parentUuid": "06a98af7_f5f3ca2e",
+      "revId": "19fc0095dafcb91ebd22e57f9028f8e5abe557df",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
