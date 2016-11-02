@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a6827e80_ca4617bf",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-02T21:36:41Z",
+      "side": 1,
+      "message": "Nit: Given the comment above, I\u0027d put this either before or after all the PSK stuff. Perhaps at the beginning of the ECDHE stuff?",
+      "revId": "b14322c92cef0cba998573c29c33e151e35409ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
