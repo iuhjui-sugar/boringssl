@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a6827e80_21924edf",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1980,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-11-02T04:02:22Z",
+      "side": 1,
+      "message": "Maybe consider extracting shared bits between this and CreateClientSession?",
+      "range": {
+        "startLine": 1980,
+        "startChar": 36,
+        "endLine": 1980,
+        "endChar": 56
+      },
+      "revId": "8e0a2b391428382b4ea81099c3393a211ebe608f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a6827e80_418f52b8",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2118,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-11-02T04:02:22Z",
+      "side": 1,
+      "message": "I suspect this is a case where we\u0027re being too clever for our own good. Can this just be a normal function.",
+      "range": {
+        "startLine": 2117,
+        "startChar": 0,
+        "endLine": 2118,
+        "endChar": 54
+      },
+      "revId": "8e0a2b391428382b4ea81099c3393a211ebe608f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a6827e80_618c56c3",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2137,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-11-02T04:02:22Z",
+      "side": 1,
+      "message": "...",
+      "range": {
+        "startLine": 2137,
+        "startChar": 12,
+        "endLine": 2137,
+        "endChar": 34
+      },
+      "revId": "8e0a2b391428382b4ea81099c3393a211ebe608f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
