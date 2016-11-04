@@ -164,7 +164,7 @@ err:
 }
 
 int tls13_process_certificate(SSL *ssl, int allow_anonymous) {
-  CBS cbs, context;
+  CBS cbs, context, certificate_list;
   CBS_init(&cbs, ssl->init_msg, ssl->init_num);
   if (!CBS_get_u8_length_prefixed(&cbs, &context) ||
       CBS_len(&context) != 0) {
@@ -176,13 +176,136 @@ int tls13_process_certificate(SSL *ssl, int allow_anonymous) {
   const int retain_sha256 =
       ssl->server && ssl->ctx->retain_only_sha256_of_client_certs;
   int ret = 0;
-  uint8_t alert;
-  STACK_OF(X509) *chain = ssl_parse_cert_chain(
-      ssl, &alert, retain_sha256 ? ssl->s3->new_session->peer_sha256 : NULL,
-      &cbs);
+
+  STACK_OF(X509) *chain = sk_X509_new_null();
   if (chain == NULL) {
-    ssl3_send_alert(ssl, SSL3_AL_FATAL, alert);
+    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
+    OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
     goto err;
+  }
+
+  X509 *x = NULL;
+  if (!CBS_get_u24_length_prefixed(&cbs, &certificate_list)) {
+    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
+    OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
+    goto err;
+  }
+
+  while (CBS_len(&certificate_list) > 0) {
+    CBS certificate, extensions;
+    if (!CBS_get_u24_length_prefixed(&certificate_list, &certificate) ||
+        !CBS_get_u16_length_prefixed(&certificate_list, &extensions)) {
+      ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
+      OPENSSL_PUT_ERROR(SSL, SSL_R_CERT_LENGTH_MISMATCH);
+      goto err;
+    }
+
+    /* Retain the hash of the leaf certificate if requested. */
+    if (sk_X509_num(chain) == 0 && retain_sha256) {
+      SHA256(CBS_data(&certificate), CBS_len(&certificate),
+             ssl->s3->new_session->peer_sha256);
+    }
+
+    /* A u24 length cannot overflow a long. */
+    const uint8_t *data = CBS_data(&certificate);
+    x = d2i_X509(NULL, &data, (long)CBS_len(&certificate));
+    if (x == NULL || data != CBS_data(&certificate) + CBS_len(&certificate)) {
+      ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
+      X509_free(x);
+      goto err;
+    }
+    if (!sk_X509_push(chain, x)) {
+      ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
+      OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
+      X509_free(x);
+      goto err;
+    }
+    x = NULL;
+
+    /* Parse out the extensions. */
+    int have_status_request = 0, have_sct = 0;
+    CBS status_request, sct;
+    while (CBS_len(&extensions) != 0) {
+      uint16_t type;
+      CBS extension;
+      if (!CBS_get_u16(&extensions, &type) ||
+          !CBS_get_u16_length_prefixed(&extensions, &extension)) {
+        OPENSSL_PUT_ERROR(SSL, SSL_R_PARSE_TLSEXT);
+        ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
+        goto err;
+      }
+
+      switch (type) {
+        case TLSEXT_TYPE_status_request:
+          if (have_status_request) {
+            OPENSSL_PUT_ERROR(SSL, SSL_R_DUPLICATE_EXTENSION);
+            ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
+            goto err;
+          }
+          status_request = extension;
+          have_status_request = 1;
+          break;
+        case TLSEXT_TYPE_certificate_timestamp:
+          if (have_sct) {
+            OPENSSL_PUT_ERROR(SSL, SSL_R_DUPLICATE_EXTENSION);
+            ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
+            goto err;
+          }
+          sct = extension;
+          have_sct = 1;
+          break;
+        default:
+          OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_EXTENSION);
+          ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_UNSUPPORTED_EXTENSION);
+          goto err;
+      }
+    }
+
+    if (sk_X509_num(chain) == 1) {
+      if (have_status_request) {
+        if (!ssl->ocsp_stapling_enabled) {
+          OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_EXTENSION);
+          ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_UNSUPPORTED_EXTENSION);
+          goto err;
+        }
+
+        uint8_t status_type;
+        CBS ocsp_response;
+        if (!CBS_get_u8(&status_request, &status_type) ||
+            status_type != TLSEXT_STATUSTYPE_ocsp ||
+            !CBS_get_u24_length_prefixed(&status_request, &ocsp_response) ||
+            CBS_len(&ocsp_response) == 0 ||
+            CBS_len(&status_request) != 0) {
+          ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
+          goto err;
+        }
+
+        if (!CBS_stow(&ocsp_response, &ssl->s3->new_session->ocsp_response,
+                      &ssl->s3->new_session->ocsp_response_length)) {
+          ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
+          goto err;
+        }
+      }
+
+      if (have_sct) {
+        if (!ssl->signed_cert_timestamps_enabled) {
+          OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_EXTENSION);
+          ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_UNSUPPORTED_EXTENSION);
+          goto err;
+        }
+        if (CBS_len(&sct) == 0) {
+          ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
+          goto err;
+        }
+        assert(ssl->signed_cert_timestamps_enabled);
+        if (!CBS_stow(&sct,
+                      &ssl->s3->new_session->tlsext_signed_cert_timestamp_list,
+                      &ssl->s3->new_session->tlsext_signed_cert_timestamp_list_length)) {
+          ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
+          goto err;
+        }
+      }
+    }
   }
 
   if (CBS_len(&cbs) != 0) {
@@ -323,18 +446,118 @@ int tls13_process_finished(SSL *ssl) {
   return 1;
 }
 
-int tls13_prepare_certificate(SSL *ssl) {
-  CBB cbb, body;
-  if (!ssl->method->init_message(ssl, &cbb, &body, SSL3_MT_CERTIFICATE) ||
-      /* The request context is always empty in the handshake. */
-      !CBB_add_u8(&body, 0) ||
-      !ssl_add_cert_chain(ssl, &body) ||
-      !ssl->method->finish_message(ssl, &cbb)) {
-    CBB_cleanup(&cbb);
+static int tls13_add_cert_with_length(SSL *ssl, CBB *cbb, X509 *x509, int leaf) {
+  CBB child;
+  if (!CBB_add_u24_length_prefixed(cbb, &child) ||
+      !ssl_add_cert_to_cbb(&child, x509)) {
     return 0;
   }
 
+  if (leaf) {
+    CBB extensions;
+    if (!CBB_add_u16_length_prefixed(cbb, &extensions)) {
+      return 0;
+    }
+
+    if (ssl->signed_cert_timestamps_enabled &&
+        ssl->ctx->signed_cert_timestamp_list_length != 0) {
+      CBB contents;
+      if (!CBB_add_u16(&extensions, TLSEXT_TYPE_certificate_timestamp) ||
+          !CBB_add_u16_length_prefixed(&extensions, &contents) ||
+          !CBB_add_bytes(&contents, ssl->ctx->signed_cert_timestamp_list,
+                         ssl->ctx->signed_cert_timestamp_list_length)) {
+        return 0;
+      }
+    }
+
+
+    if (ssl->s3->hs->ocsp_stapling_requested &&
+        ssl->ctx->ocsp_response_length != 0) {
+      CBB body, ocsp_response;
+      if (!CBB_add_u16(&extensions, TLSEXT_TYPE_status_request) ||
+          !CBB_add_u16_length_prefixed(&extensions, &body) ||
+          !CBB_add_u8(&body, TLSEXT_STATUSTYPE_ocsp) ||
+          !CBB_add_u24_length_prefixed(&body, &ocsp_response) ||
+          !CBB_add_bytes(&ocsp_response, ssl->ctx->ocsp_response,
+                         ssl->ctx->ocsp_response_length)) {
+        return 0;
+      }
+    }
+    return CBB_flush(cbb);
+  } else {
+    return CBB_add_u16(&child, 0) && CBB_flush(cbb);
+  }
+}
+
+int tls13_prepare_certificate(SSL *ssl) {
+  CBB cbb, body, certificate_list;
+  if (!ssl->method->init_message(ssl, &cbb, &body, SSL3_MT_CERTIFICATE) ||
+      /* The request context is always empty in the handshake. */
+      !CBB_add_u8(&body, 0) ||
+      !CBB_add_u24_length_prefixed(&body, &certificate_list)) {
+    OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
+    goto err;
+  }
+
+  if (!ssl_has_certificate(ssl) &&
+      !CBB_add_u24(&certificate_list, 0)) {
+    goto err;
+  }
+
+  CERT *cert = ssl->cert;
+  X509 *x = cert->x509;
+
+  int no_chain = 0;
+  STACK_OF(X509) *chain = cert->chain;
+  if ((ssl->mode & SSL_MODE_NO_AUTO_CHAIN) || chain != NULL) {
+    no_chain = 1;
+  }
+
+  if (no_chain) {
+    if (!tls13_add_cert_with_length(ssl, &certificate_list, x, 1)) {
+      OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
+      goto err;
+    }
+
+    for (size_t i = 0; i < sk_X509_num(chain); i++) {
+      x = sk_X509_value(chain, i);
+      if (!tls13_add_cert_with_length(ssl, &certificate_list, x, 0)) {
+        OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
+        goto err;
+      }
+    }
+  } else {
+    X509_STORE_CTX xs_ctx;
+
+    if (!X509_STORE_CTX_init(&xs_ctx, ssl->ctx->cert_store, x, NULL)) {
+      OPENSSL_PUT_ERROR(SSL, ERR_R_X509_LIB);
+      goto err;
+    }
+    X509_verify_cert(&xs_ctx);
+    /* Don't leave errors in the queue */
+    ERR_clear_error();
+
+    for (size_t i = 0; i < sk_X509_num(xs_ctx.chain); i++) {
+      x = sk_X509_value(xs_ctx.chain, i);
+      if (!tls13_add_cert_with_length(ssl, &certificate_list, x, i == 0)) {
+        X509_STORE_CTX_cleanup(&xs_ctx);
+        OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
+        goto err;
+
+      }
+    }
+    X509_STORE_CTX_cleanup(&xs_ctx);
+  }
+
+  if (!ssl->method->finish_message(ssl, &cbb)) {
+    goto err;
+  }
+
   return 1;
+
+err:
+  CBB_cleanup(&cbb);
+  return 0;
 }
 
 enum ssl_private_key_result_t tls13_prepare_certificate_verify(
