@@ -865,7 +865,7 @@ func (m *serverHelloMsg) marshal() []byte {
 			protocolName.addBytes([]byte(m.unencryptedALPN))
 		}
 	} else {
-		m.extensions.marshal(extensions, vers)
+		m.extensions.marshal(extensions)
 		if extensions.len() == 0 {
 			hello.discardChild()
 		}
@@ -991,7 +991,7 @@ func (m *encryptedExtensionsMsg) marshal() []byte {
 	encryptedExtensions := encryptedExtensionsMsg.addU24LengthPrefixed()
 	if !m.empty {
 		extensions := encryptedExtensions.addU16LengthPrefixed()
-		m.extensions.marshal(extensions, VersionTLS13)
+		m.extensions.marshal(extensions)
 	}
 
 	m.raw = encryptedExtensionsMsg.finish()
@@ -1023,7 +1023,6 @@ type serverExtensions struct {
 	nextProtoNeg            bool
 	nextProtos              []string
 	ocspStapling            bool
-	ocspResponse            []byte
 	ticketSupported         bool
 	secureRenegotiation     []byte
 	alpnProtocol            string
@@ -1040,7 +1039,7 @@ type serverExtensions struct {
 	keyShare                keyShareEntry
 }
 
-func (m *serverExtensions) marshal(extensions *byteBuilder, version uint16) {
+func (m *serverExtensions) marshal(extensions *byteBuilder) {
 	if m.duplicateExtension {
 		// Add a duplicate bogus extension at the beginning and end.
 		extensions.addU16(0xffff)
@@ -1058,19 +1057,9 @@ func (m *serverExtensions) marshal(extensions *byteBuilder, version uint16) {
 			npn.addBytes([]byte(v))
 		}
 	}
-	if version >= VersionTLS13 {
-		if m.ocspResponse != nil {
-			extensions.addU16(extensionStatusRequest)
-			body := extensions.addU16LengthPrefixed()
-			body.addU8(statusTypeOCSP)
-			response := body.addU24LengthPrefixed()
-			response.addBytes(m.ocspResponse)
-		}
-	} else {
-		if m.ocspStapling {
-			extensions.addU16(extensionStatusRequest)
-			extensions.addU16(0)
-		}
+	if m.ocspStapling {
+		extensions.addU16(extensionStatusRequest)
+		extensions.addU16(0)
 	}
 	if m.ticketSupported {
 		extensions.addU16(extensionSessionTicket)
@@ -1173,25 +1162,10 @@ func (m *serverExtensions) unmarshal(data []byte, version uint16) bool {
 				d = d[l:]
 			}
 		case extensionStatusRequest:
-			if version >= VersionTLS13 {
-				if length < 4 {
-					return false
-				}
-				d := data[:length]
-				if d[0] != statusTypeOCSP {
-					return false
-				}
-				respLen := int(d[1])<<16 | int(d[2])<<8 | int(d[3])
-				if respLen+4 != len(d) || respLen == 0 {
-					return false
-				}
-				m.ocspResponse = d[4:]
-			} else {
-				if length > 0 {
-					return false
-				}
-				m.ocspStapling = true
+			if length > 0 {
+				return false
 			}
+			m.ocspStapling = true
 		case extensionSessionTicket:
 			if length > 0 {
 				return false
@@ -1367,11 +1341,19 @@ func (m *helloRetryRequestMsg) unmarshal(data []byte) bool {
 	return true
 }
 
+type certificateEntry struct {
+	data                []byte
+	ocspResponse        []byte
+	sctList             []byte
+	duplicateExtensions bool
+	extraExtension      []byte
+}
+
 type certificateMsg struct {
 	raw               []byte
 	hasRequestContext bool
 	requestContext    []byte
-	certificates      [][]byte
+	certificates      []certificateEntry
 }
 
 func (m *certificateMsg) marshal() (x []byte) {
@@ -1389,7 +1371,33 @@ func (m *certificateMsg) marshal() (x []byte) {
 	certificateList := certificate.addU24LengthPrefixed()
 	for _, cert := range m.certificates {
 		certEntry := certificateList.addU24LengthPrefixed()
-		certEntry.addBytes(cert)
+		certEntry.addBytes(cert.data)
+		if m.hasRequestContext {
+			extensions := certificateList.addU16LengthPrefixed()
+			count := 1
+			if cert.duplicateExtensions {
+				count = 2
+			}
+
+			for i := 0; i < count; i++ {
+				if cert.ocspResponse != nil {
+					extensions.addU16(extensionStatusRequest)
+					body := extensions.addU16LengthPrefixed()
+					body.addU8(statusTypeOCSP)
+					response := body.addU24LengthPrefixed()
+					response.addBytes(cert.ocspResponse)
+				}
+
+				if cert.sctList != nil {
+					extensions.addU16(extensionSignedCertificateTimestamp)
+					extension := extensions.addU16LengthPrefixed()
+					extension.addBytes(cert.sctList)
+				}
+			}
+			if cert.extraExtension != nil {
+				extensions.addBytes(cert.extraExtension)
+			}
+		}
 	}
 
 	m.raw = certMsg.finish()
@@ -1426,27 +1434,62 @@ func (m *certificateMsg) unmarshal(data []byte) bool {
 		return false
 	}
 
-	numCerts := 0
-	d := data
-	for certsLen > 0 {
-		if len(d) < 4 {
+	m.certificates = nil
+	for len(data) != 0 {
+		if len(data) < 3 {
 			return false
 		}
-		certLen := int(d[0])<<16 | int(d[1])<<8 | int(d[2])
-		if len(d) < 3+certLen {
+		certLen := int(data[0])<<16 | int(data[1])<<8 | int(data[2])
+		if len(data) < 3+certLen {
 			return false
 		}
-		d = d[3+certLen:]
-		certsLen -= 3 + certLen
-		numCerts++
-	}
+		cert := certificateEntry{
+			data: data[3 : 3+certLen],
+		}
+		data = data[3+certLen:]
+		if m.hasRequestContext {
+			if len(data) < 2 {
+				return false
+			}
+			extensionsLen := int(data[0])<<8 | int(data[1])
+			if len(data) < 2+extensionsLen {
+				return false
+			}
+			extensions := data[2 : 2+extensionsLen]
+			data = data[2+extensionsLen:]
+			for len(extensions) != 0 {
+				if len(extensions) < 4 {
+					return false
+				}
+				extension := uint16(extensions[0])<<8 | uint16(extensions[1])
+				length := int(extensions[2])<<8 | int(extensions[3])
+				if len(extensions) < 4+length {
+					return false
+				}
+				contents := extensions[4 : 4+length]
+				extensions = extensions[4+length:]
 
-	m.certificates = make([][]byte, numCerts)
-	d = data
-	for i := 0; i < numCerts; i++ {
-		certLen := uint32(d[0])<<16 | uint32(d[1])<<8 | uint32(d[2])
-		m.certificates[i] = d[3 : 3+certLen]
-		d = d[3+certLen:]
+				switch extension {
+				case extensionStatusRequest:
+					if length < 4 {
+						return false
+					}
+					if contents[0] != statusTypeOCSP {
+						return false
+					}
+					respLen := int(contents[1])<<16 | int(contents[2])<<8 | int(contents[3])
+					if respLen+4 != len(contents) || respLen == 0 {
+						return false
+					}
+					cert.ocspResponse = contents[4:]
+				case extensionSignedCertificateTimestamp:
+					cert.sctList = contents
+				default:
+					return false
+				}
+			}
+		}
+		m.certificates = append(m.certificates, cert)
 	}
 
 	return true
