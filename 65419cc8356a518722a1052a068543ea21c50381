@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "abd88709_57f12479",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1839,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-04T19:00:51Z",
+      "side": 1,
+      "message": "This makes me kind of unhappy, but we only hit this codepath if our ticket callback triggers TLS 1.2 ticket renewal (which it never does), and ssl_encrypt_ticket already mallocs a session-sided buffer anyway.",
+      "range": {
+        "startLine": 1839,
+        "startChar": 19,
+        "endLine": 1839,
+        "endChar": 34
+      },
+      "revId": "65419cc8356a518722a1052a068543ea21c50381",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
