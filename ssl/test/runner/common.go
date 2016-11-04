@@ -999,6 +999,26 @@ type ProtocolBugs struct {
 	// supplied stapled response.
 	SendOCSPResponseOnResume []byte
 
+	// SendExtensionOnCertificate, if not nil, causes the runner to send the
+	// supplied bytes in the extensions on the Certificate message.
+	SendExtensionOnCertificate []byte
+
+	// SendOCSPOnIntermediates, if not nil, causes the server to send the
+	// supplied OCSP on intermediate certificates in the Certificate message.
+	SendOCSPOnIntermediates []byte
+
+	// SendSCTOnIntermediates, if not nil, causes the server to send the
+	// supplied SCT on intermediate certificates in the Certificate message.
+	SendSCTOnIntermediates []byte
+
+	// SendDuplicateCertExtensions, if true, causes the server to send an extra
+	// copy of the OCSP/SCT extensions in the Certificate message.
+	SendDuplicateCertExtensions bool
+
+	// ExpectNoExtensionsOnIntermediate, if true, causes the client to
+	// reject extensions on intermediate certificates.
+	ExpectNoExtensionsOnIntermediate bool
+
 	// CECPQ1BadX25519Part corrupts the X25519 part of a CECPQ1 key exchange, as
 	// a trivial proof that it is actually used.
 	CECPQ1BadX25519Part bool
