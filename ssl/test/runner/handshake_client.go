@@ -673,23 +673,11 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 	var chainToSend *Certificate
 	var certReq *certificateRequestMsg
 	if c.didResume {
-		if encryptedExtensions.extensions.ocspResponse != nil {
-			c.sendAlert(alertUnsupportedExtension)
-			return errors.New("tls: server sent OCSP response without a certificate")
-		}
-		if encryptedExtensions.extensions.sctList != nil {
-			c.sendAlert(alertUnsupportedExtension)
-			return errors.New("tls: server sent SCT list without a certificate")
-		}
-
 		// Copy over authentication from the session.
 		c.peerCertificates = hs.session.serverCertificates
 		c.sctList = hs.session.sctList
 		c.ocspResponse = hs.session.ocspResponse
 	} else {
-		c.ocspResponse = encryptedExtensions.extensions.ocspResponse
-		c.sctList = encryptedExtensions.extensions.sctList
-
 		msg, err := c.readHandshake()
 		if err != nil {
 			return err
@@ -725,7 +713,8 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 			return unexpectedMessageError(certMsg, msg)
 		}
 		hs.writeServerHash(certMsg.marshal())
-
+		c.ocspResponse = certMsg.ocspResponse
+		c.sctList = certMsg.sctList
 		if err := hs.verifyCertificates(certMsg); err != nil {
 			return err
 		}
@@ -778,6 +767,7 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 
 	if certReq != nil && !c.config.Bugs.SkipClientCertificate {
 		certMsg := &certificateMsg{
+			version:           c.vers,
 			hasRequestContext: true,
 			requestContext:    certReq.requestContext,
 		}

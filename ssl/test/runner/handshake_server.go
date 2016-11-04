@@ -722,22 +722,6 @@ ResendHelloRetryRequest:
 	clientHandshakeTrafficSecret := hs.finishedHash.deriveSecret(handshakeSecret, clientHandshakeTrafficLabel)
 	c.in.useTrafficSecret(c.vers, hs.suite, clientHandshakeTrafficSecret, clientWrite)
 
-	if hs.sessionState == nil {
-		if hs.clientHello.ocspStapling {
-			encryptedExtensions.extensions.ocspResponse = hs.cert.OCSPStaple
-		}
-		if hs.clientHello.sctListSupported {
-			encryptedExtensions.extensions.sctList = hs.cert.SignedCertificateTimestampList
-		}
-	} else {
-		if config.Bugs.SendOCSPResponseOnResume != nil {
-			encryptedExtensions.extensions.ocspResponse = config.Bugs.SendOCSPResponseOnResume
-		}
-		if config.Bugs.SendSCTListOnResume != nil {
-			encryptedExtensions.extensions.sctList = config.Bugs.SendSCTListOnResume
-		}
-	}
-
 	// Send EncryptedExtensions.
 	hs.writeServerHash(encryptedExtensions.marshal())
 	if config.Bugs.PartialEncryptedExtensionsWithServerHello {
@@ -772,10 +756,26 @@ ResendHelloRetryRequest:
 		}
 
 		certMsg := &certificateMsg{
+			version:           c.vers,
 			hasRequestContext: true,
 		}
 		if !config.Bugs.EmptyCertificateList {
 			certMsg.certificates = hs.cert.Certificate
+		}
+		if hs.sessionState == nil {
+			if hs.clientHello.ocspStapling {
+				certMsg.ocspResponse = hs.cert.OCSPStaple
+			}
+			if hs.clientHello.sctListSupported {
+				certMsg.sctList = hs.cert.SignedCertificateTimestampList
+			}
+		} else {
+			if config.Bugs.SendOCSPResponseOnResume != nil {
+				certMsg.ocspResponse = config.Bugs.SendOCSPResponseOnResume
+			}
+			if config.Bugs.SendSCTListOnResume != nil {
+				certMsg.sctList = config.Bugs.SendSCTListOnResume
+			}
 		}
 		certMsgBytes := certMsg.marshal()
 		hs.writeServerHash(certMsgBytes)

@@ -900,6 +900,10 @@ typedef struct ssl_handshake_st {
     uint32_t received;
   } extensions;
 
+  /* received_sct_request reflects the presence of the SCT extension in the
+   * ClientHello. */
+  int received_sct_request;
+
   union {
     /* sent is a bitset where the bits correspond to elements of
      * |client_custom_extensions| in the |SSL_CTX|. Each bit is set if that
