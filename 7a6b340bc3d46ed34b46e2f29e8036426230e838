@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "abd88709_17e15cba",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-04T18:57:34Z",
+      "side": 1,
+      "message": "(This silly state can be removed once ssl_hs_write_message goes away as an asynchronous step. Right now it\u0027s mostly synchronous, but sometimes not if bbio overflows.)",
+      "range": {
+        "startLine": 655,
+        "startChar": 26,
+        "endLine": 655,
+        "endChar": 54
+      },
+      "revId": "7a6b340bc3d46ed34b46e2f29e8036426230e838",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
