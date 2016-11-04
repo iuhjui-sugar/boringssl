@@ -673,23 +673,11 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 	var chainToSend *Certificate
 	var certReq *certificateRequestMsg
 	if c.didResume {
-		if encryptedExtensions.extensions.ocspResponse != nil {
-			c.sendAlert(alertUnsupportedExtension)
-			return errors.New("tls: server sent OCSP response without a certificate")
-		}
-		if encryptedExtensions.extensions.sctList != nil {
-			c.sendAlert(alertUnsupportedExtension)
-			return errors.New("tls: server sent SCT list without a certificate")
-		}
-
 		// Copy over authentication from the session.
 		c.peerCertificates = hs.session.serverCertificates
 		c.sctList = hs.session.sctList
 		c.ocspResponse = hs.session.ocspResponse
 	} else {
-		c.ocspResponse = encryptedExtensions.extensions.ocspResponse
-		c.sctList = encryptedExtensions.extensions.sctList
-
 		msg, err := c.readHandshake()
 		if err != nil {
 			return err
@@ -725,7 +713,10 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 			return unexpectedMessageError(certMsg, msg)
 		}
 		hs.writeServerHash(certMsg.marshal())
-
+		if len(certMsg.certificates) > 0 {
+			c.ocspResponse = certMsg.certificates[0].ocspResponse
+			c.sctList = certMsg.certificates[0].sctList
+		}
 		if err := hs.verifyCertificates(certMsg); err != nil {
 			return err
 		}
@@ -782,7 +773,11 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 			requestContext:    certReq.requestContext,
 		}
 		if chainToSend != nil {
-			certMsg.certificates = chainToSend.Certificate
+			for _, certData := range chainToSend.Certificate {
+				certMsg.certificates = append(certMsg.certificates, certificateEntry{
+					data: certData,
+				})
+			}
 		}
 		hs.writeClientHash(certMsg.marshal())
 		c.writeRecord(recordTypeHandshake, certMsg.marshal())
@@ -961,7 +956,11 @@ func (hs *clientHandshakeState) doFullHandshake() error {
 		} else if !c.config.Bugs.SkipClientCertificate {
 			certMsg := new(certificateMsg)
 			if chainToSend != nil {
-				certMsg.certificates = chainToSend.Certificate
+				for _, certData := range chainToSend.Certificate {
+					certMsg.certificates = append(certMsg.certificates, certificateEntry{
+						data: certData,
+					})
+				}
 			}
 			hs.writeClientHash(certMsg.marshal())
 			c.writeRecord(recordTypeHandshake, certMsg.marshal())
@@ -1049,7 +1048,7 @@ func (hs *clientHandshakeState) verifyCertificates(certMsg *certificateMsg) erro
 	}
 
 	certs := make([]*x509.Certificate, len(certMsg.certificates))
-	for i, asn1Data := range certMsg.certificates {
+	for i, asn1Data := range certMsg.rawCertificates {
 		cert, err := x509.ParseCertificate(asn1Data)
 		if err != nil {
 			c.sendAlert(alertBadCertificate)

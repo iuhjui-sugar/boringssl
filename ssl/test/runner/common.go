@@ -991,6 +991,14 @@ type ProtocolBugs struct {
 	// supplied stapled response.
 	SendOCSPResponseOnResume []byte
 
+	// SendCertExtensionsOnIntermediates, if true, causes the server to send
+	// OCSP/SCT on all certificates in the Certificate message.
+	SendCertExtensionsOnIntermediates bool
+
+	// SendDuplicateCertExtension, if true, causes the client to send an extra
+	// copy of the OCSP/SCT extensions in the Certificate message.
+	SendDuplicateCertExtensions bool
+
 	// CECPQ1BadX25519Part corrupts the X25519 part of a CECPQ1 key exchange, as
 	// a trivial proof that it is actually used.
 	CECPQ1BadX25519Part bool
