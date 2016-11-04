@@ -748,6 +748,10 @@ void ssl_write_buffer_clear(SSL *ssl);
  * configured and zero otherwise. */
 int ssl_has_certificate(const SSL *ssl);
 
+/* ssl_parse_x509 parses a X509 certificate from |cbs|. It returns NULL
+ * on error. */
+X509 *ssl_parse_x509(CBS *cbs);
+
 /* ssl_parse_cert_chain parses a certificate list from |cbs| in the format used
  * by a TLS Certificate message. On success, it returns a newly-allocated
  * |X509| list and advances |cbs|. Otherwise, it returns NULL and sets
@@ -904,6 +908,9 @@ typedef struct ssl_handshake_st {
 
   /* ecdh_ctx is the current ECDH instance. */
   SSL_ECDH_CTX ecdh_ctx;
+
+  /* scts_requested is one if the SCT extension is in the ClientHello. */
+  unsigned scts_requested:1;
 
   unsigned received_hello_retry_request:1;
 
