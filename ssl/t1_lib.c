@@ -1163,42 +1163,21 @@ static int ext_ocsp_parse_serverhello(SSL *ssl, uint8_t *out_alert,
     return 1;
   }
 
-  if (ssl3_protocol_version(ssl) < TLS1_3_VERSION) {
-    /* OCSP stapling is forbidden on non-certificate ciphers. */
-    if (CBS_len(contents) != 0 ||
-        !ssl_cipher_uses_certificate_auth(ssl->s3->tmp.new_cipher)) {
-      return 0;
-    }
-
-    /* Note this does not check for resumption in TLS 1.2. Sending
-     * status_request here does not make sense, but OpenSSL does so and the
-     * specification does not say anything. Tolerate it but ignore it. */
-
-    ssl->s3->hs->certificate_status_expected = 1;
-    return 1;
-  }
-
-  /* In TLS 1.3, OCSP stapling is forbidden on resumption. */
-  if (ssl->s3->session_reused) {
+  if (ssl3_protocol_version(ssl) >= TLS1_3_VERSION) {
     return 0;
   }
 
-  uint8_t status_type;
-  CBS ocsp_response;
-  if (!CBS_get_u8(contents, &status_type) ||
-      status_type != TLSEXT_STATUSTYPE_ocsp ||
-      !CBS_get_u24_length_prefixed(contents, &ocsp_response) ||
-      CBS_len(&ocsp_response) == 0 ||
-      CBS_len(contents) != 0) {
+  /* OCSP stapling is forbidden on non-certificate ciphers. */
+  if (CBS_len(contents) != 0 ||
+      !ssl_cipher_uses_certificate_auth(ssl->s3->tmp.new_cipher)) {
     return 0;
   }
 
-  if (!CBS_stow(&ocsp_response, &ssl->s3->new_session->ocsp_response,
-                &ssl->s3->new_session->ocsp_response_length)) {
-    *out_alert = SSL_AD_INTERNAL_ERROR;
-    return 0;
-  }
+  /* Note this does not check for resumption in TLS 1.2. Sending
+   * status_request here does not make sense, but OpenSSL does so and the
+   * specification does not say anything. Tolerate it but ignore it. */
 
+  ssl->s3->hs->certificate_status_expected = 1;
   return 1;
 }
 
@@ -1221,34 +1200,18 @@ static int ext_ocsp_parse_clienthello(SSL *ssl, uint8_t *out_alert,
 }
 
 static int ext_ocsp_add_serverhello(SSL *ssl, CBB *out) {
-  if (!ssl->s3->hs->ocsp_stapling_requested ||
+  if (ssl3_protocol_version(ssl) >= TLS1_3_VERSION ||
+      !ssl->s3->hs->ocsp_stapling_requested ||
       ssl->ctx->ocsp_response_length == 0 ||
       ssl->s3->session_reused ||
-      (ssl3_protocol_version(ssl) < TLS1_3_VERSION &&
-       !ssl_cipher_uses_certificate_auth(ssl->s3->tmp.new_cipher))) {
+      !ssl_cipher_uses_certificate_auth(ssl->s3->tmp.new_cipher)) {
     return 1;
   }
 
-  if (ssl3_protocol_version(ssl) < TLS1_3_VERSION) {
-    /* The extension shouldn't be sent when resuming sessions. */
-    if (ssl->session != NULL) {
-      return 1;
-    }
+  ssl->s3->hs->certificate_status_expected = 1;
 
-    ssl->s3->hs->certificate_status_expected = 1;
-
-    return CBB_add_u16(out, TLSEXT_TYPE_status_request) &&
-           CBB_add_u16(out, 0 /* length */);
-  }
-
-  CBB body, ocsp_response;
   return CBB_add_u16(out, TLSEXT_TYPE_status_request) &&
-         CBB_add_u16_length_prefixed(out, &body) &&
-         CBB_add_u8(&body, TLSEXT_STATUSTYPE_ocsp) &&
-         CBB_add_u24_length_prefixed(&body, &ocsp_response) &&
-         CBB_add_bytes(&ocsp_response, ssl->ctx->ocsp_response,
-                       ssl->ctx->ocsp_response_length) &&
-         CBB_flush(out);
+         CBB_add_u16(out, 0 /* length */);
 }
 
 
@@ -1403,6 +1366,11 @@ static int ext_sct_parse_serverhello(SSL *ssl, uint8_t *out_alert,
     return 1;
   }
 
+  /* TLS 1.3 SCTs are included in the Certificate extensions. */
+  if (ssl3_protocol_version(ssl) >= TLS1_3_VERSION) {
+    return 0;
+  }
+
   /* If this is false then we should never have sent the SCT extension in the
    * ClientHello and thus this function should never have been called. */
   assert(ssl->signed_cert_timestamps_enabled);
@@ -1431,12 +1399,14 @@ static int ext_sct_parse_serverhello(SSL *ssl, uint8_t *out_alert,
 
 static int ext_sct_parse_clienthello(SSL *ssl, uint8_t *out_alert,
                                      CBS *contents) {
+  ssl->s3->hs->scts_requested = 1;
   return contents == NULL || CBS_len(contents) == 0;
 }
 
 static int ext_sct_add_serverhello(SSL *ssl, CBB *out) {
   /* The extension shouldn't be sent when resuming sessions. */
-  if (ssl->s3->session_reused ||
+  if (ssl3_protocol_version(ssl) >= TLS1_3_VERSION ||
+      ssl->s3->session_reused ||
       ssl->ctx->signed_cert_timestamp_list_length == 0) {
     return 1;
   }

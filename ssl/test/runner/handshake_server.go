@@ -722,22 +722,6 @@ ResendHelloRetryRequest:
 	clientHandshakeTrafficSecret := hs.finishedHash.deriveSecret(handshakeSecret, clientHandshakeTrafficLabel)
 	c.in.useTrafficSecret(c.vers, hs.suite, clientHandshakeTrafficSecret, clientWrite)
 
-	if hs.sessionState == nil {
-		if hs.clientHello.ocspStapling {
-			encryptedExtensions.extensions.ocspResponse = hs.cert.OCSPStaple
-		}
-		if hs.clientHello.sctListSupported {
-			encryptedExtensions.extensions.sctList = hs.cert.SignedCertificateTimestampList
-		}
-	} else {
-		if config.Bugs.SendOCSPResponseOnResume != nil {
-			encryptedExtensions.extensions.ocspResponse = config.Bugs.SendOCSPResponseOnResume
-		}
-		if config.Bugs.SendSCTListOnResume != nil {
-			encryptedExtensions.extensions.sctList = config.Bugs.SendSCTListOnResume
-		}
-	}
-
 	// Send EncryptedExtensions.
 	hs.writeServerHash(encryptedExtensions.marshal())
 	if config.Bugs.PartialEncryptedExtensionsWithServerHello {
@@ -775,7 +759,21 @@ ResendHelloRetryRequest:
 			hasRequestContext: true,
 		}
 		if !config.Bugs.EmptyCertificateList {
-			certMsg.certificates = hs.cert.Certificate
+			for i, certData := range hs.cert.Certificate {
+				cert := certificateEntry{
+					data: certData,
+				}
+				if i == 0 || config.Bugs.SendCertExtensionsOnIntermediates {
+					if hs.clientHello.ocspStapling {
+						cert.ocspResponse = hs.cert.OCSPStaple
+					}
+					if hs.clientHello.sctListSupported {
+						cert.sctList = hs.cert.SignedCertificateTimestampList
+					}
+					cert.duplicateExtension = config.Bugs.SendDuplicateCertExtensions
+				}
+				certMsg.certificates = append(certMsg.certificates, cert)
+			}
 		}
 		certMsgBytes := certMsg.marshal()
 		hs.writeServerHash(certMsgBytes)
@@ -864,7 +862,7 @@ ResendHelloRetryRequest:
 			}
 		}
 
-		pub, err := hs.processCertsFromClient(certMsg.certificates)
+		pub, err := hs.processCertsFromClient(certMsg.rawCertificates)
 		if err != nil {
 			return err
 		}
@@ -1330,7 +1328,11 @@ func (hs *serverHandshakeState) doFullHandshake() error {
 	if !isPSK {
 		certMsg := new(certificateMsg)
 		if !config.Bugs.EmptyCertificateList {
-			certMsg.certificates = hs.cert.Certificate
+			for _, certData := range hs.cert.Certificate {
+				certMsg.certificates = append(certMsg.certificates, certificateEntry{
+					data: certData,
+				})
+			}
 		}
 		if !config.Bugs.UnauthenticatedECDH {
 			certMsgBytes := certMsg.marshal()
@@ -1418,7 +1420,7 @@ func (hs *serverHandshakeState) doFullHandshake() error {
 			}
 
 			hs.writeClientHash(certMsg.marshal())
-			certificates = certMsg.certificates
+			certificates = certMsg.rawCertificates
 		} else if c.vers != VersionSSL30 {
 			// In TLS, the Certificate message is required. In SSL
 			// 3.0, the peer skips it when sending no certificates.

@@ -5261,13 +5261,28 @@ func addExtensionTests() {
 		resumeSession: true,
 	})
 
-	// Beginning TLS 1.3, enforce this does not happen.
 	testCases = append(testCases, testCase{
-		name: "SendOCSPResponseOnResume-TLS13",
+		name: "SendExtensionsOnIntermediates-TLS13",
 		config: Config{
 			MaxVersion: VersionTLS13,
 			Bugs: ProtocolBugs{
-				SendOCSPResponseOnResume: []byte("bogus"),
+				SendCertExtensionsOnIntermediates: true,
+			},
+		},
+		flags: []string{
+			"-enable-ocsp-stapling",
+			"-expect-ocsp-response",
+			base64.StdEncoding.EncodeToString(testOCSPResponse),
+		},
+		resumeSession: true,
+	})
+
+	testCases = append(testCases, testCase{
+		name: "SendDuplicateExtensionsOnCerts-TLS13",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				SendDuplicateCertExtensions: true,
 			},
 		},
 		flags: []string{
@@ -5277,8 +5292,9 @@ func addExtensionTests() {
 		},
 		resumeSession: true,
 		shouldFail:    true,
-		expectedError: ":ERROR_PARSING_EXTENSION:",
+		expectedError: ":DUPLICATE_EXTENSION:",
 	})
+
 }
 
 func addResumptionVersionTests() {
