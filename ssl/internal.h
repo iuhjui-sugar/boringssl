@@ -905,6 +905,9 @@ typedef struct ssl_handshake_st {
   /* ecdh_ctx is the current ECDH instance. */
   SSL_ECDH_CTX ecdh_ctx;
 
+  /* scts_requested is one if the SCT extension is in the ClientHello. */
+  int scts_requested:1;
+
   unsigned received_hello_retry_request:1;
 
   /* retry_group is the group ID selected by the server in HelloRetryRequest in
