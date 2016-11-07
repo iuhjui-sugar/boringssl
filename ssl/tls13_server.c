@@ -543,18 +543,18 @@ static enum ssl_hs_wait_t do_send_new_session_ticket(SSL *ssl,
                                                      SSL_HANDSHAKE *hs) {
   SSL_SESSION *session = ssl->s3->new_session;
   session->tlsext_tick_lifetime_hint = session->timeout;
+  if (!RAND_bytes((uint8_t *)&session->ticket_age_add, 4)) {
+    goto err;
+  }
 
   /* TODO(svaldez): Add support for sending 0RTT through TicketEarlyDataInfo
    * extension. */
 
-  CBB cbb, body, ke_modes, auth_modes, ticket, extensions;
+  CBB cbb, body, ticket, extensions;
   if (!ssl->method->init_message(ssl, &cbb, &body,
                                  SSL3_MT_NEW_SESSION_TICKET) ||
       !CBB_add_u32(&body, session->tlsext_tick_lifetime_hint) ||
-      !CBB_add_u8_length_prefixed(&body, &ke_modes) ||
-      !CBB_add_u8(&ke_modes, SSL_PSK_DHE_KE) ||
-      !CBB_add_u8_length_prefixed(&body, &auth_modes) ||
-      !CBB_add_u8(&auth_modes, SSL_PSK_AUTH) ||
+      !CBB_add_u32(&body, session->ticket_age_add) ||
       !CBB_add_u16_length_prefixed(&body, &ticket) ||
       !ssl_encrypt_ticket(ssl, &ticket, session) ||
       !CBB_add_u16_length_prefixed(&body, &extensions)) {

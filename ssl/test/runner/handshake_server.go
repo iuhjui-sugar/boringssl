@@ -1623,6 +1623,15 @@ func (hs *serverHandshakeState) sendSessionTicket() error {
 		handshakeHash: hs.finishedHash.Sum(),
 	}
 
+	addBuffer := make([]byte, 4)
+	_, err := io.ReadFull(c.config.rand(), addBuffer)
+	if err != nil {
+		c.sendAlert(alertInternalError)
+		return errors.New("tls: short read from Rand: " + err.Error())
+	}
+
+	state.ticketAgeAdd = uint32(addBuffer[3])<<24 | uint32(addBuffer[2])<<16 | uint32(addBuffer[1])<<8 | uint32(addBuffer[0])
+
 	if !hs.hello.extensions.ticketSupported || hs.c.config.Bugs.SkipNewSessionTicket {
 		if c.config.ServerSessionCache != nil && len(hs.hello.sessionId) != 0 {
 			c.config.ServerSessionCache.Put(string(hs.hello.sessionId), &state)

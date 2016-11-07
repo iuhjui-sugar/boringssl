@@ -943,9 +943,6 @@ type ProtocolBugs struct {
 	// to send.
 	SendPSKKeyExchangeModes []byte
 
-	// SendPSKAuthModes, if present, determines the PSK auth modes to send.
-	SendPSKAuthModes []byte
-
 	// FailIfSessionOffered, if true, causes the server to fail any
 	// connections where the client offers a non-empty session ID or session
 	// ticket.

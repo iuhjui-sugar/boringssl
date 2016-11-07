@@ -1937,8 +1937,7 @@ type newSessionTicketMsg struct {
 	raw                []byte
 	version            uint16
 	ticketLifetime     uint32
-	keModes            []byte
-	authModes          []byte
+	ticketAgeAdd       uint32
 	ticket             []byte
 	customExtension    string
 	hasGREASEExtension bool
@@ -1955,8 +1954,7 @@ func (m *newSessionTicketMsg) marshal() []byte {
 	body := ticketMsg.addU24LengthPrefixed()
 	body.addU32(m.ticketLifetime)
 	if m.version >= VersionTLS13 {
-		body.addU8LengthPrefixed().addBytes(m.keModes)
-		body.addU8LengthPrefixed().addBytes(m.authModes)
+		body.addU32(m.ticketAgeAdd)
 	}
 
 	ticket := body.addU16LengthPrefixed()
@@ -1984,25 +1982,11 @@ func (m *newSessionTicketMsg) unmarshal(data []byte) bool {
 	data = data[8:]
 
 	if m.version >= VersionTLS13 {
-		if len(data) < 1 {
+		if len(data) < 4 {
 			return false
 		}
-		keModesLength := int(data[0])
-		if len(data)-1 < keModesLength {
-			return false
-		}
-		m.keModes = data[1 : 1+keModesLength]
-		data = data[1+keModesLength:]
-
-		if len(data) < 1 {
-			return false
-		}
-		authModesLength := int(data[0])
-		if len(data)-1 < authModesLength {
-			return false
-		}
-		m.authModes = data[1 : 1+authModesLength]
-		data = data[1+authModesLength:]
+		m.ticketAgeAdd = uint32(data[0])<<24 | uint32(data[1])<<16 | uint32(data[2])<<8 | uint32(data[3])
+		data = data[4:]
 	}
 
 	if len(data) < 2 {

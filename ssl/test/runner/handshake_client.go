@@ -255,9 +255,6 @@ NextCipherSuite:
 			if len(c.config.Bugs.SendPSKKeyExchangeModes) != 0 {
 				psk.keModes = c.config.Bugs.SendPSKKeyExchangeModes
 			}
-			if len(c.config.Bugs.SendPSKAuthModes) != 0 {
-				psk.authModes = c.config.Bugs.SendPSKAuthModes
-			}
 
 			hello.pskIdentities = []pskIdentity{psk}
 
