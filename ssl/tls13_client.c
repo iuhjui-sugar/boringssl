@@ -693,13 +693,10 @@ int tls13_process_new_session_ticket(SSL *ssl) {
 
   ssl_session_refresh_time(ssl, session);
 
-  CBS cbs, ke_modes, auth_modes, ticket, extensions;
+  CBS cbs, ticket, extensions;
   CBS_init(&cbs, ssl->init_msg, ssl->init_num);
   if (!CBS_get_u32(&cbs, &session->tlsext_tick_lifetime_hint) ||
-      !CBS_get_u8_length_prefixed(&cbs, &ke_modes) ||
-      CBS_len(&ke_modes) == 0 ||
-      !CBS_get_u8_length_prefixed(&cbs, &auth_modes) ||
-      CBS_len(&auth_modes) == 0 ||
+      !CBS_get_u32(&cbs, &session->ticket_age_add) ||
       !CBS_get_u16_length_prefixed(&cbs, &ticket) ||
       !CBS_stow(&ticket, &session->tlsext_tick, &session->tlsext_ticklen) ||
       !CBS_get_u16_length_prefixed(&cbs, &extensions) ||
@@ -710,13 +707,10 @@ int tls13_process_new_session_ticket(SSL *ssl) {
     return 0;
   }
 
+  session->ticket_age_add_valid = 1;
   session->not_resumable = 0;
 
-  /* Ignore the ticket unless the server preferences are compatible with us. */
-  if (memchr(CBS_data(&ke_modes), SSL_PSK_DHE_KE, CBS_len(&ke_modes)) != NULL &&
-      memchr(CBS_data(&auth_modes), SSL_PSK_AUTH, CBS_len(&auth_modes)) !=
-          NULL &&
-      ssl->ctx->new_session_cb != NULL &&
+  if (ssl->ctx->new_session_cb != NULL &&
       ssl->ctx->new_session_cb(ssl, session)) {
     /* |new_session_cb|'s return value signals that it took ownership. */
     return 1;
