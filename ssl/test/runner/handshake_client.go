@@ -68,6 +68,7 @@ func (c *Conn) clientHandshake() error {
 		sctListSupported:        true,
 		serverName:              c.config.ServerName,
 		supportedCurves:         c.config.curvePreferences(),
+		pskKEModes:              []byte{pskDHEKEMode},
 		supportedPoints:         []uint8{pointFormatUncompressed},
 		nextProtoNeg:            len(c.config.NextProtos) > 0,
 		secureRenegotiation:     []byte{},
@@ -92,6 +93,10 @@ func (c *Conn) clientHandshake() error {
 
 	if c.config.Bugs.NoSupportedCurves {
 		hello.supportedCurves = nil
+	}
+
+	if len(c.config.Bugs.SendPSKKeyExchangeModes) != 0 {
+		hello.pskKEModes = c.config.Bugs.SendPSKKeyExchangeModes
 	}
 
 	if c.config.Bugs.SendCompressionMethods != nil {
@@ -248,18 +253,11 @@ NextCipherSuite:
 		if session.vers >= VersionTLS13 || c.config.Bugs.SendBothTickets {
 			// TODO(nharper): Support sending more
 			// than one PSK identity.
+			ticketAge := uint32(c.config.time().Sub(session.ticketCreationTime)/time.Millisecond)
 			psk := pskIdentity{
-				keModes:   []byte{pskDHEKEMode},
-				authModes: []byte{pskAuthMode},
-				ticket:    ticket,
+				ticket:              ticket,
+				obfuscatedTicketAge: session.ticketAgeAdd + ticketAge,
 			}
-			if len(c.config.Bugs.SendPSKKeyExchangeModes) != 0 {
-				psk.keModes = c.config.Bugs.SendPSKKeyExchangeModes
-			}
-			if len(c.config.Bugs.SendPSKAuthModes) != 0 {
-				psk.authModes = c.config.Bugs.SendPSKAuthModes
-			}
-
 			hello.pskIdentities = []pskIdentity{psk}
 
 			if c.config.Bugs.ExtraPSKIdentity {
