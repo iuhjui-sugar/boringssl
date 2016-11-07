@@ -176,11 +176,12 @@ int tls13_process_certificate(SSL *ssl, int allow_anonymous) {
   const int retain_sha256 =
       ssl->server && ssl->ctx->retain_only_sha256_of_client_certs;
   int ret = 0;
+  STACK_OF(CRYPTO_BUFFER) *buffers = NULL;
+  STACK_OF(X509) *chain = NULL;
   uint8_t alert;
-  STACK_OF(X509) *chain = ssl_parse_cert_chain(
-      ssl, &alert, retain_sha256 ? ssl->s3->new_session->peer_sha256 : NULL,
-      &cbs);
-  if (chain == NULL) {
+  if (!ssl_parse_cert_chain(
+          ssl, &buffers, &chain, &alert,
+          retain_sha256 ? ssl->s3->new_session->peer_sha256 : NULL, &cbs)) {
     ssl3_send_alert(ssl, SSL3_AL_FATAL, alert);
     goto err;
   }
@@ -191,7 +192,7 @@ int tls13_process_certificate(SSL *ssl, int allow_anonymous) {
     goto err;
   }
 
-  if (sk_X509_num(chain) == 0) {
+  if (sk_CRYPTO_BUFFER_num(buffers) == 0) {
     if (!allow_anonymous) {
       OPENSSL_PUT_ERROR(SSL, SSL_R_PEER_DID_NOT_RETURN_A_CERTIFICATE);
       ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_CERTIFICATE_REQUIRED);
@@ -218,14 +219,20 @@ int tls13_process_certificate(SSL *ssl, int allow_anonymous) {
   X509 *leaf = sk_X509_value(chain, 0);
   X509_up_ref(leaf);
   ssl->s3->new_session->x509_peer = leaf;
+  ssl->s3->new_session->x509_chain_should_include_leaf = 1;
 
   sk_X509_pop_free(ssl->s3->new_session->x509_chain, X509_free);
   ssl->s3->new_session->x509_chain = chain;
   chain = NULL;
 
+  sk_CRYPTO_BUFFER_pop_free(ssl->s3->new_session->certs, CRYPTO_BUFFER_free);
+  ssl->s3->new_session->certs = buffers;
+  buffers = NULL;
+
   ret = 1;
 
 err:
+  sk_CRYPTO_BUFFER_pop_free(buffers, CRYPTO_BUFFER_free);
   sk_X509_pop_free(chain, X509_free);
   return ret;
 }
