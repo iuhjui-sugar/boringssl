@@ -1907,17 +1907,19 @@ static int ext_pre_shared_key_add_clienthello(SSL *ssl, CBB *out) {
     return 1;
   }
 
-  CBB contents, identity, ke_modes, auth_modes, ticket;
+  struct timeval now;
+  ssl_get_current_time(ssl, &now);
+  uint32_t ticket_age = 1000*(now.tv_sec - ssl->session->time);
+  uint32_t obfuscated_ticket_age = ticket_age + ssl->session->ticket_age_add;
+
+  CBB contents, identity, ticket;
   if (!CBB_add_u16(out, TLSEXT_TYPE_pre_shared_key) ||
       !CBB_add_u16_length_prefixed(out, &contents) ||
       !CBB_add_u16_length_prefixed(&contents, &identity) ||
-      !CBB_add_u8_length_prefixed(&identity, &ke_modes) ||
-      !CBB_add_u8(&ke_modes, SSL_PSK_DHE_KE) ||
-      !CBB_add_u8_length_prefixed(&identity, &auth_modes) ||
-      !CBB_add_u8(&auth_modes, SSL_PSK_AUTH) ||
       !CBB_add_u16_length_prefixed(&identity, &ticket) ||
       !CBB_add_bytes(&ticket, ssl->session->tlsext_tick,
-                     ssl->session->tlsext_ticklen)) {
+                     ssl->session->tlsext_ticklen) ||
+      !CBB_add_u32(&identity, obfuscated_ticket_age)) {
     return 0;
   }
 
@@ -1948,23 +1950,18 @@ int ssl_ext_pre_shared_key_parse_clienthello(SSL *ssl,
                                              uint8_t *out_alert,
                                              CBS *contents) {
   /* We only process the first PSK identity since we don't support pure PSK. */
-  CBS identity, ke_modes, auth_modes, ticket;
+  uint32_t obfuscated_ticket_age;
+  CBS identity, ticket;
   if (!CBS_get_u16_length_prefixed(contents, &identity) ||
-      !CBS_get_u8_length_prefixed(&identity, &ke_modes) ||
-      !CBS_get_u8_length_prefixed(&identity, &auth_modes) ||
       !CBS_get_u16_length_prefixed(&identity, &ticket) ||
+      !CBS_get_u32(&identity, &obfuscated_ticket_age) ||
       CBS_len(contents) != 0) {
     *out_alert = SSL_AD_DECODE_ERROR;
     return 0;
   }
 
-  /* We only support tickets with PSK_DHE_KE and PSK_AUTH. */
-  if (memchr(CBS_data(&ke_modes), SSL_PSK_DHE_KE, CBS_len(&ke_modes)) == NULL ||
-      memchr(CBS_data(&auth_modes), SSL_PSK_AUTH, CBS_len(&auth_modes)) ==
-          NULL) {
-    *out_session = NULL;
-    return 1;
-  }
+  /* TODO(svaldez): Check that the ticket_age is valid when attempting to use
+   * the PSK for 0-RTT. http://crbug.com/boringssl/113 */
 
   /* TLS 1.3 session tickets are renewed separately as part of the
    * NewSessionTicket. */
@@ -1986,6 +1983,49 @@ int ssl_ext_pre_shared_key_add_serverhello(SSL *ssl, CBB *out) {
       !CBB_flush(out)) {
     return 0;
   }
+
+  return 1;
+}
+
+
+/* Pre-Shared Key Exchange Modes
+ *
+ * https://tools.ietf.org/html/draft-ietf-tls-tls13-18#section-4.2.7 */
+static int ext_psk_key_exchange_modes_add_clienthello(SSL *ssl, CBB *out) {
+  uint16_t min_version, max_version;
+  if (!ssl_get_version_range(ssl, &min_version, &max_version)) {
+    return 0;
+  }
+
+  if (max_version < TLS1_3_VERSION) {
+    return 1;
+  }
+
+  CBB contents, ke_modes;
+  if (!CBB_add_u16(out, TLSEXT_TYPE_psk_key_exchange_modes) ||
+      !CBB_add_u16_length_prefixed(out, &contents) ||
+      !CBB_add_u8_length_prefixed(&contents, &ke_modes) ||
+      !CBB_add_u8(&ke_modes, SSL_PSK_DHE_KE)) {
+    return 0;
+  }
+
+  return CBB_flush(out);
+}
+
+int ssl_ext_psk_key_exchange_modes_parse_clienthello(SSL *ssl,
+                                                     uint8_t *out_alert,
+                                                     CBS *contents) {
+  CBS ke_modes;
+  if (!CBS_get_u8_length_prefixed(contents, &ke_modes) ||
+      CBS_len(&ke_modes) == 0 ||
+      CBS_len(contents) != 0) {
+    *out_alert = SSL_AD_DECODE_ERROR;
+    return 0;
+  }
+
+  /* We only support tickets with PSK_DHE_KE. */
+  ssl->s3->hs->accept_psk_mode =
+      memchr(CBS_data(&ke_modes), SSL_PSK_DHE_KE, CBS_len(&ke_modes)) != NULL;
 
   return 1;
 }
@@ -2461,6 +2501,14 @@ static const struct tls_extension kExtensions[] = {
     TLSEXT_TYPE_key_share,
     NULL,
     ext_key_share_add_clienthello,
+    forbid_parse_serverhello,
+    ignore_parse_clienthello,
+    dont_add_serverhello,
+  },
+  {
+    TLSEXT_TYPE_psk_key_exchange_modes,
+    NULL,
+    ext_psk_key_exchange_modes_add_clienthello,
     forbid_parse_serverhello,
     ignore_parse_clienthello,
     dont_add_serverhello,
