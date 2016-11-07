@@ -910,6 +910,10 @@ typedef struct ssl_handshake_st {
 
   unsigned received_hello_retry_request:1;
 
+  /* accept_psk_mode stores whether the client's PSK mode is compatible with our
+   * preferences. */
+  unsigned accept_psk_mode:1;
+
   /* retry_group is the group ID selected by the server in HelloRetryRequest in
    * TLS 1.3. */
   uint16_t retry_group;
@@ -1042,6 +1046,10 @@ int ssl_ext_pre_shared_key_parse_clienthello(SSL *ssl,
                                              SSL_SESSION **out_session,
                                              uint8_t *out_alert, CBS *contents);
 int ssl_ext_pre_shared_key_add_serverhello(SSL *ssl, CBB *out);
+
+int ssl_ext_psk_key_exchange_modes_parse_clienthello(SSL *ssl,
+                                                     uint8_t *out_alert,
+                                                     CBS *contents);
 
 int ssl_add_client_hello_body(SSL *ssl, CBB *body);
 
@@ -1578,12 +1586,9 @@ typedef struct dtls1_state_st {
 extern const SSL3_ENC_METHOD TLSv1_enc_data;
 extern const SSL3_ENC_METHOD SSLv3_enc_data;
 
-/* From draft-ietf-tls-tls13-16, used in determining PSK modes. */
-#define SSL_PSK_KE        0x0
-#define SSL_PSK_DHE_KE    0x1
-
-#define SSL_PSK_AUTH      0x0
-#define SSL_PSK_SIGN_AUTH 0x1
+/* From draft-ietf-tls-tls13-18, used in determining PSK modes. */
+#define SSL_PSK_KEX    0x0
+#define SSL_PSK_DHE_KE 0x1
 
 /* From draft-ietf-tls-tls13-16, used in determining whether to respond with a
  * KeyUpdate. */
