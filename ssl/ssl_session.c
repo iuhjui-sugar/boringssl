@@ -199,6 +199,20 @@ SSL_SESSION *SSL_SESSION_dup(SSL_SESSION *session, int dup_flags) {
       goto err;
     }
   }
+  if (session->certs != NULL) {
+    new_session->certs = sk_CRYPTO_BUFFER_new_null();
+    if (new_session->certs == NULL) {
+      goto err;
+    }
+    for (size_t i = 0; i < sk_CRYPTO_BUFFER_num(session->certs); i++) {
+      CRYPTO_BUFFER *buffer = sk_CRYPTO_BUFFER_value(session->certs, i);
+      CRYPTO_BUFFER_up_ref(buffer);
+      if (!sk_CRYPTO_BUFFER_push(new_session->certs, buffer)) {
+        CRYPTO_BUFFER_free(buffer);
+        goto err;
+      }
+    }
+  }
   if (session->x509_peer != NULL) {
     X509_up_ref(session->x509_peer);
     new_session->x509_peer = session->x509_peer;
@@ -326,6 +340,7 @@ void SSL_SESSION_free(SSL_SESSION *session) {
   OPENSSL_cleanse(session->master_key, sizeof(session->master_key));
   OPENSSL_cleanse(session->session_id, sizeof(session->session_id));
   X509_free(session->x509_peer);
+  sk_CRYPTO_BUFFER_pop_free(session->certs, CRYPTO_BUFFER_free);
   sk_X509_pop_free(session->x509_chain, X509_free);
   OPENSSL_free(session->tlsext_hostname);
   OPENSSL_free(session->tlsext_tick);

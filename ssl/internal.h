@@ -756,13 +756,14 @@ void ssl_write_buffer_clear(SSL *ssl);
 int ssl_has_certificate(const SSL *ssl);
 
 /* ssl_parse_cert_chain parses a certificate list from |cbs| in the format used
- * by a TLS Certificate message. On success, it returns a newly-allocated
- * |X509| list and advances |cbs|. Otherwise, it returns NULL and sets
- * |*out_alert| to an alert to send to the peer. If the list is non-empty and
- * |out_leaf_sha256| is non-NULL, it writes the SHA-256 hash of the leaf to
- * |out_leaf_sha256|. */
-STACK_OF(X509) *ssl_parse_cert_chain(SSL *ssl, uint8_t *out_alert,
-                                     uint8_t *out_leaf_sha256, CBS *cbs);
+ * by a TLS Certificate message. On success, it returns newly-allocated
+ * |CRYPTO_BUFFER| and |X509| lists, advances |cbs| and returns one. Otherwise,
+ * it returns zero and sets |*out_alert| to an alert to send to the peer. If
+ * the list is non-empty and |out_leaf_sha256| is non-NULL, it writes the
+ * SHA-256 hash of the leaf to |out_leaf_sha256|. */
+int ssl_parse_cert_chain(SSL *ssl, STACK_OF(CRYPTO_BUFFER) **out_buffers,
+                         STACK_OF(X509) **out_x509s, uint8_t *out_alert,
+                         uint8_t *out_leaf_sha256, CBS *cbs);
 
 /* ssl_add_cert_to_cbb adds |x509| to |cbb|. It returns one on success and zero
  * on error. */
