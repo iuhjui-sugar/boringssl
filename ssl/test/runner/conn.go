@@ -1397,24 +1397,11 @@ func (c *Conn) handlePostHandshakeMessage() error {
 				return errors.New("tls: no GREASE ticket extension found")
 			}
 
+			if c.config.Bugs.ExpectNoNewSessionTicket {
+				return errors.New("tls: received unexpected NewSessionTicket")
+			}
+
 			if c.config.ClientSessionCache == nil || newSessionTicket.ticketLifetime == 0 {
-				return nil
-			}
-
-			var foundKE, foundAuth bool
-			for _, mode := range newSessionTicket.keModes {
-				if mode == pskDHEKEMode {
-					foundKE = true
-				}
-			}
-			for _, mode := range newSessionTicket.authModes {
-				if mode == pskAuthMode {
-					foundAuth = true
-				}
-			}
-
-			// Ignore the ticket if the server preferences do not match a mode we implement.
-			if !foundKE || !foundAuth {
 				return nil
 			}
 
@@ -1714,16 +1701,7 @@ func (c *Conn) SendNewSessionTicket() error {
 	m := &newSessionTicketMsg{
 		version:         c.vers,
 		ticketLifetime:  uint32(24 * time.Hour / time.Second),
-		keModes:         []byte{pskDHEKEMode},
-		authModes:       []byte{pskAuthMode},
 		customExtension: c.config.Bugs.CustomTicketExtension,
-	}
-
-	if len(c.config.Bugs.SendPSKKeyExchangeModes) != 0 {
-		m.keModes = c.config.Bugs.SendPSKKeyExchangeModes
-	}
-	if len(c.config.Bugs.SendPSKAuthModes) != 0 {
-		m.authModes = c.config.Bugs.SendPSKAuthModes
 	}
 
 	state := sessionState{
