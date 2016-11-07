@@ -3671,12 +3671,12 @@ struct ssl_session_st {
 
   char *psk_identity;
   /* peer is the peer's certificate. */
-  X509 *peer;
+  X509 *x509_peer;
 
   /* cert_chain is the certificate chain sent by the peer. NOTE: for historical
    * reasons, when a client (so the peer is a server), the chain includes
    * |peer|, but when a server it does not. */
-  STACK_OF(X509) *cert_chain;
+  STACK_OF(X509) *x509_chain;
 
   /* verify_result is the result of certificate verification in the case of
    * non-fatal certificate errors. */
