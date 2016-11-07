@@ -94,6 +94,7 @@ const (
 	extensionEarlyData                  uint16 = 42    // draft-ietf-tls-tls13-16
 	extensionSupportedVersions          uint16 = 43    // draft-ietf-tls-tls13-16
 	extensionCookie                     uint16 = 44    // draft-ietf-tls-tls13-16
+	extensionPSKKeyExchangeModes        uint16 = 45    // draft-ietf-tls-tls13-18
 	extensionCustom                     uint16 = 1234  // not IANA assigned
 	extensionNextProtoNeg               uint16 = 13172 // not IANA assigned
 	extensionRenegotiationInfo          uint16 = 0xff01
@@ -200,12 +201,6 @@ const (
 	pskDHEKEMode = 1
 )
 
-// PskAuthenticationMode values (see draft-ietf-tls-tls13-16)
-const (
-	pskAuthMode     = 0
-	pskSignAuthMode = 1
-)
-
 // KeyUpdateRequest values (see draft-ietf-tls-tls13-16, section 4.5.3)
 const (
 	keyUpdateNotRequested = 0
@@ -259,6 +254,7 @@ type ClientSessionState struct {
 	ocspResponse         []byte
 	ticketCreationTime   time.Time
 	ticketExpiration     time.Time
+	ticketAgeAdd         uint32
 }
 
 // ClientSessionCache is a cache of ClientSessionState objects that can be used
@@ -939,12 +935,17 @@ type ProtocolBugs struct {
 	// session ticket.
 	SendEmptySessionTicket bool
 
-	// SnedPSKKeyExchangeModes, if present, determines the PSK key exchange modes
+	// SendPSKKeyExchangeModes, if present, determines the PSK key exchange modes
 	// to send.
 	SendPSKKeyExchangeModes []byte
 
-	// SendPSKAuthModes, if present, determines the PSK auth modes to send.
-	SendPSKAuthModes []byte
+	// ExpectNoNewSessionTicket, if present, means that the client will fail upon
+	// receipt of a NewSessionTicket message.
+	ExpectNoNewSessionTicket bool
+
+	// ExpectTicketAge, if non-zero, is the expected age of the ticket that the
+	// server receives from the client.
+	ExpectTicketAge time.Duration
 
 	// FailIfSessionOffered, if true, causes the server to fail any
 	// connections where the client offers a non-empty session ID or session

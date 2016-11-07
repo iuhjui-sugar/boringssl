@@ -125,9 +125,8 @@ type keyShareEntry struct {
 }
 
 type pskIdentity struct {
-	keModes   []byte
-	authModes []byte
-	ticket    []uint8
+	ticket              []uint8
+	obfuscatedTicketAge uint32
 }
 
 type clientHelloMsg struct {
@@ -148,6 +147,7 @@ type clientHelloMsg struct {
 	keyShares               []keyShareEntry
 	trailingKeyShareData    bool
 	pskIdentities           []pskIdentity
+	pskKEModes              []byte
 	hasEarlyData            bool
 	earlyDataContext        []byte
 	tls13Cookie             []byte
@@ -191,6 +191,7 @@ func (m *clientHelloMsg) equal(i interface{}) bool {
 		eqKeyShareEntryLists(m.keyShares, m1.keyShares) &&
 		m.trailingKeyShareData == m1.trailingKeyShareData &&
 		eqPSKIdentityLists(m.pskIdentities, m1.pskIdentities) &&
+		bytes.Equal(m.pskKEModes, m1.pskKEModes) &&
 		m.hasEarlyData == m1.hasEarlyData &&
 		bytes.Equal(m.earlyDataContext, m1.earlyDataContext) &&
 		bytes.Equal(m.tls13Cookie, m1.tls13Cookie) &&
@@ -322,10 +323,14 @@ func (m *clientHelloMsg) marshal() []byte {
 
 		pskIdentities := pskExtension.addU16LengthPrefixed()
 		for _, psk := range m.pskIdentities {
-			pskIdentities.addU8LengthPrefixed().addBytes(psk.keModes)
-			pskIdentities.addU8LengthPrefixed().addBytes(psk.authModes)
 			pskIdentities.addU16LengthPrefixed().addBytes(psk.ticket)
+			pskIdentities.addU32(psk.obfuscatedTicketAge)
 		}
+	}
+	if len(m.pskKEModes) > 0 {
+		extensions.addU16(extensionPSKKeyExchangeModes)
+		pskModesExtension := extensions.addU16LengthPrefixed()
+		pskModesExtension.addU8LengthPrefixed().addBytes(m.pskKEModes)
 	}
 	if m.hasEarlyData {
 		extensions.addU16(extensionEarlyData)
@@ -624,42 +629,34 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 			}
 			d := data[2:length]
 			for len(d) > 0 {
-				var psk pskIdentity
-
-				if len(d) < 1 {
-					return false
-				}
-				keModesLen := int(d[0])
-				d = d[1:]
-				if len(d) < keModesLen {
-					return false
-				}
-				psk.keModes = d[:keModesLen]
-				d = d[keModesLen:]
-
-				if len(d) < 1 {
-					return false
-				}
-				authModesLen := int(d[0])
-				d = d[1:]
-				if len(d) < authModesLen {
-					return false
-				}
-				psk.authModes = d[:authModesLen]
-				d = d[authModesLen:]
 				if len(d) < 2 {
 					return false
 				}
 				pskLen := int(d[0])<<8 | int(d[1])
 				d = d[2:]
 
-				if len(d) < pskLen {
+				if len(d) < pskLen+4 {
 					return false
 				}
-				psk.ticket = d[:pskLen]
+				ticket := d[:pskLen]
+				obfuscatedTicketAge := uint32(d[pskLen])<<24 | uint32(d[pskLen+1])<<16 | uint32(d[pskLen+2])<<8 | uint32(d[pskLen+3])
+				psk := pskIdentity{
+					ticket:              ticket,
+					obfuscatedTicketAge: obfuscatedTicketAge,
+				}
 				m.pskIdentities = append(m.pskIdentities, psk)
-				d = d[pskLen:]
+				d = d[pskLen+4:]
 			}
+		case extensionPSKKeyExchangeModes:
+			// draft-ietf-tls-tls13-18 section 4.2.7
+			if length < 1 {
+				return false
+			}
+			l := int(data[0])
+			if l != length-1 {
+				return false
+			}
+			m.pskKEModes = data[1:length]
 		case extensionEarlyData:
 			// draft-ietf-tls-tls13 section 6.3.2.5
 			if length < 1 {
@@ -1937,8 +1934,7 @@ type newSessionTicketMsg struct {
 	raw                []byte
 	version            uint16
 	ticketLifetime     uint32
-	keModes            []byte
-	authModes          []byte
+	ticketAgeAdd       uint32
 	ticket             []byte
 	customExtension    string
 	hasGREASEExtension bool
@@ -1955,8 +1951,7 @@ func (m *newSessionTicketMsg) marshal() []byte {
 	body := ticketMsg.addU24LengthPrefixed()
 	body.addU32(m.ticketLifetime)
 	if m.version >= VersionTLS13 {
-		body.addU8LengthPrefixed().addBytes(m.keModes)
-		body.addU8LengthPrefixed().addBytes(m.authModes)
+		body.addU32(m.ticketAgeAdd)
 	}
 
 	ticket := body.addU16LengthPrefixed()
@@ -1984,25 +1979,11 @@ func (m *newSessionTicketMsg) unmarshal(data []byte) bool {
 	data = data[8:]
 
 	if m.version >= VersionTLS13 {
-		if len(data) < 1 {
+		if len(data) < 4 {
 			return false
 		}
-		keModesLength := int(data[0])
-		if len(data)-1 < keModesLength {
-			return false
-		}
-		m.keModes = data[1 : 1+keModesLength]
-		data = data[1+keModesLength:]
-
-		if len(data) < 1 {
-			return false
-		}
-		authModesLength := int(data[0])
-		if len(data)-1 < authModesLength {
-			return false
-		}
-		m.authModes = data[1 : 1+authModesLength]
-		data = data[1+authModesLength:]
+		m.ticketAgeAdd = uint32(data[0])<<24 | uint32(data[1])<<16 | uint32(data[2])<<8 | uint32(data[3])
+		data = data[4:]
 	}
 
 	if len(data) < 2 {
@@ -2301,7 +2282,7 @@ func eqPSKIdentityLists(x, y []pskIdentity) bool {
 		return false
 	}
 	for i, v := range x {
-		if !bytes.Equal(y[i].keModes, v.keModes) || !bytes.Equal(y[i].authModes, v.authModes) || !bytes.Equal(y[i].ticket, v.ticket) {
+		if !bytes.Equal(y[i].ticket, v.ticket) || y[i].obfuscatedTicketAge != v.obfuscatedTicketAge {
 			return false
 		}
 	}
