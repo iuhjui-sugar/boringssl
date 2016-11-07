@@ -94,6 +94,7 @@ const (
 	extensionEarlyData                  uint16 = 42    // draft-ietf-tls-tls13-16
 	extensionSupportedVersions          uint16 = 43    // draft-ietf-tls-tls13-16
 	extensionCookie                     uint16 = 44    // draft-ietf-tls-tls13-16
+	extensionPSKKeyExchangeModes        uint16 = 45    // draft-ietf-tls-tls13-18
 	extensionCustom                     uint16 = 1234  // not IANA assigned
 	extensionNextProtoNeg               uint16 = 13172 // not IANA assigned
 	extensionRenegotiationInfo          uint16 = 0xff01
@@ -198,12 +199,6 @@ const (
 const (
 	pskKEMode    = 0
 	pskDHEKEMode = 1
-)
-
-// PskAuthenticationMode values (see draft-ietf-tls-tls13-16)
-const (
-	pskAuthMode     = 0
-	pskSignAuthMode = 1
 )
 
 // KeyUpdateRequest values (see draft-ietf-tls-tls13-16, section 4.5.3)

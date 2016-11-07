@@ -248,12 +248,11 @@ NextCipherSuite:
 			// TODO(nharper): Support sending more
 			// than one PSK identity.
 			psk := pskIdentity{
-				keModes:   []byte{pskDHEKEMode},
-				authModes: []byte{pskAuthMode},
-				ticket:    ticket,
+				ticket: ticket,
 			}
+			hello.pskKEModes = []byte{pskDHEKEMode}
 			if len(c.config.Bugs.SendPSKKeyExchangeModes) != 0 {
-				psk.keModes = c.config.Bugs.SendPSKKeyExchangeModes
+				hello.pskKEModes = c.config.Bugs.SendPSKKeyExchangeModes
 			}
 
 			hello.pskIdentities = []pskIdentity{psk}

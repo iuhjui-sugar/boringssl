@@ -109,14 +109,26 @@ static enum ssl_hs_wait_t do_process_client_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
   memcpy(ssl->s3->client_random, client_hello.random, client_hello.random_len);
 
   uint8_t alert = SSL_AD_DECODE_ERROR;
-  SSL_SESSION *session = NULL;
-  CBS pre_shared_key;
-  if (ssl_early_callback_get_extension(&client_hello, &pre_shared_key,
-                                       TLSEXT_TYPE_pre_shared_key) &&
-      !ssl_ext_pre_shared_key_parse_clienthello(ssl, &session, &alert,
-                                                &pre_shared_key)) {
+  int accept_psk = 0;
+  CBS psk_key_exchange_modes;
+  if (ssl_early_callback_get_extension(&client_hello, &psk_key_exchange_modes,
+                                       TLSEXT_TYPE_psk_key_exchange_modes) &&
+      !ssl_ext_psk_key_exchange_modes_parse_clienthello(
+          ssl, &accept_psk, &alert, &psk_key_exchange_modes)) {
     ssl3_send_alert(ssl, SSL3_AL_FATAL, alert);
     return 0;
+  }
+
+  SSL_SESSION *session = NULL;
+  if (accept_psk) {
+    CBS pre_shared_key;
+    if (ssl_early_callback_get_extension(&client_hello, &pre_shared_key,
+                                         TLSEXT_TYPE_pre_shared_key) &&
+        !ssl_ext_pre_shared_key_parse_clienthello(ssl, &session, &alert,
+                                                  &pre_shared_key)) {
+      ssl3_send_alert(ssl, SSL3_AL_FATAL, alert);
+      return 0;
+    }
   }
 
   if (session != NULL &&
