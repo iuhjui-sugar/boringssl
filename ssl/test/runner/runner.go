@@ -7641,80 +7641,42 @@ func addSessionTicketTests() {
 			MaxVersion: VersionTLS13,
 			Bugs: ProtocolBugs{
 				SendPSKKeyExchangeModes: []byte{0x1a, pskDHEKEMode, 0x2a},
-				SendPSKAuthModes:        []byte{0x1a, pskAuthMode, 0x2a},
 			},
 		},
 		resumeSession:         true,
 		expectedResumeVersion: VersionTLS13,
 	})
 
-	// Test that the server declines sessions with no matching key exchange mode.
+	// Test that the server does not send session tickets with no matching key exchange mode.
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "TLS13-ExpectNoSessionTicketOnBadKEMode-Server",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				SendPSKKeyExchangeModes:  []byte{0x1a},
+				ExpectNoNewSessionTicket: true,
+			},
+		},
+		resumeSession:        true,
+		expectResumeRejected: true,
+	})
+
+	// Test that the server does not accept a session with no matching key exchange mode.
 	testCases = append(testCases, testCase{
 		testType: serverTest,
 		name:     "TLS13-SendBadKEModeSessionTicket-Server",
 		config: Config{
 			MaxVersion: VersionTLS13,
+		},
+		resumeConfig: &Config{
+			MaxVersion: VersionTLS13,
 			Bugs: ProtocolBugs{
 				SendPSKKeyExchangeModes: []byte{0x1a},
 			},
 		},
 		resumeSession:        true,
 		expectResumeRejected: true,
-	})
-
-	// Test that the server declines sessions with no matching auth mode.
-	testCases = append(testCases, testCase{
-		testType: serverTest,
-		name:     "TLS13-SendBadAuthModeSessionTicket-Server",
-		config: Config{
-			MaxVersion: VersionTLS13,
-			Bugs: ProtocolBugs{
-				SendPSKAuthModes: []byte{0x1a},
-			},
-		},
-		resumeSession:        true,
-		expectResumeRejected: true,
-	})
-
-	// Test that the client ignores unknown PSK modes.
-	testCases = append(testCases, testCase{
-		testType: clientTest,
-		name:     "TLS13-SendUnknownModeSessionTicket-Client",
-		config: Config{
-			MaxVersion: VersionTLS13,
-			Bugs: ProtocolBugs{
-				SendPSKKeyExchangeModes: []byte{0x1a, pskDHEKEMode, 0x2a},
-				SendPSKAuthModes:        []byte{0x1a, pskAuthMode, 0x2a},
-			},
-		},
-		resumeSession:         true,
-		expectedResumeVersion: VersionTLS13,
-	})
-
-	// Test that the client ignores tickets with no matching key exchange mode.
-	testCases = append(testCases, testCase{
-		testType: clientTest,
-		name:     "TLS13-SendBadKEModeSessionTicket-Client",
-		config: Config{
-			MaxVersion: VersionTLS13,
-			Bugs: ProtocolBugs{
-				SendPSKKeyExchangeModes: []byte{0x1a},
-			},
-		},
-		flags: []string{"-expect-no-session"},
-	})
-
-	// Test that the client ignores tickets with no matching auth mode.
-	testCases = append(testCases, testCase{
-		testType: clientTest,
-		name:     "TLS13-SendBadAuthModeSessionTicket-Client",
-		config: Config{
-			MaxVersion: VersionTLS13,
-			Bugs: ProtocolBugs{
-				SendPSKAuthModes: []byte{0x1a},
-			},
-		},
-		flags: []string{"-expect-no-session"},
 	})
 }
 
