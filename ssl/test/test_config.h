@@ -119,6 +119,7 @@ struct TestConfig {
   bool use_exporter_between_reads = false;
   int expect_cipher_aes = 0;
   int expect_cipher_no_aes = 0;
+  int resumption_delay = 0;
 };
 
 bool ParseConfig(int argc, char **argv, TestConfig *out_config);
