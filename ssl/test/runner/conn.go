@@ -1404,24 +1404,11 @@ func (c *Conn) handlePostHandshakeMessage() error {
 				return errors.New("tls: no GREASE ticket extension found")
 			}
 
+			if c.config.Bugs.ExpectNoNewSessionTicket {
+				return errors.New("tls: received unexpected NewSessionTicket")
+			}
+
 			if c.config.ClientSessionCache == nil || newSessionTicket.ticketLifetime == 0 {
-				return nil
-			}
-
-			var foundKE, foundAuth bool
-			for _, mode := range newSessionTicket.keModes {
-				if mode == pskDHEKEMode {
-					foundKE = true
-				}
-			}
-			for _, mode := range newSessionTicket.authModes {
-				if mode == pskAuthMode {
-					foundAuth = true
-				}
-			}
-
-			// Ignore the ticket if the server preferences do not match a mode we implement.
-			if !foundKE || !foundAuth {
 				return nil
 			}
 
@@ -1435,6 +1422,7 @@ func (c *Conn) handlePostHandshakeMessage() error {
 				ocspResponse:       c.ocspResponse,
 				ticketCreationTime: c.config.time(),
 				ticketExpiration:   c.config.time().Add(time.Duration(newSessionTicket.ticketLifetime) * time.Second),
+				ticketAgeAdd:       newSessionTicket.ticketAgeAdd,
 			}
 
 			cacheKey := clientSessionCacheKey(c.conn.RemoteAddr(), c.config)
@@ -1717,20 +1705,20 @@ func (c *Conn) SendNewSessionTicket() error {
 		peerCertificatesRaw = append(peerCertificatesRaw, cert.Raw)
 	}
 
+	addBuffer := make([]byte, 4)
+	_, err := io.ReadFull(c.config.rand(), addBuffer)
+	if err != nil {
+		c.sendAlert(alertInternalError)
+		return errors.New("tls: short read from Rand: " + err.Error())
+	}
+	ticketAgeAdd := uint32(addBuffer[3])<<24 | uint32(addBuffer[2])<<16 | uint32(addBuffer[1])<<8 | uint32(addBuffer[0])
+
 	// TODO(davidben): Allow configuring these values.
 	m := &newSessionTicketMsg{
 		version:         c.vers,
 		ticketLifetime:  uint32(24 * time.Hour / time.Second),
-		keModes:         []byte{pskDHEKEMode},
-		authModes:       []byte{pskAuthMode},
 		customExtension: c.config.Bugs.CustomTicketExtension,
-	}
-
-	if len(c.config.Bugs.SendPSKKeyExchangeModes) != 0 {
-		m.keModes = c.config.Bugs.SendPSKKeyExchangeModes
-	}
-	if len(c.config.Bugs.SendPSKAuthModes) != 0 {
-		m.authModes = c.config.Bugs.SendPSKAuthModes
+		ticketAgeAdd:    ticketAgeAdd,
 	}
 
 	state := sessionState{
@@ -1740,6 +1728,7 @@ func (c *Conn) SendNewSessionTicket() error {
 		certificates:       peerCertificatesRaw,
 		ticketCreationTime: c.config.time(),
 		ticketExpiration:   c.config.time().Add(time.Duration(m.ticketLifetime) * time.Second),
+		ticketAgeAdd:       uint32(addBuffer[3])<<24 | uint32(addBuffer[2])<<16 | uint32(addBuffer[1])<<8 | uint32(addBuffer[0]),
 	}
 
 	if !c.config.Bugs.SendEmptySessionTicket {
@@ -1752,7 +1741,7 @@ func (c *Conn) SendNewSessionTicket() error {
 
 	c.out.Lock()
 	defer c.out.Unlock()
-	_, err := c.writeRecord(recordTypeHandshake, m.marshal())
+	_, err = c.writeRecord(recordTypeHandshake, m.marshal())
 	return err
 }
 
