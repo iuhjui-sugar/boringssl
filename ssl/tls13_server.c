@@ -110,14 +110,25 @@ static enum ssl_hs_wait_t do_process_client_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
   memcpy(ssl->s3->client_random, client_hello.random, client_hello.random_len);
 
   uint8_t alert = SSL_AD_DECODE_ERROR;
-  SSL_SESSION *session = NULL;
-  CBS pre_shared_key;
-  if (ssl_early_callback_get_extension(&client_hello, &pre_shared_key,
-                                       TLSEXT_TYPE_pre_shared_key) &&
-      !ssl_ext_pre_shared_key_parse_clienthello(ssl, &session, &alert,
-                                                &pre_shared_key)) {
+  CBS psk_key_exchange_modes;
+  if (ssl_early_callback_get_extension(&client_hello, &psk_key_exchange_modes,
+                                       TLSEXT_TYPE_psk_key_exchange_modes) &&
+      !ssl_ext_psk_key_exchange_modes_parse_clienthello(
+          ssl, &alert, &psk_key_exchange_modes)) {
     ssl3_send_alert(ssl, SSL3_AL_FATAL, alert);
     return 0;
+  }
+
+  SSL_SESSION *session = NULL;
+  if (hs->accept_psk_mode) {
+    CBS pre_shared_key;
+    if (ssl_early_callback_get_extension(&client_hello, &pre_shared_key,
+                                         TLSEXT_TYPE_pre_shared_key) &&
+        !ssl_ext_pre_shared_key_parse_clienthello(ssl, &session, &alert,
+                                                  &pre_shared_key)) {
+      ssl3_send_alert(ssl, SSL3_AL_FATAL, alert);
+      return 0;
+    }
   }
 
   if (session != NULL &&
@@ -598,19 +609,26 @@ static const int kNumTickets = 2;
 
 static enum ssl_hs_wait_t do_send_new_session_ticket(SSL *ssl,
                                                      SSL_HANDSHAKE *hs) {
+  /* If the client doesn't accept resumption with PSK_DHE_KE, don't send a
+   * session ticket. */
+  if (!hs->accept_psk_mode) {
+    hs->state = state_done;
+    return ssl_hs_ok;
+  }
+
   SSL_SESSION *session = ssl->s3->new_session;
+  if (!RAND_bytes((uint8_t *)&session->ticket_age_add, 4)) {
+    goto err;
+  }
 
   /* TODO(svaldez): Add support for sending 0RTT through TicketEarlyDataInfo
    * extension. */
 
-  CBB cbb, body, ke_modes, auth_modes, ticket, extensions;
+  CBB cbb, body, ticket, extensions;
   if (!ssl->method->init_message(ssl, &cbb, &body,
                                  SSL3_MT_NEW_SESSION_TICKET) ||
       !CBB_add_u32(&body, session->timeout) ||
-      !CBB_add_u8_length_prefixed(&body, &ke_modes) ||
-      !CBB_add_u8(&ke_modes, SSL_PSK_DHE_KE) ||
-      !CBB_add_u8_length_prefixed(&body, &auth_modes) ||
-      !CBB_add_u8(&auth_modes, SSL_PSK_AUTH) ||
+      !CBB_add_u32(&body, session->ticket_age_add) ||
       !CBB_add_u16_length_prefixed(&body, &ticket) ||
       !ssl_encrypt_ticket(ssl, &ticket, session) ||
       !CBB_add_u16_length_prefixed(&body, &extensions)) {
