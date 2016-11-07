@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8bd3c31c_b4b7f88a",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 7636,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-07T23:16:28Z",
+      "side": 1,
+      "message": "Could you squash this into the next one? The NST changes and the PSK ClientHello advertisement are fundamentally two parts of the same change. It\u0027s difficult to review them separately in terms of thinking about necessary tests.",
+      "revId": "4d35998493e53fcab12939870c594d6ad45f6b1e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
