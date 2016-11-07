@@ -16,6 +16,7 @@ import (
 	"fmt"
 	"io"
 	"math/big"
+	"time"
 )
 
 // serverHandshakeState contains details of a server handshake in progress.
@@ -404,78 +405,79 @@ Curves:
 	}
 
 	pskIdentities := hs.clientHello.pskIdentities
+	pskKEModes := hs.clientHello.pskKEModes
+
 	if len(pskIdentities) == 0 && len(hs.clientHello.sessionTicket) > 0 && c.config.Bugs.AcceptAnySession {
 		psk := pskIdentity{
-			keModes:   []byte{pskDHEKEMode},
-			authModes: []byte{pskAuthMode},
-			ticket:    hs.clientHello.sessionTicket,
+			ticket: hs.clientHello.sessionTicket,
 		}
 		pskIdentities = []pskIdentity{psk}
+		pskKEModes = []byte{pskDHEKEMode}
 	}
-	for i, pskIdentity := range pskIdentities {
-		foundKE := false
-		foundAuth := false
 
-		for _, keMode := range pskIdentity.keModes {
-			if keMode == pskDHEKEMode {
-				foundKE = true
-			}
-		}
+	foundKEMode := bytes.IndexByte(pskKEModes, pskDHEKEMode) >= 0
 
-		for _, authMode := range pskIdentity.authModes {
-			if authMode == pskAuthMode {
-				foundAuth = true
-			}
-		}
-
-		if !foundKE || !foundAuth {
-			continue
-		}
-
-		sessionState, ok := c.decryptTicket(pskIdentity.ticket)
-		if !ok {
-			continue
-		}
-		if config.Bugs.AcceptAnySession {
-			// Replace the cipher suite with one known to work, to
-			// test cross-version resumption attempts.
-			sessionState.cipherSuite = TLS_AES_128_GCM_SHA256
-		} else {
-			if sessionState.vers != c.vers && c.config.Bugs.AcceptAnySession {
-				continue
-			}
-			if sessionState.ticketExpiration.Before(c.config.time()) {
+	if foundKEMode {
+		for i, pskIdentity := range pskIdentities {
+			// TODO(svaldez): Check the obfuscatedTicketAge before accepting 0-RTT.
+			sessionState, ok := c.decryptTicket(pskIdentity.ticket)
+			if !ok {
 				continue
 			}
 
-			cipherSuiteOk := false
-			// Check that the client is still offering the ciphersuite in the session.
-			for _, id := range hs.clientHello.cipherSuites {
-				if id == sessionState.cipherSuite {
-					cipherSuiteOk = true
-					break
+			if config.Bugs.AcceptAnySession {
+				// Replace the cipher suite with one known to work, to
+				// test cross-version resumption attempts.
+				sessionState.cipherSuite = TLS_AES_128_GCM_SHA256
+			} else {
+				if sessionState.vers != c.vers && c.config.Bugs.AcceptAnySession {
+					continue
 				}
+				if sessionState.ticketExpiration.Before(c.config.time()) {
+					continue
+				}
+
+				realTicketAge := c.config.time().Sub(sessionState.ticketCreationTime)
+				if config.Bugs.ExpectTicketAge != 0 {
+					realTicketAge = config.Bugs.ExpectTicketAge
+				}
+				clientTicketAge := time.Duration(uint32(pskIdentity.obfuscatedTicketAge - sessionState.ticketAgeAdd))
+				// Check that the expected ticket age is within a minute of the actual ticket age.
+				if !(realTicketAge - time.Minute < clientTicketAge && clientTicketAge < realTicketAge + time.Minute) {
+					c.sendAlert(alertHandshakeFailure)
+					return errors.New("tls: invalid ticket age")
+				}
+
+				cipherSuiteOk := false
+				// Check that the client is still offering the ciphersuite in the session.
+				for _, id := range hs.clientHello.cipherSuites {
+					if id == sessionState.cipherSuite {
+						cipherSuiteOk = true
+						break
+					}
+				}
+				if !cipherSuiteOk {
+					continue
+				}
+
 			}
-			if !cipherSuiteOk {
+
+			// Check that we also support the ciphersuite from the session.
+			suite := c.tryCipherSuite(sessionState.cipherSuite, c.config.cipherSuites(), c.vers, true, true)
+			if suite == nil {
 				continue
 			}
-		}
 
-		// Check that we also support the ciphersuite from the session.
-		suite := c.tryCipherSuite(sessionState.cipherSuite, c.config.cipherSuites(), c.vers, true, true)
-		if suite == nil {
-			continue
+			hs.sessionState = sessionState
+			hs.suite = suite
+			hs.hello.hasPSKIdentity = true
+			hs.hello.pskIdentity = uint16(i)
+			if config.Bugs.SelectPSKIdentityOnResume != 0 {
+				hs.hello.pskIdentity = config.Bugs.SelectPSKIdentityOnResume
+			}
+			c.didResume = true
+			break
 		}
-
-		hs.sessionState = sessionState
-		hs.suite = suite
-		hs.hello.hasPSKIdentity = true
-		hs.hello.pskIdentity = uint16(i)
-		if config.Bugs.SelectPSKIdentityOnResume != 0 {
-			hs.hello.pskIdentity = config.Bugs.SelectPSKIdentityOnResume
-		}
-		c.didResume = true
-		break
 	}
 
 	if config.Bugs.AlwaysSelectPSKIdentity {
@@ -949,7 +951,7 @@ ResendHelloRetryRequest:
 
 	// TODO(davidben): Allow configuring the number of tickets sent for
 	// testing.
-	if !c.config.SessionTicketsDisabled {
+	if !c.config.SessionTicketsDisabled && foundKEMode {
 		ticketCount := 2
 		for i := 0; i < ticketCount; i++ {
 			c.SendNewSessionTicket()
