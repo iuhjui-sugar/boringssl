@@ -1911,13 +1911,17 @@ static int ext_pre_shared_key_add_clienthello(SSL *ssl, CBB *out) {
     return 1;
   }
 
+  uint32_t ticket_age = time(NULL) - ssl->session->time;
+  uint32_t obfuscated_ticket_age = ticket_age + ssl->session->ticket_age_add;
+
   CBB contents, identity, ticket;
   if (!CBB_add_u16(out, TLSEXT_TYPE_pre_shared_key) ||
       !CBB_add_u16_length_prefixed(out, &contents) ||
       !CBB_add_u16_length_prefixed(&contents, &identity) ||
       !CBB_add_u16_length_prefixed(&identity, &ticket) ||
       !CBB_add_bytes(&ticket, ssl->session->tlsext_tick,
-                     ssl->session->tlsext_ticklen)) {
+                     ssl->session->tlsext_ticklen) ||
+      !CBB_add_u32(&identity, obfuscated_ticket_age)) {
     return 0;
   }
 
@@ -1948,13 +1952,18 @@ int ssl_ext_pre_shared_key_parse_clienthello(SSL *ssl,
                                              uint8_t *out_alert,
                                              CBS *contents) {
   /* We only process the first PSK identity since we don't support pure PSK. */
+  uint32_t obfuscated_ticket_age;
   CBS identity, ticket;
   if (!CBS_get_u16_length_prefixed(contents, &identity) ||
       !CBS_get_u16_length_prefixed(&identity, &ticket) ||
+      !CBS_get_u32(&identity, &obfuscated_ticket_age) ||
       CBS_len(contents) != 0) {
     *out_alert = SSL_AD_DECODE_ERROR;
     return 0;
   }
+
+  /* TODO(svaldez): Check that the ticket_age is valid when attempting to use
+   * the PSK for 0-RTT. */
 
   /* TLS 1.3 session tickets are renewed separately as part of the
    * NewSessionTicket. */

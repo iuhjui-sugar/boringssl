@@ -423,6 +423,7 @@ Curves:
 
 	if foundKEMode {
 		for i, pskIdentity := range pskIdentities {
+			// TODO(svaldez): Check the obfuscatedTicketAge before accepting 0-RTT.
 			sessionState, ok := c.decryptTicket(pskIdentity.ticket)
 			if !ok {
 				continue

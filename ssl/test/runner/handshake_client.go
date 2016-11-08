@@ -252,8 +252,10 @@ NextCipherSuite:
 		if session.vers >= VersionTLS13 || c.config.Bugs.SendBothTickets {
 			// TODO(nharper): Support sending more
 			// than one PSK identity.
+			ticketAge := uint32(c.config.time().Sub(session.ticketCreationTime))
 			psk := pskIdentity{
-				ticket: ticket,
+				ticket:              ticket,
+				obfuscatedTicketAge: session.ticketAgeAdd + ticketAge,
 			}
 			hello.pskIdentities = []pskIdentity{psk}
 

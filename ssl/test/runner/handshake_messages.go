@@ -125,7 +125,8 @@ type keyShareEntry struct {
 }
 
 type pskIdentity struct {
-	ticket []uint8
+	ticket              []uint8
+	obfuscatedTicketAge uint32
 }
 
 type clientHelloMsg struct {
@@ -323,6 +324,7 @@ func (m *clientHelloMsg) marshal() []byte {
 		pskIdentities := pskExtension.addU16LengthPrefixed()
 		for _, psk := range m.pskIdentities {
 			pskIdentities.addU16LengthPrefixed().addBytes(psk.ticket)
+			pskIdentities.addU32(psk.obfuscatedTicketAge)
 		}
 	}
 	if len(m.pskKEModes) > 0 {
@@ -633,14 +635,17 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 				pskLen := int(d[0])<<8 | int(d[1])
 				d = d[2:]
 
-				if len(d) < pskLen {
+				if len(d) < pskLen+4 {
 					return false
 				}
+				ticket := d[:pskLen]
+				obfuscatedTicketAge := uint32(d[pskLen])<<24 | uint32(d[pskLen+1])<<16 | uint32(d[pskLen+2])<<8 | uint32(d[pskLen+3])
 				psk := pskIdentity{
-					ticket: d[:pskLen],
+					ticket:              ticket,
+					obfuscatedTicketAge: obfuscatedTicketAge,
 				}
 				m.pskIdentities = append(m.pskIdentities, psk)
-				d = d[pskLen:]
+				d = d[pskLen+4:]
 			}
 		case extensionPSKKeyExchangeModes:
 			// draft-ietf-tls-tls13 section 4.2.7
@@ -2277,7 +2282,7 @@ func eqPSKIdentityLists(x, y []pskIdentity) bool {
 		return false
 	}
 	for i, v := range x {
-		if !bytes.Equal(y[i].ticket, v.ticket) {
+		if !bytes.Equal(y[i].ticket, v.ticket) || y[i].obfuscatedTicketAge != v.obfuscatedTicketAge {
 			return false
 		}
 	}
