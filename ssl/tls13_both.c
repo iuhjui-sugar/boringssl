@@ -174,7 +174,7 @@ int tls13_process_certificate(SSL *ssl, int allow_anonymous) {
   }
 
   const int retain_sha256 =
-      ssl->server && ssl->ctx->retain_only_sha256_of_client_certs;
+      ssl->server && ssl->retain_only_sha256_of_client_certs;
   int ret = 0;
   uint8_t alert;
   STACK_OF(X509) *chain = ssl_parse_cert_chain(

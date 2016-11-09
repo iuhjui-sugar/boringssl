@@ -119,6 +119,10 @@ struct TestConfig {
   bool use_exporter_between_reads = false;
   int expect_cipher_aes = 0;
   int expect_cipher_no_aes = 0;
+  bool retain_only_sha256_client_cert_initial = false;
+  bool retain_only_sha256_client_cert_resume = false;
+  bool expect_sha256_client_cert_initial = false;
+  bool expect_sha256_client_cert_resume = false;
 };
 
 bool ParseConfig(int argc, char **argv, TestConfig *out_config);
