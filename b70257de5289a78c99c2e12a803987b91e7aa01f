@@ -34,6 +34,24 @@
       "revId": "b70257de5289a78c99c2e12a803987b91e7aa01f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ab888773_f1f468b3",
+        "filename": "tool/transport_common.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-09T19:01:12Z",
+      "side": 1,
+      "message": "Well, it specifically says \"in static initializations\". I don\u0027t think this is one?\n\n*shrug* If this works and the old one doesn\u0027t, that\u0027s cool. I see other code that does an assignment to IN6ADDR_ANY_INIT, and it\u0027s pretty implausible for them to be different. I think in6addr_any is more for things like passing into memcpy.",
+      "parentUuid": "0bb35316_9ff197ea",
+      "revId": "b70257de5289a78c99c2e12a803987b91e7aa01f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
