@@ -16,6 +16,24 @@
       "revId": "b70257de5289a78c99c2e12a803987b91e7aa01f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0bb35316_9ff197ea",
+        "filename": "tool/transport_common.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-11-09T03:19:36Z",
+      "side": 1,
+      "message": "TBH I don\u0027t understand it too well; there was some platform (I forget which one now) where IN6ADDR_ANY_INIT worked and in6addr_any init did not.\n\nI don\u0027t read the former link to mean that IN6ADDR_ANY_INIT is wrong, but it sounds like you\u0027re taking it that way?\n\nHappy to revert if this seems shady.",
+      "parentUuid": "9c0f8be2_f91ab792",
+      "revId": "b70257de5289a78c99c2e12a803987b91e7aa01f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
