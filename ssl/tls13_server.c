@@ -125,7 +125,13 @@ static enum ssl_hs_wait_t do_process_client_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
       (session->ssl_version != ssl->version ||
        !ssl_client_cipher_list_contains_cipher(
            &client_hello, (uint16_t)SSL_CIPHER_get_id(session->cipher)) ||
-       !ssl_is_valid_cipher(ssl, session->cipher))) {
+       !ssl_is_valid_cipher(ssl, session->cipher) ||
+       /* If the session contains a client certificate (either the full
+        * certificate or just the hash) then require that the form of the
+        * certificate matches the current configuration. */
+       ((session->x509_peer != NULL || session->peer_sha256_valid) &&
+        session->peer_sha256_valid !=
+            ssl->retain_only_sha256_of_client_certs))) {
     SSL_SESSION_free(session);
     session = NULL;
   }
