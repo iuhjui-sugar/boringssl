@@ -734,6 +734,12 @@ OPENSSL_EXPORT uint32_t SSL_clear_mode(SSL *ssl, uint32_t mode);
  * modes enabled for |ssl|. */
 OPENSSL_EXPORT uint32_t SSL_get_mode(const SSL *ssl);
 
+/* SSL_CTX_set0_buffer_pool sets a |CRYPTO_BUFFER_POOL| that will be used to
+ * store certificates. This can allow multiple connections to share
+ * certificates and thus save memory. */
+OPENSSL_EXPORT void SSL_CTX_set0_buffer_pool(SSL_CTX *ctx,
+                                             CRYPTO_BUFFER_POOL *pool);
+
 
 /* Configuring certificates and private keys.
  *
@@ -4038,6 +4044,10 @@ struct ssl_ctx_st {
    * TODO(agl): remove once node.js no longer references this. */
   STACK_OF(X509)* extra_certs;
   int freelist_max_len;
+
+  /* pool is used for all |CRYPTO_BUFFER|s in case we wish to share certificate
+   * memory. */
+  CRYPTO_BUFFER_POOL *pool;
 };
 
 struct ssl_st {
