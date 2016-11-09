@@ -642,7 +642,13 @@ int ssl_session_is_resumable(const SSL *ssl, const SSL_SESSION *session) {
          ssl->version == session->ssl_version &&
          /* Only resume if the session's cipher is still valid under the
           * current configuration. */
-         ssl_is_valid_cipher(ssl, session->cipher);
+         ssl_is_valid_cipher(ssl, session->cipher) &&
+         /* If the session contains a client certificate (either the full
+          * certificate or just the hash) then require that the form of the
+          * certificate matches the current configuration. */
+         ((session->x509_peer == NULL && !session->peer_sha256_valid) ||
+          session->peer_sha256_valid ==
+              ssl->retain_only_sha256_of_client_certs);
 }
 
 /* ssl_lookup_session looks up |session_id| in the session cache and sets
