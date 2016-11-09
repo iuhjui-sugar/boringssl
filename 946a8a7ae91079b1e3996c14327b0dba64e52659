@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ab888773_f4dd3629",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 903,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-11-09T20:50:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bd3c31c_e90d2de7",
+      "range": {
+        "startLine": 903,
+        "startChar": 5,
+        "endLine": 903,
+        "endChar": 25
+      },
+      "revId": "946a8a7ae91079b1e3996c14327b0dba64e52659",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8bd3c31c_e98a8d35",
         "filename": "ssl/internal.h",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2016-11-07T23:13:46Z",
       "side": 1,
       "message": "Doesn\u0027t really matter for this struct, but unsigned received_sct_request:1 and don\u0027t put it between the two extensions blocks unnecessarily.",
+      "range": {
+        "startLine": 905,
+        "startChar": 2,
+        "endLine": 905,
+        "endChar": 5
+      },
+      "revId": "946a8a7ae91079b1e3996c14327b0dba64e52659",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ab888773_94d2aa18",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 905,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-11-09T20:50:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bd3c31c_e98a8d35",
       "range": {
         "startLine": 905,
         "startChar": 2,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "ab888773_b4a9ee7a",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1166,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-11-09T20:50:32Z",
+      "side": 1,
+      "message": "below.",
+      "parentUuid": "8bd3c31c_894e6134",
+      "revId": "946a8a7ae91079b1e3996c14327b0dba64e52659",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8bd3c31c_c93f8978",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 3
@@ -76,6 +142,24 @@
       "writtenOn": "2016-11-07T23:13:46Z",
       "side": 1,
       "message": "There is already a session_reused check.",
+      "revId": "946a8a7ae91079b1e3996c14327b0dba64e52659",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ab888773_749ce650",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1211,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-11-09T20:50:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bd3c31c_c93f8978",
       "revId": "946a8a7ae91079b1e3996c14327b0dba64e52659",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -99,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "ab888773_1499da5f",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1219,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-11-09T20:50:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bd3c31c_093a5187",
+      "revId": "946a8a7ae91079b1e3996c14327b0dba64e52659",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8bd3c31c_69fafd9d",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 3
@@ -110,6 +212,24 @@
       "writtenOn": "2016-11-07T23:13:46Z",
       "side": 1,
       "message": "This could do with a comment.",
+      "revId": "946a8a7ae91079b1e3996c14327b0dba64e52659",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ab888773_34965e31",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1379,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-11-09T20:50:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bd3c31c_69fafd9d",
       "revId": "946a8a7ae91079b1e3996c14327b0dba64e52659",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -133,6 +253,24 @@
     },
     {
       "key": {
+        "uuid": "ab888773_378740f8",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-11-09T20:50:32Z",
+      "side": 1,
+      "message": "I ignore you.",
+      "parentUuid": "8bd3c31c_3443e8b2",
+      "revId": "946a8a7ae91079b1e3996c14327b0dba64e52659",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8bd3c31c_14fc244a",
         "filename": "ssl/test/runner/handshake_messages.go",
         "patchSetId": 3
@@ -144,6 +282,24 @@
       "writtenOn": "2016-11-07T23:13:46Z",
       "side": 1,
       "message": "Policy goes in the handshake, not the serialization. This prevents you us from testing that we correctly handle extensions in non-leaf certificates. (Please add those tests in this CL as well.) This structure should support OCSP responses in every CertificateEntry.",
+      "revId": "946a8a7ae91079b1e3996c14327b0dba64e52659",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ab888773_f75e988c",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 1362,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-11-09T20:50:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bd3c31c_14fc244a",
       "revId": "946a8a7ae91079b1e3996c14327b0dba64e52659",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -173,6 +329,30 @@
     },
     {
       "key": {
+        "uuid": "ab888773_97638c5b",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 1378,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-11-09T20:50:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bd3c31c_7412d0ca",
+      "range": {
+        "startLine": 1378,
+        "startChar": 5,
+        "endLine": 1378,
+        "endChar": 9
+      },
+      "revId": "946a8a7ae91079b1e3996c14327b0dba64e52659",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8bd3c31c_941754b8",
         "filename": "ssl/test/runner/handshake_messages.go",
         "patchSetId": 3
@@ -184,6 +364,24 @@
       "writtenOn": "2016-11-07T23:13:46Z",
       "side": 1,
       "message": "This version field is redundant with hasRequestContext. Perhaps you want to rename that a little.",
+      "revId": "946a8a7ae91079b1e3996c14327b0dba64e52659",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ab888773_b7681036",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 1381,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-11-09T20:50:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bd3c31c_941754b8",
       "revId": "946a8a7ae91079b1e3996c14327b0dba64e52659",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -207,6 +405,24 @@
     },
     {
       "key": {
+        "uuid": "ab888773_774b88cc",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 1383,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-11-09T20:50:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bd3c31c_b41b78e1",
+      "revId": "946a8a7ae91079b1e3996c14327b0dba64e52659",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8bd3c31c_f4250024",
         "filename": "ssl/test/runner/handshake_messages.go",
         "patchSetId": 3
@@ -218,6 +434,30 @@
       "writtenOn": "2016-11-07T23:13:46Z",
       "side": 1,
       "message": "isLeaf. Ditto everywhere else in the CL, in both languages. leaf is an object which represents the leaf, isLeaf/is_leaf is a boolean for whether something is the leaf.\n\nThat said, it seems you could just check len(m.certificates).\n\nThough see comment above.",
+      "range": {
+        "startLine": 1435,
+        "startChar": 1,
+        "endLine": 1435,
+        "endChar": 5
+      },
+      "revId": "946a8a7ae91079b1e3996c14327b0dba64e52659",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ab888773_973cec28",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 1435,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-11-09T20:50:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bd3c31c_f4250024",
       "range": {
         "startLine": 1435,
         "startChar": 1,
@@ -253,6 +493,30 @@
     },
     {
       "key": {
+        "uuid": "ab888773_f7a8d830",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 1475,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-11-09T20:50:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bd3c31c_345a089b",
+      "range": {
+        "startLine": 1475,
+        "startChar": 24,
+        "endLine": 1475,
+        "endChar": 38
+      },
+      "revId": "946a8a7ae91079b1e3996c14327b0dba64e52659",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8bd3c31c_743d7023",
         "filename": "ssl/test/runner/handshake_server.go",
         "patchSetId": 3
@@ -270,6 +534,24 @@
     },
     {
       "key": {
+        "uuid": "ab888773_57e1a487",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-11-09T20:50:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bd3c31c_743d7023",
+      "revId": "946a8a7ae91079b1e3996c14327b0dba64e52659",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8bd3c31c_b44d38e2",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 3
@@ -281,6 +563,24 @@
       "writtenOn": "2016-11-07T23:13:46Z",
       "side": 1,
       "message": "Missing tests:\n\n- We correctly ignore OCSP responses and SCTs in intermediates.\n- We don\u0027t get confused if there\u0027s two copies of some extension.\n- We correctly reject unsolicited extensions, both an unsolicited OCSP response or SCT list and totally custom ones.",
+      "revId": "946a8a7ae91079b1e3996c14327b0dba64e52659",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ab888773_57fe84bf",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 5256,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-11-09T20:50:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bd3c31c_b44d38e2",
       "revId": "946a8a7ae91079b1e3996c14327b0dba64e52659",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -321,6 +621,24 @@
     },
     {
       "key": {
+        "uuid": "ab888773_b7fed08d",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-11-09T20:50:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bd3c31c_49b0d9dd",
+      "revId": "946a8a7ae91079b1e3996c14327b0dba64e52659",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8bd3c31c_a99ec548",
         "filename": "ssl/tls13_both.c",
         "patchSetId": 3
@@ -332,6 +650,24 @@
       "writtenOn": "2016-11-07T23:13:46Z",
       "side": 1,
       "message": "Move the sk_X509_num(chain) check down here and likewise below. We should enforce these unexpected extensions checks.",
+      "revId": "946a8a7ae91079b1e3996c14327b0dba64e52659",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ab888773_570444c4",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-11-09T20:50:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bd3c31c_a99ec548",
       "revId": "946a8a7ae91079b1e3996c14327b0dba64e52659",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -355,6 +691,24 @@
     },
     {
       "key": {
+        "uuid": "ab888773_170ebce2",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-11-09T20:50:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bd3c31c_3495a81b",
+      "revId": "946a8a7ae91079b1e3996c14327b0dba64e52659",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8bd3c31c_49de1927",
         "filename": "ssl/tls13_both.c",
         "patchSetId": 3
@@ -366,6 +720,24 @@
       "writtenOn": "2016-11-07T23:13:46Z",
       "side": 1,
       "message": "80 chars",
+      "revId": "946a8a7ae91079b1e3996c14327b0dba64e52659",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ab888773_370bc0d3",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-11-09T20:50:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bd3c31c_49de1927",
       "revId": "946a8a7ae91079b1e3996c14327b0dba64e52659",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -412,6 +784,48 @@
     },
     {
       "key": {
+        "uuid": "ab888773_97d2ac18",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-11-09T20:50:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bd3c31c_09e411f5",
+      "range": {
+        "startLine": 449,
+        "startChar": 10,
+        "endLine": 449,
+        "endChar": 37
+      },
+      "revId": "946a8a7ae91079b1e3996c14327b0dba64e52659",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ab888773_b7d7b007",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-11-09T20:50:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bd3c31c_69d3dd1d",
+      "revId": "946a8a7ae91079b1e3996c14327b0dba64e52659",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8bd3c31c_f4d420d3",
         "filename": "ssl/tls13_both.c",
         "patchSetId": 3
@@ -435,6 +849,30 @@
     },
     {
       "key": {
+        "uuid": "ab888773_7aafed63",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-11-09T20:50:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bd3c31c_f4d420d3",
+      "range": {
+        "startLine": 457,
+        "startChar": 6,
+        "endLine": 457,
+        "endChar": 10
+      },
+      "revId": "946a8a7ae91079b1e3996c14327b0dba64e52659",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8bd3c31c_74c81042",
         "filename": "ssl/tls13_both.c",
         "patchSetId": 3
@@ -446,6 +884,24 @@
       "writtenOn": "2016-11-07T23:13:46Z",
       "side": 1,
       "message": "This logic needs to be kept common between TLS 1.2 and TLS 1.3. Have common code figure out what chain to send while mundane syntax fluff is separate.\n\nIn general, duplicate handshake logic where is reasonable since that\u0027s separate, but always keep logic that evaluates configuration in one place. Otherwise we will inadvertently diverge on that. This also will get in the way of efforts to decouple crypto/x509 from the SSL stack.",
+      "revId": "946a8a7ae91079b1e3996c14327b0dba64e52659",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ab888773_1abca19a",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-11-09T20:50:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bd3c31c_74c81042",
       "revId": "946a8a7ae91079b1e3996c14327b0dba64e52659",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
