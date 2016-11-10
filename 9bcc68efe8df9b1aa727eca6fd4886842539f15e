@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab888773_60dbbc03",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 782,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-10T16:29:47Z",
+      "side": 1,
+      "message": "Want to write a test? ;-) 1.3 needs the same logic, I think. (Hrm. This is getting really hairy with all the different places the session validity is checked... I\u0027ll try to clean that up.)\n\nDo you want the converse too? If we\u0027ve set retain_only_sha256_of_client_certs, probably we shouldn\u0027t accept certs with x509_peer but not peer_sha256_valid (we don\u0027t fill that in by default). Perhaps:\n\n  const int session_has_certs \u003d session-\u003epeer_sha256_valid || session-\u003ex509_peer !\u003d NULL;\n\n\n  [...]\n\n  (!session_has_certs ||\n   session-\u003epeer_sha256_valid \u003d\u003d ssl-\u003eretain_only_sha256_of_client_certs)",
+      "revId": "9bcc68efe8df9b1aa727eca6fd4886842539f15e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
