@@ -22,7 +22,7 @@ extern "C" {
 #endif
 
 
-typedef uint8_t poly1305_state[512];
+typedef uint32_t poly1305_state[128];
 
 /* CRYPTO_poly1305_init sets up |state| so that it can be used to calculate an
  * authentication tag with the one-time key |key|. Note that |key| is a
