@@ -457,6 +457,32 @@ static bool TestAddingEqualPoints(int nid) {
   return true;
 }
 
+static bool TestMulZero(int nid) {
+  bssl::UniquePtr<EC_GROUP> group(EC_GROUP_new_by_curve_name(nid));
+  if (!group) {
+    return false;
+  }
+
+  bssl::UniquePtr<EC_POINT> point(EC_POINT_new(group.get()));
+  bssl::UniquePtr<BIGNUM> zero(BN_new());
+  if (!point || !zero) {
+    return false;
+  }
+
+  BN_zero(zero.get());
+  if (!EC_POINT_mul(group.get(), point.get(), zero.get(), nullptr, nullptr,
+                    nullptr)) {
+    return false;
+  }
+
+  if (!EC_POINT_is_at_infinity(group.get(), point.get())) {
+    fprintf(stderr, "g * 0 did not return point at infinity.\n");
+    return false;
+  }
+
+  return true;
+}
+
 static bool ForEachCurve(bool (*test_func)(int nid)) {
   const size_t num_curves = EC_get_builtin_curves(nullptr, 0);
   std::vector<EC_builtin_curve> curves(num_curves);
@@ -480,6 +506,7 @@ int main() {
       !TestSpecifiedCurve() ||
       !ForEachCurve(TestSetAffine) ||
       !ForEachCurve(TestAddingEqualPoints) ||
+      !ForEachCurve(TestMulZero) ||
       !TestArbitraryCurve()) {
     fprintf(stderr, "failed\n");
     return 1;
