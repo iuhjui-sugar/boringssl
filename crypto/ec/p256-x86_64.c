@@ -90,6 +90,13 @@ static void copy_conditional(BN_ULONG dst[P256_LIMBS],
   }
 }
 
+static BN_ULONG is_zero(BN_ULONG in) {
+  in |= (0 - in);
+  in = ~in;
+  in >>= BN_BITS2 - 1;
+  return in;
+}
+
 /* ecp_nistz256_mod_inverse_mont sets |r| to (|in| * 2^-256)^-1 * 2^256 mod p.
  * That is, |r| is the modular inverse of |in| for input and output in the
  * Montgomery domain. */
@@ -410,7 +417,29 @@ static int ecp_nistz256_points_mul(
     ecp_nistz256_neg(p.p.Z, p.p.Y);
     copy_conditional(p.p.Y, p.p.Z, wvalue & 1);
 
-    memcpy(p.p.Z, ONE, sizeof(ONE));
+    /* Since affine infinity is encoded as (0, 0) and Jacobian infinity is
+     * encoded as (,,0), we need to harmonize them by assigning |ONE| or zero to
+     * Z. */
+    BN_ULONG infty = p.p.X[0] | p.p.X[1] | p.p.X[2] | p.p.X[3] | p.p.Y[0] |
+                     p.p.Y[1] | p.p.Y[2] | p.p.Y[3];
+    if (P256_LIMBS == 8) {
+      infty |= p.p.X[4] | p.p.X[5] | p.p.X[6] | p.p.X[7] | p.p.Y[4] | p.p.Y[5] |
+               p.p.Y[6] | p.p.Y[7];
+    }
+
+    infty = 0 - is_zero(infty);
+    infty = ~infty;
+
+    p.p.Z[0] = ONE[0] & infty;
+    p.p.Z[1] = ONE[1] & infty;
+    p.p.Z[2] = ONE[2] & infty;
+    p.p.Z[3] = ONE[3] & infty;
+    if (P256_LIMBS == 8) {
+      p.p.Z[4] = ONE[4] & infty;
+      p.p.Z[5] = ONE[5] & infty;
+      p.p.Z[6] = ONE[6] & infty;
+      p.p.Z[7] = ONE[7] & infty;
+    }
 
     for (i = 1; i < 37; i++) {
       unsigned off = (index - 1) / 8;
