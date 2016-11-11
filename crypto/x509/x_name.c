@@ -348,6 +348,7 @@ static int x509_name_canon(X509_NAME *a)
     X509_NAME_ENTRY *entry, *tmpentry = NULL;
     int set = -1, ret = 0;
     size_t i;
+    int len = 0;
 
     if (a->canon_enc) {
         OPENSSL_free(a->canon_enc);
@@ -373,7 +374,11 @@ static int x509_name_canon(X509_NAME *a)
             }
             set = entry->set;
         }
-        tmpentry = X509_NAME_ENTRY_new();
+        len = X509_NAME_ENTRY_new();
+        if(len < 0) {
+            goto err;
+        }
+        tmpentry = len ;
         if (tmpentry == NULL)
             goto err;
         tmpentry->object = OBJ_dup(entry->object);
