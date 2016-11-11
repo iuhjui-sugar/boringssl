@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b1ef349_04fe56be",
+        "filename": "crypto/ec/p256-x86_64.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-11T23:44:22Z",
+      "side": 1,
+      "message": "It\u0027ll return zero for all out-of-bounds values of |index| too, but I believe it is actually intended to be called at index zero this way. There\u0027s a comment in the C code:\n\n  /* table[0] is implicitly (0,0,0) (the point at infinity), therefore it is\n   * not stored. All other values are actually stored with an offset of -1 in\n   * table. */",
+      "range": {
+        "startLine": 78,
+        "startChar": 55,
+        "endLine": 78,
+        "endChar": 56
+      },
+      "revId": "1183f72ee7e19b24873569fcbc11bcc3b55510cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
