@@ -348,6 +348,7 @@ static int x509_name_canon(X509_NAME *a)
     X509_NAME_ENTRY *entry, *tmpentry = NULL;
     int set = -1, ret = 0;
     size_t i;
+    int len = 0;
 
     if (a->canon_enc) {
         OPENSSL_free(a->canon_enc);
@@ -386,7 +387,11 @@ static int x509_name_canon(X509_NAME *a)
 
     /* Finally generate encoding */
 
-    a->canon_enclen = i2d_name_canon(intname, NULL);
+    len = i2d_name_canon(intname, NULL);
+    if ( len < 0 ) {
+        goto err;
+    }
+    a->canon_enclen = len;
 
     p = OPENSSL_malloc(a->canon_enclen);
 
