@@ -1,0 +1,181 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b1ef349_44720e93",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-12T03:53:14Z",
+      "side": 1,
+      "message": "Could you add a sentence here to explain why this change? (Otherwise looking at this change in isolation will be confusing. In general, commit messages should not rely on context about what we\u0027re currently working on. That\u0027s why we have bugs, etc.)\n\nAlso, could you file a bug for draft 18 and staple it to all these changes?",
+      "revId": "14e41099294c57b4c9d6e43d8b9d1147fc221841",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_448bee3a",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-12T03:53:14Z",
+      "side": 1,
+      "message": "Existing problem, but this length check doesn\u0027t seem to serve any purpose.",
+      "revId": "14e41099294c57b4c9d6e43d8b9d1147fc221841",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_a4810222",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1271,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-12T03:53:14Z",
+      "side": 1,
+      "message": "Document ownership story.\n\nIt sets |*out_msg| to a newly-allocated buffer with the serialized message. The caller must release it with |OPENSSL_free| when done.",
+      "range": {
+        "startLine": 1271,
+        "startChar": 48,
+        "endLine": 1271,
+        "endChar": 50
+      },
+      "revId": "14e41099294c57b4c9d6e43d8b9d1147fc221841",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_646f0aaa",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1273,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-12T03:53:14Z",
+      "side": 1,
+      "message": "To match CBB_finish, I think cbb as the second argument. (Context before outputs. Context vs. input is kinda ambiguous, but I think cbb isn\u0027t quite an input argument since it gets mutated.)",
+      "range": {
+        "startLine": 1273,
+        "startChar": 70,
+        "endLine": 1273,
+        "endChar": 78
+      },
+      "revId": "14e41099294c57b4c9d6e43d8b9d1147fc221841",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_847c0663",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1275,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-12T03:53:14Z",
+      "side": 1,
+      "message": "Ditto. Functions with non-trivial ownership need to document it.\n\nIt takes ownership of |msg| and releases it with |OPENSSL_free|.",
+      "revId": "14e41099294c57b4c9d6e43d8b9d1147fc221841",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_c476fe80",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1734,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-12T03:53:14Z",
+      "side": 1,
+      "message": "80 chars",
+      "revId": "14e41099294c57b4c9d6e43d8b9d1147fc221841",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_e47bfa65",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1738,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-12T03:53:14Z",
+      "side": 1,
+      "message": "Document.",
+      "revId": "14e41099294c57b4c9d6e43d8b9d1147fc221841",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_0491f66a",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-12T03:53:14Z",
+      "side": 1,
+      "message": "No need for this check here. It returns a size_t. Rather, it needs to be in ssl3_queue_message which casts it to a uint32_t.",
+      "range": {
+        "startLine": 211,
+        "startChar": 6,
+        "endLine": 211,
+        "endChar": 28
+      },
+      "revId": "14e41099294c57b4c9d6e43d8b9d1147fc221841",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_248ef24b",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-12T03:53:14Z",
+      "side": 1,
+      "message": "This leaks memory if queue_message fails.\n\nOne option is to say that queue_message releases |msg| whether or not it succeeds (in which case it must be documented).",
+      "range": {
+        "startLine": 236,
+        "startChar": 20,
+        "endLine": 236,
+        "endChar": 33
+      },
+      "revId": "14e41099294c57b4c9d6e43d8b9d1147fc221841",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
