@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b773781_434f44a9",
+        "filename": "crypto/ec/p256-x86_64.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-11-12T01:06:07Z",
+      "side": 1,
+      "message": "Here is the code that maps the the affine-with-infinity-as-(0, 0) representation of the point at infinity to Jacobian. But, isn\u0027t there a need for a Jacobian-to-affine-with-infinity-as-(0,0) representation mapping of each EC_POINT at the top of the multiplication function(s)?",
+      "revId": "4317f9e055c8fb5a50681111556004e44a7efe34",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
