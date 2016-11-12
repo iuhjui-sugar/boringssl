@@ -237,6 +237,7 @@ NextCipherSuite:
 		}
 	}
 
+	var pskCipherSuite *cipherSuite
 	if session != nil && c.config.time().Before(session.ticketExpiration) {
 		ticket := session.sessionTicket
 		if c.config.Bugs.FilterTicket != nil && len(ticket) > 0 {
@@ -251,12 +252,21 @@ NextCipherSuite:
 		}
 
 		if session.vers >= VersionTLS13 || c.config.Bugs.SendBothTickets {
+			for _, suite := range cipherSuites {
+				if session.cipherSuite == suite.id {
+					pskCipherSuite = suite
+					break
+				}
+			}
+			if pskCipherSuite == nil {
+				return errors.New("tls: client session cache has invalid cipher suite")
+			}
 			// TODO(nharper): Support sending more
 			// than one PSK identity.
-			ticketAge := uint32(c.config.time().Sub(session.ticketCreationTime)/time.Millisecond)
+			ticketAge := uint32(c.config.time().Sub(session.ticketCreationTime) / time.Millisecond)
 			psk := pskIdentity{
 				ticket:              ticket,
-				obfuscatedTicketAge: session.ticketAgeAdd + ticketAge,
+				obfuscatedTicketAge: session.ticketAgeAdd + uint32(ticketAge),
 			}
 			hello.pskIdentities = []pskIdentity{psk}
 
@@ -317,7 +327,11 @@ NextCipherSuite:
 		helloBytes = v2Hello.marshal()
 		c.writeV2Record(helloBytes)
 	} else {
+		if len(hello.pskIdentities) > 0 {
+			generatePSKBinders(hello, pskCipherSuite, session.masterSecret, []byte{})
+		}
 		helloBytes = hello.marshal()
+
 		if c.config.Bugs.PartialClientFinishedWithClientHello {
 			// Include one byte of Finished. We can compute it
 			// without completing the handshake. This assumes we
@@ -436,6 +450,9 @@ NextCipherSuite:
 		hello.earlyDataContext = nil
 		hello.raw = nil
 
+		if len(hello.pskIdentities) > 0 {
+			generatePSKBinders(hello, pskCipherSuite, session.masterSecret, append(helloBytes, helloRetryRequest.marshal()...))
+		}
 		secondHelloBytes = hello.marshal()
 		c.writeRecord(recordTypeHandshake, secondHelloBytes)
 		c.flushHandshake()
@@ -1581,4 +1598,20 @@ func writeIntPadded(b []byte, x *big.Int) {
 	}
 	xb := x.Bytes()
 	copy(b[len(b)-len(xb):], xb)
+}
+
+func generatePSKBinders(hello *clientHelloMsg, pskCipherSuite *cipherSuite, psk, transcript []byte) {
+	binderLen := pskCipherSuite.hash().Size()
+	hello.pskBinders = make([][]byte, len(hello.pskIdentities))
+	for i := range hello.pskIdentities {
+		hello.pskBinders[i] = make([]byte, binderLen)
+	}
+	helloBytes := hello.marshal()
+	binderSize := len(hello.pskBinders)*(binderLen+1) + 2
+	truncatedHello := helloBytes[:len(helloBytes)-binderSize]
+	binder := computePSKBinder(psk, resumptionPSKBinderLabel, pskCipherSuite, transcript, truncatedHello)
+	for i := range hello.pskBinders {
+		hello.pskBinders[i] = binder
+	}
+	hello.raw = nil
 }
