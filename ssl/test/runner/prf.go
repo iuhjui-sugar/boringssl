@@ -406,6 +406,8 @@ func (h *finishedHash) appendContextHashes(b []byte) []byte {
 
 // The following are labels for traffic secret derivation in TLS 1.3.
 var (
+	externalPSKBinderLabel        = []byte("external psk binder key")
+	resumptionPSKBinderLabel      = []byte("resumption psk binder key")
 	earlyTrafficLabel             = []byte("client early traffic secret")
 	clientHandshakeTrafficLabel   = []byte("client handshake traffic secret")
 	serverHandshakeTrafficLabel   = []byte("server handshake traffic secret")
@@ -466,4 +468,13 @@ func deriveTrafficAEAD(version uint16, suite *cipherSuite, secret []byte, side t
 
 func updateTrafficSecret(hash crypto.Hash, secret []byte) []byte {
 	return hkdfExpandLabel(hash, secret, applicationTrafficLabel, nil, hash.Size())
+}
+
+func computePSKBinder(psk []byte, label []byte, cipherSuite *cipherSuite, transcript, truncatedHello []byte) []byte {
+	finishedHash := newFinishedHash(VersionTLS13, cipherSuite)
+	earlySecret := finishedHash.extractKey(finishedHash.zeroSecret(), psk)
+	finishedHash.Write(transcript)
+	finishedHash.Write(truncatedHello)
+	binderKey := finishedHash.deriveSecret(earlySecret, label)
+	return finishedHash.clientSum(binderKey)
 }

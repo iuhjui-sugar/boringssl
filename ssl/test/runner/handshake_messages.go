@@ -148,6 +148,7 @@ type clientHelloMsg struct {
 	trailingKeyShareData    bool
 	pskIdentities           []pskIdentity
 	pskKEModes              []byte
+	pskBinders              [][]uint8
 	hasEarlyData            bool
 	earlyDataContext        []byte
 	tls13Cookie             []byte
@@ -192,6 +193,7 @@ func (m *clientHelloMsg) equal(i interface{}) bool {
 		m.trailingKeyShareData == m1.trailingKeyShareData &&
 		eqPSKIdentityLists(m.pskIdentities, m1.pskIdentities) &&
 		bytes.Equal(m.pskKEModes, m1.pskKEModes) &&
+		eqByteSlices(m.pskBinders, m1.pskBinders) &&
 		m.hasEarlyData == m1.hasEarlyData &&
 		bytes.Equal(m.earlyDataContext, m1.earlyDataContext) &&
 		bytes.Equal(m.tls13Cookie, m1.tls13Cookie) &&
@@ -317,16 +319,6 @@ func (m *clientHelloMsg) marshal() []byte {
 			keyShares.addU8(0)
 		}
 	}
-	if len(m.pskIdentities) > 0 {
-		extensions.addU16(extensionPreSharedKey)
-		pskExtension := extensions.addU16LengthPrefixed()
-
-		pskIdentities := pskExtension.addU16LengthPrefixed()
-		for _, psk := range m.pskIdentities {
-			pskIdentities.addU16LengthPrefixed().addBytes(psk.ticket)
-			pskIdentities.addU32(psk.obfuscatedTicketAge)
-		}
-	}
 	if len(m.pskKEModes) > 0 {
 		extensions.addU16(extensionPSKKeyExchangeModes)
 		pskModesExtension := extensions.addU16LengthPrefixed()
@@ -426,6 +418,21 @@ func (m *clientHelloMsg) marshal() []byte {
 		extensions.addU16(extensionCustom)
 		customExt := extensions.addU16LengthPrefixed()
 		customExt.addBytes([]byte(m.customExtension))
+	}
+	// PSK extension must be last (draft-ietf-tls-tls13-18 section 4.2.6)
+	if len(m.pskIdentities) > 0 {
+		extensions.addU16(extensionPreSharedKey)
+		pskExtension := extensions.addU16LengthPrefixed()
+
+		pskIdentities := pskExtension.addU16LengthPrefixed()
+		for _, psk := range m.pskIdentities {
+			pskIdentities.addU16LengthPrefixed().addBytes(psk.ticket)
+			pskIdentities.addU32(psk.obfuscatedTicketAge)
+		}
+		pskBinders := pskExtension.addU16LengthPrefixed()
+		for _, binder := range m.pskBinders {
+			pskBinders.addU8LengthPrefixed().addBytes(binder)
+		}
 	}
 
 	if extensions.len() == 0 {
@@ -619,15 +626,13 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 				m.keyShares = append(m.keyShares, entry)
 			}
 		case extensionPreSharedKey:
-			// draft-ietf-tls-tls13 section 6.3.2.4
+			// draft-ietf-tls-tls13-18 section 4.2.6
 			if length < 2 {
 				return false
 			}
 			l := int(data[0])<<8 | int(data[1])
-			if l != length-2 {
-				return false
-			}
-			d := data[2:length]
+			d := data[2 : l+2]
+			// Parse PSK identities
 			for len(d) > 0 {
 				if len(d) < 2 {
 					return false
@@ -646,6 +651,28 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 				}
 				m.pskIdentities = append(m.pskIdentities, psk)
 				d = d[pskLen+4:]
+			}
+			d = data[l+2:]
+			if len(d) < 2 {
+				return false
+			}
+			l = int(d[0])<<8 | int(d[1])
+			d = d[2:]
+			if l != len(d) {
+				return false
+			}
+			// Parse PSK binders
+			for len(d) > 0 {
+				if len(d) < 1 {
+					return false
+				}
+				binderLen := int(d[0])
+				d = d[1:]
+				if binderLen > len(d) {
+					return false
+				}
+				m.pskBinders = append(m.pskBinders, d[:binderLen])
+				d = d[binderLen:]
 			}
 		case extensionPSKKeyExchangeModes:
 			// draft-ietf-tls-tls13 section 4.2.7

@@ -1414,6 +1414,7 @@ func (c *Conn) handlePostHandshakeMessage() error {
 				ocspResponse:       c.ocspResponse,
 				ticketCreationTime: c.config.time(),
 				ticketExpiration:   c.config.time().Add(time.Duration(newSessionTicket.ticketLifetime) * time.Second),
+				ticketAgeAdd:       newSessionTicket.ticketAgeAdd,
 			}
 
 			cacheKey := clientSessionCacheKey(c.conn.RemoteAddr(), c.config)
