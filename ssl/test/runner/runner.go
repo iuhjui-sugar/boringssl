@@ -5294,8 +5294,8 @@ func addExtensionTests() {
 		config: Config{
 			MaxVersion: VersionTLS13,
 			Bugs: ProtocolBugs{
-				SendOCSPOnIntermediates: []byte{1,3,3,7},
-				SendSCTOnIntermediates: []byte{1,3,3,7},
+				SendOCSPOnIntermediates: []byte{1, 3, 3, 7},
+				SendSCTOnIntermediates:  []byte{1, 3, 3, 7},
 			},
 		},
 		flags: []string{
@@ -5589,6 +5589,62 @@ func addResumptionVersionTests() {
 		},
 		shouldFail:    true,
 		expectedError: ":OLD_SESSION_CIPHER_NOT_RETURNED:",
+	})
+
+	testCases = append(testCases, testCase{
+		testType:      serverTest,
+		name:          "Resume-Server-BinderWrongLength",
+		resumeSession: true,
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				SendShortPSKBinder: true,
+			},
+		},
+		shouldFail:         true,
+		expectedLocalError: "remote error: illegal parameter",
+	})
+
+	testCases = append(testCases, testCase{
+		testType:      serverTest,
+		name:          "Resume-Server-NoPSKBinder",
+		resumeSession: true,
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				SkipPSKBinder: true,
+			},
+		},
+		shouldFail:         true,
+		expectedLocalError: "remote error: illegal parameter",
+	})
+
+	testCases = append(testCases, testCase{
+		testType:      serverTest,
+		name:          "Resume-Server-InvalidPSKBinder",
+		resumeSession: true,
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				SendInvalidPSKBinder: true,
+			},
+		},
+		shouldFail:         true,
+		expectedLocalError: "remote error: illegal parameter",
+	})
+
+	testCases = append(testCases, testCase{
+		testType:      serverTest,
+		name:          "Resume-Server-PSKBinderFirstExtension",
+		resumeSession: true,
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				PSKBinderFirst: true,
+			},
+		},
+		shouldFail:         true,
+		expectedLocalError: "remote error: illegal parameter",
 	})
 }
 
@@ -7914,9 +7970,9 @@ func addSessionTicketTests() {
 				ExpectTicketAge: 1000 * time.Second,
 			},
 		},
-		resumeSession:        true,
-		shouldFail:           true,
-		expectedLocalError:   "tls: invalid ticket age",
+		resumeSession:      true,
+		shouldFail:         true,
+		expectedLocalError: "tls: invalid ticket age",
 	})
 
 }
