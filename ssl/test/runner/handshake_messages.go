@@ -148,6 +148,7 @@ type clientHelloMsg struct {
 	trailingKeyShareData    bool
 	pskIdentities           []pskIdentity
 	pskKEModes              []byte
+	pskBinders              [][]uint8
 	hasEarlyData            bool
 	earlyDataContext        []byte
 	tls13Cookie             []byte
@@ -159,13 +160,14 @@ type clientHelloMsg struct {
 	alpnProtocols           []string
 	duplicateExtension      bool
 	channelIDSupported      bool
-	npnLast                 bool
+	npnAfterAlpn            bool
 	extendedMasterSecret    bool
 	srtpProtectionProfiles  []uint16
 	srtpMasterKeyIdentifier string
 	sctListSupported        bool
 	customExtension         string
 	hasGREASEExtension      bool
+	pskBinderFirst          bool
 }
 
 func (m *clientHelloMsg) equal(i interface{}) bool {
@@ -192,6 +194,7 @@ func (m *clientHelloMsg) equal(i interface{}) bool {
 		m.trailingKeyShareData == m1.trailingKeyShareData &&
 		eqPSKIdentityLists(m.pskIdentities, m1.pskIdentities) &&
 		bytes.Equal(m.pskKEModes, m1.pskKEModes) &&
+		eqByteSlices(m.pskBinders, m1.pskBinders) &&
 		m.hasEarlyData == m1.hasEarlyData &&
 		bytes.Equal(m.earlyDataContext, m1.earlyDataContext) &&
 		bytes.Equal(m.tls13Cookie, m1.tls13Cookie) &&
@@ -204,13 +207,14 @@ func (m *clientHelloMsg) equal(i interface{}) bool {
 		eqStrings(m.alpnProtocols, m1.alpnProtocols) &&
 		m.duplicateExtension == m1.duplicateExtension &&
 		m.channelIDSupported == m1.channelIDSupported &&
-		m.npnLast == m1.npnLast &&
+		m.npnAfterAlpn == m1.npnAfterAlpn &&
 		m.extendedMasterSecret == m1.extendedMasterSecret &&
 		eqUint16s(m.srtpProtectionProfiles, m1.srtpProtectionProfiles) &&
 		m.srtpMasterKeyIdentifier == m1.srtpMasterKeyIdentifier &&
 		m.sctListSupported == m1.sctListSupported &&
 		m.customExtension == m1.customExtension &&
-		m.hasGREASEExtension == m1.hasGREASEExtension
+		m.hasGREASEExtension == m1.hasGREASEExtension &&
+		m.pskBinderFirst == m1.pskBinderFirst
 }
 
 func (m *clientHelloMsg) marshal() []byte {
@@ -237,12 +241,26 @@ func (m *clientHelloMsg) marshal() []byte {
 	compressionMethods.addBytes(m.compressionMethods)
 
 	extensions := hello.addU16LengthPrefixed()
+	if len(m.pskIdentities) > 0 && m.pskBinderFirst {
+		extensions.addU16(extensionPreSharedKey)
+		pskExtension := extensions.addU16LengthPrefixed()
+
+		pskIdentities := pskExtension.addU16LengthPrefixed()
+		for _, psk := range m.pskIdentities {
+			pskIdentities.addU16LengthPrefixed().addBytes(psk.ticket)
+			pskIdentities.addU32(psk.obfuscatedTicketAge)
+		}
+		pskBinders := pskExtension.addU16LengthPrefixed()
+		for _, binder := range m.pskBinders {
+			pskBinders.addU8LengthPrefixed().addBytes(binder)
+		}
+	}
 	if m.duplicateExtension {
 		// Add a duplicate bogus extension at the beginning and end.
 		extensions.addU16(0xffff)
 		extensions.addU16(0) // 0-length for empty extension
 	}
-	if m.nextProtoNeg && !m.npnLast {
+	if m.nextProtoNeg && !m.npnAfterAlpn {
 		extensions.addU16(extensionNextProtoNeg)
 		extensions.addU16(0) // The length is always 0
 	}
@@ -317,16 +335,6 @@ func (m *clientHelloMsg) marshal() []byte {
 			keyShares.addU8(0)
 		}
 	}
-	if len(m.pskIdentities) > 0 {
-		extensions.addU16(extensionPreSharedKey)
-		pskExtension := extensions.addU16LengthPrefixed()
-
-		pskIdentities := pskExtension.addU16LengthPrefixed()
-		for _, psk := range m.pskIdentities {
-			pskIdentities.addU16LengthPrefixed().addBytes(psk.ticket)
-			pskIdentities.addU32(psk.obfuscatedTicketAge)
-		}
-	}
 	if len(m.pskKEModes) > 0 {
 		extensions.addU16(extensionPSKKeyExchangeModes)
 		pskModesExtension := extensions.addU16LengthPrefixed()
@@ -388,7 +396,7 @@ func (m *clientHelloMsg) marshal() []byte {
 		extensions.addU16(extensionChannelID)
 		extensions.addU16(0) // Length is always 0
 	}
-	if m.nextProtoNeg && m.npnLast {
+	if m.nextProtoNeg && m.npnAfterAlpn {
 		extensions.addU16(extensionNextProtoNeg)
 		extensions.addU16(0) // Length is always 0
 	}
@@ -426,6 +434,21 @@ func (m *clientHelloMsg) marshal() []byte {
 		extensions.addU16(extensionCustom)
 		customExt := extensions.addU16LengthPrefixed()
 		customExt.addBytes([]byte(m.customExtension))
+	}
+	// PSK extension must be last (draft-ietf-tls-tls13-18 section 4.2.6)
+	if len(m.pskIdentities) > 0 && !m.pskBinderFirst {
+		extensions.addU16(extensionPreSharedKey)
+		pskExtension := extensions.addU16LengthPrefixed()
+
+		pskIdentities := pskExtension.addU16LengthPrefixed()
+		for _, psk := range m.pskIdentities {
+			pskIdentities.addU16LengthPrefixed().addBytes(psk.ticket)
+			pskIdentities.addU32(psk.obfuscatedTicketAge)
+		}
+		pskBinders := pskExtension.addU16LengthPrefixed()
+		for _, binder := range m.pskBinders {
+			pskBinders.addU8LengthPrefixed().addBytes(binder)
+		}
 	}
 
 	if extensions.len() == 0 {
@@ -619,15 +642,13 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 				m.keyShares = append(m.keyShares, entry)
 			}
 		case extensionPreSharedKey:
-			// draft-ietf-tls-tls13 section 6.3.2.4
+			// draft-ietf-tls-tls13-18 section 4.2.6
 			if length < 2 {
 				return false
 			}
 			l := int(data[0])<<8 | int(data[1])
-			if l != length-2 {
-				return false
-			}
-			d := data[2:length]
+			d := data[2 : l+2]
+			// Parse PSK identities
 			for len(d) > 0 {
 				if len(d) < 2 {
 					return false
@@ -646,6 +667,28 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 				}
 				m.pskIdentities = append(m.pskIdentities, psk)
 				d = d[pskLen+4:]
+			}
+			d = data[l+2:]
+			if len(d) < 2 {
+				return false
+			}
+			l = int(d[0])<<8 | int(d[1])
+			d = d[2:]
+			if l != len(d) {
+				return false
+			}
+			// Parse PSK binders
+			for len(d) > 0 {
+				if len(d) < 1 {
+					return false
+				}
+				binderLen := int(d[0])
+				d = d[1:]
+				if binderLen > len(d) {
+					return false
+				}
+				m.pskBinders = append(m.pskBinders, d[:binderLen])
+				d = d[binderLen:]
 			}
 		case extensionPSKKeyExchangeModes:
 			// draft-ietf-tls-tls13-18 section 4.2.7
@@ -1031,7 +1074,7 @@ type serverExtensions struct {
 	srtpMasterKeyIdentifier string
 	sctList                 []byte
 	customExtension         string
-	npnLast                 bool
+	npnAfterAlpn            bool
 	hasKeyShare             bool
 	keyShare                keyShareEntry
 }
@@ -1042,7 +1085,7 @@ func (m *serverExtensions) marshal(extensions *byteBuilder) {
 		extensions.addU16(0xffff)
 		extensions.addU16(0) // length = 0 for empty extension
 	}
-	if m.nextProtoNeg && !m.npnLast {
+	if m.nextProtoNeg && !m.npnAfterAlpn {
 		extensions.addU16(extensionNextProtoNeg)
 		extension := extensions.addU16LengthPrefixed()
 
@@ -1109,7 +1152,7 @@ func (m *serverExtensions) marshal(extensions *byteBuilder) {
 		customExt := extensions.addU16LengthPrefixed()
 		customExt.addBytes([]byte(m.customExtension))
 	}
-	if m.nextProtoNeg && m.npnLast {
+	if m.nextProtoNeg && m.npnAfterAlpn {
 		extensions.addU16(extensionNextProtoNeg)
 		extension := extensions.addU16LengthPrefixed()
 
