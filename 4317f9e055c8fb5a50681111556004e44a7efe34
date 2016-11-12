@@ -16,6 +16,24 @@
       "revId": "4317f9e055c8fb5a50681111556004e44a7efe34",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_24e43227",
+        "filename": "crypto/ec/p256-x86_64.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-12T01:54:44Z",
+      "side": 1,
+      "message": "I don\u0027t think this code ever converts from P256_POINT to P256_POINT_AFFINE. P256_POINT_AFFINE is only used in this function.\n\nIt does convert from P256_POINT to BIGNUM pair in ecp_nistz256_get_affine, but that does a EC_POINT_is_at_infinity check.",
+      "parentUuid": "2b773781_434f44a9",
+      "revId": "4317f9e055c8fb5a50681111556004e44a7efe34",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
