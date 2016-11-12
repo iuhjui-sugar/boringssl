@@ -75,11 +75,12 @@ func (c *Conn) clientHandshake() error {
 		alpnProtocols:           c.config.NextProtos,
 		duplicateExtension:      c.config.Bugs.DuplicateExtension,
 		channelIDSupported:      c.config.ChannelID != nil,
-		npnLast:                 c.config.Bugs.SwapNPNAndALPN,
+		npnAfterAlpn:            c.config.Bugs.SwapNPNAndALPN,
 		extendedMasterSecret:    maxVersion >= VersionTLS10,
 		srtpProtectionProfiles:  c.config.SRTPProtectionProfiles,
 		srtpMasterKeyIdentifier: c.config.Bugs.SRTPMasterKeyIdentifer,
 		customExtension:         c.config.Bugs.CustomExtension,
+		pskBinderFirst:          c.config.Bugs.PSKBinderFirst,
 	}
 
 	disableEMS := c.config.Bugs.NoExtendedMasterSecret
@@ -237,6 +238,7 @@ NextCipherSuite:
 		}
 	}
 
+	var pskCipherSuite *cipherSuite
 	if session != nil && c.config.time().Before(session.ticketExpiration) {
 		ticket := session.sessionTicket
 		if c.config.Bugs.FilterTicket != nil && len(ticket) > 0 {
@@ -251,9 +253,13 @@ NextCipherSuite:
 		}
 
 		if session.vers >= VersionTLS13 || c.config.Bugs.SendBothTickets {
+			pskCipherSuite = cipherSuiteFromID(session.cipherSuite)
+			if pskCipherSuite == nil {
+				return errors.New("tls: client session cache has invalid cipher suite")
+			}
 			// TODO(nharper): Support sending more
 			// than one PSK identity.
-			ticketAge := uint32(c.config.time().Sub(session.ticketCreationTime)/time.Millisecond)
+			ticketAge := uint32(c.config.time().Sub(session.ticketCreationTime) / time.Millisecond)
 			psk := pskIdentity{
 				ticket:              ticket,
 				obfuscatedTicketAge: session.ticketAgeAdd + ticketAge,
@@ -317,7 +323,11 @@ NextCipherSuite:
 		helloBytes = v2Hello.marshal()
 		c.writeV2Record(helloBytes)
 	} else {
+		if len(hello.pskIdentities) > 0 {
+			generatePSKBinders(hello, pskCipherSuite, session.masterSecret, []byte{}, c.config)
+		}
 		helloBytes = hello.marshal()
+
 		if c.config.Bugs.PartialClientFinishedWithClientHello {
 			// Include one byte of Finished. We can compute it
 			// without completing the handshake. This assumes we
@@ -436,6 +446,9 @@ NextCipherSuite:
 		hello.earlyDataContext = nil
 		hello.raw = nil
 
+		if len(hello.pskIdentities) > 0 {
+			generatePSKBinders(hello, pskCipherSuite, session.masterSecret, append(helloBytes, helloRetryRequest.marshal()...), c.config)
+		}
 		secondHelloBytes = hello.marshal()
 		c.writeRecord(recordTypeHandshake, secondHelloBytes)
 		c.flushHandshake()
@@ -1589,4 +1602,40 @@ func writeIntPadded(b []byte, x *big.Int) {
 	}
 	xb := x.Bytes()
 	copy(b[len(b)-len(xb):], xb)
+}
+
+func generatePSKBinders(hello *clientHelloMsg, pskCipherSuite *cipherSuite, psk, transcript []byte, config *Config) {
+	if config.Bugs.SendNoPSKBinder {
+		return
+	}
+
+	binderLen := pskCipherSuite.hash().Size()
+	if config.Bugs.SendShortPSKBinder {
+		binderLen -= 1
+	}
+
+	// Fill hello.pskBinders with appropriate length arrays of 0-bytes so the
+	// length prefixes are correct when computing the binder over the truncated
+	// ClientHello message.
+	hello.pskBinders = make([][]byte, len(hello.pskIdentities))
+	for i := range hello.pskIdentities {
+		hello.pskBinders[i] = make([]byte, binderLen)
+	}
+
+	helloBytes := hello.marshal()
+	binderSize := len(hello.pskBinders)*(binderLen+1) + 2
+	truncatedHello := helloBytes[:len(helloBytes)-binderSize]
+	binder := computePSKBinder(psk, resumptionPSKBinderLabel, pskCipherSuite, transcript, truncatedHello)
+	if config.Bugs.SendShortPSKBinder {
+		binder = binder[:binderLen]
+	}
+	if config.Bugs.SendInvalidPSKBinder {
+		binder[0] ^= 1
+	}
+
+	for i := range hello.pskBinders {
+		hello.pskBinders[i] = binder
+	}
+
+	hello.raw = nil
 }
