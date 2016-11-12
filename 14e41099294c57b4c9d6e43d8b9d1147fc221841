@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0b1ef349_a4f4a2b2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2016-11-12T04:44:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_44720e93",
+      "revId": "14e41099294c57b4c9d6e43d8b9d1147fc221841",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b1ef349_448bee3a",
         "filename": "ssl/d1_both.c",
         "patchSetId": 3
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "0b1ef349_c4f99ea9",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2016-11-12T04:44:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_448bee3a",
+      "revId": "14e41099294c57b4c9d6e43d8b9d1147fc221841",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b1ef349_a4810222",
         "filename": "ssl/internal.h",
         "patchSetId": 3
@@ -47,6 +83,30 @@
       "writtenOn": "2016-11-12T03:53:14Z",
       "side": 1,
       "message": "Document ownership story.\n\nIt sets |*out_msg| to a newly-allocated buffer with the serialized message. The caller must release it with |OPENSSL_free| when done.",
+      "range": {
+        "startLine": 1271,
+        "startChar": 48,
+        "endLine": 1271,
+        "endChar": 50
+      },
+      "revId": "14e41099294c57b4c9d6e43d8b9d1147fc221841",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_440e8ee3",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1271,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2016-11-12T04:44:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_a4810222",
       "range": {
         "startLine": 1271,
         "startChar": 48,
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "0b1ef349_640b8ad2",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1273,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2016-11-12T04:44:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_646f0aaa",
+      "range": {
+        "startLine": 1273,
+        "startChar": 70,
+        "endLine": 1273,
+        "endChar": 78
+      },
+      "revId": "14e41099294c57b4c9d6e43d8b9d1147fc221841",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b1ef349_847c0663",
         "filename": "ssl/internal.h",
         "patchSetId": 3
@@ -93,6 +177,24 @@
       "writtenOn": "2016-11-12T03:53:14Z",
       "side": 1,
       "message": "Ditto. Functions with non-trivial ownership need to document it.\n\nIt takes ownership of |msg| and releases it with |OPENSSL_free|.",
+      "revId": "14e41099294c57b4c9d6e43d8b9d1147fc221841",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_84d8863b",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1275,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2016-11-12T04:44:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_847c0663",
       "revId": "14e41099294c57b4c9d6e43d8b9d1147fc221841",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -116,6 +218,24 @@
     },
     {
       "key": {
+        "uuid": "0b1ef349_a4dd822a",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1734,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2016-11-12T04:44:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_c476fe80",
+      "revId": "14e41099294c57b4c9d6e43d8b9d1147fc221841",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b1ef349_e47bfa65",
         "filename": "ssl/internal.h",
         "patchSetId": 3
@@ -127,6 +247,24 @@
       "writtenOn": "2016-11-12T03:53:14Z",
       "side": 1,
       "message": "Document.",
+      "revId": "14e41099294c57b4c9d6e43d8b9d1147fc221841",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_c4d27e19",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1738,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2016-11-12T04:44:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_e47bfa65",
       "revId": "14e41099294c57b4c9d6e43d8b9d1147fc221841",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -156,6 +294,30 @@
     },
     {
       "key": {
+        "uuid": "0b1ef349_e4fe9a8e",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2016-11-12T04:44:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_0491f66a",
+      "range": {
+        "startLine": 211,
+        "startChar": 6,
+        "endLine": 211,
+        "endChar": 28
+      },
+      "revId": "14e41099294c57b4c9d6e43d8b9d1147fc221841",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b1ef349_248ef24b",
         "filename": "ssl/s3_both.c",
         "patchSetId": 3
@@ -167,6 +329,30 @@
       "writtenOn": "2016-11-12T03:53:14Z",
       "side": 1,
       "message": "This leaks memory if queue_message fails.\n\nOne option is to say that queue_message releases |msg| whether or not it succeeds (in which case it must be documented).",
+      "range": {
+        "startLine": 236,
+        "startChar": 20,
+        "endLine": 236,
+        "endChar": 33
+      },
+      "revId": "14e41099294c57b4c9d6e43d8b9d1147fc221841",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_040496c3",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2016-11-12T04:44:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_248ef24b",
       "range": {
         "startLine": 236,
         "startChar": 20,
