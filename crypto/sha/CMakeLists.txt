@@ -40,6 +40,14 @@ if (${ARCH} STREQUAL "aarch64")
   )
 endif()
 
+if (${ARCH} STREQUAL "ppc64le")
+  set(
+    SHA_ARCH_SOURCES
+
+    sha1-altivec.c
+  )
+endif()
+
 add_library(
   sha
 
