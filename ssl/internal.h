@@ -1268,9 +1268,12 @@ struct ssl_protocol_method_st {
    * root CBB to be passed into |finish_message|. |*body| is set to a child CBB
    * the caller should write to. It returns one on success and zero on error. */
   int (*init_message)(SSL *ssl, CBB *cbb, CBB *body, uint8_t type);
-  /* finish_message finishes a handshake message and prepares it to be
-   * written. It returns one on success and zero on error. */
-  int (*finish_message)(SSL *ssl, CBB *cbb);
+  /* finish_message finishes a handshake message. It returns one on success and
+   * zero on error. */
+  int (*finish_message)(SSL *ssl, uint8_t **out_msg, size_t *out_len, CBB *cbb);
+  /* queue_message queues a handshake message and prepares it to be written. It
+   * returns one on success and zero on error. */
+  int (*queue_message)(SSL *ssl, uint8_t *msg, size_t len);
   /* write_message writes the next message to the transport. It returns one on
    * success and <= 0 on error. */
   int (*write_message)(SSL *ssl);
@@ -1720,16 +1723,20 @@ int ssl3_accept(SSL *ssl);
 int ssl3_connect(SSL *ssl);
 
 int ssl3_init_message(SSL *ssl, CBB *cbb, CBB *body, uint8_t type);
-int ssl3_finish_message(SSL *ssl, CBB *cbb);
+int ssl3_finish_message(SSL *ssl, uint8_t **out_msg, size_t *out_len, CBB *cbb);
+int ssl3_queue_message(SSL *ssl, uint8_t *msg, size_t len);
 int ssl3_write_message(SSL *ssl);
 
 void ssl3_expect_flight(SSL *ssl);
 void ssl3_received_flight(SSL *ssl);
 
 int dtls1_init_message(SSL *ssl, CBB *cbb, CBB *body, uint8_t type);
-int dtls1_finish_message(SSL *ssl, CBB *cbb);
+int dtls1_finish_message(SSL *ssl, uint8_t **out_msg, size_t *out_len, CBB *cbb);
+int dtls1_queue_message(SSL *ssl, uint8_t *msg, size_t len);
 int dtls1_write_message(SSL *ssl);
 
+int ssl_complete_message(SSL *ssl, CBB *cbb);
+  
 /* dtls1_get_record reads a new input record. On success, it places it in
  * |ssl->s3->rrec| and returns one. Otherwise it returns <= 0 on error or if
  * more data is needed. */
