@@ -27,7 +27,7 @@ const (
 )
 
 // A draft version of TLS 1.3 that is sent over the wire for the current draft.
-const tls13DraftVersion = 0x7f10
+const tls13DraftVersion = 0x7f12
 
 const (
 	maxPlaintext        = 16384        // maximum plaintext payload length
@@ -1181,6 +1181,19 @@ type ProtocolBugs struct {
 	// ExpectGREASE, if true, causes messages without GREASE values to be
 	// rejected. See draft-davidben-tls-grease-01.
 	ExpectGREASE bool
+
+	// Send a PSK binder that is one byte shorter than it should be.
+	SendShortPSKBinder bool
+
+	// Send an invalid PSK binder.
+	SendInvalidPSKBinder bool
+
+	// Don't send PSK binder.
+	SendNoPSKBinder bool
+
+	// Puts the PSK Binder extension as the first extension instead of the last
+	// extension.
+	PSKBinderFirst bool
 }
 
 func (c *Config) serverInit() {
