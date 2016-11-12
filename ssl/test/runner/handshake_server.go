@@ -415,8 +415,8 @@ Curves:
 		pskKEModes = []byte{pskDHEKEMode}
 	}
 
+	var pskIndex int
 	foundKEMode := bytes.IndexByte(pskKEModes, pskDHEKEMode) >= 0
-
 	if foundKEMode {
 		for i, pskIdentity := range pskIdentities {
 			// TODO(svaldez): Check the obfuscatedTicketAge before accepting 0-RTT.
@@ -467,6 +467,7 @@ Curves:
 			hs.suite = suite
 			hs.hello.hasPSKIdentity = true
 			hs.hello.pskIdentity = uint16(i)
+			pskIndex = i
 			if config.Bugs.SelectPSKIdentityOnResume != 0 {
 				hs.hello.pskIdentity = config.Bugs.SelectPSKIdentityOnResume
 			}
@@ -478,6 +479,15 @@ Curves:
 	if config.Bugs.AlwaysSelectPSKIdentity {
 		hs.hello.hasPSKIdentity = true
 		hs.hello.pskIdentity = 0
+	}
+
+	// Verify the PSK binder. Note there may not be a PSK binder if
+	// AcceptAnyBinder is set. See https://crbug.com/115.
+	if hs.sessionState != nil && !config.Bugs.AcceptAnySession {
+		binderToVerify := hs.clientHello.pskBinders[pskIndex]
+		if err := verifyPSKBinder(hs.clientHello, hs.sessionState, binderToVerify, []byte{}); err != nil {
+			return err
+		}
 	}
 
 	// If not resuming, select the cipher suite.
@@ -585,6 +595,7 @@ ResendHelloRetryRequest:
 	}
 
 	if sendHelloRetryRequest {
+		oldClientHelloBytes := hs.clientHello.marshal()
 		hs.writeServerHash(helloRetryRequest.marshal())
 		c.writeRecord(recordTypeHandshake, helloRetryRequest.marshal())
 		c.flushHandshake()
@@ -627,6 +638,7 @@ ResendHelloRetryRequest:
 			}
 			newClientHelloCopy.tls13Cookie = nil
 		}
+		newClientHelloCopy.pskBinders = oldClientHelloCopy.pskBinders
 
 		if !oldClientHelloCopy.equal(&newClientHelloCopy) {
 			return errors.New("tls: new ClientHello does not match")
@@ -635,6 +647,16 @@ ResendHelloRetryRequest:
 		if firstHelloRetryRequest && config.Bugs.SecondHelloRetryRequest {
 			firstHelloRetryRequest = false
 			goto ResendHelloRetryRequest
+		}
+
+		// Verify the PSK binder. Note there may not be a PSK binder if
+		// AcceptAnyBinder is set. See https://crbug.com/115.
+		if hs.sessionState != nil && !config.Bugs.AcceptAnySession {
+			binderToVerify := newClientHello.pskBinders[pskIndex]
+			err := verifyPSKBinder(newClientHello, hs.sessionState, binderToVerify, append(oldClientHelloBytes, helloRetryRequest.marshal()...))
+			if err != nil {
+				return err
+			}
 		}
 	}
 
@@ -1137,7 +1159,7 @@ func (hs *serverHandshakeState) processClientExtensions(serverExtensions *server
 			if hs.clientHello.nextProtoNeg && len(config.NextProtos) > 0 {
 				serverExtensions.nextProtoNeg = true
 				serverExtensions.nextProtos = config.NextProtos
-				serverExtensions.npnLast = config.Bugs.SwapNPNAndALPN
+				serverExtensions.npnAfterAlpn = config.Bugs.SwapNPNAndALPN
 			}
 		}
 	}
@@ -1884,4 +1906,25 @@ func isTLS12Cipher(id uint16) bool {
 
 func isGREASEValue(val uint16) bool {
 	return val&0x0f0f == 0x0a0a && val&0xff == val>>8
+}
+
+func verifyPSKBinder(clientHello *clientHelloMsg, sessionState *sessionState, binderToVerify, transcript []byte) error {
+	binderLen := 2
+	for _, binder := range clientHello.pskBinders {
+		binderLen += 1 + len(binder)
+	}
+
+	truncatedHello := clientHello.marshal()
+	truncatedHello = truncatedHello[:len(truncatedHello)-binderLen]
+	pskCipherSuite := cipherSuiteFromID(sessionState.cipherSuite)
+	if pskCipherSuite == nil {
+		return errors.New("tls: Unknown cipher suite for PSK in session")
+	}
+
+	binder := computePSKBinder(sessionState.masterSecret, resumptionPSKBinderLabel, pskCipherSuite, transcript, truncatedHello)
+	if !bytes.Equal(binder, binderToVerify) {
+		return errors.New("tls: PSK binder does not verify")
+	}
+
+	return nil
 }
