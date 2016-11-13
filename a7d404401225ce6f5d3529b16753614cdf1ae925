@@ -1,0 +1,181 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b1ef349_07b658df",
+        "filename": "ssl/internal.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 859,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T13:33:06Z",
+      "side": 1,
+      "message": "Newline",
+      "revId": "a7d404401225ce6f5d3529b16753614cdf1ae925",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_279c3450",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T13:33:06Z",
+      "side": 1,
+      "message": "Ditto from previous iteration. Document. Especially because this is not an operation in the spec that was named. That means, given the function name, it is impossible for a reader to tell what this is doing.",
+      "revId": "a7d404401225ce6f5d3529b16753614cdf1ae925",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_079f3847",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T13:33:06Z",
+      "side": 1,
+      "message": "Ditto from previous iteration. \"sign\" means asymmetric signature.",
+      "range": {
+        "startLine": 282,
+        "startChar": 17,
+        "endLine": 282,
+        "endChar": 21
+      },
+      "revId": "a7d404401225ce6f5d3529b16753614cdf1ae925",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_c7a440a5",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T13:33:06Z",
+      "side": 1,
+      "message": "This is getting repeated enough times that you should be using goto err.",
+      "revId": "a7d404401225ce6f5d3529b16753614cdf1ae925",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_e7a93c7a",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T13:33:06Z",
+      "side": 1,
+      "message": "This still leaks memory. Never call EVP_MD_CTX_init on a live structure. Legal would be EVP_MD_CTX_cleanup followed by another EVP_MD_CTX_init.\n\nBut that is also never desired. In general, you should never be calling EVP_MD_CTX_init twice on the same structure. Just call EVP_DigestInit_ex a second time. That is more efficient (you avoid bouncing on malloc) an shorter.",
+      "revId": "a7d404401225ce6f5d3529b16753614cdf1ae925",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_47c05037",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T13:33:06Z",
+      "side": 1,
+      "message": "Ditto from previous iteration. Do not malloc here. This needs to call EVP_DigestUpdate twice.",
+      "range": {
+        "startLine": 395,
+        "startChar": 18,
+        "endLine": 395,
+        "endChar": 32
+      },
+      "revId": "a7d404401225ce6f5d3529b16753614cdf1ae925",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_87aa486f",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T13:33:06Z",
+      "side": 1,
+      "message": "This isn\u0027t a signature.",
+      "revId": "a7d404401225ce6f5d3529b16753614cdf1ae925",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_a7af447e",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T13:33:06Z",
+      "side": 1,
+      "message": "Missing length check. Ditto below.",
+      "range": {
+        "startLine": 422,
+        "startChar": 53,
+        "endLine": 422,
+        "endChar": 56
+      },
+      "revId": "a7d404401225ce6f5d3529b16753614cdf1ae925",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_4799305f",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T13:33:06Z",
+      "side": 1,
+      "message": "This is assuming that the PSK identity we look at is the LAST identity, but we want the FIRST.\n\nYou need to get this out by actually parsing it. And certainly not via the transcript (see high-level comment).",
+      "range": {
+        "startLine": 431,
+        "startChar": 23,
+        "endLine": 431,
+        "endChar": 67
+      },
+      "revId": "a7d404401225ce6f5d3529b16753614cdf1ae925",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
