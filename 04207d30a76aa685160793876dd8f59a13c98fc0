@@ -196,6 +196,23 @@
     },
     {
       "key": {
+        "uuid": "0b1ef349_c7cb605d",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T13:00:11Z",
+      "side": 1,
+      "message": "Oh, also, I think it\u0027s worth getting this in first:\nhttps://boringssl-review.googlesource.com/c/12233/\n\nWe\u0027re also going to end up with yet another of these with NewSessionTicket. At four instances, this seems valuable. Yes, it\u0027s diverging from the callbacks, but we\u0027re *already* doing that so that is not a reason to avoid abstracting this mess.",
+      "revId": "04207d30a76aa685160793876dd8f59a13c98fc0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b1ef349_470e90e3",
         "filename": "ssl/tls13_both.c",
         "patchSetId": 12
