@@ -1,0 +1,335 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b1ef349_27def4c1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T03:23:28Z",
+      "side": 1,
+      "message": "BUG\u003d112",
+      "revId": "c0d4f7563ec7dc264967469131550509dbc01cfc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_c7ad203f",
+        "filename": "ssl/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 1593,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T03:23:28Z",
+      "side": 1,
+      "message": "The spec does not seem to have an \u0027X\u0027 at the end here.",
+      "range": {
+        "startLine": 1593,
+        "startChar": 18,
+        "endLine": 1593,
+        "endChar": 19
+      },
+      "revId": "c0d4f7563ec7dc264967469131550509dbc01cfc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_67bf0c60",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 1963,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T03:23:28Z",
+      "side": 1,
+      "message": "Could you file a bug with details and link it here? Specifically that we must look at a distribution before enforcing anything.",
+      "revId": "c0d4f7563ec7dc264967469131550509dbc01cfc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_c7c600ff",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 1992,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T03:23:28Z",
+      "side": 1,
+      "message": "This link doesn\u0027t work. It should be:\nhttps://tools.ietf.org/html/draft-ietf-tls-tls13-18#section-4.2.7",
+      "range": {
+        "startLine": 1992,
+        "startChar": 3,
+        "endLine": 1992,
+        "endChar": 60
+      },
+      "revId": "c0d4f7563ec7dc264967469131550509dbc01cfc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_a7d104b8",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 2015,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T03:23:28Z",
+      "side": 1,
+      "message": "80 chars",
+      "revId": "c0d4f7563ec7dc264967469131550509dbc01cfc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_07e1f888",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 2017,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T03:23:28Z",
+      "side": 1,
+      "message": "CBS_len(\u0026key_modes) \u003d\u003d 0 ||",
+      "revId": "c0d4f7563ec7dc264967469131550509dbc01cfc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_076ad80c",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 946,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T03:23:28Z",
+      "side": 1,
+      "message": "ExpectTicketAge. I don\u0027t think you need \"actual\" there. The obfuscated one is called \"obfuscated\" for that reason.",
+      "range": {
+        "startLine": 946,
+        "startChar": 4,
+        "endLine": 946,
+        "endChar": 19
+      },
+      "revId": "c0d4f7563ec7dc264967469131550509dbc01cfc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_67d8ecd3",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 1700,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T03:23:28Z",
+      "side": 1,
+      "message": "var addBuffer [4]byte",
+      "revId": "c0d4f7563ec7dc264967469131550509dbc01cfc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_8775e8f0",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 1712,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T03:23:28Z",
+      "side": 1,
+      "message": "Nit: Probably just add at line 1705 something like:\n\n  ticketAgeAdd :\u003d uint32(...) | ...\n\nAnd avoid having to repeat this.",
+      "range": {
+        "startLine": 1712,
+        "startChar": 19,
+        "endLine": 1712,
+        "endChar": 119
+      },
+      "revId": "c0d4f7563ec7dc264967469131550509dbc01cfc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_a77ae4db",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T03:23:28Z",
+      "side": 1,
+      "message": "Unfortunately we messed up the others, but mention -18 because the section numbers change. We can do a pass afterwards to fix up the rest.",
+      "range": {
+        "startLine": 651,
+        "startChar": 26,
+        "endLine": 651,
+        "endChar": 27
+      },
+      "revId": "c0d4f7563ec7dc264967469131550509dbc01cfc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_c77fe0ca",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T03:23:28Z",
+      "side": 1,
+      "message": "(By the way, I bet we could use bytes.IndexByte for this.)",
+      "revId": "c0d4f7563ec7dc264967469131550509dbc01cfc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_e784dca7",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T03:23:28Z",
+      "side": 1,
+      "message": "Why floating point? Probably ought to use the time type.",
+      "range": {
+        "startLine": 445,
+        "startChar": 21,
+        "endLine": 445,
+        "endChar": 28
+      },
+      "revId": "c0d4f7563ec7dc264967469131550509dbc01cfc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_478db0bc",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T03:23:28Z",
+      "side": 1,
+      "message": "This is a ProtocolBug, so just hard fail if it doesn\u0027t match.",
+      "revId": "c0d4f7563ec7dc264967469131550509dbc01cfc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_2767d445",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 949,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T03:23:28Z",
+      "side": 1,
+      "message": "Why not do the check in line 946?",
+      "revId": "c0d4f7563ec7dc264967469131550509dbc01cfc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_4774d0ec",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 7871,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T03:23:28Z",
+      "side": 1,
+      "message": "Don\u0027t bother with resumeSession and expectResumeRejected. There isn\u0027t even have a session to reject. (On the test below there is.)",
+      "revId": "c0d4f7563ec7dc264967469131550509dbc01cfc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_e79dbcef",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 7891,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T03:23:28Z",
+      "side": 1,
+      "message": "Test that the client ticket age is sent correctly.",
+      "range": {
+        "startLine": 7891,
+        "startChar": 4,
+        "endLine": 7891,
+        "endChar": 47
+      },
+      "revId": "c0d4f7563ec7dc264967469131550509dbc01cfc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_47dbf0d0",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 620,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T03:23:28Z",
+      "side": 1,
+      "message": "Mismerge? This was fixed to never be set as a server (waste of ticket size) and to properly send session-\u003etimeout in an earlier change.",
+      "revId": "c0d4f7563ec7dc264967469131550509dbc01cfc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
