@@ -22,6 +22,24 @@
       "revId": "3ef86bc52553dae646f260d383333b23fcb4ee41",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_e7621cc6",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T05:10:30Z",
+      "side": 1,
+      "message": "That will cause tests to fail. This bug is about the pre-version-negotiation record-layer version. There is a version change prior to TLS 1.3. Those get enforced already, but we need this to test the values prior to the switch since a real TLS stack will ignore it.",
+      "parentUuid": "8bd3c31c_913d9b26",
+      "revId": "3ef86bc52553dae646f260d383333b23fcb4ee41",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
