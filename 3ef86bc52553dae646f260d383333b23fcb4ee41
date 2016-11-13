@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8bd3c31c_913d9b26",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-11-13T04:57:32Z",
+      "side": 1,
+      "message": "Shouldn\u0027t it always set expect based on the bug, if the bug is set?",
+      "range": {
+        "startLine": 762,
+        "startChar": 4,
+        "endLine": 762,
+        "endChar": 8
+      },
+      "revId": "3ef86bc52553dae646f260d383333b23fcb4ee41",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
