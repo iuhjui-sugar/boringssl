@@ -159,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "0b1ef349_67de2c51",
+        "filename": "ssl/internal.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 851,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2016-11-13T05:19:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_87fa4805",
+      "revId": "bb3d46c7ae6db5d1063ca2a36a07295b4af687e3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b1ef349_a7ff44f4",
         "filename": "ssl/internal.h",
         "patchSetId": 10
@@ -275,6 +293,24 @@
       "writtenOn": "2016-11-13T04:16:26Z",
       "side": 1,
       "message": "This (or probably the caller) needs to explicitly check that the extension is last. I don\u0027t think we should rely on the binder check failing. That seems fragile.",
+      "revId": "bb3d46c7ae6db5d1063ca2a36a07295b4af687e3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_a7810422",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 1956,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2016-11-13T05:19:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_a72024b9",
       "revId": "bb3d46c7ae6db5d1063ca2a36a07295b4af687e3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -514,6 +550,24 @@
     },
     {
       "key": {
+        "uuid": "0b1ef349_676f0caa",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2016-11-13T05:19:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_275fd426",
+      "revId": "bb3d46c7ae6db5d1063ca2a36a07295b4af687e3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b1ef349_a79bc4bc",
         "filename": "ssl/tls13_enc.c",
         "patchSetId": 10
@@ -531,6 +585,24 @@
     },
     {
       "key": {
+        "uuid": "0b1ef349_877c0863",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2016-11-13T05:19:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_a79bc4bc",
+      "revId": "bb3d46c7ae6db5d1063ca2a36a07295b4af687e3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b1ef349_e795bc88",
         "filename": "ssl/tls13_enc.c",
         "patchSetId": 10
@@ -542,6 +614,30 @@
       "writtenOn": "2016-11-13T04:16:26Z",
       "side": 1,
       "message": "Do a length check. It is not locally obvious that there is room.",
+      "range": {
+        "startLine": 385,
+        "startChar": 55,
+        "endLine": 385,
+        "endChar": 74
+      },
+      "revId": "bb3d46c7ae6db5d1063ca2a36a07295b4af687e3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_076818a3",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2016-11-13T05:19:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_e795bc88",
       "range": {
         "startLine": 385,
         "startChar": 55,
@@ -577,6 +673,30 @@
     },
     {
       "key": {
+        "uuid": "0b1ef349_c75d2001",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2016-11-13T05:19:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_078bb86d",
+      "range": {
+        "startLine": 386,
+        "startChar": 18,
+        "endLine": 386,
+        "endChar": 32
+      },
+      "revId": "bb3d46c7ae6db5d1063ca2a36a07295b4af687e3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b1ef349_c790c09b",
         "filename": "ssl/tls13_enc.c",
         "patchSetId": 10
@@ -594,6 +714,24 @@
     },
     {
       "key": {
+        "uuid": "0b1ef349_a7582412",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2016-11-13T05:19:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_c790c09b",
+      "revId": "bb3d46c7ae6db5d1063ca2a36a07295b4af687e3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b1ef349_2788b46e",
         "filename": "ssl/tls13_enc.c",
         "patchSetId": 10
@@ -605,6 +743,24 @@
       "writtenOn": "2016-11-13T04:16:26Z",
       "side": 1,
       "message": "80 chars",
+      "revId": "bb3d46c7ae6db5d1063ca2a36a07295b4af687e3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_875328f7",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2016-11-13T05:19:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_2788b46e",
       "revId": "bb3d46c7ae6db5d1063ca2a36a07295b4af687e3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
