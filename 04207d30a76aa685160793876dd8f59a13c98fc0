@@ -1,0 +1,227 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b1ef349_c7f9a0a9",
+        "filename": "ssl/ssl_cert.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T12:56:39Z",
+      "side": 1,
+      "message": ":-P\n\nSSL_R_DECODE_ERROR seems as reasonable an error as any.",
+      "range": {
+        "startLine": 452,
+        "startChar": 27,
+        "endLine": 452,
+        "endChar": 52
+      },
+      "revId": "04207d30a76aa685160793876dd8f59a13c98fc0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_07ed78db",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 12
+      },
+      "lineNbr": 1052,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T12:56:39Z",
+      "side": 1,
+      "message": "Nit: This variable is only referred to on the next line. Just write certEntry.data in there?",
+      "range": {
+        "startLine": 1052,
+        "startChar": 2,
+        "endLine": 1052,
+        "endChar": 10
+      },
+      "revId": "04207d30a76aa685160793876dd8f59a13c98fc0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_27ea74c4",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 12
+      },
+      "lineNbr": 1186,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T12:56:39Z",
+      "side": 1,
+      "message": "Newline",
+      "revId": "04207d30a76aa685160793876dd8f59a13c98fc0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_47e770fb",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 12
+      },
+      "lineNbr": 1187,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T12:56:39Z",
+      "side": 1,
+      "message": "Run go fmt?",
+      "range": {
+        "startLine": 1187,
+        "startChar": 35,
+        "endLine": 1187,
+        "endChar": 39
+      },
+      "revId": "04207d30a76aa685160793876dd8f59a13c98fc0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_c7d28019",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 12
+      },
+      "lineNbr": 5291,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T12:56:39Z",
+      "side": 1,
+      "message": "// Test that extensions on intermediates are allowed but ignored.",
+      "revId": "04207d30a76aa685160793876dd8f59a13c98fc0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_a7dd842a",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 12
+      },
+      "lineNbr": 5297,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T12:56:39Z",
+      "side": 1,
+      "message": ":-P\n\nI think I\u0027ve usually used []byte(\"bogus\"), but whatever.",
+      "range": {
+        "startLine": 5297,
+        "startChar": 29,
+        "endLine": 5297,
+        "endChar": 44
+      },
+      "revId": "04207d30a76aa685160793876dd8f59a13c98fc0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_e7d77c06",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 12
+      },
+      "lineNbr": 5328,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T12:56:39Z",
+      "side": 1,
+      "message": "Do we have tests for unsolicited OCSP staple and SCTs? (Client and server.) Also custom extensions.",
+      "revId": "04207d30a76aa685160793876dd8f59a13c98fc0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_e7fe9c8e",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T12:56:39Z",
+      "side": 1,
+      "message": "Comment no longer needed. :-P",
+      "revId": "04207d30a76aa685160793876dd8f59a13c98fc0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_070498c3",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T12:56:39Z",
+      "side": 1,
+      "message": "Dead assignment (never read).",
+      "revId": "04207d30a76aa685160793876dd8f59a13c98fc0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_470e90e3",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T12:56:39Z",
+      "side": 1,
+      "message": "||\n\nMy bad. I suggested the wrong one. Given that... want to add a test for this? :-)\n\nI just filed this issue but, in the meantime, I think the only plausible interpretation is that client certificate extensions are never legal.\nhttps://github.com/tlswg/tls13-spec/issues/760",
+      "range": {
+        "startLine": 265,
+        "startChar": 23,
+        "endLine": 265,
+        "endChar": 25
+      },
+      "revId": "04207d30a76aa685160793876dd8f59a13c98fc0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_87d8883b",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T12:56:39Z",
+      "side": 1,
+      "message": "||",
+      "range": {
+        "startLine": 291,
+        "startChar": 23,
+        "endLine": 291,
+        "endChar": 25
+      },
+      "revId": "04207d30a76aa685160793876dd8f59a13c98fc0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
