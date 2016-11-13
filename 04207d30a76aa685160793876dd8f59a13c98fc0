@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "0b1ef349_87c16843",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-13T12:57:16Z",
+      "side": 1,
+      "message": "Oh, BUG\u003d112. Mind doing that to the rest of this series too?",
+      "revId": "04207d30a76aa685160793876dd8f59a13c98fc0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b1ef349_c7f9a0a9",
         "filename": "ssl/ssl_cert.c",
         "patchSetId": 12
