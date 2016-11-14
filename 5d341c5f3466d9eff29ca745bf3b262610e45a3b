@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b1ef349_ca63675a",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1098,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2016-11-14T00:51:24Z",
+      "side": 1,
+      "message": "Add a param to allow unknown extensions.",
+      "range": {
+        "startLine": 1098,
+        "startChar": 4,
+        "endLine": 1098,
+        "endChar": 24
+      },
+      "revId": "5d341c5f3466d9eff29ca745bf3b262610e45a3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
