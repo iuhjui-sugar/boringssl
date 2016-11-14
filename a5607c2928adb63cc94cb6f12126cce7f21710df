@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0b1ef349_0a301f02",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 1912,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2016-11-14T05:19:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_8a288fb9",
+      "range": {
+        "startLine": 1912,
+        "startChar": 24,
+        "endLine": 1912,
+        "endChar": 62
+      },
+      "revId": "a5607c2928adb63cc94cb6f12126cce7f21710df",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b1ef349_ea2743e4",
         "filename": "ssl/test/runner/handshake_server.go",
         "patchSetId": 15
@@ -36,6 +60,24 @@
       "writtenOn": "2016-11-14T05:02:35Z",
       "side": 1,
       "message": "If there\u0027s an ExpectTicketAge, do an exact match. We don\u0027t want to accept a 1 minute slop in tests.\n\nIf it\u0027s not set, feel free to leave it alone for now. We always install a fake clock, so testing against the real clock doesn\u0027t make any sense.\n\nclientTicketAge :\u003d time.Duration(uint32(...))\nif config.Bugs.ExpectTicketAge !\u003d 0 \u0026\u0026 clientTicketAge !\u003d config.Bugs.ExpectTicketAge {\n    return errors.New(\"tls: invalid ticket age\")\n}",
+      "revId": "a5607c2928adb63cc94cb6f12126cce7f21710df",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_2a2ddbaa",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 15
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2016-11-14T05:19:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_ea2743e4",
       "revId": "a5607c2928adb63cc94cb6f12126cce7f21710df",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
