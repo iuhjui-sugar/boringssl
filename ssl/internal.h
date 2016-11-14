@@ -878,15 +878,21 @@ enum ssl_hs_wait_t {
   ssl_hs_private_key_operation,
 };
 
-typedef struct ssl_handshake_st {
-  /* wait contains the operation |do_handshake| is currently blocking on or
-   * |ssl_hs_ok| if none. */
+struct ssl_handshake_st {
+  /* do_handshake runs the TLS handshake.
+   *
+   * TODO(davidben): Convert the TLS 1.2 handshake to |ssl_hs_wait_t| style and
+   * fold this into |do_tls13_handshake|. */
+  int (*do_handshake)(SSL *ssl, SSL_HANDSHAKE *hs);
+
+  /* wait contains the operation |do_tls13_handshake| is currently blocking on
+   * or |ssl_hs_ok| if none. */
   enum ssl_hs_wait_t wait;
 
-  /* do_handshake runs the handshake. On completion, it returns |ssl_hs_ok|.
-   * Otherwise, it returns a value corresponding to what operation is needed to
-   * progress. */
-  enum ssl_hs_wait_t (*do_handshake)(SSL *ssl);
+  /* do_tls13_handshake runs the TLS 1.3 handshake. On completion, it returns
+   * |ssl_hs_ok|. Otherwise, it returns a value corresponding to what operation
+   * is needed to progress. */
+  enum ssl_hs_wait_t (*do_tls13_handshake)(SSL *ssl);
 
   int state;
 
@@ -1022,9 +1028,10 @@ typedef struct ssl_handshake_st {
 
   /* hostname, on the server, is the value of the SNI extension. */
   char *hostname;
-} SSL_HANDSHAKE;
+} /* SSL_HANDSHAKE */;
 
-SSL_HANDSHAKE *ssl_handshake_new(enum ssl_hs_wait_t (*do_handshake)(SSL *ssl));
+SSL_HANDSHAKE *ssl_handshake_new(int (*do_handshake)(SSL *ssl,
+                                                     SSL_HANDSHAKE *hs));
 
 /* ssl_handshake_free releases all memory associated with |hs|. */
 void ssl_handshake_free(SSL_HANDSHAKE *hs);
@@ -1748,8 +1755,8 @@ const SSL_CIPHER *ssl3_choose_cipher(
 
 int ssl3_new(SSL *ssl);
 void ssl3_free(SSL *ssl);
-int ssl3_accept(SSL *ssl);
-int ssl3_connect(SSL *ssl);
+int ssl3_accept(SSL *ssl, SSL_HANDSHAKE *hs);
+int ssl3_connect(SSL *ssl, SSL_HANDSHAKE *hs);
 
 int ssl3_init_message(SSL *ssl, CBB *cbb, CBB *body, uint8_t type);
 int ssl3_finish_message(SSL *ssl, CBB *cbb, uint8_t **out_msg, size_t *out_len);
