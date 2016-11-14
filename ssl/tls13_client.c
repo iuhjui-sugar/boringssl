@@ -361,7 +361,7 @@ static enum ssl_hs_wait_t do_process_server_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
   /* If there was no HelloRetryRequest, the version negotiation logic has
    * already hashed the message. */
   if (hs->received_hello_retry_request &&
-      !ssl->method->hash_current_message(ssl)) {
+      !ssl_hash_current_message(ssl)) {
     return ssl_hs_error;
   }
 
@@ -391,7 +391,7 @@ static enum ssl_hs_wait_t do_process_encrypted_extensions(SSL *ssl,
     return ssl_hs_error;
   }
 
-  if (!ssl->method->hash_current_message(ssl)) {
+  if (!ssl_hash_current_message(ssl)) {
     return ssl_hs_error;
   }
 
@@ -447,7 +447,7 @@ static enum ssl_hs_wait_t do_process_certificate_request(SSL *ssl,
   sk_X509_NAME_pop_free(ssl->s3->hs->ca_names, X509_NAME_free);
   ssl->s3->hs->ca_names = ca_sk;
 
-  if (!ssl->method->hash_current_message(ssl)) {
+  if (!ssl_hash_current_message(ssl)) {
     return ssl_hs_error;
   }
 
@@ -459,7 +459,7 @@ static enum ssl_hs_wait_t do_process_server_certificate(SSL *ssl,
                                                         SSL_HANDSHAKE *hs) {
   if (!tls13_check_message_type(ssl, SSL3_MT_CERTIFICATE) ||
       !tls13_process_certificate(ssl, 0 /* certificate required */) ||
-      !ssl->method->hash_current_message(ssl)) {
+      !ssl_hash_current_message(ssl)) {
     return ssl_hs_error;
   }
 
@@ -471,7 +471,7 @@ static enum ssl_hs_wait_t do_process_server_certificate_verify(
     SSL *ssl, SSL_HANDSHAKE *hs) {
   if (!tls13_check_message_type(ssl, SSL3_MT_CERTIFICATE_VERIFY) ||
       !tls13_process_certificate_verify(ssl) ||
-      !ssl->method->hash_current_message(ssl)) {
+      !ssl_hash_current_message(ssl)) {
     return 0;
   }
 
@@ -484,7 +484,7 @@ static enum ssl_hs_wait_t do_process_server_finished(SSL *ssl,
   static const uint8_t kZeroes[EVP_MAX_MD_SIZE] = {0};
   if (!tls13_check_message_type(ssl, SSL3_MT_FINISHED) ||
       !tls13_process_finished(ssl) ||
-      !ssl->method->hash_current_message(ssl) ||
+      !ssl_hash_current_message(ssl) ||
       /* Update the secret to the master secret and derive traffic keys. */
       !tls13_advance_key_schedule(ssl, kZeroes, hs->hash_len) ||
       !tls13_derive_application_secrets(ssl)) {
