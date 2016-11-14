@@ -1,0 +1,380 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b1ef349_6ae433f6",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1180,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T09:08:16Z",
+      "side": 1,
+      "message": "SendNoPSKBinder? Wasn\u0027t clear to me what \"skip\" meant. (As in you just don\u0027t have the binder at all rather than affirmatively sending an empty one.)",
+      "range": {
+        "startLine": 1180,
+        "startChar": 1,
+        "endLine": 1180,
+        "endChar": 14
+      },
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_6a3a7389",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T09:08:16Z",
+      "side": 1,
+      "message": "Rather than declare it all the way up here, you can do your loop in line 256 down around line 454.",
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_8aefafdf",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T09:08:16Z",
+      "side": 1,
+      "message": "Stray change? (Actually, this is almost certainly my fault for mismerging.)",
+      "range": {
+        "startLine": 270,
+        "startChar": 48,
+        "endLine": 270,
+        "endChar": 54
+      },
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_0a43bf0e",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1612,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T09:08:16Z",
+      "side": 1,
+      "message": "I\u0027d probably pass in config *Config. You\u0027re not reading from anything else, but it seems weird to separate it out.\n\n(Also right now this is copying the whole struct.)",
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_aaf46bb2",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1615,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T09:08:16Z",
+      "side": 1,
+      "message": "Nit: newline",
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_eafe638e",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1619,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T09:08:16Z",
+      "side": 1,
+      "message": "Nit: newline",
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_4a0e97e3",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1620,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T09:08:16Z",
+      "side": 1,
+      "message": "I think this wants a comment to explain what\u0027s going on. Like:\n\n// Fill in placeholder PSK binders of the correct length to serialize a correct ClientHello prefix.",
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_0a049fc3",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1623,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T09:08:16Z",
+      "side": 1,
+      "message": "Nit: newline",
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_2a015bb4",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1633,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T09:08:16Z",
+      "side": 1,
+      "message": "Nit: newline",
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_caf9a7a9",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1636,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T09:08:16Z",
+      "side": 1,
+      "message": "Nit: newline",
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_aadd4b2a",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T09:08:16Z",
+      "side": 1,
+      "message": "Wow that\u0027s hacky. :-( Was going to ask why that\u0027s not an error case and then figured it out...\n\nIf we can\u0027t avoid that silliness, could you add a comment about why? (I assume this is SelectPSKIdentityOnResume\u0027s fault.)",
+      "range": {
+        "startLine": 484,
+        "startChar": 31,
+        "endLine": 484,
+        "endChar": 88
+      },
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_ea4d8339",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T09:08:16Z",
+      "side": 1,
+      "message": "if err :\u003d ....; err !\u003d nil {\n  return err\n}",
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_8ad88f3b",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T09:08:16Z",
+      "side": 1,
+      "message": "Ditto from previous block.",
+      "range": {
+        "startLine": 652,
+        "startChar": 31,
+        "endLine": 652,
+        "endChar": 89
+      },
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_6a0b53d2",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T09:08:16Z",
+      "side": 1,
+      "message": "[Bleh. In a reasonable implementation, you could just use finishedHash, but there\u0027s all kinds of hacks around how DTLS works. That combined with Go lacking way to clone hash contexts. Probably should muse on how to clean that up sometime. Ah well.]",
+      "range": {
+        "startLine": 654,
+        "startChar": 75,
+        "endLine": 654,
+        "endChar": 134
+      },
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_cad28719",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1906,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T09:08:16Z",
+      "side": 1,
+      "message": "Nit: newline",
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_0aed7fdb",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1910,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T09:08:16Z",
+      "side": 1,
+      "message": "Nit: newline",
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_2aea3bc4",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1914,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T09:08:16Z",
+      "side": 1,
+      "message": "Perhaps add a cipherSuiteFromID for this? I feel like we do it a few times.",
+      "range": {
+        "startLine": 1914,
+        "startChar": 29,
+        "endLine": 1914,
+        "endChar": 41
+      },
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_4ae777fb",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1922,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T09:08:16Z",
+      "side": 1,
+      "message": "Nit: newline",
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_ead74306",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1926,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T09:08:16Z",
+      "side": 1,
+      "message": "Nit: newline",
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_8ac16f43",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 5664,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T09:08:16Z",
+      "side": 1,
+      "message": "(You\u0027ll want to adjust these to match what the C code does now.)",
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
