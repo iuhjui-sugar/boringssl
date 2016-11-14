@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b1ef349_2a179b07",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2016-11-14T08:22:46Z",
+      "side": 1,
+      "message": "This frees the CBS?",
+      "range": {
+        "startLine": 677,
+        "startChar": 9,
+        "endLine": 677,
+        "endChar": 35
+      },
+      "revId": "bafaa045ced6a06d48c8ea15684bb632bb95c2b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
