@@ -128,6 +128,24 @@
       "revId": "669839b2844e415a3aba3374db3eb7eb43dd649f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_aaff0bf4",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T04:55:02Z",
+      "side": 1,
+      "message": "I mean putting those extensions into the client Certificate message. Those should be rejected in all situations, even if -enable-ocsp-stapling and such are passed.\n\n(That is, test the ssl-\u003eserver check we added at some point.)",
+      "parentUuid": "0b1ef349_0a065f3d",
+      "revId": "669839b2844e415a3aba3374db3eb7eb43dd649f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
