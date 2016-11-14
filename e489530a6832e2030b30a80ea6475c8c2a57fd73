@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b1ef349_0a549f39",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 1185,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T03:02:58Z",
+      "side": 0,
+      "message": "Did you mean to remove this block?",
+      "revId": "e489530a6832e2030b30a80ea6475c8c2a57fd73",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

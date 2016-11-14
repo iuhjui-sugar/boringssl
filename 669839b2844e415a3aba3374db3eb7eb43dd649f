@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b1ef349_aa446b90",
+        "filename": "ssl/ssl_cert.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T03:02:58Z",
+      "side": 1,
+      "message": "(Also stray comment. May bad. Should have noticed that one.)",
+      "revId": "669839b2844e415a3aba3374db3eb7eb43dd649f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_ea4e63ac",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 1006,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T03:02:58Z",
+      "side": 1,
+      "message": "SendDuplicateCertExtensions",
+      "range": {
+        "startLine": 1006,
+        "startChar": 29,
+        "endLine": 1006,
+        "endChar": 30
+      },
+      "revId": "669839b2844e415a3aba3374db3eb7eb43dd649f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_ca49a7a7",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T03:02:58Z",
+      "side": 1,
+      "message": "Unused? (I\u0027m guessing you meant to add SendUnsolicitedSCTListOnCertificate as well.)\n\nMind adding client versions of that pair too? Even with -enable-ocsp-stapling, the extension should be fatal since we\u0027ll never advertise it.",
+      "range": {
+        "startLine": 164,
+        "startChar": 4,
+        "endLine": 164,
+        "endChar": 20
+      },
+      "revId": "669839b2844e415a3aba3374db3eb7eb43dd649f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
