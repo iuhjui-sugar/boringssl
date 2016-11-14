@@ -22,6 +22,24 @@
       "revId": "5d341c5f3466d9eff29ca745bf3b262610e45a3b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_6a96f331",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1098,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T12:05:05Z",
+      "side": 1,
+      "message": "None of the current call sites do it, so I figured we\u0027d add it then when we\u0027d have tests for it and stuff.",
+      "parentUuid": "0b1ef349_ca63675a",
+      "revId": "5d341c5f3466d9eff29ca745bf3b262610e45a3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
