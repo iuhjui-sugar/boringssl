@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b1ef349_6a37d3f8",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 15
+      },
+      "lineNbr": 1006,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T05:13:45Z",
+      "side": 1,
+      "message": "server?",
+      "range": {
+        "startLine": 1006,
+        "startChar": 53,
+        "endLine": 1006,
+        "endChar": 59
+      },
+      "revId": "f130478610e8c62c0f31db225477fd7435016760",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_8a440f6a",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 15
+      },
+      "lineNbr": 1012,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T05:13:45Z",
+      "side": 1,
+      "message": "You could probably just use SendExtensionOnCertificate and tweak the word \"server\" in the docs.",
+      "range": {
+        "startLine": 1012,
+        "startChar": 1,
+        "endLine": 1012,
+        "endChar": 33
+      },
+      "revId": "f130478610e8c62c0f31db225477fd7435016760",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_4a3a17e2",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 15
+      },
+      "lineNbr": 5318,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T05:13:45Z",
+      "side": 1,
+      "message": "// Test that extensions on client certificates are never accepted.",
+      "revId": "f130478610e8c62c0f31db225477fd7435016760",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
