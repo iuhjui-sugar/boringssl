@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0b1ef349_0da91968",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1180,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-11-14T13:02:29Z",
+      "side": 1,
+      "message": "We have SkipMessage for handshake messages (e.g. SkipHelloRetryRequest), but I\u0027m fine changing this to SendNoPSKBinder (it isn\u0027t a handshake message).",
+      "parentUuid": "0b1ef349_6ae433f6",
+      "range": {
+        "startLine": 1180,
+        "startChar": 1,
+        "endLine": 1180,
+        "endChar": 14
+      },
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b1ef349_6a3a7389",
         "filename": "ssl/test/runner/handshake_client.go",
         "patchSetId": 7
@@ -36,6 +60,24 @@
       "writtenOn": "2016-11-14T09:08:16Z",
       "side": 1,
       "message": "Rather than declare it all the way up here, you can do your loop in line 256 down around line 454.",
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_4dbcf19b",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-11-14T13:02:29Z",
+      "side": 1,
+      "message": "That would require doing it twice - once at 454, but also at 331.",
+      "parentUuid": "0b1ef349_6a3a7389",
       "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "0b1ef349_2da6d598",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-11-14T13:02:29Z",
+      "side": 1,
+      "message": "Removed the change",
+      "parentUuid": "0b1ef349_8aefafdf",
+      "range": {
+        "startLine": 270,
+        "startChar": 48,
+        "endLine": 270,
+        "endChar": 54
+      },
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b1ef349_0a43bf0e",
         "filename": "ssl/test/runner/handshake_client.go",
         "patchSetId": 7
@@ -76,6 +142,24 @@
       "writtenOn": "2016-11-14T09:08:16Z",
       "side": 1,
       "message": "I\u0027d probably pass in config *Config. You\u0027re not reading from anything else, but it seems weird to separate it out.\n\n(Also right now this is copying the whole struct.)",
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_2dafb564",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1612,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-11-14T13:02:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_0a43bf0e",
       "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -99,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "0b1ef349_6da0cd7a",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1615,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-11-14T13:02:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_aaf46bb2",
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b1ef349_eafe638e",
         "filename": "ssl/test/runner/handshake_client.go",
         "patchSetId": 7
@@ -110,6 +212,24 @@
       "writtenOn": "2016-11-14T09:08:16Z",
       "side": 1,
       "message": "Nit: newline",
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_8dbd09a0",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1619,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-11-14T13:02:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_eafe638e",
       "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -133,6 +253,24 @@
     },
     {
       "key": {
+        "uuid": "0b1ef349_0db2f9cb",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1620,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-11-14T13:02:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_4a0e97e3",
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b1ef349_0a049fc3",
         "filename": "ssl/test/runner/handshake_client.go",
         "patchSetId": 7
@@ -144,6 +282,41 @@
       "writtenOn": "2016-11-14T09:08:16Z",
       "side": 1,
       "message": "Nit: newline",
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_adc2c522",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1623,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-11-14T13:02:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_0a049fc3",
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_4da31188",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1630,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-11-14T13:02:29Z",
+      "side": 1,
+      "message": "Should I have a newline here?",
       "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -167,6 +340,24 @@
     },
     {
       "key": {
+        "uuid": "0b1ef349_cdc70132",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1633,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-11-14T13:02:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_2a015bb4",
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b1ef349_caf9a7a9",
         "filename": "ssl/test/runner/handshake_client.go",
         "patchSetId": 7
@@ -178,6 +369,24 @@
       "writtenOn": "2016-11-14T09:08:16Z",
       "side": 1,
       "message": "Nit: newline",
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_edccbd56",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1636,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-11-14T13:02:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_caf9a7a9",
       "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -207,6 +416,30 @@
     },
     {
       "key": {
+        "uuid": "0b1ef349_2dd89504",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-11-14T13:02:29Z",
+      "side": 1,
+      "message": "I saw AlwaysSelectPSKIdentity as causing a problem, but it looks like SelectPSKIdentityOnResume also causes this silliness. I don\u0027t see a way to avoid this silliness. I added an explanatory comment.",
+      "parentUuid": "0b1ef349_aadd4b2a",
+      "range": {
+        "startLine": 484,
+        "startChar": 31,
+        "endLine": 484,
+        "endChar": 88
+      },
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b1ef349_ea4d8339",
         "filename": "ssl/test/runner/handshake_server.go",
         "patchSetId": 7
@@ -224,6 +457,24 @@
     },
     {
       "key": {
+        "uuid": "0b1ef349_0ddbd903",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-11-14T13:02:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_ea4d8339",
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b1ef349_8ad88f3b",
         "filename": "ssl/test/runner/handshake_server.go",
         "patchSetId": 7
@@ -235,6 +486,30 @@
       "writtenOn": "2016-11-14T09:08:16Z",
       "side": 1,
       "message": "Ditto from previous block.",
+      "range": {
+        "startLine": 652,
+        "startChar": 31,
+        "endLine": 652,
+        "endChar": 89
+      },
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_6dd28de6",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-11-14T13:02:29Z",
+      "side": 1,
+      "message": "Explanatory comment copied down here as well.",
+      "parentUuid": "0b1ef349_8ad88f3b",
       "range": {
         "startLine": 652,
         "startChar": 31,
@@ -270,6 +545,30 @@
     },
     {
       "key": {
+        "uuid": "0b1ef349_4dd5d1cb",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-11-14T13:02:29Z",
+      "side": 1,
+      "message": "The lack of cloning hash contexts is what really makes this annoying.",
+      "parentUuid": "0b1ef349_6a0b53d2",
+      "range": {
+        "startLine": 654,
+        "startChar": 75,
+        "endLine": 654,
+        "endChar": 134
+      },
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b1ef349_cad28719",
         "filename": "ssl/test/runner/handshake_server.go",
         "patchSetId": 7
@@ -287,6 +586,24 @@
     },
     {
       "key": {
+        "uuid": "0b1ef349_8de6e9d3",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1906,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-11-14T13:02:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_cad28719",
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b1ef349_0aed7fdb",
         "filename": "ssl/test/runner/handshake_server.go",
         "patchSetId": 7
@@ -298,6 +615,24 @@
       "writtenOn": "2016-11-14T09:08:16Z",
       "side": 1,
       "message": "Nit: newline",
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_ede59dc6",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1910,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-11-14T13:02:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_0aed7fdb",
       "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -327,6 +662,30 @@
     },
     {
       "key": {
+        "uuid": "0b1ef349_6db9adaa",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1914,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-11-14T13:02:29Z",
+      "side": 1,
+      "message": "Done. I switched here and handshake_client to use the new function, but haven\u0027t gone looking for other places yet.",
+      "parentUuid": "0b1ef349_2aea3bc4",
+      "range": {
+        "startLine": 1914,
+        "startChar": 29,
+        "endLine": 1914,
+        "endChar": 41
+      },
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b1ef349_4ae777fb",
         "filename": "ssl/test/runner/handshake_server.go",
         "patchSetId": 7
@@ -338,6 +697,24 @@
       "writtenOn": "2016-11-14T09:08:16Z",
       "side": 1,
       "message": "Nit: newline",
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_adeba59a",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1922,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-11-14T13:02:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_4ae777fb",
       "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -361,6 +738,24 @@
     },
     {
       "key": {
+        "uuid": "0b1ef349_cde0e1b9",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1926,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-11-14T13:02:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_ead74306",
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b1ef349_8ac16f43",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 7
@@ -372,6 +767,24 @@
       "writtenOn": "2016-11-14T09:08:16Z",
       "side": 1,
       "message": "(You\u0027ll want to adjust these to match what the C code does now.)",
+      "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_8d07c98c",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 5664,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-11-14T13:02:29Z",
+      "side": 1,
+      "message": "It looks like you\u0027ve already done this.",
+      "parentUuid": "0b1ef349_8ac16f43",
       "revId": "43d71e585d25f1b7796d29ae99fb17fa4f6f4502",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
