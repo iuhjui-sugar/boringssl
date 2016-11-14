@@ -130,7 +130,8 @@
 #include "internal.h"
 
 
-SSL_HANDSHAKE *ssl_handshake_new(enum ssl_hs_wait_t (*do_handshake)(SSL *ssl)) {
+SSL_HANDSHAKE *ssl_handshake_new(int (*do_handshake)(SSL *ssl,
+                                                     SSL_HANDSHAKE *hs)) {
   SSL_HANDSHAKE *hs = OPENSSL_malloc(sizeof(SSL_HANDSHAKE));
   if (hs == NULL) {
     OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
