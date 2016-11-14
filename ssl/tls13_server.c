@@ -357,7 +357,7 @@ static enum ssl_hs_wait_t do_process_second_client_hello(SSL *ssl,
     return ssl_hs_error;
   }
 
-  if (!ssl->method->hash_current_message(ssl)) {
+  if (!ssl_hash_current_message(ssl)) {
     return ssl_hs_error;
   }
 
@@ -534,7 +534,7 @@ static enum ssl_hs_wait_t do_process_client_certificate(SSL *ssl,
 
   if (!tls13_check_message_type(ssl, SSL3_MT_CERTIFICATE) ||
       !tls13_process_certificate(ssl, allow_anonymous) ||
-      !ssl->method->hash_current_message(ssl)) {
+      !ssl_hash_current_message(ssl)) {
     return ssl_hs_error;
   }
 
@@ -558,7 +558,7 @@ static enum ssl_hs_wait_t do_process_client_certificate_verify(
 
   if (!tls13_check_message_type(ssl, SSL3_MT_CERTIFICATE_VERIFY) ||
       !tls13_process_certificate_verify(ssl) ||
-      !ssl->method->hash_current_message(ssl)) {
+      !ssl_hash_current_message(ssl)) {
     return 0;
   }
 
@@ -574,7 +574,7 @@ static enum ssl_hs_wait_t do_process_channel_id(SSL *ssl, SSL_HANDSHAKE *hs) {
 
   if (!tls13_check_message_type(ssl, SSL3_MT_CHANNEL_ID) ||
       !tls1_verify_channel_id(ssl) ||
-      !ssl->method->hash_current_message(ssl)) {
+      !ssl_hash_current_message(ssl)) {
     return ssl_hs_error;
   }
 
@@ -586,7 +586,7 @@ static enum ssl_hs_wait_t do_process_client_finished(SSL *ssl,
                                                      SSL_HANDSHAKE *hs) {
   if (!tls13_check_message_type(ssl, SSL3_MT_FINISHED) ||
       !tls13_process_finished(ssl) ||
-      !ssl->method->hash_current_message(ssl) ||
+      !ssl_hash_current_message(ssl) ||
       /* evp_aead_seal keys have already been switched. */
       !tls13_set_traffic_key(ssl, evp_aead_open, hs->client_traffic_secret_0,
                              hs->hash_len) ||
