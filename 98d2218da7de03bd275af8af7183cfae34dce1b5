@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0b1ef349_0ae73f2e",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T08:17:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_ea9f4395",
+      "revId": "98d2218da7de03bd275af8af7183cfae34dce1b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b1ef349_aaa54bf1",
         "filename": "ssl/handshake_client.c",
         "patchSetId": 27
@@ -30,6 +48,24 @@
       "writtenOn": "2016-11-14T07:57:06Z",
       "side": 1,
       "message": "Not necessary since you aren\u0027t using goto err to free |msg|.",
+      "revId": "98d2218da7de03bd275af8af7183cfae34dce1b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_2ae4fb26",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T08:17:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_aaa54bf1",
       "revId": "98d2218da7de03bd275af8af7183cfae34dce1b5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -59,6 +95,24 @@
     },
     {
       "key": {
+        "uuid": "0b1ef349_4ae13716",
+        "filename": "ssl/internal.h",
+        "patchSetId": 27
+      },
+      "lineNbr": 926,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T08:17:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_ca9a87a8",
+      "revId": "98d2218da7de03bd275af8af7183cfae34dce1b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b1ef349_0ab57f1a",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 27
@@ -70,6 +124,24 @@
       "writtenOn": "2016-11-14T07:57:06Z",
       "side": 1,
       "message": "Nit: newline",
+      "revId": "98d2218da7de03bd275af8af7183cfae34dce1b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_6adef350",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 1895,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T08:17:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_0ab57f1a",
       "revId": "98d2218da7de03bd275af8af7183cfae34dce1b5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -93,6 +165,24 @@
     },
     {
       "key": {
+        "uuid": "0b1ef349_8a532ff7",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 1935,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T08:17:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_2ab23b33",
+      "revId": "98d2218da7de03bd275af8af7183cfae34dce1b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b1ef349_8a096f12",
         "filename": "ssl/t1_lib.c",
         "patchSetId": 27
@@ -104,6 +194,24 @@
       "writtenOn": "2016-11-14T07:57:06Z",
       "side": 1,
       "message": "Unused?",
+      "revId": "98d2218da7de03bd275af8af7183cfae34dce1b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_aa58eb11",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 2673,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T08:17:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_8a096f12",
       "revId": "98d2218da7de03bd275af8af7183cfae34dce1b5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -127,6 +235,24 @@
     },
     {
       "key": {
+        "uuid": "0b1ef349_ca5d2701",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 2704,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T08:17:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_aa0e2b15",
+      "revId": "98d2218da7de03bd275af8af7183cfae34dce1b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b1ef349_ea182359",
         "filename": "ssl/tls13_enc.c",
         "patchSetId": 27
@@ -138,6 +264,24 @@
       "writtenOn": "2016-11-14T07:57:06Z",
       "side": 1,
       "message": "You could just write this as:\n\n  uint8_t binder_context[EVP_MAX_MD_SIZE];\n  unsigned binder_context_len;\n  if (!EVP_Digest(NULL, 0, binder_context, \u0026binder_context_len, digest, NULL)) {\n    return 0;\n  }\n\nSaves mess around EVP_MD_CTX cleanups and stuff.",
+      "revId": "98d2218da7de03bd275af8af7183cfae34dce1b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_8a7c0f63",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T08:17:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_ea182359",
       "revId": "98d2218da7de03bd275af8af7183cfae34dce1b5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -161,6 +305,24 @@
     },
     {
       "key": {
+        "uuid": "0b1ef349_2a65dbcb",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T08:17:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_4a085706",
+      "revId": "98d2218da7de03bd275af8af7183cfae34dce1b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b1ef349_2afb1bcf",
         "filename": "ssl/tls13_enc.c",
         "patchSetId": 27
@@ -172,6 +334,24 @@
       "writtenOn": "2016-11-14T07:57:06Z",
       "side": 1,
       "message": "Probably ought to do:\nOPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);\n\nNot that it\u0027ll be reachable.",
+      "revId": "98d2218da7de03bd275af8af7183cfae34dce1b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_6a6fd3a9",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T08:17:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_2afb1bcf",
       "revId": "98d2218da7de03bd275af8af7183cfae34dce1b5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -195,6 +375,24 @@
     },
     {
       "key": {
+        "uuid": "0b1ef349_0a681fa3",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T08:17:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_6a0513ed",
+      "revId": "98d2218da7de03bd275af8af7183cfae34dce1b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b1ef349_aaf70bdd",
         "filename": "ssl/tls13_enc.c",
         "patchSetId": 27
@@ -206,6 +404,24 @@
       "writtenOn": "2016-11-14T07:57:06Z",
       "side": 1,
       "message": "Hahaha. Let me see if I can make the SSL_PROTOCOL_METHOD hook somewhat more useful, because that\u0027s kind of silly... :-)",
+      "revId": "98d2218da7de03bd275af8af7183cfae34dce1b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_2a8ebb4b",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T08:17:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_aaf70bdd",
       "revId": "98d2218da7de03bd275af8af7183cfae34dce1b5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -229,6 +445,24 @@
     },
     {
       "key": {
+        "uuid": "0b1ef349_ea62e3c5",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T08:17:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_caec4714",
+      "revId": "98d2218da7de03bd275af8af7183cfae34dce1b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b1ef349_ca13673c",
         "filename": "ssl/tls13_server.c",
         "patchSetId": 27
@@ -240,6 +474,24 @@
       "writtenOn": "2016-11-14T07:57:06Z",
       "side": 1,
       "message": "You could probably just put this right after line 165 and avoid the session !\u003d NULL.",
+      "revId": "98d2218da7de03bd275af8af7183cfae34dce1b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_aa81cb21",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T08:17:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ef349_ca13673c",
       "revId": "98d2218da7de03bd275af8af7183cfae34dce1b5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
