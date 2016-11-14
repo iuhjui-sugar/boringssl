@@ -1,0 +1,248 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b1ef349_ea9f4395",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T07:57:06Z",
+      "side": 1,
+      "message": "Comment:\n\n/* Now that the length prefixes have been computed, fill in the placeholder PSK binder. */",
+      "revId": "98d2218da7de03bd275af8af7183cfae34dce1b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_aaa54bf1",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T07:57:06Z",
+      "side": 1,
+      "message": "Not necessary since you aren\u0027t using goto err to free |msg|.",
+      "revId": "98d2218da7de03bd275af8af7183cfae34dce1b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_ca9a87a8",
+        "filename": "ssl/internal.h",
+        "patchSetId": 27
+      },
+      "lineNbr": 926,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T07:57:06Z",
+      "side": 1,
+      "message": "This name seems too generic given that SSL_HANDSHAKE is not a TLS 1.3 structure. sent_psk_binder perhaps?",
+      "range": {
+        "startLine": 926,
+        "startChar": 6,
+        "endLine": 926,
+        "endChar": 18
+      },
+      "revId": "98d2218da7de03bd275af8af7183cfae34dce1b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_0ab57f1a",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 1895,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T07:57:06Z",
+      "side": 1,
+      "message": "Nit: newline",
+      "revId": "98d2218da7de03bd275af8af7183cfae34dce1b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_2ab23b33",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 1935,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T07:57:06Z",
+      "side": 1,
+      "message": "Nit: s/empty_binder/zero_binder/ or so. We specifically want a non-empty one. :-)\n\nThis is probably worth a comment to explain what\u0027s going on.\n\n/* Fill in a placeholder zero binder of the appropriate length. It will be computed and filled in later after length prefixes are computed. */",
+      "revId": "98d2218da7de03bd275af8af7183cfae34dce1b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_8a096f12",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 2673,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T07:57:06Z",
+      "side": 1,
+      "message": "Unused?",
+      "revId": "98d2218da7de03bd275af8af7183cfae34dce1b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_aa0e2b15",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 2704,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T07:57:06Z",
+      "side": 1,
+      "message": "/* The PSK extension must be last, including after the padding. */",
+      "revId": "98d2218da7de03bd275af8af7183cfae34dce1b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_ea182359",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T07:57:06Z",
+      "side": 1,
+      "message": "You could just write this as:\n\n  uint8_t binder_context[EVP_MAX_MD_SIZE];\n  unsigned binder_context_len;\n  if (!EVP_Digest(NULL, 0, binder_context, \u0026binder_context_len, digest, NULL)) {\n    return 0;\n  }\n\nSaves mess around EVP_MD_CTX cleanups and stuff.",
+      "revId": "98d2218da7de03bd275af8af7183cfae34dce1b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_4a085706",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T07:57:06Z",
+      "side": 1,
+      "message": "Nit: Move this down to line 400.",
+      "revId": "98d2218da7de03bd275af8af7183cfae34dce1b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_2afb1bcf",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T07:57:06Z",
+      "side": 1,
+      "message": "Probably ought to do:\nOPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);\n\nNot that it\u0027ll be reachable.",
+      "revId": "98d2218da7de03bd275af8af7183cfae34dce1b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_6a0513ed",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T07:57:06Z",
+      "side": 1,
+      "message": "Nit: move this down to line 442.",
+      "revId": "98d2218da7de03bd275af8af7183cfae34dce1b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_aaf70bdd",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T07:57:06Z",
+      "side": 1,
+      "message": "Hahaha. Let me see if I can make the SSL_PROTOCOL_METHOD hook somewhat more useful, because that\u0027s kind of silly... :-)",
+      "revId": "98d2218da7de03bd275af8af7183cfae34dce1b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_caec4714",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T07:57:06Z",
+      "side": 1,
+      "message": "/* We only consider the first PSK, so compare against the first binder. */",
+      "revId": "98d2218da7de03bd275af8af7183cfae34dce1b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_ca13673c",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T07:57:06Z",
+      "side": 1,
+      "message": "You could probably just put this right after line 165 and avoid the session !\u003d NULL.",
+      "revId": "98d2218da7de03bd275af8af7183cfae34dce1b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
