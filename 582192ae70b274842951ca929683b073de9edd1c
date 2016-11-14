@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b1ef349_4a3db77e",
+        "filename": "ssl/test/runner/prf.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T09:08:16Z",
+      "side": 1,
+      "message": "Nit: not necessary to repeat it here",
+      "range": {
+        "startLine": 473,
+        "startChar": 26,
+        "endLine": 473,
+        "endChar": 32
+      },
+      "revId": "582192ae70b274842951ca929683b073de9edd1c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1ef349_2a407bff",
+        "filename": "ssl/test/runner/prf.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-14T09:08:16Z",
+      "side": 1,
+      "message": "Why do you need to create a second finishedHash?",
+      "revId": "582192ae70b274842951ca929683b073de9edd1c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
