@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b0ff186b_12fc2c97",
+        "filename": "crypto/ec/p256-x86_64.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-15T23:49:02Z",
+      "side": 1,
+      "message": "[Variable no longer exists due to following comment.]",
+      "parentUuid": "10ad446a_bd9f0a3b",
+      "revId": "1ac98bc139ede66bdc1492d1b7fdb2c196d46bcd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "10ad446a_1daade4e",
         "filename": "crypto/ec/p256-x86_64.c",
         "patchSetId": 6
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "b0ff186b_5206b4d0",
+        "filename": "crypto/ec/p256-x86_64.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-15T23:49:02Z",
+      "side": 1,
+      "message": "...yeah, you\u0027re right. This could be made a ton simpler. Let me rewrite this using copy_conditional and is_zero.",
+      "parentUuid": "10ad446a_1daade4e",
+      "revId": "1ac98bc139ede66bdc1492d1b7fdb2c196d46bcd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "10ad446a_02b91bcc",
         "filename": "crypto/ec/p256-x86_64.c",
         "patchSetId": 6
@@ -47,6 +83,24 @@
       "writtenOn": "2016-11-15T18:05:52Z",
       "side": 1,
       "message": "is_zero breaks the typical return value convention for constant-time functions because it returns 0/1 rather than a mask. However, this immediately turns it into a mask. I think is_zero should return a mask.",
+      "revId": "1ac98bc139ede66bdc1492d1b7fdb2c196d46bcd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0ff186b_32f7b0b6",
+        "filename": "crypto/ec/p256-x86_64.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-15T23:49:02Z",
+      "side": 1,
+      "message": "This file annoyingly believes in the other convention, see copy_conditional. I\u0027ll move the comment to describe both of them.",
+      "parentUuid": "10ad446a_02b91bcc",
       "revId": "1ac98bc139ede66bdc1492d1b7fdb2c196d46bcd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
