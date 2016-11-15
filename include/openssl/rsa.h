@@ -89,6 +89,21 @@ OPENSSL_EXPORT int RSA_up_ref(RSA *rsa);
 
 /* Properties. */
 
+/* RSA_set0_key sets |rsa|'s modulus, public exponent, and private exponent
+ * to |n|, |e|, and |d| respectively, if non-NULL, and takes ownership of
+ * them. It returns 1 on success or 0 on failure. */
+OPENSSL_EXPORT int RSA_set0_key(RSA *rsa, BIGNUM *n, BIGNUM *e, BIGNUM *d);
+
+/* RSA_set0_factors sets |rsa|'s prime factors to |p| and |q|, if non-NULL,
+ * and takes ownership of them. It returns 1 on success or 0 on failure. */
+OPENSSL_EXPORT int RSA_set0_factors(RSA *rsa, BIGNUM *p, BIGNUM *q);
+
+/* RSA_set0_crt_params sets |rsa|'s CRT parameters to |dmp1|, |dmq1|, and
+ * |iqmp|, if non-NULL, and takes ownership of them. It returns 1 on success
+ * or 0 on failure. */
+OPENSSL_EXPORT int RSA_set0_crt_params(RSA *rsa, BIGNUM *dmp1, BIGNUM *dmq1,
+                                       BIGNUM *iqmp);
+
 /* RSA_get0_key sets |*out_n|, |*out_e|, and |*out_d|, if non-NULL, to |rsa|'s
  * modulus, public exponent, and private exponent, respectively. If |rsa| is a
  * public key, the private exponent will be set to NULL. */
