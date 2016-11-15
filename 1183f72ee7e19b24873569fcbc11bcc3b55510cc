@@ -22,6 +22,47 @@
       "revId": "1183f72ee7e19b24873569fcbc11bcc3b55510cc",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10ad446a_a76e1918",
+        "filename": "crypto/ec/p256-x86_64.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-11-15T16:58:48Z",
+      "side": 1,
+      "message": "Agreed. Some of the window values will end up being zero I believe so it has to function for index\u003d\u003d0.",
+      "parentUuid": "0b1ef349_04fe56be",
+      "range": {
+        "startLine": 78,
+        "startChar": 55,
+        "endLine": 78,
+        "endChar": 56
+      },
+      "revId": "1183f72ee7e19b24873569fcbc11bcc3b55510cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10ad446a_07fe0dbd",
+        "filename": "crypto/ec/p256-x86_64_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-11-15T16:58:48Z",
+      "side": 1,
+      "message": "bn_set_words forces x, y and z to be non-negative already. Were these BN_is_negative tests for clarity, or did you have something else in mind?",
+      "revId": "1183f72ee7e19b24873569fcbc11bcc3b55510cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
