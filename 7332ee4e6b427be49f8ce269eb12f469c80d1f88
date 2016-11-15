@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0ff186b_f23b68f9",
+        "filename": "fuzz/refresh_ssl_corpora.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2016-11-15T06:09:52Z",
+      "side": 1,
+      "message": "Can you make this slightly different so that you could find it in /tmp/ in case of errors.",
+      "range": {
+        "startLine": 71,
+        "startChar": 52,
+        "endLine": 71,
+        "endChar": 62
+      },
+      "revId": "7332ee4e6b427be49f8ce269eb12f469c80d1f88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
