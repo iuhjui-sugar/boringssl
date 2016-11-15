@@ -22,6 +22,24 @@
       "revId": "7332ee4e6b427be49f8ce269eb12f469c80d1f88",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0ff186b_9205bc33",
+        "filename": "fuzz/refresh_ssl_corpora.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-15T06:49:36Z",
+      "side": 1,
+      "message": "Added -x per offline discussion.",
+      "parentUuid": "b0ff186b_f23b68f9",
+      "revId": "7332ee4e6b427be49f8ce269eb12f469c80d1f88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
