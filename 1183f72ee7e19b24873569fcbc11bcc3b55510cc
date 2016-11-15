@@ -63,6 +63,24 @@
       "revId": "1183f72ee7e19b24873569fcbc11bcc3b55510cc",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0ff186b_d21bc434",
+        "filename": "crypto/ec/p256-x86_64_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-15T21:57:56Z",
+      "side": 1,
+      "message": "Oh, right, BN_ULONG[P256_LIMBS] can\u0027t express a negative number. I went to check 0 \u003c\u003d x \u003c P without thinking too hard about it. I\u0027ll go remove those.",
+      "parentUuid": "10ad446a_07fe0dbd",
+      "revId": "1183f72ee7e19b24873569fcbc11bcc3b55510cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
