@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0ff186b_924dbce4",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2016-11-15T05:07:54Z",
+      "side": 1,
+      "message": "I think the CBS_len \u003d\u003d hash_len check shouldn\u0027t be pulled out and not ignored by the binder.",
+      "range": {
+        "startLine": 443,
+        "startChar": 4,
+        "endLine": 443,
+        "endChar": 11
+      },
+      "revId": "5e01be6edf85ab9b84d852cd94f397245577a196",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
