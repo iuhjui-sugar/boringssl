@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0ff186b_b23ba08c",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-15T23:00:51Z",
+      "side": 1,
+      "message": "This doesn\u0027t match upstream\u0027s behavior where it returns zero if various fields end up as NULL. Ditto elsewhere.",
+      "revId": "63d879f7fdf965676b834b9b81aa97f82f5d5836",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0ff186b_92381c91",
+        "filename": "include/openssl/rsa.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-15T23:00:51Z",
+      "side": 1,
+      "message": "Document what the function does to ownership. Ditto below.",
+      "revId": "63d879f7fdf965676b834b9b81aa97f82f5d5836",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0ff186b_f2352897",
+        "filename": "include/openssl/rsa.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-15T23:00:51Z",
+      "side": 1,
+      "message": "The 1/0 conditions don\u0027t quite seem to be these? Yours just straight-up always succeed, while upstream seems to return 0 if parameters were missing? Ditto below.",
+      "revId": "63d879f7fdf965676b834b9b81aa97f82f5d5836",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
