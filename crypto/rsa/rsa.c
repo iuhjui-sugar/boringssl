@@ -169,6 +169,58 @@ int RSA_up_ref(RSA *rsa) {
   return 1;
 }
 
+int RSA_set0_key(RSA *rsa, BIGNUM *n, BIGNUM *e, BIGNUM *d) {
+  if (n != NULL) {
+    BN_free(rsa->n);
+    rsa->n = n;
+  }
+
+  if (e != NULL) {
+    BN_free(rsa->e);
+    rsa->e = e;
+  }
+
+  if (d != NULL) {
+    BN_free(rsa->d);
+    rsa->d = d;
+  }
+
+  return 1;
+}
+
+int RSA_set0_factors(RSA *rsa, BIGNUM *p, BIGNUM *q) {
+  if (p != NULL) {
+    BN_free(rsa->p);
+    rsa->p = p;
+  }
+
+  if (q != NULL) {
+    BN_free(rsa->q);
+    rsa->q = q;
+  }
+
+  return 1;
+}
+
+int RSA_set0_crt_params(RSA *rsa, BIGNUM *dmp1, BIGNUM *dmq1, BIGNUM *iqmp) {
+  if (dmp1 != NULL) {
+    BN_free(rsa->dmp1);
+    rsa->dmp1 = dmp1;
+  }
+
+  if (dmq1 != NULL) {
+    BN_free(rsa->dmq1);
+    rsa->dmq1 = dmq1;
+  }
+
+  if (iqmp != NULL) {
+    BN_free(rsa->iqmp);
+    rsa->iqmp = iqmp;
+  }
+
+  return 1;
+}
+
 void RSA_get0_key(const RSA *rsa, const BIGNUM **out_n, const BIGNUM **out_e,
                   const BIGNUM **out_d) {
   if (out_n != NULL) {
