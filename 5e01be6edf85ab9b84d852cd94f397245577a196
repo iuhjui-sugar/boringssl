@@ -22,6 +22,24 @@
       "revId": "5e01be6edf85ab9b84d852cd94f397245577a196",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0ff186b_d2574470",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-15T05:09:26Z",
+      "side": 1,
+      "message": "This was to match what the Finished logic did. It also ends up being a lot more code because the length mismatch does want to hit SSL_R_DIGEST_CHECK_FAILED and otherwise be called binder_ok.",
+      "parentUuid": "b0ff186b_924dbce4",
+      "revId": "5e01be6edf85ab9b84d852cd94f397245577a196",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
