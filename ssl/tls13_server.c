@@ -433,13 +433,13 @@ static enum ssl_hs_wait_t do_send_encrypted_extensions(SSL *ssl,
 static enum ssl_hs_wait_t do_send_certificate_request(SSL *ssl,
                                                       SSL_HANDSHAKE *hs) {
   /* Determine whether to request a client certificate. */
-  ssl->s3->hs->cert_request = !!(ssl->verify_mode & SSL_VERIFY_PEER);
+  hs->cert_request = !!(ssl->verify_mode & SSL_VERIFY_PEER);
   /* CertificateRequest may only be sent in non-resumption handshakes. */
   if (ssl->s3->session_reused) {
-    ssl->s3->hs->cert_request = 0;
+    hs->cert_request = 0;
   }
 
-  if (!ssl->s3->hs->cert_request) {
+  if (!hs->cert_request) {
     /* Skip this state. */
     hs->state = state_send_server_certificate;
     return ssl_hs_ok;
@@ -542,7 +542,7 @@ static enum ssl_hs_wait_t do_flush(SSL *ssl, SSL_HANDSHAKE *hs) {
 
 static enum ssl_hs_wait_t do_process_client_certificate(SSL *ssl,
                                                         SSL_HANDSHAKE *hs) {
-  if (!ssl->s3->hs->cert_request) {
+  if (!hs->cert_request) {
     /* OpenSSL returns X509_V_OK when no certificates are requested. This is
      * classed by them as a bug, but it's assumed by at least NGINX. */
     ssl->s3->new_session->verify_result = X509_V_OK;
@@ -689,9 +689,7 @@ static enum ssl_hs_wait_t do_flush_new_session_tickets(SSL *ssl,
   return ssl_hs_flush;
 }
 
-enum ssl_hs_wait_t tls13_server_handshake(SSL *ssl) {
-  SSL_HANDSHAKE *hs = ssl->s3->hs;
-
+enum ssl_hs_wait_t tls13_server_handshake(SSL *ssl, SSL_HANDSHAKE *hs) {
   while (hs->state != state_done) {
     enum ssl_hs_wait_t ret = ssl_hs_error;
     enum server_hs_state_t state = hs->state;
