@@ -169,10 +169,10 @@ var channelIDKey *ecdsa.PrivateKey
 var channelIDBytes []byte
 
 var testOCSPResponse = []byte{1, 2, 3, 4}
-var testSCTList = []byte{5, 6, 7, 8}
+var testSCTList = []byte{0, 6, 0, 4, 5, 6, 7, 8}
 
 var testOCSPExtension = append([]byte{byte(extensionStatusRequest) >> 8, byte(extensionStatusRequest), 0, 8, statusTypeOCSP, 0, 0, 4}, testOCSPResponse...)
-var testSCTExtension = append([]byte{byte(extensionSignedCertificateTimestamp) >> 8, byte(extensionSignedCertificateTimestamp), 0, 4}, testSCTList...)
+var testSCTExtension = append([]byte{byte(extensionSignedCertificateTimestamp) >> 8, byte(extensionSignedCertificateTimestamp), 0, byte(len(testSCTList))}, testSCTList...)
 
 func initCertificates() {
 	for i := range testCerts {
@@ -5176,7 +5176,7 @@ func addExtensionTests() {
 			config: Config{
 				MaxVersion: ver.version,
 				Bugs: ProtocolBugs{
-					SendSCTListOnResume: []byte("bogus"),
+					SendSCTListOnResume: testSCTList,
 				},
 			},
 			flags: []string{
@@ -5200,6 +5200,44 @@ func addExtensionTests() {
 			expectedSCTList: testSCTList,
 			resumeSession:   true,
 		})
+
+		if ver.version < VersionTLS13 {
+			emptySCTListCert := *testCerts[0].cert
+			emptySCTListCert.SignedCertificateTimestampList = []byte{0, 0}
+
+			// Test empty SCT list.
+			testCases = append(testCases, testCase{
+				name:     "SignedCertificateTimestampListEmpty-Client-" + ver.name,
+				testType: clientTest,
+				config: Config{
+					MaxVersion:   ver.version,
+					Certificates: []Certificate{emptySCTListCert},
+				},
+				flags: []string{
+					"-enable-signed-cert-timestamps",
+				},
+				shouldFail:    true,
+				expectedError: ":ERROR_PARSING_EXTENSION:",
+			})
+
+			emptySCTCert := *testCerts[0].cert
+			emptySCTCert.SignedCertificateTimestampList = []byte{0, 6, 0, 2, 1, 2, 0, 0}
+
+			// Test empty SCT in non-empty list.
+			testCases = append(testCases, testCase{
+				name:     "SignedCertificateTimestampListEmptySCT-Client-" + ver.name,
+				testType: clientTest,
+				config: Config{
+					MaxVersion:   ver.version,
+					Certificates: []Certificate{emptySCTCert},
+				},
+				flags: []string{
+					"-enable-signed-cert-timestamps",
+				},
+				shouldFail:    true,
+				expectedError: ":ERROR_PARSING_EXTENSION:",
+			})
+		}
 
 		// Test that certificate-related extensions are not sent unsolicited.
 		testCases = append(testCases, testCase{
