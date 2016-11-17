@@ -1357,6 +1357,7 @@ static int ext_sct_parse_serverhello(SSL *ssl, uint8_t *out_alert,
 
   /* TLS 1.3 SCTs are included in the Certificate extensions. */
   if (ssl3_protocol_version(ssl) >= TLS1_3_VERSION) {
+    *out_alert = SSL_AD_DECODE_ERROR;
     return 0;
   }
 
@@ -1369,6 +1370,27 @@ static int ext_sct_parse_serverhello(SSL *ssl, uint8_t *out_alert,
     return 0;
   }
 
+  /* Shallow parse the SCT list for sanity. By the RFC
+   * (https://tools.ietf.org/html/rfc6962#section-3.3) neither the list nor any
+   * of the SCTs may be empty. */
+  const CBS copy = *contents;
+  CBS sct_list;
+  if (!CBS_get_u16_length_prefixed(contents, &sct_list) ||
+      CBS_len(contents) != 0 ||
+      CBS_len(&sct_list) == 0) {
+    *out_alert = SSL_AD_DECODE_ERROR;
+    return 0;
+  }
+
+  while (CBS_len(&sct_list) > 0) {
+    CBS sct;
+    if (!CBS_get_u16_length_prefixed(&sct_list, &sct) ||
+        CBS_len(&sct) == 0) {
+      *out_alert = SSL_AD_DECODE_ERROR;
+      return 0;
+    }
+  }
+
   /* Session resumption uses the original session information. The extension
    * should not be sent on resumption, but RFC 6962 did not make it a
    * requirement, so tolerate this.
@@ -1376,7 +1398,7 @@ static int ext_sct_parse_serverhello(SSL *ssl, uint8_t *out_alert,
    * TODO(davidben): Enforce this anyway. */
   if (!ssl->s3->session_reused &&
       !CBS_stow(
-          contents,
+          &copy,
           &ssl->s3->new_session->tlsext_signed_cert_timestamp_list,
           &ssl->s3->new_session->tlsext_signed_cert_timestamp_list_length)) {
     *out_alert = SSL_AD_INTERNAL_ERROR;
