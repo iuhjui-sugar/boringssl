@@ -53,7 +53,8 @@ enum server_hs_state_t {
 
 static const uint8_t kZeroes[EVP_MAX_MD_SIZE] = {0};
 
-static int resolve_ecdhe_secret(SSL *ssl, int *out_need_retry,
+static int resolve_ecdhe_secret(SSL *ssl, SSL_HANDSHAKE *hs,
+                                int *out_need_retry,
                                 struct ssl_early_callback_ctx *early_ctx) {
   *out_need_retry = 0;
 
@@ -82,7 +83,7 @@ static int resolve_ecdhe_secret(SSL *ssl, int *out_need_retry,
     return 0;
   }
 
-  int ok = tls13_advance_key_schedule(ssl, dhe_secret, dhe_secret_len);
+  int ok = tls13_advance_key_schedule(ssl, hs, dhe_secret, dhe_secret_len);
   OPENSSL_free(dhe_secret);
   return ok;
 }
@@ -244,8 +245,8 @@ static enum ssl_hs_wait_t do_select_parameters(SSL *ssl, SSL_HANDSHAKE *hs) {
     ssl->s3->new_session->cipher = ssl->s3->tmp.new_cipher;
 
     /* On new sessions, stash the SNI value in the session. */
-    if (ssl->s3->hs->hostname != NULL) {
-      ssl->s3->new_session->tlsext_hostname = BUF_strdup(ssl->s3->hs->hostname);
+    if (hs->hostname != NULL) {
+      ssl->s3->new_session->tlsext_hostname = BUF_strdup(hs->hostname);
       if (ssl->s3->new_session->tlsext_hostname == NULL) {
         ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
         return ssl_hs_error;
@@ -299,8 +300,8 @@ static enum ssl_hs_wait_t do_select_parameters(SSL *ssl, SSL_HANDSHAKE *hs) {
 
   /* Set up the key schedule, hash in the ClientHello, and incorporate the PSK
    * into the running secret. */
-  if (!tls13_init_key_schedule(ssl) ||
-      !tls13_advance_key_schedule(ssl, psk_secret, hash_len)) {
+  if (!tls13_init_key_schedule(ssl, hs) ||
+      !tls13_advance_key_schedule(ssl, hs, psk_secret, hash_len)) {
     return ssl_hs_error;
   }
 
@@ -308,7 +309,7 @@ static enum ssl_hs_wait_t do_select_parameters(SSL *ssl, SSL_HANDSHAKE *hs) {
 
   /* Resolve ECDHE and incorporate it into the secret. */
   int need_retry;
-  if (!resolve_ecdhe_secret(ssl, &need_retry, &client_hello)) {
+  if (!resolve_ecdhe_secret(ssl, hs, &need_retry, &client_hello)) {
     if (need_retry) {
       hs->state = state_send_hello_retry_request;
       return ssl_hs_ok;
@@ -362,7 +363,7 @@ static enum ssl_hs_wait_t do_process_second_client_hello(SSL *ssl,
   }
 
   int need_retry;
-  if (!resolve_ecdhe_secret(ssl, &need_retry, &client_hello)) {
+  if (!resolve_ecdhe_secret(ssl, hs, &need_retry, &client_hello)) {
     if (need_retry) {
       /* Only send one HelloRetryRequest. */
       ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
@@ -404,7 +405,7 @@ err:
 
 static enum ssl_hs_wait_t do_send_encrypted_extensions(SSL *ssl,
                                                        SSL_HANDSHAKE *hs) {
-  if (!tls13_set_handshake_traffic(ssl)) {
+  if (!tls13_set_handshake_traffic(ssl, hs)) {
     return ssl_hs_error;
   }
 
@@ -481,7 +482,7 @@ static enum ssl_hs_wait_t do_send_server_certificate(SSL *ssl,
     return ssl_hs_error;
   }
 
-  if (!tls13_prepare_certificate(ssl)) {
+  if (!tls13_prepare_certificate(ssl, hs)) {
     return ssl_hs_error;
   }
 
@@ -510,7 +511,7 @@ static enum ssl_hs_wait_t do_send_server_certificate_verify(SSL *ssl,
 }
 
 static enum ssl_hs_wait_t do_send_server_finished(SSL *ssl, SSL_HANDSHAKE *hs) {
-  if (!tls13_prepare_finished(ssl)) {
+  if (!tls13_prepare_finished(ssl, hs)) {
     return ssl_hs_error;
   }
 
@@ -520,8 +521,8 @@ static enum ssl_hs_wait_t do_send_server_finished(SSL *ssl, SSL_HANDSHAKE *hs) {
 
 static enum ssl_hs_wait_t do_flush(SSL *ssl, SSL_HANDSHAKE *hs) {
   /* Update the secret to the master secret and derive traffic keys. */
-  if (!tls13_advance_key_schedule(ssl, kZeroes, hs->hash_len) ||
-      !tls13_derive_application_secrets(ssl) ||
+  if (!tls13_advance_key_schedule(ssl, hs, kZeroes, hs->hash_len) ||
+      !tls13_derive_application_secrets(ssl, hs) ||
       !tls13_set_traffic_key(ssl, evp_aead_seal, hs->server_traffic_secret_0,
                              hs->hash_len)) {
     return ssl_hs_error;
@@ -599,12 +600,12 @@ static enum ssl_hs_wait_t do_process_channel_id(SSL *ssl, SSL_HANDSHAKE *hs) {
 static enum ssl_hs_wait_t do_process_client_finished(SSL *ssl,
                                                      SSL_HANDSHAKE *hs) {
   if (!tls13_check_message_type(ssl, SSL3_MT_FINISHED) ||
-      !tls13_process_finished(ssl) ||
+      !tls13_process_finished(ssl, hs) ||
       !ssl_hash_current_message(ssl) ||
       /* evp_aead_seal keys have already been switched. */
       !tls13_set_traffic_key(ssl, evp_aead_open, hs->client_traffic_secret_0,
                              hs->hash_len) ||
-      !tls13_derive_resumption_secret(ssl)) {
+      !tls13_derive_resumption_secret(ssl, hs)) {
     return ssl_hs_error;
   }
 
