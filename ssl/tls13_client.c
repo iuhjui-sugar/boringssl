@@ -287,8 +287,8 @@ static enum ssl_hs_wait_t do_process_server_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
 
   /* Set up the key schedule, hash in the ClientHello, and incorporate the PSK
    * into the running secret. */
-  if (!tls13_init_key_schedule(ssl) ||
-      !tls13_advance_key_schedule(ssl, psk_secret, hash_len)) {
+  if (!tls13_init_key_schedule(ssl, hs) ||
+      !tls13_advance_key_schedule(ssl, hs, psk_secret, hash_len)) {
     return ssl_hs_error;
   }
 
@@ -301,7 +301,7 @@ static enum ssl_hs_wait_t do_process_server_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
-  if (!tls13_advance_key_schedule(ssl, dhe_secret, dhe_secret_len)) {
+  if (!tls13_advance_key_schedule(ssl, hs, dhe_secret, dhe_secret_len)) {
     OPENSSL_free(dhe_secret);
     return ssl_hs_error;
   }
@@ -314,7 +314,7 @@ static enum ssl_hs_wait_t do_process_server_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
-  if (!tls13_set_handshake_traffic(ssl)) {
+  if (!tls13_set_handshake_traffic(ssl, hs)) {
     return ssl_hs_error;
   }
 
@@ -432,11 +432,11 @@ static enum ssl_hs_wait_t do_process_server_finished(SSL *ssl,
                                                      SSL_HANDSHAKE *hs) {
   static const uint8_t kZeroes[EVP_MAX_MD_SIZE] = {0};
   if (!tls13_check_message_type(ssl, SSL3_MT_FINISHED) ||
-      !tls13_process_finished(ssl) ||
+      !tls13_process_finished(ssl, hs) ||
       !ssl_hash_current_message(ssl) ||
       /* Update the secret to the master secret and derive traffic keys. */
-      !tls13_advance_key_schedule(ssl, kZeroes, hs->hash_len) ||
-      !tls13_derive_application_secrets(ssl)) {
+      !tls13_advance_key_schedule(ssl, hs, kZeroes, hs->hash_len) ||
+      !tls13_derive_application_secrets(ssl, hs)) {
     return ssl_hs_error;
   }
 
@@ -482,7 +482,7 @@ static enum ssl_hs_wait_t do_send_client_certificate(SSL *ssl,
     return ssl_hs_error;
   }
 
-  if (!tls13_prepare_certificate(ssl)) {
+  if (!tls13_prepare_certificate(ssl, hs)) {
     return ssl_hs_error;
   }
 
@@ -543,7 +543,7 @@ static enum ssl_hs_wait_t do_send_channel_id(SSL *ssl, SSL_HANDSHAKE *hs) {
 }
 
 static enum ssl_hs_wait_t do_send_client_finished(SSL *ssl, SSL_HANDSHAKE *hs) {
-  if (!tls13_prepare_finished(ssl)) {
+  if (!tls13_prepare_finished(ssl, hs)) {
     return ssl_hs_error;
   }
 
@@ -556,7 +556,7 @@ static enum ssl_hs_wait_t do_flush(SSL *ssl, SSL_HANDSHAKE *hs) {
                              hs->hash_len) ||
       !tls13_set_traffic_key(ssl, evp_aead_seal, hs->client_traffic_secret_0,
                              hs->hash_len) ||
-      !tls13_derive_resumption_secret(ssl)) {
+      !tls13_derive_resumption_secret(ssl, hs)) {
     return ssl_hs_error;
   }
 
@@ -667,10 +667,10 @@ int tls13_process_new_session_ticket(SSL *ssl) {
   return 1;
 }
 
-void ssl_clear_tls13_state(SSL *ssl) {
-  SSL_ECDH_CTX_cleanup(&ssl->s3->hs->ecdh_ctx);
+void ssl_clear_tls13_state(SSL *ssl, SSL_HANDSHAKE *hs) {
+  SSL_ECDH_CTX_cleanup(&hs->ecdh_ctx);
 
-  OPENSSL_free(ssl->s3->hs->key_share_bytes);
-  ssl->s3->hs->key_share_bytes = NULL;
-  ssl->s3->hs->key_share_bytes_len = 0;
+  OPENSSL_free(hs->key_share_bytes);
+  hs->key_share_bytes = NULL;
+  hs->key_share_bytes_len = 0;
 }
