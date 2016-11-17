@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "707a00f8_086b4760",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 3474,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-17T21:56:36Z",
+      "side": 1,
+      "message": "Maybe ssl_is_sct_list_valid or something like that? \"check\" sounds like an operation that can succeed or fail (and thus touch the darn error queue) whereas this is just an unopinionated predicate function.",
+      "range": {
+        "startLine": 3474,
+        "startChar": 4,
+        "endLine": 3474,
+        "endChar": 22
+      },
+      "revId": "fee1414a21a5c4327db65565a58b085377b415d8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
