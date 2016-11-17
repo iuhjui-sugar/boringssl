@@ -322,7 +322,7 @@ void tls1_get_grouplist(SSL *ssl, const uint16_t **out_group_ids,
   }
 }
 
-int tls1_get_shared_group(SSL *ssl, uint16_t *out_group_id) {
+int tls1_get_shared_group(SSL *ssl, SSL_HANDSHAKE *hs, uint16_t *out_group_id) {
   assert(ssl->server);
 
   const uint16_t *groups, *pref, *supp;
@@ -341,11 +341,11 @@ int tls1_get_shared_group(SSL *ssl, uint16_t *out_group_id) {
   if (ssl->options & SSL_OP_CIPHER_SERVER_PREFERENCE) {
     pref = groups;
     pref_len = groups_len;
-    supp = ssl->s3->hs->peer_supported_group_list;
-    supp_len = ssl->s3->hs->peer_supported_group_list_len;
+    supp = hs->peer_supported_group_list;
+    supp_len = hs->peer_supported_group_list_len;
   } else {
-    pref = ssl->s3->hs->peer_supported_group_list;
-    pref_len = ssl->s3->hs->peer_supported_group_list_len;
+    pref = hs->peer_supported_group_list;
+    pref_len = hs->peer_supported_group_list_len;
     supp = groups;
     supp_len = groups_len;
   }
@@ -1114,7 +1114,7 @@ static int ext_sigalgs_parse_clienthello(SSL *ssl, SSL_HANDSHAKE *hs,
   if (!CBS_get_u16_length_prefixed(contents, &supported_signature_algorithms) ||
       CBS_len(contents) != 0 ||
       CBS_len(&supported_signature_algorithms) == 0 ||
-      !tls1_parse_peer_sigalgs(ssl, &supported_signature_algorithms)) {
+      !tls1_parse_peer_sigalgs(ssl, hs, &supported_signature_algorithms)) {
     return 0;
   }
 
@@ -1506,7 +1506,7 @@ static int ext_alpn_parse_serverhello(SSL *ssl, SSL_HANDSHAKE *hs,
   return 1;
 }
 
-int ssl_negotiate_alpn(SSL *ssl, uint8_t *out_alert,
+int ssl_negotiate_alpn(SSL *ssl, SSL_HANDSHAKE *hs, uint8_t *out_alert,
                        const struct ssl_early_callback_ctx *client_hello) {
   CBS contents;
   if (ssl->ctx->alpn_select_cb == NULL ||
@@ -1518,7 +1518,7 @@ int ssl_negotiate_alpn(SSL *ssl, uint8_t *out_alert,
   }
 
   /* ALPN takes precedence over NPN. */
-  ssl->s3->hs->next_proto_neg_seen = 0;
+  hs->next_proto_neg_seen = 0;
 
   CBS protocol_name_list;
   if (!CBS_get_u16_length_prefixed(&contents, &protocol_name_list) ||
@@ -2204,7 +2204,7 @@ int ssl_ext_key_share_parse_clienthello(SSL *ssl, SSL_HANDSHAKE *hs,
                                         uint8_t *out_alert, CBS *contents) {
   uint16_t group_id;
   CBS key_shares;
-  if (!tls1_get_shared_group(ssl, &group_id)) {
+  if (!tls1_get_shared_group(ssl, hs, &group_id)) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_NO_SHARED_GROUP);
     *out_alert = SSL_AD_HANDSHAKE_FAILURE;
     return 0;
@@ -2277,7 +2277,7 @@ int ssl_ext_key_share_parse_clienthello(SSL *ssl, SSL_HANDSHAKE *hs,
 int ssl_ext_key_share_add_serverhello(SSL *ssl, SSL_HANDSHAKE *hs, CBB *out) {
   uint16_t group_id;
   CBB kse_bytes, public_key;
-  if (!tls1_get_shared_group(ssl, &group_id) ||
+  if (!tls1_get_shared_group(ssl, hs, &group_id) ||
       !CBB_add_u16(out, TLSEXT_TYPE_key_share) ||
       !CBB_add_u16_length_prefixed(out, &kse_bytes) ||
       !CBB_add_u16(&kse_bytes, group_id) ||
@@ -3159,13 +3159,13 @@ done:
   return ret;
 }
 
-int tls1_parse_peer_sigalgs(SSL *ssl, const CBS *in_sigalgs) {
+int tls1_parse_peer_sigalgs(SSL *ssl, SSL_HANDSHAKE *hs,
+                            const CBS *in_sigalgs) {
   /* Extension ignored for inappropriate versions */
   if (ssl3_protocol_version(ssl) < TLS1_2_VERSION) {
     return 1;
   }
 
-  SSL_HANDSHAKE *hs = ssl->s3->hs;
   OPENSSL_free(hs->peer_sigalgs);
   hs->peer_sigalgs = NULL;
   hs->num_peer_sigalgs = 0;
@@ -3201,9 +3201,9 @@ int tls1_parse_peer_sigalgs(SSL *ssl, const CBS *in_sigalgs) {
   return 1;
 }
 
-int tls1_choose_signature_algorithm(SSL *ssl, uint16_t *out) {
+int tls1_choose_signature_algorithm(SSL *ssl, SSL_HANDSHAKE *hs,
+                                    uint16_t *out) {
   CERT *cert = ssl->cert;
-  SSL_HANDSHAKE *hs = ssl->s3->hs;
 
   /* Before TLS 1.2, the signature algorithm isn't negotiated as part of the
    * handshake. It is fixed at MD5-SHA1 for RSA and SHA1 for ECDSA. */

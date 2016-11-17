@@ -497,7 +497,7 @@ err:
 }
 
 enum ssl_private_key_result_t tls13_prepare_certificate_verify(
-    SSL *ssl, int is_first_run) {
+    SSL *ssl, SSL_HANDSHAKE *hs, int is_first_run) {
   enum ssl_private_key_result_t ret = ssl_private_key_failure;
   uint8_t *msg = NULL;
   size_t msg_len;
@@ -505,7 +505,7 @@ enum ssl_private_key_result_t tls13_prepare_certificate_verify(
   CBB_zero(&cbb);
 
   uint16_t signature_algorithm;
-  if (!tls1_choose_signature_algorithm(ssl, &signature_algorithm)) {
+  if (!tls1_choose_signature_algorithm(ssl, hs, &signature_algorithm)) {
     goto err;
   }
   if (!ssl->method->init_message(ssl, &cbb, &body,

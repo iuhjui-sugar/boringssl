@@ -536,7 +536,7 @@ int ssl3_connect(SSL *ssl, SSL_HANDSHAKE *hs) {
         ssl->s3->initial_handshake_complete = 1;
         if (is_initial_handshake) {
           /* Renegotiations do not participate in session resumption. */
-          ssl_update_cache(ssl, SSL_SESS_CACHE_CLIENT);
+          ssl_update_cache(ssl, hs, SSL_SESS_CACHE_CLIENT);
         }
 
         ret = 1;
@@ -925,7 +925,7 @@ static int ssl3_get_server_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
     /* The session wasn't resumed. Create a fresh SSL_SESSION to
      * fill out. */
     ssl_set_session(ssl, NULL);
-    if (!ssl_get_new_session(ssl, 0 /* client */)) {
+    if (!ssl_get_new_session(ssl, hs, 0 /* client */)) {
       goto f_err;
     }
     /* Note: session_id could be empty. */
@@ -1417,7 +1417,7 @@ static int ssl3_get_certificate_request(SSL *ssl, SSL_HANDSHAKE *hs) {
   if (ssl3_protocol_version(ssl) >= TLS1_2_VERSION) {
     CBS supported_signature_algorithms;
     if (!CBS_get_u16_length_prefixed(&cbs, &supported_signature_algorithms) ||
-        !tls1_parse_peer_sigalgs(ssl, &supported_signature_algorithms)) {
+        !tls1_parse_peer_sigalgs(ssl, hs, &supported_signature_algorithms)) {
       ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
       OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
       return -1;
@@ -1725,7 +1725,7 @@ static int ssl3_send_cert_verify(SSL *ssl, SSL_HANDSHAKE *hs) {
   }
 
   uint16_t signature_algorithm;
-  if (!tls1_choose_signature_algorithm(ssl, &signature_algorithm)) {
+  if (!tls1_choose_signature_algorithm(ssl, hs, &signature_algorithm)) {
     goto err;
   }
   if (ssl3_protocol_version(ssl) >= TLS1_2_VERSION) {

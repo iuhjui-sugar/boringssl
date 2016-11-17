@@ -237,7 +237,7 @@ static enum ssl_hs_wait_t do_select_parameters(SSL *ssl, SSL_HANDSHAKE *hs) {
   /* Set up the new session, either using the original one as a template or
    * creating a fresh one. */
   if (session == NULL) {
-    if (!ssl_get_new_session(ssl, 1 /* server */)) {
+    if (!ssl_get_new_session(ssl, hs, 1 /* server */)) {
       ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
       return ssl_hs_error;
     }
@@ -280,7 +280,7 @@ static enum ssl_hs_wait_t do_select_parameters(SSL *ssl, SSL_HANDSHAKE *hs) {
 
   /* HTTP/2 negotiation depends on the cipher suite, so ALPN negotiation was
    * deferred. Complete it now. */
-  if (!ssl_negotiate_alpn(ssl, &alert, &client_hello)) {
+  if (!ssl_negotiate_alpn(ssl, hs, &alert, &client_hello)) {
     ssl3_send_alert(ssl, SSL3_AL_FATAL, alert);
     return ssl_hs_error;
   }
@@ -328,7 +328,7 @@ static enum ssl_hs_wait_t do_send_hello_retry_request(SSL *ssl,
   if (!ssl->method->init_message(ssl, &cbb, &body,
                                  SSL3_MT_HELLO_RETRY_REQUEST) ||
       !CBB_add_u16(&body, ssl->version) ||
-      !tls1_get_shared_group(ssl, &group_id) ||
+      !tls1_get_shared_group(ssl, hs, &group_id) ||
       !CBB_add_u16_length_prefixed(&body, &extensions) ||
       !CBB_add_u16(&extensions, TLSEXT_TYPE_key_share) ||
       !CBB_add_u16(&extensions, 2 /* length */) ||
@@ -493,7 +493,7 @@ static enum ssl_hs_wait_t do_send_server_certificate(SSL *ssl,
 static enum ssl_hs_wait_t do_send_server_certificate_verify(SSL *ssl,
                                                             SSL_HANDSHAKE *hs,
                                                             int is_first_run) {
-  switch (tls13_prepare_certificate_verify(ssl, is_first_run)) {
+  switch (tls13_prepare_certificate_verify(ssl, hs, is_first_run)) {
     case ssl_private_key_success:
       hs->state = state_send_server_finished;
       return ssl_hs_write_message;

@@ -264,7 +264,7 @@ static enum ssl_hs_wait_t do_process_server_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
       return ssl_hs_error;
     }
     ssl_set_session(ssl, NULL);
-  } else if (!ssl_get_new_session(ssl, 0)) {
+  } else if (!ssl_get_new_session(ssl, hs, 0)) {
     ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
     return ssl_hs_error;
   }
@@ -369,7 +369,7 @@ static enum ssl_hs_wait_t do_process_certificate_request(SSL *ssl,
       CBS_len(&context) != 0 ||
       !CBS_get_u16_length_prefixed(&cbs, &supported_signature_algorithms) ||
       CBS_len(&supported_signature_algorithms) == 0 ||
-      !tls1_parse_peer_sigalgs(ssl, &supported_signature_algorithms)) {
+      !tls1_parse_peer_sigalgs(ssl, hs, &supported_signature_algorithms)) {
     ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
     OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
     return ssl_hs_error;
@@ -499,7 +499,7 @@ static enum ssl_hs_wait_t do_send_client_certificate_verify(SSL *ssl,
     return ssl_hs_ok;
   }
 
-  switch (tls13_prepare_certificate_verify(ssl, is_first_run)) {
+  switch (tls13_prepare_certificate_verify(ssl, hs, is_first_run)) {
     case ssl_private_key_success:
       hs->state = state_send_channel_id;
       return ssl_hs_write_message;
