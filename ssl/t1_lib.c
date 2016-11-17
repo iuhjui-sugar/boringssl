@@ -1955,7 +1955,8 @@ static int ext_pre_shared_key_add_clienthello(SSL *ssl, SSL_HANDSHAKE *hs,
   return CBB_flush(out);
 }
 
-int ssl_ext_pre_shared_key_parse_serverhello(SSL *ssl, uint8_t *out_alert,
+int ssl_ext_pre_shared_key_parse_serverhello(SSL *ssl, SSL_HANDSHAKE *hs,
+                                             uint8_t *out_alert,
                                              CBS *contents) {
   uint16_t psk_id;
   if (!CBS_get_u16(contents, &psk_id) ||
@@ -1975,7 +1976,7 @@ int ssl_ext_pre_shared_key_parse_serverhello(SSL *ssl, uint8_t *out_alert,
   return 1;
 }
 
-int ssl_ext_pre_shared_key_parse_clienthello(SSL *ssl,
+int ssl_ext_pre_shared_key_parse_clienthello(SSL *ssl, SSL_HANDSHAKE *hs,
                                              SSL_SESSION **out_session,
                                              CBS *out_binders,
                                              uint8_t *out_alert,
@@ -2018,7 +2019,8 @@ int ssl_ext_pre_shared_key_parse_clienthello(SSL *ssl,
   return 1;
 }
 
-int ssl_ext_pre_shared_key_add_serverhello(SSL *ssl, CBB *out) {
+int ssl_ext_pre_shared_key_add_serverhello(SSL *ssl, SSL_HANDSHAKE *hs,
+                                           CBB *out) {
   if (!ssl->s3->session_reused) {
     return 1;
   }
@@ -2166,7 +2168,8 @@ static int ext_key_share_add_clienthello(SSL *ssl, SSL_HANDSHAKE *hs, CBB *out) 
   return CBB_flush(out);
 }
 
-int ssl_ext_key_share_parse_serverhello(SSL *ssl, uint8_t **out_secret,
+int ssl_ext_key_share_parse_serverhello(SSL *ssl, SSL_HANDSHAKE *hs,
+                                        uint8_t **out_secret,
                                         size_t *out_secret_len,
                                         uint8_t *out_alert, CBS *contents) {
   CBS peer_key;
@@ -2178,26 +2181,25 @@ int ssl_ext_key_share_parse_serverhello(SSL *ssl, uint8_t **out_secret,
     return 0;
   }
 
-  if (SSL_ECDH_CTX_get_id(&ssl->s3->hs->ecdh_ctx) != group_id) {
+  if (SSL_ECDH_CTX_get_id(&hs->ecdh_ctx) != group_id) {
     *out_alert = SSL_AD_ILLEGAL_PARAMETER;
     OPENSSL_PUT_ERROR(SSL, SSL_R_WRONG_CURVE);
     return 0;
   }
 
-  if (!SSL_ECDH_CTX_finish(&ssl->s3->hs->ecdh_ctx, out_secret, out_secret_len,
-                           out_alert, CBS_data(&peer_key),
-                           CBS_len(&peer_key))) {
+  if (!SSL_ECDH_CTX_finish(&hs->ecdh_ctx, out_secret, out_secret_len, out_alert,
+                           CBS_data(&peer_key), CBS_len(&peer_key))) {
     *out_alert = SSL_AD_INTERNAL_ERROR;
     return 0;
   }
 
   ssl->s3->new_session->key_exchange_info = group_id;
-  SSL_ECDH_CTX_cleanup(&ssl->s3->hs->ecdh_ctx);
+  SSL_ECDH_CTX_cleanup(&hs->ecdh_ctx);
   return 1;
 }
 
-int ssl_ext_key_share_parse_clienthello(SSL *ssl, int *out_found,
-                                        uint8_t **out_secret,
+int ssl_ext_key_share_parse_clienthello(SSL *ssl, SSL_HANDSHAKE *hs,
+                                        int *out_found, uint8_t **out_secret,
                                         size_t *out_secret_len,
                                         uint8_t *out_alert, CBS *contents) {
   uint16_t group_id;
@@ -2254,11 +2256,9 @@ int ssl_ext_key_share_parse_clienthello(SSL *ssl, int *out_found,
   CBB public_key;
   if (!CBB_init(&public_key, 32) ||
       !SSL_ECDH_CTX_init(&group, group_id) ||
-      !SSL_ECDH_CTX_accept(&group, &public_key, &secret, &secret_len,
-                           out_alert, CBS_data(&peer_key),
-                           CBS_len(&peer_key)) ||
-      !CBB_finish(&public_key, &ssl->s3->hs->public_key,
-                  &ssl->s3->hs->public_key_len)) {
+      !SSL_ECDH_CTX_accept(&group, &public_key, &secret, &secret_len, out_alert,
+                           CBS_data(&peer_key), CBS_len(&peer_key)) ||
+      !CBB_finish(&public_key, &hs->public_key, &hs->public_key_len)) {
     OPENSSL_free(secret);
     SSL_ECDH_CTX_cleanup(&group);
     CBB_cleanup(&public_key);
@@ -2274,7 +2274,7 @@ int ssl_ext_key_share_parse_clienthello(SSL *ssl, int *out_found,
   return 1;
 }
 
-int ssl_ext_key_share_add_serverhello(SSL *ssl, CBB *out) {
+int ssl_ext_key_share_add_serverhello(SSL *ssl, SSL_HANDSHAKE *hs, CBB *out) {
   uint16_t group_id;
   CBB kse_bytes, public_key;
   if (!tls1_get_shared_group(ssl, &group_id) ||
@@ -2282,15 +2282,14 @@ int ssl_ext_key_share_add_serverhello(SSL *ssl, CBB *out) {
       !CBB_add_u16_length_prefixed(out, &kse_bytes) ||
       !CBB_add_u16(&kse_bytes, group_id) ||
       !CBB_add_u16_length_prefixed(&kse_bytes, &public_key) ||
-      !CBB_add_bytes(&public_key, ssl->s3->hs->public_key,
-                     ssl->s3->hs->public_key_len) ||
+      !CBB_add_bytes(&public_key, hs->public_key, hs->public_key_len) ||
       !CBB_flush(out)) {
     return 0;
   }
 
-  OPENSSL_free(ssl->s3->hs->public_key);
-  ssl->s3->hs->public_key = NULL;
-  ssl->s3->hs->public_key_len = 0;
+  OPENSSL_free(hs->public_key);
+  hs->public_key = NULL;
+  hs->public_key_len = 0;
 
   ssl->s3->new_session->key_exchange_info = group_id;
   return 1;
