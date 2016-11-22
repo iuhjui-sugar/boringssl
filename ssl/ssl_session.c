@@ -470,6 +470,11 @@ int ssl_get_new_session(SSL *ssl, int is_server) {
     session->timeout = ssl->initial_ctx->session_timeout;
   }
 
+  /* If the connection has a default timeout, use it over the default. */
+  if (ssl->session_timeout != SSL_DEFAULT_SESSION_TIMEOUT) {
+    session->timeout = ssl->session_timeout;
+  }
+
   session->ssl_version = ssl->version;
 
   if (is_server) {
@@ -873,6 +878,24 @@ long SSL_CTX_get_timeout(const SSL_CTX *ctx) {
   }
 
   return ctx->session_timeout;
+}
+
+long SSL_set_session_timeout(SSL *ssl, long timeout) {
+  if (ssl == NULL) {
+    return 0;
+  }
+
+  long old_timeout = SSL_get_session_timeout(ssl);
+  ssl->session_timeout = timeout;
+  return old_timeout;
+}
+
+long SSL_get_session_timeout(const SSL *ssl) {
+  if (ssl == NULL) {
+    return 0;
+  }
+
+  return ssl->session_timeout;
 }
 
 typedef struct timeout_param_st {
