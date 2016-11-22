@@ -139,6 +139,7 @@ SSL_HANDSHAKE *ssl_handshake_new(enum ssl_hs_wait_t (*do_handshake)(SSL *ssl)) {
   memset(hs, 0, sizeof(SSL_HANDSHAKE));
   hs->do_handshake = do_handshake;
   hs->wait = ssl_hs_ok;
+  hs->session_timeout = SSL_DEFAULT_SESSION_TIMEOUT;
   return hs;
 }
 

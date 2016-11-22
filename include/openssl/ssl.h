@@ -1721,6 +1721,18 @@ OPENSSL_EXPORT long SSL_CTX_set_timeout(SSL_CTX *ctx, long timeout);
  * |ctx|. */
 OPENSSL_EXPORT long SSL_CTX_get_timeout(const SSL_CTX *ctx);
 
+/* SSL_set_session_timeout sets the default lifetime, in seconds, of the
+ * session created in |ssl| to |timeout|, and returns the old value.
+ *
+ * The value set by this function will only be valid for the duration of the
+ * handshake and takes precedence over the one set by |SSL_CTX_set_timeout|,
+ * unless |SSL_DEFAULT_SESSION_TIMEOUT| is used as |timeout| (which is the
+ * default).
+ *
+ * It is also possible to use a |timeout| of zero, in which case the session
+ * will not be resumable. */
+OPENSSL_EXPORT long SSL_set_session_timeout(SSL *ssl, long timeout);
+
 /* SSL_CTX_set_session_id_context sets |ctx|'s session ID context to |sid_ctx|.
  * It returns one on success and zero on error. The session ID context is an
  * application-defined opaque byte string. A session will not be used in a

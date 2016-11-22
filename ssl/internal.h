@@ -1022,6 +1022,11 @@ typedef struct ssl_handshake_st {
 
   /* hostname, on the server, is the value of the SNI extension. */
   char *hostname;
+
+  /* session_timeout is the default lifetime in seconds of the session
+   * created in this handshake and takes precedence over the value set
+   * in the SSL_CTX. */
+  long session_timeout;
 } SSL_HANDSHAKE;
 
 SSL_HANDSHAKE *ssl_handshake_new(enum ssl_hs_wait_t (*do_handshake)(SSL *ssl));
