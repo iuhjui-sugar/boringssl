@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cdff9321_3b433713",
+        "filename": "crypto/rand/urandom.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2016-11-23T19:58:33Z",
+      "side": 1,
+      "message": "kUnset?",
+      "range": {
+        "startLine": 150,
+        "startChar": 12,
+        "endLine": 150,
+        "endChar": 14
+      },
+      "revId": "586d8f1695c7bf3f7048cd532a16ad3d3ee19a14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
