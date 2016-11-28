@@ -828,6 +828,11 @@ int tls13_set_traffic_key(SSL *ssl, enum evp_aead_direction_t direction,
                           const uint8_t *traffic_secret,
                           size_t traffic_secret_len);
 
+/* tls13_set_early_traffic derives the handshake early traffic secret and
+ * switches the client write and server read traffic to it. It returns one on
+ * success and zero on error. */
+int tls13_set_early_traffic(SSL *ssl);
+
 /* tls13_set_handshake_traffic derives the handshake traffic secret and
  * switches both read and write traffic to it. It returns one on success and
  * zero on error. */
@@ -881,6 +886,7 @@ enum ssl_hs_wait_t {
   ssl_hs_x509_lookup,
   ssl_hs_channel_id_lookup,
   ssl_hs_private_key_operation,
+  ssl_hs_read_eoed,
 };
 
 typedef struct ssl_handshake_st {
@@ -1078,6 +1084,8 @@ int ssl_ext_pre_shared_key_parse_clienthello(SSL *ssl,
                                              uint8_t *out_alert, CBS *contents);
 int ssl_ext_pre_shared_key_add_serverhello(SSL *ssl, CBB *out);
 
+int ssl_ext_early_data_add_serverhello(SSL *ssl, CBB *out);
+
 /* ssl_is_sct_list_valid does a shallow parse of the SCT list in |contents| and
  * returns one iff it's valid. */
 int ssl_is_sct_list_valid(const CBS *contents);
@@ -1119,10 +1127,10 @@ typedef struct {
  * it. It writes the parsed extensions to pointers denoted by |ext_types|. On
  * success, it fills in the |out_present| and |out_data| fields and returns one.
  * Otherwise, it sets |*out_alert| to an alert to send and returns zero. Unknown
- * extensions are rejected. */
+ * extensions are rejected unless |ignore_unknown| is true. */
 int ssl_parse_extensions(const CBS *cbs, uint8_t *out_alert,
                          const SSL_EXTENSION_TYPE *ext_types,
-                         size_t num_ext_types);
+                         size_t num_ext_types, int ignore_unknown);
 
 
 /* SSLKEYLOGFILE functions. */
@@ -1297,6 +1305,7 @@ struct ssl_protocol_method_st {
   int (*read_app_data)(SSL *ssl, int *out_got_handshake,  uint8_t *buf, int len,
                        int peek);
   int (*read_change_cipher_spec)(SSL *ssl);
+  int (*read_end_of_early_data)(SSL *ssl);
   void (*read_close_notify)(SSL *ssl);
   int (*write_app_data)(SSL *ssl, const void *buf_, int len);
   int (*dispatch_alert)(SSL *ssl);
@@ -1379,6 +1388,14 @@ enum ssl_shutdown_t {
   ssl_shutdown_fatal_alert = 2,
 };
 
+/* An ssl_early_data_t describes the state of early data in TLS 1.3 0-RTT mode.
+ */
+enum ssl_early_data_t {
+  ssl_early_data_off,    // We are not handling early data.
+  ssl_early_data_accept, // We can accept early data.
+  ssl_early_data_reject, // We have rejected early data.
+};
+
 typedef struct ssl3_state_st {
   uint8_t read_sequence[8];
   uint8_t write_sequence[8];
@@ -1397,10 +1414,6 @@ typedef struct ssl3_state_st {
   /* initial_handshake_complete is true if the initial handshake has
    * completed. */
   unsigned initial_handshake_complete:1;
-
-  /* skip_early_data instructs the record layer to skip unexpected early data
-   * messages when 0RTT is rejected. */
-  unsigned skip_early_data:1;
 
   /* read_buffer holds data from the transport to be processed. */
   SSL3_BUFFER read_buffer;
@@ -1469,12 +1482,16 @@ typedef struct ssl3_state_st {
    * one. */
   SSL_HANDSHAKE *hs;
 
+  enum ssl_early_data_t early_data_state;
+
   uint8_t write_traffic_secret[EVP_MAX_MD_SIZE];
   uint8_t write_traffic_secret_len;
   uint8_t read_traffic_secret[EVP_MAX_MD_SIZE];
   uint8_t read_traffic_secret_len;
   uint8_t exporter_secret[EVP_MAX_MD_SIZE];
   uint8_t exporter_secret_len;
+  uint8_t early_exporter_secret[EVP_MAX_MD_SIZE];
+  uint8_t early_exporter_secret_len;
 
   /* State pertaining to the pending handshake.
    *
@@ -1753,6 +1770,7 @@ int ssl3_dispatch_alert(SSL *ssl);
 int ssl3_read_app_data(SSL *ssl, int *out_got_handshake, uint8_t *buf, int len,
                        int peek);
 int ssl3_read_change_cipher_spec(SSL *ssl);
+int ssl3_read_end_of_early_data(SSL *ssl);
 void ssl3_read_close_notify(SSL *ssl);
 int ssl3_read_handshake_bytes(SSL *ssl, uint8_t *buf, int len);
 int ssl3_write_app_data(SSL *ssl, const void *buf, int len);

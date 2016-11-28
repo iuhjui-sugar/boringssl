@@ -2964,7 +2964,6 @@ int SSL_clear(SSL *ssl) {
   }
 
   ssl->client_version = ssl->version;
-
   return 1;
 }
 

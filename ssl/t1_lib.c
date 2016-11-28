@@ -2084,26 +2084,42 @@ static int ext_psk_key_exchange_modes_parse_clienthello(SSL *ssl,
  * https://tools.ietf.org/html/draft-ietf-tls-tls13-18#section-4.2.8 */
 
 static int ext_early_data_add_clienthello(SSL *ssl, CBB *out) {
-  /* TODO(svaldez): Support 0RTT. */
-  return 1;
-}
-
-static int ext_early_data_parse_clienthello(SSL *ssl, uint8_t *out_alert,
-                                            CBS *contents) {
-  if (contents == NULL) {
-    return 1;
-  }
-
-  if (CBS_len(contents) != 0) {
-    *out_alert = SSL_AD_DECODE_ERROR;
+  uint16_t min_version, max_version;
+  if (!ssl_get_version_range(ssl, &min_version, &max_version)) {
     return 0;
   }
 
-  /* Since we don't currently accept 0-RTT, we have to skip past any early data
-   * the client might have sent. */
-  if (ssl3_protocol_version(ssl) >= TLS1_3_VERSION) {
-    ssl->s3->skip_early_data = 1;
+  uint16_t session_version;
+  if (max_version < TLS1_3_VERSION || ssl->session == NULL ||
+      !ssl->method->version_from_wire(&session_version,
+                                      ssl->session->ssl_version) ||
+      session_version < TLS1_3_VERSION ||
+      ssl->session->ticket_max_early_data == 0 ||
+      !ssl->ctx->enable_early_data) {
+    return 1;
   }
+
+  ssl->s3->early_data_state = ssl_early_data_accept;
+
+  if (!CBB_add_u16(out, TLSEXT_TYPE_early_data) ||
+      !CBB_add_u16(out, 0)) {
+    return 0;
+  }
+
+  return CBB_flush(out);
+}
+
+int ssl_ext_early_data_add_serverhello(SSL *ssl, CBB *out) {
+  if (ssl->s3->early_data_state != ssl_early_data_accept) {
+    return 1;
+  }
+
+  if (!CBB_add_u16(out, TLSEXT_TYPE_early_data) ||
+      !CBB_add_u16(out, 0) ||
+      !CBB_flush(out)) {
+    return 0;
+  }
+
   return 1;
 }
 
@@ -2595,7 +2611,7 @@ static const struct tls_extension kExtensions[] = {
     NULL,
     ext_early_data_add_clienthello,
     forbid_parse_serverhello,
-    ext_early_data_parse_clienthello,
+    ignore_parse_clienthello,
     dont_add_serverhello,
   },
   {
