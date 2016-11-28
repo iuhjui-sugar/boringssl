@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "903934bb_721c2e2e",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 5982,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-11-28T17:41:38Z",
+      "side": 1,
+      "message": "Also test extra identity without binder.",
+      "range": {
+        "startLine": 5982,
+        "startChar": 7,
+        "endLine": 5982,
+        "endChar": 18
+      },
+      "revId": "f68bd4ddb4eb4a607e5490a0aca760605561f47b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
