@@ -67,6 +67,14 @@ int tls13_handshake(SSL *ssl) {
         break;
       }
 
+      case ssl_hs_read_eoed: {
+        int ret = ssl->method->read_end_of_early_data(ssl);
+        if (ret <= 0) {
+          return ret;
+        }
+        break;
+      }
+
       case ssl_hs_write_message: {
         int ret = ssl->method->write_message(ssl);
         if (ret <= 0) {
@@ -229,7 +237,7 @@ int tls13_process_certificate(SSL *ssl, int allow_anonymous) {
 
     uint8_t alert;
     if (!ssl_parse_extensions(&extensions, &alert, ext_types,
-                              OPENSSL_ARRAY_SIZE(ext_types))) {
+                              OPENSSL_ARRAY_SIZE(ext_types), 0)) {
       ssl3_send_alert(ssl, SSL3_AL_FATAL, alert);
       goto err;
     }

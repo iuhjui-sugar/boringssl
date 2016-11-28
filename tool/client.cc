@@ -97,6 +97,10 @@ static const struct argument kArguments[] = {
       "Establish a second connection resuming the original connection.",
     },
     {
+      "-early-data", kBooleanArgument,
+      "Allow early data",
+    },
+    {
      "", kOptionalArgument, "",
     },
 };
@@ -316,6 +320,10 @@ static bool ClientConnection(std::map<std::string, std::string> args_map) {
   if (args_map.count("-resume") != 0) {
     SSL_CTX_set_session_cache_mode(ctx.get(), SSL_SESS_CACHE_CLIENT);
     SSL_CTX_sess_set_new_cb(ctx.get(), NewSessionCallback);
+  }
+
+  if (args_map.count("-early-data") != 0) {
+    SSL_CTX_enable_early_data(ctx.get());
   }
 
   int sock = -1;

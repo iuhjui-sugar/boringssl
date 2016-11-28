@@ -42,6 +42,8 @@ enum server_hs_state_t {
   state_complete_server_certificate_verify,
   state_send_server_finished,
   state_flush,
+  state_process_second_client_flight,
+  state_process_end_of_early_data,
   state_process_client_certificate,
   state_process_client_certificate_verify,
   state_process_channel_id,
@@ -284,6 +286,26 @@ static enum ssl_hs_wait_t do_select_parameters(SSL *ssl, SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
+  CBS early_data;
+  int have_early_data = ssl_early_callback_get_extension(
+      &client_hello, &early_data, TLSEXT_TYPE_early_data);
+
+  if (have_early_data && CBS_len(&early_data) != 0) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
+    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
+    return ssl_hs_error;
+  }
+
+  if (have_early_data) {
+    if (!ssl->s3->session_reused) {
+      ssl->s3->early_data_state = ssl_early_data_reject;
+    } else {
+      ssl->s3->early_data_state = ssl_early_data_accept;
+    }
+  } else {
+    ssl->s3->early_data_state = ssl_early_data_off;
+  }
+
   /* The PRF hash is now known. Set up the key schedule. */
   size_t hash_len =
       EVP_MD_size(ssl_get_handshake_digest(ssl_get_algorithm_prf(ssl)));
@@ -387,6 +409,7 @@ static enum ssl_hs_wait_t do_send_server_hello(SSL *ssl, SSL_HANDSHAKE *hs) {
       !CBB_add_u16_length_prefixed(&body, &extensions) ||
       !ssl_ext_pre_shared_key_add_serverhello(ssl, &extensions) ||
       !ssl_ext_key_share_add_serverhello(ssl, &extensions) ||
+      !ssl_ext_early_data_add_serverhello(ssl, &extensions) ||
       !ssl_complete_message(ssl, &cbb)) {
     goto err;
   }
@@ -524,8 +547,27 @@ static enum ssl_hs_wait_t do_flush(SSL *ssl, SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
+  hs->state = state_process_second_client_flight;
+  return ssl_hs_flush;
+}
+
+static enum ssl_hs_wait_t do_process_second_client_flight(SSL *ssl,
+                                                          SSL_HANDSHAKE *hs) {
+  if (ssl->s3->early_data_state == ssl_early_data_accept) {
+    hs->state = state_process_end_of_early_data;
+    return ssl_hs_read_eoed;
+  }
+
   hs->state = state_process_client_certificate;
-  return ssl_hs_flush_and_read_message;
+  return ssl_hs_read_message;
+}
+
+static enum ssl_hs_wait_t do_process_end_of_early_data(SSL *ssl,
+                                                       SSL_HANDSHAKE *hs) {
+  printf("Got EOED\n");
+  // TODO(svaldez): Handle EOED Processing
+  hs->state = state_process_client_certificate;
+  return ssl_hs_read_message;
 }
 
 static enum ssl_hs_wait_t do_process_client_certificate(SSL *ssl,
@@ -730,6 +772,12 @@ enum ssl_hs_wait_t tls13_server_handshake(SSL *ssl) {
         break;
       case state_flush:
         ret = do_flush(ssl, hs);
+        break;
+      case state_process_second_client_flight:
+        ret = do_process_second_client_flight(ssl, hs);
+        break;
+      case state_process_end_of_early_data:
+        ret = do_process_end_of_early_data(ssl, hs);
         break;
       case state_process_client_certificate:
         ret = do_process_client_certificate(ssl, hs);
