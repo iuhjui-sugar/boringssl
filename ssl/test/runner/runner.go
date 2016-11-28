@@ -5568,7 +5568,7 @@ func addExtensionTests() {
 			"-signed-cert-timestamps",
 			base64.StdEncoding.EncodeToString([]byte{0, 0}),
 		},
-		shouldFail: true,
+		shouldFail:    true,
 		expectedError: ":INVALID_SCT_LIST:",
 	})
 }
@@ -5975,6 +5975,21 @@ func addResumptionVersionTests() {
 		shouldFail:         true,
 		expectedLocalError: "remote error: error decoding message",
 		expectedError:      ":DECODE_ERROR:",
+	})
+
+	testCases = append(testCases, testCase{
+		testType:      serverTest,
+		name:          "Resume-Server-ExtraPSKBinder",
+		resumeSession: true,
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				SendExtraPSKBinder: true,
+			},
+		},
+		shouldFail:         true,
+		expectedLocalError: "remote error: illegal parameter",
+		expectedError:      ":PSK_IDENTITY_BINDER_COUNT_MISMATCH:",
 	})
 
 	testCases = append(testCases, testCase{

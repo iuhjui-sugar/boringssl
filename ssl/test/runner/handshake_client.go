@@ -1671,5 +1671,9 @@ func generatePSKBinders(hello *clientHelloMsg, pskCipherSuite *cipherSuite, psk,
 		hello.pskBinders[i] = binder
 	}
 
+	if config.Bugs.SendExtraPSKBinder {
+		hello.pskBinders = append(hello.pskBinders, binder)
+	}
+
 	hello.raw = nil
 }
