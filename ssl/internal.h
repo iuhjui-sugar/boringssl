@@ -1423,6 +1423,14 @@ typedef struct ssl3_state_st {
   /* recv_shutdown is the shutdown state for the send half of the connection. */
   enum ssl_shutdown_t send_shutdown;
 
+  /* skip_early_data instructs the record layer to skip unexpected early data
+   * messages when 0RTT is rejected. */
+  int skip_early_data;
+
+  /* early_data_skipped is the amount of early data that has been skipped by the
+   * record layer. */
+  size_t early_data_skipped;
+
   int alert_dispatch;
   uint8_t send_alert[2];
 
