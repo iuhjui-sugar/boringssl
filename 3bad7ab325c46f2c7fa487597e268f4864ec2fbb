@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "903934bb_b7584aa3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-29T21:57:40Z",
+      "side": 1,
+      "message": "Setting the value to zero actually didn\u0027t quite work right before the recent changes anyway. A zero timeout, if round-tripped through serialization would magically turn into a 3 second timeout. It was really bizarre. But, yeah, zero should mean sensible things now.\n\nIf you just need this for zero, though, you can just set SSL_MODE_NO_SESSION_CREATION at an appropriate point.",
+      "revId": "3bad7ab325c46f2c7fa487597e268f4864ec2fbb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "903934bb_f713a2d1",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1730,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-29T21:57:40Z",
+      "side": 1,
+      "message": "There already are lots of dual-SSL_CTX/SSL APIs. Those just work by copying all the configuration from the SSL_CTX over to the SSL and you can modify it afterwards, if you like. Then you don\u0027t have this really nasty discontinuity at SSL_DEFAULT_SESSION_TIMEOUT. See comment in C files for implementation.",
+      "revId": "3bad7ab325c46f2c7fa487597e268f4864ec2fbb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "903934bb_570aae8c",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1029,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-29T21:57:40Z",
+      "side": 1,
+      "message": "Putting this on the SSL_HANDSHAKE is bizarre. It means this function cannot be called until the handshake has started, which is not how most configuration APIs work. It also no longer interacts with SSL_clear the same way as everything else.\n\nThe usual pattern is to put it on the SSL. Then, in SSL_new, you copy the value from the SSL_CTX. When you use the value, you just read from the SSL and ignore the SSL_CTX altogether.",
+      "revId": "3bad7ab325c46f2c7fa487597e268f4864ec2fbb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
