@@ -361,6 +361,14 @@ static enum ssl_hs_wait_t do_process_second_client_hello(SSL *ssl,
     return ssl_hs_error;
   }
 
+  CBS unused;
+  if (ssl_early_callback_get_extension(&client_hello, &unused,
+                                       TLSEXT_TYPE_early_data)) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_EXTENSION);
+    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
+    return ssl_hs_error;
+  }
+
   int need_retry;
   if (!resolve_ecdhe_secret(ssl, &need_retry, &client_hello)) {
     if (need_retry) {

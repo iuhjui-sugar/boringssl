@@ -1109,6 +1109,18 @@ type ProtocolBugs struct {
 	// copies of each KeyShareEntry.
 	DuplicateKeyShares bool
 
+	// SendEarlyDataLength, if non-zero, is the amount of early data to send after
+	// the ClientHello.
+	SendEarlyDataLength int
+
+	// SendEarlyDataOnSecondClientHello, if true, causes the TLS 1.3 client to
+	// send the EarlyData extension on the second ClientHello.
+	SendEarlyDataOnSecondClientHello bool
+
+	// InterleaveEarlyData, if true, causes the TLS 1.3 client to send EarlyData
+	// interleaved between the handshake message.
+	InterleaveEarlyData bool
+
 	// EmptyEncryptedExtensions, if true, causes the TLS 1.3 server to
 	// emit an empty EncryptedExtensions block.
 	EmptyEncryptedExtensions bool

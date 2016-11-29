@@ -319,6 +319,10 @@ NextCipherSuite:
 		hello.cipherSuites = c.config.Bugs.SendCipherSuites
 	}
 
+	if c.config.Bugs.SendEarlyDataLength > 0 {
+		hello.hasEarlyData = true
+	}
+
 	var helloBytes []byte
 	if c.config.Bugs.SendV2ClientHello {
 		// Test that the peer left-pads random.
@@ -355,6 +359,9 @@ NextCipherSuite:
 
 	if err := c.simulatePacketLoss(nil); err != nil {
 		return err
+	}
+	if c.config.Bugs.SendEarlyDataLength > 0 {
+		c.writeRecord(recordTypeApplicationData, make([]byte, c.config.Bugs.SendEarlyDataLength))
 	}
 	msg, err := c.readHandshake()
 	if err != nil {
@@ -452,14 +459,22 @@ NextCipherSuite:
 			hello.hasKeyShares = false
 		}
 
-		hello.hasEarlyData = false
+		hello.hasEarlyData = c.config.Bugs.SendEarlyDataOnSecondClientHello
 		hello.raw = nil
 
 		if len(hello.pskIdentities) > 0 {
 			generatePSKBinders(hello, pskCipherSuite, session.masterSecret, append(helloBytes, helloRetryRequest.marshal()...), c.config)
 		}
 		secondHelloBytes = hello.marshal()
-		c.writeRecord(recordTypeHandshake, secondHelloBytes)
+
+		if c.config.Bugs.InterleaveEarlyData {
+			c.writeRecord(recordTypeApplicationData, []byte{1, 2, 3, 4})
+			c.writeRecord(recordTypeHandshake, secondHelloBytes[:16])
+			c.writeRecord(recordTypeApplicationData, []byte{5, 6, 7, 8})
+			c.writeRecord(recordTypeHandshake, secondHelloBytes[16:])
+		} else {
+			c.writeRecord(recordTypeHandshake, secondHelloBytes)
+		}
 		c.flushHandshake()
 
 		msg, err = c.readHandshake()
