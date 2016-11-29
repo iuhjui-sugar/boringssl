@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d06c8cba_b9c3f798",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7060
+      },
+      "writtenOn": "2016-11-29T23:08:57Z",
+      "side": 1,
+      "message": "I do need values other than zero. But also, if I read the SSL_MODE_NO_SESSION_CREATION description correctly it seems it has the opposite effect of what I\u0027m trying to do here: what I\u0027d like is for a new session to be created but not resumed in a future connection, what SSL_MODE_NO_SESSION_CREATION does is preventing a new session to be created and enforcing that another is resumed instead.",
+      "parentUuid": "903934bb_b7584aa3",
+      "revId": "3bad7ab325c46f2c7fa487597e268f4864ec2fbb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "903934bb_f713a2d1",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2016-11-29T21:57:40Z",
       "side": 1,
       "message": "There already are lots of dual-SSL_CTX/SSL APIs. Those just work by copying all the configuration from the SSL_CTX over to the SSL and you can modify it afterwards, if you like. Then you don\u0027t have this really nasty discontinuity at SSL_DEFAULT_SESSION_TIMEOUT. See comment in C files for implementation.",
+      "revId": "3bad7ab325c46f2c7fa487597e268f4864ec2fbb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d06c8cba_d9c8b3b7",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1730,
+      "author": {
+        "id": 7060
+      },
+      "writtenOn": "2016-11-29T23:08:57Z",
+      "side": 1,
+      "message": "Yes, SSL_DEFAULT_SESSION_TIMEOUT is kind of weird, but what you propose also changes the behaviour. That is, the SSL_CTX_set_timeout value will only be relevant at SSL_new time instead of SSL_SESSION_new time.\n\nBut I guess it doesn\u0027t really matter (and is not really documented either) and your proposal is more elegant, so I\u0027ll update the patch to do that.",
+      "parentUuid": "903934bb_f713a2d1",
       "revId": "3bad7ab325c46f2c7fa487597e268f4864ec2fbb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
