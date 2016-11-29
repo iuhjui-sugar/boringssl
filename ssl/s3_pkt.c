@@ -157,6 +157,7 @@ again:
     }
 
     case ssl_open_record_success:
+      ssl->s3->skip_early_data = 0;
       if (CBS_len(&body) > 0xffff) {
         OPENSSL_PUT_ERROR(SSL, ERR_R_OVERFLOW);
         return -1;

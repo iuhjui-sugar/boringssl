@@ -1423,6 +1423,9 @@ typedef struct ssl3_state_st {
   /* recv_shutdown is the shutdown state for the send half of the connection. */
   enum ssl_shutdown_t send_shutdown;
 
+  int skip_early_data;
+  size_t early_data_skipped;
+
   int alert_dispatch;
   uint8_t send_alert[2];
 

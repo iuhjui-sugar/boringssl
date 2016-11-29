@@ -319,6 +319,10 @@ NextCipherSuite:
 		hello.cipherSuites = c.config.Bugs.SendCipherSuites
 	}
 
+	if c.config.Bugs.SendEarlyData != nil {
+		hello.hasEarlyData = true
+	}
+
 	var helloBytes []byte
 	if c.config.Bugs.SendV2ClientHello {
 		// Test that the peer left-pads random.
@@ -355,6 +359,9 @@ NextCipherSuite:
 
 	if err := c.simulatePacketLoss(nil); err != nil {
 		return err
+	}
+	if c.config.Bugs.SendEarlyData != nil {
+		c.writeRecord(recordTypeApplicationData, c.config.Bugs.SendEarlyData)
 	}
 	msg, err := c.readHandshake()
 	if err != nil {
@@ -452,7 +459,7 @@ NextCipherSuite:
 			hello.hasKeyShares = false
 		}
 
-		hello.hasEarlyData = false
+		hello.hasEarlyData = c.config.Bugs.SendEarlyDataOnSecondClientHello
 		hello.raw = nil
 
 		if len(hello.pskIdentities) > 0 {

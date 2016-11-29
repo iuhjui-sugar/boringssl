@@ -2078,6 +2078,35 @@ static int ext_psk_key_exchange_modes_parse_clienthello(SSL *ssl,
 }
 
 
+/* Early Data Indication
+ *
+ * https://tools.ietf.org/html/draft-ietf-tls-tls13-18#section-4.2.8 */
+static int ext_early_data_add_clienthello(SSL *ssl, CBB *out) {
+  uint16_t min_version, max_version;
+  if (!ssl_get_version_range(ssl, &min_version, &max_version)) {
+    return 0;
+  }
+
+  /* TODO(svaldez): Support 0RTT. */
+  return 1;
+}
+
+static int ext_early_data_parse_clienthello(SSL *ssl, uint8_t *out_alert,
+                                            CBS *contents) {
+  if (contents == NULL) {
+    return 1;
+  }
+
+  if (CBS_len(contents) != 0) {
+    *out_alert = SSL_AD_DECODE_ERROR;
+    return 0;
+  }
+
+  ssl->s3->skip_early_data = 1;
+  return 1;
+}
+
+
 /* Key Share
  *
  * https://tools.ietf.org/html/draft-ietf-tls-tls13-16#section-4.2.5 */
@@ -2558,6 +2587,14 @@ static const struct tls_extension kExtensions[] = {
     ext_psk_key_exchange_modes_add_clienthello,
     forbid_parse_serverhello,
     ext_psk_key_exchange_modes_parse_clienthello,
+    dont_add_serverhello,
+  },
+  {
+    TLSEXT_TYPE_early_data,
+    NULL,
+    ext_early_data_add_clienthello,
+    forbid_parse_serverhello,
+    ext_early_data_parse_clienthello,
     dont_add_serverhello,
   },
   {

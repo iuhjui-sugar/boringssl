@@ -5568,7 +5568,7 @@ func addExtensionTests() {
 			"-signed-cert-timestamps",
 			base64.StdEncoding.EncodeToString([]byte{0, 0}),
 		},
-		shouldFail: true,
+		shouldFail:    true,
 		expectedError: ":INVALID_SCT_LIST:",
 	})
 }
@@ -9030,6 +9030,70 @@ func addTLS13HandshakeTests() {
 		},
 		shouldFail:    true,
 		expectedError: ":DUPLICATE_KEY_SHARE:",
+	})
+
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "SkipEarlyData",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				SendEarlyData: []byte{1, 2, 3, 4},
+			},
+		},
+	})
+
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "SkipEarlyData-TooMuchData",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				SendEarlyData: make([]byte, 16384+1),
+			},
+		},
+		shouldFail:    true,
+		expectedError: ":TOO_MUCH_SKIPPED_EARLY_DATA:",
+	})
+
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "SkipEarlyData-HRR",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				SendEarlyData: []byte{1, 2, 3, 4},
+			},
+			DefaultCurves: []CurveID{},
+		},
+	})
+
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "SkipEarlyData-HRR-TooMuchData",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				SendEarlyData: make([]byte, 16384+1),
+			},
+			DefaultCurves: []CurveID{},
+		},
+		shouldFail:    true,
+		expectedError: ":TOO_MUCH_SKIPPED_EARLY_DATA:",
+	})
+
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "SkipEarlyData-SecondClientHelloEarlyData",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				SendEarlyDataOnSecondClientHello: true,
+			},
+			DefaultCurves: []CurveID{},
+		},
+		shouldFail:    true,
+		expectedError: ":UNEXPECTED_EXTENSION:",
 	})
 
 	testCases = append(testCases, testCase{
