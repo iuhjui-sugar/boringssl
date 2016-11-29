@@ -18,51 +18,25 @@
 #include <openssl/ssl.h>
 #include "../crypto/test/test_util.h"
 
-struct GlobalState {
-  GlobalState()
-      : ctx(SSL_CTX_new(SSLv23_method())) {
-    // We just want the context
-  }
-
-  ~GlobalState() {
-    SSL_CTX_free(ctx);
-  }
-
-  SSL_CTX *const ctx;
-};
-
-static GlobalState g_state;
-
 extern "C" int LLVMFuzzerTestOneInput(uint8_t *buf, size_t len) {
-  SSL *ssl = SSL_new(g_state.ctx);
-
   // Parse in our session
-  SSL_SESSION *session = SSL_SESSION_from_bytes(buf, len);
+  bssl::UniquePtr<SSL_SESSION> session(SSL_SESSION_from_bytes(buf, len));
 
-  // Give it to the context
-  // TODO (rsloan): perform more sophisticated check here.
-  SSL_set_session(ssl, session);
+  // If the format was invalid, just return
+  if (!session) {
+    return 0;
+  }
 
-  // Re-encode it
-  size_t re_encoded_len;
-  uint8_t *re_encoded;
-  if (!SSL_SESSION_to_bytes(session, &re_encoded, &re_encoded_len)) {
+  // Encode it again to stress the encoder
+  size_t encoded_len;
+  uint8_t *encoded;
+  if (!SSL_SESSION_to_bytes(session.get(), &encoded, &encoded_len)) {
     fprintf(stderr, "SSL_SESSION_to_bytes failed\n");
     return 1;
   }
 
-  // Verify the new encoding
-  if (re_encoded_len != len ||
-      memcmp(buf, re_encoded, len) != 0) {
-    fprintf(stderr, "SSL_SESSION_to_bytes did not round-trip\n");
-    hexdump(stderr, "Before: ", buf, len);
-    hexdump(stderr, "After:  ", re_encoded, re_encoded_len);
-    return 1;
-  }
-
   // Free everything
-  SSL_free(ssl);
-  free(re_encoded);
+  free(encoded);
   return 0;
 }
 
