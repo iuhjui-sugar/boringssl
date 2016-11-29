@@ -695,7 +695,7 @@ OPENSSL_EXPORT uint32_t SSL_get_options(const SSL *ssl);
 
 /* SSL_MODE_NO_SESSION_CREATION will cause any attempts to create a session to
  * fail with SSL_R_SESSION_MAY_NOT_BE_CREATED. This can be used to enforce that
- * session resumption is used for a given SSL*. */
+ * session resumption is used for a given SSL. */
 #define SSL_MODE_NO_SESSION_CREATION 0x00000200L
 
 /* SSL_MODE_SEND_FALLBACK_SCSV sends TLS_FALLBACK_SCSV in the ClientHello.
