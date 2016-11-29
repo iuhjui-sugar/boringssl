@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "903934bb_fca54898",
+        "filename": "ssl/ssl_session.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-11-29T20:14:17Z",
+      "side": 1,
+      "message": "I probably wouldn\u0027t have this sort of guard for new APIs.",
+      "revId": "34f82f403c0b8b7920c488891189d74ede01d957",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
