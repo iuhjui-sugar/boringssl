@@ -16,6 +16,24 @@
       "revId": "34f82f403c0b8b7920c488891189d74ede01d957",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d06c8cba_d97273c2",
+        "filename": "ssl/ssl_session.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 7060
+      },
+      "writtenOn": "2016-11-29T21:54:43Z",
+      "side": 1,
+      "message": "I replaced it with a check for ssl-\u003es3-\u003ehs, which I think is necessary since it could be NULL (e.g. after the handshake).",
+      "parentUuid": "903934bb_fca54898",
+      "revId": "34f82f403c0b8b7920c488891189d74ede01d957",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
