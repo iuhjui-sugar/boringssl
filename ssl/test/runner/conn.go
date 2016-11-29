@@ -1768,3 +1768,10 @@ func (c *Conn) sendKeyUpdateLocked(keyUpdateRequest byte) error {
 	c.out.doKeyUpdate(c, true)
 	return nil
 }
+
+func (c *Conn) SendEarlyData(len int) error {
+	if _, err := c.writeRecord(recordTypeApplicationData, make([]byte, len)); err != nil {
+		return err
+	}
+	return nil
+}
