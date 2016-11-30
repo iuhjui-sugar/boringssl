@@ -1,0 +1,215 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "903934bb_369293e7",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1428,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-30T17:21:32Z",
+      "side": 1,
+      "message": "This is persistent per-connection state, so memory usage is valuable. unsigned : 1, and pack it with the others earlier.",
+      "range": {
+        "startLine": 1428,
+        "startChar": 2,
+        "endLine": 1428,
+        "endChar": 5
+      },
+      "revId": "c492751bb12d493e1260eec5bf3f1ed0ebcb4b3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "903934bb_b665a325",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1432,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-30T17:21:32Z",
+      "side": 1,
+      "message": "This isn\u0027t the size of a buffer, so there\u0027s no reason to be size_t. It should be a fixed-size integer. Given our limit is small, a uint16_t suffices. (For the same reason a count of *total* bytes transferred through a streaming thing cannot be a size_t.)",
+      "range": {
+        "startLine": 1432,
+        "startChar": 2,
+        "endLine": 1432,
+        "endChar": 8
+      },
+      "revId": "c492751bb12d493e1260eec5bf3f1ed0ebcb4b3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "903934bb_f6147b6d",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-30T17:21:32Z",
+      "side": 1,
+      "message": "This should be set in tls_record.c, as soon as we\u0027ve decided this record is from the correct epoch. Otherwise you get skipped things like warning alerts wrong.\n\n(In general, don\u0027t put interesting logic in this function. It\u0027s intended to go away once buffer-free stuff is done.)",
+      "range": {
+        "startLine": 160,
+        "startChar": 15,
+        "endLine": 160,
+        "endChar": 30
+      },
+      "revId": "c492751bb12d493e1260eec5bf3f1ed0ebcb4b3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed77f7be_f4a85856",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 2085,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-30T17:21:32Z",
+      "side": 1,
+      "message": "Unused.",
+      "revId": "c492751bb12d493e1260eec5bf3f1ed0ebcb4b3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "903934bb_9606df3b",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 2105,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-30T17:21:32Z",
+      "side": 1,
+      "message": "Comment what\u0027s going on here. Also this should only be set for TLS 1.3. Add a test that you do *not* skip early-data if negotiating 1.2 against a 1.3 ClientHello. You need to pass -max-version for that case.\n\n(This is fine now, but later you\u0027ll need to move it out of the callbacks anyway. 0-RTT must be resolved after *everything* else, which means this cannot possibly be done with the callbacks.)",
+      "revId": "c492751bb12d493e1260eec5bf3f1ed0ebcb4b3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed77f7be_b4cbc032",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 9052,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-30T17:21:32Z",
+      "side": 1,
+      "message": "The contents of the early data don\u0027t matter, so use a length.",
+      "range": {
+        "startLine": 9052,
+        "startChar": 19,
+        "endLine": 9052,
+        "endChar": 41
+      },
+      "revId": "c492751bb12d493e1260eec5bf3f1ed0ebcb4b3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "903934bb_166e6fde",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 9061,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-30T17:21:32Z",
+      "side": 1,
+      "message": "In addition to the TLS 1.2 case, test that we do *not* allow this case:\n\n[ early data ]\n[ 1/2 of ClientHello ]\n[ early data ]\n[ 1/2 of ClientHello ]",
+      "revId": "c492751bb12d493e1260eec5bf3f1ed0ebcb4b3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed77f7be_b4b2e0c4",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-30T17:21:32Z",
+      "side": 1,
+      "message": "Unused?",
+      "revId": "c492751bb12d493e1260eec5bf3f1ed0ebcb4b3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed77f7be_74e688d0",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-30T17:21:32Z",
+      "side": 1,
+      "message": "Overflow. (size_t doesn\u0027t do anything to avoid overflow here. This is why a count doesn\u0027t make sense to size with size_t.)\n\nThis is also doing the test in the wrong order. This code will incorrectly reject the following:\n\n[ 8kb early data record ]\n[ 16kb real record ]\n\nThe count should only include skipped things.",
+      "revId": "c492751bb12d493e1260eec5bf3f1ed0ebcb4b3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed77f7be_34e010af",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-30T17:21:32Z",
+      "side": 1,
+      "message": "Comment what\u0027s going on here.",
+      "revId": "c492751bb12d493e1260eec5bf3f1ed0ebcb4b3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed77f7be_d4d43cdb",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-30T17:21:32Z",
+      "side": 1,
+      "message": "This should only be done with non-NULL ssl-\u003es3-\u003eaead_read_ctx.",
+      "revId": "c492751bb12d493e1260eec5bf3f1ed0ebcb4b3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
