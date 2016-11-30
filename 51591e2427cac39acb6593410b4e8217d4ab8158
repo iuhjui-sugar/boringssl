@@ -179,6 +179,23 @@
     },
     {
       "key": {
+        "uuid": "903934bb_65d44bd8",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-30T23:03:45Z",
+      "side": 1,
+      "message": "Oh, this is a much simpler overflow check and handles *out_consumed exceeding a uint16_t (though that\u0027s impossible).\n\nssl-\u003es3-\u003eearly_data_skipped +\u003d *out_consumed;\nif (ssl-\u003es3-\u003eearly_data_skipped \u003c *out_consumed) {\n  ssl-\u003es3-\u003eearly_data_skipped \u003d kMaxEarlyDataSkipped + 1;\n}",
+      "revId": "51591e2427cac39acb6593410b4e8217d4ab8158",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed77f7be_178dd613",
         "filename": "ssl/tls_record.c",
         "patchSetId": 3
