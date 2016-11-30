@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed77f7be_94bfa45e",
+        "filename": "fuzz/session.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-30T18:03:22Z",
+      "side": 1,
+      "message": "If the parsing fails, session may be null. This also leaks the session, which will trip up ASan. We have unique pointers, so you can do:\n\nbssl::UniquePtr\u003cSSL_SESSION\u003e session(SSL_SESSION_from_bytes(buf, len));\nif (!session) {\n  return 0;\n}\n\n(The fuzzers predate the various scopers and don\u0027t use them much. They probably should...)",
+      "range": {
+        "startLine": 40,
+        "startChar": 15,
+        "endLine": 40,
+        "endChar": 22
+      },
+      "revId": "acb3fb7b2fc9bcc6667a302c0fc3c55c48c5121f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "903934bb_f9b8ecae",
+        "filename": "fuzz/session.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-30T18:03:22Z",
+      "side": 1,
+      "message": "This doesn\u0027t actually do anything. :-) I\u0027d probably just leave this to stressing only the SSL_SESSION parser. Anything more complex we\u0027ll probably want to integrate into the client.cc or server.cc fuzzer. (Actually server.cc is already good. Just client.cc.)",
+      "revId": "acb3fb7b2fc9bcc6667a302c0fc3c55c48c5121f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed77f7be_34ca5004",
+        "filename": "fuzz/session.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-30T18:03:22Z",
+      "side": 1,
+      "message": "I don\u0027t believe the serialization quite round-trips for better or worse. There are a bunch of unknown fields and such.\n\nWhat should be true is to_bytes \u003d\u003e from_bytes should give you back the same object, but that\u0027s annoying to compare. to_bytes \u003d\u003e from_bytes \u003d\u003e to_bytes should be easier to compare, if you feel like doing that.",
+      "revId": "acb3fb7b2fc9bcc6667a302c0fc3c55c48c5121f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
