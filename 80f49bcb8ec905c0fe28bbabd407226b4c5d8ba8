@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "903934bb_36da9308",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-11-30T16:37:25Z",
+      "side": 1,
+      "message": "Check hash_len \u003d\u003d mk_len",
+      "range": {
+        "startLine": 286,
+        "startChar": 0,
+        "endLine": 286,
+        "endChar": 74
+      },
+      "revId": "80f49bcb8ec905c0fe28bbabd407226b4c5d8ba8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "903934bb_16e58fc0",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-11-30T16:37:25Z",
+      "side": 1,
+      "message": "Check hash_len \u003d\u003d mk_length",
+      "range": {
+        "startLine": 296,
+        "startChar": 9,
+        "endLine": 296,
+        "endChar": 35
+      },
+      "revId": "80f49bcb8ec905c0fe28bbabd407226b4c5d8ba8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
