@@ -25,6 +25,24 @@
     },
     {
       "key": {
+        "uuid": "903934bb_f6971bd6",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-11-30T17:03:23Z",
+      "side": 1,
+      "message": "Do we actually need such a check? We don\u0027t have anything like that with the ECDH secret. The check was needed previously because there was a memcpy into a fixed-size buffer.",
+      "parentUuid": "903934bb_36da9308",
+      "revId": "80f49bcb8ec905c0fe28bbabd407226b4c5d8ba8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "903934bb_16e58fc0",
         "filename": "ssl/tls13_server.c",
         "patchSetId": 2
