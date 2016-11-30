@@ -36,6 +36,7 @@ type Conn struct {
 	haveVers             bool       // version has been negotiated
 	config               *Config    // configuration passed to constructor
 	handshakeComplete    bool
+	skipEarlyData        bool
 	didResume            bool // whether this connection was a session resumption
 	extendedMasterSecret bool // whether this session used an extended master secret
 	cipherSuite          *cipherSuite
@@ -712,6 +713,7 @@ func (hc *halfConn) splitBlock(b *block, n int) (*block, *block) {
 }
 
 func (c *Conn) doReadRecord(want recordType) (recordType, *block, error) {
+RestartReadRecord:
 	if c.isDTLS {
 		return c.dtlsDoReadRecord(want)
 	}
@@ -798,6 +800,9 @@ func (c *Conn) doReadRecord(want recordType) (recordType, *block, error) {
 	// Process message.
 	b, c.rawInput = c.in.splitBlock(b, recordHeaderLen+n)
 	ok, off, encTyp, alertValue := c.in.decrypt(b)
+	if !ok && c.skipEarlyData {
+		goto RestartReadRecord
+	}
 	if !ok {
 		return 0, nil, c.in.setErrorLocked(c.sendAlert(alertValue))
 	}
@@ -1165,6 +1170,7 @@ func (c *Conn) readHandshake() (interface{}, error) {
 	if err != nil {
 		return nil, err
 	}
+	c.skipEarlyData = false
 
 	var m handshakeMessage
 	switch data[0] {
