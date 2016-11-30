@@ -65,12 +65,15 @@
 #define GHASH_ASM
 #endif
 
-#if defined(BSWAP4) && STRICT_ALIGNMENT == 1
-/* redefine, because alignment is ensured */
+#if STRICT_ALIGNMENT
+/* If |STRICT_ALIGNMENT| is defined then the versions of these macros from
+ * internal.h will be byte-level operations. But we know that, in this file,
+ * the arguments are actually aligned. Thus redefine them with the faster,
+ * word-level versions. */
 #undef GETU32
-#define GETU32(p) BSWAP4(*(const uint32_t *)(p))
+#define GETU32(p) CRYPTO_bswap4(*(const uint32_t *)(p))
 #undef PUTU32
-#define PUTU32(p, v) *(uint32_t *)(p) = BSWAP4(v)
+#define PUTU32(p, v) *(uint32_t *)(p) = CRYPTO_bswap4(v)
 #endif
 
 #define PACK(s) ((size_t)(s) << (sizeof(size_t) * 8 - 16))
@@ -182,21 +185,8 @@ static void gcm_gmult_4bit(uint64_t Xi[2], const u128 Htable[16]) {
     Z.lo ^= Htable[nlo].lo;
   }
 
-#ifdef BSWAP8
-  Xi[0] = BSWAP8(Z.hi);
-  Xi[1] = BSWAP8(Z.lo);
-#else
-  uint8_t *p = (uint8_t *)Xi;
-  uint32_t v;
-  v = (uint32_t)(Z.hi >> 32);
-  PUTU32(p, v);
-  v = (uint32_t)(Z.hi);
-  PUTU32(p + 4, v);
-  v = (uint32_t)(Z.lo >> 32);
-  PUTU32(p + 8, v);
-  v = (uint32_t)(Z.lo);
-  PUTU32(p + 12, v);
-#endif
+  Xi[0] = CRYPTO_bswap8(Z.hi);
+  Xi[1] = CRYPTO_bswap8(Z.lo);
 }
 
 /* Streamed gcm_mult_4bit, see CRYPTO_gcm128_[en|de]crypt for
@@ -255,21 +245,8 @@ static void gcm_ghash_4bit(uint64_t Xi[2], const u128 Htable[16],
       Z.lo ^= Htable[nlo].lo;
     }
 
-#ifdef BSWAP8
-    Xi[0] = BSWAP8(Z.hi);
-    Xi[1] = BSWAP8(Z.lo);
-#else
-    uint8_t *p = (uint8_t *)Xi;
-    uint32_t v;
-    v = (uint32_t)(Z.hi >> 32);
-    PUTU32(p, v);
-    v = (uint32_t)(Z.hi);
-    PUTU32(p + 4, v);
-    v = (uint32_t)(Z.lo >> 32);
-    PUTU32(p + 8, v);
-    v = (uint32_t)(Z.lo);
-    PUTU32(p + 12, v);
-#endif
+    Xi[0] = CRYPTO_bswap8(Z.hi);
+    Xi[1] = CRYPTO_bswap8(Z.lo);
   } while (inp += 16, len -= 16);
 }
 #else /* GHASH_ASM */
@@ -400,17 +377,8 @@ void CRYPTO_ghash_init(gmult_func *out_mult, ghash_func *out_hash,
   memcpy(H.c, gcm_key, 16);
 
   /* H is stored in host byte order */
-#ifdef BSWAP8
-  H.u[0] = BSWAP8(H.u[0]);
-  H.u[1] = BSWAP8(H.u[1]);
-#else
-  uint8_t *p = H.c;
-  uint64_t hi, lo;
-  hi = (uint64_t)GETU32(p) << 32 | GETU32(p + 4);
-  lo = (uint64_t)GETU32(p + 8) << 32 | GETU32(p + 12);
-  H.u[0] = hi;
-  H.u[1] = lo;
-#endif
+  H.u[0] = CRYPTO_bswap8(H.u[0]);
+  H.u[1] = CRYPTO_bswap8(H.u[1]);
 
 #if defined(GHASH_ASM_X86_OR_64)
   if (crypto_gcm_clmul_enabled()) {
@@ -519,18 +487,7 @@ void CRYPTO_gcm128_setiv(GCM128_CONTEXT *ctx, const void *key,
       GCM_MUL(ctx, Yi);
     }
     len0 <<= 3;
-#ifdef BSWAP8
-    ctx->Yi.u[1] ^= BSWAP8(len0);
-#else
-    ctx->Yi.c[8] ^= (uint8_t)(len0 >> 56);
-    ctx->Yi.c[9] ^= (uint8_t)(len0 >> 48);
-    ctx->Yi.c[10] ^= (uint8_t)(len0 >> 40);
-    ctx->Yi.c[11] ^= (uint8_t)(len0 >> 32);
-    ctx->Yi.c[12] ^= (uint8_t)(len0 >> 24);
-    ctx->Yi.c[13] ^= (uint8_t)(len0 >> 16);
-    ctx->Yi.c[14] ^= (uint8_t)(len0 >> 8);
-    ctx->Yi.c[15] ^= (uint8_t)(len0);
-#endif
+    ctx->Yi.u[1] ^= CRYPTO_bswap8(len0);
 
     GCM_MUL(ctx, Yi);
     ctr = GETU32(ctx->Yi.c + 12);
@@ -1097,18 +1054,8 @@ int CRYPTO_gcm128_finish(GCM128_CONTEXT *ctx, const uint8_t *tag, size_t len) {
     GCM_MUL(ctx, Xi);
   }
 
-#ifdef BSWAP8
-  alen = BSWAP8(alen);
-  clen = BSWAP8(clen);
-#else
-  uint8_t *p = ctx->len.c;
-
-  ctx->len.u[0] = alen;
-  ctx->len.u[1] = clen;
-
-  alen = (uint64_t)GETU32(p) << 32 | GETU32(p + 4);
-  clen = (uint64_t)GETU32(p + 8) << 32 | GETU32(p + 12);
-#endif
+  alen = CRYPTO_bswap8(alen);
+  clen = CRYPTO_bswap8(clen);
 
   ctx->Xi.u[0] ^= alen;
   ctx->Xi.u[1] ^= clen;
