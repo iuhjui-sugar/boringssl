@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "903934bb_7415e302",
+        "filename": "tool/server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2016-11-30T20:28:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "903934bb_f40c7324",
+      "revId": "76289856cc49f4647f218fbd18cb913d4523ad26",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "903934bb_1412e73f",
         "filename": "tool/server.cc",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2016-11-30T19:40:57Z",
       "side": 1,
       "message": "ditto about collapsing this into the previous if.",
+      "revId": "76289856cc49f4647f218fbd18cb913d4523ad26",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "903934bb_14fca796",
+        "filename": "tool/server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2016-11-30T20:28:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "903934bb_1412e73f",
       "revId": "76289856cc49f4647f218fbd18cb913d4523ad26",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "903934bb_740b23d8",
+        "filename": "tool/server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2016-11-30T20:28:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "903934bb_54ce1fc1",
+      "range": {
+        "startLine": 139,
+        "startChar": 39,
+        "endLine": 139,
+        "endChar": 49
+      },
+      "revId": "76289856cc49f4647f218fbd18cb913d4523ad26",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "903934bb_f4f393ee",
         "filename": "tool/server.cc",
         "patchSetId": 2
@@ -70,6 +130,30 @@
       "writtenOn": "2016-11-30T19:40:57Z",
       "side": 1,
       "message": "the serial number should be random. (I.e. don\u0027t pass in a value, just generate 16 random bytes in |MakeSelfSignedCert|.)\n\nOtherwise NSS (i.e. Firefox) will get upset when it seems two different certificates with the same issuer and serial number.",
+      "range": {
+        "startLine": 175,
+        "startChar": 24,
+        "endLine": 175,
+        "endChar": 45
+      },
+      "revId": "76289856cc49f4647f218fbd18cb913d4523ad26",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "903934bb_6f8c2ac7",
+        "filename": "tool/server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2016-11-30T20:28:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "903934bb_f4f393ee",
       "range": {
         "startLine": 175,
         "startChar": 24,
