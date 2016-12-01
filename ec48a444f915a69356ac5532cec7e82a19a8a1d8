@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0dde0b29_1d2ff3bb",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 2084,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-01T20:08:45Z",
+      "side": 1,
+      "message": "(The others had the newline.)",
+      "parentUuid": "0dde0b29_9d59437a",
+      "revId": "ec48a444f915a69356ac5532cec7e82a19a8a1d8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0dde0b29_bd56ff46",
         "filename": "ssl/test/runner/conn.go",
         "patchSetId": 7
@@ -36,6 +54,24 @@
         "endLine": 1772,
         "endChar": 32
       },
+      "revId": "ec48a444f915a69356ac5532cec7e82a19a8a1d8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0dde0b29_5d297bb2",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1772,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-01T20:08:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0dde0b29_bd56ff46",
       "revId": "ec48a444f915a69356ac5532cec7e82a19a8a1d8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
