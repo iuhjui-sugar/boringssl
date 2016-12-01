@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0dde0b29_9d59437a",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 2084,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-12-01T20:01:45Z",
+      "side": 1,
+      "message": "Spare change?",
+      "revId": "ec48a444f915a69356ac5532cec7e82a19a8a1d8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0dde0b29_bd56ff46",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1772,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-12-01T20:01:45Z",
+      "side": 1,
+      "message": "Add a comment about why writeRecord doesn\u0027t work?",
+      "range": {
+        "startLine": 1772,
+        "startChar": 15,
+        "endLine": 1772,
+        "endChar": 32
+      },
+      "revId": "ec48a444f915a69356ac5532cec7e82a19a8a1d8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
