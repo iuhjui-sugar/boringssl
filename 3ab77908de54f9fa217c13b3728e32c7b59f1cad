@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6d506749_8dd93144",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 805,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-12-01T23:10:24Z",
+      "side": 1,
+      "message": "I believe this existing code handles #1 correctly. I\u0027ve added another check for #2.",
+      "parentUuid": "0dde0b29_9d0943e0",
+      "revId": "3ab77908de54f9fa217c13b3728e32c7b59f1cad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0dde0b29_7d0557c3",
         "filename": "ssl/test/runner/conn.go",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2016-12-01T22:04:00Z",
       "side": 1,
       "message": "You actually want this to be set as soon as you get a record from the right epoch. This is to reject:\n\n[early data]\n[1/2 of client Finished]\n[more early data]\n[1/2 of client Finished]",
+      "revId": "3ab77908de54f9fa217c13b3728e32c7b59f1cad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d506749_0ded21d4",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-12-01T23:10:24Z",
+      "side": 1,
+      "message": "I moved the c.skipEarlyData \u003d false to be after the call to decrypt.",
+      "parentUuid": "0dde0b29_7d0557c3",
       "revId": "3ab77908de54f9fa217c13b3728e32c7b59f1cad",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
