@@ -22,6 +22,30 @@
       "revId": "ce1f62c3beba48d627698ba41695479eeb0d894c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0dde0b29_fd2887f4",
+        "filename": "tool/server.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-01T19:11:01Z",
+      "side": 1,
+      "message": "I was just about to say that it\u0027s fine because ASN1_INTEGER_set takes a |long|, but then remembered that 32-bit MSVC defines sizeof(long)\u003d4. So you\u0027re correct. Sorry about that; CL coming in a second.",
+      "parentUuid": "6d506749_07c060e7",
+      "range": {
+        "startLine": 116,
+        "startChar": 54,
+        "endLine": 116,
+        "endChar": 60
+      },
+      "revId": "ce1f62c3beba48d627698ba41695479eeb0d894c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
