@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "903934bb_e532fa4d",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 2100,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-12-01T16:23:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "903934bb_2fcf926e",
+      "revId": "51591e2427cac39acb6593410b4e8217d4ab8158",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "903934bb_25c3332a",
         "filename": "ssl/test/runner/common.go",
         "patchSetId": 3
@@ -30,6 +48,30 @@
       "writtenOn": "2016-11-30T22:59:15Z",
       "side": 1,
       "message": "This should be testing that we send early data (and thus the early_data extension) on the second ClientHello, not the extension. The point of this test is to make sure we suitably shut it off at this point.\n\n(There\u0027s also no extension named EarlyData, just only EarlyData.)",
+      "range": {
+        "startLine": 1118,
+        "startChar": 1,
+        "endLine": 1118,
+        "endChar": 33
+      },
+      "revId": "51591e2427cac39acb6593410b4e8217d4ab8158",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "903934bb_0530ee43",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-12-01T16:23:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "903934bb_25c3332a",
       "range": {
         "startLine": 1118,
         "startChar": 1,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "903934bb_25a33250",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 1120,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-12-01T16:23:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "903934bb_85aa1f4d",
+      "range": {
+        "startLine": 1120,
+        "startChar": 68,
+        "endLine": 1120,
+        "endChar": 77
+      },
+      "revId": "51591e2427cac39acb6593410b4e8217d4ab8158",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "903934bb_c5b417b3",
         "filename": "ssl/test/runner/common.go",
         "patchSetId": 3
@@ -76,6 +142,30 @@
       "writtenOn": "2016-11-30T22:59:15Z",
       "side": 1,
       "message": "which handshake message?",
+      "range": {
+        "startLine": 1121,
+        "startChar": 24,
+        "endLine": 1121,
+        "endChar": 46
+      },
+      "revId": "51591e2427cac39acb6593410b4e8217d4ab8158",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "903934bb_45a8262a",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 1121,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-12-01T16:23:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "903934bb_c5b417b3",
       "range": {
         "startLine": 1121,
         "startChar": 24,
@@ -105,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "903934bb_65ad2a38",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-12-01T16:23:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "903934bb_65ad2b66",
+      "revId": "51591e2427cac39acb6593410b4e8217d4ab8158",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "903934bb_8a64ecc9",
         "filename": "ssl/tls13_server.c",
         "patchSetId": 3
@@ -116,6 +224,24 @@
       "writtenOn": "2016-11-30T22:59:15Z",
       "side": 1,
       "message": "Oh! I see, this is to make sure the second ClientHello doesn\u0027t have the extension...\n\nI don\u0027t think we need to bother. We don\u0027t bother processing any other part of the second ClientHello. I just meant that tests should check this case. (We\u0027ll implicitly reject the early data.)",
+      "revId": "51591e2427cac39acb6593410b4e8217d4ab8158",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "903934bb_85b21e98",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-12-01T16:23:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "903934bb_8a64ecc9",
       "revId": "51591e2427cac39acb6593410b4e8217d4ab8158",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -145,6 +271,30 @@
     },
     {
       "key": {
+        "uuid": "903934bb_a5b72287",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-12-01T16:23:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "903934bb_0ae55cc0",
+      "range": {
+        "startLine": 261,
+        "startChar": 6,
+        "endLine": 261,
+        "endChar": 31
+      },
+      "revId": "51591e2427cac39acb6593410b4e8217d4ab8158",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "903934bb_eab808af",
         "filename": "ssl/tls_record.c",
         "patchSetId": 3
@@ -156,6 +306,24 @@
       "writtenOn": "2016-11-30T22:59:15Z",
       "side": 1,
       "message": "If ssl_process_alert manages to return skip, this will get it wrong. This should get set as soon as decrypting the alert worked, since that means we have a record from this epoch.\n\n(That\u0027s why move it out of ssl3_get_record. Here it\u0027s still doing the same thing. tls_record processes some records transparently. This needs to get set before any alert processing.)",
+      "revId": "51591e2427cac39acb6593410b4e8217d4ab8158",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "903934bb_25ca5208",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-12-01T16:23:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "903934bb_eab808af",
       "revId": "51591e2427cac39acb6593410b4e8217d4ab8158",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -179,6 +347,24 @@
     },
     {
       "key": {
+        "uuid": "6d1ea7a7_6874a33f",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-12-01T16:23:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "903934bb_cfc0b639",
+      "revId": "51591e2427cac39acb6593410b4e8217d4ab8158",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "903934bb_65d44bd8",
         "filename": "ssl/tls_record.c",
         "patchSetId": 3
@@ -196,6 +382,24 @@
     },
     {
       "key": {
+        "uuid": "6d1ea7a7_286aab5a",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-12-01T16:23:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "903934bb_65d44bd8",
+      "revId": "51591e2427cac39acb6593410b4e8217d4ab8158",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed77f7be_178dd613",
         "filename": "ssl/tls_record.c",
         "patchSetId": 3
@@ -207,6 +411,24 @@
       "writtenOn": "2016-11-30T22:59:15Z",
       "side": 1,
       "message": "Probably cleaner to put this on line 270 so it\u0027s locally obvious why you\u0027re doing it. (The other codepath doesn\u0027t need it anyway.)",
+      "revId": "51591e2427cac39acb6593410b4e8217d4ab8158",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d1ea7a7_086fe76a",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-12-01T16:23:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed77f7be_178dd613",
       "revId": "51591e2427cac39acb6593410b4e8217d4ab8158",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
