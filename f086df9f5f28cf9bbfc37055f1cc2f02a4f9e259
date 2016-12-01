@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0dde0b29_bd2a7f8b",
+        "filename": "ssl/ssl_session.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-01T20:32:08Z",
+      "side": 0,
+      "message": "[Huh, I didn\u0027t realize we treated zero on the SSL_CTX funny like that. I bet we can do away with that weird discontinuity.]",
+      "revId": "f086df9f5f28cf9bbfc37055f1cc2f02a4f9e259",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

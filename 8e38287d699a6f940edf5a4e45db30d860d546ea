@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0dde0b29_ddeaeb2b",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2389,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-01T20:32:08Z",
+      "side": 1,
+      "message": "I think you only need to set this the first time since you\u0027re passing in a pointer to timeout.",
+      "range": {
+        "startLine": 2389,
+        "startChar": 2,
+        "endLine": 2389,
+        "endChar": 21
+      },
+      "revId": "8e38287d699a6f940edf5a4e45db30d860d546ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0dde0b29_bded1f47",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2795,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-01T20:32:08Z",
+      "side": 1,
+      "message": "[FWIW, it\u0027s likely our TLS 1.3 logic will end up using separate timeout machinery. We\u0027re willing to have and want much longer timeouts in 1.3 because of the ECDH-ful resumption and 0-RTT. But, anyway, we\u0027ll just fix up this test when we sort that out.]",
+      "range": {
+        "startLine": 2795,
+        "startChar": 7,
+        "endLine": 2795,
+        "endChar": 21
+      },
+      "revId": "8e38287d699a6f940edf5a4e45db30d860d546ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
