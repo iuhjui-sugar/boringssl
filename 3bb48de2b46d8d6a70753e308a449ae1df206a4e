@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0dde0b29_bd043f37",
+        "filename": "fuzz/session_corpus/00bff688b187a70181ffbc2f3e4b8bfad5a2fa67",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-01T20:14:52Z",
+      "side": 1,
+      "message": "I think you have a typo in this file. ;-)",
+      "revId": "3bb48de2b46d8d6a70753e308a449ae1df206a4e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
