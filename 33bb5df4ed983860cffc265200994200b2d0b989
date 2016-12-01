@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "903934bb_c5edf646",
+        "filename": "tool/server.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-01T17:47:56Z",
+      "side": 1,
+      "message": "It\u0027s not worth playing with ASN1_INTEGER to get a 128-bit random, but I made this 32-bit just to make the collision probability negligible in any reasonable use-case.",
+      "revId": "33bb5df4ed983860cffc265200994200b2d0b989",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "903934bb_452026b1",
+        "filename": "tool/server.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-01T17:47:56Z",
+      "side": 1,
+      "message": "Although we have a lot of OpenSSL left that uses \"unsigned char\", it\u0027s the local style to write \"uint8_t\" where possible.",
+      "range": {
+        "startLine": 122,
+        "startChar": 52,
+        "endLine": 122,
+        "endChar": 65
+      },
+      "revId": "33bb5df4ed983860cffc265200994200b2d0b989",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
