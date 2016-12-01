@@ -299,9 +299,20 @@ struct KnownAEAD {
   bool limited_implementation;
 };
 
+#if defined(OPENSSL_SMALL)
+const EVP_AEAD EVP_aead_aes_128_gcm_siv(void) {
+  return NULL;
+}
+const EVP_AEAD EVP_aead_aes_256_gcm_siv(void) {
+  return NULL;
+}
+#endif
+
 static const struct KnownAEAD kAEADs[] = {
   { "aes-128-gcm", EVP_aead_aes_128_gcm, false },
   { "aes-256-gcm", EVP_aead_aes_256_gcm, false },
+  { "aes-128-gcm-siv", EVP_aead_aes_128_gcm_siv, false },
+  { "aes-256-gcm-siv", EVP_aead_aes_256_gcm_siv, false },
   { "chacha20-poly1305", EVP_aead_chacha20_poly1305, false },
   { "chacha20-poly1305-old", EVP_aead_chacha20_poly1305_old, false },
   { "aes-128-cbc-sha1-tls", EVP_aead_aes_128_cbc_sha1_tls, true },
@@ -342,6 +353,11 @@ static int Main(int argc, char **argv) {
   }
 
   const EVP_AEAD *const aead = known_aead->func();
+  if (aead == NULL) {
+    // AEAD is not compiled in this configuration.
+    printf("PASS\n");
+    return 0;
+  }
 
   if (!TestCleanupAfterInitFailure(aead)) {
     return 1;
