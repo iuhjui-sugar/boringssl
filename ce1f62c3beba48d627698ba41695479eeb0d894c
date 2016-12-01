@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d506749_07c060e7",
+        "filename": "tool/server.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2016-12-01T18:22:52Z",
+      "side": 1,
+      "message": "Doesn\u0027t this have to be non-negative?",
+      "range": {
+        "startLine": 116,
+        "startChar": 54,
+        "endLine": 116,
+        "endChar": 60
+      },
+      "revId": "ce1f62c3beba48d627698ba41695479eeb0d894c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
