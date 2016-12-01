@@ -103,6 +103,8 @@ elseif(MSVC)
   add_definitions(-D_CRT_SECURE_NO_WARNINGS) # Allow use of fopen
 endif()
 
+add_definitions(-DOPENSSL_SMALL)
+
 if((CMAKE_COMPILER_IS_GNUCXX AND CMAKE_C_COMPILER_VERSION VERSION_GREATER "4.7.99") OR
    CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wshadow")
