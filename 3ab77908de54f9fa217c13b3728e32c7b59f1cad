@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0dde0b29_9d0943e0",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 805,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-01T22:04:00Z",
+      "side": 1,
+      "message": "It\u0027s a little bit messier than this. There\u0027s two cases:\n\n1. I am expecting an encrypted record. Then I trial-decrypt and drop the record if I don\u0027t like it.\n2. I am expecting an unencrypted record (I sent an HRR). Then I check the outer content type and, if application_data, drop it.",
+      "revId": "3ab77908de54f9fa217c13b3728e32c7b59f1cad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0dde0b29_7d0557c3",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-01T22:04:00Z",
+      "side": 1,
+      "message": "You actually want this to be set as soon as you get a record from the right epoch. This is to reject:\n\n[early data]\n[1/2 of client Finished]\n[more early data]\n[1/2 of client Finished]",
+      "revId": "3ab77908de54f9fa217c13b3728e32c7b59f1cad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
