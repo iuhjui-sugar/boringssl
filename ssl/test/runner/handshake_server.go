@@ -858,6 +858,17 @@ ResendHelloRetryRequest:
 	// from the client certificate are sent over these keys.
 	c.out.useTrafficSecret(c.vers, hs.suite, serverTrafficSecret, serverWrite)
 
+	// Send 0.5-RTT messages.
+	for _, halfRTTMsg := range config.Bugs.SendHalfRTTData {
+		n, err := c.writeRecord(recordTypeApplicationData, halfRTTMsg)
+		if err != nil {
+			return err
+		}
+		if n != len(halfRTTMsg) {
+			return fmt.Errorf("SendHalfRTTData: Expected to write %d bytes but only wrote %d.", len(halfRTTMsg), n)
+		}
+	}
+
 	// If we requested a client certificate, then the client must send a
 	// certificate message, even if it's empty.
 	if config.ClientAuth >= RequestClientCert {
@@ -967,7 +978,11 @@ ResendHelloRetryRequest:
 
 	// TODO(davidben): Allow configuring the number of tickets sent for
 	// testing.
-	if !c.config.SessionTicketsDisabled && foundKEMode {
+	clientKEModes := hs.clientHello.pskKEModes
+	if len(hs.clientHello.pskIdentities) == 0 && len(hs.clientHello.sessionTicket) > 0 && c.config.Bugs.AcceptAnySession {
+		clientKEModes = []byte{pskDHEKEMode}
+	}
+	if !c.config.SessionTicketsDisabled && bytes.IndexByte(clientKEModes, pskDHEKEMode) >= 0 {
 		ticketCount := 2
 		for i := 0; i < ticketCount; i++ {
 			c.SendNewSessionTicket()
