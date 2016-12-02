@@ -1,0 +1,147 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "edb29710_bcffc189",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-02T22:21:35Z",
+      "side": 1,
+      "message": "I\u0027m not sure where, but the interactions between this, peer, and certChain seem sufficiently wonky that it probably deserves a high-level comment. :-)",
+      "range": {
+        "startLine": 125,
+        "startChar": 7,
+        "endLine": 125,
+        "endChar": 27
+      },
+      "revId": "187ddad2f75fdfde55281967aa77e09d1d85322e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "edb29710_9c2e4552",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-02T22:21:35Z",
+      "side": 1,
+      "message": "I think you want to add an || (has_cert_chain \u0026\u0026 CBS_len(\u0026cert_chain) \u003d\u003d 0), especially to avoid upsetting the leaf cert detection below.",
+      "revId": "187ddad2f75fdfde55281967aa77e09d1d85322e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "edb29710_bc29014e",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 690,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-02T22:21:35Z",
+      "side": 1,
+      "message": "Completely doesn\u0027t matter, but a size_t could guarantee no overflows. Another option is\n\n  int is_leaf_cert \u003d 1;\n\nand then you set it to zero in the loop.",
+      "range": {
+        "startLine": 690,
+        "startChar": 4,
+        "endLine": 690,
+        "endChar": 12
+      },
+      "revId": "187ddad2f75fdfde55281967aa77e09d1d85322e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "edb29710_fcf549ad",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-02T22:21:35Z",
+      "side": 1,
+      "message": "Is it possible to have both has_peer and this element existing? It seems weird that we\u0027d ever have this value and the one we used to parse be misaligned. Another option is to fold x509_chain_should_include_leaf and x509_chain_should_include_leaf_default together and guard this code with if (!has_peer).",
+      "range": {
+        "startLine": 738,
+        "startChar": 34,
+        "endLine": 738,
+        "endChar": 72
+      },
+      "revId": "187ddad2f75fdfde55281967aa77e09d1d85322e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "edb29710_dcfa8d9b",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-02T22:21:35Z",
+      "side": 1,
+      "message": "If you added an ssl_session_update_x509_chain per comment in tls13_both.c, I think that function would also work here.",
+      "revId": "187ddad2f75fdfde55281967aa77e09d1d85322e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "edb29710_7c66d9d4",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 878,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-02T22:21:35Z",
+      "side": 1,
+      "message": "Nit: 80 chars here, line 884, and line 922.",
+      "revId": "187ddad2f75fdfde55281967aa77e09d1d85322e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "edb29710_9c6085b9",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-02T22:21:35Z",
+      "side": 1,
+      "message": "Annoyingly, the TLS 1.3 code no longer calls into this nice function because 1.2 and 1.3 Certificate messages now have very different structures.\n\nMaybe we want a function like:\n\n  int ssl_session_update_x509_chain(SSL_SESSION *session, int chain_should_include_leaf);",
+      "range": {
+        "startLine": 182,
+        "startChar": 7,
+        "endLine": 182,
+        "endChar": 27
+      },
+      "revId": "187ddad2f75fdfde55281967aa77e09d1d85322e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
