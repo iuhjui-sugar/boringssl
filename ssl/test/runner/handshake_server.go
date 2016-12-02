@@ -22,22 +22,24 @@ import (
 // serverHandshakeState contains details of a server handshake in progress.
 // It's discarded once the handshake has completed.
 type serverHandshakeState struct {
-	c               *Conn
-	clientHello     *clientHelloMsg
-	hello           *serverHelloMsg
-	suite           *cipherSuite
-	ellipticOk      bool
-	ecdsaOk         bool
-	sessionState    *sessionState
-	finishedHash    finishedHash
-	masterSecret    []byte
-	certsFromClient [][]byte
-	cert            *Certificate
-	finishedBytes   []byte
+	c                            *Conn
+	clientHello                  *clientHelloMsg
+	hello                        *serverHelloMsg
+	suite                        *cipherSuite
+	ellipticOk                   bool
+	ecdsaOk                      bool
+	sessionState                 *sessionState
+	finishedHash                 finishedHash
+	masterSecret                 []byte
+	certsFromClient              [][]byte
+	cert                         *Certificate
+	finishedBytes                []byte
+	clientHandshakeTrafficSecret []byte
+	clientTrafficSecret          []byte
 }
 
 // serverHandshake performs a TLS handshake as a server.
-func (c *Conn) serverHandshake() error {
+func (c *Conn) startServerHandshake() error {
 	config := c.config
 
 	// If this is the first server handshake, we generate a random key to
@@ -125,10 +127,142 @@ func (c *Conn) serverHandshake() error {
 
 		c.exporterSecret = hs.masterSecret
 	}
-	c.handshakeComplete = true
+	c.cipherSuite = hs.suite
+	c.handshakeStarted = true
 	copy(c.clientRandom[:], hs.clientHello.random)
 	copy(c.serverRandom[:], hs.hello.random)
 
+	return nil
+}
+
+func (c *Conn) finishServerHandshake() error {
+	if c.vers < VersionTLS13 {
+		c.handshakeComplete = true
+		return nil
+	}
+	config := c.config
+	hs := c.serverHandshakeState
+	c.serverHandshakeState = nil
+
+	// If we requested a client certificate, then the client must send a
+	// certificate message, even if it's empty.
+	if config.ClientAuth >= RequestClientCert {
+		msg, err := c.readHandshake()
+		if err != nil {
+			return err
+		}
+
+		certMsg, ok := msg.(*certificateMsg)
+		if !ok {
+			c.sendAlert(alertUnexpectedMessage)
+			return unexpectedMessageError(certMsg, msg)
+		}
+		hs.writeClientHash(certMsg.marshal())
+
+		if len(certMsg.certificates) == 0 {
+			// The client didn't actually send a certificate
+			switch config.ClientAuth {
+			case RequireAnyClientCert, RequireAndVerifyClientCert:
+				c.sendAlert(alertCertificateRequired)
+				return errors.New("tls: client didn't provide a certificate")
+			}
+		}
+
+		var certs [][]byte
+		for _, cert := range certMsg.certificates {
+			certs = append(certs, cert.data)
+			// OCSP responses and SCT lists are not negotiated in
+			// client certificates.
+			if cert.ocspResponse != nil || cert.sctList != nil {
+				c.sendAlert(alertUnsupportedExtension)
+				return errors.New("tls: unexpected extensions in the client certificate")
+			}
+		}
+		pub, err := hs.processCertsFromClient(certs)
+		if err != nil {
+			return err
+		}
+
+		if len(c.peerCertificates) > 0 {
+			msg, err = c.readHandshake()
+			if err != nil {
+				return err
+			}
+
+			certVerify, ok := msg.(*certificateVerifyMsg)
+			if !ok {
+				c.sendAlert(alertUnexpectedMessage)
+				return unexpectedMessageError(certVerify, msg)
+			}
+
+			c.peerSignatureAlgorithm = certVerify.signatureAlgorithm
+			input := hs.finishedHash.certificateVerifyInput(clientCertificateVerifyContextTLS13)
+			if err := verifyMessage(c.vers, pub, config, certVerify.signatureAlgorithm, input, certVerify.signature); err != nil {
+				c.sendAlert(alertBadCertificate)
+				return err
+			}
+			hs.writeClientHash(certVerify.marshal())
+		}
+	}
+
+	if hs.clientHello.channelIDSupported && config.RequestChannelID {
+		msg, err := c.readHandshake()
+		if err != nil {
+			return err
+		}
+		channelIDMsg, ok := msg.(*channelIDMsg)
+		if !ok {
+			c.sendAlert(alertUnexpectedMessage)
+			return unexpectedMessageError(channelIDMsg, msg)
+		}
+		channelIDHash := crypto.SHA256.New()
+		channelIDHash.Write(hs.finishedHash.certificateVerifyInput(channelIDContextTLS13))
+		channelID, err := verifyChannelIDMessage(channelIDMsg, channelIDHash.Sum(nil))
+		if err != nil {
+			return err
+		}
+		c.channelID = channelID
+
+		hs.writeClientHash(channelIDMsg.marshal())
+	}
+
+	// Read the client Finished message.
+	msg, err := c.readHandshake()
+	if err != nil {
+		return err
+	}
+	clientFinished, ok := msg.(*finishedMsg)
+	if !ok {
+		c.sendAlert(alertUnexpectedMessage)
+		return unexpectedMessageError(clientFinished, msg)
+	}
+
+	verify := hs.finishedHash.clientSum(hs.clientHandshakeTrafficSecret)
+	if len(verify) != len(clientFinished.verifyData) ||
+		subtle.ConstantTimeCompare(verify, clientFinished.verifyData) != 1 {
+		c.sendAlert(alertHandshakeFailure)
+		return errors.New("tls: client's Finished message was incorrect")
+	}
+	hs.writeClientHash(clientFinished.marshal())
+
+	// Switch to application data keys on read.
+	c.in.useTrafficSecret(c.vers, hs.suite, hs.clientTrafficSecret, clientWrite)
+
+	c.resumptionSecret = hs.finishedHash.deriveSecret(resumptionLabel)
+
+	// TODO(davidben): Allow configuring the number of tickets sent for
+	// testing.
+	clientKEModes := hs.clientHello.pskKEModes
+	if len(hs.clientHello.pskIdentities) == 0 && len(hs.clientHello.sessionTicket) > 0 && c.config.Bugs.AcceptAnySession {
+		clientKEModes = []byte{pskDHEKEMode}
+	}
+	if !c.config.SessionTicketsDisabled && bytes.IndexByte(clientKEModes, pskDHEKEMode) >= 0 {
+		ticketCount := 2
+		for i := 0; i < ticketCount; i++ {
+			c.SendNewSessionTicket()
+		}
+	}
+	c.handshakeComplete = true
 	return nil
 }
 
@@ -848,122 +982,9 @@ ResendHelloRetryRequest:
 	// Switch to application data keys on write. In particular, any alerts
 	// from the client certificate are sent over these keys.
 	c.out.useTrafficSecret(c.vers, hs.suite, serverTrafficSecret, serverWrite)
-
-	// If we requested a client certificate, then the client must send a
-	// certificate message, even if it's empty.
-	if config.ClientAuth >= RequestClientCert {
-		msg, err := c.readHandshake()
-		if err != nil {
-			return err
-		}
-
-		certMsg, ok := msg.(*certificateMsg)
-		if !ok {
-			c.sendAlert(alertUnexpectedMessage)
-			return unexpectedMessageError(certMsg, msg)
-		}
-		hs.writeClientHash(certMsg.marshal())
-
-		if len(certMsg.certificates) == 0 {
-			// The client didn't actually send a certificate
-			switch config.ClientAuth {
-			case RequireAnyClientCert, RequireAndVerifyClientCert:
-				c.sendAlert(alertCertificateRequired)
-				return errors.New("tls: client didn't provide a certificate")
-			}
-		}
-
-		var certs [][]byte
-		for _, cert := range certMsg.certificates {
-			certs = append(certs, cert.data)
-			// OCSP responses and SCT lists are not negotiated in
-			// client certificates.
-			if cert.ocspResponse != nil || cert.sctList != nil {
-				c.sendAlert(alertUnsupportedExtension)
-				return errors.New("tls: unexpected extensions in the client certificate")
-			}
-		}
-		pub, err := hs.processCertsFromClient(certs)
-		if err != nil {
-			return err
-		}
-
-		if len(c.peerCertificates) > 0 {
-			msg, err = c.readHandshake()
-			if err != nil {
-				return err
-			}
-
-			certVerify, ok := msg.(*certificateVerifyMsg)
-			if !ok {
-				c.sendAlert(alertUnexpectedMessage)
-				return unexpectedMessageError(certVerify, msg)
-			}
-
-			c.peerSignatureAlgorithm = certVerify.signatureAlgorithm
-			input := hs.finishedHash.certificateVerifyInput(clientCertificateVerifyContextTLS13)
-			if err := verifyMessage(c.vers, pub, config, certVerify.signatureAlgorithm, input, certVerify.signature); err != nil {
-				c.sendAlert(alertBadCertificate)
-				return err
-			}
-			hs.writeClientHash(certVerify.marshal())
-		}
-	}
-
-	if encryptedExtensions.extensions.channelIDRequested {
-		msg, err := c.readHandshake()
-		if err != nil {
-			return err
-		}
-		channelIDMsg, ok := msg.(*channelIDMsg)
-		if !ok {
-			c.sendAlert(alertUnexpectedMessage)
-			return unexpectedMessageError(channelIDMsg, msg)
-		}
-		channelIDHash := crypto.SHA256.New()
-		channelIDHash.Write(hs.finishedHash.certificateVerifyInput(channelIDContextTLS13))
-		channelID, err := verifyChannelIDMessage(channelIDMsg, channelIDHash.Sum(nil))
-		if err != nil {
-			return err
-		}
-		c.channelID = channelID
-
-		hs.writeClientHash(channelIDMsg.marshal())
-	}
-
-	// Read the client Finished message.
-	msg, err := c.readHandshake()
-	if err != nil {
-		return err
-	}
-	clientFinished, ok := msg.(*finishedMsg)
-	if !ok {
-		c.sendAlert(alertUnexpectedMessage)
-		return unexpectedMessageError(clientFinished, msg)
-	}
-
-	verify := hs.finishedHash.clientSum(clientHandshakeTrafficSecret)
-	if len(verify) != len(clientFinished.verifyData) ||
-		subtle.ConstantTimeCompare(verify, clientFinished.verifyData) != 1 {
-		c.sendAlert(alertHandshakeFailure)
-		return errors.New("tls: client's Finished message was incorrect")
-	}
-	hs.writeClientHash(clientFinished.marshal())
-
-	// Switch to application data keys on read.
-	c.in.useTrafficSecret(c.vers, hs.suite, clientTrafficSecret, clientWrite)
-
-	c.cipherSuite = hs.suite
-	c.resumptionSecret = hs.finishedHash.deriveSecret(resumptionLabel)
-
-	// TODO(davidben): Allow configuring the number of tickets sent for
-	// testing.
-	if !c.config.SessionTicketsDisabled && foundKEMode {
-		ticketCount := 2
-		for i := 0; i < ticketCount; i++ {
-			c.SendNewSessionTicket()
-		}
-	}
+	hs.clientHandshakeTrafficSecret = clientHandshakeTrafficSecret
+	hs.clientTrafficSecret = clientTrafficSecret
+	c.serverHandshakeState = hs
 	return nil
 }
 
