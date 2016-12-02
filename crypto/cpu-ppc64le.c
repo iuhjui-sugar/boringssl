@@ -24,7 +24,7 @@
 #if !defined(PPC_FEATURE2_HAS_VCRYPTO)
 /* PPC_FEATURE2_HAS_VCRYPTO was taken from section 4.1.2.3 of the “OpenPOWER
  * ABI for Linux Supplement”. */
-#define PPC_FEATURE2_HAS_VCRYPTO 0x02000000
+#define PPC_FEATURE2_HAS_VCRYPTO 0x02000000UL
 #endif
 
 static unsigned long g_ppc64le_hwcap2 = 0;
@@ -34,7 +34,7 @@ void OPENSSL_cpuid_setup(void) {
 }
 
 int CRYPTO_is_PPC64LE_vcrypto_capable(void) {
-  return (g_ppc64le_hwcap2 & PPC_FEATURE2_HAS_VCRYPTO) != 0;
+  return (g_ppc64le_hwcap2 & PPC_FEATURE2_HAS_VCRYPTO) != 0UL;
 }
 
 #endif  /* OPENSSL_PPC64LE */
