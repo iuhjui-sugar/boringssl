@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "edb29710_dcc28d96",
+        "filename": "crypto/modes/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-02T21:00:01Z",
+      "side": 1,
+      "message": "const uint8_t gcm_key[16] perhaps, just do help document the size.",
+      "range": {
+        "startLine": 236,
+        "startChar": 43,
+        "endLine": 236,
+        "endChar": 64
+      },
+      "revId": "43f05e2b2674de6f82751ebeb91f30e6f3a66a05",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
