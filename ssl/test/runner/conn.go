@@ -35,7 +35,9 @@ type Conn struct {
 	vers                 uint16     // TLS version
 	haveVers             bool       // version has been negotiated
 	config               *Config    // configuration passed to constructor
+	handshakeStarted     bool
 	handshakeComplete    bool
+	serverHandshakeState *serverHandshakeState
 	skipEarlyData        bool
 	didResume            bool // whether this connection was a session resumption
 	extendedMasterSecret bool // whether this session used an extended master secret
@@ -1331,7 +1333,7 @@ func (c *Conn) SendHalfHelloRequest() error {
 
 // Write writes data to the connection.
 func (c *Conn) Write(b []byte) (int, error) {
-	if err := c.Handshake(); err != nil {
+	if err := c.StartHandshake(); err != nil {
 		return 0, err
 	}
 
@@ -1346,7 +1348,7 @@ func (c *Conn) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if !c.handshakeComplete {
+	if !c.handshakeComplete && (!c.handshakeStarted || c.vers < VersionTLS13) {
 		return 0, alertInternalError
 	}
 
@@ -1408,6 +1410,7 @@ func (c *Conn) handlePostHandshakeMessage() error {
 			return alertUnexpectedMessage
 		}
 
+		c.handshakeStarted = false
 		c.handshakeComplete = false
 		return c.Handshake()
 	}
@@ -1468,6 +1471,7 @@ func (c *Conn) Renegotiate() error {
 		c.flushHandshake()
 	}
 
+	c.handshakeStarted = false
 	c.handshakeComplete = false
 	return c.Handshake()
 }
@@ -1579,12 +1583,24 @@ func (c *Conn) Close() error {
 // Most uses of this package need not call Handshake
 // explicitly: the first Read or Write will call it automatically.
 func (c *Conn) Handshake() error {
+	if err := c.StartHandshake(); err != nil {
+		return err
+	}
+	return c.finishHandshake()
+}
+
+// StartHandshake runs the beginning of the client or server handshake.
+// The server handshake stops after sending the server's Finished message
+// if TLS 1.3 is in use. Earlier versions of TLS and clients will complete
+// the handshake. TODO(nharper): Stop after sending ClientHello to allow
+// for sending 0-RTT data.
+func (c *Conn) StartHandshake() error {
 	c.handshakeMutex.Lock()
 	defer c.handshakeMutex.Unlock()
 	if err := c.handshakeErr; err != nil {
 		return err
 	}
-	if c.handshakeComplete {
+	if c.handshakeStarted {
 		return nil
 	}
 
@@ -1603,11 +1619,28 @@ func (c *Conn) Handshake() error {
 	if c.isClient {
 		c.handshakeErr = c.clientHandshake()
 	} else {
-		c.handshakeErr = c.serverHandshake()
+		c.handshakeErr = c.startServerHandshake()
 	}
 	if c.handshakeErr == nil && c.config.Bugs.SendInvalidRecordType {
 		c.writeRecord(recordType(42), []byte("invalid record"))
 	}
+	return c.handshakeErr
+}
+
+func (c *Conn) finishHandshake() error {
+	if c.isClient {
+		return nil
+	}
+	c.handshakeMutex.Lock()
+	defer c.handshakeMutex.Unlock()
+	if err := c.handshakeErr; err != nil {
+		return err
+	}
+	if c.handshakeComplete {
+		return nil
+	}
+
+	c.handshakeErr = c.finishServerHandshake()
 	return c.handshakeErr
 }
 
@@ -1618,22 +1651,24 @@ func (c *Conn) ConnectionState() ConnectionState {
 
 	var state ConnectionState
 	state.HandshakeComplete = c.handshakeComplete
-	if c.handshakeComplete {
+	if c.handshakeComplete || (!c.isClient && c.handshakeStarted) {
 		state.Version = c.vers
 		state.NegotiatedProtocol = c.clientProtocol
 		state.DidResume = c.didResume
 		state.NegotiatedProtocolIsMutual = !c.clientProtocolFallback
 		state.NegotiatedProtocolFromALPN = c.usedALPN
 		state.CipherSuite = c.cipherSuite.id
-		state.PeerCertificates = c.peerCertificates
-		state.VerifiedChains = c.verifiedChains
 		state.ServerName = c.serverName
-		state.ChannelID = c.channelID
 		state.SRTPProtectionProfile = c.srtpProtectionProfile
 		state.TLSUnique = c.firstFinished[:]
+		state.CurveID = c.curveID
+	}
+	if c.handshakeComplete {
+		state.PeerCertificates = c.peerCertificates
+		state.VerifiedChains = c.verifiedChains
+		state.ChannelID = c.channelID
 		state.SCTList = c.sctList
 		state.PeerSignatureAlgorithm = c.peerSignatureAlgorithm
-		state.CurveID = c.curveID
 	}
 
 	return state
@@ -1668,7 +1703,7 @@ func (c *Conn) VerifyHostname(host string) error {
 func (c *Conn) ExportKeyingMaterial(length int, label, context []byte, useContext bool) ([]byte, error) {
 	c.handshakeMutex.Lock()
 	defer c.handshakeMutex.Unlock()
-	if !c.handshakeComplete {
+	if !c.handshakeComplete && (!c.handshakeStarted || c.vers < VersionTLS13) {
 		return nil, errors.New("tls: handshake has not yet been performed")
 	}
 
