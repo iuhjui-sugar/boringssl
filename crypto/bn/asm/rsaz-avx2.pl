@@ -84,7 +84,7 @@ die "can't locate x86_64-xlate.pl";
 # output, so this isn't useful anyway.
 #
 # TODO(davidben): Enable these after testing. $avx goes up to 2 and $addx to 1.
-$avx = 0;
+$avx = 2;
 $addx = 0;
 
 open OUT,"| \"$^X\" \"$xlate\" $flavour \"$output\"";
