@@ -623,6 +623,7 @@ NextCipherSuite:
 		c.exporterSecret = hs.masterSecret
 	}
 
+	c.handshakeStarted = true
 	c.handshakeComplete = true
 	c.cipherSuite = suite
 	copy(c.clientRandom[:], hs.hello.random)
