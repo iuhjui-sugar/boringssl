@@ -1132,6 +1132,12 @@ type ProtocolBugs struct {
 	// data interleaved with the second ClientHello and the client Finished.
 	InterleaveEarlyData bool
 
+	// TODO(nharper): Document this bug.
+	SendHalfRTTData [][]byte
+
+	// TODO(nharper): Document this bug.
+	ExpectHalfRTTData [][]byte
+
 	// EmptyEncryptedExtensions, if true, causes the TLS 1.3 server to
 	// emit an empty EncryptedExtensions block.
 	EmptyEncryptedExtensions bool
