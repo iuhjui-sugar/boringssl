@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "edb29710_bcd8e13e",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 739,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-02T22:37:38Z",
+      "side": 1,
+      "message": "Probably should mention this is a non-owning pointer and the caller is responsible for making sure |pool| outlives |ctx|, along with all objects associated with it. Dunno how much in detail this should go. It\u0027s a rather wide net. SSL_CTX is ref-counted, so all SSL objects hanging off of it. Then there\u0027s any X509s or CRYPTO_BUFFERs you extract from those SSLs. And then there\u0027s any SSL_SESSIONs those SSLs they vend. I think that\u0027s exhaustive?\n\nPretty much this object just can\u0027t be deleted. :-)",
+      "revId": "1b1e3953e0882ee068c4e8d835efff3df25fe7c9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
