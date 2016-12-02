@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "edb29710_1c07d5f9",
+        "filename": "crypto/modes/gcm.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-02T21:13:02Z",
+      "side": 1,
+      "message": "It\u0027s a little unclear that every codepath here actually returns something, whereas the old code always had #else blocks in #if chains. Perhaps move the GHASH_ASM_X86 case in line 394 here down to the bottom? That ones different from the others because it\u0027s not runtime-guarded. So we\u0027d get all the runtime-guarded things out of the way first, and then the fallthrough cases? Though it does mean that if we, say, gained an unguarded GHASH_ASM_ARM case, we\u0027d need to say it twice. :-/\n\nI dunno. What do you think?",
+      "revId": "62ee3b13386d471a22b98b01647a7cb520ac370e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
