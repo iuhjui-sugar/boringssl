@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "edb29710_629e3251",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-12-05T15:05:14Z",
+      "side": 1,
+      "message": "Update with the new change (Using hs-\u003essl instead of an additional argument.)",
+      "revId": "37ef958d188cbc424a46197a771eb046fadf9808",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
