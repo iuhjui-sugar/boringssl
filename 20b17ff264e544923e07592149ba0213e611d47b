@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "edb29710_a5a564e9",
+        "filename": "crypto/modes/gcm.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-05T20:40:44Z",
+      "side": 1,
+      "message": "My kingdom for a compiler that could just figure this out itself so we wouldn\u0027t need to play this game!",
+      "revId": "20b17ff264e544923e07592149ba0213e611d47b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
