@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ede0d714_a147841b",
+        "filename": "crypto/modes/gcm.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-05T19:00:48Z",
+      "side": 1,
+      "message": "Based on the comment, I think the idea is that if STRICT_ALIGNMENT then internal.h defined versions of these macros that do byte-level writes. But we know that the alignment is ok for all the uses in this file therefore redefine them to be the word-based versions.\n\nI\u0027ll expand the comment.",
+      "parentUuid": "0dde0b29_8042b85a",
+      "revId": "f6617b4a57774151fdde9fdc1fb6efebd39bece9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0dde0b29_603dacd1",
         "filename": "crypto/modes/internal.h",
         "patchSetId": 1
@@ -30,6 +48,30 @@
       "writtenOn": "2016-12-02T21:02:16Z",
       "side": 1,
       "message": "This looks like it should be #if STRICT_ALIGNMENT. Or the defines above fixed.",
+      "range": {
+        "startLine": 99,
+        "startChar": 1,
+        "endLine": 99,
+        "endChar": 30
+      },
+      "revId": "f6617b4a57774151fdde9fdc1fb6efebd39bece9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ede0d714_619e3c51",
+        "filename": "crypto/modes/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-05T19:00:48Z",
+      "side": 1,
+      "message": "Yes, this has been broken for a while then. I guess the kernel was doing fix-up for us.\n\nI would like to make STRICT_ALIGNMENT be based on whether it\u0027s defined, like everything else. However it\u0027s used in if statements so we can\u0027t just do that. So I\u0027ve just fixed this spot.",
+      "parentUuid": "0dde0b29_603dacd1",
       "range": {
         "startLine": 99,
         "startChar": 1,
