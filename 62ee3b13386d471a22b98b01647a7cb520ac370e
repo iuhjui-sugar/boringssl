@@ -16,6 +16,24 @@
       "revId": "62ee3b13386d471a22b98b01647a7cb520ac370e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ede0d714_93229b16",
+        "filename": "crypto/modes/gcm.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-05T19:00:53Z",
+      "side": 1,
+      "message": "Done. See if you think this is better.",
+      "parentUuid": "edb29710_1c07d5f9",
+      "revId": "62ee3b13386d471a22b98b01647a7cb520ac370e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
