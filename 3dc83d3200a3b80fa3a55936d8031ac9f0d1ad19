@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "edb29710_850028e4",
+        "filename": "crypto/modes/gcm.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-05T20:46:38Z",
+      "side": 1,
+      "message": "This does beg the question why these functions have an _x86 to begin with. Looks like it\u0027s something to do with ghash-x86.pl having different behaviors depending on whether you pass \"386\" on the command-line. For later I suppose.",
+      "range": {
+        "startLine": 431,
+        "startChar": 14,
+        "endLine": 431,
+        "endChar": 32
+      },
+      "revId": "3dc83d3200a3b80fa3a55936d8031ac9f0d1ad19",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
