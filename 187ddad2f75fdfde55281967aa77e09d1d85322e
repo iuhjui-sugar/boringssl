@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4d8e4382_326bce09",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-06T23:38:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "edb29710_bcffc189",
+      "range": {
+        "startLine": 125,
+        "startChar": 7,
+        "endLine": 125,
+        "endChar": 27
+      },
+      "revId": "187ddad2f75fdfde55281967aa77e09d1d85322e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "edb29710_9c2e4552",
         "filename": "ssl/ssl_asn1.c",
         "patchSetId": 5
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "4d8e4382_92739a57",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-06T23:38:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "edb29710_9c2e4552",
+      "revId": "187ddad2f75fdfde55281967aa77e09d1d85322e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "edb29710_bc29014e",
         "filename": "ssl/ssl_asn1.c",
         "patchSetId": 5
@@ -53,6 +95,30 @@
       "writtenOn": "2016-12-02T22:21:35Z",
       "side": 1,
       "message": "Completely doesn\u0027t matter, but a size_t could guarantee no overflows. Another option is\n\n  int is_leaf_cert \u003d 1;\n\nand then you set it to zero in the loop.",
+      "range": {
+        "startLine": 690,
+        "startChar": 4,
+        "endLine": 690,
+        "endChar": 12
+      },
+      "revId": "187ddad2f75fdfde55281967aa77e09d1d85322e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d8e4382_b2781e32",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 690,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-06T23:38:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "edb29710_bc29014e",
       "range": {
         "startLine": 690,
         "startChar": 4,
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "4d8e4382_528d32c0",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-06T23:38:54Z",
+      "side": 1,
+      "message": "Yes, they can both be included. |peer| is always included (when there are any certs) at the moment and |X509ChainIncludeLeaf| is included whenever true.\n\nThe weird case is when a client-cert chain really does duplicate the leaf cert as the first intermediate. Servers don\u0027t write the kX509ChainIncludeLeafTag so we\u0027ll guess that we should duplicate the cert in memory (correct) but we would reserialise that session without the duplication, but with the flag set to preserve the duplication when parsing.",
+      "parentUuid": "edb29710_fcf549ad",
+      "range": {
+        "startLine": 738,
+        "startChar": 34,
+        "endLine": 738,
+        "endChar": 72
+      },
+      "revId": "187ddad2f75fdfde55281967aa77e09d1d85322e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "edb29710_dcfa8d9b",
         "filename": "ssl/ssl_asn1.c",
         "patchSetId": 5
@@ -99,6 +189,24 @@
       "writtenOn": "2016-12-02T22:21:35Z",
       "side": 1,
       "message": "If you added an ssl_session_update_x509_chain per comment in tls13_both.c, I think that function would also work here.",
+      "revId": "187ddad2f75fdfde55281967aa77e09d1d85322e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d8e4382_1287aaa2",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-06T23:38:54Z",
+      "side": 1,
+      "message": "Needed something slightly different, but have deduped some code with TLS 1.3.",
+      "parentUuid": "edb29710_dcfa8d9b",
       "revId": "187ddad2f75fdfde55281967aa77e09d1d85322e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -122,6 +230,24 @@
     },
     {
       "key": {
+        "uuid": "4d8e4382_527e921d",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 878,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-06T23:38:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "edb29710_7c66d9d4",
+      "revId": "187ddad2f75fdfde55281967aa77e09d1d85322e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "edb29710_9c6085b9",
         "filename": "ssl/tls13_both.c",
         "patchSetId": 5
@@ -133,6 +259,30 @@
       "writtenOn": "2016-12-02T22:21:35Z",
       "side": 1,
       "message": "Annoyingly, the TLS 1.3 code no longer calls into this nice function because 1.2 and 1.3 Certificate messages now have very different structures.\n\nMaybe we want a function like:\n\n  int ssl_session_update_x509_chain(SSL_SESSION *session, int chain_should_include_leaf);",
+      "range": {
+        "startLine": 182,
+        "startChar": 7,
+        "endLine": 182,
+        "endChar": 27
+      },
+      "revId": "187ddad2f75fdfde55281967aa77e09d1d85322e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d8e4382_f27466f1",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-06T23:38:54Z",
+      "side": 1,
+      "message": "Done (sort of). I added a couple of helper functions that can be used both here and when parsing sessions.",
+      "parentUuid": "edb29710_9c6085b9",
       "range": {
         "startLine": 182,
         "startChar": 7,
