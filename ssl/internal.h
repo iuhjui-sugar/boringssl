@@ -930,6 +930,9 @@ struct ssl_handshake_st {
    * preferences. */
   unsigned accept_psk_mode:1;
 
+  /* client_version is the value sent or received in the ClientHello version. */
+  uint16_t client_version;
+
   /* retry_group is the group ID selected by the server in HelloRetryRequest in
    * TLS 1.3. */
   uint16_t retry_group;

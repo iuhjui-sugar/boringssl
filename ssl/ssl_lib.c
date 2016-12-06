@@ -2902,8 +2902,6 @@ int SSL_clear(SSL *ssl) {
     ssl->d1->mtu = mtu;
   }
 
-  ssl->client_version = ssl->version;
-
   return 1;
 }
 
