@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0dde0b29_8098f805",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 1449,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-06T20:41:29Z",
+      "side": 1,
+      "message": "(I assume the motivation here was Android which builds a shared library? A static build should just drop it on the floor.)",
+      "range": {
+        "startLine": 1449,
+        "startChar": 13,
+        "endLine": 1449,
+        "endChar": 26
+      },
+      "revId": "ba92bc019801573ef84c5f8d84257cd53973da16",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "edb29710_7fbb6b0d",
+        "filename": "crypto/cipher/test/aes_128_gcm_siv_tests.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-06T20:41:29Z",
+      "side": 1,
+      "message": "[I\u0027m assuming you transcribed these correctly.]",
+      "revId": "ba92bc019801573ef84c5f8d84257cd53973da16",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "edb29710_3fb5e316",
+        "filename": "crypto/modes/polyval.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-06T20:41:29Z",
+      "side": 1,
+      "message": "It\u0027s a little amusing that we\u0027re undoing GHASH\u0027s completely ridiculous bit ordering, but we\u0027re still implementing POLYVAL in terms of GHASH. :-)",
+      "range": {
+        "startLine": 27,
+        "startChar": 12,
+        "endLine": 27,
+        "endChar": 24
+      },
+      "revId": "ba92bc019801573ef84c5f8d84257cd53973da16",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "edb29710_5fb8af0e",
+        "filename": "crypto/modes/polyval.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-06T20:41:29Z",
+      "side": 1,
+      "message": "Nit: Missing all the little *\u0027s we like to put in.",
+      "range": {
+        "startLine": 50,
+        "startChar": 2,
+        "endLine": 50,
+        "endChar": 3
+      },
+      "revId": "ba92bc019801573ef84c5f8d84257cd53973da16",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "edb29710_9043c47f",
+        "filename": "crypto/modes/polyval.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-06T20:41:29Z",
+      "side": 1,
+      "message": "Since we\u0027re implementing mulX_ghash anew anyway, why not mulX_polyval? It\u0027d save four CRYPTO_bswap8s and also avoid the confusing GHASH bit ordering.",
+      "revId": "ba92bc019801573ef84c5f8d84257cd53973da16",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
