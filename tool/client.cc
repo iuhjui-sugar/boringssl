@@ -93,6 +93,10 @@ static const struct argument kArguments[] = {
      "Enable GREASE",
     },
     {
+      "-resume", kBooleanArgument,
+      "Establish a second connection resuming the original connection.",
+    },
+    {
      "", kOptionalArgument, "",
     },
 };
@@ -122,6 +126,7 @@ static void KeyLogCallback(const SSL *ssl, const char *line) {
 }
 
 static bssl::UniquePtr<BIO> session_out;
+static bssl::UniquePtr<SSL_SESSION> resume_session;
 
 static int NewSessionCallback(SSL *ssl, SSL_SESSION *session) {
   if (session_out) {
@@ -132,19 +137,50 @@ static int NewSessionCallback(SSL *ssl, SSL_SESSION *session) {
       return 0;
     }
   }
-
-  return 0;
+  resume_session = bssl::UniquePtr<SSL_SESSION>(session);
+  return 1;
 }
 
-bool Client(const std::vector<std::string> &args) {
-  if (!InitSocketLibrary()) {
+static bool WaitForSession(SSL *ssl, int sock) {
+  fd_set read_fds;
+  FD_ZERO(&read_fds);
+
+  if (!SocketSetNonBlocking(sock, true)) {
     return false;
   }
 
-  std::map<std::string, std::string> args_map;
+  while (!resume_session) {
+    FD_SET(sock, &read_fds);
 
-  if (!ParseKeyValueArguments(&args_map, args, kArguments)) {
-    PrintUsage(kArguments);
+    int ret = select(sock + 1, &read_fds, NULL, NULL, NULL);
+    if (ret <= 0) {
+      perror("select");
+      return false;
+    }
+
+    if (FD_ISSET(sock, &read_fds)) {
+      uint8_t buffer[512];
+      int ssl_ret = SSL_read(ssl, buffer, sizeof(buffer));
+
+      if (ssl_ret < 0) {
+        int ssl_err = SSL_get_error(ssl, ssl_ret);
+        if (ssl_err == SSL_ERROR_WANT_READ) {
+          continue;
+        }
+        fprintf(stderr, "Error while reading: %d\n", ssl_err);
+        ERR_print_errors_cb(PrintErrorCallback, stderr);
+        return false;
+      } else if (ssl_ret == 0) {
+        return true;
+      }
+    }
+  }
+
+  return true;
+}
+
+static bool ClientConnection(std::map<std::string, std::string> args_map) {
+  if (!InitSocketLibrary()) {
     return false;
   }
 
@@ -277,6 +313,11 @@ bool Client(const std::vector<std::string> &args) {
     SSL_CTX_set_grease_enabled(ctx.get(), 1);
   }
 
+  if (args_map.count("-resume") != 0) {
+    SSL_CTX_set_session_cache_mode(ctx.get(), SSL_SESS_CACHE_CLIENT);
+    SSL_CTX_sess_set_new_cb(ctx.get(), NewSessionCallback);
+  }
+
   int sock = -1;
   if (!Connect(&sock, args_map["-connect"])) {
     return false;
@@ -317,6 +358,8 @@ bool Client(const std::vector<std::string> &args) {
       return false;
     }
     SSL_set_session(ssl.get(), session.get());
+  } else if (resume_session) {
+    SSL_set_session(ssl.get(), resume_session.get());
   }
 
   SSL_set_bio(ssl.get(), bio.get(), bio.get());
@@ -333,7 +376,27 @@ bool Client(const std::vector<std::string> &args) {
   fprintf(stderr, "Connected.\n");
   PrintConnectionInfo(ssl.get());
 
-  bool ok = TransferData(ssl.get(), sock);
+  if (args_map.count("-resume") != 0) {
+    return WaitForSession(ssl.get(), sock);
+  } else {
+    return TransferData(ssl.get(), sock);
+  }
+}
 
-  return ok;
+bool Client(const std::vector<std::string> &args) {
+  std::map<std::string, std::string> args_map;
+
+  if (!ParseKeyValueArguments(&args_map, args, kArguments)) {
+    PrintUsage(kArguments);
+    return false;
+  }
+
+  if (args_map.count("-resume") != 0) {
+    if (!ClientConnection(args_map)) {
+      return false;
+    }
+    args_map.erase("-resume");
+  }
+
+  return ClientConnection(args_map);
 }
