@@ -8234,6 +8234,30 @@ func addSessionTicketTests() {
 		expectedLocalError: "tls: invalid ticket age",
 	})
 
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name:     "TLS13-SendEarlyDataInfo",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				SendEarlyDataInfo: 16384,
+			},
+		},
+	})
+
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "TLS13-ExpectEarlyDataInfo",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				ExpectEarlyDataInfo: true,
+			},
+		},
+		flags: []string{
+			"-enable-early-data",
+		},
+	})
 }
 
 func addChangeCipherSpecTests() {
