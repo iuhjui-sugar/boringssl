@@ -21,10 +21,13 @@ import (
 	"time"
 )
 
+const kMaxEarlyDataBytes = 16384
+
 type clientHandshakeState struct {
 	c             *Conn
 	serverHello   *serverHelloMsg
 	hello         *clientHelloMsg
+	helloBytes    []byte
 	suite         *cipherSuite
 	finishedHash  finishedHash
 	keyShares     map[CurveID]ecdhCurve
@@ -33,7 +36,7 @@ type clientHandshakeState struct {
 	finishedBytes []byte
 }
 
-func (c *Conn) clientHandshake() error {
+func (c *Conn) startClientHandshake() error {
 	if c.config == nil {
 		c.config = defaultConfig()
 	}
@@ -319,7 +322,7 @@ NextCipherSuite:
 		hello.cipherSuites = c.config.Bugs.SendCipherSuites
 	}
 
-	if c.config.Bugs.SendEarlyDataLength > 0 && !c.config.Bugs.OmitEarlyDataExtension {
+	if ((len(hello.pskIdentities) > 0 && session.maxEarlyDataSize > 0) || c.config.Bugs.SendEarlyDataLength > 0) && !c.config.Bugs.OmitEarlyDataExtension {
 		hello.hasEarlyData = true
 	}
 
@@ -366,6 +369,38 @@ NextCipherSuite:
 	if c.config.Bugs.SendEarlyDataLength > 0 {
 		c.sendFakeEarlyData(c.config.Bugs.SendEarlyDataLength)
 	}
+
+	// Derive early write keys and set Conn state to allow early writes.
+	if hello.hasEarlyData && session != nil && session.maxEarlyDataSize > 0 {
+		if session.maxEarlyDataSize > uint32(kMaxEarlyDataBytes) {
+			c.maxEarlyDataSize = kMaxEarlyDataBytes
+		} else {
+			c.maxEarlyDataSize = int(session.maxEarlyDataSize)
+		}
+		finishedHash := newFinishedHash(session.vers, pskCipherSuite)
+		finishedHash.addEntropy(session.masterSecret)
+		finishedHash.Write(helloBytes)
+		earlyTrafficSecret := finishedHash.deriveSecret(earlyTrafficLabel)
+		c.out.useTrafficSecret(c.vers, pskCipherSuite, earlyTrafficSecret, clientWrite)
+	}
+
+	c.clientHandshakeState = &clientHandshakeState{
+		c:          c,
+		hello:      hello,
+		helloBytes: helloBytes,
+		keyShares:  keyShares,
+		session:    session,
+		suite:      pskCipherSuite,
+	}
+	c.handshakeStarted = true
+	return nil
+}
+
+func (c *Conn) finishClientHandshake() error {
+	hs := c.clientHandshakeState
+	c.clientHandshakeState = nil
+	hello := hs.hello
+
 	msg, err := c.readHandshake()
 	if err != nil {
 		return err
@@ -383,8 +418,8 @@ NextCipherSuite:
 
 			hello.raw = nil
 			hello.cookie = helloVerifyRequest.cookie
-			helloBytes = hello.marshal()
-			c.writeRecord(recordTypeHandshake, helloBytes)
+			hs.helloBytes = hello.marshal()
+			c.writeRecord(recordTypeHandshake, hs.helloBytes)
 			c.flushHandshake()
 
 			if err := c.simulatePacketLoss(nil); err != nil {
@@ -422,6 +457,7 @@ NextCipherSuite:
 	helloRetryRequest, haveHelloRetryRequest := msg.(*helloRetryRequestMsg)
 	var secondHelloBytes []byte
 	if haveHelloRetryRequest {
+		c.out.resetCipher()
 		if len(helloRetryRequest.cookie) > 0 {
 			hello.tls13Cookie = helloRetryRequest.cookie
 		}
@@ -439,7 +475,7 @@ NextCipherSuite:
 					break
 				}
 			}
-			if !hrrCurveFound || keyShares[group] != nil {
+			if !hrrCurveFound || hs.keyShares[group] != nil {
 				c.sendAlert(alertHandshakeFailure)
 				return errors.New("tls: received invalid HelloRetryRequest")
 			}
@@ -451,7 +487,7 @@ NextCipherSuite:
 			if err != nil {
 				return err
 			}
-			keyShares[group] = curve
+			hs.keyShares[group] = curve
 			hello.keyShares = []keyShareEntry{{
 				group:       group,
 				keyExchange: publicKey,
@@ -466,7 +502,7 @@ NextCipherSuite:
 		hello.raw = nil
 
 		if len(hello.pskIdentities) > 0 {
-			generatePSKBinders(hello, pskCipherSuite, session.masterSecret, append(helloBytes, helloRetryRequest.marshal()...), c.config)
+			generatePSKBinders(hello, hs.suite, hs.session.masterSecret, append(hs.helloBytes, helloRetryRequest.marshal()...), c.config)
 		}
 		secondHelloBytes = hello.marshal()
 
@@ -516,8 +552,8 @@ NextCipherSuite:
 		}
 	}
 
-	suite := mutualCipherSuite(hello.cipherSuites, serverHello.cipherSuite)
-	if suite == nil {
+	hs.suite = mutualCipherSuite(hello.cipherSuites, serverHello.cipherSuite)
+	if hs.suite == nil {
 		c.sendAlert(alertHandshakeFailure)
 		return fmt.Errorf("tls: server selected an unsupported cipher suite")
 	}
@@ -527,17 +563,10 @@ NextCipherSuite:
 		return errors.New("tls: ServerHello parameters did not match HelloRetryRequest")
 	}
 
-	hs := &clientHandshakeState{
-		c:            c,
-		serverHello:  serverHello,
-		hello:        hello,
-		suite:        suite,
-		finishedHash: newFinishedHash(c.vers, suite),
-		keyShares:    keyShares,
-		session:      session,
-	}
+	hs.serverHello = serverHello
+	hs.finishedHash = newFinishedHash(c.vers, hs.suite)
 
-	hs.writeHash(helloBytes, hs.c.sendHandshakeSeq-1)
+	hs.writeHash(hs.helloBytes, hs.c.sendHandshakeSeq-1)
 	if haveHelloRetryRequest {
 		hs.writeServerHash(helloRetryRequest.marshal())
 		hs.writeClientHash(secondHelloBytes)
@@ -549,6 +578,7 @@ NextCipherSuite:
 			return err
 		}
 	} else {
+		session := hs.session
 		if c.config.Bugs.EarlyChangeCipherSpec > 0 {
 			hs.establishKeys()
 			c.writeRecord(recordTypeChangeCipherSpec, []byte{1})
@@ -612,10 +642,12 @@ NextCipherSuite:
 			}
 		}
 
+		sessionCache := c.config.ClientSessionCache
 		if sessionCache != nil && hs.session != nil && session != hs.session {
 			if c.config.Bugs.RequireSessionTickets && len(hs.session.sessionTicket) == 0 {
 				return errors.New("tls: new session used session IDs instead of tickets")
 			}
+			cacheKey := clientSessionCacheKey(c.conn.RemoteAddr(), c.config)
 			sessionCache.Put(cacheKey, hs.session)
 		}
 
@@ -623,9 +655,8 @@ NextCipherSuite:
 		c.exporterSecret = hs.masterSecret
 	}
 
-	c.handshakeStarted = true
 	c.handshakeComplete = true
-	c.cipherSuite = suite
+	c.cipherSuite = hs.suite
 	copy(c.clientRandom[:], hs.hello.random)
 	copy(c.serverRandom[:], hs.serverHello.random)
 
@@ -683,6 +714,15 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 		hs.finishedHash.addEntropy(ecdheSecret)
 	} else {
 		hs.finishedHash.addEntropy(zeroSecret)
+	}
+
+	// This needs to happen before we change keys.
+	// TODO(nharper): Move key change (and sending this message) later
+	// to somewhere that matches the handshake message diagram so that
+	// when it is a handshake message the handshake hash gets updated
+	// correctly.
+	if c.out.cipher != nil {
+		c.sendAlert(alertEndOfEarlyData)
 	}
 
 	// Switch to handshake traffic keys.
@@ -1277,6 +1317,10 @@ func (hs *clientHandshakeState) processServerExtensions(serverExtensions *server
 		}
 
 		c.srtpProtectionProfile = serverExtensions.srtpProtectionProfile
+	}
+
+	if c.earlyBytesWritten > 0 && !serverExtensions.hasEarlyData {
+		c.skipEarlyData = true
 	}
 
 	return nil
