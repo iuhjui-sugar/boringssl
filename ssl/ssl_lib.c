@@ -484,6 +484,14 @@ SSL *SSL_new(SSL_CTX *ctx) {
     ssl->session_timeout = ctx->session_timeout;
   }
 
+  /* If the context has an OCSP response, use it. */
+  if (ctx->ocsp_response_length != 0) {
+    if (!SSL_set_ocsp_response(ssl, ctx->ocsp_response,
+                               ctx->ocsp_response_length)) {
+      goto err;
+    }
+  }
+
   return ssl;
 
 err:
@@ -525,6 +533,7 @@ void SSL_free(SSL *ssl) {
   OPENSSL_free(ssl->psk_identity_hint);
   sk_X509_NAME_pop_free(ssl->client_CA, X509_NAME_free);
   sk_SRTP_PROTECTION_PROFILE_free(ssl->srtp_profiles);
+  OPENSSL_free(ssl->ocsp_response);
 
   if (ssl->method != NULL) {
     ssl->method->ssl_free(ssl);
@@ -1828,6 +1837,20 @@ int SSL_CTX_set_ocsp_response(SSL_CTX *ctx, const uint8_t *response,
     return 0;
   }
   ctx->ocsp_response_length = response_len;
+
+  return 1;
+}
+
+int SSL_set_ocsp_response(SSL *ssl, const uint8_t *response,
+                          size_t response_len) {
+  OPENSSL_free(ssl->ocsp_response);
+  ssl->ocsp_response_length = 0;
+
+  ssl->ocsp_response = BUF_memdup(response, response_len);
+  if (ssl->ocsp_response == NULL) {
+    return 0;
+  }
+  ssl->ocsp_response_length = response_len;
 
   return 1;
 }

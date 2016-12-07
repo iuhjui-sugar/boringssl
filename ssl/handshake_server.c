@@ -980,8 +980,8 @@ static int ssl3_send_certificate_status(SSL_HANDSHAKE *hs) {
                                  SSL3_MT_CERTIFICATE_STATUS) ||
       !CBB_add_u8(&body, TLSEXT_STATUSTYPE_ocsp) ||
       !CBB_add_u24_length_prefixed(&body, &ocsp_response) ||
-      !CBB_add_bytes(&ocsp_response, ssl->ctx->ocsp_response,
-                     ssl->ctx->ocsp_response_length) ||
+      !CBB_add_bytes(&ocsp_response, ssl->ocsp_response,
+                     ssl->ocsp_response_length) ||
       !ssl_complete_message(ssl, &cbb)) {
     OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
     CBB_cleanup(&cbb);
