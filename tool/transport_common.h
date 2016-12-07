@@ -15,6 +15,25 @@
 #ifndef OPENSSL_HEADER_TOOL_TRANSPORT_COMMON_H
 #define OPENSSL_HEADER_TOOL_TRANSPORT_COMMON_H
 
+#if !defined(OPENSSL_WINDOWS)
+#include <arpa/inet.h>
+#include <fcntl.h>
+#include <netdb.h>
+#include <netinet/in.h>
+#include <sys/select.h>
+#include <sys/socket.h>
+#include <unistd.h>
+#else
+#include <io.h>
+OPENSSL_MSVC_PRAGMA(warning(push, 3))
+#include <winsock2.h>
+#include <ws2tcpip.h>
+OPENSSL_MSVC_PRAGMA(warning(pop))
+
+typedef int ssize_t;
+OPENSSL_MSVC_PRAGMA(comment(lib, "Ws2_32.lib"))
+#endif
+
 #include <openssl/ssl.h>
 #include <string.h>
 
