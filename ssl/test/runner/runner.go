@@ -835,6 +835,24 @@ func runTest(test *testCase, shimPath string, mallocNumToFail int64) error {
 		panic("expectResumeRejected without resumeSession in " + test.name)
 	}
 
+	for _, ver := range tlsVersions {
+		i := strings.Index(test.name, "-"+ver.name)
+		if i < 0 {
+			continue
+		}
+
+		trailer := test.name[i+1+len(ver.name):]
+		if len(trailer) > 0 && trailer[0] != '-' {
+			continue
+		}
+
+		if test.config.MaxVersion != 0 || test.config.MinVersion != 0 || test.expectedVersion != 0 {
+			continue
+		}
+
+		panic(fmt.Sprintf("The name of test %q suggests that it's version specific, but min/max version in the Config is %x/%x. One of them should probably be %x", test.name, test.config.MinVersion, test.config.MaxVersion, ver.version))
+	}
+
 	listener, err := net.ListenTCP("tcp4", &net.TCPAddr{IP: net.IP{127, 0, 0, 1}})
 	if err != nil {
 		panic(err)
