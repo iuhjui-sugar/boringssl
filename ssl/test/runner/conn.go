@@ -22,6 +22,8 @@ import (
 )
 
 var errNoCertificateAlert = errors.New("tls: no certificate alert")
+var errNoEarlyData = errors.New("tls: server rejected early data")
+var errTooMuchEarlyData = errors.New("tls: client tried to write too much early data")
 
 // A Conn represents a secured connection.
 // It implements the net.Conn interface.
@@ -40,7 +42,10 @@ type Conn struct {
 	handshakeStarted     bool
 	handshakeComplete    bool
 	serverHandshakeState *serverHandshakeState
+	clientHandshakeState *clientHandshakeState
 	skipEarlyData        bool
+	earlyBytesWritten    int
+	maxEarlyDataSize     int
 	didResume            bool // whether this connection was a session resumption
 	extendedMasterSecret bool // whether this session used an extended master secret
 	cipherSuite          *cipherSuite
@@ -222,6 +227,14 @@ func (hc *halfConn) useTrafficSecret(version uint16, suite *cipherSuite, secret 
 		hc.cipher = nullCipher{}
 	}
 	hc.trafficSecret = secret
+	hc.incEpoch()
+}
+
+// resetCipher changes the cipher state back to no encryption to be able
+// to send an unencrypted ClientHello in response to HelloRetryRequest
+// after 0-RTT data was rejected.
+func (hc *halfConn) resetCipher() {
+	hc.cipher = nil
 	hc.incEpoch()
 }
 
@@ -565,7 +578,7 @@ func (hc *halfConn) encrypt(b *block, explicitIVLen int, typ recordType) (bool, 
 	// encrypt
 	if hc.cipher != nil {
 		// Add TLS 1.3 padding.
-		if hc.version >= VersionTLS13 {
+		if hc.version >= VersionTLS13 || hc.version == 0 {
 			paddingLen := hc.config.Bugs.RecordPadding
 			if hc.config.Bugs.OmitRecordContents {
 				b.resize(recordHeaderLen + paddingLen)
@@ -592,7 +605,7 @@ func (hc *halfConn) encrypt(b *block, explicitIVLen int, typ recordType) (bool, 
 			payload = payload[:payloadLen]
 
 			var additionalData []byte
-			if hc.version < VersionTLS13 {
+			if hc.version < VersionTLS13 && hc.version != 0 {
 				additionalData = make([]byte, 13)
 				copy(additionalData, hc.outSeq[:])
 				copy(additionalData[8:], b.data[:3])
@@ -835,13 +848,13 @@ RestartReadRecord:
 	ok, off, encTyp, alertValue := c.in.decrypt(b)
 
 	// Handle skipping over early data.
-	if !ok && c.skipEarlyData {
+	if !ok && c.skipEarlyData && !c.isClient {
 		goto RestartReadRecord
 	}
 	if c.in.cipher == nil && typ == recordTypeApplicationData {
 		goto RestartReadRecord
 	}
-	if ok && c.in.cipher != nil {
+	if ok && c.in.cipher != nil && !c.isClient {
 		c.skipEarlyData = false
 	}
 
@@ -986,7 +999,7 @@ func (c *Conn) sendAlertLocked(level byte, err alert) error {
 // L < c.out.Mutex.
 func (c *Conn) sendAlert(err alert) error {
 	level := byte(alertLevelError)
-	if err == alertNoRenegotiation || err == alertCloseNotify || err == alertNoCertificate {
+	if err == alertNoRenegotiation || err == alertCloseNotify || err == alertNoCertificate || err == alertEndOfEarlyData {
 		level = alertLevelWarning
 	}
 	return c.SendAlert(level, err)
@@ -1383,9 +1396,25 @@ func (c *Conn) Write(b []byte) (int, error) {
 	if err := c.StartHandshake(); err != nil {
 		return 0, err
 	}
+	if c.out.cipher == nil || (!c.isClient && c.vers < VersionTLS13) {
+		if err := c.finishHandshake(); err != nil {
+			return 0, err
+		}
+	}
 
 	c.out.Lock()
 	defer c.out.Unlock()
+
+	if !c.handshakeComplete {
+		if c.earlyBytesWritten+len(b) > c.maxEarlyDataSize {
+			return 0, errTooMuchEarlyData
+		}
+		// If we're writing early data, hold the handshake mutex
+		// so we don't race early data writes with writing the
+		// client Finished.
+		c.handshakeMutex.Lock()
+		defer c.handshakeMutex.Unlock()
+	}
 
 	// Flush any pending handshake data. PackHelloRequestWithFinished may
 	// have been set and the handshake not followed by Renegotiate.
@@ -1395,7 +1424,7 @@ func (c *Conn) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if !c.handshakeComplete && (!c.handshakeStarted || c.vers < VersionTLS13) {
+	if !c.handshakeStarted || (c.out.cipher == nil && !c.handshakeComplete) {
 		return 0, alertInternalError
 	}
 
@@ -1436,6 +1465,9 @@ func (c *Conn) Write(b []byte) (int, error) {
 	}
 
 	n, err := c.writeRecord(recordTypeApplicationData, b)
+	if !c.handshakeComplete {
+		c.earlyBytesWritten += n
+	}
 	return n + m, c.out.setErrorLocked(err)
 }
 
@@ -1468,7 +1500,7 @@ func (c *Conn) handlePostHandshakeMessage() error {
 				return errors.New("tls: no GREASE ticket extension found")
 			}
 
-			if c.config.Bugs.ExpectTicketEarlyDataInfo && newSessionTicket.earlyDataInfo == 0 {
+			if c.config.Bugs.ExpectTicketEarlyDataInfo && newSessionTicket.maxEarlyDataSize == 0 {
 				return errors.New("tls: no ticket_early_data_info extension found")
 			}
 
@@ -1491,6 +1523,7 @@ func (c *Conn) handlePostHandshakeMessage() error {
 				ticketCreationTime: c.config.time(),
 				ticketExpiration:   c.config.time().Add(time.Duration(newSessionTicket.ticketLifetime) * time.Second),
 				ticketAgeAdd:       newSessionTicket.ticketAgeAdd,
+				maxEarlyDataSize:   newSessionTicket.maxEarlyDataSize,
 			}
 
 			cacheKey := clientSessionCacheKey(c.conn.RemoteAddr(), c.config)
@@ -1529,6 +1562,9 @@ func (c *Conn) Renegotiate() error {
 
 // Read can be made to time out and return a net.Error with Timeout() == true
 // after a fixed time limit; see SetDeadline and SetReadDeadline.
+// If 0-RTT data was written to the connection and the server rejected it,
+// then the first call to Read will return errNoEarlyData to signal the
+// rejection.
 func (c *Conn) Read(b []byte) (n int, err error) {
 	if err = c.Handshake(); err != nil {
 		return
@@ -1536,6 +1572,11 @@ func (c *Conn) Read(b []byte) (n int, err error) {
 
 	c.in.Lock()
 	defer c.in.Unlock()
+
+	if c.skipEarlyData && c.isClient {
+		c.skipEarlyData = false
+		return 0, errNoEarlyData
+	}
 
 	// Some OpenSSL servers send empty records in order to randomize the
 	// CBC IV. So this loop ignores a limited number of empty records.
@@ -1642,9 +1683,9 @@ func (c *Conn) Handshake() error {
 
 // StartHandshake runs the beginning of the client or server handshake.
 // The server handshake stops after sending the server's Finished message
-// if TLS 1.3 is in use. Earlier versions of TLS and clients will complete
-// the handshake. TODO(nharper): Stop after sending ClientHello to allow
-// for sending 0-RTT data.
+// if TLS 1.3 is in use. Servers negotiating earlier versions of TLS will
+// complete the handshake. Clients will handshake up to sending the
+// ClientHello.
 func (c *Conn) StartHandshake() error {
 	c.handshakeMutex.Lock()
 	defer c.handshakeMutex.Unlock()
@@ -1668,7 +1709,7 @@ func (c *Conn) StartHandshake() error {
 		c.writeRecord(recordTypeApplicationData, data)
 	}
 	if c.isClient {
-		c.handshakeErr = c.clientHandshake()
+		c.handshakeErr = c.startClientHandshake()
 	} else {
 		c.handshakeErr = c.startServerHandshake()
 	}
@@ -1678,10 +1719,10 @@ func (c *Conn) StartHandshake() error {
 	return c.handshakeErr
 }
 
+// finishHandshake runs the handshake until completion and assumes that
+// StartHandshake has already been run. Depending on the circumstances, it
+// may be a no-op.
 func (c *Conn) finishHandshake() error {
-	if c.isClient {
-		return nil
-	}
 	c.handshakeMutex.Lock()
 	defer c.handshakeMutex.Unlock()
 	if err := c.handshakeErr; err != nil {
@@ -1691,7 +1732,11 @@ func (c *Conn) finishHandshake() error {
 		return nil
 	}
 
-	c.handshakeErr = c.finishServerHandshake()
+	if c.isClient {
+		c.handshakeErr = c.finishClientHandshake()
+	} else {
+		c.handshakeErr = c.finishServerHandshake()
+	}
 	return c.handshakeErr
 }
 
@@ -1818,7 +1863,7 @@ func (c *Conn) SendNewSessionTicket() error {
 	m := &newSessionTicketMsg{
 		version:                c.vers,
 		ticketLifetime:         uint32(24 * time.Hour / time.Second),
-		earlyDataInfo:          c.config.Bugs.SendTicketEarlyDataInfo,
+		maxEarlyDataSize:       c.config.Bugs.SendTicketEarlyDataInfo,
 		duplicateEarlyDataInfo: c.config.Bugs.DuplicateTicketEarlyDataInfo,
 		customExtension:        c.config.Bugs.CustomTicketExtension,
 		ticketAgeAdd:           ticketAgeAdd,
