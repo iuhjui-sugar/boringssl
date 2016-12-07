@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4d8e4382_72ee3643",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 1449,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-07T00:02:51Z",
+      "side": 1,
+      "message": "Right. It might be a while until GCM-SIV is used outside of tests and I didn\u0027t want to pay for it until called upon.",
+      "parentUuid": "0dde0b29_8098f805",
+      "range": {
+        "startLine": 1449,
+        "startChar": 13,
+        "endLine": 1449,
+        "endChar": 26
+      },
+      "revId": "ba92bc019801573ef84c5f8d84257cd53973da16",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "edb29710_7fbb6b0d",
         "filename": "crypto/cipher/test/aes_128_gcm_siv_tests.txt",
         "patchSetId": 4
@@ -88,6 +112,30 @@
     },
     {
       "key": {
+        "uuid": "4d8e4382_d2192295",
+        "filename": "crypto/modes/polyval.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-07T00:02:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "edb29710_5fb8af0e",
+      "range": {
+        "startLine": 50,
+        "startChar": 2,
+        "endLine": 50,
+        "endChar": 3
+      },
+      "revId": "ba92bc019801573ef84c5f8d84257cd53973da16",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "edb29710_9043c47f",
         "filename": "crypto/modes/polyval.c",
         "patchSetId": 4
@@ -99,6 +147,24 @@
       "writtenOn": "2016-12-06T20:41:29Z",
       "side": 1,
       "message": "Since we\u0027re implementing mulX_ghash anew anyway, why not mulX_polyval? It\u0027d save four CRYPTO_bswap8s and also avoid the confusing GHASH bit ordering.",
+      "revId": "ba92bc019801573ef84c5f8d84257cd53973da16",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d8e4382_722b9692",
+        "filename": "crypto/modes/polyval.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-07T00:02:51Z",
+      "side": 1,
+      "message": "Done. (It\u0027s not the same as mulX_POLYVAL I think, but we can certain merge ByteReverse and mulX_GHASH to save some swaps.)",
+      "parentUuid": "edb29710_9043c47f",
       "revId": "ba92bc019801573ef84c5f8d84257cd53973da16",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
