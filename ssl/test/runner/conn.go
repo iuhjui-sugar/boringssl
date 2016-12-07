@@ -1437,6 +1437,10 @@ func (c *Conn) handlePostHandshakeMessage() error {
 				return errors.New("tls: no GREASE ticket extension found")
 			}
 
+			if c.config.Bugs.ExpectTicketEarlyDataInfo && newSessionTicket.earlyDataInfo == 0 {
+				return errors.New("tls: no TicketEarlyDataInfo extension found")
+			}
+
 			if c.config.Bugs.ExpectNoNewSessionTicket {
 				return errors.New("tls: received unexpected NewSessionTicket")
 			}
@@ -1751,6 +1755,7 @@ func (c *Conn) SendNewSessionTicket() error {
 	m := &newSessionTicketMsg{
 		version:         c.vers,
 		ticketLifetime:  uint32(24 * time.Hour / time.Second),
+		earlyDataInfo:   c.config.Bugs.SendTicketEarlyDataInfo,
 		customExtension: c.config.Bugs.CustomTicketExtension,
 		ticketAgeAdd:    ticketAgeAdd,
 	}
