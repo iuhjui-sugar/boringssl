@@ -1040,6 +1040,10 @@ static bssl::UniquePtr<SSL_CTX> SetupCtx(const TestConfig *config) {
     return nullptr;
   }
 
+  if (config->enable_early_data) {
+    SSL_CTX_enable_early_data(ssl_ctx.get());
+  }
+
   return ssl_ctx;
 }
 

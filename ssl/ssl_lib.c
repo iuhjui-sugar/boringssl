@@ -842,6 +842,10 @@ int SSL_send_fatal_alert(SSL *ssl, uint8_t alert) {
   return ssl3_send_alert(ssl, SSL3_AL_FATAL, alert);
 }
 
+void SSL_CTX_enable_early_data(SSL_CTX *ctx) {
+  ctx->enable_early_data = 1;
+}
+
 int SSL_get_error(const SSL *ssl, int ret_code) {
   int reason;
   uint32_t err;

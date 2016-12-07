@@ -229,7 +229,7 @@ int tls13_process_certificate(SSL *ssl, int allow_anonymous) {
 
     uint8_t alert;
     if (!ssl_parse_extensions(&extensions, &alert, ext_types,
-                              OPENSSL_ARRAY_SIZE(ext_types))) {
+                              OPENSSL_ARRAY_SIZE(ext_types), 0)) {
       ssl3_send_alert(ssl, SSL3_AL_FATAL, alert);
       goto err;
     }
