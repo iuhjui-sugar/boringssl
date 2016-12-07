@@ -415,6 +415,11 @@ OPENSSL_EXPORT void SSL_set_quiet_shutdown(SSL *ssl, int mode);
  * |ssl|. */
 OPENSSL_EXPORT int SSL_get_quiet_shutdown(const SSL *ssl);
 
+/* SSL_CTX_enable_early_data allows early data to be used with resumptions
+ * using |ctx|. */
+OPENSSL_EXPORT void SSL_CTX_enable_early_data(SSL_CTX *ctx);
+
+
 /* SSL_get_error returns a |SSL_ERROR_*| value for the most recent operation on
  * |ssl|. It should be called after an operation failed to determine whether the
  * error was fatal and, if not, when to retry. */
@@ -3736,6 +3741,8 @@ struct ssl_session_st {
 
   uint32_t ticket_age_add;
 
+  uint32_t ticket_max_early_data;
+
   /* extended_master_secret is true if the master secret in this session was
    * generated using EMS and thus isn't vulnerable to the Triple Handshake
    * attack. */
@@ -4019,6 +4026,10 @@ struct ssl_ctx_st {
   /* quiet_shutdown is true if the connection should not send a close_notify on
    * shutdown. */
   unsigned quiet_shutdown:1;
+
+  /* If enable_early_data is non-zero, early data can be sent and accepted over
+   * new connections. */
+  unsigned enable_early_data:1;
 
   /* ocsp_stapling_enabled is only used by client connections and indicates
    * whether OCSP stapling will be requested. */

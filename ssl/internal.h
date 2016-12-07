@@ -212,6 +212,11 @@ extern "C" {
  * one, update the table in ssl_cipher.c. */
 #define SSL_MAX_DIGEST 4
 
+/* kMaxEarlyData is the maximum amount of early data that we will accept.
+ * Without this limit an attacker could send records at a faster rate than we
+ * can process and cause trial decryption to loop forever. */
+static const size_t kMaxEarlyData = 14336;
+
 /* ssl_cipher_get_evp_aead sets |*out_aead| to point to the correct EVP_AEAD
  * object for |cipher| protocol version |version|. It sets |*out_mac_secret_len|
  * and |*out_fixed_iv_len| to the MAC key length and fixed IV length,

@@ -654,6 +654,29 @@ int tls13_process_new_session_ticket(SSL *ssl) {
     return 0;
   }
 
+  /* Parse out the extensions. */
+  int have_early_data_info = 0;
+  CBS early_data_info;
+  const SSL_EXTENSION_TYPE ext_types[] = {
+      {TLSEXT_TYPE_ticket_early_data_info, &have_early_data_info,
+       &early_data_info},
+  };
+
+  uint8_t alert;
+  if (!ssl_parse_extensions(&extensions, &alert, ext_types,
+                            OPENSSL_ARRAY_SIZE(ext_types))) {
+    ssl3_send_alert(ssl, SSL3_AL_FATAL, alert);
+    return ssl_hs_error;
+  }
+
+  if (have_early_data_info) {
+    if (!CBS_get_u32(&early_data_info, &session->ticket_max_early_data) ||
+        CBS_len(&early_data_info) != 0) {
+      ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
+      return ssl_hs_error;
+    }
+  }
+
   session->ticket_age_add_valid = 1;
   session->not_resumable = 0;
 

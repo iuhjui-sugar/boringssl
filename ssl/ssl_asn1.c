@@ -122,6 +122,7 @@
  *     keyExchangeInfo         [18] INTEGER OPTIONAL,
  *     certChain               [19] SEQUENCE OF Certificate OPTIONAL,
  *     ticketAgeAdd            [21] OCTET STRING OPTIONAL,
+ *     ticketMaxEarlyData      [22] INTEGER OPTIONAL,
  * }
  *
  * Note: historically this serialization has included other optional
@@ -170,6 +171,8 @@ static const int kCertChainTag =
     CBS_ASN1_CONSTRUCTED | CBS_ASN1_CONTEXT_SPECIFIC | 19;
 static const int kTicketAgeAddTag =
     CBS_ASN1_CONSTRUCTED | CBS_ASN1_CONTEXT_SPECIFIC | 21;
+static const int kTicketMaxEarlyDataTag =
+    CBS_ASN1_CONSTRUCTED | CBS_ASN1_CONTEXT_SPECIFIC | 22;
 
 static int SSL_SESSION_to_bytes_full(const SSL_SESSION *in, uint8_t **out_data,
                                      size_t *out_len, int for_ticket) {
@@ -359,6 +362,13 @@ static int SSL_SESSION_to_bytes_full(const SSL_SESSION *in, uint8_t **out_data,
       OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
       goto err;
     }
+  }
+
+  if (in->ticket_max_early_data &&
+      (!CBB_add_asn1(&session, &child, kTicketMaxEarlyDataTag) ||
+       !CBB_add_asn1_uint64(&child, in->ticket_max_early_data))) {
+    OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
+    goto err;
   }
 
   if (!CBB_finish(&cbb, out_data, out_len)) {
@@ -687,6 +697,12 @@ static SSL_SESSION *SSL_SESSION_parse(CBS *cbs) {
     goto err;
   }
   ret->ticket_age_add_valid = age_add_present;
+
+  if (!SSL_SESSION_parse_u32(&session, &ret->ticket_max_early_data,
+                             kTicketMaxEarlyDataTag, 0)) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_INVALID_SSL_SESSION);
+    goto err;
+  }
 
   if (CBS_len(&session) != 0) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_INVALID_SSL_SESSION);
