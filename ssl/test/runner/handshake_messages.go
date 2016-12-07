@@ -1973,6 +1973,7 @@ type newSessionTicketMsg struct {
 	ticketLifetime     uint32
 	ticketAgeAdd       uint32
 	ticket             []byte
+	maxEarlyDataSize   uint32
 	customExtension    string
 	hasGREASEExtension bool
 }
@@ -1996,6 +1997,10 @@ func (m *newSessionTicketMsg) marshal() []byte {
 
 	if m.version >= VersionTLS13 {
 		extensions := body.addU16LengthPrefixed()
+		if m.maxEarlyDataSize > 0 {
+			extensions.addU16(extensionTicketEarlyDataInfo)
+			extensions.addU16LengthPrefixed().addU32(m.maxEarlyDataSize)
+		}
 		if len(m.customExtension) > 0 {
 			extensions.addU16(ticketExtensionCustom)
 			extensions.addU16LengthPrefixed().addBytes([]byte(m.customExtension))
@@ -2060,11 +2065,18 @@ func (m *newSessionTicketMsg) unmarshal(data []byte) bool {
 			if len(extensions) < 4+extLength {
 				return false
 			}
-			extensions = extensions[4+extLength:]
+			extData := extensions[4:4+extLength]
 
+			if extValue == extensionTicketEarlyDataInfo {
+				if extLength != 4 {
+					return false
+				}
+				m.maxEarlyDataSize = uint32(extData[0])<<24 | uint32(extData[1])<<16 | uint32(extData[2])<<8 | uint32(extData[3])
+			}
 			if isGREASEValue(extValue) {
 				m.hasGREASEExtension = true
 			}
+			extensions = extensions[4+extLength:]
 		}
 	}
 
