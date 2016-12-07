@@ -748,6 +748,8 @@ OPENSSL_EXPORT int BIO_zero_copy_get_write_buf_done(BIO* bio,
  * on one line. */
 OPENSSL_EXPORT const BIO_METHOD *BIO_f_base64(void);
 
+OPENSSL_EXPORT void BIO_set_retry_special(BIO *bio);
+
 
 /* Private functions */
 
