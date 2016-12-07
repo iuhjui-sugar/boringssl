@@ -87,6 +87,7 @@ struct TestConfig {
   bool expect_no_session = false;
   bool use_ticket_callback = false;
   bool renew_ticket = false;
+  bool enable_early_data = false;
   bool enable_client_custom_extension = false;
   bool enable_server_custom_extension = false;
   bool custom_extension_skip = false;
