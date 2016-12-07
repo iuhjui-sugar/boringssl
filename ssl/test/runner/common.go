@@ -254,6 +254,7 @@ type ClientSessionState struct {
 	ticketCreationTime   time.Time
 	ticketExpiration     time.Time
 	ticketAgeAdd         uint32
+	maxEarlyDataSize     uint32
 }
 
 // ClientSessionCache is a cache of ClientSessionState objects that can be used
@@ -1118,6 +1119,7 @@ type ProtocolBugs struct {
 
 	// SendEarlyDataLength, if non-zero, is the amount of early data to send after
 	// the ClientHello.
+	// TODO(nharper): Combine with SendEarlyData below.
 	SendEarlyDataLength int
 
 	// OmitEarlyDataExtension, if true, causes the early data extension to
@@ -1131,6 +1133,9 @@ type ProtocolBugs struct {
 	// InterleaveEarlyData, if true, causes the TLS 1.3 client to send early
 	// data interleaved with the second ClientHello and the client Finished.
 	InterleaveEarlyData bool
+
+	// TODO(nharper): Document this bug.
+	SendEarlyData [][]byte
 
 	// SendHalfRTTData causes a TLS 1.3 server to send the provided
 	// data in application data records before reading the client's

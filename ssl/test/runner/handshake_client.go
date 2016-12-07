@@ -324,7 +324,7 @@ NextCipherSuite:
 		hello.cipherSuites = c.config.Bugs.SendCipherSuites
 	}
 
-	if c.config.Bugs.SendEarlyDataLength > 0 && !c.config.Bugs.OmitEarlyDataExtension {
+	if ((len(hello.pskIdentities) > 0 && session.maxEarlyDataSize > 0 && len(c.config.Bugs.SendEarlyData) > 0) || c.config.Bugs.SendEarlyDataLength > 0) && !c.config.Bugs.OmitEarlyDataExtension {
 		hello.hasEarlyData = true
 	}
 
@@ -371,6 +371,26 @@ NextCipherSuite:
 	if c.config.Bugs.SendEarlyDataLength > 0 {
 		c.sendFakeEarlyData(c.config.Bugs.SendEarlyDataLength)
 	}
+
+	// Derive early write keys and set Conn state to allow early writes.
+	if hello.hasEarlyData && session != nil && session.maxEarlyDataSize > 0 {
+		finishedHash := newFinishedHash(session.vers, pskCipherSuite)
+		finishedHash.addEntropy(session.masterSecret)
+		finishedHash.Write(helloBytes)
+		earlyTrafficSecret := finishedHash.deriveSecret(earlyTrafficLabel)
+		c.out.useTrafficSecret(session.vers, pskCipherSuite, earlyTrafficSecret, clientWrite)
+
+		for _, earlyData := range c.config.Bugs.SendEarlyData {
+			n, err := c.writeRecord(recordTypeApplicationData, earlyData)
+			if err != nil {
+				return err
+			}
+			if n != len(earlyData) {
+				return fmt.Errorf("SendEarlyData: Expected to write %d bytes but only wrote %d.", len(earlyData), n)
+			}
+		}
+	}
+
 	msg, err := c.readHandshake()
 	if err != nil {
 		return err
@@ -427,6 +447,7 @@ NextCipherSuite:
 	helloRetryRequest, haveHelloRetryRequest := msg.(*helloRetryRequestMsg)
 	var secondHelloBytes []byte
 	if haveHelloRetryRequest {
+		c.out.resetCipher()
 		if len(helloRetryRequest.cookie) > 0 {
 			hello.tls13Cookie = helloRetryRequest.cookie
 		}
@@ -699,6 +720,15 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 
 	if hs.serverHello.shortHeader {
 		c.setShortHeader()
+	}
+
+	// This needs to happen before we change keys.
+	// TODO(nharper): Move key change (and sending this message) later
+	// to somewhere that matches the handshake message diagram so that
+	// when it is a handshake message the handshake hash gets updated
+	// correctly.
+	if c.out.cipher != nil {
+		c.sendAlert(alertEndOfEarlyData)
 	}
 
 	// Switch to handshake traffic keys.
