@@ -16,6 +16,24 @@
       "revId": "692c3d87d7761336d078f09298ec13e287b5a599",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d8e4382_e35b3aa3",
+        "filename": "crypto/x509/x_x509.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-08T16:14:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d8e4382_5864713a",
+      "revId": "692c3d87d7761336d078f09298ec13e287b5a599",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
