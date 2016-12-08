@@ -941,6 +941,25 @@ static bool TestFromBufferReused() {
   return true;
 }
 
+static bool TestFailedParseFromBuffer() {
+  static const uint8_t kNonsense[] = {1, 2, 3, 4, 5};
+
+  bssl::UniquePtr<CRYPTO_BUFFER> buf(
+      CRYPTO_BUFFER_new(kNonsense, sizeof(kNonsense), nullptr));
+  if (!buf) {
+    return false;
+  }
+
+  bssl::UniquePtr<X509> root(X509_parse_from_buffer(buf.get()));
+  if (root) {
+    fprintf(stderr, "Nonsense somehow parsed.\n");
+    return false;
+  }
+  ERR_clear_error();
+
+  return true;
+}
+
 static int Main() {
   CRYPTO_library_init();
 
@@ -952,7 +971,8 @@ static int Main() {
       !TestFromBuffer() ||
       !TestFromBufferTrailingData() ||
       !TestFromBufferModified() ||
-      !TestFromBufferReused()) {
+      !TestFromBufferReused() ||
+      !TestFailedParseFromBuffer()) {
     return 1;
   }
 
