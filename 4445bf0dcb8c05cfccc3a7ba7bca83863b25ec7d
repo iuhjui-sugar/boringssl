@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4d8e4382_23cf0242",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 2882,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-12-08T15:42:03Z",
+      "side": 1,
+      "message": ":(",
+      "range": {
+        "startLine": 2882,
+        "startChar": 15,
+        "endLine": 2882,
+        "endChar": 16
+      },
+      "revId": "4445bf0dcb8c05cfccc3a7ba7bca83863b25ec7d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
