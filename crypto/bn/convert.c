@@ -118,12 +118,78 @@ BIGNUM *BN_bin2bn(const uint8_t *in, size_t len, BIGNUM *ret) {
   return ret;
 }
 
+BIGNUM *BN_le2bn(const uint8_t *in, size_t len, BIGNUM *ret) {
+  size_t num_words = ((len - 1) / BN_BYTES) + 1;
+  unsigned m = 0;
+  BN_ULONG word = 0;
+  BIGNUM *bn = NULL;
+
+  if (ret == NULL) {
+    ret = bn = BN_new();
+  }
+
+  if (ret == NULL) {
+    return NULL;
+  }
+
+  if (len == 0) {
+    ret->top = 0;
+    return ret;
+  }
+
+  if (bn_wexpand(ret, num_words) == NULL) {
+    if (bn) {
+      BN_free(bn);
+    }
+    return NULL;
+  }
+
+  /* |bn_wexpand| must check bounds on |num_words| to write it into
+   * |ret->dmax|. */
+  assert(num_words <= INT_MAX);
+  ret->top = (int)num_words;
+  ret->neg = 0;
+
+  // Add each input byte in turn
+  for (size_t i = 0; i < len; i++) {
+    word |= ((BN_ULONG) in[i]) << (8 * m);
+
+    if (++m >= BN_BYTES) {
+      ret->d[i / BN_BYTES] = word;
+      word = 0;
+      m = 0;
+    }
+  }
+
+  // If our input length wasn't word-aligned, we'll have a couple spare bytes
+  if (len % BN_BYTES != 0) {
+    ret->d[num_words - 1] = word;
+  }
+
+  /* need to call this due to clear byte at top if avoiding having the top bit
+   * set (-ve number) */
+  bn_correct_top(ret);
+  return ret;
+}
+
 size_t BN_bn2bin(const BIGNUM *in, uint8_t *out) {
   size_t n, i;
   BN_ULONG l;
 
   n = i = BN_num_bytes(in);
   while (i--) {
+    l = in->d[i / BN_BYTES];
+    *(out++) = (unsigned char)(l >> (8 * (i % BN_BYTES))) & 0xff;
+  }
+  return n;
+}
+
+size_t BN_bn2le(const BIGNUM *in, uint8_t *out) {
+  size_t n, i;
+  BN_ULONG l;
+
+  n = BN_num_bytes(in);
+  for(i = 0; i < n; i++) {
     l = in->d[i / BN_BYTES];
     *(out++) = (unsigned char)(l >> (8 * (i % BN_BYTES))) & 0xff;
   }
