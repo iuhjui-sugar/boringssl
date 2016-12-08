@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ed44573c_8ca18749",
+        "filename": "decrepit/biossl/bio_ssl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-08T20:25:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d8e4382_3535f8ed",
+      "revId": "c0d73b5ff0df67a23cd38cc1831edb47da951c7c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d8e4382_f51e907a",
         "filename": "decrepit/biossl/bio_ssl.c",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2016-12-07T19:47:25Z",
       "side": 1,
       "message": "The original code did this too, but this looks like nonsense. BIO_pending is measuring ciphertext and SSL_pending is measuring plaintext. cURL doesn\u0027t call this, so we\u0027re probably fine regardless.\n\nYour call if it makes more sense to go with something sound (SSL_pending) or upstream-compatible (perhaps someone was comparing the value against 0 to see if they\u0027re ready to read data, I dunno). If the latter, I\u0027d suggest a comment.",
+      "revId": "c0d73b5ff0df67a23cd38cc1831edb47da951c7c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed44573c_aca6435c",
+        "filename": "decrepit/biossl/bio_ssl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-08T20:25:57Z",
+      "side": 1,
+      "message": "Just going to call SSL_pending for this.",
+      "parentUuid": "4d8e4382_f51e907a",
       "revId": "c0d73b5ff0df67a23cd38cc1831edb47da951c7c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
