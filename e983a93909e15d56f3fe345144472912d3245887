@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed44573c_4c64ff28",
+        "filename": "tool/client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-08T20:44:08Z",
+      "side": 1,
+      "message": "How about just omitting the non-blocking call and then driving SSL_read until you\u0027ve gotten a session?",
+      "revId": "e983a93909e15d56f3fe345144472912d3245887",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed44573c_6c61bb17",
+        "filename": "tool/client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-08T20:44:08Z",
+      "side": 1,
+      "message": "This should only get called once. It\u0027s a Windows thing to initialize winsock. (Not that these work on Windows anyway!)",
+      "range": {
+        "startLine": 183,
+        "startChar": 7,
+        "endLine": 183,
+        "endChar": 24
+      },
+      "revId": "e983a93909e15d56f3fe345144472912d3245887",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed44573c_8c2ee7bc",
+        "filename": "tool/client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-08T20:44:08Z",
+      "side": 1,
+      "message": "This seems slightly hacky. :-) Normally functions can take parameters and such. Actually since almost all the config is on the SSL_CTX, you could just loop only a very small part of Client.",
+      "revId": "e983a93909e15d56f3fe345144472912d3245887",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed44573c_2c61732a",
+        "filename": "tool/server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-08T20:44:08Z",
+      "side": 1,
+      "message": "Totally unimportant nitpick: The others have a newline here. (Although our style is inconsistent here anyway... want to just clang-format the whole block?)",
+      "revId": "e983a93909e15d56f3fe345144472912d3245887",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed44573c_cc92afe7",
+        "filename": "tool/server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-08T20:44:08Z",
+      "side": 1,
+      "message": "[Note this server still can\u0027t service two things in parallel. But that\u0027s probably fine.]",
+      "revId": "e983a93909e15d56f3fe345144472912d3245887",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
