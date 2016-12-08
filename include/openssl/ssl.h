@@ -1751,6 +1751,12 @@ OPENSSL_EXPORT int SSL_CTX_set_session_id_context(SSL_CTX *ctx,
 OPENSSL_EXPORT int SSL_set_session_id_context(SSL *ssl, const uint8_t *sid_ctx,
                                               unsigned sid_ctx_len);
 
+/* SSL_get_session_id_context sets |*out| to point to |ssl|'s session ID context
+ * and |*out_len| to its length. */
+OPENSSL_EXPORT void SSL_get_session_id_context(const SSL *ssl,
+                                               const uint8_t **out,
+                                               size_t *out_len);
+
 /* SSL_SESSION_CACHE_MAX_SIZE_DEFAULT is the default maximum size of a session
  * cache. */
 #define SSL_SESSION_CACHE_MAX_SIZE_DEFAULT (1024 * 20)
