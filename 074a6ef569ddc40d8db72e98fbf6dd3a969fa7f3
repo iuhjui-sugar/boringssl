@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed44573c_8c4427bc",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1834,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-08T20:20:14Z",
+      "side": 1,
+      "message": "Nit: You can shorten this function to just:\n\n  CRYPTO_BUFFER_free(ctx-\u003eocsp_response);\n  ctx-\u003eocsp_response \u003d CRYPTO_BUFFER_new(response, response_len, NULL);\n  return ctx-\u003eocsp_response !\u003d NULL;\n\nDitto for the one below.",
+      "revId": "074a6ef569ddc40d8db72e98fbf6dd3a969fa7f3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed44573c_0c50377c",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1215,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-08T20:20:14Z",
+      "side": 1,
+      "message": "I think it\u0027s fine to omit the CRYPTO_BUFFER_len checks and just do a NULL check. Ditto in the TLS 1.3 code.\n\nWith the old arrangement, there wasn\u0027t a way to say \"empty OCSP response\", so it checked the length. But if you configure something ridiculous like that then... okay, you asked for it. :-)",
+      "revId": "074a6ef569ddc40d8db72e98fbf6dd3a969fa7f3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed44573c_0c391734",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-08T20:20:14Z",
+      "side": 1,
+      "message": "Hah. Nice to plug that really nasty corner of our tests. :-) This was totally violating \"thou shalt not mutate the SSL_CTX in the middle of stuff\" rule. (SSL_CTXs are usually shared between threads.)\n\n(I suppose if we weren\u0027t do add such a function, we should have configured this when setting up the SSL_CTX and not test asynchronously loading it because we just didn\u0027t support it before this change.)",
+      "revId": "074a6ef569ddc40d8db72e98fbf6dd3a969fa7f3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed44573c_2c36d344",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-08T20:20:14Z",
+      "side": 1,
+      "message": "Ditto re check being unnecessary.",
+      "revId": "074a6ef569ddc40d8db72e98fbf6dd3a969fa7f3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
