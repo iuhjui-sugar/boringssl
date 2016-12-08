@@ -746,6 +746,53 @@ static bool TestBN2BinPadded(BN_CTX *ctx) {
   return true;
 }
 
+static bool TestLittleEndian(BN_CTX *ctx) {
+  uint8_t zeros[256], out[256];
+
+  size_t encoded_size;
+
+  bssl::UniquePtr<BIGNUM> x(BN_new());
+  bssl::UniquePtr<BIGNUM> y(BN_new());
+
+  // Initialize buffers
+  memset(zeros, 0, sizeof(zeros));
+  memset(out, -1, sizeof(out));
+
+  // Test edge case at 0.
+  if (BN_bn2le(x.get(), out)) {
+    fprintf(stderr, "BN_bn2le failed to encode 0.\n");
+    return false;
+  }
+
+  if (!BN_le2bn(zeros, sizeof(zeros), y.get()) || BN_cmp(x.get(), y.get()) != 0) {
+    fprintf(stderr, "BN_le2bn failed to decode 0 correctly.\n");
+    return false;
+  }
+
+  // Test random numbers at various byte lengths.
+  for (size_t bytes = 128 - 7; bytes <= 128; bytes++) {
+    if (!BN_rand(x.get(), bytes * 8, BN_RAND_TOP_ONE, BN_RAND_BOTTOM_ANY)) {
+      ERR_print_errors_fp(stderr);
+      return false;
+    }
+
+    if (!(encoded_size = BN_bn2le(x.get(), out))) {
+      fprintf(stderr, "BN_bn2le failed to encode random value.\n");
+      return false;
+    }
+
+    if (!BN_le2bn(out, encoded_size, y.get()) || BN_cmp(x.get(), y.get()) != 0) {
+      fprintf(stderr, "BN_le2bn failed to decode value correctly.\n");
+      fprintf(stderr, "Expected: %s\n", BN_bn2hex(x.get()));
+      hexdump(stderr, "Encoding: ", out, encoded_size);
+      fprintf(stderr, "Got:      %s\n", BN_bn2hex(y.get()));
+      return false;
+    }
+  }
+
+  return true;
+}
+
 static int DecimalToBIGNUM(bssl::UniquePtr<BIGNUM> *out, const char *in) {
   BIGNUM *raw = NULL;
   int ret = BN_dec2bn(&raw, in);
@@ -1544,6 +1591,7 @@ int main(int argc, char *argv[]) {
       !TestDec2BN(ctx.get()) ||
       !TestHex2BN(ctx.get()) ||
       !TestASC2BN(ctx.get()) ||
+      !TestLittleEndian(ctx.get()) ||
       !TestMPI() ||
       !TestRand() ||
       !TestASN1() ||
