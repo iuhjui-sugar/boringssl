@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4d8e4382_034afec5",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1160,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-08T16:22:40Z",
+      "side": 1,
+      "message": "SSL_get0_session_id_context and return the const uint8_t*? (That way it mostly matches upstream\u0027s SSL_SESSION_get0_id_context.)",
+      "revId": "28cedf75c3c40107d3ef97548c72a1cea3b01b8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
