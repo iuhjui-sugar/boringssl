@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4d8e4382_5864713a",
+        "filename": "crypto/x509/x_x509.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-08T00:49:47Z",
+      "side": 1,
+      "message": "Perhaps:\n\nif (ret \u003d\u003d NULL ||\n    ....) {\n  X509_free(x509p);\n  return NULL;\n}\n\nThat way we don\u0027t assume whether d2i_X509 frees it or not.",
+      "revId": "692c3d87d7761336d078f09298ec13e287b5a599",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
