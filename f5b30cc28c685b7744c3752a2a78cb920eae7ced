@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed44573c_ec2e8b52",
+        "filename": "crypto/obj/objects.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1338,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-09T01:45:49Z",
+      "side": 0,
+      "message": "Did you rerun the scripts? I would have expected more things to have changed. (See crypto/obj/README.)",
+      "revId": "f5b30cc28c685b7744c3752a2a78cb920eae7ced",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
