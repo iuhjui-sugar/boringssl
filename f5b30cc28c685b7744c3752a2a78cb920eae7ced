@@ -34,6 +34,24 @@
       "revId": "f5b30cc28c685b7744c3752a2a78cb920eae7ced",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed44573c_acc80366",
+        "filename": "crypto/obj/objects.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1338,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-09T02:45:26Z",
+      "side": 0,
+      "message": "Hah. I was expecting obj_dat.h to lose an entry, but it seems it was never re-run for CECPQ1 to begin with! :-)\n\n(Will review tomorrow. I hear I\u0027m not supposed to do work stuff past 9:30pm or something.)",
+      "parentUuid": "ba37f7d9_35ffda8b",
+      "revId": "f5b30cc28c685b7744c3752a2a78cb920eae7ced",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
