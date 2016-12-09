@@ -99,6 +99,7 @@ const (
 	extensionNextProtoNeg               uint16 = 13172 // not IANA assigned
 	extensionRenegotiationInfo          uint16 = 0xff01
 	extensionChannelID                  uint16 = 30032 // not IANA assigned
+	extensionShortHeader                uint16 = 27463 // not IANA assigned
 )
 
 // TLS ticket extension numbers
@@ -225,6 +226,7 @@ type ConnectionState struct {
 	SCTList                    []byte                // signed certificate timestamp list
 	PeerSignatureAlgorithm     signatureAlgorithm    // algorithm used by the peer in the handshake
 	CurveID                    CurveID               // the curve used in ECDHE
+	ShortHeader                bool                  // whether the short header extension was negotiated
 }
 
 // ClientAuthType declares the policy the server will follow for
@@ -1224,6 +1226,10 @@ type ProtocolBugs struct {
 	// NoSignedCertificateTimestamps, if true, causes the client to not
 	// request signed certificate timestamps.
 	NoSignedCertificateTimestamps bool
+
+	// EnableShortHeader, if true, causes the TLS 1.3 short header extension
+	// to be enabled.
+	EnableShortHeader bool
 }
 
 func (c *Config) serverInit() {

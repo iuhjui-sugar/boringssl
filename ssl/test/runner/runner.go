@@ -381,6 +381,8 @@ type testCase struct {
 	// expectPeerCertificate, if not nil, is the certificate chain the peer
 	// is expected to send.
 	expectPeerCertificate *Certificate
+	// expectShortHeader is whether the short header extension should be negotiated.
+	expectShortHeader bool
 }
 
 var testCases []testCase
@@ -607,6 +609,10 @@ func doExchange(test *testCase, config *Config, conn net.Conn, isResume bool, nu
 				return fmt.Errorf("peer certificate %d did not match", i+1)
 			}
 		}
+	}
+
+	if test.expectShortHeader != connState.ShortHeader {
+		return fmt.Errorf("ShortHeader is %t, but we expected the opposite", connState.ShortHeader)
 	}
 
 	if test.exportKeyingMaterial > 0 {
@@ -2604,6 +2610,28 @@ func addCipherSuiteTests() {
 						shouldFail:       shouldFail,
 						expectedError:    expectedError,
 					})
+
+					if ver.version >= VersionTLS13 {
+						testCases = append(testCases, testCase{
+							protocol: protocol,
+							name:     prefix + ver.name + "-" + suite.name + "-ShortHeader",
+							config: Config{
+								MinVersion:           ver.version,
+								MaxVersion:           ver.version,
+								CipherSuites:         []uint16{suite.id},
+								Certificates:         []Certificate{cert},
+								PreSharedKey:         []byte(psk),
+								PreSharedKeyIdentity: pskIdentity,
+								Bugs: ProtocolBugs{
+									EnableShortHeader: true,
+								},
+							},
+							flags:             append([]string{"-enable-short-header"}, flags...),
+							resumeSession:     true,
+							expectShortHeader: true,
+						})
+
+					}
 				}
 			}
 		}

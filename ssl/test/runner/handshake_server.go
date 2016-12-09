@@ -365,6 +365,11 @@ func (hs *serverHandshakeState) doTLS13Handshake() error {
 		versOverride:    config.Bugs.SendServerHelloVersion,
 		customExtension: config.Bugs.CustomUnencryptedExtension,
 		unencryptedALPN: config.Bugs.SendUnencryptedALPN,
+		shortHeader:     hs.clientHello.shortHeaderSupported && config.Bugs.EnableShortHeader,
+	}
+
+	if hs.hello.shortHeader {
+		c.setShortHeader()
 	}
 
 	hs.hello.random = make([]byte, 32)
