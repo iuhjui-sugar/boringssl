@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ed44573c_cf154128",
+        "filename": "tool/client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-12-09T18:28:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed44573c_4c64ff28",
+      "revId": "e983a93909e15d56f3fe345144472912d3245887",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed44573c_6c61bb17",
         "filename": "tool/client.cc",
         "patchSetId": 1
@@ -30,6 +48,30 @@
       "writtenOn": "2016-12-08T20:44:08Z",
       "side": 1,
       "message": "This should only get called once. It\u0027s a Windows thing to initialize winsock. (Not that these work on Windows anyway!)",
+      "range": {
+        "startLine": 183,
+        "startChar": 7,
+        "endLine": 183,
+        "endChar": 24
+      },
+      "revId": "e983a93909e15d56f3fe345144472912d3245887",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed44573c_ef1afd54",
+        "filename": "tool/client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-12-09T18:28:02Z",
+      "side": 1,
+      "message": "Doesn\u0027t work since the server doesn\u0027t necessarily write.",
+      "parentUuid": "ed44573c_6c61bb17",
       "range": {
         "startLine": 183,
         "startChar": 7,
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "ed44573c_4f0a3102",
+        "filename": "tool/client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-12-09T18:28:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed44573c_8c2ee7bc",
+      "revId": "e983a93909e15d56f3fe345144472912d3245887",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed44573c_2c61732a",
         "filename": "tool/server.cc",
         "patchSetId": 1
@@ -76,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "ed44573c_af10f538",
+        "filename": "tool/server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-12-09T18:28:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed44573c_2c61732a",
+      "revId": "e983a93909e15d56f3fe345144472912d3245887",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed44573c_cc92afe7",
         "filename": "tool/server.cc",
         "patchSetId": 1
@@ -87,6 +165,24 @@
       "writtenOn": "2016-12-08T20:44:08Z",
       "side": 1,
       "message": "[Note this server still can\u0027t service two things in parallel. But that\u0027s probably fine.]",
+      "revId": "e983a93909e15d56f3fe345144472912d3245887",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed44573c_8f0b390a",
+        "filename": "tool/server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-12-09T18:28:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed44573c_cc92afe7",
       "revId": "e983a93909e15d56f3fe345144472912d3245887",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
