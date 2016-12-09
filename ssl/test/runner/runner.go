@@ -381,6 +381,8 @@ type testCase struct {
 	// expectPeerCertificate, if not nil, is the certificate chain the peer
 	// is expected to send.
 	expectPeerCertificate *Certificate
+	// expectShortHeader is whether the short header extension should be negotiated.
+	expectShortHeader bool
 }
 
 var testCases []testCase
@@ -607,6 +609,10 @@ func doExchange(test *testCase, config *Config, conn net.Conn, isResume bool, nu
 				return fmt.Errorf("peer certificate %d did not match", i+1)
 			}
 		}
+	}
+
+	if test.expectShortHeader != connState.ShortHeader {
+		return fmt.Errorf("ShortHeader is %t, but we expected the opposite", connState.ShortHeader)
 	}
 
 	if test.exportKeyingMaterial > 0 {
@@ -2559,11 +2565,57 @@ func addTestForCipherSuite(suite testCipherSuite, ver tlsVersion, protocol proto
 		expectedError: expectedClientError,
 	})
 
-	if !shouldClientFail {
-		// Ensure the maximum record size is accepted.
+	if shouldClientFail {
+		return
+	}
+
+	// Ensure the maximum record size is accepted.
+	testCases = append(testCases, testCase{
+		protocol: protocol,
+		name:     prefix + ver.name + "-" + suite.name + "-LargeRecord",
+		config: Config{
+			MinVersion:           ver.version,
+			MaxVersion:           ver.version,
+			CipherSuites:         []uint16{suite.id},
+			Certificates:         []Certificate{cert},
+			PreSharedKey:         []byte(psk),
+			PreSharedKeyIdentity: pskIdentity,
+		},
+		flags:      flags,
+		messageLen: maxPlaintext,
+	})
+
+	// Test bad records for all ciphers. Bad records are fatal in TLS
+	// and ignored in DTLS.
+	var shouldFail bool
+	var expectedError string
+	if protocol == tls {
+		shouldFail = true
+		expectedError = ":DECRYPTION_FAILED_OR_BAD_RECORD_MAC:"
+	}
+
+	testCases = append(testCases, testCase{
+		protocol: protocol,
+		name:     prefix + ver.name + "-" + suite.name + "-BadRecord",
+		config: Config{
+			MinVersion:           ver.version,
+			MaxVersion:           ver.version,
+			CipherSuites:         []uint16{suite.id},
+			Certificates:         []Certificate{cert},
+			PreSharedKey:         []byte(psk),
+			PreSharedKeyIdentity: pskIdentity,
+		},
+		flags:            flags,
+		damageFirstWrite: true,
+		messageLen:       maxPlaintext,
+		shouldFail:       shouldFail,
+		expectedError:    expectedError,
+	})
+
+	if ver.version >= VersionTLS13 {
 		testCases = append(testCases, testCase{
 			protocol: protocol,
-			name:     prefix + ver.name + "-" + suite.name + "-LargeRecord",
+			name:     prefix + ver.name + "-" + suite.name + "-ShortHeader",
 			config: Config{
 				MinVersion:           ver.version,
 				MaxVersion:           ver.version,
@@ -2571,36 +2623,13 @@ func addTestForCipherSuite(suite testCipherSuite, ver tlsVersion, protocol proto
 				Certificates:         []Certificate{cert},
 				PreSharedKey:         []byte(psk),
 				PreSharedKeyIdentity: pskIdentity,
+				Bugs: ProtocolBugs{
+					EnableShortHeader: true,
+				},
 			},
-			flags:      flags,
-			messageLen: maxPlaintext,
-		})
-
-		// Test bad records for all ciphers. Bad records are fatal in TLS
-		// and ignored in DTLS.
-		var shouldFail bool
-		var expectedError string
-		if protocol == tls {
-			shouldFail = true
-			expectedError = ":DECRYPTION_FAILED_OR_BAD_RECORD_MAC:"
-		}
-
-		testCases = append(testCases, testCase{
-			protocol: protocol,
-			name:     prefix + ver.name + "-" + suite.name + "-BadRecord",
-			config: Config{
-				MinVersion:           ver.version,
-				MaxVersion:           ver.version,
-				CipherSuites:         []uint16{suite.id},
-				Certificates:         []Certificate{cert},
-				PreSharedKey:         []byte(psk),
-				PreSharedKeyIdentity: pskIdentity,
-			},
-			flags:            flags,
-			damageFirstWrite: true,
-			messageLen:       maxPlaintext,
-			shouldFail:       shouldFail,
-			expectedError:    expectedError,
+			flags:             append([]string{"-enable-short-header"}, flags...),
+			resumeSession:     true,
+			expectShortHeader: true,
 		})
 	}
 }
@@ -9756,6 +9785,135 @@ func addRetainOnlySHA256ClientCertTests() {
 	}
 }
 
+func addShortHeaderTests() {
+	// The short header extension may be negotiated as either client or
+	// server.
+	testCases = append(testCases, testCase{
+		name: "ShortHeader-Client",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				EnableShortHeader: true,
+			},
+		},
+		flags:             []string{"-enable-short-header"},
+		expectShortHeader: true,
+	})
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "ShortHeader-Server",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				EnableShortHeader: true,
+			},
+		},
+		flags:             []string{"-enable-short-header"},
+		expectShortHeader: true,
+	})
+
+	// If the peer doesn't support it, it will not be negotiated.
+	testCases = append(testCases, testCase{
+		name: "ShortHeader-No-Yes-Client",
+		config: Config{
+			MaxVersion: VersionTLS13,
+		},
+		flags: []string{"-enable-short-header"},
+	})
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "ShortHeader-No-Yes-Server",
+		config: Config{
+			MaxVersion: VersionTLS13,
+		},
+		flags: []string{"-enable-short-header"},
+	})
+
+	// If we don't support it, it will not be negotiated.
+	testCases = append(testCases, testCase{
+		name: "ShortHeader-Yes-No-Client",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				EnableShortHeader: true,
+			},
+		},
+	})
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "ShortHeader-Yes-No-Server",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				EnableShortHeader: true,
+			},
+		},
+	})
+
+	// It will not be negotiated at TLS 1.2.
+	testCases = append(testCases, testCase{
+		name: "ShortHeader-TLS12-Client",
+		config: Config{
+			MaxVersion: VersionTLS12,
+			Bugs: ProtocolBugs{
+				EnableShortHeader: true,
+			},
+		},
+		flags: []string{"-enable-short-header"},
+	})
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "ShortHeader-TLS12-Server",
+		config: Config{
+			MaxVersion: VersionTLS12,
+			Bugs: ProtocolBugs{
+				EnableShortHeader: true,
+			},
+		},
+		flags: []string{"-enable-short-header"},
+	})
+
+	// Servers reject early data and short header sent together.
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "ShortHeader-EarlyData",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				EnableShortHeader:   true,
+				SendEarlyDataLength: 1,
+			},
+		},
+		flags:         []string{"-enable-short-header"},
+		shouldFail:    true,
+		expectedError: ":UNEXPECTED_EXTENSION:",
+	})
+
+	// Clients reject unsolicited short header extensions.
+	testCases = append(testCases, testCase{
+		name: "ShortHeader-Unsolicited",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				AlwaysNegotiateShortHeader: true,
+			},
+		},
+		shouldFail:    true,
+		expectedError: ":UNEXPECTED_EXTENSION:",
+	})
+	testCases = append(testCases, testCase{
+		name: "ShortHeader-Unsolicited-TLS12",
+		config: Config{
+			MaxVersion: VersionTLS12,
+			Bugs: ProtocolBugs{
+				AlwaysNegotiateShortHeader: true,
+			},
+		},
+		shouldFail:    true,
+		expectedError: ":UNEXPECTED_EXTENSION:",
+	})
+}
+
 func worker(statusChan chan statusMsg, c chan *testCase, shimPath string, wg *sync.WaitGroup) {
 	defer wg.Done()
 
@@ -9882,6 +10040,7 @@ func main() {
 	addRecordVersionTests()
 	addCertificateTests()
 	addRetainOnlySHA256ClientCertTests()
+	addShortHeaderTests()
 
 	var wg sync.WaitGroup
 
