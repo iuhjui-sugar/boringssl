@@ -52,6 +52,24 @@
       "revId": "28cedf75c3c40107d3ef97548c72a1cea3b01b8f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed44573c_cf3e211e",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1160,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-09T05:04:12Z",
+      "side": 1,
+      "message": "If you can rewrite the test, happy to punt this. I don\u0027t think we need getters for every random API. But I\u0027m also happy to add the getter if it\u0027s annoying to rewrite. (The motivation here is the sid_ctx is a moderate chunk of per-connection memory so if we had it here, we can include it in the plans to drop handshake config post-handshake. That and it\u0027s one of the few blockers left to opaque SSL. But nothing\u0027s especially urgent.)",
+      "parentUuid": "ba37f7d9_55cc9e7b",
+      "revId": "28cedf75c3c40107d3ef97548c72a1cea3b01b8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
