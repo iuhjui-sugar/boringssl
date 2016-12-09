@@ -34,6 +34,24 @@
       "revId": "28cedf75c3c40107d3ef97548c72a1cea3b01b8f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba37f7d9_55cc9e7b",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1160,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2016-12-09T03:07:47Z",
+      "side": 1,
+      "message": "Ditto.  The test for which I think you\u0027re adding this is, in my view, simply not legitimate.  Maybe we should rewrite it instead of adding this API?  (And by \"we\" I mean \"me\".)\n\nOr do you think it\u0027s worth having this API anyway just for completeness/symmetry?",
+      "parentUuid": "4d8e4382_c39716d5",
+      "revId": "28cedf75c3c40107d3ef97548c72a1cea3b01b8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
