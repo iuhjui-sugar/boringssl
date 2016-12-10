@@ -45,6 +45,7 @@ elseif(MSVC)
   set(MSVC_DISABLED_WARNINGS_LIST
       "C4100" # 'exarg' : unreferenced formal parameter
       "C4127" # conditional expression is constant
+      "C4152" # nonstandard extension, function/data pointer conversion in expression"
       "C4200" # nonstandard extension used : zero-sized array in
               # struct/union.
       "C4204" # nonstandard extension used: non-constant aggregate initializer
