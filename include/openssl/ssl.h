@@ -3460,7 +3460,8 @@ OPENSSL_EXPORT const char *SSL_get_cipher_list(const SSL *ssl, int n);
  * |SSL_get_client_CA_list| for information on the server's certificate request.
  *
  * Use |SSL_CTX_set_cert_cb| instead. Configuring intermediate certificates with
- * this function is confusing. */
+ * this function is confusing. This callback may not be registered concurrently
+ * with |SSL_CTX_set_cert_cb| or |SSL_set_cert_cb|. */
 OPENSSL_EXPORT void SSL_CTX_set_client_cert_cb(
     SSL_CTX *ctx,
     int (*client_cert_cb)(SSL *ssl, X509 **out_x509, EVP_PKEY **out_pkey));
@@ -3872,9 +3873,6 @@ struct ssl_ctx_st {
 
   /* Default password callback user data. */
   void *default_passwd_callback_userdata;
-
-  /* get client cert callback */
-  int (*client_cert_cb)(SSL *ssl, X509 **out_x509, EVP_PKEY **out_pkey);
 
   /* get channel id callback */
   void (*channel_id_cb)(SSL *ssl, EVP_PKEY **out_pkey);
