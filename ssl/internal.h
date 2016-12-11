@@ -882,6 +882,12 @@ struct ssl_handshake_st {
    * or |ssl_hs_ok| if none. */
   enum ssl_hs_wait_t wait;
 
+  /* state contains one of the SSL3_ST_* values. */
+  int state;
+
+  /* next_state is used when SSL_ST_FLUSH_DATA is entered */
+  int next_state;
+
   int tls13_state;
 
   size_t hash_len;
@@ -1493,9 +1499,6 @@ typedef struct ssl3_state_st {
     const SSL_CIPHER *new_cipher;
 
     int message_type;
-
-    /* used when SSL_ST_FLUSH_DATA is entered */
-    int next_state;
 
     int reuse_message;
 
