@@ -882,7 +882,7 @@ struct ssl_handshake_st {
    * or |ssl_hs_ok| if none. */
   enum ssl_hs_wait_t wait;
 
-  int state;
+  int tls13_state;
 
   size_t hash_len;
   uint8_t secret[EVP_MAX_MD_SIZE];
