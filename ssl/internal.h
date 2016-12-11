@@ -882,6 +882,12 @@ struct ssl_handshake_st {
    * or |ssl_hs_ok| if none. */
   enum ssl_hs_wait_t wait;
 
+  /* state contains one of the SSL3_ST_* values. */
+  int state;
+
+  /* next_state is used when SSL_ST_FLUSH_DATA is entered */
+  int next_state;
+
   /* tls13_state is the internal state for the TLS 1.3 handshake. Its values
    * depend on |do_tls13_handshake| but the starting state is always zero. */
   int tls13_state;
@@ -1495,9 +1501,6 @@ typedef struct ssl3_state_st {
     const SSL_CIPHER *new_cipher;
 
     int message_type;
-
-    /* used when SSL_ST_FLUSH_DATA is entered */
-    int next_state;
 
     int reuse_message;
 
