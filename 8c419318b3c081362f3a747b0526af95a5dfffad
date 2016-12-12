@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9035ab64_6588a020",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-12-12T16:49:46Z",
+      "side": 1,
+      "message": "Should this go in common?",
+      "range": {
+        "startLine": 24,
+        "startChar": 18,
+        "endLine": 24,
+        "endChar": 23
+      },
+      "revId": "8c419318b3c081362f3a747b0526af95a5dfffad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c0a735e_f80340e5",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-12-12T16:49:46Z",
+      "side": 1,
+      "message": "Can an enum be used to keep track of the early_data (accept/reject/ending/done) states?",
+      "range": {
+        "startLine": 44,
+        "startChar": 1,
+        "endLine": 44,
+        "endChar": 18
+      },
+      "revId": "8c419318b3c081362f3a747b0526af95a5dfffad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9035ab64_e59cb05f",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 1070,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-12-12T16:49:46Z",
+      "side": 1,
+      "message": "Add a comment about this check. Not sure whether its correct.",
+      "range": {
+        "startLine": 1070,
+        "startChar": 34,
+        "endLine": 1070,
+        "endChar": 38
+      },
+      "revId": "8c419318b3c081362f3a747b0526af95a5dfffad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
