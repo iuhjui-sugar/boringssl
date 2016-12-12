@@ -208,6 +208,11 @@ int tls13_process_certificate(SSL_HANDSHAKE *hs, int allow_anonymous) {
         ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_CERTIFICATE_REQUIRED);
         goto err;
       }
+      if (pkey->type == EVP_PKEY_EC &&
+          !ssl_cert_check_digital_signature_key_usage(&certificate)) {
+        ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
+        goto err;
+      }
 
       if (retain_sha256) {
         /* Retain the hash of the leaf certificate if requested. */
