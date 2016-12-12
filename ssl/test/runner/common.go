@@ -635,6 +635,10 @@ type ProtocolBugs struct {
 	// closed the connection) before or after sending app data.
 	AlertBeforeFalseStartTest alert
 
+	// ExpectHalfRTT, if true, causes the client to wait for application data
+	// to be sent by the server.
+	ExpectHalfRTT bool
+
 	// ExpectServerName, if not empty, is the hostname the client
 	// must specify in the server_name extension.
 	ExpectServerName string

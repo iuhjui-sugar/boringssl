@@ -524,6 +524,7 @@ static enum ssl_hs_wait_t do_flush(SSL *ssl, SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
+  hs->can_write = 1;
   hs->state = state_process_client_certificate;
   return ssl_hs_flush_and_read_message;
 }

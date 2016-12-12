@@ -826,6 +826,9 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 	clientTrafficSecret := hs.finishedHash.deriveSecret(masterSecret, clientApplicationTrafficLabel)
 	serverTrafficSecret := hs.finishedHash.deriveSecret(masterSecret, serverApplicationTrafficLabel)
 
+	// Switch to application data keys.
+	c.in.useTrafficSecret(c.vers, hs.suite, serverTrafficSecret, serverWrite)
+
 	if certReq != nil && !c.config.Bugs.SkipClientCertificate {
 		certMsg := &certificateMsg{
 			hasRequestContext: true,
@@ -890,6 +893,17 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 		finished.verifyData[0]++
 	}
 	hs.writeClientHash(finished.marshal())
+
+	if c.config.Bugs.ExpectHalfRTT {
+		if err := c.readRecord(recordTypeApplicationData); err != nil {
+			return fmt.Errorf("tls: peer did not send half RTT: %s", err)
+		} else {
+			fmt.Printf("!!!!\n")
+			c.halfData = c.input
+			c.input = nil
+		}
+	}
+
 	if c.config.Bugs.PartialClientFinishedWithClientHello {
 		// The first byte has already been sent.
 		c.writeRecord(recordTypeHandshake, finished.marshal()[1:])
@@ -909,7 +923,6 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 
 	// Switch to application data keys.
 	c.out.useTrafficSecret(c.vers, hs.suite, clientTrafficSecret, clientWrite)
-	c.in.useTrafficSecret(c.vers, hs.suite, serverTrafficSecret, serverWrite)
 
 	c.exporterSecret = hs.finishedHash.deriveSecret(masterSecret, exporterLabel)
 	c.resumptionSecret = hs.finishedHash.deriveSecret(masterSecret, resumptionLabel)

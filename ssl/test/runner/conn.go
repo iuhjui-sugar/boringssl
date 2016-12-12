@@ -79,6 +79,7 @@ type Conn struct {
 	in, out  halfConn     // in.Mutex < out.Mutex
 	rawInput *block       // raw input, right off the wire
 	input    *block       // application record waiting to be read
+	halfData *block       // Half-RTT application record
 	hand     bytes.Buffer // handshake record waiting to be read
 
 	// pendingFlight, if PackHandshakeFlight is enabled, is the buffer of
@@ -829,7 +830,7 @@ func (c *Conn) readRecord(want recordType) error {
 			return c.in.setErrorLocked(errors.New("tls: handshake or ChangeCipherSpec requested after handshake complete"))
 		}
 	case recordTypeApplicationData:
-		if !c.handshakeComplete && !c.config.Bugs.ExpectFalseStart {
+		if !c.handshakeComplete && !c.config.Bugs.ExpectFalseStart && !c.config.Bugs.ExpectHalfRTT {
 			c.sendAlert(alertInternalError)
 			return c.in.setErrorLocked(errors.New("tls: application data record requested before handshake complete"))
 		}
@@ -1473,6 +1474,12 @@ func (c *Conn) Read(b []byte) (n int, err error) {
 	const maxConsecutiveEmptyRecords = 100
 	for emptyRecordCount := 0; emptyRecordCount <= maxConsecutiveEmptyRecords; emptyRecordCount++ {
 		for c.input == nil && c.in.err == nil {
+			if c.halfData != nil {
+				c.input = c.halfData
+				c.halfData = nil
+				break
+			}
+
 			if err := c.readRecord(recordTypeApplicationData); err != nil {
 				// Soft error, like EAGAIN
 				return 0, err

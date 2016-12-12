@@ -764,7 +764,7 @@ int SSL_write(SSL *ssl, const void *buf, int num) {
   }
 
   /* If necessary, complete the handshake implicitly. */
-  if (SSL_in_init(ssl) && !SSL_in_false_start(ssl)) {
+  if (!SSL_can_write(ssl)) {
     int ret = SSL_do_handshake(ssl);
     if (ret < 0) {
       return ret;
@@ -2670,6 +2670,11 @@ int SSL_in_false_start(const SSL *ssl) {
     return 0;
   }
   return ssl->s3->hs->in_false_start;
+}
+
+int SSL_can_write(const SSL *ssl) {
+  return !SSL_in_init(ssl) || SSL_in_false_start(ssl) ||
+         (ssl->s3->hs != NULL && ssl->s3->hs->can_write);
 }
 
 int SSL_cutthrough_complete(const SSL *ssl) {

@@ -932,6 +932,10 @@ typedef struct ssl_handshake_st {
    * preferences. */
   unsigned accept_psk_mode:1;
 
+  /* can_write stores whether we've progressed far enough in the handshake to
+     be able to write. */
+  unsigned can_write:1;
+
   /* retry_group is the group ID selected by the server in HelloRetryRequest in
    * TLS 1.3. */
   uint16_t retry_group;

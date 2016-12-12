@@ -3507,6 +3507,24 @@ func addStateMachineCoverageTests(config stateMachineTestConfig) {
 			// Cover HelloRetryRequest during an ECDHE-PSK resumption.
 			resumeSession: true,
 		})
+
+		if config.async {
+			tests = append(tests, testCase{
+				testType: serverTest,
+				name:     "TLS13-HalfRTT-Server",
+				config: Config{
+					MaxVersion: VersionTLS13,
+					MinVersion: VersionTLS13,
+					Bugs: ProtocolBugs{
+						ExpectHalfRTT: true,
+					},
+				},
+				flags: []string{
+					"-implicit-handshake",
+				},
+				shimWritesFirst: true,
+			})
+		}
 	}
 
 	// TLS client auth.

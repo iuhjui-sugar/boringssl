@@ -1362,6 +1362,11 @@ OPENSSL_EXPORT int SSL_in_init(const SSL *ssl);
  * See also |SSL_MODE_ENABLE_FALSE_START|. */
 OPENSSL_EXPORT int SSL_in_false_start(const SSL *ssl);
 
+/* SSL_can_write returns one if |ssl| is in a state that data can be written.
+ * |SSL_write| may be called at this point without waiting for the peer, but
+ * |SSL_read| will complete the handshake before accepting application data. */
+OPENSSL_EXPORT int SSL_can_write(const SSL *ssl);
+
 /* SSL_get_peer_certificate returns the peer's leaf certificate or NULL if the
  * peer did not use certificates. The caller must call |X509_free| on the
  * result to release it. */

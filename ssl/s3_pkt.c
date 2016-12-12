@@ -188,7 +188,7 @@ again:
 }
 
 int ssl3_write_app_data(SSL *ssl, const void *buf, int len) {
-  assert(!SSL_in_init(ssl) || SSL_in_false_start(ssl));
+  assert(SSL_can_write(ssl));
 
   return ssl3_write_bytes(ssl, SSL3_RT_APPLICATION_DATA, buf, len);
 }
