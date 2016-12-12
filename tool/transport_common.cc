@@ -272,6 +272,15 @@ void PrintConnectionInfo(const SSL *ssl) {
     fprintf(stderr, "  Client sent SNI: %s\n", host_name);
   }
 
+  const uint8_t *ocsp_staple;
+  size_t ocsp_staple_len;
+  SSL_get0_ocsp_response(ssl, &ocsp_staple, &ocsp_staple_len);
+
+  bool stapled = ocsp_staple != nullptr && ocsp_staple_len > 0;
+  if (!SSL_is_server(ssl)) {
+    fprintf(stderr, "  OCSP staple: %s\n", stapled ? "yes" : "no");
+  }
+
   // Print the server cert subject and issuer names.
   bssl::UniquePtr<X509> peer(SSL_get_peer_certificate(ssl));
   if (peer != nullptr) {
