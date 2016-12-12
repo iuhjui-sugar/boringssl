@@ -254,10 +254,12 @@ SSL_CTX *SSL_CTX_new(const SSL_METHOD *method) {
   ret->session_cache_mode = SSL_SESS_CACHE_SERVER;
   ret->session_cache_size = SSL_SESSION_CACHE_MAX_SIZE_DEFAULT;
 
-  /* We take the system default */
-  ret->session_timeout = SSL_DEFAULT_SESSION_TIMEOUT;
-
   ret->references = 1;
+
+  ret->cfg = ssl_config_new();
+  if (ret->cfg == NULL) {
+    goto err;
+  }
 
   ret->max_cert_list = SSL_MAX_CERT_LIST_DEFAULT;
   ret->verify_mode = SSL_VERIFY_NONE;
@@ -367,6 +369,7 @@ void SSL_CTX_free(SSL_CTX *ctx) {
   CRYPTO_BUFFER_free(ctx->ocsp_response);
   OPENSSL_free(ctx->signed_cert_timestamp_list);
   EVP_PKEY_free(ctx->tlsext_channel_id_private);
+  ssl_config_free(ctx->cfg);
 
   OPENSSL_free(ctx);
 }
@@ -428,6 +431,9 @@ SSL *SSL_new(SSL_CTX *ctx) {
   CRYPTO_refcount_inc(&ctx->references);
   ssl->initial_ctx = ctx;
 
+  CRYPTO_refcount_inc(&ctx->cfg->references);
+  ssl->cfg = ctx->cfg;
+
   if (ctx->supported_group_list) {
     ssl->supported_group_list =
         BUF_memdup(ctx->supported_group_list,
@@ -477,13 +483,6 @@ SSL *SSL_new(SSL_CTX *ctx) {
       ssl->ctx->signed_cert_timestamps_enabled;
   ssl->ocsp_stapling_enabled = ssl->ctx->ocsp_stapling_enabled;
 
-  ssl->session_timeout = SSL_DEFAULT_SESSION_TIMEOUT;
-
-  /* If the context has a default timeout, use it over the default. */
-  if (ctx->session_timeout != 0) {
-    ssl->session_timeout = ctx->session_timeout;
-  }
-
   /* If the context has an OCSP response, use it. */
   if (ctx->ocsp_response != NULL) {
     CRYPTO_BUFFER_up_ref(ctx->ocsp_response);
@@ -532,6 +531,7 @@ void SSL_free(SSL *ssl) {
   sk_X509_NAME_pop_free(ssl->client_CA, X509_NAME_free);
   sk_SRTP_PROTECTION_PROFILE_free(ssl->srtp_profiles);
   CRYPTO_BUFFER_free(ssl->ocsp_response);
+  ssl_config_free(ssl->cfg);
 
   if (ssl->method != NULL) {
     ssl->method->ssl_free(ssl);
@@ -2282,6 +2282,10 @@ SSL_CTX *SSL_set_SSL_CTX(SSL *ssl, SSL_CTX *ctx) {
   assert(ssl->sid_ctx_length <= sizeof(ssl->sid_ctx));
   memcpy(ssl->sid_ctx, ctx->sid_ctx, sizeof(ssl->sid_ctx));
 
+  CRYPTO_refcount_inc(&ctx->cfg->references);
+  ssl_config_free(ssl->cfg);
+  ssl->cfg = ctx->cfg;
+
   return ssl->ctx;
 }
 
@@ -3041,4 +3045,54 @@ int SSL_set_min_version(SSL *ssl, uint16_t version) {
 
 int SSL_set_max_version(SSL *ssl, uint16_t version) {
   return SSL_set_max_proto_version(ssl, version);
+}
+
+SSL_CONFIG *ssl_config_new(void) {
+  SSL_CONFIG *ret = OPENSSL_malloc(sizeof(SSL_CONFIG));
+  if (ret == NULL) {
+    goto err;
+  }
+
+  ret->references = 1;
+  ret->session_timeout = SSL_DEFAULT_SESSION_TIMEOUT;
+
+  return ret;
+
+err:
+  ssl_config_free(ret);
+  return NULL;
+}
+
+void ssl_config_free(SSL_CONFIG *cfg) {
+  if (cfg == NULL ||
+      !CRYPTO_refcount_dec_and_test_zero(&cfg->references)) {
+    return;
+  }
+
+  OPENSSL_free(cfg);
+}
+
+int ssl_migrate_config(SSL *ssl) {
+  SSL_CONFIG *old_cfg = ssl->cfg;
+
+  /* SSL's config has already been migrated. */
+  if (ssl->ctx->cfg != old_cfg) {
+    return 1;
+  }
+
+  SSL_CONFIG *new_cfg = ssl_config_new();
+  if (new_cfg == NULL) {
+    goto err;
+  }
+
+  new_cfg->session_timeout = ssl->ctx->cfg->session_timeout;
+
+  ssl->cfg = new_cfg;
+
+  ssl_config_free(old_cfg);
+  return 1;
+
+err:
+  ssl_config_free(new_cfg);
+  return 0;
 }

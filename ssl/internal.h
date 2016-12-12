@@ -1185,6 +1185,19 @@ size_t tls12_get_verify_sigalgs(const SSL *ssl, const uint16_t **out);
  * to an alert to send. */
 int tls12_check_peer_sigalg(SSL *ssl, int *out_alert, uint16_t sigalg);
 
+/* SSL configuration. */
+
+struct ssl_config_st {
+  CRYPTO_refcount_t references;
+
+  /* session_timeout is the default lifetime in seconds of the session
+   * created in this connection. */
+  long session_timeout;
+};
+
+SSL_CONFIG *ssl_config_new(void);
+void ssl_config_free(SSL_CONFIG *cfg);
+int ssl_migrate_config(SSL *ssl);
 
 /* Underdocumented functions.
  *

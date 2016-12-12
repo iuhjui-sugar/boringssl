@@ -3858,10 +3858,6 @@ struct ssl_ctx_st {
    * SSL_accept which cache SSL_SESSIONS. */
   int session_cache_mode;
 
-  /* If timeout is not 0, it is the default timeout value set when SSL_new() is
-   * called.  This has been put in to make life easier to set things up */
-  long session_timeout;
-
   /* If this callback is not null, it will be called each time a session id is
    * added to the cache.  If this function returns 1, it means that the
    * callback will do a SSL_SESSION_free() when it has finished using it.
@@ -4058,6 +4054,9 @@ struct ssl_ctx_st {
    * TODO(agl): remove once node.js no longer references this. */
   STACK_OF(X509)* extra_certs;
   int freelist_max_len;
+
+  /* cfg holds the SSL configuration for connections created from this ctx. */
+  SSL_CONFIG *cfg;
 };
 
 typedef struct ssl_handshake_st SSL_HANDSHAKE;
@@ -4234,12 +4233,11 @@ struct ssl_st {
   /* TODO(agl): remove once node.js not longer references this. */
   int tlsext_status_type;
 
-  /* session_timeout is the default lifetime in seconds of the session
-   * created in this connection. */
-  long session_timeout;
-
   /* OCSP response to be sent to the client, if requested. */
   CRYPTO_BUFFER *ocsp_response;
+
+  /* cfg holds the SSL configuration for this connection. */
+  SSL_CONFIG *cfg;
 };
 
 

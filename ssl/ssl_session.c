@@ -467,7 +467,7 @@ int ssl_get_new_session(SSL_HANDSHAKE *hs, int is_server) {
   ssl_get_current_time(ssl, &now);
   session->time = now.tv_sec;
 
-  session->timeout = ssl->session_timeout;
+  session->timeout = ssl->cfg->session_timeout;
 
   session->ssl_version = ssl->version;
 
@@ -862,8 +862,8 @@ long SSL_CTX_set_timeout(SSL_CTX *ctx, long timeout) {
     return 0;
   }
 
-  long old_timeout = ctx->session_timeout;
-  ctx->session_timeout = timeout;
+  long old_timeout = ctx->cfg->session_timeout;
+  ctx->cfg->session_timeout = timeout;
   return old_timeout;
 }
 
@@ -872,12 +872,16 @@ long SSL_CTX_get_timeout(const SSL_CTX *ctx) {
     return 0;
   }
 
-  return ctx->session_timeout;
+  return ctx->cfg->session_timeout;
 }
 
 long SSL_set_session_timeout(SSL *ssl, long timeout) {
-  long old_timeout = ssl->session_timeout;
-  ssl->session_timeout = timeout;
+  if (!ssl_migrate_config(ssl)) {
+    return 0;
+  }
+
+  long old_timeout = ssl->cfg->session_timeout;
+  ssl->cfg->session_timeout = timeout;
   return old_timeout;
 }
 
