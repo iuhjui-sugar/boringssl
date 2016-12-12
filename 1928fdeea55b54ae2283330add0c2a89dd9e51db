@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a373f0d_4046cec5",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 885,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-12-12T20:56:25Z",
+      "side": 1,
+      "message": "If we are having two state variables here, might as well add a comment.",
+      "range": {
+        "startLine": 885,
+        "startChar": 6,
+        "endLine": 885,
+        "endChar": 17
+      },
+      "revId": "1928fdeea55b54ae2283330add0c2a89dd9e51db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
