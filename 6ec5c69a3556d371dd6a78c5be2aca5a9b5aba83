@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a373f0d_40452e8f",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 958,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-12T22:30:18Z",
+      "side": 1,
+      "message": "There\u0027s a second call to ssl_session_is_resumable in the TLS 1.3 code. Probably simpler to just put it in this function.",
+      "revId": "6ec5c69a3556d371dd6a78c5be2aca5a9b5aba83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed44573c_95fc2601",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1530,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-12T22:30:18Z",
+      "side": 1,
+      "message": "!\u003d NULL\n\n(You could also move this into the else block, though maybe that\u0027d be a little odd?)",
+      "revId": "6ec5c69a3556d371dd6a78c5be2aca5a9b5aba83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed44573c_750fba4f",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-12T22:30:18Z",
+      "side": 1,
+      "message": "if (ret-\u003ex509_chain \u003d\u003d NULL ||\n    !sk_X509_push(...)\n\n(Or are you fine relying on the fact that sk_push internally NULL-checks.)",
+      "revId": "6ec5c69a3556d371dd6a78c5be2aca5a9b5aba83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed44573c_5512be7c",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-12T22:30:18Z",
+      "side": 1,
+      "message": "Nit: Everywhere else we use /* ... */.\n\n(Although we know all our compilers don\u0027t care because we\u0027ve used these on accident before, so perhaps we should just switch? I dunno. Do you care?)",
+      "revId": "6ec5c69a3556d371dd6a78c5be2aca5a9b5aba83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a373f0d_804f36af",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1106,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-12T22:30:18Z",
+      "side": 1,
+      "message": "Worth adding an API that doesn\u0027t do this? I can switch Conscrypt to it and I\u0027m sure Kenny will be happy to avoid that crazy chain fixup logic.",
+      "revId": "6ec5c69a3556d371dd6a78c5be2aca5a9b5aba83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a373f0d_204aaaa0",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1109,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-12T22:30:18Z",
+      "side": 1,
+      "message": "This one may also fail on malloc failure.\n\n[It is a behavior change, for callers that care about mallocs, but they\u0027ll just interpret it as us dropping the intermediates on the floor, which is probably okay? I\u0027m sure we have worse bugs on malloc error.]",
+      "revId": "6ec5c69a3556d371dd6a78c5be2aca5a9b5aba83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed44573c_15083649",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-12T22:30:18Z",
+      "side": 1,
+      "message": "This commit is now false I imagine.",
+      "revId": "6ec5c69a3556d371dd6a78c5be2aca5a9b5aba83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
