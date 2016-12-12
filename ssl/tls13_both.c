@@ -206,7 +206,8 @@ int tls13_process_certificate(SSL *ssl, int allow_anonymous) {
              ssl->s3->new_session->peer_sha256);
     }
 
-    CRYPTO_BUFFER *buf = CRYPTO_BUFFER_new_from_CBS(&certificate, NULL);
+    CRYPTO_BUFFER *buf =
+        CRYPTO_BUFFER_new_from_CBS(&certificate, ssl->ctx->pool);
     if (buf == NULL) {
       ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
       OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
