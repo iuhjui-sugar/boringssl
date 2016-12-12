@@ -182,6 +182,7 @@ SSL_SESSION *SSL_SESSION_dup(SSL_SESSION *session, int dup_flags) {
     goto err;
   }
 
+  new_session->is_server = session->is_server;
   new_session->ssl_version = session->ssl_version;
   new_session->sid_ctx_length = session->sid_ctx_length;
   memcpy(new_session->sid_ctx, session->sid_ctx, session->sid_ctx_length);
@@ -327,6 +328,7 @@ void SSL_SESSION_free(SSL_SESSION *session) {
   OPENSSL_cleanse(session->session_id, sizeof(session->session_id));
   X509_free(session->x509_peer);
   sk_X509_pop_free(session->x509_chain, X509_free);
+  sk_X509_pop_free(session->x509_chain_without_leaf, X509_free);
   OPENSSL_free(session->tlsext_hostname);
   OPENSSL_free(session->tlsext_tick);
   OPENSSL_free(session->tlsext_signed_cert_timestamp_list);
@@ -462,14 +464,15 @@ int ssl_get_new_session(SSL_HANDSHAKE *hs, int is_server) {
     return 0;
   }
 
+  session->is_server = is_server;
+  session->ssl_version = ssl->version;
+
   /* Fill in the time from the |SSL_CTX|'s clock. */
   struct timeval now;
   ssl_get_current_time(ssl, &now);
   session->time = now.tv_sec;
 
   session->timeout = ssl->session_timeout;
-
-  session->ssl_version = ssl->version;
 
   if (is_server) {
     if (hs->ticket_expected) {
