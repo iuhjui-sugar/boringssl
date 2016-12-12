@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a373f0d_206e2a71",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-12T16:44:40Z",
+      "side": 1,
+      "message": "This needs to have a big scary warning in the comments that this doesn\u0027t actually work yet and is not safe to enable. Specifically, it will cause interop failures so long as we are doing \"the don\u0027t actually send early data\" thing to enable it on a server. Better it also put it under \"Obscure functions\". It doesn\u0027t shouldn\u0027t live in the set of core functions until it actually works.",
+      "revId": "2c116cc7545a2a63db2928b23dc2280aeaea00ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
