@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ba37f7d9_89c53f30",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-13T17:21:40Z",
+      "side": 1,
+      "message": "Added to the couple of changes that should affect memory usage. There\u0027ll be a couple more of those before we can stop holding X509 objects.",
+      "parentUuid": "ed44573c_15f11625",
+      "revId": "2e28ce5838cc00dbd78bb641abb5523e694cb912",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed44573c_35545217",
         "filename": "ssl/handshake_server.c",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2016-12-12T23:51:46Z",
       "side": 1,
       "message": "Do you think this would make sense as an early return now that there\u0027s nothing below it? No certs seems reasonably exceptional no matter how it\u0027s sliced.",
+      "revId": "2e28ce5838cc00dbd78bb641abb5523e694cb912",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba37f7d9_69ca1b40",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1511,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-13T17:21:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed44573c_35545217",
       "revId": "2e28ce5838cc00dbd78bb641abb5523e694cb912",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "ba37f7d9_29ac136b",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-13T17:21:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed44573c_f58f2a79",
+      "revId": "2e28ce5838cc00dbd78bb641abb5523e694cb912",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed44573c_757c1a89",
         "filename": "ssl/ssl_asn1.c",
         "patchSetId": 1
@@ -64,6 +118,24 @@
       "writtenOn": "2016-12-12T23:51:46Z",
       "side": 1,
       "message": "This could be ||\u0027d into the previous fine.",
+      "revId": "2e28ce5838cc00dbd78bb641abb5523e694cb912",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba37f7d9_09b94fa8",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-13T17:21:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed44573c_757c1a89",
       "revId": "2e28ce5838cc00dbd78bb641abb5523e694cb912",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "ba37f7d9_e9b5ebab",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-13T17:21:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed44573c_35829253",
+      "revId": "2e28ce5838cc00dbd78bb641abb5523e694cb912",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed44573c_35ee1242",
         "filename": "ssl/tls13_both.c",
         "patchSetId": 1
@@ -98,6 +188,24 @@
       "writtenOn": "2016-12-12T23:51:46Z",
       "side": 1,
       "message": "You could chain this and the above with || and it\u0027d work fine.",
+      "revId": "2e28ce5838cc00dbd78bb641abb5523e694cb912",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba37f7d9_c9e227bc",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-13T17:21:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed44573c_35ee1242",
       "revId": "2e28ce5838cc00dbd78bb641abb5523e694cb912",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
