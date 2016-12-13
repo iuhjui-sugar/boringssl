@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed44573c_403afe88",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 9774,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-13T23:22:30Z",
+      "side": 1,
+      "message": "Maybe a comment somewhere like:\n\nAn EC certificate with only the key agreement usage bit may be used with ECDH, but not ECDSA.",
+      "revId": "86e235a6a7e37146e581e8d2e41c52b5e15a27ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed44573c_203df27f",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-13T23:22:30Z",
+      "side": 1,
+      "message": "Probably worth a comment here too.\n\nOr perhaps should we just enforce it across the board now? We only ever do signatures in TLS 1.3 and there aren\u0027t any existing 1.3-capable antiviruses to care about breaking.",
+      "revId": "86e235a6a7e37146e581e8d2e41c52b5e15a27ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
