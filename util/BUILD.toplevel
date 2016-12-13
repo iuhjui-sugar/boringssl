@@ -45,6 +45,8 @@ boringssl_copts = [
     # ensure that binaries can be built with non-executable stack.
     "-Wa,--noexecstack",
 
+    "-DBORINGSSL_IMPLEMENTATION",
+
     # This is needed on Linux systems (at least) to get rwlock in pthread.
     "-D_XOPEN_SOURCE=700",
 
