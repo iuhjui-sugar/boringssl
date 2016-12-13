@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da0e6b7c_632162c5",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-13T22:59:59Z",
+      "side": 1,
+      "message": "Any reason not to just stash it straight onto hs-\u003epeer_pkey?",
+      "range": {
+        "startLine": 181,
+        "startChar": 12,
+        "endLine": 181,
+        "endChar": 16
+      },
+      "revId": "4a639d467663fb89e0949a324f92dc2daff326f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da0e6b7c_031cee90",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-13T22:59:59Z",
+      "side": 1,
+      "message": "SSL_AD_DECODE_ERROR?",
+      "range": {
+        "startLine": 208,
+        "startChar": 44,
+        "endLine": 208,
+        "endChar": 71
+      },
+      "revId": "4a639d467663fb89e0949a324f92dc2daff326f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
