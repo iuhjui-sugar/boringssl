@@ -132,7 +132,7 @@ BN_MONT_CTX *BN_MONT_CTX_new(void) {
     return NULL;
   }
 
-  memset(ret, 0, sizeof(BN_MONT_CTX));
+  OPENSSL_memset(ret, 0, sizeof(BN_MONT_CTX));
   BN_init(&ret->RR);
   BN_init(&ret->N);
 
@@ -281,7 +281,7 @@ static int BN_from_montgomery_word(BIGNUM *ret, BIGNUM *r,
 
   /* clear the top words of T */
   if (max > r->top) {
-    memset(&rp[r->top], 0, (max - r->top) * sizeof(BN_ULONG));
+    OPENSSL_memset(&rp[r->top], 0, (max - r->top) * sizeof(BN_ULONG));
   }
 
   r->top = max;
@@ -309,7 +309,7 @@ static int BN_from_montgomery_word(BIGNUM *ret, BIGNUM *r,
     uintptr_t m;
 
     v = bn_sub_words(rp, ap, np, nl) - carry;
-    /* if subtraction result is real, then trick unconditional memcpy below to
+    /* if subtraction result is real, then trick unconditional OPENSSL_memcpy below to
      * perform in-place "refresh" instead of actual copy. */
     m = (0u - (uintptr_t)v);
     nrp = (BN_ULONG *)(((uintptr_t)rp & ~m) | ((uintptr_t)ap & m));

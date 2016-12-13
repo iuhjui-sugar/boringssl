@@ -24,6 +24,7 @@
 #include <openssl/mem.h>
 #include <openssl/type_check.h>
 
+#include "../crypto/internal.h"
 #include "internal.h"
 
 
@@ -67,7 +68,7 @@ static void consume_buffer(SSL3_BUFFER *buf, size_t len) {
 
 static void clear_buffer(SSL3_BUFFER *buf) {
   OPENSSL_free(buf->buf);
-  memset(buf, 0, sizeof(SSL3_BUFFER));
+  OPENSSL_memset(buf, 0, sizeof(SSL3_BUFFER));
 }
 
 OPENSSL_COMPILE_ASSERT(DTLS1_RT_HEADER_LENGTH + SSL3_RT_MAX_ENCRYPTED_LENGTH <=
@@ -185,7 +186,7 @@ void ssl_read_buffer_consume(SSL *ssl, size_t len) {
 
   /* The TLS stack never reads beyond the current record, so there will never be
    * unconsumed data. If read-ahead is ever reimplemented,
-   * |ssl_read_buffer_discard| will require a |memcpy| to shift the excess back
+   * |ssl_read_buffer_discard| will require a |OPENSSL_memcpy| to shift the excess back
    * to the front of the buffer, to ensure there is enough space for the next
    * record. */
   assert(SSL_is_dtls(ssl) || len == 0 || buf->len == 0);
