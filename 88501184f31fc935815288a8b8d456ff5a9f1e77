@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da0e6b7c_e339d201",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 1897,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-13T18:59:58Z",
+      "side": 1,
+      "message": "[I think this actually should have been return -1 since these functions still believe they\u0027re returning a BIO-style return value. And we may as well replace al \u003d BLAH with ssl3_send_alert(..., BLAH) and lose all the gotos. But I can take a pass to clear through that stuff later.]",
+      "revId": "88501184f31fc935815288a8b8d456ff5a9f1e77",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da0e6b7c_232c8ac8",
+        "filename": "ssl/ssl_cert.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-13T18:59:58Z",
+      "side": 1,
+      "message": "Nit: Elsewhere comments are /* style */.",
+      "revId": "88501184f31fc935815288a8b8d456ff5a9f1e77",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
