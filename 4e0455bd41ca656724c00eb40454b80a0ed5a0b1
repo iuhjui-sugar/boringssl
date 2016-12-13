@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed44573c_002f1650",
+        "filename": "ssl/ssl_cert.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 666,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-13T23:18:47Z",
+      "side": 1,
+      "message": "This seems like it could fit on one line?",
+      "revId": "4e0455bd41ca656724c00eb40454b80a0ed5a0b1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed44573c_40111e17",
+        "filename": "ssl/ssl_cert.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 716,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-13T23:18:47Z",
+      "side": 1,
+      "message": "|| CBS_len(\u0026contents) \u003d\u003d 0?",
+      "revId": "4e0455bd41ca656724c00eb40454b80a0ed5a0b1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed44573c_e0420a0d",
+        "filename": "ssl/ssl_cert.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 729,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-13T23:18:47Z",
+      "side": 1,
+      "message": "[May be worth building something into CBS that knows how to poke at a BIT STRING at some point. I believe this is correct but if we cared about even bit 1, it\u0027d be more complicated.]",
+      "revId": "4e0455bd41ca656724c00eb40454b80a0ed5a0b1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed44573c_c0242e78",
+        "filename": "ssl/ssl_cert.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-13T23:18:47Z",
+      "side": 1,
+      "message": "Perhaps return 0 and s/err/parse_error/? Might not be worth bothering.",
+      "revId": "4e0455bd41ca656724c00eb40454b80a0ed5a0b1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed44573c_8086a632",
+        "filename": "ssl/ssl_cert.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 944,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-13T23:18:47Z",
+      "side": 1,
+      "message": "Probably can drop this TODO and replace with something like:\n\nECDSA and ECDH certificates use the same public key format. Instead, they are distinguished by the key usage extension in the certificate.",
+      "revId": "4e0455bd41ca656724c00eb40454b80a0ed5a0b1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
