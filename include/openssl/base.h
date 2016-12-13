@@ -321,6 +321,80 @@ typedef struct x509_trust_st X509_TRUST;
 typedef void *OPENSSL_BLOCK;
 
 
+/* Language bug workarounds.
+ *
+ * Most C standard library functions are undefined if passed NULL, even when the
+ * corresponding length is zero. This gives them (and, in turn, all functions
+ * which call them) surprising behavior on empty arrays. Some compilers will
+ * miscompile code due to this rule. See also
+ * https://www.imperialviolet.org/2016/06/26/nonnull.html
+ *
+ * If building BoringSSL itself, replace C standard library functions with more
+ * well-behaved versions.
+ *
+ * TODO(davidben): Once this language bug is fixed, get it fixed in all our
+ * compilers and remove this wart. */
+
+#if defined(BORINGSSL_IMPLEMENTATION)
+
+#include <string.h>
+
+static inline void *OPENSSL_memchr(const void *s, int c, size_t n) {
+  if (n == 0) {
+    return NULL;
+  }
+
+  return memchr(s, c, n);
+}
+
+static inline int OPENSSL_memcmp(const void *s1, const void *s2, size_t n) {
+  if (n == 0) {
+    return 0;
+  }
+
+  return memcmp(s1, s2, n);
+}
+
+static inline void *OPENSSL_memcpy(void *dst, const void *src, size_t n) {
+  if (n == 0) {
+    return dst;
+  }
+
+  return memcpy(dst, src, n);
+}
+
+static inline void *OPENSSL_memmove(void *dst, const void *src, size_t n) {
+  if (n == 0) {
+    return dst;
+  }
+
+  return memmove(dst, src, n);
+}
+
+static inline void *OPENSSL_memset(void *dst, int c, size_t n) {
+  if (n == 0) {
+    return dst;
+  }
+
+  return memset(dst, c, n);
+}
+
+/* In some toolchains, these are macros rather than proper functions. */
+#undef memchr
+#undef memcmp
+#undef memcpy
+#undef memmove
+#undef memset
+
+#define memchr OPENSSL_memchr
+#define memcmp OPENSSL_memcmp
+#define memcpy OPENSSL_memcpy
+#define memmove OPENSSL_memmove
+#define memset OPENSSL_memset
+
+#endif  /* BORINGSSL_IMPLEMENTATION */
+
+
 #if defined(__cplusplus)
 }  /* extern C */
 
