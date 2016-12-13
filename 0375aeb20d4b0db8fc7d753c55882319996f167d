@@ -22,6 +22,24 @@
       "revId": "0375aeb20d4b0db8fc7d753c55882319996f167d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da0e6b7c_43b0a68e",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-13T15:26:00Z",
+      "side": 1,
+      "message": "What would the bug be for? I doubt this will ever go away, realistically. GCC has already refused to fix this, citing the language standard. I think our only hope is if the C people see reason in a future revision, or wait for GCC and glibc to die.",
+      "parentUuid": "da0e6b7c_23a12a48",
+      "revId": "0375aeb20d4b0db8fc7d753c55882319996f167d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
