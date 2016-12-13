@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da0e6b7c_634fa2b0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-12-13T18:50:31Z",
+      "side": 1,
+      "message": "extension",
+      "range": {
+        "startLine": 7,
+        "startChar": 45,
+        "endLine": 7,
+        "endChar": 53
+      },
+      "revId": "8c8eb8c28e216cbb056260c3468d0de88e6072cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da0e6b7c_4354263f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-12-13T18:50:31Z",
+      "side": 1,
+      "message": "draft 18",
+      "range": {
+        "startLine": 13,
+        "startChar": 40,
+        "endLine": 13,
+        "endChar": 49
+      },
+      "revId": "8c8eb8c28e216cbb056260c3468d0de88e6072cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da0e6b7c_83557e3b",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-12-13T18:50:31Z",
+      "side": 1,
+      "message": "Seems repetitive:\n\nif (!SSL_is_dtls \u0026\u0026\n    !(short_header \u0026\u0026 aead_write_ctx !\u003d NULL) \u0026\u0026\n    ssl_needs_record_splitting) {\n  return ssl_record_prefix_len(ssl) + ...;\n}\nreturn ssl_record_prefix_len(ssl);",
+      "range": {
+        "startLine": 173,
+        "startChar": 0,
+        "endLine": 187,
+        "endChar": 3
+      },
+      "revId": "8c8eb8c28e216cbb056260c3468d0de88e6072cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da0e6b7c_e362721d",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-12-13T18:50:31Z",
+      "side": 1,
+      "message": "Add a method ssl_use_short_header(ssl, direction) that checks this condition.",
+      "range": {
+        "startLine": 194,
+        "startChar": 13,
+        "endLine": 195,
+        "endChar": 44
+      },
+      "revId": "8c8eb8c28e216cbb056260c3468d0de88e6072cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
