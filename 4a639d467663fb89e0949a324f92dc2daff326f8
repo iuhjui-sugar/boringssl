@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3a7867ff_156b5ed2",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-14T17:48:17Z",
+      "side": 1,
+      "message": "It should be updated in the same place as new_session-\u003ecerts, I feel. So if the code wrote into new_session-\u003ecerts directly then I think that would be ok, but then you have to write ssl-\u003es3-\u003enew_session-\u003ecerts all over the place. So I slightly prefer this.",
+      "parentUuid": "da0e6b7c_632162c5",
+      "range": {
+        "startLine": 181,
+        "startChar": 12,
+        "endLine": 181,
+        "endChar": 16
+      },
+      "revId": "4a639d467663fb89e0949a324f92dc2daff326f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da0e6b7c_031cee90",
         "filename": "ssl/tls13_both.c",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2016-12-13T22:59:59Z",
       "side": 1,
       "message": "SSL_AD_DECODE_ERROR?",
+      "range": {
+        "startLine": 208,
+        "startChar": 44,
+        "endLine": 208,
+        "endChar": 71
+      },
+      "revId": "4a639d467663fb89e0949a324f92dc2daff326f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a7867ff_35705ab8",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-14T17:48:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da0e6b7c_031cee90",
       "range": {
         "startLine": 208,
         "startChar": 44,
