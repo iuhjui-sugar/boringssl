@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ae73f57_40af6e61",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-14T22:00:26Z",
+      "side": 1,
+      "message": "Sadness. Alright, chatting with Adam, I think the plan is this:\n\n- Land this and test vectors because we should be giving the correct answer and, if point three fails, at least this means RSAZ-1024 will be on track to actually giving correct answers. Correct answers are pretty cool.\n- Then I\u0027ll go rip out RSAZ-512 since it only helps with 1024-bit RSA and, looking at the numbers, it\u0027s not pulling its weight.\n- Nothing external calls BN_mod_exp_mont_consttime. Unexport that and I\u0027ll see if I can just make BN_mod_exp_mont_consttime require its inputs be reduced. This is silly.",
+      "revId": "b3a1280e00cec615bacef61d7037e43124818fe3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
