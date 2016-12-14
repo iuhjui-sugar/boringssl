@@ -16,6 +16,24 @@
       "revId": "8c8b00ebf5b8a038179fde1657db5bcb8cba99e0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3a3354_e1c7c6fe",
+        "filename": "crypto/perlasm/x86_64-xlate.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-12-14T17:24:26Z",
+      "side": 1,
+      "message": "Yeah, this is incredibly awful...",
+      "parentUuid": "9a3a3354_a13f7e18",
+      "revId": "8c8b00ebf5b8a038179fde1657db5bcb8cba99e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
