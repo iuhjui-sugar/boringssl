@@ -451,3 +451,40 @@ int CBS_get_optional_asn1_bool(CBS *cbs, int *out, unsigned tag,
   }
   return 1;
 }
+
+int CBS_is_valid_asn1_bitstring(const CBS *cbs) {
+  CBS in = *cbs;
+  uint8_t unused;
+  if (!CBS_get_u8(&in, &unused) ||
+      unused > 7) {
+    return 0;
+  }
+
+  if (unused == 0) {
+    return 1;
+  }
+
+  /* All unused bits must exist and be zeros. */
+  uint8_t last;
+  if (!CBS_get_last_u8(&in, &last) ||
+      (last & ((1 << unused) - 1)) != 0) {
+    return 0;
+  }
+
+  return 1;
+}
+
+int CBS_asn1_bitstring_has_bit(const CBS *cbs, unsigned bit) {
+  if (!CBS_is_valid_asn1_bitstring(cbs)) {
+    return 0;
+  }
+
+  unsigned idx = (bit >> 3) + 1;
+  bit = 7 - (bit & 7);
+
+  /* Unused bits are zero, and this function does not distinguish between
+   * missing and unset bits. Thus it is sufficient to do a byte-level length
+   * check. */
+  return idx < CBS_len(cbs) &&
+         (CBS_data(cbs)[idx] & (1 << bit)) != 0;
+}
