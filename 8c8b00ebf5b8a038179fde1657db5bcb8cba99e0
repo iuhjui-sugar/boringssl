@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3a3354_a13f7e18",
+        "filename": "crypto/perlasm/x86_64-xlate.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-14T16:45:45Z",
+      "side": 1,
+      "message": "I believe what he is attempting to do is take a 32-bit unsigned number (perl numbers, like JS, are apparently some kind of floating point a priori) and sign-extend the 31st bit to treat it as negative. It appears perl numbers are floating point by default, but if you \u0027use integer\u0027 then shifts do signed shifts. However the size of the integer varies, hence this problem.\n\nIf your shifts act on int64_t, then (1 \u003c\u003c 31) \u003c\u003c 1 is non-zero and ($1 \u003c\u003c 32) \u003e\u003e 32 will perform the operation.\nIf your shifts act on int32_t, then (1 \u003c\u003c 31) \u003c\u003c 1 is zero. $1 \u003e\u003e 0 is not actually a no-op because it first casts to int32_t... thus doing what we want.\n\nhttp://perldoc.perl.org/perlop.html#Shift-Operators",
+      "revId": "8c8b00ebf5b8a038179fde1657db5bcb8cba99e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
