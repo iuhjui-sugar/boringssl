@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3a3354_41e9d238",
+        "filename": "tool/client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-14T19:41:36Z",
+      "side": 1,
+      "message": "select mutates its input FD_SET to tell you which FDs are readable. I think this ends up working because you\u0027ll never wake up for different sockets, but better to move lines 145 through 147 into the loop.",
+      "range": {
+        "startLine": 154,
+        "startChar": 32,
+        "endLine": 154,
+        "endChar": 40
+      },
+      "revId": "7e303c4004be68da8c7c606ce9abf279d386462b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3a3354_a1221eb9",
+        "filename": "tool/client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-14T19:41:36Z",
+      "side": 1,
+      "message": "\u003c\u003d",
+      "range": {
+        "startLine": 163,
+        "startChar": 16,
+        "endLine": 163,
+        "endChar": 17
+      },
+      "revId": "7e303c4004be68da8c7c606ce9abf279d386462b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3a3354_e1182691",
+        "filename": "tool/client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-14T19:41:36Z",
+      "side": 1,
+      "message": "clang-format",
+      "revId": "7e303c4004be68da8c7c606ce9abf279d386462b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3a3354_612df6a7",
+        "filename": "tool/client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-14T19:41:36Z",
+      "side": 1,
+      "message": "Since NewSessionCallback needs to work when either is missing, I think you can just configure both of these unconditionally.",
+      "revId": "7e303c4004be68da8c7c606ce9abf279d386462b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3a3354_2137eef5",
+        "filename": "tool/server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-14T19:41:36Z",
+      "side": 1,
+      "message": "result !\u003d true is just !result since it\u0027s a bool, but did you mean to write return result?",
+      "range": {
+        "startLine": 251,
+        "startChar": 9,
+        "endLine": 251,
+        "endChar": 23
+      },
+      "revId": "7e303c4004be68da8c7c606ce9abf279d386462b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
