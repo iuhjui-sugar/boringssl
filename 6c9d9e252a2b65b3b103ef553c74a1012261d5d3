@@ -1,0 +1,254 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1af2c318_00444818",
+        "filename": "crypto/bn/bn_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 749,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-15T22:34:52Z",
+      "side": 1,
+      "message": "No need to bother with a BN_CTX if it\u0027s not used.",
+      "range": {
+        "startLine": 749,
+        "startChar": 29,
+        "endLine": 749,
+        "endChar": 40
+      },
+      "revId": "6c9d9e252a2b65b3b103ef553c74a1012261d5d3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1af2c318_80217864",
+        "filename": "crypto/bn/bn_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-15T22:34:52Z",
+      "side": 1,
+      "message": "This can get declared where it\u0027s used.",
+      "revId": "6c9d9e252a2b65b3b103ef553c74a1012261d5d3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1af2c318_e0315cb4",
+        "filename": "crypto/bn/bn_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-15T22:34:52Z",
+      "side": 1,
+      "message": "if (!x || !y) {\n   return false;\n }\n\n(This can only happen on malloc failure, but we have a we have a mode to explore all malloc failures which gets run every now and then.)",
+      "revId": "6c9d9e252a2b65b3b103ef553c74a1012261d5d3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1af2c318_4017700a",
+        "filename": "crypto/bn/bn_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 767,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-15T22:34:52Z",
+      "side": 1,
+      "message": "Nit: 80 chars.",
+      "revId": "6c9d9e252a2b65b3b103ef553c74a1012261d5d3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1af2c318_601eec25",
+        "filename": "crypto/bn/bn_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 779,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-15T22:34:52Z",
+      "side": 1,
+      "message": "We usually prefer instead:\n\n   encoded_size \u003d BN_bn2le(x.get(), out);\n   if (!encoded_size) {\n     ...",
+      "revId": "6c9d9e252a2b65b3b103ef553c74a1012261d5d3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1af2c318_c049c036",
+        "filename": "crypto/bn/bn_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 784,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-15T22:34:52Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "6c9d9e252a2b65b3b103ef553c74a1012261d5d3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1af2c318_8013380c",
+        "filename": "crypto/bn/convert.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-15T22:34:52Z",
+      "side": 1,
+      "message": "Bad ideas: we only support little-endian machines. All this could literally just be memcpys and memsets I think.",
+      "revId": "6c9d9e252a2b65b3b103ef553c74a1012261d5d3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1af2c318_a0f914a8",
+        "filename": "crypto/bn/convert.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-15T22:34:52Z",
+      "side": 1,
+      "message": "Move declarations to their use, a la C99. Notably, num_words ought to be after the len \u003d\u003d 0 check so it\u0027s more obvious the underflow isn\u0027t a problem.\n\n(A lot of existing code doesn\u0027t do this because we inherited it from OpenSSL, or it was written before we realized our compilers all implemented this part of C99.)",
+      "revId": "6c9d9e252a2b65b3b103ef553c74a1012261d5d3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1af2c318_e0483c30",
+        "filename": "crypto/bn/convert.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-15T22:34:52Z",
+      "side": 1,
+      "message": "bn !\u003d NULL",
+      "range": {
+        "startLine": 141,
+        "startChar": 8,
+        "endLine": 141,
+        "endChar": 10
+      },
+      "revId": "6c9d9e252a2b65b3b103ef553c74a1012261d5d3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1af2c318_403e507c",
+        "filename": "crypto/bn/convert.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-15T22:34:52Z",
+      "side": 1,
+      "message": "NIt: Period at end, /* C-style */",
+      "revId": "6c9d9e252a2b65b3b103ef553c74a1012261d5d3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1af2c318_203b448c",
+        "filename": "crypto/bn/convert.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-15T22:34:52Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "6c9d9e252a2b65b3b103ef553c74a1012261d5d3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1af2c318_60354c92",
+        "filename": "crypto/bn/convert.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-15T22:34:52Z",
+      "side": 1,
+      "message": "Probably can just omit this comment. I was going to say it should use complete sentences and that I have no idea what a \"-ve number\" is, but bn_correct_top() is probably self-explanatory enough.\n\n(I realize this was probably copied from the other function. I\u0027m guessing we inherited this one from upstream and never got to touching it. :-) )",
+      "revId": "6c9d9e252a2b65b3b103ef553c74a1012261d5d3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1af2c318_00ff288a",
+        "filename": "crypto/bn/convert.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-15T22:34:52Z",
+      "side": 1,
+      "message": "size_t n \u003d BN_num_bytes(in);\nfor (size_t i \u003d 0; i \u003c n; i++) {\n  BN_ULONG l \u003d [...]",
+      "revId": "6c9d9e252a2b65b3b103ef553c74a1012261d5d3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1af2c318_400930e0",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-15T22:34:52Z",
+      "side": 1,
+      "message": "The output pointer without a length is a little scary. What if you made it like BN_bn2bin_padded where you get to pick the size and we\u0027ll just zero-pad as needed? Looking at how you\u0027re using it in Android, it\u0027d probably work better there too.\n\n(Don\u0027t worry about the silly \"constant-time\" thing with BN_bn2bin_padded. Honestly, we should probably change that. If we\u0027re worried about timing attacks we\u0027ve already lost because of how bn-\u003etop is set.)",
+      "revId": "6c9d9e252a2b65b3b103ef553c74a1012261d5d3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
