@@ -498,7 +498,7 @@ int ssl3_accept(SSL_HANDSHAKE *hs) {
         ssl_free_wbio_buffer(ssl);
 
         ssl->s3->initial_handshake_complete = 1;
-        ssl_update_cache(hs, SSL_SESS_CACHE_SERVER);
+        ssl_update_cache_server(hs);
 
         ssl_do_info_callback(ssl, SSL_CB_HANDSHAKE_DONE, 1);
         ret = 1;

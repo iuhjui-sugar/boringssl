@@ -1731,7 +1731,8 @@ const struct ssl_cipher_preference_list_st *ssl_get_cipher_preferences(
 
 int ssl_verify_cert_chain(SSL *ssl, long *out_verify_result,
                           STACK_OF(X509) * cert_chain);
-void ssl_update_cache(SSL_HANDSHAKE *hs, int mode);
+void ssl_update_cache_server(SSL_HANDSHAKE *hs);
+void ssl_update_cache_client(SSL_HANDSHAKE *hs);
 
 int ssl_verify_alarm_type(long type);
 

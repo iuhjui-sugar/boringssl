@@ -534,7 +534,7 @@ int ssl3_connect(SSL_HANDSHAKE *hs) {
         ssl->s3->initial_handshake_complete = 1;
         if (is_initial_handshake) {
           /* Renegotiations do not participate in session resumption. */
-          ssl_update_cache(hs, SSL_SESS_CACHE_CLIENT);
+          ssl_update_cache_client(hs);
         }
 
         ret = 1;

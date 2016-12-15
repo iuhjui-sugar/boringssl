@@ -2061,12 +2061,36 @@ size_t SSL_get0_certificate_types(SSL *ssl, const uint8_t **out_types) {
   return ssl->s3->hs->num_certificate_types;
 }
 
-void ssl_update_cache(SSL_HANDSHAKE *hs, int mode) {
+void ssl_update_cache_client(SSL_HANDSHAKE *hs) {
+  SSL *const ssl = hs->ssl;
+  SSL_CTX *ctx = ssl->initial_ctx;
+
+  /* Never cache sessions with empty session IDs. */
+  if (ssl->s3->established_session->session_id_length == 0) {
+    return;
+  }
+
+  /* A client may see new sessions on abbreviated handshakes if the server
+   * decides to renew the ticket. Once the handshake is completed, it should be
+   * inserted into the cache. */
+  if (ssl->s3->established_session != ssl->session ||
+      (!ssl->server && hs->ticket_expected)) {
+    if (ctx->new_session_cb != NULL) {
+      SSL_SESSION_up_ref(ssl->s3->established_session);
+      if (!ctx->new_session_cb(ssl, ssl->s3->established_session)) {
+        /* |new_session_cb|'s return value signals whether it took ownership. */
+        SSL_SESSION_free(ssl->s3->established_session);
+      }
+    }
+  }
+}
+
+void ssl_update_cache_server(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
   SSL_CTX *ctx = ssl->initial_ctx;
   /* Never cache sessions with empty session IDs. */
   if (ssl->s3->established_session->session_id_length == 0 ||
-      (ctx->session_cache_mode & mode) != mode) {
+      !(ctx->session_cache_mode & SSL_SESS_CACHE_SERVER)) {
     return;
   }
 
