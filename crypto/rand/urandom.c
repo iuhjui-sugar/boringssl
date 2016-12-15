@@ -240,9 +240,19 @@ static struct rand_buffer *get_thread_local_buffer(void) {
 /* fill_with_entropy writes |len| bytes of entropy into |out|. It returns one
  * on success and zero on error. */
 static char fill_with_entropy(uint8_t *out, size_t len) {
-  ssize_t r;
+#if defined(USE_SYS_getrandom) && defined(has_feature)
+#if __has_feature(memory_sanitizer)
+  if (urandom_fd == kHaveGetrandom) {
+    /* MSAN doesn't recognise |syscall| and thus doesn't notice that we
+     * have initialised the output buffer. */
+    memset(out, 0, len);
+  }
+#endif  /* memory_sanitizer */
+#endif  /* USE_SYS_getrandom && has_feature */
 
   while (len > 0) {
+    ssize_t r;
+
     if (urandom_fd == kHaveGetrandom) {
 #if defined(USE_SYS_getrandom)
       do {
