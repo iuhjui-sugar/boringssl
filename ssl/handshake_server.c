@@ -498,7 +498,7 @@ int ssl3_accept(SSL_HANDSHAKE *hs) {
         ssl_free_wbio_buffer(ssl);
 
         ssl->s3->initial_handshake_complete = 1;
-        ssl_update_cache(hs, SSL_SESS_CACHE_SERVER);
+        ssl_update_cache_server(hs);
 
         ssl_do_info_callback(ssl, SSL_CB_HANDSHAKE_DONE, 1);
         ret = 1;
@@ -1982,3 +1982,55 @@ static int ssl3_send_new_session_ticket(SSL_HANDSHAKE *hs) {
   hs->state = SSL3_ST_SW_SESSION_TICKET_B;
   return ssl->method->write_message(ssl);
 }
+
+
+void ssl_update_cache_server(SSL_HANDSHAKE *hs) {
+  SSL *const ssl = hs->ssl;
+  SSL_CTX *ctx = ssl->initial_ctx;
+  /* Never cache sessions with empty session IDs. */
+  if (ssl->s3->established_session->session_id_length == 0 ||
+      !(ctx->session_cache_mode & SSL_SESS_CACHE_SERVER)) {
+    return;
+  }
+
+  /* Clients never use the internal session cache. */
+  int use_internal_cache = ssl->server && !(ctx->session_cache_mode &
+                                            SSL_SESS_CACHE_NO_INTERNAL_STORE);
+
+  /* A client may see new sessions on abbreviated handshakes if the server
+   * decides to renew the ticket. Once the handshake is completed, it should be
+   * inserted into the cache. */
+  if (ssl->s3->established_session != ssl->session ||
+      (!ssl->server && hs->ticket_expected)) {
+    if (use_internal_cache) {
+      SSL_CTX_add_session(ctx, ssl->s3->established_session);
+    }
+    if (ctx->new_session_cb != NULL) {
+      SSL_SESSION_up_ref(ssl->s3->established_session);
+      if (!ctx->new_session_cb(ssl, ssl->s3->established_session)) {
+        /* |new_session_cb|'s return value signals whether it took ownership. */
+        SSL_SESSION_free(ssl->s3->established_session);
+      }
+    }
+  }
+
+  if (use_internal_cache &&
+      !(ctx->session_cache_mode & SSL_SESS_CACHE_NO_AUTO_CLEAR)) {
+    /* Automatically flush the internal session cache every 255 connections. */
+    int flush_cache = 0;
+    CRYPTO_MUTEX_lock_write(&ctx->lock);
+    ctx->handshakes_since_cache_flush++;
+    if (ctx->handshakes_since_cache_flush >= 255) {
+      flush_cache = 1;
+      ctx->handshakes_since_cache_flush = 0;
+    }
+    CRYPTO_MUTEX_unlock_write(&ctx->lock);
+
+    if (flush_cache) {
+      struct timeval now;
+      ssl_get_current_time(ssl, &now);
+      SSL_CTX_flush_sessions(ctx, (long)now.tv_sec);
+    }
+  }
+}
+

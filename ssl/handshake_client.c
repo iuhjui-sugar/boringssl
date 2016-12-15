@@ -534,7 +534,7 @@ int ssl3_connect(SSL_HANDSHAKE *hs) {
         ssl->s3->initial_handshake_complete = 1;
         if (is_initial_handshake) {
           /* Renegotiations do not participate in session resumption. */
-          ssl_update_cache(hs, SSL_SESS_CACHE_CLIENT);
+          ssl_update_cache_client(hs);
         }
 
         ret = 1;
@@ -1910,3 +1910,25 @@ err:
   }
   return -1;
 }
+
+void ssl_update_cache_client(SSL_HANDSHAKE *hs) {
+  SSL *const ssl = hs->ssl;
+  SSL_CTX *ctx = ssl->initial_ctx;
+  SSL_SESSION *session = ssl->s3->established_session;
+
+  /* A client may see new sessions on abbreviated handshakes if the server
+   * decides to renew the ticket. Once the handshake is completed, it should be
+   * inserted into the cache. */
+  if (session->session_id_length != 0) {
+    if (session != ssl->session || (!ssl->server && hs->ticket_expected)) {
+      if (ctx->new_session_cb != NULL) {
+        SSL_SESSION_up_ref(ssl->s3->established_session);
+        if (!ctx->new_session_cb(ssl, session)) {
+          /* |new_session_cb|'s return value signals whether it took ownership. */
+          SSL_SESSION_free(session);
+        }
+      }
+    }
+  }
+}
+
