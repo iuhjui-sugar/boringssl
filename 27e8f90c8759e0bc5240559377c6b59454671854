@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1af2c318_00d1e80f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-15T22:48:49Z",
+      "side": 1,
+      "message": "Since this is a public API change, I think it\u0027s worth elaborating something like:\n\nThis decouples SSL_SESS_CACHE_CLIENT from new_session_cb. We assume that, if the\ncaller supplied the callback, they intend to accept sessions.",
+      "revId": "27e8f90c8759e0bc5240559377c6b59454671854",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1af2c318_60e70cf6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-15T22:48:49Z",
+      "side": 1,
+      "message": "BUG\u003d100",
+      "revId": "27e8f90c8759e0bc5240559377c6b59454671854",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1af2c318_e0d5dcfb",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 2064,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-15T22:48:49Z",
+      "side": 1,
+      "message": "If were splitting these up, go ahead and just put them in handshake_{client,server}.c. Also I think some more checks around ssl-\u003eserver can go away.\n\n(If you still feel inspired after that, this code can probably be cleaned up a bit to with early returns...)",
+      "revId": "27e8f90c8759e0bc5240559377c6b59454671854",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
