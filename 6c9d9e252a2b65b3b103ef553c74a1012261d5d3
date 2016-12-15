@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "7ae73f57_03d1f00f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-15T22:35:59Z",
+      "side": 1,
+      "message": "If you add a BUG\u003d97 line, it\u0027ll staple to the relevant bug when it goes in.",
+      "revId": "6c9d9e252a2b65b3b103ef553c74a1012261d5d3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1af2c318_00444818",
         "filename": "crypto/bn/bn_test.cc",
         "patchSetId": 4
