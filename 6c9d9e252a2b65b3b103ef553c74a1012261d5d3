@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1af2c318_40f010ae",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-15T22:38:06Z",
+      "side": 1,
+      "message": "Oh, I guess you already have a \"Reference:\" line. BUG\u003d... is what will get parsed by our infra. (It\u0027s Chromium-based.)",
+      "parentUuid": "7ae73f57_03d1f00f",
+      "revId": "6c9d9e252a2b65b3b103ef553c74a1012261d5d3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1af2c318_00444818",
         "filename": "crypto/bn/bn_test.cc",
         "patchSetId": 4
