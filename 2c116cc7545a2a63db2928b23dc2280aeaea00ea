@@ -16,6 +16,24 @@
       "revId": "2c116cc7545a2a63db2928b23dc2280aeaea00ea",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7ae73f57_e377ac3d",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-12-15T16:33:27Z",
+      "side": 1,
+      "message": "This is actually mostly safe for now, since the client will try doing 0RTT, and we\u0027ll ignore it and skip over early data. The next CL is the unsafe one.",
+      "parentUuid": "7a373f0d_206e2a71",
+      "revId": "2c116cc7545a2a63db2928b23dc2280aeaea00ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
