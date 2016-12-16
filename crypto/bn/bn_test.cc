@@ -1555,7 +1555,7 @@ static bool TestBN2Dec() {
   return true;
 }
 
-static bool TestBNSetU64() {
+static bool TestBNSetGetU64() {
   static const struct {
     const char *hex;
     uint64_t value;
@@ -1572,7 +1572,8 @@ static bool TestBNSetU64() {
     if (!bn ||
         !BN_set_u64(bn.get(), test.value) ||
         !HexToBIGNUM(&expected, test.hex) ||
-        BN_cmp(bn.get(), expected.get()) != 0) {
+        BN_cmp(bn.get(), expected.get()) != 0 ||
+        BN_get_u64(bn.get()) != test.value) {
       fprintf(stderr, "BN_set_u64 test failed for 0x%s.\n", test.hex);
       ERR_print_errors_fp(stderr);
       return false;
@@ -1609,7 +1610,7 @@ int main(int argc, char *argv[]) {
       !TestSmallPrime(ctx.get()) ||
       !TestCmpWord() ||
       !TestBN2Dec() ||
-      !TestBNSetU64()) {
+      !TestBNSetGetU64()) {
     return 1;
   }
 

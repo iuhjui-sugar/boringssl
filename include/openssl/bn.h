@@ -318,6 +318,11 @@ OPENSSL_EXPORT int BN_print_fp(FILE *fp, const BIGNUM *a);
  * will be returned. */
 OPENSSL_EXPORT BN_ULONG BN_get_word(const BIGNUM *bn);
 
+/* BN_get_word returns the absolute value of |bn| as a single uint64_t. If |bn| is
+ * too large to be represented as a single uint64_t, the maximum possible value
+ * will be returned. */
+OPENSSL_EXPORT BN_ULONG BN_get_u64(const BIGNUM *bn);
+
 
 /* ASN.1 functions. */
 
