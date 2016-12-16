@@ -222,6 +222,18 @@ int ssl3_connect(SSL_HANDSHAKE *hs) {
         }
 
         if (!SSL_is_dtls(ssl) || ssl->d1->send_cookie) {
+          if (hs->early_data_state == ssl_early_data_accept) {
+            ssl->version = ssl->method->version_to_wire(TLS1_3_VERSION);
+            ssl->s3->have_version = 1;
+            if (!tls13_init_early_key_schedule(hs) ||
+                !tls13_set_traffic_key(ssl, evp_aead_seal, hs->early_secret,
+                                       hs->hash_len)) {
+              ssl->s3->have_version = 0;
+              ret = -1;
+              goto end;
+            }
+            ssl->s3->have_version = 0;
+          }
           hs->next_state = SSL3_ST_CR_SRVR_HELLO_A;
         } else {
           hs->next_state = DTLS1_ST_CR_HELLO_VERIFY_REQUEST_A;

@@ -821,6 +821,10 @@ int ssl_check_leaf_certificate(SSL *ssl, EVP_PKEY *pkey,
  * It returns one on success and zero on error. */
 int tls13_init_key_schedule(SSL_HANDSHAKE *hs);
 
+/* tls13_init_early_key_schedule initializes the handshake hash and key
+ * derivation state. It returns one on success and zero on error. */
+int tls13_init_early_key_schedule(SSL_HANDSHAKE *hs);
+
 /* tls13_advance_key_schedule incorporates |in| into the key schedule with
  * HKDF-Extract. It returns one on success and zero on error. */
 int tls13_advance_key_schedule(SSL_HANDSHAKE *hs, const uint8_t *in,
