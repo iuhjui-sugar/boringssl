@@ -40,6 +40,23 @@
       "revId": "0375aeb20d4b0db8fc7d753c55882319996f167d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa6fafa9_c36d2075",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-16T19:13:13Z",
+      "side": 1,
+      "message": "What went wrong with the search-and-replace?",
+      "revId": "0375aeb20d4b0db8fc7d753c55882319996f167d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
