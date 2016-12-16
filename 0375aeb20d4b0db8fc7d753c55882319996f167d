@@ -57,6 +57,24 @@
       "revId": "0375aeb20d4b0db8fc7d753c55882319996f167d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a2fdb70_27ed1ad8",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-16T19:26:09Z",
+      "side": 1,
+      "message": "It\u0027s a lot of core standard library functions we\u0027d be OPENSSL_-prefixing. Also we use them a lot and it seemed a little annoying to have to remember which functions were and weren\u0027t prefixed for new code.\n\n$ git grep -w memchr | wc -l\n      12\n$ git grep -w memcmp | wc -l\n     140\n$ git grep -w memcpy | wc -l\n     327\n$ git grep -w memmove | wc -l\n      16\n$ git grep -w memset | wc -l\n     242\n\n...although I\u0027m not entirely sure why I was doing those by hand rather than sed and clang-format. That was silly. I\u0027ll upload a version that does. I blame the 1am version of me.  :-)",
+      "parentUuid": "fa6fafa9_c36d2075",
+      "revId": "0375aeb20d4b0db8fc7d753c55882319996f167d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
