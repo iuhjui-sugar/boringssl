@@ -44,6 +44,26 @@ int tls13_init_key_schedule(SSL_HANDSHAKE *hs) {
   return 1;
 }
 
+int tls13_init_early_key_schedule(SSL_HANDSHAKE *hs) {
+  SSL *const ssl = hs->ssl;
+  ssl->s3->tmp.new_cipher = ssl->session->cipher;
+  const EVP_MD *digest = ssl_get_handshake_digest(ssl_get_algorithm_prf(ssl));
+
+  hs->hash_len = EVP_MD_size(digest);
+
+  /* Initialize the secret to the zero key. */
+  memset(hs->secret, 0, hs->hash_len);
+
+  /* Initialize the rolling hashes and release the handshake buffer. */
+  if (!ssl3_init_handshake_hash(ssl)) {
+    return 0;
+  }
+
+  return tls13_advance_key_schedule(hs, ssl->session->master_key,
+                                    ssl->session->master_key_length) &&
+         tls13_derive_early_secrets(hs);
+}
+
 int tls13_advance_key_schedule(SSL_HANDSHAKE *hs, const uint8_t *in,
                                size_t len) {
   const EVP_MD *digest =
