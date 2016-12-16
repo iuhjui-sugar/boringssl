@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a2fdb70_87db263b",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-16T19:21:08Z",
+      "side": 1,
+      "message": "I believe ASan will actually tolerate assembly, unlike MSan. But it\u0027s also all but strictly more useful to tie them together so this is probably better.",
+      "revId": "4a1e30dcfc221d27b6bbe17bb8bbaa860149de2e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
