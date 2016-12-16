@@ -1550,7 +1550,7 @@ static bool TestBN2Dec() {
   return true;
 }
 
-static bool TestBNSetU64() {
+static bool TestBNSetGetU64() {
   static const struct {
     const char *hex;
     uint64_t value;
@@ -1562,14 +1562,47 @@ static bool TestBNSetU64() {
       {"ffffffffffffffff", UINT64_C(0xffffffffffffffff)},
   };
 
+  /* Test BN_set_u64 and BN_get_u64 on standard edge cases */
   for (const auto& test : kU64Tests) {
     bssl::UniquePtr<BIGNUM> bn(BN_new()), expected;
     if (!bn ||
         !BN_set_u64(bn.get(), test.value) ||
         !HexToBIGNUM(&expected, test.hex) ||
-        BN_cmp(bn.get(), expected.get()) != 0) {
+         BN_cmp(bn.get(), expected.get())) {
       fprintf(stderr, "BN_set_u64 test failed for 0x%s.\n", test.hex);
       ERR_print_errors_fp(stderr);
+      return false;
+    }
+
+    uint64_t tmp;
+    if (!BN_get_u64(bn.get(), &tmp) || tmp != test.value) {
+      fprintf(stderr, "BN_get_u64 test failed for 0x%s.\n", test.hex);
+      return false;
+    }
+  }
+
+  /* Test BN_set_u64 and BN_get_u64 on random values */
+  for (int bits = 0; bits < 64; bits++) {
+    bssl::UniquePtr<BIGNUM> random(BN_new()), result(BN_new());
+    uint64_t tmp;
+
+    if (!random || !result) {
+      fprintf(stderr, "BN_set_u64 test failed when calling BN_new\n");
+      return false;
+    }
+
+    if (!BN_rand(random.get(), bits, BN_RAND_TOP_ANY, BN_RAND_BOTTOM_ANY)) {
+      fprintf(stderr, "BN_set_u64 test failed when calling BN_rand\n");
+      return false;
+    }
+
+    // Make sure we round-trip
+    if(!BN_get_u64(random.get(), &tmp) ||
+       !BN_set_u64(result.get(), tmp) ||
+        BN_cmp(random.get(), result.get())) {
+      fprintf(stderr, "BN_set_u64 and BN_get_u64 failed to round-trip\n");
+      hexdump(stderr, "Expected: ", random.get()->d, sizeof(uint64_t));
+      hexdump(stderr, "Got:      ", result.get()->d, sizeof(uint64_t));
       return false;
     }
   }
@@ -1604,7 +1637,7 @@ int main(int argc, char *argv[]) {
       !TestSmallPrime(ctx.get()) ||
       !TestCmpWord() ||
       !TestBN2Dec() ||
-      !TestBNSetU64()) {
+      !TestBNSetGetU64()) {
     return 1;
   }
 
