@@ -176,6 +176,11 @@ int tls13_set_traffic_key(SSL *ssl, enum evp_aead_direction_t direction,
   return 1;
 }
 
+static const char kTLS13LabelExporter[] = "exporter master secret";
+static const char kTLS13LabelEarlyExporter[] = "early exporter master secret";
+
+static const char kTLS13LabelClientEarlyTraffic[] =
+    "client early traffic secret";
 static const char kTLS13LabelClientHandshakeTraffic[] =
     "client handshake traffic secret";
 static const char kTLS13LabelServerHandshakeTraffic[] =
@@ -184,6 +189,18 @@ static const char kTLS13LabelClientApplicationTraffic[] =
     "client application traffic secret";
 static const char kTLS13LabelServerApplicationTraffic[] =
     "server application traffic secret";
+
+int tls13_derive_early_secrets(SSL_HANDSHAKE *hs) {
+  SSL *const ssl = hs->ssl;
+  return derive_secret(hs, hs->early_secret, hs->hash_len,
+                       (const uint8_t *)kTLS13LabelClientEarlyTraffic,
+                       strlen(kTLS13LabelClientEarlyTraffic)) &&
+         ssl_log_secret(ssl, "CLIENT_EARLY_TRAFFIC_SECRET", hs->early_secret,
+                        hs->hash_len) &&
+         derive_secret(hs, ssl->s3->early_exporter_secret, hs->hash_len,
+                       (const uint8_t *)kTLS13LabelEarlyExporter,
+                       strlen(kTLS13LabelEarlyExporter));
+}
 
 int tls13_derive_handshake_secrets(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
@@ -198,8 +215,6 @@ int tls13_derive_handshake_secrets(SSL_HANDSHAKE *hs) {
          ssl_log_secret(ssl, "SERVER_HANDSHAKE_TRAFFIC_SECRET",
                         hs->server_handshake_secret, hs->hash_len);
 }
-
-static const char kTLS13LabelExporter[] = "exporter master secret";
 
 int tls13_derive_application_secrets(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;

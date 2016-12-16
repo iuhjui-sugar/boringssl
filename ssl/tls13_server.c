@@ -42,6 +42,8 @@ enum server_hs_state_t {
   state_complete_server_certificate_verify,
   state_send_server_finished,
   state_flush,
+  state_process_second_client_flight,
+  state_process_end_of_early_data,
   state_process_client_certificate,
   state_process_client_certificate_verify,
   state_process_channel_id,
@@ -287,6 +289,18 @@ static enum ssl_hs_wait_t do_select_parameters(SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
+  if (hs->received_early_data_extension) {
+    /* TODO(svaldez): Check ALPN and Cipher Suite. */
+    if (!ssl->ctx->enable_early_data ||
+        !ssl->s3->session_reused) {
+      hs->early_data_state = ssl_early_data_reject;
+    } else {
+      hs->early_data_state = ssl_early_data_accept;
+    }
+  } else {
+    hs->early_data_state = ssl_early_data_off;
+  }
+
   /* The PRF hash is now known. Set up the key schedule. */
   size_t hash_len =
       EVP_MD_size(ssl_get_handshake_digest(ssl_get_algorithm_prf(ssl)));
@@ -305,6 +319,11 @@ static enum ssl_hs_wait_t do_select_parameters(SSL_HANDSHAKE *hs) {
   }
 
   ssl->method->received_flight(ssl);
+
+  if (hs->early_data_state == ssl_early_data_accept &&
+      !tls13_derive_early_secrets(hs)) {
+    return ssl_hs_error;
+  }
 
   /* Resolve ECDHE and incorporate it into the secret. */
   int need_retry;
@@ -531,8 +550,36 @@ static enum ssl_hs_wait_t do_flush(SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
+  hs->tls13_state = state_process_second_client_flight;
+  return ssl_hs_flush;
+}
+
+static enum ssl_hs_wait_t do_process_second_client_flight(SSL_HANDSHAKE *hs) {
+  SSL *const ssl = hs->ssl;
+  if (hs->early_data_state == ssl_early_data_accept) {
+    if (!tls13_set_traffic_key(ssl, evp_aead_open, hs->early_secret, hs->hash_len)) {
+      return ssl_hs_error;
+    }
+    hs->tls13_state = state_process_end_of_early_data;
+    return ssl_hs_read_eoed;
+  }
+
+  if (!tls13_set_traffic_key(ssl, evp_aead_open, hs->client_handshake_secret,
+                             hs->hash_len)) {
+    return ssl_hs_error;
+  }
   hs->tls13_state = state_process_client_certificate;
-  return ssl_hs_flush_and_read_message;
+  return ssl_hs_read_message;
+}
+
+static enum ssl_hs_wait_t do_process_end_of_early_data(SSL_HANDSHAKE *hs) {
+  SSL *const ssl = hs->ssl;
+  if (!tls13_set_traffic_key(ssl, evp_aead_open, hs->client_handshake_secret,
+                             hs->hash_len)) {
+    return ssl_hs_error;
+  }
+  hs->tls13_state = state_process_client_certificate;
+  return ssl_hs_read_message;
 }
 
 static enum ssl_hs_wait_t do_process_client_certificate(SSL_HANDSHAKE *hs) {
@@ -730,6 +777,12 @@ enum ssl_hs_wait_t tls13_server_handshake(SSL_HANDSHAKE *hs) {
         break;
       case state_flush:
         ret = do_flush(hs);
+        break;
+      case state_process_second_client_flight:
+        ret = do_process_second_client_flight(hs);
+        break;
+      case state_process_end_of_early_data:
+        ret = do_process_end_of_early_data(hs);
         break;
       case state_process_client_certificate:
         ret = do_process_client_certificate(hs);
