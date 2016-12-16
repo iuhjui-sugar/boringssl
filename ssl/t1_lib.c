@@ -2116,7 +2116,8 @@ static int ext_early_data_add_clienthello(SSL_HANDSHAKE *hs, CBB *out) {
 static int ext_early_data_parse_clienthello(SSL_HANDSHAKE *hs,
                                             uint8_t *out_alert, CBS *contents) {
   SSL *const ssl = hs->ssl;
-  if (contents == NULL) {
+  if (contents == NULL ||
+      ssl3_protocol_version(ssl) < TLS1_3_VERSION) {
     return 1;
   }
 
@@ -2125,11 +2126,21 @@ static int ext_early_data_parse_clienthello(SSL_HANDSHAKE *hs,
     return 0;
   }
 
-  /* Since we don't currently accept 0-RTT, we have to skip past any early data
-   * the client might have sent. */
-  if (ssl3_protocol_version(ssl) >= TLS1_3_VERSION) {
-    ssl->s3->skip_early_data = 1;
+  hs->received_early_data_extension = 1;
+  return 1;
+}
+
+static int ext_early_data_add_serverhello(SSL_HANDSHAKE *hs, CBB *out) {
+  if (hs->early_data_state != ssl_early_data_accept) {
+    return 1;
   }
+
+  if (!CBB_add_u16(out, TLSEXT_TYPE_early_data) ||
+      !CBB_add_u16(out, 0) ||
+      !CBB_flush(out)) {
+    return 0;
+   }
+
   return 1;
 }
 
@@ -2664,7 +2675,7 @@ static const struct tls_extension kExtensions[] = {
     ext_early_data_add_clienthello,
     forbid_parse_serverhello,
     ext_early_data_parse_clienthello,
-    dont_add_serverhello,
+    ext_early_data_add_serverhello,
   },
   {
     TLSEXT_TYPE_supported_versions,

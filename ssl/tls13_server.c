@@ -42,6 +42,8 @@ enum server_hs_state_t {
   state_send_server_certificate_verify,
   state_complete_server_certificate_verify,
   state_send_server_finished,
+  state_process_second_client_flight,
+  state_process_end_of_early_data,
   state_process_client_certificate,
   state_process_client_certificate_verify,
   state_process_channel_id,
@@ -136,7 +138,7 @@ static const SSL_CIPHER *choose_tls13_cipher(
 static enum ssl_hs_wait_t do_select_parameters(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
   /* The short record header extension is incompatible with early data. */
-  if (ssl->s3->skip_early_data && ssl->s3->short_header) {
+  if (hs->received_early_data_extension && ssl->s3->short_header) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_EXTENSION);
     return ssl_hs_error;
   }
@@ -251,6 +253,18 @@ static enum ssl_hs_wait_t do_select_parameters(SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
+  if (hs->received_early_data_extension) {
+    /* TODO(svaldez): Check ALPN and Cipher Suite. */
+    if (!ssl->ctx->enable_early_data ||
+        !ssl->s3->session_reused) {
+      hs->early_data_state = ssl_early_data_reject;
+    } else {
+      hs->early_data_state = ssl_early_data_accept;
+    }
+  } else {
+    hs->early_data_state = ssl_early_data_off;
+  }
+
   /* Incorporate the PSK into the running secret. */
   if (ssl->s3->session_reused) {
     if (!tls13_advance_key_schedule(hs, ssl->s3->new_session->master_key,
@@ -267,6 +281,11 @@ static enum ssl_hs_wait_t do_select_parameters(SSL_HANDSHAKE *hs) {
   }
 
   ssl->method->received_flight(ssl);
+
+  if (hs->early_data_state == ssl_early_data_accept &&
+      !tls13_derive_early_secrets(hs)) {
+    return ssl_hs_error;
+  }
 
   /* Resolve ECDHE and incorporate it into the secret. */
   int need_retry;
@@ -468,8 +487,36 @@ static enum ssl_hs_wait_t do_send_server_finished(SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
+  hs->tls13_state = state_process_second_client_flight;
+  return ssl_hs_flush;
+}
+
+static enum ssl_hs_wait_t do_process_second_client_flight(SSL_HANDSHAKE *hs) {
+  SSL *const ssl = hs->ssl;
+  if (hs->early_data_state == ssl_early_data_accept) {
+    if (!tls13_set_traffic_key(ssl, evp_aead_open, hs->early_secret, hs->hash_len)) {
+      return ssl_hs_error;
+    }
+    hs->tls13_state = state_process_end_of_early_data;
+    return ssl_hs_read_eoed;
+  }
+
+  if (!tls13_set_traffic_key(ssl, evp_aead_open, hs->client_handshake_secret,
+                             hs->hash_len)) {
+    return ssl_hs_error;
+  }
   hs->tls13_state = state_process_client_certificate;
-  return ssl_hs_flush_and_read_message;
+  return ssl_hs_read_message;
+}
+
+static enum ssl_hs_wait_t do_process_end_of_early_data(SSL_HANDSHAKE *hs) {
+  SSL *const ssl = hs->ssl;
+  if (!tls13_set_traffic_key(ssl, evp_aead_open, hs->client_handshake_secret,
+                             hs->hash_len)) {
+    return ssl_hs_error;
+  }
+  hs->tls13_state = state_process_client_certificate;
+  return ssl_hs_read_message;
 }
 
 static enum ssl_hs_wait_t do_process_client_certificate(SSL_HANDSHAKE *hs) {
@@ -641,9 +688,15 @@ enum ssl_hs_wait_t tls13_server_handshake(SSL_HANDSHAKE *hs) {
       break;
       case state_complete_server_certificate_verify:
         ret = do_send_server_certificate_verify(hs, 0 /* complete */);
-      break;
+        break;
       case state_send_server_finished:
         ret = do_send_server_finished(hs);
+        break;
+      case state_process_second_client_flight:
+        ret = do_process_second_client_flight(hs);
+        break;
+      case state_process_end_of_early_data:
+        ret = do_process_end_of_early_data(hs);
         break;
       case state_process_client_certificate:
         ret = do_process_client_certificate(hs);
