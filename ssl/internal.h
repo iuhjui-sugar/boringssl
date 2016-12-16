@@ -938,6 +938,14 @@ enum ssl_hs_wait_t {
   ssl_hs_x509_lookup,
   ssl_hs_channel_id_lookup,
   ssl_hs_private_key_operation,
+  ssl_hs_read_eoed,
+};
+
+/* An ssl_early_data_t descriptes the state of 0-RTT mode. */
+enum ssl_early_data_t {
+  ssl_early_data_off,    // We are not handling early data.
+  ssl_early_data_accept, // We are accepting early data.
+  ssl_early_data_reject, // We are rejecting early data.
 };
 
 struct ssl_handshake_st {
@@ -962,6 +970,9 @@ struct ssl_handshake_st {
   /* tls13_state is the internal state for the TLS 1.3 handshake. Its values
    * depend on |do_tls13_handshake| but the starting state is always zero. */
   int tls13_state;
+
+  /* early_data_state is the state of early data acceptance. */
+  enum ssl_early_data_t early_data_state;
 
   size_t hash_len;
   uint8_t secret[EVP_MAX_MD_SIZE];
@@ -1097,6 +1108,10 @@ struct ssl_handshake_st {
   /* in_false_start is one if there is a pending client handshake in False
    * Start. The client may write data at this point. */
   unsigned in_false_start:1;
+
+  /* received_early_data_extension is one if the client sent the early_data
+   * extension. */
+  unsigned received_early_data_extension:1;
 
   /* next_proto_neg_seen is one of NPN was negotiated. */
   unsigned next_proto_neg_seen:1;
@@ -1377,6 +1392,7 @@ struct ssl_protocol_method_st {
   int (*read_app_data)(SSL *ssl, int *out_got_handshake,  uint8_t *buf, int len,
                        int peek);
   int (*read_change_cipher_spec)(SSL *ssl);
+  int (*read_end_of_early_data)(SSL *ssl);
   void (*read_close_notify)(SSL *ssl);
   int (*write_app_data)(SSL *ssl, const void *buf_, int len);
   int (*dispatch_alert)(SSL *ssl);
@@ -1494,10 +1510,6 @@ typedef struct ssl3_state_st {
 
   /* key_update_count is the number of consecutive KeyUpdates received. */
   uint8_t key_update_count;
-
-  /* skip_early_data instructs the record layer to skip unexpected early data
-   * messages when 0RTT is rejected. */
-  unsigned skip_early_data:1;
 
   /* have_version is true if the connection's final version is known. Otherwise
    * the version has not been negotiated yet. */
@@ -1801,6 +1813,7 @@ int ssl3_dispatch_alert(SSL *ssl);
 int ssl3_read_app_data(SSL *ssl, int *out_got_handshake, uint8_t *buf, int len,
                        int peek);
 int ssl3_read_change_cipher_spec(SSL *ssl);
+int ssl3_read_end_of_early_data(SSL *ssl);
 void ssl3_read_close_notify(SSL *ssl);
 int ssl3_read_handshake_bytes(SSL *ssl, uint8_t *buf, int len);
 int ssl3_write_app_data(SSL *ssl, const void *buf, int len);

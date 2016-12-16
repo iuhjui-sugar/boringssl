@@ -65,6 +65,14 @@ int tls13_handshake(SSL_HANDSHAKE *hs) {
         break;
       }
 
+      case ssl_hs_read_eoed: {
+        int ret = ssl->method->read_end_of_early_data(ssl);
+        if (ret <= 0) {
+          return ret;
+        }
+        break;
+      }
+
       case ssl_hs_x509_lookup:
         ssl->rwstate = SSL_X509_LOOKUP;
         hs->wait = ssl_hs_ok;
