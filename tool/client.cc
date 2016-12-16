@@ -106,6 +106,9 @@ static const struct argument kArguments[] = {
       "Establish a second connection resuming the original connection.",
     },
     {
+        "-early-data", kBooleanArgument, "Allow early data",
+    },
+    {
      "", kOptionalArgument, "",
     },
 };
@@ -388,6 +391,10 @@ bool Client(const std::vector<std::string> &args) {
 
   if (args_map.count("-grease") != 0) {
     SSL_CTX_set_grease_enabled(ctx.get(), 1);
+  }
+
+  if (args_map.count("-early-data") != 0) {
+    SSL_CTX_set_early_data_enabled(ctx.get(), 1);
   }
 
   if (args_map.count("-resume") != 0 &&

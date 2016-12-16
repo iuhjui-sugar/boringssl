@@ -216,11 +216,13 @@ int ssl3_connect(SSL_HANDSHAKE *hs) {
         }
 
         if (!SSL_is_dtls(ssl) || ssl->d1->send_cookie) {
-          if (ssl->ctx->enable_early_data &&
-              ssl->session != NULL &&
-              !tls13_init_early_key_schedule(hs)) {
-            ret = -1;
-            goto end;
+          if (hs->early_data_state == ssl_early_data_accept) {
+            if (!tls13_init_early_key_schedule(hs) ||
+                !tls13_set_traffic_key(ssl, evp_aead_seal, hs->early_secret,
+                                       hs->hash_len)) {
+              ret = -1;
+              goto end;
+            }
           }
           hs->next_state = SSL3_ST_CR_SRVR_HELLO_A;
         } else {
