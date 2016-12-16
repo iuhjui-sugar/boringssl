@@ -46,6 +46,24 @@
       "revId": "df7b172184e9e191dcde4de40d4f2d576dd2bfda",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1af2c318_83022271",
+        "filename": "crypto/rand/urandom.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-16T00:08:03Z",
+      "side": 1,
+      "message": "It does mean we won\u0027t notice if there\u0027s a bug here and, say, fill_with_entropy doesn\u0027t actually fill the buffer with entry. Unlike most functions, we won\u0027t actually notice this by way of unit test. :-) But it\u0027s a small enough function we can also just review by inspection.\n\n(__msan_unpoison would let us handle that. Though it\u0027s less easily generalizable to other tools should we need to do this for them.)",
+      "parentUuid": "dabe6b36_fd93a7e6",
+      "revId": "df7b172184e9e191dcde4de40d4f2d576dd2bfda",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
