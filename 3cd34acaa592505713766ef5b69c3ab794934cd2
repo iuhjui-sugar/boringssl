@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a2fdb70_c7fefe8c",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-16T19:11:43Z",
+      "side": 1,
+      "message": "Since they\u0027re created and used at the same time, what if tls13_derive_handshake_secrets had two EVP_MAX_MD_SIZE output parameters to put things into? Or does the early data code specifically need you to hold on to them?",
+      "range": {
+        "startLine": 408,
+        "startChar": 49,
+        "endLine": 408,
+        "endChar": 76
+      },
+      "revId": "3cd34acaa592505713766ef5b69c3ab794934cd2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
