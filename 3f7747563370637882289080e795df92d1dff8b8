@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa6fafa9_efa59a53",
+        "filename": "crypto/bn/exponentiation.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-12-17T23:49:21Z",
+      "side": 0,
+      "message": "Similarly here I think it would be useful to have an assertion that the BN_FLG_CONSTTIME flag (4) isn\u0027t set.",
+      "revId": "3f7747563370637882289080e795df92d1dff8b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa6fafa9_cfa0de46",
+        "filename": "crypto/bn/gcd.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-12-17T23:49:21Z",
+      "side": 0,
+      "message": "I think it would be good to have an assertion around here that the BN_FLG_CONSTTIME flag (4) wasn\u0027t set, e.g. by somebody trying to define it themselves to work around your removal or by a language binding that isn\u0027t generated from your headers.",
+      "revId": "3f7747563370637882289080e795df92d1dff8b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa6fafa9_af31e248",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-12-17T23:49:21Z",
+      "side": 0,
+      "message": "I know you don\u0027t typically do such things, but I recommend you leave a comment here that `BN_FLG_CONSTTIME` is intentionally omitted to intentionally cause any code that might be relying on it to fail to compile. That way, people will maybe be less likely to work around the removal by defining it themselves. Also, the comment would serve to indicate that the flag 4 is reserved, which would be important if you add the assertions I suggested.",
+      "revId": "3f7747563370637882289080e795df92d1dff8b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
