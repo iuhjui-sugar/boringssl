@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa6fafa9_2f45d2b4",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 769,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-12-17T23:34:49Z",
+      "side": 1,
+      "message": "This code exists in ec_montgomery.c. It seems like it would be good to put this function in gcd.c and use it in both places.",
+      "revId": "3f7747563370637882289080e795df92d1dff8b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa6fafa9_4f3a0e29",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 774,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-12-17T23:34:49Z",
+      "side": 1,
+      "message": "The ec_montgomery.c version uses |BN_sub_word| which seems a little better, as it avoids setting `p_minus_2` to a value that isn\u0027t `p - 2`.",
+      "revId": "3f7747563370637882289080e795df92d1dff8b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa6fafa9_6f37ca3d",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1033,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-12-17T23:34:49Z",
+      "side": 1,
+      "message": "RSA keygen is already not constant time, perhaps helplessly so. So just using the non-constant-time `BN_mod_inverse` also seems reasonable.\n\nOTOH, using Fermat\u0027s little theorem here and then checking the value of `iqmp` in RSA_check_key probably is additional evidence of the primality of `p`.",
+      "revId": "3f7747563370637882289080e795df92d1dff8b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
