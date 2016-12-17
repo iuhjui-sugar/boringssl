@@ -72,6 +72,7 @@
 #include <openssl/sha.h>
 #include <openssl/thread.h>
 
+#include "../bn/internal.h"
 #include "../internal.h"
 
 
@@ -813,7 +814,7 @@ int DSA_size(const DSA *dsa) {
 int DSA_sign_setup(const DSA *dsa, BN_CTX *ctx_in, BIGNUM **out_kinv,
                    BIGNUM **out_r) {
   BN_CTX *ctx;
-  BIGNUM k, kq, qm2, *kinv = NULL, *r = NULL;
+  BIGNUM k, kq, *kinv = NULL, *r = NULL;
   int ret = 0;
 
   if (!dsa->p || !dsa->q || !dsa->g) {
@@ -823,7 +824,6 @@ int DSA_sign_setup(const DSA *dsa, BN_CTX *ctx_in, BIGNUM **out_kinv,
 
   BN_init(&k);
   BN_init(&kq);
-  BN_init(&qm2);
 
   ctx = ctx_in;
   if (ctx == NULL) {
@@ -885,9 +885,7 @@ int DSA_sign_setup(const DSA *dsa, BN_CTX *ctx_in, BIGNUM **out_kinv,
    * Theorem. */
   kinv = BN_new();
   if (kinv == NULL ||
-      !BN_set_word(&qm2, 2) ||
-      !BN_sub(&qm2, dsa->q, &qm2) ||
-      !BN_mod_exp_mont(kinv, &k, &qm2, dsa->q, ctx, dsa->method_mont_q)) {
+      !bn_mod_inverse_prime(kinv, &k, dsa->q, ctx, dsa->method_mont_q)) {
     goto err;
   }
 
@@ -911,7 +909,7 @@ err:
   }
   BN_clear_free(&k);
   BN_clear_free(&kq);
-  BN_free(&qm2);
+  BN_clear_free(kinv);
   return ret;
 }
 
