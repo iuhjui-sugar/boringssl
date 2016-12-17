@@ -25,6 +25,24 @@
     },
     {
       "key": {
+        "uuid": "5a2fdb70_4d630d23",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-17T22:43:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da0e6b7c_634fa2b0",
+      "revId": "8c8eb8c28e216cbb056260c3468d0de88e6072cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da0e6b7c_4354263f",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -42,6 +60,24 @@
         "endLine": 13,
         "endChar": 49
       },
+      "revId": "8c8eb8c28e216cbb056260c3468d0de88e6072cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a2fdb70_8d2b45b1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-17T22:43:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da0e6b7c_4354263f",
       "revId": "8c8eb8c28e216cbb056260c3468d0de88e6072cd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -71,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "5a2fdb70_ad30091a",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-17T22:43:36Z",
+      "side": 1,
+      "message": "ssl_record_prefix_len is about the read half, not the write half.",
+      "parentUuid": "da0e6b7c_83557e3b",
+      "revId": "8c8eb8c28e216cbb056260c3468d0de88e6072cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da0e6b7c_e362721d",
         "filename": "ssl/tls_record.c",
         "patchSetId": 2
@@ -88,6 +142,24 @@
         "endLine": 195,
         "endChar": 44
       },
+      "revId": "8c8eb8c28e216cbb056260c3468d0de88e6072cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a2fdb70_cd253ddb",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-17T22:43:36Z",
+      "side": 1,
+      "message": "Done. (Hilariously, it ends up being a positive diffstat, but probably worthwhile.)",
+      "parentUuid": "da0e6b7c_e362721d",
       "revId": "8c8eb8c28e216cbb056260c3468d0de88e6072cd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
