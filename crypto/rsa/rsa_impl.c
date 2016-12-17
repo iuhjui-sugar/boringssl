@@ -1042,7 +1042,10 @@ int rsa_default_multi_prime_keygen(RSA *rsa, int bits, int num_primes,
     }
   }
   pr0 = &local_r0;
-  BN_with_flags(pr0, r0, BN_FLG_CONSTTIME);
+  /* This one triggers the abort and needs to be resolved, but the patch in
+   * question also doesn't remove this yet, so mask it off for purposes of
+   * confirming that all other BN_FLG_CONSTTIME removals are safe. */
+  BN_with_flags(pr0, r0, 0 /* BN_FLG_CONSTTIME */);
   if (!BN_mod_inverse(rsa->d, rsa->e, pr0, ctx)) {
     goto err; /* d */
   }
@@ -1063,7 +1066,10 @@ int rsa_default_multi_prime_keygen(RSA *rsa, int bits, int num_primes,
 
   /* calculate inverse of q mod p */
   p = &local_p;
-  BN_with_flags(p, rsa->p, BN_FLG_CONSTTIME);
+  /* This one triggers the abort and needs to be resolved, but the patch in
+   * question also doesn't remove this yet, so mask it off for purposes of
+   * confirming that all other BN_FLG_CONSTTIME removals are safe. */
+  BN_with_flags(p, rsa->p, 0 /* BN_FLG_CONSTTIME */);
 
   if (!BN_mod_inverse(rsa->iqmp, rsa->q, p, ctx)) {
     goto err;

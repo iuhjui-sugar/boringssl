@@ -594,6 +594,7 @@ int BN_mod_exp_mont(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
   BN_MONT_CTX *new_mont = NULL;
 
   if (BN_get_flags(p, BN_FLG_CONSTTIME) != 0) {
+    abort();
     return BN_mod_exp_mont_consttime(rr, a, p, m, ctx, mont);
   }
 
