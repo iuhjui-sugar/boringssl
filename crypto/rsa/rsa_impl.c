@@ -765,6 +765,18 @@ err:
   return ret;
 }
 
+static int mod_inverse_prime(BIGNUM *out, const BIGNUM *a, const BIGNUM *p,
+                             BN_CTX *ctx, const BN_MONT_CTX *mont_p) {
+  BN_CTX_start(ctx);
+  BIGNUM *p_minus_2 = BN_CTX_get(ctx);
+  int ok = p_minus_2 != NULL &&
+           BN_set_word(p_minus_2, 2) &&
+           BN_sub(p_minus_2, p, p_minus_2) &&
+           BN_mod_exp_mont_consttime(out, a, p_minus_2, p, ctx, mont_p);
+  BN_CTX_end(ctx);
+  return ok;
+}
+
 int rsa_default_multi_prime_keygen(RSA *rsa, int bits, int num_primes,
                                    BIGNUM *e_value, BN_GENCB *cb) {
   BIGNUM *r0 = NULL, *r1 = NULL, *r2 = NULL, *r3 = NULL, *tmp;
@@ -1017,7 +1029,8 @@ int rsa_default_multi_prime_keygen(RSA *rsa, int bits, int num_primes,
   /* calculate inverse of q mod p */
   p = &local_p;
   BN_with_flags(p, rsa->p, BN_FLG_CONSTTIME);
-  if (!BN_mod_inverse(rsa->iqmp, rsa->q, p, ctx)) {
+  if (!BN_MONT_CTX_set_locked(&rsa->mont_p, &rsa->lock, rsa->p, ctx) ||
+      !mod_inverse_prime(rsa->iqmp, rsa->q, p, ctx, rsa->mont_p)) {
     goto err;
   }
 
@@ -1026,7 +1039,8 @@ int rsa_default_multi_prime_keygen(RSA *rsa, int bits, int num_primes,
         sk_RSA_additional_prime_value(additional_primes, i - 2);
     if (!BN_sub(ap->exp, ap->prime, BN_value_one()) ||
         !BN_mod(ap->exp, rsa->d, ap->exp, ctx) ||
-        !BN_mod_inverse(ap->coeff, ap->r, ap->prime, ctx)) {
+        !BN_MONT_CTX_set_locked(&ap->mont, &rsa->lock, ap->prime, ctx) ||
+        !mod_inverse_prime(ap->coeff, ap->r, ap->prime, ctx, ap->mont)) {
       goto err;
     }
   }
