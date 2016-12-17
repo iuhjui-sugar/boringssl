@@ -109,6 +109,7 @@
 #include <openssl/bn.h>
 
 #include <assert.h>
+#include <stdlib.h>
 
 #include <openssl/err.h>
 
@@ -430,6 +431,9 @@ BIGNUM *BN_mod_inverse(BIGNUM *out, const BIGNUM *a, const BIGNUM *n,
   }
 
   if (no_branch || !BN_is_odd(n)) {
+    if (BN_is_odd(n)) {
+      abort();
+    }
     if (!bn_mod_inverse_general(out, &no_inverse, a, n, ctx)) {
       goto err;
     }
