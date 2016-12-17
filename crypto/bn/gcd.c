@@ -415,9 +415,6 @@ BIGNUM *BN_mod_inverse(BIGNUM *out, const BIGNUM *a, const BIGNUM *n,
 
   int ok = 0;
 
-  int no_branch =
-      (a->flags & BN_FLG_CONSTTIME) != 0 || (n->flags & BN_FLG_CONSTTIME) != 0;
-
   if (a->neg || BN_ucmp(a, n) >= 0) {
     a_reduced = BN_dup(a);
     if (a_reduced == NULL) {
@@ -429,7 +426,7 @@ BIGNUM *BN_mod_inverse(BIGNUM *out, const BIGNUM *a, const BIGNUM *n,
     a = a_reduced;
   }
 
-  if (no_branch || !BN_is_odd(n)) {
+  if (!BN_is_odd(n)) {
     if (!bn_mod_inverse_general(out, &no_inverse, a, n, ctx)) {
       goto err;
     }
