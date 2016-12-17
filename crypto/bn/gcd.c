@@ -109,6 +109,7 @@
 #include <openssl/bn.h>
 
 #include <assert.h>
+#include <stdlib.h>
 
 #include <openssl/err.h>
 
@@ -417,6 +418,9 @@ BIGNUM *BN_mod_inverse(BIGNUM *out, const BIGNUM *a, const BIGNUM *n,
 
   int no_branch =
       (a->flags & BN_FLG_CONSTTIME) != 0 || (n->flags & BN_FLG_CONSTTIME) != 0;
+  if (no_branch) {
+    abort();
+  }
 
   if (a->neg || BN_ucmp(a, n) >= 0) {
     a_reduced = BN_dup(a);
