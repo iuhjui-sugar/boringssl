@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a2fdb70_4deced4a",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 769,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-18T03:53:51Z",
+      "side": 1,
+      "message": "Done. Yeah, there\u0027s quite a few of those. Though see comment below.",
+      "parentUuid": "fa6fafa9_2f45d2b4",
+      "revId": "3f7747563370637882289080e795df92d1dff8b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa6fafa9_4f3a0e29",
         "filename": "crypto/rsa/rsa_impl.c",
         "patchSetId": 5
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "5a2fdb70_2defb941",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 774,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-18T03:53:51Z",
+      "side": 1,
+      "message": "Well, BN_sub_word is two-address rather than three-address, so we either set it to 2 or to p. :-P I suppose p is probably marginally better in that we\u0027ll malloc something of the right size in the first go. Done.",
+      "parentUuid": "fa6fafa9_4f3a0e29",
+      "revId": "3f7747563370637882289080e795df92d1dff8b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa6fafa9_6f37ca3d",
         "filename": "crypto/rsa/rsa_impl.c",
         "patchSetId": 5
@@ -47,6 +83,24 @@
       "writtenOn": "2016-12-17T23:34:49Z",
       "side": 1,
       "message": "RSA keygen is already not constant time, perhaps helplessly so. So just using the non-constant-time `BN_mod_inverse` also seems reasonable.\n\nOTOH, using Fermat\u0027s little theorem here and then checking the value of `iqmp` in RSA_check_key probably is additional evidence of the primality of `p`.",
+      "revId": "3f7747563370637882289080e795df92d1dff8b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a2fdb70_6de9b139",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1033,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-18T03:53:51Z",
+      "side": 1,
+      "message": "Well, there\u0027s still two variants of using FLT here. Some of the existing p-2 exponentiations used BN_mod_exp_mont_consttime while others used BN_mod_exp_mont. My understanding was both of these protected the base but the _consttime one protected the exponent? That suggests that none of the non-RSA callers care about BN_mod_exp_mont_consttime and would be fine with BN_mod_exp_mont. Does that match your understanding?\n\nIt seems RSA would nominally prefer BN_mod_exp_mont_consttime, and that\u0027s the version I uploaded just because it was what I happened to write first and it was easy. Though perhaps all that is a waste of trouble and there should just be the one function. I could easily buy making this constant-time is hopeless. (And probably not very important since it\u0027s done exactly once per key.)",
+      "parentUuid": "fa6fafa9_6f37ca3d",
       "revId": "3f7747563370637882289080e795df92d1dff8b8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
