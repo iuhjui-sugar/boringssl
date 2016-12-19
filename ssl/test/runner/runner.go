@@ -385,6 +385,8 @@ type testCase struct {
 	expectPeerCertificate *Certificate
 	// expectShortHeader is whether the short header extension should be negotiated.
 	expectShortHeader bool
+	// earlyData is the data that was sent over early data in TLS 1.3.
+	earlyData []byte
 }
 
 var testCases []testCase
@@ -714,6 +716,13 @@ func doExchange(test *testCase, config *Config, conn net.Conn, isResume bool, nu
 			testMessage[i] = 0x42 ^ byte(j)
 		}
 		tlsConn.Write(testMessage)
+
+		if isResume && j == 0 && len(test.earlyData) > 0 {
+			newTestMessage := make([]byte, len(test.earlyData)+len(testMessage))
+			copy(newTestMessage, test.earlyData)
+			copy(newTestMessage[len(test.earlyData):], testMessage)
+			testMessage = newTestMessage
+		}
 
 		for i := 0; i < test.sendKeyUpdates; i++ {
 			tlsConn.SendKeyUpdate(test.keyUpdateRequest)
@@ -9785,17 +9794,20 @@ func addTLS13HandshakeTests() {
 	// Test that we accept data-less early data.
 	testCases = append(testCases, testCase{
 		testType: serverTest,
-		name:     "TLS13-DataLessEarlyData-Server",
+		name:     "TLS13-EarlyData-Server",
 		config: Config{
 			MaxVersion: VersionTLS13,
 			Bugs: ProtocolBugs{
-				SendEarlyData:     [][]byte{},
+				SendEarlyData:     [][]byte{{1, 2, 3, 4}},
 				EarlyDataAccepted: true,
 			},
 		},
+		earlyData:     []byte{1, 2, 3, 4},
+		messageCount:  2,
 		resumeSession: true,
 		flags: []string{
 			"-enable-early-data",
+			"-implicit-handshake",
 		},
 	})
 
@@ -9919,7 +9931,7 @@ func addTLS13HandshakeTests() {
 	// Test that we reject data-less early data with mismatched ALPN.
 	testCases = append(testCases, testCase{
 		testType: serverTest,
-		name:     "TLS13-DataLessEarlyData-ALPNMismatch-Server",
+		name:     "TLS13-EarlyData-ALPNMismatch-Server",
 		config: Config{
 			MaxVersion: VersionTLS13,
 			NextProtos: []string{"foo"},
@@ -9928,7 +9940,7 @@ func addTLS13HandshakeTests() {
 			MaxVersion: VersionTLS13,
 			NextProtos: []string{"bar"},
 			Bugs: ProtocolBugs{
-				SendEarlyData:     [][]byte{{}},
+				SendEarlyData:     [][]byte{{1, 2, 3, 4}},
 				EarlyDataAccepted: false,
 			},
 		},

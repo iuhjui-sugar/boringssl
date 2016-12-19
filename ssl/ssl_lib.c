@@ -711,7 +711,7 @@ static int ssl_read_impl(SSL *ssl, void *buf, int num, int peek) {
     /* Complete the current handshake, if any. False Start will cause
      * |SSL_do_handshake| to return mid-handshake, so this may require multiple
      * iterations. */
-    while (SSL_in_init(ssl)) {
+    while (SSL_in_init(ssl) && !ssl->s3->hs->can_early_read) {
       int ret = SSL_do_handshake(ssl);
       if (ret < 0) {
         return ret;
@@ -727,6 +727,11 @@ static int ssl_read_impl(SSL *ssl, void *buf, int num, int peek) {
     if (ret > 0 || !got_handshake) {
       ssl->s3->key_update_count = 0;
       return ret;
+    }
+
+    if (got_handshake == 2) {
+      ssl->s3->hs->can_early_read = 0;
+      continue;
     }
 
     /* Handle the post-handshake message and try again. */
@@ -759,7 +764,8 @@ int SSL_write(SSL *ssl, const void *buf, int num) {
   }
 
   /* If necessary, complete the handshake implicitly. */
-  if (SSL_in_init(ssl) && !SSL_in_false_start(ssl)) {
+  if (SSL_in_init(ssl) && !SSL_in_false_start(ssl) &&
+      !ssl->s3->hs->can_early_write) {
     int ret = SSL_do_handshake(ssl);
     if (ret < 0) {
       return ret;

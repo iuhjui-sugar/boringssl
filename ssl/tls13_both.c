@@ -99,6 +99,10 @@ int tls13_handshake(SSL_HANDSHAKE *hs) {
        * first time around. */
       return -1;
     }
+    if (hs->wait == ssl_hs_read_eoed) {
+      /* The handshake has completed early. */
+      return 1;
+    }
     if (hs->wait == ssl_hs_ok) {
       /* The handshake has completed. */
       return 1;
