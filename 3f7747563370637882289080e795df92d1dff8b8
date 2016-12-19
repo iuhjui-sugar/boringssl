@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "f730aaea_6f47cdc2",
+        "filename": "crypto/bn/gcd.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-19T23:59:44Z",
+      "side": 0,
+      "message": "Hrm. Copying the constants is very much not a supported operation, but of course shouting that from the hills hardly stops people from doing it! :-) There\u0027s one consumer who does that which we need to fix...\n\nBut it\u0027d need to get the constant externally (so a bindings library as you say rather than C/C++), set the flags field directly rather than call BN_set_flags, and have some reason to believe they want a constant-time modular exponentiation without using the existing crypto bits.\n\nThis is probably remote enough not to be worth bothering. I did some searches in our code and found no evidence of anyone doing anything close to this.",
+      "parentUuid": "fa6fafa9_cfa0de46",
+      "revId": "3f7747563370637882289080e795df92d1dff8b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa6fafa9_af31e248",
         "filename": "include/openssl/bn.h",
         "patchSetId": 3
@@ -47,6 +65,24 @@
       "writtenOn": "2016-12-17T23:49:21Z",
       "side": 0,
       "message": "I know you don\u0027t typically do such things, but I recommend you leave a comment here that `BN_FLG_CONSTTIME` is intentionally omitted to intentionally cause any code that might be relying on it to fail to compile. That way, people will maybe be less likely to work around the removal by defining it themselves. Also, the comment would serve to indicate that the flag 4 is reserved, which would be important if you add the assertions I suggested.",
+      "revId": "3f7747563370637882289080e795df92d1dff8b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f730aaea_4f11b1c8",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-19T23:59:44Z",
+      "side": 0,
+      "message": "Fair enough. Added a comment.",
+      "parentUuid": "fa6fafa9_af31e248",
       "revId": "3f7747563370637882289080e795df92d1dff8b8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
