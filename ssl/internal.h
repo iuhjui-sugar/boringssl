@@ -1132,6 +1132,14 @@ struct ssl_handshake_st {
    * Start. The client may write data at this point. */
   unsigned in_false_start:1;
 
+  /* can_early_read is one if there is a pending server handshake with early
+   * data. The server may read at this point. */
+  unsigned can_early_read:1;
+
+  /* can_early_write is one if there is a pending server handshake with early
+   * data. The server may write at this point. */
+  unsigned can_early_write:1;
+
   /* received_early_data_extension is one if the client sent the early_data
    * extension. */
   unsigned received_early_data_extension:1;
