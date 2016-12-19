@@ -66,10 +66,11 @@ int tls13_handshake(SSL_HANDSHAKE *hs) {
       }
 
       case ssl_hs_read_eoed: {
-        int ret = ssl->method->read_end_of_early_data(ssl);
-        if (ret <= 0) {
-          return ret;
+        if (ssl->s3->hs->can_early_read) {
+          /* The handshake has completed early. */
+          return 1;
         }
+        hs->wait = ssl_hs_ok;
         break;
       }
 
