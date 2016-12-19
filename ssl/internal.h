@@ -1117,9 +1117,13 @@ struct ssl_handshake_st {
   /* early_data_accepted is one if the server accepted early_data. */
   unsigned early_data_accepted:1;
 
-  /* early_data_skipped is one if we have skipped over the client's rejected
-   * early_data. */
-  unsigned early_data_skipped:1;
+  /* can_early_read is one if there is a pending server handshake with early
+   * data. The server may read at this point. */
+  unsigned can_early_read:1;
+
+  /* can_early_write is one if there is a pending server handshake with early
+   * data. The server may write at this point. */
+  unsigned can_early_write:1;
 
   /* next_proto_neg_seen is one of NPN was negotiated. */
   unsigned next_proto_neg_seen:1;
