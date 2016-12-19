@@ -1133,6 +1133,10 @@ type ProtocolBugs struct {
 	// send after the ClientHello.
 	SendFakeEarlyDataLength int
 
+	// SendStrayEarlyHandshake, if non-zero, causes the client to send a stray
+	// handshake record before sending end of early data.
+	SendStrayEarlyHandshake bool
+
 	// OmitEarlyDataExtension, if true, causes the early data extension to
 	// be omitted in the ClientHello.
 	OmitEarlyDataExtension bool
@@ -1182,7 +1186,7 @@ type ProtocolBugs struct {
 
 	// ExpectHalfRTTData causes a TLS 1.3 client to read application
 	// data after reading the server's Finished message and before
-	// sending any other handshake messages. It checks that the
+	// sending any other handshake messages on resumption. It checks that the
 	// application data it reads matches what is provided in
 	// ExpectHalfRTTData and errors if the number of records or their
 	// content do not match.

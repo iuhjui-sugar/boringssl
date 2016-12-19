@@ -392,7 +392,6 @@ NextCipherSuite:
 		finishedHash.Write(helloBytes)
 		earlyTrafficSecret := finishedHash.deriveSecret(earlyTrafficLabel)
 		c.out.useTrafficSecret(session.vers, pskCipherSuite, earlyTrafficSecret, clientWrite)
-
 		for _, earlyData := range c.config.Bugs.SendEarlyData {
 			if _, err := c.writeRecord(recordTypeApplicationData, earlyData); err != nil {
 				return err
@@ -861,20 +860,26 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 
 	// If we're expecting 0.5-RTT messages from the server, read them
 	// now.
-	for _, expectedMsg := range c.config.Bugs.ExpectHalfRTTData {
-		if err := c.readRecord(recordTypeApplicationData); err != nil {
-			return err
+	if c.didResume {
+		for _, expectedMsg := range c.config.Bugs.ExpectHalfRTTData {
+			if err := c.readRecord(recordTypeApplicationData); err != nil {
+				return err
+			}
+			if !bytes.Equal(c.input.data[c.input.off:], expectedMsg) {
+				return errors.New("ExpectHalfRTTData: did not get expected message")
+			}
+			c.in.freeBlock(c.input)
+			c.input = nil
 		}
-		if !bytes.Equal(c.input.data[c.input.off:], expectedMsg) {
-			return errors.New("ExpectHalfRTTData: did not get expected message")
-		}
-		c.in.freeBlock(c.input)
-		c.input = nil
 	}
 
 	// Send EndOfEarlyData and then switch write key to handshake
 	// traffic key.
 	if c.out.cipher != nil {
+		if c.config.Bugs.SendStrayEarlyHandshake {
+			helloRequest := new(helloRequestMsg)
+			c.writeRecord(recordTypeHandshake, helloRequest.marshal())
+		}
 		c.sendAlert(alertEndOfEarlyData)
 	}
 	c.out.useTrafficSecret(c.vers, hs.suite, clientHandshakeTrafficSecret, clientWrite)
