@@ -462,35 +462,43 @@ static int Verify(X509 *leaf, const std::vector<X509 *> &roots,
     return X509_V_ERR_UNSPECIFIED;
   }
 
-  bssl::UniquePtr<X509_STORE_CTX> ctx(X509_STORE_CTX_new());
-  bssl::UniquePtr<X509_STORE> store(X509_STORE_new());
-  if (!ctx ||
-      !store) {
-    return X509_V_ERR_UNSPECIFIED;
-  }
+  for (bool use_additional_untrusted : std::vector<bool>{false, true}) {
+    bssl::UniquePtr<X509_STORE_CTX> ctx(X509_STORE_CTX_new());
+    bssl::UniquePtr<X509_STORE> store(X509_STORE_new());
+    if (!ctx ||
+        !store) {
+      return X509_V_ERR_UNSPECIFIED;
+    }
 
-  if (!X509_STORE_CTX_init(ctx.get(), store.get(), leaf,
-                           intermediates_stack.get())) {
-    return X509_V_ERR_UNSPECIFIED;
-  }
+    if (use_additional_untrusted) {
+      X509_STORE_set0_additional_untrusted(store.get(),
+                                           intermediates_stack.get());
+    }
 
-  X509_STORE_CTX_trusted_stack(ctx.get(), roots_stack.get());
-  X509_STORE_CTX_set0_crls(ctx.get(), crls_stack.get());
+    if (!X509_STORE_CTX_init(
+            ctx.get(), store.get(), leaf,
+            use_additional_untrusted ? nullptr : intermediates_stack.get())) {
+      return X509_V_ERR_UNSPECIFIED;
+    }
 
-  X509_VERIFY_PARAM *param = X509_VERIFY_PARAM_new();
-  if (param == nullptr) {
-    return X509_V_ERR_UNSPECIFIED;
-  }
-  X509_VERIFY_PARAM_set_time(param, 1474934400 /* Sep 27th, 2016 */);
-  X509_VERIFY_PARAM_set_depth(param, 16);
-  if (flags) {
-    X509_VERIFY_PARAM_set_flags(param, flags);
-  }
-  X509_STORE_CTX_set0_param(ctx.get(), param);
+    X509_STORE_CTX_trusted_stack(ctx.get(), roots_stack.get());
+    X509_STORE_CTX_set0_crls(ctx.get(), crls_stack.get());
 
-  ERR_clear_error();
-  if (X509_verify_cert(ctx.get()) != 1) {
-    return X509_STORE_CTX_get_error(ctx.get());
+    X509_VERIFY_PARAM *param = X509_VERIFY_PARAM_new();
+    if (param == nullptr) {
+      return X509_V_ERR_UNSPECIFIED;
+    }
+    X509_VERIFY_PARAM_set_time(param, 1474934400 /* Sep 27th, 2016 */);
+    X509_VERIFY_PARAM_set_depth(param, 16);
+    if (flags) {
+      X509_VERIFY_PARAM_set_flags(param, flags);
+    }
+    X509_STORE_CTX_set0_param(ctx.get(), param);
+
+    ERR_clear_error();
+    if (X509_verify_cert(ctx.get()) != 1) {
+      return X509_STORE_CTX_get_error(ctx.get());
+    }
   }
 
   return X509_V_OK;
