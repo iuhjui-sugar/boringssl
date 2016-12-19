@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f730aaea_4c4c1fe3",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-12-19T17:45:05Z",
+      "side": 1,
+      "message": "Slightly terrible. Might be better to explicitly check shortHeader+cipher !\u003d nil, but probably overly wordy. Meh.",
+      "range": {
+        "startLine": 751,
+        "startChar": 4,
+        "endLine": 751,
+        "endChar": 25
+      },
+      "revId": "ce905043327551e087cb3fc9bfa41e46a5d9dd99",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f730aaea_2c41d3aa",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 1081,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-12-19T17:45:05Z",
+      "side": 1,
+      "message": "Redundant?",
+      "range": {
+        "startLine": 1081,
+        "startChar": 38,
+        "endLine": 1081,
+        "endChar": 44
+      },
+      "revId": "ce905043327551e087cb3fc9bfa41e46a5d9dd99",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f730aaea_ac34a339",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-12-19T17:45:05Z",
+      "side": 1,
+      "message": "While you\u0027re here, can you make this and the previous one have the same structure (calculate constant header) then return header_len + explicit_nonce_len.",
+      "range": {
+        "startLine": 184,
+        "startChar": 7,
+        "endLine": 184,
+        "endChar": 32
+      },
+      "revId": "ce905043327551e087cb3fc9bfa41e46a5d9dd99",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
