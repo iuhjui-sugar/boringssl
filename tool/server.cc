@@ -241,17 +241,17 @@ bool Server(const std::vector<std::string> &args) {
     bssl::UniquePtr<SSL> ssl(SSL_new(ctx.get()));
     SSL_set_bio(ssl.get(), bio, bio);
 
-    int ret = SSL_accept(ssl.get());
-    if (ret != 1) {
-      int ssl_err = SSL_get_error(ssl.get(), ret);
-      fprintf(stderr, "Error while connecting: %d\n", ssl_err);
-      ERR_print_errors_cb(PrintErrorCallback, stderr);
-      return false;
-    }
+    // int ret = SSL_accept(ssl.get());
+    // if (ret != 1) {
+    //   int ssl_err = SSL_get_error(ssl.get(), ret);
+    //   fprintf(stderr, "Error while connecting: %d\n", ssl_err);
+    //   ERR_print_errors_cb(PrintErrorCallback, stderr);
+    //   return false;
+    // }
 
-    fprintf(stderr, "Connected.\n");
-    PrintConnectionInfo(ssl.get());
-
+    //fprintf(stderr, "Connected.\n");
+    //PrintConnectionInfo(ssl.get());
+    SSL_set_accept_state(ssl.get());
     result = TransferData(ssl.get(), sock);
   } while (result && args_map.count("-loop") != 0);
 

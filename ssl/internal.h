@@ -1043,6 +1043,8 @@ struct ssl_handshake_st {
 
   unsigned received_hello_retry_request:1;
 
+  unsigned can_early_read:1;
+
   /* accept_psk_mode stores whether the client's PSK mode is compatible with our
    * preferences. */
   unsigned accept_psk_mode:1;

@@ -465,7 +465,7 @@ int ssl3_accept(SSL_HANDSHAKE *hs) {
 
       case SSL_ST_TLS13:
         ret = tls13_handshake(hs);
-        if (ret <= 0) {
+        if (ret <= 0 || hs->can_early_read) {
           goto end;
         }
         hs->state = SSL_ST_OK;
