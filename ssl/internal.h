@@ -1109,6 +1109,10 @@ struct ssl_handshake_st {
    * Start. The client may write data at this point. */
   unsigned in_false_start:1;
 
+  /* in_early_read is one if there is a pending server handshake with early
+   * data. The server may read at this point. */
+  unsigned in_early_read:1;
+
   /* received_early_data_extension is one if the client sent the early_data
    * extension. */
   unsigned received_early_data_extension:1;
@@ -1131,6 +1135,8 @@ SSL_HANDSHAKE *ssl_handshake_new(SSL *ssl);
 
 /* ssl_handshake_free releases all memory associated with |hs|. */
 void ssl_handshake_free(SSL_HANDSHAKE *hs);
+
+int SSL_in_early_read(const SSL *ssl);
 
 /* tls13_handshake runs the TLS 1.3 handshake. It returns one on success and <=
  * 0 on error. */

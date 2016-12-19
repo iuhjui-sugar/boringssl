@@ -488,6 +488,7 @@ static enum ssl_hs_wait_t do_send_end_of_early_data(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
   if (hs->early_data_state == ssl_early_data_accept) {
     hs->early_data_state = ssl_early_data_off;
+    ssl3_write_app_data(ssl, "GET ", 4);
     ssl3_send_alert(ssl, SSL3_AL_WARNING, TLS1_AD_END_OF_EARLY_DATA);
   }
 
