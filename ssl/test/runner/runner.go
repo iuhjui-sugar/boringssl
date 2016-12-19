@@ -9937,17 +9937,23 @@ func addTLS13HandshakeTests() {
 	// Test that we accept data-less early data.
 	testCases = append(testCases, testCase{
 		testType: serverTest,
-		name:     "TLS13-DataLessEarlyData-Server",
+		name:     "TLS13-EarlyData-Server",
 		config: Config{
 			MaxVersion: VersionTLS13,
+		},
+		resumeConfig: &Config{
+			MaxVersion: VersionTLS13,
 			Bugs: ProtocolBugs{
-				SendEarlyData:     [][]byte{},
+				SendEarlyData:     [][]byte{{1, 2, 3, 4}},
 				EarlyDataAccepted: true,
+				ExpectHalfRTTData: [][]byte{{254, 253, 252, 251}},
 			},
 		},
+		messageCount:  2,
 		resumeSession: true,
 		flags: []string{
 			"-enable-early-data",
+			"-implicit-handshake",
 		},
 	})
 
@@ -10071,7 +10077,7 @@ func addTLS13HandshakeTests() {
 	// Test that we reject data-less early data with mismatched ALPN.
 	testCases = append(testCases, testCase{
 		testType: serverTest,
-		name:     "TLS13-DataLessEarlyData-ALPNMismatch-Server",
+		name:     "TLS13-EarlyData-ALPNMismatch-Server",
 		config: Config{
 			MaxVersion: VersionTLS13,
 			NextProtos: []string{"foo"},
@@ -10080,7 +10086,7 @@ func addTLS13HandshakeTests() {
 			MaxVersion: VersionTLS13,
 			NextProtos: []string{"bar"},
 			Bugs: ProtocolBugs{
-				SendEarlyData:     [][]byte{{}},
+				SendEarlyData:     [][]byte{{1, 2, 3, 4}},
 				EarlyDataAccepted: false,
 			},
 		},
