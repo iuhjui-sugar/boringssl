@@ -162,6 +162,12 @@ bool Accept(int *out_sock, const std::string &port) {
 
   server_sock =
       socket(addr.sin6_family, SOCK_STREAM, 0);
+
+  int enable = 1;
+  if (setsockopt(server_sock, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(int)) < 0) {
+    perror("setsockopt");
+  }
+
   if (server_sock < 0) {
     perror("socket");
     goto out;
