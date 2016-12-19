@@ -861,15 +861,17 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 
 	// If we're expecting 0.5-RTT messages from the server, read them
 	// now.
-	for _, expectedMsg := range c.config.Bugs.ExpectHalfRTTData {
-		if err := c.readRecord(recordTypeApplicationData); err != nil {
-			return err
+	if c.didResume {
+		for _, expectedMsg := range c.config.Bugs.ExpectHalfRTTData {
+			if err := c.readRecord(recordTypeApplicationData); err != nil {
+				return err
+			}
+			if !bytes.Equal(c.input.data[c.input.off:], expectedMsg) {
+				return errors.New("ExpectHalfRTTData: did not get expected message")
+			}
+			c.in.freeBlock(c.input)
+			c.input = nil
 		}
-		if !bytes.Equal(c.input.data[c.input.off:], expectedMsg) {
-			return errors.New("ExpectHalfRTTData: did not get expected message")
-		}
-		c.in.freeBlock(c.input)
-		c.input = nil
 	}
 
 	// Send EndOfEarlyData and then switch write key to handshake

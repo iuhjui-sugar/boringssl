@@ -3587,13 +3587,37 @@ func addStateMachineCoverageTests(config stateMachineTestConfig) {
 				MaxVersion: VersionTLS13,
 				MinVersion: VersionTLS13,
 				Bugs: ProtocolBugs{
-					SendEarlyData:           [][]byte{},
+					SendEarlyData:           [][]byte{{1, 2, 3, 4}},
 					ExpectEarlyDataAccepted: true,
+					ExpectHalfRTTData:       [][]byte{{254, 253, 252, 251}},
 				},
 			},
+			messageCount:  2,
 			resumeSession: true,
 			flags: []string{
 				"-enable-early-data",
+				"-expect-accept-early-data",
+			},
+		})
+
+		tests = append(tests, testCase{
+			testType: serverTest,
+			name:     "TLS13-EarlyData-Implicit-Server",
+			config: Config{
+				MaxVersion: VersionTLS13,
+				MinVersion: VersionTLS13,
+				Bugs: ProtocolBugs{
+					SendEarlyData:           [][]byte{{1, 2, 3, 4}},
+					ExpectEarlyDataAccepted: true,
+					ExpectHalfRTTData:       [][]byte{{254, 253, 252, 251}},
+				},
+			},
+			messageCount:  2,
+			resumeSession: true,
+			flags: []string{
+				"-enable-early-data",
+				"-expect-accept-early-data",
+				"-implicit-handshake",
 			},
 		})
 	}
@@ -9951,39 +9975,6 @@ func addTLS13HandshakeTests() {
 		},
 	})
 
-	// Test that we accept data-less early data.
-	testCases = append(testCases, testCase{
-		testType: serverTest,
-		name:     "TLS13-DataLessEarlyData-Server",
-		config: Config{
-			MaxVersion: VersionTLS13,
-			Bugs: ProtocolBugs{
-				SendEarlyData:           [][]byte{},
-				ExpectEarlyDataAccepted: true,
-			},
-		},
-		resumeSession: true,
-		flags: []string{
-			"-enable-early-data",
-			"-expect-accept-early-data",
-		},
-	})
-
-	testCases = append(testCases, testCase{
-		testType: clientTest,
-		name:     "TLS13-DataLessEarlyData-Client",
-		config: Config{
-			MaxVersion:       VersionTLS13,
-			MaxEarlyDataSize: 16384,
-		},
-		resumeSession: true,
-		flags: []string{
-			"-enable-early-data",
-			"-expect-early-data-info",
-			"-expect-accept-early-data",
-		},
-	})
-
 	testCases = append(testCases, testCase{
 		testType: clientTest,
 		name:     "TLS13-DataLessEarlyData-Reject-Client",
@@ -10223,7 +10214,7 @@ func addTLS13HandshakeTests() {
 		resumeConfig: &Config{
 			MaxVersion: VersionTLS13,
 			Bugs: ProtocolBugs{
-				SendEarlyData:           [][]byte{{}},
+				SendEarlyData:           [][]byte{{1, 2, 3, 4}},
 				ExpectEarlyDataAccepted: false,
 			},
 		},
@@ -10247,7 +10238,7 @@ func addTLS13HandshakeTests() {
 			MaxVersion: VersionTLS13,
 			NextProtos: []string{"foo"},
 			Bugs: ProtocolBugs{
-				SendEarlyData:           [][]byte{{}},
+				SendEarlyData:           [][]byte{{1, 2, 3, 4}},
 				ExpectEarlyDataAccepted: false,
 			},
 		},
@@ -10272,7 +10263,7 @@ func addTLS13HandshakeTests() {
 			MaxVersion: VersionTLS13,
 			NextProtos: []string{},
 			Bugs: ProtocolBugs{
-				SendEarlyData:           [][]byte{{}},
+				SendEarlyData:           [][]byte{{1, 2, 3, 4}},
 				ExpectEarlyDataAccepted: false,
 			},
 		},
@@ -10296,7 +10287,7 @@ func addTLS13HandshakeTests() {
 			MaxVersion: VersionTLS13,
 			NextProtos: []string{"bar"},
 			Bugs: ProtocolBugs{
-				SendEarlyData:           [][]byte{{}},
+				SendEarlyData:           [][]byte{{1, 2, 3, 4}},
 				ExpectEarlyDataAccepted: false,
 			},
 		},

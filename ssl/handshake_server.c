@@ -453,6 +453,13 @@ int ssl3_accept(SSL_HANDSHAKE *hs) {
         if (ret <= 0) {
           goto end;
         }
+
+        if (hs->can_early_read) {
+          ssl->method->release_current_message(ssl, 0 /* don't free buffer */);
+          ret = 1;
+          goto end;
+        }
+
         hs->state = SSL_ST_OK;
         break;
 

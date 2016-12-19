@@ -1182,7 +1182,7 @@ type ProtocolBugs struct {
 
 	// ExpectHalfRTTData causes a TLS 1.3 client to read application
 	// data after reading the server's Finished message and before
-	// sending any other handshake messages. It checks that the
+	// sending any other handshake messages on resumption. It checks that the
 	// application data it reads matches what is provided in
 	// ExpectHalfRTTData and errors if the number of records or their
 	// content do not match.

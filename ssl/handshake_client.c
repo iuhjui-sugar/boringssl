@@ -406,6 +406,7 @@ int ssl3_connect(SSL_HANDSHAKE *hs) {
       case SSL3_ST_FALSE_START:
         hs->state = SSL3_ST_CR_SESSION_TICKET_A;
         hs->in_false_start = 1;
+        hs->can_early_write = 1;
         ret = 1;
         goto end;
 
