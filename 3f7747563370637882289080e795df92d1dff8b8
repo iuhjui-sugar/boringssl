@@ -104,6 +104,24 @@
       "revId": "3f7747563370637882289080e795df92d1dff8b8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa6fafa9_ef13da3f",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1033,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2016-12-19T07:55:23Z",
+      "side": 1,
+      "message": "\u003e That suggests that none of the non-RSA callers care about BN_mod_exp_mont_consttime and would be fine with BN_mod_exp_mont. Does that match your understanding?\n\nYes. I think there are code paths in BN_mod_exp_mont_consttime that protect the base better against being leaked through the `bn_correct_top()` madness, it also has code paths that aren\u0027t protected so. The theory of operation of BN_mod_exp_mont_consttime is to protect the exponent, which isn\u0027t needed here.\n\n\u003e It seems RSA would nominally prefer BN_mod_exp_mont_consttime, and that\u0027s the version I uploaded just because it was what I happened to write first and it was easy. Though perhaps all that is a waste of trouble and there should just be the one function. I could easily buy making this constant-time is hopeless. (And probably not very important since it\u0027s done exactly once per key.)\n\nFWIW, if you enable the 1024-bit RSAZ then `BN_mod_exp_mont_consttime()` is probably faster than `BN_mod_exp_mont()`. (IIRC, it is frequently faster, maybe in other scenerios too.)",
+      "parentUuid": "5a2fdb70_6de9b139",
+      "revId": "3f7747563370637882289080e795df92d1dff8b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
