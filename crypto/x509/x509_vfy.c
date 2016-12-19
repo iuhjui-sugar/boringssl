@@ -234,6 +234,25 @@ int X509_verify_cert(X509_STORE_CTX *ctx)
         goto end;
     }
 
+    if (ctx->ctx->untrusted != NULL) {
+        if (sktmp == NULL) {
+            sktmp = sk_X509_new_null();
+            if (sktmp == NULL) {
+                OPENSSL_PUT_ERROR(X509, ERR_R_MALLOC_FAILURE);
+                ctx->error = X509_V_ERR_OUT_OF_MEM;
+                goto end;
+            }
+        }
+
+        for (size_t k = 0; k < sk_X509_num(ctx->ctx->untrusted); k++) {
+            if (!sk_X509_push(sktmp, sk_X509_value(ctx->ctx->untrusted, k))) {
+                OPENSSL_PUT_ERROR(X509, ERR_R_MALLOC_FAILURE);
+                ctx->error = X509_V_ERR_OUT_OF_MEM;
+                goto end;
+            }
+        }
+    }
+
     num = sk_X509_num(ctx->chain);
     x = sk_X509_value(ctx->chain, num - 1);
     depth = param->depth;
@@ -269,7 +288,7 @@ int X509_verify_cert(X509_STORE_CTX *ctx)
         }
 
         /* If we were passed a cert chain, use it first */
-        if (ctx->untrusted != NULL) {
+        if (sktmp != NULL) {
             xtmp = find_issuer(ctx, sktmp, x);
             if (xtmp != NULL) {
                 if (!sk_X509_push(ctx->chain, xtmp)) {
@@ -1250,6 +1269,17 @@ static void crl_akid_check(X509_STORE_CTX *ctx, X509_CRL *crl,
      */
     for (i = 0; i < sk_X509_num(ctx->untrusted); i++) {
         crl_issuer = sk_X509_value(ctx->untrusted, i);
+        if (X509_NAME_cmp(X509_get_subject_name(crl_issuer), cnm))
+            continue;
+        if (X509_check_akid(crl_issuer, crl->akid) == X509_V_OK) {
+            *pissuer = crl_issuer;
+            *pcrl_score |= CRL_SCORE_AKID;
+            return;
+        }
+    }
+
+    for (i = 0; i < sk_X509_num(ctx->ctx->untrusted); i++) {
+        crl_issuer = sk_X509_value(ctx->ctx->untrusted, i);
         if (X509_NAME_cmp(X509_get_subject_name(crl_issuer), cnm))
             continue;
         if (X509_check_akid(crl_issuer, crl->akid) == X509_V_OK) {
