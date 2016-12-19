@@ -497,6 +497,7 @@ static enum ssl_hs_wait_t do_process_second_client_flight(SSL_HANDSHAKE *hs) {
     if (!tls13_set_traffic_key(ssl, evp_aead_open, hs->early_secret, hs->hash_len)) {
       return ssl_hs_error;
     }
+    hs->in_early_read = 1;
     hs->tls13_state = state_process_end_of_early_data;
     return ssl_hs_read_eoed;
   }
@@ -515,6 +516,7 @@ static enum ssl_hs_wait_t do_process_end_of_early_data(SSL_HANDSHAKE *hs) {
                              hs->hash_len)) {
     return ssl_hs_error;
   }
+  hs->in_early_read = 0;
   hs->tls13_state = state_process_client_certificate;
   return ssl_hs_read_message;
 }

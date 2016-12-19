@@ -68,7 +68,7 @@ int tls13_handshake(SSL_HANDSHAKE *hs) {
       case ssl_hs_read_eoed: {
         int ret = ssl->method->read_end_of_early_data(ssl);
         if (ret <= 0) {
-          return ret;
+          return 1;
         }
         break;
       }
