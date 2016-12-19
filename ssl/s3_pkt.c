@@ -189,7 +189,7 @@ again:
 }
 
 int ssl3_write_app_data(SSL *ssl, const uint8_t *buf, int len) {
-  assert(!SSL_in_init(ssl) || SSL_in_false_start(ssl));
+  assert(!SSL_in_init(ssl) || SSL_in_false_start(ssl) || SSL_in_early_read(ssl));
 
   unsigned tot, n, nw;
 
@@ -325,8 +325,10 @@ static int consume_record(SSL *ssl, uint8_t *out, int len, int peek) {
 
 int ssl3_read_app_data(SSL *ssl, int *out_got_handshake, uint8_t *buf, int len,
                        int peek) {
-  assert(!SSL_in_init(ssl));
-  assert(ssl->s3->initial_handshake_complete);
+  if (!SSL_in_early_read(ssl)) {
+    assert(!SSL_in_init(ssl));
+    assert(ssl->s3->initial_handshake_complete);
+  }
   *out_got_handshake = 0;
 
   SSL3_RECORD *rr = &ssl->s3->rrec;
@@ -360,6 +362,16 @@ int ssl3_read_app_data(SSL *ssl, int *out_got_handshake, uint8_t *buf, int len,
         return ret;
       }
       *out_got_handshake = 1;
+      return -1;
+    }
+
+    if (rr->type == SSL3_RT_ALERT &&
+        rr->length == 2 &&
+        rr->data[0] == SSL3_AL_WARNING &&
+        rr->data[1] == TLS1_AD_END_OF_EARLY_DATA &&
+        ssl->server &&
+        ssl3_protocol_version(ssl) >= TLS1_3_VERSION) {
+      *out_got_handshake = 2;
       return -1;
     }
 
