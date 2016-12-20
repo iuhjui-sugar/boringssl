@@ -38,7 +38,7 @@ type Conn struct {
 	haveVers             bool       // version has been negotiated
 	config               *Config    // configuration passed to constructor
 	handshakeComplete    bool
-	skipEarlyData        bool
+	skipEarlyData        bool // On a server, indicates that the client is sending early data that must be skipped over.
 	didResume            bool // whether this connection was a session resumption
 	extendedMasterSecret bool // whether this session used an extended master secret
 	cipherSuite          *cipherSuite
@@ -884,7 +884,7 @@ func (c *Conn) readRecord(want recordType) error {
 			return c.in.setErrorLocked(errors.New("tls: handshake or ChangeCipherSpec requested after handshake complete"))
 		}
 	case recordTypeApplicationData:
-		if !c.handshakeComplete && !c.config.Bugs.ExpectFalseStart && len(c.config.Bugs.ExpectHalfRTTData) == 0 {
+		if !c.handshakeComplete && !c.config.Bugs.ExpectFalseStart && len(c.config.Bugs.ExpectHalfRTTData) == 0 && len(c.config.Bugs.ExpectEarlyData) == 0 {
 			c.sendAlert(alertInternalError)
 			return c.in.setErrorLocked(errors.New("tls: application data record requested before handshake complete"))
 		}
@@ -932,6 +932,9 @@ Again:
 
 			// drop on the floor
 			c.in.freeBlock(b)
+			if alert(data[1]) == alertEndOfEarlyData {
+				return nil
+			}
 			goto Again
 		case alertLevelError:
 			c.in.setErrorLocked(&net.OpError{Op: "remote error", Err: alert(data[1])})
@@ -1798,10 +1801,10 @@ func (c *Conn) SendNewSessionTicket() error {
 	m := &newSessionTicketMsg{
 		version:                c.vers,
 		ticketLifetime:         uint32(24 * time.Hour / time.Second),
-		maxEarlyDataSize:       c.config.Bugs.SendTicketEarlyDataInfo,
 		duplicateEarlyDataInfo: c.config.Bugs.DuplicateTicketEarlyDataInfo,
 		customExtension:        c.config.Bugs.CustomTicketExtension,
 		ticketAgeAdd:           ticketAgeAdd,
+		maxEarlyDataSize:       c.config.MaxEarlyDataSize,
 	}
 
 	state := sessionState{

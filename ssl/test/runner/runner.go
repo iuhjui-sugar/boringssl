@@ -8437,10 +8437,8 @@ func addSessionTicketTests() {
 		testType: clientTest,
 		name:     "TLS13-SendTicketEarlyDataInfo",
 		config: Config{
-			MaxVersion: VersionTLS13,
-			Bugs: ProtocolBugs{
-				SendTicketEarlyDataInfo: 16384,
-			},
+			MaxVersion:       VersionTLS13,
+			MaxEarlyDataSize: 16384,
 		},
 		flags: []string{
 			"-expect-early-data-info",
@@ -8451,9 +8449,9 @@ func addSessionTicketTests() {
 		testType: clientTest,
 		name:     "TLS13-DuplicateTicketEarlyDataInfo",
 		config: Config{
-			MaxVersion: VersionTLS13,
+			MaxVersion:       VersionTLS13,
+			MaxEarlyDataSize: 16384,
 			Bugs: ProtocolBugs{
-				SendTicketEarlyDataInfo:      16384,
 				DuplicateTicketEarlyDataInfo: true,
 			},
 		},
