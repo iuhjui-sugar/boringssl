@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f730aaea_329fe89e",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-20T18:18:14Z",
+      "side": 1,
+      "message": "This is slightly odd in that, if we\u0027re running a test where we\u0027re expecting failure, we\u0027ll only run it once, but if we\u0027re expecting success, we\u0027ll run it twice.\n\nYou could run the function twice always and require the two results be equal, maybe? Dunno if that\u0027ll get unwieldy over time.",
+      "revId": "08335f1e1b4c1d01cbc7f90dbf41c0f76c2553e9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f730aaea_72bc500e",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-20T18:18:14Z",
+      "side": 1,
+      "message": "Nit: four-space indent here.",
+      "revId": "08335f1e1b4c1d01cbc7f90dbf41c0f76c2553e9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
