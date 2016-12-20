@@ -440,6 +440,7 @@ static bool InstallCertificate(SSL *ssl) {
 
 static int SelectCertificateCallback(const SSL_CLIENT_HELLO *client_hello) {
   const TestConfig *config = GetTestConfig(client_hello->ssl);
+  bool was_called = GetTestState(client_hello->ssl)->early_callback_called;
   GetTestState(client_hello->ssl)->early_callback_called = true;
 
   if (!config->expected_server_name.empty()) {
@@ -479,7 +480,7 @@ static int SelectCertificateCallback(const SSL_CLIENT_HELLO *client_hello) {
 
   // Install the certificate in the early callback.
   if (config->use_early_callback) {
-    if (config->async) {
+    if (config->async && !was_called) {
       // Install the certificate asynchronously.
       return 0;
     }
@@ -1097,8 +1098,7 @@ static bool RetryAsync(SSL *ssl, int ret) {
       test_state->session = std::move(test_state->pending_session);
       return true;
     case SSL_ERROR_PENDING_CERTIFICATE:
-      // The handshake will resume without a second call to the early callback.
-      return InstallCertificate(ssl);
+      return true;
     case SSL_ERROR_WANT_PRIVATE_KEY_OPERATION:
       test_state->private_key_retries++;
       return true;
