@@ -48,6 +48,23 @@
     },
     {
       "key": {
+        "uuid": "f730aaea_7591da31",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 9924,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-12-20T20:47:04Z",
+      "side": 1,
+      "message": "Can you add a test where each side sends the short header version when the extension isn\u0027t negotiated, and when each side sends normal headers when the extension has been negotiated.",
+      "revId": "ce905043327551e087cb3fc9bfa41e46a5d9dd99",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f730aaea_ac34a339",
         "filename": "ssl/tls_record.c",
         "patchSetId": 3
