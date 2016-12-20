@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f730aaea_12dcec2d",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-20T20:03:59Z",
+      "side": 1,
+      "message": "Rather than that, it\u0027s probably better to mirror the others and add a test_state-\u003eearly_callback_ready which is set in RetryAsync. This way we test the right SSL_ERROR_WANT_* code is returned.\n\nI.e. bssl_shim will not allow a particular stage to progress unless the SSL stack is capable of asking for that stage correctly.",
+      "range": {
+        "startLine": 483,
+        "startChar": 26,
+        "endLine": 483,
+        "endChar": 36
+      },
+      "revId": "6084f43a66da776381f976d55790c978c3bf1d8b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
