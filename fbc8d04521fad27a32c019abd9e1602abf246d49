@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f730aaea_9299fc64",
+        "filename": "crypto/obj/obj_mac.num",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-20T20:33:46Z",
+      "side": 1,
+      "message": "Some of these fell off because they weren\u0027t in objects.txt.",
+      "revId": "fbc8d04521fad27a32c019abd9e1602abf246d49",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
