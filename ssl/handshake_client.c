@@ -1477,7 +1477,8 @@ static int ssl3_send_client_certificate(SSL_HANDSHAKE *hs) {
     }
   }
 
-  if (!ssl3_output_cert_chain(ssl)) {
+  if (!ssl_auto_chain_if_needed(ssl) ||
+      !ssl3_output_cert_chain(ssl)) {
     return -1;
   }
   hs->state = SSL3_ST_CW_CERT_B;
