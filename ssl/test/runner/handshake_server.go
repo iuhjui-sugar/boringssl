@@ -135,14 +135,37 @@ func (c *Conn) startServerHandshake() error {
 	return nil
 }
 
+func (c *Conn) handleEndOfEarlyData() {
+	c.handshakeErr = c.finishTLS13ServerHandshake()
+}
+
 func (c *Conn) finishServerHandshake() error {
 	if c.vers < VersionTLS13 {
 		c.handshakeComplete = true
 		return nil
 	}
+
+	// Read EOED alert before finishing the handshake.
+	if c.in.cipher != nil {
+		// TODO(nharper): Once EOED is a handshake message, this
+		// can be replaced with c.readHandshake().
+		if err := c.readRecord(recordTypeAlert); err != nil {
+			return err
+		}
+		// When we read the alert record, it will call
+		// handleEndOfEarlyData, so we're done here.
+		return c.handshakeErr
+	}
+	return c.finishTLS13ServerHandshake()
+}
+
+func (c *Conn) finishTLS13ServerHandshake() error {
 	config := c.config
 	hs := c.serverHandshakeState
 	c.serverHandshakeState = nil
+
+	// Switch input stream to handshake traffic keys.
+	c.in.useTrafficSecret(c.vers, hs.suite, hs.clientHandshakeTrafficSecret, clientWrite)
 
 	// If we requested a client certificate, then the client must send a
 	// certificate message, even if it's empty.
@@ -643,12 +666,6 @@ Curves:
 		}
 	}
 
-	// Decide whether or not to accept early data.
-	if hs.clientHello.hasEarlyData {
-		// For now, we'll reject and skip early data.
-		c.skipEarlyData = true
-	}
-
 	// Resolve PSK and compute the early secret.
 	if hs.sessionState != nil {
 		hs.finishedHash.addEntropy(hs.sessionState.masterSecret)
@@ -792,6 +809,17 @@ ResendHelloRetryRequest:
 		}
 	}
 
+	// Decide whether or not to accept early data.
+	if hs.clientHello.hasEarlyData {
+		if !sendHelloRetryRequest && hs.sessionState != nil {
+			encryptedExtensions.extensions.hasEarlyData = true
+			earlyTrafficSecret := hs.finishedHash.deriveSecret(earlyTrafficLabel)
+			c.in.useTrafficSecret(c.vers, hs.suite, earlyTrafficSecret, clientWrite)
+		} else {
+			c.skipEarlyData = true
+		}
+	}
+
 	// Resolve ECDHE and compute the handshake secret.
 	if hs.hello.hasKeyShare {
 		// Once a curve has been selected and a key share identified,
@@ -865,8 +893,8 @@ ResendHelloRetryRequest:
 	// Switch to handshake traffic keys.
 	serverHandshakeTrafficSecret := hs.finishedHash.deriveSecret(serverHandshakeTrafficLabel)
 	c.out.useTrafficSecret(c.vers, hs.suite, serverHandshakeTrafficSecret, serverWrite)
-	clientHandshakeTrafficSecret := hs.finishedHash.deriveSecret(clientHandshakeTrafficLabel)
-	c.in.useTrafficSecret(c.vers, hs.suite, clientHandshakeTrafficSecret, clientWrite)
+	// Derive handshake traffic read key, but don't switch yet.
+	hs.clientHandshakeTrafficSecret = hs.finishedHash.deriveSecret(clientHandshakeTrafficLabel)
 
 	// Send EncryptedExtensions.
 	hs.writeServerHash(encryptedExtensions.marshal())
@@ -984,15 +1012,13 @@ ResendHelloRetryRequest:
 	// The various secrets do not incorporate the client's final leg, so
 	// derive them now before updating the handshake context.
 	hs.finishedHash.addEntropy(hs.finishedHash.zeroSecret())
-	clientTrafficSecret := hs.finishedHash.deriveSecret(clientApplicationTrafficLabel)
+	hs.clientTrafficSecret = hs.finishedHash.deriveSecret(clientApplicationTrafficLabel)
 	serverTrafficSecret := hs.finishedHash.deriveSecret(serverApplicationTrafficLabel)
 	c.exporterSecret = hs.finishedHash.deriveSecret(exporterLabel)
 
 	// Switch to application data keys on write. In particular, any alerts
 	// from the client certificate are sent over these keys.
 	c.out.useTrafficSecret(c.vers, hs.suite, serverTrafficSecret, serverWrite)
-	hs.clientHandshakeTrafficSecret = clientHandshakeTrafficSecret
-	hs.clientTrafficSecret = clientTrafficSecret
 	c.serverHandshakeState = hs
 	return nil
 }
