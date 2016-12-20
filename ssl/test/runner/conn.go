@@ -42,7 +42,7 @@ type Conn struct {
 	handshakeComplete    bool
 	serverHandshakeState *serverHandshakeState
 	clientHandshakeState *clientHandshakeState
-	skipEarlyData        bool
+	skipEarlyData        bool // On a server, indicates that the client is sending early data that must be skipped over. On a client, indicates that the server skipped over early data and Read should return NO_EARLY_DATA to indicate that.
 	earlyBytesWritten    int
 	maxEarlyDataSize     int
 	didResume            bool // whether this connection was a session resumption
@@ -859,7 +859,7 @@ func (c *Conn) readRecord(want recordType) error {
 			return c.in.setErrorLocked(errors.New("tls: handshake or ChangeCipherSpec requested after handshake complete"))
 		}
 	case recordTypeApplicationData:
-		if !c.handshakeComplete && !c.config.Bugs.ExpectFalseStart {
+		if !c.handshakeComplete && !c.config.Bugs.ExpectFalseStart && (c.isClient || c.in.cipher == nil) {
 			c.sendAlert(alertInternalError)
 			return c.in.setErrorLocked(errors.New("tls: application data record requested before handshake complete"))
 		}
@@ -898,6 +898,10 @@ Again:
 		case alertLevelWarning:
 			// drop on the floor
 			c.in.freeBlock(b)
+			if alert(data[1]) == alertEndOfEarlyData {
+				c.handleEndOfEarlyData()
+				return nil
+			}
 			goto Again
 		case alertLevelError:
 			c.in.setErrorLocked(&net.OpError{Op: "remote error", Err: alert(data[1])})
@@ -1482,6 +1486,9 @@ func (c *Conn) handlePostHandshakeMessage() error {
 		}
 	}
 
+	// TODO(nharper): Add support for EndOfEarlyData handshake message
+	// (instead of alert).
+
 	if keyUpdate, ok := msg.(*keyUpdateMsg); ok {
 		c.in.doKeyUpdate(c, false)
 		if keyUpdate.keyUpdateRequest == keyUpdateRequested {
@@ -1516,12 +1523,23 @@ func (c *Conn) Renegotiate() error {
 // then the first call to Read will return NO_EARLY_DATA to signal the
 // rejection.
 func (c *Conn) Read(b []byte) (n int, err error) {
-	if err = c.Handshake(); err != nil {
+	if err = c.StartHandshake(); err != nil {
 		return
+	}
+
+	if c.isClient || c.vers < VersionTLS13 || c.skipEarlyData || c.in.cipher == nil || c.earlyBytesWritten < 0 {
+		if err := c.finishHandshake(); err != nil {
+			return 0, err
+		}
 	}
 
 	c.in.Lock()
 	defer c.in.Unlock()
+
+	if !c.handshakeComplete {
+		c.handshakeMutex.Lock()
+		defer c.handshakeMutex.Unlock()
+	}
 
 	if c.skipEarlyData && c.isClient {
 		c.skipEarlyData = false
@@ -1624,6 +1642,9 @@ func (c *Conn) Close() error {
 // protocol if it has not yet been run.
 // Most uses of this package need not call Handshake
 // explicitly: the first Read or Write will call it automatically.
+// Do not call Handshake on a TLS 1.3 server that is configured to accept
+// 0-RTT data, as Handshake will fail when it finds decryptable 0-RTT data
+// instead of a handshake message.
 func (c *Conn) Handshake() error {
 	if err := c.StartHandshake(); err != nil {
 		return err
@@ -1814,6 +1835,7 @@ func (c *Conn) SendNewSessionTicket() error {
 		ticketLifetime:   uint32(24 * time.Hour / time.Second),
 		customExtension:  c.config.Bugs.CustomTicketExtension,
 		ticketAgeAdd:     ticketAgeAdd,
+		maxEarlyDataSize: c.config.MaxEarlyDataSize,
 	}
 
 	state := sessionState{

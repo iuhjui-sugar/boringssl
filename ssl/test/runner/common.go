@@ -416,6 +416,13 @@ type Config struct {
 	// with the PSK cipher suites.
 	PreSharedKeyIdentity string
 
+	// MaxEarlyDataSize controls the maximum number of bytes that the
+	// server will accept in early data and advertise in a
+	// NewSessionTicketMsg. If 0, no early data will be accepted and
+	// the TicketEarlyDataInfo extension in the NewSessionTicketMsg
+	// will be omitted.
+	MaxEarlyDataSize uint32
+
 	// SRTPProtectionProfiles, if not nil, is the list of SRTP
 	// protection profiles to offer in DTLS-SRTP.
 	SRTPProtectionProfiles []uint16
