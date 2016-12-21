@@ -294,6 +294,24 @@
     },
     {
       "key": {
+        "uuid": "f730aaea_b59e223b",
+        "filename": "crypto/bn/convert.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-21T00:25:21Z",
+      "side": 1,
+      "message": "*shrug* I figure memcpy would be less code too. And because it\u0027s a memcpy, it doesn\u0027t even violate strict-aliasing. Seems a win/win.\n\nThough this does mean you want the tests to check the actual byte value, rather than only testing that it round-trips.",
+      "parentUuid": "dabe6b36_3d037ff2",
+      "revId": "6c9d9e252a2b65b3b103ef553c74a1012261d5d3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1af2c318_a0f914a8",
         "filename": "crypto/bn/convert.c",
         "patchSetId": 4
