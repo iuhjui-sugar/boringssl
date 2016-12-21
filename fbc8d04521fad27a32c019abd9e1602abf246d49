@@ -270,6 +270,24 @@
     },
     {
       "key": {
+        "uuid": "77b2fac6_20ba10bf",
+        "filename": "crypto/obj/objects.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-21T21:55:02Z",
+      "side": 1,
+      "message": "Correct, and we would want to support older versions for a while anyway.",
+      "parentUuid": "f730aaea_fb013be9",
+      "revId": "fbc8d04521fad27a32c019abd9e1602abf246d49",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "77b2fac6_e09e383c",
         "filename": "crypto/obj/objects.go",
         "patchSetId": 2
@@ -346,6 +364,24 @@
       "side": 1,
       "message": "I think they\u0027re actually the same in UTF-8 because UTF-8 is magic. :-)",
       "parentUuid": "77b2fac6_a0f5a064",
+      "revId": "fbc8d04521fad27a32c019abd9e1602abf246d49",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "77b2fac6_00c10c3d",
+        "filename": "crypto/obj/objects.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 559,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-21T21:55:02Z",
+      "side": 1,
+      "message": "In which case, god bless r, for he is way smarter than I am :)",
+      "parentUuid": "f730aaea_1baf6733",
       "revId": "fbc8d04521fad27a32c019abd9e1602abf246d49",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
