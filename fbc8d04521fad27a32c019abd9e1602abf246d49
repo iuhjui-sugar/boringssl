@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "77b2fac6_3dff99b7",
+        "filename": "crypto/obj/obj_dat.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-21T20:11:14Z",
+      "side": 1,
+      "message": "I don\u0027t think we can put our copyright on this file just because it was produced by a script that we wrote. Duplicating the copyright on the input files is probably better.",
+      "revId": "fbc8d04521fad27a32c019abd9e1602abf246d49",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f730aaea_9299fc64",
         "filename": "crypto/obj/obj_mac.num",
         "patchSetId": 2
@@ -13,6 +30,160 @@
       "writtenOn": "2016-12-20T20:33:46Z",
       "side": 1,
       "message": "Some of these fell off because they weren\u0027t in objects.txt.",
+      "revId": "fbc8d04521fad27a32c019abd9e1602abf246d49",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "77b2fac6_fd6a6194",
+        "filename": "crypto/obj/objects.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-21T20:11:14Z",
+      "side": 1,
+      "message": "Can just return err here: the error from os.Open is already sufficiently descriptive.",
+      "revId": "fbc8d04521fad27a32c019abd9e1602abf246d49",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "77b2fac6_1d0895da",
+        "filename": "crypto/obj/objects.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-21T20:11:14Z",
+      "side": 1,
+      "message": "just %q",
+      "range": {
+        "startLine": 105,
+        "startChar": 54,
+        "endLine": 105,
+        "endChar": 58
+      },
+      "revId": "fbc8d04521fad27a32c019abd9e1602abf246d49",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "77b2fac6_fdc0213b",
+        "filename": "crypto/obj/objects.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-21T20:11:14Z",
+      "side": 1,
+      "message": "ditto about returning err.",
+      "revId": "fbc8d04521fad27a32c019abd9e1602abf246d49",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "77b2fac6_9dafa57c",
+        "filename": "crypto/obj/objects.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-21T20:11:14Z",
+      "side": 1,
+      "message": "objs :\u003d \u0026objects{\n  byNID: make([]object, numNIDs),\n  nameToNID: make(map[string]int),\n}",
+      "revId": "fbc8d04521fad27a32c019abd9e1602abf246d49",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "77b2fac6_e085d8f3",
+        "filename": "crypto/obj/objects.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-21T20:11:14Z",
+      "side": 1,
+      "message": "ditto about err.",
+      "revId": "fbc8d04521fad27a32c019abd9e1602abf246d49",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "77b2fac6_20a53089",
+        "filename": "crypto/obj/objects.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-21T20:11:14Z",
+      "side": 1,
+      "message": "sort.Slice in Go 1.8 fixes this.",
+      "revId": "fbc8d04521fad27a32c019abd9e1602abf246d49",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "77b2fac6_e09e383c",
+        "filename": "crypto/obj/objects.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-21T20:11:14Z",
+      "side": 1,
+      "message": ",",
+      "range": {
+        "startLine": 514,
+        "startChar": 49,
+        "endLine": 514,
+        "endChar": 50
+      },
+      "revId": "fbc8d04521fad27a32c019abd9e1602abf246d49",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "77b2fac6_a0f5a064",
+        "filename": "crypto/obj/objects.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 559,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-21T20:11:14Z",
+      "side": 1,
+      "message": "confirmed that Go\u0027s string compare is byte-wise, not rune-wise. So should match C even if we have non-ASCII chars in a name at some point.",
+      "range": {
+        "startLine": 559,
+        "startChar": 66,
+        "endLine": 559,
+        "endChar": 68
+      },
       "revId": "fbc8d04521fad27a32c019abd9e1602abf246d49",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
