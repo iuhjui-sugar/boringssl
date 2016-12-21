@@ -16,6 +16,24 @@
       "revId": "b442dee388aa2870ef039ead426e7f9beb50a416",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "77b2fac6_bdaaa9b9",
+        "filename": "crypto/bio/buffer.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-21T19:38:01Z",
+      "side": 0,
+      "message": "I could see an argument for always adding the next_bio\u0027s value, but testing only on zero doesn\u0027t make much sense. (Although, as you note, the base64 BIO reports the number of base64 chars for BIO_pending, not the number of bytes that will result. So maybe it\u0027s always been a bit of a zero vs non-zero thing and thus the current behaviour reflects that.)\n\nHaving said that, /not/ chaining at all isn\u0027t obviously more correct. At least for BIO_pending, a reasonable meaning might be \"can I read bytes without doing I/O at this point?\". But I\u0027m not sure what the interpretation without chaining would be.",
+      "parentUuid": "f730aaea_f5b82a0f",
+      "revId": "b442dee388aa2870ef039ead426e7f9beb50a416",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
