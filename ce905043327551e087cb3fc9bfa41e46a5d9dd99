@@ -25,6 +25,24 @@
     },
     {
       "key": {
+        "uuid": "f730aaea_fb86db68",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-21T21:29:10Z",
+      "side": 1,
+      "message": "Done. Yeah, I think that\u0027s better.",
+      "parentUuid": "f730aaea_4c4c1fe3",
+      "revId": "ce905043327551e087cb3fc9bfa41e46a5d9dd99",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f730aaea_2c41d3aa",
         "filename": "ssl/test/runner/conn.go",
         "patchSetId": 3
@@ -48,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "f730aaea_db831f57",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 1081,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-21T21:29:10Z",
+      "side": 1,
+      "message": "Is it? This is the long header case.",
+      "parentUuid": "f730aaea_2c41d3aa",
+      "revId": "ce905043327551e087cb3fc9bfa41e46a5d9dd99",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f730aaea_7591da31",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 3
@@ -59,6 +95,24 @@
       "writtenOn": "2016-12-20T20:47:04Z",
       "side": 1,
       "message": "Can you add a test where each side sends the short header version when the extension isn\u0027t negotiated, and when each side sends normal headers when the extension has been negotiated.",
+      "revId": "ce905043327551e087cb3fc9bfa41e46a5d9dd99",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f730aaea_3b8d8386",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 9924,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-21T21:29:10Z",
+      "side": 1,
+      "message": "It\u0027s a little odd in that, depending on what the short header record looks like, long header record may fail differently. Converse will always reject though.\n\nAdded a test for missing high bit on short header. Between that and existing long header tests, I think that should cover all the cases where there\u0027s a header-level syntax error.",
+      "parentUuid": "f730aaea_7591da31",
       "revId": "ce905043327551e087cb3fc9bfa41e46a5d9dd99",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -82,6 +136,24 @@
         "endLine": 184,
         "endChar": 32
       },
+      "revId": "ce905043327551e087cb3fc9bfa41e46a5d9dd99",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f730aaea_6cf47baf",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-21T21:29:10Z",
+      "side": 1,
+      "message": "This was written this way to reflect that DTLS doesn\u0027t check the record-splitting bit. That said, it doesn\u0027t reflect that the TLS code always checks record splitting. Fixed that. Also fixed the TLS 1.3 tls_seal_record code. It doesn\u0027t really matter, but the padding logic really should have been in do_seal_record. That also avoids having to compute header length in two places.",
+      "parentUuid": "f730aaea_ac34a339",
       "revId": "ce905043327551e087cb3fc9bfa41e46a5d9dd99",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
