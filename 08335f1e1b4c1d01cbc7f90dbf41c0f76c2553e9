@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "77b2fac6_6891d831",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-21T00:14:38Z",
+      "side": 1,
+      "message": "Good point. Done.",
+      "parentUuid": "f730aaea_329fe89e",
+      "revId": "08335f1e1b4c1d01cbc7f90dbf41c0f76c2553e9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f730aaea_72bc500e",
         "filename": "crypto/x509/x509_vfy.c",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2016-12-20T18:18:14Z",
       "side": 1,
       "message": "Nit: four-space indent here.",
+      "revId": "08335f1e1b4c1d01cbc7f90dbf41c0f76c2553e9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "77b2fac6_e8a4e88e",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-21T00:14:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f730aaea_72bc500e",
       "revId": "08335f1e1b4c1d01cbc7f90dbf41c0f76c2553e9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
