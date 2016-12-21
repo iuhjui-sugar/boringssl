@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f730aaea_b5862236",
+        "filename": "crypto/bn/bn_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1582,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-21T00:27:48Z",
+      "side": 1,
+      "message": "Probably also worth testing BN_get_u64\u0027s behavior on too large numbers or negative numbers. (Android\u0027s going to care about the negative number taking an absolute value, right?)",
+      "revId": "846220a115d89d6f466348f1d0c9a5155b44db09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f730aaea_3573528f",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-21T00:27:48Z",
+      "side": 1,
+      "message": "Nit: 80 chars.",
+      "revId": "846220a115d89d6f466348f1d0c9a5155b44db09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f730aaea_f58caa59",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-21T00:27:48Z",
+      "side": 1,
+      "message": "Rather than maximum possible which is a little odd (ambiguous which it is), how about:\n\nint BN_get_u64(const BIGNUM *bn, uint64_t *out);",
+      "revId": "846220a115d89d6f466348f1d0c9a5155b44db09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f730aaea_d589ae47",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-21T00:27:48Z",
+      "side": 1,
+      "message": "BN_ULONG \u003d\u003e uint64_t. The point was that BN_ULONG might be a uint32_t. :-P",
+      "range": {
+        "startLine": 324,
+        "startChar": 15,
+        "endLine": 324,
+        "endChar": 23
+      },
+      "revId": "846220a115d89d6f466348f1d0c9a5155b44db09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
