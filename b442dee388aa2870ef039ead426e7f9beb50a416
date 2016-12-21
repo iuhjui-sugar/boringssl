@@ -52,6 +52,24 @@
       "revId": "b442dee388aa2870ef039ead426e7f9beb50a416",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "77b2fac6_e3eac2bd",
+        "filename": "crypto/bio/buffer.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2016-12-21T23:07:00Z",
+      "side": 0,
+      "message": "There are a lot of uses of BIO_pending and quite a lot of uses of BIO_push. There don\u0027t seem to be many users of the combination however. But your SSL example is a good one to show that the current answer really doesn\u0027t make a lot of sense.\n\nSo let\u0027s try this and see how much breaks in the new year.",
+      "parentUuid": "f730aaea_5b4ccfe2",
+      "revId": "b442dee388aa2870ef039ead426e7f9beb50a416",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
