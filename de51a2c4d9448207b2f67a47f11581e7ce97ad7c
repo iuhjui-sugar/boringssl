@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f730aaea_15a4d6ec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-21T00:11:46Z",
+      "side": 1,
+      "message": "go/jxrbv",
+      "revId": "de51a2c4d9448207b2f67a47f11581e7ce97ad7c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f730aaea_95afa6c5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-21T00:11:46Z",
+      "side": 1,
+      "message": "This is the mess in d1_both.c.",
+      "revId": "de51a2c4d9448207b2f67a47f11581e7ce97ad7c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

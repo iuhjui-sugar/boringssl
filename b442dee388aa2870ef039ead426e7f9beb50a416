@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f730aaea_f5b82a0f",
+        "filename": "crypto/bio/buffer.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-21T00:11:46Z",
+      "side": 0,
+      "message": "Does this seem reasonable? I can also add a buffer-specific hook, but it seems chaining of BIO_[w]pending is rarely used and basically nonsense, so I figured I\u0027d just change it here.",
+      "revId": "b442dee388aa2870ef039ead426e7f9beb50a416",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
