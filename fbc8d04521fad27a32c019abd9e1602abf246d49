@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f730aaea_fbb81b0f",
+        "filename": "crypto/obj/obj_dat.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-21T21:40:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77b2fac6_3dff99b7",
+      "revId": "fbc8d04521fad27a32c019abd9e1602abf246d49",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f730aaea_9299fc64",
         "filename": "crypto/obj/obj_mac.num",
         "patchSetId": 2
@@ -53,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "f730aaea_dbb55f17",
+        "filename": "crypto/obj/objects.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-21T21:40:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77b2fac6_fd6a6194",
+      "revId": "fbc8d04521fad27a32c019abd9e1602abf246d49",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "77b2fac6_1d0895da",
         "filename": "crypto/obj/objects.go",
         "patchSetId": 2
@@ -76,6 +112,24 @@
     },
     {
       "key": {
+        "uuid": "f730aaea_7b0e6b1e",
+        "filename": "crypto/obj/objects.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-21T21:40:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77b2fac6_1d0895da",
+      "revId": "fbc8d04521fad27a32c019abd9e1602abf246d49",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "77b2fac6_fdc0213b",
         "filename": "crypto/obj/objects.go",
         "patchSetId": 2
@@ -87,6 +141,24 @@
       "writtenOn": "2016-12-21T20:11:14Z",
       "side": 1,
       "message": "ditto about returning err.",
+      "revId": "fbc8d04521fad27a32c019abd9e1602abf246d49",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f730aaea_5b13af42",
+        "filename": "crypto/obj/objects.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-21T21:40:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77b2fac6_fdc0213b",
       "revId": "fbc8d04521fad27a32c019abd9e1602abf246d49",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -110,6 +182,24 @@
     },
     {
       "key": {
+        "uuid": "f730aaea_3b18e35a",
+        "filename": "crypto/obj/objects.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-21T21:40:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77b2fac6_9dafa57c",
+      "revId": "fbc8d04521fad27a32c019abd9e1602abf246d49",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "77b2fac6_e085d8f3",
         "filename": "crypto/obj/objects.go",
         "patchSetId": 2
@@ -127,6 +217,24 @@
     },
     {
       "key": {
+        "uuid": "f730aaea_1b1d274b",
+        "filename": "crypto/obj/objects.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-21T21:40:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77b2fac6_e085d8f3",
+      "revId": "fbc8d04521fad27a32c019abd9e1602abf246d49",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "77b2fac6_20a53089",
         "filename": "crypto/obj/objects.go",
         "patchSetId": 2
@@ -138,6 +246,24 @@
       "writtenOn": "2016-12-21T20:11:14Z",
       "side": 1,
       "message": "sort.Slice in Go 1.8 fixes this.",
+      "revId": "fbc8d04521fad27a32c019abd9e1602abf246d49",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f730aaea_fb013be9",
+        "filename": "crypto/obj/objects.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-21T21:40:12Z",
+      "side": 1,
+      "message": "Added a TODO. Looks like Go 1.8 isn\u0027t released yet?",
+      "parentUuid": "77b2fac6_20a53089",
       "revId": "fbc8d04521fad27a32c019abd9e1602abf246d49",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -167,6 +293,24 @@
     },
     {
       "key": {
+        "uuid": "f730aaea_dbfe7fb9",
+        "filename": "crypto/obj/objects.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-21T21:40:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77b2fac6_e09e383c",
+      "revId": "fbc8d04521fad27a32c019abd9e1602abf246d49",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "77b2fac6_a0f5a064",
         "filename": "crypto/obj/objects.go",
         "patchSetId": 2
@@ -184,6 +328,24 @@
         "endLine": 559,
         "endChar": 68
       },
+      "revId": "fbc8d04521fad27a32c019abd9e1602abf246d49",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f730aaea_1baf6733",
+        "filename": "crypto/obj/objects.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 559,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-21T21:40:12Z",
+      "side": 1,
+      "message": "I think they\u0027re actually the same in UTF-8 because UTF-8 is magic. :-)",
+      "parentUuid": "77b2fac6_a0f5a064",
       "revId": "fbc8d04521fad27a32c019abd9e1602abf246d49",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
