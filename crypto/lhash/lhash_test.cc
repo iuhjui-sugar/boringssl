@@ -60,7 +60,8 @@ const char *Lookup(std::map<std::string, std::unique_ptr<char[]>> *dummy_lh,
 int main(int argc, char **argv) {
   CRYPTO_library_init();
 
-  std::unique_ptr<_LHASH, FreeLHASH> lh(lh_new(NULL, NULL));
+  std::unique_ptr<_LHASH, FreeLHASH> lh(
+      lh_new((lhash_hash_func)lh_strhash, (lhash_cmp_func)strcmp));
   if (!lh) {
     return 1;
   }
