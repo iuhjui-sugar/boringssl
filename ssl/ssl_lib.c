@@ -419,9 +419,9 @@ SSL *SSL_new(SSL_CTX *ctx) {
   ssl->quiet_shutdown = ctx->quiet_shutdown;
   ssl->max_send_fragment = ctx->max_send_fragment;
 
-  CRYPTO_refcount_inc(&ctx->references);
+  SSL_CTX_up_ref(ctx);
   ssl->ctx = ctx;
-  CRYPTO_refcount_inc(&ctx->references);
+  SSL_CTX_up_ref(ctx);
   ssl->initial_ctx = ctx;
 
   if (ctx->supported_group_list) {
