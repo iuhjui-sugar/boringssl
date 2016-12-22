@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "77b2fac6_2913db1f",
+        "filename": "crypto/bn/bn_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1582,
+      "author": {
+        "id": 7210
+      },
+      "writtenOn": "2016-12-22T01:21:12Z",
+      "side": 1,
+      "message": "I added more tests (including a randomized one).\n\nI think the negative case isn\u0027t such a problem here given that the return type is declared unsigned... I\u0027d expect to have to adjust the sign myself",
+      "parentUuid": "f730aaea_b5862236",
+      "revId": "846220a115d89d6f466348f1d0c9a5155b44db09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f730aaea_3573528f",
         "filename": "include/openssl/bn.h",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2016-12-21T00:27:48Z",
       "side": 1,
       "message": "Nit: 80 chars.",
+      "revId": "846220a115d89d6f466348f1d0c9a5155b44db09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "77b2fac6_699a33fd",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 7210
+      },
+      "writtenOn": "2016-12-22T01:21:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f730aaea_3573528f",
       "revId": "846220a115d89d6f466348f1d0c9a5155b44db09",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "77b2fac6_298c3bc6",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 7210
+      },
+      "writtenOn": "2016-12-22T01:21:12Z",
+      "side": 1,
+      "message": "Sure -- I copied that signature from BN_get_word...",
+      "parentUuid": "f730aaea_f58caa59",
+      "revId": "846220a115d89d6f466348f1d0c9a5155b44db09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f730aaea_d589ae47",
         "filename": "include/openssl/bn.h",
         "patchSetId": 1
@@ -64,6 +118,30 @@
       "writtenOn": "2016-12-21T00:27:48Z",
       "side": 1,
       "message": "BN_ULONG \u003d\u003e uint64_t. The point was that BN_ULONG might be a uint32_t. :-P",
+      "range": {
+        "startLine": 324,
+        "startChar": 15,
+        "endLine": 324,
+        "endChar": 23
+      },
+      "revId": "846220a115d89d6f466348f1d0c9a5155b44db09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "77b2fac6_c988ffb3",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 7210
+      },
+      "writtenOn": "2016-12-22T01:21:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f730aaea_d589ae47",
       "range": {
         "startLine": 324,
         "startChar": 15,
