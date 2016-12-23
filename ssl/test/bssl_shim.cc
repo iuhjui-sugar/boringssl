@@ -56,6 +56,7 @@ OPENSSL_MSVC_PRAGMA(comment(lib, "Ws2_32.lib"))
 #include <openssl/ssl.h>
 #include <openssl/x509.h>
 
+#include <algorithm>
 #include <memory>
 #include <string>
 #include <vector>
@@ -1770,47 +1771,103 @@ static bool DoExchange(bssl::UniquePtr<SSL_SESSION> *out_session,
       }
     }
     if (!config->shim_shuts_down) {
-      for (;;) {
+      if (!config->write_then_read) {
         static const size_t kBufLen = 16384;
         std::unique_ptr<uint8_t[]> buf(new uint8_t[kBufLen]);
 
-        // Read only 512 bytes at a time in TLS to ensure records may be
-        // returned in multiple reads.
-        int n = DoRead(ssl.get(), buf.get(), config->is_dtls ? kBufLen : 512);
-        int err = SSL_get_error(ssl.get(), n);
-        if (err == SSL_ERROR_ZERO_RETURN ||
+        for (;;) {
+          // Read only 512 bytes at a time in TLS to ensure records may be
+          // returned in multiple reads.
+          int n = DoRead(ssl.get(), buf.get(), config->is_dtls ? kBufLen : 512);
+          int err = SSL_get_error(ssl.get(), n);
+          if (err == SSL_ERROR_ZERO_RETURN ||
             (n == 0 && err == SSL_ERROR_SYSCALL)) {
-          if (n != 0) {
+            if (n != 0) {
+              fprintf(stderr, "Invalid SSL_get_error output\n");
+              return false;
+            }
+            // Stop on either clean or unclean shutdown.
+            break;
+          } else if (err != SSL_ERROR_NONE) {
+            if (n > 0) {
+              fprintf(stderr, "Invalid SSL_get_error output\n");
+              return false;
+            }
+            return false;
+          }
+          // Successfully read data.
+          if (n <= 0) {
             fprintf(stderr, "Invalid SSL_get_error output\n");
             return false;
           }
-          // Stop on either clean or unclean shutdown.
-          break;
-        } else if (err != SSL_ERROR_NONE) {
-          if (n > 0) {
+
+          // After a successful read, with or without False Start, the handshake
+          // must be complete.
+          if (!GetTestState(ssl.get())->handshake_done) {
+            fprintf(stderr, "handshake was not completed after SSL_read\n");
+            return false;
+          }
+
+          for (int i = 0; i < n; i++) {
+            buf[i] ^= 0xff;
+          }
+          if (WriteAll(ssl.get(), buf.get(), n) < 0) {
+            return false;
+          }
+        }
+      }
+      else {
+        // Write a 1200 byte block and then read it back.
+        static const size_t kBufLen = 1200;
+        std::unique_ptr<uint8_t[]> buf(new uint8_t[kBufLen]);
+
+        OPENSSL_memset(buf.get(), 0xff, kBufLen);
+        if (WriteAll(ssl.get(), buf.get(), kBufLen) < 0) {
+          return false;
+        }
+
+        // Now read back the data, in 512-byte chunks if we are doing TLS.
+        size_t remainder = kBufLen;
+        while (remainder) {
+          int n = DoRead(ssl.get(), buf.get(), config->is_dtls ? remainder :
+            std::min(remainder, (size_t)512));
+          int err = SSL_get_error(ssl.get(), n);
+          if (err == SSL_ERROR_ZERO_RETURN ||
+            (n == 0 && err == SSL_ERROR_SYSCALL)) {
+            if (n != 0) {
+              fprintf(stderr, "Invalid SSL_get_error output\n");
+              return false;
+            }
+            fprintf(stderr, "Unexpected end of data from the other side");
+            return false;
+          } else if (err != SSL_ERROR_NONE) {
+            if (n > 0) {
+              fprintf(stderr, "Invalid SSL_get_error output\n");
+              return false;
+            }
+            return false;
+          }
+          // Successfully read data.
+          if (n <= 0) {
             fprintf(stderr, "Invalid SSL_get_error output\n");
             return false;
           }
-          return false;
-        }
-        // Successfully read data.
-        if (n <= 0) {
-          fprintf(stderr, "Invalid SSL_get_error output\n");
-          return false;
-        }
 
-        // After a successful read, with or without False Start, the handshake
-        // must be complete.
-        if (!GetTestState(ssl.get())->handshake_done) {
-          fprintf(stderr, "handshake was not completed after SSL_read\n");
-          return false;
-        }
+          // After a successful read, with or without False Start, the handshake
+          // must be complete.
+          if (!GetTestState(ssl.get())->handshake_done) {
+            fprintf(stderr, "handshake was not completed after SSL_read\n");
+            return false;
+          }
 
-        for (int i = 0; i < n; i++) {
-          buf[i] ^= 0xff;
-        }
-        if (WriteAll(ssl.get(), buf.get(), n) < 0) {
-          return false;
+          // Check the data.
+          for (int i = 0; i < n; i++) {
+            if (buf[i]) {
+              fprintf(stderr, "Other side didn't return XORed data");
+              return false;
+            }
+          }
+          remainder -= n;
         }
       }
     }
