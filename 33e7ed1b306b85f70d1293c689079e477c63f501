@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f730aaea_d60bf104",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2016-12-23T04:17:40Z",
+      "side": 1,
+      "message": "If you have an independent implementation, probably worth checking against that one to be sure.",
+      "revId": "33e7ed1b306b85f70d1293c689079e477c63f501",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
