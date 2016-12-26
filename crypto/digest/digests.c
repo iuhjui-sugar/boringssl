@@ -59,9 +59,10 @@
 #include <assert.h>
 #include <string.h>
 
+#include <openssl/asn1.h>
 #include <openssl/md4.h>
 #include <openssl/md5.h>
-#include <openssl/obj.h>
+#include <openssl/nid.h>
 #include <openssl/sha.h>
 
 #include "internal.h"
@@ -306,8 +307,57 @@ const EVP_MD* EVP_get_digestbynid(int nid) {
   return NULL;
 }
 
-const EVP_MD* EVP_get_digestbyobj(const ASN1_OBJECT *obj) {
-  return EVP_get_digestbynid(OBJ_obj2nid(obj));
+/* 1.2.840.113549.2.4 */
+static const uint8_t kMD4OID[] = {0x2a, 0x86, 0x48, 0x86,
+                                  0xf7, 0x0d, 0x02, 0x04};
+/* 1.2.840.113549.2.5 */
+static const uint8_t kMD5OID[] = {0x2a, 0x86, 0x48, 0x86,
+                                  0xf7, 0x0d, 0x02, 0x05};
+/* 1.3.14.3.2.26 */
+static const uint8_t kSHA1OID[] = {0x2b, 0x0e, 0x03, 0x02, 0x1a};
+/* 2.16.840.1.101.3.4.2.1 */
+static const uint8_t kSHA256OID[] = {0x60, 0x86, 0x48, 0x01, 0x65,
+                                     0x03, 0x04, 0x02, 0x01};
+/* 2.16.840.1.101.3.4.2.2 */
+static const uint8_t kSHA384OID[] = {0x60, 0x86, 0x48, 0x01, 0x65,
+                                     0x03, 0x04, 0x02, 0x02};
+/* 2.16.840.1.101.3.4.2.3 */
+static const uint8_t kSHA512OID[] = {0x60, 0x86, 0x48, 0x01, 0x65,
+                                     0x03, 0x04, 0x02, 0x03};
+/* 2.16.840.1.101.3.4.2.4 */
+static const uint8_t kSHA224OID[] = {0x60, 0x86, 0x48, 0x01, 0x65,
+                                     0x03, 0x04, 0x02, 0x04};
+
+const EVP_MD *EVP_get_digestbyobj(const ASN1_OBJECT *obj) {
+  if (obj->length == sizeof(kMD4OID) &&
+      OPENSSL_memcmp(obj->data, kMD4OID, sizeof(kMD4OID)) == 0) {
+    return EVP_md4();
+  }
+  if (obj->length == sizeof(kMD5OID) &&
+      OPENSSL_memcmp(obj->data, kMD5OID, sizeof(kMD5OID)) == 0) {
+    return EVP_md5();
+  }
+  if (obj->length == sizeof(kSHA1OID) &&
+      OPENSSL_memcmp(obj->data, kSHA1OID, sizeof(kSHA1OID)) == 0) {
+    return EVP_sha1();
+  }
+  if (obj->length == sizeof(kSHA224OID) &&
+      OPENSSL_memcmp(obj->data, kSHA224OID, sizeof(kSHA224OID)) == 0) {
+    return EVP_sha224();
+  }
+  if (obj->length == sizeof(kSHA256OID) &&
+      OPENSSL_memcmp(obj->data, kSHA256OID, sizeof(kSHA256OID)) == 0) {
+    return EVP_sha256();
+  }
+  if (obj->length == sizeof(kSHA384OID) &&
+      OPENSSL_memcmp(obj->data, kSHA384OID, sizeof(kSHA384OID)) == 0) {
+    return EVP_sha384();
+  }
+  if (obj->length == sizeof(kSHA512OID) &&
+      OPENSSL_memcmp(obj->data, kSHA512OID, sizeof(kSHA512OID)) == 0) {
+    return EVP_sha512();
+  }
+  return NULL;
 }
 
 const EVP_MD *EVP_get_digestbyname(const char *name) {
