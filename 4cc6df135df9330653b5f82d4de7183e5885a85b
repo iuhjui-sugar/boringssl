@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f730aaea_9d6a24cb",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1819,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-12-29T17:07:53Z",
+      "side": 1,
+      "message": "format: } else {",
+      "range": {
+        "startLine": 1819,
+        "startChar": 0,
+        "endLine": 1819,
+        "endChar": 12
+      },
+      "revId": "4cc6df135df9330653b5f82d4de7183e5885a85b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f730aaea_5d9f1c9d",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1824,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-12-29T17:07:53Z",
+      "side": 1,
+      "message": "This probably wants to be randomized? Otherwise an implementation might just be sending a stream of zeroes, and you couldn\u0027t tell that its read-half was broken.",
+      "range": {
+        "startLine": 1824,
+        "startChar": 8,
+        "endLine": 1824,
+        "endChar": 22
+      },
+      "revId": "4cc6df135df9330653b5f82d4de7183e5885a85b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f730aaea_7daad8bc",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1833,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-12-29T17:07:53Z",
+      "side": 1,
+      "message": "This doesn\u0027t handle the case where one side might send more data than expected. Wouldn\u0027t using kBufLen as above work and then you can check that n \u003c remainder?",
+      "range": {
+        "startLine": 1832,
+        "startChar": 0,
+        "endLine": 1833,
+        "endChar": 46
+      },
+      "revId": "4cc6df135df9330653b5f82d4de7183e5885a85b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f730aaea_ddd9cc84",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1849,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2016-12-29T17:07:53Z",
+      "side": 1,
+      "message": "Some of this error handling should be probably be factored out between both branches.",
+      "range": {
+        "startLine": 1834,
+        "startChar": 10,
+        "endLine": 1849,
+        "endChar": 11
+      },
+      "revId": "4cc6df135df9330653b5f82d4de7183e5885a85b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
