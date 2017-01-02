@@ -3123,9 +3123,6 @@ static int ssl_check_clienthello_tlsext(SSL_HANDSHAKE *hs) {
       return -1;
 
     case SSL_TLSEXT_ERR_ALERT_WARNING:
-      ssl3_send_alert(ssl, SSL3_AL_WARNING, al);
-      return 1;
-
     case SSL_TLSEXT_ERR_NOACK:
       hs->should_ack_sni = 0;
       return 1;
