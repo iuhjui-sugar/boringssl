@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "77b2fac6_3fde8d2b",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1172,
+      "author": {
+        "id": 7140
+      },
+      "writtenOn": "2017-01-02T23:22:40Z",
+      "side": 1,
+      "message": "This is kind of gross and happy to fix it if you like, but it was there before.",
+      "revId": "e5260113b6d8428d2a278ee8039229ca018f2e1c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
