@@ -184,6 +184,24 @@
     },
     {
       "key": {
+        "uuid": "f730aaea_a1a5ba55",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 965,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-03T15:01:35Z",
+      "side": 1,
+      "message": "I guess we can always replace them with an actual API for 0-RTT stuff later when the 0-RTT code is more developed. *shrug*",
+      "parentUuid": "f730aaea_0135ae34",
+      "revId": "3e173525475ab9a6b3c1687eca79a5782a123f36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f730aaea_413bb62a",
         "filename": "ssl/test/runner/conn.go",
         "patchSetId": 5
