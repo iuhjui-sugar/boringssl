@@ -1,0 +1,323 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f730aaea_c15e8692",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-03T14:55:13Z",
+      "side": 1,
+      "message": "Clarify exactly what this change does? (Since you\u0027ve not actually implemented 0-RTT.)",
+      "revId": "3e173525475ab9a6b3c1687eca79a5782a123f36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f730aaea_e1ff423a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-03T14:55:13Z",
+      "side": 1,
+      "message": "BUG\u003d?",
+      "revId": "3e173525475ab9a6b3c1687eca79a5782a123f36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f730aaea_616d9240",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 2919,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-03T14:55:13Z",
+      "side": 1,
+      "message": "set_early_data_enabled might be better. Probably not likely to matter here, but we occasionally run into problems with SSL_(CTX_)enable_foo style APIs and need to add the other kind. (Channel ID being the recent instance.)",
+      "revId": "3e173525475ab9a6b3c1687eca79a5782a123f36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f730aaea_81687e32",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 3766,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-03T14:55:13Z",
+      "side": 1,
+      "message": "This is worth a comment, particularly since there\u0027s a non-obvious bit where zero \u003d\u003e no 0-RTT.",
+      "revId": "3e173525475ab9a6b3c1687eca79a5782a123f36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f730aaea_41529684",
+        "filename": "ssl/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-03T14:55:13Z",
+      "side": 1,
+      "message": "The name here is confusing relative to kMaxEarlyDataSkipped, and the comment doesn\u0027t capture the fact that those two numbers are very related to each other. This constant is also only used in one file and doesn\u0027t need to be in the header.\n\n(I\u0027m also kind of surprised you\u0027re not getting warnings about unused statics everywhere.)",
+      "revId": "3e173525475ab9a6b3c1687eca79a5782a123f36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f730aaea_a1637a57",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-03T14:55:13Z",
+      "side": 1,
+      "message": "!\u003d 0",
+      "range": {
+        "startLine": 398,
+        "startChar": 31,
+        "endLine": 398,
+        "endChar": 32
+      },
+      "revId": "3e173525475ab9a6b3c1687eca79a5782a123f36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f730aaea_2138aa2b",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 958,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-03T14:55:13Z",
+      "side": 1,
+      "message": "TicketEarlyDataInfo?",
+      "range": {
+        "startLine": 958,
+        "startChar": 8,
+        "endLine": 958,
+        "endChar": 21
+      },
+      "revId": "3e173525475ab9a6b3c1687eca79a5782a123f36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f730aaea_81419eac",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-03T14:55:13Z",
+      "side": 1,
+      "message": "Comment doesn\u0027t explain what the value supposed to be.",
+      "revId": "3e173525475ab9a6b3c1687eca79a5782a123f36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f730aaea_6146b2c4",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 963,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-03T14:55:13Z",
+      "side": 1,
+      "message": "Comment seems wrong.",
+      "revId": "3e173525475ab9a6b3c1687eca79a5782a123f36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f730aaea_0135ae34",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 965,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-03T14:55:13Z",
+      "side": 1,
+      "message": "Both of these bugs and tests are odd, which suggests that this change doesn\u0027t make sense as a standalone change. We ultimately don\u0027t want to test that we have an API to \"send 0-RTT tickets\" since that\u0027s useless. We want to test that we can do 0-RTT, and all the pieces that entails. (This is how we can avoid having a ProtocolBug for every little field in the protocol. Simply having the test assert that we did 0-RTT, or data-less 0-RTT to start with, is more efficient.)",
+      "revId": "3e173525475ab9a6b3c1687eca79a5782a123f36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f730aaea_413bb62a",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 1441,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-03T14:55:13Z",
+      "side": 1,
+      "message": "There\u0027s no such extension named EarlyDataInfo. (There is a structure named TicketEarlyDataInfo and an extension named ticket_early_data_info.)",
+      "revId": "3e173525475ab9a6b3c1687eca79a5782a123f36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f730aaea_e1318248",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 2091,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-03T14:55:13Z",
+      "side": 1,
+      "message": "This rewrite makes the TLS 1.2 parser fail to check for trailing data.",
+      "revId": "3e173525475ab9a6b3c1687eca79a5782a123f36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f730aaea_214f8add",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-03T14:55:13Z",
+      "side": 1,
+      "message": "0 /* reject unknown */",
+      "range": {
+        "startLine": 246,
+        "startChar": 61,
+        "endLine": 246,
+        "endChar": 62
+      },
+      "revId": "3e173525475ab9a6b3c1687eca79a5782a123f36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f730aaea_e15862a0",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-03T14:55:13Z",
+      "side": 1,
+      "message": "0 /* reject unknown */",
+      "range": {
+        "startLine": 81,
+        "startChar": 59,
+        "endLine": 81,
+        "endChar": 60
+      },
+      "revId": "3e173525475ab9a6b3c1687eca79a5782a123f36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f730aaea_c147a6c0",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-03T14:55:13Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "3e173525475ab9a6b3c1687eca79a5782a123f36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f730aaea_a14c9ae3",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-03T14:55:13Z",
+      "side": 1,
+      "message": "1 /* ignore unknown */",
+      "range": {
+        "startLine": 671,
+        "startChar": 59,
+        "endLine": 671,
+        "endChar": 60
+      },
+      "revId": "3e173525475ab9a6b3c1687eca79a5782a123f36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f730aaea_015c8e92",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 673,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-03T14:55:13Z",
+      "side": 1,
+      "message": "Need a CBB_flush(\u0026extensions), otherwise this is a use-after-free.",
+      "revId": "3e173525475ab9a6b3c1687eca79a5782a123f36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
