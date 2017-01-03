@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f730aaea_81163ec0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-03T14:22:04Z",
+      "side": 1,
+      "message": "[Confirmed we can accept contributions from this email address.]",
+      "revId": "43192ff6fecee52b0c3c0cda7e97aae41b7120a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
