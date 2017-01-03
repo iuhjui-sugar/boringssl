@@ -116,6 +116,10 @@ const Flag<bool> kBoolFlags[] = {
   { "-expect-sha256-client-cert-resume",
     &TestConfig::expect_sha256_client_cert_resume },
   { "-enable-short-header", &TestConfig::enable_short_header },
+  { "-expect-secure-renegotiation",
+    &TestConfig::expect_secure_renegotiation },
+  { "-expect-no-secure-renegotiation",
+    &TestConfig::expect_no_secure_renegotiation },
 };
 
 const Flag<std::string> kStringFlags[] = {
