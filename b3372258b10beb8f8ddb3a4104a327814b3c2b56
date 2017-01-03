@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f730aaea_21066a89",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-03T14:34:42Z",
+      "side": 1,
+      "message": "Elaborate on why? (I assume this is because you want to avoid the TIMED_WAIT nuisance?)",
+      "revId": "b3372258b10beb8f8ddb3a4104a327814b3c2b56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f730aaea_41097696",
+        "filename": "tool/transport_common.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-03T14:34:42Z",
+      "side": 1,
+      "message": "goto out?\n\n(We should probably make this a scoper at some point so it doesn\u0027t need goto...)",
+      "revId": "b3372258b10beb8f8ddb3a4104a327814b3c2b56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
