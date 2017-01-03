@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f730aaea_01b80ea2",
+        "filename": "crypto/bn/bn_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1565,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-03T14:11:50Z",
+      "side": 1,
+      "message": "Nit: period",
+      "revId": "0e449085860cd8e301872be86a34d51ec4bfa876",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f730aaea_41ae1666",
+        "filename": "crypto/bn/bn_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1571,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-03T14:11:50Z",
+      "side": 1,
+      "message": "Stray change? (It\u0027s !\u003d 0 just because this doesn\u0027t return a bool. Not that C actually notices.)",
+      "revId": "0e449085860cd8e301872be86a34d51ec4bfa876",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f730aaea_61e232bc",
+        "filename": "crypto/bn/bn_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1581,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-03T14:11:50Z",
+      "side": 1,
+      "message": "I\u0027d probably add something like:\n\nBN_set_negative(bn.get(), 1);\nif (!BN_get_u64(bn.get(), \u0026tmp) || tmp !\u003d test.value) {\n  fprintf(stderr, \"BN_get_u64 test failed for -0x%s.\\n\", test.hex);\n  return false;\n}\n\nAnd then just a quick addition at the bottom:\n\n// Test that BN_get_u64 fails on large numbers.\nbssl::UniquePtr\u003cBIGNUM\u003e bn(BN_new());\nif (!BN_lshift(bn.get(), BN_value_one(), 64)) {\n  return false;\n}\nif (BN_get_u64(bn.get, \u0026tmp)) {\n  fprintf(stderr, \"BN_get_u64 of 2^64 unexpectedly succeeded.\\n\");\n  return false;\n}",
+      "revId": "0e449085860cd8e301872be86a34d51ec4bfa876",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f730aaea_21ab0a55",
+        "filename": "crypto/bn/bn_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1584,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-03T14:11:50Z",
+      "side": 1,
+      "message": "Does this actually cover anything that the other one didn\u0027t? Can probably just omit it. (Also this way we don\u0027t add a new access of BIGNUM internals down there. :-) )",
+      "revId": "0e449085860cd8e301872be86a34d51ec4bfa876",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
