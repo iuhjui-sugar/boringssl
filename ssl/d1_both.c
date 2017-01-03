@@ -547,7 +547,7 @@ int dtls1_finish_message(SSL *ssl, CBB *cbb, uint8_t **out_msg,
   return 1;
 }
 
-int dtls1_queue_message(SSL *ssl, uint8_t *data, size_t len) {
+int dtls1_add_message(SSL *ssl, uint8_t *data, size_t len) {
   if (ssl->d1->outgoing_messages_len >= SSL_MAX_HANDSHAKE_FLIGHT) {
     OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
     OPENSSL_free(data);
@@ -573,10 +573,10 @@ int dtls1_write_message(SSL *ssl) {
   return 1;
 }
 
-int dtls1_send_change_cipher_spec(SSL *ssl) {
+int dtls1_add_change_cipher_spec(SSL *ssl) {
   if (ssl->d1->outgoing_messages_len >= SSL_MAX_HANDSHAKE_FLIGHT) {
     OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
-    return -1;
+    return 0;
   }
 
   DTLS_OUTGOING_MESSAGE *msg =
@@ -590,6 +590,14 @@ int dtls1_send_change_cipher_spec(SSL *ssl) {
 
   /* The message is written in |dtls1_flush_flight|. */
   return 1;
+}
+
+int dtls1_add_alert(SSL *ssl, uint8_t level, uint8_t desc) {
+  /* The |add_alert| path is only used for warning alerts for now, which DTLS
+   * never sends. This will be implemented later once closure alerts are
+   * converted. */
+  OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
+  return 0;
 }
 
 static void dtls1_update_mtu(SSL *ssl) {
