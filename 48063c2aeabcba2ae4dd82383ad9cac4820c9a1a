@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f730aaea_243e78ea",
+        "filename": "crypto/ec/p256-64.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1639,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-04T12:16:07Z",
+      "side": 0,
+      "message": "As far as I can tell, this is simply unreachable. num_points \u003d num, so i \u003d\u003d num is always false.",
+      "revId": "48063c2aeabcba2ae4dd82383ad9cac4820c9a1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
