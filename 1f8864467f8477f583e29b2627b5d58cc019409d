@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f730aaea_410856db",
+        "filename": "crypto/aes/aes_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-01-04T01:47:34Z",
+      "side": 1,
+      "message": "This line is useless, no?",
+      "revId": "1f8864467f8477f583e29b2627b5d58cc019409d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
