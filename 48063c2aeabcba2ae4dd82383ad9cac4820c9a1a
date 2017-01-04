@@ -16,6 +16,24 @@
       "revId": "48063c2aeabcba2ae4dd82383ad9cac4820c9a1a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f730aaea_848d2c88",
+        "filename": "crypto/ec/p256-64.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1639,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-01-04T14:11:36Z",
+      "side": 0,
+      "message": "I think this was part of supporting non-standard generators. If we found that case the code used to increment |num|.",
+      "parentUuid": "f730aaea_243e78ea",
+      "revId": "48063c2aeabcba2ae4dd82383ad9cac4820c9a1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
