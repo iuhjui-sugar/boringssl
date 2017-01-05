@@ -388,7 +388,7 @@ OPENSSL_EXPORT int BN_add(BIGNUM *r, const BIGNUM *a, const BIGNUM *b);
 
 /* BN_uadd sets |r| = |a| + |b|, where |a| and |b| are non-negative and |r| may
  * be the same pointer as either |a| or |b|. It returns one on success and zero
- * on allocation failure. */
+ * if one of our inputs is negative or we fail to allocate a new BIGNUM. */
 OPENSSL_EXPORT int BN_uadd(BIGNUM *r, const BIGNUM *a, const BIGNUM *b);
 
 /* BN_add_word adds |w| to |a|. It returns one on success and zero otherwise. */
@@ -400,7 +400,8 @@ OPENSSL_EXPORT int BN_sub(BIGNUM *r, const BIGNUM *a, const BIGNUM *b);
 
 /* BN_usub sets |r| = |a| - |b|, where |a| and |b| are non-negative integers,
  * |b| < |a| and |r| may be the same pointer as either |a| or |b|. It returns
- * one on success and zero on allocation failure. */
+ * one on success and zero if one of our inputs is negative or we fail to
+ * allocate a new BIGNUM. */
 OPENSSL_EXPORT int BN_usub(BIGNUM *r, const BIGNUM *a, const BIGNUM *b);
 
 /* BN_sub_word subtracts |w| from |a|. It returns one on success and zero on
@@ -520,13 +521,16 @@ OPENSSL_EXPORT int BN_mask_bits(BIGNUM *a, int n);
 /* BN_mod_word returns |a| mod |w| or (BN_ULONG)-1 on error. */
 OPENSSL_EXPORT BN_ULONG BN_mod_word(const BIGNUM *a, BN_ULONG w);
 
-/* BN_mod is a helper macro that calls |BN_div| and discards the quotient. */
-#define BN_mod(rem, numerator, divisor, ctx) \
-  BN_div(NULL, (rem), (numerator), (divisor), (ctx))
+/* BN_mod is a helper macro that sets |result| to |x| mod |n|, for positive |n|.
+ * Returns 1 on success and 0 on error. */
+#define BN_mod(result, x, n, ctx) \
+  BN_is_negative(n) \
+    ? 0 \
+    : BN_div(NULL, (result), (x), (n), (ctx))
 
 /* BN_nnmod is a non-negative modulo function. It acts like |BN_mod|, but 0 <=
- * |rem| < |divisor| is always true. It returns one on success and zero on
- * error. */
+ * |rem| < |divisor| is always true. It returns one on success and zero
+ * if our divisor is negative or BN_mod fails. */
 OPENSSL_EXPORT int BN_nnmod(BIGNUM *rem, const BIGNUM *numerator,
                             const BIGNUM *divisor, BN_CTX *ctx);
 

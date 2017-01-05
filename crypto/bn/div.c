@@ -394,7 +394,7 @@ int BN_nnmod(BIGNUM *r, const BIGNUM *m, const BIGNUM *d, BN_CTX *ctx) {
   }
 
   /* now -|d| < r < 0, so we have to set r := r + |d|. */
-  return (d->neg ? BN_sub : BN_add)(r, r, d);
+  return BN_add(r, r, d);
 }
 
 int BN_mod_add(BIGNUM *r, const BIGNUM *a, const BIGNUM *b, const BIGNUM *m,

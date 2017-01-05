@@ -106,6 +106,11 @@ int BN_uadd(BIGNUM *r, const BIGNUM *a, const BIGNUM *b) {
   BN_ULONG *ap, *bp, *rp, carry, t1, t2;
   const BIGNUM *tmp;
 
+  /* Make sure both of our inputs are non-negative */
+  if (BN_is_negative(a) || BN_is_negative(a)) {
+    return 0;
+  }
+
   if (a->top < b->top) {
     tmp = a;
     a = b;
@@ -262,6 +267,11 @@ int BN_usub(BIGNUM *r, const BIGNUM *a, const BIGNUM *b) {
   int max, min, dif;
   register BN_ULONG t1, t2, *ap, *bp, *rp;
   int i, carry;
+
+  /* Make sure both of our inputs are non-negative */
+  if (BN_is_negative(a) || BN_is_negative(a)) {
+    return 0;
+  }
 
   max = a->top;
   min = b->top;
