@@ -53,8 +53,9 @@
  * Hudson (tjh@cryptsoft.com). */
 
 #include <openssl/bn.h>
-
 #include <openssl/err.h>
+
+#include "internal.h"
 
 
 BIGNUM *BN_mod_sqrt(BIGNUM *in, const BIGNUM *a, const BIGNUM *p, BN_CTX *ctx) {

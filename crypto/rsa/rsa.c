@@ -553,9 +553,22 @@ static void bn_free_and_null(BIGNUM **bn) {
 }
 
 int RSA_check_key(const RSA *key) {
-  BIGNUM n, pm1, qm1, lcm, gcd, de, dmp1, dmq1, iqmp_times_q;
+  BIGNUM *n, *pm1, *qm1, *lcm, *gcd, *de, *dmp1, *dmq1, *iqmp_times_q;
   BN_CTX *ctx;
   int ok = 0, has_crt_values;
+
+  if(!(n = BN_new()) ||
+     !(pm1 = BN_new()) ||
+     !(qm1 = BN_new()) ||
+     !(lcm = BN_new()) ||
+     !(gcd = BN_new()) ||
+     !(de = BN_new()) ||
+     !(dmp1 = BN_new()) ||
+     !(dmq1 = BN_new()) ||
+     !(iqmp_times_q = BN_new())) {
+    OPENSSL_PUT_ERROR(RSA, ERR_R_MALLOC_FAILURE);
+    return 0;
+  }
 
   if (RSA_is_opaque(key)) {
     /* Opaque keys can't be checked. */
@@ -584,22 +597,12 @@ int RSA_check_key(const RSA *key) {
     return 0;
   }
 
-  BN_init(&n);
-  BN_init(&pm1);
-  BN_init(&qm1);
-  BN_init(&lcm);
-  BN_init(&gcd);
-  BN_init(&de);
-  BN_init(&dmp1);
-  BN_init(&dmq1);
-  BN_init(&iqmp_times_q);
-
-  if (!BN_mul(&n, key->p, key->q, ctx) ||
+  if (!BN_mul(n, key->p, key->q, ctx) ||
       /* lcm = lcm(prime-1, for all primes) */
-      !BN_sub(&pm1, key->p, BN_value_one()) ||
-      !BN_sub(&qm1, key->q, BN_value_one()) ||
-      !BN_mul(&lcm, &pm1, &qm1, ctx) ||
-      !BN_gcd(&gcd, &pm1, &qm1, ctx)) {
+      !BN_sub(pm1, key->p, BN_value_one()) ||
+      !BN_sub(qm1, key->q, BN_value_one()) ||
+      !BN_mul(lcm, pm1, qm1, ctx) ||
+      !BN_gcd(gcd, pm1, qm1, ctx)) {
     OPENSSL_PUT_ERROR(RSA, ERR_LIB_BN);
     goto out;
   }
@@ -612,29 +615,29 @@ int RSA_check_key(const RSA *key) {
   for (size_t i = 0; i < num_additional_primes; i++) {
     const RSA_additional_prime *ap =
         sk_RSA_additional_prime_value(key->additional_primes, i);
-    if (!BN_mul(&n, &n, ap->prime, ctx) ||
-        !BN_sub(&pm1, ap->prime, BN_value_one()) ||
-        !BN_mul(&lcm, &lcm, &pm1, ctx) ||
-        !BN_gcd(&gcd, &gcd, &pm1, ctx)) {
+    if (!BN_mul(n, n, ap->prime, ctx) ||
+        !BN_sub(pm1, ap->prime, BN_value_one()) ||
+        !BN_mul(lcm, lcm, pm1, ctx) ||
+        !BN_gcd(gcd, gcd, pm1, ctx)) {
       OPENSSL_PUT_ERROR(RSA, ERR_LIB_BN);
       goto out;
     }
   }
 
-  if (!BN_div(&lcm, NULL, &lcm, &gcd, ctx) ||
-      !BN_gcd(&gcd, &pm1, &qm1, ctx) ||
+  if (!BN_div(lcm, NULL, lcm, gcd, ctx) ||
+      !BN_gcd(gcd, pm1, qm1, ctx) ||
       /* de = d*e mod lcm(prime-1, for all primes). */
-      !BN_mod_mul(&de, key->d, key->e, &lcm, ctx)) {
+      !BN_mod_mul(de, key->d, key->e, lcm, ctx)) {
     OPENSSL_PUT_ERROR(RSA, ERR_LIB_BN);
     goto out;
   }
 
-  if (BN_cmp(&n, key->n) != 0) {
+  if (BN_cmp(n, key->n) != 0) {
     OPENSSL_PUT_ERROR(RSA, RSA_R_N_NOT_EQUAL_P_Q);
     goto out;
   }
 
-  if (!BN_is_one(&de)) {
+  if (!BN_is_one(de)) {
     OPENSSL_PUT_ERROR(RSA, RSA_R_D_E_NOT_CONGRUENT_TO_1);
     goto out;
   }
@@ -648,19 +651,19 @@ int RSA_check_key(const RSA *key) {
 
   if (has_crt_values && num_additional_primes == 0) {
     if (/* dmp1 = d mod (p-1) */
-        !BN_mod(&dmp1, key->d, &pm1, ctx) ||
+        !BN_mod(dmp1, key->d, pm1, ctx) ||
         /* dmq1 = d mod (q-1) */
-        !BN_mod(&dmq1, key->d, &qm1, ctx) ||
+        !BN_mod(dmq1, key->d, qm1, ctx) ||
         /* iqmp = q^-1 mod p */
-        !BN_mod_mul(&iqmp_times_q, key->iqmp, key->q, key->p, ctx)) {
+        !BN_mod_mul(iqmp_times_q, key->iqmp, key->q, key->p, ctx)) {
       OPENSSL_PUT_ERROR(RSA, ERR_LIB_BN);
       goto out;
     }
 
-    if (BN_cmp(&dmp1, key->dmp1) != 0 ||
-        BN_cmp(&dmq1, key->dmq1) != 0 ||
+    if (BN_cmp(dmp1, key->dmp1) != 0 ||
+        BN_cmp(dmq1, key->dmq1) != 0 ||
         BN_cmp(key->iqmp, key->p) >= 0 ||
-        !BN_is_one(&iqmp_times_q)) {
+        !BN_is_one(iqmp_times_q)) {
       OPENSSL_PUT_ERROR(RSA, RSA_R_CRT_VALUES_INCORRECT);
       goto out;
     }
@@ -669,15 +672,15 @@ int RSA_check_key(const RSA *key) {
   ok = 1;
 
 out:
-  BN_free(&n);
-  BN_free(&pm1);
-  BN_free(&qm1);
-  BN_free(&lcm);
-  BN_free(&gcd);
-  BN_free(&de);
-  BN_free(&dmp1);
-  BN_free(&dmq1);
-  BN_free(&iqmp_times_q);
+  BN_free(n);
+  BN_free(pm1);
+  BN_free(qm1);
+  BN_free(lcm);
+  BN_free(gcd);
+  BN_free(de);
+  BN_free(dmp1);
+  BN_free(dmq1);
+  BN_free(iqmp_times_q);
   BN_CTX_free(ctx);
 
   return ok;

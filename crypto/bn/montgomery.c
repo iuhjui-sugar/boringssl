@@ -133,8 +133,13 @@ BN_MONT_CTX *BN_MONT_CTX_new(void) {
   }
 
   OPENSSL_memset(ret, 0, sizeof(BN_MONT_CTX));
-  BN_init(&ret->RR);
-  BN_init(&ret->N);
+
+  if(!(ret->RR = BN_new()) || !(ret->N = BN_new())) {
+    BN_free(ret->RR);
+    BN_free(ret->N);
+    OPENSSL_free(ret);
+    return NULL;
+  }
 
   return ret;
 }
@@ -144,8 +149,8 @@ void BN_MONT_CTX_free(BN_MONT_CTX *mont) {
     return;
   }
 
-  BN_free(&mont->RR);
-  BN_free(&mont->N);
+  BN_free(mont->RR);
+  BN_free(mont->N);
   OPENSSL_free(mont);
 }
 
@@ -154,8 +159,8 @@ BN_MONT_CTX *BN_MONT_CTX_copy(BN_MONT_CTX *to, const BN_MONT_CTX *from) {
     return to;
   }
 
-  if (!BN_copy(&to->RR, &from->RR) ||
-      !BN_copy(&to->N, &from->N)) {
+  if (!BN_copy(to->RR, from->RR) ||
+      !BN_copy(to->N, from->N)) {
     return NULL;
   }
   to->n0[0] = from->n0[0];
@@ -183,12 +188,12 @@ int BN_MONT_CTX_set(BN_MONT_CTX *mont, const BIGNUM *mod, BN_CTX *ctx) {
   }
 
   /* Save the modulus. */
-  if (!BN_copy(&mont->N, mod)) {
+  if (!BN_copy(mont->N, mod)) {
     OPENSSL_PUT_ERROR(BN, ERR_R_INTERNAL_ERROR);
     return 0;
   }
   if (BN_get_flags(mod, BN_FLG_CONSTTIME)) {
-    BN_set_flags(&mont->N, BN_FLG_CONSTTIME);
+    BN_set_flags(mont->N, BN_FLG_CONSTTIME);
   }
 
   /* Find n0 such that n0 * N == -1 (mod r).
@@ -214,7 +219,7 @@ int BN_MONT_CTX_set(BN_MONT_CTX *mont, const BIGNUM *mod, BN_CTX *ctx) {
    * XXX: This is not constant time with respect to |mont->N|, but it should
    * be. */
   unsigned lgBigR = (BN_num_bits(mod) + (BN_BITS2 - 1)) / BN_BITS2 * BN_BITS2;
-  if (!bn_mod_exp_base_2_vartime(&mont->RR, lgBigR * 2, &mont->N)) {
+  if (!bn_mod_exp_base_2_vartime(mont->RR, lgBigR * 2, mont->N)) {
     return 0;
   }
 
@@ -255,7 +260,7 @@ out:
 
 int BN_to_montgomery(BIGNUM *ret, const BIGNUM *a, const BN_MONT_CTX *mont,
                      BN_CTX *ctx) {
-  return BN_mod_mul_montgomery(ret, a, &mont->RR, mont, ctx);
+  return BN_mod_mul_montgomery(ret, a, mont->RR, mont, ctx);
 }
 
 static int BN_from_montgomery_word(BIGNUM *ret, BIGNUM *r,
@@ -263,7 +268,7 @@ static int BN_from_montgomery_word(BIGNUM *ret, BIGNUM *r,
   BN_ULONG *ap, *np, *rp, n0, v, carry;
   int nl, max, i;
 
-  const BIGNUM *n = &mont->N;
+  const BIGNUM *n = mont->N;
   nl = n->top;
   if (nl == 0) {
     ret->top = 0;
@@ -368,13 +373,13 @@ int BN_mod_mul_montgomery(BIGNUM *r, const BIGNUM *a, const BIGNUM *b,
   int ret = 0;
 
 #if defined(OPENSSL_BN_ASM_MONT)
-  int num = mont->N.top;
+  int num = mont->N->top;
 
   if (num > 1 && a->top == num && b->top == num) {
     if (bn_wexpand(r, num) == NULL) {
       return 0;
     }
-    if (bn_mul_mont(r->d, a->d, b->d, mont->N.d, mont->n0, num)) {
+    if (bn_mul_mont(r->d, a->d, b->d, mont->N->d, mont->n0, num)) {
       r->neg = a->neg ^ b->neg;
       r->top = num;
       bn_correct_top(r);

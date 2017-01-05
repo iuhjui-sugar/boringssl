@@ -220,7 +220,7 @@ static int bn_blinding_create_param(BN_BLINDING *b, const BIGNUM *e,
   int retry_counter = 32;
 
   do {
-    if (!BN_rand_range_ex(b->A, 1, &mont->N)) {
+    if (!BN_rand_range_ex(b->A, 1, mont->N)) {
       OPENSSL_PUT_ERROR(RSA, ERR_R_INTERNAL_ERROR);
       return 0;
     }
@@ -251,7 +251,7 @@ static int bn_blinding_create_param(BN_BLINDING *b, const BIGNUM *e,
     ERR_clear_error();
   } while (1);
 
-  if (!BN_mod_exp_mont(b->A, b->A, e, &mont->N, ctx, mont)) {
+  if (!BN_mod_exp_mont(b->A, b->A, e, mont->N, ctx, mont)) {
     OPENSSL_PUT_ERROR(RSA, ERR_R_INTERNAL_ERROR);
     return 0;
   }

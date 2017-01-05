@@ -517,7 +517,8 @@ OPENSSL_EXPORT int BN_mask_bits(BIGNUM *a, int n);
 
 /* Modulo arithmetic. */
 
-/* BN_mod_word returns |a| mod |w| or (BN_ULONG)-1 on error. */
+/* BN_mod_word returns |a| mod |w| if |w| > 0, the low word of |a| if |w| = 0,
+ * or (BN_ULONG)-1 on error. */
 OPENSSL_EXPORT BN_ULONG BN_mod_word(const BIGNUM *a, BN_ULONG w);
 
 /* BN_mod is a helper macro that calls |BN_div| and discards the quotient. */
@@ -896,26 +897,10 @@ OPENSSL_EXPORT int BN_mod_exp2_mont(BIGNUM *r, const BIGNUM *a1,
                                     const BIGNUM *p2, const BIGNUM *m,
                                     BN_CTX *ctx, const BN_MONT_CTX *mont);
 
-
-/* Private functions */
-
-struct bignum_st {
-  BN_ULONG *d; /* Pointer to an array of 'BN_BITS2' bit chunks in little-endian
-                  order. */
-  int top;   /* Index of last used element in |d|, plus one. */
-  int dmax;  /* Size of |d|, in words. */
-  int neg;   /* one if the number is negative */
-  int flags; /* bitmask of BN_FLG_* values */
-};
-
-struct bn_mont_ctx_st {
-  BIGNUM RR; /* used to convert to montgomery form */
-  BIGNUM N;  /* The modulus */
-  BN_ULONG n0[2]; /* least significant words of (R*Ri-1)/N */
-};
-
+/* BN_num_bits_word returns the number of bits required to represent |l| */
 OPENSSL_EXPORT unsigned BN_num_bits_word(BN_ULONG l);
 
+/* Flags */
 #define BN_FLG_MALLOCED 0x01
 #define BN_FLG_STATIC_DATA 0x02
 /* Avoid leaking exponent information through timing. |BN_mod_exp_mont| will
@@ -923,24 +908,7 @@ OPENSSL_EXPORT unsigned BN_num_bits_word(BN_ULONG l);
  * |BN_mod_inverse_no_branch|. */
 #define BN_FLG_CONSTTIME 0x04
 
-
-#if defined(__cplusplus)
-}  /* extern C */
-
-extern "C++" {
-
-namespace bssl {
-
-BORINGSSL_MAKE_DELETER(BIGNUM, BN_free)
-BORINGSSL_MAKE_DELETER(BN_CTX, BN_CTX_free)
-BORINGSSL_MAKE_DELETER(BN_MONT_CTX, BN_MONT_CTX_free)
-
-}  // namespace bssl
-
-}  /* extern C++ */
-
-#endif
-
+/* Error codes */
 #define BN_R_ARG2_LT_ARG3 100
 #define BN_R_BAD_RECIPROCAL 101
 #define BN_R_BIGNUM_TOO_LONG 102
@@ -960,5 +928,32 @@ BORINGSSL_MAKE_DELETER(BN_MONT_CTX, BN_MONT_CTX_free)
 #define BN_R_TOO_MANY_TEMPORARY_VARIABLES 116
 #define BN_R_BAD_ENCODING 117
 #define BN_R_ENCODE_ERROR 118
+
+/* Internal structures */
+struct bignum_st;
+
+struct bn_mont_ctx_st {
+  BIGNUM *RR; /* used to convert to montgomery form */
+  BIGNUM *N;  /* The modulus */
+  BN_ULONG n0[2]; /* least significant words of (R*Ri-1)/N */
+};
+
+
+#if defined(__cplusplus)
+}  /* extern C */
+
+extern "C++" {
+
+namespace bssl {
+
+BORINGSSL_MAKE_DELETER(BIGNUM, BN_free)
+BORINGSSL_MAKE_DELETER(BN_CTX, BN_CTX_free)
+BORINGSSL_MAKE_DELETER(BN_MONT_CTX, BN_MONT_CTX_free)
+
+}  // namespace bssl
+
+}  /* extern C++ */
+
+#endif
 
 #endif  /* OPENSSL_HEADER_BN_H */

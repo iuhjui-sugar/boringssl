@@ -83,8 +83,7 @@ static int bn_print(BIO *bp, const char *number, const BIGNUM *num,
   if (BN_num_bytes(num) <= sizeof(long)) {
     const char *neg = BN_is_negative(num) ? "-" : "";
     if (BIO_printf(bp, "%s %s%lu (%s0x%lx)\n", number, neg,
-                   (unsigned long)num->d[0], neg,
-                   (unsigned long)num->d[0]) <= 0) {
+                   BN_mod_word(num, 0), neg, BN_mod_word(num, 0)) <= 0) {
       return 0;
     }
   } else {

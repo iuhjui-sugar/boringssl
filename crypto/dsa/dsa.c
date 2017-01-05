@@ -433,10 +433,14 @@ int DSA_generate_key(DSA *dsa) {
   int ok = 0;
   BN_CTX *ctx = NULL;
   BIGNUM *pub_key = NULL, *priv_key = NULL;
-  BIGNUM prk;
+  BIGNUM *prk = NULL;
 
   ctx = BN_CTX_new();
   if (ctx == NULL) {
+    goto err;
+  }
+
+  if (!(prk = BN_new())) {
     goto err;
   }
 
@@ -460,12 +464,11 @@ int DSA_generate_key(DSA *dsa) {
     }
   }
 
-  BN_init(&prk);
-  BN_with_flags(&prk, priv_key, BN_FLG_CONSTTIME);
+  BN_with_flags(prk, priv_key, BN_FLG_CONSTTIME);
 
   if (!BN_MONT_CTX_set_locked(&dsa->method_mont_p, &dsa->method_mont_lock,
                               dsa->p, ctx) ||
-      !BN_mod_exp_mont_consttime(pub_key, dsa->g, &prk, dsa->p, ctx,
+      !BN_mod_exp_mont_consttime(pub_key, dsa->g, prk, dsa->p, ctx,
                                  dsa->method_mont_p)) {
     goto err;
   }
@@ -481,6 +484,7 @@ err:
   if (dsa->priv_key == NULL) {
     BN_free(priv_key);
   }
+  BN_free(prk);
   BN_CTX_free(ctx);
 
   return ok;
@@ -508,16 +512,17 @@ void DSA_SIG_free(DSA_SIG *sig) {
 }
 
 DSA_SIG *DSA_do_sign(const uint8_t *digest, size_t digest_len, DSA *dsa) {
-  BIGNUM *kinv = NULL, *r = NULL, *s = NULL;
-  BIGNUM m;
-  BIGNUM xr;
+  BIGNUM *kinv = NULL, *r = NULL, *s = NULL, *m = NULL, *xr = NULL;
   BN_CTX *ctx = NULL;
   int reason = ERR_R_BN_LIB;
   DSA_SIG *ret = NULL;
   int noredo = 0;
 
-  BN_init(&m);
-  BN_init(&xr);
+  if (!(m = BN_new()) ||
+      !(xr = BN_new())) {
+    reason = ERR_R_MALLOC_FAILURE;
+    goto err;
+  }
 
   if (!dsa->p || !dsa->q || !dsa->g) {
     reason = DSA_R_MISSING_PARAMETERS;
@@ -553,15 +558,15 @@ redo:
     digest_len = BN_num_bytes(dsa->q);
   }
 
-  if (BN_bin2bn(digest, digest_len, &m) == NULL) {
+  if (BN_bin2bn(digest, digest_len, m) == NULL) {
     goto err;
   }
 
   /* Compute  s = inv(k) (m + xr) mod q */
-  if (!BN_mod_mul(&xr, dsa->priv_key, r, dsa->q, ctx)) {
+  if (!BN_mod_mul(xr, dsa->priv_key, r, dsa->q, ctx)) {
     goto err; /* s = xr */
   }
-  if (!BN_add(s, &xr, &m)) {
+  if (!BN_add(s, xr, m)) {
     goto err; /* s = m + xr */
   }
   if (BN_cmp(s, dsa->q) > 0) {
@@ -596,8 +601,8 @@ err:
     BN_free(s);
   }
   BN_CTX_free(ctx);
-  BN_clear_free(&m);
-  BN_clear_free(&xr);
+  BN_clear_free(m);
+  BN_clear_free(xr);
   BN_clear_free(kinv);
 
   return ret;
@@ -615,7 +620,7 @@ int DSA_do_verify(const uint8_t *digest, size_t digest_len, DSA_SIG *sig,
 int DSA_do_check_signature(int *out_valid, const uint8_t *digest,
                            size_t digest_len, DSA_SIG *sig, const DSA *dsa) {
   BN_CTX *ctx;
-  BIGNUM u1, u2, t1;
+  BIGNUM *u1, *u2, *t1;
   int ret = 0;
   unsigned i;
 
@@ -638,9 +643,12 @@ int DSA_do_check_signature(int *out_valid, const uint8_t *digest,
     return 0;
   }
 
-  BN_init(&u1);
-  BN_init(&u2);
-  BN_init(&t1);
+  if (!(u1 = BN_new()) ||
+      !(u2 = BN_new()) ||
+      !(t1 = BN_new())) {
+    OPENSSL_PUT_ERROR(DSA, ERR_R_MALLOC_FAILURE);
+    return 0;
+  }
 
   ctx = BN_CTX_new();
   if (ctx == NULL) {
@@ -660,7 +668,7 @@ int DSA_do_check_signature(int *out_valid, const uint8_t *digest,
 
   /* Calculate W = inv(S) mod Q
    * save W in u2 */
-  if (BN_mod_inverse(&u2, sig->s, dsa->q, ctx) == NULL) {
+  if (BN_mod_inverse(u2, sig->s, dsa->q, ctx) == NULL) {
     goto err;
   }
 
@@ -672,17 +680,17 @@ int DSA_do_check_signature(int *out_valid, const uint8_t *digest,
     digest_len = (i >> 3);
   }
 
-  if (BN_bin2bn(digest, digest_len, &u1) == NULL) {
+  if (BN_bin2bn(digest, digest_len, u1) == NULL) {
     goto err;
   }
 
   /* u1 = M * w mod q */
-  if (!BN_mod_mul(&u1, &u1, &u2, dsa->q, ctx)) {
+  if (!BN_mod_mul(u1, u1, u2, dsa->q, ctx)) {
     goto err;
   }
 
   /* u2 = r * w mod q */
-  if (!BN_mod_mul(&u2, sig->r, &u2, dsa->q, ctx)) {
+  if (!BN_mod_mul(u2, sig->r, u2, dsa->q, ctx)) {
     goto err;
   }
 
@@ -692,20 +700,20 @@ int DSA_do_check_signature(int *out_valid, const uint8_t *digest,
     goto err;
   }
 
-  if (!BN_mod_exp2_mont(&t1, dsa->g, &u1, dsa->pub_key, &u2, dsa->p, ctx,
+  if (!BN_mod_exp2_mont(t1, dsa->g, u1, dsa->pub_key, u2, dsa->p, ctx,
                         dsa->method_mont_p)) {
     goto err;
   }
 
   /* BN_copy(&u1,&t1); */
   /* let u1 = u1 mod q */
-  if (!BN_mod(&u1, &t1, dsa->q, ctx)) {
+  if (!BN_mod(u1, t1, dsa->q, ctx)) {
     goto err;
   }
 
   /* V is now in u1.  If the signature is correct, it will be
    * equal to R. */
-  *out_valid = BN_ucmp(&u1, sig->r) == 0;
+  *out_valid = BN_ucmp(u1, sig->r) == 0;
   ret = 1;
 
 err:
@@ -713,9 +721,9 @@ err:
     OPENSSL_PUT_ERROR(DSA, ERR_R_BN_LIB);
   }
   BN_CTX_free(ctx);
-  BN_free(&u1);
-  BN_free(&u2);
-  BN_free(&t1);
+  BN_free(u1);
+  BN_free(u2);
+  BN_free(t1);
 
   return ret;
 }
@@ -814,7 +822,7 @@ int DSA_size(const DSA *dsa) {
 int DSA_sign_setup(const DSA *dsa, BN_CTX *ctx_in, BIGNUM **out_kinv,
                    BIGNUM **out_r) {
   BN_CTX *ctx;
-  BIGNUM k, kq, qm2, *kinv = NULL, *r = NULL;
+  BIGNUM *k, *kq, *qm2, *kinv = NULL, *r = NULL;
   int ret = 0;
 
   if (!dsa->p || !dsa->q || !dsa->g) {
@@ -822,9 +830,12 @@ int DSA_sign_setup(const DSA *dsa, BN_CTX *ctx_in, BIGNUM **out_kinv,
     return 0;
   }
 
-  BN_init(&k);
-  BN_init(&kq);
-  BN_init(&qm2);
+  if (!(k = BN_new()) ||
+      !(kq = BN_new()) ||
+      !(qm2 = BN_new())) {
+    OPENSSL_PUT_ERROR(DSA, ERR_R_MALLOC_FAILURE);
+    return 0;
+  }
 
   ctx = ctx_in;
   if (ctx == NULL) {
@@ -840,11 +851,11 @@ int DSA_sign_setup(const DSA *dsa, BN_CTX *ctx_in, BIGNUM **out_kinv,
   }
 
   /* Get random k */
-  if (!BN_rand_range_ex(&k, 1, dsa->q)) {
+  if (!BN_rand_range_ex(k, 1, dsa->q)) {
     goto err;
   }
 
-  BN_set_flags(&k, BN_FLG_CONSTTIME);
+  BN_set_flags(k, BN_FLG_CONSTTIME);
 
   if (!BN_MONT_CTX_set_locked((BN_MONT_CTX **)&dsa->method_mont_p,
                               (CRYPTO_MUTEX *)&dsa->method_mont_lock, dsa->p,
@@ -856,7 +867,7 @@ int DSA_sign_setup(const DSA *dsa, BN_CTX *ctx_in, BIGNUM **out_kinv,
   }
 
   /* Compute r = (g^k mod p) mod q */
-  if (!BN_copy(&kq, &k)) {
+  if (!BN_copy(kq, k)) {
     goto err;
   }
 
@@ -866,15 +877,15 @@ int DSA_sign_setup(const DSA *dsa, BN_CTX *ctx_in, BIGNUM **out_kinv,
    * (This is a kludge that we need because the BN_mod_exp_mont()
    * does not let us specify the desired timing behaviour.) */
 
-  if (!BN_add(&kq, &kq, dsa->q)) {
+  if (!BN_add(kq, kq, dsa->q)) {
     goto err;
   }
-  if (BN_num_bits(&kq) <= BN_num_bits(dsa->q) && !BN_add(&kq, &kq, dsa->q)) {
+  if (BN_num_bits(kq) <= BN_num_bits(dsa->q) && !BN_add(kq, kq, dsa->q)) {
     goto err;
   }
 
-  BN_set_flags(&kq, BN_FLG_CONSTTIME);
-  if (!BN_mod_exp_mont_consttime(r, dsa->g, &kq, dsa->p, ctx,
+  BN_set_flags(kq, BN_FLG_CONSTTIME);
+  if (!BN_mod_exp_mont_consttime(r, dsa->g, kq, dsa->p, ctx,
                                  dsa->method_mont_p)) {
     goto err;
   }
@@ -886,9 +897,9 @@ int DSA_sign_setup(const DSA *dsa, BN_CTX *ctx_in, BIGNUM **out_kinv,
    * Theorem. */
   kinv = BN_new();
   if (kinv == NULL ||
-      !BN_set_word(&qm2, 2) ||
-      !BN_sub(&qm2, dsa->q, &qm2) ||
-      !BN_mod_exp_mont(kinv, &k, &qm2, dsa->q, ctx, dsa->method_mont_q)) {
+      !BN_set_word(qm2, 2) ||
+      !BN_sub(qm2, dsa->q, qm2) ||
+      !BN_mod_exp_mont(kinv, k, qm2, dsa->q, ctx, dsa->method_mont_q)) {
     goto err;
   }
 
@@ -910,9 +921,9 @@ err:
   if (ctx_in == NULL) {
     BN_CTX_free(ctx);
   }
-  BN_clear_free(&k);
-  BN_clear_free(&kq);
-  BN_free(&qm2);
+  BN_clear_free(k);
+  BN_clear_free(kq);
+  BN_free(qm2);
   return ret;
 }
 

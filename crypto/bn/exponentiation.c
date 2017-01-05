@@ -922,7 +922,7 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
     if (NULL == bn_wexpand(rr, 16)) {
       goto err;
     }
-    RSAZ_1024_mod_exp_avx2(rr->d, a->d, p->d, m->d, mont->RR.d, mont->n0[0]);
+    RSAZ_1024_mod_exp_avx2(rr->d, a->d, p->d, m->d, mont->RR->d, mont->n0[0]);
     rr->top = 16;
     rr->neg = 0;
     bn_correct_top(rr);
@@ -937,7 +937,7 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
   if (window >= 5) {
     window = 5; /* ~5% improvement for RSA2048 sign, and even for RSA4096 */
     /* reserve space for mont->N.d[] copy */
-    powerbufLen += top * sizeof(mont->N.d[0]);
+    powerbufLen += top * sizeof(mont->N->d[0]);
   }
 #endif
 
@@ -1019,7 +1019,7 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
 
     /* copy mont->N.d[] to improve cache locality */
     for (np = am.d + top, i = 0; i < top; i++) {
-      np[i] = mont->N.d[i];
+      np[i] = mont->N->d[i];
     }
 
     bn_scatter5(tmp.d, top, powerbuf, 0);

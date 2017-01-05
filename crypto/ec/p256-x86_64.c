@@ -250,7 +250,7 @@ static int ecp_nistz256_windowed_mul(const EC_GROUP *group, P256_POINT *r,
       OPENSSL_PUT_ERROR(EC, ERR_R_MALLOC_FAILURE);
       goto err;
     }
-    if (!BN_nnmod(mod, p_scalar, &group->order, ctx)) {
+    if (!BN_nnmod(mod, p_scalar, group->order, ctx)) {
       OPENSSL_PUT_ERROR(EC, ERR_R_BN_LIB);
       goto err;
     }
@@ -283,9 +283,9 @@ static int ecp_nistz256_windowed_mul(const EC_GROUP *group, P256_POINT *r,
    * table. */
   P256_POINT *row = table;
 
-  if (!ecp_nistz256_bignum_to_field_elem(row[1 - 1].X, &p->X) ||
-      !ecp_nistz256_bignum_to_field_elem(row[1 - 1].Y, &p->Y) ||
-      !ecp_nistz256_bignum_to_field_elem(row[1 - 1].Z, &p->Z)) {
+  if (!ecp_nistz256_bignum_to_field_elem(row[1 - 1].X, p->X) ||
+      !ecp_nistz256_bignum_to_field_elem(row[1 - 1].Y, p->Y) ||
+      !ecp_nistz256_bignum_to_field_elem(row[1 - 1].Z, p->Z)) {
     OPENSSL_PUT_ERROR(EC, EC_R_COORDINATES_OUT_OF_RANGE);
     goto err;
   }
@@ -396,7 +396,7 @@ static int ecp_nistz256_points_mul(
         goto err;
       }
 
-      if (!BN_nnmod(tmp_scalar, g_scalar, &group->order, ctx)) {
+      if (!BN_nnmod(tmp_scalar, g_scalar, group->order, ctx)) {
         OPENSSL_PUT_ERROR(EC, ERR_R_BN_LIB);
         goto err;
       }
@@ -478,9 +478,9 @@ static int ecp_nistz256_points_mul(
   }
 
   /* Not constant-time, but we're only operating on the public output. */
-  if (!bn_set_words(&r->X, p.p.X, P256_LIMBS) ||
-      !bn_set_words(&r->Y, p.p.Y, P256_LIMBS) ||
-      !bn_set_words(&r->Z, p.p.Z, P256_LIMBS)) {
+  if (!bn_set_words(r->X, p.p.X, P256_LIMBS) ||
+      !bn_set_words(r->Y, p.p.Y, P256_LIMBS) ||
+      !bn_set_words(r->Z, p.p.Z, P256_LIMBS)) {
     return 0;
   }
 
@@ -505,9 +505,9 @@ static int ecp_nistz256_get_affine(const EC_GROUP *group, const EC_POINT *point,
     return 0;
   }
 
-  if (!ecp_nistz256_bignum_to_field_elem(point_x, &point->X) ||
-      !ecp_nistz256_bignum_to_field_elem(point_y, &point->Y) ||
-      !ecp_nistz256_bignum_to_field_elem(point_z, &point->Z)) {
+  if (!ecp_nistz256_bignum_to_field_elem(point_x, point->X) ||
+      !ecp_nistz256_bignum_to_field_elem(point_y, point->Y) ||
+      !ecp_nistz256_bignum_to_field_elem(point_z, point->Z)) {
     OPENSSL_PUT_ERROR(EC, EC_R_COORDINATES_OUT_OF_RANGE);
     return 0;
   }

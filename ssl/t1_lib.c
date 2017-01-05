@@ -3441,19 +3441,18 @@ int tls1_verify_channel_id(SSL *ssl) {
 
   EC_KEY *key = NULL;
   EC_POINT *point = NULL;
-  BIGNUM x, y;
+  BIGNUM *x = BN_new();
+  BIGNUM *y = BN_new();
   ECDSA_SIG sig;
-  BN_init(&x);
-  BN_init(&y);
   sig.r = BN_new();
   sig.s = BN_new();
-  if (sig.r == NULL || sig.s == NULL) {
+  if (sig.r == NULL || sig.s == NULL || x == NULL || y == NULL) {
     goto err;
   }
 
   const uint8_t *p = CBS_data(&extension);
-  if (BN_bin2bn(p + 0, 32, &x) == NULL ||
-      BN_bin2bn(p + 32, 32, &y) == NULL ||
+  if (BN_bin2bn(p + 0, 32, x) == NULL ||
+      BN_bin2bn(p + 32, 32, y) == NULL ||
       BN_bin2bn(p + 64, 32, sig.r) == NULL ||
       BN_bin2bn(p + 96, 32, sig.s) == NULL) {
     goto err;
@@ -3461,7 +3460,7 @@ int tls1_verify_channel_id(SSL *ssl) {
 
   point = EC_POINT_new(p256);
   if (point == NULL ||
-      !EC_POINT_set_affine_coordinates_GFp(p256, point, &x, &y, NULL)) {
+      !EC_POINT_set_affine_coordinates_GFp(p256, point, x, y, NULL)) {
     goto err;
   }
 
@@ -3493,8 +3492,8 @@ int tls1_verify_channel_id(SSL *ssl) {
   ret = 1;
 
 err:
-  BN_free(&x);
-  BN_free(&y);
+  BN_free(x);
+  BN_free(y);
   BN_free(sig.r);
   BN_free(sig.s);
   EC_KEY_free(key);

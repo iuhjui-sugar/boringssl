@@ -767,9 +767,8 @@ err:
 
 int rsa_default_multi_prime_keygen(RSA *rsa, int bits, int num_primes,
                                    BIGNUM *e_value, BN_GENCB *cb) {
-  BIGNUM *r0 = NULL, *r1 = NULL, *r2 = NULL, *r3 = NULL, *tmp;
-  BIGNUM local_r0, local_p;
-  BIGNUM *pr0, *p;
+  BIGNUM *r0 = NULL, *r1 = NULL, *r2 = NULL, *r3 = NULL, *tmp = NULL,
+         *pr0 = NULL, *p = NULL;
   int prime_bits, ok = -1, n = 0, i, j;
   BN_CTX *ctx = NULL;
   STACK_OF(RSA_additional_prime) *additional_primes = NULL;
@@ -845,7 +844,12 @@ int rsa_default_multi_prime_keygen(RSA *rsa, int bits, int num_primes,
   if (!rsa->iqmp && ((rsa->iqmp = BN_new()) == NULL)) {
     goto err;
   }
-
+  if (!p && ((p = BN_new()) == NULL)) {
+    goto err;
+  }
+  if (!pr0 && ((pr0 = BN_new()) == NULL)) {
+    goto err;
+  }
   if (!BN_copy(rsa->e, e_value)) {
     goto err;
   }
@@ -998,7 +1002,6 @@ int rsa_default_multi_prime_keygen(RSA *rsa, int bits, int num_primes,
       goto err;
     }
   }
-  pr0 = &local_r0;
   BN_with_flags(pr0, r0, BN_FLG_CONSTTIME);
   if (!BN_mod_inverse(rsa->d, rsa->e, pr0, ctx)) {
     goto err; /* d */
@@ -1015,7 +1018,6 @@ int rsa_default_multi_prime_keygen(RSA *rsa, int bits, int num_primes,
   }
 
   /* calculate inverse of q mod p */
-  p = &local_p;
   BN_with_flags(p, rsa->p, BN_FLG_CONSTTIME);
   if (!BN_mod_inverse(rsa->iqmp, rsa->q, p, ctx)) {
     goto err;
