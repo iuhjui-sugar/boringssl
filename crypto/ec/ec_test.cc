@@ -22,7 +22,6 @@
 #include <openssl/crypto.h>
 #include <openssl/ec_key.h>
 #include <openssl/err.h>
-#include <openssl/mem.h>
 #include <openssl/nid.h>
 
 

@@ -216,12 +216,12 @@ static int ec_GFp_mont_point_get_affine_coordinates(const EC_GROUP *group,
 
   BN_CTX_start(ctx);
 
-  if (BN_cmp(&point->Z, &group->one) == 0) {
+  if (BN_cmp(point->Z, group->one) == 0) {
     /* |point| is already affine. */
-    if (x != NULL && !BN_from_montgomery(x, &point->X, group->mont, ctx)) {
+    if (x != NULL && !BN_from_montgomery(x, point->X, group->mont, ctx)) {
       goto err;
     }
-    if (y != NULL && !BN_from_montgomery(y, &point->Y, group->mont, ctx)) {
+    if (y != NULL && !BN_from_montgomery(y, point->Y, group->mont, ctx)) {
       goto err;
     }
   } else {
@@ -251,11 +251,11 @@ static int ec_GFp_mont_point_get_affine_coordinates(const EC_GROUP *group,
      * |BN_mod_inverse_odd| since this inversion may be done as the final step
      * of private key operations. Unfortunately, this is suboptimal for ECDSA
      * verification. */
-    if (!BN_from_montgomery(Z_1, &point->Z, group->mont, ctx) ||
+    if (!BN_from_montgomery(Z_1, point->Z, group->mont, ctx) ||
         !BN_from_montgomery(Z_1, Z_1, group->mont, ctx) ||
-        !BN_copy(field_minus_2, &group->field) ||
+        !BN_copy(field_minus_2, group->field) ||
         !BN_sub_word(field_minus_2, 2) ||
-        !BN_mod_exp_mont_consttime(Z_1, Z_1, field_minus_2, &group->field,
+        !BN_mod_exp_mont_consttime(Z_1, Z_1, field_minus_2, group->field,
                                    ctx, group->mont)) {
       goto err;
     }
@@ -273,14 +273,14 @@ static int ec_GFp_mont_point_get_affine_coordinates(const EC_GROUP *group,
     }
 
     if (x != NULL) {
-      if (!BN_mod_mul_montgomery(x, &point->X, Z_2, group->mont, ctx)) {
+      if (!BN_mod_mul_montgomery(x, point->X, Z_2, group->mont, ctx)) {
         goto err;
       }
     }
 
     if (y != NULL) {
       if (!BN_mod_mul_montgomery(Z_3, Z_2, Z_1, group->mont, ctx) ||
-          !BN_mod_mul_montgomery(y, &point->Y, Z_3, group->mont, ctx)) {
+          !BN_mod_mul_montgomery(y, point->Y, Z_3, group->mont, ctx)) {
         goto err;
       }
     }

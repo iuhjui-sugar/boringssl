@@ -115,7 +115,7 @@ struct ec_group_st {
   const EC_METHOD *meth;
 
   EC_POINT *generator;
-  BIGNUM order;
+  BIGNUM *order;
 
   int curve_name; /* optional NID for named curve */
 
@@ -124,23 +124,23 @@ struct ec_group_st {
   /* The following members are handled by the method functions,
    * even if they appear generic */
 
-  BIGNUM field; /* For curves over GF(p), this is the modulus. */
+  BIGNUM *field; /* For curves over GF(p), this is the modulus. */
 
-  BIGNUM a, b; /* Curve coefficients. */
+  BIGNUM *a, *b; /* Curve coefficients. */
 
   int a_is_minus3; /* enable optimized point arithmetics for special case */
 
   BN_MONT_CTX *mont; /* Montgomery structure. */
 
-  BIGNUM one; /* The value one. */
+  BIGNUM *one; /* The value one. */
 } /* EC_GROUP */;
 
 struct ec_point_st {
   const EC_METHOD *meth;
 
-  BIGNUM X;
-  BIGNUM Y;
-  BIGNUM Z; /* Jacobian projective coordinates:
+  BIGNUM *X;
+  BIGNUM *Y;
+  BIGNUM *Z; /* Jacobian projective coordinates:
              * (X, Y, Z)  represents  (X/Z^2, Y/Z^3)  if  Z != 0 */
 } /* EC_POINT */;
 

@@ -1547,9 +1547,9 @@ static int ec_GFp_nistp256_point_get_affine_coordinates(const EC_GROUP *group,
     OPENSSL_PUT_ERROR(EC, EC_R_POINT_AT_INFINITY);
     return 0;
   }
-  if (!BN_to_felem(x_in, &point->X) ||
-      !BN_to_felem(y_in, &point->Y) ||
-      !BN_to_felem(z1, &point->Z)) {
+  if (!BN_to_felem(x_in, point->X) ||
+      !BN_to_felem(y_in, point->Y) ||
+      !BN_to_felem(z1, point->Z)) {
     return 0;
   }
   felem_inv(z2, z1);
@@ -1650,7 +1650,7 @@ static int ec_GFp_nistp256_points_mul(const EC_GROUP *group,
         if (BN_num_bits(p_scalar) > 256 || BN_is_negative(p_scalar)) {
           /* this is an unusual input, and we don't guarantee
            * constant-timeness. */
-          if (!BN_nnmod(tmp_scalar, p_scalar, &group->order, ctx)) {
+          if (!BN_nnmod(tmp_scalar, p_scalar, group->order, ctx)) {
             OPENSSL_PUT_ERROR(EC, ERR_R_BN_LIB);
             goto err;
           }
@@ -1660,9 +1660,9 @@ static int ec_GFp_nistp256_points_mul(const EC_GROUP *group,
         }
         flip_endian(secrets[i], tmp, num_bytes);
         /* precompute multiples */
-        if (!BN_to_felem(x_out, &p->X) ||
-            !BN_to_felem(y_out, &p->Y) ||
-            !BN_to_felem(z_out, &p->Z)) {
+        if (!BN_to_felem(x_out, p->X) ||
+            !BN_to_felem(y_out, p->Y) ||
+            !BN_to_felem(z_out, p->Z)) {
           goto err;
         }
         felem_shrink(pre_comp[i][1][0], x_out);
@@ -1693,7 +1693,7 @@ static int ec_GFp_nistp256_points_mul(const EC_GROUP *group,
     if (BN_num_bits(g_scalar) > 256 || BN_is_negative(g_scalar)) {
       /* this is an unusual input, and we don't guarantee
        * constant-timeness. */
-      if (!BN_nnmod(tmp_scalar, g_scalar, &group->order, ctx)) {
+      if (!BN_nnmod(tmp_scalar, g_scalar, group->order, ctx)) {
         OPENSSL_PUT_ERROR(EC, ERR_R_BN_LIB);
         goto err;
       }

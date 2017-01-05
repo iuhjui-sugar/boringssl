@@ -53,9 +53,6 @@
 
 #include <openssl/ec.h>
 
-#include <limits.h>
-#include <string.h>
-
 #include <openssl/bytestring.h>
 #include <openssl/bn.h>
 #include <openssl/err.h>
