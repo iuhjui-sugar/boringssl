@@ -115,7 +115,7 @@
 #include <openssl/rand.h>
 #include <openssl/sha.h>
 
-#include "../internal.h"
+#include "internal.h"
 
 
 int BN_rand(BIGNUM *rnd, int bits, int top, int bottom) {

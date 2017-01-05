@@ -138,6 +138,15 @@ OPENSSL_MSVC_PRAGMA(warning(pop))
 extern "C" {
 #endif
 
+struct bignum_st {
+  BN_ULONG *d; /* Pointer to an array of 'BN_BITS2' bit chunks in little-endian
+                  order. */
+  int top;   /* Index of last used element in |d|, plus one. */
+  int dmax;  /* Size of |d|, in words. */
+  int neg;   /* one if the number is negative */
+  int flags; /* bitmask of BN_FLG_* values */
+};
+
 /* bn_expand acts the same as |bn_wexpand|, but takes a number of bits rather
  * than a number of words. */
 BIGNUM *bn_expand(BIGNUM *bn, size_t bits);

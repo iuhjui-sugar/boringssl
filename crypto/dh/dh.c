@@ -258,7 +258,11 @@ int DH_generate_key(DH *dh) {
   int generate_new_key = 0;
   BN_CTX *ctx = NULL;
   BIGNUM *pub_key = NULL, *priv_key = NULL;
-  BIGNUM local_priv;
+  BIGNUM *local_priv;
+
+  if (!(local_priv = BN_new())) {
+    goto err;
+  }
 
   if (BN_num_bits(dh->p) > OPENSSL_DH_MAX_MODULUS_BITS) {
     OPENSSL_PUT_ERROR(DH, DH_R_MODULUS_TOO_LARGE);
@@ -317,8 +321,8 @@ int DH_generate_key(DH *dh) {
     }
   }
 
-  BN_with_flags(&local_priv, priv_key, BN_FLG_CONSTTIME);
-  if (!BN_mod_exp_mont_consttime(pub_key, dh->g, &local_priv, dh->p, ctx,
+  BN_with_flags(local_priv, priv_key, BN_FLG_CONSTTIME);
+  if (!BN_mod_exp_mont_consttime(pub_key, dh->g, local_priv, dh->p, ctx,
                                  dh->method_mont_p)) {
     goto err;
   }
@@ -338,6 +342,7 @@ err:
   if (dh->priv_key == NULL) {
     BN_free(priv_key);
   }
+  BN_free(local_priv);
   BN_CTX_free(ctx);
   return ok;
 }
@@ -347,7 +352,11 @@ int DH_compute_key(unsigned char *out, const BIGNUM *peers_key, DH *dh) {
   BIGNUM *shared_key;
   int ret = -1;
   int check_result;
-  BIGNUM local_priv;
+  BIGNUM *local_priv;
+
+  if (!(local_priv = BN_new())) {
+    goto err;
+  }
 
   if (BN_num_bits(dh->p) > OPENSSL_DH_MAX_MODULUS_BITS) {
     OPENSSL_PUT_ERROR(DH, DH_R_MODULUS_TOO_LARGE);
@@ -379,8 +388,8 @@ int DH_compute_key(unsigned char *out, const BIGNUM *peers_key, DH *dh) {
     goto err;
   }
 
-  BN_with_flags(&local_priv, dh->priv_key, BN_FLG_CONSTTIME);
-  if (!BN_mod_exp_mont_consttime(shared_key, peers_key, &local_priv, dh->p, ctx,
+  BN_with_flags(local_priv, dh->priv_key, BN_FLG_CONSTTIME);
+  if (!BN_mod_exp_mont_consttime(shared_key, peers_key, local_priv, dh->p, ctx,
                                  dh->method_mont_p)) {
     OPENSSL_PUT_ERROR(DH, ERR_R_BN_LIB);
     goto err;
@@ -394,6 +403,7 @@ err:
     BN_CTX_free(ctx);
   }
 
+  BN_free(local_priv);
   return ret;
 }
 

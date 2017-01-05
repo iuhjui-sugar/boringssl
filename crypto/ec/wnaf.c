@@ -122,7 +122,7 @@ static int8_t *compute_wNAF(const BIGNUM *scalar, int w, size_t *ret_len) {
     sign = -1;
   }
 
-  if (scalar->d == NULL || scalar->top == 0) {
+  if (BN_is_zero(scalar)) {
     OPENSSL_PUT_ERROR(EC, ERR_R_INTERNAL_ERROR);
     goto err;
   }
@@ -136,7 +136,7 @@ static int8_t *compute_wNAF(const BIGNUM *scalar, int w, size_t *ret_len) {
     OPENSSL_PUT_ERROR(EC, ERR_R_MALLOC_FAILURE);
     goto err;
   }
-  window_val = scalar->d[0] & mask;
+  window_val = BN_mod_word(scalar, 0) & mask;
   j = 0;
   /* If j+w+1 >= len, window_val will not increase. */
   while (window_val != 0 || j + w + 1 < len) {

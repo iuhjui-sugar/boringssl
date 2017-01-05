@@ -353,9 +353,9 @@ EC_GROUP *ec_group_new(const EC_METHOD *meth) {
   OPENSSL_memset(ret, 0, sizeof(EC_GROUP));
 
   ret->meth = meth;
-  BN_init(&ret->order);
 
   if (!meth->group_init(ret)) {
+    meth->group_finish(ret);
     OPENSSL_free(ret);
     return NULL;
   }
@@ -398,7 +398,7 @@ int EC_GROUP_set_generator(EC_GROUP *group, const EC_POINT *generator,
   group->generator = EC_POINT_new(group);
   return group->generator != NULL &&
          EC_POINT_copy(group->generator, generator) &&
-         BN_copy(&group->order, order);
+         BN_copy(group->order, order);
 }
 
 static EC_GROUP *ec_group_new_from_data(unsigned built_in_index) {
@@ -447,7 +447,7 @@ static EC_GROUP *ec_group_new_from_data(unsigned built_in_index) {
     OPENSSL_PUT_ERROR(EC, ERR_R_EC_LIB);
     goto err;
   }
-  if (!BN_bin2bn(params + 5 * param_len, param_len, &group->order)) {
+  if (!BN_bin2bn(params + 5 * param_len, param_len, group->order)) {
     OPENSSL_PUT_ERROR(EC, ERR_R_BN_LIB);
     goto err;
   }
@@ -509,8 +509,6 @@ void EC_GROUP_free(EC_GROUP *group) {
   }
 
   EC_POINT_free(group->generator);
-  BN_free(&group->order);
-
   OPENSSL_free(group);
 }
 
@@ -543,7 +541,7 @@ EC_GROUP *EC_GROUP_dup(const EC_GROUP *a) {
     }
   }
 
-  if (!BN_copy(&ret->order, &a->order) ||
+  if (!BN_copy(ret->order, a->order) ||
       !ret->meth->group_copy(ret, a)) {
     goto err;
   }
@@ -566,8 +564,8 @@ const EC_POINT *EC_GROUP_get0_generator(const EC_GROUP *group) {
 }
 
 const BIGNUM *EC_GROUP_get0_order(const EC_GROUP *group) {
-  assert(!BN_is_zero(&group->order));
-  return &group->order;
+  assert(!BN_is_zero(group->order));
+  return group->order;
 }
 
 int EC_GROUP_get_order(const EC_GROUP *group, BIGNUM *order, BN_CTX *ctx) {
@@ -611,6 +609,7 @@ EC_POINT *EC_POINT_new(const EC_GROUP *group) {
   ret->meth = group->meth;
 
   if (!ec_GFp_simple_point_init(ret)) {
+    ec_GFp_simple_point_finish(ret);
     OPENSSL_free(ret);
     return NULL;
   }
@@ -624,7 +623,6 @@ void EC_POINT_free(EC_POINT *point) {
   }
 
   ec_GFp_simple_point_finish(point);
-
   OPENSSL_free(point);
 }
 

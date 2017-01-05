@@ -617,8 +617,8 @@ BN_ULONG BN_mod_word(const BIGNUM *a, BN_ULONG w) {
 #endif
   int i;
 
-  if (w == 0) {
-    return (BN_ULONG) -1;
+  if (w == 0L) {
+    return a->top == 0 ? 0 : a->d[0];
   }
 
 #ifndef BN_ULLONG
