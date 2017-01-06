@@ -91,6 +91,14 @@ typedef struct x509_file_st
 	int *path_type;
 	} X509_CERT_FILE_CTX;
 
+/* Legacy X.509 library.
+ *
+ * This header is part of OpenSSL's X.509 implementation. It is retained for
+ * compatibility but otherwise underdocumented and not actively maintained. In
+ * the future, a replacement library will be available. Meanwhile, minimize
+ * dependencies on this header where possible. */
+
+
 /*******************************/
 /*
 SSL_CTX -> X509_STORE    
