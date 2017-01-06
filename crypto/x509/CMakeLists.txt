@@ -67,6 +67,14 @@ add_executable(
 )
 
 add_executable(
+  t_x509_test
+
+  t_x509_test.cc
+
+  $<TARGET_OBJECTS:test_support>
+)
+
+add_executable(
   x509_test
 
   x509_test.cc
@@ -76,4 +84,5 @@ add_executable(
 
 target_link_libraries(pkcs7_test crypto)
 target_link_libraries(x509_test crypto)
-add_dependencies(all_tests pkcs7_test x509_test)
+target_link_libraries(t_x509_test crypto)
+add_dependencies(all_tests pkcs7_test t_x509_test x509_test)
