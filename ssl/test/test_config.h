@@ -127,6 +127,8 @@ struct TestConfig {
   bool expect_sha256_client_cert_resume = false;
   bool enable_short_header = false;
   bool read_with_unfinished_write = false;
+  int max_send_fragment = 0;
+  int read_size = 0;
 };
 
 bool ParseConfig(int argc, char **argv, TestConfig *out_config);
