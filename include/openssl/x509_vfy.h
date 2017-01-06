@@ -73,6 +73,14 @@ extern "C" {
 #endif
 
 
+/* Legacy X.509 library.
+ *
+ * This header is part of OpenSSL's X.509 implementation. It is retained for
+ * compatibility but otherwise underdocumented and not actively maintained. In
+ * the future, a replacement library will be available. Meanwhile, minimize
+ * dependecies on this header where possible. */
+
+
 /*******************************/
 /*
 SSL_CTX -> X509_STORE    
