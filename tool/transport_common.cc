@@ -159,7 +159,11 @@ bool Accept(int *out_sock, const std::string &port) {
   addr.sin6_port = htons(atoi(port.c_str()));
 
   bool ok = false;
-  const char enable = 1;
+#if defined(OPENSSL_WINDOWS)
+  const BOOL enable = 1;
+#else
+  const int enable = 1;
+#endif
   int server_sock = -1;
 
   server_sock =
