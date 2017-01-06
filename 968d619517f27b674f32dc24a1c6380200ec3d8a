@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d7248649_73a2a082",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 2919,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-01-06T16:05:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7248649_d367f493",
+      "range": {
+        "startLine": 2919,
+        "startChar": 69,
+        "endLine": 2919,
+        "endChar": 75
+      },
+      "revId": "968d619517f27b674f32dc24a1c6380200ec3d8a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f727ca48_948ac4fd",
         "filename": "ssl/ssl_lib.c",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2017-01-06T15:27:38Z",
       "side": 1,
       "message": "!!enable for safety\u0027s sake.\n\nCasting from int to bit field is always fun. Probably also enable \u003d\u003e enabled to match the function name.",
+      "range": {
+        "startLine": 882,
+        "startChar": 27,
+        "endLine": 882,
+        "endChar": 33
+      },
+      "revId": "968d619517f27b674f32dc24a1c6380200ec3d8a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d7248649_53a52487",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-01-06T16:05:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f727ca48_948ac4fd",
       "range": {
         "startLine": 882,
         "startChar": 27,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "d7248649_b38fd80c",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 1441,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-01-06T16:05:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7248649_f36c7078",
+      "range": {
+        "startLine": 1441,
+        "startChar": 31,
+        "endLine": 1441,
+        "endChar": 50
+      },
+      "revId": "968d619517f27b674f32dc24a1c6380200ec3d8a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d7248649_93717c4f",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 6
@@ -88,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "d7248649_139fac39",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 8373,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-01-06T16:05:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7248649_93717c4f",
+      "revId": "968d619517f27b674f32dc24a1c6380200ec3d8a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "37324288_b676e842",
         "filename": "ssl/tls13_server.c",
         "patchSetId": 6
@@ -99,6 +189,24 @@
       "writtenOn": "2017-01-06T15:27:38Z",
       "side": 1,
       "message": "This comment still doesn\u0027t link it to the tls_record.c value. The intent is so we don\u0027t forget to update the values together. I\u0027d probably also omit the \"Without this limit [...]\" sentence since that\u0027s about skipping, not the advertisement. Something like:\n\n/* kMaxEarlyDataAccepted is the advertised number of plaintext bytes of early data that will be accepted. This value should be slightly below kMaxEarlyDataSkipped in tls_record.c, which is measured in ciphertext. */\n\n/* kMaxEarlyDataSkipped is the maximum number of rejected early data bytes that will be skipped. Without this limit an attacker could send records at a faster rate than we can process and cause trial decryption to loop forever. This value should be slightly above kMaxEarlyDataAccepted in tls13_server.c, which is measured in plaintext. */",
+      "revId": "968d619517f27b674f32dc24a1c6380200ec3d8a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d7248649_938adcfd",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-01-06T16:05:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "37324288_b676e842",
       "revId": "968d619517f27b674f32dc24a1c6380200ec3d8a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
