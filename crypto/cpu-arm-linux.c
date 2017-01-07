@@ -333,6 +333,8 @@ void OPENSSL_cpuid_setup(void) {
     unsigned long hwcap2 = 0;
     if (getauxval != NULL) {
       hwcap2 = getauxval(AT_HWCAP2);
+    } else {
+      hwcap2 = getauxval_proc(AT_HWCAP2);
     }
     if (hwcap2 == 0) {
       hwcap2 = get_hwcap2_cpuinfo(&cpuinfo);
