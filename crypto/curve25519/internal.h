@@ -20,8 +20,16 @@ extern "C" {
 #endif
 
 
+#define BORINGSSL_X25519_FIAT
+
+#if defined(BORINGSSL_X25519_FIAT)
+void x25519_donna_fiat(uint8_t *mypublic, const uint8_t *secret,
+                       const uint8_t *basepoint);
+#endif
+
 #if defined(OPENSSL_X86_64) && !defined(OPENSSL_SMALL) && \
-    !defined(OPENSSL_WINDOWS) && !defined(OPENSSL_NO_ASM)
+    !defined(OPENSSL_WINDOWS) && !defined(OPENSSL_NO_ASM) && \
+    !defined(BORINGSSL_X25519_FIAT)
 #define BORINGSSL_X25519_X86_64
 
 void x25519_x86_64(uint8_t out[32], const uint8_t scalar[32],
@@ -29,7 +37,8 @@ void x25519_x86_64(uint8_t out[32], const uint8_t scalar[32],
 #endif
 
 
-#if defined(OPENSSL_ARM) && !defined(OPENSSL_NO_ASM)
+#if defined(OPENSSL_ARM) && !defined(OPENSSL_NO_ASM) && \
+    !defined(BORINGSSL_X25519_FIAT)
 #define BORINGSSL_X25519_NEON
 
 /* x25519_NEON is defined in asm/x25519-arm.S. */

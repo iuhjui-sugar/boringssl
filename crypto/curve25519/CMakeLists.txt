@@ -24,6 +24,7 @@ add_library(
   curve25519.c
   spake25519.c
   x25519-x86_64.c
+  x25519_donna_fiat.c
 
   ${CURVE25519_ARCH_SOURCES}
 )

@@ -4714,6 +4714,13 @@ static void x25519_scalar_mult(uint8_t out[32], const uint8_t scalar[32],
   x25519_x86_64(out, scalar, point);
 }
 
+#elif defined(BORINGSSL_X25519_FIAT)
+
+static void x25519_scalar_mult(uint8_t out[32], const uint8_t scalar[32],
+                               const uint8_t point[32]) {
+  x25519_donna_fiat(out, scalar, point);
+}
+
 #else
 
 /* Replace (f,g) with (g,f) if b == 1;
@@ -4892,11 +4899,15 @@ int X25519(uint8_t out_shared_key[32], const uint8_t private_key[32],
   return CRYPTO_memcmp(kZeros, out_shared_key, 32) != 0;
 }
 
-#if defined(BORINGSSL_X25519_X86_64)
+#if defined(BORINGSSL_X25519_X86_64) || defined(BORINGSSL_X25519_FIAT)
 
 /* When |BORINGSSL_X25519_X86_64| is set, base point multiplication is done with
- * the Montgomery ladder because it's faster. Otherwise it's done using the
- * Ed25519 tables. */
+ * the Montgomery ladder because it's faster.
+ *
+ * When |BORINGSSL_X25519_FIAT| is set, base point multiplication is done with
+ * the Montgomery ladder because using more verified code is fun!
+ *
+ * Otherwise it's done using the Ed25519 tables. */
 
 void X25519_public_from_private(uint8_t out_public_value[32],
                                 const uint8_t private_key[32]) {
