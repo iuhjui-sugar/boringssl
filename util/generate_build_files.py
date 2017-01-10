@@ -679,7 +679,7 @@ def main(platforms):
       'ssl_headers': ssl_h_files,
       'ssl_internal_headers': ssl_internal_h_files,
       'tool': tool_c_files,
-      'tool_headers': tool_h_files,
+      'tool_headers': tool_h_files + crypto_internal_h_files,
       'test': test_c_files,
       'test_support': test_support_c_files,
       'test_support_headers': test_support_h_files,
