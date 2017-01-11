@@ -43,6 +43,8 @@ enum server_hs_state_t {
   state_send_server_certificate_verify,
   state_complete_server_certificate_verify,
   state_send_server_finished,
+  state_read_second_client_flight,
+  state_process_end_of_early_data,
   state_process_client_certificate,
   state_process_client_certificate_verify,
   state_process_channel_id,
@@ -311,6 +313,20 @@ static enum ssl_hs_wait_t do_select_session(SSL_HANDSHAKE *hs) {
       return ssl_hs_pending_ticket;
   }
 
+  if (hs->early_data_offered) {
+    if (!ssl->ctx->enable_early_data ||
+        session == NULL ||
+        ssl->s3->alpn_selected_len != session->early_alpn_len ||
+        OPENSSL_memcmp(ssl->s3->alpn_selected, session->early_alpn,
+                       ssl->s3->alpn_selected_len) != 0) {
+      hs->early_data_state = ssl_early_data_reject;
+    } else {
+      hs->early_data_state = ssl_early_data_accept;
+    }
+  } else {
+    hs->early_data_state = ssl_early_data_off;
+  }
+
   /* Record connection properties in the new session. */
   hs->new_session->cipher = hs->new_cipher;
 
@@ -323,6 +339,7 @@ static enum ssl_hs_wait_t do_select_session(SSL_HANDSHAKE *hs) {
     }
   }
 
+  /* Store the initial negotiated ALPN in the session. */
   if (ssl->s3->alpn_selected != NULL) {
     hs->new_session->early_alpn =
         BUF_memdup(ssl->s3->alpn_selected, ssl->s3->alpn_selected_len);
@@ -341,6 +358,8 @@ static enum ssl_hs_wait_t do_select_session(SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
+  ssl->early_data_accepted = hs->early_data_state == ssl_early_data_accept;
+
   /* Incorporate the PSK into the running secret. */
   if (ssl->s3->session_reused) {
     if (!tls13_advance_key_schedule(hs, hs->new_session->master_key,
@@ -351,12 +370,21 @@ static enum ssl_hs_wait_t do_select_session(SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
+  if (hs->early_data_state == ssl_early_data_accept &&
+      !tls13_derive_early_secrets(hs)) {
+    return ssl_hs_error;
+  }
+
   ssl->method->received_flight(ssl);
 
   /* Resolve ECDHE and incorporate it into the secret. */
   int need_retry;
   if (!resolve_ecdhe_secret(hs, &need_retry, &client_hello)) {
     if (need_retry) {
+      if (hs->early_data_state == ssl_early_data_accept) {
+        hs->early_data_state = ssl_early_data_reject;
+        hs->early_data_accepted = 0;
+      }
       hs->tls13_state = state_send_hello_retry_request;
       return ssl_hs_ok;
     }
@@ -543,8 +571,33 @@ static enum ssl_hs_wait_t do_send_server_finished(SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
+  hs->tls13_state = state_read_second_client_flight;
+  return ssl_hs_flush;
+}
+
+static enum ssl_hs_wait_t do_read_second_client_flight(SSL_HANDSHAKE *hs) {
+  SSL *const ssl = hs->ssl;
+  if (hs->early_data_state == ssl_early_data_accept) {
+    if (!tls13_set_traffic_key(ssl, evp_aead_open, hs->early_traffic_secret,
+                               hs->hash_len)) {
+      return ssl_hs_error;
+    }
+    hs->tls13_state = state_process_end_of_early_data;
+    return ssl_hs_read_end_of_early_data;
+  }
+
+  hs->tls13_state = state_process_end_of_early_data;
+  return ssl_hs_ok;
+}
+
+static enum ssl_hs_wait_t do_process_end_of_early_data(SSL_HANDSHAKE *hs) {
+  SSL *const ssl = hs->ssl;
+  if (!tls13_set_traffic_key(ssl, evp_aead_open, hs->client_handshake_secret,
+                             hs->hash_len)) {
+    return ssl_hs_error;
+  }
   hs->tls13_state = state_process_client_certificate;
-  return ssl_hs_flush_and_read_message;
+  return ssl_hs_read_message;
 }
 
 static enum ssl_hs_wait_t do_process_client_certificate(SSL_HANDSHAKE *hs) {
@@ -720,9 +773,15 @@ enum ssl_hs_wait_t tls13_server_handshake(SSL_HANDSHAKE *hs) {
       break;
       case state_complete_server_certificate_verify:
         ret = do_send_server_certificate_verify(hs, 0 /* complete */);
-      break;
+        break;
       case state_send_server_finished:
         ret = do_send_server_finished(hs);
+        break;
+      case state_read_second_client_flight:
+        ret = do_read_second_client_flight(hs);
+        break;
+      case state_process_end_of_early_data:
+        ret = do_process_end_of_early_data(hs);
         break;
       case state_process_client_certificate:
         ret = do_process_client_certificate(hs);

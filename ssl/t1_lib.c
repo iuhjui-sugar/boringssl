@@ -1457,7 +1457,6 @@ static int ext_alpn_parse_serverhello(SSL_HANDSHAKE *hs, uint8_t *out_alert,
     *out_alert = SSL_AD_ILLEGAL_PARAMETER;
     return 0;
   }
-
   if (!CBS_stow(&protocol_name, &ssl->s3->alpn_selected,
                 &ssl->s3->alpn_selected_len)) {
     *out_alert = SSL_AD_INTERNAL_ERROR;
@@ -2086,13 +2085,35 @@ static int ext_psk_key_exchange_modes_parse_clienthello(SSL_HANDSHAKE *hs,
  * https://tools.ietf.org/html/draft-ietf-tls-tls13-18#section-4.2.8 */
 
 static int ext_early_data_add_clienthello(SSL_HANDSHAKE *hs, CBB *out) {
-  /* TODO(svaldez): Support 0RTT. */
-  return 1;
+  SSL *const ssl = hs->ssl;
+  uint16_t min_version, max_version;
+  if (!ssl_get_version_range(ssl, &min_version, &max_version)) {
+    return 0;
+  }
+
+  uint16_t session_version;
+  if (max_version < TLS1_3_VERSION || ssl->session == NULL ||
+      !ssl->method->version_from_wire(&session_version,
+                                      ssl->session->ssl_version) ||
+      session_version < TLS1_3_VERSION ||
+      ssl->session->ticket_max_early_data == 0 ||
+      !ssl->ctx->enable_early_data ||
+      hs->early_data_state == ssl_early_data_reject) {
+    return 1;
+  }
+
+  hs->early_data_state = ssl_early_data_accept;
+
+  if (!CBB_add_u16(out, TLSEXT_TYPE_early_data) ||
+      !CBB_add_u16(out, 0)) {
+    return 0;
+  }
+
+  return CBB_flush(out);
 }
 
-static int ext_early_data_parse_clienthello(SSL_HANDSHAKE *hs,
+static int ext_early_data_parse_serverhello(SSL_HANDSHAKE *hs,
                                             uint8_t *out_alert, CBS *contents) {
-  SSL *const ssl = hs->ssl;
   if (contents == NULL) {
     return 1;
   }
@@ -2102,11 +2123,44 @@ static int ext_early_data_parse_clienthello(SSL_HANDSHAKE *hs,
     return 0;
   }
 
-  /* Since we don't currently accept 0-RTT, we have to skip past any early data
-   * the client might have sent. */
-  if (ssl3_protocol_version(ssl) >= TLS1_3_VERSION) {
-    ssl->s3->skip_early_data = 1;
+  if (!hs->ssl->s3->session_reused) {
+    *out_alert = SSL_AD_UNSUPPORTED_EXTENSION;
+    OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_EXTENSION);
+    return 0;
   }
+
+  hs->early_data_accepted = 1;
+  return 1;
+}
+
+static int ext_early_data_parse_clienthello(SSL_HANDSHAKE *hs,
+                                            uint8_t *out_alert, CBS *contents) {
+  SSL *const ssl = hs->ssl;
+  if (contents == NULL ||
+      ssl3_protocol_version(ssl) < TLS1_3_VERSION) {
+    return 1;
+  }
+
+  if (CBS_len(contents) != 0) {
+    *out_alert = SSL_AD_DECODE_ERROR;
+    return 0;
+  }
+
+  hs->early_data_offered = 1;
+  return 1;
+}
+
+static int ext_early_data_add_serverhello(SSL_HANDSHAKE *hs, CBB *out) {
+  if (hs->early_data_state != ssl_early_data_accept) {
+    return 1;
+  }
+
+  if (!CBB_add_u16(out, TLSEXT_TYPE_early_data) ||
+      !CBB_add_u16(out, 0) ||
+      !CBB_flush(out)) {
+    return 0;
+   }
+
   return 1;
 }
 
@@ -2597,9 +2651,9 @@ static const struct tls_extension kExtensions[] = {
     TLSEXT_TYPE_early_data,
     NULL,
     ext_early_data_add_clienthello,
-    forbid_parse_serverhello,
+    ext_early_data_parse_serverhello,
     ext_early_data_parse_clienthello,
-    dont_add_serverhello,
+    ext_early_data_add_serverhello,
   },
   {
     TLSEXT_TYPE_supported_versions,
