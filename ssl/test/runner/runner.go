@@ -9781,6 +9781,22 @@ func addTLS13HandshakeTests() {
 			},
 		},
 	})
+
+	// Test that we accept data-less early data.
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "TLS13-DataLessEarlyData-Server",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				SendEarlyData: [][]byte{{}},
+			},
+		},
+		resumeSession: true,
+		flags: []string{
+			"-enable-early-data",
+		},
+	})
 }
 
 func addTLS13CipherPreferenceTests() {
