@@ -850,6 +850,7 @@ RestartReadRecord:
 	// a HelloRetryRequest) and the client sends early data, there
 	// won't be a decryption failure but it still needs to be skipped.
 	if c.in.cipher == nil && typ == recordTypeApplicationData && c.skipEarlyData {
+		fmt.Printf("Skip\n")
 		goto RestartReadRecord
 	}
 
@@ -1510,6 +1511,10 @@ func (c *Conn) handlePostHandshakeMessage() error {
 				maxEarlyDataSize:   newSessionTicket.maxEarlyDataSize,
 			}
 
+			if c.usedALPN {
+				session.earlyALPN = c.clientProtocol
+			}
+
 			cacheKey := clientSessionCacheKey(c.conn.RemoteAddr(), c.config)
 			c.config.ClientSessionCache.Put(cacheKey, session)
 			return nil
@@ -1823,6 +1828,10 @@ func (c *Conn) SendNewSessionTicket() error {
 		ticketAgeAdd:       uint32(addBuffer[3])<<24 | uint32(addBuffer[2])<<16 | uint32(addBuffer[1])<<8 | uint32(addBuffer[0]),
 	}
 
+	if c.usedALPN {
+		state.earlyALPN = c.clientProtocol
+	}
+
 	if !c.config.Bugs.SendEmptySessionTicket {
 		var err error
 		m.ticket, err = c.encryptTicket(&state)
@@ -1830,7 +1839,6 @@ func (c *Conn) SendNewSessionTicket() error {
 			return err
 		}
 	}
-
 	c.out.Lock()
 	defer c.out.Unlock()
 	_, err = c.writeRecord(recordTypeHandshake, m.marshal())
