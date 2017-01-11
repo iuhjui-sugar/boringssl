@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7248649_c7240ed8",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-11T16:16:33Z",
+      "side": 1,
+      "message": "Another option is to do this in the BUILD file, so the variables continue to be disjoint. No preferences here as to which one.",
+      "revId": "3927b664da2e85a47d42ee6ff08cb471e6424134",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
