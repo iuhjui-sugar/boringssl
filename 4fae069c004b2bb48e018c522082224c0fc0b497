@@ -16,6 +16,24 @@
       "revId": "4fae069c004b2bb48e018c522082224c0fc0b497",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "77a11aaa_8736119f",
+        "filename": "crypto/pkcs8/p5_pbev2.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-01-11T00:48:23Z",
+      "side": 0,
+      "message": "Chandler asserts that Clang-tidy plugins are really easy to write. I think CBB is error-prone enough that I might see whether Martin would be interested in looking at writing one.\n\n(There\u0027s also the problem of CBBs being referenced as children but going out of scope.)",
+      "parentUuid": "d7248649_9c17492d",
+      "revId": "4fae069c004b2bb48e018c522082224c0fc0b497",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
