@@ -34,6 +34,24 @@
       "revId": "4fae069c004b2bb48e018c522082224c0fc0b497",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d7248649_dcf621df",
+        "filename": "crypto/pkcs8/p5_pbev2.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-11T00:54:34Z",
+      "side": 0,
+      "message": "This particular instance could also be addressed by C++-ing the internals. EVP_MD_CTX or any other stack-allocated type would have the same issue. How about we find a function in libcrypto (preferably one used by ~everything), move it to C++, and see if we can get it through all the consumers?\n\nI\u0027m optimistic we can get C++ at least. C++11 with std::unique_ptr will probably require getting a bit of an STL into Trusty.",
+      "parentUuid": "77a11aaa_8736119f",
+      "revId": "4fae069c004b2bb48e018c522082224c0fc0b497",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
