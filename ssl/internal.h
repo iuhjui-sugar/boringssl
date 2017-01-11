@@ -867,16 +867,32 @@ int ssl_check_leaf_certificate(SSL_HANDSHAKE *hs, EVP_PKEY *pkey,
  * It returns one on success and zero on error. */
 int tls13_init_key_schedule(SSL_HANDSHAKE *hs);
 
+/* tls13_init_early_key_schedule initializes the handshake hash and key
+ * derivation state. It returns one on success and zero on error. */
+int tls13_init_early_key_schedule(SSL_HANDSHAKE *hs);
+
 /* tls13_advance_key_schedule incorporates |in| into the key schedule with
  * HKDF-Extract. It returns one on success and zero on error. */
 int tls13_advance_key_schedule(SSL_HANDSHAKE *hs, const uint8_t *in,
                                size_t len);
+
+/* tls13_set_early_traffic_key sets the read or write traffic keys to
+ * |traffic_secret| based on the protocol version |version|. It returns one on
+ * success and zero on error. */
+int tls13_set_early_traffic_key(SSL *ssl, uint16_t version,
+                                enum evp_aead_direction_t direction,
+                                const uint8_t *traffic_secret,
+                                size_t traffic_secret_len);
 
 /* tls13_set_traffic_key sets the read or write traffic keys to
  * |traffic_secret|. It returns one on success and zero on error. */
 int tls13_set_traffic_key(SSL *ssl, enum evp_aead_direction_t direction,
                           const uint8_t *traffic_secret,
                           size_t traffic_secret_len);
+
+/* tls13_derive_early_secrets derives the early traffic secret. It returns one
+ * on success and zero on error. */
+int tls13_derive_early_secrets(SSL_HANDSHAKE *hs);
 
 /* tls13_derive_handshake_secrets derives the handshake traffic secret. It
  * returns one on success and zero on error. */
@@ -931,6 +947,14 @@ enum ssl_hs_wait_t {
   ssl_hs_x509_lookup,
   ssl_hs_channel_id_lookup,
   ssl_hs_private_key_operation,
+  ssl_hs_read_eoed,
+};
+
+/* An ssl_early_data_t descriptes the state of 0-RTT mode. */
+enum ssl_early_data_t {
+  ssl_early_data_off,    // We are not handling early data.
+  ssl_early_data_accept, // We are accepting early data.
+  ssl_early_data_reject, // We are rejecting early data.
 };
 
 struct ssl_handshake_st {
@@ -956,8 +980,12 @@ struct ssl_handshake_st {
    * depend on |do_tls13_handshake| but the starting state is always zero. */
   int tls13_state;
 
+  /* early_data_state is the state of early data acceptance. */
+  enum ssl_early_data_t early_data_state;
+
   size_t hash_len;
   uint8_t secret[EVP_MAX_MD_SIZE];
+  uint8_t early_secret[EVP_MAX_MD_SIZE];
   uint8_t client_handshake_secret[EVP_MAX_MD_SIZE];
   uint8_t server_handshake_secret[EVP_MAX_MD_SIZE];
   uint8_t client_traffic_secret_0[EVP_MAX_MD_SIZE];
@@ -1043,6 +1071,13 @@ struct ssl_handshake_st {
   uint8_t *certificate_types;
   size_t num_certificate_types;
 
+  /* early_cipher is the cipher from the initial handshake. */
+  const SSL_CIPHER *early_cipher;
+
+  /* early_alpn is the ALPN protocol from the initial handshake. */
+  uint8_t *early_alpn;
+  size_t early_alpn_len;
+
   /* hostname, on the server, is the value of the SNI extension. */
   char *hostname;
 
@@ -1096,6 +1131,10 @@ struct ssl_handshake_st {
   /* in_false_start is one if there is a pending client handshake in False
    * Start. The client may write data at this point. */
   unsigned in_false_start:1;
+
+  /* received_early_data_extension is one if the client sent the early_data
+   * extension. */
+  unsigned received_early_data_extension:1;
 
   /* next_proto_neg_seen is one of NPN was negotiated. */
   unsigned next_proto_neg_seen:1;
@@ -1392,6 +1431,7 @@ struct ssl_protocol_method_st {
   int (*read_app_data)(SSL *ssl, int *out_got_handshake, uint8_t *buf, int len,
                        int peek);
   int (*read_change_cipher_spec)(SSL *ssl);
+  int (*read_end_of_early_data)(SSL *ssl);
   void (*read_close_notify)(SSL *ssl);
   int (*write_app_data)(SSL *ssl, const uint8_t *buf, int len);
   int (*dispatch_alert)(SSL *ssl);
@@ -1539,10 +1579,6 @@ typedef struct ssl3_state_st {
   /* key_update_count is the number of consecutive KeyUpdates received. */
   uint8_t key_update_count;
 
-  /* skip_early_data instructs the record layer to skip unexpected early data
-   * messages when 0RTT is rejected. */
-  unsigned skip_early_data:1;
-
   /* have_version is true if the connection's final version is known. Otherwise
    * the version has not been negotiated yet. */
   unsigned have_version:1;
@@ -1597,9 +1633,11 @@ typedef struct ssl3_state_st {
   uint8_t write_traffic_secret[EVP_MAX_MD_SIZE];
   uint8_t read_traffic_secret[EVP_MAX_MD_SIZE];
   uint8_t exporter_secret[EVP_MAX_MD_SIZE];
+  uint8_t early_exporter_secret[EVP_MAX_MD_SIZE];
   uint8_t write_traffic_secret_len;
   uint8_t read_traffic_secret_len;
   uint8_t exporter_secret_len;
+  uint8_t early_exporter_secret_len;
 
   /* Connection binding to prevent renegotiation attacks */
   uint8_t previous_client_finished[12];
@@ -1893,6 +1931,9 @@ struct ssl_st {
    * hash of the peer's certificate and then discard it to save memory and
    * session space. Only effective on the server side. */
   unsigned retain_only_sha256_of_client_certs:1;
+
+  /* early_data_accepted is true if early data was accepted by the server. */
+  unsigned early_data_accepted:1;
 };
 
 /* From draft-ietf-tls-tls13-18, used in determining PSK modes. */
@@ -2010,6 +2051,7 @@ int ssl3_dispatch_alert(SSL *ssl);
 int ssl3_read_app_data(SSL *ssl, int *out_got_handshake, uint8_t *buf, int len,
                        int peek);
 int ssl3_read_change_cipher_spec(SSL *ssl);
+int ssl3_read_end_of_early_data(SSL *ssl);
 void ssl3_read_close_notify(SSL *ssl);
 int ssl3_read_handshake_bytes(SSL *ssl, uint8_t *buf, int len);
 int ssl3_write_app_data(SSL *ssl, const uint8_t *buf, int len);

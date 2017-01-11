@@ -25,6 +25,7 @@ type sessionState struct {
 	handshakeHash        []byte
 	certificates         [][]byte
 	extendedMasterSecret bool
+	earlyALPN            string
 	ticketCreationTime   time.Time
 	ticketExpiration     time.Time
 	ticketFlags          uint32

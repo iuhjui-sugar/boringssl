@@ -44,6 +44,26 @@ int tls13_init_key_schedule(SSL_HANDSHAKE *hs) {
   return 1;
 }
 
+int tls13_init_early_key_schedule(SSL_HANDSHAKE *hs) {
+  SSL *const ssl = hs->ssl;
+  hs->new_cipher = ssl->session->cipher;
+
+  hs->hash_len = SSL_TRANSCRIPT_digest_len(&hs->transcript);
+
+  /* Initialize the secret to the zero key. */
+  memset(hs->secret, 0, hs->hash_len);
+
+  /* Initialize the rolling hashes and release the handshake buffer. */
+  if (!SSL_TRANSCRIPT_init_hash(&hs->transcript, TLS1_3_VERSION,
+                                hs->new_cipher->algorithm_prf)) {
+    return 0;
+  }
+
+  return tls13_advance_key_schedule(hs, ssl->session->master_key,
+                                    ssl->session->master_key_length) &&
+         tls13_derive_early_secrets(hs);
+}
+
 int tls13_advance_key_schedule(SSL_HANDSHAKE *hs, const uint8_t *in,
                                size_t len) {
   return HKDF_extract(hs->secret, &hs->hash_len,
@@ -97,9 +117,10 @@ static int derive_secret(SSL_HANDSHAKE *hs, uint8_t *out, size_t len,
                            context_hash_len, len);
 }
 
-int tls13_set_traffic_key(SSL *ssl, enum evp_aead_direction_t direction,
-                          const uint8_t *traffic_secret,
-                          size_t traffic_secret_len) {
+static int set_traffic_key(SSL *ssl, uint16_t version,
+                           enum evp_aead_direction_t direction,
+                           const uint8_t *traffic_secret,
+                           size_t traffic_secret_len) {
   if (traffic_secret_len > 0xff) {
     OPENSSL_PUT_ERROR(SSL, ERR_R_OVERFLOW);
     return 0;
@@ -110,12 +131,12 @@ int tls13_set_traffic_key(SSL *ssl, enum evp_aead_direction_t direction,
   size_t discard;
   if (!ssl_cipher_get_evp_aead(&aead, &discard, &discard,
                                SSL_get_session(ssl)->cipher,
-                               ssl3_protocol_version(ssl))) {
+                               version)) {
     return 0;
   }
 
   const EVP_MD *digest = ssl_get_handshake_digest(
-      SSL_get_session(ssl)->cipher->algorithm_prf, ssl3_protocol_version(ssl));
+      SSL_get_session(ssl)->cipher->algorithm_prf, version);
 
   /* Derive the key. */
   size_t key_len = EVP_AEAD_key_length(aead);
@@ -134,7 +155,7 @@ int tls13_set_traffic_key(SSL *ssl, enum evp_aead_direction_t direction,
   }
 
   SSL_AEAD_CTX *traffic_aead = SSL_AEAD_CTX_new(
-      direction, ssl3_protocol_version(ssl), SSL_get_session(ssl)->cipher, key,
+      direction, version, SSL_get_session(ssl)->cipher, key,
       key_len, NULL, 0, iv, iv_len);
   if (traffic_aead == NULL) {
     return 0;
@@ -164,6 +185,27 @@ int tls13_set_traffic_key(SSL *ssl, enum evp_aead_direction_t direction,
   return 1;
 }
 
+
+int tls13_set_early_traffic_key(SSL *ssl, uint16_t version,
+                                enum evp_aead_direction_t direction,
+                                const uint8_t *traffic_secret,
+                                size_t traffic_secret_len) {
+  return set_traffic_key(ssl, version, direction, traffic_secret,
+                         traffic_secret_len);
+}
+
+int tls13_set_traffic_key(SSL *ssl, enum evp_aead_direction_t direction,
+                          const uint8_t *traffic_secret,
+                          size_t traffic_secret_len) {
+  return set_traffic_key(ssl, ssl3_protocol_version(ssl), direction,
+                         traffic_secret, traffic_secret_len);
+}
+
+static const char kTLS13LabelExporter[] = "exporter master secret";
+static const char kTLS13LabelEarlyExporter[] = "early exporter master secret";
+
+static const char kTLS13LabelClientEarlyTraffic[] =
+    "client early traffic secret";
 static const char kTLS13LabelClientHandshakeTraffic[] =
     "client handshake traffic secret";
 static const char kTLS13LabelServerHandshakeTraffic[] =
@@ -172,6 +214,18 @@ static const char kTLS13LabelClientApplicationTraffic[] =
     "client application traffic secret";
 static const char kTLS13LabelServerApplicationTraffic[] =
     "server application traffic secret";
+
+int tls13_derive_early_secrets(SSL_HANDSHAKE *hs) {
+  SSL *const ssl = hs->ssl;
+  return derive_secret(hs, hs->early_secret, hs->hash_len,
+                       (const uint8_t *)kTLS13LabelClientEarlyTraffic,
+                       strlen(kTLS13LabelClientEarlyTraffic)) &&
+         ssl_log_secret(ssl, "CLIENT_EARLY_TRAFFIC_SECRET", hs->early_secret,
+                        hs->hash_len) &&
+         derive_secret(hs, ssl->s3->early_exporter_secret, hs->hash_len,
+                       (const uint8_t *)kTLS13LabelEarlyExporter,
+                       strlen(kTLS13LabelEarlyExporter));
+}
 
 int tls13_derive_handshake_secrets(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
@@ -186,8 +240,6 @@ int tls13_derive_handshake_secrets(SSL_HANDSHAKE *hs) {
          ssl_log_secret(ssl, "SERVER_HANDSHAKE_TRAFFIC_SECRET",
                         hs->server_handshake_secret, hs->hash_len);
 }
-
-static const char kTLS13LabelExporter[] = "exporter master secret";
 
 int tls13_derive_application_secrets(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
