@@ -300,7 +300,8 @@ enum ssl_open_record_t tls_open_record(SSL *ssl, uint8_t *out_type, CBS *out,
 
   /* Skip early data received when expecting a second ClientHello if we rejected
    * 0RTT. */
-  if (ssl->s3->skip_early_data &&
+  if (ssl->s3->hs != NULL &&
+      ssl->s3->hs->early_data_state == ssl_early_data_reject &&
       ssl->s3->aead_read_ctx == NULL &&
       type == SSL3_RT_APPLICATION_DATA) {
     goto skipped_data;
@@ -310,7 +311,8 @@ enum ssl_open_record_t tls_open_record(SSL *ssl, uint8_t *out_type, CBS *out,
   if (!SSL_AEAD_CTX_open(ssl->s3->aead_read_ctx, out, type, version,
                          ssl->s3->read_sequence, (uint8_t *)CBS_data(&body),
                          CBS_len(&body))) {
-    if (ssl->s3->skip_early_data &&
+    if (ssl->s3->hs != NULL &&
+        ssl->s3->hs->early_data_state == ssl_early_data_reject &&
         ssl->s3->aead_read_ctx != NULL) {
       ERR_clear_error();
       goto skipped_data;
@@ -321,7 +323,10 @@ enum ssl_open_record_t tls_open_record(SSL *ssl, uint8_t *out_type, CBS *out,
     return ssl_open_record_error;
   }
 
-  ssl->s3->skip_early_data = 0;
+  if (ssl->s3->hs != NULL &&
+      ssl->s3->hs->early_data_state == ssl_early_data_reject) {
+    ssl->s3->hs->early_data_state = ssl_early_data_off;
+  }
 
   if (!ssl_record_sequence_update(ssl->s3->read_sequence, 8)) {
     *out_alert = SSL_AD_INTERNAL_ERROR;
@@ -370,6 +375,13 @@ enum ssl_open_record_t tls_open_record(SSL *ssl, uint8_t *out_type, CBS *out,
   }
 
   if (type == SSL3_RT_ALERT) {
+    if (CBS_len(out) == 2 &&
+        CBS_data(out)[0] == SSL3_AL_WARNING &&
+        CBS_data(out)[1] == TLS1_AD_END_OF_EARLY_DATA) {
+      *out_type = type;
+      return ssl_open_record_success;
+    }
+
     return ssl_process_alert(ssl, out_alert, CBS_data(out), CBS_len(out));
   }
 
