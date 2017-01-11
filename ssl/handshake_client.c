@@ -216,6 +216,12 @@ int ssl3_connect(SSL_HANDSHAKE *hs) {
         }
 
         if (!SSL_is_dtls(ssl) || ssl->d1->send_cookie) {
+          if (ssl->ctx->enable_early_data &&
+              ssl->session != NULL &&
+              !tls13_init_early_key_schedule(hs)) {
+            ret = -1;
+            goto end;
+          }
           hs->next_state = SSL3_ST_CR_SRVR_HELLO_A;
         } else {
           hs->next_state = DTLS1_ST_CR_HELLO_VERIFY_REQUEST_A;

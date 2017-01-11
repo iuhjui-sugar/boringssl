@@ -42,6 +42,25 @@ int tls13_init_key_schedule(SSL_HANDSHAKE *hs) {
   return 1;
 }
 
+int tls13_init_early_key_schedule(SSL_HANDSHAKE *hs) {
+  SSL *const ssl = hs->ssl;
+  ssl->s3->tmp.new_cipher = ssl->session->cipher;
+
+  hs->hash_len = SSL_PRF_digest_len(&hs->prf);
+
+  /* Initialize the secret to the zero key. */
+  memset(hs->secret, 0, hs->hash_len);
+
+  /* Initialize the rolling hashes and release the handshake buffer. */
+  if (!SSL_PRF_init_hash(&hs->prf)) {
+    return 0;
+  }
+
+  return tls13_advance_key_schedule(hs, ssl->session->master_key,
+                                    ssl->session->master_key_length) &&
+         tls13_derive_early_secrets(hs);
+}
+
 int tls13_advance_key_schedule(SSL_HANDSHAKE *hs, const uint8_t *in,
                                size_t len) {
   return HKDF_extract(hs->secret, &hs->hash_len, hs->prf.md, in, len,
@@ -164,6 +183,11 @@ int tls13_set_traffic_key(SSL *ssl, enum evp_aead_direction_t direction,
   return 1;
 }
 
+static const char kTLS13LabelExporter[] = "exporter master secret";
+static const char kTLS13LabelEarlyExporter[] = "early exporter master secret";
+
+static const char kTLS13LabelClientEarlyTraffic[] =
+    "client early traffic secret";
 static const char kTLS13LabelClientHandshakeTraffic[] =
     "client handshake traffic secret";
 static const char kTLS13LabelServerHandshakeTraffic[] =
@@ -172,6 +196,18 @@ static const char kTLS13LabelClientApplicationTraffic[] =
     "client application traffic secret";
 static const char kTLS13LabelServerApplicationTraffic[] =
     "server application traffic secret";
+
+int tls13_derive_early_secrets(SSL_HANDSHAKE *hs) {
+  SSL *const ssl = hs->ssl;
+  return derive_secret(hs, hs->early_secret, hs->hash_len,
+                       (const uint8_t *)kTLS13LabelClientEarlyTraffic,
+                       strlen(kTLS13LabelClientEarlyTraffic)) &&
+         ssl_log_secret(ssl, "CLIENT_EARLY_TRAFFIC_SECRET", hs->early_secret,
+                        hs->hash_len) &&
+         derive_secret(hs, ssl->s3->early_exporter_secret, hs->hash_len,
+                       (const uint8_t *)kTLS13LabelEarlyExporter,
+                       strlen(kTLS13LabelEarlyExporter));
+}
 
 int tls13_derive_handshake_secrets(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
@@ -186,8 +222,6 @@ int tls13_derive_handshake_secrets(SSL_HANDSHAKE *hs) {
          ssl_log_secret(ssl, "SERVER_HANDSHAKE_TRAFFIC_SECRET",
                         hs->server_handshake_secret, hs->hash_len);
 }
-
-static const char kTLS13LabelExporter[] = "exporter master secret";
 
 int tls13_derive_application_secrets(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
@@ -317,6 +351,39 @@ int tls13_export_keying_material(SSL *ssl, uint8_t *out, size_t out_len,
   return hkdf_expand_label(out, digest, ssl->s3->exporter_secret,
                            ssl->s3->exporter_secret_len, (const uint8_t *)label,
                            label_len, hash, hash_len, out_len);
+}
+
+int SSL_export_early_keying_material(SSL *ssl, uint8_t *out, size_t out_len,
+                                     const char *label, size_t label_len,
+                                     const uint8_t *context, size_t context_len,
+                                     int use_context) {
+  if (!ssl->s3->have_version || ssl->version < TLS1_3_VERSION) {
+    return 0;
+  }
+
+  /* Exporters may not be used in the middle of a renegotiation. */
+  if (SSL_in_init(ssl) && !SSL_in_false_start(ssl)) {
+    return 0;
+  }
+
+  const EVP_MD *digest;
+  if (SSL_in_init(ssl)) {
+    digest = ssl->s3->hs->prf.md;
+  } else {
+    SSL_SESSION *session = SSL_get_session(ssl);
+    digest = ssl_get_handshake_digest(session->cipher->algorithm_prf);
+  }
+
+  const uint8_t *hash = NULL;
+  size_t hash_len = 0;
+  if (use_context) {
+    hash = context;
+    hash_len = context_len;
+  }
+  return hkdf_expand_label(out, digest, ssl->s3->early_exporter_secret,
+                           ssl->s3->early_exporter_secret_len,
+                           (const uint8_t *)label, label_len, hash, hash_len,
+                           out_len);
 }
 
 static const char kTLS13LabelPSKBinder[] = "resumption psk binder key";
