@@ -259,6 +259,11 @@ static enum ssl_hs_wait_t do_select_parameters(SSL_HANDSHAKE *hs) {
                                     ssl->s3->new_session->master_key_length)) {
       return ssl_hs_error;
     }
+
+    if (ssl->ctx->enable_early_data &&
+        !tls13_derive_early_secrets(hs)) {
+      return ssl_hs_error;
+    }
   } else if (!tls13_advance_key_schedule(hs, kZeroes, hs->hash_len)) {
     return ssl_hs_error;
   }
