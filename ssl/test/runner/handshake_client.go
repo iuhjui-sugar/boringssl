@@ -1346,6 +1346,18 @@ func (hs *clientHandshakeState) processServerExtensions(serverExtensions *server
 		c.srtpProtectionProfile = serverExtensions.srtpProtectionProfile
 	}
 
+	if c.vers >= VersionTLS13 && c.didResume {
+		if c.config.Bugs.EarlyDataAccepted && !serverExtensions.hasEarlyData {
+			c.sendAlert(alertHandshakeFailure)
+			return errors.New("tls: server did not accept early data when expected")
+		}
+
+		if !c.config.Bugs.EarlyDataAccepted && serverExtensions.hasEarlyData {
+			c.sendAlert(alertHandshakeFailure)
+			return errors.New("tls: server accepted early data when not expected")
+		}
+	}
+
 	return nil
 }
 
