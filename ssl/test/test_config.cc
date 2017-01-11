@@ -141,6 +141,7 @@ const Flag<std::string> kStringFlags[] = {
   { "-expect-alpn", &TestConfig::expected_alpn },
   { "-expect-advertised-alpn", &TestConfig::expected_advertised_alpn },
   { "-select-alpn", &TestConfig::select_alpn },
+  { "-select-resume-alpn", &TestConfig::select_resume_alpn },
   { "-psk", &TestConfig::psk },
   { "-psk-identity", &TestConfig::psk_identity },
   { "-srtp-profiles", &TestConfig::srtp_profiles },

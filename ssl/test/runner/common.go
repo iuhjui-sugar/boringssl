@@ -1148,6 +1148,10 @@ type ProtocolBugs struct {
 	// early data and includes that PSK in its ClientHello.
 	SendEarlyData [][]byte
 
+	// EarlyDataAccepted causes a TLS 1.3 client to check that early data was
+	// accepted by the server.
+	EarlyDataAccepted bool
+
 	// ExpectEarlyData causes a TLS 1.3 server to read application
 	// data after the ClientHello (assuming the server is able to
 	// derive the key under which the data is encrypted) before it
