@@ -867,6 +867,10 @@ int ssl_check_leaf_certificate(SSL *ssl, EVP_PKEY *pkey,
  * It returns one on success and zero on error. */
 int tls13_init_key_schedule(SSL_HANDSHAKE *hs);
 
+/* tls13_init_early_key_schedule initializes the handshake hash and key
+ * derivation state. It returns one on success and zero on error. */
+int tls13_init_early_key_schedule(SSL_HANDSHAKE *hs);
+
 /* tls13_advance_key_schedule incorporates |in| into the key schedule with
  * HKDF-Extract. It returns one on success and zero on error. */
 int tls13_advance_key_schedule(SSL_HANDSHAKE *hs, const uint8_t *in,
@@ -877,6 +881,10 @@ int tls13_advance_key_schedule(SSL_HANDSHAKE *hs, const uint8_t *in,
 int tls13_set_traffic_key(SSL *ssl, enum evp_aead_direction_t direction,
                           const uint8_t *traffic_secret,
                           size_t traffic_secret_len);
+
+/* tls13_derive_early_secrets derives the early traffic secret. It returns one
+ * on success and zero on error. */
+int tls13_derive_early_secrets(SSL_HANDSHAKE *hs);
 
 /* tls13_derive_handshake_secrets derives the handshake traffic secret. It
  * returns one on success and zero on error. */
@@ -958,6 +966,7 @@ struct ssl_handshake_st {
 
   size_t hash_len;
   uint8_t secret[EVP_MAX_MD_SIZE];
+  uint8_t early_secret[EVP_MAX_MD_SIZE];
   uint8_t client_handshake_secret[EVP_MAX_MD_SIZE];
   uint8_t server_handshake_secret[EVP_MAX_MD_SIZE];
   uint8_t client_traffic_secret_0[EVP_MAX_MD_SIZE];
@@ -1579,9 +1588,11 @@ typedef struct ssl3_state_st {
   uint8_t write_traffic_secret[EVP_MAX_MD_SIZE];
   uint8_t read_traffic_secret[EVP_MAX_MD_SIZE];
   uint8_t exporter_secret[EVP_MAX_MD_SIZE];
+  uint8_t early_exporter_secret[EVP_MAX_MD_SIZE];
   uint8_t write_traffic_secret_len;
   uint8_t read_traffic_secret_len;
   uint8_t exporter_secret_len;
+  uint8_t early_exporter_secret_len;
 
   /* Connection binding to prevent renegotiation attacks */
   uint8_t previous_client_finished[12];

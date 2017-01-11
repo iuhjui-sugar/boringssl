@@ -1472,6 +1472,16 @@ OPENSSL_EXPORT int SSL_export_keying_material(
     SSL *ssl, uint8_t *out, size_t out_len, const char *label, size_t label_len,
     const uint8_t *context, size_t context_len, int use_context);
 
+/* SSL_export_early_keying_material exports a value derived from the early
+ * secret in TLS 1.3. It writes |out_len| bytes to |out| given a label and
+ * optional context. (Since a zero length context is allowed, the |use_context|
+ * flag controls whether a context is included.)
+ *
+ * It returns one on success and zero otherwise. */
+OPENSSL_EXPORT int SSL_export_early_keying_material(
+    SSL *ssl, uint8_t *out, size_t out_len, const char *label, size_t label_len,
+    const uint8_t *context, size_t context_len, int use_context);
+
 
 /* Custom extensions.
  *
