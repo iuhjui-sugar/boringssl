@@ -579,6 +579,10 @@ ResendHelloRetryRequest:
 		c.writeRecord(recordTypeHandshake, helloRetryRequest.marshal())
 		c.flushHandshake()
 
+		if hs.clientHello.hasEarlyData {
+			c.skipEarlyData = true
+		}
+
 		// Read new ClientHello.
 		newMsg, err := c.readHandshake()
 		if err != nil {
@@ -628,6 +632,7 @@ ResendHelloRetryRequest:
 			newClientHelloCopy.pskIdentities[i].obfuscatedTicketAge = identity.obfuscatedTicketAge
 		}
 		newClientHelloCopy.pskBinders = oldClientHelloCopy.pskBinders
+		newClientHelloCopy.hasEarlyData = oldClientHelloCopy.hasEarlyData
 
 		if !oldClientHelloCopy.equal(&newClientHelloCopy) {
 			return errors.New("tls: new ClientHello does not match")
@@ -650,26 +655,33 @@ ResendHelloRetryRequest:
 	}
 
 	// Decide whether or not to accept early data.
-	// TODO(nharper): This does not check that ALPN or SNI matches.
-	if hs.clientHello.hasEarlyData {
-		if !sendHelloRetryRequest && hs.sessionState != nil {
-			encryptedExtensions.extensions.hasEarlyData = true
-			earlyTrafficSecret := hs.finishedHash.deriveSecret(earlyTrafficLabel)
-			c.in.useTrafficSecret(c.vers, hs.suite, earlyTrafficSecret, clientWrite)
-
-			for _, expectedMsg := range config.Bugs.ExpectEarlyData {
-				if err := c.readRecord(recordTypeApplicationData); err != nil {
-					return err
-				}
-				if !bytes.Equal(c.input.data[c.input.off:], expectedMsg) {
-					return errors.New("ExpectEarlyData: did not get expected message")
-				}
-				c.in.freeBlock(c.input)
-				c.input = nil
-
+	if !sendHelloRetryRequest {
+		if hs.clientHello.hasEarlyData {
+			canEarlyData := hs.sessionState != nil
+			if config.Bugs.AlwaysRejectEarlyData ||
+				c.clientProtocol != string(hs.sessionState.earlyALPN) {
+				canEarlyData = false
 			}
-		} else {
-			c.skipEarlyData = true
+
+			if config.Bugs.AlwaysAcceptEarlyData || canEarlyData {
+				encryptedExtensions.extensions.hasEarlyData = true
+				earlyTrafficSecret := hs.finishedHash.deriveSecret(earlyTrafficLabel)
+				c.in.useTrafficSecret(c.vers, hs.suite, earlyTrafficSecret, clientWrite)
+
+				for _, expectedMsg := range config.Bugs.ExpectEarlyData {
+					if err := c.readRecord(recordTypeApplicationData); err != nil {
+						return err
+					}
+					if !bytes.Equal(c.input.data[c.input.off:], expectedMsg) {
+						return errors.New("ExpectEarlyData: did not get expected message")
+					}
+					c.in.freeBlock(c.input)
+					c.input = nil
+
+				}
+			} else {
+				c.skipEarlyData = true
+			}
 		}
 	}
 

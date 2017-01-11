@@ -52,8 +52,10 @@ struct TestConfig {
   std::string host_name;
   std::string advertise_alpn;
   std::string expected_alpn;
+  std::string expected_resume_alpn;
   std::string expected_advertised_alpn;
   std::string select_alpn;
+  std::string select_resume_alpn;
   bool decline_alpn = false;
   bool expect_session_miss = false;
   bool expect_extended_master_secret = false;
@@ -84,6 +86,8 @@ struct TestConfig {
   bool expect_ticket_renewal = false;
   bool expect_no_session = false;
   bool expect_early_data_info = false;
+  bool expect_accept_early_data = false;
+  bool expect_reject_early_data = false;
   bool use_ticket_callback = false;
   bool renew_ticket = false;
   bool enable_early_data = false;
