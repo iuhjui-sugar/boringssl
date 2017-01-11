@@ -108,6 +108,7 @@ struct TestState {
   bssl::UniquePtr<SSL_SESSION> new_session;
   bool ticket_decrypt_done = false;
   bool alpn_select_done = false;
+  bool is_resume = false;
   bool early_callback_ready = false;
 };
 
@@ -763,6 +764,10 @@ static int AlpnSelectCallback(SSL* ssl, const uint8_t** out, uint8_t* outlen,
 
   *out = (const uint8_t*)config->select_alpn.data();
   *outlen = config->select_alpn.size();
+  if (GetTestState(ssl)->is_resume && config->select_resume_alpn.size() > 0) {
+    *out = (const uint8_t*)config->select_resume_alpn.data();
+    *outlen = config->select_resume_alpn.size();
+  }
   return SSL_TLSEXT_ERR_OK;
 }
 
@@ -1108,7 +1113,8 @@ static bssl::UniquePtr<SSL_CTX> SetupCtx(const TestConfig *config) {
                                      NULL);
   }
 
-  if (!config->select_alpn.empty() || config->decline_alpn) {
+  if (!config->select_alpn.empty() || !config->select_resume_alpn.empty() ||
+      config->decline_alpn) {
     SSL_CTX_set_alpn_select_cb(ssl_ctx.get(), AlpnSelectCallback, NULL);
   }
 
@@ -1421,13 +1427,22 @@ static bool CheckHandshakeProperties(SSL *ssl, bool is_resume) {
     }
   }
 
-  if (!config->expected_alpn.empty()) {
+  std::string expected_alpn = config->expected_alpn;
+  if (is_resume && !config->expected_resume_alpn.empty()) {
+    expected_alpn = config->expected_resume_alpn;
+  }
+  bool expect_no_alpn = (!is_resume && config->expect_no_alpn) ||
+      (is_resume && config->expect_no_resume_alpn);
+  if (expect_no_alpn) {
+    expected_alpn.clear();
+  }
+
+  if (!expected_alpn.empty() || expect_no_alpn) {
     const uint8_t *alpn_proto;
     unsigned alpn_proto_len;
     SSL_get0_alpn_selected(ssl, &alpn_proto, &alpn_proto_len);
-    if (alpn_proto_len != config->expected_alpn.size() ||
-        OPENSSL_memcmp(alpn_proto, config->expected_alpn.data(),
-                       alpn_proto_len) != 0) {
+    if (alpn_proto_len != expected_alpn.size() ||
+        OPENSSL_memcmp(alpn_proto, expected_alpn.data(), alpn_proto_len) != 0) {
       fprintf(stderr, "negotiated alpn proto mismatch\n");
       return false;
     }
@@ -1539,6 +1554,15 @@ static bool CheckHandshakeProperties(SSL *ssl, bool is_resume) {
     return false;
   }
 
+  if (is_resume) {
+    if ((config->expect_accept_early_data && !SSL_early_data_accepted(ssl)) ||
+        (config->expect_reject_early_data && SSL_early_data_accepted(ssl))) {
+      fprintf(stderr,
+              "Early data was%s accepted, but we expected the opposite\n",
+              SSL_early_data_accepted(ssl) ? "" : " not");
+      return false;
+    }
+  }
 
   if (!config->psk.empty()) {
     if (SSL_get_peer_cert_chain(ssl) != nullptr) {
@@ -1628,6 +1652,10 @@ static bool CheckHandshakeProperties(SSL *ssl, bool is_resume) {
 static bool DoExchange(bssl::UniquePtr<SSL_SESSION> *out_session,
                        SSL_CTX *ssl_ctx, const TestConfig *config,
                        bool is_resume, SSL_SESSION *session) {
+  if (is_resume && config->enable_resume_early_data) {
+    SSL_CTX_set_early_data_enabled(ssl_ctx, 1);
+  }
+
   bssl::UniquePtr<SSL> ssl(SSL_new(ssl_ctx));
   if (!ssl) {
     return false;
@@ -1637,6 +1665,8 @@ static bool DoExchange(bssl::UniquePtr<SSL_SESSION> *out_session,
       !SetTestState(ssl.get(), std::unique_ptr<TestState>(new TestState))) {
     return false;
   }
+
+  GetTestState(ssl.get())->is_resume = is_resume;
 
   if (config->fallback_scsv &&
       !SSL_set_mode(ssl.get(), SSL_MODE_SEND_FALLBACK_SCSV)) {
