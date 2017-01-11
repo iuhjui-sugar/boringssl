@@ -208,6 +208,21 @@ int ssl3_connect(SSL_HANDSHAKE *hs) {
         }
 
         if (!SSL_is_dtls(ssl) || ssl->d1->send_cookie) {
+          if (hs->early_data_state == ssl_early_data_accept) {
+            uint16_t session_version;
+            if (!ssl->method->version_from_wire(&session_version,
+                                                ssl->session->ssl_version) ||
+                !SSL_TRANSCRIPT_init_hash(
+                    &hs->transcript, session_version,
+                    ssl->session->cipher->algorithm_prf) ||
+                !tls13_init_early_key_schedule(hs) ||
+                !tls13_set_traffic_key(ssl, evp_aead_seal,
+                                       hs->early_traffic_secret,
+                                       hs->hash_len)) {
+              ret = -1;
+              goto end;
+            }
+          }
           hs->next_state = SSL3_ST_CR_SRVR_HELLO_A;
         } else {
           hs->next_state = DTLS1_ST_CR_HELLO_VERIFY_REQUEST_A;
@@ -873,6 +888,10 @@ static int ssl3_get_server_hello(SSL_HANDSHAKE *hs) {
     hs->state = SSL_ST_TLS13;
     hs->do_tls13_handshake = tls13_client_handshake;
     return 1;
+  } else if (hs->early_data_state == ssl_early_data_accept) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_WRONG_VERSION_ON_EARLY_DATA);
+    al = SSL_AD_PROTOCOL_VERSION;
+    goto f_err;
   }
 
   ssl_clear_tls13_state(hs);
