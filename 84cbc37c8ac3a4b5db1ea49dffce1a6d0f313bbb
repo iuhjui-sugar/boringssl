@@ -16,6 +16,24 @@
       "revId": "84cbc37c8ac3a4b5db1ea49dffce1a6d0f313bbb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "237845b1_05bd95c4",
+        "filename": "crypto/pkcs8/pkcs8.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 724,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-01-12T16:56:03Z",
+      "side": 0,
+      "message": "Hmm, not really. Maybe it was something some old versions of NSS did? I guess we can see whether we can drop this workaround.",
+      "parentUuid": "f730aaea_273e7aea",
+      "revId": "84cbc37c8ac3a4b5db1ea49dffce1a6d0f313bbb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
