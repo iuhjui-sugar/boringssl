@@ -250,6 +250,10 @@ static enum ssl_hs_wait_t do_select_parameters(SSL_HANDSHAKE *hs) {
   /* Set up the new session, either using the original one as a template or
    * creating a fresh one. */
   if (session == NULL) {
+    if (!SSL_PRF_init(&hs->prf, ssl3_protocol_version(ssl), ssl->s3->tmp.new_cipher->algorithm_prf)) {
+      return ssl_hs_error;
+    }
+
     if (!ssl_get_new_session(hs, 1 /* server */)) {
       ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
       return ssl_hs_error;
@@ -266,6 +270,10 @@ static enum ssl_hs_wait_t do_select_parameters(SSL_HANDSHAKE *hs) {
       }
     }
   } else {
+    if (!SSL_PRF_init(&hs->prf, ssl3_protocol_version(ssl), session->cipher->algorithm_prf)) {
+      return ssl_hs_error;
+    }
+
     /* Check the PSK binder. */
     if (!tls13_verify_psk_binder(ssl, session, &binders)) {
       SSL_SESSION_free(session);
@@ -299,8 +307,7 @@ static enum ssl_hs_wait_t do_select_parameters(SSL_HANDSHAKE *hs) {
   }
 
   /* The PRF hash is now known. Set up the key schedule. */
-  size_t hash_len =
-      EVP_MD_size(ssl_get_handshake_digest(ssl_get_algorithm_prf(ssl)));
+  size_t hash_len = EVP_MD_size(ssl->s3->hs->prf.md);
   if (!tls13_init_key_schedule(hs)) {
     return ssl_hs_error;
   }

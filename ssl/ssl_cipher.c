@@ -787,19 +787,6 @@ int ssl_cipher_get_evp_aead(const EVP_AEAD **out_aead,
   return 1;
 }
 
-const EVP_MD *ssl_get_handshake_digest(uint32_t algorithm_prf) {
-  switch (algorithm_prf) {
-    case SSL_HANDSHAKE_MAC_DEFAULT:
-      return EVP_sha1();
-    case SSL_HANDSHAKE_MAC_SHA256:
-      return EVP_sha256();
-    case SSL_HANDSHAKE_MAC_SHA384:
-      return EVP_sha384();
-    default:
-      return NULL;
-  }
-}
-
 #define ITEM_SEP(a) \
   (((a) == ':') || ((a) == ' ') || ((a) == ';') || ((a) == ','))
 

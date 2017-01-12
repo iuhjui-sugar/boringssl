@@ -261,9 +261,12 @@ static enum ssl_hs_wait_t do_process_server_hello(SSL_HANDSHAKE *hs) {
   ssl->s3->new_session->cipher = cipher;
   ssl->s3->tmp.new_cipher = cipher;
 
+  if (!SSL_PRF_init(&hs->prf, ssl3_protocol_version(ssl), cipher->algorithm_prf)) {
+    return ssl_hs_error;
+  }
+
   /* The PRF hash is now known. Set up the key schedule. */
-  size_t hash_len =
-      EVP_MD_size(ssl_get_handshake_digest(ssl_get_algorithm_prf(ssl)));
+  size_t hash_len = EVP_MD_size(hs->prf.md);
   if (!tls13_init_key_schedule(hs)) {
     return ssl_hs_error;
   }
