@@ -564,7 +564,7 @@ static int add_outgoing(SSL *ssl, int is_ccs, uint8_t *data, size_t len) {
   }
 
   if (!is_ccs) {
-    ssl3_update_handshake_hash(ssl, data, len);
+    SSL_PRF_update_handshake(&ssl->s3->hs->prf, data, len);
     ssl->d1->handshake_write_seq++;
   }
 

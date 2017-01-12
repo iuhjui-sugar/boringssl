@@ -714,6 +714,14 @@ int ssl_write_client_hello(SSL_HANDSHAKE *hs) {
     }
   }
 
+  if (has_session) {
+    uint16_t version;
+    if (!ssl->method->version_from_wire(&version, ssl->session->ssl_version) ||
+        !SSL_PRF_init(&hs->prf, version, ssl->session->cipher->algorithm_prf)) {
+      goto err;
+    }
+  }
+
   size_t header_len =
       SSL_is_dtls(ssl) ? DTLS1_HM_HEADER_LENGTH : SSL3_HM_HEADER_LENGTH;
   if (!ssl_write_client_cipher_list(ssl, &body, min_version, max_version) ||
@@ -748,7 +756,7 @@ static int ssl3_send_client_hello(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
   /* The handshake buffer is reset on every ClientHello. Notably, in DTLS, we
    * may send multiple ClientHellos if we receive HelloVerifyRequest. */
-  if (!ssl3_init_handshake_buffer(ssl)) {
+  if (!SSL_PRF_init_transcript(&hs->prf)) {
     OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
     return -1;
   }
@@ -895,8 +903,6 @@ static int ssl3_get_server_hello(SSL_HANDSHAKE *hs) {
   assert(ssl->s3->have_version == ssl->s3->initial_handshake_complete);
   if (!ssl->s3->have_version) {
     ssl->version = server_wire_version;
-    ssl->s3->enc_method = ssl3_get_enc_method(server_version);
-    assert(ssl->s3->enc_method != NULL);
     /* At this point, the connection's version is known and ssl->version is
      * fixed. Begin enforcing the record-layer version. */
     ssl->s3->have_version = 1;
@@ -996,9 +1002,10 @@ static int ssl3_get_server_hello(SSL_HANDSHAKE *hs) {
     ssl->s3->new_session->cipher = c;
   }
   ssl->s3->tmp.new_cipher = c;
+  SSL_PRF_init(&hs->prf, ssl3_protocol_version(ssl), c->algorithm_prf);
 
   /* Now that the cipher is known, initialize the handshake hash. */
-  if (!ssl3_init_handshake_hash(ssl)) {
+  if (!SSL_PRF_init_hash(&hs->prf)) {
     goto f_err;
   }
 
@@ -1007,7 +1014,7 @@ static int ssl3_get_server_hello(SSL_HANDSHAKE *hs) {
    * buffer may be released. */
   if (ssl->session != NULL ||
       !ssl_cipher_uses_certificate_auth(ssl->s3->tmp.new_cipher)) {
-    ssl3_free_handshake_buffer(ssl);
+    SSL_PRF_free_transcript(&hs->prf);
   }
 
   /* Only the NULL compression algorithm is supported. */
@@ -1389,7 +1396,7 @@ static int ssl3_get_certificate_request(SSL_HANDSHAKE *hs) {
     ssl->s3->tmp.reuse_message = 1;
     /* If we get here we don't need the handshake buffer as we won't be doing
      * client auth. */
-    ssl3_free_handshake_buffer(ssl);
+    SSL_PRF_free_transcript(&hs->prf);
     return 1;
   }
 
@@ -1482,7 +1489,7 @@ static int ssl3_send_client_certificate(SSL_HANDSHAKE *hs) {
 
   if (!ssl_has_certificate(ssl)) {
     /* Without a client certificate, the handshake buffer may be released. */
-    ssl3_free_handshake_buffer(ssl);
+    SSL_PRF_free_transcript(&hs->prf);
 
     /* In SSL 3.0, the Certificate message is replaced with a warning alert. */
     if (ssl->version == SSL3_VERSION) {
@@ -1729,9 +1736,15 @@ static int ssl3_send_cert_verify(SSL_HANDSHAKE *hs) {
       const EVP_MD *md;
       uint8_t digest[EVP_MAX_MD_SIZE];
       size_t digest_len;
-      if (!ssl3_cert_verify_hash(ssl, &md, digest, &digest_len,
-                                 signature_algorithm)) {
+      if (!SSL_PRF_cert_verify_hash(&ssl->s3->hs->prf, ssl->s3->new_session,
+                                    digest, &digest_len, signature_algorithm,
+                                    ssl3_protocol_version(ssl))) {
         goto err;
+      }
+
+      md = EVP_md5();
+      if (signature_algorithm == SSL_SIGN_RSA_PKCS1_MD5_SHA1) {
+        md = EVP_md5_sha1();
       }
 
       sign_result = ssl_private_key_success;
@@ -1749,12 +1762,12 @@ static int ssl3_send_cert_verify(SSL_HANDSHAKE *hs) {
     } else {
       sign_result = ssl_private_key_sign(
           ssl, ptr, &sig_len, max_sig_len, signature_algorithm,
-          (const uint8_t *)ssl->s3->handshake_buffer->data,
-          ssl->s3->handshake_buffer->length);
+          (const uint8_t *)hs->prf.hs_buffer->data,
+          hs->prf.hs_buffer->length);
     }
 
     /* The handshake buffer is no longer necessary. */
-    ssl3_free_handshake_buffer(ssl);
+    SSL_PRF_free_transcript(&hs->prf);
   } else {
     assert(hs->state == SSL3_ST_CW_CERT_VRFY_B);
     sign_result = ssl_private_key_complete(ssl, ptr, &sig_len, max_sig_len);
