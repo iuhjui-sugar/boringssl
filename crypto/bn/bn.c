@@ -153,6 +153,7 @@ BIGNUM *BN_copy(BIGNUM *dest, const BIGNUM *src) {
 
   dest->top = src->top;
   dest->neg = src->neg;
+  dest->flags = src->flags;
   return dest;
 }
 
@@ -348,18 +349,21 @@ BIGNUM *bn_expand(BIGNUM *bn, size_t bits) {
 
 void bn_correct_top(BIGNUM *bn) {
   BN_ULONG *ftl;
-  int tmp_top = bn->top;
 
-  if (tmp_top > 0) {
-    for (ftl = &(bn->d[tmp_top - 1]); tmp_top > 0; tmp_top--) {
-      if (*(ftl--)) {
-        break;
+  if (!(bn->flags & BN_FLG_NO_CORRECT_TOP)) {
+    int tmp_top = bn->top;
+
+    if (tmp_top > 0) {
+      for (ftl = &(bn->d[tmp_top - 1]); tmp_top > 0; tmp_top--) {
+        if (*(ftl--)) {
+          break;
+        }
       }
+      bn->top = tmp_top;
     }
-    bn->top = tmp_top;
-  }
 
-  if (bn->top == 0) {
-    bn->neg = 0;
+    if (bn->top == 0) {
+      bn->neg = 0;
+    }
   }
 }

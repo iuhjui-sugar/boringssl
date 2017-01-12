@@ -914,6 +914,7 @@ OPENSSL_EXPORT unsigned BN_num_bits_word(BN_ULONG l);
 
 #define BN_FLG_MALLOCED 0x01
 #define BN_FLG_STATIC_DATA 0x02
+#define BN_FLG_NO_CORRECT_TOP 0x10
 /* |BN_FLG_CONSTTIME| has been removed and intentionally omitted so code relying
  * on it will not compile. Consumers outside BoringSSL should use the
  * higher-level cryptographic algorithms exposed by other modules. Consumers
