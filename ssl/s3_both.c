@@ -175,6 +175,9 @@ void ssl_handshake_free(SSL_HANDSHAKE *hs) {
     OPENSSL_free(hs->key_block);
   }
 
+  SSL_PRF_free_transcript(&hs->prf);
+  SSL_PRF_free_hash(&hs->prf);
+
   OPENSSL_free(hs->hostname);
   EVP_PKEY_free(hs->peer_pubkey);
   OPENSSL_free(hs);
@@ -252,7 +255,7 @@ int ssl3_add_message(SSL *ssl, uint8_t *msg, size_t len) {
   } while (added < len);
 
   ssl_do_msg_callback(ssl, 1 /* write */, SSL3_RT_HANDSHAKE, msg, len);
-  ssl3_update_handshake_hash(ssl, msg, len);
+  SSL_PRF_update_handshake(&ssl->s3->hs->prf, msg, len);
   ret = 1;
 
 err:
@@ -341,17 +344,19 @@ int ssl3_flush_flight(SSL *ssl) {
 
 int ssl3_send_finished(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
+  SSL_SESSION *session = SSL_get_session(ssl);
+
   uint8_t finished[EVP_MAX_MD_SIZE];
-  size_t finished_len =
-      ssl->s3->enc_method->final_finish_mac(ssl, ssl->server, finished);
+  size_t finished_len = SSL_PRF_finish_mac(
+      &hs->prf, session, finished, ssl->server, ssl3_protocol_version(ssl));
   if (finished_len == 0) {
     return 0;
   }
 
   /* Log the master secret, if logging is enabled. */
   if (!ssl_log_secret(ssl, "CLIENT_RANDOM",
-                      SSL_get_session(ssl)->master_key,
-                      SSL_get_session(ssl)->master_key_length)) {
+                      session->master_key,
+                      session->master_key_length)) {
     return 0;
   }
 
@@ -392,10 +397,15 @@ int ssl3_get_finished(SSL_HANDSHAKE *hs) {
     return ret;
   }
 
+  SSL_SESSION *session = ssl->session;
+  if (ssl->s3->new_session != NULL) {
+    session = ssl->s3->new_session;
+  }
+
   /* Snapshot the finished hash before incorporating the new message. */
   uint8_t finished[EVP_MAX_MD_SIZE];
-  size_t finished_len =
-      ssl->s3->enc_method->final_finish_mac(ssl, !ssl->server, finished);
+  size_t finished_len = SSL_PRF_finish_mac(
+      &hs->prf, session, finished, !ssl->server, ssl3_protocol_version(ssl));
   if (finished_len == 0 ||
       !ssl_hash_current_message(ssl)) {
     return -1;
@@ -548,8 +558,8 @@ static int read_v2_client_hello(SSL *ssl, int *out_is_v2_client_hello) {
 
   /* The V2ClientHello without the length is incorporated into the handshake
    * hash. */
-  if (!ssl3_update_handshake_hash(ssl, CBS_data(&v2_client_hello),
-                                  CBS_len(&v2_client_hello))) {
+  if (!SSL_PRF_update_handshake(&ssl->s3->hs->prf, CBS_data(&v2_client_hello),
+                                CBS_len(&v2_client_hello))) {
     return -1;
   }
 
@@ -746,7 +756,8 @@ void ssl3_get_current_message(const SSL *ssl, CBS *out) {
 int ssl_hash_current_message(SSL *ssl) {
   CBS cbs;
   ssl->method->get_current_message(ssl, &cbs);
-  return ssl3_update_handshake_hash(ssl, CBS_data(&cbs), CBS_len(&cbs));
+  return SSL_PRF_update_handshake(&ssl->s3->hs->prf, CBS_data(&cbs),
+                                  CBS_len(&cbs));
 }
 
 void ssl3_release_current_message(SSL *ssl, int free_buffer) {

@@ -140,7 +140,7 @@ int tls13_get_cert_verify_signature_input(
 
   uint8_t context_hash[EVP_MAX_MD_SIZE];
   size_t context_hash_len;
-  if (!tls13_get_context_hash(ssl, context_hash, &context_hash_len) ||
+  if (!SSL_PRF_get_hash(&ssl->s3->hs->prf, context_hash, &context_hash_len) ||
       !CBB_add_bytes(&cbb, context_hash, context_hash_len) ||
       !CBB_finish(&cbb, out, out_len)) {
     goto err;
