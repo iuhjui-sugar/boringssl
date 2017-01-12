@@ -217,7 +217,7 @@ int ssl3_accept(SSL_HANDSHAKE *hs) {
       case SSL_ST_ACCEPT:
         ssl_do_info_callback(ssl, SSL_CB_HANDSHAKE_START, 1);
 
-        if (!ssl3_init_handshake_buffer(ssl)) {
+        if (!SSL_PRF_init_transcript(&hs->prf)) {
           OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
           ret = -1;
           goto end;
@@ -632,8 +632,6 @@ static int negotiate_version(SSL_HANDSHAKE *hs, uint8_t *out_alert,
 
   hs->client_version = client_hello->version;
   ssl->version = ssl->method->version_to_wire(version);
-  ssl->s3->enc_method = ssl3_get_enc_method(version);
-  assert(ssl->s3->enc_method != NULL);
 
   /* At this point, the connection's version is known and |ssl->version| is
    * fixed. Begin enforcing the record-layer version. */
@@ -921,6 +919,9 @@ static int ssl3_get_client_hello(SSL_HANDSHAKE *hs) {
       goto f_err;
     }
 
+    SSL_PRF_init(&hs->prf, ssl3_protocol_version(ssl),
+                 ssl->s3->tmp.new_cipher->algorithm_prf);
+
     hs->state = SSL3_ST_SR_CLNT_HELLO_E;
   }
 
@@ -1024,13 +1025,13 @@ static int ssl3_get_client_hello(SSL_HANDSHAKE *hs) {
   }
 
   /* Now that all parameters are known, initialize the handshake hash. */
-  if (!ssl3_init_handshake_hash(ssl)) {
+  if (!SSL_PRF_init_hash(&hs->prf)) {
     goto f_err;
   }
 
   /* Release the handshake buffer if client authentication isn't required. */
   if (!hs->cert_request) {
-    ssl3_free_handshake_buffer(ssl);
+    SSL_PRF_free_transcript(&hs->prf);
   }
 
   ret = 1;
@@ -1454,7 +1455,7 @@ static int ssl3_get_client_certificate(SSL_HANDSHAKE *hs) {
 
   if (sk_CRYPTO_BUFFER_num(ssl->s3->new_session->certs) == 0) {
     /* No client certificate so the handshake buffer may be discarded. */
-    ssl3_free_handshake_buffer(ssl);
+    SSL_PRF_free_transcript(&hs->prf);
 
     /* In SSL 3.0, sending no certificate is signaled by omitting the
      * Certificate message. */
@@ -1767,7 +1768,7 @@ static int ssl3_get_cert_verify(SSL_HANDSHAKE *hs) {
    * CertificateVerify is required if and only if there's a client certificate.
    * */
   if (hs->peer_pubkey == NULL) {
-    ssl3_free_handshake_buffer(ssl);
+    SSL_PRF_free_transcript(&hs->prf);
     return 1;
   }
 
@@ -1816,9 +1817,15 @@ static int ssl3_get_cert_verify(SSL_HANDSHAKE *hs) {
     const EVP_MD *md;
     uint8_t digest[EVP_MAX_MD_SIZE];
     size_t digest_len;
-    if (!ssl3_cert_verify_hash(ssl, &md, digest, &digest_len,
-                               signature_algorithm)) {
+    if (!SSL_PRF_cert_verify_hash(&ssl->s3->hs->prf, ssl->s3->new_session,
+                                  digest, &digest_len, signature_algorithm,
+                                  ssl3_protocol_version(ssl))) {
       goto err;
+    }
+
+    md = EVP_md5();
+    if (signature_algorithm == SSL_SIGN_RSA_PKCS1_MD5_SHA1) {
+      md = EVP_md5_sha1();
     }
 
     EVP_PKEY_CTX *pctx = EVP_PKEY_CTX_new(hs->peer_pubkey, NULL);
@@ -1831,8 +1838,8 @@ static int ssl3_get_cert_verify(SSL_HANDSHAKE *hs) {
   } else {
     sig_ok = ssl_public_key_verify(
         ssl, CBS_data(&signature), CBS_len(&signature), signature_algorithm,
-        hs->peer_pubkey, (const uint8_t *)ssl->s3->handshake_buffer->data,
-        ssl->s3->handshake_buffer->length);
+        hs->peer_pubkey, (const uint8_t *)hs->prf.hs_buffer->data,
+        hs->prf.hs_buffer->length);
   }
 
 #if defined(BORINGSSL_UNSAFE_FUZZER_MODE)
@@ -1847,7 +1854,7 @@ static int ssl3_get_cert_verify(SSL_HANDSHAKE *hs) {
 
   /* The handshake buffer is no longer necessary, and we may hash the current
    * message.*/
-  ssl3_free_handshake_buffer(ssl);
+  SSL_PRF_free_transcript(&hs->prf);
   if (!ssl_hash_current_message(ssl)) {
     goto err;
   }
