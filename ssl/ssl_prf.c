@@ -138,84 +138,23 @@
 #include <assert.h>
 #include <string.h>
 
+#include <openssl/buf.h>
+#include <openssl/digest.h>
 #include <openssl/err.h>
-#include <openssl/evp.h>
 #include <openssl/mem.h>
 #include <openssl/md5.h>
 #include <openssl/nid.h>
+#include <openssl/sha.h>
 
 #include "../crypto/internal.h"
 #include "internal.h"
 
+int SSL_PRF_init(SSL_PRF *prf) {
+  SSL_PRF_cleanup(prf);
 
-static int ssl3_prf(const SSL *ssl, uint8_t *out, size_t out_len,
-                    const uint8_t *secret, size_t secret_len, const char *label,
-                    size_t label_len, const uint8_t *seed1, size_t seed1_len,
-                    const uint8_t *seed2, size_t seed2_len) {
-  EVP_MD_CTX md5;
-  EVP_MD_CTX sha1;
-  uint8_t buf[16], smd[SHA_DIGEST_LENGTH];
-  uint8_t c = 'A';
-  size_t i, j, k;
 
-  k = 0;
-  EVP_MD_CTX_init(&md5);
-  EVP_MD_CTX_init(&sha1);
-  for (i = 0; i < out_len; i += MD5_DIGEST_LENGTH) {
-    k++;
-    if (k > sizeof(buf)) {
-      /* bug: 'buf' is too small for this ciphersuite */
-      OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
-      return 0;
-    }
-
-    for (j = 0; j < k; j++) {
-      buf[j] = c;
-    }
-    c++;
-    if (!EVP_DigestInit_ex(&sha1, EVP_sha1(), NULL)) {
-      OPENSSL_PUT_ERROR(SSL, ERR_LIB_EVP);
-      return 0;
-    }
-    EVP_DigestUpdate(&sha1, buf, k);
-    EVP_DigestUpdate(&sha1, secret, secret_len);
-    /* |label| is ignored for SSLv3. */
-    if (seed1_len) {
-      EVP_DigestUpdate(&sha1, seed1, seed1_len);
-    }
-    if (seed2_len) {
-      EVP_DigestUpdate(&sha1, seed2, seed2_len);
-    }
-    EVP_DigestFinal_ex(&sha1, smd, NULL);
-
-    if (!EVP_DigestInit_ex(&md5, EVP_md5(), NULL)) {
-      OPENSSL_PUT_ERROR(SSL, ERR_LIB_EVP);
-      return 0;
-    }
-    EVP_DigestUpdate(&md5, secret, secret_len);
-    EVP_DigestUpdate(&md5, smd, SHA_DIGEST_LENGTH);
-    if (i + MD5_DIGEST_LENGTH > out_len) {
-      EVP_DigestFinal_ex(&md5, smd, NULL);
-      OPENSSL_memcpy(out, smd, out_len - i);
-    } else {
-      EVP_DigestFinal_ex(&md5, out, NULL);
-    }
-
-    out += MD5_DIGEST_LENGTH;
-  }
-
-  OPENSSL_cleanse(smd, SHA_DIGEST_LENGTH);
-  EVP_MD_CTX_cleanup(&md5);
-  EVP_MD_CTX_cleanup(&sha1);
-
-  return 1;
-}
-
-int ssl3_init_handshake_buffer(SSL *ssl) {
-  ssl3_free_handshake_buffer(ssl);
-  ssl3_free_handshake_hash(ssl);
-  ssl->s3->handshake_buffer = BUF_MEM_new();
-  return ssl->s3->handshake_buffer != NULL;
+  prf->buffer = BUF_MEM_new();
+  return prf->buffer != NULL;
 }
 
 /* init_digest_with_data calls |EVP_DigestInit_ex| on |ctx| with |md| and then
@@ -229,78 +168,96 @@ static int init_digest_with_data(EVP_MD_CTX *ctx, const EVP_MD *md,
   return 1;
 }
 
-int ssl3_init_handshake_hash(SSL *ssl) {
-  ssl3_free_handshake_hash(ssl);
+int SSL_PRF_init_hash(SSL_PRF *prf, uint16_t version, int algorithm_prf) {
+  prf->algorithm = algorithm_prf;
+  if (prf->algorithm == SSL_HANDSHAKE_MAC_DEFAULT &&
+      version >= TLS1_2_VERSION) {
+    prf->algorithm = SSL_HANDSHAKE_MAC_SHA256;
+  }
 
-  uint32_t algorithm_prf = ssl_get_algorithm_prf(ssl);
-  if (!init_digest_with_data(&ssl->s3->handshake_hash,
-                             ssl_get_handshake_digest(algorithm_prf),
-                             ssl->s3->handshake_buffer)) {
+  const EVP_MD *md = ssl_get_handshake_digest(prf->algorithm);
+
+  EVP_MD_CTX_init(&prf->hash);
+  EVP_MD_CTX_init(&prf->md5);
+
+  if (!init_digest_with_data(&prf->hash, md, prf->buffer)) {
     return 0;
   }
 
-  if (algorithm_prf == SSL_HANDSHAKE_MAC_DEFAULT &&
-      !init_digest_with_data(&ssl->s3->handshake_md5, EVP_md5(),
-                             ssl->s3->handshake_buffer)) {
+  if (prf->algorithm == SSL_HANDSHAKE_MAC_DEFAULT &&
+      !init_digest_with_data(&prf->md5, EVP_md5(), prf->buffer)) {
     return 0;
   }
 
   return 1;
 }
 
-void ssl3_free_handshake_hash(SSL *ssl) {
-  EVP_MD_CTX_cleanup(&ssl->s3->handshake_hash);
-  EVP_MD_CTX_cleanup(&ssl->s3->handshake_md5);
+void SSL_PRF_cleanup(SSL_PRF *prf) {
+  SSL_PRF_free_buffer(prf);
+  EVP_MD_CTX_cleanup(&prf->hash);
+  EVP_MD_CTX_cleanup(&prf->md5);
 }
 
-void ssl3_free_handshake_buffer(SSL *ssl) {
-  BUF_MEM_free(ssl->s3->handshake_buffer);
-  ssl->s3->handshake_buffer = NULL;
+void SSL_PRF_free_buffer(SSL_PRF *prf) {
+  BUF_MEM_free(prf->buffer);
+  prf->buffer = NULL;
 }
 
-int ssl3_update_handshake_hash(SSL *ssl, const uint8_t *in, size_t in_len) {
+size_t SSL_PRF_digest_len(const SSL_PRF *prf) {
+  return EVP_MD_CTX_size(&prf->hash);
+}
+
+const EVP_MD *SSL_PRF_md(const SSL_PRF *prf) {
+  return EVP_MD_CTX_md(&prf->hash);
+}
+
+int SSL_PRF_update_handshake(SSL_PRF *prf, const uint8_t *in, size_t in_len) {
   /* Depending on the state of the handshake, either the handshake buffer may be
    * active, the rolling hash, or both. */
-
-  if (ssl->s3->handshake_buffer != NULL) {
-    size_t new_len = ssl->s3->handshake_buffer->length + in_len;
+  if (prf->buffer != NULL) {
+    size_t new_len = prf->buffer->length + in_len;
     if (new_len < in_len) {
       OPENSSL_PUT_ERROR(SSL, ERR_R_OVERFLOW);
       return 0;
     }
-    if (!BUF_MEM_grow(ssl->s3->handshake_buffer, new_len)) {
+    if (!BUF_MEM_grow(prf->buffer, new_len)) {
       return 0;
     }
-    OPENSSL_memcpy(ssl->s3->handshake_buffer->data + new_len - in_len, in,
-                   in_len);
+    OPENSSL_memcpy(prf->buffer->data + new_len - in_len, in, in_len);
   }
 
-  if (EVP_MD_CTX_md(&ssl->s3->handshake_hash) != NULL) {
-    EVP_DigestUpdate(&ssl->s3->handshake_hash, in, in_len);
+  if (EVP_MD_CTX_md(&prf->hash) != NULL) {
+    EVP_DigestUpdate(&prf->hash, in, in_len);
   }
-  if (EVP_MD_CTX_md(&ssl->s3->handshake_md5) != NULL) {
-    EVP_DigestUpdate(&ssl->s3->handshake_md5, in, in_len);
+  if (prf->algorithm == SSL_HANDSHAKE_MAC_DEFAULT &&
+      EVP_MD_CTX_md(&prf->md5) != NULL) {
+    EVP_DigestUpdate(&prf->md5, in, in_len);
   }
+
   return 1;
 }
 
-static int ssl3_handshake_mac(SSL *ssl, int md_nid, const char *sender,
-                              size_t sender_len, uint8_t *p) {
+int SSL_PRF_get_hash(SSL_PRF* prf, uint8_t *out, size_t *out_len) {
+  EVP_MD_CTX ctx;
+  EVP_MD_CTX_init(&ctx);
+  unsigned handshake_len = 0;
+  int ok = EVP_MD_CTX_copy_ex(&ctx, &prf->hash) &&
+           EVP_DigestFinal_ex(&ctx, out, &handshake_len);
+  EVP_MD_CTX_cleanup(&ctx);
+  if (ok) {
+    *out_len = handshake_len;
+  }
+  return ok;
+}
+
+static int ssl3_handshake_mac(SSL_PRF *prf, const SSL_SESSION *session,
+                              EVP_MD_CTX *ctx_template, const char *sender, size_t sender_len,
+                              uint8_t *p) {
   unsigned int ret;
   size_t npad, n;
-  unsigned int i;
+  unsigned int i;\
   uint8_t md_buf[EVP_MAX_MD_SIZE];
   EVP_MD_CTX ctx;
-  const EVP_MD_CTX *ctx_template;
-
-  if (md_nid == NID_md5) {
-    ctx_template = &ssl->s3->handshake_md5;
-  } else if (md_nid == EVP_MD_CTX_type(&ssl->s3->handshake_hash)) {
-    ctx_template = &ssl->s3->handshake_hash;
-  } else {
-    OPENSSL_PUT_ERROR(SSL, SSL_R_NO_REQUIRED_DIGEST);
-    return 0;
-  }
 
   EVP_MD_CTX_init(&ctx);
   if (!EVP_MD_CTX_copy_ex(&ctx, ctx_template)) {
@@ -325,11 +282,6 @@ static int ssl3_handshake_mac(SSL *ssl, int md_nid, const char *sender,
 
   n = EVP_MD_CTX_size(&ctx);
 
-  SSL_SESSION *session = ssl->session;
-  if (ssl->s3->new_session != NULL) {
-    session = ssl->s3->new_session;
-  }
-
   npad = (48 / n) * n;
   if (sender != NULL) {
     EVP_DigestUpdate(&ctx, sender, sender_len);
@@ -353,54 +305,122 @@ static int ssl3_handshake_mac(SSL *ssl, int md_nid, const char *sender,
   return ret;
 }
 
-static int ssl3_final_finish_mac(SSL *ssl, int from_server, uint8_t *out) {
-  const char *sender = from_server ? SSL3_MD_SERVER_FINISHED_CONST
-                                   : SSL3_MD_CLIENT_FINISHED_CONST;
-  const size_t sender_len = 4;
-  int ret, sha1len;
-  ret = ssl3_handshake_mac(ssl, NID_md5, sender, sender_len, out);
-  if (ret == 0) {
+int SSL_PRF_cert_verify_hash(SSL_PRF *prf, SSL_SESSION *session, uint8_t *out,
+                             size_t *out_len, int signature_algorithm,
+                             int version) {
+  if (version != SSL3_VERSION) {
     return 0;
   }
-
-  out += ret;
-
-  sha1len = ssl3_handshake_mac(ssl, NID_sha1, sender, sender_len, out);
-  if (sha1len == 0) {
-    return 0;
-  }
-
-  ret += sha1len;
-  return ret;
-}
-
-int ssl3_cert_verify_hash(SSL *ssl, const EVP_MD **out_md, uint8_t *out,
-                          size_t *out_len, uint16_t signature_algorithm) {
-  assert(ssl3_protocol_version(ssl) == SSL3_VERSION);
 
   if (signature_algorithm == SSL_SIGN_RSA_PKCS1_MD5_SHA1) {
-    if (ssl3_handshake_mac(ssl, NID_md5, NULL, 0, out) == 0 ||
-        ssl3_handshake_mac(ssl, NID_sha1, NULL, 0,
+    if (ssl3_handshake_mac(prf, session, &prf->md5, NULL, 0, out) == 0 ||
+        ssl3_handshake_mac(prf, session, &prf->hash, NULL, 0,
                            out + MD5_DIGEST_LENGTH) == 0) {
       return 0;
     }
-    *out_md = EVP_md5_sha1();
     *out_len = MD5_DIGEST_LENGTH + SHA_DIGEST_LENGTH;
   } else if (signature_algorithm == SSL_SIGN_ECDSA_SHA1) {
-    if (ssl3_handshake_mac(ssl, NID_sha1, NULL, 0, out) == 0) {
+    if (ssl3_handshake_mac(prf, session, &prf->hash, NULL, 0, out) == 0) {
       return 0;
     }
-    *out_md = EVP_sha1();
     *out_len = SHA_DIGEST_LENGTH;
   } else {
     OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
     return 0;
   }
-
   return 1;
 }
 
-const SSL3_ENC_METHOD SSLv3_enc_data = {
-    ssl3_prf,
-    ssl3_final_finish_mac,
-};
+static int append_digest(const EVP_MD_CTX *ctx, uint8_t *out, size_t *out_len,
+                         size_t max_out) {
+  int ret = 0;
+  EVP_MD_CTX ctx_copy;
+  EVP_MD_CTX_init(&ctx_copy);
+
+  if (EVP_MD_CTX_size(ctx) > max_out) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_BUFFER_TOO_SMALL);
+    goto err;
+  }
+  unsigned len;
+  if (!EVP_MD_CTX_copy_ex(&ctx_copy, ctx) ||
+      !EVP_DigestFinal_ex(&ctx_copy, out, &len)) {
+    goto err;
+  }
+  assert(len == EVP_MD_CTX_size(ctx));
+
+  *out_len = len;
+  ret = 1;
+
+err:
+  EVP_MD_CTX_cleanup(&ctx_copy);
+  return ret;
+}
+
+int SSL_PRF_handshake_digest(SSL_PRF *prf, uint8_t *out, size_t out_len) {
+  size_t md5_len = 0;
+  if (EVP_MD_CTX_md(&prf->md5) != NULL &&
+      !append_digest(&prf->md5, out, &md5_len, out_len)) {
+    return -1;
+  }
+
+  size_t len;
+  if (!append_digest(&prf->hash, out + md5_len, &len,
+                     out_len - md5_len)) {
+    return -1;
+  }
+
+  return (int)(md5_len + len);
+}
+
+int SSL_PRF_finish_mac(SSL_PRF *prf, uint8_t *out, const SSL_SESSION *session,
+                       int from_server, uint16_t version) {
+  if (version == SSL3_VERSION) {
+    const char *sender = from_server ? SSL3_MD_SERVER_FINISHED_CONST
+                                     : SSL3_MD_CLIENT_FINISHED_CONST;
+    const size_t sender_len = 4;
+    int ret, sha1len;
+    ret = ssl3_handshake_mac(prf, session, &prf->md5, sender, sender_len, out);
+    if (ret == 0) {
+      return 0;
+    }
+
+    out += ret;
+
+    sha1len =
+        ssl3_handshake_mac(prf, session, &prf->hash, sender, sender_len, out);
+    if (sha1len == 0) {
+      return 0;
+    }
+
+    ret += sha1len;
+    return ret;
+  }
+
+  /* At this point, the handshake should have released the handshake buffer on
+   * its own. */
+  assert(prf->buffer == NULL);
+
+  const char *label = TLS_MD_CLIENT_FINISH_CONST;
+  size_t label_len = TLS_MD_SERVER_FINISH_CONST_SIZE;
+  if (from_server) {
+    label = TLS_MD_SERVER_FINISH_CONST;
+    label_len = TLS_MD_SERVER_FINISH_CONST_SIZE;
+  }
+
+  uint8_t buf[EVP_MAX_MD_SIZE];
+  int digests_len = SSL_PRF_handshake_digest(prf, buf, sizeof(buf));
+  if (digests_len < 0) {
+    return 0;
+  }
+
+  uint16_t algorithm = prf->algorithm;
+
+  static const size_t kFinishedLen = 12;
+  if (!tls1_prf(algorithm, out, kFinishedLen, session->master_key,
+                session->master_key_length, label, label_len, buf,
+                digests_len, NULL, 0)) {
+    return 0;
+  }
+
+  return (int)kFinishedLen;
+}

@@ -189,6 +189,11 @@ static enum ssl_hs_wait_t do_select_parameters(SSL_HANDSHAKE *hs) {
   /* Set up the new session, either using the original one as a template or
    * creating a fresh one. */
   if (session == NULL) {
+    if (!SSL_PRF_init_hash(&hs->prf, ssl3_protocol_version(ssl),
+                           ssl->s3->tmp.new_cipher->algorithm_prf)) {
+      return ssl_hs_error;
+    }
+
     if (!ssl_get_new_session(hs, 1 /* server */)) {
       ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
       return ssl_hs_error;
@@ -206,8 +211,13 @@ static enum ssl_hs_wait_t do_select_parameters(SSL_HANDSHAKE *hs) {
       }
     }
   } else {
+    if (!SSL_PRF_init_hash(&hs->prf, ssl3_protocol_version(ssl),
+                           session->cipher->algorithm_prf)) {
+      return ssl_hs_error;
+    }
+
     /* Check the PSK binder. */
-    if (!tls13_verify_psk_binder(ssl, session, &binders)) {
+    if (!tls13_verify_psk_binder(hs, session, &binders)) {
       SSL_SESSION_free(session);
       ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECRYPT_ERROR);
       return ssl_hs_error;
@@ -244,10 +254,8 @@ static enum ssl_hs_wait_t do_select_parameters(SSL_HANDSHAKE *hs) {
 
   /* The PRF hash is now known. Set up the key schedule and hash the
    * ClientHello. */
-  size_t hash_len =
-      EVP_MD_size(ssl_get_handshake_digest(ssl_get_algorithm_prf(ssl)));
   if (!tls13_init_key_schedule(hs) ||
-      !ssl_hash_current_message(ssl)) {
+      !ssl_hash_current_message(hs)) {
     return ssl_hs_error;
   }
 
@@ -257,7 +265,7 @@ static enum ssl_hs_wait_t do_select_parameters(SSL_HANDSHAKE *hs) {
                                     ssl->s3->new_session->master_key_length)) {
       return ssl_hs_error;
     }
-  } else if (!tls13_advance_key_schedule(hs, kZeroes, hash_len)) {
+  } else if (!tls13_advance_key_schedule(hs, kZeroes, hs->hash_len)) {
     return ssl_hs_error;
   }
 
@@ -322,7 +330,7 @@ static enum ssl_hs_wait_t do_process_second_client_hello(SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
-  if (!ssl_hash_current_message(ssl)) {
+  if (!ssl_hash_current_message(hs)) {
     return ssl_hs_error;
   }
 
@@ -484,7 +492,7 @@ static enum ssl_hs_wait_t do_process_client_certificate(SSL_HANDSHAKE *hs) {
 
   if (!ssl_check_message_type(ssl, SSL3_MT_CERTIFICATE) ||
       !tls13_process_certificate(hs, allow_anonymous) ||
-      !ssl_hash_current_message(ssl)) {
+      !ssl_hash_current_message(hs)) {
     return ssl_hs_error;
   }
 
@@ -503,7 +511,7 @@ static enum ssl_hs_wait_t do_process_client_certificate_verify(
 
   if (!ssl_check_message_type(ssl, SSL3_MT_CERTIFICATE_VERIFY) ||
       !tls13_process_certificate_verify(hs) ||
-      !ssl_hash_current_message(ssl)) {
+      !ssl_hash_current_message(hs)) {
     return ssl_hs_error;
   }
 
@@ -512,15 +520,14 @@ static enum ssl_hs_wait_t do_process_client_certificate_verify(
 }
 
 static enum ssl_hs_wait_t do_process_channel_id(SSL_HANDSHAKE *hs) {
-  SSL *const ssl = hs->ssl;
-  if (!ssl->s3->tlsext_channel_id_valid) {
+  if (!hs->ssl->s3->tlsext_channel_id_valid) {
     hs->tls13_state = state_process_client_finished;
     return ssl_hs_ok;
   }
 
-  if (!ssl_check_message_type(ssl, SSL3_MT_CHANNEL_ID) ||
-      !tls1_verify_channel_id(ssl) ||
-      !ssl_hash_current_message(ssl)) {
+  if (!ssl_check_message_type(hs->ssl, SSL3_MT_CHANNEL_ID) ||
+      !tls1_verify_channel_id(hs) ||
+      !ssl_hash_current_message(hs)) {
     return ssl_hs_error;
   }
 
@@ -532,7 +539,7 @@ static enum ssl_hs_wait_t do_process_client_finished(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
   if (!ssl_check_message_type(ssl, SSL3_MT_FINISHED) ||
       !tls13_process_finished(hs) ||
-      !ssl_hash_current_message(ssl) ||
+      !ssl_hash_current_message(hs) ||
       /* evp_aead_seal keys have already been switched. */
       !tls13_set_traffic_key(ssl, evp_aead_open, hs->client_traffic_secret_0,
                              hs->hash_len) ||

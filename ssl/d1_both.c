@@ -549,7 +549,12 @@ static int add_outgoing(SSL *ssl, int is_ccs, uint8_t *data, size_t len) {
   }
 
   if (!is_ccs) {
-    ssl3_update_handshake_hash(ssl, data, len);
+    if (ssl->s3->hs != NULL &&
+        !SSL_PRF_update_handshake(&ssl->s3->hs->prf, data, len)) {
+      OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
+      OPENSSL_free(data);
+      return 0;
+    }
     ssl->d1->handshake_write_seq++;
   }
 
