@@ -216,13 +216,6 @@ int ssl3_accept(SSL_HANDSHAKE *hs) {
 
       case SSL_ST_ACCEPT:
         ssl_do_info_callback(ssl, SSL_CB_HANDSHAKE_START, 1);
-
-        if (!ssl3_init_handshake_buffer(ssl)) {
-          OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
-          ret = -1;
-          goto end;
-        }
-
         hs->state = SSL3_ST_SR_CLNT_HELLO_A;
         break;
 
@@ -399,7 +392,7 @@ int ssl3_accept(SSL_HANDSHAKE *hs) {
          * hashes in |ssl->s3->new_session| in case we need them to verify a
          * ChannelID signature on a resumption of this session in the future. */
         if (ssl->session == NULL && ssl->s3->tlsext_channel_id_valid) {
-          ret = tls1_record_handshake_hashes_for_channel_id(ssl);
+          ret = tls1_record_handshake_hashes_for_channel_id(hs);
           if (ret <= 0) {
             goto end;
           }
@@ -632,8 +625,6 @@ static int negotiate_version(SSL_HANDSHAKE *hs, uint8_t *out_alert,
 
   hs->client_version = client_hello->version;
   ssl->version = ssl->method->version_to_wire(version);
-  ssl->s3->enc_method = ssl3_get_enc_method(version);
-  assert(ssl->s3->enc_method != NULL);
 
   /* At this point, the connection's version is known and |ssl->version| is
    * fixed. Begin enforcing the record-layer version. */
@@ -922,6 +913,11 @@ static int ssl3_get_client_hello(SSL_HANDSHAKE *hs) {
       goto f_err;
     }
 
+    if (!SSL_TRANSCRIPT_init_hash(&hs->transcript, ssl3_protocol_version(ssl),
+                                  ssl->s3->tmp.new_cipher->algorithm_prf)) {
+      goto err;
+    }
+
     hs->state = SSL3_ST_SR_CLNT_HELLO_D;
   }
 
@@ -1027,14 +1023,13 @@ static int ssl3_get_client_hello(SSL_HANDSHAKE *hs) {
 
   /* Now that all parameters are known, initialize the handshake hash and hash
    * the ClientHello. */
-  if (!ssl3_init_handshake_hash(ssl) ||
-      !ssl_hash_current_message(ssl)) {
+  if (!ssl_hash_current_message(hs)) {
     goto f_err;
   }
 
   /* Release the handshake buffer if client authentication isn't required. */
   if (!hs->cert_request) {
-    ssl3_free_handshake_buffer(ssl);
+    SSL_TRANSCRIPT_free_buffer(&hs->transcript);
   }
 
   ret = 1;
@@ -1431,7 +1426,7 @@ static int ssl3_get_client_certificate(SSL_HANDSHAKE *hs) {
     return -1;
   }
 
-  if (!ssl_hash_current_message(ssl)) {
+  if (!ssl_hash_current_message(hs)) {
     return -1;
   }
 
@@ -1462,7 +1457,7 @@ static int ssl3_get_client_certificate(SSL_HANDSHAKE *hs) {
 
   if (sk_CRYPTO_BUFFER_num(ssl->s3->new_session->certs) == 0) {
     /* No client certificate so the handshake buffer may be discarded. */
-    ssl3_free_handshake_buffer(ssl);
+    SSL_TRANSCRIPT_free_buffer(&hs->transcript);
 
     /* In SSL 3.0, sending no certificate is signaled by omitting the
      * Certificate message. */
@@ -1517,7 +1512,7 @@ static int ssl3_get_client_key_exchange(SSL_HANDSHAKE *hs) {
     }
 
     if (!ssl_check_message_type(ssl, SSL3_MT_CLIENT_KEY_EXCHANGE) ||
-        !ssl_hash_current_message(ssl)) {
+        !ssl_hash_current_message(hs)) {
       return -1;
     }
   }
@@ -1746,7 +1741,7 @@ static int ssl3_get_client_key_exchange(SSL_HANDSHAKE *hs) {
 
   /* Compute the master secret */
   ssl->s3->new_session->master_key_length = tls1_generate_master_secret(
-      ssl, ssl->s3->new_session->master_key, premaster_secret,
+      ssl, &hs->transcript, ssl->s3->new_session->master_key, premaster_secret,
       premaster_secret_len);
   if (ssl->s3->new_session->master_key_length == 0) {
     goto err;
@@ -1779,7 +1774,7 @@ static int ssl3_get_cert_verify(SSL_HANDSHAKE *hs) {
    * CertificateVerify is required if and only if there's a client certificate.
    * */
   if (hs->peer_pubkey == NULL) {
-    ssl3_free_handshake_buffer(ssl);
+    SSL_TRANSCRIPT_free_buffer(&hs->transcript);
     return 1;
   }
 
@@ -1828,26 +1823,25 @@ static int ssl3_get_cert_verify(SSL_HANDSHAKE *hs) {
   /* The SSL3 construction for CertificateVerify does not decompose into a
    * single final digest and signature, and must be special-cased. */
   if (ssl3_protocol_version(ssl) == SSL3_VERSION) {
-    const EVP_MD *md;
     uint8_t digest[EVP_MAX_MD_SIZE];
     size_t digest_len;
-    if (!ssl3_cert_verify_hash(ssl, &md, digest, &digest_len,
-                               signature_algorithm)) {
+    if (!SSL_TRANSCRIPT_cert_verify_hash(
+            &hs->transcript, ssl->s3->new_session, digest, &digest_len,
+            signature_algorithm, ssl3_protocol_version(ssl))) {
       goto err;
     }
 
     EVP_PKEY_CTX *pctx = EVP_PKEY_CTX_new(hs->peer_pubkey, NULL);
     sig_ok = pctx != NULL &&
              EVP_PKEY_verify_init(pctx) &&
-             EVP_PKEY_CTX_set_signature_md(pctx, md) &&
              EVP_PKEY_verify(pctx, CBS_data(&signature), CBS_len(&signature),
                              digest, digest_len);
     EVP_PKEY_CTX_free(pctx);
   } else {
     sig_ok = ssl_public_key_verify(
         ssl, CBS_data(&signature), CBS_len(&signature), signature_algorithm,
-        hs->peer_pubkey, (const uint8_t *)ssl->s3->handshake_buffer->data,
-        ssl->s3->handshake_buffer->length);
+        hs->peer_pubkey, (const uint8_t *)hs->transcript.buffer->data,
+        hs->transcript.buffer->length);
   }
 
 #if defined(BORINGSSL_UNSAFE_FUZZER_MODE)
@@ -1862,8 +1856,8 @@ static int ssl3_get_cert_verify(SSL_HANDSHAKE *hs) {
 
   /* The handshake buffer is no longer necessary, and we may hash the current
    * message.*/
-  ssl3_free_handshake_buffer(ssl);
-  if (!ssl_hash_current_message(ssl)) {
+  SSL_TRANSCRIPT_free_buffer(&hs->transcript);
+  if (!ssl_hash_current_message(hs)) {
     goto err;
   }
 
@@ -1885,7 +1879,7 @@ static int ssl3_get_next_proto(SSL_HANDSHAKE *hs) {
   }
 
   if (!ssl_check_message_type(ssl, SSL3_MT_NEXT_PROTO) ||
-      !ssl_hash_current_message(ssl)) {
+      !ssl_hash_current_message(hs)) {
     return -1;
   }
 
@@ -1916,8 +1910,8 @@ static int ssl3_get_channel_id(SSL_HANDSHAKE *hs) {
   }
 
   if (!ssl_check_message_type(ssl, SSL3_MT_CHANNEL_ID) ||
-      !tls1_verify_channel_id(ssl) ||
-      !ssl_hash_current_message(ssl)) {
+      !tls1_verify_channel_id(hs) ||
+      !ssl_hash_current_message(hs)) {
     return -1;
   }
   return 1;

@@ -1882,9 +1882,7 @@ static size_t ext_pre_shared_key_clienthello_length(SSL_HANDSHAKE *hs) {
     return 0;
   }
 
-  const EVP_MD *digest =
-      ssl_get_handshake_digest(ssl->session->cipher->algorithm_prf);
-  size_t binder_len = EVP_MD_size(digest);
+  size_t binder_len = SSL_TRANSCRIPT_digest_len(&hs->transcript);
   return 15 + ssl->session->tlsext_ticklen + binder_len;
 }
 
@@ -1911,9 +1909,7 @@ static int ext_pre_shared_key_add_clienthello(SSL_HANDSHAKE *hs, CBB *out) {
   /* Fill in a placeholder zero binder of the appropriate length. It will be
    * computed and filled in later after length prefixes are computed. */
   uint8_t zero_binder[EVP_MAX_MD_SIZE] = {0};
-  const EVP_MD *digest =
-      ssl_get_handshake_digest(ssl->session->cipher->algorithm_prf);
-  size_t binder_len = EVP_MD_size(digest);
+  size_t binder_len = SSL_TRANSCRIPT_digest_len(&hs->transcript);
 
   CBB contents, identity, ticket, binders, binder;
   if (!CBB_add_u16(out, TLSEXT_TYPE_pre_shared_key) ||
@@ -3324,7 +3320,8 @@ int tls1_choose_signature_algorithm(SSL_HANDSHAKE *hs, uint16_t *out) {
   return 0;
 }
 
-int tls1_verify_channel_id(SSL *ssl) {
+int tls1_verify_channel_id(SSL_HANDSHAKE *hs) {
+  SSL *const ssl = hs->ssl;
   int ret = 0;
   uint16_t extension_type;
   CBS extension, channel_id;
@@ -3383,7 +3380,7 @@ int tls1_verify_channel_id(SSL *ssl) {
 
   uint8_t digest[EVP_MAX_MD_SIZE];
   size_t digest_len;
-  if (!tls1_channel_id_hash(ssl, digest, &digest_len)) {
+  if (!tls1_channel_id_hash(hs, digest, &digest_len)) {
     goto err;
   }
 
@@ -3412,10 +3409,11 @@ err:
   return ret;
 }
 
-int tls1_write_channel_id(SSL *ssl, CBB *cbb) {
+int tls1_write_channel_id(SSL_HANDSHAKE *hs, CBB *cbb) {
+  SSL *const ssl = hs->ssl;
   uint8_t digest[EVP_MAX_MD_SIZE];
   size_t digest_len;
-  if (!tls1_channel_id_hash(ssl, digest, &digest_len)) {
+  if (!tls1_channel_id_hash(hs, digest, &digest_len)) {
     return 0;
   }
 
@@ -3461,11 +3459,12 @@ err:
   return ret;
 }
 
-int tls1_channel_id_hash(SSL *ssl, uint8_t *out, size_t *out_len) {
+int tls1_channel_id_hash(SSL_HANDSHAKE *hs, uint8_t *out, size_t *out_len) {
+  SSL *const ssl = hs->ssl;
   if (ssl3_protocol_version(ssl) >= TLS1_3_VERSION) {
     uint8_t *msg;
     size_t msg_len;
-    if (!tls13_get_cert_verify_signature_input(ssl, &msg, &msg_len,
+    if (!tls13_get_cert_verify_signature_input(hs, &msg, &msg_len,
                                                ssl_cert_verify_channel_id)) {
       return 0;
     }
@@ -3493,8 +3492,8 @@ int tls1_channel_id_hash(SSL *ssl, uint8_t *out, size_t *out_len) {
   }
 
   uint8_t handshake_hash[EVP_MAX_MD_SIZE];
-  int handshake_hash_len = tls1_handshake_digest(ssl, handshake_hash,
-                                                 sizeof(handshake_hash));
+  int handshake_hash_len = SSL_TRANSCRIPT_handshake_digest(
+      &ssl->s3->hs->transcript, handshake_hash, sizeof(handshake_hash));
   if (handshake_hash_len < 0) {
     return 0;
   }
@@ -3507,7 +3506,8 @@ int tls1_channel_id_hash(SSL *ssl, uint8_t *out, size_t *out_len) {
 /* tls1_record_handshake_hashes_for_channel_id records the current handshake
  * hashes in |ssl->s3->new_session| so that Channel ID resumptions can sign that
  * data. */
-int tls1_record_handshake_hashes_for_channel_id(SSL *ssl) {
+int tls1_record_handshake_hashes_for_channel_id(SSL_HANDSHAKE *hs) {
+  SSL *const ssl = hs->ssl;
   int digest_len;
   /* This function should never be called for a resumed session because the
    * handshake hashes that we wish to record are for the original, full
@@ -3516,10 +3516,9 @@ int tls1_record_handshake_hashes_for_channel_id(SSL *ssl) {
     return -1;
   }
 
-  digest_len =
-      tls1_handshake_digest(
-          ssl, ssl->s3->new_session->original_handshake_hash,
-          sizeof(ssl->s3->new_session->original_handshake_hash));
+  digest_len = SSL_TRANSCRIPT_handshake_digest(
+      &hs->transcript, ssl->s3->new_session->original_handshake_hash,
+      sizeof(ssl->s3->new_session->original_handshake_hash));
   if (digest_len < 0) {
     return -1;
   }
