@@ -13,7 +13,6 @@ add_library(
   dtls_method.c
   dtls_record.c
   s3_both.c
-  s3_enc.c
   s3_lib.c
   s3_pkt.c
   ssl_aead_ctx.c
@@ -24,6 +23,7 @@ add_library(
   ssl_ecdh.c
   ssl_file.c
   ssl_lib.c
+  ssl_prf.c
   ssl_rsa.c
   ssl_session.c
   ssl_stat.c

@@ -753,7 +753,7 @@ int dtls1_finish_message(SSL *ssl, CBB *cbb, uint8_t **out_msg,
 }
 
 int dtls1_queue_message(SSL *ssl, uint8_t *msg, size_t len) {
-  ssl3_update_handshake_hash(ssl, msg, len);
+  SSL_PRF_update_handshake(&ssl->s3->hs->prf, msg, len);
 
   ssl->d1->handshake_write_seq++;
   ssl->init_off = 0;

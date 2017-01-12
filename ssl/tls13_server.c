@@ -272,6 +272,10 @@ static enum ssl_hs_wait_t do_select_parameters(SSL_HANDSHAKE *hs) {
       }
     }
   } else {
+    if (!SSL_PRF_init(&hs->prf, session->cipher->algorithm_prf)) {
+      return ssl_hs_error;
+    }
+
     /* Check the PSK binder. */
     if (!tls13_verify_psk_binder(ssl, session, &binders)) {
       SSL_SESSION_free(session);
@@ -304,9 +308,12 @@ static enum ssl_hs_wait_t do_select_parameters(SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
+  if (!SSL_PRF_init(&hs->prf, ssl->s3->new_session->cipher->algorithm_prf)) {
+    return ssl_hs_error;
+  }
+
   /* The PRF hash is now known. Set up the key schedule. */
-  size_t hash_len =
-      EVP_MD_size(ssl_get_handshake_digest(ssl_get_algorithm_prf(ssl)));
+  size_t hash_len = EVP_MD_size(ssl->s3->hs->prf.md);
   if (!tls13_init_key_schedule(hs)) {
     return ssl_hs_error;
   }

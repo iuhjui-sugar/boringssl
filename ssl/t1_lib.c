@@ -1938,8 +1938,7 @@ static size_t ext_pre_shared_key_clienthello_length(SSL_HANDSHAKE *hs) {
     return 0;
   }
 
-  const EVP_MD *digest =
-      ssl_get_handshake_digest(ssl->session->cipher->algorithm_prf);
+  const EVP_MD *digest = hs->prf.md;
   size_t binder_len = EVP_MD_size(digest);
   return 15 + ssl->session->tlsext_ticklen + binder_len;
 }
@@ -1967,8 +1966,7 @@ static int ext_pre_shared_key_add_clienthello(SSL_HANDSHAKE *hs, CBB *out) {
   /* Fill in a placeholder zero binder of the appropriate length. It will be
    * computed and filled in later after length prefixes are computed. */
   uint8_t zero_binder[EVP_MAX_MD_SIZE] = {0};
-  const EVP_MD *digest =
-      ssl_get_handshake_digest(ssl->session->cipher->algorithm_prf);
+  const EVP_MD *digest = hs->prf.md;
   size_t binder_len = EVP_MD_size(digest);
 
   CBB contents, identity, ticket, binders, binder;
@@ -3584,7 +3582,7 @@ int tls1_channel_id_hash(SSL *ssl, uint8_t *out, size_t *out_len) {
   }
 
   uint8_t handshake_hash[EVP_MAX_MD_SIZE];
-  int handshake_hash_len = tls1_handshake_digest(ssl, handshake_hash,
+  int handshake_hash_len = tls1_handshake_digest(&ssl->s3->hs->prf, handshake_hash,
                                                  sizeof(handshake_hash));
   if (handshake_hash_len < 0) {
     return 0;
@@ -3609,7 +3607,7 @@ int tls1_record_handshake_hashes_for_channel_id(SSL *ssl) {
 
   digest_len =
       tls1_handshake_digest(
-          ssl, ssl->s3->new_session->original_handshake_hash,
+          &ssl->s3->hs->prf, ssl->s3->new_session->original_handshake_hash,
           sizeof(ssl->s3->new_session->original_handshake_hash));
   if (digest_len < 0) {
     return -1;
