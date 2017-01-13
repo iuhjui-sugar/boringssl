@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "63ca3d70_5c2175be",
+        "filename": "crypto/rand/fuchsia.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-01-13T20:06:08Z",
+      "side": 1,
+      "message": "Right, no new licenses. This should use the ISC license.",
+      "parentUuid": "c304c94f_349afeb5",
+      "revId": "c5dfcd8cf85624ccbe4598532c0ac23550ddb219",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c304c94f_94c3ea88",
         "filename": "crypto/rand/fuchsia.c",
         "patchSetId": 1
