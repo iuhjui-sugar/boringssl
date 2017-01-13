@@ -46,6 +46,24 @@
       "revId": "34911e9d70e5dd30e26d58a45b5c6ccdde785ee9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "236e8540_c4f75e61",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 4074,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-13T22:03:21Z",
+      "side": 1,
+      "message": "I believe it\u0027s gone in 1.1.0. But, yeah, it is publicly exposed as a setter by way of an (undocumented?) singleUse knob.\n\nIt\u0027s just because Node wants to save memory and the GC means the SSL_CTX gets freed later, which means the pool of buffers gets freed later. Neither us nor 1.1.0 have any of that, so upstream\u0027s going to need a OPENSSL_VERSION_NUMBER ifdef to no-op it anyway. We could try to upstream that, but it won\u0027t be useful to use unless we stick || OPENSSL_IS_BORINGSSL alongside it or bump our version to 1.1.0.\n\n*shrug* I would like to make SSL_CTX opaque eventually, but this is far from the last blocker right now, so whatever.",
+      "parentUuid": "63ca3d70_ffea3327",
+      "revId": "34911e9d70e5dd30e26d58a45b5c6ccdde785ee9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
