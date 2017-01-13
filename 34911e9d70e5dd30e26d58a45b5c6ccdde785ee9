@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "236e8540_c4c91e32",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 4074,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-13T21:40:04Z",
+      "side": 1,
+      "message": "Did you have plans for this one? We\u0027d either have to carry a patch, or upstream a change to Node with an OPENSSL_IS_BORINGSSL ifdef. (Or bump OPENSSL_VERSION_NUMBER to 1.1.0 and upstream a change to check on that.)",
+      "range": {
+        "startLine": 4074,
+        "startChar": 6,
+        "endLine": 4074,
+        "endChar": 22
+      },
+      "revId": "34911e9d70e5dd30e26d58a45b5c6ccdde785ee9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
