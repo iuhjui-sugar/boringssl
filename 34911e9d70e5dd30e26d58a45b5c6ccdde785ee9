@@ -22,6 +22,30 @@
       "revId": "34911e9d70e5dd30e26d58a45b5c6ccdde785ee9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "63ca3d70_ffea3327",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 4074,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-01-13T21:50:37Z",
+      "side": 1,
+      "message": "Sadly node.js has exposed setting this as API and it\u0027s still there in OpenSSL 1.1.0. I think it\u0027s probably easier just to leave this for now.",
+      "parentUuid": "236e8540_c4c91e32",
+      "range": {
+        "startLine": 4074,
+        "startChar": 6,
+        "endLine": 4074,
+        "endChar": 22
+      },
+      "revId": "34911e9d70e5dd30e26d58a45b5c6ccdde785ee9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
