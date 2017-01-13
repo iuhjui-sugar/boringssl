@@ -568,11 +568,6 @@ int dtls1_add_message(SSL *ssl, uint8_t *data, size_t len) {
   return 1;
 }
 
-int dtls1_write_message(SSL *ssl) {
-  /* The message is written in |dtls1_flush_flight|. */
-  return 1;
-}
-
 int dtls1_add_change_cipher_spec(SSL *ssl) {
   if (ssl->d1->outgoing_messages_len >= SSL_MAX_HANDSHAKE_FLIGHT) {
     OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
