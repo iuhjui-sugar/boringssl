@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c304c94f_149ffaa5",
+        "filename": "crypto/rand/fuchsia.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-13T20:04:43Z",
+      "side": 1,
+      "message": "Could you add the file to crypto/rand/CMakeLists.txt?\n\n(The external embedders just take every .c file and link them together, so ideally we\u0027d find out early if this file\u0027s #ifdef doesn\u0027t work.)",
+      "revId": "c5dfcd8cf85624ccbe4598532c0ac23550ddb219",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c304c94f_349afeb5",
+        "filename": "crypto/rand/fuchsia.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-13T20:04:43Z",
+      "side": 1,
+      "message": "I imagine we\u0027d want to keep the license headers matching where possible. (Adam?)",
+      "revId": "c5dfcd8cf85624ccbe4598532c0ac23550ddb219",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c304c94f_94c3ea88",
+        "filename": "crypto/rand/fuchsia.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-13T20:04:43Z",
+      "side": 1,
+      "message": "I doubt you\u0027re building with the fuzzer anyway, but this ought to be BORINGSSL_UNSAFE_DETERMINISTIC_MODE.",
+      "range": {
+        "startLine": 17,
+        "startChar": 41,
+        "endLine": 17,
+        "endChar": 69
+      },
+      "revId": "c5dfcd8cf85624ccbe4598532c0ac23550ddb219",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c304c94f_f4d0764f",
+        "filename": "crypto/rand/fuchsia.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-13T20:04:43Z",
+      "side": 1,
+      "message": "No need to cast since it\u0027s already a size_t.",
+      "range": {
+        "startLine": 29,
+        "startChar": 20,
+        "endLine": 29,
+        "endChar": 29
+      },
+      "revId": "c5dfcd8cf85624ccbe4598532c0ac23550ddb219",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c304c94f_d4cd72b5",
+        "filename": "crypto/rand/fuchsia.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-13T20:04:43Z",
+      "side": 1,
+      "message": "Nit: 80 chars.",
+      "revId": "c5dfcd8cf85624ccbe4598532c0ac23550ddb219",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c304c94f_b4ad4edd",
+        "filename": "crypto/rand/fuchsia.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-13T20:04:43Z",
+      "side": 1,
+      "message": "No need for this line since it\u0027s a void return anyway.",
+      "range": {
+        "startLine": 40,
+        "startChar": 2,
+        "endLine": 40,
+        "endChar": 8
+      },
+      "revId": "c5dfcd8cf85624ccbe4598532c0ac23550ddb219",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
