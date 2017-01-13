@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "63ca3d70_7ce1d1dd",
+        "filename": "crypto/rand/fuchsia.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6535
+      },
+      "writtenOn": "2017-01-13T21:02:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c304c94f_149ffaa5",
+      "revId": "c5dfcd8cf85624ccbe4598532c0ac23550ddb219",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c304c94f_349afeb5",
         "filename": "crypto/rand/fuchsia.c",
         "patchSetId": 1
@@ -54,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "63ca3d70_1ce29de6",
+        "filename": "crypto/rand/fuchsia.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 6535
+      },
+      "writtenOn": "2017-01-13T21:02:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63ca3d70_5c2175be",
+      "revId": "c5dfcd8cf85624ccbe4598532c0ac23550ddb219",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c304c94f_94c3ea88",
         "filename": "crypto/rand/fuchsia.c",
         "patchSetId": 1
@@ -65,6 +101,30 @@
       "writtenOn": "2017-01-13T20:04:43Z",
       "side": 1,
       "message": "I doubt you\u0027re building with the fuzzer anyway, but this ought to be BORINGSSL_UNSAFE_DETERMINISTIC_MODE.",
+      "range": {
+        "startLine": 17,
+        "startChar": 41,
+        "endLine": 17,
+        "endChar": 69
+      },
+      "revId": "c5dfcd8cf85624ccbe4598532c0ac23550ddb219",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "63ca3d70_bc0b69d9",
+        "filename": "crypto/rand/fuchsia.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6535
+      },
+      "writtenOn": "2017-01-13T21:02:02Z",
+      "side": 1,
+      "message": "Oops, I changed that once before, but I must have let that creep back in on a rebase. Done.\n\nAnd FWIW, we\u0027re actually close to fuzzing on Fuchsia.  We need a little more sanitizer support from our clang runtime, but we\u0027re actively working on it!",
+      "parentUuid": "c304c94f_94c3ea88",
       "range": {
         "startLine": 17,
         "startChar": 41,
@@ -100,6 +160,30 @@
     },
     {
       "key": {
+        "uuid": "63ca3d70_dcef45c8",
+        "filename": "crypto/rand/fuchsia.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 6535
+      },
+      "writtenOn": "2017-01-13T21:02:02Z",
+      "side": 1,
+      "message": "Artifact from when it was a mx_size_t.  Thankfully, those went away. Done.",
+      "parentUuid": "c304c94f_f4d0764f",
+      "range": {
+        "startLine": 29,
+        "startChar": 20,
+        "endLine": 29,
+        "endChar": 29
+      },
+      "revId": "c5dfcd8cf85624ccbe4598532c0ac23550ddb219",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c304c94f_d4cd72b5",
         "filename": "crypto/rand/fuchsia.c",
         "patchSetId": 1
@@ -117,6 +201,24 @@
     },
     {
       "key": {
+        "uuid": "63ca3d70_1cc9bd5e",
+        "filename": "crypto/rand/fuchsia.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 6535
+      },
+      "writtenOn": "2017-01-13T21:02:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c304c94f_d4cd72b5",
+      "revId": "c5dfcd8cf85624ccbe4598532c0ac23550ddb219",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c304c94f_b4ad4edd",
         "filename": "crypto/rand/fuchsia.c",
         "patchSetId": 1
@@ -128,6 +230,30 @@
       "writtenOn": "2017-01-13T20:04:43Z",
       "side": 1,
       "message": "No need for this line since it\u0027s a void return anyway.",
+      "range": {
+        "startLine": 40,
+        "startChar": 2,
+        "endLine": 40,
+        "endChar": 8
+      },
+      "revId": "c5dfcd8cf85624ccbe4598532c0ac23550ddb219",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "63ca3d70_5cd3350e",
+        "filename": "crypto/rand/fuchsia.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 6535
+      },
+      "writtenOn": "2017-01-13T21:02:02Z",
+      "side": 1,
+      "message": "Tell that to crypto/rand/window.c, whom I\u0027m certain I never copy/pasted from...  Done.",
+      "parentUuid": "c304c94f_b4ad4edd",
       "range": {
         "startLine": 40,
         "startChar": 2,
