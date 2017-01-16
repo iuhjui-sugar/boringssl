@@ -23,7 +23,7 @@
 #include "../internal.h"
 
 
-#if !defined(OPENSSL_WINDOWS) && defined(OPENSSL_X86_64)
+#if !defined(OPENSSL_WINDOWS)
 
 #include <emmintrin.h>
 

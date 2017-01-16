@@ -26,7 +26,7 @@
 #include "../internal.h"
 
 
-#if defined(OPENSSL_WINDOWS) || !defined(OPENSSL_X86_64)
+#if defined(OPENSSL_WINDOWS) || defined(OPENSSL_X86_64)
 
 /* We can assume little-endian. */
 static uint32_t U8TO32_LE(const uint8_t *m) {
@@ -163,6 +163,11 @@ void CRYPTO_poly1305_init(poly1305_state *statep, const uint8_t key[32]) {
   }
 #endif
 
+#if defined(OPENSSL_X86_64) && !defined(OPENSSL_NO_ASM)
+  CRYPTO_poly1305_init_x86(statep, key);
+  return;
+#endif
+
   t0 = U8TO32_LE(key + 0);
   t1 = U8TO32_LE(key + 4);
   t2 = U8TO32_LE(key + 8);
@@ -210,6 +215,11 @@ void CRYPTO_poly1305_update(poly1305_state *statep, const uint8_t *in,
   }
 #endif
 
+#if defined(OPENSSL_X86_64) && !defined(OPENSSL_NO_ASM)
+  CRYPTO_poly1305_update_x86(statep, in, in_len);
+  return;
+#endif
+
   if (state->buf_used) {
     unsigned todo = 16 - state->buf_used;
     if (todo > in_len) {
@@ -254,6 +264,11 @@ void CRYPTO_poly1305_finish(poly1305_state *statep, uint8_t mac[16]) {
     CRYPTO_poly1305_finish_neon(statep, mac);
     return;
   }
+#endif
+
+#if defined(OPENSSL_X86_64) && !defined(OPENSSL_NO_ASM)
+  CRYPTO_poly1305_finish_x86(statep, mac);
+  return;
 #endif
 
   if (state->buf_used) {
