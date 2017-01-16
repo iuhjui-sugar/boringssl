@@ -25,6 +25,19 @@
 #include "internal.h"
 #include "../internal.h"
 
+#if defined(OPENSSL_X86_64) && !defined(OPENSSL_NO_ASM)
+#undef USE_SEAL_OPEN_ASM
+#define USE_SEAL_OPEN_ASM
+extern int chacha20_poly1305_open(uint8_t *pt, const uint8_t *ct,
+                                  size_t len_pt,
+                                  const uint8_t *ad, size_t len_ad,
+                                  uint8_t *key_nonce);
+
+extern void chacha20_poly1305_seal(uint8_t *ct, const uint8_t *pt,
+                                   size_t len_pt,
+                                   const uint8_t *ad, size_t len_ad,
+                                   uint8_t *key_nonce);
+#endif
 
 #define POLY1305_TAG_LEN 16
 
@@ -107,7 +120,7 @@ static int seal_impl(aead_poly1305_update poly1305_update,
                      const EVP_AEAD_CTX *ctx, uint8_t *out, size_t *out_len,
                      size_t max_out_len, const uint8_t nonce[12],
                      const uint8_t *in, size_t in_len, const uint8_t *ad,
-                     size_t ad_len) {
+                     size_t ad_len, int old) {
   const struct aead_chacha20_poly1305_ctx *c20_ctx = ctx->aead_state;
   const uint64_t in_len_64 = in_len;
 
@@ -132,6 +145,18 @@ static int seal_impl(aead_poly1305_update poly1305_update,
     return 0;
   }
 
+#if defined(USE_SEAL_OPEN_ASM)
+  if (!old) {
+    uint8_t key_nonce[48];
+    OPENSSL_memcpy(key_nonce, c20_ctx->key, 32);
+    OPENSSL_memset(key_nonce + 32, 0, 4);
+    OPENSSL_memcpy(key_nonce + 36, nonce, 12);
+    chacha20_poly1305_seal(out, in, in_len, ad, ad_len, key_nonce);
+    *out_len = in_len + c20_ctx->tag_len;
+    return 1;
+  }
+#endif
+
   CRYPTO_chacha_20(out, in, in_len, c20_ctx->key, nonce, 1);
 
   alignas(16) uint8_t tag[POLY1305_TAG_LEN];
@@ -146,7 +171,7 @@ static int open_impl(aead_poly1305_update poly1305_update,
                      const EVP_AEAD_CTX *ctx, uint8_t *out, size_t *out_len,
                      size_t max_out_len, const uint8_t nonce[12],
                      const uint8_t *in, size_t in_len, const uint8_t *ad,
-                     size_t ad_len) {
+                     size_t ad_len, int old) {
   const struct aead_chacha20_poly1305_ctx *c20_ctx = ctx->aead_state;
   size_t plaintext_len;
   const uint64_t in_len_64 = in_len;
@@ -168,6 +193,27 @@ static int open_impl(aead_poly1305_update poly1305_update,
   }
 
   plaintext_len = in_len - c20_ctx->tag_len;
+
+#if defined(USE_SEAL_OPEN_ASM)
+  if (!old) {
+    uint8_t key_nonce[48];
+    OPENSSL_memcpy(key_nonce, c20_ctx->key, 32);
+    OPENSSL_memset(key_nonce + 32, 0, 4);
+    OPENSSL_memcpy(key_nonce + 36, nonce, 12);
+    int cmp = chacha20_poly1305_open(out, in, plaintext_len,
+                                     ad, ad_len,
+                                     key_nonce);
+
+    if (!cmp) {
+      OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_BAD_DECRYPT);
+      return 0;
+    }
+
+    *out_len = plaintext_len;
+    return 1;
+  }
+#endif
+
   alignas(16) uint8_t tag[POLY1305_TAG_LEN];
   aead_poly1305(poly1305_update, tag, c20_ctx, nonce, ad, ad_len, in,
                 plaintext_len);
@@ -210,7 +256,7 @@ static int aead_chacha20_poly1305_seal(const EVP_AEAD_CTX *ctx, uint8_t *out,
     return 0;
   }
   return seal_impl(poly1305_update, ctx, out, out_len, max_out_len, nonce, in,
-                   in_len, ad, ad_len);
+                   in_len, ad, ad_len, 0);
 }
 
 static int aead_chacha20_poly1305_open(const EVP_AEAD_CTX *ctx, uint8_t *out,
@@ -223,7 +269,7 @@ static int aead_chacha20_poly1305_open(const EVP_AEAD_CTX *ctx, uint8_t *out,
     return 0;
   }
   return open_impl(poly1305_update, ctx, out, out_len, max_out_len, nonce, in,
-                   in_len, ad, ad_len);
+                   in_len, ad, ad_len, 0);
 }
 
 static const EVP_AEAD aead_chacha20_poly1305 = {
@@ -264,7 +310,7 @@ static int aead_chacha20_poly1305_old_seal(
   OPENSSL_memset(nonce_96, 0, 4);
   OPENSSL_memcpy(nonce_96 + 4, nonce, 8);
   return seal_impl(poly1305_update_old, ctx, out, out_len, max_out_len,
-                   nonce_96, in, in_len, ad, ad_len);
+                   nonce_96, in, in_len, ad, ad_len, 1);
 }
 
 static int aead_chacha20_poly1305_old_open(
@@ -279,7 +325,7 @@ static int aead_chacha20_poly1305_old_open(
   OPENSSL_memset(nonce_96, 0, 4);
   OPENSSL_memcpy(nonce_96 + 4, nonce, 8);
   return open_impl(poly1305_update_old, ctx, out, out_len, max_out_len,
-                   nonce_96, in, in_len, ad, ad_len);
+                   nonce_96, in, in_len, ad, ad_len, 1);
 }
 
 static const EVP_AEAD aead_chacha20_poly1305_old = {
