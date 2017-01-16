@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "63ca3d70_7332d75f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-01-16T16:53:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "236e8540_64606a43",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 8
+      },
+      "revId": "fe739054166406e91c0f306100c2275468a0843d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "236e8540_445b6e97",
         "filename": "crypto/modes/gcm.c",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2017-01-13T22:23:30Z",
       "side": 1,
       "message": "OPENSSL_memcpy, although it doesn\u0027t matter here.\n\n(Those wrappers are such a pain...)",
+      "range": {
+        "startLine": 367,
+        "startChar": 2,
+        "endLine": 367,
+        "endChar": 8
+      },
+      "revId": "fe739054166406e91c0f306100c2275468a0843d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "63ca3d70_533ddb2e",
+        "filename": "crypto/modes/gcm.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-01-16T16:53:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "236e8540_445b6e97",
       "range": {
         "startLine": 367,
         "startChar": 2,
