@@ -32,6 +32,14 @@ void CRYPTO_poly1305_update_neon(poly1305_state *state, const uint8_t *in,
 void CRYPTO_poly1305_finish_neon(poly1305_state *state, uint8_t mac[16]);
 #endif
 
+#if defined(OPENSSL_X86_64) && !defined(OPENSSL_NO_ASM)
+void CRYPTO_poly1305_init_x86(poly1305_state *state, const uint8_t key[32]);
+
+void CRYPTO_poly1305_update_x86(poly1305_state *state, const uint8_t *in,
+                                size_t in_len);
+
+void CRYPTO_poly1305_finish_x86(poly1305_state *state, uint8_t mac[16]);
+#endif
 
 #if defined(__cplusplus)
 }  /* extern C */
