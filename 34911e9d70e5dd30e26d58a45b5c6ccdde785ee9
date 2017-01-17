@@ -64,6 +64,24 @@
       "revId": "34911e9d70e5dd30e26d58a45b5c6ccdde785ee9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "63ca3d70_822397d7",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 4074,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-01-17T19:48:47Z",
+      "side": 1,
+      "message": "\u003e I believe it\u0027s gone in 1.1.0.\n\nHuh, I thought I checked that but, having checked again, you\u0027re right. (Although they missed updating a comment.)\n\nnode.js has https://github.com/nodejs/node/pull/8491, but I can sneak in a change since that doesn\u0027t appear to be going anywhere.",
+      "parentUuid": "236e8540_c4f75e61",
+      "revId": "34911e9d70e5dd30e26d58a45b5c6ccdde785ee9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
