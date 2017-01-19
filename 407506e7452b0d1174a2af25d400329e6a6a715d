@@ -22,6 +22,24 @@
       "revId": "407506e7452b0d1174a2af25d400329e6a6a715d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0848be9f_7eabad78",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 3125,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-19T22:41:38Z",
+      "side": 1,
+      "message": "My thinking was that, going by the spec, not ACKing the extension made more sense. But falling through matches the current behavior, so that\u0027s probably better. Done.",
+      "parentUuid": "0848be9f_5ec19182",
+      "revId": "407506e7452b0d1174a2af25d400329e6a6a715d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
