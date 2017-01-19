@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a856d212_be12867c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-01-19T22:54:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0848be9f_3efac598",
+      "revId": "5943c4315cd9e5291336fb42efc78c2413b65fe2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0848be9f_fe17bdfd",
         "filename": "crypto/cipher/e_chacha20poly1305.c",
         "patchSetId": 1
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "a856d212_be64c624",
+        "filename": "crypto/cipher/e_chacha20poly1305.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-01-19T22:54:31Z",
+      "side": 1,
+      "message": "Oh, indeed. And actually quite a lot of abstraction can be collapsed now.",
+      "parentUuid": "0848be9f_fe17bdfd",
+      "range": {
+        "startLine": 83,
+        "startChar": 15,
+        "endLine": 83,
+        "endChar": 35
+      },
+      "revId": "5943c4315cd9e5291336fb42efc78c2413b65fe2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0848be9f_7e4f2d29",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 1
@@ -53,6 +95,24 @@
       "writtenOn": "2017-01-19T21:50:43Z",
       "side": 1,
       "message": "I think we can just remove this test now.",
+      "revId": "5943c4315cd9e5291336fb42efc78c2413b65fe2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a856d212_7e1d2e92",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-01-19T22:54:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0848be9f_7e4f2d29",
       "revId": "5943c4315cd9e5291336fb42efc78c2413b65fe2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
