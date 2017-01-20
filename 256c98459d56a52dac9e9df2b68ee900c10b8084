@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0848be9f_44b424c5",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-01-20T16:26:15Z",
+      "side": 1,
+      "message": "Can you merge this with queue_message (static method or something) to unify the length check, increase, etc at one place.",
+      "range": {
+        "startLine": 576,
+        "startChar": 4,
+        "endLine": 576,
+        "endChar": 33
+      },
+      "revId": "256c98459d56a52dac9e9df2b68ee900c10b8084",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0848be9f_24b918bb",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-01-20T16:26:15Z",
+      "side": 1,
+      "message": "Can we comment what this is used for?",
+      "range": {
+        "startLine": 595,
+        "startChar": 12,
+        "endLine": 595,
+        "endChar": 28
+      },
+      "revId": "256c98459d56a52dac9e9df2b68ee900c10b8084",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0848be9f_a4a4088f",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-01-20T16:26:15Z",
+      "side": 1,
+      "message": "Can this be extracted into a separate function without having to pass too much between functions? A little tricky to follow the breaks.",
+      "range": {
+        "startLine": 687,
+        "startChar": 4,
+        "endLine": 687,
+        "endChar": 6
+      },
+      "revId": "256c98459d56a52dac9e9df2b68ee900c10b8084",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0848be9f_84be2ca1",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-01-20T16:26:15Z",
+      "side": 1,
+      "message": "I\u0027d still like to nuke these, but meh.",
+      "range": {
+        "startLine": 728,
+        "startChar": 6,
+        "endLine": 728,
+        "endChar": 25
+      },
+      "revId": "256c98459d56a52dac9e9df2b68ee900c10b8084",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
