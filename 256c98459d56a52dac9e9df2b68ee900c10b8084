@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "a856d212_c9c21f34",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-01-20T16:33:05Z",
+      "side": 1,
+      "message": "is there a static assert somewhere that SSL_MAX_HANDSHAKE_FLIGHT \u003c\u003d 255? (So that the uint8_t |outgoing_written| doesn\u0027t overflow, at least.)",
+      "range": {
+        "startLine": 577,
+        "startChar": 40,
+        "endLine": 577,
+        "endChar": 64
+      },
+      "revId": "256c98459d56a52dac9e9df2b68ee900c10b8084",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0848be9f_24b918bb",
         "filename": "ssl/d1_both.c",
         "patchSetId": 2
@@ -42,6 +65,40 @@
         "endLine": 595,
         "endChar": 28
       },
+      "revId": "256c98459d56a52dac9e9df2b68ee900c10b8084",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a856d212_09f4b79e",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-01-20T16:33:05Z",
+      "side": 1,
+      "message": "I can sort of guess, but yea.",
+      "revId": "256c98459d56a52dac9e9df2b68ee900c10b8084",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a856d212_29bc1bc7",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-01-20T16:33:05Z",
+      "side": 1,
+      "message": "assert(ssl-\u003ed1-\u003eoutgoing_messages_len \u003e 0);\n\n(Otherwise it\u0027ll complain about the MTU being too small.)",
       "revId": "256c98459d56a52dac9e9df2b68ee900c10b8084",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -87,6 +144,29 @@
         "startChar": 6,
         "endLine": 728,
         "endChar": 25
+      },
+      "revId": "256c98459d56a52dac9e9df2b68ee900c10b8084",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a856d212_e9c5e33d",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1660,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-01-20T16:33:05Z",
+      "side": 1,
+      "message": "that",
+      "range": {
+        "startLine": 1660,
+        "startChar": 72,
+        "endLine": 1660,
+        "endChar": 73
       },
       "revId": "256c98459d56a52dac9e9df2b68ee900c10b8084",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
