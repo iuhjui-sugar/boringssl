@@ -21,6 +21,8 @@
 #include <utility>
 #include <vector>
 
+#include <gtest/gtest.h>
+
 #include <openssl/base64.h>
 #include <openssl/bio.h>
 #include <openssl/cipher.h>
@@ -3159,9 +3161,8 @@ static bool ForEachVersion(bool (*test_func)(bool is_dtls,
   return true;
 }
 
-int main() {
-  CRYPTO_library_init();
-
+// TODO(davidben): Convert this file to GTest properly.
+TEST(SSLTest, AllTests) {
   if (!TestCipherRules() ||
       !TestCurveRules() ||
       !TestSSL_SESSIONEncoding(kOpenSSLSession) ||
@@ -3210,9 +3211,6 @@ int main() {
       !ForEachVersion(TestAutoChain) ||
       !ForEachVersion(TestSSLWriteRetry)) {
     ERR_print_errors_fp(stderr);
-    return 1;
+    ADD_FAILURE() << "Tests failed";
   }
-
-  printf("PASS\n");
-  return 0;
 }

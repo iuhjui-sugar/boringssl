@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 2.8.10)
+cmake_minimum_required (VERSION 2.8.11)
 
 # Defer enabling C and CXX languages.
 project (BoringSSL NONE)
@@ -227,6 +227,17 @@ if (OPENSSL_NO_ASM)
   add_definitions(-DOPENSSL_NO_ASM)
   set(ARCH "generic")
 endif()
+
+# Add minimal googletest targets. The provided one has many side-effects, and
+# googletest has a very straightforward build.
+add_library(gtest third_party/googletest/src/gtest-all.cc)
+target_include_directories(gtest PRIVATE third_party/googletest)
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  # TODO(davidben): Make googletest pass -Wmissing-declarations.
+  set_target_properties(gtest PROPERTIES COMPILE_FLAGS "-Wno-missing-declarations")
+endif()
+
+include_directories(third_party/googletest/include)
 
 # Declare a dummy target to build all unit tests. Test targets should inject
 # themselves as dependencies next to the target definition.
