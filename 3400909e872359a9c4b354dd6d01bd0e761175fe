@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a856d212_644475b3",
+        "filename": "crypto/cipher/aead_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-01-20T20:10:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0848be9f_a41c0834",
+      "range": {
+        "startLine": 205,
+        "startChar": 14,
+        "endLine": 205,
+        "endChar": 17
+      },
+      "revId": "3400909e872359a9c4b354dd6d01bd0e761175fe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0848be9f_042a1c48",
         "filename": "crypto/cipher/aead_test.cc",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2017-01-20T19:54:41Z",
       "side": 1,
       "message": "EVP_AEAD_MAX_NONCE_LENGTH?",
+      "range": {
+        "startLine": 213,
+        "startChar": 16,
+        "endLine": 213,
+        "endChar": 18
+      },
+      "revId": "3400909e872359a9c4b354dd6d01bd0e761175fe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a856d212_444171a0",
+        "filename": "crypto/cipher/aead_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-01-20T20:10:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0848be9f_042a1c48",
       "range": {
         "startLine": 213,
         "startChar": 16,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "a856d212_244e7dd1",
+        "filename": "crypto/cipher/aead_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-01-20T20:10:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0848be9f_445544bc",
+      "revId": "3400909e872359a9c4b354dd6d01bd0e761175fe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0848be9f_245ab8eb",
         "filename": "crypto/cipher/aead_test.cc",
         "patchSetId": 1
@@ -76,6 +142,30 @@
       "writtenOn": "2017-01-20T19:54:41Z",
       "side": 1,
       "message": "OPENSSL_memset",
+      "range": {
+        "startLine": 234,
+        "startChar": 2,
+        "endLine": 234,
+        "endChar": 8
+      },
+      "revId": "3400909e872359a9c4b354dd6d01bd0e761175fe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a856d212_044b79c0",
+        "filename": "crypto/cipher/aead_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-01-20T20:10:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0848be9f_245ab8eb",
       "range": {
         "startLine": 234,
         "startChar": 2,
@@ -105,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "a856d212_8438893d",
+        "filename": "crypto/cipher/aead_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-01-20T20:10:40Z",
+      "side": 1,
+      "message": "Let\u0027s see how we go with !\u003d 1, since it should work for now.",
+      "parentUuid": "0848be9f_c4483420",
+      "revId": "3400909e872359a9c4b354dd6d01bd0e761175fe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0848be9f_844f4c28",
         "filename": "crypto/cipher/aead_test.cc",
         "patchSetId": 1
@@ -128,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "a856d212_642d95f9",
+        "filename": "crypto/cipher/aead_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-01-20T20:10:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0848be9f_844f4c28",
+      "range": {
+        "startLine": 258,
+        "startChar": 2,
+        "endLine": 258,
+        "endChar": 8
+      },
+      "revId": "3400909e872359a9c4b354dd6d01bd0e761175fe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0848be9f_e43f3080",
         "filename": "crypto/cipher/aead_test.cc",
         "patchSetId": 1
@@ -139,6 +271,24 @@
       "writtenOn": "2017-01-20T19:54:41Z",
       "side": 1,
       "message": "This can use bssl::ScopedEVP_AEAD_CTX (and then \u0026ctx \u003d\u003e ctx.get()) to save tracking that.",
+      "revId": "3400909e872359a9c4b354dd6d01bd0e761175fe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a856d212_84bd2977",
+        "filename": "crypto/cipher/aead_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-01-20T20:10:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0848be9f_e43f3080",
       "revId": "3400909e872359a9c4b354dd6d01bd0e761175fe",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
