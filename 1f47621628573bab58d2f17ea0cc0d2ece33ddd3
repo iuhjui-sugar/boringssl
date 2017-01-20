@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "a856d212_b4505e75",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-01-20T17:27:15Z",
+      "side": 1,
+      "message": "assert(0);",
+      "revId": "1f47621628573bab58d2f17ea0cc0d2ece33ddd3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0848be9f_e4c7301b",
         "filename": "ssl/s3_both.c",
         "patchSetId": 2
