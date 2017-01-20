@@ -1,0 +1,147 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0848be9f_a41c0834",
+        "filename": "crypto/cipher/aead_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-20T19:54:41Z",
+      "side": 1,
+      "message": "EVP_AEAD_MAX_KEY_LENGTH?",
+      "range": {
+        "startLine": 205,
+        "startChar": 14,
+        "endLine": 205,
+        "endChar": 17
+      },
+      "revId": "3400909e872359a9c4b354dd6d01bd0e761175fe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0848be9f_042a1c48",
+        "filename": "crypto/cipher/aead_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-20T19:54:41Z",
+      "side": 1,
+      "message": "EVP_AEAD_MAX_NONCE_LENGTH?",
+      "range": {
+        "startLine": 213,
+        "startChar": 16,
+        "endLine": 213,
+        "endChar": 18
+      },
+      "revId": "3400909e872359a9c4b354dd6d01bd0e761175fe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0848be9f_445544bc",
+        "filename": "crypto/cipher/aead_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-20T19:54:41Z",
+      "side": 1,
+      "message": "With the truncated_tags test expectations, we don\u0027t need to be lax here, right?",
+      "revId": "3400909e872359a9c4b354dd6d01bd0e761175fe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0848be9f_245ab8eb",
+        "filename": "crypto/cipher/aead_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-20T19:54:41Z",
+      "side": 1,
+      "message": "OPENSSL_memset",
+      "range": {
+        "startLine": 234,
+        "startChar": 2,
+        "endLine": 234,
+        "endChar": 8
+      },
+      "revId": "3400909e872359a9c4b354dd6d01bd0e761175fe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0848be9f_c4483420",
+        "filename": "crypto/cipher/aead_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-20T19:54:41Z",
+      "side": 1,
+      "message": "Wouldn\u0027t this indicate that EVP_AEAD_max_overhead is totally nonsense, rather than it ignoring the request?\n\nWould it work to do overhead_used !\u003d 1? This assumes the AEAD doesn\u0027t have some internal padding on the encryption portion, but that\u0027s true for all the applicable ones here.",
+      "revId": "3400909e872359a9c4b354dd6d01bd0e761175fe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0848be9f_844f4c28",
+        "filename": "crypto/cipher/aead_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-20T19:54:41Z",
+      "side": 1,
+      "message": "OPENSSL_memset",
+      "range": {
+        "startLine": 258,
+        "startChar": 2,
+        "endLine": 258,
+        "endChar": 8
+      },
+      "revId": "3400909e872359a9c4b354dd6d01bd0e761175fe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0848be9f_e43f3080",
+        "filename": "crypto/cipher/aead_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-20T19:54:41Z",
+      "side": 1,
+      "message": "This can use bssl::ScopedEVP_AEAD_CTX (and then \u0026ctx \u003d\u003e ctx.get()) to save tracking that.",
+      "revId": "3400909e872359a9c4b354dd6d01bd0e761175fe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
