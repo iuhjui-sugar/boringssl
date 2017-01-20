@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0848be9f_4fb27d4a",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-20T23:43:58Z",
+      "side": 1,
+      "message": "Nit: 4 spaces when indenting within a statement.",
+      "revId": "35f58e865fe0a274cc6a89c6736d314a35c35a2c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
