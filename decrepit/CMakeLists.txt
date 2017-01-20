@@ -1,3 +1,5 @@
+include_directories(../include)
+
 add_subdirectory(bio)
 add_subdirectory(biossl)
 add_subdirectory(blowfish)
@@ -35,3 +37,14 @@ add_library(
 )
 
 target_link_libraries(decrepit crypto ssl)
+
+add_executable(
+  decrepit_test
+
+  ripemd/ripemd_test.cc
+
+  $<TARGET_OBJECTS:test_support>
+)
+
+target_link_libraries(decrepit_test crypto decrepit gtest_main)
+add_dependencies(all_tests decrepit_test)
