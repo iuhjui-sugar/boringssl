@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0848be9f_6427a0e5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-20T18:24:06Z",
+      "side": 1,
+      "message": "I\u0027m sending you this one to review because you should look at it first, particularly the transition plan below. This depends on a pile of other changes which are uninteresting and contingent on you approving this one and the transition plan.",
+      "revId": "5e98171c37c1c0e84dcaad94bee62be02af9f45a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
