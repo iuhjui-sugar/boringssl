@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "08ca7e39_ce5d8359",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-20T20:20:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a856d212_61bc67c8",
+      "revId": "5e98171c37c1c0e84dcaad94bee62be02af9f45a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a856d212_41a2839b",
         "filename": "CMakeLists.txt",
         "patchSetId": 7
@@ -59,6 +77,24 @@
     },
     {
       "key": {
+        "uuid": "0848be9f_2f6bb15a",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-20T20:20:21Z",
+      "side": 1,
+      "message": "Oh, those are in the parent commits. I didn\u0027t add you as a reviewer for those because I wanted to make sure you looked at this one before checking the parent commits in. Gerrit doesn\u0027t seem to be very good at stapling high-level notes to reviews in places where they\u0027re visible. :-)",
+      "parentUuid": "a856d212_41a2839b",
+      "revId": "5e98171c37c1c0e84dcaad94bee62be02af9f45a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a856d212_249d5d46",
         "filename": "util/all_tests.go",
         "patchSetId": 7
@@ -70,6 +106,24 @@
       "writtenOn": "2017-01-20T19:59:54Z",
       "side": 1,
       "message": "Is malloc testing dead in a GTest world? (i.e. can gtest function without crashing if malloc fails?)",
+      "revId": "5e98171c37c1c0e84dcaad94bee62be02af9f45a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0848be9f_4f66fd94",
+        "filename": "util/all_tests.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-20T20:20:21Z",
+      "side": 1,
+      "message": "The GTest targets still link in test_support, so the malloc tests still work. However, by putting them into one target, we\u0027ve made https://crbug.com/boringssl/127 worse. Although that bug is enough of a nuisance that I\u0027ve never actually successfully run some of the targets (notably bn_test) under malloc test.\n\nI didn\u0027t see a way, without modifying GTest, to do malloc tests in-process. My plan is to, once everything is GTest, reimplement the malloc test runner using --gtest_list_tests and --gtest_filter to do it for one test. That will add fixed cost per test (GTest startup), but improve the O(N^2) situation.\n\nThough the real O(N^2) culprit is FileTest, so we\u0027d need to come up with some cleverer scheme there. One thought is to turn FileTest into a TEST_P. But then the GTest startup cost would probably be a problem.\n\nGTest also has this TestEventListener interface we could use to scope the malloc counter to each test run. You could also imagine doing crazy things like running MALLOC_NUMBER_TO_FAIL\u003d0 on all tests in parallel.\nhttps://github.com/google/googletest/blob/master/googletest/include/gtest/gtest.h#L989\n\nHrm. As I write this, a terrible idea occurs to me. What if we called fork() in OnTestCaseStart or in the middle of FileTest[*]? :-D vasilvv had suggested calling fork() on each malloc, but that breaks if the test has open file descriptors. We could call fork() at points where we know nothing interesting is going on.\n\n[*] Requires modifying FileTest to soak the entire contents of the file in memory first, but that\u0027s fine.",
+      "parentUuid": "a856d212_249d5d46",
       "revId": "5e98171c37c1c0e84dcaad94bee62be02af9f45a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
