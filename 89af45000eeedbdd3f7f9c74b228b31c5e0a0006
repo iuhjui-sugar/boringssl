@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0848be9f_04f97c55",
+        "filename": "include/openssl/ssl3.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-01-20T17:20:13Z",
+      "side": 0,
+      "message": "Drop the _A for most of these?",
+      "range": {
+        "startLine": 311,
+        "startChar": 8,
+        "endLine": 311,
+        "endChar": 31
+      },
+      "revId": "89af45000eeedbdd3f7f9c74b228b31c5e0a0006",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
