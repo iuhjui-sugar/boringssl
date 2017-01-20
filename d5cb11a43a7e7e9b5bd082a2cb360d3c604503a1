@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a856d212_a9e36bea",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-01-20T16:13:12Z",
+      "side": 1,
+      "message": "This is a potential change in return value, although I\u0027m not sure whether it matters. (Before, zero from BIO_flush would be turned into -1.)",
+      "revId": "d5cb11a43a7e7e9b5bd082a2cb360d3c604503a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a856d212_89e8a7c5",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-01-20T16:13:12Z",
+      "side": 1,
+      "message": "ditto.",
+      "revId": "d5cb11a43a7e7e9b5bd082a2cb360d3c604503a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
