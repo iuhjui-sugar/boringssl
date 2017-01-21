@@ -798,10 +798,13 @@ static int ssl3_get_client_hello(SSL_HANDSHAKE *hs) {
 
   if (hs->state == SSL3_ST_SR_CLNT_HELLO_A) {
     /* The first time around, read the ClientHello. */
-    int msg_ret = ssl->method->ssl_get_message(ssl, SSL3_MT_CLIENT_HELLO,
-                                               ssl_hash_message);
+    int msg_ret = ssl->method->ssl_get_message(ssl, ssl_hash_message);
     if (msg_ret <= 0) {
       return msg_ret;
+    }
+
+    if (!ssl_check_message_type(ssl, SSL3_MT_CLIENT_HELLO)) {
+      return -1;
     }
 
     hs->state = SSL3_ST_SR_CLNT_HELLO_B;
@@ -1382,7 +1385,7 @@ static int ssl3_get_client_certificate(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
   assert(hs->cert_request);
 
-  int msg_ret = ssl->method->ssl_get_message(ssl, -1, ssl_hash_message);
+  int msg_ret = ssl->method->ssl_get_message(ssl, ssl_hash_message);
   if (msg_ret <= 0) {
     return msg_ret;
   }
@@ -1486,10 +1489,13 @@ static int ssl3_get_client_key_exchange(SSL_HANDSHAKE *hs) {
   uint8_t psk[PSK_MAX_PSK_LEN];
 
   if (hs->state == SSL3_ST_SR_KEY_EXCH_A) {
-    int ret = ssl->method->ssl_get_message(ssl, SSL3_MT_CLIENT_KEY_EXCHANGE,
-                                           ssl_hash_message);
+    int ret = ssl->method->ssl_get_message(ssl, ssl_hash_message);
     if (ret <= 0) {
       return ret;
+    }
+
+    if (!ssl_check_message_type(ssl, SSL3_MT_CLIENT_KEY_EXCHANGE)) {
+      return -1;
     }
   }
 
@@ -1754,10 +1760,13 @@ static int ssl3_get_cert_verify(SSL_HANDSHAKE *hs) {
     return 1;
   }
 
-  int msg_ret = ssl->method->ssl_get_message(ssl, SSL3_MT_CERTIFICATE_VERIFY,
-                                             ssl_dont_hash_message);
+  int msg_ret = ssl->method->ssl_get_message(ssl, ssl_dont_hash_message);
   if (msg_ret <= 0) {
     return msg_ret;
+  }
+
+  if (!ssl_check_message_type(ssl, SSL3_MT_CERTIFICATE_VERIFY)) {
+    return -1;
   }
 
   CBS_init(&certificate_verify, ssl->init_msg, ssl->init_num);
@@ -1848,9 +1857,13 @@ err:
 static int ssl3_get_next_proto(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
   int ret =
-      ssl->method->ssl_get_message(ssl, SSL3_MT_NEXT_PROTO, ssl_hash_message);
+      ssl->method->ssl_get_message(ssl, ssl_hash_message);
   if (ret <= 0) {
     return ret;
+  }
+
+  if (!ssl_check_message_type(ssl, SSL3_MT_NEXT_PROTO)) {
+    return -1;
   }
 
   CBS next_protocol, selected_protocol, padding;
@@ -1874,13 +1887,13 @@ static int ssl3_get_next_proto(SSL_HANDSHAKE *hs) {
 /* ssl3_get_channel_id reads and verifies a ClientID handshake message. */
 static int ssl3_get_channel_id(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
-  int msg_ret = ssl->method->ssl_get_message(ssl, SSL3_MT_CHANNEL_ID,
-                                             ssl_dont_hash_message);
+  int msg_ret = ssl->method->ssl_get_message(ssl, ssl_dont_hash_message);
   if (msg_ret <= 0) {
     return msg_ret;
   }
 
-  if (!tls1_verify_channel_id(ssl) ||
+  if (!ssl_check_message_type(ssl, SSL3_MT_CHANNEL_ID) ||
+      !tls1_verify_channel_id(ssl) ||
       !ssl_hash_current_message(ssl)) {
     return -1;
   }
