@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0848be9f_f53d18fa",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-23T21:14:55Z",
+      "side": 1,
+      "message": "Do you expect that anything is going to use ssl_sources in the end? Looks like util/BUILD.toplevel probably needs the split too.",
+      "range": {
+        "startLine": 227,
+        "startChar": 38,
+        "endLine": 227,
+        "endChar": 49
+      },
+      "revId": "cff013ceec62274b9736749e341d8bcce736f763",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
