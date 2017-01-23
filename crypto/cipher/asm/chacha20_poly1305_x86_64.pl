@@ -2364,8 +2364,8 @@ seal_avx2_short_tail:
 ";
 }
 
-$code =~ s/\`([^\`]*)\`/eval $1/gem;
-print "#if !defined(_WIN32)\n";
-print $code;
-print "#endif\n";
-close STDOUT;
+if (!$win64) {
+  $code =~ s/\`([^\`]*)\`/eval $1/gem;
+  print $code;
+  close STDOUT;
+}
