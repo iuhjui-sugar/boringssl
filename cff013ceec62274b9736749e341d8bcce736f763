@@ -22,6 +22,30 @@
       "revId": "cff013ceec62274b9736749e341d8bcce736f763",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a856d212_99f5830f",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-01-23T21:20:05Z",
+      "side": 1,
+      "message": "New tool chains default to at least C99 and so can use ssl_sources. (I.e. the internal fuzz target.) I can easily just list both ssl_c_sources and ssl_cc_sources for that, but the hope is that, over time, ssl_[c|cc]_sources will go away as C99 becomes the default.\n\nGood point about BUILD.toplevel though. Done.",
+      "parentUuid": "0848be9f_f53d18fa",
+      "range": {
+        "startLine": 227,
+        "startChar": 38,
+        "endLine": 227,
+        "endChar": 49
+      },
+      "revId": "cff013ceec62274b9736749e341d8bcce736f763",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
