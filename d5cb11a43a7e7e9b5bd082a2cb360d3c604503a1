@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0848be9f_95877469",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-23T22:51:08Z",
+      "side": 1,
+      "message": "Yeah, it\u0027s mentioned in the commit message. Everywhere else we preserve BIO return values, even if flush returns 0 for some weird reason. I\u0027m not sure why it didn\u0027t here. The motivation is that BIO_write calls will get moved in here from write_message, and we currently do preserve their return values.",
+      "parentUuid": "a856d212_a9e36bea",
+      "revId": "d5cb11a43a7e7e9b5bd082a2cb360d3c604503a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a856d212_89e8a7c5",
         "filename": "ssl/handshake_server.c",
         "patchSetId": 2
