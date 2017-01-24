@@ -703,7 +703,9 @@ static void ssl_get_compatible_server_ciphers(SSL_HANDSHAKE *hs,
   uint32_t mask_k = 0;
   uint32_t mask_a = 0;
 
-  if (ssl->cert->x509_leaf != NULL && ssl_has_private_key(ssl)) {
+  if (ssl->cert->chain != NULL &&
+      sk_CRYPTO_BUFFER_value(ssl->cert->chain, 0) != NULL &&
+      ssl_has_private_key(ssl)) {
     int type = ssl_private_key_type(ssl);
     if (type == NID_rsaEncryption) {
       mask_k |= SSL_kRSA;
