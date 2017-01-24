@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0848be9f_d51f3c27",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 839,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-24T00:33:58Z",
+      "side": 1,
+      "message": "Also check c.skipEarlyData?",
+      "revId": "fa62d72ca1e0d1862a413818260df193e8f826fa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0848be9f_b51c3034",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-24T00:33:58Z",
+      "side": 1,
+      "message": "I think want to do this regardless of the value of c.in.cipher, right? I think you can actually just write c.skipEarlyData \u003d false after line 849 or so.",
+      "range": {
+        "startLine": 842,
+        "startChar": 10,
+        "endLine": 842,
+        "endChar": 28
+      },
+      "revId": "fa62d72ca1e0d1862a413818260df193e8f826fa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
