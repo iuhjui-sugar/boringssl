@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0848be9f_d043caa9",
+        "filename": "ssl/ssl_x509.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-24T03:15:26Z",
+      "side": 1,
+      "message": "For IWYU\u0027s sake, I think you want to pull in stack.h, x509.h, and x509_vfy.h.",
+      "revId": "bbbf38e02fd8c8da3b42a06ee49bc3d06d46c42c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
