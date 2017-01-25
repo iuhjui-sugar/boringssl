@@ -25,6 +25,23 @@
     },
     {
       "key": {
+        "uuid": "22474b08_6e37915a",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-25T00:09:02Z",
+      "side": 1,
+      "message": "Done",
+      "revId": "256c98459d56a52dac9e9df2b68ee900c10b8084",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a856d212_c9c21f34",
         "filename": "ssl/d1_both.c",
         "patchSetId": 2
@@ -42,6 +59,23 @@
         "endLine": 577,
         "endChar": 64
       },
+      "revId": "256c98459d56a52dac9e9df2b68ee900c10b8084",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "25f0969d_974dc260",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-25T00:09:02Z",
+      "side": 1,
+      "message": "Done. (Now in-function too!)",
       "revId": "256c98459d56a52dac9e9df2b68ee900c10b8084",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -71,6 +105,23 @@
     },
     {
       "key": {
+        "uuid": "5002d8f6_ed6c1d9c",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-25T00:09:02Z",
+      "side": 1,
+      "message": "This was just copied from previously. :-) Revised comment and TODO.",
+      "revId": "256c98459d56a52dac9e9df2b68ee900c10b8084",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a856d212_09f4b79e",
         "filename": "ssl/d1_both.c",
         "patchSetId": 2
@@ -82,6 +133,23 @@
       "writtenOn": "2017-01-20T16:33:05Z",
       "side": 1,
       "message": "I can sort of guess, but yea.",
+      "revId": "256c98459d56a52dac9e9df2b68ee900c10b8084",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9745c7c2_eca72929",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-25T00:09:02Z",
+      "side": 1,
+      "message": "(Revised TODO to be a bit less useless.)",
       "revId": "256c98459d56a52dac9e9df2b68ee900c10b8084",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -111,6 +179,23 @@
     },
     {
       "key": {
+        "uuid": "8a85b9cd_fbb4acb2",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-25T00:09:02Z",
+      "side": 1,
+      "message": "Hrm. How about \"seal\", to cut down on verb proliferation? That\u0027s... basically what we\u0027re doing?",
+      "revId": "256c98459d56a52dac9e9df2b68ee900c10b8084",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a856d212_29bc1bc7",
         "filename": "ssl/d1_both.c",
         "patchSetId": 2
@@ -122,6 +207,23 @@
       "writtenOn": "2017-01-20T16:33:05Z",
       "side": 1,
       "message": "assert(ssl-\u003ed1-\u003eoutgoing_messages_len \u003e 0);\n\n(Otherwise it\u0027ll complain about the MTU being too small.)",
+      "revId": "256c98459d56a52dac9e9df2b68ee900c10b8084",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ec9fc754_abcbf6ff",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-25T00:09:02Z",
+      "side": 1,
+      "message": "Added assert(ssl-\u003ed1-\u003eoutgoing_written \u003c ssl-\u003ed1-\u003eoutgoing_messages_len) which is a slightly stronger precondition.",
       "revId": "256c98459d56a52dac9e9df2b68ee900c10b8084",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -151,6 +253,23 @@
     },
     {
       "key": {
+        "uuid": "45825810_1924109b",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-25T00:09:02Z",
+      "side": 1,
+      "message": "Tweaked some things:\n\n1. Taught dtls_seal_record to act in-place, so buf is no longer needed.\n2. Removed the inner loop. I was being silly and there\u0027s no need for it at all. Rounding errors aside, if don\u0027t manage to fit a message fully in a packet, there\u0027s no reason to loop again. That simplifies things a little.\n3. Pulled the body out into a helper with an enum return. What do you think? I think it\u0027s clearer, though it is longer. It avoids duplicating the out/max_out/total arithmetic, though the offset and message index updates are now split.",
+      "revId": "256c98459d56a52dac9e9df2b68ee900c10b8084",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0848be9f_84be2ca1",
         "filename": "ssl/d1_both.c",
         "patchSetId": 2
@@ -168,6 +287,23 @@
         "endLine": 728,
         "endChar": 25
       },
+      "revId": "256c98459d56a52dac9e9df2b68ee900c10b8084",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f92d7cd_bc7b7262",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-25T00:09:02Z",
+      "side": 1,
+      "message": "Ack",
       "revId": "256c98459d56a52dac9e9df2b68ee900c10b8084",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
