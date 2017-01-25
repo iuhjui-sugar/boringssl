@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1ad5b4e5_b35e7915",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1057,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-25T21:04:56Z",
+      "side": 1,
+      "message": "received",
+      "range": {
+        "startLine": 1057,
+        "startChar": 33,
+        "endLine": 1057,
+        "endChar": 41
+      },
+      "revId": "c5e4a24ebf87eaaf31fa8ba545d65ad5e6eb2e71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5825440e_d9458ed3",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-25T21:04:56Z",
+      "side": 1,
+      "message": "Since you\u0027re doing this without a NULL check, maybe add a comment:\n/* This is the first message, so hs must be non-NULL. */",
+      "revId": "c5e4a24ebf87eaaf31fa8ba545d65ad5e6eb2e71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "329e9a70_203fdca0",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 664,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-25T21:04:56Z",
+      "side": 1,
+      "message": "Maybe at the end of handshake_server.c would be tidier? *shrug* Means you can write hs rather than ssl-\u003es3-\u003ehs.",
+      "revId": "c5e4a24ebf87eaaf31fa8ba545d65ad5e6eb2e71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
