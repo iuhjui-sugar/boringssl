@@ -1,0 +1,282 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d547e808_ce5a9aa3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-25T23:19:12Z",
+      "side": 1,
+      "message": "Probably worth BUG\u003dchromium:671420 so all the memory people don\u0027t wonder if we\u0027re making progress here. :-)",
+      "revId": "64a2880dbcbb12f146e69be4cd02066fa4612664",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ecb4617_9b9c8690",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-25T23:19:12Z",
+      "side": 1,
+      "message": "All this can also just be ssl_has_certificate(ssl)",
+      "revId": "64a2880dbcbb12f146e69be4cd02066fa4612664",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddaf9388_23dbaea0",
+        "filename": "ssl/ssl_cert.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-25T23:19:12Z",
+      "side": 1,
+      "message": "cached_x509_leaf and cached_x509_chain? I dunno. A bit more wordy, but clearer that this is some legacy X509 thing.",
+      "revId": "64a2880dbcbb12f146e69be4cd02066fa4612664",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "508771e0_f8f29473",
+        "filename": "ssl/ssl_cert.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-25T23:19:12Z",
+      "side": 1,
+      "message": "The above is the same as doing:\n\n  uint8_t *buf \u003d NULL;\n  int cert_len \u003d i2d_X509(x509, \u0026buf);\n  if (cert_len \u003c\u003d 0) {\n    return 0;\n  }",
+      "revId": "64a2880dbcbb12f146e69be4cd02066fa4612664",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7692a4f9_fb7ecf3e",
+        "filename": "ssl/ssl_cert.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-25T23:19:12Z",
+      "side": 1,
+      "message": "This can be chained with line 303.",
+      "revId": "64a2880dbcbb12f146e69be4cd02066fa4612664",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01573980_2d312127",
+        "filename": "ssl/ssl_cert.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-25T23:19:12Z",
+      "side": 1,
+      "message": "This can be chained with line 323.",
+      "revId": "64a2880dbcbb12f146e69be4cd02066fa4612664",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "262f5960_3c87b40c",
+        "filename": "ssl/ssl_cert.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-25T23:19:12Z",
+      "side": 1,
+      "message": "[I\u0027m thinking in our happy post-unique_ptr world, we should introduce a bssl::PushToStack or so which acts on STACK_OF(T) and bssl::UniquePtr\u003cT\u003e.]",
+      "revId": "64a2880dbcbb12f146e69be4cd02066fa4612664",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90ef84af_e22e9ee9",
+        "filename": "ssl/ssl_cert.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-25T23:19:12Z",
+      "side": 1,
+      "message": "if (buffer \u003d\u003d NULL) {\n  return 0;\n}",
+      "revId": "64a2880dbcbb12f146e69be4cd02066fa4612664",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebbb09fe_bc036407",
+        "filename": "ssl/ssl_cert.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-25T23:19:12Z",
+      "side": 1,
+      "message": "This can be chained with line 375.\n\n(Also, I am really looking forward to std::unique_ptr...)",
+      "revId": "64a2880dbcbb12f146e69be4cd02066fa4612664",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4109e514_df2928cd",
+        "filename": "ssl/ssl_cert.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-25T23:19:12Z",
+      "side": 1,
+      "message": "(This shouldn\u0027t be possible if ssl_has_certificate is true and sk_num will handle NULL fine, though perhaps it\u0027s not locally obvious.)",
+      "range": {
+        "startLine": 670,
+        "startChar": 6,
+        "endLine": 670,
+        "endChar": 30
+      },
+      "revId": "64a2880dbcbb12f146e69be4cd02066fa4612664",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6155c3e_8fd1b4a4",
+        "filename": "ssl/ssl_cert.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1093,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-25T23:19:12Z",
+      "side": 1,
+      "message": "Can chain this with line 1090.",
+      "revId": "64a2880dbcbb12f146e69be4cd02066fa4612664",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5404ffc2_78e15859",
+        "filename": "ssl/ssl_cert.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1109,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-25T23:19:12Z",
+      "side": 1,
+      "message": "Since this used to never fail, it might be good to set *out_chain \u003d NULL here, in case callers don\u0027t check. (Though all existing callers seem to check just fine.)",
+      "revId": "64a2880dbcbb12f146e69be4cd02066fa4612664",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91997494_88b3e4d8",
+        "filename": "ssl/ssl_cert.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1122,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-25T23:19:12Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "64a2880dbcbb12f146e69be4cd02066fa4612664",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bd5404e_9b0b02d5",
+        "filename": "ssl/ssl_rsa.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-25T23:19:12Z",
+      "side": 1,
+      "message": "[One of these days, I\u0027ll move code between here and ssl_cert.c to make more sense. The current split is bizarre.]",
+      "revId": "64a2880dbcbb12f146e69be4cd02066fa4612664",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0e0dde60_233dfb1f",
+        "filename": "ssl/ssl_rsa.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-25T23:19:12Z",
+      "side": 1,
+      "message": "Another option which might be a little tidier:\n\n  if (c-\u003echain \u003d\u003d NULL) {\n    c-\u003echain \u003d new_leafless_chain();\n    if (c-\u003echain \u003d\u003d NULL) {\n      CRYPTO_BUFFER_free(buffer);\n      return 0;\n    }\n  }\n\n  CRYPTO_BUFFER_free(sk_CRYPTO_BUFFER_value(c-\u003echain, 0));\n  sk_CRYPTO_BUFFER_set(c-\u003echain, 0, buffer);\n  return 1;",
+      "revId": "64a2880dbcbb12f146e69be4cd02066fa4612664",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee74aaa0_b5eaf224",
+        "filename": "ssl/ssl_x509.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-25T23:19:12Z",
+      "side": 1,
+      "message": "I\u0027m not sure why the original code had the NULL check. This isn\u0027t actually possible.",
+      "revId": "64a2880dbcbb12f146e69be4cd02066fa4612664",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
