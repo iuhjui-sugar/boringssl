@@ -25,6 +25,23 @@
     },
     {
       "key": {
+        "uuid": "ff69f308_76883810",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1093,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-25T00:09:34Z",
+      "side": 1,
+      "message": "Yeah, these states are currently BIO-style and should return -1 on error, I think. It\u0027s all kind of a mess. https://crbug.com/boringssl/24",
+      "revId": "98d9c9ef14373030ddccff4cf4eae9fa63b951a8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0848be9f_e4f5705b",
         "filename": "ssl/ssl_stat.c",
         "patchSetId": 3
@@ -42,6 +59,23 @@
         "endLine": 104,
         "endChar": 32
       },
+      "revId": "98d9c9ef14373030ddccff4cf4eae9fa63b951a8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c0eb07ff_23d712e2",
+        "filename": "ssl/ssl_stat.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-25T00:09:34Z",
+      "side": 1,
+      "message": "(See earlier comment.)",
       "revId": "98d9c9ef14373030ddccff4cf4eae9fa63b951a8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
