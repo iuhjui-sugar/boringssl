@@ -605,6 +605,7 @@ again:
       return ret;
     }
     if (is_v2_client_hello) {
+      ssl->s3->hs->v2_clienthello = 1;
       /* V2ClientHello is hashed separately. */
       hash_message = ssl_dont_hash_message;
     }
