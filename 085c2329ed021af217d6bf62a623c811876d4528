@@ -25,6 +25,23 @@
     },
     {
       "key": {
+        "uuid": "2eeacc32_5bccc9cb",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-25T22:23:29Z",
+      "side": 1,
+      "message": "Done.\n\nWhen we\u0027re C++, maybe we should add a macro which expands to\n\n   static_assert(SOME_MAX \u003c\u003d std::numeric_limits\u003cdecltype(some_field)\u003e::max());",
+      "revId": "085c2329ed021af217d6bf62a623c811876d4528",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "514aaab8_09fe3665",
         "filename": "ssl/d1_both.c",
         "patchSetId": 4
@@ -36,6 +53,23 @@
       "writtenOn": "2017-01-25T17:00:32Z",
       "side": 1,
       "message": "This is an error message, so it should be written the other way around. (I.e. |outgoing_messages_len_is_not_large_enough|)",
+      "revId": "085c2329ed021af217d6bf62a623c811876d4528",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed441d04_b5ff2ec0",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-25T22:23:29Z",
+      "side": 1,
+      "message": "Done",
       "revId": "085c2329ed021af217d6bf62a623c811876d4528",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -59,6 +93,23 @@
     },
     {
       "key": {
+        "uuid": "5408f121_f3921033",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-25T22:23:29Z",
+      "side": 1,
+      "message": "Added an assert(0). On the TLS side, this will fail on malloc failure, so the callers will notice. Since the failure mode is a memory error and it\u0027s not locally obvious this check works, I thought it was best to keep the runtime check.\n\nAssuming our test coverage continues to include all interesting handshake shapes, we should be good.",
+      "revId": "085c2329ed021af217d6bf62a623c811876d4528",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f2464a44_e48833da",
         "filename": "ssl/d1_both.c",
         "patchSetId": 4
@@ -70,6 +121,23 @@
       "writtenOn": "2017-01-25T17:00:32Z",
       "side": 1,
       "message": "ditto about this being an assert.",
+      "revId": "085c2329ed021af217d6bf62a623c811876d4528",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e1fb07c_a0be1969",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-25T22:23:29Z",
+      "side": 1,
+      "message": "Switched to an explicit DTLS_OUTGOING_MESSAGE parameter so it can be locally obvious this is impossible. (Though the downside is the silly offset is weird. Ah well.)",
       "revId": "085c2329ed021af217d6bf62a623c811876d4528",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
