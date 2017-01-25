@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "65285a98_50596303",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 839,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-01-25T00:44:58Z",
+      "side": 1,
+      "message": "I can\u0027t remember why this if block is here at all - I think it can be removed?",
+      "revId": "fa62d72ca1e0d1862a413818260df193e8f826fa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0848be9f_b51c3034",
         "filename": "ssl/test/runner/conn.go",
         "patchSetId": 6
@@ -30,6 +47,29 @@
       "writtenOn": "2017-01-24T00:33:58Z",
       "side": 1,
       "message": "I think want to do this regardless of the value of c.in.cipher, right? I think you can actually just write c.skipEarlyData \u003d false after line 849 or so.",
+      "range": {
+        "startLine": 842,
+        "startChar": 10,
+        "endLine": 842,
+        "endChar": 28
+      },
+      "revId": "fa62d72ca1e0d1862a413818260df193e8f826fa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "703dd595_f4118e4d",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-01-25T00:44:58Z",
+      "side": 1,
+      "message": "We read the ClientHello before early data, so if there\u0027s an unconditional c.skipEarlyData \u003d false near line 849, it will get set to false when reading the ClientHello and early data won\u0027t be skipped.",
       "range": {
         "startLine": 842,
         "startChar": 10,
