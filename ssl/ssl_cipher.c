@@ -1307,6 +1307,12 @@ ssl_create_cipher_list(const SSL_PROTOCOL_METHOD *ssl_method,
                           &head, &tail);
   }
 
+  /* Prefer SHA256 over SHA1 */
+  ssl_cipher_apply_rule(0, ~0u, ~0u, ~0u, SSL_SHA256, 0, CIPHER_ADD, -1, 0,
+                        &head, &tail);
+  ssl_cipher_apply_rule(0, ~0u, ~0u, ~0u, SSL_SHA1, 0, CIPHER_ADD, -1, 0,
+                        &head, &tail);
+
   /* Then the legacy non-AEAD ciphers: AES_128_CBC, AES_256_CBC,
    * 3DES_EDE_CBC_SHA. */
   ssl_cipher_apply_rule(0, ~0u, ~0u, SSL_AES128, ~0u, 0, CIPHER_ADD, -1, 0,
