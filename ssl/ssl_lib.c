@@ -620,6 +620,17 @@ void ssl_reset_error_state(SSL *ssl) {
   ERR_clear_system_error();
 }
 
+static struct CRYPTO_STATIC_MUTEX g_v2clienthello_lock =
+    CRYPTO_STATIC_MUTEX_INIT;
+static uint64_t g_v2clienthello_count = 0;
+
+uint64_t SSL_get_v2clienthello_count(void) {
+  CRYPTO_STATIC_MUTEX_lock_read(&g_v2clienthello_lock);
+  uint64_t ret = g_v2clienthello_count;
+  CRYPTO_STATIC_MUTEX_unlock_read(&g_v2clienthello_lock);
+  return ret;
+}
+
 int SSL_do_handshake(SSL *ssl) {
   ssl_reset_error_state(ssl);
 
@@ -646,6 +657,11 @@ int SSL_do_handshake(SSL *ssl) {
 
   /* Destroy the handshake object if the handshake has completely finished. */
   if (!SSL_in_init(ssl)) {
+    if (ssl->s3->v2_hello_done) {
+      CRYPTO_STATIC_MUTEX_lock_write(&g_v2clienthello_lock);
+      g_v2clienthello_count++;
+      CRYPTO_STATIC_MUTEX_unlock_write(&g_v2clienthello_lock);
+    }
     ssl_handshake_free(ssl->s3->hs);
     ssl->s3->hs = NULL;
   }
