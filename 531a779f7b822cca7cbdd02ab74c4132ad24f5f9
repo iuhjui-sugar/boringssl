@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da578488_0bf9b0f1",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-01-25T16:27:29Z",
+      "side": 1,
+      "message": "Previously I\u0027ve measured that having the ciphertext/plaintext be aligned did show a performance improvement. However, it might be worth checking whether that\u0027s still true with modern ciphers.",
+      "revId": "531a779f7b822cca7cbdd02ab74c4132ad24f5f9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
