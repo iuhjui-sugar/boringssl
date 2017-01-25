@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "480b9bea_b9eb5bc5",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-01-25T17:00:32Z",
+      "side": 1,
+      "message": "(1 \u003c\u003c sizeof(ssl-\u003ed1-\u003eoutgoing_messages_len))",
+      "range": {
+        "startLine": 556,
+        "startChar": 52,
+        "endLine": 556,
+        "endChar": 55
+      },
+      "revId": "085c2329ed021af217d6bf62a623c811876d4528",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "514aaab8_09fe3665",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-01-25T17:00:32Z",
+      "side": 1,
+      "message": "This is an error message, so it should be written the other way around. (I.e. |outgoing_messages_len_is_not_large_enough|)",
+      "revId": "085c2329ed021af217d6bf62a623c811876d4528",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c9d7a819_75051c74",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-01-25T17:00:32Z",
+      "side": 1,
+      "message": "Should this be an assert? (i.e. it seems like it can only happen in the event of a significant bug. Do we want to try and handle that?)",
+      "revId": "085c2329ed021af217d6bf62a623c811876d4528",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f2464a44_e48833da",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-01-25T17:00:32Z",
+      "side": 1,
+      "message": "ditto about this being an assert.",
+      "revId": "085c2329ed021af217d6bf62a623c811876d4528",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
