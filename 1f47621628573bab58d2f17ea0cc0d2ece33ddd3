@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "5a9124f2_6d247878",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-25T00:09:11Z",
+      "side": 1,
+      "message": "Done",
+      "revId": "1f47621628573bab58d2f17ea0cc0d2ece33ddd3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0848be9f_e4c7301b",
         "filename": "ssl/s3_both.c",
         "patchSetId": 2
@@ -36,6 +53,23 @@
         "endLine": 191,
         "endChar": 12
       },
+      "revId": "1f47621628573bab58d2f17ea0cc0d2ece33ddd3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3b821b0_3689dd0f",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-25T00:09:11Z",
+      "side": 1,
+      "message": "Yeah, BUF_MEM deals with that.",
       "revId": "1f47621628573bab58d2f17ea0cc0d2ece33ddd3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
