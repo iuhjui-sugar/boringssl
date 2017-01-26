@@ -16,6 +16,92 @@
       "revId": "e5260113b6d8428d2a278ee8039229ca018f2e1c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c1fc02e9_0eec5cb2",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1172,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-01-26T21:43:53Z",
+      "side": 1,
+      "message": "nit: Format (should be parallel to the beginning of err, 2 more spaces.)",
+      "range": {
+        "startLine": 1172,
+        "startChar": 9,
+        "endLine": 1172,
+        "endChar": 10
+      },
+      "revId": "e5260113b6d8428d2a278ee8039229ca018f2e1c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12c6471b_567b0ab2",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1172,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-01-26T21:43:53Z",
+      "side": 1,
+      "message": "Can this be inlined into DoRead since its just sanchecking on SSL_Read?",
+      "revId": "e5260113b6d8428d2a278ee8039229ca018f2e1c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2685245f_928e9f00",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1810,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-01-26T21:43:53Z",
+      "side": 1,
+      "message": "Add {}, and this should probably be \"n \u003d\u003d 0\"",
+      "range": {
+        "startLine": 1810,
+        "startChar": 13,
+        "endLine": 1810,
+        "endChar": 15
+      },
+      "revId": "e5260113b6d8428d2a278ee8039229ca018f2e1c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a2f765b_4197f296",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1846,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-01-26T21:43:53Z",
+      "side": 1,
+      "message": "n \u003d\u003d 0 since the failure case gets resolved in CheckReadResult (DoRead once its inlined).",
+      "range": {
+        "startLine": 1846,
+        "startChar": 15,
+        "endLine": 1846,
+        "endChar": 16
+      },
+      "revId": "e5260113b6d8428d2a278ee8039229ca018f2e1c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
