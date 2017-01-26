@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ab2e7d4_ec113885",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-26T23:18:46Z",
+      "side": 1,
+      "message": "Nit: Send and receive?",
+      "range": {
+        "startLine": 7,
+        "startChar": 6,
+        "endLine": 7,
+        "endChar": 10
+      },
+      "revId": "fe040d32dff3160955de291e08a9d8a8a61e1122",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f13e8726_668b4f85",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 853,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-26T23:18:46Z",
+      "side": 1,
+      "message": "I think this doesn\u0027t quite enforce record boundaries. (Do we want to enforce record boundaries? I\u0027m not sure.) If we want to, I think we can replace lines 847 through 853 with just a check of bytes.Equal(c.input.data[c.input.off:], expectedMsg). (bytes.Equal will check lengths.)",
+      "revId": "fe040d32dff3160955de291e08a9d8a8a61e1122",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "262d3d2b_eda0128c",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 869,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-26T23:18:46Z",
+      "side": 1,
+      "message": "I think you can skip that check. writeRecord will always write everything if err !\u003d nil. So\n\n  if _, err :\u003d ...; err !\u003d nil {\n     return err\n  }",
+      "revId": "fe040d32dff3160955de291e08a9d8a8a61e1122",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a0986c5_d3a0f408",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 985,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-26T23:18:46Z",
+      "side": 1,
+      "message": "Stray change?",
+      "revId": "fe040d32dff3160955de291e08a9d8a8a61e1122",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
