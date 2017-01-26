@@ -36,6 +36,23 @@
     },
     {
       "key": {
+        "uuid": "9e793022_3f3a9dbb",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 839,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-26T01:21:24Z",
+      "side": 1,
+      "message": "Probably should have had a comment. :-) This block is because skipping early data when you are expecting a second ClientHello (because you just sent HelloRetryRequest) needs this case. You effectively \"trial-decrypt\" by checking the type.",
+      "revId": "fa62d72ca1e0d1862a413818260df193e8f826fa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0848be9f_b51c3034",
         "filename": "ssl/test/runner/conn.go",
         "patchSetId": 6
