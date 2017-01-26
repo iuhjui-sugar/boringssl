@@ -53,6 +53,23 @@
     },
     {
       "key": {
+        "uuid": "7c267bea_4c6465b0",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 839,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-01-26T01:41:03Z",
+      "side": 1,
+      "message": "I restored that code, added the check for c.skipEarlyData, and added a comment.",
+      "revId": "fa62d72ca1e0d1862a413818260df193e8f826fa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0848be9f_b51c3034",
         "filename": "ssl/test/runner/conn.go",
         "patchSetId": 6
