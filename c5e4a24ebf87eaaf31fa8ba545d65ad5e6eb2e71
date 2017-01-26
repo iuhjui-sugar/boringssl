@@ -113,6 +113,23 @@
       "revId": "c5e4a24ebf87eaaf31fa8ba545d65ad5e6eb2e71",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebcd6003_d7ea8c81",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 664,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-26T19:10:41Z",
+      "side": 1,
+      "message": "I was thinking just doing it in the SSL_ST_OK block. That\u0027s in both.",
+      "revId": "c5e4a24ebf87eaaf31fa8ba545d65ad5e6eb2e71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
