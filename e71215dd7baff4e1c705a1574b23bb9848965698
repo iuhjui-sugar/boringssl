@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "823fdcca_adf89fe4",
+        "filename": "ssl/ssl_rsa.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-27T23:16:32Z",
+      "side": 1,
+      "message": "This is a behavior change, but I think it\u0027s fine: If we pass in a cert that\u0027s garbage enough for i2d_X509 to reject it, but not our own minimal checker, this will pass and then SSL_get_certificate will fail.",
+      "revId": "e71215dd7baff4e1c705a1574b23bb9848965698",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
