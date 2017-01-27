@@ -450,7 +450,7 @@ int ssl3_get_finished(SSL_HANDSHAKE *hs) {
 int ssl3_output_cert_chain(SSL *ssl) {
   CBB cbb, body;
   if (!ssl->method->init_message(ssl, &cbb, &body, SSL3_MT_CERTIFICATE) ||
-      !ssl_add_cert_chain(ssl, &body) ||
+      !ssl_add_cert_chain_or_hash(ssl, &body) ||
       !ssl_add_message_cbb(ssl, &cbb)) {
     OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
     CBB_cleanup(&cbb);
