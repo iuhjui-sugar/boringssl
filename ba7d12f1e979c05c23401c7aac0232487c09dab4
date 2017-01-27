@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d783e009_bdcc7a78",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-01-27T23:21:08Z",
+      "side": 1,
+      "message": "The reference below suggests that these local labels would need to be prefixed by the non-local label that you\u0027re adding.\n\nBut does this work anyway?",
+      "range": {
+        "startLine": 18,
+        "startChar": 17,
+        "endLine": 18,
+        "endChar": 60
+      },
+      "revId": "ba7d12f1e979c05c23401c7aac0232487c09dab4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
