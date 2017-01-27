@@ -505,10 +505,6 @@ static long conn_callback_ctrl(BIO *bio, int cmd, bio_info_cb fp) {
   return ret;
 }
 
-static int conn_puts(BIO *bp, const char *str) {
-  return conn_write(bp, str, strlen(str));
-}
-
 BIO *BIO_new_connect(const char *hostname) {
   BIO *ret;
 
@@ -524,9 +520,16 @@ BIO *BIO_new_connect(const char *hostname) {
 }
 
 static const BIO_METHOD methods_connectp = {
-    BIO_TYPE_CONNECT, "socket connect",         conn_write, conn_read,
-    conn_puts,        NULL /* connect_gets, */, conn_ctrl,  conn_new,
-    conn_free,        conn_callback_ctrl,
+    BIO_TYPE_CONNECT,
+    "socket connect",
+    conn_write,
+    conn_read,
+    NULL /* conn_puts */,
+    NULL /* conn_gets, */,
+    conn_ctrl,
+    conn_new,
+    conn_free,
+    conn_callback_ctrl,
 };
 
 const BIO_METHOD *BIO_s_connect(void) { return &methods_connectp; }
