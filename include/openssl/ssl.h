@@ -972,6 +972,12 @@ OPENSSL_EXPORT int SSL_CTX_use_certificate_ASN1(SSL_CTX *ctx, size_t der_len,
 OPENSSL_EXPORT int SSL_use_certificate_ASN1(SSL *ssl, const uint8_t *der,
                                             size_t der_len);
 
+OPENSSL_EXPORT int SSL_CTX_add_chain_cert_ASN1(SSL_CTX *ctx,
+                                               const uint8_t *der,
+                                               size_t der_len);
+OPENSSL_EXPORT int SSL_add_chain_cert_ASN1(SSL *ssl, const uint8_t *der,
+                                           size_t der_len);
+
 OPENSSL_EXPORT int SSL_CTX_use_PrivateKey_ASN1(int pk, SSL_CTX *ctx,
                                                const uint8_t *der,
                                                size_t der_len);

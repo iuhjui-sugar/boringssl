@@ -346,35 +346,37 @@ static int ssl_cert_set1_chain(CERT *cert, STACK_OF(X509) *chain) {
   return 1;
 }
 
-static int ssl_cert_append_cert(CERT *cert, X509 *x509) {
-  CRYPTO_BUFFER *buffer = x509_to_buffer(x509);
-  if (buffer == NULL) {
-    return 0;
-  }
-
+static int ssl_cert_append_cert(CERT *cert, CRYPTO_BUFFER *buffer) {
   if (cert->chain != NULL) {
     if (!sk_CRYPTO_BUFFER_push(cert->chain, buffer)) {
-      CRYPTO_BUFFER_free(buffer);
       return 0;
     }
 
+    CRYPTO_BUFFER_up_ref(buffer);
     return 1;
   }
 
   cert->chain = new_leafless_chain();
   if (cert->chain == NULL ||
       !sk_CRYPTO_BUFFER_push(cert->chain, buffer)) {
-    CRYPTO_BUFFER_free(buffer);
     sk_CRYPTO_BUFFER_free(cert->chain);
     cert->chain = NULL;
     return 0;
   }
 
+  CRYPTO_BUFFER_up_ref(buffer);
   return 1;
 }
 
 static int ssl_cert_add0_chain_cert(CERT *cert, X509 *x509) {
-  if (!ssl_cert_append_cert(cert, x509)) {
+  CRYPTO_BUFFER *buffer = x509_to_buffer(x509);
+  if (buffer == NULL) {
+    return 0;
+  }
+
+  const int ok = ssl_cert_append_cert(cert, buffer);
+  CRYPTO_BUFFER_free(buffer);
+  if (!ok) {
     return 0;
   }
 
@@ -384,7 +386,31 @@ static int ssl_cert_add0_chain_cert(CERT *cert, X509 *x509) {
 }
 
 static int ssl_cert_add1_chain_cert(CERT *cert, X509 *x509) {
-  if (!ssl_cert_append_cert(cert, x509)) {
+  CRYPTO_BUFFER *buffer = x509_to_buffer(x509);
+  if (buffer == NULL) {
+    return 0;
+  }
+
+  const int ok = ssl_cert_append_cert(cert, buffer);
+  CRYPTO_BUFFER_free(buffer);
+  if (!ok) {
+    return 0;
+  }
+
+  ssl_cert_flush_cached_x509_chain(cert);
+  return 1;
+}
+
+static int ssl_cert_add_chain_cert_asn1(CERT *cert, const uint8_t *der,
+                                        size_t der_len) {
+  CRYPTO_BUFFER *buffer = CRYPTO_BUFFER_new(der, der_len, NULL);
+  if (buffer == NULL) {
+    return 0;
+  }
+
+  const int ok = ssl_cert_append_cert(cert, buffer);
+  CRYPTO_BUFFER_free(buffer);
+  if (!ok) {
     return 0;
   }
 
@@ -1037,6 +1063,15 @@ void SSL_CTX_set_cert_cb(SSL_CTX *ctx, int (*cb)(SSL *ssl, void *arg),
 
 void SSL_set_cert_cb(SSL *ssl, int (*cb)(SSL *ssl, void *arg), void *arg) {
   ssl_cert_set_cert_cb(ssl->cert, cb, arg);
+}
+
+int SSL_CTX_add_chain_cert_ASN1(SSL_CTX *ctx, const uint8_t *der,
+                                size_t der_len) {
+  return ssl_cert_add_chain_cert_asn1(ctx->cert, der, der_len);
+}
+
+int SSL_add_chain_cert_ASN1(SSL *ssl, const uint8_t *der, size_t der_len) {
+  return ssl_cert_add_chain_cert_asn1(ssl->cert, der, der_len);
 }
 
 /* ssl_cert_cache_leaf_cert sets |cert->x509_leaf|, if currently NULL, from the
