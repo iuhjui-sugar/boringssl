@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "87755b8a_461e9bd3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-30T20:54:37Z",
+      "side": 1,
+      "message": "NB: The sysv ABI doc says Linux kernel code doesn\u0027t honor the redzone. I assume we\u0027re fine with that?",
+      "revId": "8a054b84342fd0ebb6a18ab88da0393b927bad12",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

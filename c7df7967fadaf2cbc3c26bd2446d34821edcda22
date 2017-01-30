@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2da6c454_f2978821",
+        "filename": "crypto/curve25519/asm/x25519-asm-x86_64.S",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-30T20:54:37Z",
+      "side": 0,
+      "message": "confirmed caller-saved.\n\nI assume CFI makes all that implicit and we don\u0027t need to emit .cfi_undefined everywhere?",
+      "range": {
+        "startLine": 67,
+        "startChar": 6,
+        "endLine": 67,
+        "endChar": 9
+      },
+      "revId": "c7df7967fadaf2cbc3c26bd2446d34821edcda22",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "458ce95e_2ba611cb",
+        "filename": "crypto/curve25519/asm/x25519-asm-x86_64.S",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-30T20:54:37Z",
+      "side": 0,
+      "message": "confirmed r13-15, rbx, rbp unused",
+      "revId": "c7df7967fadaf2cbc3c26bd2446d34821edcda22",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2ee7dd2c_9875eb79",
+        "filename": "crypto/curve25519/asm/x25519-asm-x86_64.S",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-30T20:54:37Z",
+      "side": 0,
+      "message": "confirmed caller-saved",
+      "range": {
+        "startLine": 151,
+        "startChar": 6,
+        "endLine": 151,
+        "endChar": 9
+      },
+      "revId": "c7df7967fadaf2cbc3c26bd2446d34821edcda22",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
