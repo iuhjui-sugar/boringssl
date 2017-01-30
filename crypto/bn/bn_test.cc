@@ -1668,6 +1668,93 @@ static bool TestBNSetGetU64() {
   return true;
 }
 
+static bool TestBNPow2(BN_CTX *ctx) {
+  BIGNUM *powerOfTwo, *random, *expected, *actual;
+
+  if (!(powerOfTwo = BN_new()) ||
+      !(random = BN_new()) ||
+      !(expected = BN_new()) ||
+      !(actual = BN_new())) {
+    return false;
+  }
+
+  /* Choose an exponent. */
+  for (int e = 3; e < 512; e += 11) {
+    /* Choose a bit length for our randoms. */
+    for (int len = 3; len < 512; len += 23) {
+      /* Set powerOfTwo = 2^e */
+      if (!BN_lshift(powerOfTwo, BN_value_one(), e)) {
+        fprintf(stderr, "Failed to shiftl.\n");
+        return false;
+      }
+
+      /* Test BN_is_pow2 on powerOfTwo */
+      if (!BN_is_pow2(powerOfTwo)) {
+        fprintf(stderr, "BN_is_pow2 returned false for a power of two.\n");
+        hexdump(stderr, "Arg: ", powerOfTwo->d,
+                powerOfTwo->top * sizeof(BN_ULONG));
+        return false;
+      }
+
+      /* Pick a large random value, ensuring it isn't a power of two */
+      if (!BN_rand(random, len, BN_RAND_TOP_TWO, BN_RAND_BOTTOM_ANY)) {
+        fprintf(stderr, "Failed to generate random in TestBNPow2.\n");
+        return false;
+      }
+
+      /* Test BN_is_pow2 on |r| */
+      if (BN_is_pow2(random)) {
+        fprintf(stderr, "BN_is_pow2 returned true for a non-power of two.\n");
+        hexdump(stderr, "Arg: ", random->d, random->top * sizeof(BN_ULONG));
+        return false;
+      }
+
+      /* Test BN_mod_pow2 on |r| */
+      if (!BN_mod(expected, random, powerOfTwo, ctx) ||
+          !BN_mod_pow2(actual, random, e) ||
+          BN_cmp(actual, expected)) {
+        fprintf(stderr, "BN_mod_pow2 returned the wrong value:\n");
+        hexdump(stderr, "Expected: ", expected->d,
+                expected->top * sizeof(BN_ULONG));
+        hexdump(stderr, "Got:      ", actual->d,
+                actual->top * sizeof(BN_ULONG));
+        return false;
+      }
+
+      /* Test BN_nnmod_pow2 on |r| */
+      if (!BN_nnmod(expected, random, powerOfTwo, ctx) ||
+          !BN_nnmod_pow2(actual, random, e) ||
+          BN_cmp(actual, expected)) {
+        fprintf(stderr, "BN_nnmod_pow2 failed on positive input:\n");
+        hexdump(stderr, "Expected: ", expected->d,
+                expected->top * sizeof(BN_ULONG));
+        hexdump(stderr, "Got:      ", actual->d,
+                actual->top * sizeof(BN_ULONG));
+        return false;
+      }
+
+      /* Test BN_nnmod_pow2 on -|r| */
+      BN_set_negative(random, 1);
+      if (!BN_nnmod(expected, random, powerOfTwo, ctx) ||
+          !BN_nnmod_pow2(actual, random, e) ||
+          BN_cmp(actual, expected)) {
+        fprintf(stderr, "BN_nnmod_pow2 failed on negative input:\n");
+        hexdump(stderr, "Expected: ", expected->d,
+                expected->top * sizeof(BN_ULONG));
+        hexdump(stderr, "Got:      ", actual->d,
+                actual->top * sizeof(BN_ULONG));
+        return false;
+      }
+    }
+  }
+
+  BN_free(powerOfTwo);
+  BN_free(random);
+  BN_free(expected);
+  BN_free(actual);
+  return true;
+}
+
 int main(int argc, char *argv[]) {
   CRYPTO_library_init();
 
@@ -1695,7 +1782,8 @@ int main(int argc, char *argv[]) {
       !TestSmallPrime(ctx.get()) ||
       !TestCmpWord() ||
       !TestBN2Dec() ||
-      !TestBNSetGetU64()) {
+      !TestBNSetGetU64() ||
+      !TestBNPow2(ctx.get())) {
     return 1;
   }
 

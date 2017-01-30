@@ -646,3 +646,88 @@ BN_ULONG BN_mod_word(const BIGNUM *a, BN_ULONG w) {
   }
   return (BN_ULONG)ret;
 }
+
+int BN_mod_pow2(BIGNUM *r, const BIGNUM *a, size_t e) {
+  if (e == 0 || a->top == 0) {
+    r->neg = 0;
+    r->top = 0;
+    return 1;
+  }
+
+  int num_words = 1 + ((e - 1) / (sizeof(BN_ULONG) * 8));
+
+  /* If |a| definitely has less than |e| bits, just BN_copy. */
+  if (a->top < num_words) {
+    return BN_copy(r, a) == NULL ? 0 : 1;
+  }
+
+  /* Otherwise, first make sure we have enough space in |r|. */
+  if (bn_wexpand(r, num_words) == NULL) {
+    return 0;
+  }
+
+  /* Copy the content of |a| into |r|. */
+  OPENSSL_memcpy(r->d, a->d, num_words * sizeof(BN_ULONG));
+
+  /* If |e| isn't word-aligned, we have to mask off some of our bits. */
+  int top_word_exponent = e % (sizeof(BN_ULONG) * 8);
+  if (top_word_exponent != 0) {
+    r->d[num_words - 1] &= (((BN_ULONG) 1) << top_word_exponent) - 1;
+  }
+
+  /* Fill in the remaining fields of |r|. */
+  r->neg = a->neg;
+  r->top = num_words;
+  bn_correct_top(r);
+  return 1;
+}
+
+int BN_nnmod_pow2(BIGNUM *r, const BIGNUM *a, size_t e) {
+  if (!BN_mod_pow2(r, a, e)) {
+    return 0;
+  }
+
+  /* If the returned value was zero, we're done. */
+  if (r->top == 0) {
+    r->neg = 0;
+    return 1;
+  }
+
+  /* If the returned value was non-negative, we're done. */
+  if (!r->neg) {
+    return 1;
+  } else {
+    r->neg = 0;
+  }
+
+  /* Expand |r| to the size of our modulus. */
+  int num_words = 1 + ((e - 1) / (sizeof(BN_ULONG) * 8));
+  bn_wexpand(r, num_words);
+
+  /* Clear the upper words of |r|. */
+  for (int i = r->top; i < num_words; i++) {
+    r->d[i] = 0;
+  }
+
+  /* Now, invert every word. The idea here is that we want to compute 2^e-|x|,
+   * which is actually equivalent to the twos-complement representation of |x|
+   * in |e| bits, which is -x = ~x + 1. */
+  r->top = num_words;
+  for (int i = 0; i < r->top; i++) {
+    r->d[i] = ~r->d[i];
+  }
+
+  /* If our exponent doesn't span the top word, we have to mask the rest. */
+  int top_word_exponent = e % (sizeof(BN_ULONG) * 8);
+  if (top_word_exponent != 0) {
+    r->d[r->top - 1] &= (((BN_ULONG) 1) << top_word_exponent) - 1;
+  }
+
+  /* Finally, add one, for the reason described above. */
+  if (!BN_add(r, r, BN_value_one())) {
+    return 0;
+  }
+
+  bn_correct_top(r);
+  return 1;
+}
