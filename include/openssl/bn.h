@@ -476,6 +476,8 @@ OPENSSL_EXPORT int BN_is_word(const BIGNUM *bn, BN_ULONG w);
 /* BN_is_odd returns one if |bn| is odd and zero otherwise. */
 OPENSSL_EXPORT int BN_is_odd(const BIGNUM *bn);
 
+/* BN_is_pow2 returns 1 if |a| is a power of two, and 0 otherwise. */
+OPENSSL_EXPORT int BN_is_pow2(const BIGNUM *a);
 
 /* Bitwise operations. */
 
@@ -513,11 +515,18 @@ OPENSSL_EXPORT int BN_is_bit_set(const BIGNUM *a, int n);
  * on success or zero if |n| is greater than the length of |a| already. */
 OPENSSL_EXPORT int BN_mask_bits(BIGNUM *a, int n);
 
-
 /* Modulo arithmetic. */
 
 /* BN_mod_word returns |a| mod |w| or (BN_ULONG)-1 on error. */
 OPENSSL_EXPORT BN_ULONG BN_mod_word(const BIGNUM *a, BN_ULONG w);
+
+/* BN_mod_pow2 sets |r| = |a| mod 2^|e|, returning 1 on success and
+ * 0 on error. */
+OPENSSL_EXPORT int BN_mod_pow2(BIGNUM *r, const BIGNUM *a, size_t e);
+
+/* BN_nnmod_pow2 sets |r| = |a| mod 2^|e|, where |r| is always positive. It
+ * returns 1 on success and 0 on error. */
+OPENSSL_EXPORT int BN_nnmod_pow2(BIGNUM *r, const BIGNUM *a, size_t e);
 
 /* BN_mod is a helper macro that calls |BN_div| and discards the quotient. */
 #define BN_mod(rem, numerator, divisor, ctx) \
@@ -678,7 +687,7 @@ OPENSSL_EXPORT int BN_GENCB_call(BN_GENCB *callback, int event, int n);
 
 /* BN_generate_prime_ex sets |ret| to a prime number of |bits| length. If safe
  * is non-zero then the prime will be such that (ret-1)/2 is also a prime.
- * (This is needed for Diffie-Hellman groups to ensure that the only subgroups
+ a (This is needed for Diffie-Hellman groups to ensure that the only subgroups
  * are of size 2 and (p-1)/2.).
  *
  * If |add| is not NULL, the prime will fulfill the condition |ret| % |add| ==
