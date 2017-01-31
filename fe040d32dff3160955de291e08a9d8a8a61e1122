@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "f385d8e8_919c8a59",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-01-31T23:07:03Z",
+      "side": 1,
+      "message": "Done",
+      "range": {
+        "startLine": 7,
+        "startChar": 6,
+        "endLine": 7,
+        "endChar": 10
+      },
+      "revId": "fe040d32dff3160955de291e08a9d8a8a61e1122",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f13e8726_668b4f85",
         "filename": "ssl/test/runner/handshake_client.go",
         "patchSetId": 9
@@ -36,6 +59,23 @@
       "writtenOn": "2017-01-26T23:18:46Z",
       "side": 1,
       "message": "I think this doesn\u0027t quite enforce record boundaries. (Do we want to enforce record boundaries? I\u0027m not sure.) If we want to, I think we can replace lines 847 through 853 with just a check of bytes.Equal(c.input.data[c.input.off:], expectedMsg). (bytes.Equal will check lengths.)",
+      "revId": "fe040d32dff3160955de291e08a9d8a8a61e1122",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c843bde_cceb45a9",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 853,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-01-31T23:07:03Z",
+      "side": 1,
+      "message": "Done",
       "revId": "fe040d32dff3160955de291e08a9d8a8a61e1122",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -59,6 +99,23 @@
     },
     {
       "key": {
+        "uuid": "2b213e7e_a1e43b3a",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 869,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-01-31T23:07:03Z",
+      "side": 1,
+      "message": "Done",
+      "revId": "fe040d32dff3160955de291e08a9d8a8a61e1122",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7a0986c5_d3a0f408",
         "filename": "ssl/test/runner/handshake_server.go",
         "patchSetId": 9
@@ -70,6 +127,23 @@
       "writtenOn": "2017-01-26T23:18:46Z",
       "side": 1,
       "message": "Stray change?",
+      "revId": "fe040d32dff3160955de291e08a9d8a8a61e1122",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4146462f_7adf036f",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 985,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-01-31T23:07:03Z",
+      "side": 1,
+      "message": "Removed.",
       "revId": "fe040d32dff3160955de291e08a9d8a8a61e1122",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
