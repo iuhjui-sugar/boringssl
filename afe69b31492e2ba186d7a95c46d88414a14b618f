@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b52e32b9_fc7862ea",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3150,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-01-31T23:55:09Z",
+      "side": 1,
+      "message": "ASSERT_TRUE(ctx);",
+      "revId": "afe69b31492e2ba186d7a95c46d88414a14b618f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
