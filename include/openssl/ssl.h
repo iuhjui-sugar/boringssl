@@ -1921,7 +1921,10 @@ OPENSSL_EXPORT int SSL_CTX_set_tlsext_ticket_keys(SSL_CTX *ctx, const void *in,
  * In both modes, |ctx| and |hmac_ctx| will already have been initialized with
  * |EVP_CIPHER_CTX_init| and |HMAC_CTX_init|, respectively. |callback|
  * configures |hmac_ctx| with an HMAC digest and key, and configures |ctx|
- * for encryption or decryption, based on the mode.
+ * for encryption or decryption, based on the mode. If |callback| returns
+ * TLSEXT_TICKET_CB_WANT_AEAD then |callback| will be called a second time
+ * with |ctx| set to a |EVP_AEAD_CTX|* on which |EVP_AEAD_CTX_zero| has been
+ * called, and |hmac_ctx| will be set to |SSL_magic_tlsext_ticket_key_cb_aead_ptr|.
  *
  * When encrypting a new ticket, |encrypt| will be one. It writes a public
  * 16-byte key name to |key_name| and a fresh IV to |iv|. The output IV length
@@ -1941,6 +1944,17 @@ OPENSSL_EXPORT int SSL_CTX_set_tlsext_ticket_key_cb(
     SSL_CTX *ctx, int (*callback)(SSL *ssl, uint8_t *key_name, uint8_t *iv,
                                   EVP_CIPHER_CTX *ctx, HMAC_CTX *hmac_ctx,
                                   int encrypt));
+
+/* SSL_magic_tlsext_ticket_key_cb_aead_ptr returns a magic |HMAC_CTX|* which
+ * indicates that the |ctx| variable passed into |callback| is not
+ * a |EVP_CIPHER_CTX|* but is instead a |EVP_AEAD_CTX|*. */
+OPENSSL_EXPORT HMAC_CTX *SSL_magic_tlsext_ticket_key_cb_aead_ptr(void);
+
+/* The return value of the ticket callback that requests AEAD operation.
+ *
+ * See |SSL_CTX_set_tlsext_ticket_key_cb|
+ * and |SSL_magic_tlsext_ticket_key_cb_aead_ptr|. */
+#define TLSEXT_TICKET_CB_WANT_AEAD -0xAEAD
 
 
 /* Elliptic curve Diffie-Hellman.

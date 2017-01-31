@@ -3098,6 +3098,7 @@ int tls_process_ticket(SSL *ssl, SSL_SESSION **out_session,
                        size_t ticket_len, const uint8_t *session_id,
                        size_t session_id_len) {
   int ret = 1; /* Most errors are non-fatal. */
+  int is_aead = 0;
   SSL_CTX *ssl_ctx = ssl->initial_ctx;
   uint8_t *plaintext = NULL;
 
@@ -3105,6 +3106,8 @@ int tls_process_ticket(SSL *ssl, SSL_SESSION **out_session,
   HMAC_CTX_init(&hmac_ctx);
   EVP_CIPHER_CTX cipher_ctx;
   EVP_CIPHER_CTX_init(&cipher_ctx);
+  EVP_AEAD_CTX aead_ctx;
+  EVP_AEAD_CTX_zero(&aead_ctx);
 
   *out_renew_ticket = 0;
   *out_session = NULL;
@@ -3130,6 +3133,14 @@ int tls_process_ticket(SSL *ssl, SSL_SESSION **out_session,
     int cb_ret = ssl_ctx->tlsext_ticket_key_cb(
         ssl, (uint8_t *)ticket /* name */, (uint8_t *)iv, &cipher_ctx,
         &hmac_ctx, 0 /* decrypt */);
+    if (cb_ret == TLSEXT_TICKET_CB_WANT_AEAD) {
+      is_aead = 1;
+
+      cb_ret = ssl_ctx->tlsext_ticket_key_cb(
+          ssl, (uint8_t *)ticket /* name */, (uint8_t *)iv,
+          (EVP_CIPHER_CTX *)&aead_ctx, SSL_magic_tlsext_ticket_key_cb_aead_ptr(),
+          0 /* decrypt */);
+    }
     if (cb_ret < 0) {
       ret = 0;
       goto done;
@@ -3155,6 +3166,44 @@ int tls_process_ticket(SSL *ssl, SSL_SESSION **out_session,
       goto done;
     }
   }
+
+  if (is_aead) {
+    const size_t nonce_len = EVP_AEAD_nonce_length(aead_ctx.aead);
+
+    /* Decrypt the session data. */
+    const uint8_t *ciphertext = ticket + SSL_TICKET_KEY_NAME_LEN + nonce_len;
+    size_t ciphertext_len = ticket_len - SSL_TICKET_KEY_NAME_LEN - nonce_len;
+    plaintext = OPENSSL_malloc(ciphertext_len);
+    if (plaintext == NULL) {
+      ret = 0;
+      goto done;
+    }
+
+    size_t plaintext_len;
+
+    if (!EVP_AEAD_CTX_open(&aead_ctx, plaintext, &plaintext_len, ciphertext_len,
+                           iv, nonce_len, ciphertext, ciphertext_len, NULL, 0)) {
+      ERR_clear_error(); /* Don't leave an error on the queue. */
+      goto done;
+    }
+
+    /* Decode the session. */
+    SSL_SESSION *session = SSL_SESSION_from_bytes(plaintext, plaintext_len);
+    if (session == NULL) {
+      ERR_clear_error(); /* Don't leave an error on the queue. */
+      goto done;
+    }
+
+    /* Copy the client's session ID into the new session, to denote the ticket has
+     * been accepted. */
+    memcpy(session->session_id, session_id, session_id_len);
+    session->session_id_length = session_id_len;
+
+    *out_session = session;
+
+    goto done;
+  }
+
   size_t iv_len = EVP_CIPHER_CTX_iv_length(&cipher_ctx);
 
   /* Check the MAC at the end of the ticket. */
@@ -3220,6 +3269,7 @@ done:
   OPENSSL_free(plaintext);
   HMAC_CTX_cleanup(&hmac_ctx);
   EVP_CIPHER_CTX_cleanup(&cipher_ctx);
+  EVP_AEAD_CTX_cleanup(&aead_ctx);
   return ret;
 }
 
