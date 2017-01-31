@@ -16,6 +16,23 @@
       "revId": "8a054b84342fd0ebb6a18ab88da0393b927bad12",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c4f31da_9e612466",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-01-31T17:49:39Z",
+      "side": 1,
+      "message": "It\u0027s saying that you can\u0027t use the redzone *inside* the kernel I believe. I think we\u0027re fine with that.",
+      "revId": "8a054b84342fd0ebb6a18ab88da0393b927bad12",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
