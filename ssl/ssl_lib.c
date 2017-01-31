@@ -163,6 +163,11 @@
 #endif
 
 
+/* The address of this is a magic value, a pointer to which is returned by
+ * SSL_magic_tlsext_ticket_key_cb_aead_ptr(). It indicated that AEAD mode is
+ * being used. */
+static const char g_tlsext_ticket_cb_aead_magic = 0;
+
 /* |SSL_R_UNKNOWN_PROTOCOL| is no longer emitted, but continue to define it
  * to avoid downstream churn. */
 OPENSSL_DECLARE_ERROR_REASON(SSL, UNKNOWN_PROTOCOL)
@@ -1423,6 +1428,10 @@ int SSL_CTX_set_tlsext_ticket_key_cb(
                                   int encrypt)) {
   ctx->tlsext_ticket_key_cb = callback;
   return 1;
+}
+
+HMAC_CTX *SSL_magic_tlsext_ticket_key_cb_aead_ptr(void) {
+  return (HMAC_CTX *)&g_tlsext_ticket_cb_aead_magic;
 }
 
 int SSL_CTX_set1_curves(SSL_CTX *ctx, const int *curves, size_t curves_len) {

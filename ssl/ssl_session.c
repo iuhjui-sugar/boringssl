@@ -597,11 +597,16 @@ int ssl_encrypt_ticket(SSL *ssl, CBB *out, const SSL_SESSION *session) {
   EVP_CIPHER_CTX_init(&ctx);
   HMAC_CTX hctx;
   HMAC_CTX_init(&hctx);
+  EVP_AEAD_CTX aead_ctx;
+  EVP_AEAD_CTX_zero(&aead_ctx);
 
   /* If the session is too long, emit a dummy value rather than abort the
    * connection. */
-  static const size_t kMaxTicketOverhead =
-      16 + EVP_MAX_IV_LENGTH + EVP_MAX_BLOCK_LENGTH + EVP_MAX_MD_SIZE;
+  static const size_t kMaxTicketOverhead = 16 +
+      (EVP_MAX_IV_LENGTH < EVP_AEAD_MAX_NONCE_LENGTH
+          ? EVP_AEAD_MAX_NONCE_LENGTH : EVP_MAX_IV_LENGTH) +
+      ((EVP_MAX_BLOCK_LENGTH + EVP_MAX_MD_SIZE) < EVP_AEAD_MAX_OVERHEAD
+          ? EVP_AEAD_MAX_OVERHEAD : EVP_MAX_BLOCK_LENGTH + EVP_MAX_MD_SIZE);
   if (session_len > 0xffff - kMaxTicketOverhead) {
     static const char kTicketPlaceholder[] = "TICKET TOO LARGE";
     if (CBB_add_bytes(out, (const uint8_t *)kTicketPlaceholder,
@@ -614,11 +619,22 @@ int ssl_encrypt_ticket(SSL *ssl, CBB *out, const SSL_SESSION *session) {
   /* Initialize HMAC and cipher contexts. If callback present it does all the
    * work otherwise use generated values from parent ctx. */
   SSL_CTX *tctx = ssl->initial_ctx;
-  uint8_t iv[EVP_MAX_IV_LENGTH];
+  uint8_t iv[EVP_MAX_IV_LENGTH < EVP_AEAD_MAX_NONCE_LENGTH
+      ? EVP_AEAD_MAX_NONCE_LENGTH : EVP_MAX_IV_LENGTH];
   uint8_t key_name[16];
+  int is_aead = 0;
   if (tctx->tlsext_ticket_key_cb != NULL) {
-    if (tctx->tlsext_ticket_key_cb(ssl, key_name, iv, &ctx, &hctx,
-                                   1 /* encrypt */) < 0) {
+    int cb_ret = tctx->tlsext_ticket_key_cb(ssl, key_name, iv, &ctx, &hctx,
+                                            1 /* encrypt */);
+    if (cb_ret == TLSEXT_TICKET_CB_WANT_AEAD) {
+      is_aead = 1;
+
+      cb_ret = tctx->tlsext_ticket_key_cb(ssl, key_name, iv,
+                                          (EVP_CIPHER_CTX *)&aead_ctx,
+                                          SSL_magic_tlsext_ticket_key_cb_aead_ptr(),
+                                          1 /* encrypt */);
+    }
+    if (cb_ret < 0) {
       goto err;
     }
   } else {
@@ -633,8 +649,28 @@ int ssl_encrypt_ticket(SSL *ssl, CBB *out, const SSL_SESSION *session) {
   }
 
   uint8_t *ptr;
-  if (!CBB_add_bytes(out, key_name, 16) ||
-      !CBB_add_bytes(out, iv, EVP_CIPHER_CTX_iv_length(&ctx)) ||
+  if (!CBB_add_bytes(out, key_name, 16)) {
+    goto err;
+  }
+
+  if (is_aead) {
+    size_t out_len;
+    const size_t nonce_len = EVP_AEAD_nonce_length(aead_ctx.aead);
+    const size_t max_overhead = EVP_AEAD_max_overhead(aead_ctx.aead);
+
+    if (CBB_add_bytes(out, iv, nonce_len) &&
+        CBB_reserve(out, &ptr, session_len + max_overhead) &&
+        EVP_AEAD_CTX_seal(&aead_ctx,
+                           ptr, &out_len, session_len + max_overhead,
+                           iv, nonce_len, session_buf, session_len, NULL, 0) &&
+        CBB_did_write(out, out_len)) {
+       ret = 1;
+    }
+
+    goto err;
+  }
+
+  if (!CBB_add_bytes(out, iv, EVP_CIPHER_CTX_iv_length(&ctx)) ||
       !CBB_reserve(out, &ptr, session_len + EVP_MAX_BLOCK_LENGTH)) {
     goto err;
   }
@@ -670,6 +706,7 @@ int ssl_encrypt_ticket(SSL *ssl, CBB *out, const SSL_SESSION *session) {
 
 err:
   OPENSSL_free(session_buf);
+  EVP_AEAD_CTX_cleanup(&aead_ctx);
   EVP_CIPHER_CTX_cleanup(&ctx);
   HMAC_CTX_cleanup(&hctx);
   return ret;
