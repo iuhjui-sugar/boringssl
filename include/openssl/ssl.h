@@ -3687,6 +3687,7 @@ OPENSSL_EXPORT long BIO_set_ssl(BIO *bio, SSL *ssl, int take_owership);
  * deprecated. */
 
 typedef struct ssl_protocol_method_st SSL_PROTOCOL_METHOD;
+typedef struct ssl_x509_method_st SSL_X509_METHOD;
 
 struct ssl_cipher_st {
   /* name is the OpenSSL name for the cipher. */
@@ -3865,6 +3866,7 @@ struct ssl_cipher_preference_list_st {
  * connections. */
 struct ssl_ctx_st {
   const SSL_PROTOCOL_METHOD *method;
+  const SSL_X509_METHOD *x509_method;
 
   /* lock is used to protect various operations on this object. */
   CRYPTO_MUTEX lock;
