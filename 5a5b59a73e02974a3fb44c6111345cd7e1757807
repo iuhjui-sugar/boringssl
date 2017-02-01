@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "229faf75_7803a6f1",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1257,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-01T21:01:24Z",
+      "side": 1,
+      "message": "Maybe match the behavior of the other tests:\n\nif (config-\u003eexpect_session_id \u003d\u003d GetTestState(ssl)-\u003egot_new_session || config-\u003eexpect_no_session_id !\u003d GetTestState(ssl)-\u003egot_new_session) {\n  fprintf(stderr,\n          \"session was%s cached on the server.\\n\", GetTestState(ssl)-\u003eget_new_session) ? \"\" : \" not\");\n}",
+      "revId": "5a5b59a73e02974a3fb44c6111345cd7e1757807",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
