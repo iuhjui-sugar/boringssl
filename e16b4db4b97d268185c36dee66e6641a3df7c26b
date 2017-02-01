@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1ee60da2_a816fb9c",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 1138,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-01T00:09:59Z",
+      "side": 1,
+      "message": "that \u003d\u003e that is?",
+      "range": {
+        "startLine": 1138,
+        "startChar": 43,
+        "endLine": 1138,
+        "endChar": 44
+      },
+      "revId": "e16b4db4b97d268185c36dee66e6641a3df7c26b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9519ea6b_84e8e267",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-01T00:09:59Z",
+      "side": 1,
+      "message": "(The incEpoch call is a no-op right now, but I suspect this will end up getting tweaked. That DTLS 1.3 will have optional legs makes things funny. IIRC they\u0027re doing one epoch per leg which is probably the only sane way to do it.)",
+      "revId": "e16b4db4b97d268185c36dee66e6641a3df7c26b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94baf11b_f6816e14",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-01T00:09:59Z",
+      "side": 1,
+      "message": "Since 0-RTT is associated with a version, it might make more sense keep this check as-is and arrange for hc.version to get changed. (I.e. hc.version is part of \"what record-layer am I using\" while c.vers is the high-level version.)\n\n(Actually, it looks like you can just remove this change?)\n\nDitto below.",
+      "revId": "e16b4db4b97d268185c36dee66e6641a3df7c26b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f307099_6d15fd64",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 844,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-01T00:09:59Z",
+      "side": 1,
+      "message": "When would clients set skipEarlyData?",
+      "range": {
+        "startLine": 844,
+        "startChar": 30,
+        "endLine": 844,
+        "endChar": 41
+      },
+      "revId": "e16b4db4b97d268185c36dee66e6641a3df7c26b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34674082_cbe52e89",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-01T00:09:59Z",
+      "side": 1,
+      "message": "This might be clearer in several chunks:\n\n\nif [...SendEarlyData...] {\n  hello.hasEarlyData \u003d true\n}\nif [...SendFakeEarlyDataLength...] {\n  hello.hasEarlyData \u003d true\n}\nif [...OmitEarlyDataExtension...] {\n  hello.hasEarlyData \u003d false\n}",
+      "revId": "e16b4db4b97d268185c36dee66e6641a3df7c26b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18b707ca_41aedb3c",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-01T00:09:59Z",
+      "side": 1,
+      "message": "Maybe have a sendEarlyData boolean and check that? This ties it up with all the other early data bugs.",
+      "range": {
+        "startLine": 376,
+        "startChar": 10,
+        "endLine": 376,
+        "endChar": 22
+      },
+      "revId": "e16b4db4b97d268185c36dee66e6641a3df7c26b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
