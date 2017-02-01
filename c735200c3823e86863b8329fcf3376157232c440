@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "58d54e63_dd82b3fc",
+        "filename": "ssl/d1_pkt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-01T20:54:33Z",
+      "side": 1,
+      "message": "Can we assert(ssl-\u003es3-\u003ealert_dispatch)?",
+      "revId": "c735200c3823e86863b8329fcf3376157232c440",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
