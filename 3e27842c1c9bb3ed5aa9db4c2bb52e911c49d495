@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "61a4b32b_82971083",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 935,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-01T22:55:10Z",
+      "side": 1,
+      "message": "data aliases block, so doing this after freeBlock seems off. (Not that we actually care about this block managenent stuff for BoGo. Maybe worth unwinding it sometime.)",
+      "range": {
+        "startLine": 935,
+        "startChar": 12,
+        "endLine": 935,
+        "endChar": 19
+      },
+      "revId": "3e27842c1c9bb3ed5aa9db4c2bb52e911c49d495",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a96ec3d_5249fe8a",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 936,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-01T22:55:10Z",
+      "side": 1,
+      "message": "Hrm. Won\u0027t this cause random end_of_early_data alerts will cause weird things to happen when want !\u003d typ?\n\nPerhaps make it follow a similar path as alertNoCertificate. Return a magic error code which turns into a fake handshake message. That aligns with what it will ultimately look like anyway, with the alert turning into a message.",
+      "revId": "3e27842c1c9bb3ed5aa9db4c2bb52e911c49d495",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02bd33c7_aa4feee1",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-01T22:55:10Z",
+      "side": 1,
+      "message": "(I dunno if we\u0027ll later need to worry about ALPN matches and others or if that should just be part of the test configuration. I guess we\u0027ll deal with that then.)",
+      "revId": "3e27842c1c9bb3ed5aa9db4c2bb52e911c49d495",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "70a52304_99985217",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 886,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-01T22:55:10Z",
+      "side": 1,
+      "message": "Maybe stash this in a boolean somewhere or check encryptedExtensions.extensions.hasEarlyData? In case we need to add to this later.",
+      "range": {
+        "startLine": 886,
+        "startChar": 4,
+        "endLine": 886,
+        "endChar": 83
+      },
+      "revId": "3e27842c1c9bb3ed5aa9db4c2bb52e911c49d495",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
