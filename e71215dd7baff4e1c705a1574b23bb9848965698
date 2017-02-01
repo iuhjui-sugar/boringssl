@@ -16,6 +16,23 @@
       "revId": "e71215dd7baff4e1c705a1574b23bb9848965698",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3dd2a26f_d247665b",
+        "filename": "ssl/ssl_rsa.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-02-01T19:59:59Z",
+      "side": 1,
+      "message": "Yep.",
+      "revId": "e71215dd7baff4e1c705a1574b23bb9848965698",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
