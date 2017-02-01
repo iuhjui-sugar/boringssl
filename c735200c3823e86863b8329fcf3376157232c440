@@ -16,6 +16,23 @@
       "revId": "c735200c3823e86863b8329fcf3376157232c440",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "be2af8f6_f9c9299a",
+        "filename": "ssl/d1_pkt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-01T21:00:31Z",
+      "side": 1,
+      "message": "It\u0027d just fire immediately since dtls1_dispatch_alert currently calls this function.",
+      "revId": "c735200c3823e86863b8329fcf3376157232c440",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
