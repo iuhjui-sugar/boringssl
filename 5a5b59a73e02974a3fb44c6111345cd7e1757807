@@ -16,6 +16,23 @@
       "revId": "5a5b59a73e02974a3fb44c6111345cd7e1757807",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b2594e3a_4234bd29",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1257,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-01T23:07:16Z",
+      "side": 1,
+      "message": "[Determined out-of-band that making that work ends up being kinda messy.]",
+      "revId": "5a5b59a73e02974a3fb44c6111345cd7e1757807",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
