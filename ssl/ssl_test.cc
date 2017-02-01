@@ -634,7 +634,9 @@ static bool TestSSL_SESSIONEncoding(const char *input_b64) {
   }
 
   // Verify the SSL_SESSION decodes.
-  bssl::UniquePtr<SSL_SESSION> session(SSL_SESSION_from_bytes(input.data(), input.size()));
+  bssl::UniquePtr<SSL_CTX> ssl_ctx(SSL_CTX_new(TLS_method()));
+  bssl::UniquePtr<SSL_SESSION> session(
+      SSL_SESSION_from_bytes(input.data(), input.size(), ssl_ctx.get()));
   if (!session) {
     fprintf(stderr, "SSL_SESSION_from_bytes failed\n");
     return false;
@@ -703,7 +705,9 @@ static bool TestBadSSL_SESSIONEncoding(const char *input_b64) {
   }
 
   // Verify that the SSL_SESSION fails to decode.
-  bssl::UniquePtr<SSL_SESSION> session(SSL_SESSION_from_bytes(input.data(), input.size()));
+  bssl::UniquePtr<SSL_CTX> ssl_ctx(SSL_CTX_new(TLS_method()));
+  bssl::UniquePtr<SSL_SESSION> session(
+      SSL_SESSION_from_bytes(input.data(), input.size(), ssl_ctx.get()));
   if (session) {
     fprintf(stderr, "SSL_SESSION_from_bytes unexpectedly succeeded\n");
     return false;
@@ -795,8 +799,10 @@ static bssl::UniquePtr<SSL_SESSION> CreateSessionWithTicket(uint16_t version,
   if (!DecodeBase64(&der, kOpenSSLSession)) {
     return nullptr;
   }
+
+  bssl::UniquePtr<SSL_CTX> ssl_ctx(SSL_CTX_new(TLS_method()));
   bssl::UniquePtr<SSL_SESSION> session(
-      SSL_SESSION_from_bytes(der.data(), der.size()));
+      SSL_SESSION_from_bytes(der.data(), der.size(), ssl_ctx.get()));
   if (!session) {
     return nullptr;
   }
@@ -989,7 +995,8 @@ static bool ExpectCache(SSL_CTX *ctx,
 }
 
 static bssl::UniquePtr<SSL_SESSION> CreateTestSession(uint32_t number) {
-  bssl::UniquePtr<SSL_SESSION> ret(SSL_SESSION_new());
+  bssl::UniquePtr<SSL_CTX> ssl_ctx(SSL_CTX_new(TLS_method()));
+  bssl::UniquePtr<SSL_SESSION> ret(SSL_SESSION_new(ssl_ctx.get()));
   if (!ret) {
     return nullptr;
   }
@@ -2166,8 +2173,9 @@ static bool GetServerTicketTime(long *out, const SSL_SESSION *session) {
   len = static_cast<size_t>(len1 + len2);
 #endif
 
+  bssl::UniquePtr<SSL_CTX> ssl_ctx(SSL_CTX_new(TLS_method()));
   bssl::UniquePtr<SSL_SESSION> server_session(
-      SSL_SESSION_from_bytes(plaintext.get(), len));
+      SSL_SESSION_from_bytes(plaintext.get(), len, ssl_ctx.get()));
   if (!server_session) {
     return false;
   }
