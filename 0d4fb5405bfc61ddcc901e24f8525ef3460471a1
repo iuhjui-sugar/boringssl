@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "61c41ae4_beee5dc0",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1768,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-01T20:58:05Z",
+      "side": 1,
+      "message": "Alessandro: Would you all need this? I added it on the assumption that, if I didn\u0027t, you\u0027d shortly afterwards send a CL to add an analog of SSL_set_session_timeout. :-)",
+      "range": {
+        "startLine": 1768,
+        "startChar": 20,
+        "endLine": 1768,
+        "endChar": 51
+      },
+      "revId": "0d4fb5405bfc61ddcc901e24f8525ef3460471a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
