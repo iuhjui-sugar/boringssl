@@ -1,0 +1,1089 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "85ca6cd5_e91c3826",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "Ditto re NULL check comment on s3_both.c.",
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "678125a9_42debdbc",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 723,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "This is for 0-RTT, right? Maybe put it in with that change. (Also it should probably have a comment explaining what\u0027s going on here.)\n\n[Actually, see comment in tls13_client.c. Won\u0027t you ultimately want to tls13_init_key_schedule anyway? In which case, we may as well just put it in there.]",
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9fd3029_316b04ff",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 1005,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "Check for return value?",
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ae33d6e_e67eafe8",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 1736,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "Move decl down to line 1745.",
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe993dcd_d6ff36fc",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 1739,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "hs",
+      "range": {
+        "startLine": 1739,
+        "startChar": 37,
+        "endLine": 1739,
+        "endChar": 48
+      },
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46927175_42942790",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 1745,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "EVP_sha1. I\u0027m kind of surprised this passed tests. :-)\n\nAre you sure making it not a return value is better? This means you need to do this conversion twice and might get it wrong.\n\nAlternatively alternatively... actually in both cases EVP_PKEY_CTX_set_signature_md is a no-op. You could just delete all of that. :-P",
+      "range": {
+        "startLine": 1745,
+        "startChar": 11,
+        "endLine": 1745,
+        "endChar": 18
+      },
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "139d3902_8374844d",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "Idle thought: what if SSL_HANDSHAKE_new just called this one. If we didn\u0027t care about malloc errors and had C++, SSL_PRF\u0027s constructor would just go ahead and allocate the handshake buffer.",
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "619f9578_02b90c2c",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 922,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "Check for return value?",
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f741900e_473e8874",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 1820,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "hs",
+      "range": {
+        "startLine": 1820,
+        "startChar": 35,
+        "endLine": 1820,
+        "endChar": 46
+      },
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b73ae0c5_80dd4bc0",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 1826,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "Ditto from other file.",
+      "range": {
+        "startLine": 1826,
+        "startChar": 9,
+        "endLine": 1826,
+        "endChar": 16
+      },
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "884952ac_2a8380f5",
+        "filename": "ssl/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "Nit: SSL_AEAD_CTX and SSL_PRF probably each deserve their own sections.",
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "048c265f_aa98bdc2",
+        "filename": "ssl/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "It\u0027s not really the PRF. It\u0027s called prf.go in the Go code, but that\u0027s because that structure also manages the key schedule. This one is just a handshake transcript.\n\n(I don\u0027t have a good alternate name, but the comment should say the right one.\n\nPossible alternate names: SSL_TRANSCRIPT? SSL_HASH? Dunno.)",
+      "range": {
+        "startLine": 265,
+        "startChar": 40,
+        "endLine": 265,
+        "endChar": 43
+      },
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39f01af9_293eaf60",
+        "filename": "ssl/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "This ends up storing the hash in three different places. (algorithm, md, and the combination of hs_hash / hs_md5.) I think the main reason it\u0027s a little weird is because you split init and init_hash (see below). You should be able to get it all out of hs_hash / hs_md5 one you merge them.\n\n(Probably will want a getter in that case rather than have everything access it directly.)",
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "693630f5_334f6c07",
+        "filename": "ssl/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "Nit: Dunno if there\u0027s any need for hs prefix on these.",
+      "range": {
+        "startLine": 279,
+        "startChar": 13,
+        "endLine": 279,
+        "endChar": 16
+      },
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b81b59c1_9ca48621",
+        "filename": "ssl/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "uint16_t",
+      "range": {
+        "startLine": 323,
+        "startChar": 31,
+        "endLine": 323,
+        "endChar": 34
+      },
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "236ee925_ecda3a55",
+        "filename": "ssl/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "High-level comment: this set of APIs is a little odd around init and cleanup.\n\n- Is it okay to call SSL_PRF_init multiple times? (your current impl leaks memory if you do)\n- Why do I need both SSL_PRF_init_hash and SSL_PRF_init?\n- What happens if I call init_hash repeatedly?\n\nThinking about the operations we need, we want to maintain:\n\nState:\n- handshake buffer, may or may not be active.\n- handshake hash, may or may not be active. Active \u003c\u003d\u003e hash function is known.\n\nOn creation:\n- handshake buffer is active but empty\n- handshake hash is empty.\n\nOperations to support:\n\n- (Re)initialize. This is needed on DTLS HelloVerifyRequest. Just clear both the buffer (if active) and the hash (if active). Though really this only needs to be called when the buffer is active and the hash isn\u0027t, so we can just fail it in all other cases.\n- Cleanup when we\u0027re done with it all.\n- Update. We add to buffer/hash, whichever are active.\n- Drop buffer. This is to save memory once we know the hash. This is free_transcript in your API.\n- Init hash. This is called once we know the hash. For 0-RTT, it may be called repeatedly but fails if the buffer is inactive.\n- Get Hash. Spits out the hash (or fails if not active).\n- [SSLv3 silliness, other getters]\n\nConcretely, perhaps:\n\n- init_transcript \u003d\u003e init. API promises init works at any point in time.\n- free_hash \u003d\u003e cleanup. Since init can fail, API promises that cleanup handles in the zero state\n- free_transcript \u003d\u003e release_buffer or free_buffer or stop_buffering; just to avoid confusion with whether \"transcript\" is both hash/buffer or just buffer.\n- init + init_hash merged together \u003d\u003e init_hash.",
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4053977_ea64468b",
+        "filename": "ssl/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "In init_transcript, \"transcript\" means both the buffer and the hash. Here it means just the buffer.",
+      "range": {
+        "startLine": 338,
+        "startChar": 5,
+        "endLine": 338,
+        "endChar": 28
+      },
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3219c325_2348018a",
+        "filename": "ssl/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "This would only be called on cleanup in tandem with free_transcript. For a tighter abstraction, better to use SSL_PRF_cleanup.",
+      "range": {
+        "startLine": 341,
+        "startChar": 5,
+        "endLine": 341,
+        "endChar": 22
+      },
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "870f50b9_7b4ce4a4",
+        "filename": "ssl/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 344,
+        "startChar": 26,
+        "endLine": 344,
+        "endChar": 33
+      },
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4324969_d158bbb2",
+        "filename": "ssl/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 362,
+        "startChar": 50,
+        "endLine": 362,
+        "endChar": 57
+      },
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2260734_b3e63315",
+        "filename": "ssl/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "Nit: I\u0027d probably put out before session. (Context, then output, then input.)",
+      "range": {
+        "startLine": 362,
+        "startChar": 68,
+        "endLine": 362,
+        "endChar": 71
+      },
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "028876cc_d0787093",
+        "filename": "ssl/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "uint16_t?",
+      "range": {
+        "startLine": 363,
+        "startChar": 40,
+        "endLine": 363,
+        "endChar": 43
+      },
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7d32830_0a73aa79",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "For the sake of having a coherent abstraction, probably worth wrapping these in SSL_PRF_cleanup.",
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26687577_8880a059",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "The rule around hs is accesses to this field should have a NULL check. If you know it\u0027s always there, it should be a parameter. (Otherwise we\u0027ll way too easily crash when stuff is on hs.)\n\nIn this case, I don\u0027t think we can assume it is non-NULL (think KeyUpdate), which means there\u0027s actually a deeper problem: when we make hs messages, when do we want or not want to hash it? In cases like NewSessionTicket, we don\u0027t want to hash it. (Consider half-RTT tickets.)\n\nWhat if we put it in complete_message_cbb and passed hs into that? Then NewSessionTicket can just do it manually.",
+      "range": {
+        "startLine": 258,
+        "startChar": 28,
+        "endLine": 258,
+        "endChar": 39
+      },
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61434b8c_78869b63",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "const SSL_SESSION *.\n\nIt\u0027s really dangerous for us to call SSL_get_session because we might accidentally mutate an immutable session. (Later we should add ssl_get_handshake_session(hs) that returns const and remove all the internal calls to it.)",
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "436dc35f_eb8d9714",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "This one probably just wants a comment justifying that hs is always there.",
+      "range": {
+        "startLine": 557,
+        "startChar": 33,
+        "endLine": 557,
+        "endChar": 44
+      },
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3538bebf_61311865",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "Ditto re NULL check. (Pass hs in?)",
+      "range": {
+        "startLine": 755,
+        "startChar": 35,
+        "endLine": 755,
+        "endChar": 46
+      },
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccb95665_c6872ea3",
+        "filename": "ssl/ssl_prf.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "Since this includes SSLv3 code from below, I think we need the longer copyright message.\n\n(Also it\u0027s 2017 anyway. :-) )",
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "405afa6f_ebccf0ba",
+        "filename": "ssl/ssl_prf.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "Unused?",
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4cc8e86_29f41393",
+        "filename": "ssl/ssl_prf.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "Unused?",
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d4e79c1_daab1a0b",
+        "filename": "ssl/ssl_prf.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "digest.h",
+      "range": {
+        "startLine": 24,
+        "startChar": 18,
+        "endLine": 24,
+        "endChar": 21
+      },
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f869ba35_95c56883",
+        "filename": "ssl/ssl_prf.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "Everything else just pretends this can never return NULL. Annoying lack of type-checked enums.",
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be0400b6_6c218c79",
+        "filename": "ssl/ssl_prf.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "This is a little inconsistent, potentially a memory leak? Using API-CONVENTIONS\u0027s terminology, this is a stack-allocated struct, so there\u0027s putting prf into the zero state and (re-)initializing it. It\u0027s a little awkward because sometimes we do foo_zero/foo_init and sometimes foo_init/FooInit.\n\nEVP_MD_CTX_init does not reinitialize. It puts into the zero state, assuming the existing contents are garbage as opposed to something that needs to be cleaned up.\n\nIt turns out SSL_PRF never needs to be put into the zero state because memset works. Though this is nominally breaking some abstractions, so it may be good to add have ssl_handshake_new call SSL_PRF_zero which, in turn, calls EVP_MD_CTX_init.\n\nNotably, if you were to call SSL_PRF_init on an existing SSL_PRF, you would leak memory. (I thought we wanted to be able to do that for 0-RTT.)",
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c57945ea_feab4509",
+        "filename": "ssl/ssl_prf.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "(You actually don\u0027t need to cleanup to reuse an EVP_MD_CTX. EVP_MD_CTX is Clever(TM) like that. Not that that\u0027s necessarily a good thing...)",
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "066ba3df_dfba87ae",
+        "filename": "ssl/ssl_prf.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "Ditto re initialization vs. zero state.",
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c97e125_48d66f4b",
+        "filename": "ssl/ssl_prf.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "Not that it really matters, but you could probably save a tiny bit of code by replacing this with an EVP_MD_CTX *ctx_template parameter and pass \u0026prf-\u003ehs_{md5,hash} at the call sites.",
+      "range": {
+        "startLine": 141,
+        "startChar": 70,
+        "endLine": 141,
+        "endChar": 76
+      },
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c18d7295_c2be8ed9",
+        "filename": "ssl/t1_enc.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "[I\u0027m assuming you just copied this over.]",
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3cb25b6_20fbeb94",
+        "filename": "ssl/t1_enc.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "[Existing, but I think this leaks memory on malloc error... eh, we can switch it to SHA_CTX and MD5_CTX later.]",
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f7de179a_bd82547c",
+        "filename": "ssl/t1_enc.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "I\u0027d just use SSL_get_session for now. This function is already depending on it. :-/",
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b47e59be_7e4a47ac",
+        "filename": "ssl/t1_enc.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "This should probably be a function on SSL_PRF.",
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0f3f69f_c83cc92f",
+        "filename": "ssl/t1_enc.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "Pass hs in.",
+      "range": {
+        "startLine": 528,
+        "startChar": 31,
+        "endLine": 528,
+        "endChar": 42
+      },
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b73c91ec_b3066fd2",
+        "filename": "ssl/t1_enc.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d92560d6_ba0ef3f5",
+        "filename": "ssl/t1_enc.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "Ditto re just using SSL_get_session.\n\nThe only case where SSL_in_init is true is False Start. But in that case it\u0027s not that the False Start transition switches which hash we want to use. Rather we want a way to say \"get the established session, although the handshake might not be completely done just yet\".",
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa5f24aa_92f5bc40",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 3493,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "Pass hs into this function.",
+      "range": {
+        "startLine": 3493,
+        "startChar": 7,
+        "endLine": 3493,
+        "endChar": 18
+      },
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb9388ab_ce806aba",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 3517,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "Pass hs into this function.",
+      "range": {
+        "startLine": 3517,
+        "startChar": 11,
+        "endLine": 3517,
+        "endChar": 22
+      },
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5d524c5_2b17a201",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "Pass hs into this function.",
+      "range": {
+        "startLine": 143,
+        "startChar": 25,
+        "endLine": 143,
+        "endChar": 36
+      },
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d00db12_f51832b3",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "Nit: I\u0027d probably just chain the two together. Comment seems applicable enough to the pair anyway.\n\nAlternatively, can we just put SSL_PRF_init inside tls13_init_key_schedule? I imagine you\u0027ll ultimately want to call tls13_init_key_schedule for 0-RTT anyway.",
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93a4af1f_06832047",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "[I wonder if we should just pull hash_len out of hs-\u003eprf at some point. Eh, later.]",
+      "range": {
+        "startLine": 280,
+        "startChar": 58,
+        "endLine": 280,
+        "endChar": 66
+      },
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d869410_cf9f7937",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "We\u0027re already relying on SSL_get_session (eww), so may as well just use this codepath for both cases until we\u0027ve sorted this mess out. It\u0027s true that SSL_in_init \u003d\u003e hs is non-NULL, but better to avoid that assumption I think.",
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3ad2c23_cbb4a047",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "This is impossible, isn\u0027t it? (Probably also ditto to comment above.)",
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f608e504_e205215a",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "I don\u0027t think this case is possible, side from False Start and later half-RTT, at which point SSL_get_session will work.",
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbad96e6_99f3786b",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "Ditto re just using SSL_get_session for now.\n\nThe only case where SSL_in_init is true is half-RTT stuff. But in that case it\u0027s not that the half-RTT transition switches which hash we want to use. Rather we want a way to say \"get the established session, although the handshake might not be completely done just yet\".",
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a260093_5727a317",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "Pass hs into this function.",
+      "range": {
+        "startLine": 355,
+        "startChar": 22,
+        "endLine": 355,
+        "endChar": 33
+      },
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b1bbd98_0bdc53c5",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "Pass hs into this function. (Also fix accesses below.)",
+      "range": {
+        "startLine": 391,
+        "startChar": 40,
+        "endLine": 391,
+        "endChar": 51
+      },
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8a097a5_8c39bb64",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 1,
+      "message": "new_cipher or new_session-\u003ecipher work fine in both codepaths. Why not just put this near line 311 so we don\u0027t need the two cases?\n\n(Alternatively, see comment in tls13_client.c re just putting it into tls13_init_key_schedule.)",
+      "revId": "5d5414d6f86fd32eeaf359a42d1fdace33a217fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

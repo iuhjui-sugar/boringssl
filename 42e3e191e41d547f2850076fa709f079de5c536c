@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "137a104c_9fc79b90",
+        "filename": "ssl/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 1685,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T19:33:24Z",
+      "side": 0,
+      "message": "OMG YOU GOT RID OF IT THANK YOU!!!! :-D",
+      "revId": "42e3e191e41d547f2850076fa709f079de5c536c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
