@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2805b59f_1fe85920",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-02T17:38:19Z",
+      "side": 1,
+      "message": "Sometimes, I really hate C. :-(\n\nI may just go do part of the long \u003d\u003e int64_t thing and wedge it before this CL...",
+      "revId": "7c58c3bc9d5eb03c46365d2a556f90a732cf45c3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
