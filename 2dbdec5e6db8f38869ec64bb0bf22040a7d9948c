@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a3108c73_1f574386",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-02T22:15:53Z",
+      "side": 1,
+      "message": "Call it in or data or something.",
+      "range": {
+        "startLine": 191,
+        "startChar": 46,
+        "endLine": 191,
+        "endChar": 50
+      },
+      "revId": "2dbdec5e6db8f38869ec64bb0bf22040a7d9948c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad3d2777_25b199cd",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-02T22:15:53Z",
+      "side": 1,
+      "message": "Can we make this uint8_t?",
+      "range": {
+        "startLine": 191,
+        "startChar": 40,
+        "endLine": 191,
+        "endChar": 44
+      },
+      "revId": "2dbdec5e6db8f38869ec64bb0bf22040a7d9948c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "80d2a032_1a526f62",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-02T22:15:53Z",
+      "side": 1,
+      "message": "bufv",
+      "range": {
+        "startLine": 191,
+        "startChar": 46,
+        "endLine": 191,
+        "endChar": 50
+      },
+      "revId": "2dbdec5e6db8f38869ec64bb0bf22040a7d9948c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
