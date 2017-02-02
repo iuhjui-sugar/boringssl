@@ -3952,7 +3952,11 @@ struct ssl_ctx_st {
   void (*info_callback)(const SSL *ssl, int type, int value);
 
   /* what we put in client cert requests */
-  STACK_OF(X509_NAME) *client_CA;
+  STACK_OF(CRYPTO_BUFFER) *client_CA;
+
+  /* cached_x509_client_CA is a cache of parsed versions of the elements of
+   * |client_CA|. */
+  STACK_OF(X509_NAME) *cached_x509_client_CA;
 
 
   /* Default values to use in SSL structures follow (these are copied by
@@ -4212,7 +4216,11 @@ struct ssl_st {
   CRYPTO_EX_DATA ex_data;
 
   /* for server side, keep the list of CA_dn we can use */
-  STACK_OF(X509_NAME) *client_CA;
+  STACK_OF(CRYPTO_BUFFER) *client_CA;
+
+  /* cached_x509_client_CA is a cache of parsed versions of the elements of
+   * |client_CA|. */
+  STACK_OF(X509_NAME) *cached_x509_client_CA;
 
   uint32_t options; /* protocol behaviour */
   uint32_t mode;    /* API behaviour */

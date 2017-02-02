@@ -951,14 +951,34 @@ static bool TestClientCAList() {
     return false;
   }
 
+  bssl::UniquePtr<X509_NAME> name(X509_NAME_new());
+  if (name == nullptr) {
+    return false;
+  }
+
+  X509_NAME *name_dup = X509_NAME_dup(name.get());
+  if (name_dup == nullptr) {
+    return false;
+  }
+
   STACK_OF(X509_NAME) *stack = sk_X509_NAME_new_null();
-  if (stack == nullptr) {
+  if (stack == nullptr ||
+      !sk_X509_NAME_push(stack, name_dup)) {
+    X509_NAME_free(name_dup);
     return false;
   }
   // |SSL_set_client_CA_list| takes ownership.
   SSL_set_client_CA_list(ssl.get(), stack);
 
-  return SSL_get_client_CA_list(ssl.get()) == stack;
+  STACK_OF(X509_NAME) *result = SSL_get_client_CA_list(ssl.get());
+  if (result == nullptr ||
+      sk_X509_NAME_num(result) != 1 ||
+      X509_NAME_cmp(sk_X509_NAME_value(result, 0), name.get()) != 0) {
+    fprintf(stderr, "TestClientCAList failed.\n");
+    return false;
+  }
+
+  return true;
 }
 
 static void AppendSession(SSL_SESSION *session, void *arg) {
