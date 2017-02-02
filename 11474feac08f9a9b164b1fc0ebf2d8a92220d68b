@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a2dc8389_98f6de18",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1750,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-02-02T19:51:32Z",
+      "side": 1,
+      "message": "Do these need to be longs not, say, uint32_ts or ints? I guess it matches the existing type but even 2^31 seconds is a very long time.",
+      "revId": "11474feac08f9a9b164b1fc0ebf2d8a92220d68b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c2a23af7_fecd73e2",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-02-02T19:51:32Z",
+      "side": 1,
+      "message": "Ok, I see that the |long| business is already noted.",
+      "revId": "11474feac08f9a9b164b1fc0ebf2d8a92220d68b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
