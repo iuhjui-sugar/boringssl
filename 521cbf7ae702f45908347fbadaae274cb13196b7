@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "12a5305c_a569cd5f",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-03T19:31:44Z",
+      "side": 1,
+      "message": "This is a nasty hack but was there before. Ultimately I think the state transitions want to be in the state functions and this entry-point just a dumb switch-case, as in TLS 1.3.",
+      "revId": "521cbf7ae702f45908347fbadaae274cb13196b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
