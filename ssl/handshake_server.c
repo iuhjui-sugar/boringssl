@@ -858,13 +858,6 @@ static int ssl3_get_client_hello(SSL_HANDSHAKE *hs) {
       goto f_err;
     }
 
-    if (ssl3_protocol_version(ssl) >= TLS1_3_VERSION) {
-      /* Jump to the TLS 1.3 state machine. */
-      hs->state = SSL_ST_TLS13;
-      hs->do_tls13_handshake = tls13_server_handshake;
-      return 1;
-    }
-
     /* Load the client random. */
     if (client_hello.random_len != SSL3_RANDOM_SIZE) {
       OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
@@ -877,8 +870,18 @@ static int ssl3_get_client_hello(SSL_HANDSHAKE *hs) {
     if (OPENSSL_memchr(client_hello.compression_methods, 0,
                        client_hello.compression_methods_len) == NULL) {
       al = SSL_AD_ILLEGAL_PARAMETER;
-      OPENSSL_PUT_ERROR(SSL, SSL_R_NO_COMPRESSION_SPECIFIED);
+      OPENSSL_PUT_ERROR(SSL, SSL_R_INVALID_COMPRESSION_LIST);
       goto f_err;
+    }
+
+    if (ssl3_protocol_version(ssl) >= TLS1_3_VERSION) {
+      /* TLS 1.3 further requires the peer advertise only the null
+       * compression. */
+      if (client_hello.compression_methods_len != 1) {
+        al = SSL_AD_ILLEGAL_PARAMETER;
+        OPENSSL_PUT_ERROR(SSL, SSL_R_INVALID_COMPRESSION_LIST);
+        goto f_err;
+      }
     }
 
     /* TLS extensions. */
@@ -907,6 +910,13 @@ static int ssl3_get_client_hello(SSL_HANDSHAKE *hs) {
 
     if (!ssl_auto_chain_if_needed(ssl)) {
       goto err;
+    }
+
+    if (ssl3_protocol_version(ssl) >= TLS1_3_VERSION) {
+      /* Jump to the TLS 1.3 state machine. */
+      hs->state = SSL_ST_TLS13;
+      hs->do_tls13_handshake = tls13_server_handshake;
+      return 1;
     }
 
     /* Negotiate the cipher suite. This must be done after |cert_cb| so the
