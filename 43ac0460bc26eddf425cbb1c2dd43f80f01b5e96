@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6013442b_9da63d3d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-03T16:30:51Z",
+      "side": 1,
+      "message": "I didn\u0027t know we had that many bugs in Chromium already! :-)",
+      "range": {
+        "startLine": 13,
+        "startChar": 13,
+        "endLine": 13,
+        "endChar": 43
+      },
+      "revId": "43ac0460bc26eddf425cbb1c2dd43f80f01b5e96",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c521c5e5_12e96b5a",
+        "filename": "crypto/cipher/e_chacha20poly1305.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-03T16:30:51Z",
+      "side": 1,
+      "message": "[Confirmed this is SSE 4.1 from Wikipedia.]",
+      "revId": "43ac0460bc26eddf425cbb1c2dd43f80f01b5e96",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "901dcb91_ad4081a5",
+        "filename": "crypto/cipher/e_chacha20poly1305.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-03T16:30:51Z",
+      "side": 1,
+      "message": "Nit: Might be a tidier abstraction to hide both of these in a asm_capable() or something so the arch-independent bits don\u0027t know about SSE 4.1.",
+      "revId": "43ac0460bc26eddf425cbb1c2dd43f80f01b5e96",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
