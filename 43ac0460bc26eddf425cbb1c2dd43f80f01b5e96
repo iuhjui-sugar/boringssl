@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a814232_14110aee",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-02-03T16:39:46Z",
+      "side": 1,
+      "message": "Opps!",
+      "parentUuid": "6013442b_9da63d3d",
+      "range": {
+        "startLine": 13,
+        "startChar": 13,
+        "endLine": 13,
+        "endChar": 43
+      },
+      "revId": "43ac0460bc26eddf425cbb1c2dd43f80f01b5e96",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c521c5e5_12e96b5a",
         "filename": "crypto/cipher/e_chacha20poly1305.c",
         "patchSetId": 1
@@ -53,6 +77,24 @@
       "writtenOn": "2017-02-03T16:30:51Z",
       "side": 1,
       "message": "Nit: Might be a tidier abstraction to hide both of these in a asm_capable() or something so the arch-independent bits don\u0027t know about SSE 4.1.",
+      "revId": "43ac0460bc26eddf425cbb1c2dd43f80f01b5e96",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f495fe6b_25d23df5",
+        "filename": "crypto/cipher/e_chacha20poly1305.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-02-03T16:39:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "901dcb91_ad4081a5",
       "revId": "43ac0460bc26eddf425cbb1c2dd43f80f01b5e96",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
