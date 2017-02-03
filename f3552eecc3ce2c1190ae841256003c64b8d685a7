@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "af9fd351_cc1a5253",
+        "filename": "crypto/bn/bn_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1672,
+      "author": {
+        "id": 7210
+      },
+      "writtenOn": "2017-02-03T22:35:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26d45408_04a37983",
+      "revId": "f3552eecc3ce2c1190ae841256003c64b8d685a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "10bd645f_e3c50c72",
         "filename": "crypto/bn/bn_test.cc",
         "patchSetId": 4
@@ -30,6 +48,30 @@
       "writtenOn": "2017-02-03T21:37:18Z",
       "side": 1,
       "message": "Nit: power_of_two",
+      "range": {
+        "startLine": 1674,
+        "startChar": 8,
+        "endLine": 1674,
+        "endChar": 18
+      },
+      "revId": "f3552eecc3ce2c1190ae841256003c64b8d685a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65ed2465_c0df9663",
+        "filename": "crypto/bn/bn_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1674,
+      "author": {
+        "id": 7210
+      },
+      "writtenOn": "2017-02-03T22:35:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10bd645f_e3c50c72",
       "range": {
         "startLine": 1674,
         "startChar": 8,
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "0d75ec85_04d78405",
+        "filename": "crypto/bn/bn_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1677,
+      "author": {
+        "id": 7210
+      },
+      "writtenOn": "2017-02-03T22:35:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08395ab5_431c726e",
+      "revId": "f3552eecc3ce2c1190ae841256003c64b8d685a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "88c7bc70_802d51a4",
         "filename": "crypto/bn/bn_test.cc",
         "patchSetId": 4
@@ -70,6 +130,30 @@
       "writtenOn": "2017-02-03T21:37:18Z",
       "side": 1,
       "message": "Nit: The rest of this file uses //-style comments. (Yeah, mixing the two between C/C++ was annoying. We probably shouldn\u0027t have done that. I think our C compilers handle // fine anyway, so maybe we should just switch to that universally...)",
+      "range": {
+        "startLine": 1681,
+        "startChar": 2,
+        "endLine": 1681,
+        "endChar": 5
+      },
+      "revId": "f3552eecc3ce2c1190ae841256003c64b8d685a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ad1a8ea_cc6bc757",
+        "filename": "crypto/bn/bn_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1681,
+      "author": {
+        "id": 7210
+      },
+      "writtenOn": "2017-02-03T22:35:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88c7bc70_802d51a4",
       "range": {
         "startLine": 1681,
         "startChar": 2,
@@ -105,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "70cd46f1_a15099bb",
+        "filename": "crypto/bn/bn_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1691,
+      "author": {
+        "id": 7210
+      },
+      "writtenOn": "2017-02-03T22:35:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e5f9cac_d3e46efc",
+      "range": {
+        "startLine": 1691,
+        "startChar": 38,
+        "endLine": 1691,
+        "endChar": 39
+      },
+      "revId": "f3552eecc3ce2c1190ae841256003c64b8d685a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "165b6390_ff272aee",
         "filename": "crypto/bn/cmp.c",
         "patchSetId": 4
@@ -122,6 +230,24 @@
     },
     {
       "key": {
+        "uuid": "5e20e4e6_f4155981",
+        "filename": "crypto/bn/cmp.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 7210
+      },
+      "writtenOn": "2017-02-03T22:35:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "165b6390_ff272aee",
+      "revId": "f3552eecc3ce2c1190ae841256003c64b8d685a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "08b00bde_6e31360e",
         "filename": "crypto/bn/cmp.c",
         "patchSetId": 4
@@ -133,6 +259,24 @@
       "writtenOn": "2017-02-03T21:37:18Z",
       "side": 1,
       "message": "Nit: spaces around \u003d and -.",
+      "revId": "f3552eecc3ce2c1190ae841256003c64b8d685a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59e4b569_21d3a631",
+        "filename": "crypto/bn/cmp.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 7210
+      },
+      "writtenOn": "2017-02-03T22:35:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08b00bde_6e31360e",
       "revId": "f3552eecc3ce2c1190ae841256003c64b8d685a7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -196,6 +340,48 @@
     },
     {
       "key": {
+        "uuid": "2b815839_a655cf1f",
+        "filename": "crypto/bn/div.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 7210
+      },
+      "writtenOn": "2017-02-03T22:35:16Z",
+      "side": 1,
+      "message": "I think that size_t is the \"right type\" here, but I was looking ahead to setting r-\u003etop. I think if I test (e \u003c\u003d INT_MAX), we\u0027ll definitely be okay here and the interface won\u0027t seem too weird?",
+      "parentUuid": "5f13d35d_8da3dbb2",
+      "revId": "f3552eecc3ce2c1190ae841256003c64b8d685a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "156dfb33_14da6014",
+        "filename": "crypto/bn/div.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 7210
+      },
+      "writtenOn": "2017-02-03T22:35:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f99bb4e_85ba77f4",
+      "range": {
+        "startLine": 657,
+        "startChar": 34,
+        "endLine": 657,
+        "endChar": 54
+      },
+      "revId": "f3552eecc3ce2c1190ae841256003c64b8d685a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f8326f90_dcb280cc",
         "filename": "crypto/bn/div.c",
         "patchSetId": 4
@@ -207,6 +393,30 @@
       "writtenOn": "2017-02-03T21:37:18Z",
       "side": 1,
       "message": "BIT_BITS2",
+      "range": {
+        "startLine": 673,
+        "startChar": 30,
+        "endLine": 673,
+        "endChar": 52
+      },
+      "revId": "f3552eecc3ce2c1190ae841256003c64b8d685a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17e9c183_00eec60b",
+        "filename": "crypto/bn/div.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 673,
+      "author": {
+        "id": 7210
+      },
+      "writtenOn": "2017-02-03T22:35:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8326f90_dcb280cc",
       "range": {
         "startLine": 673,
         "startChar": 30,
@@ -236,6 +446,24 @@
     },
     {
       "key": {
+        "uuid": "ff850b3f_9839ab9e",
+        "filename": "crypto/bn/div.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 7210
+      },
+      "writtenOn": "2017-02-03T22:35:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "956624eb_7f4e9777",
+      "revId": "f3552eecc3ce2c1190ae841256003c64b8d685a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bb841de5_0362e73a",
         "filename": "crypto/bn/div.c",
         "patchSetId": 4
@@ -247,6 +475,24 @@
       "writtenOn": "2017-02-03T21:37:18Z",
       "side": 1,
       "message": "No need for else since early return. Actually, zero also can\u0027t be negative, so I think you can replace lines 690 through 698 with:\n\n/* If the returned value was non-negative, we\u0027re done. */\nif (BN_is_zero(r) || !r-\u003eneg) {\n  return 1;\n}",
+      "revId": "f3552eecc3ce2c1190ae841256003c64b8d685a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3d4efff_35a5d908",
+        "filename": "crypto/bn/div.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 700,
+      "author": {
+        "id": 7210
+      },
+      "writtenOn": "2017-02-03T22:35:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb841de5_0362e73a",
       "revId": "f3552eecc3ce2c1190ae841256003c64b8d685a7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -276,6 +522,30 @@
     },
     {
       "key": {
+        "uuid": "fdeae72f_b91bdf4c",
+        "filename": "crypto/bn/div.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 704,
+      "author": {
+        "id": 7210
+      },
+      "writtenOn": "2017-02-03T22:35:16Z",
+      "side": 1,
+      "message": "Right, in this case we could have ((-1) mod LARGE_NUMBER) so we\u0027d be expanding to the full size and can\u0027t short-circuit like that.",
+      "parentUuid": "9bdf8010_59cd9155",
+      "range": {
+        "startLine": 704,
+        "startChar": 2,
+        "endLine": 704,
+        "endChar": 5
+      },
+      "revId": "f3552eecc3ce2c1190ae841256003c64b8d685a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "94b7557f_928c981b",
         "filename": "crypto/bn/div.c",
         "patchSetId": 4
@@ -293,6 +563,24 @@
     },
     {
       "key": {
+        "uuid": "cc5de557_028f88c7",
+        "filename": "crypto/bn/div.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 705,
+      "author": {
+        "id": 7210
+      },
+      "writtenOn": "2017-02-03T22:35:16Z",
+      "side": 1,
+      "message": "actually I think it might be possible in the ((-1) mod LARGE) case...",
+      "parentUuid": "94b7557f_928c981b",
+      "revId": "f3552eecc3ce2c1190ae841256003c64b8d685a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3a490a45_8bb3fe6f",
         "filename": "crypto/bn/div.c",
         "patchSetId": 4
@@ -304,6 +592,24 @@
       "writtenOn": "2017-02-03T21:37:18Z",
       "side": 1,
       "message": "OPENSSL_memset?",
+      "revId": "f3552eecc3ce2c1190ae841256003c64b8d685a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f47d89ea_3defc27d",
+        "filename": "crypto/bn/div.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 710,
+      "author": {
+        "id": 7210
+      },
+      "writtenOn": "2017-02-03T22:35:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a490a45_8bb3fe6f",
       "revId": "f3552eecc3ce2c1190ae841256003c64b8d685a7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -333,6 +639,30 @@
     },
     {
       "key": {
+        "uuid": "48408921_11b123cc",
+        "filename": "crypto/bn/div.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 7210
+      },
+      "writtenOn": "2017-02-03T22:35:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61ff7aa0_e43ca265",
+      "range": {
+        "startLine": 721,
+        "startChar": 30,
+        "endLine": 721,
+        "endChar": 52
+      },
+      "revId": "f3552eecc3ce2c1190ae841256003c64b8d685a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fe74a7f3_22a709f8",
         "filename": "crypto/bn/div.c",
         "patchSetId": 4
@@ -344,6 +674,24 @@
       "writtenOn": "2017-02-03T21:37:18Z",
       "side": 1,
       "message": "To avoid breaking (terrible) invariants, doing bn_correct_top before BN_add might be better, at least until we have a story for avoiding it here.",
+      "revId": "f3552eecc3ce2c1190ae841256003c64b8d685a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d49a302_a9896e6a",
+        "filename": "crypto/bn/div.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 7210
+      },
+      "writtenOn": "2017-02-03T22:35:16Z",
+      "side": 1,
+      "message": "Nice catch!",
+      "parentUuid": "fe74a7f3_22a709f8",
       "revId": "f3552eecc3ce2c1190ae841256003c64b8d685a7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
