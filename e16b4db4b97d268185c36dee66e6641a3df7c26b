@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "d4854367_fc41bf6b",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 1138,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-02-04T00:37:29Z",
+      "side": 1,
+      "message": "Done",
+      "range": {
+        "startLine": 1138,
+        "startChar": 43,
+        "endLine": 1138,
+        "endChar": 44
+      },
+      "revId": "e16b4db4b97d268185c36dee66e6641a3df7c26b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9519ea6b_84e8e267",
         "filename": "ssl/test/runner/conn.go",
         "patchSetId": 11
@@ -59,6 +82,23 @@
     },
     {
       "key": {
+        "uuid": "d8f3abee_adab58f3",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-02-04T00:37:29Z",
+      "side": 1,
+      "message": "Removed.",
+      "revId": "e16b4db4b97d268185c36dee66e6641a3df7c26b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2f307099_6d15fd64",
         "filename": "ssl/test/runner/conn.go",
         "patchSetId": 11
@@ -70,6 +110,29 @@
       "writtenOn": "2017-02-01T00:09:59Z",
       "side": 1,
       "message": "When would clients set skipEarlyData?",
+      "range": {
+        "startLine": 844,
+        "startChar": 30,
+        "endLine": 844,
+        "endChar": 41
+      },
+      "revId": "e16b4db4b97d268185c36dee66e6641a3df7c26b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06302d4a_d9cfe95a",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 844,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-02-04T00:37:29Z",
+      "side": 1,
+      "message": "This was a holdover from the old code where if a client sent early data and it was rejected, it would set skipEarlyData so that the next call to Read could indicate that the early data was rejected. I\u0027ve removed the \"!c.isClient\".",
       "range": {
         "startLine": 844,
         "startChar": 30,
@@ -99,6 +162,24 @@
     },
     {
       "key": {
+        "uuid": "927922fe_2caa4559",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-02-04T00:37:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34674082_cbe52e89",
+      "revId": "e16b4db4b97d268185c36dee66e6641a3df7c26b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "18b707ca_41aedb3c",
         "filename": "ssl/test/runner/handshake_client.go",
         "patchSetId": 11
@@ -110,6 +191,30 @@
       "writtenOn": "2017-02-01T00:09:59Z",
       "side": 1,
       "message": "Maybe have a sendEarlyData boolean and check that? This ties it up with all the other early data bugs.",
+      "range": {
+        "startLine": 376,
+        "startChar": 10,
+        "endLine": 376,
+        "endChar": 22
+      },
+      "revId": "e16b4db4b97d268185c36dee66e6641a3df7c26b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd494741_c8324557",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-02-04T00:37:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18b707ca_41aedb3c",
       "range": {
         "startLine": 376,
         "startChar": 10,
