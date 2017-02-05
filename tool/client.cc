@@ -135,7 +135,7 @@ static int NextProtoSelectCallback(SSL* ssl, uint8_t** out, uint8_t* outlen,
 static FILE *g_keylog_file = nullptr;
 
 static void KeyLogCallback(const SSL *ssl, const char *line) {
-  fprintf(g_keylog_file, "%s\n", line);
+  fputs(line, g_keylog_file);
   fflush(g_keylog_file);
 }
 

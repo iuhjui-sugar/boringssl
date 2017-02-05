@@ -2896,8 +2896,8 @@ OPENSSL_EXPORT void SSL_set_msg_callback_arg(SSL *ssl, void *arg);
 
 /* SSL_CTX_set_keylog_callback configures a callback to log key material. This
  * is intended for debugging use with tools like Wireshark. The |cb| function
- * should log |line| followed by a newline, synchronizing with any concurrent
- * access to the log.
+ * should log |line|, synchronizing with any concurrent access to the log.
+ * |line| is terminated with a newline and can directly be written to the log.
  *
  * The format is described in
  * https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS/Key_Log_Format. */
