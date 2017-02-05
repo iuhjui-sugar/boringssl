@@ -214,6 +214,7 @@ add_executable(
 
   dh/dh_test.cc
   dsa/dsa_test.cc
+  ec/ec_test.cc
   err/err_test.cc
   rsa/rsa_test.cc
 
