@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4ee106cd_3a6aad9c",
+        "filename": "ssl/ssl_session.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-06T17:13:11Z",
+      "side": 0,
+      "message": "This block should be deleted altogether, not moved. On the client, we already stash the hostname elsewhere. (I think this CL actually introduces a memory leak when the server ACKs the SNI.)",
+      "revId": "42e3e191e41d547f2850076fa709f079de5c536c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
