@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c992aac_257ce825",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 12
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-06T22:25:54Z",
+      "side": 1,
+      "message": "Nit: var sendEarlyData bool",
+      "revId": "d023c25af1bad701eb9fe087959867b353599d90",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee1a3143_e4ab98b5",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 12
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-06T22:25:54Z",
+      "side": 1,
+      "message": "(You can probably remove this.)",
+      "revId": "d023c25af1bad701eb9fe087959867b353599d90",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
