@@ -133,6 +133,9 @@ struct ec_group_st {
   BN_MONT_CTX *mont; /* Montgomery structure. */
 
   BIGNUM one; /* The value one. */
+
+  EC_POINT *random_base; /* Optional random base to use for exponentiation. */
+  BIGNUM random_base_exponent; /* Number such that random_base = e*generator. */
 } /* EC_GROUP */;
 
 struct ec_point_st {
@@ -155,6 +158,10 @@ const BN_MONT_CTX *ec_group_get_mont_data(const EC_GROUP *group);
 int ec_wNAF_mul(const EC_GROUP *group, EC_POINT *r, const BIGNUM *g_scalar,
                 const EC_POINT *p, const BIGNUM *p_scalar, BN_CTX *ctx);
 
+int ec_wNAF_mul_blind(const EC_GROUP *group, EC_POINT *r,
+                      const BIGNUM *g_scalar, const EC_POINT *p,
+                      const BIGNUM *p_scalar, BN_CTX *ctx);
+
 /* method functions in simple.c */
 int ec_GFp_simple_group_init(EC_GROUP *);
 void ec_GFp_simple_group_finish(EC_GROUP *);
@@ -164,6 +171,7 @@ int ec_GFp_simple_group_set_curve(EC_GROUP *, const BIGNUM *p, const BIGNUM *a,
 int ec_GFp_simple_group_get_curve(const EC_GROUP *, BIGNUM *p, BIGNUM *a,
                                   BIGNUM *b, BN_CTX *);
 unsigned ec_GFp_simple_group_get_degree(const EC_GROUP *);
+int ec_GFp_simple_init_random_base(EC_GROUP *group, BN_CTX *ctx);
 int ec_GFp_simple_point_init(EC_POINT *);
 void ec_GFp_simple_point_finish(EC_POINT *);
 void ec_GFp_simple_point_clear_finish(EC_POINT *);

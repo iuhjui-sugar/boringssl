@@ -59,6 +59,7 @@
 #include <openssl/bytestring.h>
 #include <openssl/err.h>
 #include <openssl/mem.h>
+#include <openssl/nid.h>
 
 #include "../bn/internal.h"
 #include "../ec/internal.h"
