@@ -93,8 +93,9 @@ int ec_GFp_simple_group_init(EC_GROUP *group) {
   BN_init(&group->a);
   BN_init(&group->b);
   BN_init(&group->one);
-  group->a_is_minus3 = 0;
-  return 1;
+  BN_init(&group->random_base_exponent);
+  group->random_base = EC_POINT_new(group);
+  return group->random_base != NULL;
 }
 
 void ec_GFp_simple_group_finish(EC_GROUP *group) {
@@ -102,6 +103,8 @@ void ec_GFp_simple_group_finish(EC_GROUP *group) {
   BN_free(&group->a);
   BN_free(&group->b);
   BN_free(&group->one);
+  BN_free(&group->random_base_exponent);
+  EC_POINT_clear_free(group->random_base);
 }
 
 int ec_GFp_simple_group_copy(EC_GROUP *dest, const EC_GROUP *src) {
@@ -180,6 +183,10 @@ int ec_GFp_simple_group_set_curve(EC_GROUP *group, const BIGNUM *p,
       goto err;
     }
   } else if (!BN_copy(&group->one, BN_value_one())) {
+    goto err;
+  }
+
+  if (!ec_GFp_simple_init_random_base(group, ctx)) {
     goto err;
   }
 
@@ -1115,4 +1122,12 @@ int ec_GFp_simple_field_mul(const EC_GROUP *group, BIGNUM *r, const BIGNUM *a,
 int ec_GFp_simple_field_sqr(const EC_GROUP *group, BIGNUM *r, const BIGNUM *a,
                             BN_CTX *ctx) {
   return BN_mod_sqr(r, a, &group->field, ctx);
+}
+
+int ec_GFp_simple_init_random_base(EC_GROUP *group, BN_CTX *ctx) {
+  return
+      BN_rand(&group->random_base_exponent, BN_num_bits(&group->order) / 2,
+          BN_RAND_TOP_ANY, BN_RAND_BOTTOM_ANY) &&
+      ec_wNAF_mul(group, group->random_base, &group->random_base_exponent,
+          NULL, NULL, ctx);
 }

@@ -456,3 +456,31 @@ err:
   OPENSSL_free(val_sub);
   return ret;
 }
+
+int ec_wNAF_mul_blind(
+    const EC_GROUP *group, EC_POINT *r, const BIGNUM *g_scalar,
+    const EC_POINT *p, const BIGNUM *p_scalar, BN_CTX *ctx) {
+
+  BIGNUM g_scalar_new;
+
+  /* If we don't have a random_base or we have an exponent for p,
+   * our blinding procedure won't work. */
+  if (group->random_base == NULL ||
+      group->random_base->meth == NULL ||
+      p_scalar != NULL) {
+    return ec_wNAF_mul(group, r, g_scalar, p, p_scalar, ctx);
+  }
+
+  BN_init(&g_scalar_new);
+
+  if (!BN_mod_sub_quick(&g_scalar_new, g_scalar,
+                        &group->random_base_exponent, &group->order)) {
+    BN_free(&g_scalar_new);
+    return 0;
+  }
+
+  int ret = ec_wNAF_mul_blind(group, r, NULL,
+                              group->random_base, &g_scalar_new, ctx);
+  BN_free(&g_scalar_new);
+  return ret;
+}

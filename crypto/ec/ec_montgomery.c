@@ -295,7 +295,7 @@ const EC_METHOD EC_GFp_mont_method = {
     ec_GFp_mont_group_copy,
     ec_GFp_mont_group_set_curve,
     ec_GFp_mont_point_get_affine_coordinates,
-    ec_wNAF_mul /* XXX: Not constant time. */,
+    ec_wNAF_mul, /* XXX: Not constant time. */
     ec_GFp_mont_field_mul,
     ec_GFp_mont_field_sqr,
     ec_GFp_mont_field_encode,
