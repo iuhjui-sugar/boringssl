@@ -1213,6 +1213,8 @@ func (hs *serverHandshakeState) processClientExtensions(serverExtensions *server
 		return errors.New("tls: no GREASE extension found")
 	}
 
+	serverExtensions.serverNameAck = c.config.Bugs.SendServerNameAck
+
 	return nil
 }
 

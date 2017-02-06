@@ -1091,6 +1091,7 @@ type serverExtensions struct {
 	hasKeyShare             bool
 	keyShare                keyShareEntry
 	supportedPoints         []uint8
+	serverNameAck           bool
 }
 
 func (m *serverExtensions) marshal(extensions *byteBuilder) {
@@ -1192,6 +1193,10 @@ func (m *serverExtensions) marshal(extensions *byteBuilder) {
 		supportedPoints := supportedPointsList.addU8LengthPrefixed()
 		supportedPoints.addBytes(m.supportedPoints)
 	}
+	if m.serverNameAck {
+		extensions.addU16(extensionServerName)
+		extensions.addU16(0) // zero length
+	}
 }
 
 func (m *serverExtensions) unmarshal(data []byte, version uint16) bool {
@@ -1286,7 +1291,7 @@ func (m *serverExtensions) unmarshal(data []byte, version uint16) bool {
 			if length != 0 {
 				return false
 			}
-			// Ignore this extension from the server.
+			m.serverNameAck = true
 		case extensionSupportedPoints:
 			// supported_points is illegal in TLS 1.3.
 			if version >= VersionTLS13 {
