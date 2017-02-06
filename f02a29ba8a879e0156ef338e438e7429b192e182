@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fce8064d_a1f7161f",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-06T22:19:37Z",
+      "side": 1,
+      "message": "Nit: end of early data, to match the one above.",
+      "range": {
+        "startLine": 25,
+        "startChar": 46,
+        "endLine": 25,
+        "endChar": 60
+      },
+      "revId": "f02a29ba8a879e0156ef338e438e7429b192e182",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b61d18f5_2a66356b",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 886,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-06T22:19:37Z",
+      "side": 1,
+      "message": "Nit: The alert version is named end_of_early_data.",
+      "range": {
+        "startLine": 886,
+        "startChar": 9,
+        "endLine": 886,
+        "endChar": 23
+      },
+      "revId": "f02a29ba8a879e0156ef338e438e7429b192e182",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "694bbfb2_4434f47f",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 889,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-06T22:19:37Z",
+      "side": 1,
+      "message": "I don\u0027t think this is possible. Maybe just a panic would be better.",
+      "revId": "f02a29ba8a879e0156ef338e438e7429b192e182",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
