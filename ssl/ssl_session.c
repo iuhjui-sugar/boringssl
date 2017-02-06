@@ -503,6 +503,8 @@ int ssl_get_new_session(SSL_HANDSHAKE *hs, int is_server) {
         goto err;
       }
     }
+  } else {
+    session->session_id_length = 0;
 
     if (ssl->tlsext_hostname != NULL) {
       session->tlsext_hostname = BUF_strdup(ssl->tlsext_hostname);
@@ -511,8 +513,6 @@ int ssl_get_new_session(SSL_HANDSHAKE *hs, int is_server) {
         goto err;
       }
     }
-  } else {
-    session->session_id_length = 0;
   }
 
   if (ssl->sid_ctx_length > sizeof(session->sid_ctx)) {
