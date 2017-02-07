@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f6dc6cd5_6a1506a6",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-07T22:40:39Z",
+      "side": 0,
+      "message": "[See tls13_server.c comment. I suspect you can put init_hash in here again.]",
+      "revId": "8df6766d01ab5e3097d83498a2517a1226803399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

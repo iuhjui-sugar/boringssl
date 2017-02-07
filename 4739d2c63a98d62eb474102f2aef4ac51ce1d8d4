@@ -1,0 +1,539 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e615372_7ac3af9f",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-07T22:40:39Z",
+      "side": 1,
+      "message": "Add a TODO to fix this later.",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0cebffa_69fcd6c5",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-07T22:40:39Z",
+      "side": 1,
+      "message": "Doesn\u0027t hugely matter, but any reason why this isn\u0027t down at line 1026 like before?",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a011dc87_8d15dff7",
+        "filename": "ssl/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-07T22:40:39Z",
+      "side": 1,
+      "message": "Stray header? (Looks like you renamed the section below but left this section header around.)",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f60504d1_fe40f554",
+        "filename": "ssl/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-07T22:40:39Z",
+      "side": 1,
+      "message": "Nit: The others have all been lowercase.",
+      "range": {
+        "startLine": 265,
+        "startChar": 14,
+        "endLine": 265,
+        "endChar": 15
+      },
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24bd8974_409778e3",
+        "filename": "ssl/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-07T22:40:39Z",
+      "side": 1,
+      "message": "Perhaps: SSL_TRANSCRIPT maintains the handshake transcript as a combination of a buffer and running hash.",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b46999d8_c82b53f8",
+        "filename": "ssl/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-07T22:40:39Z",
+      "side": 1,
+      "message": "Unused?",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d12a37a_64fca4c3",
+        "filename": "ssl/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-07T22:40:39Z",
+      "side": 1,
+      "message": "Perhaps: SSL_TRANSCRIPT_init initializes the handshake transcript. If called on an existing transcript, it resets the transcript and hash.",
+      "range": {
+        "startLine": 291,
+        "startChar": 23,
+        "endLine": 292,
+        "endChar": 23
+      },
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9abe0a62_b0538ed2",
+        "filename": "ssl/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-07T22:40:39Z",
+      "side": 1,
+      "message": "Is it?",
+      "range": {
+        "startLine": 293,
+        "startChar": 3,
+        "endLine": 293,
+        "endChar": 69
+      },
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd18ff07_92d4c24d",
+        "filename": "ssl/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-07T22:40:39Z",
+      "side": 1,
+      "message": "Nit: SSL_TRANSCRIPT_update is probably a little shorter (and gets under 80 chars)",
+      "range": {
+        "startLine": 316,
+        "startChar": 3,
+        "endLine": 316,
+        "endChar": 34
+      },
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8dc31b3d_001cee58",
+        "filename": "ssl/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-07T22:40:39Z",
+      "side": 1,
+      "message": "This should probably have ssl3 in the name to make it clearer. version parameter is also unnecessary.",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e136727e_d03685dd",
+        "filename": "ssl/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-07T22:40:39Z",
+      "side": 1,
+      "message": "Isn\u0027t this the same function has get_hash, but with a worse calling convention?",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c55ba875_5e47b98d",
+        "filename": "ssl/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-07T22:40:39Z",
+      "side": 1,
+      "message": "The documentation matches the calling convention, but I think it actually returns the number of bytes written. (Documentation is correct.)",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3805a01_0fb4eeef",
+        "filename": "ssl/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-07T22:40:39Z",
+      "side": 1,
+      "message": "const?",
+      "range": {
+        "startLine": 349,
+        "startChar": 28,
+        "endLine": 349,
+        "endChar": 42
+      },
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59a536fe_d9dbf481",
+        "filename": "ssl/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-07T22:40:39Z",
+      "side": 1,
+      "message": "This isn\u0027t especially descriptive. (What was wrong with \"Encryption layer\"?)",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a23e4ce_eb6994e9",
+        "filename": "ssl/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 2059,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-07T22:40:39Z",
+      "side": 1,
+      "message": "Passing in SSL_HANDSHAKE* is probably tidier.",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35cefc0b_f3971aca",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-07T22:40:39Z",
+      "side": 1,
+      "message": "I think SSL_TRANSCRIPT_init is going to push an error for you.",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ca56e37_a1c5eb26",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-07T22:40:39Z",
+      "side": 1,
+      "message": "ssl_handshake_free(hs)",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6d51207_c1306afe",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-07T22:40:39Z",
+      "side": 1,
+      "message": "Nit: Match the order that the fields are declared in the struct, so it\u0027s easier to check if we forgot anything.",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "235d0c00_5d8b7456",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-07T22:40:39Z",
+      "side": 1,
+      "message": "Could you add a TODO to that we want to fix this later?",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7c7ace1_68bab97d",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 794,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-07T22:40:39Z",
+      "side": 1,
+      "message": "Aside: I guess you\u0027ve already routed SSL* in which is probably better, but it occurs to me that this would have worked too:\n\nreturn (wire_version \u003d\u003d TLS1_2_VERSION || wire_version \u003d\u003d DTLS1_2_VERSION) ? EVP_sha256() : EVP_md5_sha1();\n\nsince SSL_HANDSHAKE_MAC_DEFAULT is gone after TLS 1.3. *shrug*",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "92685da4_772f90f1",
+        "filename": "ssl/ssl_transcript.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-07T22:40:39Z",
+      "side": 1,
+      "message": "Could you reorder the functions so they match the header?",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7708c51_1dd3673a",
+        "filename": "ssl/ssl_transcript.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-07T22:40:39Z",
+      "side": 1,
+      "message": "Maybe add an explanatory comment here:\n\n/* To support SSL 3.0\u0027s Finished and CertificateVerify constructions, EVP_md5_sha1() is split into MD5 and SHA-1 halves. When SSL 3.0 is removed, we can simplify this. */",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edfd9c8b_6290fcd0",
+        "filename": "ssl/ssl_transcript.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-07T22:40:39Z",
+      "side": 1,
+      "message": "This doesn\u0027t return the right value for EVP_md5_sha1. EVP_MD_CTX_size(SSL_TRANSCRIPT_md(transcript)) is probably better.",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c737808_3c4fe400",
+        "filename": "ssl/ssl_transcript.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-07T22:40:39Z",
+      "side": 1,
+      "message": "This should also include the MD5 half which then lets handshake_digest call it.",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d0f1537_f86a11b7",
+        "filename": "ssl/ssl_transcript.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-07T22:40:39Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 253,
+        "startChar": 30,
+        "endLine": 253,
+        "endChar": 40
+      },
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "142d1bfa_16cd2f9b",
+        "filename": "ssl/ssl_transcript.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-07T22:40:39Z",
+      "side": 1,
+      "message": "Stray backslash?",
+      "range": {
+        "startLine": 257,
+        "startChar": 17,
+        "endLine": 257,
+        "endChar": 18
+      },
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4783347a_2c6b552b",
+        "filename": "ssl/t1_enc.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-07T22:40:39Z",
+      "side": 1,
+      "message": "Not possible, but probably worth checking for NULL with ERR_R_INTERNAL_ERROR.",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3053861_850953b9",
+        "filename": "ssl/t1_enc.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-07T22:40:39Z",
+      "side": 1,
+      "message": "Ditto on NULL check.",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d5d1549_b3fddd60",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-07T22:40:39Z",
+      "side": 1,
+      "message": "new_cipher is always going to be set earlier, so we can probably lift it up to right after choose_tls13_cipher above. We could maybe even lift the tls13_init_key_schedule call from below, which means tls13_init_key_schedule could call init_hash for you. (I can\u0027t think of a scenario where we\u0027d want to separate those operations.)",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
