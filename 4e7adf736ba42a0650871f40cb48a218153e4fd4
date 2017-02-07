@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b9aed419_d1a91a98",
+        "filename": "ssl/internal.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-07T22:40:39Z",
+      "side": 1,
+      "message": "I don\u0027t think you actually need to retain this. See comments in ssl_transcript.c.",
+      "revId": "4e7adf736ba42a0650871f40cb48a218153e4fd4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20e305c0_70c42da4",
+        "filename": "ssl/internal.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-07T22:40:39Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "4e7adf736ba42a0650871f40cb48a218153e4fd4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
