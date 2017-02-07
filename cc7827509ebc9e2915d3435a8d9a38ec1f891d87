@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "55f2442d_eb5f239b",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-07T21:42:46Z",
+      "side": 1,
+      "message": "It seems bizarre to pass in a size_t and then require that callers keep it within bounds. How about\n\n  int e_int \u003d e \u003e INT_MAX ? INT_MAX : (int)e;\n\nFor these operations, I think saturating is actually correct.",
+      "range": {
+        "startLine": 524,
+        "startChar": 39,
+        "endLine": 524,
+        "endChar": 58
+      },
+      "revId": "cc7827509ebc9e2915d3435a8d9a38ec1f891d87",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
