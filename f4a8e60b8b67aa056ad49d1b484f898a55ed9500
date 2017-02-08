@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f7f39b1d_0b06ddc2",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-08T21:39:54Z",
+      "side": 1,
+      "message": "Isn\u0027t this already initialized?",
+      "revId": "f4a8e60b8b67aa056ad49d1b484f898a55ed9500",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f830f66_5b65307f",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-08T21:39:54Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "f4a8e60b8b67aa056ad49d1b484f898a55ed9500",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
