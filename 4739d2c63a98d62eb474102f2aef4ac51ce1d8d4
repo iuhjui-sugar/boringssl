@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "521dbb67_b9ffbf04",
+        "filename": "ssl/d1_both.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-08T16:40:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e615372_7ac3af9f",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d0cebffa_69fcd6c5",
         "filename": "ssl/handshake_server.c",
         "patchSetId": 13
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "5b9953cb_822f2baa",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-08T16:40:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0cebffa_69fcd6c5",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a011dc87_8d15dff7",
         "filename": "ssl/internal.h",
         "patchSetId": 13
@@ -47,6 +83,24 @@
       "writtenOn": "2017-02-07T22:40:39Z",
       "side": 1,
       "message": "Stray header? (Looks like you renamed the section below but left this section header around.)",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "573e88f7_d018b01d",
+        "filename": "ssl/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-08T16:40:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a011dc87_8d15dff7",
       "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -76,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "b8e3ee0d_4deaa579",
+        "filename": "ssl/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-08T16:40:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f60504d1_fe40f554",
+      "range": {
+        "startLine": 265,
+        "startChar": 14,
+        "endLine": 265,
+        "endChar": 15
+      },
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "24bd8974_409778e3",
         "filename": "ssl/internal.h",
         "patchSetId": 13
@@ -87,6 +165,24 @@
       "writtenOn": "2017-02-07T22:40:39Z",
       "side": 1,
       "message": "Perhaps: SSL_TRANSCRIPT maintains the handshake transcript as a combination of a buffer and running hash.",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24d553db_0ded4119",
+        "filename": "ssl/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-08T16:40:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24bd8974_409778e3",
       "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -110,6 +206,24 @@
     },
     {
       "key": {
+        "uuid": "9271de31_2396c83a",
+        "filename": "ssl/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-08T16:40:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b46999d8_c82b53f8",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8d12a37a_64fca4c3",
         "filename": "ssl/internal.h",
         "patchSetId": 13
@@ -121,6 +235,30 @@
       "writtenOn": "2017-02-07T22:40:39Z",
       "side": 1,
       "message": "Perhaps: SSL_TRANSCRIPT_init initializes the handshake transcript. If called on an existing transcript, it resets the transcript and hash.",
+      "range": {
+        "startLine": 291,
+        "startChar": 23,
+        "endLine": 292,
+        "endChar": 23
+      },
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c739f49f_ec722519",
+        "filename": "ssl/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-08T16:40:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d12a37a_64fca4c3",
       "range": {
         "startLine": 291,
         "startChar": 23,
@@ -156,6 +294,30 @@
     },
     {
       "key": {
+        "uuid": "af699211_a0c2a445",
+        "filename": "ssl/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-08T16:40:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9abe0a62_b0538ed2",
+      "range": {
+        "startLine": 293,
+        "startChar": 3,
+        "endLine": 293,
+        "endChar": 69
+      },
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fd18ff07_92d4c24d",
         "filename": "ssl/internal.h",
         "patchSetId": 13
@@ -167,6 +329,30 @@
       "writtenOn": "2017-02-07T22:40:39Z",
       "side": 1,
       "message": "Nit: SSL_TRANSCRIPT_update is probably a little shorter (and gets under 80 chars)",
+      "range": {
+        "startLine": 316,
+        "startChar": 3,
+        "endLine": 316,
+        "endChar": 34
+      },
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9679973_5c0b7f20",
+        "filename": "ssl/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-08T16:40:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd18ff07_92d4c24d",
       "range": {
         "startLine": 316,
         "startChar": 3,
@@ -196,6 +382,24 @@
     },
     {
       "key": {
+        "uuid": "d0149465_1dd64cf8",
+        "filename": "ssl/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-08T16:40:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8dc31b3d_001cee58",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e136727e_d03685dd",
         "filename": "ssl/internal.h",
         "patchSetId": 13
@@ -213,6 +417,24 @@
     },
     {
       "key": {
+        "uuid": "f5f99d34_5e04661c",
+        "filename": "ssl/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-08T16:40:15Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "e136727e_d03685dd",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c55ba875_5e47b98d",
         "filename": "ssl/internal.h",
         "patchSetId": 13
@@ -224,6 +446,24 @@
       "writtenOn": "2017-02-07T22:40:39Z",
       "side": 1,
       "message": "The documentation matches the calling convention, but I think it actually returns the number of bytes written. (Documentation is correct.)",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad5c917a_3d0c2f62",
+        "filename": "ssl/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-08T16:40:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c55ba875_5e47b98d",
       "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -253,6 +493,30 @@
     },
     {
       "key": {
+        "uuid": "076f674c_c2b96e6e",
+        "filename": "ssl/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-08T16:40:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3805a01_0fb4eeef",
+      "range": {
+        "startLine": 349,
+        "startChar": 28,
+        "endLine": 349,
+        "endChar": 42
+      },
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "59a536fe_d9dbf481",
         "filename": "ssl/internal.h",
         "patchSetId": 13
@@ -264,6 +528,24 @@
       "writtenOn": "2017-02-07T22:40:39Z",
       "side": 1,
       "message": "This isn\u0027t especially descriptive. (What was wrong with \"Encryption layer\"?)",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23491b83_ff6b55b4",
+        "filename": "ssl/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-08T16:40:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59a536fe_d9dbf481",
       "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -287,6 +569,24 @@
     },
     {
       "key": {
+        "uuid": "fac892a6_2bdb595b",
+        "filename": "ssl/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 2059,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-08T16:40:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a23e4ce_eb6994e9",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "35cefc0b_f3971aca",
         "filename": "ssl/s3_both.c",
         "patchSetId": 13
@@ -298,6 +598,24 @@
       "writtenOn": "2017-02-07T22:40:39Z",
       "side": 1,
       "message": "I think SSL_TRANSCRIPT_init is going to push an error for you.",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "360e1d0e_a64ae5a0",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-08T16:40:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35cefc0b_f3971aca",
       "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -321,6 +639,24 @@
     },
     {
       "key": {
+        "uuid": "bfff6d52_a93b521e",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-08T16:40:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ca56e37_a1c5eb26",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e6d51207_c1306afe",
         "filename": "ssl/s3_both.c",
         "patchSetId": 13
@@ -332,6 +668,24 @@
       "writtenOn": "2017-02-07T22:40:39Z",
       "side": 1,
       "message": "Nit: Match the order that the fields are declared in the struct, so it\u0027s easier to check if we forgot anything.",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d259c9e7_eddee71e",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-08T16:40:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6d51207_c1306afe",
       "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -355,6 +709,24 @@
     },
     {
       "key": {
+        "uuid": "5f2b921a_5290bac5",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-08T16:40:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "235d0c00_5d8b7456",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a7c7ace1_68bab97d",
         "filename": "ssl/ssl_cipher.c",
         "patchSetId": 13
@@ -366,6 +738,24 @@
       "writtenOn": "2017-02-07T22:40:39Z",
       "side": 1,
       "message": "Aside: I guess you\u0027ve already routed SSL* in which is probably better, but it occurs to me that this would have worked too:\n\nreturn (wire_version \u003d\u003d TLS1_2_VERSION || wire_version \u003d\u003d DTLS1_2_VERSION) ? EVP_sha256() : EVP_md5_sha1();\n\nsince SSL_HANDSHAKE_MAC_DEFAULT is gone after TLS 1.3. *shrug*",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5d6d9b45_58e0d9f8",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 794,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-08T16:40:15Z",
+      "side": 1,
+      "message": "That feels very hacky.",
+      "parentUuid": "a7c7ace1_68bab97d",
       "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -389,6 +779,24 @@
     },
     {
       "key": {
+        "uuid": "1a8f3b4e_dcf7c1a2",
+        "filename": "ssl/ssl_transcript.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-08T16:40:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92685da4_772f90f1",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a7708c51_1dd3673a",
         "filename": "ssl/ssl_transcript.c",
         "patchSetId": 13
@@ -400,6 +808,24 @@
       "writtenOn": "2017-02-07T22:40:39Z",
       "side": 1,
       "message": "Maybe add an explanatory comment here:\n\n/* To support SSL 3.0\u0027s Finished and CertificateVerify constructions, EVP_md5_sha1() is split into MD5 and SHA-1 halves. When SSL 3.0 is removed, we can simplify this. */",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54db2966_37c42e48",
+        "filename": "ssl/ssl_transcript.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-08T16:40:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7708c51_1dd3673a",
       "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -423,6 +849,24 @@
     },
     {
       "key": {
+        "uuid": "626f093e_7a80d480",
+        "filename": "ssl/ssl_transcript.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-08T16:40:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "edfd9c8b_6290fcd0",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7c737808_3c4fe400",
         "filename": "ssl/ssl_transcript.c",
         "patchSetId": 13
@@ -440,6 +884,24 @@
     },
     {
       "key": {
+        "uuid": "c147a557_eb092c76",
+        "filename": "ssl/ssl_transcript.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-08T16:40:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c737808_3c4fe400",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9d0f1537_f86a11b7",
         "filename": "ssl/ssl_transcript.c",
         "patchSetId": 13
@@ -451,6 +913,30 @@
       "writtenOn": "2017-02-07T22:40:39Z",
       "side": 1,
       "message": "const",
+      "range": {
+        "startLine": 253,
+        "startChar": 30,
+        "endLine": 253,
+        "endChar": 40
+      },
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7853cbe2_d0dc85a6",
+        "filename": "ssl/ssl_transcript.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-08T16:40:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d0f1537_f86a11b7",
       "range": {
         "startLine": 253,
         "startChar": 30,
@@ -486,6 +972,30 @@
     },
     {
       "key": {
+        "uuid": "8e56326c_e1b7fef3",
+        "filename": "ssl/ssl_transcript.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-08T16:40:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "142d1bfa_16cd2f9b",
+      "range": {
+        "startLine": 257,
+        "startChar": 17,
+        "endLine": 257,
+        "endChar": 18
+      },
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4783347a_2c6b552b",
         "filename": "ssl/t1_enc.c",
         "patchSetId": 13
@@ -497,6 +1007,24 @@
       "writtenOn": "2017-02-07T22:40:39Z",
       "side": 1,
       "message": "Not possible, but probably worth checking for NULL with ERR_R_INTERNAL_ERROR.",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "556daf43_0e4c1374",
+        "filename": "ssl/t1_enc.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-08T16:40:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4783347a_2c6b552b",
       "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -520,6 +1048,24 @@
     },
     {
       "key": {
+        "uuid": "f1ccf418_3148df69",
+        "filename": "ssl/t1_enc.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-08T16:40:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3053861_850953b9",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3d5d1549_b3fddd60",
         "filename": "ssl/tls13_server.c",
         "patchSetId": 13
@@ -531,6 +1077,24 @@
       "writtenOn": "2017-02-07T22:40:39Z",
       "side": 1,
       "message": "new_cipher is always going to be set earlier, so we can probably lift it up to right after choose_tls13_cipher above. We could maybe even lift the tls13_init_key_schedule call from below, which means tls13_init_key_schedule could call init_hash for you. (I can\u0027t think of a scenario where we\u0027d want to separate those operations.)",
+      "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83a441fc_8e6f2d63",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-08T16:40:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d5d1549_b3fddd60",
       "revId": "4739d2c63a98d62eb474102f2aef4ac51ce1d8d4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
