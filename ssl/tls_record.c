@@ -227,6 +227,7 @@ enum ssl_open_record_t tls_open_record(SSL *ssl, uint8_t *out_type, CBS *out,
                                        size_t *out_consumed, uint8_t *out_alert,
                                        uint8_t *in, size_t in_len) {
   *out_consumed = 0;
+  *out_alert = SSL_AD_INTERNAL_ERROR;
 
   CBS cbs;
   CBS_init(&cbs, in, in_len);
@@ -502,9 +503,10 @@ int tls_seal_record(SSL *ssl, uint8_t *out, size_t *out_len, size_t max_out,
 
 enum ssl_open_record_t ssl_process_alert(SSL *ssl, uint8_t *out_alert,
                                          const uint8_t *in, size_t in_len) {
+  *out_alert = SSL_AD_DECODE_ERROR;
+
   /* Alerts records may not contain fragmented or multiple alerts. */
   if (in_len != 2) {
-    *out_alert = SSL_AD_DECODE_ERROR;
     OPENSSL_PUT_ERROR(SSL, SSL_R_BAD_ALERT);
     return ssl_open_record_error;
   }
@@ -526,7 +528,6 @@ enum ssl_open_record_t ssl_process_alert(SSL *ssl, uint8_t *out_alert,
     /* Warning alerts do not exist in TLS 1.3. */
     if (ssl->s3->have_version &&
         ssl3_protocol_version(ssl) >= TLS1_3_VERSION) {
-      *out_alert = SSL_AD_DECODE_ERROR;
       OPENSSL_PUT_ERROR(SSL, SSL_R_BAD_ALERT);
       return ssl_open_record_error;
     }

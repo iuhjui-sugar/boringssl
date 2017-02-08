@@ -563,6 +563,7 @@ STACK_OF(CRYPTO_BUFFER) *ssl_parse_cert_chain(uint8_t *out_alert,
                                               CBS *cbs,
                                               CRYPTO_BUFFER_POOL *pool) {
   *out_pubkey = NULL;
+  *out_alert = SSL_AD_DECODE_ERROR;
 
   STACK_OF(CRYPTO_BUFFER) *ret = sk_CRYPTO_BUFFER_new_null();
   if (ret == NULL) {
@@ -573,7 +574,6 @@ STACK_OF(CRYPTO_BUFFER) *ssl_parse_cert_chain(uint8_t *out_alert,
 
   CBS certificate_list;
   if (!CBS_get_u24_length_prefixed(cbs, &certificate_list)) {
-    *out_alert = SSL_AD_DECODE_ERROR;
     OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
     goto err;
   }
@@ -582,7 +582,6 @@ STACK_OF(CRYPTO_BUFFER) *ssl_parse_cert_chain(uint8_t *out_alert,
     CBS certificate;
     if (!CBS_get_u24_length_prefixed(&certificate_list, &certificate) ||
         CBS_len(&certificate) == 0) {
-      *out_alert = SSL_AD_DECODE_ERROR;
       OPENSSL_PUT_ERROR(SSL, SSL_R_CERT_LENGTH_MISMATCH);
       goto err;
     }
@@ -590,7 +589,6 @@ STACK_OF(CRYPTO_BUFFER) *ssl_parse_cert_chain(uint8_t *out_alert,
     if (sk_CRYPTO_BUFFER_num(ret) == 0) {
       *out_pubkey = ssl_cert_parse_pubkey(&certificate);
       if (*out_pubkey == NULL) {
-        *out_alert = SSL_AD_DECODE_ERROR;
         goto err;
       }
 
@@ -603,7 +601,6 @@ STACK_OF(CRYPTO_BUFFER) *ssl_parse_cert_chain(uint8_t *out_alert,
     CRYPTO_BUFFER *buf =
         CRYPTO_BUFFER_new_from_CBS(&certificate, pool);
     if (buf == NULL) {
-      *out_alert = SSL_AD_DECODE_ERROR;
       goto err;
     }
 
@@ -883,6 +880,8 @@ static int ca_dn_cmp(const X509_NAME **a, const X509_NAME **b) {
 
 STACK_OF(X509_NAME) *
     ssl_parse_client_CA_list(SSL *ssl, uint8_t *out_alert, CBS *cbs) {
+  *out_alert = SSL_AD_DECODE_ERROR;
+
   STACK_OF(X509_NAME) *ret = sk_X509_NAME_new(ca_dn_cmp);
   X509_NAME *name = NULL;
   if (ret == NULL) {
@@ -893,7 +892,6 @@ STACK_OF(X509_NAME) *
 
   CBS child;
   if (!CBS_get_u16_length_prefixed(cbs, &child)) {
-    *out_alert = SSL_AD_DECODE_ERROR;
     OPENSSL_PUT_ERROR(SSL, SSL_R_LENGTH_MISMATCH);
     goto err;
   }
@@ -901,7 +899,6 @@ STACK_OF(X509_NAME) *
   while (CBS_len(&child) > 0) {
     CBS distinguished_name;
     if (!CBS_get_u16_length_prefixed(&child, &distinguished_name)) {
-      *out_alert = SSL_AD_DECODE_ERROR;
       OPENSSL_PUT_ERROR(SSL, SSL_R_CA_DN_TOO_LONG);
       goto err;
     }
@@ -911,7 +908,6 @@ STACK_OF(X509_NAME) *
     name = d2i_X509_NAME(NULL, &ptr, (long)CBS_len(&distinguished_name));
     if (name == NULL ||
         ptr != CBS_data(&distinguished_name) + CBS_len(&distinguished_name)) {
-      *out_alert = SSL_AD_DECODE_ERROR;
       OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
       goto err;
     }

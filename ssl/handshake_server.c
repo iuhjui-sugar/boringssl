@@ -541,6 +541,8 @@ static int negotiate_version(SSL_HANDSHAKE *hs, uint8_t *out_alert,
                              const SSL_CLIENT_HELLO *client_hello) {
   SSL *const ssl = hs->ssl;
   assert(!ssl->s3->have_version);
+  *out_alert = SSL_AD_DECODE_ERROR;
+
   uint16_t min_version, max_version;
   if (!ssl_get_version_range(ssl, &min_version, &max_version)) {
     *out_alert = SSL_AD_PROTOCOL_VERSION;
@@ -557,7 +559,6 @@ static int negotiate_version(SSL_HANDSHAKE *hs, uint8_t *out_alert,
         CBS_len(&supported_versions) != 0 ||
         CBS_len(&versions) == 0) {
       OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
-      *out_alert = SSL_AD_DECODE_ERROR;
       return 0;
     }
 
@@ -569,7 +570,6 @@ static int negotiate_version(SSL_HANDSHAKE *hs, uint8_t *out_alert,
       uint16_t ext_version;
       if (!CBS_get_u16(&versions, &ext_version)) {
         OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
-        *out_alert = SSL_AD_DECODE_ERROR;
         return 0;
       }
       if (!ssl->method->version_from_wire(&ext_version, ext_version)) {

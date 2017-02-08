@@ -840,6 +840,8 @@ int ssl_verify_alarm_type(long type) {
 int ssl_parse_extensions(const CBS *cbs, uint8_t *out_alert,
                          const SSL_EXTENSION_TYPE *ext_types,
                          size_t num_ext_types, int ignore_unknown) {
+  *out_alert = SSL_AD_DECODE_ERROR;
+
   /* Reset everything. */
   for (size_t i = 0; i < num_ext_types; i++) {
     *ext_types[i].out_present = 0;
@@ -853,7 +855,6 @@ int ssl_parse_extensions(const CBS *cbs, uint8_t *out_alert,
     if (!CBS_get_u16(&copy, &type) ||
         !CBS_get_u16_length_prefixed(&copy, &data)) {
       OPENSSL_PUT_ERROR(SSL, SSL_R_PARSE_TLSEXT);
-      *out_alert = SSL_AD_DECODE_ERROR;
       return 0;
     }
 
