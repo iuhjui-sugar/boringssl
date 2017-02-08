@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a897368_e249fae3",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1885,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-08T22:30:42Z",
+      "side": 1,
+      "message": "Best to put ssl_ in front since it now squats a name in C\u0027s global namespace. (At least until we get C++ and just namespace bssl it all...)",
+      "range": {
+        "startLine": 1885,
+        "startChar": 4,
+        "endLine": 1885,
+        "endChar": 25
+      },
+      "revId": "39f9cd90319878d89fe7f6228d724d788b3cfb74",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
