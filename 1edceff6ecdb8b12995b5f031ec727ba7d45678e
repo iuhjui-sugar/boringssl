@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83122e77_b34fe04f",
+        "filename": "ssl/ssl_x509.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-08T22:28:28Z",
+      "side": 1,
+      "message": "Hopefully no caller would do this, but this function may wish to check cert-\u003ex509_method and fail in that case, since it\u0027s being called on non-method-table functions. (Maybe it should be a method table hook?) Otherwise if you SSL_get_certificate on an SSL that isn\u0027t tied to crypto/x509, you\u0027ll silently leak memory when the clear hook is missing.\n\nAnother thought is maybe this is too much of a nuisance and we should just, if any of the X509 pointers are non-NULL and we lack the method table, abort().",
+      "revId": "1edceff6ecdb8b12995b5f031ec727ba7d45678e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2dd42d78_4f8d659f",
+        "filename": "ssl/ssl_x509.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-08T22:28:28Z",
+      "side": 1,
+      "message": "Ditto re the mismatch issue.",
+      "revId": "1edceff6ecdb8b12995b5f031ec727ba7d45678e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6546fa5a_2cbe9a51",
+        "filename": "ssl/ssl_x509.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-08T22:28:28Z",
+      "side": 1,
+      "message": "This probably should also hang off of SSL_X509_METHOD.",
+      "range": {
+        "startLine": 592,
+        "startChar": 4,
+        "endLine": 592,
+        "endChar": 28
+      },
+      "revId": "1edceff6ecdb8b12995b5f031ec727ba7d45678e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a15fe6d_bcbaab92",
+        "filename": "ssl/ssl_x509.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-08T22:28:28Z",
+      "side": 1,
+      "message": "Ditto re the mismatch.",
+      "revId": "1edceff6ecdb8b12995b5f031ec727ba7d45678e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
