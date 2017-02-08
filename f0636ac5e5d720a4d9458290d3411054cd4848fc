@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bb032511_584c3edf",
+        "filename": "ssl/CMakeLists.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-08T22:31:15Z",
+      "side": 1,
+      "message": "Hah. I\u0027m really bad at my ABCs.",
+      "revId": "f0636ac5e5d720a4d9458290d3411054cd4848fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
