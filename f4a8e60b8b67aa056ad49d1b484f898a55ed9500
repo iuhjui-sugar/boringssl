@@ -69,6 +69,24 @@
       "revId": "f4a8e60b8b67aa056ad49d1b484f898a55ed9500",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "773a5f6d_17242681",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-08T21:45:30Z",
+      "side": 1,
+      "message": "Ah. To avoid things getting tedious, maybe we\u0027d want to say you\u0027re not allowed to do that---or at least that it may only be reset to the default value on non-error paths. But this works too. *shrug*",
+      "parentUuid": "f767e58d_166940ca",
+      "revId": "f4a8e60b8b67aa056ad49d1b484f898a55ed9500",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
