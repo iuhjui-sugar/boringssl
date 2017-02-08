@@ -2553,13 +2553,6 @@ func addTestForCipherSuite(suite testCipherSuite, ver tlsVersion, protocol proto
 		sendCipherSuite = suite.id
 	}
 
-	// For cipher suites and versions where exporters are defined, verify
-	// that they interoperate.
-	var exportKeyingMaterial int
-	if ver.version > VersionSSL30 {
-		exportKeyingMaterial = 1024
-	}
-
 	testCases = append(testCases, testCase{
 		testType: serverTest,
 		protocol: protocol,
@@ -2575,13 +2568,12 @@ func addTestForCipherSuite(suite testCipherSuite, ver tlsVersion, protocol proto
 				AdvertiseAllConfiguredCiphers: true,
 			},
 		},
-		certFile:             certFile,
-		keyFile:              keyFile,
-		flags:                flags,
-		resumeSession:        true,
-		shouldFail:           shouldServerFail,
-		expectedError:        expectedServerError,
-		exportKeyingMaterial: exportKeyingMaterial,
+		certFile:      certFile,
+		keyFile:       keyFile,
+		flags:         flags,
+		resumeSession: true,
+		shouldFail:    shouldServerFail,
+		expectedError: expectedServerError,
 	})
 
 	testCases = append(testCases, testCase{
@@ -2600,11 +2592,10 @@ func addTestForCipherSuite(suite testCipherSuite, ver tlsVersion, protocol proto
 				SendCipherSuite:             sendCipherSuite,
 			},
 		},
-		flags:                flags,
-		resumeSession:        true,
-		shouldFail:           shouldClientFail,
-		expectedError:        expectedClientError,
-		exportKeyingMaterial: exportKeyingMaterial,
+		flags:         flags,
+		resumeSession: true,
+		shouldFail:    shouldClientFail,
+		expectedError: expectedClientError,
 	})
 
 	if shouldClientFail {
