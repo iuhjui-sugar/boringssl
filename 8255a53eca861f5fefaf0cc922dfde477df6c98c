@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "341fe67b_b075a9f9",
+        "filename": "crypto/bn/bn_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1676,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-09T18:05:16Z",
+      "side": 1,
+      "message": "Style nit: no space before the (.",
+      "revId": "8255a53eca861f5fefaf0cc922dfde477df6c98c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f85a626c_6d325615",
+        "filename": "crypto/bn/div.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 659,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-09T18:05:16Z",
+      "side": 1,
+      "message": "This can just be: BN_copy(r, a) !\u003d NULL",
+      "range": {
+        "startLine": 659,
+        "startChar": 11,
+        "endLine": 659,
+        "endChar": 40
+      },
+      "revId": "8255a53eca861f5fefaf0cc922dfde477df6c98c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75b94553_6a80379f",
+        "filename": "crypto/bn/div.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-09T18:05:16Z",
+      "side": 1,
+      "message": "At this point we know num_words is capped by INT_MAX due to line 658. Also line 663. (And if it weren\u0027t, we\u0027d have other problems.)",
+      "revId": "8255a53eca861f5fefaf0cc922dfde477df6c98c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fb7fb5b_f6525bb1",
+        "filename": "crypto/bn/div.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-09T18:05:16Z",
+      "side": 1,
+      "message": "Oh hrmf, I see. Okay, my dumb saturating idea was pretty dumb. :-) bn_wexpand already checks a tighter bound than this one (and needs to since it\u0027s the one allocating memory), so maybe just omit this and let bn_wexpand deal with it?",
+      "revId": "8255a53eca861f5fefaf0cc922dfde477df6c98c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d8a49d8_4b1d8f8e",
+        "filename": "crypto/bn/div.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 710,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-09T18:05:16Z",
+      "side": 1,
+      "message": "Ditto that if this weren\u0027t capped, we\u0027d have other problems.",
+      "revId": "8255a53eca861f5fefaf0cc922dfde477df6c98c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
