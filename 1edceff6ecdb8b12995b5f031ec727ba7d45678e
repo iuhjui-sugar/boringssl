@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ee73d482_7015366b",
+        "filename": "ssl/ssl_x509.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-02-09T18:25:36Z",
+      "side": 1,
+      "message": "This does become a method-table function in a future change, but each change should stand alone so I\u0027ve asserted x509_method here.",
+      "parentUuid": "83122e77_b34fe04f",
+      "revId": "1edceff6ecdb8b12995b5f031ec727ba7d45678e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2dd42d78_4f8d659f",
         "filename": "ssl/ssl_x509.c",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2017-02-08T22:28:28Z",
       "side": 1,
       "message": "Ditto re the mismatch issue.",
+      "revId": "1edceff6ecdb8b12995b5f031ec727ba7d45678e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60438fab_bbb5e59a",
+        "filename": "ssl/ssl_x509.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-02-09T18:25:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2dd42d78_4f8d659f",
       "revId": "1edceff6ecdb8b12995b5f031ec727ba7d45678e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "3cf4d72e_5610a6bc",
+        "filename": "ssl/ssl_x509.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-02-09T18:25:36Z",
+      "side": 1,
+      "message": "Yep, but that\u0027s a future change.",
+      "parentUuid": "6546fa5a_2cbe9a51",
+      "range": {
+        "startLine": 592,
+        "startChar": 4,
+        "endLine": 592,
+        "endChar": 28
+      },
+      "revId": "1edceff6ecdb8b12995b5f031ec727ba7d45678e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2a15fe6d_bcbaab92",
         "filename": "ssl/ssl_x509.c",
         "patchSetId": 3
@@ -70,6 +130,24 @@
       "writtenOn": "2017-02-08T22:28:28Z",
       "side": 1,
       "message": "Ditto re the mismatch.",
+      "revId": "1edceff6ecdb8b12995b5f031ec727ba7d45678e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d3c2297_cb507ff2",
+        "filename": "ssl/ssl_x509.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-02-09T18:25:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a15fe6d_bcbaab92",
       "revId": "1edceff6ecdb8b12995b5f031ec727ba7d45678e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
