@@ -87,6 +87,24 @@
       "revId": "f4a8e60b8b67aa056ad49d1b484f898a55ed9500",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4360f995_e7c8d06d",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-02-09T18:07:01Z",
+      "side": 1,
+      "message": "Setting it unconditionally looks locally-sane too so I think we\u0027re better off being conservative here.",
+      "parentUuid": "773a5f6d_17242681",
+      "revId": "f4a8e60b8b67aa056ad49d1b484f898a55ed9500",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
