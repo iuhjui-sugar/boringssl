@@ -22,6 +22,30 @@
       "revId": "cc7827509ebc9e2915d3435a8d9a38ec1f891d87",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c355ede_e98be059",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 7210
+      },
+      "writtenOn": "2017-02-09T01:41:26Z",
+      "side": 1,
+      "message": "Done, except that I saturated num_words because that\u0027s where the edge case actually is.",
+      "parentUuid": "55f2442d_eb5f239b",
+      "range": {
+        "startLine": 524,
+        "startChar": 39,
+        "endLine": 524,
+        "endChar": 58
+      },
+      "revId": "cc7827509ebc9e2915d3435a8d9a38ec1f891d87",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
