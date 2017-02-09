@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ee7f6e99_19318ee1",
+        "filename": "ssl/internal.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-09T22:15:00Z",
+      "side": 1,
+      "message": "/* SSL_TRANSCRIPT_md returns the PRF hash. For TLS 1.1 and below, it returns |EVP_md5_sha1|. */",
+      "revId": "8029cd4345dba3cd4e36b8fc0486116884a77348",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6338a44c_b33402be",
+        "filename": "ssl/internal.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-09T22:15:00Z",
+      "side": 1,
+      "message": "the handshake hash",
+      "range": {
+        "startLine": 307,
+        "startChar": 34,
+        "endLine": 307,
+        "endChar": 57
+      },
+      "revId": "8029cd4345dba3cd4e36b8fc0486116884a77348",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a093e8d_f49c70b3",
+        "filename": "ssl/internal.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-09T22:15:00Z",
+      "side": 1,
+      "message": "version isn\u0027t necessary here.",
+      "range": {
+        "startLine": 321,
+        "startChar": 65,
+        "endLine": 321,
+        "endChar": 77
+      },
+      "revId": "8029cd4345dba3cd4e36b8fc0486116884a77348",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d13cc259_429227ce",
+        "filename": "ssl/internal.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-09T22:15:00Z",
+      "side": 1,
+      "message": "Match SSL_TRANSCRIPT_get_hash\u0027s out/out_len thing. This function is also not currently safely callable. How much space is the caller expected to reserve?",
+      "revId": "8029cd4345dba3cd4e36b8fc0486116884a77348",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c08fd999_4b78b6c8",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-09T22:15:00Z",
+      "side": 1,
+      "message": "handshake_failure is if we couldn\u0027t select parameters.",
+      "revId": "8029cd4345dba3cd4e36b8fc0486116884a77348",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
