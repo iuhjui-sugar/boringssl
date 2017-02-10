@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "583f9bfb_69d00637",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1064,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-10T19:46:11Z",
+      "side": 1,
+      "message": "I would prefer we keep the new_ prefix on new_session to disambiguate TLS 1.2 resumption. This field is specifically for when we\u0027re establishing a new session and not resuming an existing one. Otherwise the existence of ssl-\u003esession and hs-\u003enew_session with both non-const will cause lots of problems. Especially as long as SSL_get_session is still used within the library\n\nI\u0027m fine with either for new_cipher but would prefer SSL and SSL_HANDSHAKE fields not share names. We move things between them often enough.",
+      "parentUuid": "13977ca8_1bfce390",
+      "range": {
+        "startLine": 1058,
+        "startChar": 1,
+        "endLine": 1064,
+        "endChar": 0
+      },
+      "revId": "7b769ec98122363dbabf822ffd41bfbf919ccc01",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d2c2d6e_fa74ab23",
         "filename": "ssl/ssl_cert.c",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2017-02-10T16:43:20Z",
       "side": 1,
       "message": "Maybe just use hs-\u003essl below since its only used twice.",
+      "range": {
+        "startLine": 888,
+        "startChar": 7,
+        "endLine": 888,
+        "endChar": 12
+      },
+      "revId": "7b769ec98122363dbabf822ffd41bfbf919ccc01",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b6d3dd6_0ad89917",
+        "filename": "ssl/ssl_cert.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 888,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-10T19:46:11Z",
+      "side": 1,
+      "message": "That style requires counting and flipping back and forth whenever we do anything which is a nuisance.",
+      "parentUuid": "2d2c2d6e_fa74ab23",
       "range": {
         "startLine": 888,
         "startChar": 7,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "f8bd7bd2_f466c2f4",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2577,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-10T19:46:11Z",
+      "side": 1,
+      "message": "Yes. Conscrypt needs it and anyone implementing HTTP/2 needs it.\n\nWhy is it terrible? This is one of our own APIs. I specifically defined it to be well-defined on renego. Most of our other APIs don\u0027t satisfy this property.\n\nThe \"all accesses of hs must have a NULL check\" rule was also formulated specifically with this kind of situation in mind. All public APIs would act on SSL rather than SSL_HANDSHAKE. Ergo the NULL check rule forces the APIs to consider what happens when there is and isn\u0027t a handshake going on. This API does just that.",
+      "parentUuid": "e3071c34_97f23238",
+      "range": {
+        "startLine": 2577,
+        "startChar": 18,
+        "endLine": 2577,
+        "endChar": 40
+      },
+      "revId": "7b769ec98122363dbabf822ffd41bfbf919ccc01",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "58404808_dfe63a68",
         "filename": "ssl/ssl_session.c",
         "patchSetId": 1
@@ -85,6 +157,24 @@
       "revId": "7b769ec98122363dbabf822ffd41bfbf919ccc01",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5bb97f1_dbb8a627",
+        "filename": "ssl/ssl_session.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 747,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-10T19:46:11Z",
+      "side": 1,
+      "message": "Existing thing, but done.",
+      "parentUuid": "58404808_dfe63a68",
+      "revId": "7b769ec98122363dbabf822ffd41bfbf919ccc01",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
