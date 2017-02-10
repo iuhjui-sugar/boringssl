@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a84dcb6c_f1836618",
+        "filename": "ssl/ssl_cert.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-02-10T19:57:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0048fd56_e0c5a067",
+      "revId": "530b63d94989b5cbd04a258b37c847982f05be95",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9d4136ef_202739b9",
         "filename": "ssl/ssl_cert.c",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2017-02-09T21:29:47Z",
       "side": 1,
       "message": "This can be CBB_add_bytes now and save some trouble.",
+      "revId": "530b63d94989b5cbd04a258b37c847982f05be95",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea282626_a97e2312",
+        "filename": "ssl/ssl_cert.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 747,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-02-10T19:57:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d4136ef_202739b9",
       "revId": "530b63d94989b5cbd04a258b37c847982f05be95",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "26ce94c5_38dfceaf",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 944,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-02-10T19:57:32Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "929917dd_6ca4e274",
+      "revId": "530b63d94989b5cbd04a258b37c847982f05be95",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a62f069b_1a18109c",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 5
@@ -64,6 +118,24 @@
       "writtenOn": "2017-02-09T21:29:47Z",
       "side": 1,
       "message": "Perhaps swap the order of this and stack? If the ASSERT_TRUE(stack) fires, X509_NAME_dup will leak.\n\nNot that we\u0027re running the malloc tests at all here. \u003c_\u003c I still need to implement the crazy in-process malloc test idea.",
+      "revId": "530b63d94989b5cbd04a258b37c847982f05be95",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b3a4761_4eaf8ad0",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 954,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-02-10T19:57:32Z",
+      "side": 1,
+      "message": "Kept things in UniquePtrs and .released() things once ownership was transferred.",
+      "parentUuid": "a62f069b_1a18109c",
       "revId": "530b63d94989b5cbd04a258b37c847982f05be95",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "bc445b73_844ef901",
+        "filename": "ssl/ssl_x509.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 850,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-02-10T19:57:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4aaffe0f_9b6ad81b",
+      "revId": "530b63d94989b5cbd04a258b37c847982f05be95",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "22992282_e5194291",
         "filename": "ssl/ssl_x509.c",
         "patchSetId": 5
@@ -98,6 +188,24 @@
       "writtenOn": "2017-02-09T21:29:47Z",
       "side": 1,
       "message": "const",
+      "revId": "530b63d94989b5cbd04a258b37c847982f05be95",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "804e397d_0cb90c02",
+        "filename": "ssl/ssl_x509.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 858,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-02-10T19:57:32Z",
+      "side": 1,
+      "message": "i2d_X509_NAME doesn\u0027t take a const argument :(",
+      "parentUuid": "22992282_e5194291",
       "revId": "530b63d94989b5cbd04a258b37c847982f05be95",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -127,6 +235,30 @@
     },
     {
       "key": {
+        "uuid": "d602d269_c71df992",
+        "filename": "ssl/ssl_x509.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 897,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-02-10T19:57:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6934c1f0_76b30f29",
+      "range": {
+        "startLine": 897,
+        "startChar": 25,
+        "endLine": 897,
+        "endChar": 33
+      },
+      "revId": "530b63d94989b5cbd04a258b37c847982f05be95",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "29bd1bb2_2957f1df",
         "filename": "ssl/ssl_x509.c",
         "patchSetId": 5
@@ -138,6 +270,24 @@
       "writtenOn": "2017-02-09T21:29:47Z",
       "side": 1,
       "message": "Similar comment re X509-ful functions on X509-less objects.",
+      "revId": "530b63d94989b5cbd04a258b37c847982f05be95",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fd49f60_47128017",
+        "filename": "ssl/ssl_x509.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-02-10T19:57:32Z",
+      "side": 1,
+      "message": "You mean, what happens if someone calls an X509-based function on an SSL that was created without the right X509_METHOD?\n\nThat does seem error-prone, both because things will act oddly and because one might leak memory. I\u0027ll add checks at the top of all the functions in a future CL. (For now it\u0027s not possible to create an SSL with the wrong X509_METHOD, so it\u0027s not a current problem.)",
+      "parentUuid": "29bd1bb2_2957f1df",
       "revId": "530b63d94989b5cbd04a258b37c847982f05be95",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -167,6 +317,30 @@
     },
     {
       "key": {
+        "uuid": "65942761_404719d8",
+        "filename": "ssl/ssl_x509.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 950,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-02-10T19:57:32Z",
+      "side": 1,
+      "message": "|ssl| is const.",
+      "parentUuid": "f9594e24_3be9979e",
+      "range": {
+        "startLine": 950,
+        "startChar": 25,
+        "endLine": 950,
+        "endChar": 48
+      },
+      "revId": "530b63d94989b5cbd04a258b37c847982f05be95",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "967daea1_fde9c324",
         "filename": "ssl/ssl_x509.c",
         "patchSetId": 5
@@ -178,6 +352,30 @@
       "writtenOn": "2017-02-09T21:29:47Z",
       "side": 1,
       "message": "Ditto.",
+      "range": {
+        "startLine": 958,
+        "startChar": 22,
+        "endLine": 958,
+        "endChar": 46
+      },
+      "revId": "530b63d94989b5cbd04a258b37c847982f05be95",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50fd423c_6f704236",
+        "filename": "ssl/ssl_x509.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 958,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-02-10T19:57:32Z",
+      "side": 1,
+      "message": "(same.)",
+      "parentUuid": "967daea1_fde9c324",
       "range": {
         "startLine": 958,
         "startChar": 22,
