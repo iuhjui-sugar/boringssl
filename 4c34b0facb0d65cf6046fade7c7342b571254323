@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7592924b_aa1f460d",
+        "filename": "ssl/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1386,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-02-10T19:07:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc5599a6_a5cc5888",
+      "revId": "4c34b0facb0d65cf6046fade7c7342b571254323",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a9e2296f_2c80e9af",
         "filename": "ssl/internal.h",
         "patchSetId": 4
@@ -30,6 +48,30 @@
       "writtenOn": "2017-02-09T20:40:35Z",
       "side": 1,
       "message": "X.509 -\u003e X509? Arguably the CRYPTO_BUFFERs are X.509-related. Just not X509.",
+      "range": {
+        "startLine": 1388,
+        "startChar": 29,
+        "endLine": 1388,
+        "endChar": 34
+      },
+      "revId": "4c34b0facb0d65cf6046fade7c7342b571254323",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e4be3ce_cc8e8af2",
+        "filename": "ssl/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1388,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-02-10T19:07:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9e2296f_2c80e9af",
       "range": {
         "startLine": 1388,
         "startChar": 29,
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "63c31cd9_6505cd10",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-02-10T19:07:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d355b4cd_eb8e3ca9",
+      "revId": "4c34b0facb0d65cf6046fade7c7342b571254323",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3728c907_7b74ab3b",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 4
@@ -70,6 +130,24 @@
       "writtenOn": "2017-02-09T20:40:35Z",
       "side": 1,
       "message": "Ditto.",
+      "revId": "4c34b0facb0d65cf6046fade7c7342b571254323",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9950982f_c86d061d",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-02-10T19:07:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3728c907_7b74ab3b",
       "revId": "4c34b0facb0d65cf6046fade7c7342b571254323",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "9526a7d8_63e2abc3",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 803,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-02-10T19:07:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94346ada_85af312b",
+      "revId": "4c34b0facb0d65cf6046fade7c7342b571254323",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0868fcea_557b654a",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 4
@@ -104,6 +200,24 @@
       "writtenOn": "2017-02-09T20:40:35Z",
       "side": 1,
       "message": "Ditto.",
+      "revId": "4c34b0facb0d65cf6046fade7c7342b571254323",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a68d907b_3c466d9d",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 998,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-02-10T19:07:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0868fcea_557b654a",
       "revId": "4c34b0facb0d65cf6046fade7c7342b571254323",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -127,6 +241,24 @@
     },
     {
       "key": {
+        "uuid": "0294fa96_fe1d95ff",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2176,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-02-10T19:07:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d463cb24_6360f329",
+      "revId": "4c34b0facb0d65cf6046fade7c7342b571254323",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "89fcd1a5_3f4f2646",
         "filename": "ssl/ssl_x509.c",
         "patchSetId": 4
@@ -138,6 +270,24 @@
       "writtenOn": "2017-02-09T20:40:35Z",
       "side": 1,
       "message": "#include \u003copenssl/asn1.h\u003e",
+      "revId": "4c34b0facb0d65cf6046fade7c7342b571254323",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04d7b45c_a285a5b9",
+        "filename": "ssl/ssl_x509.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-02-10T19:07:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89fcd1a5_3f4f2646",
       "revId": "4c34b0facb0d65cf6046fade7c7342b571254323",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -161,6 +311,24 @@
     },
     {
       "key": {
+        "uuid": "e8fd9019_ef3c61ba",
+        "filename": "ssl/ssl_x509.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 788,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-02-10T19:07:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b082515c_17d33931",
+      "revId": "4c34b0facb0d65cf6046fade7c7342b571254323",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "97ae5ed9_635e885f",
         "filename": "ssl/ssl_x509.c",
         "patchSetId": 4
@@ -178,6 +346,24 @@
     },
     {
       "key": {
+        "uuid": "fbe0dcc5_4fa95409",
+        "filename": "ssl/ssl_x509.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 792,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-02-10T19:07:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97ae5ed9_635e885f",
+      "revId": "4c34b0facb0d65cf6046fade7c7342b571254323",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4a7f2ce8_c4392789",
         "filename": "ssl/ssl_x509.c",
         "patchSetId": 4
@@ -189,6 +375,24 @@
       "writtenOn": "2017-02-09T20:40:35Z",
       "side": 1,
       "message": "#include \u003copenssl/bytestring.h\u003e",
+      "revId": "4c34b0facb0d65cf6046fade7c7342b571254323",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f26b1d19_c9bc7ef0",
+        "filename": "ssl/ssl_x509.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 797,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-02-10T19:07:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a7f2ce8_c4392789",
       "revId": "4c34b0facb0d65cf6046fade7c7342b571254323",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
