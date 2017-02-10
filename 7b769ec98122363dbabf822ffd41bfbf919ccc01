@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "13977ca8_1bfce390",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1064,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-10T16:43:20Z",
+      "side": 1,
+      "message": "Is the new_ actually necessary? Since the fact that its on hs-\u003e implies its part of this specific handshake?",
+      "range": {
+        "startLine": 1058,
+        "startChar": 1,
+        "endLine": 1064,
+        "endChar": 0
+      },
+      "revId": "7b769ec98122363dbabf822ffd41bfbf919ccc01",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d2c2d6e_fa74ab23",
+        "filename": "ssl/ssl_cert.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 888,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-10T16:43:20Z",
+      "side": 1,
+      "message": "Maybe just use hs-\u003essl below since its only used twice.",
+      "range": {
+        "startLine": 888,
+        "startChar": 7,
+        "endLine": 888,
+        "endChar": 12
+      },
+      "revId": "7b769ec98122363dbabf822ffd41bfbf919ccc01",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3071c34_97f23238",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2577,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-10T16:43:20Z",
+      "side": 1,
+      "message": "This is a terrible method, do we actually need it?",
+      "range": {
+        "startLine": 2577,
+        "startChar": 18,
+        "endLine": 2577,
+        "endChar": 40
+      },
+      "revId": "7b769ec98122363dbabf822ffd41bfbf919ccc01",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58404808_dfe63a68",
+        "filename": "ssl/ssl_session.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 747,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-10T16:43:20Z",
+      "side": 1,
+      "message": "reverse order to match CURRENT \u003d\u003d session pattern.",
+      "revId": "7b769ec98122363dbabf822ffd41bfbf919ccc01",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
