@@ -149,13 +149,11 @@ void EVP_PKEY_CTX_free(EVP_PKEY_CTX *ctx) {
 }
 
 EVP_PKEY_CTX *EVP_PKEY_CTX_dup(EVP_PKEY_CTX *pctx) {
-  EVP_PKEY_CTX *rctx;
-
   if (!pctx->pmeth || !pctx->pmeth->copy) {
     return NULL;
   }
 
-  rctx = OPENSSL_malloc(sizeof(EVP_PKEY_CTX));
+  EVP_PKEY_CTX *rctx = OPENSSL_malloc(sizeof(EVP_PKEY_CTX));
   if (!rctx) {
     return NULL;
   }
@@ -166,30 +164,24 @@ EVP_PKEY_CTX *EVP_PKEY_CTX_dup(EVP_PKEY_CTX *pctx) {
   rctx->engine = pctx->engine;
   rctx->operation = pctx->operation;
 
-  if (pctx->pkey) {
+  if (pctx->pkey != NULL) {
     EVP_PKEY_up_ref(pctx->pkey);
     rctx->pkey = pctx->pkey;
-    if (rctx->pkey == NULL) {
-      goto err;
-    }
   }
 
-  if (pctx->peerkey) {
+  if (pctx->peerkey != NULL) {
     EVP_PKEY_up_ref(pctx->peerkey);
     rctx->peerkey = pctx->peerkey;
-    if (rctx->peerkey == NULL) {
-      goto err;
-    }
   }
 
-  if (pctx->pmeth->copy(rctx, pctx) > 0) {
-    return rctx;
+  if (pctx->pmeth->copy(rctx, pctx) <= 0) {
+    rctx->pmeth = NULL;
+    EVP_PKEY_CTX_free(rctx);
+    OPENSSL_PUT_ERROR(EVP, ERR_LIB_EVP);
+    return NULL;
   }
 
-err:
-  EVP_PKEY_CTX_free(rctx);
-  OPENSSL_PUT_ERROR(EVP, ERR_LIB_EVP);
-  return NULL;
+  return rctx;
 }
 
 EVP_PKEY *EVP_PKEY_CTX_get0_pkey(EVP_PKEY_CTX *ctx) { return ctx->pkey; }
