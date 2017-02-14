@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1d169b61_87c817b0",
+        "filename": "crypto/chacha/asm/chacha-x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1760,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-14T00:43:58Z",
+      "side": 1,
+      "message": "Apart from the extra constants, this is the only thing that affects our code right now. I\u0027m guessing this is about this thing:\nhttps://software.intel.com/en-us/articles/avoiding-avx-sse-transition-penalties\n\nI\u0027m guessing they put in vzeroall for some reason and then later decided vzeroupper would work fine and maybe is more efficient or something, I dunno. (Comment would be nice...)",
+      "revId": "b0b036eb514dae89b660a2b0ed252e96d6dd69bf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
