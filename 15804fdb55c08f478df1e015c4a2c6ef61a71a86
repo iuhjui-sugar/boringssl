@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "64d67dc1_2f989ef7",
+        "filename": "crypto/chacha/asm/chacha-x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-14T01:11:39Z",
+      "side": 1,
+      "message": "One thing of note is we\u0027re switching from a 32-bit register to a 64-bit register here. But it\u0027s counting down from 10, so it shouldn\u0027t matter for correctness. No idea about performance.",
+      "revId": "15804fdb55c08f478df1e015c4a2c6ef61a71a86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb2d084f_7efc858c",
+        "filename": "crypto/chacha/asm/chacha-x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1759,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-14T01:11:39Z",
+      "side": 1,
+      "message": "...I see he changed his mind?",
+      "revId": "15804fdb55c08f478df1e015c4a2c6ef61a71a86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

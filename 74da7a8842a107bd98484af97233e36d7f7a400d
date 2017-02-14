@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "66b028f2_c0af47c3",
+        "filename": "crypto/chacha/asm/chacha-x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-14T01:11:39Z",
+      "side": 0,
+      "message": "Confirmed that each of those registers is unused in the final generated output.",
+      "revId": "74da7a8842a107bd98484af97233e36d7f7a400d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
