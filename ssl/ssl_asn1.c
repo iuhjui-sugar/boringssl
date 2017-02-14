@@ -130,6 +130,7 @@
  *     peerSignatureAlgorithm  [23] INTEGER OPTIONAL,
  *     ticketMaxEarlyData      [24] INTEGER OPTIONAL,
  *     authTimeout             [25] INTEGER OPTIONAL, -- defaults to timeout
+ *     early_alpn              [26] OCTET STRING OPTIONAL,
  * }
  *
  * Note: historically this serialization has included other optional
@@ -186,6 +187,8 @@ static const int kTicketMaxEarlyDataTag =
     CBS_ASN1_CONSTRUCTED | CBS_ASN1_CONTEXT_SPECIFIC | 24;
 static const int kAuthTimeoutTag =
     CBS_ASN1_CONSTRUCTED | CBS_ASN1_CONTEXT_SPECIFIC | 25;
+static const int kEarlyALPNTag =
+    CBS_ASN1_CONSTRUCTED | CBS_ASN1_CONTEXT_SPECIFIC | 26;
 
 static int SSL_SESSION_to_bytes_full(const SSL_SESSION *in, uint8_t **out_data,
                                      size_t *out_len, int for_ticket) {
@@ -410,6 +413,16 @@ static int SSL_SESSION_to_bytes_full(const SSL_SESSION *in, uint8_t **out_data,
        !CBB_add_asn1_uint64(&child, in->auth_timeout))) {
     OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
     goto err;
+  }
+
+  if (in->early_alpn) {
+    if (!CBB_add_asn1(&session, &child, kEarlyALPNTag) ||
+        !CBB_add_asn1(&child, &child2, CBS_ASN1_OCTETSTRING) ||
+        !CBB_add_bytes(&child2, (const uint8_t *)in->early_alpn,
+                       in->early_alpn_len)) {
+      OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
+      goto err;
+    }
   }
 
   if (!CBB_finish(&cbb, out_data, out_len)) {
@@ -799,8 +812,30 @@ SSL_SESSION *SSL_SESSION_parse(CBS *cbs, const SSL_X509_METHOD *x509_method,
       !SSL_SESSION_parse_u32(&session, &ret->ticket_max_early_data,
                              kTicketMaxEarlyDataTag, 0) ||
       !SSL_SESSION_parse_long(&session, &ret->auth_timeout, kAuthTimeoutTag,
-                              ret->timeout) ||
-      CBS_len(&session) != 0) {
+                              ret->timeout)) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_INVALID_SSL_SESSION);
+    goto err;
+  }
+
+  CBS early_alpn;
+  int early_alpn_present;
+  if (!CBS_get_optional_asn1_octet_string(&session, &early_alpn,
+                                          &early_alpn_present, kEarlyALPNTag)) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_INVALID_SSL_SESSION);
+    goto err;
+  }
+
+  if (early_alpn_present) {
+    ret->early_alpn = OPENSSL_malloc(CBS_len(&early_alpn));
+    if (ret->early_alpn == NULL) {
+      OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
+      goto err;
+    }
+    OPENSSL_memcpy(ret->early_alpn, CBS_data(&early_alpn), CBS_len(&early_alpn));
+    ret->early_alpn_len = CBS_len(&early_alpn);
+  }
+
+  if (CBS_len(&session) != 0) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_INVALID_SSL_SESSION);
     goto err;
   }
