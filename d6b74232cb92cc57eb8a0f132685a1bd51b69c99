@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a00f6946_088cc68c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-14T00:34:22Z",
+      "side": 1,
+      "message": "Why didn\u0027t upstream want it?",
+      "revId": "d6b74232cb92cc57eb8a0f132685a1bd51b69c99",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
