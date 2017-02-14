@@ -1042,6 +1042,17 @@ static int ssl3_select_parameters(SSL_HANDSHAKE *hs) {
     goto f_err;
   }
 
+  /* Store the initial negotiated ALPN in the session. */
+  if (ssl->session == NULL &&
+      ssl->s3->alpn_selected != NULL) {
+    ssl->s3->new_session->alpn = OPENSSL_malloc(ssl->s3->alpn_selected_len);
+    if (ssl->s3->new_session->alpn == NULL) {
+      al = SSL_AD_INTERNAL_ERROR;
+      goto f_err;
+    }
+    ssl->s3->new_session->alpn_length = ssl->s3->alpn_selected_len;
+  }
+
   /* Now that all parameters are known, initialize the handshake hash and hash
    * the ClientHello. */
   if (!SSL_TRANSCRIPT_init_hash(&hs->transcript, ssl3_protocol_version(ssl),

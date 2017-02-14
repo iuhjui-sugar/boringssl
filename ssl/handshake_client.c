@@ -1029,6 +1029,17 @@ static int ssl3_get_server_hello(SSL_HANDSHAKE *hs) {
     goto f_err;
   }
 
+  /* Store the initial negotiated ALPN in the session. */
+  if (ssl->session == NULL &&
+      ssl->s3->alpn_selected != NULL) {
+    ssl->s3->new_session->alpn = OPENSSL_malloc(ssl->s3->alpn_selected_len);
+    if (ssl->s3->new_session->alpn == NULL) {
+      al = SSL_AD_INTERNAL_ERROR;
+      goto f_err;
+    }
+    ssl->s3->new_session->alpn_length = ssl->s3->alpn_selected_len;
+  }
+
   if (ssl->session != NULL &&
       ssl->s3->tmp.extended_master_secret !=
           ssl->session->extended_master_secret) {
