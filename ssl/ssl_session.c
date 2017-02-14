@@ -280,6 +280,14 @@ SSL_SESSION *SSL_SESSION_dup(SSL_SESSION *session, int dup_flags) {
     new_session->ticket_age_add = session->ticket_age_add;
     new_session->ticket_max_early_data = session->ticket_max_early_data;
     new_session->extended_master_secret = session->extended_master_secret;
+
+    new_session->alpn_length = session->alpn_length;
+    if (session->alpn != NULL) {
+      new_session->alpn = BUF_memdup(session->alpn, session->alpn_length);
+      if (new_session->alpn == NULL) {
+        goto err;
+      }
+    }
   }
 
   /* Copy the ticket. */
@@ -373,6 +381,7 @@ void SSL_SESSION_free(SSL_SESSION *session) {
   OPENSSL_free(session->tlsext_signed_cert_timestamp_list);
   OPENSSL_free(session->ocsp_response);
   OPENSSL_free(session->psk_identity);
+  OPENSSL_free(session->alpn);
   OPENSSL_cleanse(session, sizeof(*session));
   OPENSSL_free(session);
 }
