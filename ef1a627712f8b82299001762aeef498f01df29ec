@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c97c71d_954d7848",
+        "filename": "crypto/bn/asm/x86-mont.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-14T00:13:26Z",
+      "side": 1,
+      "message": "(Got tired. Glossed over this one.)",
+      "revId": "ef1a627712f8b82299001762aeef498f01df29ec",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97e914e1_4daf3eef",
+        "filename": "crypto/bn/asm/x86_64-mont.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-14T00:13:26Z",
+      "side": 1,
+      "message": "What\u0027s wrong with mov?",
+      "revId": "ef1a627712f8b82299001762aeef498f01df29ec",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "34986865_aac93e8e",
+        "filename": "crypto/bn/asm/x86_64-mont.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 804,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-14T00:13:26Z",
+      "side": 1,
+      "message": "Uhhhhhh... :-/ I really hope this is just about optimizing for the cache and not that this code actually cares.",
+      "revId": "ef1a627712f8b82299001762aeef498f01df29ec",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e865fbca_6e544cc4",
+        "filename": "crypto/bn/asm/x86_64-mont.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 818,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-14T00:13:26Z",
+      "side": 1,
+      "message": "I wasn\u0027t able to follow the code from here to sp_done. It really should probably be in C, but then we need to convince upstream to use alloca...",
+      "revId": "ef1a627712f8b82299001762aeef498f01df29ec",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c7b013c_c2f48edf",
+        "filename": "crypto/bn/asm/x86_64-mont.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1358,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-14T00:13:26Z",
+      "side": 1,
+      "message": "[I didn\u0027t look at this SEH stuff.]",
+      "revId": "ef1a627712f8b82299001762aeef498f01df29ec",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a0eafaf_47ed240f",
+        "filename": "crypto/bn/asm/x86_64-mont5.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-14T00:13:26Z",
+      "side": 1,
+      "message": "Didn\u0027t look at this one. I assume it\u0027s analogous to the other one here which I was barely able to understand.",
+      "revId": "ef1a627712f8b82299001762aeef498f01df29ec",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e1cd384d_0044048e",
+        "filename": "crypto/bn/asm/x86_64-mont5.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1070,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-14T00:13:26Z",
+      "side": 1,
+      "message": "Ditto. Also below.",
+      "revId": "ef1a627712f8b82299001762aeef498f01df29ec",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
