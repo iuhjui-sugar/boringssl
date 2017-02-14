@@ -270,6 +270,18 @@ static enum ssl_hs_wait_t do_process_server_hello(SSL_HANDSHAKE *hs) {
   ssl->s3->new_session->cipher = cipher;
   ssl->s3->tmp.new_cipher = cipher;
 
+  /* Store the initial negotiated ALPN in the session. */
+  if (ssl->s3->alpn_selected != NULL) {
+    ssl->s3->new_session->alpn = OPENSSL_malloc(ssl->s3->alpn_selected_len);
+    if (ssl->s3->new_session->alpn == NULL) {
+      ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
+      return ssl_hs_error;
+    }
+    OPENSSL_memcpy(ssl->s3->new_session->alpn, ssl->s3->alpn_selected,
+                   ssl->s3->alpn_selected_len);
+    ssl->s3->new_session->alpn_length = ssl->s3->alpn_selected_len;
+  }
+
   /* The PRF hash is now known. Set up the key schedule. */
   if (!tls13_init_key_schedule(hs)) {
     return ssl_hs_error;
