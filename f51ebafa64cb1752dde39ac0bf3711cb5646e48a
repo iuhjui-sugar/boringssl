@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "64b392a1_bda546a9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-15T21:57:53Z",
+      "side": 1,
+      "message": "Probably add:\n\n0-RTT requires matching the selected ALPN parameters against those in the session. Stash the ALPN value in the session in TLS 1.3, so we can recover it.\n\nBUG\u003dwhatever-the-0-RTT-bug-is",
+      "revId": "f51ebafa64cb1752dde39ac0bf3711cb5646e48a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9bfa6726_e99432e2",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 3808,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-15T21:57:53Z",
+      "side": 1,
+      "message": "Nit: alpn is",
+      "range": {
+        "startLine": 3808,
+        "startChar": 5,
+        "endLine": 3808,
+        "endChar": 9
+      },
+      "revId": "f51ebafa64cb1752dde39ac0bf3711cb5646e48a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a17a2cd_df209bf4",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 3809,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-15T21:57:53Z",
+      "side": 1,
+      "message": "Nit: 0RTT \u003d\u003e 0-RTT?",
+      "range": {
+        "startLine": 3809,
+        "startChar": 65,
+        "endLine": 3809,
+        "endChar": 69
+      },
+      "revId": "f51ebafa64cb1752dde39ac0bf3711cb5646e48a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec29b59d_20fb827c",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 3810,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-15T21:57:53Z",
+      "side": 1,
+      "message": "What do you think about calling it something like early_alpn, to be clear it\u0027s just the early data thing.",
+      "revId": "f51ebafa64cb1752dde39ac0bf3711cb5646e48a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f52c821_c2998300",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 3811,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-15T21:57:53Z",
+      "side": 1,
+      "message": "Nit: alpn_len\n\n(Probably both this and the s3 copy should be uint8_t. Follow-up maybe?)",
+      "range": {
+        "startLine": 3811,
+        "startChar": 9,
+        "endLine": 3811,
+        "endChar": 20
+      },
+      "revId": "f51ebafa64cb1752dde39ac0bf3711cb5646e48a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e07298b4_e2e43165",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-15T21:57:53Z",
+      "side": 1,
+      "message": "BUF_memdup",
+      "range": {
+        "startLine": 275,
+        "startChar": 33,
+        "endLine": 275,
+        "endChar": 47
+      },
+      "revId": "f51ebafa64cb1752dde39ac0bf3711cb5646e48a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eacfcea1_679d1a14",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-15T21:57:53Z",
+      "side": 1,
+      "message": "BUF_memdup",
+      "range": {
+        "startLine": 256,
+        "startChar": 33,
+        "endLine": 256,
+        "endChar": 47
+      },
+      "revId": "f51ebafa64cb1752dde39ac0bf3711cb5646e48a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
