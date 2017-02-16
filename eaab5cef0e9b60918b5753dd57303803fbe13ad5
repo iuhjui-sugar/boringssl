@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ff5bbbb0_a231eab5",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-16T16:40:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0dda76aa_3edc2dc6",
+      "revId": "eaab5cef0e9b60918b5753dd57303803fbe13ad5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1d80701c_59726341",
         "filename": "ssl/ssl_asn1.c",
         "patchSetId": 7
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "3f4faf9c_d7124172",
+        "filename": "ssl/ssl_asn1.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 836,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-16T16:40:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d80701c_59726341",
+      "revId": "eaab5cef0e9b60918b5753dd57303803fbe13ad5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4f41be90_83379e9e",
         "filename": "ssl/ssl_session.c",
         "patchSetId": 7
@@ -47,6 +83,24 @@
       "writtenOn": "2017-02-16T16:30:39Z",
       "side": 1,
       "message": "Just so we never have NULL + non-zero length, I think it\u0027s best to copy this one after BUF_memdup. Doesn\u0027t really matter here since it\u0027s a malloc error, but we\u0027ve had crashes before from the ptr/length mismatch. (Mumble mumble C++ would fix this mumble.)",
+      "revId": "eaab5cef0e9b60918b5753dd57303803fbe13ad5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d52f6a0f_ac77c7ca",
+        "filename": "ssl/ssl_session.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-16T16:40:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f41be90_83379e9e",
       "revId": "eaab5cef0e9b60918b5753dd57303803fbe13ad5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
