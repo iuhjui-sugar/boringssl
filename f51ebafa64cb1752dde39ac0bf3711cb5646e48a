@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6ad0d9bf_6bb5392b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-16T16:01:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64b392a1_bda546a9",
+      "revId": "f51ebafa64cb1752dde39ac0bf3711cb5646e48a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9bfa6726_e99432e2",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 4
@@ -30,6 +48,30 @@
       "writtenOn": "2017-02-15T21:57:53Z",
       "side": 1,
       "message": "Nit: alpn is",
+      "range": {
+        "startLine": 3808,
+        "startChar": 5,
+        "endLine": 3808,
+        "endChar": 9
+      },
+      "revId": "f51ebafa64cb1752dde39ac0bf3711cb5646e48a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab0c6fdd_be4c4bec",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 3808,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-16T16:01:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9bfa6726_e99432e2",
       "range": {
         "startLine": 3808,
         "startChar": 5,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "f473f5af_e601c593",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 3809,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-16T16:01:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a17a2cd_df209bf4",
+      "range": {
+        "startLine": 3809,
+        "startChar": 65,
+        "endLine": 3809,
+        "endChar": 69
+      },
+      "revId": "f51ebafa64cb1752dde39ac0bf3711cb5646e48a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ec29b59d_20fb827c",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 4
@@ -82,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "5fd807c7_3951919e",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 3810,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-16T16:01:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec29b59d_20fb827c",
+      "revId": "f51ebafa64cb1752dde39ac0bf3711cb5646e48a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5f52c821_c2998300",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 4
@@ -93,6 +177,30 @@
       "writtenOn": "2017-02-15T21:57:53Z",
       "side": 1,
       "message": "Nit: alpn_len\n\n(Probably both this and the s3 copy should be uint8_t. Follow-up maybe?)",
+      "range": {
+        "startLine": 3811,
+        "startChar": 9,
+        "endLine": 3811,
+        "endChar": 20
+      },
+      "revId": "f51ebafa64cb1752dde39ac0bf3711cb5646e48a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7eaa9847_5b24a02a",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 3811,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-16T16:01:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f52c821_c2998300",
       "range": {
         "startLine": 3811,
         "startChar": 9,
@@ -128,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "635e45f3_fe702d58",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-16T16:01:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e07298b4_e2e43165",
+      "range": {
+        "startLine": 275,
+        "startChar": 33,
+        "endLine": 275,
+        "endChar": 47
+      },
+      "revId": "f51ebafa64cb1752dde39ac0bf3711cb5646e48a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eacfcea1_679d1a14",
         "filename": "ssl/tls13_server.c",
         "patchSetId": 4
@@ -139,6 +271,30 @@
       "writtenOn": "2017-02-15T21:57:53Z",
       "side": 1,
       "message": "BUF_memdup",
+      "range": {
+        "startLine": 256,
+        "startChar": 33,
+        "endLine": 256,
+        "endChar": 47
+      },
+      "revId": "f51ebafa64cb1752dde39ac0bf3711cb5646e48a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e37e1411_f335b79b",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-16T16:01:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eacfcea1_679d1a14",
       "range": {
         "startLine": 256,
         "startChar": 33,
