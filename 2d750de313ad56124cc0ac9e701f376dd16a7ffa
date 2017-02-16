@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c93f1d8_6fdb685d",
+        "filename": "tool/transport_common.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-16T01:02:29Z",
+      "side": 1,
+      "message": "Super nitpicky nit: I don\u0027t think I\u0027ve ever heard of \"staple\" being the verb for SCTs. Perhaps:\n\nsct_stable \u003d\u003e sct_list\n\"SCT stable\" \u003d\u003e \"SCT list provided\"",
+      "revId": "2d750de313ad56124cc0ac9e701f376dd16a7ffa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
