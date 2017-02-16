@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3d1f534d_40293180",
+        "filename": "crypto/asn1/asn1_locl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-16T17:55:46Z",
+      "side": 1,
+      "message": "This name seems strange, not asn1_time?",
+      "range": {
+        "startLine": 60,
+        "startChar": 8,
+        "endLine": 60,
+        "endChar": 39
+      },
+      "revId": "88c0f4a0e7aa2c6a3dcd6ac24c7e4ef294f95c0c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "afe41d17_6056cfb2",
+        "filename": "crypto/asn1/asn1_locl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-16T17:55:46Z",
+      "side": 1,
+      "message": "Move this down, maybe import the \"Internal time functions\" line from the original file?",
+      "range": {
+        "startLine": 72,
+        "startChar": 17,
+        "endLine": 72,
+        "endChar": 27
+      },
+      "revId": "88c0f4a0e7aa2c6a3dcd6ac24c7e4ef294f95c0c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
