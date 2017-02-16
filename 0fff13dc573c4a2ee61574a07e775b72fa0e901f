@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "78bfb01a_80861b23",
+        "filename": "crypto/asn1/tasn_new.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-16T18:02:21Z",
+      "side": 1,
+      "message": "Can these get more constructs labels.\nmemerr_free or something.",
+      "range": {
+        "startLine": 203,
+        "startChar": 1,
+        "endLine": 203,
+        "endChar": 8
+      },
+      "revId": "0fff13dc573c4a2ee61574a07e775b72fa0e901f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd95782c_93b40a70",
+        "filename": "crypto/asn1/tasn_new.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-16T18:02:21Z",
+      "side": 1,
+      "message": "Same.",
+      "range": {
+        "startLine": 213,
+        "startChar": 1,
+        "endLine": 213,
+        "endChar": 8
+      },
+      "revId": "0fff13dc573c4a2ee61574a07e775b72fa0e901f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "976c36ab_694e1bbf",
+        "filename": "crypto/x509/x_name.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-16T18:02:21Z",
+      "side": 1,
+      "message": "Presumably no parens to keep with upstream, but :(",
+      "revId": "0fff13dc573c4a2ee61574a07e775b72fa0e901f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
