@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1ab73ab6_82ca3bf8",
+        "filename": "crypto/rsa/rsa_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-16T22:18:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0c579b2_5413c2ae",
+      "revId": "fd70d55c8fa528bef5fbdc9d3b018e6ed396f86a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a54617a_bea9c7b6",
         "filename": "crypto/rsa/rsa_test.cc",
         "patchSetId": 4
@@ -30,6 +48,30 @@
       "writtenOn": "2017-02-16T19:06:39Z",
       "side": 1,
       "message": "ERR_clear_error after this?",
+      "range": {
+        "startLine": 830,
+        "startChar": 2,
+        "endLine": 830,
+        "endChar": 14
+      },
+      "revId": "fd70d55c8fa528bef5fbdc9d3b018e6ed396f86a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cfb3a18_920971c7",
+        "filename": "crypto/rsa/rsa_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 830,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-16T22:18:49Z",
+      "side": 1,
+      "message": "Done. Although there\u0027s a GTest hook installed that automatically ERR_clear_errors after each test now.",
+      "parentUuid": "5a54617a_bea9c7b6",
       "range": {
         "startLine": 830,
         "startChar": 2,
