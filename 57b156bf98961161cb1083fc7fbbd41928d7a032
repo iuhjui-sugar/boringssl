@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d4fad7cd_f6c5ebe5",
+        "filename": "crypto/aes/asm/aesni-x86_64.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 1204,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-16T21:49:40Z",
+      "side": 1,
+      "message": "...what\u0027s wrong with rbp? Okay...",
+      "revId": "57b156bf98961161cb1083fc7fbbd41928d7a032",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5f968008_f34bb753",
+        "filename": "crypto/aes/asm/bsaes-x86_64.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 1161,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-16T21:49:40Z",
+      "side": 1,
+      "message": "(Why even bother stashing %rsp into %rax here? II guess for some messy unwind reason?)",
+      "revId": "57b156bf98961161cb1083fc7fbbd41928d7a032",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a6c16d77_7d9061a2",
+        "filename": "crypto/aes/asm/bsaes-x86_64.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 1330,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-16T21:49:40Z",
+      "side": 1,
+      "message": "[0x78 is the 0x48 allocated in line 1169 plus the 6 qwords pushed.]",
+      "revId": "57b156bf98961161cb1083fc7fbbd41928d7a032",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eef3d5f9_474cca3e",
+        "filename": "crypto/chacha/asm/chacha-x86_64.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-16T21:49:40Z",
+      "side": 1,
+      "message": "I\u0027m confused. As far as I can tell, he\u0027s not using those 8 bytes at all.\n\nUpdate: I asked on the PR and it\u0027s so the top of the stack is 16-byte aligned. Since there\u0027s a return address, we\u0027re 8 mod 16. But it is indeed otherwise unused.",
+      "range": {
+        "startLine": 429,
+        "startChar": 29,
+        "endLine": 429,
+        "endChar": 30
+      },
+      "revId": "57b156bf98961161cb1083fc7fbbd41928d7a032",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
