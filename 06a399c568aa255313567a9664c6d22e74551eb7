@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "886f8112_aabb8305",
+        "filename": "crypto/evp/evp_ctx.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-16T17:49:57Z",
+      "side": 1,
+      "message": "While here, can you change rctx to new_ctx or something. rctx and pctx are too similar.",
+      "range": {
+        "startLine": 151,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 12
+      },
+      "revId": "06a399c568aa255313567a9664c6d22e74551eb7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
