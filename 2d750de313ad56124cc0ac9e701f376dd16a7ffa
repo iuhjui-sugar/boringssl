@@ -34,6 +34,24 @@
       "revId": "2d750de313ad56124cc0ac9e701f376dd16a7ffa",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46e5990b_3cfc5b5c",
+        "filename": "tool/transport_common.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-16T01:13:54Z",
+      "side": 1,
+      "message": "Ah, good point. Yeah, I don\u0027t hugely care either way. Thanks!\n\n(Variable name still says staple, but I\u0027ll go fix that.)",
+      "parentUuid": "90918341_369a2e5a",
+      "revId": "2d750de313ad56124cc0ac9e701f376dd16a7ffa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
