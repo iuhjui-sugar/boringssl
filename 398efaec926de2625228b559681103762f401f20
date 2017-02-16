@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "ccc0e165_355c5dc1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-16T22:51:21Z",
+      "side": 1,
+      "message": "This should be fine; confirmed that perlasm already filters them out.",
+      "range": {
+        "startLine": 11,
+        "startChar": 47,
+        "endLine": 13,
+        "endChar": 4
+      },
+      "revId": "398efaec926de2625228b559681103762f401f20",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9722a966_d09df54b",
         "filename": "crypto/bn/asm/x86_64-mont5.pl",
         "patchSetId": 3
@@ -16,6 +39,41 @@
       "revId": "398efaec926de2625228b559681103762f401f20",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8edf800b_a79d4656",
+        "filename": "crypto/bn/asm/x86_64-mont5.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-16T22:51:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9722a966_d09df54b",
+      "revId": "398efaec926de2625228b559681103762f401f20",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f83814ec_04c0e36e",
+        "filename": "crypto/bn/asm/x86_64-mont5.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 2231,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-16T22:51:21Z",
+      "side": 1,
+      "message": "Note there is a non-CFI change in here. Though I buy it is a no-op.",
+      "revId": "398efaec926de2625228b559681103762f401f20",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
