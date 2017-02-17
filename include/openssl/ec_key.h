@@ -245,11 +245,11 @@ struct ecdsa_method_st {
 
   /* sign matches the arguments and behaviour of |ECDSA_sign|. */
   int (*sign)(const uint8_t *digest, size_t digest_len, uint8_t *sig,
-              unsigned int *sig_len, EC_KEY *eckey);
+              unsigned int *sig_len, const EC_KEY *eckey);
 
   /* Ignored. Set this to NULL. */
   int (*verify)(const uint8_t *digest, size_t digest_len, const uint8_t *sig,
-                size_t sig_len, EC_KEY *eckey);
+                size_t sig_len, const EC_KEY *eckey);
 
   int flags;
 };
