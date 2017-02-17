@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b230282a_0c3153ae",
+        "filename": "crypto/asn1/asn1_locl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-17T20:18:10Z",
+      "side": 1,
+      "message": "foo_locl.h is just what upstream calls internal.h. Note this file already existed before.",
+      "parentUuid": "3d1f534d_40293180",
+      "range": {
+        "startLine": 60,
+        "startChar": 8,
+        "endLine": 60,
+        "endChar": 39
+      },
+      "revId": "88c0f4a0e7aa2c6a3dcd6ac24c7e4ef294f95c0c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "afe41d17_6056cfb2",
         "filename": "crypto/asn1/asn1_locl.h",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2017-02-16T17:55:46Z",
       "side": 1,
       "message": "Move this down, maybe import the \"Internal time functions\" line from the original file?",
+      "range": {
+        "startLine": 72,
+        "startChar": 17,
+        "endLine": 72,
+        "endChar": 27
+      },
+      "revId": "88c0f4a0e7aa2c6a3dcd6ac24c7e4ef294f95c0c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "807e40d8_ae900eea",
+        "filename": "crypto/asn1/asn1_locl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-17T20:18:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afe41d17_6056cfb2",
       "range": {
         "startLine": 72,
         "startChar": 17,
