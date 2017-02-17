@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f151b49d_9bad67c5",
+        "filename": "include/openssl/ec_key.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-17T00:54:48Z",
+      "side": 1,
+      "message": "Changing these is probably going to cause a lot more headache than is worth. We really need to just punt this API completely. (Android is doing something dumb, as per always.) I\u0027d suggest leaving these alone and adding a cast in ecdsa.c.",
+      "revId": "0d5695a65756197b9b669a04d76188b5d771456b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
