@@ -16,6 +16,24 @@
       "revId": "0d5695a65756197b9b669a04d76188b5d771456b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "246f3d55_7e0e52b9",
+        "filename": "include/openssl/ec_key.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2017-02-17T00:59:44Z",
+      "side": 1,
+      "message": "Done.  If it\u0027s possible to state the conditions under which we can remove the lossage, I\u0027d be happy to add a comment.",
+      "parentUuid": "f151b49d_9bad67c5",
+      "revId": "0d5695a65756197b9b669a04d76188b5d771456b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
