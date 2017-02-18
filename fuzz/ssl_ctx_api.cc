@@ -344,7 +344,7 @@ static const std::function<void(SSL_CTX *, CBS *)> kAPIs[] = {
       if (!GetString(&ciphers, cbs)) {
         return;
       }
-      SSL_CTX_set_cipher_list(ctx, ciphers.c_str());
+      SSL_CTX_set_strict_cipher_list(ctx, ciphers.c_str());
     },
     [](SSL_CTX *ctx, CBS *cbs) {
       // This function was left blank rather than removed to avoid invalidating
