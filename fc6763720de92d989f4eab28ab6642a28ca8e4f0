@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f79125d2_a6779d89",
+        "filename": "fuzz/ssl_ctx_api.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-19T15:49:15Z",
+      "side": 1,
+      "message": "Probably better to make a separate one, so we have coverage of both.",
+      "revId": "fc6763720de92d989f4eab28ab6642a28ca8e4f0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f353e319_254f6f03",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1350,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-19T15:49:15Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "fc6763720de92d989f4eab28ab6642a28ca8e4f0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6cad2b4_f4356c5b",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1355,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-19T15:49:15Z",
+      "side": 1,
+      "message": "We usually write this like |SSL_CTX_set_strict_cipher_list| which will make it linkified and fixed-width in the generated docs.",
+      "range": {
+        "startLine": 1355,
+        "startChar": 17,
+        "endLine": 1355,
+        "endChar": 49
+      },
+      "revId": "fc6763720de92d989f4eab28ab6642a28ca8e4f0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d5a7700_9e973598",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1367,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-19T15:49:15Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 1367,
+        "startChar": 17,
+        "endLine": 1367,
+        "endChar": 45
+      },
+      "revId": "fc6763720de92d989f4eab28ab6642a28ca8e4f0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85032475_80bda5aa",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1200,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-19T15:49:15Z",
+      "side": 1,
+      "message": "I believe this line means that strict mode will reject \"SSLv3+TLSv1.2\" but not \"RSA+ECDSA\" or \"DHE+ECDSA\" which is a little odd. (The min-version matchers are super-confusing and \"SSLv3+TLSv1.2\" is nutty, but probably it\u0027s cleanest to say strict mode will keep you from mistyping directives, but if you intersect directives with zero intersection, that\u0027s your fault. Otherwise we need to have ssl_cipher_apply_rule return whether it touched anything.)",
+      "revId": "fc6763720de92d989f4eab28ab6642a28ca8e4f0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea586436_188b0697",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1509,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-19T15:49:15Z",
+      "side": 1,
+      "message": "I was going to suggest deduplicating this into a static helper, but actually it probably makes more sense to switch ssl_create_cipher_list\u0027s signature to return int and check for empty result internally. Every caller adds that check on top. (Might be better as a follow-up. *shrug*)",
+      "revId": "fc6763720de92d989f4eab28ab6642a28ca8e4f0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
