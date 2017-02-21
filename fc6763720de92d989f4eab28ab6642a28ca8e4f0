@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "049aefcf_60902b79",
+        "filename": "fuzz/ssl_ctx_api.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2017-02-21T21:40:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f79125d2_a6779d89",
+      "revId": "fc6763720de92d989f4eab28ab6642a28ca8e4f0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f353e319_254f6f03",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "41ec80fe_c4a77dc2",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1350,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2017-02-21T21:40:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f353e319_254f6f03",
+      "revId": "fc6763720de92d989f4eab28ab6642a28ca8e4f0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e6cad2b4_f4356c5b",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 1
@@ -47,6 +83,30 @@
       "writtenOn": "2017-02-19T15:49:15Z",
       "side": 1,
       "message": "We usually write this like |SSL_CTX_set_strict_cipher_list| which will make it linkified and fixed-width in the generated docs.",
+      "range": {
+        "startLine": 1355,
+        "startChar": 17,
+        "endLine": 1355,
+        "endChar": 49
+      },
+      "revId": "fc6763720de92d989f4eab28ab6642a28ca8e4f0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6c24787_1833967d",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1355,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2017-02-21T21:40:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6cad2b4_f4356c5b",
       "range": {
         "startLine": 1355,
         "startChar": 17,
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "275320a5_654e4ba4",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1367,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2017-02-21T21:40:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d5a7700_9e973598",
+      "range": {
+        "startLine": 1367,
+        "startChar": 17,
+        "endLine": 1367,
+        "endChar": 45
+      },
+      "revId": "fc6763720de92d989f4eab28ab6642a28ca8e4f0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "85032475_80bda5aa",
         "filename": "ssl/ssl_cipher.c",
         "patchSetId": 1
@@ -99,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "8a6f6299_3c9de7e3",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1200,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2017-02-21T21:40:28Z",
+      "side": 1,
+      "message": "OK, done.",
+      "parentUuid": "85032475_80bda5aa",
+      "revId": "fc6763720de92d989f4eab28ab6642a28ca8e4f0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ea586436_188b0697",
         "filename": "ssl/ssl_lib.c",
         "patchSetId": 1
@@ -110,6 +212,24 @@
       "writtenOn": "2017-02-19T15:49:15Z",
       "side": 1,
       "message": "I was going to suggest deduplicating this into a static helper, but actually it probably makes more sense to switch ssl_create_cipher_list\u0027s signature to return int and check for empty result internally. Every caller adds that check on top. (Might be better as a follow-up. *shrug*)",
+      "revId": "fc6763720de92d989f4eab28ab6642a28ca8e4f0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b27f38e_c56669fd",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1509,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2017-02-21T21:40:28Z",
+      "side": 1,
+      "message": "The error handling varies from place to place.  It\u0027s SSL_R_NO_CIPHER_MATCH here but elsewhere it\u0027s SSL_R_LIBRARY_HAS_NO_CIPHERS.  If you\u0027re OK harmonizing that, I\u0027ll do it in another CL.",
+      "parentUuid": "ea586436_188b0697",
       "revId": "fc6763720de92d989f4eab28ab6642a28ca8e4f0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
