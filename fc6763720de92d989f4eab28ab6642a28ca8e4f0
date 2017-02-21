@@ -233,6 +233,24 @@
       "revId": "fc6763720de92d989f4eab28ab6642a28ca8e4f0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a5a1eab_5cb07c69",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1509,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-21T23:17:43Z",
+      "side": 1,
+      "message": "Yeah, I think think harmonizing that\u0027s just fine. Let\u0027s standardize on SSL_R_NO_CIPHER_MATCH because there is epsilon chance someone was paying attention to the latter and zero chance someone was paying attention to the former.",
+      "parentUuid": "3b27f38e_c56669fd",
+      "revId": "fc6763720de92d989f4eab28ab6642a28ca8e4f0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }

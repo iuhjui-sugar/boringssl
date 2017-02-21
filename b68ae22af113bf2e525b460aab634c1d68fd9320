@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "00dc366f_3419ef41",
+        "filename": "fuzz/ssl_ctx_api.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-21T23:17:43Z",
+      "side": 1,
+      "message": "So we don\u0027t reset the existing corpus, want to just use the slot below? Doesn\u0027t really matter, but *shrug*",
+      "revId": "b68ae22af113bf2e525b460aab634c1d68fd9320",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f88c9d26_f35384c3",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1210,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-21T23:17:43Z",
+      "side": 1,
+      "message": "Since there\u0027s only one codepath, you could also just do:\n\nif (j \u003d\u003d kCipherAliasesLen) {\n  if (strict) {\n    OPENSSL_PUT_ERROR(SSL, SSL_R_INVALID_COMMAND);\n    return 0;\n  }\n  skip_rule \u003d 1;\n}\n\nAnd avoid the extra variable and block of code at the bottom.",
+      "revId": "b68ae22af113bf2e525b460aab634c1d68fd9320",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86768f90_832aacdf",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-21T23:17:43Z",
+      "side": 1,
+      "message": "it parses \u003d\u003e each component is valid?",
+      "range": {
+        "startLine": 232,
+        "startChar": 53,
+        "endLine": 232,
+        "endChar": 62
+      },
+      "revId": "b68ae22af113bf2e525b460aab634c1d68fd9320",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
