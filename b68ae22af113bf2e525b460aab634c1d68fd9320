@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "70bda607_d9c04f0a",
+        "filename": "fuzz/ssl_ctx_api.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2017-02-21T23:55:08Z",
+      "side": 1,
+      "message": "Done.  Some days I really feel bad about how little surrounding context I read.",
+      "parentUuid": "00dc366f_3419ef41",
+      "revId": "b68ae22af113bf2e525b460aab634c1d68fd9320",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f88c9d26_f35384c3",
         "filename": "ssl/ssl_cipher.c",
         "patchSetId": 3
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "7af026a4_b88d8c55",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1210,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2017-02-21T23:55:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f88c9d26_f35384c3",
+      "revId": "b68ae22af113bf2e525b460aab634c1d68fd9320",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "86768f90_832aacdf",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 3
@@ -47,6 +83,30 @@
       "writtenOn": "2017-02-21T23:17:43Z",
       "side": 1,
       "message": "it parses \u003d\u003e each component is valid?",
+      "range": {
+        "startLine": 232,
+        "startChar": 53,
+        "endLine": 232,
+        "endChar": 62
+      },
+      "revId": "b68ae22af113bf2e525b460aab634c1d68fd9320",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "517417b2_2b3f3331",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2017-02-21T23:55:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86768f90_832aacdf",
       "range": {
         "startLine": 232,
         "startChar": 53,
