@@ -573,12 +573,12 @@ int BN_mod_exp(BIGNUM *r, const BIGNUM *a, const BIGNUM *p, const BIGNUM *m,
 
 int BN_mod_exp_mont(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
                     const BIGNUM *m, BN_CTX *ctx, const BN_MONT_CTX *mont) {
-  int i, j, bits, ret = 0, wstart, window;
+  int i, j, bits, ret = 0, wstart;
   int start = 1;
   BIGNUM *d, *r;
   const BIGNUM *aa;
   /* Table of variables obtained from 'ctx' */
-  BIGNUM *val[TABLE_SIZE];
+  BIGNUM *val;
   BN_MONT_CTX *new_mont = NULL;
 
   if (!BN_is_odd(m)) {
@@ -598,8 +598,8 @@ int BN_mod_exp_mont(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
   BN_CTX_start(ctx);
   d = BN_CTX_get(ctx);
   r = BN_CTX_get(ctx);
-  val[0] = BN_CTX_get(ctx);
-  if (!d || !r || !val[0]) {
+  val = BN_CTX_get(ctx);
+  if (!d || !r || !val) {
     goto err;
   }
 
@@ -613,10 +613,10 @@ int BN_mod_exp_mont(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
   }
 
   if (a->neg || BN_ucmp(a, m) >= 0) {
-    if (!BN_nnmod(val[0], a, m, ctx)) {
+    if (!BN_nnmod(val, a, m, ctx)) {
       goto err;
     }
-    aa = val[0];
+    aa = val;
   } else {
     aa = a;
   }
@@ -626,22 +626,8 @@ int BN_mod_exp_mont(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
     ret = 1;
     goto err;
   }
-  if (!BN_to_montgomery(val[0], aa, mont, ctx)) {
+  if (!BN_to_montgomery(val, aa, mont, ctx)) {
     goto err; /* 1 */
-  }
-
-  window = BN_window_bits_for_exponent_size(bits);
-  if (window > 1) {
-    if (!BN_mod_mul_montgomery(d, val[0], val[0], mont, ctx)) {
-      goto err; /* 2 */
-    }
-    j = 1 << (window - 1);
-    for (i = 1; i < j; i++) {
-      if (((val[i] = BN_CTX_get(ctx)) == NULL) ||
-          !BN_mod_mul_montgomery(val[i], val[i - 1], d, mont, ctx)) {
-        goto err;
-      }
-    }
   }
 
   start = 1; /* This is used to avoid multiplication etc
@@ -668,9 +654,6 @@ int BN_mod_exp_mont(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
   }
 
   for (;;) {
-    int wvalue; /* The 'value' of the window */
-    int wend; /* The bottom bit of the window */
-
     if (BN_is_bit_set(p, wstart) == 0) {
       if (!start && !BN_mod_mul_montgomery(r, r, r, mont, ctx)) {
         goto err;
@@ -682,25 +665,7 @@ int BN_mod_exp_mont(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
       continue;
     }
 
-    /* We now have wstart on a 'set' bit, we now need to work out how bit a
-     * window to do.  To do this we need to scan forward until the last set bit
-     * before the end of the window */
-    wvalue = 1;
-    wend = 0;
-    for (i = 1; i < window; i++) {
-      if (wstart - i < 0) {
-        break;
-      }
-      if (BN_is_bit_set(p, wstart - i)) {
-        wvalue <<= (i - wend);
-        wvalue |= 1;
-        wend = i;
-      }
-    }
-
-    /* wend is the size of the current window */
-    j = wend + 1;
-    /* add the 'bytes above' */
+    j = 1;
     if (!start) {
       for (i = 0; i < j; i++) {
         if (!BN_mod_mul_montgomery(r, r, r, mont, ctx)) {
@@ -710,12 +675,12 @@ int BN_mod_exp_mont(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
     }
 
     /* wvalue will be an odd number < 2^window */
-    if (!BN_mod_mul_montgomery(r, r, val[wvalue >> 1], mont, ctx)) {
+    if (!BN_mod_mul_montgomery(r, r, val, mont, ctx)) {
       goto err;
     }
 
     /* move the 'window' down further */
-    wstart -= wend + 1;
+    wstart -= 1;
     start = 0;
     if (wstart < 0) {
       break;
