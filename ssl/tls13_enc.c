@@ -348,6 +348,32 @@ int tls13_export_keying_material(SSL *ssl, uint8_t *out, size_t out_len,
                            label_len, hash, hash_len, out_len);
 }
 
+int SSL_export_early_keying_material(SSL *ssl, uint8_t *out, size_t out_len,
+                                     const char *label, size_t label_len,
+                                     const uint8_t *context, size_t context_len,
+                                     int use_context) {
+  if (!ssl->s3->have_version || ssl->version < TLS1_3_VERSION) {
+    return 0;
+  }
+
+  /* Exporters may not be used in the middle of a renegotiation. */
+  if (SSL_in_init(ssl) && !SSL_in_false_start(ssl)) {
+    return 0;
+  }
+
+  const EVP_MD *digest = SSL_SESSION_get_digest(ssl->session, ssl);
+  const uint8_t *hash = NULL;
+  size_t hash_len = 0;
+  if (use_context) {
+    hash = context;
+    hash_len = context_len;
+  }
+  return hkdf_expand_label(out, digest, ssl->s3->early_exporter_secret,
+                           ssl->s3->early_exporter_secret_len,
+                           (const uint8_t *)label, label_len, hash, hash_len,
+                           out_len);
+}
+
 static const char kTLS13LabelPSKBinder[] = "resumption psk binder key";
 
 static int tls13_psk_binder(uint8_t *out, const EVP_MD *digest, uint8_t *psk,
