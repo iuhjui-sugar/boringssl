@@ -573,7 +573,7 @@ int BN_mod_exp(BIGNUM *r, const BIGNUM *a, const BIGNUM *p, const BIGNUM *m,
 
 int BN_mod_exp_mont(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
                     const BIGNUM *m, BN_CTX *ctx, const BN_MONT_CTX *mont) {
-  int i, j, bits, ret = 0, wstart, window;
+  int i, j, bits, ret = 0, wstart;
   int start = 1;
   BIGNUM *d, *r;
   const BIGNUM *aa;
@@ -630,20 +630,6 @@ int BN_mod_exp_mont(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
     goto err; /* 1 */
   }
 
-  window = BN_window_bits_for_exponent_size(bits);
-  if (window > 1) {
-    if (!BN_mod_mul_montgomery(d, val[0], val[0], mont, ctx)) {
-      goto err; /* 2 */
-    }
-    j = 1 << (window - 1);
-    for (i = 1; i < j; i++) {
-      if (((val[i] = BN_CTX_get(ctx)) == NULL) ||
-          !BN_mod_mul_montgomery(val[i], val[i - 1], d, mont, ctx)) {
-        goto err;
-      }
-    }
-  }
-
   start = 1; /* This is used to avoid multiplication etc
               * when there is only the value '1' in the
               * buffer. */
@@ -687,16 +673,6 @@ int BN_mod_exp_mont(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
      * before the end of the window */
     wvalue = 1;
     wend = 0;
-    for (i = 1; i < window; i++) {
-      if (wstart - i < 0) {
-        break;
-      }
-      if (BN_is_bit_set(p, wstart - i)) {
-        wvalue <<= (i - wend);
-        wvalue |= 1;
-        wend = i;
-      }
-    }
 
     /* wend is the size of the current window */
     j = wend + 1;
