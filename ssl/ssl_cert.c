@@ -726,6 +726,10 @@ STACK_OF(CRYPTO_BUFFER) *
     }
   }
 
+  if (!ssl->ctx->x509_method->check_client_CA_list(ret)) {
+    goto err;
+  }
+
   return ret;
 
 err:
