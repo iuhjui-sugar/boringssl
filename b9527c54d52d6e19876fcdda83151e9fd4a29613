@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c8f888d5_cc02619f",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1617,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-02-26T18:28:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14a16473_1161126c",
+      "revId": "b9527c54d52d6e19876fcdda83151e9fd4a29613",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "674d00ef_af85d761",
         "filename": "crypto/cipher/e_aes.c",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "b6688880_04b1e537",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1628,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-02-26T18:28:31Z",
+      "side": 1,
+      "message": "Ack. (There\u0027s assembly code coming that avoids the copies for x86-64.)",
+      "parentUuid": "674d00ef_af85d761",
+      "revId": "b9527c54d52d6e19876fcdda83151e9fd4a29613",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9054d3ec_a49519c2",
         "filename": "crypto/cipher/test/aes_128_gcm_siv_tests.txt",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2017-02-26T16:29:13Z",
       "side": 1,
       "message": "s/02/04/",
+      "revId": "b9527c54d52d6e19876fcdda83151e9fd4a29613",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4697a573_829f6cbf",
+        "filename": "crypto/cipher/test/aes_128_gcm_siv_tests.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-02-26T18:28:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9054d3ec_a49519c2",
       "revId": "b9527c54d52d6e19876fcdda83151e9fd4a29613",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
