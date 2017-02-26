@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b4e25852_7f1d07c3",
+        "filename": "crypto/cipher/test/aes_128_gcm_siv_tests.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-26T16:29:13Z",
+      "side": 0,
+      "message": "Since there was a bug here previously, probably worth retaining a large test vector.",
+      "revId": "adec7726ecb2cd5e563b864cb292867724adcd18",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "14a16473_1161126c",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1617,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-26T16:29:13Z",
+      "side": 1,
+      "message": "It\u0027s a lot more typing, but 4 \u003d\u003e AES_BLOCK_SIZE - EVP_AEAD_AES_GCM_SIV_NONCE_LEN might be clearer? This code doesn\u0027t actually care that the counter has size 4, just that it\u0027s the remainder of the block.",
+      "revId": "b9527c54d52d6e19876fcdda83151e9fd4a29613",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "674d00ef_af85d761",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1628,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-26T16:29:13Z",
+      "side": 1,
+      "message": "(There\u0027s a lot of copies one could save here by being clever, but the blocks are so small, being straightforward is almost certainly more valuable.)",
+      "revId": "b9527c54d52d6e19876fcdda83151e9fd4a29613",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9054d3ec_a49519c2",
+        "filename": "crypto/cipher/test/aes_128_gcm_siv_tests.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-26T16:29:13Z",
+      "side": 1,
+      "message": "s/02/04/",
+      "revId": "b9527c54d52d6e19876fcdda83151e9fd4a29613",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf713bda_316bf21c",
+        "filename": "crypto/cipher/test/aes_128_gcm_siv_tests.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-26T16:29:13Z",
+      "side": 1,
+      "message": "[I checked this one and otherwise assumed they match.]",
+      "revId": "b9527c54d52d6e19876fcdda83151e9fd4a29613",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cfbbfc25_90b6524c",
+        "filename": "crypto/cipher/test/aes_256_gcm_siv_tests.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-26T16:29:13Z",
+      "side": 1,
+      "message": "[I checked this one and otherwise assumed they match.]",
+      "revId": "b9527c54d52d6e19876fcdda83151e9fd4a29613",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
