@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "51c1ef00_7758b92e",
+        "filename": "ssl/ssl_x509.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-27T23:08:36Z",
+      "side": 1,
+      "message": "It\u0027s a little odd that the CERT version clears everything on the CERT whereas the SSL_CTX and SSL versions leaves the caller to call flush functions. Probably should be consistent here, especially since you currently call flush (which reads pointers) *after* free (which does not NULL them).",
+      "revId": "13e9fa6f145946f86204d03f94d1dbbe83019031",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8c20c1c_a1d11315",
+        "filename": "ssl/ssl_x509.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1246,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-27T23:08:36Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "13e9fa6f145946f86204d03f94d1dbbe83019031",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
