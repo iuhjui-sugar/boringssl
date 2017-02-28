@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f3c4a465_05fcf3a3",
+        "filename": "ssl/ssl_cert.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 756,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-02-28T18:20:39Z",
+      "side": 1,
+      "message": "If the caller calls |CBB_cleanup| on |cbb| in the error path (which they do) then flushing isn\u0027t needed.\n\nIf flushing were needed, flushing just |child| would leave |cbb-\u003echild| pointing at invalid memory, so |cbb| would have to be flushed.\n\nSo I think this is ok? (Unless you think we shouldn\u0027t depend on callers calling |CBB_cleanup| on error paths as a rule.)",
+      "parentUuid": "4d48ff8e_651b257c",
+      "revId": "bd8cf94b50dd271ffeff29ac80eae40e1bf37827",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c14796cf_32b52665",
         "filename": "ssl/ssl_x509.c",
         "patchSetId": 7
@@ -30,6 +48,24 @@
       "writtenOn": "2017-02-27T22:44:15Z",
       "side": 1,
       "message": "Isn\u0027t this exactly the same as:\n\n  return sk_X509_NAME_deep_copy(list, X509_NAME_dup, X509_NAME_free);",
+      "revId": "bd8cf94b50dd271ffeff29ac80eae40e1bf37827",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50cb20c6_42c7ad80",
+        "filename": "ssl/ssl_x509.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-02-28T18:20:39Z",
+      "side": 1,
+      "message": "Yep. (And it looks like we only have this function for nodejs anyway.)",
+      "parentUuid": "c14796cf_32b52665",
       "revId": "bd8cf94b50dd271ffeff29ac80eae40e1bf37827",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "05ef0ff0_b3597a83",
+        "filename": "ssl/ssl_x509.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 888,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-02-28T18:20:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b347422c_9a4f2a0b",
+      "revId": "bd8cf94b50dd271ffeff29ac80eae40e1bf37827",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "71df6dfc_16251c82",
         "filename": "ssl/ssl_x509.c",
         "patchSetId": 7
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "c3166ba5_97699b0e",
+        "filename": "ssl/ssl_x509.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 895,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-02-28T18:20:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71df6dfc_16251c82",
+      "revId": "bd8cf94b50dd271ffeff29ac80eae40e1bf37827",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "52b80d3d_6214e033",
         "filename": "ssl/ssl_x509.c",
         "patchSetId": 7
@@ -81,6 +153,24 @@
       "writtenOn": "2017-02-27T22:44:15Z",
       "side": 1,
       "message": "This could have threading issues if called from an SSL callback. Ditto for the stuff we added previously (SSL_CTX_get0_chain_certs and SSL_CTX_get0_certificate. Probably the SSL ones are okay? Them being const is a little weird though.",
+      "revId": "bd8cf94b50dd271ffeff29ac80eae40e1bf37827",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "061126a9_9ad6889b",
+        "filename": "ssl/ssl_x509.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 962,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-02-28T18:20:39Z",
+      "side": 1,
+      "message": "Have used the |SSL_CTX| lock for each of these.",
+      "parentUuid": "52b80d3d_6214e033",
       "revId": "bd8cf94b50dd271ffeff29ac80eae40e1bf37827",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
