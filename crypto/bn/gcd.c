@@ -612,14 +612,10 @@ err:
 
 int bn_mod_inverse_prime(BIGNUM *out, const BIGNUM *a, const BIGNUM *p,
                          BN_CTX *ctx, const BN_MONT_CTX *mont_p) {
-  BN_CTX_start(ctx);
-  BIGNUM *p_minus_2 = BN_CTX_get(ctx);
-  int ok = p_minus_2 != NULL &&
-           BN_copy(p_minus_2, p) &&
-           BN_sub_word(p_minus_2, 2) &&
-           BN_mod_exp_mont(out, a, p_minus_2, p, ctx, mont_p);
-  BN_CTX_end(ctx);
-  return ok;
+  /* Use |BN_mod_exp_mont_consttime| even though the exponent isn't a secret
+   * because |BN_mod_exp_mont| is slow with exponents that have large Hamming
+   * weight. */
+  return bn_mod_inverse_secret_prime(out, a, p, ctx, mont_p);
 }
 
 int bn_mod_inverse_secret_prime(BIGNUM *out, const BIGNUM *a, const BIGNUM *p,
