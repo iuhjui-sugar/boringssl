@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d97f4ad9_0f18046c",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-28T22:01:19Z",
+      "side": 1,
+      "message": "The number of different implementations of this we have lying around...",
+      "revId": "9e670708250cf91a97b9a0398a4e28029e402613",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "761f692e_cfd08f27",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1695,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-28T22:01:19Z",
+      "side": 1,
+      "message": "Optional: handshake_messages.go has an eqByteSlices in there. Though then the error isn\u0027t as useful.",
+      "revId": "9e670708250cf91a97b9a0398a4e28029e402613",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95bf692c_0f704dfe",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 2992,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-28T22:01:19Z",
+      "side": 1,
+      "message": "This TODO can be removed now.",
+      "revId": "9e670708250cf91a97b9a0398a4e28029e402613",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
