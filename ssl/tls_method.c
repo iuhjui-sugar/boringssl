@@ -310,3 +310,12 @@ const SSL_X509_METHOD ssl_noop_x509_method = {
   ssl_noop_x509_ssl_ctx_free,
   ssl_noop_x509_ssl_ctx_flush_cached_client_CA,
 };
+
+const SSL_METHOD *TLS_with_buffers_method(void) {
+  static const SSL_METHOD kMethod = {
+      0,
+      &kTLSProtocolMethod,
+      &ssl_noop_x509_method,
+  };
+  return &kMethod;
+}
