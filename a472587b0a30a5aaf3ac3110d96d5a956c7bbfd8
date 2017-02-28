@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb51bbe9_c626c033",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3767,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-02-28T20:38:21Z",
+      "side": 1,
+      "message": "Maybe comment on why we can\u0027t be negative.",
+      "revId": "a472587b0a30a5aaf3ac3110d96d5a956c7bbfd8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
