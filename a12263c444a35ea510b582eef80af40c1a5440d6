@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8e1ec7d2_129d91c6",
+        "filename": "ssl/ssl_x509.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-02-28T18:26:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9069f3f7_8586715d",
+      "revId": "a12263c444a35ea510b582eef80af40c1a5440d6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3fe30210_cadd2554",
         "filename": "ssl/ssl_x509.c",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2017-02-27T22:52:09Z",
       "side": 1,
       "message": "Pointer values become indeterminate as soon as they\u0027re freed, so this is probably undefined behavior. :-/ I assume the intent was so this code:\n\n  p \u003d malloc(1);\n  free(p);\n  q \u003d malloc(1);\n  return p \u003d\u003d q;\n\nwas allowed to return true or false depending on whether the pointer was reused. That doesn\u0027t apply here, but it\u0027s still probably better to avoid tempting the compiler. Perhaps\n\n  X509_NAME *name \u003d d2i_X509_NAME(...);\n  int ok \u003d name !\u003d NULL \u0026\u0026 inp \u003d\u003d ...;\n  X509_NAME_free(name);\n  if (!ok) {\n    return 0;\n  }",
+      "revId": "a12263c444a35ea510b582eef80af40c1a5440d6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dabde2cd_2efcd1fe",
+        "filename": "ssl/ssl_x509.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-02-28T18:26:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3fe30210_cadd2554",
       "revId": "a12263c444a35ea510b582eef80af40c1a5440d6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
