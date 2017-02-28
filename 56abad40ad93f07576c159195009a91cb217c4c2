@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62d774f9_da106103",
+        "filename": "ssl/tls_method.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-28T22:03:26Z",
+      "side": 1,
+      "message": "I suppose later we\u0027ll want to move everything from here to line 259 to ssl_x509.c or a separate file, to make the static linker\u0027s job easier.",
+      "revId": "56abad40ad93f07576c159195009a91cb217c4c2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ef67e3a_af9c7d4c",
+        "filename": "ssl/tls_method.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-02-28T22:03:26Z",
+      "side": 1,
+      "message": "You can tag this as static, now that it won\u0027t trip up unused statics warnings.",
+      "revId": "56abad40ad93f07576c159195009a91cb217c4c2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
