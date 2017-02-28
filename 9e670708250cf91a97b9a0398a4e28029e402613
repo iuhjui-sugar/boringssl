@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "b4c0bbb5_d0027588",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1695,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-02-28T22:11:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "761f692e_cfd08f27",
+      "revId": "9e670708250cf91a97b9a0398a4e28029e402613",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "95bf692c_0f704dfe",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 1
@@ -47,6 +65,24 @@
       "writtenOn": "2017-02-28T22:01:19Z",
       "side": 1,
       "message": "This TODO can be removed now.",
+      "revId": "9e670708250cf91a97b9a0398a4e28029e402613",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff4a58dc_0c2b371e",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 2992,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-02-28T22:11:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95bf692c_0f704dfe",
       "revId": "9e670708250cf91a97b9a0398a4e28029e402613",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
