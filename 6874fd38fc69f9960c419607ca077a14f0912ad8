@@ -22,6 +22,30 @@
       "revId": "6874fd38fc69f9960c419607ca077a14f0912ad8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ce48bf17_5f24b7a6",
+        "filename": "crypto/curve25519/x25519_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-01T18:59:24Z",
+      "side": 1,
+      "message": "Not sure I follow. It\u0027s supposed to fill it with zeros, so I put something that wasn\u0027t zeros. If it\u0027s clearing it out and only writing on success then we\u0027ll still get the right answer. The way you check the small order point is all zeros.\n\n(It\u0027d also take a lot of work to be constant-time and not write to out in all cases.)",
+      "parentUuid": "7989b1c4_7b94a914",
+      "range": {
+        "startLine": 81,
+        "startChar": 22,
+        "endLine": 81,
+        "endChar": 26
+      },
+      "revId": "6874fd38fc69f9960c419607ca077a14f0912ad8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
