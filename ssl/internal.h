@@ -2025,8 +2025,6 @@ const struct ssl_cipher_preference_list_st *ssl_get_cipher_preferences(
 
 void ssl_update_cache(SSL_HANDSHAKE *hs, int mode);
 
-int ssl_verify_alarm_type(long type);
-
 int ssl3_get_finished(SSL_HANDSHAKE *hs);
 int ssl3_send_alert(SSL *ssl, int level, int desc);
 int ssl3_get_message(SSL *ssl);
