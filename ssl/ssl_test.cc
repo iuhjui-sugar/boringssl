@@ -1804,6 +1804,8 @@ static bool ClientHelloMatches(uint16_t version, const uint8_t *expected,
                                size_t expected_len) {
   bssl::UniquePtr<SSL_CTX> ctx(SSL_CTX_new(TLS_method()));
   if (!ctx ||
+      // SSLv3 is off by default.
+      !SSL_CTX_set_min_proto_version(ctx.get(), SSL3_VERSION) ||
       !SSL_CTX_set_max_proto_version(ctx.get(), version) ||
       // Our default cipher list varies by CPU capabilities, so manually place
       // the ChaCha20 ciphers in front.
@@ -2583,7 +2585,13 @@ TEST(SSLTest, SetVersion) {
   EXPECT_TRUE(SSL_CTX_set_max_proto_version(ctx.get(), 0));
   EXPECT_EQ(TLS1_2_VERSION, ctx->max_version);
   EXPECT_TRUE(SSL_CTX_set_min_proto_version(ctx.get(), 0));
+  EXPECT_EQ(TLS1_VERSION, ctx->min_version);
+
+  // SSL 3.0 and TLS 1.3 are available, but not by default.
+  EXPECT_TRUE(SSL_CTX_set_min_proto_version(ctx.get(), SSL3_VERSION));
   EXPECT_EQ(SSL3_VERSION, ctx->min_version);
+  EXPECT_TRUE(SSL_CTX_set_max_proto_version(ctx.get(), TLS1_3_VERSION));
+  EXPECT_EQ(TLS1_3_VERSION, ctx->max_version);
 
   ctx.reset(SSL_CTX_new(DTLS_method()));
   ASSERT_TRUE(ctx);
@@ -3163,7 +3171,7 @@ TEST(SSLTest, AllTests) {
       !TestBadSSL_SESSIONEncoding(kBadSessionVersion) ||
       !TestBadSSL_SESSIONEncoding(kBadSessionTrailingData) ||
       // TODO(svaldez): Update this when TLS 1.3 is enabled by default.
-      !TestDefaultVersion(SSL3_VERSION, TLS1_2_VERSION, &TLS_method) ||
+      !TestDefaultVersion(TLS1_VERSION, TLS1_2_VERSION, &TLS_method) ||
       !TestDefaultVersion(SSL3_VERSION, SSL3_VERSION, &SSLv3_method) ||
       !TestDefaultVersion(TLS1_VERSION, TLS1_VERSION, &TLSv1_method) ||
       !TestDefaultVersion(TLS1_1_VERSION, TLS1_1_VERSION, &TLSv1_1_method) ||

@@ -923,6 +923,10 @@ static int set_min_version(const SSL_PROTOCOL_METHOD *method, uint16_t *out,
                            uint16_t version) {
   if (version == 0) {
     *out = method->min_version;
+    /* SSL 3.0 is disabled unless explicitly enabled. */
+    if (*out < TLS1_VERSION) {
+      *out = TLS1_VERSION;
+    }
     return 1;
   }
 
