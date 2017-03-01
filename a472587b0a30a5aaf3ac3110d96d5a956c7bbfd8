@@ -16,6 +16,24 @@
       "revId": "a472587b0a30a5aaf3ac3110d96d5a956c7bbfd8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9fe96637_d67d53c6",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3767,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-01T19:53:22Z",
+      "side": 1,
+      "message": "I mean, we can\u0027t be negative because it\u0027s a uint64_t. (We already couldn\u0027t be negative; serializing the SSL_SESSION would fail and we\u0027d start exploding.)",
+      "parentUuid": "cb51bbe9_c626c033",
+      "revId": "a472587b0a30a5aaf3ac3110d96d5a956c7bbfd8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
