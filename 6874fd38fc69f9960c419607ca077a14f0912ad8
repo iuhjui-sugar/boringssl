@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7989b1c4_7b94a914",
+        "filename": "crypto/curve25519/x25519_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-03-01T17:55:59Z",
+      "side": 1,
+      "message": "Can you set to 0x55 or something random, X25519 might secretly be clearing out and then writing into it on success.",
+      "range": {
+        "startLine": 81,
+        "startChar": 22,
+        "endLine": 81,
+        "endChar": 26
+      },
+      "revId": "6874fd38fc69f9960c419607ca077a14f0912ad8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
