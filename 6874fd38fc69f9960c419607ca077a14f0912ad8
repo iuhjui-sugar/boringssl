@@ -46,6 +46,30 @@
       "revId": "6874fd38fc69f9960c419607ca077a14f0912ad8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7e2f6f3_6617d3dd",
+        "filename": "crypto/curve25519/x25519_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-01T19:42:40Z",
+      "side": 1,
+      "message": "(Where by \"the\" I mean \"a\". It\u0027s all zeros because X25519 clears cofactors, so anything of small order will hit the identity. Callers that don\u0027t care should still get the resulting key. Not all protocols would care about contributory behavior.)",
+      "parentUuid": "ce48bf17_5f24b7a6",
+      "range": {
+        "startLine": 81,
+        "startChar": 22,
+        "endLine": 81,
+        "endChar": 26
+      },
+      "revId": "6874fd38fc69f9960c419607ca077a14f0912ad8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
