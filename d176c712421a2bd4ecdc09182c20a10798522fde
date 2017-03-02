@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7b8b5ef9_4de89ffe",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2354,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-02T20:10:57Z",
+      "side": 1,
+      "message": "It\u0027d be more convenient for Chromium to add \"or when the handshake is paused because of it\" (which works for free anyway).",
+      "range": {
+        "startLine": 2354,
+        "startChar": 24,
+        "endLine": 2354,
+        "endChar": 25
+      },
+      "revId": "d176c712421a2bd4ecdc09182c20a10798522fde",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d3abd6a_a75a46f9",
+        "filename": "ssl/ssl_privkey_cc.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-02T20:10:57Z",
+      "side": 1,
+      "message": "We do document you shouldn\u0027t call it outside the callback, but hs probably ought to have a NULL check anyway.",
+      "revId": "d176c712421a2bd4ecdc09182c20a10798522fde",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
