@@ -56,8 +56,15 @@
 
 #include <openssl/ssl.h>
 
+#include <utility>
+#include <vector>
+
 #include <openssl/err.h>
+#include <openssl/pool.h>
 #include <openssl/rsa.h>
+#include <openssl/stack.h>
+
+#include "internal.h"
 
 
 /* This function has been converted to C++ to check if all of libssl's
@@ -74,3 +81,25 @@ int SSL_use_RSAPrivateKey_ASN1(SSL *ssl, const uint8_t *der, size_t der_len) {
 
   return SSL_use_RSAPrivateKey(ssl, rsa.get());
 }
+
+static std::vector<bssl::UniquePtr<CRYPTO_BUFFER>> buffer_stack_to_vector(
+    STACK_OF(CRYPTO_BUFFER) *buffers) {
+  std::vector<bssl::UniquePtr<CRYPTO_BUFFER>> ret;
+  ret.resize(sk_CRYPTO_BUFFER_num(buffers));
+
+  for (size_t i = 0; i < sk_CRYPTO_BUFFER_num(buffers); i++) {
+    ret[i].reset(sk_CRYPTO_BUFFER_value(buffers, i));
+    CRYPTO_BUFFER_up_ref(ret[i].get());
+  }
+
+  return ret;
+}
+
+namespace bssl {
+
+std::vector<bssl::UniquePtr<CRYPTO_BUFFER>>
+    GetServerRequestedCAs(const SSL *ssl) {
+  return buffer_stack_to_vector(ssl->s3->hs->ca_names);
+}
+
+}  // namespace bssl

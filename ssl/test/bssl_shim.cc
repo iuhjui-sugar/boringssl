@@ -626,6 +626,15 @@ static bool CheckCertificateRequest(SSL *ssl) {
         return false;
       }
     }
+
+    std::vector<bssl::UniquePtr<CRYPTO_BUFFER>> ca_names(
+        bssl::GetServerRequestedCAs(ssl));
+    if (ca_names.size() != num_received) {
+      fprintf(stderr,
+              "Mismatch between SSL_get_server_requested_CAs and "
+              "SSL_get_client_CA_list.\n");
+      return false;
+    }
   }
 
   return true;
