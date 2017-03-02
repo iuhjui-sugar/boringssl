@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ef7c1f0_35c8db28",
+        "filename": "fuzz/client_corpus/e567be3c710068e4b985312b5c342e78ac177111",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-02T22:15:34Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "403d178ff0e0cbeedda23a27afd9902a5d01050d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1b69caa_60ad7abb",
+        "filename": "fuzz/client_corpus_no_fuzzer_mode/07464c43cd138256e31a6b3ce36a86c80bade328",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-02T22:15:34Z",
+      "side": 1,
+      "message": "I think you have a typo on line 7.",
+      "revId": "403d178ff0e0cbeedda23a27afd9902a5d01050d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f99ac7a2_b449323a",
+        "filename": "fuzz/server_corpus/c5d134e80b8fc7f9d576ee59ef8c0dcd804b61a3",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-02T22:15:34Z",
+      "side": 1,
+      "message": "Let\u0027s split this one out into a separate commit, for clarity.",
+      "revId": "403d178ff0e0cbeedda23a27afd9902a5d01050d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0f5b920_ba6dbcb1",
+        "filename": "fuzz/server_corpus_no_fuzzer_mode/564983c0609d400f9408a31902dd351afb6a55be",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-02T22:15:34Z",
+      "side": 1,
+      "message": "Pretty sure this doesn\u0027t compile on GCC 2.0.",
+      "revId": "403d178ff0e0cbeedda23a27afd9902a5d01050d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5bc12d5_835f80f2",
+        "filename": "fuzz/server_corpus_no_fuzzer_mode/ca2e2307f369ac5544820e06924d6e692fc55fcd",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-02T22:15:34Z",
+      "side": 1,
+      "message": "Test coverage?",
+      "revId": "403d178ff0e0cbeedda23a27afd9902a5d01050d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
