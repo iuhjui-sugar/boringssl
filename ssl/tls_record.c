@@ -145,19 +145,6 @@ static int ssl_needs_record_splitting(const SSL *ssl) {
          SSL_CIPHER_is_block_cipher(ssl->s3->aead_write_ctx->cipher);
 }
 
-static int ssl_uses_short_header(const SSL *ssl,
-                                 enum evp_aead_direction_t dir) {
-  if (!ssl->s3->short_header) {
-    return 0;
-  }
-
-  if (dir == evp_aead_open) {
-    return ssl->s3->aead_read_ctx != NULL;
-  }
-
-  return ssl->s3->aead_write_ctx != NULL;
-}
-
 int ssl_record_sequence_update(uint8_t *seq, size_t seq_len) {
   for (size_t i = seq_len - 1; i < seq_len; i--) {
     ++seq[i];
@@ -173,8 +160,6 @@ size_t ssl_record_prefix_len(const SSL *ssl) {
   size_t header_len;
   if (SSL_is_dtls(ssl)) {
     header_len = DTLS1_RT_HEADER_LENGTH;
-  } else if (ssl_uses_short_header(ssl, evp_aead_open)) {
-    header_len = 2;
   } else {
     header_len = SSL3_RT_HEADER_LENGTH;
   }
@@ -188,12 +173,7 @@ size_t ssl_seal_align_prefix_len(const SSL *ssl) {
            SSL_AEAD_CTX_explicit_nonce_len(ssl->s3->aead_write_ctx);
   }
 
-  size_t header_len;
-  if (ssl_uses_short_header(ssl, evp_aead_seal)) {
-    header_len = 2;
-  } else {
-    header_len = SSL3_RT_HEADER_LENGTH;
-  }
+  size_t header_len = SSL3_RT_HEADER_LENGTH;
 
   size_t ret =
       header_len + SSL_AEAD_CTX_explicit_nonce_len(ssl->s3->aead_write_ctx);
@@ -209,8 +189,7 @@ size_t SSL_max_seal_overhead(const SSL *ssl) {
     return dtls_max_seal_overhead(ssl, dtls1_use_current_epoch);
   }
 
-  size_t ret =
-      ssl_uses_short_header(ssl, evp_aead_seal) ? 2 : SSL3_RT_HEADER_LENGTH;
+  size_t ret = SSL3_RT_HEADER_LENGTH;
   ret += SSL_AEAD_CTX_max_overhead(ssl->s3->aead_write_ctx);
   /* TLS 1.3 needs an extra byte for the encrypted record type. */
   if (ssl->s3->have_version &&
@@ -235,31 +214,13 @@ enum ssl_open_record_t tls_open_record(SSL *ssl, uint8_t *out_type, CBS *out,
   uint8_t type;
   uint16_t version, ciphertext_len;
   size_t header_len;
-  if (ssl_uses_short_header(ssl, evp_aead_open)) {
-    if (!CBS_get_u16(&cbs, &ciphertext_len)) {
-      *out_consumed = 2;
-      return ssl_open_record_partial;
-    }
-
-    if ((ciphertext_len & 0x8000) == 0) {
-      OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
-      *out_alert = SSL_AD_DECODE_ERROR;
-      return ssl_open_record_error;
-    }
-
-    ciphertext_len &= 0x7fff;
-    type = SSL3_RT_APPLICATION_DATA;
-    version = TLS1_VERSION;
-    header_len = 2;
-  } else {
-    if (!CBS_get_u8(&cbs, &type) ||
-        !CBS_get_u16(&cbs, &version) ||
-        !CBS_get_u16(&cbs, &ciphertext_len)) {
-      *out_consumed = SSL3_RT_HEADER_LENGTH;
-      return ssl_open_record_partial;
-    }
-    header_len = SSL3_RT_HEADER_LENGTH;
+  if (!CBS_get_u8(&cbs, &type) ||
+      !CBS_get_u16(&cbs, &version) ||
+      !CBS_get_u16(&cbs, &ciphertext_len)) {
+    *out_consumed = SSL3_RT_HEADER_LENGTH;
+    return ssl_open_record_partial;
   }
+  header_len = SSL3_RT_HEADER_LENGTH;
 
   int version_ok;
   if (ssl->s3->aead_read_ctx == NULL) {
@@ -398,8 +359,7 @@ static int do_seal_record(SSL *ssl, uint8_t *out, size_t *out_len,
                           size_t in_len) {
   assert(!buffers_alias(in, in_len, out, max_out));
 
-  const int short_header = ssl_uses_short_header(ssl, evp_aead_seal);
-  size_t header_len = short_header ? 2 : SSL3_RT_HEADER_LENGTH;
+  size_t header_len = SSL3_RT_HEADER_LENGTH;
 
   /* TLS 1.3 hides the actual record type inside the encrypted data. */
   if (ssl->s3->have_version &&
@@ -433,13 +393,11 @@ static int do_seal_record(SSL *ssl, uint8_t *out, size_t *out_len,
   }
 
   /* Write the non-length portions of the header. */
-  if (!short_header) {
-    out[0] = type;
-    out[1] = wire_version >> 8;
-    out[2] = wire_version & 0xff;
-    out += 3;
-    max_out -= 3;
-  }
+  out[0] = type;
+  out[1] = wire_version >> 8;
+  out[2] = wire_version & 0xff;
+  out += 3;
+  max_out -= 3;
 
   /* Write the ciphertext, leaving two bytes for the length. */
   size_t ciphertext_len;
@@ -457,9 +415,6 @@ static int do_seal_record(SSL *ssl, uint8_t *out, size_t *out_len,
   }
   out[0] = ciphertext_len >> 8;
   out[1] = ciphertext_len & 0xff;
-  if (short_header) {
-    out[0] |= 0x80;
-  }
 
   *out_len = header_len + ciphertext_len;
 
@@ -485,7 +440,6 @@ int tls_seal_record(SSL *ssl, uint8_t *out, size_t *out_len, size_t max_out,
     out += frag_len;
     max_out -= frag_len;
 
-    assert(!ssl_uses_short_header(ssl, evp_aead_seal));
 #if !defined(BORINGSSL_UNSAFE_FUZZER_MODE)
     assert(SSL3_RT_HEADER_LENGTH + ssl_cipher_get_record_split_len(
                                        ssl->s3->aead_write_ctx->cipher) ==
