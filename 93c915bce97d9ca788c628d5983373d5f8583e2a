@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c92f5883_8d68fb1f",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-02T22:12:53Z",
+      "side": 1,
+      "message": "This variable can now be inlined.",
+      "revId": "93c915bce97d9ca788c628d5983373d5f8583e2a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7a6781f_dfc556a4",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-02T22:12:53Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "93c915bce97d9ca788c628d5983373d5f8583e2a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "262d6084_fb7e3d5a",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-02T22:12:53Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "93c915bce97d9ca788c628d5983373d5f8583e2a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
