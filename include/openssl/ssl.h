@@ -144,6 +144,12 @@
 
 #include <openssl/base.h>
 
+#if defined(__cplusplus)
+extern "C++" {
+#include <vector>
+}
+#endif  /* __cplusplus */
+
 #include <openssl/bio.h>
 #include <openssl/buf.h>
 #include <openssl/hmac.h>
@@ -2337,6 +2343,20 @@ OPENSSL_EXPORT void SSL_CTX_set_client_CA_list(SSL_CTX *ctx,
  * callbacks set by |SSL_CTX_set_cert_cb| and |SSL_CTX_set_client_cert_cb| or
  * when the handshake is paused because of them. */
 OPENSSL_EXPORT STACK_OF(X509_NAME) *SSL_get_client_CA_list(const SSL *ssl);
+
+#if defined(__cplusplus)
+extern "C++" {
+namespace bssl {
+
+/* GetServerRequestedCAs returns the CAs sent by a server to guide a client in
+ * certificate selection. They are a series of DER-encoded X.509 names. This
+ * function may only be called during a callback set by
+ * |SSL_CTX_set_cert_cb|. */
+OPENSSL_EXPORT std::vector<bssl::UniquePtr<CRYPTO_BUFFER>>
+    GetServerRequestedCAs(const SSL *ssl);
+
+}}
+#endif  /* __cplusplus */
 
 /* SSL_CTX_get_client_CA_list returns |ctx|'s client certificate CA list. */
 OPENSSL_EXPORT STACK_OF(X509_NAME) *
