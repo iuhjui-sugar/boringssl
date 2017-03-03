@@ -372,25 +372,63 @@ int BN_mod_mul_montgomery(BIGNUM *r, const BIGNUM *a, const BIGNUM *b,
   int num = mont->N.top;
 
   /* |bn_mul_mont| requires at least 128 bits of limbs, at least for x86. */
-  if (num < (128 / BN_BITS2) ||
-      a->top != num ||
-      b->top != num) {
+  if (num < (128 / BN_BITS2)) {
     return bn_mod_mul_montgomery_fallback(r, a, b, mont, ctx);
   }
 
-  if (bn_wexpand(r, num) == NULL) {
-    return 0;
+  BN_ULONG *a_d = a->d;
+  BN_ULONG *b_d = b->d;
+  BN_ULONG *tmp = NULL;
+  size_t tmp_size = 2 * num * sizeof(BN_ULONG);
+
+  int ret = 0;
+
+  if (a->top != num ||
+      b->top != num) {
+    if (a->top > num ||
+        b->top > num) {
+      OPENSSL_PUT_ERROR(BN, BN_R_INPUT_NOT_REDUCED);
+      return 0;
+    }
+
+    /* The inputs still might not be reduced here, but at least they are not
+     * larger than the modulus. Copy them into a new buffer where each is
+     * zero-padded to the length of the modulus. XXX: This is a timing leak,
+     * but it's a smaller timing leak than falling back to
+     * |bn_mod_mul_montgomery_fallback| would be. */
+    tmp = OPENSSL_malloc(tmp_size);
+    if (tmp == NULL) {
+      OPENSSL_PUT_ERROR(BN, ERR_R_MALLOC_FAILURE);
+      return 0;
+    }
+    OPENSSL_memset(tmp, 0, tmp_size);
+    a_d = tmp;
+    b_d = tmp + num;
+    memcpy(a_d, a->d, a->top * sizeof(BN_ULONG));
+    memcpy(b_d, b->d, b->top * sizeof(BN_ULONG));
   }
-  if (!bn_mul_mont(r->d, a->d, b->d, mont->N.d, mont->n0, num)) {
+
+  if (bn_wexpand(r, num) == NULL) {
+    OPENSSL_PUT_ERROR(BN, ERR_R_MALLOC_FAILURE);
+    goto err;
+  }
+  if (!bn_mul_mont(r->d, a_d, b_d, mont->N.d, mont->n0, num)) {
     /* The check above ensures this won't happen. */
     OPENSSL_PUT_ERROR(BN, ERR_R_INTERNAL_ERROR);
-    return 0;
+    goto err;
   }
   r->neg = a->neg ^ b->neg;
   r->top = num;
   bn_correct_top(r);
 
-  return 1;
+  ret = 1;
+
+err:
+  if (tmp != NULL) {
+    OPENSSL_cleanse(tmp, tmp_size);
+  }
+  OPENSSL_free(tmp);
+  return ret;
 #endif
 }
 
