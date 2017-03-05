@@ -70,6 +70,30 @@
       "revId": "ab89b9313f3004ce8c802004c46431af0694f366",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "20e88e9c_9536ddd8",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 929,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-05T13:59:58Z",
+      "side": 1,
+      "message": "Ugh, that\u0027s a good point. Looking through callers, SSLv3_method and friends are all callers that explicitly asked for SSL 3.0, usually because they have some configuration file or are (sigh) a bindings library.\n\nI\u0027m thinking the sanest option here is to keep SSLv3_method \"working\" in so far as SSL_CTX_new and SSL_new will work (since no one checks those) but the handshake will fail. I believe this is what Conscrypt ultimately did too. What do you think?",
+      "parentUuid": "997cfdc6_377e0f5f",
+      "range": {
+        "startLine": 929,
+        "startChar": 4,
+        "endLine": 929,
+        "endChar": 5
+      },
+      "revId": "ab89b9313f3004ce8c802004c46431af0694f366",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
