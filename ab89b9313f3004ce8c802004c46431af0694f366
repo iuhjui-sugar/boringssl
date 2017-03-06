@@ -118,6 +118,30 @@
       "revId": "ab89b9313f3004ce8c802004c46431af0694f366",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6319e493_3fdb770b",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 929,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-06T06:34:05Z",
+      "side": 1,
+      "message": "Upstream have a OPENSSL_NO_SSL3 toggle in 1.1.0. We can define it in our opensslconf.h which should make the patches more palatable for upstreaming. Though I don\u0027t know if Python intends to add 1.1.0 support to 2.7.\n\n(I\u0027ll upload a new revision tomorrow which implements this and we can see what the fallout looks like.)",
+      "parentUuid": "21ad174b_12a61a1d",
+      "range": {
+        "startLine": 929,
+        "startChar": 4,
+        "endLine": 929,
+        "endChar": 5
+      },
+      "revId": "ab89b9313f3004ce8c802004c46431af0694f366",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
