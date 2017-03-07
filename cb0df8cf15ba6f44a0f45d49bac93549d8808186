@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "df87109d_a370525c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-07T22:22:42Z",
+      "side": 1,
+      "message": "Explain why in the commit message? Also BUG\u003d line",
+      "revId": "cb0df8cf15ba6f44a0f45d49bac93549d8808186",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46531b4d_0f8aff2f",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-07T22:22:42Z",
+      "side": 1,
+      "message": "Probably should make the equivalent change to DTLS.",
+      "revId": "cb0df8cf15ba6f44a0f45d49bac93549d8808186",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0592c61_e6ed7395",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-07T22:22:42Z",
+      "side": 1,
+      "message": "Hrm. We have two inconsistencies here that are kinda weird:\n\n1. seal and open believe RVN is based on different things.\n2. It\u0027s odd that these two are checking different things.\n\nHow about using the AEAD\u0027s version in both places here and then...",
+      "range": {
+        "startLine": 271,
+        "startChar": 28,
+        "endLine": 271,
+        "endChar": 40
+      },
+      "revId": "cb0df8cf15ba6f44a0f45d49bac93549d8808186",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "107fc0f8_d4b9bf38",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-07T22:22:42Z",
+      "side": 1,
+      "message": "Let\u0027s just break this SSL 3.0 special case. It\u0027s obnoxious and one of the few places where ssl-\u003eversion is read before version negotation. It occurs to me it doesn\u0027t affect SSL 3.0 consumers (which should hopefully be nearly gone) but *maximum* SSL 3.0 consumers. This would only matter if there\u0027s a *maximum* SSL 3.0 consumer hiding somewhere (I have a CL which should help flush them out) AND it talks to an SSL-3.0-only server AND that server is TLS-1.0-intolerant.\n\nSo we can do:\n\nuint16_t wire_version \u003d TLS1_VERSION;\nif (ssl-\u003es3-\u003eaead_write_ctx !\u003d NULL \u0026\u0026\n    ssl-\u003es3-\u003eaead_write_ctx-\u003eversion \u003c TLS1_3_VERSION) {\n  wire_version \u003d TLS1_3_VERSION;\n}\n\nYou\u0027ll probably need to fix up a few tests to do it, but ah well.",
+      "revId": "cb0df8cf15ba6f44a0f45d49bac93549d8808186",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
