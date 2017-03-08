@@ -4137,6 +4137,12 @@ struct ssl_ctx_st {
   /* grease_enabled is one if draft-davidben-tls-grease-01 is enabled and zero
    * otherwise. */
   unsigned grease_enabled:1;
+
+  /* i_promise_to_verify_certs_after_the_handshake indicates that the
+   * application is using the |CRYPTO_BUFFER|-based methods and understands
+   * that this currently requires post-handshake verification of
+   * certificates. */
+  unsigned i_promise_to_verify_certs_after_the_handshake:1;
 };
 
 
