@@ -493,6 +493,23 @@
     },
     {
       "key": {
+        "uuid": "136e5c11_b07a4d7b",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-08T22:24:25Z",
+      "side": 1,
+      "message": "Oh, given this check got more complicated, I would do:\n\nconst int skip_early_data \u003d ssl-\u003es3-\u003ehs !\u003d NULL \u0026\u0026 ...;\n\nand then check that everywhere.",
+      "revId": "a34abf0cad5d2730129f4ebd20064f3c4a9448c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fcee8e93_e191aad3",
         "filename": "ssl/tls_record.c",
         "patchSetId": 13
