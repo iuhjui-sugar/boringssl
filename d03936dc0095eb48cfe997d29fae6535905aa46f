@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b14889af_3bde3e10",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 974,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-03-08T18:53:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "702dfdc7_e6c2c0de",
+      "range": {
+        "startLine": 974,
+        "startChar": 18,
+        "endLine": 974,
+        "endChar": 39
+      },
+      "revId": "d03936dc0095eb48cfe997d29fae6535905aa46f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9db9aaa6_53ca6f22",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 3
@@ -36,6 +60,24 @@
       "writtenOn": "2017-03-08T17:49:32Z",
       "side": 1,
       "message": "Ditto.",
+      "revId": "d03936dc0095eb48cfe997d29fae6535905aa46f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0846f92c_53790ee8",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 982,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-03-08T18:53:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9db9aaa6_53ca6f22",
       "revId": "d03936dc0095eb48cfe997d29fae6535905aa46f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "53cb2a3d_f343a1c7",
+        "filename": "ssl/ssl_cert.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-03-08T18:53:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "437965cd_75a6ef12",
+      "revId": "d03936dc0095eb48cfe997d29fae6535905aa46f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d7212f29_a5e1e604",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 3
@@ -76,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "1f22ed2b_a6552b27",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1281,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-03-08T18:53:30Z",
+      "side": 1,
+      "message": "Made X509FromBuffer pass-through nullptr.",
+      "parentUuid": "d7212f29_a5e1e604",
+      "revId": "d03936dc0095eb48cfe997d29fae6535905aa46f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ee84f4c0_a8765d50",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 3
@@ -87,6 +165,24 @@
       "writtenOn": "2017-03-08T17:49:32Z",
       "side": 1,
       "message": "Ditto.",
+      "revId": "d03936dc0095eb48cfe997d29fae6535905aa46f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2601ff2c_563a6e2f",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1307,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-03-08T18:53:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee84f4c0_a8765d50",
       "revId": "d03936dc0095eb48cfe997d29fae6535905aa46f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
