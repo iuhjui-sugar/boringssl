@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "702dfdc7_e6c2c0de",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 974,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-08T17:49:32Z",
+      "side": 1,
+      "message": "Is it worth making this:\n\n  CRYPTO_BUFFER *const *certs\n\nso that the caller can make the array of pointers const if they want. (CRYPTO_BUFFERs themselves can\u0027t be because we may up-ref them.)",
+      "range": {
+        "startLine": 974,
+        "startChar": 18,
+        "endLine": 974,
+        "endChar": 39
+      },
+      "revId": "d03936dc0095eb48cfe997d29fae6535905aa46f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9db9aaa6_53ca6f22",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 982,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-08T17:49:32Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "d03936dc0095eb48cfe997d29fae6535905aa46f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "437965cd_75a6ef12",
+        "filename": "ssl/ssl_cert.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-08T17:49:32Z",
+      "side": 1,
+      "message": "The EVP_PKEY_is_opaque check probably ought to live in ssl_compare_public_and_private_key, so we don\u0027t have to duplicate it here and in ssl_set_pkey.",
+      "revId": "d03936dc0095eb48cfe997d29fae6535905aa46f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7212f29_a5e1e604",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1281,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-08T17:49:32Z",
+      "side": 1,
+      "message": "GetChainTestCertificateBuffer might return null on malloc failure. :-(",
+      "revId": "d03936dc0095eb48cfe997d29fae6535905aa46f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee84f4c0_a8765d50",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1307,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-08T17:49:32Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "d03936dc0095eb48cfe997d29fae6535905aa46f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
