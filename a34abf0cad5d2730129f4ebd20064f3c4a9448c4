@@ -1,0 +1,512 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62b9c31f_a5d7359d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-08T22:23:31Z",
+      "side": 1,
+      "message": "BUG\u003d",
+      "revId": "a34abf0cad5d2730129f4ebd20064f3c4a9448c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e19694f_3c77093a",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-08T22:23:31Z",
+      "side": 1,
+      "message": "This should come from the session.",
+      "range": {
+        "startLine": 215,
+        "startChar": 37,
+        "endLine": 215,
+        "endChar": 51
+      },
+      "revId": "a34abf0cad5d2730129f4ebd20064f3c4a9448c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a09f564b_520597cf",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-08T22:23:31Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "a34abf0cad5d2730129f4ebd20064f3c4a9448c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fd78098_dc493d94",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 890,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-08T22:23:31Z",
+      "side": 1,
+      "message": "TLS 1.2 ServerHello in response to 0-RTT should result in an error that we can trigger fallbacks on.",
+      "revId": "a34abf0cad5d2730129f4ebd20064f3c4a9448c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc9adaed_d0a81eae",
+        "filename": "ssl/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 950,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-08T22:23:31Z",
+      "side": 1,
+      "message": "ssl_hs_read_end_of_early_data",
+      "range": {
+        "startLine": 950,
+        "startChar": 2,
+        "endLine": 950,
+        "endChar": 18
+      },
+      "revId": "a34abf0cad5d2730129f4ebd20064f3c4a9448c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e069809_4b0bbad7",
+        "filename": "ssl/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 953,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-08T22:23:31Z",
+      "side": 1,
+      "message": "This comment contains approximately zero information. ;-)",
+      "revId": "a34abf0cad5d2730129f4ebd20064f3c4a9448c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ccc2572_f9fac884",
+        "filename": "ssl/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 955,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-08T22:23:31Z",
+      "side": 1,
+      "message": "/* C-style */ comments for each of these.",
+      "range": {
+        "startLine": 955,
+        "startChar": 25,
+        "endLine": 955,
+        "endChar": 27
+      },
+      "revId": "a34abf0cad5d2730129f4ebd20064f3c4a9448c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd531f2a_aa41ad44",
+        "filename": "ssl/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 955,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-08T22:23:31Z",
+      "side": 1,
+      "message": "\"are not handling\" is a bit ambiguous. I think you mean that early data was not offered.",
+      "range": {
+        "startLine": 955,
+        "startChar": 39,
+        "endLine": 955,
+        "endChar": 47
+      },
+      "revId": "a34abf0cad5d2730129f4ebd20064f3c4a9448c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57cada78_d712e9c9",
+        "filename": "ssl/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 957,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-08T22:23:31Z",
+      "side": 1,
+      "message": "Who is \"We\" here? Is this the client or the server? It looks like this enum is used for both.",
+      "range": {
+        "startLine": 957,
+        "startChar": 28,
+        "endLine": 957,
+        "endChar": 30
+      },
+      "revId": "a34abf0cad5d2730129f4ebd20064f3c4a9448c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04d5e98f_de5e9739",
+        "filename": "ssl/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 984,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-08T22:23:31Z",
+      "side": 1,
+      "message": "You seem to use all kinds of different words for the same thing here. 0-RTT mode, early data acceptance, early_data_state, and don\u0027t actually say what this does.",
+      "revId": "a34abf0cad5d2730129f4ebd20064f3c4a9448c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "add11371_3ea33500",
+        "filename": "ssl/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 988,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-08T22:23:31Z",
+      "side": 1,
+      "message": "This is the early_traffic_secret, not the early_secret.",
+      "range": {
+        "startLine": 988,
+        "startChar": 10,
+        "endLine": 988,
+        "endChar": 22
+      },
+      "revId": "a34abf0cad5d2730129f4ebd20064f3c4a9448c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce13d846_2846abb3",
+        "filename": "ssl/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 1077,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-08T22:23:31Z",
+      "side": 1,
+      "message": "\"initial handshake\" in our code usually means the handshake that wasn\u0027t a renegotiation. It also isn\u0027t the right term to use for TLS 1.3 resumptions because we care about the previous one if there were lots of renewals.\n\nThat said, this pattern sounds kind of tedious. That means every connection property we ever need to check for equality needs to be copied over. Here\u0027s an idea: don\u0027t release ssl-\u003esession until after all the checks are made.",
+      "range": {
+        "startLine": 1077,
+        "startChar": 46,
+        "endLine": 1077,
+        "endChar": 62
+      },
+      "revId": "a34abf0cad5d2730129f4ebd20064f3c4a9448c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e573edd_1816cb47",
+        "filename": "ssl/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 1137,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-08T22:23:31Z",
+      "side": 1,
+      "message": "This comment doesn\u0027t match the code. I believe you current have it be one if the *peer* sent the early data extension. It\u0027s also semi-redundant with the mode, but in ways that are different between client and server.\n\nWhat do you think of instead doing early_data_offered and early_data_accepted booleans to replace both of those?",
+      "range": {
+        "startLine": 1137,
+        "startChar": 11,
+        "endLine": 1137,
+        "endChar": 40
+      },
+      "revId": "a34abf0cad5d2730129f4ebd20064f3c4a9448c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdc7ffcc_08b9d687",
+        "filename": "ssl/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 1636,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-08T22:23:31Z",
+      "side": 1,
+      "message": "I\u0027m kind of annoyed at how colossal of a regression TLS 1.3 is for memory usage. At some point later we will need to add SSL_MAX_MD_SIZE to compensate for all this.",
+      "revId": "a34abf0cad5d2730129f4ebd20064f3c4a9448c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e46da19b_5489212e",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-08T22:23:31Z",
+      "side": 1,
+      "message": "end_of_early_data should not go through this function. The I/O will not work right. Use add_warning_alert on the SSL_PROTOCOL_METHOD.",
+      "revId": "a34abf0cad5d2730129f4ebd20064f3c4a9448c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1e29110_1e450e5b",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 2147,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-08T22:23:31Z",
+      "side": 1,
+      "message": "Reject this extension if we\u0027re not resuming. (Otherwise I think you silently treat it as missing if the server rejects resumption.)",
+      "revId": "a34abf0cad5d2730129f4ebd20064f3c4a9448c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cac3c5c8_4127e24a",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-08T22:23:31Z",
+      "side": 1,
+      "message": "add_warning_alert. Make sure you have a test in the state machine coverage tests so that the async mode is covered.",
+      "revId": "a34abf0cad5d2730129f4ebd20064f3c4a9448c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccb9b56d_8436b1ef",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-08T22:23:31Z",
+      "side": 1,
+      "message": "This should not flush yet. That will split it up into two writes. You can actually just put it all in one state.",
+      "range": {
+        "startLine": 524,
+        "startChar": 9,
+        "endLine": 524,
+        "endChar": 21
+      },
+      "revId": "a34abf0cad5d2730129f4ebd20064f3c4a9448c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cb59273_2196b6ca",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-08T22:23:31Z",
+      "side": 1,
+      "message": "Better to move this into the block at line 519 I think.",
+      "revId": "a34abf0cad5d2730129f4ebd20064f3c4a9448c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2d75904_90e8d36f",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-08T22:23:31Z",
+      "side": 1,
+      "message": "Snarfing it off the session would let you use the same function for the two.",
+      "range": {
+        "startLine": 120,
+        "startChar": 46,
+        "endLine": 120,
+        "endChar": 53
+      },
+      "revId": "a34abf0cad5d2730129f4ebd20064f3c4a9448c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2c9a67b_5157bb20",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-08T22:23:31Z",
+      "side": 1,
+      "message": "(I\u0027m guessing this will go away on rebase.)",
+      "revId": "a34abf0cad5d2730129f4ebd20064f3c4a9448c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d51dcfa6_c1a3e884",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-08T22:23:31Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be based on whether early data is accepted? Alternatively, why do you do this twice? (Here and below.)",
+      "revId": "a34abf0cad5d2730129f4ebd20064f3c4a9448c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c97dc7f_757a72f4",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-08T22:23:31Z",
+      "side": 1,
+      "message": "read? process suggests we already have it in the current message and are waiting to process it.",
+      "range": {
+        "startLine": 508,
+        "startChar": 26,
+        "endLine": 508,
+        "endChar": 33
+      },
+      "revId": "a34abf0cad5d2730129f4ebd20064f3c4a9448c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1edeadd8_4e00ec6b",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-08T22:23:31Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "a34abf0cad5d2730129f4ebd20064f3c4a9448c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38a7bfcb_4a76f15e",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-08T22:23:31Z",
+      "side": 1,
+      "message": "This bit onwards is the same as the next state, so you can just have this ssl_hs_ok into it.",
+      "revId": "a34abf0cad5d2730129f4ebd20064f3c4a9448c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcee8e93_e191aad3",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-08T22:23:31Z",
+      "side": 1,
+      "message": "This probably deserves a short comment.\n\n  /* Return end_of_early_data alerts as-is for the caller to process. */",
+      "revId": "a34abf0cad5d2730129f4ebd20064f3c4a9448c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

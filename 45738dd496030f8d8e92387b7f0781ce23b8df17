@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b544c9f8_a7831365",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-08T22:23:31Z",
+      "side": 0,
+      "message": "This is now a little distressingly far away. What if we just negotiated ALPN way way earlier and did the check in there?",
+      "revId": "45738dd496030f8d8e92387b7f0781ce23b8df17",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
