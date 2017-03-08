@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ccc0665e_d5a78b58",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-08T19:02:19Z",
+      "side": 1,
+      "message": "I think this wants to stay as the original version (using negotiated version for everything). Doesn\u0027t really matter, but makes it consistent with the seal side.",
+      "revId": "44f52e78f537fa953ef15223181b9519a2e89891",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
