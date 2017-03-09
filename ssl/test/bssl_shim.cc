@@ -1349,31 +1349,29 @@ static uint16_t GetProtocolVersion(const SSL *ssl) {
 // CheckHandshakeProperties checks, immediately after |ssl| completes its
 // initial handshake (or False Starts), whether all the properties are
 // consistent with the test configuration and invariants.
-static bool CheckHandshakeProperties(SSL *ssl, bool is_resume) {
-  const TestConfig *config = GetTestConfig(ssl);
-
+static bool CheckHandshakeProperties(SSL *ssl, bool is_resume, bool is_retry,
+                                     const TestConfig *config) {
   if (SSL_get_current_cipher(ssl) == nullptr) {
     fprintf(stderr, "null cipher after handshake\n");
     return false;
   }
 
-  if (is_resume &&
-      (!!SSL_session_reused(ssl) == config->expect_session_miss)) {
+  if (!!SSL_session_reused(ssl) !=
+      (is_resume && !config->expect_session_miss)) {
     fprintf(stderr, "session was%s reused\n",
             SSL_session_reused(ssl) ? "" : " not");
     return false;
   }
 
   bool expect_handshake_done =
-      (is_resume || !config->false_start) &&
-      !(config->is_server && SSL_early_data_accepted(ssl));
+      (is_resume || !config->false_start) && !SSL_in_early_data(ssl);
   if (expect_handshake_done != GetTestState(ssl)->handshake_done) {
     fprintf(stderr, "handshake was%s completed\n",
             GetTestState(ssl)->handshake_done ? "" : " not");
     return false;
   }
 
-  if (expect_handshake_done && !config->is_server) {
+  if (expect_handshake_done && !config->is_server && !is_retry) {
     bool expect_new_session =
         !config->expect_no_session &&
         (!SSL_session_reused(ssl) || config->expect_ticket_renewal) &&
@@ -1540,7 +1538,7 @@ static bool CheckHandshakeProperties(SSL *ssl, bool is_resume) {
     return false;
   }
 
-  if (is_resume) {
+  if (is_resume && !SSL_in_early_data(ssl)) {
     if ((config->expect_accept_early_data && !SSL_early_data_accepted(ssl)) ||
         (config->expect_reject_early_data && SSL_early_data_accepted(ssl))) {
       fprintf(stderr,
@@ -1637,7 +1635,8 @@ static bool CheckHandshakeProperties(SSL *ssl, bool is_resume) {
 // previous exchange.
 static bool DoExchange(bssl::UniquePtr<SSL_SESSION> *out_session,
                        SSL_CTX *ssl_ctx, const TestConfig *config,
-                       bool is_resume, SSL_SESSION *session) {
+                       const TestConfig *retry_config, bool is_resume,
+                       SSL_SESSION *session) {
   bssl::UniquePtr<SSL> ssl(SSL_new(ssl_ctx));
   if (!ssl) {
     return false;
@@ -1859,7 +1858,7 @@ static bool DoExchange(bssl::UniquePtr<SSL_SESSION> *out_session,
       ret = SSL_do_handshake(ssl.get());
     } while (config->async && RetryAsync(ssl.get(), ret));
     if (ret != 1 ||
-        !CheckHandshakeProperties(ssl.get(), is_resume)) {
+        !CheckHandshakeProperties(ssl.get(), is_resume, false, config)) {
       return false;
     }
 
@@ -2038,6 +2037,12 @@ static bool DoExchange(bssl::UniquePtr<SSL_SESSION> *out_session,
     return false;
   }
 
+  if (is_resume && config->expect_reject_early_data) {
+    if (!CheckHandshakeProperties(ssl.get(), is_resume, true, retry_config)) {
+      return false;
+    }
+  }
+
   if (GetProtocolVersion(ssl.get()) >= TLS1_3_VERSION && !config->is_server) {
     bool expect_new_session =
         !config->expect_no_session && !config->shim_shuts_down;
@@ -2129,9 +2134,9 @@ int main(int argc, char **argv) {
     return 1;
   }
 
-  TestConfig initial_config, resume_config;
-  if (!ParseConfig(argc - 1, argv + 1, false, &initial_config) ||
-      !ParseConfig(argc - 1, argv + 1, true, &resume_config)) {
+  TestConfig initial_config, resume_config, retry_config;
+  if (!ParseConfig(argc - 1, argv + 1, &initial_config, &resume_config,
+                   &retry_config)) {
     return Usage(argv[0]);
   }
 
@@ -2160,7 +2165,7 @@ int main(int argc, char **argv) {
     }
 
     bssl::UniquePtr<SSL_SESSION> offer_session = std::move(session);
-    if (!DoExchange(&session, ssl_ctx.get(), config, is_resume,
+    if (!DoExchange(&session, ssl_ctx.get(), config, &retry_config, is_resume,
                     offer_session.get())) {
       fprintf(stderr, "Connection %d failed.\n", i + 1);
       ERR_print_errors_fp(stderr);

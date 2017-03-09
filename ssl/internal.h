@@ -922,6 +922,7 @@ enum ssl_hs_wait_t {
   ssl_hs_channel_id_lookup,
   ssl_hs_private_key_operation,
   ssl_hs_pending_ticket,
+  ssl_hs_early_data_rejected,
   ssl_hs_read_end_of_early_data,
 };
 
@@ -1094,6 +1095,10 @@ struct ssl_handshake_st {
    * Start. The client may write data at this point. */
   unsigned in_false_start:1;
 
+  /* in_early_data is one if there is a pending handshake that has progressed
+   * enough to send and receive early data. */
+  unsigned in_early_data:1;
+
   /* early_data_offered is one if the client sent the early_data extension. */
   unsigned early_data_offered:1;
 
@@ -1125,6 +1130,10 @@ struct ssl_handshake_st {
   /* early_data_read is the amount of early data that has been read by the
    * record layer. */
   uint16_t early_data_read;
+
+  /* early_data_written is the amount of early data that has been written by the
+   * record layer. */
+  uint16_t early_data_written;
 } /* SSL_HANDSHAKE */;
 
 SSL_HANDSHAKE *ssl_handshake_new(SSL *ssl);
@@ -1418,7 +1427,8 @@ struct ssl_protocol_method_st {
                        int peek);
   int (*read_change_cipher_spec)(SSL *ssl);
   void (*read_close_notify)(SSL *ssl);
-  int (*write_app_data)(SSL *ssl, const uint8_t *buf, int len);
+  int (*write_app_data)(SSL *ssl, int *out_needs_handshake, const uint8_t *buf,
+                        int len);
   int (*dispatch_alert)(SSL *ssl);
   /* supports_cipher returns one if |cipher| is supported by this protocol and
    * zero otherwise. */
@@ -1628,6 +1638,9 @@ typedef struct ssl3_state_st {
   /* key_update_pending is one if we have a KeyUpdate acknowledgment
    * outstanding. */
   unsigned key_update_pending:1;
+
+  /* wpend_pending is one if we have a pending write outstanding. */
+  unsigned wpend_pending:1;
 
   uint8_t send_alert[2];
 
@@ -2085,7 +2098,8 @@ int ssl3_read_app_data(SSL *ssl, int *out_got_handshake, uint8_t *buf, int len,
 int ssl3_read_change_cipher_spec(SSL *ssl);
 void ssl3_read_close_notify(SSL *ssl);
 int ssl3_read_handshake_bytes(SSL *ssl, uint8_t *buf, int len);
-int ssl3_write_app_data(SSL *ssl, const uint8_t *buf, int len);
+int ssl3_write_app_data(SSL *ssl, int *out_needs_handshake, const uint8_t *buf,
+                        int len);
 int ssl3_output_cert_chain(SSL *ssl);
 
 int ssl3_new(SSL *ssl);
@@ -2126,7 +2140,8 @@ int dtls1_read_app_data(SSL *ssl, int *out_got_handshake, uint8_t *buf, int len,
 int dtls1_read_change_cipher_spec(SSL *ssl);
 void dtls1_read_close_notify(SSL *ssl);
 
-int dtls1_write_app_data(SSL *ssl, const uint8_t *buf, int len);
+int dtls1_write_app_data(SSL *ssl, int *out_needs_handshake, const uint8_t *buf,
+                         int len);
 
 /* dtls1_write_record sends a record. It returns one on success and <= 0 on
  * error. */
