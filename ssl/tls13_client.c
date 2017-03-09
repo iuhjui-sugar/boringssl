@@ -362,6 +362,7 @@ static enum ssl_hs_wait_t do_process_encrypted_extensions(SSL_HANDSHAKE *hs) {
     if (!ssl->s3->session_reused ||
         !hs->early_data_accepted) {
       hs->early_data_state = ssl_early_data_reject;
+      hs->can_early_write = 0;
     } else if (ssl->session->cipher != hs->new_session->cipher ||
                ssl->session->early_alpn_len != ssl->s3->alpn_selected_len ||
                OPENSSL_memcmp(ssl->session->early_alpn, ssl->s3->alpn_selected,
@@ -489,6 +490,7 @@ static enum ssl_hs_wait_t do_process_server_finished(SSL_HANDSHAKE *hs) {
 static enum ssl_hs_wait_t do_send_end_of_early_data(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
   if (hs->early_data_state == ssl_early_data_accept) {
+    hs->can_early_write = 0;
     hs->early_data_state = ssl_early_data_off;
     if (!ssl->method->add_alert(ssl, SSL3_AL_WARNING,
                                 TLS1_AD_END_OF_EARLY_DATA)) {

@@ -85,6 +85,7 @@ const Flag<bool> kBoolFlags[] = {
   { "-use-ticket-callback", &TestConfig::use_ticket_callback },
   { "-renew-ticket", &TestConfig::renew_ticket },
   { "-enable-early-data", &TestConfig::enable_early_data },
+  { "-send-early-data", &TestConfig::send_early_data },
   { "-enable-client-custom-extension",
     &TestConfig::enable_client_custom_extension },
   { "-enable-server-custom-extension",

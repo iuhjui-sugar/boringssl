@@ -1956,7 +1956,8 @@ static bool DoExchange(bssl::UniquePtr<SSL_SESSION> *out_session,
         return false;
       }
     }
-    if (config->shim_writes_first) {
+    if ((is_resume && config->send_early_data) ||
+        config->shim_writes_first) {
       if (WriteAll(ssl.get(), reinterpret_cast<const uint8_t *>("hello"),
                    5) < 0) {
         return false;

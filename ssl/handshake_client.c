@@ -227,6 +227,7 @@ int ssl3_connect(SSL_HANDSHAKE *hs) {
         } else {
           hs->next_state = DTLS1_ST_CR_HELLO_VERIFY_REQUEST_A;
         }
+
         hs->state = SSL3_ST_CW_FLUSH;
         break;
 
@@ -457,6 +458,11 @@ int ssl3_connect(SSL_HANDSHAKE *hs) {
         hs->state = hs->next_state;
         if (hs->state != SSL3_ST_FINISH_CLIENT_HANDSHAKE) {
           ssl->method->expect_flight(ssl);
+        }
+        if (hs->early_data_state == ssl_early_data_accept) {
+          hs->can_early_write = 1;
+          ret = 1;
+          goto end;
         }
         break;
 

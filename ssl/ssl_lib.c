@@ -601,7 +601,19 @@ int SSL_connect(SSL *ssl) {
     SSL_set_connect_state(ssl);
   }
 
-  return SSL_do_handshake(ssl);
+  int ret = 0;
+
+  do {
+    /* Prevent early exit on explicit handshake. */
+    if (ssl->s3->hs != NULL) {
+      ssl->s3->hs->can_early_write = 0;
+    }
+    ret = SSL_do_handshake(ssl);
+    if (ret <= 0) {
+      return ret;
+    }
+  } while (ssl->s3->hs != NULL && ssl->s3->hs->can_early_write);
+  return ret;
 }
 
 int SSL_accept(SSL *ssl) {
