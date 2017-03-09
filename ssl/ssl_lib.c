@@ -449,6 +449,7 @@ SSL *SSL_new(SSL_CTX *ctx) {
 
   ssl->signed_cert_timestamps_enabled = ctx->signed_cert_timestamps_enabled;
   ssl->ocsp_stapling_enabled = ctx->ocsp_stapling_enabled;
+  ssl->ticket_aead_method = ctx->ticket_aead_method;
 
   return ssl;
 
@@ -910,6 +911,9 @@ int SSL_get_error(const SSL *ssl, int ret_code) {
 
     case SSL_PRIVATE_KEY_OPERATION:
       return SSL_ERROR_WANT_PRIVATE_KEY_OPERATION;
+
+    case SSL_PENDING_TICKET:
+      return SSL_ERROR_PENDING_TICKET;
   }
 
   return SSL_ERROR_SYSCALL;
@@ -2698,4 +2702,14 @@ int SSL_set_min_version(SSL *ssl, uint16_t version) {
 
 int SSL_set_max_version(SSL *ssl, uint16_t version) {
   return SSL_set_max_proto_version(ssl, version);
+}
+
+void SSL_set_ticket_aead_method(SSL *ssl,
+                                const SSL_TICKET_AEAD_METHOD *aead_method) {
+  ssl->ticket_aead_method = aead_method;
+}
+
+void SSL_CTX_set_ticket_aead_method(SSL_CTX *ctx,
+                                    const SSL_TICKET_AEAD_METHOD *aead_method) {
+  ctx->ticket_aead_method = aead_method;
 }
