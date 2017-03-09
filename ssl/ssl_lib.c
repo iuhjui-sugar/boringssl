@@ -842,6 +842,13 @@ void SSL_set_early_data_enabled(SSL *ssl, int enabled) {
   ssl->cert->enable_early_data = !!enabled;
 }
 
+int SSL_in_early_data(const SSL *ssl) {
+  if (ssl->s3->hs == NULL) {
+    return 0;
+  }
+  return ssl->s3->hs->in_early_data;
+}
+
 int SSL_early_data_accepted(const SSL *ssl) {
   return ssl->early_data_accepted;
 }
@@ -1746,6 +1753,10 @@ void SSL_get0_alpn_selected(const SSL *ssl, const uint8_t **out_data,
   } else {
     *out_len = ssl->s3->alpn_selected_len;
   }
+  if (SSL_in_early_data(ssl)) {
+    *out_data = ssl->session->early_alpn;
+    *out_len = ssl->session->early_alpn_len;
+  }
 }
 
 void SSL_CTX_set_allow_unknown_alpn_protos(SSL_CTX *ctx, int enabled) {
@@ -1934,7 +1945,7 @@ const SSL_CIPHER *SSL_get_current_cipher(const SSL *ssl) {
 }
 
 int SSL_session_reused(const SSL *ssl) {
-  return ssl->s3->session_reused;
+  return ssl->s3->session_reused || SSL_in_early_data(ssl);
 }
 
 const COMP_METHOD *SSL_get_current_compression(SSL *ssl) { return NULL; }

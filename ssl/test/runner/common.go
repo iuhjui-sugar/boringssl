@@ -421,6 +421,9 @@ type Config struct {
 	// will be omitted.
 	MaxEarlyDataSize uint32
 
+	// ShimPrefix is the prefix that the shim will send to the server.
+	ShimPrefix string
+
 	// SRTPProtectionProfiles, if not nil, is the list of SRTP
 	// protection profiles to offer in DTLS-SRTP.
 	SRTPProtectionProfiles []uint16
@@ -1174,6 +1177,14 @@ type ProtocolBugs struct {
 	// reads matches what is provided in ExpectEarlyData and errors if
 	// the number of records or their content do not match.
 	ExpectEarlyData [][]byte
+
+	// ExpectLateEarlyData causes a TLS 1.3 server to read application
+	// data after the ServerFinished (assuming the server is able to
+	// derive the key under which the data is encrypted) before it
+	// sends the ClientFinished. It checks that the application data it
+	// reads matches what is provided in ExpectLateEarlyData and errors if
+	// the number of records or their content do not match.
+	ExpectLateEarlyData [][]byte
 
 	// SendHalfRTTData causes a TLS 1.3 server to send the provided
 	// data in application data records before reading the client's

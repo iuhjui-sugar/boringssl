@@ -3080,6 +3080,12 @@ OPENSSL_EXPORT void SSL_CTX_set_early_data_enabled(SSL_CTX *ctx, int enabled);
  * information. */
 OPENSSL_EXPORT void SSL_set_early_data_enabled(SSL *ssl, int enabled);
 
+/* SSL_in_early_data returns one if |ssl| has a pending handshake that is in
+ * Early Data. |SSL_write| may be called at this point without waiting for the
+ * peer, but |SSL_read| will complete the handshake before accepting application
+ * data. */
+OPENSSL_EXPORT int SSL_in_early_data(const SSL *ssl);
+
 /* SSL_early_data_accepted returns whether early data was accepted on the
  * handshake performed by |ssl|. */
 OPENSSL_EXPORT int SSL_early_data_accepted(const SSL *ssl);

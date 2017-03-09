@@ -33,6 +33,7 @@ enum client_hs_state_t {
   state_send_second_client_hello,
   state_process_server_hello,
   state_process_encrypted_extensions,
+  state_continue_second_server_flight,
   state_process_certificate_request,
   state_process_server_certificate,
   state_process_server_certificate_verify,
@@ -141,13 +142,15 @@ static enum ssl_hs_wait_t do_process_hello_retry_request(SSL_HANDSHAKE *hs) {
 
   hs->received_hello_retry_request = 1;
   hs->tls13_state = state_send_second_client_hello;
+  /* 0-RTT is rejected if we receive a HelloRetryRequest. */
+  if (hs->can_early_write) {
+    return ssl_hs_early_data_rejected;
+  }
   return ssl_hs_ok;
 }
 
 static enum ssl_hs_wait_t do_send_second_client_hello(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
-  /* TODO(svaldez): Ensure that we set can_early_write to false since 0-RTT is
-   * rejected if we receive a HelloRetryRequest. */
   if (!ssl->method->set_write_state(ssl, NULL) ||
       !ssl_write_client_hello(hs)) {
     return ssl_hs_error;
@@ -380,6 +383,14 @@ static enum ssl_hs_wait_t do_process_encrypted_extensions(SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
+  hs->tls13_state = state_continue_second_server_flight;
+  if (hs->can_early_write && !ssl->early_data_accepted) {
+    return ssl_hs_early_data_rejected;
+  }
+  return ssl_hs_ok;
+}
+
+static enum ssl_hs_wait_t do_continue_second_server_flight(SSL_HANDSHAKE *hs) {
   hs->tls13_state = state_process_certificate_request;
   return ssl_hs_read_message;
 }
@@ -485,7 +496,6 @@ static enum ssl_hs_wait_t do_process_server_finished(SSL_HANDSHAKE *hs) {
 
 static enum ssl_hs_wait_t do_send_end_of_early_data(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
-  /* TODO(svaldez): Stop sending early data. */
   if (ssl->early_data_accepted &&
       !ssl->method->add_alert(ssl, SSL3_AL_WARNING,
                               TLS1_AD_END_OF_EARLY_DATA)) {
@@ -617,6 +627,9 @@ enum ssl_hs_wait_t tls13_client_handshake(SSL_HANDSHAKE *hs) {
         break;
       case state_process_encrypted_extensions:
         ret = do_process_encrypted_extensions(hs);
+        break;
+      case state_continue_second_server_flight:
+        ret = do_continue_second_server_flight(hs);
         break;
       case state_process_certificate_request:
         ret = do_process_certificate_request(hs);

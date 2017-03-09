@@ -53,6 +53,7 @@ struct TestConfig {
   std::string host_name;
   std::string advertise_alpn;
   std::string expected_alpn;
+  std::string expected_late_alpn;
   std::string expected_advertised_alpn;
   std::string select_alpn;
   bool decline_alpn = false;
@@ -90,6 +91,7 @@ struct TestConfig {
   bool use_ticket_callback = false;
   bool renew_ticket = false;
   bool enable_early_data = false;
+  bool send_early_data = false;
   bool enable_client_custom_extension = false;
   bool enable_server_custom_extension = false;
   bool custom_extension_skip = false;
@@ -128,6 +130,7 @@ struct TestConfig {
   bool expect_sha256_client_cert_initial = false;
   bool expect_sha256_client_cert_resume = false;
   bool read_with_unfinished_write = false;
+  bool resume_read_with_unfinished_write = false;
   bool expect_secure_renegotiation = false;
   bool expect_no_secure_renegotiation = false;
   int max_send_fragment = 0;
