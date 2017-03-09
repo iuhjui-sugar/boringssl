@@ -1125,6 +1125,10 @@ struct ssl_handshake_st {
   /* early_data_read is the amount of early data that has been read by the
    * record layer. */
   uint16_t early_data_read;
+
+  /* early_data_written is the amount of early data that has been written by the
+   * record layer. */
+  uint16_t early_data_written;
 } /* SSL_HANDSHAKE */;
 
 SSL_HANDSHAKE *ssl_handshake_new(SSL *ssl);
@@ -1628,6 +1632,9 @@ typedef struct ssl3_state_st {
   /* key_update_pending is one if we have a KeyUpdate acknowledgment
    * outstanding. */
   unsigned key_update_pending:1;
+
+  /* wpend_pending is one if we have a pending write outstanding. */
+  unsigned wpend_pending:1;
 
   uint8_t send_alert[2];
 
