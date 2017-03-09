@@ -1,0 +1,206 @@
+diff-- git a / ssl / handshake_client.c b / ssl /
+        handshake_client.c index b0621e09..02c406c7 100644 ---a / ssl /
+        handshake_client.c++ +
+    b / ssl / handshake_client.c @ @-1733,
+    26 + 1731, 19 @ @ static int ssl3_send_cert_verify(SSL_HANDSHAKE *hs) {
+  goto err;
+}
+
+- const EVP_MD *md;
+uint8_t digest[EVP_MAX_MD_SIZE];
+size_t digest_len;
+if (!SSL_PRF_cert_verify_hash(&hs->prf, ssl->s3->new_session, digest,
+                              &digest_len, signature_algorithm,
+                              ssl3_protocol_version(ssl))) {
+  goto err;
+}
+
+- md = EVP_md5();
+- if (signature_algorithm == SSL_SIGN_RSA_PKCS1_MD5_SHA1) {
+  -md = EVP_md5_sha1();
+  -
+}
+- sign_result = ssl_private_key_success;
+
+EVP_PKEY_CTX *pctx = EVP_PKEY_CTX_new(ssl->cert->privatekey, NULL);
+if (pctx == NULL || !EVP_PKEY_sign_init(pctx) ||
+    -!EVP_PKEY_CTX_set_signature_md(pctx, md) ||
+    !EVP_PKEY_sign(pctx, ptr, &sig_len, digest, digest_len)) {
+  EVP_PKEY_CTX_free(pctx);
+  sign_result = ssl_private_key_failure;
+  diff-- git a / ssl / handshake_server.c b / ssl /
+          handshake_server.c index b9fe0bea..afeebea3 100644 ---a / ssl /
+          handshake_server.c++ +
+      b / ssl / handshake_server.c @ @-1814,
+      24 + 1809, 17 @ @ static int ssl3_get_cert_verify(SSL_HANDSHAKE * hs) {
+    /* The SSL3 construction for CertificateVerify does not decompose into a
+     * single final digest and signature, and must be special-cased. */
+    if (ssl3_protocol_version(ssl) == SSL3_VERSION) {
+      -const EVP_MD *md;
+      uint8_t digest[EVP_MAX_MD_SIZE];
+      size_t digest_len;
+      if (!SSL_PRF_cert_verify_hash(&hs->prf, ssl->s3->new_session, digest,
+                                    &digest_len, signature_algorithm,
+                                    ssl3_protocol_version(ssl))) {
+        goto err;
+      }
+
+      -md = EVP_md5();
+      -if (signature_algorithm == SSL_SIGN_RSA_PKCS1_MD5_SHA1) {
+        -md = EVP_md5_sha1();
+        -
+      }
+      -EVP_PKEY_CTX *pctx = EVP_PKEY_CTX_new(hs->peer_pubkey, NULL);
+      sig_ok = pctx != NULL && EVP_PKEY_verify_init(pctx) &&
+               -EVP_PKEY_CTX_set_signature_md(pctx, md) &&
+               EVP_PKEY_verify(pctx, CBS_data(&signature), CBS_len(&signature),
+                               digest, digest_len);
+      EVP_PKEY_CTX_free(pctx);
+      diff-- git a / ssl / t1_enc.c b / ssl /
+              t1_enc.c index 20848dd8..093aca9a 100644 ---a / ssl / t1_enc.c++ +
+          b / ssl / t1_enc.c @ @-457,
+          81 + 457,
+          29 @ @ int SSL_generate_key_block(const SSL *ssl, uint8_t *out,
+                                            size_t out_len) {
+                     ssl->s3->client_random, SSL3_RANDOM_SIZE);
+      }
+
+      -uint16_t algorithm;
+      -if (SSL_in_init(ssl)) {
+        -algorithm = ssl->s3->hs->prf.algorithm;
+        -
+      }
+      else {
+        -algorithm = SSL_get_session(ssl)->cipher->algorithm_prf;
+        -
+      }
+-
+-  return tls1_prf(algorithm, out, out_len, SSL_get_session(ssl)->master_key,
++  return tls1_prf(SSL_get_session(ssl)->cipher->algorithm_prf, out, out_len,
++                  SSL_get_session(ssl)->master_key,
+                   SSL_get_session(ssl)->master_key_length,
+                   TLS_MD_KEY_EXPANSION_CONST, TLS_MD_KEY_EXPANSION_CONST_SIZE,
+                   ssl->s3->server_random, SSL3_RANDOM_SIZE,
+                   ssl->s3->client_random, SSL3_RANDOM_SIZE);
+    }
+
+@@ -599,14 +547,8 @@ int SSL_export_keying_material(SSL *ssl, uint8_t *out, size_t out_len,
+     OPENSSL_memcpy(seed + 2 * SSL3_RANDOM_SIZE + 2, context, context_len);
+  }
+
+  -uint16_t algorithm;
+  -if (SSL_in_init(ssl)) {
+    -algorithm = ssl->s3->hs->prf.algorithm;
+    -
+  }
+  else {
+    -algorithm = SSL_get_session(ssl)->cipher->algorithm_prf;
+    -
+  }
+-
+-  int ret = tls1_prf(algorithm, out, out_len, SSL_get_session(ssl)->master_key,
++  int ret = tls1_prf(SSL_get_session(ssl)->cipher->algorithm_prf, out, out_len,
++                     SSL_get_session(ssl)->master_key,
+                      SSL_get_session(ssl)->master_key_length, label, label_len,
+                      seed, seed_len, NULL, 0);
+   OPENSSL_free(seed);
+diff --git a/ssl/tls13_client.c b/ssl/tls13_client.c
+index db95b05b..06e6aca3 100644
+--- a/ssl/tls13_client.c
++++ b/ssl/tls13_client.c
+@@ -261,13 +261,10 @@ static enum ssl_hs_wait_t do_process_server_hello(SSL_HANDSHAKE *hs) {
+    ssl->s3->new_session->cipher = cipher;
+    ssl->s3->tmp.new_cipher = cipher;
+
+    -if (!SSL_PRF_init(&hs->prf, ssl3_protocol_version(ssl),
+                       -cipher->algorithm_prf)) {
+      -return ssl_hs_error;
+      -
+    }
+    -
+        /* The PRF hash is now known. Set up the key schedule. */
+        -if (!tls13_init_key_schedule(hs)) {
+      +if (!SSL_PRF_init(&hs->prf, ssl3_protocol_version(ssl),
+                         +cipher->algorithm_prf) ||
+           +!tls13_init_key_schedule(hs)) {
+        return ssl_hs_error;
+      }
+
+      @ @-535, 7 + 532,
+          7 @ @ static enum ssl_hs_wait_t do_complete_second_flight(
+              SSL_HANDSHAKE * hs) {
+        CBB cbb, body;
+        if (!ssl->method->init_message(ssl, &cbb, &body, SSL3_MT_CHANNEL_ID) ||
+            -!tls1_write_channel_id(ssl, &body) ||
+            +!tls1_write_channel_id(hs, &body) ||
+            !ssl_add_message_cbb(ssl, &cbb)) {
+          CBB_cleanup(&cbb);
+          return ssl_hs_error;
+diff --git a/ssl/tls13_enc.c b/ssl/tls13_enc.c
+index 50f53829..03f1cc41 100644
+--- a/ssl/tls13_enc.c
++++ b/ssl/tls13_enc.c
+@@ -109,13 +109,9 @@ int tls13_set_traffic_key(SSL *ssl, enum evp_aead_direction_t direction,
+     return 0;
+        }
+
+        -const EVP_MD *digest;
+        -if (SSL_in_init(ssl)) {
+          -digest = ssl->s3->hs->prf.md;
+          -
+        }
+        else {
+          -SSL_SESSION *session = SSL_get_session(ssl);
+          -digest = ssl_get_handshake_digest(session->cipher->algorithm_prf);
+          -
+        }
+        +SSL_SESSION *session = SSL_get_session(ssl);
+        +const EVP_MD *digest =
+            +ssl_get_handshake_digest(session->cipher->algorithm_prf);
+
+        /* Derive the key. */
+        size_t key_len = EVP_AEAD_key_length(aead);
+        @ @-211, 13 + 207,
+            9 @ @ static const char kTLS13LabelApplicationTraffic[] =
+                "application traffic secret";
+
+        int tls13_rotate_traffic_key(SSL * ssl,
+                                     enum evp_aead_direction_t direction) {
+          -const EVP_MD *digest;
+          -if (SSL_in_init(ssl)) {
+            -digest = ssl->s3->hs->prf.md;
+            -
+          }
+          else {
+            -SSL_SESSION *session = SSL_get_session(ssl);
+            -digest = ssl_get_handshake_digest(session->cipher->algorithm_prf);
+            -
+          }
+          +SSL_SESSION *session = SSL_get_session(ssl);
+          +const EVP_MD *digest =
+              +ssl_get_handshake_digest(session->cipher->algorithm_prf);
+
+          uint8_t *secret;
+          size_t secret_len;
+          @ @-300, 13 + 292,
+              9 @ @ int tls13_export_keying_material(
+                  SSL * ssl, uint8_t * out, size_t out_len, const char *label,
+                  size_t label_len, const uint8_t *context, size_t context_len,
+                  int use_context) {
+            -const EVP_MD *digest;
+            -if (SSL_in_init(ssl)) {
+              -digest = ssl->s3->hs->prf.md;
+              -
+            }
+            else {
+              -SSL_SESSION *session = SSL_get_session(ssl);
+              -digest =
+                  ssl_get_handshake_digest(session->cipher->algorithm_prf);
+              -
+            }
+            +SSL_SESSION *session = SSL_get_session(ssl);
+            +const EVP_MD *digest =
+                +ssl_get_handshake_digest(session->cipher->algorithm_prf);
+
+            const uint8_t *hash = NULL;
+            size_t hash_len = 0;

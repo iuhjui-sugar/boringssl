@@ -94,6 +94,11 @@ int tls13_handshake(SSL_HANDSHAKE *hs, int *out_early_return) {
         hs->wait = ssl_hs_ok;
         return -1;
 
+      case ssl_hs_early_data_rejected:
+        /* TODO(svaldez): No further read/write calls should succeed until the
+         * early data rejection has been acknowledged. */
+        break;
+
       case ssl_hs_ok:
         break;
     }
