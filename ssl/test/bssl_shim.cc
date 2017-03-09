@@ -1357,16 +1357,15 @@ static bool CheckHandshakeProperties(SSL *ssl, bool is_resume) {
     return false;
   }
 
-  if (is_resume &&
-      (!!SSL_session_reused(ssl) == config->expect_session_miss)) {
+  if (!!SSL_session_reused(ssl) !=
+      (is_resume && !config->expect_session_miss)) {
     fprintf(stderr, "session was%s reused\n",
             SSL_session_reused(ssl) ? "" : " not");
     return false;
   }
 
   bool expect_handshake_done =
-      (is_resume || !config->false_start) &&
-      !(config->is_server && SSL_early_data_accepted(ssl));
+      (is_resume || !config->false_start) && !SSL_in_early_data(ssl);
   if (expect_handshake_done != GetTestState(ssl)->handshake_done) {
     fprintf(stderr, "handshake was%s completed\n",
             GetTestState(ssl)->handshake_done ? "" : " not");
@@ -1540,7 +1539,7 @@ static bool CheckHandshakeProperties(SSL *ssl, bool is_resume) {
     return false;
   }
 
-  if (is_resume) {
+  if (is_resume && !SSL_in_early_data(ssl)) {
     if ((config->expect_accept_early_data && !SSL_early_data_accepted(ssl)) ||
         (config->expect_reject_early_data && SSL_early_data_accepted(ssl))) {
       fprintf(stderr,
@@ -2036,6 +2035,18 @@ static bool DoExchange(bssl::UniquePtr<SSL_SESSION> *out_session,
       GetTestState(ssl.get())->got_new_session) {
     fprintf(stderr, "new session was established after the handshake\n");
     return false;
+  }
+
+  if (!config->is_server && config->enable_early_data && is_resume) {
+    const uint8_t *alpn_proto;
+    unsigned alpn_proto_len;
+    SSL_get0_alpn_selected(ssl.get(), &alpn_proto, &alpn_proto_len);
+    if (alpn_proto_len != config->expected_late_alpn.size() ||
+        OPENSSL_memcmp(alpn_proto, config->expected_late_alpn.data(),
+                       alpn_proto_len) != 0) {
+      fprintf(stderr, "negotiated late alpn proto mismatch\n");
+      return false;
+    }
   }
 
   if (GetProtocolVersion(ssl.get()) >= TLS1_3_VERSION && !config->is_server) {
