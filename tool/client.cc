@@ -121,7 +121,7 @@ static const struct argument kArguments[] = {
         "verification is required.",
     },
     {
-        "-early-data", kBooleanArgument, "Allow early data",
+        "-early-data", kOptionalArgument, "Allow early data",
     },
     {
         "-ed25519", kBooleanArgument, "Advertise Ed25519 support",
@@ -262,6 +262,10 @@ static bool DoConnection(SSL_CTX *ctx,
     fprintf(stderr, "Error while connecting: %d\n", ssl_err);
     ERR_print_errors_cb(PrintErrorCallback, stderr);
     return false;
+  }
+
+  if (args_map.count("-early-data") != 0 && SSL_in_early_data(ssl.get())) {
+    SSL_write(ssl.get(), args_map["-early-data"].data(), args_map["-early-data"].size());
   }
 
   fprintf(stderr, "Connected.\n");
