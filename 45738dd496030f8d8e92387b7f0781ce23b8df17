@@ -16,6 +16,24 @@
       "revId": "45738dd496030f8d8e92387b7f0781ce23b8df17",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffddb7fa_4b6724c0",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-03-09T17:19:27Z",
+      "side": 0,
+      "message": "With the client-side move for session freeing until later, this actually more reasonably matches that ordering.",
+      "parentUuid": "b544c9f8_a7831365",
+      "revId": "45738dd496030f8d8e92387b7f0781ce23b8df17",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
