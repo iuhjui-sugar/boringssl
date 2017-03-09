@@ -1350,7 +1350,7 @@ static bool CheckHandshakeProperties(SSL *ssl, bool is_resume) {
 
   bool expect_handshake_done =
       (is_resume || !config->false_start) &&
-      !(config->is_server && SSL_early_data_accepted(ssl));
+      !SSL_in_early_data(ssl);
   if (expect_handshake_done != GetTestState(ssl)->handshake_done) {
     fprintf(stderr, "handshake was%s completed\n",
             GetTestState(ssl)->handshake_done ? "" : " not");
@@ -1410,12 +1410,15 @@ static bool CheckHandshakeProperties(SSL *ssl, bool is_resume) {
     }
   }
 
+  /* Only use the resumption expected ALPN once we've completed the full
+   * handshake. */
+  bool use_resume = is_resume && !SSL_in_early_data(ssl);
   std::string expected_alpn = config->expected_alpn;
-  if (is_resume && !config->expected_resume_alpn.empty()) {
+  if (use_resume && !config->expected_resume_alpn.empty()) {
     expected_alpn = config->expected_resume_alpn;
   }
-  bool expect_no_alpn = (!is_resume && config->expect_no_alpn) ||
-      (is_resume && config->expect_no_resume_alpn);
+  bool expect_no_alpn = (!use_resume && config->expect_no_alpn) ||
+      (use_resume && config->expect_no_resume_alpn);
   if (expect_no_alpn) {
     expected_alpn.clear();
   }
@@ -1537,7 +1540,7 @@ static bool CheckHandshakeProperties(SSL *ssl, bool is_resume) {
     return false;
   }
 
-  if (is_resume) {
+  if (is_resume && !SSL_in_early_data(ssl)) {
     if ((config->expect_accept_early_data && !SSL_early_data_accepted(ssl)) ||
         (config->expect_reject_early_data && SSL_early_data_accepted(ssl))) {
       fprintf(stderr,
@@ -1966,7 +1969,8 @@ static bool DoExchange(bssl::UniquePtr<SSL_SESSION> *out_session,
         return false;
       }
       pending_initial_write = true;
-    } else if (config->shim_writes_first) {
+    } else if ((is_resume && config->send_early_data) ||
+               config->shim_writes_first) {
       if (WriteAll(ssl.get(), kInitialWrite, strlen(kInitialWrite)) < 0) {
         return false;
       }

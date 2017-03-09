@@ -146,8 +146,8 @@ static enum ssl_hs_wait_t do_process_hello_retry_request(SSL_HANDSHAKE *hs) {
 
 static enum ssl_hs_wait_t do_send_second_client_hello(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
-  /* TODO(svaldez): Ensure that we set can_early_write to false since 0-RTT is
-   * rejected if we receive a HelloRetryRequest. */
+  /* 0-RTT is rejected if we receive a HelloRetryRequest. */
+  hs->can_early_write = 0;
   if (!ssl->method->set_write_state(ssl, NULL) ||
       !ssl_write_client_hello(hs)) {
     return ssl_hs_error;
@@ -369,6 +369,8 @@ static enum ssl_hs_wait_t do_process_encrypted_extensions(SSL_HANDSHAKE *hs) {
       OPENSSL_PUT_ERROR(SSL, SSL_R_CHANNEL_ID_ON_EARLY_DATA);
       return ssl_hs_error;
     }
+  } else {
+    hs->can_early_write = 0;
   }
 
   /* Release offered session now that it is no longer needed. */
@@ -485,7 +487,7 @@ static enum ssl_hs_wait_t do_process_server_finished(SSL_HANDSHAKE *hs) {
 
 static enum ssl_hs_wait_t do_send_end_of_early_data(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
-  /* TODO(svaldez): Stop sending early data. */
+  hs->can_early_write = 0;
   if (ssl->early_data_accepted &&
       !ssl->method->add_alert(ssl, SSL3_AL_WARNING,
                               TLS1_AD_END_OF_EARLY_DATA)) {
