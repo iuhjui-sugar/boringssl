@@ -331,12 +331,12 @@ int ssl3_flush_flight(SSL *ssl) {
     return -1;
   }
 
-  /* The handshake flight buffer is mutually exclusive with application data.
-   *
-   * TODO(davidben): This will not be true when closure alerts use this. */
   if (ssl_write_buffer_is_pending(ssl)) {
-    OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
-    return -1;
+    int ret = ssl_write_buffer_flush(ssl);
+    if (ret <= 0) {
+      ssl->rwstate = SSL_WRITING;
+      return ret;
+    }
   }
 
   /* Write the pending flight. */

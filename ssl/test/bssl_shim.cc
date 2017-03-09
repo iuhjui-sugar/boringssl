@@ -1966,7 +1966,8 @@ static bool DoExchange(bssl::UniquePtr<SSL_SESSION> *out_session,
         return false;
       }
       pending_initial_write = true;
-    } else if (config->shim_writes_first) {
+    } else if ((is_resume && config->send_early_data) ||
+               config->shim_writes_first) {
       if (WriteAll(ssl.get(), kInitialWrite, strlen(kInitialWrite)) < 0) {
         return false;
       }
