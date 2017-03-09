@@ -335,7 +335,8 @@ void dtls1_read_close_notify(SSL *ssl) {
   }
 }
 
-int dtls1_write_app_data(SSL *ssl, const uint8_t *buf, int len) {
+int dtls1_write_app_data(SSL *ssl, int *out_needs_handshake, const uint8_t *buf,
+                         int len) {
   assert(!SSL_in_init(ssl));
 
   if (len > SSL3_RT_MAX_PLAIN_LENGTH) {
