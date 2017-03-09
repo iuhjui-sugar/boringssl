@@ -1562,6 +1562,7 @@ typedef struct ssl3_state_st {
   int wpend_tot;     /* number bytes written */
   int wpend_type;
   int wpend_ret; /* number of bytes submitted */
+  int wpend_pending;
   const uint8_t *wpend_buf;
 
   /* recv_shutdown is the shutdown state for the receive half of the
