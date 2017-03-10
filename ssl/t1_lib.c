@@ -2011,9 +2011,6 @@ int ssl_ext_pre_shared_key_parse_clienthello(
     return 0;
   }
 
-  /* TODO(svaldez): Check that the ticket_age is valid when attempting to use
-   * the PSK for 0-RTT. http://crbug.com/boringssl/113 */
-
   /* TLS 1.3 session tickets are renewed separately as part of the
    * NewSessionTicket. */
   int unused_renew;
