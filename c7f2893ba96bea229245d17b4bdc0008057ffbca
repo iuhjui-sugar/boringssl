@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "99a98ef2_1ab60fed",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-03-10T19:28:35Z",
+      "side": 1,
+      "message": "Thanks. I was hoping so :)",
+      "parentUuid": "131e0df9_a7edb7b6",
+      "revId": "c7f2893ba96bea229245d17b4bdc0008057ffbca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "349e0fc4_b32af91f",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 2
@@ -30,6 +48,30 @@
       "writtenOn": "2017-03-10T17:46:39Z",
       "side": 1,
       "message": "I think we can fold open and open_complete together, which should make things a bit simpler. The signing stuff was split up so we wouldn\u0027t have to reassemble the payload twice (though in hindsight I think that was a mistake). Here the payload is synchronously available.\n\nThat should avoid all the mess around open_pending.",
+      "range": {
+        "startLine": 2057,
+        "startChar": 34,
+        "endLine": 2057,
+        "endChar": 38
+      },
+      "revId": "c7f2893ba96bea229245d17b4bdc0008057ffbca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8701aab6_fe075b85",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2057,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-03-10T19:28:35Z",
+      "side": 1,
+      "message": "Done. I was trying to mimic the private-key stuff but it you\u0027re right, it just ended up serving no purpose.",
+      "parentUuid": "349e0fc4_b32af91f",
       "range": {
         "startLine": 2057,
         "startChar": 34,
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "18aef009_0f9f08ac",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2077,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-03-10T19:28:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "070a89ee_fbe6b70f",
+      "revId": "c7f2893ba96bea229245d17b4bdc0008057ffbca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e892d1fb_47bee32d",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 2
@@ -70,6 +130,24 @@
       "writtenOn": "2017-03-10T17:46:39Z",
       "side": 1,
       "message": "Do you think we would care about retaining ticket continuity in transition? If so, we may want a way for the SSL_TICKET_AEAD_METHOD to call into the old scheme. Or perhaps it\u0027s simplest to just not bother...",
+      "revId": "c7f2893ba96bea229245d17b4bdc0008057ffbca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28e7d9dd_9d00859e",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2082,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-03-10T19:28:35Z",
+      "side": 1,
+      "message": "If it\u0027s requested we could take care of it but the way I imagine the code it\u0027ll be a per-SSL_CTX thing and we\u0027ll initialise it one way or another. We can already rotate SSL_CTX\u0027s at runtime if we want to flip that flag without a restart.",
+      "parentUuid": "e892d1fb_47bee32d",
       "revId": "c7f2893ba96bea229245d17b4bdc0008057ffbca",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "982a2302_41ef8110",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2176,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-03-10T19:28:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e5fd2f4_42423f45",
+      "revId": "c7f2893ba96bea229245d17b4bdc0008057ffbca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fa20095b_d4dec675",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 2
@@ -110,6 +206,24 @@
     },
     {
       "key": {
+        "uuid": "ec5aef5a_5474c6b0",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3233,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-03-10T19:28:35Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "fa20095b_d4dec675",
+      "revId": "c7f2893ba96bea229245d17b4bdc0008057ffbca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "da95dd3b_4c28b761",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 2
@@ -121,6 +235,24 @@
       "writtenOn": "2017-03-10T17:46:39Z",
       "side": 1,
       "message": "Nit: 80 chars",
+      "revId": "c7f2893ba96bea229245d17b4bdc0008057ffbca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d0065c6_46931322",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3420,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-03-10T19:28:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da95dd3b_4c28b761",
       "revId": "c7f2893ba96bea229245d17b4bdc0008057ffbca",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
