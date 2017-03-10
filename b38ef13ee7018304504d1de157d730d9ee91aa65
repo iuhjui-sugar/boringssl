@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "edcadf5c_38d87c1b",
+        "filename": "ssl/ssl_session.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-10T23:26:29Z",
+      "side": 1,
+      "message": "initial_ctx",
+      "range": {
+        "startLine": 686,
+        "startChar": 12,
+        "endLine": 686,
+        "endChar": 15
+      },
+      "revId": "b38ef13ee7018304504d1de157d730d9ee91aa65",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f299adf3_7c02e45c",
+        "filename": "ssl/ssl_session.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-10T23:26:29Z",
+      "side": 1,
+      "message": "initial_ctx",
+      "range": {
+        "startLine": 708,
+        "startChar": 11,
+        "endLine": 708,
+        "endChar": 14
+      },
+      "revId": "b38ef13ee7018304504d1de157d730d9ee91aa65",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b742f00_a02e1226",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 2020,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-10T23:26:29Z",
+      "side": 1,
+      "message": "I\u0027ll go rename this function to ssl_ while I\u0027m here. tls_foo has usually been for TLS vs DTLS while ssl_foo for common stuff.",
+      "range": {
+        "startLine": 2020,
+        "startChar": 10,
+        "endLine": 2020,
+        "endChar": 28
+      },
+      "revId": "b38ef13ee7018304504d1de157d730d9ee91aa65",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fba117b9_ab534c9e",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 3148,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-10T23:26:29Z",
+      "side": 1,
+      "message": "One of us can do it as a follow-up if at all, but perhaps BORINGSSL_UNSAFE_FUZZER_MODE should just swap out this entire function and make it a proper no-op. I think the original thinking was we\u0027d get some fuzzer coverage over the length bits, but this is a much hairier BORINGSSL_UNSAFE_FUZZER_MODE than I\u0027d normally be happy with.",
+      "revId": "b38ef13ee7018304504d1de157d730d9ee91aa65",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e964c37c_52400b0c",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 3173,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-10T23:26:29Z",
+      "side": 1,
+      "message": "initial_ctx because it\u0027s a resumption.",
+      "range": {
+        "startLine": 3173,
+        "startChar": 11,
+        "endLine": 3173,
+        "endChar": 14
+      },
+      "revId": "b38ef13ee7018304504d1de157d730d9ee91aa65",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a38c131_a07cec91",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 3201,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-10T23:26:29Z",
+      "side": 1,
+      "message": "initial_ctx",
+      "range": {
+        "startLine": 3201,
+        "startChar": 11,
+        "endLine": 3201,
+        "endChar": 14
+      },
+      "revId": "b38ef13ee7018304504d1de157d730d9ee91aa65",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
