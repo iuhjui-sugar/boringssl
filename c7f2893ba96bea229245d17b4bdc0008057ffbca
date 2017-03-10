@@ -1,0 +1,129 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "131e0df9_a7edb7b6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-10T17:46:39Z",
+      "side": 1,
+      "message": "(I can take care of that part. It shouldn\u0027t be too bad.)",
+      "revId": "c7f2893ba96bea229245d17b4bdc0008057ffbca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "349e0fc4_b32af91f",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2057,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-10T17:46:39Z",
+      "side": 1,
+      "message": "I think we can fold open and open_complete together, which should make things a bit simpler. The signing stuff was split up so we wouldn\u0027t have to reassemble the payload twice (though in hindsight I think that was a mistake). Here the payload is synchronously available.\n\nThat should avoid all the mess around open_pending.",
+      "range": {
+        "startLine": 2057,
+        "startChar": 34,
+        "endLine": 2057,
+        "endChar": 38
+      },
+      "revId": "c7f2893ba96bea229245d17b4bdc0008057ffbca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "070a89ee_fbe6b70f",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2077,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-10T17:46:39Z",
+      "side": 1,
+      "message": "Do we need it on the SSL? Session cache stuff is typically only on the SSL_CTX and SSL_CTX_set_tlsext_ticket_keys is SSL_CTX-only.",
+      "revId": "c7f2893ba96bea229245d17b4bdc0008057ffbca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e892d1fb_47bee32d",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2082,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-10T17:46:39Z",
+      "side": 1,
+      "message": "Do you think we would care about retaining ticket continuity in transition? If so, we may want a way for the SSL_TICKET_AEAD_METHOD to call into the old scheme. Or perhaps it\u0027s simplest to just not bother...",
+      "revId": "c7f2893ba96bea229245d17b4bdc0008057ffbca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e5fd2f4_42423f45",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2176,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-10T17:46:39Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "c7f2893ba96bea229245d17b4bdc0008057ffbca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa20095b_d4dec675",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3233,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-10T17:46:39Z",
+      "side": 1,
+      "message": "I can see about routing this up to bssl_shim when adding the TLS 1.3 bits to see if that\u0027s easier. It\u0027s got a bit of machinery for testing async stuff.",
+      "revId": "c7f2893ba96bea229245d17b4bdc0008057ffbca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da95dd3b_4c28b761",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3420,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-10T17:46:39Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "c7f2893ba96bea229245d17b4bdc0008057ffbca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
