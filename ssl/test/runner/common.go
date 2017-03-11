@@ -162,6 +162,7 @@ const (
 
 	// ECDSA algorithms
 	signatureECDSAWithSHA1          signatureAlgorithm = 0x0203
+	signatureECDSAWithP224AndSHA256 signatureAlgorithm = 0x0403
 	signatureECDSAWithP256AndSHA256 signatureAlgorithm = 0x0403
 	signatureECDSAWithP384AndSHA384 signatureAlgorithm = 0x0503
 	signatureECDSAWithP521AndSHA512 signatureAlgorithm = 0x0603
