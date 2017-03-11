@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fbf0c611_a72608c6",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-11T16:39:36Z",
+      "side": 1,
+      "message": "Since the code itself doesn\u0027t use this, might be better to just use signatureECDSAWithP256AndSHA256 in the test with a comment or so, otherwise it\u0027s not obvious why this code is broken:\n\nif arg \u003d\u003d signatureECDSAWithP224AndSHA256 {\n  // P224 code\n}\nif arg \u003d\u003d signatureECDSAWithP256AndSHA256 {\n  // P256 code\n}",
+      "range": {
+        "startLine": 165,
+        "startChar": 1,
+        "endLine": 165,
+        "endChar": 32
+      },
+      "revId": "6dbf8775470e515a1ae76b5ab3265e3777241f46",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
