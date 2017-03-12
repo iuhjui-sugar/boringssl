@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a2c45ddb_17a4d93d",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 3163,
+      "author": {
+        "id": 6651
+      },
+      "writtenOn": "2017-03-12T08:37:28Z",
+      "side": 1,
+      "message": "There isn\u0027t anyway to set |*out_renew_ticket| from the new |SSL_TICKET_AEAD_METHOD| API. This seems like an omission. Is there any rational for this?",
+      "range": {
+        "startLine": 3163,
+        "startChar": 51,
+        "endLine": 3163,
+        "endChar": 67
+      },
+      "revId": "4c341d0299c9eef218a5e7219d0b12da0d88dd42",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
