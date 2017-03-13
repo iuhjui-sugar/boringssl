@@ -22,6 +22,30 @@
       "revId": "4c341d0299c9eef218a5e7219d0b12da0d88dd42",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1bdabaa1_8945a24b",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 3163,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-13T01:17:41Z",
+      "side": 1,
+      "message": "This is intentional. Ticket renewal in TLS 1.3 is implicit, and it is useless in TLS 1.2. As a server, one cannot safely deploy it because older SChannels will break. As a client, it must not extend the short session lifetime because the key does not change. (BoringSSL clamps the lifetime of a renewed ticket to the original session. I certainly hope other clients do the same.)",
+      "parentUuid": "a2c45ddb_17a4d93d",
+      "range": {
+        "startLine": 3163,
+        "startChar": 51,
+        "endLine": 3163,
+        "endChar": 67
+      },
+      "revId": "4c341d0299c9eef218a5e7219d0b12da0d88dd42",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
