@@ -2403,7 +2403,7 @@ void SSL_CTX_set_select_certificate_cb(SSL_CTX *ctx,
 }
 
 void SSL_CTX_set_dos_protection_cb(SSL_CTX *ctx,
-                                   int (*cb)(const SSL_CLIENT_HELLO *)) {
+            enum ssl_select_cert_result_t (*cb)(const SSL_CLIENT_HELLO *)) {
   ctx->dos_protection_cb = cb;
 }
 
