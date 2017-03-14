@@ -633,6 +633,8 @@ static enum ssl_hs_wait_t do_send_new_session_ticket(SSL_HANDSHAKE *hs) {
    * client makes several connections before getting a renewal. */
   static const int kNumTickets = 2;
 
+  enum ssl_hs_wait_t err = ssl_hs_error;
+
   SSL *const ssl = hs->ssl;
   /* If the client doesn't accept resumption with PSK_DHE_KE, don't send a
    * session ticket. */
@@ -659,6 +661,9 @@ static enum ssl_hs_wait_t do_send_new_session_ticket(SSL_HANDSHAKE *hs) {
         !CBB_add_u16_length_prefixed(&body, &ticket) ||
         !ssl_encrypt_ticket(ssl, &ticket, session) ||
         !CBB_add_u16_length_prefixed(&body, &extensions)) {
+      if (ssl->rwstate == SSL_PENDING_TICKET_ENCRYPTION) {
+        err = ssl_hs_pending_ticket_encryption;
+      }
       goto err;
     }
 
@@ -692,7 +697,7 @@ static enum ssl_hs_wait_t do_send_new_session_ticket(SSL_HANDSHAKE *hs) {
 
 err:
   CBB_cleanup(&cbb);
-  return ssl_hs_error;
+  return err;
 }
 
 enum ssl_hs_wait_t tls13_server_handshake(SSL_HANDSHAKE *hs) {

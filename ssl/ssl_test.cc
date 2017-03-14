@@ -1353,7 +1353,8 @@ static bool CompleteHandshakes(SSL *client, SSL *server) {
     if (client_err != SSL_ERROR_NONE &&
         client_err != SSL_ERROR_WANT_READ &&
         client_err != SSL_ERROR_WANT_WRITE &&
-        client_err != SSL_ERROR_PENDING_TICKET) {
+        client_err != SSL_ERROR_PENDING_TICKET &&
+        client_err != SSL_ERROR_PENDING_TICKET_ENCRYPTION) {
       fprintf(stderr, "Client error: %d\n", client_err);
       return false;
     }
@@ -1363,7 +1364,8 @@ static bool CompleteHandshakes(SSL *client, SSL *server) {
     if (server_err != SSL_ERROR_NONE &&
         server_err != SSL_ERROR_WANT_READ &&
         server_err != SSL_ERROR_WANT_WRITE &&
-        server_err != SSL_ERROR_PENDING_TICKET) {
+        server_err != SSL_ERROR_PENDING_TICKET &&
+        server_err != SSL_ERROR_PENDING_TICKET_ENCRYPTION) {
       fprintf(stderr, "Server error: %d\n", server_err);
       return false;
     }
@@ -3258,7 +3260,8 @@ enum ssl_test_ticket_aead_failure_mode {
 };
 
 struct ssl_test_ticket_aead_state {
-  unsigned retry_count;
+  unsigned seal_retry_count;
+  unsigned open_retry_count;
   ssl_test_ticket_aead_failure_mode failure_mode;
 };
 
@@ -3296,22 +3299,27 @@ static size_t ssl_test_ticket_aead_max_overhead(SSL *ssl) {
   return 1;
 }
 
-static int ssl_test_ticket_aead_seal(SSL *ssl, uint8_t *out, size_t *out_len,
-                                     size_t max_out_len, const uint8_t *in,
-                                     size_t in_len) {
+static ssl_ticket_aead_result_t ssl_test_ticket_aead_seal(
+   SSL *ssl, uint8_t *out, size_t *out_len, size_t max_out_len,
+   const uint8_t *in, size_t in_len) {
   auto state = reinterpret_cast<ssl_test_ticket_aead_state *>(
       SSL_get_ex_data(ssl, ssl_test_ticket_aead_get_ex_index()));
 
+  if (state->seal_retry_count > 0) {
+    state->seal_retry_count--;
+    return ssl_ticket_aead_retry;
+  }
+
   if (state->failure_mode == ssl_test_ticket_aead_seal_fail ||
       max_out_len < in_len + 1) {
-    return 0;
+    return ssl_ticket_aead_error;
   }
 
   OPENSSL_memmove(out, in, in_len);
   out[in_len] = 0xff;
   *out_len = in_len + 1;
 
-  return 1;
+  return ssl_ticket_aead_success;
 }
 
 static ssl_ticket_aead_result_t ssl_test_ticket_aead_open(
@@ -3320,8 +3328,8 @@ static ssl_ticket_aead_result_t ssl_test_ticket_aead_open(
   auto state = reinterpret_cast<ssl_test_ticket_aead_state *>(
       SSL_get_ex_data(ssl, ssl_test_ticket_aead_get_ex_index()));
 
-  if (state->retry_count > 0) {
-    state->retry_count--;
+  if (state->open_retry_count > 0) {
+    state->open_retry_count--;
     return ssl_ticket_aead_retry;
   }
 
@@ -3372,7 +3380,8 @@ static void ConnectClientAndServerWithTicketMethod(
       OPENSSL_malloc(sizeof(ssl_test_ticket_aead_state)));
   ASSERT_TRUE(state);
   OPENSSL_memset(state, 0, sizeof(ssl_test_ticket_aead_state));
-  state->retry_count = retry_count;
+  state->seal_retry_count = retry_count;
+  state->open_retry_count = retry_count;
   state->failure_mode = failure_mode;
 
   ASSERT_TRUE(SSL_set_ex_data(server.get(), ssl_test_ticket_aead_get_ex_index(),

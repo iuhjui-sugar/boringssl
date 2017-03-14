@@ -684,9 +684,16 @@ static int ssl_encrypt_ticket_with_method(SSL *ssl, CBB *out,
   }
 
   size_t out_len;
-  if (!method->seal(ssl, ptr, &out_len, max_out, session_buf, session_len)) {
-    OPENSSL_PUT_ERROR(SSL, SSL_R_TICKET_ENCRYPTION_FAILED);
-    return 0;
+  switch (method->seal(ssl, ptr, &out_len, max_out, session_buf, session_len)) {
+    case ssl_ticket_aead_success:
+      break;
+    case ssl_ticket_aead_error:
+    case ssl_ticket_aead_ignore_ticket:
+      OPENSSL_PUT_ERROR(SSL, SSL_R_TICKET_ENCRYPTION_FAILED);
+      return 0;
+    case ssl_ticket_aead_retry:
+      ssl->rwstate = SSL_PENDING_TICKET_ENCRYPTION;
+      return 0;
   }
 
   if (!CBB_did_write(out, out_len)) {

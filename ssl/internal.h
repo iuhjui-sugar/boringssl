@@ -930,6 +930,7 @@ enum ssl_hs_wait_t {
   ssl_hs_channel_id_lookup,
   ssl_hs_private_key_operation,
   ssl_hs_pending_ticket,
+  ssl_hs_pending_ticket_encryption,
 };
 
 struct ssl_handshake_st {

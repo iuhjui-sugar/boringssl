@@ -913,6 +913,9 @@ int SSL_get_error(const SSL *ssl, int ret_code) {
 
     case SSL_PENDING_TICKET:
       return SSL_ERROR_PENDING_TICKET;
+
+    case SSL_PENDING_TICKET_ENCRYPTION:
+      return SSL_ERROR_PENDING_TICKET_ENCRYPTION;
   }
 
   return SSL_ERROR_SYSCALL;
