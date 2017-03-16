@@ -1655,9 +1655,10 @@ func defaultCipherSuites() []uint16 {
 
 func initDefaultCipherSuites() {
 	for _, suite := range cipherSuites {
-		if suite.flags&suitePSK == 0 {
-			varDefaultCipherSuites = append(varDefaultCipherSuites, suite.id)
+		if suite.flags&suitePSK != 0 {
+			continue
 		}
+		varDefaultCipherSuites = append(varDefaultCipherSuites, suite.id)
 	}
 }
 
