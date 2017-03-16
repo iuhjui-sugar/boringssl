@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "270a5dc6_54f0fc82",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 4295,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2017-03-16T02:23:14Z",
+      "side": 1,
+      "message": "Any insight into why these tests fail?\n\nVersionNegotiation-Server2-SSL3-TLS1\nVersionNegotiation-Server-SSL3-TLS11\nVersionNegotiation-Server-SSL3-TLS1\nVersionNegotiation-Server2-SSL3-TLS11\nVersionNegotiation-Server2-SSL3-TLS12\nVersionNegotiation-Server-SSL3-TLS12\nVersionNegotiation-Server2-SSL3-TLS13\nVersionNegotiation-Server-SSL3-TLS13\nVersionNegotiationExtension-SSL3\n\n28733024:error:04000070:RSA routines:OPENSSL_internal:DATA_LEN_NOT_EQUAL_TO_MOD_LEN:../crypto/rsa/rsa_impl.c:387:",
+      "range": {
+        "startLine": 4295,
+        "startChar": 34,
+        "endLine": 4295,
+        "endChar": 35
+      },
+      "revId": "1f4951c1a931deff307ffae6d28bc4492ed24603",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
