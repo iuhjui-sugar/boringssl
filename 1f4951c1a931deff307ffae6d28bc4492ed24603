@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "85de9053_d817ba7a",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1897,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-20T18:09:17Z",
+      "side": 1,
+      "message": "For the sake of sanity, let\u0027s either skip the tests when BORINGSSL_ENABLE_DHE_TLS is set or add a !DHE to SSL_CTX_set_strict_cipher_list.",
+      "revId": "1f4951c1a931deff307ffae6d28bc4492ed24603",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f482b230_30841760",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1663,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-20T18:09:17Z",
+      "side": 1,
+      "message": "What tests are affected by this change? We never took RC4 out of this one.",
+      "revId": "1f4951c1a931deff307ffae6d28bc4492ed24603",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "270a5dc6_54f0fc82",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 1
@@ -22,6 +56,53 @@
       "revId": "1f4951c1a931deff307ffae6d28bc4492ed24603",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "82d7268b_060252ba",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 4295,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-20T18:09:17Z",
+      "side": 1,
+      "message": "Oops. Bug in the Go code. This was probably my fault.\nhttps://boringssl-review.googlesource.com/14314",
+      "parentUuid": "270a5dc6_54f0fc82",
+      "range": {
+        "startLine": 4295,
+        "startChar": 34,
+        "endLine": 4295,
+        "endChar": 35
+      },
+      "revId": "1f4951c1a931deff307ffae6d28bc4492ed24603",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d2619dd_2f00b020",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 6638,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-20T18:09:17Z",
+      "side": 1,
+      "message": "This isn\u0027t a signing cipher. Hrm, this is annoying. We never do ECDHE as a server in SSL 3.0, but we will do it as a client. So that means SSL 3.0 still has a signing codepath to test, but not in all cases.",
+      "range": {
+        "startLine": 6638,
+        "startChar": 2,
+        "endLine": 6638,
+        "endChar": 30
+      },
+      "revId": "1f4951c1a931deff307ffae6d28bc4492ed24603",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
