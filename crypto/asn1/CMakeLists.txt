@@ -36,7 +36,6 @@ add_library(
   tasn_typ.c
   tasn_utl.c
   time_support.c
-  x_bignum.c
 )
 
 add_executable(
