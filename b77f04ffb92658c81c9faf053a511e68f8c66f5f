@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a62658c0_24838cfc",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 1661,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-21T22:14:05Z",
+      "side": 1,
+      "message": "Nit: Stray change?",
+      "revId": "b77f04ffb92658c81c9faf053a511e68f8c66f5f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
