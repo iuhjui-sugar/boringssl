@@ -12,9 +12,10 @@ endif()
 enable_language(C)
 enable_language(CXX)
 
-if(ANDROID)
-  # Android-NDK CMake files reconfigure the path and so Go and Perl won't be
-  # found. However, ninja will still find them in $PATH if we just name them.
+if(ANDROID OR IOS)
+  # Android-NDK and iOS CMake files reconfigure the path and so Go and Perl
+  # won't be found. However, ninja will still find them in $PATH if we just
+  # name them.
   if(NOT PERL_EXECUTABLE)
     set(PERL_EXECUTABLE "perl")
   endif()
