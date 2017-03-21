@@ -211,6 +211,30 @@
       "revId": "1f4951c1a931deff307ffae6d28bc4492ed24603",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1558a900_226257be",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 6638,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2017-03-21T23:40:32Z",
+      "side": 1,
+      "message": "Got it. I have trouble remembering that TLS_AES_128_GCM_SHA256 is TLS 1.3.",
+      "parentUuid": "0b4826b4_a4c09417",
+      "range": {
+        "startLine": 6638,
+        "startChar": 2,
+        "endLine": 6638,
+        "endChar": 30
+      },
+      "revId": "1f4951c1a931deff307ffae6d28bc4492ed24603",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }

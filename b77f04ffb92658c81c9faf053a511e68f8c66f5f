@@ -16,6 +16,24 @@
       "revId": "b77f04ffb92658c81c9faf053a511e68f8c66f5f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "979924a6_27a7cb04",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 1661,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2017-03-21T23:40:32Z",
+      "side": 1,
+      "message": "Yes indeed, done.",
+      "parentUuid": "a62658c0_24838cfc",
+      "revId": "b77f04ffb92658c81c9faf053a511e68f8c66f5f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
