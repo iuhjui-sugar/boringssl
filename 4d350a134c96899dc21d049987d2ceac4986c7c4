@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3f2bb77c_7f34349e",
+        "filename": "crypto/asn1/a_time.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-03-21T14:48:48Z",
+      "side": 1,
+      "message": "Can I convince you to write this sanely, even if merging in changes here will be slightly more difficult in the future, it took long enough to verify the correctness of this, that it seems sketch.\n\nint new \u003d 0;\n\nif (!out || !*out) {\n new \u003d 1\n ret \u003d ASN1_GENERALIZEDTIME_now();\n} else {\n ret \u003d *out;\n}\n\n...\n\ndone:\nif (out !\u003d NULL)\n  *out \u003d ret;\nreturn ret;\n\nerr:\n if (new)\n  ASN1_GENERALIZEDTIME_free(ret);\n\nreturn NULL",
+      "range": {
+        "startLine": 114,
+        "startChar": 22,
+        "endLine": 114,
+        "endChar": 50
+      },
+      "revId": "4d350a134c96899dc21d049987d2ceac4986c7c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca292cdd_d880ad25",
+        "filename": "crypto/asn1/a_time.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-03-21T14:48:48Z",
+      "side": 1,
+      "message": "Can you add {}. This is an especially egregious lack of {} and won\u0027t make merging changes here very much harder.",
+      "range": {
+        "startLine": 127,
+        "startChar": 6,
+        "endLine": 127,
+        "endChar": 10
+      },
+      "revId": "4d350a134c96899dc21d049987d2ceac4986c7c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
