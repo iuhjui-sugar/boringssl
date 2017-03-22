@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d6e2c99d_bf035d49",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-22T01:12:16Z",
+      "side": 1,
+      "message": "Some stuff we\u0027ll need to sort out:\n- 0-RTT is mutually-exclusive with Channel ID\n- Custom extensions need a check similar to how ALPN works for tokbind.\n\nThe latter is probably going to be kind of involved so maybe just put a placeholder to blow up when both are enabled. It does need to blow up pretty early though so that we never accidentally mint tickets we can\u0027t use.",
+      "revId": "46ef7896edbfa45341ab6292bacc2583f7fa8f21",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,505 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4e16470d_69595956",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 891,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-22T01:12:16Z",
+      "side": 1,
+      "message": "Nit: No need for \u0027else\u0027 since it\u0027s an early return.",
+      "revId": "6ba02f9b1f089a5e2047307179a1446d00d70e3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d099a63_0fde2ce4",
+        "filename": "ssl/internal.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 869,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-22T01:12:16Z",
+      "side": 1,
+      "message": "This function actually does quite a lot right now. It\u0027s very different from tls13_init_key_schedule. (See tls13_enc.c comment.)",
+      "revId": "6ba02f9b1f089a5e2047307179a1446d00d70e3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9be7f274_19326562",
+        "filename": "ssl/internal.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 978,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-22T01:12:16Z",
+      "side": 1,
+      "message": "Is this not redundant with early_data_{offered,accepted}? Reading through the code, I get very confused what this mode is supposed to mean at any particular point. E.g. what does it mean for early data to already have been rejected before ext_early_data_add_clienthello?",
+      "revId": "6ba02f9b1f089a5e2047307179a1446d00d70e3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5300ee4a_e9bddd78",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-22T01:12:16Z",
+      "side": 1,
+      "message": "This check should not be here. (The write path is very fragile right now and strongly assumes that ssl3_send_alert always sets send_shutdown to something.)",
+      "revId": "6ba02f9b1f089a5e2047307179a1446d00d70e3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe2afc8b_967560bd",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 2095,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-22T01:12:16Z",
+      "side": 1,
+      "message": "Newline",
+      "range": {
+        "startLine": 2095,
+        "startChar": 37,
+        "endLine": 2095,
+        "endChar": 38
+      },
+      "revId": "6ba02f9b1f089a5e2047307179a1446d00d70e3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1a01fee_1d442f3e",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 2101,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-22T01:12:16Z",
+      "side": 1,
+      "message": "When is this possible? (See comment about this being redundant with the two booleans.)",
+      "range": {
+        "startLine": 2101,
+        "startChar": 6,
+        "endLine": 2101,
+        "endChar": 51
+      },
+      "revId": "6ba02f9b1f089a5e2047307179a1446d00d70e3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9b09d65_f819a0bf",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 2112,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-22T01:12:16Z",
+      "side": 1,
+      "message": "Any particular reason this one is out here while the others are ||\u0027d above?",
+      "revId": "6ba02f9b1f089a5e2047307179a1446d00d70e3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8277745c_b072f2a8",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 1551,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-22T01:12:16Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "6ba02f9b1f089a5e2047307179a1446d00d70e3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f29cf09f_a282060f",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 1156,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-22T01:12:16Z",
+      "side": 1,
+      "message": "ExpectEarlyDataAccepted, to match the others.",
+      "range": {
+        "startLine": 1156,
+        "startChar": 1,
+        "endLine": 1156,
+        "endChar": 2
+      },
+      "revId": "6ba02f9b1f089a5e2047307179a1446d00d70e3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f03bdd8a_43baa57d",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 1163,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-22T01:12:16Z",
+      "side": 1,
+      "message": "Isn\u0027t this the same as disabling it in the resume config? (I guess it avoids needing a resume config, but it looks like you both use this and have a resume config.)",
+      "range": {
+        "startLine": 1163,
+        "startChar": 1,
+        "endLine": 1163,
+        "endChar": 22
+      },
+      "revId": "6ba02f9b1f089a5e2047307179a1446d00d70e3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38b62499_7900a3eb",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 826,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-22T01:12:16Z",
+      "side": 1,
+      "message": "Leftover debugging?",
+      "revId": "6ba02f9b1f089a5e2047307179a1446d00d70e3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c593fa87_a9d1a08c",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 1485,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-22T01:12:16Z",
+      "side": 1,
+      "message": "Just stashing clientProtocol in there is probably fine. earlyALPN is just to distinguish NPN and ALPN because the Go code folds them together earlier.",
+      "revId": "6ba02f9b1f089a5e2047307179a1446d00d70e3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c13dcb4_204268dd",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 1801,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-22T01:12:16Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "6ba02f9b1f089a5e2047307179a1446d00d70e3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "321710e8_874a6ee8",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 658,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-22T01:12:16Z",
+      "side": 1,
+      "message": "Probably can remove this TODO. I think the SNI requirement was since punted.",
+      "revId": "6ba02f9b1f089a5e2047307179a1446d00d70e3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbdf07e8_5d434d9c",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-22T01:12:16Z",
+      "side": 1,
+      "message": "I think this boolean\u0027s about NPN vs. ALPN. Just c.clientProtocol !\u003d hs.sessionState.earlyALPN should be fine?",
+      "range": {
+        "startLine": 663,
+        "startChar": 7,
+        "endLine": 663,
+        "endChar": 15
+      },
+      "revId": "6ba02f9b1f089a5e2047307179a1446d00d70e3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88228106_3b93a59f",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 5982,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-22T01:12:16Z",
+      "side": 1,
+      "message": "Grammar nitpick: \"and we aren\u0027t doing\" \u003d\u003e \"and not doing\". In this sentence, you\u0027re making a statement about servers in general, rather than us.",
+      "revId": "6ba02f9b1f089a5e2047307179a1446d00d70e3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33b929b7_e59bb488",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 10016,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-22T01:12:16Z",
+      "side": 1,
+      "message": "That\u0027s not what we\u0027re interested in, right? The comment says you\u0027re testing that runner will do that, but we\u0027re not trying to test runner.\n\nThe implementation under test is a client and thus doesn\u0027t make decisions. It is expected to react gracefully to allowed decisions and reject forbidden ones. So the useful thing to extract out of this scenario is that, if the server rejects 0-RTT and switches ALPN, we should use the new ALPN, not the old one. And we shouldn\u0027t explode. To that end, I think the important assertion here is -expect-alpn bar. Also worth testing that if the initial connection selects ALPN foo and the new one does not negotiate it at all. SSL_get0_alpn_selected needs to notice.\n\n(Otherwise we can have a bug if SSL_SESSION_dup copies over the old ALPN.)",
+      "revId": "6ba02f9b1f089a5e2047307179a1446d00d70e3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "309f73c3_47604183",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 10045,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-22T01:12:16Z",
+      "side": 1,
+      "message": "I\u0027d add variants of this where the second one doesn\u0027t negotiate ALPN to begin with and vice versa.",
+      "revId": "6ba02f9b1f089a5e2047307179a1446d00d70e3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d96603b6_4f1f4466",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 10072,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-22T01:12:16Z",
+      "side": 1,
+      "message": "Ditto on missing ALPN edge cases.",
+      "revId": "6ba02f9b1f089a5e2047307179a1446d00d70e3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56a257b4_14287f52",
+        "filename": "ssl/test/runner/ticket.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-22T01:12:16Z",
+      "side": 1,
+      "message": "Add to marshal() and unmarshal()? I\u0027m slightly confused how this is working, actually. :-) I thought tickets depended on this.",
+      "range": {
+        "startLine": 28,
+        "startChar": 1,
+        "endLine": 28,
+        "endChar": 10
+      },
+      "revId": "6ba02f9b1f089a5e2047307179a1446d00d70e3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a53ff8cc_39bfa45e",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-22T01:12:16Z",
+      "side": 1,
+      "message": "When can either of these happen?",
+      "revId": "6ba02f9b1f089a5e2047307179a1446d00d70e3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5cd8e28_032fc947",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-22T01:12:16Z",
+      "side": 1,
+      "message": "Probably worth a:\n\n/* Release offered session now that it is no longer needed. */",
+      "revId": "6ba02f9b1f089a5e2047307179a1446d00d70e3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89958d7b_658e5920",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-22T01:12:16Z",
+      "side": 1,
+      "message": "Why does this need to be set? It means SSL_get_pending_cipher starts returning something funny.\n\nThere are a lot of differences and duplicated code between these two functions. init_key_schedule does init_hash and free_buffer. early does not do either (well it does init_hash but then the caller does it too). But it does set new_cipher, call advance_key_schedule, and derive_early_secrets.\n\nCould we maybe unify them somehow? What if tls13_init_key_schedule didn\u0027t call free_buffer and took an SSL_SESSION in to pull the version and cipher out of?",
+      "revId": "6ba02f9b1f089a5e2047307179a1446d00d70e3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7667ef6c_6db1c5e9",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-22T01:12:16Z",
+      "side": 1,
+      "message": "This is already done by the caller, right?",
+      "revId": "6ba02f9b1f089a5e2047307179a1446d00d70e3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c743568_bc6618cf",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-22T01:12:16Z",
+      "side": 1,
+      "message": "What do you think about naming these\n\nread_second_client_flight \u003d\u003e read_end_of_early_data\nprocess_end_of_early_data \u003d\u003e read_second_client_flight\n\nOr maybe this is better? I dunno. I\u0027m waffling, so whichever you think makes more sense.",
+      "range": {
+        "startLine": 593,
+        "startChar": 26,
+        "endLine": 593,
+        "endChar": 54
+      },
+      "revId": "6ba02f9b1f089a5e2047307179a1446d00d70e3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2031f62_81ee8eb8",
+        "filename": "tool/client.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-22T01:12:16Z",
+      "side": 1,
+      "message": "This option doesn\u0027t currently do anything and just causes interop problems, right?",
+      "revId": "6ba02f9b1f089a5e2047307179a1446d00d70e3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "caa5c8b8_74ed2816",
+        "filename": "tool/server.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-22T01:12:16Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "6ba02f9b1f089a5e2047307179a1446d00d70e3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
