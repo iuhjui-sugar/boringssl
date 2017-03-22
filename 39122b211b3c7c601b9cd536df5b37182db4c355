@@ -16,6 +16,24 @@
       "revId": "39122b211b3c7c601b9cd536df5b37182db4c355",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecef61e3_74c62e56",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 2406,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-22T01:16:15Z",
+      "side": 1,
+      "message": "You know, it\u0027s a little concerning that neither GCC nor clang noticed this. I guess enums in C are really really stupid. :-(\n\nOh well.",
+      "parentUuid": "7f37e787_32331573",
+      "revId": "39122b211b3c7c601b9cd536df5b37182db4c355",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
