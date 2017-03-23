@@ -1,0 +1,403 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "624389eb_0eba7d6d",
+        "filename": "ssl/internal.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 869,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-23T21:50:29Z",
+      "side": 1,
+      "message": "[Actual comment on tls13_enc.c, but still isn\u0027t quite the distinguish. init_early_key_schedule sets up the schedule AND munges in the PSK. init_key_schedule doesn\u0027t munge anything and lets the caller do it.]",
+      "range": {
+        "startLine": 869,
+        "startChar": 21,
+        "endLine": 869,
+        "endChar": 73
+      },
+      "revId": "b6b49c64a16032330df72a297e0dcf00fd9d903b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f671433_d485a228",
+        "filename": "ssl/internal.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 1115,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-23T21:50:29Z",
+      "side": 1,
+      "message": "Is this true?",
+      "range": {
+        "startLine": 1114,
+        "startChar": 76,
+        "endLine": 1115,
+        "endChar": 46
+      },
+      "revId": "b6b49c64a16032330df72a297e0dcf00fd9d903b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51baa4bf_2ee6387a",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 2101,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-23T21:50:29Z",
+      "side": 1,
+      "message": "|| hs-\u003ereceived_hello_retry_request\n\nOops. That\u0027s why there was a check there! We should add a test for this case because it\u0027s HILARIOUS.",
+      "revId": "b6b49c64a16032330df72a297e0dcf00fd9d903b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bfb3d6f_a45aaf49",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 1430,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-23T21:50:29Z",
+      "side": 1,
+      "message": "This ends up losing a bit of test coverage on ALPNClient-* and friends. (Although, come to think of it, our tests before this CL didn\u0027t assert that ALPN *isn\u0027t* retained on resumption.) Not sure how to make the logic sane, but I think we want -expect-resume-alpn to default to -expect-alpn if not present?\n\n(Oh how I hate these expect flags...)",
+      "revId": "b6b49c64a16032330df72a297e0dcf00fd9d903b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9aef277_1e6859e5",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 3554,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-23T21:50:29Z",
+      "side": 1,
+      "message": "Nit: Add a TODO to upgrade these from data-less when implemented.",
+      "revId": "b6b49c64a16032330df72a297e0dcf00fd9d903b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb521f74_4bf75ed3",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 10016,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-23T21:50:29Z",
+      "side": 1,
+      "message": "I think this comment belongs on TLS13-DataLessEarlyData-BadALPNMismatch-Client.\n\nThis one should say:\n\n// Test that the client reports the correct ALPN after a 0-RTT reject that changed it.\n\n(In general, err on the side of commenting tests. It helps give clarify as to what you\u0027re actually testing. We\u0027re not just trying to run through scenarios, we\u0027re trying to test specific shim-side behaviors.)",
+      "revId": "b6b49c64a16032330df72a297e0dcf00fd9d903b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fffb7fe9_c8d578c2",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 10044,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-23T21:50:29Z",
+      "side": 1,
+      "message": "// Test that the client reports the correct ALPN after a 0-RTT reject if ALPN was omitted from the first connection.",
+      "revId": "b6b49c64a16032330df72a297e0dcf00fd9d903b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "648bd8d1_61f1bc95",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 10068,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-23T21:50:29Z",
+      "side": 1,
+      "message": "// Test that the client reports the correct ALPN after a 0-RTT reject if ALPN was omitted from the second connection.",
+      "revId": "b6b49c64a16032330df72a297e0dcf00fd9d903b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0dc0ce4_9489ed60",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 10089,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-23T21:50:29Z",
+      "side": 1,
+      "message": "I think this ends up not doing anything because our flag parser can\u0027t distinguish missing from empty. :-( I\u0027ve usually done -expect-no-resume-alpn, but it\u0027s awful.",
+      "range": {
+        "startLine": 10089,
+        "startChar": 26,
+        "endLine": 10089,
+        "endChar": 28
+      },
+      "revId": "b6b49c64a16032330df72a297e0dcf00fd9d903b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e794805_90d54ed6",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 10092,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-23T21:50:29Z",
+      "side": 1,
+      "message": "// Test that the client enforces ALPN match on 0-RTT accept.",
+      "revId": "b6b49c64a16032330df72a297e0dcf00fd9d903b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df302cf9_8da140d4",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 10121,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-23T21:50:29Z",
+      "side": 1,
+      "message": "I don\u0027t think this test needs to be data-less, right? This part should just work.",
+      "range": {
+        "startLine": 10121,
+        "startChar": 24,
+        "endLine": 10121,
+        "endChar": 33
+      },
+      "revId": "b6b49c64a16032330df72a297e0dcf00fd9d903b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1278bf1_632363c4",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 10147,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-23T21:50:29Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 10147,
+        "startChar": 19,
+        "endLine": 10147,
+        "endChar": 27
+      },
+      "revId": "b6b49c64a16032330df72a297e0dcf00fd9d903b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "092f3227_378b4465",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 10170,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-23T21:50:29Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 10170,
+        "startChar": 19,
+        "endLine": 10170,
+        "endChar": 27
+      },
+      "revId": "b6b49c64a16032330df72a297e0dcf00fd9d903b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "024e1889_bcaba24b",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-23T21:50:29Z",
+      "side": 1,
+      "message": "This is a no-op [see comment on t1_lib.c]. Steven says \"add a TODO instead for can_early_write\". Though, idle thought, maybe that comment should be next to the set_write_set(ssl, NULL) call.",
+      "revId": "b6b49c64a16032330df72a297e0dcf00fd9d903b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fc5bf44_101f6ad1",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-23T21:50:29Z",
+      "side": 1,
+      "message": "Maybe add a comment:\n\n/* If not sending early data, set client traffic keys now so alerts are encrypted. */",
+      "revId": "b6b49c64a16032330df72a297e0dcf00fd9d903b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "943ee205_f3e942ab",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-23T21:50:29Z",
+      "side": 1,
+      "message": "Move this inside the if? That way you don\u0027t set_traffic_key twice (not that it\u0027d matter) and get to chain things more.",
+      "revId": "b6b49c64a16032330df72a297e0dcf00fd9d903b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e26708b_1ec75a0e",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-23T21:50:29Z",
+      "side": 1,
+      "message": "Since this is ssl_hs_ok and part of one flight, may as well merge this into the next state.",
+      "range": {
+        "startLine": 499,
+        "startChar": 9,
+        "endLine": 499,
+        "endChar": 18
+      },
+      "revId": "b6b49c64a16032330df72a297e0dcf00fd9d903b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7598e5ea_8179a2c8",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-23T21:50:29Z",
+      "side": 1,
+      "message": "What do you think about this?\n\n  int tls13_init_key_schedule(hs, version, cipher) {\n     init_hash(\u0026hs-\u003etranscript, version, cipher-\u003ealgorithm_prf);\n     hash_len \u003d ...;\n     OPENSSL_memset(...);\n  }\n\nThen SSL_TRANSCRIPT_free_buffer(\u0026hs-\u003etranscript), advance_key_schedule, derive_early_secrets move to the callers.\n\nAnother possibility is maybe two entry-points that go to that function as a shared helper (or duplicated, since it\u0027s so short), and move advance_key_schedule, derive_early_secrets out? free_buffer probably can stay in for ever-so-slightly less typing and because it\u0027s mostly an implementation detail of whether init_early may be called after init.\n\nMostly I get confused about init_key_schedule and init_early_key_schedule having every similar numbers but doing very different things at the key schedule side of things. Having them be the same entry-point is the easiest way to ensure this, though if they\u0027re just analogous that\u0027s fine too.",
+      "revId": "b6b49c64a16032330df72a297e0dcf00fd9d903b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64651bc6_8f168e8c",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-23T21:50:29Z",
+      "side": 1,
+      "message": "session-\u003emax_early_data also needs to be non-zero. (Add a test for this case.)\n\nSince you\u0027re adding a second check that depends on session, I guess it\u0027s now valid_early_data or something. Or... I think you can just move this into 296 altogether.",
+      "revId": "b6b49c64a16032330df72a297e0dcf00fd9d903b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c050d8dd_11fd3875",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-23T21:50:29Z",
+      "side": 1,
+      "message": "This ends up switching to hs traffic keys on the open side and then changing them back in the 0-RTT case. Would it work if you, right here, switched to either hs or early secrets based on early_data_accepted? Then I guess do_process_end_of_early_data would become conditional or a skipped state.\n\n(I think the state-skipping version is actually closer to what you had in patch set 13. My bad! It looks like what happened was I saw the duplicate set_traffic_key(client_handshake_secret) in patch set 13 and didn\u0027t realize what actually happened was one of the two set_traffic_key(client_handshake_secret)s was redundant.)",
+      "revId": "b6b49c64a16032330df72a297e0dcf00fd9d903b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f697e19a_a8347de2",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-23T21:50:29Z",
+      "side": 1,
+      "message": "Probably need a ssl-\u003eserver check.\n\nAlternatively, why not just leave the skip_early_data toggle exactly as-is (so don\u0027t change this file at all), and then tls13_server.c will just set it at the appropriate point. The model then is that the record layer knows nothing about handshakes. It just can be programmed to act as if it\u0027s skip early data at some point. The handshake code then keeps track of higher-level state like this.",
+      "revId": "b6b49c64a16032330df72a297e0dcf00fd9d903b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

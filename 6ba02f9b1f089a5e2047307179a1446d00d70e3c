@@ -961,6 +961,30 @@
     },
     {
       "key": {
+        "uuid": "e85e9aec_20b3ccbf",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-23T21:50:29Z",
+      "side": 1,
+      "message": "Sure. Yeah, I think I agree.",
+      "parentUuid": "5e1582d8_c25446d5",
+      "range": {
+        "startLine": 593,
+        "startChar": 26,
+        "endLine": 593,
+        "endChar": 54
+      },
+      "revId": "6ba02f9b1f089a5e2047307179a1446d00d70e3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a2031f62_81ee8eb8",
         "filename": "tool/client.cc",
         "patchSetId": 17
