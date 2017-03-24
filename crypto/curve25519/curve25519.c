@@ -4882,6 +4882,11 @@ void X25519_keypair(uint8_t out_public_value[32], uint8_t out_private_key[32]) {
   out_private_key[31] |= 128;
 
   X25519_public_from_private(out_public_value, out_private_key);
+
+  /* All X25519 implementations should mask the high bit. We duplicate an
+   * arbitary bit of the public key into the high-bit in order to ensure
+   * this. */
+  out_public_value[31] |= out_public_value[0] & 0x80;
 }
 
 int X25519(uint8_t out_shared_key[32], const uint8_t private_key[32],
