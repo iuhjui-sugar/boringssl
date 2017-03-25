@@ -506,9 +506,9 @@ Curves:
 
 	// Resolve PSK and compute the early secret.
 	if hs.sessionState != nil {
-		hs.finishedHash.addEntropy(hs.sessionState.masterSecret)
+		hs.finishedHash.addInitialEntropy(hs.sessionState.masterSecret)
 	} else {
-		hs.finishedHash.addEntropy(hs.finishedHash.zeroSecret())
+		hs.finishedHash.addInitialEntropy(hs.finishedHash.zeroSecret())
 	}
 
 	hs.hello.hasKeyShare = true
@@ -880,14 +880,19 @@ ResendHelloRetryRequest:
 		}
 	}
 
-	// Read end_of_early_data alert.
+	// Read end_of_early_data message.
 	if encryptedExtensions.extensions.hasEarlyData {
-		if err := c.readRecord(recordTypeAlert); err != errEndOfEarlyDataAlert {
-			if err == nil {
-				panic("readRecord(recordTypeAlert) returned nil")
-			}
+		msg, err := c.readHandshake()
+		if err != nil {
 			return err
 		}
+
+		eoedMsg, ok := msg.(*endOfEarlyDataMsg)
+		if !ok {
+			c.sendAlert(alertUnexpectedMessage)
+			return unexpectedMessageError(eoedMsg, msg)
+		}
+		hs.writeClientHash(eoedMsg.marshal())
 	}
 
 	// Switch input stream to handshake traffic keys.

@@ -27,7 +27,7 @@ const (
 )
 
 // A draft version of TLS 1.3 that is sent over the wire for the current draft.
-const tls13DraftVersion = 0x7f12
+const tls13DraftVersion = 0x7f13
 
 const (
 	maxPlaintext        = 16384        // maximum plaintext payload length
@@ -57,6 +57,7 @@ const (
 	typeServerHello         uint8 = 2
 	typeHelloVerifyRequest  uint8 = 3
 	typeNewSessionTicket    uint8 = 4
+	typeEndOfEarlyData      uint8 = 5 // draft-ietf-tls-tls13-19
 	typeHelloRetryRequest   uint8 = 6 // draft-ietf-tls-tls13-16
 	typeEncryptedExtensions uint8 = 8 // draft-ietf-tls-tls13-16
 	typeCertificate         uint8 = 11
@@ -95,7 +96,6 @@ const (
 	extensionSupportedVersions          uint16 = 43    // draft-ietf-tls-tls13-16
 	extensionCookie                     uint16 = 44    // draft-ietf-tls-tls13-16
 	extensionPSKKeyExchangeModes        uint16 = 45    // draft-ietf-tls-tls13-18
-	extensionTicketEarlyDataInfo        uint16 = 46    // draft-ietf-tls-tls13-18
 	extensionCustom                     uint16 = 1234  // not IANA assigned
 	extensionNextProtoNeg               uint16 = 13172 // not IANA assigned
 	extensionRenegotiationInfo          uint16 = 0xff01
@@ -968,13 +968,13 @@ type ProtocolBugs struct {
 	// receipt of a NewSessionTicket message.
 	ExpectNoNewSessionTicket bool
 
-	// DuplicateTicketEarlyDataInfo causes an extra empty extension of
-	// ticket_early_data_info to be sent in NewSessionTicket.
-	DuplicateTicketEarlyDataInfo bool
+	// DuplicateTicketEarlyData causes an extra empty extension of
+	// early_data to be sent in NewSessionTicket.
+	DuplicateTicketEarlyData bool
 
-	// ExpectTicketEarlyDataInfo, if true, means that the client will fail upon
-	// absence of the ticket_early_data_info extension.
-	ExpectTicketEarlyDataInfo bool
+	// ExpectTicketEarlyData, if true, means that the client will fail upon
+	// absence of the early_data extension.
+	ExpectTicketEarlyData bool
 
 	// ExpectTicketAge, if non-zero, is the expected age of the ticket that the
 	// server receives from the client.

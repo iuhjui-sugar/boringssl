@@ -8651,21 +8651,21 @@ func addSessionTicketTests() {
 
 	testCases = append(testCases, testCase{
 		testType: clientTest,
-		name:     "TLS13-SendTicketEarlyDataInfo",
+		name:     "TLS13-SendTicketEarlyData",
 		config: Config{
 			MaxVersion:       VersionTLS13,
 			MaxEarlyDataSize: 16384,
 		},
 		flags: []string{
 			"-enable-early-data",
-			"-expect-early-data-info",
+			"-expect-ticket-early-data",
 		},
 	})
 
 	// Test that 0-RTT tickets are ignored in clients unless opted in.
 	testCases = append(testCases, testCase{
 		testType: clientTest,
-		name:     "TLS13-SendTicketEarlyDataInfo-Disabled",
+		name:     "TLS13-SendTicketEarlyData-Disabled",
 		config: Config{
 			MaxVersion:       VersionTLS13,
 			MaxEarlyDataSize: 16384,
@@ -8674,12 +8674,12 @@ func addSessionTicketTests() {
 
 	testCases = append(testCases, testCase{
 		testType: clientTest,
-		name:     "TLS13-DuplicateTicketEarlyDataInfo",
+		name:     "TLS13-DuplicateTicketEarlyData",
 		config: Config{
 			MaxVersion:       VersionTLS13,
 			MaxEarlyDataSize: 16384,
 			Bugs: ProtocolBugs{
-				DuplicateTicketEarlyDataInfo: true,
+				DuplicateTicketEarlyData: true,
 			},
 		},
 		shouldFail:         true,
@@ -8689,11 +8689,11 @@ func addSessionTicketTests() {
 
 	testCases = append(testCases, testCase{
 		testType: serverTest,
-		name:     "TLS13-ExpectTicketEarlyDataInfo",
+		name:     "TLS13-ExpectTicketEarlyData",
 		config: Config{
 			MaxVersion: VersionTLS13,
 			Bugs: ProtocolBugs{
-				ExpectTicketEarlyDataInfo: true,
+				ExpectTicketEarlyData: true,
 			},
 		},
 		flags: []string{
