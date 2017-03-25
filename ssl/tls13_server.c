@@ -343,11 +343,11 @@ static enum ssl_hs_wait_t do_select_session(SSL_HANDSHAKE *hs) {
 
   /* Incorporate the PSK into the running secret. */
   if (ssl->s3->session_reused) {
-    if (!tls13_advance_key_schedule(hs, hs->new_session->master_key,
-                                    hs->new_session->master_key_length)) {
+    if (!tls13_add_to_key_schedule(hs, hs->new_session->master_key,
+                                   hs->new_session->master_key_length)) {
       return ssl_hs_error;
     }
-  } else if (!tls13_advance_key_schedule(hs, kZeroes, hs->hash_len)) {
+  } else if (!tls13_add_to_key_schedule(hs, kZeroes, hs->hash_len)) {
     return ssl_hs_error;
   }
 

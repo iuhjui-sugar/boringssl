@@ -506,9 +506,9 @@ Curves:
 
 	// Resolve PSK and compute the early secret.
 	if hs.sessionState != nil {
-		hs.finishedHash.addEntropy(hs.sessionState.masterSecret)
+		hs.finishedHash.addInitialEntropy(hs.sessionState.masterSecret)
 	} else {
-		hs.finishedHash.addEntropy(hs.finishedHash.zeroSecret())
+		hs.finishedHash.addInitialEntropy(hs.finishedHash.zeroSecret())
 	}
 
 	hs.hello.hasKeyShare = true
