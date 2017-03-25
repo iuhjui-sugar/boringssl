@@ -369,8 +369,14 @@ func (h *finishedHash) zeroSecret() []byte {
 	return make([]byte, h.hash.Size())
 }
 
-// addEntropy incorporates ikm into the running TLS 1.3 secret with HKDF-Expand.
+// addInitialEntropy incorporates ikm into the running TLS 1.3 secret with HKDF-Expand.
+func (h *finishedHash) addInitialEntropy(ikm []byte) {
+	h.secret = hkdfExtract(h.hash.New, h.secret, ikm)
+}
+
+// addEntropy advances the running TLS 1.3 secret and incorporates ikm into it with HKDF-Expand.
 func (h *finishedHash) addEntropy(ikm []byte) {
+	h.secret = hkdfExpandLabel(h.hash, h.secret, []byte("derived secret"), h.hash.New().Sum(nil), h.hash.Size())
 	h.secret = hkdfExtract(h.hash.New, h.secret, ikm)
 }
 
@@ -470,7 +476,7 @@ func updateTrafficSecret(hash crypto.Hash, secret []byte) []byte {
 
 func computePSKBinder(psk, label []byte, cipherSuite *cipherSuite, transcript, truncatedHello []byte) []byte {
 	finishedHash := newFinishedHash(VersionTLS13, cipherSuite)
-	finishedHash.addEntropy(psk)
+	finishedHash.addInitialEntropy(psk)
 	binderKey := finishedHash.deriveSecret(label)
 	finishedHash.Write(transcript)
 	finishedHash.Write(truncatedHello)

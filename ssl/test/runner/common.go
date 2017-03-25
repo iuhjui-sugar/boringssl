@@ -27,7 +27,7 @@ const (
 )
 
 // A draft version of TLS 1.3 that is sent over the wire for the current draft.
-const tls13DraftVersion = 0x7f12
+const tls13DraftVersion = 0x7f13
 
 const (
 	maxPlaintext        = 16384        // maximum plaintext payload length
