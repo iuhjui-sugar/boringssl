@@ -343,11 +343,11 @@ static enum ssl_hs_wait_t do_select_session(SSL_HANDSHAKE *hs) {
 
   /* Incorporate the PSK into the running secret. */
   if (ssl->s3->session_reused) {
-    if (!tls13_advance_key_schedule(hs, hs->new_session->master_key,
-                                    hs->new_session->master_key_length)) {
+    if (!tls13_add_to_key_schedule(hs, hs->new_session->master_key,
+                                   hs->new_session->master_key_length)) {
       return ssl_hs_error;
     }
-  } else if (!tls13_advance_key_schedule(hs, kZeroes, hs->hash_len)) {
+  } else if (!tls13_add_to_key_schedule(hs, kZeroes, hs->hash_len)) {
     return ssl_hs_error;
   }
 
@@ -665,10 +665,10 @@ static enum ssl_hs_wait_t do_send_new_session_ticket(SSL_HANDSHAKE *hs) {
     if (ssl->ctx->enable_early_data) {
       session->ticket_max_early_data = kMaxEarlyDataAccepted;
 
-      CBB early_data_info;
-      if (!CBB_add_u16(&extensions, TLSEXT_TYPE_ticket_early_data_info) ||
-          !CBB_add_u16_length_prefixed(&extensions, &early_data_info) ||
-          !CBB_add_u32(&early_data_info, session->ticket_max_early_data) ||
+      CBB early_data;
+      if (!CBB_add_u16(&extensions, TLSEXT_TYPE_early_data) ||
+          !CBB_add_u16_length_prefixed(&extensions, &early_data) ||
+          !CBB_add_u32(&early_data, session->ticket_max_early_data) ||
           !CBB_flush(&extensions)) {
         goto err;
       }

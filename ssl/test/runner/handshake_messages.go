@@ -1986,15 +1986,15 @@ func (m *certificateVerifyMsg) unmarshal(data []byte) bool {
 }
 
 type newSessionTicketMsg struct {
-	raw                    []byte
-	version                uint16
-	ticketLifetime         uint32
-	ticketAgeAdd           uint32
-	ticket                 []byte
-	maxEarlyDataSize       uint32
-	customExtension        string
-	duplicateEarlyDataInfo bool
-	hasGREASEExtension     bool
+	raw                []byte
+	version            uint16
+	ticketLifetime     uint32
+	ticketAgeAdd       uint32
+	ticket             []byte
+	maxEarlyDataSize   uint32
+	customExtension    string
+	duplicateEarlyData bool
+	hasGREASEExtension bool
 }
 
 func (m *newSessionTicketMsg) marshal() []byte {
@@ -2017,10 +2017,10 @@ func (m *newSessionTicketMsg) marshal() []byte {
 	if m.version >= VersionTLS13 {
 		extensions := body.addU16LengthPrefixed()
 		if m.maxEarlyDataSize > 0 {
-			extensions.addU16(extensionTicketEarlyDataInfo)
+			extensions.addU16(extensionEarlyData)
 			extensions.addU16LengthPrefixed().addU32(m.maxEarlyDataSize)
-			if m.duplicateEarlyDataInfo {
-				extensions.addU16(extensionTicketEarlyDataInfo)
+			if m.duplicateEarlyData {
+				extensions.addU16(extensionEarlyData)
 				extensions.addU16LengthPrefixed().addU32(m.maxEarlyDataSize)
 			}
 		}
@@ -2090,7 +2090,7 @@ func (m *newSessionTicketMsg) unmarshal(data []byte) bool {
 			}
 
 			switch extension {
-			case extensionTicketEarlyDataInfo:
+			case extensionEarlyData:
 				if length != 4 {
 					return false
 				}
