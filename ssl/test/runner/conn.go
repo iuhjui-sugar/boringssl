@@ -1453,8 +1453,8 @@ func (c *Conn) handlePostHandshakeMessage() error {
 				return errors.New("tls: no GREASE ticket extension found")
 			}
 
-			if c.config.Bugs.ExpectTicketEarlyDataInfo && newSessionTicket.maxEarlyDataSize == 0 {
-				return errors.New("tls: no ticket_early_data_info extension found")
+			if c.config.Bugs.ExpectTicketEarlyData && newSessionTicket.maxEarlyDataSize == 0 {
+				return errors.New("tls: no ticket early_data extension found")
 			}
 
 			if c.config.Bugs.ExpectNoNewSessionTicket {
@@ -1769,12 +1769,12 @@ func (c *Conn) SendNewSessionTicket() error {
 
 	// TODO(davidben): Allow configuring these values.
 	m := &newSessionTicketMsg{
-		version:                c.vers,
-		ticketLifetime:         uint32(24 * time.Hour / time.Second),
-		duplicateEarlyDataInfo: c.config.Bugs.DuplicateTicketEarlyDataInfo,
-		customExtension:        c.config.Bugs.CustomTicketExtension,
-		ticketAgeAdd:           ticketAgeAdd,
-		maxEarlyDataSize:       c.config.MaxEarlyDataSize,
+		version:            c.vers,
+		ticketLifetime:     uint32(24 * time.Hour / time.Second),
+		duplicateEarlyData: c.config.Bugs.DuplicateTicketEarlyData,
+		customExtension:    c.config.Bugs.CustomTicketExtension,
+		ticketAgeAdd:       ticketAgeAdd,
+		maxEarlyDataSize:   c.config.MaxEarlyDataSize,
 	}
 
 	if c.config.Bugs.SendTicketLifetime != 0 {

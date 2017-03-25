@@ -2015,14 +2015,14 @@ static bool DoExchange(bssl::UniquePtr<SSL_SESSION> *out_session,
     }
 
     if (expect_new_session) {
-      bool got_early_data_info =
+      bool got_ticket_early_data =
           GetTestState(ssl.get())->new_session->ticket_max_early_data != 0;
-      if (config->expect_early_data_info != got_early_data_info) {
+      if (config->expect_ticket_early_data != got_ticket_early_data) {
         fprintf(
             stderr,
-            "new session did%s include ticket_early_data_info, but we expected "
+            "new session ticket did%s include early_data, but we expected "
             "the opposite\n",
-            got_early_data_info ? "" : " not");
+            got_ticket_early_data ? "" : " not");
         return false;
       }
     }

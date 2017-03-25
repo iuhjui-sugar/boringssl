@@ -44,13 +44,6 @@ int tls13_init_key_schedule(SSL_HANDSHAKE *hs) {
   return 1;
 }
 
-int tls13_advance_key_schedule(SSL_HANDSHAKE *hs, const uint8_t *in,
-                               size_t len) {
-  return HKDF_extract(hs->secret, &hs->hash_len,
-                      SSL_TRANSCRIPT_md(&hs->transcript), in, len, hs->secret,
-                      hs->hash_len);
-}
-
 static int hkdf_expand_label(uint8_t *out, const EVP_MD *digest,
                              const uint8_t *secret, size_t secret_len,
                              const uint8_t *label, size_t label_len,
@@ -95,6 +88,31 @@ static int derive_secret(SSL_HANDSHAKE *hs, uint8_t *out, size_t len,
   return hkdf_expand_label(out, SSL_TRANSCRIPT_md(&hs->transcript), hs->secret,
                            hs->hash_len, label, label_len, context_hash,
                            context_hash_len, len);
+}
+
+int tls13_add_to_key_schedule(SSL_HANDSHAKE *hs, const uint8_t *in,
+                              size_t len) {
+  return HKDF_extract(hs->secret, &hs->hash_len,
+                      SSL_TRANSCRIPT_md(&hs->transcript), in, len, hs->secret,
+                      hs->hash_len);
+}
+
+static const char kTLS13LabelDerivedSecret[] = "derived secret";
+
+int tls13_advance_key_schedule(SSL_HANDSHAKE *hs, const uint8_t *in,
+                               size_t len) {
+  const EVP_MD *digest = SSL_TRANSCRIPT_md(&hs->transcript);
+  uint8_t context[EVP_MAX_MD_SIZE];
+  unsigned context_len;
+  if (!EVP_Digest(NULL, 0, context, &context_len, digest, NULL)) {
+    return 0;
+  }
+
+  return hkdf_expand_label(hs->secret, digest, hs->secret, hs->hash_len,
+                           (const uint8_t *)kTLS13LabelDerivedSecret,
+                           strlen(kTLS13LabelDerivedSecret), context,
+                           context_len, hs->hash_len) &&
+      tls13_add_to_key_schedule(hs, in, len);
 }
 
 int tls13_set_traffic_key(SSL *ssl, enum evp_aead_direction_t direction,
