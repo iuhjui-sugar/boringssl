@@ -1,0 +1,186 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "89079313_d493461f",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 893,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-25T20:50:41Z",
+      "side": 1,
+      "message": "This was missing a test.",
+      "revId": "4e1da3c894f3dead8c9cda50e570e7dbe46be58c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2dbf5fae_519c20ab",
+        "filename": "ssl/internal.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 1122,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-25T20:50:41Z",
+      "side": 1,
+      "message": "No longer used",
+      "revId": "4e1da3c894f3dead8c9cda50e570e7dbe46be58c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c99b6127_2fe2ad25",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-25T20:50:41Z",
+      "side": 1,
+      "message": "This API currently only works on the client. I\u0027ve fixed it to work on both sides.",
+      "revId": "4e1da3c894f3dead8c9cda50e570e7dbe46be58c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9e9d84f_8ffe3766",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 2096,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-25T20:50:41Z",
+      "side": 1,
+      "message": "I think we can omit this since it\u0027s really a function of the offered session.",
+      "range": {
+        "startLine": 2096,
+        "startChar": 6,
+        "endLine": 2096,
+        "endChar": 17
+      },
+      "revId": "4e1da3c894f3dead8c9cda50e570e7dbe46be58c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "667b56b3_95987532",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 2132,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-25T20:50:41Z",
+      "side": 1,
+      "message": "I added a test for this case. Reworked some of handshake_server.go in the process.",
+      "revId": "4e1da3c894f3dead8c9cda50e570e7dbe46be58c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a516091_8b2ab09b",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 2165,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-25T20:50:41Z",
+      "side": 1,
+      "message": "Stray space.",
+      "revId": "4e1da3c894f3dead8c9cda50e570e7dbe46be58c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e03bc340_6c716cd3",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 19
+      },
+      "lineNbr": 10143,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-25T20:50:41Z",
+      "side": 1,
+      "message": "(Fixed an issue with this test.)",
+      "revId": "4e1da3c894f3dead8c9cda50e570e7dbe46be58c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3ef00f2_7d623771",
+        "filename": "ssl/tls13_enc.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-25T20:50:41Z",
+      "side": 1,
+      "message": "Renamed this to init_key_schedule.",
+      "range": {
+        "startLine": 31,
+        "startChar": 11,
+        "endLine": 31,
+        "endChar": 29
+      },
+      "revId": "4e1da3c894f3dead8c9cda50e570e7dbe46be58c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7dbaad62_9cdd1d38",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-25T20:50:41Z",
+      "side": 1,
+      "message": "Trailing whitespace",
+      "revId": "4e1da3c894f3dead8c9cda50e570e7dbe46be58c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19133ae9_7a834bc3",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-25T20:50:41Z",
+      "side": 1,
+      "message": "Stray change?",
+      "revId": "4e1da3c894f3dead8c9cda50e570e7dbe46be58c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
