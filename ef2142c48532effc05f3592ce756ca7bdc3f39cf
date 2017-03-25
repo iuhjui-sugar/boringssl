@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e6c7c0d5_21a3e767",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 4188,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2017-03-25T23:10:39Z",
+      "side": 1,
+      "message": "Add comment.",
+      "range": {
+        "startLine": 4188,
+        "startChar": 6,
+        "endLine": 4188,
+        "endChar": 12
+      },
+      "revId": "ef2142c48532effc05f3592ce756ca7bdc3f39cf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
