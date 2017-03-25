@@ -285,11 +285,11 @@ static enum ssl_hs_wait_t do_process_server_hello(SSL_HANDSHAKE *hs) {
 
   /* Incorporate the PSK into the running secret. */
   if (ssl->s3->session_reused) {
-    if (!tls13_advance_key_schedule(hs, hs->new_session->master_key,
-                                    hs->new_session->master_key_length)) {
+    if (!tls13_add_to_key_schedule(hs, hs->new_session->master_key,
+                                   hs->new_session->master_key_length)) {
       return ssl_hs_error;
     }
-  } else if (!tls13_advance_key_schedule(hs, kZeroes, hs->hash_len)) {
+  } else if (!tls13_add_to_key_schedule(hs, kZeroes, hs->hash_len)) {
     return ssl_hs_error;
   }
 
@@ -369,12 +369,37 @@ static enum ssl_hs_wait_t do_process_certificate_request(SSL_HANDSHAKE *hs) {
     return ssl_hs_ok;
   }
 
-  CBS cbs, context, supported_signature_algorithms;
+  CBS cbs, context, extensions;
   CBS_init(&cbs, ssl->init_msg, ssl->init_num);
   if (!CBS_get_u8_length_prefixed(&cbs, &context) ||
       /* The request context is always empty during the handshake. */
       CBS_len(&context) != 0 ||
-      !CBS_get_u16_length_prefixed(&cbs, &supported_signature_algorithms) ||
+      !CBS_get_u16_length_prefixed(&cbs, &extensions) ||
+      CBS_len(&cbs) != 0) {
+    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
+    OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
+    return ssl_hs_error;
+  }
+
+  int have_sig_algs = 0, have_cert_authorities = 0;
+  CBS sig_algs, cert_authorities;
+  const SSL_EXTENSION_TYPE ext_types[] = {
+    {TLSEXT_TYPE_signature_algorithms, &have_sig_algs, &sig_algs},
+    {TLSEXT_TYPE_certificate_authorities, &have_cert_authorities, &cert_authorities},
+  };
+
+  uint8_t alert = SSL_AD_DECODE_ERROR;
+  if (!ssl_parse_extensions(&extensions, &alert, ext_types,
+                            OPENSSL_ARRAY_SIZE(ext_types),
+                            1 /* ignore unknown */)) {
+    ssl3_send_alert(ssl, SSL3_AL_FATAL, alert);
+    OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
+    return ssl_hs_error;
+  }
+
+  CBS supported_signature_algorithms;
+  if (!have_sig_algs ||
+      !CBS_get_u16_length_prefixed(&sig_algs, &supported_signature_algorithms) ||
       CBS_len(&supported_signature_algorithms) == 0 ||
       !tls1_parse_peer_sigalgs(hs, &supported_signature_algorithms)) {
     ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
@@ -382,28 +407,20 @@ static enum ssl_hs_wait_t do_process_certificate_request(SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
-  uint8_t alert = SSL_AD_DECODE_ERROR;
-  STACK_OF(CRYPTO_BUFFER) *ca_names =
-      ssl_parse_client_CA_list(ssl, &alert, &cbs);
-  if (ca_names == NULL) {
-    ssl3_send_alert(ssl, SSL3_AL_FATAL, alert);
-    return ssl_hs_error;
-  }
+  if (have_cert_authorities) {
+    STACK_OF(CRYPTO_BUFFER) *ca_names = ssl_parse_client_CA_list(ssl, &alert,
+                                                                 &cert_authorities);
+    if (ca_names == NULL) {
+      ssl3_send_alert(ssl, SSL3_AL_FATAL, alert);
+      return ssl_hs_error;
+    }
 
-  /* Ignore extensions. */
-  CBS extensions;
-  if (!CBS_get_u16_length_prefixed(&cbs, &extensions) ||
-      CBS_len(&cbs) != 0) {
-    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
-    sk_CRYPTO_BUFFER_pop_free(ca_names, CRYPTO_BUFFER_free);
-    OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
-    return ssl_hs_error;
+    sk_CRYPTO_BUFFER_pop_free(hs->ca_names, CRYPTO_BUFFER_free);
+    hs->ca_names = ca_names;
+    ssl->ctx->x509_method->hs_flush_cached_ca_names(hs);
   }
 
   hs->cert_request = 1;
-  sk_CRYPTO_BUFFER_pop_free(hs->ca_names, CRYPTO_BUFFER_free);
-  hs->ca_names = ca_names;
-  ssl->ctx->x509_method->hs_flush_cached_ca_names(hs);
 
   if (!ssl_hash_current_message(hs)) {
     return ssl_hs_error;
@@ -637,11 +654,10 @@ int tls13_process_new_session_ticket(SSL *ssl) {
   }
 
   /* Parse out the extensions. */
-  int have_early_data_info = 0;
-  CBS early_data_info;
+  int have_early_data = 0;
+  CBS early_data;
   const SSL_EXTENSION_TYPE ext_types[] = {
-      {TLSEXT_TYPE_ticket_early_data_info, &have_early_data_info,
-       &early_data_info},
+    {TLSEXT_TYPE_early_data, &have_early_data, &early_data},
   };
 
   uint8_t alert = SSL_AD_DECODE_ERROR;
@@ -652,9 +668,9 @@ int tls13_process_new_session_ticket(SSL *ssl) {
     goto err;
   }
 
-  if (have_early_data_info && ssl->ctx->enable_early_data) {
-    if (!CBS_get_u32(&early_data_info, &session->ticket_max_early_data) ||
-        CBS_len(&early_data_info) != 0) {
+  if (have_early_data && ssl->ctx->enable_early_data) {
+    if (!CBS_get_u32(&early_data, &session->ticket_max_early_data) ||
+        CBS_len(&early_data) != 0) {
       ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
       OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
       goto err;

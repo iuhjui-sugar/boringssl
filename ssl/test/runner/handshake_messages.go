@@ -1795,27 +1795,43 @@ func (m *certificateRequestMsg) marshal() []byte {
 	if m.hasRequestContext {
 		requestContext := body.addU8LengthPrefixed()
 		requestContext.addBytes(m.requestContext)
+
+		extensions := body.addU16LengthPrefixed()
+
+		if m.hasSignatureAlgorithm {
+			extensions.addU16(extensionSignatureAlgorithms)
+			signatureAlgorithmsExtension := extensions.addU16LengthPrefixed()
+			signatureAlgorithms := signatureAlgorithmsExtension.addU16LengthPrefixed()
+			for _, sigAlg := range m.signatureAlgorithms {
+				signatureAlgorithms.addU16(uint16(sigAlg))
+			}
+		}
+
+		if len(m.certificateAuthorities) > 0 {
+			extensions.addU16(extensionCertificateAuthorities)
+			certificateAuthoritiesExtension := extensions.addU16LengthPrefixed()
+			certificateAuthorities := certificateAuthoritiesExtension.addU16LengthPrefixed()
+			for _, ca := range m.certificateAuthorities {
+				caEntry := certificateAuthorities.addU16LengthPrefixed()
+				caEntry.addBytes(ca)
+			}
+		}
 	} else {
 		certificateTypes := body.addU8LengthPrefixed()
 		certificateTypes.addBytes(m.certificateTypes)
-	}
 
-	if m.hasSignatureAlgorithm {
-		signatureAlgorithms := body.addU16LengthPrefixed()
-		for _, sigAlg := range m.signatureAlgorithms {
-			signatureAlgorithms.addU16(uint16(sigAlg))
+		if m.hasSignatureAlgorithm {
+			signatureAlgorithms := body.addU16LengthPrefixed()
+			for _, sigAlg := range m.signatureAlgorithms {
+				signatureAlgorithms.addU16(uint16(sigAlg))
+			}
 		}
-	}
 
-	certificateAuthorities := body.addU16LengthPrefixed()
-	for _, ca := range m.certificateAuthorities {
-		caEntry := certificateAuthorities.addU16LengthPrefixed()
-		caEntry.addBytes(ca)
-	}
-
-	if m.hasRequestContext {
-		// Emit no certificate extensions.
-		body.addU16(0)
+		certificateAuthorities := body.addU16LengthPrefixed()
+		for _, ca := range m.certificateAuthorities {
+			caEntry := certificateAuthorities.addU16LengthPrefixed()
+			caEntry.addBytes(ca)
+		}
 	}
 
 	m.raw = builder.finish()
@@ -1838,6 +1854,68 @@ func (m *certificateRequestMsg) unmarshal(data []byte) bool {
 		m.requestContext = make([]byte, contextLen)
 		copy(m.requestContext, data[1:])
 		data = data[1+contextLen:]
+
+		extensionsLength := int(data[0])<<8 | int(data[1])
+		data = data[2:]
+		if extensionsLength != len(data) {
+			return false
+		}
+
+		for len(data) != 0 {
+			if len(data) < 4 {
+				return false
+			}
+			extension := uint16(data[0])<<8 | uint16(data[1])
+			length := int(data[2])<<8 | int(data[3])
+			data = data[4:]
+			if len(data) < length {
+				return false
+			}
+			switch extension {
+			case extensionSignatureAlgorithms:
+				// https://tools.ietf.org/html/rfc5246#section-7.4.1.4.1
+				if length < 2 || length&1 != 0 {
+					return false
+				}
+				l := int(data[0])<<8 | int(data[1])
+				if l != length-2 {
+					return false
+				}
+				n := l / 2
+				d := data[2:]
+				data = data[length:]
+				m.signatureAlgorithms = make([]signatureAlgorithm, n)
+				for i := range m.signatureAlgorithms {
+					m.signatureAlgorithms[i] = signatureAlgorithm(d[0])<<8 | signatureAlgorithm(d[1])
+					d = d[2:]
+				}
+			case extensionCertificateAuthorities:
+				if length < 2 {
+					return false
+				}
+				l := int(data[0])<<8 | int(data[1])
+				if l != length-2 {
+					return false
+				}
+				m.certificateAuthorities = nil
+				cas := data[2:length]
+				data = data[length:]
+				for len(cas) > 0 {
+					if len(cas) < 2 {
+						return false
+					}
+					caLen := uint16(cas[0])<<8 | uint16(cas[1])
+					cas = cas[2:]
+
+					if len(cas) < int(caLen) {
+						return false
+					}
+
+					m.certificateAuthorities = append(m.certificateAuthorities, cas[:caLen])
+					cas = cas[caLen:]
+				}
+			}
+		}
 	} else {
 		numCertTypes := int(data[0])
 		if len(data) < 1+numCertTypes {
@@ -1846,66 +1924,54 @@ func (m *certificateRequestMsg) unmarshal(data []byte) bool {
 		m.certificateTypes = make([]byte, numCertTypes)
 		copy(m.certificateTypes, data[1:])
 		data = data[1+numCertTypes:]
-	}
 
-	if m.hasSignatureAlgorithm {
-		if len(data) < 2 {
-			return false
-		}
-		sigAlgsLen := uint16(data[0])<<8 | uint16(data[1])
-		data = data[2:]
-		if sigAlgsLen&1 != 0 {
-			return false
-		}
-		if len(data) < int(sigAlgsLen) {
-			return false
-		}
-		numSigAlgs := sigAlgsLen / 2
-		m.signatureAlgorithms = make([]signatureAlgorithm, numSigAlgs)
-		for i := range m.signatureAlgorithms {
-			m.signatureAlgorithms[i] = signatureAlgorithm(data[0])<<8 | signatureAlgorithm(data[1])
+		if m.hasSignatureAlgorithm {
+			if len(data) < 2 {
+				return false
+			}
+			sigAlgsLen := uint16(data[0])<<8 | uint16(data[1])
 			data = data[2:]
-		}
-	}
-
-	if len(data) < 2 {
-		return false
-	}
-	casLength := uint16(data[0])<<8 | uint16(data[1])
-	data = data[2:]
-	if len(data) < int(casLength) {
-		return false
-	}
-	cas := make([]byte, casLength)
-	copy(cas, data)
-	data = data[casLength:]
-
-	m.certificateAuthorities = nil
-	for len(cas) > 0 {
-		if len(cas) < 2 {
-			return false
-		}
-		caLen := uint16(cas[0])<<8 | uint16(cas[1])
-		cas = cas[2:]
-
-		if len(cas) < int(caLen) {
-			return false
+			if sigAlgsLen&1 != 0 {
+				return false
+			}
+			if len(data) < int(sigAlgsLen) {
+				return false
+			}
+			numSigAlgs := sigAlgsLen / 2
+			m.signatureAlgorithms = make([]signatureAlgorithm, numSigAlgs)
+			for i := range m.signatureAlgorithms {
+				m.signatureAlgorithms[i] = signatureAlgorithm(data[0])<<8 | signatureAlgorithm(data[1])
+				data = data[2:]
+			}
 		}
 
-		m.certificateAuthorities = append(m.certificateAuthorities, cas[:caLen])
-		cas = cas[caLen:]
-	}
-
-	if m.hasRequestContext {
-		// Ignore certificate extensions.
 		if len(data) < 2 {
 			return false
 		}
-		extsLength := int(data[0])<<8 | int(data[1])
-		if len(data) < 2+extsLength {
+		casLength := uint16(data[0])<<8 | uint16(data[1])
+		data = data[2:]
+		if len(data) < int(casLength) {
 			return false
 		}
-		data = data[2+extsLength:]
+		cas := make([]byte, casLength)
+		copy(cas, data)
+		data = data[casLength:]
+
+		m.certificateAuthorities = nil
+		for len(cas) > 0 {
+			if len(cas) < 2 {
+				return false
+			}
+			caLen := uint16(cas[0])<<8 | uint16(cas[1])
+			cas = cas[2:]
+
+			if len(cas) < int(caLen) {
+				return false
+			}
+
+			m.certificateAuthorities = append(m.certificateAuthorities, cas[:caLen])
+			cas = cas[caLen:]
+		}
 	}
 
 	if len(data) > 0 {
@@ -1985,16 +2051,39 @@ func (m *certificateVerifyMsg) unmarshal(data []byte) bool {
 	return true
 }
 
+type endOfEarlyDataMsg struct {
+	raw []byte
+}
+
+func (m *endOfEarlyDataMsg) marshal() (x []byte) {
+	if m.raw != nil {
+		return m.raw
+	}
+
+	x = make([]byte, 4)
+	x[0] = typeEndOfEarlyData
+	m.raw = x
+	return
+}
+
+func (m *endOfEarlyDataMsg) unmarshal(data []byte) bool {
+	m.raw = data
+	if len(data) < 4 {
+		return false
+	}
+	return true
+}
+
 type newSessionTicketMsg struct {
-	raw                    []byte
-	version                uint16
-	ticketLifetime         uint32
-	ticketAgeAdd           uint32
-	ticket                 []byte
-	maxEarlyDataSize       uint32
-	customExtension        string
-	duplicateEarlyDataInfo bool
-	hasGREASEExtension     bool
+	raw                []byte
+	version            uint16
+	ticketLifetime     uint32
+	ticketAgeAdd       uint32
+	ticket             []byte
+	maxEarlyDataSize   uint32
+	customExtension    string
+	duplicateEarlyData bool
+	hasGREASEExtension bool
 }
 
 func (m *newSessionTicketMsg) marshal() []byte {
@@ -2017,10 +2106,10 @@ func (m *newSessionTicketMsg) marshal() []byte {
 	if m.version >= VersionTLS13 {
 		extensions := body.addU16LengthPrefixed()
 		if m.maxEarlyDataSize > 0 {
-			extensions.addU16(extensionTicketEarlyDataInfo)
+			extensions.addU16(extensionEarlyData)
 			extensions.addU16LengthPrefixed().addU32(m.maxEarlyDataSize)
-			if m.duplicateEarlyDataInfo {
-				extensions.addU16(extensionTicketEarlyDataInfo)
+			if m.duplicateEarlyData {
+				extensions.addU16(extensionEarlyData)
 				extensions.addU16LengthPrefixed().addU32(m.maxEarlyDataSize)
 			}
 		}
@@ -2090,7 +2179,7 @@ func (m *newSessionTicketMsg) unmarshal(data []byte) bool {
 			}
 
 			switch extension {
-			case extensionTicketEarlyDataInfo:
+			case extensionEarlyData:
 				if length != 4 {
 					return false
 				}

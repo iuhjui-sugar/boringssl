@@ -1,0 +1,2 @@
+Hash ClientHello1 in the transcript when HRR is used. This reduces the state that needs to be carried in cookies. (*)
+

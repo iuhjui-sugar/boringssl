@@ -22,7 +22,6 @@ import (
 )
 
 var errNoCertificateAlert = errors.New("tls: no certificate alert")
-var errEndOfEarlyDataAlert = errors.New("tls: end of early data alert")
 
 // A Conn represents a secured connection.
 // It implements the net.Conn interface.
@@ -903,10 +902,6 @@ Again:
 				c.in.freeBlock(b)
 				return errNoCertificateAlert
 			}
-			if alert(data[1]) == alertEndOfEarlyData {
-				c.in.freeBlock(b)
-				return errEndOfEarlyDataAlert
-			}
 
 			// drop on the floor
 			c.in.freeBlock(b)
@@ -976,7 +971,7 @@ func (c *Conn) sendAlertLocked(level byte, err alert) error {
 // L < c.out.Mutex.
 func (c *Conn) sendAlert(err alert) error {
 	level := byte(alertLevelError)
-	if err == alertNoRenegotiation || err == alertCloseNotify || err == alertNoCertificate || err == alertEndOfEarlyData {
+	if err == alertNoRenegotiation || err == alertCloseNotify || err == alertNoCertificate {
 		level = alertLevelWarning
 	}
 	return c.SendAlert(level, err)
@@ -1453,8 +1448,8 @@ func (c *Conn) handlePostHandshakeMessage() error {
 				return errors.New("tls: no GREASE ticket extension found")
 			}
 
-			if c.config.Bugs.ExpectTicketEarlyDataInfo && newSessionTicket.maxEarlyDataSize == 0 {
-				return errors.New("tls: no ticket_early_data_info extension found")
+			if c.config.Bugs.ExpectTicketEarlyData && newSessionTicket.maxEarlyDataSize == 0 {
+				return errors.New("tls: no ticket early_data extension found")
 			}
 
 			if c.config.Bugs.ExpectNoNewSessionTicket {
@@ -1713,9 +1708,19 @@ func (c *Conn) ExportKeyingMaterial(length int, label, context []byte, useContex
 	}
 
 	if c.vers >= VersionTLS13 {
-		// TODO(davidben): What should we do with useContext? See
-		// https://github.com/tlswg/tls13-spec/issues/546
-		return hkdfExpandLabel(c.cipherSuite.hash(), c.exporterSecret, label, context, length), nil
+		h := c.cipherSuite.hash()
+		realContext := []byte{}
+		if useContext {
+			realContext = context
+		}
+
+		cHash := h.New()
+		emptyHash := cHash.Sum(nil)
+		cHash.Write(realContext)
+		contextHash := cHash.Sum(nil)
+
+		exporterKey := hkdfExpandLabel(h, c.exporterSecret, label, emptyHash, h.Size())
+		return hkdfExpandLabel(h, exporterKey, []byte("exporter"), contextHash, length), nil
 	}
 
 	seedLen := len(c.clientRandom) + len(c.serverRandom)
@@ -1769,12 +1774,12 @@ func (c *Conn) SendNewSessionTicket() error {
 
 	// TODO(davidben): Allow configuring these values.
 	m := &newSessionTicketMsg{
-		version:                c.vers,
-		ticketLifetime:         uint32(24 * time.Hour / time.Second),
-		duplicateEarlyDataInfo: c.config.Bugs.DuplicateTicketEarlyDataInfo,
-		customExtension:        c.config.Bugs.CustomTicketExtension,
-		ticketAgeAdd:           ticketAgeAdd,
-		maxEarlyDataSize:       c.config.MaxEarlyDataSize,
+		version:            c.vers,
+		ticketLifetime:     uint32(24 * time.Hour / time.Second),
+		duplicateEarlyData: c.config.Bugs.DuplicateTicketEarlyData,
+		customExtension:    c.config.Bugs.CustomTicketExtension,
+		ticketAgeAdd:       ticketAgeAdd,
+		maxEarlyDataSize:   c.config.MaxEarlyDataSize,
 	}
 
 	if c.config.Bugs.SendTicketLifetime != 0 {

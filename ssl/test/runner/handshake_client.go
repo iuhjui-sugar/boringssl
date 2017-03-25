@@ -388,7 +388,7 @@ NextCipherSuite:
 	// Derive early write keys and set Conn state to allow early writes.
 	if sendEarlyData {
 		finishedHash := newFinishedHash(session.vers, pskCipherSuite)
-		finishedHash.addEntropy(session.masterSecret)
+		finishedHash.addInitialEntropy(session.masterSecret)
 		finishedHash.Write(helloBytes)
 		earlyTrafficSecret := finishedHash.deriveSecret(earlyTrafficLabel)
 		c.out.useTrafficSecret(session.vers, pskCipherSuite, earlyTrafficSecret, clientWrite)
@@ -690,10 +690,10 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 			c.sendAlert(alertHandshakeFailure)
 			return errors.New("tls: server resumed an invalid session for the cipher suite")
 		}
-		hs.finishedHash.addEntropy(hs.session.masterSecret)
+		hs.finishedHash.addInitialEntropy(hs.session.masterSecret)
 		c.didResume = true
 	} else {
-		hs.finishedHash.addEntropy(zeroSecret)
+		hs.finishedHash.addInitialEntropy(zeroSecret)
 	}
 
 	if !hs.serverHello.hasKeyShare {
@@ -875,7 +875,9 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 	// Send EndOfEarlyData and then switch write key to handshake
 	// traffic key.
 	if c.out.cipher != nil {
-		c.sendAlert(alertEndOfEarlyData)
+		eoedMsg := &endOfEarlyDataMsg{}
+		hs.writeClientHash(eoedMsg.marshal())
+		c.writeRecord(recordTypeHandshake, eoedMsg.marshal())
 	}
 	c.out.useTrafficSecret(c.vers, hs.suite, clientHandshakeTrafficSecret, clientWrite)
 

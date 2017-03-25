@@ -343,11 +343,11 @@ static enum ssl_hs_wait_t do_select_session(SSL_HANDSHAKE *hs) {
 
   /* Incorporate the PSK into the running secret. */
   if (ssl->s3->session_reused) {
-    if (!tls13_advance_key_schedule(hs, hs->new_session->master_key,
-                                    hs->new_session->master_key_length)) {
+    if (!tls13_add_to_key_schedule(hs, hs->new_session->master_key,
+                                   hs->new_session->master_key_length)) {
       return ssl_hs_error;
     }
-  } else if (!tls13_advance_key_schedule(hs, kZeroes, hs->hash_len)) {
+  } else if (!tls13_add_to_key_schedule(hs, kZeroes, hs->hash_len)) {
     return ssl_hs_error;
   }
 
@@ -464,16 +464,20 @@ static enum ssl_hs_wait_t do_send_server_hello(SSL_HANDSHAKE *hs) {
 
   /* Send a CertificateRequest, if necessary. */
   if (hs->cert_request) {
-    CBB sigalgs_cbb;
+    CBB cr_extensions;
     if (!ssl->method->init_message(ssl, &cbb, &body,
                                    SSL3_MT_CERTIFICATE_REQUEST) ||
-        !CBB_add_u8(&body, 0 /* no certificate_request_context. */)) {
+        !CBB_add_u8(&body, 0 /* no certificate_request_context. */) ||
+        !CBB_add_u16_length_prefixed(&body, &cr_extensions)) {
       goto err;
     }
 
     const uint16_t *sigalgs;
     size_t num_sigalgs = tls12_get_verify_sigalgs(ssl, &sigalgs);
-    if (!CBB_add_u16_length_prefixed(&body, &sigalgs_cbb)) {
+    CBB sigalgs_contents, sigalgs_cbb;
+    if (!CBB_add_u16(&cr_extensions, TLSEXT_TYPE_signature_algorithms) ||
+        !CBB_add_u16_length_prefixed(&cr_extensions, &sigalgs_contents) ||
+        !CBB_add_u16_length_prefixed(&sigalgs_contents, &sigalgs_cbb)) {
       goto err;
     }
 
@@ -483,9 +487,14 @@ static enum ssl_hs_wait_t do_send_server_hello(SSL_HANDSHAKE *hs) {
       }
     }
 
-    if (!ssl_add_client_CA_list(ssl, &body) ||
-        !CBB_add_u16(&body, 0 /* empty certificate_extensions. */) ||
-        !ssl_add_message_cbb(ssl, &cbb)) {
+    CBB ca_contents;
+    if (!CBB_add_u16(&cr_extensions, TLSEXT_TYPE_certificate_authorities) ||
+        !CBB_add_u16_length_prefixed(&cr_extensions, &ca_contents) ||
+        !ssl_add_client_CA_list(ssl, &ca_contents)) {
+      goto err;
+    }
+
+    if (!ssl_add_message_cbb(ssl, &cbb)) {
       goto err;
     }
   }
@@ -665,10 +674,10 @@ static enum ssl_hs_wait_t do_send_new_session_ticket(SSL_HANDSHAKE *hs) {
     if (ssl->ctx->enable_early_data) {
       session->ticket_max_early_data = kMaxEarlyDataAccepted;
 
-      CBB early_data_info;
-      if (!CBB_add_u16(&extensions, TLSEXT_TYPE_ticket_early_data_info) ||
-          !CBB_add_u16_length_prefixed(&extensions, &early_data_info) ||
-          !CBB_add_u32(&early_data_info, session->ticket_max_early_data) ||
+      CBB early_data;
+      if (!CBB_add_u16(&extensions, TLSEXT_TYPE_early_data) ||
+          !CBB_add_u16_length_prefixed(&extensions, &early_data) ||
+          !CBB_add_u32(&early_data, session->ticket_max_early_data) ||
           !CBB_flush(&extensions)) {
         goto err;
       }
