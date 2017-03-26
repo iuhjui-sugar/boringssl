@@ -16,6 +16,24 @@
       "revId": "ca307ab6a33b6fc45bbf080006f62450766aacba",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "783ee25c_9333b64e",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 10017,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2017-03-26T19:21:40Z",
+      "side": 0,
+      "message": "Yeah.",
+      "parentUuid": "fe1d8487_d3fcab51",
+      "revId": "ca307ab6a33b6fc45bbf080006f62450766aacba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
