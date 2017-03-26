@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d06b015d_7baee12b",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-26T04:35:27Z",
+      "side": 1,
+      "message": "(transplanting comment)\n\nThis state could be inlined, but I split it out so it could all be at the bottom, nearer the other ticket state and the rest of the 0-RTT stuff. Dunno if that\u0027s better since it ended up being not thaaat long. What do you think? (add_new_session_tickets will need to be hoisted up a bit if we inline, but whatever.)",
+      "revId": "d15cff865e0e9a1b621b8eb4e95167916f0971ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
