@@ -292,6 +292,9 @@ void PrintConnectionInfo(const SSL *ssl) {
     fprintf(stderr, "  SCT list: %s\n", sct_list_len > 0 ? "yes" : "no");
   }
 
+  int early_data = SSL_early_data_accepted(ssl);
+  fprintf(stderr, "  Early data: %s\n", early_data > 0 ? "yes" : "no");
+
   // Print the server cert subject and issuer names.
   bssl::UniquePtr<X509> peer(SSL_get_peer_certificate(ssl));
   if (peer != nullptr) {
