@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ee6ed073_d9163866",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-26T03:50:56Z",
+      "side": 1,
+      "message": "This state could be inlined, but I split it out so it could all be at the bottom. Dunno if that\u0027s better since it ended up being not thaaat long. What do you think? (add_new_session_tickets will need to be hoisted up a bit if we inline, but whatever.)",
+      "revId": "2122ebee2eb89f7b07b9b4ffdf74531daf664476",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
