@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe1d8487_d3fcab51",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 10017,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-26T19:18:34Z",
+      "side": 0,
+      "message": "Just to confirm, this is because the handshake state machine tests cover this?",
+      "revId": "ca307ab6a33b6fc45bbf080006f62450766aacba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

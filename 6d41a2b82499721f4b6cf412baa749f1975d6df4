@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bfeab468_87e08000",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-26T19:18:34Z",
+      "side": 1,
+      "message": "assert(!early_return);\n\n(Or maybe just go ahead and put the early_return check in there.)",
+      "revId": "6d41a2b82499721f4b6cf412baa749f1975d6df4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "062f1dd8_293a2893",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-26T19:18:34Z",
+      "side": 1,
+      "message": "Maybe:\n/* If reading 0-RTT data, reject handshake data. 0-RTT data is terminated by an alert. */",
+      "revId": "6d41a2b82499721f4b6cf412baa749f1975d6df4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c421790_8d42936c",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-26T19:18:34Z",
+      "side": 1,
+      "message": "Maybe add a comment:\n\n/* If we received an interrupt in early read (the end_of_early_data alert), loop again for the handshake to process it. */",
+      "revId": "6d41a2b82499721f4b6cf412baa749f1975d6df4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
