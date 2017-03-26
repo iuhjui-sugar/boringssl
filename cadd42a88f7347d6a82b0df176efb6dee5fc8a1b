@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2701874a_2e223d49",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-26T16:04:20Z",
+      "side": 1,
+      "message": "Tweaked this a little as well to avoid the memcpy.",
+      "revId": "cadd42a88f7347d6a82b0df176efb6dee5fc8a1b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46875d8a_ebe40ef4",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-26T16:04:20Z",
+      "side": 1,
+      "message": "I also forgot to move this line lat time. Following commit sort of tests it except this line is actually a no-op-ish? It only affects things if time passes between sending the tickets and the start of the handshake.",
+      "revId": "cadd42a88f7347d6a82b0df176efb6dee5fc8a1b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
