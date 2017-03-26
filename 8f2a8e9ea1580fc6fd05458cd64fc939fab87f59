@@ -1,0 +1,141 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d35bec1e_b49728a7",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-26T01:23:55Z",
+      "side": 1,
+      "message": "I think this might not actually be needed?",
+      "revId": "8f2a8e9ea1580fc6fd05458cd64fc939fab87f59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7d15129_a452f837",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-26T01:23:55Z",
+      "side": 1,
+      "message": "Could we make SSL_in_false_start set can_early_write? That should simplify some stuff.",
+      "range": {
+        "startLine": 192,
+        "startChar": 30,
+        "endLine": 192,
+        "endChar": 48
+      },
+      "revId": "8f2a8e9ea1580fc6fd05458cd64fc939fab87f59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce2ce5f1_6b85e72b",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-26T01:23:55Z",
+      "side": 1,
+      "message": "What do you think about doing functions like:\n\nssl_can_read\nssl_can_write\n\nAnd then this assert can just be assert(ssl_can_read(ssl)).",
+      "revId": "8f2a8e9ea1580fc6fd05458cd64fc939fab87f59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a86035d5_415de662",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-26T01:23:55Z",
+      "side": 1,
+      "message": "This is the only case where we\u0027ll split this out, so may as well rely on read_end_of_early_data to catch that.",
+      "range": {
+        "startLine": 370,
+        "startChar": 8,
+        "endLine": 372,
+        "endChar": 51
+      },
+      "revId": "8f2a8e9ea1580fc6fd05458cd64fc939fab87f59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82fdea9f_e6e497a8",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-26T01:23:55Z",
+      "side": 1,
+      "message": "This throws up an error if it fails, so it needs to be inside the if.\n\nif (....) {\n  ret \u003d ssl-\u003emethod-\u003eread_end_of_early_data(ssl);\n  if (ret \u003c\u003d 0) {\n    return ret;\n  }\n  *out_got_handshake \u003d 1;\n  return -1;\n}",
+      "range": {
+        "startLine": 375,
+        "startChar": 8,
+        "endLine": 375,
+        "endChar": 48
+      },
+      "revId": "8f2a8e9ea1580fc6fd05458cd64fc939fab87f59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9555431_568e5de2",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 1373,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-26T01:23:55Z",
+      "side": 1,
+      "message": "Could you un-De-Morgan\u0027s this? Might be easier to follow.",
+      "revId": "8f2a8e9ea1580fc6fd05458cd64fc939fab87f59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6be7dd1_9c96e3a9",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 14
+      },
+      "lineNbr": 9974,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-26T01:23:55Z",
+      "side": 1,
+      "message": "Can this be made to work without -implicit-handshake? Better yet, make the state machine coverage versions of these tests work.",
+      "revId": "8f2a8e9ea1580fc6fd05458cd64fc939fab87f59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
