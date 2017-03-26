@@ -1,0 +1,208 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "edb53bfd_c3aa4f7f",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-26T17:13:29Z",
+      "side": 1,
+      "message": "This is a bit action-at-a-distance-y and fragile. Consider if tls13_handshake had a thing like False Start. Then you would need to check hs-\u003ecan_early_write. Except then continuing the handshake breaks because you\u0027d always think you\u0027re partial returning. Thus this should be a return value, not checking a state. More importantly, all BIO-based code is doomed to be removed, so any controlling logic should in the new-style loop and ssl_hs_* values. tls13_handshake is purely temporary scaffolding to translate.\n\nSo make ssl_read_early_data + can_early_read mean \"early return\" and then have tls13_handshake look like:\n\n  int tls13_handshake(hs, int *out_is_early_return)",
+      "revId": "13438b974121bc3814f2dfd413c9dbfcd33ed222",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f0296b1_aa28a49c",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-26T17:13:29Z",
+      "side": 1,
+      "message": "I think this should be moved to the top of ssl3_read_app_data.\n\nIf not moved, we\u0027d want a comment to justify why this line is needed, but the comment would need to be in terms of the SSL_PROTOCL_METHOD abstraction. The justification for this is a little odd because it\u0027s due to implementation quirks of the TLS SSL_PROTOCOL_METHOD. get_message implicitly releases the current message since you\u0027re cycling over to the next \"protocol unit\". read_app_data cycles over to the next \"protocol unit\" in a different context, so it too should implicitly release anything from the previous one.",
+      "revId": "13438b974121bc3814f2dfd413c9dbfcd33ed222",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8321c1ee_f8ad018b",
+        "filename": "ssl/internal.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 1123,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-26T17:13:29Z",
+      "side": 1,
+      "message": "Now that False Start uses this, I\u0027d probably go ahead and generalize these:\n\n/* can_early_read is one if application data may be read at this point in the handshake. */\n\n/* can_early_write is one if application data may be written at this point in the handshake. */",
+      "revId": "13438b974121bc3814f2dfd413c9dbfcd33ed222",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6738d2ef_4a25da87",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-26T17:13:29Z",
+      "side": 1,
+      "message": "I think there\u0027s a bug here. You\u0027ll treat any handshake message as suitable for ending a 0-RTT stream rather than just the end_of_early_data alert. (Add a test. Probably test that we reject a stray hs message in the early data stream.)",
+      "revId": "13438b974121bc3814f2dfd413c9dbfcd33ed222",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a14c952_f5c136da",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 696,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-26T17:13:29Z",
+      "side": 1,
+      "message": "!ssl_can_read(ssl)",
+      "revId": "13438b974121bc3814f2dfd413c9dbfcd33ed222",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a1d53e2_ea88a17c",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-26T17:13:29Z",
+      "side": 1,
+      "message": "The can_early_read thing being stateful is a TLS-specific thing so line probably should be in read_app_data. I think you can just condition on SSL_in_init(ssl). !in_init \u003d\u003e post-handsahke and you should use ssl_do_post_handshake.",
+      "revId": "13438b974121bc3814f2dfd413c9dbfcd33ed222",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c8341c3_d3203296",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 750,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-26T17:13:29Z",
+      "side": 1,
+      "message": "!ssl_can_write(ssl)",
+      "revId": "13438b974121bc3814f2dfd413c9dbfcd33ed222",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f391298_2ef2c304",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 2014,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-26T17:13:29Z",
+      "side": 1,
+      "message": "Comment should be tweaked.",
+      "revId": "13438b974121bc3814f2dfd413c9dbfcd33ed222",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0488f1c7_28840236",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 15
+      },
+      "lineNbr": 1189,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-26T17:13:29Z",
+      "side": 1,
+      "message": "I ended up making this triggered on resumption rather than 0-RTT in the half-RTT ticket CL. (It seemed weird to make tickets and data separate.) Does that seem reasonable? If so, want to either mirror that (and then I\u0027ll rebase over you) or stamp the other CL and rebase over it?",
+      "revId": "13438b974121bc3814f2dfd413c9dbfcd33ed222",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "530aeaf3_6a3587ef",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 15
+      },
+      "lineNbr": 864,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-26T17:13:29Z",
+      "side": 1,
+      "message": "[See common.go comment.]",
+      "revId": "13438b974121bc3814f2dfd413c9dbfcd33ed222",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5ae18e8_846311a9",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 15
+      },
+      "lineNbr": 3605,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-26T17:13:29Z",
+      "side": 1,
+      "message": "This won\u0027t be needed after a rebase.",
+      "revId": "13438b974121bc3814f2dfd413c9dbfcd33ed222",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "694aba1d_ee193266",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-26T17:13:29Z",
+      "side": 1,
+      "message": "I don\u0027t think this comment is still quite right. The handshake hasn\u0027t completed early and once you unset can_early_read, you go back to it.\n\nPerhaps:\n/* While we are processing early data, the handshake returns early. */",
+      "revId": "13438b974121bc3814f2dfd413c9dbfcd33ed222",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

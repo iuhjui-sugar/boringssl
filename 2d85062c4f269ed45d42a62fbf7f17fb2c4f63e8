@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9121a095_22cc0fdc",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-26T17:13:29Z",
+      "side": 0,
+      "message": "Now that this is gone, I believe you don\u0027t even need the read_end_of_early_data hook at all anymore. So instead ssl_hs_read_end_of_early_data means:\n\nThe handshake is paused until we\u0027ve received an end_of_early_data alert. Once it has been received, we call back into the handshake state machine.\n\nWe only need these sorts of method hooks if the DTLS/TLS-independent code needs to drive something, but reading end_of_early_data is implicit from SSL_read hitting it.",
+      "range": {
+        "startLine": 68,
+        "startChar": 31,
+        "endLine": 68,
+        "endChar": 53
+      },
+      "revId": "2d85062c4f269ed45d42a62fbf7f17fb2c4f63e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
