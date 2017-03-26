@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "6bc74d67_4112ccd7",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 1185,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2017-03-26T14:47:09Z",
+      "side": 1,
+      "message": "subsequent",
+      "range": {
+        "startLine": 1185,
+        "startChar": 23,
+        "endLine": 1185,
+        "endChar": 32
+      },
+      "revId": "d15cff865e0e9a1b621b8eb4e95167916f0971ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5acd70a1_ea526f47",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2017-03-26T14:47:09Z",
+      "side": 1,
+      "message": "send_half_rtt_new_session_ticket",
+      "range": {
+        "startLine": 51,
+        "startChar": 2,
+        "endLine": 51,
+        "endChar": 36
+      },
+      "revId": "d15cff865e0e9a1b621b8eb4e95167916f0971ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d06b015d_7baee12b",
         "filename": "ssl/tls13_server.c",
         "patchSetId": 5
@@ -13,6 +59,24 @@
       "writtenOn": "2017-03-26T04:35:27Z",
       "side": 1,
       "message": "(transplanting comment)\n\nThis state could be inlined, but I split it out so it could all be at the bottom, nearer the other ticket state and the rest of the 0-RTT stuff. Dunno if that\u0027s better since it ended up being not thaaat long. What do you think? (add_new_session_tickets will need to be hoisted up a bit if we inline, but whatever.)",
+      "revId": "d15cff865e0e9a1b621b8eb4e95167916f0971ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c761d18_5162f636",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2017-03-26T14:47:09Z",
+      "side": 1,
+      "message": "Splitting it up makes the flow of this file a mess. Please in-lne it.\n\nThis should be:\n\nif (early_data_accepted) {\n  // Do HalfRTT Ticket stuff.\n}\n\nThen you can leave the rest of the client flight logic alone (except explicitly skipping from process_eoed to process_client_finished and setting the reuse bit based on early_data_accepted)",
+      "parentUuid": "d06b015d_7baee12b",
       "revId": "d15cff865e0e9a1b621b8eb4e95167916f0971ca",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
