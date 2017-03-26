@@ -43,13 +43,15 @@ enum server_hs_state_t {
   state_send_server_certificate_verify,
   state_complete_server_certificate_verify,
   state_send_server_finished,
-  state_read_second_client_flight,
-  state_process_end_of_early_data,
   state_process_client_certificate,
   state_process_client_certificate_verify,
   state_process_channel_id,
   state_process_client_finished,
   state_send_new_session_ticket,
+  state_send_new_session_ticket_0rtt,
+  state_read_end_of_early_data,
+  state_process_end_of_early_data,
+  state_process_client_finished_0rtt,
   state_done,
 };
 
@@ -567,33 +569,20 @@ static enum ssl_hs_wait_t do_send_server_finished(SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
-  hs->tls13_state = state_read_second_client_flight;
-  return ssl_hs_flush;
-}
-
-static enum ssl_hs_wait_t do_read_second_client_flight(SSL_HANDSHAKE *hs) {
-  SSL *const ssl = hs->ssl;
+  /* If doing 0-RTT, we send tickets half-RTT. This gets the tickets on the wire
+   * sooner and also avoids triggering a write on |SSL_read| when processing the
+   * client Finished. */
   if (ssl->early_data_accepted) {
-    if (!tls13_set_traffic_key(ssl, evp_aead_open, hs->early_traffic_secret,
-                               hs->hash_len)) {
-      return ssl_hs_error;
-    }
-    hs->tls13_state = state_process_end_of_early_data;
-    return ssl_hs_read_end_of_early_data;
+    hs->tls13_state = state_send_new_session_ticket_0rtt;
+    return ssl_hs_ok;
   }
 
-  hs->tls13_state = state_process_end_of_early_data;
-  return ssl_hs_ok;
-}
-
-static enum ssl_hs_wait_t do_process_end_of_early_data(SSL_HANDSHAKE *hs) {
-  SSL *const ssl = hs->ssl;
   if (!tls13_set_traffic_key(ssl, evp_aead_open, hs->client_handshake_secret,
                              hs->hash_len)) {
     return ssl_hs_error;
   }
   hs->tls13_state = state_process_client_certificate;
-  return ssl_hs_read_message;
+  return ssl_hs_flush_and_read_message;
 }
 
 static enum ssl_hs_wait_t do_process_client_certificate(SSL_HANDSHAKE *hs) {
@@ -659,7 +648,7 @@ static enum ssl_hs_wait_t do_process_channel_id(SSL_HANDSHAKE *hs) {
 static enum ssl_hs_wait_t do_process_client_finished(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
   if (!ssl_check_message_type(ssl, SSL3_MT_FINISHED) ||
-      !tls13_process_finished(hs) ||
+      !tls13_process_finished(hs, 0 /* don't use saved value */) ||
       !ssl_hash_current_message(hs) ||
       /* evp_aead_seal keys have already been switched. */
       !tls13_set_traffic_key(ssl, evp_aead_open, hs->client_traffic_secret_0,
@@ -677,18 +666,11 @@ static enum ssl_hs_wait_t do_process_client_finished(SSL_HANDSHAKE *hs) {
   return ssl_hs_ok;
 }
 
-static enum ssl_hs_wait_t do_send_new_session_ticket(SSL_HANDSHAKE *hs) {
+static int add_new_session_tickets(SSL_HANDSHAKE *hs) {
+  SSL *const ssl = hs->ssl;
   /* TLS 1.3 recommends single-use tickets, so issue multiple tickets in case the
    * client makes several connections before getting a renewal. */
   static const int kNumTickets = 2;
-
-  SSL *const ssl = hs->ssl;
-  /* If the client doesn't accept resumption with PSK_DHE_KE, don't send a
-   * session ticket. */
-  if (!hs->accept_psk_mode) {
-    hs->tls13_state = state_done;
-    return ssl_hs_ok;
-  }
 
   SSL_SESSION *session = hs->new_session;
   CBB cbb;
@@ -735,12 +717,98 @@ static enum ssl_hs_wait_t do_send_new_session_ticket(SSL_HANDSHAKE *hs) {
     }
   }
 
-  hs->tls13_state = state_done;
-  return ssl_hs_flush;
+  return 1;
 
 err:
   CBB_cleanup(&cbb);
-  return ssl_hs_error;
+  return 0;
+}
+
+static enum ssl_hs_wait_t do_send_new_session_ticket(SSL_HANDSHAKE *hs) {
+  /* If the client doesn't accept resumption with PSK_DHE_KE, don't send a
+   * session ticket. */
+  if (!hs->accept_psk_mode) {
+    hs->tls13_state = state_done;
+    return ssl_hs_ok;
+  }
+
+  if (!add_new_session_tickets(hs)) {
+    return ssl_hs_error;
+  }
+
+  hs->tls13_state = state_done;
+  return ssl_hs_flush;
+}
+
+static enum ssl_hs_wait_t do_send_new_session_ticket_0rtt(SSL_HANDSHAKE *hs) {
+  SSL *const ssl = hs->ssl;
+  /* Predict the client Finished message to send the NewSessionTicket as part of
+   * early data. See draft-ietf-tls-tls13-18, section 4.5.1. */
+  size_t finished_len;
+  if (!tls13_finished_mac(hs, hs->expected_client_finished, &finished_len,
+                          0 /* client */)) {
+    return ssl_hs_error;
+  }
+
+  if (finished_len != hs->hash_len) {
+    OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
+    return ssl_hs_error;
+  }
+
+  /* Feed the predicted Finished into the transcript, for the resumption
+   * secret.
+   *
+   * TODO(davidben): This will need to be updated for DTLS 1.3. */
+  assert(!SSL_is_dtls(ssl));
+  uint8_t header[4] = {SSL3_MT_FINISHED, 0, 0, hs->hash_len};
+  if (!SSL_TRANSCRIPT_update(&hs->transcript, header, sizeof(header)) ||
+      !SSL_TRANSCRIPT_update(&hs->transcript, hs->expected_client_finished,
+                             hs->hash_len) ||
+      !tls13_derive_resumption_secret(hs)) {
+    return ssl_hs_error;
+  }
+
+  /* Add NewSessionTickets to the flight. */
+  if (!add_new_session_tickets(hs)) {
+    return ssl_hs_error;
+  }
+
+  hs->tls13_state = state_read_end_of_early_data;
+  return ssl_hs_flush;
+}
+
+static enum ssl_hs_wait_t do_read_end_of_early_data(SSL_HANDSHAKE *hs) {
+  if (!tls13_set_traffic_key(hs->ssl, evp_aead_open, hs->early_traffic_secret,
+                             hs->hash_len)) {
+    return ssl_hs_error;
+  }
+
+  hs->tls13_state = state_process_end_of_early_data;
+  return ssl_hs_read_end_of_early_data;
+}
+
+static enum ssl_hs_wait_t do_process_end_of_early_data(SSL_HANDSHAKE *hs) {
+  SSL *const ssl = hs->ssl;
+  if (!tls13_set_traffic_key(ssl, evp_aead_open, hs->client_handshake_secret,
+                             hs->hash_len)) {
+    return ssl_hs_error;
+  }
+  hs->tls13_state = state_process_client_finished_0rtt;
+  return ssl_hs_read_message;
+}
+
+static enum ssl_hs_wait_t do_process_client_finished_0rtt(SSL_HANDSHAKE *hs) {
+  SSL *const ssl = hs->ssl;
+  if (!ssl_check_message_type(ssl, SSL3_MT_FINISHED) ||
+      !tls13_process_finished(hs, 1 /* use saved value */) ||
+      /* Finished indicates a switch to application traffic keys. */
+      !tls13_set_traffic_key(ssl, evp_aead_open, hs->client_traffic_secret_0,
+                             hs->hash_len)) {
+    return ssl_hs_error;
+  }
+
+  hs->tls13_state = state_done;
+  return ssl_hs_ok;
 }
 
 enum ssl_hs_wait_t tls13_server_handshake(SSL_HANDSHAKE *hs) {
@@ -772,12 +840,6 @@ enum ssl_hs_wait_t tls13_server_handshake(SSL_HANDSHAKE *hs) {
       case state_send_server_finished:
         ret = do_send_server_finished(hs);
         break;
-      case state_read_second_client_flight:
-        ret = do_read_second_client_flight(hs);
-        break;
-      case state_process_end_of_early_data:
-        ret = do_process_end_of_early_data(hs);
-        break;
       case state_process_client_certificate:
         ret = do_process_client_certificate(hs);
         break;
@@ -792,6 +854,18 @@ enum ssl_hs_wait_t tls13_server_handshake(SSL_HANDSHAKE *hs) {
         break;
       case state_send_new_session_ticket:
         ret = do_send_new_session_ticket(hs);
+        break;
+      case state_send_new_session_ticket_0rtt:
+        ret = do_send_new_session_ticket_0rtt(hs);
+        break;
+      case state_read_end_of_early_data:
+        ret = do_read_end_of_early_data(hs);
+        break;
+      case state_process_end_of_early_data:
+        ret = do_process_end_of_early_data(hs);
+        break;
+      case state_process_client_finished_0rtt:
+        ret = do_process_client_finished_0rtt(hs);
         break;
       case state_done:
         ret = ssl_hs_ok;
