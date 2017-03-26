@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7f46124f_18072356",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 10383,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-26T19:04:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "82e5b129_55acf133",
+      "range": {
+        "startLine": 10383,
+        "startChar": 33,
+        "endLine": 10383,
+        "endChar": 40
+      },
+      "revId": "a7650853ef6b30e33820d5ad52d6e63c0e83aa1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d27e7b32_c4c7dbd7",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2017-03-26T18:58:31Z",
       "side": 1,
       "message": "Send some junk in here.",
+      "range": {
+        "startLine": 10391,
+        "startChar": 4,
+        "endLine": 10391,
+        "endChar": 17
+      },
+      "revId": "a7650853ef6b30e33820d5ad52d6e63c0e83aa1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "de14fa30_12610a80",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 10391,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-26T19:04:08Z",
+      "side": 1,
+      "message": "Then we get unhappy because we don\u0027t (yet) support actually accepting data. :-/",
+      "parentUuid": "d27e7b32_c4c7dbd7",
       "range": {
         "startLine": 10391,
         "startChar": 4,
