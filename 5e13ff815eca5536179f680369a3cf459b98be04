@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c6ac9ae9_e0d7611d",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1882,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2017-03-27T15:58:58Z",
+      "side": 1,
+      "message": "Move this to after the second handshake run? Or run this twice.",
+      "range": {
+        "startLine": 1882,
+        "startChar": 9,
+        "endLine": 1882,
+        "endChar": 33
+      },
+      "revId": "5e13ff815eca5536179f680369a3cf459b98be04",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3be5b1d_86ea4c97",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1891,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2017-03-27T15:58:58Z",
+      "side": 1,
+      "message": "Add an fprintf",
+      "range": {
+        "startLine": 1891,
+        "startChar": 8,
+        "endLine": 1891,
+        "endChar": 14
+      },
+      "revId": "5e13ff815eca5536179f680369a3cf459b98be04",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a61ae024_35407adf",
+        "filename": "ssl/test/test_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2017-03-27T15:58:58Z",
+      "side": 1,
+      "message": "I\u0027m not a fan of this name, but can\u0027t think of anything better.",
+      "range": {
+        "startLine": 144,
+        "startChar": 7,
+        "endLine": 144,
+        "endChar": 28
+      },
+      "revId": "5e13ff815eca5536179f680369a3cf459b98be04",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
