@@ -699,7 +699,7 @@ static void ssl_get_compatible_server_ciphers(SSL_HANDSHAKE *hs,
     if (type == NID_rsaEncryption) {
       mask_k |= SSL_kRSA;
       mask_a |= SSL_aRSA;
-    } else if (ssl_is_ecdsa_key_type(type)) {
+    } else if (ssl_is_ecdsa_key_type(type) || type == NID_Ed25519) {
       mask_a |= SSL_aECDSA;
     }
   }
@@ -1327,6 +1327,7 @@ static int add_cert_types(SSL *ssl, CBB *cbb) {
       case SSL_SIGN_ECDSA_SECP384R1_SHA384:
       case SSL_SIGN_ECDSA_SECP256R1_SHA256:
       case SSL_SIGN_ECDSA_SHA1:
+      case SSL_SIGN_ED25519:
         have_ecdsa_sign = 1;
         break;
     }
