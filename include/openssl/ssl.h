@@ -947,6 +947,7 @@ OPENSSL_EXPORT int SSL_set_ocsp_response(SSL *ssl,
 #define SSL_SIGN_RSA_PSS_SHA256 0x0804
 #define SSL_SIGN_RSA_PSS_SHA384 0x0805
 #define SSL_SIGN_RSA_PSS_SHA512 0x0806
+#define SSL_SIGN_ED25519 0x0807
 
 /* SSL_SIGN_RSA_PKCS1_MD5_SHA1 is an internal signature algorithm used to
  * specify raw RSASSA-PKCS1-v1_5 with an MD5/SHA-1 concatenation, as used in TLS
@@ -1073,7 +1074,8 @@ enum ssl_private_key_result_t {
 struct ssl_private_key_method_st {
   /* type returns the type of the key used by |ssl|. For RSA keys, return
    * |NID_rsaEncryption|. For ECDSA keys, return |NID_X9_62_prime256v1|,
-   * |NID_secp384r1|, or |NID_secp521r1|, depending on the curve. */
+   * |NID_secp384r1|, or |NID_secp521r1|, depending on the curve. For Ed25519,
+   * return |NID_Ed25519|. */
   int (*type)(SSL *ssl);
 
   /* max_signature_len returns the maximum length of a signature signed by the
