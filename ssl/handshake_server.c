@@ -695,12 +695,9 @@ static void ssl_get_compatible_server_ciphers(SSL_HANDSHAKE *hs,
   uint32_t mask_a = 0;
 
   if (ssl_has_certificate(ssl)) {
-    int type = EVP_PKEY_id(hs->local_pubkey);
-    if (type == EVP_PKEY_RSA) {
-      mask_k |= SSL_kRSA;
-      mask_a |= SSL_aRSA;
-    } else if (type == EVP_PKEY_EC) {
-      mask_a |= SSL_aECDSA;
+    mask_a |= ssl_cipher_auth_mask_for_key(hs->local_pubkey);
+    if (EVP_PKEY_id(hs->local_pubkey)) {
+      mask_k |= SSL_aRSA;
     }
   }
 
@@ -1327,6 +1324,7 @@ static int add_cert_types(SSL *ssl, CBB *cbb) {
       case SSL_SIGN_ECDSA_SECP384R1_SHA384:
       case SSL_SIGN_ECDSA_SECP256R1_SHA256:
       case SSL_SIGN_ECDSA_SHA1:
+      case SSL_SIGN_ED25519:
         have_ecdsa_sign = 1;
         break;
     }
