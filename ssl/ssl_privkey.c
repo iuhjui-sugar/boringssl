@@ -70,7 +70,8 @@
 
 
 int ssl_is_key_type_supported(int key_type) {
-  return key_type == EVP_PKEY_RSA || key_type == EVP_PKEY_EC;
+  return key_type == EVP_PKEY_RSA || key_type == EVP_PKEY_EC ||
+         key_type == EVP_PKEY_ED25519;
 }
 
 static int ssl_set_pkey(CERT *cert, EVP_PKEY *pkey) {
@@ -321,6 +322,8 @@ static const SSL_SIGNATURE_ALGORITHM kSignatureAlgorithms[] = {
      0},
     {SSL_SIGN_ECDSA_SECP521R1_SHA512, EVP_PKEY_EC, NID_secp521r1, &EVP_sha512,
      0},
+
+    {SSL_SIGN_ED25519, EVP_PKEY_ED25519, NID_undef, NULL, 0},
 };
 
 static const SSL_SIGNATURE_ALGORITHM *get_signature_algorithm(uint16_t sigalg) {
@@ -336,9 +339,8 @@ int ssl_has_private_key(const SSL *ssl) {
   return ssl->cert->privatekey != NULL || ssl->cert->key_method != NULL;
 }
 
-static int ssl_private_key_supports_signature_algorithm(const SSL *ssl,
-                                                        EVP_PKEY *pkey,
-                                                        uint16_t sigalg) {
+static int pkey_supports_algorithm(const SSL *ssl, EVP_PKEY *pkey,
+                                   uint16_t sigalg) {
   const SSL_SIGNATURE_ALGORITHM *alg = get_signature_algorithm(sigalg);
   if (alg == NULL ||
       EVP_PKEY_id(pkey) != alg->pkey_type) {

@@ -569,6 +569,7 @@ static void ssl_get_client_disabled(SSL *ssl, uint32_t *out_mask_a,
       case SSL_SIGN_ECDSA_SECP384R1_SHA384:
       case SSL_SIGN_ECDSA_SECP256R1_SHA256:
       case SSL_SIGN_ECDSA_SHA1:
+      case SSL_SIGN_ED25519:
         have_ecdsa = 1;
         break;
     }
