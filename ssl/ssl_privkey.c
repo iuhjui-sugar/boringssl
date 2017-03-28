@@ -69,7 +69,8 @@
 
 
 int ssl_is_key_type_supported(int key_type) {
-  return key_type == EVP_PKEY_RSA || key_type == EVP_PKEY_EC;
+  return key_type == EVP_PKEY_RSA || key_type == EVP_PKEY_EC ||
+         key_type == EVP_PKEY_ED25519;
 }
 
 static int ssl_set_pkey(CERT *cert, EVP_PKEY *pkey) {
@@ -320,6 +321,8 @@ int ssl_private_key_type(SSL *ssl) {
     case EVP_PKEY_EC:
       return EC_GROUP_get_curve_name(
           EC_KEY_get0_group(EVP_PKEY_get0_EC_KEY(ssl->cert->privatekey)));
+    case EVP_PKEY_ED25519:
+      return NID_Ed25519;
     default:
       return NID_undef;
   }
@@ -436,6 +439,15 @@ static int setup_ctx(SSL *ssl, EVP_PKEY_CTX *ctx,
     }
 
     return EVP_PKEY_CTX_set_signature_md(ctx, md);
+  }
+
+  if (signature_algorithm == SSL_SIGN_ED25519) {
+    if (pkey->type != EVP_PKEY_ED25519) {
+      OPENSSL_PUT_ERROR(SSL, SSL_R_WRONG_SIGNATURE_TYPE);
+      return 0;
+    }
+
+    return 1;
   }
 
   OPENSSL_PUT_ERROR(SSL, SSL_R_WRONG_SIGNATURE_TYPE);
@@ -567,6 +579,10 @@ int ssl_private_key_supports_signature_algorithm(SSL *ssl,
     }
 
     return 1;
+  }
+
+  if (signature_algorithm == SSL_SIGN_ED25519) {
+    return ssl_private_key_type(ssl) == NID_Ed25519;
   }
 
   return 0;

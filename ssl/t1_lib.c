@@ -446,7 +446,8 @@ int tls1_check_group_id(SSL *ssl, uint16_t group_id) {
  * BoringSSL. Once the change in Chrome has stuck and the values are finalized,
  * restore them. */
 static const uint16_t kVerifySignatureAlgorithms[] = {
-    /* Prefer SHA-256 algorithms. */
+    /* List our preferred algorithms first. */
+    SSL_SIGN_ED25519, /* FIXME: Not on by default! */
     SSL_SIGN_ECDSA_SECP256R1_SHA256,
 #if !defined(BORINGSSL_ANDROID_SYSTEM)
     SSL_SIGN_RSA_PSS_SHA256,
@@ -481,7 +482,8 @@ static const uint16_t kVerifySignatureAlgorithms[] = {
  * BoringSSL. Once the change in Chrome has stuck and the values are finalized,
  * restore them. */
 static const uint16_t kSignSignatureAlgorithms[] = {
-    /* Prefer SHA-256 algorithms. */
+    /* List our preferred algorithms first. */
+    SSL_SIGN_ED25519,
     SSL_SIGN_ECDSA_SECP256R1_SHA256,
 #if !defined(BORINGSSL_ANDROID_SYSTEM)
     SSL_SIGN_RSA_PSS_SHA256,

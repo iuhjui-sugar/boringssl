@@ -825,7 +825,9 @@ int ssl_check_leaf_certificate(SSL_HANDSHAKE *hs, EVP_PKEY *pkey,
   /* Check the certificate's type matches the cipher. */
   int expected_type = ssl_cipher_get_key_type(hs->new_cipher);
   assert(expected_type != EVP_PKEY_NONE);
-  if (pkey->type != expected_type) {
+  /* Ed25519 keys in TLS 1.2 repurpose the ECDSA ciphers. */
+  int pkey_type = pkey->type == EVP_PKEY_ED25519 ? EVP_PKEY_EC : pkey->type;
+  if (pkey_type != expected_type) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_WRONG_CERTIFICATE_TYPE);
     return 0;
   }
@@ -834,25 +836,24 @@ int ssl_check_leaf_certificate(SSL_HANDSHAKE *hs, EVP_PKEY *pkey,
     CBS leaf_cbs;
     CBS_init(&leaf_cbs, CRYPTO_BUFFER_data(leaf), CRYPTO_BUFFER_len(leaf));
     /* ECDSA and ECDH certificates use the same public key format. Instead,
-     * they are distinguished by the key usage extension in the certificate. */
+     * they are distinguished by the key usage extension in the certificate.
+     * Ed25519 certificates do not have this ambiguity, but they lack the broken
+     * antivirus deployments that RSA has, so we enforce key usages for both. */
     if (!ssl_cert_check_digital_signature_key_usage(&leaf_cbs)) {
       return 0;
     }
 
     EC_KEY *ec_key = EVP_PKEY_get0_EC_KEY(pkey);
-    if (ec_key == NULL) {
-      OPENSSL_PUT_ERROR(SSL, SSL_R_BAD_ECC_CERT);
-      return 0;
-    }
-
-    /* Check the key's group and point format are acceptable. */
-    uint16_t group_id;
-    if (!ssl_nid_to_group_id(
-            &group_id, EC_GROUP_get_curve_name(EC_KEY_get0_group(ec_key))) ||
-        !tls1_check_group_id(ssl, group_id) ||
-        EC_KEY_get_conv_form(ec_key) != POINT_CONVERSION_UNCOMPRESSED) {
-      OPENSSL_PUT_ERROR(SSL, SSL_R_BAD_ECC_CERT);
-      return 0;
+    if (ec_key != NULL) {
+      /* Check the key's group and point format are acceptable. */
+      uint16_t group_id;
+      if (!ssl_nid_to_group_id(
+              &group_id, EC_GROUP_get_curve_name(EC_KEY_get0_group(ec_key))) ||
+          !tls1_check_group_id(ssl, group_id) ||
+          EC_KEY_get_conv_form(ec_key) != POINT_CONVERSION_UNCOMPRESSED) {
+        OPENSSL_PUT_ERROR(SSL, SSL_R_BAD_ECC_CERT);
+        return 0;
+      }
     }
   }
 
