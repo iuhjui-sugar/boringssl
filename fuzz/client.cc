@@ -241,6 +241,8 @@ struct GlobalState {
 
     SSL_CTX_set_next_proto_select_cb(ctx, NPNSelectCallback, nullptr);
 
+    SSL_CTX_set_early_data_enabled(ctx, 1);
+
     CBS cbs;
     CBS_init(&cbs, kP256KeyPKCS8, sizeof(kP256KeyPKCS8));
     pkey = EVP_parse_private_key(&cbs);
