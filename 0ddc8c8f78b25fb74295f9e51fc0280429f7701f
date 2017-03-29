@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e92af9ab_9560b6fe",
+        "filename": "fuzz/client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-29T21:06:57Z",
+      "side": 1,
+      "message": "This doesn\u0027t do anything yet and will need much more serious changes. Leave this one alone until later.",
+      "revId": "0ddc8c8f78b25fb74295f9e51fc0280429f7701f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
