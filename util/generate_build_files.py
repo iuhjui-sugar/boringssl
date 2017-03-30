@@ -480,6 +480,12 @@ def FindCFiles(directory, filter_func):
         continue
       cfiles.append(os.path.join(path, filename))
 
+    if path == os.path.join('src', 'crypto', 'fipsmodule'):
+      # All subdirectories of fipsmodule contains C code that is already
+      # included by bcm.c.
+      while len(dirnames) > 0:
+        del dirnames[0]
+
     for (i, dirname) in enumerate(dirnames):
       if not filter_func(dirname, True):
         del dirnames[i]
@@ -669,6 +675,10 @@ def main(platforms):
           'src/',
           '')
       for test in test_c_files])
+
+  # This test is only used in the FIPS build process.
+  test_sources.discard('crypto/fipsmodule/bcm_hashunset_test')
+
   if test_binaries != test_sources:
     print 'Test sources and configured tests do not match'
     a = test_binaries.difference(test_sources)
