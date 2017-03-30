@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "48ab3e10_b776df51",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3098,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-30T21:45:36Z",
+      "side": 1,
+      "message": "SSL_set_early_data_enabled",
+      "range": {
+        "startLine": 3098,
+        "startChar": 3,
+        "endLine": 3098,
+        "endChar": 33
+      },
+      "revId": "89814a683166936117a1e54eab530fd3c598dc97",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2a05105_5c5766fb",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1948,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-03-30T21:45:36Z",
+      "side": 1,
+      "message": "This changes behavior when SSL_set_SSL_CTX is used. My previous advice on the OCSP and SCT stuff turned out to be wrong. See https://boringssl.googlesource.com/boringssl/+/83a321231b35088dd81d51e34af1346cb3050dcd\nhttps://bugs.chromium.org/p/boringssl/issues/detail?id\u003d123#c2\n\nMy current thinking is settings that are on both SSL and SSL_CTX are currently most conveniently placed on CERT. This means that it continues to be switchable via SNI using SSL_set_SSL_CTX. (Though I\u0027m sure later on we\u0027ll realize that\u0027s wrong and it should be somewhere else!)",
+      "revId": "89814a683166936117a1e54eab530fd3c598dc97",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
