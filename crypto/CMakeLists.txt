@@ -112,6 +112,8 @@ add_subdirectory(pkcs8)
 # Test support code
 add_subdirectory(test)
 
+add_subdirectory(fipsmodule)
+
 add_library(
   crypto
 

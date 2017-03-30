@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 2.8.11)
 
 # Defer enabling C and CXX languages.
-project (BoringSSL NONE)
+PROJECT (BoringSSL NONE)
 
 if(WIN32)
   # On Windows, prefer cl over gcc if both are available. By default most of
@@ -11,6 +11,7 @@ endif()
 
 enable_language(C)
 enable_language(CXX)
+enable_language(ASM)
 
 if(ANDROID)
   # Android-NDK CMake files reconfigure the path and so Go and Perl won't be
