@@ -1943,6 +1943,10 @@ struct ssl_st {
    * shutdown. */
   unsigned quiet_shutdown:1;
 
+  /* If enable_early_data is non-zero, early data can be sent and accepted over
+   * this connection. */
+  unsigned enable_early_data:1;
+
   /* Enable signed certificate time stamps. Currently client only. */
   unsigned signed_cert_timestamps_enabled:1;
 

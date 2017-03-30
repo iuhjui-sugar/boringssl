@@ -3095,6 +3095,11 @@ OPENSSL_EXPORT int SSL_total_renegotiations(const SSL *ssl);
  * fully implemented. */
 OPENSSL_EXPORT void SSL_CTX_set_early_data_enabled(SSL_CTX *ctx, int enabled);
 
+/* SSL_CTX_set_early_data_enabled sets whether early data is allowed to be used
+ * with resumptions using |ssl|. See |SSL_CTX_set_early_data_enabled| for more
+ * information. */
+OPENSSL_EXPORT void SSL_set_early_data_enabled(SSL *ssl, int enabled);
+
 /* SSL_early_data_accepted returns whether early data was accepted on the
  * handshake performed by |ssl|. */
 OPENSSL_EXPORT int SSL_early_data_accepted(const SSL *ssl);

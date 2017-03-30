@@ -423,6 +423,8 @@ SSL *SSL_new(SSL_CTX *ctx) {
 
   ssl->method = ctx->method;
 
+  ssl->enable_early_data = ctx->enable_early_data;
+
   if (!ssl->method->ssl_new(ssl)) {
     goto err;
   }
@@ -833,6 +835,10 @@ int SSL_send_fatal_alert(SSL *ssl, uint8_t alert) {
 
 void SSL_CTX_set_early_data_enabled(SSL_CTX *ctx, int enabled) {
   ctx->enable_early_data = !!enabled;
+}
+
+void SSL_set_early_data_enabled(SSL *ssl, int enabled) {
+  ssl->enable_early_data = !!enabled;
 }
 
 int SSL_early_data_accepted(const SSL *ssl) {
