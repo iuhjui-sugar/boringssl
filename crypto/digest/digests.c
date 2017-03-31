@@ -60,6 +60,7 @@
 #include <string.h>
 
 #include <openssl/asn1.h>
+#include <openssl/blake2b.h>
 #include <openssl/bytestring.h>
 #include <openssl/md4.h>
 #include <openssl/md5.h>
@@ -218,6 +219,46 @@ static const EVP_MD sha512_md = {
 };
 
 const EVP_MD *EVP_sha512(void) { return &sha512_md; }
+
+static void blake2b_256_init(EVP_MD_CTX *ctx) {
+  CHECK(BLAKE2b_256_Init(ctx->md_data));
+}
+
+static void blake2b_256_update(EVP_MD_CTX *ctx, const void *data, size_t count) {
+  CHECK(BLAKE2b_256_Update(ctx->md_data, data, count));
+}
+
+static void blake2b_256_final(EVP_MD_CTX *ctx, uint8_t *md) {
+  CHECK(BLAKE2b_256_Final(md, ctx->md_data));
+}
+
+static const EVP_MD blake2b_256_md = {
+    NID_blake2b_256, BLAKE2B_256_DIGEST_LENGTH, 0 /* flags */,
+    blake2b_256_init, blake2b_256_update, blake2b_256_final,
+    BLAKE2B_BLOCK_SIZE, sizeof(BLAKE2B_CTX),
+};
+
+const EVP_MD *EVP_blake2b_256(void) { return &blake2b_256_md; }
+
+static void blake2b_512_init(EVP_MD_CTX *ctx) {
+  CHECK(BLAKE2b_512_Init(ctx->md_data));
+}
+
+static void blake2b_512_update(EVP_MD_CTX *ctx, const void *data, size_t count) {
+  CHECK(BLAKE2b_512_Update(ctx->md_data, data, count));
+}
+
+static void blake2b_512_final(EVP_MD_CTX *ctx, uint8_t *md) {
+  CHECK(BLAKE2b_512_Final(md, ctx->md_data));
+}
+
+static const EVP_MD blake2b_512_md = {
+    NID_blake2b_512, BLAKE2B_512_DIGEST_LENGTH, 0 /* flags */,
+    blake2b_512_init, blake2b_512_update, blake2b_512_final,
+    BLAKE2B_BLOCK_SIZE, sizeof(BLAKE2B_CTX),
+};
+
+const EVP_MD *EVP_blake2b_512(void) { return &blake2b_512_md; }
 
 
 typedef struct {

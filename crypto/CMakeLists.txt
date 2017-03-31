@@ -78,6 +78,7 @@ add_subdirectory(conf)
 add_subdirectory(chacha)
 add_subdirectory(poly1305)
 add_subdirectory(curve25519)
+add_subdirectory(blake2b)
 
 # Level 1, depends only on 0.*
 add_subdirectory(digest)
@@ -149,6 +150,7 @@ add_library(
   $<TARGET_OBJECTS:chacha>
   $<TARGET_OBJECTS:poly1305>
   $<TARGET_OBJECTS:curve25519>
+  $<TARGET_OBJECTS:blake2b>
   $<TARGET_OBJECTS:buf>
   $<TARGET_OBJECTS:bn>
   $<TARGET_OBJECTS:bio>

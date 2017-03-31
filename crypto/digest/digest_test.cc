@@ -48,6 +48,7 @@ static const MD sha224 = { "SHA224", &EVP_sha224, &SHA224 };
 static const MD sha256 = { "SHA256", &EVP_sha256, &SHA256 };
 static const MD sha384 = { "SHA384", &EVP_sha384, &SHA384 };
 static const MD sha512 = { "SHA512", &EVP_sha512, &SHA512 };
+static const MD blake2b = { "BLAKE2b", &EVP_blake2b_512, nullptr };
 static const MD md5_sha1 = { "MD5-SHA1", &EVP_md5_sha1, nullptr };
 
 struct TestVector {
@@ -133,6 +134,12 @@ static const TestVector kTestVectors[] = {
       "hijklmnoijklmnopjklmnopqklmnopqrlmnopqrsmnopqrstnopqrstu", 1,
       "8e959b75dae313da8cf4f72814fc143f8f7779c6eb9f7fa17299aeadb6889018"
       "501d289e4900f7e4331b99dec4b5433ac7d329eeb6dd26545e96e55b874be909" },
+
+    // BLAKE2b test, from RFC 7693.
+    { blake2b, "abc", 1,
+      "ba80a53f981c4d0d6a2797b69f12f6e94c212f14685ac4b74b12bb6fdbffa2d1"
+      "7d87c5392aab792dc252d5de4533cc9518d38aa8dbf1925ab92386edd4009923"
+      },
 
     // MD5-SHA1 tests.
     { md5_sha1, "abc", 1,
