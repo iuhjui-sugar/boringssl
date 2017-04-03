@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5e4d30b0_171ef694",
+        "filename": "ssl/test/runner/ed25519/ed25519.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-03T19:03:08Z",
+      "side": 1,
+      "message": "Might be worth upstreaming this, given RFC 8032\u0027s formulation.",
+      "range": {
+        "startLine": 81,
+        "startChar": 5,
+        "endLine": 81,
+        "endChar": 23
+      },
+      "revId": "ce426d09216d90f2c203130b55701155b281d619",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
