@@ -130,6 +130,7 @@ const Flag<bool> kBoolFlags[] = {
   { "-expect-no-resume-alpn", &TestConfig::expect_no_resume_alpn },
   { "-no-op-extra-handshake", &TestConfig::no_op_extra_handshake },
   { "-handshake-twice", &TestConfig::handshake_twice },
+  { "-allow-unknown-alpn-protocols", &TestConfig::allow_unknown_alpn_protocols },
 };
 
 const Flag<std::string> kStringFlags[] = {
