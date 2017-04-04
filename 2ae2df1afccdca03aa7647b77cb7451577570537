@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bfbce751_6fed3abc",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2593,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-04-04T19:00:27Z",
+      "side": 1,
+      "message": "allow_unknown_alpn_protos?",
+      "range": {
+        "startLine": 2593,
+        "startChar": 20,
+        "endLine": 2593,
+        "endChar": 60
+      },
+      "revId": "2ae2df1afccdca03aa7647b77cb7451577570537",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
