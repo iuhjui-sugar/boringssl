@@ -96,6 +96,12 @@ higher to build aarch64 binaries.
 
 For other options, see [android-cmake's documentation](./third_party/android-cmake/README.md).
 
+### Building for iOS
+
+To build for iOS, pass `-DCMAKE_OSX_SYSROOT=iphoneos` and
+`-DCMAKE_OSX_ARCHITECTURES=ARCH` to CMake, where `ARCH` is the desired
+architecture, matching values used in the `-arch` flag in Apple's toolchain.
+
 ## Known Limitations on Windows
 
   * Versions of CMake since 3.0.2 have a bug in its Ninja generator that causes
