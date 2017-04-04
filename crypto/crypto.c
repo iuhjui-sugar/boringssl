@@ -57,6 +57,10 @@
  * initialising it to zero, it becomes a "data symbol", which isn't so
  * affected. */
 uint32_t OPENSSL_ia32cap_P[4] = {0};
+
+#elif defined(OPENSSL_PPC64LE)
+unsigned long OPENSSL_ppc64le_hwcap2 = 0;
+
 #elif defined(OPENSSL_ARM) || defined(OPENSSL_AARCH64)
 
 #include <openssl/arm_arch.h>

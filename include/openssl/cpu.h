@@ -170,6 +170,7 @@ static inline int CRYPTO_is_ARMv8_PMULL_capable(void) {
 /* CRYPTO_is_PPC64LE_vcrypto_capable returns true iff the current CPU supports
  * the Vector.AES category of instructions. */
 int CRYPTO_is_PPC64LE_vcrypto_capable(void);
+extern unsigned long OPENSSL_ppc64le_hwcap2;
 
 #endif  /* OPENSSL_PPC64LE */
 
