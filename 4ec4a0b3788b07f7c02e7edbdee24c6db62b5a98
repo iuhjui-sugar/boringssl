@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "228f9f7e_e3f0ffda",
+        "filename": "crypto/ex_data.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-04-04T18:10:33Z",
+      "side": 1,
+      "message": "Probably should be more consistent about return early vs ret\u003d1;goto err; but meh.",
+      "range": {
+        "startLine": 263,
+        "startChar": 6,
+        "endLine": 263,
+        "endChar": 34
+      },
+      "revId": "4ec4a0b3788b07f7c02e7edbdee24c6db62b5a98",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
