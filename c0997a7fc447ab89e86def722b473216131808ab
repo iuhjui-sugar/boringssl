@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "88519ac6_8d5d9639",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 699,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-05T23:51:25Z",
+      "side": 1,
+      "message": "This seems surprising enough to warrant a comment at least. (Or perhaps is missing an \u003d\u003d EVP_PKEY_RSA?)",
+      "revId": "c0997a7fc447ab89e86def722b473216131808ab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
