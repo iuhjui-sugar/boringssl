@@ -425,6 +425,14 @@ int EC_KEY_generate_key(EC_KEY *eckey) {
   }
 
   const BIGNUM *order = EC_GROUP_get0_order(eckey->group);
+
+  /* Check that the order of the EC group is FIPS compliant (FIPS 186-4 6.1.1).
+   */
+  if (BN_num_bits(order) < 160) {
+    OPENSSL_PUT_ERROR(EC, EC_R_INVALID_GROUP_ORDER);
+    goto err;
+  }
+
   if (!BN_rand_range_ex(priv_key, 1, order)) {
     goto err;
   }
