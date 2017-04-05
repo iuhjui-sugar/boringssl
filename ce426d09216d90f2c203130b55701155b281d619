@@ -22,6 +22,30 @@
       "revId": "ce426d09216d90f2c203130b55701155b281d619",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6779357c_d23d724e",
+        "filename": "ssl/test/runner/ed25519/ed25519.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-05T23:21:27Z",
+      "side": 1,
+      "message": "Ack. If I ever get time for Go again, it needs an RFC-based Ed25519.",
+      "parentUuid": "5e4d30b0_171ef694",
+      "range": {
+        "startLine": 81,
+        "startChar": 5,
+        "endLine": 81,
+        "endChar": 23
+      },
+      "revId": "ce426d09216d90f2c203130b55701155b281d619",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
