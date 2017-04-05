@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "063bbe3c_9f6365b8",
+        "filename": "crypto/curve25519/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-04-05T16:43:58Z",
+      "side": 1,
+      "message": "Might be wordy, but for sake of symmetry, can you make this the following:\n\n#if COMPLICATED_THING\n#define BORINGSSL_X25519_NEON\n#endif\n\n#if BORINGSSL_X25519_NEON\n...",
+      "revId": "b0b0ccaab965309885d51a130076468bb21b07b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
