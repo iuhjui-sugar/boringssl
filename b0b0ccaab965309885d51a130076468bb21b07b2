@@ -16,6 +16,24 @@
       "revId": "b0b0ccaab965309885d51a130076468bb21b07b2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8f47ace_b60f57fc",
+        "filename": "crypto/curve25519/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-05T17:20:31Z",
+      "side": 1,
+      "message": "That\u0027s more wordy. I changed the other one instead.",
+      "parentUuid": "063bbe3c_9f6365b8",
+      "revId": "b0b0ccaab965309885d51a130076468bb21b07b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
