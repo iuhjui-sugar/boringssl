@@ -1,0 +1,237 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9477d463_6bb6658b",
+        "filename": "crypto/CMakeLists.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-06T21:49:06Z",
+      "side": 1,
+      "message": "I think we can just leave this unset, going by how we usually do FOO_ARCH_SOURCES.",
+      "revId": "6581726ed7e725114ab0d96c8d5720e6400752a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "793e7b6c_79f03667",
+        "filename": "crypto/fipsmodule/bcm.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-06T21:49:06Z",
+      "side": 1,
+      "message": "NIt: newline",
+      "revId": "6581726ed7e725114ab0d96c8d5720e6400752a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ee780ff_e14af02a",
+        "filename": "crypto/fipsmodule/delocate.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-06T21:49:06Z",
+      "side": 1,
+      "message": "I\u0027ve revised this file a bit to avoid the various special-cases.",
+      "revId": "6581726ed7e725114ab0d96c8d5720e6400752a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "492f10e9_cf210fef",
+        "filename": "crypto/fipsmodule/delocate.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-06T21:49:06Z",
+      "side": 1,
+      "message": "From you in chat:\n\nOne thing did occur: it\u0027s possible that I should have delocate generate symbols prefixed with \".L\", which mean that they aren\u0027t symbols in the object file. Doesn\u0027t really matter, but will save some bytes.",
+      "revId": "6581726ed7e725114ab0d96c8d5720e6400752a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f188f18_1b78d801",
+        "filename": "crypto/fipsmodule/delocate.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-06T21:49:06Z",
+      "side": 1,
+      "message": "We\u0027re explicitly moving .rodata to .text, right? In that case, probably appending \".text\" would be better.",
+      "revId": "6581726ed7e725114ab0d96c8d5720e6400752a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3abb9853_1901dc23",
+        "filename": "crypto/fipsmodule/digest/digests.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-06T21:49:06Z",
+      "side": 1,
+      "message": "MD4_CTX",
+      "range": {
+        "startLine": 115,
+        "startChar": 24,
+        "endLine": 115,
+        "endChar": 34
+      },
+      "revId": "6581726ed7e725114ab0d96c8d5720e6400752a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b13d809_3bde1c3c",
+        "filename": "crypto/fipsmodule/inject-hash.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-06T21:49:06Z",
+      "side": 1,
+      "message": "As a sanity check, it may be worth checking for extra occurrences of the value.",
+      "revId": "6581726ed7e725114ab0d96c8d5720e6400752a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c46c2aa_e2fe10be",
+        "filename": "crypto/fipsmodule/md5/asm/md5-586.pl",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-06T21:49:06Z",
+      "side": 1,
+      "message": "diff_asm.go needs to know to take \"fipsmodule\" out of paths.",
+      "revId": "6581726ed7e725114ab0d96c8d5720e6400752a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42cbd629_ba32338c",
+        "filename": "crypto/fipsmodule/sha/sha256.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-06T21:49:06Z",
+      "side": 1,
+      "message": "Sigh. I\u0027ll see if I can at least clear up the md32_common.h-induced parts of this afterwards. I\u0027d been meaning to make that saner.",
+      "revId": "6581726ed7e725114ab0d96c8d5720e6400752a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b6c2b3d_025102fc",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-06T21:49:06Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "6581726ed7e725114ab0d96c8d5720e6400752a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46d0bc45_44257e28",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-06T21:49:06Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "6581726ed7e725114ab0d96c8d5720e6400752a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a199fdca_9d8b066e",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 627,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-06T21:49:06Z",
+      "side": 1,
+      "message": "This filter doesn\u0027t seem to do anything since you\u0027re already in that directory.",
+      "range": {
+        "startLine": 627,
+        "startChar": 75,
+        "endLine": 627,
+        "endChar": 92
+      },
+      "revId": "6581726ed7e725114ab0d96c8d5720e6400752a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfdfeeb9_26efed82",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-06T21:49:06Z",
+      "side": 1,
+      "message": "I think this also wants to be excluded from test_c_files. (It\u0027s ending up in the Chromium build.)",
+      "revId": "6581726ed7e725114ab0d96c8d5720e6400752a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
