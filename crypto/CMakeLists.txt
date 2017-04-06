@@ -141,10 +141,6 @@ if(FIPS)
 
     fipsmodule/bcm.o
   )
-else()
-  set(
-    CRYPTO_FIPS_OBJECTS
-  )
 endif()
 
 add_library(
