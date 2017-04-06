@@ -191,10 +191,17 @@ void RSA_get0_crt_params(const RSA *rsa, const BIGNUM **out_dmp1,
 
 int RSA_generate_key_ex(RSA *rsa, int bits, BIGNUM *e_value, BN_GENCB *cb) {
   if (rsa->meth->keygen) {
-    return rsa->meth->keygen(rsa, bits, e_value, cb);
+    if (!rsa->meth->keygen(rsa, bits, e_value, cb)) {
+      return 0;
+    }
+  } else if (!rsa_default_keygen(rsa, bits, e_value, cb)) {
+    return 0;
   }
 
-  return rsa_default_keygen(rsa, bits, e_value, cb);
+#if defined(BORINGSSL_FIPS)
+#endif
+
+  return 1;
 }
 
 int RSA_encrypt(RSA *rsa, size_t *out_len, uint8_t *out, size_t max_out,
@@ -644,7 +651,7 @@ static const BN_ULONG kSmallFactorsLimbs[] = {
 };
 static const BIGNUM kSmallFactors = STATIC_BIGNUM(kSmallFactorsLimbs);
 
-int RSA_check_fips(const RSA *key) {
+int RSA_check_fips(RSA *key) {
   if (RSA_is_opaque(key)) {
     /* Opaque keys can't be checked. */
     OPENSSL_PUT_ERROR(RSA, RSA_R_PUBLIC_KEY_VALIDATION_FAILED);
@@ -681,6 +688,27 @@ int RSA_check_fips(const RSA *key) {
 
   BN_free(&small_gcd);
   BN_CTX_free(ctx);
+
+  /* FIPS pairwise consistency test (FIPS 140-2 4.9.2). Per FIPS 140-2 IG,
+   * section 9.9, it is not known whether |rsa| will be used for signing or
+   * encryption, so either pair-wise consistency self-test is acceptable. We
+   * perform a signing test. */
+  if (ret) {
+    uint8_t data[32] = {0};
+    unsigned sig_len = RSA_size(key);
+    uint8_t *sig = OPENSSL_malloc(sig_len);
+    if (sig == NULL) {
+      OPENSSL_PUT_ERROR(EVP, ERR_R_INTERNAL_ERROR);
+      return 0;
+    }
+    if (!RSA_sign(NID_sha256, data, sizeof(data), sig, &sig_len, key) ||
+        !RSA_verify(NID_sha256, data, sizeof(data), sig, sig_len, key)) {
+      OPENSSL_PUT_ERROR(EVP, ERR_R_INTERNAL_ERROR);
+      ret = 0;
+    }
+
+    OPENSSL_free(sig);
+  }
 
   return ret;
 }
