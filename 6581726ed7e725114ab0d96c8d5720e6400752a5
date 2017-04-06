@@ -178,6 +178,24 @@
     },
     {
       "key": {
+        "uuid": "d7ef5cdd_75ff19c2",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-06T23:58:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b6c2b3d_025102fc",
+      "revId": "6581726ed7e725114ab0d96c8d5720e6400752a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "46d0bc45_44257e28",
         "filename": "util/generate_build_files.py",
         "patchSetId": 8
@@ -189,6 +207,24 @@
       "writtenOn": "2017-04-06T21:49:06Z",
       "side": 1,
       "message": "Nit: 80 chars",
+      "revId": "6581726ed7e725114ab0d96c8d5720e6400752a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4ac2626_c0114439",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-06T23:58:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46d0bc45_44257e28",
       "revId": "6581726ed7e725114ab0d96c8d5720e6400752a5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -218,6 +254,30 @@
     },
     {
       "key": {
+        "uuid": "32ffdecf_d27d1b45",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 627,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-06T23:58:01Z",
+      "side": 1,
+      "message": "It does because bcm.c etc aren\u0027t fragments. The filter excludes them.",
+      "parentUuid": "a199fdca_9d8b066e",
+      "range": {
+        "startLine": 627,
+        "startChar": 75,
+        "endLine": 627,
+        "endChar": 92
+      },
+      "revId": "6581726ed7e725114ab0d96c8d5720e6400752a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dfdfeeb9_26efed82",
         "filename": "util/generate_build_files.py",
         "patchSetId": 8
@@ -229,6 +289,24 @@
       "writtenOn": "2017-04-06T21:49:06Z",
       "side": 1,
       "message": "I think this also wants to be excluded from test_c_files. (It\u0027s ending up in the Chromium build.)",
+      "revId": "6581726ed7e725114ab0d96c8d5720e6400752a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40022c8e_df52c28c",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-06T23:58:01Z",
+      "side": 1,
+      "message": "(Done by you.)",
+      "parentUuid": "dfdfeeb9_26efed82",
       "revId": "6581726ed7e725114ab0d96c8d5720e6400752a5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
