@@ -207,10 +207,32 @@ void RSA_get0_crt_params(const RSA *rsa, const BIGNUM **out_dmp1,
 
 int RSA_generate_key_ex(RSA *rsa, int bits, BIGNUM *e_value, BN_GENCB *cb) {
   if (rsa->meth->keygen) {
-    return rsa->meth->keygen(rsa, bits, e_value, cb);
+    if (!rsa->meth->keygen(rsa, bits, e_value, cb)) {
+      return 0;
+    }
   }
 
-  return rsa_default_keygen(rsa, bits, e_value, cb);
+  if (!rsa_default_keygen(rsa, bits, e_value, cb)) {
+    return 0;
+  }
+
+  /* FIPS pairwise consistency test (FIPS 140-2 4.9.2). */
+  uint8_t data[16] = {0};
+  unsigned sig_len = RSA_size(rsa);
+  uint8_t *sig = OPENSSL_malloc(sig_len);
+  if (sig == NULL) {
+    OPENSSL_PUT_ERROR(EVP, ERR_R_INTERNAL_ERROR);
+    return 0;
+  }
+  if (!RSA_sign(NID_sha256, data, sizeof(data), sig, &sig_len, rsa) ||
+      !RSA_verify(NID_sha256, data, sizeof(data), sig, sig_len, rsa)) {
+    OPENSSL_free(sig);
+    OPENSSL_PUT_ERROR(EVP, ERR_R_INTERNAL_ERROR);
+    return 0;
+  }
+
+  OPENSSL_free(sig);
+  return 1;
 }
 
 int RSA_generate_multi_prime_key(RSA *rsa, int bits, int num_primes,
