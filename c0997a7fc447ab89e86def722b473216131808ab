@@ -16,6 +16,24 @@
       "revId": "c0997a7fc447ab89e86def722b473216131808ab",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3acd83c7_a3eae936",
+        "filename": "ssl/handshake_server.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 699,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-06T02:55:04Z",
+      "side": 1,
+      "message": "Wow, yeah, that\u0027s a typo on several fronts. k \u003d\u003e a, and it should have an EVP_PKEY_RSA check. It only worked because SSL_aRSA \u003d\u003d SSL_kRSA and this check doesn\u0027t actually matter because it is impossible to set mask_a |\u003d SSL_aRSA without also having a key that\u0027s good for SSL_kRSA. (Though if we ever added support for RSA-PSS-only keys, it would probably matter.)",
+      "parentUuid": "88519ac6_8d5d9639",
+      "revId": "c0997a7fc447ab89e86def722b473216131808ab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
