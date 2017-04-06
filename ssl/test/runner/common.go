@@ -1331,6 +1331,10 @@ type ProtocolBugs struct {
 	// to use when signing in TLS 1.1 and earlier where algorithms are not
 	// negotiated.
 	UseLegacySigningAlgorithm signatureAlgorithm
+
+	// RejectUnsolicitedKeyUpdate, if true, causes all unsolicited
+	// KeyUpdates from the peer to be rejected.
+	RejectUnsolicitedKeyUpdate bool
 }
 
 func (c *Config) serverInit() {
