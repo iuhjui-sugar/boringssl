@@ -70,6 +70,7 @@
 #include <string.h>
 
 #include <openssl/ec.h>
+#include <openssl/ecdsa.h>
 #include <openssl/engine.h>
 #include <openssl/err.h>
 #include <openssl/ex_data.h>
@@ -454,6 +455,28 @@ int EC_KEY_generate_key(EC_KEY *eckey) {
 
   eckey->priv_key = priv_key;
   eckey->pub_key = pub_key;
+
+#if defined(BORINGSSL_FIPS)
+  /* FIPS pairwise consistency test (FIPS 140-2 4.9.2). Per FIPS 140-2 IG,
+   * section 9.9, it is not known whether |eckey| will be used for signing or
+   * encryption, so either pair-wise consistency self-test is acceptable. We
+   * perform a signing test. */
+  uint8_t data[16] = {0};
+  unsigned sig_len = ECDSA_size(eckey);
+  uint8_t *sig = OPENSSL_malloc(sig_len);
+  if (sig == NULL) {
+    OPENSSL_PUT_ERROR(EVP, ERR_R_INTERNAL_ERROR);
+    return 0;
+  }
+  if (!ECDSA_sign(0, data, sizeof(data), sig, &sig_len, eckey) ||
+      !ECDSA_verify(0, data, sizeof(data), sig, sig_len, eckey)) {
+    OPENSSL_free(sig);
+    OPENSSL_PUT_ERROR(EVP, ERR_R_INTERNAL_ERROR);
+    goto err;
+  }
+
+  OPENSSL_free(sig);
+#endif
 
   ok = 1;
 
