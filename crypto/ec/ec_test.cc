@@ -182,6 +182,9 @@ TEST(ECTest, SpecifiedCurve) {
       DecodeECPrivateKey(kECKeySpecifiedCurve, sizeof(kECKeySpecifiedCurve));
   ASSERT_TRUE(key);
 
+  // Do basic FIPS key validity checking.
+  EXPECT_TRUE(EC_KEY_check_fips(key.get()));
+
   // The group should have been interpreted as P-256.
   EXPECT_EQ(NID_X9_62_prime256v1,
             EC_GROUP_get_curve_name(EC_KEY_get0_group(key.get())));
