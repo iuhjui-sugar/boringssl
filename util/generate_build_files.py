@@ -648,7 +648,9 @@ def main(platforms):
   for path in FindCFiles(os.path.join('src', 'crypto'), OnlyTests):
     if IsGTest(path):
       crypto_test_files.append(path)
-    else:
+      # bcm_hashunset_test.c is only used in the FIPS build process.
+    elif path != os.path.join('src', 'crypto', 'fipsmodule',
+                              'bcm_hashunset_test.c'):
       test_c_files.append(path)
 
   ssl_test_files = FindCFiles(os.path.join('src', 'ssl'), OnlyTests)
@@ -684,9 +686,6 @@ def main(platforms):
           'src/',
           '')
       for test in test_c_files])
-
-  # This test is only used in the FIPS build process.
-  test_sources.discard('crypto/fipsmodule/bcm_hashunset_test')
 
   if test_binaries != test_sources:
     print 'Test sources and configured tests do not match'
