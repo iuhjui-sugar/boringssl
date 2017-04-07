@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99473097_e80c25d5",
+        "filename": "crypto/ec/ec_key.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-07T18:51:10Z",
+      "side": 1,
+      "message": "I don\u0027t think this is what that section means.\n\nFIPS 186-4 6.1.1 applies to domain parameter (group) generation, not key generation. This also avoids the duplicate check I see later on in the CL. This check should be in EC_GROUP.\n\nThe section also gives ranges for cofactors and specified values for each of these, along with the text:\n\"\"\"\nNote that the specification of a cofactor h in a set of domain parameters is\noptional in ANS X9.62, whereas implementations conforming to this Standard (i.e., FIPS 186-4)\nshall specify the cofactor h in the set of domain parameters.\n\"\"\"\n\nWe\u0027ve since removed all the code for carrying cofactors around because they\u0027re always one. If we believe this section applied, we would need a comment and, again, all in the EC_GROUP code, not here.\n\nHowever, I do not believe this section applies. We do not have code to generate groups at all. Even when using that deprecated function for taking externally-specified parameters, we can\u0027t satisfy all the various rules anyway, like \"An approved hash function, as specified in FIPS 180, shall be used during the generation of ECDSA domain parameters.\" because we don\u0027t specify them.",
+      "revId": "46c039a7fc29dce4d357bc357085f8b2a61832f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
