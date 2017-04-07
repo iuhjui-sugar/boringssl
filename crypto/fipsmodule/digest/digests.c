@@ -65,7 +65,6 @@
 #include <openssl/sha.h>
 
 #include "internal.h"
-#include "../delocate.h"
 #include "../../internal.h"
 
 #if defined(NDEBUG)
@@ -74,6 +73,11 @@
 #define CHECK(x) assert(x)
 #endif
 
+#if defined(BORINGSSL_FIPS)
+#define USED __attribute__((used))
+#else
+#define USED
+#endif
 
 static void md4_init(EVP_MD_CTX *ctx) {
   CHECK(MD4_Init(ctx->md_data));
@@ -87,12 +91,34 @@ static void md4_final(EVP_MD_CTX *ctx, uint8_t *out) {
   CHECK(MD4_Final(out, ctx->md_data));
 }
 
-DEFINE_METHOD_FUNCTION(EVP_MD, EVP_md4,
-                       {
-                           NID_md4, MD4_DIGEST_LENGTH, 0 /* flags */, md4_init,
-                           md4_update, md4_final, 64 /* block size */,
-                           sizeof(MD4_CTX),
-                       })
+static EVP_MD md4_md USED;
+static CRYPTO_once_t md4_md_once USED = CRYPTO_ONCE_INIT;
+
+#if defined(BORINGSSL_FIPS)
+EVP_MD *md4_md_bss_get(void);
+CRYPTO_once_t *md4_md_once_bss_get(void);
+#else
+static EVP_MD *md4_md_bss_get(void) { return &md4_md; }
+static CRYPTO_once_t *md4_md_once_bss_get(void) { return &md4_md_once; }
+#endif
+
+static void md4_md_init(void) {
+  EVP_MD *md = md4_md_bss_get();
+
+  md->type = NID_md4;
+  md->md_size = MD4_DIGEST_LENGTH;
+  md->flags = 0;
+  md->init = md4_init;
+  md->update = md4_update;
+  md->final = md4_final;
+  md->block_size = 64;
+  md->ctx_size = sizeof(MD4_CTX);
+}
+
+const EVP_MD *EVP_md4(void) {
+  CRYPTO_once(md4_md_once_bss_get(), md4_md_init);
+  return md4_md_bss_get();
+}
 
 
 static void md5_init(EVP_MD_CTX *ctx) {
@@ -107,12 +133,34 @@ static void md5_final(EVP_MD_CTX *ctx, uint8_t *out) {
   CHECK(MD5_Final(out, ctx->md_data));
 }
 
-DEFINE_METHOD_FUNCTION(EVP_MD, EVP_md5,
-                       {
-                           NID_md5, MD5_DIGEST_LENGTH, 0 /* flags */, md5_init,
-                           md5_update, md5_final, 64 /* block size */,
-                           sizeof(MD5_CTX),
-                       })
+static EVP_MD md5_md USED;
+static CRYPTO_once_t md5_md_once USED = CRYPTO_ONCE_INIT;
+
+#if defined(BORINGSSL_FIPS)
+EVP_MD *md5_md_bss_get(void);
+CRYPTO_once_t *md5_md_once_bss_get(void);
+#else
+static EVP_MD *md5_md_bss_get(void) { return &md5_md; }
+static CRYPTO_once_t *md5_md_once_bss_get(void) { return &md5_md_once; }
+#endif
+
+static void md5_md_init(void) {
+  EVP_MD *md = md5_md_bss_get();
+
+  md->type = NID_md5;
+  md->md_size = MD5_DIGEST_LENGTH;
+  md->flags = 0;
+  md->init = md5_init;
+  md->update = md5_update;
+  md->final = md5_final;
+  md->block_size = 64;
+  md->ctx_size = sizeof(MD5_CTX);
+}
+
+const EVP_MD *EVP_md5(void) {
+  CRYPTO_once(md5_md_once_bss_get(), md5_md_init);
+  return md5_md_bss_get();
+}
 
 
 static void sha1_init(EVP_MD_CTX *ctx) {
@@ -127,12 +175,34 @@ static void sha1_final(EVP_MD_CTX *ctx, uint8_t *md) {
   CHECK(SHA1_Final(md, ctx->md_data));
 }
 
-DEFINE_METHOD_FUNCTION(EVP_MD, EVP_sha1,
-                       {
-                           NID_sha1, SHA_DIGEST_LENGTH, 0 /* flags */,
-                           sha1_init, sha1_update, sha1_final,
-                           64 /* block size */, sizeof(SHA_CTX),
-                       })
+static EVP_MD sha1_md USED;
+static CRYPTO_once_t sha1_md_once USED = CRYPTO_ONCE_INIT;
+
+#if defined(BORINGSSL_FIPS)
+EVP_MD *sha1_md_bss_get(void);
+CRYPTO_once_t *sha1_md_once_bss_get(void);
+#else
+static EVP_MD *sha1_md_bss_get(void) { return &sha1_md; }
+static CRYPTO_once_t *sha1_md_once_bss_get(void) { return &sha1_md_once; }
+#endif
+
+static void sha1_md_init(void) {
+  EVP_MD *md = sha1_md_bss_get();
+
+  md->type = NID_sha1;
+  md->md_size = SHA_DIGEST_LENGTH;
+  md->flags = 0;
+  md->init = sha1_init;
+  md->update = sha1_update;
+  md->final = sha1_final;
+  md->block_size = 64;
+  md->ctx_size = sizeof(SHA_CTX);
+}
+
+const EVP_MD *EVP_sha1(void) {
+  CRYPTO_once(sha1_md_once_bss_get(), sha1_md_init);
+  return sha1_md_bss_get();
+}
 
 
 static void sha224_init(EVP_MD_CTX *ctx) {
@@ -147,12 +217,35 @@ static void sha224_final(EVP_MD_CTX *ctx, uint8_t *md) {
   CHECK(SHA224_Final(md, ctx->md_data));
 }
 
-DEFINE_METHOD_FUNCTION(EVP_MD, EVP_sha224,
-                       {
-                           NID_sha224, SHA224_DIGEST_LENGTH, 0 /* flags */,
-                           sha224_init, sha224_update, sha224_final,
-                           64 /* block size */, sizeof(SHA256_CTX),
-                       })
+
+static EVP_MD sha224_md USED;
+static CRYPTO_once_t sha224_md_once USED = CRYPTO_ONCE_INIT;
+
+#if defined(BORINGSSL_FIPS)
+EVP_MD *sha224_md_bss_get(void);
+CRYPTO_once_t *sha224_md_once_bss_get(void);
+#else
+static EVP_MD *sha224_md_bss_get(void) { return &sha224_md; }
+static CRYPTO_once_t *sha224_md_once_bss_get(void) { return &sha224_md_once; }
+#endif
+
+static void sha224_md_init(void) {
+  EVP_MD *md = sha224_md_bss_get();
+
+  md->type = NID_sha224;
+  md->md_size = SHA224_DIGEST_LENGTH;
+  md->flags = 0;
+  md->init = sha224_init;
+  md->update = sha224_update;
+  md->final = sha224_final;
+  md->block_size = 64;
+  md->ctx_size = sizeof(SHA256_CTX);
+}
+
+const EVP_MD *EVP_sha224(void) {
+  CRYPTO_once(sha224_md_once_bss_get(), sha224_md_init);
+  return sha224_md_bss_get();
+}
 
 
 static void sha256_init(EVP_MD_CTX *ctx) {
@@ -167,12 +260,34 @@ static void sha256_final(EVP_MD_CTX *ctx, uint8_t *md) {
   CHECK(SHA256_Final(md, ctx->md_data));
 }
 
-DEFINE_METHOD_FUNCTION(EVP_MD, EVP_sha256,
-                       {
-                           NID_sha256, SHA256_DIGEST_LENGTH, 0 /* flags */,
-                           sha256_init, sha256_update, sha256_final,
-                           64 /* block size */, sizeof(SHA256_CTX),
-                       })
+static EVP_MD sha256_md USED;
+static CRYPTO_once_t sha256_md_once USED = CRYPTO_ONCE_INIT;
+
+#if defined(BORINGSSL_FIPS)
+EVP_MD *sha256_md_bss_get(void);
+CRYPTO_once_t *sha256_md_once_bss_get(void);
+#else
+static EVP_MD *sha256_md_bss_get(void) { return &sha256_md; }
+static CRYPTO_once_t *sha256_md_once_bss_get(void) { return &sha256_md_once; }
+#endif
+
+static void sha256_md_init(void) {
+  EVP_MD *md = sha256_md_bss_get();
+
+  md->type = NID_sha256;
+  md->md_size = SHA256_DIGEST_LENGTH;
+  md->flags = 0;
+  md->init = sha256_init;
+  md->update = sha256_update;
+  md->final = sha256_final;
+  md->block_size = 64;
+  md->ctx_size = sizeof(SHA256_CTX);
+}
+
+const EVP_MD *EVP_sha256(void) {
+  CRYPTO_once(sha256_md_once_bss_get(), sha256_md_init);
+  return sha256_md_bss_get();
+}
 
 
 static void sha384_init(EVP_MD_CTX *ctx) {
@@ -187,12 +302,34 @@ static void sha384_final(EVP_MD_CTX *ctx, uint8_t *md) {
   CHECK(SHA384_Final(md, ctx->md_data));
 }
 
-DEFINE_METHOD_FUNCTION(EVP_MD, EVP_sha384,
-                       {
-                           NID_sha384, SHA384_DIGEST_LENGTH, 0 /* flags */,
-                           sha384_init, sha384_update, sha384_final,
-                           128 /* block size */, sizeof(SHA512_CTX),
-                       })
+static EVP_MD sha384_md USED;
+static CRYPTO_once_t sha384_md_once USED = CRYPTO_ONCE_INIT;
+
+#if defined(BORINGSSL_FIPS)
+EVP_MD *sha384_md_bss_get(void);
+CRYPTO_once_t *sha384_md_once_bss_get(void);
+#else
+static EVP_MD *sha384_md_bss_get(void) { return &sha384_md; }
+static CRYPTO_once_t *sha384_md_once_bss_get(void) { return &sha384_md_once; }
+#endif
+
+static void sha384_md_init(void) {
+  EVP_MD *md = sha384_md_bss_get();
+
+  md->type = NID_sha384;
+  md->md_size = SHA384_DIGEST_LENGTH;
+  md->flags = 0;
+  md->init = sha384_init;
+  md->update = sha384_update;
+  md->final = sha384_final;
+  md->block_size = 128;
+  md->ctx_size = sizeof(SHA512_CTX);
+}
+
+const EVP_MD *EVP_sha384(void) {
+  CRYPTO_once(sha384_md_once_bss_get(), sha384_md_init);
+  return sha384_md_bss_get();
+}
 
 
 static void sha512_init(EVP_MD_CTX *ctx) {
@@ -207,12 +344,34 @@ static void sha512_final(EVP_MD_CTX *ctx, uint8_t *md) {
   CHECK(SHA512_Final(md, ctx->md_data));
 }
 
-DEFINE_METHOD_FUNCTION(EVP_MD, EVP_sha512,
-                       {
-                           NID_sha512, SHA512_DIGEST_LENGTH, 0 /* flags */,
-                           sha512_init, sha512_update, sha512_final,
-                           128 /* block size */, sizeof(SHA512_CTX),
-                       })
+static EVP_MD sha512_md USED;
+static CRYPTO_once_t sha512_md_once USED = CRYPTO_ONCE_INIT;
+
+#if defined(BORINGSSL_FIPS)
+EVP_MD *sha512_md_bss_get(void);
+CRYPTO_once_t *sha512_md_once_bss_get(void);
+#else
+static EVP_MD *sha512_md_bss_get(void) { return &sha512_md; }
+static CRYPTO_once_t *sha512_md_once_bss_get(void) { return &sha512_md_once; }
+#endif
+
+static void sha512_md_init(void) {
+  EVP_MD *md = sha512_md_bss_get();
+
+  md->type = NID_sha512;
+  md->md_size = SHA512_DIGEST_LENGTH;
+  md->flags = 0;
+  md->init = sha512_init;
+  md->update = sha512_update;
+  md->final = sha512_final;
+  md->block_size = 128;
+  md->ctx_size = sizeof(SHA512_CTX);
+}
+
+const EVP_MD *EVP_sha512(void) {
+  CRYPTO_once(sha512_md_once_bss_get(), sha512_md_init);
+  return sha512_md_bss_get();
+}
 
 
 typedef struct {
@@ -238,13 +397,36 @@ static void md5_sha1_final(EVP_MD_CTX *md_ctx, uint8_t *out) {
         SHA1_Final(out + MD5_DIGEST_LENGTH, &ctx->sha1));
 }
 
-DEFINE_METHOD_FUNCTION(EVP_MD, EVP_md5_sha1,
-                       {
-                           NID_md5_sha1, MD5_DIGEST_LENGTH + SHA_DIGEST_LENGTH,
-                           0 /* flags */, md5_sha1_init, md5_sha1_update,
-                           md5_sha1_final, 64 /* block size */,
-                           sizeof(MD5_SHA1_CTX),
-                       })
+static EVP_MD md5_sha1_md USED;
+static CRYPTO_once_t md5_sha1_md_once USED = CRYPTO_ONCE_INIT;
 
+#if defined(BORINGSSL_FIPS)
+EVP_MD *md5_sha1_md_bss_get(void);
+CRYPTO_once_t *md5_sha1_md_once_bss_get(void);
+#else
+static EVP_MD *md5_sha1_md_bss_get(void) { return &md5_sha1_md; }
+static CRYPTO_once_t *md5_sha1_md_once_bss_get(void) {
+  return &md5_sha1_md_once;
+}
+#endif
+
+static void md5_sha1_md_init(void) {
+  EVP_MD *md = md5_sha1_md_bss_get();
+
+  md->type = NID_md5_sha1;
+  md->md_size = MD5_DIGEST_LENGTH + SHA_DIGEST_LENGTH;
+  md->flags = 0;
+  md->init = md5_sha1_init;
+  md->update = md5_sha1_update;
+  md->final = md5_sha1_final;
+  md->block_size = 64;
+  md->ctx_size = sizeof(MD5_SHA1_CTX);
+}
+
+const EVP_MD *EVP_md5_sha1(void) {
+  CRYPTO_once(md5_sha1_md_once_bss_get(), md5_sha1_md_init);
+  return md5_sha1_md_bss_get();
+}
 
 #undef CHECK
+#undef USED
