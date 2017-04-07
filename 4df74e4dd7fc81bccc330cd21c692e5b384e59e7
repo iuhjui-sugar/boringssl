@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1e9deb96_b20be401",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-07T03:58:54Z",
+      "side": 1,
+      "message": "This is getting fixed in https://boringssl-review.googlesource.com/14805, though I\u0027d like to make digests.c a little less wordy tomorrow first.",
+      "revId": "4df74e4dd7fc81bccc330cd21c692e5b384e59e7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
