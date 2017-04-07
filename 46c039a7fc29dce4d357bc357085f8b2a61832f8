@@ -16,6 +16,24 @@
       "revId": "46c039a7fc29dce4d357bc357085f8b2a61832f8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24a2b6fc_d7ee5833",
+        "filename": "crypto/ec/ec_key.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-04-07T19:02:46Z",
+      "side": 1,
+      "message": "Changed the reference. The check is for the table in 6.1.1, the actual requirement to check the 6.1.1 group parameters is in appendix B.",
+      "parentUuid": "99473097_e80c25d5",
+      "revId": "46c039a7fc29dce4d357bc357085f8b2a61832f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
