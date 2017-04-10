@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99b50089_2a14016b",
+        "filename": "crypto/ec/ec_key.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-10T19:28:32Z",
+      "side": 1,
+      "message": "Similar comments as the RSA one, but we should hear back on how they want us to do an ECDH test as that will be a bit less awful for performance. (I assume do ECDH against a hard-coded key pair per curve.)",
+      "revId": "99eb54bc2350f64140b55e7a8c9d368fa6ecfb91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1782a15_4659ebea",
+        "filename": "crypto/ec/ec_key.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-10T19:28:32Z",
+      "side": 1,
+      "message": "Guard with OPENSSL_FIPS",
+      "revId": "99eb54bc2350f64140b55e7a8c9d368fa6ecfb91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6e7d61a_3e920ea4",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-10T19:28:32Z",
+      "side": 1,
+      "message": "Guard this with OPENSSL_FIPS so other consumers don\u0027t need to pay for this.",
+      "revId": "99eb54bc2350f64140b55e7a8c9d368fa6ecfb91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b672b010_01a035aa",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-10T19:28:32Z",
+      "side": 1,
+      "message": "Mind also citing the IG doc while you\u0027re here? Might also be worth something like:\n\n\"Per FIPS 140-2 IG, section 9.9, it is not known whether |rsa| will be used for signing or encryption, so either pair-wise consistency self-test is acceptable. We perform a signing test.\"",
+      "range": {
+        "startLine": 219,
+        "startChar": 53,
+        "endLine": 219,
+        "endChar": 54
+      },
+      "revId": "99eb54bc2350f64140b55e7a8c9d368fa6ecfb91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a1ce74d_45ebf06b",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-10T19:28:32Z",
+      "side": 1,
+      "message": "SHA256_DIGEST_LENGTH or 32, so we\u0027re signing something plausibly of the right size. :-)",
+      "range": {
+        "startLine": 220,
+        "startChar": 15,
+        "endLine": 220,
+        "endChar": 17
+      },
+      "revId": "99eb54bc2350f64140b55e7a8c9d368fa6ecfb91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
