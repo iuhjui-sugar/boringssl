@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "61f28383_1e8b13b7",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 647,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-10T19:15:00Z",
+      "side": 0,
+      "message": "Confirmed no callers.",
+      "range": {
+        "startLine": 647,
+        "startChar": 19,
+        "endLine": 647,
+        "endChar": 40
+      },
+      "revId": "e72cf6797e3147ead5927f931016c4c00b0c9692",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

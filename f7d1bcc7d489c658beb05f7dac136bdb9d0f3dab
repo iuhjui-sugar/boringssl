@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "775d6a90_fcb55419",
+        "filename": "crypto/ecdsa/ecdsa.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-10T19:15:00Z",
+      "side": 1,
+      "message": "See comment in previous CL.)",
+      "revId": "f7d1bcc7d489c658beb05f7dac136bdb9d0f3dab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f8e0068_65416d84",
+        "filename": "crypto/ecdsa/ecdsa.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-10T19:15:00Z",
+      "side": 1,
+      "message": "80 chars",
+      "revId": "f7d1bcc7d489c658beb05f7dac136bdb9d0f3dab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

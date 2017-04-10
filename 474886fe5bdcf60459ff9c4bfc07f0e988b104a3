@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d910f63_e6b7c857",
+        "filename": "crypto/bn/random.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-10T19:15:00Z",
+      "side": 1,
+      "message": "No longer used.",
+      "revId": "474886fe5bdcf60459ff9c4bfc07f0e988b104a3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "368cb347_00715004",
+        "filename": "crypto/ecdsa/ecdsa.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-10T19:15:00Z",
+      "side": 1,
+      "message": "digest and digest_len are now longer used. You can also inline in this helper as a result and just call ECDSA_sign_setup.",
+      "range": {
+        "startLine": 229,
+        "startChar": 56,
+        "endLine": 229,
+        "endChar": 62
+      },
+      "revId": "474886fe5bdcf60459ff9c4bfc07f0e988b104a3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bae54d9b_45d6ad69",
+        "filename": "crypto/ecdsa/ecdsa.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-10T19:15:00Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "474886fe5bdcf60459ff9c4bfc07f0e988b104a3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
