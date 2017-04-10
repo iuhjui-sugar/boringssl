@@ -16,6 +16,24 @@
       "revId": "676f01cbeaa70f425900ec352d5234057ce5e075",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82e4600c_3189831b",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-10T17:42:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f7a9f48_fc7517d2",
+      "revId": "676f01cbeaa70f425900ec352d5234057ce5e075",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
