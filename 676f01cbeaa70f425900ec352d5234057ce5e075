@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6f7a9f48_fc7517d2",
+        "filename": "ssl/tls13_both.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-04-10T15:04:40Z",
+      "side": 1,
+      "message": "Can you update this comment to elucidate on the fact that this is correct behavior since we\u0027re only required to send a single key_update before the next application data, regardless of the number of incoming key_updates.",
+      "revId": "676f01cbeaa70f425900ec352d5234057ce5e075",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
