@@ -700,7 +700,7 @@ SSL_SESSION *SSL_SESSION_parse(CBS *cbs, const SSL_X509_METHOD *x509_method,
 
   /* Historically, the group_id field was used for key-exchange-specific
    * information. Discard all but the group ID. */
-  if (ret->cipher->algorithm_mkey & (SSL_kRSA | SSL_kDHE)) {
+  if (ret->cipher->algorithm_mkey & SSL_kRSA) {
     value = 0;
   }
 

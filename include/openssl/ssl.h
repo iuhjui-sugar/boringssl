@@ -1222,9 +1222,6 @@ OPENSSL_EXPORT int SSL_CIPHER_is_block_cipher(const SSL_CIPHER *cipher);
 /* SSL_CIPHER_is_ECDSA returns one if |cipher| uses ECDSA. */
 OPENSSL_EXPORT int SSL_CIPHER_is_ECDSA(const SSL_CIPHER *cipher);
 
-/* SSL_CIPHER_is_DHE returns one if |cipher| uses DHE. */
-OPENSSL_EXPORT int SSL_CIPHER_is_DHE(const SSL_CIPHER *cipher);
-
 /* SSL_CIPHER_is_ECDHE returns one if |cipher| uses ECDHE. */
 OPENSSL_EXPORT int SSL_CIPHER_is_ECDHE(const SSL_CIPHER *cipher);
 
@@ -2125,39 +2122,19 @@ OPENSSL_EXPORT uint16_t SSL_get_curve_id(const SSL *ssl);
 OPENSSL_EXPORT const char *SSL_get_curve_name(uint16_t curve_id);
 
 
-/* Multiplicative Diffie-Hellman.
- *
- * Cipher suites using a DHE key exchange perform Diffie-Hellman over a
- * multiplicative group selected by the server. These ciphers are disabled for a
- * server unless a group is chosen with one of these functions. */
+/* Multiplicative Diffie-Hellman (removed). */
 
-/* SSL_CTX_set_tmp_dh configures |ctx| to use the group from |dh| as the group
- * for DHE. Only the group is used, so |dh| needn't have a keypair. It returns
- * one on success and zero on error. */
+/* SSL_CTX_set_tmp_dh returns 1. */
 OPENSSL_EXPORT int SSL_CTX_set_tmp_dh(SSL_CTX *ctx, const DH *dh);
 
-/* SSL_set_tmp_dh configures |ssl| to use the group from |dh| as the group for
- * DHE. Only the group is used, so |dh| needn't have a keypair. It returns one
- * on success and zero on error. */
+/* SSL_set_tmp_dh returns 1. */
 OPENSSL_EXPORT int SSL_set_tmp_dh(SSL *ssl, const DH *dh);
 
-/* SSL_CTX_set_tmp_dh_callback configures |ctx| to use |callback| to determine
- * the group for DHE ciphers. |callback| should ignore |is_export| and
- * |keylength| and return a |DH| of the selected group or NULL on error. Only
- * the parameters are used, so the |DH| needn't have a generated keypair.
- *
- * WARNING: The caller does not take ownership of the resulting |DH|, so
- * |callback| must save and release the object elsewhere. */
+/* SSL_CTX_set_tmp_dh_callback does nothing. */
 OPENSSL_EXPORT void SSL_CTX_set_tmp_dh_callback(
     SSL_CTX *ctx, DH *(*callback)(SSL *ssl, int is_export, int keylength));
 
-/* SSL_set_tmp_dh_callback configures |ssl| to use |callback| to determine the
- * group for DHE ciphers. |callback| should ignore |is_export| and |keylength|
- * and return a |DH| of the selected group or NULL on error. Only the
- * parameters are used, so the |DH| needn't have a generated keypair.
- *
- * WARNING: The caller does not take ownership of the resulting |DH|, so
- * |callback| must save and release the object elsewhere. */
+/* SSL_set_tmp_dh_callback does nothing. */
 OPENSSL_EXPORT void SSL_set_tmp_dh_callback(SSL *ssl,
                                             DH *(*dh)(SSL *ssl, int is_export,
                                                       int keylength));

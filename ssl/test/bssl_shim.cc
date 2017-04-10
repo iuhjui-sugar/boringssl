@@ -46,7 +46,6 @@ OPENSSL_MSVC_PRAGMA(comment(lib, "Ws2_32.lib"))
 #include <openssl/bytestring.h>
 #include <openssl/cipher.h>
 #include <openssl/crypto.h>
-#include <openssl/dh.h>
 #include <openssl/digest.h>
 #include <openssl/err.h>
 #include <openssl/evp.h>

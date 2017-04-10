@@ -1340,9 +1340,6 @@ typedef struct cert_st {
    * compatibility, or might be a no-op, depending on the application. */
   const SSL_X509_METHOD *x509_method;
 
-  DH *dh_tmp;
-  DH *(*dh_tmp_cb)(SSL *ssl, int is_export, int keysize);
-
   /* sigalgs, if non-NULL, is the set of signature algorithms supported by
    * |privatekey| in decreasing order of preference. */
   uint16_t *sigalgs;
