@@ -223,7 +223,6 @@ typedef struct asn1_string_st ASN1_UTCTIME;
 typedef struct asn1_string_st ASN1_UTF8STRING;
 typedef struct asn1_string_st ASN1_VISIBLESTRING;
 typedef struct asn1_type_st ASN1_TYPE;
-
 typedef struct AUTHORITY_KEYID_st AUTHORITY_KEYID;
 typedef struct BASIC_CONSTRAINTS_st BASIC_CONSTRAINTS;
 typedef struct DIST_POINT_st DIST_POINT;
@@ -266,6 +265,7 @@ typedef struct conf_st CONF;
 typedef struct conf_value_st CONF_VALUE;
 typedef struct crypto_buffer_pool_st CRYPTO_BUFFER_POOL;
 typedef struct crypto_buffer_st CRYPTO_BUFFER;
+typedef struct ctr_drbg_state_st CTR_DRBG_STATE;
 typedef struct dh_st DH;
 typedef struct dsa_st DSA;
 typedef struct ec_group_st EC_GROUP;
