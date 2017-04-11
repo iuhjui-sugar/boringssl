@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "08dbf89d_718ecac0",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-11T23:56:13Z",
+      "side": 1,
+      "message": "If you see https://boringssl.googlesource.com/boringssl/+/cb3af3e9c1ddf69d3f96f9f59d57e8e4375a7e78/crypto/dh/params.c#173, it\u0027s possible to have a static BIGNUM with a constant value.",
+      "revId": "809bd4635d2ce618293fcd2d463a2b13b2fbcbc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1708cc2f_efda6fd8",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 724,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-11T23:56:13Z",
+      "side": 1,
+      "message": "locals need not be declared at the top of functions any longer.",
+      "revId": "809bd4635d2ce618293fcd2d463a2b13b2fbcbc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1b1cb731_f79f6dbd",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 747,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-11T23:56:13Z",
+      "side": 1,
+      "message": "Miller-Rabin will tell you that a number is not prime, but I\u0027d have to ponder about how to test whether it\u0027s a prime power.",
+      "range": {
+        "startLine": 747,
+        "startChar": 5,
+        "endLine": 747,
+        "endChar": 72
+      },
+      "revId": "809bd4635d2ce618293fcd2d463a2b13b2fbcbc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2c497c2b_fd2f7fb4",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 756,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-11T23:56:13Z",
+      "side": 1,
+      "message": "this looks like a case where it would be better to have:\n\nint ret \u003d 1;\nif (BN_num_bits(…) ||\n    …) {\n  OPENSSL_PUT_ERROR(…);\n  ret \u003d 0;\n}\n\nBN_free(…);\n…\nreturn ret;\n\nIn order to avoid duplicating the cleanup.",
+      "revId": "809bd4635d2ce618293fcd2d463a2b13b2fbcbc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
