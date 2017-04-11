@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ce98385_1f1b0c90",
+        "filename": "crypto/cipher/test/make_nist_aesvs_kat_tests.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-11T18:28:09Z",
+      "side": 1,
+      "message": "Needs license block. Copy from https://boringssl.googlesource.com/boringssl/+/4a2cc28b8c420063674621a4b69999286fdae8bd/ssl/test/runner/runner.go, but with 2017.",
+      "revId": "6129a52fab52ab55053004f81f1e6a42f62d9f6e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b8f5755_87df98b5",
+        "filename": "crypto/cipher/test/make_nist_aesvs_kat_tests.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-11T18:28:09Z",
+      "side": 1,
+      "message": "This seems like a TODO, but it\u0027s unclear. Probably either delete this or else expand it to explain the uncertainty.",
+      "revId": "6129a52fab52ab55053004f81f1e6a42f62d9f6e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c994fcbc_9be24c06",
+        "filename": "crypto/cipher/test/make_nist_aesvs_kat_tests.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-11T18:28:09Z",
+      "side": 1,
+      "message": "This means that an odd command line can cause |kvDelim| to be fixed to an unexpected value and then cause weird errors. Maybe reset kvDelim?",
+      "revId": "6129a52fab52ab55053004f81f1e6a42f62d9f6e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
