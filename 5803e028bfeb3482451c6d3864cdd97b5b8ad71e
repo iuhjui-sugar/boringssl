@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a28d1382_951b8ca6",
+        "filename": "third_party/ios-cmake/LICENSE",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-11T19:03:29Z",
+      "side": 1,
+      "message": "If this is submitted under a CLA then this LICENSE is superfluous. If you want the license to apply, however, then we would probably need to consult Legal.",
+      "revId": "5803e028bfeb3482451c6d3864cdd97b5b8ad71e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
