@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "96e73df9_fee6a60f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-11T17:50:01Z",
+      "side": 1,
+      "message": "Let me know when we\u0027re ready to do this.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 9
+      },
+      "revId": "9479838eb8c2c1a203e134d8fb436270020ca981",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35eef751_19097882",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 899,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-11T17:50:01Z",
+      "side": 1,
+      "message": "(I think we used to leak memory if you tried to generate over an existing multi-prime key.)",
+      "revId": "9479838eb8c2c1a203e134d8fb436270020ca981",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a2e7e1a_fb4725ac",
+        "filename": "include/openssl/rsa.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-11T17:50:01Z",
+      "side": 1,
+      "message": "I\u0027m going to fix Conscrypt to use the same pattern you used with Android keymaster, so we can clear out all these unused hooks.",
+      "revId": "9479838eb8c2c1a203e134d8fb436270020ca981",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
