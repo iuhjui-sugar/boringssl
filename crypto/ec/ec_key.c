@@ -70,6 +70,7 @@
 #include <string.h>
 
 #include <openssl/ec.h>
+#include <openssl/ecdh.h>
 #include <openssl/ecdsa.h>
 #include <openssl/engine.h>
 #include <openssl/err.h>
@@ -460,22 +461,29 @@ int EC_KEY_generate_key(EC_KEY *eckey) {
   /* FIPS pairwise consistency test (FIPS 140-2 4.9.2). Per FIPS 140-2 IG,
    * section 9.9, it is not known whether |eckey| will be used for signing or
    * encryption, so either pair-wise consistency self-test is acceptable. We
-   * perform a signing test. */
-  uint8_t data[16] = {0};
-  unsigned sig_len = ECDSA_size(eckey);
-  uint8_t *sig = OPENSSL_malloc(sig_len);
-  if (sig == NULL) {
-    OPENSSL_PUT_ERROR(EVP, ERR_R_INTERNAL_ERROR);
-    return 0;
-  }
-  if (!ECDSA_sign(0, data, sizeof(data), sig, &sig_len, eckey) ||
-      !ECDSA_verify(0, data, sizeof(data), sig, sig_len, eckey)) {
-    OPENSSL_free(sig);
+   * perform an encryption test. */
+  EC_KEY *peer_key = EC_KEY_new();
+  peer_key->priv_key = BN_new();
+  peer_key->pub_key = EC_POINT_new(eckey->group);
+  if (peer_key->pub_key == NULL) {
     OPENSSL_PUT_ERROR(EVP, ERR_R_INTERNAL_ERROR);
     goto err;
   }
 
-  OPENSSL_free(sig);
+  uint8_t key1[32];
+  uint8_t key2[32];
+  if (!EC_KEY_set_group(peer_key, eckey->group) ||
+      !BN_one(peer_key->priv_key) ||
+      !EC_POINT_mul(peer_key->group, peer_key->pub_key, peer_key->priv_key, NULL, NULL, NULL) ||
+      !ECDH_compute_key(key1, sizeof(key1), eckey->pub_key, peer_key, NULL) ||
+      !ECDH_compute_key(key2, sizeof(key2), peer_key->pub_key, eckey, NULL) ||
+      OPENSSL_memcmp(key1, key2, sizeof(key1) != 0)) {
+    EC_KEY_free(peer_key);
+    OPENSSL_PUT_ERROR(EVP, ERR_R_INTERNAL_ERROR);
+    goto err;
+  }
+
+  EC_KEY_free(peer_key);
 #endif
 
   ok = 1;
