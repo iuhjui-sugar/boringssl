@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b23edd34_a05090d2",
+        "filename": "fuzz/server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2017-04-11T23:18:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eadf3ce1_5a3fcf5d",
+      "revId": "a87d6768ac71207ccf1ad95dd1d1c47f899246c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4c5815fd_58430f0b",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2017-04-10T23:15:40Z",
       "side": 1,
       "message": "These can just get chucked into the deprecated functions bucket.",
+      "revId": "a87d6768ac71207ccf1ad95dd1d1c47f899246c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "937a886e_5aff73e7",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2125,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2017-04-11T23:18:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c5815fd_58430f0b",
       "revId": "a87d6768ac71207ccf1ad95dd1d1c47f899246c0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "bc5d8e83_97490d7b",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2017-04-11T23:18:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46b9c383_3bb1b85b",
+      "revId": "a87d6768ac71207ccf1ad95dd1d1c47f899246c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c127f399_ae95d27d",
         "filename": "ssl/internal.h",
         "patchSetId": 1
@@ -64,6 +118,24 @@
       "writtenOn": "2017-04-10T23:15:40Z",
       "side": 1,
       "message": "We can remove the add_key and get_key hooks now.",
+      "revId": "a87d6768ac71207ccf1ad95dd1d1c47f899246c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23904327_b104cf0c",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2017-04-11T23:18:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c127f399_ae95d27d",
       "revId": "a87d6768ac71207ccf1ad95dd1d1c47f899246c0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "2245043a_a864c06b",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 672,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2017-04-11T23:18:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6022e640_7f92b563",
+      "revId": "a87d6768ac71207ccf1ad95dd1d1c47f899246c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "11e3db76_d8d81329",
         "filename": "ssl/test/runner/cipher_suites.go",
         "patchSetId": 1
@@ -98,6 +188,24 @@
       "writtenOn": "2017-04-10T23:15:40Z",
       "side": 1,
       "message": "If you\u0027re unwinding this from runner, I think there\u0027s a whole lot more that can go too. Maybe leave this for a follow-up, since it doesn\u0027t especially matter?",
+      "revId": "a87d6768ac71207ccf1ad95dd1d1c47f899246c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28194e33_c6ec0d98",
+        "filename": "ssl/test/runner/cipher_suites.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2017-04-11T23:18:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11e3db76_d8d81329",
       "revId": "a87d6768ac71207ccf1ad95dd1d1c47f899246c0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
