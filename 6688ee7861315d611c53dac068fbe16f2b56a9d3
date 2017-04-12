@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "852b8c4d_5e0d94b5",
+        "filename": "crypto/rsa/rsa_impl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-12T22:58:34Z",
+      "side": 1,
+      "message": "I think so. It\u0027s not like you can run it many times and get lots of samples on the same secret; the result will be different every time you run it. So, unless you can get useful amounts of information from a single trace, I don\u0027t think it helps you.\n\n(It would be nice to have a constant-time RSA key-gen, but while we\u0027re still using BIGNUM under it all, that\u0027s not really viable.)",
+      "parentUuid": "e566d336_ab9b281f",
+      "range": {
+        "startLine": 824,
+        "startChar": 28,
+        "endLine": 824,
+        "endChar": 61
+      },
+      "revId": "6688ee7861315d611c53dac068fbe16f2b56a9d3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f530c9b8_8261c386",
         "filename": "crypto/rsa/rsa_impl.c",
         "patchSetId": 1
