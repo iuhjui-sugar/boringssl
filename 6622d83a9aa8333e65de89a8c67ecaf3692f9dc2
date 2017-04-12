@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "5ff4f67d_884380c6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-12T22:13:15Z",
+      "side": 1,
+      "message": "Nit: Describe what\u0027s being fixed and why (document citation)? Out of context, moving the kinv computation into the loop is confusing and would just make things slower.",
+      "revId": "6622d83a9aa8333e65de89a8c67ecaf3692f9dc2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5491ec0b_bc6ad4ec",
         "filename": "crypto/ecdsa/ecdsa.c",
         "patchSetId": 2
