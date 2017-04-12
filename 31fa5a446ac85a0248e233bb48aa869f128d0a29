@@ -22,6 +22,30 @@
       "revId": "31fa5a446ac85a0248e233bb48aa869f128d0a29",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf871c3c_50558b9f",
+        "filename": "crypto/fipsmodule/CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-12T23:04:49Z",
+      "side": 0,
+      "message": "Ah, good point. Done.",
+      "parentUuid": "10b114b0_ff3a5667",
+      "range": {
+        "startLine": 100,
+        "startChar": 4,
+        "endLine": 100,
+        "endChar": 24
+      },
+      "revId": "31fa5a446ac85a0248e233bb48aa869f128d0a29",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
