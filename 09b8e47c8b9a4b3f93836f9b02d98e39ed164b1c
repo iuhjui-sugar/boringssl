@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "2f254a7f_0a3acb61",
+        "filename": "crypto/ec/ec_test.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-12T22:10:15Z",
+      "side": 1,
+      "message": "Oh, that\u0027s what you meant by specified curve. Best not to put this here lest we lose the test later. Specified curve refers to the specifiedCurve form of ECParameters. It\u0027s for parsing PKCS#8 files that, incorrectly, explicitly spell the curve out. There\u0027s a even TODO to get rid of this feature.\n\nAdd a new test to ECCurveTest so you get all curves, maybe? (Generate a fresh curve.) If you want a test with an existing curve too, maybe ECTest.Encoding. That one isn\u0027t testing a nasty deprecated feature.",
+      "revId": "09b8e47c8b9a4b3f93836f9b02d98e39ed164b1c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "698908ff_4437763a",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-12T22:10:15Z",
+      "side": 1,
+      "message": "For consistency and since we have it, shall we toss this into RSA_check_fips?",
+      "revId": "09b8e47c8b9a4b3f93836f9b02d98e39ed164b1c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "abfb0a2e_b4a9bd30",
         "filename": "include/openssl/ec_key.h",
         "patchSetId": 14
