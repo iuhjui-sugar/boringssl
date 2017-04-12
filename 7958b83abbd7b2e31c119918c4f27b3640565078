@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4287387e_3f3f3d30",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-12T15:25:49Z",
+      "side": 1,
+      "message": "This is missing 751. (I.e. it\u0027s the product of primes from 3 to 743, inclusive, but doesn\u0027t include 751 itself.)\n\nhex(reduce(operator.mul, [x for x in range(3,752) if is_prime(x)], 1))\n\u002717b15f270460ec0c572736ed1a6c0e2486bfbba511125e2b3aea2eb072d86b322244d85a1b287f5ec78edba5336836bc85c4eb7751f354aec8934acad6b94d6c026bdb5b93c297f050b377d12fee9b82210a0a84d8175a1448716b55514bbf26c4833eb233d324f7912b95e2238c0bf9486271161eb6cd2d655fc43093333ef4e3e1\u0027",
+      "revId": "7958b83abbd7b2e31c119918c4f27b3640565078",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
