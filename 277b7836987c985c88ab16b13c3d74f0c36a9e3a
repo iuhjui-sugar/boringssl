@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84c9e65d_7a066fa0",
+        "filename": "util/all_tests.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-12T14:38:12Z",
+      "side": 1,
+      "message": "runner.go just sets the default to runtime.NumCPU() which is a bit tidier.",
+      "range": {
+        "startLine": 41,
+        "startChar": 43,
+        "endLine": 41,
+        "endChar": 44
+      },
+      "revId": "277b7836987c985c88ab16b13c3d74f0c36a9e3a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
