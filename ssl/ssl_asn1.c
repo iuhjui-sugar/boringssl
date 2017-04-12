@@ -121,9 +121,6 @@
  *                                  -- stapled OCSP response from the server
  *     extendedMasterSecret    [17] BOOLEAN OPTIONAL,
  *     groupID                 [18] INTEGER OPTIONAL,
- *                                  -- For historical reasons, for static RSA
-                                    -- ciphers, this field contains another
-                                    -- value to be discarded.
  *     certChain               [19] SEQUENCE OF Certificate OPTIONAL,
  *     ticketAgeAdd            [21] OCTET STRING OPTIONAL,
  *     isServer                [22] BOOLEAN DEFAULT TRUE,
@@ -693,18 +690,8 @@ SSL_SESSION *SSL_SESSION_parse(CBS *cbs, const SSL_X509_METHOD *x509_method,
   ret->extended_master_secret = !!extended_master_secret;
 
   uint32_t value;
-  if (!SSL_SESSION_parse_u32(&session, &value, kGroupIDTag, 0)) {
-    OPENSSL_PUT_ERROR(SSL, SSL_R_INVALID_SSL_SESSION);
-    goto err;
-  }
-
-  /* Historically, the group_id field was used for key-exchange-specific
-   * information. Discard all but the group ID. */
-  if (ret->cipher->algorithm_mkey & SSL_kRSA) {
-    value = 0;
-  }
-
-  if (value > 0xffff) {
+  if (!SSL_SESSION_parse_u32(&session, &value, kGroupIDTag, 0) ||
+      value > 0xffff) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_INVALID_SSL_SESSION);
     goto err;
   }
