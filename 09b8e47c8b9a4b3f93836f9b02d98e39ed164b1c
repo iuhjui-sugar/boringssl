@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "abfb0a2e_b4a9bd30",
+        "filename": "include/openssl/ec_key.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-12T21:37:19Z",
+      "side": 1,
+      "message": "singular, I think. (I.e. \"it passes\".)",
+      "range": {
+        "startLine": 163,
+        "startChar": 29,
+        "endLine": 163,
+        "endChar": 38
+      },
+      "revId": "09b8e47c8b9a4b3f93836f9b02d98e39ed164b1c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
