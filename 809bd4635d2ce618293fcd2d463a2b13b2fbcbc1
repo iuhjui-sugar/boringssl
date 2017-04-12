@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a62e30a3_fed94275",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-04-12T15:11:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08dbf89d_718ecac0",
+      "revId": "809bd4635d2ce618293fcd2d463a2b13b2fbcbc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1708cc2f_efda6fd8",
         "filename": "crypto/rsa/rsa.c",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2017-04-11T23:56:13Z",
       "side": 1,
       "message": "locals need not be declared at the top of functions any longer.",
+      "revId": "809bd4635d2ce618293fcd2d463a2b13b2fbcbc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "605c229e_7b35b4b1",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 724,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-04-12T15:11:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1708cc2f_efda6fd8",
       "revId": "809bd4635d2ce618293fcd2d463a2b13b2fbcbc1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "303747e2_a8fa3225",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 747,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-04-12T15:11:57Z",
+      "side": 1,
+      "message": "186-4\u0027s extended Miller-Rabin apparently is also supposed to spit out that information.",
+      "parentUuid": "1b1cb731_f79f6dbd",
+      "range": {
+        "startLine": 747,
+        "startChar": 5,
+        "endLine": 747,
+        "endChar": 72
+      },
+      "revId": "809bd4635d2ce618293fcd2d463a2b13b2fbcbc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2c497c2b_fd2f7fb4",
         "filename": "crypto/rsa/rsa.c",
         "patchSetId": 3
@@ -70,6 +130,24 @@
       "writtenOn": "2017-04-11T23:56:13Z",
       "side": 1,
       "message": "this looks like a case where it would be better to have:\n\nint ret \u003d 1;\nif (BN_num_bits(…) ||\n    …) {\n  OPENSSL_PUT_ERROR(…);\n  ret \u003d 0;\n}\n\nBN_free(…);\n…\nreturn ret;\n\nIn order to avoid duplicating the cleanup.",
+      "revId": "809bd4635d2ce618293fcd2d463a2b13b2fbcbc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3b26b7a_51fac9f5",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 756,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-04-12T15:11:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c497c2b_fd2f7fb4",
       "revId": "809bd4635d2ce618293fcd2d463a2b13b2fbcbc1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
