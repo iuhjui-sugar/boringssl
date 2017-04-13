@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "94737c62_3dedee9d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-04-13T15:32:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ff4f67d_884380c6",
+      "revId": "6622d83a9aa8333e65de89a8c67ecaf3692f9dc2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5491ec0b_bc6ad4ec",
         "filename": "crypto/ecdsa/ecdsa.c",
         "patchSetId": 2
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "b89f286f_554d9e2f",
+        "filename": "crypto/ecdsa/ecdsa.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-04-13T15:32:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5491ec0b_bc6ad4ec",
+      "range": {
+        "startLine": 251,
+        "startChar": 19,
+        "endLine": 251,
+        "endChar": 57
+      },
+      "revId": "6622d83a9aa8333e65de89a8c67ecaf3692f9dc2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b28cfce_9955d0e5",
         "filename": "crypto/ecdsa/ecdsa.c",
         "patchSetId": 2
@@ -53,6 +95,24 @@
       "writtenOn": "2017-04-12T21:35:53Z",
       "side": 1,
       "message": "Test whether kinv \u003d\u003d NULL too.",
+      "revId": "6622d83a9aa8333e65de89a8c67ecaf3692f9dc2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e15fd34_ba6d7d09",
+        "filename": "crypto/ecdsa/ecdsa.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-04-13T15:32:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b28cfce_9955d0e5",
       "revId": "6622d83a9aa8333e65de89a8c67ecaf3692f9dc2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
