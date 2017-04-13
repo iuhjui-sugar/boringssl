@@ -122,7 +122,7 @@ func referencesIA32CapDirectly(line string) bool {
 		return false
 	}
 	i += len(symbol)
-	return i == len(line) || line[i] == '+' || line[i] == '('
+	return i == len(line) || line[i] == '+' || line[i] == '(' || line[i] == '@'
 }
 
 // transform performs a number of transformations on the given assembly code.
@@ -157,6 +157,10 @@ func transform(lines []string, symbols map[string]bool) (ret []string) {
 			ia32capAddrNeeded = true
 		}
 
+		line = strings.Replace(line, "@PLT", "", -1)
+		lineReferencedGOT := strings.Contains(line, "@GOTPCREL")
+		line = strings.Replace(line, "@GOTPCREL", "", -1)
+
 		parts := strings.Fields(strings.TrimSpace(line))
 
 		if len(parts) == 0 {
@@ -183,27 +187,12 @@ func transform(lines []string, symbols map[string]bool) (ret []string) {
 			}
 
 			redirectorName := "bcm_redirector_" + target
-
-			if strings.HasSuffix(target, "@PLT") {
-				withoutPLT := target[:len(target)-4]
-				if isGlobal, ok := symbols[withoutPLT]; ok {
-					newTarget := withoutPLT
-					if isGlobal {
-						newTarget = localTargetName(withoutPLT)
-					}
-					ret = append(ret, fmt.Sprintf("\t%s %s", parts[0], newTarget))
-					continue
-				}
-
-				redirectorName = redirectorName[:len(redirectorName)-4]
-			}
-
 			ret = append(ret, fmt.Sprintf("\t%s %s", parts[0], redirectorName))
 			redirectors[redirectorName] = target
 			continue
 
-		case "leaq":
-			if strings.Contains(line, "BORINGSSL_bcm_text_dummy_") {
+		case "leaq", "movq", "cmpq":
+			if parts[0] == "leaq" {
 				line = strings.Replace(line, "BORINGSSL_bcm_text_dummy_", "BORINGSSL_bcm_text_", -1)
 			}
 
@@ -212,6 +201,16 @@ func transform(lines []string, symbols map[string]bool) (ret []string) {
 				target = target[:len(target)-6]
 				if isGlobal := symbols[target]; isGlobal {
 					line = strings.Replace(line, target, localTargetName(target), 1)
+					if lineReferencedGOT && parts[0] == "movq" {
+						// Nobody actually wants to
+						// read the code of a function.
+						// This is a load from the GOT
+						// which, now that we're
+						// referencing the symbol
+						// directly, needs to be
+						// transformed into an LEA.
+						line = strings.Replace(line, "movq", "leaq", 1)
+					}
 				}
 			}
 
@@ -299,7 +298,7 @@ func transform(lines []string, symbols map[string]bool) (ret []string) {
 	for _, name := range redirectorNames {
 		ret = append(ret, ".type "+name+", @function")
 		ret = append(ret, name+":")
-		ret = append(ret, "\tjmp "+redirectors[name])
+		ret = append(ret, "\tjmp "+redirectors[name]+"@PLT")
 	}
 
 	// Emit BSS accessor functions. Each is a single LEA followed by RET.
