@@ -55,8 +55,7 @@
 #include <openssl/cpu.h>
 
 #include "internal.h"
-#include "../internal.h"
-
+#include "../../internal.h"
 
 #if !defined(OPENSSL_NO_ASM) &&                         \
     (defined(OPENSSL_X86) || defined(OPENSSL_X86_64) || \
@@ -1062,8 +1061,8 @@ void CRYPTO_gcm128_tag(GCM128_CONTEXT *ctx, unsigned char *tag, size_t len) {
 #if defined(OPENSSL_X86) || defined(OPENSSL_X86_64)
 int crypto_gcm_clmul_enabled(void) {
 #ifdef GHASH_ASM
-  return OPENSSL_ia32cap_P[0] & (1 << 24) &&  /* check FXSR bit */
-    OPENSSL_ia32cap_P[1] & (1 << 1);  /* check PCLMULQDQ bit */
+  return (OPENSSL_ia32cap_P[0] & (1 << 24)) && /* check FXSR bit */
+         (OPENSSL_ia32cap_P[1] & (1 << 1));    /* check PCLMULQDQ bit */
 #else
   return 0;
 #endif
