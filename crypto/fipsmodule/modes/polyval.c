@@ -20,7 +20,7 @@
 #include <string.h>
 
 #include "internal.h"
-#include "../internal.h"
+#include "../../internal.h"
 
 
 /* byte_reverse reverses the order of the bytes in |b->c|. */
