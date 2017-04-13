@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff88efe0_63af2859",
+        "filename": "crypto/ec/ec_key.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-13T17:18:09Z",
+      "side": 1,
+      "message": "ERR_R_MALLOC_FAILURE",
+      "range": {
+        "startLine": 364,
+        "startChar": 27,
+        "endLine": 364,
+        "endChar": 60
+      },
+      "revId": "bac1952546f8301f31691941e436e5ae5cfa5763",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc2c61c4_f0a0b206",
+        "filename": "crypto/ec/ec_key.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-13T17:18:09Z",
+      "side": 1,
+      "message": "This will also break for public keys.",
+      "range": {
+        "startLine": 369,
+        "startChar": 7,
+        "endLine": 369,
+        "endChar": 17
+      },
+      "revId": "bac1952546f8301f31691941e436e5ae5cfa5763",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a906494_2def3aa3",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 685,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-13T17:18:09Z",
+      "side": 1,
+      "message": "\u003d\u003d NULL",
+      "range": {
+        "startLine": 685,
+        "startChar": 14,
+        "endLine": 685,
+        "endChar": 33
+      },
+      "revId": "bac1952546f8301f31691941e436e5ae5cfa5763",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
