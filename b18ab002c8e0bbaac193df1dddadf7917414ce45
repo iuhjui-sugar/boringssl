@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "37f2b1fb_7bc0dca1",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-04-13T16:51:30Z",
+      "side": 1,
+      "message": "Oops, mismerged.",
+      "parentUuid": "5cb97599_e821ec04",
+      "revId": "b18ab002c8e0bbaac193df1dddadf7917414ce45",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "15947884_d483c7ab",
         "filename": "crypto/rsa/rsa.c",
         "patchSetId": 16
@@ -30,6 +48,24 @@
       "writtenOn": "2017-04-13T16:46:12Z",
       "side": 1,
       "message": "I think the \"const\" qualifier on this is correct. It\u0027s more like documentation so it\u0027s ok if we have to cast away const for something like the Montgomery caching so long as it\u0027s thread-safe. What was it that motivated dropping the const?",
+      "revId": "b18ab002c8e0bbaac193df1dddadf7917414ce45",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f80e2228_a7fa7046",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-04-13T16:51:30Z",
+      "side": 1,
+      "message": "RSA_verify/sign require a non-const RSA.",
+      "parentUuid": "15947884_d483c7ab",
       "revId": "b18ab002c8e0bbaac193df1dddadf7917414ce45",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "50c01d44_20d79225",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 696,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-04-13T16:51:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf9d1804_ef427290",
+      "revId": "b18ab002c8e0bbaac193df1dddadf7917414ce45",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "36a25e67_eb4ccc78",
         "filename": "include/openssl/ec_key.h",
         "patchSetId": 16
@@ -64,6 +118,24 @@
       "writtenOn": "2017-04-13T16:46:12Z",
       "side": 1,
       "message": "only one blank line.",
+      "revId": "b18ab002c8e0bbaac193df1dddadf7917414ce45",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b97e6855_51e58e09",
+        "filename": "include/openssl/ec_key.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-04-13T16:51:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36a25e67_eb4ccc78",
       "revId": "b18ab002c8e0bbaac193df1dddadf7917414ce45",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
