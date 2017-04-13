@@ -113,23 +113,37 @@
 
 #include "internal.h"
 
-/* number of Miller-Rabin iterations for an error rate  of less than 2^-80
- * for random 'b'-bit input, b >= 100 (taken from table 4.4 in the Handbook
- * of Applied Cryptography [Menezes, van Oorschot, Vanstone; CRC Press 1996];
- * original paper: Damgaard, Landrock, Pomerance: Average case error estimates
- * for the strong probable prime test. -- Math. Comp. 61 (1993) 177-194) */
-#define BN_prime_checks_for_size(b) ((b) >= 1300 ?  2 : \
-                                (b) >=  850 ?  3 : \
-                                (b) >=  650 ?  4 : \
-                                (b) >=  550 ?  5 : \
-                                (b) >=  450 ?  6 : \
-                                (b) >=  400 ?  7 : \
-                                (b) >=  350 ?  8 : \
-                                (b) >=  300 ?  9 : \
-                                (b) >=  250 ? 12 : \
-                                (b) >=  200 ? 15 : \
-                                (b) >=  150 ? 18 : \
-                                /* b >= 100 */ 27)
+/* number of Miller-Rabin iterations for an error rate equal to the security
+ * level of a random 'b'-bit prime, b >= 100 (calculated using the FIPS SP
+ * 800-57 security level and 186-4 Section F.1; original paper: Damgaard,
+ * Landrock, Pomerance: Average case error estimates for the strong probable
+ * prime test. -- Math. Comp. 61 (1993) 177-194) */
+#define BN_prime_checks_for_size(b) ((b) >= 3747 ?  3 : \
+                                (b) >= 1345 ?  4 : \
+                                (b) >=  476 ?  5 : \
+                                (b) >=  400 ?  6 : \
+                                (b) >=  347 ?  7 : \
+                                (b) >=  308 ?  8 : \
+                                (b) >=  278 ?  9 : \
+                                (b) >=  254 ? 10 : \
+                                (b) >=  234 ? 11 : \
+                                (b) >=  218 ? 12 : \
+                                (b) >=  205 ? 13 : \
+                                (b) >=  193 ? 14 : \
+                                (b) >=  183 ? 15 : \
+                                (b) >=  175 ? 16 : \
+                                (b) >=  168 ? 17 : \
+                                (b) >=  161 ? 18 : \
+                                (b) >=  155 ? 19 : \
+                                (b) >=  149 ? 20 : \
+                                (b) >=  142 ? 21 : \
+                                (b) >=  136 ? 22 : \
+                                (b) >=  130 ? 23 : \
+                                (b) >=  124 ? 24 : \
+                                (b) >=  118 ? 25 : \
+                                (b) >=  111 ? 26 : \
+                                (b) >=  105 ? 27 : \
+                                /* b >= 100 */ 28)
 
 /* The quick sieve algorithm approach to weeding out primes is Philip
  * Zimmermann's, as implemented in PGP.  I have had a read of his comments and
