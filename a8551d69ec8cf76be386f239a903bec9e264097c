@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8f370f2d_33bf8f45",
+        "filename": "crypto/fipsmodule/delocate.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-13T20:02:26Z",
+      "side": 1,
+      "message": "Hopefully we never define a function named leaq. ;-) Eh, we can flip out and write a more robust gas parser later if it comes to it.",
+      "revId": "a8551d69ec8cf76be386f239a903bec9e264097c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
