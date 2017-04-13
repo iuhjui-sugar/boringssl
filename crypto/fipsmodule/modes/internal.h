@@ -53,14 +53,12 @@
 
 #include <string.h>
 
-#include "../internal.h"
+#include "../../internal.h"
 
 #if defined(__cplusplus)
 extern "C" {
 #endif
 
-
-#define asm __asm__
 
 #define STRICT_ALIGNMENT 1
 #if defined(OPENSSL_X86_64) || defined(OPENSSL_X86) || defined(OPENSSL_AARCH64)
