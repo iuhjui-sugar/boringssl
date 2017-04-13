@@ -4,10 +4,6 @@ if (${ARCH} STREQUAL "x86_64")
   set(
     AES_ARCH_SOURCES
 
-    aes-x86_64.${ASM_EXT}
-    aesni-x86_64.${ASM_EXT}
-    bsaes-x86_64.${ASM_EXT}
-    vpaes-x86_64.${ASM_EXT}
   )
 endif()
 
@@ -15,9 +11,6 @@ if (${ARCH} STREQUAL "x86")
   set(
     AES_ARCH_SOURCES
 
-    aes-586.${ASM_EXT}
-    vpaes-x86.${ASM_EXT}
-    aesni-x86.${ASM_EXT}
   )
 endif()
 
@@ -25,9 +18,6 @@ if (${ARCH} STREQUAL "arm")
   set(
     AES_ARCH_SOURCES
 
-    aes-armv4.${ASM_EXT}
-    bsaes-armv7.${ASM_EXT}
-    aesv8-armx.${ASM_EXT}
   )
 endif()
 
@@ -35,7 +25,6 @@ if (${ARCH} STREQUAL "aarch64")
   set(
     AES_ARCH_SOURCES
 
-    aesv8-armx.${ASM_EXT}
   )
 endif()
 
@@ -43,7 +32,6 @@ if (${ARCH} STREQUAL "ppc64le")
   set(
     AES_ARCH_SOURCES
 
-    aesp8-ppc.${ASM_EXT}
   )
 endif()
 
