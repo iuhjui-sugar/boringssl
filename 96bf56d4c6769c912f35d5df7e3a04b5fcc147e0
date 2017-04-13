@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a206db01_25167738",
+        "filename": "crypto/bn/prime.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-04-13T21:08:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53cbbcc4_56bf5414",
+      "revId": "96bf56d4c6769c912f35d5df7e3a04b5fcc147e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4bec7016_24bb2adc",
         "filename": "crypto/bn/prime.c",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2017-04-13T21:07:11Z",
       "side": 1,
       "message": "Bottoming out at 50 seems excessive. Also we can omit some of these steps, like the original code did. bits is half the size of the RSA key. So values below 128 are impossible, values below 256 are implausible, and values 512 are uninteresting.",
+      "revId": "96bf56d4c6769c912f35d5df7e3a04b5fcc147e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f82bf79f_0c015215",
+        "filename": "crypto/bn/prime.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-04-13T21:08:18Z",
+      "side": 1,
+      "message": "Roughly to the nearest multiple of 50 then.",
+      "parentUuid": "4bec7016_24bb2adc",
       "revId": "96bf56d4c6769c912f35d5df7e3a04b5fcc147e0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
