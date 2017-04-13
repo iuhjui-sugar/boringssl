@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5cb97599_e821ec04",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-13T16:46:12Z",
+      "side": 1,
+      "message": "(This bit of code needs to be reverted back to what it was before.)",
+      "revId": "b18ab002c8e0bbaac193df1dddadf7917414ce45",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "15947884_d483c7ab",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-13T16:46:12Z",
+      "side": 1,
+      "message": "I think the \"const\" qualifier on this is correct. It\u0027s more like documentation so it\u0027s ok if we have to cast away const for something like the Montgomery caching so long as it\u0027s thread-safe. What was it that motivated dropping the const?",
+      "revId": "b18ab002c8e0bbaac193df1dddadf7917414ce45",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cf9d1804_ef427290",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 696,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-13T16:46:12Z",
+      "side": 1,
+      "message": "prefer early returns to indenting large chunks of code. I.e.\n\nif (!ret) {\n  return 0;\n}\n\nuint8_t data[32] \u003d …",
+      "revId": "b18ab002c8e0bbaac193df1dddadf7917414ce45",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "36a25e67_eb4ccc78",
+        "filename": "include/openssl/ec_key.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-13T16:46:12Z",
+      "side": 1,
+      "message": "only one blank line.",
+      "revId": "b18ab002c8e0bbaac193df1dddadf7917414ce45",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
