@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "816dc7b8_055a8dfa",
+        "filename": "crypto/bytestring/bytestring_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-04-13T22:12:58Z",
+      "side": 1,
+      "message": "This is a pre-existing thing, but if CBS_get_last_u8 were the same as CBS_get_u8, this wouldn\u0027t prevent that. Probably actually add another byte to the test string?",
+      "range": {
+        "startLine": 64,
+        "startChar": 2,
+        "endLine": 64,
+        "endChar": 13
+      },
+      "revId": "78eecdecfad5db6a2319f1c92299568f2f4ae619",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
