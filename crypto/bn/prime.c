@@ -113,24 +113,6 @@
 
 #include "internal.h"
 
-/* number of Miller-Rabin iterations for an error rate  of less than 2^-80
- * for random 'b'-bit input, b >= 100 (taken from table 4.4 in the Handbook
- * of Applied Cryptography [Menezes, van Oorschot, Vanstone; CRC Press 1996];
- * original paper: Damgaard, Landrock, Pomerance: Average case error estimates
- * for the strong probable prime test. -- Math. Comp. 61 (1993) 177-194) */
-#define BN_prime_checks_for_size(b) ((b) >= 1300 ?  2 : \
-                                (b) >=  850 ?  3 : \
-                                (b) >=  650 ?  4 : \
-                                (b) >=  550 ?  5 : \
-                                (b) >=  450 ?  6 : \
-                                (b) >=  400 ?  7 : \
-                                (b) >=  350 ?  8 : \
-                                (b) >=  300 ?  9 : \
-                                (b) >=  250 ? 12 : \
-                                (b) >=  200 ? 15 : \
-                                (b) >=  150 ? 18 : \
-                                /* b >= 100 */ 27)
-
 /* The quick sieve algorithm approach to weeding out primes is Philip
  * Zimmermann's, as implemented in PGP.  I have had a read of his comments and
  * implemented my own version. */
@@ -328,6 +310,42 @@ static const uint16_t primes[NUMPRIMES] = {
     17737, 17747, 17749, 17761, 17783, 17789, 17791, 17807, 17827, 17837, 17839,
     17851, 17863,
 };
+
+/* BN_prime_checks_for_size returns the number of Miller-Rabin iterations
+ * necessary for a 'bits'-bit prime, in order to maintain an error rate greater
+ * than the security level for an RSA prime of that many bits (calculated using
+ * the FIPS SP 800-57 security level and 186-4 Section F.1; original paper:
+ * Damgaard, Landrock, Pomerance: Average case error estimates for the strong
+ * probable prime test. -- Math. Comp. 61 (1993) 177-194) */
+static int BN_prime_checks_for_size(int bits) {
+  if (bits >= 3747) { return  3; }
+  if (bits >= 1345) { return  4; }
+  if (bits >=  476) { return  5; }
+  if (bits >=  400) { return  6; }
+  if (bits >=  347) { return  7; }
+  if (bits >=  308) { return  8; }
+  if (bits >=  278) { return  9; }
+  if (bits >=  254) { return 10; }
+  if (bits >=  234) { return 11; }
+  if (bits >=  218) { return 12; }
+  if (bits >=  205) { return 13; }
+  if (bits >=  193) { return 14; }
+  if (bits >=  183) { return 15; }
+  if (bits >=  175) { return 16; }
+  if (bits >=  168) { return 17; }
+  if (bits >=  161) { return 18; }
+  if (bits >=  155) { return 19; }
+  if (bits >=  149) { return 20; }
+  if (bits >=  142) { return 21; }
+  if (bits >=  136) { return 22; }
+  if (bits >=  130) { return 23; }
+  if (bits >=  124) { return 24; }
+  if (bits >=  118) { return 25; }
+  if (bits >=  111) { return 26; }
+  if (bits >=  105) { return 27; }
+  if (bits >=   99) { return 28; }
+  return 50;
+}
 
 static int witness(BIGNUM *w, const BIGNUM *a, const BIGNUM *a1,
                    const BIGNUM *a1_odd, int k, BN_CTX *ctx, BN_MONT_CTX *mont);
