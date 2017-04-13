@@ -55,8 +55,7 @@
 #include <openssl/cpu.h>
 
 #include "internal.h"
-#include "../internal.h"
-
+#include "../../internal.h"
 
 #if !defined(OPENSSL_NO_ASM) &&                         \
     (defined(OPENSSL_X86) || defined(OPENSSL_X86_64) || \
@@ -368,7 +367,7 @@ void CRYPTO_ghash_init(gmult_func *out_mult, ghash_func *out_hash,
 
 #if defined(GHASH_ASM_X86_64)
   if (crypto_gcm_clmul_enabled()) {
-    if (((OPENSSL_ia32cap_P[1] >> 22) & 0x41) == 0x41) { /* AVX+MOVBE */
+    if (((OPENSSL_ia32cap_addr[1] >> 22) & 0x41) == 0x41) { /* AVX+MOVBE */
       gcm_init_avx(out_table, H.u);
       *out_mult = gcm_gmult_avx;
       *out_hash = gcm_ghash_avx;
@@ -1062,8 +1061,8 @@ void CRYPTO_gcm128_tag(GCM128_CONTEXT *ctx, unsigned char *tag, size_t len) {
 #if defined(OPENSSL_X86) || defined(OPENSSL_X86_64)
 int crypto_gcm_clmul_enabled(void) {
 #ifdef GHASH_ASM
-  return OPENSSL_ia32cap_P[0] & (1 << 24) &&  /* check FXSR bit */
-    OPENSSL_ia32cap_P[1] & (1 << 1);  /* check PCLMULQDQ bit */
+  return (OPENSSL_ia32cap_addr[0] & (1 << 24)) && /* check FXSR bit */
+         (OPENSSL_ia32cap_addr[1] & (1 << 1));    /* check PCLMULQDQ bit */
 #else
   return 0;
 #endif
