@@ -682,7 +682,9 @@ int RSA_check_fips(RSA *key) {
   BN_free(&small_gcd);
   BN_CTX_free(ctx);
 
-  if (!ret) {
+  if (!ret || !key->d || !key->p) {
+    /* On a failure or on only a public key, there's nothing else can be
+     * checked. */
     return ret;
   }
 
