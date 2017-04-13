@@ -22,6 +22,30 @@
       "revId": "78eecdecfad5db6a2319f1c92299568f2f4ae619",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3caf2f5c_b4916104",
+        "filename": "crypto/bytestring/bytestring_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-13T22:26:41Z",
+      "side": 1,
+      "message": "Derp. Done.",
+      "parentUuid": "816dc7b8_055a8dfa",
+      "range": {
+        "startLine": 64,
+        "startChar": 2,
+        "endLine": 64,
+        "endChar": 13
+      },
+      "revId": "78eecdecfad5db6a2319f1c92299568f2f4ae619",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
