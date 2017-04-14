@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dda62a0b_fdf1023e",
+        "filename": "crypto/rand/ctrdrbg.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-14T16:53:56Z",
+      "side": 1,
+      "message": "In general, I\u0027m not going to worry about trying to clear the stack. The compiler is free to spill to the stack and generally manage the stack in whatever way it chooses. From C we cannot control this so, absent rigorous stack-cleaning support from the compiler, I don\u0027t want to bother with a half-measure.",
+      "parentUuid": "d1efb252_c9773c68",
+      "range": {
+        "startLine": 38,
+        "startChar": 10,
+        "endLine": 38,
+        "endChar": 23
+      },
+      "revId": "8f4d32b4e05938878bcad16f27a7980e623f8cd3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "123d01e8_3540e598",
         "filename": "crypto/rand/ctrdrbg.c",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2017-04-13T19:02:51Z",
       "side": 1,
       "message": "Nit: Might be worth a comment explaining why this function allows data_len \u003c\u003d CTR_DRBG_ENTROPY_LEN since 10.2.1.2 actually asks for \u003d\u003d. (I assume it\u0027s so CTR_DRBG_generate avoids a temporary below.)",
+      "range": {
+        "startLine": 80,
+        "startChar": 15,
+        "endLine": 80,
+        "endChar": 16
+      },
+      "revId": "8f4d32b4e05938878bcad16f27a7980e623f8cd3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d80ac897_f9a3ae7c",
+        "filename": "crypto/rand/ctrdrbg.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-14T16:53:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "123d01e8_3540e598",
       "range": {
         "startLine": 80,
         "startChar": 15,
@@ -117,6 +165,30 @@
     },
     {
       "key": {
+        "uuid": "2032e6cc_dfcf5263",
+        "filename": "crypto/rand/ctrdrbg.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-14T16:53:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "155521ed_4282cb9b",
+      "range": {
+        "startLine": 142,
+        "startChar": 25,
+        "endLine": 142,
+        "endChar": 26
+      },
+      "revId": "8f4d32b4e05938878bcad16f27a7980e623f8cd3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a3c9f8fe_6d6d5110",
         "filename": "crypto/rand/ctrdrbg.c",
         "patchSetId": 2
@@ -128,6 +200,24 @@
       "writtenOn": "2017-04-13T19:02:51Z",
       "side": 1,
       "message": "Why have a distinct \"chunk size\" when ctr already knows how to take a number of blocks? Does this work?\n\nif (out_len \u003e\u003d AES_BLOCK_SIZE) {\n  size_t todo \u003d out_len;\n  todo \u0026\u003d ~(AES_BLOCK_SIZE-1)\n  const size_t num_blocks \u003d todo / AES_BLOCK_SIZE;\n  if (drbg-\u003ectr) {\n    OPENSSL_memset(out, 0, todo);\n    ctr32_add(drbg, 1);\n    drbg-\u003ectr(out, out, num_blocks, \u0026drbg-\u003eks, drbg-\u003ecounter.bytes);\n    ctr32_add(drbg, num_blocks - 1);\n  } else {\n    for (size_t i \u003d 0; i \u003c todo; i +\u003d AES_BLOCK_SIZE) {\n      ctr32_add(drbg, 1);\n      drbg-\u003eblock(drbg-\u003ecounter.bytes, out + i, \u0026drbg-\u003eks);\n    }\n  }\n\n  out +\u003d todo;\n  out_len -\u003d todo;\n}\n\nassert(out_len \u003c AES_BLOCK_SIZE);\nif (out_len \u003e 0) {\n  ...\n}",
+      "revId": "8f4d32b4e05938878bcad16f27a7980e623f8cd3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f71d7253_d6f4d766",
+        "filename": "crypto/rand/ctrdrbg.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-14T16:53:56Z",
+      "side": 1,
+      "message": "Documented.",
+      "parentUuid": "a3c9f8fe_6d6d5110",
       "revId": "8f4d32b4e05938878bcad16f27a7980e623f8cd3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -174,6 +264,24 @@
     },
     {
       "key": {
+        "uuid": "5d95c0e6_57eaa215",
+        "filename": "crypto/rand/ctrdrbg.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-14T16:53:56Z",
+      "side": 1,
+      "message": "That is just what SP 800-90Ar1 requires. None of this makes a lot of sense!",
+      "parentUuid": "3e862f03_4edfecc9",
+      "revId": "8f4d32b4e05938878bcad16f27a7980e623f8cd3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8a78b851_2cd49edd",
         "filename": "crypto/rand/ctrdrbg_test.cc",
         "patchSetId": 2
@@ -185,6 +293,24 @@
       "writtenOn": "2017-04-13T19:02:51Z",
       "side": 1,
       "message": "You can just write Bytes(kExpected), Bytes(out).\n\n(I went a bit overboard with Bytes\u0027 magic and so it has a template\u003cint N\u003e uint8_t[N] constructor.)",
+      "revId": "8f4d32b4e05938878bcad16f27a7980e623f8cd3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "718b00f7_af47535a",
+        "filename": "crypto/rand/ctrdrbg_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-14T16:53:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a78b851_2cd49edd",
       "revId": "8f4d32b4e05938878bcad16f27a7980e623f8cd3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -208,6 +334,24 @@
     },
     {
       "key": {
+        "uuid": "d254be28_740e58d4",
+        "filename": "crypto/rand/ctrdrbg_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-14T16:53:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8cdd3f1d_40b6ef69",
+      "revId": "8f4d32b4e05938878bcad16f27a7980e623f8cd3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "335a724a_1d7852ed",
         "filename": "crypto/rand/ctrdrbg_test.cc",
         "patchSetId": 2
@@ -219,6 +363,24 @@
       "writtenOn": "2017-04-13T19:02:51Z",
       "side": 1,
       "message": "Ditto.",
+      "revId": "8f4d32b4e05938878bcad16f27a7980e623f8cd3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa987c98_4c35e840",
+        "filename": "crypto/rand/ctrdrbg_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-14T16:53:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "335a724a_1d7852ed",
       "revId": "8f4d32b4e05938878bcad16f27a7980e623f8cd3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -248,6 +410,30 @@
     },
     {
       "key": {
+        "uuid": "359ff1c1_2040cad2",
+        "filename": "crypto/rand/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-14T16:53:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d95359f_89c78848",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 9
+      },
+      "revId": "8f4d32b4e05938878bcad16f27a7980e623f8cd3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5fc507e6_2983f247",
         "filename": "include/openssl/base.h",
         "patchSetId": 2
@@ -259,6 +445,24 @@
       "writtenOn": "2017-04-13T19:02:51Z",
       "side": 1,
       "message": "Eh, I wouldn\u0027t bother forward-declaring since it\u0027s an internal type that never leaks out of the library.",
+      "revId": "8f4d32b4e05938878bcad16f27a7980e623f8cd3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fff01c2e_bbe932e6",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-14T16:53:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5fc507e6_2983f247",
       "revId": "8f4d32b4e05938878bcad16f27a7980e623f8cd3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
