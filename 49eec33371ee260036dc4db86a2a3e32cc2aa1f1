@@ -93,6 +93,30 @@
       "revId": "49eec33371ee260036dc4db86a2a3e32cc2aa1f1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d58c50d9_3c380d89",
+        "filename": "crypto/bn/random.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-14T19:41:02Z",
+      "side": 1,
+      "message": "Got lost in my d\u0027s and r\u0027s: |r| here includes |min_inclusive| being added to it, so you\u0027re correct. Sorry.",
+      "parentUuid": "91cabba5_24bfe596",
+      "range": {
+        "startLine": 225,
+        "startChar": 36,
+        "endLine": 225,
+        "endChar": 39
+      },
+      "revId": "49eec33371ee260036dc4db86a2a3e32cc2aa1f1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
