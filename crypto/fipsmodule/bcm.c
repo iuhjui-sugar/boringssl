@@ -12,6 +12,10 @@
  * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. */
 
+#if !defined(_GNU_SOURCE)
+#define _GNU_SOURCE  /* needed for syscall() on Linux. */
+#endif
+
 #include <openssl/base.h>
 #include <openssl/crypto.h>
 #include <openssl/hmac.h>
@@ -32,6 +36,9 @@
 #include "modes/gcm.c"
 #include "modes/ofb.c"
 #include "modes/polyval.c"
+#include "rand/ctrdrbg.c"
+#include "rand/rand.c"
+#include "rand/urandom.c"
 #include "sha/sha1-altivec.c"
 #include "sha/sha1.c"
 #include "sha/sha256.c"
