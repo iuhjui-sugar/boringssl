@@ -16,6 +16,24 @@
       "revId": "b365c6115ef918ead8ec596b433004a0ae45bfb2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "46b81020_6642b8ac",
+        "filename": "crypto/bn/bn_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1108,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-14T19:45:24Z",
+      "side": 1,
+      "message": "Eh, given that we\u0027ve changed this function around a couple of times now, it seems worth doing. I\u0027m assuming you\u0027re okay with a flake probability of 2^320, given that RAND_bytes itself crashes with probability 2^128 in FIPS mode, not to mention all the rest of crypto being probabilistic. :-)",
+      "parentUuid": "8c7bbf40_4df90938",
+      "revId": "b365c6115ef918ead8ec596b433004a0ae45bfb2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
