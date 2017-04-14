@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b8ee825a_0e8b9936",
+        "filename": "crypto/bn/random.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-14T17:59:55Z",
+      "side": 1,
+      "message": "better to refer to variables in the code when possible, i.e. |r| rather than \"d\".",
+      "range": {
+        "startLine": 223,
+        "startChar": 55,
+        "endLine": 223,
+        "endChar": 56
+      },
+      "revId": "49eec33371ee260036dc4db86a2a3e32cc2aa1f1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3faaebfe_e92c1724",
+        "filename": "crypto/bn/random.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-14T17:59:55Z",
+      "side": 1,
+      "message": "This can return a value of |r| that is equal to |max_exclusive|.",
+      "range": {
+        "startLine": 225,
+        "startChar": 36,
+        "endLine": 225,
+        "endChar": 39
+      },
+      "revId": "49eec33371ee260036dc4db86a2a3e32cc2aa1f1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
