@@ -16,6 +16,24 @@
       "revId": "cbdae82f4f43f2c66dee7689c7d7d2f0756ccb66",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b572a57_902abf25",
+        "filename": "crypto/rand/urandom.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-14T16:55:47Z",
+      "side": 1,
+      "message": "Oh, indeed. Removed.",
+      "parentUuid": "e8bb4f42_941ee88c",
+      "revId": "cbdae82f4f43f2c66dee7689c7d7d2f0756ccb66",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
