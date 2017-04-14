@@ -23,7 +23,7 @@
 #include <openssl/mem.h>
 
 #include "internal.h"
-#include "../internal.h"
+#include "../../internal.h"
 
 
 /* It's assumed that the operating system always has an unfailing source of
