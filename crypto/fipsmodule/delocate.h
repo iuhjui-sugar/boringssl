@@ -21,13 +21,19 @@
 
 
 #if defined(BORINGSSL_FIPS)
-#define DEFINE_BSS_GET(type, name)            \
+#define DEFINE_BSS_GET(type, name)        \
   static type name __attribute__((used)); \
   type *name##_bss_get(void);
+/* For FIPS builds we require that CRYPTO_STATIC_MUTEX_INIT be zero. */
+#define DEFINE_STATIC_MUTEX(name) \
+  DEFINE_BSS_GET(struct CRYPTO_STATIC_MUTEX, name)
 #else
 #define DEFINE_BSS_GET(type, name) \
-  static type name;            \
+  static type name;                \
   static type *name##_bss_get(void) { return &name; }
+#define DEFINE_STATIC_MUTEX(name)                                    \
+  static struct CRYPTO_STATIC_MUTEX name = CRYPTO_STATIC_MUTEX_INIT; \
+  static struct CRYPTO_STATIC_MUTEX *name##_bss_get(void) { return &name; }
 #endif
 
 /* DEFINE_METHOD_FUNCTION defines a function named |name| which returns a
