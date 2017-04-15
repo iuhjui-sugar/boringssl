@@ -1170,7 +1170,7 @@ OPENSSL_EXPORT void SSL_CTX_set_private_key_method(
  *
  * |SSL_CIPHER| objects represent cipher suites. */
 
-DECLARE_STACK_OF(SSL_CIPHER)
+DEFINE_CONST_STACK_OF(SSL_CIPHER)
 
 /* SSL_get_cipher_by_value returns the structure representing a TLS cipher
  * suite based on its assigned number, or NULL if unknown. See
@@ -2710,7 +2710,7 @@ struct srtp_protection_profile_st {
   unsigned long id;
 } /* SRTP_PROTECTION_PROFILE */;
 
-DECLARE_STACK_OF(SRTP_PROTECTION_PROFILE)
+DEFINE_CONST_STACK_OF(SRTP_PROTECTION_PROFILE)
 
 /* SRTP_* define constants for SRTP profiles. */
 #define SRTP_AES128_CM_SHA1_80 0x0001
@@ -3598,7 +3598,7 @@ struct ssl_comp_st {
   char *method;
 };
 
-DECLARE_STACK_OF(SSL_COMP)
+DEFINE_STACK_OF(SSL_COMP)
 
 /* The following flags do nothing and are included only to make it easier to
  * compile code with BoringSSL. */
@@ -4033,6 +4033,8 @@ struct ssl_cipher_preference_list_st {
   STACK_OF(SSL_CIPHER) *ciphers;
   uint8_t *in_group_flags;
 };
+
+DECLARE_STACK_OF(SSL_CUSTOM_EXTENSION)
 
 /* ssl_ctx_st (aka |SSL_CTX|) contains configuration common to several SSL
  * connections. */
