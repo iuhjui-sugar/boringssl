@@ -184,6 +184,13 @@ func transform(lines []string, symbols map[string]bool) (ret []string) {
 				continue
 			}
 
+			if strings.HasSuffix(target, "_bss_get@PLT") || strings.HasSuffix(target, "_bss_get") {
+				// reference to a synthesised function. Don't
+				// indirect ourselves and drop PLT indirection.
+				ret = append(ret, strings.Replace(line, "@PLT", "", 1))
+				continue
+			}
+
 			if isGlobal, ok := symbols[target]; ok {
 				newTarget := target
 				if isGlobal {
