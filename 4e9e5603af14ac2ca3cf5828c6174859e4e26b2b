@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baf4aa2b_97a1119d",
+        "filename": "crypto/bn/prime.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-17T21:21:47Z",
+      "side": 1,
+      "message": "The return value of this function conflates being composite with errors. You might want a single out-arg that is an enum:\n\nenum bn_primality_result_t {\n  bn_probably_prime,\n  bn_composite,\n  bn_prime_power,\n};",
+      "range": {
+        "startLine": 554,
+        "startChar": 4,
+        "endLine": 554,
+        "endChar": 43
+      },
+      "revId": "4e9e5603af14ac2ca3cf5828c6174859e4e26b2b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba8e5ece_41bbbc19",
+        "filename": "crypto/bn/prime.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-17T21:21:47Z",
+      "side": 1,
+      "message": "out args come first and typically begin with \"out_\". Also, beware of negations in names; this might be better called \"is_prime_power\".",
+      "range": {
+        "startLine": 556,
+        "startChar": 49,
+        "endLine": 556,
+        "endChar": 67
+      },
+      "revId": "4e9e5603af14ac2ca3cf5828c6174859e4e26b2b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d7c60c6_83071a88",
+        "filename": "crypto/bn/prime.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-17T21:21:47Z",
+      "side": 1,
+      "message": "-1 is not a documented return value, and we try to avoid anything except 0/1 return values in new code.",
+      "range": {
+        "startLine": 557,
+        "startChar": 12,
+        "endLine": 557,
+        "endChar": 14
+      },
+      "revId": "4e9e5603af14ac2ca3cf5828c6174859e4e26b2b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4f1cab64_4a3abddb",
+        "filename": "crypto/bn/prime.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-17T21:21:47Z",
+      "side": 1,
+      "message": "0?",
+      "range": {
+        "startLine": 568,
+        "startChar": 10,
+        "endLine": 568,
+        "endChar": 11
+      },
+      "revId": "4e9e5603af14ac2ca3cf5828c6174859e4e26b2b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "07ee5525_380c5c11",
+        "filename": "crypto/bn/prime.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-17T21:21:47Z",
+      "side": 1,
+      "message": "BN_rand_range_ex would let you pass in 2 as the minimum.",
+      "range": {
+        "startLine": 605,
+        "startChar": 11,
+        "endLine": 605,
+        "endChar": 31
+      },
+      "revId": "4e9e5603af14ac2ca3cf5828c6174859e4e26b2b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
