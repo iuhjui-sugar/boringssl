@@ -1703,6 +1703,10 @@ typedef struct ssl3_state_st {
    * ticket age and the server-computed value in TLS 1.3 server connections
    * which resumed a session. */
   int32_t ticket_age_skew;
+
+  /* early_data_read is the amount of early data that has been read by the
+   * record layer. */
+  uint16_t early_data_read;
 } SSL3_STATE;
 
 /* lengths of messages */
@@ -1963,6 +1967,11 @@ struct ssl_st {
  * KeyUpdate. */
 #define SSL_KEY_UPDATE_NOT_REQUESTED 0
 #define SSL_KEY_UPDATE_REQUESTED 1
+
+/* kMaxEarlyDataAccepted is the advertised number of plaintext bytes of early
+ * data that will be accepted. This value should be slightly below
+ * kMaxEarlyDataSkipped in tls_record.c, which is measured in ciphertext. */
+static const size_t kMaxEarlyDataAccepted = 14336;
 
 CERT *ssl_cert_new(const SSL_X509_METHOD *x509_method);
 CERT *ssl_cert_dup(CERT *cert);

@@ -326,6 +326,16 @@ enum ssl_open_record_t tls_open_record(SSL *ssl, uint8_t *out_type, CBS *out,
     ssl->s3->empty_record_count = 0;
   }
 
+  if (SSL_in_init(ssl) && (type == SSL3_RT_APPLICATION_DATA)) {
+    if (CBS_len(out) > (kMaxEarlyDataAccepted - ssl->s3->early_data_read)) {
+      OPENSSL_PUT_ERROR(SSL, SSL_R_TOO_MUCH_READ_EARLY_DATA);
+      *out_alert = SSL3_AD_UNEXPECTED_MESSAGE;
+      return ssl_open_record_error;
+    }
+
+    ssl->s3->early_data_read += CBS_len(out);
+  }
+
   if (type == SSL3_RT_ALERT) {
     /* Return end_of_early_data alerts as-is for the caller to process. */
     if (CBS_len(out) == 2 &&
