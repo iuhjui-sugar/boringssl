@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c5afcbd_e916a58a",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-18T20:01:06Z",
+      "side": 1,
+      "message": "Having the check down here is a little funny since tls_record.c doesn\u0027t know about the handshake. Consider:\n\n- We are decoding a record within the handshake. Any application data at all will be a fatal error. But this check might cause us to reject it on early data size limit grounds, which is wrong. (The record type is checked a bit higher up.)\n\n- Suppose we are a client, processing the read stream, get to server Finished, and have the client Finished queued up. Depending on the exact implementation strategy, we might end up processing application data while SSL_in_init is still on. This check will then incorrectly kick in, so at minimum it needs to check a side.\n\nInstead, lift this up a few layers to ssl3_read_app_data and reuse the logic there which determines whether it\u0027s reading 0-RTT. (It too is a bit convoluted and I think doing more checks than necessary, but at least we can keep it in one place. Do a:\n\n   const int is_reading_early_data \u003d ssl-\u003eserver \u0026\u0026 [...]\n\nand then do your check after we\u0027ve checked rr-\u003etype.",
+      "revId": "940de2ce7c90126dd700180c1083edf3d334455a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
