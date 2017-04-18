@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f6639652_237c5730",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2017-04-18T23:43:08Z",
+      "side": 1,
+      "message": "My thought was:\n\nLet\u0027s say files[\u0027test\u0027] includes [foo_test.c, foo_test_lib.c].  In that we want the one that starts with \"foo_test.\".\n\nMaybe that\u0027s not a realistic concern?  I don\u0027t know what all might be in files[\u0027test\u0027].",
+      "parentUuid": "89bff2f1_fa8680d2",
+      "range": {
+        "startLine": 268,
+        "startChar": 72,
+        "endLine": 268,
+        "endChar": 77
+      },
+      "revId": "e37ffbd98f94cc073c2e50c82165ef1de2657fa5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e95b28d1_c7eaf53e",
         "filename": "util/generate_build_files.py",
         "patchSetId": 1
