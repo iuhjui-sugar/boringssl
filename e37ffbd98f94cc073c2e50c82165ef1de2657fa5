@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "89bff2f1_fa8680d2",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-18T23:35:30Z",
+      "side": 1,
+      "message": "I must admit, I don\u0027t understand why this \"+ \u0027.\u0027\" is here.",
+      "range": {
+        "startLine": 268,
+        "startChar": 72,
+        "endLine": 268,
+        "endChar": 77
+      },
+      "revId": "e37ffbd98f94cc073c2e50c82165ef1de2657fa5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e95b28d1_c7eaf53e",
         "filename": "util/generate_build_files.py",
         "patchSetId": 1
