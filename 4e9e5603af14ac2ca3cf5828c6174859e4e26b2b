@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f4c4a182_be867e06",
+        "filename": "crypto/bn/prime.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-04-18T15:32:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "baf4aa2b_97a1119d",
+      "range": {
+        "startLine": 554,
+        "startChar": 4,
+        "endLine": 554,
+        "endChar": 43
+      },
+      "revId": "4e9e5603af14ac2ca3cf5828c6174859e4e26b2b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba8e5ece_41bbbc19",
         "filename": "crypto/bn/prime.c",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2017-04-17T21:21:47Z",
       "side": 1,
       "message": "out args come first and typically begin with \"out_\". Also, beware of negations in names; this might be better called \"is_prime_power\".",
+      "range": {
+        "startLine": 556,
+        "startChar": 49,
+        "endLine": 556,
+        "endChar": 67
+      },
+      "revId": "4e9e5603af14ac2ca3cf5828c6174859e4e26b2b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f082b1d_5e8ebc72",
+        "filename": "crypto/bn/prime.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-04-18T15:32:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba8e5ece_41bbbc19",
       "range": {
         "startLine": 556,
         "startChar": 49,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9fb9581e_a86ccfa2",
+        "filename": "crypto/bn/prime.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-04-18T15:32:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d7c60c6_83071a88",
+      "range": {
+        "startLine": 557,
+        "startChar": 12,
+        "endLine": 557,
+        "endChar": 14
+      },
+      "revId": "4e9e5603af14ac2ca3cf5828c6174859e4e26b2b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4f1cab64_4a3abddb",
         "filename": "crypto/bn/prime.c",
         "patchSetId": 1
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "689d7585_cd23d13e",
+        "filename": "crypto/bn/prime.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-04-18T15:32:07Z",
+      "side": 1,
+      "message": "I guess technically, but since we are guaranteed that w is odd, w-1 is always at least a multiple of 2, though will change this bound accordingly.",
+      "parentUuid": "4f1cab64_4a3abddb",
+      "range": {
+        "startLine": 568,
+        "startChar": 10,
+        "endLine": 568,
+        "endChar": 11
+      },
+      "revId": "4e9e5603af14ac2ca3cf5828c6174859e4e26b2b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "07ee5525_380c5c11",
         "filename": "crypto/bn/prime.c",
         "patchSetId": 1
@@ -105,6 +201,30 @@
       "writtenOn": "2017-04-17T21:21:47Z",
       "side": 1,
       "message": "BN_rand_range_ex would let you pass in 2 as the minimum.",
+      "range": {
+        "startLine": 605,
+        "startChar": 11,
+        "endLine": 605,
+        "endChar": 31
+      },
+      "revId": "4e9e5603af14ac2ca3cf5828c6174859e4e26b2b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "49ecef9b_4e7cdb23",
+        "filename": "crypto/bn/prime.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-04-18T15:32:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07ee5525_380c5c11",
       "range": {
         "startLine": 605,
         "startChar": 11,
