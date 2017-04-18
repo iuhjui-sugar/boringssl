@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "882952da_1ed964ad",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 7060
+      },
+      "writtenOn": "2017-04-18T09:42:22Z",
+      "side": 1,
+      "message": "Fixed both.",
+      "parentUuid": "991d3e55_46902394",
+      "revId": "6dbdf0ba1f1c73f281cb6b20cb9c9f5d1b5ad6ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8d2617ae_731632f2",
         "filename": "ssl/internal.h",
         "patchSetId": 1
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "24bbeb2a_beaf8e7c",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1709,
+      "author": {
+        "id": 7060
+      },
+      "writtenOn": "2017-04-18T09:42:22Z",
+      "side": 1,
+      "message": "I put it into s3 because \"early_data_skipped\" is also there, but I agree that hs is better. Moved now.",
+      "parentUuid": "8d2617ae_731632f2",
+      "range": {
+        "startLine": 1709,
+        "startChar": 11,
+        "endLine": 1709,
+        "endChar": 26
+      },
+      "revId": "6dbdf0ba1f1c73f281cb6b20cb9c9f5d1b5ad6ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9b8c2117_21d912ce",
         "filename": "ssl/tls_record.c",
         "patchSetId": 1
@@ -53,6 +95,30 @@
       "writtenOn": "2017-04-17T20:39:34Z",
       "side": 1,
       "message": "We tend not to include the extra set of parens.",
+      "range": {
+        "startLine": 329,
+        "startChar": 27,
+        "endLine": 329,
+        "endChar": 31
+      },
+      "revId": "6dbdf0ba1f1c73f281cb6b20cb9c9f5d1b5ad6ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbb4c742_35c54158",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 7060
+      },
+      "writtenOn": "2017-04-18T09:42:22Z",
+      "side": 1,
+      "message": "Fixed (the one below as well).",
+      "parentUuid": "9b8c2117_21d912ce",
       "range": {
         "startLine": 329,
         "startChar": 27,
