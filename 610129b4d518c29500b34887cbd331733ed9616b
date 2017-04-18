@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a894111_7ecb1d55",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 710,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-18T19:48:28Z",
+      "side": 1,
+      "message": "/* bn_primality_result_t enumerates the outcomes of primality-testing. */",
+      "revId": "610129b4d518c29500b34887cbd331733ed9616b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
