@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e95b28d1_c7eaf53e",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-18T23:31:38Z",
+      "side": 1,
+      "message": "(test_names is already a set.)",
+      "range": {
+        "startLine": 689,
+        "startChar": 31,
+        "endLine": 689,
+        "endChar": 34
+      },
+      "revId": "e37ffbd98f94cc073c2e50c82165ef1de2657fa5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
