@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5524391d_5cc0b6b4",
+        "filename": "crypto/fipsmodule/bcm.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-04-18T20:01:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b4633d7_c1f3f959",
+      "range": {
+        "startLine": 172,
+        "startChar": 24,
+        "endLine": 172,
+        "endChar": 39
+      },
+      "revId": "2851811aa63f8b53f7246a9c866c300ed62ba81a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3452cc17_1e00c125",
         "filename": "crypto/fipsmodule/bcm.c",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2017-04-18T19:52:12Z",
       "side": 1,
       "message": "ditto.",
+      "range": {
+        "startLine": 186,
+        "startChar": 24,
+        "endLine": 186,
+        "endChar": 39
+      },
+      "revId": "2851811aa63f8b53f7246a9c866c300ed62ba81a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "36e1582e_6d55baac",
+        "filename": "crypto/fipsmodule/bcm.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-04-18T20:01:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3452cc17_1e00c125",
       "range": {
         "startLine": 186,
         "startChar": 24,
