@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "977fd54d_9f89e29a",
+        "filename": "crypto/fipsmodule/bcm.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-18T22:37:34Z",
+      "side": 1,
+      "message": "delete extra blank line.",
+      "revId": "2a1d2a7a626f5ca3c569d15949b8481bc5a3b358",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
