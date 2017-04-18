@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8f0610ec_c86d10f1",
+        "filename": "crypto/fipsmodule/delocate.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-18T21:42:58Z",
+      "side": 1,
+      "message": "I\u0027m not reproducing this, but I think it\u0027s because of this line. Dependent on the order the compiler emits things I guess? It seems off to have two different ways of doing this, so maybe remove this line? Or perhaps do it in two passes.",
+      "revId": "d6ca046bae8abc6b1073d70f69efa71d787f0650",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
