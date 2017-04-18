@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3321b87a_a7e3e9a2",
+        "filename": "crypto/fipsmodule/bcm.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-18T22:41:48Z",
+      "side": 1,
+      "message": "The key needs to be 2048-bit, I\u0027m afraid. I don\u0027t think 1024-bit is recognised in FIPS any longer.",
+      "revId": "ac243a28b78abc32c583f5a6d39b025814dfd9af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b7cf74ba_2207fa35",
+        "filename": "crypto/fipsmodule/bcm.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-18T22:41:48Z",
+      "side": 1,
+      "message": "I\u0027d switch kRSASignature with kEC so that all the RSA stuff is together.",
+      "revId": "ac243a28b78abc32c583f5a6d39b025814dfd9af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
