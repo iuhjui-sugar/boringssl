@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bea5086f_c2d1b503",
+        "filename": "crypto/fipsmodule/delocate.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-18T21:31:30Z",
+      "side": 1,
+      "message": "variables? (I don\u0027t think thread-local functions are a thing...)",
+      "range": {
+        "startLine": 246,
+        "startChar": 46,
+        "endLine": 246,
+        "endChar": 55
+      },
+      "revId": "0b2f2949ad83d7e035f988dea31dcf56966965e1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
