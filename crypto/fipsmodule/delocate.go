@@ -315,9 +315,10 @@ func transform(lines []string, symbols map[string]bool) (ret []string) {
 
 		case ".section":
 			p := strings.Split(parts[1], ",")
-			section := p[0]
+			section := strings.Trim(p[0], "\"")
 
-			if section == ".rodata" || section == ".text.startup" || strings.HasPrefix(section, ".rodata.") {
+			switch {
+			case section == ".rodata" || section == ".text.startup" || strings.HasPrefix(section, ".rodata."):
 				// Move .rodata to .text so it may be accessed
 				// without a relocation. GCC with
 				// -fmerge-constants will place strings into
@@ -326,23 +327,27 @@ func transform(lines []string, symbols map[string]bool) (ret []string) {
 				// so the self-test function is also in the
 				// module.
 				ret = append(ret, ".text  # "+section)
-				break
-			}
 
-			switch section {
-			case ".data", ".data.rel.ro.local":
+			case section == ".data" || strings.HasPrefix(section, ".data."):
 				panic(fmt.Sprintf("bad section %q on line %d", parts[1], source.lineNo))
 
-			case ".init_array":
-				// init_array contains function pointers to
-				// constructor functions. Since these must be
-				// relocated, this section is moved to the end
-				// of the file.
+			case section == ".init_array" || section == ".ctors" || strings.HasPrefix(section, ".ctors.") || section == ".dors" || strings.HasPrefix(section, ".dtors."):
+				// init_array/ctors/dtors contains function
+				// pointers to constructor/destructor
+				// functions. Since these must be relocated,
+				// this section is moved to the end of the
+				// file.
 				extractedText = append(extractedText, line)
 				extractedText, ret = extractSection(extractedText, ret, source)
 
-			default:
+			case section == ".text" || strings.HasPrefix(section, ".text."):
+				ret = append(ret, ".text")
+
+			case strings.HasPrefix(section, ".debug_") || strings.HasPrefix(section, ".note."):
 				ret = append(ret, line)
+
+			default:
+				panic(fmt.Sprintf("unknown section %q on line %d", section, source.lineNo))
 			}
 
 		default:
