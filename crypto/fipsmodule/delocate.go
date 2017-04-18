@@ -343,6 +343,13 @@ func transform(lines []string, symbols map[string]bool) (ret []string) {
 			case strings.HasPrefix(section, ".debug_") || strings.HasPrefix(section, ".note."):
 				ret = append(ret, line)
 
+			case section == ".bss" || strings.HasPrefix(section, ".bss."):
+				var accessors []string
+				accessors, ret = handleBSSSection(ret, source)
+				for _, accessor := range accessors {
+					bssAccessorsNeeded = append(bssAccessorsNeeded, accessor)
+				}
+
 			default:
 				panic(fmt.Sprintf("unknown section %q on line %d", section, source.lineNo))
 			}
@@ -445,6 +452,90 @@ func extractSection(extracted, lines []string, source *lineSource) ([]string, []
 			extracted = append(extracted, line)
 		}
 	}
+}
+
+// handleBSSSection reads lines from source until the next section and
+// translates a BSS section into a single .comm directive.
+func handleBSSSection(lines []string, source *lineSource) ([]string, []string) {
+	var accessors []string
+	currentSymbol := ""
+	currentAlignment := 1
+
+	for {
+		line, ok := source.Next()
+		if !ok {
+			return accessors, lines
+		}
+
+		parts := strings.Fields(strings.TrimSpace(line))
+
+		if len(parts) == 0 {
+			continue
+		}
+
+		if strings.HasSuffix(parts[0], ":") {
+			currentSymbol = parts[0][:len(parts[0])-1]
+			continue
+		}
+
+		var err error
+
+		switch parts[0] {
+		case ".align":
+			if currentAlignment, err = strconv.Atoi(parts[1]); err != nil {
+				panic(fmt.Sprintf("bad argument to .align on line %d", source.lineNo))
+			}
+
+		case ".p2align":
+			if currentAlignment, err = strconv.Atoi(parts[1]); err != nil {
+				panic(fmt.Sprintf("bad argument to .p2align on line %d", source.lineNo))
+			}
+
+			currentAlignment = 1 << uint(currentAlignment)
+
+		case ".zero":
+			if len(currentSymbol) == 0 {
+				panic(fmt.Sprintf(".zero without symbol on line %d", source.lineNo))
+			}
+			var length int
+			if length, err = strconv.Atoi(parts[1]); err != nil {
+				panic(fmt.Sprintf("bad argument to .zero on line %d", source.lineNo))
+			}
+
+			accessors, lines = addComm(accessors, lines, currentSymbol, length, currentAlignment)
+			currentSymbol = ""
+			currentAlignment = 0
+
+		case ".long":
+			if len(currentSymbol) == 0 {
+				panic(fmt.Sprintf(".long without symbol on line %d", source.lineNo))
+			}
+
+			accessors, lines = addComm(accessors, lines, currentSymbol, 4, currentAlignment)
+			currentSymbol = ""
+			currentAlignment = 1
+
+		case ".file":
+			lines = append(lines, line)
+
+		case ".text", ".section":
+			if len(currentSymbol) != 0 {
+				panic(fmt.Sprintf("BSS section ended on line %d with outstanding symbol %q", source.lineNo, currentSymbol))
+			}
+
+			source.Unread()
+			return accessors, lines
+		}
+	}
+}
+
+func addComm(accessors, lines []string, symbol string, length, alignment int) ([]string, []string) {
+	lines = append(lines, fmt.Sprintf(".type %s,@object", symbol))
+	lines = append(lines, fmt.Sprintf(".local %s", symbol))
+	lines = append(lines, fmt.Sprintf(".comm\t%s,%d,%d", symbol, length, alignment))
+	accessors = append(accessors, symbol)
+
+	return accessors, lines
 }
 
 // accessorName returns the name of the accessor function for a BSS symbol
