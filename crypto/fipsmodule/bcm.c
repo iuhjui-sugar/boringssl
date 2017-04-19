@@ -25,6 +25,7 @@
 #include <openssl/rsa.h>
 
 #include "../internal.h"
+#include "../rand/internal.h"
 
 #include "aes/aes.c"
 #include "aes/key_wrap.c"
@@ -47,7 +48,7 @@ static void hexdump(const uint8_t *in, size_t len) {
   }
 }
 
-static int check_test(const uint8_t *actual, const uint8_t *expected,
+static int check_test(const void *actual, const void *expected,
                       size_t expected_len, const char *name) {
   if (OPENSSL_memcmp(actual, expected, expected_len) != 0) {
     printf("%s failed.\nExpected: ", name);
@@ -288,6 +289,28 @@ static void BORINGSSL_bcm_power_on_self_test(void) {
       0xbc, 0xc5, 0x30, 0x52, 0xb0, 0x77, 0xa0, 0x0a, 0x06, 0x08, 0x2a,
       0x86, 0x48, 0xce, 0x3d, 0x03, 0x01, 0x07
   };
+  const uint8_t kDRBGEntropy[48] =
+      "BCM Known Answer Test DBRG Initial Entropy!!!!!!";
+  const uint8_t kDRBGPersonalization[18] = "BCMPersonalization";
+  const uint8_t kDRBGAD[16] = "BCM DRBG KAT AD!";
+  const uint8_t kDRBGOutput[64] = {
+      0x5e, 0x88, 0x7d, 0x50, 0x0c, 0x8a, 0xb5, 0x3a, 0x3e, 0xab, 0xd7,
+      0x63, 0xf8, 0x52, 0xf7, 0xd5, 0x8d, 0xde, 0xb8, 0x94, 0x72, 0x77,
+      0x58, 0x6f, 0x16, 0x2a, 0x12, 0x1b, 0x51, 0xa1, 0x13, 0xdf, 0xc8,
+      0x7d, 0x39, 0xc7, 0x9f, 0x86, 0x77, 0x6e, 0x5c, 0x82, 0xd3, 0x09,
+      0xc6, 0xe7, 0x17, 0xba, 0x32, 0x1a, 0x6d, 0xc1, 0x6e, 0x81, 0x37,
+      0xf7, 0xda, 0xe3, 0xcb, 0x85, 0x6d, 0xa0, 0xb5, 0x45
+  };
+  const uint8_t kDRBGEntropy2[48] =
+      "BCM Known Answer Test DBRG Reseed Entropy!!!!!!!";
+  const uint8_t kDRBGReseedOutput[64] = {
+      0x4c, 0x9d, 0xa0, 0xf9, 0xd4, 0x8c, 0xb9, 0x97, 0x93, 0xcd, 0xea,
+      0x70, 0x9c, 0x2d, 0x30, 0xdd, 0xe6, 0xd0, 0xe5, 0x63, 0x78, 0x88,
+      0xff, 0x97, 0xb8, 0x48, 0xaa, 0x6d, 0x50, 0xf2, 0x8c, 0x6b, 0x17,
+      0xd8, 0xcb, 0x56, 0xf8, 0x17, 0x11, 0xf3, 0xea, 0xcf, 0xb2, 0xb4,
+      0x0c, 0xa3, 0xc8, 0x72, 0xff, 0x12, 0x76, 0xcb, 0x2c, 0x7f, 0x40,
+      0xac, 0xe2, 0xad, 0xd3, 0xd8, 0x0d, 0x3d, 0x2a, 0x31
+  };
 
   AES_KEY aes_key;
   uint8_t aes_iv[16];
@@ -431,7 +454,26 @@ static void BORINGSSL_bcm_power_on_self_test(void) {
 
   EC_KEY_free(ec_key);
 
-  // TODO(svaldez): Add DRBG KAT.
+  /* DBRG KAT */
+  CTR_DRBG_STATE drbg;
+  if (!CTR_DRBG_init(&drbg, kDRBGEntropy, kDRBGPersonalization,
+                     sizeof(kDRBGPersonalization)) ||
+      !CTR_DRBG_generate(&drbg, output, 64, kDRBGAD, sizeof(kDRBGAD)) ||
+      !check_test(kDRBGOutput, output, sizeof(kDRBGOutput),
+                  "DBRG Generate KAT") ||
+      !CTR_DRBG_reseed(&drbg, kDRBGEntropy2, kDRBGAD, sizeof(kDRBGAD)) ||
+      !CTR_DRBG_generate(&drbg, output, 64, kDRBGAD, sizeof(kDRBGAD)) ||
+      !check_test(kDRBGReseedOutput, output, sizeof(kDRBGReseedOutput),
+                  "DRBG Reseed KAT")) {
+    goto err;
+  }
+  CTR_DRBG_clear(&drbg);
+
+  CTR_DRBG_STATE kZeroDRBG;
+  memset(&kZeroDRBG, 0, sizeof(kZeroDRBG));
+  if (!check_test(&kZeroDRBG, &drbg, sizeof(drbg), "DRBG Clear KAT")) {
+    goto err;
+  }
 
   return;
 
