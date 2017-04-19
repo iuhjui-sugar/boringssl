@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "750e4867_178f1c03",
+        "filename": "crypto/fipsmodule/delocate.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-19T16:47:40Z",
+      "side": 1,
+      "message": "This means line 196 and line 199 can change a bit.",
+      "revId": "833753cdb238e10c944f8d5f3a0e3f5d9b904faf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "398ffe27_1bb78449",
+        "filename": "crypto/fipsmodule/delocate.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-19T16:47:40Z",
+      "side": 1,
+      "message": "This makes me nervous that we might accidentally mis-assemble something, since we\u0027re changing the meaning of something and fixing it up afterwards. Do this down in the movq bit maybe? (I think it\u0027s better to accidentally inject a relocation than to accidentally change what the code is doing. The relocation will get caught by the tests failing.)",
+      "revId": "833753cdb238e10c944f8d5f3a0e3f5d9b904faf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79b72882_d358a915",
+        "filename": "crypto/fipsmodule/delocate.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-19T16:47:40Z",
+      "side": 1,
+      "message": "Does this actually want to be conditional? (I dunno, maybe the compiler will try to be insane and unroll things with a movq?)",
+      "revId": "833753cdb238e10c944f8d5f3a0e3f5d9b904faf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "998619a5_af27f1dc",
+        "filename": "crypto/fipsmodule/delocate.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-19T16:47:40Z",
+      "side": 1,
+      "message": "The old code would preserve the @PLT-ness of the redirector. Is it possible for this to matter?",
+      "revId": "833753cdb238e10c944f8d5f3a0e3f5d9b904faf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c142c50_722266b1",
+        "filename": "crypto/fipsmodule/modes/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-19T16:47:40Z",
+      "side": 1,
+      "message": "This might want an #undef. Alternatively, I\u0027m not sure if this is even used...",
+      "revId": "833753cdb238e10c944f8d5f3a0e3f5d9b904faf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
