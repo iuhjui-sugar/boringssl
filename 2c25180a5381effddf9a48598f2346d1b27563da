@@ -1,0 +1,273 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ba803f7_dfeafcf9",
+        "filename": "crypto/cipher/aead_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-19T20:59:41Z",
+      "side": 1,
+      "message": "Nit: 80 chars.",
+      "revId": "2c25180a5381effddf9a48598f2346d1b27563da",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4f5c0db_f4b81f2d",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1190,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-19T20:59:41Z",
+      "side": 1,
+      "message": "Your test says it doesn\u0027t support truncated tags, but it looks like it does (up to 12).",
+      "revId": "2c25180a5381effddf9a48598f2346d1b27563da",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3211a686_bf50d998",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1200,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-19T20:59:41Z",
+      "side": 1,
+      "message": "Check this is zero.",
+      "range": {
+        "startLine": 1200,
+        "startChar": 33,
+        "endLine": 1200,
+        "endChar": 42
+      },
+      "revId": "2c25180a5381effddf9a48598f2346d1b27563da",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b75671d_78a901ab",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1202,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-19T20:59:41Z",
+      "side": 1,
+      "message": "Nit: \"rnonce\" is a little overly abbreviated I think.",
+      "range": {
+        "startLine": 1202,
+        "startChar": 10,
+        "endLine": 1202,
+        "endChar": 16
+      },
+      "revId": "2c25180a5381effddf9a48598f2346d1b27563da",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ca762e0_cdc19dc5",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1204,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-19T20:59:41Z",
+      "side": 1,
+      "message": "Nit: RAND_bytes can\u0027t actually fail. I suppose we could check for kicks, but I wouldn\u0027t bother with the OPENSSL_PUT_ERROR.",
+      "revId": "2c25180a5381effddf9a48598f2346d1b27563da",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7776004_d219c0aa",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1207,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-19T20:59:41Z",
+      "side": 1,
+      "message": "Nit: We usually just write \u0027ret\u0027.",
+      "range": {
+        "startLine": 1207,
+        "startChar": 6,
+        "endLine": 1207,
+        "endChar": 12
+      },
+      "revId": "2c25180a5381effddf9a48598f2346d1b27563da",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e59aefa_0969b82b",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1208,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-19T20:59:41Z",
+      "side": 1,
+      "message": "Check that max_out_len \u003e FIPS_AES_GCM_IV_LEN.",
+      "range": {
+        "startLine": 1208,
+        "startChar": 42,
+        "endLine": 1208,
+        "endChar": 76
+      },
+      "revId": "2c25180a5381effddf9a48598f2346d1b27563da",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7231be7_51ad0662",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1212,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-19T20:59:41Z",
+      "side": 1,
+      "message": "OPENSSL_memcpy",
+      "range": {
+        "startLine": 1212,
+        "startChar": 4,
+        "endLine": 1212,
+        "endChar": 10
+      },
+      "revId": "2c25180a5381effddf9a48598f2346d1b27563da",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05287545_3183353d",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1221,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-19T20:59:41Z",
+      "side": 1,
+      "message": "Check this is zero.",
+      "range": {
+        "startLine": 1221,
+        "startChar": 33,
+        "endLine": 1221,
+        "endChar": 42
+      },
+      "revId": "2c25180a5381effddf9a48598f2346d1b27563da",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee8e7fc5_f9985b91",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1226,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-19T20:59:41Z",
+      "side": 1,
+      "message": "Nit: newline",
+      "revId": "2c25180a5381effddf9a48598f2346d1b27563da",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c29b261_8966c265",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1230,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-19T20:59:41Z",
+      "side": 1,
+      "message": "OPENSSL_memcpy\n\nDo you actually need this? I think it works to just alias the end since aead_aes_gcm_open will never scribble over it.",
+      "revId": "2c25180a5381effddf9a48598f2346d1b27563da",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44bb2d98_34bc12ea",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-19T20:59:41Z",
+      "side": 1,
+      "message": "\"FIPS nonce generation\" could mean lots of things. Perhaps with \"an internally-generated random nonce\"?",
+      "range": {
+        "startLine": 121,
+        "startChar": 3,
+        "endLine": 121,
+        "endChar": 24
+      },
+      "revId": "2c25180a5381effddf9a48598f2346d1b27563da",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "442d6c23_71bf3ffa",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-19T20:59:41Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 125,
+        "startChar": 3,
+        "endLine": 125,
+        "endChar": 24
+      },
+      "revId": "2c25180a5381effddf9a48598f2346d1b27563da",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
