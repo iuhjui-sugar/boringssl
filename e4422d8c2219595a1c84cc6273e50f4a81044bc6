@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "196312e7_0c084dac",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1187,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-19T21:38:28Z",
+      "side": 1,
+      "message": "I guess the question is whether we believe this thing\u0027s \"tag\" is just the tag, with nonce being some extra overhead added to the ciphertext, or if we believe it\u0027s the tag + nonce concatenation.\n\nThis code believes it\u0027s the former. If we wanted the latter, I think it could also work? There is already precedent with the TLS AEADs for the tag not being all of the overhead, though we\u0027d then either need to shuffle things around so the layout is:\n\nCT || NONCE || TAG\n\n(CT in file \u003d CT || NONCE)\n\nOr we\u0027d say the \"tag\" is a tag-sized bit of junk at the end of the output even though it\u0027s actually part of the nonce.",
+      "parentUuid": "34b8cbfa_c99925e4",
+      "revId": "e4422d8c2219595a1c84cc6273e50f4a81044bc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "84bafdb8_356568f1",
         "filename": "crypto/cipher/e_aes.c",
         "patchSetId": 2
