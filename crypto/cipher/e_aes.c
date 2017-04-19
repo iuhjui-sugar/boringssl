@@ -1177,6 +1177,107 @@ const EVP_AEAD *EVP_aead_aes_128_gcm(void) { return &aead_aes_128_gcm; }
 
 const EVP_AEAD *EVP_aead_aes_256_gcm(void) { return &aead_aes_256_gcm; }
 
+#if defined(BORINGSSL_FIPS)
+#define FIPS_AES_GCM_IV_LEN 12
+
+static int aead_aes_gcm_fips_testonly_init(EVP_AEAD_CTX *ctx,
+                                           const uint8_t *key, size_t key_len,
+                                           size_t tag_len) {
+  /* Verify that the tag has space to store the internally generated IV. */
+  if (tag_len < FIPS_AES_GCM_IV_LEN) {
+    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_UNSUPPORTED_TAG_SIZE);
+    return 0;
+  }
+  return aead_aes_gcm_init(ctx, key, key_len, tag_len - FIPS_AES_GCM_IV_LEN);
+}
+
+static void aead_aes_gcm_fips_testonly_cleanup(EVP_AEAD_CTX *ctx) {
+  return aead_aes_gcm_cleanup(ctx);
+}
+
+static int aead_aes_gcm_fips_testonly_seal(
+    const EVP_AEAD_CTX *ctx, uint8_t *out, size_t *out_len, size_t max_out_len,
+    const uint8_t *nonce, size_t nonce_len, const uint8_t *in, size_t in_len,
+    const uint8_t *ad, size_t ad_len) {
+  if (nonce_len != 0) {
+    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_UNSUPPORTED_NONCE_SIZE);
+    return 0;
+  }
+  if (max_out_len < FIPS_AES_GCM_IV_LEN) {
+    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_BUFFER_TOO_SMALL);
+    return 0;
+  }
+
+  uint8_t real_nonce[FIPS_AES_GCM_IV_LEN];
+  if (!RAND_bytes(real_nonce, FIPS_AES_GCM_IV_LEN)) {
+    return 0;
+  }
+  int ret = aead_aes_gcm_seal(ctx, out, out_len,
+                              max_out_len - FIPS_AES_GCM_IV_LEN, real_nonce,
+                              FIPS_AES_GCM_IV_LEN, in, in_len, ad, ad_len);
+  if (ret) {
+    /* Copy the generated IV into the end of the tag. */
+    OPENSSL_memcpy(out + *out_len, real_nonce, FIPS_AES_GCM_IV_LEN);
+    *out_len += FIPS_AES_GCM_IV_LEN;
+  }
+
+  return ret;
+}
+
+static int aead_aes_gcm_fips_testonly_open(
+    const EVP_AEAD_CTX *ctx, uint8_t *out, size_t *out_len, size_t max_out_len,
+    const uint8_t *nonce, size_t nonce_len, const uint8_t *in, size_t in_len,
+    const uint8_t *ad, size_t ad_len) {
+  if (nonce_len != 0) {
+    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_UNSUPPORTED_NONCE_SIZE);
+    return 0;
+  }
+  if (in_len < FIPS_AES_GCM_IV_LEN) {
+    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_BUFFER_TOO_SMALL);
+    return 0;
+  }
+
+  size_t real_len = in_len - FIPS_AES_GCM_IV_LEN;
+  /* Parse the generated IV from the end of the tag. */
+  const uint8_t *real_nonce = in + real_len;
+  return aead_aes_gcm_open(ctx, out, out_len, max_out_len, real_nonce,
+                           FIPS_AES_GCM_IV_LEN, in, real_len, ad, ad_len);
+}
+
+static const EVP_AEAD aead_aes_128_gcm_fips_testonly = {
+    16,                                             /* key len */
+    0,                                              /* nonce len */
+    EVP_AEAD_AES_GCM_TAG_LEN + FIPS_AES_GCM_IV_LEN, /* overhead */
+    EVP_AEAD_AES_GCM_TAG_LEN + FIPS_AES_GCM_IV_LEN, /* max tag length */
+    aead_aes_gcm_fips_testonly_init,
+    NULL, /* init_with_direction */
+    aead_aes_gcm_fips_testonly_cleanup,
+    aead_aes_gcm_fips_testonly_seal,
+    aead_aes_gcm_fips_testonly_open,
+    NULL, /* get_iv */
+};
+
+static const EVP_AEAD aead_aes_256_gcm_fips_testonly = {
+    32,                                             /* key len */
+    0,                                              /* nonce len */
+    EVP_AEAD_AES_GCM_TAG_LEN + FIPS_AES_GCM_IV_LEN, /* overhead */
+    EVP_AEAD_AES_GCM_TAG_LEN + FIPS_AES_GCM_IV_LEN, /* max tag length */
+    aead_aes_gcm_fips_testonly_init,
+    NULL, /* init_with_direction */
+    aead_aes_gcm_fips_testonly_cleanup,
+    aead_aes_gcm_fips_testonly_seal,
+    aead_aes_gcm_fips_testonly_open,
+    NULL, /* get_iv */
+};
+
+const EVP_AEAD *EVP_aead_aes_128_gcm_fips_testonly(void) {
+  return &aead_aes_128_gcm_fips_testonly;
+}
+
+const EVP_AEAD *EVP_aead_aes_256_gcm_fips_testonly(void) {
+  return &aead_aes_256_gcm_fips_testonly;
+}
+#endif  /* BORINGSSL_FIPS */
 
 int EVP_has_aes_hardware(void) {
 #if defined(OPENSSL_X86) || defined(OPENSSL_X86_64)
