@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "34b8cbfa_c99925e4",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1187,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-19T21:26:21Z",
+      "side": 1,
+      "message": "I don\u0027t think this check needs to exist. tag_len is the length of the GHASH output, but we can still append 12 bytes of random nonce even if only 10 bytes of GHASH is used.",
+      "revId": "e4422d8c2219595a1c84cc6273e50f4a81044bc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "84bafdb8_356568f1",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1212,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-19T21:26:21Z",
+      "side": 1,
+      "message": "nit: I would use sizeof(real_nonce) here and elsewhere to ensure that, if the length ever changes, there\u0027s only a single place that needs to change.",
+      "range": {
+        "startLine": 1212,
+        "startChar": 30,
+        "endLine": 1212,
+        "endChar": 49
+      },
+      "revId": "e4422d8c2219595a1c84cc6273e50f4a81044bc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cb5ec4e8_a7eefded",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-19T21:26:21Z",
+      "side": 1,
+      "message": "(nit: don\u0027t have */ on it\u0027s own line. Move a word down if needed.)",
+      "revId": "e4422d8c2219595a1c84cc6273e50f4a81044bc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d64143cc_f0228d90",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-19T21:26:21Z",
+      "side": 1,
+      "message": "ditto.",
+      "revId": "e4422d8c2219595a1c84cc6273e50f4a81044bc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
