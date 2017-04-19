@@ -16,6 +16,24 @@
       "revId": "d6ca046bae8abc6b1073d70f69efa71d787f0650",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ece2cb2c_6430b8bd",
+        "filename": "crypto/fipsmodule/delocate.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-19T18:52:36Z",
+      "side": 1,
+      "message": "Good point, this line will be order dependent which is bad. I\u0027ve removed it.",
+      "parentUuid": "8f0610ec_c86d10f1",
+      "revId": "d6ca046bae8abc6b1073d70f69efa71d787f0650",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
