@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "64a2eedf_56f285af",
+        "filename": "crypto/bn/bn_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2728,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-20T15:34:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "749cbe37_7203f5ce",
+      "revId": "1f670619348f2a15d173133259a7c686696eaa0f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "083d1430_d56bd394",
         "filename": "crypto/bn/bn_test.cc",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2017-04-20T02:29:49Z",
       "side": 1,
       "message": "Nit: 80 chars",
+      "revId": "1f670619348f2a15d173133259a7c686696eaa0f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b56e2e4a_54825555",
+        "filename": "crypto/bn/bn_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2736,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-20T15:34:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "083d1430_d56bd394",
       "revId": "1f670619348f2a15d173133259a7c686696eaa0f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -71,6 +107,30 @@
       "side": 1,
       "message": "Actually nevermind, this is correct.",
       "parentUuid": "4508dbac_f0a93adc",
+      "range": {
+        "startLine": 570,
+        "startChar": 20,
+        "endLine": 570,
+        "endChar": 32
+      },
+      "revId": "1f670619348f2a15d173133259a7c686696eaa0f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3aa6cf79_f5f14dec",
+        "filename": "crypto/bn/prime.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-20T15:34:09Z",
+      "side": 1,
+      "message": "Well, it\u0027s not defined by the algorithm but it could be either: 4 is an even number, composite and a prime power. 6 is even, composite but not a prime power. But, since the algorithm is only defined on odd numbers I\u0027m just picking the answer that\u0027s usually right.",
+      "parentUuid": "d819049c_794acf32",
       "range": {
         "startLine": 570,
         "startChar": 20,
