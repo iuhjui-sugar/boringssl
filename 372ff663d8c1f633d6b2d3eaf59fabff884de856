@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ccacde3d_0aa52c29",
+        "filename": "crypto/cipher/test/nist_cavp/make_cavp.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-04-20T18:20:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3583c46_1d3d9d35",
+      "range": {
+        "startLine": 44,
+        "startChar": 1,
+        "endLine": 44,
+        "endChar": 78
+      },
+      "revId": "372ff663d8c1f633d6b2d3eaf59fabff884de856",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f15bb5a5_0bd02f29",
         "filename": "crypto/cipher/test/nist_cavp/make_cavp.go",
         "patchSetId": 2
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "51a25119_0409a878",
+        "filename": "crypto/cipher/test/nist_cavp/make_cavp.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-04-20T18:20:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f15bb5a5_0bd02f29",
+      "revId": "372ff663d8c1f633d6b2d3eaf59fabff884de856",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "820de64b_07b7ee14",
         "filename": "crypto/cipher/test/nist_cavp/make_cavp.go",
         "patchSetId": 2
@@ -53,6 +95,30 @@
       "writtenOn": "2017-04-20T16:56:20Z",
       "side": 1,
       "message": "this seems superfluous given the next line.",
+      "range": {
+        "startLine": 65,
+        "startChar": 1,
+        "endLine": 65,
+        "endChar": 29
+      },
+      "revId": "372ff663d8c1f633d6b2d3eaf59fabff884de856",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0f1c4235_8fdc5de0",
+        "filename": "crypto/cipher/test/nist_cavp/make_cavp.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-04-20T18:20:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "820de64b_07b7ee14",
       "range": {
         "startLine": 65,
         "startChar": 1,
