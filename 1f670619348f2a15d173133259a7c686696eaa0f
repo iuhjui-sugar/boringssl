@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "749cbe37_7203f5ce",
+        "filename": "crypto/bn/bn_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2728,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-20T02:29:49Z",
+      "side": 1,
+      "message": "Doesn\u0027t really matter but maybe write this\n\n  is_probably_prime_1 \u003d\u003d (is_prime ? 1 : 0)\n\nso you throw out funny values like 2 or -1.",
+      "revId": "1f670619348f2a15d173133259a7c686696eaa0f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "083d1430_d56bd394",
+        "filename": "crypto/bn/bn_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2736,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-20T02:29:49Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "1f670619348f2a15d173133259a7c686696eaa0f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
