@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "d1f26332_892b6719",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1187,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-04-20T14:10:33Z",
+      "side": 1,
+      "message": "I was thinking it was the latter, and that\u0027s also slightly cheaper to calculate, since otherwise we have to parse out the tag and then memcpy the nonce and tag back into the output buffer.",
+      "parentUuid": "196312e7_0c084dac",
+      "revId": "e4422d8c2219595a1c84cc6273e50f4a81044bc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "84bafdb8_356568f1",
         "filename": "crypto/cipher/e_aes.c",
         "patchSetId": 2
@@ -48,6 +66,30 @@
       "writtenOn": "2017-04-19T21:26:21Z",
       "side": 1,
       "message": "nit: I would use sizeof(real_nonce) here and elsewhere to ensure that, if the length ever changes, there\u0027s only a single place that needs to change.",
+      "range": {
+        "startLine": 1212,
+        "startChar": 30,
+        "endLine": 1212,
+        "endChar": 49
+      },
+      "revId": "e4422d8c2219595a1c84cc6273e50f4a81044bc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c01b75c8_3a1adc51",
+        "filename": "crypto/cipher/e_aes.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1212,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-04-20T14:10:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84bafdb8_356568f1",
       "range": {
         "startLine": 1212,
         "startChar": 30,
@@ -77,6 +119,24 @@
     },
     {
       "key": {
+        "uuid": "4186fc10_72225a38",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-04-20T14:10:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb5ec4e8_a7eefded",
+      "revId": "e4422d8c2219595a1c84cc6273e50f4a81044bc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d64143cc_f0228d90",
         "filename": "include/openssl/aead.h",
         "patchSetId": 2
@@ -88,6 +148,24 @@
       "writtenOn": "2017-04-19T21:26:21Z",
       "side": 1,
       "message": "ditto.",
+      "revId": "e4422d8c2219595a1c84cc6273e50f4a81044bc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3094c2c1_7a7a8a7d",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-04-20T14:10:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d64143cc_f0228d90",
       "revId": "e4422d8c2219595a1c84cc6273e50f4a81044bc6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
