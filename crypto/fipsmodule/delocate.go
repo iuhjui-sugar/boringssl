@@ -295,9 +295,14 @@ func transform(lines []string, symbols map[string]bool) (ret []string) {
 
 		case ".section":
 			p := strings.Split(parts[1], ",")
-			section := p[0]
+			section := strings.Trim(p[0], "\"")
+			sectionType, ok := sectionType(section)
+			if !ok {
+				panic(fmt.Sprintf("unknown section %q on line %d", section, source.lineNo))
+			}
 
-			if section == ".rodata" || section == ".text.startup" || strings.HasPrefix(section, ".rodata.") {
+			switch sectionType {
+			case ".rodata":
 				// Move .rodata to .text so it may be accessed
 				// without a relocation. GCC with
 				// -fmerge-constants will place strings into
@@ -306,15 +311,25 @@ func transform(lines []string, symbols map[string]bool) (ret []string) {
 				// so the self-test function is also in the
 				// module.
 				ret = append(ret, ".text  # "+section)
-				break
-			}
 
-			switch section {
-			case ".data", ".data.rel.ro.local":
+			case ".data":
 				panic(fmt.Sprintf("bad section %q on line %d", parts[1], source.lineNo))
 
-			default:
+			case ".init_array", ".ctors", ".dtors":
+				// init_array/ctors/dtors contains function
+				// pointers to constructor/destructor
+				// functions. These contain relocations, but
+				// they're in a different section anyway.
 				ret = append(ret, line)
+
+			case ".text":
+				ret = append(ret, ".text")
+
+			case ".debug", ".note":
+				ret = append(ret, line)
+
+			default:
+				panic(fmt.Sprintf("unknown section %q on line %d", section, source.lineNo))
 			}
 
 		default:
@@ -399,6 +414,25 @@ func accessorName(name string) string {
 // symbol named name.
 func localTargetName(name string) string {
 	return ".L" + name + "_local_target"
+}
+
+// sectionType returns the type of a section. I.e. a section called “.text.foo”
+// is a “.text” section.
+func sectionType(section string) (string, bool) {
+	if len(section) == 0 || section[0] != '.' {
+		return "", false
+	}
+
+	i := strings.Index(section[1:], ".")
+	if i != -1 {
+		section = section[:i+1]
+	}
+
+	if strings.HasPrefix(section, ".debug_") {
+		return ".debug", true
+	}
+
+	return section, true
 }
 
 // asLines appends the contents of path to lines. Local symbols are renamed
