@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7e8c3b13_6ae2be5d",
+        "filename": "crypto/fipsmodule/delocate.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-20T16:21:20Z",
+      "side": 1,
+      "message": "I was actually thinking the whole thing be conditioned on movq. Suppose the compiler did cmpq on GOTPCREL because someone did a pointer comparison on a global. This code would silently make it dereference the pointer.\n\n(We\u0027ll be sad either way, but a stray relocation is more reliably detectable than changing what the code does.)",
+      "revId": "5ffef47cf83dc0b07c9abc40ee02be34aa0f3557",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
