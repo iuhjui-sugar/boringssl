@@ -106,6 +106,8 @@ extern "C" {
 #define OPENSSL_PNACL
 #elif defined(__myriad2__)
 #define OPENSSL_32_BIT
+#elif defined(__s390x__)
+#define OPENSSL_64_BIT
 #else
 #error "Unknown target CPU"
 #endif
