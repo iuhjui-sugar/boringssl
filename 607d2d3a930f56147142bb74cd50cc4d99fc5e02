@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d557d77_8a5da9a1",
+        "filename": "crypto/fipsmodule/delocate.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-20T21:21:08Z",
+      "side": 1,
+      "message": "dtors?",
+      "range": {
+        "startLine": 334,
+        "startChar": 113,
+        "endLine": 334,
+        "endChar": 117
+      },
+      "revId": "607d2d3a930f56147142bb74cd50cc4d99fc5e02",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12852008_2d48fc0a",
+        "filename": "crypto/fipsmodule/delocate.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-20T21:21:08Z",
+      "side": 1,
+      "message": "(See comment on parent CL. I\u0027m not sure this is needed at all...)",
+      "revId": "607d2d3a930f56147142bb74cd50cc4d99fc5e02",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
