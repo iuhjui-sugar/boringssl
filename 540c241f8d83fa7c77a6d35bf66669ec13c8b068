@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "656a0854_a50c694a",
+        "filename": "crypto/rsa/rsa.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-04-20T17:00:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62f59087_d764ab27",
+      "range": {
+        "startLine": 670,
+        "startChar": 5,
+        "endLine": 670,
+        "endChar": 18
+      },
+      "revId": "540c241f8d83fa7c77a6d35bf66669ec13c8b068",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "46d837b2_817cc51e",
         "filename": "include/openssl/bn.h",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2017-04-20T16:48:59Z",
       "side": 1,
       "message": "I\u0027m not completely sure I understand what this means. Do you mean the number-field sieve security-level, i.e. 2048-\u003e112 bits?",
+      "range": {
+        "startLine": 754,
+        "startChar": 14,
+        "endLine": 754,
+        "endChar": 52
+      },
+      "revId": "540c241f8d83fa7c77a6d35bf66669ec13c8b068",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a6b58fad_930dc946",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-04-20T17:00:12Z",
+      "side": 1,
+      "message": "Yeah, the NIST spec seems vague on their calculation of the security strength/level but it seems equivalent to the number-field sieve values.",
+      "parentUuid": "46d837b2_817cc51e",
       "range": {
         "startLine": 754,
         "startChar": 14,
