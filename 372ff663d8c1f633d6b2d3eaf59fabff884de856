@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e3583c46_1d3d9d35",
+        "filename": "crypto/cipher/test/nist_cavp/make_cavp.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-20T16:56:20Z",
+      "side": 1,
+      "message": "nit: Go comments should start with the name of the thing that they are commenting upon. I.e.\n\n// kvDelim is the rune that delimits key-value pairs throughout file file (\u0027\u003d\u0027 or \u0027:\u0027).",
+      "range": {
+        "startLine": 44,
+        "startChar": 1,
+        "endLine": 44,
+        "endChar": 78
+      },
+      "revId": "372ff663d8c1f633d6b2d3eaf59fabff884de856",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f15bb5a5_0bd02f29",
+        "filename": "crypto/cipher/test/nist_cavp/make_cavp.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-20T16:56:20Z",
+      "side": 1,
+      "message": "Can save a call to TrimSpace:\n\nif trimmed :\u003d strings.TrimSpace(value); len(trimmed) !\u003d 0 {\n  value \u003d trimmed\n} else {\n  value \u003d \" \"\n}",
+      "revId": "372ff663d8c1f633d6b2d3eaf59fabff884de856",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "820de64b_07b7ee14",
+        "filename": "crypto/cipher/test/nist_cavp/make_cavp.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-20T16:56:20Z",
+      "side": 1,
+      "message": "this seems superfluous given the next line.",
+      "range": {
+        "startLine": 65,
+        "startChar": 1,
+        "endLine": 65,
+        "endChar": 29
+      },
+      "revId": "372ff663d8c1f633d6b2d3eaf59fabff884de856",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
