@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c1f7195b_31c14de9",
+        "filename": "crypto/fipsmodule/delocate.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-20T20:31:20Z",
+      "side": 1,
+      "message": "There\u0027s a test in thread_test.c that CRYPTO_once_t is all zeros in FIPS mode. Probably worth a similar test. Though I messed this up and didn\u0027t add a DEFINE_STATIC_ONCE like you did here.\n\n(I can do this separately, but I\u0027m assuming it\u0027ll be less annoying for you rebase-wise to do it?)",
+      "revId": "093b70ef1606ad1d78cfafa049dc4ce08aba4979",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fa1d1c7_f9d51282",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-20T20:31:20Z",
+      "side": 1,
+      "message": "[This does rely on stderr being unbuffered, but that\u0027s true so it should be fine.]",
+      "revId": "093b70ef1606ad1d78cfafa049dc4ce08aba4979",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e0a6fa12_cd8d4a88",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-20T20:31:20Z",
+      "side": 1,
+      "message": "It\u0027d probably save a bit of typing to have message not take a length and use strlen, but whatever works.",
+      "revId": "093b70ef1606ad1d78cfafa049dc4ce08aba4979",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
