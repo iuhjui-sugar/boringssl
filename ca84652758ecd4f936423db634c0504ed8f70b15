@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5858d461_e872b1ff",
+        "filename": "crypto/fipsmodule/delocate.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-20T21:15:37Z",
+      "side": 1,
+      "message": "Seems a bit simpler if you don\u0027t mess with ls.lines. Then you just do if ls.lineNo \u003d\u003d len(ls.lines) and ret :\u003d ls.lines[ls.lineNo]. Then you don\u0027t even need canUnread, unless you want to defend against accidental double-Unreads.",
+      "revId": "ca84652758ecd4f936423db634c0504ed8f70b15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5207b86_236ffb79",
+        "filename": "crypto/fipsmodule/delocate.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-20T21:15:37Z",
+      "side": 1,
+      "message": "I believe this case is no longer needed and instead the comment should live in extractSection.",
+      "revId": "ca84652758ecd4f936423db634c0504ed8f70b15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "961b89b6_c9e44a76",
+        "filename": "crypto/fipsmodule/delocate.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-20T21:15:37Z",
+      "side": 1,
+      "message": "Might be worth a brief comment or at least naming the output arguments.",
+      "revId": "ca84652758ecd4f936423db634c0504ed8f70b15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
