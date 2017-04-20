@@ -566,6 +566,10 @@ int BN_enhanced_miller_rabin_primality_test(
     goto err;
   }
 
+  if (iterations == BN_prime_checks) {
+    iterations = BN_prime_checks_for_size(BN_num_bits(w));
+  }
+
   /* Write w1 as m*2^a (Steps 1 and 2). */
   int a = 0;
   while (!BN_is_bit_set(w1, a)) {
