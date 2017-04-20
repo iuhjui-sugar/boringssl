@@ -22,6 +22,30 @@
       "revId": "3fedd591d602dbd94b61bfe3621b4a2d0ec74573",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "25d7fecc_1fd2b8dc",
+        "filename": "crypto/compiler_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-20T19:31:11Z",
+      "side": 1,
+      "message": "Ungerunded and also expanded a bit. (I thought this might not be needed and then checked the spec and concluded it was needed.)",
+      "parentUuid": "b71d8eb9_30f769ec",
+      "range": {
+        "startLine": 32,
+        "startChar": 59,
+        "endLine": 32,
+        "endChar": 60
+      },
+      "revId": "3fedd591d602dbd94b61bfe3621b4a2d0ec74573",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
