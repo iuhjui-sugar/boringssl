@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5694f940_0ca7733a",
+        "filename": "crypto/fipsmodule/inject-hash.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-21T22:20:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86d120b8_1a57a816",
+      "range": {
+        "startLine": 37,
+        "startChar": 22,
+        "endLine": 37,
+        "endChar": 24
+      },
+      "revId": "acf45e1b023b12729b9f077522451011e4fbd1e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b789add8_a430c267",
         "filename": "crypto/fipsmodule/inject-hash.go",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2017-04-21T22:16:49Z",
       "side": 1,
       "message": "Ditto.",
+      "range": {
+        "startLine": 64,
+        "startChar": 36,
+        "endLine": 64,
+        "endChar": 37
+      },
+      "revId": "acf45e1b023b12729b9f077522451011e4fbd1e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28539a49_84ae6632",
+        "filename": "crypto/fipsmodule/inject-hash.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-21T22:20:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b789add8_a430c267",
       "range": {
         "startLine": 64,
         "startChar": 36,
