@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "da9aea64_2a11a9ff",
+        "filename": "crypto/fipsmodule/delocate.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-21T00:31:24Z",
+      "side": 1,
+      "message": "(moot)",
+      "parentUuid": "d28aae08_cbfe2d35",
+      "revId": "539c9808cfc5b84e57a3e1ea923408f0da7a1e08",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ed7cce63_3f818867",
         "filename": "crypto/fipsmodule/delocate.go",
         "patchSetId": 7
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "a8f4f917_9ecd96b0",
+        "filename": "crypto/fipsmodule/delocate.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-21T00:31:24Z",
+      "side": 1,
+      "message": "(moot)",
+      "parentUuid": "ed7cce63_3f818867",
+      "revId": "539c9808cfc5b84e57a3e1ea923408f0da7a1e08",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9073f07d_66b9587f",
         "filename": "crypto/fipsmodule/delocate.go",
         "patchSetId": 7
@@ -47,6 +83,24 @@
       "writtenOn": "2017-04-20T21:34:50Z",
       "side": 1,
       "message": "There are other directives like .int and friends which this will end up silently dropping.\n\nRather than try to parse all this out, why not just emit everything as-is and, for each symbol you see, emit a BSS accessor?",
+      "revId": "539c9808cfc5b84e57a3e1ea923408f0da7a1e08",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c51aae16_20e06bc5",
+        "filename": "crypto/fipsmodule/delocate.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-21T00:31:24Z",
+      "side": 1,
+      "message": "I reproduced the problem with doing that and, after some poking, the problem is just that we need local symbols for each BSS symbol. This is much less error prone, so I\u0027ve now done that.",
+      "parentUuid": "9073f07d_66b9587f",
       "revId": "539c9808cfc5b84e57a3e1ea923408f0da7a1e08",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
