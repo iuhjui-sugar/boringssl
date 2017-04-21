@@ -543,6 +543,13 @@ int BN_enhanced_miller_rabin_primality_test(
   int ret = 0;
   BN_MONT_CTX *mont = NULL;
 
+  /* Negative numbers, zero, and one are neither prime nor composite and should
+   * not be passed into this function. */
+  if (BN_cmp(w, BN_value_one()) <= 0) {
+    OPENSSL_PUT_ERROR(BN, BN_R_INVALID_INPUT);
+    return 0;
+  }
+
   /* This algorithm only works on odd numbers. */
   if (!BN_is_odd(w)) {
     if (BN_is_word(w, 2)) {
