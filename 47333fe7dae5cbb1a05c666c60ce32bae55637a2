@@ -46,6 +46,30 @@
       "revId": "47333fe7dae5cbb1a05c666c60ce32bae55637a2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4191afe1_fbe01bef",
+        "filename": "crypto/fipsmodule/delocate.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-21T21:31:07Z",
+      "side": 1,
+      "message": "Okay, here, this is much simpler:\nhttps://boringssl-review.googlesource.com/c/15384/",
+      "parentUuid": "0d6b45aa_4fcb58b6",
+      "range": {
+        "startLine": 167,
+        "startChar": 33,
+        "endLine": 167,
+        "endChar": 34
+      },
+      "revId": "47333fe7dae5cbb1a05c666c60ce32bae55637a2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
