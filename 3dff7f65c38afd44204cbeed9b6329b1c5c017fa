@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "43cdd86b_42a65829",
+        "filename": "crypto/bn/ctx.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-04-21T19:59:08Z",
+      "side": 1,
+      "message": "Want to change to:\n\nBN_clear_free(\u0026p-\u003ehead-\u003evals[i]);",
+      "range": {
+        "startLine": 246,
+        "startChar": 6,
+        "endLine": 246,
+        "endChar": 12
+      },
+      "revId": "3dff7f65c38afd44204cbeed9b6329b1c5c017fa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
