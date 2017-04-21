@@ -16,6 +16,24 @@
       "revId": "d7cce935fedbb084535c981eb30daff004faa5bc",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0df8eda0_962cb147",
+        "filename": "crypto/fipsmodule/delocate.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-21T19:48:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "453b8cf2_8eacbafe",
+      "revId": "d7cce935fedbb084535c981eb30daff004faa5bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
