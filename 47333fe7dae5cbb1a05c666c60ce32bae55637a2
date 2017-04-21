@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9c89f295_f2d8c151",
+        "filename": "crypto/fipsmodule/delocate.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2017-04-21T20:16:43Z",
+      "side": 1,
+      "message": "I think you want to be sure to change the leaq instruction only.  Otherwise, you\u0027ll partially munge the dummy functions and they won\u0027t be removed by the linker.\n\n(I may be out of step with what you\u0027re doing here, so check me with readelf -s.  If all the *text* symbols look correct and have reasonable sizes, then all is well.)",
+      "range": {
+        "startLine": 167,
+        "startChar": 33,
+        "endLine": 167,
+        "endChar": 34
+      },
+      "revId": "47333fe7dae5cbb1a05c666c60ce32bae55637a2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
