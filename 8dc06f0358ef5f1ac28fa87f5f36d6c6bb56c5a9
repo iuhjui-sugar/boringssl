@@ -16,6 +16,24 @@
       "revId": "8dc06f0358ef5f1ac28fa87f5f36d6c6bb56c5a9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "690a230d_7967c636",
+        "filename": "crypto/bn/prime.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-04-21T19:53:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "873814cf_4819390d",
+      "revId": "8dc06f0358ef5f1ac28fa87f5f36d6c6bb56c5a9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
