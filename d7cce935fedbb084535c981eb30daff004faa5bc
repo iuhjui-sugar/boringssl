@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "453b8cf2_8eacbafe",
+        "filename": "crypto/fipsmodule/delocate.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-21T18:19:01Z",
+      "side": 1,
+      "message": "This and line 240 can probably get folded together.",
+      "revId": "d7cce935fedbb084535c981eb30daff004faa5bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
