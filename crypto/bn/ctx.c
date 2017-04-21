@@ -242,13 +242,11 @@ static void BN_POOL_init(BN_POOL *p) {
 
 static void BN_POOL_finish(BN_POOL *p) {
   while (p->head) {
-    unsigned int loop = 0;
-    BIGNUM *bn = p->head->vals;
-    while (loop++ < BN_CTX_POOL_SIZE) {
+    for (size_t i = 0; i < BN_CTX_POOL_SIZE; i++) {
+      BIGNUM *bn = &p->head->vals[i];
       if (bn->d) {
         BN_clear_free(bn);
       }
-      bn++;
     }
 
     p->current = p->head->next;
@@ -259,17 +257,14 @@ static void BN_POOL_finish(BN_POOL *p) {
 
 static BIGNUM *BN_POOL_get(BN_POOL *p) {
   if (p->used == p->size) {
-    BIGNUM *bn;
-    unsigned int loop = 0;
     BN_POOL_ITEM *item = OPENSSL_malloc(sizeof(BN_POOL_ITEM));
     if (!item) {
       return NULL;
     }
 
     /* Initialise the structure */
-    bn = item->vals;
-    while (loop++ < BN_CTX_POOL_SIZE) {
-      BN_init(bn++);
+    for (size_t i = 0; i < BN_CTX_POOL_SIZE; i++) {
+      BN_init(&item->vals[i]);
     }
 
     item->prev = p->tail;
