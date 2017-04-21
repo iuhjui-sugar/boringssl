@@ -22,6 +22,30 @@
       "revId": "47333fe7dae5cbb1a05c666c60ce32bae55637a2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d6b45aa_4fcb58b6",
+        "filename": "crypto/fipsmodule/delocate.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-21T21:17:29Z",
+      "side": 1,
+      "message": "Apparently some settings cause clang to use AVX instructions. Though that\u0027s a good point. This turns the dummy functions into:\n\n        .type   BORINGSSL_bcm_text_hash, @function\nBORINGSSL_bcm_text_dummy_hash:\n.LFB207:\n        .loc 26 92 0\n        .cfi_startproc\n        pushq   %rbp\n        .cfi_def_cfa_offset 16\n        .cfi_offset 6, -16\n        movq    %rsp, %rbp\n        .cfi_def_cfa_register 6\n        .loc 26 92 0\n        popq    %rbp\n        .cfi_def_cfa 7, 8\n        ret\n        .cfi_endproc\n.LFE207:\n        .size   BORINGSSL_bcm_text_hash, .-BORINGSSL_bcm_text_hash\n\nNotably the .type and .size entries seem a little unfortunate. Initial thought is to detect the .type and .size directives, but perhaps we\u0027ll have other woes. I\u0027ll play with it and see if I can come up with something better.",
+      "parentUuid": "9c89f295_f2d8c151",
+      "range": {
+        "startLine": 167,
+        "startChar": 33,
+        "endLine": 167,
+        "endChar": 34
+      },
+      "revId": "47333fe7dae5cbb1a05c666c60ce32bae55637a2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
