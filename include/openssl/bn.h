@@ -699,13 +699,16 @@ enum bn_primality_result_t {
 };
 
 /* BN_enhanced_miller_rabin_primality_test tests whether |w| is probably a prime
- * number using the Enhanced Miller-Rabin test with |iterations| iterations and
- * returns the result in |out_result|. If |iterations| is |BN_prime_checks|,
- * then a value that results in a false positive rate lower than the
- * number-field sieve security level of |w| is used. It returns one on success
- * and zero on failure. If |cb| is not NULL, then it is called during each
- * iteration of the primality test.
- */
+ * number using the Enhanced Miller-Rabin Test (FIPS 186-4 C.3.2) with
+ * |iterations| iterations and returns the result in |out_result|. Enhanced
+ * Miller-Rabin tests primality for odd integers greater than 3, returning
+ * |bn_probably_prime| if the number is probably prime,
+ * |bn_non_prime_power_composite| if the number is a composite that is not the
+ * power of a single prime, and |bn_composite| otherwise.  If |iterations| is
+ * |BN_prime_checks|, then a value that results in a false positive rate lower
+ * than the number-field sieve security level of |w| is used. It returns one on
+ * success and zero on failure. If |cb| is not NULL, then it is called during
+ * each iteration of the primality test. */
 int BN_enhanced_miller_rabin_primality_test(
     enum bn_primality_result_t *out_result, const BIGNUM *w, int iterations,
     BN_CTX *ctx, BN_GENCB *cb);
@@ -972,5 +975,6 @@ BORINGSSL_MAKE_DELETER(BN_MONT_CTX, BN_MONT_CTX_free)
 #define BN_R_TOO_MANY_TEMPORARY_VARIABLES 116
 #define BN_R_BAD_ENCODING 117
 #define BN_R_ENCODE_ERROR 118
+#define BN_R_INVALID_INPUT 119
 
 #endif  /* OPENSSL_HEADER_BN_H */
