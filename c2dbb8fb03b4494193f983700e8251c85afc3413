@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cf1b6cb0_dc2f5ee4",
+        "filename": "crypto/bn/prime.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-21T15:55:55Z",
+      "side": 1,
+      "message": "Hrm. It\u0027s a little bizarre that we take abs(a) before all the BN_mod_word stuff. I think BN_mod_word ignores bn-\u003eneg, but that suggests we should have done BN_abs_is_word. Alternatively, we should maybe stop acting like -7 is a prime number. There are probably few enough callers that we can just check each of them.",
+      "revId": "c2dbb8fb03b4494193f983700e8251c85afc3413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
