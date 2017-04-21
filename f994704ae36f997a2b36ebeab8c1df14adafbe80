@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a0f9a947_6efc3518",
+        "filename": "crypto/bn/prime.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-04-21T16:13:09Z",
+      "side": 1,
+      "message": "bn_not_prime_power_composite",
+      "range": {
+        "startLine": 547,
+        "startChar": 18,
+        "endLine": 547,
+        "endChar": 30
+      },
+      "revId": "f994704ae36f997a2b36ebeab8c1df14adafbe80",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
