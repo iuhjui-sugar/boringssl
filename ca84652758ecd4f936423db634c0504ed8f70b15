@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1db5dca9_65859750",
+        "filename": "crypto/fipsmodule/delocate.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-21T00:32:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5858d461_e872b1ff",
+      "revId": "ca84652758ecd4f936423db634c0504ed8f70b15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d5207b86_236ffb79",
         "filename": "crypto/fipsmodule/delocate.go",
         "patchSetId": 7
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "9189d697_565b7669",
+        "filename": "crypto/fipsmodule/delocate.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-21T00:32:36Z",
+      "side": 1,
+      "message": "(dropped.)",
+      "parentUuid": "d5207b86_236ffb79",
+      "revId": "ca84652758ecd4f936423db634c0504ed8f70b15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "961b89b6_c9e44a76",
         "filename": "crypto/fipsmodule/delocate.go",
         "patchSetId": 7
@@ -47,6 +83,24 @@
       "writtenOn": "2017-04-20T21:15:37Z",
       "side": 1,
       "message": "Might be worth a brief comment or at least naming the output arguments.",
+      "revId": "ca84652758ecd4f936423db634c0504ed8f70b15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b8493ba_225ada68",
+        "filename": "crypto/fipsmodule/delocate.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-21T00:32:36Z",
+      "side": 1,
+      "message": "(dropped.)",
+      "parentUuid": "961b89b6_c9e44a76",
       "revId": "ca84652758ecd4f936423db634c0504ed8f70b15",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
