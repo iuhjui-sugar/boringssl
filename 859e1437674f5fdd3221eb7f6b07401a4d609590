@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6feccf2f_370d185c",
+        "filename": "crypto/fipsmodule/delocate.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-21T19:48:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04dc6861_79b67f29",
+      "revId": "859e1437674f5fdd3221eb7f6b07401a4d609590",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2a09b41c_764b0627",
         "filename": "crypto/fipsmodule/delocate.go",
         "patchSetId": 11
@@ -39,6 +57,30 @@
       "revId": "859e1437674f5fdd3221eb7f6b07401a4d609590",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5804623e_887013f8",
+        "filename": "crypto/fipsmodule/delocate.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-21T19:48:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a09b41c_764b0627",
+      "range": {
+        "startLine": 322,
+        "startChar": 27,
+        "endLine": 322,
+        "endChar": 50
+      },
+      "revId": "859e1437674f5fdd3221eb7f6b07401a4d609590",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
