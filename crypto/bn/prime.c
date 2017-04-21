@@ -498,6 +498,11 @@ int BN_is_prime_fasttest_ex(const BIGNUM *a, int checks, BN_CTX *ctx,
     return BN_is_word(a, 2);
   }
 
+  /* Enhanced Miller-Rabin does not work for three. */
+  if (BN_is_word(a, 3)) {
+    return 1;
+  }
+
   if (do_trial_division) {
     for (int i = 1; i < NUMPRIMES; i++) {
       BN_ULONG mod = BN_mod_word(a, primes[i]);
@@ -536,28 +541,21 @@ err:
   return ret;
 }
 
-/* Implement the Enhanced Miller-Rabin Primality Test (FIPS 186-4 C.3.2). */
 int BN_enhanced_miller_rabin_primality_test(
     enum bn_primality_result_t *out_result, const BIGNUM *w, int iterations,
     BN_CTX *ctx, BN_GENCB *cb) {
+  /* Enhanced Miller-Rabin is only valid on odd integers greater than 3. */
+  if (!BN_is_odd(w) || BN_cmp_word(w, 3) <= 0) {
+    OPENSSL_PUT_ERROR(BN, BN_R_INVALID_INPUT);
+    return 0;
+  }
+
+  if (iterations == BN_prime_checks) {
+    iterations = BN_prime_checks_for_size(BN_num_bits(w));
+  }
+
   int ret = 0;
   BN_MONT_CTX *mont = NULL;
-
-  /* This algorithm only works on odd numbers. */
-  if (!BN_is_odd(w)) {
-    if (BN_is_word(w, 2)) {
-      *out_result = bn_probably_prime;
-    } else {
-      *out_result = bn_composite;
-    }
-    return 1;
-  }
-
-  /* The algorithm is broken for w = 3. */
-  if (BN_is_word(w, 3)) {
-    *out_result = bn_probably_prime;
-    return 1;
-  }
 
   BN_CTX_start(ctx);
 
