@@ -543,6 +543,11 @@ int BN_enhanced_miller_rabin_primality_test(
   int ret = 0;
   BN_MONT_CTX *mont = NULL;
 
+  if (BN_cmp(w, BN_value_one()) <= 0) {
+    *out_result = bn_composite;
+    return 1;
+  }
+
   /* This algorithm only works on odd numbers. */
   if (!BN_is_odd(w)) {
     if (BN_is_word(w, 2)) {
