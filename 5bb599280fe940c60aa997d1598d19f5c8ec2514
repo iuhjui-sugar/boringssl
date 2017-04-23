@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62df8b93_38cfbe53",
+        "filename": "crypto/fipsmodule/delocate.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2017-04-23T06:48:05Z",
+      "side": 1,
+      "message": "I think this was just a typo?",
+      "range": {
+        "startLine": 425,
+        "startChar": 52,
+        "endLine": 425,
+        "endChar": 54
+      },
+      "revId": "5bb599280fe940c60aa997d1598d19f5c8ec2514",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
