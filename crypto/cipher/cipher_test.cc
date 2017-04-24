@@ -109,11 +109,8 @@ static const EVP_CIPHER *GetCipher(const std::string &name) {
   return nullptr;
 }
 
-static bool TestOperation(FileTest *t,
-                          const EVP_CIPHER *cipher,
-                          bool encrypt,
-                          size_t chunk_size,
-                          const std::vector<uint8_t> &key,
+static bool TestOperation(FileTest *t, const EVP_CIPHER *cipher, bool encrypt,
+                          size_t chunk_size, const std::vector<uint8_t> &key,
                           const std::vector<uint8_t> &iv,
                           const std::vector<uint8_t> &plaintext,
                           const std::vector<uint8_t> &ciphertext,
@@ -137,8 +134,8 @@ static bool TestOperation(FileTest *t,
   }
   if (t->HasAttribute("IV")) {
     if (is_aead) {
-      if (!EVP_CIPHER_CTX_ctrl(ctx.get(), EVP_CTRL_GCM_SET_IVLEN,
-                               iv.size(), 0)) {
+      if (!EVP_CIPHER_CTX_ctrl(ctx.get(), EVP_CTRL_GCM_SET_IVLEN, iv.size(),
+                               0)) {
         return false;
       }
     } else if (iv.size() != EVP_CIPHER_CTX_iv_length(ctx.get())) {
@@ -148,7 +145,7 @@ static bool TestOperation(FileTest *t,
   }
   if (is_aead && !encrypt &&
       !EVP_CIPHER_CTX_ctrl(ctx.get(), EVP_CTRL_GCM_SET_TAG, tag.size(),
-                           const_cast<uint8_t*>(tag.data()))) {
+                           const_cast<uint8_t *>(tag.data()))) {
     return false;
   }
   // The ciphers are run with no padding. For each of the ciphers we test, the
@@ -166,9 +163,8 @@ static bool TestOperation(FileTest *t,
   if (!EVP_CIPHER_CTX_set_key_length(ctx.get(), key.size()) ||
       !EVP_CipherInit_ex(ctx.get(), nullptr, nullptr, key.data(), iv.data(),
                          -1) ||
-      (!aad.empty() &&
-       !EVP_CipherUpdate(ctx.get(), nullptr, &unused, aad.data(),
-                         aad.size())) ||
+      (!aad.empty() && !EVP_CipherUpdate(ctx.get(), nullptr, &unused,
+                                         aad.data(), aad.size())) ||
       !EVP_CIPHER_CTX_set_padding(ctx.get(), 0)) {
     t->PrintLine("Operation failed.");
     return false;
@@ -213,8 +209,7 @@ static bool TestOperation(FileTest *t,
     }
     if (!EVP_CIPHER_CTX_ctrl(ctx.get(), EVP_CTRL_GCM_GET_TAG, tag.size(),
                              rtag) ||
-        !t->ExpectBytesEqual(tag.data(), tag.size(), rtag,
-                             tag.size())) {
+        !t->ExpectBytesEqual(tag.data(), tag.size(), rtag, tag.size())) {
       return false;
     }
   }
@@ -233,18 +228,15 @@ static bool TestCipher(FileTest *t, void *arg) {
   }
 
   std::vector<uint8_t> key, iv, plaintext, ciphertext, aad, tag;
-  if (!t->GetBytes(&key, "Key") ||
-      !t->GetBytes(&plaintext, "Plaintext") ||
+  if (!t->GetBytes(&key, "Key") || !t->GetBytes(&plaintext, "Plaintext") ||
       !t->GetBytes(&ciphertext, "Ciphertext")) {
     return false;
   }
-  if (EVP_CIPHER_iv_length(cipher) > 0 &&
-      !t->GetBytes(&iv, "IV")) {
+  if (EVP_CIPHER_iv_length(cipher) > 0 && !t->GetBytes(&iv, "IV")) {
     return false;
   }
   if (EVP_CIPHER_mode(cipher) == EVP_CIPH_GCM_MODE) {
-    if (!t->GetBytes(&aad, "AAD") ||
-        !t->GetBytes(&tag, "Tag")) {
+    if (!t->GetBytes(&aad, "AAD") || !t->GetBytes(&tag, "Tag")) {
       return false;
     }
   }

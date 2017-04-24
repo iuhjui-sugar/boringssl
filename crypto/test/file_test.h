@@ -115,9 +115,28 @@ class FileTest {
   bool ExpectBytesEqual(const uint8_t *expected, size_t expected_len,
                         const uint8_t *actual, size_t actual_len);
 
+  // HasInstruction returns true if the current test has an instruction.
+  bool HasInstruction(const std::string &key);
+
+  // GetInstruction looks up the instruction with key |key|. It sets
+  // |*out_value| to the value (empty string if the instruction has no value)
+  // and returns true if it exists and returns false with an error to |stderr|
+  // otherwise.
+  bool GetInstruction(std::string *out_value, const std::string &key);
+
+  // CurrentTestToString returns the file content parsed for the current test.
+  // If the current test was preceded by an instruction block, the return test
+  // case is preceded by the instruction block and a single blank line. All
+  // other blank or comment lines are omitted.
+  const std::string& CurrentTestToString() const;
+
+  void SetIgnoreUnusedAttributes(bool ignore);
+
  private:
   void ClearTest();
+  void ClearInstructions();
   void OnKeyUsed(const std::string &key);
+  void OnInstructionUsed(const std::string &key);
 
   FILE *file_ = nullptr;
   // line_ is the number of lines read.
@@ -131,9 +150,18 @@ class FileTest {
   std::string parameter_;
   // attributes_ contains all attributes in the test, including the first.
   std::map<std::string, std::string> attributes_;
+  // instructions_ contains all instructions in scope for the test.
+  std::map<std::string, std::string> instructions_;
 
-  // unused_attributes_ is the set of attributes that have been queried.
+  // unused_attributes_ is the set of attributes that have not been queried.
   std::set<std::string> unused_attributes_;
+
+  // unused_instructions_ is the set of instructions that have not been queried.
+  std::set<std::string> unused_instructions_;
+
+  std::string current_test_;
+
+  bool ignore_unused_attributes_ = false;
 
   FileTest(const FileTest&) = delete;
   FileTest &operator=(const FileTest&) = delete;
@@ -153,5 +181,9 @@ class FileTest {
 int FileTestMain(bool (*run_test)(FileTest *t, void *arg), void *arg,
                  const char *path);
 
+// FileTestMainSilent behaves like FileTestMain but does not print a final
+// FAIL/PASS message to stdout.
+int FileTestMainSilent(bool (*run_test)(FileTest *t, void *arg), void *arg,
+                 const char *path);
 
 #endif /* OPENSSL_HEADER_CRYPTO_TEST_FILE_TEST_H */
