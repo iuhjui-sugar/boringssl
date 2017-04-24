@@ -123,6 +123,7 @@ add_subdirectory(pkcs8)
 add_subdirectory(test)
 
 add_subdirectory(fipsmodule)
+add_subdirectory(fipsoracle)
 
 add_library(
   crypto_base
