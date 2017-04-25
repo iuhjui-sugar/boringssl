@@ -236,14 +236,19 @@ push(@xi,shift(@xi));
 
 $code.=<<___;
 .text
+.extern	OPENSSL_ia32cap_P
 .extern	OPENSSL_ia32cap_addr
+
+.globl OPENSSL_ia32cap_addr_delta
+OPENSSL_ia32cap_addr_delta:
+.quad OPENSSL_ia32cap_P-OPENSSL_ia32cap_addr_delta
 
 .globl	sha1_block_data_order
 .type	sha1_block_data_order,\@function,3
 .align	16
 sha1_block_data_order:
-	lea	OPENSSL_ia32cap_addr(%rip),%r10
-	mov	(%r10),%r10
+	lea	OPENSSL_ia32cap_addr_delta(%rip),%r10
+	add	OPENSSL_ia32cap_addr_delta(%rip),%r10
 	mov	0(%r10),%r9d
 	mov	4(%r10),%r8d
 	mov	8(%r10),%r10d
