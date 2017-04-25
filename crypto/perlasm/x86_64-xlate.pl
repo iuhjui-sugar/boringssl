@@ -1145,6 +1145,20 @@ while(defined(my $line=<>)) {
     $line =~ s|^\s+||;		# ... and skip white spaces in beginning
     $line =~ s|\s+$||;		# ... and at the end
 
+    # leaq_clobber_flags_OPENSSL_ia32cap_P is a special instruction which
+    # expands differently in FIPS mode.
+    my $is_leaq_ia32cap = 0;
+    if ($line =~ /leaq_clobber_flags_OPENSSL_ia32cap_P\s+(%r[a-z0-9]+)/) {
+        $is_leaq_ia32cap = 1;
+        $line = "leaq\tOPENSSL_ia32cap_P(%rip),$1";
+        if ($gas) {
+            print STDOUT "#if defined(BORINGSSL_FIPS)\n";
+            print STDOUT "\tleaq\tOPENSSL_ia32cap_addr_delta(%rip),$1\n";
+            print STDOUT "\taddq\tOPENSSL_ia32cap_addr_delta(%rip),$1\n";
+            print STDOUT "#else\n";
+        }
+    }
+
     if (my $label=label->re(\$line))	{ print $label->out(); }
 
     if (my $directive=directive->re(\$line)) {
@@ -1208,6 +1222,7 @@ while(defined(my $line=<>)) {
     }
 
     print $line,"\n";
+    print "#endif\n" if ($is_leaq_ia32cap && $gas);
 }
 
 print "\n$current_segment\tENDS\n"	if ($current_segment && $masm);
