@@ -212,7 +212,6 @@ ___
 
 $code=<<___;
 .text
-.extern	OPENSSL_ia32cap_addr
 
 .globl	gcm_gmult_4bit
 .type	gcm_gmult_4bit,\@function,2
@@ -644,7 +643,7 @@ if ($do4xaggr) {
 my ($Xl,$Xm,$Xh,$Hkey3,$Hkey4)=map("%xmm$_",(11..15));
 
 $code.=<<___;
-	mov		OPENSSL_ia32cap_addr(%rip),%rax
+	leaq_clobber_flags_OPENSSL_ia32cap_P	%rax
 	mov		4(%rax),%eax
 	cmp		\$0x30,$len
 	jb		.Lskip4x
