@@ -122,16 +122,6 @@ func definedSymbols(lines []string) map[string]bool {
 	return symbols
 }
 
-func referencesIA32CapDirectly(line string) bool {
-	const symbol = "OPENSSL_ia32cap_P"
-	i := strings.Index(line, symbol)
-	if i < 0 {
-		return false
-	}
-	i += len(symbol)
-	return i == len(line) || line[i] == '+' || line[i] == '(' || line[i] == '@'
-}
-
 // threadLocalOffsetFunc describes a function that fetches the offset to symbol
 // in the thread-local space and writes it to the given target register.
 type threadLocalOffsetFunc struct {
@@ -167,13 +157,13 @@ func transform(lines []string, symbols map[string]bool) (ret []string) {
 	// redirector function for that symbol.
 	redirectors := make(map[string]string)
 
-	// ia32capAddrNeeded is true iff OPENSSL_ia32cap_addr has been
-	// referenced and thus needs to be emitted outside the module.
-	ia32capAddrNeeded := false
-
 	// ia32capGetNeeded is true iff OPENSSL_ia32cap_get has been referenced
 	// and thus needs to be emitted outside the module.
 	ia32capGetNeeded := false
+
+	// ia32capAddrDeltaNeeded is true iff OPENSSL_ia32cap_addr_delta has
+	// been referenced and thus needs to be emitted outside the module.
+	ia32capAddrDeltaNeeded := false
 
 	// bssAccessorsNeeded maps the names of BSS variables for which
 	// accessor functions need to be emitted outside of the module, to the
@@ -194,16 +184,12 @@ func transform(lines []string, symbols map[string]bool) (ret []string) {
 			break
 		}
 
-		if referencesIA32CapDirectly(line) {
-			panic("reference to OPENSSL_ia32cap_P needs to be changed to indirect via OPENSSL_ia32cap_addr")
-		}
-
-		if strings.Contains(line, "OPENSSL_ia32cap_addr(%rip)") {
-			ia32capAddrNeeded = true
-		}
-
 		if strings.Contains(line, "OPENSSL_ia32cap_get@PLT") {
 			ia32capGetNeeded = true
+		}
+
+		if strings.Contains(line, "OPENSSL_ia32cap_addr_delta(%rip)") {
+			ia32capAddrDeltaNeeded = true
 		}
 
 		line = strings.Replace(line, "@PLT", "", -1)
@@ -407,12 +393,12 @@ func transform(lines []string, symbols map[string]bool) (ret []string) {
 	}
 
 	// Emit an indirect reference to OPENSSL_ia32cap_P.
-	if ia32capAddrNeeded {
+	if ia32capAddrDeltaNeeded {
 		ret = append(ret, ".extern OPENSSL_ia32cap_P")
-		ret = append(ret, ".type OPENSSL_ia32cap_addr,@object")
-		ret = append(ret, ".size OPENSSL_ia32cap_addr,8")
-		ret = append(ret, "OPENSSL_ia32cap_addr:")
-		ret = append(ret, "\t.quad OPENSSL_ia32cap_P")
+		ret = append(ret, ".type OPENSSL_ia32cap_addr_delta,@object")
+		ret = append(ret, ".size OPENSSL_ia32cap_addr_delta,8")
+		ret = append(ret, "OPENSSL_ia32cap_addr_delta:")
+		ret = append(ret, "\t.quad OPENSSL_ia32cap_P-OPENSSL_ia32cap_addr_delta")
 	}
 
 	// Emit accessors for thread-local offsets.
