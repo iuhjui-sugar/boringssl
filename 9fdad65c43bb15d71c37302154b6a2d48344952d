@@ -1,0 +1,295 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dc6de9d8_ce480b56",
+        "filename": "crypto/fipsoracle/CMakeLists.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-26T22:28:36Z",
+      "side": 1,
+      "message": "Missing build definition for cavp_aead_test?",
+      "revId": "9fdad65c43bb15d71c37302154b6a2d48344952d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8d286e3_f730aea2",
+        "filename": "crypto/fipsoracle/cavp_aead_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-26T22:28:36Z",
+      "side": 1,
+      "message": "cavp_aead_test?",
+      "range": {
+        "startLine": 15,
+        "startChar": 3,
+        "endLine": 15,
+        "endChar": 19
+      },
+      "revId": "9fdad65c43bb15d71c37302154b6a2d48344952d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc88a09c_ee3c129f",
+        "filename": "crypto/fipsoracle/cavp_aead_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-26T22:28:36Z",
+      "side": 1,
+      "message": "Should this be testing the EVP_AEAD APIs instead?\n\n(Given this file has a lot of XXXs and wasn\u0027t in the build file, was it meant to be uploaded just yet?)",
+      "range": {
+        "startLine": 29,
+        "startChar": 8,
+        "endLine": 29,
+        "endChar": 18
+      },
+      "revId": "9fdad65c43bb15d71c37302154b6a2d48344952d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5cd8ece5_c156c101",
+        "filename": "crypto/fipsoracle/cavp_cipher_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-26T22:28:36Z",
+      "side": 1,
+      "message": "Nit: I think we usually put an extra newline here.",
+      "revId": "9fdad65c43bb15d71c37302154b6a2d48344952d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dec7ac14_f45437e0",
+        "filename": "crypto/fipsoracle/cavp_cipher_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-26T22:28:36Z",
+      "side": 1,
+      "message": "Maybe just move these two lines into line 58 and line 65? (You don\u0027t actually need to do the \"Invalid test case\" thing since GetAttribute and GetBytes will print something anyway.)",
+      "revId": "9fdad65c43bb15d71c37302154b6a2d48344952d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b90dee1_b282823c",
+        "filename": "crypto/fipsoracle/cavp_cipher_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-26T22:28:36Z",
+      "side": 1,
+      "message": "(I\u0027m confused how this is working without a FileTest:: in front.)",
+      "range": {
+        "startLine": 75,
+        "startChar": 44,
+        "endLine": 75,
+        "endChar": 56
+      },
+      "revId": "9fdad65c43bb15d71c37302154b6a2d48344952d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff54ece4_1813d792",
+        "filename": "crypto/fipsoracle/cavp_cipher_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-26T22:28:36Z",
+      "side": 1,
+      "message": "I believe this does not need a cast.",
+      "range": {
+        "startLine": 132,
+        "startChar": 40,
+        "endLine": 132,
+        "endChar": 48
+      },
+      "revId": "9fdad65c43bb15d71c37302154b6a2d48344952d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22ec1551_800bdec8",
+        "filename": "crypto/fipsoracle/cavp_test_util.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-26T22:28:36Z",
+      "side": 1,
+      "message": "Nit: newline.",
+      "revId": "9fdad65c43bb15d71c37302154b6a2d48344952d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "989ec1b9_1a0e8f10",
+        "filename": "crypto/fipsoracle/cavp_test_util.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-26T22:28:36Z",
+      "side": 1,
+      "message": "Were we planning on using the EVP_CIPHER API for AES-GCM? We usually don\u0027t like that one very much and don\u0027t typically use it. We\u0027ve got EVP_AEAD APIs that involve... less EVP_CIPHER_CTX_ctrls...\n\nYou then also don\u0027t need the annoying in.empty() checks.",
+      "revId": "9fdad65c43bb15d71c37302154b6a2d48344952d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c185e0af_b89d22ef",
+        "filename": "crypto/fipsoracle/cavp_test_util.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-26T22:28:36Z",
+      "side": 1,
+      "message": "Stray line?",
+      "revId": "9fdad65c43bb15d71c37302154b6a2d48344952d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5e93549_5b804859",
+        "filename": "crypto/fipsoracle/cavp_test_util.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-26T22:28:36Z",
+      "side": 1,
+      "message": "Nit: I think we usually put two blank lines between the #include blocks and the first decl, and two blank lines between the last decl and #endif/extern-C-closer.\n\n(I dunno, I\u0027ve just been copying Adam\u0027s style. :-) )",
+      "revId": "9fdad65c43bb15d71c37302154b6a2d48344952d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b55abcaa_42715f05",
+        "filename": "crypto/fipsoracle/cavp_test_util.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-26T22:28:36Z",
+      "side": 1,
+      "message": "#include \u003cstring\u003e",
+      "range": {
+        "startLine": 23,
+        "startChar": 5,
+        "endLine": 23,
+        "endChar": 11
+      },
+      "revId": "9fdad65c43bb15d71c37302154b6a2d48344952d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3341759a_f0ef39ef",
+        "filename": "crypto/test/file_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-26T22:28:36Z",
+      "side": 1,
+      "message": "(I wonder if it\u0027s worth allowing delimiter-less test lines too... we have these weird NO_TEST: 01 lines in the AEAD thing. Meh, for later I guess.)",
+      "revId": "9fdad65c43bb15d71c37302154b6a2d48344952d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4e743952_3e3f1a3e",
+        "filename": "crypto/test/file_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-26T22:28:36Z",
+      "side": 1,
+      "message": "We normally don\u0027t bother printing FAIL on error. (Not that it hurts to.)",
+      "revId": "9fdad65c43bb15d71c37302154b6a2d48344952d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52be2576_960a9815",
+        "filename": "crypto/test/file_test.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-26T22:28:36Z",
+      "side": 1,
+      "message": "Super nit-picky nitpick: I think our right-aligned * and \u0026 style implies this should be\n\nconst std::string \u0026CurrentTestToString() const;",
+      "range": {
+        "startLine": 146,
+        "startChar": 19,
+        "endLine": 146,
+        "endChar": 21
+      },
+      "revId": "9fdad65c43bb15d71c37302154b6a2d48344952d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

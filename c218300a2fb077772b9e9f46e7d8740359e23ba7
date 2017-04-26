@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "169f6e08_49e18dcd",
+        "filename": "crypto/CMakeLists.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-26T22:28:36Z",
+      "side": 1,
+      "message": "You\u0027ll probably want to exclude this from generate_build_files.py, or do something funnier.",
+      "revId": "c218300a2fb077772b9e9f46e7d8740359e23ba7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4479872_e9f6c374",
+        "filename": "crypto/test/file_test.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-26T22:28:36Z",
+      "side": 1,
+      "message": "Nit: indentation.",
+      "revId": "c218300a2fb077772b9e9f46e7d8740359e23ba7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
