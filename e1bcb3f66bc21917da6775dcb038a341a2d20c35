@@ -22,6 +22,30 @@
       "revId": "e1bcb3f66bc21917da6775dcb038a341a2d20c35",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac5213fe_0a12e68a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-26T00:11:41Z",
+      "side": 1,
+      "message": "Looks like signals do, in the general case, hit %rsp. So that just leaves CFI or declaring we don\u0027t care about that.\n\nIn that case, we\u0027d punt the pseudo-instruction, just write a bare leaq OPENSSL_ia32cap_P(%rip) in perlasm, punt https://boringssl-review.googlesource.com/c/15525/, and have delocate.go transform leaq OPENSSL_ia32cap_P(%rip) and movq OPENSSL_ia32cap_P@GOTPCREL(%rip) into this leaq/addq chord with the CFI directives.\n\nThoughts?",
+      "parentUuid": "8c0e7977_f8a2747a",
+      "range": {
+        "startLine": 23,
+        "startChar": 35,
+        "endLine": 23,
+        "endChar": 39
+      },
+      "revId": "e1bcb3f66bc21917da6775dcb038a341a2d20c35",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
