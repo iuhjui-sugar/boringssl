@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c764d4c4_22ca2d92",
+        "filename": "crypto/test/gtest_main.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-04-26T15:22:15Z",
+      "side": 1,
+      "message": "\u0027./\u0027 needed for the swapping?",
+      "range": {
+        "startLine": 17,
+        "startChar": 10,
+        "endLine": 17,
+        "endChar": 11
+      },
+      "revId": "66700dbfef320c1fef315a50dd4ae47a262de538",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "606767fa_76d13cfe",
+        "filename": "crypto/test/gtest_main.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-04-26T15:22:15Z",
+      "side": 1,
+      "message": "Does this want to be moved out to the cc file?",
+      "range": {
+        "startLine": 53,
+        "startChar": 2,
+        "endLine": 53,
+        "endChar": 21
+      },
+      "revId": "66700dbfef320c1fef315a50dd4ae47a262de538",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
