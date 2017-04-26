@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d53fb59e_f3ae2ad5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-26T00:12:33Z",
+      "side": 1,
+      "message": "NOTE: See comment here: https://boringssl-review.googlesource.com/c/15526/6//COMMIT_MSG#23\n\nIf you think doing it as a delocate.go post-processing step works, I can do away with this CL and transform C and perlasm uniformly.",
+      "range": {
+        "startLine": 14,
+        "startChar": 48,
+        "endLine": 14,
+        "endChar": 56
+      },
+      "revId": "6c9bf2a0fdbcf54c0f1ad95f713890239eac0131",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
