@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c0e7977_f8a2747a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-26T00:05:00Z",
+      "side": 1,
+      "message": "If ABIs forbid you from ever using %rsp as a spare register (Does Linux use %rsp for delivering signals? That would imply it.) and we could emit the right CFI directives, we could probably use pushf/popf and do it as a delocate.go post-processing step.",
+      "range": {
+        "startLine": 23,
+        "startChar": 35,
+        "endLine": 23,
+        "endChar": 39
+      },
+      "revId": "e1bcb3f66bc21917da6775dcb038a341a2d20c35",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
