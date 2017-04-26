@@ -250,6 +250,7 @@ class Bazel(object):
         name_counts[name] = name_counts.get(name, 0) + 1
 
       first = True
+      test_names = set()
       for test in files['tests']:
         name = os.path.basename(test[0])
         if name_counts[name] > 1:
@@ -257,6 +258,10 @@ class Bazel(object):
             name += '_' + os.path.splitext(os.path.basename(test[1]))[0]
           else:
             name += '_' + test[1].replace('-', '_')
+
+        if name in test_names:
+          raise ValueError("test name %s is not unique" % name)
+        test_names.add(name)
 
         if not first:
           out.write('\n')
