@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "58f2c1fc_968d407f",
+        "filename": "crypto/test/gtest_main.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-26T15:35:30Z",
+      "side": 1,
+      "message": "It was just to be explicit this is relative to the file, not relative to the include path. Removed for consistency. Looks like ./ doesn\u0027t stop it from being relative to the include path. Yay C. This does suggest our love for \"../../internal.h\" includes is a tad... fragile... :-/",
+      "parentUuid": "c764d4c4_22ca2d92",
+      "range": {
+        "startLine": 17,
+        "startChar": 10,
+        "endLine": 17,
+        "endChar": 11
+      },
+      "revId": "66700dbfef320c1fef315a50dd4ae47a262de538",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "606767fa_76d13cfe",
         "filename": "crypto/test/gtest_main.h",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2017-04-26T15:22:15Z",
       "side": 1,
       "message": "Does this want to be moved out to the cc file?",
+      "range": {
+        "startLine": 53,
+        "startChar": 2,
+        "endLine": 53,
+        "endChar": 21
+      },
+      "revId": "66700dbfef320c1fef315a50dd4ae47a262de538",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d7c9863_3342dcae",
+        "filename": "crypto/test/gtest_main.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-26T15:35:30Z",
+      "side": 1,
+      "message": "The point is there should be as little logic as possible in the cc file because it won\u0027t be used everywhere. All common code goes in here.",
+      "parentUuid": "606767fa_76d13cfe",
       "range": {
         "startLine": 53,
         "startChar": 2,
