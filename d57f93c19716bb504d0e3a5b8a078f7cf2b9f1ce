@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d316d33d_7a4f4a14",
+        "filename": "crypto/fipsmodule/delocate.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-27T20:53:42Z",
+      "side": 1,
+      "message": "We\u0027ll get an empty string if you write something like:\n\n   movq a,,b\n\nor:\n\n  movq a,\n\nI think that\u0027s correct-ish? Though, good point, if you write \"mov \", it will add a stray argument. I added a strings.TrimSpace to line 174 which I think is marginally better?",
+      "parentUuid": "61568083_22bb0739",
+      "revId": "d57f93c19716bb504d0e3a5b8a078f7cf2b9f1ce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "328478f2_e0b0cc19",
         "filename": "crypto/fipsmodule/delocate.go",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2017-04-27T20:43:42Z",
       "side": 1,
       "message": "drop commented code? Or else\n\n(toplevel)\n\nconst debug \u003d false\n\n(here)\n\nif debug {\n  ret \u003d append(…)\n}",
+      "revId": "d57f93c19716bb504d0e3a5b8a078f7cf2b9f1ce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c7ea25ee_f3a1237e",
+        "filename": "crypto/fipsmodule/delocate.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-27T20:53:42Z",
+      "side": 1,
+      "message": "Oops. Removed.",
+      "parentUuid": "328478f2_e0b0cc19",
       "revId": "d57f93c19716bb504d0e3a5b8a078f7cf2b9f1ce",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
