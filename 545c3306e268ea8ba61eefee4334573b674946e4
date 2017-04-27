@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3143c341_2ef4a468",
+        "filename": "crypto/test/file_test.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-27T22:03:46Z",
+      "side": 1,
+      "message": "update comment and/or message to say \"comment\"?",
+      "revId": "545c3306e268ea8ba61eefee4334573b674946e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
