@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "61568083_22bb0739",
+        "filename": "crypto/fipsmodule/delocate.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-27T20:43:42Z",
+      "side": 1,
+      "message": "if trimmed :\u003d strings.TrimSpace(line[:idx]); len(trimmed) \u003e 0 {\n  args \u003d append(args, trimmed)\n}\n\n(otherwise I think an instruction with trailing space might end up with args \u003d [\"\"].)",
+      "revId": "d57f93c19716bb504d0e3a5b8a078f7cf2b9f1ce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "328478f2_e0b0cc19",
+        "filename": "crypto/fipsmodule/delocate.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-27T20:43:42Z",
+      "side": 1,
+      "message": "drop commented code? Or else\n\n(toplevel)\n\nconst debug \u003d false\n\n(here)\n\nif debug {\n  ret \u003d append(…)\n}",
+      "revId": "d57f93c19716bb504d0e3a5b8a078f7cf2b9f1ce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
