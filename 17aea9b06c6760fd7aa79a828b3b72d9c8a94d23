@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7fd3212e_f2a745a9",
+        "filename": "crypto/fipsoracle/cavp_aes_gcm_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-04-27T22:09:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5227ddbd_ab82a780",
+      "revId": "17aea9b06c6760fd7aa79a828b3b72d9c8a94d23",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "801a0380_edb2a643",
         "filename": "crypto/fipsoracle/cavp_aes_gcm_test.cc",
         "patchSetId": 7
@@ -30,6 +48,24 @@
       "writtenOn": "2017-04-27T21:38:35Z",
       "side": 1,
       "message": "if (!AEADEncrypt(…)) {\n  return false;\n}\n\nprintf(…);\n…",
+      "revId": "17aea9b06c6760fd7aa79a828b3b72d9c8a94d23",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f482ff60_02dd5061",
+        "filename": "crypto/fipsoracle/cavp_aes_gcm_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-04-27T22:09:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "801a0380_edb2a643",
       "revId": "17aea9b06c6760fd7aa79a828b3b72d9c8a94d23",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "e864bdd5_2de30187",
+        "filename": "crypto/fipsoracle/cavp_aes_gcm_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-04-27T22:09:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3aebb9b_65da0646",
+      "range": {
+        "startLine": 170,
+        "startChar": 28,
+        "endLine": 170,
+        "endChar": 29
+      },
+      "revId": "17aea9b06c6760fd7aa79a828b3b72d9c8a94d23",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f126bc42_c980ed64",
         "filename": "crypto/fipsoracle/cavp_aes_gcm_test.cc",
         "patchSetId": 7
@@ -70,6 +130,24 @@
       "writtenOn": "2017-04-27T21:38:35Z",
       "side": 1,
       "message": "move to a function that returns 1 and make this \"return usage(argv[0]);\"",
+      "revId": "17aea9b06c6760fd7aa79a828b3b72d9c8a94d23",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "51ad5ad5_7285cb2d",
+        "filename": "crypto/fipsoracle/cavp_aes_gcm_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-04-27T22:09:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f126bc42_c980ed64",
       "revId": "17aea9b06c6760fd7aa79a828b3b72d9c8a94d23",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "a52b63fd_aa38c658",
+        "filename": "crypto/fipsoracle/cavp_aes_gcm_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-04-27T22:09:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55767049_7528d814",
+      "revId": "17aea9b06c6760fd7aa79a828b3b72d9c8a94d23",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00c6dc60_2cada0f6",
         "filename": "crypto/fipsoracle/cavp_aes_test.cc",
         "patchSetId": 7
@@ -104,6 +200,24 @@
       "writtenOn": "2017-04-27T21:38:35Z",
       "side": 1,
       "message": "(ditto about typedefing structs in C++.)",
+      "revId": "17aea9b06c6760fd7aa79a828b3b72d9c8a94d23",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6f70e7fb_62f458f7",
+        "filename": "crypto/fipsoracle/cavp_aes_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-04-27T22:09:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00c6dc60_2cada0f6",
       "revId": "17aea9b06c6760fd7aa79a828b3b72d9c8a94d23",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -127,6 +241,24 @@
     },
     {
       "key": {
+        "uuid": "99e57b6b_362b7f2f",
+        "filename": "crypto/fipsoracle/cavp_aes_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-04-27T22:09:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b772c73_7f7ef77a",
+      "revId": "17aea9b06c6760fd7aa79a828b3b72d9c8a94d23",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bcb79a43_ea7f53bc",
         "filename": "crypto/fipsoracle/cavp_test_util.cc",
         "patchSetId": 7
@@ -144,6 +276,24 @@
     },
     {
       "key": {
+        "uuid": "fbe2be63_580d5a7c",
+        "filename": "crypto/fipsoracle/cavp_test_util.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-04-27T22:09:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bcb79a43_ea7f53bc",
+      "revId": "17aea9b06c6760fd7aa79a828b3b72d9c8a94d23",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "526ca099_090429cd",
         "filename": "crypto/fipsoracle/cavp_test_util.cc",
         "patchSetId": 7
@@ -155,6 +305,24 @@
       "writtenOn": "2017-04-27T21:38:35Z",
       "side": 1,
       "message": "ditto about outargs coming first. (And below.)",
+      "revId": "17aea9b06c6760fd7aa79a828b3b72d9c8a94d23",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c46b551_df134ad0",
+        "filename": "crypto/fipsoracle/cavp_test_util.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-04-27T22:09:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "526ca099_090429cd",
       "revId": "17aea9b06c6760fd7aa79a828b3b72d9c8a94d23",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
