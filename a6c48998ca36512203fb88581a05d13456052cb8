@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c7d3ee47_5159b484",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-04-27T14:18:29Z",
+      "side": 1,
+      "message": "Probably add a comment about how this CL also changes the name construction.",
+      "revId": "a6c48998ca36512203fb88581a05d13456052cb8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
