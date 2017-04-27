@@ -1,0 +1,163 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5227ddbd_ab82a780",
+        "filename": "crypto/fipsoracle/cavp_aes_gcm_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-27T21:38:35Z",
+      "side": 1,
+      "message": "This is C++, so typedefing a struct isn\u0027t necessary.",
+      "revId": "17aea9b06c6760fd7aa79a828b3b72d9c8a94d23",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "801a0380_edb2a643",
+        "filename": "crypto/fipsoracle/cavp_aes_gcm_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-27T21:38:35Z",
+      "side": 1,
+      "message": "if (!AEADEncrypt(…)) {\n  return false;\n}\n\nprintf(…);\n…",
+      "revId": "17aea9b06c6760fd7aa79a828b3b72d9c8a94d23",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d3aebb9b_65da0646",
+        "filename": "crypto/fipsoracle/cavp_aes_gcm_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-27T21:38:35Z",
+      "side": 1,
+      "message": "nit: drop space.",
+      "range": {
+        "startLine": 170,
+        "startChar": 28,
+        "endLine": 170,
+        "endChar": 29
+      },
+      "revId": "17aea9b06c6760fd7aa79a828b3b72d9c8a94d23",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f126bc42_c980ed64",
+        "filename": "crypto/fipsoracle/cavp_aes_gcm_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-27T21:38:35Z",
+      "side": 1,
+      "message": "move to a function that returns 1 and make this \"return usage(argv[0]);\"",
+      "revId": "17aea9b06c6760fd7aa79a828b3b72d9c8a94d23",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55767049_7528d814",
+        "filename": "crypto/fipsoracle/cavp_aes_gcm_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-27T21:38:35Z",
+      "side": 1,
+      "message": "nit: drop extra blank line.",
+      "revId": "17aea9b06c6760fd7aa79a828b3b72d9c8a94d23",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00c6dc60_2cada0f6",
+        "filename": "crypto/fipsoracle/cavp_aes_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-27T21:38:35Z",
+      "side": 1,
+      "message": "(ditto about typedefing structs in C++.)",
+      "revId": "17aea9b06c6760fd7aa79a828b3b72d9c8a94d23",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5b772c73_7f7ef77a",
+        "filename": "crypto/fipsoracle/cavp_aes_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-27T21:38:35Z",
+      "side": 1,
+      "message": "Is this TODO still pertinent? It looks like there\u0027s a different test driver for AEADs.",
+      "revId": "17aea9b06c6760fd7aa79a828b3b72d9c8a94d23",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bcb79a43_ea7f53bc",
+        "filename": "crypto/fipsoracle/cavp_test_util.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-27T21:38:35Z",
+      "side": 1,
+      "message": "BoringSSL style would have the out arg first, I\u0027m afraid.",
+      "revId": "17aea9b06c6760fd7aa79a828b3b72d9c8a94d23",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "526ca099_090429cd",
+        "filename": "crypto/fipsoracle/cavp_test_util.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-27T21:38:35Z",
+      "side": 1,
+      "message": "ditto about outargs coming first. (And below.)",
+      "revId": "17aea9b06c6760fd7aa79a828b3b72d9c8a94d23",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
