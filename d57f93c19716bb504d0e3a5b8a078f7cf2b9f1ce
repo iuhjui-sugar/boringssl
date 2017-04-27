@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "1b83ccdf_cd4e8aab",
+        "filename": "crypto/fipsmodule/delocate.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-27T20:54:56Z",
+      "side": 1,
+      "message": "Yep, that\u0027s better. Thanks.",
+      "parentUuid": "d316d33d_7a4f4a14",
+      "revId": "d57f93c19716bb504d0e3a5b8a078f7cf2b9f1ce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "328478f2_e0b0cc19",
         "filename": "crypto/fipsmodule/delocate.go",
         "patchSetId": 2
