@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e282fce0_a0f42d56",
+        "filename": "crypto/fipsoracle/run_cavp.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-04-28T16:48:40Z",
+      "side": 1,
+      "message": "I was planning to add another arg (kat|mct) to cavp_aes_test, but yes.",
+      "range": {
+        "startLine": 90,
+        "startChar": 3,
+        "endLine": 90,
+        "endChar": 49
+      },
+      "revId": "708b4a6d166bc5adfe3b0fa5e09912c351f970ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
