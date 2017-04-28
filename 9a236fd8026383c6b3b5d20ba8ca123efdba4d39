@@ -16,6 +16,24 @@
       "revId": "9a236fd8026383c6b3b5d20ba8ca123efdba4d39",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b45ff920_ade30751",
+        "filename": "crypto/fipsoracle/cavp_sha_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-28T23:39:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6415b22_90a23703",
+      "revId": "9a236fd8026383c6b3b5d20ba8ca123efdba4d39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
