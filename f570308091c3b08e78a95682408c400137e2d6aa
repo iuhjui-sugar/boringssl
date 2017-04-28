@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a8443890_a5493842",
+        "filename": "crypto/fipsoracle/cavp_sha_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-28T21:22:45Z",
+      "side": 1,
+      "message": "Doing it based on the length feels a little janky. Why not a command-line argument like cavp_aes_test? Ditto on the other file.",
+      "revId": "f570308091c3b08e78a95682408c400137e2d6aa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
