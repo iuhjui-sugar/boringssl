@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e6415b22_90a23703",
+        "filename": "crypto/fipsoracle/cavp_sha_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-28T21:52:47Z",
+      "side": 1,
+      "message": "const EVP_MD *md? Then you get to use EVP_MD_size() for the block size and EVP_Digest() for a single-shot digest. And even EVP_getdigestbyname if you feel like it.",
+      "revId": "9a236fd8026383c6b3b5d20ba8ca123efdba4d39",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
