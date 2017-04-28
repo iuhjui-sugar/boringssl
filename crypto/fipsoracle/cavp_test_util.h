@@ -32,6 +32,12 @@ bool CipherOperation(const EVP_CIPHER *cipher, std::vector<uint8_t> *out,
                      const std::vector<uint8_t> &iv,
                      const std::vector<uint8_t> &in);
 
+bool CipherOperationCtx(const EVP_CIPHER *cipher, EVP_CIPHER_CTX *ctx,
+                     std::vector<uint8_t> *out, bool encrypt,
+                     const std::vector<uint8_t> &key,
+                     const std::vector<uint8_t> &iv,
+                     const std::vector<uint8_t> &in);
+
 bool AEADEncrypt(const EVP_AEAD *aead, std::vector<uint8_t> *ct,
                  std::vector<uint8_t> *tag, size_t tag_len,
                  const std::vector<uint8_t> &key,
