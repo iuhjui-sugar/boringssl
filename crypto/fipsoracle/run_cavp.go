@@ -23,7 +23,7 @@ type test struct {
 	inFile string
 	// args are the arguments (not including the input filename) to the
 	// oracle binary.
-	args   []string
+	args []string
 	// noFAX, if true, indicates that the output cannot be compared against
 	// the FAX file. (E.g. because the primitive is non-deterministic.)
 	noFAX bool
@@ -35,8 +35,8 @@ type testSuite struct {
 	// directory is the name of the directory in the CAVP input, i.e. “AES”.
 	directory string
 	// binary is the name of the binary that can process these tests.
-	binary    string
-	tests     []test
+	binary string
+	tests  []test
 }
 
 var aesGCMTests = testSuite{
@@ -95,9 +95,40 @@ var aesTests = testSuite{
 //{"CBCMCT192", []string{"aes-192-cbc"}, false},
 //{"CBCMCT256", []string{"aes-256-cbc"}, false},
 
+var shaTests = testSuite{
+	"SHA",
+	"cavp_sha_test",
+	[]test{
+		{"SHA1LongMsg", []string{"SHA1"}, false},
+		{"SHA1ShortMsg", []string{"SHA1"}, false},
+		{"SHA224LongMsg", []string{"SHA224"}, false},
+		{"SHA224ShortMsg", []string{"SHA224"}, false},
+		{"SHA256LongMsg", []string{"SHA256"}, false},
+		{"SHA256ShortMsg", []string{"SHA256"}, false},
+		{"SHA384LongMsg", []string{"SHA384"}, false},
+		{"SHA384ShortMsg", []string{"SHA384"}, false},
+		{"SHA512LongMsg", []string{"SHA512"}, false},
+		{"SHA512ShortMsg", []string{"SHA512"}, false},
+	},
+}
+
+var shaMonteTests = testSuite{
+	"SHA",
+	"cavp_sha_monte_test",
+	[]test{
+		{"SHA1Monte", []string{"SHA1"}, false},
+		{"SHA224Monte", []string{"SHA224"}, false},
+		{"SHA256Monte", []string{"SHA256"}, false},
+		{"SHA384Monte", []string{"SHA384"}, false},
+		{"SHA512Monte", []string{"SHA512"}, false},
+	},
+}
+
 var allTestSuites = []*testSuite{
 	&aesGCMTests,
 	&aesTests,
+	&shaTests,
+	&shaMonteTests,
 }
 
 func main() {
