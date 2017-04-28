@@ -17,7 +17,7 @@
 #include <assert.h>
 
 #include "internal.h"
-#include "../internal.h"
+#include "../../internal.h"
 
 
 static uint64_t bn_neg_inv_mod_r_u64(uint64_t n);
