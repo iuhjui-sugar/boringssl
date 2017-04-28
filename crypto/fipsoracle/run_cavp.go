@@ -87,6 +87,12 @@ var aesTests = testSuite{
 	},
 }
 
+var ctrDRBGTests = testSuite{
+	"DRBG800-90A",
+	"cavp_ctr_drbg_test",
+	[]test{{"CTR_DRBG", nil, false}},
+}
+
 // AES Monte-Carlo tests need a different binary.
 //{"ECBMCT128", []string{"aes-128-ecb"}, false},
 //{"ECBMCT192", []string{"aes-192-ecb"}, false},
@@ -98,6 +104,7 @@ var aesTests = testSuite{
 var allTestSuites = []*testSuite{
 	&aesGCMTests,
 	&aesTests,
+	&ctrDRBGTests,
 }
 
 func main() {
