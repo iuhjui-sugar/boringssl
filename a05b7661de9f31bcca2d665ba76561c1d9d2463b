@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cdbd1db5_fd069ef4",
+        "filename": "crypto/fipsoracle/run_cavp.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-28T23:11:15Z",
+      "side": 1,
+      "message": "Have the test output the extra blank lines to match rather than ignore them here.",
+      "revId": "a05b7661de9f31bcca2d665ba76561c1d9d2463b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
