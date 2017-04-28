@@ -16,6 +16,24 @@
       "revId": "f570308091c3b08e78a95682408c400137e2d6aa",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5685cdb_17c59709",
+        "filename": "crypto/fipsoracle/cavp_sha_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-04-28T21:32:22Z",
+      "side": 1,
+      "message": "Basing it on a command-line argument instead of the instruction adds a bit of complexity. As per SHAVS, the instruction is guaranteed to be equal to the hash length for SHA1/2, and if we\u0027re worried about extending this to other hashing implementations, we\u0027ll need to parse a brand new format anyway.",
+      "parentUuid": "a8443890_a5493842",
+      "revId": "f570308091c3b08e78a95682408c400137e2d6aa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
