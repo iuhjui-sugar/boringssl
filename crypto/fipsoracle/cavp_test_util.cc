@@ -100,6 +100,26 @@ bool CipherOperation(const EVP_CIPHER *cipher, std::vector<uint8_t> *out,
   return true;
 }
 
+bool CipherOperationCtx(const EVP_CIPHER *cipher, EVP_CIPHER_CTX *ctx,
+                        std::vector<uint8_t> *out, bool encrypt,
+                        const std::vector<uint8_t> &key,
+                        const std::vector<uint8_t> &iv,
+                        const std::vector<uint8_t> &in) {
+  if (!iv.empty() && iv.size() != EVP_CIPHER_CTX_iv_length(ctx)) {
+    return false;
+  }
+
+  int result_len1 = 0, result_len2;
+  *out = std::vector<uint8_t>(in.size());
+  if (!EVP_CipherUpdate(ctx, out->data(), &result_len1, in.data(), in.size()) ||
+      !EVP_CipherFinal_ex(ctx, out->data() + result_len1, &result_len2)) {
+    return false;
+  }
+  out->resize(result_len1 + result_len2);
+
+  return true;
+}
+
 bool AEADEncrypt(const EVP_AEAD *aead, std::vector<uint8_t> *ct,
                  std::vector<uint8_t> *tag, size_t tag_len,
                  const std::vector<uint8_t> &key,
