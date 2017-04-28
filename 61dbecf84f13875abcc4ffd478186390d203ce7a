@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "22bc6a50_6eeb2068",
+        "filename": "crypto/fipsoracle/cavp_sha_monte_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-28T21:15:14Z",
+      "side": 1,
+      "message": "Check that seed.size() \u003d\u003d out_len_str",
+      "revId": "61dbecf84f13875abcc4ffd478186390d203ce7a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9f319309_e624c276",
+        "filename": "crypto/fipsoracle/cavp_sha_monte_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-28T21:15:14Z",
+      "side": 1,
+      "message": "default:\n  return false;",
+      "revId": "61dbecf84f13875abcc4ffd478186390d203ce7a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d2be58d8_aa88b5e3",
+        "filename": "crypto/fipsoracle/cavp_sha_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-28T21:15:14Z",
+      "side": 1,
+      "message": "check that msg.size() \u003d\u003d msg_len.",
+      "revId": "61dbecf84f13875abcc4ffd478186390d203ce7a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e701a7b_cf5cbc5c",
+        "filename": "crypto/fipsoracle/cavp_sha_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-04-28T21:15:14Z",
+      "side": 1,
+      "message": "default:\n  return false",
+      "revId": "61dbecf84f13875abcc4ffd478186390d203ce7a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
