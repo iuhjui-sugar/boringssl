@@ -344,6 +344,11 @@ func transform(lines []string, symbols map[string]bool) (ret []string) {
 
 					if isGlobal := symbols[target]; isGlobal {
 						line = strings.Replace(line, target, localTargetName(target), 1)
+					} else if !strings.HasPrefix(target, "BORINGSSL_bcm_") {
+						redirectorName := "bcm_redirector_" + target
+						redirectors[redirectorName] = target
+						line = strings.Replace(line, target, redirectorName, 1)
+						target = redirectorName
 					}
 
 					// Nobody actually wants to read the
