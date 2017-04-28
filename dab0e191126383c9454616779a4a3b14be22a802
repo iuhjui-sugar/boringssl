@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "357ea9dc_4084ce46",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-04-28T15:37:17Z",
+      "side": 1,
+      "message": "(If we ever do need an intermediate register, the OPENSSL_ia32cap_P pattern will probably do.)",
+      "range": {
+        "startLine": 12,
+        "startChar": 12,
+        "endLine": 12,
+        "endChar": 33
+      },
+      "revId": "dab0e191126383c9454616779a4a3b14be22a802",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
