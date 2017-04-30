@@ -105,6 +105,15 @@ var ecdsa2PKVTests = testSuite{
 	[]test{{"PKV", nil, false}},
 }
 
+var ecdsa2SigGenTests = testSuite{
+	"ECDSA2",
+	"cavp_ecdsa2_siggen_test",
+	[]test{
+		{"SigGen", []string{"SigGen"}, true},
+		{"SigGenComponent", []string{"SigGenComponent"}, true},
+	},
+}
+
 var ecdsa2SigVerTests = testSuite{
 	"ECDSA2",
 	"cavp_ecdsa2_sigver_test",
@@ -144,6 +153,7 @@ var allTestSuites = []*testSuite{
 	&aesGCMTests,
 	&aesTests,
 	&ecdsa2PKVTests,
+	&ecdsa2SigGenTests,
 	&ecdsa2SigVerTests,
 	&shaTests,
 	&shaMonteTests,
