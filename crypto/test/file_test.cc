@@ -160,7 +160,10 @@ FileTest::ReadResult FileTest::ReadNext() {
       for (;;) {
         size_t idx = kv.find(",");
         if (idx == std::string::npos) {
-          idx = kv.size();
+          idx = kv.find(" ");
+          if (idx == std::string::npos) {
+            idx = kv.size();
+          }
         }
         std::string key, value;
         std::tie(key, value) = ParseKeyValue(kv.c_str(), idx);
