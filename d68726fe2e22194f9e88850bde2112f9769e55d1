@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ff2c244_3681f049",
+        "filename": "fipsoracle/run_cavp.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-01T21:24:45Z",
+      "side": 1,
+      "message": "Maybe add a short comment here?",
+      "revId": "d68726fe2e22194f9e88850bde2112f9769e55d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
