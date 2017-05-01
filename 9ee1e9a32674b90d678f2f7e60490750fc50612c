@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "23f27b15_7bf2562b",
+        "filename": "fipsoracle/cavp_tdes_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-01T22:27:26Z",
+      "side": 1,
+      "message": "typo.",
+      "range": {
+        "startLine": 77,
+        "startChar": 16,
+        "endLine": 77,
+        "endChar": 28
+      },
+      "revId": "9ee1e9a32674b90d678f2f7e60490750fc50612c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
