@@ -16,6 +16,24 @@
       "revId": "c66d00238facd4fff648f1200d03340060dc8f8a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "72e3509f_578ff9cb",
+        "filename": "fipsoracle/cavp_ecdsa2_keypair_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-01T19:11:21Z",
+      "side": 1,
+      "message": "Done. clang-format loves to take those away.",
+      "parentUuid": "ea3e6afd_b9b388c4",
+      "revId": "c66d00238facd4fff648f1200d03340060dc8f8a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
