@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d0da5bef_3be06783",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-01T19:10:10Z",
+      "side": 1,
+      "message": "(nit: stray \u0027t\u0027)",
+      "range": {
+        "startLine": 7,
+        "startChar": 25,
+        "endLine": 7,
+        "endChar": 26
+      },
+      "revId": "8d0bd120ea5888f071b499e8525886814d99a245",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d2c680a_ac5644e9",
+        "filename": "fipsoracle/CMakeLists.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-01T19:10:10Z",
+      "side": 1,
+      "message": "(header files shouldn\u0027t need to be listed in these sections.)",
+      "revId": "8d0bd120ea5888f071b499e8525886814d99a245",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "992d3100_cc48f308",
+        "filename": "fipsoracle/cavp_tdes_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-01T19:10:10Z",
+      "side": 1,
+      "message": "(nit: drop blank line at start of file.)",
+      "revId": "8d0bd120ea5888f071b499e8525886814d99a245",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "974e36b4_2450e7a8",
+        "filename": "fipsoracle/cavp_tdes_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-01T19:10:10Z",
+      "side": 1,
+      "message": "(nit: drop blank line.)",
+      "revId": "8d0bd120ea5888f071b499e8525886814d99a245",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7ced2391_f6c44c83",
+        "filename": "fipsoracle/cavp_tdes_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-01T19:10:10Z",
+      "side": 1,
+      "message": "nit: const this, or unconst |result_label|, below.",
+      "revId": "8d0bd120ea5888f071b499e8525886814d99a245",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
