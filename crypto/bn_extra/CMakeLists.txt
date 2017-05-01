@@ -6,4 +6,5 @@ add_library(
   OBJECT
 
   bn_asn1.c
+  convert.c
 )
