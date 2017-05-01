@@ -34,10 +34,17 @@ if (FIPS)
   )
 
   add_executable(
+    cavp_tdes_test
+
+    cavp_tdes_test.cc
+    cavp_test_util.cc
+    $<TARGET_OBJECTS:test_support>
+  )
+
+  add_executable(
     cavp_sha_test
 
     cavp_sha_test.cc
-    cavp_test_util.h
     cavp_test_util.cc
     $<TARGET_OBJECTS:test_support>
   )
@@ -46,17 +53,15 @@ if (FIPS)
     cavp_sha_monte_test
 
     cavp_sha_monte_test.cc
-    cavp_test_util.h
     cavp_test_util.cc
     $<TARGET_OBJECTS:test_support>
   )
 
   target_link_libraries(cavp_aes_test crypto)
   target_link_libraries(cavp_aes_gcm_test crypto)
-
   target_link_libraries(cavp_ecdsa2_pkv_test crypto)
   target_link_libraries(cavp_ecdsa2_sigver_test crypto)
-
   target_link_libraries(cavp_sha_test crypto)
   target_link_libraries(cavp_sha_monte_test crypto)
+  target_link_libraries(cavp_tdes_test crypto)
 endif()
