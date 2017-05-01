@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba322818_cd16a777",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-01T21:14:28Z",
+      "side": 1,
+      "message": "(Might be worth a BN_cleanup at some point, but we\u0027ll also need BN_clear_cleanup which is annoying.)",
+      "revId": "e4d6a42a60216b2dda6256cc10ce9294304a54bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "322220b1_6025b422",
+        "filename": "crypto/fipsmodule/bn/convert.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-01T21:14:28Z",
+      "side": 1,
+      "message": "Proposed CL to squash in: https://boringssl-review.googlesource.com/c/15764/\n\nEven avoids needing the xdigit@GOTPCREL fixup, but nice to have that in case it comes up again.",
+      "revId": "e4d6a42a60216b2dda6256cc10ce9294304a54bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
