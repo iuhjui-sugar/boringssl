@@ -38,7 +38,7 @@
 #include "bn/asm/x86_64-gcc.c"
 #include "bn/bn.c"
 #include "bn/cmp.c"
-#include "bn/convert.c"
+#include "bn/bytes.c"
 #include "bn/ctx.c"
 #include "bn/div.c"
 #include "bn/exponentiation.c"
