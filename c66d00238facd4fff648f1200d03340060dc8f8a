@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea3e6afd_b9b388c4",
+        "filename": "fipsoracle/cavp_ecdsa2_keypair_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-01T19:04:17Z",
+      "side": 1,
+      "message": "(nit: newline for \"!EC_KEY_generate_key(…)\")",
+      "revId": "c66d00238facd4fff648f1200d03340060dc8f8a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
