@@ -62,7 +62,7 @@
 #include <openssl/mem.h>
 #include <openssl/nid.h>
 
-#include "internal.h"
+#include "../fipsmodule/ec/internal.h"
 #include "../bytestring/internal.h"
 #include "../internal.h"
 

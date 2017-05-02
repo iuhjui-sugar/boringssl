@@ -30,8 +30,8 @@
 #include <openssl/crypto.h>
 #include <openssl/err.h>
 
-#include "../fipsmodule/bn/internal.h"
-#include "../internal.h"
+#include "../bn/internal.h"
+#include "../../internal.h"
 #include "internal.h"
 #include "p256-x86_64.h"
 

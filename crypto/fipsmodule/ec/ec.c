@@ -76,7 +76,7 @@
 #include <openssl/nid.h>
 
 #include "internal.h"
-#include "../internal.h"
+#include "../../internal.h"
 
 
 static const struct curve_data P224 = {

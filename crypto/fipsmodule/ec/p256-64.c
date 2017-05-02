@@ -31,7 +31,7 @@
 #include <string.h>
 
 #include "internal.h"
-#include "../internal.h"
+#include "../../internal.h"
 
 
 typedef uint8_t u8;
@@ -1005,8 +1005,8 @@ static void point_double_small(smallfelem x_out, smallfelem y_out,
   felem_shrink(z_out, felem_z_out);
 }
 
-/* copy_conditional copies in to out iff mask is all ones. */
-static void copy_conditional(felem out, const felem in, limb mask) {
+/* p256_copy_conditional copies in to out iff mask is all ones. */
+static void p256_copy_conditional(felem out, const felem in, limb mask) {
   for (size_t i = 0; i < NLIMBS; ++i) {
     const limb tmp = mask & (in[i] ^ out[i]);
     out[i] ^= tmp;
@@ -1179,11 +1179,11 @@ static void point_add(felem x3, felem y3, felem z3, const felem x1,
   /* y_out[i] < 2^106 */
 
   copy_small_conditional(x_out, x2, z1_is_zero);
-  copy_conditional(x_out, x1, z2_is_zero);
+  p256_copy_conditional(x_out, x1, z2_is_zero);
   copy_small_conditional(y_out, y2, z1_is_zero);
-  copy_conditional(y_out, y1, z2_is_zero);
+  p256_copy_conditional(y_out, y1, z2_is_zero);
   copy_small_conditional(z_out, z2, z1_is_zero);
-  copy_conditional(z_out, z1, z2_is_zero);
+  p256_copy_conditional(z_out, z1, z2_is_zero);
   felem_assign(x3, x_out);
   felem_assign(y3, y_out);
   felem_assign(z3, z_out);
