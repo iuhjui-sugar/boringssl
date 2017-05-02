@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "795aa4e4_056a4211",
+        "filename": "fipsoracle/cavp_tdes_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-02T20:54:30Z",
+      "side": 1,
+      "message": "Does NumKeys actually appear in non-MCT, non-MMT tests?",
+      "revId": "d4116e4c4eb1fcb8bb3f03218f2d81487b7c99da",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0688ae4_1d546aa6",
+        "filename": "fipsoracle/cavp_tdes_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-02T20:54:30Z",
+      "side": 1,
+      "message": "num_keys \u003d\u003d 0 is invalid, no?",
+      "range": {
+        "startLine": 71,
+        "startChar": 6,
+        "endLine": 71,
+        "endChar": 19
+      },
+      "revId": "d4116e4c4eb1fcb8bb3f03218f2d81487b7c99da",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12718c35_b8de8873",
+        "filename": "fipsoracle/cavp_tdes_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-02T20:54:30Z",
+      "side": 1,
+      "message": "this basically means |num_keys \u003d\u003d 1|, right?",
+      "range": {
+        "startLine": 121,
+        "startChar": 6,
+        "endLine": 121,
+        "endChar": 18
+      },
+      "revId": "d4116e4c4eb1fcb8bb3f03218f2d81487b7c99da",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0741d88f_1ced9999",
+        "filename": "fipsoracle/cavp_tdes_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-02T20:54:30Z",
+      "side": 1,
+      "message": "// xor_key_with_odd_parity_lsb sets |*key| to |key| XOR |value| and then writes the LSB of each byte to establish odd parity for that byte. This parity-based embedded of a DES key into 64 bits is an old tradition and something that NIST\u0027s tests require.\n\n(P.s. since this is a C++ file, this could be XORKeyWithOddParityLSB. I bet we\u0027re inconsistent with function naming in C++ files however, so your call.)",
+      "revId": "d4116e4c4eb1fcb8bb3f03218f2d81487b7c99da",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c54bc459_baa53999",
+        "filename": "fipsoracle/cavp_tdes_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-02T20:54:30Z",
+      "side": 1,
+      "message": "(ditto.)",
+      "range": {
+        "startLine": 199,
+        "startChar": 6,
+        "endLine": 199,
+        "endChar": 20
+      },
+      "revId": "d4116e4c4eb1fcb8bb3f03218f2d81487b7c99da",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
