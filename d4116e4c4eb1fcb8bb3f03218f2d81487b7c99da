@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c48d4534_c19c3d73",
+        "filename": "fipsoracle/cavp_tdes_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-05-02T21:20:17Z",
+      "side": 1,
+      "message": "It\u0027s in the MMT tests, but those are really just KAT tests (the TMOVS spec doesn\u0027t even mention MMT IIRC). I could split the MMT tests into a separate test function if you want. (I assume none of the other KAT tests would ever switch to the KEY{1,2,3} format, although in absence of a spec, who knows. :p)",
+      "parentUuid": "795aa4e4_056a4211",
+      "revId": "d4116e4c4eb1fcb8bb3f03218f2d81487b7c99da",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f0688ae4_1d546aa6",
         "filename": "fipsoracle/cavp_tdes_test.cc",
         "patchSetId": 2
@@ -39,6 +57,30 @@
       "revId": "d4116e4c4eb1fcb8bb3f03218f2d81487b7c99da",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d66a197_16bf7e16",
+        "filename": "fipsoracle/cavp_tdes_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-05-02T21:20:17Z",
+      "side": 1,
+      "message": "num_keys is 0 if there is no NumKeys instruction (which implies presence of KEYs). It is invalid for TestMCT though (done).",
+      "parentUuid": "f0688ae4_1d546aa6",
+      "range": {
+        "startLine": 71,
+        "startChar": 6,
+        "endLine": 71,
+        "endChar": 19
+      },
+      "revId": "d4116e4c4eb1fcb8bb3f03218f2d81487b7c99da",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "52adc989_877e00d3",
+        "filename": "fipsoracle/cavp_tdes_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-05-02T21:20:17Z",
+      "side": 1,
+      "message": "It means num_keys \u003d\u003d 0. If num_keys is present, it is 2 or 3, and the KEY{1,2,3} attributes exist. If it is not, the keys are concatenated into the KEYs attribute.\n\nI decided to change it into an enum.",
+      "parentUuid": "12718c35_b8de8873",
+      "range": {
+        "startLine": 121,
+        "startChar": 6,
+        "endLine": 121,
+        "endChar": 18
+      },
+      "revId": "d4116e4c4eb1fcb8bb3f03218f2d81487b7c99da",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0741d88f_1ced9999",
         "filename": "fipsoracle/cavp_tdes_test.cc",
         "patchSetId": 2
@@ -79,6 +145,24 @@
       "revId": "d4116e4c4eb1fcb8bb3f03218f2d81487b7c99da",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8be6148d_a0f22405",
+        "filename": "fipsoracle/cavp_tdes_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-05-02T21:20:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0741d88f_1ced9999",
+      "revId": "d4116e4c4eb1fcb8bb3f03218f2d81487b7c99da",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -102,6 +186,30 @@
       "revId": "d4116e4c4eb1fcb8bb3f03218f2d81487b7c99da",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e7a60f8_027c13d3",
+        "filename": "fipsoracle/cavp_tdes_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-05-02T21:20:17Z",
+      "side": 1,
+      "message": "Here is is indeed invalid because NumKeys must be present. Done.",
+      "parentUuid": "c54bc459_baa53999",
+      "range": {
+        "startLine": 199,
+        "startChar": 6,
+        "endLine": 199,
+        "endChar": 20
+      },
+      "revId": "d4116e4c4eb1fcb8bb3f03218f2d81487b7c99da",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
