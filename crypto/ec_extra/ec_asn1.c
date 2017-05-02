@@ -62,7 +62,7 @@
 #include <openssl/mem.h>
 #include <openssl/nid.h>
 
-#include "internal.h"
+#include "../fipsmodule/ec/internal.h"
 #include "../bytestring/internal.h"
 #include "../internal.h"
 
@@ -333,8 +333,9 @@ EC_GROUP *EC_KEY_parse_curve_name(CBS *cbs) {
 
   /* Look for a matching curve. */
   unsigned i;
-  for (i = 0; OPENSSL_built_in_curves[i].nid != NID_undef; i++) {
-    const struct built_in_curve *curve = &OPENSSL_built_in_curves[i];
+  const struct built_in_curves *const curves = OPENSSL_built_in_curves();
+  for (i = 0; curves->curves[i].nid != NID_undef; i++) {
+    const struct built_in_curve *curve = &curves->curves[i];
     if (CBS_len(&named_curve) == curve->oid_len &&
         OPENSSL_memcmp(CBS_data(&named_curve), curve->oid, curve->oid_len) == 0) {
       return EC_GROUP_new_by_curve_name(curve->nid);
@@ -353,8 +354,9 @@ int EC_KEY_marshal_curve_name(CBB *cbb, const EC_GROUP *group) {
   }
 
   unsigned i;
-  for (i = 0; OPENSSL_built_in_curves[i].nid != NID_undef; i++) {
-    const struct built_in_curve *curve = &OPENSSL_built_in_curves[i];
+  const struct built_in_curves *const curves = OPENSSL_built_in_curves();
+  for (i = 0; curves->curves[i].nid != NID_undef; i++) {
+    const struct built_in_curve *curve = &curves->curves[i];
     if (curve->nid == nid) {
       CBB child;
       return CBB_add_asn1(cbb, &child, CBS_ASN1_OBJECT) &&
@@ -383,9 +385,10 @@ EC_GROUP *EC_KEY_parse_parameters(CBS *cbs) {
   }
 
   /* Look for a matching prime curve. */
+  const struct built_in_curves *const curves = OPENSSL_built_in_curves();
   unsigned i;
-  for (i = 0; OPENSSL_built_in_curves[i].nid != NID_undef; i++) {
-    const struct built_in_curve *curve = &OPENSSL_built_in_curves[i];
+  for (i = 0; curves->curves[i].nid != NID_undef; i++) {
+    const struct built_in_curve *curve = &curves->curves[i];
     const unsigned param_len = curve->data->param_len;
     /* |curve->data->data| is ordered p, a, b, x, y, order, each component
      * zero-padded up to the field length. Although SEC 1 states that the
