@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f03e228_db176015",
+        "filename": "fipsoracle/cavp_rsa2_keygen_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-03T16:05:56Z",
+      "side": 1,
+      "message": "table !\u003d \"C.2\" (since things are std::string already).",
+      "revId": "28155355e3fbe78a54028bda274527811d138741",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a97d148_52729148",
+        "filename": "fipsoracle/cavp_rsa2_keygen_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-03T16:05:56Z",
+      "side": 1,
+      "message": "no need to use the _padded form since the output size is being taken from BN_num_bytes(x) anyway.",
+      "revId": "28155355e3fbe78a54028bda274527811d138741",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
