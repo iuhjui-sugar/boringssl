@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1cd8bc6a_63367ab8",
+        "filename": "crypto/ec_extra/ecdsa_asn1.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-03T19:56:44Z",
+      "side": 1,
+      "message": "Good point. Done.",
+      "parentUuid": "a38f855a_fb34812b",
+      "revId": "a3a4b49fb6e3973edb2f2d62e20dbd80b2aa17b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d40bd6c3_844af277",
         "filename": "crypto/fipsmodule/ec/ec.c",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2017-05-03T18:58:36Z",
       "side": 1,
       "message": "Might be cleaner to delete this and move line 322 to just above line 353.\n\nAlternatively, since DEFINE_BSS_GET itself makes a CRYPTO_once, maybe we should just make it a DEFINE_LOCAL_DATA and have this function be the body. I\u0027m thinking replace the 5 in internal.h with OPENSSL_NUM_BUILTIN_CURVES + 1. (Or drop the NID_undef marker since the header exports the size already.)",
+      "revId": "a3a4b49fb6e3973edb2f2d62e20dbd80b2aa17b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "150cc05e_a771a940",
+        "filename": "crypto/fipsmodule/ec/ec.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-03T19:56:44Z",
+      "side": 1,
+      "message": "Used DEFINE_LOCAL_DATA and dropped the NID_undef at the end of the array.",
+      "parentUuid": "d40bd6c3_844af277",
       "revId": "a3a4b49fb6e3973edb2f2d62e20dbd80b2aa17b5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -50,6 +86,24 @@
       "revId": "a3a4b49fb6e3973edb2f2d62e20dbd80b2aa17b5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36796c9c_a9b0203b",
+        "filename": "crypto/fipsmodule/ec/p224-64.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-03T19:56:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0836fea_afac3137",
+      "revId": "a3a4b49fb6e3973edb2f2d62e20dbd80b2aa17b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
