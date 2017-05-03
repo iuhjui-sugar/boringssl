@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10033a2c_5568cf2d",
+        "filename": "crypto/ec/wnaf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-05-03T16:16:52Z",
+      "side": 1,
+      "message": "*formerly",
+      "range": {
+        "startLine": 82,
+        "startChar": 3,
+        "endLine": 82,
+        "endChar": 11
+      },
+      "revId": "920912b9fcd7eb15d2bb7aa52a77f888ec062bd2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
