@@ -24,6 +24,7 @@
 #include "../crypto/fipsmodule/rand/internal.h"
 #include "../crypto/test/file_test.h"
 
+namespace {
 
 struct TestCtx {
   std::unique_ptr<FileTest> response_sample;
@@ -114,7 +115,14 @@ static int usage(char *arg) {
   return 1;
 }
 
+}  // namespace
+
+#ifdef FIPS_CAVP_MAIN
+extern int cavp_ctr_drbg_test_main(int argc, char **argv);
+int cavp_ctr_drbg_test_main(int argc, char **argv) {
+#else
 int main(int argc, char **argv) {
+#endif
   CRYPTO_library_init();
 
   if (argc != 2 && argc != 3) {

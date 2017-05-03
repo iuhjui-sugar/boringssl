@@ -31,6 +31,8 @@
 #include "cavp_test_util.h"
 
 
+namespace {
+
 static bool TestECDSA2SigGenImpl(FileTest *t, bool is_component) {
   int nid = GetECGroupNIDFromInstruction(t);
   const EVP_MD *md = GetDigestFromInstruction(t);
@@ -98,7 +100,14 @@ static bool TestECDSA2SigGenComponent(FileTest *t, void *arg) {
   return TestECDSA2SigGenImpl(t, true);
 }
 
+}  // namespace
+
+#ifdef FIPS_CAVP_MAIN
+extern int cavp_ecdsa2_siggen_test_main(int argc, char **argv);
+int cavp_ecdsa2_siggen_test_main(int argc, char **argv) {
+#else
 int main(int argc, char **argv) {
+#endif
   CRYPTO_library_init();
 
   if (argc != 3) {

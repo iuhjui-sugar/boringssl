@@ -25,6 +25,8 @@
 #include "../crypto/test/file_test.h"
 #include "cavp_test_util.h"
 
+namespace {
+
 static bool TestRSA2KeyGen(FileTest *t, void *arg) {
   std::string mod_str, table, count_str;
   if (!t->GetInstruction(&mod_str, "mod") ||
@@ -79,7 +81,14 @@ static bool TestRSA2KeyGen(FileTest *t, void *arg) {
   return true;
 }
 
+}  // namespace
+
+#ifdef FIPS_CAVP_MAIN
+extern int cavp_rsa2_keygen_test_main(int argc, char **argv);
+int cavp_rsa2_keygen_test_main(int argc, char **argv) {
+#else
 int main(int argc, char **argv) {
+#endif
   CRYPTO_library_init();
 
   if (argc != 2) {

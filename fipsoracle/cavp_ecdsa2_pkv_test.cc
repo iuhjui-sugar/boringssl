@@ -28,6 +28,8 @@
 #include "cavp_test_util.h"
 
 
+namespace {
+
 static bool TestECDSA2PKV(FileTest *t, void *arg) {
   int nid = GetECGroupNIDFromInstruction(t);
   if (nid == NID_undef) {
@@ -51,7 +53,14 @@ static bool TestECDSA2PKV(FileTest *t, void *arg) {
   return true;
 }
 
+}  // namespace
+
+#ifdef FIPS_CAVP_MAIN
+extern int cavp_ecdsa2_pkv_test_main(int argc, char **argv);
+int cavp_ecdsa2_pkv_test_main(int argc, char **argv) {
+#else
 int main(int argc, char **argv) {
+#endif
   CRYPTO_library_init();
 
   if (argc != 2) {

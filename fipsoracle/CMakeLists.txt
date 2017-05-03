@@ -121,6 +121,35 @@ if (FIPS)
     $<TARGET_OBJECTS:test_support>
   )
 
+add_executable(
+    cavp_main
+
+    cavp_main.cc
+
+    cavp_aes_gcm_test.cc
+    cavp_aes_test.cc
+    cavp_ctr_drbg_test.cc
+    cavp_ecdsa2_keypair_test.cc
+    cavp_ecdsa2_pkv_test.cc
+    cavp_ecdsa2_siggen_test.cc
+    cavp_ecdsa2_sigver_test.cc
+    cavp_hmac_test.cc
+    cavp_keywrap_test.cc
+    cavp_rsa2_keygen_test.cc
+    cavp_rsa2_siggen_test.cc
+    cavp_rsa2_sigver_test.cc
+    cavp_sha_monte_test.cc
+    cavp_sha_test.cc
+    cavp_tdes_test.cc
+
+    cavp_test_util.cc
+    $<TARGET_OBJECTS:test_support>
+  )
+
+  set_target_properties(cavp_main PROPERTIES COMPILE_OPTIONS "-DFIPS_CAVP_MAIN")
+
+  target_link_libraries(cavp_main crypto)
+
   target_link_libraries(cavp_aes_test crypto)
   target_link_libraries(cavp_aes_gcm_test crypto)
   target_link_libraries(cavp_ctr_drbg_test crypto)
