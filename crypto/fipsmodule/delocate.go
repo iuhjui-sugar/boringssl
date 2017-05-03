@@ -307,7 +307,7 @@ func transform(lines []string, symbols map[string]bool) (ret []string) {
 			ret = append(ret, line)
 			continue
 
-		case "leaq", "movq", "cmpq":
+		case "leaq", "movq", "cmpq", "cmoveq", "cmovneq":
 			if instr == "movq" && strings.Contains(line, "@GOTTPOFF(%rip)") {
 				// GOTTPOFF are offsets into the thread-local
 				// storage that are stored in the GOT. We have
@@ -338,7 +338,7 @@ func transform(lines []string, symbols map[string]bool) (ret []string) {
 					line = strings.Replace(line, target, localTargetName(target), 1)
 				}
 
-				if strings.Contains(line, "@GOTPCREL") && instr == "movq" {
+				if strings.Contains(line, "@GOTPCREL") && (instr == "movq" || instr == "cmoveq" || instr == "cmovneq") {
 					line = strings.Replace(line, "@GOTPCREL", "", -1)
 					target = strings.Replace(target, "@GOTPCREL", "", -1)
 

@@ -20,7 +20,7 @@
 #include <openssl/err.h>
 
 #include "internal.h"
-#include "../internal.h"
+#include "../../internal.h"
 
 
 size_t EVP_AEAD_key_length(const EVP_AEAD *aead) { return aead->key_len; }
