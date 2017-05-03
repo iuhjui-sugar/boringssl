@@ -22,6 +22,30 @@
       "revId": "920912b9fcd7eb15d2bb7aa52a77f888ec062bd2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84d353ed_2a1f30c9",
+        "filename": "crypto/ec/wnaf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-03T16:21:41Z",
+      "side": 1,
+      "message": "(Chatted out-of-band, decided including the old URL wasn\u0027t especially valuable.)",
+      "parentUuid": "10033a2c_5568cf2d",
+      "range": {
+        "startLine": 82,
+        "startChar": 3,
+        "endLine": 82,
+        "endChar": 11
+      },
+      "revId": "920912b9fcd7eb15d2bb7aa52a77f888ec062bd2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
