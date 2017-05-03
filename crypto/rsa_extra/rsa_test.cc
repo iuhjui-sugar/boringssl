@@ -70,7 +70,7 @@
 #include "../fipsmodule/bn/internal.h"
 #include "../internal.h"
 #include "../test/test_util.h"
-#include "internal.h"
+#include "../fipsmodule/rsa/internal.h"
 
 
 // kPlaintext is a sample plaintext.
