@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d86a964f_3e4bf58f",
+        "filename": "fipsoracle/cavp_keywrap_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-03T18:29:00Z",
+      "side": 1,
+      "message": "const for |key| and |in|?",
+      "revId": "c20126799c91330fb74dbcf1a4ba7ffe977bf874",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "671b0f4d_1644dc08",
+        "filename": "fipsoracle/cavp_keywrap_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-03T18:29:00Z",
+      "side": 1,
+      "message": "(nit: drop blank line.)",
+      "revId": "c20126799c91330fb74dbcf1a4ba7ffe977bf874",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
