@@ -29,6 +29,8 @@
 #include "cavp_test_util.h"
 
 
+namespace {
+
 static bool TestECDSA2KeyPair(FileTest *t, void *arg) {
   std::string n_str;
   const char *group_str;
@@ -77,7 +79,14 @@ static bool TestECDSA2KeyPair(FileTest *t, void *arg) {
   return true;
 }
 
+}  // namespace
+
+#ifdef FIPS_CAVP_MAIN
+extern int cavp_ecdsa2_keypair_test_main(int argc, char **argv);
+int cavp_ecdsa2_keypair_test_main(int argc, char **argv) {
+#else
 int main(int argc, char **argv) {
+#endif
   CRYPTO_library_init();
 
   if (argc != 2) {

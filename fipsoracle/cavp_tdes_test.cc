@@ -26,6 +26,8 @@
 #include "cavp_test_util.h"
 
 
+namespace {
+
 struct TestCtx {
   const EVP_CIPHER *cipher;
   std::unique_ptr<FileTest> response_sample;
@@ -325,7 +327,14 @@ static int usage(char *arg) {
   return 1;
 }
 
+}  // namespace
+
+#ifdef FIPS_CAVP_MAIN
+extern int cavp_tdes_test_main(int argc, char **argv);
+int cavp_tdes_test_main(int argc, char **argv) {
+#else
 int main(int argc, char **argv) {
+#endif
   CRYPTO_library_init();
 
   if (argc < 4 || argc > 5) {

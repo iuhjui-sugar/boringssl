@@ -24,6 +24,7 @@
 #include "../crypto/test/file_test.h"
 #include "cavp_test_util.h"
 
+namespace {
 
 struct TestCtx {
   std::string hash;
@@ -77,7 +78,14 @@ static int usage(char *arg) {
   return 1;
 }
 
+}  // namespace
+
+#ifdef FIPS_CAVP_MAIN
+extern int cavp_sha_test_main(int argc, char **argv);
+int cavp_sha_test_main(int argc, char **argv) {
+#else
 int main(int argc, char **argv) {
+#endif
   CRYPTO_library_init();
 
   if (argc != 3) {

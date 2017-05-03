@@ -37,6 +37,8 @@ type testSuite struct {
 	directory string
 	// binary is the name of the binary that can process these tests.
 	binary string
+	// args is a list of arguments to pass to the binary.
+	args []string
 	// faxScanFunc, if not nil, is the function to use instead of
 	// (*bufio.Scanner).Scan. This can be used to skip lines.
 	faxScanFunc func(*bufio.Scanner) bool
@@ -49,7 +51,8 @@ func (t *testSuite) getDirectory() string {
 
 var aesGCMTests = testSuite{
 	"AES_GCM",
-	"cavp_aes_gcm_test",
+	"cavp_main",
+	[]string{"cavp_aes_gcm_test"},
 	nil,
 	[]test{
 		{"gcmDecrypt128", []string{"dec", "aes-128-gcm"}, false},
@@ -61,7 +64,8 @@ var aesGCMTests = testSuite{
 
 var aesTests = testSuite{
 	"AES",
-	"cavp_aes_test",
+	"cavp_main",
+	[]string{"cavp_aes_test"},
 	nil,
 	[]test{
 		{"CBCGFSbox128", []string{"kat", "aes-128-cbc"}, false},
@@ -106,21 +110,24 @@ var aesTests = testSuite{
 
 var ecdsa2KeyPairTests = testSuite{
 	"ECDSA2",
-	"cavp_ecdsa2_keypair_test",
+	"cavp_main",
+	[]string{"cavp_ecdsa2_keypair_test"},
 	nil,
 	[]test{{"KeyPair", nil, true}},
 }
 
 var ecdsa2PKVTests = testSuite{
 	"ECDSA2",
-	"cavp_ecdsa2_pkv_test",
+	"cavp_main",
+	[]string{"cavp_ecdsa2_pkv_test"},
 	nil,
 	[]test{{"PKV", nil, false}},
 }
 
 var ecdsa2SigGenTests = testSuite{
 	"ECDSA2",
-	"cavp_ecdsa2_siggen_test",
+	"cavp_main",
+	[]string{"cavp_ecdsa2_siggen_test"},
 	nil,
 	[]test{
 		{"SigGen", []string{"SigGen"}, true},
@@ -130,14 +137,16 @@ var ecdsa2SigGenTests = testSuite{
 
 var ecdsa2SigVerTests = testSuite{
 	"ECDSA2",
-	"cavp_ecdsa2_sigver_test",
+	"cavp_main",
+	[]string{"cavp_ecdsa2_sigver_test"},
 	nil,
 	[]test{{"SigVer", nil, false}},
 }
 
 var rsa2KeyGenTests = testSuite{
 	"RSA2",
-	"cavp_rsa2_keygen_test",
+	"cavp_main",
+	[]string{"cavp_rsa2_keygen_test"},
 	nil,
 	[]test{
 		{"KeyGen_RandomProbablyPrime3_3", nil, true},
@@ -146,7 +155,8 @@ var rsa2KeyGenTests = testSuite{
 
 var rsa2SigGenTests = testSuite{
 	"RSA2",
-	"cavp_rsa2_siggen_test",
+	"cavp_main",
+	[]string{"cavp_rsa2_siggen_test"},
 	nil,
 	[]test{
 		{"SigGen15_186-3", []string{"pkcs15"}, true},
@@ -156,7 +166,8 @@ var rsa2SigGenTests = testSuite{
 
 var rsa2SigVerTests = testSuite{
 	"RSA2",
-	"cavp_rsa2_sigver_test",
+	"cavp_main",
+	[]string{"cavp_rsa2_sigver_test"},
 	func(s *bufio.Scanner) bool {
 		for {
 			if !s.Scan() {
@@ -188,14 +199,16 @@ var rsa2SigVerTests = testSuite{
 
 var hmacTests = testSuite{
 	"HMAC",
-	"cavp_hmac_test",
+	"cavp_main",
+	[]string{"cavp_hmac_test"},
 	nil,
 	[]test{{"HMAC", nil, false}},
 }
 
 var shaTests = testSuite{
 	"SHA",
-	"cavp_sha_test",
+	"cavp_main",
+	[]string{"cavp_sha_test"},
 	nil,
 	[]test{
 		{"SHA1LongMsg", []string{"SHA1"}, false},
@@ -213,7 +226,8 @@ var shaTests = testSuite{
 
 var shaMonteTests = testSuite{
 	"SHA",
-	"cavp_sha_monte_test",
+	"cavp_main",
+	[]string{"cavp_sha_monte_test"},
 	nil,
 	[]test{
 		{"SHA1Monte", []string{"SHA1"}, false},
@@ -226,14 +240,16 @@ var shaMonteTests = testSuite{
 
 var ctrDRBGTests = testSuite{
 	"DRBG800-90A",
-	"cavp_ctr_drbg_test",
+	"cavp_main",
+	[]string{"cavp_ctr_drbg_test"},
 	nil,
 	[]test{{"CTR_DRBG", nil, false}},
 }
 
 var tdesTests = testSuite{
 	"TDES",
-	"cavp_tdes_test",
+	"cavp_main",
+	[]string{"cavp_tdes_test"},
 	nil,
 	[]test{
 		{"TCBCMMT2", []string{"kat", "des-ede-cbc"}, false},
@@ -259,7 +275,8 @@ var tdesTests = testSuite{
 
 var keyWrapTests = testSuite{
 	"KeyWrap38F",
-	"cavp_keywrap_test",
+	"cavp_main",
+	[]string{"cavp_keywrap_test"},
 	nil,
 	[]test{
 		{"KW_AD_128", []string{"dec", "128"}, false},
@@ -315,8 +332,7 @@ func main() {
 func doTest(suite *testSuite, test test) error {
 	binary := filepath.Join(*binaryDir, suite.binary)
 
-	var args []string
-	args = append(args, test.args...)
+	args := append(suite.args, test.args...)
 	args = append(args, filepath.Join(suite.getDirectory(), "req", test.inFile+".req"))
 
 	outPath := filepath.Join(suite.getDirectory(), "resp", test.inFile+".rsp")
@@ -330,8 +346,10 @@ func doTest(suite *testSuite, test test) error {
 	cmd.Stdout = outFile
 	cmd.Stderr = os.Stderr
 
+	cmdLine := strings.Join(append([]string{binary}, args...), " ")
+	fmt.Println("Running", cmdLine)
 	if err := cmd.Run(); err != nil {
-		return fmt.Errorf("cannot run command for %q %q (%s): %s", suite.getDirectory(), test.inFile, strings.Join(append([]string{binary}, args...), " "), err)
+		return fmt.Errorf("cannot run command for %q %q (%s): %s", suite.getDirectory(), test.inFile, cmdLine, err)
 	}
 
 	return nil

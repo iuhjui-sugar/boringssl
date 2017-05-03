@@ -26,6 +26,8 @@
 #include "../crypto/test/file_test.h"
 #include "cavp_test_util.h"
 
+namespace {
+
 struct TestCtx {
   bssl::UniquePtr<RSA> key;
   bool is_pss;
@@ -100,7 +102,14 @@ static bool TestRSA2SigGen(FileTest *t, void *arg) {
   return true;
 }
 
+}  // namespace
+
+#ifdef FIPS_CAVP_MAIN
+extern int cavp_rsa2_siggen_test_main(int argc, char **argv);
+int cavp_rsa2_siggen_test_main(int argc, char **argv) {
+#else
 int main(int argc, char **argv) {
+#endif
   CRYPTO_library_init();
 
   if (argc != 3) {

@@ -24,6 +24,8 @@
 #include "cavp_test_util.h"
 
 
+namespace {
+
 static bool TestHMAC(FileTest *t, void *arg) {
   std::string md_len_str;
   if (!t->GetInstruction(&md_len_str, "L")) {
@@ -89,7 +91,14 @@ static int usage(char *arg) {
   return 1;
 }
 
+}  // namespace
+
+#ifdef FIPS_CAVP_MAIN
+extern int cavp_hmac_test_main(int argc, char **argv);
+int cavp_hmac_test_main(int argc, char **argv) {
+#else
 int main(int argc, char **argv) {
+#endif
   CRYPTO_library_init();
 
   if (argc != 2) {
