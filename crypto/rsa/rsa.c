@@ -612,7 +612,7 @@ int RSA_check_key(const RSA *key) {
   BN_init(&iqmp_times_q);
 
   if (!BN_mul(&n, key->p, key->q, ctx) ||
-      /* lcm = lcm(prime-1, for all primes) */
+      /* lcm = lcm(p, q) */
       !BN_sub(&pm1, key->p, BN_value_one()) ||
       !BN_sub(&qm1, key->q, BN_value_one()) ||
       !BN_mul(&lcm, &pm1, &qm1, ctx) ||
@@ -623,7 +623,7 @@ int RSA_check_key(const RSA *key) {
 
   if (!BN_div(&lcm, NULL, &lcm, &gcd, ctx) ||
       !BN_gcd(&gcd, &pm1, &qm1, ctx) ||
-      /* de = d*e mod lcm(prime-1, for all primes). */
+      /* de = d*e mod lcm(p, q). */
       !BN_mod_mul(&de, key->d, key->e, &lcm, ctx)) {
     OPENSSL_PUT_ERROR(RSA, ERR_LIB_BN);
     goto out;
