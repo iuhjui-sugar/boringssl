@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "58b27f80_a95eca1a",
+        "filename": "crypto/fipsmodule/aes/aes.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-05T22:29:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2af72a08_31a2e0f0",
+      "revId": "06df35ed347d2370c38e7ec674b91f70b535a6b6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0397a8f9_7ff946ad",
         "filename": "crypto/fipsmodule/aes/internal.h",
         "patchSetId": 4
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "77254bd2_10ba7d8e",
+        "filename": "crypto/fipsmodule/aes/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-05T22:29:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0397a8f9_7ff946ad",
+      "range": {
+        "startLine": 68,
+        "startChar": 2,
+        "endLine": 68,
+        "endChar": 7
+      },
+      "revId": "06df35ed347d2370c38e7ec674b91f70b535a6b6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f169ccae_6179c438",
         "filename": "crypto/fipsmodule/delocate.go",
         "patchSetId": 4
@@ -53,6 +95,24 @@
       "writtenOn": "2017-05-05T21:46:05Z",
       "side": 1,
       "message": "Any reason to do two jumps rather than:\n\n// Invert the condition.\nswitch instr {\ncase \"cmoveq\":\n  condition \u003d \"ne\"\ncase \"cmovneq\":\n  condition \u003d \"e\"\n}\n\nif len(condition) \u003e 0 {\n  ret \u003d append(ret, \"\\t# Was \" + orig)\n  ret \u003d append(ret, \"\\tj\" + condition + \" 1f\")\n}\n\n...\n\nif len(condition) \u003e 0 {\n  ret \u003d append(ret, \"1:\")\n}",
+      "revId": "06df35ed347d2370c38e7ec674b91f70b535a6b6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95bec814_7b43db05",
+        "filename": "crypto/fipsmodule/delocate.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-05T22:29:17Z",
+      "side": 1,
+      "message": "I thought that inverting the condition might be too much but, on reflection, I\u0027m not as troubled by it as I was initially. Done.",
+      "parentUuid": "f169ccae_6179c438",
       "revId": "06df35ed347d2370c38e7ec674b91f70b535a6b6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
