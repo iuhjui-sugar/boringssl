@@ -448,8 +448,9 @@ def FindCMakeFiles(directory):
   return cmakefiles
 
 def OnlyFIPSFragments(path, dent, is_dir):
-  return is_dir or path.startswith(
-      os.path.join('src', 'crypto', 'fipsmodule', ''))
+  return is_dir or (path.startswith(
+      os.path.join('src', 'crypto', 'fipsmodule', '')) and
+      NoTests(path, dent, is_dir))
 
 def NoTestsNorFIPSFragments(path, dent, is_dir):
   return (NoTests(path, dent, is_dir) and
@@ -636,7 +637,7 @@ def IsGTest(path):
 
 def main(platforms):
   crypto_c_files = FindCFiles(os.path.join('src', 'crypto'), NoTestsNorFIPSFragments)
-  fips_fragments = FindCFiles(os.path.join('src', 'crypto', 'fipsmodule'), OnlyFIPSFragments)
+  fips_fragments = FindCFiles(os.path.join('src', 'crypto', 'fipsmodule'), NoTestsNorFIPSFragments)
   ssl_source_files = FindCFiles(os.path.join('src', 'ssl'), NoTests)
   tool_c_files = FindCFiles(os.path.join('src', 'tool'), NoTests)
   tool_h_files = FindHeaderFiles(os.path.join('src', 'tool'), AllFiles)
