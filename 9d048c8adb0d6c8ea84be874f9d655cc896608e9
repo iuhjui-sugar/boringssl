@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9c3e8124_8d9bfb94",
+        "filename": "crypto/fipsmodule/is_fips.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-08T19:42:05Z",
+      "side": 1,
+      "message": "This might be worth extracting into base.h by now. I think it\u0027s the third instance of it.",
+      "revId": "9d048c8adb0d6c8ea84be874f9d655cc896608e9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
