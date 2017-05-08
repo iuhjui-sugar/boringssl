@@ -26,7 +26,7 @@
 
 #include "../bn/internal.h"
 #include "../../test/file_test.h"
-#include "p256-x86_64.h"
+#include "p256-x86_64_decl.h"
 
 
 // Disable tests if BORINGSSL_SHARED_LIBRARY is defined. These tests need access

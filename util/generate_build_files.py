@@ -208,7 +208,6 @@ class Bazel(object):
       out.write(self.header)
 
       self.PrintVariableSection(out, 'ssl_headers', files['ssl_headers'])
-      self.PrintVariableSection(out, 'fips_fragments', files['fips_fragments'])
       self.PrintVariableSection(
           out, 'ssl_internal_headers', files['ssl_internal_headers'])
       self.PrintVariableSection(out, 'ssl_sources', files['ssl'])
@@ -636,7 +635,6 @@ def IsGTest(path):
 
 def main(platforms):
   crypto_c_files = FindCFiles(os.path.join('src', 'crypto'), NoTestsNorFIPSFragments)
-  fips_fragments = FindCFiles(os.path.join('src', 'crypto', 'fipsmodule'), OnlyFIPSFragments)
   ssl_source_files = FindCFiles(os.path.join('src', 'ssl'), NoTests)
   tool_c_files = FindCFiles(os.path.join('src', 'tool'), NoTests)
   tool_h_files = FindHeaderFiles(os.path.join('src', 'tool'), AllFiles)
@@ -720,7 +718,6 @@ def main(platforms):
       'crypto_headers': crypto_h_files,
       'crypto_internal_headers': crypto_internal_h_files,
       'crypto_test': sorted(crypto_test_files),
-      'fips_fragments': fips_fragments,
       'fuzz': fuzz_c_files,
       'ssl': ssl_source_files,
       'ssl_c': [s for s in ssl_source_files if s.endswith('.c')],
