@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0abaecd0_fdc1a0d2",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-08T23:41:26Z",
+      "side": 1,
+      "message": "this defines |fips_fragments| as not including tests or FIPS fragments, which seems surprising.",
+      "range": {
+        "startLine": 640,
+        "startChar": 75,
+        "endLine": 640,
+        "endChar": 98
+      },
+      "revId": "92b9b5527999c3611f18eb1da2353bb2d3116c58",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
