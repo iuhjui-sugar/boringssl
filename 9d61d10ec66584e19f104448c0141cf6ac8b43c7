@@ -22,6 +22,30 @@
       "revId": "9d61d10ec66584e19f104448c0141cf6ac8b43c7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfd12365_5399fa93",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-08T17:21:11Z",
+      "side": 1,
+      "message": "It\u0027s loading pointers into XMM registers, interleaving them and doing a single 128-bit write.",
+      "parentUuid": "ca12e7c7_fb58a6a9",
+      "range": {
+        "startLine": 7,
+        "startChar": 59,
+        "endLine": 7,
+        "endChar": 62
+      },
+      "revId": "9d61d10ec66584e19f104448c0141cf6ac8b43c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
