@@ -424,8 +424,7 @@ void DefaultPrintTo(IsNotContainer /* dummy */,
       // even using reinterpret_cast, as earlier versions of gcc
       // (e.g. 3.4.5) cannot compile the cast when p is a function
       // pointer.  Casting to UIntPtr first solves the problem.
-      *os << reinterpret_cast<const void*>(
-          reinterpret_cast<internal::UIntPtr>(p));
+      *os << reinterpret_cast<const void*>(p);
     }
   }
 }
