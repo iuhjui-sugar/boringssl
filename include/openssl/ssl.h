@@ -512,6 +512,11 @@ OPENSSL_EXPORT int SSL_get_error(const SSL *ssl, int ret_code);
  * See also |SSL_CTX_set_ticket_aead_method|. */
 #define SSL_ERROR_PENDING_TICKET 14
 
+/* SSL_ERROR_EARLY_DATA_REJECT indicates that early data was rejected. The
+ * caller must call |SSL_acknowledge_early_data_reject| before retrying
+ * operations. */
+#define SSL_ERROR_EARLY_DATA_REJECT 15
+
 /* SSL_set_mtu sets the |ssl|'s MTU in DTLS to |mtu|. It returns one on success
  * and zero on failure. */
 OPENSSL_EXPORT int SSL_set_mtu(SSL *ssl, unsigned mtu);
@@ -3090,6 +3095,10 @@ OPENSSL_EXPORT int SSL_in_early_data(const SSL *ssl);
  * handshake performed by |ssl|. */
 OPENSSL_EXPORT int SSL_early_data_accepted(const SSL *ssl);
 
+/* SSL_acknowledge_early_data_reject indicates that the application has
+ * acknowledged early data being rejected. */
+OPENSSL_EXPORT void SSL_acknowledge_early_data_reject(SSL *ssl);
+
 /* SSL_MAX_CERT_LIST_DEFAULT is the default maximum length, in bytes, of a peer
  * certificate chain. */
 #define SSL_MAX_CERT_LIST_DEFAULT (1024 * 100)
@@ -3679,6 +3688,7 @@ OPENSSL_EXPORT void SSL_CTX_set_client_cert_cb(
 #define SSL_CERTIFICATE_SELECTION_PENDING 8
 #define SSL_PRIVATE_KEY_OPERATION 9
 #define SSL_PENDING_TICKET 10
+#define SSL_EARLY_DATA_REJECT 11
 
 /* SSL_want returns one of the above values to determine what the most recent
  * operation on |ssl| was blocked on. Use |SSL_get_error| instead. */
