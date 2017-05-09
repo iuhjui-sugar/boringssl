@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84b64803_4de1523b",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1027,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-09T19:10:50Z",
+      "side": 1,
+      "message": "Because SSL_SESSION\u0027s linked list is intrusive, this should clone the session objects. (You are immediately destroying the old SSL_CTX, but that\u0027s too fragile.)",
+      "revId": "559aa18004c979dd52f8b655642dc6dba5bb629d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10ee44e1_7906a3f7",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1031,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-09T19:10:50Z",
+      "side": 1,
+      "message": "Doesn\u0027t especially matter, but passing a non-owning pointer here seems less bizarre.",
+      "range": {
+        "startLine": 1031,
+        "startChar": 41,
+        "endLine": 1031,
+        "endChar": 65
+      },
+      "revId": "559aa18004c979dd52f8b655642dc6dba5bb629d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86e5a974_e8a5e7d1",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1177,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-09T19:10:50Z",
+      "side": 1,
+      "message": "This leaks old_ctx-\u003esessions. I don\u0027t think you need this line at all?",
+      "revId": "559aa18004c979dd52f8b655642dc6dba5bb629d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42fea270_d21cbae4",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2149,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-09T19:10:50Z",
+      "side": 1,
+      "message": "1 (You\u0027re in a main function.)",
+      "revId": "559aa18004c979dd52f8b655642dc6dba5bb629d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
