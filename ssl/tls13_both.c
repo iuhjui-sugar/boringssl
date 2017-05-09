@@ -94,6 +94,13 @@ int tls13_handshake(SSL_HANDSHAKE *hs, int *out_early_return) {
         hs->wait = ssl_hs_ok;
         return -1;
 
+      case ssl_hs_early_data_rejected:
+        if (!ssl->s3->early_data_reject_acknowledged) {
+          ssl->rwstate = SSL_EARLY_DATA_REJECT;
+          return -1;
+        }
+        break;
+
       case ssl_hs_ok:
         break;
     }

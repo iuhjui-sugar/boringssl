@@ -585,6 +585,7 @@ int SSL_do_handshake(SSL *ssl) {
   /* Run the handshake. */
   assert(ssl->s3->hs != NULL);
   int ret = ssl->handshake_func(ssl->s3->hs);
+  printf("ERRROR %d\n", SSL_get_error(ssl, ret));
   if (ret <= 0) {
     return ret;
   }
@@ -851,6 +852,10 @@ int SSL_early_data_accepted(const SSL *ssl) {
   return ssl->early_data_accepted;
 }
 
+void SSL_acknowledge_early_data_reject(SSL *ssl) {
+  ssl->s3->early_data_reject_acknowledged = 1;
+}
+
 static int bio_retry_reason_to_error(int reason) {
   switch (reason) {
     case BIO_RR_CONNECT:
@@ -943,6 +948,9 @@ int SSL_get_error(const SSL *ssl, int ret_code) {
 
     case SSL_PENDING_TICKET:
       return SSL_ERROR_PENDING_TICKET;
+
+    case SSL_EARLY_DATA_REJECT:
+      return SSL_ERROR_EARLY_DATA_REJECT;
   }
 
   return SSL_ERROR_SYSCALL;

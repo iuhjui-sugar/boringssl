@@ -922,6 +922,7 @@ enum ssl_hs_wait_t {
   ssl_hs_channel_id_lookup,
   ssl_hs_private_key_operation,
   ssl_hs_pending_ticket,
+  ssl_hs_early_data_rejected,
   ssl_hs_read_end_of_early_data,
 };
 
@@ -1601,6 +1602,10 @@ typedef struct ssl3_state_st {
   /* skip_early_data instructs the record layer to skip unexpected early data
    * messages when 0RTT is rejected. */
   unsigned skip_early_data:1;
+
+  /* early_data_reject_acknowledge is true once the application has acknowledged
+   * an early data reject. */
+  unsigned early_data_reject_acknowledged:1;
 
   /* have_version is true if the connection's final version is known. Otherwise
    * the version has not been negotiated yet. */
