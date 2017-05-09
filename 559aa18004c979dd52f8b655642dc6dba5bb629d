@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e6a65cda_82547803",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1027,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-05-09T19:20:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84b64803_4de1523b",
+      "revId": "559aa18004c979dd52f8b655642dc6dba5bb629d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "10ee44e1_7906a3f7",
         "filename": "ssl/test/bssl_shim.cc",
         "patchSetId": 3
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "754f9726_1c5984b0",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1031,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-05-09T19:20:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10ee44e1_7906a3f7",
+      "range": {
+        "startLine": 1031,
+        "startChar": 41,
+        "endLine": 1031,
+        "endChar": 65
+      },
+      "revId": "559aa18004c979dd52f8b655642dc6dba5bb629d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "86e5a974_e8a5e7d1",
         "filename": "ssl/test/bssl_shim.cc",
         "patchSetId": 3
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "7eac6f04_780abbfa",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1177,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-05-09T19:20:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86e5a974_e8a5e7d1",
+      "revId": "559aa18004c979dd52f8b655642dc6dba5bb629d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "42fea270_d21cbae4",
         "filename": "ssl/test/bssl_shim.cc",
         "patchSetId": 3
@@ -73,6 +133,24 @@
       "revId": "559aa18004c979dd52f8b655642dc6dba5bb629d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9fe82be_803a64c5",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2149,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-05-09T19:20:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42fea270_d21cbae4",
+      "revId": "559aa18004c979dd52f8b655642dc6dba5bb629d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
