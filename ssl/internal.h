@@ -1607,6 +1607,10 @@ typedef struct ssl3_state_st {
    * messages when 0RTT is rejected. */
   unsigned skip_early_data:1;
 
+  /* early_data_reject_acknowledge is true once the application has acknowledged
+   * an early data reject. */
+  unsigned early_data_reject_acknowledged:1;
+
   /* have_version is true if the connection's final version is known. Otherwise
    * the version has not been negotiated yet. */
   unsigned have_version:1;
