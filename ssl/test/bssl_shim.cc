@@ -1185,6 +1185,11 @@ static bssl::UniquePtr<SSL_CTX> SetupCtx(SSL_CTX *old_ctx,
   return ssl_ctx;
 }
 
+static bool AcknowledgeEarlyDataReject(SSL *ssl) {
+  SSL_acknowledge_early_data_reject(ssl);
+  return true;
+}
+
 // RetryAsync is called after a failed operation on |ssl| with return code
 // |ret|. If the operation should be retried, it simulates one asynchronous
 // event and returns true. Otherwise it returns false.
@@ -1262,6 +1267,13 @@ static int DoRead(SSL *ssl, uint8_t *out, size_t max_out) {
     }
     ret = config->peek_then_read ? SSL_peek(ssl, out, max_out)
                                  : SSL_read(ssl, out, max_out);
+    if (ret != 1 && SSL_get_error(ssl, ret) == SSL_ERROR_EARLY_DATA_REJECT) {
+      if (!AcknowledgeEarlyDataReject(ssl)) {
+        return -1;
+      }
+      ret = config->peek_then_read ? SSL_peek(ssl, out, max_out)
+                                   : SSL_read(ssl, out, max_out);
+    }
     if (config->async) {
       AsyncBioEnforceWriteQuota(test_state->async_bio, true);
     }
