@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c990700_c72a1f44",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1084,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-09T18:07:17Z",
+      "side": 1,
+      "message": "Overall, I like this change, but calling SetupCtx twice is a little wonky. This block and the one below aren\u0027t really going to survive it. Also if I did -on-initial-signed-certificate-timestamps, it actually acts as if it were in both because we don\u0027t unconfigure things.\n\nThe two thoughts I had were:\n1. Make a new SSL_CTX and copy over the old one\u0027s ticket keys and internal session cache.\n2. Separate flags into global and per-connection.\n\nFrom our discussion, it sounds like we both think (1) is more palatable if it works.",
+      "revId": "2d6608f8a4d29584e01d28350fa51aae42e9309c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20d7baa8_69dbfd7c",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-09T18:07:17Z",
+      "side": 1,
+      "message": "Move inside the anonymous namespace and use const char kInit[].\n\n(* means kInit is a pointer whose value happens to be a static string, \"-on-initial\" which we stuff into the binary somewhere. Using [] means you are declaring an array of size strlen(s) + 1 whose contents are \u0027-\u0027, \u0027o\u0027, \u0027n\u0027, ..., \u0027\\0\u0027. Saves 8 bytes. Not that it matters here.)",
+      "revId": "2d6608f8a4d29584e01d28350fa51aae42e9309c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
