@@ -1,0 +1,146 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a75d3ba_ac16b8e9",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 3083,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-09T21:49:55Z",
+      "side": 1,
+      "message": "Expand on this a little? (What\u0027s an early data state?)",
+      "range": {
+        "startLine": 3083,
+        "startChar": 54,
+        "endLine": 3083,
+        "endChar": 76
+      },
+      "revId": "d2c3a33dc0ca07d57fd956b67f138e6c7b5bc30b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76864f7c_3f645395",
+        "filename": "ssl/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 1565,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-09T21:49:55Z",
+      "side": 1,
+      "message": "unsigned:1 and pack it in with the others.\n\n(Would be nice to prune this state down, but we can think about that in a follow-up.)",
+      "revId": "d2c3a33dc0ca07d57fd956b67f138e6c7b5bc30b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0f3b8fc_7e25dca2",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-09T21:49:55Z",
+      "side": 1,
+      "message": "This probably deserves a comment. (The reason you need to flush them out in this order is because application data in the write buffer goes before stuff in pending_flight.)",
+      "revId": "d2c3a33dc0ca07d57fd956b67f138e6c7b5bc30b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2e088ae_f6076c10",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 846,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-09T21:49:55Z",
+      "side": 1,
+      "message": "This is going to treat False Start as SSL_in_early_data. This breaks, e.g., SSL_session_reused below.\n\nAdd a test for this when you fix it.",
+      "revId": "d2c3a33dc0ca07d57fd956b67f138e6c7b5bc30b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2309962e_b288a903",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 872,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-09T21:49:55Z",
+      "side": 1,
+      "message": "Why was this moved down here? We need to test that the client sends it without waiting for ServerHello. This is one of many ways that a test harness needs to behave differently from a normal TLS implementation. (See also the False Start tests snarfing application data records early.)",
+      "revId": "d2c3a33dc0ca07d57fd956b67f138e6c7b5bc30b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d803d43_bdaf05bf",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-09T21:49:55Z",
+      "side": 1,
+      "message": "Add a test for what happens when sending early data crashes into the early data send limit. (It should probably send what it can and then drive SSL_do_handshake to completion.)",
+      "revId": "d2c3a33dc0ca07d57fd956b67f138e6c7b5bc30b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9c7d56d_1904d108",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 3624,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-09T21:49:55Z",
+      "side": 1,
+      "message": "Add a comment for what\u0027s going on here? (Why testing it is interesting.)",
+      "revId": "d2c3a33dc0ca07d57fd956b67f138e6c7b5bc30b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91ff314f_05eb2c46",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-09T21:49:55Z",
+      "side": 1,
+      "message": "Is this needed? I would have expected it to have been cleared already at this point.",
+      "revId": "d2c3a33dc0ca07d57fd956b67f138e6c7b5bc30b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
