@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c1f7b75_4687910e",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-10T16:43:26Z",
+      "side": 1,
+      "message": "This is already being set.",
+      "revId": "c0d141f915fc4e6e91de93856f5c1c1bb73e0c71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19cdaa54_b7ff5771",
+        "filename": "crypto/perlasm/x86gas.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-10T16:43:26Z",
+      "side": 1,
+      "message": "(We should be able to upstream an even more aggressive change. I\u0027ll put that together today. Really the second argument to asm_init is unnecessary.)",
+      "revId": "c0d141f915fc4e6e91de93856f5c1c1bb73e0c71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
