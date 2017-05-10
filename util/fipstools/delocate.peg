@@ -1,0 +1,58 @@
+package main
+
+type Asm Peg {}
+
+AsmFile <- Statement* !.
+Statement <- WS? (Label / ((GlobalDirective /
+                            LocationDirective /
+                            LabelContainingDirective /
+                            Instruction /
+                            Directive /
+                            Comment / ) WS? (Comment? '\n') / ';'))
+GlobalDirective <- (".global" / ".globl") WS SymbolName
+Directive <- '.' DirectiveName (WS Args)?
+DirectiveName <- [[A-Z0-9_]]+
+LocationDirective <- (".file" / ".loc") WS [^#\n]+
+Args <- Arg ((WS? ',' WS?) Arg)*
+Arg <- QuotedArg / [[0-9a-z%+\-_@.]]*
+QuotedArg <- '"' QuotedText '"'
+QuotedText <- (EscapedChar / [^"])*
+LabelContainingDirective <- LabelContainingDirectiveName WS SymbolArgs
+LabelContainingDirectiveName <- ".long" / ".set" / ".8byte" / ".4byte" / ".quad"
+SymbolArgs <- SymbolArg ((WS? ',' WS?) SymbolArg)*
+SymbolArg <- Offset /
+             LocalSymbol Operator LocalSymbol /
+             LocalSymbol Operator Offset /
+             Offset Operator LocalSymbol /
+             LocalSymbol
+EscapedChar <- '\\' .
+WS <- [ \t]+
+Comment <- '#' [^\n]*
+Label <- (LocalSymbol / LocalLabel / SymbolName) ':'
+SymbolName <- [[A-Z._]][[A-Z.0-9$_]]*
+LocalSymbol <- '.L' [[A-Z.0-9$_]]+
+LocalLabel <- [0-9][0-9$]*
+LocalLabelRef <- [0-9][0-9$]*[bf]
+Instruction <- InstructionName WS? InstructionArg? WS? (',' WS? InstructionArg)*
+InstructionName <- [[A-Z]][[A-Z0-9]]* [.\-]?
+InstructionArg <- IndirectionIndicator? (RegisterOrConstant / LocalLabelRef / TOCRefHigh / TOCRefLow / MemoryRef)
+TOCRefHigh <- ".TOC.-0b@ha"
+TOCRefLow <- ".TOC.-0b@l"
+IndirectionIndicator <- '*'
+RegisterOrConstant <- (('%'[[A-Z]][[A-Z0-9]]*) / ('$'? [+\-]? (('0x' [[0-9A-F]]+) / [0-9]+))) ![:(+\-]
+MemoryRef <- (Offset Operator SymbolRef BaseIndexScale /
+              SymbolRef Operator Offset BaseIndexScale /
+              SymbolRef BaseIndexScale /
+              Offset BaseIndexScale /
+              Offset Operator Offset BaseIndexScale /
+              SymbolRef Operator Offset Operator Offset BaseIndexScale /
+              Offset Operator Offset Operator Offset BaseIndexScale /
+              SymbolRef /
+              BaseIndexScale /
+              Absolute)
+SymbolRef <- (LocalSymbol / SymbolName) ('@' Section)?
+BaseIndexScale <- '(' RegisterOrConstant? WS? (',' WS? RegisterOrConstant WS? (',' [0-9]+)? )? ')'
+Operator <- [+\-]
+Offset <- '-'? (('0x' [[0-9A-F]]+) / [0-9][0-9]*)
+Absolute <- ('%' [[A-Z]][[A-Z0-9]]* ':')? [0-9]+
+Section <- [[A-Z@]]+
