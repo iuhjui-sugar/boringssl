@@ -1,0 +1,36 @@
+package main
+
+type Asm Peg {}
+
+AsmFile <- Statement* !.
+Statement <- WS? (GlobalDirective /
+                  Label /
+                  Instruction /
+                  Directive / ) WS? ((Comment? '\n') / ';')
+GlobalDirective <- (".global" / ".globl") WS SymbolName
+Directive <- '.' DirectiveName (WS Args)?
+DirectiveName <- [[A-Z0-9_]]+
+Args <- Arg ((WS / (WS? ',' WS?)) Arg)*
+Arg <- QuotedArg / [[0-9a-z%\-_@.]]+
+QuotedArg <- '"' QuotedText '"'
+QuotedText <- (EscapedChar / [^"])*
+EscapedChar <- '\\' .
+WS <- [ \t]+
+Comment <- '#' [^\n]*
+Label <- (LocalSymbol / LocalLabel / SymbolName) ':'
+SymbolName <- [[A-Z._]][[A-Z.0-9$_]]*
+LocalSymbol <- '.L' [[A-Z.0-9$_]]+
+LocalLabel <- [0-9][0-9$]*
+LocalLabelRef <- [0-9][0-9$]*[bf]
+Instruction <- InstructionName WS? InstructionArg? WS? (',' WS? InstructionArg)*
+InstructionName <- [[A-Z]][[A-Z0-9]]+
+InstructionArg <- IndirectionIndicator? (Register / Constant / LocalLabelRef / MemoryRef)
+IndirectionIndicator <- '*'
+Register <- '%'[[A-Z]][[A-Z0-9]]* !':'
+Constant <- '$'[[A-Z0-9\-*+]]+
+MemoryRef <- (SymbolRef Offset BaseIndexScale / SymbolRef BaseIndexScale / Offset BaseIndexScale / SymbolRef / BaseIndexScale / Absolute)
+SymbolRef <- (LocalSymbol / SymbolName) ('@' Section)?
+BaseIndexScale <- '(' Register? WS? (',' WS? Register WS? (',' [0-9]+)? )? ')'
+Offset <- ('+' / '-') ? [0-9][0-9*+\-]*
+Absolute <- ('%' [[A-Z]][[A-Z0-9]]* ':')? [0-9]+
+Section <- [A-Z]+
