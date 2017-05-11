@@ -22,6 +22,30 @@
       "revId": "441ed9af085d470676ff7a72664ed3697456e1c8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3016c0e_40dd6be6",
+        "filename": "crypto/perlasm/readme",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-11T23:08:55Z",
+      "side": 0,
+      "message": "This file comes from upstream.",
+      "parentUuid": "9b9778b1_500df0da",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 1
+      },
+      "revId": "441ed9af085d470676ff7a72664ed3697456e1c8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
