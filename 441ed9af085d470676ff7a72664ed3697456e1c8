@@ -46,6 +46,30 @@
       "revId": "441ed9af085d470676ff7a72664ed3697456e1c8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c4bc570_1df81418",
+        "filename": "crypto/perlasm/readme",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-11T23:16:32Z",
+      "side": 0,
+      "message": "Hilariously, the file is woefully out-of-date both here and in upstream. And it only talks about x86 perlasm. Maybe I should send them a PR to subsume this into x86asm.pl\u0027s comments...",
+      "parentUuid": "f3016c0e_40dd6be6",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 1
+      },
+      "revId": "441ed9af085d470676ff7a72664ed3697456e1c8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
