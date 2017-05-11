@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9b9778b1_500df0da",
+        "filename": "crypto/perlasm/readme",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-05-11T23:08:15Z",
+      "side": 0,
+      "message": "Want to get rid of this tab while here?",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 1
+      },
+      "revId": "441ed9af085d470676ff7a72664ed3697456e1c8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
