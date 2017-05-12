@@ -12,9 +12,10 @@
  * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. */
 
-#if !defined(_GNU_SOURCE)
-#define _GNU_SOURCE  /* needed for syscall() on Linux. */
-#endif
+// test_fips exercises various cryptographic primitives for demonstration
+// purposes in the validation process only.
+
+#include <stdio.h>
 
 #include <openssl/aead.h>
 #include <openssl/aes.h>
@@ -22,113 +23,23 @@
 #include <openssl/bn.h>
 #include <openssl/crypto.h>
 #include <openssl/des.h>
-#include <openssl/ecdsa.h>
 #include <openssl/ec_key.h>
+#include <openssl/ecdsa.h>
 #include <openssl/hmac.h>
 #include <openssl/nid.h>
 #include <openssl/rsa.h>
 #include <openssl/sha.h>
 
-#include "../internal.h"
-#include "rand/internal.h"
+#include "../crypto/fipsmodule/rand/internal.h"
+#include "../crypto/internal.h"
 
-#include "aes/aes.c"
-#include "aes/key_wrap.c"
-#include "aes/mode_wrappers.c"
-#include "bn/add.c"
-#include "bn/asm/x86_64-gcc.c"
-#include "bn/bn.c"
-#include "bn/bytes.c"
-#include "bn/cmp.c"
-#include "bn/ctx.c"
-#include "bn/div.c"
-#include "bn/exponentiation.c"
-#include "bn/gcd.c"
-#include "bn/generic.c"
-#include "bn/jacobi.c"
-#include "bn/montgomery.c"
-#include "bn/montgomery_inv.c"
-#include "bn/mul.c"
-#include "bn/prime.c"
-#include "bn/random.c"
-#include "bn/rsaz_exp.c"
-#include "bn/shift.c"
-#include "bn/sqrt.c"
-#include "cipher/aead.c"
-#include "cipher/cipher.c"
-#include "cipher/e_aes.c"
-#include "cipher/e_des.c"
-#include "des/des.c"
-#include "digest/digest.c"
-#include "digest/digests.c"
-#include "ecdsa/ecdsa.c"
-#include "ec/ec.c"
-#include "ec/ec_key.c"
-#include "ec/ec_montgomery.c"
-#include "ec/oct.c"
-#include "ec/p224-64.c"
-#include "ec/p256-64.c"
-#include "ec/p256-x86_64.c"
-#include "ec/simple.c"
-#include "ec/util-64.c"
-#include "ec/wnaf.c"
-#include "hmac/hmac.c"
-#include "md4/md4.c"
-#include "md5/md5.c"
-#include "modes/cbc.c"
-#include "modes/cfb.c"
-#include "modes/ctr.c"
-#include "modes/gcm.c"
-#include "modes/ofb.c"
-#include "modes/polyval.c"
-#include "rand/ctrdrbg.c"
-#include "rand/rand.c"
-#include "rand/urandom.c"
-#include "rsa/blinding.c"
-#include "rsa/padding.c"
-#include "rsa/rsa.c"
-#include "rsa/rsa_impl.c"
-#include "sha/sha1-altivec.c"
-#include "sha/sha1.c"
-#include "sha/sha256.c"
-#include "sha/sha512.c"
-
-
-#if defined(BORINGSSL_FIPS)
-
-#if defined(__has_feature)
-#if __has_feature(address_sanitizer)
-/* Integrity tests cannot run under ASAN because it involves reading the full
- * .text section, which triggers the global-buffer overflow detection. */
-#define OPENSSL_ASAN
-#endif
-#endif
-
-static void hexdump(const uint8_t *in, size_t len) {
-  for (size_t i = 0; i < len; i++) {
-    printf("%02x", in[i]);
-  }
-}
-
-static int check_test(const void *expected, const void *actual,
-                      size_t expected_len, const char *name) {
-  if (OPENSSL_memcmp(actual, expected, expected_len) != 0) {
-    printf("%s failed.\nExpected: ", name);
-    hexdump(expected, expected_len);
-    printf("\nCalculated: ");
-    hexdump(actual, expected_len);
-    printf("\n");
-    return 0;
-  }
-  return 1;
-}
 
 static int set_bignum(BIGNUM **out, const uint8_t *in, size_t len) {
   *out = BN_bin2bn(in, len, NULL);
   return *out != NULL;
 }
 
-static RSA *self_test_rsa_key(void) {
+static RSA *get_rsa_key(void) {
   static const uint8_t kN[] = {
       0xd3, 0x3a, 0x62, 0x9f, 0x07, 0x77, 0xb0, 0x18, 0xf3, 0xff, 0xfe, 0xcc,
       0xc9, 0xa2, 0xc2, 0x3a, 0xa6, 0x1d, 0xd8, 0xf0, 0x26, 0x5b, 0x38, 0x90,
@@ -245,8 +156,7 @@ static RSA *self_test_rsa_key(void) {
   };
 
   RSA *rsa = RSA_new();
-  if (rsa == NULL ||
-      !set_bignum(&rsa->n, kN, sizeof(kN)) ||
+  if (rsa == NULL || !set_bignum(&rsa->n, kN, sizeof(kN)) ||
       !set_bignum(&rsa->e, kE, sizeof(kE)) ||
       !set_bignum(&rsa->d, kD, sizeof(kD)) ||
       !set_bignum(&rsa->p, kP, sizeof(kP)) ||
@@ -262,7 +172,7 @@ static RSA *self_test_rsa_key(void) {
   return rsa;
 }
 
-static EC_KEY *self_test_ecdsa_key(void) {
+static EC_KEY *get_ecdsa_key(void) {
   static const uint8_t kQx[] = {
       0xc8, 0x15, 0x61, 0xec, 0xf2, 0xe5, 0x4e, 0xde, 0xfe, 0x66, 0x17,
       0xdb, 0x1c, 0x7a, 0x34, 0xa7, 0x07, 0x44, 0xdd, 0xb2, 0x61, 0xf2,
@@ -285,7 +195,7 @@ static EC_KEY *self_test_ecdsa_key(void) {
   BIGNUM *d = BN_bin2bn(kD, sizeof(kD), NULL);
   if (ec_key == NULL || qx == NULL || qy == NULL || d == NULL ||
       !EC_KEY_set_public_key_affine_coordinates(ec_key, qx, qy) ||
-      !EC_KEY_set_private_key(ec_key, d) ||
+      !EC_KEY_set_private_key(ec_key, d) || !EC_KEY_check_fips(ec_key) ||
       !EC_KEY_check_fips(ec_key)) {
     EC_KEY_free(ec_key);
     ec_key = NULL;
@@ -297,39 +207,8 @@ static EC_KEY *self_test_ecdsa_key(void) {
   return ec_key;
 }
 
-#ifndef OPENSSL_ASAN
-/* These symbols are filled in by delocate.go. They point to the start and end
- * of the module, and the location of the integrity hash, respectively. */
-extern const uint8_t BORINGSSL_bcm_text_start[];
-extern const uint8_t BORINGSSL_bcm_text_end[];
-extern const uint8_t BORINGSSL_bcm_text_hash[];
-#endif
-
-static void BORINGSSL_bcm_power_on_self_test(void) __attribute__((constructor));
-
-static void BORINGSSL_bcm_power_on_self_test(void) {
+int main(int argc, char **argv) {
   CRYPTO_library_init();
-
-#ifndef OPENSSL_ASAN
-  const uint8_t *const start = BORINGSSL_bcm_text_start;
-  const uint8_t *const end = BORINGSSL_bcm_text_end;
-
-  static const uint8_t kHMACKey[64] = {0};
-  uint8_t result[SHA512_DIGEST_LENGTH];
-
-  unsigned result_len;
-  if (!HMAC(EVP_sha512(), kHMACKey, sizeof(kHMACKey), start, end - start,
-            result, &result_len) ||
-      result_len != sizeof(result)) {
-    goto err;
-  }
-
-  const uint8_t *expected = BORINGSSL_bcm_text_hash;
-
-  if (!check_test(expected, result, sizeof(result), "FIPS integrity test")) {
-    goto err;
-  }
-#endif
 
   static const uint8_t kAESKey[16] = "BoringCrypto Key";
   static const uint8_t kAESIV[16] = {0};
@@ -341,13 +220,7 @@ static void BORINGSSL_bcm_power_on_self_test(void) {
       0xf7, 0x05, 0xfb, 0x94, 0x89, 0xd3, 0xbc, 0xaa, 0x1a, 0x50, 0x45,
       0x1f, 0xc3, 0x8c, 0xb8, 0x98, 0x86, 0xa3, 0xe3, 0x6c, 0xfc, 0xad,
       0x3a, 0xb5, 0x59, 0x27, 0x7d, 0x21, 0x07, 0xca, 0x4c, 0x1d, 0x55,
-      0x34, 0xdd, 0x5a, 0x2d, 0xc4, 0xb4, 0xf5, 0xa8,
-#if !defined(BORINGSSL_FIPS_BREAK_AES_CBC)
-      0x35
-#else
-      0x00
-#endif
-  };
+      0x34, 0xdd, 0x5a, 0x2d, 0xc4, 0xb4, 0xf5, 0xa8, 0x35};
   static const uint8_t kAESGCMCiphertext[80] = {
       0x4a, 0xd8, 0xe7, 0x7d, 0x78, 0xd7, 0x7d, 0x5e, 0xb2, 0x11, 0xb6, 0xc9,
       0xa4, 0xbc, 0xb2, 0xae, 0xbe, 0x93, 0xd1, 0xb7, 0xfe, 0x65, 0xc1, 0x82,
@@ -355,13 +228,7 @@ static void BORINGSSL_bcm_power_on_self_test(void) {
       0xa0, 0x47, 0xfa, 0xd7, 0x8f, 0xb1, 0x4a, 0xc4, 0xdc, 0x89, 0xf9, 0xb4,
       0x14, 0x4d, 0xde, 0x95, 0xea, 0x29, 0x69, 0x76, 0x81, 0xa3, 0x5c, 0x33,
       0xd8, 0x37, 0xd8, 0xfa, 0x47, 0x19, 0x46, 0x2f, 0xf1, 0x90, 0xb7, 0x61,
-      0x8f, 0x6f, 0xdd, 0x31, 0x3f, 0x6a, 0x64,
-#if !defined(BORINGSSL_FIPS_BREAK_AES_GCM)
-      0x0d
-#else
-      0x00
-#endif
-  };
+      0x8f, 0x6f, 0xdd, 0x31, 0x3f, 0x6a, 0x64, 0x0d};
   static const DES_cblock kDESKey1 = {"BCMDESK1"};
   static const DES_cblock kDESKey2 = {"BCMDESK2"};
   static const DES_cblock kDESKey3 = {"BCMDESK3"};
@@ -372,45 +239,11 @@ static void BORINGSSL_bcm_power_on_self_test(void) {
       0xaf, 0x93, 0x91, 0xb8, 0x88, 0x24, 0xb1, 0xf6, 0xf8, 0xbd, 0x31,
       0x96, 0x06, 0x76, 0xde, 0x32, 0xcd, 0x29, 0x29, 0xba, 0x70, 0x5f,
       0xea, 0xc0, 0xcb, 0xde, 0xc7, 0x75, 0x90, 0xe0, 0x0f, 0x5e, 0x2c,
-      0x0d, 0x49, 0x20, 0xd5, 0x30, 0x83, 0xf8, 0x08,
-#if !defined(BORINGSSL_FIPS_BREAK_DES)
-      0x5a
-#else
-      0x00
-#endif
-  };
-  static const uint8_t kPlaintextSHA1[20] = {
-      0xc6, 0xf8, 0xc9, 0x63, 0x1c, 0x14, 0x23, 0x62, 0x9b, 0xbd,
-      0x55, 0x82, 0xf4, 0xd6, 0x1d, 0xf2, 0xab, 0x7d, 0xc8,
-#if !defined(BORINGSSL_FIPS_BREAK_SHA_1)
-      0x28
-#else
-      0x00
-#endif
-  };
+      0x0d, 0x49, 0x20, 0xd5, 0x30, 0x83, 0xf8, 0x08, 0x5a};
   static const uint8_t kPlaintextSHA256[32] = {
       0x37, 0xbd, 0x70, 0x53, 0x72, 0xfc, 0xd4, 0x03, 0x79, 0x70, 0xfb,
       0x06, 0x95, 0xb1, 0x2a, 0x82, 0x48, 0xe1, 0x3e, 0xf2, 0x33, 0xfb,
-      0xef, 0x29, 0x81, 0x22, 0x45, 0x40, 0x43, 0x70, 0xce,
-#if !defined(BORINGSSL_FIPS_BREAK_SHA_256)
-      0x0f
-#else
-      0x00
-#endif
-  };
-  static const uint8_t kPlaintextSHA512[64] = {
-      0x08, 0x6a, 0x1c, 0x84, 0x61, 0x9d, 0x8e, 0xb3, 0xc0, 0x97, 0x4e,
-      0xa1, 0x9f, 0x9c, 0xdc, 0xaf, 0x3b, 0x5c, 0x31, 0xf0, 0xf2, 0x74,
-      0xc3, 0xbd, 0x6e, 0xd6, 0x1e, 0xb2, 0xbb, 0x34, 0x74, 0x72, 0x5c,
-      0x51, 0x29, 0x8b, 0x87, 0x3a, 0xa3, 0xf2, 0x25, 0x23, 0xd4, 0x1c,
-      0x82, 0x1b, 0xfe, 0xd3, 0xc6, 0xee, 0xb5, 0xd6, 0xaf, 0x07, 0x7b,
-      0x98, 0xca, 0xa7, 0x01, 0xf3, 0x94, 0xf3, 0x68,
-#if !defined(BORINGSSL_FIPS_BREAK_SHA_512)
-      0x14
-#else
-      0x00
-#endif
-  };
+      0xef, 0x29, 0x81, 0x22, 0x45, 0x40, 0x43, 0x70, 0xce, 0x0f};
   static const uint8_t kRSASignature[256] = {
       0x62, 0x66, 0x4b, 0xe3, 0xb1, 0xd2, 0x83, 0xf1, 0xa8, 0x56, 0x2b, 0x33,
       0x60, 0x1e, 0xdb, 0x1e, 0x06, 0xf7, 0xa7, 0x1e, 0xa8, 0xef, 0x03, 0x4d,
@@ -433,13 +266,7 @@ static void BORINGSSL_bcm_power_on_self_test(void) {
       0x13, 0xda, 0x78, 0x20, 0xae, 0x59, 0x5f, 0x9b, 0xa9, 0x6c, 0xf9, 0x1b,
       0xdf, 0x76, 0x53, 0xc8, 0xa7, 0xf5, 0x63, 0x6d, 0xf3, 0xff, 0xfd, 0xaf,
       0x75, 0x4b, 0xac, 0x67, 0xb1, 0x3c, 0xbf, 0x5e, 0xde, 0x73, 0x02, 0x6d,
-      0xd2, 0x0c, 0xb1,
-#if !defined(BORINGSSL_FIPS_BREAK_RSA_SIG)
-      0x64
-#else
-      0x00
-#endif
-  };
+      0xd2, 0x0c, 0xb1, 0x64};
   const uint8_t kDRBGEntropy[48] =
       "BCM Known Answer Test DBRG Initial Entropy      ";
   const uint8_t kDRBGPersonalization[18] = "BCMPersonalization";
@@ -450,13 +277,7 @@ static void BORINGSSL_bcm_power_on_self_test(void) {
       0x96, 0x33, 0x3d, 0x60, 0xb6, 0x29, 0xd4, 0xbb, 0x6b, 0x44, 0xf9,
       0xef, 0xd9, 0xf4, 0xa2, 0xba, 0x48, 0xea, 0x39, 0x75, 0x59, 0x32,
       0xf7, 0x31, 0x2c, 0x98, 0x14, 0x2b, 0x49, 0xdf, 0x02, 0xb6, 0x5d,
-      0x71, 0x09, 0x50, 0xdb, 0x23, 0xdb, 0xe5, 0x22,
-#if !defined(BORINGSSL_FIPS_BREAK_DRBG)
-      0x95
-#else
-      0x00
-#endif
-  };
+      0x71, 0x09, 0x50, 0xdb, 0x23, 0xdb, 0xe5, 0x22, 0x95};
   const uint8_t kDRBGEntropy2[48] =
       "BCM Known Answer Test DBRG Reseed Entropy       ";
   const uint8_t kDRBGReseedOutput[64] = {
@@ -472,29 +293,23 @@ static void BORINGSSL_bcm_power_on_self_test(void) {
   uint8_t aes_iv[16];
   uint8_t output[256];
 
-  /* AES-CBC Encryption KAT */
+  /* AES-CBC Encryption */
   memcpy(aes_iv, kAESIV, sizeof(kAESIV));
   if (AES_set_encrypt_key(kAESKey, 8 * sizeof(kAESKey), &aes_key) != 0) {
+    printf("AES_set_encrypt_key failed\n");
     goto err;
   }
   AES_cbc_encrypt(kPlaintext, output, sizeof(kPlaintext), &aes_key, aes_iv,
                   AES_ENCRYPT);
-  if (!check_test(kAESCBCCiphertext, output, sizeof(kAESCBCCiphertext),
-                  "AES-CBC Encryption KAT")) {
-    goto err;
-  }
 
-  /* AES-CBC Decryption KAT */
+  /* AES-CBC Decryption */
   memcpy(aes_iv, kAESIV, sizeof(kAESIV));
   if (AES_set_decrypt_key(kAESKey, 8 * sizeof(kAESKey), &aes_key) != 0) {
+    printf("AES decrypt failed\n");
     goto err;
   }
   AES_cbc_encrypt(kAESCBCCiphertext, output, sizeof(kAESCBCCiphertext),
                   &aes_key, aes_iv, AES_DECRYPT);
-  if (!check_test(kPlaintext, output, sizeof(kPlaintext),
-                  "AES-CBC Decryption KAT")) {
-    goto err;
-  }
 
   size_t out_len;
   uint8_t nonce[EVP_AEAD_MAX_NONCE_LENGTH];
@@ -502,25 +317,24 @@ static void BORINGSSL_bcm_power_on_self_test(void) {
   EVP_AEAD_CTX aead_ctx;
   if (!EVP_AEAD_CTX_init(&aead_ctx, EVP_aead_aes_128_gcm(), kAESKey,
                          sizeof(kAESKey), 0, NULL)) {
+    printf("EVP_AEAD_CTX_init failed\n");
     goto err;
   }
 
-  /* AES-GCM Encryption KAT */
+  /* AES-GCM Encryption */
   if (!EVP_AEAD_CTX_seal(&aead_ctx, output, &out_len, sizeof(output), nonce,
                          EVP_AEAD_nonce_length(EVP_aead_aes_128_gcm()),
-                         kPlaintext, sizeof(kPlaintext), NULL, 0) ||
-      !check_test(kAESGCMCiphertext, output, sizeof(kAESGCMCiphertext),
-                  "AES-GCM Encryption KAT")) {
+                         kPlaintext, sizeof(kPlaintext), NULL, 0)) {
+    printf("AES-GCM encrypt failed\n");
     goto err;
   }
 
-  /* AES-GCM Decryption KAT */
+  /* AES-GCM Decryption */
   if (!EVP_AEAD_CTX_open(&aead_ctx, output, &out_len, sizeof(output), nonce,
                          EVP_AEAD_nonce_length(EVP_aead_aes_128_gcm()),
                          kAESGCMCiphertext, sizeof(kAESGCMCiphertext), NULL,
-                         0) ||
-      !check_test(kPlaintext, output, sizeof(kPlaintext),
-                  "AES-GCM Decryption KAT")) {
+                         0)) {
+    printf("AES-GCM decrypt failed\n");
     goto err;
   }
 
@@ -532,84 +346,59 @@ static void BORINGSSL_bcm_power_on_self_test(void) {
   DES_set_key(&kDESKey2, &des2);
   DES_set_key(&kDESKey3, &des3);
 
-  /* 3DES Encryption KAT */
+  /* 3DES Encryption */
   memcpy(&des_iv, &kDESIV, sizeof(des_iv));
   DES_ede3_cbc_encrypt(kPlaintext, output, sizeof(kPlaintext), &des1, &des2,
                        &des3, &des_iv, DES_ENCRYPT);
-  if (!check_test(kDESCiphertext, output, sizeof(kDESCiphertext),
-                  "3DES Encryption KAT")) {
-    goto err;
-  }
 
-  /* 3DES Decryption KAT */
+  /* 3DES Decryption */
   memcpy(&des_iv, &kDESIV, sizeof(des_iv));
   DES_ede3_cbc_encrypt(kDESCiphertext, output, sizeof(kDESCiphertext), &des1,
                        &des2, &des3, &des_iv, DES_DECRYPT);
-  if (!check_test(kPlaintext, output, sizeof(kPlaintext),
-                  "3DES Decryption KAT")) {
-    goto err;
-  }
 
-  /* SHA-1 KAT */
+  /* SHA-1 */
   SHA1(kPlaintext, sizeof(kPlaintext), output);
-  if (!check_test(kPlaintextSHA1, output, sizeof(kPlaintextSHA1),
-                  "SHA-1 KAT")) {
-    goto err;
-  }
 
-  /* SHA-256 KAT */
+  /* SHA-256 */
   SHA256(kPlaintext, sizeof(kPlaintext), output);
-  if (!check_test(kPlaintextSHA256, output, sizeof(kPlaintextSHA256),
-                  "SHA-256 KAT")) {
-    goto err;
-  }
 
-  /* SHA-512 KAT */
+  /* SHA-512 */
   SHA512(kPlaintext, sizeof(kPlaintext), output);
-  if (!check_test(kPlaintextSHA512, output, sizeof(kPlaintextSHA512),
-                  "SHA-512 KAT")) {
-    goto err;
-  }
 
-  RSA *rsa_key = self_test_rsa_key();
+  RSA *rsa_key = get_rsa_key();
   if (rsa_key == NULL) {
-    printf("RSA KeyGen failed\n");
+    printf("invalid RSA key\n");
     goto err;
   }
 
-  /* RSA Sign KAT */
+  /* RSA Sign */
   unsigned sig_len;
   if (!RSA_sign(NID_sha256, kPlaintextSHA256, sizeof(kPlaintextSHA256), output,
-                &sig_len, rsa_key) ||
-      !check_test(kRSASignature, output, sizeof(kRSASignature),
-                  "RSA Sign KAT")) {
+                &sig_len, rsa_key)) {
+    printf("RSA Sign failed\n");
     goto err;
   }
 
-  /* RSA Verify KAT */
+  /* RSA Verify */
   if (!RSA_verify(NID_sha256, kPlaintextSHA256, sizeof(kPlaintextSHA256),
                   kRSASignature, sizeof(kRSASignature), rsa_key)) {
-    printf("RSA Verify KAT failed.\n");
+    printf("RSA Verify failed.\n");
     goto err;
   }
 
   RSA_free(rsa_key);
 
-  EC_KEY *ec_key = self_test_ecdsa_key();
+  EC_KEY *ec_key = get_ecdsa_key();
   if (ec_key == NULL) {
-    printf("ECDSA KeyGen failed\n");
+    printf("invalid ECDSA key\n");
     goto err;
   }
 
   /* ECDSA Sign/Verify PWCT */
   ECDSA_SIG *sig =
       ECDSA_do_sign(kPlaintextSHA256, sizeof(kPlaintextSHA256), ec_key);
-#if defined(BORINGSSL_FIPS_BREAK_ECDSA_SIG)
-  sig->r->d[0] = ~sig->r->d[0];
-#endif
-  if (sig == NULL ||
-      !ECDSA_do_verify(kPlaintextSHA256, sizeof(kPlaintextSHA256), sig,
-                       ec_key)) {
+  if (sig == NULL || !ECDSA_do_verify(kPlaintextSHA256,
+                                      sizeof(kPlaintextSHA256), sig, ec_key)) {
     printf("ECDSA Sign/Verify PWCT failed.\n");
     goto err;
   }
@@ -617,35 +406,24 @@ static void BORINGSSL_bcm_power_on_self_test(void) {
   ECDSA_SIG_free(sig);
   EC_KEY_free(ec_key);
 
-  /* DBRG KAT */
+  /* DBRG */
   CTR_DRBG_STATE drbg;
   if (!CTR_DRBG_init(&drbg, kDRBGEntropy, kDRBGPersonalization,
                      sizeof(kDRBGPersonalization)) ||
       !CTR_DRBG_generate(&drbg, output, sizeof(kDRBGOutput), kDRBGAD,
                          sizeof(kDRBGAD)) ||
-      !check_test(kDRBGOutput, output, sizeof(kDRBGOutput),
-                  "DBRG Generate KAT") ||
       !CTR_DRBG_reseed(&drbg, kDRBGEntropy2, kDRBGAD, sizeof(kDRBGAD)) ||
       !CTR_DRBG_generate(&drbg, output, sizeof(kDRBGReseedOutput), kDRBGAD,
-                         sizeof(kDRBGAD)) ||
-      !check_test(kDRBGReseedOutput, output, sizeof(kDRBGReseedOutput),
-                  "DRBG Reseed KAT")) {
+                         sizeof(kDRBGAD))) {
+    printf("DRBG failed\n");
     goto err;
   }
   CTR_DRBG_clear(&drbg);
 
-  CTR_DRBG_STATE kZeroDRBG;
-  memset(&kZeroDRBG, 0, sizeof(kZeroDRBG));
-  if (!check_test(&kZeroDRBG, &drbg, sizeof(drbg), "DRBG Clear KAT")) {
-    goto err;
-  }
-
-  return;
+  printf("PASS\n");
+  return 0;
 
 err:
-  for (;;) {
-    exit(1);
-    abort();
-  }
+  printf("FAIL\n");
+  abort();
 }
-#endif  /* BORINGSSL_FIPS */
