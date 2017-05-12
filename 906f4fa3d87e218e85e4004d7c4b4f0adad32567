@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10e3a9de_b49b2454",
+        "filename": "crypto/fipsmodule/bcm.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-12T22:53:23Z",
+      "side": 1,
+      "message": "it\u0027s loading an existing RSA key rather than generating, no?",
+      "revId": "906f4fa3d87e218e85e4004d7c4b4f0adad32567",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf9d0134_4baabcbd",
+        "filename": "crypto/fipsmodule/bcm.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-12T22:53:23Z",
+      "side": 1,
+      "message": "(ditto.)",
+      "revId": "906f4fa3d87e218e85e4004d7c4b4f0adad32567",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98b7d1a8_4c94c6a1",
+        "filename": "crypto/fipsmodule/bcm.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-12T22:53:23Z",
+      "side": 1,
+      "message": "I don\u0027t /think/ we want the break here. I think we want to be able to show just the PWCT breaking at run-time, which breaking the power-on tests would prevent. (At least, that\u0027s my current understanding.)",
+      "revId": "906f4fa3d87e218e85e4004d7c4b4f0adad32567",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "760ed506_0ec6c2ea",
+        "filename": "fipstools/test_fips.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-12T22:53:23Z",
+      "side": 1,
+      "message": "Since this code isn\u0027t memcmp\u0027ing against the known-good values, several of these can be dropped.",
+      "revId": "906f4fa3d87e218e85e4004d7c4b4f0adad32567",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "734d2149_b9a02bd9",
+        "filename": "fipstools/test_fips.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-12T22:53:23Z",
+      "side": 1,
+      "message": "Let\u0027s generate the key rather than load it from constants. That way, breaking the RNG will show up for sure.",
+      "revId": "906f4fa3d87e218e85e4004d7c4b4f0adad32567",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e81c6426_030a973e",
+        "filename": "fipstools/test_fips.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-12T22:53:23Z",
+      "side": 1,
+      "message": "(ditto about generating the key.)",
+      "revId": "906f4fa3d87e218e85e4004d7c4b4f0adad32567",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
