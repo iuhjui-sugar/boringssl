@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1361a6a4_885bd982",
+        "filename": "crypto/fipsmodule/bcm.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-05-12T23:39:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10e3a9de_b49b2454",
+      "revId": "906f4fa3d87e218e85e4004d7c4b4f0adad32567",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf9d0134_4baabcbd",
         "filename": "crypto/fipsmodule/bcm.c",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "551a753d_336358cf",
+        "filename": "crypto/fipsmodule/bcm.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-05-12T23:39:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf9d0134_4baabcbd",
+      "revId": "906f4fa3d87e218e85e4004d7c4b4f0adad32567",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "98b7d1a8_4c94c6a1",
         "filename": "crypto/fipsmodule/bcm.c",
         "patchSetId": 1
@@ -50,6 +86,24 @@
       "revId": "906f4fa3d87e218e85e4004d7c4b4f0adad32567",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d7697ac_02ffc487",
+        "filename": "crypto/fipsmodule/bcm.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-05-12T23:39:19Z",
+      "side": 1,
+      "message": "I believe this is necessary as part of the Forced Failure Testing for the \"Module Power-up Self-tests\". This explicitly covers ECDSA, and bcm.c so far did not have a method of breaking ECDSA POSTs.",
+      "parentUuid": "98b7d1a8_4c94c6a1",
+      "revId": "906f4fa3d87e218e85e4004d7c4b4f0adad32567",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
