@@ -30,6 +30,10 @@ import (
 	"os"
 )
 
+var (
+	breakIntegrityTest = flag.Bool("break-integrity-test", false, "If true, modify the text section so that the HMAC digest value does not match.")
+)
+
 func do(outPath, oInput string, arInput string) error {
 	var objectBytes []byte
 	if len(arInput) > 0 {
@@ -152,6 +156,14 @@ func do(outPath, oInput string, arInput string) error {
 
 	if bytes.Index(objectBytes[offset+1:], uninitHashValue[:]) >= 0 {
 		return errors.New("found two occurrences of uninitialised hash value in object file")
+	}
+
+	if *breakIntegrityTest {
+		// N.B. for Forced Failure Testing of the Software Integrity Test
+		// the "module itself must be modified", not the HMAC value, hence
+		// we change the text section here.
+		objectBytes[textSection.Offset+start] =
+			^objectBytes[textSection.Offset+start]
 	}
 
 	copy(objectBytes[offset:], calculated)

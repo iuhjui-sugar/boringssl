@@ -1,5 +1,9 @@
 include_directories(../../include)
 
+if(FIPS_BREAK_INTEGRITY_TEST)
+  set(FIPS_BREAK_INTEGRITY_TEST_FLAG --break-integrity-test)
+endif()
+
 if (${ARCH} STREQUAL "x86_64")
   set(
     BCM_ASM_SOURCES
@@ -166,7 +170,7 @@ if(FIPS)
 
   add_custom_command(
     OUTPUT bcm.o
-    COMMAND ${GO_EXECUTABLE} run util/fipstools/inject-hash.go util/fipstools/ar.go util/fipstools/const.go -o ${CMAKE_CURRENT_BINARY_DIR}/bcm.o -in-archive $<TARGET_FILE:bcm_hashunset>
+    COMMAND ${GO_EXECUTABLE} run util/fipstools/inject-hash.go util/fipstools/ar.go util/fipstools/const.go -o ${CMAKE_CURRENT_BINARY_DIR}/bcm.o -in-archive $<TARGET_FILE:bcm_hashunset> ${FIPS_BREAK_INTEGRITY_TEST_FLAG}
     DEPENDS bcm_hashunset ${CMAKE_SOURCE_DIR}/util/fipstools/inject-hash.go ${CMAKE_SOURCE_DIR}/util/fipstools/ar.go ${CMAKE_SOURCE_DIR}/util/fipstools/const.go
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
   )
