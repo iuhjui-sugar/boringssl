@@ -342,6 +342,43 @@ func transform(lines []string, symbols map[string]bool) (ret []string) {
 					line = strings.Replace(line, target, localTargetName(target), 1)
 				}
 
+				if target == "OPENSSL_ia32cap_P@GOTPCREL" {
+					if instr != "movq" {
+						panic(fmt.Sprintf("cannot handle non-movq reference to OPENSSL_ia32cap_P@GOTPCREL: %q", line))
+					}
+
+					instr = "leaq"
+					target = "OPENSSL_ia32cap_P"
+				}
+
+				if target == "OPENSSL_ia32cap_P" {
+					if instr != "leaq" {
+						panic(fmt.Sprintf("reference to OPENSSL_ia32cap_P needs to be changed to go through leaq or GOTPCREL: %q", line))
+					}
+					if args[1][0] != '%' {
+						panic("reference to OPENSSL_ia32cap_P must target a register.")
+					}
+
+					// We assume pushfq is safe, after
+					// clearing the red zone, because any
+					// signals will be delivered using
+					// %rsp. Thus perlasm and
+					// compiler-generated code must not use
+					// %rsp as a general-purpose register.
+					//
+					// TODO(davidben): This messes up CFI
+					// for a small window if %rsp is the CFI
+					// register.
+					ia32capAddrDeltaNeeded = true
+					ret = append(ret, "leaq -128(%rsp), %rsp") // Clear the red zone.
+					ret = append(ret, "pushfq")
+					ret = append(ret, fmt.Sprintf("leaq OPENSSL_ia32cap_addr_delta(%%rip), %s", args[1]))
+					ret = append(ret, fmt.Sprintf("addq OPENSSL_ia32cap_addr_delta(%%rip), %s", args[1]))
+					ret = append(ret, "popfq")
+					ret = append(ret, "leaq 128(%rsp), %rsp")
+					continue
+				}
+
 				if strings.Contains(line, "@GOTPCREL") && (instr == "movq" || instr == "vmovq" || instr == "cmoveq" || instr == "cmovneq") {
 					line = strings.Replace(line, "@GOTPCREL", "", -1)
 					target = strings.Replace(target, "@GOTPCREL", "", -1)
@@ -393,34 +430,6 @@ func transform(lines []string, symbols map[string]bool) (ret []string) {
 					// needs to be transformed into an LEA.
 					line = strings.Replace(line, instr, "leaq", 1)
 					instr = "leaq"
-				}
-
-				if target == "OPENSSL_ia32cap_P" {
-					if instr != "leaq" {
-						panic("reference to OPENSSL_ia32cap_P needs to be changed to go through leaq or GOTPCREL")
-					}
-					if args[1][0] != '%' {
-						panic("reference to OPENSSL_ia32cap_P must target a register.")
-					}
-
-					// We assume pushfq is safe, after
-					// clearing the red zone, because any
-					// signals will be delivered using
-					// %rsp. Thus perlasm and
-					// compiler-generated code must not use
-					// %rsp as a general-purpose register.
-					//
-					// TODO(davidben): This messes up CFI
-					// for a small window if %rsp is the CFI
-					// register.
-					ia32capAddrDeltaNeeded = true
-					ret = append(ret, "leaq -128(%rsp), %rsp") // Clear the red zone.
-					ret = append(ret, "pushfq")
-					ret = append(ret, fmt.Sprintf("leaq OPENSSL_ia32cap_addr_delta(%%rip), %s", args[1]))
-					ret = append(ret, fmt.Sprintf("addq OPENSSL_ia32cap_addr_delta(%%rip), %s", args[1]))
-					ret = append(ret, "popfq")
-					ret = append(ret, "leaq 128(%rsp), %rsp")
-					continue
 				}
 			}
 
