@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5bee7f34_24d8ecf1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-15T18:45:01Z",
+      "side": 1,
+      "message": "Oh yuck, that\u0027s horrible. :-/ We\u0027ll even happily generate bcm_redirector_stderr. Arguably we should only generated redirector functions for function calls, like with the PLT, and do something else on cases where we\u0027re not sure if we have code or data. I\u0027ll muse on that.",
+      "revId": "8c46758603b8f9e0ae2794f21f70397ac718033f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cce99a79_54c8338c",
+        "filename": "util/fipstools/delocate.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-15T18:45:01Z",
+      "side": 1,
+      "message": "Stray line?",
+      "revId": "8c46758603b8f9e0ae2794f21f70397ac718033f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
