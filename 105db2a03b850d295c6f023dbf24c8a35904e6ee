@@ -150,6 +150,24 @@
     },
     {
       "key": {
+        "uuid": "5375f137_9063f1cb",
+        "filename": "include/openssl/rsa.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-16T20:17:52Z",
+      "side": 1,
+      "message": "65537, even. :-) Or maybe leave it at |RSA_F4| *shrug*",
+      "parentUuid": "ade8e7f6_7e3a1cf3",
+      "revId": "105db2a03b850d295c6f023dbf24c8a35904e6ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "23e394b2_a2e30b20",
         "filename": "include/openssl/rsa.h",
         "patchSetId": 1
