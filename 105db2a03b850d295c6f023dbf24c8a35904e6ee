@@ -1,0 +1,169 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d5a59487_b5b0ab19",
+        "filename": "crypto/fipsmodule/ec/ec_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-16T20:16:41Z",
+      "side": 1,
+      "message": "Nit: GenerateFIPS?",
+      "range": {
+        "startLine": 317,
+        "startChar": 20,
+        "endLine": 317,
+        "endChar": 29
+      },
+      "revId": "105db2a03b850d295c6f023dbf24c8a35904e6ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40d88659_092a231f",
+        "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 913,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-16T20:16:41Z",
+      "side": 1,
+      "message": "This comment can probably be tweaked now to say that FIPS-complaint keys use RSA_generate_key_fips which does the other restrictions.",
+      "revId": "105db2a03b850d295c6f023dbf24c8a35904e6ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4014566_709a8fbf",
+        "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1040,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-16T20:16:41Z",
+      "side": 1,
+      "message": "Also check that bits is 2048 or 3072.",
+      "revId": "105db2a03b850d295c6f023dbf24c8a35904e6ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76d77dfa_4db09cef",
+        "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1042,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-16T20:16:41Z",
+      "side": 1,
+      "message": "You could actually \u0026\u0026 this into the bit below if you like. (BN_free(NULL) is fine.)",
+      "revId": "105db2a03b850d295c6f023dbf24c8a35904e6ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f6966c1_85918b6d",
+        "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1045,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-16T20:16:41Z",
+      "side": 1,
+      "message": "I wonder if we want to just write 65537 here just to make it more obvious what number we\u0027re using? *shrug*",
+      "range": {
+        "startLine": 1045,
+        "startChar": 36,
+        "endLine": 1045,
+        "endChar": 42
+      },
+      "revId": "105db2a03b850d295c6f023dbf24c8a35904e6ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3593c1e_3e2a48c8",
+        "filename": "include/openssl/ec_key.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-16T20:16:41Z",
+      "side": 1,
+      "message": "I\u0027d probably write \"behaves like |EC_KEY_generate_key| but generate a FIPS-compliant key with additional checks.\"",
+      "revId": "105db2a03b850d295c6f023dbf24c8a35904e6ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "700d51df_4947467e",
+        "filename": "include/openssl/ec_key.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-16T20:16:41Z",
+      "side": 1,
+      "message": "(Okay to omit this since it\u0027s covered by \"behaves like\".)",
+      "revId": "105db2a03b850d295c6f023dbf24c8a35904e6ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ade8e7f6_7e3a1cf3",
+        "filename": "include/openssl/rsa.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-16T20:16:41Z",
+      "side": 1,
+      "message": "I\u0027d probably write \"behaves like |RSA_generate_key_ex| but generate a FIPS-compliant key with additional checks. The public exponent is always 65536 and |bits| must be either 2048 or 3072.\"",
+      "revId": "105db2a03b850d295c6f023dbf24c8a35904e6ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23e394b2_a2e30b20",
+        "filename": "include/openssl/rsa.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-16T20:16:41Z",
+      "side": 1,
+      "message": "(Okay to omit this since it\u0027s covered by \"behaves like\".)",
+      "revId": "105db2a03b850d295c6f023dbf24c8a35904e6ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
