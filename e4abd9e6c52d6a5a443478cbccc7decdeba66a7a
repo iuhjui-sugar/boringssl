@@ -1,0 +1,300 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0c508cc_647a668f",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 3073,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-16T21:59:55Z",
+      "side": 1,
+      "message": "[Probably for the later CL, but we should document what happens as a server here.]",
+      "revId": "e4abd9e6c52d6a5a443478cbccc7decdeba66a7a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75781d23_41c549aa",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 3084,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-16T21:59:55Z",
+      "side": 1,
+      "message": "What does \"in Early Data\" mean? Perhaps something like:\n\n\"has a pending handshake that has progressed enough to send or receive early data. Clients may call |SSL_write| to send early data, but |SSL_read| will complete the handshake before accepting application data. Servers may call |SSL_read| to read early data and |SSL_write| to send half-RTT data.\"",
+      "range": {
+        "startLine": 3084,
+        "startChar": 2,
+        "endLine": 3084,
+        "endChar": 13
+      },
+      "revId": "e4abd9e6c52d6a5a443478cbccc7decdeba66a7a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a712bd0_79f3f562",
+        "filename": "ssl/internal.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 1098,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-16T21:59:55Z",
+      "side": 1,
+      "message": "Both client and server, right?",
+      "range": {
+        "startLine": 1098,
+        "startChar": 48,
+        "endLine": 1098,
+        "endChar": 54
+      },
+      "revId": "e4abd9e6c52d6a5a443478cbccc7decdeba66a7a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74341da1_df60c542",
+        "filename": "ssl/internal.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 1098,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-16T21:59:55Z",
+      "side": 1,
+      "message": "What is Early Data? (False Start is a Capitalized Term because it is a Named Thing Stylized That Way in RFC 7918 that the client can be in the middle of doing.)",
+      "range": {
+        "startLine": 1098,
+        "startChar": 68,
+        "endLine": 1098,
+        "endChar": 73
+      },
+      "revId": "e4abd9e6c52d6a5a443478cbccc7decdeba66a7a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f1ba0f8_4cf5e621",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-16T21:59:55Z",
+      "side": 1,
+      "message": "Not that this matters much, but we are violating SSL_MODE_ENABLE_PARTIAL_WRITE right now. (Though I\u0027ll note that your tool/client.cc is written assuming that.) How about this:\n\n* write_app_data has an out_needs_handshake parameter to instruct SSL_write to loop around again.\n\n* Rather than messing with n, clamp max. If, at that point, you learn that would make you unable to write anything, clear can_early_write and pop out with out_needs_handshake.\n\n* Remove lines 239-242 since that\u0027s covered by the logic above.\n\nI believe this will make us honor SSL_MODE_ENABLE_PARTIAL_WRITE?",
+      "revId": "e4abd9e6c52d6a5a443478cbccc7decdeba66a7a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e63cc7da_2ab24bf5",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 1759,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-16T21:59:55Z",
+      "side": 1,
+      "message": "Probably better to do:\n\nif (SSL_in_early_data(ssl) \u0026\u0026 !ssl-\u003eserver) {\n  *out_data \u003d ssl-\u003esession-\u003eearly_alpn;\n  *out_len \u003d ssl-\u003esession-\u003eearly_alpn_len;\n} else {\n  *out_data \u003d ssl-\u003es3-\u003ealpn_selected;\n  *out_len \u003d ssl-\u003es3-\u003ealpn_selected_len;\n}\n\nI\u0027m not sure why the existing code has so many silly cases.",
+      "revId": "e4abd9e6c52d6a5a443478cbccc7decdeba66a7a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b088550_dd6126db",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1360,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-16T21:59:55Z",
+      "side": 1,
+      "message": "I think you want parentheses around (is_resume \u0026\u0026 !config-\u003eexpect_session_miss).",
+      "revId": "e4abd9e6c52d6a5a443478cbccc7decdeba66a7a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25cda074_9e55d655",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1368,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-16T21:59:55Z",
+      "side": 1,
+      "message": "Nit: I suspect if you clang-format this, it\u0027ll get tighter.",
+      "revId": "e4abd9e6c52d6a5a443478cbccc7decdeba66a7a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef9d1932_0d5d191f",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1969,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-16T21:59:55Z",
+      "side": 1,
+      "message": "Looks like send_early_data now can just be -in-resume-shim-writes-first",
+      "revId": "e4abd9e6c52d6a5a443478cbccc7decdeba66a7a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b85a116_27f7a9b9",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 2041,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-16T21:59:55Z",
+      "side": 1,
+      "message": "This ought to get checked after you\u0027ve reset the world and pumped the handshake anew. The model is that, after you\u0027ve reset the world, you\u0027ve got yourself a fresh SSL object that needs to be handshaked. ALPN isn\u0027t really special here. Any property is fair game to change on 0-RTT reject. We\u0027ll want to test that certificates or curves or anything else get reported correctly across a 0-RTT reject.\n\nUnfortunately, that\u0027s a whole lot of flags. :-/ I almost wonder if we want to add a new prefix, like -in-early- and then you CheckHandshakeProperties a second time.\n\nIn the happy future where we have shim commands that take output, I imagine we\u0027d have something like:\n\n* [Initial hs operations...]\n* Shim, please handshake. You should \"complete\". Please report on your properties.\n* Runner checks we\u0027re in early data and properties match the resume(early) properties.\n* Shim, please write stuff. Runner checks it.\n* Shim, please read stuff. You should learn that 0-RTT was rejected.\n* Shim, please reset the world.\n* Shim, please handshake. You should \"complete\". Please report on your properties. \n* Runner checks we\u0027re in early data and properties match the resume properties.",
+      "revId": "e4abd9e6c52d6a5a443478cbccc7decdeba66a7a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9306d359_3a0b67e6",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-16T21:59:55Z",
+      "side": 1,
+      "message": "We\u0027ve typically put things that aren\u0027t related to the TLS stack proper in the test configuration, rather than the Config.",
+      "revId": "e4abd9e6c52d6a5a443478cbccc7decdeba66a7a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7112a02_b52b0679",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 861,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-16T21:59:55Z",
+      "side": 1,
+      "message": "TBH, this is getting so unwieldy now that maybe we should just knock this check out altogether. It\u0027s an internal sanity check that the real implementation did. We already knocked it out for most of the other types.",
+      "revId": "e4abd9e6c52d6a5a443478cbccc7decdeba66a7a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e430001_5dc27e59",
+        "filename": "ssl/test/runner/d",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-16T21:59:55Z",
+      "side": 1,
+      "message": "stray file?",
+      "revId": "e4abd9e6c52d6a5a443478cbccc7decdeba66a7a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff770109_e0355362",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-16T21:59:55Z",
+      "side": 1,
+      "message": "shimPrefix :\u003d config.ShimPrefix",
+      "revId": "e4abd9e6c52d6a5a443478cbccc7decdeba66a7a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "defc2128_56e1361b",
+        "filename": "ssl/test/test_config.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-16T21:59:55Z",
+      "side": 1,
+      "message": "Is this still needed now that we have the in-resume bits?",
+      "range": {
+        "startLine": 133,
+        "startChar": 7,
+        "endLine": 133,
+        "endChar": 40
+      },
+      "revId": "e4abd9e6c52d6a5a443478cbccc7decdeba66a7a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27eac043_4f38d72f",
+        "filename": "tool/client.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-16T21:59:55Z",
+      "side": 1,
+      "message": "Nit: 80 chars.\n\nAlso check for errors?",
+      "revId": "e4abd9e6c52d6a5a443478cbccc7decdeba66a7a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
