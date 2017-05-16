@@ -122,6 +122,13 @@ OPENSSL_EXPORT void RSA_get0_crt_params(const RSA *rsa, const BIGNUM **out_dmp1,
 OPENSSL_EXPORT int RSA_generate_key_ex(RSA *rsa, int bits, BIGNUM *e,
                                        BN_GENCB *cb);
 
+/* RSA_generate_key_fips behaves like |RSA_generate_key_ex| using the public
+ * exponent |RSA_F4| and then validates the key by calling |RSA_check_fips|.
+ *
+ * It returns one on success or zero on error. */
+OPENSSL_EXPORT int RSA_generate_key_fips(RSA *rsa, int bits, BN_GENCB *cb);
+
+
 
 /* Encryption / Decryption */
 

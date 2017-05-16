@@ -1037,6 +1037,18 @@ err:
   return ret;
 }
 
+int RSA_generate_key_fips(RSA *rsa, int bits, BN_GENCB *cb) {
+  BIGNUM *e_value = BN_new();
+  if (e_value == NULL) {
+    return 0;
+  }
+  int result = BN_set_word(e_value, RSA_F4) &&
+               RSA_generate_key_ex(rsa, bits, e_value, cb) &&
+               RSA_check_fips(rsa);
+  BN_free(e_value);
+  return result;
+}
+
 DEFINE_METHOD_FUNCTION(RSA_METHOD, RSA_default_method) {
   /* All of the methods are NULL to make it easier for the compiler/linker to
    * drop unused functions. The wrapper functions will select the appropriate
