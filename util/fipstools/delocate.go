@@ -47,6 +47,7 @@ type stringWriter interface {
 }
 
 type processorType int
+
 const (
 	POWER processorType = iota
 	X86_64
@@ -54,7 +55,7 @@ const (
 
 // delocation holds the state needed during a delocation operation.
 type delocation struct {
-	target targetPlatform
+	target    targetPlatform
 	processor processorType
 
 	output stringWriter
@@ -93,12 +94,12 @@ func (d *delocation) processInput(input inputFile) (err error) {
 	var origStatement *node32
 	d.currentInput = input
 
-	defer func() {
+	/*defer func() {
 		if err := recover(); err != nil {
 			fmt.Fprintf(os.Stdout, "Panic while processing:\n  %s%s\n", input.contents[origStatement.begin:origStatement.end], err)
 			os.Exit(1)
 		}
-	}()
+	}()*/
 
 	for ; statement != nil; statement = statement.next {
 		origStatement = statement
@@ -247,27 +248,18 @@ func (d *delocation) processLabelContainingDirective(statement, directive *node3
 		}
 
 		arg := node.up
-		switch arg.pegRule {
-		case ruleOffset:
-			args = append(args, d.currentInput.contents[arg.begin:arg.end])
+		var mapped string
 
-		case ruleLocalSymbol:
-			var mapped string
-
-			for term := arg; term != nil; term = term.next {
-				if term.pegRule == ruleLocalSymbol {
-					changed = true
-					mapped += d.mapLocalSymbol(d.currentInput.contents[term.begin:term.end])
-				} else {
-					mapped += d.currentInput.contents[term.begin:term.end]
-				}
+		for term := arg; term != nil; term = term.next {
+			if term.pegRule == ruleLocalSymbol {
+				changed = true
+				mapped += d.mapLocalSymbol(d.currentInput.contents[term.begin:term.end])
+			} else {
+				mapped += d.currentInput.contents[term.begin:term.end]
 			}
-
-			args = append(args, mapped)
-
-		default:
-			return nil, fmt.Errorf("unknown arg type in directive: %q", rul3s[arg.pegRule])
 		}
+
+		args = append(args, mapped)
 	}
 
 	if !changed {
@@ -347,40 +339,58 @@ func (d *delocation) isPPC64LEAPair(statement *node32) (target, source, relative
 	return
 }
 
-func (d *delocation) isPPC64LoadPair(statement *node32) (target, source, relative, temp string, ok bool) {
-	instruction := skipNodes(statement.up, ruleWS).up
-	assertNodeType(instruction, ruleInstructionName)
-	name1 := d.currentInput.contents[instruction.begin:instruction.end]
-	args1 := instructionArgs(instruction.next)
+func loadTOCFuncName(symbol, section, offset string) string {
+	ret := "bcm_loadtoc_" + symbol + "_at_" + strings.Replace(section, "@", "_at_", -1)
+	if len(offset) > 0 {
+		ret += "_offset_"
+		ret += strings.Replace(strings.Replace(offset, "+", "", 1), "-", "neg_", 1)
+	}
+	return strings.Replace(ret, ".", "_dot_", -1)
+}
 
-	statement = statement.next
-	instruction = skipNodes(statement.up, ruleWS).up
-	assertNodeType(instruction, ruleInstructionName)
-	name2 := d.currentInput.contents[instruction.begin:instruction.end]
-	args2 := instructionArgs(instruction.next)
+func (d *delocation) getTOC(w stringWriter, symbol, section, offset, instruction string, avoidRegisters []int) (dest string, wrapper wrapperFunc) {
+	destRegisterNo := 3
 
-	if name1 != "addis" ||
-		len(args1) != 3 ||
-		name2 != "ld" ||
-		len(args2) != 2 {
-		return "", "", "", "", false
+FindDest:
+	for ; ; destRegisterNo++ {
+		for _, avoid := range avoidRegisters {
+			if avoid == destRegisterNo {
+				continue FindDest
+			}
+		}
+
+		break
 	}
 
-	target = d.currentInput.contents[args2[0].begin:args2[0].end]
-	temp = d.currentInput.contents[args1[0].begin:args1[0].end]
-	relative = d.currentInput.contents[args1[1].begin:args1[1].end]
-	source1 := d.currentInput.contents[args1[2].begin:args1[2].end]
-	source2 := d.currentInput.contents[args2[1].begin:args2[1].end]
+	dest = strconv.Itoa(destRegisterNo)
+	d.tocLoaders[symbol+"@"+section+"\x00"+offset] = struct{}{}
 
-	if !strings.HasSuffix(source1, "@ha") ||
-		!strings.HasSuffix(source2, "@l("+temp+")") ||
-		source1[:len(source1)-3] != source2[:len(source2)-4-len(temp)] {
-		return "", "", "", "", false
+	return dest, func(k func()) {
+		w.WriteString("\taddi 1, 1, -288\n")
+		w.WriteString("\tstd " + dest + ", 0(1)\n")
+		w.WriteString("\tmflr " + dest + "\n")
+		w.WriteString("\tstd " + dest + ", 8(1)\n")
+		if dest != "3" {
+			w.WriteString("\tstd 3, 16(1)\n")
+		}
+		w.WriteString("\tbl " + loadTOCFuncName(symbol, section, offset) + "\n")
+		// The POWER ABI requires a nop instruction after a function call so
+		// that the linker has space to insert an unspecified instruction to
+		// restore register two.
+		w.WriteString("\tnop\n")
+
+		if dest != "3" {
+			w.WriteString("\tmr " + dest + ", 3\n")
+			w.WriteString("\tld 3, 16(1)\n")
+		}
+
+		k()
+
+		w.WriteString("\tld " + dest + ", 8(1)\n")
+		w.WriteString("\tmtlr " + dest + "\n")
+		w.WriteString("\tld " + dest + ", 0(1)\n")
+		w.WriteString("\taddi 1, 1, 288\n")
 	}
-
-	source = source1[:len(source1)-3]
-	ok = true
-	return
 }
 
 func (d *delocation) processPPCInstruction(statement, instruction *node32) (*node32, error) {
@@ -476,37 +486,60 @@ Args:
 			case "":
 				break
 
-			case "toc@ha":
-				target, _, relative, ok := d.isPPC64LEAPair(statement)
-				if ok {
-					if relative != "2" {
-						return nil, fmt.Errorf("expected TOC reference relative to TOC register (2), but was relative to %q", relative)
+			case "toc@ha", "toc@l":
+				changed = true
+
+				var avoidRegisters []int
+				for _, node := range argNodes {
+					if node.pegRule != ruleRegisterOrConstant {
+						continue
 					}
-					d.target.leaSym(d.output, target, symbol, offset, false)
-					d.tocLoaders[symbol] = struct{}{}
-
-					statement = statement.next
-					changed = true
-					instructionName = ""
-					break Args
-				}
-
-				target, _, relative, _, ok = d.isPPC64LoadPair(statement)
-				if ok {
-					if relative != "2" {
-						return nil, fmt.Errorf("expected TOC reference relative to TOC register (2), but was relative to %q", relative)
+					val, err := strconv.ParseInt(d.currentInput.contents[node.begin:node.end], 10, 32)
+					if err != nil {
+						continue
 					}
 
-					d.target.leaSym(d.output, target, symbol, offset, true)
-					d.tocLoaders[symbol] = struct{}{}
-
-					statement = statement.next
-					changed = true
-					instructionName = ""
-					break Args
+					avoidRegisters = append(avoidRegisters, int(val))
 				}
 
-				return nil, errors.New("Found high TOC reference outside load pattern")
+				valReg, wrapper := d.getTOC(d.output, symbol, section, offset, instructionName, avoidRegisters)
+				wrappers = append(wrappers, wrapper)
+
+				switch instructionName {
+				case "addis":
+					// addis shifts its argument 16 bits left before addition.
+					wrappers = append(wrappers, func(k func()) {
+						d.output.WriteString("\t sldi " + valReg + ", " + valReg + ", 16\n")
+						k()
+					})
+					fallthrough
+				case "addi":
+					instructionName = "add"
+
+				case "ld", "lhz", "lwz":
+					// ld 6,foo@toc@l(26) needs to be turned into:
+					// add 6, <TOC value>, 26
+					// ld 6, 0(6)
+					origInstructionName := instructionName
+					instructionName = ""
+
+					assertNodeType(memRef, ruleBaseIndexScale)
+					assertNodeType(memRef.up, ruleRegisterOrConstant)
+					if memRef.next != nil || memRef.up.next != nil {
+						return nil, errors.New("expected single register in BaseIndexScale for ld argument.")
+					}
+					baseReg := d.currentInput.contents[memRef.up.begin:memRef.up.end]
+
+					wrappers = append(wrappers, func(k func()) {
+						d.output.WriteString("\tadd " + valReg + ", " + valReg + ", " + baseReg + "\n")
+						d.output.WriteString("\t" + origInstructionName + " " + args[0] + ", 0(" + valReg + ")\n")
+					})
+					break Args
+				default:
+					return nil, fmt.Errorf("can't process TOC argument to %q", instructionName)
+				}
+
+				symbol = valReg
 
 			default:
 				return nil, fmt.Errorf("Unknown section type %q", section)
@@ -547,10 +580,6 @@ Args:
 	}
 
 	return statement, nil
-}
-
-func offsetToSuffix(offset int) string {
-	return strings.Replace(strconv.Itoa(offset), "-", "neg_", 1)
 }
 
 func (d *delocation) processIntelInstruction(statement, instruction *node32) (*node32, error) {
@@ -754,7 +783,7 @@ func (d *delocation) handleBSS(statement *node32) (*node32, error) {
 		}
 
 		switch node.pegRule {
-		case ruleGlobalDirective, ruleComment, ruleInstruction:
+		case ruleGlobalDirective, ruleComment, ruleInstruction, ruleLocationDirective:
 			d.writeNode(statement)
 
 		case ruleDirective:
@@ -778,8 +807,15 @@ func (d *delocation) handleBSS(statement *node32) (*node32, error) {
 				d.bssAccessorsNeeded[symbol] = localSymbol
 			}
 
+		case ruleLabelContainingDirective:
+			var err error
+			statement, err = d.processLabelContainingDirective(statement, node.up)
+			if err != nil {
+				return nil, err
+			}
+
 		default:
-			return nil, fmt.Errorf("unknown top-level statement type %q", rul3s[node.pegRule])
+			return nil, fmt.Errorf("unknown BSS statement type %q in %q", rul3s[node.pegRule], d.currentInput.contents[statement.begin:statement.end])
 		}
 	}
 
@@ -859,21 +895,26 @@ func transform(w stringWriter, target targetPlatform, inputs []inputFile) error 
 		target.returnRelativeAddr(w, d.bssAccessorsNeeded[name])
 	}
 
-	var loadTOCNames []string
-	for name := range d.tocLoaders {
-		loadTOCNames = append(loadTOCNames, name)
-	}
-	sort.Strings(loadTOCNames)
-
 	if d.processor == POWER {
+		var loadTOCNames []string
+		for name := range d.tocLoaders {
+			loadTOCNames = append(loadTOCNames, name)
+		}
+		sort.Strings(loadTOCNames)
+
 		for _, name := range loadTOCNames {
-			w.WriteString(".type bcm_loadtoc_" + name + ", @function\n")
-			w.WriteString("bcm_loadtoc_" + name + ":\n")
-			w.WriteString("\taddis 3, 2, " + name + "@toc@ha\n")
-			w.WriteString("\taddi 3, 3, " + name + "@toc@l\n")
+			parts := strings.SplitN(name, "\x00", 2)
+			symAndSection, offset := parts[0], parts[1]
+			parts = strings.SplitN(symAndSection, "@", 2)
+			symbol, section := parts[0], parts[1]
+			funcName := loadTOCFuncName(symbol, section, offset)
+			w.WriteString(".type " + funcName + ", @function\n")
+			w.WriteString(funcName + ":\n")
+			w.WriteString("\taddi 3, 0, " + symAndSection + offset + "\n")
 			w.WriteString("\tblr\n")
 		}
 
+		w.WriteString("BORINGSSL_bcm_set_toc:\n")
 		w.WriteString(".LBORINGSSL_bcm_set_toc:\n")
 		w.WriteString("0:\n")
 		w.WriteString("\taddis 2,12,.TOC.-0b@ha\n")
@@ -1192,7 +1233,7 @@ func (ppc64le) leaSym(w stringWriter, target, source, offset string, deref bool)
 			panic(err)
 		}
 
-		w.WriteString("\taddis 3, 3, " + strconv.Itoa(offsetBytes) + "\n")
+		w.WriteString("\taddi 3, 3, " + strconv.Itoa(offsetBytes) + "\n")
 	}
 
 	if target != "3" {

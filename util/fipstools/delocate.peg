@@ -23,9 +23,10 @@ SymbolArgs <- SymbolArg ((WS? ',' WS?) SymbolArg)*
 SymbolArg <- Offset /
              LocalSymbol Operator LocalSymbol /
              LocalSymbol Operator Offset /
-             '.' WS? Operator WS? Offset /
+             Dot WS? Operator WS? Offset /
              Offset Operator LocalSymbol /
              LocalSymbol
+Dot <- '.'
 EscapedChar <- '\\' .
 WS <- [ \t]+
 Comment <- '#' [^\n]*
