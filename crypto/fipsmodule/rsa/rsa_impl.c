@@ -910,7 +910,7 @@ err:
 int RSA_generate_key_ex(RSA *rsa, int bits, BIGNUM *e_value, BN_GENCB *cb) {
   /* See FIPS 186-4 appendix B.3. This function implements a generalized version
    * of the FIPS algorithm. For FIPS compliance, the caller is responsible for
-   * passing in 2048 or 3072 to |bits| and 65537 for |e_value|. */
+   * using |RSA_generate_key_fips|. */
 
   /* Always generate RSA keys which are a multiple of 128 bits. Round |bits|
    * down as needed. */
@@ -1035,6 +1035,19 @@ err:
     BN_CTX_free(ctx);
   }
   return ret;
+}
+
+int RSA_generate_key_fips(RSA *rsa, int bits, BN_GENCB *cb) {
+  if (bits != 2048 && bits != 3072) {
+    return 0;
+  }
+  BIGNUM *e_value = BN_new();
+  int result = e_value != NULL &&
+      BN_set_word(e_value, RSA_F4) &&
+      RSA_generate_key_ex(rsa, bits, e_value, cb) &&
+      RSA_check_fips(rsa);
+  BN_free(e_value);
+  return result;
 }
 
 DEFINE_METHOD_FUNCTION(RSA_METHOD, RSA_default_method) {
