@@ -235,15 +235,18 @@ void EVP_DecodeInit(EVP_ENCODE_CTX *ctx) {
   OPENSSL_memset(ctx, 0, sizeof(EVP_ENCODE_CTX));
 }
 
+static inline uint8_t constant_time_in_range_8(uint8_t a, uint8_t min,
+                                               uint8_t max) {
+  a -= min;
+  return constant_time_lt_8(a, max - min + 1);
+}
+
 static uint8_t base64_ascii_to_bin(uint8_t a) {
   /* Since PEM is sometimes used to carry private keys, we decode base64 data
    * itself in constant-time. */
-  const uint8_t is_upper =
-      constant_time_ge_8(a, 'A') & constant_time_ge_8('Z', a);
-  const uint8_t is_lower =
-      constant_time_ge_8(a, 'a') & constant_time_ge_8('z', a);
-  const uint8_t is_digit =
-      constant_time_ge_8(a, '0') & constant_time_ge_8('9', a);
+  const uint8_t is_upper = constant_time_in_range_8(a, 'A', 'Z');
+  const uint8_t is_lower = constant_time_in_range_8(a, 'a', 'z');
+  const uint8_t is_digit = constant_time_in_range_8(a, '0', '9');
   const uint8_t is_plus = constant_time_eq_8(a, '+');
   const uint8_t is_slash = constant_time_eq_8(a, '/');
   const uint8_t is_equals = constant_time_eq_8(a, '=');
