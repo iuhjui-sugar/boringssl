@@ -1,0 +1,72 @@
+# This is a rough parser for x86-64 and ppc64le assembly designed to work with
+# https://github.com/pointlander/peg. delocate.go has a go:generate line for
+# rebuilding delocate.peg.go from this file.
+
+package main
+
+type Asm Peg {}
+
+AsmFile <- Statement* !.
+Statement <- WS? (Label / ((GlobalDirective /
+                            LocationDirective /
+                            LabelContainingDirective /
+                            Instruction /
+                            Directive /
+                            Comment / ) WS? ((Comment? '\n') / ';')))
+GlobalDirective <- (".global" / ".globl") WS SymbolName
+Directive <- '.' DirectiveName (WS Args)?
+DirectiveName <- [[A-Z0-9_]]+
+LocationDirective <- (".file" / ".loc") WS [^#\n]+
+Args <- Arg ((WS? ',' WS?) Arg)*
+Arg <- QuotedArg / [[0-9a-z%+\-_@.]]*
+QuotedArg <- '"' QuotedText '"'
+QuotedText <- (EscapedChar / [^"])*
+LabelContainingDirective <- LabelContainingDirectiveName WS SymbolArgs
+LabelContainingDirectiveName <- ".long" / ".set" / ".8byte" / ".4byte" / ".quad" / ".tc" / ".localentry" / ".size" / ".type"
+SymbolArgs <- SymbolArg ((WS? ',' WS?) SymbolArg)*
+SymbolArg <- Offset /
+             SymbolType /
+             (Offset / LocalSymbol / SymbolName / Dot) WS? Operator WS? (Offset / LocalSymbol / SymbolName) /
+             LocalSymbol TCMarker? /
+             SymbolName Offset /
+             SymbolName TCMarker?
+SymbolType <- '@function' / '@object'
+Dot <- '.'
+TCMarker <- '[TC]'
+EscapedChar <- '\\' .
+WS <- [ \t]+
+Comment <- '#' [^\n]*
+Label <- (LocalSymbol / LocalLabel / SymbolName) ':'
+SymbolName <- [[A-Z._]][[A-Z.0-9$_]]*
+LocalSymbol <- '.L' [[A-Z.0-9$_]]+
+LocalLabel <- [0-9][0-9$]*
+LocalLabelRef <- [0-9][0-9$]*[bf]
+Instruction <- InstructionName WS? InstructionArg? WS? (',' WS? InstructionArg)*
+InstructionName <- [[A-Z]][[A-Z0-9]]* [.+\-]?
+InstructionArg <- IndirectionIndicator? (RegisterOrConstant / LocalLabelRef / TOCRefHigh / TOCRefLow / MemoryRef)
+TOCRefHigh <- '.TOC.-' ('0b' / ('.Lfunc_gep' [0-9]+)) "@ha"
+TOCRefLow <- '.TOC.-' ('0b' / ('.Lfunc_gep' [0-9]+)) "@l"
+IndirectionIndicator <- '*'
+RegisterOrConstant <- (('%'[[A-Z]][[A-Z0-9]]*) / ('$'? ((Offset Offset) / Offset))) ![fb:(+\-]
+# Compilers only output a very limited number of expression forms. Rather than
+# implement a full expression parser, this enumerate those forms plus a few
+# that appear in our hand-written assembly.
+MemoryRef <- (Offset Operator SymbolRef BaseIndexScale /
+              SymbolRef Operator Offset BaseIndexScale /
+              SymbolRef BaseIndexScale /
+              Offset BaseIndexScale /
+              Offset Operator Offset BaseIndexScale /
+              SymbolRef Operator Offset Operator Offset BaseIndexScale /
+              Offset Operator Offset Operator Offset BaseIndexScale /
+              SymbolRef /
+              BaseIndexScale /
+              SegmentRegister Offset BaseIndexScale /
+              SegmentRegister BaseIndexScale /
+              Absolute)
+SymbolRef <- (LocalSymbol / SymbolName) Offset? ('@' Section)?
+BaseIndexScale <- '(' RegisterOrConstant? WS? (',' WS? RegisterOrConstant WS? (',' [0-9]+)? )? ')'
+Operator <- [+\-]
+Offset <- [+\-]? (('0x' [[0-9A-F]]+) / [0-9]+)
+Absolute <- ('%' [[A-Z]][[A-Z0-9]]* ':')? [0-9]+
+Section <- [[A-Z@]]+
+SegmentRegister <- '%' [c-gs] 's:'
