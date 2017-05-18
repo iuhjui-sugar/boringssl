@@ -22,6 +22,30 @@
       "revId": "20d202bb0edae9911fc64c54ba5b045c81a584bb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c95f69f_5bd0635d",
+        "filename": "crypto/x509v3/pcy_node.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-18T00:08:14Z",
+      "side": 0,
+      "message": "Yeah. The inline function version is const-checked and this code wasn\u0027t const-correct.",
+      "parentUuid": "4147d1d1_0c2a53f8",
+      "range": {
+        "startLine": 110,
+        "startChar": 33,
+        "endLine": 110,
+        "endChar": 38
+      },
+      "revId": "20d202bb0edae9911fc64c54ba5b045c81a584bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }

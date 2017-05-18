@@ -22,6 +22,30 @@
       "revId": "cd17311fecf1061dab52291069864537b48b0558",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c28d33c3_34922dbe",
+        "filename": "include/openssl/stack.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-18T00:08:14Z",
+      "side": 1,
+      "message": "Yeah, clang-format gets confused a lot. Fixed it up manaully.",
+      "parentUuid": "7bea2488_157d55c0",
+      "range": {
+        "startLine": 222,
+        "startChar": 53,
+        "endLine": 222,
+        "endChar": 56
+      },
+      "revId": "cd17311fecf1061dab52291069864537b48b0558",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
