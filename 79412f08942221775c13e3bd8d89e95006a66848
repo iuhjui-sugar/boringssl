@@ -1,0 +1,300 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2c835050_1ac14d46",
+        "filename": "crypto/fipsmodule/CMakeLists.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-19T23:59:51Z",
+      "side": 1,
+      "message": "delocate.peg.go wants to be listed in DEPENDS too.",
+      "revId": "79412f08942221775c13e3bd8d89e95006a66848",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9ee934d_04a28c4d",
+        "filename": "util/fipstools/delocate.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-19T23:59:51Z",
+      "side": 1,
+      "message": "Looks like instead there\u0027s io.WriteString which takes an io.Writer and will call WriteString or Write as appropriate.",
+      "revId": "79412f08942221775c13e3bd8d89e95006a66848",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "085f3751_f799f7e6",
+        "filename": "util/fipstools/delocate.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-19T23:59:51Z",
+      "side": 1,
+      "message": "Think this is worth bothering?\n\n  func (d *delocation) contents(node *node32) string{\n    return d.currentInput.contents[node.begin:node.end]\n  }\n\nThere is a remarkable amount of that...",
+      "range": {
+        "startLine": 85,
+        "startChar": 35,
+        "endLine": 85,
+        "endChar": 79
+      },
+      "revId": "79412f08942221775c13e3bd8d89e95006a66848",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "646d45e4_ee42ea71",
+        "filename": "util/fipstools/delocate.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-19T23:59:51Z",
+      "side": 1,
+      "message": "assertNodeType(statement, ruleStatement)?",
+      "revId": "79412f08942221775c13e3bd8d89e95006a66848",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8acb5fa8_c627dd7f",
+        "filename": "util/fipstools/delocate.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-19T23:59:51Z",
+      "side": 1,
+      "message": "(Sort of annoying we can\u0027t tell peg to skip these, but I didn\u0027t find an obvious way to do that.)",
+      "range": {
+        "startLine": 120,
+        "startChar": 34,
+        "endLine": 120,
+        "endChar": 40
+      },
+      "revId": "79412f08942221775c13e3bd8d89e95006a66848",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a53f5f9_49b4eb1f",
+        "filename": "util/fipstools/delocate.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-19T23:59:51Z",
+      "side": 1,
+      "message": "d.writeCommentedNode(statement)?",
+      "revId": "79412f08942221775c13e3bd8d89e95006a66848",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3804e78_b95dcd20",
+        "filename": "util/fipstools/delocate.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-19T23:59:51Z",
+      "side": 1,
+      "message": "This\u0027ll end up giving us TEXTRELs, right? Given that we\u0027re punting on delocate + ASan/MSan for the time being, why don\u0027t we just make the build punt delocating ASan builds? We\u0027ll have more the aggressive error-checking we want and not have to keep chasing down ASan issues.",
+      "revId": "79412f08942221775c13e3bd8d89e95006a66848",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66b09a01_4f174c21",
+        "filename": "util/fipstools/delocate.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-19T23:59:51Z",
+      "side": 1,
+      "message": "So we don\u0027t accidentally skip important stuff, what do you think about making loops:\n\nfor node \u003d skipNodes(node.up, ruleWS); node !\u003d nil; node \u003d skipNodes(node.next, ruleWS) {\n    assertNodeType(node, ruleSymbolArg)\n\nOr maybe slightly less shorter with a helper:\n\nfor node \u003d skipWS(node.up); node !\u003d nil; node \u003d skipWS(node.next) {\n    assertNodeType(node, ruleSymbolArg)",
+      "revId": "79412f08942221775c13e3bd8d89e95006a66848",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ab83f40_b5bba77b",
+        "filename": "util/fipstools/delocate.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-19T23:59:51Z",
+      "side": 1,
+      "message": "Ditto re perhaps skipping WS in the loop.",
+      "revId": "79412f08942221775c13e3bd8d89e95006a66848",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "580a2511_702493a9",
+        "filename": "util/fipstools/delocate.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 922,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-19T23:59:51Z",
+      "side": 1,
+      "message": "The old code validated the OPENSSL_ia32cap_P stuff quite a lot, since this transform only works on leaq OPENSSL_ia32cap_P(%rip), %r?? (and the equivalent GOT movq). I feel like we\u0027d want to retain that. For instance, we might move some assembly into the module and forget to rewrite the OPENSSL_ia32cap_P access. There was also the weird movl thing that ASan emitted.",
+      "revId": "79412f08942221775c13e3bd8d89e95006a66848",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38de2608_fe8506ac",
+        "filename": "util/fipstools/delocate.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 1023,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-19T23:59:51Z",
+      "side": 1,
+      "message": "This assumes that SymbolRef only shows up at the beginning, but the first MemoryRef option is \"Offset Operator SymbolRef BaseIndexScale\".",
+      "revId": "79412f08942221775c13e3bd8d89e95006a66848",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d007509_b635057b",
+        "filename": "util/fipstools/delocate.peg",
+        "patchSetId": 5
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-19T23:59:51Z",
+      "side": 1,
+      "message": "Copyright header?",
+      "revId": "79412f08942221775c13e3bd8d89e95006a66848",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6eb73c6b_dec86062",
+        "filename": "util/fipstools/delocate.peg",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-19T23:59:51Z",
+      "side": 1,
+      "message": "If we ever need to unescape these, I believe  \\ digit digit digit (octal) and \\x hex hex are supported, but this doesn\u0027t actually affect the parse right now.",
+      "revId": "79412f08942221775c13e3bd8d89e95006a66848",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7b45c39_02375c85",
+        "filename": "util/fipstools/delocate.peg",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-19T23:59:51Z",
+      "side": 1,
+      "message": "Should this be:\n\n  InstructionName (WS InstructionArg ((WS? \u0027,\u0027 WS?) InstructionArg)*)?\n\nNotably, that first WS is not optional if the first InstructionArg is present. Otherwise I\u0027m just mirroring your definition of Args.",
+      "range": {
+        "startLine": 44,
+        "startChar": 31,
+        "endLine": 44,
+        "endChar": 34
+      },
+      "revId": "79412f08942221775c13e3bd8d89e95006a66848",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abc135f6_e6473018",
+        "filename": "util/fipstools/delocate.peg",
+        "patchSetId": 5
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-19T23:59:51Z",
+      "side": 1,
+      "message": "This can be a constant? Or I guess this is just because we don\u0027t hugely care about the distinction and can handle it in code.",
+      "range": {
+        "startLine": 67,
+        "startChar": 22,
+        "endLine": 67,
+        "endChar": 40
+      },
+      "revId": "79412f08942221775c13e3bd8d89e95006a66848",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60213478_f28342b9",
+        "filename": "util/fipstools/delocate.peg",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-19T23:59:51Z",
+      "side": 1,
+      "message": "If you care, looks like one can also capitalize the 0X and use 0b. (We don\u0027t ever parse the number itself, do we? There\u0027s an annoying octal case just waiting to trip us up.)\n\nhttps://sourceware.org/binutils/docs/as/Integers.html#Integers",
+      "revId": "79412f08942221775c13e3bd8d89e95006a66848",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
