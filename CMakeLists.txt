@@ -265,6 +265,26 @@ include_directories(third_party/googletest/include)
 # themselves as dependencies next to the target definition.
 add_custom_target(all_tests)
 
+# TODO(davidben): Move other source lists here, rather than have
+# generate_build_files.py crawl the filesystem everywhere.
+
+# BEGIN EXPORTED VARIABLES
+set(
+  CRYPTO_TEST_DATA
+
+  crypto/fipsmodule/aes/aes_tests.txt
+  )
+# END EXPORTED VARIABLES
+
+add_custom_command(
+  OUTPUT crypto_test_data.cc
+  COMMAND ${GO_EXECUTABLE} run util/embed_test_data.go ${CRYPTO_TEST_DATA} >
+  ${CMAKE_CURRENT_BINARY_DIR}/crypto_test_data.cc
+  DEPENDS util/embed_test_data.go ${CRYPTO_TEST_DATA}
+  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+
+add_library(crypto_test_data OBJECT crypto_test_data.cc)
+
 add_subdirectory(crypto)
 add_subdirectory(ssl)
 add_subdirectory(ssl/test)
