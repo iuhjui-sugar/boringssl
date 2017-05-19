@@ -370,6 +370,24 @@
     },
     {
       "key": {
+        "uuid": "42e926b2_0c8eb5fa",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 2041,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-05-19T20:31:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b85a116_27f7a9b9",
+      "revId": "e4abd9e6c52d6a5a443478cbccc7decdeba66a7a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9306d359_3a0b67e6",
         "filename": "ssl/test/runner/common.go",
         "patchSetId": 10
