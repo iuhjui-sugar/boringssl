@@ -255,6 +255,7 @@ add_executable(
   fipsmodule/aes/aes_test.cc
   fipsmodule/ec/ec_test.cc
   fipsmodule/rand/ctrdrbg_test.cc
+  lhash/lhash_test.cc
   test/file_test_gtest.cc
   rsa_extra/rsa_test.cc
 
