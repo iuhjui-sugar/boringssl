@@ -45,7 +45,6 @@
 	["crypto/fipsmodule/p256-x86_64_test", "crypto/fipsmodule/ec/p256-x86_64_tests.txt"],
 	["crypto/hkdf/hkdf_test"],
 	["crypto/hmac_extra/hmac_test", "crypto/hmac_extra/hmac_tests.txt"],
-	["crypto/lhash/lhash_test"],
 	["crypto/obj/obj_test"],
 	["crypto/pkcs7/pkcs7_test"],
 	["crypto/pkcs8/pkcs12_test"],
