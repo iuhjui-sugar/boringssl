@@ -970,7 +970,7 @@ static int ServerNameCallback(SSL *ssl, int *out_alert, void *arg) {
 // Connect returns a new socket connected to localhost on |port| or -1 on
 // error.
 static int Connect(uint16_t port) {
-  int sock = socket(AF_INET, SOCK_STREAM, 0);
+  int sock = socket(AF_INET6, SOCK_STREAM, 0);
   if (sock == -1) {
     PrintSocketError("socket");
     return -1;
@@ -982,11 +982,11 @@ static int Connect(uint16_t port) {
     closesocket(sock);
     return -1;
   }
-  sockaddr_in sin;
+  sockaddr_in6 sin;
   OPENSSL_memset(&sin, 0, sizeof(sin));
-  sin.sin_family = AF_INET;
-  sin.sin_port = htons(port);
-  if (!inet_pton(AF_INET, "127.0.0.1", &sin.sin_addr)) {
+  sin.sin6_family = AF_INET6;
+  sin.sin6_port = htons(port);
+  if (!inet_pton(AF_INET6, "::1", &sin.sin6_addr)) {
     PrintSocketError("inet_pton");
     closesocket(sock);
     return -1;

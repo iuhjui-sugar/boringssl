@@ -71,15 +71,14 @@ TEST(BIOTest, SocketConnect) {
   static const char kTestMessage[] = "test";
 
   // Set up a listening socket on localhost.
-  int listening_sock = socket(AF_INET, SOCK_STREAM, 0);
+  int listening_sock = socket(AF_INET6, SOCK_STREAM, 0);
   ASSERT_NE(-1, listening_sock) << LastSocketError();
   ScopedSocket listening_sock_closer(listening_sock);
 
-  struct sockaddr_in sin;
+  struct sockaddr_in6 sin;
   OPENSSL_memset(&sin, 0, sizeof(sin));
-  sin.sin_family = AF_INET;
-  ASSERT_EQ(1, inet_pton(AF_INET, "127.0.0.1", &sin.sin_addr))
-      << LastSocketError();
+  sin.sin6_family = AF_INET6;
+  ASSERT_EQ(1, inet_pton(AF_INET6, "::1", &sin.sin6_addr)) << LastSocketError();
   ASSERT_EQ(0, bind(listening_sock, (struct sockaddr *)&sin, sizeof(sin)))
       << LastSocketError();
   ASSERT_EQ(0, listen(listening_sock, 1)) << LastSocketError();
@@ -92,8 +91,8 @@ TEST(BIOTest, SocketConnect) {
 
   // Connect to it with a connect BIO.
   char hostname[80];
-  BIO_snprintf(hostname, sizeof(hostname), "%s:%d", "127.0.0.1",
-               ntohs(sin.sin_port));
+  BIO_snprintf(hostname, sizeof(hostname), "%s:%d", "[::1]",
+               ntohs(sin.sin6_port));
   bssl::UniquePtr<BIO> bio(BIO_new_connect(hostname));
   ASSERT_TRUE(bio);
 
