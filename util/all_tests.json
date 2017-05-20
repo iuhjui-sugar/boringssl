@@ -50,7 +50,6 @@
 	["crypto/pkcs8/pkcs8_test"],
 	["crypto/poly1305/poly1305_test", "crypto/poly1305/poly1305_tests.txt"],
 	["crypto/pool/pool_test"],
-	["crypto/refcount_test"],
 	["crypto/thread_test"],
 	["crypto/x509v3/tab_test"],
 	["crypto/x509v3/v3name_test"],
