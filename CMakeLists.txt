@@ -272,6 +272,7 @@ add_custom_target(all_tests)
 set(
   CRYPTO_TEST_DATA
 
+  crypto/curve25519/ed25519_tests.txt
   crypto/fipsmodule/aes/aes_tests.txt
   )
 # END EXPORTED VARIABLES
