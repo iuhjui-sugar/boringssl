@@ -69,31 +69,53 @@ class ScopedSocket {
 
 TEST(BIOTest, SocketConnect) {
   static const char kTestMessage[] = "test";
+  int listening_sock = -1;
+  socklen_t len = 0;
+  sockaddr_storage ss;
+  OPENSSL_memset(&ss, 0, sizeof(ss));
 
-  // Set up a listening socket on localhost.
-  int listening_sock = socket(AF_INET, SOCK_STREAM, 0);
-  ASSERT_NE(-1, listening_sock) << LastSocketError();
+  for (int af : { AF_INET6, AF_INET }) {
+    ss.ss_family = af;
+
+    // Set up a listening socket on localhost.
+    listening_sock = socket(af, SOCK_STREAM, 0);
+    ASSERT_NE(-1, listening_sock) << LastSocketError();
+
+    if (af == AF_INET6) {
+      struct sockaddr_in6 *sin6 = (struct sockaddr_in6 *) &ss;
+      len = sizeof(*sin6);
+      ASSERT_EQ(1, inet_pton(AF_INET6, "::1", &sin6->sin6_addr))
+          << LastSocketError();
+      if (bind(listening_sock, (struct sockaddr *)sin6, sizeof(*sin6)) == -1) {
+        closesocket(listening_sock);
+        continue;
+      }
+    } else if (af == AF_INET) {
+      struct sockaddr_in *sin = (struct sockaddr_in *) &ss;
+      len = sizeof(*sin);
+      ASSERT_EQ(1, inet_pton(AF_INET, "127.0.0.1", &sin->sin_addr))
+          << LastSocketError();
+      ASSERT_EQ(0, bind(listening_sock, (struct sockaddr *)sin, sizeof(*sin)))
+          << LastSocketError();
+    }
+    break;
+  }
+
   ScopedSocket listening_sock_closer(listening_sock);
-
-  struct sockaddr_in sin;
-  OPENSSL_memset(&sin, 0, sizeof(sin));
-  sin.sin_family = AF_INET;
-  ASSERT_EQ(1, inet_pton(AF_INET, "127.0.0.1", &sin.sin_addr))
-      << LastSocketError();
-  ASSERT_EQ(0, bind(listening_sock, (struct sockaddr *)&sin, sizeof(sin)))
-      << LastSocketError();
   ASSERT_EQ(0, listen(listening_sock, 1)) << LastSocketError();
-  socklen_t sockaddr_len = sizeof(sin);
-  ASSERT_EQ(0,
-            getsockname(listening_sock, (struct sockaddr *)&sin, &sockaddr_len))
-      << LastSocketError();
-  // The Android NDK, contrary to POSIX, makes |socklen_t| signed.
-  ASSERT_EQ(sizeof(sin), static_cast<size_t>(sockaddr_len));
+  ASSERT_EQ(0, getsockname(listening_sock, (struct sockaddr *)&ss, &len))
+        << LastSocketError();
+
+  char hostname[80];
+  if (ss.ss_family == AF_INET6) {
+    struct sockaddr_in6 *sin6 = (struct sockaddr_in6 *) &ss;
+    BIO_snprintf(hostname, sizeof(hostname), "[::1]:%d", ntohs(sin6->sin6_port));
+  } else if (ss.ss_family == AF_INET) {
+    struct sockaddr_in *sin = (struct sockaddr_in *) &ss;
+    BIO_snprintf(hostname, sizeof(hostname), "127.0.0.1:%d", ntohs(sin->sin_port));
+  }
 
   // Connect to it with a connect BIO.
-  char hostname[80];
-  BIO_snprintf(hostname, sizeof(hostname), "%s:%d", "127.0.0.1",
-               ntohs(sin.sin_port));
   bssl::UniquePtr<BIO> bio(BIO_new_connect(hostname));
   ASSERT_TRUE(bio);
 
@@ -102,7 +124,7 @@ TEST(BIOTest, SocketConnect) {
             BIO_write(bio.get(), kTestMessage, sizeof(kTestMessage)));
 
   // Accept the socket.
-  int sock = accept(listening_sock, (struct sockaddr *) &sin, &sockaddr_len);
+  int sock = accept(listening_sock, (struct sockaddr *) &ss, &len);
   ASSERT_NE(-1, sock) << LastSocketError();
   ScopedSocket sock_closer(sock);
 
