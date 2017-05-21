@@ -248,6 +248,7 @@ add_executable(
   fipsmodule/ec/ec_test.cc
   fipsmodule/rand/ctrdrbg_test.cc
   lhash/lhash_test.cc
+  pool/pool_test.cc
   refcount_test.cc
   rsa_extra/rsa_test.cc
   test/file_test_gtest.cc
