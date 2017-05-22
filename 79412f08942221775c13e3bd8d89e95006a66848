@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "23e77a77_ea102a13",
+        "filename": "crypto/fipsmodule/CMakeLists.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-22T18:18:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c835050_1ac14d46",
+      "revId": "79412f08942221775c13e3bd8d89e95006a66848",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e9ee934d_04a28c4d",
         "filename": "util/fipstools/delocate.go",
         "patchSetId": 5
@@ -33,6 +51,24 @@
       "revId": "79412f08942221775c13e3bd8d89e95006a66848",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2642b23_12eaef1a",
+        "filename": "util/fipstools/delocate.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-22T18:18:36Z",
+      "side": 1,
+      "message": "Yea, but that would be useful if we wanted to use an io.Writer that might not implement WriteString. But we know that our Writers do have it, and it saves a bit of typing at each of the (many) WriteString sites this way.",
+      "parentUuid": "e9ee934d_04a28c4d",
+      "revId": "79412f08942221775c13e3bd8d89e95006a66848",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "3e5c65b5_01b3be49",
+        "filename": "util/fipstools/delocate.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-22T18:18:36Z",
+      "side": 1,
+      "message": "There is a remarkable amount of it. The peg package is trying to save memory. I\u0027m not sure if that was worth it. Have made this change.",
+      "parentUuid": "085f3751_f799f7e6",
+      "range": {
+        "startLine": 85,
+        "startChar": 35,
+        "endLine": 85,
+        "endChar": 79
+      },
+      "revId": "79412f08942221775c13e3bd8d89e95006a66848",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "646d45e4_ee42ea71",
         "filename": "util/fipstools/delocate.go",
         "patchSetId": 5
@@ -76,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "7e27ee3f_4f94dc4e",
+        "filename": "util/fipstools/delocate.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-22T18:18:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "646d45e4_ee42ea71",
+      "revId": "79412f08942221775c13e3bd8d89e95006a66848",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8acb5fa8_c627dd7f",
         "filename": "util/fipstools/delocate.go",
         "patchSetId": 5
@@ -87,6 +165,30 @@
       "writtenOn": "2017-05-19T23:59:51Z",
       "side": 1,
       "message": "(Sort of annoying we can\u0027t tell peg to skip these, but I didn\u0027t find an obvious way to do that.)",
+      "range": {
+        "startLine": 120,
+        "startChar": 34,
+        "endLine": 120,
+        "endChar": 40
+      },
+      "revId": "79412f08942221775c13e3bd8d89e95006a66848",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2f00f761_78a74958",
+        "filename": "util/fipstools/delocate.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-22T18:18:36Z",
+      "side": 1,
+      "message": "(We could substitute the definition of WS into each place that it\u0027s used, but that seemed worse to me.)",
+      "parentUuid": "8acb5fa8_c627dd7f",
       "range": {
         "startLine": 120,
         "startChar": 34,
@@ -116,6 +218,24 @@
     },
     {
       "key": {
+        "uuid": "04e9ee8d_cd00a54c",
+        "filename": "util/fipstools/delocate.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-22T18:18:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a53f5f9_49b4eb1f",
+      "revId": "79412f08942221775c13e3bd8d89e95006a66848",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3804e78_b95dcd20",
         "filename": "util/fipstools/delocate.go",
         "patchSetId": 5
@@ -130,6 +250,24 @@
       "revId": "79412f08942221775c13e3bd8d89e95006a66848",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78a8acb5_e8fe2ec8",
+        "filename": "util/fipstools/delocate.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-22T18:18:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3804e78_b95dcd20",
+      "revId": "79412f08942221775c13e3bd8d89e95006a66848",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -150,6 +288,24 @@
     },
     {
       "key": {
+        "uuid": "df4b520e_b4cfacf7",
+        "filename": "util/fipstools/delocate.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-22T18:18:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66b09a01_4f174c21",
+      "revId": "79412f08942221775c13e3bd8d89e95006a66848",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0ab83f40_b5bba77b",
         "filename": "util/fipstools/delocate.go",
         "patchSetId": 5
@@ -164,6 +320,24 @@
       "revId": "79412f08942221775c13e3bd8d89e95006a66848",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05576082_948ad5ab",
+        "filename": "util/fipstools/delocate.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-22T18:18:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ab83f40_b5bba77b",
+      "revId": "79412f08942221775c13e3bd8d89e95006a66848",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -184,6 +358,24 @@
     },
     {
       "key": {
+        "uuid": "eef729ba_70a4408e",
+        "filename": "util/fipstools/delocate.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 922,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-22T18:18:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "580a2511_702493a9",
+      "revId": "79412f08942221775c13e3bd8d89e95006a66848",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "38de2608_fe8506ac",
         "filename": "util/fipstools/delocate.go",
         "patchSetId": 5
@@ -198,6 +390,24 @@
       "revId": "79412f08942221775c13e3bd8d89e95006a66848",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "925e6179_2dfa8236",
+        "filename": "util/fipstools/delocate.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 1023,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-22T18:18:36Z",
+      "side": 1,
+      "message": "Good point. I\u0027ve changed the parser so that a SymbolRef only shows up at the beginning. I also threw a bunch of patterns into that match in order to get at the core of the PPC issues so I\u0027ve rationalised it a little too.",
+      "parentUuid": "38de2608_fe8506ac",
+      "revId": "79412f08942221775c13e3bd8d89e95006a66848",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -218,6 +428,24 @@
     },
     {
       "key": {
+        "uuid": "84eff606_617a1761",
+        "filename": "util/fipstools/delocate.peg",
+        "patchSetId": 5
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-22T18:18:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d007509_b635057b",
+      "revId": "79412f08942221775c13e3bd8d89e95006a66848",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6eb73c6b_dec86062",
         "filename": "util/fipstools/delocate.peg",
         "patchSetId": 5
@@ -232,6 +460,24 @@
       "revId": "79412f08942221775c13e3bd8d89e95006a66848",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a81c27d_f0b0d666",
+        "filename": "util/fipstools/delocate.peg",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-22T18:18:36Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6eb73c6b_dec86062",
+      "revId": "79412f08942221775c13e3bd8d89e95006a66848",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -258,6 +504,30 @@
     },
     {
       "key": {
+        "uuid": "e6ef0185_f5f9cbfe",
+        "filename": "util/fipstools/delocate.peg",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-22T18:18:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7b45c39_02375c85",
+      "range": {
+        "startLine": 44,
+        "startChar": 31,
+        "endLine": 44,
+        "endChar": 34
+      },
+      "revId": "79412f08942221775c13e3bd8d89e95006a66848",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "abc135f6_e6473018",
         "filename": "util/fipstools/delocate.peg",
         "patchSetId": 5
@@ -281,6 +551,30 @@
     },
     {
       "key": {
+        "uuid": "54baa43e_17b4aab9",
+        "filename": "util/fipstools/delocate.peg",
+        "patchSetId": 5
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-22T18:18:36Z",
+      "side": 1,
+      "message": "The parser used to be more strict, then it hit PPC where registers are constants are both just numbers and Register turned into RegisterOrConstant.",
+      "parentUuid": "abc135f6_e6473018",
+      "range": {
+        "startLine": 67,
+        "startChar": 22,
+        "endLine": 67,
+        "endChar": 40
+      },
+      "revId": "79412f08942221775c13e3bd8d89e95006a66848",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "60213478_f28342b9",
         "filename": "util/fipstools/delocate.peg",
         "patchSetId": 5
@@ -295,6 +589,24 @@
       "revId": "79412f08942221775c13e3bd8d89e95006a66848",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea2eea10_d5d2bfaf",
+        "filename": "util/fipstools/delocate.peg",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-22T18:18:36Z",
+      "side": 1,
+      "message": "We don\u0027t parse the number, no. They are just strings that get moved around. Have added matching for 0X/0b/0B.",
+      "parentUuid": "60213478_f28342b9",
+      "revId": "79412f08942221775c13e3bd8d89e95006a66848",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
