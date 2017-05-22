@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "acb2b7a4_92b14528",
+        "filename": "util/embed_test_data.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-22T22:49:12Z",
+      "side": 1,
+      "message": "This means that each file included is padded up to 8K of data, right? A static const char *kData[] \u003d {\"…\", \"…\", …}; would avoid that at the cost of a few relocations I think. Any strong reason to do the padding?",
+      "revId": "0a649c46c173103b718dc8c4ae5409ba0f65f419",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
