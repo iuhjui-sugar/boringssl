@@ -4,22 +4,22 @@ BORINGSSL_bcm_text_start:
 .Lfoo_local_target:
 foo:
 	# leaq of OPENSSL_ia32cap_P is supported.
+# WAS leaq OPENSSL_ia32cap_P(%rip), %r11
 	leaq	-128(%rsp), %rsp
 	pushfq
 	leaq	OPENSSL_ia32cap_addr_delta(%rip), %r11
 	addq	(%r11), %r11
 	popfq
 	leaq	128(%rsp), %rsp
-# WAS leaq OPENSSL_ia32cap_P(%rip), %r11
 
 	# As is the equivalent GOTPCREL movq.
+# WAS movq OPENSSL_ia32cap_P@GOTPCREL(%rip), %r12
 	leaq	-128(%rsp), %rsp
 	pushfq
 	leaq	OPENSSL_ia32cap_addr_delta(%rip), %r12
 	addq	(%r12), %r12
 	popfq
 	leaq	128(%rsp), %rsp
-# WAS movq OPENSSL_ia32cap_P@GOTPCREL(%rip), %r12
 
 	# Test that GOTPCREL accesses get translated. They are handled
 	# differently for local and external symbols.

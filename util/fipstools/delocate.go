@@ -957,15 +957,16 @@ Args:
 					return nil, fmt.Errorf("tried to load OPENSSL_ia32cap_P into %q, which is not a standard register.", reg)
 				}
 
-				instructionName = ""
 				changed = true
+				wrappers = append(wrappers, func(k func()) {
+					d.output.WriteString("\tleaq\t-128(%rsp), %rsp\n")
+					d.output.WriteString("\tpushfq\n")
+					d.output.WriteString("\tleaq\tOPENSSL_ia32cap_addr_delta(%rip), " + reg + "\n")
+					d.output.WriteString("\taddq\t(" + reg + "), " + reg + "\n")
+					d.output.WriteString("\tpopfq\n")
+					d.output.WriteString("\tleaq\t128(%rsp), %rsp\n")
+				})
 
-				d.output.WriteString("\tleaq\t-128(%rsp), %rsp\n")
-				d.output.WriteString("\tpushfq\n")
-				d.output.WriteString("\tleaq\tOPENSSL_ia32cap_addr_delta(%rip), " + reg + "\n")
-				d.output.WriteString("\taddq\t(" + reg + "), " + reg + "\n")
-				d.output.WriteString("\tpopfq\n")
-				d.output.WriteString("\tleaq\t128(%rsp), %rsp\n")
 				break Args
 			}
 
@@ -1090,11 +1091,7 @@ Args:
 			args[1] = "%rax"
 		}
 
-		var replacement string
-		if len(instructionName) > 0 {
-			replacement = "\t" + instructionName + "\t" + strings.Join(args, ", ") + "\n"
-		}
-
+		replacement := "\t" + instructionName + "\t" + strings.Join(args, ", ") + "\n"
 		wrappers.do(func() {
 			d.output.WriteString(replacement)
 		})
