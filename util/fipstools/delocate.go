@@ -49,6 +49,7 @@ type stringWriter interface {
 }
 
 type processorType int
+
 const (
 	ppc64le processorType = iota + 1
 	x86_64
