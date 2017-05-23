@@ -16,6 +16,24 @@
       "revId": "0a649c46c173103b718dc8c4ae5409ba0f65f419",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fd8a589_a58128a4",
+        "filename": "util/embed_test_data.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-23T15:50:01Z",
+      "side": 1,
+      "message": "Hrm, good point. I did it this way because I didn\u0027t want embedded NULs to get swallowed (C strings were such a bad idea...), but this wouldn\u0027t actually cause that problem.",
+      "parentUuid": "acb2b7a4_92b14528",
+      "revId": "0a649c46c173103b718dc8c4ae5409ba0f65f419",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
