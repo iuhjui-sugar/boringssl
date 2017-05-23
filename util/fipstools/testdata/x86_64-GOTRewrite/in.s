@@ -28,9 +28,4 @@ foo:
 	movq foobar_bss_get@GOTPCREL(%rip), %r11
 	movq OPENSSL_ia32cap_get@GOTPCREL(%rip), %r11
 
-	# Test that GOTTPOFF symbols are translated.
-        movq    __msan_param_tls@GOTTPOFF(%rip), %rbx
-	# FIXME: Local symbols should not become leaq.
-        movq    foo@GOTTPOFF(%rip), %rbx
-
 .comm foobar,64,32

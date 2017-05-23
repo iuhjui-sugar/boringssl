@@ -87,19 +87,6 @@ foo:
 # WAS movq OPENSSL_ia32cap_get@GOTPCREL(%rip), %r11
 	leaq	OPENSSL_ia32cap_get(%rip), %r11
 
-	# Test that GOTTPOFF symbols are translated.
-# WAS movq    __msan_param_tls@GOTTPOFF(%rip), %rbx
-	leaq -128(%rsp), %rsp
-	pushf
-	leaq __msan_param_tls_GOTTPOFF_external(%rip), %rbx
-	addq (%rbx), %rbx
-	movq (%rbx), %rbx
-	popf
-	leaq	128(%rsp), %rsp
-	# FIXME: Local symbols should not become leaq.
-# WAS movq    foo@GOTTPOFF(%rip), %rbx
-	leaq	.Lfoo_local_target(%rip), %rbx
-
 .comm foobar,64,32
 .text
 BORINGSSL_bcm_text_end:
@@ -107,11 +94,6 @@ BORINGSSL_bcm_text_end:
 foobar_bss_get:
 	leaq	foobar(%rip), %rax
 	ret
-.type __msan_param_tls_GOTTPOFF_external, @object
-.size __msan_param_tls_GOTTPOFF_external, 8
-__msan_param_tls_GOTTPOFF_external:
-	.long __msan_param_tls@GOTTPOFF
-	.long 0
 .type stderr_GOTPCREL_external, @object
 .size stderr_GOTPCREL_external, 8
 stderr_GOTPCREL_external:

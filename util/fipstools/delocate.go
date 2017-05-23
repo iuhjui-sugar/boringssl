@@ -986,7 +986,7 @@ Args:
 
 				changed = true
 
-			case "GOTPCREL", "GOTTPOFF":
+			case "GOTPCREL":
 				useGOT := false
 				var targetReg string
 
