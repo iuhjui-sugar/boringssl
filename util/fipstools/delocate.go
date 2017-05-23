@@ -901,6 +901,10 @@ func undoConditionalMove(w stringWriter, instr string) wrapperFunc {
 	}
 }
 
+func (d *delocation) isRIPRelative(node *node32) bool {
+	return node != nil && node.pegRule == ruleBaseIndexScale && d.contents(node) == "(%rip)"
+}
+
 func (d *delocation) processIntelInstruction(statement, instruction *node32) (*node32, error) {
 	assertNodeType(instruction, ruleInstructionName)
 	instructionName := d.contents(instruction)
@@ -912,7 +916,7 @@ func (d *delocation) processIntelInstruction(statement, instruction *node32) (*n
 	changed := false
 
 Args:
-	for _, arg := range argNodes {
+	for i, arg := range argNodes {
 		fullArg := arg
 		isIndirect := false
 
@@ -939,6 +943,10 @@ Args:
 
 				if !ok {
 					return nil, fmt.Errorf("instruction %q referenced OPENSSL_ia32cap_P in section %q, should be a movq from GOTPCREL or a direct leaq", instructionName, section)
+				}
+
+				if i != 0 || len(argNodes) != 2 || !d.isRIPRelative(memRef) || len(offset) > 0 {
+					return nil, fmt.Errorf("invalid OPENSSL_ia32cap_P reference in instruction %q", instructionName)
 				}
 
 				target := argNodes[1]
@@ -987,14 +995,21 @@ Args:
 				changed = true
 
 			case "GOTPCREL":
+				if len(offset) > 0 {
+					return nil, errors.New("loading from GOT with offset is unsupported")
+				}
+				if i != 0 {
+					return nil, errors.New("GOT access must be source operand")
+				}
+				if !d.isRIPRelative(memRef) {
+					return nil, errors.New("GOT access must be IP-relative")
+				}
+
 				useGOT := false
 				var targetReg string
-
 				if _, knownSymbol := d.symbols[symbol]; knownSymbol {
 					symbol = localTargetName(symbol)
 					changed = true
-				} else if len(offset) > 0 {
-					return nil, errors.New("loading from GOT with offset is unsupported")
 				} else if !isSynthesized(symbol) {
 					useGOT = true
 					assertNodeType(argNodes[1], ruleRegisterOrConstant)
