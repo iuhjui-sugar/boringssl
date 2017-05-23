@@ -28,6 +28,9 @@ import (
 	"strings"
 	"unicode"
 	"unicode/utf8"
+
+	"boringssl.googlesource.com/ar"
+	delocateconst "boringssl.googlesource.com/delocate/constants"
 )
 
 func main() {
@@ -610,7 +613,7 @@ func transform(lines []string, symbols map[string]bool) (ret []string) {
 	ret = append(ret, ".type BORINGSSL_bcm_text_hash,@object")
 	ret = append(ret, ".size BORINGSSL_bcm_text_hash,64")
 	ret = append(ret, "BORINGSSL_bcm_text_hash:")
-	for _, b := range uninitHashValue {
+	for _, b := range delocateconst.UninitHashValue {
 		ret = append(ret, ".byte 0x"+strconv.FormatUint(uint64(b), 16))
 	}
 
@@ -783,7 +786,7 @@ func arLines(lines []string, arPath string) ([]string, error) {
 	}
 	defer arFile.Close()
 
-	ar, err := ParseAR(arFile)
+	ar, err := ar.ParseAR(arFile)
 	if err != nil {
 		return nil, err
 	}

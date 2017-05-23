@@ -146,10 +146,26 @@ if(FIPS)
 
   prepend_path("${BCM_ASM_SOURCES}" "${CMAKE_CURRENT_BINARY_DIR}" DELOCATE_ASM_ARGS)
 
+  add_custom_target(delocate)
+  add_custom_command(
+    TARGET delocate
+    DEPENDS util/src/boringssl.googlesource.com/delocate/delocate.go
+            util/src/boringssl.googlesource.com/delocate/constants/const.go
+            util/src/boringssl.googlesource.com/ar/ar.go
+    COMMAND cmake -E env GOPATH=${CMAKE_SOURCE_DIR}/util
+            ${GO_EXECUTABLE} build
+            -o ${CMAKE_CURRENT_BINARY_DIR}/delocate${CMAKE_EXECUTABLE_SUFFIX}
+            boringssl.googlesource.com/delocate
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+  )
+
   add_custom_command(
     OUTPUT bcm-delocated.S
-    COMMAND ${GO_EXECUTABLE} run util/fipstools/delocate.go util/fipstools/ar.go util/fipstools/const.go -a $<TARGET_FILE:bcm_c_generated_asm> -o ${CMAKE_CURRENT_BINARY_DIR}/bcm-delocated.S ${DELOCATE_ASM_ARGS}
-    DEPENDS bcm_c_generated_asm ${BCM_ASM_SOURCES} ${CMAKE_SOURCE_DIR}/util/fipstools/delocate.go ${CMAKE_SOURCE_DIR}/util/fipstools/ar.go ${CMAKE_SOURCE_DIR}/util/fipstools/const.go
+    COMMAND ${CMAKE_CURRENT_BINARY_DIR}/delocate${CMAKE_EXECUTABLE_SUFFIX}
+            -a $<TARGET_FILE:bcm_c_generated_asm>
+            -o ${CMAKE_CURRENT_BINARY_DIR}/bcm-delocated.S
+            ${DELOCATE_ASM_ARGS}
+    DEPENDS bcm_c_generated_asm ${BCM_ASM_SOURCES} delocate
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
   )
 
@@ -164,10 +180,25 @@ if(FIPS)
   set_target_properties(bcm_hashunset PROPERTIES POSITION_INDEPENDENT_CODE ON)
   set_target_properties(bcm_hashunset PROPERTIES LINKER_LANGUAGE C)
 
+  add_custom_target(inject-hash)
+  add_custom_command(
+    TARGET inject-hash
+    DEPENDS util/src/boringssl.googlesource.com/inject-hash/inject-hash.go
+            util/src/boringssl.googlesource.com/delocate/constants/const.go
+            util/src/boringssl.googlesource.com/ar/ar.go
+    COMMAND cmake -E env GOPATH=${CMAKE_SOURCE_DIR}/util
+            ${GO_EXECUTABLE} build
+            -o ${CMAKE_CURRENT_BINARY_DIR}/inject-hash${CMAKE_EXECUTABLE_SUFFIX}
+            boringssl.googlesource.com/inject-hash
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+  )
+
   add_custom_command(
     OUTPUT bcm.o
-    COMMAND ${GO_EXECUTABLE} run util/fipstools/inject-hash.go util/fipstools/ar.go util/fipstools/const.go -o ${CMAKE_CURRENT_BINARY_DIR}/bcm.o -in-archive $<TARGET_FILE:bcm_hashunset>
-    DEPENDS bcm_hashunset ${CMAKE_SOURCE_DIR}/util/fipstools/inject-hash.go ${CMAKE_SOURCE_DIR}/util/fipstools/ar.go ${CMAKE_SOURCE_DIR}/util/fipstools/const.go
+    COMMAND ${CMAKE_CURRENT_BINARY_DIR}/inject-hash${CMAKE_EXECUTABLE_SUFFIX}
+            -o ${CMAKE_CURRENT_BINARY_DIR}/bcm.o
+            -in-archive $<TARGET_FILE:bcm_hashunset>
+    DEPENDS inject-hash bcm_hashunset
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
   )
 
