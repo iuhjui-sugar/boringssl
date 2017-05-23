@@ -50,28 +50,6 @@ foo:
 	popq %rax
 	leaq 128(%rsp), %rsp
 
-	# FIXME: These are broken. Remove the leaq case altogether.
-# WAS cmpq stderr@GOTPCREL(%rip), %r11
-	leaq -128(%rsp), %rsp
-	pushf
-	leaq stderr_GOTPCREL_external(%rip), %r11
-	addq (%r11), %r11
-	movq (%r11), %r11
-	popf
-	leaq	128(%rsp), %rsp
-# WAS cmpq foo@GOTPCREL(%rip), %r11
-	leaq	.Lfoo_local_target(%rip), %r11
-# WAS leaq stderr@GOTPCREL(%rip), %r11
-	leaq -128(%rsp), %rsp
-	pushf
-	leaq stderr_GOTPCREL_external(%rip), %r11
-	addq (%r11), %r11
-	movq (%r11), %r11
-	popf
-	leaq	128(%rsp), %rsp
-# WAS leaq foo@GOTPCREL(%rip), %r11
-	leaq	.Lfoo_local_target(%rip), %r11
-
 # WAS cmoveq stderr@GOTPCREL(%rip), %r11
 	jne 999f
 	leaq -128(%rsp), %rsp

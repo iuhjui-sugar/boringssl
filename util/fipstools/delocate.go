@@ -813,7 +813,7 @@ func classifyInstruction(instr string, args []*node32) instructionType {
 			return instrPush
 		}
 
-	case "mov", "movq", "cmpq", "leaq", "vmovq":
+	case "mov", "movq", "vmovq":
 		if len(args) == 2 {
 			return instrMove
 		}

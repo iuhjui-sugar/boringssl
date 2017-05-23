@@ -18,12 +18,6 @@ foo:
 	# vmovq stderr@GOTPCREL(%rip), %xmm0 # FIXME
 	vmovq foo@GOTPCREL(%rip), %xmm0
 
-	# FIXME: These are broken. Remove the leaq case altogether.
-	cmpq stderr@GOTPCREL(%rip), %r11
-	cmpq foo@GOTPCREL(%rip), %r11
-	leaq stderr@GOTPCREL(%rip), %r11
-	leaq foo@GOTPCREL(%rip), %r11
-
 	cmoveq stderr@GOTPCREL(%rip), %r11
 	cmoveq foo@GOTPCREL(%rip), %r11
 	cmovneq stderr@GOTPCREL(%rip), %r11
