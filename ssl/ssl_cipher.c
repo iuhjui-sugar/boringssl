@@ -624,23 +624,39 @@ const SSL_CIPHER *SSL_get_cipher_by_value(uint16_t value) {
 int ssl_cipher_get_evp_aead(const EVP_AEAD **out_aead,
                             size_t *out_mac_secret_len,
                             size_t *out_fixed_iv_len,
-                            const SSL_CIPHER *cipher, uint16_t version) {
+                            const SSL_CIPHER *cipher, uint16_t version, int is_dtls) {
   *out_aead = NULL;
   *out_mac_secret_len = 0;
   *out_fixed_iv_len = 0;
 
   if (cipher->algorithm_mac == SSL_AEAD) {
-    if (cipher->algorithm_enc == SSL_AES128GCM) {
-      *out_aead = EVP_aead_aes_128_gcm();
-      *out_fixed_iv_len = 4;
-    } else if (cipher->algorithm_enc == SSL_AES256GCM) {
-      *out_aead = EVP_aead_aes_256_gcm();
-      *out_fixed_iv_len = 4;
-    } else if (cipher->algorithm_enc == SSL_CHACHA20POLY1305) {
-      *out_aead = EVP_aead_chacha20_poly1305();
-      *out_fixed_iv_len = 12;
+    if (version == TLS1_2_VERSION && !is_dtls) {
+      if (cipher->algorithm_enc == SSL_AES128GCM) {
+        *out_aead = EVP_aead_aes_128_gcm_tls12();
+        *out_fixed_iv_len = 4;
+      } else if (cipher->algorithm_enc == SSL_AES256GCM) {
+        *out_aead = EVP_aead_aes_256_gcm_tls12();
+        *out_fixed_iv_len = 4;
+      } else if (cipher->algorithm_enc == SSL_CHACHA20POLY1305) {
+        *out_aead = EVP_aead_chacha20_poly1305();
+        *out_fixed_iv_len = 12;
+      } else {
+        return 0;
+      }
     } else {
-      return 0;
+      if (cipher->algorithm_enc == SSL_AES128GCM) {
+        *out_aead = EVP_aead_aes_128_gcm();
+        *out_fixed_iv_len = 4;
+      } else if (cipher->algorithm_enc == SSL_AES256GCM) {
+        *out_aead = EVP_aead_aes_256_gcm();
+        *out_fixed_iv_len = 4;
+      } else if (cipher->algorithm_enc == SSL_CHACHA20POLY1305) {
+        *out_aead = EVP_aead_chacha20_poly1305();
+        *out_fixed_iv_len = 12;
+      } else {
+        return 0;
+      }
+
     }
 
     /* In TLS 1.3, the iv_len is equal to the AEAD nonce length whereas the code
