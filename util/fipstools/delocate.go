@@ -847,23 +847,27 @@ func call(w stringWriter, target string) wrapperFunc {
 	}
 }
 
-func (d *delocation) loadFromGOT(w stringWriter, destination, symbol, section string) wrapperFunc {
+func (d *delocation) loadFromGOT(w stringWriter, destination, symbol, section string, redzoneCleared bool) wrapperFunc {
 	d.gotExternalsNeeded[symbol+"@"+section] = struct{}{}
 
 	return func(k func()) {
-		w.WriteString("\tleaq -128(%rsp), %rsp\n") // Clear the red zone.
+		if !redzoneCleared {
+			w.WriteString("\tleaq -128(%rsp), %rsp\n") // Clear the red zone.
+		}
 		w.WriteString("\tpushf\n")
 		w.WriteString(fmt.Sprintf("\tleaq %s_%s_external(%%rip), %s\n", symbol, section, destination))
 		w.WriteString(fmt.Sprintf("\taddq (%s), %s\n", destination, destination))
 		w.WriteString(fmt.Sprintf("\tmovq (%s), %s\n", destination, destination))
 		w.WriteString("\tpopf\n")
-		w.WriteString("\tleaq\t128(%rsp), %rsp\n")
+		if !redzoneCleared {
+			w.WriteString("\tleaq\t128(%rsp), %rsp\n")
+		}
 	}
 }
 
 func saveRegister(w stringWriter) wrapperFunc {
 	return func(k func()) {
-		w.WriteString("\tleaq -128(%rsp), %rsp\n")
+		w.WriteString("\tleaq -128(%rsp), %rsp\n") // Clear the red zone.
 		w.WriteString("\tpushq %rax\n")
 		k()
 		w.WriteString("\tpopq %rax\n")
@@ -959,7 +963,7 @@ Args:
 
 				changed = true
 				wrappers = append(wrappers, func(k func()) {
-					d.output.WriteString("\tleaq\t-128(%rsp), %rsp\n")
+					d.output.WriteString("\tleaq\t-128(%rsp), %rsp\n") // Clear the red zone.
 					d.output.WriteString("\tpushfq\n")
 					d.output.WriteString("\tleaq\tOPENSSL_ia32cap_addr_delta(%rip), " + reg + "\n")
 					d.output.WriteString("\taddq\t(" + reg + "), " + reg + "\n")
@@ -1007,44 +1011,49 @@ Args:
 				}
 
 				useGOT := false
-				var targetReg string
 				if _, knownSymbol := d.symbols[symbol]; knownSymbol {
 					symbol = localTargetName(symbol)
 					changed = true
 				} else if !isSynthesized(symbol) {
 					useGOT = true
-					assertNodeType(argNodes[1], ruleRegisterOrConstant)
-					targetReg = d.currentInput.contents[argNodes[1].begin:argNodes[1].end]
-					if !strings.HasPrefix(targetReg, "%r") || targetReg == "%rsp" {
-						// If it comes up, we can support %xmm* or memory
-						// references by picking a spare register, but we
-						// must take care not to use a register referenced
-						// in the destination.
-						panic("destination must be a standard 64-bit register")
-					}
 				}
 
+				// Reduce the instruction to movq symbol@GOTPCREL, targetReg.
+				var targetReg string
 				switch classifyInstruction(instructionName, argNodes) {
 				case instrPush:
 					wrappers = append(wrappers, push(d.output))
-					if useGOT {
-						wrappers = append(wrappers, d.loadFromGOT(d.output, targetReg, symbol, section))
-					}
-
+					targetReg = "%rax"
 				case instrConditionalMove:
 					wrappers = append(wrappers, undoConditionalMove(d.output, instructionName))
 					fallthrough
 				case instrMove:
-					if useGOT {
-						wrappers = append(wrappers, d.loadFromGOT(d.output, targetReg, symbol, section))
-					}
-
+					assertNodeType(argNodes[1], ruleRegisterOrConstant)
+					targetReg = d.contents(argNodes[1])
 				default:
 					return nil, fmt.Errorf("Cannot rewrite GOTPCREL reference for instruction %q", instructionName)
 				}
 
-				instructionName = "leaq"
+				var redzoneCleared bool
+				if !isValidLEATarget(targetReg) {
+					// Sometimes the compiler will load from the GOT to an
+					// XMM register, which is not a valid target of an LEA
+					// instruction.
+					wrappers = append(wrappers, saveRegister(d.output))
+					wrappers = append(wrappers, moveTo(d.output, targetReg))
+					targetReg = "%rax"
+					redzoneCleared = true
+				}
+
+				if useGOT {
+					wrappers = append(wrappers, d.loadFromGOT(d.output, targetReg, symbol, section, redzoneCleared))
+				} else {
+					wrappers = append(wrappers, func(k func()) {
+						d.output.WriteString(fmt.Sprintf("\tleaq\t%s(%%rip), %s\n", symbol, targetReg))
+					})
+				}
 				changed = true
+				break Args
 
 			default:
 				return nil, fmt.Errorf("Unknown section type %q", section)
@@ -1075,22 +1084,6 @@ Args:
 
 	if changed {
 		d.writeCommentedNode(statement)
-
-		if instructionName == "leaq" && len(args) == 1 {
-			// This results from a pushq instruction where there is
-			// no destination register.
-			args = append(args, "%rax")
-		}
-
-		if instructionName == "leaq" && len(args) == 2 && !isValidLEATarget(args[1]) {
-			// Sometimes the compiler will load from the GOT to an
-			// XMM register, which is not a valid target of an LEA
-			// instruction.
-			wrappers = append(wrappers, saveRegister(d.output))
-			wrappers = append(wrappers, moveTo(d.output, args[1]))
-			args[1] = "%rax"
-		}
-
 		replacement := "\t" + instructionName + "\t" + strings.Join(args, ", ") + "\n"
 		wrappers.do(func() {
 			d.output.WriteString(replacement)

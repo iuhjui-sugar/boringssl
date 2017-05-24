@@ -24,7 +24,16 @@ foo:
 	# Test that GOTPCREL accesses get translated. They are handled
 	# differently for local and external symbols.
 
-	# pushq stderr@GOTPCREL(%rip) # FIXME
+# WAS pushq stderr@GOTPCREL(%rip)
+	pushq %rax
+	leaq -128(%rsp), %rsp
+	pushf
+	leaq stderr_GOTPCREL_external(%rip), %rax
+	addq (%rax), %rax
+	movq (%rax), %rax
+	popf
+	leaq	128(%rsp), %rsp
+	xchg %rax, (%rsp)
 # WAS pushq foo@GOTPCREL(%rip)
 	pushq %rax
 	leaq	.Lfoo_local_target(%rip), %rax
@@ -41,7 +50,17 @@ foo:
 # WAS movq foo@GOTPCREL(%rip), %r11
 	leaq	.Lfoo_local_target(%rip), %r11
 
-	# vmovq stderr@GOTPCREL(%rip), %xmm0 # FIXME
+# WAS vmovq stderr@GOTPCREL(%rip), %xmm0
+	leaq -128(%rsp), %rsp
+	pushq %rax
+	pushf
+	leaq stderr_GOTPCREL_external(%rip), %rax
+	addq (%rax), %rax
+	movq (%rax), %rax
+	popf
+	movq %rax, %xmm0
+	popq %rax
+	leaq 128(%rsp), %rsp
 # WAS vmovq foo@GOTPCREL(%rip), %xmm0
 	leaq -128(%rsp), %rsp
 	pushq %rax

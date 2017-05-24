@@ -9,13 +9,13 @@ foo:
 	# Test that GOTPCREL accesses get translated. They are handled
 	# differently for local and external symbols.
 
-	# pushq stderr@GOTPCREL(%rip) # FIXME
+	pushq stderr@GOTPCREL(%rip)
 	pushq foo@GOTPCREL(%rip)
 
 	movq stderr@GOTPCREL(%rip), %r11
 	movq foo@GOTPCREL(%rip), %r11
 
-	# vmovq stderr@GOTPCREL(%rip), %xmm0 # FIXME
+	vmovq stderr@GOTPCREL(%rip), %xmm0
 	vmovq foo@GOTPCREL(%rip), %xmm0
 
 	cmoveq stderr@GOTPCREL(%rip), %r11
