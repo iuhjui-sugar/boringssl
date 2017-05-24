@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e029f19_fed7b479",
+        "filename": "util/fipstools/delocate_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-24T00:23:36Z",
+      "side": 1,
+      "message": "call this \"update\" or \"write\", which matches some other Go stuff.",
+      "revId": "d0c1f252deaa04007eedd4ea55dd16cf5b8ac47d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
