@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eaa566d2_91bed3ac",
+        "filename": "crypto/bio/bio_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-24T21:38:46Z",
+      "side": 1,
+      "message": "This loop is slightly odd. Seems it might be cleaner just to expand the two iterations since there\u0027s all of three common lines.",
+      "revId": "23e827671d6ac8d527f9a48cae498622cfab522d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6110fc9a_324f5476",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1014,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-24T21:38:46Z",
+      "side": 1,
+      "message": "I think this needs a sock \u003d -1. If we\u0027re at the end of the loop, we\u0027ll otherwise return the wrong value.\n\nAlternatively, perhaps this is a little cleaner:\n\nstatic int Connect(uint16_t port) {\n  for (int af : ...) {\n    int sock \u003d socket(...);\n    ...\n    if (connect(sock, ...) \u003d\u003d 0) {\n      return sock;\n    }\n    closesocket(sock);\n }\n return -1;\n}",
+      "revId": "23e827671d6ac8d527f9a48cae498622cfab522d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
