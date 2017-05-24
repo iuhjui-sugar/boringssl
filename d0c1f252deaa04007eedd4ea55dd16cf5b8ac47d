@@ -16,6 +16,24 @@
       "revId": "d0c1f252deaa04007eedd4ea55dd16cf5b8ac47d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3a2aa8b_25f03620",
+        "filename": "util/fipstools/delocate_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-24T18:29:27Z",
+      "side": 1,
+      "message": "(Fixed in local checkout.)",
+      "parentUuid": "9e029f19_fed7b479",
+      "revId": "d0c1f252deaa04007eedd4ea55dd16cf5b8ac47d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
