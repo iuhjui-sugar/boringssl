@@ -117,17 +117,16 @@ bool AEADEncrypt(const EVP_AEAD *aead, std::vector<uint8_t> *ct,
   }
 
   std::vector<uint8_t> out;
+  iv->resize(EVP_AEAD_nonce_length(aead));
   out.resize(pt.size() + EVP_AEAD_max_overhead(aead));
   size_t out_len;
   if (!EVP_AEAD_CTX_seal(ctx.get(), out.data(), &out_len, out.size(),
-                         nullptr /* iv */, 0 /* iv_len */, pt.data(), pt.size(),
+                         iv->data(), iv->size(), pt.data(), pt.size(),
                          aad.data(), aad.size())) {
     return false;
   }
 
-  static const size_t iv_len = EVP_AEAD_nonce_length(aead);
-  iv->assign(out.begin(), out.begin() + iv_len);
-  ct->assign(out.begin() + iv_len, out.end() - tag_len);
+  ct->assign(out.begin(), out.end() - tag_len);
   tag->assign(out.end() - tag_len, out.end());
 
   return true;
