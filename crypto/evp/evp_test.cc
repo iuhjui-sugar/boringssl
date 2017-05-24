@@ -68,6 +68,8 @@ OPENSSL_MSVC_PRAGMA(warning(disable: 4702))
 
 OPENSSL_MSVC_PRAGMA(warning(pop))
 
+#include <gtest/gtest.h>
+
 #include <openssl/bytestring.h>
 #include <openssl/crypto.h>
 #include <openssl/digest.h>
@@ -75,6 +77,7 @@ OPENSSL_MSVC_PRAGMA(warning(pop))
 #include <openssl/rsa.h>
 
 #include "../test/file_test.h"
+#include "../test/test_util.h"
 
 
 // evp_test dispatches between multiple test types. PrivateKey tests take a key
@@ -96,7 +99,7 @@ static const EVP_MD *GetDigest(FileTest *t, const std::string &name) {
   } else if (name == "SHA512") {
     return EVP_sha512();
   }
-  t->PrintLine("Unknown digest: '%s'", name.c_str());
+  ADD_FAILURE() << "Unknown digest: " << name;
   return nullptr;
 }
 
@@ -113,7 +116,7 @@ static int GetKeyType(FileTest *t, const std::string &name) {
   if (name == "Ed25519") {
     return EVP_PKEY_ED25519;
   }
-  t->PrintLine("Unknown key type: '%s'", name.c_str());
+  ADD_FAILURE() << "Unknown key type: " << name;
   return EVP_PKEY_NONE;
 }
 
@@ -130,182 +133,166 @@ static int GetRSAPadding(FileTest *t, int *out, const std::string &name) {
     *out = RSA_PKCS1_OAEP_PADDING;
     return true;
   }
-  t->PrintLine("Unknown RSA padding mode: '%s'", name.c_str());
+  ADD_FAILURE() << "Unknown RSA padding mode: " << name;
   return false;
+}
+
+static void AssertErrorExpected(FileTest *t) {
+  std::string expected;
+  ASSERT_TRUE(t->GetAttribute(&expected, "Error")) << "Unexpected failure";
+  EXPECT_EQ(expected, ERR_reason_error_string(ERR_peek_error()));
 }
 
 using KeyMap = std::map<std::string, bssl::UniquePtr<EVP_PKEY>>;
 
-static bool ImportKey(FileTest *t, KeyMap *key_map,
+static void ImportKey(FileTest *t, KeyMap *key_map,
                       EVP_PKEY *(*parse_func)(CBS *cbs),
                       int (*marshal_func)(CBB *cbb, const EVP_PKEY *key)) {
   std::vector<uint8_t> input;
-  if (!t->GetBytes(&input, "Input")) {
-    return false;
-  }
+  ASSERT_TRUE(t->GetBytes(&input, "Input"));
 
   CBS cbs;
   CBS_init(&cbs, input.data(), input.size());
   bssl::UniquePtr<EVP_PKEY> pkey(parse_func(&cbs));
   if (!pkey) {
-    return false;
+    AssertErrorExpected(t);
+    return;
   }
 
   std::string key_type;
-  if (!t->GetAttribute(&key_type, "Type")) {
-    return false;
-  }
-  if (EVP_PKEY_id(pkey.get()) != GetKeyType(t, key_type)) {
-    t->PrintLine("Bad key type.");
-    return false;
-  }
+  ASSERT_TRUE(t->GetAttribute(&key_type, "Type"));
+  EXPECT_EQ(EVP_PKEY_id(pkey.get()), GetKeyType(t, key_type));
 
   // The key must re-encode correctly.
   bssl::ScopedCBB cbb;
   uint8_t *der;
   size_t der_len;
-  if (!CBB_init(cbb.get(), 0) ||
-      !marshal_func(cbb.get(), pkey.get()) ||
-      !CBB_finish(cbb.get(), &der, &der_len)) {
-    return false;
-  }
+  ASSERT_TRUE(CBB_init(cbb.get(), 0));
+  ASSERT_TRUE(marshal_func(cbb.get(), pkey.get()));
+  ASSERT_TRUE(CBB_finish(cbb.get(), &der, &der_len));
   bssl::UniquePtr<uint8_t> free_der(der);
 
   std::vector<uint8_t> output = input;
-  if (t->HasAttribute("Output") &&
-      !t->GetBytes(&output, "Output")) {
-    return false;
+  if (t->HasAttribute("Output")) {
+    ASSERT_TRUE(t->GetBytes(&output, "Output"));
   }
-  if (!t->ExpectBytesEqual(output.data(), output.size(), der, der_len)) {
-    t->PrintLine("Re-encoding the key did not match.");
-    return false;
-  }
+  EXPECT_EQ(Bytes(output), Bytes(der, der_len));
 
   // Save the key for future tests.
   const std::string &key_name = t->GetParameter();
-  if (key_map->count(key_name) > 0) {
-    t->PrintLine("Duplicate key '%s'.", key_name.c_str());
-    return false;
-  }
+  ASSERT_EQ(0u, key_map->count(key_name)) << "Duplicate key " << key_name;
   (*key_map)[key_name] = std::move(pkey);
-  return true;
+
+  EXPECT_FALSE(t->HasAttribute("Error")) << "Unexpected success.";
 }
 
-static bool TestEVP(FileTest *t, void *arg) {
-  KeyMap *key_map = reinterpret_cast<KeyMap*>(arg);
-  if (t->GetType() == "PrivateKey") {
-    return ImportKey(t, key_map, EVP_parse_private_key,
-                     EVP_marshal_private_key);
-  }
-
-  if (t->GetType() == "PublicKey") {
-    return ImportKey(t, key_map, EVP_parse_public_key, EVP_marshal_public_key);
-  }
-
-  int (*key_op_init)(EVP_PKEY_CTX *ctx);
-  int (*key_op)(EVP_PKEY_CTX *ctx, uint8_t *out, size_t *out_len,
-                const uint8_t *in, size_t in_len) = nullptr;
-  int (*verify_op)(EVP_PKEY_CTX * ctx, const uint8_t *sig, size_t sig_len,
-                   const uint8_t *in, size_t in_len) = nullptr;
-  if (t->GetType() == "Decrypt") {
-    key_op_init = EVP_PKEY_decrypt_init;
-    key_op = EVP_PKEY_decrypt;
-  } else if (t->GetType() == "Sign") {
-    key_op_init = EVP_PKEY_sign_init;
-    key_op = EVP_PKEY_sign;
-  } else if (t->GetType() == "SignMessage") {
-    key_op_init = EVP_PKEY_sign_init;
-    key_op = EVP_PKEY_sign_message;
-  } else if (t->GetType() == "Verify") {
-    key_op_init = EVP_PKEY_verify_init;
-    verify_op = EVP_PKEY_verify;
-  } else if (t->GetType() == "VerifyMessage") {
-    key_op_init = EVP_PKEY_verify_init;
-    verify_op = EVP_PKEY_verify_message;
-  } else {
-    t->PrintLine("Unknown test '%s'", t->GetType().c_str());
-    return false;
-  }
-
-  // Load the key.
-  const std::string &key_name = t->GetParameter();
-  if (key_map->count(key_name) == 0) {
-    t->PrintLine("Could not find key '%s'.", key_name.c_str());
-    return false;
-  }
-  EVP_PKEY *key = (*key_map)[key_name].get();
-
-  std::vector<uint8_t> input;
-  if (!t->GetBytes(&input, "Input")) {
-    return false;
-  }
-
-  // Set up the EVP_PKEY_CTX.
-  bssl::UniquePtr<EVP_PKEY_CTX> ctx(EVP_PKEY_CTX_new(key, nullptr));
-  if (!ctx || !key_op_init(ctx.get())) {
-    return false;
-  }
-  if (t->HasAttribute("Digest")) {
-    const EVP_MD *digest = GetDigest(t, t->GetAttributeOrDie("Digest"));
-    if (digest == nullptr ||
-        !EVP_PKEY_CTX_set_signature_md(ctx.get(), digest)) {
-      return false;
+TEST(EVPTest, TestVectors) {
+  KeyMap key_map;
+  FileTestGTest("crypto/evp/evp_tests.txt", [&](FileTest *t) {
+    if (t->GetType() == "PrivateKey") {
+      ImportKey(t, &key_map, EVP_parse_private_key, EVP_marshal_private_key);
+      return;
     }
-  }
-  if (t->HasAttribute("RSAPadding")) {
-    int padding;
-    if (!GetRSAPadding(t, &padding, t->GetAttributeOrDie("RSAPadding")) ||
-        !EVP_PKEY_CTX_set_rsa_padding(ctx.get(), padding)) {
-      return false;
+
+    if (t->GetType() == "PublicKey") {
+      ImportKey(t, &key_map, EVP_parse_public_key, EVP_marshal_public_key);
+      return;
     }
-  }
-  if (t->HasAttribute("PSSSaltLength") &&
-      !EVP_PKEY_CTX_set_rsa_pss_saltlen(
-          ctx.get(), atoi(t->GetAttributeOrDie("PSSSaltLength").c_str()))) {
-    return false;
-  }
-  if (t->HasAttribute("MGF1Digest")) {
-    const EVP_MD *digest = GetDigest(t, t->GetAttributeOrDie("MGF1Digest"));
-    if (digest == nullptr ||
-        !EVP_PKEY_CTX_set_rsa_mgf1_md(ctx.get(), digest)) {
-      return false;
+
+    int (*key_op_init)(EVP_PKEY_CTX * ctx);
+    int (*key_op)(EVP_PKEY_CTX * ctx, uint8_t * out, size_t * out_len,
+                  const uint8_t *in, size_t in_len) = nullptr;
+    int (*verify_op)(EVP_PKEY_CTX * ctx, const uint8_t *sig, size_t sig_len,
+                     const uint8_t *in, size_t in_len) = nullptr;
+    if (t->GetType() == "Decrypt") {
+      key_op_init = EVP_PKEY_decrypt_init;
+      key_op = EVP_PKEY_decrypt;
+    } else if (t->GetType() == "Sign") {
+      key_op_init = EVP_PKEY_sign_init;
+      key_op = EVP_PKEY_sign;
+    } else if (t->GetType() == "SignMessage") {
+      key_op_init = EVP_PKEY_sign_init;
+      key_op = EVP_PKEY_sign_message;
+    } else if (t->GetType() == "Verify") {
+      key_op_init = EVP_PKEY_verify_init;
+      verify_op = EVP_PKEY_verify;
+    } else if (t->GetType() == "VerifyMessage") {
+      key_op_init = EVP_PKEY_verify_init;
+      verify_op = EVP_PKEY_verify_message;
+    } else {
+      FAIL() << "Unknown test: " << t->GetType();
     }
-  }
 
-  if (verify_op != nullptr) {
-    std::vector<uint8_t> output;
-    if (!t->GetBytes(&output, "Output") ||
-        !verify_op(ctx.get(), output.data(), output.size(), input.data(),
-                   input.size())) {
-      return false;
+    // Load the key.
+    const std::string &key_name = t->GetParameter();
+    ASSERT_NE(0u, key_map.count(key_name)) << "Could not find key " << key_name;
+    EVP_PKEY *key = key_map[key_name].get();
+
+    std::vector<uint8_t> input;
+    ASSERT_TRUE(t->GetBytes(&input, "Input"));
+
+    // Set up the EVP_PKEY_CTX.
+    bssl::UniquePtr<EVP_PKEY_CTX> ctx(EVP_PKEY_CTX_new(key, nullptr));
+    ASSERT_TRUE(ctx);
+    ASSERT_TRUE(key_op_init(ctx.get()));
+    if (t->HasAttribute("Digest")) {
+      const EVP_MD *digest = GetDigest(t, t->GetAttributeOrDie("Digest"));
+      ASSERT_TRUE(digest);
+      if (!EVP_PKEY_CTX_set_signature_md(ctx.get(), digest)) {
+        AssertErrorExpected(t);
+        return;
+      }
     }
-    return true;
-  }
+    if (t->HasAttribute("RSAPadding")) {
+      int padding = 0;
+      ASSERT_TRUE(
+          GetRSAPadding(t, &padding, t->GetAttributeOrDie("RSAPadding")));
+      if (!EVP_PKEY_CTX_set_rsa_padding(ctx.get(), padding)) {
+        AssertErrorExpected(t);
+        return;
+      }
+    }
+    if (t->HasAttribute("PSSSaltLength") &&
+        !EVP_PKEY_CTX_set_rsa_pss_saltlen(
+            ctx.get(), atoi(t->GetAttributeOrDie("PSSSaltLength").c_str()))) {
+      AssertErrorExpected(t);
+      return;
+    }
+    if (t->HasAttribute("MGF1Digest")) {
+      const EVP_MD *digest = GetDigest(t, t->GetAttributeOrDie("MGF1Digest"));
+      ASSERT_TRUE(digest);
+      if (!EVP_PKEY_CTX_set_rsa_mgf1_md(ctx.get(), digest)) {
+        AssertErrorExpected(t);
+        return;
+      }
+    }
 
-  size_t len;
-  std::vector<uint8_t> actual, output;
-  if (!key_op(ctx.get(), nullptr, &len, input.data(), input.size())) {
-    return false;
-  }
-  actual.resize(len);
-  if (!key_op(ctx.get(), actual.data(), &len, input.data(), input.size())) {
-    return false;
-  }
-  actual.resize(len);
-  if (!t->GetBytes(&output, "Output") ||
-      !t->ExpectBytesEqual(output.data(), output.size(), actual.data(), len)) {
-    return false;
-  }
-  return true;
-}
+    if (verify_op != nullptr) {
+      std::vector<uint8_t> output;
+      ASSERT_TRUE(t->GetBytes(&output, "Output"));
+      if (verify_op(ctx.get(), output.data(), output.size(), input.data(),
+                    input.size())) {
+        EXPECT_FALSE(t->HasAttribute("Error")) << "Unexpected success.";
+      } else {
+        AssertErrorExpected(t);
+      }
+      return;
+    }
 
-int main(int argc, char *argv[]) {
-  CRYPTO_library_init();
-  if (argc != 2) {
-    fprintf(stderr, "%s <test file.txt>\n", argv[0]);
-    return 1;
-  }
-
-  KeyMap map;
-  return FileTestMain(TestEVP, &map, argv[1]);
+    size_t len;
+    std::vector<uint8_t> actual, output;
+    if (!key_op(ctx.get(), nullptr, &len, input.data(), input.size())) {
+      AssertErrorExpected(t);
+      return;
+    }
+    actual.resize(len);
+    if (!key_op(ctx.get(), actual.data(), &len, input.data(), input.size())) {
+      AssertErrorExpected(t);
+      return;
+    }
+    actual.resize(len);
+    ASSERT_TRUE(t->GetBytes(&output, "Output"));
+    EXPECT_EQ(Bytes(output), Bytes(actual));
+    EXPECT_FALSE(t->HasAttribute("Error")) << "Unexpected success.";
+  });
 }
