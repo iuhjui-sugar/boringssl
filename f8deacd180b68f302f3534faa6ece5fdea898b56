@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "650dd319_c8a9c6cc",
+        "filename": "crypto/fipsmodule/cipher/e_aes.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1187,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-26T15:00:16Z",
+      "side": 1,
+      "message": "the conditional body is conventionally the failure case, so I\u0027d negate the condition and switch the bodies here.",
+      "revId": "f8deacd180b68f302f3534faa6ece5fdea898b56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f99c04c_9d91ccde",
+        "filename": "crypto/fipsmodule/cipher/e_aes.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1333,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-26T15:00:16Z",
+      "side": 1,
+      "message": "(ditto.)",
+      "revId": "f8deacd180b68f302f3534faa6ece5fdea898b56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75a820b3_ad63ed9a",
+        "filename": "crypto/fipsmodule/cipher/e_aes.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1364,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-26T15:00:16Z",
+      "side": 1,
+      "message": "In order to have the AES-GCM stop working when the counter overflows, I\u0027d test this at the /start/ of the function:\n\nif (gcm_ctx-\u003ecounter \u003d\u003d UINT64_MAX) {\n  OPENSSL_PUT_ERROR(…);\n  return 0;\n}\n\nTechnically it excludes a nonce that we could have used, but that\u0027s worth the smaller code.",
+      "revId": "f8deacd180b68f302f3534faa6ece5fdea898b56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13e47529_9439109c",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-26T15:00:16Z",
+      "side": 1,
+      "message": "There\u0027s a section below for TLS-specific AEADs.",
+      "revId": "f8deacd180b68f302f3534faa6ece5fdea898b56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
