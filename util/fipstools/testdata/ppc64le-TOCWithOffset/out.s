@@ -165,18 +165,8 @@ bcm_loadtoc__dot_Lfoo_local_target_at_toc_at_l_offset_20:
 	addi 2, 0, 0
 	addi 3, 2, .Lfoo_local_target@toc@l+20
 	blr
-BORINGSSL_bcm_set_toc:
-.LBORINGSSL_bcm_set_toc:
-	mflr 2
-	std 12, -8(1)
-	bcl 20,31,$+4
-0:
-	mflr 12
-	mtlr 2
-	addis 2,12,.TOC.-0b@ha
-	addi 2,2,.TOC.-0b@l
-	ld 12, -8(1)
-	blr
+.LBORINGSSL_external_toc:
+.quad .TOC.-.LBORINGSSL_external_toc
 .type BORINGSSL_bcm_text_hash, @object
 .size BORINGSSL_bcm_text_hash, 64
 BORINGSSL_bcm_text_hash:

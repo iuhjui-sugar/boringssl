@@ -62,6 +62,8 @@ type delocation struct {
 
 	// symbols is the set of symbols defined in the module.
 	symbols map[string]struct{}
+	// localEntrySymbols is the set of symbols with .localentry directives.
+	localEntrySymbols map[string]struct{}
 	// redirectors maps from out-call symbol name to the name of a
 	// redirector function for that symbol. E.g. “memcpy” ->
 	// “bcm_redirector_memcpy”.
@@ -298,6 +300,10 @@ func (d *delocation) processLabelContainingDirective(statement, directive *node3
 		d.output.WriteString("\t" + name + "\t" + strings.Join(args, ", ") + "\n")
 	}
 
+	if name == ".localentry" {
+		d.output.WriteString(localEntryName(args[0]) + ":\n")
+	}
+
 	return statement, nil
 }
 
@@ -470,22 +476,14 @@ func (d *delocation) isPPC64LEAPair(statement *node32) (target, source, relative
 }
 
 // establishTOC writes the global entry prelude for a function. The standard
-// prelude involves relocations so this version calls a helper function
-// (outside the integrity-checked area) to get the TOC value.
+// prelude involves relocations so this version moves the relocation outside
+// the integrity-checked area.
 func establishTOC(w stringWriter) {
-	// On entry, r12 is set to the address of the global entry point. Since
-	// we don't use this value, we can save the return address in that
-	// register.
-	//
-	// TODO(davidben): @ha and @l appear to also be applicable to symbol
-	// differences not involving .TOC., so this is probably solvable with an
-	// external relocation, similar to the external GOTPCREL entries.
-	w.WriteString("\tmflr 12\n")
-	w.WriteString("\tbl .LBORINGSSL_bcm_set_toc\n")
-	w.WriteString("\tmtlr 12\n")
-	// A nop is needed because the size of the global entry prelude
-	// must be a power of two.
-	w.WriteString("\tnop\n")
+	w.WriteString("999:\n")
+	w.WriteString("\taddis 2, 12, .LBORINGSSL_external_toc-999b@ha\n")
+	w.WriteString("\taddi 2, 2, .LBORINGSSL_external_toc-999b@l\n")
+	w.WriteString("\tld 12, 0(2)\n")
+	w.WriteString("\tadd 2, 2, 12\n")
 }
 
 // loadTOCFuncName returns the name of a synthesized function that sets r3 to
@@ -646,6 +644,7 @@ func (d *delocation) parseMemRef(memRef *node32) (symbol, offset, section string
 func (d *delocation) processPPCInstruction(statement, instruction *node32) (*node32, error) {
 	assertNodeType(instruction, ruleInstructionName)
 	instructionName := d.contents(instruction)
+	isBranch := instructionName[0] == 'b'
 
 	argNodes := instructionArgs(instruction.next)
 
@@ -695,7 +694,10 @@ Args:
 			changed = didChange
 
 			if len(symbol) > 0 {
-				if _, knownSymbol := d.symbols[symbol]; knownSymbol {
+				if _, localEntrySymbol := d.localEntrySymbols[symbol]; localEntrySymbol && isBranch {
+					symbol = localEntryName(symbol)
+					changed = true
+				} else if _, knownSymbol := d.symbols[symbol]; knownSymbol {
 					symbol = localTargetName(symbol)
 					changed = true
 				} else if !symbolIsLocal && !isSynthesized(symbol) && len(section) == 0 {
@@ -1153,18 +1155,36 @@ func (d *delocation) handleBSS(statement *node32) (*node32, error) {
 func transform(w stringWriter, inputs []inputFile) error {
 	// symbols contains all defined symbols.
 	symbols := make(map[string]struct{})
+	// localEntrySymbols contains all symbols with a .localentry directive.
+	localEntrySymbols := make(map[string]struct{})
 
 	for _, input := range inputs {
 		forEachPath(input.ast.up, func(node *node32) {
 			symbol := input.contents[node.begin:node.end]
 			if _, ok := symbols[symbol]; ok {
-				for _, input := range inputs {
-					println(input.path)
-				}
 				panic(fmt.Sprintf("Duplicate symbol found: %q in %q", symbol, input.path))
 			}
 			symbols[symbol] = struct{}{}
 		}, ruleStatement, ruleLabel, ruleSymbolName)
+
+		forEachPath(input.ast.up, func(node *node32) {
+			node = node.up
+			assertNodeType(node, ruleLabelContainingDirectiveName)
+			directive := input.contents[node.begin:node.end]
+			if directive != ".localentry" {
+				return
+			}
+			// Extract the first argument.
+			node = skipWS(node.next)
+			assertNodeType(node, ruleSymbolArgs)
+			node = node.up
+			assertNodeType(node, ruleSymbolArg)
+			symbol := input.contents[node.begin:node.end]
+			if _, ok := localEntrySymbols[symbol]; ok {
+				panic(fmt.Sprintf("Duplicate .localentry directive found: %q in %q", symbol, input.path))
+			}
+			localEntrySymbols[symbol] = struct{}{}
+		}, ruleStatement, ruleLabelContainingDirective)
 	}
 
 	processor := x86_64
@@ -1174,6 +1194,7 @@ func transform(w stringWriter, inputs []inputFile) error {
 
 	d := &delocation{
 		symbols:            symbols,
+		localEntrySymbols:  localEntrySymbols,
 		processor:          processor,
 		output:             w,
 		redirectors:        make(map[string]string),
@@ -1280,23 +1301,8 @@ func transform(w stringWriter, inputs []inputFile) error {
 			w.WriteString("\tblr\n")
 		}
 
-		w.WriteString("BORINGSSL_bcm_set_toc:\n")
-		w.WriteString(".LBORINGSSL_bcm_set_toc:\n")
-		// This function writes the TOC address to r2. Register 12
-		// needs to be preserved because the calling function is using
-		// it to store a return address.
-		w.WriteString("\tmflr 2\n")
-		w.WriteString("\tstd 12, -8(1)\n")
-		// This jumps one instruction forward and thus saves the
-		// address of label “0” in the link register.
-		w.WriteString("\tbcl 20,31,$+4\n")
-		w.WriteString("0:\n")
-		w.WriteString("\tmflr 12\n")
-		w.WriteString("\tmtlr 2\n")
-		w.WriteString("\taddis 2,12,.TOC.-0b@ha\n")
-		w.WriteString("\taddi 2,2,.TOC.-0b@l\n")
-		w.WriteString("\tld 12, -8(1)\n")
-		w.WriteString("\tblr\n")
+		w.WriteString(".LBORINGSSL_external_toc:\n")
+		w.WriteString(".quad .TOC.-.LBORINGSSL_external_toc\n")
 	} else {
 		externalNames := sortedSet(d.gotExternalsNeeded)
 		for _, name := range externalNames {
@@ -1493,6 +1499,10 @@ func (w *wrapperStack) do(baseCase func()) {
 // symbol named name.
 func localTargetName(name string) string {
 	return ".L" + name + "_local_target"
+}
+
+func localEntryName(name string) string {
+	return ".L" + name + "_local_entry"
 }
 
 func isSynthesized(symbol string) bool {

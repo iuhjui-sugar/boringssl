@@ -77,12 +77,14 @@ kGiantArray:
 .Lfunction_local_target:
 function:
 0:
-	mflr 12
-	bl .LBORINGSSL_bcm_set_toc
-	mtlr 12
-	nop
+999:
+	addis 2, 12, .LBORINGSSL_external_toc-999b@ha
+	addi 2, 2, .LBORINGSSL_external_toc-999b@l
+	ld 12, 0(2)
+	add 2, 2, 12
 # WAS addi 2,2,.TOC.-0b@l
 	.localentry	function,.-function
+.Lfunction_local_entry:
 	mflr 0
 	std 0,16(1)
 	std 31,-8(1)
@@ -597,7 +599,7 @@ function:
 	bl	bcm_redirector_fprintf
 	nop
 # WAS bl exported_function
-	bl	.Lexported_function_local_target
+	bl	.Lexported_function_local_entry
 	nop
 	mr 3,9
 	addi 1,31,112
@@ -614,19 +616,21 @@ function:
 .Lexported_function_local_target:
 exported_function:
 0:
-	mflr 12
-	bl .LBORINGSSL_bcm_set_toc
-	mtlr 12
-	nop
+999:
+	addis 2, 12, .LBORINGSSL_external_toc-999b@ha
+	addi 2, 2, .LBORINGSSL_external_toc-999b@l
+	ld 12, 0(2)
+	add 2, 2, 12
 # WAS addi 2,2,.TOC.-0b@l
 	.localentry	exported_function,.-exported_function
+.Lexported_function_local_entry:
 	mflr 0
 	std 0,16(1)
 	std 31,-8(1)
 	stdu 1,-48(1)
 	mr 31,1
 # WAS bl function
-	bl	.Lfunction_local_target
+	bl	.Lfunction_local_entry
 	mr 3,9
 	addi 1,31,48
 	ld 0,16(1)
@@ -825,18 +829,8 @@ bcm_loadtoc__dot_LkString_local_target_at_toc_at_l:
 	addi 2, 0, 0
 	addi 3, 2, .LkString_local_target@toc@l
 	blr
-BORINGSSL_bcm_set_toc:
-.LBORINGSSL_bcm_set_toc:
-	mflr 2
-	std 12, -8(1)
-	bcl 20,31,$+4
-0:
-	mflr 12
-	mtlr 2
-	addis 2,12,.TOC.-0b@ha
-	addi 2,2,.TOC.-0b@l
-	ld 12, -8(1)
-	blr
+.LBORINGSSL_external_toc:
+.quad .TOC.-.LBORINGSSL_external_toc
 .type BORINGSSL_bcm_text_hash, @object
 .size BORINGSSL_bcm_text_hash, 64
 BORINGSSL_bcm_text_hash:
