@@ -1,0 +1,152 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb4f1ca4_d0309eab",
+        "filename": "util/fipstools/delocate.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-26T00:01:49Z",
+      "side": 1,
+      "message": "It appears that @ha and @l are general-purpose and can be added to other deltas just fine.\n\nI\u0027ll toy with this as a follow-up.",
+      "range": {
+        "startLine": 421,
+        "startChar": 11,
+        "endLine": 422,
+        "endChar": 23
+      },
+      "revId": "25de1d5742fa82aeec654475c754cdd31bd29859",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3400f73f_d3907456",
+        "filename": "util/fipstools/delocate.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-26T00:01:49Z",
+      "side": 1,
+      "message": "Given the insane optimizations the linker is allowed to do, I think we would then be allowed to just delete all the toc@ha references and only process the toc@l references. That would probably be more efficient since you\u0027re otherwise going through a function call for each anyway. And then you don\u0027t need to mess with r0. I\u0027m thinking you can turn getTOC into leaq rather than try to extract just the offset...\n\nI\u0027ll toy with this as a follow-up.",
+      "revId": "25de1d5742fa82aeec654475c754cdd31bd29859",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7262999c_2d9e6793",
+        "filename": "util/fipstools/delocate.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-26T00:01:49Z",
+      "side": 1,
+      "message": "d.contents(...) here and below.\n\n(Just search for d.currentInput.contents in the file.)",
+      "revId": "25de1d5742fa82aeec654475c754cdd31bd29859",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c7e0a56_4580fc49",
+        "filename": "util/fipstools/delocate.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 716,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-26T00:01:49Z",
+      "side": 1,
+      "message": "getTOC burns in the shift, so I\u0027ve added a check that we don\u0027t mismatch @ha and addis.",
+      "revId": "25de1d5742fa82aeec654475c754cdd31bd29859",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcef1590_32dbb100",
+        "filename": "util/fipstools/delocate.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 843,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-26T00:01:49Z",
+      "side": 1,
+      "message": "(This is unused.)",
+      "revId": "25de1d5742fa82aeec654475c754cdd31bd29859",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35c66711_335b0fdb",
+        "filename": "util/fipstools/delocate.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 1246,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-26T00:01:49Z",
+      "side": 1,
+      "message": "The",
+      "range": {
+        "startLine": 1246,
+        "startChar": 6,
+        "endLine": 1246,
+        "endChar": 9
+      },
+      "revId": "25de1d5742fa82aeec654475c754cdd31bd29859",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1bfe04b_71d534b2",
+        "filename": "util/fipstools/delocate.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 1259,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-26T00:01:49Z",
+      "side": 1,
+      "message": "Added a reference to 3.6.3 of [PABI].",
+      "revId": "25de1d5742fa82aeec654475c754cdd31bd29859",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f62f9aa_679023bf",
+        "filename": "util/fipstools/delocate.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 1284,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-26T00:01:49Z",
+      "side": 1,
+      "message": "What is the difference between this and bl, $+4? Also, isn\u0027t $+4 the same as 0f? Seems marginally clearer.",
+      "revId": "25de1d5742fa82aeec654475c754cdd31bd29859",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
