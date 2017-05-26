@@ -91,510 +91,276 @@ function:
 	stdu 1,-112(1)
 	mr 31,1
 # WAS addis 10,2,.LC0@toc@ha
-	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
-	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_LC0_at_toc_at_ha
-	ld 2, -24(1)
-	add	10, 2, 3
-	ld 3, -16(1)
-	mtlr 3
-	ld 3, -8(1)
-	addi 1, 1, 288
 # WAS ld 9,.LC0@toc@l(10)
 	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
+	mflr 9
+	std 9, -8(1)
 	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_LC0_at_toc_at_l
-	ld 2, -24(1)
-	add 3, 3, 10
-	ld 9, 0(3)
-	ld 3, -16(1)
-	mtlr 3
+	bl .Lbcm_loadtoc__dot_LC0
+	std 3, -24(1)
 	ld 3, -8(1)
+	mtlr 3
+	ld 9, -24(1)
+	ld 3, -16(1)
 	addi 1, 1, 288
+	ld 9, 0(9)
 	ld 9,0(9)
 	mr 3,9
 # WAS addis 4,2,.LC1@toc@ha
-	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
-	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_LC1_at_toc_at_ha
-	ld 2, -24(1)
-	add	4, 2, 3
-	ld 3, -16(1)
-	mtlr 3
-	ld 3, -8(1)
-	addi 1, 1, 288
 # WAS addi 4,4,.LC1@toc@l
 	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
+	mflr 4
+	std 4, -8(1)
 	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_LC1_at_toc_at_l
-	ld 2, -24(1)
-	add	4, 4, 3
-	ld 3, -16(1)
-	mtlr 3
+	bl .Lbcm_loadtoc__dot_LC1
+	std 3, -24(1)
 	ld 3, -8(1)
+	mtlr 3
+	ld 4, -24(1)
+	ld 3, -16(1)
 	addi 1, 1, 288
 # WAS addis 5,2,kString@toc@ha
-	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
-	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_LkString_local_target_at_toc_at_ha
-	ld 2, -24(1)
-	add	5, 2, 3
-	ld 3, -16(1)
-	mtlr 3
-	ld 3, -8(1)
-	addi 1, 1, 288
 # WAS addi 5,5,kString@toc@l
 	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
+	mflr 5
+	std 5, -8(1)
 	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_LkString_local_target_at_toc_at_l
-	ld 2, -24(1)
-	add	5, 5, 3
-	ld 3, -16(1)
-	mtlr 3
+	bl .Lbcm_loadtoc__dot_LkString_local_target
+	std 3, -24(1)
 	ld 3, -8(1)
+	mtlr 3
+	ld 5, -24(1)
+	ld 3, -16(1)
 	addi 1, 1, 288
 # WAS bl fprintf
 	bl	bcm_redirector_fprintf
 	nop
 # WAS addis 10,2,.LC0@toc@ha
-	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
-	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_LC0_at_toc_at_ha
-	ld 2, -24(1)
-	add	10, 2, 3
-	ld 3, -16(1)
-	mtlr 3
-	ld 3, -8(1)
-	addi 1, 1, 288
 # WAS ld 9,.LC0@toc@l(10)
 	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
+	mflr 9
+	std 9, -8(1)
 	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_LC0_at_toc_at_l
-	ld 2, -24(1)
-	add 3, 3, 10
-	ld 9, 0(3)
-	ld 3, -16(1)
-	mtlr 3
+	bl .Lbcm_loadtoc__dot_LC0
+	std 3, -24(1)
 	ld 3, -8(1)
+	mtlr 3
+	ld 9, -24(1)
+	ld 3, -16(1)
 	addi 1, 1, 288
+	ld 9, 0(9)
 	ld 9,0(9)
 	mr 3,9
 # WAS addis 4,2,.LC2@toc@ha
-	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
-	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_LC2_at_toc_at_ha
-	ld 2, -24(1)
-	add	4, 2, 3
-	ld 3, -16(1)
-	mtlr 3
-	ld 3, -8(1)
-	addi 1, 1, 288
 # WAS addi 4,4,.LC2@toc@l
 	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
+	mflr 4
+	std 4, -8(1)
 	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_LC2_at_toc_at_l
-	ld 2, -24(1)
-	add	4, 4, 3
-	ld 3, -16(1)
-	mtlr 3
+	bl .Lbcm_loadtoc__dot_LC2
+	std 3, -24(1)
 	ld 3, -8(1)
+	mtlr 3
+	ld 4, -24(1)
+	ld 3, -16(1)
 	addi 1, 1, 288
 # WAS addis 9,2,.LC3@toc@ha
-	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
-	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_LC3_at_toc_at_ha
-	ld 2, -24(1)
-	add	9, 2, 3
-	ld 3, -16(1)
-	mtlr 3
-	ld 3, -8(1)
-	addi 1, 1, 288
 # WAS ld 5,.LC3@toc@l(9)
 	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
+	mflr 5
+	std 5, -8(1)
 	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_LC3_at_toc_at_l
-	ld 2, -24(1)
-	add 3, 3, 9
-	ld 5, 0(3)
-	ld 3, -16(1)
-	mtlr 3
+	bl .Lbcm_loadtoc__dot_LC3
+	std 3, -24(1)
 	ld 3, -8(1)
+	mtlr 3
+	ld 5, -24(1)
+	ld 3, -16(1)
 	addi 1, 1, 288
+	ld 5, 0(5)
 # WAS bl fprintf
 	bl	bcm_redirector_fprintf
 	nop
 # WAS addis 10,2,.LC0@toc@ha
-	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
-	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_LC0_at_toc_at_ha
-	ld 2, -24(1)
-	add	10, 2, 3
-	ld 3, -16(1)
-	mtlr 3
-	ld 3, -8(1)
-	addi 1, 1, 288
 # WAS ld 9,.LC0@toc@l(10)
 	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
+	mflr 9
+	std 9, -8(1)
 	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_LC0_at_toc_at_l
-	ld 2, -24(1)
-	add 3, 3, 10
-	ld 9, 0(3)
-	ld 3, -16(1)
-	mtlr 3
+	bl .Lbcm_loadtoc__dot_LC0
+	std 3, -24(1)
 	ld 3, -8(1)
+	mtlr 3
+	ld 9, -24(1)
+	ld 3, -16(1)
 	addi 1, 1, 288
+	ld 9, 0(9)
 	ld 9,0(9)
 	mr 3,9
 # WAS addis 4,2,.LC4@toc@ha
-	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
-	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_LC4_at_toc_at_ha
-	ld 2, -24(1)
-	add	4, 2, 3
-	ld 3, -16(1)
-	mtlr 3
-	ld 3, -8(1)
-	addi 1, 1, 288
 # WAS addi 4,4,.LC4@toc@l
 	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
+	mflr 4
+	std 4, -8(1)
 	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_LC4_at_toc_at_l
-	ld 2, -24(1)
-	add	4, 4, 3
-	ld 3, -16(1)
-	mtlr 3
+	bl .Lbcm_loadtoc__dot_LC4
+	std 3, -24(1)
 	ld 3, -8(1)
+	mtlr 3
+	ld 4, -24(1)
+	ld 3, -16(1)
 	addi 1, 1, 288
 # WAS addis 5,2,function@toc@ha
-	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
-	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_Lfunction_local_target_at_toc_at_ha
-	ld 2, -24(1)
-	add	5, 2, 3
-	ld 3, -16(1)
-	mtlr 3
-	ld 3, -8(1)
-	addi 1, 1, 288
 # WAS addi 5,5,function@toc@l
 	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
+	mflr 5
+	std 5, -8(1)
 	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_Lfunction_local_target_at_toc_at_l
-	ld 2, -24(1)
-	add	5, 5, 3
-	ld 3, -16(1)
-	mtlr 3
+	bl .Lbcm_loadtoc__dot_Lfunction_local_target
+	std 3, -24(1)
 	ld 3, -8(1)
+	mtlr 3
+	ld 5, -24(1)
+	ld 3, -16(1)
 	addi 1, 1, 288
 # WAS bl fprintf
 	bl	bcm_redirector_fprintf
 	nop
 # WAS addis 10,2,.LC0@toc@ha
-	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
-	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_LC0_at_toc_at_ha
-	ld 2, -24(1)
-	add	10, 2, 3
-	ld 3, -16(1)
-	mtlr 3
-	ld 3, -8(1)
-	addi 1, 1, 288
 # WAS ld 9,.LC0@toc@l(10)
 	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
+	mflr 9
+	std 9, -8(1)
 	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_LC0_at_toc_at_l
-	ld 2, -24(1)
-	add 3, 3, 10
-	ld 9, 0(3)
-	ld 3, -16(1)
-	mtlr 3
+	bl .Lbcm_loadtoc__dot_LC0
+	std 3, -24(1)
 	ld 3, -8(1)
+	mtlr 3
+	ld 9, -24(1)
+	ld 3, -16(1)
 	addi 1, 1, 288
+	ld 9, 0(9)
 	ld 9,0(9)
 	mr 3,9
 # WAS addis 4,2,.LC5@toc@ha
-	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
-	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_LC5_at_toc_at_ha
-	ld 2, -24(1)
-	add	4, 2, 3
-	ld 3, -16(1)
-	mtlr 3
-	ld 3, -8(1)
-	addi 1, 1, 288
 # WAS addi 4,4,.LC5@toc@l
 	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
+	mflr 4
+	std 4, -8(1)
 	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_LC5_at_toc_at_l
-	ld 2, -24(1)
-	add	4, 4, 3
-	ld 3, -16(1)
-	mtlr 3
+	bl .Lbcm_loadtoc__dot_LC5
+	std 3, -24(1)
 	ld 3, -8(1)
+	mtlr 3
+	ld 4, -24(1)
+	ld 3, -16(1)
 	addi 1, 1, 288
 # WAS addis 9,2,.LC6@toc@ha
-	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
-	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_LC6_at_toc_at_ha
-	ld 2, -24(1)
-	add	9, 2, 3
-	ld 3, -16(1)
-	mtlr 3
-	ld 3, -8(1)
-	addi 1, 1, 288
 # WAS ld 5,.LC6@toc@l(9)
 	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
+	mflr 5
+	std 5, -8(1)
 	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_LC6_at_toc_at_l
-	ld 2, -24(1)
-	add 3, 3, 9
-	ld 5, 0(3)
-	ld 3, -16(1)
-	mtlr 3
+	bl .Lbcm_loadtoc__dot_LC6
+	std 3, -24(1)
 	ld 3, -8(1)
+	mtlr 3
+	ld 5, -24(1)
+	ld 3, -16(1)
 	addi 1, 1, 288
+	ld 5, 0(5)
 # WAS bl fprintf
 	bl	bcm_redirector_fprintf
 	nop
 # WAS addis 10,2,.LC0@toc@ha
-	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
-	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_LC0_at_toc_at_ha
-	ld 2, -24(1)
-	add	10, 2, 3
-	ld 3, -16(1)
-	mtlr 3
-	ld 3, -8(1)
-	addi 1, 1, 288
 # WAS ld 9,.LC0@toc@l(10)
 	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
+	mflr 9
+	std 9, -8(1)
 	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_LC0_at_toc_at_l
-	ld 2, -24(1)
-	add 3, 3, 10
-	ld 9, 0(3)
-	ld 3, -16(1)
-	mtlr 3
+	bl .Lbcm_loadtoc__dot_LC0
+	std 3, -24(1)
 	ld 3, -8(1)
+	mtlr 3
+	ld 9, -24(1)
+	ld 3, -16(1)
 	addi 1, 1, 288
+	ld 9, 0(9)
 	ld 9,0(9)
 	mr 3,9
 # WAS addis 4,2,.LC7@toc@ha
-	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
-	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_LC7_at_toc_at_ha
-	ld 2, -24(1)
-	add	4, 2, 3
-	ld 3, -16(1)
-	mtlr 3
-	ld 3, -8(1)
-	addi 1, 1, 288
 # WAS addi 4,4,.LC7@toc@l
 	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
+	mflr 4
+	std 4, -8(1)
 	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_LC7_at_toc_at_l
-	ld 2, -24(1)
-	add	4, 4, 3
-	ld 3, -16(1)
-	mtlr 3
+	bl .Lbcm_loadtoc__dot_LC7
+	std 3, -24(1)
 	ld 3, -8(1)
+	mtlr 3
+	ld 4, -24(1)
+	ld 3, -16(1)
 	addi 1, 1, 288
 # WAS addis 9,2,.LC8@toc@ha
-	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
-	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_LC8_at_toc_at_ha
-	ld 2, -24(1)
-	add	9, 2, 3
-	ld 3, -16(1)
-	mtlr 3
-	ld 3, -8(1)
-	addi 1, 1, 288
 # WAS ld 5,.LC8@toc@l(9)
 	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
+	mflr 5
+	std 5, -8(1)
 	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_LC8_at_toc_at_l
-	ld 2, -24(1)
-	add 3, 3, 9
-	ld 5, 0(3)
-	ld 3, -16(1)
-	mtlr 3
+	bl .Lbcm_loadtoc__dot_LC8
+	std 3, -24(1)
 	ld 3, -8(1)
+	mtlr 3
+	ld 5, -24(1)
+	ld 3, -16(1)
 	addi 1, 1, 288
+	ld 5, 0(5)
 # WAS bl fprintf
 	bl	bcm_redirector_fprintf
 	nop
 # WAS addis 10,2,.LC0@toc@ha
-	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
-	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_LC0_at_toc_at_ha
-	ld 2, -24(1)
-	add	10, 2, 3
-	ld 3, -16(1)
-	mtlr 3
-	ld 3, -8(1)
-	addi 1, 1, 288
 # WAS ld 9,.LC0@toc@l(10)
 	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
+	mflr 9
+	std 9, -8(1)
 	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_LC0_at_toc_at_l
-	ld 2, -24(1)
-	add 3, 3, 10
-	ld 9, 0(3)
-	ld 3, -16(1)
-	mtlr 3
+	bl .Lbcm_loadtoc__dot_LC0
+	std 3, -24(1)
 	ld 3, -8(1)
+	mtlr 3
+	ld 9, -24(1)
+	ld 3, -16(1)
 	addi 1, 1, 288
+	ld 9, 0(9)
 	ld 9,0(9)
 	mr 3,9
 # WAS addis 4,2,.LC9@toc@ha
-	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
-	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_LC9_at_toc_at_ha
-	ld 2, -24(1)
-	add	4, 2, 3
-	ld 3, -16(1)
-	mtlr 3
-	ld 3, -8(1)
-	addi 1, 1, 288
 # WAS addi 4,4,.LC9@toc@l
 	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
+	mflr 4
+	std 4, -8(1)
 	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_LC9_at_toc_at_l
-	ld 2, -24(1)
-	add	4, 4, 3
-	ld 3, -16(1)
-	mtlr 3
+	bl .Lbcm_loadtoc__dot_LC9
+	std 3, -24(1)
 	ld 3, -8(1)
+	mtlr 3
+	ld 4, -24(1)
+	ld 3, -16(1)
 	addi 1, 1, 288
 # WAS addis 9,2,.LC10@toc@ha
-	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
-	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_LC10_at_toc_at_ha
-	ld 2, -24(1)
-	add	9, 2, 3
-	ld 3, -16(1)
-	mtlr 3
-	ld 3, -8(1)
-	addi 1, 1, 288
 # WAS ld 5,.LC10@toc@l(9)
 	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
+	mflr 5
+	std 5, -8(1)
 	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_LC10_at_toc_at_l
-	ld 2, -24(1)
-	add 3, 3, 9
-	ld 5, 0(3)
-	ld 3, -16(1)
-	mtlr 3
+	bl .Lbcm_loadtoc__dot_LC10
+	std 3, -24(1)
 	ld 3, -8(1)
+	mtlr 3
+	ld 5, -24(1)
+	ld 3, -16(1)
 	addi 1, 1, 288
+	ld 5, 0(5)
 # WAS bl fprintf
 	bl	bcm_redirector_fprintf
 	nop
@@ -660,174 +426,83 @@ bss_bss_get:
 	addis 3, 2, bss@toc@ha
 	addi 3, 3, bss@toc@l
 	blr
-.type bcm_loadtoc__dot_LC0_at_toc_at_ha, @function
-bcm_loadtoc__dot_LC0_at_toc_at_ha:
-.Lbcm_loadtoc__dot_LC0_at_toc_at_ha:
-	addi 2, 0, 0
-	addi 3, 0, 0
+.type bcm_loadtoc__dot_LC0, @function
+bcm_loadtoc__dot_LC0:
+.Lbcm_loadtoc__dot_LC0:
 	addis 3, 2, .LC0@toc@ha
+	addi 3, 3, .LC0@toc@l
 	blr
-.type bcm_loadtoc__dot_LC0_at_toc_at_l, @function
-bcm_loadtoc__dot_LC0_at_toc_at_l:
-.Lbcm_loadtoc__dot_LC0_at_toc_at_l:
-	addi 2, 0, 0
-	addi 3, 2, .LC0@toc@l
-	blr
-.type bcm_loadtoc__dot_LC10_at_toc_at_ha, @function
-bcm_loadtoc__dot_LC10_at_toc_at_ha:
-.Lbcm_loadtoc__dot_LC10_at_toc_at_ha:
-	addi 2, 0, 0
-	addi 3, 0, 0
-	addis 3, 2, .LC10@toc@ha
-	blr
-.type bcm_loadtoc__dot_LC10_at_toc_at_l, @function
-bcm_loadtoc__dot_LC10_at_toc_at_l:
-.Lbcm_loadtoc__dot_LC10_at_toc_at_l:
-	addi 2, 0, 0
-	addi 3, 2, .LC10@toc@l
-	blr
-.type bcm_loadtoc__dot_LC1_at_toc_at_ha, @function
-bcm_loadtoc__dot_LC1_at_toc_at_ha:
-.Lbcm_loadtoc__dot_LC1_at_toc_at_ha:
-	addi 2, 0, 0
-	addi 3, 0, 0
+.type bcm_loadtoc__dot_LC1, @function
+bcm_loadtoc__dot_LC1:
+.Lbcm_loadtoc__dot_LC1:
 	addis 3, 2, .LC1@toc@ha
+	addi 3, 3, .LC1@toc@l
 	blr
-.type bcm_loadtoc__dot_LC1_at_toc_at_l, @function
-bcm_loadtoc__dot_LC1_at_toc_at_l:
-.Lbcm_loadtoc__dot_LC1_at_toc_at_l:
-	addi 2, 0, 0
-	addi 3, 2, .LC1@toc@l
+.type bcm_loadtoc__dot_LC10, @function
+bcm_loadtoc__dot_LC10:
+.Lbcm_loadtoc__dot_LC10:
+	addis 3, 2, .LC10@toc@ha
+	addi 3, 3, .LC10@toc@l
 	blr
-.type bcm_loadtoc__dot_LC2_at_toc_at_ha, @function
-bcm_loadtoc__dot_LC2_at_toc_at_ha:
-.Lbcm_loadtoc__dot_LC2_at_toc_at_ha:
-	addi 2, 0, 0
-	addi 3, 0, 0
+.type bcm_loadtoc__dot_LC2, @function
+bcm_loadtoc__dot_LC2:
+.Lbcm_loadtoc__dot_LC2:
 	addis 3, 2, .LC2@toc@ha
+	addi 3, 3, .LC2@toc@l
 	blr
-.type bcm_loadtoc__dot_LC2_at_toc_at_l, @function
-bcm_loadtoc__dot_LC2_at_toc_at_l:
-.Lbcm_loadtoc__dot_LC2_at_toc_at_l:
-	addi 2, 0, 0
-	addi 3, 2, .LC2@toc@l
-	blr
-.type bcm_loadtoc__dot_LC3_at_toc_at_ha, @function
-bcm_loadtoc__dot_LC3_at_toc_at_ha:
-.Lbcm_loadtoc__dot_LC3_at_toc_at_ha:
-	addi 2, 0, 0
-	addi 3, 0, 0
+.type bcm_loadtoc__dot_LC3, @function
+bcm_loadtoc__dot_LC3:
+.Lbcm_loadtoc__dot_LC3:
 	addis 3, 2, .LC3@toc@ha
+	addi 3, 3, .LC3@toc@l
 	blr
-.type bcm_loadtoc__dot_LC3_at_toc_at_l, @function
-bcm_loadtoc__dot_LC3_at_toc_at_l:
-.Lbcm_loadtoc__dot_LC3_at_toc_at_l:
-	addi 2, 0, 0
-	addi 3, 2, .LC3@toc@l
-	blr
-.type bcm_loadtoc__dot_LC4_at_toc_at_ha, @function
-bcm_loadtoc__dot_LC4_at_toc_at_ha:
-.Lbcm_loadtoc__dot_LC4_at_toc_at_ha:
-	addi 2, 0, 0
-	addi 3, 0, 0
+.type bcm_loadtoc__dot_LC4, @function
+bcm_loadtoc__dot_LC4:
+.Lbcm_loadtoc__dot_LC4:
 	addis 3, 2, .LC4@toc@ha
+	addi 3, 3, .LC4@toc@l
 	blr
-.type bcm_loadtoc__dot_LC4_at_toc_at_l, @function
-bcm_loadtoc__dot_LC4_at_toc_at_l:
-.Lbcm_loadtoc__dot_LC4_at_toc_at_l:
-	addi 2, 0, 0
-	addi 3, 2, .LC4@toc@l
-	blr
-.type bcm_loadtoc__dot_LC5_at_toc_at_ha, @function
-bcm_loadtoc__dot_LC5_at_toc_at_ha:
-.Lbcm_loadtoc__dot_LC5_at_toc_at_ha:
-	addi 2, 0, 0
-	addi 3, 0, 0
+.type bcm_loadtoc__dot_LC5, @function
+bcm_loadtoc__dot_LC5:
+.Lbcm_loadtoc__dot_LC5:
 	addis 3, 2, .LC5@toc@ha
+	addi 3, 3, .LC5@toc@l
 	blr
-.type bcm_loadtoc__dot_LC5_at_toc_at_l, @function
-bcm_loadtoc__dot_LC5_at_toc_at_l:
-.Lbcm_loadtoc__dot_LC5_at_toc_at_l:
-	addi 2, 0, 0
-	addi 3, 2, .LC5@toc@l
-	blr
-.type bcm_loadtoc__dot_LC6_at_toc_at_ha, @function
-bcm_loadtoc__dot_LC6_at_toc_at_ha:
-.Lbcm_loadtoc__dot_LC6_at_toc_at_ha:
-	addi 2, 0, 0
-	addi 3, 0, 0
+.type bcm_loadtoc__dot_LC6, @function
+bcm_loadtoc__dot_LC6:
+.Lbcm_loadtoc__dot_LC6:
 	addis 3, 2, .LC6@toc@ha
+	addi 3, 3, .LC6@toc@l
 	blr
-.type bcm_loadtoc__dot_LC6_at_toc_at_l, @function
-bcm_loadtoc__dot_LC6_at_toc_at_l:
-.Lbcm_loadtoc__dot_LC6_at_toc_at_l:
-	addi 2, 0, 0
-	addi 3, 2, .LC6@toc@l
-	blr
-.type bcm_loadtoc__dot_LC7_at_toc_at_ha, @function
-bcm_loadtoc__dot_LC7_at_toc_at_ha:
-.Lbcm_loadtoc__dot_LC7_at_toc_at_ha:
-	addi 2, 0, 0
-	addi 3, 0, 0
+.type bcm_loadtoc__dot_LC7, @function
+bcm_loadtoc__dot_LC7:
+.Lbcm_loadtoc__dot_LC7:
 	addis 3, 2, .LC7@toc@ha
+	addi 3, 3, .LC7@toc@l
 	blr
-.type bcm_loadtoc__dot_LC7_at_toc_at_l, @function
-bcm_loadtoc__dot_LC7_at_toc_at_l:
-.Lbcm_loadtoc__dot_LC7_at_toc_at_l:
-	addi 2, 0, 0
-	addi 3, 2, .LC7@toc@l
-	blr
-.type bcm_loadtoc__dot_LC8_at_toc_at_ha, @function
-bcm_loadtoc__dot_LC8_at_toc_at_ha:
-.Lbcm_loadtoc__dot_LC8_at_toc_at_ha:
-	addi 2, 0, 0
-	addi 3, 0, 0
+.type bcm_loadtoc__dot_LC8, @function
+bcm_loadtoc__dot_LC8:
+.Lbcm_loadtoc__dot_LC8:
 	addis 3, 2, .LC8@toc@ha
+	addi 3, 3, .LC8@toc@l
 	blr
-.type bcm_loadtoc__dot_LC8_at_toc_at_l, @function
-bcm_loadtoc__dot_LC8_at_toc_at_l:
-.Lbcm_loadtoc__dot_LC8_at_toc_at_l:
-	addi 2, 0, 0
-	addi 3, 2, .LC8@toc@l
-	blr
-.type bcm_loadtoc__dot_LC9_at_toc_at_ha, @function
-bcm_loadtoc__dot_LC9_at_toc_at_ha:
-.Lbcm_loadtoc__dot_LC9_at_toc_at_ha:
-	addi 2, 0, 0
-	addi 3, 0, 0
+.type bcm_loadtoc__dot_LC9, @function
+bcm_loadtoc__dot_LC9:
+.Lbcm_loadtoc__dot_LC9:
 	addis 3, 2, .LC9@toc@ha
+	addi 3, 3, .LC9@toc@l
 	blr
-.type bcm_loadtoc__dot_LC9_at_toc_at_l, @function
-bcm_loadtoc__dot_LC9_at_toc_at_l:
-.Lbcm_loadtoc__dot_LC9_at_toc_at_l:
-	addi 2, 0, 0
-	addi 3, 2, .LC9@toc@l
-	blr
-.type bcm_loadtoc__dot_Lfunction_local_target_at_toc_at_ha, @function
-bcm_loadtoc__dot_Lfunction_local_target_at_toc_at_ha:
-.Lbcm_loadtoc__dot_Lfunction_local_target_at_toc_at_ha:
-	addi 2, 0, 0
-	addi 3, 0, 0
+.type bcm_loadtoc__dot_Lfunction_local_target, @function
+bcm_loadtoc__dot_Lfunction_local_target:
+.Lbcm_loadtoc__dot_Lfunction_local_target:
 	addis 3, 2, .Lfunction_local_target@toc@ha
+	addi 3, 3, .Lfunction_local_target@toc@l
 	blr
-.type bcm_loadtoc__dot_Lfunction_local_target_at_toc_at_l, @function
-bcm_loadtoc__dot_Lfunction_local_target_at_toc_at_l:
-.Lbcm_loadtoc__dot_Lfunction_local_target_at_toc_at_l:
-	addi 2, 0, 0
-	addi 3, 2, .Lfunction_local_target@toc@l
-	blr
-.type bcm_loadtoc__dot_LkString_local_target_at_toc_at_ha, @function
-bcm_loadtoc__dot_LkString_local_target_at_toc_at_ha:
-.Lbcm_loadtoc__dot_LkString_local_target_at_toc_at_ha:
-	addi 2, 0, 0
-	addi 3, 0, 0
+.type bcm_loadtoc__dot_LkString_local_target, @function
+bcm_loadtoc__dot_LkString_local_target:
+.Lbcm_loadtoc__dot_LkString_local_target:
 	addis 3, 2, .LkString_local_target@toc@ha
-	blr
-.type bcm_loadtoc__dot_LkString_local_target_at_toc_at_l, @function
-bcm_loadtoc__dot_LkString_local_target_at_toc_at_l:
-.Lbcm_loadtoc__dot_LkString_local_target_at_toc_at_l:
-	addi 2, 0, 0
-	addi 3, 2, .LkString_local_target@toc@l
+	addi 3, 3, .LkString_local_target@toc@l
 	blr
 .LBORINGSSL_external_toc:
 .quad .TOC.-.LBORINGSSL_external_toc

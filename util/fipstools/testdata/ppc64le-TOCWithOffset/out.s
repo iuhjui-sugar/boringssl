@@ -5,165 +5,66 @@ BORINGSSL_bcm_text_start:
 foo:
 	# TOC references may have offsets.
 # WAS addis 3, 2, 5+foo@toc@ha
-	addi 1, 1, -288
-	std 4, -8(1)
-	mflr 4
-	std 4, -16(1)
-	std 2, -24(1)
-	std 3, -32(1)
-	bl .Lbcm_loadtoc__dot_Lfoo_local_target_at_toc_at_ha_offset_5
-	mr 4, 3
-	ld 3, -32(1)
-	ld 2, -24(1)
-	add	3, 2, 4
-	ld 4, -16(1)
-	mtlr 4
-	ld 4, -8(1)
-	addi 1, 1, 288
 # WAS addi 3, 3, 10+foo@toc@l
 	addi 1, 1, -288
-	std 4, -8(1)
-	mflr 4
-	std 4, -16(1)
-	std 2, -24(1)
-	std 3, -32(1)
-	bl .Lbcm_loadtoc__dot_Lfoo_local_target_at_toc_at_l_offset_10
-	mr 4, 3
-	ld 3, -32(1)
-	ld 2, -24(1)
-	add	3, 3, 4
-	ld 4, -16(1)
-	mtlr 4
-	ld 4, -8(1)
+	mflr 3
+	std 3, -8(1)
+	bl .Lbcm_loadtoc__dot_Lfoo_local_target
+	std 3, -24(1)
+	ld 3, -8(1)
+	mtlr 3
+	ld 3, -24(1)
 	addi 1, 1, 288
+	addi 3, 3, +10
 
 # WAS addis 3, 2, 15+foo@toc@ha
-	addi 1, 1, -288
-	std 4, -8(1)
-	mflr 4
-	std 4, -16(1)
-	std 2, -24(1)
-	std 3, -32(1)
-	bl .Lbcm_loadtoc__dot_Lfoo_local_target_at_toc_at_ha_offset_15
-	mr 4, 3
-	ld 3, -32(1)
-	ld 2, -24(1)
-	add	3, 2, 4
-	ld 4, -16(1)
-	mtlr 4
-	ld 4, -8(1)
-	addi 1, 1, 288
 # WAS addi 3, 3, 20+foo@toc@l
 	addi 1, 1, -288
-	std 4, -8(1)
-	mflr 4
-	std 4, -16(1)
-	std 2, -24(1)
-	std 3, -32(1)
-	bl .Lbcm_loadtoc__dot_Lfoo_local_target_at_toc_at_l_offset_20
-	mr 4, 3
-	ld 3, -32(1)
-	ld 2, -24(1)
-	add	3, 3, 4
-	ld 4, -16(1)
-	mtlr 4
-	ld 4, -8(1)
+	mflr 3
+	std 3, -8(1)
+	bl .Lbcm_loadtoc__dot_Lfoo_local_target
+	std 3, -24(1)
+	ld 3, -8(1)
+	mtlr 3
+	ld 3, -24(1)
 	addi 1, 1, 288
+	addi 3, 3, +20
 
 # WAS addis 4, 2, foo@toc@ha
-	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
-	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_Lfoo_local_target_at_toc_at_ha
-	ld 2, -24(1)
-	add	4, 2, 3
-	ld 3, -16(1)
-	mtlr 3
-	ld 3, -8(1)
-	addi 1, 1, 288
 # WAS addi 4, 4, foo@toc@l
 	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
+	mflr 4
+	std 4, -8(1)
 	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_Lfoo_local_target_at_toc_at_l
-	ld 2, -24(1)
-	add	4, 4, 3
-	ld 3, -16(1)
-	mtlr 3
+	bl .Lbcm_loadtoc__dot_Lfoo_local_target
+	std 3, -24(1)
 	ld 3, -8(1)
+	mtlr 3
+	ld 4, -24(1)
+	ld 3, -16(1)
 	addi 1, 1, 288
 
 # WAS addis 5, 2, 5+foo@toc@ha
-	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
-	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_Lfoo_local_target_at_toc_at_ha_offset_5
-	ld 2, -24(1)
-	add	5, 2, 3
-	ld 3, -16(1)
-	mtlr 3
-	ld 3, -8(1)
-	addi 1, 1, 288
 # WAS ld 5, 10+foo@toc@l(5)
 	addi 1, 1, -288
-	std 3, -8(1)
-	mflr 3
+	mflr 5
+	std 5, -8(1)
 	std 3, -16(1)
-	std 2, -24(1)
-	bl .Lbcm_loadtoc__dot_Lfoo_local_target_at_toc_at_l_offset_10
-	ld 2, -24(1)
-	add 3, 3, 5
-	ld 5, 0(3)
-	ld 3, -16(1)
-	mtlr 3
+	bl .Lbcm_loadtoc__dot_Lfoo_local_target
+	std 3, -24(1)
 	ld 3, -8(1)
+	mtlr 3
+	ld 5, -24(1)
+	ld 3, -16(1)
 	addi 1, 1, 288
+	ld 5, +10(5)
 .text
 BORINGSSL_bcm_text_end:
-.type bcm_loadtoc__dot_Lfoo_local_target_at_toc_at_ha, @function
-bcm_loadtoc__dot_Lfoo_local_target_at_toc_at_ha:
-.Lbcm_loadtoc__dot_Lfoo_local_target_at_toc_at_ha:
-	addi 2, 0, 0
-	addi 3, 0, 0
+.type bcm_loadtoc__dot_Lfoo_local_target, @function
+bcm_loadtoc__dot_Lfoo_local_target:
+.Lbcm_loadtoc__dot_Lfoo_local_target:
 	addis 3, 2, .Lfoo_local_target@toc@ha
-	blr
-.type bcm_loadtoc__dot_Lfoo_local_target_at_toc_at_ha_offset_15, @function
-bcm_loadtoc__dot_Lfoo_local_target_at_toc_at_ha_offset_15:
-.Lbcm_loadtoc__dot_Lfoo_local_target_at_toc_at_ha_offset_15:
-	addi 2, 0, 0
-	addi 3, 0, 0
-	addis 3, 2, .Lfoo_local_target@toc@ha+15
-	blr
-.type bcm_loadtoc__dot_Lfoo_local_target_at_toc_at_ha_offset_5, @function
-bcm_loadtoc__dot_Lfoo_local_target_at_toc_at_ha_offset_5:
-.Lbcm_loadtoc__dot_Lfoo_local_target_at_toc_at_ha_offset_5:
-	addi 2, 0, 0
-	addi 3, 0, 0
-	addis 3, 2, .Lfoo_local_target@toc@ha+5
-	blr
-.type bcm_loadtoc__dot_Lfoo_local_target_at_toc_at_l, @function
-bcm_loadtoc__dot_Lfoo_local_target_at_toc_at_l:
-.Lbcm_loadtoc__dot_Lfoo_local_target_at_toc_at_l:
-	addi 2, 0, 0
-	addi 3, 2, .Lfoo_local_target@toc@l
-	blr
-.type bcm_loadtoc__dot_Lfoo_local_target_at_toc_at_l_offset_10, @function
-bcm_loadtoc__dot_Lfoo_local_target_at_toc_at_l_offset_10:
-.Lbcm_loadtoc__dot_Lfoo_local_target_at_toc_at_l_offset_10:
-	addi 2, 0, 0
-	addi 3, 2, .Lfoo_local_target@toc@l+10
-	blr
-.type bcm_loadtoc__dot_Lfoo_local_target_at_toc_at_l_offset_20, @function
-bcm_loadtoc__dot_Lfoo_local_target_at_toc_at_l_offset_20:
-.Lbcm_loadtoc__dot_Lfoo_local_target_at_toc_at_l_offset_20:
-	addi 2, 0, 0
-	addi 3, 2, .Lfoo_local_target@toc@l+20
+	addi 3, 3, .Lfoo_local_target@toc@l
 	blr
 .LBORINGSSL_external_toc:
 .quad .TOC.-.LBORINGSSL_external_toc

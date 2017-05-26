@@ -422,19 +422,11 @@ instructions. You just have to read the manual to know which they are.
 
 
 Delocation is easier than Intel because there's just TOC references, but it's
-also harder because there's no IP-relative addressing. It is possible to jump
-nowhere and read the saved return value but, even with the current location in
-a register, displacements are int16's so cannot reach the end of the FIPS
-module most of the time.
+also harder because there's no IP-relative addressing.
 
 Jumps are IP-relative however, and have a 24-bit immediate value. So we can
 jump to functions that set a register to the needed value. (r3 is the
-return-value register and so that's what is generally used here.)
-
-Although loads from the TOC always use an addis+addi pair, we cannot recognise
-the pair and handle it together because the compiler can split it up when
-optimising. Rather than do extensive rewriting, the @ha and @l parts are
-handled separately. */
+return-value register and so that's what is generally used here.) */
 
 // isPPC64LEAPair recognises an addis+addi pair that's adding the offset of
 // source to relative and writing the result to target.
@@ -487,110 +479,39 @@ func establishTOC(w stringWriter) {
 }
 
 // loadTOCFuncName returns the name of a synthesized function that sets r3 to
-// the value of “symbol+offset@section”. (The offset argument may be empty.)
-func loadTOCFuncName(symbol, section, offset string) string {
-	ret := "Lbcm_loadtoc_" + symbol + "_at_" + strings.Replace(section, "@", "_at_", -1)
-	if len(offset) > 0 {
-		ret += "_offset_"
-		ret += strings.Replace(strings.Replace(offset, "+", "", 1), "-", "neg_", 1)
-	}
-	return "." + strings.Replace(ret, ".", "_dot_", -1)
+// the value of “symbol”.
+func loadTOCFuncName(symbol string) string {
+	return ".Lbcm_loadtoc_" + strings.Replace(symbol, ".", "_dot_", -1)
 }
 
-// getTOC returns a wrapper function that emits code to load
-// “symbol+offset@section” into a register, avoiding use of any of a given set
-// of registers. (The offset argument may be empty.)
-func (d *delocation) getTOC(w stringWriter, symbol, section, offset string, avoidRegisters []int) (dest string, wrapper wrapperFunc) {
-	destRegisterNo := 3
-
-FindDest:
-	for ; ; destRegisterNo++ {
-		for _, avoid := range avoidRegisters {
-			if avoid == destRegisterNo {
-				continue FindDest
-			}
-		}
-
-		break
-	}
-
-	dest = strconv.Itoa(destRegisterNo)
-	d.tocLoaders[symbol+"@"+section+"\x00"+offset] = struct{}{}
-
-	return dest, func(k func()) {
-		w.WriteString("\taddi 1, 1, -288\n")
+func (d *delocation) loadFromTOC(w stringWriter, symbol, dest string) wrapperFunc {
+	d.tocLoaders[symbol] = struct{}{}
+	return func(k func()) {
+		w.WriteString("\taddi 1, 1, -288\n")   // Clear the red zone.
+		w.WriteString("\tmflr " + dest + "\n") // Stash the link register.
 		w.WriteString("\tstd " + dest + ", -8(1)\n")
-		w.WriteString("\tmflr " + dest + "\n")
-		w.WriteString("\tstd " + dest + ", -16(1)\n")
-		w.WriteString("\tstd 2, -24(1)\n")
+		// The TOC loader will use r3, so stash it if necessary.
 		if dest != "3" {
-			w.WriteString("\tstd 3, -32(1)\n")
+			w.WriteString("\tstd 3, -16(1)\n")
 		}
 
 		// Because loadTOCFuncName returns a “.L” name, we don't need a
 		// nop after this call.
-		w.WriteString("\tbl " + loadTOCFuncName(symbol, section, offset) + "\n")
+		w.WriteString("\tbl " + loadTOCFuncName(symbol) + "\n")
 
+		// Cycle registers around. We need r3 -> destReg, -8(1) ->
+		// lr and, optionally, -16(1) -> r3.
+		w.WriteString("\tstd 3, -24(1)\n")
+		w.WriteString("\tld 3, -8(1)\n")
+		w.WriteString("\tmtlr 3\n")
+		w.WriteString("\tld " + dest + ", -24(1)\n")
 		if dest != "3" {
-			w.WriteString("\tmr " + dest + ", 3\n")
-			w.WriteString("\tld 3, -32(1)\n")
+			w.WriteString("\tld 3, -16(1)\n")
 		}
-		w.WriteString("\tld 2, -24(1)\n")
+		w.WriteString("\taddi 1, 1, 288\n")
 
 		k()
-
-		w.WriteString("\tld " + dest + ", -16(1)\n")
-		w.WriteString("\tmtlr " + dest + "\n")
-		w.WriteString("\tld " + dest + ", -8(1)\n")
-		w.WriteString("\taddi 1, 1, 288\n")
 	}
-}
-
-func (d *delocation) registersReferenced(argNodes []*node32) []int {
-	if d.processor != ppc64le {
-		panic("only for ppc64le")
-	}
-
-	var ret []int
-	for _, node := range argNodes {
-		switch node.pegRule {
-		case ruleRegisterOrConstant:
-			// Registers are just written as numbers, without any
-			// prefix. Thus we cannot generically tell the
-			// difference between registers and constants. We
-			// conservatively assume that all number arguments are
-			// registers.
-			val, err := strconv.ParseInt(d.contents(node), 10, 32)
-			if err != nil {
-				continue
-			}
-
-			ret = append(ret, int(val))
-
-		case ruleMemoryRef:
-			element := node.up
-			for ; element != nil; element = element.next {
-				if element.pegRule != ruleBaseIndexScale {
-					continue
-				}
-
-				element = element.up
-				assertNodeType(element, ruleRegisterOrConstant)
-				if element.next != nil {
-					panic("unexpected second element in ppc64le BaseIndexScale")
-				}
-
-				val, err := strconv.ParseInt(d.contents(element), 10, 32)
-				if err != nil {
-					continue
-				}
-
-				ret = append(ret, int(val))
-			}
-		}
-	}
-
-	return ret
 }
 
 func (d *delocation) parseMemRef(memRef *node32) (symbol, offset, section string, didChange, symbolIsLocal bool, nextRef *node32) {
@@ -653,7 +574,7 @@ func (d *delocation) processPPCInstruction(statement, instruction *node32) (*nod
 	changed := false
 
 Args:
-	for _, arg := range argNodes {
+	for i, arg := range argNodes {
 		fullArg := arg
 		isIndirect := false
 
@@ -715,30 +636,54 @@ Args:
 				// assembler to use r13, the pointer to the
 				// thread-local data [PABI;3.7.3.3].
 
-			case "toc@ha", "toc@l", "got@tprel@ha", "got@tprel@l":
-				// TODO(davidben): This transformation can
-				// likely be made much more efficient by taking
-				// advantage of [PABI;3.6.3].
+			case "toc@ha":
+				// Delete toc@ha instructions. Per
+				// [PABI;3.6.3], the linker is allowed to erase
+				// toc@ha instructions. We take advantage of
+				// this by unconditionally erasing the toc@ha
+				// instructions and doing the full lookup when
+				// processing toc@l.
+				if instructionName != "addis" || len(argNodes) != 3 || i != 2 || args[1] != "2" {
+					return nil, errors.New("can't process toc@ha reference")
+				}
+				changed = true
+				instructionName = ""
+				break Args
+
+			case "toc@l":
+				// Per [PAB;3.6.3], this instruction must take
+				// as input a register which was the output of
+				// a toc@ha computation and compute the actual
+				// address of some symbol. The toc@ha
+				// computation was elided, so we ignore that
+				// input register and compute the address
+				// directly.
 				changed = true
 
-				valReg, wrapper := d.getTOC(d.output, symbol, section, offset, d.registersReferenced(argNodes))
-				wrappers = append(wrappers, wrapper)
+				// For all supported toc@l instructions, the
+				// destination register is the first argument.
+				destReg := args[0]
 
-				// To preserve the shift, @ha may only be used
-				// with addis and @l must not be.
-				if strings.HasSuffix(section, "@ha") != (instructionName == "addis") {
-					return nil, fmt.Errorf("can't TOC argument to %q", instructionName)
-				}
-
+				wrappers = append(wrappers, d.loadFromTOC(d.output, symbol, destReg))
 				switch instructionName {
-				case "addi", "addis":
-					instructionName = "add"
-
+				case "addi":
+					// The original instruction was:
+					//   addi destReg, tocHaReg, symbol@toc@l+offset
+					//
+					// All that is left is adding the offset, if any.
+					instructionName = ""
+					if len(offset) != 0 {
+						wrappers = append(wrappers, func(k func()) {
+							d.output.WriteString("\taddi " + destReg + ", " + destReg + ", " + offset + "\n")
+						})
+					}
 				case "ld", "lhz", "lwz":
-					// ld 6,foo@toc@l(26) needs to be turned into:
-					//   add r, r, 26
-					//   ld 6, 0(r)
-					// (assuming that the TOC offset is in r, initially.)
+					// The original instruction was:
+					//   l?? destReg, symbol@toc@l+offset(tocHaReg)
+					//
+					// We transform that into the
+					// equivalent dereference of destReg:
+					//   l?? destReg, offset(destReg)
 					origInstructionName := instructionName
 					instructionName = ""
 
@@ -747,21 +692,17 @@ Args:
 					if memRef.next != nil || memRef.up.next != nil {
 						return nil, errors.New("expected single register in BaseIndexScale for ld argument")
 					}
-					baseReg := d.contents(memRef.up)
 
 					wrappers = append(wrappers, func(k func()) {
-						d.output.WriteString("\tadd " + valReg + ", " + valReg + ", " + baseReg + "\n")
-						d.output.WriteString("\t" + origInstructionName + " " + args[0] + ", 0(" + valReg + ")\n")
+						fixedOffset := offset
+						if len(fixedOffset) == 0 {
+							fixedOffset = "0"
+						}
+						d.output.WriteString("\t" + origInstructionName + " " + destReg + ", " + fixedOffset + "(" + destReg + ")\n")
 					})
-
-					break Args
 				default:
 					return nil, fmt.Errorf("can't process TOC argument to %q", instructionName)
 				}
-
-				section = ""
-				offset = ""
-				symbol = valReg
 
 			default:
 				return nil, fmt.Errorf("Unknown section type %q", section)
@@ -1263,41 +1204,14 @@ func transform(w stringWriter, inputs []inputFile) error {
 
 	if d.processor == ppc64le {
 		loadTOCNames := sortedSet(d.tocLoaders)
-		for _, name := range loadTOCNames {
-			parts := strings.SplitN(name, "\x00", 2)
-			symAndSection, offset := parts[0], parts[1]
-			parts = strings.SplitN(symAndSection, "@", 2)
-			symbol, section := parts[0], parts[1]
-			funcName := loadTOCFuncName(symbol, section, offset)
-
-			// The linker has three issues with these functions:
-			//   1) if you add an @ha value to anything but r2,
-			//      and with anything but addis, it complains that
-			//      it can't optimise that pattern, which is a
-			//      fatal error in some configurations.
-			//   2) if the @ha value resolves to zero, the
-			//      linker may replace the addis instruction with a
-			//      nop.
-			//   3) if you add an @l value to anything but r2,
-			//      the linker may rewrite it to use r2 anyway.
-			//
-			// Thus we ensure that the calling code saves r2 so
-			// that these functions can zero it and thus still add
-			// the offset to r2, as required.
-			//
-			// See also [PABI;3.6.3].
+		for _, symbol := range loadTOCNames {
+			funcName := loadTOCFuncName(symbol)
 
 			w.WriteString(".type " + funcName[2:] + ", @function\n")
 			w.WriteString(funcName[2:] + ":\n")
 			w.WriteString(funcName + ":\n")
-			if strings.HasSuffix(section, "@ha") {
-				w.WriteString("\taddi 2, 0, 0\n")
-				w.WriteString("\taddi 3, 0, 0\n")
-				w.WriteString("\taddis 3, 2, " + symAndSection + offset + "\n")
-			} else {
-				w.WriteString("\taddi 2, 0, 0\n")
-				w.WriteString("\taddi 3, 2, " + symAndSection + offset + "\n")
-			}
+			w.WriteString("\taddis 3, 2, " + symbol + "@toc@ha\n")
+			w.WriteString("\taddi 3, 3, " + symbol + "@toc@l\n")
 			w.WriteString("\tblr\n")
 		}
 
