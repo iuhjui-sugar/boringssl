@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6e613b3_2e98cb6f",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 636,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-05-26T19:39:26Z",
+      "side": 1,
+      "message": "nit: 80 characters.",
+      "revId": "5683ecfa6f841b4da3eac158dedccf7ea686047e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db4fc955_20212270",
+        "filename": "ssl/ssl_cipher.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-05-26T19:39:26Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "5683ecfa6f841b4da3eac158dedccf7ea686047e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
