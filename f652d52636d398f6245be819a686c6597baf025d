@@ -22,6 +22,30 @@
       "revId": "f652d52636d398f6245be819a686c6597baf025d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9df96f71_d8ea78eb",
+        "filename": "fipstools/cavp_test_util.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-30T19:08:37Z",
+      "side": 1,
+      "message": "Done. (And fixed up a few other oddies about the arguments to these functions at the same time.)",
+      "parentUuid": "73325af3_82b45496",
+      "range": {
+        "startLine": 112,
+        "startChar": 71,
+        "endLine": 112,
+        "endChar": 72
+      },
+      "revId": "f652d52636d398f6245be819a686c6597baf025d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
