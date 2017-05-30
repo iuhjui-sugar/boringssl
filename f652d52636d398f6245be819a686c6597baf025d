@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "73325af3_82b45496",
+        "filename": "fipstools/cavp_test_util.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-30T18:59:24Z",
+      "side": 1,
+      "message": "\u0026 and const",
+      "range": {
+        "startLine": 112,
+        "startChar": 71,
+        "endLine": 112,
+        "endChar": 72
+      },
+      "revId": "f652d52636d398f6245be819a686c6597baf025d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
