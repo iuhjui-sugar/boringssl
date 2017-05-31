@@ -1462,7 +1462,7 @@ Error = INVALID_SIGNATURE
 
 # Ed25519 does not support configuring a digest.
 SignMessage = Ed25519
-Input = ""
+Input = "Hello world"
 Digest = SHA256
 Error = COMMAND_NOT_SUPPORTED
 
