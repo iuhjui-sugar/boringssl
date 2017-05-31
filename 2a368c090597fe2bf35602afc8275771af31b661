@@ -16,6 +16,24 @@
       "revId": "2a368c090597fe2bf35602afc8275771af31b661",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd4e3e11_bc704222",
+        "filename": "fipstools/test_fips.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-31T23:09:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5aa0daf_7391adb2",
+      "revId": "2a368c090597fe2bf35602afc8275771af31b661",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
