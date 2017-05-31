@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a5aa0daf_7391adb2",
+        "filename": "fipstools/test_fips.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-31T23:01:52Z",
+      "side": 1,
+      "message": "Nit: for (size_t i \u003d 0; ...)",
+      "revId": "2a368c090597fe2bf35602afc8275771af31b661",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
