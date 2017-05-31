@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ce39d04_daa0e6fe",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-31T22:56:56Z",
+      "side": 1,
+      "message": "I think this line is a no-op.",
+      "revId": "bdba9d3f2f65624eb0a54aaa540512cab468313c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ae4e74a_55308190",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-31T22:56:56Z",
+      "side": 1,
+      "message": "Any reason not to make this double-linked? I\u0027m not sure we actually save on lock contention, since all access of next pointers is already protected by a mutex. May as well avoid the inevitable someone complaining that it takes O(N^2) work to spin up and shut down N threads.",
+      "revId": "bdba9d3f2f65624eb0a54aaa540512cab468313c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7ce079d_31000f91",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-31T22:56:56Z",
+      "side": 1,
+      "message": "No one would actually read from it, but I believe this call can race with the CTR_DRBG_clear in rand_thread_state_clear_all, giving a write/write race. We could avoid it by moving 253-259 after this point. (Probably would need a state !\u003d \u0026stack_state check.)",
+      "revId": "bdba9d3f2f65624eb0a54aaa540512cab468313c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
