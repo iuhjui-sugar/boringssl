@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c28d6d1b_21581699",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-31T23:09:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ce39d04_daa0e6fe",
+      "revId": "bdba9d3f2f65624eb0a54aaa540512cab468313c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8ae4e74a_55308190",
         "filename": "crypto/fipsmodule/rand/rand.c",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2017-05-31T22:56:56Z",
       "side": 1,
       "message": "Any reason not to make this double-linked? I\u0027m not sure we actually save on lock contention, since all access of next pointers is already protected by a mutex. May as well avoid the inevitable someone complaining that it takes O(N^2) work to spin up and shut down N threads.",
+      "revId": "bdba9d3f2f65624eb0a54aaa540512cab468313c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d202bdbd_27386bf5",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-31T23:09:18Z",
+      "side": 1,
+      "message": "Good point. Someone internally would probably complain otherwise about the time to shut-down a billion threads or something.",
+      "parentUuid": "8ae4e74a_55308190",
       "revId": "bdba9d3f2f65624eb0a54aaa540512cab468313c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -50,6 +86,24 @@
       "revId": "bdba9d3f2f65624eb0a54aaa540512cab468313c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a694446b_044f264f",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-05-31T23:09:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7ce079d_31000f91",
+      "revId": "bdba9d3f2f65624eb0a54aaa540512cab468313c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
