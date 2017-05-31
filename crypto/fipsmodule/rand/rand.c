@@ -17,6 +17,7 @@
 #include <assert.h>
 #include <limits.h>
 #include <string.h>
+#include <unistd.h>
 
 #include <openssl/chacha.h>
 #include <openssl/cpu.h>
@@ -24,6 +25,7 @@
 
 #include "internal.h"
 #include "../../internal.h"
+#include "../delocate.h"
 
 
 /* It's assumed that the operating system always has an unfailing source of
@@ -55,22 +57,76 @@ struct rand_thread_state {
   /* calls is the number of generate calls made on |drbg| since it was last
    * (re)seeded. This is bound by |kReseedInterval|. */
   unsigned calls;
-  /* last_block contains the previous block from |CRYPTO_sysrand|. */
-  uint8_t last_block[CRNGT_BLOCK_SIZE];
+  /* poison is set if this state has been cleared because the process (should
+   * have) exited. */
+  int poison;
   /* last_block_valid is non-zero iff |last_block| contains data from
    * |CRYPTO_sysrand|. */
   int last_block_valid;
+
+#if defined(BORINGSSL_FIPS)
+  /* last_block contains the previous block from |CRYPTO_sysrand|. */
+  uint8_t last_block[CRNGT_BLOCK_SIZE];
+  /* next forms a NULL-terminated, linked list of all states in a process. */
+  struct rand_thread_state *next;
+#endif
 };
+
+#if defined(BORINGSSL_FIPS)
+/* thread_states_list is the head of a linked-list of all |rand_thread_state|
+ * objects in the process, one per thread. This is needed because FIPS requires
+ * that they be zeroed on process exit, but thread-local destructors aren't
+ * called when the whole process is exiting. */
+DEFINE_BSS_GET(struct rand_thread_state *, thread_states_list);
+DEFINE_STATIC_MUTEX(thread_states_list_lock);
+
+static void rand_thread_state_clear_all(void) __attribute__((destructor));
+static void rand_thread_state_clear_all(void) {
+  CRYPTO_STATIC_MUTEX_lock_write(thread_states_list_lock_bss_get());
+  for (struct rand_thread_state *cur = *thread_states_list_bss_get();
+       cur != NULL; cur = cur->next) {
+    CTR_DRBG_clear(&cur->drbg);
+    cur->poison = 1;
+  }
+  *thread_states_list_bss_get() = NULL;
+  CRYPTO_STATIC_MUTEX_unlock_write(thread_states_list_lock_bss_get());
+}
+#endif
 
 /* rand_thread_state_free frees a |rand_thread_state|. This is called when a
  * thread exits. */
 static void rand_thread_state_free(void *state_in) {
+  struct rand_thread_state *state = state_in;
+
   if (state_in == NULL) {
     return;
   }
 
-  struct rand_thread_state *state = state_in;
+#if defined(BORINGSSL_FIPS)
+  struct rand_thread_state *cur, *prev = NULL;
+
+  CRYPTO_STATIC_MUTEX_lock_write(thread_states_list_lock_bss_get());
+  for (cur = *thread_states_list_bss_get(); cur != NULL;
+       prev = cur, cur = cur->next) {
+    if (cur == state) {
+      break;
+    }
+  }
+
+  if (cur == NULL) {
+    abort();
+  }
+
+  if (prev != NULL) {
+    prev->next = cur->next;
+  } else {
+    *thread_states_list_bss_get() = cur->next;
+  }
+  CRYPTO_STATIC_MUTEX_unlock_write(thread_states_list_lock_bss_get());
+
   CTR_DRBG_clear(&state->drbg);
+#endif
+
   OPENSSL_free(state);
 }
 
@@ -193,9 +249,18 @@ void RAND_bytes_with_additional_data(uint8_t *out, size_t out_len,
       /* If the system is out of memory, use an ephemeral state on the
        * stack. */
       state = &stack_state;
+    } else {
+#if defined(BORINGSSL_FIPS)
+      CRYPTO_STATIC_MUTEX_lock_write(thread_states_list_lock_bss_get());
+      struct rand_thread_state **states_list = thread_states_list_bss_get();
+      state->next = *states_list;
+      *states_list = state;
+      CRYPTO_STATIC_MUTEX_unlock_write(thread_states_list_lock_bss_get());
+#endif
     }
 
     state->last_block_valid = 0;
+    state->poison = 0;
     uint8_t seed[CTR_DRBG_ENTROPY_LEN];
     rand_get_seed(state, seed);
     if (!CTR_DRBG_init(&state->drbg, seed, NULL, 0)) {
@@ -211,6 +276,16 @@ void RAND_bytes_with_additional_data(uint8_t *out, size_t out_len,
       abort();
     }
     state->calls = 0;
+  }
+
+  if (state->poison) {
+    /* This thread is still processing while the process is shutting down.
+     * Destructor functions have run and cleared our PRNG state so we cannot
+     * service this request. Instead, wait for the process shutdown to
+     * complete. */
+    for(;;) {
+      sleep(1);
+    }
   }
 
   /* Additional data is mixed into every CTR-DRBG call to protect, as best we
