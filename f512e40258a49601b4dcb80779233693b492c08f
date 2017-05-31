@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "110c7fb6_1f9f9284",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-05-31T23:00:27Z",
+      "side": 1,
+      "message": "(I seem to recall MSVC getting confused if this function ever needs a function prototype, but if it\u0027s happy with it static, then *shrug*)",
+      "range": {
+        "startLine": 144,
+        "startChar": 32,
+        "endLine": 144,
+        "endChar": 37
+      },
+      "revId": "f512e40258a49601b4dcb80779233693b492c08f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
