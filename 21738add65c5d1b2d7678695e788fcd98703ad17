@@ -16,6 +16,24 @@
       "revId": "21738add65c5d1b2d7678695e788fcd98703ad17",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d1ab2fb_875619fb",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-01T19:50:24Z",
+      "side": 1,
+      "message": "It\u0027s in Microsoft headers, as usual. :-/ \nhttps://luci-logdog.appspot.com/v/?s\u003dboringssl%2Fbuildbucket%2Fcr-buildbucket.appspot.com%2F8977971719457182672%2F%2B%2Fsteps%2Fninja%2F0%2Fstdout\n\nIt looks like it\u0027s part of their iostream implementation which assembles a printf format string corresponding to std::ios_base::fmtflags. It\u0027s one of those warnings that\u0027s not on by default but since we pass /Wall to MSVC, it gets turned on. The problem is Microsoft interprets /Wall to mean actually all (clang/gcc\u0027s -Weverything), rather than /Wsensible. In particular, Microsoft does not promise that their headers pass their /Wall, only /W4. That\u0027s why we keep hitting this mess of suppressions. (I do wonder if /W4 combined with manually re-enabling additional warnings we think are plausible is a better tactic. /W4 is what Microsoft actually recommends.)\n\nWe do have coverage of this warning in clang by way of -Wformat-literal, so I\u0027m not too torn up by losing it here. Chromium also builds with clang on Windows in on the CQ, so we\u0027ll even cover it in Windows-only code.",
+      "parentUuid": "29aa06a1_34f32153",
+      "revId": "21738add65c5d1b2d7678695e788fcd98703ad17",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
