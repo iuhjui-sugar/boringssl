@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "29aa06a1_34f32153",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-01T16:41:32Z",
+      "side": 1,
+      "message": "This seems like a real issue, what was triggering it?",
+      "revId": "21738add65c5d1b2d7678695e788fcd98703ad17",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
