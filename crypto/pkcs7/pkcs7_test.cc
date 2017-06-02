@@ -12,9 +12,7 @@
  * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <gtest/gtest.h>
 
 #include <openssl/bytestring.h>
 #include <openssl/crypto.h>
@@ -470,7 +468,7 @@ static const char kPEMCRL[] =
     "fNQMQoI9So4Vdy88Kow6BBBV3Lu6sZHue+cjxXETrmshNdNk8ABUMQA=\n"
     "-----END PKCS7-----\n";
 
-static int test_cert_reparse(const uint8_t *der_bytes, size_t der_len) {
+static void test_cert_reparse(const uint8_t *der_bytes, size_t der_len) {
   CBS pkcs7;
   CBB cbb;
   STACK_OF(X509) *certs = sk_X509_new_null();
@@ -479,62 +477,37 @@ static int test_cert_reparse(const uint8_t *der_bytes, size_t der_len) {
   size_t result_len, result2_len, i;
 
   CBS_init(&pkcs7, der_bytes, der_len);
-  if (!PKCS7_get_certificates(certs, &pkcs7)) {
-    fprintf(stderr, "PKCS7_get_certificates failed.\n");
-    return 0;
-  }
+  ASSERT_TRUE(PKCS7_get_certificates(certs, &pkcs7));
 
   CBB_init(&cbb, der_len);
-  if (!PKCS7_bundle_certificates(&cbb, certs) ||
-      !CBB_finish(&cbb, &result_data, &result_len)) {
-    fprintf(stderr, "PKCS7_bundle_certificates failed.\n");
-    return 0;
-  }
+  ASSERT_TRUE(PKCS7_bundle_certificates(&cbb, certs));
+  ASSERT_TRUE(CBB_finish(&cbb, &result_data, &result_len));
 
   CBS_init(&pkcs7, result_data, result_len);
-  if (!PKCS7_get_certificates(certs2, &pkcs7)) {
-    fprintf(stderr, "PKCS7_get_certificates reparse failed.\n");
-    return 0;
-  }
+  ASSERT_TRUE(PKCS7_get_certificates(certs2, &pkcs7));
 
-  if (sk_X509_num(certs) != sk_X509_num(certs2)) {
-    fprintf(stderr, "Number of certs in results differ.\n");
-    return 0;
-  }
+  ASSERT_EQ(sk_X509_num(certs), sk_X509_num(certs2));
 
   for (i = 0; i < sk_X509_num(certs); i++) {
     X509 *a = sk_X509_value(certs, i);
     X509 *b = sk_X509_value(certs2, i);
-
-    if (X509_cmp(a, b) != 0) {
-      fprintf(stderr, "Certificate %zu differs.\n", i);
-      return 0;
-    }
+    ASSERT_EQ(0, X509_cmp(a, b));
   }
 
   CBB_init(&cbb, der_len);
-  if (!PKCS7_bundle_certificates(&cbb, certs2) ||
-      !CBB_finish(&cbb, &result2_data, &result2_len)) {
-    fprintf(stderr,
-            "PKCS7_bundle_certificates failed the second time.\n");
-    return 0;
-  }
+  ASSERT_TRUE(PKCS7_bundle_certificates(&cbb, certs2));
+  ASSERT_TRUE(CBB_finish(&cbb, &result2_data, &result2_len));
 
-  if (result_len != result2_len ||
-      OPENSSL_memcmp(result_data, result2_data, result_len) != 0) {
-    fprintf(stderr, "Serialisation is not stable.\n");
-    return 0;
-  }
+  ASSERT_EQ(result_len, result2_len);
+  ASSERT_EQ(0, OPENSSL_memcmp(result_data, result2_data, result_len));
 
   OPENSSL_free(result_data);
   OPENSSL_free(result2_data);
   sk_X509_pop_free(certs, X509_free);
   sk_X509_pop_free(certs2, X509_free);
-
-  return 1;
 }
 
-static int test_crl_reparse(const uint8_t *der_bytes, size_t der_len) {
+static void test_crl_reparse(const uint8_t *der_bytes, size_t der_len) {
   CBS pkcs7;
   CBB cbb;
   STACK_OF(X509_CRL) *crls = sk_X509_CRL_new_null();
@@ -543,115 +516,74 @@ static int test_crl_reparse(const uint8_t *der_bytes, size_t der_len) {
   size_t result_len, result2_len, i;
 
   CBS_init(&pkcs7, der_bytes, der_len);
-  if (!PKCS7_get_CRLs(crls, &pkcs7)) {
-    fprintf(stderr, "PKCS7_get_CRLs failed.\n");
-    return 0;
-  }
+  ASSERT_TRUE(PKCS7_get_CRLs(crls, &pkcs7));
 
   CBB_init(&cbb, der_len);
-  if (!PKCS7_bundle_CRLs(&cbb, crls) ||
-      !CBB_finish(&cbb, &result_data, &result_len)) {
-    fprintf(stderr, "PKCS7_bundle_CRLs failed.\n");
-    return 0;
-  }
+  ASSERT_TRUE(PKCS7_bundle_CRLs(&cbb, crls));
+  ASSERT_TRUE(CBB_finish(&cbb, &result_data, &result_len));
 
   CBS_init(&pkcs7, result_data, result_len);
-  if (!PKCS7_get_CRLs(crls2, &pkcs7)) {
-    fprintf(stderr, "PKCS7_get_CRLs reparse failed.\n");
-    return 0;
-  }
+  ASSERT_TRUE(PKCS7_get_CRLs(crls2, &pkcs7));
 
-  if (sk_X509_CRL_num(crls) != sk_X509_CRL_num(crls)) {
-    fprintf(stderr, "Number of CRLs in results differ.\n");
-    return 0;
-  }
+  ASSERT_EQ(sk_X509_CRL_num(crls), sk_X509_CRL_num(crls));
 
   for (i = 0; i < sk_X509_CRL_num(crls); i++) {
     X509_CRL *a = sk_X509_CRL_value(crls, i);
     X509_CRL *b = sk_X509_CRL_value(crls2, i);
-
-    if (X509_CRL_cmp(a, b) != 0) {
-      fprintf(stderr, "CRL %zu differs.\n", i);
-      return 0;
-    }
+    ASSERT_EQ(0, X509_CRL_cmp(a, b));
   }
 
   CBB_init(&cbb, der_len);
-  if (!PKCS7_bundle_CRLs(&cbb, crls2) ||
-      !CBB_finish(&cbb, &result2_data, &result2_len)) {
-    fprintf(stderr,
-            "PKCS7_bundle_CRLs failed the second time.\n");
-    return 0;
-  }
+  ASSERT_TRUE(PKCS7_bundle_CRLs(&cbb, crls2));
+  ASSERT_TRUE(CBB_finish(&cbb, &result2_data, &result2_len));
 
-  if (result_len != result2_len ||
-      OPENSSL_memcmp(result_data, result2_data, result_len) != 0) {
-    fprintf(stderr, "Serialisation is not stable.\n");
-    return 0;
-  }
+  ASSERT_EQ(result_len, result2_len);
+  ASSERT_EQ(0, OPENSSL_memcmp(result_data, result2_data, result_len));
 
   OPENSSL_free(result_data);
   OPENSSL_free(result2_data);
   sk_X509_CRL_pop_free(crls, X509_CRL_free);
   sk_X509_CRL_pop_free(crls2, X509_CRL_free);
-
-  return 1;
 }
 
-static int test_pem_certs(const char *pem) {
+static void test_pem_certs(const char *pem) {
   BIO *bio = BIO_new_mem_buf(pem, strlen(pem));
   STACK_OF(X509) *certs = sk_X509_new_null();
 
-  if (!PKCS7_get_PEM_certificates(certs, bio)) {
-    fprintf(stderr, "PKCS7_get_PEM_certificates failed.\n");
-    return 0;
-  }
-
-  if (sk_X509_num(certs) != 1) {
-    fprintf(stderr,
-            "Bad number of certificates from PKCS7_get_PEM_certificates: %zu\n",
-            sk_X509_num(certs));
-    return 0;
-  }
+  ASSERT_TRUE(PKCS7_get_PEM_certificates(certs, bio));
+  ASSERT_EQ(1u, sk_X509_num(certs));
 
   BIO_free(bio);
   sk_X509_pop_free(certs, X509_free);
-
-  return 1;
 }
 
-static int test_pem_crls(const char *pem) {
+static void test_pem_crls(const char *pem) {
   BIO *bio = BIO_new_mem_buf(pem, strlen(pem));
   STACK_OF(X509_CRL) *crls = sk_X509_CRL_new_null();
 
-  if (!PKCS7_get_PEM_CRLs(crls, bio)) {
-    fprintf(stderr, "PKCS7_get_PEM_CRLs failed.\n");
-    return 0;
-  }
-
-  if (sk_X509_CRL_num(crls) != 1) {
-    fprintf(stderr, "Bad number of CRLs from PKCS7_get_PEM_CRLs: %zu\n",
-            sk_X509_CRL_num(crls));
-    return 0;
-  }
+  ASSERT_TRUE(PKCS7_get_PEM_CRLs(crls, bio));
+  ASSERT_EQ(1u, sk_X509_CRL_num(crls));
 
   BIO_free(bio);
   sk_X509_CRL_pop_free(crls, X509_CRL_free);
-
-  return 1;
 }
 
-int main(void) {
-  CRYPTO_library_init();
+TEST(PKCS7Test, TestCertReparseNSS) {
+  test_cert_reparse(kPKCS7NSS, sizeof(kPKCS7NSS));
+}
 
-  if (!test_cert_reparse(kPKCS7NSS, sizeof(kPKCS7NSS)) ||
-      !test_cert_reparse(kPKCS7Windows, sizeof(kPKCS7Windows)) ||
-      !test_crl_reparse(kOpenSSLCRL, sizeof(kOpenSSLCRL)) ||
-      !test_pem_certs(kPEMCert) ||
-      !test_pem_crls(kPEMCRL)) {
-    return 1;
-  }
+TEST(PKCS7Test, TestCertReparseWindows) {
+  test_cert_reparse(kPKCS7Windows, sizeof(kPKCS7Windows));
+}
 
-  printf("PASS\n");
-  return 0;
+TEST(PKCS7Test, TestCrlReparse) {
+  test_crl_reparse(kOpenSSLCRL, sizeof(kOpenSSLCRL));
+}
+
+TEST(PKCS7Test, TestPEMCerts) {
+  test_pem_certs(kPEMCert);
+}
+
+TEST(PKCS7Test, TestPEMCRLs) {
+  test_pem_crls(kPEMCRL);
 }
