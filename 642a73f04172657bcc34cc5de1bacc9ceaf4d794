@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "82f079b3_78e6c2ce",
+        "filename": "crypto/fipsmodule/cipher/aead.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-06-06T19:54:06Z",
+      "side": 1,
+      "message": "seal should be replaced with a generic implementation that calls seal_scatter.",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 21
+      },
+      "revId": "642a73f04172657bcc34cc5de1bacc9ceaf4d794",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a6a7343_6dffe91f",
+        "filename": "crypto/fipsmodule/cipher/aead.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-06-06T19:54:06Z",
+      "side": 1,
+      "message": "I think we could generically implement open for AEADs where we can get the exact tag length from the opaque ciphertext||tag string. IIUC, this should be everything except (SSL/TLS where you have to read the padding length from the last plaintext byte)?",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 21
+      },
+      "revId": "642a73f04172657bcc34cc5de1bacc9ceaf4d794",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
