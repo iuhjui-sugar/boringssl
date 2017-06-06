@@ -46,6 +46,30 @@
       "revId": "d0777d4e80d840e971b32767378bb83f34bf68d1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d646c762_e8234dd9",
+        "filename": "util/BUILD.toplevel",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2017-06-06T22:54:23Z",
+      "side": 1,
+      "message": "Oh yes, I remember that now.",
+      "parentUuid": "9824fead_b7be7b48",
+      "range": {
+        "startLine": 96,
+        "startChar": 43,
+        "endLine": 96,
+        "endChar": 0
+      },
+      "revId": "d0777d4e80d840e971b32767378bb83f34bf68d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
