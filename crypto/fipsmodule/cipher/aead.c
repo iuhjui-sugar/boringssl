@@ -140,6 +140,33 @@ error:
   return 0;
 }
 
+int EVP_AEAD_CTX_seal_scatter(
+    const EVP_AEAD_CTX *ctx, uint8_t *out, uint8_t *out_tag,
+    size_t *out_tag_len, size_t max_out_tag_len, const uint8_t *nonce,
+    size_t nonce_len, const uint8_t *in, size_t in_len, const uint8_t *ad,
+    size_t ad_len) {
+  // |in| and |out| may alias exactly, |out_tag| may not alias.
+  if (!check_alias(in, in_len, out, in_len) ||
+      buffers_alias(out, in_len, out_tag, max_out_tag_len) ||
+      buffers_alias(in, in_len, out_tag, max_out_tag_len)) {
+    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_OUTPUT_ALIASES_INPUT);
+    goto error;
+  }
+
+  if (ctx->aead->seal_scatter(ctx, out, out_tag, out_tag_len, max_out_tag_len,
+                              nonce, nonce_len, in, in_len, ad, ad_len)) {
+    return 1;
+  }
+
+error:
+  /* In the event of an error, clear the output buffer so that a caller
+   * that doesn't check the return value doesn't send raw data. */
+  OPENSSL_memset(out, 0, in_len);
+  OPENSSL_memset(out_tag, 0, max_out_tag_len);
+  *out_tag_len = 0;
+  return 0;
+}
+
 int EVP_AEAD_CTX_open(const EVP_AEAD_CTX *ctx, uint8_t *out, size_t *out_len,
                       size_t max_out_len, const uint8_t *nonce,
                       size_t nonce_len, const uint8_t *in, size_t in_len,
@@ -160,6 +187,29 @@ error:
    * data. */
   OPENSSL_memset(out, 0, max_out_len);
   *out_len = 0;
+  return 0;
+}
+
+int EVP_AEAD_CTX_open_gather(const EVP_AEAD_CTX *ctx, uint8_t *out,
+                             const uint8_t *nonce, size_t nonce_len,
+                             const uint8_t *in, size_t in_len,
+                             const uint8_t *in_tag, size_t in_tag_len,
+                             const uint8_t *ad, size_t ad_len) {
+  if (!check_alias(in, in_len, out, in_len)) {
+    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_OUTPUT_ALIASES_INPUT);
+    goto error;
+  }
+
+  if (ctx->aead->open_gather(ctx, out, nonce, nonce_len, in, in_len, in_tag,
+                             in_tag_len, ad, ad_len)) {
+    return 1;
+  }
+
+error:
+  /* In the event of an error, clear the output buffer so that a caller
+   * that doesn't check the return value doesn't try and process bad
+   * data. */
+  OPENSSL_memset(out, 0, in_len);
   return 0;
 }
 
