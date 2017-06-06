@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "53078534_fc53f6e9",
+        "filename": "util/BUILD.toplevel",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2017-06-06T22:48:02Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be in srcs, not hdrs?",
+      "range": {
+        "startLine": 96,
+        "startChar": 43,
+        "endLine": 96,
+        "endChar": 0
+      },
+      "revId": "d0777d4e80d840e971b32767378bb83f34bf68d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
