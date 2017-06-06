@@ -22,6 +22,30 @@
       "revId": "d0777d4e80d840e971b32767378bb83f34bf68d1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9824fead_b7be7b48",
+        "filename": "util/BUILD.toplevel",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 8365
+      },
+      "writtenOn": "2017-06-06T22:51:59Z",
+      "side": 1,
+      "message": "So this is kind of a weird target.  bcm.c actually #includes all of the fips_fragments .c files.  So having them as srcs would get them built as objects, but in hdrs they\u0027re just made available at build time and can be #included.",
+      "parentUuid": "53078534_fc53f6e9",
+      "range": {
+        "startLine": 96,
+        "startChar": 43,
+        "endLine": 96,
+        "endChar": 0
+      },
+      "revId": "d0777d4e80d840e971b32767378bb83f34bf68d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
