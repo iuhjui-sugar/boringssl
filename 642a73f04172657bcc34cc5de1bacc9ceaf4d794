@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "77cc1210_b708f9b2",
+        "filename": "crypto/cipher_extra/e_chacha20poly1305.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-06-06T22:16:49Z",
+      "side": 1,
+      "message": "Ah, nevermind, I misunderstood what\u0027s going on here.",
+      "parentUuid": "0fc39ecb_4ad32f68",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 70
+      },
+      "revId": "642a73f04172657bcc34cc5de1bacc9ceaf4d794",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "82f079b3_78e6c2ce",
         "filename": "crypto/fipsmodule/cipher/aead.c",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "642a73f04172657bcc34cc5de1bacc9ceaf4d794",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7197e458_1cc32b7e",
+        "filename": "crypto/fipsmodule/cipher/aead.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-06-06T22:16:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "82f079b3_78e6c2ce",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 21
+      },
+      "revId": "642a73f04172657bcc34cc5de1bacc9ceaf4d794",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
