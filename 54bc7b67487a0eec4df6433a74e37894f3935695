@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8a5a61be_fac5ed81",
+        "filename": "crypto/cipher_extra/aead_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-08T23:57:26Z",
+      "side": 1,
+      "message": "I\u0027d say\n\ntag_len \u003d tag.size()\n\nand then skip the else clause just below.",
+      "revId": "54bc7b67487a0eec4df6433a74e37894f3935695",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dab9fd6c_5526aa64",
+        "filename": "crypto/cipher_extra/aead_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-08T23:57:26Z",
+      "side": 1,
+      "message": "(ditto.)",
+      "revId": "54bc7b67487a0eec4df6433a74e37894f3935695",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61db1301_14dfb8c9",
+        "filename": "crypto/cipher_extra/aead_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-08T23:57:26Z",
+      "side": 1,
+      "message": "Does just writing the following work here?:\n\n(void) t-\u003eHasAttribute(\"FAILS\");  /* All attributes need to be used. */",
+      "revId": "54bc7b67487a0eec4df6433a74e37894f3935695",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
