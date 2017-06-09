@@ -1,0 +1,273 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "36de0e86_759c8908",
+        "filename": "crypto/cipher_extra/e_aesctrhmac.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-09T18:47:54Z",
+      "side": 1,
+      "message": "I don\u0027t think so. Why would it be?",
+      "range": {
+        "startLine": 184,
+        "startChar": 57,
+        "endLine": 184,
+        "endChar": 77
+      },
+      "revId": "e0d14e48f71418ad54d635076f63e2108ad8f65a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfeda392_f592dd01",
+        "filename": "crypto/cipher_extra/e_aesgcmsiv.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-09T18:47:54Z",
+      "side": 1,
+      "message": "(ditto.)",
+      "range": {
+        "startLine": 755,
+        "startChar": 41,
+        "endLine": 755,
+        "endChar": 74
+      },
+      "revId": "e0d14e48f71418ad54d635076f63e2108ad8f65a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9656bd6f_a7a0184d",
+        "filename": "crypto/cipher_extra/e_chacha20poly1305.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-09T18:47:54Z",
+      "side": 1,
+      "message": "(ditto.)",
+      "range": {
+        "startLine": 175,
+        "startChar": 39,
+        "endLine": 175,
+        "endChar": 75
+      },
+      "revId": "e0d14e48f71418ad54d635076f63e2108ad8f65a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55c849d1_23fe4f6f",
+        "filename": "crypto/cipher_extra/e_ssl3.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-09T18:47:54Z",
+      "side": 1,
+      "message": "I would s/unsigned/size_t/ in the following because it\u0027s not worth thinking about overflow.",
+      "range": {
+        "startLine": 177,
+        "startChar": 2,
+        "endLine": 177,
+        "endChar": 10
+      },
+      "revId": "e0d14e48f71418ad54d635076f63e2108ad8f65a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6335906e_70c1796c",
+        "filename": "crypto/cipher_extra/e_ssl3.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-09T18:47:54Z",
+      "side": 1,
+      "message": "I think we\u0027ve decided not to do this, right? If so, I wouldn\u0027t add TODOs because they\u0027ll only sit around forever.",
+      "range": {
+        "startLine": 369,
+        "startChar": 10,
+        "endLine": 369,
+        "endChar": 63
+      },
+      "revId": "e0d14e48f71418ad54d635076f63e2108ad8f65a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e18f75cf_2f998bf1",
+        "filename": "crypto/cipher_extra/e_tls.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-09T18:47:54Z",
+      "side": 1,
+      "message": "(ditto about size_t.)",
+      "revId": "e0d14e48f71418ad54d635076f63e2108ad8f65a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "950ea338_853c1f50",
+        "filename": "crypto/cipher_extra/e_tls.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-09T18:47:54Z",
+      "side": 1,
+      "message": "(ditto about TODOs.)",
+      "revId": "e0d14e48f71418ad54d635076f63e2108ad8f65a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de6c39f8_daecdd5f",
+        "filename": "crypto/fipsmodule/cipher/aead.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-09T18:47:54Z",
+      "side": 1,
+      "message": "I would add a clause here: max_out_len \u003c in_len",
+      "revId": "e0d14e48f71418ad54d635076f63e2108ad8f65a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a370639a_45db2bf3",
+        "filename": "crypto/fipsmodule/cipher/aead.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-09T18:47:54Z",
+      "side": 1,
+      "message": "I think 0 is the right constant here. DEFAULT_TAG_LENGTH happens to be zero, but it needn\u0027t be so.",
+      "revId": "e0d14e48f71418ad54d635076f63e2108ad8f65a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "895c0d15_51c505da",
+        "filename": "crypto/fipsmodule/cipher/aead.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-09T18:47:54Z",
+      "side": 1,
+      "message": "s/pt_len/plaintext_len/ for consistency.\n\nAlso test for in_len \u003c ctx-\u003etag_len.",
+      "revId": "e0d14e48f71418ad54d635076f63e2108ad8f65a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00f1f19d_03c14031",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-09T18:47:54Z",
+      "side": 1,
+      "message": "…|in_len| bytes of ciphertext to |out|…",
+      "range": {
+        "startLine": 261,
+        "startChar": 57,
+        "endLine": 261,
+        "endChar": 60
+      },
+      "revId": "e0d14e48f71418ad54d635076f63e2108ad8f65a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e706166_68a797c7",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-09T18:47:54Z",
+      "side": 1,
+      "message": "drop word.",
+      "range": {
+        "startLine": 262,
+        "startChar": 30,
+        "endLine": 262,
+        "endChar": 33
+      },
+      "revId": "e0d14e48f71418ad54d635076f63e2108ad8f65a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66205114_7c4c988c",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-09T18:47:54Z",
+      "side": 1,
+      "message": "\"If successful, it writes |in_len| bytes of plaintext to |out|.\"",
+      "range": {
+        "startLine": 289,
+        "startChar": 38,
+        "endLine": 289,
+        "endChar": 39
+      },
+      "revId": "e0d14e48f71418ad54d635076f63e2108ad8f65a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
