@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c153206c_4f7eb133",
+        "filename": "crypto/fipsmodule/aes/asm/aes-armv4.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-12T23:27:32Z",
+      "side": 1,
+      "message": "I believe this is because #8 is wrong in Thumb mode. Not sure why adr isn\u0027t always used... support for ancient assemblers I guess.",
+      "revId": "71338b08f573eb8ee6a53e5a14d5da8a2662c7e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39c47f8b_b2142287",
+        "filename": "crypto/fipsmodule/bn/asm/armv4-mont.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-12T23:27:32Z",
+      "side": 1,
+      "message": "How to check this sort of thing: if there are N t\u0027s, the next N instructions should have a suffix match the argument. This is some silliness with how \"unified syntax\" lets you write polyglot ARM and Thumb mode files (sigh).\n\nIn ARM mode, it* don\u0027t emit anything but check the following instructions have the right suffix. In Thumb mode, the suffixes don\u0027t get encoded in the instruction and need this instruction.",
+      "revId": "71338b08f573eb8ee6a53e5a14d5da8a2662c7e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d1e26d8_3d905654",
+        "filename": "crypto/fipsmodule/bn/asm/armv4-mont.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-12T23:27:32Z",
+      "side": 1,
+      "message": "This is because Thumb mode doesn\u0027t let you write 3 different registers.",
+      "revId": "71338b08f573eb8ee6a53e5a14d5da8a2662c7e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bc2df01_0a12e426",
+        "filename": "crypto/fipsmodule/bn/asm/armv4-mont.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-12T23:27:32Z",
+      "side": 1,
+      "message": "This is countered by the change in line 672|695.",
+      "revId": "71338b08f573eb8ee6a53e5a14d5da8a2662c7e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "153e0a1d_644aaf83",
+        "filename": "crypto/fipsmodule/modes/asm/ghash-armv4.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-12T23:27:32Z",
+      "side": 1,
+      "message": "This count includes the size of the rem_4bit_get function. It\u0027s distressing.",
+      "revId": "71338b08f573eb8ee6a53e5a14d5da8a2662c7e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
