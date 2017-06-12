@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "bc695881_20008be4",
+        "filename": "crypto/evp/scrypt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-12T18:48:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "845858de_4ee89a95",
+      "revId": "aa088882120cd2c1f33650aa178a7cb4c83ab501",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0ca5ae57_53fe18cd",
         "filename": "crypto/evp/scrypt.c",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "aa088882120cd2c1f33650aa178a7cb4c83ab501",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2d92773_e29aa929",
+        "filename": "crypto/evp/scrypt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-12T18:48:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ca5ae57_53fe18cd",
+      "revId": "aa088882120cd2c1f33650aa178a7cb4c83ab501",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -82,6 +118,54 @@
     },
     {
       "key": {
+        "uuid": "1872b8f9_10a78be7",
+        "filename": "crypto/evp/scrypt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-12T18:48:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca0f1c64_0b7a13fb",
+      "range": {
+        "startLine": 86,
+        "startChar": 7,
+        "endLine": 86,
+        "endChar": 13
+      },
+      "revId": "aa088882120cd2c1f33650aa178a7cb4c83ab501",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "63ed05d3_73a7c0d1",
+        "filename": "crypto/evp/scrypt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-12T18:48:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ceb9882f_029d8f0f",
+      "range": {
+        "startLine": 86,
+        "startChar": 39,
+        "endLine": 86,
+        "endChar": 40
+      },
+      "revId": "aa088882120cd2c1f33650aa178a7cb4c83ab501",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8a10a5b7_553fbd15",
         "filename": "crypto/evp/scrypt.c",
         "patchSetId": 1
@@ -105,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "3b5746af_b2835114",
+        "filename": "crypto/evp/scrypt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-12T18:48:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a10a5b7_553fbd15",
+      "range": {
+        "startLine": 93,
+        "startChar": 52,
+        "endLine": 94,
+        "endChar": 39
+      },
+      "revId": "aa088882120cd2c1f33650aa178a7cb4c83ab501",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d2b6dc3_438b0eaf",
         "filename": "crypto/evp/scrypt.c",
         "patchSetId": 1
@@ -119,6 +227,24 @@
       "revId": "aa088882120cd2c1f33650aa178a7cb4c83ab501",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9451c240_86710ce4",
+        "filename": "crypto/evp/scrypt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-12T18:48:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d2b6dc3_438b0eaf",
+      "revId": "aa088882120cd2c1f33650aa178a7cb4c83ab501",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -145,6 +271,30 @@
     },
     {
       "key": {
+        "uuid": "bfbfe3e3_9429bd4f",
+        "filename": "crypto/evp/scrypt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-12T18:48:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07b693bf_6369b0de",
+      "range": {
+        "startLine": 113,
+        "startChar": 20,
+        "endLine": 113,
+        "endChar": 45
+      },
+      "revId": "aa088882120cd2c1f33650aa178a7cb4c83ab501",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "96f1547e_f9bedab8",
         "filename": "crypto/evp/scrypt.c",
         "patchSetId": 1
@@ -161,6 +311,76 @@
         "startChar": 20,
         "endLine": 114,
         "endChar": 48
+      },
+      "revId": "aa088882120cd2c1f33650aa178a7cb4c83ab501",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13822086_7be7f07a",
+        "filename": "crypto/evp/scrypt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-12T18:48:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96f1547e_f9bedab8",
+      "range": {
+        "startLine": 114,
+        "startChar": 20,
+        "endLine": 114,
+        "endChar": 48
+      },
+      "revId": "aa088882120cd2c1f33650aa178a7cb4c83ab501",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "db7e1c75_2b69b483",
+        "filename": "crypto/evp/scrypt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-12T18:48:57Z",
+      "side": 1,
+      "message": "Fixed this. It was correct in an earlier version of the code which had both scratch space for B-as-blocks and an output for B-as-bytes.",
+      "range": {
+        "startLine": 115,
+        "startChar": 3,
+        "endLine": 115,
+        "endChar": 8
+      },
+      "revId": "aa088882120cd2c1f33650aa178a7cb4c83ab501",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c19c0643_88cf9d48",
+        "filename": "crypto/evp/scrypt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-12T18:48:57Z",
+      "side": 1,
+      "message": "Realized this should be \u0026 (N - 1) which actually improves performance significantly. Also I have the bound off slightly, not that it matters.",
+      "range": {
+        "startLine": 129,
+        "startChar": 39,
+        "endLine": 129,
+        "endChar": 42
       },
       "revId": "aa088882120cd2c1f33650aa178a7cb4c83ab501",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
@@ -191,6 +411,30 @@
     },
     {
       "key": {
+        "uuid": "02fc2c45_b8ce652b",
+        "filename": "crypto/evp/scrypt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-12T18:48:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4708e951_ab3939f8",
+      "range": {
+        "startLine": 158,
+        "startChar": 29,
+        "endLine": 158,
+        "endChar": 40
+      },
+      "revId": "aa088882120cd2c1f33650aa178a7cb4c83ab501",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "315add91_9ca84b1c",
         "filename": "crypto/evp/scrypt.c",
         "patchSetId": 1
@@ -214,6 +458,47 @@
     },
     {
       "key": {
+        "uuid": "4be567ef_273ceebf",
+        "filename": "crypto/evp/scrypt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-12T18:48:57Z",
+      "side": 1,
+      "message": "If r is, say, 4, then the requirement is N \u003c 2^(128*4/8) \u003d 2^64 which is always true. I\u0027m not entirely sure where this bound comes from. It\u0027s kind of odd. 128*r is the number of bytes in an scrypt block, but you would then expect to multiply by 8, not divide by 8.\n\nIf you multiply by 8 and if scryptROMix\u0027s Integerify call looked at B[0] (little-endian vs. big-endian mixup) and if it were generalized to look at the entire block, then this bound says that we have enough bits of span all possible values of j. But that\u0027s a lot of things to change.",
+      "parentUuid": "315add91_9ca84b1c",
+      "range": {
+        "startLine": 159,
+        "startChar": 7,
+        "endLine": 159,
+        "endChar": 19
+      },
+      "revId": "aa088882120cd2c1f33650aa178a7cb4c83ab501",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b33971f5_5880f354",
+        "filename": "crypto/evp/scrypt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-12T18:48:57Z",
+      "side": 1,
+      "message": "Fixed max_mem to be size_t which makes more sense. This assert didn\u0027t work otherwise. Also moved it to the block below with a comment so it\u0027s clearer what the goal is here.",
+      "revId": "aa088882120cd2c1f33650aa178a7cb4c83ab501",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dc2b5b41_5284f86d",
         "filename": "crypto/evp/scrypt.c",
         "patchSetId": 1
@@ -225,6 +510,24 @@
       "writtenOn": "2017-06-12T17:42:14Z",
       "side": 1,
       "message": "Dubious of the benefit of this too, although at least it\u0027s heap space.",
+      "revId": "aa088882120cd2c1f33650aa178a7cb4c83ab501",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e7fd9ee_845df64f",
+        "filename": "crypto/evp/scrypt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-12T18:48:57Z",
+      "side": 1,
+      "message": "Yeah, these were all from upstream\u0027s code. *shrug* Should I get rid of this one too?",
+      "parentUuid": "dc2b5b41_5284f86d",
       "revId": "aa088882120cd2c1f33650aa178a7cb4c83ab501",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
