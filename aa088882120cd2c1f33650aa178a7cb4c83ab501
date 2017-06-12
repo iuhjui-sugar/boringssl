@@ -365,6 +365,30 @@
     },
     {
       "key": {
+        "uuid": "c9319434_10a57896",
+        "filename": "crypto/evp/scrypt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-12T19:04:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "db7e1c75_2b69b483",
+      "range": {
+        "startLine": 115,
+        "startChar": 3,
+        "endLine": 115,
+        "endChar": 8
+      },
+      "revId": "aa088882120cd2c1f33650aa178a7cb4c83ab501",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c19c0643_88cf9d48",
         "filename": "crypto/evp/scrypt.c",
         "patchSetId": 1
@@ -385,6 +409,30 @@
       "revId": "aa088882120cd2c1f33650aa178a7cb4c83ab501",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cc1e48a_ae4ce19d",
+        "filename": "crypto/evp/scrypt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-12T19:04:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c19c0643_88cf9d48",
+      "range": {
+        "startLine": 129,
+        "startChar": 39,
+        "endLine": 129,
+        "endChar": 42
+      },
+      "revId": "aa088882120cd2c1f33650aa178a7cb4c83ab501",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -482,6 +530,30 @@
     },
     {
       "key": {
+        "uuid": "146a84a6_e544cd9c",
+        "filename": "crypto/evp/scrypt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-12T19:04:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4be567ef_273ceebf",
+      "range": {
+        "startLine": 159,
+        "startChar": 7,
+        "endLine": 159,
+        "endChar": 19
+      },
+      "revId": "aa088882120cd2c1f33650aa178a7cb4c83ab501",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b33971f5_5880f354",
         "filename": "crypto/evp/scrypt.c",
         "patchSetId": 1
@@ -496,6 +568,24 @@
       "revId": "aa088882120cd2c1f33650aa178a7cb4c83ab501",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f4710ee_1ef62467",
+        "filename": "crypto/evp/scrypt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-12T19:04:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b33971f5_5880f354",
+      "revId": "aa088882120cd2c1f33650aa178a7cb4c83ab501",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -528,6 +618,24 @@
       "side": 1,
       "message": "Yeah, these were all from upstream\u0027s code. *shrug* Should I get rid of this one too?",
       "parentUuid": "dc2b5b41_5284f86d",
+      "revId": "aa088882120cd2c1f33650aa178a7cb4c83ab501",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65351770_e5ddb310",
+        "filename": "crypto/evp/scrypt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-12T19:04:17Z",
+      "side": 1,
+      "message": "Yes. We generally don\u0027t do this and I don\u0027t think that do half-measures has much value.",
+      "parentUuid": "0e7fd9ee_845df64f",
       "revId": "aa088882120cd2c1f33650aa178a7cb4c83ab501",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
