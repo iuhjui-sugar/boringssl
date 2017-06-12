@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b5c143c9_01351da7",
+        "filename": "crypto/fipsmodule/aes/asm/aes-armv4.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-12T23:28:17Z",
+      "side": 1,
+      "message": "Any files with #undef like this are to counter the change in arm-xlate.pl.",
+      "revId": "3edbf22f92bfc39005befa1c98ca213e0c42a8e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
