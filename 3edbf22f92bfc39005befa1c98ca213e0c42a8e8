@@ -16,6 +16,24 @@
       "revId": "3edbf22f92bfc39005befa1c98ca213e0c42a8e8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abef427d_b6bf945e",
+        "filename": "crypto/fipsmodule/aes/asm/aes-armv4.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-12T23:43:25Z",
+      "side": 1,
+      "message": "You mean, with this change, if we\u0027re building for Thumb2, arm-xlate.pl will emit .thumb_func for each function. But, if we don\u0027t want that, we #undef __thumb2__?\n\n(.thumb_func tells the assembler to emit Thumb instructions for the function? Which doesn\u0027t work if the function hasn\u0027t been updated to be compatible?)",
+      "parentUuid": "b5c143c9_01351da7",
+      "revId": "3edbf22f92bfc39005befa1c98ca213e0c42a8e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
