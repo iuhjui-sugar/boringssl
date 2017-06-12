@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ca8030e4_ee286450",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-06-12T11:57:32Z",
+      "side": 1,
+      "message": "nit: depends",
+      "range": {
+        "startLine": 19,
+        "startChar": 53,
+        "endLine": 19,
+        "endChar": 59
+      },
+      "revId": "7e96a255b768a3774284ef01499276277a5cc585",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
