@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b6e437dc_ba03e374",
+        "filename": "crypto/fipsmodule/aes/asm/aes-armv4.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-12T23:39:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c153206c_4f7eb133",
+      "revId": "71338b08f573eb8ee6a53e5a14d5da8a2662c7e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39c47f8b_b2142287",
         "filename": "crypto/fipsmodule/bn/asm/armv4-mont.pl",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "71338b08f573eb8ee6a53e5a14d5da8a2662c7e8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "318472dd_dc26d338",
+        "filename": "crypto/fipsmodule/bn/asm/armv4-mont.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-12T23:39:07Z",
+      "side": 1,
+      "message": "If it doesn\u0027t do anything in ARM mode, why wrap in #ifdefs? (I guess in case of old assemblers that don\u0027t understand it?)",
+      "parentUuid": "39c47f8b_b2142287",
+      "revId": "71338b08f573eb8ee6a53e5a14d5da8a2662c7e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "dbf10314_1cf3aa2f",
+        "filename": "crypto/fipsmodule/bn/asm/armv4-mont.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-12T23:39:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1d1e26d8_3d905654",
+      "revId": "71338b08f573eb8ee6a53e5a14d5da8a2662c7e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3bc2df01_0a12e426",
         "filename": "crypto/fipsmodule/bn/asm/armv4-mont.pl",
         "patchSetId": 1
@@ -67,6 +121,24 @@
       "revId": "71338b08f573eb8ee6a53e5a14d5da8a2662c7e8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d5afcbd_b7a607e0",
+        "filename": "crypto/fipsmodule/bn/asm/armv4-mont.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-12T23:39:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3bc2df01_0a12e426",
+      "revId": "71338b08f573eb8ee6a53e5a14d5da8a2662c7e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
