@@ -1,0 +1,233 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "845858de_4ee89a95",
+        "filename": "crypto/evp/scrypt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-12T17:42:14Z",
+      "side": 1,
+      "message": "I would mention that this is the Salsa20/8 core function. (I don\u0027t know why the RFC calls it the \"word specification\" as it\u0027s called the core function everywhere else.)",
+      "revId": "aa088882120cd2c1f33650aa178a7cb4c83ab501",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ca5ae57_53fe18cd",
+        "filename": "crypto/evp/scrypt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-12T17:42:14Z",
+      "side": 1,
+      "message": "Drop this. We don\u0027t try to clear the stack, nor could we do a reasonable job without compiler assistance.",
+      "revId": "aa088882120cd2c1f33650aa178a7cb4c83ab501",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ceb9882f_029d8f0f",
+        "filename": "crypto/evp/scrypt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-12T17:42:14Z",
+      "side": 1,
+      "message": "|out| to be clear?",
+      "range": {
+        "startLine": 86,
+        "startChar": 39,
+        "endLine": 86,
+        "endChar": 40
+      },
+      "revId": "aa088882120cd2c1f33650aa178a7cb4c83ab501",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca0f1c64_0b7a13fb",
+        "filename": "crypto/evp/scrypt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-12T17:42:14Z",
+      "side": 1,
+      "message": "I would drop \"inline\" in a .c file. I think compilers basically ignore it these days anyway :)",
+      "range": {
+        "startLine": 86,
+        "startChar": 7,
+        "endLine": 86,
+        "endChar": 13
+      },
+      "revId": "aa088882120cd2c1f33650aa178a7cb4c83ab501",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a10a5b7_553fbd15",
+        "filename": "crypto/evp/scrypt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-12T17:42:14Z",
+      "side": 1,
+      "message": "I think this should be:\n\nand must each be one scrypt block (2×|r| Salsa20 blocks) long.",
+      "range": {
+        "startLine": 93,
+        "startChar": 52,
+        "endLine": 94,
+        "endChar": 39
+      },
+      "revId": "aa088882120cd2c1f33650aa178a7cb4c83ab501",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d2b6dc3_438b0eaf",
+        "filename": "crypto/evp/scrypt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-12T17:42:14Z",
+      "side": 1,
+      "message": "(ditto.)",
+      "revId": "aa088882120cd2c1f33650aa178a7cb4c83ab501",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07b693bf_6369b0de",
+        "filename": "crypto/evp/scrypt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-12T17:42:14Z",
+      "side": 1,
+      "message": "\"(2×|r| Salsa20 blocks)\"\n\n(\"or\" suggests an alternative rather than a second interpretation of the same value)",
+      "range": {
+        "startLine": 113,
+        "startChar": 20,
+        "endLine": 113,
+        "endChar": 45
+      },
+      "revId": "aa088882120cd2c1f33650aa178a7cb4c83ab501",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96f1547e_f9bedab8",
+        "filename": "crypto/evp/scrypt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-12T17:42:14Z",
+      "side": 1,
+      "message": "ditto.",
+      "range": {
+        "startLine": 114,
+        "startChar": 20,
+        "endLine": 114,
+        "endChar": 48
+      },
+      "revId": "aa088882120cd2c1f33650aa178a7cb4c83ab501",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4708e951_ab3939f8",
+        "filename": "crypto/evp/scrypt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-12T17:42:14Z",
+      "side": 1,
+      "message": "128×r / 8 ?\n\n(The current spacing suggests 128 × (r/8), which I don\u0027t think is correct.)",
+      "range": {
+        "startLine": 158,
+        "startChar": 29,
+        "endLine": 158,
+        "endChar": 40
+      },
+      "revId": "aa088882120cd2c1f33650aa178a7cb4c83ab501",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "315add91_9ca84b1c",
+        "filename": "crypto/evp/scrypt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-12T17:42:14Z",
+      "side": 1,
+      "message": "This skips the check if r \u003e\u003d 4. Do we want to fail the check instead?",
+      "range": {
+        "startLine": 159,
+        "startChar": 7,
+        "endLine": 159,
+        "endChar": 19
+      },
+      "revId": "aa088882120cd2c1f33650aa178a7cb4c83ab501",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc2b5b41_5284f86d",
+        "filename": "crypto/evp/scrypt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-12T17:42:14Z",
+      "side": 1,
+      "message": "Dubious of the benefit of this too, although at least it\u0027s heap space.",
+      "revId": "aa088882120cd2c1f33650aa178a7cb4c83ab501",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
