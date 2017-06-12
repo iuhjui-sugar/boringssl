@@ -639,6 +639,24 @@
       "revId": "aa088882120cd2c1f33650aa178a7cb4c83ab501",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "210e65e8_beba52e7",
+        "filename": "crypto/evp/scrypt.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-12T19:09:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "65351770_e5ddb310",
+      "revId": "aa088882120cd2c1f33650aa178a7cb4c83ab501",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
