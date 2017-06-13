@@ -578,6 +578,8 @@ OPENSSL_EXPORT int DTLSv1_handle_timeout(SSL *ssl);
 #define DTLS1_2_VERSION 0xfefd
 
 #define TLS1_3_DRAFT_VERSION 0x7f12
+#define TLS1_3_SH_DRAFT_VERSION 0x7e01
+#define TLS1_3_CCS_DRAFT_VERSION 0x7e02
 
 /* SSL_CTX_set_min_proto_version sets the minimum protocol version for |ctx| to
  * |version|. If |version| is zero, the default minimum version is used. It
@@ -3132,6 +3134,12 @@ OPENSSL_EXPORT int SSL_renegotiate_pending(SSL *ssl);
 /* SSL_total_renegotiations returns the total number of renegotiation handshakes
  * performed by |ssl|. This includes the pending renegotiation, if any. */
 OPENSSL_EXPORT int SSL_total_renegotiations(const SSL *ssl);
+
+/* SSL_CTX_set_tls13_compat_mode_enabled sets which compatibility version of
+ * TLS 1.3 we negotiate. |compat_mode| of 0 negotiates the default TLS 1.3, a
+ * value of 1 negotiates the SH compat mode of TLS 1.3, and a value of 2
+ * negotiates the ChangeCipherSpec compat mode of TLS 1.3. */
+OPENSSL_EXPORT void SSL_CTX_set_tls13_compat_mode(SSL_CTX *ctx, int mode);
 
 /* SSL_MAX_CERT_LIST_DEFAULT is the default maximum length, in bytes, of a peer
  * certificate chain. */
