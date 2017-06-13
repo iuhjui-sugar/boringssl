@@ -1170,6 +1170,10 @@ static bssl::UniquePtr<SSL_CTX> SetupCtx(SSL_CTX *old_ctx,
     SSL_CTX_set_early_data_enabled(ssl_ctx.get(), 1);
   }
 
+  if (config->enable_tls13_compat_mode) {
+    SSL_CTX_set_tls13_compat_mode_enabled(ssl_ctx.get(), 1);
+  }
+
   if (config->allow_unknown_alpn_protos) {
     SSL_CTX_set_allow_unknown_alpn_protos(ssl_ctx.get(), 1);
   }

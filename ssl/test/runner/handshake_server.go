@@ -368,6 +368,7 @@ func (hs *serverHandshakeState) doTLS13Handshake() error {
 	hs.hello = &serverHelloMsg{
 		isDTLS:          c.isDTLS,
 		vers:            c.wireVersion,
+		sessionId:       hs.clientHello.sessionId,
 		versOverride:    config.Bugs.SendServerHelloVersion,
 		customExtension: config.Bugs.CustomUnencryptedExtension,
 		unencryptedALPN: config.Bugs.SendUnencryptedALPN,
@@ -760,9 +761,14 @@ ResendHelloRetryRequest:
 	}
 	c.flushHandshake()
 
+	if c.wireVersion == tls13CompatDraftVersion {
+		c.writeRecord(recordTypeChangeCipherSpec, []byte{1})
+	}
+
 	// Switch to handshake traffic keys.
 	serverHandshakeTrafficSecret := hs.finishedHash.deriveSecret(serverHandshakeTrafficLabel)
 	c.out.useTrafficSecret(c.vers, hs.suite, serverHandshakeTrafficSecret, serverWrite)
+
 	// Derive handshake traffic read key, but don't switch yet.
 	clientHandshakeTrafficSecret := hs.finishedHash.deriveSecret(clientHandshakeTrafficLabel)
 
@@ -916,6 +922,12 @@ ResendHelloRetryRequest:
 			if err == nil {
 				panic("readRecord(recordTypeAlert) returned nil")
 			}
+			return err
+		}
+	}
+
+	if c.wireVersion == tls13CompatDraftVersion && !c.skipEarlyData {
+		if err := c.readRecord(recordTypeChangeCipherSpec); err != nil {
 			return err
 		}
 	}

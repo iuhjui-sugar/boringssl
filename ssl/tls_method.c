@@ -75,6 +75,7 @@ static int ssl3_version_from_wire(uint16_t *out_version,
       *out_version = wire_version;
       return 1;
     case TLS1_3_DRAFT_VERSION:
+    case TLS1_3_COMPAT_DRAFT_VERSION:
       *out_version = TLS1_3_VERSION;
       return 1;
   }

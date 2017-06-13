@@ -925,6 +925,7 @@ enum ssl_hs_wait_t {
   ssl_hs_pending_ticket,
   ssl_hs_early_data_rejected,
   ssl_hs_read_end_of_early_data,
+  ssl_hs_read_change_cipher_spec,
 };
 
 struct ssl_handshake_st {
@@ -957,6 +958,10 @@ struct ssl_handshake_st {
   /* max_version is the maximum accepted protocol version, taking account both
    * |SSL_OP_NO_*| and |SSL_CTX_set_max_proto_version| APIs. */
   uint16_t max_version;
+
+  /* session_id is the session ID in the ClientHello, used for TLS 1.3
+   * compatibility mode. */
+  uint8_t session_id[32];
 
   size_t hash_len;
   uint8_t secret[EVP_MAX_MD_SIZE];
@@ -1394,6 +1399,9 @@ typedef struct cert_st {
 
   /* If enable_early_data is non-zero, early data can be sent and accepted. */
   unsigned enable_early_data:1;
+
+  /* If tls13_compat_mode is non-zero, we use TLS 1.3 compatibiliy mode. */
+  unsigned tls13_compat_mode:1;
 } CERT;
 
 /* SSL_METHOD is a compatibility structure to support the legacy version-locked

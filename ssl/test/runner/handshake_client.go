@@ -48,6 +48,9 @@ func (c *Conn) versionToWire(vers uint16) uint16 {
 		case VersionSSL30, VersionTLS10, VersionTLS11, VersionTLS12:
 			return vers
 		case VersionTLS13:
+			if c.config.TLS13CompatMode {
+				return tls13CompatDraftVersion
+			}
 			return tls13DraftVersion
 		}
 	}
@@ -327,6 +330,14 @@ NextCipherSuite:
 			} else {
 				hello.sessionId = session.sessionId
 			}
+		}
+	}
+
+	if maxVersion >= VersionTLS13 && c.config.TLS13CompatMode {
+		hello.sessionId = make([]byte, 32)
+		if _, err := io.ReadFull(c.config.rand(), hello.sessionId); err != nil {
+			c.sendAlert(alertInternalError)
+			return errors.New("tls: short read from Rand: " + err.Error())
 		}
 	}
 
@@ -741,6 +752,12 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 		hs.finishedHash.addEntropy(zeroSecret)
 	}
 
+	if c.wireVersion == tls13CompatDraftVersion {
+		if err := c.readRecord(recordTypeChangeCipherSpec); err != nil {
+			return err
+		}
+	}
+
 	// Derive handshake traffic keys and switch read key to handshake
 	// traffic key.
 	clientHandshakeTrafficSecret := hs.finishedHash.deriveSecret(clientHandshakeTrafficLabel)
@@ -920,6 +937,11 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 		}
 		c.sendAlert(alertEndOfEarlyData)
 	}
+
+	if c.wireVersion == tls13CompatDraftVersion {
+		c.writeRecord(recordTypeChangeCipherSpec, []byte{1})
+	}
+
 	c.out.useTrafficSecret(c.vers, hs.suite, clientHandshakeTrafficSecret, clientWrite)
 
 	if certReq != nil && !c.config.Bugs.SkipClientCertificate {
