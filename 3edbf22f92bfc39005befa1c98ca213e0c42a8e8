@@ -34,6 +34,24 @@
       "revId": "3edbf22f92bfc39005befa1c98ca213e0c42a8e8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a95e7c0_afa425ad",
+        "filename": "crypto/fipsmodule/aes/asm/aes-armv4.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-13T15:23:00Z",
+      "side": 1,
+      "message": "I would have expected it to fail to assemble because the instruction stream doesn\u0027t work for Thumb, but that doesn\u0027t seem to be what\u0027s happening with this CL: https://boringssl-review.googlesource.com/c/17113/\n\nI\u0027ll toy with Apple\u0027s tools to understand what\u0027s going on before landing this tower.",
+      "parentUuid": "abef427d_b6bf945e",
+      "revId": "3edbf22f92bfc39005befa1c98ca213e0c42a8e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
