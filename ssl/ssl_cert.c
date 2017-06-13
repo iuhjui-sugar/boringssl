@@ -195,6 +195,7 @@ CERT *ssl_cert_dup(CERT *cert) {
   OPENSSL_memcpy(ret->sid_ctx, cert->sid_ctx, sizeof(ret->sid_ctx));
 
   ret->enable_early_data = cert->enable_early_data;
+  ret->tls13_compat_mode = cert->tls13_compat_mode;
 
   return ret;
 
