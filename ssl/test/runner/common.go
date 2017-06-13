@@ -32,10 +32,22 @@ const (
 )
 
 // A draft version of TLS 1.3 that is sent over the wire for the current draft.
-const tls13DraftVersion = 0x7f12
+const (
+	tls13DraftVersion    = 0x7f12
+	tls13SHDraftVersion  = 0x7e01
+	tls13CCSDraftVersion = 0x7e02
+)
+
+const (
+	TLS13VariantDefault = 0
+	TLS13VariantSH      = 1
+	TLS13VariantCCS     = 2
+)
 
 var allTLSWireVersions = []uint16{
 	tls13DraftVersion,
+	tls13SHDraftVersion,
+	tls13CCSDraftVersion,
 	VersionTLS12,
 	VersionTLS11,
 	VersionTLS10,
@@ -403,6 +415,9 @@ type Config struct {
 	// If zero, then the maximum version supported by this package is used,
 	// which is currently TLS 1.2.
 	MaxVersion uint16
+
+	// TLS13Variant is the variant of TLS 1.3 to use.
+	TLS13Variant int
 
 	// CurvePreferences contains the elliptic curves that will be used in
 	// an ECDHE handshake, in preference order. If empty, the default will
@@ -1460,6 +1475,12 @@ func (c *Config) defaultCurves() map[CurveID]bool {
 // it returns true and the corresponding protocol version. Otherwise, it returns
 // false.
 func (c *Config) isSupportedVersion(wireVers uint16, isDTLS bool) (uint16, bool) {
+	if (c.TLS13Variant != TLS13VariantCCS && wireVers == tls13CCSDraftVersion) ||
+		(c.TLS13Variant != TLS13VariantSH && wireVers == tls13SHDraftVersion) ||
+		(c.TLS13Variant != TLS13VariantDefault && wireVers == tls13DraftVersion) {
+		return 0, false
+	}
+
 	vers, ok := wireToVersion(wireVers, isDTLS)
 	if !ok || c.minVersion(isDTLS) > vers || vers > c.maxVersion(isDTLS) {
 		return 0, false

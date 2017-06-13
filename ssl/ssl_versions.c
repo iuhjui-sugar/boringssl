@@ -33,6 +33,8 @@ int ssl_protocol_version_from_wire(uint16_t *out, uint16_t version) {
       return 1;
 
     case TLS1_3_DRAFT_VERSION:
+    case TLS1_3_SH_DRAFT_VERSION:
+    case TLS1_3_CCS_DRAFT_VERSION:
       *out = TLS1_3_VERSION;
       return 1;
 
@@ -55,6 +57,8 @@ int ssl_protocol_version_from_wire(uint16_t *out, uint16_t version) {
 
 static const uint16_t kTLSVersions[] = {
     TLS1_3_DRAFT_VERSION,
+    TLS1_3_SH_DRAFT_VERSION,
+    TLS1_3_CCS_DRAFT_VERSION,
     TLS1_2_VERSION,
     TLS1_1_VERSION,
     TLS1_VERSION,
@@ -95,7 +99,9 @@ static int set_version_bound(const SSL_PROTOCOL_METHOD *method, uint16_t *out,
   /* The public API uses wire versions, except we use |TLS1_3_VERSION|
    * everywhere to refer to any draft TLS 1.3 versions. In this direction, we
    * map it to some representative TLS 1.3 draft version. */
-  if (version == TLS1_3_DRAFT_VERSION) {
+  if (version == TLS1_3_DRAFT_VERSION ||
+      version == TLS1_3_SH_DRAFT_VERSION ||
+      version == TLS1_3_CCS_DRAFT_VERSION) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_UNKNOWN_SSL_VERSION);
     return 0;
   }
@@ -226,7 +232,9 @@ int ssl_get_version_range(const SSL *ssl, uint16_t *out_min_version,
 
 int SSL_version(const SSL *ssl) {
   /* Report TLS 1.3 draft version as TLS 1.3 in the public API. */
-  if (ssl->version == TLS1_3_DRAFT_VERSION) {
+  if (ssl->version == TLS1_3_DRAFT_VERSION ||
+      ssl->version == TLS1_3_SH_DRAFT_VERSION ||
+      ssl->version == TLS1_3_CCS_DRAFT_VERSION) {
     return TLS1_3_VERSION;
   }
 
@@ -237,6 +245,8 @@ static const char *ssl_get_version(int version) {
   switch (version) {
     /* Report TLS 1.3 draft version as TLS 1.3 in the public API. */
     case TLS1_3_DRAFT_VERSION:
+    case TLS1_3_SH_DRAFT_VERSION:
+    case TLS1_3_CCS_DRAFT_VERSION:
       return "TLSv1.3";
 
     case TLS1_2_VERSION:
@@ -283,6 +293,16 @@ uint16_t ssl3_protocol_version(const SSL *ssl) {
 }
 
 int ssl_supports_version(SSL_HANDSHAKE *hs, uint16_t version) {
+  if (!hs->ssl->server &&
+      ((hs->ssl->ctx->tls13_variant != tls13_change_cipher_spec_variant &&
+       version == TLS1_3_CCS_DRAFT_VERSION) ||
+      (hs->ssl->ctx->tls13_variant != tls13_server_hello_variant &&
+       version == TLS1_3_SH_DRAFT_VERSION) ||
+      (hs->ssl->ctx->tls13_variant != tls13_default &&
+       version == TLS1_3_DRAFT_VERSION))) {
+    return 0;
+  }
+
   uint16_t protocol_version;
   return method_supports_version(hs->ssl->method, version) &&
          ssl_protocol_version_from_wire(&protocol_version, version) &&

@@ -660,9 +660,18 @@ int ssl_write_client_hello(SSL_HANDSHAKE *hs) {
   if (!CBB_add_u16(&body, hs->client_version) ||
       !CBB_add_bytes(&body, ssl->s3->client_random, SSL3_RANDOM_SIZE) ||
       !CBB_add_u8_length_prefixed(&body, &child) ||
-      (has_session &&
-       !CBB_add_bytes(&child, ssl->session->session_id,
-                      ssl->session->session_id_length))) {
+      (has_session && !CBB_add_bytes(&child, ssl->session->session_id,
+                                     ssl->session->session_id_length))) {
+    goto err;
+  }
+
+  /* If we aren't resuming or doing renego, add a session ID if we are using a
+   * TLS 1.3 variant that requires a session ID in the ClientHello. */
+  if (!has_session &&
+       ssl->s3->established_session == NULL &&
+       hs->max_version >= TLS1_3_VERSION &&
+       ssl->ctx->tls13_variant != tls13_default &&
+       !CBB_add_bytes(&child, hs->session_id, sizeof(hs->session_id))) {
     goto err;
   }
 
@@ -745,6 +754,12 @@ static int ssl3_send_client_hello(SSL_HANDSHAKE *hs) {
    * renegerate the client_random. The random must be reused. */
   if ((!SSL_is_dtls(ssl) || !ssl->d1->send_cookie) &&
       !RAND_bytes(ssl->s3->client_random, sizeof(ssl->s3->client_random))) {
+    return -1;
+  }
+
+  /* Initialize a random session ID in case we are using a TLS 1.3 variant. */
+  if (ssl->ctx->tls13_variant != tls13_default &&
+      !RAND_bytes(hs->session_id, sizeof(hs->session_id))) {
     return -1;
   }
 

@@ -974,6 +974,7 @@ enum ssl_hs_wait_t {
   ssl_hs_pending_ticket,
   ssl_hs_early_data_rejected,
   ssl_hs_read_end_of_early_data,
+  ssl_hs_read_change_cipher_spec,
 };
 
 struct ssl_handshake_st {
@@ -1006,6 +1007,10 @@ struct ssl_handshake_st {
   /* max_version is the maximum accepted protocol version, taking account both
    * |SSL_OP_NO_*| and |SSL_CTX_set_max_proto_version| APIs. */
   uint16_t max_version;
+
+  /* session_id is the session ID in the ClientHello, used for some TLS 1.3
+   * variants. */
+  uint8_t session_id[32];
 
   size_t hash_len;
   uint8_t secret[EVP_MAX_MD_SIZE];
@@ -1208,6 +1213,9 @@ void ssl_handshake_free(SSL_HANDSHAKE *hs);
 /* ssl_check_message_type checks if the current message has type |type|. If so
  * it returns one. Otherwise, it sends an alert and returns zero. */
 int ssl_check_message_type(SSL *ssl, int type);
+
+int ssl_tls13_server_hello_variant(const SSL *ssl);
+int ssl_tls13_change_cipher_spec_variant(const SSL *ssl);
 
 /* tls13_handshake runs the TLS 1.3 handshake. It returns one on success and <=
  * 0 on error. It sets |out_early_return| to one if we've completed the

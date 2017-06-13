@@ -845,6 +845,10 @@ void SSL_CTX_set_early_data_enabled(SSL_CTX *ctx, int enabled) {
   ctx->cert->enable_early_data = !!enabled;
 }
 
+void SSL_CTX_set_tls13_variant(SSL_CTX *ctx, enum tls13_variant_t variant) {
+  ctx->tls13_variant = variant;
+}
+
 void SSL_set_early_data_enabled(SSL *ssl, int enabled) {
   ssl->cert->enable_early_data = !!enabled;
 }
@@ -887,6 +891,15 @@ static int bio_retry_reason_to_error(int reason) {
     default:
       return SSL_ERROR_SYSCALL;
   }
+}
+
+int ssl_tls13_server_hello_variant(const SSL *ssl) {
+  return ssl->version == TLS1_3_SH_DRAFT_VERSION ||
+      ssl->version == TLS1_3_CCS_DRAFT_VERSION;
+}
+
+int ssl_tls13_change_cipher_spec_variant(const SSL *ssl) {
+  return ssl->version == TLS1_3_CCS_DRAFT_VERSION;
 }
 
 int SSL_get_error(const SSL *ssl, int ret_code) {
