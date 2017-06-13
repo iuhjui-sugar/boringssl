@@ -567,9 +567,9 @@ int rsa_default_private_transform(RSA *rsa, uint8_t *out, const uint8_t *in,
     goto err;
   }
 
-  const int no_blinding = rsa->flags & RSA_FLAG_NO_BLINDING;
+  const int do_blinding = (rsa->flags & RSA_FLAG_NO_BLINDING) == 0;
 
-  if (rsa->e == NULL && !no_blinding) {
+  if (rsa->e == NULL && do_blinding) {
     /* We cannot do blinding or verification without |e|, and continuing without
      * those countermeasures is dangerous. However, the Java/Android RSA API
      * requires support for keys where only |d| and |n| (and not |e|) are known.
@@ -578,7 +578,7 @@ int rsa_default_private_transform(RSA *rsa, uint8_t *out, const uint8_t *in,
     goto err;
   }
 
-  if (!no_blinding) {
+  if (do_blinding) {
     blinding = rsa_blinding_get(rsa, &blinding_index, ctx);
     if (blinding == NULL) {
       OPENSSL_PUT_ERROR(RSA, ERR_R_INTERNAL_ERROR);
@@ -619,7 +619,7 @@ int rsa_default_private_transform(RSA *rsa, uint8_t *out, const uint8_t *in,
 
   }
 
-  if (!no_blinding &&
+  if (do_blinding &&
       !BN_BLINDING_invert(result, blinding, rsa->mont_n, ctx)) {
     goto err;
   }
