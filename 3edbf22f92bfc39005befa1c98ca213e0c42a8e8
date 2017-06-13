@@ -52,6 +52,24 @@
       "revId": "3edbf22f92bfc39005befa1c98ca213e0c42a8e8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb8f18e6_95dc86f9",
+        "filename": "crypto/fipsmodule/aes/asm/aes-armv4.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-13T17:39:06Z",
+      "side": 1,
+      "message": "Okay, I figured it out. So LLVM and GNU disagree on what .thumb_func foo means. GNU believes it means tag foo as being thumb, so the linker can sort out calls, and also emit an implicit .thumb.\n\nLLVM only believes it\u0027s the former. So if the .thumb/.code/.arm prologues ever mismatch against the __thumb2__ preprocessor symbol on iOS, we will assemble the function in ARM mode, but tell the linker it is Thumb, and all calls to it will explode.\n\nSo before https://boringssl-review.googlesource.com/c/17113/, any functions in those two files indeed did not work at all. I\u0027m guessing no one noticed because Apple believes in compile-time hardware capabilities, which means to get AES and PMULL instructions, you must be targeting AArch64, where Thumb mode doesn\u0027t exist.",
+      "parentUuid": "1a95e7c0_afa425ad",
+      "revId": "3edbf22f92bfc39005befa1c98ca213e0c42a8e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
