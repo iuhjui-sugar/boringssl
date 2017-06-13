@@ -30,6 +30,8 @@ const (
 
 // A draft version of TLS 1.3 that is sent over the wire for the current draft.
 const tls13DraftVersion = 0x7f12
+const tls13SHDraftVersion = 0x7e01
+const tls13CCSDraftVersion = 0x7e02
 
 const (
 	maxPlaintext        = 16384        // maximum plaintext payload length
@@ -387,6 +389,9 @@ type Config struct {
 	// If zero, then the maximum version supported by this package is used,
 	// which is currently TLS 1.2.
 	MaxVersion uint16
+
+	// TLS13Variant is the variant of TLS 1.3 to use.
+	TLS13Variant int
 
 	// CurvePreferences contains the elliptic curves that will be used in
 	// an ECDHE handshake, in preference order. If empty, the default will

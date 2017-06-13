@@ -814,6 +814,7 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 
 type serverHelloMsg struct {
 	raw               []byte
+	c                 *Conn
 	isDTLS            bool
 	vers              uint16
 	versOverride      uint16
@@ -842,7 +843,7 @@ func (m *serverHelloMsg) marshal() []byte {
 	// m.vers is used both to determine the format of the rest of the
 	// ServerHello and to override the value, so include a second version
 	// field.
-	vers, ok := wireToVersion(m.vers, m.isDTLS)
+	vers, ok := m.c.wireToVersion(m.vers)
 	if !ok {
 		panic("unknown version")
 	}
@@ -853,12 +854,12 @@ func (m *serverHelloMsg) marshal() []byte {
 	}
 
 	hello.addBytes(m.random)
-	if vers < VersionTLS13 {
+	if vers < VersionTLS13 || m.vers == tls13SHDraftVersion || m.vers == tls13CCSDraftVersion {
 		sessionId := hello.addU8LengthPrefixed()
 		sessionId.addBytes(m.sessionId)
 	}
 	hello.addU16(m.cipherSuite)
-	if vers < VersionTLS13 {
+	if vers < VersionTLS13 || m.vers == tls13SHDraftVersion || m.vers == tls13CCSDraftVersion {
 		hello.addU8(m.compressionMethod)
 	}
 
@@ -907,13 +908,13 @@ func (m *serverHelloMsg) unmarshal(data []byte) bool {
 	}
 	m.raw = data
 	m.vers = uint16(data[4])<<8 | uint16(data[5])
-	vers, ok := wireToVersion(m.vers, m.isDTLS)
+	vers, ok := m.c.wireToVersion(m.vers)
 	if !ok {
 		return false
 	}
 	m.random = data[6:38]
 	data = data[38:]
-	if vers < VersionTLS13 {
+	if vers < VersionTLS13 || m.vers == tls13SHDraftVersion || m.vers == tls13CCSDraftVersion {
 		sessionIdLen := int(data[0])
 		if sessionIdLen > 32 || len(data) < 1+sessionIdLen {
 			return false
@@ -926,7 +927,7 @@ func (m *serverHelloMsg) unmarshal(data []byte) bool {
 	}
 	m.cipherSuite = uint16(data[0])<<8 | uint16(data[1])
 	data = data[2:]
-	if vers < VersionTLS13 {
+	if vers < VersionTLS13 || m.vers == tls13SHDraftVersion || m.vers == tls13CCSDraftVersion {
 		if len(data) < 1 {
 			return false
 		}

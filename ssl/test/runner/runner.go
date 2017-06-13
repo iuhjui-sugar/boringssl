@@ -1173,18 +1173,21 @@ func runTest(test *testCase, shimPath string, mallocNumToFail int64) error {
 }
 
 type tlsVersion struct {
-	name    string
-	version uint16
-	flag    string
-	hasDTLS bool
+	name         string
+	version      uint16
+	flag         string
+	hasDTLS      bool
+	tls13Variant int
 }
 
 var tlsVersions = []tlsVersion{
-	{"SSL3", VersionSSL30, "-no-ssl3", false},
-	{"TLS1", VersionTLS10, "-no-tls1", true},
-	{"TLS11", VersionTLS11, "-no-tls11", false},
-	{"TLS12", VersionTLS12, "-no-tls12", true},
-	{"TLS13", VersionTLS13, "-no-tls13", false},
+	{"SSL3", VersionSSL30, "-no-ssl3", false, 0},
+	{"TLS1", VersionTLS10, "-no-tls1", true, 0},
+	{"TLS11", VersionTLS11, "-no-tls11", false, 0},
+	{"TLS12", VersionTLS12, "-no-tls12", true, 0},
+	{"TLS13", VersionTLS13, "-no-tls13", false, 0},
+	{"TLS13SHVariant", VersionTLS13, "-no-tls13", false, 1},
+	{"TLS13CCSVariant", VersionTLS13, "-no-tls13", false, 2},
 }
 
 type testCipherSuite struct {
@@ -3697,6 +3700,62 @@ func addStateMachineCoverageTests(config stateMachineTestConfig) {
 
 		tests = append(tests, testCase{
 			testType: clientTest,
+			name:     "TLS13SHVariant-EarlyData-Client",
+			config: Config{
+				MaxVersion:       VersionTLS13,
+				MinVersion:       VersionTLS13,
+				TLS13Variant:     1,
+				MaxEarlyDataSize: 16384,
+			},
+			resumeConfig: &Config{
+				MaxVersion:       VersionTLS13,
+				MinVersion:       VersionTLS13,
+				TLS13Variant:     1,
+				MaxEarlyDataSize: 16384,
+				Bugs: ProtocolBugs{
+					ExpectEarlyData: [][]byte{{'h', 'e', 'l', 'l', 'o'}},
+				},
+			},
+			resumeSession: true,
+			flags: []string{
+				"-enable-early-data",
+				"-expect-early-data-info",
+				"-expect-accept-early-data",
+				"-on-resume-shim-writes-first",
+				"-tls13-variant", "1",
+			},
+		})
+
+		tests = append(tests, testCase{
+			testType: clientTest,
+			name:     "TLS13CCSVariant-EarlyData-Client",
+			config: Config{
+				MaxVersion:       VersionTLS13,
+				MinVersion:       VersionTLS13,
+				TLS13Variant:     2,
+				MaxEarlyDataSize: 16384,
+			},
+			resumeConfig: &Config{
+				MaxVersion:       VersionTLS13,
+				MinVersion:       VersionTLS13,
+				TLS13Variant:     2,
+				MaxEarlyDataSize: 16384,
+				Bugs: ProtocolBugs{
+					ExpectEarlyData: [][]byte{{'h', 'e', 'l', 'l', 'o'}},
+				},
+			},
+			resumeSession: true,
+			flags: []string{
+				"-enable-early-data",
+				"-expect-early-data-info",
+				"-expect-accept-early-data",
+				"-on-resume-shim-writes-first",
+				"-tls13-variant", "2",
+			},
+		})
+
+		tests = append(tests, testCase{
+			testType: clientTest,
 			name:     "TLS13-EarlyData-TooMuchData-Client",
 			config: Config{
 				MaxVersion:       VersionTLS13,
@@ -3787,6 +3846,48 @@ func addStateMachineCoverageTests(config stateMachineTestConfig) {
 			config: Config{
 				MaxVersion: VersionTLS13,
 				MinVersion: VersionTLS13,
+				Bugs: ProtocolBugs{
+					SendEarlyData:           [][]byte{{1, 2, 3, 4}},
+					ExpectEarlyDataAccepted: true,
+					ExpectHalfRTTData:       [][]byte{{254, 253, 252, 251}},
+				},
+			},
+			messageCount:  2,
+			resumeSession: true,
+			flags: []string{
+				"-enable-early-data",
+				"-expect-accept-early-data",
+			},
+		})
+
+		tests = append(tests, testCase{
+			testType: serverTest,
+			name:     "TLS13SHVariant-EarlyData-Server",
+			config: Config{
+				MaxVersion:   VersionTLS13,
+				MinVersion:   VersionTLS13,
+				TLS13Variant: 1,
+				Bugs: ProtocolBugs{
+					SendEarlyData:           [][]byte{{1, 2, 3, 4}},
+					ExpectEarlyDataAccepted: true,
+					ExpectHalfRTTData:       [][]byte{{254, 253, 252, 251}},
+				},
+			},
+			messageCount:  2,
+			resumeSession: true,
+			flags: []string{
+				"-enable-early-data",
+				"-expect-accept-early-data",
+			},
+		})
+
+		tests = append(tests, testCase{
+			testType: serverTest,
+			name:     "TLS13CCSVariant-EarlyData-Server",
+			config: Config{
+				MaxVersion:   VersionTLS13,
+				MinVersion:   VersionTLS13,
+				TLS13Variant: 2,
 				Bugs: ProtocolBugs{
 					SendEarlyData:           [][]byte{{1, 2, 3, 4}},
 					ExpectEarlyDataAccepted: true,
@@ -4561,6 +4662,10 @@ func addVersionNegotiationTests() {
 		// Assemble flags to disable all newer versions on the shim.
 		var flags []string
 		for _, vers := range tlsVersions[i+1:] {
+			// Don't disable alternate variants of the current version.
+			if vers.flag == shimVers.flag {
+				continue
+			}
 			flags = append(flags, vers.flag)
 		}
 
@@ -4575,6 +4680,11 @@ func addVersionNegotiationTests() {
 				if runnerVers.version < shimVers.version {
 					expectedVersion = runnerVers.version
 				}
+				expectedServerVersion := expectedVersion
+				expectedClientVersion := expectedVersion
+				if expectedVersion == VersionTLS13 && runnerVers.tls13Variant != shimVers.tls13Variant {
+					expectedClientVersion = VersionTLS12
+				}
 
 				suffix := shimVers.name + "-" + runnerVers.name
 				if protocol == dtls {
@@ -4582,6 +4692,7 @@ func addVersionNegotiationTests() {
 				}
 
 				shimVersFlag := strconv.Itoa(int(configVersionToWire(shimVers.version, protocol == dtls)))
+				tls13VariantFlag := strconv.Itoa(shimVers.tls13Variant)
 
 				// Determine the expected initial record-layer versions.
 				clientVers := shimVers.version
@@ -4600,26 +4711,28 @@ func addVersionNegotiationTests() {
 					testType: clientTest,
 					name:     "VersionNegotiation-Client-" + suffix,
 					config: Config{
-						MaxVersion: runnerVers.version,
+						MaxVersion:   runnerVers.version,
+						TLS13Variant: runnerVers.tls13Variant,
 						Bugs: ProtocolBugs{
 							ExpectInitialRecordVersion: clientVers,
 						},
 					},
-					flags:           flags,
-					expectedVersion: expectedVersion,
+					flags:           append(flags, "-tls13-variant", tls13VariantFlag),
+					expectedVersion: expectedClientVersion,
 				})
 				testCases = append(testCases, testCase{
 					protocol: protocol,
 					testType: clientTest,
 					name:     "VersionNegotiation-Client2-" + suffix,
 					config: Config{
-						MaxVersion: runnerVers.version,
+						MaxVersion:   runnerVers.version,
+						TLS13Variant: runnerVers.tls13Variant,
 						Bugs: ProtocolBugs{
 							ExpectInitialRecordVersion: clientVers,
 						},
 					},
-					flags:           []string{"-max-version", shimVersFlag},
-					expectedVersion: expectedVersion,
+					flags:           []string{"-max-version", shimVersFlag, "-tls13-variant", tls13VariantFlag},
+					expectedVersion: expectedClientVersion,
 				})
 
 				testCases = append(testCases, testCase{
@@ -4627,26 +4740,28 @@ func addVersionNegotiationTests() {
 					testType: serverTest,
 					name:     "VersionNegotiation-Server-" + suffix,
 					config: Config{
-						MaxVersion: runnerVers.version,
+						MaxVersion:   runnerVers.version,
+						TLS13Variant: runnerVers.tls13Variant,
 						Bugs: ProtocolBugs{
 							ExpectInitialRecordVersion: serverVers,
 						},
 					},
-					flags:           flags,
-					expectedVersion: expectedVersion,
+					flags:           append(flags, "-tls13-variant", tls13VariantFlag),
+					expectedVersion: expectedServerVersion,
 				})
 				testCases = append(testCases, testCase{
 					protocol: protocol,
 					testType: serverTest,
 					name:     "VersionNegotiation-Server2-" + suffix,
 					config: Config{
-						MaxVersion: runnerVers.version,
+						MaxVersion:   runnerVers.version,
+						TLS13Variant: runnerVers.tls13Variant,
 						Bugs: ProtocolBugs{
 							ExpectInitialRecordVersion: serverVers,
 						},
 					},
-					flags:           []string{"-max-version", shimVersFlag},
-					expectedVersion: expectedVersion,
+					flags:           []string{"-max-version", shimVersFlag, "-tls13-variant", tls13VariantFlag},
+					expectedVersion: expectedServerVersion,
 				})
 			}
 		}
@@ -4902,6 +5017,10 @@ func addMinimumVersionTests() {
 		// Assemble flags to disable all older versions on the shim.
 		var flags []string
 		for _, vers := range tlsVersions[:i] {
+			// Don't disable alternate variants of the current version.
+			if vers.flag == shimVers.flag {
+				continue
+			}
 			flags = append(flags, vers.flag)
 		}
 
@@ -5956,13 +6075,14 @@ func addResumptionVersionTests() {
 					suffix += "-DTLS"
 				}
 
-				if sessionVers.version == resumeVers.version {
+				if sessionVers.version == resumeVers.version && sessionVers.tls13Variant == resumeVers.tls13Variant {
 					testCases = append(testCases, testCase{
 						protocol:      protocol,
 						name:          "Resume-Client" + suffix,
 						resumeSession: true,
 						config: Config{
-							MaxVersion: sessionVers.version,
+							MaxVersion:   sessionVers.version,
+							TLS13Variant: sessionVers.tls13Variant,
 							Bugs: ProtocolBugs{
 								ExpectNoTLS12Session: sessionVers.version >= VersionTLS13,
 								ExpectNoTLS13PSK:     sessionVers.version < VersionTLS13,
@@ -5970,6 +6090,9 @@ func addResumptionVersionTests() {
 						},
 						expectedVersion:       sessionVers.version,
 						expectedResumeVersion: resumeVers.version,
+						flags: []string{
+							"-tls13-variant", strconv.Itoa(sessionVers.tls13Variant),
+						},
 					})
 				} else {
 					error := ":OLD_SESSION_VERSION_NOT_RETURNED:"
@@ -5987,11 +6110,13 @@ func addResumptionVersionTests() {
 						name:          "Resume-Client-Mismatch" + suffix,
 						resumeSession: true,
 						config: Config{
-							MaxVersion: sessionVers.version,
+							MaxVersion:   sessionVers.version,
+							TLS13Variant: sessionVers.tls13Variant,
 						},
 						expectedVersion: sessionVers.version,
 						resumeConfig: &Config{
-							MaxVersion: resumeVers.version,
+							MaxVersion:   resumeVers.version,
+							TLS13Variant: resumeVers.tls13Variant,
 							Bugs: ProtocolBugs{
 								AcceptAnySession: true,
 							},
@@ -5999,6 +6124,10 @@ func addResumptionVersionTests() {
 						expectedResumeVersion: resumeVers.version,
 						shouldFail:            true,
 						expectedError:         error,
+						flags: []string{
+							"-on-initial-tls13-variant", strconv.Itoa(sessionVers.tls13Variant),
+							"-on-resume-tls13-variant", strconv.Itoa(resumeVers.tls13Variant),
+						},
 					})
 				}
 
@@ -6007,15 +6136,21 @@ func addResumptionVersionTests() {
 					name:          "Resume-Client-NoResume" + suffix,
 					resumeSession: true,
 					config: Config{
-						MaxVersion: sessionVers.version,
+						MaxVersion:   sessionVers.version,
+						TLS13Variant: sessionVers.tls13Variant,
 					},
 					expectedVersion: sessionVers.version,
 					resumeConfig: &Config{
-						MaxVersion: resumeVers.version,
+						MaxVersion:   resumeVers.version,
+						TLS13Variant: resumeVers.tls13Variant,
 					},
 					newSessionsOnResume:   true,
 					expectResumeRejected:  true,
 					expectedResumeVersion: resumeVers.version,
+					flags: []string{
+						"-on-initial-tls13-variant", strconv.Itoa(sessionVers.tls13Variant),
+						"-on-resume-tls13-variant", strconv.Itoa(resumeVers.tls13Variant),
+					},
 				})
 
 				testCases = append(testCases, testCase{
@@ -6024,17 +6159,23 @@ func addResumptionVersionTests() {
 					name:          "Resume-Server" + suffix,
 					resumeSession: true,
 					config: Config{
-						MaxVersion: sessionVers.version,
+						MaxVersion:   sessionVers.version,
+						TLS13Variant: sessionVers.tls13Variant,
 					},
 					expectedVersion:      sessionVers.version,
-					expectResumeRejected: sessionVers.version != resumeVers.version,
+					expectResumeRejected: sessionVers.version != resumeVers.version || sessionVers.tls13Variant != resumeVers.tls13Variant,
 					resumeConfig: &Config{
-						MaxVersion: resumeVers.version,
+						MaxVersion:   resumeVers.version,
+						TLS13Variant: resumeVers.tls13Variant,
 						Bugs: ProtocolBugs{
 							SendBothTickets: true,
 						},
 					},
 					expectedResumeVersion: resumeVers.version,
+					flags: []string{
+						"-on-initial-tls13-variant", strconv.Itoa(sessionVers.tls13Variant),
+						"-on-resume-tls13-variant", strconv.Itoa(resumeVers.tls13Variant),
+					},
 				})
 			}
 		}
@@ -9934,6 +10075,30 @@ func addTLS13HandshakeTests() {
 
 	testCases = append(testCases, testCase{
 		testType: serverTest,
+		name:     "SkipEarlyData-SHVariant",
+		config: Config{
+			MaxVersion:   VersionTLS13,
+			TLS13Variant: 1,
+			Bugs: ProtocolBugs{
+				SendFakeEarlyDataLength: 4,
+			},
+		},
+	})
+
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "SkipEarlyData-CCSVariant",
+		config: Config{
+			MaxVersion:   VersionTLS13,
+			TLS13Variant: 2,
+			Bugs: ProtocolBugs{
+				SendFakeEarlyDataLength: 4,
+			},
+		},
+	})
+
+	testCases = append(testCases, testCase{
+		testType: serverTest,
 		name:     "SkipEarlyData-OmitEarlyDataExtension",
 		config: Config{
 			MaxVersion: VersionTLS13,
@@ -10429,6 +10594,58 @@ func addTLS13HandshakeTests() {
 			"-expect-early-data-info",
 			"-expect-reject-early-data",
 			"-on-resume-shim-writes-first",
+		},
+	})
+
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name:     "TLS13SHVariant-EarlyData-Reject-Client",
+		config: Config{
+			MaxVersion:       VersionTLS13,
+			TLS13Variant:     1,
+			MaxEarlyDataSize: 16384,
+		},
+		resumeConfig: &Config{
+			MaxVersion:       VersionTLS13,
+			TLS13Variant:     1,
+			MaxEarlyDataSize: 16384,
+			Bugs: ProtocolBugs{
+				AlwaysRejectEarlyData: true,
+			},
+		},
+		resumeSession: true,
+		flags: []string{
+			"-enable-early-data",
+			"-expect-early-data-info",
+			"-expect-reject-early-data",
+			"-on-resume-shim-writes-first",
+			"-tls13-variant", "1",
+		},
+	})
+
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name:     "TLS13CCSVariant-EarlyData-Reject-Client",
+		config: Config{
+			MaxVersion:       VersionTLS13,
+			MaxEarlyDataSize: 16384,
+			TLS13Variant:     2,
+		},
+		resumeConfig: &Config{
+			MaxVersion:       VersionTLS13,
+			TLS13Variant:     2,
+			MaxEarlyDataSize: 16384,
+			Bugs: ProtocolBugs{
+				AlwaysRejectEarlyData: true,
+			},
+		},
+		resumeSession: true,
+		flags: []string{
+			"-enable-early-data",
+			"-expect-early-data-info",
+			"-expect-reject-early-data",
+			"-on-resume-shim-writes-first",
+			"-tls13-variant", "2",
 		},
 	})
 

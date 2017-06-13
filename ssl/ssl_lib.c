@@ -578,7 +578,11 @@ uint16_t ssl_version_to_wire(SSL_HANDSHAKE *hs, uint16_t version) {
       return 0;
     }
   } else if (version == TLS1_3_VERSION) {
-    return TLS1_3_DRAFT_VERSION;
+    switch (hs->ssl->ctx->tls13_variant) {
+      case tls13_change_cipher_spec_variant: return TLS1_3_CCS_DRAFT_VERSION;
+      case tls13_server_hello_variant: return TLS1_3_SH_DRAFT_VERSION;
+      case tls13_default: return TLS1_3_DRAFT_VERSION;
+    }
   }
 
   return version;
@@ -861,6 +865,10 @@ void SSL_CTX_set_early_data_enabled(SSL_CTX *ctx, int enabled) {
   ctx->cert->enable_early_data = !!enabled;
 }
 
+void SSL_CTX_set_tls13_variant(SSL_CTX *ctx, enum tls13_variant_t variant) {
+  ctx->tls13_variant = variant;
+}
+
 void SSL_set_early_data_enabled(SSL *ssl, int enabled) {
   ssl->cert->enable_early_data = !!enabled;
 }
@@ -903,6 +911,15 @@ static int bio_retry_reason_to_error(int reason) {
     default:
       return SSL_ERROR_SYSCALL;
   }
+}
+
+int ssl_tls13_server_hello_variant(const SSL *ssl) {
+  return ssl->version == TLS1_3_SH_DRAFT_VERSION ||
+      ssl->version == TLS1_3_CCS_DRAFT_VERSION;
+}
+
+int ssl_tls13_change_cipher_spec_variant(const SSL *ssl) {
+  return ssl->version == TLS1_3_CCS_DRAFT_VERSION;
 }
 
 int SSL_get_error(const SSL *ssl, int ret_code) {
@@ -1925,6 +1942,8 @@ static const char *ssl_get_version(int version) {
   switch (version) {
     /* Report TLS 1.3 draft version as TLS 1.3 in the public API. */
     case TLS1_3_DRAFT_VERSION:
+    case TLS1_3_SH_DRAFT_VERSION:
+    case TLS1_3_CCS_DRAFT_VERSION:
       return "TLSv1.3";
 
     case TLS1_2_VERSION:
@@ -2037,7 +2056,9 @@ int SSL_get_shutdown(const SSL *ssl) {
 
 int SSL_version(const SSL *ssl) {
   /* Report TLS 1.3 draft version as TLS 1.3 in the public API. */
-  if (ssl->version == TLS1_3_DRAFT_VERSION) {
+  if (ssl->version == TLS1_3_DRAFT_VERSION ||
+      ssl->version == TLS1_3_SH_DRAFT_VERSION ||
+      ssl->version == TLS1_3_CCS_DRAFT_VERSION) {
     return TLS1_3_VERSION;
   }
 

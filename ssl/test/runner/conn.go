@@ -916,9 +916,11 @@ Again:
 			c.in.setErrorLocked(c.sendAlert(alertUnexpectedMessage))
 			break
 		}
-		err := c.in.changeCipherSpec(c.config)
-		if err != nil {
-			c.in.setErrorLocked(c.sendAlert(err.(alert)))
+		if c.wireVersion != tls13CCSDraftVersion {
+			err := c.in.changeCipherSpec(c.config)
+			if err != nil {
+				c.in.setErrorLocked(c.sendAlert(err.(alert)))
+			}
 		}
 
 	case recordTypeApplicationData:
@@ -1138,7 +1140,7 @@ func (c *Conn) doWriteRecord(typ recordType, data []byte) (n int, err error) {
 	}
 	c.out.freeBlock(b)
 
-	if typ == recordTypeChangeCipherSpec {
+	if typ == recordTypeChangeCipherSpec && c.wireVersion != tls13CCSDraftVersion {
 		err = c.out.changeCipherSpec(c.config)
 		if err != nil {
 			// Cannot call sendAlert directly,
@@ -1225,6 +1227,7 @@ func (c *Conn) readHandshake() (interface{}, error) {
 		}
 	case typeServerHello:
 		m = &serverHelloMsg{
+			c:      c,
 			isDTLS: c.isDTLS,
 		}
 	case typeHelloRetryRequest:

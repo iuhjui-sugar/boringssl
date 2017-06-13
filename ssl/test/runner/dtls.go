@@ -23,8 +23,8 @@ import (
 	"net"
 )
 
-func wireToVersion(vers uint16, isDTLS bool) (uint16, bool) {
-	if isDTLS {
+func (c *Conn) wireToVersion(vers uint16) (uint16, bool) {
+	if c.isDTLS {
 		switch vers {
 		case VersionDTLS12:
 			return VersionTLS12, true
@@ -35,7 +35,7 @@ func wireToVersion(vers uint16, isDTLS bool) (uint16, bool) {
 		switch vers {
 		case VersionSSL30, VersionTLS10, VersionTLS11, VersionTLS12:
 			return vers, true
-		case tls13DraftVersion:
+		case c.versionToWire(VersionTLS13):
 			return VersionTLS13, true
 		}
 	}

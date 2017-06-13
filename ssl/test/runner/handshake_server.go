@@ -240,7 +240,7 @@ func (hs *serverHandshakeState) readClientHello() error {
 		if isGREASEValue(extVersion) {
 			foundGREASE = true
 		}
-		protocolVersion, ok := wireToVersion(extVersion, c.isDTLS)
+		protocolVersion, ok := c.wireToVersion(extVersion)
 		if !ok {
 			continue
 		}
@@ -254,11 +254,11 @@ func (hs *serverHandshakeState) readClientHello() error {
 
 	if config.Bugs.NegotiateVersion != 0 {
 		c.wireVersion = config.Bugs.NegotiateVersion
-		protocolVersion, _ := wireToVersion(c.wireVersion, c.isDTLS)
+		protocolVersion, _ := c.wireToVersion(c.wireVersion)
 		c.vers = protocolVersion
 	} else if c.haveVers && config.Bugs.NegotiateVersionOnRenego != 0 {
 		c.wireVersion = config.Bugs.NegotiateVersionOnRenego
-		protocolVersion, _ := wireToVersion(c.wireVersion, c.isDTLS)
+		protocolVersion, _ := c.wireToVersion(c.wireVersion)
 		c.vers = protocolVersion
 	} else if !foundVersion {
 		c.sendAlert(alertProtocolVersion)
@@ -269,7 +269,7 @@ func (hs *serverHandshakeState) readClientHello() error {
 	}
 	c.haveVers = true
 
-	clientProtocol, ok := wireToVersion(c.clientVersion, c.isDTLS)
+	clientProtocol, ok := c.wireToVersion(c.clientVersion)
 
 	// Reject < 1.2 ClientHellos with signature_algorithms.
 	if ok && clientProtocol < VersionTLS12 && len(hs.clientHello.signatureAlgorithms) > 0 {
@@ -286,7 +286,7 @@ func (hs *serverHandshakeState) readClientHello() error {
 	}
 
 	if config.Bugs.ExpectNoTLS12Session {
-		if len(hs.clientHello.sessionId) > 0 {
+		if len(hs.clientHello.sessionId) > 0 && c.wireVersion != tls13SHDraftVersion && c.wireVersion != tls13CCSDraftVersion {
 			return fmt.Errorf("tls: client offered an unexpected session ID")
 		}
 		if len(hs.clientHello.sessionTicket) > 0 {
@@ -366,8 +366,10 @@ func (hs *serverHandshakeState) doTLS13Handshake() error {
 	config := c.config
 
 	hs.hello = &serverHelloMsg{
+		c:               c,
 		isDTLS:          c.isDTLS,
 		vers:            c.wireVersion,
+		sessionId:       hs.clientHello.sessionId,
 		versOverride:    config.Bugs.SendServerHelloVersion,
 		customExtension: config.Bugs.CustomUnencryptedExtension,
 		unencryptedALPN: config.Bugs.SendUnencryptedALPN,
@@ -760,9 +762,14 @@ ResendHelloRetryRequest:
 	}
 	c.flushHandshake()
 
+	if c.wireVersion == tls13CCSDraftVersion {
+		c.writeRecord(recordTypeChangeCipherSpec, []byte{1})
+	}
+
 	// Switch to handshake traffic keys.
 	serverHandshakeTrafficSecret := hs.finishedHash.deriveSecret(serverHandshakeTrafficLabel)
 	c.out.useTrafficSecret(c.vers, hs.suite, serverHandshakeTrafficSecret, serverWrite)
+
 	// Derive handshake traffic read key, but don't switch yet.
 	clientHandshakeTrafficSecret := hs.finishedHash.deriveSecret(clientHandshakeTrafficLabel)
 
@@ -920,6 +927,12 @@ ResendHelloRetryRequest:
 		}
 	}
 
+	if c.wireVersion == tls13CCSDraftVersion && !c.skipEarlyData {
+		if err := c.readRecord(recordTypeChangeCipherSpec); err != nil {
+			return err
+		}
+	}
+
 	// Switch input stream to handshake traffic keys.
 	c.in.useTrafficSecret(c.vers, hs.suite, clientHandshakeTrafficSecret, clientWrite)
 
@@ -1048,6 +1061,7 @@ func (hs *serverHandshakeState) processClientHello() (isResume bool, err error) 
 	c := hs.c
 
 	hs.hello = &serverHelloMsg{
+		c:                 c,
 		isDTLS:            c.isDTLS,
 		vers:              c.wireVersion,
 		versOverride:      config.Bugs.SendServerHelloVersion,
