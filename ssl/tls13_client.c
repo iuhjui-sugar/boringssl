@@ -143,7 +143,7 @@ static enum ssl_hs_wait_t do_process_hello_retry_request(SSL_HANDSHAKE *hs) {
   hs->received_hello_retry_request = 1;
   hs->tls13_state = state_send_second_client_hello;
   /* 0-RTT is rejected if we receive a HelloRetryRequest. */
-  if (hs->can_early_write) {
+  if (hs->in_early_data) {
     return ssl_hs_early_data_rejected;
   }
   return ssl_hs_ok;
@@ -262,6 +262,7 @@ static enum ssl_hs_wait_t do_process_server_hello(SSL_HANDSHAKE *hs) {
       ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
       return ssl_hs_error;
     }
+    ssl_set_session(ssl, NULL);
 
     /* Resumption incorporates fresh key material, so refresh the timeout. */
     ssl_session_renew_timeout(ssl, hs->new_session,
@@ -361,9 +362,9 @@ static enum ssl_hs_wait_t do_process_encrypted_extensions(SSL_HANDSHAKE *hs) {
   }
 
   if (ssl->early_data_accepted) {
-    if (ssl->session->cipher != hs->new_session->cipher ||
-        ssl->session->early_alpn_len != ssl->s3->alpn_selected_len ||
-        OPENSSL_memcmp(ssl->session->early_alpn, ssl->s3->alpn_selected,
+    if (hs->early_session->cipher != hs->new_session->cipher ||
+        hs->early_session->early_alpn_len != ssl->s3->alpn_selected_len ||
+        OPENSSL_memcmp(hs->early_session->early_alpn, ssl->s3->alpn_selected,
                        ssl->s3->alpn_selected_len) != 0) {
       OPENSSL_PUT_ERROR(SSL, SSL_R_ALPN_MISMATCH_ON_EARLY_DATA);
       return ssl_hs_error;
@@ -374,17 +375,12 @@ static enum ssl_hs_wait_t do_process_encrypted_extensions(SSL_HANDSHAKE *hs) {
     }
   }
 
-  /* Release offered session now that it is no longer needed. */
-  if (ssl->s3->session_reused) {
-    ssl_set_session(ssl, NULL);
-  }
-
   if (!ssl_hash_current_message(hs)) {
     return ssl_hs_error;
   }
 
   hs->tls13_state = state_continue_second_server_flight;
-  if (hs->can_early_write && !ssl->early_data_accepted) {
+  if (hs->in_early_data && !ssl->early_data_accepted) {
     return ssl_hs_early_data_rejected;
   }
   return ssl_hs_ok;

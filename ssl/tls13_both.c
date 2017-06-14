@@ -95,11 +95,10 @@ int tls13_handshake(SSL_HANDSHAKE *hs, int *out_early_return) {
         return -1;
 
       case ssl_hs_early_data_rejected:
-        /* TODO(svaldez): No further read/write calls should succeed until the
-         * early data rejection has been acknowledged. */
-        hs->in_early_data = 0;
+        ssl->rwstate = SSL_EARLY_DATA_REJECTED;
+        /* Cause |SSL_write| to start failing immediately. */
         hs->can_early_write = 0;
-        break;
+        return -1;
 
       case ssl_hs_ok:
         break;

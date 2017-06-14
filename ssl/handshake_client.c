@@ -243,8 +243,13 @@ int ssl3_connect(SSL_HANDSHAKE *hs) {
         break;
 
       case SSL3_ST_WRITE_EARLY_DATA:
-        hs->state = SSL3_ST_CR_SRVR_HELLO_A;
+        /* Stash the early data session, so connection properties may be queried
+         * out of it. */
         hs->in_early_data = 1;
+        hs->early_session = ssl->session;
+        SSL_SESSION_up_ref(ssl->session);
+
+        hs->state = SSL3_ST_CR_SRVR_HELLO_A;
         hs->can_early_write = 1;
         ret = 1;
         goto end;

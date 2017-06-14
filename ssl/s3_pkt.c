@@ -228,7 +228,7 @@ int ssl3_write_app_data(SSL *ssl, int *out_needs_handshake, const uint8_t *buf,
         ssl->s3->wnum = tot;
         ssl->s3->hs->can_early_write = 0;
         *out_needs_handshake = 1;
-        return 0;
+        return -1;
       }
     }
 

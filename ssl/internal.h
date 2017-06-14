@@ -1055,6 +1055,10 @@ struct ssl_handshake_st {
    * handshake. It should not be cached. */
   SSL_SESSION *new_session;
 
+  /* early_session is the session corresponding to the current 0-RTT state on
+   * the client if |in_early_data| is true. */
+  SSL_SESSION *early_session;
+
   /* new_cipher is the cipher being negotiated in this handshake. */
   const SSL_CIPHER *new_cipher;
 

@@ -702,12 +702,12 @@ func doExchange(test *testCase, config *Config, conn net.Conn, isResume bool, nu
 		// available later.
 		if shimPrefix != "" && !test.readWithUnfinishedWrite {
 			var buf = make([]byte, len(shimPrefix))
-			_, err := io.ReadFull(tlsConn, buf[:])
+			_, err := io.ReadFull(tlsConn, buf)
 			if err != nil {
 				return err
 			}
-			if string(buf[:]) != shimPrefix {
-				return fmt.Errorf("bad initial message %v vs %v", string(buf[:]), shimPrefix)
+			if string(buf) != shimPrefix {
+				return fmt.Errorf("bad initial message %v vs %v", string(buf), shimPrefix)
 			}
 			shimPrefix = ""
 		}
@@ -770,12 +770,12 @@ func doExchange(test *testCase, config *Config, conn net.Conn, isResume bool, nu
 		// Consume the shim prefix if needed.
 		if shimPrefix != "" {
 			var buf = make([]byte, len(shimPrefix))
-			_, err := io.ReadFull(tlsConn, buf[:])
+			_, err := io.ReadFull(tlsConn, buf)
 			if err != nil {
 				return err
 			}
-			if string(buf[:]) != shimPrefix {
-				return fmt.Errorf("bad initial message %v vs %v", string(buf[:]), shimPrefix)
+			if string(buf) != shimPrefix {
+				return fmt.Errorf("bad initial message %v vs %v", string(buf), shimPrefix)
 			}
 			shimPrefix = ""
 		}
@@ -3701,6 +3701,35 @@ func addStateMachineCoverageTests(config stateMachineTestConfig) {
 					"-enable-early-data",
 					"-expect-early-data-info",
 					"-expect-accept-early-data",
+					"-on-resume-read-with-unfinished-write",
+					"-on-resume-shim-writes-first",
+				},
+			})
+
+			// Rejected unfinished writes are discarded (from the
+			// perspective of the calling application) on 0-RTT
+			// reject.
+			tests = append(tests, testCase{
+				testType: clientTest,
+				name:     "TLS13-EarlyData-RejectUnfinishedWrite-Client",
+				config: Config{
+					MaxVersion:       VersionTLS13,
+					MinVersion:       VersionTLS13,
+					MaxEarlyDataSize: 16384,
+				},
+				resumeConfig: &Config{
+					MaxVersion:       VersionTLS13,
+					MinVersion:       VersionTLS13,
+					MaxEarlyDataSize: 16384,
+					Bugs: ProtocolBugs{
+						AlwaysRejectEarlyData: true,
+					},
+				},
+				resumeSession: true,
+				flags: []string{
+					"-enable-early-data",
+					"-expect-early-data-info",
+					"-expect-reject-early-data",
 					"-on-resume-read-with-unfinished-write",
 					"-on-resume-shim-writes-first",
 				},
@@ -10360,6 +10389,35 @@ func addTLS13HandshakeTests() {
 
 	testCases = append(testCases, testCase{
 		testType: clientTest,
+		name:     "TLS13-EarlyData-RejectTicket-Client",
+		config: Config{
+			MaxVersion:       VersionTLS13,
+			MaxEarlyDataSize: 16384,
+			Certificates:     []Certificate{rsaCertificate},
+		},
+		resumeConfig: &Config{
+			MaxVersion:             VersionTLS13,
+			MaxEarlyDataSize:       16384,
+			Certificates:           []Certificate{ecdsaP256Certificate},
+			SessionTicketsDisabled: true,
+		},
+		resumeSession:        true,
+		expectResumeRejected: true,
+		flags: []string{
+			"-enable-early-data",
+			"-expect-early-data-info",
+			"-expect-reject-early-data",
+			"-on-resume-shim-writes-first",
+			"-on-initial-expect-peer-cert-file", path.Join(*resourceDir, rsaCertificateFile),
+			"-on-resume-expect-peer-cert-file", path.Join(*resourceDir, rsaCertificateFile),
+			"-on-retry-expect-peer-cert-file", path.Join(*resourceDir, ecdsaP256CertificateFile),
+			// Session tickets are disabled, so the runner will not send a ticket.
+			"-on-retry-expect-no-session",
+		},
+	})
+
+	testCases = append(testCases, testCase{
+		testType: clientTest,
 		name:     "TLS13-EarlyData-HRR-Client",
 		config: Config{
 			MaxVersion:       VersionTLS13,
@@ -10447,6 +10505,7 @@ func addTLS13HandshakeTests() {
 		flags: []string{
 			"-enable-early-data",
 			"-expect-early-data-info",
+			"-expect-reject-early-data",
 		},
 		shouldFail:    true,
 		expectedError: ":UNEXPECTED_EXTENSION:",

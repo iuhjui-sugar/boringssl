@@ -168,6 +168,7 @@ void ssl_handshake_free(SSL_HANDSHAKE *hs) {
   OPENSSL_free(hs->key_share_bytes);
   OPENSSL_free(hs->ecdh_public_key);
   SSL_SESSION_free(hs->new_session);
+  SSL_SESSION_free(hs->early_session);
   OPENSSL_free(hs->peer_sigalgs);
   OPENSSL_free(hs->peer_supported_group_list);
   OPENSSL_free(hs->peer_key);
