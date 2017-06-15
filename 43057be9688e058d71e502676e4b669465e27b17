@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed98a7b8_ad83aa23",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 2855,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-06-15T17:19:36Z",
+      "side": 1,
+      "message": "Remove",
+      "range": {
+        "startLine": 2854,
+        "startChar": 13,
+        "endLine": 2855,
+        "endChar": 24
+      },
+      "revId": "43057be9688e058d71e502676e4b669465e27b17",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "000794f9_8d5ced4a",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 2869,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-06-15T17:19:36Z",
+      "side": 1,
+      "message": "*the saved",
+      "range": {
+        "startLine": 2869,
+        "startChar": 8,
+        "endLine": 2869,
+        "endChar": 13
+      },
+      "revId": "43057be9688e058d71e502676e4b669465e27b17",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
