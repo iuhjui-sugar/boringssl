@@ -553,14 +553,15 @@ int ssl_has_private_key(const SSL *ssl);
  * the operation with |EVP_PKEY|. */
 
 enum ssl_private_key_result_t ssl_private_key_sign(
-    SSL *ssl, uint8_t *out, size_t *out_len, size_t max_out,
+    SSL_HANDSHAKE *hs, uint8_t *out, size_t *out_len, size_t max_out,
     uint16_t signature_algorithm, const uint8_t *in, size_t in_len);
 
 enum ssl_private_key_result_t ssl_private_key_decrypt(
-    SSL *ssl, uint8_t *out, size_t *out_len, size_t max_out,
+    SSL_HANDSHAKE *hs, uint8_t *out, size_t *out_len, size_t max_out,
     const uint8_t *in, size_t in_len);
 
-enum ssl_private_key_result_t ssl_private_key_complete(SSL *ssl, uint8_t *out,
+enum ssl_private_key_result_t ssl_private_key_complete(SSL_HANDSHAKE *hs,
+                                                       uint8_t *out,
                                                        size_t *out_len,
                                                        size_t max_out);
 
@@ -1023,8 +1024,9 @@ struct ssl_handshake_st {
   uint8_t *peer_key;
   size_t peer_key_len;
 
-  /* server_params, in TLS 1.2, stores the ServerKeyExchange parameters to be
-   * signed while the signature is being computed. */
+  /* server_params, in a TLS 1.2 server, stores the ServerKeyExchange
+   * parameters. It has client and server randoms prepended for signing
+   * convenience. */
   uint8_t *server_params;
   size_t server_params_len;
 
@@ -1128,6 +1130,10 @@ struct ssl_handshake_st {
    * negotiated in this handshake. */
   unsigned extended_master_secret:1;
 
+  /* pending_private_key_op is one if there is a pending private key operation
+   * in progress. */
+  unsigned pending_private_key_op:1;
+
   /* client_version is the value sent or received in the ClientHello version. */
   uint16_t client_version;
 
@@ -1172,8 +1178,12 @@ int tls13_process_certificate_verify(SSL_HANDSHAKE *hs);
 int tls13_process_finished(SSL_HANDSHAKE *hs, int use_saved_value);
 
 int tls13_add_certificate(SSL_HANDSHAKE *hs);
-enum ssl_private_key_result_t tls13_add_certificate_verify(SSL_HANDSHAKE *hs,
-                                                           int is_first_run);
+
+/* tls13_add_certificate_verify adds a TLS 1.3 CertificateVerify message to the
+ * handshake. If it returns |ssl_private_key_retry|, it should be called again
+ * to retry when the signing operation is completed. */
+enum ssl_private_key_result_t tls13_add_certificate_verify(SSL_HANDSHAKE *hs);
+
 int tls13_add_finished(SSL_HANDSHAKE *hs);
 int tls13_process_new_session_ticket(SSL *ssl);
 
