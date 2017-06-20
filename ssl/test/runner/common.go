@@ -19,11 +19,13 @@ import (
 )
 
 const (
-	VersionSSL30 = 0x0300
-	VersionTLS10 = 0x0301
-	VersionTLS11 = 0x0302
-	VersionTLS12 = 0x0303
-	VersionTLS13 = 0x0304
+	VersionSSL30  = 0x0300
+	VersionTLS10  = 0x0301
+	VersionTLS11  = 0x0302
+	VersionTLS12  = 0x0303
+	VersionTLS13  = 0x0304
+	VersionDTLS10 = 0xfeff
+	VersionDTLS12 = 0xfefd
 )
 
 // A draft version of TLS 1.3 that is sent over the wire for the current draft.

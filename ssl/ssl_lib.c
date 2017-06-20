@@ -565,6 +565,22 @@ void ssl_reset_error_state(SSL *ssl) {
   ERR_clear_system_error();
 }
 
+uint16_t ssl_version_to_wire(SSL_HANDSHAKE *hs, uint16_t version) {
+  if (SSL_is_dtls(hs->ssl)) {
+    if (version == TLS1_1_VERSION) {
+      return DTLS1_VERSION;
+    } else if (version == TLS1_2_VERSION) {
+      return DTLS1_2_VERSION;
+    } else {
+      return 0;
+    }
+  } else if (version == TLS1_3_VERSION) {
+    return TLS1_3_DRAFT_VERSION;
+  }
+
+  return version;
+}
+
 int SSL_do_handshake(SSL *ssl) {
   ssl_reset_error_state(ssl);
 

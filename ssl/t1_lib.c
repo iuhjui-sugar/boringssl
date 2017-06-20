@@ -2427,7 +2427,7 @@ static int ext_supported_versions_add_clienthello(SSL_HANDSHAKE *hs, CBB *out) {
   }
 
   for (uint16_t version = max_version; version >= min_version; version--) {
-    if (!CBB_add_u16(&versions, ssl->method->version_to_wire(version))) {
+    if (!CBB_add_u16(&versions, ssl_version_to_wire(hs, version))) {
       return 0;
     }
   }
