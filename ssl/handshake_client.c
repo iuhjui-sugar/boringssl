@@ -717,7 +717,7 @@ static int ssl3_send_client_hello(SSL_HANDSHAKE *hs) {
     return -1;
   }
 
-  uint16_t max_wire_version = ssl->method->version_to_wire(hs->max_version);
+  uint16_t max_wire_version = ssl_version_to_wire(hs, hs->max_version);
   assert(hs->state == SSL3_ST_CW_CLNT_HELLO_A);
   if (!ssl->s3->have_version) {
     ssl->version = max_wire_version;
@@ -728,7 +728,7 @@ static int ssl3_send_client_hello(SSL_HANDSHAKE *hs) {
    * some servers fail when it changes across handshakes. */
   hs->client_version = max_wire_version;
   if (hs->max_version >= TLS1_3_VERSION) {
-    hs->client_version = ssl->method->version_to_wire(TLS1_2_VERSION);
+    hs->client_version = ssl_version_to_wire(hs, TLS1_2_VERSION);
   }
 
   /* If the configured session has expired or was created at a disabled

@@ -471,12 +471,11 @@ static int negotiate_version(SSL_HANDSHAKE *hs, uint8_t *out_alert,
                              const SSL_CLIENT_HELLO *client_hello) {
   SSL *const ssl = hs->ssl;
   assert(!ssl->s3->have_version);
-  uint16_t version = 0;
+  uint16_t version = 0, protocol_version = 0;
   /* Check supported_versions extension if it is present. */
-  CBS supported_versions;
+  CBS supported_versions, versions;
   if (ssl_client_hello_get_extension(client_hello, &supported_versions,
                                      TLSEXT_TYPE_supported_versions)) {
-    CBS versions;
     if (!CBS_get_u8_length_prefixed(&supported_versions, &versions) ||
         CBS_len(&supported_versions) != 0 ||
         CBS_len(&versions) == 0) {
@@ -484,82 +483,87 @@ static int negotiate_version(SSL_HANDSHAKE *hs, uint8_t *out_alert,
       *out_alert = SSL_AD_DECODE_ERROR;
       return 0;
     }
-
-    /* Choose the newest commonly-supported version advertised by the client.
-     * The client orders the versions according to its preferences, but we're
-     * not required to honor the client's preferences. */
-    int found_version = 0;
-    while (CBS_len(&versions) != 0) {
-      uint16_t ext_version;
-      if (!CBS_get_u16(&versions, &ext_version)) {
-        OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
-        *out_alert = SSL_AD_DECODE_ERROR;
-        return 0;
-      }
-      if (!ssl->method->version_from_wire(&ext_version, ext_version)) {
-        continue;
-      }
-      if (hs->min_version <= ext_version &&
-          ext_version <= hs->max_version &&
-          (!found_version || version < ext_version)) {
-        version = ext_version;
-        found_version = 1;
-      }
-    }
-
-    if (!found_version) {
-      goto unsupported_protocol;
-    }
   } else {
-    /* Process ClientHello.version instead. Note that versions beyond (D)TLS 1.2
-     * do not use this mechanism. */
+    static const uint8_t kTLSVersions[] = {
+      0x03, 0x00, /* SSL 3 */
+      0x03, 0x01, /* TLS 1 */
+      0x03, 0x02, /* TLS 1.1 */
+      0x03, 0x03, /* TLS 1.2 */
+    };
+
+    static const uint8_t kDTLSVersions[] = {
+      0xfe, 0xff, /* DTLS 1.0 */
+      0xfe, 0xfd, /* DTLS 1.2 */
+    };
+
+    size_t versions_len = 0;
     if (SSL_is_dtls(ssl)) {
       if (client_hello->version <= DTLS1_2_VERSION) {
-        version = TLS1_2_VERSION;
-      } else if (client_hello->version <= DTLS1_VERSION) {
-        version = TLS1_1_VERSION;
-      } else {
-        goto unsupported_protocol;
+        versions_len++;
+      }
+      if (client_hello->version <= DTLS1_VERSION) {
+        versions_len++;
       }
     } else {
       if (client_hello->version >= TLS1_2_VERSION) {
-        version = TLS1_2_VERSION;
-      } else if (client_hello->version >= TLS1_1_VERSION) {
-        version = TLS1_1_VERSION;
-      } else if (client_hello->version >= TLS1_VERSION) {
-        version = TLS1_VERSION;
-      } else if (client_hello->version >= SSL3_VERSION) {
-        version = SSL3_VERSION;
-      } else {
-        goto unsupported_protocol;
+        versions_len++;
+      }
+      if (client_hello->version >= TLS1_1_VERSION) {
+        versions_len++;
+      }
+      if (client_hello->version >= TLS1_VERSION) {
+        versions_len++;
+      }
+      if (client_hello->version >= SSL3_VERSION) {
+        versions_len++;
       }
     }
 
-    /* Apply our minimum and maximum version. */
-    if (version > hs->max_version) {
-      version = hs->max_version;
-    }
+    CBS_init(&versions, SSL_is_dtls(ssl) ? kDTLSVersions : kTLSVersions, 2 * versions_len);
+  }
 
-    if (version < hs->min_version) {
-      goto unsupported_protocol;
+  /* Choose the newest commonly-supported version advertised by the client.
+   * The client orders the versions according to its preferences, but we're
+   * not required to honor the client's preferences. */
+  int found_version = 0;
+  while (CBS_len(&versions) != 0) {
+    uint16_t ext_wire_version, ext_version;
+    if (!CBS_get_u16(&versions, &ext_wire_version)) {
+      OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
+      *out_alert = SSL_AD_DECODE_ERROR;
+      return 0;
+    }
+    if (!ssl->method->version_from_wire(&ext_version, ext_wire_version)) {
+      continue;
+    }
+    if (hs->min_version <= ext_version &&
+        ext_version <= hs->max_version &&
+        (!found_version || protocol_version < ext_version)) {
+      version = ext_wire_version;
+      protocol_version = ext_version;
+      found_version = 1;
     }
   }
 
-  /* Handle FALLBACK_SCSV. */
-  if (ssl_client_cipher_list_contains_cipher(client_hello,
-                                             SSL3_CK_FALLBACK_SCSV & 0xffff) &&
-      version < hs->max_version) {
-    OPENSSL_PUT_ERROR(SSL, SSL_R_INAPPROPRIATE_FALLBACK);
-    *out_alert = SSL3_AD_INAPPROPRIATE_FALLBACK;
-    return 0;
+  if (!found_version) {
+    goto unsupported_protocol;
   }
 
   hs->client_version = client_hello->version;
-  ssl->version = ssl->method->version_to_wire(version);
+  ssl->version = version;
 
   /* At this point, the connection's version is known and |ssl->version| is
    * fixed. Begin enforcing the record-layer version. */
   ssl->s3->have_version = 1;
+
+  /* Handle FALLBACK_SCSV. */
+  if (ssl_client_cipher_list_contains_cipher(client_hello,
+                                             SSL3_CK_FALLBACK_SCSV & 0xffff) &&
+      ssl3_protocol_version(ssl) < hs->max_version) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_INAPPROPRIATE_FALLBACK);
+    *out_alert = SSL3_AD_INAPPROPRIATE_FALLBACK;
+    return 0;
+  }
 
   return 1;
 

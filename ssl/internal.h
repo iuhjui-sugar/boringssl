@@ -1422,9 +1422,6 @@ struct ssl_protocol_method_st {
    * sets |*out_version| to the result and returns one. If the version is
    * unknown, it returns zero. */
   int (*version_from_wire)(uint16_t *out_version, uint16_t wire_version);
-  /* version_to_wire maps |version| to the wire representation. It is an error
-   * to call it with an invalid version. */
-  uint16_t (*version_to_wire)(uint16_t version);
   int (*ssl_new)(SSL *ssl);
   void (*ssl_free)(SSL *ssl);
   /* ssl_get_message reads the next handshake message. On success, it returns
@@ -2289,6 +2286,11 @@ int ssl_can_read(const SSL *ssl);
  * minimum and maximum enabled protocol versions, respectively. */
 int ssl_get_version_range(const SSL *ssl, uint16_t *out_min_version,
                           uint16_t *out_max_version);
+
+/* ssl_version_to_wire returns the wire protocol version corresponding to
+ * |version| based on the current handshake |hs|. It is an error to call this
+ * function outside of the handshake. */
+uint16_t ssl_version_to_wire(SSL_HANDSHAKE *hs, uint16_t version);
 
 /* ssl3_protocol_version returns |ssl|'s protocol version. It is an error to
  * call this function before the version is determined. */

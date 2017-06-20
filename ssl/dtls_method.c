@@ -81,20 +81,6 @@ static int dtls1_version_from_wire(uint16_t *out_version,
   return 0;
 }
 
-static uint16_t dtls1_version_to_wire(uint16_t version) {
-  switch (version) {
-    case TLS1_1_VERSION:
-      /* DTLS 1.0 maps to TLS 1.1, not TLS 1.0. */
-      return DTLS1_VERSION;
-    case TLS1_2_VERSION:
-      return DTLS1_2_VERSION;
-  }
-
-  /* It is an error to use this function with an invalid version. */
-  assert(0);
-  return 0;
-}
-
 static int dtls1_supports_cipher(const SSL_CIPHER *cipher) {
   return cipher->algorithm_enc != SSL_eNULL;
 }
@@ -137,7 +123,6 @@ static const SSL_PROTOCOL_METHOD kDTLSProtocolMethod = {
     TLS1_1_VERSION,
     TLS1_2_VERSION,
     dtls1_version_from_wire,
-    dtls1_version_to_wire,
     dtls1_new,
     dtls1_free,
     dtls1_get_message,
