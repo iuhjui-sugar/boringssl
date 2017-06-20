@@ -161,7 +161,7 @@ func (hs *serverHandshakeState) readClientHello() error {
 		// Per RFC 6347, the version field in HelloVerifyRequest SHOULD
 		// be always DTLS 1.0
 		helloVerifyRequest := &helloVerifyRequestMsg{
-			vers:   versionToWire(VersionTLS10, c.isDTLS),
+			vers:   VersionDTLS10,
 			cookie: make([]byte, 32),
 		}
 		if _, err := io.ReadFull(c.config.rand(), helloVerifyRequest.cookie); err != nil {
@@ -210,74 +210,69 @@ func (hs *serverHandshakeState) readClientHello() error {
 
 	c.clientVersion = hs.clientHello.vers
 
-	// Convert the ClientHello wire version to a protocol version.
-	var clientVersion uint16
-	if c.isDTLS {
-		if hs.clientHello.vers <= 0xfefd {
-			clientVersion = VersionTLS12
-		} else if hs.clientHello.vers <= 0xfeff {
-			clientVersion = VersionTLS10
+	// Use the versions extension if supplied, otherwise use the legacy ClientHello version.
+	if len(hs.clientHello.supportedVersions) == 0 {
+		if c.isDTLS {
+			if hs.clientHello.vers <= VersionDTLS12 {
+				hs.clientHello.supportedVersions = append(hs.clientHello.supportedVersions, VersionDTLS12)
+			}
+			if hs.clientHello.vers <= VersionDTLS10 {
+				hs.clientHello.supportedVersions = append(hs.clientHello.supportedVersions, VersionDTLS10)
+			}
+		} else {
+			if hs.clientHello.vers >= VersionTLS12 {
+				hs.clientHello.supportedVersions = append(hs.clientHello.supportedVersions, VersionTLS12)
+			}
+			if hs.clientHello.vers >= VersionTLS11 {
+				hs.clientHello.supportedVersions = append(hs.clientHello.supportedVersions, VersionTLS11)
+			}
+			if hs.clientHello.vers >= VersionTLS10 {
+				hs.clientHello.supportedVersions = append(hs.clientHello.supportedVersions, VersionTLS10)
+			}
+			if hs.clientHello.vers >= VersionSSL30 {
+				hs.clientHello.supportedVersions = append(hs.clientHello.supportedVersions, VersionSSL30)
+			}
 		}
-	} else {
-		if hs.clientHello.vers >= VersionTLS12 {
-			clientVersion = VersionTLS12
-		} else if hs.clientHello.vers >= VersionTLS11 {
-			clientVersion = VersionTLS11
-		} else if hs.clientHello.vers >= VersionTLS10 {
-			clientVersion = VersionTLS10
-		} else if hs.clientHello.vers >= VersionSSL30 {
-			clientVersion = VersionSSL30
+	}
+
+	var foundVersion, foundGREASE bool
+	for _, extVersion := range hs.clientHello.supportedVersions {
+		if isGREASEValue(extVersion) {
+			foundGREASE = true
+		}
+		if protocolVersion, ok := config.isSupportedVersion(extVersion, c.isDTLS); ok && !foundVersion {
+			c.wireVersion = extVersion
+			c.vers = protocolVersion
+			foundVersion = true
 		}
 	}
 
 	if config.Bugs.NegotiateVersion != 0 {
-		c.vers = config.Bugs.NegotiateVersion
+		c.wireVersion = config.Bugs.NegotiateVersion
+		protocolVersion, _ := wireToVersion(c.wireVersion, c.isDTLS)
+		c.vers = protocolVersion
 	} else if c.haveVers && config.Bugs.NegotiateVersionOnRenego != 0 {
-		c.vers = config.Bugs.NegotiateVersionOnRenego
-	} else if len(hs.clientHello.supportedVersions) > 0 {
-		// Use the versions extension if supplied.
-		var foundVersion, foundGREASE bool
-		for _, extVersion := range hs.clientHello.supportedVersions {
-			if isGREASEValue(extVersion) {
-				foundGREASE = true
-			}
-			extVersion, ok = wireToVersion(extVersion, c.isDTLS)
-			if !ok {
-				continue
-			}
-			if config.isSupportedVersion(extVersion, c.isDTLS) && !foundVersion {
-				c.vers = extVersion
-				foundVersion = true
-				break
-			}
-		}
-		if !foundVersion {
-			c.sendAlert(alertProtocolVersion)
-			return errors.New("tls: client did not offer any supported protocol versions")
-		}
-		if config.Bugs.ExpectGREASE && !foundGREASE {
-			return errors.New("tls: no GREASE version value found")
-		}
-	} else {
-		// Otherwise, use the legacy ClientHello version.
-		version := clientVersion
-		if maxVersion := config.maxVersion(c.isDTLS); version > maxVersion {
-			version = maxVersion
-		}
-		if version == 0 || !config.isSupportedVersion(version, c.isDTLS) {
-			return fmt.Errorf("tls: client offered an unsupported, maximum protocol version of %x", hs.clientHello.vers)
-		}
-		c.vers = version
+		c.wireVersion = config.Bugs.NegotiateVersionOnRenego
+		protocolVersion, _ := wireToVersion(c.wireVersion, c.isDTLS)
+		c.vers = protocolVersion
+	} else if !foundVersion {
+		c.sendAlert(alertProtocolVersion)
+		return errors.New("tls: client did not offer any supported protocol versions")
+	}
+	if config.Bugs.ExpectGREASE && !foundGREASE {
+		return errors.New("tls: no GREASE version value found")
 	}
 	c.haveVers = true
 
+	clientProtocol, ok := wireToVersion(c.clientVersion, c.isDTLS)
+
 	// Reject < 1.2 ClientHellos with signature_algorithms.
-	if clientVersion < VersionTLS12 && len(hs.clientHello.signatureAlgorithms) > 0 {
+	if ok && clientProtocol < VersionTLS12 && len(hs.clientHello.signatureAlgorithms) > 0 {
 		return fmt.Errorf("tls: client included signature_algorithms before TLS 1.2")
 	}
 
 	// Check the client cipher list is consistent with the version.
-	if clientVersion < VersionTLS12 {
+	if ok && clientProtocol < VersionTLS12 {
 		for _, id := range hs.clientHello.cipherSuites {
 			if isTLS12Cipher(id) {
 				return fmt.Errorf("tls: client offered TLS 1.2 cipher before TLS 1.2")
@@ -367,7 +362,7 @@ func (hs *serverHandshakeState) doTLS13Handshake() error {
 
 	hs.hello = &serverHelloMsg{
 		isDTLS:          c.isDTLS,
-		vers:            versionToWire(c.vers, c.isDTLS),
+		vers:            c.wireVersion,
 		versOverride:    config.Bugs.SendServerHelloVersion,
 		customExtension: config.Bugs.CustomUnencryptedExtension,
 		unencryptedALPN: config.Bugs.SendUnencryptedALPN,
@@ -526,7 +521,7 @@ Curves:
 ResendHelloRetryRequest:
 	var sendHelloRetryRequest bool
 	helloRetryRequest := &helloRetryRequestMsg{
-		vers:                versionToWire(c.vers, c.isDTLS),
+		vers:                c.wireVersion,
 		duplicateExtensions: config.Bugs.DuplicateHelloRetryRequestExtensions,
 	}
 
@@ -1049,7 +1044,7 @@ func (hs *serverHandshakeState) processClientHello() (isResume bool, err error) 
 
 	hs.hello = &serverHelloMsg{
 		isDTLS:            c.isDTLS,
-		vers:              versionToWire(c.vers, c.isDTLS),
+		vers:              c.wireVersion,
 		versOverride:      config.Bugs.SendServerHelloVersion,
 		compressionMethod: compressionNone,
 	}
