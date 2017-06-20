@@ -35,6 +35,26 @@ type clientHandshakeState struct {
 	finishedBytes []byte
 }
 
+func (c *Conn) versionToWire(vers uint16) uint16 {
+	if c.isDTLS {
+		switch vers {
+		case VersionTLS12:
+			return VersionDTLS12
+		case VersionTLS10:
+			return VersionDTLS10
+		}
+	} else {
+		switch vers {
+		case VersionSSL30, VersionTLS10, VersionTLS11, VersionTLS12:
+			return vers
+		case VersionTLS13:
+			return tls13DraftVersion
+		}
+	}
+
+	panic("unknown version")
+}
+
 func (c *Conn) clientHandshake() error {
 	if c.config == nil {
 		c.config = defaultConfig()
@@ -63,7 +83,7 @@ func (c *Conn) clientHandshake() error {
 	maxVersion := c.config.maxVersion(c.isDTLS)
 	hello := &clientHelloMsg{
 		isDTLS:                  c.isDTLS,
-		vers:                    versionToWire(maxVersion, c.isDTLS),
+		vers:                    c.versionToWire(maxVersion),
 		compressionMethods:      []uint8{compressionNone},
 		random:                  make([]byte, 32),
 		ocspStapling:            !c.config.Bugs.NoOCSPStapling,
@@ -315,7 +335,7 @@ NextCipherSuite:
 			hello.vers = VersionTLS12
 		}
 		for version := maxVersion; version >= minVersion; version-- {
-			hello.supportedVersions = append(hello.supportedVersions, versionToWire(version, c.isDTLS))
+			hello.supportedVersions = append(hello.supportedVersions, c.versionToWire(version))
 		}
 	}
 
@@ -409,7 +429,7 @@ NextCipherSuite:
 	if c.isDTLS {
 		helloVerifyRequest, ok := msg.(*helloVerifyRequestMsg)
 		if ok {
-			if helloVerifyRequest.vers != versionToWire(VersionTLS10, c.isDTLS) {
+			if helloVerifyRequest.vers != VersionDTLS10 {
 				// Per RFC 6347, the version field in
 				// HelloVerifyRequest SHOULD be always DTLS
 				// 1.0. Enforce this for testing purposes.
@@ -451,6 +471,7 @@ NextCipherSuite:
 		c.sendAlert(alertProtocolVersion)
 		return fmt.Errorf("tls: server selected unsupported protocol version %x", c.vers)
 	}
+	c.wireVersion = serverWireVersion
 	c.vers = serverVersion
 	c.haveVers = true
 

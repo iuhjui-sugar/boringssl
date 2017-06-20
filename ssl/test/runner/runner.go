@@ -263,6 +263,26 @@ func getShimKey(t testCert) string {
 	panic("Unknown test certificate")
 }
 
+func configVersionToWire(vers uint16, isDTLS bool) uint16 {
+	if isDTLS {
+		switch vers {
+		case VersionTLS12:
+			return VersionDTLS12
+		case VersionTLS10:
+			return VersionDTLS10
+		}
+	} else {
+		switch vers {
+		case VersionSSL30, VersionTLS10, VersionTLS11, VersionTLS12:
+			return vers
+		case VersionTLS13:
+			return tls13DraftVersion
+		}
+	}
+
+	panic("unknown version")
+}
+
 // encodeDERValues encodes a series of bytestrings in comma-separated-hex form.
 func encodeDERValues(values [][]byte) string {
 	var ret string
@@ -4431,19 +4451,19 @@ func addVersionNegotiationTests() {
 					suffix += "-DTLS"
 				}
 
-				shimVersFlag := strconv.Itoa(int(versionToWire(shimVers.version, protocol == dtls)))
+				shimVersFlag := strconv.Itoa(int(configVersionToWire(shimVers.version, protocol == dtls)))
 
 				// Determine the expected initial record-layer versions.
 				clientVers := shimVers.version
 				if clientVers > VersionTLS10 {
 					clientVers = VersionTLS10
 				}
-				clientVers = versionToWire(clientVers, protocol == dtls)
+				clientVers = configVersionToWire(clientVers, protocol == dtls)
 				serverVers := expectedVersion
 				if expectedVersion >= VersionTLS13 {
 					serverVers = VersionTLS10
 				}
-				serverVers = versionToWire(serverVers, protocol == dtls)
+				serverVers = configVersionToWire(serverVers, protocol == dtls)
 
 				testCases = append(testCases, testCase{
 					protocol: protocol,
@@ -4514,7 +4534,7 @@ func addVersionNegotiationTests() {
 				suffix += "-DTLS"
 			}
 
-			wireVersion := versionToWire(vers.version, protocol == dtls)
+			wireVersion := configVersionToWire(vers.version, protocol == dtls)
 			testCases = append(testCases, testCase{
 				protocol: protocol,
 				testType: serverTest,
@@ -4765,7 +4785,7 @@ func addMinimumVersionTests() {
 				if protocol == dtls {
 					suffix += "-DTLS"
 				}
-				shimVersFlag := strconv.Itoa(int(versionToWire(shimVers.version, protocol == dtls)))
+				shimVersFlag := strconv.Itoa(int(configVersionToWire(shimVers.version, protocol == dtls)))
 
 				var expectedVersion uint16
 				var shouldFail bool
@@ -4788,7 +4808,7 @@ func addMinimumVersionTests() {
 							// Ensure the server does not decline to
 							// select a version (versions extension) or
 							// cipher (some ciphers depend on versions).
-							NegotiateVersion:            runnerVers.version,
+							NegotiateVersion:            configVersionToWire(runnerVers.version, protocol == dtls),
 							IgnorePeerCipherPreferences: shouldFail,
 						},
 					},
@@ -4808,7 +4828,7 @@ func addMinimumVersionTests() {
 							// Ensure the server does not decline to
 							// select a version (versions extension) or
 							// cipher (some ciphers depend on versions).
-							NegotiateVersion:            runnerVers.version,
+							NegotiateVersion:            configVersionToWire(runnerVers.version, protocol == dtls),
 							IgnorePeerCipherPreferences: shouldFail,
 						},
 					},
