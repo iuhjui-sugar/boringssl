@@ -82,22 +82,6 @@ static int ssl3_version_from_wire(uint16_t *out_version,
   return 0;
 }
 
-static uint16_t ssl3_version_to_wire(uint16_t version) {
-  switch (version) {
-    case SSL3_VERSION:
-    case TLS1_VERSION:
-    case TLS1_1_VERSION:
-    case TLS1_2_VERSION:
-      return version;
-    case TLS1_3_VERSION:
-      return TLS1_3_DRAFT_VERSION;
-  }
-
-  /* It is an error to use this function with an invalid version. */
-  assert(0);
-  return 0;
-}
-
 static int ssl3_supports_cipher(const SSL_CIPHER *cipher) { return 1; }
 
 static void ssl3_expect_flight(SSL *ssl) {}
@@ -133,7 +117,6 @@ static const SSL_PROTOCOL_METHOD kTLSProtocolMethod = {
     SSL3_VERSION,
     TLS1_3_VERSION,
     ssl3_version_from_wire,
-    ssl3_version_to_wire,
     ssl3_new,
     ssl3_free,
     ssl3_get_message,
