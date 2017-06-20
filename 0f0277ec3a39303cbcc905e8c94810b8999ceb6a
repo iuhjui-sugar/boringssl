@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7cd151c3_f3891a6a",
+        "filename": "ssl/ssl_privkey.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-20T16:54:22Z",
+      "side": 1,
+      "message": "My kingdom for C++11 and auto. That function pointer type is really long. :-(",
+      "revId": "0f0277ec3a39303cbcc905e8c94810b8999ceb6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
