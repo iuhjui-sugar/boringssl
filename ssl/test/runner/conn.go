@@ -35,6 +35,7 @@ type Conn struct {
 	// constant after handshake; protected by handshakeMutex
 	handshakeMutex       sync.Mutex // handshakeMutex < in.Mutex, out.Mutex, errMutex
 	handshakeErr         error      // error resulting from handshake
+	wireVersion          uint16     // TLS wire version
 	vers                 uint16     // TLS version
 	haveVers             bool       // version has been negotiated
 	config               *Config    // configuration passed to constructor
@@ -770,8 +771,8 @@ RestartReadRecord:
 	if typ != recordTypeAlert {
 		var expect uint16
 		if c.haveVers {
-			expect = c.vers
-			if c.vers >= VersionTLS13 {
+			expect := c.wireVersion
+			if expect >= VersionTLS13 {
 				expect = VersionTLS10
 			}
 		} else {
@@ -1097,8 +1098,8 @@ func (c *Conn) doWriteRecord(typ recordType, data []byte) (n int, err error) {
 				b.data[0] = byte(outerType)
 			}
 		}
-		vers := c.vers
-		if vers == 0 || vers >= VersionTLS13 {
+		vers := c.wireVersion
+		if vers == 0 || c.vers >= VersionTLS13 {
 			// Some TLS servers fail if the record version is
 			// greater than TLS 1.0 for the initial ClientHello.
 			//
@@ -1109,7 +1110,7 @@ func (c *Conn) doWriteRecord(typ recordType, data []byte) (n int, err error) {
 		if c.config.Bugs.SendRecordVersion != 0 {
 			vers = c.config.Bugs.SendRecordVersion
 		}
-		if c.vers == 0 && c.config.Bugs.SendInitialRecordVersion != 0 {
+		if c.wireVersion == 0 && c.config.Bugs.SendInitialRecordVersion != 0 {
 			vers = c.config.Bugs.SendInitialRecordVersion
 		}
 		b.data[1] = byte(vers >> 8)
