@@ -56,6 +56,30 @@
       "revId": "0f0277ec3a39303cbcc905e8c94810b8999ceb6a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ed207ef_29616833",
+        "filename": "ssl/ssl_privkey.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-20T18:17:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00347dd5_ec6a1610",
+      "range": {
+        "startLine": 499,
+        "startChar": 30,
+        "endLine": 499,
+        "endChar": 54
+      },
+      "revId": "0f0277ec3a39303cbcc905e8c94810b8999ceb6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
