@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9ff56154_b949c426",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 3395,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-22T02:13:10Z",
+      "side": 1,
+      "message": "Yeah, that\u0027s why this function is deprecated in favor of SSL_CIPHER_standard_name. I\u0027ll do the usual dance of converting the existing callers and removing it. It was allocated because originally the code programmatically assembled the string, on the assumption that we didn\u0027t want folks to pay for the long strings in the binary. In hindsight, that was probably not worth worrying about. :-)",
+      "parentUuid": "8be4e4cc_3f7f03f8",
+      "range": {
+        "startLine": 3395,
+        "startChar": 37,
+        "endLine": 3395,
+        "endChar": 52
+      },
+      "revId": "34987739118ffc8cb9e9898ba9206d1be945a601",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "58f77370_95496836",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2017-06-22T01:39:13Z",
       "side": 1,
       "message": "openssl_name?",
+      "range": {
+        "startLine": 3898,
+        "startChar": 14,
+        "endLine": 3898,
+        "endChar": 18
+      },
+      "revId": "34987739118ffc8cb9e9898ba9206d1be945a601",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57be9231_c369a188",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 3898,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-22T02:13:10Z",
+      "side": 1,
+      "message": "Sadly, we don\u0027t quiiiite get to mess with this field yet. *Almost*. I have one consumer left to clear out and then we can hide this struct.",
+      "parentUuid": "58f77370_95496836",
       "range": {
         "startLine": 3898,
         "startChar": 14,
