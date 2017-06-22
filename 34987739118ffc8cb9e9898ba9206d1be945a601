@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8be4e4cc_3f7f03f8",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 3395,
+      "author": {
+        "id": 7210
+      },
+      "writtenOn": "2017-06-22T01:39:13Z",
+      "side": 1,
+      "message": "Why the allocation? Just compat?",
+      "range": {
+        "startLine": 3395,
+        "startChar": 37,
+        "endLine": 3395,
+        "endChar": 52
+      },
+      "revId": "34987739118ffc8cb9e9898ba9206d1be945a601",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58f77370_95496836",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 3898,
+      "author": {
+        "id": 7210
+      },
+      "writtenOn": "2017-06-22T01:39:13Z",
+      "side": 1,
+      "message": "openssl_name?",
+      "range": {
+        "startLine": 3898,
+        "startChar": 14,
+        "endLine": 3898,
+        "endChar": 18
+      },
+      "revId": "34987739118ffc8cb9e9898ba9206d1be945a601",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
