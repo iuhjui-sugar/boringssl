@@ -237,12 +237,19 @@ TEST_P(PerAEADTest, TestVectorScatterGather) {
     std::vector<uint8_t> out(in.size());
     std::vector<uint8_t> out_tag(EVP_AEAD_max_overhead(aead()));
     if (!t->HasAttribute("NO_SEAL")) {
-      size_t out_tag_len;
-      ASSERT_TRUE(EVP_AEAD_CTX_seal_scatter(
-          ctx.get(), out.data(), out_tag.data(), &out_tag_len, out_tag.size(),
-          nonce.data(), nonce.size(), in.data(), in.size(), ad.data(),
-          ad.size()));
-      out_tag.resize(out_tag_len);
+      EVP_AEAD_SEAL_SCATTER_ARGS args;
+      args.out = out.data();
+      args.out_tag = out_tag.data();
+      args.max_out_tag_len = out_tag.size();
+      args.nonce = nonce.data();
+      args.nonce_len = nonce.size();
+      args.in = in.data();
+      args.in_len = in.size();
+      args.ad = ad.data();
+      args.ad_len = ad.size();
+      ASSERT_TRUE(EVP_AEAD_CTX_seal_scatter(ctx.get(), &args));
+
+      out_tag.resize(args.out_tag_len);
 
       ASSERT_EQ(out.size(), ct.size());
       ASSERT_EQ(out_tag.size(), tag.size());
