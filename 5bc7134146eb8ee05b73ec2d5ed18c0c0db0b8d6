@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4abb2e3a_220c2b26",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-06-23T22:29:06Z",
+      "side": 1,
+      "message": "Should we collapse this into a single inout argument?",
+      "range": {
+        "startLine": 285,
+        "startChar": 2,
+        "endLine": 286,
+        "endChar": 25
+      },
+      "revId": "5bc7134146eb8ee05b73ec2d5ed18c0c0db0b8d6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
