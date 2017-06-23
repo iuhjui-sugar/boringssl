@@ -319,14 +319,11 @@ static void aead_aes_gcm_siv_kdf(
   out_record_auth_key[1] = key_material[2];
 }
 
-static int aead_aes_gcm_siv_asm_seal_scatter(
-    const EVP_AEAD_CTX *ctx, uint8_t *out, uint8_t *out_tag,
-    size_t *out_tag_len, size_t max_out_tag_len, const uint8_t *nonce,
-    size_t nonce_len, const uint8_t *in, size_t in_len, const uint8_t *ad,
-    size_t ad_len) {
+static int aead_aes_gcm_siv_asm_seal_scatter(const EVP_AEAD_CTX *ctx,
+                                             EVP_AEAD_SEAL_SCATTER_ARGS *args) {
   const struct aead_aes_gcm_siv_asm_ctx *gcm_siv_ctx = ctx->aead_state;
-  const uint64_t in_len_64 = in_len;
-  const uint64_t ad_len_64 = ad_len;
+  const uint64_t in_len_64 = args->in_len;
+  const uint64_t ad_len_64 = args->ad_len;
 
   if (in_len_64 > (UINT64_C(1) << 36) ||
       ad_len_64 >= (UINT64_C(1) << 61)) {
@@ -334,12 +331,12 @@ static int aead_aes_gcm_siv_asm_seal_scatter(
     return 0;
   }
 
-  if (max_out_tag_len < EVP_AEAD_AES_GCM_SIV_TAG_LEN) {
+  if (args->max_out_tag_len < EVP_AEAD_AES_GCM_SIV_TAG_LEN) {
     OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_BUFFER_TOO_SMALL);
     return 0;
   }
 
-  if (nonce_len != EVP_AEAD_AES_GCM_SIV_NONCE_LEN) {
+  if (args->nonce_len != EVP_AEAD_AES_GCM_SIV_NONCE_LEN) {
     OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_UNSUPPORTED_NONCE_SIZE);
     return 0;
   }
@@ -347,11 +344,11 @@ static int aead_aes_gcm_siv_asm_seal_scatter(
   alignas(16) uint64_t record_auth_key[2];
   alignas(16) uint64_t record_enc_key[4];
   aead_aes_gcm_siv_kdf(gcm_siv_ctx->is_128_bit, gcm_siv_ctx, record_auth_key,
-                       record_enc_key, nonce);
+                       record_enc_key, args->nonce);
 
   alignas(16) uint8_t tag[16] = {0};
-  gcm_siv_asm_polyval(tag, in, in_len, ad, ad_len,
-                      (const uint8_t *)record_auth_key, nonce);
+  gcm_siv_asm_polyval(tag, args->in, args->in_len, args->ad, args->ad_len,
+                      (const uint8_t *)record_auth_key, args->nonce);
 
   struct aead_aes_gcm_siv_asm_ctx enc_key_expanded;
 
@@ -359,29 +356,34 @@ static int aead_aes_gcm_siv_asm_seal_scatter(
     aes128gcmsiv_aes_ks_enc_x1(tag, tag, &enc_key_expanded.key[0],
                                record_enc_key);
 
-    if (in_len < 128) {
-      aes128gcmsiv_enc_msg_x4(in, out, tag, &enc_key_expanded, in_len & ~15);
+    if (args->in_len < 128) {
+      aes128gcmsiv_enc_msg_x4(args->in, args->out, tag, &enc_key_expanded,
+                              args->in_len & ~15);
     } else {
-      aes128gcmsiv_enc_msg_x8(in, out, tag, &enc_key_expanded, in_len & ~15);
+      aes128gcmsiv_enc_msg_x8(args->in, args->out, tag, &enc_key_expanded,
+                              args->in_len & ~15);
     }
   } else {
     aes256gcmsiv_aes_ks_enc_x1(tag, tag, &enc_key_expanded.key[0],
                                record_enc_key);
 
-    if (in_len < 128) {
-      aes256gcmsiv_enc_msg_x4(in, out, tag, &enc_key_expanded, in_len & ~15);
+    if (args->in_len < 128) {
+      aes256gcmsiv_enc_msg_x4(args->in, args->out, tag, &enc_key_expanded,
+                              args->in_len & ~15);
     } else {
-      aes256gcmsiv_enc_msg_x8(in, out, tag, &enc_key_expanded, in_len & ~15);
+      aes256gcmsiv_enc_msg_x8(args->in, args->out, tag, &enc_key_expanded,
+                              args->in_len & ~15);
     }
   }
 
-  if (in_len & 15) {
-    aead_aes_gcm_siv_asm_crypt_last_block(gcm_siv_ctx->is_128_bit, out, in,
-                                          in_len, tag, &enc_key_expanded);
+  if (args->in_len & 15) {
+    aead_aes_gcm_siv_asm_crypt_last_block(gcm_siv_ctx->is_128_bit, args->out,
+                                          args->in, args->in_len, tag,
+                                          &enc_key_expanded);
   }
 
-  OPENSSL_memcpy(out_tag, tag, sizeof(tag));
-  *out_tag_len = EVP_AEAD_AES_GCM_SIV_TAG_LEN;
+  OPENSSL_memcpy(args->out_tag, tag, sizeof(tag));
+  args->out_tag_len = EVP_AEAD_AES_GCM_SIV_TAG_LEN;
 
   return 1;
 }
@@ -505,6 +507,7 @@ static const EVP_AEAD aead_aes_128_gcm_siv_asm = {
     EVP_AEAD_AES_GCM_SIV_NONCE_LEN, /* nonce length */
     EVP_AEAD_AES_GCM_SIV_TAG_LEN,   /* overhead */
     EVP_AEAD_AES_GCM_SIV_TAG_LEN,   /* max tag length */
+    evp_aead_seal_scatter_does_not_support_opt_in,
 
     aead_aes_gcm_siv_asm_init,
     NULL /* init_with_direction */,
@@ -520,6 +523,7 @@ static const EVP_AEAD aead_aes_256_gcm_siv_asm = {
     EVP_AEAD_AES_GCM_SIV_NONCE_LEN, /* nonce length */
     EVP_AEAD_AES_GCM_SIV_TAG_LEN,   /* overhead */
     EVP_AEAD_AES_GCM_SIV_TAG_LEN,   /* max tag length */
+    evp_aead_seal_scatter_does_not_support_opt_in,
 
     aead_aes_gcm_siv_asm_init,
     NULL /* init_with_direction */,
@@ -698,44 +702,41 @@ static void gcm_siv_keys(
                   key_material + 16, gcm_siv_ctx->is_256 ? 32 : 16);
 }
 
-static int aead_aes_gcm_siv_seal_scatter(const EVP_AEAD_CTX *ctx, uint8_t *out,
-                                         uint8_t *out_tag, size_t *out_tag_len,
-                                         size_t max_out_tag_len,
-                                         const uint8_t *nonce, size_t nonce_len,
-                                         const uint8_t *in, size_t in_len,
-                                         const uint8_t *ad, size_t ad_len) {
+static int aead_aes_gcm_siv_seal_scatter(const EVP_AEAD_CTX *ctx,
+                                         EVP_AEAD_SEAL_SCATTER_ARGS *args) {
   const struct aead_aes_gcm_siv_ctx *gcm_siv_ctx = ctx->aead_state;
-  const uint64_t in_len_64 = in_len;
-  const uint64_t ad_len_64 = ad_len;
+  const uint64_t in_len_64 = args->in_len;
+  const uint64_t ad_len_64 = args->ad_len;
 
-  if (in_len + EVP_AEAD_AES_GCM_SIV_TAG_LEN < in_len ||
+  if (args->in_len + EVP_AEAD_AES_GCM_SIV_TAG_LEN < args->in_len ||
       in_len_64 > (UINT64_C(1) << 36) ||
       ad_len_64 >= (UINT64_C(1) << 61)) {
     OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_TOO_LARGE);
     return 0;
   }
 
-  if (max_out_tag_len < EVP_AEAD_AES_GCM_SIV_TAG_LEN) {
+  if (args->out_tag_len < EVP_AEAD_AES_GCM_SIV_TAG_LEN) {
     OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_BUFFER_TOO_SMALL);
     return 0;
   }
 
-  if (nonce_len != EVP_AEAD_AES_GCM_SIV_NONCE_LEN) {
+  if (args->nonce_len != EVP_AEAD_AES_GCM_SIV_NONCE_LEN) {
     OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_UNSUPPORTED_NONCE_SIZE);
     return 0;
   }
 
   struct gcm_siv_record_keys keys;
-  gcm_siv_keys(gcm_siv_ctx, &keys, nonce);
+  gcm_siv_keys(gcm_siv_ctx, &keys, args->nonce);
 
   uint8_t tag[16];
-  gcm_siv_polyval(tag, in, in_len, ad, ad_len, keys.auth_key, nonce);
+  gcm_siv_polyval(tag, args->in, args->in_len, args->ad, args->ad_len, keys.auth_key,
+                  args->nonce);
   keys.enc_block(tag, tag, &keys.enc_key.ks);
 
-  gcm_siv_crypt(out, in, in_len, tag, keys.enc_block, &keys.enc_key.ks);
+  gcm_siv_crypt(args->out, args->in, args->in_len, tag, keys.enc_block, &keys.enc_key.ks);
 
-  OPENSSL_memcpy(out_tag, tag, EVP_AEAD_AES_GCM_SIV_TAG_LEN);
-  *out_tag_len = EVP_AEAD_AES_GCM_SIV_TAG_LEN;
+  OPENSSL_memcpy(args->out_tag, tag, EVP_AEAD_AES_GCM_SIV_TAG_LEN);
+  args->out_tag_len = EVP_AEAD_AES_GCM_SIV_TAG_LEN;
 
   return 1;
 }
@@ -788,6 +789,7 @@ static const EVP_AEAD aead_aes_128_gcm_siv = {
     EVP_AEAD_AES_GCM_SIV_NONCE_LEN, /* nonce length */
     EVP_AEAD_AES_GCM_SIV_TAG_LEN,   /* overhead */
     EVP_AEAD_AES_GCM_SIV_TAG_LEN,   /* max tag length */
+    evp_aead_seal_scatter_does_not_support_opt_in,
 
     aead_aes_gcm_siv_init,
     NULL /* init_with_direction */,
@@ -803,6 +805,7 @@ static const EVP_AEAD aead_aes_256_gcm_siv = {
     EVP_AEAD_AES_GCM_SIV_NONCE_LEN, /* nonce length */
     EVP_AEAD_AES_GCM_SIV_TAG_LEN,   /* overhead */
     EVP_AEAD_AES_GCM_SIV_TAG_LEN,   /* max tag length */
+    evp_aead_seal_scatter_does_not_support_opt_in,
 
     aead_aes_gcm_siv_init,
     NULL /* init_with_direction */,

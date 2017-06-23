@@ -73,12 +73,18 @@ extern "C" {
 /* EVP_CIPH_MODE_MASK contains the bits of |flags| that represent the mode. */
 #define EVP_CIPH_MODE_MASK 0x3f
 
+enum evp_aead_seal_scatter_supports_opt_in_t {
+  evp_aead_seal_scatter_does_not_support_opt_in,
+  evp_aead_seal_scatter_does_support_opt_in,
+};
+
 /* EVP_AEAD represents a specific AEAD algorithm. */
 struct evp_aead_st {
   uint8_t key_len;
   uint8_t nonce_len;
   uint8_t overhead;
   uint8_t max_tag_len;
+  enum evp_aead_seal_scatter_supports_opt_in_t seal_scatter_supports_opt_in;
 
   /* init initialises an |EVP_AEAD_CTX|. If this call returns zero then
    * |cleanup| will not be called for that context. */
@@ -93,10 +99,8 @@ struct evp_aead_st {
               const uint8_t *in, size_t in_len, const uint8_t *ad,
               size_t ad_len);
 
-  int (*seal_scatter)(const EVP_AEAD_CTX *ctx, uint8_t *out, uint8_t *out_tag,
-                      size_t *out_tag_len, size_t max_out_tag_len,
-                      const uint8_t *nonce, size_t nonce_len, const uint8_t *in,
-                      size_t in_len, const uint8_t *ad, size_t ad_len);
+  int (*seal_scatter)(const EVP_AEAD_CTX *ctx,
+                      EVP_AEAD_SEAL_SCATTER_ARGS *args);
 
   int (*open_gather)(const EVP_AEAD_CTX *ctx, uint8_t *out,
                      const uint8_t *nonce, size_t nonce_len, const uint8_t *in,
