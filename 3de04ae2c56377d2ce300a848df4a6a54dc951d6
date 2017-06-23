@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "187093d5_2c8f2669",
+        "filename": "crypto/fipsmodule/cipher/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-23T22:48:40Z",
+      "side": 1,
+      "message": "If does_not were first and \"\u003d 0\", then you could omit it in the common case where an AEAD doesn\u0027t support it as they memset the EVP_AEAD to zero, I think.\n\n(Wouldn\u0027t help outside the module where a struct literal is used though.)",
+      "revId": "3de04ae2c56377d2ce300a848df4a6a54dc951d6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fe22162_5d538b8e",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-06-23T22:48:40Z",
+      "side": 1,
+      "message": "random thought (David might know a reason why it wouldn\u0027t work):\n\nif !defined(BORINGSSL_NO_CXX)\naead_seal_scatter_args() {\n  memset(this, 0, sizeof(*this));\n}\n#endif\n\nIt might make it a little easier to use from C++.\n\nAlso, naming-wise, I think this might be EVP_AEAD_SEAL_SCATTER_ARGS. (I think all our public structs are upper-case.)",
+      "revId": "3de04ae2c56377d2ce300a848df4a6a54dc951d6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
