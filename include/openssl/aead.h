@@ -271,20 +271,36 @@ OPENSSL_EXPORT int EVP_AEAD_CTX_open(const EVP_AEAD_CTX *ctx, uint8_t *out,
  * |*out_tag_len| is set to the actual number of bytes written to |out_tag|.
  *
  * The length of |nonce|, |nonce_len|, must be equal to the result of
- * |EVP_AEAD_nonce_length| for this AEAD.
  *
  * |EVP_AEAD_CTX_seal_scatter| never results in a partial output. If
  * |max_out_tag_len| is insufficient, zero will be returned. If any error
  * occurs, |out| and |out_tag| will be filled with zero bytes and |*out_tag_len|
  * set to zero.
- *
  * If |in| and |out| alias then |out| must be == |in|. |out_tag| may not alias
  * any other argument. */
-OPENSSL_EXPORT int EVP_AEAD_CTX_seal_scatter(
-    const EVP_AEAD_CTX *ctx, uint8_t *out, uint8_t *out_tag,
-    size_t *out_tag_len, size_t max_out_tag_len, const uint8_t *nonce,
-    size_t nonce_len, const uint8_t *in, size_t in_len, const uint8_t *ad,
-    size_t ad_len);
+
+typedef struct {
+  uint8_t *out;
+  uint8_t *out_tag;
+  size_t out_tag_len;
+  size_t max_out_tag_len;
+  const uint8_t *nonce;
+  size_t nonce_len;
+  const uint8_t *in;
+  size_t in_len;
+  // opt_in may point to an additional plaintext input buffer if the cipher
+  // supports it. If present, EVP_AEAD_CTX_seal_scatter encrypts |opt_in_len|
+  // additional bytes of plaintext from |opt_in| and prepends the resulting
+  // ciphertext before the tag into |out_tag|. |max_out_tag_len| must be
+  // sized to allow for the additional |opt_in_len| bytes.
+  const uint8_t *opt_in;
+  size_t opt_in_len;
+  const uint8_t *ad;
+  size_t ad_len;
+} aead_seal_scatter_args;
+
+OPENSSL_EXPORT int EVP_AEAD_CTX_seal_scatter(const EVP_AEAD_CTX *ctx,
+                                             aead_seal_scatter_args *args);
 
 /* EVP_AEAD_CTX_open_gather decrypts and authenticates |in_len| bytes from |in|
  * and authenticates |ad_len| bytes from |ad| using |in_tag_len| bytes of

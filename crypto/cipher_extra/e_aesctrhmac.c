@@ -176,12 +176,9 @@ static void aead_aes_ctr_hmac_sha256_crypt(
 }
 
 static int aead_aes_ctr_hmac_sha256_seal_scatter(
-    const EVP_AEAD_CTX *ctx, uint8_t *out, uint8_t *out_tag,
-    size_t *out_tag_len, size_t max_out_tag_len, const uint8_t *nonce,
-    size_t nonce_len, const uint8_t *in, size_t in_len, const uint8_t *ad,
-    size_t ad_len) {
+    const EVP_AEAD_CTX *ctx, aead_seal_scatter_args *args) {
   const struct aead_aes_ctr_hmac_sha256_ctx *aes_ctx = ctx->aead_state;
-  const uint64_t in_len_64 = in_len;
+  const uint64_t in_len_64 = args->in_len;
 
   if (in_len_64 >= (UINT64_C(1) << 32) * AES_BLOCK_SIZE) {
      /* This input is so large it would overflow the 32-bit block counter. */
@@ -189,23 +186,24 @@ static int aead_aes_ctr_hmac_sha256_seal_scatter(
     return 0;
   }
 
-  if (max_out_tag_len < ctx->tag_len) {
+  if (args->max_out_tag_len < ctx->tag_len) {
     OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_BUFFER_TOO_SMALL);
     return 0;
   }
 
-  if (nonce_len != EVP_AEAD_AES_CTR_HMAC_SHA256_NONCE_LEN) {
+  if (args->nonce_len != EVP_AEAD_AES_CTR_HMAC_SHA256_NONCE_LEN) {
     OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_UNSUPPORTED_NONCE_SIZE);
     return 0;
   }
 
-  aead_aes_ctr_hmac_sha256_crypt(aes_ctx, out, in, in_len, nonce);
+  aead_aes_ctr_hmac_sha256_crypt(aes_ctx, args->out, args->in, args->in_len, args->nonce);
 
   uint8_t hmac_result[SHA256_DIGEST_LENGTH];
   hmac_calculate(hmac_result, &aes_ctx->inner_init_state,
-                 &aes_ctx->outer_init_state, ad, ad_len, nonce, out, in_len);
-  OPENSSL_memcpy(out_tag, hmac_result, ctx->tag_len);
-  *out_tag_len = ctx->tag_len;
+                 &aes_ctx->outer_init_state, args->ad, args->ad_len, args->nonce,
+                 args->out, args->in_len);
+  OPENSSL_memcpy(args->out_tag, hmac_result, ctx->tag_len);
+  args->out_tag_len = ctx->tag_len;
 
   return 1;
 }
@@ -245,6 +243,7 @@ static const EVP_AEAD aead_aes_128_ctr_hmac_sha256 = {
     12,                                       /* nonce length */
     EVP_AEAD_AES_CTR_HMAC_SHA256_TAG_LEN,     /* overhead */
     EVP_AEAD_AES_CTR_HMAC_SHA256_TAG_LEN,     /* max tag length */
+    evp_aead_seal_scatter_does_not_support_opt_in,
 
     aead_aes_ctr_hmac_sha256_init,
     NULL /* init_with_direction */,
@@ -260,6 +259,7 @@ static const EVP_AEAD aead_aes_256_ctr_hmac_sha256 = {
     12,                                       /* nonce length */
     EVP_AEAD_AES_CTR_HMAC_SHA256_TAG_LEN,     /* overhead */
     EVP_AEAD_AES_CTR_HMAC_SHA256_TAG_LEN,     /* max tag length */
+    evp_aead_seal_scatter_does_not_support_opt_in,
 
     aead_aes_ctr_hmac_sha256_init,
     NULL /* init_with_direction */,
