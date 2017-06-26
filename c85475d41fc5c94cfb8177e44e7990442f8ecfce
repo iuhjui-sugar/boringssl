@@ -1,0 +1,193 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a2793d1_596b87ba",
+        "filename": "crypto/cipher_extra/aead_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-26T20:40:26Z",
+      "side": 1,
+      "message": "Ditto from aead.c re struct literals.",
+      "revId": "c85475d41fc5c94cfb8177e44e7990442f8ecfce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03fe18ea_692585ee",
+        "filename": "crypto/fipsmodule/cipher/aead.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-26T20:40:26Z",
+      "side": 1,
+      "message": "Would this be better as:\nEVP_AEAD_SEAL_SCATTER_ARGS args;\nOPENSSL_memset(\u0026args, 0, sizeof(args));\nargs.out \u003d out;\nargs.out_tag \u003d out + in_len;\nargs.max_out_len \u003d max_out_len - in_len;\n...\n\nI assume the point of the ARGS struct was because we have too many parameters, but using a struct literal there kind of defeats the purpose. :-)\n\n(Also, clang-format will probably do less stupid things to it...)",
+      "revId": "c85475d41fc5c94cfb8177e44e7990442f8ecfce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74576bff_d678996f",
+        "filename": "crypto/fipsmodule/cipher/aead.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-26T20:40:26Z",
+      "side": 1,
+      "message": "Nit: clang-format",
+      "range": {
+        "startLine": 160,
+        "startChar": 28,
+        "endLine": 160,
+        "endChar": 29
+      },
+      "revId": "c85475d41fc5c94cfb8177e44e7990442f8ecfce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78430bc8_f41e631a",
+        "filename": "crypto/fipsmodule/cipher/aead.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-26T20:40:26Z",
+      "side": 1,
+      "message": "I would probably just leave this as args-\u003eopt_in_len !\u003d 0. If you pass in non-NULL opt_in and zero length, that seems fair game to pass into an unsupporting seal_scatter. If you pass in NULL opt_in and non-zero length, you didn\u0027t pass a valid memory range and we\u0027re not obligated to care about you. :-)\n\nFewer things to check and we don\u0027t try to distinguish a null opt_in vs. an empty opt_in. It\u0027s just empty or non-empty.",
+      "range": {
+        "startLine": 173,
+        "startChar": 6,
+        "endLine": 173,
+        "endChar": 40
+      },
+      "revId": "c85475d41fc5c94cfb8177e44e7990442f8ecfce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72cc1689_394bc71a",
+        "filename": "crypto/fipsmodule/cipher/aead.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-26T20:40:26Z",
+      "side": 1,
+      "message": "Why the wrapper function?",
+      "range": {
+        "startLine": 193,
+        "startChar": 9,
+        "endLine": 193,
+        "endChar": 34
+      },
+      "revId": "c85475d41fc5c94cfb8177e44e7990442f8ecfce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9b01426_9339f9f4",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-26T20:40:26Z",
+      "side": 1,
+      "message": "This is no longer accurate. (Huh. Modifying the tag length that way is interesting. I guess it makes sense... probably wants to be spelled out in the docs clearly though.)",
+      "range": {
+        "startLine": 271,
+        "startChar": 3,
+        "endLine": 271,
+        "endChar": 17
+      },
+      "revId": "c85475d41fc5c94cfb8177e44e7990442f8ecfce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb0c3592_05832138",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-26T20:40:26Z",
+      "side": 1,
+      "message": "Nit: The docs generator will probably work slightly better if this comment were still attached to EVP_AEAD_CTX_seal_scatter. Maybe:\n\ntypedef struct {\n  ...\n}  EVP_AEAD_SEAL_SCATTER_ARGS;\n\n/* EVP_AEAD_CTX_seal_scatter does stuff. Docs about opt_in here. */\nOPENSSL_EXPORT int EVP_AEAD_CTX_seal_scatter(...);",
+      "revId": "c85475d41fc5c94cfb8177e44e7990442f8ecfce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76bee3ae_4cb1a81a",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-26T20:40:26Z",
+      "side": 1,
+      "message": "What do you think about s/opt/extra/?",
+      "range": {
+        "startLine": 293,
+        "startChar": 5,
+        "endLine": 293,
+        "endChar": 11
+      },
+      "revId": "c85475d41fc5c94cfb8177e44e7990442f8ecfce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11cb58d8_ac11525e",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-26T20:40:26Z",
+      "side": 1,
+      "message": "Nit: /* C-style */ comments.\n\n(Although I\u0027m pretty sure our supported compilers are fine with either so we could just switch if we wanted...)",
+      "range": {
+        "startLine": 297,
+        "startChar": 2,
+        "endLine": 297,
+        "endChar": 4
+      },
+      "revId": "c85475d41fc5c94cfb8177e44e7990442f8ecfce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
