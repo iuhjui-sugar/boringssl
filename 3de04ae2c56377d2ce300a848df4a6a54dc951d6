@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6fa80013_1dcf0aad",
+        "filename": "crypto/fipsmodule/cipher/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-06-26T17:23:42Z",
+      "side": 1,
+      "message": "Oops, yes, I meant to order it that way. (I\u0027ll still leave it explicitly everywhere, but at least it\u0027s more defensive against accidentally omitting the initialization.)\n\nThough, having typed it out a few times now, i\u0027m inclined to just make it an int. :p",
+      "parentUuid": "187093d5_2c8f2669",
+      "revId": "3de04ae2c56377d2ce300a848df4a6a54dc951d6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7fe22162_5d538b8e",
         "filename": "include/openssl/aead.h",
         "patchSetId": 4
