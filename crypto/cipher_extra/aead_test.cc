@@ -23,6 +23,7 @@
 #include <openssl/cipher.h>
 #include <openssl/err.h>
 
+#include "../fipsmodule/cipher/internal.h"
 #include "../internal.h"
 #include "../test/file_test.h"
 #include "../test/test_util.h"
@@ -208,6 +209,64 @@ TEST_P(PerAEADTest, TestVector) {
   });
 }
 
+TEST_P(PerAEADTest, TestVectorSealScatterWithOptIn) {
+  std::string test_vectors = "crypto/cipher_extra/test/";
+  const KnownAEAD &aead_config = GetParam();
+  test_vectors += aead_config.test_vectors;
+  FileTestGTest(test_vectors.c_str(), [&](FileTest *t) {
+    if (!aead()->seal_scatter_supports_extra_in || t->HasAttribute("NO_SEAL") ||
+        t->HasAttribute("FAILS")) {
+      t->SkipCurrent();
+      return;
+    }
+
+    std::vector<uint8_t> key, nonce, in, ad, ct, tag;
+    ASSERT_TRUE(t->GetBytes(&key, "KEY"));
+    ASSERT_TRUE(t->GetBytes(&nonce, "NONCE"));
+    ASSERT_TRUE(t->GetBytes(&in, "IN"));
+    ASSERT_TRUE(t->GetBytes(&ad, "AD"));
+    ASSERT_TRUE(t->GetBytes(&ct, "CT"));
+    ASSERT_TRUE(t->GetBytes(&tag, "TAG"));
+    size_t tag_len = tag.size();
+    for (size_t i = 2; i <= in.size(); ++i) {
+      size_t extra_in_size = i-1;
+      std::vector<uint8_t> short_in(in.begin(), in.end()-extra_in_size);
+      std::vector<uint8_t> extra_in(in.end() - extra_in_size, in.end());
+
+      bssl::ScopedEVP_AEAD_CTX ctx;
+      ASSERT_TRUE(EVP_AEAD_CTX_init_with_direction(
+          ctx.get(), aead(), key.data(), key.size(), tag_len, evp_aead_seal));
+
+      std::vector<uint8_t> out(short_in.size());
+      std::vector<uint8_t> out_tag(EVP_AEAD_max_overhead(aead()) +
+                                   extra_in.size());
+      EVP_AEAD_SEAL_SCATTER_ARGS args;
+      args.out = out.data();
+      args.out_tag = out_tag.data();
+      args.max_out_tag_len = out_tag.size();
+      args.nonce = nonce.data();
+      args.nonce_len = nonce.size();
+      args.in = short_in.data();
+      args.in_len = short_in.size();
+      args.extra_in = extra_in.data();
+      args.extra_in_len = extra_in.size();
+      args.ad = ad.data();
+      args.ad_len = ad.size();
+      ASSERT_TRUE(EVP_AEAD_CTX_seal_scatter(ctx.get(), &args));
+
+      out_tag.resize(args.out_tag_len);
+      ASSERT_EQ(out_tag.size(), extra_in.size() + tag.size());
+
+      out.insert(out.end(), out_tag.begin(), out_tag.begin() + extra_in.size());
+      out_tag.erase(out_tag.begin(), out_tag.begin() + extra_in.size());
+
+      EXPECT_EQ(Bytes(ct), Bytes(out.data(), ct.size()));
+      EXPECT_EQ(Bytes(tag), Bytes(out_tag.data(), tag.size()));
+    }
+  });
+}
+
+
 TEST_P(PerAEADTest, TestVectorScatterGather) {
   std::string test_vectors = "crypto/cipher_extra/test/";
   const KnownAEAD &aead_config = GetParam();
@@ -278,7 +337,7 @@ TEST_P(PerAEADTest, TestVectorScatterGather) {
       int err = ERR_peek_error();
       if (ERR_GET_LIB(err) == ERR_LIB_CIPHER &&
           ERR_GET_REASON(err) == CIPHER_R_CTRL_NOT_IMPLEMENTED) {
-          (void)t->HasAttribute("FAILS");  // All attributes need to be used.
+          t->SkipCurrent();
           return;
         }
     }
