@@ -51,6 +51,24 @@
       "revId": "3de04ae2c56377d2ce300a848df4a6a54dc951d6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f521f1a_64b0590e",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-26T20:43:42Z",
+      "side": 1,
+      "message": "You\u0027ll need defined(__cplusplus) \u0026\u0026 !defined(BORINGSSL_NO_CXX) or fix base.h to forcibly define BORINGSSL_NO_CXX when we\u0027re building in C. No preference which. Alternatively, you could just make it defined(__cplusplus). BORINGSSL_NO_CXX is mostly to account for C++03 compilers and people with C++11 compilers and no or C++03 STLs. For something like this, any plausible C++ will be fine.\n\nOtherwise I think it works?",
+      "parentUuid": "7fe22162_5d538b8e",
+      "revId": "3de04ae2c56377d2ce300a848df4a6a54dc951d6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
