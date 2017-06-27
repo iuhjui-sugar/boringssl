@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b58a8f50_184d8b5f",
+        "filename": "crypto/fipsmodule/cipher/e_aes.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1251,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-06-27T06:50:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dbb55e05_0003189d",
+      "revId": "2006174504517f609a10cdc27c1dfcfe63de6858",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bc24c3ea_e286ae91",
         "filename": "crypto/fipsmodule/cipher/e_aes.c",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "2006174504517f609a10cdc27c1dfcfe63de6858",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed1c06cf_3c220065",
+        "filename": "crypto/fipsmodule/cipher/e_aes.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1377,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-06-27T06:50:10Z",
+      "side": 1,
+      "message": "Yes. I originally wanted only the TLS AEADs to support extra_in, but we don\u0027t have unit tests for those. Making regular AES support it too and testing that as a proxy seemed like the easiest thing to do, but I\u0027m open to other suggestions.",
+      "parentUuid": "bc24c3ea_e286ae91",
+      "revId": "2006174504517f609a10cdc27c1dfcfe63de6858",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
