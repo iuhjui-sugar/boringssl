@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "775aa483_ddecb0c6",
+        "filename": "crypto/cipher_extra/aead_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-06-27T06:50:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a2793d1_596b87ba",
+      "revId": "c85475d41fc5c94cfb8177e44e7990442f8ecfce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "03fe18ea_692585ee",
         "filename": "crypto/fipsmodule/cipher/aead.c",
         "patchSetId": 5
@@ -33,6 +51,24 @@
       "revId": "c85475d41fc5c94cfb8177e44e7990442f8ecfce",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "942fddd6_6e29633a",
+        "filename": "crypto/fipsmodule/cipher/aead.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-06-27T06:50:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03fe18ea_692585ee",
+      "revId": "c85475d41fc5c94cfb8177e44e7990442f8ecfce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "47ab808e_50f93e8a",
+        "filename": "crypto/fipsmodule/cipher/aead.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-06-27T06:50:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74576bff_d678996f",
+      "range": {
+        "startLine": 160,
+        "startChar": 28,
+        "endLine": 160,
+        "endChar": 29
+      },
+      "revId": "c85475d41fc5c94cfb8177e44e7990442f8ecfce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "78430bc8_f41e631a",
         "filename": "crypto/fipsmodule/cipher/aead.c",
         "patchSetId": 5
@@ -79,6 +139,30 @@
       "revId": "c85475d41fc5c94cfb8177e44e7990442f8ecfce",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25f505e0_ccc76247",
+        "filename": "crypto/fipsmodule/cipher/aead.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-06-27T06:50:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78430bc8_f41e631a",
+      "range": {
+        "startLine": 173,
+        "startChar": 6,
+        "endLine": 173,
+        "endChar": 40
+      },
+      "revId": "c85475d41fc5c94cfb8177e44e7990442f8ecfce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -105,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "a760324e_feba4ae6",
+        "filename": "crypto/fipsmodule/cipher/aead.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-06-27T06:50:30Z",
+      "side": 1,
+      "message": "That was a mistake.",
+      "parentUuid": "72cc1689_394bc71a",
+      "range": {
+        "startLine": 193,
+        "startChar": 9,
+        "endLine": 193,
+        "endChar": 34
+      },
+      "revId": "c85475d41fc5c94cfb8177e44e7990442f8ecfce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f9b01426_9339f9f4",
         "filename": "include/openssl/aead.h",
         "patchSetId": 5
@@ -116,6 +224,30 @@
       "writtenOn": "2017-06-26T20:40:26Z",
       "side": 1,
       "message": "This is no longer accurate. (Huh. Modifying the tag length that way is interesting. I guess it makes sense... probably wants to be spelled out in the docs clearly though.)",
+      "range": {
+        "startLine": 271,
+        "startChar": 3,
+        "endLine": 271,
+        "endChar": 17
+      },
+      "revId": "c85475d41fc5c94cfb8177e44e7990442f8ecfce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5811378f_8e607ca4",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-06-27T06:50:30Z",
+      "side": 1,
+      "message": "Hmm, do we perhaps want a separate uint8_t *extra_out? Not so much because anyone would want to scatter that, but more to make the interface less complicated to describe.\n\nSemi-relatedly, now that we have an arg struct, do we maybe want fold max_out_tag_len and out_tag_len into inout_tag_len? I like that better, but maybe it\u0027s too inconsistent with the rest of the API.",
+      "parentUuid": "f9b01426_9339f9f4",
       "range": {
         "startLine": 271,
         "startChar": 3,
@@ -145,6 +277,24 @@
     },
     {
       "key": {
+        "uuid": "d33649f0_f32c9381",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-06-27T06:50:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb0c3592_05832138",
+      "revId": "c85475d41fc5c94cfb8177e44e7990442f8ecfce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76bee3ae_4cb1a81a",
         "filename": "include/openssl/aead.h",
         "patchSetId": 5
@@ -168,6 +318,30 @@
     },
     {
       "key": {
+        "uuid": "bcc05344_c3e272ed",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-06-27T06:50:30Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "76bee3ae_4cb1a81a",
+      "range": {
+        "startLine": 293,
+        "startChar": 5,
+        "endLine": 293,
+        "endChar": 11
+      },
+      "revId": "c85475d41fc5c94cfb8177e44e7990442f8ecfce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "11cb58d8_ac11525e",
         "filename": "include/openssl/aead.h",
         "patchSetId": 5
@@ -188,6 +362,30 @@
       "revId": "c85475d41fc5c94cfb8177e44e7990442f8ecfce",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd5a0eda_fc546621",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-06-27T06:50:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11cb58d8_ac11525e",
+      "range": {
+        "startLine": 297,
+        "startChar": 2,
+        "endLine": 297,
+        "endChar": 4
+      },
+      "revId": "c85475d41fc5c94cfb8177e44e7990442f8ecfce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }

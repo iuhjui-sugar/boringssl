@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "8fb79a89_1f6dafe9",
+        "filename": "crypto/fipsmodule/cipher/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-06-27T06:50:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6fa80013_1dcf0aad",
+      "revId": "3de04ae2c56377d2ce300a848df4a6a54dc951d6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7fe22162_5d538b8e",
         "filename": "include/openssl/aead.h",
         "patchSetId": 4
@@ -69,6 +87,24 @@
       "revId": "3de04ae2c56377d2ce300a848df4a6a54dc951d6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1342e185_dc653029",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-06-27T06:50:30Z",
+      "side": 1,
+      "message": "#if defined(__cplusplus) looks reasonable.",
+      "parentUuid": "9f521f1a_64b0590e",
+      "revId": "3de04ae2c56377d2ce300a848df4a6a54dc951d6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
