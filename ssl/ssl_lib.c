@@ -568,22 +568,6 @@ void ssl_reset_error_state(SSL *ssl) {
   ERR_clear_system_error();
 }
 
-uint16_t ssl_version_to_wire(SSL_HANDSHAKE *hs, uint16_t version) {
-  if (SSL_is_dtls(hs->ssl)) {
-    if (version == TLS1_1_VERSION) {
-      return DTLS1_VERSION;
-    } else if (version == TLS1_2_VERSION) {
-      return DTLS1_2_VERSION;
-    } else {
-      return 0;
-    }
-  } else if (version == TLS1_3_VERSION) {
-    return TLS1_3_DRAFT_VERSION;
-  }
-
-  return version;
-}
-
 int SSL_do_handshake(SSL *ssl) {
   ssl_reset_error_state(ssl);
 
@@ -992,60 +976,6 @@ int SSL_get_error(const SSL *ssl, int ret_code) {
   }
 
   return SSL_ERROR_SYSCALL;
-}
-
-static int set_min_version(const SSL_PROTOCOL_METHOD *method, uint16_t *out,
-                           uint16_t version) {
-  /* Zero is interpreted as the default minimum version. */
-  if (version == 0) {
-    *out = method->min_version;
-    /* SSL 3.0 is disabled unless explicitly enabled. */
-    if (*out < TLS1_VERSION) {
-      *out = TLS1_VERSION;
-    }
-    return 1;
-  }
-
-  if (version == TLS1_3_VERSION) {
-    version = TLS1_3_DRAFT_VERSION;
-  }
-
-  return method->version_from_wire(out, version);
-}
-
-static int set_max_version(const SSL_PROTOCOL_METHOD *method, uint16_t *out,
-                           uint16_t version) {
-  /* Zero is interpreted as the default maximum version. */
-  if (version == 0) {
-    *out = method->max_version;
-    /* TODO(svaldez): Enable TLS 1.3 by default once fully implemented. */
-    if (*out > TLS1_2_VERSION) {
-      *out = TLS1_2_VERSION;
-    }
-    return 1;
-  }
-
-  if (version == TLS1_3_VERSION) {
-    version = TLS1_3_DRAFT_VERSION;
-  }
-
-  return method->version_from_wire(out, version);
-}
-
-int SSL_CTX_set_min_proto_version(SSL_CTX *ctx, uint16_t version) {
-  return set_min_version(ctx->method, &ctx->conf_min_version, version);
-}
-
-int SSL_CTX_set_max_proto_version(SSL_CTX *ctx, uint16_t version) {
-  return set_max_version(ctx->method, &ctx->conf_max_version, version);
-}
-
-int SSL_set_min_proto_version(SSL *ssl, uint16_t version) {
-  return set_min_version(ssl->method, &ssl->conf_min_version, version);
-}
-
-int SSL_set_max_proto_version(SSL *ssl, uint16_t version) {
-  return set_max_version(ssl->method, &ssl->conf_max_version, version);
 }
 
 uint32_t SSL_CTX_set_options(SSL_CTX *ctx, uint32_t options) {
@@ -2363,102 +2293,6 @@ int ssl3_can_false_start(const SSL *ssl) {
       cipher != NULL &&
       cipher->algorithm_mkey == SSL_kECDHE &&
       cipher->algorithm_mac == SSL_AEAD;
-}
-
-const struct {
-  uint16_t version;
-  uint32_t flag;
-} kVersions[] = {
-    {SSL3_VERSION, SSL_OP_NO_SSLv3},
-    {TLS1_VERSION, SSL_OP_NO_TLSv1},
-    {TLS1_1_VERSION, SSL_OP_NO_TLSv1_1},
-    {TLS1_2_VERSION, SSL_OP_NO_TLSv1_2},
-    {TLS1_3_VERSION, SSL_OP_NO_TLSv1_3},
-};
-
-static const size_t kVersionsLen = OPENSSL_ARRAY_SIZE(kVersions);
-
-int ssl_get_version_range(const SSL *ssl, uint16_t *out_min_version,
-                          uint16_t *out_max_version) {
-  /* For historical reasons, |SSL_OP_NO_DTLSv1| aliases |SSL_OP_NO_TLSv1|, but
-   * DTLS 1.0 should be mapped to TLS 1.1. */
-  uint32_t options = ssl->options;
-  if (SSL_is_dtls(ssl)) {
-    options &= ~SSL_OP_NO_TLSv1_1;
-    if (options & SSL_OP_NO_DTLSv1) {
-      options |= SSL_OP_NO_TLSv1_1;
-    }
-  }
-
-  uint16_t min_version = ssl->conf_min_version;
-  uint16_t max_version = ssl->conf_max_version;
-
-  /* Bound the range to only those implemented in this protocol. */
-  if (min_version < ssl->method->min_version) {
-    min_version = ssl->method->min_version;
-  }
-  if (max_version > ssl->method->max_version) {
-    max_version = ssl->method->max_version;
-  }
-
-  /* OpenSSL's API for controlling versions entails blacklisting individual
-   * protocols. This has two problems. First, on the client, the protocol can
-   * only express a contiguous range of versions. Second, a library consumer
-   * trying to set a maximum version cannot disable protocol versions that get
-   * added in a future version of the library.
-   *
-   * To account for both of these, OpenSSL interprets the client-side bitmask
-   * as a min/max range by picking the lowest contiguous non-empty range of
-   * enabled protocols. Note that this means it is impossible to set a maximum
-   * version of the higest supported TLS version in a future-proof way. */
-  int any_enabled = 0;
-  for (size_t i = 0; i < kVersionsLen; i++) {
-    /* Only look at the versions already enabled. */
-    if (min_version > kVersions[i].version) {
-      continue;
-    }
-    if (max_version < kVersions[i].version) {
-      break;
-    }
-
-    if (!(options & kVersions[i].flag)) {
-      /* The minimum version is the first enabled version. */
-      if (!any_enabled) {
-        any_enabled = 1;
-        min_version = kVersions[i].version;
-      }
-      continue;
-    }
-
-    /* If there is a disabled version after the first enabled one, all versions
-     * after it are implicitly disabled. */
-    if (any_enabled) {
-      max_version = kVersions[i-1].version;
-      break;
-    }
-  }
-
-  if (!any_enabled) {
-    OPENSSL_PUT_ERROR(SSL, SSL_R_NO_SUPPORTED_VERSIONS_ENABLED);
-    return 0;
-  }
-
-  *out_min_version = min_version;
-  *out_max_version = max_version;
-  return 1;
-}
-
-uint16_t ssl3_protocol_version(const SSL *ssl) {
-  assert(ssl->s3->have_version);
-  uint16_t version;
-  if (!ssl->method->version_from_wire(&version, ssl->version)) {
-    /* TODO(davidben): Use the internal version representation for ssl->version
-     * and map to the public API representation at API boundaries. */
-    assert(0);
-    return 0;
-  }
-
-  return version;
 }
 
 int SSL_is_server(const SSL *ssl) { return ssl->server; }

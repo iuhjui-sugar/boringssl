@@ -66,21 +66,6 @@
 #include "internal.h"
 
 
-static int dtls1_version_from_wire(uint16_t *out_version,
-                                   uint16_t wire_version) {
-  switch (wire_version) {
-    case DTLS1_VERSION:
-      /* DTLS 1.0 maps to TLS 1.1, not TLS 1.0. */
-      *out_version = TLS1_1_VERSION;
-      return 1;
-    case DTLS1_2_VERSION:
-      *out_version = TLS1_2_VERSION;
-      return 1;
-  }
-
-  return 0;
-}
-
 static int dtls1_supports_cipher(const SSL_CIPHER *cipher) {
   return cipher->algorithm_enc != SSL_eNULL;
 }
@@ -120,9 +105,6 @@ static int dtls1_set_write_state(SSL *ssl, SSL_AEAD_CTX *aead_ctx) {
 
 static const SSL_PROTOCOL_METHOD kDTLSProtocolMethod = {
     1 /* is_dtls */,
-    TLS1_1_VERSION,
-    TLS1_2_VERSION,
-    dtls1_version_from_wire,
     dtls1_new,
     dtls1_free,
     dtls1_get_message,
