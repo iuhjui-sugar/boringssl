@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a602628b_3dc1fd55",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2402,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-28T22:38:28Z",
+      "side": 0,
+      "message": "Note this is removed. I believe it\u0027s unnecessary because min_version and max_version already go through version_from_wire (and its replacement).",
+      "revId": "33899b55e730d8feef55e4fe7443db2d7e3900d0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
