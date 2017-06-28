@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc95fb93_e38925d4",
+        "filename": "tool/transport_common.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-06-28T13:34:45Z",
+      "side": 1,
+      "message": "Change this to something higher, 5? Since otherwise the third connection will ECONNREFUSED.",
+      "range": {
+        "startLine": 193,
+        "startChar": 23,
+        "endLine": 193,
+        "endChar": 24
+      },
+      "revId": "ef977cf2024d428e8772cc8c5bf86f1fc64655c8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
