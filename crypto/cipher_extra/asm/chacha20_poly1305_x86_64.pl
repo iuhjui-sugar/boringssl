@@ -78,6 +78,7 @@ chacha20_poly1305_constants:
 .byte 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0x00,0x00,0x00
 .byte 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0x00,0x00
 .byte 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0x00
+.byte 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff
 ___
 
 my ($oup,$inp,$inl,$adp,$keyp,$itr1,$itr2)=("%rdi","%rsi","%rbx","%rcx","%r9","%rcx","%r8");
@@ -856,7 +857,9 @@ chacha20_poly1305_seal:
 .cfi_offset r15, -56
     lea 32(%rsp), %rbp
     and \$-32, %rbp
-    mov %rdx, 8+$len_store
+    mov 56($keyp), $inl  # extra_in_len
+    addq %rdx, $inl
+    mov $inl, 8+$len_store
     mov %r8, 0+$len_store
     mov %rdx, $inl\n"; $code.="
     mov OPENSSL_ia32cap_P+8(%rip), %eax
@@ -1093,11 +1096,9 @@ seal_sse_128_seal:
 
 seal_sse_tail_16:
     test $inl, $inl
-    jz seal_sse_finalize
+    jz 9f
     # We can only load the PT one byte at a time to avoid buffer overread
     mov $inl, $itr2
-    shl \$4, $itr2
-    lea .and_masks(%rip), $t0
     mov $inl, $itr1
     lea -1($inp, $inl), $inp
     pxor $T3, $T3
@@ -1121,14 +1122,130 @@ seal_sse_tail_16:
         sub \$1, $itr1
         jnz 2b
 
-    pand -16($t0, $itr2), $T3
+3:
+    # $T3 contains the final (partial, perhaps empty) block of ciphertext which
+    # needs to be fed into the Poly1305 state. The right-most $inl bytes of it
+    # are valid. We need to fill it with extra_in bytes until full, or until we
+    # run out of bytes.
+    #
+    # $keyp points to the tag output, which is actually a struct with the
+    # extra_in pointer and length at offset 48.
+    movq 288+32(%rsp), $keyp
+    movq 56($keyp), $t1  # extra_in_len
+    movq 48($keyp), $t0  # extra_in
+    test $t1, $t1
+    jz 13f               # Common case: no bytes of extra_in
+
+    movq \$16, $t2
+    subq $inl, $t2  # 16-$inl is the number of bytes that fit into $T3.
+    cmpq $t2, $t1   # if extra_in_len < 16-$inl, only copy extra_in_len
+                    # (note that AT&T syntax reserves the arguments)
+    jge 4f
+    movq $t1, $t2
+
+4:
+    # $t2 contains the number of bytes of extra_in (pointed to by $t0) to load
+    # into $T3. They are loaded in reverse order.
+    leaq -1($t0, $t2), $inp
+    # Update extra_in and extra_in_len to reflect the bytes that are about to
+    # be read.
+    addq $t2, $t0
+    subq $t2, $t1
+    movq $t0, 48($keyp)
+    movq $t1, 56($keyp)
+
+    # Update $itr2, which is used to select the mask later on, to reflect the
+    # extra bytes about to be added.
+    addq $t2, $itr2
+
+    # Load $t2 bytes of extra_in into $T2.
+    pxor $T2, $T2
+    test $t2, $t2
+5:
+        jz 6f
+        pslldq \$1, $T2
+        pinsrb \$0, ($inp), $T2
+        lea -1($inp), $inp
+        sub \$1, $t2
+        jmp 5b
+
+    # Shift $T2 up the length of the remainder from the main encryption. Sadly,
+    # the shift for an XMM register has to be a constant, thus we loop to do
+    # this.
+6:
+    movq $inl, $t2
+    test $t2, $t2
+7:
+        jz 8f
+        pslldq \$1, $T2
+        sub \$1, $t2
+        jmp 7b
+
+8:
+    # Mask $T3 (the remainder from the main encryption) so that superfluous
+    # bytes are zero. This means that the non-zero bytes in $T2 and $T3 are
+    # disjoint and so we can merge them with an OR.
+    lea .and_masks(%rip), $t2
+    shl \$4, $inl
+    pand -16($t2, $inl), $T3
+
+    # Merge $T2 into $T3, forming the remainder block.
+    por $T2, $T3
+
+    # The block of ciphertext + extra_in is ready to be included in the
+    # Poly1305 state.
     movq $T3, $t0
     pextrq \$1, $T3, $t1
     add $t0, $acc0
     adc $t1, $acc1
     adc \$1, $acc2\n";
     &poly_mul(); $code.="
-seal_sse_finalize:\n";
+
+9:
+    # There may be additional bytes of extra_in to process.
+    movq 288+32(%rsp), $keyp
+    movq 48($keyp), $inp   # extra_in
+    movq 56($keyp), $itr2  # extra_in_len
+    movq $itr2, $itr1
+    shr \$4, $itr2         # number of blocks
+
+10:
+        jz 11f\n";
+        &poly_add("0($inp)");
+        &poly_mul(); $code.="
+        addq \$16, $inp
+        subq \$1, $itr2
+        jmp 10b
+
+11:
+    andq \$15, $itr1       # remaining num bytes (<16) of extra_in
+    movq $itr1, $inl
+    jz 14f
+    leaq -1($inp, $itr1), $inp
+
+12:
+        pslldq \$1, $T3
+        pinsrb \$0, ($inp), $T3
+        lea -1($inp), $inp
+        sub \$1, $itr1
+        jnz 12b
+
+13:
+    # $T3 contains $inl bytes of data to be feed into Poly1305.
+    test $inl, $inl
+    jz 14f
+
+    lea .and_masks(%rip), $t2
+    shl \$4, $inl
+    pand -16($t2, $inl), $T3
+    movq $T3, $t0
+    pextrq \$1, $T3, $t1
+    add $t0, $acc0
+    adc $t1, $acc1
+    adc \$1, $acc2\n";
+    &poly_mul(); $code.="
+
+14:\n";
     &poly_add($len_store);
     &poly_mul(); $code.="
     # Final reduce

@@ -211,12 +211,14 @@ static int aead_chacha20_poly1305_seal_scatter(
     }
   }
 
-  alignas(16) uint8_t tag[48];
+  alignas(16) uint8_t tag[48 + 8 + 8];
 
-  if (0 && asm_capable()) {
+  if (asm_capable()) {
     OPENSSL_memcpy(tag, c20_ctx->key, 32);
     OPENSSL_memset(tag + 32, 0, 4);
     OPENSSL_memcpy(tag + 32 + 4, nonce, 12);
+    OPENSSL_memcpy(tag + 48, &out_tag, sizeof(out_tag));
+    OPENSSL_memcpy(tag + 56, &extra_in_len, sizeof(extra_in_len));
     chacha20_poly1305_seal(out, in, in_len, ad, ad_len, tag);
   } else {
     CRYPTO_chacha_20(out, in, in_len, c20_ctx->key, nonce, 1);
