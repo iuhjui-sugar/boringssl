@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "40362f3a_bc2927e2",
+        "filename": "ssl/ssl_versions.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-06-29T16:00:32Z",
+      "side": 1,
+      "message": "Add a comment.",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 3
+      },
+      "revId": "6ed1906d87d13860c9ce9ac4b3539d6e1eef5756",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "516c4d81_563ae2fd",
+        "filename": "ssl/ssl_versions.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-06-29T16:00:32Z",
+      "side": 1,
+      "message": "Same",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 3
+      },
+      "revId": "6ed1906d87d13860c9ce9ac4b3539d6e1eef5756",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a76d405_0eb11da5",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2055,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-06-29T16:00:32Z",
+      "side": 1,
+      "message": "nit: Fix",
+      "range": {
+        "startLine": 2055,
+        "startChar": 10,
+        "endLine": 2055,
+        "endChar": 38
+      },
+      "revId": "6ed1906d87d13860c9ce9ac4b3539d6e1eef5756",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
