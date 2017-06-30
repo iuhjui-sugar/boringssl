@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff88c417_c577a77e",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 1175,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-06-30T20:26:31Z",
+      "side": 1,
+      "message": "Make these constants.",
+      "range": {
+        "startLine": 1175,
+        "startChar": 56,
+        "endLine": 1175,
+        "endChar": 62
+      },
+      "revId": "0a50ad287e6271da2287867f8e827ec11ecf6b0e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
