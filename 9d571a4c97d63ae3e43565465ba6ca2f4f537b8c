@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ef4b92b_a2e963c6",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-06-30T20:30:11Z",
+      "side": 1,
+      "message": "\"Sadly, I think this will need to be moved to a ServerHello extension. :-( And then I guess we make something up for HRR since we\u0027re not toying with that just yet.\"",
+      "range": {
+        "startLine": 174,
+        "startChar": 26,
+        "endLine": 174,
+        "endChar": 45
+      },
+      "revId": "9d571a4c97d63ae3e43565465ba6ca2f4f537b8c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
