@@ -396,6 +396,13 @@ size_t SSL_AEAD_CTX_explicit_nonce_len(const SSL_AEAD_CTX *ctx);
  * |SSL_AEAD_CTX_seal|. |ctx| may be NULL to denote the null cipher. */
 size_t SSL_AEAD_CTX_max_overhead(const SSL_AEAD_CTX *ctx);
 
+/* SSL_AEAD_CTX_max_suffix_len returns the maximum suffix length written by
+ * |SSL_AEAD_CTX_seal_scatter|. |ctx| may be NULL to denote the null cipher.
+ * |extra_in_len| should equal the argument of the same name passed to
+ * |SSL_AEAD_CTX_seal_scatter|. */
+size_t SSL_AEAD_CTX_max_suffix_len(const SSL_AEAD_CTX *ctx,
+                                   size_t extra_in_len);
+
 /* SSL_AEAD_CTX_open authenticates and decrypts |in_len| bytes from |in|
  * in-place. On success, it sets |*out| to the plaintext in |in| and returns
  * one. Otherwise, it returns zero. |ctx| may be NULL to denote the null cipher.
@@ -414,6 +421,30 @@ int SSL_AEAD_CTX_seal(SSL_AEAD_CTX *ctx, uint8_t *out, size_t *out_len,
                       const uint8_t seqnum[8], const uint8_t *in,
                       size_t in_len);
 
+/* SSL_AEAD_CTX_seal_scatter encrypts and authenticates |in_len| bytes from |in|
+ * and splits the result between |out_prefix|, |out| and |out_suffix|. It
+ * returns one on success and zero on error. |ctx| may be NULL to denote the
+ * null cipher.
+ *
+ * On successful return, exactly |SSL_AEAD_CTX_explicit_nonce_len| bytes are
+ * written to |out_prefix|, |in_len| bytes to |out|, and up to
+ * |SSL_AEAD_CTX_max_suffix_len| bytes to |out_suffix|. |*out_suffix_len| is set
+ * to the actual number of bytes written to |out_suffix|.
+ *
+ * |extra_in| may point to an additional plaintext buffer. If present,
+ * |extra_in_len| additional bytes are encrypted and authenticated, and the
+ * ciphertext is written to the beginning of |out_suffix|.
+ * |SSL_AEAD_CTX_max_suffix_len| may be used to size |out_suffix| accordingly.
+ *
+ * If |in| and |out| alias then |out| must be == |in|. Other arguments may not
+ * alias anything. */
+int SSL_AEAD_CTX_seal_scatter(SSL_AEAD_CTX *aead, uint8_t *out_prefix,
+                              uint8_t *out, uint8_t *out_suffix,
+                              size_t *out_suffix_len, size_t max_out_suffix_len,
+                              uint8_t type, uint16_t wire_version,
+                              const uint8_t seqnum[8], const uint8_t *in,
+                              size_t in_len, const uint8_t *extra_in,
+                              size_t extra_in_len);
 
 /* DTLS replay bitmap. */
 
@@ -497,6 +528,9 @@ enum ssl_open_record_t dtls_open_record(SSL *ssl, uint8_t *out_type, CBS *out,
  * mess. */
 size_t ssl_seal_align_prefix_len(const SSL *ssl);
 
+size_t tls_seal_scatter_prefix_len(const SSL *ssl, uint8_t type, size_t in_len);
+size_t tls_seal_scatter_max_suffix_len(const SSL *ssl);
+
 /* tls_seal_record seals a new record of type |type| and body |in| and writes it
  * to |out|. At most |max_out| bytes will be written. It returns one on success
  * and zero on error. If enabled, |tls_seal_record| implements TLS 1.0 CBC 1/n-1
@@ -510,6 +544,19 @@ size_t ssl_seal_align_prefix_len(const SSL *ssl);
  * |in| and |out| may not alias. */
 int tls_seal_record(SSL *ssl, uint8_t *out, size_t *out_len, size_t max_out,
                     uint8_t type, const uint8_t *in, size_t in_len);
+
+/* tls_seal_scatter_record seals a new record of type |type| and body |in| and
+ * splits it between |out_prefix|, |out|, and |out_suffix|. Exactly
+ * |tls_seal_scatter_prefix_len| bytes are written to |out_prefix|, |in_len|
+ * bytes to |out|, and up to |tls_seal_scatter_max_suffix_len| bytes to
+ * |out_suffix|. |*out_suffix_len| is set to the actual number of bytes written
+ * to |out_suffix|.  It returns one on success and zero on error. If enabled,
+ * |tls_seal_scatter_record| implements TLS 1.0 CBC 1/n-1 record splitting and
+ * may write two records concatenated. */
+int tls_seal_scatter_record(SSL *ssl, uint8_t *out_prefix, uint8_t *out,
+                            uint8_t *out_suffix, size_t *out_suffix_len,
+                            size_t max_out_suffix_len, uint8_t type,
+                            const uint8_t *in, size_t in_len);
 
 enum dtls1_use_epoch_t {
   dtls1_use_previous_epoch,
