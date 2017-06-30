@@ -1,0 +1,290 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f036235c_b286585d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-30T17:39:08Z",
+      "side": 1,
+      "message": "We can just say what this is about. :-) Perhaps:\n\n\nImplement experimental alternate encodings of TLS 1.3.\n\nTLS 1.3 deployment is currently blocked by buggy middleboxes\nthroughout the ecosystem. As an experiment to better understand these bugs\nand the problems they are causing, implement TLS 1.3 variants with\nalternate encodings. These are still the same protocol, only encoded\nslightly differently. We will use what we learn from these experiments to\nguide the TLS 1.3 deployment strategy and proposals to the IETF, if any.\n\nThese experiments only target the basic 1-RTT TLS 1.3 handshake. Based on\nwhat we learn from this experiment, we may try future variations to\nexplore 0-RTT and HelloRetryRequest.\n\nWhen enabled, the server supports all TLS 1.3 variants while the client\nis configured to use a particular variant.",
+      "revId": "667f097c719c98d55e2cf51cb6482dcc1dabcd6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5abe99fa_28ecf401",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3139,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-30T17:39:08Z",
+      "side": 1,
+      "message": "The variable is called \"mode\".",
+      "range": {
+        "startLine": 3139,
+        "startChar": 26,
+        "endLine": 3139,
+        "endChar": 37
+      },
+      "revId": "667f097c719c98d55e2cf51cb6482dcc1dabcd6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fb979fa_17690b9e",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3141,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-30T17:39:08Z",
+      "side": 1,
+      "message": "We should come up with better names here. It\u0027s odd that you call the draft versions SH and CCS, but expanded one of these.\n\n(Honestly, I was just going to suggest TLS1_3_EXPERIMENT_VERSION_A and TLS1_3_EXPERIMENT_VERSION_B. We may later need tweaks and this way we can just name them whatever random things we like.)",
+      "range": {
+        "startLine": 3141,
+        "startChar": 18,
+        "endLine": 3141,
+        "endChar": 34
+      },
+      "revId": "667f097c719c98d55e2cf51cb6482dcc1dabcd6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6745e119_6e18bb4c",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3142,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-30T17:39:08Z",
+      "side": 1,
+      "message": "enum",
+      "revId": "667f097c719c98d55e2cf51cb6482dcc1dabcd6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce5f4a5e_9dc32d67",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3142,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-30T17:39:08Z",
+      "side": 1,
+      "message": "I don\u0027t think \"compat\" has quite the connotations we want. SSL_CTX_set_tls13_experiment or SSL_CTX_set_tls13_variant?",
+      "range": {
+        "startLine": 3142,
+        "startChar": 20,
+        "endLine": 3142,
+        "endChar": 49
+      },
+      "revId": "667f097c719c98d55e2cf51cb6482dcc1dabcd6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc488848_0f9d0314",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-30T17:39:08Z",
+      "side": 1,
+      "message": "This and the above are starting to get sufficiently hairy that we probably just write proper ifs and things. Using random magic numbers is also very difficult to understand. \n\nAlso, add a comment.",
+      "revId": "667f097c719c98d55e2cf51cb6482dcc1dabcd6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6e2deed_2e464472",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-30T17:39:08Z",
+      "side": 1,
+      "message": "Call this an experiment, not compatibility mode.",
+      "range": {
+        "startLine": 763,
+        "startChar": 5,
+        "endLine": 763,
+        "endChar": 22
+      },
+      "revId": "667f097c719c98d55e2cf51cb6482dcc1dabcd6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aeaedd2e_0b02ad0c",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 963,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-30T17:39:08Z",
+      "side": 1,
+      "message": "Ditto on naming.",
+      "range": {
+        "startLine": 963,
+        "startChar": 5,
+        "endLine": 963,
+        "endChar": 18
+      },
+      "revId": "667f097c719c98d55e2cf51cb6482dcc1dabcd6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2eeb1567_06e1d3ec",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1403,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-30T17:39:08Z",
+      "side": 1,
+      "message": "Ditto on naming and using an enum.",
+      "revId": "667f097c719c98d55e2cf51cb6482dcc1dabcd6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f02ea040_8e81a7d7",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-30T17:39:08Z",
+      "side": 1,
+      "message": "(This won\u0027t be needed with the other multi-versions patch. I got rid of the early assignment of ssl-\u003eversion that\u0027s just kind of bizarre.)",
+      "revId": "667f097c719c98d55e2cf51cb6482dcc1dabcd6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c490681_e22f4072",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 869,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-30T17:39:08Z",
+      "side": 1,
+      "message": "If there is only an SSL_CTX setter, better to put it on the SSL_CTX to reduce memory.",
+      "range": {
+        "startLine": 869,
+        "startChar": 5,
+        "endLine": 869,
+        "endChar": 34
+      },
+      "revId": "667f097c719c98d55e2cf51cb6482dcc1dabcd6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7722661c_ee600204",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-30T17:39:08Z",
+      "side": 1,
+      "message": "Ditto on naming.",
+      "range": {
+        "startLine": 396,
+        "startChar": 1,
+        "endLine": 396,
+        "endChar": 16
+      },
+      "revId": "667f097c719c98d55e2cf51cb6482dcc1dabcd6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8b2c965_95ab8889",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-30T17:39:08Z",
+      "side": 1,
+      "message": "Sadly, I think this will need to be moved to a ServerHello extension. :-( And then I guess we make something up for HRR since we\u0027re not toying with that just yet.",
+      "range": {
+        "startLine": 174,
+        "startChar": 26,
+        "endLine": 174,
+        "endChar": 45
+      },
+      "revId": "667f097c719c98d55e2cf51cb6482dcc1dabcd6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccb84b0b_1d5dad91",
+        "filename": "ssl/tls13_client.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-30T17:39:08Z",
+      "side": 1,
+      "message": "Given how many places this check is done, ssl_versions.c probably wants something like:\n\n  ssl_uses_tls12_server_hello\n  ssl_uses_change_cipher_spec\n\n(Or something like that.)",
+      "revId": "667f097c719c98d55e2cf51cb6482dcc1dabcd6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
