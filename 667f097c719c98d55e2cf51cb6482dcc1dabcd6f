@@ -248,6 +248,23 @@
     },
     {
       "key": {
+        "uuid": "5b35f12b_e88b7e76",
+        "filename": "ssl/test/runner/dtls.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-30T18:38:54Z",
+      "side": 1,
+      "message": "I think this means BoGo as a server always accepts each of these.",
+      "revId": "667f097c719c98d55e2cf51cb6482dcc1dabcd6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a8b2c965_95ab8889",
         "filename": "ssl/tls13_client.c",
         "patchSetId": 3
