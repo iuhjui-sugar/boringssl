@@ -240,15 +240,10 @@ func (hs *serverHandshakeState) readClientHello() error {
 		if isGREASEValue(extVersion) {
 			foundGREASE = true
 		}
-		protocolVersion, ok := wireToVersion(extVersion, c.isDTLS)
-		if !ok {
-			continue
-		}
-		if config.isSupportedVersion(protocolVersion, c.isDTLS) && !foundVersion {
+		if protocolVersion, ok := config.isSupportedVersion(extVersion, c.isDTLS); ok && !foundVersion {
 			c.wireVersion = extVersion
 			c.vers = protocolVersion
 			foundVersion = true
-			break
 		}
 	}
 

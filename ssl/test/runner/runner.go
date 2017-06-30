@@ -263,8 +263,13 @@ func getShimKey(t testCert) string {
 	panic("Unknown test certificate")
 }
 
-func configVersionToWire(vers uint16, isDTLS bool) uint16 {
-	if isDTLS {
+// configVersionToWire maps a protocol version to the default wire version to
+// test at that protocol.
+//
+// TODO(davidben): Rather than mapping these, make tlsVersions contains a list
+// of wire versions and test all of them.
+func configVersionToWire(vers uint16, protocol protocol) uint16 {
+	if protocol == dtls {
 		switch vers {
 		case VersionTLS12:
 			return VersionDTLS12
@@ -4597,12 +4602,12 @@ func addVersionNegotiationTests() {
 				if clientVers > VersionTLS10 {
 					clientVers = VersionTLS10
 				}
-				clientVers = configVersionToWire(clientVers, protocol == dtls)
+				clientVers = configVersionToWire(clientVers, protocol)
 				serverVers := expectedVersion
 				if expectedVersion >= VersionTLS13 {
 					serverVers = VersionTLS10
 				}
-				serverVers = configVersionToWire(serverVers, protocol == dtls)
+				serverVers = configVersionToWire(serverVers, protocol)
 
 				testCases = append(testCases, testCase{
 					protocol: protocol,
@@ -4673,7 +4678,7 @@ func addVersionNegotiationTests() {
 				suffix += "-DTLS"
 			}
 
-			wireVersion := configVersionToWire(vers.version, protocol == dtls)
+			wireVersion := configVersionToWire(vers.version, protocol)
 			testCases = append(testCases, testCase{
 				protocol: protocol,
 				testType: serverTest,
@@ -4946,7 +4951,7 @@ func addMinimumVersionTests() {
 							// Ensure the server does not decline to
 							// select a version (versions extension) or
 							// cipher (some ciphers depend on versions).
-							NegotiateVersion:            configVersionToWire(runnerVers.version, protocol == dtls),
+							NegotiateVersion:            configVersionToWire(runnerVers.version, protocol),
 							IgnorePeerCipherPreferences: shouldFail,
 						},
 					},
@@ -4966,7 +4971,7 @@ func addMinimumVersionTests() {
 							// Ensure the server does not decline to
 							// select a version (versions extension) or
 							// cipher (some ciphers depend on versions).
-							NegotiateVersion:            configVersionToWire(runnerVers.version, protocol == dtls),
+							NegotiateVersion:            configVersionToWire(runnerVers.version, protocol),
 							IgnorePeerCipherPreferences: shouldFail,
 						},
 					},
