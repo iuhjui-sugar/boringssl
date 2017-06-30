@@ -283,6 +283,24 @@
     },
     {
       "key": {
+        "uuid": "467a30e5_862425f4",
+        "filename": "ssl/test/runner/dtls.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-06-30T19:03:38Z",
+      "side": 1,
+      "message": "Hrm. But what is kind of a problem is the client will accept a TLS 1.3 variant that it wasn\u0027t offered, which means we won\u0027t notice if our negotiation logic is borked. I\u0027ll toy with this a bit.",
+      "parentUuid": "69c1f8c7_4b43f3e6",
+      "revId": "667f097c719c98d55e2cf51cb6482dcc1dabcd6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a8b2c965_95ab8889",
         "filename": "ssl/tls13_client.c",
         "patchSetId": 3
