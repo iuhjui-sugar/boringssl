@@ -59,9 +59,11 @@
 
 #include <openssl/dsa.h>
 
+#include <limits.h>
 #include <string.h>
 
 #include <openssl/bn.h>
+#include <openssl/bytestring.h>
 #include <openssl/dh.h>
 #include <openssl/digest.h>
 #include <openssl/engine.h>
@@ -164,12 +166,11 @@ int DSA_generate_parameters_ex(DSA *dsa, unsigned bits, const uint8_t *seed_in,
   BIGNUM *g = NULL, *q = NULL, *p = NULL;
   BN_MONT_CTX *mont = NULL;
   int k, n = 0, m = 0;
-  unsigned i;
   int counter = 0;
   int r = 0;
   BN_CTX *ctx = NULL;
   unsigned int h = 2;
-  unsigned qsize;
+  size_t qsize;
   const EVP_MD *evpmd;
 
   evpmd = (bits >= 2048) ? EVP_sha256() : EVP_sha1();
@@ -182,10 +183,10 @@ int DSA_generate_parameters_ex(DSA *dsa, unsigned bits, const uint8_t *seed_in,
   bits = (bits + 63) / 64 * 64;
 
   if (seed_in != NULL) {
-    if (seed_len < (size_t)qsize) {
+    if (seed_len < qsize) {
       return 0;
     }
-    if (seed_len > (size_t)qsize) {
+    if (seed_len > qsize) {
       /* Only consume as much seed as is expected. */
       seed_len = qsize;
     }
@@ -236,7 +237,7 @@ int DSA_generate_parameters_ex(DSA *dsa, unsigned bits, const uint8_t *seed_in,
       OPENSSL_memcpy(buf, seed, qsize);
       OPENSSL_memcpy(buf2, seed, qsize);
       /* precompute "SEED + 1" for step 7: */
-      for (i = qsize - 1; i < qsize; i--) {
+      for (size_t i = qsize - 1; i < qsize; i--) {
         buf[i]++;
         if (buf[i] != 0) {
           break;
@@ -248,7 +249,7 @@ int DSA_generate_parameters_ex(DSA *dsa, unsigned bits, const uint8_t *seed_in,
           !EVP_Digest(buf, qsize, buf2, NULL, evpmd, NULL)) {
         goto err;
       }
-      for (i = 0; i < qsize; i++) {
+      for (size_t i = 0; i < qsize; i++) {
         md[i] ^= buf2[i];
       }
 
@@ -282,6 +283,13 @@ int DSA_generate_parameters_ex(DSA *dsa, unsigned bits, const uint8_t *seed_in,
 
     n = (bits - 1) / 160;
 
+    /* Check the computation in step 8 below will not overflow. */
+    if (qsize > INT_MAX >> 3 ||
+        n > INT_MAX / ((int)qsize << 3)) {
+      OPENSSL_PUT_ERROR(DSA, ERR_R_OVERFLOW);
+      goto err;
+    }
+
     for (;;) {
       if ((counter != 0) && !BN_GENCB_call(cb, 0, counter)) {
         goto err;
@@ -292,7 +300,7 @@ int DSA_generate_parameters_ex(DSA *dsa, unsigned bits, const uint8_t *seed_in,
       /* now 'buf' contains "SEED + offset - 1" */
       for (k = 0; k <= n; k++) {
         /* obtain "SEED + offset + k" by incrementing: */
-        for (i = qsize - 1; i < qsize; i--) {
+        for (size_t i = qsize - 1; i < qsize; i--) {
           buf[i]++;
           if (buf[i] != 0) {
             break;
@@ -305,7 +313,7 @@ int DSA_generate_parameters_ex(DSA *dsa, unsigned bits, const uint8_t *seed_in,
 
         /* step 8 */
         if (!BN_bin2bn(md, qsize, r0) ||
-            !BN_lshift(r0, r0, (qsize << 3) * k) ||
+            !BN_lshift(r0, r0, ((int)qsize << 3) * k) ||
             !BN_add(W, W, r0)) {
           goto err;
         }
@@ -744,31 +752,33 @@ int DSA_verify(int type, const uint8_t *digest, size_t digest_len,
 int DSA_check_signature(int *out_valid, const uint8_t *digest,
                         size_t digest_len, const uint8_t *sig, size_t sig_len,
                         const DSA *dsa) {
-  DSA_SIG *s = NULL;
   int ret = 0;
-  uint8_t *der = NULL;
-
-  s = DSA_SIG_new();
-  if (s == NULL) {
+  CBS cbs;
+  CBS_init(&cbs, sig, sig_len);
+  uint8_t *reencode = NULL;
+  size_t reencode_len;
+  DSA_SIG *s = DSA_SIG_parse(&cbs);
+  if (s == NULL || CBS_len(&cbs) != 0) {
     goto err;
   }
 
-  const uint8_t *sigp = sig;
-  if (d2i_DSA_SIG(&s, &sigp, sig_len) == NULL || sigp != sig + sig_len) {
-    goto err;
-  }
-
-  /* Ensure that the signature uses DER and doesn't have trailing garbage. */
-  int der_len = i2d_DSA_SIG(s, &der);
-  if (der_len < 0 || (size_t)der_len != sig_len ||
-      OPENSSL_memcmp(sig, der, sig_len)) {
+  /* Defend against potential laxness in the DER parser. */
+  CBB cbb;
+  if (!CBB_init(&cbb, sig_len) ||
+      !DSA_SIG_marshal(&cbb, s) ||
+      !CBB_finish(&cbb, &reencode, &reencode_len) ||
+      sig_len != reencode_len ||
+      OPENSSL_memcmp(sig, reencode, sig_len) != 0) {
+    /* This should never happen. crypto/bytestring is strictly DER. */
+    OPENSSL_PUT_ERROR(DSA, ERR_R_INTERNAL_ERROR);
+    CBB_cleanup(&cbb);
     goto err;
   }
 
   ret = DSA_do_check_signature(out_valid, digest, digest_len, s, dsa);
 
 err:
-  OPENSSL_free(der);
+  OPENSSL_free(reencode);
   DSA_SIG_free(s);
   return ret;
 }
@@ -802,10 +812,11 @@ int DSA_size(const DSA *dsa) {
   }
   /* Add the header. */
   size_t ret = 1 /* tag */ + der_len_len(value_len) + value_len;
-  if (ret < value_len) {
+  if (ret < value_len ||
+      ret > INT_MAX) {
     return 0;
   }
-  return ret;
+  return (int)ret;
 }
 
 int DSA_sign_setup(const DSA *dsa, BN_CTX *ctx_in, BIGNUM **out_kinv,

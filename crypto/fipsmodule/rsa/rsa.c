@@ -205,7 +205,7 @@ int RSA_public_encrypt(size_t flen, const uint8_t *from, uint8_t *to, RSA *rsa,
     OPENSSL_PUT_ERROR(RSA, ERR_R_OVERFLOW);
     return -1;
   }
-  return out_len;
+  return (int)out_len;
 }
 
 int RSA_sign_raw(RSA *rsa, size_t *out_len, uint8_t *out, size_t max_out,
@@ -229,7 +229,7 @@ int RSA_private_encrypt(size_t flen, const uint8_t *from, uint8_t *to, RSA *rsa,
     OPENSSL_PUT_ERROR(RSA, ERR_R_OVERFLOW);
     return -1;
   }
-  return out_len;
+  return (int)out_len;
 }
 
 int RSA_decrypt(RSA *rsa, size_t *out_len, uint8_t *out, size_t max_out,
@@ -253,7 +253,7 @@ int RSA_private_decrypt(size_t flen, const uint8_t *from, uint8_t *to, RSA *rsa,
     OPENSSL_PUT_ERROR(RSA, ERR_R_OVERFLOW);
     return -1;
   }
-  return out_len;
+  return (int)out_len;
 }
 
 int RSA_public_decrypt(size_t flen, const uint8_t *from, uint8_t *to, RSA *rsa,
@@ -268,10 +268,10 @@ int RSA_public_decrypt(size_t flen, const uint8_t *from, uint8_t *to, RSA *rsa,
     OPENSSL_PUT_ERROR(RSA, ERR_R_OVERFLOW);
     return -1;
   }
-  return out_len;
+  return (int)out_len;
 }
 
-unsigned RSA_size(const RSA *rsa) {
+size_t RSA_size(const RSA *rsa) {
   if (rsa->meth->size) {
     return rsa->meth->size(rsa);
   }
@@ -398,17 +398,14 @@ int RSA_add_pkcs1_prefix(uint8_t **out_msg, size_t *out_msg_len,
     }
 
     const uint8_t* prefix = sig_prefix->bytes;
-    unsigned prefix_len = sig_prefix->len;
-    unsigned signed_msg_len;
-    uint8_t *signed_msg;
-
-    signed_msg_len = prefix_len + msg_len;
+    size_t prefix_len = sig_prefix->len;
+    size_t signed_msg_len = prefix_len + msg_len;
     if (signed_msg_len < prefix_len) {
       OPENSSL_PUT_ERROR(RSA, RSA_R_TOO_LONG);
       return 0;
     }
 
-    signed_msg = OPENSSL_malloc(signed_msg_len);
+    uint8_t *signed_msg = OPENSSL_malloc(signed_msg_len);
     if (!signed_msg) {
       OPENSSL_PUT_ERROR(RSA, ERR_R_MALLOC_FAILURE);
       return 0;
@@ -428,9 +425,14 @@ int RSA_add_pkcs1_prefix(uint8_t **out_msg, size_t *out_msg_len,
   return 0;
 }
 
-int RSA_sign(int hash_nid, const uint8_t *in, unsigned in_len, uint8_t *out,
+int RSA_sign(int hash_nid, const uint8_t *in, size_t in_len, uint8_t *out,
              unsigned *out_len, RSA *rsa) {
-  const unsigned rsa_size = RSA_size(rsa);
+  if (in_len > UINT_MAX) {
+    OPENSSL_PUT_ERROR(RSA, RSA_R_DATA_TOO_LARGE);
+    return 0;
+  }
+
+  const size_t rsa_size = RSA_size(rsa);
   int ret = 0;
   uint8_t *signed_msg = NULL;
   size_t signed_msg_len = 0;
@@ -438,7 +440,7 @@ int RSA_sign(int hash_nid, const uint8_t *in, unsigned in_len, uint8_t *out,
   size_t size_t_out_len;
 
   if (rsa->meth->sign) {
-    return rsa->meth->sign(hash_nid, in, in_len, out, out_len, rsa);
+    return rsa->meth->sign(hash_nid, in, (unsigned)in_len, out, out_len, rsa);
   }
 
   if (!RSA_add_pkcs1_prefix(&signed_msg, &signed_msg_len,
@@ -448,7 +450,11 @@ int RSA_sign(int hash_nid, const uint8_t *in, unsigned in_len, uint8_t *out,
     goto err;
   }
 
-  *out_len = size_t_out_len;
+  if (size_t_out_len > UINT_MAX) {
+    OPENSSL_PUT_ERROR(RSA, ERR_R_OVERFLOW);
+    goto err;
+  }
+  *out_len = (unsigned)size_t_out_len;
   ret = 1;
 
 err:
@@ -752,7 +758,7 @@ int RSA_check_fips(RSA *key) {
    * encryption, so either pair-wise consistency self-test is acceptable. We
    * perform a signing test. */
   uint8_t data[32] = {0};
-  unsigned sig_len = RSA_size(key);
+  unsigned sig_len = (unsigned)RSA_size(key);
   uint8_t *sig = OPENSSL_malloc(sig_len);
   if (sig == NULL) {
     OPENSSL_PUT_ERROR(RSA, ERR_R_MALLOC_FAILURE);

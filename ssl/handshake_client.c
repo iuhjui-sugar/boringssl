@@ -160,9 +160,9 @@
 #include <openssl/ecdsa.h>
 #include <openssl/err.h>
 #include <openssl/evp.h>
-#include <openssl/md5.h>
 #include <openssl/mem.h>
 #include <openssl/rand.h>
+#include <openssl/sha.h>
 
 #include "../crypto/internal.h"
 #include "internal.h"
@@ -901,7 +901,7 @@ static int ssl3_get_server_hello(SSL_HANDSHAKE *hs) {
       return -1;
     }
     /* Note: session_id could be empty. */
-    hs->new_session->session_id_length = CBS_len(&session_id);
+    hs->new_session->session_id_length = (uint8_t)CBS_len(&session_id);
     OPENSSL_memcpy(hs->new_session->session_id, CBS_data(&session_id),
                    CBS_len(&session_id));
   }
@@ -1806,12 +1806,11 @@ static int ssl3_get_new_session_ticket(SSL_HANDSHAKE *hs) {
 
   /* Generate a session ID for this session based on the session ticket. We use
    * the session ID mechanism for detecting ticket resumption. This also fits in
-   * with assumptions elsewhere in OpenSSL.*/
-  if (!EVP_Digest(CBS_data(&ticket), CBS_len(&ticket),
-                  session->session_id, &session->session_id_length,
-                  EVP_sha256(), NULL)) {
-    goto err;
-  }
+   * with assumptions elsewhere in OpenSSL. */
+  OPENSSL_COMPILE_ASSERT(SHA256_DIGEST_LENGTH <= SSL_MAX_SSL_SESSION_ID_LENGTH,
+                         hash_too_large);
+  SHA256(CBS_data(&ticket), CBS_len(&ticket), session->session_id);
+  session->session_id_length = SHA256_DIGEST_LENGTH;
 
   if (session_renewed) {
     session->not_resumable = 0;

@@ -407,10 +407,10 @@ size_t BN_bn2mpi(const BIGNUM *in, uint8_t *out) {
     return 4 + len;
   }
 
-  out[0] = len >> 24;
-  out[1] = len >> 16;
-  out[2] = len >> 8;
-  out[3] = len;
+  out[0] = (uint8_t)(len >> 24);
+  out[1] = (uint8_t)(len >> 16);
+  out[2] = (uint8_t)(len >> 8);
+  out[3] = (uint8_t)(len);
   if (extend) {
     out[4] = 0;
   }

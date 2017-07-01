@@ -964,7 +964,7 @@ static int ext_ticket_add_clienthello(SSL_HANDSHAKE *hs, CBB *out) {
   }
 
   const uint8_t *ticket_data = NULL;
-  int ticket_len = 0;
+  size_t ticket_len = 0;
 
   /* Renegotiation does not participate in session resumption. However, still
    * advertise the extension to avoid potentially breaking servers which carry
@@ -1220,8 +1220,9 @@ static int ext_npn_parse_serverhello(SSL_HANDSHAKE *hs, uint8_t *out_alert,
 
   uint8_t *selected;
   uint8_t selected_len;
-  if (ssl->ctx->next_proto_select_cb(
-          ssl, &selected, &selected_len, orig_contents, orig_len,
+  if (orig_len > UINT_MAX ||
+      ssl->ctx->next_proto_select_cb(
+          ssl, &selected, &selected_len, orig_contents, (unsigned)orig_len,
           ssl->ctx->next_proto_select_cb_arg) != SSL_TLSEXT_ERR_OK) {
     *out_alert = SSL_AD_INTERNAL_ERROR;
     return 0;
@@ -3231,7 +3232,7 @@ enum ssl_ticket_aead_result_t ssl_process_ticket(
   /* Copy the client's session ID into the new session, to denote the ticket has
    * been accepted. */
   OPENSSL_memcpy(session->session_id, session_id, session_id_len);
-  session->session_id_length = session_id_len;
+  session->session_id_length = (uint8_t)session_id_len;
 
   *out_session = session;
   return ssl_ticket_aead_success;

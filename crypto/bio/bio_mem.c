@@ -142,7 +142,7 @@ static int mem_read(BIO *bio, char *out, int outl) {
   BIO_clear_retry_flags(bio);
   ret = outl;
   if (b->length < INT_MAX && ret > (int)b->length) {
-    ret = b->length;
+    ret = (int)b->length;
   }
 
   if (ret > 0) {

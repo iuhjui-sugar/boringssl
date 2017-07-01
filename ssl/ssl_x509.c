@@ -141,6 +141,7 @@
 #include <openssl/ssl.h>
 
 #include <assert.h>
+#include <limits.h>
 
 #include <openssl/asn1.h>
 #include <openssl/bytestring.h>
@@ -461,7 +462,12 @@ static int ssl_crypto_x509_check_client_CA_list(
   for (size_t i = 0; i < sk_CRYPTO_BUFFER_num(names); i++) {
     const CRYPTO_BUFFER *buffer = sk_CRYPTO_BUFFER_value(names, i);
     const uint8_t *inp = CRYPTO_BUFFER_data(buffer);
-    X509_NAME *name = d2i_X509_NAME(NULL, &inp, CRYPTO_BUFFER_len(buffer));
+    if (CRYPTO_BUFFER_len(buffer) > LONG_MAX) {
+      OPENSSL_PUT_ERROR(SSL, ERR_R_OVERFLOW);
+      return 0;
+    }
+    X509_NAME *name =
+        d2i_X509_NAME(NULL, &inp, (long)CRYPTO_BUFFER_len(buffer));
     const int ok = name != NULL && inp == CRYPTO_BUFFER_data(buffer) +
                                               CRYPTO_BUFFER_len(buffer);
     X509_NAME_free(name);
@@ -1159,7 +1165,12 @@ static STACK_OF(X509_NAME) *
   for (size_t i = 0; i < sk_CRYPTO_BUFFER_num(names); i++) {
     const CRYPTO_BUFFER *buffer = sk_CRYPTO_BUFFER_value(names, i);
     const uint8_t *inp = CRYPTO_BUFFER_data(buffer);
-    X509_NAME *name = d2i_X509_NAME(NULL, &inp, CRYPTO_BUFFER_len(buffer));
+    if (CRYPTO_BUFFER_len(buffer) > LONG_MAX) {
+      OPENSSL_PUT_ERROR(SSL, ERR_R_OVERFLOW);
+      goto err;
+    }
+    X509_NAME *name =
+        d2i_X509_NAME(NULL, &inp, (long)CRYPTO_BUFFER_len(buffer));
     if (name == NULL ||
         inp != CRYPTO_BUFFER_data(buffer) + CRYPTO_BUFFER_len(buffer) ||
         !sk_X509_NAME_push(new_cache, name)) {

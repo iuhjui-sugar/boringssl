@@ -15,6 +15,7 @@
 #include <openssl/ssl.h>
 
 #include <assert.h>
+#include <limits.h>
 #include <string.h>
 
 #include <openssl/aead.h>
@@ -78,12 +79,17 @@ static int hkdf_expand_label(uint8_t *out, const EVP_MD *digest,
                              const uint8_t *hash, size_t hash_len, size_t len) {
   static const char kTLS13LabelVersion[] = "TLS 1.3, ";
 
+  if (len > UINT16_MAX) {
+    OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
+    return 0;
+  }
+
   CBB cbb, child;
   uint8_t *hkdf_label;
   size_t hkdf_label_len;
   if (!CBB_init(&cbb, 2 + 1 + strlen(kTLS13LabelVersion) + label_len + 1 +
                           hash_len) ||
-      !CBB_add_u16(&cbb, len) ||
+      !CBB_add_u16(&cbb, (uint16_t)len) ||
       !CBB_add_u8_length_prefixed(&cbb, &child) ||
       !CBB_add_bytes(&child, (const uint8_t *)kTLS13LabelVersion,
                      strlen(kTLS13LabelVersion)) ||
@@ -181,11 +187,11 @@ int tls13_set_traffic_key(SSL *ssl, enum evp_aead_direction_t direction,
   if (direction == evp_aead_open) {
     OPENSSL_memmove(ssl->s3->read_traffic_secret, traffic_secret,
                     traffic_secret_len);
-    ssl->s3->read_traffic_secret_len = traffic_secret_len;
+    ssl->s3->read_traffic_secret_len = (uint8_t)traffic_secret_len;
   } else {
     OPENSSL_memmove(ssl->s3->write_traffic_secret, traffic_secret,
                     traffic_secret_len);
-    ssl->s3->write_traffic_secret_len = traffic_secret_len;
+    ssl->s3->write_traffic_secret_len = (uint8_t)traffic_secret_len;
   }
 
   return 1;

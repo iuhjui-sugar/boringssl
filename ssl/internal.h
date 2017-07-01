@@ -2010,7 +2010,7 @@ struct ssl_st {
 /* kMaxEarlyDataAccepted is the advertised number of plaintext bytes of early
  * data that will be accepted. This value should be slightly below
  * kMaxEarlyDataSkipped in tls_record.c, which is measured in ciphertext. */
-static const size_t kMaxEarlyDataAccepted = 14336;
+static const uint32_t kMaxEarlyDataAccepted = 14336;
 
 CERT *ssl_cert_new(const SSL_X509_METHOD *x509_method);
 CERT *ssl_cert_dup(CERT *cert);

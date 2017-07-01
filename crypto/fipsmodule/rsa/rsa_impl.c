@@ -120,7 +120,7 @@ int RSA_encrypt(RSA *rsa, size_t *out_len, uint8_t *out, size_t max_out,
     return 0;
   }
 
-  const unsigned rsa_size = RSA_size(rsa);
+  const size_t rsa_size = RSA_size(rsa);
   BIGNUM *f, *result;
   uint8_t *buf = NULL;
   BN_CTX *ctx = NULL;
@@ -321,7 +321,7 @@ static void rsa_blinding_release(RSA *rsa, BN_BLINDING *blinding,
 int rsa_default_sign_raw(RSA *rsa, size_t *out_len, uint8_t *out,
                          size_t max_out, const uint8_t *in, size_t in_len,
                          int padding) {
-  const unsigned rsa_size = RSA_size(rsa);
+  const size_t rsa_size = RSA_size(rsa);
   uint8_t *buf = NULL;
   int i, ret = 0;
 
@@ -370,7 +370,7 @@ err:
 
 int rsa_default_decrypt(RSA *rsa, size_t *out_len, uint8_t *out, size_t max_out,
                         const uint8_t *in, size_t in_len, int padding) {
-  const unsigned rsa_size = RSA_size(rsa);
+  const size_t rsa_size = RSA_size(rsa);
   uint8_t *buf = NULL;
   int ret = 0;
 
@@ -440,7 +440,7 @@ int RSA_verify_raw(RSA *rsa, size_t *out_len, uint8_t *out, size_t max_out,
     return 0;
   }
 
-  const unsigned rsa_size = RSA_size(rsa);
+  const size_t rsa_size = RSA_size(rsa);
   BIGNUM *f, *result;
 
   if (max_out < rsa_size) {

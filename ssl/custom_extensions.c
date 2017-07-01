@@ -36,7 +36,9 @@ static const SSL_CUSTOM_EXTENSION *custom_ext_find(
     const SSL_CUSTOM_EXTENSION *ext = sk_SSL_CUSTOM_EXTENSION_value(stack, i);
     if (ext->value == value) {
       if (out_index != NULL) {
-        *out_index = i;
+        /* There are at most |MAX_NUM_CUSTOM_EXTENSIONS| custom extensions,
+         * which will fit in any type. */
+        *out_index = (unsigned)i;
       }
       return ext;
     }

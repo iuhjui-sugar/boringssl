@@ -653,9 +653,9 @@ static const SSL_CIPHER *ssl3_choose_cipher(
    * comment about |in_group_flags| in the |ssl_cipher_preference_list_st|
    * struct. */
   const uint8_t *in_group_flags;
-  /* group_min contains the minimal index so far found in a group, or -1 if no
-   * such value exists yet. */
-  int group_min = -1;
+  /* group_min contains the minimal index so far found in a group. */
+  size_t group_min = 0;
+  int have_group = 0;
 
   STACK_OF(SSL_CIPHER) *client_pref =
       ssl_parse_client_cipher_list(client_hello);
@@ -692,11 +692,12 @@ static const SSL_CIPHER *ssl3_choose_cipher(
       if (in_group_flags != NULL && in_group_flags[i] == 1) {
         /* This element of |prio| is in a group. Update the minimum index found
          * so far and continue looking. */
-        if (group_min == -1 || (size_t)group_min > cipher_index) {
+        if (!have_group || group_min > cipher_index) {
           group_min = cipher_index;
+          have_group = 1;
         }
       } else {
-        if (group_min != -1 && (size_t)group_min < cipher_index) {
+        if (have_group && group_min < cipher_index) {
           cipher_index = group_min;
         }
         ret = sk_SSL_CIPHER_value(allow, cipher_index);
@@ -704,7 +705,7 @@ static const SSL_CIPHER *ssl3_choose_cipher(
       }
     }
 
-    if (in_group_flags != NULL && in_group_flags[i] == 0 && group_min != -1) {
+    if (in_group_flags != NULL && in_group_flags[i] == 0 && have_group) {
       /* We are about to leave a group, but we found a match in it, so that's
        * our answer. */
       ret = sk_SSL_CIPHER_value(allow, group_min);

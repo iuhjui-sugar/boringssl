@@ -540,7 +540,8 @@ static int add_outgoing(SSL *ssl, int is_ccs, uint8_t *data, size_t len) {
   OPENSSL_COMPILE_ASSERT(SSL_MAX_HANDSHAKE_FLIGHT <
                              (1 << 8 * sizeof(ssl->d1->outgoing_messages_len)),
                          outgoing_messages_len_is_too_small);
-  if (ssl->d1->outgoing_messages_len >= SSL_MAX_HANDSHAKE_FLIGHT) {
+  if (ssl->d1->outgoing_messages_len >= SSL_MAX_HANDSHAKE_FLIGHT ||
+      len >= UINT32_MAX) {
     assert(0);
     OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
     OPENSSL_free(data);
@@ -562,7 +563,7 @@ static int add_outgoing(SSL *ssl, int is_ccs, uint8_t *data, size_t len) {
   DTLS_OUTGOING_MESSAGE *msg =
       &ssl->d1->outgoing_messages[ssl->d1->outgoing_messages_len];
   msg->data = data;
-  msg->len = len;
+  msg->len = (uint32_t)len;
   msg->epoch = ssl->d1->w_epoch;
   msg->is_ccs = is_ccs;
 

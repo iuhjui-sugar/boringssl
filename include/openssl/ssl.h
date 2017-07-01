@@ -3931,7 +3931,7 @@ struct ssl_session_st {
   uint8_t master_key[SSL_MAX_MASTER_KEY_LENGTH];
 
   /* session_id - valid? */
-  unsigned int session_id_length;
+  uint8_t session_id_length;
   uint8_t session_id[SSL_MAX_SSL_SESSION_ID_LENGTH];
   /* this is used to determine whether the session is being reused in
    * the appropriate context. It is up to the application to set this,

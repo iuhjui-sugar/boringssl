@@ -56,6 +56,8 @@
 
 #include <openssl/evp.h>
 
+#include <limits.h>
+
 #include <openssl/digest.h>
 #include <openssl/err.h>
 
@@ -82,6 +84,9 @@ int EVP_SignFinal(const EVP_MD_CTX *ctx, uint8_t *sig,
   EVP_MD_CTX tmp_ctx;
   EVP_PKEY_CTX *pkctx = NULL;
   size_t sig_len = EVP_PKEY_size(pkey);
+  if (sig_len > UINT_MAX) {
+    sig_len = UINT_MAX;
+  }
 
   *out_sig_len = 0;
   EVP_MD_CTX_init(&tmp_ctx);
@@ -97,7 +102,7 @@ int EVP_SignFinal(const EVP_MD_CTX *ctx, uint8_t *sig,
       !EVP_PKEY_sign(pkctx, sig, &sig_len, m, m_len)) {
     goto out;
   }
-  *out_sig_len = sig_len;
+  *out_sig_len = (unsigned)sig_len;
   ret = 1;
 
 out:

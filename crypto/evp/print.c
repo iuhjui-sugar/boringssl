@@ -93,7 +93,7 @@ static int bn_print(BIO *bp, const char *number, const BIGNUM *num,
                    (BN_is_negative(num)) ? " (Negative)" : "") <= 0) {
       return 0;
     }
-    int n = BN_bn2bin(num, &buf[1]);
+    size_t n = BN_bn2bin(num, &buf[1]);
 
     if (buf[1] & 0x80) {
       n++;
@@ -101,8 +101,7 @@ static int bn_print(BIO *bp, const char *number, const BIGNUM *num,
       buf++;
     }
 
-    int i;
-    for (i = 0; i < n; i++) {
+    for (size_t i = 0; i < n; i++) {
       if ((i % 15) == 0) {
         if (BIO_puts(bp, "\n") <= 0 ||
             !BIO_indent(bp, off + 4, 128)) {
