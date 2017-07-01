@@ -303,11 +303,11 @@ int dtls_seal_record(SSL *ssl, uint8_t *out, size_t *out_len, size_t max_out,
   out[0] = type;
 
   uint16_t wire_version = ssl->s3->have_version ? ssl->version : DTLS1_VERSION;
-  out[1] = wire_version >> 8;
-  out[2] = wire_version & 0xff;
+  out[1] = (uint8_t)(wire_version >> 8);
+  out[2] = (uint8_t)(wire_version & 0xff);
 
-  out[3] = epoch >> 8;
-  out[4] = epoch & 0xff;
+  out[3] = (uint8_t)(epoch >> 8);
+  out[4] = (uint8_t)(epoch & 0xff);
   OPENSSL_memcpy(&out[5], &seq[2], 6);
 
   size_t ciphertext_len;
@@ -322,8 +322,8 @@ int dtls_seal_record(SSL *ssl, uint8_t *out, size_t *out_len, size_t max_out,
     OPENSSL_PUT_ERROR(SSL, ERR_R_OVERFLOW);
     return 0;
   }
-  out[11] = ciphertext_len >> 8;
-  out[12] = ciphertext_len & 0xff;
+  out[11] = (uint8_t)(ciphertext_len >> 8);
+  out[12] = (uint8_t)(ciphertext_len & 0xff);
 
   *out_len = DTLS1_RT_HEADER_LENGTH + ciphertext_len;
 

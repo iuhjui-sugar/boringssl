@@ -195,10 +195,9 @@ static int tls1_P_hash(uint8_t *out, size_t out_len, const EVP_MD *md,
 
     /* XOR the result into |out|. */
     if (len > out_len) {
-      len = out_len;
+      len = (unsigned)out_len;
     }
-    unsigned i;
-    for (i = 0; i < len; i++) {
+    for (unsigned i = 0; i < len; i++) {
       out[i] ^= hmac[i];
     }
     out += len;

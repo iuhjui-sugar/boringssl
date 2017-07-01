@@ -173,9 +173,9 @@ int CMAC_Update(CMAC_CTX *ctx, const uint8_t *in, size_t in_len) {
   uint8_t scratch[AES_BLOCK_SIZE];
 
   if (ctx->block_used > 0) {
-    size_t todo = AES_BLOCK_SIZE - ctx->block_used;
+    unsigned todo = AES_BLOCK_SIZE - ctx->block_used;
     if (in_len < todo) {
-      todo = in_len;
+      todo = (unsigned)in_len;
     }
 
     OPENSSL_memcpy(ctx->block + ctx->block_used, in, todo);
@@ -209,7 +209,7 @@ int CMAC_Update(CMAC_CTX *ctx, const uint8_t *in, size_t in_len) {
   }
 
   OPENSSL_memcpy(ctx->block, in, in_len);
-  ctx->block_used = in_len;
+  ctx->block_used = (unsigned)in_len;
 
   return 1;
 }

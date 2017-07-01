@@ -207,9 +207,8 @@ OPENSSL_EXPORT int RSA_private_decrypt(size_t flen, const uint8_t *from,
  * |NID_sha256|.
  *
  * It returns 1 on success and zero on error. */
-OPENSSL_EXPORT int RSA_sign(int hash_nid, const uint8_t *in,
-                            unsigned int in_len, uint8_t *out,
-                            unsigned int *out_len, RSA *rsa);
+OPENSSL_EXPORT int RSA_sign(int hash_nid, const uint8_t *in, size_t in_len,
+                            uint8_t *out, unsigned *out_len, RSA *rsa);
 
 /* RSA_sign_pss_mgf1 signs |in_len| bytes from |in| with the public key from
  * |rsa| using RSASSA-PSS with MGF1 as the mask generation function. It writes,
@@ -318,7 +317,7 @@ OPENSSL_EXPORT int RSA_public_decrypt(size_t flen, const uint8_t *from,
 
 /* RSA_size returns the number of bytes in the modulus, which is also the size
  * of a signature or encrypted value using |rsa|. */
-OPENSSL_EXPORT unsigned RSA_size(const RSA *rsa);
+OPENSSL_EXPORT size_t RSA_size(const RSA *rsa);
 
 /* RSA_is_opaque returns one if |rsa| is opaque and doesn't expose its key
  * material. Otherwise it returns zero. */

@@ -632,7 +632,8 @@ static enum ssl_hs_wait_t do_send_server_finished(SSL_HANDSHAKE *hs) {
      *
      * TODO(davidben): This will need to be updated for DTLS 1.3. */
     assert(!SSL_is_dtls(hs->ssl));
-    uint8_t header[4] = {SSL3_MT_FINISHED, 0, 0, hs->hash_len};
+    assert(hs->hash_len <= UINT8_MAX);
+    uint8_t header[4] = {SSL3_MT_FINISHED, 0, 0, (uint8_t)hs->hash_len};
     if (!SSL_TRANSCRIPT_update(&hs->transcript, header, sizeof(header)) ||
         !SSL_TRANSCRIPT_update(&hs->transcript, hs->expected_client_finished,
                                hs->hash_len) ||

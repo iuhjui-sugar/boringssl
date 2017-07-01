@@ -84,7 +84,7 @@ SSL_AEAD_CTX *SSL_AEAD_CTX_new(enum evp_aead_direction_t direction,
   if (mac_key_len == 0) {
     assert(fixed_iv_len <= sizeof(aead_ctx->fixed_nonce));
     OPENSSL_memcpy(aead_ctx->fixed_nonce, fixed_iv, fixed_iv_len);
-    aead_ctx->fixed_nonce_len = fixed_iv_len;
+    aead_ctx->fixed_nonce_len = (uint8_t)fixed_iv_len;
 
     if (cipher->algorithm_enc & SSL_CHACHA20POLY1305) {
       /* The fixed nonce into the actual nonce (the sequence number). */
@@ -93,7 +93,7 @@ SSL_AEAD_CTX *SSL_AEAD_CTX_new(enum evp_aead_direction_t direction,
     } else {
       /* The fixed IV is prepended to the nonce. */
       assert(fixed_iv_len <= aead_ctx->variable_nonce_len);
-      aead_ctx->variable_nonce_len -= fixed_iv_len;
+      aead_ctx->variable_nonce_len -= (uint8_t)fixed_iv_len;
     }
 
     /* AES-GCM uses an explicit nonce. */
