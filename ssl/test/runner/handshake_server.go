@@ -1168,6 +1168,9 @@ func (hs *serverHandshakeState) processClientExtensions(serverExtensions *server
 			if c.config.Bugs.BadRenegotiationInfo {
 				serverExtensions.secureRenegotiation[0] ^= 0x80
 			}
+			if c.config.Bugs.BadRenegotiationInfoEnd {
+				serverExtensions.secureRenegotiation[len(serverExtensions.secureRenegotiation)-1] ^= 0x80
+			}
 		} else {
 			serverExtensions.secureRenegotiation = hs.clientHello.secureRenegotiation
 		}
