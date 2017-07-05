@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ae48a04f_0361e944",
+        "filename": "ssl/test/fuzzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-05T23:19:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "277c1898_a6a3eb2a",
+      "range": {
+        "startLine": 48,
+        "startChar": 2,
+        "endLine": 48,
+        "endChar": 24
+      },
+      "revId": "deed3b1916ff8aefcf840e1658759f20dba2550a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f7ade0b6_9a557aca",
         "filename": "ssl/test/fuzzer.h",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2017-07-05T19:43:04Z",
       "side": 1,
       "message": "Comment that this is a Cert/Key Pair?",
+      "range": {
+        "startLine": 96,
+        "startChar": 3,
+        "endLine": 96,
+        "endChar": 13
+      },
+      "revId": "deed3b1916ff8aefcf840e1658759f20dba2550a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c09e18f_5cc1ede2",
+        "filename": "ssl/test/fuzzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-05T23:19:38Z",
+      "side": 1,
+      "message": "We may end up putting other constants in here later. The reader can just see the names of the fields to find out that there\u0027s a cert/key pair in here.",
+      "parentUuid": "f7ade0b6_9a557aca",
       "range": {
         "startLine": 96,
         "startChar": 3,
