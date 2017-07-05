@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "05e4cc0e_d2694cd8",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 718,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-07-05T19:47:56Z",
+      "side": 1,
+      "message": "BadFinalRenegotiationInfo?",
+      "range": {
+        "startLine": 718,
+        "startChar": 1,
+        "endLine": 718,
+        "endChar": 24
+      },
+      "revId": "77de5f769d75fec0da3767b279336875a745a651",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
