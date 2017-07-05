@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa1d39e4_3684674c",
+        "filename": "crypto/fipsmodule/FIPS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-05T23:41:17Z",
+      "side": 1,
+      "message": "integrity",
+      "range": {
+        "startLine": 28,
+        "startChar": 16,
+        "endLine": 28,
+        "endChar": 26
+      },
+      "revId": "cf3feaa2122307b4affcf77cee549a1a70b847d3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77cfef60_c17fc464",
+        "filename": "crypto/fipsmodule/FIPS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-05T23:41:17Z",
+      "side": 1,
+      "message": "Nit: I\u0027d probably surround this and /dev/urandom in backticks. *shrug*",
+      "range": {
+        "startLine": 36,
+        "startChar": 153,
+        "endLine": 36,
+        "endChar": 162
+      },
+      "revId": "cf3feaa2122307b4affcf77cee549a1a70b847d3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fecbafb6_4ec98d6c",
+        "filename": "crypto/fipsmodule/FIPS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-05T23:41:17Z",
+      "side": 1,
+      "message": "BoringCrypto? Ditto below.",
+      "range": {
+        "startLine": 110,
+        "startChar": 167,
+        "endLine": 110,
+        "endChar": 176
+      },
+      "revId": "cf3feaa2122307b4affcf77cee549a1a70b847d3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
