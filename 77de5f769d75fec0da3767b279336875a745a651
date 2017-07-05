@@ -22,6 +22,30 @@
       "revId": "77de5f769d75fec0da3767b279336875a745a651",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46e1d0a6_05d6b8d6",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 718,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-05T20:04:29Z",
+      "side": 1,
+      "message": "Hrm. I don\u0027t like BadRenegotiationInfoEnd very much, but BadFinalRenegotiationInfo seems also a little odd. There\u0027s only one \"renegotiation info\". It just happens to be the concatenation of two things and we check it in two parts. I added this since we were apparently only checking one of the two parts.",
+      "parentUuid": "05e4cc0e_d2694cd8",
+      "range": {
+        "startLine": 718,
+        "startChar": 1,
+        "endLine": 718,
+        "endChar": 24
+      },
+      "revId": "77de5f769d75fec0da3767b279336875a745a651",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
