@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "277c1898_a6a3eb2a",
+        "filename": "ssl/test/fuzzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-07-05T19:43:04Z",
+      "side": 1,
+      "message": "Comment",
+      "range": {
+        "startLine": 48,
+        "startChar": 2,
+        "endLine": 48,
+        "endChar": 24
+      },
+      "revId": "deed3b1916ff8aefcf840e1658759f20dba2550a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7ade0b6_9a557aca",
+        "filename": "ssl/test/fuzzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-07-05T19:43:04Z",
+      "side": 1,
+      "message": "Comment that this is a Cert/Key Pair?",
+      "range": {
+        "startLine": 96,
+        "startChar": 3,
+        "endLine": 96,
+        "endChar": 13
+      },
+      "revId": "deed3b1916ff8aefcf840e1658759f20dba2550a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
