@@ -1,0 +1,261 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9d7dbf4b_e42b3a6c",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 3143,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-06T21:39:32Z",
+      "side": 1,
+      "message": "Probably want to add a sentence like: \"On the server, if |variable| is not |tls13_default|, all variants are enabled. On the client, only the configured variant is enabled.\"\n\nEdit: Oh, huh. I guess you\u0027re making the server always enable them? I guess that\u0027s simpler, though apparently we have random people other than us trying it on BoringSSL and the server folks may want a controlled rollout, so maybe it\u0027s good to keep it off by default on the server.",
+      "revId": "874d4dfb43a19cc7f77fba787a7be5670bf0d717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d720921_42d8b14d",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 4112,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-06T21:39:32Z",
+      "side": 1,
+      "message": "Stray word.",
+      "range": {
+        "startLine": 4112,
+        "startChar": 5,
+        "endLine": 4112,
+        "endChar": 8
+      },
+      "revId": "874d4dfb43a19cc7f77fba787a7be5670bf0d717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5885a38e_4765d392",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 674,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-06T21:39:32Z",
+      "side": 1,
+      "message": "The renegotiation check should be initial_handshake_complete. Also s/doing renego/renegotiating/.\n\nhas_session also isn\u0027t quite the right check because we might be offering a TLS 1.3 session which doesn\u0027t otherwise have a session ID. Perhaps replace has_session with:\n\nint has_session_id \u003d ssl-\u003esession !\u003d NULL \u0026\u0026\n                     !ssl-\u003es3-\u003einitial_handshake_complete \u0026\u0026\n                     ssl-\u003esession-\u003esession_id_length \u003e 0;",
+      "revId": "874d4dfb43a19cc7f77fba787a7be5670bf0d717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56a01426_c13a3100",
+        "filename": "ssl/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 1218,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-06T21:39:32Z",
+      "side": 1,
+      "message": "Perhaps ssl_is_tls13_server_hello_variant. Also document.\n\nThough even that doesn\u0027t make sense, given the current names for the variants. You\u0027ve got the \"ServerHello variant\" and whether the variant sends ServerHello. Maybe tls13_uses_tls12_server_hello and tls13_uses_change_cipher_spec?",
+      "revId": "874d4dfb43a19cc7f77fba787a7be5670bf0d717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94a22b25_8aa8e30d",
+        "filename": "ssl/ssl_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 898,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-06T21:39:32Z",
+      "side": 1,
+      "message": "Nit: clang-format.",
+      "range": {
+        "startLine": 898,
+        "startChar": 5,
+        "endLine": 898,
+        "endChar": 6
+      },
+      "revId": "874d4dfb43a19cc7f77fba787a7be5670bf0d717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cf430c9_a4a708d6",
+        "filename": "ssl/ssl_versions.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-06T21:39:32Z",
+      "side": 1,
+      "message": "This is enough hs-\u003essl derefs that it should do:\n\n   SSL *const ssl \u003d hs-\u003essl;",
+      "range": {
+        "startLine": 296,
+        "startChar": 7,
+        "endLine": 296,
+        "endChar": 14
+      },
+      "revId": "874d4dfb43a19cc7f77fba787a7be5670bf0d717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b231e42a_de1fd61c",
+        "filename": "ssl/ssl_versions.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-06T21:39:32Z",
+      "side": 1,
+      "message": "Comment.",
+      "revId": "874d4dfb43a19cc7f77fba787a7be5670bf0d717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d3b7026_20d5d969",
+        "filename": "ssl/ssl_versions.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-06T21:39:32Z",
+      "side": 1,
+      "message": "Optional/bad(?)-ideas:\n\nI know I suggested an enum, but another possibility which might be less typing (and less type-checking, hah) is:\n\n- set_tls13_variant(uint16_t), maybe assert() that protocol_version_from_wire \u003d\u003d TLS13 or return 0.\n\n- Here, do:\n\n   /* As a client, only allow the configured TLS 1.3 variant. Servers support all\n    * variants to ease experimenting. */\n   if (!ssl-\u003eserver \u0026\u0026\n       protocol_version \u003d\u003d TLS1_3_VERSION \u0026\u0026\n       version !\u003d ssl-\u003ectx-\u003etls13_variant) {\n      return 0;\n   }\n\nAnother option might be keep the public API as-is and then have the setter do a switch-case to convert to uint16.\n\nWDYT?",
+      "revId": "874d4dfb43a19cc7f77fba787a7be5670bf0d717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f95d03dc_51e9953e",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1174,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-06T21:39:32Z",
+      "side": 1,
+      "message": "Nit: C++-style would be\n\nstatic_cast\u003ctls13_variant_t\u003e(config-\u003etls13_variant)",
+      "range": {
+        "startLine": 1174,
+        "startChar": 29,
+        "endLine": 1174,
+        "endChar": 72
+      },
+      "revId": "874d4dfb43a19cc7f77fba787a7be5670bf0d717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "932b7d1c_d2497945",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-06T21:39:32Z",
+      "side": 1,
+      "message": "Session IDs may be shorter than 32 bytes and should still be echoed. Probably need hs-\u003esession_id_len in there.",
+      "revId": "874d4dfb43a19cc7f77fba787a7be5670bf0d717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74fe19ca_2a885145",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 665,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-06T21:39:32Z",
+      "side": 1,
+      "message": "Setting this early means the ssl_hs_error return is a little wonky. It doesn\u0027t hugely matter, but when we hook up the debug strings, it\u0027ll be off.",
+      "revId": "874d4dfb43a19cc7f77fba787a7be5670bf0d717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f28dd9e4_36b72644",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-06T21:39:32Z",
+      "side": 1,
+      "message": "No need for else when there\u0027s an early return.",
+      "range": {
+        "startLine": 675,
+        "startChar": 4,
+        "endLine": 675,
+        "endChar": 9
+      },
+      "revId": "874d4dfb43a19cc7f77fba787a7be5670bf0d717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a83b4dd0_d5b46c51",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-06T21:39:32Z",
+      "side": 1,
+      "message": "Any reason for skipping state_process_end_of_early_data? (It used to not.) Actually, I\u0027m confused why this function needed to change at all. Maybe I\u0027m missing something...",
+      "range": {
+        "startLine": 676,
+        "startChar": 22,
+        "endLine": 676,
+        "endChar": 54
+      },
+      "revId": "874d4dfb43a19cc7f77fba787a7be5670bf0d717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
