@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7b49677b_331c4bc1",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1877,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-07-07T14:09:00Z",
+      "side": 1,
+      "message": "*and then calls |SSL_SESSION_free| when done\n\nThough it seems weird to include this, since this is true of most of our take-ownership APIs?",
+      "range": {
+        "startLine": 1877,
+        "startChar": 14,
+        "endLine": 1877,
+        "endChar": 61
+      },
+      "revId": "43f0c6c6885ed8b279fc2a19e262b1adfecc460e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
