@@ -1,0 +1,300 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "13ae0794_94f2942a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-07T22:32:21Z",
+      "side": 1,
+      "message": "We only have one in this CL now.",
+      "revId": "1c00b15384c866f781def9c3226b67338e91b88e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "142e0812_281ec822",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-07T22:32:21Z",
+      "side": 1,
+      "message": "Given what we\u0027ve learned now, let\u0027s name this TLS1_3_VARIANT_DRAFT_VERSION for now.",
+      "revId": "1c00b15384c866f781def9c3226b67338e91b88e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "587e55ce_70802c50",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 3138,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-07T22:32:21Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "1c00b15384c866f781def9c3226b67338e91b88e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45ac99d5_3925cc73",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 3142,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-07T22:32:21Z",
+      "side": 1,
+      "message": "Missing the other |.",
+      "range": {
+        "startLine": 3142,
+        "startChar": 44,
+        "endLine": 3142,
+        "endChar": 45
+      },
+      "revId": "1c00b15384c866f781def9c3226b67338e91b88e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f650c1f_f9457a3a",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-07T22:32:21Z",
+      "side": 1,
+      "message": "I meant replace has_session above with has_session_id. It makes it more obvious what\u0027s going on here. Though your code no longer matches the comment. You\u0027re saying if you\u0027re renegotiating, don\u0027t do this. Though it\u0027s probably simpler if we don\u0027t bother special-casing renegotiation.\n\nSo:\n\nint has_session_id \u003d ssl-\u003esession !\u003d NULL \u0026\u0026\n                     !ssl-\u003es3-\u003einitial_handshake_complete \u0026\u0026\n                     ssl-\u003esession-\u003esession_id_length \u003e 0;\n....\n\nif (has_session_id) {\n  if (!CBB_add_bytes(\u0026child, ssl-\u003esession-\u003esession_id, ...)) {\n    goto err;\n  }\n} else {\n  /* In TLS 1.3 experimental encodings, send a fake placeholder session ID\n   * when we do not otherwise have one to send. */\n  if (hs-\u003emax_version \u003e\u003d TLS1_3_VERSION \u0026\u0026\n      ssl-\u003ectx-\u003etls13_variant !\u003d tls13_default \u0026\u0026\n      !CBB_add_bytes(\u0026child, ...)) {\n    goto err;\n  }\n}\n\n(On that note, we need to remember to do a server-side probe of whether this is compatible. Although this particular hack is pretty cheap, whether or not it is ultimately needed, it\u0027s still possible it\u0027ll ultimately not work.)",
+      "revId": "1c00b15384c866f781def9c3226b67338e91b88e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f97bb45f_29f9abfe",
+        "filename": "ssl/handshake_client.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-07T22:32:21Z",
+      "side": 1,
+      "message": "Doesn\u0027t really matter, but probably ought to set and use hs-\u003esession_id_len here.",
+      "range": {
+        "startLine": 675,
+        "startChar": 46,
+        "endLine": 675,
+        "endChar": 68
+      },
+      "revId": "1c00b15384c866f781def9c3226b67338e91b88e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f74ebd93_0a094bb9",
+        "filename": "ssl/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 1012,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-07T22:32:21Z",
+      "side": 1,
+      "message": "the experimental TLS 1.3 variant?",
+      "range": {
+        "startLine": 1011,
+        "startChar": 63,
+        "endLine": 1012,
+        "endChar": 13
+      },
+      "revId": "1c00b15384c866f781def9c3226b67338e91b88e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56b5e4d6_059883d9",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-07T22:32:21Z",
+      "side": 1,
+      "message": "Ditto on naming from C version.",
+      "range": {
+        "startLine": 37,
+        "startChar": 6,
+        "endLine": 37,
+        "endChar": 9
+      },
+      "revId": "1c00b15384c866f781def9c3226b67338e91b88e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb7755e8_83d43bb7",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1205,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-07T22:32:21Z",
+      "side": 1,
+      "message": "Putting the variant here basically doesn\u0027t work at all until we\u0027ve done the revision on the test suite. See comments below. I think it\u0027s better to not test variants this way.\n\nInstead add dedicated tests for the actual version negotiation and resumption behaviors we need around the variants and remove this line. When we\u0027ve fixed runner.go to be variant-aware, we can put it in tlsVersions.\n\nSomething like this where we\u0027re breaking a fundamental assumption around how all these tests are written needs to not modify the version list and fix it up afterwards, but look at what the tests were actually trying to test and determine the right approach given the new assumptions.",
+      "revId": "1c00b15384c866f781def9c3226b67338e91b88e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5332efee_d4a1ffff",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 4632,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-07T22:32:21Z",
+      "side": 1,
+      "message": "This comment is confusing. This test is trying to set a max version, which doesn\u0027t make sense in this context (see comment above).",
+      "revId": "1c00b15384c866f781def9c3226b67338e91b88e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e198ed8_b23d7d0f",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 4990,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-07T22:32:21Z",
+      "side": 1,
+      "message": "This comment is confusing. This test is trying to set a min version, which doesn\u0027t make sense in this context (see comment above).\n\nThis function isn\u0027t even testing variants anyway. The flag never gets routed in.",
+      "revId": "1c00b15384c866f781def9c3226b67338e91b88e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd19a796_54796101",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 6046,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-07T22:32:21Z",
+      "side": 1,
+      "message": "Comment?",
+      "revId": "1c00b15384c866f781def9c3226b67338e91b88e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4afbbf27_594d3fb0",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 6138,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-07T22:32:21Z",
+      "side": 1,
+      "message": "Compare the wire versions for equality rather than each of the properties.",
+      "revId": "1c00b15384c866f781def9c3226b67338e91b88e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "103dffec_517d6b87",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-07T22:32:21Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "1c00b15384c866f781def9c3226b67338e91b88e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2860b91_4452af3a",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-07T22:32:21Z",
+      "side": 1,
+      "message": "Maybe add a comment like:\n\n/* If early data was accepted, the ChangeCipherSpec message will be in the discarded early data. */\n\nAlternatively, since the encrypted CCS is totally useless anyway and it seems to be more work than not sending it:\n\n1. Revert the change to do_send_end_of_early_data in tls13_client.c\n\n2. Replace this function with:\n     hs-\u003etls13_state \u003d state_process_change_cipher_spec;\n     return (!hs-\u003eearly_data_offered \u0026\u0026 hs-\u003essl-\u003eversion \u003d\u003d TLS1_3_CCS_DRAFT_VERSION) ? ssl_hs_read_change_cipher_spec : ssl_hs_ok;",
+      "revId": "1c00b15384c866f781def9c3226b67338e91b88e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20bd5053_c112ee69",
+        "filename": "tool/server.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-07T22:32:21Z",
+      "side": 1,
+      "message": "Nit: Might be worth:\n\n// Enabling any TLS 1.3 variant on the server enables all of them.",
+      "revId": "1c00b15384c866f781def9c3226b67338e91b88e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
