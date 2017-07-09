@@ -30,7 +30,7 @@ add_library(
   ssl_stat.c
   ssl_transcript.c
   ssl_versions.c
-  ssl_x509.c
+  ssl_x509.cc
   t1_enc.c
   t1_lib.c
   tls_method.c
