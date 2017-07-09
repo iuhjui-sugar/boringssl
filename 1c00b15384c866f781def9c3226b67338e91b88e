@@ -179,6 +179,24 @@
     },
     {
       "key": {
+        "uuid": "742223d6_f15d123d",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1205,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-09T20:04:49Z",
+      "side": 1,
+      "message": "On reflection, I think I understand with what \"max\" and \"min\" are trying to do here? Some revised comments below:",
+      "parentUuid": "fb7755e8_83d43bb7",
+      "revId": "1c00b15384c866f781def9c3226b67338e91b88e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5332efee_d4a1ffff",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 7
@@ -196,6 +214,58 @@
     },
     {
       "key": {
+        "uuid": "97bd80ad_b655dc93",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 4632,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-09T20:04:49Z",
+      "side": 1,
+      "message": "I think the version of this which makes more sense is to loop over everything and disable if vers.version \u003e shimVers.version. Equality of the excludeFlag is a little odd.",
+      "parentUuid": "5332efee_d4a1ffff",
+      "revId": "1c00b15384c866f781def9c3226b67338e91b88e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29998fa3_cb389c85",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 4652,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-09T20:04:49Z",
+      "side": 1,
+      "message": "Comment.",
+      "revId": "1c00b15384c866f781def9c3226b67338e91b88e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d21caaca_84364bf5",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 4690,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-09T20:04:49Z",
+      "side": 1,
+      "message": "Calling append on the same slice twice causes very confusing things to happen. It happens to work out because you\u0027re always appending the same thing, so lift this up to where flags is set up.\n\nLikewise, the max-version one probably should get set up once as flags2. Not a fan of the name, but it\u0027s what the tests are called.",
+      "revId": "1c00b15384c866f781def9c3226b67338e91b88e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0e198ed8_b23d7d0f",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 7
@@ -207,6 +277,24 @@
       "writtenOn": "2017-07-07T22:32:21Z",
       "side": 1,
       "message": "This comment is confusing. This test is trying to set a min version, which doesn\u0027t make sense in this context (see comment above).\n\nThis function isn\u0027t even testing variants anyway. The flag never gets routed in.",
+      "revId": "1c00b15384c866f781def9c3226b67338e91b88e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c9f2ac0_4e738df9",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 4990,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-09T20:04:49Z",
+      "side": 1,
+      "message": "Revised comment: ditto about looping over everything. Also wire in the variant so it actually does something. Or explicitly punt the variant in both loops if it doesn\u0027t actually test anything meaningful (it might not?). I guess the fact that setting min_version to TLS 1.3 still allows the variant??",
+      "parentUuid": "0e198ed8_b23d7d0f",
       "revId": "1c00b15384c866f781def9c3226b67338e91b88e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
