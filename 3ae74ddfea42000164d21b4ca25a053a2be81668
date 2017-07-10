@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5324a069_f82d7c0f",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-10T20:12:24Z",
+      "side": 1,
+      "message": "Probably should only parse this if m.vers \u003d\u003d VersionTLS12.",
+      "revId": "3ae74ddfea42000164d21b4ca25a053a2be81668",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd1615f0_26a1e0a9",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 1026,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-10T20:12:24Z",
+      "side": 1,
+      "message": "Since you\u0027re handling everything in the parsing bit, you probably should error if m.vers !\u003d tls13ExperimentVersion.",
+      "revId": "3ae74ddfea42000164d21b4ca25a053a2be81668",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d7da048_f3352ab8",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 5120,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-10T20:12:24Z",
+      "side": 1,
+      "message": "Hrm. That\u0027s awkward. Suppose the shim did not check this properly. Then you\u0027ll have the runner thinking it\u0027s speaking TLS 1.3 and the shim thinking it\u0027s speaking TLS 1.3. And then you\u0027ll probably fail anyway due to something weird going on in parsing the ServerHello which, with the formats unified, may well be unexpected extension since there\u0027s a bunch of random unexpected extensions in TLS 1.3.\n\nIs there a way to make it work with VersionTLS12 here? It\u0027s kind of awkward since the TLS 1.2 extensions writing logic is completely separate.",
+      "range": {
+        "startLine": 5120,
+        "startChar": 15,
+        "endLine": 5120,
+        "endChar": 27
+      },
+      "revId": "3ae74ddfea42000164d21b4ca25a053a2be81668",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
