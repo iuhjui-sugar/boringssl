@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2a7ab836_43ef720f",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 1327,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-10T20:56:00Z",
+      "side": 1,
+      "message": "This means we\u0027ll accept supported_versions in EncryptedExtensions or at TLS 1.2, which isn\u0027t what we want. (I\u0027ll just remove this and CQ.)",
+      "revId": "b1ccabb3a45a64c0f1b8564bb8d8f230146fd693",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da329bc5_7fd633d9",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 1285,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-10T20:56:00Z",
+      "side": 1,
+      "message": "This should only kick in for TLS 1.2. Otherwise we put it into EncryptedExtensions as well, which isn\u0027t quite what we\u0027re looking to test. I\u0027ll just fix this and CQ.",
+      "revId": "b1ccabb3a45a64c0f1b8564bb8d8f230146fd693",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
