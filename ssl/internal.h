@@ -1263,6 +1263,12 @@ int ssl_ext_pre_shared_key_parse_clienthello(
     uint32_t *out_obfuscated_ticket_age, uint8_t *out_alert, CBS *contents);
 int ssl_ext_pre_shared_key_add_serverhello(SSL_HANDSHAKE *hs, CBB *out);
 
+int ssl_ext_supported_versions_parse_serverhello(SSL_HANDSHAKE *hs,
+                                                 uint16_t *out_version,
+                                                 uint8_t *out_alert,
+                                                 CBS *contents);
+int ssl_ext_supported_versions_add_serverhello(SSL_HANDSHAKE *hs, CBB *out);
+
 /* ssl_is_sct_list_valid does a shallow parse of the SCT list in |contents| and
  * returns one iff it's valid. */
 int ssl_is_sct_list_valid(const CBS *contents);

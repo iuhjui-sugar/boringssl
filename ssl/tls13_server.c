@@ -514,10 +514,15 @@ static enum ssl_hs_wait_t do_process_second_client_hello(SSL_HANDSHAKE *hs) {
 static enum ssl_hs_wait_t do_send_server_hello(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
 
+  uint16_t sh_version = ssl->version;
+  if (ssl->version == TLS1_3_VARIANT_DRAFT_VERSION) {
+    sh_version = TLS1_2_VERSION;
+  }
+
   /* Send a ServerHello. */
   CBB cbb, body, extensions, session_id;
   if (!ssl->method->init_message(ssl, &cbb, &body, SSL3_MT_SERVER_HELLO) ||
-      !CBB_add_u16(&body, ssl->version) ||
+      !CBB_add_u16(&body, sh_version) ||
       !RAND_bytes(ssl->s3->server_random, sizeof(ssl->s3->server_random)) ||
       !CBB_add_bytes(&body, ssl->s3->server_random, SSL3_RANDOM_SIZE) ||
       (ssl->version == TLS1_3_VARIANT_DRAFT_VERSION &&
@@ -528,6 +533,8 @@ static enum ssl_hs_wait_t do_send_server_hello(SSL_HANDSHAKE *hs) {
       !CBB_add_u16_length_prefixed(&body, &extensions) ||
       !ssl_ext_pre_shared_key_add_serverhello(hs, &extensions) ||
       !ssl_ext_key_share_add_serverhello(hs, &extensions) ||
+      (ssl->version == TLS1_3_VARIANT_DRAFT_VERSION &&
+       !ssl_ext_supported_versions_add_serverhello(hs, &extensions)) ||
       !ssl_add_message_cbb(ssl, &cbb)) {
     goto err;
   }

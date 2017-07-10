@@ -451,7 +451,22 @@ NextCipherSuite:
 	case *helloRetryRequestMsg:
 		serverWireVersion = m.vers
 	case *serverHelloMsg:
-		serverWireVersion = m.vers
+		if m.supportedVers != 0 {
+			if c.config.TLS13Variant != TLS13Default {
+				serverWireVersion = m.supportedVers
+			} else {
+				c.sendAlert(alertUnexpectedMessage)
+				return fmt.Errorf("tls: received unexpected supported_versions")
+			}
+		} else {
+			if m.vers != VersionTLS13 || c.config.TLS13Variant == TLS13Default {
+				serverWireVersion = m.vers
+			} else {
+				c.sendAlert(alertUnexpectedMessage)
+				return fmt.Errorf("tls: expected supported_versions")
+			}
+		}
+
 	default:
 		c.sendAlert(alertUnexpectedMessage)
 		return fmt.Errorf("tls: received unexpected message of type %T when waiting for HelloRetryRequest or ServerHello", msg)
@@ -544,7 +559,8 @@ NextCipherSuite:
 		return unexpectedMessageError(serverHello, msg)
 	}
 
-	if serverWireVersion != serverHello.vers {
+	if (serverWireVersion == tls13VariantDraftVersion && serverWireVersion != serverHello.supportedVers) ||
+		(serverWireVersion != tls13VariantDraftVersion && serverWireVersion != serverHello.vers) {
 		c.sendAlert(alertProtocolVersion)
 		return fmt.Errorf("tls: server sent non-matching version %x vs %x", serverWireVersion, serverHello.vers)
 	}

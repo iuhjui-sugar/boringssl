@@ -2366,6 +2366,31 @@ static int ext_supported_versions_add_clienthello(SSL_HANDSHAKE *hs, CBB *out) {
   return 1;
 }
 
+int ssl_ext_supported_versions_parse_serverhello(SSL_HANDSHAKE *hs,
+                                                 uint16_t *out_version,
+                                                 uint8_t *out_alert,
+                                                 CBS *contents) {
+  if (!CBS_get_u16(contents, out_version) ||
+      CBS_len(contents) != 0) {
+    *out_alert = SSL_AD_DECODE_ERROR;
+    return 0;
+  }
+
+  return 1;
+}
+
+int ssl_ext_supported_versions_add_serverhello(SSL_HANDSHAKE *hs, CBB *out) {
+  CBB contents;
+  if (!CBB_add_u16(out, TLSEXT_TYPE_supported_versions) ||
+      !CBB_add_u16_length_prefixed(out, &contents) ||
+      !CBB_add_u16(&contents, hs->ssl->version) ||
+      !CBB_flush(out)) {
+    return 0;
+  }
+
+  return 1;
+}
+
 
 /* Cookie
  *
