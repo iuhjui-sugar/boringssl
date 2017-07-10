@@ -359,12 +359,13 @@ func (hs *serverHandshakeState) doTLS13Handshake() error {
 	config := c.config
 
 	hs.hello = &serverHelloMsg{
-		isDTLS:          c.isDTLS,
-		vers:            c.wireVersion,
-		sessionId:       hs.clientHello.sessionId,
-		versOverride:    config.Bugs.SendServerHelloVersion,
-		customExtension: config.Bugs.CustomUnencryptedExtension,
-		unencryptedALPN: config.Bugs.SendUnencryptedALPN,
+		isDTLS:                c.isDTLS,
+		vers:                  c.wireVersion,
+		sessionId:             hs.clientHello.sessionId,
+		versOverride:          config.Bugs.SendServerHelloVersion,
+		supportedVersOverride: config.Bugs.SendServerSupportedExtensionVersion,
+		customExtension:       config.Bugs.CustomUnencryptedExtension,
+		unencryptedALPN:       config.Bugs.SendUnencryptedALPN,
 	}
 
 	hs.hello.random = make([]byte, 32)
