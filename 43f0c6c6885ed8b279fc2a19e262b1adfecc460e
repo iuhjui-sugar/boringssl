@@ -22,6 +22,30 @@
       "revId": "43f0c6c6885ed8b279fc2a19e262b1adfecc460e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8db9a133_54de075d",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1877,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-10T15:00:43Z",
+      "side": 1,
+      "message": "Done.\n\nWe\u0027re kind of inconsistent about it because newer ones have been lazy, but the original documentation does actually spell it out. I think the newer ones were incorrect since everyone had to ask me what takes ownership means.",
+      "parentUuid": "7b49677b_331c4bc1",
+      "range": {
+        "startLine": 1877,
+        "startChar": 14,
+        "endLine": 1877,
+        "endChar": 61
+      },
+      "revId": "43f0c6c6885ed8b279fc2a19e262b1adfecc460e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
