@@ -29,7 +29,7 @@
 /* Optimised AES-GCM-SIV */
 
 struct aead_aes_gcm_siv_asm_ctx {
-  alignas(64) uint8_t key[16*15];
+  alignas(16) uint8_t key[16*15];
   int is_128_bit;
 };
 
