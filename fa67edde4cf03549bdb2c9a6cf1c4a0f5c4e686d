@@ -22,6 +22,30 @@
       "revId": "fa67edde4cf03549bdb2c9a6cf1c4a0f5c4e686d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21330a51_07c3399e",
+        "filename": "ssl/test/fuzzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-11T14:43:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc662495_f21a8f74",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 58
+      },
+      "revId": "fa67edde4cf03549bdb2c9a6cf1c4a0f5c4e686d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
