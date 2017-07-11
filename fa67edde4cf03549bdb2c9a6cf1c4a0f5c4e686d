@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc662495_f21a8f74",
+        "filename": "ssl/test/fuzzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-07-11T14:36:30Z",
+      "side": 1,
+      "message": "kTLS13Variant is followed by a u8 denoting the TLS 1.3 variant to configure.",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 58
+      },
+      "revId": "fa67edde4cf03549bdb2c9a6cf1c4a0f5c4e686d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
