@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6460c940_f4ea6dee",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-11T00:06:31Z",
+      "side": 1,
+      "message": "const (here and elsewhere for variables that don\u0027t change.)",
+      "revId": "19a475c92c2d5aaeb77978afebecda292d79cd4e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
