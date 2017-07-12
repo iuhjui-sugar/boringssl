@@ -22,6 +22,30 @@
       "revId": "ed2ae154f4ef2655f1b76d8ef215c9d24dc4411e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3785ec8_b28b6734",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 813,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-12T20:37:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66d3c3fc_486ceb05",
+      "range": {
+        "startLine": 813,
+        "startChar": 2,
+        "endLine": 813,
+        "endChar": 39
+      },
+      "revId": "ed2ae154f4ef2655f1b76d8ef215c9d24dc4411e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
