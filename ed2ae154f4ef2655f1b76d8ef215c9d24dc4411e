@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "66d3c3fc_486ceb05",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 813,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-07-12T20:33:54Z",
+      "side": 1,
+      "message": "Can you just move this below and do:\nSSL_SESSION *session_raw;\nauto session_ret \u003d ...;\nbssl::UniquePtr\u003cSSL_SESSION\u003e session(session_raw);",
+      "range": {
+        "startLine": 813,
+        "startChar": 2,
+        "endLine": 813,
+        "endChar": 39
+      },
+      "revId": "ed2ae154f4ef2655f1b76d8ef215c9d24dc4411e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
