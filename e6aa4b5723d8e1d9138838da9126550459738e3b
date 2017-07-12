@@ -1,0 +1,197 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "719ee47d_cc4ed733",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1125,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-12T01:12:40Z",
+      "side": 1,
+      "message": "Is this label ever used?",
+      "revId": "e6aa4b5723d8e1d9138838da9126550459738e3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5239c44f_01eaf489",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1142,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-12T01:12:40Z",
+      "side": 1,
+      "message": "reverses",
+      "range": {
+        "startLine": 1142,
+        "startChar": 45,
+        "endLine": 1142,
+        "endChar": 53
+      },
+      "revId": "e6aa4b5723d8e1d9138838da9126550459738e3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fad7a80_3b43931d",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1144,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-12T01:12:40Z",
+      "side": 1,
+      "message": "(You could also replace these two lines with cmovl $t1, $t2. Dunno if that\u0027s generally better or not.)",
+      "revId": "e6aa4b5723d8e1d9138838da9126550459738e3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38508ed3_def566a3",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1163,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-12T01:12:40Z",
+      "side": 1,
+      "message": "Is it possible for this to be zero? I suppose this way we don\u0027t have to think about it, but if the only way for $t2 to be size is I think if $inl \u003d 16 up in line 1140. The comment says $T3 contains a \"(partial, perhaps empty)\" block, which suggests $inl cannot be 16 but it can be 0.",
+      "revId": "e6aa4b5723d8e1d9138838da9126550459738e3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cb2d511_20f379df",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1169,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-12T01:12:40Z",
+      "side": 1,
+      "message": "Amusingly, the two other such loops in this file use lea/dec, and sub/sub. I have no clue when you\u0027d want which.",
+      "revId": "e6aa4b5723d8e1d9138838da9126550459738e3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c8d81e6_1efadef2",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1174,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-12T01:12:40Z",
+      "side": 1,
+      "message": "(Looks like AVX2 has an instruction, but I guess this code has much weaker requirements.)",
+      "revId": "e6aa4b5723d8e1d9138838da9126550459738e3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "493a9a4f_c0a3f1fc",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1216,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-12T01:12:40Z",
+      "side": 1,
+      "message": "(Do you know when to prefer this over leaq 16($inp), $inp?)",
+      "revId": "e6aa4b5723d8e1d9138838da9126550459738e3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ba8b5da_929657a4",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1222,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-12T01:12:40Z",
+      "side": 1,
+      "message": "Why do this before the jump? It doesn\u0027t seem to be read anywhere.",
+      "revId": "e6aa4b5723d8e1d9138838da9126550459738e3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a21618ea_824991b0",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1236,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-12T01:12:40Z",
+      "side": 1,
+      "message": "Didn\u0027t this already get checked at line 1223?",
+      "revId": "e6aa4b5723d8e1d9138838da9126550459738e3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7d5b629_37c2e8a2",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1238,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-12T01:12:40Z",
+      "side": 1,
+      "message": "Why not pxor $T3, $T3 just before label 12 and then avoid this masking bit?",
+      "revId": "e6aa4b5723d8e1d9138838da9126550459738e3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa63a16e_aba99203",
+        "filename": "crypto/cipher_extra/e_chacha20poly1305.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-12T01:12:40Z",
+      "side": 1,
+      "message": "/me makes a face. :-P\n\nI guess we\u0027re at six arguments and extracting arguments from the stack is annoying?",
+      "revId": "e6aa4b5723d8e1d9138838da9126550459738e3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
