@@ -2,6 +2,57 @@
   "comments": [
     {
       "key": {
+        "uuid": "b891ba66_0c83f7d9",
+        "filename": "ssl/ssl_aead_ctx.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-12T00:10:50Z",
+      "side": 1,
+      "message": "Stray newlines?",
+      "revId": "19a475c92c2d5aaeb77978afebecda292d79cd4e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "023e7f36_0e370203",
+        "filename": "ssl/ssl_aead_ctx.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-12T00:10:50Z",
+      "side": 1,
+      "message": "Maybe change this to just\n\n  return SSL_AEAD_CTX_explicit_nonce_len(aead) +\n         SSL_AEAD_CTX_max_suffix_len(aead, 0);\n\nWithout the ifdef or anything. (Though hopefully this function is ultimately destined to go away?)",
+      "revId": "19a475c92c2d5aaeb77978afebecda292d79cd4e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a57c3996_559faca6",
+        "filename": "ssl/ssl_aead_ctx.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-12T00:10:50Z",
+      "side": 1,
+      "message": "Nit: Now that there\u0027s no extra_len, you can just do:\n\n  return EVP_AEAD_CTX_seal_scatter(...);\n\n(Probably even helps the compiler figure out this is a tail call!)",
+      "revId": "19a475c92c2d5aaeb77978afebecda292d79cd4e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6460c940_f4ea6dee",
         "filename": "ssl/tls_record.c",
         "patchSetId": 2
@@ -13,6 +64,57 @@
       "writtenOn": "2017-07-11T00:06:31Z",
       "side": 1,
       "message": "const (here and elsewhere for variables that don\u0027t change.)",
+      "revId": "19a475c92c2d5aaeb77978afebecda292d79cd4e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5996bf6a_e3ac4d1f",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-12T00:10:50Z",
+      "side": 1,
+      "message": "Now that this all is piece-wise and the various checks happen elsewhere, I think you can remove this if block completely.\n\nEdit: Specifically, see comment on tls_seal_record for the elsewhere. :-)",
+      "revId": "19a475c92c2d5aaeb77978afebecda292d79cd4e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8bb26e7_690ee294",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-12T00:10:50Z",
+      "side": 1,
+      "message": "I think you need to check that max_out_len \u003e prefix_len + in_len here. Probably with an overflow check on in_len + prefix_len.\n\n(I really should get on that C++ plan...)",
+      "revId": "19a475c92c2d5aaeb77978afebecda292d79cd4e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57d96cf3_d1cb0ca7",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-12T00:10:50Z",
+      "side": 1,
+      "message": "Yeesh, record-splitting is going to be fun. :-)\n\nThis is a little difficult to follow, though it\u0027s possible you have an intended end state that I\u0027m not seeing. I would have expected the |body| and |suffix| parameters for for the smaller record\u0027s do_seal_record call to be extracted from caller-supplied |prefix| rather than caller-supplied |body|.\n\nWhat if you moved the logic to set up prefix, body, and suffix (new lines 434-437) to after this block and leave the old lines 439-442) as-is for now? That\u0027s not making progress in terms of routing seal_scatter out through everything on this function, but I don\u0027t see how this block generalizes to the final seal_scatter version of tls_seal_record. That might be easier done once we know what the tls_seal_record API looks like?\n\n\nAdam and I chatted about the record-splitting a bit:\n(Adam, is this an accurate summary?)\n\nUltimately, the prefix is probably going to need to contain the entire small record and the large record\u0027s header. But that second part doesn\u0027t quite work immediately. The nasty bit is what to do about |in| losing the first byte. We came up with two options:\n\nA) SealRecord() takes as input a input buffer, possibly aliasing bulk output buffer, and some scratch space. It returns three StringPieces: prefix, some view into the bulk output buffer, and suffix. In this scenario, we\u0027d do:\n\nP1, P2 :\u003d in[:1], in[1:]\nH1, C1, S1 :\u003d prefix, ciphertext, suffix of sealed P1\nH2, C2, S2 :\u003d prefix, ciphertext, suffix of sealed P2\n\nprefix \u003d H1 ++ C1 ++ S1 ++ H2\nout \u003d C2\nsuffix \u003d S2\n\nBecause C2 only covers P2, the middle StringPiece would actually need to be one byte into C1.\n\nB) Alternatively, we can split up H2. This means callers can rely on the output buffer being used in full. That is,\n\nprefix \u003d H1 ++ C1 ++ S1 ++ H2[:len(H2)-1]\nout \u003d H2[len(H2)-1:] ++ C2\nsuffix \u003d S2\n\nThe reason a caller may wish to rely on the output buffer being used in full is if they want the record to be placed in a particular location. One example is this Java API which Conscrypt implements:\nhttps://docs.oracle.com/javase/7/docs/api/javax/net/ssl/SSLEngine.html#wrap(java.nio.ByteBuffer[],%20java.nio.ByteBuffer)\n\n(Java also has some more aggressive scatter/gather stuff which we can probably ignore.)\n\nAnother example is add_record_to_flight in s3_both.c. (Or even just SSL_write itself, though in that case we can move prefix/suffix around to line up with wherever the bulk ciphertext ended up...)\n\nThen what you would want to do is query the prefix length ahead of time, and pass in body \u003d out + prefix_len, like you do here actually. In the three-StringPiece version, this doesn\u0027t work well because you don\u0027t know where to align the output. For that, (B) works better.\n\n(B) also has a slight edge case. If using TLS 1.0 AND sealing an empty record, there isn\u0027t a record split and the prefix ends up being shorter. That means this SSL_get_prefix_len function needs to take in_len... or, better, we just error out whenever trying to make an empty record. We actually never do this at all. :-) If you try to SSL_write an empty input, it ends up just writing nothing.\n\nOn the other hand, (B) may be kind of a pain to implement... also, expecting every caller to manually chunk up the prefix_len is somewhat error-prone, so we will probably want to provide a contiguous SSL_seal API (that doesn\u0027t support in-place) anyway. Which means we can choose to just implement the two APIs different, if (A) turns out to be much simpler here.",
       "revId": "19a475c92c2d5aaeb77978afebecda292d79cd4e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
