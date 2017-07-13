@@ -16,6 +16,24 @@
       "revId": "1195cefc2aa1bea8f09c79d2514bbf7e7da800f1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bc715d3_f8656475",
+        "filename": "crypto/cipher_extra/e_chacha20poly1305.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-07-13T18:40:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "588b6278_cddfd052",
+      "revId": "1195cefc2aa1bea8f09c79d2514bbf7e7da800f1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
