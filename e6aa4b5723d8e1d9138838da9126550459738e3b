@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "86f6e8dd_a32f1066",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1125,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-07-13T19:05:53Z",
+      "side": 1,
+      "message": "No. Have renumbered to remove it.",
+      "parentUuid": "719ee47d_cc4ed733",
+      "revId": "e6aa4b5723d8e1d9138838da9126550459738e3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5239c44f_01eaf489",
         "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
         "patchSetId": 1
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "e12d08bf_4d7a2923",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1142,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-07-13T19:05:53Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5239c44f_01eaf489",
+      "range": {
+        "startLine": 1142,
+        "startChar": 45,
+        "endLine": 1142,
+        "endChar": 53
+      },
+      "revId": "e6aa4b5723d8e1d9138838da9126550459738e3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2fad7a80_3b43931d",
         "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
         "patchSetId": 1
@@ -56,6 +98,24 @@
       "revId": "e6aa4b5723d8e1d9138838da9126550459738e3b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bae70840_9f7fd216",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1144,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-07-13T19:05:53Z",
+      "side": 1,
+      "message": "I think cmov bypasses the branch predictor and is only recommended when you know that the branch predictor would be useless.",
+      "parentUuid": "2fad7a80_3b43931d",
+      "revId": "e6aa4b5723d8e1d9138838da9126550459738e3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -76,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "c7aeab1a_6a405a36",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1163,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-07-13T19:05:53Z",
+      "side": 1,
+      "message": "I think you\u0027re correct. The initial $inl cannot be zero /or/ 16. If it were zero, this whole section of code would be skipped by L1099. If it were 16, it would have been processed as a block first and turned into zero.\n\nHave changed the loop accordingly.",
+      "parentUuid": "38508ed3_def566a3",
+      "revId": "e6aa4b5723d8e1d9138838da9126550459738e3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8cb2d511_20f379df",
         "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
         "patchSetId": 1
@@ -90,6 +168,24 @@
       "revId": "e6aa4b5723d8e1d9138838da9126550459738e3b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df3b05b4_7b4f9d25",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1169,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-07-13T19:05:53Z",
+      "side": 1,
+      "message": "I don\u0027t think one should use dec on modern chips. Otherwise I think sub vs lea is basically the same for -1. If I\u0027m thinking about a pointer, I\u0027ll probably update it with lea. If a counter, sub.",
+      "parentUuid": "8cb2d511_20f379df",
+      "revId": "e6aa4b5723d8e1d9138838da9126550459738e3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -110,6 +206,24 @@
     },
     {
       "key": {
+        "uuid": "5dcca618_939ff752",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1174,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-07-13T19:05:53Z",
+      "side": 1,
+      "message": "Indeed, this is just SSE code.",
+      "parentUuid": "7c8d81e6_1efadef2",
+      "revId": "e6aa4b5723d8e1d9138838da9126550459738e3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "493a9a4f_c0a3f1fc",
         "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
         "patchSetId": 1
@@ -124,6 +238,24 @@
       "revId": "e6aa4b5723d8e1d9138838da9126550459738e3b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "679a0d82_142223b2",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1216,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-07-13T19:05:53Z",
+      "side": 1,
+      "message": "No idea. Since this is a pointer I\u0027ve changed it to be lea, which feels more pointerish to me.",
+      "parentUuid": "493a9a4f_c0a3f1fc",
+      "revId": "e6aa4b5723d8e1d9138838da9126550459738e3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -144,6 +276,24 @@
     },
     {
       "key": {
+        "uuid": "96230756_d78812a4",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1222,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-07-13T19:05:53Z",
+      "side": 1,
+      "message": "$inl is used if the jump is not taken (L1235). (13 can also be reached from a way above so the obvious local tweak doesn\u0027t work.)",
+      "parentUuid": "2ba8b5da_929657a4",
+      "revId": "e6aa4b5723d8e1d9138838da9126550459738e3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a21618ea_824991b0",
         "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
         "patchSetId": 1
@@ -158,6 +308,24 @@
       "revId": "e6aa4b5723d8e1d9138838da9126550459738e3b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28b9f3b9_aed1ae68",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1236,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-07-13T19:05:53Z",
+      "side": 1,
+      "message": "13 has additional predecessors (L1137), so needs to be established again.",
+      "parentUuid": "a21618ea_824991b0",
+      "revId": "e6aa4b5723d8e1d9138838da9126550459738e3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -178,6 +346,24 @@
     },
     {
       "key": {
+        "uuid": "3fcf618b_4727aa64",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1238,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-07-13T19:05:53Z",
+      "side": 1,
+      "message": "(ditto: can\u0027t depend on 12 having run prior to this.)",
+      "parentUuid": "d7d5b629_37c2e8a2",
+      "revId": "e6aa4b5723d8e1d9138838da9126550459738e3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aa63a16e_aba99203",
         "filename": "crypto/cipher_extra/e_chacha20poly1305.c",
         "patchSetId": 1
@@ -192,6 +378,24 @@
       "revId": "e6aa4b5723d8e1d9138838da9126550459738e3b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb216bf2_f5e774dc",
+        "filename": "crypto/cipher_extra/e_chacha20poly1305.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2017-07-13T19:05:53Z",
+      "side": 1,
+      "message": "rejuggling the registers is too much of a pain.",
+      "parentUuid": "aa63a16e_aba99203",
+      "revId": "e6aa4b5723d8e1d9138838da9126550459738e3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
