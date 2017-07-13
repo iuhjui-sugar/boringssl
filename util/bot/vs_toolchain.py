@@ -82,6 +82,7 @@ def Update():
       bool(int(os.environ.get('DEPOT_TOOLS_WIN_TOOLCHAIN', '1')))
   if sys.platform in ('win32', 'cygwin') and depot_tools_win_toolchain:
     depot_tools_path = FindDepotTools()
+    print "depot_tools_path = " + depot_tools_path
     # Necessary so that get_toolchain_if_necessary.py will put the VS toolkit
     # in the correct directory.
     os.environ['GYP_MSVS_VERSION'] = TOOLCHAIN_VERSION
@@ -92,6 +93,7 @@ def Update():
                     'get_toolchain_if_necessary.py'),
         '--output-json', json_data_file, TOOLCHAIN_HASH,
       ]
+    print "Running " + repr(get_toolchain_args)
     subprocess.check_call(get_toolchain_args)
 
   return 0
