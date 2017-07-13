@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "adc4c9f1_b878ecc3",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-07-13T14:46:39Z",
+      "side": 1,
+      "message": "Hmm, do we not ordinarily use U?",
+      "range": {
+        "startLine": 220,
+        "startChar": 17,
+        "endLine": 220,
+        "endChar": 28
+      },
+      "revId": "dcfcb2abb8631bfb7d49ef6b3e78dcca62eb97c1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
