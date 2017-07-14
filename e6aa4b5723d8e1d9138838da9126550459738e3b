@@ -294,6 +294,24 @@
     },
     {
       "key": {
+        "uuid": "01d5b4d8_83cc6d23",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1222,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-14T19:02:13Z",
+      "side": 1,
+      "message": "Oh, er, yeah, sorry I was just confused. :-)",
+      "parentUuid": "96230756_d78812a4",
+      "revId": "e6aa4b5723d8e1d9138838da9126550459738e3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a21618ea_824991b0",
         "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
         "patchSetId": 1
@@ -329,6 +347,24 @@
     },
     {
       "key": {
+        "uuid": "f791c3b9_48e1c56b",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1236,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-14T19:02:13Z",
+      "side": 1,
+      "message": "But if we took that jump, then the jump at line at top of seal_sse_tail_16, L1099, didn\u0027t run.\n\nI found the invariants a bit easier to follow if some of the numbered labels were given proper names. Using patch set 3\u0027s numbers, the structure of this code appears to be:\n\nseal_sse_tail_16:\n     if $inl \u003d\u003d 0 {\n       goto seal_extra_in (8)\n     }\n\n1-2: encrypt $inp[:$inl], load into $T3.\n     if extra_in_len \u003d\u003d 0 {\n       goto seal_last_block (12)\n     }\n\n3-7: load as much of extra_in[:extra_in_len] as will fit into $T3.\n     Process $T3 and update extra_in / extra_in_len.\n\nseal_extra_in (8):\n     load extra_in\n 9:  seal extra_in block-by-block\n10:  load the remaining block of extra_in into $T3[:$inl].\n     if $inl \u003d\u003d 0 {\n       goto seal_finish_poly1305 (13)\n     }\n\nseal_last_input_block (12):\n     Pad and process $T3[:$inl].\n\nseal_finish_poly1305 (13):\n     Process length block, finish everything up.",
+      "parentUuid": "28b9f3b9_aed1ae68",
+      "revId": "e6aa4b5723d8e1d9138838da9126550459738e3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d7d5b629_37c2e8a2",
         "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
         "patchSetId": 1
@@ -358,6 +394,24 @@
       "side": 1,
       "message": "(ditto: can\u0027t depend on 12 having run prior to this.)",
       "parentUuid": "d7d5b629_37c2e8a2",
+      "revId": "e6aa4b5723d8e1d9138838da9126550459738e3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "875a53e9_3b79a51c",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1238,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-14T19:02:13Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3fcf618b_4727aa64",
       "revId": "e6aa4b5723d8e1d9138838da9126550459738e3b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false

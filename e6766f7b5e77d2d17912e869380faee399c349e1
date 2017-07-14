@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bf5820df_f39abd2c",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-14T19:02:13Z",
+      "side": 1,
+      "message": "[Note PS1 has one new response of note. It\u0027s the long one.]",
+      "revId": "e6766f7b5e77d2d17912e869380faee399c349e1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "814b90a8_cfffb7cb",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 1125,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-14T19:02:13Z",
+      "side": 1,
+      "message": "empty",
+      "range": {
+        "startLine": 1125,
+        "startChar": 43,
+        "endLine": 1125,
+        "endChar": 48
+      },
+      "revId": "e6766f7b5e77d2d17912e869380faee399c349e1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38ca8a7b_a5021a7a",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 1172,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-14T19:02:13Z",
+      "side": 1,
+      "message": "Looks like this is unused now.",
+      "revId": "e6766f7b5e77d2d17912e869380faee399c349e1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d5a1655_ac77a4c8",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 1179,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-14T19:02:13Z",
+      "side": 1,
+      "message": "This loop also can assume $inl is non-zero (which, in turn, would remove label 7.)",
+      "revId": "e6766f7b5e77d2d17912e869380faee399c349e1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
