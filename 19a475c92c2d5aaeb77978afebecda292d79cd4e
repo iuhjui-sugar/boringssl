@@ -244,6 +244,24 @@
       "revId": "19a475c92c2d5aaeb77978afebecda292d79cd4e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54b94095_885e385f",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-14T00:02:43Z",
+      "side": 1,
+      "message": "The latest patch set implements option B.",
+      "parentUuid": "6543281b_274b8ddb",
+      "revId": "19a475c92c2d5aaeb77978afebecda292d79cd4e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
