@@ -365,6 +365,24 @@
     },
     {
       "key": {
+        "uuid": "fb8f8a8e_c9a1ee03",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1236,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-14T21:01:14Z",
+      "side": 1,
+      "message": "You\u0027re correct, $inl !\u003d zero here. Removed test.",
+      "parentUuid": "f791c3b9_48e1c56b",
+      "revId": "e6aa4b5723d8e1d9138838da9126550459738e3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d7d5b629_37c2e8a2",
         "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
         "patchSetId": 1
