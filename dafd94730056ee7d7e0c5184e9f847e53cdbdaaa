@@ -1,0 +1,135 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "03fc33ac_af06350f",
+        "filename": "ssl/ssl_aead_ctx.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-14T19:22:45Z",
+      "side": 1,
+      "message": "I would switch the two conjunctive clauses here so that, when in \u003d\u003d out, the call to buffers_alias can be skipped.",
+      "revId": "dafd94730056ee7d7e0c5184e9f847e53cdbdaaa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1acb56fb_73d85f8a",
+        "filename": "ssl/ssl_aead_ctx.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-14T19:22:45Z",
+      "side": 1,
+      "message": "Need to check that extra_in_len \u003c\u003d max_out_suffix_len.",
+      "revId": "dafd94730056ee7d7e0c5184e9f847e53cdbdaaa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "453ad3e7_f93a8935",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-14T19:22:45Z",
+      "side": 1,
+      "message": "make static and move above use.",
+      "revId": "dafd94730056ee7d7e0c5184e9f847e53cdbdaaa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4d1430b_5a60013a",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-14T19:22:45Z",
+      "side": 1,
+      "message": "(is this called?)",
+      "revId": "dafd94730056ee7d7e0c5184e9f847e53cdbdaaa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68d5ced7_ce39821b",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-14T19:22:45Z",
+      "side": 1,
+      "message": "also make static, I would assume.",
+      "revId": "dafd94730056ee7d7e0c5184e9f847e53cdbdaaa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6c6aeb3_b340dc1c",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-14T19:22:45Z",
+      "side": 1,
+      "message": "cpy",
+      "range": {
+        "startLine": 515,
+        "startChar": 15,
+        "endLine": 515,
+        "endChar": 19
+      },
+      "revId": "dafd94730056ee7d7e0c5184e9f847e53cdbdaaa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed2edfe6_b019bad5",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-14T19:22:45Z",
+      "side": 1,
+      "message": "cpy",
+      "range": {
+        "startLine": 516,
+        "startChar": 15,
+        "endLine": 516,
+        "endChar": 19
+      },
+      "revId": "dafd94730056ee7d7e0c5184e9f847e53cdbdaaa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
