@@ -391,7 +391,8 @@ int ssl3_read_app_data(SSL *ssl, int *out_got_handshake, uint8_t *buf, int len,
       }
     }
 
-    if (has_hs_data || rr->type == SSL3_RT_HANDSHAKE) {
+    if (has_hs_data || rr->type == SSL3_RT_HANDSHAKE ||
+        rr->type == SSL3_RT_PLAINTEXT_HANDSHAKE) {
       /* If reading 0-RTT data, reject handshake data. 0-RTT data is terminated
        * by an alert. */
       if (SSL_in_init(ssl)) {
@@ -522,7 +523,11 @@ int ssl3_read_handshake_bytes(SSL *ssl, uint8_t *buf, int len) {
       return -1;
     }
 
-    if (rr->type != SSL3_RT_HANDSHAKE) {
+    /* Accept PLAINTEXT_HANDSHAKE records when the content type TLS 1.3 variant
+     * is enabled. */
+    if (rr->type != SSL3_RT_HANDSHAKE &&
+        (ssl->tls13_variant != tls13_type_experiment ||
+         rr->type != SSL3_RT_PLAINTEXT_HANDSHAKE)) {
       OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_RECORD);
       ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_UNEXPECTED_MESSAGE);
       return -1;
