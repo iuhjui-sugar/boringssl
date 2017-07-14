@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "48c0987d_e81d300a",
+        "filename": "ssl/ssl_aead_ctx.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-14T20:05:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03fc33ac_af06350f",
+      "revId": "dafd94730056ee7d7e0c5184e9f847e53cdbdaaa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1acb56fb_73d85f8a",
         "filename": "ssl/ssl_aead_ctx.c",
         "patchSetId": 5
@@ -33,6 +51,24 @@
       "revId": "dafd94730056ee7d7e0c5184e9f847e53cdbdaaa",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "401ac492_8c6588c6",
+        "filename": "ssl/ssl_aead_ctx.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-14T20:05:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1acb56fb_73d85f8a",
+      "revId": "dafd94730056ee7d7e0c5184e9f847e53cdbdaaa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "d13d56e4_bb8cdafe",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-14T20:05:00Z",
+      "side": 1,
+      "message": "See below. Done.",
+      "parentUuid": "453ad3e7_f93a8935",
+      "revId": "dafd94730056ee7d7e0c5184e9f847e53cdbdaaa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b4d1430b_5a60013a",
         "filename": "ssl/tls_record.c",
         "patchSetId": 5
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "97f8e433_3a1d88fa",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-14T20:05:00Z",
+      "side": 1,
+      "message": "See below. Done.",
+      "parentUuid": "b4d1430b_5a60013a",
+      "revId": "dafd94730056ee7d7e0c5184e9f847e53cdbdaaa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "68d5ced7_ce39821b",
         "filename": "ssl/tls_record.c",
         "patchSetId": 5
@@ -84,6 +156,24 @@
       "revId": "dafd94730056ee7d7e0c5184e9f847e53cdbdaaa",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0a111d3_6865ac94",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-14T20:05:00Z",
+      "side": 1,
+      "message": "I imagine this is what the C++ SealRecord method will call, so I think we might have to put these into internal.h eventually? (unless that code also lives in tls_record…) But for now it can be static at least.\n\nDone.",
+      "parentUuid": "68d5ced7_ce39821b",
+      "revId": "dafd94730056ee7d7e0c5184e9f847e53cdbdaaa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -110,6 +200,30 @@
     },
     {
       "key": {
+        "uuid": "17d16bbf_f01ed1af",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-14T20:05:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6c6aeb3_b340dc1c",
+      "range": {
+        "startLine": 515,
+        "startChar": 15,
+        "endLine": 515,
+        "endChar": 19
+      },
+      "revId": "dafd94730056ee7d7e0c5184e9f847e53cdbdaaa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed2edfe6_b019bad5",
         "filename": "ssl/tls_record.c",
         "patchSetId": 5
@@ -130,6 +244,30 @@
       "revId": "dafd94730056ee7d7e0c5184e9f847e53cdbdaaa",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8153cce6_3c42a61d",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-14T20:05:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed2edfe6_b019bad5",
+      "range": {
+        "startLine": 516,
+        "startChar": 15,
+        "endLine": 516,
+        "endChar": 19
+      },
+      "revId": "dafd94730056ee7d7e0c5184e9f847e53cdbdaaa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
