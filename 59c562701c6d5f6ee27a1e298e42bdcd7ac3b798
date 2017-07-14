@@ -1,0 +1,187 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "381f27ee_687b272a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-14T19:26:31Z",
+      "side": 1,
+      "message": "Probably would be good to cite the Github PR this is from. Also think it\u0027s worth adding a sentence like:\n\n\"Local experiments were not able to replicate the claims in the PR, but implement this anyway for comparison purposes.\"",
+      "revId": "59c562701c6d5f6ee27a1e298e42bdcd7ac3b798",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c504295_c28c438c",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-14T19:26:31Z",
+      "side": 1,
+      "message": "Maybe TLS1_3_CONTENT_TYPE_EXPERIMENT_VERSION? It\u0027s kind of a mouthful but I feel like \"type experiment\" is a little weird. RECORD_TYPE is one letter shorter if you prefer. Ditto throughout enum, C, and Go.",
+      "range": {
+        "startLine": 582,
+        "startChar": 8,
+        "endLine": 582,
+        "endChar": 38
+      },
+      "revId": "59c562701c6d5f6ee27a1e298e42bdcd7ac3b798",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa02ffd0_c7b7a5c8",
+        "filename": "ssl/s3_both.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-14T19:26:31Z",
+      "side": 1,
+      "message": "Best not to access ssl-\u003eversion before the version is negotiated at all. Also the second ClientHello should not have the changed value.\n\nif (ssl-\u003eserver \u0026\u0026\n    ssl-\u003ehave_version \u0026\u0026\n    ssl-\u003eversion \u003d\u003d ... \u0026\u0026\n    ssl-\u003es3-\u003eaead_write_ctx \u003d\u003d nullptr) {",
+      "range": {
+        "startLine": 270,
+        "startChar": 8,
+        "endLine": 270,
+        "endChar": 54
+      },
+      "revId": "59c562701c6d5f6ee27a1e298e42bdcd7ac3b798",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "909a7179_c196328a",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-14T19:26:31Z",
+      "side": 1,
+      "message": "Do we need this case? This function is only called when we\u0027ve started encrypting, in which case SSL3_RT_PLAINTEXT_HANDSHAKE isn\u0027t allowed.",
+      "range": {
+        "startLine": 394,
+        "startChar": 52,
+        "endLine": 395,
+        "endChar": 47
+      },
+      "revId": "59c562701c6d5f6ee27a1e298e42bdcd7ac3b798",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68926dc7_3557dd19",
+        "filename": "ssl/s3_pkt.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-14T19:26:31Z",
+      "side": 1,
+      "message": "Nit: The PR calls them server_plaintext_handshake.\n\nProbably also should check !ssl-\u003eserver and aead_read_ctx.",
+      "range": {
+        "startLine": 526,
+        "startChar": 14,
+        "endLine": 526,
+        "endChar": 33
+      },
+      "revId": "59c562701c6d5f6ee27a1e298e42bdcd7ac3b798",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8b03062_800794e8",
+        "filename": "ssl/ssl_versions.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-14T19:26:31Z",
+      "side": 1,
+      "message": "(It sounded like Mozilla was planning for their experiment clients to send both TLS 1.3 variants, so maybe put the experiments above the draft? Doesn\u0027t matter for our clients though.)",
+      "revId": "59c562701c6d5f6ee27a1e298e42bdcd7ac3b798",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4964c5f_0cd5e472",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-14T19:26:31Z",
+      "side": 1,
+      "message": "server_plaintext_handshake\n\nAlso check the other conditions. (Client and unencrypted.)",
+      "range": {
+        "startLine": 765,
+        "startChar": 11,
+        "endLine": 765,
+        "endChar": 30
+      },
+      "revId": "59c562701c6d5f6ee27a1e298e42bdcd7ac3b798",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2f989d9_80d8ef45",
+        "filename": "ssl/test/runner/dtls.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-14T19:26:31Z",
+      "side": 1,
+      "message": "(If you feel bored, this function probably ought to live in common.go at this point, near the constants.)",
+      "revId": "59c562701c6d5f6ee27a1e298e42bdcd7ac3b798",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e038e82_51684037",
+        "filename": "tool/client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-14T19:26:31Z",
+      "side": 1,
+      "message": "(I feel like this is vaguely friendly as strings, but ah well. :-/)",
+      "revId": "59c562701c6d5f6ee27a1e298e42bdcd7ac3b798",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
