@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b43dbd3d_221127c5",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 833,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-14T22:57:52Z",
+      "side": 1,
+      "message": "can be moved to L848 to minimise the decl to use distance.",
+      "revId": "e6670f3a051af960b3528ada26d7d617321795a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
