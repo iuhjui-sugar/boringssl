@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e6176519_3675d977",
+        "filename": "ssl/tls_record.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-14T22:19:26Z",
+      "side": 1,
+      "message": "The comment from internal.h seems worth saving:\n\n/* tls_seal_scatter_record seals a new record of type |type| and body |in| and\n * splits it between |out_prefix|, |out|, and |out_suffix|. Exactly\n * |tls_seal_scatter_prefix_len| bytes are written to |out_prefix|, |in_len|\n * bytes to |out|, and up to |tls_seal_scatter_max_suffix_len| bytes to\n * |out_suffix|. |*out_suffix_len| is set to the actual number of bytes written\n * to |out_suffix|. It returns one on success and zero on error. If enabled,\n * |tls_seal_scatter_record| implements TLS 1.0 CBC 1/n-1 record splitting and\n * may write two records concatenated. */",
+      "revId": "4f0597864960219c1fecfedb5140ef7bde08503f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
