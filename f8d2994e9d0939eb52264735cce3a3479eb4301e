@@ -93,6 +93,24 @@
     },
     {
       "key": {
+        "uuid": "6d0e6c3c_60755ef3",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-14T23:21:59Z",
+      "side": 1,
+      "message": "(Adam\u0027s suggested comment is better. :-) )",
+      "parentUuid": "c1b62bb3_7496a846",
+      "revId": "f8d2994e9d0939eb52264735cce3a3479eb4301e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "84861808_acffdc8e",
         "filename": "ssl/tls_record.cc",
         "patchSetId": 8
