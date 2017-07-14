@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4ef4683c_dc2cec97",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-14T23:17:09Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "f8d2994e9d0939eb52264735cce3a3479eb4301e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26fa8807_26bc7801",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-14T23:17:09Z",
+      "side": 1,
+      "message": "(Probably leave this alone for now but, if it\u0027s ever a nuisance, we can avoid the dependency on in_len here by just always rejecting in_len \u003d\u003d 0. I don\u0027t think we ever actually do this.)",
+      "range": {
+        "startLine": 420,
+        "startChar": 79,
+        "endLine": 420,
+        "endChar": 85
+      },
+      "revId": "f8d2994e9d0939eb52264735cce3a3479eb4301e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1b62bb3_7496a846",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-14T23:17:09Z",
+      "side": 1,
+      "message": "Nit: 80 chars.\n\nThis might also warrant a comment like: When record-splitting is enabled, the prefix is the first record and all but the last byte of the prefix.",
+      "revId": "f8d2994e9d0939eb52264735cce3a3479eb4301e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dce5e01e_9c65f3d4",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-14T23:17:09Z",
+      "side": 1,
+      "message": "Probably worth adding something like:\n\nassert(tls_seal_scatter_prefix_len(ssl, type, in_len) \u003d\u003d\n       split_record_len + prefix_len - 1);",
+      "revId": "f8d2994e9d0939eb52264735cce3a3479eb4301e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
