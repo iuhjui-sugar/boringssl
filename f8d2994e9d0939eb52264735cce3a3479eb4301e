@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "592a5541_b530776f",
+        "filename": "ssl/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-14T23:19:14Z",
+      "side": 1,
+      "message": "(nit: two blank lines before sections.)",
+      "revId": "f8d2994e9d0939eb52264735cce3a3479eb4301e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9e3091b_644f6b66",
+        "filename": "ssl/ssl_aead_ctx.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-14T23:19:14Z",
+      "side": 1,
+      "message": "return extra_in_len + (aead \u003d\u003d NULL ? 0 : EVP_AEAD_max_overhead(aead-\u003ectx.aead));",
+      "revId": "f8d2994e9d0939eb52264735cce3a3479eb4301e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4ef4683c_dc2cec97",
         "filename": "ssl/tls_record.cc",
         "patchSetId": 8
@@ -53,6 +87,40 @@
       "writtenOn": "2017-07-14T23:17:09Z",
       "side": 1,
       "message": "Nit: 80 chars.\n\nThis might also warrant a comment like: When record-splitting is enabled, the prefix is the first record and all but the last byte of the prefix.",
+      "revId": "f8d2994e9d0939eb52264735cce3a3479eb4301e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84861808_acffdc8e",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-14T23:19:14Z",
+      "side": 1,
+      "message": "I think this is worth a comment:\n\n/* In the case of record splitting, the 1-byte record (of the 1/n-1 split) will be placed in the prefix, as will four of the five bytes of the record header for the main record. The final byte will replace the first byte of the plaintext that was used in the small record. */",
+      "revId": "f8d2994e9d0939eb52264735cce3a3479eb4301e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7ab145a_050d8bf4",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-14T23:19:14Z",
+      "side": 1,
+      "message": "It\u0027s still /* */ comments for now. (Here and elsewhere.)",
       "revId": "f8d2994e9d0939eb52264735cce3a3479eb4301e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
