@@ -281,7 +281,7 @@ func (hs *serverHandshakeState) readClientHello() error {
 	}
 
 	if config.Bugs.ExpectNoTLS12Session {
-		if len(hs.clientHello.sessionId) > 0 && c.wireVersion != tls13ExperimentVersion {
+		if len(hs.clientHello.sessionId) > 0 && !isTLS12ResumptionExperiment(c.wireVersion) {
 			return fmt.Errorf("tls: client offered an unexpected session ID")
 		}
 		if len(hs.clientHello.sessionTicket) > 0 {
@@ -763,7 +763,7 @@ ResendHelloRetryRequest:
 	}
 	c.flushHandshake()
 
-	if c.wireVersion == tls13ExperimentVersion {
+	if isTLS12ResumptionExperiment(c.wireVersion) {
 		c.writeRecord(recordTypeChangeCipherSpec, []byte{1})
 	}
 
@@ -927,7 +927,7 @@ ResendHelloRetryRequest:
 		}
 	}
 
-	if c.wireVersion == tls13ExperimentVersion && !c.skipEarlyData {
+	if isTLS12ResumptionExperiment(c.wireVersion) && !c.skipEarlyData {
 		if err := c.readRecord(recordTypeChangeCipherSpec); err != nil {
 			return err
 		}
@@ -1085,6 +1085,13 @@ func (hs *serverHandshakeState) processClientHello() (isResume bool, err error) 
 	}
 	if c.vers <= VersionTLS11 && config.maxVersion(c.isDTLS) == VersionTLS12 {
 		copy(hs.hello.random[len(hs.hello.random)-8:], downgradeTLS12)
+	}
+
+	if len(hs.clientHello.sessionId) > 0 && c.config.Bugs.ExpectEmptyClientHelloSessionID {
+		return false, errors.New("tls: expected empty session ID from client")
+	}
+	if len(hs.clientHello.sessionId) == 0 && c.config.Bugs.ExpectClientHelloSessionID {
+		return false, errors.New("tls: expected non-empty session ID from client")
 	}
 
 	foundCompression := false
