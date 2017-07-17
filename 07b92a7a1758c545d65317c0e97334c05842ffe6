@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e6381256_910c2a48",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-17T17:36:34Z",
+      "side": 1,
+      "message": "There\u0027s a comment in handshake_client.c that needs to be tweaked now.",
+      "revId": "07b92a7a1758c545d65317c0e97334c05842ffe6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2146ee2_7b24dd01",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-17T17:36:34Z",
+      "side": 1,
+      "message": "Pile of nitpicks:\n\nssl_is_tls12_resumption_experiment?\nTLS variant \u003d\u003e TLS 1.3 variant\n\"involves\" seems a bit odd of a verb.",
+      "range": {
+        "startLine": 218,
+        "startChar": 7,
+        "endLine": 218,
+        "endChar": 8
+      },
+      "revId": "07b92a7a1758c545d65317c0e97334c05842ffe6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ce742a8_489f4af2",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 1813,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-17T17:36:34Z",
+      "side": 1,
+      "message": "isTLS12ResumptionExperiment",
+      "range": {
+        "startLine": 1813,
+        "startChar": 5,
+        "endLine": 1813,
+        "endChar": 30
+      },
+      "revId": "07b92a7a1758c545d65317c0e97334c05842ffe6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e11afadd_2296911f",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 1304,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-17T17:36:34Z",
+      "side": 1,
+      "message": "Especially now that there are a couple variants of this behavior, could you add a few tests here:\n\n1. (2x) Shim is client, TLS 1.3 is enabled and {experiment,no-session-id} are enabled. Connect and resume against a TLS 1.2 server with session tickets disabled. These session ID shenanigans should not interfere with the normal session ID behavior.\n\n2. (2x) Shim is server. At {experiment,no-session-id} variants, empty, 16-byte, and 32-byte session IDs are tolerated and echoed back.\n\n3. Shim is client. At experiment variant, it sends a non-empty session ID.\n\n4. Shim is client. At no-session-id variant, it sends an empty session ID.",
+      "revId": "07b92a7a1758c545d65317c0e97334c05842ffe6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10a5d070_2165e132",
+        "filename": "ssl/tls13_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-17T17:36:34Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "07b92a7a1758c545d65317c0e97334c05842ffe6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
