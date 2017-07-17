@@ -1295,6 +1295,13 @@ var tlsVersions = []tlsVersion{
 		versionWire:  tls13RecordTypeExperimentVersion,
 		tls13Variant: TLS13RecordTypeExperiment,
 	},
+	{
+		name:         "TLS13NoSessionIDExperiment",
+		version:      VersionTLS13,
+		excludeFlag:  "-no-tls13",
+		versionWire:  tls13NoSessionIDExperimentVersion,
+		tls13Variant: TLS13NoSessionIDExperiment,
+	},
 }
 
 func allVersions(protocol protocol) []tlsVersion {

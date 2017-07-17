@@ -33,20 +33,23 @@ const (
 
 // A draft version of TLS 1.3 that is sent over the wire for the current draft.
 const (
-	tls13DraftVersion                = 0x7f12
-	tls13ExperimentVersion           = 0x7e01
-	tls13RecordTypeExperimentVersion = 0x7a12
+	tls13DraftVersion                 = 0x7f12
+	tls13ExperimentVersion            = 0x7e01
+	tls13NoSessionIDExperimentVersion = 0x7e02
+	tls13RecordTypeExperimentVersion  = 0x7a12
 )
 
 const (
-	TLS13Default              = 0
-	TLS13Experiment           = 1
-	TLS13RecordTypeExperiment = 2
+	TLS13Default               = 0
+	TLS13Experiment            = 1
+	TLS13RecordTypeExperiment  = 2
+	TLS13NoSessionIDExperiment = 3
 )
 
 var allTLSWireVersions = []uint16{
 	tls13DraftVersion,
 	tls13ExperimentVersion,
+	tls13NoSessionIDExperimentVersion,
 	tls13RecordTypeExperimentVersion,
 	VersionTLS12,
 	VersionTLS11,
@@ -1497,6 +1500,7 @@ func (c *Config) defaultCurves() map[CurveID]bool {
 // false.
 func (c *Config) isSupportedVersion(wireVers uint16, isDTLS bool) (uint16, bool) {
 	if (c.TLS13Variant != TLS13Experiment && wireVers == tls13ExperimentVersion) ||
+		(c.TLS13Variant != TLS13NoSessionIDExperiment && wireVers == tls13NoSessionIDExperimentVersion) ||
 		(c.TLS13Variant != TLS13RecordTypeExperiment && wireVers == tls13RecordTypeExperimentVersion) ||
 		(c.TLS13Variant != TLS13Default && wireVers == tls13DraftVersion) {
 		return 0, false
@@ -1804,4 +1808,8 @@ func containsGREASE(values []uint16) bool {
 		}
 	}
 	return false
+}
+
+func tls12ResumptionExperiment(version uint16) bool {
+	return version == tls13ExperimentVersion || version == tls13NoSessionIDExperimentVersion
 }
