@@ -921,7 +921,7 @@ Again:
 			c.in.setErrorLocked(c.sendAlert(alertUnexpectedMessage))
 			break
 		}
-		if c.wireVersion != tls13ExperimentVersion {
+		if !tls12ResumptionExperiment(c.wireVersion) {
 			err := c.in.changeCipherSpec(c.config)
 			if err != nil {
 				c.in.setErrorLocked(c.sendAlert(err.(alert)))
@@ -1145,7 +1145,7 @@ func (c *Conn) doWriteRecord(typ recordType, data []byte) (n int, err error) {
 	}
 	c.out.freeBlock(b)
 
-	if typ == recordTypeChangeCipherSpec && c.wireVersion != tls13ExperimentVersion {
+	if typ == recordTypeChangeCipherSpec && !tls12ResumptionExperiment(c.wireVersion) {
 		err = c.out.changeCipherSpec(c.config)
 		if err != nil {
 			return n, c.sendAlertLocked(alertLevelError, err.(alert))
