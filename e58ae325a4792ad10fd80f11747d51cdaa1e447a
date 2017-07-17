@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e518c7c6_8e5c529d",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2218,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-17T19:39:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "268867b6_6fed8cd2",
+      "revId": "e58ae325a4792ad10fd80f11747d51cdaa1e447a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f7bd50bb_5eac6bc8",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 1
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "9f843ac0_2cf3a72f",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2227,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-17T19:39:27Z",
+      "side": 1,
+      "message": "Fixed the docs. certificate_unknown is:\n\n   certificate_unknown\n      Some other (unspecified) issue arose in processing the\n      certificate, rendering it unacceptable.\n\nwhich seems probably the safest default?",
+      "parentUuid": "f7bd50bb_5eac6bc8",
+      "range": {
+        "startLine": 2227,
+        "startChar": 62,
+        "endLine": 2227,
+        "endChar": 79
+      },
+      "revId": "e58ae325a4792ad10fd80f11747d51cdaa1e447a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f25ace9_c0da4ce9",
         "filename": "ssl/test/bssl_shim.cc",
         "patchSetId": 1
@@ -53,6 +95,30 @@
       "writtenOn": "2017-07-17T18:34:34Z",
       "side": 1,
       "message": "Pass CertVerifyCallback here and don\u0027t set it on the SSL_CTX? I see that SSL_set_verify doesn\u0027t reset the callback pointer if the argument is NULL, but that\u0027s an oddity.",
+      "range": {
+        "startLine": 1809,
+        "startChar": 36,
+        "endLine": 1809,
+        "endChar": 40
+      },
+      "revId": "e58ae325a4792ad10fd80f11747d51cdaa1e447a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c4fb419_50dd9151",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1809,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-17T19:39:27Z",
+      "side": 1,
+      "message": "That\u0027s actually a different callback. It\u0027s a huge mess. We have:\n\n1. ssl-\u003everify_callback / ctx-\u003edefault_verify_callback. This is a callback that gets fed into X509_STORE_CTX and is called many times, once per low-level error. This is configured with SSL_(CTX_)set_verify.\n\n2. ctx-\u003eapp_verify_callback. This lets you override the X509_verify_cert call which would be almost the same as this new callback, except that it still passes everything via an X509_STORE_CTX and doesn\u0027t do async. This is configured via SSL_CTX_set_cert_verify_callback.\n\n3. This new one which does not depend on crypto/x509.",
+      "parentUuid": "9f25ace9_c0da4ce9",
       "range": {
         "startLine": 1809,
         "startChar": 36,
