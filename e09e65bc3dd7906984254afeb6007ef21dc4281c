@@ -22,6 +22,30 @@
       "revId": "e09e65bc3dd7906984254afeb6007ef21dc4281c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf6f0a05_c3532809",
+        "filename": "ssl/tls_method.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-17T20:43:03Z",
+      "side": 1,
+      "message": "I just matched the existing behavior, but yeah certificate_unknown seems a generally better alert. Done.",
+      "parentUuid": "87e23493_a8adcb0e",
+      "range": {
+        "startLine": 245,
+        "startChar": 15,
+        "endLine": 245,
+        "endChar": 32
+      },
+      "revId": "e09e65bc3dd7906984254afeb6007ef21dc4281c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
