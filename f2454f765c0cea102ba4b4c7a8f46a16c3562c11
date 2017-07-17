@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7fe716f9_81d1ae07",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2442,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-17T18:41:17Z",
+      "side": 1,
+      "message": "We\u0027ve not used \"buffers\" to identify CRYPTO_BUFFER functions before. How about |SSL_set0_client_CAs|? Also, in |SSL_set_chain_and_key| we\u0027ve used a CRYPTO_BUFFER ** and a size_t number of elements. That might be easier for our C++ users here since that\u0027s compatible with a std::vector of buffers.",
+      "range": {
+        "startLine": 2442,
+        "startChar": 21,
+        "endLine": 2442,
+        "endChar": 29
+      },
+      "revId": "f2454f765c0cea102ba4b4c7a8f46a16c3562c11",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
