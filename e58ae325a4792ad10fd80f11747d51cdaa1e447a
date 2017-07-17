@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "268867b6_6fed8cd2",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2218,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-17T18:34:34Z",
+      "side": 1,
+      "message": "80 chars",
+      "revId": "e58ae325a4792ad10fd80f11747d51cdaa1e447a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7bd50bb_5eac6bc8",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2227,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-17T18:34:34Z",
+      "side": 1,
+      "message": "Looks like the default in the code is SSL_AD_CERTIFICATE_UNKNOWN. (s3_both.cc:836)",
+      "range": {
+        "startLine": 2227,
+        "startChar": 62,
+        "endLine": 2227,
+        "endChar": 79
+      },
+      "revId": "e58ae325a4792ad10fd80f11747d51cdaa1e447a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f25ace9_c0da4ce9",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1809,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-17T18:34:34Z",
+      "side": 1,
+      "message": "Pass CertVerifyCallback here and don\u0027t set it on the SSL_CTX? I see that SSL_set_verify doesn\u0027t reset the callback pointer if the argument is NULL, but that\u0027s an oddity.",
+      "range": {
+        "startLine": 1809,
+        "startChar": 36,
+        "endLine": 1809,
+        "endChar": 40
+      },
+      "revId": "e58ae325a4792ad10fd80f11747d51cdaa1e447a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
