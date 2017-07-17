@@ -22,6 +22,30 @@
       "revId": "f2454f765c0cea102ba4b4c7a8f46a16c3562c11",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c02041b_7defd2a7",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2442,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-17T19:37:06Z",
+      "side": 1,
+      "message": "Yeah, that\u0027s a better name. Will switch it.\n\nOn the CRYPTO_BUFFER** side, I\u0027ve actually found that it\u0027s not especially helpful in SSL_set_chain_and_key. The trouble is C++ users are more likely to have a std::vector\u003cbssl::UniquePtr\u003cCRYPTO_BUFFER\u003e\u003e. On top of that, we don\u0027t let you get T** out of STACK_OF(T) (and we, strictly speaking, can\u0027t without C definedness violations because the stack is stored as void* pointers rather than T* pointers).\n\nSee Chromium code here:\nhttps://cs.chromium.org/chromium/src/net/socket/ssl_client_socket_impl.cc?type\u003dcs\u0026q\u003dSSL_set_chain_and_key\u0026sq\u003dpackage:chromium\u0026l\u003d1681\n\nThe USE_BYTE_CERTS path can actually make a vector\u003cCRYPTO_BUFFER*\u003e fine, though it\u0027s still assembling the vector itself. I figure, given the mess of different inputs, having the API be close to what we\u0027re going to ultimately stash (a STACK_OF(CRYPTO_BUFFER) that BoringSSL owns) probably lets everyone do it in whatever\u0027s most efficient.",
+      "parentUuid": "7fe716f9_81d1ae07",
+      "range": {
+        "startLine": 2442,
+        "startChar": 21,
+        "endLine": 2442,
+        "endChar": 29
+      },
+      "revId": "f2454f765c0cea102ba4b4c7a8f46a16c3562c11",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
