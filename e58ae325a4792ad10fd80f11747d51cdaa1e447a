@@ -128,6 +128,30 @@
       "revId": "e58ae325a4792ad10fd80f11747d51cdaa1e447a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b89af0c_a414cbee",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1809,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-17T20:28:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1c4fb419_50dd9151",
+      "range": {
+        "startLine": 1809,
+        "startChar": 36,
+        "endLine": 1809,
+        "endChar": 40
+      },
+      "revId": "e58ae325a4792ad10fd80f11747d51cdaa1e447a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }

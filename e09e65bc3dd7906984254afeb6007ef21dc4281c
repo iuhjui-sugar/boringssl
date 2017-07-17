@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "87e23493_a8adcb0e",
+        "filename": "ssl/tls_method.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-17T20:28:45Z",
+      "side": 1,
+      "message": "Should this match the other default?",
+      "range": {
+        "startLine": 245,
+        "startChar": 15,
+        "endLine": 245,
+        "endChar": 32
+      },
+      "revId": "e09e65bc3dd7906984254afeb6007ef21dc4281c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
