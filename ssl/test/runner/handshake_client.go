@@ -98,6 +98,7 @@ func (c *Conn) clientHandshake() error {
 		pskBinderFirst:          c.config.Bugs.PSKBinderFirst,
 		omitExtensions:          c.config.Bugs.OmitExtensions,
 		emptyExtensions:         c.config.Bugs.EmptyExtensions,
+		sessionId:               c.config.Bugs.ClientHelloSessionID,
 	}
 
 	if maxVersion >= VersionTLS13 {
@@ -734,7 +735,7 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 		hs.finishedHash.addEntropy(zeroSecret)
 	}
 
-	if c.wireVersion == tls13ExperimentVersion {
+	if isTLS12ResumptionExperiment(c.wireVersion) {
 		if err := c.readRecord(recordTypeChangeCipherSpec); err != nil {
 			return err
 		}
@@ -920,7 +921,7 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 		c.sendAlert(alertEndOfEarlyData)
 	}
 
-	if c.wireVersion == tls13ExperimentVersion {
+	if isTLS12ResumptionExperiment(c.wireVersion) {
 		c.writeRecord(recordTypeChangeCipherSpec, []byte{1})
 	}
 

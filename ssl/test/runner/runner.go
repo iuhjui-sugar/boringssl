@@ -1295,6 +1295,13 @@ var tlsVersions = []tlsVersion{
 		versionWire:  tls13RecordTypeExperimentVersion,
 		tls13Variant: TLS13RecordTypeExperiment,
 	},
+	{
+		name:         "TLS13NoSessionIDExperiment",
+		version:      VersionTLS13,
+		excludeFlag:  "-no-tls13",
+		versionWire:  tls13NoSessionIDExperimentVersion,
+		tls13Variant: TLS13NoSessionIDExperiment,
+	},
 }
 
 func allVersions(protocol protocol) []tlsVersion {
@@ -11028,6 +11035,130 @@ func addTLS13HandshakeTests() {
 				CustomTicketExtension: "1234",
 			},
 		},
+	})
+
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name:     "TLS13Experiment-ResumeTLS12SessionID",
+		config: Config{
+			MaxVersion:             VersionTLS12,
+			SessionTicketsDisabled: true,
+		},
+		resumeSession: true,
+		flags:         []string{"-tls13-variant", "1"},
+	})
+
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name:     "TLS13NoSessionIDExperiment-ResumeTLS12SessionID",
+		config: Config{
+			MaxVersion:             VersionTLS12,
+			SessionTicketsDisabled: true,
+		},
+		resumeSession: true,
+		flags:         []string{"-tls13-variant", "3"},
+	})
+
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "TLS13Experiment-EmptySessionID",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				ClientHelloSessionID: []byte{},
+			},
+		},
+		resumeSession: true,
+		flags:         []string{"-tls13-variant", "1"},
+	})
+
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "TLS13Experiment-ShortSessionID",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				ClientHelloSessionID: make([]byte, 16),
+			},
+		},
+		resumeSession: true,
+		flags:         []string{"-tls13-variant", "1"},
+	})
+
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "TLS13Experiment-NormalSessionID",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				ClientHelloSessionID: make([]byte, 32),
+			},
+		},
+		resumeSession: true,
+		flags:         []string{"-tls13-variant", "1"},
+	})
+
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "TLS13NoSessionIDExperiment-EmptySessionID",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				ClientHelloSessionID: []byte{},
+			},
+		},
+		resumeSession: true,
+		flags:         []string{"-tls13-variant", "3"},
+	})
+
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "TLS13NoSessionIDExperiment-ShortSessionID",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				ClientHelloSessionID: make([]byte, 16),
+			},
+		},
+		resumeSession: true,
+		flags:         []string{"-tls13-variant", "3"},
+	})
+
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "TLS13NoSessionIDExperiment-NormalSessionID",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				ClientHelloSessionID: make([]byte, 32),
+			},
+		},
+		resumeSession: true,
+		flags:         []string{"-tls13-variant", "3"},
+	})
+
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name:     "TLS13Experiment-RequireSessionID",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				ExpectClientHelloSessionID: true,
+			},
+		},
+		flags: []string{"-tls13-variant", "1"},
+	})
+
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name:     "TLS13NoSessionIDExperiment-RequireEmptySessionID",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				ExpectEmptyClientHelloSessionID: true,
+			},
+		},
+		flags: []string{"-tls13-variant", "3"},
 	})
 
 	testCases = append(testCases, testCase{
