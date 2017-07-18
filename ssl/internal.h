@@ -558,7 +558,6 @@ class SSLAEADContext {
   bool xor_fixed_nonce_ : 1;
 };
 
-
 /* DTLS replay bitmap. */
 
 /* DTLS1_BITMAP maintains a sliding window of 64 sequence numbers to detect
@@ -654,6 +653,11 @@ size_t ssl_seal_align_prefix_len(const SSL *ssl);
  * |in| and |out| may not alias. */
 int tls_seal_record(SSL *ssl, uint8_t *out, size_t *out_len, size_t max_out,
                     uint8_t type, const uint8_t *in, size_t in_len);
+
+int tls_seal_scatter_record(SSL *ssl, uint8_t *out_prefix, uint8_t *out,
+                            uint8_t *out_suffix, size_t *out_suffix_len,
+                            size_t max_out_suffix_len, uint8_t type,
+                            const uint8_t *in, size_t in_len);
 
 enum dtls1_use_epoch_t {
   dtls1_use_previous_epoch,
