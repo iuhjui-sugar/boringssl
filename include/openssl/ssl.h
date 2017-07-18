@@ -3982,8 +3982,22 @@ OPENSSL_EXPORT SSL_SESSION *SSL_get1_session(SSL *ssl);
  * This structures are exposed for historical reasons, but access to them is
  * deprecated. */
 
+#if defined(BORINGSSL_INTERNAL_CXX_TYPES)
+extern "C++" {
+namespace bssl {
+struct SSL_PROTOCOL_METHOD;
+struct SSL_X509_METHOD;
+struct CERT;
+}
+using SSL_PROTOCOL_METHOD = bssl::SSL_PROTOCOL_METHOD;
+using SSL_X509_METHOD = bssl::SSL_X509_METHOD;
+using SSL_CERT_CONFIG = bssl::CERT;
+}
+#else
 typedef struct ssl_protocol_method_st SSL_PROTOCOL_METHOD;
 typedef struct ssl_x509_method_st SSL_X509_METHOD;
+typedef struct ssl_cert_config_st SSL_CERT_CONFIG;
+#endif
 
 struct ssl_cipher_st {
   /* name is the OpenSSL name for the cipher. */
@@ -4281,7 +4295,7 @@ struct ssl_ctx_st {
   uint32_t mode;
   uint32_t max_cert_list;
 
-  struct cert_st /* CERT */ *cert;
+  SSL_CERT_CONFIG *cert;
 
   /* callback that allows applications to peek at protocol messages */
   void (*msg_callback)(int write_p, int version, int content_type,
