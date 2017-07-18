@@ -421,8 +421,8 @@ static int do_seal_record(SSL *ssl, uint8_t *out_prefix, uint8_t *out,
   return 1;
 }
 
-static size_t tls_seal_scatter_prefix_len(const SSL *ssl, uint8_t type,
-                                          size_t in_len) {
+size_t tls_seal_scatter_prefix_len(const SSL *ssl, uint8_t type,
+                                   size_t in_len) {
   size_t ret = SSL3_RT_HEADER_LENGTH;
   if (type == SSL3_RT_APPLICATION_DATA && in_len > 1 &&
       ssl_needs_record_splitting(ssl)) {
@@ -438,18 +438,28 @@ static size_t tls_seal_scatter_prefix_len(const SSL *ssl, uint8_t type,
   return ret;
 }
 
+size_t tls_seal_scatter_max_suffix_len(const SSL *ssl) {
+  size_t ret = SSL_AEAD_CTX_max_overhead(ssl->s3->aead_write_ctx);
+  /* TLS 1.3 needs an extra byte for the encrypted record type. */
+  if (ssl->s3->aead_write_ctx != NULL &&
+      ssl->s3->aead_write_ctx->version >= TLS1_3_VERSION) {
+    ret += 1;
+  }
+  return ret;
+}
+
 /* tls_seal_scatter_record seals a new record of type |type| and body |in| and
  * splits it between |out_prefix|, |out|, and |out_suffix|. Exactly
  * |tls_seal_scatter_prefix_len| bytes are written to |out_prefix|, |in_len|
- * bytes to |out|, and up to 1 + |SSL_AEAD_CTX_max_overhead| bytes to
+ * bytes to |out|, and up to |tls_seal_scatter_max_suffix_len| bytes to
  * |out_suffix|. |*out_suffix_len| is set to the actual number of bytes written
  * to |out_suffix|. It returns one on success and zero on error. If enabled,
  * |tls_seal_scatter_record| implements TLS 1.0 CBC 1/n-1 record splitting and
  * may write two records concatenated. */
-static int tls_seal_scatter_record(SSL *ssl, uint8_t *out_prefix, uint8_t *out,
-                                   uint8_t *out_suffix, size_t *out_suffix_len,
-                                   size_t max_out_suffix_len, uint8_t type,
-                                   const uint8_t *in, size_t in_len) {
+int tls_seal_scatter_record(SSL *ssl, uint8_t *out_prefix, uint8_t *out,
+                            uint8_t *out_suffix, size_t *out_suffix_len,
+                            size_t max_out_suffix_len, uint8_t type,
+                            const uint8_t *in, size_t in_len) {
   if (type == SSL3_RT_APPLICATION_DATA && in_len > 1 &&
       ssl_needs_record_splitting(ssl)) {
     assert(SSL_AEAD_CTX_explicit_nonce_len(ssl->s3->aead_write_ctx) == 0);
@@ -585,4 +595,70 @@ enum ssl_open_record_t ssl_process_alert(SSL *ssl, uint8_t *out_alert,
   *out_alert = SSL_AD_ILLEGAL_PARAMETER;
   OPENSSL_PUT_ERROR(SSL, SSL_R_UNKNOWN_ALERT_TYPE);
   return ssl_open_record_error;
+}
+
+namespace bssl {
+
+OpenRecordResult OpenRecord(SSL *ssl, Span<uint8_t> *out,
+                            size_t *out_record_len, uint8_t *out_alert,
+                            const Span<uint8_t> in) {
+  CBS plaintext;
+  uint8_t type;
+  const ssl_open_record_t result = tls_open_record(
+      ssl, &type, &plaintext, out_record_len, out_alert, in.data(), in.size());
+  if (type != SSL3_RT_APPLICATION_DATA && type != SSL3_RT_ALERT) {
+    *out = Span<uint8_t>();
+    return INVALID;
+  }
+
+  OpenRecordResult ret;
+  switch (result) {
+    case ssl_open_record_success:
+      ret = OK;
+      break;
+    case ssl_open_record_discard:
+      ret = DISCARD;
+      break;
+    case ssl_open_record_partial:
+      ret = INCOMPLETE_RECORD;
+      break;
+    case ssl_open_record_close_notify:
+      ret = ALERT_CLOSE_NOTIFY;
+      break;
+    case ssl_open_record_fatal_alert:
+      ret = ALERT_FATAL;
+      break;
+    case ssl_open_record_error:
+      ret = INVALID;
+      break;
+  }
+  *out = MakeSpan((uint8_t *)(CBS_data(&plaintext)), CBS_len(&plaintext));
+  return ret;
+}
+
+size_t SealRecordPrefixLen(SSL *ssl, size_t record_len) {
+  return tls_seal_scatter_prefix_len(ssl, SSL3_RT_APPLICATION_DATA, record_len);
+}
+
+size_t SealRecordMaxSuffixLen(SSL *ssl) {
+  return tls_seal_scatter_max_suffix_len(ssl);
+}
+
+bool SealRecord(SSL *ssl, const Span<uint8_t> out_prefix,
+               const Span<uint8_t> out, Span<uint8_t> out_suffix,
+               size_t *out_suffix_size, const Span<const uint8_t> in) {
+  if (out_prefix.size() < SealRecordPrefixLen(ssl, in.size()) ||
+      out.size() < in.size()) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_BUFFER_TOO_SMALL);
+    return false;
+  }
+  if (in.size() > out.size()) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_RECORD_TOO_LARGE);
+    return false;
+  }
+  return tls_seal_scatter_record(
+      ssl, out_prefix.data(), out.data(), out_suffix.data(), out_suffix_size,
+      out_suffix.size(), SSL3_RT_APPLICATION_DATA, in.data(), in.size());
+}
+
 }
