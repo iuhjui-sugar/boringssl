@@ -472,6 +472,10 @@ int SSL_AEAD_CTX_seal(SSL_AEAD_CTX *ctx, uint8_t *out, size_t *out_len,
                       const uint8_t seqnum[8], const uint8_t *in,
                       size_t in_len);
 
+size_t tls_seal_scatter_prefix_len(const SSL *ssl, uint8_t type,
+                                   size_t in_len);
+size_t tls_seal_scatter_max_suffix_len(const SSL *ssl);
+
 /* SSL_AEAD_CTX_seal_scatter encrypts and authenticates |in_len| bytes from |in|
  * and splits the result between |out_prefix|, |out| and |out_suffix|. It
  * returns one on success and zero on error. |ctx| may be NULL to denote the
@@ -593,6 +597,11 @@ size_t ssl_seal_align_prefix_len(const SSL *ssl);
  * |in| and |out| may not alias. */
 int tls_seal_record(SSL *ssl, uint8_t *out, size_t *out_len, size_t max_out,
                     uint8_t type, const uint8_t *in, size_t in_len);
+
+int tls_seal_scatter_record(SSL *ssl, uint8_t *out_prefix, uint8_t *out,
+                            uint8_t *out_suffix, size_t *out_suffix_len,
+                            size_t max_out_suffix_len, uint8_t type,
+                            const uint8_t *in, size_t in_len);
 
 enum dtls1_use_epoch_t {
   dtls1_use_previous_epoch,
