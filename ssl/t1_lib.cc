@@ -106,6 +106,8 @@
  * (eay@cryptsoft.com).  This product includes software written by Tim
  * Hudson (tjh@cryptsoft.com). */
 
+#define BORINGSSL_INTERNAL_CXX_TYPES
+
 #include <openssl/ssl.h>
 
 #include <assert.h>
@@ -125,6 +127,8 @@
 #include "internal.h"
 #include "../crypto/internal.h"
 
+
+namespace bssl {
 
 static int ssl_check_clienthello_tlsext(SSL_HANDSHAKE *hs);
 
@@ -287,20 +291,6 @@ int ssl_client_hello_get_extension(const SSL_CLIENT_HELLO *client_hello,
   }
 
   return 0;
-}
-
-int SSL_early_callback_ctx_extension_get(const SSL_CLIENT_HELLO *client_hello,
-                                         uint16_t extension_type,
-                                         const uint8_t **out_data,
-                                         size_t *out_len) {
-  CBS cbs;
-  if (!ssl_client_hello_get_extension(client_hello, &cbs, extension_type)) {
-    return 0;
-  }
-
-  *out_data = CBS_data(&cbs);
-  *out_len = CBS_len(&cbs);
-  return 1;
 }
 
 static const uint16_t kDefaultGroups[] = {
@@ -507,10 +497,6 @@ static const uint16_t kSignSignatureAlgorithms[] = {
     SSL_SIGN_ECDSA_SHA1,
     SSL_SIGN_RSA_PKCS1_SHA1,
 };
-
-void SSL_CTX_set_ed25519_enabled(SSL_CTX *ctx, int enabled) {
-  ctx->ed25519_enabled = !!enabled;
-}
 
 int tls12_add_verify_sigalgs(const SSL *ssl, CBB *out) {
   const uint16_t *sigalgs = kVerifySignatureAlgorithms;
@@ -2658,12 +2644,6 @@ static const struct tls_extension *tls_extension_find(uint32_t *out_index,
   return NULL;
 }
 
-int SSL_extension_supported(unsigned extension_value) {
-  uint32_t index;
-  return extension_value == TLSEXT_TYPE_padding ||
-         tls_extension_find(&index, extension_value) != NULL;
-}
-
 int ssl_add_clienthello_tlsext(SSL_HANDSHAKE *hs, CBB *out, size_t header_len) {
   SSL *const ssl = hs->ssl;
   /* Don't add extensions for SSLv3 unless doing secure renegotiation. */
@@ -3542,4 +3522,32 @@ int ssl_is_sct_list_valid(const CBS *contents) {
   }
 
   return 1;
+}
+
+}  // namespace bssl
+
+using namespace bssl;
+
+int SSL_early_callback_ctx_extension_get(const SSL_CLIENT_HELLO *client_hello,
+                                         uint16_t extension_type,
+                                         const uint8_t **out_data,
+                                         size_t *out_len) {
+  CBS cbs;
+  if (!ssl_client_hello_get_extension(client_hello, &cbs, extension_type)) {
+    return 0;
+  }
+
+  *out_data = CBS_data(&cbs);
+  *out_len = CBS_len(&cbs);
+  return 1;
+}
+
+void SSL_CTX_set_ed25519_enabled(SSL_CTX *ctx, int enabled) {
+  ctx->ed25519_enabled = !!enabled;
+}
+
+int SSL_extension_supported(unsigned extension_value) {
+  uint32_t index;
+  return extension_value == TLSEXT_TYPE_padding ||
+         tls_extension_find(&index, extension_value) != NULL;
 }

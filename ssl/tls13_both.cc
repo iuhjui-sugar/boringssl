@@ -12,6 +12,8 @@
  * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. */
 
+#define BORINGSSL_INTERNAL_CXX_TYPES
+
 #include <openssl/ssl.h>
 
 #include <assert.h>
@@ -27,6 +29,8 @@
 #include "../crypto/internal.h"
 #include "internal.h"
 
+
+namespace bssl {
 
 /* kMaxKeyUpdates is the number of consecutive KeyUpdates that will be
  * processed. Without this limit an attacker could force unbounded processing
@@ -660,3 +664,5 @@ int tls13_post_handshake(SSL *ssl) {
   OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_MESSAGE);
   return 0;
 }
+
+}  // namespace bssl
