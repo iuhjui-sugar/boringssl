@@ -56,3 +56,15 @@ if (WIN32)
   target_link_libraries(ssl_test ws2_32)
 endif()
 add_dependencies(all_tests ssl_test)
+
+add_executable(
+  span_test
+
+  span_test.cc
+
+  $<TARGET_OBJECTS:gtest_main>
+)
+
+target_link_libraries(span_test ssl gtest)
+add_dependencies(all_tests span_test)
+
