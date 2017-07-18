@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4e9bf2cc_0c8a0853",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 724,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-18T18:32:31Z",
+      "side": 1,
+      "message": "Hrm. You\u0027ve currently implemented a default session ID to send if you have nothing better to send. Might result in more predictable behavior if you did this like the SendFoo bugs (probably rename it too) and have it clobber what you write after all processing.",
+      "revId": "1760c8f005ec897a47b74ed5769118352c032700",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcf184f5_3a356b8a",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-18T18:32:31Z",
+      "side": 1,
+      "message": "To properly test our server, this file should assert that, if isTLS12ResumptionExperiment, the ServerHello session ID matches whatever the client ended up sending.",
+      "revId": "1760c8f005ec897a47b74ed5769118352c032700",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "484871a6_1dfbe7b9",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 11039,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-18T18:32:31Z",
+      "side": 1,
+      "message": "Comment what is the point of each of these tests.",
+      "revId": "1760c8f005ec897a47b74ed5769118352c032700",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "991b4651_b901c6ce",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 11048,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-18T18:32:31Z",
+      "side": 1,
+      "message": "strconv.Atoi(TLS13Experiment). Ditto everywhere else.",
+      "range": {
+        "startLine": 11048,
+        "startChar": 44,
+        "endLine": 11048,
+        "endChar": 47
+      },
+      "revId": "1760c8f005ec897a47b74ed5769118352c032700",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
