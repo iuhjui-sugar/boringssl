@@ -149,6 +149,7 @@
 #include <openssl/hmac.h>
 #include <openssl/lhash.h>
 #include <openssl/pem.h>
+#include <openssl/span.h>
 #include <openssl/ssl3.h>
 #include <openssl/thread.h>
 #include <openssl/tls1.h>
@@ -4585,6 +4586,54 @@ namespace bssl {
 BORINGSSL_MAKE_DELETER(SSL, SSL_free)
 BORINGSSL_MAKE_DELETER(SSL_CTX, SSL_CTX_free)
 BORINGSSL_MAKE_DELETER(SSL_SESSION, SSL_SESSION_free)
+
+enum OpenRecordResult {
+  OK,
+  DISCARD,
+  INCOMPLETE_RECORD,
+  HANDSHAKE_RECORD,
+  ALERT_CLOSE_NOTIFY,
+  ALERT_FATAL,
+  INVALID,
+};
+
+/* OpenRecord decrypts the first complete SSL record from |in| in-place, sets
+ * |out| to the decrypted application data, and |out_record_len| to the length
+ * of the encrypted record. Returns:
+ * * OK if an application-data record was successfully decrypted and verified.
+ * * DISCARD if a record was sucessfully processed, but should be discarded.
+ * * INCOMPLETE_RECORD if |in| did not contain a complete record.
+ * * HANDSHAKE_RECORD if a record was successfully processed but is a handshake
+ *   record.
+ * * ALERT_CLOSE_NOTIFY if a record was successfully processed but is a
+ *   close_notify alert.
+ * * ALERT_FATAL if a record was successfully processed but is a fatal alert.
+ * * INVALID if the record is invalid. |*out_alert| will be set to an alert to
+ *   emit. */
+OpenRecordResult OpenRecord(SSL *ssl, Span<uint8_t> *out,
+                            size_t *out_record_len, uint8_t *out_alert,
+                            Span<uint8_t> in);
+
+size_t SealRecordPrefixLen(SSL *ssl, size_t plaintext_len);
+size_t SealRecordMaxSuffixLen(SSL *ssl);
+
+/* SealRecord encrypts the cleartext of |in| and scatters the resulting TLS
+ * application data record between |out_prefix|, |out|, and |out_suffix|. It
+ * returns true on success or false if an error occurred.
+ *
+ * The length of |out_prefix| must equal |SealRecordPrefixLen|. The length of
+ * |out| must equal the length of |in|. The length of |out_suffix| must equal
+ * |MaxSealRecordSuffixLen|. |*out_suffix_len| is set to the actual number of
+ * bytes written to |out_suffix|.
+ *
+ * If enabled, |SealRecord| may perform TLS 1.0 CBC 1/n-1 record splitting.
+ * |SealRecordPrefixLen| accounts for the required overhead if that is the case.
+ *
+ * |out| may equal |in| to encrypt in-place. |out_prefix| and |out_suffix| may
+ * not alias anything. */
+bool SealRecord(SSL *ssl, Span<uint8_t> out_prefix, Span<uint8_t> out,
+                Span<uint8_t> out_suffix, size_t *out_suffix_len,
+                Span<const uint8_t> in);
 
 }  // namespace bssl
 
