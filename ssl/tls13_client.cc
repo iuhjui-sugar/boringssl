@@ -155,7 +155,10 @@ static enum ssl_hs_wait_t do_process_hello_retry_request(SSL_HANDSHAKE *hs) {
 
 static enum ssl_hs_wait_t do_send_second_client_hello(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
-  if (!ssl->method->set_write_state(ssl, NULL) ||
+  /* Restore the null cipher. We may have switched due to 0-RTT. */
+  bssl::UniquePtr<SSLAEADContext> null = SSLAEADContext::CreateNull();
+  if (!null ||
+      !ssl->method->set_write_state(ssl, std::move(null)) ||
       !ssl_write_client_hello(hs)) {
     return ssl_hs_error;
   }
