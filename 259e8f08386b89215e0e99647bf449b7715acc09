@@ -1,0 +1,232 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2eeba126_96b440fc",
+        "filename": "include/openssl/span.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-19T00:06:55Z",
+      "side": 1,
+      "message": "This is just intended for tests?",
+      "revId": "259e8f08386b89215e0e99647bf449b7715acc09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b435a5a7_5caf34a5",
+        "filename": "include/openssl/span.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-19T00:06:55Z",
+      "side": 1,
+      "message": "assert(n \u003c size_) first?",
+      "revId": "259e8f08386b89215e0e99647bf449b7715acc09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c9dc732_23cbb2b1",
+        "filename": "include/openssl/span.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-19T00:06:55Z",
+      "side": 1,
+      "message": "(blank line above this.)",
+      "revId": "259e8f08386b89215e0e99647bf449b7715acc09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4945babd_22c2b14a",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 4604,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-19T00:06:55Z",
+      "side": 1,
+      "message": "Do non-fatal alerts result in DISCARD.",
+      "revId": "259e8f08386b89215e0e99647bf449b7715acc09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d968d01_e5989c25",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 4610,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-19T00:06:55Z",
+      "side": 1,
+      "message": "(can skip the enum in C++ now, I think.)",
+      "range": {
+        "startLine": 4610,
+        "startChar": 0,
+        "endLine": 4610,
+        "endChar": 4
+      },
+      "revId": "259e8f08386b89215e0e99647bf449b7715acc09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8da16a65_18d366cd",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 4623,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-19T00:06:55Z",
+      "side": 1,
+      "message": "looks like this has changed to used |out_suffix_size| instead.",
+      "range": {
+        "startLine": 4622,
+        "startChar": 51,
+        "endLine": 4623,
+        "endChar": 37
+      },
+      "revId": "259e8f08386b89215e0e99647bf449b7715acc09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e1a283b_da66312d",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 4635,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-19T00:06:55Z",
+      "side": 1,
+      "message": "(delete a couple of blank lines.)",
+      "revId": "259e8f08386b89215e0e99647bf449b7715acc09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddaf1d11_d75c0bae",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-19T00:06:55Z",
+      "side": 1,
+      "message": "(blank line above this one.)",
+      "revId": "259e8f08386b89215e0e99647bf449b7715acc09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a73e5216_f6b442e1",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-19T00:06:55Z",
+      "side": 1,
+      "message": "(After the namespacing change[1] this namespace directive wouldn\u0027t be needed.)\n\n[1] https://boringssl-review.googlesource.co",
+      "revId": "259e8f08386b89215e0e99647bf449b7715acc09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3e014d9_3104c541",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-19T00:06:55Z",
+      "side": 1,
+      "message": "enum keyword not needed in C++?",
+      "range": {
+        "startLine": 607,
+        "startChar": 8,
+        "endLine": 607,
+        "endChar": 12
+      },
+      "revId": "259e8f08386b89215e0e99647bf449b7715acc09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "653b2a48_3a861b36",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-19T00:06:55Z",
+      "side": 1,
+      "message": "is this cast needed? If so, we should probably use C++-style casts now.",
+      "range": {
+        "startLine": 609,
+        "startChar": 22,
+        "endLine": 609,
+        "endChar": 33
+      },
+      "revId": "259e8f08386b89215e0e99647bf449b7715acc09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "671906ac_1107a0d7",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-19T00:06:55Z",
+      "side": 1,
+      "message": "If this default is missing, does Clang at least report a non-exhaustive switch of an enum?",
+      "revId": "259e8f08386b89215e0e99647bf449b7715acc09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
