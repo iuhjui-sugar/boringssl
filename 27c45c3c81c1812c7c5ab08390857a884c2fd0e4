@@ -128,6 +128,24 @@
       "revId": "27c45c3c81c1812c7c5ab08390857a884c2fd0e4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f8be2f6_3a7818a9",
+        "filename": "ssl/ssl_aead_ctx.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-19T20:53:07Z",
+      "side": 1,
+      "message": "So we\u0027ll be able to use it around 2030 then.",
+      "parentUuid": "2ed83314_30c7b071",
+      "revId": "27c45c3c81c1812c7c5ab08390857a884c2fd0e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
