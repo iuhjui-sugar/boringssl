@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b63c3842_4ebbcbac",
+        "filename": "include/openssl/span.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-19T00:49:45Z",
+      "side": 1,
+      "message": "Yeah, I can\u0027t think of another use case right now (presumably application code won\u0027t want to compare spans to anything). So maybe it\u0027s worth dropping this in the interest of keeping Span small at the expense of slightly crappier tests.",
+      "parentUuid": "2eeba126_96b440fc",
+      "revId": "259e8f08386b89215e0e99647bf449b7715acc09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b435a5a7_5caf34a5",
         "filename": "include/openssl/span.h",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "259e8f08386b89215e0e99647bf449b7715acc09",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f54e54eb_2786043e",
+        "filename": "include/openssl/span.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-19T00:49:45Z",
+      "side": 1,
+      "message": "Actually, I don\u0027t think we need this method at all.",
+      "parentUuid": "b435a5a7_5caf34a5",
+      "revId": "259e8f08386b89215e0e99647bf449b7715acc09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "c4601dc2_7c1368fa",
+        "filename": "include/openssl/span.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-19T00:49:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c9dc732_23cbb2b1",
+      "revId": "259e8f08386b89215e0e99647bf449b7715acc09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4945babd_22c2b14a",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 3
@@ -64,6 +118,24 @@
       "writtenOn": "2017-07-19T00:06:55Z",
       "side": 1,
       "message": "Do non-fatal alerts result in DISCARD.",
+      "revId": "259e8f08386b89215e0e99647bf449b7715acc09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfac2694_74c85953",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 4604,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-19T00:49:45Z",
+      "side": 1,
+      "message": "Yes, unless the alert is close_notify or we\u0027re TLS 1.3 (results in INVALID) or the peer has exceeded kMaxWarningAlerts (also INVALID). This behavior is in ssl_process_alert.",
+      "parentUuid": "4945babd_22c2b14a",
       "revId": "259e8f08386b89215e0e99647bf449b7715acc09",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -93,6 +165,30 @@
     },
     {
       "key": {
+        "uuid": "b00ff9d3_03274a8a",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 4610,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-19T00:49:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d968d01_e5989c25",
+      "range": {
+        "startLine": 4610,
+        "startChar": 0,
+        "endLine": 4610,
+        "endChar": 4
+      },
+      "revId": "259e8f08386b89215e0e99647bf449b7715acc09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8da16a65_18d366cd",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 3
@@ -116,6 +212,30 @@
     },
     {
       "key": {
+        "uuid": "20a7451a_7272c87d",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 4623,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-19T00:49:45Z",
+      "side": 1,
+      "message": "Oh right. I couldn\u0027t quite make up my mind. :p I think this is less bad because the caller doesn\u0027t have to declare two similarly named suffix buffer and span, and perhaps this is less prone to callers forgetting to truncate the buffer after the Seal call returns. \n\nFixed.",
+      "parentUuid": "8da16a65_18d366cd",
+      "range": {
+        "startLine": 4622,
+        "startChar": 51,
+        "endLine": 4623,
+        "endChar": 37
+      },
+      "revId": "259e8f08386b89215e0e99647bf449b7715acc09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6e1a283b_da66312d",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 3
@@ -130,6 +250,24 @@
       "revId": "259e8f08386b89215e0e99647bf449b7715acc09",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "042a992f_593e034e",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 4635,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-19T00:49:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e1a283b_da66312d",
+      "revId": "259e8f08386b89215e0e99647bf449b7715acc09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -150,6 +288,24 @@
     },
     {
       "key": {
+        "uuid": "be62aae4_3dac6357",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-19T00:49:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ddaf1d11_d75c0bae",
+      "revId": "259e8f08386b89215e0e99647bf449b7715acc09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a73e5216_f6b442e1",
         "filename": "ssl/tls_record.cc",
         "patchSetId": 3
@@ -164,6 +320,24 @@
       "revId": "259e8f08386b89215e0e99647bf449b7715acc09",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76f62591_a235f9fc",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-19T00:49:45Z",
+      "side": 1,
+      "message": "Ack. I\u0027ll remember to change it once that goes in.",
+      "parentUuid": "a73e5216_f6b442e1",
+      "revId": "259e8f08386b89215e0e99647bf449b7715acc09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -190,6 +364,30 @@
     },
     {
       "key": {
+        "uuid": "f278ece8_f94af1c0",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-19T00:49:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3e014d9_3104c541",
+      "range": {
+        "startLine": 607,
+        "startChar": 8,
+        "endLine": 607,
+        "endChar": 12
+      },
+      "revId": "259e8f08386b89215e0e99647bf449b7715acc09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "653b2a48_3a861b36",
         "filename": "ssl/tls_record.cc",
         "patchSetId": 3
@@ -213,6 +411,30 @@
     },
     {
       "key": {
+        "uuid": "770d4c11_a6e50dd1",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-19T00:49:45Z",
+      "side": 1,
+      "message": "Not needed",
+      "parentUuid": "653b2a48_3a861b36",
+      "range": {
+        "startLine": 609,
+        "startChar": 22,
+        "endLine": 609,
+        "endChar": 33
+      },
+      "revId": "259e8f08386b89215e0e99647bf449b7715acc09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "671906ac_1107a0d7",
         "filename": "ssl/tls_record.cc",
         "patchSetId": 3
@@ -227,6 +449,24 @@
       "revId": "259e8f08386b89215e0e99647bf449b7715acc09",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2c1bd38_07c0a0b3",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-19T00:49:45Z",
+      "side": 1,
+      "message": "Yes, and we should let clang handle this.",
+      "parentUuid": "671906ac_1107a0d7",
+      "revId": "259e8f08386b89215e0e99647bf449b7715acc09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
