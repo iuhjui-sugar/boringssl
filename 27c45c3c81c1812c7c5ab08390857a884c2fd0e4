@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "41580e7f_a29eb4ee",
+        "filename": "ssl/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-19T20:20:28Z",
+      "side": 1,
+      "message": "\"New\" is a more common prefix, no? Thus this would be NewNullCipher or such. (Don\u0027t free strongly about this though.)",
+      "range": {
+        "startLine": 460,
+        "startChar": 5,
+        "endLine": 460,
+        "endChar": 15
+      },
+      "revId": "27c45c3c81c1812c7c5ab08390857a884c2fd0e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2af6b80a_e773e8eb",
+        "filename": "ssl/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-19T20:20:28Z",
+      "side": 1,
+      "message": "(ditto about New)",
+      "range": {
+        "startLine": 467,
+        "startChar": 35,
+        "endLine": 467,
+        "endChar": 41
+      },
+      "revId": "27c45c3c81c1812c7c5ab08390857a884c2fd0e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f7e8a17_9fb885f3",
+        "filename": "ssl/ssl_aead_ctx.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-19T20:20:28Z",
+      "side": 1,
+      "message": "Can we use initialisation-in-class form?",
+      "revId": "27c45c3c81c1812c7c5ab08390857a884c2fd0e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
