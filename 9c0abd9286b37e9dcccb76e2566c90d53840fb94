@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "748501a9_50c0ff75",
+        "filename": "crypto/fipsmodule/FIPS.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-20T03:32:03Z",
+      "side": 1,
+      "message": "FWIW this link won\u0027t work very well on boringssl.googlesource.com because gitiles doesn\u0027t let you download random files. Though the Github mirror will probably be better-behaved.",
+      "range": {
+        "startLine": 11,
+        "startChar": 112,
+        "endLine": 11,
+        "endChar": 127
+      },
+      "revId": "9c0abd9286b37e9dcccb76e2566c90d53840fb94",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
