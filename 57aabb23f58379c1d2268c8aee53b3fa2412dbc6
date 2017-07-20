@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4e1ee0b2_4c6b3556",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 4651,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-20T00:35:54Z",
+      "side": 1,
+      "message": "It\u0027s kind of silly that we calculate the exact prefix length, accounting for recording splitting, but pretend not to know how long the suffix is for a given plaintext length. Should we perhaps change |MaxSealRecordSuffixLen| to be |SealRecordSuffixLen| and spare callers the extra buffer resize?",
+      "range": {
+        "startLine": 4651,
+        "startChar": 42,
+        "endLine": 4651,
+        "endChar": 64
+      },
+      "revId": "57aabb23f58379c1d2268c8aee53b3fa2412dbc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
