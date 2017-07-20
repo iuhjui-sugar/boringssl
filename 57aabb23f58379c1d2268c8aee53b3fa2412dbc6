@@ -2,6 +2,188 @@
   "comments": [
     {
       "key": {
+        "uuid": "9117daff_fa22ceb5",
+        "filename": "include/openssl/span.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-20T17:45:54Z",
+      "side": 1,
+      "message": "I am very excited about this header. I\u0027m rather tempted now to make libssl use it throughout, once we add some other needed helpers.",
+      "revId": "57aabb23f58379c1d2268c8aee53b3fa2412dbc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "25aef6e8_8edcebe8",
+        "filename": "include/openssl/span.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-20T17:45:54Z",
+      "side": 1,
+      "message": "Add a license header.",
+      "revId": "57aabb23f58379c1d2268c8aee53b3fa2412dbc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ade2d54_a7d86a84",
+        "filename": "include/openssl/span.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-20T17:45:54Z",
+      "side": 1,
+      "message": "I might suggest doing:\n\n  #include \u003copenssl/base.h\u003e\n\n  #if !defined(BORINGSSL_NO_CXX)\n\nI believe there are some build configurations, notably around Android, where C++11 is either missing or non-functional. We detect them where we can in base.h and, as a last resort, consumers may build their projects with BORINGSSL_NO_CXX to suppress all our C++ APIs. Of course, we now require a functional C++11 to build libssl, but Android lets different projects use different STLs and other craziness.\n\nNote: you\u0027ll need to squash in or rebase over https://boringssl-review.googlesource.com/#/c/18225/ because right now !BORINGSSL_NO_CXX does not imply __cplusplus, which is kinda silly.",
+      "revId": "57aabb23f58379c1d2268c8aee53b3fa2412dbc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2f2e613_9d737cb2",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 4597,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-20T17:45:54Z",
+      "side": 1,
+      "message": "I\u0027d suggest wrapping this whole thing with #if !defined(BORINGSSL_NO_CXX). (There wasn\u0027t one before because BORINGSSL_MAKE_DELETER no-ops itself.)",
+      "revId": "57aabb23f58379c1d2268c8aee53b3fa2412dbc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "825ce940_2e11e016",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 4605,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-20T17:45:54Z",
+      "side": 1,
+      "message": "Do you mind adding a note somewhere that this is experimental and shouldn\u0027t be used yet? Obviously we\u0027ll play with it as it is in development, but we know the limitations. The Conscrypt and netty-tcnative folks have been clamoring for this API and I don\u0027t want them to start using it. :-)\n\nUltimately, this shouldn\u0027t call tls_open_record. Rather it should call the read_app_data hook on SSL_PROTOCOL_METHOD once that has been inverted to look like this. It\u0027ll take a little bit more work before we can do that, but not too much?\n\nBut I think this is a reasonable thing to play with for now so you\u0027re not blocked on that (though I\u0027ll try to get that finished sooner than later). One thing I might suggest is, for SealRecord and OpenRecord to start with:\n\n  // This API is a work in progress and currently only works for TLS 1.2 servers and below.\n  if (SSL_in_init(ssl) ||\n      SSL_is_dtls(ssl) ||\n      !ssl-\u003eserver ||\n      ssl3_protocol_version(ssl) \u003e TLS1_2_VERSION) {\n    OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);\n    return false;\n  }\n\nI believe those conditions are sufficient to avoid things going wrong?\n\nStuff we\u0027ll need to fill in eventually:\n\n- The functions should check that we\u0027re not mid-handshake and either fail or\n- DTLS doesn\u0027t work. We\u0027ll ultimately want SSL_read to use the same APIs for TLS and DTLS. Also the WebRTC folks will ask for this eventually.\n- In TLS 1.3, we need to process incidental KeyUpdate messages at client and server. And as a client, we need to process NewSessionTickets.\n- In TLS 1.2 clients, we need to process HelloRequest.\n- In some cases in TLS 1.3, KeyUpdates can trigger small additional prefixes on the record. The API itself is fine for that, but the upshot is the SealRecordPrefixLen\u0027s return value may be different for different records.\n- False Start and 0-RTT as a server will probably have cases where OpenRecord sometimes feeds some data to the handshake and returns DISCARD.\n- 0-RTT as a client is loads of fun. :-)\n\nThat\u0027s a lot of stuff, which is why I think, ultimately, SSL_read should call this function. :-)",
+      "revId": "57aabb23f58379c1d2268c8aee53b3fa2412dbc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "811007bd_3eb9f8d2",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 4606,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-20T17:45:54Z",
+      "side": 1,
+      "message": "Since you\u0027ve got names like \u0027OK\u0027 in here, probably this should be enum class? Otherwise you\u0027re squatting bssl::OK, bssl::DISCARD, etc.",
+      "revId": "57aabb23f58379c1d2268c8aee53b3fa2412dbc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ced9401_318cdde0",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 4610,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-20T17:45:54Z",
+      "side": 1,
+      "message": "I\u0027d suggest just making this an error for now. The final return code will probably look different since we should be abstracting the details of handshake records and friends from the consumer.",
+      "range": {
+        "startLine": 4610,
+        "startChar": 2,
+        "endLine": 4610,
+        "endChar": 18
+      },
+      "revId": "57aabb23f58379c1d2268c8aee53b3fa2412dbc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa039ac3_9bedc502",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 4613,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-20T17:45:54Z",
+      "side": 1,
+      "message": "You probably know Google C++ style better than me, so I defer to you, but I thought kOK, kDiscard, kIncompleteRecord, etc. were preferred these days.",
+      "revId": "57aabb23f58379c1d2268c8aee53b3fa2412dbc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01193bb8_3016a00e",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 4619,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-20T17:45:54Z",
+      "side": 1,
+      "message": "Nit: The double star looks kinda silly. Maybe use - as the bullet point? Alternatively we could go run this thing everywhere...\nhttps://boringssl-review.googlesource.com/c/18064/",
+      "range": {
+        "startLine": 4619,
+        "startChar": 3,
+        "endLine": 4619,
+        "endChar": 4
+      },
+      "revId": "57aabb23f58379c1d2268c8aee53b3fa2412dbc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16936069_b3dc3826",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 4627,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-20T17:45:54Z",
+      "side": 1,
+      "message": "You might also just get an internal error. Our internals don\u0027t really distinguish this case, so maybe call this ERROR?",
+      "revId": "57aabb23f58379c1d2268c8aee53b3fa2412dbc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4e1ee0b2_4c6b3556",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 7
@@ -19,6 +201,121 @@
         "endLine": 4651,
         "endChar": 64
       },
+      "revId": "57aabb23f58379c1d2268c8aee53b3fa2412dbc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43cd3ed4_dbe190cd",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 4651,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-20T17:45:54Z",
+      "side": 1,
+      "message": "Hrm, you have a point there. I guess we would then need to modify the EVP_AEAD API as well.",
+      "parentUuid": "4e1ee0b2_4c6b3556",
+      "range": {
+        "startLine": 4651,
+        "startChar": 42,
+        "endLine": 4651,
+        "endChar": 64
+      },
+      "revId": "57aabb23f58379c1d2268c8aee53b3fa2412dbc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4590109_a2d487f0",
+        "filename": "ssl/CMakeLists.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-20T17:45:54Z",
+      "side": 1,
+      "message": "So downstreams don\u0027t need to mess with their build (also the test isn\u0027t being run right now), add this as an additional source to ssl_test instead.",
+      "revId": "57aabb23f58379c1d2268c8aee53b3fa2412dbc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6deb2d8c_d72c745b",
+        "filename": "ssl/span_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-20T17:45:54Z",
+      "side": 1,
+      "message": "License header",
+      "revId": "57aabb23f58379c1d2268c8aee53b3fa2412dbc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bdf7239_f6a7d4f5",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-20T17:45:54Z",
+      "side": 1,
+      "message": "On the rebase, you\u0027ll need to change this to:\n\n  !ssl-\u003es3-\u003eaead_write_ctx-\u003eis_null_cipher() \u0026\u0026\n  ssl-\u003es3-\u003eaead_write_ctx-\u003eversion() \u003e\u003d TLS1_3_VERSION",
+      "revId": "57aabb23f58379c1d2268c8aee53b3fa2412dbc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a53d331_f8fb0b9a",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 627,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-20T17:45:54Z",
+      "side": 1,
+      "message": "const_cast\u003cuint8_t *\u003e",
+      "range": {
+        "startLine": 627,
+        "startChar": 18,
+        "endLine": 627,
+        "endChar": 29
+      },
+      "revId": "57aabb23f58379c1d2268c8aee53b3fa2412dbc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c487caf4_b87848d5",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-20T17:45:54Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
       "revId": "57aabb23f58379c1d2268c8aee53b3fa2412dbc6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
