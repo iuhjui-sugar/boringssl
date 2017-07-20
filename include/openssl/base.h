@@ -75,6 +75,11 @@
 #include <boringssl_prefix_symbols.h>
 #endif
 
+/* Define OPENSSL_NO_CXX if our compiler doesn't have c++0x support. */
+#if __cplusplus < 201103L && !(__cplusplus < 200000 && __cplusplus > 199711L)
+#define OPENSSL_NO_CXX
+#endif
+
 #if defined(__cplusplus)
 extern "C" {
 #endif
