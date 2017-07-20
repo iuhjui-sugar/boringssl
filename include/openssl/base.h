@@ -357,6 +357,9 @@ typedef struct ssl_method_st SSL_METHOD;
 
 #if defined(__cplusplus)
 }  /* extern C */
+#elif !defined(BORINGSSL_NO_CXX)
+#define BORINGSSL_NO_CXX
+#endif
 
 // MSVC doesn't set __cplusplus to 201103 to indicate C++11 support (see
 // https://connect.microsoft.com/VisualStudio/feedback/details/763051/a-value-of-predefined-macro-cplusplus-is-still-199711l)
@@ -386,8 +389,6 @@ extern "C++" {
 #else
 
 extern "C++" {
-
-#include <memory>
 
 namespace bssl {
 
@@ -468,7 +469,5 @@ using UniquePtr = std::unique_ptr<T, internal::Deleter<T>>;
 }  /* extern C++ */
 
 #endif  // !BORINGSSL_NO_CXX
-
-#endif
 
 #endif  /* OPENSSL_HEADER_BASE_H */
