@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "eb5e36cd_80a012a2",
+        "filename": "include/openssl/span.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-20T21:58:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25aef6e8_8edcebe8",
+      "revId": "57aabb23f58379c1d2268c8aee53b3fa2412dbc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ade2d54_a7d86a84",
         "filename": "include/openssl/span.h",
         "patchSetId": 7
@@ -50,6 +68,24 @@
       "revId": "57aabb23f58379c1d2268c8aee53b3fa2412dbc6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a105d2dd_9e4530a8",
+        "filename": "include/openssl/span.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-20T21:58:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ade2d54_a7d86a84",
+      "revId": "57aabb23f58379c1d2268c8aee53b3fa2412dbc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -70,6 +106,24 @@
     },
     {
       "key": {
+        "uuid": "8a71032a_dcf1d108",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 4597,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-20T21:58:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2f2e613_9d737cb2",
+      "revId": "57aabb23f58379c1d2268c8aee53b3fa2412dbc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "825ce940_2e11e016",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 7
@@ -81,6 +135,24 @@
       "writtenOn": "2017-07-20T17:45:54Z",
       "side": 1,
       "message": "Do you mind adding a note somewhere that this is experimental and shouldn\u0027t be used yet? Obviously we\u0027ll play with it as it is in development, but we know the limitations. The Conscrypt and netty-tcnative folks have been clamoring for this API and I don\u0027t want them to start using it. :-)\n\nUltimately, this shouldn\u0027t call tls_open_record. Rather it should call the read_app_data hook on SSL_PROTOCOL_METHOD once that has been inverted to look like this. It\u0027ll take a little bit more work before we can do that, but not too much?\n\nBut I think this is a reasonable thing to play with for now so you\u0027re not blocked on that (though I\u0027ll try to get that finished sooner than later). One thing I might suggest is, for SealRecord and OpenRecord to start with:\n\n  // This API is a work in progress and currently only works for TLS 1.2 servers and below.\n  if (SSL_in_init(ssl) ||\n      SSL_is_dtls(ssl) ||\n      !ssl-\u003eserver ||\n      ssl3_protocol_version(ssl) \u003e TLS1_2_VERSION) {\n    OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);\n    return false;\n  }\n\nI believe those conditions are sufficient to avoid things going wrong?\n\nStuff we\u0027ll need to fill in eventually:\n\n- The functions should check that we\u0027re not mid-handshake and either fail or\n- DTLS doesn\u0027t work. We\u0027ll ultimately want SSL_read to use the same APIs for TLS and DTLS. Also the WebRTC folks will ask for this eventually.\n- In TLS 1.3, we need to process incidental KeyUpdate messages at client and server. And as a client, we need to process NewSessionTickets.\n- In TLS 1.2 clients, we need to process HelloRequest.\n- In some cases in TLS 1.3, KeyUpdates can trigger small additional prefixes on the record. The API itself is fine for that, but the upshot is the SealRecordPrefixLen\u0027s return value may be different for different records.\n- False Start and 0-RTT as a server will probably have cases where OpenRecord sometimes feeds some data to the handshake and returns DISCARD.\n- 0-RTT as a client is loads of fun. :-)\n\nThat\u0027s a lot of stuff, which is why I think, ultimately, SSL_read should call this function. :-)",
+      "revId": "57aabb23f58379c1d2268c8aee53b3fa2412dbc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62e2ebfd_b09d1160",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 4605,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-20T21:58:18Z",
+      "side": 1,
+      "message": "I put a warning in the header doc strings and the preamble into the code (minus the !server check, because that breaks the tests :/)\n\n+1 to everything else.",
+      "parentUuid": "825ce940_2e11e016",
       "revId": "57aabb23f58379c1d2268c8aee53b3fa2412dbc6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -101,6 +173,24 @@
       "revId": "57aabb23f58379c1d2268c8aee53b3fa2412dbc6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4c1808d_6ff57139",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 4606,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-20T21:58:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "811007bd_3eb9f8d2",
+      "revId": "57aabb23f58379c1d2268c8aee53b3fa2412dbc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -127,6 +217,30 @@
     },
     {
       "key": {
+        "uuid": "f17fe6d7_049cd35a",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 4610,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-20T21:58:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ced9401_318cdde0",
+      "range": {
+        "startLine": 4610,
+        "startChar": 2,
+        "endLine": 4610,
+        "endChar": 18
+      },
+      "revId": "57aabb23f58379c1d2268c8aee53b3fa2412dbc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aa039ac3_9bedc502",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 7
@@ -141,6 +255,24 @@
       "revId": "57aabb23f58379c1d2268c8aee53b3fa2412dbc6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc86d79f_c544e5b3",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 4613,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-20T21:58:18Z",
+      "side": 1,
+      "message": "macro-style naming is acceptable, so we could say we want to keep it that way for consistency with our C-APIs. But that\u0027s probably not a good enough reason.\n\nDone.",
+      "parentUuid": "aa039ac3_9bedc502",
+      "revId": "57aabb23f58379c1d2268c8aee53b3fa2412dbc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -167,6 +299,30 @@
     },
     {
       "key": {
+        "uuid": "5bbd4250_a3d59c3d",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 4619,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-20T21:58:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01193bb8_3016a00e",
+      "range": {
+        "startLine": 4619,
+        "startChar": 3,
+        "endLine": 4619,
+        "endChar": 4
+      },
+      "revId": "57aabb23f58379c1d2268c8aee53b3fa2412dbc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "16936069_b3dc3826",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 7
@@ -181,6 +337,24 @@
       "revId": "57aabb23f58379c1d2268c8aee53b3fa2412dbc6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86ee82fc_22235a87",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 4627,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-20T21:58:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16936069_b3dc3826",
+      "revId": "57aabb23f58379c1d2268c8aee53b3fa2412dbc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -231,6 +405,30 @@
     },
     {
       "key": {
+        "uuid": "155641b9_98ed7a77",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 4651,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-20T21:58:18Z",
+      "side": 1,
+      "message": "Let\u0027s maybe defer it for a follow up change so we can play around with the interface for now?",
+      "parentUuid": "43cd3ed4_dbe190cd",
+      "range": {
+        "startLine": 4651,
+        "startChar": 42,
+        "endLine": 4651,
+        "endChar": 64
+      },
+      "revId": "57aabb23f58379c1d2268c8aee53b3fa2412dbc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e4590109_a2d487f0",
         "filename": "ssl/CMakeLists.txt",
         "patchSetId": 7
@@ -248,6 +446,24 @@
     },
     {
       "key": {
+        "uuid": "a2ebc5af_37a0aca1",
+        "filename": "ssl/CMakeLists.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-20T21:58:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4590109_a2d487f0",
+      "revId": "57aabb23f58379c1d2268c8aee53b3fa2412dbc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6deb2d8c_d72c745b",
         "filename": "ssl/span_test.cc",
         "patchSetId": 7
@@ -262,6 +478,24 @@
       "revId": "57aabb23f58379c1d2268c8aee53b3fa2412dbc6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4e57b65_110d7159",
+        "filename": "ssl/span_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-20T21:58:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6deb2d8c_d72c745b",
+      "revId": "57aabb23f58379c1d2268c8aee53b3fa2412dbc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -305,6 +539,30 @@
     },
     {
       "key": {
+        "uuid": "99cf6a29_6cb93d2a",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 627,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-20T21:58:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a53d331_f8fb0b9a",
+      "range": {
+        "startLine": 627,
+        "startChar": 18,
+        "endLine": 627,
+        "endChar": 29
+      },
+      "revId": "57aabb23f58379c1d2268c8aee53b3fa2412dbc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c487caf4_b87848d5",
         "filename": "ssl/tls_record.cc",
         "patchSetId": 7
@@ -319,6 +577,24 @@
       "revId": "57aabb23f58379c1d2268c8aee53b3fa2412dbc6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8a55ba6_ac9fdfcd",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-20T21:58:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c487caf4_b87848d5",
+      "revId": "57aabb23f58379c1d2268c8aee53b3fa2412dbc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
