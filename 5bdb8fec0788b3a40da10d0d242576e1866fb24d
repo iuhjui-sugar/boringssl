@@ -16,6 +16,64 @@
       "revId": "5bdb8fec0788b3a40da10d0d242576e1866fb24d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "720f160c_c25e3f96",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-21T21:34:45Z",
+      "side": 1,
+      "message": "Sure thing.",
+      "parentUuid": "821d69cf_386b6cd0",
+      "revId": "5bdb8fec0788b3a40da10d0d242576e1866fb24d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32201b74_541d47f3",
+        "filename": "util/convert_comments.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-21T21:34:45Z",
+      "side": 1,
+      "message": "return strings.IndexFunc(s, func (r rune) bool { return r !\u003d \u0027 \u0027 }) \u003d\u003d -1\n\nor maybe\n\nreturn len(strings.TrimSpace(s)) \u003d\u003d 0\n\nYour call; pick you\u0027re favourite :)",
+      "revId": "5bdb8fec0788b3a40da10d0d242576e1866fb24d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9dd28c77_d85cd9a9",
+        "filename": "util/convert_comments.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-21T21:34:45Z",
+      "side": 1,
+      "message": "… a …",
+      "range": {
+        "startLine": 53,
+        "startChar": 40,
+        "endLine": 53,
+        "endChar": 41
+      },
+      "revId": "5bdb8fec0788b3a40da10d0d242576e1866fb24d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
