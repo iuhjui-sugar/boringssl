@@ -4618,8 +4618,16 @@ OPENSSL_EXPORT OpenRecordResult OpenRecord(SSL *ssl, Span<uint8_t> *out,
                                            uint8_t *out_alert,
                                            Span<uint8_t> in);
 
-OPENSSL_EXPORT size_t SealRecordPrefixLen(SSL *ssl, size_t plaintext_len);
-OPENSSL_EXPORT size_t SealRecordMaxSuffixLen(SSL *ssl);
+OPENSSL_EXPORT size_t SealRecordPrefixLen(const SSL *ssl, size_t plaintext_len);
+
+// SealRecordSuffixLen computes the length of the suffix written by |SealRecord|
+// and writes it to |*out_suffix_len|. It returns true on success and false on
+// error (i.e. if the record is too large).
+//
+// |ssl| and |plaintext_len| must equal the arguments of the same names passed
+// to |SealRecord|.
+OPENSSL_EXPORT bool SealRecordSuffixLen(const SSL *ssl, size_t *out_suffix_len,
+                                        size_t plaintext_len);
 
 /*  *** EXPERIMENTAL -- DO NOT USE ***
  *
@@ -4629,8 +4637,7 @@ OPENSSL_EXPORT size_t SealRecordMaxSuffixLen(SSL *ssl);
  *
  * The length of |out_prefix| must equal |SealRecordPrefixLen|. The length of
  * |out| must equal the length of |in|. The length of |out_suffix| must equal
- * |MaxSealRecordSuffixLen|. |*out_suffix_len| is set to the actual number of
- * bytes written to |out_suffix|.
+ * |SealRecordSuffixLen|.
  *
  * If enabled, |SealRecord| may perform TLS 1.0 CBC 1/n-1 record splitting.
  * |SealRecordPrefixLen| accounts for the required overhead if that is the case.
@@ -4639,7 +4646,7 @@ OPENSSL_EXPORT size_t SealRecordMaxSuffixLen(SSL *ssl);
  * |out_prefix| and |out_suffix| may not alias anything. */
 OPENSSL_EXPORT bool SealRecord(SSL *ssl, Span<uint8_t> out_prefix,
                                Span<uint8_t> out, Span<uint8_t> out_suffix,
-                               size_t *out_suffix_len, Span<const uint8_t> in);
+                               Span<const uint8_t> in);
 
 }  // namespace bssl
 
