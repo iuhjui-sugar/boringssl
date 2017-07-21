@@ -230,6 +230,24 @@
     },
     {
       "key": {
+        "uuid": "fb480b81_49c7ab42",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-21T23:11:31Z",
+      "side": 1,
+      "message": "The documentation says that it\u0027ll be set, and UNEXPECTED_MESSAGE sounds reasonable.",
+      "parentUuid": "98ac89f8_0a75079d",
+      "revId": "744e496638b5c477edd9c4724464f81cfc828b6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fca214aa_f53df79c",
         "filename": "ssl/tls_record.cc",
         "patchSetId": 11
