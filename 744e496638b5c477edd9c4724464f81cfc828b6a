@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5b7ef2cc_6faeb99d",
+        "filename": "include/openssl/span.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-21T22:47:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ad5106a_2396e419",
+      "range": {
+        "startLine": 15,
+        "startChar": 23,
+        "endLine": 15,
+        "endChar": 29
+      },
+      "revId": "744e496638b5c477edd9c4724464f81cfc828b6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "046e57d8_a9a23648",
         "filename": "include/openssl/span.h",
         "patchSetId": 11
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "4bc3c56d_a85b7acd",
+        "filename": "include/openssl/span.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-21T22:47:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "046e57d8_a9a23648",
+      "range": {
+        "startLine": 72,
+        "startChar": 31,
+        "endLine": 72,
+        "endChar": 37
+      },
+      "revId": "744e496638b5c477edd9c4724464f81cfc828b6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "26bcd75f_d842a2f7",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 11
@@ -68,6 +116,30 @@
       "revId": "744e496638b5c477edd9c4724464f81cfc828b6a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4d34703_67ec9037",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 4637,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-21T22:47:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26bcd75f_d842a2f7",
+      "range": {
+        "startLine": 4637,
+        "startChar": 43,
+        "endLine": 4637,
+        "endChar": 45
+      },
+      "revId": "744e496638b5c477edd9c4724464f81cfc828b6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -105,6 +177,24 @@
     },
     {
       "key": {
+        "uuid": "0445bd7c_0b17d833",
+        "filename": "ssl/span_test.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-21T22:47:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4cde5e96_bde27847",
+      "revId": "744e496638b5c477edd9c4724464f81cfc828b6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6cab7e6f_ff5c0914",
         "filename": "ssl/tls_record.cc",
         "patchSetId": 11
@@ -116,6 +206,24 @@
       "writtenOn": "2017-07-21T22:19:35Z",
       "side": 1,
       "message": "will out_alert have been set in this case?",
+      "revId": "744e496638b5c477edd9c4724464f81cfc828b6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98ac89f8_0a75079d",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-21T22:47:52Z",
+      "side": 1,
+      "message": "I don\u0027t think so. We should probably set SSL_AD_UNEXPECTED_MESSAGE?",
+      "parentUuid": "6cab7e6f_ff5c0914",
       "revId": "744e496638b5c477edd9c4724464f81cfc828b6a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -136,6 +244,24 @@
       "revId": "744e496638b5c477edd9c4724464f81cfc828b6a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60ce627d_4d20317b",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-21T22:47:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fca214aa_f53df79c",
+      "revId": "744e496638b5c477edd9c4724464f81cfc828b6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
