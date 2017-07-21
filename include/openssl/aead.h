@@ -389,6 +389,12 @@ OPENSSL_EXPORT int EVP_AEAD_CTX_init_with_direction(
 OPENSSL_EXPORT int EVP_AEAD_CTX_get_iv(const EVP_AEAD_CTX *ctx,
                                        const uint8_t **out_iv, size_t *out_len);
 
+/* EVP_AEAD_CTX_tag_len returns the exact byte length of the tag written by
+ * |EVP_AEAD_CTX_seal_scatter|, or -1 if an error occured. |in_len| and
+ * |extra_in_len| must equal the arguments of the same names passed to
+ * |EVP_AEAD_CTX_seal_scatter|. */
+OPENSSL_EXPORT int EVP_AEAD_CTX_tag_len(const EVP_AEAD_CTX *ctx,
+                                        size_t in_len, size_t extra_in_len);
 
 #if defined(__cplusplus)
 }  /* extern C */
