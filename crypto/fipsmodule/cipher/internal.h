@@ -107,6 +107,8 @@ struct evp_aead_st {
 
   int (*get_iv)(const EVP_AEAD_CTX *ctx, const uint8_t **out_iv,
                 size_t *out_len);
+
+  int (*tag_len)(const EVP_AEAD_CTX *ctx, size_t in_Len, size_t extra_in_len);
 };
 
 /* aes_ctr_set_key initialises |*aes_key| using |key_bytes| bytes from |key|,

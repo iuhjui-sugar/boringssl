@@ -15,6 +15,7 @@
 #include <openssl/aead.h>
 
 #include <assert.h>
+#include <limits.h>
 #include <string.h>
 
 #include <openssl/cipher.h>
@@ -263,4 +264,18 @@ int EVP_AEAD_CTX_get_iv(const EVP_AEAD_CTX *ctx, const uint8_t **out_iv,
   }
 
   return ctx->aead->get_iv(ctx, out_iv, out_len);
+}
+
+int EVP_AEAD_CTX_tag_len(const EVP_AEAD_CTX *ctx, const size_t in_len,
+                         const size_t extra_in_len) {
+  assert(ctx->aead->seal_scatter_supports_extra_in || !extra_in_len);
+  if (ctx->aead->tag_len) {
+    return ctx->aead->tag_len(ctx, in_len, extra_in_len);
+  }
+  if (extra_in_len + ctx->tag_len < extra_in_len ||
+      extra_in_len + ctx->tag_len > INT_MAX) {
+    OPENSSL_PUT_ERROR(CIPHER, ERR_R_OVERFLOW);
+    return -1;
+  }
+  return extra_in_len + ctx->tag_len;
 }

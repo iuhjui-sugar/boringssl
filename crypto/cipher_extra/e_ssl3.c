@@ -330,6 +330,25 @@ static int aead_ssl3_get_iv(const EVP_AEAD_CTX *ctx, const uint8_t **out_iv,
   return 1;
 }
 
+static int aead_ssl3_tag_len(const EVP_AEAD_CTX *ctx, const size_t in_len,
+                                const size_t extra_in_len) {
+  assert(extra_in_len == 0);
+  const AEAD_SSL3_CTX *ssl3_ctx = (AEAD_SSL3_CTX*)ctx->aead_state;
+
+  const size_t digest_len = EVP_MD_CTX_size(&ssl3_ctx->md_ctx);
+  if (EVP_CIPHER_CTX_mode(&ssl3_ctx->cipher_ctx) != EVP_CIPH_CBC_MODE) {
+    return digest_len;
+  }
+
+  const size_t block_size = EVP_CIPHER_CTX_block_size(&ssl3_ctx->cipher_ctx);
+  if (in_len + digest_len < in_len) {
+    OPENSSL_PUT_ERROR(CIPHER, ERR_R_OVERFLOW);
+    return -1;
+  }
+  const size_t pad_len = block_size - ((in_len + digest_len) % block_size);
+  return digest_len + pad_len;
+}
+
 static int aead_aes_128_cbc_sha1_ssl3_init(EVP_AEAD_CTX *ctx, const uint8_t *key,
                                            size_t key_len, size_t tag_len,
                                            enum evp_aead_direction_t dir) {
@@ -372,6 +391,7 @@ static const EVP_AEAD aead_aes_128_cbc_sha1_ssl3 = {
     aead_ssl3_seal_scatter,
     NULL, /* open_gather */
     aead_ssl3_get_iv,
+    aead_ssl3_tag_len,
 };
 
 static const EVP_AEAD aead_aes_256_cbc_sha1_ssl3 = {
@@ -388,6 +408,7 @@ static const EVP_AEAD aead_aes_256_cbc_sha1_ssl3 = {
     aead_ssl3_seal_scatter,
     NULL, /* open_gather */
     aead_ssl3_get_iv,
+    aead_ssl3_tag_len,
 };
 
 static const EVP_AEAD aead_des_ede3_cbc_sha1_ssl3 = {
@@ -404,6 +425,7 @@ static const EVP_AEAD aead_des_ede3_cbc_sha1_ssl3 = {
     aead_ssl3_seal_scatter,
     NULL, /* open_gather */
     aead_ssl3_get_iv,
+    aead_ssl3_tag_len,
 };
 
 static const EVP_AEAD aead_null_sha1_ssl3 = {
@@ -420,6 +442,7 @@ static const EVP_AEAD aead_null_sha1_ssl3 = {
     aead_ssl3_seal_scatter,
     NULL, /* open_gather */
     NULL, /* get_iv */
+    aead_ssl3_tag_len,
 };
 
 const EVP_AEAD *EVP_aead_aes_128_cbc_sha1_ssl3(void) {
