@@ -4618,8 +4618,8 @@ OPENSSL_EXPORT OpenRecordResult OpenRecord(SSL *ssl, Span<uint8_t> *out,
                                            uint8_t *out_alert,
                                            Span<uint8_t> in);
 
-OPENSSL_EXPORT size_t SealRecordPrefixLen(SSL *ssl, size_t plaintext_len);
-OPENSSL_EXPORT size_t SealRecordMaxSuffixLen(SSL *ssl);
+OPENSSL_EXPORT size_t SealRecordPrefixLen(const SSL *ssl, size_t plaintext_len);
+OPENSSL_EXPORT size_t SealRecordSuffixLen(const SSL *ssl, size_t plaintext_len);
 
 /*  *** EXPERIMENTAL -- DO NOT USE ***
  *
@@ -4639,7 +4639,7 @@ OPENSSL_EXPORT size_t SealRecordMaxSuffixLen(SSL *ssl);
  * |out_prefix| and |out_suffix| may not alias anything. */
 OPENSSL_EXPORT bool SealRecord(SSL *ssl, Span<uint8_t> out_prefix,
                                Span<uint8_t> out, Span<uint8_t> out_suffix,
-                               size_t *out_suffix_len, Span<const uint8_t> in);
+                               Span<const uint8_t> in);
 
 }  // namespace bssl
 
