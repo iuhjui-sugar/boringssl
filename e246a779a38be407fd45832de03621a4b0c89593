@@ -16,6 +16,24 @@
       "revId": "e246a779a38be407fd45832de03621a4b0c89593",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07528e1b_1fa0a4ad",
+        "filename": "include/openssl/span.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-24T22:56:39Z",
+      "side": 1,
+      "message": "Absolutely not",
+      "parentUuid": "02583d79_14e1d310",
+      "revId": "e246a779a38be407fd45832de03621a4b0c89593",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
