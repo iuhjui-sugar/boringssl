@@ -3974,6 +3974,23 @@ func addStateMachineCoverageTests(config stateMachineTestConfig) {
 		})
 
 		tests = append(tests, testCase{
+			name: "TLS13Experiment-HelloRetryRequest-Client",
+			config: Config{
+				MaxVersion: VersionTLS13,
+				MinVersion: VersionTLS13,
+				// P-384 requires a HelloRetryRequest against BoringSSL's default
+				// configuration. Assert this with ExpectMissingKeyShare.
+				CurvePreferences: []CurveID{CurveP384},
+				Bugs: ProtocolBugs{
+					ExpectMissingKeyShare: true,
+				},
+			},
+			tls13Variant: TLS13Experiment,
+			// Cover HelloRetryRequest during an ECDHE-PSK resumption.
+			resumeSession: true,
+		})
+
+		tests = append(tests, testCase{
 			testType: serverTest,
 			name:     "TLS13-HelloRetryRequest-Server",
 			config: Config{
@@ -3982,6 +3999,20 @@ func addStateMachineCoverageTests(config stateMachineTestConfig) {
 				// Require a HelloRetryRequest for every curve.
 				DefaultCurves: []CurveID{},
 			},
+			// Cover HelloRetryRequest during an ECDHE-PSK resumption.
+			resumeSession: true,
+		})
+
+		tests = append(tests, testCase{
+			testType: serverTest,
+			name:     "TLS13Experiment-HelloRetryRequest-Server",
+			config: Config{
+				MaxVersion: VersionTLS13,
+				MinVersion: VersionTLS13,
+				// Require a HelloRetryRequest for every curve.
+				DefaultCurves: []CurveID{},
+			},
+			tls13Variant: TLS13Experiment,
 			// Cover HelloRetryRequest during an ECDHE-PSK resumption.
 			resumeSession: true,
 		})

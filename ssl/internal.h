@@ -163,6 +163,11 @@ OPENSSL_MSVC_PRAGMA(warning(pop))
 #include <sys/time.h>
 #endif
 
+const uint8_t kHRRServerRandom[SSL3_RANDOM_SIZE] = {
+    'H',  'R',  'R',  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+};
 
 typedef struct cert_st CERT;
 
@@ -1212,6 +1217,7 @@ struct SSL_HANDSHAKE {
   unsigned needs_psk_binder:1;
 
   unsigned received_hello_retry_request:1;
+  unsigned sent_hello_retry_request:1;
 
   /* accept_psk_mode stores whether the client's PSK mode is compatible with our
    * preferences. */
