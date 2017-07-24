@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "02583d79_14e1d310",
+        "filename": "include/openssl/span.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-24T22:54:23Z",
+      "side": 1,
+      "message": "Any reason not to use the more conventional form?:\n\n    for (T *l \u003d lhs.begin(), *r \u003d rhs.begin(); l !\u003d lhs.end() \u0026\u0026 r !\u003d rhs.end();\n         ++l, ++r) {    \n      if (*l !\u003d *r) {    \n        return false;    \n      }    \n    }",
+      "revId": "e246a779a38be407fd45832de03621a4b0c89593",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
