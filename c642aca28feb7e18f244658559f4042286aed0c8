@@ -16,6 +16,24 @@
       "revId": "c642aca28feb7e18f244658559f4042286aed0c8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1033214_c3b357be",
+        "filename": "ssl/internal.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-24T18:59:15Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "2cbfeba2_f5fd5f15",
+      "revId": "c642aca28feb7e18f244658559f4042286aed0c8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
