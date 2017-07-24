@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2cbfeba2_f5fd5f15",
+        "filename": "ssl/internal.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-24T18:18:00Z",
+      "side": 0,
+      "message": "Stray removal?",
+      "revId": "c642aca28feb7e18f244658559f4042286aed0c8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

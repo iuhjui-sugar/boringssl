@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c6d1c764_3b871da5",
+        "filename": "include/openssl/span.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-24T18:18:00Z",
+      "side": 1,
+      "message": "Not that it\u0027s likely to ever come up, but this\u0027ll do silly things if we use Span with a type with a funny operator\u003d\u003d. If MSVC hates std::equal, maybe if we just wrote the for loop ourselves?\n\n(You can also suppress the MSVC warning with OPENSSL_MSVC_PRAGMA.)",
+      "revId": "35109f6df903687703637fc1fb0b987f235f68f5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5dbfceb6_1256272f",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-24T18:18:00Z",
+      "side": 1,
+      "message": "tls_seal_scatter_max_suffix_len",
+      "range": {
+        "startLine": 435,
+        "startChar": 29,
+        "endLine": 435,
+        "endChar": 62
+      },
+      "revId": "35109f6df903687703637fc1fb0b987f235f68f5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7c07713_ec7de132",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-24T18:18:00Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "35109f6df903687703637fc1fb0b987f235f68f5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c655991f_502f24b0",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-24T18:18:00Z",
+      "side": 1,
+      "message": "Probably wants a:\n  *out_alert \u003d SSL_AD_INTERNAL_ERROR;\n\n(In case the caller didn\u0027t initialize it.)",
+      "revId": "35109f6df903687703637fc1fb0b987f235f68f5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e9a5b76_10c68bba",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-24T18:18:00Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "35109f6df903687703637fc1fb0b987f235f68f5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
