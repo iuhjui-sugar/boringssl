@@ -478,11 +478,35 @@ static enum ssl_hs_wait_t do_send_hello_retry_request(SSL_HANDSHAKE *hs) {
   ScopedCBB cbb;
   CBB body, extensions;
   uint16_t group_id;
+
+  uint16_t version = ssl->version;
+  if (ssl->version == TLS1_3_EXPERIMENT_VERSION) {
+    version = TLS1_2_VERSION;
+  }
+
   if (!ssl->method->init_message(ssl, cbb.get(), &body,
-                                 SSL3_MT_HELLO_RETRY_REQUEST) ||
-      !CBB_add_u16(&body, ssl->version) ||
+                                 ssl->version == TLS1_3_EXPERIMENT_VERSION
+                                     ? SSL3_MT_SERVER_HELLO
+                                     : SSL3_MT_HELLO_RETRY_REQUEST) ||
+      !CBB_add_u16(&body, version)) {
+    return ssl_hs_error;
+  }
+
+  if (ssl->version == TLS1_3_EXPERIMENT_VERSION) {
+    CBB session_id;
+    if (!CBB_add_bytes(&body, kHRRServerRandom, SSL3_RANDOM_SIZE) ||
+        !CBB_add_u8_length_prefixed(&body, &session_id) ||
+        !CBB_add_bytes(&session_id, hs->session_id, hs->session_id_len) ||
+        !CBB_add_u16(&body, ssl_cipher_get_value(hs->new_cipher)) ||
+        !CBB_add_u8(&body, 0)) {
+      return ssl_hs_error;
+    }
+  }
+
+  if (!CBB_add_u16_length_prefixed(&body, &extensions) ||
+      (ssl->version == TLS1_3_EXPERIMENT_VERSION &&
+       !ssl_ext_supported_versions_add_serverhello(hs, &extensions)) ||
       !tls1_get_shared_group(hs, &group_id) ||
-      !CBB_add_u16_length_prefixed(&body, &extensions) ||
       !CBB_add_u16(&extensions, TLSEXT_TYPE_key_share) ||
       !CBB_add_u16(&extensions, 2 /* length */) ||
       !CBB_add_u16(&extensions, group_id) ||
@@ -490,6 +514,12 @@ static enum ssl_hs_wait_t do_send_hello_retry_request(SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
+  if (ssl->version == TLS1_3_EXPERIMENT_VERSION &&
+      !ssl3_add_change_cipher_spec(ssl)) {
+    return ssl_hs_error;
+  }
+
+  hs->sent_hello_retry_request = 1;
   hs->tls13_state = state_process_second_client_hello;
   return ssl_hs_flush_and_read_message;
 }
@@ -557,6 +587,7 @@ static enum ssl_hs_wait_t do_send_server_hello(SSL_HANDSHAKE *hs) {
   }
 
   if (ssl->version == TLS1_3_EXPERIMENT_VERSION &&
+      !hs->sent_hello_retry_request &&
       !ssl3_add_change_cipher_spec(ssl)) {
     return ssl_hs_error;
   }

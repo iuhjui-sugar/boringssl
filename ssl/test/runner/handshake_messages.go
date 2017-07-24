@@ -845,6 +845,10 @@ type serverHelloMsg struct {
 	omitExtensions        bool
 	emptyExtensions       bool
 	extensions            serverExtensions
+	isHRR                 bool
+	hasSelectedGroup      bool
+	selectedGroup         CurveID
+	cookie                []byte
 }
 
 func (m *serverHelloMsg) marshal() []byte {
@@ -1016,6 +1020,10 @@ func (m *serverHelloMsg) unmarshal(data []byte) bool {
 		}
 	}
 
+	if m.vers == tls13ExperimentVersion && bytes.Equal(m.random, tls13HRRServerRandom) {
+		m.isHRR = true
+	}
+
 	if vers >= VersionTLS13 {
 		for len(data) != 0 {
 			if len(data) < 4 {
@@ -1031,33 +1039,61 @@ func (m *serverHelloMsg) unmarshal(data []byte) bool {
 			d := data[:length]
 			data = data[length:]
 
-			switch extension {
-			case extensionKeyShare:
-				m.hasKeyShare = true
-				if len(d) < 4 {
+			if m.isHRR {
+				switch extension {
+				case extensionKeyShare:
+					if length != 2 {
+						return false
+					}
+					m.hasSelectedGroup = true
+					m.selectedGroup = CurveID(d[0])<<8 | CurveID(d[1])
+				case extensionCookie:
+					if length < 2 {
+						return false
+					}
+					cookieLen := int(d[0])<<8 | int(d[1])
+					if 2+cookieLen != length {
+						return false
+					}
+					m.cookie = d[2 : 2+cookieLen]
+				case extensionSupportedVersions:
+					if m.vers != tls13ExperimentVersion {
+						return false
+					}
+				default:
+					// Only allow the 3 extensions that are sent in
+					// the clear in TLS 1.3.
 					return false
 				}
-				m.keyShare.group = CurveID(uint16(d[0])<<8 | uint16(d[1]))
-				keyExchLen := int(d[2])<<8 | int(d[3])
-				if keyExchLen != len(d)-4 {
+			} else {
+				switch extension {
+				case extensionKeyShare:
+					m.hasKeyShare = true
+					if len(d) < 4 {
+						return false
+					}
+					m.keyShare.group = CurveID(uint16(d[0])<<8 | uint16(d[1]))
+					keyExchLen := int(d[2])<<8 | int(d[3])
+					if keyExchLen != len(d)-4 {
+						return false
+					}
+					m.keyShare.keyExchange = make([]byte, keyExchLen)
+					copy(m.keyShare.keyExchange, d[4:])
+				case extensionPreSharedKey:
+					if len(d) != 2 {
+						return false
+					}
+					m.pskIdentity = uint16(d[0])<<8 | uint16(d[1])
+					m.hasPSKIdentity = true
+				case extensionSupportedVersions:
+					if m.vers != tls13ExperimentVersion {
+						return false
+					}
+				default:
+					// Only allow the 3 extensions that are sent in
+					// the clear in TLS 1.3.
 					return false
 				}
-				m.keyShare.keyExchange = make([]byte, keyExchLen)
-				copy(m.keyShare.keyExchange, d[4:])
-			case extensionPreSharedKey:
-				if len(d) != 2 {
-					return false
-				}
-				m.pskIdentity = uint16(d[0])<<8 | uint16(d[1])
-				m.hasPSKIdentity = true
-			case extensionSupportedVersions:
-				if m.vers != tls13ExperimentVersion {
-					return false
-				}
-			default:
-				// Only allow the 3 extensions that are sent in
-				// the clear in TLS 1.3.
-				return false
 			}
 		}
 	} else if !m.extensions.unmarshal(data, vers) {
@@ -1379,6 +1415,8 @@ func (m *serverExtensions) unmarshal(data []byte, version uint16) bool {
 type helloRetryRequestMsg struct {
 	raw                 []byte
 	vers                uint16
+	sessionId           []byte
+	cipherSuite         uint16
 	hasSelectedGroup    bool
 	selectedGroup       CurveID
 	cookie              []byte
@@ -1392,9 +1430,22 @@ func (m *helloRetryRequestMsg) marshal() []byte {
 	}
 
 	retryRequestMsg := newByteBuilder()
-	retryRequestMsg.addU8(typeHelloRetryRequest)
+	msgType := typeHelloRetryRequest
+	if m.vers == tls13ExperimentVersion {
+		msgType = typeServerHello
+	}
+	retryRequestMsg.addU8(msgType)
 	retryRequest := retryRequestMsg.addU24LengthPrefixed()
 	retryRequest.addU16(m.vers)
+
+	if m.vers == tls13ExperimentVersion {
+		retryRequest.addBytes(tls13HRRServerRandom)
+		sessionId := retryRequest.addU8LengthPrefixed()
+		sessionId.addBytes(m.sessionId)
+		retryRequest.addU16(m.cipherSuite)
+		retryRequest.addU8(0)
+	}
+
 	extensions := retryRequest.addU16LengthPrefixed()
 
 	count := 1
@@ -1403,6 +1454,11 @@ func (m *helloRetryRequestMsg) marshal() []byte {
 	}
 
 	for i := 0; i < count; i++ {
+		if m.vers == tls13ExperimentVersion {
+			extensions.addU16(extensionSupportedVersions)
+			extensions.addU16(2) // Length
+			extensions.addU16(m.vers)
+		}
 		if m.hasSelectedGroup {
 			extensions.addU16(extensionKeyShare)
 			extensions.addU16(2) // length

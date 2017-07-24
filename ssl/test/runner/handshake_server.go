@@ -522,6 +522,8 @@ ResendHelloRetryRequest:
 	var sendHelloRetryRequest bool
 	helloRetryRequest := &helloRetryRequestMsg{
 		vers:                c.wireVersion,
+		sessionId:           hs.clientHello.sessionId,
+		cipherSuite:         hs.suite.id,
 		duplicateExtensions: config.Bugs.DuplicateHelloRetryRequestExtensions,
 	}
 
@@ -579,6 +581,10 @@ ResendHelloRetryRequest:
 			c.writeRecord(recordTypeHandshake, helloRetryRequest.marshal())
 		}
 		c.flushHandshake()
+
+		if c.wireVersion == tls13ExperimentVersion {
+			c.writeRecord(recordTypeChangeCipherSpec, []byte{1})
+		}
 
 		if hs.clientHello.hasEarlyData {
 			c.skipEarlyData = true
@@ -763,7 +769,7 @@ ResendHelloRetryRequest:
 	}
 	c.flushHandshake()
 
-	if c.wireVersion == tls13ExperimentVersion {
+	if !sendHelloRetryRequest && c.wireVersion == tls13ExperimentVersion {
 		c.writeRecord(recordTypeChangeCipherSpec, []byte{1})
 	}
 

@@ -471,7 +471,26 @@ NextCipherSuite:
 	c.vers = serverVersion
 	c.haveVers = true
 
+	if c.wireVersion == tls13ExperimentVersion {
+		if err := c.readRecord(recordTypeChangeCipherSpec); err != nil {
+			return err
+		}
+	}
+
 	helloRetryRequest, haveHelloRetryRequest := msg.(*helloRetryRequestMsg)
+	if serverWireVersion == tls13ExperimentVersion && !haveHelloRetryRequest {
+		serverHello, haveServerHello := msg.(*serverHelloMsg)
+		if haveServerHello && serverHello.isHRR {
+			haveHelloRetryRequest = true
+			helloRetryRequest = &helloRetryRequestMsg{
+				raw:              serverHello.raw,
+				vers:             serverHello.vers,
+				hasSelectedGroup: serverHello.hasSelectedGroup,
+				selectedGroup:    serverHello.selectedGroup,
+				cookie:           serverHello.cookie,
+			}
+		}
+	}
 	var secondHelloBytes []byte
 	if haveHelloRetryRequest {
 		c.out.resetCipher()
@@ -739,12 +758,6 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 		hs.finishedHash.addEntropy(ecdheSecret)
 	} else {
 		hs.finishedHash.addEntropy(zeroSecret)
-	}
-
-	if c.wireVersion == tls13ExperimentVersion {
-		if err := c.readRecord(recordTypeChangeCipherSpec); err != nil {
-			return err
-		}
 	}
 
 	// Derive handshake traffic keys and switch read key to handshake
