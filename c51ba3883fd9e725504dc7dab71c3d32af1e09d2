@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9911481f_d3918493",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-24T23:33:35Z",
+      "side": 1,
+      "message": "I would tend to put these at the top of the function so that the outputs are nulled if the function fails too.",
+      "revId": "c51ba3883fd9e725504dc7dab71c3d32af1e09d2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
