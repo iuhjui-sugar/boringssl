@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b4280c25_db9d3d12",
+        "filename": "tool/transport_common.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-25T18:42:31Z",
+      "side": 0,
+      "message": "I think this means we can spin CPU in some cases because we keep putting stdin in select() and select() constantly reports that there is data to read.",
+      "revId": "c642aca28feb7e18f244658559f4042286aed0c8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c63ee70_b70e34ec",
+        "filename": "tool/transport_common.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-25T18:42:31Z",
+      "side": 1,
+      "message": "Nit: if (select(...) \u003c\u003d 0)",
+      "revId": "22014838c954925073955e3a12da04e1ca92b4dd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c33de2b_e6e69076",
+        "filename": "tool/transport_common.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-25T18:42:31Z",
+      "side": 1,
+      "message": "Apparently this needs a WSACloseEvent.",
+      "revId": "22014838c954925073955e3a12da04e1ca92b4dd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d76cb2c0_ecf59f6a",
+        "filename": "tool/transport_common.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-25T18:42:31Z",
+      "side": 1,
+      "message": "Apparently you can just put in INFINITE.",
+      "revId": "22014838c954925073955e3a12da04e1ca92b4dd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ed10a72_211a04cf",
+        "filename": "tool/transport_common.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-25T18:42:31Z",
+      "side": 1,
+      "message": "Nit: Not that it matters, but since this is a Windows BOOL rather than a C++ bool, FALSE might be better.",
+      "range": {
+        "startLine": 382,
+        "startChar": 46,
+        "endLine": 382,
+        "endChar": 51
+      },
+      "revId": "22014838c954925073955e3a12da04e1ca92b4dd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "779fbfa6_fc6be5fc",
+        "filename": "tool/transport_common.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-25T18:42:31Z",
+      "side": 1,
+      "message": "Mind adding a comment for why the ifdef?",
+      "revId": "22014838c954925073955e3a12da04e1ca92b4dd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
