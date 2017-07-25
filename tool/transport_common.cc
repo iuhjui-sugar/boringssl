@@ -348,11 +348,10 @@ bool SocketSetNonBlocking(int sock, bool is_non_blocking) {
   return ok;
 }
 
-bool SocketSelect(bool *socket_ready, bool *stdin_ready) {
+static bool SocketSelect(int sock, bool *socket_ready, bool *stdin_ready) {
 #if !defined(OPENSSL_WINDOWS)
   fd_set read_fds;
   FD_ZERO(&read_fds);
-
   FD_SET(0, &read_fds);
   FD_SET(sock, &read_fds);
   int ret = select(sock + 1, &read_fds, NULL, NULL, NULL);
@@ -367,8 +366,31 @@ bool SocketSelect(bool *socket_ready, bool *stdin_ready) {
   if (FD_ISSET(sock, &read_fds)) {
     *socket_ready = true;
   }
-#else
 
+  return true;
+#else
+  WSAEVENT socket_handle = WSACreateEvent();
+  if (socket_handle == NULL ||
+      WSAEventSelect(sock, socket_handle, FD_READ) != 0) {
+    return false;
+  }
+
+  HANDLE read_fds[2];
+  read_fds[0] = GetStdHandle(STD_INPUT_HANDLE);
+  read_fds[1] = socket_handle;
+
+  switch (WaitForMultipleObjects(2, read_fds, false, 5000)) {
+    case WAIT_OBJECT_0 + 0:
+      *stdin_ready = true;
+      return true;
+    case WAIT_OBJECT_0 + 1:
+      *socket_ready = true;
+      return true;
+    case WAIT_TIMEOUT:
+      return true;
+    default:
+      return false;
+  }
 #endif
 }
 
@@ -387,11 +409,11 @@ bool TransferData(SSL *ssl, int sock) {
   for (;;) {
     bool socket_ready = false;
     bool stdin_ready = false;
-    if (!SocketSelect(&socket_ready, &stdin_ready)) {
+    if (!SocketSelect(sock, &socket_ready, &stdin_ready)) {
       return false;
     }
 
-    if (socket_ready) {
+    if (stdin_ready) {
       uint8_t buffer[512];
       ssize_t n;
 
@@ -411,9 +433,11 @@ bool TransferData(SSL *ssl, int sock) {
         return false;
       }
 
+#if !defined(OPENSSL_WINDOWS)
       if (!SocketSetNonBlocking(sock, false)) {
         return false;
       }
+#endif
       int ssl_ret = SSL_write(ssl, buffer, n);
       if (!SocketSetNonBlocking(sock, true)) {
         return false;
@@ -430,7 +454,7 @@ bool TransferData(SSL *ssl, int sock) {
       }
     }
 
-    if (stdin_ready) {
+    if (socket_ready) {
       uint8_t buffer[512];
       int ssl_ret = SSL_read(ssl, buffer, sizeof(buffer));
 
