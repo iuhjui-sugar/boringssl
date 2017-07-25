@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5f3c7e07_7619e900",
+        "filename": "tool/transport_common.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-25T18:54:25Z",
+      "side": 1,
+      "message": "WSA_INVALID_EVENT",
+      "range": {
+        "startLine": 375,
+        "startChar": 23,
+        "endLine": 375,
+        "endChar": 27
+      },
+      "revId": "c5ae66e2898e0ff7b7a637948b25d2cc2fe4b02c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a52545c_29d9cbec",
+        "filename": "tool/transport_common.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-25T18:54:25Z",
+      "side": 1,
+      "message": "WSACloseEvent doesn\u0027t get called if WSAEventSelect fails. (Maybe write a quick scoper? I dunno.)",
+      "revId": "c5ae66e2898e0ff7b7a637948b25d2cc2fe4b02c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
