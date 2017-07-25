@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d4af967e_6af36a92",
+        "filename": "crypto/x509v3/v3_utl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-25T22:11:15Z",
+      "side": 1,
+      "message": "s/ch/cl/g :-P",
+      "revId": "771744d8252c57d973559b068ee36683a102f075",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
