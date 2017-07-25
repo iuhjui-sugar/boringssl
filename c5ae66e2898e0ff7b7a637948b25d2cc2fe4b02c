@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "408c4f82_9784e0c6",
+        "filename": "tool/transport_common.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-07-25T18:56:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f3c7e07_7619e900",
+      "range": {
+        "startLine": 375,
+        "startChar": 23,
+        "endLine": 375,
+        "endChar": 27
+      },
+      "revId": "c5ae66e2898e0ff7b7a637948b25d2cc2fe4b02c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a52545c_29d9cbec",
         "filename": "tool/transport_common.cc",
         "patchSetId": 5
@@ -39,6 +63,24 @@
       "revId": "c5ae66e2898e0ff7b7a637948b25d2cc2fe4b02c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e51fda4d_0f9708c2",
+        "filename": "tool/transport_common.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-07-25T18:56:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a52545c_29d9cbec",
+      "revId": "c5ae66e2898e0ff7b7a637948b25d2cc2fe4b02c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
