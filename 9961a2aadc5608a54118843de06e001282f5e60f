@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1b1ce41c_751a89be",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-25T20:52:01Z",
+      "side": 1,
+      "message": "We also explicitly want to destroy the connection so that any peer relying on renegotiation will notice.",
+      "revId": "9961a2aadc5608a54118843de06e001282f5e60f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
