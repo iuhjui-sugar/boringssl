@@ -34,6 +34,24 @@
       "revId": "ecaac6ae26018a4a158f67c33528d8d7763ccec7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93895b08_27c74ea1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-26T21:07:13Z",
+      "side": 1,
+      "message": "I suppose I should have given reasons for why I chose this one. :-) But if you think an option is better despite those, I\u0027m not attached to PushToStack. It stumbles a little.\n\nPush - Since it\u0027s not a method, it seemed we should say something about it being for stacks and not something else that is push-able, I dunno. E.g. maybe it\u0027s a BIO_push wrapper.\n\nPushStack - It\u0027s shorter than PushToStack! But it sounds like you\u0027re pushing a stack!\n\nPushUnique - I feel like it doesn\u0027t actually solve Push\u0027s problem and the fact that it gets scopers correct is already a consequence of it being a C++ API.\n\nPushToStack - I guess it solves those problems, though it\u0027s weird.\n\nThoughts?",
+      "parentUuid": "0c4c0d32_8d784d27",
+      "revId": "ecaac6ae26018a4a158f67c33528d8d7763ccec7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
