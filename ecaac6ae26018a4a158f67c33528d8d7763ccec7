@@ -16,6 +16,24 @@
       "revId": "ecaac6ae26018a4a158f67c33528d8d7763ccec7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c4c0d32_8d784d27",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-07-26T17:43:52Z",
+      "side": 1,
+      "message": "bssl::Push?",
+      "parentUuid": "04b7e2c7_6049e799",
+      "revId": "ecaac6ae26018a4a158f67c33528d8d7763ccec7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
