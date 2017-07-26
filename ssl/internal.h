@@ -201,12 +201,15 @@ void Delete(T *t) {
   }
 }
 
-/* Register all types with non-trivial destructors with |UniquePtr|. Types with
- * trivial destructors may be C structs which require a |BORINGSSL_MAKE_DELETER|
- * registration. */
+/* Register all complete types with non-trivial destructors with |UniquePtr|.
+ * Types with trivial destructors may be C structs which require a
+ * |BORINGSSL_MAKE_DELETER| registration. */
 namespace internal {
 template <typename T>
 struct DeleterImpl<T, typename std::enable_if<
+                          // is_trivially_destructible is undefined (C++11) or
+                          // returns false (C++17) on incomplete types.
+                          sizeof(T) == sizeof(T) &&
                           !std::is_trivially_destructible<T>::value>::type> {
   static void Free(T *t) { Delete(t); }
 };
