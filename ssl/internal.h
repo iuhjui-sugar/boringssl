@@ -201,16 +201,25 @@ void Delete(T *t) {
   }
 }
 
-/* Register all types with non-trivial destructors with |UniquePtr|. Types with
- * trivial destructors may be C structs which require a |BORINGSSL_MAKE_DELETER|
- * registration. */
 namespace internal {
+
+/* EnableIfT implements std::enable_if_t from C++17. */
+template <bool B, typename V = void>
+using EnableIfT = typename std::enable_if<B, V>::type;
+
+/* Register all complete types with non-trivial destructors with |UniquePtr|.
+ * Types with trivial destructors may be C structs which require a
+ * |BORINGSSL_MAKE_DELETER| registration. |std::is_trivially_destructible| is
+ * undefined in C++11 for incomplete types, so this requires an extra level of
+ * |EnableIfT| to short-circuit. */
 template <typename T>
-struct DeleterImpl<T, typename std::enable_if<
-                          !std::is_trivially_destructible<T>::value>::type> {
+struct DeleterImpl<
+    T, EnableIfT<sizeof(T) == sizeof(T),
+                 EnableIfT<!std::is_trivially_destructible<T>::value>>> {
   static void Free(T *t) { Delete(t); }
 };
-}
+
+}  // namespace internal
 
 /* MakeUnique behaves like |std::make_unique| but returns nullptr on allocation
  * error. */
