@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "de36cb8d_e8345d8f",
+        "filename": "ssl/ssl_aead_ctx.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-27T19:16:57Z",
+      "side": 1,
+      "message": "It might be better to implement this as something on the EVP_AEAD_CTX. Maybe EVP_AEAD_CTX_tag_len(ctx, in_len)? Then you don\u0027t need to worry about cases like the switch-case not matching anything. Also the Conscrypt folks have asked for something of the sort for AEADs elsewhere.\n\nFor sanity, you could say the default implementation returns tag_len if the pointer is NULL.",
+      "revId": "9beb760bed1478ff3293051327b8252239984e88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e9e0788_3869e621",
+        "filename": "ssl/ssl_aead_ctx.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-27T19:16:57Z",
+      "side": 1,
+      "message": "Nit: indent",
+      "revId": "9beb760bed1478ff3293051327b8252239984e88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
