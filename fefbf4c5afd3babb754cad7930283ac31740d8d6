@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "4a499602_7be74b3d",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 4630,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-27T18:03:40Z",
+      "side": 1,
+      "message": "I don\u0027t really like that this can fail. Perhaps we should make it return void and instead assert that plaintext_len is below some #defined constant that is guaranteed not to cause an overflow? I think that might be a more useful API.",
+      "range": {
+        "startLine": 4630,
+        "startChar": 15,
+        "endLine": 4630,
+        "endChar": 19
+      },
+      "revId": "fefbf4c5afd3babb754cad7930283ac31740d8d6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "484beef8_80628bd0",
         "filename": "ssl/ssl_aead_ctx.cc",
         "patchSetId": 5
@@ -22,6 +45,30 @@
       "revId": "fefbf4c5afd3babb754cad7930283ac31740d8d6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6947fdc2_b5ab4ac3",
+        "filename": "ssl/ssl_aead_ctx.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-27T18:03:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "484beef8_80628bd0",
+      "range": {
+        "startLine": 178,
+        "startChar": 13,
+        "endLine": 178,
+        "endChar": 14
+      },
+      "revId": "fefbf4c5afd3babb754cad7930283ac31740d8d6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -48,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "30fbf44a_2efdec51",
+        "filename": "ssl/ssl_aead_ctx.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-27T18:03:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0fc25225_ba1de84f",
+      "range": {
+        "startLine": 198,
+        "startChar": 13,
+        "endLine": 198,
+        "endChar": 14
+      },
+      "revId": "fefbf4c5afd3babb754cad7930283ac31740d8d6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e6421aaf_273e5caa",
         "filename": "ssl/ssl_aead_ctx.cc",
         "patchSetId": 5
@@ -59,6 +130,24 @@
       "writtenOn": "2017-07-27T00:51:20Z",
       "side": 1,
       "message": "Other error paths in this function put an error to the queue, so this should also. (It could almost be an assert, no?)",
+      "revId": "fefbf4c5afd3babb754cad7930283ac31740d8d6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efc25b5e_f4bbdb53",
+        "filename": "ssl/ssl_aead_ctx.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-27T18:03:40Z",
+      "side": 1,
+      "message": "Done.\n\nIt could be an assert, it would pretty much not recoverable at runtime anyway. Maybe we should be more aggressive about asserts in general? The buffers_alias below e.g. could be an assert, too.",
+      "parentUuid": "e6421aaf_273e5caa",
       "revId": "fefbf4c5afd3babb754cad7930283ac31740d8d6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -82,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "df534d4e_ee56865d",
+        "filename": "ssl/ssl_aead_ctx.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-27T18:03:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4271a756_82b72d6b",
+      "revId": "fefbf4c5afd3babb754cad7930283ac31740d8d6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "957b3920_081934b5",
         "filename": "ssl/tls_record.cc",
         "patchSetId": 5
@@ -93,6 +200,24 @@
       "writtenOn": "2017-07-27T00:51:20Z",
       "side": 1,
       "message": "OPENSSL_PUT_ERROR(SSL, ERR_R_OVERFLOW);",
+      "revId": "fefbf4c5afd3babb754cad7930283ac31740d8d6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3f9f8fe_815f097d",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-27T18:03:40Z",
+      "side": 1,
+      "message": "SSL_R_RECORD_TOO_LARGE?",
+      "parentUuid": "957b3920_081934b5",
       "revId": "fefbf4c5afd3babb754cad7930283ac31740d8d6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -113,6 +238,24 @@
       "revId": "fefbf4c5afd3babb754cad7930283ac31740d8d6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1c715f0_1463e121",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-27T18:03:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "acf004de_aacf6aa2",
+      "revId": "fefbf4c5afd3babb754cad7930283ac31740d8d6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -139,6 +282,30 @@
     },
     {
       "key": {
+        "uuid": "11718a8d_a409d764",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-27T18:03:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "145a81db_6a99d4c6",
+      "range": {
+        "startLine": 434,
+        "startChar": 42,
+        "endLine": 434,
+        "endChar": 48
+      },
+      "revId": "fefbf4c5afd3babb754cad7930283ac31740d8d6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b19075e1_3f315b6e",
         "filename": "ssl/tls_record.cc",
         "patchSetId": 5
@@ -162,6 +329,30 @@
     },
     {
       "key": {
+        "uuid": "1b1d99f2_78493208",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-27T18:03:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b19075e1_3f315b6e",
+      "range": {
+        "startLine": 453,
+        "startChar": 42,
+        "endLine": 453,
+        "endChar": 48
+      },
+      "revId": "fefbf4c5afd3babb754cad7930283ac31740d8d6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "15e16bcc_4f449cdf",
         "filename": "ssl/tls_record.cc",
         "patchSetId": 5
@@ -176,6 +367,24 @@
       "revId": "fefbf4c5afd3babb754cad7930283ac31740d8d6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5eb96758_483dce31",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-27T18:03:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "15e16bcc_4f449cdf",
+      "revId": "fefbf4c5afd3babb754cad7930283ac31740d8d6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
