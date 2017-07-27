@@ -19,12 +19,12 @@
 
 #if !defined(BORINGSSL_NO_CXX)
 
+extern "C++" {
+
 #include <algorithm>
 #include <type_traits>
 
 #include "../crypto/internal.h"
-
-extern "C++" {
 
 namespace bssl {
 
