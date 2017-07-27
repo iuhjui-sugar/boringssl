@@ -16,6 +16,24 @@
       "revId": "51afc17c5a1e1c681b6f29b995bdab0bfb5490f7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6df610b_966c18aa",
+        "filename": "include/openssl/span.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-27T19:07:41Z",
+      "side": 1,
+      "message": "It doesn\u0027t really matter since our own headers will tolerate either. extern \"C++\" is the default though, so wrapper #includes in it should always be safe.\n\nAlthough... actually there\u0027s a bigger problem here which is that public headers can\u0027t include internal ones. Removed. It wasn\u0027t necessary anyway.",
+      "parentUuid": "12b270a4_0cba1e13",
+      "revId": "51afc17c5a1e1c681b6f29b995bdab0bfb5490f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
