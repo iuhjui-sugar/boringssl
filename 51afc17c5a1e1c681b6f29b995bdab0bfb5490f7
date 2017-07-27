@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "12b270a4_0cba1e13",
+        "filename": "include/openssl/span.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-27T18:59:16Z",
+      "side": 1,
+      "message": "Should this be extern C++?",
+      "revId": "51afc17c5a1e1c681b6f29b995bdab0bfb5490f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
