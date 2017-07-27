@@ -61,13 +61,15 @@
 
 /* UTF8 utilities */
 
-/*
+/*-
  * This parses a UTF8 string one character at a time. It is passed a pointer
- * to the string and the length of the string. It sets 'value' to the value
- * of the current character. It returns the number of characters read or a
- * negative error code: -1 = string too short -2 = illegal character -3 =
- * subsequent characters not of the form 10xxxxxx -4 = character encoded
- * incorrectly (not minimal length).
+ * to the string and the length of the string. It sets 'value' to the value of
+ * the current character. It returns the number of characters read or a
+ * negative error code:
+ * -1 = string too short
+ * -2 = illegal character
+ * -3 = subsequent characters not of the form 10xxxxxx
+ * -4 = character encoded incorrectly (not minimal length).
  */
 
 int UTF8_getc(const unsigned char *str, int len, unsigned long *val)
@@ -220,15 +222,18 @@ int UTF8_putc(unsigned char *str, int len, unsigned long value)
         }
         return 5;
     }
-    if (len < 6)
-        return -1;
-    if (str) {
-        *str++ = (unsigned char)(((value >> 30) & 0x1) | 0xfc);
-        *str++ = (unsigned char)(((value >> 24) & 0x3f) | 0x80);
-        *str++ = (unsigned char)(((value >> 18) & 0x3f) | 0x80);
-        *str++ = (unsigned char)(((value >> 12) & 0x3f) | 0x80);
-        *str++ = (unsigned char)(((value >> 6) & 0x3f) | 0x80);
-        *str = (unsigned char)((value & 0x3f) | 0x80);
+    if (value < 0x80000000) {
+        if (len < 6)
+            return -1;
+        if (str) {
+            *str++ = (unsigned char)(((value >> 30) & 0x1) | 0xfc);
+            *str++ = (unsigned char)(((value >> 24) & 0x3f) | 0x80);
+            *str++ = (unsigned char)(((value >> 18) & 0x3f) | 0x80);
+            *str++ = (unsigned char)(((value >> 12) & 0x3f) | 0x80);
+            *str++ = (unsigned char)(((value >> 6) & 0x3f) | 0x80);
+            *str = (unsigned char)((value & 0x3f) | 0x80);
+        }
+        return 6;
     }
-    return 6;
+    return -1;
 }

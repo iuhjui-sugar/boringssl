@@ -56,6 +56,7 @@
 
 #include <openssl/asn1.h>
 
+#include <assert.h>
 #include <string.h>
 
 #include <openssl/err.h>
@@ -95,7 +96,7 @@ int ASN1_mbstring_ncopy(ASN1_STRING **out, const unsigned char *in, int len,
     int str_type;
     int ret;
     char free_out;
-    int outform, outlen = 0;
+    int outform, maxoutlen = 0;
     ASN1_STRING *dest;
     unsigned char *p;
     int nchar;
@@ -202,48 +203,41 @@ int ASN1_mbstring_ncopy(ASN1_STRING **out, const unsigned char *in, int len,
         }
         *out = dest;
     }
-    /* If both the same type just copy across */
-    if (inform == outform) {
-        if (!ASN1_STRING_set(dest, in, len)) {
-            OPENSSL_PUT_ERROR(ASN1, ERR_R_MALLOC_FAILURE);
-            return -1;
-        }
-        return str_type;
-    }
 
     /* Work out how much space the destination will need */
     switch (outform) {
     case MBSTRING_ASC:
-        outlen = nchar;
+        maxoutlen = nchar;
         cpyfunc = cpy_asc;
         break;
 
     case MBSTRING_BMP:
-        outlen = nchar << 1;
+        maxoutlen = nchar << 1;
         cpyfunc = cpy_bmp;
         break;
 
     case MBSTRING_UNIV:
-        outlen = nchar << 2;
+        maxoutlen = nchar << 2;
         cpyfunc = cpy_univ;
         break;
 
     case MBSTRING_UTF8:
-        outlen = 0;
-        traverse_string(in, len, inform, out_utf8, &outlen);
+        maxoutlen = 0;
+        traverse_string(in, len, inform, out_utf8, &maxoutlen);
         cpyfunc = cpy_utf8;
         break;
     }
-    if (!(p = OPENSSL_malloc(outlen + 1))) {
+    if (!(p = OPENSSL_malloc(maxoutlen + 1))) {
         if (free_out)
             ASN1_STRING_free(dest);
         OPENSSL_PUT_ERROR(ASN1, ERR_R_MALLOC_FAILURE);
         return -1;
     }
-    dest->length = outlen;
+    dest->length = 0;
     dest->data = p;
-    p[outlen] = 0;
-    traverse_string(in, len, inform, cpyfunc, &p);
+    traverse_string(in, len, inform, cpyfunc, dest);
+    assert(dest->length <= maxoutlen);
+    p[dest->length] = 0;
     return str_type;
 }
 
@@ -256,35 +250,65 @@ static int traverse_string(const unsigned char *p, int len, int inform,
                            int (*rfunc) (unsigned long value, void *in),
                            void *arg)
 {
-    unsigned long value;
+    unsigned long codepoint;
     int ret;
+    int first_codepoint = 1;
+
     while (len) {
         if (inform == MBSTRING_ASC) {
-            value = *p++;
+            codepoint = *p++;
             len--;
         } else if (inform == MBSTRING_BMP) {
-            value = *p++ << 8;
-            value |= *p++;
+            codepoint = *p++ << 8;
+            codepoint |= *p++;
             len -= 2;
         } else if (inform == MBSTRING_UNIV) {
-            value = ((unsigned long)*p++) << 24;
-            value |= ((unsigned long)*p++) << 16;
-            value |= *p++ << 8;
-            value |= *p++;
+            codepoint = ((unsigned long)*p++) << 24;
+            codepoint |= ((unsigned long)*p++) << 16;
+            codepoint |= *p++ << 8;
+            codepoint |= *p++;
             len -= 4;
         } else {
-            ret = UTF8_getc(p, len, &value);
+            ret = UTF8_getc(p, len, &codepoint);
             if (ret < 0)
                 return -1;
             len -= ret;
             p += ret;
         }
+
+        if (first_codepoint &&
+            (inform == MBSTRING_BMP || inform == MBSTRING_UNIV) &&
+            codepoint == 0xfeff) {
+            /* Suppress byte-order mark. For a little-endian UCS-2 string, the
+             * BOM will appear as 0xfffe and will be rejected as noncharacter,
+             * below. (This code does not accept little-endian encodings.) */
+            continue;
+        }
+
+        /* References in the following are to Unicode 9.0.0. */
+
+        if (/* The Unicode space runs from zero to 0x10ffff (3.4 D9) */
+            codepoint > 0x10ffff ||
+            /* Values 0x...fffe, 0x...ffff, and 0xfdd0-0xfdef are permanently
+             * reserved (3.4 D14) */
+            (codepoint & 0xffff) == 0xfffe ||
+            (codepoint & 0xffff) == 0xffff ||
+            (codepoint >= 0xfdd0 && codepoint <= 0xfdef) ||
+            /* Surrogate code points are invalid (3.2 C1). BMPString is UCS-2,
+             * not UTF-16, so does not support surrogate pairs. */
+            (codepoint >= 0xd800 && codepoint <= 0xdfff)) {
+          return -1;
+        }
+
         if (rfunc) {
-            ret = rfunc(value, arg);
+            ret = rfunc(codepoint, arg);
             if (ret <= 0)
                 return ret;
         }
+
+        first_codepoint = 0;
     }
+
     return 1;
 }
 
@@ -304,9 +328,12 @@ static int in_utf8(unsigned long value, void *arg)
 
 static int out_utf8(unsigned long value, void *arg)
 {
-    int *outlen;
-    outlen = arg;
-    *outlen += UTF8_putc(NULL, -1, value);
+    int *outlen = arg;
+    const int utf8_length = UTF8_putc(NULL, -1, value);
+    if (utf8_length < 0) {
+      return utf8_length;
+    }
+    *outlen += utf8_length;
     return 1;
 }
 
@@ -337,11 +364,8 @@ static int type_str(unsigned long value, void *arg)
 
 static int cpy_asc(unsigned long value, void *arg)
 {
-    unsigned char **p, *q;
-    p = arg;
-    q = *p;
-    *q = (unsigned char)value;
-    (*p)++;
+    ASN1_STRING *s = arg;
+    s->data[s->length++] = value;
     return 1;
 }
 
@@ -349,12 +373,9 @@ static int cpy_asc(unsigned long value, void *arg)
 
 static int cpy_bmp(unsigned long value, void *arg)
 {
-    unsigned char **p, *q;
-    p = arg;
-    q = *p;
-    *q++ = (unsigned char)((value >> 8) & 0xff);
-    *q = (unsigned char)(value & 0xff);
-    *p += 2;
+    ASN1_STRING *s = arg;
+    s->data[s->length++] = value >> 8;
+    s->data[s->length++] = value;
     return 1;
 }
 
@@ -362,14 +383,11 @@ static int cpy_bmp(unsigned long value, void *arg)
 
 static int cpy_univ(unsigned long value, void *arg)
 {
-    unsigned char **p, *q;
-    p = arg;
-    q = *p;
-    *q++ = (unsigned char)((value >> 24) & 0xff);
-    *q++ = (unsigned char)((value >> 16) & 0xff);
-    *q++ = (unsigned char)((value >> 8) & 0xff);
-    *q = (unsigned char)(value & 0xff);
-    *p += 4;
+    ASN1_STRING *s = arg;
+    s->data[s->length++] = value >> 24;
+    s->data[s->length++] = value >> 16;
+    s->data[s->length++] = value >> 8;
+    s->data[s->length++] = value;
     return 1;
 }
 
@@ -377,12 +395,12 @@ static int cpy_univ(unsigned long value, void *arg)
 
 static int cpy_utf8(unsigned long value, void *arg)
 {
-    unsigned char **p;
-    int ret;
-    p = arg;
-    /* We already know there is enough room so pass 0xff as the length */
-    ret = UTF8_putc(*p, 0xff, value);
-    *p += ret;
+    ASN1_STRING *s = arg;
+    const int utf8_length = UTF8_putc(s->data + s->length, 0xff, value);
+    if (utf8_length < 0) {
+      return utf8_length;
+    }
+    s->length += utf8_length;
     return 1;
 }
 
