@@ -63,6 +63,8 @@ RAND_METHOD *RAND_SSLeay(void) {
   return (RAND_METHOD*) &kSSLeayMethod;
 }
 
+const RAND_METHOD *RAND_get_rand_method(void) { return NULL; }
+
 void RAND_set_rand_method(const RAND_METHOD *method) {}
 
 void RAND_cleanup(void) {}
