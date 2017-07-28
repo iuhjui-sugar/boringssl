@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0eedd6ac_fa4f2c68",
+        "filename": "crypto/cipher_extra/e_ssl3.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-28T17:52:01Z",
+      "side": 1,
+      "message": "(indentation.)",
+      "revId": "e3518b2206fbc088d083f4d71139a24a482320ab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7138db09_428b8495",
+        "filename": "crypto/cipher_extra/e_ssl3.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-28T17:52:01Z",
+      "side": 1,
+      "message": "Overloading the return value to include error values is generally against our style.\n\nHowever, in this case we don\u0027t need to worry about overflow. If it does overflow then it doesn\u0027t affect the value mod |block_size|, presuming that |block_size| is a power of two and is smaller than the max size_t.\n\nThus I would suggest:\n\n/* An overflow of |in_len + digest_len| doesn\u0027t affect the result mod |block_size|, provided that |block_size| is a smaller power of two. */\nassert(block_size !\u003d 0 \u0026\u0026 (block_size \u0026 (block_size - 1)) \u003d\u003d 0); \n\n\nAnd then ditch the overflow check.",
+      "revId": "e3518b2206fbc088d083f4d71139a24a482320ab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "714d6e2a_768591c3",
+        "filename": "crypto/cipher_extra/e_tls.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-28T17:52:01Z",
+      "side": 1,
+      "message": "(ditto.)",
+      "revId": "e3518b2206fbc088d083f4d71139a24a482320ab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09beeb11_6f0df80c",
+        "filename": "crypto/fipsmodule/cipher/aead.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-28T17:52:01Z",
+      "side": 1,
+      "message": "This case seems unavoidable, suggesting that this function should return a 0/1 int and take a size_t *out_tag_len.",
+      "revId": "e3518b2206fbc088d083f4d71139a24a482320ab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24a5d0e9_03d9040e",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-28T17:52:01Z",
+      "side": 1,
+      "message": "(needs an extra blank line here.)",
+      "revId": "e3518b2206fbc088d083f4d71139a24a482320ab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "916a77d7_a195735f",
+        "filename": "ssl/ssl_aead_ctx.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-28T17:52:01Z",
+      "side": 1,
+      "message": "(If |EVP_AEAD_CTX_tag_len| takes a size_t *out_tag_len then this bit can be dropped.)",
+      "revId": "e3518b2206fbc088d083f4d71139a24a482320ab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
