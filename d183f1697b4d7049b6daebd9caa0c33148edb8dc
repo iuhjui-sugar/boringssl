@@ -2,6 +2,69 @@
   "comments": [
     {
       "key": {
+        "uuid": "13d3ce8d_4d8e3c11",
+        "filename": "crypto/cipher_extra/e_ssl3.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-28T18:50:19Z",
+      "side": 1,
+      "message": "Ditto from other file.",
+      "range": {
+        "startLine": 346,
+        "startChar": 51,
+        "endLine": 346,
+        "endChar": 58
+      },
+      "revId": "d183f1697b4d7049b6daebd9caa0c33148edb8dc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "268a749b_8690f5de",
+        "filename": "crypto/cipher_extra/e_tls.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-28T18:50:19Z",
+      "side": 1,
+      "message": "Nit: Why smaller? Seems power of two is sufficient. (Well, power of two and that it fits in size_t, but we already know it does because it\u0027s a size_t.)",
+      "range": {
+        "startLine": 236,
+        "startChar": 51,
+        "endLine": 236,
+        "endChar": 58
+      },
+      "revId": "d183f1697b4d7049b6daebd9caa0c33148edb8dc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c03ba908_84740400",
+        "filename": "crypto/fipsmodule/cipher/aead.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-28T18:50:19Z",
+      "side": 1,
+      "message": "We\u0027ll see if the CQ bounces, but my recollection is MSVC goes nuts when you put const on parameters. It incorrectly doesn\u0027t match the function prototypes or something.",
+      "revId": "d183f1697b4d7049b6daebd9caa0c33148edb8dc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fde4d126_926c2593",
         "filename": "crypto/fipsmodule/cipher/aead.c",
         "patchSetId": 11
@@ -34,6 +97,29 @@
       "revId": "d183f1697b4d7049b6daebd9caa0c33148edb8dc",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5b7fe2e_18b43181",
+        "filename": "crypto/fipsmodule/cipher/aead.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-28T18:50:19Z",
+      "side": 1,
+      "message": "No longer needed. (And limits.h too.)",
+      "range": {
+        "startLine": 278,
+        "startChar": 48,
+        "endLine": 279,
+        "endChar": 43
+      },
+      "revId": "d183f1697b4d7049b6daebd9caa0c33148edb8dc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     },
     {
       "key": {
@@ -81,6 +167,57 @@
       "revId": "d183f1697b4d7049b6daebd9caa0c33148edb8dc",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d88058d8_cd4934cd",
+        "filename": "ssl/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-28T18:50:19Z",
+      "side": 1,
+      "message": "[Aside: now that we\u0027ve got Span in here, it\u0027d be lovely to push that further down the layers.]",
+      "revId": "d183f1697b4d7049b6daebd9caa0c33148edb8dc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bf4bc859_ac2e355f",
+        "filename": "ssl/ssl_aead_ctx.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-28T18:50:19Z",
+      "side": 1,
+      "message": "NIt: 80 chars",
+      "revId": "d183f1697b4d7049b6daebd9caa0c33148edb8dc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bc8526d_16781872",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-28T18:50:19Z",
+      "side": 1,
+      "message": "This shuts it off for everything after this comment. I suspect what we actually need is to patch clang-format to bin-pack \u0026\u0026 and || less aggressively. Perhaps \"if the sequence would not fit all in one line, line-break after every separator for \u0026\u0026 and ||\".",
+      "revId": "d183f1697b4d7049b6daebd9caa0c33148edb8dc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     },
     {
       "key": {
