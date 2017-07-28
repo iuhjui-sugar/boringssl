@@ -22,6 +22,30 @@
       "revId": "7405fc608ea0ba470898041778daf1546fc78f88",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a35e3618_3071b59e",
+        "filename": "crypto/fipsmodule/cipher/aead.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-28T18:50:56Z",
+      "side": 1,
+      "message": "Yeah, MSVC goes nuts when you use const parameters like that. I think you just need to make them non-const. :-/",
+      "parentUuid": "a9d7261a_605e8f24",
+      "range": {
+        "startLine": 269,
+        "startChar": 25,
+        "endLine": 269,
+        "endChar": 71
+      },
+      "revId": "7405fc608ea0ba470898041778daf1546fc78f88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
