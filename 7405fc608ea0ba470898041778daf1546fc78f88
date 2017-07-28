@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a9d7261a_605e8f24",
+        "filename": "crypto/fipsmodule/cipher/aead.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-28T18:49:53Z",
+      "side": 1,
+      "message": "Is MSVC really complaining about these being const here, but not in the declaration? That\u0027s rather silly, isn\u0027t it?",
+      "range": {
+        "startLine": 269,
+        "startChar": 25,
+        "endLine": 269,
+        "endChar": 71
+      },
+      "revId": "7405fc608ea0ba470898041778daf1546fc78f88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
