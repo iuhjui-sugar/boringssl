@@ -141,6 +141,30 @@
     },
     {
       "key": {
+        "uuid": "e57f6c3a_5bf7d6d0",
+        "filename": "crypto/fipsmodule/cipher/aead.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-28T19:22:08Z",
+      "side": 1,
+      "message": "Obsolete.",
+      "parentUuid": "c5b7fe2e_18b43181",
+      "range": {
+        "startLine": 278,
+        "startChar": 48,
+        "endLine": 279,
+        "endChar": 43
+      },
+      "revId": "d183f1697b4d7049b6daebd9caa0c33148edb8dc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0c6f08c8_7ef97720",
         "filename": "include/openssl/aead.h",
         "patchSetId": 11
@@ -205,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "3fc74cee_71af89a3",
+        "filename": "ssl/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-28T19:22:08Z",
+      "side": 1,
+      "message": "Yeah, I had the same thought while working on this.",
+      "parentUuid": "d88058d8_cd4934cd",
+      "revId": "d183f1697b4d7049b6daebd9caa0c33148edb8dc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bf4bc859_ac2e355f",
         "filename": "ssl/ssl_aead_ctx.cc",
         "patchSetId": 11
@@ -219,6 +261,24 @@
       "revId": "d183f1697b4d7049b6daebd9caa0c33148edb8dc",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8082ed3_b010f537",
+        "filename": "ssl/ssl_aead_ctx.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-28T19:22:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf4bc859_ac2e355f",
+      "revId": "d183f1697b4d7049b6daebd9caa0c33148edb8dc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
