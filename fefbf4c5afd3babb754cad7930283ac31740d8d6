@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "b5a4d1ec_17d67428",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 4630,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-28T00:08:12Z",
+      "side": 1,
+      "message": "Did this and I think it\u0027s better this way. I didn\u0027t plumb it all the way down, but we could…",
+      "parentUuid": "1bbd3381_b44b955e",
+      "range": {
+        "startLine": 4630,
+        "startChar": 15,
+        "endLine": 4630,
+        "endChar": 19
+      },
+      "revId": "fefbf4c5afd3babb754cad7930283ac31740d8d6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "484beef8_80628bd0",
         "filename": "ssl/ssl_aead_ctx.cc",
         "patchSetId": 5

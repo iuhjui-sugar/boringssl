@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "28d8d2d7_6a8ba298",
+        "filename": "ssl/ssl_aead_ctx.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-28T00:08:12Z",
+      "side": 1,
+      "message": "Yeah, that\u0027s what I should have done all along… but somehow I thought there were fewer cases to cover.\n\nDone.",
+      "parentUuid": "de36cb8d_e8345d8f",
+      "revId": "9beb760bed1478ff3293051327b8252239984e88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6e9e0788_3869e621",
         "filename": "ssl/ssl_aead_ctx.cc",
         "patchSetId": 8
@@ -33,6 +51,24 @@
       "revId": "9beb760bed1478ff3293051327b8252239984e88",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74efd1e7_b8429ba6",
+        "filename": "ssl/ssl_aead_ctx.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-28T00:08:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e9e0788_3869e621",
+      "revId": "9beb760bed1478ff3293051327b8252239984e88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
