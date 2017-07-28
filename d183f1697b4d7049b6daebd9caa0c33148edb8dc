@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a3db847f_f6283b25",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 646,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-07-28T18:27:55Z",
+      "side": 1,
+      "message": "(asserts will disappear completely in release builds, meaning that their side-effects will disappear too.)",
+      "revId": "d183f1697b4d7049b6daebd9caa0c33148edb8dc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
