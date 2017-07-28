@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "02624662_2c6d2409",
+        "filename": "crypto/cipher_extra/e_ssl3.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-28T18:15:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0eedd6ac_fa4f2c68",
+      "revId": "e3518b2206fbc088d083f4d71139a24a482320ab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7138db09_428b8495",
         "filename": "crypto/cipher_extra/e_ssl3.c",
         "patchSetId": 10
@@ -33,6 +51,24 @@
       "revId": "e3518b2206fbc088d083f4d71139a24a482320ab",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21866c31_5585c22b",
+        "filename": "crypto/cipher_extra/e_ssl3.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-28T18:15:52Z",
+      "side": 1,
+      "message": "Neat, done.",
+      "parentUuid": "7138db09_428b8495",
+      "revId": "e3518b2206fbc088d083f4d71139a24a482320ab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "ab1b2cd7_a84f7179",
+        "filename": "crypto/cipher_extra/e_tls.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-28T18:15:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "714d6e2a_768591c3",
+      "revId": "e3518b2206fbc088d083f4d71139a24a482320ab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "09beeb11_6f0df80c",
         "filename": "crypto/fipsmodule/cipher/aead.c",
         "patchSetId": 10
@@ -67,6 +121,24 @@
       "revId": "e3518b2206fbc088d083f4d71139a24a482320ab",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8513e9b5_107f4c66",
+        "filename": "crypto/fipsmodule/cipher/aead.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-28T18:15:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09beeb11_6f0df80c",
+      "revId": "e3518b2206fbc088d083f4d71139a24a482320ab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "95b356a9_3965adc0",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-28T18:15:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24a5d0e9_03d9040e",
+      "revId": "e3518b2206fbc088d083f4d71139a24a482320ab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "916a77d7_a195735f",
         "filename": "ssl/ssl_aead_ctx.cc",
         "patchSetId": 10
@@ -101,6 +191,24 @@
       "revId": "e3518b2206fbc088d083f4d71139a24a482320ab",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb1d0bd6_f0d719b7",
+        "filename": "ssl/ssl_aead_ctx.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-07-28T18:15:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "916a77d7_a195735f",
+      "revId": "e3518b2206fbc088d083f4d71139a24a482320ab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
