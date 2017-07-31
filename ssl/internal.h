@@ -230,7 +230,7 @@ UniquePtr<T> MakeUnique(Args &&... args) {
 /* PURE_VIRTUAL should be used instead of = 0 when defining pure-virtual
  * functions. This avoids a dependency on |__cxa_pure_virtual| but loses
  * compile-time checking. */
-#define PURE_VIRTUAL { abort(); }
+#define PURE_VIRTUAL = 0
 #endif
 
 
