@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c80e1782_c149d661",
+        "filename": "crypto/asn1/a_mbstr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-31T19:09:28Z",
+      "side": 1,
+      "message": "Is it possible for these not to be equal? Looks like you\u0027re still computing outlen rather than maxoutlen.",
+      "range": {
+        "startLine": 239,
+        "startChar": 24,
+        "endLine": 239,
+        "endChar": 26
+      },
+      "revId": "786caf5e74c4e33bce58b4402037983319e3b357",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b3f9674_fc8542ca",
+        "filename": "crypto/asn1/a_mbstr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-31T19:09:28Z",
+      "side": 1,
+      "message": "Does this mean we\u0027ll accept a stray leading BOMs when comparing names? We didn\u0027t before this.",
+      "revId": "786caf5e74c4e33bce58b4402037983319e3b357",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1a4960e_7a9dc6e7",
+        "filename": "crypto/asn1/a_mbstr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-31T19:09:28Z",
+      "side": 1,
+      "message": "D9?",
+      "range": {
+        "startLine": 290,
+        "startChar": 65,
+        "endLine": 290,
+        "endChar": 67
+      },
+      "revId": "786caf5e74c4e33bce58b4402037983319e3b357",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2b80d36_453bd163",
+        "filename": "crypto/asn1/a_mbstr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-07-31T19:09:28Z",
+      "side": 1,
+      "message": "(Maybe as a followup, there\u0027s another caller of UTF8_getc in crypto/x509/a_strex.c, though it\u0027s just pretty-printing, so maybe it\u0027s not worth caring too much.)",
+      "revId": "786caf5e74c4e33bce58b4402037983319e3b357",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
