@@ -35,6 +35,7 @@
 #endif
 
 #include <openssl/thread.h>
+#include <openssl/type_check.h>
 #include <openssl/mem.h>
 
 #include "internal.h"
