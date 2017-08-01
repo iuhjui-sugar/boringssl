@@ -469,6 +469,7 @@ int ssl3_get_finished(SSL_HANDSHAKE *hs) {
     }
   }
 
+  ssl->method->next_message(ssl, true /* free buffer */);
   return 1;
 }
 
@@ -700,14 +701,6 @@ int ssl3_get_message(SSL *ssl) {
     ssl->s3->v2_hello_done = 1;
   }
 
-  if (ssl->s3->tmp.reuse_message) {
-    /* There must be a current message. */
-    assert(ssl->init_msg != NULL);
-    ssl->s3->tmp.reuse_message = 0;
-  } else {
-    ssl3_release_current_message(ssl, 0 /* don't free buffer */);
-  }
-
   /* Read the message header, if we haven't yet. */
   int ret = extend_handshake_buffer(ssl, SSL3_HM_HEADER_LENGTH);
   if (ret <= 0) {
@@ -757,17 +750,16 @@ int ssl_hash_current_message(SSL_HANDSHAKE *hs) {
   return hs->transcript.Update(CBS_data(&cbs), CBS_len(&cbs));
 }
 
-void ssl3_release_current_message(SSL *ssl, int free_buffer) {
-  if (ssl->init_msg != NULL) {
-    /* |init_buf| never contains data beyond the current message. */
-    assert(SSL3_HM_HEADER_LENGTH + ssl->init_num == ssl->init_buf->length);
+void ssl3_next_message(SSL *ssl, bool free_buffer) {
+  assert(ssl->init_msg != NULL);
+  /* |init_buf| never contains data beyond the current message. */
+  assert(SSL3_HM_HEADER_LENGTH + ssl->init_num == ssl->init_buf->length);
 
-    /* Clear the current message. */
-    ssl->init_msg = NULL;
-    ssl->init_num = 0;
-    ssl->init_buf->length = 0;
-    ssl->s3->is_v2_hello = 0;
-  }
+  /* Clear the current message. */
+  ssl->init_msg = NULL;
+  ssl->init_num = 0;
+  ssl->init_buf->length = 0;
+  ssl->s3->is_v2_hello = 0;
 
   if (free_buffer) {
     BUF_MEM_free(ssl->init_buf);

@@ -305,7 +305,6 @@ int ssl3_accept(SSL_HANDSHAKE *hs) {
         break;
 
       case SSL3_ST_SR_KEY_EXCH_A:
-      case SSL3_ST_SR_KEY_EXCH_B:
         ret = ssl3_get_client_key_exchange(hs);
         if (ret <= 0) {
           goto end;
@@ -422,8 +421,6 @@ int ssl3_accept(SSL_HANDSHAKE *hs) {
       }
 
       case SSL_ST_OK:
-        ssl->method->release_current_message(ssl, 1 /* free_buffer */);
-
         /* If we aren't retaining peer certificates then we can discard it
          * now. */
         if (hs->new_session != NULL &&
@@ -930,6 +927,7 @@ static int ssl3_select_parameters(SSL_HANDSHAKE *hs) {
     hs->transcript.FreeBuffer();
   }
 
+  ssl->method->next_message(ssl, false /* don't free buffer */);
   return 1;
 }
 
@@ -1200,7 +1198,6 @@ static int ssl3_get_client_certificate(SSL_HANDSHAKE *hs) {
       /* OpenSSL returns X509_V_OK when no certificates are received. This is
        * classed by them as a bug, but it's assumed by at least NGINX. */
       hs->new_session->verify_result = X509_V_OK;
-      ssl->s3->tmp.reuse_message = 1;
       return 1;
     }
 
@@ -1258,6 +1255,7 @@ static int ssl3_get_client_certificate(SSL_HANDSHAKE *hs) {
     /* OpenSSL returns X509_V_OK when no certificates are received. This is
      * classed by them as a bug, but it's assumed by at least NGINX. */
     hs->new_session->verify_result = X509_V_OK;
+    ssl->method->next_message(ssl, false /* don't free buffer */);
     return 1;
   }
 
@@ -1266,6 +1264,7 @@ static int ssl3_get_client_certificate(SSL_HANDSHAKE *hs) {
     hs->new_session->peer_sha256_valid = 1;
   }
 
+  ssl->method->next_message(ssl, false /* don't free buffer */);
   return 1;
 }
 
@@ -1276,11 +1275,9 @@ static int ssl3_get_client_key_exchange(SSL_HANDSHAKE *hs) {
   size_t premaster_secret_len = 0;
   uint8_t *decrypt_buf = NULL;
 
-  if (hs->state == SSL3_ST_SR_KEY_EXCH_A) {
-    int ret = ssl->method->ssl_get_message(ssl);
-    if (ret <= 0) {
-      return ret;
-    }
+  int ret = ssl->method->ssl_get_message(ssl);
+  if (ret <= 0) {
+    return ret;
   }
 
   if (!ssl_check_message_type(ssl, SSL3_MT_CLIENT_KEY_EXCHANGE)) {
@@ -1354,7 +1351,6 @@ static int ssl3_get_client_key_exchange(SSL_HANDSHAKE *hs) {
         goto err;
       case ssl_private_key_retry:
         ssl->rwstate = SSL_PRIVATE_KEY_OPERATION;
-        hs->state = SSL3_ST_SR_KEY_EXCH_B;
         goto err;
     }
 
@@ -1504,6 +1500,7 @@ static int ssl3_get_client_key_exchange(SSL_HANDSHAKE *hs) {
   }
   hs->new_session->extended_master_secret = hs->extended_master_secret;
 
+  ssl->method->next_message(ssl, false /* don't free buffer */);
   OPENSSL_cleanse(premaster_secret, premaster_secret_len);
   OPENSSL_free(premaster_secret);
   return 1;
@@ -1611,6 +1608,7 @@ static int ssl3_get_cert_verify(SSL_HANDSHAKE *hs) {
     return -1;
   }
 
+  ssl->method->next_message(ssl, false /* don't free buffer */);
   return 1;
 }
 
@@ -1635,14 +1633,15 @@ static int ssl3_get_next_proto(SSL_HANDSHAKE *hs) {
       CBS_len(&next_protocol) != 0) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
     ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
-    return 0;
+    return -1;
   }
 
   if (!CBS_stow(&selected_protocol, &ssl->s3->next_proto_negotiated,
                 &ssl->s3->next_proto_negotiated_len)) {
-    return 0;
+    return -1;
   }
 
+  ssl->method->next_message(ssl, false /* don't free buffer */);
   return 1;
 }
 
@@ -1659,6 +1658,7 @@ static int ssl3_get_channel_id(SSL_HANDSHAKE *hs) {
       !ssl_hash_current_message(hs)) {
     return -1;
   }
+  ssl->method->next_message(ssl, false /* don't free buffer */);
   return 1;
 }
 

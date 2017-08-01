@@ -460,12 +460,14 @@ static enum ssl_hs_wait_t do_select_session(SSL_HANDSHAKE *hs) {
     if (need_retry) {
       ssl->early_data_accepted = 0;
       ssl->s3->skip_early_data = 1;
+      ssl->method->next_message(ssl, false /* don't free buffer */);
       hs->tls13_state = state_send_hello_retry_request;
       return ssl_hs_ok;
     }
     return ssl_hs_error;
   }
 
+  ssl->method->next_message(ssl, false /* don't free buffer */);
   hs->tls13_state = state_send_server_hello;
   return ssl_hs_ok;
 }
@@ -519,6 +521,7 @@ static enum ssl_hs_wait_t do_process_second_client_hello(SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
+  ssl->method->next_message(ssl, false /* don't free buffer */);
   ssl->method->received_flight(ssl);
   hs->tls13_state = state_send_server_hello;
   return ssl_hs_ok;
@@ -672,7 +675,8 @@ static enum ssl_hs_wait_t do_send_server_finished(SSL_HANDSHAKE *hs) {
                          static_cast<uint8_t>(hs->hash_len)};
     if (!hs->transcript.Update(header, sizeof(header)) ||
         !hs->transcript.Update(hs->expected_client_finished, hs->hash_len) ||
-        !tls13_derive_resumption_secret(hs) || !add_new_session_tickets(hs)) {
+        !tls13_derive_resumption_secret(hs) ||
+        !add_new_session_tickets(hs)) {
       return ssl_hs_error;
     }
   }
@@ -742,6 +746,7 @@ static enum ssl_hs_wait_t do_process_client_certificate(SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
+  ssl->method->next_message(ssl, false /* don't free buffer */);
   hs->tls13_state = state_process_client_certificate_verify;
   return ssl_hs_read_message;
 }
@@ -771,22 +776,25 @@ static enum ssl_hs_wait_t do_process_client_certificate_verify(
     return ssl_hs_error;
   }
 
+  ssl->method->next_message(ssl, false /* don't free buffer */);
   hs->tls13_state = state_process_channel_id;
   return ssl_hs_read_message;
 }
 
 static enum ssl_hs_wait_t do_process_channel_id(SSL_HANDSHAKE *hs) {
-  if (!hs->ssl->s3->tlsext_channel_id_valid) {
+  SSL *const ssl = hs->ssl;
+  if (!ssl->s3->tlsext_channel_id_valid) {
     hs->tls13_state = state_process_client_finished;
     return ssl_hs_ok;
   }
 
-  if (!ssl_check_message_type(hs->ssl, SSL3_MT_CHANNEL_ID) ||
+  if (!ssl_check_message_type(ssl, SSL3_MT_CHANNEL_ID) ||
       !tls1_verify_channel_id(hs) ||
       !ssl_hash_current_message(hs)) {
     return ssl_hs_error;
   }
 
+  ssl->method->next_message(ssl, false /* don't free buffer */);
   hs->tls13_state = state_process_client_finished;
   return ssl_hs_read_message;
 }
@@ -813,10 +821,12 @@ static enum ssl_hs_wait_t do_process_client_finished(SSL_HANDSHAKE *hs) {
 
     /* We send post-handshake tickets as part of the handshake in 1-RTT. */
     hs->tls13_state = state_send_new_session_ticket;
-    return ssl_hs_ok;
+  } else {
+    /* We already sent half-RTT tickets. */
+    hs->tls13_state = state_done;
   }
 
-  hs->tls13_state = state_done;
+  ssl->method->next_message(ssl, true /* free buffer */);
   return ssl_hs_ok;
 }
 
