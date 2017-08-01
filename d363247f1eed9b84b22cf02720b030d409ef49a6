@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "168876c3_d1f71f64",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-08-01T14:59:13Z",
+      "side": 0,
+      "message": "This is still true, though I guess this might be redundant with the function params.",
+      "range": {
+        "startLine": 614,
+        "startChar": 20,
+        "endLine": 614,
+        "endChar": 26
+      },
+      "revId": "d363247f1eed9b84b22cf02720b030d409ef49a6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

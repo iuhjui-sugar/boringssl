@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d2fcd1c4_ccc48e1f",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-08-01T14:59:13Z",
+      "side": 1,
+      "message": "Possibly would be useful to have a comment here about why the up_ref is necessary. Though its possible the comment on lh_SSL_SESSION_retrieve is sufficient.",
+      "range": {
+        "startLine": 634,
+        "startChar": 8,
+        "endLine": 634,
+        "endChar": 15
+      },
+      "revId": "fc89a6a7ac585cfafc5554303f390e6682f66525",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
