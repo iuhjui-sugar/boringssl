@@ -22,6 +22,30 @@
       "revId": "d363247f1eed9b84b22cf02720b030d409ef49a6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fd974ee_de9f250d",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-01T19:38:25Z",
+      "side": 0,
+      "message": "Yeah, I figure if it\u0027s a C++ function that already documents this nicely, we don\u0027t need to write it again.",
+      "parentUuid": "168876c3_d1f71f64",
+      "range": {
+        "startLine": 614,
+        "startChar": 20,
+        "endLine": 614,
+        "endChar": 26
+      },
+      "revId": "d363247f1eed9b84b22cf02720b030d409ef49a6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
