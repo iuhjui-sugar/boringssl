@@ -386,8 +386,6 @@ int RSA_padding_check_PKCS1_OAEP_mgf1(uint8_t *out, size_t *out_len,
                                       size_t from_len, const uint8_t *param,
                                       size_t param_len, const EVP_MD *md,
                                       const EVP_MD *mgf1md) {
-  uint8_t *db = NULL;
-
   if (md == NULL) {
     md = EVP_sha1();
   }
@@ -403,16 +401,18 @@ int RSA_padding_check_PKCS1_OAEP_mgf1(uint8_t *out, size_t *out_len,
   if (from_len < 1 + 2*mdlen + 1) {
     /* 'from_len' is the length of the modulus, i.e. does not depend on the
      * particular ciphertext. */
-    goto decoding_err;
+    OPENSSL_PUT_ERROR(RSA, RSA_R_OAEP_DECODING_ERROR);
+    return 0;
   }
 
   size_t dblen = from_len - mdlen - 1;
-  db = OPENSSL_malloc(dblen);
+  uint8_t *db = OPENSSL_malloc(dblen);
   if (db == NULL) {
     OPENSSL_PUT_ERROR(RSA, ERR_R_MALLOC_FAILURE);
-    goto err;
+    return 0;
   }
 
+  int ret = 0;
   const uint8_t *maskedseed = from + 1;
   const uint8_t *maskeddb = from + 1 + mdlen;
 
@@ -454,7 +454,10 @@ int RSA_padding_check_PKCS1_OAEP_mgf1(uint8_t *out, size_t *out_len,
   bad |= looking_for_one_byte;
 
   if (bad) {
-    goto decoding_err;
+    /* To avoid chosen ciphertext attacks, the error message should not reveal
+     * which kind of decoding error happened. */
+    OPENSSL_PUT_ERROR(RSA, RSA_R_OAEP_DECODING_ERROR);
+    goto err;
   }
 
   one_index++;
@@ -466,16 +469,12 @@ int RSA_padding_check_PKCS1_OAEP_mgf1(uint8_t *out, size_t *out_len,
 
   OPENSSL_memcpy(out, db + one_index, mlen);
   *out_len = mlen;
-  OPENSSL_free(db);
-  return 1;
+  ret = 1;
 
-decoding_err:
-  /* to avoid chosen ciphertext attacks, the error message should not reveal
-   * which kind of decoding error happened */
-  OPENSSL_PUT_ERROR(RSA, RSA_R_OAEP_DECODING_ERROR);
  err:
+  OPENSSL_cleanse(db, dblen);
   OPENSSL_free(db);
-  return 0;
+  return ret;
 }
 
 static const uint8_t kPSSZeroes[] = {0, 0, 0, 0, 0, 0, 0, 0};
