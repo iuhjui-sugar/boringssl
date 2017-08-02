@@ -509,23 +509,21 @@ static int ssl_crypto_x509_ssl_auto_chain_if_needed(SSL *ssl) {
     return 1;
   }
 
-  X509 *leaf =
-      X509_parse_from_buffer(sk_CRYPTO_BUFFER_value(ssl->cert->chain, 0));
+  UniquePtr<X509> leaf(
+      X509_parse_from_buffer(sk_CRYPTO_BUFFER_value(ssl->cert->chain, 0)));
   if (!leaf) {
     OPENSSL_PUT_ERROR(SSL, ERR_R_X509_LIB);
     return 0;
   }
 
   X509_STORE_CTX ctx;
-  if (!X509_STORE_CTX_init(&ctx, ssl->ctx->cert_store, leaf, NULL)) {
-    X509_free(leaf);
+  if (!X509_STORE_CTX_init(&ctx, ssl->ctx->cert_store, leaf.get(), NULL)) {
     OPENSSL_PUT_ERROR(SSL, ERR_R_X509_LIB);
     return 0;
   }
 
   /* Attempt to build a chain, ignoring the result. */
   X509_verify_cert(&ctx);
-  X509_free(leaf);
   ERR_clear_error();
 
   /* Remove the leaf from the generated chain. */
@@ -1248,6 +1246,8 @@ static int do_client_cert_cb(SSL *ssl, void *arg) {
   if (ret < 0) {
     return -1;
   }
+  UniquePtr<X509> free_x509(x509);
+  UniquePtr<EVP_PKEY> free_pkey(pkey);
 
   if (ret != 0) {
     if (!SSL_use_certificate(ssl, x509) ||
@@ -1256,8 +1256,6 @@ static int do_client_cert_cb(SSL *ssl, void *arg) {
     }
   }
 
-  X509_free(x509);
-  EVP_PKEY_free(pkey);
   return 1;
 }
 
