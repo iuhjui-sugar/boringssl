@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "399fb2e7_6dee62e7",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-03T19:22:03Z",
+      "side": 1,
+      "message": "Nit: clang-format. :-)",
+      "revId": "a59c9a91a34249a7f0cce216dd95e88e64cac62b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
