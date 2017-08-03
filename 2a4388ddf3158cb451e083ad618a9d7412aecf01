@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "560b798f_ef87ef98",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-03T19:09:12Z",
+      "side": 1,
+      "message": "You already set *out, but yeah it\u0027s probably good to set out_record_len (see comment below)? Not that it really matters because this is a fatal error anyway.",
+      "parentUuid": "bb0acacf_afd7301b",
+      "range": {
+        "startLine": 613,
+        "startChar": 8,
+        "endLine": 613,
+        "endChar": 14
+      },
+      "revId": "2a4388ddf3158cb451e083ad618a9d7412aecf01",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e747a76d_05ca1413",
         "filename": "ssl/tls_record.cc",
         "patchSetId": 1
