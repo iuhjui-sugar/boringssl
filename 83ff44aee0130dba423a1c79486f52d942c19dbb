@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6372ecc9_efb10d8b",
+        "filename": "tool/speed.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-03T19:39:11Z",
+      "side": 1,
+      "message": "I think so, because the direction \u003d\u003d evp_aead_open case still calls non-scattering seal into the same buffer (because TLS CBC pseudo AEADs don\u0027t have open_gather). I added a comment to clarify.",
+      "parentUuid": "70e9d139_fb42cc13",
+      "range": {
+        "startLine": 219,
+        "startChar": 30,
+        "endLine": 219,
+        "endChar": 42
+      },
+      "revId": "83ff44aee0130dba423a1c79486f52d942c19dbb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4fee469c_40f46367",
         "filename": "tool/speed.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "83ff44aee0130dba423a1c79486f52d942c19dbb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b4f0384_6b5095e3",
+        "filename": "tool/speed.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-03T19:39:11Z",
+      "side": 1,
+      "message": "See above.",
+      "parentUuid": "4fee469c_40f46367",
+      "range": {
+        "startLine": 230,
+        "startChar": 37,
+        "endLine": 230,
+        "endChar": 49
+      },
+      "revId": "83ff44aee0130dba423a1c79486f52d942c19dbb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
