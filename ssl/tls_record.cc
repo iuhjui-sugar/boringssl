@@ -604,14 +604,14 @@ OpenRecordResult OpenRecord(SSL *ssl, Span<uint8_t> *out,
   size_t record_len;
   const ssl_open_record_t result = tls_open_record(
       ssl, &type, &plaintext, &record_len, out_alert, in.data(), in.size());
-  if (type != SSL3_RT_APPLICATION_DATA && type != SSL3_RT_ALERT) {
-    *out_alert = SSL_AD_UNEXPECTED_MESSAGE;
-    return OpenRecordResult::kError;
-  }
 
   OpenRecordResult ret = OpenRecordResult::kError;
   switch (result) {
     case ssl_open_record_success:
+      if (type != SSL3_RT_APPLICATION_DATA && type != SSL3_RT_ALERT) {
+        *out_alert = SSL_AD_UNEXPECTED_MESSAGE;
+        return OpenRecordResult::kError;
+      }
       ret = OpenRecordResult::kOK;
       break;
     case ssl_open_record_discard:
