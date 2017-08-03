@@ -16,6 +16,24 @@
       "revId": "a59c9a91a34249a7f0cce216dd95e88e64cac62b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c71d5f8_18a25a76",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-03T19:31:39Z",
+      "side": 1,
+      "message": "Looks like my clang-format is buggy.",
+      "parentUuid": "399fb2e7_6dee62e7",
+      "revId": "a59c9a91a34249a7f0cce216dd95e88e64cac62b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
