@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "c29751d5_71fe3435",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-03T19:14:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "560b798f_ef87ef98",
+      "range": {
+        "startLine": 613,
+        "startChar": 8,
+        "endLine": 613,
+        "endChar": 14
+      },
+      "revId": "2a4388ddf3158cb451e083ad618a9d7412aecf01",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e747a76d_05ca1413",
         "filename": "ssl/tls_record.cc",
         "patchSetId": 1
@@ -63,6 +87,24 @@
       "revId": "2a4388ddf3158cb451e083ad618a9d7412aecf01",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa687491_761b7ebc",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-03T19:14:43Z",
+      "side": 1,
+      "message": "Yup, that\u0027s what I meant. Done.",
+      "parentUuid": "e747a76d_05ca1413",
+      "revId": "2a4388ddf3158cb451e083ad618a9d7412aecf01",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
