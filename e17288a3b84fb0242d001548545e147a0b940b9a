@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6bf92300_bc79a592",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-03T19:18:02Z",
+      "side": 1,
+      "message": "tls_open_record only sets *out to anything useful if it returns ssl_open_record_success, so this probably wants to go just above line 612.\n\n(There\u0027s two schools of thought w.r.t. output parameters. Either you should always set them or you should leave them completely alone on failure. We\u0027re kind of a mess and do some of both. :-) )",
+      "revId": "e17288a3b84fb0242d001548545e147a0b940b9a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
