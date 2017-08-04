@@ -357,11 +357,18 @@ void ssl_do_msg_callback(SSL *ssl, int is_write, int content_type,
 }
 
 void ssl_get_current_time(const SSL *ssl, struct OPENSSL_timeval *out_clock) {
-  if (ssl->ctx->current_time_cb != NULL) {
+  /* TODO(martinkr): Change callers to |ssl_ctx_get_current_time| and drop the
+   * |ssl| arg from |current_time_cb| if possible. */
+  ssl_ctx_get_current_time(ssl->ctx, nullptr /* ssl */, out_clock);
+}
+
+void ssl_ctx_get_current_time(const SSL_CTX *ctx, const SSL *ssl,
+                              struct OPENSSL_timeval *out_clock) {
+  if (ctx->current_time_cb != NULL) {
     /* TODO(davidben): Update current_time_cb to use OPENSSL_timeval. See
      * https://crbug.com/boringssl/155. */
     struct timeval clock;
-    ssl->ctx->current_time_cb(ssl, &clock);
+    ctx->current_time_cb(ssl, &clock);
     if (clock.tv_sec < 0) {
       assert(0);
       out_clock->tv_sec = 0;
@@ -503,10 +510,14 @@ SSL_CTX *SSL_CTX_new(const SSL_METHOD *method) {
 
   ret->max_send_fragment = SSL3_RT_MAX_PLAIN_LENGTH;
 
-  /* Setup RFC4507 ticket keys */
-  if (!RAND_bytes(ret->tlsext_tick_key_name, 16) ||
-      !RAND_bytes(ret->tlsext_tick_hmac_key, 16) ||
-      !RAND_bytes(ret->tlsext_tick_aes_key, 16)) {
+  /* Initialize ticket key and to force key rotation. */
+  ret->tlsext_ticket_key_current = (struct tlsext_ticket_key *)OPENSSL_malloc(
+      sizeof(struct tlsext_ticket_key));
+  if (!ret->tlsext_ticket_key_current) {
+    goto err;
+  }
+  ret->tlsext_ticket_key_current->next_rotation_tv_sec = 1;
+  if (!ssl_ctx_rotate_ticket_encryption_key(ret)) {
     ret->options |= SSL_OP_NO_TICKET;
   }
 
@@ -571,6 +582,8 @@ void SSL_CTX_free(SSL_CTX *ctx) {
   OPENSSL_free(ctx->alpn_client_proto_list);
   EVP_PKEY_free(ctx->tlsext_channel_id_private);
   OPENSSL_free(ctx->verify_sigalgs);
+  OPENSSL_free(ctx->tlsext_ticket_key_current);
+  OPENSSL_free(ctx->tlsext_ticket_key_prev);
 
   OPENSSL_free(ctx);
 }
@@ -1590,9 +1603,10 @@ int SSL_CTX_get_tlsext_ticket_keys(SSL_CTX *ctx, void *out, size_t len) {
     return 0;
   }
   uint8_t *out_bytes = reinterpret_cast<uint8_t *>(out);
-  OPENSSL_memcpy(out_bytes, ctx->tlsext_tick_key_name, 16);
-  OPENSSL_memcpy(out_bytes + 16, ctx->tlsext_tick_hmac_key, 16);
-  OPENSSL_memcpy(out_bytes + 32, ctx->tlsext_tick_aes_key, 16);
+  MutexReadLock(&ctx->lock);
+  OPENSSL_memcpy(out_bytes, ctx->tlsext_ticket_key_current->name, 16);
+  OPENSSL_memcpy(out_bytes + 16, ctx->tlsext_ticket_key_current->hmac_key, 16);
+  OPENSSL_memcpy(out_bytes + 32, ctx->tlsext_ticket_key_current->aes_key, 16);
   return 1;
 }
 
@@ -1605,9 +1619,11 @@ int SSL_CTX_set_tlsext_ticket_keys(SSL_CTX *ctx, const void *in, size_t len) {
     return 0;
   }
   const uint8_t *in_bytes = reinterpret_cast<const uint8_t *>(in);
-  OPENSSL_memcpy(ctx->tlsext_tick_key_name, in_bytes, 16);
-  OPENSSL_memcpy(ctx->tlsext_tick_hmac_key, in_bytes + 16, 16);
-  OPENSSL_memcpy(ctx->tlsext_tick_aes_key, in_bytes + 32, 16);
+  OPENSSL_memcpy(ctx->tlsext_ticket_key_current->name, in_bytes, 16);
+  OPENSSL_memcpy(ctx->tlsext_ticket_key_current->hmac_key, in_bytes + 16, 16);
+  OPENSSL_memcpy(ctx->tlsext_ticket_key_current->aes_key, in_bytes + 32, 16);
+  /* Disable automatic key rotation. */
+  ctx->tlsext_ticket_key_current->next_rotation_tv_sec = 0;
   return 1;
 }
 
