@@ -3008,7 +3008,7 @@ static enum ssl_ticket_aead_result_t
 ssl_decrypt_ticket_with_cipher_ctx(SSL *ssl, uint8_t **out, size_t *out_len,
                                    int *out_renew_ticket, const uint8_t *ticket,
                                    size_t ticket_len) {
-  const SSL_CTX *const ssl_ctx = ssl->session_ctx;
+  SSL_CTX *const ssl_ctx = ssl->session_ctx;
 
   ScopedHMAC_CTX hmac_ctx;
   ScopedEVP_CIPHER_CTX cipher_ctx;
@@ -3035,8 +3035,10 @@ ssl_decrypt_ticket_with_cipher_ctx(SSL *ssl, uint8_t **out, size_t *out_len,
     }
   } else {
     /* Check the key name matches. */
+    CRYPTO_MUTEX_lock_read(&ssl_ctx->lock);
     if (OPENSSL_memcmp(ticket, ssl_ctx->tlsext_tick_key_name,
                        SSL_TICKET_KEY_NAME_LEN) != 0) {
+      CRYPTO_MUTEX_unlock_read(&ssl_ctx->lock);
       return ssl_ticket_aead_ignore_ticket;
     }
     if (!HMAC_Init_ex(hmac_ctx.get(), ssl_ctx->tlsext_tick_hmac_key,
@@ -3044,8 +3046,10 @@ ssl_decrypt_ticket_with_cipher_ctx(SSL *ssl, uint8_t **out, size_t *out_len,
                       NULL) ||
         !EVP_DecryptInit_ex(cipher_ctx.get(), EVP_aes_128_cbc(), NULL,
                             ssl_ctx->tlsext_tick_aes_key, iv)) {
+      CRYPTO_MUTEX_unlock_read(&ssl_ctx->lock);
       return ssl_ticket_aead_error;
     }
+    CRYPTO_MUTEX_unlock_read(&ssl_ctx->lock);
   }
   size_t iv_len = EVP_CIPHER_CTX_iv_length(cipher_ctx.get());
 

@@ -169,6 +169,12 @@ extern "C" {
 #endif
 
 
+struct OPENSSL_timeval {
+  uint64_t tv_sec;
+  uint32_t tv_usec;
+};
+
+
 /* SSL implementation. */
 
 
@@ -1986,10 +1992,14 @@ OPENSSL_EXPORT SSL_SESSION *SSL_magic_pending_session_ptr(void);
  * An attacker that compromises a server's session ticket key can impersonate
  * the server and, prior to TLS 1.3, retroactively decrypt all application
  * traffic from sessions using that ticket key. Thus ticket keys must be
- * regularly rotated for forward secrecy. Note the default key is currently not
- * rotated.
- *
- * TODO(davidben): This is silly. Rotate the default key automatically. */
+ * regularly rotated for forward secrecy. Note the default key is rotated
+ * automatically once every 24 hours but manually configured keys are not. */
+
+/* SSL_DEFAULT_TICKET_KEY_ROTATION_INTERVAL is the interval with which the
+ * default session ticket encryption key is rotated, if in use. If any
+ * non-default ticket encryption mechanism is configured, automatic rotation is
+ * disabled. */
+#define SSL_DEFAULT_TICKET_KEY_ROTATION_INTERVAL (24 * 60 * 60)
 
 /* SSL_CTX_get_tlsext_ticket_keys writes |ctx|'s session ticket key material to
  * |len| bytes of |out|. It returns one on success and zero if |len| is not
@@ -3143,7 +3153,7 @@ OPENSSL_EXPORT void (*SSL_CTX_get_keylog_callback(const SSL_CTX *ctx))(
 /* SSL_CTX_set_current_time_cb configures a callback to retrieve the current
  * time, which should be set in |*out_clock|. This can be used for testing
  * purposes; for example, a callback can be configured that returns a time
- * set explicitly by the test. */
+ * set explicitly by the test. The |ssl| pointer passed to |cb| may be null. */
 OPENSSL_EXPORT void SSL_CTX_set_current_time_cb(
     SSL_CTX *ctx, void (*cb)(const SSL *ssl, struct timeval *out_clock));
 
@@ -4314,6 +4324,9 @@ struct ssl_ctx_st {
   uint8_t tlsext_tick_key_name[SSL_TICKET_KEY_NAME_LEN];
   uint8_t tlsext_tick_hmac_key[16];
   uint8_t tlsext_tick_aes_key[16];
+  /* Time of the next default ticket key rotation. (0, 0) indicates the key
+   * should not be rotated. */
+  struct OPENSSL_timeval tlsext_tick_key_next_rotation;
   /* Callback to support customisation of ticket key setting */
   int (*tlsext_ticket_key_cb)(SSL *ssl, uint8_t *name, uint8_t *iv,
                               EVP_CIPHER_CTX *ectx, HMAC_CTX *hctx, int enc);

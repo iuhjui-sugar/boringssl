@@ -437,6 +437,38 @@ int ssl_get_new_session(SSL_HANDSHAKE *hs, int is_server) {
   return 1;
 }
 
+int ssl_ctx_rotate_ticket_encryption_key(SSL_CTX *ctx) {
+  CRYPTO_MUTEX_lock_read(&ctx->lock);
+  if ((ctx->tlsext_tick_key_next_rotation.tv_sec == 0 ||
+       ctx->tlsext_tick_key_next_rotation.tv_usec == 0)) {
+    /* Custom keys must not be rotated. */
+    CRYPTO_MUTEX_unlock_read(&ctx->lock);
+    return 1;
+  }
+  CRYPTO_MUTEX_unlock_read(&ctx->lock);
+
+  CRYPTO_MUTEX_lock_write(&ctx->lock);
+  OPENSSL_timeval now;
+  ssl_ctx_get_current_time(ctx, nullptr, &now);
+  if ((ctx->tlsext_tick_key_next_rotation.tv_sec != 0 ||
+       ctx->tlsext_tick_key_next_rotation.tv_usec != 0) &&
+      (now.tv_sec > ctx->tlsext_tick_key_next_rotation.tv_sec ||
+       (now.tv_sec == ctx->tlsext_tick_key_next_rotation.tv_sec &&
+        now.tv_usec > ctx->tlsext_tick_key_next_rotation.tv_usec))) {
+    if (!RAND_bytes(ctx->tlsext_tick_key_name, 16) ||
+        !RAND_bytes(ctx->tlsext_tick_hmac_key, 16) ||
+        !RAND_bytes(ctx->tlsext_tick_aes_key, 16)) {
+      CRYPTO_MUTEX_unlock_write(&ctx->lock);
+      return 0;
+    }
+    ctx->tlsext_tick_key_next_rotation.tv_sec =
+        now.tv_sec + SSL_DEFAULT_TICKET_KEY_ROTATION_INTERVAL;
+    ctx->tlsext_tick_key_next_rotation.tv_usec = now.tv_usec;
+  }
+  CRYPTO_MUTEX_unlock_write(&ctx->lock);
+  return 1;
+}
+
 static int ssl_encrypt_ticket_with_cipher_ctx(SSL *ssl, CBB *out,
                                               const uint8_t *session_buf,
                                               size_t session_len) {
@@ -464,14 +496,21 @@ static int ssl_encrypt_ticket_with_cipher_ctx(SSL *ssl, CBB *out,
       return 0;
     }
   } else {
+    /* Rotate ticket key if necessary. */
+    if (!ssl_ctx_rotate_ticket_encryption_key(tctx)) {
+      return 0;
+    }
+    CRYPTO_MUTEX_lock_read(&tctx->lock);
     if (!RAND_bytes(iv, 16) ||
         !EVP_EncryptInit_ex(ctx.get(), EVP_aes_128_cbc(), NULL,
                             tctx->tlsext_tick_aes_key, iv) ||
         !HMAC_Init_ex(hctx.get(), tctx->tlsext_tick_hmac_key, 16,
                       tlsext_tick_md(), NULL)) {
+      CRYPTO_MUTEX_unlock_read(&tctx->lock);
       return 0;
     }
     OPENSSL_memcpy(key_name, tctx->tlsext_tick_key_name, 16);
+    CRYPTO_MUTEX_unlock_read(&tctx->lock);
   }
 
   uint8_t *ptr;
