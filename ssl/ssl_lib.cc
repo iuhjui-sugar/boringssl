@@ -357,11 +357,17 @@ void ssl_do_msg_callback(SSL *ssl, int is_write, int content_type,
 }
 
 void ssl_get_current_time(const SSL *ssl, struct OPENSSL_timeval *out_clock) {
-  if (ssl->ctx->current_time_cb != NULL) {
+  ssl_ctx_get_current_time(ssl->ctx, ssl, out_clock);
+}
+
+
+void ssl_ctx_get_current_time(const SSL_CTX *ctx, const SSL *ssl,
+                              struct OPENSSL_timeval *out_clock) {
+  if (ctx->current_time_cb != NULL) {
     /* TODO(davidben): Update current_time_cb to use OPENSSL_timeval. See
      * https://crbug.com/boringssl/155. */
     struct timeval clock;
-    ssl->ctx->current_time_cb(ssl, &clock);
+    ctx->current_time_cb(ssl, &clock);
     if (clock.tv_sec < 0) {
       assert(0);
       out_clock->tv_sec = 0;
@@ -503,10 +509,10 @@ SSL_CTX *SSL_CTX_new(const SSL_METHOD *method) {
 
   ret->max_send_fragment = SSL3_RT_MAX_PLAIN_LENGTH;
 
-  /* Setup RFC4507 ticket keys */
-  if (!RAND_bytes(ret->tlsext_tick_key_name, 16) ||
-      !RAND_bytes(ret->tlsext_tick_hmac_key, 16) ||
-      !RAND_bytes(ret->tlsext_tick_aes_key, 16)) {
+  /* Initialize tlsext_tick_key_next_rotation to force key rotation. */
+  ret->tlsext_tick_key_next_rotation.tv_sec = 0;
+  ret->tlsext_tick_key_next_rotation.tv_usec = 1;
+  if (!ssl_ctx_rotate_ticket_encryption_key(ret)) {
     ret->options |= SSL_OP_NO_TICKET;
   }
 
@@ -1590,9 +1596,11 @@ int SSL_CTX_get_tlsext_ticket_keys(SSL_CTX *ctx, void *out, size_t len) {
     return 0;
   }
   uint8_t *out_bytes = reinterpret_cast<uint8_t *>(out);
+  CRYPTO_MUTEX_lock_read(&ctx->lock);
   OPENSSL_memcpy(out_bytes, ctx->tlsext_tick_key_name, 16);
   OPENSSL_memcpy(out_bytes + 16, ctx->tlsext_tick_hmac_key, 16);
   OPENSSL_memcpy(out_bytes + 32, ctx->tlsext_tick_aes_key, 16);
+  CRYPTO_MUTEX_unlock_read(&ctx->lock);
   return 1;
 }
 
@@ -1608,6 +1616,9 @@ int SSL_CTX_set_tlsext_ticket_keys(SSL_CTX *ctx, const void *in, size_t len) {
   OPENSSL_memcpy(ctx->tlsext_tick_key_name, in_bytes, 16);
   OPENSSL_memcpy(ctx->tlsext_tick_hmac_key, in_bytes + 16, 16);
   OPENSSL_memcpy(ctx->tlsext_tick_aes_key, in_bytes + 32, 16);
+  /* Disable automatic key rotation. */
+  ctx->tlsext_tick_key_next_rotation.tv_sec = 0;
+  ctx->tlsext_tick_key_next_rotation.tv_usec = 0;
   return 1;
 }
 
