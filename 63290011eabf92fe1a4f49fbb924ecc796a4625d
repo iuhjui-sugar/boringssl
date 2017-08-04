@@ -22,6 +22,47 @@
       "revId": "63290011eabf92fe1a4f49fbb924ecc796a4625d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "646eeefe_4982873e",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1614,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-04T21:40:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "343fc878_888fcd48",
+      "range": {
+        "startLine": 1614,
+        "startChar": 0,
+        "endLine": 1614,
+        "endChar": 58
+      },
+      "revId": "63290011eabf92fe1a4f49fbb924ecc796a4625d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c2f886cc_26e7f715",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3038,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-04T21:40:37Z",
+      "side": 1,
+      "message": "Hrm. Want to add a lock scoper? :-) Ditto in ssl_session.cc.",
+      "revId": "63290011eabf92fe1a4f49fbb924ecc796a4625d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }

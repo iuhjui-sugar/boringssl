@@ -2,6 +2,63 @@
   "comments": [
     {
       "key": {
+        "uuid": "3d11fcf1_a7a5a504",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-04T21:40:37Z",
+      "side": 1,
+      "message": "Probably toss this with the rest of the \"private\" structs for now. Stuff before the first heading will confuse doc.go. (Grumble we really should hide SSL_CTX...)\n\nLater on when we get around to fixing that clock callback (see below), the struct can get defined next to it.",
+      "revId": "79755050403ed8b04c7bfa750fd5594141888668",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55dd9050_00b458eb",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3156,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-04T21:40:37Z",
+      "side": 1,
+      "message": "I\u0027d suggest making it always NULL so that problems using it are more obvious. Probably then remove the SSL* parameter to ssl_ctx_get_current_time and maybe just convert all ssl_get_current_time callers.\n\nI think I made it take SSL* instead of SSL_CTX* because the clock used to hang off GetTestState in bssl_shim. That is no longer the case and making it take SSL instead of SSL_CTX was rather dumb on my part. :-/\n\nSadly, we can\u0027t freely change this API because WebRTC uses it. Thankfully, they don\u0027t look at the SSL* pointer. This API is due for a revision anyway because timeval on Windows uses 32-bit seconds (hence OPENSSL_timeval), so we can add an SSL_CTX parameter when that happens.",
+      "range": {
+        "startLine": 3156,
+        "startChar": 31,
+        "endLine": 3156,
+        "endChar": 75
+      },
+      "revId": "79755050403ed8b04c7bfa750fd5594141888668",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76d2b6d3_ab66440b",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 4329,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-04T21:40:37Z",
+      "side": 1,
+      "message": "Ideal behavior would probably be to have a small window of ticket keys so resumption rates don\u0027t hiccup. Dunno if that\u0027s worth bothering with.",
+      "revId": "79755050403ed8b04c7bfa750fd5594141888668",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4708931f_adca1d0b",
         "filename": "ssl/ssl_session.cc",
         "patchSetId": 2
