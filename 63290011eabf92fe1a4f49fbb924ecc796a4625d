@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "343fc878_888fcd48",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1614,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-04T21:09:52Z",
+      "side": 1,
+      "message": "AFAIU, you\u0027re not supposed to modify an SSL_CTX after SSL instantiation, so presumably this doesn\u0027t need locking?",
+      "range": {
+        "startLine": 1614,
+        "startChar": 0,
+        "endLine": 1614,
+        "endChar": 58
+      },
+      "revId": "63290011eabf92fe1a4f49fbb924ecc796a4625d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
