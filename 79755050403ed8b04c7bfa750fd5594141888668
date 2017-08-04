@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4708931f_adca1d0b",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-08-04T21:32:11Z",
+      "side": 1,
+      "message": "\u0026\u0026 ?\n\n(also, superfluous parens)",
+      "range": {
+        "startLine": 442,
+        "startChar": 54,
+        "endLine": 442,
+        "endChar": 56
+      },
+      "revId": "79755050403ed8b04c7bfa750fd5594141888668",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "929f2027_9d14ae47",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-08-04T21:32:11Z",
+      "side": 1,
+      "message": "\u0026\u0026 ?",
+      "range": {
+        "startLine": 453,
+        "startChar": 54,
+        "endLine": 453,
+        "endChar": 56
+      },
+      "revId": "79755050403ed8b04c7bfa750fd5594141888668",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2eaf545_95e31048",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-08-04T21:32:11Z",
+      "side": 1,
+      "message": "RAND_bytes can\u0027t actually fail so this function can return void.",
+      "range": {
+        "startLine": 458,
+        "startChar": 9,
+        "endLine": 458,
+        "endChar": 19
+      },
+      "revId": "79755050403ed8b04c7bfa750fd5594141888668",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
