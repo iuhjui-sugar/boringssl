@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "471daebd_8b37d8de",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-07T20:10:57Z",
+      "side": 1,
+      "message": "Obsolete.",
+      "parentUuid": "3d11fcf1_a7a5a504",
+      "revId": "79755050403ed8b04c7bfa750fd5594141888668",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "55dd9050_00b458eb",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 2
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "36b99cb5_e29f351d",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3156,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-07T20:10:57Z",
+      "side": 1,
+      "message": "Made |ssl| null and added some comments for now.",
+      "parentUuid": "55dd9050_00b458eb",
+      "range": {
+        "startLine": 3156,
+        "startChar": 31,
+        "endLine": 3156,
+        "endChar": 75
+      },
+      "revId": "79755050403ed8b04c7bfa750fd5594141888668",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76d2b6d3_ab66440b",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 2
@@ -56,6 +98,24 @@
       "revId": "79755050403ed8b04c7bfa750fd5594141888668",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e34040a9_7d0cbbcf",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 4329,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-07T20:10:57Z",
+      "side": 1,
+      "message": "Given the TLS 1.3 session lifetime of 2d, I changed the ticket key lifetime to 2d and used a fixed window size of two.",
+      "parentUuid": "76d2b6d3_ab66440b",
+      "revId": "79755050403ed8b04c7bfa750fd5594141888668",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "4756bc55_2fba983d",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-07T20:10:57Z",
+      "side": 1,
+      "message": "Ah yes, copy and paste error. Done.",
+      "parentUuid": "4708931f_adca1d0b",
+      "range": {
+        "startLine": 442,
+        "startChar": 54,
+        "endLine": 442,
+        "endChar": 56
+      },
+      "revId": "79755050403ed8b04c7bfa750fd5594141888668",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "929f2027_9d14ae47",
         "filename": "ssl/ssl_session.cc",
         "patchSetId": 2
@@ -105,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "2b09ad3c_35586100",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-07T20:10:57Z",
+      "side": 1,
+      "message": "Here it should be correct, no? (Usec may well be 0.)\n\nObsolete.",
+      "parentUuid": "929f2027_9d14ae47",
+      "range": {
+        "startLine": 453,
+        "startChar": 54,
+        "endLine": 453,
+        "endChar": 56
+      },
+      "revId": "79755050403ed8b04c7bfa750fd5594141888668",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a2eaf545_95e31048",
         "filename": "ssl/ssl_session.cc",
         "patchSetId": 2
@@ -125,6 +233,30 @@
       "revId": "79755050403ed8b04c7bfa750fd5594141888668",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a2cc5ff_854e6f69",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-07T20:10:57Z",
+      "side": 1,
+      "message": "Done. (Though now this function mallocs, so it still returns an int.)",
+      "parentUuid": "a2eaf545_95e31048",
+      "range": {
+        "startLine": 458,
+        "startChar": 9,
+        "endLine": 458,
+        "endChar": 19
+      },
+      "revId": "79755050403ed8b04c7bfa750fd5594141888668",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
