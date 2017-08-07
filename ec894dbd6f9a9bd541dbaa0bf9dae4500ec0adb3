@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0dc7706_17155c68",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-08-07T16:35:32Z",
+      "side": 1,
+      "message": "reuse_message",
+      "range": {
+        "startLine": 7,
+        "startChar": 8,
+        "endLine": 7,
+        "endChar": 21
+      },
+      "revId": "ec894dbd6f9a9bd541dbaa0bf9dae4500ec0adb3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0216781_9e6146dd",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1263,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-08-07T16:35:32Z",
+      "side": 1,
+      "message": "} else if (ssl-\u003eretain_only_sha256_of_client_certs) {\n  hs-\u003enew_session-\u003epeer_sha256_valid \u003d 1;\n}\nssl-\u003emethod-\u003enext_message(ssl);\nreturn 1;",
+      "range": {
+        "startLine": 1255,
+        "startChar": 1,
+        "endLine": 1263,
+        "endChar": 0
+      },
+      "revId": "ec894dbd6f9a9bd541dbaa0bf9dae4500ec0adb3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81d67375_89a8dd82",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1500,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-08-07T16:35:32Z",
+      "side": 1,
+      "message": "Move down two lines?",
+      "range": {
+        "startLine": 1500,
+        "startChar": 7,
+        "endLine": 1500,
+        "endChar": 13
+      },
+      "revId": "ec894dbd6f9a9bd541dbaa0bf9dae4500ec0adb3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
