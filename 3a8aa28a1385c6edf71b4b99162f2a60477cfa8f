@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f52c8e0c_f608b8e5",
+        "filename": "crypto/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-08T19:22:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d41b89b3_410fbecc",
+      "range": {
+        "startLine": 487,
+        "startChar": 15,
+        "endLine": 487,
+        "endChar": 16
+      },
+      "revId": "3a8aa28a1385c6edf71b4b99162f2a60477cfa8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e505cfb0_679d76ed",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 5
@@ -39,6 +63,24 @@
       "revId": "3a8aa28a1385c6edf71b4b99162f2a60477cfa8f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa9e7822_05ed7739",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 4328,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-08T19:22:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e505cfb0_679d76ed",
+      "revId": "3a8aa28a1385c6edf71b4b99162f2a60477cfa8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "75c4693c_12712307",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-08T19:22:50Z",
+      "side": 1,
+      "message": "Yes, and the arg should be dropped from |ssl_ctx_get_current_time| actually. Done.",
+      "parentUuid": "ba7d4367_aef9c4ad",
+      "range": {
+        "startLine": 371,
+        "startChar": 25,
+        "endLine": 371,
+        "endChar": 28
+      },
+      "revId": "3a8aa28a1385c6edf71b4b99162f2a60477cfa8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d88cd36_20346c4e",
         "filename": "ssl/ssl_lib.cc",
         "patchSetId": 5
@@ -79,6 +145,24 @@
       "revId": "3a8aa28a1385c6edf71b4b99162f2a60477cfa8f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95fe1cda_76d544e9",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1606,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-08T19:22:50Z",
+      "side": 1,
+      "message": "Ah, yes, totally. Done.",
+      "parentUuid": "4d88cd36_20346c4e",
+      "revId": "3a8aa28a1385c6edf71b4b99162f2a60477cfa8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -99,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "124aabf6_e5d460b5",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1627,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-08T19:22:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b33d00b_d68b6d88",
+      "revId": "3a8aa28a1385c6edf71b4b99162f2a60477cfa8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "16cbbe53_30d3b5c5",
         "filename": "ssl/ssl_session.cc",
         "patchSetId": 5
@@ -113,6 +215,24 @@
       "revId": "3a8aa28a1385c6edf71b4b99162f2a60477cfa8f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfba4c8a_8b10b153",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-08T19:22:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16cbbe53_30d3b5c5",
+      "revId": "3a8aa28a1385c6edf71b4b99162f2a60477cfa8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -133,6 +253,24 @@
     },
     {
       "key": {
+        "uuid": "9b97e451_7f806bab",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-08T19:22:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5826557b_5c9d6363",
+      "revId": "3a8aa28a1385c6edf71b4b99162f2a60477cfa8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c94fb543_842e95b6",
         "filename": "ssl/ssl_session.cc",
         "patchSetId": 5
@@ -147,6 +285,24 @@
       "revId": "3a8aa28a1385c6edf71b4b99162f2a60477cfa8f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c749f764_aef790b9",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-08T19:22:50Z",
+      "side": 1,
+      "message": "Just out of habit I do allocation and ownership transfer with smart pointers in C++ whenever possible. (Granted, it\u0027s a little silly here because SSL_CTX is very much a C struct.) Also, bssl::MakeUnique\u003cT\u003e is a little nicer to read than (T *)OPENSSL_malloc(sizeof(T)), I guess.",
+      "parentUuid": "c94fb543_842e95b6",
+      "revId": "3a8aa28a1385c6edf71b4b99162f2a60477cfa8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -167,6 +323,24 @@
     },
     {
       "key": {
+        "uuid": "67524b2d_0495442b",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-08T19:22:50Z",
+      "side": 1,
+      "message": "Right. I think not touching them if malloc fails is probably prudent, so they should both only be changed after the new allocation.",
+      "parentUuid": "d5051158_4fab6318",
+      "revId": "3a8aa28a1385c6edf71b4b99162f2a60477cfa8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19cbfee6_a5121951",
         "filename": "ssl/t1_lib.cc",
         "patchSetId": 5
@@ -184,6 +358,24 @@
     },
     {
       "key": {
+        "uuid": "3a056180_4910bc23",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 3008,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-08T19:22:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19cbfee6_a5121951",
+      "revId": "3a8aa28a1385c6edf71b4b99162f2a60477cfa8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "988c444f_b5b9a693",
         "filename": "ssl/t1_lib.cc",
         "patchSetId": 5
@@ -198,6 +390,24 @@
       "revId": "3a8aa28a1385c6edf71b4b99162f2a60477cfa8f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80899073_c497744e",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 3073,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-08T19:22:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "988c444f_b5b9a693",
+      "revId": "3a8aa28a1385c6edf71b4b99162f2a60477cfa8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
