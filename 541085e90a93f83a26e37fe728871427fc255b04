@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9f73bbf8_f4ced9c8",
+        "filename": "ssl/internal.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 1345,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-08T21:02:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4f4a3c4_8404a618",
+      "range": {
+        "startLine": 1345,
+        "startChar": 36,
+        "endLine": 1345,
+        "endChar": 55
+      },
+      "revId": "541085e90a93f83a26e37fe728871427fc255b04",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "204f6f68_b8a586b0",
         "filename": "ssl/internal.h",
         "patchSetId": 10
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "783543ce_3ab13625",
+        "filename": "ssl/internal.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 2291,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-08T21:02:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "204f6f68_b8a586b0",
+      "range": {
+        "startLine": 2291,
+        "startChar": 36,
+        "endLine": 2291,
+        "endChar": 55
+      },
+      "revId": "541085e90a93f83a26e37fe728871427fc255b04",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3f603164_c8429886",
         "filename": "ssl/s3_both.cc",
         "patchSetId": 10
@@ -59,6 +107,30 @@
       "writtenOn": "2017-08-08T15:00:26Z",
       "side": 1,
       "message": "This function seems weird to have (maybe remove it or change its name in a future CL)",
+      "range": {
+        "startLine": 190,
+        "startChar": 4,
+        "endLine": 190,
+        "endChar": 26
+      },
+      "revId": "541085e90a93f83a26e37fe728871427fc255b04",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c754fee_5c874962",
+        "filename": "ssl/s3_both.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-08T21:02:01Z",
+      "side": 1,
+      "message": "Agreed. It still does something, but only just barely.",
+      "parentUuid": "3f603164_c8429886",
       "range": {
         "startLine": 190,
         "startChar": 4,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "266b797a_291544ff",
+        "filename": "ssl/s3_both.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-08T21:02:01Z",
+      "side": 1,
+      "message": "Yup. tls_open_record uses a similar pattern.",
+      "parentUuid": "220a6e1f_f53aaf6c",
+      "range": {
+        "startLine": 707,
+        "startChar": 7,
+        "endLine": 708,
+        "endChar": 33
+      },
+      "revId": "541085e90a93f83a26e37fe728871427fc255b04",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b814ec41_5fafc2f1",
         "filename": "ssl/s3_both.cc",
         "patchSetId": 10
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "0917315a_655b5a28",
+        "filename": "ssl/s3_both.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-08T21:02:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b814ec41_5fafc2f1",
+      "range": {
+        "startLine": 722,
+        "startChar": 9,
+        "endLine": 722,
+        "endChar": 16
+      },
+      "revId": "541085e90a93f83a26e37fe728871427fc255b04",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd98b591_d0abed84",
         "filename": "ssl/s3_both.cc",
         "patchSetId": 10
@@ -128,6 +248,30 @@
       "writtenOn": "2017-08-08T15:00:26Z",
       "side": 1,
       "message": "Make this take an SSLMessage?",
+      "range": {
+        "startLine": 777,
+        "startChar": 24,
+        "endLine": 777,
+        "endChar": 30
+      },
+      "revId": "541085e90a93f83a26e37fe728871427fc255b04",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8bd8a28_7bc1f07e",
+        "filename": "ssl/s3_both.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 777,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-08T21:02:01Z",
+      "side": 1,
+      "message": "There is one place where we pass in raw bytes. But yeah, I\u0027m thinking it should take a Span\u003cconst uint8_t\u003e and we do something about CBS and Span\u003cconst uint8_t\u003e being two different ways to spell the same thing.",
+      "parentUuid": "bd98b591_d0abed84",
       "range": {
         "startLine": 777,
         "startChar": 24,
