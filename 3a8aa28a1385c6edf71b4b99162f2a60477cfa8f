@@ -1,0 +1,203 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d41b89b3_410fbecc",
+        "filename": "crypto/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-08-08T18:32:52Z",
+      "side": 1,
+      "message": "(nit: probably const pointer.)",
+      "range": {
+        "startLine": 487,
+        "startChar": 15,
+        "endLine": 487,
+        "endChar": 16
+      },
+      "revId": "3a8aa28a1385c6edf71b4b99162f2a60477cfa8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e505cfb0_679d76ed",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 4328,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-08-08T18:32:52Z",
+      "side": 1,
+      "message": "(nit: only one space after \"struct\".)",
+      "revId": "3a8aa28a1385c6edf71b4b99162f2a60477cfa8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba7d4367_aef9c4ad",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-08-08T18:32:52Z",
+      "side": 1,
+      "message": "This is now documented as always being nullptr, so might as well make it true here?",
+      "range": {
+        "startLine": 371,
+        "startChar": 25,
+        "endLine": 371,
+        "endChar": 28
+      },
+      "revId": "3a8aa28a1385c6edf71b4b99162f2a60477cfa8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d88cd36_20346c4e",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1606,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-08-08T18:32:52Z",
+      "side": 1,
+      "message": "I think you need to name this variable otherwise it\u0027ll be destructed immediately. For example:\n\n#include \u003cstdio.h\u003e\n\nclass Test {\n public:\n  Test() { printf(\"construct\\n\"); }\n  ~Test() { printf(\"destruct\\n\"); }\n};\n\nint main() {\n  printf(\"start\\n\");\n  Test();\n  printf(\"end\\n\");\n}\n\nprints:\n\nstart\nconstruct\ndestruct\nend\n\n(i.e. \"destruct\" occurs before \"end\".)",
+      "revId": "3a8aa28a1385c6edf71b4b99162f2a60477cfa8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b33d00b_d68b6d88",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1627,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-08-08T18:32:52Z",
+      "side": 1,
+      "message": "Also free and NULL the previous keys?",
+      "revId": "3a8aa28a1385c6edf71b4b99162f2a60477cfa8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16cbbe53_30d3b5c5",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-08-08T18:32:52Z",
+      "side": 1,
+      "message": "(ditto about naming variables.)",
+      "revId": "3a8aa28a1385c6edf71b4b99162f2a60477cfa8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5826557b_5c9d6363",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-08-08T18:32:52Z",
+      "side": 1,
+      "message": "(and here.)\n\nAlso, given that this is fairly hot, I would suggest getting the current time and testing whether rotation is needed in the read-locked section. You would need to revalidate that another thread didn\u0027t do the rotation between the read- and write-locked sections, but most of the time that should avoid the need to take an exclusive lock.",
+      "revId": "3a8aa28a1385c6edf71b4b99162f2a60477cfa8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c94fb543_842e95b6",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-08-08T18:32:52Z",
+      "side": 1,
+      "message": "Not clear that a unique_ptr buys you anything here.",
+      "revId": "3a8aa28a1385c6edf71b4b99162f2a60477cfa8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5051158_4fab6318",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-08-08T18:32:52Z",
+      "side": 1,
+      "message": "At this point, both |_prev| and |_current| are the same pointer, which would double-free in SSL_CTX_free.",
+      "revId": "3a8aa28a1385c6edf71b4b99162f2a60477cfa8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19cbfee6_a5121951",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 3008,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-08-08T18:32:52Z",
+      "side": 1,
+      "message": "out-args generally come first, unless there\u0027s a \"context\" pointer (like SSL*).",
+      "revId": "3a8aa28a1385c6edf71b4b99162f2a60477cfa8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "988c444f_b5b9a693",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 3073,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-08-08T18:32:52Z",
+      "side": 1,
+      "message": "The length check on |ticket_len| is still in |decrypto_ticket_with_cipher_ctx| so this |iv| pointer might be bogus. (Ditto below.)",
+      "revId": "3a8aa28a1385c6edf71b4b99162f2a60477cfa8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
