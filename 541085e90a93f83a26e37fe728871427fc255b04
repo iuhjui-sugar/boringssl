@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b4f4a3c4_8404a618",
+        "filename": "ssl/internal.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 1345,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-08-08T15:00:26Z",
+      "side": 1,
+      "message": "|msg|",
+      "range": {
+        "startLine": 1345,
+        "startChar": 36,
+        "endLine": 1345,
+        "endChar": 55
+      },
+      "revId": "541085e90a93f83a26e37fe728871427fc255b04",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "204f6f68_b8a586b0",
+        "filename": "ssl/internal.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 2291,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-08-08T15:00:26Z",
+      "side": 1,
+      "message": "|msg|",
+      "range": {
+        "startLine": 2291,
+        "startChar": 36,
+        "endLine": 2291,
+        "endChar": 55
+      },
+      "revId": "541085e90a93f83a26e37fe728871427fc255b04",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f603164_c8429886",
+        "filename": "ssl/s3_both.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-08-08T15:00:26Z",
+      "side": 1,
+      "message": "This function seems weird to have (maybe remove it or change its name in a future CL)",
+      "range": {
+        "startLine": 190,
+        "startChar": 4,
+        "endLine": 190,
+        "endChar": 26
+      },
+      "revId": "541085e90a93f83a26e37fe728871427fc255b04",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "220a6e1f_f53aaf6c",
+        "filename": "ssl/s3_both.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-08-08T15:00:26Z",
+      "side": 1,
+      "message": "Are the only failure conditions that the cbs isn\u0027t long enough?",
+      "range": {
+        "startLine": 707,
+        "startChar": 7,
+        "endLine": 708,
+        "endChar": 33
+      },
+      "revId": "541085e90a93f83a26e37fe728871427fc255b04",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b814ec41_5fafc2f1",
+        "filename": "ssl/s3_both.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-08-08T15:00:26Z",
+      "side": 1,
+      "message": "nit: use out",
+      "range": {
+        "startLine": 722,
+        "startChar": 9,
+        "endLine": 722,
+        "endChar": 16
+      },
+      "revId": "541085e90a93f83a26e37fe728871427fc255b04",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd98b591_d0abed84",
+        "filename": "ssl/s3_both.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 777,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-08-08T15:00:26Z",
+      "side": 1,
+      "message": "Make this take an SSLMessage?",
+      "range": {
+        "startLine": 777,
+        "startChar": 24,
+        "endLine": 777,
+        "endChar": 30
+      },
+      "revId": "541085e90a93f83a26e37fe728871427fc255b04",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
