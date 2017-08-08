@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f7354a17_3d59e8e9",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 4327,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-08-08T21:21:45Z",
+      "side": 1,
+      "message": "Consider documenting invariants. For example, it looks like |tlsext_ticket_key_current| is always non-NULL.",
+      "revId": "832968024039117a4bdf33cf72b043127da55a72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5d2b3d1_552afe4e",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-08-08T21:21:45Z",
+      "side": 1,
+      "message": "I would move getting the current time outside the lock. (It can be quite a slow operation sometimes.)",
+      "revId": "832968024039117a4bdf33cf72b043127da55a72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e420c056_77e99cc2",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-08-08T21:21:45Z",
+      "side": 1,
+      "message": "No need to get the current time twice.",
+      "revId": "832968024039117a4bdf33cf72b043127da55a72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b416065d_db065fe5",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-08-08T21:21:45Z",
+      "side": 1,
+      "message": "Probably invert the condition, return early if nothing needs to be done, and unindent the bulk of this function.",
+      "revId": "832968024039117a4bdf33cf72b043127da55a72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3cdf86f_f184c451",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 3077,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-08-08T21:21:45Z",
+      "side": 1,
+      "message": "else {\n  assert(0);\n}",
+      "revId": "832968024039117a4bdf33cf72b043127da55a72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99b145be_febf922e",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 3103,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-08-08T21:21:45Z",
+      "side": 1,
+      "message": "(nit: remove superfluous blank line.)",
+      "revId": "832968024039117a4bdf33cf72b043127da55a72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56cbc5b6_07990f40",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 3158,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-08-08T21:21:45Z",
+      "side": 1,
+      "message": "Need to name this variable.",
+      "revId": "832968024039117a4bdf33cf72b043127da55a72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
