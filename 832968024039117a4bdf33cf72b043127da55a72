@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "843e7c5d_bd994bec",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 4327,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-09T20:41:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7354a17_3d59e8e9",
+      "revId": "832968024039117a4bdf33cf72b043127da55a72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e5d2b3d1_552afe4e",
         "filename": "ssl/ssl_session.cc",
         "patchSetId": 8
@@ -33,6 +51,24 @@
       "revId": "832968024039117a4bdf33cf72b043127da55a72",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8e10b7e_ce89d950",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-09T20:41:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5d2b3d1_552afe4e",
+      "revId": "832968024039117a4bdf33cf72b043127da55a72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "6c3b6ed1_1bea4c03",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-09T20:41:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e420c056_77e99cc2",
+      "revId": "832968024039117a4bdf33cf72b043127da55a72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b416065d_db065fe5",
         "filename": "ssl/ssl_session.cc",
         "patchSetId": 8
@@ -67,6 +121,24 @@
       "revId": "832968024039117a4bdf33cf72b043127da55a72",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94d74f14_5e3884e5",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-09T20:41:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b416065d_db065fe5",
+      "revId": "832968024039117a4bdf33cf72b043127da55a72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "5f3e43ee_a2140074",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 3077,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-09T20:41:24Z",
+      "side": 1,
+      "message": "\"assert(cb_ret \u003d\u003d 1)\" because that\u0027s not covered by any of the other ifs.",
+      "parentUuid": "f3cdf86f_f184c451",
+      "revId": "832968024039117a4bdf33cf72b043127da55a72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99b145be_febf922e",
         "filename": "ssl/t1_lib.cc",
         "patchSetId": 8
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "601b12fe_002658a1",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 3103,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-09T20:41:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99b145be_febf922e",
+      "revId": "832968024039117a4bdf33cf72b043127da55a72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "56cbc5b6_07990f40",
         "filename": "ssl/t1_lib.cc",
         "patchSetId": 8
@@ -118,6 +226,24 @@
       "revId": "832968024039117a4bdf33cf72b043127da55a72",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4c71026_c08c60d7",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 3158,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-09T20:41:24Z",
+      "side": 1,
+      "message": "Done (This actually deadlocked with the key rotation in decrypt(), so I had to move it there.)",
+      "parentUuid": "56cbc5b6_07990f40",
+      "revId": "832968024039117a4bdf33cf72b043127da55a72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
