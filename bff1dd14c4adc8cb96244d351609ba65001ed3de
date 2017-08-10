@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "17509ee5_1b892fc6",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-10T18:25:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4311f237_a09281e5",
+      "revId": "bff1dd14c4adc8cb96244d351609ba65001ed3de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d8fbdfc_fa66d0ba",
         "filename": "ssl/ssl_lib.cc",
         "patchSetId": 9
@@ -33,6 +51,24 @@
       "revId": "bff1dd14c4adc8cb96244d351609ba65001ed3de",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15d12264_22170d79",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1600,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-10T18:25:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d8fbdfc_fa66d0ba",
+      "revId": "bff1dd14c4adc8cb96244d351609ba65001ed3de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "52746d09_c2b3249e",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1602,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-10T18:25:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4487ec4_a48ea916",
+      "revId": "bff1dd14c4adc8cb96244d351609ba65001ed3de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ac1850d_a0678d39",
         "filename": "ssl/ssl_lib.cc",
         "patchSetId": 9
@@ -67,6 +121,24 @@
       "revId": "bff1dd14c4adc8cb96244d351609ba65001ed3de",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7712e07_a9ff9070",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1622,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-10T18:25:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ac1850d_a0678d39",
+      "revId": "bff1dd14c4adc8cb96244d351609ba65001ed3de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "9e8171fc_1ed7a348",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-10T18:25:31Z",
+      "side": 1,
+      "message": "Yeah, I decided to only really implemented next_rotation_tv_sec for the current key. (The \u003c operator on l466 is wrong, it should be \u003e; or better \"ctx-\u003etlsext_ticket_key_current-\u003enext_rotation_tv_sec + SSL_DEFAULT_TICKET_KEY_ROTATION_INTERVAL \u003e now.tv_sec\").\n\nI guess we may as well rotate prev accurately.\n\nDone.",
+      "parentUuid": "fd92044c_76bfe484",
+      "revId": "bff1dd14c4adc8cb96244d351609ba65001ed3de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5be438db_551ee228",
         "filename": "ssl/ssl_session.cc",
         "patchSetId": 9
@@ -101,6 +191,24 @@
       "revId": "bff1dd14c4adc8cb96244d351609ba65001ed3de",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b0f9e9d_fc2d21e0",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-10T18:25:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5be438db_551ee228",
+      "revId": "bff1dd14c4adc8cb96244d351609ba65001ed3de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -127,6 +235,30 @@
     },
     {
       "key": {
+        "uuid": "96b24b8b_2d999ffd",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2581,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-10T18:25:31Z",
+      "side": 1,
+      "message": "Yeah, I think std::numeric_limits is the preferred way in C++. Done.",
+      "parentUuid": "aab0b84c_c3f6de1c",
+      "range": {
+        "startLine": 2581,
+        "startChar": 40,
+        "endLine": 2581,
+        "endChar": 50
+      },
+      "revId": "bff1dd14c4adc8cb96244d351609ba65001ed3de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4636cdc8_1a36ac49",
         "filename": "ssl/t1_lib.cc",
         "patchSetId": 9
@@ -141,6 +273,24 @@
       "revId": "bff1dd14c4adc8cb96244d351609ba65001ed3de",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecdd0f65_9e175465",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 3096,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-10T18:25:31Z",
+      "side": 1,
+      "message": "I\u0027ve had a readability reviewer flag it IIRC. But currently cstyle allows [\u0026] if the lambda lifetime is obviously shorter than what it potentially captures. So IMHO it would be fine here. OTOH, writing it out explicitly doesn\u0027t hurt either.",
+      "parentUuid": "4636cdc8_1a36ac49",
+      "revId": "bff1dd14c4adc8cb96244d351609ba65001ed3de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
