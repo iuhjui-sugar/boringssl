@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1b6d12_5c2ca2a0",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1420,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-10T16:58:11Z",
+      "side": 1,
+      "message": "Nit: The ordering here is kind of a mess regardless, but I\u0027d suggest putting this with the other SkipFoo settings.",
+      "revId": "359e8fe4b674fe5f0bd764535414b97bb13ea427",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fe027eb_2c288a7f",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 977,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-10T16:58:11Z",
+      "side": 1,
+      "message": "if !c.config.Bugs.SkipCertificateVerify {\n\n(You could probably also move this check to line 952 as \u0026\u0026 !c.config.Bugs.SkipCertificateVerify, but this works too.)",
+      "revId": "359e8fe4b674fe5f0bd764535414b97bb13ea427",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cab4b92f_ef6c5cc2",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1205,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-10T16:58:11Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "359e8fe4b674fe5f0bd764535414b97bb13ea427",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "646ad918_aa6912cd",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 866,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-10T16:58:11Z",
+      "side": 1,
+      "message": "if !config.Bugs.SkipCertificateVerify",
+      "revId": "359e8fe4b674fe5f0bd764535414b97bb13ea427",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58832cfd_5b977538",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1526,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-10T16:58:11Z",
+      "side": 1,
+      "message": "Optional: -cert-file and -key-file can be omitted if they don\u0027t really matter for the test. It\u0027ll put in a default for a server.",
+      "revId": "359e8fe4b674fe5f0bd764535414b97bb13ea427",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "194b6c81_6e49e34d",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1527,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-10T16:58:11Z",
+      "side": 1,
+      "message": "This flag can be removed. It doesn\u0027t do anything if the handshake fails.",
+      "revId": "359e8fe4b674fe5f0bd764535414b97bb13ea427",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c50b7674_91acfab5",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 11889,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-10T16:58:11Z",
+      "side": 1,
+      "message": "Ditto on the above three flags.",
+      "revId": "359e8fe4b674fe5f0bd764535414b97bb13ea427",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4625e88c_c426b0d5",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 11911,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-10T16:58:11Z",
+      "side": 1,
+      "message": "No need for -expect-peer-cert-file, though you do need to specify -cert-file and -key-file for a client.",
+      "revId": "359e8fe4b674fe5f0bd764535414b97bb13ea427",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
