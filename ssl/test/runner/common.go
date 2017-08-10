@@ -1414,6 +1414,10 @@ type ProtocolBugs struct {
 	// ExpectRecordSplitting, if true, causes application records to only be
 	// accepted if they follow a 1/n-1 record split.
 	ExpectRecordSplitting bool
+
+	// SkipCertificateVerify, if true causes peer to skip sending a
+	// CertificateVerify message after the Certificate message.
+	SkipCertificateVerify bool
 }
 
 func (c *Config) serverInit() {
