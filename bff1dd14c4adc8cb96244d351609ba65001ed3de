@@ -104,6 +104,29 @@
     },
     {
       "key": {
+        "uuid": "aab0b84c_c3f6de1c",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2581,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-10T00:31:33Z",
+      "side": 1,
+      "message": "Oh, the CQ hates you because you\u0027re running into the stupid NDK bug. Find another file that does the __STDC_LIMIT_MACROS thing and copy the top of it.\n\nAlternatively, std::numeric_limits\u003cuint32_t\u003e::max() should also work.",
+      "range": {
+        "startLine": 2581,
+        "startChar": 40,
+        "endLine": 2581,
+        "endChar": 50
+      },
+      "revId": "bff1dd14c4adc8cb96244d351609ba65001ed3de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4636cdc8_1a36ac49",
         "filename": "ssl/t1_lib.cc",
         "patchSetId": 9
