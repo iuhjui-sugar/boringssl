@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4311f237_a09281e5",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-10T00:19:55Z",
+      "side": 1,
+      "message": "You can actually omit these two since the structure is memset to zero.",
+      "revId": "bff1dd14c4adc8cb96244d351609ba65001ed3de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d8fbdfc_fa66d0ba",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1600,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-10T00:19:55Z",
+      "side": 1,
+      "message": "I think this check wants to be protected by MutexReadLock. If you race with ssl_ctx_rotate_ticket_encryption_key, you might be reading it while the other thread is writing to the pointer to swap.\n\nIn which case, this can probably just be:\n\n  /* The default ticket keys are initialized lazily. Trigger a key\n   * rotation to initialize them. */\n  if (!ssl_ctx_rotate_ticket_encryption_key(ctx)) {\n    return 0;\n  }\n\nSince it already internally does the read lock \u003d\u003e write lock thing.",
+      "revId": "bff1dd14c4adc8cb96244d351609ba65001ed3de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4487ec4_a48ea916",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1602,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-10T00:19:55Z",
+      "side": 1,
+      "message": "Mind adding a brief test to assert that:\n\n  SSL_CTX_new()\n  SSL_CTX_get_tlsext_ticket_keys()\n\nwill give back actual keys? Node actually relies on this it seems. (Although they call it in some code to replicate keys from one SSL_CTX to the rest in a cluster, so it isn\u0027t ideal for them. But better return a key than all zeros or something.)",
+      "revId": "bff1dd14c4adc8cb96244d351609ba65001ed3de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ac1850d_a0678d39",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1622,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-10T00:19:55Z",
+      "side": 1,
+      "message": "Check for malloc failure.",
+      "revId": "bff1dd14c4adc8cb96244d351609ba65001ed3de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd92044c_76bfe484",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-10T00:19:55Z",
+      "side": 1,
+      "message": "This never actually looks at or sets tlsext_ticket_key_prev\u0027s next_rotation_tv_sec. If you want to only keep _prev around if it hasn\u0027t been forever ago, I guess you want to increment the current -\u003e prev key by SSL_DEFAULT_TICKET_KEY_ROTATION_INTERVAL and, if still before now.tv_sec, throw it away completely.\n\n(Or we could decide that case isn\u0027t really worth caring about and lift next_rotation_tv_sec up to ctx.)",
+      "revId": "bff1dd14c4adc8cb96244d351609ba65001ed3de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5be438db_551ee228",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-10T00:19:55Z",
+      "side": 1,
+      "message": "MutexReadLock",
+      "revId": "bff1dd14c4adc8cb96244d351609ba65001ed3de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4636cdc8_1a36ac49",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 3096,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-10T00:19:55Z",
+      "side": 1,
+      "message": "Haha, our first lambda! :-) As long as linux_shared doesn\u0027t explode, it should (hopefully!) be fine runtime-wise.\n\n(Does Google C++ encourage or discourage [\u0026] in this context? It\u0027d save duplicating a list of captured values, but I dunno if that\u0027s considered a bug or feature.)",
+      "revId": "bff1dd14c4adc8cb96244d351609ba65001ed3de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
