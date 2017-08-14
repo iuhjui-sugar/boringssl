@@ -393,7 +393,7 @@ int ssl3_accept(SSL_HANDSHAKE *hs) {
 
       case SSL_ST_TLS13: {
         int early_return = 0;
-        ret = tls13_handshake(hs, &early_return);
+        ret = tls_handshake(hs, &early_return);
         if (ret <= 0) {
           goto end;
         }
@@ -781,7 +781,7 @@ static int ssl3_select_certificate(SSL_HANDSHAKE *hs) {
   if (ssl3_protocol_version(ssl) >= TLS1_3_VERSION) {
     /* Jump to the TLS 1.3 state machine. */
     hs->state = SSL_ST_TLS13;
-    hs->do_tls13_handshake = tls13_server_handshake;
+    hs->do_tls_handshake = tls13_server_handshake;
     return 1;
   }
 
