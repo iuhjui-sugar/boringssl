@@ -22,6 +22,30 @@
       "revId": "b265fa16ed3628b4639504780ce7035738e072d5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c65b000e_fb55b089",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-14T19:06:56Z",
+      "side": 1,
+      "message": "Er, yeah, I wasn\u0027t paying enough attention. I\u0027ll just grab whatever the latest 1.1.0 release is I guess, in case someone else tries to check minor versions again. *shrug*",
+      "parentUuid": "7df000b6_c1985ca0",
+      "range": {
+        "startLine": 141,
+        "startChar": 31,
+        "endLine": 141,
+        "endChar": 41
+      },
+      "revId": "b265fa16ed3628b4639504780ce7035738e072d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
