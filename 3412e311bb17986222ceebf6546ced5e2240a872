@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "402f7487_d1571236",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-08-14T18:33:23Z",
+      "side": 1,
+      "message": "Ah, I hadn\u0027t understood the semantics of the rotation time for the prev key. Makes sense.",
+      "parentUuid": "33d3d3ac_a690b3de",
+      "range": {
+        "startLine": 449,
+        "startChar": 76,
+        "endLine": 449,
+        "endChar": 78
+      },
+      "revId": "3412e311bb17986222ceebf6546ced5e2240a872",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "896a5315_d17b7fde",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 12
