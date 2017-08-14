@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa08f799_229789bd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-14T19:02:11Z",
+      "side": 1,
+      "message": "Mind adding Bug: 183 and something like:\n\nThis loosens the earlier restriction to match Channel ID. Both may be\nconfigured and offered, but the server is obligated to select only one\nof them. This aligns with the current tokbind + 0-RTT draft where the\ncombination is signaled by a separate extension.",
+      "revId": "f7b66632fc22414b84a187aa80949e07278f103a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebe278b6_1a63fae3",
+        "filename": "crypto/err/ssl.errordata",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-14T19:02:11Z",
+      "side": 1,
+      "message": "Mind deleting this line and re-running make_errors.go? Not sure if it matters or is just a stylistic thing, but these aren\u0027t sorted anymore.",
+      "revId": "f7b66632fc22414b84a187aa80949e07278f103a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "174bed31_b9a81cc6",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 8900,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-14T19:02:11Z",
+      "side": 1,
+      "message": "I\u0027m assuming this was a stray change (TLS 1.2 + MaxEarlyDataSize won\u0027t do anything anyway).",
+      "revId": "f7b66632fc22414b84a187aa80949e07278f103a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1d30f05_ed471258",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 9004,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-14T19:02:11Z",
+      "side": 1,
+      "message": "Nit: This is enough of them that one per line may be easier to read. Ditto below.",
+      "revId": "f7b66632fc22414b84a187aa80949e07278f103a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "301f4002_163f5747",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-14T19:02:11Z",
+      "side": 1,
+      "message": "Nit: This is a bitmask, so maybe \u003d\u003d 0?",
+      "revId": "f7b66632fc22414b84a187aa80949e07278f103a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
