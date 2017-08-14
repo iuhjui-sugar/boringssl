@@ -1070,12 +1070,16 @@ int tls13_verify_psk_binder(SSL_HANDSHAKE *hs, SSL_SESSION *session,
 enum ssl_hs_wait_t {
   ssl_hs_error,
   ssl_hs_ok,
+  ssl_hs_read_server_hello,
   ssl_hs_read_message,
   ssl_hs_flush,
+  ssl_hs_certificate_selection_pending,
   ssl_hs_x509_lookup,
   ssl_hs_channel_id_lookup,
   ssl_hs_private_key_operation,
+  ssl_hs_pending_session,
   ssl_hs_pending_ticket,
+  ssl_hs_early_return,
   ssl_hs_early_data_rejected,
   ssl_hs_read_end_of_early_data,
   ssl_hs_read_change_cipher_spec,
@@ -1090,23 +1094,26 @@ struct SSL_HANDSHAKE {
   /* ssl is a non-owning pointer to the parent |SSL| object. */
   SSL *ssl;
 
-  /* do_tls13_handshake runs the TLS 1.3 handshake. On completion, it returns
+  /* do_tls_handshake runs the TLS handshake. On completion, it returns
    * |ssl_hs_ok|. Otherwise, it returns a value corresponding to what operation
    * is needed to progress. */
-  enum ssl_hs_wait_t (*do_tls13_handshake)(SSL_HANDSHAKE *hs);
+  enum ssl_hs_wait_t (*do_tls_handshake)(SSL_HANDSHAKE *hs);
 
-  /* wait contains the operation |do_tls13_handshake| is currently blocking on
-   * or |ssl_hs_ok| if none. */
+  /* wait contains the operation the handshake is currently blocking on or
+   * |ssl_hs_ok| if none. */
   enum ssl_hs_wait_t wait = ssl_hs_ok;
 
-  /* state contains one of the SSL3_ST_* values. */
+  /* state is either SSL_ST_INIT, SSL_ST_HANDSHAKE, or SSL_ST_OK, representing
+   * the state of the handsake. */
   int state = SSL_ST_INIT;
 
-  /* next_state is used when SSL_ST_FLUSH_DATA is entered */
-  int next_state = 0;
+  /* tls_state is the internal state for the TLS 1.2 and below handshake. Its
+   * values depend on |do_tls_handshake| but the starting state is always
+   * zero. */
+  int tls_state = 0;
 
   /* tls13_state is the internal state for the TLS 1.3 handshake. Its values
-   * depend on |do_tls13_handshake| but the starting state is always zero. */
+   * depend on |do_tls_handshake| but the starting state is always zero. */
   int tls13_state = 0;
 
   /* min_version is the minimum accepted protocol version, taking account both
@@ -1324,13 +1331,15 @@ void ssl_handshake_free(SSL_HANDSHAKE *hs);
  * one. Otherwise, it sends an alert and returns zero. */
 int ssl_check_message_type(SSL *ssl, const SSLMessage &msg, int type);
 
-/* tls13_handshake runs the TLS 1.3 handshake. It returns one on success and <=
+/* tls_handshake runs the TLS handshake. It returns one on success and <=
  * 0 on error. It sets |out_early_return| to one if we've completed the
  * handshake early. */
-int tls13_handshake(SSL_HANDSHAKE *hs, int *out_early_return);
+int tls_handshake(SSL_HANDSHAKE *hs, int *out_early_return);
 
-/* The following are implementations of |do_tls13_handshake| for the client and
- * server. */
+/* The following are implementations of |do_tls_handshake| for the client and
+ * server for TLS 1.2 and below and TLS 1.3. */
+enum ssl_hs_wait_t tls_client_handshake(SSL_HANDSHAKE *hs);
+enum ssl_hs_wait_t tls_server_handshake(SSL_HANDSHAKE *hs);
 enum ssl_hs_wait_t tls13_client_handshake(SSL_HANDSHAKE *hs);
 enum ssl_hs_wait_t tls13_server_handshake(SSL_HANDSHAKE *hs);
 
