@@ -46,6 +46,30 @@
       "revId": "b265fa16ed3628b4639504780ce7035738e072d5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c88c1f0_ce419d32",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5885
+      },
+      "writtenOn": "2017-08-14T19:13:46Z",
+      "side": 1,
+      "message": "The previous issue, which Alessandro fixed in https://boringssl-review.googlesource.com/c/11440, was that BoringSSL used 0x10002000 and not a real release number (i.e. 0x1000200f for 1.0.2 release), so I think using 0x1010000f and not \"latest\" is fine and probably more accurate.\n\nFWIW, NGINX is checking if OPENSSL_VERSION_NUMBER \u003e 0x10100003 (i.e. 1.1.0-pre3-dev).",
+      "parentUuid": "c65b000e_fb55b089",
+      "range": {
+        "startLine": 141,
+        "startChar": 31,
+        "endLine": 141,
+        "endChar": 41
+      },
+      "revId": "b265fa16ed3628b4639504780ce7035738e072d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
