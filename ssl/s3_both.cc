@@ -396,7 +396,7 @@ int ssl3_send_finished(SSL_HANDSHAKE *hs) {
     if (finished_len > sizeof(ssl->s3->previous_client_finished) ||
         finished_len > sizeof(ssl->s3->previous_server_finished)) {
       OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
-      return -1;
+      return 0;
     }
 
     if (ssl->server) {
@@ -414,22 +414,21 @@ int ssl3_send_finished(SSL_HANDSHAKE *hs) {
       !CBB_add_bytes(&body, finished, finished_len) ||
       !ssl_add_message_cbb(ssl, cbb.get())) {
     OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
-    return -1;
+    return 0;
   }
 
   return 1;
 }
 
-int ssl3_get_finished(SSL_HANDSHAKE *hs) {
+enum ssl_hs_wait_t ssl3_get_finished(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
   SSLMessage msg;
-  int ret = ssl_read_message(ssl, &msg);
-  if (ret <= 0) {
-    return ret;
+  if (!ssl->method->get_message(ssl, &msg)) {
+    return ssl_hs_read_message;
   }
 
   if (!ssl_check_message_type(ssl, msg, SSL3_MT_FINISHED)) {
-    return -1;
+    return ssl_hs_error;
   }
 
   /* Snapshot the finished hash before incorporating the new message. */
@@ -439,7 +438,7 @@ int ssl3_get_finished(SSL_HANDSHAKE *hs) {
                                      SSL_get_session(ssl), !ssl->server,
                                      ssl3_protocol_version(ssl)) ||
       !ssl_hash_message(hs, msg)) {
-    return -1;
+    return ssl_hs_error;
   }
 
   int finished_ok = CBS_mem_equal(&msg.body, finished, finished_len);
@@ -449,7 +448,7 @@ int ssl3_get_finished(SSL_HANDSHAKE *hs) {
   if (!finished_ok) {
     ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECRYPT_ERROR);
     OPENSSL_PUT_ERROR(SSL, SSL_R_DIGEST_CHECK_FAILED);
-    return -1;
+    return ssl_hs_error;
   }
 
   /* Copy the Finished so we can use it for renegotiation checks. */
@@ -457,7 +456,7 @@ int ssl3_get_finished(SSL_HANDSHAKE *hs) {
     if (finished_len > sizeof(ssl->s3->previous_client_finished) ||
         finished_len > sizeof(ssl->s3->previous_server_finished)) {
       OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
-      return -1;
+      return ssl_hs_error;
     }
 
     if (ssl->server) {
@@ -470,7 +469,7 @@ int ssl3_get_finished(SSL_HANDSHAKE *hs) {
   }
 
   ssl->method->next_message(ssl);
-  return 1;
+  return ssl_hs_ok;
 }
 
 int ssl3_output_cert_chain(SSL *ssl) {
@@ -514,16 +513,6 @@ size_t ssl_max_handshake_message_len(const SSL *ssl) {
   /* Clients must accept NewSessionTicket and CertificateRequest, so allow the
    * default size. */
   return kMaxMessageLen;
-}
-
-int ssl_read_message(SSL *ssl, SSLMessage *out) {
-  while (!ssl->method->get_message(ssl, out)) {
-    int ret = ssl->method->read_message(ssl);
-    if (ret <= 0) {
-      return ret;
-    }
-  }
-  return 1;
 }
 
 static int extend_handshake_buffer(SSL *ssl, size_t length) {
