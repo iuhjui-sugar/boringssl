@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7df000b6_c1985ca0",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5885
+      },
+      "writtenOn": "2017-08-14T02:02:28Z",
+      "side": 1,
+      "message": "0x101000af translates to 1.1.0j (which wasn\u0027t even released yet).\n\nPerhaps you meant 0x1010000f (i.e. 1.1.0 release)?",
+      "range": {
+        "startLine": 141,
+        "startChar": 31,
+        "endLine": 141,
+        "endChar": 41
+      },
+      "revId": "b265fa16ed3628b4639504780ce7035738e072d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
