@@ -220,11 +220,11 @@ static int print_nc_ipadd(BIO *bp, ASN1_OCTET_STRING *ip)
  * X509_V_ERR_PERMITTED_VIOLATION: Permitted subtree violation.
  * X509_V_ERR_EXCLUDED_VIOLATION: Excluded subtree violation.
  * X509_V_ERR_SUBTREE_MINMAX: Min or max values present and matching type.
+ * X509_V_ERR_UNSPECIFIED: Unspecified error.
  * X509_V_ERR_UNSUPPORTED_CONSTRAINT_TYPE: Unsupported constraint type.
- * X509_V_ERR_UNSUPPORTED_CONSTRAINT_SYNTAX: bad unsupported constraint
- * syntax.  X509_V_ERR_UNSUPPORTED_NAME_SYNTAX: bad or unsupported syntax of
- * name
- *
+ * X509_V_ERR_UNSUPPORTED_CONSTRAINT_SYNTAX: Bad unsupported constraint
+ * syntax.
+ * X509_V_ERR_UNSUPPORTED_NAME_SYNTAX: Bad or unsupported syntax of name.
  */
 
 int NAME_CONSTRAINTS_check(X509 *x, NAME_CONSTRAINTS *nc)
@@ -234,6 +234,22 @@ int NAME_CONSTRAINTS_check(X509 *x, NAME_CONSTRAINTS *nc)
     X509_NAME *nm;
 
     nm = X509_get_subject_name(x);
+
+    /* Guard against certificates with an excessive number of names or
+     * constraints causing a computationally expensive name constraints check.
+     */
+    int name_count =
+        X509_NAME_entry_count(nm) + sk_GENERAL_NAME_num(x->altname);
+    size_t constraint_count = sk_GENERAL_SUBTREE_num(nc->permittedSubtrees) +
+                              sk_GENERAL_SUBTREE_num(nc->excludedSubtrees);
+    size_t check_count = constraint_count * (size_t)name_count;
+    if (name_count < X509_NAME_entry_count(nm) ||
+        constraint_count < sk_GENERAL_SUBTREE_num(nc->permittedSubtrees) ||
+        (constraint_count &&
+         check_count / constraint_count != (size_t)name_count) ||
+        check_count > 1<<20) {
+        return X509_V_ERR_UNSPECIFIED;
+    }
 
     if (X509_NAME_entry_count(nm) > 0) {
         GENERAL_NAME gntmp;
