@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "33d3d3ac_a690b3de",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-14T18:23:00Z",
+      "side": 1,
+      "message": "I don\u0027t think so. This tests \"if the current key has been initialized, and it is still fresh, and (we have no prev key or it is also fresh), then return early (because neither current nor prev need to be initialized/rotated)\".",
+      "parentUuid": "158d8aff_91d83424",
+      "range": {
+        "startLine": 449,
+        "startChar": 76,
+        "endLine": 449,
+        "endChar": 78
+      },
+      "revId": "3412e311bb17986222ceebf6546ced5e2240a872",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "896a5315_d17b7fde",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 12
@@ -39,6 +63,24 @@
       "revId": "3412e311bb17986222ceebf6546ced5e2240a872",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d004d90_88207cfb",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-14T18:23:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "896a5315_d17b7fde",
+      "revId": "3412e311bb17986222ceebf6546ced5e2240a872",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "6b62e89f_57f9fc0f",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-14T18:23:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5916eeb7_f2fe38fa",
+      "revId": "3412e311bb17986222ceebf6546ced5e2240a872",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "14c2385d_6f8ae9d4",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 12
@@ -73,6 +133,24 @@
       "revId": "3412e311bb17986222ceebf6546ced5e2240a872",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fc5ccb4_9d9245c5",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-14T18:23:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14c2385d_6f8ae9d4",
+      "revId": "3412e311bb17986222ceebf6546ced5e2240a872",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -96,6 +174,30 @@
       "revId": "3412e311bb17986222ceebf6546ced5e2240a872",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e294411_fdb6f1e5",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 2569,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-14T18:23:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f2c8095_c01f5225",
+      "range": {
+        "startLine": 2569,
+        "startChar": 23,
+        "endLine": 2569,
+        "endChar": 31
+      },
+      "revId": "3412e311bb17986222ceebf6546ced5e2240a872",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
