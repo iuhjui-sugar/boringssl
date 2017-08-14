@@ -1076,6 +1076,8 @@ enum ssl_hs_wait_t {
   ssl_hs_channel_id_lookup,
   ssl_hs_private_key_operation,
   ssl_hs_pending_ticket,
+  ssl_hs_early_wait,
+  ssl_hs_early_return,
   ssl_hs_early_data_rejected,
   ssl_hs_read_end_of_early_data,
   ssl_hs_read_change_cipher_spec,
@@ -1090,13 +1092,18 @@ struct SSL_HANDSHAKE {
   /* ssl is a non-owning pointer to the parent |SSL| object. */
   SSL *ssl;
 
+  /* do_tls_handshake runs the TLS handshake. On completion, it returns
+   * |ssl_hs_ok|. Otherwise, it returns a value corresponding to what operation
+   * is needed to progress. */
+  enum ssl_hs_wait_t (*do_tls_handshake)(SSL_HANDSHAKE *hs);
+
   /* do_tls13_handshake runs the TLS 1.3 handshake. On completion, it returns
    * |ssl_hs_ok|. Otherwise, it returns a value corresponding to what operation
    * is needed to progress. */
   enum ssl_hs_wait_t (*do_tls13_handshake)(SSL_HANDSHAKE *hs);
 
-  /* wait contains the operation |do_tls13_handshake| is currently blocking on
-   * or |ssl_hs_ok| if none. */
+  /* wait contains the operation the handshake is currently blocking on or
+   * |ssl_hs_ok| if none. */
   enum ssl_hs_wait_t wait = ssl_hs_ok;
 
   /* state contains one of the SSL3_ST_* values. */
@@ -1104,6 +1111,10 @@ struct SSL_HANDSHAKE {
 
   /* next_state is used when SSL_ST_FLUSH_DATA is entered */
   int next_state = 0;
+
+  /* tls13_state is the internal state for the TLS handshake. Its values depend
+   * on |do_tls_handshake| but the starting state is always zero. */
+  int tls_state = 0;
 
   /* tls13_state is the internal state for the TLS 1.3 handshake. Its values
    * depend on |do_tls13_handshake| but the starting state is always zero. */
@@ -1324,10 +1335,19 @@ void ssl_handshake_free(SSL_HANDSHAKE *hs);
  * one. Otherwise, it sends an alert and returns zero. */
 int ssl_check_message_type(SSL *ssl, const SSLMessage &msg, int type);
 
+/* tls13_handshake runs the TLS handshake. It returns one on success and <=
+ * 0 on error. It sets |out_early_return| to one if we've completed the
+ * handshake early. */
+int tls_handshake(SSL_HANDSHAKE *hs, int *out_early_return);
+
 /* tls13_handshake runs the TLS 1.3 handshake. It returns one on success and <=
  * 0 on error. It sets |out_early_return| to one if we've completed the
  * handshake early. */
 int tls13_handshake(SSL_HANDSHAKE *hs, int *out_early_return);
+
+/* The following are implementations of |do_tls_handshake| for the client and
+ * server. */
+enum ssl_hs_wait_t tls_client_handshake(SSL_HANDSHAKE *hs);
 
 /* The following are implementations of |do_tls13_handshake| for the client and
  * server. */
