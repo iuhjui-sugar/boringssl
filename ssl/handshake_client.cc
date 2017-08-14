@@ -172,8 +172,6 @@
 
 namespace bssl {
 
-static int ssl3_send_client_hello(SSL_HANDSHAKE *hs);
-static int dtls1_get_hello_verify_request(SSL_HANDSHAKE *hs);
 static int ssl3_get_server_hello(SSL_HANDSHAKE *hs);
 static int ssl3_get_server_certificate(SSL_HANDSHAKE *hs);
 static int ssl3_get_cert_status(SSL_HANDSHAKE *hs);
@@ -198,64 +196,23 @@ int ssl3_connect(SSL_HANDSHAKE *hs) {
     int state = hs->state;
 
     switch (hs->state) {
-      case SSL_ST_INIT:
+      case SSL_ST_INIT: {
         ssl_do_info_callback(ssl, SSL_CB_HANDSHAKE_START, 1);
-        hs->state = SSL3_ST_CW_CLNT_HELLO_A;
-        break;
-
-      case SSL3_ST_CW_CLNT_HELLO_A:
-        ret = ssl3_send_client_hello(hs);
+        hs->do_tls_handshake = tls_client_handshake;
+        int early_return = 0;
+        ret = tls_handshake(hs, &early_return);
         if (ret <= 0) {
           goto end;
         }
 
-        if (!SSL_is_dtls(ssl) || ssl->d1->send_cookie) {
-          if (hs->early_data_offered) {
-            if (!tls13_init_early_key_schedule(hs) ||
-                !tls13_advance_key_schedule(hs, ssl->session->master_key,
-                                            ssl->session->master_key_length) ||
-                !tls13_derive_early_secrets(hs) ||
-                !tls13_set_traffic_key(ssl, evp_aead_seal,
-                                       hs->early_traffic_secret,
-                                       hs->hash_len)) {
-              ret = -1;
-              goto end;
-            }
-            hs->next_state = SSL3_ST_WRITE_EARLY_DATA;
-          } else {
-            hs->next_state = SSL3_ST_CR_SRVR_HELLO_A;
-          }
-        } else {
-          hs->next_state = DTLS1_ST_CR_HELLO_VERIFY_REQUEST_A;
-        }
-        hs->state = SSL3_ST_CW_FLUSH;
-        break;
-
-      case DTLS1_ST_CR_HELLO_VERIFY_REQUEST_A:
-        assert(SSL_is_dtls(ssl));
-        ret = dtls1_get_hello_verify_request(hs);
-        if (ret <= 0) {
+        if (early_return) {
+          ret = 1;
           goto end;
         }
-        if (ssl->d1->send_cookie) {
-          hs->state = SSL3_ST_CW_CLNT_HELLO_A;
-        } else {
-          hs->state = SSL3_ST_CR_SRVR_HELLO_A;
-        }
-        break;
-
-      case SSL3_ST_WRITE_EARLY_DATA:
-        /* Stash the early data session, so connection properties may be queried
-         * out of it. */
-        hs->in_early_data = 1;
-        SSL_SESSION_up_ref(ssl->session);
-        hs->early_session.reset(ssl->session);
 
         hs->state = SSL3_ST_CR_SRVR_HELLO_A;
-        hs->can_early_write = 1;
-        ret = 1;
-        goto end;
-
+        break;
+      }
       case SSL3_ST_CR_SRVR_HELLO_A:
         ret = ssl3_get_server_hello(hs);
         if (hs->state == SSL_ST_TLS13) {
@@ -701,99 +658,6 @@ int ssl_write_client_hello(SSL_HANDSHAKE *hs) {
   }
 
   return ssl->method->add_message(ssl, msg, len);
-}
-
-static int ssl3_send_client_hello(SSL_HANDSHAKE *hs) {
-  SSL *const ssl = hs->ssl;
-  /* The handshake buffer is reset on every ClientHello. Notably, in DTLS, we
-   * may send multiple ClientHellos if we receive HelloVerifyRequest. */
-  if (!hs->transcript.Init()) {
-    OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
-    return -1;
-  }
-
-  /* Freeze the version range. */
-  if (!ssl_get_version_range(ssl, &hs->min_version, &hs->max_version)) {
-    return -1;
-  }
-
-  /* Always advertise the ClientHello version from the original maximum version,
-   * even on renegotiation. The static RSA key exchange uses this field, and
-   * some servers fail when it changes across handshakes. */
-  if (SSL_is_dtls(hs->ssl)) {
-    hs->client_version =
-        hs->max_version >= TLS1_2_VERSION ? DTLS1_2_VERSION : DTLS1_VERSION;
-  } else {
-    hs->client_version =
-        hs->max_version >= TLS1_2_VERSION ? TLS1_2_VERSION : hs->max_version;
-  }
-
-  /* If the configured session has expired or was created at a disabled
-   * version, drop it. */
-  if (ssl->session != NULL) {
-    if (ssl->session->is_server ||
-        !ssl_supports_version(hs, ssl->session->ssl_version) ||
-        (ssl->session->session_id_length == 0 &&
-         ssl->session->tlsext_ticklen == 0) ||
-        ssl->session->not_resumable ||
-        !ssl_session_is_time_valid(ssl, ssl->session)) {
-      ssl_set_session(ssl, NULL);
-    }
-  }
-
-  /* If resending the ClientHello in DTLS after a HelloVerifyRequest, don't
-   * renegerate the client_random. The random must be reused. */
-  if ((!SSL_is_dtls(ssl) || !ssl->d1->send_cookie) &&
-      !RAND_bytes(ssl->s3->client_random, sizeof(ssl->s3->client_random))) {
-    return -1;
-  }
-
-  /* Initialize a random session ID for the experimental TLS 1.3 variant
-   * requiring a session id. */
-  if (ssl->tls13_variant == tls13_experiment) {
-    hs->session_id_len = sizeof(hs->session_id);
-    if (!RAND_bytes(hs->session_id, hs->session_id_len)) {
-      return -1;
-    }
-  }
-
-  if (!ssl_write_client_hello(hs)) {
-    return -1;
-  }
-
-  return 1;
-}
-
-static int dtls1_get_hello_verify_request(SSL_HANDSHAKE *hs) {
-  SSL *const ssl = hs->ssl;
-  SSLMessage msg;
-  int ret = ssl_read_message(ssl, &msg);
-  if (ret <= 0) {
-    return ret;
-  }
-
-  if (msg.type != DTLS1_MT_HELLO_VERIFY_REQUEST) {
-    ssl->d1->send_cookie = false;
-    return 1;
-  }
-
-  CBS hello_verify_request = msg.body, cookie;
-  uint16_t server_version;
-  if (!CBS_get_u16(&hello_verify_request, &server_version) ||
-      !CBS_get_u8_length_prefixed(&hello_verify_request, &cookie) ||
-      CBS_len(&cookie) > sizeof(ssl->d1->cookie) ||
-      CBS_len(&hello_verify_request) != 0) {
-    OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
-    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
-    return -1;
-  }
-
-  OPENSSL_memcpy(ssl->d1->cookie, CBS_data(&cookie), CBS_len(&cookie));
-  ssl->d1->cookie_len = CBS_len(&cookie);
-
-  ssl->d1->send_cookie = true;
-  ssl->method->next_message(ssl);
-  return 1;
 }
 
 static int parse_server_version(SSL_HANDSHAKE *hs, uint16_t *out,

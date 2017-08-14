@@ -111,6 +111,9 @@ int tls13_handshake(SSL_HANDSHAKE *hs, int *out_early_return) {
         hs->can_early_write = 0;
         return -1;
 
+      case ssl_hs_early_return:
+        return -1;
+
       case ssl_hs_ok:
         break;
     }
