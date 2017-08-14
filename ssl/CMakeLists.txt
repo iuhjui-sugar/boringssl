@@ -18,9 +18,11 @@ add_library(
   s3_pkt.cc
   ssl_aead_ctx.cc
   ssl_asn1.cc
+  ssl_both.cc
   ssl_buffer.cc
   ssl_cert.cc
   ssl_cipher.cc
+  ssl_client.cc
   ssl_file.cc
   ssl_key_share.cc
   ssl_lib.cc
