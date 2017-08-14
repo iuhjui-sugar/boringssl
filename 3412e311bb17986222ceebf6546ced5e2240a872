@@ -2,6 +2,132 @@
   "comments": [
     {
       "key": {
+        "uuid": "dd85fe4a_e06223f5",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 1996,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-08-14T18:45:55Z",
+      "side": 1,
+      "message": "comment says 24 hours, but this says 48.",
+      "range": {
+        "startLine": 1996,
+        "startChar": 50,
+        "endLine": 1996,
+        "endChar": 54
+      },
+      "revId": "3412e311bb17986222ceebf6546ced5e2240a872",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "467ef417_aac974d0",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 4180,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-08-14T18:45:55Z",
+      "side": 1,
+      "message": "next_rotation_tv_sec is the time (in seconds from the epoch) when the current key should be superseded by a new key, or the time when a previous key should be dropped.\n\nIf zero, then the key should not be automatically rotated.",
+      "revId": "3412e311bb17986222ceebf6546ced5e2240a872",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82f411d6_11a55319",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 4328,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-08-14T18:45:55Z",
+      "side": 1,
+      "message": "be NULL",
+      "range": {
+        "startLine": 4328,
+        "startChar": 67,
+        "endLine": 4328,
+        "endChar": 80
+      },
+      "revId": "3412e311bb17986222ceebf6546ced5e2240a872",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7912f2b9_fa8f07ff",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 4329,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-08-14T18:45:55Z",
+      "side": 1,
+      "message": "be NULL",
+      "range": {
+        "startLine": 4329,
+        "startChar": 65,
+        "endLine": 4329,
+        "endChar": 78
+      },
+      "revId": "3412e311bb17986222ceebf6546ced5e2240a872",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99e25f98_ecab9fdb",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 4406,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-08-14T18:45:55Z",
+      "side": 1,
+      "message": "is always NULL",
+      "range": {
+        "startLine": 4405,
+        "startChar": 72,
+        "endLine": 4406,
+        "endChar": 19
+      },
+      "revId": "3412e311bb17986222ceebf6546ced5e2240a872",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3acc4481_f5a2d0b5",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1623,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-08-14T18:45:55Z",
+      "side": 1,
+      "message": "OPENSSL_memset(ctx-\u003etlsext_ticket_key_current, 0, sizeof(tlsext_ticket_key));\n\n(Even if we\u0027ve initialising everything below, someone might add a member at some point.)",
+      "revId": "3412e311bb17986222ceebf6546ced5e2240a872",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "158d8aff_91d83424",
         "filename": "ssl/ssl_session.cc",
         "patchSetId": 12
@@ -70,6 +196,40 @@
       "revId": "3412e311bb17986222ceebf6546ced5e2240a872",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dc7dea6f_5b2dbf7c",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-08-14T18:45:55Z",
+      "side": 1,
+      "message": "Drop this then? If it would cause an early return then the following two conditions would quickly return false anyway except that you would need to add a check for |next_rotation_tv_sec| not being zero just below.",
+      "revId": "3412e311bb17986222ceebf6546ced5e2240a872",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65556073_a9d5e1c4",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-08-14T18:45:55Z",
+      "side": 1,
+      "message": "(just above:) OPENSSL_memset(new_key.get(), 0, sizeof(struct tlsext_ticket_key));",
+      "revId": "3412e311bb17986222ceebf6546ced5e2240a872",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     },
     {
       "key": {
