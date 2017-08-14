@@ -11,7 +11,7 @@ add_library(
   d1_srtp.cc
   dtls_method.cc
   dtls_record.cc
-  handshake_client.cc
+  handshake.cc
   handshake_server.cc
   s3_both.cc
   s3_lib.cc
@@ -21,6 +21,7 @@ add_library(
   ssl_buffer.cc
   ssl_cert.cc
   ssl_cipher.cc
+  ssl_client.cc
   ssl_file.cc
   ssl_key_share.cc
   ssl_lib.cc

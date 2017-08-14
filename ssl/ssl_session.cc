@@ -1015,9 +1015,7 @@ int SSL_CTX_remove_session(SSL_CTX *ctx, SSL_SESSION *session) {
 
 int SSL_set_session(SSL *ssl, SSL_SESSION *session) {
   /* SSL_set_session may only be called before the handshake has started. */
-  if (ssl->s3->initial_handshake_complete ||
-      ssl->s3->hs == NULL ||
-      ssl->s3->hs->state != SSL_ST_INIT) {
+  if (ssl->s3->initial_handshake_complete || !SSL_in_init(ssl)) {
     abort();
   }
 
