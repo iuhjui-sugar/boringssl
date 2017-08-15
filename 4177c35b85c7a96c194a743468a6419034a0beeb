@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4c942199_5e933d20",
+        "filename": "crypto/x509v3/v3_ncons.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-08-15T16:58:53Z",
+      "side": 1,
+      "message": "very nit: avoid \"*/\" on a line by itself. \"check\" can move onto the next line to avoid this.",
+      "revId": "4177c35b85c7a96c194a743468a6419034a0beeb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bab11777_e545ba61",
+        "filename": "crypto/x509v3/v3_ncons.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-08-15T16:58:53Z",
+      "side": 1,
+      "message": "This is still returning an |int| because it\u0027s OpenSSL code, but it\u0027s really a size_t underneath so the type of |name_count| should be size_t. (That saves a couple of casts below.)",
+      "range": {
+        "startLine": 242,
+        "startChar": 8,
+        "endLine": 242,
+        "endChar": 33
+      },
+      "revId": "4177c35b85c7a96c194a743468a6419034a0beeb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
