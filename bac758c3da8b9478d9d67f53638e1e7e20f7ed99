@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0cf9bdd5_6ec02b69",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-15T18:25:45Z",
+      "side": 1,
+      "message": "Remove this now that you have MutexReadLock.",
+      "revId": "bac758c3da8b9478d9d67f53638e1e7e20f7ed99",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70cc10b9_043c6518",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 2564,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-15T18:25:45Z",
+      "side": 1,
+      "message": "Nit: Might be worth adding this as a method to DefaultSessionTicketKeyTest, or maybe even as a UniquePtr\u003cSSL_CTX\u003e CreateContext() that sets min/max version.\n\n(I\u0027ll probably, as a follow-up, rename DefaultSessionTicketKeyTest to SSLVersionTest and convert the rest of the ForEachVersion tests.)",
+      "revId": "bac758c3da8b9478d9d67f53638e1e7e20f7ed99",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab1857dd_04d497ec",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 4113,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-15T18:25:45Z",
+      "side": 1,
+      "message": "Nit:  // namespace and // namespace bssl",
+      "revId": "bac758c3da8b9478d9d67f53638e1e7e20f7ed99",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d9d2a88_6625650e",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 3094,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-15T18:25:45Z",
+      "side": 1,
+      "message": "Optional: It\u0027s a read lock, so this doesn\u0027t hugely matter, but you could avoid taking the lock around decrypt_ticket_with_cipher_ctx if you use just the key name to distinguish ticket keys (you\u0027re currently doing both key name + trial decryption). Something like:\n\n\n  /* Rotate ticket key if necessary. */\n  if (!ssl_ctx_rotate_ticket_encryption_key(ctx)) {\n    return ssl_ticket_aead_error;\n  }\n\n  ScopedEVP_CIPHER_CTX cipher_ctx;\n  ScopedHMAC_CTX hmac_ctx;\n\n  {\n    MutexReadLock lock(\u0026ctx-\u003elock);\n    tlsext_ticket_key *key;\n    if (ctx-\u003etlsext_ticket_key_current \u0026\u0026\n        OPENSSL_memcmp(ticket, tlsext_ticket_key_current-\u003ename, \n  SSL_TICKET_KEY_NAME_LEN) \u003d\u003d 0) {\n      key \u003d ctx-\u003etlsext_ticket_key_current;\n    } else if (ctx-\u003etlsext_ticket_key_prev \u0026\u0026\n               OPENSSL_memcmp(ticket, key-\u003ename, SSL_TICKET_KEY_NAME_LEN) \n\u003d\u003d 0) {\n      key \u003d ctx-\u003etlsext_ticket_key_prev;\n    } else {\n      return ssl_ticket_aead_ignore_ticket;\n    }\n\n    if (!HMAC_Init_ex(hmac_ctx.get(), key-\u003ehmac_key, sizeof(key-\u003ehmac_key),\n                      tlsext_tick_md(), NULL) ||\n        !EVP_DecryptInit_ex(cipher_ctx.get(), EVP_aes_128_cbc(), NULL,\n                            key-\u003eaes_key, iv)) {\n      return ssl_ticket_aead_error;\n    }\n  }\n\n  return decrypt_ticket_with_cipher_ctx(out, out_len, cipher_ctx.get(),\n                                          hmac_ctx.get(), ticket, ticket_len);",
+      "revId": "bac758c3da8b9478d9d67f53638e1e7e20f7ed99",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
