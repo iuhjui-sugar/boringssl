@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1f8e92de_3f44e5cb",
+        "filename": "crypto/asn1/a_mbstr.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-15T18:58:24Z",
+      "side": 1,
+      "message": "Rejecting only initial BOMs is kind of puzzling, but *shrug*.\n\nI\u0027m of the opinion that needing to parse an X.509 name and canonicalize strings anyway is kind of silly and one should match subject/issuer with memcmp, but that is all quite far from what this code is implementing. :-/",
+      "revId": "d61c39aca93916005a26f6c6730201f9bc7a82cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
