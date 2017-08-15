@@ -26,6 +26,7 @@ add_library(
   ssl_key_share.cc
   ssl_lib.cc
   ssl_privkey.cc
+  ssl_server.cc
   ssl_session.cc
   ssl_stat.cc
   ssl_transcript.cc
