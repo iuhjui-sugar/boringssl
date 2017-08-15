@@ -186,7 +186,7 @@ static int ssl3_get_next_proto(SSL_HANDSHAKE *hs);
 static int ssl3_get_channel_id(SSL_HANDSHAKE *hs);
 static int ssl3_send_server_finished(SSL_HANDSHAKE *hs);
 
-int ssl3_accept(SSL_HANDSHAKE *hs) {
+int ssl3_accept_old(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
   int ret = -1;
 
@@ -197,10 +197,17 @@ int ssl3_accept(SSL_HANDSHAKE *hs) {
     int state = hs->state;
 
     switch (hs->state) {
-      case SSL_ST_INIT:
-        ssl_do_info_callback(ssl, SSL_CB_HANDSHAKE_START, 1);
-        hs->state = SSL3_ST_SR_CLNT_HELLO_A;
+      case SSL_ST_INIT: {
+        hs->do_tls_handshake = tls_server_handshake;
+        int early_return = 0;
+        ret = tls_handshake(hs, &early_return);
+        ssl_do_info_callback(ssl, SSL_CB_CONNECT_EXIT, ret);
+        if (ret <= 0 || early_return) {
+          return ret;
+        }
+
         break;
+      }
 
       case SSL3_ST_SR_CLNT_HELLO_A:
         ret = ssl3_read_client_hello(hs);
@@ -393,6 +400,7 @@ int ssl3_accept(SSL_HANDSHAKE *hs) {
 
       case SSL_ST_TLS13: {
         int early_return = 0;
+        hs->do_tls_handshake = tls13_server_handshake;
         ret = tls_handshake(hs, &early_return);
         if (ret <= 0) {
           goto end;
