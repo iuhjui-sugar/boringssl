@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "a53d7def_1555bbe7",
+        "filename": "crypto/x509v3/v3_ncons.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-15T19:15:10Z",
+      "side": 1,
+      "message": "In upstream, this comment is slightly better formatted. Mind syncing with them? (Upstream\u0027s reformat script mangles comments and they manually tag with /*- to protect them.)\n\nhttps://git.openssl.org/gitweb/?p\u003dopenssl.git;a\u003dblob;f\u003dcrypto/x509v3/v3_ncons.c;h\u003d2855269668bee8afedf62a32584b2228d052797a;hb\u003drefs/heads/OpenSSL_1_0_2-stable#l214",
+      "revId": "4177c35b85c7a96c194a743468a6419034a0beeb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4c942199_5e933d20",
         "filename": "crypto/x509v3/v3_ncons.c",
         "patchSetId": 1
@@ -19,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "39455aa2_f9b5c8db",
+        "filename": "crypto/x509v3/v3_ncons.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-15T19:15:10Z",
+      "side": 1,
+      "message": "Upstream actually uses a style like:\n\n  /*\n   * blah blah blah blah blah blah\n   * blah blah.\n   */\n\nThough this is our code in a file with upstream\u0027s style so I guess we format it however we feel like. :-)",
+      "parentUuid": "4c942199_5e933d20",
+      "revId": "4177c35b85c7a96c194a743468a6419034a0beeb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bab11777_e545ba61",
         "filename": "crypto/x509v3/v3_ncons.c",
         "patchSetId": 1
@@ -30,6 +65,30 @@
       "writtenOn": "2017-08-15T16:58:53Z",
       "side": 1,
       "message": "This is still returning an |int| because it\u0027s OpenSSL code, but it\u0027s really a size_t underneath so the type of |name_count| should be size_t. (That saves a couple of casts below.)",
+      "range": {
+        "startLine": 242,
+        "startChar": 8,
+        "endLine": 242,
+        "endChar": 33
+      },
+      "revId": "4177c35b85c7a96c194a743468a6419034a0beeb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d329c71_8ceab6af",
+        "filename": "crypto/x509v3/v3_ncons.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-15T19:15:10Z",
+      "side": 1,
+      "message": "(Also the overflow checks don\u0027t work unless it\u0027s unsigned.)",
+      "parentUuid": "bab11777_e545ba61",
       "range": {
         "startLine": 242,
         "startChar": 8,
