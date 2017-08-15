@@ -159,4 +159,24 @@ int ssl3_connect(SSL_HANDSHAKE *hs) {
   return 1;
 }
 
+int ssl3_accept(SSL_HANDSHAKE *hs) {
+  ssl3_accept_old(hs);
+  SSL *const ssl = hs->ssl;
+  assert(ssl->handshake_func == ssl3_accept);
+  assert(ssl->server);
+
+  while (hs->state == SSL_ST_INIT) {
+    hs->do_tls_handshake = tls_client_handshake;
+    int early_return = 0;
+    int ret = tls_handshake(hs, &early_return);
+    ssl_do_info_callback(ssl, SSL_CB_CONNECT_EXIT, ret);
+    if (ret <= 0 || early_return) {
+      return ret;
+    }
+
+    hs->state = SSL_ST_OK;
+  }
+  return 1;
+}
+
 }
