@@ -1338,6 +1338,7 @@ int tls_handshake(SSL_HANDSHAKE *hs, int *out_early_return);
 /* The following are implementations of |do_tls_handshake| for the client and
  * server for TLS 1.2 and below and TLS 1.3. */
 enum ssl_hs_wait_t tls_client_handshake(SSL_HANDSHAKE *hs);
+enum ssl_hs_wait_t tls_server_handshake(SSL_HANDSHAKE *hs);
 enum ssl_hs_wait_t tls13_client_handshake(SSL_HANDSHAKE *hs);
 enum ssl_hs_wait_t tls13_server_handshake(SSL_HANDSHAKE *hs);
 
@@ -2174,6 +2175,7 @@ int ssl3_output_cert_chain(SSL *ssl);
 int ssl3_new(SSL *ssl);
 void ssl3_free(SSL *ssl);
 int ssl3_accept(SSL_HANDSHAKE *hs);
+int ssl3_accept_old(SSL_HANDSHAKE *hs);
 int ssl3_connect(SSL_HANDSHAKE *hs);
 
 int ssl3_init_message(SSL *ssl, CBB *cbb, CBB *body, uint8_t type);
