@@ -1,10 +1,10 @@
 # BoringSSL Style Guide
 
+
 BoringSSL usually follows the
 [Google C++ style guide](https://google.github.io/styleguide/cppguide.html),
 The rest of this document describes differences and clarifications on
 top of the base guide.
-
 
 ## Legacy code
 
@@ -218,3 +218,8 @@ files should be excluded by wrapping the contents in `#ifdef`s, rather than
 computing platform-specific file lists. Generated source files such as perlasm
 and `err_data.c` may be used in the standalone CMake build but, for downstream
 builds, they should be pre-generated in `generate_build_files.py`.
+
+
+## Commit In Style.
+
+Use CQ.
