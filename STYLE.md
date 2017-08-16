@@ -1,5 +1,6 @@
 # BoringSSL Style Guide
 
+
 BoringSSL usually follows the
 [Google C++ style guide](https://google.github.io/styleguide/cppguide.html),
 The rest of this document describes differences and clarifications on
@@ -197,3 +198,8 @@ return value patterns in legacy functions.
 
 Document private functions in their `internal.h` header or, if static,
 where defined.
+
+
+## Commit In Style.
+
+Use CQ.
