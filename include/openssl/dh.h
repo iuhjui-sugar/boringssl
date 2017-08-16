@@ -104,12 +104,6 @@ OPENSSL_EXPORT void DH_get0_pqg(const DH *dh, const BIGNUM **out_p,
  * These functions return new DH objects with standard parameters. They return
  * NULL on allocation failure. The |engine| parameter is ignored. */
 
-/* These parameters are taken from RFC 5114. */
-
-OPENSSL_EXPORT DH *DH_get_1024_160(const ENGINE *engine);
-OPENSSL_EXPORT DH *DH_get_2048_224(const ENGINE *engine);
-OPENSSL_EXPORT DH *DH_get_2048_256(const ENGINE *engine);
-
 /* BN_get_rfc3526_prime_1536 sets |*ret| to the 1536-bit MODP group from RFC
  * 3526 and returns |ret|. If |ret| is NULL then a fresh |BIGNUM| is allocated
  * and returned. It returns NULL on allocation failure. */
