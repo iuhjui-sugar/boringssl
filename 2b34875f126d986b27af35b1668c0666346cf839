@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "6c1b14eb_32390ad5",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1822,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-17T23:08:12Z",
+      "side": 1,
+      "message": "(Yeah, OS X is clang.)",
+      "parentUuid": "46e05bfa_e066e6c8",
+      "revId": "2b34875f126d986b27af35b1668c0666346cf839",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "75d55945_4b20f53a",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 3
@@ -370,6 +388,24 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "8e648a3c_902c47b0",
+      "revId": "2b34875f126d986b27af35b1668c0666346cf839",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d886f9ac_f7145fda",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3010,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-17T23:08:12Z",
+      "side": 1,
+      "message": "Oh, I was just thinking set it twice, but that works too.\n\n(One of these days, I\u0027ll come up with some truly horrific template magic to stuff lambdas into callbacks with state attached to ex_data. It\u0027ll be great.)",
+      "parentUuid": "02355cf0_ab483796",
       "revId": "2b34875f126d986b27af35b1668c0666346cf839",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
