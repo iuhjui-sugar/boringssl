@@ -203,7 +203,7 @@ static bool RunBasicTests() {
   return true;
 }
 
-/* Test data from RFC 5114 */
+// Test data from RFC 5114
 
 static const uint8_t kDHTest1024_160_xA[] = {
     0xB9, 0xA3, 0xB3, 0xAE, 0x8F, 0xEF, 0xC1, 0xA2, 0x93, 0x04,
@@ -433,7 +433,7 @@ static const RFC5114TestData kRFCTestData[] = {
 static bool RunRFC5114Tests() {
   for (unsigned i = 0; i < sizeof(kRFCTestData) / sizeof(RFC5114TestData); i++) {
     const RFC5114TestData *td = kRFCTestData + i;
-    /* Set up DH structures setting key components */
+    // Set up DH structures setting key components
     bssl::UniquePtr<DH> dhA(td->get_param(nullptr));
     bssl::UniquePtr<DH> dhB(td->get_param(nullptr));
     if (!dhA || !dhB) {
@@ -459,8 +459,8 @@ static bool RunRFC5114Tests() {
 
     std::vector<uint8_t> Z1(DH_size(dhA.get()));
     std::vector<uint8_t> Z2(DH_size(dhB.get()));
-    /* Work out shared secrets using both sides and compare
-     * with expected values. */
+    // Work out shared secrets using both sides and compare
+    // with expected values.
     int ret1 = DH_compute_key(Z1.data(), dhB->pub_key, dhA.get());
     int ret2 = DH_compute_key(Z2.data(), dhA->pub_key, dhB.get());
     if (ret1 < 0 || ret2 < 0) {
