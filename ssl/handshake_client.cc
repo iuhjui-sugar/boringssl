@@ -245,8 +245,8 @@ int ssl3_connect(SSL_HANDSHAKE *hs) {
         break;
 
       case SSL3_ST_WRITE_EARLY_DATA:
-        /* Stash the early data session, so connection properties may be queried
-         * out of it. */
+        // Stash the early data session, so connection properties may be queried
+        // out of it.
         hs->in_early_data = 1;
         SSL_SESSION_up_ref(ssl->session);
         hs->early_session.reset(ssl->session);
@@ -403,18 +403,18 @@ int ssl3_connect(SSL_HANDSHAKE *hs) {
         if (ssl->session != NULL) {
           hs->next_state = SSL3_ST_FINISH_CLIENT_HANDSHAKE;
         } else {
-          /* This is a non-resumption handshake. If it involves ChannelID, then
-           * record the handshake hashes at this point in the session so that
-           * any resumption of this session with ChannelID can sign those
-           * hashes. */
+          // This is a non-resumption handshake. If it involves ChannelID, then
+          // record the handshake hashes at this point in the session so that
+          // any resumption of this session with ChannelID can sign those
+          // hashes.
           ret = tls1_record_handshake_hashes_for_channel_id(hs);
           if (ret <= 0) {
             goto end;
           }
           if ((SSL_get_mode(ssl) & SSL_MODE_ENABLE_FALSE_START) &&
               ssl3_can_false_start(ssl) &&
-              /* No False Start on renegotiation (would complicate the state
-               * machine). */
+              // No False Start on renegotiation (would complicate the state
+              // machine).
               !ssl->s3->initial_handshake_complete) {
             hs->next_state = SSL3_ST_FALSE_START;
           } else {
@@ -498,9 +498,9 @@ int ssl3_connect(SSL_HANDSHAKE *hs) {
           SSL_SESSION_up_ref(ssl->session);
           ssl->s3->established_session = ssl->session;
         } else {
-          /* We make a copy of the session in order to maintain the immutability
-           * of the new established_session due to False Start. The caller may
-           * have taken a reference to the temporary session. */
+          // We make a copy of the session in order to maintain the immutability
+          // of the new established_session due to False Start. The caller may
+          // have taken a reference to the temporary session.
           ssl->s3->established_session =
               SSL_SESSION_dup(hs->new_session.get(), SSL_SESSION_DUP_ALL)
                   .release();
@@ -520,7 +520,7 @@ int ssl3_connect(SSL_HANDSHAKE *hs) {
         const int is_initial_handshake = !ssl->s3->initial_handshake_complete;
         ssl->s3->initial_handshake_complete = 1;
         if (is_initial_handshake) {
-          /* Renegotiations do not participate in session resumption. */
+          // Renegotiations do not participate in session resumption.
           ssl_update_cache(hs, SSL_SESS_CACHE_CLIENT);
         }
 
@@ -545,14 +545,14 @@ end:
   return ret;
 }
 
-/* ssl_get_client_disabled sets |*out_mask_a| and |*out_mask_k| to masks of
- * disabled algorithms. */
+// ssl_get_client_disabled sets |*out_mask_a| and |*out_mask_k| to masks of
+// disabled algorithms.
 static void ssl_get_client_disabled(SSL *ssl, uint32_t *out_mask_a,
                                     uint32_t *out_mask_k) {
   *out_mask_a = 0;
   *out_mask_k = 0;
 
-  /* PSK requires a client callback. */
+  // PSK requires a client callback.
   if (ssl->psk_client_callback == NULL) {
     *out_mask_a |= SSL_aPSK;
     *out_mask_k |= SSL_kPSK;
@@ -569,14 +569,14 @@ static int ssl_write_client_cipher_list(SSL_HANDSHAKE *hs, CBB *out) {
     return 0;
   }
 
-  /* Add a fake cipher suite. See draft-davidben-tls-grease-01. */
+  // Add a fake cipher suite. See draft-davidben-tls-grease-01.
   if (ssl->ctx->grease_enabled &&
       !CBB_add_u16(&child, ssl_get_grease_value(ssl, ssl_grease_cipher))) {
     return 0;
   }
 
-  /* Add TLS 1.3 ciphers. Order ChaCha20-Poly1305 relative to AES-GCM based on
-   * hardware support. */
+  // Add TLS 1.3 ciphers. Order ChaCha20-Poly1305 relative to AES-GCM based on
+  // hardware support.
   if (hs->max_version >= TLS1_3_VERSION) {
     if (!EVP_has_aes_hardware() &&
         !CBB_add_u16(&child, TLS1_CK_CHACHA20_POLY1305_SHA256 & 0xffff)) {
@@ -595,7 +595,7 @@ static int ssl_write_client_cipher_list(SSL_HANDSHAKE *hs, CBB *out) {
   if (hs->min_version < TLS1_3_VERSION) {
     int any_enabled = 0;
     for (const SSL_CIPHER *cipher : SSL_get_ciphers(ssl)) {
-      /* Skip disabled ciphers */
+      // Skip disabled ciphers
       if ((cipher->algorithm_mkey & mask_k) ||
           (cipher->algorithm_auth & mask_a)) {
         continue;
@@ -610,15 +610,15 @@ static int ssl_write_client_cipher_list(SSL_HANDSHAKE *hs, CBB *out) {
       }
     }
 
-    /* If all ciphers were disabled, return the error to the caller. */
+    // If all ciphers were disabled, return the error to the caller.
     if (!any_enabled && hs->max_version < TLS1_3_VERSION) {
       OPENSSL_PUT_ERROR(SSL, SSL_R_NO_CIPHERS_AVAILABLE);
       return 0;
     }
   }
 
-  /* For SSLv3, the SCSV is added. Otherwise the renegotiation extension is
-   * added. */
+  // For SSLv3, the SCSV is added. Otherwise the renegotiation extension is
+  // added.
   if (hs->max_version == SSL3_VERSION &&
       !ssl->s3->initial_handshake_complete) {
     if (!CBB_add_u16(&child, SSL3_CK_SCSV & 0xffff)) {
@@ -643,7 +643,7 @@ int ssl_write_client_hello(SSL_HANDSHAKE *hs) {
     return 0;
   }
 
-  /* Renegotiations do not participate in session resumption. */
+  // Renegotiations do not participate in session resumption.
   int has_session_id = ssl->session != NULL &&
                        !ssl->s3->initial_handshake_complete &&
                        ssl->session->session_id_length > 0;
@@ -661,8 +661,8 @@ int ssl_write_client_hello(SSL_HANDSHAKE *hs) {
       return 0;
     }
   } else {
-    /* In TLS 1.3 experimental encodings, send a fake placeholder session ID
-     * when we do not otherwise have one to send. */
+    // In TLS 1.3 experimental encodings, send a fake placeholder session ID
+    // when we do not otherwise have one to send.
     if (hs->max_version >= TLS1_3_VERSION &&
         ssl->tls13_variant == tls13_experiment &&
         !CBB_add_bytes(&child, hs->session_id, hs->session_id_len)) {
@@ -692,8 +692,8 @@ int ssl_write_client_hello(SSL_HANDSHAKE *hs) {
     return 0;
   }
 
-  /* Now that the length prefixes have been computed, fill in the placeholder
-   * PSK binder. */
+  // Now that the length prefixes have been computed, fill in the placeholder
+  // PSK binder.
   if (hs->needs_psk_binder &&
       !tls13_write_psk_binder(hs, msg, len)) {
     OPENSSL_free(msg);
@@ -705,21 +705,21 @@ int ssl_write_client_hello(SSL_HANDSHAKE *hs) {
 
 static int ssl3_send_client_hello(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
-  /* The handshake buffer is reset on every ClientHello. Notably, in DTLS, we
-   * may send multiple ClientHellos if we receive HelloVerifyRequest. */
+  // The handshake buffer is reset on every ClientHello. Notably, in DTLS, we
+  // may send multiple ClientHellos if we receive HelloVerifyRequest.
   if (!hs->transcript.Init()) {
     OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
     return -1;
   }
 
-  /* Freeze the version range. */
+  // Freeze the version range.
   if (!ssl_get_version_range(ssl, &hs->min_version, &hs->max_version)) {
     return -1;
   }
 
-  /* Always advertise the ClientHello version from the original maximum version,
-   * even on renegotiation. The static RSA key exchange uses this field, and
-   * some servers fail when it changes across handshakes. */
+  // Always advertise the ClientHello version from the original maximum version,
+  // even on renegotiation. The static RSA key exchange uses this field, and
+  // some servers fail when it changes across handshakes.
   if (SSL_is_dtls(hs->ssl)) {
     hs->client_version =
         hs->max_version >= TLS1_2_VERSION ? DTLS1_2_VERSION : DTLS1_VERSION;
@@ -728,8 +728,8 @@ static int ssl3_send_client_hello(SSL_HANDSHAKE *hs) {
         hs->max_version >= TLS1_2_VERSION ? TLS1_2_VERSION : hs->max_version;
   }
 
-  /* If the configured session has expired or was created at a disabled
-   * version, drop it. */
+  // If the configured session has expired or was created at a disabled
+  // version, drop it.
   if (ssl->session != NULL) {
     if (ssl->session->is_server ||
         !ssl_supports_version(hs, ssl->session->ssl_version) ||
@@ -741,15 +741,15 @@ static int ssl3_send_client_hello(SSL_HANDSHAKE *hs) {
     }
   }
 
-  /* If resending the ClientHello in DTLS after a HelloVerifyRequest, don't
-   * renegerate the client_random. The random must be reused. */
+  // If resending the ClientHello in DTLS after a HelloVerifyRequest, don't
+  // renegerate the client_random. The random must be reused.
   if ((!SSL_is_dtls(ssl) || !ssl->d1->send_cookie) &&
       !RAND_bytes(ssl->s3->client_random, sizeof(ssl->s3->client_random))) {
     return -1;
   }
 
-  /* Initialize a random session ID for the experimental TLS 1.3 variant
-   * requiring a session id. */
+  // Initialize a random session ID for the experimental TLS 1.3 variant
+  // requiring a session id.
   if (ssl->tls13_variant == tls13_experiment) {
     hs->session_id_len = sizeof(hs->session_id);
     if (!RAND_bytes(hs->session_id, hs->session_id_len)) {
@@ -813,8 +813,8 @@ static int parse_server_version(SSL_HANDSHAKE *hs, uint16_t *out,
     return 0;
   }
 
-  /* The server version may also be in the supported_versions extension if
-   * applicable. */
+  // The server version may also be in the supported_versions extension if
+  // applicable.
   if (msg.type != SSL3_MT_SERVER_HELLO || *out != TLS1_2_VERSION) {
     return 1;
   }
@@ -829,7 +829,7 @@ static int parse_server_version(SSL_HANDSHAKE *hs, uint16_t *out,
     return 0;
   }
 
-  /* The extensions block may not be present. */
+  // The extensions block may not be present.
   if (CBS_len(&server_hello) == 0) {
     return 1;
   }
@@ -875,12 +875,12 @@ static int ssl3_get_server_hello(SSL_HANDSHAKE *hs) {
     uint32_t err = ERR_peek_error();
     if (ERR_GET_LIB(err) == ERR_LIB_SSL &&
         ERR_GET_REASON(err) == SSL_R_SSLV3_ALERT_HANDSHAKE_FAILURE) {
-      /* Add a dedicated error code to the queue for a handshake_failure alert
-       * in response to ClientHello. This matches NSS's client behavior and
-       * gives a better error on a (probable) failure to negotiate initial
-       * parameters. Note: this error code comes after the original one.
-       *
-       * See https://crbug.com/446505. */
+      // Add a dedicated error code to the queue for a handshake_failure alert
+      // in response to ClientHello. This matches NSS's client behavior and
+      // gives a better error on a (probable) failure to negotiate initial
+      // parameters. Note: this error code comes after the original one.
+      //
+      // See https://crbug.com/446505.
       OPENSSL_PUT_ERROR(SSL, SSL_R_HANDSHAKE_FAILURE_ON_CLIENT_HELLO);
     }
     return ret;
@@ -900,8 +900,8 @@ static int ssl3_get_server_hello(SSL_HANDSHAKE *hs) {
   assert(ssl->s3->have_version == ssl->s3->initial_handshake_complete);
   if (!ssl->s3->have_version) {
     ssl->version = server_version;
-    /* At this point, the connection's version is known and ssl->version is
-     * fixed. Begin enforcing the record-layer version. */
+    // At this point, the connection's version is known and ssl->version is
+    // fixed. Begin enforcing the record-layer version.
     ssl->s3->have_version = 1;
   } else if (server_version != ssl->version) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_WRONG_SSL_VERSION);
@@ -941,12 +941,12 @@ static int ssl3_get_server_hello(SSL_HANDSHAKE *hs) {
     return -1;
   }
 
-  /* Copy over the server random. */
+  // Copy over the server random.
   OPENSSL_memcpy(ssl->s3->server_random, CBS_data(&server_random),
                  SSL3_RANDOM_SIZE);
 
-  /* TODO(davidben): Implement the TLS 1.1 and 1.2 downgrade sentinels once TLS
-   * 1.3 is finalized and we are not implementing a draft version. */
+  // TODO(davidben): Implement the TLS 1.1 and 1.2 downgrade sentinels once TLS
+  // 1.3 is finalized and we are not implementing a draft version.
 
   if (!ssl->s3->initial_handshake_complete && ssl->session != NULL &&
       ssl->session->session_id_length != 0 &&
@@ -954,14 +954,14 @@ static int ssl3_get_server_hello(SSL_HANDSHAKE *hs) {
                     ssl->session->session_id_length)) {
     ssl->s3->session_reused = 1;
   } else {
-    /* The session wasn't resumed. Create a fresh SSL_SESSION to
-     * fill out. */
+    // The session wasn't resumed. Create a fresh SSL_SESSION to
+    // fill out.
     ssl_set_session(ssl, NULL);
     if (!ssl_get_new_session(hs, 0 /* client */)) {
       ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
       return -1;
     }
-    /* Note: session_id could be empty. */
+    // Note: session_id could be empty.
     hs->new_session->session_id_length = CBS_len(&session_id);
     OPENSSL_memcpy(hs->new_session->session_id, CBS_data(&session_id),
                    CBS_len(&session_id));
@@ -969,13 +969,13 @@ static int ssl3_get_server_hello(SSL_HANDSHAKE *hs) {
 
   const SSL_CIPHER *cipher = SSL_get_cipher_by_value(cipher_suite);
   if (cipher == NULL) {
-    /* unknown cipher */
+    // unknown cipher
     OPENSSL_PUT_ERROR(SSL, SSL_R_UNKNOWN_CIPHER_RETURNED);
     ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
     return -1;
   }
 
-  /* The cipher must be allowed in the selected version and enabled. */
+  // The cipher must be allowed in the selected version and enabled.
   uint32_t mask_a, mask_k;
   ssl_get_client_disabled(ssl, &mask_a, &mask_k);
   if ((cipher->algorithm_mkey & mask_k) || (cipher->algorithm_auth & mask_a) ||
@@ -999,7 +999,7 @@ static int ssl3_get_server_hello(SSL_HANDSHAKE *hs) {
       return -1;
     }
     if (!ssl_session_is_context_valid(ssl, ssl->session)) {
-      /* This is actually a client application bug. */
+      // This is actually a client application bug.
       OPENSSL_PUT_ERROR(SSL,
                         SSL_R_ATTEMPT_TO_REUSE_SESSION_IN_DIFFERENT_CONTEXT);
       ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
@@ -1010,38 +1010,38 @@ static int ssl3_get_server_hello(SSL_HANDSHAKE *hs) {
   }
   hs->new_cipher = cipher;
 
-  /* Now that the cipher is known, initialize the handshake hash and hash the
-   * ServerHello. */
+  // Now that the cipher is known, initialize the handshake hash and hash the
+  // ServerHello.
   if (!hs->transcript.InitHash(ssl3_protocol_version(ssl), hs->new_cipher) ||
       !ssl_hash_message(hs, msg)) {
     ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
     return -1;
   }
 
-  /* If doing a full handshake, the server may request a client certificate
-   * which requires hashing the handshake transcript. Otherwise, the handshake
-   * buffer may be released. */
+  // If doing a full handshake, the server may request a client certificate
+  // which requires hashing the handshake transcript. Otherwise, the handshake
+  // buffer may be released.
   if (ssl->session != NULL ||
       !ssl_cipher_uses_certificate_auth(hs->new_cipher)) {
     hs->transcript.FreeBuffer();
   }
 
-  /* Only the NULL compression algorithm is supported. */
+  // Only the NULL compression algorithm is supported.
   if (compression_method != 0) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_UNSUPPORTED_COMPRESSION_ALGORITHM);
     ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
     return -1;
   }
 
-  /* TLS extensions */
+  // TLS extensions
   if (!ssl_parse_serverhello_tlsext(hs, &server_hello)) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_PARSE_TLSEXT);
     return -1;
   }
 
-  /* There should be nothing left over in the record. */
+  // There should be nothing left over in the record.
   if (CBS_len(&server_hello) != 0) {
-    /* wrong packet length */
+    // wrong packet length
     OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
     ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
     return -1;
@@ -1101,9 +1101,9 @@ static int ssl3_get_server_certificate(SSL_HANDSHAKE *hs) {
     return -1;
   }
 
-  /* Disallow the server certificate from changing during a renegotiation. See
-   * https://mitls.org/pages/attacks/3SHAKE. We never resume on renegotiation,
-   * so this check is sufficient. */
+  // Disallow the server certificate from changing during a renegotiation. See
+  // https://mitls.org/pages/attacks/3SHAKE. We never resume on renegotiation,
+  // so this check is sufficient.
   if (ssl->s3->established_session != NULL) {
     if (sk_CRYPTO_BUFFER_num(ssl->s3->established_session->certs) !=
         sk_CRYPTO_BUFFER_num(hs->new_session->certs)) {
@@ -1141,8 +1141,8 @@ static int ssl3_get_cert_status(SSL_HANDSHAKE *hs) {
   }
 
   if (msg.type != SSL3_MT_CERTIFICATE_STATUS) {
-    /* A server may send status_request in ServerHello and then change
-     * its mind about sending CertificateStatus. */
+    // A server may send status_request in ServerHello and then change
+    // its mind about sending CertificateStatus.
     return 1;
   }
 
@@ -1182,7 +1182,7 @@ static int ssl3_get_server_key_exchange(SSL_HANDSHAKE *hs) {
   }
 
   if (msg.type != SSL3_MT_SERVER_KEY_EXCHANGE) {
-    /* Some ciphers (pure PSK) have an optional ServerKeyExchange message. */
+    // Some ciphers (pure PSK) have an optional ServerKeyExchange message.
     if (ssl_cipher_requires_server_key_exchange(hs->new_cipher)) {
       OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_MESSAGE);
       ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_UNEXPECTED_MESSAGE);
@@ -1202,7 +1202,7 @@ static int ssl3_get_server_key_exchange(SSL_HANDSHAKE *hs) {
   if (alg_a & SSL_aPSK) {
     CBS psk_identity_hint;
 
-    /* Each of the PSK key exchanges begins with a psk_identity_hint. */
+    // Each of the PSK key exchanges begins with a psk_identity_hint.
     if (!CBS_get_u16_length_prefixed(&server_key_exchange,
                                      &psk_identity_hint)) {
       OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
@@ -1210,13 +1210,13 @@ static int ssl3_get_server_key_exchange(SSL_HANDSHAKE *hs) {
       return -1;
     }
 
-    /* Store PSK identity hint for later use, hint is used in
-     * ssl3_send_client_key_exchange.  Assume that the maximum length of a PSK
-     * identity hint can be as long as the maximum length of a PSK identity.
-     * Also do not allow NULL characters; identities are saved as C strings.
-     *
-     * TODO(davidben): Should invalid hints be ignored? It's a hint rather than
-     * a specific identity. */
+    // Store PSK identity hint for later use, hint is used in
+    // ssl3_send_client_key_exchange.  Assume that the maximum length of a PSK
+    // identity hint can be as long as the maximum length of a PSK identity.
+    // Also do not allow NULL characters; identities are saved as C strings.
+    //
+    // TODO(davidben): Should invalid hints be ignored? It's a hint rather than
+    // a specific identity.
     if (CBS_len(&psk_identity_hint) > PSK_MAX_IDENTITY_LEN ||
         CBS_contains_zero_byte(&psk_identity_hint)) {
       OPENSSL_PUT_ERROR(SSL, SSL_R_DATA_LENGTH_TOO_LONG);
@@ -1224,11 +1224,11 @@ static int ssl3_get_server_key_exchange(SSL_HANDSHAKE *hs) {
       return -1;
     }
 
-    /* Save non-empty identity hints as a C string. Empty identity hints we
-     * treat as missing. Plain PSK makes it possible to send either no hint
-     * (omit ServerKeyExchange) or an empty hint, while ECDHE_PSK can only spell
-     * empty hint. Having different capabilities is odd, so we interpret empty
-     * and missing as identical. */
+    // Save non-empty identity hints as a C string. Empty identity hints we
+    // treat as missing. Plain PSK makes it possible to send either no hint
+    // (omit ServerKeyExchange) or an empty hint, while ECDHE_PSK can only spell
+    // empty hint. Having different capabilities is odd, so we interpret empty
+    // and missing as identical.
     char *raw = nullptr;
     if (CBS_len(&psk_identity_hint) != 0 &&
         !CBS_strdup(&psk_identity_hint, &raw)) {
@@ -1240,7 +1240,7 @@ static int ssl3_get_server_key_exchange(SSL_HANDSHAKE *hs) {
   }
 
   if (alg_k & SSL_kECDHE) {
-    /* Parse the server parameters. */
+    // Parse the server parameters.
     uint8_t group_type;
     uint16_t group_id;
     CBS point;
@@ -1254,14 +1254,14 @@ static int ssl3_get_server_key_exchange(SSL_HANDSHAKE *hs) {
     }
     hs->new_session->group_id = group_id;
 
-    /* Ensure the group is consistent with preferences. */
+    // Ensure the group is consistent with preferences.
     if (!tls1_check_group_id(ssl, group_id)) {
       OPENSSL_PUT_ERROR(SSL, SSL_R_WRONG_CURVE);
       ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
       return -1;
     }
 
-    /* Initialize ECDH and save the peer public key for later. */
+    // Initialize ECDH and save the peer public key for later.
     hs->key_share = SSLKeyShare::Create(group_id);
     if (!hs->key_share ||
         !CBS_stow(&point, &hs->peer_key, &hs->peer_key_len)) {
@@ -1273,14 +1273,14 @@ static int ssl3_get_server_key_exchange(SSL_HANDSHAKE *hs) {
     return -1;
   }
 
-  /* At this point, |server_key_exchange| contains the signature, if any, while
-   * |msg.body| contains the entire message. From that, derive a CBS containing
-   * just the parameter. */
+  // At this point, |server_key_exchange| contains the signature, if any, while
+  // |msg.body| contains the entire message. From that, derive a CBS containing
+  // just the parameter.
   CBS parameter;
   CBS_init(&parameter, CBS_data(&msg.body),
            CBS_len(&msg.body) - CBS_len(&server_key_exchange));
 
-  /* ServerKeyExchange should be signed by the server's public key. */
+  // ServerKeyExchange should be signed by the server's public key.
   if (ssl_cipher_uses_certificate_auth(hs->new_cipher)) {
     uint16_t signature_algorithm = 0;
     if (ssl3_protocol_version(ssl) >= TLS1_2_VERSION) {
@@ -1302,7 +1302,7 @@ static int ssl3_get_server_key_exchange(SSL_HANDSHAKE *hs) {
       return -1;
     }
 
-    /* The last field in |server_key_exchange| is the signature. */
+    // The last field in |server_key_exchange| is the signature.
     CBS signature;
     if (!CBS_get_u16_length_prefixed(&server_key_exchange, &signature) ||
         CBS_len(&server_key_exchange) != 0) {
@@ -1338,13 +1338,13 @@ static int ssl3_get_server_key_exchange(SSL_HANDSHAKE *hs) {
     ERR_clear_error();
 #endif
     if (!sig_ok) {
-      /* bad signature */
+      // bad signature
       OPENSSL_PUT_ERROR(SSL, SSL_R_BAD_SIGNATURE);
       ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECRYPT_ERROR);
       return -1;
     }
   } else {
-    /* PSK ciphers are the only supported certificate-less ciphers. */
+    // PSK ciphers are the only supported certificate-less ciphers.
     assert(alg_a == SSL_aPSK);
 
     if (CBS_len(&server_key_exchange) > 0) {
@@ -1367,8 +1367,8 @@ static int ssl3_get_certificate_request(SSL_HANDSHAKE *hs) {
   }
 
   if (msg.type == SSL3_MT_SERVER_HELLO_DONE) {
-    /* If we get here we don't need the handshake buffer as we won't be doing
-     * client auth. */
+    // If we get here we don't need the handshake buffer as we won't be doing
+    // client auth.
     hs->transcript.FreeBuffer();
     return 1;
   }
@@ -1378,7 +1378,7 @@ static int ssl3_get_certificate_request(SSL_HANDSHAKE *hs) {
     return -1;
   }
 
-  /* Get the certificate types. */
+  // Get the certificate types.
   CBS body = msg.body, certificate_types;
   if (!CBS_get_u8_length_prefixed(&body, &certificate_types)) {
     ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
@@ -1436,7 +1436,7 @@ static int ssl3_get_server_hello_done(SSL_HANDSHAKE *hs) {
     return -1;
   }
 
-  /* ServerHelloDone is empty. */
+  // ServerHelloDone is empty.
   if (CBS_len(&msg.body) != 0) {
     ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
     OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
@@ -1449,7 +1449,7 @@ static int ssl3_get_server_hello_done(SSL_HANDSHAKE *hs) {
 
 static int ssl3_send_client_certificate(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
-  /* Call cert_cb to update the certificate. */
+  // Call cert_cb to update the certificate.
   if (ssl->cert->cert_cb) {
     int ret = ssl->cert->cert_cb(ssl, ssl->cert->cert_cb_arg);
     if (ret < 0) {
@@ -1464,10 +1464,10 @@ static int ssl3_send_client_certificate(SSL_HANDSHAKE *hs) {
   }
 
   if (!ssl_has_certificate(ssl)) {
-    /* Without a client certificate, the handshake buffer may be released. */
+    // Without a client certificate, the handshake buffer may be released.
     hs->transcript.FreeBuffer();
 
-    /* In SSL 3.0, the Certificate message is replaced with a warning alert. */
+    // In SSL 3.0, the Certificate message is replaced with a warning alert.
     if (ssl->version == SSL3_VERSION) {
       if (!ssl->method->add_alert(ssl, SSL3_AL_WARNING,
                                   SSL_AD_NO_CERTIFICATE)) {
@@ -1501,7 +1501,7 @@ static int ssl3_send_client_key_exchange(SSL_HANDSHAKE *hs) {
   uint32_t alg_k = hs->new_cipher->algorithm_mkey;
   uint32_t alg_a = hs->new_cipher->algorithm_auth;
 
-  /* If using a PSK key exchange, prepare the pre-shared key. */
+  // If using a PSK key exchange, prepare the pre-shared key.
   unsigned psk_len = 0;
   uint8_t psk[PSK_MAX_PSK_LEN];
   if (alg_a & SSL_aPSK) {
@@ -1529,7 +1529,7 @@ static int ssl3_send_client_key_exchange(SSL_HANDSHAKE *hs) {
       goto err;
     }
 
-    /* Write out psk_identity. */
+    // Write out psk_identity.
     CBB child;
     if (!CBB_add_u16_length_prefixed(&body, &child) ||
         !CBB_add_bytes(&child, (const uint8_t *)identity,
@@ -1539,7 +1539,7 @@ static int ssl3_send_client_key_exchange(SSL_HANDSHAKE *hs) {
     }
   }
 
-  /* Depending on the key exchange method, compute |pms| and |pms_len|. */
+  // Depending on the key exchange method, compute |pms| and |pms_len|.
   if (alg_k & SSL_kRSA) {
     pms_len = SSL_MAX_MASTER_KEY_LENGTH;
     pms = (uint8_t *)OPENSSL_malloc(pms_len);
@@ -1562,7 +1562,7 @@ static int ssl3_send_client_key_exchange(SSL_HANDSHAKE *hs) {
 
     CBB child, *enc_pms = &body;
     size_t enc_pms_len;
-    /* In TLS, there is a length prefix. */
+    // In TLS, there is a length prefix.
     if (ssl->version > SSL3_VERSION) {
       if (!CBB_add_u16_length_prefixed(&body, &child)) {
         goto err;
@@ -1579,13 +1579,13 @@ static int ssl3_send_client_key_exchange(SSL_HANDSHAKE *hs) {
       goto err;
     }
   } else if (alg_k & SSL_kECDHE) {
-    /* Generate a keypair and serialize the public half. */
+    // Generate a keypair and serialize the public half.
     CBB child;
     if (!CBB_add_u8_length_prefixed(&body, &child)) {
       goto err;
     }
 
-    /* Compute the premaster. */
+    // Compute the premaster.
     uint8_t alert = SSL_AD_DECODE_ERROR;
     if (!hs->key_share->Accept(&child, &pms, &pms_len, &alert, hs->peer_key,
                               hs->peer_key_len)) {
@@ -1596,14 +1596,14 @@ static int ssl3_send_client_key_exchange(SSL_HANDSHAKE *hs) {
       goto err;
     }
 
-    /* The key exchange state may now be discarded. */
+    // The key exchange state may now be discarded.
     hs->key_share.reset();
     OPENSSL_free(hs->peer_key);
     hs->peer_key = NULL;
     hs->peer_key_len = 0;
   } else if (alg_k & SSL_kPSK) {
-    /* For plain PSK, other_secret is a block of 0s with the same length as
-     * the pre-shared key. */
+    // For plain PSK, other_secret is a block of 0s with the same length as
+    // the pre-shared key.
     pms_len = psk_len;
     pms = (uint8_t *)OPENSSL_malloc(pms_len);
     if (pms == NULL) {
@@ -1617,8 +1617,8 @@ static int ssl3_send_client_key_exchange(SSL_HANDSHAKE *hs) {
     goto err;
   }
 
-  /* For a PSK cipher suite, other_secret is combined with the pre-shared
-   * key. */
+  // For a PSK cipher suite, other_secret is combined with the pre-shared
+  // key.
   if (alg_a & SSL_aPSK) {
     ScopedCBB pms_cbb;
     CBB child;
@@ -1640,8 +1640,8 @@ static int ssl3_send_client_key_exchange(SSL_HANDSHAKE *hs) {
     pms_len = new_pms_len;
   }
 
-  /* The message must be added to the finished hash before calculating the
-   * master secret. */
+  // The message must be added to the finished hash before calculating the
+  // master secret.
   if (!ssl_add_message_cbb(ssl, cbb.get())) {
     goto err;
   }
@@ -1681,14 +1681,14 @@ static int ssl3_send_cert_verify(SSL_HANDSHAKE *hs) {
     return -1;
   }
   if (ssl3_protocol_version(ssl) >= TLS1_2_VERSION) {
-    /* Write out the digest type in TLS 1.2. */
+    // Write out the digest type in TLS 1.2.
     if (!CBB_add_u16(&body, signature_algorithm)) {
       OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
       return -1;
     }
   }
 
-  /* Set aside space for the signature. */
+  // Set aside space for the signature.
   const size_t max_sig_len = EVP_PKEY_size(hs->local_pubkey.get());
   uint8_t *ptr;
   if (!CBB_add_u16_length_prefixed(&body, &child) ||
@@ -1697,8 +1697,8 @@ static int ssl3_send_cert_verify(SSL_HANDSHAKE *hs) {
   }
 
   size_t sig_len = max_sig_len;
-  /* The SSL3 construction for CertificateVerify does not decompose into a
-   * single final digest and signature, and must be special-cased. */
+  // The SSL3 construction for CertificateVerify does not decompose into a
+  // single final digest and signature, and must be special-cased.
   if (ssl3_protocol_version(ssl) == SSL3_VERSION) {
     if (ssl->cert->key_method != NULL) {
       OPENSSL_PUT_ERROR(SSL, SSL_R_UNSUPPORTED_PROTOCOL_FOR_CUSTOM_KEY);
@@ -1737,7 +1737,7 @@ static int ssl3_send_cert_verify(SSL_HANDSHAKE *hs) {
     return -1;
   }
 
-  /* The handshake buffer is no longer necessary. */
+  // The handshake buffer is no longer necessary.
   hs->transcript.FreeBuffer();
   return 1;
 }
@@ -1810,9 +1810,9 @@ static int ssl3_get_new_session_ticket(SSL_HANDSHAKE *hs) {
   }
 
   if (CBS_len(&ticket) == 0) {
-    /* RFC 5077 allows a server to change its mind and send no ticket after
-     * negotiating the extension. The value of |ticket_expected| is checked in
-     * |ssl_update_cache| so is cleared here to avoid an unnecessary update. */
+    // RFC 5077 allows a server to change its mind and send no ticket after
+    // negotiating the extension. The value of |ticket_expected| is checked in
+    // |ssl_update_cache| so is cleared here to avoid an unnecessary update.
     hs->ticket_expected = 0;
     ssl->method->next_message(ssl);
     return 1;
@@ -1821,20 +1821,20 @@ static int ssl3_get_new_session_ticket(SSL_HANDSHAKE *hs) {
   SSL_SESSION *session = hs->new_session.get();
   UniquePtr<SSL_SESSION> renewed_session;
   if (ssl->session != NULL) {
-    /* The server is sending a new ticket for an existing session. Sessions are
-     * immutable once established, so duplicate all but the ticket of the
-     * existing session. */
+    // The server is sending a new ticket for an existing session. Sessions are
+    // immutable once established, so duplicate all but the ticket of the
+    // existing session.
     renewed_session =
         SSL_SESSION_dup(ssl->session, SSL_SESSION_INCLUDE_NONAUTH);
     if (!renewed_session) {
-      /* This should never happen. */
+      // This should never happen.
       OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
       return -1;
     }
     session = renewed_session.get();
   }
 
-  /* |tlsext_tick_lifetime_hint| is measured from when the ticket was issued. */
+  // |tlsext_tick_lifetime_hint| is measured from when the ticket was issued.
   ssl_session_rebase_time(ssl, session);
 
   if (!CBS_stow(&ticket, &session->tlsext_tick, &session->tlsext_ticklen)) {
@@ -1843,9 +1843,9 @@ static int ssl3_get_new_session_ticket(SSL_HANDSHAKE *hs) {
   }
   session->tlsext_tick_lifetime_hint = tlsext_tick_lifetime_hint;
 
-  /* Generate a session ID for this session based on the session ticket. We use
-   * the session ID mechanism for detecting ticket resumption. This also fits in
-   * with assumptions elsewhere in OpenSSL.*/
+  // Generate a session ID for this session based on the session ticket. We use
+  // the session ID mechanism for detecting ticket resumption. This also fits in
+  // with assumptions elsewhere in OpenSSL.
   if (!EVP_Digest(CBS_data(&ticket), CBS_len(&ticket),
                   session->session_id, &session->session_id_length,
                   EVP_sha256(), NULL)) {

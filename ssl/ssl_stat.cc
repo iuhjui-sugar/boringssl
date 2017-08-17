@@ -111,7 +111,7 @@ const char *SSL_state_string_long(const SSL *ssl) {
     case SSL_ST_RENEGOTIATE:
       return "SSL renegotiate ciphers";
 
-    /* SSLv3 additions */
+    // SSLv3 additions
     case SSL3_ST_CW_CLNT_HELLO_A:
       return "SSLv3 write client hello A";
 
@@ -191,7 +191,7 @@ const char *SSL_state_string_long(const SSL *ssl) {
     case SSL3_ST_SR_CERT_VRFY_A:
       return "SSLv3 read certificate verify A";
 
-    /* DTLS */
+    // DTLS
     case DTLS1_ST_CR_HELLO_VERIFY_REQUEST_A:
       return "DTLS1 read hello verify request A";
 
@@ -211,7 +211,7 @@ const char *SSL_state_string(const SSL *ssl) {
     case SSL_ST_OK:
       return "SSLOK ";
 
-    /* SSLv3 additions */
+    // SSLv3 additions
     case SSL3_ST_SW_FLUSH:
     case SSL3_ST_CW_FLUSH:
       return "3FLUSH";
@@ -288,7 +288,7 @@ const char *SSL_state_string(const SSL *ssl) {
     case SSL3_ST_SR_CERT_VRFY_A:
       return "3RCV_A";
 
-    /* DTLS */
+    // DTLS
     case DTLS1_ST_CR_HELLO_VERIFY_REQUEST_A:
       return "DRCHVA";
 
