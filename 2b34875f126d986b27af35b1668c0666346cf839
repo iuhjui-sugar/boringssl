@@ -1,0 +1,186 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c84f6a82_e7d6d1ba",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1559,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-17T20:03:19Z",
+      "side": 1,
+      "message": "Nit: I\u0027d do a s/TEST_P(SSLVersionTest, Test/TEST_P(SSLVersionTest, /. Save a few characters and the word \"test\" shows up enough as it is. :-)",
+      "revId": "2b34875f126d986b27af35b1668c0666346cf839",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ed26b16_4f0f8b1a",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1822,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-17T20:03:19Z",
+      "side": 1,
+      "message": "clang is really finicky and wants all thus to say 1u and 0u. I think when you write some_unsigned !\u003d 1, the compiler is sensible enough not to ding you for the signed \u003d\u003e unsigned conversion, but I guess GTest hides it in enough layers that it can\u0027t tell.",
+      "revId": "2b34875f126d986b27af35b1668c0666346cf839",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75d55945_4b20f53a",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1836,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-17T20:03:19Z",
+      "side": 1,
+      "message": "Existing issue, but this comment is totally nonsense. :-)",
+      "revId": "2b34875f126d986b27af35b1668c0666346cf839",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16275028_cc387d91",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1876,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-17T20:03:19Z",
+      "side": 1,
+      "message": "EXPECT_EQ(Bytes(cert_sha256), Bytes(session-\u003epeer_sha256)) is a little shorter and gives pretty hex output on error.",
+      "revId": "2b34875f126d986b27af35b1668c0666346cf839",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b456c7ab_573179e6",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2206,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-17T20:03:19Z",
+      "side": 1,
+      "message": "Is this function ever used in a non-GTest test at this point? If not, you can probably make it return void, do the EXPECT internally, and save a bunch of EXPECT_TRUEs.",
+      "range": {
+        "startLine": 2206,
+        "startChar": 14,
+        "endLine": 2206,
+        "endChar": 33
+      },
+      "revId": "2b34875f126d986b27af35b1668c0666346cf839",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f7b433e_998705db",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2327,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-17T20:03:19Z",
+      "side": 1,
+      "message": "SCOPED_TRACE(server_test) will make the output a little nicer.",
+      "revId": "2b34875f126d986b27af35b1668c0666346cf839",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31e3ade9_91d07260",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2340,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-17T20:03:19Z",
+      "side": 1,
+      "message": "This one might be worth making local SSL_CTXs or reseting them each loop around so sessions floating around don\u0027t interfere with the two runs.",
+      "range": {
+        "startLine": 2340,
+        "startChar": 34,
+        "endLine": 2340,
+        "endChar": 45
+      },
+      "revId": "2b34875f126d986b27af35b1668c0666346cf839",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59c52e2c_be5cf498",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2566,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-17T20:03:19Z",
+      "side": 1,
+      "message": "CreateContext already does these two lines, right?",
+      "revId": "2b34875f126d986b27af35b1668c0666346cf839",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e280bb9_16944d16",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2875,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-17T20:03:19Z",
+      "side": 1,
+      "message": "Ditto about SCOPED_TRACE and resetting things.",
+      "revId": "2b34875f126d986b27af35b1668c0666346cf839",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e648a3c_902c47b0",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3010,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-17T20:03:19Z",
+      "side": 1,
+      "message": "It shouldn\u0027t really matter, but may as well attach it to both the client and server contexts.",
+      "revId": "2b34875f126d986b27af35b1668c0666346cf839",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
