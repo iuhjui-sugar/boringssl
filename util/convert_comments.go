@@ -20,6 +20,7 @@ import (
 	"io/ioutil"
 	"os"
 	"strings"
+	"unicode/utf8"
 )
 
 // convert_comments.go converts C-style block comments to C++-style line
@@ -233,7 +234,7 @@ func convertComments(path string, in []byte) []byte {
 
 			for i, line := range group.lines {
 				newLine := fmt.Sprintf("%s%s//%s", line[:group.column], adjust, strings.TrimRight(line[group.column+2:], " "))
-				if len(newLine) > 80 {
+				if utf8.RuneCountInString(newLine) > 80 {
 					fmt.Fprintf(os.Stderr, "%s:%d: Line is now longer than 80 characters\n", path, lineNo+i+1)
 				}
 				writeLine(&out, newLine)
