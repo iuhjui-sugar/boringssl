@@ -62,7 +62,7 @@ static int ensure_buffer(SSL3_BUFFER *buf, size_t header_len, size_t cap) {
 
   if (buf->buf != NULL) {
     OPENSSL_memcpy(new_buf + new_offset, buf->buf + buf->offset, buf->len);
-    OPENSSL_free(buf->buf);
+    OPENSSL_free_without_cleanse(buf->buf);
   }
 
   buf->buf = new_buf;
@@ -81,7 +81,7 @@ static void consume_buffer(SSL3_BUFFER *buf, size_t len) {
 }
 
 static void clear_buffer(SSL3_BUFFER *buf) {
-  OPENSSL_free(buf->buf);
+  OPENSSL_free_without_cleanse(buf->buf);
   OPENSSL_memset(buf, 0, sizeof(SSL3_BUFFER));
 }
 
