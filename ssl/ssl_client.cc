@@ -775,13 +775,8 @@ static enum ssl_hs_wait_t do_read_server_hello(SSL_HANDSHAKE *hs) {
 }
 
 static enum ssl_hs_wait_t do_tls13(SSL_HANDSHAKE *hs) {
-  enum ssl_hs_wait_t wait = tls13_client_handshake(hs);
-  if (wait == ssl_hs_ok) {
-    hs->tls_state = state_finish_client_handshake;
-    return ssl_hs_ok;
-  }
-
-  return wait;
+  hs->do_tls_handshake = tls13_client_handshake;
+  return ssl_hs_change_handshake;
 }
 
 static enum ssl_hs_wait_t do_read_server_certificate(SSL_HANDSHAKE *hs) {

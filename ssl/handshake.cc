@@ -125,6 +125,11 @@ int tls_handshake(SSL_HANDSHAKE *hs, int *out_early_return) {
         hs->wait = ssl_hs_ok;
         return 1;
 
+      case ssl_hs_change_handshake:
+        hs->tls_state = 0;
+        hs->wait = ssl_hs_ok;
+        break;
+
       case ssl_hs_ok:
         break;
     }
