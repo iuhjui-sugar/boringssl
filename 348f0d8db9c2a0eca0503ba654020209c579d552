@@ -19,6 +19,29 @@
     },
     {
       "key": {
+        "uuid": "aa0afc9a_24f0b66d",
+        "filename": "ssl/ssl_client.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 873,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-18T23:11:37Z",
+      "side": 0,
+      "message": "You should be able to delete ssl_read_message now.",
+      "range": {
+        "startLine": 873,
+        "startChar": 12,
+        "endLine": 873,
+        "endChar": 28
+      },
+      "revId": "348f0d8db9c2a0eca0503ba654020209c579d552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "649d805f_1aa46883",
         "filename": "ssl/ssl_server.cc",
         "patchSetId": 15

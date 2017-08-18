@@ -173,6 +173,211 @@
     },
     {
       "key": {
+        "uuid": "e39cc126_89fa0aaf",
+        "filename": "ssl/ssl_client.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-18T23:11:37Z",
+      "side": 1,
+      "message": "Inline this into its caller. (Otherwise this looks like the first state and is pretty confusing.)",
+      "revId": "5d3c522460a02b4726fe2b97df7eb07d0f278698",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e37db297_236b2d9b",
+        "filename": "ssl/ssl_client.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-18T23:11:37Z",
+      "side": 1,
+      "message": "This block shouldn\u0027t be here. It\u0027s just ssl_hs_read_server_hello.",
+      "revId": "5d3c522460a02b4726fe2b97df7eb07d0f278698",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "270f7a67_bbfcc705",
+        "filename": "ssl/ssl_client.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-18T23:11:37Z",
+      "side": 1,
+      "message": "[Now that we don\u0027t have to support the old state machine, we can probably cut out some switch-cases and make all the helper functions return ssl_hs_wait_t. Better for a follow-up though.]",
+      "revId": "5d3c522460a02b4726fe2b97df7eb07d0f278698",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4f004663_aba0618f",
+        "filename": "ssl/ssl_client.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1223,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-18T23:11:37Z",
+      "side": 1,
+      "message": "Optional/for later: What are your thoughts on us skipping states by writing:\n\n  if (hs-\u003ecert_request) {\n    gobs and gobs of code indenteded a bit.\n  }\n  \n  hs-\u003etls_state \u003d state_send_client_key_exchange;\n  return ssl_hs_ok;\n\nBefore I think we wouldn\u0027t do this because of the weird read transitions, but I think it works fine now? Then we don\u0027t duplicate the name of the next state.\n\n(Can also do this as a follow-up or not do it. I\u0027m not sure if it\u0027s a good idea or not.)",
+      "revId": "5d3c522460a02b4726fe2b97df7eb07d0f278698",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2ee463b2_fb2b7cd0",
+        "filename": "ssl/ssl_client.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1541,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-18T23:11:37Z",
+      "side": 1,
+      "message": "May as well fold this state into do_send_change_cipher_spec. Though see below for something even more exciting.",
+      "revId": "5d3c522460a02b4726fe2b97df7eb07d0f278698",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8dc063fe_a70402f9",
+        "filename": "ssl/ssl_client.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1578,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-18T23:11:37Z",
+      "side": 1,
+      "message": "Optional: You could fold this state and do_send_client_finished all into do_send_change_cipher_spec with something like this:\n\nstatic enum ssl_hs_wait_t do_send_client_finished(SSL_HANDSHAKE *hs) {\n  // Resolve the Channel ID callback before any non-idempotent actions.\n  if (ssl-\u003es3-\u003etlsext_channel_id_valid) {\n    if (!ssl_do_channel_id_callback(ssl)) {\n      return ssl_hs_error;\n    }\n    if (ssl-\u003etlsext_channel_id_private \u003d\u003d NULL) {\n      hs-\u003etls_state \u003d state_send_client_finished;\n      return ssl_hs_channel_id_lookup;\n    }\n  }\n\n  // Add ChangeCipherSpec.\n  if (!hs-\u003essl-\u003emethod-\u003eadd_change_cipher_spec(hs-\u003essl) ||\n      !tls1_change_cipher_state(hs, SSL3_CHANGE_CIPHER_CLIENT_WRITE)) {\n    return ssl_hs_error;\n  }\n\n  // Add NextProto, if applicable.\n  if (hs-\u003enext_proto_neg_seen) {\n    blah blah blah\n  }\n\n  // Add ChannelID, if applicable.\n  if (ssl-\u003es3-\u003etlsext_channel_id_valid) {\n    blah blah blah\n  }\n\n  // Add Finished.\n  if (ssl3_send_finished(hs) \u003c\u003d 0) {\n    return ssl_hs_error;\n  }\n\n  hs-\u003etls_state \u003d state_finish_flight;\n  return ssl_hs_flush;\n}",
+      "revId": "5d3c522460a02b4726fe2b97df7eb07d0f278698",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ac9fbc6_3650ace5",
+        "filename": "ssl/ssl_client.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1601,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-18T23:11:37Z",
+      "side": 1,
+      "message": "Want to make this return 0/1?",
+      "range": {
+        "startLine": 1601,
+        "startChar": 6,
+        "endLine": 1601,
+        "endChar": 24
+      },
+      "revId": "5d3c522460a02b4726fe2b97df7eb07d0f278698",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7b8e7ae_75bb2d55",
+        "filename": "ssl/ssl_client.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1612,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-18T23:11:37Z",
+      "side": 1,
+      "message": "Nit: I\u0027d maybe just early return here.",
+      "revId": "5d3c522460a02b4726fe2b97df7eb07d0f278698",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0e0733a_9c93e7bf",
+        "filename": "ssl/ssl_client.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1614,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-18T23:11:37Z",
+      "side": 1,
+      "message": "Nit: \"full handshake\" is the shorter term.\n\n(I assume existing and my fault. :-) )",
+      "range": {
+        "startLine": 1614,
+        "startChar": 17,
+        "endLine": 1614,
+        "endChar": 40
+      },
+      "revId": "5d3c522460a02b4726fe2b97df7eb07d0f278698",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80936a73_544587ae",
+        "filename": "ssl/ssl_client.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1618,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-18T23:11:37Z",
+      "side": 1,
+      "message": "Want to make this return 0/1?",
+      "revId": "5d3c522460a02b4726fe2b97df7eb07d0f278698",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2031a9c0_b400728a",
+        "filename": "ssl/ssl_client.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1734,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-18T23:11:37Z",
+      "side": 1,
+      "message": "Pass into ssl3_get_finished are argument. ssl3_get_finished \u003d\u003e ssl_process_finished as returns 0/1.",
+      "range": {
+        "startLine": 1734,
+        "startChar": 38,
+        "endLine": 1734,
+        "endChar": 44
+      },
+      "revId": "5d3c522460a02b4726fe2b97df7eb07d0f278698",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "81f88730_7d43a087",
         "filename": "ssl/ssl_server.cc",
         "patchSetId": 15
