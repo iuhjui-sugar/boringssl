@@ -189,7 +189,6 @@ static int bn_rand_with_additional_data(BIGNUM *rnd, int bits, int top,
 
 err:
   if (buf != NULL) {
-    OPENSSL_cleanse(buf, bytes);
     OPENSSL_free(buf);
   }
   return (ret);
