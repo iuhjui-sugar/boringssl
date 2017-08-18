@@ -1,0 +1,192 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7cfeb616_002efd6e",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-18T19:28:32Z",
+      "side": 1,
+      "message": "Nit: 80 chars.",
+      "revId": "5d3c522460a02b4726fe2b97df7eb07d0f278698",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8183484c_72d5d697",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-18T19:28:32Z",
+      "side": 1,
+      "message": "This will work better for the TLS 1.3 sub-state-machine if it\u0027s done inside the state machine function (that one internally loops too). I think it\u0027s also better if tls_state is not touched outside of do_tls_handshake.\n\nThis CL also doesn\u0027t appear to make SSL_state_string_long work with the new states. SSL_CB_CONNECT_LOOP isn\u0027t useful without the debugging bits.\n\nSee this CL for a pattern that might work:\nhttps://boringssl-review.googlesource.com/c/19524",
+      "revId": "5d3c522460a02b4726fe2b97df7eb07d0f278698",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73569744_d5d4609c",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-18T19:28:32Z",
+      "side": 1,
+      "message": "SSL_CB_ACCEPT_LOOP on the server.",
+      "range": {
+        "startLine": 136,
+        "startChar": 36,
+        "endLine": 136,
+        "endChar": 55
+      },
+      "revId": "5d3c522460a02b4726fe2b97df7eb07d0f278698",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55df1872_dc76cf93",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-18T19:28:32Z",
+      "side": 1,
+      "message": "This and ssl3_accept are basically gone now and will ultimately need to go away (they depend on BIO). Could you fold SSL_CB_HANDSHAKE_STATE into tls_client_handshake and tls_server_handshake?\n\nNot sure what to do about SSL_CB_CONNECT_EXIT. That you can probably leave for me when I redo the driver.",
+      "revId": "5d3c522460a02b4726fe2b97df7eb07d0f278698",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d12346c0_4885d057",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-18T19:28:32Z",
+      "side": 1,
+      "message": "SSL_CB_ACCEPT_EXIT",
+      "range": {
+        "startLine": 191,
+        "startChar": 30,
+        "endLine": 191,
+        "endChar": 49
+      },
+      "revId": "5d3c522460a02b4726fe2b97df7eb07d0f278698",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "912b14c1_fe49667d",
+        "filename": "ssl/internal.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 1100,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-18T19:28:32Z",
+      "side": 1,
+      "message": "do_handshake. (TLS without version means TLS and not DTLS.)",
+      "range": {
+        "startLine": 1100,
+        "startChar": 23,
+        "endLine": 1100,
+        "endChar": 39
+      },
+      "revId": "5d3c522460a02b4726fe2b97df7eb07d0f278698",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ea0f217_69425a4d",
+        "filename": "ssl/internal.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 1337,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-18T19:28:32Z",
+      "side": 1,
+      "message": "ssl_handshake. It\u0027d probably also call it something like ssl_run_handshake or something since SSL_HANDSHAKE is a type.",
+      "revId": "5d3c522460a02b4726fe2b97df7eb07d0f278698",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e082608_213aa76b",
+        "filename": "ssl/internal.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 1342,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-18T19:28:32Z",
+      "side": 1,
+      "message": "ssl_client_handshake and ssl_server_handshake.",
+      "revId": "5d3c522460a02b4726fe2b97df7eb07d0f278698",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54338a72_a1b05030",
+        "filename": "ssl/ssl_client.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-18T19:28:32Z",
+      "side": 1,
+      "message": "Why the rename?",
+      "revId": "5d3c522460a02b4726fe2b97df7eb07d0f278698",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81f88730_7d43a087",
+        "filename": "ssl/ssl_server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-18T19:28:32Z",
+      "side": 1,
+      "message": "Why the rename?",
+      "revId": "5d3c522460a02b4726fe2b97df7eb07d0f278698",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

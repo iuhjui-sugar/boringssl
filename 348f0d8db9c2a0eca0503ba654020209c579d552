@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "73b0ffeb_6fb90f17",
+        "filename": "ssl/ssl_client.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-18T19:28:32Z",
+      "side": 0,
+      "message": "Don\u0027t change trailing spaces in the license header.",
+      "revId": "348f0d8db9c2a0eca0503ba654020209c579d552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "649d805f_1aa46883",
+        "filename": "ssl/ssl_server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-18T19:28:32Z",
+      "side": 0,
+      "message": "Don\u0027t change trailing spaces in the license header.",
+      "revId": "348f0d8db9c2a0eca0503ba654020209c579d552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
