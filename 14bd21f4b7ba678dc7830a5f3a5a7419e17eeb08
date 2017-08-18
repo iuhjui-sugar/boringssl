@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3dd420b6_03b83dd6",
+        "filename": "ssl/tls13_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-18T19:33:19Z",
+      "side": 1,
+      "message": "I\u0027m not a fan of duplicating this code just so we can do a tail call. Actually this one can be trimmed down a bit because there\u0027s no False Start, but the server half\u0027s retain_only_sha256_of_client_certs would get duplicated.\n\nIf the goal is just SSL_CB_CONNECT_LOOP, I think https://boringssl-review.googlesource.com/19524 would do the trick. We\u0027d then make the TLS 1.2 state switch-case, at state_tls13 or so forward to the TLS 1.3 function.",
+      "revId": "14bd21f4b7ba678dc7830a5f3a5a7419e17eeb08",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
