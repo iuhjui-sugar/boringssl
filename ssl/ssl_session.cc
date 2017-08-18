@@ -902,7 +902,6 @@ void SSL_SESSION_free(SSL_SESSION *session) {
   OPENSSL_free(session->ocsp_response);
   OPENSSL_free(session->psk_identity);
   OPENSSL_free(session->early_alpn);
-  OPENSSL_cleanse(session, sizeof(*session));
   OPENSSL_free(session);
 }
 

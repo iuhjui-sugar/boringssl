@@ -64,8 +64,10 @@ static int aead_aes_gcm_siv_asm_init(EVP_AEAD_CTX *ctx, const uint8_t *key,
     return 0;
   }
 
+  // The asm implementation expects a 16-byte-aligned address here, so we use
+  // |malloc| rather than |OPENSSL_malloc|, which would add a length prefix.
   struct aead_aes_gcm_siv_asm_ctx *gcm_siv_ctx =
-      OPENSSL_malloc(sizeof(struct aead_aes_gcm_siv_asm_ctx));
+      malloc(sizeof(struct aead_aes_gcm_siv_asm_ctx));
   if (gcm_siv_ctx == NULL) {
     return 0;
   }
@@ -87,9 +89,7 @@ static int aead_aes_gcm_siv_asm_init(EVP_AEAD_CTX *ctx, const uint8_t *key,
 }
 
 static void aead_aes_gcm_siv_asm_cleanup(EVP_AEAD_CTX *ctx) {
-  struct aead_aes_gcm_siv_asm_ctx *gcm_siv_asm_ctx = ctx->aead_state;
-  OPENSSL_cleanse(gcm_siv_asm_ctx, sizeof(struct aead_aes_gcm_siv_asm_ctx));
-  OPENSSL_free(gcm_siv_asm_ctx);
+  free(ctx->aead_state);  // allocated with native |malloc|
 }
 
 /* aesgcmsiv_polyval_horner updates the POLYVAL value in |in_out_poly| to
@@ -585,9 +585,7 @@ static int aead_aes_gcm_siv_init(EVP_AEAD_CTX *ctx, const uint8_t *key,
 }
 
 static void aead_aes_gcm_siv_cleanup(EVP_AEAD_CTX *ctx) {
-  struct aead_aes_gcm_siv_ctx *gcm_siv_ctx = ctx->aead_state;
-  OPENSSL_cleanse(gcm_siv_ctx, sizeof(struct aead_aes_gcm_siv_ctx));
-  OPENSSL_free(gcm_siv_ctx);
+  OPENSSL_free(ctx->aead_state);
 }
 
 /* gcm_siv_crypt encrypts (or decrypts—it's the same thing) |in_len| bytes from
