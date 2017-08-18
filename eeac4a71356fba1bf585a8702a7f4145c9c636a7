@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f50a360d_4ed37edc",
+        "filename": "crypto/curve25519/spake25519.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-18T20:08:57Z",
+      "side": 1,
+      "message": "// comments can\u0027t end in \\, so I switched this to a block comment with nothing on the left so it\u0027d be easier to copy-and-paste anyway.",
+      "revId": "eeac4a71356fba1bf585a8702a7f4145c9c636a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e037b1b_b01706a1",
+        "filename": "crypto/pkcs8/pkcs12_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-18T20:08:57Z",
+      "side": 1,
+      "message": "This was made a long line because // comments cannot end in \\. This is also easier to copy and paste anyway.",
+      "revId": "eeac4a71356fba1bf585a8702a7f4145c9c636a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
