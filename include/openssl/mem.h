@@ -74,15 +74,17 @@ extern "C" {
 // have those tools, the OpenSSL allocation functions are simply macros around
 // the standard memory functions.
 
+// OPENSSL_malloc acts like a regular |malloc|.
+OPENSSL_EXPORT void *OPENSSL_malloc(size_t size);
 
-#define OPENSSL_malloc malloc
-#define OPENSSL_realloc realloc
-#define OPENSSL_free free
+// OPENSSL_free does nothing if |ptr| is NULL. Otherwise it zeros out the
+// memory allocated at |ptr| and frees it.
+OPENSSL_EXPORT void OPENSSL_free(void *ptr);
 
-// OPENSSL_realloc_clean acts like |realloc|, but clears the previous memory
-// buffer.  Because this is implemented as a wrapper around |malloc|, it needs
-// to be given the size of the buffer pointed to by |ptr|.
-void *OPENSSL_realloc_clean(void *ptr, size_t old_size, size_t new_size);
+// OPENSSL_realloc returns a pointer to a buffer of |new_size| bytes that
+// contains the contents of |ptr|. Unlike |realloc|, a new buffer is always
+// allocated and the data at |ptr| is always wiped and freed.
+OPENSSL_EXPORT void *OPENSSL_realloc(void *ptr, size_t new_size);
 
 // OPENSSL_cleanse zeros out |len| bytes of memory at |ptr|. This is similar to
 // |memset_s| from C11.
