@@ -35,111 +35,150 @@ OPENSSL_MSVC_PRAGMA(warning(pop))
 
 static const struct argument kArguments[] = {
     {
-        "-connect", kRequiredArgument,
+        "-connect",
+        kRequiredArgument,
         "The hostname and port of the server to connect to, e.g. foo.com:443",
     },
     {
-        "-cipher", kOptionalArgument,
+        "-cipher",
+        kOptionalArgument,
         "An OpenSSL-style cipher suite string that configures the offered "
         "ciphers",
     },
     {
-        "-curves", kOptionalArgument,
+        "-curves",
+        kOptionalArgument,
         "An OpenSSL-style ECDH curves list that configures the offered curves",
     },
     {
-        "-max-version", kOptionalArgument,
+        "-max-version",
+        kOptionalArgument,
         "The maximum acceptable protocol version",
     },
     {
-        "-min-version", kOptionalArgument,
+        "-min-version",
+        kOptionalArgument,
         "The minimum acceptable protocol version",
     },
     {
-        "-server-name", kOptionalArgument, "The server name to advertise",
+        "-server-name",
+        kOptionalArgument,
+        "The server name to advertise",
     },
     {
-        "-select-next-proto", kOptionalArgument,
+        "-select-next-proto",
+        kOptionalArgument,
         "An NPN protocol to select if the server supports NPN",
     },
     {
-        "-alpn-protos", kOptionalArgument,
+        "-alpn-protos",
+        kOptionalArgument,
         "A comma-separated list of ALPN protocols to advertise",
     },
     {
-        "-fallback-scsv", kBooleanArgument, "Enable FALLBACK_SCSV",
+        "-fallback-scsv",
+        kBooleanArgument,
+        "Enable FALLBACK_SCSV",
     },
     {
-        "-ocsp-stapling", kBooleanArgument,
+        "-ocsp-stapling",
+        kBooleanArgument,
         "Advertise support for OCSP stabling",
     },
     {
-        "-signed-certificate-timestamps", kBooleanArgument,
+        "-signed-certificate-timestamps",
+        kBooleanArgument,
         "Advertise support for signed certificate timestamps",
     },
     {
-        "-channel-id-key", kOptionalArgument,
+        "-channel-id-key",
+        kOptionalArgument,
         "The key to use for signing a channel ID",
     },
     {
-        "-false-start", kBooleanArgument, "Enable False Start",
+        "-false-start",
+        kBooleanArgument,
+        "Enable False Start",
     },
     {
-        "-session-in", kOptionalArgument,
+        "-session-in",
+        kOptionalArgument,
         "A file containing a session to resume.",
     },
     {
-        "-session-out", kOptionalArgument,
+        "-session-out",
+        kOptionalArgument,
         "A file to write the negotiated session to.",
     },
     {
-        "-key", kOptionalArgument,
+        "-key",
+        kOptionalArgument,
         "PEM-encoded file containing the private key.",
     },
     {
-        "-cert", kOptionalArgument,
+        "-cert",
+        kOptionalArgument,
         "PEM-encoded file containing the leaf certificate and optional "
         "certificate chain. This is taken from the -key argument if this "
         "argument is not provided.",
     },
     {
-        "-starttls", kOptionalArgument,
+        "-starttls",
+        kOptionalArgument,
         "A STARTTLS mini-protocol to run before the TLS handshake. Supported"
         " values: 'smtp'",
     },
     {
-        "-grease", kBooleanArgument, "Enable GREASE",
+        "-grease",
+        kBooleanArgument,
+        "Enable GREASE",
     },
     {
-        "-test-resumption", kBooleanArgument,
+        "-test-resumption",
+        kBooleanArgument,
         "Connect to the server twice. The first connection is closed once a "
         "session is established. The second connection offers it.",
     },
     {
-        "-root-certs", kOptionalArgument,
+        "-root-certs",
+        kOptionalArgument,
         "A filename containing one of more PEM root certificates. Implies that "
         "verification is required.",
     },
     {
-        "-early-data", kOptionalArgument, "Allow early data",
+        "-early-data",
+        kOptionalArgument,
+        "Allow early data",
     },
     {
-        "-tls13-variant", kOptionalArgument,
+        "-tls13-variant",
+        kOptionalArgument,
         "Enable the specified experimental TLS 1.3 variant",
     },
     {
-        "-ed25519", kBooleanArgument, "Advertise Ed25519 support",
+        "-ed25519",
+        kBooleanArgument,
+        "Advertise Ed25519 support",
     },
     {
-        "-http-tunnel", kOptionalArgument,
+        "-http-tunnel",
+        kOptionalArgument,
         "An HTTP proxy server to tunnel the TCP connection through",
     },
     {
-        "-renegotiate-freely", kBooleanArgument,
+        "-renegotiate-freely",
+        kBooleanArgument,
         "Allow renegotiations from the peer.",
     },
     {
-        "", kOptionalArgument, "",
+        "-debug",
+        kBooleanArgument,
+        "Print debug information about the handshake",
+    },
+    {
+        "",
+        kOptionalArgument,
+        "",
     },
 };
 
@@ -325,6 +364,20 @@ static bool GetTLS13Variant(tls13_variant_t *out, const std::string &in) {
   return false;
 }
 
+static void InfoCallback(const SSL *ssl, int type, int value) {
+  switch (type) {
+    case SSL_CB_HANDSHAKE_START:
+      fprintf(stderr, "Handshake started.\n");
+      break;
+    case SSL_CB_HANDSHAKE_DONE:
+      fprintf(stderr, "Handshake done.\n");
+      break;
+    case SSL_CB_CONNECT_LOOP:
+      fprintf(stderr, "Handshake progress: %s\n", SSL_state_string_long(ssl));
+      break;
+  }
+}
+
 bool Client(const std::vector<std::string> &args) {
   if (!InitSocketLibrary()) {
     return false;
@@ -503,6 +556,10 @@ bool Client(const std::vector<std::string> &args) {
 
   if (args_map.count("-ed25519") != 0) {
     SSL_CTX_set_ed25519_enabled(ctx.get(), 1);
+  }
+
+  if (args_map.count("-debug") != 0) {
+    SSL_CTX_set_info_callback(ctx.get(), InfoCallback);
   }
 
   if (args_map.count("-test-resumption") != 0) {
