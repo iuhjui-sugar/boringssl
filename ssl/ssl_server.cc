@@ -555,13 +555,8 @@ static enum ssl_hs_wait_t do_select_certificate(SSL_HANDSHAKE *hs) {
 }
 
 static enum ssl_hs_wait_t do_tls13(SSL_HANDSHAKE *hs) {
-  enum ssl_hs_wait_t wait = tls13_server_handshake(hs);
-  if (wait == ssl_hs_ok) {
-    hs->tls_state = state_finish_server_handshake;
-    return ssl_hs_ok;
-  }
-
-  return wait;
+  hs->do_tls_handshake = tls13_server_handshake;
+  return ssl_hs_change_handshake;
 }
 
 static enum ssl_hs_wait_t do_select_parameters(SSL_HANDSHAKE *hs) {

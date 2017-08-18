@@ -1084,6 +1084,7 @@ enum ssl_hs_wait_t {
   ssl_hs_read_end_of_early_data,
   ssl_hs_read_change_cipher_spec,
   ssl_hs_certificate_verify,
+  ssl_hs_change_handshake,
 };
 
 struct SSL_HANDSHAKE {
@@ -1107,14 +1108,9 @@ struct SSL_HANDSHAKE {
    * the state of the handsake. */
   int state = SSL_ST_INIT;
 
-  /* tls_state is the internal state for the TLS 1.2 and below handshake. Its
-   * values depend on |do_tls_handshake| but the starting state is always
-   * zero. */
+  /* tls_state is the internal state for the TLS handshake. Its values depend on
+   * |do_tls_handshake| but the starting state is always zero. */
   int tls_state = 0;
-
-  /* tls13_state is the internal state for the TLS 1.3 handshake. Its values
-   * depend on |do_tls_handshake| but the starting state is always zero. */
-  int tls13_state = 0;
 
   /* min_version is the minimum accepted protocol version, taking account both
    * |SSL_OP_NO_*| and |SSL_CTX_set_min_proto_version| APIs. */
