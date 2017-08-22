@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6811efcb_2e354800",
+        "filename": "ssl/ssl_client.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-08-22T20:33:17Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "73b0ffeb_6fb90f17",
+      "revId": "348f0d8db9c2a0eca0503ba654020209c579d552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aa0afc9a_24f0b66d",
         "filename": "ssl/ssl_client.cc",
         "patchSetId": 15
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "f9fd565e_5449d28c",
+        "filename": "ssl/ssl_client.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 873,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-08-22T20:33:17Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "aa0afc9a_24f0b66d",
+      "range": {
+        "startLine": 873,
+        "startChar": 12,
+        "endLine": 873,
+        "endChar": 28
+      },
+      "revId": "348f0d8db9c2a0eca0503ba654020209c579d552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "649d805f_1aa46883",
         "filename": "ssl/ssl_server.cc",
         "patchSetId": 15
@@ -56,6 +98,24 @@
       "revId": "348f0d8db9c2a0eca0503ba654020209c579d552",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28372d21_110a030d",
+        "filename": "ssl/ssl_server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-08-22T20:33:17Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "649d805f_1aa46883",
+      "revId": "348f0d8db9c2a0eca0503ba654020209c579d552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
