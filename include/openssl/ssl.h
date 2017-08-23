@@ -529,6 +529,11 @@ OPENSSL_EXPORT int SSL_get_error(const SSL *ssl, int ret_code);
 // See also |SSL_CTX_set_custom_verify|.
 #define SSL_ERROR_WANT_CERTIFICATE_VERIFY 16
 
+// TODO: Add comment.
+//
+// See also |SSL_CTX_set_early_cb|.
+#define SSL_ERROR_WANT_EARLY 17
+
 // SSL_set_mtu sets the |ssl|'s MTU in DTLS to |mtu|. It returns one on success
 // and zero on failure.
 OPENSSL_EXPORT int SSL_set_mtu(SSL *ssl, unsigned mtu);
@@ -3229,10 +3234,39 @@ OPENSSL_EXPORT int SSL_CTX_set_max_send_fragment(SSL_CTX *ctx,
 OPENSSL_EXPORT int SSL_set_max_send_fragment(SSL *ssl,
                                              size_t max_send_fragment);
 
+// TODO: Add comment.
+OPENSSL_EXPORT void SSL_CTX_set_early_cb(SSL_CTX *ctx,
+    int (*cb)(SSL *ssl, int *out_alert, void *arg), void *arg);
+
+// TODO: Add comment.
+OPENSSL_EXPORT unsigned int SSL_early_get0_legacy_version(SSL *ssl);
+
+// TODO: Add comment.
+OPENSSL_EXPORT size_t SSL_early_get0_random(SSL *ssl,
+    const uint8_t **out_data);
+
+// TODO: Add comment.
+OPENSSL_EXPORT size_t SSL_early_get0_session_id(SSL *ssl,
+    const uint8_t **out_data);
+
+// TODO: Add comment.
+OPENSSL_EXPORT size_t SSL_early_get0_ciphers(SSL *ssl,
+    const uint8_t **out_data);
+
+// TODO: Add comment.
+OPENSSL_EXPORT size_t SSL_early_get0_compression_methods(SSL *ssl,
+    const uint8_t **out_data);
+
+// TODO: Add comment.
+OPENSSL_EXPORT int SSL_early_get0_ext(SSL *ssl, int extension_type,
+    const uint8_t **out_data, size_t *out_len);
+
 // ssl_early_callback_ctx (aka |SSL_CLIENT_HELLO|) is passed to certain
 // callbacks that are called very early on during the server handshake. At this
 // point, much of the SSL* hasn't been filled out and only the ClientHello can
 // be depended on.
+//
+// TODO: Cleanup and move to ssl/internal.h.
 typedef struct ssl_early_callback_ctx {
   SSL *ssl;
   const uint8_t *client_hello;
@@ -3252,6 +3286,8 @@ typedef struct ssl_early_callback_ctx {
 
 // ssl_select_cert_result_t enumerates the possible results from selecting a
 // certificate with |select_certificate_cb|.
+//
+// TODO: Remove or deprecate.
 enum ssl_select_cert_result_t {
   // ssl_select_cert_success indicates that the certificate selection was
   // successful.
@@ -3269,6 +3305,8 @@ enum ssl_select_cert_result_t {
 // zero. Otherwise it sets |out_data| to point to the extension contents (not
 // including the type and length bytes), sets |out_len| to the length of the
 // extension contents and returns one.
+//
+// TODO: Remove or deprecate.
 OPENSSL_EXPORT int SSL_early_callback_ctx_extension_get(
     const SSL_CLIENT_HELLO *client_hello, uint16_t extension_type,
     const uint8_t **out_data, size_t *out_len);
@@ -3285,6 +3323,8 @@ OPENSSL_EXPORT int SSL_early_callback_ctx_extension_get(
 //
 // Note: The |SSL_CLIENT_HELLO| is only valid for the duration of the callback
 // and is not valid while the handshake is paused.
+//
+// TODO: Remove or deprecate.
 OPENSSL_EXPORT void SSL_CTX_set_select_certificate_cb(
     SSL_CTX *ctx,
     enum ssl_select_cert_result_t (*cb)(const SSL_CLIENT_HELLO *));
@@ -3785,6 +3825,7 @@ OPENSSL_EXPORT void SSL_CTX_set_client_cert_cb(
 #define SSL_PENDING_TICKET 10
 #define SSL_EARLY_DATA_REJECTED 11
 #define SSL_CERTIFICATE_VERIFY 12
+#define SSL_PENDING_CLIENT_HELLO 13
 
 // SSL_want returns one of the above values to determine what the most recent
 // operation on |ssl| was blocked on. Use |SSL_get_error| instead.
@@ -4354,6 +4395,10 @@ struct ssl_ctx_st {
       int ok, X509_STORE_CTX *ctx);  // called 'verify_callback' in the SSL
 
   X509_VERIFY_PARAM *param;
+
+  // TODO: Add comment.
+  int (*early_cb)(SSL *ssl, int *out_alert, void *arg);
+  void *early_cb_arg;
 
   // select_certificate_cb is called before most ClientHello processing and
   // before the decision whether to resume a session is made. See

@@ -696,7 +696,26 @@ static int ssl3_read_client_hello(SSL_HANDSHAKE *hs) {
   }
 
   /* Run the early callback. */
-  if (ssl->ctx->select_certificate_cb != NULL) {
+  if (ssl->ctx->early_cb != NULL) {
+    ssl->client_hello = &client_hello;
+    int alert = SSL_AD_HANDSHAKE_FAILURE;
+    switch (ssl->ctx->early_cb(ssl, &alert, ssl->ctx->early_cb_arg)) {
+      case -1:
+        ssl->client_hello = NULL;
+        ssl->rwstate = SSL_PENDING_CLIENT_HELLO;
+        return -1;
+
+      case 0:
+        /* Connection rejected. */
+        ssl->client_hello = NULL;
+        OPENSSL_PUT_ERROR(SSL, SSL_R_CONNECTION_REJECTED);
+        ssl3_send_alert(ssl, SSL3_AL_FATAL, alert);
+        return -1;
+
+      default:
+        ssl->client_hello = NULL;
+    }
+  } else if (ssl->ctx->select_certificate_cb != NULL) {
     switch (ssl->ctx->select_certificate_cb(&client_hello)) {
       case ssl_select_cert_retry:
         ssl->rwstate = SSL_CERTIFICATE_SELECTION_PENDING;

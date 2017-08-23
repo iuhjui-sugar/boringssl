@@ -1945,6 +1945,9 @@ struct SSLConnection {
    * milliseconds. It's used to initialize the timer any time it's restarted. */
   unsigned initial_timeout_duration_ms;
 
+  /* TODO: Add comment. */
+  SSL_CLIENT_HELLO *client_hello;
+
   /* session is the configured session to be offered by the client. This session
    * is immutable. */
   SSL_SESSION *session;

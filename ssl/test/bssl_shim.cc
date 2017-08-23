@@ -527,10 +527,9 @@ static bool InstallCertificate(SSL *ssl) {
   return true;
 }
 
-static enum ssl_select_cert_result_t SelectCertificateCallback(
-    const SSL_CLIENT_HELLO *client_hello) {
-  const TestConfig *config = GetTestConfig(client_hello->ssl);
-  GetTestState(client_hello->ssl)->early_callback_called = true;
+static int SelectCertificateCallback(SSL *ssl, int *out_alert, void *arg) {
+  const TestConfig *config = GetTestConfig(ssl);
+  GetTestState(ssl)->early_callback_called = true;
 
   if (!config->expected_server_name.empty()) {
     const uint8_t *extension_data;
@@ -538,11 +537,10 @@ static enum ssl_select_cert_result_t SelectCertificateCallback(
     CBS extension, server_name_list, host_name;
     uint8_t name_type;
 
-    if (!SSL_early_callback_ctx_extension_get(
-            client_hello, TLSEXT_TYPE_server_name, &extension_data,
+    if (!SSL_early_get0_ext(ssl, TLSEXT_TYPE_server_name, &extension_data,
             &extension_len)) {
       fprintf(stderr, "Could not find server_name extension.\n");
-      return ssl_select_cert_error;
+      return 0;
     }
 
     CBS_init(&extension, extension_data, extension_len);
@@ -553,7 +551,7 @@ static enum ssl_select_cert_result_t SelectCertificateCallback(
         !CBS_get_u16_length_prefixed(&server_name_list, &host_name) ||
         CBS_len(&server_name_list) != 0) {
       fprintf(stderr, "Could not decode server_name extension.\n");
-      return ssl_select_cert_error;
+      return 0;
     }
 
     if (!CBS_mem_equal(&host_name,
@@ -564,22 +562,21 @@ static enum ssl_select_cert_result_t SelectCertificateCallback(
   }
 
   if (config->fail_early_callback) {
-    return ssl_select_cert_error;
+    return 0;
   }
 
   // Install the certificate in the early callback.
   if (config->use_early_callback) {
-    bool early_callback_ready =
-        GetTestState(client_hello->ssl)->early_callback_ready;
+    bool early_callback_ready = GetTestState(ssl)->early_callback_ready;
     if (config->async && !early_callback_ready) {
       // Install the certificate asynchronously.
-      return ssl_select_cert_retry;
+      return -1;
     }
-    if (!InstallCertificate(client_hello->ssl)) {
-      return ssl_select_cert_error;
+    if (!InstallCertificate(ssl)) {
+      return 0;
     }
   }
-  return ssl_select_cert_success;
+  return 1;
 }
 
 static bool CheckCertificateRequest(SSL *ssl) {
@@ -1201,7 +1198,7 @@ static bssl::UniquePtr<SSL_CTX> SetupCtx(SSL_CTX *old_ctx,
     SSL_CTX_set_session_cache_mode(ssl_ctx.get(), SSL_SESS_CACHE_BOTH);
   }
 
-  SSL_CTX_set_select_certificate_cb(ssl_ctx.get(), SelectCertificateCallback);
+  SSL_CTX_set_early_cb(ssl_ctx.get(), SelectCertificateCallback, NULL);
 
   if (config->use_old_client_cert_callback) {
     SSL_CTX_set_client_cert_cb(ssl_ctx.get(), ClientCertCallback);
@@ -1370,7 +1367,7 @@ static bool RetryAsync(SSL *ssl, int ret) {
     case SSL_ERROR_PENDING_SESSION:
       test_state->session = std::move(test_state->pending_session);
       return true;
-    case SSL_ERROR_PENDING_CERTIFICATE:
+    case SSL_ERROR_WANT_EARLY:
       test_state->early_callback_ready = true;
       return true;
     case SSL_ERROR_WANT_PRIVATE_KEY_OPERATION:

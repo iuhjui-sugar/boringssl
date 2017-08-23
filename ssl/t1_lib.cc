@@ -3545,6 +3545,79 @@ int ssl_is_sct_list_valid(const CBS *contents) {
 
 using namespace bssl;
 
+unsigned int SSL_early_get0_legacy_version(SSL *ssl) {
+  if (ssl->client_hello == NULL) {
+    return 0;
+  }
+
+  return ssl->client_hello->version;
+}
+
+size_t SSL_early_get0_random(SSL *ssl, const uint8_t **out_data) {
+  if (ssl->client_hello == NULL) {
+    return 0;
+  }
+
+  if (out_data) {
+    *out_data = ssl->client_hello->random;
+  }
+  return ssl->client_hello->random_len;
+}
+
+size_t SSL_early_get0_session_id(SSL *ssl, const uint8_t **out_data) {
+  if (ssl->client_hello == NULL) {
+    return 0;
+  }
+
+  if (out_data) {
+    *out_data = ssl->client_hello->session_id;
+  }
+  return ssl->client_hello->session_id_len;
+}
+
+size_t SSL_early_get0_ciphers(SSL *ssl, const uint8_t **out_data) {
+  if (ssl->client_hello == NULL) {
+    return 0;
+  }
+
+  if (out_data) {
+    *out_data = ssl->client_hello->cipher_suites;
+  }
+  return ssl->client_hello->cipher_suites_len;
+}
+
+size_t SSL_early_get0_compression_methods(SSL *ssl, const uint8_t **out_data) {
+  if (ssl->client_hello == NULL) {
+    return 0;
+  }
+
+  if (out_data) {
+    *out_data = ssl->client_hello->compression_methods;
+  }
+  return ssl->client_hello->compression_methods_len;
+}
+
+int SSL_early_get0_ext(SSL *ssl, int extension_type, const uint8_t **out_data,
+    size_t *out_len) {
+  if (ssl->client_hello == NULL) {
+    return 0;
+  }
+
+  CBS cbs;
+  if (!ssl_client_hello_get_extension(ssl->client_hello, &cbs, extension_type))
+  {
+    return 0;
+  }
+
+  if (out_data) {
+    *out_data = CBS_data(&cbs);
+  }
+  if (out_len) {
+    *out_len = CBS_len(&cbs);
+  }
+  return 1;
+}
+
 int SSL_early_callback_ctx_extension_get(const SSL_CLIENT_HELLO *client_hello,
                                          uint16_t extension_type,
                                          const uint8_t **out_data,

@@ -2221,18 +2221,19 @@ TEST_P(SSLVersionTest, SessionIDContext) {
 
   // Switch the session ID context with the early callback instead.
   SSL_CTX_set_tlsext_servername_callback(server_ctx_.get(), nullptr);
-  SSL_CTX_set_select_certificate_cb(
+
+  SSL_CTX_set_early_cb(
       server_ctx_.get(),
-      [](const SSL_CLIENT_HELLO *client_hello) -> ssl_select_cert_result_t {
+      [](SSL *ssl, int *out_alert, void *arg) -> int {
         static const uint8_t kContext[] = {3};
 
-        if (!SSL_set_session_id_context(client_hello->ssl, kContext,
-                                        sizeof(kContext))) {
-          return ssl_select_cert_error;
+        if (!SSL_set_session_id_context(ssl, kContext, sizeof(kContext))) {
+          return 0;
         }
 
-        return ssl_select_cert_success;
-      });
+        return 1;
+      },
+      nullptr);
 
   TRACED_CALL(ExpectSessionReused(client_ctx_.get(), server_ctx_.get(),
                                   session.get(),
@@ -2597,15 +2598,16 @@ TEST(SSLTest, EarlyCallbackVersionSwitch) {
   ASSERT_TRUE(SSL_CTX_set_max_proto_version(client_ctx.get(), TLS1_3_VERSION));
   ASSERT_TRUE(SSL_CTX_set_max_proto_version(server_ctx.get(), TLS1_3_VERSION));
 
-  SSL_CTX_set_select_certificate_cb(
+  SSL_CTX_set_early_cb(
       server_ctx.get(),
-      [](const SSL_CLIENT_HELLO *client_hello) -> ssl_select_cert_result_t {
-        if (!SSL_set_max_proto_version(client_hello->ssl, TLS1_2_VERSION)) {
-          return ssl_select_cert_error;
+      [](SSL *ssl, int *out_alert, void *arg) -> int {
+        if (!SSL_set_max_proto_version(ssl, TLS1_2_VERSION)) {
+          return 0;
         }
 
-        return ssl_select_cert_success;
-      });
+        return 1;
+      },
+      nullptr);
 
   bssl::UniquePtr<SSL> client, server;
   ASSERT_TRUE(ConnectClientAndServer(&client, &server, client_ctx.get(),

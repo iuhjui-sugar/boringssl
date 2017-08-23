@@ -746,15 +746,15 @@ enum ssl_session_result_t ssl_get_prev_session(
   int renew_ticket = 0;
 
   /* If tickets are disabled, always behave as if no tickets are present. */
-  const uint8_t *ticket = NULL;
-  size_t ticket_len = 0;
+  CBS ticket;
   const int tickets_supported =
       !(SSL_get_options(ssl) & SSL_OP_NO_TICKET) &&
       ssl->version > SSL3_VERSION &&
-      SSL_early_callback_ctx_extension_get(
-          client_hello, TLSEXT_TYPE_session_ticket, &ticket, &ticket_len);
-  if (tickets_supported && ticket_len > 0) {
-    switch (ssl_process_ticket(ssl, &session, &renew_ticket, ticket, ticket_len,
+      ssl_client_hello_get_extension(client_hello, &ticket,
+                                     TLSEXT_TYPE_session_ticket);
+  if (tickets_supported && CBS_len(&ticket) > 0) {
+    switch (ssl_process_ticket(ssl, &session, &renew_ticket,
+                               CBS_data(&ticket), CBS_len(&ticket),
                                client_hello->session_id,
                                client_hello->session_id_len)) {
       case ssl_ticket_aead_success:

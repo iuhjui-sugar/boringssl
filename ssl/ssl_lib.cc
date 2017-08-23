@@ -1130,6 +1130,9 @@ int SSL_get_error(const SSL *ssl, int ret_code) {
   }
 
   switch (ssl->rwstate) {
+    case SSL_PENDING_CLIENT_HELLO:
+      return SSL_ERROR_WANT_EARLY;
+
     case SSL_PENDING_SESSION:
       return SSL_ERROR_PENDING_SESSION;
 
@@ -2362,6 +2365,12 @@ void SSL_get_structure_sizes(size_t *ssl_size, size_t *ssl_ctx_size,
 int SSL_is_server(const SSL *ssl) { return ssl->server; }
 
 int SSL_is_dtls(const SSL *ssl) { return ssl->method->is_dtls; }
+
+void SSL_CTX_set_early_cb(SSL_CTX *ctx,
+    int (*cb)(SSL *ssl, int *out_alert, void *arg), void *arg) {
+  ctx->early_cb = cb;
+  ctx->early_cb_arg = arg;
+}
 
 void SSL_CTX_set_select_certificate_cb(
     SSL_CTX *ctx,
