@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "036a2b5a_72bc61b2",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1837,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-08-23T16:07:00Z",
+      "side": 1,
+      "message": "final_flight_has_reply?",
+      "range": {
+        "startLine": 1837,
+        "startChar": 7,
+        "endLine": 1837,
+        "endChar": 23
+      },
+      "revId": "06ffbd65dd119769565040ae2ac82c57c8e68f33",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
