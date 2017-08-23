@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5e80c1bf_11c974ac",
+        "filename": "ssl/tls13_both.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-08-23T15:58:43Z",
+      "side": 1,
+      "message": "Clearly we need a \u0027int CRYPTO_BUFFER_reset(dest, src)\u0027 function.",
+      "range": {
+        "startLine": 288,
+        "startChar": 8,
+        "endLine": 288,
+        "endChar": 26
+      },
+      "revId": "e0d94b767cabf832035bb0c9c9509c9f039dfe09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
