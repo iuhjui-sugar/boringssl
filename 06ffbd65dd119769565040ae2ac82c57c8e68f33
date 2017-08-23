@@ -22,6 +22,30 @@
       "revId": "06ffbd65dd119769565040ae2ac82c57c8e68f33",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "281e59bb_2c40a844",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1837,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-23T17:11:19Z",
+      "side": 1,
+      "message": "We only care about the final flight, but it\u0027s tracked for all of them since we don\u0027t know which flight is final at the time.",
+      "parentUuid": "036a2b5a_72bc61b2",
+      "range": {
+        "startLine": 1837,
+        "startChar": 7,
+        "endLine": 1837,
+        "endChar": 23
+      },
+      "revId": "06ffbd65dd119769565040ae2ac82c57c8e68f33",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
