@@ -493,6 +493,24 @@
     },
     {
       "key": {
+        "uuid": "a0866faf_3a26260b",
+        "filename": "ssl/ssl_client.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1223,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-25T02:30:18Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "497a42fc_280035a8",
+      "revId": "5d3c522460a02b4726fe2b97df7eb07d0f278698",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ee463b2_fb2b7cd0",
         "filename": "ssl/ssl_client.cc",
         "patchSetId": 15
@@ -557,6 +575,24 @@
       "side": 1,
       "message": "Might do this separately, this CL probably should not overly change the ordering of things just to make the conversion more straightforward.",
       "parentUuid": "8dc063fe_a70402f9",
+      "revId": "5d3c522460a02b4726fe2b97df7eb07d0f278698",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "27d3698c_667d65dd",
+        "filename": "ssl/ssl_client.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1578,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-25T02:30:18Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c8046e78_a7e1b638",
       "revId": "5d3c522460a02b4726fe2b97df7eb07d0f278698",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false

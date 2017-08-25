@@ -1,0 +1,277 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a245a3e6_8596fe7f",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-25T02:30:18Z",
+      "side": 1,
+      "message": "There\u0027s a bunch of other stuff in s3_both.cc that probably ought to be in here. (SSL_HANDSHAKE ctor/dtor, ssl_handshake_new, etc. Basically anything that doesn\u0027t begin with ssl3_.)",
+      "revId": "6099cb6508830bdddfd7748066a0018c8c19b527",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c0c2ca8_35bc49bc",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-25T02:30:18Z",
+      "side": 1,
+      "message": "Unused?",
+      "revId": "6099cb6508830bdddfd7748066a0018c8c19b527",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcd6fd43_8ae9ff24",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-25T02:30:18Z",
+      "side": 1,
+      "message": "Unused?",
+      "revId": "6099cb6508830bdddfd7748066a0018c8c19b527",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3627478_dd4b848c",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-25T02:30:18Z",
+      "side": 1,
+      "message": "Nit: extra newline.",
+      "revId": "6099cb6508830bdddfd7748066a0018c8c19b527",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8eea6668_e994e92d",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-25T02:30:18Z",
+      "side": 1,
+      "message": "This state can be avoided (or rather SSL_ST_HANDSHAKE folded into it) by just setting do_handshake in SSL_set_{accept,connect}_state. Then you can add a ternary on SSL_CB_{CONNECT,ACCEPT}_EXIT and ssl3_connect and ssl3_accept will be the exact same function. Then inline this into SSL_do_handshake.\n\n(Should SSL_do_handshake live in this file instead of ssl_lib.cc? Dunno. Then ssl_run_handshake can even be static.)",
+      "revId": "6099cb6508830bdddfd7748066a0018c8c19b527",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a5b534a_a70efc92",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-25T02:30:18Z",
+      "side": 1,
+      "message": "This loop is odd. The only place you set hs-\u003estate to SSL_ST_OK is in this function. So you at least s/while/if. But it\u0027s also impossible for hs-\u003estate \u003d\u003d SSL_ST_OK at this point because then the caller would immediately destroy the handshake object.\n\nSSL_ST_OK is also redundant with state internal to the handshake function ssl_run_handshake already tells you whether you completed or not by way of ret and early_return. Once you inline this into SSL_do_handshake, you can remove the weird  if (!SSL_in_init(ssl)) hack in SSL_do_handshake and base it on the now accessible ret/early_return.\n\nWith all that, I believe SSL_in_init is becomes just whether hs !\u003d NULL (finally!!) and you don\u0027t need the separate ssl_state and state fields.",
+      "revId": "6099cb6508830bdddfd7748066a0018c8c19b527",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54a51e59_a0a2ad31",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-25T02:30:18Z",
+      "side": 1,
+      "message": "Nit: // namespace bssl",
+      "revId": "6099cb6508830bdddfd7748066a0018c8c19b527",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6de0feaa_c360c9e3",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-25T02:30:18Z",
+      "side": 1,
+      "message": "Probably as follow-up state machine cleanup, but I was going to say you could fold this into the next state and then realized you couldn\u0027t because of HVR. And then I realized that do_send_client_hello has a lot of logic (basically everything outside of transcript.Init() and ssl_write_client_hello) that really should only run only once. In fact the !ssl-\u003ed1-\u003esend_cookie check is basically hacking around this. Which suggests that maybe we just duplicate transcript.Init() and ssl_write_client_hello into the end of do_read_hello_verify_request. That would avoid doing a lot of things twice, remove a send_cookie check, and free up folding the states together.",
+      "revId": "6099cb6508830bdddfd7748066a0018c8c19b527",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11c2ee01_d1814be8",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 1705,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-25T02:30:18Z",
+      "side": 1,
+      "message": "Probably for later, this shouldn\u0027t have an ssl3 prefix (and live in handshake.cc.)",
+      "range": {
+        "startLine": 1705,
+        "startChar": 28,
+        "endLine": 1705,
+        "endChar": 45
+      },
+      "revId": "6099cb6508830bdddfd7748066a0018c8c19b527",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c71ce1da_dccf94eb",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-25T02:30:18Z",
+      "side": 1,
+      "message": "(For later, another thing we could maybe just turn into ssl_hs_wait and save some code.)",
+      "range": {
+        "startLine": 583,
+        "startChar": 10,
+        "endLine": 583,
+        "endChar": 30
+      },
+      "revId": "6099cb6508830bdddfd7748066a0018c8c19b527",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92621d20_831a6bf1",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 848,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-25T02:30:18Z",
+      "side": 1,
+      "message": "Nit: \u003d\u003d 0. (Unsigned, so can\u0027t be \u003c.)",
+      "revId": "6099cb6508830bdddfd7748066a0018c8c19b527",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "116269b6_6cc45972",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 1147,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-25T02:30:18Z",
+      "side": 1,
+      "message": "Better to set up an ssl_hs_wait_t ret \u003d ssl_hs_error and do ret \u003d ssl_hs_private_key_operation; goto err. I really should go do bssl::Array so we can scoper all these things.",
+      "revId": "6099cb6508830bdddfd7748066a0018c8c19b527",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86694328_54a33693",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 1412,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-25T02:30:18Z",
+      "side": 1,
+      "message": "[Was going to say you don\u0027t need this state and then I saw the flush thing. That\u0027s annoying. :-/ Well, we\u0027ll see what the write bits end up looking like at the final API. Actually I wonder if they\u0027ll just end up like your original design but with flight-by-flight writes rather than message-by-messages writes.]",
+      "revId": "6099cb6508830bdddfd7748066a0018c8c19b527",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6f98afc2_3008b7e1",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 1076,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-25T02:30:18Z",
+      "side": 1,
+      "message": "That doesn\u0027t match the comment or the intent of the check anymore. This is because the handshake is so sensitive to ssl-\u003esession (maybe instead of hacking this check in we should have used a different SSL_SESSION pointer on hs?), so we need to make sure no one calls SSL_set_session after the handshake has begun. This is testing that no one calls it after the initial handshake has *completed* which isn\u0027t terribly important now that we have session_reused.\n\n(Maybe check the state against zero?? That\u0027s kinda weird but should work... You could also set a boolean on SSL_HANDSHAKE somewhere for the handshake having started. There\u0027s also checking whether min/max_version have been set, but I feel like at that point you may as well add another bit...)",
+      "revId": "6099cb6508830bdddfd7748066a0018c8c19b527",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b27e059d_b2d61535",
+        "filename": "ssl/ssl_stat.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-25T02:30:18Z",
+      "side": 1,
+      "message": "I don\u0027t think this is actually a state. Just SSL_ST_INIT. Ditto below. Though once handshake.cc changes are done, this\u0027ll probably all turn into:\n\nSSL_HANDSHAKE *hs \u003d ssl-\u003es3-\u003ehs;\nif (hs \u003d\u003d NULL) {\n  return \"SSL negotiation finished successfully\";\n}\n\nreturn ssl-\u003eserver ? ssl_server_handshake_state(hs)\n                   : ssl_client_handshake_state(hs);",
+      "range": {
+        "startLine": 102,
+        "startChar": 9,
+        "endLine": 102,
+        "endChar": 22
+      },
+      "revId": "6099cb6508830bdddfd7748066a0018c8c19b527",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

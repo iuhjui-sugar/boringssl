@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3bf0734a_461dfef2",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-25T02:30:18Z",
+      "side": 0,
+      "message": "[Note this bit and the ssl_update_cache call changed on master. You\u0027ll want to preserve it when you rebase.]",
+      "revId": "e7848220a241e5bbb6b98a6f1f65e4d4f1cef308",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0607c2e2_695a30fa",
+        "filename": "ssl/s3_both.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-25T02:30:18Z",
+      "side": 0,
+      "message": "Also remove the prototype from internal.h. (I wish there were tooling for function prototypes that are never defined...)",
+      "revId": "e7848220a241e5bbb6b98a6f1f65e4d4f1cef308",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
