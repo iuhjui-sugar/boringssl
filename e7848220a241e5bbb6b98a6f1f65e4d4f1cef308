@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "718a6ac0_16dfab61",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-08-28T17:04:04Z",
+      "side": 0,
+      "message": "Ack",
+      "parentUuid": "3bf0734a_461dfef2",
+      "revId": "e7848220a241e5bbb6b98a6f1f65e4d4f1cef308",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0607c2e2_695a30fa",
         "filename": "ssl/s3_both.cc",
         "patchSetId": 16
@@ -33,6 +51,24 @@
       "revId": "e7848220a241e5bbb6b98a6f1f65e4d4f1cef308",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b58a630d_50b521cb",
+        "filename": "ssl/s3_both.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-08-28T17:04:04Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "0607c2e2_695a30fa",
+      "revId": "e7848220a241e5bbb6b98a6f1f65e4d4f1cef308",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
