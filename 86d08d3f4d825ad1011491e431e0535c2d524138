@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "07457bc7_98c7bbc1",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-29T19:22:13Z",
+      "side": 1,
+      "message": "This block isn\u0027t needed now since ssl_handshake_new sets it up for you.",
+      "revId": "86d08d3f4d825ad1011491e431e0535c2d524138",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a735d1a_e06a6086",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-29T19:22:13Z",
+      "side": 1,
+      "message": "Super nitpicky nitpick: this comment talks about both the first and the second Init calls but this is the second one. Maybe just:\n\n// DTLS resets the handshake buffer after HelloVerifyRequest.",
+      "revId": "86d08d3f4d825ad1011491e431e0535c2d524138",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e846a53_64503492",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-29T19:22:13Z",
+      "side": 1,
+      "message": "(Optional: while you\u0027re here, you can probably delete this line if you like and assume SSLTranscript::Init touches the error queue. Then you can even chain.)",
+      "revId": "86d08d3f4d825ad1011491e431e0535c2d524138",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
