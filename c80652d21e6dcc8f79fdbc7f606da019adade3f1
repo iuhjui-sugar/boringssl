@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0b8e745c_c815ec66",
+        "filename": "crypto/mem.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-29T17:57:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3465d2c3_4382d484",
+      "range": {
+        "startLine": 79,
+        "startChar": 2,
+        "endLine": 79,
+        "endChar": 18
+      },
+      "revId": "c80652d21e6dcc8f79fdbc7f606da019adade3f1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7da6877b_139ea5c9",
         "filename": "ssl/ssl_cipher.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "c80652d21e6dcc8f79fdbc7f606da019adade3f1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a03e90ff_85ffc4ea",
+        "filename": "ssl/ssl_cipher.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1341,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-08-29T17:57:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7da6877b_139ea5c9",
+      "range": {
+        "startLine": 1341,
+        "startChar": 6,
+        "endLine": 1341,
+        "endChar": 24
+      },
+      "revId": "c80652d21e6dcc8f79fdbc7f606da019adade3f1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
