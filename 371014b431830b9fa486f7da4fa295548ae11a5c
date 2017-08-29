@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b2778081_ee6aa37b",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 3307,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-29T19:00:36Z",
+      "side": 1,
+      "message": "Nit: This and a few others are no longer used, right? (I\u0027ll get rid of them.)",
+      "revId": "371014b431830b9fa486f7da4fa295548ae11a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29e15bcc_acc7639f",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-29T19:00:36Z",
+      "side": 1,
+      "message": "ssl_get_finished comes from ssl3_get_finished, so this probably wants the long header. (I\u0027ll fix it.)",
+      "revId": "371014b431830b9fa486f7da4fa295548ae11a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "450ba7e4_2c66eab5",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 1298,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-29T19:00:36Z",
+      "side": 1,
+      "message": "We can save a tiny miniscule amount of code by letting this fall through to err now.",
+      "revId": "371014b431830b9fa486f7da4fa295548ae11a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7acfcbb5_2592e672",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-29T19:00:36Z",
+      "side": 1,
+      "message": "Oh, whoops! My bad!",
+      "revId": "371014b431830b9fa486f7da4fa295548ae11a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
