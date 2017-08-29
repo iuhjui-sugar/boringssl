@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f002fb65_1dce90e1",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 3307,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-29T19:05:39Z",
+      "side": 1,
+      "message": "Done. Left SSL_ST_RENEGOTIATE because some bindings libraries bind it, though we can probably get rid of it.",
+      "parentUuid": "b2778081_ee6aa37b",
+      "revId": "371014b431830b9fa486f7da4fa295548ae11a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "29e15bcc_acc7639f",
         "filename": "ssl/handshake.cc",
         "patchSetId": 17
@@ -33,6 +51,24 @@
       "revId": "371014b431830b9fa486f7da4fa295548ae11a5c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79e37981_7be4ef18",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-29T19:05:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29e15bcc_acc7639f",
+      "revId": "371014b431830b9fa486f7da4fa295548ae11a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "c97b8845_7fb2ea63",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 1298,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-29T19:05:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "450ba7e4_2c66eab5",
+      "revId": "371014b431830b9fa486f7da4fa295548ae11a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7acfcbb5_2592e672",
         "filename": "ssl/tls13_server.cc",
         "patchSetId": 17
@@ -67,6 +121,24 @@
       "revId": "371014b431830b9fa486f7da4fa295548ae11a5c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3dc10452_f5fd6b19",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-29T19:05:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7acfcbb5_2592e672",
+      "revId": "371014b431830b9fa486f7da4fa295548ae11a5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
