@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "df79c3b5_314b899b",
+        "filename": "crypto/mem.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-30T19:53:45Z",
+      "side": 1,
+      "message": "double and uint64_t exist on 32-bit, so we probably should keep to an 8-byte alignment regardless. malloc is required to return alignment good enough for any type, which is why you had to fiddle with aead_aes_gcm_siv_asm_ctx there. I guess C considers \"any type\" to be 16 here. Dunno if you want to go as far as 16, but I think we need to at least do 8 or the SHA512_STATE in an EVP_MD_CTX will break.",
+      "range": {
+        "startLine": 79,
+        "startChar": 13,
+        "endLine": 79,
+        "endChar": 27
+      },
+      "revId": "e7758fb01948c263994778a972c3f6681b4e872b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4187ace3_8320cbf5",
+        "filename": "crypto/mem.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-30T19:53:45Z",
+      "side": 1,
+      "message": "I believe it\u0027s not actually violating C rules to do a pointer cast here and below. (ARMv6 will generate better code on the pointer cast since it can assume alignment. memcpy is apparently a function call otherwise!)",
+      "revId": "e7758fb01948c263994778a972c3f6681b4e872b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0089ac58_068e708c",
+        "filename": "include/openssl/mem.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-30T19:53:45Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "e7758fb01948c263994778a972c3f6681b4e872b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15872469_5287c367",
+        "filename": "ssl/ssl_cipher.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1346,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-30T19:53:45Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "e7758fb01948c263994778a972c3f6681b4e872b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
