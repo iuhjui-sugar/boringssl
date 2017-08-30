@@ -133,18 +133,6 @@ void *OPENSSL_realloc(void *const orig_ptr, size_t new_size) {
   return ret;
 }
 
-void *OPENSSL_realloc_clean(void *const orig_ptr, size_t old_size,
-                            size_t new_size) {
-  void *ptr = ((uint8_t*) orig_ptr) - sizeof(size_t);
-  size_t actual_size;
-  memcpy(&actual_size, ptr, sizeof(size_t));
-  if (actual_size != old_size) {
-    return NULL;
-  }
-
-  return OPENSSL_realloc(orig_ptr, new_size);
-}
-
 void OPENSSL_cleanse(void *ptr, size_t len) {
 #if defined(OPENSSL_WINDOWS)
   SecureZeroMemory(ptr, len);
