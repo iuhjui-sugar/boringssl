@@ -896,6 +896,12 @@ static void InfoCallback(const SSL *ssl, int type, int val) {
 }
 
 static int NewSessionCallback(SSL *ssl, SSL_SESSION *session) {
+  if (SSL_in_init(ssl)) {
+    fprintf(stderr, "NewSessionCallback called while in the handshake.\n");
+    assert(0);
+    return 0;
+  }
+
   GetTestState(ssl)->got_new_session = true;
   GetTestState(ssl)->new_session.reset(session);
   return 1;
