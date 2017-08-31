@@ -1685,6 +1685,7 @@ static enum ssl_hs_wait_t do_read_server_finished(SSL_HANDSHAKE *hs) {
 static enum ssl_hs_wait_t do_finish_client_handshake(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
 
+  hs->handshake_complete = 1;
   ssl->method->on_handshake_complete(ssl);
 
   SSL_SESSION_free(ssl->s3->established_session);

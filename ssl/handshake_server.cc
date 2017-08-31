@@ -1550,6 +1550,7 @@ static enum ssl_hs_wait_t do_send_server_finished(SSL_HANDSHAKE *hs) {
 static enum ssl_hs_wait_t do_finish_server_handshake(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
 
+  hs->handshake_complete = 1;
   ssl->method->on_handshake_complete(ssl);
 
   // If we aren't retaining peer certificates then we can discard it now.

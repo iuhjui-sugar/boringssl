@@ -2336,7 +2336,8 @@ int SSL_is_init_finished(const SSL *ssl) {
 }
 
 int SSL_in_init(const SSL *ssl) {
-  return ssl->s3->hs != NULL;
+  SSL_HANDSHAKE *hs = ssl->s3->hs;
+  return hs != NULL && !hs->handshake_complete;
 }
 
 int SSL_in_false_start(const SSL *ssl) {

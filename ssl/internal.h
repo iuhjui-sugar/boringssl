@@ -1243,6 +1243,9 @@ struct SSL_HANDSHAKE {
 
   unsigned received_custom_extension:1;
 
+  // handshake_complete is true if the latest handshake has completed.
+  unsigned handshake_complete:1;
+
   // accept_psk_mode stores whether the client's PSK mode is compatible with our
   // preferences.
   unsigned accept_psk_mode:1;
