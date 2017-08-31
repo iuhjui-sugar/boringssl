@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bcdaa8aa_f443f9a7",
+        "filename": "crypto/pem/pem_info.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-31T22:19:25Z",
+      "side": 0,
+      "message": "Hah.",
+      "revId": "bc0fe3f26e16e309f2d602d5a874aba6f1fa55df",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3b62143d_e41ce372",
+        "filename": "crypto/pem/pem_info.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-31T22:19:25Z",
+      "side": 0,
+      "message": "(This is on the stack... just to confirm: the plan is to completely not bother with stack stuff?)",
+      "revId": "bc0fe3f26e16e309f2d602d5a874aba6f1fa55df",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

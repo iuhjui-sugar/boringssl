@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "511c55de_3cdc1bf7",
+        "filename": "crypto/buf/buf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-31T22:19:25Z",
+      "side": 1,
+      "message": "No need for the NULL check now.",
+      "revId": "23ab53aa95258c3c03cdf3975f42ab472fc5d4c2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "878508da_4ece6d2c",
+        "filename": "crypto/buf/buf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-31T22:19:25Z",
+      "side": 1,
+      "message": "realloc(NULL, len) is malloc(len), so you can go even more nuts and write:\n\nchar *new_buf \u003d OPENSSL_realloc(buf-\u003edata, alloc_size);",
+      "revId": "23ab53aa95258c3c03cdf3975f42ab472fc5d4c2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e5fb075_2d266627",
+        "filename": "crypto/cipher_extra/e_chacha20poly1305.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-31T22:19:25Z",
+      "side": 1,
+      "message": "OPENSSL_free(ctx-\u003eaead_state) like the other files.",
+      "revId": "23ab53aa95258c3c03cdf3975f42ab472fc5d4c2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f5ae714_a0ce98c4",
+        "filename": "crypto/fipsmodule/bn/exponentiation.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1171,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-31T22:19:25Z",
+      "side": 1,
+      "message": "NULL check no longer needed.",
+      "revId": "23ab53aa95258c3c03cdf3975f42ab472fc5d4c2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "170b41ca_305dc4a7",
+        "filename": "crypto/fipsmodule/bn/random.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-31T22:19:25Z",
+      "side": 1,
+      "message": "Ditto. (While you\u0027re here, want to get rid of the parens on the return?)",
+      "revId": "23ab53aa95258c3c03cdf3975f42ab472fc5d4c2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27ca15b1_c1336509",
+        "filename": "crypto/fipsmodule/cipher/e_aes.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1201,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-31T22:19:25Z",
+      "side": 1,
+      "message": "OPENSSL_free(ctx-\u003eaead_state)",
+      "revId": "23ab53aa95258c3c03cdf3975f42ab472fc5d4c2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04e67576_8f32666e",
+        "filename": "crypto/fipsmodule/cipher/e_aes.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1369,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-31T22:19:25Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "23ab53aa95258c3c03cdf3975f42ab472fc5d4c2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
