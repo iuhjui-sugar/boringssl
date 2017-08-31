@@ -1,0 +1,158 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b578348c_f4f07f19",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-31T15:19:40Z",
+      "side": 1,
+      "message": "Just so we remember who needed it, maybe add something like:\n\nThis fixes a regression in Conscrypt added by https://boringssl-review.googlesource.com/19144. SSL_get_session otherwise attempts to return hs-\u003enew_session, but that has been released at this point.",
+      "revId": "d9118e046a88ea32aa6dad9abac630e159429a79",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8c89686_b1ab3773",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1688,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-31T15:19:40Z",
+      "side": 1,
+      "message": "I think this is better done at line 1713. If we hit line 1703, we probably don\u0027t want SSL_in_init to return true.",
+      "revId": "d9118e046a88ea32aa6dad9abac630e159429a79",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e984a65_ffd7e69f",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1553,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-31T15:19:40Z",
+      "side": 1,
+      "message": "Doesn\u0027t matter either way, since no callbacks, but line 1572 would be more consistent. (I wonder if we should be moving on_handshake_complete lower here and in the client...)",
+      "revId": "d9118e046a88ea32aa6dad9abac630e159429a79",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2584f89c_7b631780",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1568,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-31T15:19:40Z",
+      "side": 1,
+      "message": "For completeness, an alternate fix which seems to appease Conscrypt is to:\n\n- Make this SSL_SESSION_up_ref hs-\u003enew_session and keep hs-\u003enew_session around.\n- Remove the hs-\u003enew_session.reset() in the other file.\n- Optionally move SSL_HANDSHAKE_DONE to SSL_do_handshake after hs is destroyed.\n\nThis causes SSL_in_init to return true, but SSL_get_session still works. But this has two drawbacks:\n\n- In TLS 1.2 clients, calling SSL_get_session at new_session_cb no longer returns the session we were passed in. Though hopefully no one relies on this.\n- SSL_HANDSHAKE_DONE and new_session_cb report SSL_in_init is true. The former seems silly. The latter I could see going either way.\n\nThis is probably safer, just to retain existing behavior? It\u0027s easy enough to do.",
+      "revId": "d9118e046a88ea32aa6dad9abac630e159429a79",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8433687c_023e3b9a",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1247,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-31T15:19:40Z",
+      "side": 1,
+      "message": "I feel like this is a very long phrase that means the same as \"completed\". :-)",
+      "range": {
+        "startLine": 1246,
+        "startChar": 56,
+        "endLine": 1247,
+        "endChar": 36
+      },
+      "revId": "d9118e046a88ea32aa6dad9abac630e159429a79",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ae5611a_67f15e36",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1247,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-31T15:19:40Z",
+      "side": 1,
+      "message": "should",
+      "range": {
+        "startLine": 1247,
+        "startChar": 63,
+        "endLine": 1247,
+        "endChar": 69
+      },
+      "revId": "d9118e046a88ea32aa6dad9abac630e159429a79",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b82ad4b_dd85bf9c",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 883,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-31T15:19:40Z",
+      "side": 1,
+      "message": "Similar set of checks here would probably also be good. Conscrypt depended on both.",
+      "revId": "d9118e046a88ea32aa6dad9abac630e159429a79",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ca08587_1b5e340b",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 901,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-08-31T15:19:40Z",
+      "side": 1,
+      "message": "Probably better to use abort(), just so release mode notices too. (Though I think we explode on unexpected stderr these days anyway...) return 0 doesn\u0027t mean failure for this callback.\n\nDo you mind also checking that SSL_get_session doesn\u0027t return null? Maybe with a comment like:\n\n  // This callback is called right as the handshake completes and session\n  // state is finalized. SSL_get_session must continue to work and,\n  // historically, SSL_in_init returned false at this point.",
+      "range": {
+        "startLine": 901,
+        "startChar": 4,
+        "endLine": 901,
+        "endChar": 13
+      },
+      "revId": "d9118e046a88ea32aa6dad9abac630e159429a79",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
