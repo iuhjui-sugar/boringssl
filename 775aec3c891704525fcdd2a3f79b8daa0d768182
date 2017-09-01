@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b6e3ff1_3770bbb0",
+        "filename": "crypto/mem.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-01T21:23:30Z",
+      "side": 1,
+      "message": "(My guess is MSVC will ask you to remove this const or put it in the header or something.)",
+      "range": {
+        "startLine": 105,
+        "startChar": 28,
+        "endLine": 105,
+        "endChar": 33
+      },
+      "revId": "775aec3c891704525fcdd2a3f79b8daa0d768182",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
