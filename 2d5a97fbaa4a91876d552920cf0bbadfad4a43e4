@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c7c7c435_b7fe6278",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1236,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-09-01T14:14:50Z",
+      "side": 1,
+      "message": "I assume C++ is dumb, and this is still required?",
+      "range": {
+        "startLine": 1236,
+        "startChar": 20,
+        "endLine": 1236,
+        "endChar": 24
+      },
+      "revId": "2d5a97fbaa4a91876d552920cf0bbadfad4a43e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
