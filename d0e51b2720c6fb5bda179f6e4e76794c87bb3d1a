@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ce9919dd_459f4846",
+        "filename": "crypto/mem.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-09-01T21:00:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20848868_f893b2b9",
+      "revId": "d0e51b2720c6fb5bda179f6e4e76794c87bb3d1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79b4af62_f759f704",
         "filename": "crypto/mem.c",
         "patchSetId": 17
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "711e47f4_33e3a778",
+        "filename": "crypto/mem.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-09-01T21:00:39Z",
+      "side": 1,
+      "message": "Err, yes. (Obsolete.)",
+      "parentUuid": "79b4af62_f759f704",
+      "range": {
+        "startLine": 89,
+        "startChar": 15,
+        "endLine": 89,
+        "endChar": 22
+      },
+      "revId": "d0e51b2720c6fb5bda179f6e4e76794c87bb3d1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3fa40db_64cdfe92",
         "filename": "crypto/mem.c",
         "patchSetId": 17
@@ -56,6 +98,24 @@
       "revId": "d0e51b2720c6fb5bda179f6e4e76794c87bb3d1a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13cea8af_50fd86f5",
+        "filename": "crypto/mem.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-09-01T21:00:39Z",
+      "side": 1,
+      "message": "(As discussed, being to OPENSSL_free() all allocations regardless and not having to keep track of how they were allocated has its merits IMHO. But we currently only ever do this in ssl_buffer anyway, so it\u0027s currently not worth the potential drawbacks.)\n\nDone.",
+      "parentUuid": "e3fa40db_64cdfe92",
+      "revId": "d0e51b2720c6fb5bda179f6e4e76794c87bb3d1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
