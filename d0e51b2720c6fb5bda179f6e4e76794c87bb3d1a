@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "20848868_f893b2b9",
+        "filename": "crypto/mem.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-01T19:31:11Z",
+      "side": 1,
+      "message": "Nit: newline",
+      "revId": "d0e51b2720c6fb5bda179f6e4e76794c87bb3d1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79b4af62_f759f704",
+        "filename": "crypto/mem.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-01T19:31:11Z",
+      "side": 1,
+      "message": "s/7-bytes/bits/ I think?",
+      "range": {
+        "startLine": 89,
+        "startChar": 15,
+        "endLine": 89,
+        "endChar": 22
+      },
+      "revId": "d0e51b2720c6fb5bda179f6e4e76794c87bb3d1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3fa40db_64cdfe92",
+        "filename": "crypto/mem.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-01T19:31:11Z",
+      "side": 1,
+      "message": "Bah, sorry for the flipflopping. So there is a tiiiiny problem here:\n\nWe currently say \"we will handle malloc failures, but we\u0027d much rather those codepaths are unreachable, so you should use a malloc that would abort() rather than return NULL. This change makes it so that using such a malloc does *not* leave those codepaths unreachable because this check won\u0027t abort. But if we make it abort, the folks who want malloc checking will be unhappy at us.\n\nHere\u0027s a dumber idea: why use OPENSSL_malloc at all in cases where you want OPENSSL_malloc_without_zero_on_free? Wouldn\u0027t plain malloc/free be strictly better?",
+      "revId": "d0e51b2720c6fb5bda179f6e4e76794c87bb3d1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
