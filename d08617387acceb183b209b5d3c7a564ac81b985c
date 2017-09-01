@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f1d7d4f7_348b959e",
+        "filename": "crypto/mem.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-09-01T00:09:07Z",
+      "side": 1,
+      "message": "Duh, this makes a lot more sense.",
+      "parentUuid": "7615fce2_86865f0b",
+      "revId": "d08617387acceb183b209b5d3c7a564ac81b985c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "997388af_1e3b7365",
         "filename": "crypto/mem.c",
         "patchSetId": 14
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "0c0feace_c035daee",
+        "filename": "crypto/mem.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-09-01T00:09:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "997388af_1e3b7365",
+      "revId": "d08617387acceb183b209b5d3c7a564ac81b985c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "456cd17a_b14f0e63",
         "filename": "crypto/mem.c",
         "patchSetId": 14
@@ -50,6 +86,24 @@
       "revId": "d08617387acceb183b209b5d3c7a564ac81b985c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afcbbb95_e35b7a7c",
+        "filename": "crypto/mem.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-09-01T00:09:07Z",
+      "side": 1,
+      "message": "A bit ugly, but I guess it works. ¯\\_(ツ)_/¯",
+      "parentUuid": "456cd17a_b14f0e63",
+      "revId": "d08617387acceb183b209b5d3c7a564ac81b985c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
