@@ -22,6 +22,30 @@
       "revId": "2d5a97fbaa4a91876d552920cf0bbadfad4a43e4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be1fd2d4_8453f8d0",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1236,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-01T15:05:39Z",
+      "side": 1,
+      "message": "Yes, bools are one byte, not one bit. This is necessary because otherwise we couldn\u0027t take pointers to bools.",
+      "parentUuid": "c7c7c435_b7fe6278",
+      "range": {
+        "startLine": 1236,
+        "startChar": 20,
+        "endLine": 1236,
+        "endChar": 24
+      },
+      "revId": "2d5a97fbaa4a91876d552920cf0bbadfad4a43e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
