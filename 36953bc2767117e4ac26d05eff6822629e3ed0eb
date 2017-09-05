@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "03bf86e2_adafaf6a",
+        "filename": "crypto/test/file_test_gtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-09-05T15:20:15Z",
+      "side": 1,
+      "message": "Perhaps:\n\nbool failed \u003d test_result-\u003eFailed();\nSCOPED_TRACE(...)\nrun_test(...);\nif (!failed \u0026\u0026 test_result-\u003eFailed()) {\n ERR_print_errors_fp(stdout);\n}\n\nERR_clear_error()",
+      "range": {
+        "startLine": 104,
+        "startChar": 6,
+        "endLine": 104,
+        "endChar": 21
+      },
+      "revId": "36953bc2767117e4ac26d05eff6822629e3ed0eb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
