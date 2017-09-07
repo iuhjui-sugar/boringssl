@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "accaf433_07421a8e",
+        "filename": "fuzz/dtls_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-09-07T22:02:04Z",
+      "side": 1,
+      "message": "*2017",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "5528e1cecc21eb3a38e8e627611a4739dce58185",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4792ad6_ddf29d7c",
+        "filename": "fuzz/dtls_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-09-07T22:02:04Z",
+      "side": 1,
+      "message": "*2017",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "5528e1cecc21eb3a38e8e627611a4739dce58185",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
