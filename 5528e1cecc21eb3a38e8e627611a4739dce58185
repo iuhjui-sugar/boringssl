@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ae50731d_7be3dfb1",
+        "filename": "fuzz/dtls_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-07T22:06:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "accaf433_07421a8e",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "5528e1cecc21eb3a38e8e627611a4739dce58185",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f4792ad6_ddf29d7c",
         "filename": "fuzz/dtls_server.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "5528e1cecc21eb3a38e8e627611a4739dce58185",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df588f6e_0a1988a3",
+        "filename": "fuzz/dtls_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-07T22:06:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4792ad6_ddf29d7c",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "5528e1cecc21eb3a38e8e627611a4739dce58185",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
