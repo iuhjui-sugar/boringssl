@@ -1303,6 +1303,13 @@ var tlsVersions = []tlsVersion{
 		tls13Variant: TLS13Experiment,
 	},
 	{
+		name:         "TLS13Experiment2",
+		version:      VersionTLS13,
+		excludeFlag:  "-no-tls13",
+		versionWire:  tls13Experiment2Version,
+		tls13Variant: TLS13Experiment2,
+	},
+	{
 		name:         "TLS13RecordTypeExperiment",
 		version:      VersionTLS13,
 		excludeFlag:  "-no-tls13",
@@ -5151,7 +5158,11 @@ func addVersionNegotiationTests() {
 				if expectedServerVersion >= VersionTLS13 {
 					serverVers = VersionTLS10
 				}
-				serverVers = recordVersionToWire(serverVers, protocol)
+
+				serverRecordVers := recordVersionToWire(serverVers, protocol)
+				if runnerVers.tls13Variant == TLS13Experiment2 && shimVers.tls13Variant != TLS13Default {
+					serverRecordVers = VersionTLS12
+				}
 
 				testCases = append(testCases, testCase{
 					protocol: protocol,
@@ -5190,7 +5201,7 @@ func addVersionNegotiationTests() {
 						MaxVersion:   runnerVers.version,
 						TLS13Variant: runnerVers.tls13Variant,
 						Bugs: ProtocolBugs{
-							ExpectInitialRecordVersion: serverVers,
+							ExpectInitialRecordVersion: serverRecordVers,
 						},
 					},
 					flags:           flags,
@@ -5204,7 +5215,7 @@ func addVersionNegotiationTests() {
 						MaxVersion:   runnerVers.version,
 						TLS13Variant: runnerVers.tls13Variant,
 						Bugs: ProtocolBugs{
-							ExpectInitialRecordVersion: serverVers,
+							ExpectInitialRecordVersion: serverRecordVers,
 						},
 					},
 					flags:           flags2,

@@ -537,7 +537,7 @@ static enum ssl_hs_wait_t do_send_server_hello(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
 
   uint16_t version = ssl->version;
-  if (ssl->version == TLS1_3_EXPERIMENT_VERSION) {
+  if (ssl_resumption_experiment(ssl->version)) {
     version = TLS1_2_VERSION;
   }
 
@@ -548,21 +548,21 @@ static enum ssl_hs_wait_t do_send_server_hello(SSL_HANDSHAKE *hs) {
       !CBB_add_u16(&body, version) ||
       !RAND_bytes(ssl->s3->server_random, sizeof(ssl->s3->server_random)) ||
       !CBB_add_bytes(&body, ssl->s3->server_random, SSL3_RANDOM_SIZE) ||
-      (ssl->version == TLS1_3_EXPERIMENT_VERSION &&
+      (ssl_resumption_experiment(ssl->version) &&
        (!CBB_add_u8_length_prefixed(&body, &session_id) ||
         !CBB_add_bytes(&session_id, hs->session_id, hs->session_id_len))) ||
       !CBB_add_u16(&body, ssl_cipher_get_value(hs->new_cipher)) ||
-      (ssl->version == TLS1_3_EXPERIMENT_VERSION && !CBB_add_u8(&body, 0)) ||
+      (ssl_resumption_experiment(ssl->version) && !CBB_add_u8(&body, 0)) ||
       !CBB_add_u16_length_prefixed(&body, &extensions) ||
       !ssl_ext_pre_shared_key_add_serverhello(hs, &extensions) ||
       !ssl_ext_key_share_add_serverhello(hs, &extensions) ||
-      (ssl->version == TLS1_3_EXPERIMENT_VERSION &&
+      (ssl_resumption_experiment(ssl->version) &&
        !ssl_ext_supported_versions_add_serverhello(hs, &extensions)) ||
       !ssl_add_message_cbb(ssl, cbb.get())) {
     return ssl_hs_error;
   }
 
-  if (ssl->version == TLS1_3_EXPERIMENT_VERSION &&
+  if (ssl_resumption_experiment(ssl->version) &&
       !ssl3_add_change_cipher_spec(ssl)) {
     return ssl_hs_error;
   }
@@ -715,7 +715,7 @@ static enum ssl_hs_wait_t do_process_end_of_early_data(SSL_HANDSHAKE *hs) {
   if (hs->early_data_offered && !hs->ssl->early_data_accepted) {
     return ssl_hs_ok;
   }
-  return hs->ssl->version == TLS1_3_EXPERIMENT_VERSION
+  return ssl_resumption_experiment(hs->ssl->version)
              ? ssl_hs_read_change_cipher_spec
              : ssl_hs_ok;
 }
