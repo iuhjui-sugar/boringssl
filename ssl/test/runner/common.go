@@ -35,6 +35,7 @@ const (
 const (
 	tls13DraftVersion                = 0x7f12
 	tls13ExperimentVersion           = 0x7e01
+	tls13Experiment2Version          = 0x7e02
 	tls13RecordTypeExperimentVersion = 0x7a12
 )
 
@@ -43,10 +44,12 @@ const (
 	TLS13Experiment            = 1
 	TLS13RecordTypeExperiment  = 2
 	TLS13NoSessionIDExperiment = 3
+	TLS13Experiment2           = 4
 )
 
 var allTLSWireVersions = []uint16{
 	tls13DraftVersion,
+	tls13Experiment2Version,
 	tls13ExperimentVersion,
 	tls13RecordTypeExperimentVersion,
 	VersionTLS12,
@@ -1539,6 +1542,7 @@ func (c *Config) defaultCurves() map[CurveID]bool {
 // false.
 func (c *Config) isSupportedVersion(wireVers uint16, isDTLS bool) (uint16, bool) {
 	if (c.TLS13Variant != TLS13Experiment && c.TLS13Variant != TLS13NoSessionIDExperiment && wireVers == tls13ExperimentVersion) ||
+		(c.TLS13Variant != TLS13Experiment2 && wireVers == tls13Experiment2Version) ||
 		(c.TLS13Variant != TLS13RecordTypeExperiment && wireVers == tls13RecordTypeExperimentVersion) ||
 		(c.TLS13Variant != TLS13Default && wireVers == tls13DraftVersion) {
 		return 0, false

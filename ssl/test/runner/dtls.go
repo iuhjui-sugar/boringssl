@@ -35,12 +35,16 @@ func wireToVersion(vers uint16, isDTLS bool) (uint16, bool) {
 		switch vers {
 		case VersionSSL30, VersionTLS10, VersionTLS11, VersionTLS12:
 			return vers, true
-		case tls13DraftVersion, tls13ExperimentVersion, tls13RecordTypeExperimentVersion:
+		case tls13DraftVersion, tls13ExperimentVersion, tls13Experiment2Version, tls13RecordTypeExperimentVersion:
 			return VersionTLS13, true
 		}
 	}
 
 	return 0, false
+}
+
+func isResumptionExperiment(vers uint16) bool {
+	return vers == tls13ExperimentVersion || vers == tls13Experiment2Version
 }
 
 func (c *Conn) dtlsDoReadRecord(want recordType) (recordType, *block, error) {
