@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "968c8af3_a8c8c673",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-10T17:26:26Z",
+      "side": 1,
+      "message": "ssl_is_resumption_experiment maybe, since it\u0027s a boolean?",
+      "range": {
+        "startLine": 285,
+        "startChar": 3,
+        "endLine": 285,
+        "endChar": 28
+      },
+      "revId": "023e0d08d5a52d1ef3ad8b25420d84bba6d329e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9dd886bb_f13f4855",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 935,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-10T17:26:26Z",
+      "side": 1,
+      "message": "Add a helper function like on the C side? Ditto in the other files.",
+      "revId": "023e0d08d5a52d1ef3ad8b25420d84bba6d329e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "482d49b6_aab438fd",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 5162,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-10T17:26:26Z",
+      "side": 1,
+      "message": "I think this can just be serverVers. clientVers and serverVers are already record versions.",
+      "range": {
+        "startLine": 5162,
+        "startChar": 4,
+        "endLine": 5162,
+        "endChar": 20
+      },
+      "revId": "023e0d08d5a52d1ef3ad8b25420d84bba6d329e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3be8498a_56fbc9a1",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 5163,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-10T17:26:26Z",
+      "side": 1,
+      "message": "Rather than redoing the negotiation check, I think what you want is:\n\nserverVers :\u003d expectedServerVersion\nif expectedServerVersion \u003e\u003d VersionTLS13 {\n    serverVers \u003d VersionTLS10\n    if runnerVers.tls13Variant \u003d\u003d TLS13Experiment2 {\n       serverVers \u003d VersionTLS12\n    }\n}\nserverVers \u003d recordVersionTowire(serverVers, protocol)\n\n(This way it\u0027s more obvious how collapsing variants at experiment2 will look like.)",
+      "revId": "023e0d08d5a52d1ef3ad8b25420d84bba6d329e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
