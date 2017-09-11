@@ -930,7 +930,7 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 		c.sendAlert(alertEndOfEarlyData)
 	}
 
-	if isResumptionExperiment(c.wireVersion) {
+	if isResumptionClientCCSExperiment(c.wireVersion) {
 		c.writeRecord(recordTypeChangeCipherSpec, []byte{1})
 	}
 

@@ -367,7 +367,7 @@ static enum ssl_hs_wait_t do_process_change_cipher_spec(SSL_HANDSHAKE *hs) {
   if (!hs->early_data_offered) {
     // If not sending early data, set client traffic keys now so that alerts are
     // encrypted.
-    if ((ssl_is_resumption_experiment(ssl->version) &&
+    if ((ssl_is_resumption_client_ccs_experiment(ssl->version) &&
          !ssl3_add_change_cipher_spec(ssl)) ||
         !tls13_set_traffic_key(ssl, evp_aead_seal, hs->client_handshake_secret,
                                hs->hash_len)) {
@@ -575,7 +575,7 @@ static enum ssl_hs_wait_t do_send_end_of_early_data(SSL_HANDSHAKE *hs) {
   }
 
   if (hs->early_data_offered) {
-    if ((ssl_is_resumption_experiment(ssl->version) &&
+    if ((ssl_is_resumption_client_ccs_experiment(ssl->version) &&
          !ssl3_add_change_cipher_spec(ssl)) ||
         !tls13_set_traffic_key(ssl, evp_aead_seal, hs->client_handshake_secret,
                                hs->hash_len)) {

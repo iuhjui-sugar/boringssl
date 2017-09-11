@@ -781,7 +781,7 @@ RestartReadRecord:
 			if c.vers >= VersionTLS13 {
 				expect = VersionTLS10
 			}
-			if c.wireVersion == tls13Experiment2Version {
+			if isResumptionRecordVersionExperiment(c.wireVersion) {
 				expect = VersionTLS12
 			}
 		} else {
@@ -1128,7 +1128,7 @@ func (c *Conn) doWriteRecord(typ recordType, data []byte) (n int, err error) {
 			// layer to {3, 1}.
 			vers = VersionTLS10
 		}
-		if c.wireVersion == tls13Experiment2Version {
+		if isResumptionRecordVersionExperiment(c.wireVersion) {
 			vers = VersionTLS12
 		}
 

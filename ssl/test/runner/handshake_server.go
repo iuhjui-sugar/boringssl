@@ -929,7 +929,7 @@ ResendHelloRetryRequest:
 		}
 	}
 
-	if isResumptionExperiment(c.wireVersion) && !c.skipEarlyData {
+	if isResumptionClientCCSExperiment(c.wireVersion) && !c.skipEarlyData {
 		if err := c.readRecord(recordTypeChangeCipherSpec); err != nil {
 			return err
 		}

@@ -286,6 +286,19 @@ uint16_t ssl3_protocol_version(const SSL *ssl);
 // TLS 1.3 resumption experiment.
 bool ssl_is_resumption_experiment(uint16_t version);
 
+// ssl_is_resumption_variant returns whether the version corresponds to a
+// TLS 1.3 resumption experiment.
+bool ssl_is_resumption_variant(enum tls13_variant_t variant);
+
+// ssl_is_resumption_client_ccs_experiment returns whether the version
+// corresponds to a TLS 1.3 resumption experiment that sends a client CCS.
+bool ssl_is_resumption_client_ccs_experiment(uint16_t version);
+
+// ssl_is_resumption_record_version_experiment returns whether the version
+// corresponds to a TLS 1.3 resumption experiment that modifies the record
+// version.
+bool ssl_is_resumption_record_version_experiment(uint16_t version);
+
 // Cipher suites.
 
 // Bits for |algorithm_mkey| (key exchange algorithm).
