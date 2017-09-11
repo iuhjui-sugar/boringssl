@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2762eea6_24dec252",
+        "filename": "ssl/test/runner/dtls.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-11T15:57:42Z",
+      "side": 1,
+      "message": "Mind moving this and the function above somewhere else (common.go?) in a follow-up?",
+      "revId": "ea03734bba6daf18506aa9b55915a18e7f1fefbf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
