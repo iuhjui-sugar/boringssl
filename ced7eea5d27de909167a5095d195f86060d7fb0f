@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c9e5d27_b0298e0f",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-09-11T21:25:34Z",
+      "side": 1,
+      "message": "What is extensions_copy doing? Do you only want to test a partial order?\n\nFor example, if the extensions is empty, doesn\u0027t this match? For each of kJavaExtensions, the CBS_get_u16 will fail and |extensions| will be unmodified, and thus remain empty.",
+      "range": {
+        "startLine": 775,
+        "startChar": 8,
+        "endLine": 775,
+        "endChar": 23
+      },
+      "revId": "ced7eea5d27de909167a5095d195f86060d7fb0f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
