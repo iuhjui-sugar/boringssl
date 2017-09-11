@@ -22,6 +22,30 @@
       "revId": "ced7eea5d27de909167a5095d195f86060d7fb0f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6f53a4c_f8f44133",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-11T21:32:17Z",
+      "side": 1,
+      "message": "Java sends different extensions depending how you configure it or what version you\u0027ve got. It\u0027s got an annoying amount of options. But the order of the extensions that are present is always consistent. I want to check that |extensions| is a subset of |kJavaExtensions|, and in that order. Clarified the comment a bit.\n\n(There are additional constraints we could add too. It sends ec_point_formats iff it sends supported_groups and, by checking the curve list, we\u0027re already assuming its in a EC-capable configuration. It also sends status_request_v2 iff status_request, renegotiate iff not SCSV, and signature_algorithms iff TLS 1.2.)",
+      "parentUuid": "1c9e5d27_b0298e0f",
+      "range": {
+        "startLine": 775,
+        "startChar": 8,
+        "endLine": 775,
+        "endChar": 23
+      },
+      "revId": "ced7eea5d27de909167a5095d195f86060d7fb0f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
