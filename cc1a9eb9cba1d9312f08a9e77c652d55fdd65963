@@ -1,0 +1,203 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "24b925f6_2c0ac550",
+        "filename": "ssl/dtls_record.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-11T22:11:44Z",
+      "side": 1,
+      "message": "This name has been wrong since TLS 1.3. s/wire_version/record_version/ here, in tls_record.cc, and SSLAEADContext.",
+      "range": {
+        "startLine": 316,
+        "startChar": 11,
+        "endLine": 316,
+        "endChar": 23
+      },
+      "revId": "cc1a9eb9cba1d9312f08a9e77c652d55fdd65963",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f50d6acd_2648e6c5",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-11T22:11:44Z",
+      "side": 1,
+      "message": "80 chars",
+      "revId": "cc1a9eb9cba1d9312f08a9e77c652d55fdd65963",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fe6c633_a67686cb",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-11T22:11:44Z",
+      "side": 1,
+      "message": "It\u0027s not clear this is talking about the record layer here. Maybe just:\n\n// SSL 3.0 ClientHellos should use SSL 3.0 not TLS 1.0, for the record-layer version.",
+      "revId": "cc1a9eb9cba1d9312f08a9e77c652d55fdd65963",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0f7d22c_a0eb6dbc",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-11T22:11:44Z",
+      "side": 1,
+      "message": "Optional: I believe you only actually need to do aead_write_ctx, not aead_read_ctx, for all of these. Ditto throughout.",
+      "revId": "cc1a9eb9cba1d9312f08a9e77c652d55fdd65963",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1db3776_4a000a07",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-11T22:11:44Z",
+      "side": 1,
+      "message": "The IfNullCipher does it, putting this at line 593 might be a little better.",
+      "revId": "cc1a9eb9cba1d9312f08a9e77c652d55fdd65963",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2129f250_8392a876",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-11T22:11:44Z",
+      "side": 1,
+      "message": "Document. (Notably what zero means, that you can only have it with the null cipher, and the part where you can\u0027t call ProtocolVersion() if version() is 0.)",
+      "revId": "cc1a9eb9cba1d9312f08a9e77c652d55fdd65963",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "815e2969_f84ae88b",
+        "filename": "ssl/ssl_aead_ctx.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-11T22:11:44Z",
+      "side": 1,
+      "message": "ERR_R_INTERNAL_ERROR. (Or maybe just chain it into the next thing.)",
+      "revId": "cc1a9eb9cba1d9312f08a9e77c652d55fdd65963",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a010b0ff_eb13a6e3",
+        "filename": "ssl/ssl_aead_ctx.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-11T22:11:44Z",
+      "side": 1,
+      "message": "Leftover debug?",
+      "revId": "cc1a9eb9cba1d9312f08a9e77c652d55fdd65963",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33740df8_a872cef6",
+        "filename": "ssl/ssl_aead_ctx.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-11T22:11:44Z",
+      "side": 1,
+      "message": "Stray comment?",
+      "revId": "cc1a9eb9cba1d9312f08a9e77c652d55fdd65963",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21f5227f_e4f31ada",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 1581,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-11T22:11:44Z",
+      "side": 1,
+      "message": "I\u0027m guessing you hit M-c in Emacs.",
+      "range": {
+        "startLine": 1581,
+        "startChar": 3,
+        "endLine": 1581,
+        "endChar": 21
+      },
+      "revId": "cc1a9eb9cba1d9312f08a9e77c652d55fdd65963",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ad5eb63_af4246b6",
+        "filename": "ssl/tls13_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-11T22:11:44Z",
+      "side": 1,
+      "message": "No need to touch read here. This is only because we had to re-create write.",
+      "revId": "cc1a9eb9cba1d9312f08a9e77c652d55fdd65963",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
