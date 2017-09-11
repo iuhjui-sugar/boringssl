@@ -192,9 +192,22 @@ enum ssl_open_record_t dtls_open_record(SSL *ssl, uint8_t *out_type, CBS *out,
       !CBS_get_u16(&cbs, &version) ||
       !CBS_copy_bytes(&cbs, sequence, 8) ||
       !CBS_get_u16_length_prefixed(&cbs, &body) ||
-      (ssl->s3->have_version && version != ssl->version) ||
-      (version >> 8) != DTLS1_VERSION_MAJOR ||
       CBS_len(&body) > SSL3_RT_MAX_ENCRYPTED_LENGTH) {
+    // The record header was incomplete or malformed. Drop the entire packet.
+    *out_consumed = in_len;
+    return ssl_open_record_discard;
+  }
+
+  bool version_ok;
+  if (ssl->s3->aead_read_ctx->is_null_cipher()) {
+    // Only check the first byte. Enforcing beyond that can prevent decoding
+    // version negotiation failure alerts.
+    version_ok = (version >> 8) == DTLS1_VERSION_MAJOR;
+  } else {
+    version_ok = version == ssl->s3->aead_read_ctx->RecordVersion();
+  }
+
+  if (!version_ok) {
     // The record header was incomplete or malformed. Drop the entire packet.
     *out_consumed = in_len;
     return ssl_open_record_discard;
@@ -300,7 +313,7 @@ int dtls_seal_record(SSL *ssl, uint8_t *out, size_t *out_len, size_t max_out,
 
   out[0] = type;
 
-  uint16_t wire_version = ssl->s3->have_version ? ssl->version : DTLS1_VERSION;
+  uint16_t wire_version = ssl->s3->aead_write_ctx->RecordVersion();
   out[1] = wire_version >> 8;
   out[2] = wire_version & 0xff;
 

@@ -286,6 +286,19 @@ uint16_t ssl3_protocol_version(const SSL *ssl);
 // TLS 1.3 resumption experiment.
 bool ssl_is_resumption_experiment(uint16_t version);
 
+// ssl_is_resumption_variant returns whether the version corresponds to a
+// TLS 1.3 resumption experiment.
+bool ssl_is_resumption_variant(enum tls13_variant_t variant);
+
+// ssl_is_resumption_client_ccs_experiment returns whether the version
+// corresponds to a TLS 1.3 resumption experiment that sends a client CCS.
+bool ssl_is_resumption_client_ccs_experiment(uint16_t version);
+
+// ssl_is_resumption_record_version_experiment returns whether the version
+// corresponds to a TLS 1.3 resumption experiment that modifies the record
+// version.
+bool ssl_is_resumption_record_version_experiment(uint16_t version);
+
 // Cipher suites.
 
 // Bits for |algorithm_mkey| (key exchange algorithm).
@@ -469,7 +482,7 @@ int tls1_prf(const EVP_MD *digest, uint8_t *out, size_t out_len,
 // encrypt an SSL connection.
 class SSLAEADContext {
  public:
-  SSLAEADContext(uint16_t version, const SSL_CIPHER *cipher);
+  SSLAEADContext(uint16_t version, bool is_dtls, const SSL_CIPHER *cipher);
   ~SSLAEADContext();
   static constexpr bool kAllowUniquePtr = true;
 
@@ -477,7 +490,7 @@ class SSLAEADContext {
   SSLAEADContext &operator=(const SSLAEADContext &&) = delete;
 
   // CreateNullCipher creates an |SSLAEADContext| for the null cipher.
-  static UniquePtr<SSLAEADContext> CreateNullCipher();
+  static UniquePtr<SSLAEADContext> CreateNullCipher(bool is_dtls);
 
   // Create creates an |SSLAEADContext| using the supplied key material. It
   // returns nullptr on error. Only one of |Open| or |Seal| may be used with the
@@ -489,7 +502,9 @@ class SSLAEADContext {
       const uint8_t *mac_key, size_t mac_key_len, const uint8_t *fixed_iv,
       size_t fixed_iv_len);
 
-  uint16_t version() const { return version_; }
+  void SetVersionIfNullCipher(uint16_t version);
+  uint16_t ProtocolVersion() const;
+  uint16_t RecordVersion() const;
   const SSL_CIPHER *cipher() const { return cipher_; }
 
   // is_null_cipher returns true if this is the null cipher.
@@ -557,8 +572,10 @@ class SSLAEADContext {
   // records.
   uint8_t fixed_nonce_[12];
   uint8_t fixed_nonce_len_ = 0, variable_nonce_len_ = 0;
-  // version_ is the protocol version that should be used with this AEAD.
+  // version_ is the wire version that should be used with this AEAD.
   uint16_t version_;
+  // is_dtls_ is whether DTLS is being used with this AEAD.
+  bool is_dtls_;
   // variable_nonce_included_in_record_ is true if the variable nonce
   // for a record is included as a prefix before the ciphertext.
   bool variable_nonce_included_in_record_ : 1;
