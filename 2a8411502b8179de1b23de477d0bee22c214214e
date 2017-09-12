@@ -16,6 +16,24 @@
       "revId": "2a8411502b8179de1b23de477d0bee22c214214e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3676f00d_05c019bc",
+        "filename": "crypto/cipher_extra/e_aesgcmsiv.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-09-12T19:00:35Z",
+      "side": 1,
+      "message": "\u003e (ptr + ((-(uintptr_t)ptr) \u0026 ~15))\n\nNo ~ on ~15?\n\nBut see what I changed it to to save a negation. (Note that we know that the alignment is already 8-byte, so we only need to add either 0 or 8.)",
+      "parentUuid": "a90564bb_9bae11d4",
+      "revId": "2a8411502b8179de1b23de477d0bee22c214214e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
