@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a90564bb_9bae11d4",
+        "filename": "crypto/cipher_extra/e_aesgcmsiv.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-12T18:01:16Z",
+      "side": 1,
+      "message": "This is probably slightly better w.r.t. definedness. I think C gets grumpy if you try to do arithmetic in integer space and then cast to a pointer:\n\nchar *ptr \u003d OPENSSL_malloc(...);\nstruct aead_aes_gcm_siv_asm_ctx *gcm_siv_ctx \u003d\n  (struct aead_aes_gcm_siv_asm_ctx *)(ptr + ((-(uintptr_t)ptr) \u0026 ~15));\n\nThis way we\u0027re only depending on implementation-defined behavior (how arithmetic in integer space corresponds to pointer offsets) rather than undefined behavior.",
+      "revId": "2a8411502b8179de1b23de477d0bee22c214214e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
