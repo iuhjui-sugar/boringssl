@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bf8109ab_1f7a80ae",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-12T17:44:48Z",
+      "side": 1,
+      "message": "Nit: newline (I\u0027ll just fix this)",
+      "revId": "d7c1a765175cb9a8fbe5fa0bbc6a4d520e9bd989",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
