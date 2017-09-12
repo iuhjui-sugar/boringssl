@@ -34,6 +34,24 @@
       "revId": "2a8411502b8179de1b23de477d0bee22c214214e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6b5cb50_bec0ebee",
+        "filename": "crypto/cipher_extra/e_aesgcmsiv.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-12T19:03:39Z",
+      "side": 1,
+      "message": "Er, yeah, that.",
+      "parentUuid": "3676f00d_05c019bc",
+      "revId": "2a8411502b8179de1b23de477d0bee22c214214e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9b84e3bc_333b51c4",
+        "filename": "crypto/cipher_extra/e_aesgcmsiv.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-12T19:03:39Z",
+      "side": 1,
+      "message": "Nit: Maybe s/15/8/ given you\u0027re only sizing it +8 and stuff.",
+      "range": {
+        "startLine": 79,
+        "startChar": 68,
+        "endLine": 79,
+        "endChar": 70
+      },
+      "revId": "9fcb4fb3ebdecb60e2ff1ef44dc4e6b1ecfcc3ab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
