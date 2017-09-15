@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2204fb53_aa083472",
+        "filename": "tool/server.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-15T20:51:50Z",
+      "side": 1,
+      "message": "Nit: Our style would be to name this HandleWWW (like Go).",
+      "range": {
+        "startLine": 175,
+        "startChar": 12,
+        "endLine": 175,
+        "endChar": 21
+      },
+      "revId": "f12cb2570d65dd6b6ebcda9953300334ab3fc60a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c711758_5a8789d4",
+        "filename": "tool/server.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-15T20:51:50Z",
+      "side": 1,
+      "message": "I think this would cause bssl server to burn CPU while waiting for some data from the peer. (Any particular reason it needs to echo it?)",
+      "revId": "f12cb2570d65dd6b6ebcda9953300334ab3fc60a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
