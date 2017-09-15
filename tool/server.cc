@@ -71,6 +71,11 @@ static const struct argument kArguments[] = {
         "-tls13-variant", kBooleanArgument, "Enable TLS 1.3 variants",
     },
     {
+        "-www", kBooleanArgument,
+        "The server will print connection information in response to a "
+        "HTTP GET request.",
+    },
+    {
         "-debug", kBooleanArgument,
         "Print debug information about the handshake",
     },
@@ -165,6 +170,46 @@ static FILE *g_keylog_file = nullptr;
 static void KeyLogCallback(const SSL *ssl, const char *line) {
   fprintf(g_keylog_file, "%s\n", line);
   fflush(g_keylog_file);
+}
+
+static bool HandleWww(SSL *ssl) {
+  bssl::UniquePtr<BIO> bio(BIO_new(BIO_s_mem()));
+  if (!bio) {
+      fprintf(stderr, "Cannot create BIO for response\n");
+      return false;
+  }
+
+  BIO_puts(bio.get(), "HTTP/1.0 200 OK\r\nContent-Type: text/plain\r\n\r\n");
+  PrintConnectionInfo(bio.get(), ssl);
+
+  uint8_t buffer[512];
+  for (;;) {
+    int ssl_ret = SSL_read(ssl, buffer, sizeof(buffer));
+
+    if (ssl_ret < 0) {
+      int ssl_err = SSL_get_error(ssl, ssl_ret);
+      if (ssl_err == SSL_ERROR_WANT_READ) {
+        continue;
+      }
+      fprintf(stderr, "Error while reading: %d\n", ssl_err);
+      ERR_print_errors_cb(PrintErrorCallback, stderr);
+      return false;
+    } else if (ssl_ret == 0) {
+      return true;
+    }
+
+    break;
+  }
+
+  // Assume simple HTTP request, print status.
+  if (!strncmp(reinterpret_cast<char *>(buffer), "GET ", 4)) {
+    const uint8_t *buf;
+    size_t len;
+    if (BIO_mem_contents(bio.get(), &buf, &len)) {
+      SSL_write(ssl, buf, len);
+    }
+  }
+  return true;
 }
 
 bool Server(const std::vector<std::string> &args) {
@@ -309,7 +354,11 @@ bool Server(const std::vector<std::string> &args) {
     bssl::UniquePtr<BIO> bio_stderr(BIO_new_fp(stderr, BIO_NOCLOSE));
     PrintConnectionInfo(bio_stderr.get(), ssl.get());
 
-    result = TransferData(ssl.get(), sock);
+    if (args_map.count("-www") != 0) {
+      result = HandleWww(ssl.get());
+    } else {
+      result = TransferData(ssl.get(), sock);
+    }
   } while (args_map.count("-loop") != 0);
 
   return result;
