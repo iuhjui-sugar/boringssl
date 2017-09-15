@@ -39,6 +39,24 @@
       "revId": "f12cb2570d65dd6b6ebcda9953300334ab3fc60a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b49b4484_438bea5f",
+        "filename": "tool/server.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 7690
+      },
+      "writtenOn": "2017-09-15T21:24:35Z",
+      "side": 1,
+      "message": "I was basing this off the code in transport_common.cc and assumed it was needed in case an EINTR occurred.\n\nWhen would this value be returned? Note that the socket is deliberately not set in non-blocking mode as it always reads first, then writes the response (unlike the TransferData function).",
+      "parentUuid": "7c711758_5a8789d4",
+      "revId": "f12cb2570d65dd6b6ebcda9953300334ab3fc60a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
