@@ -57,6 +57,24 @@
       "revId": "f12cb2570d65dd6b6ebcda9953300334ab3fc60a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59bd08ca_d379c6d5",
+        "filename": "tool/server.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-15T21:40:15Z",
+      "side": 1,
+      "message": "SSL_ERROR_WANT_READ means the socket is set in non-blocking mode and you should retry when the socket is ready for reading again. :-P (Note the code in transport_common.cc does a continue to a select() thingy.)\n\nThe OpenSSL API is kind of horrific, but I made a vague attempt at documenting sometime ago here:\nhttps://commondatastorage.googleapis.com/chromium-boringssl-docs/ssl.h.html#SSL_read\nhttps://commondatastorage.googleapis.com/chromium-boringssl-docs/ssl.h.html#SSL_get_error\nhttps://commondatastorage.googleapis.com/chromium-boringssl-docs/ssl.h.html#SSL_ERROR_WANT_READ",
+      "parentUuid": "b49b4484_438bea5f",
+      "revId": "f12cb2570d65dd6b6ebcda9953300334ab3fc60a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
