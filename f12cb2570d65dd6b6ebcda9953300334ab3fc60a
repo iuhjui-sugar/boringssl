@@ -75,6 +75,24 @@
       "revId": "f12cb2570d65dd6b6ebcda9953300334ab3fc60a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02f294ba_42f19448",
+        "filename": "tool/server.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 7690
+      },
+      "writtenOn": "2017-09-15T22:00:06Z",
+      "side": 1,
+      "message": "Just to be sure, \"when the transport is ready for reading\" means that the value is only applicable to non-blocking mode? Does it mean that SSL_read internally handles EINTR?\n\nCouldn\u0027t find that in the docs and a \"quick\" look pointed to \"tls_read_buffer_extend_to\" and there I see a BIO_read without BIO_should_retry to check for EINTR. Should I keeo this retry logic or remove it? (It is kind of an edge case anyway.)",
+      "parentUuid": "59bd08ca_d379c6d5",
+      "revId": "f12cb2570d65dd6b6ebcda9953300334ab3fc60a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
