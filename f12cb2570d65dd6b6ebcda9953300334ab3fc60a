@@ -93,6 +93,24 @@
       "revId": "f12cb2570d65dd6b6ebcda9953300334ab3fc60a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f51d4a4_e2c72375",
+        "filename": "tool/server.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-15T22:15:44Z",
+      "side": 1,
+      "message": "(tls_read_buffer_extend_to handling EINTR would break custom BIOs. It\u0027d need to either be on the caller or the BIO implementation itself.)\n\nHrm, it appears the socket BIOs do not handle that. That\u0027s annoying. Though nothing else handles it while the BIO is in blocking mode either, like the handshake or your SSL_write calls... *shrug* bssl is not meant to be more than a random testing tool anyway. We just use it to poke at clients or servers.",
+      "parentUuid": "02f294ba_42f19448",
+      "revId": "f12cb2570d65dd6b6ebcda9953300334ab3fc60a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
