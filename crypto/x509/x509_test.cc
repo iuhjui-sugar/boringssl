@@ -30,6 +30,8 @@
 #include "../internal.h"
 
 
+std::string GetTestData(const char *path);
+
 static const char kCrossSigningRootPEM[] =
     "-----BEGIN CERTIFICATE-----\n"
     "MIICcTCCAdqgAwIBAgIIagJHiPvE0MowDQYJKoZIhvcNAQELBQAwPDEaMBgGA1UE\n"
@@ -655,6 +657,26 @@ TEST(X509Test, TestCRL) {
   ASSERT_EQ(X509_V_ERR_UNHANDLED_CRITICAL_CRL_EXTENSION,
             Verify(leaf.get(), {root.get()}, {root.get()},
                    {unknown_critical_crl2.get()}, X509_V_FLAG_CRL_CHECK));
+}
+
+TEST(X509Test, ManyNamesAndConstraints) {
+  bssl::UniquePtr<X509> many_constraints(
+      CertFromPEM(GetTestData("crypto/x509/many_constraints.pem").c_str()));
+  ASSERT_TRUE(many_constraints);
+  bssl::UniquePtr<X509> many_names(
+      CertFromPEM(GetTestData("crypto/x509/many_names.pem").c_str()));
+  ASSERT_TRUE(many_names);
+  bssl::UniquePtr<X509> some_names(
+      CertFromPEM(GetTestData("crypto/x509/some_names.pem").c_str()));
+  ASSERT_TRUE(some_names);
+
+  EXPECT_EQ(X509_V_ERR_UNSPECIFIED,
+            Verify(many_names.get(), {many_constraints.get()},
+                   {many_constraints.get()}, {}));
+
+  EXPECT_EQ(X509_V_OK,
+            Verify(some_names.get(), {many_constraints.get()},
+                   {many_constraints.get()}, {}));
 }
 
 TEST(X509Test, TestPSS) {
