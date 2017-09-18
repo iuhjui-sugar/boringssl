@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5b3689db_1b420236",
+        "filename": "crypto/fipsmodule/ec/ec_key.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-18T18:46:45Z",
+      "side": 0,
+      "message": "It\u0027s unclear to me why these were cleansed anyway since they just contain a bunch of pointers. :-)",
+      "revId": "683ffbbe57de2163b24993e0d03650cf393bc640",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

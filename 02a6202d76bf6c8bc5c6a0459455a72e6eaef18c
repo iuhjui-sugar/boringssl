@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cf516fc6_dea45fcd",
+        "filename": "crypto/cipher_extra/e_aesgcmsiv.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-18T18:46:45Z",
+      "side": 1,
+      "message": "When you rebase, you\u0027ll probably end up undoing some of this due to https://boringssl.googlesource.com/boringssl/+/a16e86ced5d492d7699a00363dadfdc5624b341d.",
+      "revId": "02a6202d76bf6c8bc5c6a0459455a72e6eaef18c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
