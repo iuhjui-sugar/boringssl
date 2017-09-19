@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a151815_cc5ab7b6",
+        "filename": "crypto/fipsmodule/digest/digest.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-19T19:25:20Z",
+      "side": 1,
+      "message": "(Is this check necessary to begin with?)",
+      "revId": "670cdc0483c880776f6cb01e00c19825623930db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
