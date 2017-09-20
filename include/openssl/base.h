@@ -79,6 +79,15 @@
 extern "C" {
 #endif
 
+// Have a generic fall-through for different versions of C++
+#if defined(__cplusplus) && __cplusplus >= 201402L // C++14, C++17 and above
+#define FALLTHRU [[fallthrough]]
+#elif defined(__cplusplus) && __cplusplus >= 201103L && __GNUC__ >= 7 // C++11 gcc 7
+#define FALLTHRU [[gnu::fallthrough]]
+#else // C++11 on gcc 6, and all other cases
+#define FALLTHRU
+#endif
+
 
 #if defined(__x86_64) || defined(_M_AMD64) || defined(_M_X64)
 #define OPENSSL_64_BIT
