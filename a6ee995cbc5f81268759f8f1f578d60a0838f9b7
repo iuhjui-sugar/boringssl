@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "d857e1c6_542e2af1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-20T18:24:01Z",
+      "side": 1,
+      "message": "(Thanks! Yeah, I have no clue which part we\u0027re actually supposed to pay attention to, but this way I don\u0027t have to worry about it or something.)",
+      "parentUuid": "7be7c1f1_d05bc713",
+      "revId": "a6ee995cbc5f81268759f8f1f578d60a0838f9b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a560fff1_20d32522",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -101,6 +119,24 @@
       "side": 1,
       "message": "will do. \n\nThe SSL_FALLTHROUGH does not appear to be used, but i\u0027ll merge in the clang case as well.",
       "parentUuid": "ab52772a_bf101365",
+      "revId": "a6ee995cbc5f81268759f8f1f578d60a0838f9b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c7298db4_9a04461e",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-20T18:24:01Z",
+      "side": 1,
+      "message": "Haha. I guess we deleted the only user of it!",
+      "parentUuid": "10eabfe0_898289ad",
       "revId": "a6ee995cbc5f81268759f8f1f578d60a0838f9b7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false

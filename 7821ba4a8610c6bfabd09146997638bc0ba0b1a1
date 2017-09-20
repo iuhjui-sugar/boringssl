@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b65973a_a77b58c9",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-20T18:24:01Z",
+      "side": 1,
+      "message": "This probably needs a GCC 7 version check. I\u0027ve gone ahead and added that.",
+      "revId": "7821ba4a8610c6bfabd09146997638bc0ba0b1a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07a42d30_60c7bab4",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-20T18:24:01Z",
+      "side": 1,
+      "message": "(This was missing a __cplusplus and broke clang builds.)",
+      "range": {
+        "startLine": 83,
+        "startChar": 24,
+        "endLine": 83,
+        "endChar": 26
+      },
+      "revId": "7821ba4a8610c6bfabd09146997638bc0ba0b1a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf93d9e5_8a503bf9",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-20T18:24:01Z",
+      "side": 1,
+      "message": "It looks like [[fallthrough]] is new as of C++17, not C++14? I\u0027ve switched this to C++17\u0027s number.",
+      "range": {
+        "startLine": 85,
+        "startChar": 56,
+        "endLine": 85,
+        "endChar": 62
+      },
+      "revId": "7821ba4a8610c6bfabd09146997638bc0ba0b1a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
