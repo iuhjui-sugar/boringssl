@@ -16,6 +16,24 @@
       "revId": "670cdc0483c880776f6cb01e00c19825623930db",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0a569ce_169c218c",
+        "filename": "crypto/fipsmodule/digest/digest.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-09-20T18:16:58Z",
+      "side": 1,
+      "message": "Nope. Removed.",
+      "parentUuid": "5a151815_cc5ab7b6",
+      "revId": "670cdc0483c880776f6cb01e00c19825623930db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
