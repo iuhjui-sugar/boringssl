@@ -37,7 +37,7 @@ if (BORINGSSL_ALLOW_CXX_RUNTIME)
 endif()
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  set(C_CXX_FLAGS "-Wall -Werror -Wformat=2 -Wsign-compare -Wmissing-field-initializers -Wwrite-strings -ggdb -fvisibility=hidden -fno-common")
+  set(C_CXX_FLAGS "-Wall -Werror -Wformat=2 -Wsign-compare -Wmissing-field-initializers -Wwrite-strings -ggdb -fvisibility=hidden -fno-common -Wimplicit-fallthrough")
   if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     set(C_CXX_FLAGS "${C_CXX_FLAGS} -Wnewline-eof -fcolor-diagnostics")
   else()
@@ -60,7 +60,7 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   # https://clang.llvm.org/docs/DiagnosticsReference.html#wmissing-prototypes
   # https://clang.llvm.org/docs/DiagnosticsReference.html#wmissing-declarations
   if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wmissing-prototypes -Wimplicit-fallthrough")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wmissing-prototypes")
   endif()
 elseif(MSVC)
   set(MSVC_DISABLED_WARNINGS_LIST
