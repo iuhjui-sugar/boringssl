@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9acbb044_da16d879",
+        "filename": "crypto/x509/make_many_constraints.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-09-20T21:03:17Z",
+      "side": 1,
+      "message": "Nit: Maybe add a short doc comment.",
+      "range": {
+        "startLine": 15,
+        "startChar": 8,
+        "endLine": 15,
+        "endChar": 12
+      },
+      "revId": "1ba05c349dfd58d32bc53f5e067daa903d4775f4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
