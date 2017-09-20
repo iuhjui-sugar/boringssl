@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9f0a80d1_134726fd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-20T15:35:20Z",
+      "side": 1,
+      "message": "It looks like we have a CLA on file for vbatts@redhat.com, but not vbatts@hashbangbash.com. Could you align the author field (git commit --amend --reset-author) so it\u0027s unambiguous who you\u0027re contributing this as? Thanks! (And of course make sure you are indeed contributing this as vbatts@redhat.com.)\n\nDitto for Signed-off-by below. (Actually we don\u0027t really use those. *shrug*)",
+      "revId": "a6ee995cbc5f81268759f8f1f578d60a0838f9b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a560fff1_20d32522",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-20T15:35:20Z",
+      "side": 1,
+      "message": "So that we\u0027ll catch this ourselves going forward, could you adjust the logic in CMakeLists.txt to set this appropriately (clang and whatever GCC version added this flag)? Right now we only set it for C++ in Clang, but I gather it works for C as well, and GCC. Thanks!",
+      "revId": "a6ee995cbc5f81268759f8f1f578d60a0838f9b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab52772a_bf101365",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-20T15:35:20Z",
+      "side": 1,
+      "message": "FALLTHROUGH, not FALLTHRU. This is also a public header and should not define an unprefixed symbol. It should either be named OPENSSL_FALLTHROUGH or moved to crypto/internal.h.\n\nThere is also already a copy of this in ssl/internal.h somewhere. Could you switch existing uses to whatever you do here?",
+      "revId": "a6ee995cbc5f81268759f8f1f578d60a0838f9b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
