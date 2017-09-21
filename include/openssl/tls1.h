@@ -199,6 +199,9 @@ extern "C" {
 // ExtensionType value from RFC7685
 #define TLSEXT_TYPE_padding 21
 
+// ExtensionType value from draft-ietf-tokbind-negotiation-09
+#define TLSEXT_TYPE_token_binding 24
+
 // ExtensionType value from RFC7627
 #define TLSEXT_TYPE_extended_master_secret 23
 

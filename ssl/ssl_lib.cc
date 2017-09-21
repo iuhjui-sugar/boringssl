@@ -2017,6 +2017,18 @@ size_t SSL_get_tls_channel_id(SSL *ssl, uint8_t *out, size_t max_out) {
   return 64;
 }
 
+int SSL_set_token_binding_params(SSL *ssl, const uint8_t *params, size_t len) {
+  return 0;
+}
+
+int SSL_get_token_binding_negotiated(SSL *ssl) {
+  return 0;
+}
+
+uint8_t SSL_get_negotiated_token_binding_param(SSL *ssl) {
+  return 0;
+}
+
 size_t SSL_get0_certificate_types(SSL *ssl, const uint8_t **out_types) {
   if (ssl->server || ssl->s3->hs == NULL) {
     *out_types = NULL;
