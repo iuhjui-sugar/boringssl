@@ -158,6 +158,8 @@
 #include <openssl/span.h>
 #include <openssl/stack.h>
 
+#include "../crypto/internal.h"
+
 
 #if defined(OPENSSL_WINDOWS)
 // Windows defines struct timeval in winsock2.h.
@@ -301,6 +303,14 @@ class Array {
     for (size_t i = 0; i < size_; i++) {
       new (&data_[i]) T();
     }
+    return true;
+  }
+
+  bool CopyFrom(Span<const uint8_t> in) {
+    if (!Init(in.size())) {
+      return false;
+    }
+    OPENSSL_memcpy(data_, in.data(), in.size());
     return true;
   }
 
@@ -1274,13 +1284,11 @@ struct SSL_HANDSHAKE {
   SSLTranscript transcript;
 
   // cookie is the value of the cookie received from the server, if any.
-  uint8_t *cookie = nullptr;
-  size_t cookie_len = 0;
+  Array<uint8_t> cookie;
 
   // key_share_bytes is the value of the previously sent KeyShare extension by
   // the client in TLS 1.3.
-  uint8_t *key_share_bytes = nullptr;
-  size_t key_share_bytes_len = 0;
+  Array<uint8_t> key_share_bytes;
 
   // ecdh_public_key, for servers, is the key share to be sent to the client in
   // TLS 1.3.
@@ -1322,8 +1330,7 @@ struct SSL_HANDSHAKE {
 
   // certificate_types, on the client, contains the set of certificate types
   // received in a CertificateRequest message.
-  uint8_t *certificate_types = nullptr;
-  size_t num_certificate_types = 0;
+  Array<uint8_t> certificate_types;
 
   // local_pubkey is the public key we are authenticating as.
   UniquePtr<EVP_PKEY> local_pubkey;
