@@ -2389,6 +2389,168 @@ static bool ext_supported_groups_parse_clienthello(SSL_HANDSHAKE *hs,
   return true;
 }
 
+// Token Binding
+//
+// https://tools.ietf.org/html/draft-ietf-tokbind-negotiation-09
+
+static uint8_t kTokenBindingMajorVersion = 0;
+static uint8_t kTokenBindingMinorVersion = 15;
+static uint8_t kMinTokenBindingMajorVersion = 0;
+static uint8_t kMinTokenBindingMinorVersion = 13;
+
+static bool ext_token_binding_add_clienthello(SSL_HANDSHAKE *hs, CBB *out) {
+  SSL *const ssl = hs->ssl;
+  if (ssl->token_binding_params == nullptr || SSL_is_dtls(ssl)) {
+    return 1;
+  }
+
+  CBB contents, params;
+  if (!CBB_add_u16(out, TLSEXT_TYPE_token_binding) ||
+      !CBB_add_u16_length_prefixed(out, &contents) ||
+      !CBB_add_u8(&contents, kTokenBindingMajorVersion) ||
+      !CBB_add_u8(&contents, kTokenBindingMinorVersion) ||
+      !CBB_add_u8_length_prefixed(&contents, &params) ||
+      !CBB_add_bytes(&params, ssl->token_binding_params, ssl->token_binding_params_len) ||
+      !CBB_flush(out)) {
+    return 0;
+  }
+
+  return 1;
+}
+
+static bool ext_token_binding_parse_serverhello(SSL_HANDSHAKE *hs,
+                                                uint8_t *out_alert,
+                                                CBS *contents) {
+  SSL *const ssl = hs->ssl;
+  if (contents == nullptr) {
+    return 1;
+  }
+
+  CBS params_list;
+  uint8_t version_major, version_minor, param;
+  if (!CBS_get_u8(contents, &version_major) ||
+      !CBS_get_u8(contents, &version_minor) ||
+      !CBS_get_u8_length_prefixed(contents, &params_list) ||
+      !CBS_get_u8(&params_list, &param) || CBS_len(&params_list) > 0 ||
+      CBS_len(contents) > 0) {
+    *out_alert = SSL_AD_DECODE_ERROR;
+    return 0;
+  }
+
+  // The server-negotiated version must be less than or equal to our version.
+  if (version_major > kTokenBindingMajorVersion ||
+      (version_minor > kTokenBindingMinorVersion &&
+       version_major == kTokenBindingMajorVersion)) {
+    *out_alert = SSL_AD_ILLEGAL_PARAMETER;
+    return 0;
+  }
+
+  // If the server-selected version is less than what we support, then Token
+  // Binding wasn't negotiated (but the extension was parsed successfully).
+  if (version_major < kMinTokenBindingMajorVersion ||
+      (version_minor < kMinTokenBindingMinorVersion &&
+       version_major == kMinTokenBindingMinorVersion)) {
+    return 1;
+  }
+
+  for (size_t i = 0; i < ssl->token_binding_params_len; ++i) {
+    if (param == ssl->token_binding_params[i]) {
+      ssl->negotiated_token_binding_param = param;
+      ssl->token_binding_negotiated = 1;
+      return 1;
+    }
+  }
+
+  *out_alert = SSL_AD_ILLEGAL_PARAMETER;
+  return 0;
+}
+
+static bool ext_token_binding_parse_clienthello(SSL_HANDSHAKE *hs,
+                                                uint8_t *out_alert,
+                                                CBS *contents) {
+  SSL *const ssl = hs->ssl;
+  if (contents == nullptr || ssl->token_binding_params == nullptr) {
+    return 1;
+  }
+
+  CBS params;
+  uint8_t version_major, version_minor;
+  if (!CBS_get_u8(contents, &version_major) ||
+      !CBS_get_u8(contents, &version_minor) ||
+      !CBS_get_u8_length_prefixed(contents, &params) ||
+      CBS_len(&params) == 0 || CBS_len(contents) > 0) {
+    *out_alert = SSL_AD_DECODE_ERROR;
+    return 0;
+  }
+
+  // If the client-selected version is less than what we support, then Token
+  // Binding wasn't negotiated (but the extension was parsed successfully).
+  if (version_major < kMinTokenBindingMajorVersion ||
+      (version_minor < kMinTokenBindingMinorVersion &&
+       version_major == kMinTokenBindingMajorVersion)) {
+    return 1;
+  }
+
+  // If the client-selected version is higher than we support, use our max
+  // version. Otherwise, use the client's version.
+  hs->negotiated_token_binding_version_major = version_major;
+  hs->negotiated_token_binding_version_minor = version_minor;
+  if (version_major > kTokenBindingMajorVersion ||
+      (version_minor > kTokenBindingMinorVersion &&
+       version_major == kTokenBindingMajorVersion)) {
+    hs->negotiated_token_binding_version_major = kTokenBindingMajorVersion;
+    hs->negotiated_token_binding_version_minor = kTokenBindingMinorVersion;
+  }
+
+  if (!hs->peer_token_binding_params.CopyFrom(params)) {
+    *out_alert = SSL_AD_INTERNAL_ERROR;
+    return 0;
+  }
+
+  return 1;
+}
+
+static bool select_tb_param(SSL_HANDSHAKE *hs, uint8_t *out) {
+  SSL *const ssl = hs->ssl;
+
+  for (size_t i = 0; i < ssl->token_binding_params_len; ++i) {
+    uint8_t tb_param = ssl->token_binding_params[i];
+    for (size_t j = 0; j < hs->peer_token_binding_params.size(); ++j) {
+      if (tb_param == hs->peer_token_binding_params[j]) {
+        *out = tb_param;
+        return 1;
+      }
+    }
+  }
+  return 0;
+}
+
+static bool ext_token_binding_add_serverhello(SSL_HANDSHAKE *hs, CBB *out) {
+  SSL *const ssl = hs->ssl;
+  if (!SSL_get_secure_renegotiation_support(ssl) ||
+      !SSL_get_extms_support(ssl)) {
+    return 0;
+  }
+
+  if (hs->peer_token_binding_params.empty() ||
+      !select_tb_param(hs, &ssl->negotiated_token_binding_param)) {
+    return 1;
+  }
+
+  CBB contents, params;
+  if (!CBB_add_u16(out, TLSEXT_TYPE_token_binding) ||
+      !CBB_add_u16_length_prefixed(out, &contents) ||
+      !CBB_add_u8(&contents, hs->negotiated_token_binding_version_major) ||
+      !CBB_add_u8(&contents, hs->negotiated_token_binding_version_minor) ||
+      !CBB_add_u8_length_prefixed(&contents, &params) ||
+      !CBB_add_u8(&params, ssl->negotiated_token_binding_param) ||
+      !CBB_flush(out)) {
+    return 0;
+  }
+
+  ssl->token_binding_negotiated = 1;
+  return 1;
+}
 
 // kExtensions contains all the supported extensions.
 static const struct tls_extension kExtensions[] = {
@@ -2540,6 +2702,14 @@ static const struct tls_extension kExtensions[] = {
     ext_supported_groups_parse_serverhello,
     ext_supported_groups_parse_clienthello,
     dont_add_serverhello,
+  },
+  {
+    TLSEXT_TYPE_token_binding,
+    NULL,
+    ext_token_binding_add_clienthello,
+    ext_token_binding_parse_serverhello,
+    ext_token_binding_parse_clienthello,
+    ext_token_binding_add_serverhello,
   },
 };
 

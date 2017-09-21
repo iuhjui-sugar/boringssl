@@ -61,6 +61,7 @@ const Flag<bool> kBoolFlags[] = {
   { "-no-tls1", &TestConfig::no_tls1 },
   { "-no-ssl3", &TestConfig::no_ssl3 },
   { "-enable-channel-id", &TestConfig::enable_channel_id },
+  { "-expect-token-binding", &TestConfig::expect_token_binding },
   { "-shim-writes-first", &TestConfig::shim_writes_first },
   { "-expect-session-miss", &TestConfig::expect_session_miss },
   { "-decline-alpn", &TestConfig::decline_alpn },
@@ -162,6 +163,7 @@ const Flag<std::string> kStringFlags[] = {
 const Flag<std::string> kBase64Flags[] = {
   { "-expect-certificate-types", &TestConfig::expected_certificate_types },
   { "-expect-channel-id", &TestConfig::expected_channel_id },
+  { "-token-binding-params", &TestConfig::send_token_binding_params },
   { "-expect-ocsp-response", &TestConfig::expected_ocsp_response },
   { "-expect-signed-cert-timestamps",
     &TestConfig::expected_signed_cert_timestamps },
@@ -173,6 +175,8 @@ const Flag<std::string> kBase64Flags[] = {
 const Flag<int> kIntFlags[] = {
   { "-port", &TestConfig::port },
   { "-resume-count", &TestConfig::resume_count },
+  { "-expected-token-binding-param",
+    &TestConfig::expected_token_binding_param },
   { "-min-version", &TestConfig::min_version },
   { "-max-version", &TestConfig::max_version },
   { "-expect-version", &TestConfig::expect_version },

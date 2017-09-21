@@ -49,6 +49,9 @@ struct TestConfig {
   std::string expected_channel_id;
   bool enable_channel_id = false;
   std::string send_channel_id;
+  int expected_token_binding_param;
+  bool expect_token_binding = false;
+  std::string send_token_binding_params;
   bool shim_writes_first = false;
   std::string host_name;
   std::string advertise_alpn;
