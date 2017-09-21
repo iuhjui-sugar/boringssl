@@ -165,6 +165,8 @@ type clientHelloMsg struct {
 	alpnProtocols           []string
 	duplicateExtension      bool
 	channelIDSupported      bool
+	tokenBindingParams      []byte
+	tokenBindingVersion     uint16
 	npnAfterAlpn            bool
 	extendedMasterSecret    bool
 	srtpProtectionProfiles  []uint16
@@ -215,6 +217,8 @@ func (m *clientHelloMsg) equal(i interface{}) bool {
 		eqStrings(m.alpnProtocols, m1.alpnProtocols) &&
 		m.duplicateExtension == m1.duplicateExtension &&
 		m.channelIDSupported == m1.channelIDSupported &&
+		bytes.Equal(m.tokenBindingParams, m1.tokenBindingParams) &&
+		m.tokenBindingVersion == m1.tokenBindingVersion &&
 		m.npnAfterAlpn == m1.npnAfterAlpn &&
 		m.extendedMasterSecret == m1.extendedMasterSecret &&
 		eqUint16s(m.srtpProtectionProfiles, m1.srtpProtectionProfiles) &&
@@ -386,6 +390,13 @@ func (m *clientHelloMsg) marshal() []byte {
 	if m.channelIDSupported {
 		extensions.addU16(extensionChannelID)
 		extensions.addU16(0) // Length is always 0
+	}
+	if m.tokenBindingParams != nil {
+		extensions.addU16(extensionTokenBinding)
+		tokbindExtension := extensions.addU16LengthPrefixed()
+		tokbindExtension.addU16(m.tokenBindingVersion)
+		tokbindParams := tokbindExtension.addU8LengthPrefixed()
+		tokbindParams.addBytes(m.tokenBindingParams)
 	}
 	if m.nextProtoNeg && m.npnAfterAlpn {
 		extensions.addU16(extensionNextProtoNeg)
@@ -812,6 +823,17 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 				return false
 			}
 			m.channelIDSupported = true
+		case extensionTokenBinding:
+			if length < 3 {
+				return false
+			}
+			m.tokenBindingVersion = uint16(data[0])<<8 | uint16(data[1])
+			l := int(data[2])
+			d := data[3:length]
+			if len(d) != l || len(d) == 0 {
+				return false
+			}
+			m.tokenBindingParams = d
 		case extensionExtendedMasterSecret:
 			if length != 0 {
 				return false
@@ -1150,6 +1172,8 @@ type serverExtensions struct {
 	alpnProtocolEmpty       bool
 	duplicateExtension      bool
 	channelIDRequested      bool
+	tokenBindingParams      []byte
+	tokenBindingVersion     uint16
 	extendedMasterSecret    bool
 	srtpProtectionProfile   uint16
 	srtpMasterKeyIdentifier string
@@ -1207,6 +1231,13 @@ func (m *serverExtensions) marshal(extensions *byteBuilder) {
 	if m.channelIDRequested {
 		extensions.addU16(extensionChannelID)
 		extensions.addU16(0)
+	}
+	if m.tokenBindingParams != nil {
+		extensions.addU16(extensionTokenBinding)
+		tokbindExtension := extensions.addU16LengthPrefixed()
+		tokbindExtension.addU16(m.tokenBindingVersion)
+		tokbindParams := tokbindExtension.addU8LengthPrefixed()
+		tokbindParams.addBytes(m.tokenBindingParams)
 	}
 	if m.duplicateExtension {
 		// Add a duplicate bogus extension at the beginning and end.
@@ -1343,6 +1374,12 @@ func (m *serverExtensions) unmarshal(data []byte, version uint16) bool {
 				return false
 			}
 			m.channelIDRequested = true
+		case extensionTokenBinding:
+			if length != 4 || data[2] != 1 {
+				return false
+			}
+			m.tokenBindingVersion = uint16(data[0])<<8 | uint16(data[1])
+			m.tokenBindingParams = data[3:4]
 		case extensionExtendedMasterSecret:
 			if length != 0 {
 				return false
