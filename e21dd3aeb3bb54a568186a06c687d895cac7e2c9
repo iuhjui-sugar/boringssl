@@ -1,0 +1,147 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ac1ad7f6_f6e791aa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-21T22:32:38Z",
+      "side": 1,
+      "message": "I\u0027m not clear on why we\u0027d want this intermediate state. Folks compiling against older BoringSSL won\u0027t have these functions available either. If the functions are available, they should just work.\n\nSSL_extension_supported was kind of a silly API. It was lifted from upstream and made no sense for exactly the reason you\u0027re pointing out. :-) If you need to do a two-sided change anywhere, bump BORINGSSL_API_VERSION and we can do #ifdefs.",
+      "revId": "e21dd3aeb3bb54a568186a06c687d895cac7e2c9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d1c6d6d_5b037b48",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2758,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-21T22:32:38Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "e21dd3aeb3bb54a568186a06c687d895cac7e2c9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a3198bd_ca578e55",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2760,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-21T22:32:38Z",
+      "side": 1,
+      "message": "Nit: I think most of our names wouldn\u0027t use get with a boolean? Maybe SSL_token_binding_negotiated or SSL_is_token_binding_negotiated or SSL_negotiated_token_binding?",
+      "range": {
+        "startLine": 2760,
+        "startChar": 3,
+        "endLine": 2760,
+        "endChar": 35
+      },
+      "revId": "e21dd3aeb3bb54a568186a06c687d895cac7e2c9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "463d3cdc_981fd4c6",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2765,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-21T22:32:38Z",
+      "side": 1,
+      "message": "Does anything actually handle this correctly at all? (I really disbelieve this tokbind versioning scheme.)\n\nIf the server believes TB was negotiated and then the client silently ignores it and sends no TB header, will our servers actually be fine issuing unbound cookies?",
+      "range": {
+        "startLine": 2761,
+        "startChar": 53,
+        "endLine": 2765,
+        "endChar": 11
+      },
+      "revId": "e21dd3aeb3bb54a568186a06c687d895cac7e2c9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14844e0d_3c7431d1",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2766,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-21T22:32:38Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 2766,
+        "startChar": 52,
+        "endLine": 2766,
+        "endChar": 55
+      },
+      "revId": "e21dd3aeb3bb54a568186a06c687d895cac7e2c9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53336c7b_08761573",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2772,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-21T22:32:38Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 2772,
+        "startChar": 62,
+        "endLine": 2772,
+        "endChar": 65
+      },
+      "revId": "e21dd3aeb3bb54a568186a06c687d895cac7e2c9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17a650b8_1004e645",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2773,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-21T22:32:38Z",
+      "side": 1,
+      "message": "Extra line here (sections are two blank lines apart).",
+      "revId": "e21dd3aeb3bb54a568186a06c687d895cac7e2c9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
