@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "eb2978b0_add03671",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1237,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-21T21:36:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "228e2f33_110223a6",
+      "range": {
+        "startLine": 1237,
+        "startChar": 39,
+        "endLine": 1237,
+        "endChar": 50
+      },
+      "revId": "d7e6eddc21085cb6ace0c2f00babfce445250f29",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0562ade_790a2535",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2017-09-21T21:26:48Z",
       "side": 1,
       "message": "This looks like a repeat of the test case at line 924.",
+      "range": {
+        "startLine": 950,
+        "startChar": 6,
+        "endLine": 958,
+        "endChar": 8
+      },
+      "revId": "d7e6eddc21085cb6ace0c2f00babfce445250f29",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6f226ef_50a76a9f",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 958,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-21T21:36:55Z",
+      "side": 1,
+      "message": "Er, yes. Removed. :-)",
+      "parentUuid": "b0562ade_790a2535",
       "range": {
         "startLine": 950,
         "startChar": 6,
