@@ -748,7 +748,7 @@ bool ssl_is_probably_java(const SSL_CLIENT_HELLO *client_hello) {
   // IcedTea curve list.
   static const uint8_t kCurveList3[] = {0x00, 0x17, 0x00, 0x18, 0x00, 0x19};
 
-  auto groups_span = MakeConstSpan(CBS_data(&groups), CBS_len(&groups));
+  auto groups_span = Span<const uint8_t>(groups);
   if (groups_span != kCurveList1 && groups_span != kCurveList2 &&
       groups_span != kCurveList3) {
     return false;

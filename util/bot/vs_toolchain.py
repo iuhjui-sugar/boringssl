@@ -18,8 +18,8 @@ json_data_file = os.path.join(script_dir, 'win_toolchain.json')
 import gyp
 
 
-TOOLCHAIN_VERSION = '2015'
-TOOLCHAIN_HASH = 'f53e4598951162bad6330f7a167486c7ae5db1e5'
+TOOLCHAIN_VERSION = '2017'
+TOOLCHAIN_HASH = '9bc7ccbf9f4bd50d4a3bd185e8ca94ff1618de0b'
 
 
 def SetEnvironmentAndGetRuntimeDllDirs():
