@@ -2783,6 +2783,32 @@ OPENSSL_EXPORT void (*SSL_CTX_get_channel_id_cb(SSL_CTX *ctx))(
     SSL *ssl, EVP_PKEY **out_pkey);
 
 
+// Token Binding.
+//
+// See draft-ietf-tokbind-protocol-16.
+
+// SSL_set_token_binding_params sets |params| as the Token Binding Key
+// parameters (section 3 of draft-ietf-tokbind-protocol-16) to negotiate on the
+// connection. If this function is not called, or if |len| is 0, then this
+// endpoint will not attempt to negotiate Token Binding. |params| are provided
+// in preference order, with the more preferred parameters at the beginning of
+// the list. This function returns 1 on success and 0 on failure.
+OPENSSL_EXPORT int SSL_set_token_binding_params(SSL *ssl, const uint8_t *params, size_t len);
+
+// SSL_get_token_binding_negotiated returns 1 if Token Binding was negotiated
+// on this connection and 0 if it was not negotiated. On a server, it is
+// possible for this function to return 1 when the client's view of the
+// connection is that Token Binding was not negotiated. This occurs when the
+// server indicates a version of Token Binding less than the client's minimum
+// version.
+OPENSSL_EXPORT int SSL_get_token_binding_negotiated(SSL *ssl);
+
+// SSL_get_negotiated_token_binding_param returns the TokenBindingKeyParameters
+// enum value that was negotiated. It is only valid to call this function if
+// SSL_get_token_binding_negotiated returned 1, otherwise this function returns
+// an undefined value.
+OPENSSL_EXPORT uint8_t SSL_get_negotiated_token_binding_param(SSL *ssl);
+
 // DTLS-SRTP.
 //
 // See RFC 5764.
@@ -4561,6 +4587,7 @@ OPENSSL_EXPORT bool SealRecord(SSL *ssl, Span<uint8_t> out_prefix,
 #define SSL_R_NO_SUPPORTED_VERSIONS_ENABLED 280
 #define SSL_R_APPLICATION_DATA_INSTEAD_OF_HANDSHAKE 281
 #define SSL_R_EMPTY_HELLO_RETRY_REQUEST 282
+#define SSL_R_NEGOTIATED_TB_WITHOUT_EMS_OR_RI 283
 #define SSL_R_SSLV3_ALERT_CLOSE_NOTIFY 1000
 #define SSL_R_SSLV3_ALERT_UNEXPECTED_MESSAGE 1010
 #define SSL_R_SSLV3_ALERT_BAD_RECORD_MAC 1020
