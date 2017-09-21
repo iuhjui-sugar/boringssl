@@ -1232,6 +1232,11 @@ OPENSSL_EXPORT int SSL_CIPHER_get_kx_nid(const SSL_CIPHER *cipher);
 // function returns |NID_auth_any|.
 OPENSSL_EXPORT int SSL_CIPHER_get_auth_nid(const SSL_CIPHER *cipher);
 
+// SSL_CIPHER_get_prf_nid retuns the NID for |cipher|'s PRF hash. If it is a
+// legacy cipher suite that predates TLS 1.2, it returns |NID_md5_sha1| but note
+// the PRF uses SHA-256 in TLS 1.2 and higher.
+OPENSSL_EXPORT int SSL_CIPHER_get_prf_nid(const SSL_CIPHER *cipher);
+
 // SSL_CIPHER_get_min_version returns the minimum protocol version required
 // for |cipher|.
 OPENSSL_EXPORT uint16_t SSL_CIPHER_get_min_version(const SSL_CIPHER *cipher);
