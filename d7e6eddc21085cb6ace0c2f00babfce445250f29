@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "228e2f33_110223a6",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1237,
+      "author": {
+        "id": 6825
+      },
+      "writtenOn": "2017-09-21T21:26:48Z",
+      "side": 1,
+      "message": "Those legacy cipher suites aren\u0027t used in TLS 1.3 - the \"and higher\" can be removed",
+      "range": {
+        "startLine": 1237,
+        "startChar": 39,
+        "endLine": 1237,
+        "endChar": 50
+      },
+      "revId": "d7e6eddc21085cb6ace0c2f00babfce445250f29",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0562ade_790a2535",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 958,
+      "author": {
+        "id": 6825
+      },
+      "writtenOn": "2017-09-21T21:26:48Z",
+      "side": 1,
+      "message": "This looks like a repeat of the test case at line 924.",
+      "range": {
+        "startLine": 950,
+        "startChar": 6,
+        "endLine": 958,
+        "endChar": 8
+      },
+      "revId": "d7e6eddc21085cb6ace0c2f00babfce445250f29",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
