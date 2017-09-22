@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a9bbd21_23865971",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1339,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-09-22T19:12:07Z",
+      "side": 1,
+      "message": "Unneeded?",
+      "range": {
+        "startLine": 1339,
+        "startChar": 4,
+        "endLine": 1339,
+        "endChar": 18
+      },
+      "revId": "d5141485b50ff827006de04499d01a9212387cc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
