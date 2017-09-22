@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d532efed_d41886e1",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-09-22T19:48:08Z",
+      "side": 1,
+      "message": "Remove and make the references in d1_... explicit.",
+      "range": {
+        "startLine": 245,
+        "startChar": 2,
+        "endLine": 245,
+        "endChar": 24
+      },
+      "revId": "f5460be135f8efb00d0b0ffdd6272709e1c2f63b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
