@@ -142,6 +142,29 @@
       "revId": "e21dd3aeb3bb54a568186a06c687d895cac7e2c9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fdc3bafd_1106a8cc",
+        "filename": "include/openssl/tls1.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5885
+      },
+      "writtenOn": "2017-09-25T23:41:52Z",
+      "side": 1,
+      "message": "Nit: TB (24) should be added after EMS (23).",
+      "range": {
+        "startLine": 203,
+        "startChar": 1,
+        "endLine": 203,
+        "endChar": 7
+      },
+      "revId": "e21dd3aeb3bb54a568186a06c687d895cac7e2c9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
