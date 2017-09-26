@@ -22,6 +22,30 @@
       "revId": "d5141485b50ff827006de04499d01a9212387cc1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbf6a4d5_6575a48e",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1339,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-26T23:26:18Z",
+      "side": 1,
+      "message": "I left it in, switched Array\u003cT\u003e from new T() to new T, and documented that Array\u003cT\u003e leaves primitive types uninitialized.\n\nReasoning:\n- Previously this code was all using OPENSSL_malloc which did not zero-initialize.\n- This is basically the only place where we actually want a zero array. Everywhere else, it\u0027s just reserving space for something.\n- absl::FixedArray does not zero-initialize.\n- I actually would be pretty excited about zero-initializing for safety, but in that case maybe we should do it in OPENSSL_malloc and a separate change.\n\nThoughts?",
+      "parentUuid": "7a9bbd21_23865971",
+      "range": {
+        "startLine": 1339,
+        "startChar": 4,
+        "endLine": 1339,
+        "endChar": 18
+      },
+      "revId": "d5141485b50ff827006de04499d01a9212387cc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
