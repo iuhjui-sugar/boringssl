@@ -258,14 +258,15 @@ void ssl_update_cache(SSL_HANDSHAKE *hs, int mode) {
   if (use_internal_cache &&
       !(ctx->session_cache_mode & SSL_SESS_CACHE_NO_AUTO_CLEAR)) {
     // Automatically flush the internal session cache every 255 connections.
-    int flush_cache = 0;
-    CRYPTO_MUTEX_lock_write(&ctx->lock);
-    ctx->handshakes_since_cache_flush++;
-    if (ctx->handshakes_since_cache_flush >= 255) {
-      flush_cache = 1;
-      ctx->handshakes_since_cache_flush = 0;
+    bool flush_cache = false;
+    {
+      MutexWriteLock lock(&ctx->lock);
+      ctx->handshakes_since_cache_flush++;
+      if (ctx->handshakes_since_cache_flush >= 255) {
+        flush_cache = true;
+        ctx->handshakes_since_cache_flush = 0;
+      }
     }
-    CRYPTO_MUTEX_unlock_write(&ctx->lock);
 
     if (flush_cache) {
       struct OPENSSL_timeval now;
