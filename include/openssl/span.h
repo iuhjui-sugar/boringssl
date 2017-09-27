@@ -22,6 +22,7 @@
 extern "C++" {
 
 #include <algorithm>
+#include <cstdlib>
 #include <type_traits>
 
 namespace bssl {
@@ -124,6 +125,7 @@ class Span : private internal::SpanBase<const T> {
 
   T *data() const { return data_; }
   size_t size() const { return size_; }
+  bool empty() const { return size_ == 0; }
 
   T *begin() const { return data_; }
   const T *cbegin() const { return data_; }
@@ -132,6 +134,13 @@ class Span : private internal::SpanBase<const T> {
 
   T &operator[](size_t i) const { return data_[i]; }
   T &at(size_t i) const { return data_[i]; }
+
+  Span subspan(size_t pos, size_t len = -1) const {
+    if (pos > size_) {
+      abort();
+    }
+    return Span(data_ + pos, std::min(size_ - pos, len));
+  }
 
  private:
   T *data_;
