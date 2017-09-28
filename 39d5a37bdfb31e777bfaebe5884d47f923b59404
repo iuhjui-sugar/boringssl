@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3daca0a9_34a30a7f",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-09-28T17:52:51Z",
+      "side": 1,
+      "message": "Kind of tempted to make something like a\n\n  BoundedArray\u003cuint8_t, EVP_AEAD_MAX_KEY_LENGTH\u003e\n\ntype, but that\u0027s perhaps that\u0027s a little excessive... :-)",
+      "revId": "39d5a37bdfb31e777bfaebe5884d47f923b59404",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
