@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ea607bd_2827cc47",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-02T19:16:08Z",
+      "side": 1,
+      "message": "Do you remember why you needed this one?",
+      "range": {
+        "startLine": 9,
+        "startChar": 11,
+        "endLine": 9,
+        "endChar": 22
+      },
+      "revId": "a9e3342cd7783dc1781e19bdfc8f0321e72b0b62",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
