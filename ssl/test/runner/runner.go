@@ -1316,13 +1316,6 @@ var tlsVersions = []tlsVersion{
 		versionWire:  tls13Experiment3Version,
 		tls13Variant: TLS13Experiment3,
 	},
-	{
-		name:         "TLS13RecordTypeExperiment",
-		version:      VersionTLS13,
-		excludeFlag:  "-no-tls13",
-		versionWire:  tls13RecordTypeExperimentVersion,
-		tls13Variant: TLS13RecordTypeExperiment,
-	},
 }
 
 func allVersions(protocol protocol) []tlsVersion {
@@ -10781,10 +10774,7 @@ func addTLS13HandshakeTests() {
 		})
 
 		hasSessionID := false
-		hasEmptySessionID := false
-		if variant == TLS13NoSessionIDExperiment {
-			hasEmptySessionID = true
-		} else if variant != TLS13Default && variant != TLS13RecordTypeExperiment {
+		if variant != TLS13Default {
 			hasSessionID = true
 		}
 
@@ -10795,8 +10785,7 @@ func addTLS13HandshakeTests() {
 			config: Config{
 				MaxVersion: VersionTLS13,
 				Bugs: ProtocolBugs{
-					ExpectClientHelloSessionID:      hasSessionID,
-					ExpectEmptyClientHelloSessionID: hasEmptySessionID,
+					ExpectClientHelloSessionID: hasSessionID,
 				},
 			},
 			tls13Variant: variant,
