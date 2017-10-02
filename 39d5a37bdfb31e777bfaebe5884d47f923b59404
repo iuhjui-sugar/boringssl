@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "ee05f1a5_040a3ad4",
+        "filename": "include/openssl/span.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-10-02T17:50:03Z",
+      "side": 1,
+      "message": "absl has pos \u003d 0, but I\u0027m not sure if that\u0027s really useful.",
+      "range": {
+        "startLine": 138,
+        "startChar": 22,
+        "endLine": 138,
+        "endChar": 25
+      },
+      "revId": "39d5a37bdfb31e777bfaebe5884d47f923b59404",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "715d06a3_18cb60f4",
+        "filename": "include/openssl/span.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-10-02T17:50:03Z",
+      "side": 1,
+      "message": "Perhaps it\u0027d be worth defining Span::npos?",
+      "range": {
+        "startLine": 138,
+        "startChar": 40,
+        "endLine": 138,
+        "endChar": 42
+      },
+      "revId": "39d5a37bdfb31e777bfaebe5884d47f923b59404",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bad5f71b_1e5ba2ff",
+        "filename": "include/openssl/span.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 7160
+      },
+      "writtenOn": "2017-10-02T17:50:03Z",
+      "side": 1,
+      "message": "Yeah, abort() may be safer? But I certainly trust your judgement on this better than mine. :-)",
+      "range": {
+        "startLine": 140,
+        "startChar": 6,
+        "endLine": 140,
+        "endChar": 20
+      },
+      "revId": "39d5a37bdfb31e777bfaebe5884d47f923b59404",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3daca0a9_34a30a7f",
         "filename": "ssl/tls13_enc.cc",
         "patchSetId": 2
