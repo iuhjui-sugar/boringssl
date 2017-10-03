@@ -16,6 +16,24 @@
       "revId": "59f5d9cb863902db46e70caa7c758e7460666a6d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9d14537_40b39fe6",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3222,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-10-03T18:06:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9766faa_b9c277b5",
+      "revId": "59f5d9cb863902db46e70caa7c758e7460666a6d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
