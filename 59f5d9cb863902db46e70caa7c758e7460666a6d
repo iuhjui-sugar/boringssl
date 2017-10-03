@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d9766faa_b9c277b5",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3222,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-03T17:30:50Z",
+      "side": 1,
+      "message": "Is there actually anything preventing us from renumbering these? I thought we avoided the one place in Chromium which would do that.",
+      "revId": "59f5d9cb863902db46e70caa7c758e7460666a6d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
