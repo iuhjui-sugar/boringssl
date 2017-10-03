@@ -3,6 +3,15 @@ include_directories(../include)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-missing-prototypes")
 
 add_executable(
+  bn
+
+  bn.cc
+)
+
+target_link_libraries(bn Fuzzer)
+target_link_libraries(bn crypto)
+
+add_executable(
   privkey
 
   privkey.cc
