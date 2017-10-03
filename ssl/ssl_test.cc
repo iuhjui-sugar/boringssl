@@ -3740,6 +3740,29 @@ TEST(SSLTest, NoCiphersAvailable) {
   EXPECT_EQ(SSL_R_NO_CIPHERS_AVAILABLE, ERR_GET_REASON(err));
 }
 
+TEST(SSLTest, ShouldBeSingleUse) {
+  static const struct {
+    uint16_t version;
+    bool should_be_single_use;
+  } kTests[] = {
+      {SSL3_VERSION, false},
+      {TLS1_VERSION, false},
+      {TLS1_1_VERSION, false},
+      {TLS1_2_VERSION, false},
+      {TLS1_3_VERSION, true},
+      {DTLS1_VERSION, false},
+      {DTLS1_2_VERSION, false},
+  };
+  for (const auto &t : kTests) {
+    SCOPED_TRACE(t.version);
+    bssl::UniquePtr<SSL_SESSION> session(SSL_SESSION_new());
+    ASSERT_TRUE(session);
+    ASSERT_TRUE(SSL_SESSION_set_protocol_version(session.get(), t.version));
+    EXPECT_EQ(t.should_be_single_use,
+              !SSL_SESSION_should_be_single_use(session.get()));
+  }
+}
+
 // TODO(davidben): Convert this file to GTest properly.
 TEST(SSLTest, AllTests) {
   if (!TestSSL_SESSIONEncoding(kOpenSSLSession) ||
