@@ -126,10 +126,7 @@ namespace bssl {
 
 static int do_ssl3_write(SSL *ssl, int type, const uint8_t *buf, unsigned len);
 
-// ssl3_get_record reads a new input record. On success, it places it in
-// |ssl->s3->rrec| and returns one. Otherwise it returns <= 0 on error or if
-// more data is needed.
-static int ssl3_get_record(SSL *ssl) {
+int ssl3_get_record(SSL *ssl) {
 again:
   switch (ssl->s3->read_shutdown) {
     case ssl_shutdown_none:
@@ -494,43 +491,6 @@ void ssl3_read_close_notify(SSL *ssl) {
   // Read records until an error or close_notify.
   while (ssl3_get_record(ssl) > 0) {
     ;
-  }
-}
-
-int ssl3_read_handshake_bytes(SSL *ssl, uint8_t *buf, int len) {
-  SSL3_RECORD *rr = &ssl->s3->rrec;
-
-  for (;;) {
-    // Get new packet if necessary.
-    if (rr->length == 0) {
-      int ret = ssl3_get_record(ssl);
-      if (ret <= 0) {
-        return ret;
-      }
-    }
-
-    // WatchGuard's TLS 1.3 interference bug is very distinctive: they drop the
-    // ServerHello and send the remaining encrypted application data records
-    // as-is. This manifests as an application data record when we expect
-    // handshake. Report a dedicated error code for this case.
-    if (!ssl->server && rr->type == SSL3_RT_APPLICATION_DATA &&
-        ssl->s3->aead_read_ctx->is_null_cipher()) {
-      OPENSSL_PUT_ERROR(SSL, SSL_R_APPLICATION_DATA_INSTEAD_OF_HANDSHAKE);
-      ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_UNEXPECTED_MESSAGE);
-      return -1;
-    }
-
-    if (rr->type != SSL3_RT_HANDSHAKE) {
-      OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_RECORD);
-      ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_UNEXPECTED_MESSAGE);
-      return -1;
-    }
-
-    if (rr->length != 0) {
-      return consume_record(ssl, buf, len, 0 /* consume data */);
-    }
-
-    // Discard empty records and loop again.
   }
 }
 
