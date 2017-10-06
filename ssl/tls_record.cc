@@ -542,7 +542,7 @@ enum ssl_open_record_t ssl_process_alert(SSL *ssl, uint8_t *out_alert,
 
     // Warning alerts do not exist in TLS 1.3.
     if (ssl->s3->have_version &&
-        ssl3_protocol_version(ssl) >= TLS1_3_VERSION) {
+        ssl_protocol_version(ssl) >= TLS1_3_VERSION) {
       *out_alert = SSL_AD_DECODE_ERROR;
       OPENSSL_PUT_ERROR(SSL, SSL_R_BAD_ALERT);
       return ssl_open_record_error;
@@ -580,7 +580,7 @@ OpenRecordResult OpenRecord(SSL *ssl, Span<uint8_t> *out,
   // and below.
   if (SSL_in_init(ssl) ||
       SSL_is_dtls(ssl) ||
-      ssl3_protocol_version(ssl) > TLS1_2_VERSION) {
+      ssl_protocol_version(ssl) > TLS1_2_VERSION) {
     assert(false);
     *out_alert = SSL_AD_INTERNAL_ERROR;
     return OpenRecordResult::kError;
@@ -636,7 +636,7 @@ bool SealRecord(SSL *ssl, const Span<uint8_t> out_prefix,
   // and below.
   if (SSL_in_init(ssl) ||
       SSL_is_dtls(ssl) ||
-      ssl3_protocol_version(ssl) > TLS1_2_VERSION) {
+      ssl_protocol_version(ssl) > TLS1_2_VERSION) {
     assert(false);
     OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
     return false;
