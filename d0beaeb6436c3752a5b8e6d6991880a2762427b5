@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "73a933ec_09806a7a",
+        "filename": "include/openssl/err.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-06T17:38:07Z",
+      "side": 1,
+      "message": "This was true before. The documentation was wrong. (It\u0027s the usual ring buffer problem where top \u003d\u003d bottom can either be empty or full. It probably should store (top, length).)",
+      "revId": "d0beaeb6436c3752a5b8e6d6991880a2762427b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
