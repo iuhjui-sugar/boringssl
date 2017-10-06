@@ -2495,7 +2495,7 @@ read alert 1 0
 				"-expect-total-renegotiations", "1",
 			},
 			shouldFail:    true,
-			expectedError: ":EXCESSIVE_MESSAGE_SIZE:",
+			expectedError: ":BAD_HELLO_REQUEST:",
 		},
 		{
 			name:        "BadHelloRequest-2",
@@ -10027,8 +10027,10 @@ func addChangeCipherSpecTests() {
 	// attached to the pre-CCS message.
 	for _, packed := range []bool{false, true} {
 		var suffix string
+		expectedError := ":UNEXPECTED_RECORD:"
 		if packed {
 			suffix = "-Packed"
+			expectedError = ":BUFFERED_MESSAGES_ON_CIPHER_CHANGE:"
 		}
 
 		testCases = append(testCases, testCase{
@@ -10041,7 +10043,7 @@ func addChangeCipherSpecTests() {
 				},
 			},
 			shouldFail:    true,
-			expectedError: ":UNEXPECTED_RECORD:",
+			expectedError: expectedError,
 		})
 		testCases = append(testCases, testCase{
 			name: "FragmentAcrossChangeCipherSpec-Client-Resume" + suffix,
@@ -10057,7 +10059,7 @@ func addChangeCipherSpecTests() {
 				},
 			},
 			shouldFail:    true,
-			expectedError: ":UNEXPECTED_RECORD:",
+			expectedError: expectedError,
 		})
 		testCases = append(testCases, testCase{
 			testType: serverTest,
@@ -10070,7 +10072,7 @@ func addChangeCipherSpecTests() {
 				},
 			},
 			shouldFail:    true,
-			expectedError: ":UNEXPECTED_RECORD:",
+			expectedError: expectedError,
 		})
 		testCases = append(testCases, testCase{
 			testType: serverTest,
@@ -10086,7 +10088,9 @@ func addChangeCipherSpecTests() {
 					PackHandshakeFlight:            packed,
 				},
 			},
-			shouldFail:    true,
+			shouldFail: true,
+			// There is nothing to pack the ChangeCipherSpec with,
+			// so this always gives UNEXPECTED_RECORD.
 			expectedError: ":UNEXPECTED_RECORD:",
 		})
 		testCases = append(testCases, testCase{
@@ -10104,7 +10108,7 @@ func addChangeCipherSpecTests() {
 				"-advertise-npn", "\x03foo\x03bar\x03baz",
 			},
 			shouldFail:    true,
-			expectedError: ":UNEXPECTED_RECORD:",
+			expectedError: expectedError,
 		})
 	}
 
