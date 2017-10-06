@@ -554,7 +554,7 @@ int ssl3_read_message(SSL *ssl) {
 
   // Enforce the limit so the peer cannot force us to buffer 16MB.
   if (bytes_needed > 4 + ssl_max_handshake_message_len(ssl)) {
-    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
+    ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
     OPENSSL_PUT_ERROR(SSL, SSL_R_EXCESSIVE_MESSAGE_SIZE);
     return -1;
   }
@@ -592,13 +592,13 @@ int ssl3_read_message(SSL *ssl) {
   if (!ssl->server && rr->type == SSL3_RT_APPLICATION_DATA &&
       ssl->s3->aead_read_ctx->is_null_cipher()) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_APPLICATION_DATA_INSTEAD_OF_HANDSHAKE);
-    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_UNEXPECTED_MESSAGE);
+    ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_UNEXPECTED_MESSAGE);
     return -1;
   }
 
   if (rr->type != SSL3_RT_HANDSHAKE) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_RECORD);
-    ssl3_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_UNEXPECTED_MESSAGE);
+    ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_UNEXPECTED_MESSAGE);
     return -1;
   }
 
