@@ -543,17 +543,9 @@ int ssl3_read_message(SSL *ssl) {
   }
 
   // Append the entire handshake record to the buffer.
-  size_t new_len = ssl->init_buf->length + rr->length;
-  if (new_len < rr->length) {
-    OPENSSL_PUT_ERROR(SSL, ERR_R_OVERFLOW);
+  if (!BUF_MEM_append(ssl->init_buf, rr->data, rr->length)) {
     return -1;
   }
-  if (!BUF_MEM_reserve(ssl->init_buf, new_len)) {
-    return -1;
-  }
-  OPENSSL_memcpy(ssl->init_buf->data + ssl->init_buf->length, rr->data,
-                 rr->length);
-  ssl->init_buf->length = new_len;
 
   rr->length = 0;
   ssl_read_buffer_discard(ssl);
