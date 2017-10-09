@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f67894a4_88b9abb7",
+        "filename": "crypto/err/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-10-09T17:35:53Z",
+      "side": 1,
+      "message": "Update to Google header.",
+      "range": {
+        "startLine": 1,
+        "startChar": 3,
+        "endLine": 1,
+        "endChar": 12
+      },
+      "revId": "c3e47156f6d2abb7f161dfb9c0f8acc08acdbc16",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
