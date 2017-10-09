@@ -376,7 +376,7 @@ NextCipherSuite:
 		c.writeV2Record(helloBytes)
 	} else {
 		if len(hello.pskIdentities) > 0 {
-			generatePSKBinders(hello, pskCipherSuite, session.masterSecret, []byte{}, c.config)
+			generatePSKBinders(hello, pskCipherSuite, session.masterSecret, []byte{}, []byte{}, c.config)
 		}
 		helloBytes = hello.marshal()
 
@@ -518,7 +518,7 @@ NextCipherSuite:
 		hello.raw = nil
 
 		if len(hello.pskIdentities) > 0 {
-			generatePSKBinders(hello, pskCipherSuite, session.masterSecret, append(helloBytes, helloRetryRequest.marshal()...), c.config)
+			generatePSKBinders(hello, pskCipherSuite, session.masterSecret, helloBytes, helloRetryRequest.marshal(), c.config)
 		}
 		secondHelloBytes = hello.marshal()
 
@@ -595,6 +595,10 @@ NextCipherSuite:
 
 	hs.writeHash(helloBytes, hs.c.sendHandshakeSeq-1)
 	if haveHelloRetryRequest {
+		err = hs.finishedHash.UpdateHRR()
+		if err != nil {
+			return err
+		}
 		hs.writeServerHash(helloRetryRequest.marshal())
 		hs.writeClientHash(secondHelloBytes)
 	}
@@ -739,8 +743,10 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 		if err != nil {
 			return err
 		}
+		hs.finishedHash.addDerive()
 		hs.finishedHash.addEntropy(ecdheSecret)
 	} else {
+		hs.finishedHash.addDerive()
 		hs.finishedHash.addEntropy(zeroSecret)
 	}
 
@@ -881,6 +887,7 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 
 	// The various secrets do not incorporate the client's final leg, so
 	// derive them now before updating the handshake context.
+	hs.finishedHash.addDerive()
 	hs.finishedHash.addEntropy(zeroSecret)
 	clientTrafficSecret := hs.finishedHash.deriveSecret(clientApplicationTrafficLabel)
 	serverTrafficSecret := hs.finishedHash.deriveSecret(serverApplicationTrafficLabel)
@@ -922,12 +929,14 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 
 	// Send EndOfEarlyData and then switch write key to handshake
 	// traffic key.
-	if c.out.cipher != nil && !c.config.Bugs.SkipEndOfEarlyData {
+	if encryptedExtensions.extensions.hasEarlyData && c.out.cipher != nil && !c.config.Bugs.SkipEndOfEarlyData {
 		if c.config.Bugs.SendStrayEarlyHandshake {
 			helloRequest := new(helloRequestMsg)
 			c.writeRecord(recordTypeHandshake, helloRequest.marshal())
 		}
-		c.sendAlert(alertEndOfEarlyData)
+		eoed := new(endOfEarlyDataMsg)
+		c.writeRecord(recordTypeHandshake, eoed.marshal())
+		hs.writeClientHash(eoed.marshal())
 	}
 
 	if isResumptionClientCCSExperiment(c.wireVersion) {
@@ -1729,7 +1738,7 @@ func writeIntPadded(b []byte, x *big.Int) {
 	copy(b[len(b)-len(xb):], xb)
 }
 
-func generatePSKBinders(hello *clientHelloMsg, pskCipherSuite *cipherSuite, psk, transcript []byte, config *Config) {
+func generatePSKBinders(hello *clientHelloMsg, pskCipherSuite *cipherSuite, psk, firstClientHello, helloRetryRequest []byte, config *Config) {
 	if config.Bugs.SendNoPSKBinder {
 		return
 	}
@@ -1755,7 +1764,7 @@ func generatePSKBinders(hello *clientHelloMsg, pskCipherSuite *cipherSuite, psk,
 	helloBytes := hello.marshal()
 	binderSize := len(hello.pskBinders)*(binderLen+1) + 2
 	truncatedHello := helloBytes[:len(helloBytes)-binderSize]
-	binder := computePSKBinder(psk, resumptionPSKBinderLabel, pskCipherSuite, transcript, truncatedHello)
+	binder := computePSKBinder(psk, resumptionPSKBinderLabel, pskCipherSuite, firstClientHello, helloRetryRequest, truncatedHello)
 	if config.Bugs.SendShortPSKBinder {
 		binder = binder[:binderLen]
 	}

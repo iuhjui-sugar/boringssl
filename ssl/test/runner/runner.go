@@ -9887,7 +9887,7 @@ func addSessionTicketTests() {
 
 	testCases = append(testCases, testCase{
 		testType: clientTest,
-		name:     "TLS13-SendTicketEarlyDataInfo",
+		name:     "TLS13-SendTicketEarlyData",
 		config: Config{
 			MaxVersion:       VersionTLS13,
 			MaxEarlyDataSize: 16384,
@@ -9901,7 +9901,7 @@ func addSessionTicketTests() {
 	// Test that 0-RTT tickets are ignored in clients unless opted in.
 	testCases = append(testCases, testCase{
 		testType: clientTest,
-		name:     "TLS13-SendTicketEarlyDataInfo-Disabled",
+		name:     "TLS13-SendTicketEarlyData-Disabled",
 		config: Config{
 			MaxVersion:       VersionTLS13,
 			MaxEarlyDataSize: 16384,
@@ -9910,12 +9910,12 @@ func addSessionTicketTests() {
 
 	testCases = append(testCases, testCase{
 		testType: clientTest,
-		name:     "TLS13-DuplicateTicketEarlyDataInfo",
+		name:     "TLS13-DuplicateTicketEarlyData",
 		config: Config{
 			MaxVersion:       VersionTLS13,
 			MaxEarlyDataSize: 16384,
 			Bugs: ProtocolBugs{
-				DuplicateTicketEarlyDataInfo: true,
+				DuplicateTicketEarlyData: true,
 			},
 		},
 		shouldFail:         true,
@@ -9925,11 +9925,11 @@ func addSessionTicketTests() {
 
 	testCases = append(testCases, testCase{
 		testType: serverTest,
-		name:     "TLS13-ExpectTicketEarlyDataInfo",
+		name:     "TLS13-ExpectTicketEarlyData",
 		config: Config{
 			MaxVersion: VersionTLS13,
 			Bugs: ProtocolBugs{
-				ExpectTicketEarlyDataInfo: true,
+				ExpectTicketEarlyData: true,
 			},
 		},
 		flags: []string{
@@ -11058,6 +11058,21 @@ func addTLS13HandshakeTests() {
 	})
 
 	testCases = append(testCases, testCase{
+		name: "CipherChanged-HelloRetryRequest",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			// P-384 requires HelloRetryRequest in BoringSSL.
+			CurvePreferences: []CurveID{CurveP384},
+			Bugs: ProtocolBugs{
+				SendCipherSuite:                  TLS_AES_128_GCM_SHA256,
+				SendHelloRetryRequestCipherSuite: TLS_CHACHA20_POLY1305_SHA256,
+			},
+		},
+		shouldFail:    true,
+		expectedError: ":WRONG_CIPHER_RETURNED:",
+	})
+
+	testCases = append(testCases, testCase{
 		name: "DisabledCurve-HelloRetryRequest",
 		config: Config{
 			MaxVersion:       VersionTLS13,
@@ -11272,6 +11287,40 @@ func addTLS13HandshakeTests() {
 			ClientAuth: RequireAnyClientCert,
 			Bugs: ProtocolBugs{
 				SendRequestContext: []byte("request context"),
+			},
+		},
+		flags: []string{
+			"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
+			"-key-file", path.Join(*resourceDir, rsaKeyFile),
+		},
+		shouldFail:    true,
+		expectedError: ":DECODE_ERROR:",
+	})
+
+	testCases = append(testCases, testCase{
+		name: "TLS13-UnknownInCertificateRequest",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			MinVersion: VersionTLS13,
+			ClientAuth: RequireAnyClientCert,
+			Bugs: ProtocolBugs{
+				SendCustomCertificateRequest: 0x1212,
+			},
+		},
+		flags: []string{
+			"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
+			"-key-file", path.Join(*resourceDir, rsaKeyFile),
+		},
+	})
+
+	testCases = append(testCases, testCase{
+		name: "TLS13-MissingSignatureAlgorithmsInCertificateRequest",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			MinVersion: VersionTLS13,
+			ClientAuth: RequireAnyClientCert,
+			Bugs: ProtocolBugs{
+				OmitCertificateRequestAlgorithms: true,
 			},
 		},
 		flags: []string{
@@ -11826,7 +11875,7 @@ func addTLS13HandshakeTests() {
 		},
 		resumeSession:      true,
 		shouldFail:         true,
-		expectedError:      ":UNEXPECTED_RECORD:",
+		expectedError:      ":UNEXPECTED_MESSAGE:",
 		expectedLocalError: "remote error: unexpected message",
 		flags: []string{
 			"-enable-early-data",

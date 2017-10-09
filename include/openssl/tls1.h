@@ -157,7 +157,6 @@ extern "C" {
 #endif
 
 
-#define TLS1_AD_END_OF_EARLY_DATA 1
 #define TLS1_AD_DECRYPTION_FAILED 21
 #define TLS1_AD_RECORD_OVERFLOW 22
 #define TLS1_AD_UNKNOWN_CA 48
@@ -213,7 +212,7 @@ extern "C" {
 #define TLSEXT_TYPE_supported_versions 43
 #define TLSEXT_TYPE_cookie 44
 #define TLSEXT_TYPE_psk_key_exchange_modes 45
-#define TLSEXT_TYPE_ticket_early_data_info 46
+#define TLSEXT_TYPE_certificate_authorities 47
 
 // ExtensionType value from RFC5746
 #define TLSEXT_TYPE_renegotiate 0xff01

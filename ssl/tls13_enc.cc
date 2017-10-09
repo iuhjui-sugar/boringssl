@@ -71,7 +71,7 @@ static int hkdf_expand_label(uint8_t *out, const EVP_MD *digest,
                              const uint8_t *secret, size_t secret_len,
                              const uint8_t *label, size_t label_len,
                              const uint8_t *hash, size_t hash_len, size_t len) {
-  static const char kTLS13LabelVersion[] = "TLS 1.3, ";
+  static const char kTLS13LabelVersion[] = "tls13 ";
 
   ScopedCBB cbb;
   CBB child;
@@ -110,6 +110,22 @@ static int derive_secret(SSL_HANDSHAKE *hs, uint8_t *out, size_t len,
   return hkdf_expand_label(out, hs->transcript.Digest(), hs->secret,
                            hs->hash_len, label, label_len, context_hash,
                            context_hash_len, len);
+}
+
+static const char kTLS13LabelDerived[] = "derived";
+
+int tls13_derive_key_schedule(SSL_HANDSHAKE *hs) {
+  uint8_t derive_context[EVP_MAX_MD_SIZE];
+  unsigned derive_context_len;
+  if (!EVP_Digest(NULL, 0, derive_context, &derive_context_len,
+                  hs->transcript.Digest(), NULL)) {
+    return 0;
+  }
+
+  return hkdf_expand_label(hs->secret, hs->transcript.Digest(), hs->secret,
+                           hs->hash_len, (const uint8_t *)kTLS13LabelDerived,
+                           strlen(kTLS13LabelDerived), derive_context,
+                           derive_context_len, hs->hash_len);
 }
 
 int tls13_set_traffic_key(SSL *ssl, enum evp_aead_direction_t direction,
@@ -181,19 +197,14 @@ int tls13_set_traffic_key(SSL *ssl, enum evp_aead_direction_t direction,
   return 1;
 }
 
-static const char kTLS13LabelExporter[] = "exporter master secret";
-static const char kTLS13LabelEarlyExporter[] = "early exporter master secret";
+static const char kTLS13LabelExporter[] = "exp master";
+static const char kTLS13LabelEarlyExporter[] = "e exp master";
 
-static const char kTLS13LabelClientEarlyTraffic[] =
-    "client early traffic secret";
-static const char kTLS13LabelClientHandshakeTraffic[] =
-    "client handshake traffic secret";
-static const char kTLS13LabelServerHandshakeTraffic[] =
-    "server handshake traffic secret";
-static const char kTLS13LabelClientApplicationTraffic[] =
-    "client application traffic secret";
-static const char kTLS13LabelServerApplicationTraffic[] =
-    "server application traffic secret";
+static const char kTLS13LabelClientEarlyTraffic[] = "c e traffic";
+static const char kTLS13LabelClientHandshakeTraffic[] = "c hs traffic";
+static const char kTLS13LabelServerHandshakeTraffic[] = "s hs traffic";
+static const char kTLS13LabelClientApplicationTraffic[] = "c ap traffic";
+static const char kTLS13LabelServerApplicationTraffic[] = "s ap traffic";
 
 int tls13_derive_early_secrets(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
@@ -241,8 +252,7 @@ int tls13_derive_application_secrets(SSL_HANDSHAKE *hs) {
                         hs->hash_len);
 }
 
-static const char kTLS13LabelApplicationTraffic[] =
-    "application traffic secret";
+static const char kTLS13LabelApplicationTraffic[] = "traffic upd";
 
 int tls13_rotate_traffic_key(SSL *ssl, enum evp_aead_direction_t direction) {
   uint8_t *secret;
@@ -266,7 +276,7 @@ int tls13_rotate_traffic_key(SSL *ssl, enum evp_aead_direction_t direction) {
   return tls13_set_traffic_key(ssl, direction, secret, secret_len);
 }
 
-static const char kTLS13LabelResumption[] = "resumption master secret";
+static const char kTLS13LabelResumption[] = "res master";
 
 int tls13_derive_resumption_secret(SSL_HANDSHAKE *hs) {
   if (hs->hash_len > SSL_MAX_MASTER_KEY_LENGTH) {
@@ -319,24 +329,54 @@ int tls13_finished_mac(SSL_HANDSHAKE *hs, uint8_t *out, size_t *out_len,
   return 1;
 }
 
-int tls13_export_keying_material(SSL *ssl, uint8_t *out, size_t out_len,
-                                 const char *label, size_t label_len,
-                                 const uint8_t *context, size_t context_len,
-                                 int use_context) {
-  const uint8_t *hash = NULL;
-  size_t hash_len = 0;
-  if (use_context) {
-    hash = context;
-    hash_len = context_len;
-  }
+static const char kTLS13LabelResumptionPSK[] = "resumption";
 
-  const EVP_MD *digest = ssl_session_get_digest(SSL_get_session(ssl));
-  return hkdf_expand_label(out, digest, ssl->s3->exporter_secret,
-                           ssl->s3->exporter_secret_len, (const uint8_t *)label,
-                           label_len, hash, hash_len, out_len);
+int tls13_derive_session_psk(SSL_SESSION *session, const uint8_t *nonce,
+                             size_t nonce_len) {
+  const EVP_MD *digest = ssl_session_get_digest(session);
+  return hkdf_expand_label(session->master_key, digest, session->master_key,
+                           session->master_key_length,
+                           (const uint8_t *)kTLS13LabelResumptionPSK,
+                           strlen(kTLS13LabelResumptionPSK), nonce, nonce_len,
+                           session->master_key_length);
 }
 
-static const char kTLS13LabelPSKBinder[] = "resumption psk binder key";
+static const char kTLS13LabelExportKeying[] = "exporter";
+
+int tls13_export_keying_material(SSL *ssl, uint8_t *out, size_t out_len,
+                                 const char *label, size_t label_len,
+                                 const uint8_t *context_in, size_t context_in_len,
+                                 int use_context) {
+  const EVP_MD *digest = ssl_session_get_digest(SSL_get_session(ssl));
+
+  const uint8_t *context = NULL;
+  size_t context_len = 0;
+  if (use_context) {
+    context = context_in;
+    context_len = context_in_len;
+  }
+
+  uint8_t hash[EVP_MAX_MD_SIZE];
+  uint8_t export_context[EVP_MAX_MD_SIZE];
+  uint8_t derived_secret[EVP_MAX_MD_SIZE];
+  unsigned hash_len;
+  unsigned export_context_len;
+  unsigned derived_secret_len = EVP_MD_size(digest);
+  if (!EVP_Digest(context, context_len, hash, &hash_len, digest, NULL) ||
+      !EVP_Digest(NULL, 0, export_context, &export_context_len, digest, NULL)) {
+    return 0;
+  }
+  return hkdf_expand_label(derived_secret, digest, ssl->s3->exporter_secret,
+                           ssl->s3->exporter_secret_len, (const uint8_t *)label,
+                           label_len, export_context, export_context_len,
+                           derived_secret_len) &&
+         hkdf_expand_label(out, digest, derived_secret, derived_secret_len,
+                           (const uint8_t *)kTLS13LabelExportKeying,
+                           strlen(kTLS13LabelExportKeying), hash, hash_len,
+                           out_len);
+}
+
+static const char kTLS13LabelPSKBinder[] = "res binder";
 
 static int tls13_psk_binder(uint8_t *out, const EVP_MD *digest, uint8_t *psk,
                             size_t psk_len, uint8_t *context,
@@ -381,10 +421,19 @@ int tls13_write_psk_binder(SSL_HANDSHAKE *hs, uint8_t *msg, size_t len) {
   ScopedEVP_MD_CTX ctx;
   uint8_t context[EVP_MAX_MD_SIZE];
   unsigned context_len;
-  if (!EVP_DigestInit_ex(ctx.get(), digest, NULL) ||
-      !EVP_DigestUpdate(ctx.get(), hs->transcript.buffer_data(),
-                        hs->transcript.buffer_len()) ||
-      !EVP_DigestUpdate(ctx.get(), msg, len - hash_len - 3) ||
+  if (!hs->received_hello_retry_request) {
+    if (!EVP_DigestInit_ex(ctx.get(), digest, NULL) ||
+        !EVP_DigestUpdate(ctx.get(), hs->transcript.buffer_data(),
+                          hs->transcript.buffer_len())) {
+      return 0;
+    }
+  } else {
+    if (!EVP_MD_CTX_copy_ex(ctx.get(), hs->transcript.hash())) {
+      return 0;
+    }
+  }
+
+  if (!EVP_DigestUpdate(ctx.get(), msg, len - hash_len - 3) ||
       !EVP_DigestFinal_ex(ctx.get(), context, &context_len)) {
     return 0;
   }

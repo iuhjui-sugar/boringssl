@@ -33,7 +33,7 @@ const (
 
 // A draft version of TLS 1.3 that is sent over the wire for the current draft.
 const (
-	tls13DraftVersion       = 0x7f12
+	tls13DraftVersion       = 0x7f15
 	tls13ExperimentVersion  = 0x7e01
 	tls13Experiment2Version = 0x7e02
 	tls13Experiment3Version = 0x7e03
@@ -91,6 +91,7 @@ const (
 	typeServerHello         uint8 = 2
 	typeHelloVerifyRequest  uint8 = 3
 	typeNewSessionTicket    uint8 = 4
+	typeEndOfEarlyData      uint8 = 5
 	typeHelloRetryRequest   uint8 = 6 // draft-ietf-tls-tls13-16
 	typeEncryptedExtensions uint8 = 8 // draft-ietf-tls-tls13-16
 	typeCertificate         uint8 = 11
@@ -104,6 +105,7 @@ const (
 	typeKeyUpdate           uint8 = 24  // draft-ietf-tls-tls13-16
 	typeNextProtocol        uint8 = 67  // Not IANA assigned
 	typeChannelID           uint8 = 203 // Not IANA assigned
+	typeMessageHash         uint8 = 254 // draft-ietf-tls-tls13-21
 )
 
 // TLS compression types.
@@ -124,13 +126,13 @@ const (
 	extensionPadding                    uint16 = 21
 	extensionExtendedMasterSecret       uint16 = 23
 	extensionSessionTicket              uint16 = 35
-	extensionKeyShare                   uint16 = 40    // draft-ietf-tls-tls13-16
-	extensionPreSharedKey               uint16 = 41    // draft-ietf-tls-tls13-16
-	extensionEarlyData                  uint16 = 42    // draft-ietf-tls-tls13-16
-	extensionSupportedVersions          uint16 = 43    // draft-ietf-tls-tls13-16
-	extensionCookie                     uint16 = 44    // draft-ietf-tls-tls13-16
-	extensionPSKKeyExchangeModes        uint16 = 45    // draft-ietf-tls-tls13-18
-	extensionTicketEarlyDataInfo        uint16 = 46    // draft-ietf-tls-tls13-18
+	extensionKeyShare                   uint16 = 40 // draft-ietf-tls-tls13-16
+	extensionPreSharedKey               uint16 = 41 // draft-ietf-tls-tls13-16
+	extensionEarlyData                  uint16 = 42 // draft-ietf-tls-tls13-16
+	extensionSupportedVersions          uint16 = 43 // draft-ietf-tls-tls13-16
+	extensionCookie                     uint16 = 44 // draft-ietf-tls-tls13-16
+	extensionPSKKeyExchangeModes        uint16 = 45 // draft-ietf-tls-tls13-18
+	extensionCertificateAuthorities     uint16 = 47
 	extensionCustom                     uint16 = 1234  // not IANA assigned
 	extensionNextProtoNeg               uint16 = 13172 // not IANA assigned
 	extensionRenegotiationInfo          uint16 = 0xff01
@@ -456,8 +458,7 @@ type Config struct {
 	// MaxEarlyDataSize controls the maximum number of bytes that the
 	// server will accept in early data and advertise in a
 	// NewSessionTicketMsg. If 0, no early data will be accepted and
-	// the TicketEarlyDataInfo extension in the NewSessionTicketMsg
-	// will be omitted.
+	// the EarlyData extension in the NewSessionTicketMsg will be omitted.
 	MaxEarlyDataSize uint32
 
 	// SRTPProtectionProfiles, if not nil, is the list of SRTP
@@ -574,7 +575,7 @@ type ProtocolBugs struct {
 	SkipFinished bool
 
 	// SkipEndOfEarlyData causes the implementation to skip the
-	// end_of_early_data alert.
+	// end_of_early_data message.
 	SkipEndOfEarlyData bool
 
 	// SkipCertificateVerify, if true causes peer to skip sending a
@@ -1034,13 +1035,13 @@ type ProtocolBugs struct {
 	// receipt of a NewSessionTicket message.
 	ExpectNoNewSessionTicket bool
 
-	// DuplicateTicketEarlyDataInfo causes an extra empty extension of
-	// ticket_early_data_info to be sent in NewSessionTicket.
-	DuplicateTicketEarlyDataInfo bool
+	// DuplicateTicketEarlyData causes an extra empty extension of early_data to
+	// be sent in NewSessionTicket.
+	DuplicateTicketEarlyData bool
 
-	// ExpectTicketEarlyDataInfo, if true, means that the client will fail upon
-	// absence of the ticket_early_data_info extension.
-	ExpectTicketEarlyDataInfo bool
+	// ExpectTicketEarlyData, if true, means that the client will fail upon
+	// absence of the early_data extension.
+	ExpectTicketEarlyData bool
 
 	// ExpectTicketAge, if non-zero, is the expected age of the ticket that the
 	// server receives from the client.
@@ -1288,6 +1289,10 @@ type ProtocolBugs struct {
 	// the specified curve in a HelloRetryRequest.
 	SendHelloRetryRequestCurve CurveID
 
+	// SendHelloRetryRequestCipherSuite, if non-zero, is the cipher suite value
+	// that the server will send in the HelloRetryRequest.
+	SendHelloRetryRequestCipherSuite uint16
+
 	// SendHelloRetryRequestCookie, if not nil, contains a cookie to be
 	// sent by the server in HelloRetryRequest.
 	SendHelloRetryRequestCookie []byte
@@ -1324,6 +1329,14 @@ type ProtocolBugs struct {
 	// SendRequestContext, if not empty, is the request context to send in
 	// a TLS 1.3 CertificateRequest.
 	SendRequestContext []byte
+
+	// OmitCertificateRequestAlgorithms, if true, omits the signature_algorithm
+	// extension in a TLS 1.3 CertificateRequest.
+	OmitCertificateRequestAlgorithms bool
+
+	// SendCustomCertificateRequest, if non-zero, send an additional custom
+	// extension in a TLS 1.3 CertificateRequest.
+	SendCustomCertificateRequest uint16
 
 	// SendSNIWarningAlert, if true, causes the server to send an
 	// unrecognized_name alert before the ServerHello.
