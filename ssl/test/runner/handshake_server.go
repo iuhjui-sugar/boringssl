@@ -496,7 +496,7 @@ Curves:
 	// AcceptAnyBinder is set. See https://crbug.com/boringssl/115.
 	if hs.sessionState != nil && !config.Bugs.AcceptAnySession {
 		binderToVerify := hs.clientHello.pskBinders[pskIndex]
-		if err := verifyPSKBinder(hs.clientHello, hs.sessionState, binderToVerify, []byte{}); err != nil {
+		if err := verifyPSKBinder(hs.clientHello, hs.sessionState, binderToVerify, []byte{}, []byte{}); err != nil {
 			return err
 		}
 	}
@@ -520,8 +520,13 @@ Curves:
 
 ResendHelloRetryRequest:
 	var sendHelloRetryRequest bool
+	cipherSuite := hs.suite.id
+	if config.Bugs.SendHelloRetryRequestCipherSuite != 0 {
+		cipherSuite = config.Bugs.SendHelloRetryRequestCipherSuite
+	}
 	helloRetryRequest := &helloRetryRequestMsg{
 		vers:                c.wireVersion,
+		cipherSuite:         cipherSuite,
 		duplicateExtensions: config.Bugs.DuplicateHelloRetryRequestExtensions,
 	}
 
@@ -571,6 +576,11 @@ ResendHelloRetryRequest:
 	}
 
 	if sendHelloRetryRequest {
+		err := hs.finishedHash.UpdateHRR()
+		if err != nil {
+			return err
+		}
+
 		oldClientHelloBytes := hs.clientHello.marshal()
 		hs.writeServerHash(helloRetryRequest.marshal())
 		c.writeRecord(recordTypeHandshake, helloRetryRequest.marshal())
@@ -648,7 +658,7 @@ ResendHelloRetryRequest:
 		// AcceptAnyBinder is set. See https://crbug.com/115.
 		if hs.sessionState != nil && !config.Bugs.AcceptAnySession {
 			binderToVerify := newClientHello.pskBinders[pskIndex]
-			err := verifyPSKBinder(newClientHello, hs.sessionState, binderToVerify, append(oldClientHelloBytes, helloRetryRequest.marshal()...))
+			err := verifyPSKBinder(newClientHello, hs.sessionState, binderToVerify, oldClientHelloBytes, helloRetryRequest.marshal())
 			if err != nil {
 				return err
 			}
@@ -715,6 +725,7 @@ ResendHelloRetryRequest:
 			c.sendAlert(alertHandshakeFailure)
 			return err
 		}
+		hs.finishedHash.addDerive()
 		hs.finishedHash.addEntropy(ecdheSecret)
 		hs.hello.hasKeyShare = true
 
@@ -739,6 +750,7 @@ ResendHelloRetryRequest:
 			}
 		}
 	} else {
+		hs.finishedHash.addDerive()
 		hs.finishedHash.addEntropy(hs.finishedHash.zeroSecret())
 	}
 
@@ -778,9 +790,10 @@ ResendHelloRetryRequest:
 		if config.ClientAuth >= RequestClientCert {
 			// Request a client certificate
 			certReq := &certificateRequestMsg{
-				hasSignatureAlgorithm: true,
+				hasSignatureAlgorithm: !config.Bugs.OmitCertificateRequestAlgorithms,
 				hasRequestContext:     true,
 				requestContext:        config.Bugs.SendRequestContext,
+				customExtension:       config.Bugs.SendCustomCertificateRequest,
 			}
 			if !config.Bugs.NoSignatureAlgorithms {
 				certReq.signatureAlgorithms = config.verifySignatureAlgorithms()
@@ -895,6 +908,7 @@ ResendHelloRetryRequest:
 
 	// The various secrets do not incorporate the client's final leg, so
 	// derive them now before updating the handshake context.
+	hs.finishedHash.addDerive()
 	hs.finishedHash.addEntropy(hs.finishedHash.zeroSecret())
 	clientTrafficSecret := hs.finishedHash.deriveSecret(clientApplicationTrafficLabel)
 	serverTrafficSecret := hs.finishedHash.deriveSecret(serverApplicationTrafficLabel)
@@ -911,14 +925,19 @@ ResendHelloRetryRequest:
 		}
 	}
 
-	// Read end_of_early_data alert.
+	// Read end_of_early_data.
 	if encryptedExtensions.extensions.hasEarlyData {
-		if err := c.readRecord(recordTypeAlert); err != errEndOfEarlyDataAlert {
-			if err == nil {
-				panic("readRecord(recordTypeAlert) returned nil")
-			}
+		msg, err := c.readHandshake()
+		if err != nil {
 			return err
 		}
+
+		eoedMsg, ok := msg.(*endOfEarlyDataMsg)
+		if !ok {
+			c.sendAlert(alertUnexpectedMessage)
+			return unexpectedMessageError(eoedMsg, msg)
+		}
+		hs.writeClientHash(eoedMsg.marshal())
 	}
 
 	if isResumptionClientCCSExperiment(c.wireVersion) && !c.skipEarlyData {
@@ -1042,7 +1061,7 @@ ResendHelloRetryRequest:
 	if !c.config.SessionTicketsDisabled && foundKEMode {
 		ticketCount := 2
 		for i := 0; i < ticketCount; i++ {
-			c.SendNewSessionTicket()
+			c.SendNewSessionTicket([]byte{byte(i)})
 		}
 	}
 	return nil
@@ -2020,7 +2039,7 @@ func isGREASEValue(val uint16) bool {
 	return val&0x0f0f == 0x0a0a && val&0xff == val>>8
 }
 
-func verifyPSKBinder(clientHello *clientHelloMsg, sessionState *sessionState, binderToVerify, transcript []byte) error {
+func verifyPSKBinder(clientHello *clientHelloMsg, sessionState *sessionState, binderToVerify, firstClientHello, helloRetryRequest []byte) error {
 	binderLen := 2
 	for _, binder := range clientHello.pskBinders {
 		binderLen += 1 + len(binder)
@@ -2033,7 +2052,7 @@ func verifyPSKBinder(clientHello *clientHelloMsg, sessionState *sessionState, bi
 		return errors.New("tls: Unknown cipher suite for PSK in session")
 	}
 
-	binder := computePSKBinder(sessionState.masterSecret, resumptionPSKBinderLabel, pskCipherSuite, transcript, truncatedHello)
+	binder := computePSKBinder(sessionState.masterSecret, resumptionPSKBinderLabel, pskCipherSuite, firstClientHello, helloRetryRequest, truncatedHello)
 	if !bytes.Equal(binder, binderToVerify) {
 		return errors.New("tls: PSK binder does not verify")
 	}

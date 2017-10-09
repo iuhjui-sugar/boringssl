@@ -87,7 +87,8 @@ static int resolve_ecdhe_secret(SSL_HANDSHAKE *hs, bool *out_need_retry,
     return 0;
   }
 
-  return tls13_advance_key_schedule(hs, dhe_secret.data(), dhe_secret.size());
+  return tls13_derive_key_schedule(hs) &&
+         tls13_advance_key_schedule(hs, dhe_secret.data(), dhe_secret.size());
 }
 
 static int ssl_ext_supported_versions_add_serverhello(SSL_HANDSHAKE *hs,
@@ -160,31 +161,40 @@ static int add_new_session_tickets(SSL_HANDSHAKE *hs) {
   ssl_session_rebase_time(ssl, hs->new_session.get());
 
   for (int i = 0; i < kNumTickets; i++) {
-    if (!RAND_bytes((uint8_t *)&hs->new_session->ticket_age_add, 4)) {
+    UniquePtr<SSL_SESSION> session(
+        SSL_SESSION_dup(hs->new_session.get(), SSL_SESSION_INCLUDE_NONAUTH));
+
+    if (!RAND_bytes((uint8_t *)&session->ticket_age_add, 4)) {
       return 0;
     }
-    hs->new_session->ticket_age_add_valid = 1;
+    session->ticket_age_add_valid = 1;
+    if (ssl->cert->enable_early_data) {
+      session->ticket_max_early_data = kMaxEarlyDataAccepted;
+    }
+
+    uint8_t nonce[1];
+    nonce[0] = i;
 
     ScopedCBB cbb;
-    CBB body, ticket, extensions;
+    CBB body, nonce_cbb, ticket, extensions;
     if (!ssl->method->init_message(ssl, cbb.get(), &body,
                                    SSL3_MT_NEW_SESSION_TICKET) ||
-        !CBB_add_u32(&body, hs->new_session->timeout) ||
-        !CBB_add_u32(&body, hs->new_session->ticket_age_add) ||
+        !CBB_add_u32(&body, session->timeout) ||
+        !CBB_add_u32(&body, session->ticket_age_add) ||
+        !CBB_add_u8_length_prefixed(&body, &nonce_cbb) ||
+        !CBB_add_bytes(&nonce_cbb, nonce, sizeof(nonce)) ||
         !CBB_add_u16_length_prefixed(&body, &ticket) ||
-        !ssl_encrypt_ticket(ssl, &ticket, hs->new_session.get()) ||
+        !tls13_derive_session_psk(session.get(), nonce, sizeof(nonce)) ||
+        !ssl_encrypt_ticket(ssl, &ticket, session.get()) ||
         !CBB_add_u16_length_prefixed(&body, &extensions)) {
       return 0;
     }
 
     if (ssl->cert->enable_early_data) {
-      hs->new_session->ticket_max_early_data = kMaxEarlyDataAccepted;
-
-      CBB early_data_info;
-      if (!CBB_add_u16(&extensions, TLSEXT_TYPE_ticket_early_data_info) ||
-          !CBB_add_u16_length_prefixed(&extensions, &early_data_info) ||
-          !CBB_add_u32(&early_data_info,
-                       hs->new_session->ticket_max_early_data) ||
+      CBB early_data;
+      if (!CBB_add_u16(&extensions, TLSEXT_TYPE_early_data) ||
+          !CBB_add_u16_length_prefixed(&extensions, &early_data) ||
+          !CBB_add_u32(&early_data, session->ticket_max_early_data) ||
           !CBB_flush(&extensions)) {
         return 0;
       }
@@ -453,6 +463,9 @@ static enum ssl_hs_wait_t do_select_session(SSL_HANDSHAKE *hs) {
       ssl->early_data_accepted = 0;
       ssl->s3->skip_early_data = true;
       ssl->method->next_message(ssl);
+      if (!hs->transcript.UpdateHRR()) {
+        return ssl_hs_error;
+      }
       hs->tls13_state = state_send_hello_retry_request;
       return ssl_hs_ok;
     }
@@ -472,6 +485,7 @@ static enum ssl_hs_wait_t do_send_hello_retry_request(SSL_HANDSHAKE *hs) {
   if (!ssl->method->init_message(ssl, cbb.get(), &body,
                                  SSL3_MT_HELLO_RETRY_REQUEST) ||
       !CBB_add_u16(&body, ssl->version) ||
+      !CBB_add_u16(&body, ssl_cipher_get_value(hs->new_cipher)) ||
       !tls1_get_shared_group(hs, &group_id) ||
       !CBB_add_u16_length_prefixed(&body, &extensions) ||
       !CBB_add_u16(&extensions, TLSEXT_TYPE_key_share) ||
@@ -581,15 +595,36 @@ static enum ssl_hs_wait_t do_send_server_hello(SSL_HANDSHAKE *hs) {
 
   // Send a CertificateRequest, if necessary.
   if (hs->cert_request) {
-    CBB sigalgs_cbb;
+    CBB cert_request_extensions;
     if (!ssl->method->init_message(ssl, cbb.get(), &body,
                                    SSL3_MT_CERTIFICATE_REQUEST) ||
         !CBB_add_u8(&body, 0 /* no certificate_request_context. */) ||
-        !CBB_add_u16_length_prefixed(&body, &sigalgs_cbb) ||
-        !tls12_add_verify_sigalgs(ssl, &sigalgs_cbb) ||
-        !ssl_add_client_CA_list(ssl, &body) ||
-        !CBB_add_u16(&body, 0 /* empty certificate_extensions. */) ||
-        !ssl_add_message_cbb(ssl, cbb.get())) {
+        !CBB_add_u16_length_prefixed(&body, &cert_request_extensions)) {
+      return ssl_hs_error;
+    }
+
+    CBB sigalg_contents, sigalgs_cbb;
+    if (!CBB_add_u16(&cert_request_extensions,
+                     TLSEXT_TYPE_signature_algorithms) ||
+        !CBB_add_u16_length_prefixed(&cert_request_extensions,
+                                     &sigalg_contents) ||
+        !CBB_add_u16_length_prefixed(&sigalg_contents, &sigalgs_cbb) ||
+        !tls12_add_verify_sigalgs(ssl, &sigalgs_cbb)) {
+      return ssl_hs_error;
+    }
+
+    if (ssl->client_CA != nullptr || ssl->ctx->client_CA != nullptr) {
+      CBB ca_contents;
+      if (!CBB_add_u16(&cert_request_extensions,
+                       TLSEXT_TYPE_certificate_authorities) ||
+          !CBB_add_u16_length_prefixed(&cert_request_extensions,
+                                       &ca_contents) ||
+          !ssl_add_client_CA_list(ssl, &ca_contents)) {
+        return ssl_hs_error;
+      }
+    }
+
+    if (!ssl_add_message_cbb(ssl, cbb.get())) {
       return ssl_hs_error;
     }
   }
@@ -635,6 +670,7 @@ static enum ssl_hs_wait_t do_send_server_finished(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
   if (!tls13_add_finished(hs) ||
       // Update the secret to the master secret and derive traffic keys.
+      !tls13_derive_key_schedule(hs) ||
       !tls13_advance_key_schedule(hs, kZeroes, hs->hash_len) ||
       !tls13_derive_application_secrets(hs) ||
       !tls13_set_traffic_key(ssl, evp_aead_seal, hs->server_traffic_secret_0,
@@ -696,11 +732,21 @@ static enum ssl_hs_wait_t do_read_second_client_flight(SSL_HANDSHAKE *hs) {
 }
 
 static enum ssl_hs_wait_t do_process_end_of_early_data(SSL_HANDSHAKE *hs) {
+  SSL *const ssl = hs->ssl;
   hs->tls13_state = state_process_change_cipher_spec;
-  // If early data was accepted, the ChangeCipherSpec message will be in the
-  // discarded early data.
-  if (hs->early_data_offered && !hs->ssl->early_data_accepted) {
-    return ssl_hs_ok;
+  if (hs->early_data_offered) {
+    // If early data was not accepted, the EndOfEarlyData and ChangeCipherSpec
+    // message will be in the discarded early data.
+    if (!hs->ssl->early_data_accepted) {
+      return ssl_hs_ok;
+    }
+
+    SSLMessage msg;
+    if (!ssl->method->get_message(ssl, &msg) ||
+        !ssl_check_message_type(ssl, msg, SSL3_MT_END_OF_EARLY_DATA)) {
+      return ssl_hs_error;
+    }
+    ssl->method->next_message(ssl);
   }
   return ssl_is_resumption_client_ccs_experiment(hs->ssl->version)
              ? ssl_hs_read_change_cipher_spec

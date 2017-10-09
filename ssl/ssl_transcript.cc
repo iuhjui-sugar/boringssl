@@ -209,6 +209,23 @@ const EVP_MD *SSLTranscript::Digest() const {
   return EVP_MD_CTX_md(hash_.get());
 }
 
+bool SSLTranscript::UpdateHRR() {
+  uint8_t hash[EVP_MAX_MD_SIZE];
+  size_t hash_len;
+  CBB data;
+  if (!CBB_init(&data, 1+3+DigestLen()) ||
+      !CBB_add_u8(&data, SSL3_MT_MESSAGE_HASH) ||
+      !GetHash(hash, &hash_len) ||
+      !CBB_add_u24(&data, hash_len) ||
+      !CBB_add_bytes(&data, hash, hash_len) ||
+      !CBB_flush(&data) ||
+      !EVP_DigestInit_ex(hash_.get(), Digest(), NULL)) {
+    return false;
+  }
+  EVP_DigestUpdate(hash_.get(), CBB_data(&data), CBB_len(&data));
+  return true;
+}
+
 bool SSLTranscript::Update(const uint8_t *in, size_t in_len) {
   // Depending on the state of the handshake, either the handshake buffer may be
   // active, the rolling hash, or both.
