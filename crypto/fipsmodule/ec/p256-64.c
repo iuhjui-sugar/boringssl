@@ -1409,7 +1409,7 @@ static const smallfelem g_pre_comp[2][16][3] = {
 static void select_point(const uint64_t idx, size_t size,
                          const smallfelem pre_comp[/*size*/][3],
                          smallfelem out[3]) {
-  uint64_t *outlimbs = &out[0][0];
+  uint64_t *outlimbs = (uint64_t *)&out[0];
   OPENSSL_memset(outlimbs, 0, 3 * sizeof(smallfelem));
 
   for (size_t i = 0; i < size; i++) {
