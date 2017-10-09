@@ -879,7 +879,7 @@ static void p224_point_add(p224_felem x3, p224_felem y3, p224_felem z3,
 static void p224_select_point(const uint64_t idx, size_t size,
                               const p224_felem pre_comp[/*size*/][3],
                               p224_felem out[3]) {
-  p224_limb *outlimbs = &out[0][0];
+  p224_limb *outlimbs = (p224_limb *)&out[0];
   OPENSSL_memset(outlimbs, 0, 3 * sizeof(p224_felem));
 
   for (size_t i = 0; i < size; i++) {
