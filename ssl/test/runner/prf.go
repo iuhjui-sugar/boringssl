@@ -233,6 +233,19 @@ type finishedHash struct {
 	secret []byte
 }
 
+func (h *finishedHash) UpdateHRR() (err error) {
+	data := newByteBuilder()
+	data.addU8(typeMessageHash)
+	data.addU24(h.hash.Size())
+	data.addBytes(h.Sum())
+	raw := data.finish()
+	h.client = h.hash.New()
+	h.client.Write(raw)
+	h.server = h.hash.New()
+	h.server.Write(raw)
+	return nil
+}
+
 func (h *finishedHash) Write(msg []byte) (n int, err error) {
 	h.client.Write(msg)
 	h.server.Write(msg)
@@ -374,20 +387,25 @@ func (h *finishedHash) addEntropy(ikm []byte) {
 	h.secret = hkdfExtract(h.hash.New, h.secret, ikm)
 }
 
+func (h *finishedHash) addDerive() {
+	derivedLabel := []byte("derived")
+	h.secret = hkdfExpandLabel(h.hash, h.secret, derivedLabel, h.hash.New().Sum(nil), h.hash.Size())
+}
+
 // hkdfExpandLabel implements TLS 1.3's HKDF-Expand-Label function, as defined
 // in section 7.1 of draft-ietf-tls-tls13-16.
 func hkdfExpandLabel(hash crypto.Hash, secret, label, hashValue []byte, length int) []byte {
 	if len(label) > 255 || len(hashValue) > 255 {
 		panic("hkdfExpandLabel: label or hashValue too long")
 	}
-	hkdfLabel := make([]byte, 3+9+len(label)+1+len(hashValue))
+	hkdfLabel := make([]byte, 3+6+len(label)+1+len(hashValue))
 	x := hkdfLabel
 	x[0] = byte(length >> 8)
 	x[1] = byte(length)
-	x[2] = byte(9 + len(label))
+	x[2] = byte(6 + len(label))
 	x = x[3:]
-	copy(x, []byte("TLS 1.3, "))
-	x = x[9:]
+	copy(x, []byte("tls13 "))
+	x = x[6:]
 	copy(x, label)
 	x = x[len(label):]
 	x[0] = byte(len(hashValue))
@@ -404,16 +422,17 @@ func (h *finishedHash) appendContextHashes(b []byte) []byte {
 
 // The following are labels for traffic secret derivation in TLS 1.3.
 var (
-	externalPSKBinderLabel        = []byte("external psk binder key")
-	resumptionPSKBinderLabel      = []byte("resumption psk binder key")
-	earlyTrafficLabel             = []byte("client early traffic secret")
-	clientHandshakeTrafficLabel   = []byte("client handshake traffic secret")
-	serverHandshakeTrafficLabel   = []byte("server handshake traffic secret")
-	clientApplicationTrafficLabel = []byte("client application traffic secret")
-	serverApplicationTrafficLabel = []byte("server application traffic secret")
-	applicationTrafficLabel       = []byte("application traffic secret")
-	exporterLabel                 = []byte("exporter master secret")
-	resumptionLabel               = []byte("resumption master secret")
+	externalPSKBinderLabel        = []byte("ext binder")
+	resumptionPSKBinderLabel      = []byte("res binder")
+	earlyTrafficLabel             = []byte("c e traffic")
+	clientHandshakeTrafficLabel   = []byte("c hs traffic")
+	serverHandshakeTrafficLabel   = []byte("s hs traffic")
+	clientApplicationTrafficLabel = []byte("c ap traffic")
+	serverApplicationTrafficLabel = []byte("s ap traffic")
+	applicationTrafficLabel       = []byte("traffic upd")
+	exporterLabel                 = []byte("exp master")
+	resumptionLabel               = []byte("res master")
+	resumptionPSKLabel            = []byte("resumption")
 )
 
 // deriveSecret implements TLS 1.3's Derive-Secret function, as defined in
@@ -468,11 +487,21 @@ func updateTrafficSecret(hash crypto.Hash, secret []byte) []byte {
 	return hkdfExpandLabel(hash, secret, applicationTrafficLabel, nil, hash.Size())
 }
 
-func computePSKBinder(psk, label []byte, cipherSuite *cipherSuite, transcript, truncatedHello []byte) []byte {
+func computePSKBinder(psk, label []byte, cipherSuite *cipherSuite, clientHello, helloRetryRequest, truncatedHello []byte) []byte {
 	finishedHash := newFinishedHash(VersionTLS13, cipherSuite)
 	finishedHash.addEntropy(psk)
 	binderKey := finishedHash.deriveSecret(label)
-	finishedHash.Write(transcript)
+	finishedHash.Write(clientHello)
+	if len(helloRetryRequest) != 0 {
+		finishedHash.UpdateHRR()
+		finishedHash.Write(helloRetryRequest)
+	}
 	finishedHash.Write(truncatedHello)
-	return finishedHash.clientSum(binderKey)
+	res := finishedHash.clientSum(binderKey)
+	return res
+}
+
+func deriveSessionPSK(suite *cipherSuite, masterSecret []byte, nonce []byte) []byte {
+	hash := suite.hash()
+	return hkdfExpandLabel(hash, masterSecret, resumptionPSKLabel, nonce, hash.Size())
 }

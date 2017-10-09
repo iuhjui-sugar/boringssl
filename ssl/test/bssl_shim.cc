@@ -2368,11 +2368,10 @@ static bool DoExchange(bssl::UniquePtr<SSL_SESSION> *out_session, SSL *ssl,
       bool got_early_data_info =
           GetTestState(ssl)->new_session->ticket_max_early_data != 0;
       if (config->expect_early_data_info != got_early_data_info) {
-        fprintf(
-            stderr,
-            "new session did%s include ticket_early_data_info, but we expected "
-            "the opposite\n",
-            got_early_data_info ? "" : " not");
+        fprintf(stderr,
+                "new session did%s include early_data, but we expected the "
+                "opposite\n",
+                got_early_data_info ? "" : " not");
         return false;
       }
     }
