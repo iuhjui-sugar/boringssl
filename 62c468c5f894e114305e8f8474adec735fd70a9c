@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "533b2b11_e2c790b7",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-10-09T14:03:06Z",
+      "side": 1,
+      "message": "Fix comment.",
+      "revId": "62c468c5f894e114305e8f8474adec735fd70a9c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e29249cb_e402c8ac",
+        "filename": "ssl/s3_both.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-10-09T14:03:06Z",
+      "side": 1,
+      "message": "Hmm, I forget, why don\u0027t we have a Span-\u003eCBS auto cast?",
+      "revId": "62c468c5f894e114305e8f8474adec735fd70a9c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "329d71a6_fedb5276",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-10-09T14:03:06Z",
+      "side": 1,
+      "message": "Does the implicit conversion here not work?",
+      "range": {
+        "startLine": 253,
+        "startChar": 10,
+        "endLine": 253,
+        "endChar": 18
+      },
+      "revId": "62c468c5f894e114305e8f8474adec735fd70a9c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f756b1c_c5363b00",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-10-09T14:03:06Z",
+      "side": 1,
+      "message": "This should almost have an accessor. Probably fine as is though.",
+      "range": {
+        "startLine": 287,
+        "startChar": 11,
+        "endLine": 287,
+        "endChar": 12
+      },
+      "revId": "62c468c5f894e114305e8f8474adec735fd70a9c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
