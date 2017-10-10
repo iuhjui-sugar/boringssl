@@ -167,7 +167,7 @@ class X25519KeyShare : public SSLKeyShare {
   uint8_t private_key_[32];
 };
 
-const struct {
+constexpr struct {
   int nid;
   uint16_t group_id;
   const char name[8];
