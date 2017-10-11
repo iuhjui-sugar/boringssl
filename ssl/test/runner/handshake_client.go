@@ -376,7 +376,11 @@ NextCipherSuite:
 		c.writeV2Record(helloBytes)
 	} else {
 		if len(hello.pskIdentities) > 0 {
-			generatePSKBinders(hello, pskCipherSuite, session.masterSecret, []byte{}, c.config)
+			version := uint16(VersionTLS12)
+			if session != nil && session.wireVersion != 0 {
+				version = session.wireVersion
+			}
+			generatePSKBinders(version, hello, pskCipherSuite, session.masterSecret, []byte{}, []byte{}, c.config)
 		}
 		helloBytes = hello.marshal()
 
@@ -407,10 +411,16 @@ NextCipherSuite:
 
 	// Derive early write keys and set Conn state to allow early writes.
 	if sendEarlyData {
-		finishedHash := newFinishedHash(session.vers, pskCipherSuite)
+		finishedHash := newFinishedHash(session.wireVersion, c.isDTLS, pskCipherSuite)
 		finishedHash.addEntropy(session.masterSecret)
 		finishedHash.Write(helloBytes)
-		earlyTrafficSecret := finishedHash.deriveSecret(earlyTrafficLabel)
+
+		earlyLabel := earlyTrafficLabel
+		if isDraft21(session.wireVersion) {
+			earlyLabel = earlyTrafficLabel2
+		}
+
+		earlyTrafficSecret := finishedHash.deriveSecret(earlyLabel)
 		c.useOutTrafficSecret(session.wireVersion, pskCipherSuite, earlyTrafficSecret)
 		for _, earlyData := range c.config.Bugs.SendEarlyData {
 			if _, err := c.writeRecord(recordTypeApplicationData, earlyData); err != nil {
@@ -518,7 +528,7 @@ NextCipherSuite:
 		hello.raw = nil
 
 		if len(hello.pskIdentities) > 0 {
-			generatePSKBinders(hello, pskCipherSuite, session.masterSecret, append(helloBytes, helloRetryRequest.marshal()...), c.config)
+			generatePSKBinders(c.wireVersion, hello, pskCipherSuite, session.masterSecret, helloBytes, helloRetryRequest.marshal(), c.config)
 		}
 		secondHelloBytes = hello.marshal()
 
@@ -588,13 +598,19 @@ NextCipherSuite:
 		serverHello:  serverHello,
 		hello:        hello,
 		suite:        suite,
-		finishedHash: newFinishedHash(c.vers, suite),
+		finishedHash: newFinishedHash(c.wireVersion, c.isDTLS, suite),
 		keyShares:    keyShares,
 		session:      session,
 	}
 
 	hs.writeHash(helloBytes, hs.c.sendHandshakeSeq-1)
 	if haveHelloRetryRequest {
+		if isDraft21(c.wireVersion) {
+			err = hs.finishedHash.UpdateHRR()
+			if err != nil {
+				return nil
+			}
+		}
 		hs.writeServerHash(helloRetryRequest.marshal())
 		hs.writeClientHash(secondHelloBytes)
 	}
@@ -739,8 +755,10 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 		if err != nil {
 			return err
 		}
+		hs.finishedHash.addDerive()
 		hs.finishedHash.addEntropy(ecdheSecret)
 	} else {
+		hs.finishedHash.addDerive()
 		hs.finishedHash.addEntropy(zeroSecret)
 	}
 
@@ -750,10 +768,17 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 		}
 	}
 
+	clientLabel := clientHandshakeTrafficLabel
+	serverLabel := serverHandshakeTrafficLabel
+	if isDraft21(c.wireVersion) {
+		clientLabel = clientHandshakeTrafficLabel2
+		serverLabel = serverHandshakeTrafficLabel2
+	}
+
 	// Derive handshake traffic keys and switch read key to handshake
 	// traffic key.
-	clientHandshakeTrafficSecret := hs.finishedHash.deriveSecret(clientHandshakeTrafficLabel)
-	serverHandshakeTrafficSecret := hs.finishedHash.deriveSecret(serverHandshakeTrafficLabel)
+	clientHandshakeTrafficSecret := hs.finishedHash.deriveSecret(clientLabel)
+	serverHandshakeTrafficSecret := hs.finishedHash.deriveSecret(serverLabel)
 	if err := c.useInTrafficSecret(c.wireVersion, hs.suite, serverHandshakeTrafficSecret); err != nil {
 		return err
 	}
@@ -793,6 +818,10 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 		if ok {
 			if len(certReq.requestContext) != 0 {
 				return errors.New("tls: non-empty certificate request context sent in handshake")
+			}
+
+			if c.config.Bugs.ExpectNoCertificateAuthoritiesExtension && certReq.hasCAExtension {
+				return errors.New("tls: expected no certificate_authorities extension")
 			}
 
 			if c.config.Bugs.IgnorePeerSignatureAlgorithmPreferences {
@@ -883,10 +912,21 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 
 	// The various secrets do not incorporate the client's final leg, so
 	// derive them now before updating the handshake context.
+	hs.finishedHash.addDerive()
 	hs.finishedHash.addEntropy(zeroSecret)
-	clientTrafficSecret := hs.finishedHash.deriveSecret(clientApplicationTrafficLabel)
-	serverTrafficSecret := hs.finishedHash.deriveSecret(serverApplicationTrafficLabel)
-	c.exporterSecret = hs.finishedHash.deriveSecret(exporterLabel)
+
+	clientLabel = clientApplicationTrafficLabel
+	serverLabel = serverApplicationTrafficLabel
+	exportLabel := exporterLabel
+	if isDraft21(c.wireVersion) {
+		clientLabel = clientApplicationTrafficLabel2
+		serverLabel = serverApplicationTrafficLabel2
+		exportLabel = exporterLabel2
+	}
+
+	clientTrafficSecret := hs.finishedHash.deriveSecret(clientLabel)
+	serverTrafficSecret := hs.finishedHash.deriveSecret(serverLabel)
+	c.exporterSecret = hs.finishedHash.deriveSecret(exportLabel)
 
 	// Switch to application data keys on read. In particular, any alerts
 	// from the client certificate are read over these keys.
@@ -926,12 +966,19 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 
 	// Send EndOfEarlyData and then switch write key to handshake
 	// traffic key.
-	if c.out.cipher != nil && !c.config.Bugs.SkipEndOfEarlyData {
+	if encryptedExtensions.extensions.hasEarlyData && c.out.cipher != nil && !c.config.Bugs.SkipEndOfEarlyData {
 		if c.config.Bugs.SendStrayEarlyHandshake {
 			helloRequest := new(helloRequestMsg)
 			c.writeRecord(recordTypeHandshake, helloRequest.marshal())
 		}
-		c.sendAlert(alertEndOfEarlyData)
+		if isDraft21(c.wireVersion) {
+			eoed := new(endOfEarlyDataMsg)
+			eoed.nonEmpty = c.config.Bugs.NonEmptyEndOfEarlyData
+			c.writeRecord(recordTypeHandshake, eoed.marshal())
+			hs.writeClientHash(eoed.marshal())
+		} else {
+			c.sendAlert(alertEndOfEarlyData)
+		}
 	}
 
 	if isResumptionClientCCSExperiment(c.wireVersion) {
@@ -1026,7 +1073,12 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 	// Switch to application data keys.
 	c.useOutTrafficSecret(c.wireVersion, hs.suite, clientTrafficSecret)
 
-	c.resumptionSecret = hs.finishedHash.deriveSecret(resumptionLabel)
+	resumeLabel := resumptionLabel
+	if isDraft21(c.wireVersion) {
+		resumeLabel = resumptionLabel2
+	}
+
+	c.resumptionSecret = hs.finishedHash.deriveSecret(resumeLabel)
 	return nil
 }
 
@@ -1735,7 +1787,7 @@ func writeIntPadded(b []byte, x *big.Int) {
 	copy(b[len(b)-len(xb):], xb)
 }
 
-func generatePSKBinders(hello *clientHelloMsg, pskCipherSuite *cipherSuite, psk, transcript []byte, config *Config) {
+func generatePSKBinders(version uint16, hello *clientHelloMsg, pskCipherSuite *cipherSuite, psk, firstClientHello, helloRetryRequest []byte, config *Config) {
 	if config.Bugs.SendNoPSKBinder {
 		return
 	}
@@ -1761,7 +1813,11 @@ func generatePSKBinders(hello *clientHelloMsg, pskCipherSuite *cipherSuite, psk,
 	helloBytes := hello.marshal()
 	binderSize := len(hello.pskBinders)*(binderLen+1) + 2
 	truncatedHello := helloBytes[:len(helloBytes)-binderSize]
-	binder := computePSKBinder(psk, resumptionPSKBinderLabel, pskCipherSuite, transcript, truncatedHello)
+	binderLabel := resumptionPSKBinderLabel
+	if isDraft21(version) {
+		binderLabel = resumptionPSKBinderLabel2
+	}
+	binder := computePSKBinder(psk, version, binderLabel, pskCipherSuite, firstClientHello, helloRetryRequest, truncatedHello)
 	if config.Bugs.SendShortPSKBinder {
 		binder = binder[:binderLen]
 	}
