@@ -1,0 +1,237 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bad62116_734b6112",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-11T19:30:16Z",
+      "side": 1,
+      "message": "(Adding a corpus would probably be handy.)",
+      "revId": "a178feb1a8e173b1e05d67370ce2f18b05b07450",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c837942f_41df84ad",
+        "filename": "fuzz/bn_div.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-11T19:30:16Z",
+      "side": 1,
+      "message": "Ditto on there being a lot of unused includes.",
+      "revId": "a178feb1a8e173b1e05d67370ce2f18b05b07450",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95d86e0d_ac56b200",
+        "filename": "fuzz/bn_div.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-11T19:30:16Z",
+      "side": 1,
+      "message": "child0, child1?",
+      "revId": "a178feb1a8e173b1e05d67370ce2f18b05b07450",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58c7c65a_0eedd61b",
+        "filename": "fuzz/bn_div.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-11T19:30:16Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "a178feb1a8e173b1e05d67370ce2f18b05b07450",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "051d438b_7502e7f1",
+        "filename": "fuzz/bn_div.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-11T19:30:16Z",
+      "side": 1,
+      "message": "Ditto on using CHECK.",
+      "revId": "a178feb1a8e173b1e05d67370ce2f18b05b07450",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aab78470_8e98bc3d",
+        "filename": "fuzz/bn_div.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-11T19:30:16Z",
+      "side": 1,
+      "message": "A thought: you could probably add random assertions that bnr is within the right bounds and mul/add gives back the right answer.",
+      "revId": "a178feb1a8e173b1e05d67370ce2f18b05b07450",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54c1d155_01a8bf68",
+        "filename": "fuzz/bn_mod_exp.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-11T19:30:16Z",
+      "side": 1,
+      "message": "Unused",
+      "range": {
+        "startLine": 15,
+        "startChar": 10,
+        "endLine": 15,
+        "endChar": 16
+      },
+      "revId": "a178feb1a8e173b1e05d67370ce2f18b05b07450",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db940d3e_6e2446b9",
+        "filename": "fuzz/bn_mod_exp.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-11T19:30:16Z",
+      "side": 1,
+      "message": "Unused",
+      "revId": "a178feb1a8e173b1e05d67370ce2f18b05b07450",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53bde2ba_815a44d6",
+        "filename": "fuzz/bn_mod_exp.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-11T19:30:16Z",
+      "side": 1,
+      "message": "Unused",
+      "revId": "a178feb1a8e173b1e05d67370ce2f18b05b07450",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0226afdc_d815d821",
+        "filename": "fuzz/bn_mod_exp.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-11T19:30:16Z",
+      "side": 1,
+      "message": "Unused",
+      "revId": "a178feb1a8e173b1e05d67370ce2f18b05b07450",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9f1c6a1_4af2082d",
+        "filename": "fuzz/bn_mod_exp.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-11T19:30:16Z",
+      "side": 1,
+      "message": "https://llvm.org/docs/LibFuzzer.html doesn\u0027t document -1 as meaning to abort the fuzzer. Are you sure that does anything useful?\n\nWe could just something like:\n\n#define CHECK(expr) \\\n  do {\n    if (!expr) {\n      printf(\"%s failed\\n\", #expr);\n      abort();\n    }\n  } while (false)",
+      "range": {
+        "startLine": 88,
+        "startChar": 10,
+        "endLine": 88,
+        "endChar": 14
+      },
+      "revId": "a178feb1a8e173b1e05d67370ce2f18b05b07450",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acf2dfd9_ec635b88",
+        "filename": "fuzz/bn_mod_exp.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-11T19:30:16Z",
+      "side": 1,
+      "message": "Since we don\u0027t do anything at all if bn1 or bn2 are negative, the fuzzer would probably be more efficient if we didn\u0027t try to parse sign bits out at all.\n\n(Negative bn1 isn\u0027t totally nuts? At least, it\u0027s no more nuts than bn1 \u003e bn2... well, arguably both are nuts since it\u0027s a bunch more code to make constant-time, but we\u0027re stuck with them for now...)",
+      "revId": "a178feb1a8e173b1e05d67370ce2f18b05b07450",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca3245d9_ce40f964",
+        "filename": "fuzz/bn_mod_exp.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-11T19:30:16Z",
+      "side": 1,
+      "message": "(The specific condition is that the modulus must be odd.)",
+      "revId": "a178feb1a8e173b1e05d67370ce2f18b05b07450",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
