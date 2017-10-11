@@ -146,6 +146,7 @@
 
 #include <openssl/bio.h>
 #include <openssl/buf.h>
+#include <openssl/hmac.h>
 #include <openssl/lhash.h>
 #include <openssl/pem.h>
 #include <openssl/span.h>
