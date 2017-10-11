@@ -35,6 +35,7 @@ bool ssl_protocol_version_from_wire(uint16_t *out, uint16_t version) {
       return true;
 
     case TLS1_3_DRAFT_VERSION:
+    case TLS1_3_DRAFT21_VERSION:
     case TLS1_3_EXPERIMENT_VERSION:
     case TLS1_3_EXPERIMENT2_VERSION:
     case TLS1_3_EXPERIMENT3_VERSION:
@@ -63,6 +64,7 @@ static const uint16_t kTLSVersions[] = {
     TLS1_3_EXPERIMENT2_VERSION,
     TLS1_3_EXPERIMENT_VERSION,
     TLS1_3_DRAFT_VERSION,
+    TLS1_3_DRAFT21_VERSION,
     TLS1_2_VERSION,
     TLS1_1_VERSION,
     TLS1_VERSION,
@@ -106,6 +108,7 @@ static bool method_supports_version(const SSL_PROTOCOL_METHOD *method,
 static const char *ssl_version_to_string(uint16_t version) {
   switch (version) {
     case TLS1_3_DRAFT_VERSION:
+    case TLS1_3_DRAFT21_VERSION:
     case TLS1_3_EXPERIMENT_VERSION:
     case TLS1_3_EXPERIMENT2_VERSION:
     case TLS1_3_EXPERIMENT3_VERSION:
@@ -138,6 +141,7 @@ static uint16_t wire_version_to_api(uint16_t version) {
   switch (version) {
     // Report TLS 1.3 draft versions as TLS 1.3 in the public API.
     case TLS1_3_DRAFT_VERSION:
+    case TLS1_3_DRAFT21_VERSION:
     case TLS1_3_EXPERIMENT_VERSION:
     case TLS1_3_EXPERIMENT2_VERSION:
     case TLS1_3_EXPERIMENT3_VERSION:
@@ -152,6 +156,7 @@ static uint16_t wire_version_to_api(uint16_t version) {
 // used in context where that does not matter.
 static bool api_version_to_wire(uint16_t *out, uint16_t version) {
   if (version == TLS1_3_DRAFT_VERSION ||
+      version == TLS1_3_DRAFT21_VERSION ||
       version == TLS1_3_EXPERIMENT_VERSION ||
       version == TLS1_3_EXPERIMENT2_VERSION ||
       version == TLS1_3_EXPERIMENT3_VERSION) {
@@ -308,7 +313,8 @@ bool ssl_supports_version(SSL_HANDSHAKE *hs, uint16_t version) {
     if (ssl->tls13_variant == tls13_default &&
         (version == TLS1_3_EXPERIMENT_VERSION ||
          version == TLS1_3_EXPERIMENT2_VERSION ||
-         version == TLS1_3_EXPERIMENT3_VERSION)) {
+         version == TLS1_3_EXPERIMENT3_VERSION ||
+         version == TLS1_3_DRAFT21_VERSION)) {
       return false;
     }
   } else {
@@ -318,6 +324,8 @@ bool ssl_supports_version(SSL_HANDSHAKE *hs, uint16_t version) {
          version == TLS1_3_EXPERIMENT2_VERSION) ||
         (ssl->tls13_variant != tls13_experiment3 &&
          version == TLS1_3_EXPERIMENT3_VERSION) ||
+        (ssl->tls13_variant != tls13_draft21 &&
+         version == TLS1_3_DRAFT21_VERSION) ||
         (ssl->tls13_variant != tls13_default &&
          version == TLS1_3_DRAFT_VERSION)) {
       return false;
@@ -373,6 +381,10 @@ bool ssl_negotiate_version(SSL_HANDSHAKE *hs, uint8_t *out_alert,
   OPENSSL_PUT_ERROR(SSL, SSL_R_UNSUPPORTED_PROTOCOL);
   *out_alert = SSL_AD_PROTOCOL_VERSION;
   return false;
+}
+
+bool ssl_is_draft21(uint16_t version) {
+  return version == TLS1_3_DRAFT21_VERSION;
 }
 
 bool ssl_is_resumption_experiment(uint16_t version) {

@@ -392,6 +392,10 @@ bool ssl_negotiate_version(SSL_HANDSHAKE *hs, uint8_t *out_alert,
 // call this function before the version is determined.
 uint16_t ssl3_protocol_version(const SSL *ssl);
 
+// ssl_is_draft21 returns whether the version corresponds to a draft21 TLS 1.3
+// variant.
+bool ssl_is_draft21(uint16_t version);
+
 // ssl_is_resumption_experiment returns whether the version corresponds to a
 // TLS 1.3 resumption experiment.
 bool ssl_is_resumption_experiment(uint16_t version);
@@ -545,10 +549,17 @@ class SSLTranscript {
   // to call this function after the handshake buffer is released.
   bool InitHash(uint16_t version, const SSL_CIPHER *cipher);
 
+  // UpdateHRR resets the rolling hash with the HelloRetryRequest construction.
+  // It returns one on success and zero on failure. It is an error to call this
+  // function before the handshake buffer is released.
+  bool UpdateHRR();
+
   const uint8_t *buffer_data() const {
     return reinterpret_cast<const uint8_t *>(buffer_->data);
   }
   size_t buffer_len() const { return buffer_->length; }
+
+  const EVP_MD_CTX *hash() const { return hash_.get(); }
 
   // FreeBuffer releases the handshake buffer. Subsequent calls to
   // |Update| will not update the handshake buffer.
@@ -1156,6 +1167,10 @@ int tls13_init_early_key_schedule(SSL_HANDSHAKE *hs);
 int tls13_advance_key_schedule(SSL_HANDSHAKE *hs, const uint8_t *in,
                                size_t len);
 
+// tls13_derive_key_schedule performs the Derive-Secret step of the key
+// schedule. It returns one on success and zero on error.
+int tls13_derive_key_schedule(SSL_HANDSHAKE *hs);
+
 // tls13_set_traffic_key sets the read or write traffic keys to
 // |traffic_secret|. It returns one on success and zero on error.
 int tls13_set_traffic_key(SSL *ssl, enum evp_aead_direction_t direction,
@@ -1195,6 +1210,12 @@ int tls13_export_keying_material(SSL *ssl, uint8_t *out, size_t out_len,
 // 0 for the Client Finished.
 int tls13_finished_mac(SSL_HANDSHAKE *hs, uint8_t *out,
                        size_t *out_len, int is_server);
+
+// tls13_derive_session_psk calculates the PSK for this session based on the
+// resumption master secret and |nonce|. It returns 1 on success, and 0 on
+// failure.
+int tls13_derive_session_psk(SSL_SESSION *session, const uint8_t *nonce,
+                             size_t nonce_len);
 
 // tls13_write_psk_binder calculates the PSK binder value and replaces the last
 // bytes of |msg| with the resulting value. It returns 1 on success, and 0 on
@@ -2040,6 +2061,10 @@ struct SSLConnection {
   // tls13_variant is the variant of TLS 1.3 we are using for this
   // configuration.
   enum tls13_variant_t tls13_variant;
+
+  /* early_data_read is the amount of early data that has been read by the
+   * record layer. */
+  uint16_t early_data_read = 0;
 
   uint16_t max_send_fragment;
 

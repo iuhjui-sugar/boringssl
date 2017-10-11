@@ -945,9 +945,10 @@ static int ssl_read_impl(SSL *ssl, void *buf, int num, int peek) {
       return ret;
     }
 
-    // If we received an interrupt in early read (the end_of_early_data alert),
-    // loop again for the handshake to process it.
+    // If we received an interrupt in early read (end_of_early_data), loop again
+    // for the handshake to process it.
     if (SSL_in_init(ssl)) {
+      ssl->s3->hs->can_early_read = false;
       continue;
     }
 
