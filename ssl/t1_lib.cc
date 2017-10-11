@@ -1805,6 +1805,13 @@ static bool ext_pre_shared_key_add_clienthello(SSL_HANDSHAKE *hs, CBB *out) {
     return true;
   }
 
+  if (hs->received_hello_retry_request &&
+      ssl_is_draft21(ssl->version) &&
+      ssl->session->cipher->algorithm_prf != hs->new_cipher->algorithm_prf) {
+    hs->needs_psk_binder = false;
+    return true;
+  }
+
   struct OPENSSL_timeval now;
   ssl_get_current_time(ssl, &now);
   uint32_t ticket_age = 1000 * (now.tv_sec - ssl->session->time);
