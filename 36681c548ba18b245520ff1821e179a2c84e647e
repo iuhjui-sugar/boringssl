@@ -22,6 +22,30 @@
       "revId": "36681c548ba18b245520ff1821e179a2c84e647e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a57a692b_fffb3aed",
+        "filename": "util/bot/vs_toolchain.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-12T18:46:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e1ca6f0_cd975cd2",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 49
+      },
+      "revId": "36681c548ba18b245520ff1821e179a2c84e647e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
