@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "48cf9ed7_95aab7ba",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-10-13T19:35:36Z",
+      "side": 1,
+      "message": "nit: Extra newline?",
+      "range": {
+        "startLine": 380,
+        "startChar": 1,
+        "endLine": 380,
+        "endChar": 2
+      },
+      "revId": "4a9631a6b8dde4d5290976a85ec00d0ab46d7da9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
