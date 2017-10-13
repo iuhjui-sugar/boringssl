@@ -16,6 +16,24 @@
       "revId": "fcf7bfae62a5b013d10d0e449a766339ba7455a6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6784ba7_50ed2ea6",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 3803,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-13T19:52:26Z",
+      "side": 1,
+      "message": "Previous one did... they\u0027re all going to get deleted in a later CL anyway, so might not be worth bothering. I would have taken this one out of the tower altogether, but the rebase was annoying. :-)",
+      "parentUuid": "99df6606_e2ce453d",
+      "revId": "fcf7bfae62a5b013d10d0e449a766339ba7455a6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
