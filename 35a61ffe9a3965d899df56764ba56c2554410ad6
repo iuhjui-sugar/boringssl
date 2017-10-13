@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1988e298_5eec3a7b",
+        "filename": "fuzz/bn_div.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-13T15:51:27Z",
+      "side": 1,
+      "message": "Nit: I think this is true? Might want it let it try a handful to make sure I\u0027m not crazy. :-)\n\nif (!BN_is_zero(remainder.get())) {\n  CHECK(BN_is_negative(remainder.get()) \u003d\u003d BN_is_negative(numerator.get()));\n}",
+      "revId": "35a61ffe9a3965d899df56764ba56c2554410ad6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
