@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "daedbec9_d0fd4664",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-10-13T19:44:45Z",
+      "side": 1,
+      "message": "Add a comment about the ticket changes.",
+      "revId": "00b8451739cb5430beef5a329c8fa62e3172f716",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
