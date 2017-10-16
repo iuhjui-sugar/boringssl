@@ -37,20 +37,20 @@ static const int64_t kBottom26Bits = INT64_C(0x3ffffff);
 static const int64_t kTop39Bits = INT64_C(0xfffffffffe000000);
 static const int64_t kTop38Bits = INT64_C(0xfffffffffc000000);
 
-static uint64_t load_3(const uint8_t *in) {
-  uint64_t result;
-  result = (uint64_t)in[0];
-  result |= ((uint64_t)in[1]) << 8;
-  result |= ((uint64_t)in[2]) << 16;
+static uint32_t load_3(const uint8_t *in) {
+  uint32_t result;
+  result = (uint32_t)in[0];
+  result |= ((uint32_t)in[1]) << 8;
+  result |= ((uint32_t)in[2]) << 16;
   return result;
 }
 
-static uint64_t load_4(const uint8_t *in) {
-  uint64_t result;
-  result = (uint64_t)in[0];
-  result |= ((uint64_t)in[1]) << 8;
-  result |= ((uint64_t)in[2]) << 16;
-  result |= ((uint64_t)in[3]) << 24;
+static uint32_t load_4(const uint8_t *in) {
+  uint32_t result;
+  result = (uint32_t)in[0];
+  result |= ((uint32_t)in[1]) << 8;
+  result |= ((uint32_t)in[2]) << 16;
+  result |= ((uint32_t)in[3]) << 24;
   return result;
 }
 
