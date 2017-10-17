@@ -31,6 +31,15 @@
 #include "internal.h"
 #include "../internal.h"
 
+static const fe sqrtm1 =
+{0x020ea0b0,0x0186c9d2,0x008f189d,0x0035697f,0x00bd0c60,0x01fbd7a7,0x02804c9e,0x01e16569,0x0004fc1d,0x00ae0c92};
+
+static const fe d = 
+{0x035978a3,0x00d37284,0x03156ebd,0x006a0a0e,0x0001c029,0x0179e898,0x03a03cbb,0x01ce7198,0x02e2b6ff,0x01480db3};
+
+static const fe d2 =
+{0x02b2f159,0x01a6e509,0x022add7a,0x00d4141d,0x00038052,0x00f3d130,0x03407977,0x019ce331,0x01c56dff,0x00901b67};
+
 
 static const int64_t kBottom25Bits = INT64_C(0x1ffffff);
 static const int64_t kBottom26Bits = INT64_C(0x3ffffff);
@@ -998,12 +1007,6 @@ static void ge_p3_tobytes(uint8_t *s, const ge_p3 *h) {
   s[31] ^= fe_isnegative(x) << 7;
 }
 
-static const fe d = {-10913610, 13857413, -15372611, 6949391,   114729,
-                     -8787816,  -6275908, -3247719,  -18696448, -12055116};
-
-static const fe sqrtm1 = {-32595792, -7943725,  9377950,  3500415, 12389472,
-                          -272473,   -25146209, -2005654, 326686,  11406482};
-
 int x25519_ge_frombytes_vartime(ge_p3 *h, const uint8_t *s) {
   fe u;
   fe v;
@@ -1079,9 +1082,6 @@ static void ge_p3_to_p2(ge_p2 *r, const ge_p3 *p) {
   fe_copy(r->Y, p->Y);
   fe_copy(r->Z, p->Z);
 }
-
-static const fe d2 = {-21827239, -5839606,  -30745221, 13898782, 229458,
-                      15978800,  -12551817, -6495438,  29715968, 9444199};
 
 // r = p
 void x25519_ge_p3_to_cached(ge_cached *r, const ge_p3 *p) {
