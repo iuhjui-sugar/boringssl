@@ -41,7 +41,7 @@ void x25519_NEON(uint8_t out[32], const uint8_t scalar[32],
 // entries t[0]...t[9], represents the integer t[0]+2^26 t[1]+2^51 t[2]+2^77
 // t[3]+2^102 t[4]+...+2^230 t[9]. Bounds on each t[i] vary depending on
 // context.
-typedef int32_t fe[10];
+typedef uint32_t fe[10];
 
 /* ge means group element.
 
