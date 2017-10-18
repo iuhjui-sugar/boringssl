@@ -200,7 +200,7 @@ static void fe_1(fe h) {
 }
 
 // h = f + g
-// Can overlap h with f or g.
+// h can be either f or g or separate, aribtary overlap is not allowed.
 static void fe_add(fe h, const fe f, const fe g) {
   unsigned i;
   for (i = 0; i < 10; i++) {
@@ -209,7 +209,7 @@ static void fe_add(fe h, const fe f, const fe g) {
 }
 
 // h = f - g
-// Can overlap h with f or g.
+// h can be either f or g or separate, aribtary overlap is not allowed.
 static void fe_sub(fe h, const fe f, const fe g) {
   h[9] = 0x3fffffe + f[9] - g[9];
   h[8] = 0x7fffffe + f[8] - g[8];
