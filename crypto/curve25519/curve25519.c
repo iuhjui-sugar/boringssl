@@ -201,13 +201,6 @@ static void fe_1(fe h) {
 
 // h = f + g
 // Can overlap h with f or g.
-//
-// Preconditions:
-//    |f| bounded by 1.1*2^25,1.1*2^24,1.1*2^25,1.1*2^24,etc.
-//    |g| bounded by 1.1*2^25,1.1*2^24,1.1*2^25,1.1*2^24,etc.
-//
-// Postconditions:
-//    |h| bounded by 1.1*2^26,1.1*2^25,1.1*2^26,1.1*2^25,etc.
 static void fe_add(fe h, const fe f, const fe g) {
   unsigned i;
   for (i = 0; i < 10; i++) {
@@ -478,9 +471,6 @@ static void fe_cmov(fe f, const fe g, unsigned b) {
 
 // return 0 if f == 0
 // return 1 if f != 0
-//
-// Preconditions:
-//    |f| bounded by 1.1*2^26,1.1*2^25,1.1*2^26,1.1*2^25,etc.
 static int fe_isnonzero(const fe f) {
   uint8_t s[32];
   fe_tobytes(s, f);
@@ -491,9 +481,6 @@ static int fe_isnonzero(const fe f) {
 
 // return 1 if f is in {1,3,5,...,q-2}
 // return 0 if f is in {0,2,4,...,q-1}
-//
-// Preconditions:
-//    |f| bounded by 1.1*2^26,1.1*2^25,1.1*2^26,1.1*2^25,etc.
 static int fe_isnegative(const fe f) {
   uint8_t s[32];
   fe_tobytes(s, f);
