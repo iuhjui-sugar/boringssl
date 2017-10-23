@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "181814d7_854f4126",
+        "filename": "ssl/d1_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-23T17:30:06Z",
+      "side": 0,
+      "message": "Note this is swapping out dtls_clear_* for the destructors. The second one, notably, does not do the exact same thing, but I don\u0027t believe it matters.",
+      "revId": "20ee7b64a10beb2409f272feac5595aa7b1cab54",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
