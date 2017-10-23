@@ -46,6 +46,11 @@ config_setting(
     values = {"cpu": "x64_windows"},
 )
 
+config_setting(
+    name = "android",
+    values = {"crosstool_top": "@android_ndk//:toolchain-libcpp"}
+)
+
 posix_copts = [
     # Assembler option --noexecstack adds .note.GNU-stack to each object to
     # ensure that binaries can be built with non-executable stack.
@@ -120,6 +125,7 @@ cc_library(
     includes = ["src/include"],
     linkopts = select({
         ":mac_x86_64": [],
+        ":android": [], # For android no need to explicitly link to pthread
         "//conditions:default": ["-lpthread"],
     }),
     visibility = ["//visibility:public"],
