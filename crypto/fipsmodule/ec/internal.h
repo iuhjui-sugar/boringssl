@@ -137,7 +137,7 @@ struct ec_group_st {
 } /* EC_GROUP */;
 
 struct ec_point_st {
-  const EC_METHOD *meth;
+  EC_GROUP *group;
 
   BIGNUM X;
   BIGNUM Y;
