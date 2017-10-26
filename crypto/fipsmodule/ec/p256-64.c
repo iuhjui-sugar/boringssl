@@ -21,7 +21,7 @@
 
 #include <openssl/base.h>
 
-#if defined(OPENSSL_64_BIT) && !defined(OPENSSL_WINDOWS)
+#if defined(BORINGSSL_USE_INT128_CODE)
 
 #include <openssl/bn.h>
 #include <openssl/ec.h>
@@ -1705,4 +1705,4 @@ DEFINE_METHOD_FUNCTION(EC_METHOD, EC_GFp_nistp256_method) {
   out->field_decode = NULL;
 };
 
-#endif  // 64_BIT && !WINDOWS
+#endif  // BORINGSSL_USE_INT128_CODE
