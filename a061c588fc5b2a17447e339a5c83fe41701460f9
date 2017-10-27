@@ -119,6 +119,24 @@
     },
     {
       "key": {
+        "uuid": "3aa67514_1961ad2d",
+        "filename": "crypto/fipsmodule/ec/ec.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-10-27T19:30:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9385f803_6d60d499",
+      "revId": "a061c588fc5b2a17447e339a5c83fe41701460f9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0d5a6e9c_59212b97",
         "filename": "crypto/fipsmodule/ec/ec.c",
         "patchSetId": 4
@@ -148,6 +166,24 @@
       "side": 1,
       "message": "Hrm, maybe? Mostly I didn\u0027t want to make EC_POINT unnecessarily bigger. But any EC_POINT with non-owning EC_GROUP must already be owned by something which is aware of this fact, otherwise the EC_POINT may leave something dangling.",
       "parentUuid": "0d5a6e9c_59212b97",
+      "revId": "a061c588fc5b2a17447e339a5c83fe41701460f9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e7977eeb_41f959c1",
+        "filename": "crypto/fipsmodule/ec/ec.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 656,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-10-27T19:30:28Z",
+      "side": 1,
+      "message": "I think it\u0027s ok either way.",
+      "parentUuid": "320afccd_8c607655",
       "revId": "a061c588fc5b2a17447e339a5c83fe41701460f9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
