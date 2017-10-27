@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fd7b8102_0418f653",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-27T18:51:23Z",
+      "side": 0,
+      "message": "Nit: We tend to put two lines after the include blocks. (I dunno, it\u0027s an Adam thing I think. ;-) )",
+      "revId": "f6632dae5fc788ae9a666b5fd31a8754ee6a9e3f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

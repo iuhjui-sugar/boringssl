@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "78267467_0b94a55c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-27T18:51:23Z",
+      "side": 1,
+      "message": "Mostly to confirm my memory: you mentioned yesterday you found an alternate set of preconditions that did work, right? But that those preconditions only work with signed arithmetic, which fiat-crypto doesn\u0027t do right now, thus we\u0027d like to use these preconditions in the meantime if the perf hit is bearable.",
+      "range": {
+        "startLine": 10,
+        "startChar": 44,
+        "endLine": 10,
+        "endChar": 57
+      },
+      "revId": "c2c0f6a8386c0d198eaad246bd46aa31f9acc9df",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58141927_74d12da1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-27T18:51:23Z",
+      "side": 1,
+      "message": "Wonder if it\u0027s worth tossing some Ed25519 and X25519 fuzzers to trip these then. They\u0027ve amazingly had some luck with OpenSSL carry issues. Though I guess if we\u0027re going to replace with fiat-crypto anyway, we may not need something quite so crude.",
+      "revId": "c2c0f6a8386c0d198eaad246bd46aa31f9acc9df",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

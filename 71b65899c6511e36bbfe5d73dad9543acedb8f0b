@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3450c88a_88723955",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-27T18:51:23Z",
+      "side": 1,
+      "message": "Nit: tab \u003d\u003e two spaces (ditto elsewhere)",
+      "revId": "71b65899c6511e36bbfe5d73dad9543acedb8f0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cbc4083_b85586df",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-27T18:51:23Z",
+      "side": 1,
+      "message": "Nit: tab \u003d\u003e two spaces",
+      "revId": "71b65899c6511e36bbfe5d73dad9543acedb8f0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff4da4ca_c74fb164",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-27T18:51:23Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "71b65899c6511e36bbfe5d73dad9543acedb8f0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6577f5ae_ed5138bd",
+        "filename": "crypto/curve25519/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-27T18:51:23Z",
+      "side": 1,
+      "message": "Since you\u0027re encoding the bounds into the types now, mind documenting what they are here?",
+      "revId": "71b65899c6511e36bbfe5d73dad9543acedb8f0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
