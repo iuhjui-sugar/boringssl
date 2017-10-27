@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7a67159b_ab61e9aa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-27T19:25:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0e0c79e_35f942cf",
+      "range": {
+        "startLine": 11,
+        "startChar": 2,
+        "endLine": 11,
+        "endChar": 3
+      },
+      "revId": "a061c588fc5b2a17447e339a5c83fe41701460f9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1d21f24e_30ce0635",
         "filename": "crypto/ecdh/ecdh_test.cc",
         "patchSetId": 4
@@ -36,6 +60,24 @@
       "writtenOn": "2017-10-27T17:56:01Z",
       "side": 1,
       "message": "ERR_clear_error()?",
+      "revId": "a061c588fc5b2a17447e339a5c83fe41701460f9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb68276a_593fa4fd",
+        "filename": "crypto/ecdh/ecdh_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-27T19:25:16Z",
+      "side": 1,
+      "message": "Done. (We\u0027ve actually set up GTest to do that automatically on any tests which otherwise pass.)",
+      "parentUuid": "1d21f24e_30ce0635",
       "revId": "a061c588fc5b2a17447e339a5c83fe41701460f9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "9385f803_6d60d499",
+        "filename": "crypto/fipsmodule/ec/ec.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-27T19:25:16Z",
+      "side": 1,
+      "message": "The check above means a-\u003ecurve_name \u003d\u003d b-\u003ecurve_name.\n\nYeah, making built-in P-256 equal the custom P-256 would be awkward as even their EC_METHODs don\u0027t match. That already didn\u0027t work. Conscrypt detects curve params so it should be fine. (If we care, we can restore EC_GROUP_new_arbitrary and move Conscrypt\u0027s parameter-matching into BoringSSL. We already do have such logic for private key parsers.)",
+      "parentUuid": "bcb8d573_406144ab",
+      "revId": "a061c588fc5b2a17447e339a5c83fe41701460f9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0d5a6e9c_59212b97",
         "filename": "crypto/fipsmodule/ec/ec.c",
         "patchSetId": 4
@@ -70,6 +130,24 @@
       "writtenOn": "2017-10-27T17:56:01Z",
       "side": 1,
       "message": "Would it be more robust to store the owning/non-owning information about EC_point.group in the EC_POINT itself? (Not sure; your call.)",
+      "revId": "a061c588fc5b2a17447e339a5c83fe41701460f9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "320afccd_8c607655",
+        "filename": "crypto/fipsmodule/ec/ec.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 656,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-27T19:25:16Z",
+      "side": 1,
+      "message": "Hrm, maybe? Mostly I didn\u0027t want to make EC_POINT unnecessarily bigger. But any EC_POINT with non-owning EC_GROUP must already be owned by something which is aware of this fact, otherwise the EC_POINT may leave something dangling.",
+      "parentUuid": "0d5a6e9c_59212b97",
       "revId": "a061c588fc5b2a17447e339a5c83fe41701460f9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
