@@ -1,0 +1,477 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "17d3f34e_cb1d6a36",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1217,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-27T16:27:32Z",
+      "side": 1,
+      "message": "New code, so may as well use bool and Span.",
+      "range": {
+        "startLine": 1217,
+        "startChar": 0,
+        "endLine": 1217,
+        "endChar": 3
+      },
+      "revId": "27a8ffdb08fba739546948555c8263319ff1644c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f95983d7_0e8e652c",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 948,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-27T16:27:32Z",
+      "side": 1,
+      "message": "Nit: EndOfEarlyData?\n\nClearing can_early_read here makes me sad but yeah that makes sense... I have a CL which jams OpenRecord into the middle here, but it doesn\u0027t know about server 0-RTT and False Start.",
+      "range": {
+        "startLine": 948,
+        "startChar": 50,
+        "endLine": 948,
+        "endChar": 67
+      },
+      "revId": "27a8ffdb08fba739546948555c8263319ff1644c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b2a03bc_1b8ce57a",
+        "filename": "ssl/ssl_transcript.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-27T16:27:32Z",
+      "side": 1,
+      "message": "UpdateForHelloRetryRequest",
+      "range": {
+        "startLine": 212,
+        "startChar": 20,
+        "endLine": 212,
+        "endChar": 29
+      },
+      "revId": "27a8ffdb08fba739546948555c8263319ff1644c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "874eaf8c_89b4d733",
+        "filename": "ssl/ssl_transcript.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-27T16:27:32Z",
+      "side": 1,
+      "message": "Also require that buffer_ has been dropped by now, otherwise they don\u0027t match. Alternatively, incorporate the change below (so you use Update, not EVP_DigestUpdate) and add:\n\nif (buffer_) {\n  buffer_-\u003elength \u003d 0;\n}\n\n(See comment in tls13_client.cc and tls13_enc.cc for why that might be handy.)",
+      "revId": "27a8ffdb08fba739546948555c8263319ff1644c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "369f057a_ed60ef2a",
+        "filename": "ssl/ssl_transcript.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-27T16:27:32Z",
+      "side": 1,
+      "message": "Nit: This saves an allocation and is about as much code:\n\nuint8_t old_hash[EVP_MAX_MD_SIZE];\nsize_t hash_len;\nif (!GetHash(old_hash, \u0026hash_len)) {\n  return false;\n}\nconst uint8_t header[4] \u003d {SSL3_MT_MESSAGE_HASH, 0, 0,\n                           static_cast\u003cuint8_t\u003e(hash_len)};\nif (!EVP_DigestInit_ex(hash_.get(), Digest(), nullptr) ||\n    // (Isn\u0027t this a Span now? Rebase?)\n    Update(header, sizeof(header)) ||\n    Update(old_hash, hash_len)) {\n  return false;\n}\nreturn true;",
+      "revId": "27a8ffdb08fba739546948555c8263319ff1644c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "134a57c8_d71739f4",
+        "filename": "ssl/tls13_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-27T16:27:32Z",
+      "side": 1,
+      "message": "nullptr",
+      "range": {
+        "startLine": 81,
+        "startChar": 18,
+        "endLine": 81,
+        "endChar": 22
+      },
+      "revId": "27a8ffdb08fba739546948555c8263319ff1644c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a06aee57_efb8aceb",
+        "filename": "ssl/tls13_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-27T16:27:32Z",
+      "side": 1,
+      "message": "Feel free to OR this into the cipher check here and in the other copy below. I don\u0027t think WRONG vs. UNKNOWN cipher is of much interest.",
+      "revId": "27a8ffdb08fba739546948555c8263319ff1644c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ed1a8e6_7a64d8e5",
+        "filename": "ssl/tls13_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-27T16:27:32Z",
+      "side": 1,
+      "message": "Nit: newline after || here.",
+      "revId": "27a8ffdb08fba739546948555c8263319ff1644c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a01efaf5_0ef64735",
+        "filename": "ssl/tls13_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-27T16:27:32Z",
+      "side": 1,
+      "message": "A thought, what if we did:\n\n1. tls13_advance_key_schedule always calls tls13_derive_key_schedule first. This means the key schedule API doesn\u0027t let you do the HKDF extract/expand mismatch.\n2. tls13_init_key_schedule takes the PSK as input. tls13_init_early_key_schedule also takes it in.\n3. Once you do that and push a few init calls down, I believe the only problematic tls13_init_key_schedule call is the ones you added above in HRR. That one just calls InitHash/FreeBuffer/UpdateHRR and line 341 is unconditional.\n4. If you keep the FreeBuffer in (3), InitHash will need to detect a no-op change so the real tls13_init_key_schedule call works. Alternatively, just don\u0027t FreeBuffer yet! (See comment in ssl_transcript.cc about making UpdateHRR work without it.) This would remove the draft-21/HRR special case in tls13_write_psk_binder. We could then still teach InitHash to skip no-op calls, but then it\u0027s safely an optimization rather than correctness requirement.",
+      "revId": "27a8ffdb08fba739546948555c8263319ff1644c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e344e1c_0260e625",
+        "filename": "ssl/tls13_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-27T16:27:32Z",
+      "side": 1,
+      "message": "(have_ca \u0026\u0026 CBS_len(\u0026ca) \u003d\u003d 0) is also illegal. ssl_parse_client_CA_list won\u0027t reject this because in all other contexts empty is how you denote missing.",
+      "revId": "27a8ffdb08fba739546948555c8263319ff1644c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76d19d2c_b763a143",
+        "filename": "ssl/tls13_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-27T16:27:32Z",
+      "side": 1,
+      "message": "This is a slight behavior change. If you sent no client CAs we\u0027d return a non-null empty STACK_OF(T). Now we return null. Just removing the have_ca check would work; the extensions parser always initializes the CBS.",
+      "revId": "27a8ffdb08fba739546948555c8263319ff1644c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43791686_6b412c20",
+        "filename": "ssl/tls13_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-27T16:27:32Z",
+      "side": 1,
+      "message": "I suspect the old code is a remnant of some weird C goto err thing. I think it\u0027s fine to just write ssl_parse_client_CA_list into hs-\u003eca_names directly, here and below. Save a little typing.",
+      "revId": "27a8ffdb08fba739546948555c8263319ff1644c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb1188e9_cf88f6b1",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-27T16:27:32Z",
+      "side": 1,
+      "message": "As a follow-up, can you move len to right after out? It\u0027s really really weird to keep the pointers and lengths so far apart.\n\n(Really ought to Span it.)",
+      "range": {
+        "startLine": 70,
+        "startChar": 11,
+        "endLine": 70,
+        "endChar": 28
+      },
+      "revId": "27a8ffdb08fba739546948555c8263319ff1644c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "028d129a_ddd3f47a",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-27T16:27:32Z",
+      "side": 1,
+      "message": "Perhaps:\n\n  if (!ssl_is_draft21(SSL_get_session(hs-\u003essl)-\u003essl_version))\n\nI really hate that function, but it is more of the \"we need to know the current handshake thing\" use case. (Ditto elsewhere.)\n\n(Otherwise this is definitely enough to warrant a SSL *const ssl \u003d hs-\u003essl.)",
+      "revId": "27a8ffdb08fba739546948555c8263319ff1644c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb5ed977_370d58f0",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-27T16:27:32Z",
+      "side": 1,
+      "message": "// Draft 18 does not include the extra Derive-Secret step.",
+      "revId": "27a8ffdb08fba739546948555c8263319ff1644c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8fbe04e_42462ecb",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-27T16:27:32Z",
+      "side": 1,
+      "message": "nullptr",
+      "range": {
+        "startLine": 130,
+        "startChar": 18,
+        "endLine": 130,
+        "endChar": 22
+      },
+      "revId": "27a8ffdb08fba739546948555c8263319ff1644c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8bdeef61_24d45bf1",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-27T16:27:32Z",
+      "side": 1,
+      "message": "clang-format",
+      "revId": "27a8ffdb08fba739546948555c8263319ff1644c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29721ce6_d7d9df7d",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-27T16:27:32Z",
+      "side": 1,
+      "message": "TLS132 is a little odd. :-) Does TLS13Draft21 end up too long?",
+      "range": {
+        "startLine": 225,
+        "startChar": 19,
+        "endLine": 225,
+        "endChar": 25
+      },
+      "revId": "27a8ffdb08fba739546948555c8263319ff1644c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28788ffc_a252adc7",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-27T16:27:32Z",
+      "side": 1,
+      "message": "80 chars",
+      "revId": "27a8ffdb08fba739546948555c8263319ff1644c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a7c4c85_83446a40",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-27T16:27:32Z",
+      "side": 1,
+      "message": "This and line 427 seems to be the same for both. I\u0027d suggest lifting that up to the top (it is common to all TLS 1.3 versions that we don\u0027t believe in use_context). In the draft-18 path, we\u0027d just pass context directly into hash.",
+      "revId": "27a8ffdb08fba739546948555c8263319ff1644c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "148e39e4_2f1418f8",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-27T16:27:32Z",
+      "side": 1,
+      "message": "What if you made SSLTranscript::CopyHashContext or something? SSLTranscript::hash is a confusing name (could also be the EVP_MD, the hash itself), and it\u0027s odd to expose an const EVP_MD_CTX*. There\u0027s exactly one useful operation you can get out of it.\n\nThough see comment in tls13_client.cc. You can avoid this bifurcation altogether.",
+      "range": {
+        "startLine": 509,
+        "startChar": 39,
+        "endLine": 509,
+        "endChar": 60
+      },
+      "revId": "27a8ffdb08fba739546948555c8263319ff1644c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85aaf9f8_9c76d79f",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-27T16:27:32Z",
+      "side": 1,
+      "message": "Chain with calls above?",
+      "revId": "27a8ffdb08fba739546948555c8263319ff1644c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38eed910_c2c86163",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-27T16:27:32Z",
+      "side": 1,
+      "message": "If I explicitly configure the empty list, this should not include the extension. Add a test. (Just make sure BoGo enforces the syntax.) use_client_ca_list already takes \u003cNULL\u003e... maybe \u003cEMPTY\u003e?\n\nThe NULL ssl-\u003eclient_CA \u003d\u003e ssl-\u003ectx-\u003eclient_CA behavior makes this little annoying, unfortunately. :-/",
+      "revId": "27a8ffdb08fba739546948555c8263319ff1644c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2d5a847_db28a2a8",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 768,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-27T16:27:32Z",
+      "side": 1,
+      "message": "This function is a huge mess. We really should not have sent those CCSs under encryption. Hopefully later on it can be simplified once we make CCS a receiver-ignore thing and never sent under encryption...",
+      "revId": "27a8ffdb08fba739546948555c8263319ff1644c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71e4e821_c97363ef",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 774,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-27T16:27:32Z",
+      "side": 1,
+      "message": "This will break SSL_get_error because you\u0027re missing OPENSSL_PUT_ERRORs. (We can probably fix that up via ssl_hs_error now...) Also it doesn\u0027t work for fragmented EndOfEarlyData (I expect runner has a test for that?).\n\n1. Replace get_message with the usual loop.\n2. Explicitly DECODE_ERROR the CBS_len check. (Add a test for non-empty EOED?)",
+      "revId": "27a8ffdb08fba739546948555c8263319ff1644c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
