@@ -2,6 +2,80 @@
   "comments": [
     {
       "key": {
+        "uuid": "c0e0c79e_35f942cf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-10-27T17:56:01Z",
+      "side": 1,
+      "message": "\"same\"",
+      "range": {
+        "startLine": 11,
+        "startChar": 2,
+        "endLine": 11,
+        "endChar": 3
+      },
+      "revId": "a061c588fc5b2a17447e339a5c83fe41701460f9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d21f24e_30ce0635",
+        "filename": "crypto/ecdh/ecdh_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-10-27T17:56:01Z",
+      "side": 1,
+      "message": "ERR_clear_error()?",
+      "revId": "a061c588fc5b2a17447e339a5c83fe41701460f9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcb8d573_406144ab",
+        "filename": "crypto/fipsmodule/ec/ec.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-10-27T17:56:01Z",
+      "side": 1,
+      "message": "|| b-\u003ecurve_name !\u003d NID_undef\n\nOr else turn these two conditions into:\n\nif (a-\u003ecurve_name !\u003d NID_undef || b-\u003ecurve_name !\u003d NID_undef) {\n  // Built-in-curves may be compared by curve name alone.\n  return a-\u003ecurve_name !\u003d b-\u003ecurve_name;\n}\n\nThat means that built-in P-256 is not equal to a custom curve that happens to be P-256, but I think that\u0027s fine.",
+      "revId": "a061c588fc5b2a17447e339a5c83fe41701460f9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d5a6e9c_59212b97",
+        "filename": "crypto/fipsmodule/ec/ec.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 656,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-10-27T17:56:01Z",
+      "side": 1,
+      "message": "Would it be more robust to store the owning/non-owning information about EC_point.group in the EC_POINT itself? (Not sure; your call.)",
+      "revId": "a061c588fc5b2a17447e339a5c83fe41701460f9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d300d494_7411f9f4",
         "filename": "crypto/fipsmodule/ec/internal.h",
         "patchSetId": 4
@@ -16,6 +90,24 @@
       "revId": "a061c588fc5b2a17447e339a5c83fe41701460f9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1085e152_33336e3f",
+        "filename": "crypto/fipsmodule/ec/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-10-27T17:56:01Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d300d494_7411f9f4",
+      "revId": "a061c588fc5b2a17447e339a5c83fe41701460f9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
