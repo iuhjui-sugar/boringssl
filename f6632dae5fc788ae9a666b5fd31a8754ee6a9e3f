@@ -16,6 +16,24 @@
       "revId": "f6632dae5fc788ae9a666b5fd31a8754ee6a9e3f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c268e8d_6ae84760",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2017-10-27T19:10:40Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "fd7b8102_0418f653",
+      "revId": "f6632dae5fc788ae9a666b5fd31a8754ee6a9e3f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }

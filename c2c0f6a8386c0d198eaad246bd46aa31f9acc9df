@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "67b3011c_a1d961b1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2017-10-27T19:10:40Z",
+      "side": 1,
+      "message": "I do have an idea for different preconditions for fe_add, ..., but I have not actually gone through and checked that it works. Basically there would be a third type fe_veryloose, and adding fe_loose and fe should give fe_veryloose (but fe_loose + fe_loose would still be bad). Something like that might even work with unsigned integers, but the pre-this-change usage of fe_* here fails tests with unsigned field implementation from fiat-crypto, so the more fine-grained field operation specifications would indeed likely be different for signed and unsigned arithmetic, whereas I have confirmed that fiat-crypto can synthesize operations to the operations in this change.",
+      "parentUuid": "78267467_0b94a55c",
+      "range": {
+        "startLine": 10,
+        "startChar": 44,
+        "endLine": 10,
+        "endChar": 57
+      },
+      "revId": "c2c0f6a8386c0d198eaad246bd46aa31f9acc9df",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "58141927_74d12da1",
         "filename": "/COMMIT_MSG",
         "patchSetId": 8
@@ -36,6 +60,24 @@
       "writtenOn": "2017-10-27T18:51:23Z",
       "side": 1,
       "message": "Wonder if it\u0027s worth tossing some Ed25519 and X25519 fuzzers to trip these then. They\u0027ve amazingly had some luck with OpenSSL carry issues. Though I guess if we\u0027re going to replace with fiat-crypto anyway, we may not need something quite so crude.",
+      "revId": "c2c0f6a8386c0d198eaad246bd46aa31f9acc9df",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b06099e_d1cbc159",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2017-10-27T19:10:40Z",
+      "side": 1,
+      "message": "We could (but I don\u0027t know how to do it).\n\nI did test that these assertions do fail before the changes to how the field operations are called. Later I intend to transcribe the assertions directly from Coq specifications of the field operations.",
+      "parentUuid": "58141927_74d12da1",
       "revId": "c2c0f6a8386c0d198eaad246bd46aa31f9acc9df",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
