@@ -81,6 +81,24 @@
       "revId": "c2c0f6a8386c0d198eaad246bd46aa31f9acc9df",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8613e91_04c4bdb2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-27T19:18:03Z",
+      "side": 1,
+      "message": "It\u0027s just a matter of adding a new file to the fuzz/ directory and a build target. The rest will get picked up automatically by OSS-Fuzz. There\u0027s a FUZZING.md file with notes on how to build locally. (No need to do it here or anything. It was just an idle thought.)",
+      "parentUuid": "2b06099e_d1cbc159",
+      "revId": "c2c0f6a8386c0d198eaad246bd46aa31f9acc9df",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
