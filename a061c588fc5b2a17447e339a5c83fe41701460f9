@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d300d494_7411f9f4",
+        "filename": "crypto/fipsmodule/ec/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-27T01:24:44Z",
+      "side": 1,
+      "message": "I did have designs on someday making EC_POINT or similar require no mallocs and stack-allocatable (make them as large as P-521 or so). This somewhat throws a wrench into things as they would need to be ec_point_cleanup-able, but that\u0027s hopefully solvable. Worst case EC_POINT becomes a struct with both EC_GROUP* and ec_raw_point_thingy.",
+      "revId": "a061c588fc5b2a17447e339a5c83fe41701460f9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
