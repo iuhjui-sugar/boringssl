@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "904519b4_f30f8c1c",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-28T18:39:25Z",
+      "side": 1,
+      "message": "One quick comment I just realized before I forget: this, with or without my key schedule idea, doesn\u0027t quite work. The problem is we have passed the HRR point and digest !\u003d hs-\u003etranscript.Digest(), the binder will be wrong. This was part of why we tweaked HRR to include the cipher suite, so the client could know a priori whether the hash mismatched session case was doomed to die.\n\nWhen you receive an HRR, you need to check if the offered session is incompatible with the cipher. If it is, drop the session before sending ClientHello.\n\n(Add a test for this too.)\n\n\"\"\"\nIn addition, in its updated ClientHello, the client SHOULD NOT offer any pre-shared keys associated with a hash other than that of the selected cipher suite. This allows the client to avoid having to compute partial hash transcripts for multiple hashes in the second ClientHello. A client which receives a cipher suite that was not offered MUST abort the handshake. Servers MUST ensure that they negotiate the same cipher suite when receiving a conformant updated ClientHello (if the server selects the cipher suite as the first step in the negotiation, then this will happen automatically). Upon receiving the ServerHello, clients MUST check that the cipher suite supplied in the ServerHello is the same as that in the HelloRetryRequest and otherwise abort the handshake with an “illegal_parameter” alert.\n\"\"\"",
+      "revId": "49a90e2d5a9d774754c7d4b2b1204e1b0610dfbd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
