@@ -35,8 +35,6 @@
 
 static const int64_t kBottom25Bits = INT64_C(0x1ffffff);
 static const int64_t kBottom26Bits = INT64_C(0x3ffffff);
-static const int64_t kTop39Bits = INT64_C(0xfffffffffe000000);
-static const int64_t kTop38Bits = INT64_C(0xfffffffffc000000);
 
 static uint64_t load_3(const uint8_t *in) {
   uint64_t result;
@@ -57,63 +55,36 @@ static uint64_t load_4(const uint8_t *in) {
 
 #define assert_fe(f) do { \
   for (unsigned _assert_fe_i = 0; _assert_fe_i< 10; _assert_fe_i++) { \
-    assert(-1.1*(1<<(25-(_assert_fe_i&1))) < f[_assert_fe_i]); \
-    assert(f[_assert_fe_i] < 1.1*(1<<(25-(_assert_fe_i&1)))); \
+    assert(f[_assert_fe_i] < 1.125*(1<<(26-(_assert_fe_i&1)))); \
   } \
 } while (0)
 
 #define assert_fe_loose(f) do { \
   for (unsigned _assert_fe_i = 0; _assert_fe_i< 10; _assert_fe_i++) { \
-    assert(-1.1*(1<<(26-(_assert_fe_i&1))) < f[_assert_fe_i]); \
-    assert(f[_assert_fe_i] < 1.1*(1<<(26-(_assert_fe_i&1)))); \
+    assert(f[_assert_fe_i] < 3.375*(1<<(26-(_assert_fe_i&1)))); \
   } \
 } while (0)
 
-static void fe_frombytes_impl(int32_t h[10], const uint8_t *s) {
-  // Ignores top bit of h.
-  int64_t h0 = load_4(s);
-  int64_t h1 = load_3(s + 4) << 6;
-  int64_t h2 = load_3(s + 7) << 5;
-  int64_t h3 = load_3(s + 10) << 3;
-  int64_t h4 = load_3(s + 13) << 2;
-  int64_t h5 = load_4(s + 16);
-  int64_t h6 = load_3(s + 20) << 7;
-  int64_t h7 = load_3(s + 23) << 5;
-  int64_t h8 = load_3(s + 26) << 4;
-  int64_t h9 = (load_3(s + 29) & 8388607) << 2;
-  int64_t carry0;
-  int64_t carry1;
-  int64_t carry2;
-  int64_t carry3;
-  int64_t carry4;
-  int64_t carry5;
-  int64_t carry6;
-  int64_t carry7;
-  int64_t carry8;
-  int64_t carry9;
-
-  carry9 = h9 + (1 << 24); h0 += (carry9 >> 25) * 19; h9 -= carry9 & kTop39Bits;
-  carry1 = h1 + (1 << 24); h2 += carry1 >> 25; h1 -= carry1 & kTop39Bits;
-  carry3 = h3 + (1 << 24); h4 += carry3 >> 25; h3 -= carry3 & kTop39Bits;
-  carry5 = h5 + (1 << 24); h6 += carry5 >> 25; h5 -= carry5 & kTop39Bits;
-  carry7 = h7 + (1 << 24); h8 += carry7 >> 25; h7 -= carry7 & kTop39Bits;
-
-  carry0 = h0 + (1 << 25); h1 += carry0 >> 26; h0 -= carry0 & kTop38Bits;
-  carry2 = h2 + (1 << 25); h3 += carry2 >> 26; h2 -= carry2 & kTop38Bits;
-  carry4 = h4 + (1 << 25); h5 += carry4 >> 26; h4 -= carry4 & kTop38Bits;
-  carry6 = h6 + (1 << 25); h7 += carry6 >> 26; h6 -= carry6 & kTop38Bits;
-  carry8 = h8 + (1 << 25); h9 += carry8 >> 26; h8 -= carry8 & kTop38Bits;
-
-  h[0] = h0;
-  h[1] = h1;
-  h[2] = h2;
-  h[3] = h3;
-  h[4] = h4;
-  h[5] = h5;
-  h[6] = h6;
-  h[7] = h7;
-  h[8] = h8;
-  h[9] = h9;
+static void fe_frombytes_impl(uint32_t h[10], const uint8_t *s) {
+  // Ignores top bit of s.
+  uint32_t a0 = load_4(s);
+  uint32_t a1 = load_4(s+4);
+  uint32_t a2 = load_4(s+8);
+  uint32_t a3 = load_4(s+12);
+  uint32_t a4 = load_4(s+16);
+  uint32_t a5 = load_4(s+20);
+  uint32_t a6 = load_4(s+24);
+  uint32_t a7 = load_4(s+28);
+  h[0] = a0&((1<<26)-1);                    // 26 used, 32-26 left.   26
+  h[1] = (a0>>26) | ((a1&((1<<19)-1))<< 6); // (32-26) + 19 =  6+19 = 25
+  h[2] = (a1>>19) | ((a2&((1<<13)-1))<<13); // (32-19) + 13 = 13+13 = 26
+  h[3] = (a2>>13) | ((a3&((1<< 6)-1))<<19); // (32-13) +  6 = 19+ 6 = 25
+  h[4] = (a3>> 6);                          // (32- 6)              = 26
+  h[5] = a4&((1<<25)-1);                    //                        25
+  h[6] = (a4>>25) | ((a5&((1<<19)-1))<< 7); // (32-25) + 19 =  7+19 = 26
+  h[7] = (a5>>19) | ((a6&((1<<12)-1))<<13); // (32-19) + 12 = 13+12 = 25
+  h[8] = (a6>>12) | ((a7&((1<< 6)-1))<<20); // (32-12) +  6 = 20+ 6 = 26
+  h[9] = (a7>> 6)&((1<<25)-1); //                                     25
   assert_fe(h);
 }
 
@@ -143,7 +114,7 @@ static void fe_frombytes(fe *h, const uint8_t *s) {
 //
 //   Have q+2^(-255)x = 2^(-255)(h + 19 2^(-25) h9 + 2^(-1))
 //   so floor(2^(-255)(h + 19 2^(-25) h9 + 2^(-1))) = q.
-static void fe_tobytes_impl(uint8_t *s, const int32_t h[10]) {
+static void fe_tobytes_impl(uint8_t *s, const uint32_t h[10]) {
   assert_fe_loose(h);
   int32_t h0 = h[0];
   int32_t h1 = h[1];
@@ -234,33 +205,67 @@ static void fe_loose_tobytes(uint8_t *s, const fe_loose *h) {
 
 // h = f
 static void fe_copy(fe *h, const fe *f) {
-  OPENSSL_memmove(h, f, sizeof(int32_t) * 10);
+  OPENSSL_memmove(h, f, sizeof(uint32_t) * 10);
 }
 static void fe_copy_lt(fe_loose *h, const fe *f) {
-  OPENSSL_memmove(h, f, sizeof(int32_t) * 10);
+  OPENSSL_memmove(h, f, sizeof(uint32_t) * 10);
 }
 #if !defined(OPENSSL_SMALL)
 static void fe_copy_ll(fe_loose *h, const fe_loose *f) {
-  OPENSSL_memmove(h, f, sizeof(int32_t) * 10);
+  OPENSSL_memmove(h, f, sizeof(uint32_t) * 10);
 }
 #endif // !defined(OPENSSL_SMALL)
 
 // h = 0
 static void fe_0(fe *h) {
-  OPENSSL_memset(h, 0, sizeof(int32_t) * 10);
+  OPENSSL_memset(h, 0, sizeof(uint32_t) * 10);
 }
 static void fe_loose_0(fe_loose *h) {
-  OPENSSL_memset(h, 0, sizeof(int32_t) * 10);
+  OPENSSL_memset(h, 0, sizeof(uint32_t) * 10);
 }
 
 // h = 1
 static void fe_1(fe *h) {
-  OPENSSL_memset(h, 0, sizeof(int32_t) * 10);
+  OPENSSL_memset(h, 0, sizeof(uint32_t) * 10);
   h->v[0] = 1;
 }
 static void fe_loose_1(fe_loose *h) {
-  OPENSSL_memset(h, 0, sizeof(int32_t) * 10);
+  OPENSSL_memset(h, 0, sizeof(uint32_t) * 10);
   h->v[0] = 1;
+}
+
+static void fe_add_impl(uint32_t out[10], const uint32_t in1[10], const uint32_t in2[10]) {
+  { const uint32_t x20 = in1[9];
+  { const uint32_t x21 = in1[8];
+  { const uint32_t x19 = in1[7];
+  { const uint32_t x17 = in1[6];
+  { const uint32_t x15 = in1[5];
+  { const uint32_t x13 = in1[4];
+  { const uint32_t x11 = in1[3];
+  { const uint32_t x9 = in1[2];
+  { const uint32_t x7 = in1[1];
+  { const uint32_t x5 = in1[0];
+  { const uint32_t x38 = in2[9];
+  { const uint32_t x39 = in2[8];
+  { const uint32_t x37 = in2[7];
+  { const uint32_t x35 = in2[6];
+  { const uint32_t x33 = in2[5];
+  { const uint32_t x31 = in2[4];
+  { const uint32_t x29 = in2[3];
+  { const uint32_t x27 = in2[2];
+  { const uint32_t x25 = in2[1];
+  { const uint32_t x23 = in2[0];
+  out[0] = (x5 + x23);
+  out[1] = (x7 + x25);
+  out[2] = (x9 + x27);
+  out[3] = (x11 + x29);
+  out[4] = (x13 + x31);
+  out[5] = (x15 + x33);
+  out[6] = (x17 + x35);
+  out[7] = (x19 + x37);
+  out[8] = (x21 + x39);
+  out[9] = (x20 + x38);
+  }}}}}}}}}}}}}}}}}}}}
 }
 
 // h = f + g
@@ -275,11 +280,42 @@ static void fe_loose_1(fe_loose *h) {
 static void fe_add(fe_loose *h, const fe *f, const fe *g) {
   assert_fe(f->v);
   assert_fe(g->v);
-  unsigned i;
-  for (i = 0; i < 10; i++) {
-    h->v[i] = f->v[i] + g->v[i];
-  }
+  fe_add_impl(h->v, f->v, g->v);
   assert_fe_loose(h->v);
+}
+
+static void fe_sub_impl(uint32_t out[10], const uint32_t in1[10], const uint32_t in2[10]) {
+  { const uint32_t x20 = in1[9];
+  { const uint32_t x21 = in1[8];
+  { const uint32_t x19 = in1[7];
+  { const uint32_t x17 = in1[6];
+  { const uint32_t x15 = in1[5];
+  { const uint32_t x13 = in1[4];
+  { const uint32_t x11 = in1[3];
+  { const uint32_t x9 = in1[2];
+  { const uint32_t x7 = in1[1];
+  { const uint32_t x5 = in1[0];
+  { const uint32_t x38 = in2[9];
+  { const uint32_t x39 = in2[8];
+  { const uint32_t x37 = in2[7];
+  { const uint32_t x35 = in2[6];
+  { const uint32_t x33 = in2[5];
+  { const uint32_t x31 = in2[4];
+  { const uint32_t x29 = in2[3];
+  { const uint32_t x27 = in2[2];
+  { const uint32_t x25 = in2[1];
+  { const uint32_t x23 = in2[0];
+  out[0] = ((0x7ffffda + x5) - x23);
+  out[1] = ((0x3fffffe + x7) - x25);
+  out[2] = ((0x7fffffe + x9) - x27);
+  out[3] = ((0x3fffffe + x11) - x29);
+  out[4] = ((0x7fffffe + x13) - x31);
+  out[5] = ((0x3fffffe + x15) - x33);
+  out[6] = ((0x7fffffe + x17) - x35);
+  out[7] = ((0x3fffffe + x19) - x37);
+  out[8] = ((0x7fffffe + x21) - x39);
+  out[9] = ((0x3fffffe + x20) - x38);
+  }}}}}}}}}}}}}}}}}}}}
 }
 
 // h = f - g
@@ -294,305 +330,191 @@ static void fe_add(fe_loose *h, const fe *f, const fe *g) {
 static void fe_sub(fe_loose *h, const fe *f, const fe *g) {
   assert_fe(f->v);
   assert_fe(g->v);
-  unsigned i;
-  for (i = 0; i < 10; i++) {
-    h->v[i] = f->v[i] - g->v[i];
-  }
+  fe_sub_impl(h->v, f->v, g->v);
   assert_fe_loose(h->v);
+}
+
+static void fe_carry_impl(uint32_t out[10], const uint32_t in1[10]) {
+  { const uint32_t x17 = in1[9];
+  { const uint32_t x18 = in1[8];
+  { const uint32_t x16 = in1[7];
+  { const uint32_t x14 = in1[6];
+  { const uint32_t x12 = in1[5];
+  { const uint32_t x10 = in1[4];
+  { const uint32_t x8 = in1[3];
+  { const uint32_t x6 = in1[2];
+  { const uint32_t x4 = in1[1];
+  { const uint32_t x2 = in1[0];
+  { uint32_t x19 = (x2 >> 0x1a);
+  { uint32_t x20 = (x2 & 0x3ffffff);
+  { uint32_t x21 = (x19 + x4);
+  { uint32_t x22 = (x21 >> 0x19);
+  { uint32_t x23 = (x21 & 0x1ffffff);
+  { uint32_t x24 = (x22 + x6);
+  { uint32_t x25 = (x24 >> 0x1a);
+  { uint32_t x26 = (x24 & 0x3ffffff);
+  { uint32_t x27 = (x25 + x8);
+  { uint32_t x28 = (x27 >> 0x19);
+  { uint32_t x29 = (x27 & 0x1ffffff);
+  { uint32_t x30 = (x28 + x10);
+  { uint32_t x31 = (x30 >> 0x1a);
+  { uint32_t x32 = (x30 & 0x3ffffff);
+  { uint32_t x33 = (x31 + x12);
+  { uint32_t x34 = (x33 >> 0x19);
+  { uint32_t x35 = (x33 & 0x1ffffff);
+  { uint32_t x36 = (x34 + x14);
+  { uint32_t x37 = (x36 >> 0x1a);
+  { uint32_t x38 = (x36 & 0x3ffffff);
+  { uint32_t x39 = (x37 + x16);
+  { uint32_t x40 = (x39 >> 0x19);
+  { uint32_t x41 = (x39 & 0x1ffffff);
+  { uint32_t x42 = (x40 + x18);
+  { uint32_t x43 = (x42 >> 0x1a);
+  { uint32_t x44 = (x42 & 0x3ffffff);
+  { uint32_t x45 = (x43 + x17);
+  { uint32_t x46 = (x45 >> 0x19);
+  { uint32_t x47 = (x45 & 0x1ffffff);
+  { uint32_t x48 = (x20 + (0x13 * x46));
+  { uint32_t x49 = (x48 >> 0x1a);
+  { uint32_t x50 = (x48 & 0x3ffffff);
+  { uint32_t x51 = (x49 + x23);
+  { uint32_t x52 = (x51 >> 0x19);
+  { uint32_t x53 = (x51 & 0x1ffffff);
+  out[0] = x50;
+  out[1] = x53;
+  out[2] = (x52 + x26);
+  out[3] = x29;
+  out[4] = x32;
+  out[5] = x35;
+  out[6] = x38;
+  out[7] = x41;
+  out[8] = x44;
+  out[9] = x47;
+  }}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
 }
 
 static void fe_carry(fe *h, const fe_loose* f) {
   assert_fe_loose(f->v);
-  int32_t h0 = f->v[0];
-  int32_t h1 = f->v[1];
-  int32_t h2 = f->v[2];
-  int32_t h3 = f->v[3];
-  int32_t h4 = f->v[4];
-  int32_t h5 = f->v[5];
-  int32_t h6 = f->v[6];
-  int32_t h7 = f->v[7];
-  int32_t h8 = f->v[8];
-  int32_t h9 = f->v[9];
-  int64_t carry0;
-  int64_t carry1;
-  int64_t carry2;
-  int64_t carry3;
-  int64_t carry4;
-  int64_t carry5;
-  int64_t carry6;
-  int64_t carry7;
-  int64_t carry8;
-  int64_t carry9;
-
-  carry9 = h9 + (1 << 24); h0 += (carry9 >> 25) * 19; h9 -= carry9 & kTop39Bits;
-  carry1 = h1 + (1 << 24); h2 += carry1 >> 25; h1 -= carry1 & kTop39Bits;
-  carry3 = h3 + (1 << 24); h4 += carry3 >> 25; h3 -= carry3 & kTop39Bits;
-  carry5 = h5 + (1 << 24); h6 += carry5 >> 25; h5 -= carry5 & kTop39Bits;
-  carry7 = h7 + (1 << 24); h8 += carry7 >> 25; h7 -= carry7 & kTop39Bits;
-
-  carry0 = h0 + (1 << 25); h1 += carry0 >> 26; h0 -= carry0 & kTop38Bits;
-  carry2 = h2 + (1 << 25); h3 += carry2 >> 26; h2 -= carry2 & kTop38Bits;
-  carry4 = h4 + (1 << 25); h5 += carry4 >> 26; h4 -= carry4 & kTop38Bits;
-  carry6 = h6 + (1 << 25); h7 += carry6 >> 26; h6 -= carry6 & kTop38Bits;
-  carry8 = h8 + (1 << 25); h9 += carry8 >> 26; h8 -= carry8 & kTop38Bits;
-
-  h->v[0] = h0;
-  h->v[1] = h1;
-  h->v[2] = h2;
-  h->v[3] = h3;
-  h->v[4] = h4;
-  h->v[5] = h5;
-  h->v[6] = h6;
-  h->v[7] = h7;
-  h->v[8] = h8;
-  h->v[9] = h9;
+  fe_carry_impl(h->v, f->v);
   assert_fe(h->v);
 }
 
-// h = f * g
-// Can overlap h with f or g.
-//
-// Preconditions:
-//    |f| bounded by 1.65*2^26,1.65*2^25,1.65*2^26,1.65*2^25,etc.
-//    |g| bounded by 1.65*2^26,1.65*2^25,1.65*2^26,1.65*2^25,etc.
-//
-// Postconditions:
-//    |h| bounded by 1.01*2^25,1.01*2^24,1.01*2^25,1.01*2^24,etc.
-//
-// Notes on implementation strategy:
-//
-// Using schoolbook multiplication.
-// Karatsuba would save a little in some cost models.
-//
-// Most multiplications by 2 and 19 are 32-bit precomputations;
-// cheaper than 64-bit postcomputations.
-//
-// There is one remaining multiplication by 19 in the carry chain;
-// one *19 precomputation can be merged into this,
-// but the resulting data flow is considerably less clean.
-//
-// There are 12 carries below.
-// 10 of them are 2-way parallelizable and vectorizable.
-// Can get away with 11 carries, but then data flow is much deeper.
-//
-// With tighter constraints on inputs can squeeze carries into int32.
-static void fe_mul_impl(int32_t h[10], const int32_t f[10], const int32_t g[10]) {
-  assert_fe_loose(f);
-  assert_fe_loose(g);
-  int32_t f0 = f[0];
-  int32_t f1 = f[1];
-  int32_t f2 = f[2];
-  int32_t f3 = f[3];
-  int32_t f4 = f[4];
-  int32_t f5 = f[5];
-  int32_t f6 = f[6];
-  int32_t f7 = f[7];
-  int32_t f8 = f[8];
-  int32_t f9 = f[9];
-  int32_t g0 = g[0];
-  int32_t g1 = g[1];
-  int32_t g2 = g[2];
-  int32_t g3 = g[3];
-  int32_t g4 = g[4];
-  int32_t g5 = g[5];
-  int32_t g6 = g[6];
-  int32_t g7 = g[7];
-  int32_t g8 = g[8];
-  int32_t g9 = g[9];
-  int32_t g1_19 = 19 * g1;  // 1.959375*2^29
-  int32_t g2_19 = 19 * g2;  // 1.959375*2^30; still ok
-  int32_t g3_19 = 19 * g3;
-  int32_t g4_19 = 19 * g4;
-  int32_t g5_19 = 19 * g5;
-  int32_t g6_19 = 19 * g6;
-  int32_t g7_19 = 19 * g7;
-  int32_t g8_19 = 19 * g8;
-  int32_t g9_19 = 19 * g9;
-  int32_t f1_2 = 2 * f1;
-  int32_t f3_2 = 2 * f3;
-  int32_t f5_2 = 2 * f5;
-  int32_t f7_2 = 2 * f7;
-  int32_t f9_2 = 2 * f9;
-  int64_t f0g0    = f0   * (int64_t) g0;
-  int64_t f0g1    = f0   * (int64_t) g1;
-  int64_t f0g2    = f0   * (int64_t) g2;
-  int64_t f0g3    = f0   * (int64_t) g3;
-  int64_t f0g4    = f0   * (int64_t) g4;
-  int64_t f0g5    = f0   * (int64_t) g5;
-  int64_t f0g6    = f0   * (int64_t) g6;
-  int64_t f0g7    = f0   * (int64_t) g7;
-  int64_t f0g8    = f0   * (int64_t) g8;
-  int64_t f0g9    = f0   * (int64_t) g9;
-  int64_t f1g0    = f1   * (int64_t) g0;
-  int64_t f1g1_2  = f1_2 * (int64_t) g1;
-  int64_t f1g2    = f1   * (int64_t) g2;
-  int64_t f1g3_2  = f1_2 * (int64_t) g3;
-  int64_t f1g4    = f1   * (int64_t) g4;
-  int64_t f1g5_2  = f1_2 * (int64_t) g5;
-  int64_t f1g6    = f1   * (int64_t) g6;
-  int64_t f1g7_2  = f1_2 * (int64_t) g7;
-  int64_t f1g8    = f1   * (int64_t) g8;
-  int64_t f1g9_38 = f1_2 * (int64_t) g9_19;
-  int64_t f2g0    = f2   * (int64_t) g0;
-  int64_t f2g1    = f2   * (int64_t) g1;
-  int64_t f2g2    = f2   * (int64_t) g2;
-  int64_t f2g3    = f2   * (int64_t) g3;
-  int64_t f2g4    = f2   * (int64_t) g4;
-  int64_t f2g5    = f2   * (int64_t) g5;
-  int64_t f2g6    = f2   * (int64_t) g6;
-  int64_t f2g7    = f2   * (int64_t) g7;
-  int64_t f2g8_19 = f2   * (int64_t) g8_19;
-  int64_t f2g9_19 = f2   * (int64_t) g9_19;
-  int64_t f3g0    = f3   * (int64_t) g0;
-  int64_t f3g1_2  = f3_2 * (int64_t) g1;
-  int64_t f3g2    = f3   * (int64_t) g2;
-  int64_t f3g3_2  = f3_2 * (int64_t) g3;
-  int64_t f3g4    = f3   * (int64_t) g4;
-  int64_t f3g5_2  = f3_2 * (int64_t) g5;
-  int64_t f3g6    = f3   * (int64_t) g6;
-  int64_t f3g7_38 = f3_2 * (int64_t) g7_19;
-  int64_t f3g8_19 = f3   * (int64_t) g8_19;
-  int64_t f3g9_38 = f3_2 * (int64_t) g9_19;
-  int64_t f4g0    = f4   * (int64_t) g0;
-  int64_t f4g1    = f4   * (int64_t) g1;
-  int64_t f4g2    = f4   * (int64_t) g2;
-  int64_t f4g3    = f4   * (int64_t) g3;
-  int64_t f4g4    = f4   * (int64_t) g4;
-  int64_t f4g5    = f4   * (int64_t) g5;
-  int64_t f4g6_19 = f4   * (int64_t) g6_19;
-  int64_t f4g7_19 = f4   * (int64_t) g7_19;
-  int64_t f4g8_19 = f4   * (int64_t) g8_19;
-  int64_t f4g9_19 = f4   * (int64_t) g9_19;
-  int64_t f5g0    = f5   * (int64_t) g0;
-  int64_t f5g1_2  = f5_2 * (int64_t) g1;
-  int64_t f5g2    = f5   * (int64_t) g2;
-  int64_t f5g3_2  = f5_2 * (int64_t) g3;
-  int64_t f5g4    = f5   * (int64_t) g4;
-  int64_t f5g5_38 = f5_2 * (int64_t) g5_19;
-  int64_t f5g6_19 = f5   * (int64_t) g6_19;
-  int64_t f5g7_38 = f5_2 * (int64_t) g7_19;
-  int64_t f5g8_19 = f5   * (int64_t) g8_19;
-  int64_t f5g9_38 = f5_2 * (int64_t) g9_19;
-  int64_t f6g0    = f6   * (int64_t) g0;
-  int64_t f6g1    = f6   * (int64_t) g1;
-  int64_t f6g2    = f6   * (int64_t) g2;
-  int64_t f6g3    = f6   * (int64_t) g3;
-  int64_t f6g4_19 = f6   * (int64_t) g4_19;
-  int64_t f6g5_19 = f6   * (int64_t) g5_19;
-  int64_t f6g6_19 = f6   * (int64_t) g6_19;
-  int64_t f6g7_19 = f6   * (int64_t) g7_19;
-  int64_t f6g8_19 = f6   * (int64_t) g8_19;
-  int64_t f6g9_19 = f6   * (int64_t) g9_19;
-  int64_t f7g0    = f7   * (int64_t) g0;
-  int64_t f7g1_2  = f7_2 * (int64_t) g1;
-  int64_t f7g2    = f7   * (int64_t) g2;
-  int64_t f7g3_38 = f7_2 * (int64_t) g3_19;
-  int64_t f7g4_19 = f7   * (int64_t) g4_19;
-  int64_t f7g5_38 = f7_2 * (int64_t) g5_19;
-  int64_t f7g6_19 = f7   * (int64_t) g6_19;
-  int64_t f7g7_38 = f7_2 * (int64_t) g7_19;
-  int64_t f7g8_19 = f7   * (int64_t) g8_19;
-  int64_t f7g9_38 = f7_2 * (int64_t) g9_19;
-  int64_t f8g0    = f8   * (int64_t) g0;
-  int64_t f8g1    = f8   * (int64_t) g1;
-  int64_t f8g2_19 = f8   * (int64_t) g2_19;
-  int64_t f8g3_19 = f8   * (int64_t) g3_19;
-  int64_t f8g4_19 = f8   * (int64_t) g4_19;
-  int64_t f8g5_19 = f8   * (int64_t) g5_19;
-  int64_t f8g6_19 = f8   * (int64_t) g6_19;
-  int64_t f8g7_19 = f8   * (int64_t) g7_19;
-  int64_t f8g8_19 = f8   * (int64_t) g8_19;
-  int64_t f8g9_19 = f8   * (int64_t) g9_19;
-  int64_t f9g0    = f9   * (int64_t) g0;
-  int64_t f9g1_38 = f9_2 * (int64_t) g1_19;
-  int64_t f9g2_19 = f9   * (int64_t) g2_19;
-  int64_t f9g3_38 = f9_2 * (int64_t) g3_19;
-  int64_t f9g4_19 = f9   * (int64_t) g4_19;
-  int64_t f9g5_38 = f9_2 * (int64_t) g5_19;
-  int64_t f9g6_19 = f9   * (int64_t) g6_19;
-  int64_t f9g7_38 = f9_2 * (int64_t) g7_19;
-  int64_t f9g8_19 = f9   * (int64_t) g8_19;
-  int64_t f9g9_38 = f9_2 * (int64_t) g9_19;
-  int64_t h0 = f0g0+f1g9_38+f2g8_19+f3g7_38+f4g6_19+f5g5_38+f6g4_19+f7g3_38+f8g2_19+f9g1_38;
-  int64_t h1 = f0g1+f1g0   +f2g9_19+f3g8_19+f4g7_19+f5g6_19+f6g5_19+f7g4_19+f8g3_19+f9g2_19;
-  int64_t h2 = f0g2+f1g1_2 +f2g0   +f3g9_38+f4g8_19+f5g7_38+f6g6_19+f7g5_38+f8g4_19+f9g3_38;
-  int64_t h3 = f0g3+f1g2   +f2g1   +f3g0   +f4g9_19+f5g8_19+f6g7_19+f7g6_19+f8g5_19+f9g4_19;
-  int64_t h4 = f0g4+f1g3_2 +f2g2   +f3g1_2 +f4g0   +f5g9_38+f6g8_19+f7g7_38+f8g6_19+f9g5_38;
-  int64_t h5 = f0g5+f1g4   +f2g3   +f3g2   +f4g1   +f5g0   +f6g9_19+f7g8_19+f8g7_19+f9g6_19;
-  int64_t h6 = f0g6+f1g5_2 +f2g4   +f3g3_2 +f4g2   +f5g1_2 +f6g0   +f7g9_38+f8g8_19+f9g7_38;
-  int64_t h7 = f0g7+f1g6   +f2g5   +f3g4   +f4g3   +f5g2   +f6g1   +f7g0   +f8g9_19+f9g8_19;
-  int64_t h8 = f0g8+f1g7_2 +f2g6   +f3g5_2 +f4g4   +f5g3_2 +f6g2   +f7g1_2 +f8g0   +f9g9_38;
-  int64_t h9 = f0g9+f1g8   +f2g7   +f3g6   +f4g5   +f5g4   +f6g3   +f7g2   +f8g1   +f9g0   ;
-  int64_t carry0;
-  int64_t carry1;
-  int64_t carry2;
-  int64_t carry3;
-  int64_t carry4;
-  int64_t carry5;
-  int64_t carry6;
-  int64_t carry7;
-  int64_t carry8;
-  int64_t carry9;
-
-  // |h0| <= (1.65*1.65*2^52*(1+19+19+19+19)+1.65*1.65*2^50*(38+38+38+38+38))
-  //   i.e. |h0| <= 1.4*2^60; narrower ranges for h2, h4, h6, h8
-  // |h1| <= (1.65*1.65*2^51*(1+1+19+19+19+19+19+19+19+19))
-  //   i.e. |h1| <= 1.7*2^59; narrower ranges for h3, h5, h7, h9
-
-  carry0 = h0 + (1 << 25); h1 += carry0 >> 26; h0 -= carry0 & kTop38Bits;
-  carry4 = h4 + (1 << 25); h5 += carry4 >> 26; h4 -= carry4 & kTop38Bits;
-  // |h0| <= 2^25
-  // |h4| <= 2^25
-  // |h1| <= 1.71*2^59
-  // |h5| <= 1.71*2^59
-
-  carry1 = h1 + (1 << 24); h2 += carry1 >> 25; h1 -= carry1 & kTop39Bits;
-  carry5 = h5 + (1 << 24); h6 += carry5 >> 25; h5 -= carry5 & kTop39Bits;
-  // |h1| <= 2^24; from now on fits into int32
-  // |h5| <= 2^24; from now on fits into int32
-  // |h2| <= 1.41*2^60
-  // |h6| <= 1.41*2^60
-
-  carry2 = h2 + (1 << 25); h3 += carry2 >> 26; h2 -= carry2 & kTop38Bits;
-  carry6 = h6 + (1 << 25); h7 += carry6 >> 26; h6 -= carry6 & kTop38Bits;
-  // |h2| <= 2^25; from now on fits into int32 unchanged
-  // |h6| <= 2^25; from now on fits into int32 unchanged
-  // |h3| <= 1.71*2^59
-  // |h7| <= 1.71*2^59
-
-  carry3 = h3 + (1 << 24); h4 += carry3 >> 25; h3 -= carry3 & kTop39Bits;
-  carry7 = h7 + (1 << 24); h8 += carry7 >> 25; h7 -= carry7 & kTop39Bits;
-  // |h3| <= 2^24; from now on fits into int32 unchanged
-  // |h7| <= 2^24; from now on fits into int32 unchanged
-  // |h4| <= 1.72*2^34
-  // |h8| <= 1.41*2^60
-
-  carry4 = h4 + (1 << 25); h5 += carry4 >> 26; h4 -= carry4 & kTop38Bits;
-  carry8 = h8 + (1 << 25); h9 += carry8 >> 26; h8 -= carry8 & kTop38Bits;
-  // |h4| <= 2^25; from now on fits into int32 unchanged
-  // |h8| <= 2^25; from now on fits into int32 unchanged
-  // |h5| <= 1.01*2^24
-  // |h9| <= 1.71*2^59
-
-  carry9 = h9 + (1 << 24); h0 += (carry9 >> 25) * 19; h9 -= carry9 & kTop39Bits;
-  // |h9| <= 2^24; from now on fits into int32 unchanged
-  // |h0| <= 1.1*2^39
-
-  carry0 = h0 + (1 << 25); h1 += carry0 >> 26; h0 -= carry0 & kTop38Bits;
-  // |h0| <= 2^25; from now on fits into int32 unchanged
-  // |h1| <= 1.01*2^24
-
-  h[0] = h0;
-  h[1] = h1;
-  h[2] = h2;
-  h[3] = h3;
-  h[4] = h4;
-  h[5] = h5;
-  h[6] = h6;
-  h[7] = h7;
-  h[8] = h8;
-  h[9] = h9;
-  assert_fe(h);
+static void fe_mul_impl(uint32_t out[10], const uint32_t in1[10], const uint32_t in2[10]) {
+  assert_fe_loose(in1);
+  assert_fe_loose(in2);
+  { const uint32_t x20 = in1[9];
+  { const uint32_t x21 = in1[8];
+  { const uint32_t x19 = in1[7];
+  { const uint32_t x17 = in1[6];
+  { const uint32_t x15 = in1[5];
+  { const uint32_t x13 = in1[4];
+  { const uint32_t x11 = in1[3];
+  { const uint32_t x9 = in1[2];
+  { const uint32_t x7 = in1[1];
+  { const uint32_t x5 = in1[0];
+  { const uint32_t x38 = in2[9];
+  { const uint32_t x39 = in2[8];
+  { const uint32_t x37 = in2[7];
+  { const uint32_t x35 = in2[6];
+  { const uint32_t x33 = in2[5];
+  { const uint32_t x31 = in2[4];
+  { const uint32_t x29 = in2[3];
+  { const uint32_t x27 = in2[2];
+  { const uint32_t x25 = in2[1];
+  { const uint32_t x23 = in2[0];
+  { uint64_t x40 = ((uint64_t)x23 * x5);
+  { uint64_t x41 = (((uint64_t)x23 * x7) + ((uint64_t)x25 * x5));
+  { uint64_t x42 = ((((uint64_t)(0x2 * x25) * x7) + ((uint64_t)x23 * x9)) + ((uint64_t)x27 * x5));
+  { uint64_t x43 = (((((uint64_t)x25 * x9) + ((uint64_t)x27 * x7)) + ((uint64_t)x23 * x11)) + ((uint64_t)x29 * x5));
+  { uint64_t x44 = (((((uint64_t)x27 * x9) + (0x2 * (((uint64_t)x25 * x11) + ((uint64_t)x29 * x7)))) + ((uint64_t)x23 * x13)) + ((uint64_t)x31 * x5));
+  { uint64_t x45 = (((((((uint64_t)x27 * x11) + ((uint64_t)x29 * x9)) + ((uint64_t)x25 * x13)) + ((uint64_t)x31 * x7)) + ((uint64_t)x23 * x15)) + ((uint64_t)x33 * x5));
+  { uint64_t x46 = (((((0x2 * ((((uint64_t)x29 * x11) + ((uint64_t)x25 * x15)) + ((uint64_t)x33 * x7))) + ((uint64_t)x27 * x13)) + ((uint64_t)x31 * x9)) + ((uint64_t)x23 * x17)) + ((uint64_t)x35 * x5));
+  { uint64_t x47 = (((((((((uint64_t)x29 * x13) + ((uint64_t)x31 * x11)) + ((uint64_t)x27 * x15)) + ((uint64_t)x33 * x9)) + ((uint64_t)x25 * x17)) + ((uint64_t)x35 * x7)) + ((uint64_t)x23 * x19)) + ((uint64_t)x37 * x5));
+  { uint64_t x48 = (((((((uint64_t)x31 * x13) + (0x2 * (((((uint64_t)x29 * x15) + ((uint64_t)x33 * x11)) + ((uint64_t)x25 * x19)) + ((uint64_t)x37 * x7)))) + ((uint64_t)x27 * x17)) + ((uint64_t)x35 * x9)) + ((uint64_t)x23 * x21)) + ((uint64_t)x39 * x5));
+  { uint64_t x49 = (((((((((((uint64_t)x31 * x15) + ((uint64_t)x33 * x13)) + ((uint64_t)x29 * x17)) + ((uint64_t)x35 * x11)) + ((uint64_t)x27 * x19)) + ((uint64_t)x37 * x9)) + ((uint64_t)x25 * x21)) + ((uint64_t)x39 * x7)) + ((uint64_t)x23 * x20)) + ((uint64_t)x38 * x5));
+  { uint64_t x50 = (((((0x2 * ((((((uint64_t)x33 * x15) + ((uint64_t)x29 * x19)) + ((uint64_t)x37 * x11)) + ((uint64_t)x25 * x20)) + ((uint64_t)x38 * x7))) + ((uint64_t)x31 * x17)) + ((uint64_t)x35 * x13)) + ((uint64_t)x27 * x21)) + ((uint64_t)x39 * x9));
+  { uint64_t x51 = (((((((((uint64_t)x33 * x17) + ((uint64_t)x35 * x15)) + ((uint64_t)x31 * x19)) + ((uint64_t)x37 * x13)) + ((uint64_t)x29 * x21)) + ((uint64_t)x39 * x11)) + ((uint64_t)x27 * x20)) + ((uint64_t)x38 * x9));
+  { uint64_t x52 = (((((uint64_t)x35 * x17) + (0x2 * (((((uint64_t)x33 * x19) + ((uint64_t)x37 * x15)) + ((uint64_t)x29 * x20)) + ((uint64_t)x38 * x11)))) + ((uint64_t)x31 * x21)) + ((uint64_t)x39 * x13));
+  { uint64_t x53 = (((((((uint64_t)x35 * x19) + ((uint64_t)x37 * x17)) + ((uint64_t)x33 * x21)) + ((uint64_t)x39 * x15)) + ((uint64_t)x31 * x20)) + ((uint64_t)x38 * x13));
+  { uint64_t x54 = (((0x2 * ((((uint64_t)x37 * x19) + ((uint64_t)x33 * x20)) + ((uint64_t)x38 * x15))) + ((uint64_t)x35 * x21)) + ((uint64_t)x39 * x17));
+  { uint64_t x55 = (((((uint64_t)x37 * x21) + ((uint64_t)x39 * x19)) + ((uint64_t)x35 * x20)) + ((uint64_t)x38 * x17));
+  { uint64_t x56 = (((uint64_t)x39 * x21) + (0x2 * (((uint64_t)x37 * x20) + ((uint64_t)x38 * x19))));
+  { uint64_t x57 = (((uint64_t)x39 * x20) + ((uint64_t)x38 * x21));
+  { uint64_t x58 = ((uint64_t)(0x2 * x38) * x20);
+  { uint64_t x59 = (x48 + (x58 << 0x4));
+  { uint64_t x60 = (x59 + (x58 << 0x1));
+  { uint64_t x61 = (x60 + x58);
+  { uint64_t x62 = (x47 + (x57 << 0x4));
+  { uint64_t x63 = (x62 + (x57 << 0x1));
+  { uint64_t x64 = (x63 + x57);
+  { uint64_t x65 = (x46 + (x56 << 0x4));
+  { uint64_t x66 = (x65 + (x56 << 0x1));
+  { uint64_t x67 = (x66 + x56);
+  { uint64_t x68 = (x45 + (x55 << 0x4));
+  { uint64_t x69 = (x68 + (x55 << 0x1));
+  { uint64_t x70 = (x69 + x55);
+  { uint64_t x71 = (x44 + (x54 << 0x4));
+  { uint64_t x72 = (x71 + (x54 << 0x1));
+  { uint64_t x73 = (x72 + x54);
+  { uint64_t x74 = (x43 + (x53 << 0x4));
+  { uint64_t x75 = (x74 + (x53 << 0x1));
+  { uint64_t x76 = (x75 + x53);
+  { uint64_t x77 = (x42 + (x52 << 0x4));
+  { uint64_t x78 = (x77 + (x52 << 0x1));
+  { uint64_t x79 = (x78 + x52);
+  { uint64_t x80 = (x41 + (x51 << 0x4));
+  { uint64_t x81 = (x80 + (x51 << 0x1));
+  { uint64_t x82 = (x81 + x51);
+  { uint64_t x83 = (x40 + (x50 << 0x4));
+  { uint64_t x84 = (x83 + (x50 << 0x1));
+  { uint64_t x85 = (x84 + x50);
+  { uint64_t x86 = (x85 >> 0x1a);
+  { uint32_t x87 = ((uint32_t)x85 & 0x3ffffff);
+  { uint64_t x88 = (x86 + x82);
+  { uint64_t x89 = (x88 >> 0x19);
+  { uint32_t x90 = ((uint32_t)x88 & 0x1ffffff);
+  { uint64_t x91 = (x89 + x79);
+  { uint64_t x92 = (x91 >> 0x1a);
+  { uint32_t x93 = ((uint32_t)x91 & 0x3ffffff);
+  { uint64_t x94 = (x92 + x76);
+  { uint64_t x95 = (x94 >> 0x19);
+  { uint32_t x96 = ((uint32_t)x94 & 0x1ffffff);
+  { uint64_t x97 = (x95 + x73);
+  { uint64_t x98 = (x97 >> 0x1a);
+  { uint32_t x99 = ((uint32_t)x97 & 0x3ffffff);
+  { uint64_t x100 = (x98 + x70);
+  { uint64_t x101 = (x100 >> 0x19);
+  { uint32_t x102 = ((uint32_t)x100 & 0x1ffffff);
+  { uint64_t x103 = (x101 + x67);
+  { uint64_t x104 = (x103 >> 0x1a);
+  { uint32_t x105 = ((uint32_t)x103 & 0x3ffffff);
+  { uint64_t x106 = (x104 + x64);
+  { uint64_t x107 = (x106 >> 0x19);
+  { uint32_t x108 = ((uint32_t)x106 & 0x1ffffff);
+  { uint64_t x109 = (x107 + x61);
+  { uint64_t x110 = (x109 >> 0x1a);
+  { uint32_t x111 = ((uint32_t)x109 & 0x3ffffff);
+  { uint64_t x112 = (x110 + x49);
+  { uint64_t x113 = (x112 >> 0x19);
+  { uint32_t x114 = ((uint32_t)x112 & 0x1ffffff);
+  { uint64_t x115 = (x87 + (0x13 * x113));
+  { uint32_t x116 = (uint32_t) (x115 >> 0x1a);
+  { uint32_t x117 = ((uint32_t)x115 & 0x3ffffff);
+  { uint32_t x118 = (x116 + x90);
+  { uint32_t x119 = (x118 >> 0x19);
+  { uint32_t x120 = (x118 & 0x1ffffff);
+  out[0] = x117;
+  out[1] = x120;
+  out[2] = (x119 + x93);
+  out[3] = x96;
+  out[4] = x99;
+  out[5] = x102;
+  out[6] = x105;
+  out[7] = x108;
+  out[8] = x111;
+  out[9] = x114;
+  }}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
+  assert_fe(out);
 }
 
 static void fe_mul_ltt(fe_loose *h, const fe *f, const fe *g) {
@@ -619,155 +541,119 @@ static void fe_mul_tll(fe *h, const fe_loose *f, const fe_loose *g) {
   fe_mul_impl(h->v, f->v, g->v);
 }
 
-// h = f * f
-// Can overlap h with f.
-//
-// Preconditions:
-//    |f| bounded by 1.65*2^26,1.65*2^25,1.65*2^26,1.65*2^25,etc.
-//
-// Postconditions:
-//    |h| bounded by 1.01*2^25,1.01*2^24,1.01*2^25,1.01*2^24,etc.
-//
-// See fe_mul.c for discussion of implementation strategy.
-static void fe_sq_impl(int32_t h[10], const int32_t f[10]) {
-  assert_fe_loose(f);
-  int32_t f0 = f[0];
-  int32_t f1 = f[1];
-  int32_t f2 = f[2];
-  int32_t f3 = f[3];
-  int32_t f4 = f[4];
-  int32_t f5 = f[5];
-  int32_t f6 = f[6];
-  int32_t f7 = f[7];
-  int32_t f8 = f[8];
-  int32_t f9 = f[9];
-  int32_t f0_2 = 2 * f0;
-  int32_t f1_2 = 2 * f1;
-  int32_t f2_2 = 2 * f2;
-  int32_t f3_2 = 2 * f3;
-  int32_t f4_2 = 2 * f4;
-  int32_t f5_2 = 2 * f5;
-  int32_t f6_2 = 2 * f6;
-  int32_t f7_2 = 2 * f7;
-  int32_t f5_38 = 38 * f5;  // 1.959375*2^30
-  int32_t f6_19 = 19 * f6;  // 1.959375*2^30
-  int32_t f7_38 = 38 * f7;  // 1.959375*2^30
-  int32_t f8_19 = 19 * f8;  // 1.959375*2^30
-  int32_t f9_38 = 38 * f9;  // 1.959375*2^30
-  int64_t f0f0    = f0   * (int64_t) f0;
-  int64_t f0f1_2  = f0_2 * (int64_t) f1;
-  int64_t f0f2_2  = f0_2 * (int64_t) f2;
-  int64_t f0f3_2  = f0_2 * (int64_t) f3;
-  int64_t f0f4_2  = f0_2 * (int64_t) f4;
-  int64_t f0f5_2  = f0_2 * (int64_t) f5;
-  int64_t f0f6_2  = f0_2 * (int64_t) f6;
-  int64_t f0f7_2  = f0_2 * (int64_t) f7;
-  int64_t f0f8_2  = f0_2 * (int64_t) f8;
-  int64_t f0f9_2  = f0_2 * (int64_t) f9;
-  int64_t f1f1_2  = f1_2 * (int64_t) f1;
-  int64_t f1f2_2  = f1_2 * (int64_t) f2;
-  int64_t f1f3_4  = f1_2 * (int64_t) f3_2;
-  int64_t f1f4_2  = f1_2 * (int64_t) f4;
-  int64_t f1f5_4  = f1_2 * (int64_t) f5_2;
-  int64_t f1f6_2  = f1_2 * (int64_t) f6;
-  int64_t f1f7_4  = f1_2 * (int64_t) f7_2;
-  int64_t f1f8_2  = f1_2 * (int64_t) f8;
-  int64_t f1f9_76 = f1_2 * (int64_t) f9_38;
-  int64_t f2f2    = f2   * (int64_t) f2;
-  int64_t f2f3_2  = f2_2 * (int64_t) f3;
-  int64_t f2f4_2  = f2_2 * (int64_t) f4;
-  int64_t f2f5_2  = f2_2 * (int64_t) f5;
-  int64_t f2f6_2  = f2_2 * (int64_t) f6;
-  int64_t f2f7_2  = f2_2 * (int64_t) f7;
-  int64_t f2f8_38 = f2_2 * (int64_t) f8_19;
-  int64_t f2f9_38 = f2   * (int64_t) f9_38;
-  int64_t f3f3_2  = f3_2 * (int64_t) f3;
-  int64_t f3f4_2  = f3_2 * (int64_t) f4;
-  int64_t f3f5_4  = f3_2 * (int64_t) f5_2;
-  int64_t f3f6_2  = f3_2 * (int64_t) f6;
-  int64_t f3f7_76 = f3_2 * (int64_t) f7_38;
-  int64_t f3f8_38 = f3_2 * (int64_t) f8_19;
-  int64_t f3f9_76 = f3_2 * (int64_t) f9_38;
-  int64_t f4f4    = f4   * (int64_t) f4;
-  int64_t f4f5_2  = f4_2 * (int64_t) f5;
-  int64_t f4f6_38 = f4_2 * (int64_t) f6_19;
-  int64_t f4f7_38 = f4   * (int64_t) f7_38;
-  int64_t f4f8_38 = f4_2 * (int64_t) f8_19;
-  int64_t f4f9_38 = f4   * (int64_t) f9_38;
-  int64_t f5f5_38 = f5   * (int64_t) f5_38;
-  int64_t f5f6_38 = f5_2 * (int64_t) f6_19;
-  int64_t f5f7_76 = f5_2 * (int64_t) f7_38;
-  int64_t f5f8_38 = f5_2 * (int64_t) f8_19;
-  int64_t f5f9_76 = f5_2 * (int64_t) f9_38;
-  int64_t f6f6_19 = f6   * (int64_t) f6_19;
-  int64_t f6f7_38 = f6   * (int64_t) f7_38;
-  int64_t f6f8_38 = f6_2 * (int64_t) f8_19;
-  int64_t f6f9_38 = f6   * (int64_t) f9_38;
-  int64_t f7f7_38 = f7   * (int64_t) f7_38;
-  int64_t f7f8_38 = f7_2 * (int64_t) f8_19;
-  int64_t f7f9_76 = f7_2 * (int64_t) f9_38;
-  int64_t f8f8_19 = f8   * (int64_t) f8_19;
-  int64_t f8f9_38 = f8   * (int64_t) f9_38;
-  int64_t f9f9_38 = f9   * (int64_t) f9_38;
-  int64_t h0 = f0f0  +f1f9_76+f2f8_38+f3f7_76+f4f6_38+f5f5_38;
-  int64_t h1 = f0f1_2+f2f9_38+f3f8_38+f4f7_38+f5f6_38;
-  int64_t h2 = f0f2_2+f1f1_2 +f3f9_76+f4f8_38+f5f7_76+f6f6_19;
-  int64_t h3 = f0f3_2+f1f2_2 +f4f9_38+f5f8_38+f6f7_38;
-  int64_t h4 = f0f4_2+f1f3_4 +f2f2   +f5f9_76+f6f8_38+f7f7_38;
-  int64_t h5 = f0f5_2+f1f4_2 +f2f3_2 +f6f9_38+f7f8_38;
-  int64_t h6 = f0f6_2+f1f5_4 +f2f4_2 +f3f3_2 +f7f9_76+f8f8_19;
-  int64_t h7 = f0f7_2+f1f6_2 +f2f5_2 +f3f4_2 +f8f9_38;
-  int64_t h8 = f0f8_2+f1f7_4 +f2f6_2 +f3f5_4 +f4f4   +f9f9_38;
-  int64_t h9 = f0f9_2+f1f8_2 +f2f7_2 +f3f6_2 +f4f5_2;
-  int64_t carry0;
-  int64_t carry1;
-  int64_t carry2;
-  int64_t carry3;
-  int64_t carry4;
-  int64_t carry5;
-  int64_t carry6;
-  int64_t carry7;
-  int64_t carry8;
-  int64_t carry9;
-
-  carry0 = h0 + (1 << 25); h1 += carry0 >> 26; h0 -= carry0 & kTop38Bits;
-  carry4 = h4 + (1 << 25); h5 += carry4 >> 26; h4 -= carry4 & kTop38Bits;
-
-  carry1 = h1 + (1 << 24); h2 += carry1 >> 25; h1 -= carry1 & kTop39Bits;
-  carry5 = h5 + (1 << 24); h6 += carry5 >> 25; h5 -= carry5 & kTop39Bits;
-
-  carry2 = h2 + (1 << 25); h3 += carry2 >> 26; h2 -= carry2 & kTop38Bits;
-  carry6 = h6 + (1 << 25); h7 += carry6 >> 26; h6 -= carry6 & kTop38Bits;
-
-  carry3 = h3 + (1 << 24); h4 += carry3 >> 25; h3 -= carry3 & kTop39Bits;
-  carry7 = h7 + (1 << 24); h8 += carry7 >> 25; h7 -= carry7 & kTop39Bits;
-
-  carry4 = h4 + (1 << 25); h5 += carry4 >> 26; h4 -= carry4 & kTop38Bits;
-  carry8 = h8 + (1 << 25); h9 += carry8 >> 26; h8 -= carry8 & kTop38Bits;
-
-  carry9 = h9 + (1 << 24); h0 += (carry9 >> 25) * 19; h9 -= carry9 & kTop39Bits;
-
-  carry0 = h0 + (1 << 25); h1 += carry0 >> 26; h0 -= carry0 & kTop38Bits;
-
-  h[0] = h0;
-  h[1] = h1;
-  h[2] = h2;
-  h[3] = h3;
-  h[4] = h4;
-  h[5] = h5;
-  h[6] = h6;
-  h[7] = h7;
-  h[8] = h8;
-  h[9] = h9;
-  assert_fe(h);
+static void fe_sqr_impl(uint32_t out[10], const uint32_t in1[10]) {
+  assert_fe_loose(in1);
+  { const uint32_t x17 = in1[9];
+  { const uint32_t x18 = in1[8];
+  { const uint32_t x16 = in1[7];
+  { const uint32_t x14 = in1[6];
+  { const uint32_t x12 = in1[5];
+  { const uint32_t x10 = in1[4];
+  { const uint32_t x8 = in1[3];
+  { const uint32_t x6 = in1[2];
+  { const uint32_t x4 = in1[1];
+  { const uint32_t x2 = in1[0];
+  { uint64_t x19 = ((uint64_t)x2 * x2);
+  { uint64_t x20 = ((uint64_t)(0x2 * x2) * x4);
+  { uint64_t x21 = (0x2 * (((uint64_t)x4 * x4) + ((uint64_t)x2 * x6)));
+  { uint64_t x22 = (0x2 * (((uint64_t)x4 * x6) + ((uint64_t)x2 * x8)));
+  { uint64_t x23 = ((((uint64_t)x6 * x6) + ((uint64_t)(0x4 * x4) * x8)) + ((uint64_t)(0x2 * x2) * x10));
+  { uint64_t x24 = (0x2 * ((((uint64_t)x6 * x8) + ((uint64_t)x4 * x10)) + ((uint64_t)x2 * x12)));
+  { uint64_t x25 = (0x2 * (((((uint64_t)x8 * x8) + ((uint64_t)x6 * x10)) + ((uint64_t)x2 * x14)) + ((uint64_t)(0x2 * x4) * x12)));
+  { uint64_t x26 = (0x2 * (((((uint64_t)x8 * x10) + ((uint64_t)x6 * x12)) + ((uint64_t)x4 * x14)) + ((uint64_t)x2 * x16)));
+  { uint64_t x27 = (((uint64_t)x10 * x10) + (0x2 * ((((uint64_t)x6 * x14) + ((uint64_t)x2 * x18)) + (0x2 * (((uint64_t)x4 * x16) + ((uint64_t)x8 * x12))))));
+  { uint64_t x28 = (0x2 * ((((((uint64_t)x10 * x12) + ((uint64_t)x8 * x14)) + ((uint64_t)x6 * x16)) + ((uint64_t)x4 * x18)) + ((uint64_t)x2 * x17)));
+  { uint64_t x29 = (0x2 * (((((uint64_t)x12 * x12) + ((uint64_t)x10 * x14)) + ((uint64_t)x6 * x18)) + (0x2 * (((uint64_t)x8 * x16) + ((uint64_t)x4 * x17)))));
+  { uint64_t x30 = (0x2 * (((((uint64_t)x12 * x14) + ((uint64_t)x10 * x16)) + ((uint64_t)x8 * x18)) + ((uint64_t)x6 * x17)));
+  { uint64_t x31 = (((uint64_t)x14 * x14) + (0x2 * (((uint64_t)x10 * x18) + (0x2 * (((uint64_t)x12 * x16) + ((uint64_t)x8 * x17))))));
+  { uint64_t x32 = (0x2 * ((((uint64_t)x14 * x16) + ((uint64_t)x12 * x18)) + ((uint64_t)x10 * x17)));
+  { uint64_t x33 = (0x2 * ((((uint64_t)x16 * x16) + ((uint64_t)x14 * x18)) + ((uint64_t)(0x2 * x12) * x17)));
+  { uint64_t x34 = (0x2 * (((uint64_t)x16 * x18) + ((uint64_t)x14 * x17)));
+  { uint64_t x35 = (((uint64_t)x18 * x18) + ((uint64_t)(0x4 * x16) * x17));
+  { uint64_t x36 = ((uint64_t)(0x2 * x18) * x17);
+  { uint64_t x37 = ((uint64_t)(0x2 * x17) * x17);
+  { uint64_t x38 = (x27 + (x37 << 0x4));
+  { uint64_t x39 = (x38 + (x37 << 0x1));
+  { uint64_t x40 = (x39 + x37);
+  { uint64_t x41 = (x26 + (x36 << 0x4));
+  { uint64_t x42 = (x41 + (x36 << 0x1));
+  { uint64_t x43 = (x42 + x36);
+  { uint64_t x44 = (x25 + (x35 << 0x4));
+  { uint64_t x45 = (x44 + (x35 << 0x1));
+  { uint64_t x46 = (x45 + x35);
+  { uint64_t x47 = (x24 + (x34 << 0x4));
+  { uint64_t x48 = (x47 + (x34 << 0x1));
+  { uint64_t x49 = (x48 + x34);
+  { uint64_t x50 = (x23 + (x33 << 0x4));
+  { uint64_t x51 = (x50 + (x33 << 0x1));
+  { uint64_t x52 = (x51 + x33);
+  { uint64_t x53 = (x22 + (x32 << 0x4));
+  { uint64_t x54 = (x53 + (x32 << 0x1));
+  { uint64_t x55 = (x54 + x32);
+  { uint64_t x56 = (x21 + (x31 << 0x4));
+  { uint64_t x57 = (x56 + (x31 << 0x1));
+  { uint64_t x58 = (x57 + x31);
+  { uint64_t x59 = (x20 + (x30 << 0x4));
+  { uint64_t x60 = (x59 + (x30 << 0x1));
+  { uint64_t x61 = (x60 + x30);
+  { uint64_t x62 = (x19 + (x29 << 0x4));
+  { uint64_t x63 = (x62 + (x29 << 0x1));
+  { uint64_t x64 = (x63 + x29);
+  { uint64_t x65 = (x64 >> 0x1a);
+  { uint32_t x66 = ((uint32_t)x64 & 0x3ffffff);
+  { uint64_t x67 = (x65 + x61);
+  { uint64_t x68 = (x67 >> 0x19);
+  { uint32_t x69 = ((uint32_t)x67 & 0x1ffffff);
+  { uint64_t x70 = (x68 + x58);
+  { uint64_t x71 = (x70 >> 0x1a);
+  { uint32_t x72 = ((uint32_t)x70 & 0x3ffffff);
+  { uint64_t x73 = (x71 + x55);
+  { uint64_t x74 = (x73 >> 0x19);
+  { uint32_t x75 = ((uint32_t)x73 & 0x1ffffff);
+  { uint64_t x76 = (x74 + x52);
+  { uint64_t x77 = (x76 >> 0x1a);
+  { uint32_t x78 = ((uint32_t)x76 & 0x3ffffff);
+  { uint64_t x79 = (x77 + x49);
+  { uint64_t x80 = (x79 >> 0x19);
+  { uint32_t x81 = ((uint32_t)x79 & 0x1ffffff);
+  { uint64_t x82 = (x80 + x46);
+  { uint64_t x83 = (x82 >> 0x1a);
+  { uint32_t x84 = ((uint32_t)x82 & 0x3ffffff);
+  { uint64_t x85 = (x83 + x43);
+  { uint64_t x86 = (x85 >> 0x19);
+  { uint32_t x87 = ((uint32_t)x85 & 0x1ffffff);
+  { uint64_t x88 = (x86 + x40);
+  { uint64_t x89 = (x88 >> 0x1a);
+  { uint32_t x90 = ((uint32_t)x88 & 0x3ffffff);
+  { uint64_t x91 = (x89 + x28);
+  { uint64_t x92 = (x91 >> 0x19);
+  { uint32_t x93 = ((uint32_t)x91 & 0x1ffffff);
+  { uint64_t x94 = (x66 + (0x13 * x92));
+  { uint32_t x95 = (uint32_t) (x94 >> 0x1a);
+  { uint32_t x96 = ((uint32_t)x94 & 0x3ffffff);
+  { uint32_t x97 = (x95 + x69);
+  { uint32_t x98 = (x97 >> 0x19);
+  { uint32_t x99 = (x97 & 0x1ffffff);
+  out[0] = x96;
+  out[1] = x99;
+  out[2] = (x98 + x72);
+  out[3] = x75;
+  out[4] = x78;
+  out[5] = x81;
+  out[6] = x84;
+  out[7] = x87;
+  out[8] = x90;
+  out[9] = x93;
+  }}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
+  assert_fe(out);
 }
 
 static void fe_sq_tl(fe *h, const fe_loose *f) {
-  fe_sq_impl(h->v, f->v);
+  fe_sqr_impl(h->v, f->v);
 }
 
 static void fe_sq_tt(fe *h, const fe *f) {
-  fe_sq_impl(h->v, f->v);
+  fe_sqr_impl(h->v, f->v);
 }
 
 static void fe_loose_invert(fe *out, const fe_loose *z) {
@@ -834,6 +720,40 @@ static void fe_invert(fe *out, const fe *z) {
   fe_loose_invert(out, &l);
 }
 
+static void fe_neg_impl(uint32_t out[10], const uint32_t in2[10]) {
+  { const uint32_t x20 = 0;
+  { const uint32_t x21 = 0;
+  { const uint32_t x19 = 0;
+  { const uint32_t x17 = 0;
+  { const uint32_t x15 = 0;
+  { const uint32_t x13 = 0;
+  { const uint32_t x11 = 0;
+  { const uint32_t x9 = 0;
+  { const uint32_t x7 = 0;
+  { const uint32_t x5 = 0;
+  { const uint32_t x38 = in2[9];
+  { const uint32_t x39 = in2[8];
+  { const uint32_t x37 = in2[7];
+  { const uint32_t x35 = in2[6];
+  { const uint32_t x33 = in2[5];
+  { const uint32_t x31 = in2[4];
+  { const uint32_t x29 = in2[3];
+  { const uint32_t x27 = in2[2];
+  { const uint32_t x25 = in2[1];
+  { const uint32_t x23 = in2[0];
+  out[0] = ((0x7ffffda + x5) - x23);
+  out[1] = ((0x3fffffe + x7) - x25);
+  out[2] = ((0x7fffffe + x9) - x27);
+  out[3] = ((0x3fffffe + x11) - x29);
+  out[4] = ((0x7fffffe + x13) - x31);
+  out[5] = ((0x3fffffe + x15) - x33);
+  out[6] = ((0x7fffffe + x17) - x35);
+  out[7] = ((0x3fffffe + x19) - x37);
+  out[8] = ((0x7fffffe + x21) - x39);
+  out[9] = ((0x3fffffe + x20) - x38);
+  }}}}}}}}}}}}}}}}}}}}
+}
+
 // h = -f
 //
 // Preconditions:
@@ -843,10 +763,7 @@ static void fe_invert(fe *out, const fe *z) {
 //    |h| bounded by 1.1*2^25,1.1*2^24,1.1*2^25,1.1*2^24,etc.
 static void fe_neg(fe_loose *h, const fe *f) {
   assert_fe(f->v);
-  unsigned i;
-  for (i = 0; i < 10; i++) {
-    h->v[i] = -f->v[i];
-  }
+  fe_neg_impl(h->v, f->v);
   assert_fe_loose(h->v);
 }
 
@@ -858,7 +775,7 @@ static void fe_cmov(fe_loose *f, const fe_loose *g, unsigned b) {
   b = 0-b;
   unsigned i;
   for (i = 0; i < 10; i++) {
-    int32_t x = f->v[i] ^ g->v[i];
+    uint32_t x = f->v[i] ^ g->v[i];
     x &= b;
     f->v[i] ^= x;
   }
@@ -888,158 +805,122 @@ static int fe_isnegative(const fe *f) {
   return s[0] & 1;
 }
 
-// h = 2 * f * f
-// Can overlap h with f.
-//
-// Preconditions:
-//    |f| bounded by 1.1*2^26,1.1*2^25,1.1*2^26,1.1*2^25,etc.
-//
-// Postconditions:
-//    |h| bounded by 1.1*2^25,1.1*2^24,1.1*2^25,1.1*2^24,etc.
-//
-// See fe_mul.c for discussion of implementation strategy.
-static void fe_sq2_impl(int32_t h[10], const int32_t f[10]) {
-  assert_fe_loose(f);
-  int32_t f0 = f[0];
-  int32_t f1 = f[1];
-  int32_t f2 = f[2];
-  int32_t f3 = f[3];
-  int32_t f4 = f[4];
-  int32_t f5 = f[5];
-  int32_t f6 = f[6];
-  int32_t f7 = f[7];
-  int32_t f8 = f[8];
-  int32_t f9 = f[9];
-  int32_t f0_2 = 2 * f0;
-  int32_t f1_2 = 2 * f1;
-  int32_t f2_2 = 2 * f2;
-  int32_t f3_2 = 2 * f3;
-  int32_t f4_2 = 2 * f4;
-  int32_t f5_2 = 2 * f5;
-  int32_t f6_2 = 2 * f6;
-  int32_t f7_2 = 2 * f7;
-  int32_t f5_38 = 38 * f5;  // 1.959375*2^30
-  int32_t f6_19 = 19 * f6;  // 1.959375*2^30
-  int32_t f7_38 = 38 * f7;  // 1.959375*2^30
-  int32_t f8_19 = 19 * f8;  // 1.959375*2^30
-  int32_t f9_38 = 38 * f9;  // 1.959375*2^30
-  int64_t f0f0    = f0   * (int64_t) f0;
-  int64_t f0f1_2  = f0_2 * (int64_t) f1;
-  int64_t f0f2_2  = f0_2 * (int64_t) f2;
-  int64_t f0f3_2  = f0_2 * (int64_t) f3;
-  int64_t f0f4_2  = f0_2 * (int64_t) f4;
-  int64_t f0f5_2  = f0_2 * (int64_t) f5;
-  int64_t f0f6_2  = f0_2 * (int64_t) f6;
-  int64_t f0f7_2  = f0_2 * (int64_t) f7;
-  int64_t f0f8_2  = f0_2 * (int64_t) f8;
-  int64_t f0f9_2  = f0_2 * (int64_t) f9;
-  int64_t f1f1_2  = f1_2 * (int64_t) f1;
-  int64_t f1f2_2  = f1_2 * (int64_t) f2;
-  int64_t f1f3_4  = f1_2 * (int64_t) f3_2;
-  int64_t f1f4_2  = f1_2 * (int64_t) f4;
-  int64_t f1f5_4  = f1_2 * (int64_t) f5_2;
-  int64_t f1f6_2  = f1_2 * (int64_t) f6;
-  int64_t f1f7_4  = f1_2 * (int64_t) f7_2;
-  int64_t f1f8_2  = f1_2 * (int64_t) f8;
-  int64_t f1f9_76 = f1_2 * (int64_t) f9_38;
-  int64_t f2f2    = f2   * (int64_t) f2;
-  int64_t f2f3_2  = f2_2 * (int64_t) f3;
-  int64_t f2f4_2  = f2_2 * (int64_t) f4;
-  int64_t f2f5_2  = f2_2 * (int64_t) f5;
-  int64_t f2f6_2  = f2_2 * (int64_t) f6;
-  int64_t f2f7_2  = f2_2 * (int64_t) f7;
-  int64_t f2f8_38 = f2_2 * (int64_t) f8_19;
-  int64_t f2f9_38 = f2   * (int64_t) f9_38;
-  int64_t f3f3_2  = f3_2 * (int64_t) f3;
-  int64_t f3f4_2  = f3_2 * (int64_t) f4;
-  int64_t f3f5_4  = f3_2 * (int64_t) f5_2;
-  int64_t f3f6_2  = f3_2 * (int64_t) f6;
-  int64_t f3f7_76 = f3_2 * (int64_t) f7_38;
-  int64_t f3f8_38 = f3_2 * (int64_t) f8_19;
-  int64_t f3f9_76 = f3_2 * (int64_t) f9_38;
-  int64_t f4f4    = f4   * (int64_t) f4;
-  int64_t f4f5_2  = f4_2 * (int64_t) f5;
-  int64_t f4f6_38 = f4_2 * (int64_t) f6_19;
-  int64_t f4f7_38 = f4   * (int64_t) f7_38;
-  int64_t f4f8_38 = f4_2 * (int64_t) f8_19;
-  int64_t f4f9_38 = f4   * (int64_t) f9_38;
-  int64_t f5f5_38 = f5   * (int64_t) f5_38;
-  int64_t f5f6_38 = f5_2 * (int64_t) f6_19;
-  int64_t f5f7_76 = f5_2 * (int64_t) f7_38;
-  int64_t f5f8_38 = f5_2 * (int64_t) f8_19;
-  int64_t f5f9_76 = f5_2 * (int64_t) f9_38;
-  int64_t f6f6_19 = f6   * (int64_t) f6_19;
-  int64_t f6f7_38 = f6   * (int64_t) f7_38;
-  int64_t f6f8_38 = f6_2 * (int64_t) f8_19;
-  int64_t f6f9_38 = f6   * (int64_t) f9_38;
-  int64_t f7f7_38 = f7   * (int64_t) f7_38;
-  int64_t f7f8_38 = f7_2 * (int64_t) f8_19;
-  int64_t f7f9_76 = f7_2 * (int64_t) f9_38;
-  int64_t f8f8_19 = f8   * (int64_t) f8_19;
-  int64_t f8f9_38 = f8   * (int64_t) f9_38;
-  int64_t f9f9_38 = f9   * (int64_t) f9_38;
-  int64_t h0 = f0f0  +f1f9_76+f2f8_38+f3f7_76+f4f6_38+f5f5_38;
-  int64_t h1 = f0f1_2+f2f9_38+f3f8_38+f4f7_38+f5f6_38;
-  int64_t h2 = f0f2_2+f1f1_2 +f3f9_76+f4f8_38+f5f7_76+f6f6_19;
-  int64_t h3 = f0f3_2+f1f2_2 +f4f9_38+f5f8_38+f6f7_38;
-  int64_t h4 = f0f4_2+f1f3_4 +f2f2   +f5f9_76+f6f8_38+f7f7_38;
-  int64_t h5 = f0f5_2+f1f4_2 +f2f3_2 +f6f9_38+f7f8_38;
-  int64_t h6 = f0f6_2+f1f5_4 +f2f4_2 +f3f3_2 +f7f9_76+f8f8_19;
-  int64_t h7 = f0f7_2+f1f6_2 +f2f5_2 +f3f4_2 +f8f9_38;
-  int64_t h8 = f0f8_2+f1f7_4 +f2f6_2 +f3f5_4 +f4f4   +f9f9_38;
-  int64_t h9 = f0f9_2+f1f8_2 +f2f7_2 +f3f6_2 +f4f5_2;
-  int64_t carry0;
-  int64_t carry1;
-  int64_t carry2;
-  int64_t carry3;
-  int64_t carry4;
-  int64_t carry5;
-  int64_t carry6;
-  int64_t carry7;
-  int64_t carry8;
-  int64_t carry9;
-
-  h0 += h0;
-  h1 += h1;
-  h2 += h2;
-  h3 += h3;
-  h4 += h4;
-  h5 += h5;
-  h6 += h6;
-  h7 += h7;
-  h8 += h8;
-  h9 += h9;
-
-  carry0 = h0 + (1 << 25); h1 += carry0 >> 26; h0 -= carry0 & kTop38Bits;
-  carry4 = h4 + (1 << 25); h5 += carry4 >> 26; h4 -= carry4 & kTop38Bits;
-
-  carry1 = h1 + (1 << 24); h2 += carry1 >> 25; h1 -= carry1 & kTop39Bits;
-  carry5 = h5 + (1 << 24); h6 += carry5 >> 25; h5 -= carry5 & kTop39Bits;
-
-  carry2 = h2 + (1 << 25); h3 += carry2 >> 26; h2 -= carry2 & kTop38Bits;
-  carry6 = h6 + (1 << 25); h7 += carry6 >> 26; h6 -= carry6 & kTop38Bits;
-
-  carry3 = h3 + (1 << 24); h4 += carry3 >> 25; h3 -= carry3 & kTop39Bits;
-  carry7 = h7 + (1 << 24); h8 += carry7 >> 25; h7 -= carry7 & kTop39Bits;
-
-  carry4 = h4 + (1 << 25); h5 += carry4 >> 26; h4 -= carry4 & kTop38Bits;
-  carry8 = h8 + (1 << 25); h9 += carry8 >> 26; h8 -= carry8 & kTop38Bits;
-
-  carry9 = h9 + (1 << 24); h0 += (carry9 >> 25) * 19; h9 -= carry9 & kTop39Bits;
-
-  carry0 = h0 + (1 << 25); h1 += carry0 >> 26; h0 -= carry0 & kTop38Bits;
-
-  h[0] = h0;
-  h[1] = h1;
-  h[2] = h2;
-  h[3] = h3;
-  h[4] = h4;
-  h[5] = h5;
-  h[6] = h6;
-  h[7] = h7;
-  h[8] = h8;
-  h[9] = h9;
-  assert_fe(h);
+// NOTE: based on fiat-crypto fe_mul, edited for in2=2*in1
+static void fe_sq2_impl(uint32_t out[10], const uint32_t in1[10]) {
+  assert_fe_loose(in1);
+  { const uint32_t x20 = in1[9];
+  { const uint32_t x21 = in1[8];
+  { const uint32_t x19 = in1[7];
+  { const uint32_t x17 = in1[6];
+  { const uint32_t x15 = in1[5];
+  { const uint32_t x13 = in1[4];
+  { const uint32_t x11 = in1[3];
+  { const uint32_t x9 = in1[2];
+  { const uint32_t x7 = in1[1];
+  { const uint32_t x5 = in1[0];
+  { const uint32_t x38 = 2*in1[9];
+  { const uint32_t x39 = 2*in1[8];
+  { const uint32_t x37 = 2*in1[7];
+  { const uint32_t x35 = 2*in1[6];
+  { const uint32_t x33 = 2*in1[5];
+  { const uint32_t x31 = 2*in1[4];
+  { const uint32_t x29 = 2*in1[3];
+  { const uint32_t x27 = 2*in1[2];
+  { const uint32_t x25 = 2*in1[1];
+  { const uint32_t x23 = 2*in1[0];
+  { uint64_t x40 = ((uint64_t)x23 * x5);
+  { uint64_t x41 = (((uint64_t)x23 * x7) + ((uint64_t)x25 * x5));
+  { uint64_t x42 = ((((uint64_t)(0x2 * x25) * x7) + ((uint64_t)x23 * x9)) + ((uint64_t)x27 * x5));
+  { uint64_t x43 = (((((uint64_t)x25 * x9) + ((uint64_t)x27 * x7)) + ((uint64_t)x23 * x11)) + ((uint64_t)x29 * x5));
+  { uint64_t x44 = (((((uint64_t)x27 * x9) + (0x2 * (((uint64_t)x25 * x11) + ((uint64_t)x29 * x7)))) + ((uint64_t)x23 * x13)) + ((uint64_t)x31 * x5));
+  { uint64_t x45 = (((((((uint64_t)x27 * x11) + ((uint64_t)x29 * x9)) + ((uint64_t)x25 * x13)) + ((uint64_t)x31 * x7)) + ((uint64_t)x23 * x15)) + ((uint64_t)x33 * x5));
+  { uint64_t x46 = (((((0x2 * ((((uint64_t)x29 * x11) + ((uint64_t)x25 * x15)) + ((uint64_t)x33 * x7))) + ((uint64_t)x27 * x13)) + ((uint64_t)x31 * x9)) + ((uint64_t)x23 * x17)) + ((uint64_t)x35 * x5));
+  { uint64_t x47 = (((((((((uint64_t)x29 * x13) + ((uint64_t)x31 * x11)) + ((uint64_t)x27 * x15)) + ((uint64_t)x33 * x9)) + ((uint64_t)x25 * x17)) + ((uint64_t)x35 * x7)) + ((uint64_t)x23 * x19)) + ((uint64_t)x37 * x5));
+  { uint64_t x48 = (((((((uint64_t)x31 * x13) + (0x2 * (((((uint64_t)x29 * x15) + ((uint64_t)x33 * x11)) + ((uint64_t)x25 * x19)) + ((uint64_t)x37 * x7)))) + ((uint64_t)x27 * x17)) + ((uint64_t)x35 * x9)) + ((uint64_t)x23 * x21)) + ((uint64_t)x39 * x5));
+  { uint64_t x49 = (((((((((((uint64_t)x31 * x15) + ((uint64_t)x33 * x13)) + ((uint64_t)x29 * x17)) + ((uint64_t)x35 * x11)) + ((uint64_t)x27 * x19)) + ((uint64_t)x37 * x9)) + ((uint64_t)x25 * x21)) + ((uint64_t)x39 * x7)) + ((uint64_t)x23 * x20)) + ((uint64_t)x38 * x5));
+  { uint64_t x50 = (((((0x2 * ((((((uint64_t)x33 * x15) + ((uint64_t)x29 * x19)) + ((uint64_t)x37 * x11)) + ((uint64_t)x25 * x20)) + ((uint64_t)x38 * x7))) + ((uint64_t)x31 * x17)) + ((uint64_t)x35 * x13)) + ((uint64_t)x27 * x21)) + ((uint64_t)x39 * x9));
+  { uint64_t x51 = (((((((((uint64_t)x33 * x17) + ((uint64_t)x35 * x15)) + ((uint64_t)x31 * x19)) + ((uint64_t)x37 * x13)) + ((uint64_t)x29 * x21)) + ((uint64_t)x39 * x11)) + ((uint64_t)x27 * x20)) + ((uint64_t)x38 * x9));
+  { uint64_t x52 = (((((uint64_t)x35 * x17) + (0x2 * (((((uint64_t)x33 * x19) + ((uint64_t)x37 * x15)) + ((uint64_t)x29 * x20)) + ((uint64_t)x38 * x11)))) + ((uint64_t)x31 * x21)) + ((uint64_t)x39 * x13));
+  { uint64_t x53 = (((((((uint64_t)x35 * x19) + ((uint64_t)x37 * x17)) + ((uint64_t)x33 * x21)) + ((uint64_t)x39 * x15)) + ((uint64_t)x31 * x20)) + ((uint64_t)x38 * x13));
+  { uint64_t x54 = (((0x2 * ((((uint64_t)x37 * x19) + ((uint64_t)x33 * x20)) + ((uint64_t)x38 * x15))) + ((uint64_t)x35 * x21)) + ((uint64_t)x39 * x17));
+  { uint64_t x55 = (((((uint64_t)x37 * x21) + ((uint64_t)x39 * x19)) + ((uint64_t)x35 * x20)) + ((uint64_t)x38 * x17));
+  { uint64_t x56 = (((uint64_t)x39 * x21) + (0x2 * (((uint64_t)x37 * x20) + ((uint64_t)x38 * x19))));
+  { uint64_t x57 = (((uint64_t)x39 * x20) + ((uint64_t)x38 * x21));
+  { uint64_t x58 = ((uint64_t)(0x2 * x38) * x20);
+  { uint64_t x59 = (x48 + (x58 << 0x4));
+  { uint64_t x60 = (x59 + (x58 << 0x1));
+  { uint64_t x61 = (x60 + x58);
+  { uint64_t x62 = (x47 + (x57 << 0x4));
+  { uint64_t x63 = (x62 + (x57 << 0x1));
+  { uint64_t x64 = (x63 + x57);
+  { uint64_t x65 = (x46 + (x56 << 0x4));
+  { uint64_t x66 = (x65 + (x56 << 0x1));
+  { uint64_t x67 = (x66 + x56);
+  { uint64_t x68 = (x45 + (x55 << 0x4));
+  { uint64_t x69 = (x68 + (x55 << 0x1));
+  { uint64_t x70 = (x69 + x55);
+  { uint64_t x71 = (x44 + (x54 << 0x4));
+  { uint64_t x72 = (x71 + (x54 << 0x1));
+  { uint64_t x73 = (x72 + x54);
+  { uint64_t x74 = (x43 + (x53 << 0x4));
+  { uint64_t x75 = (x74 + (x53 << 0x1));
+  { uint64_t x76 = (x75 + x53);
+  { uint64_t x77 = (x42 + (x52 << 0x4));
+  { uint64_t x78 = (x77 + (x52 << 0x1));
+  { uint64_t x79 = (x78 + x52);
+  { uint64_t x80 = (x41 + (x51 << 0x4));
+  { uint64_t x81 = (x80 + (x51 << 0x1));
+  { uint64_t x82 = (x81 + x51);
+  { uint64_t x83 = (x40 + (x50 << 0x4));
+  { uint64_t x84 = (x83 + (x50 << 0x1));
+  { uint64_t x85 = (x84 + x50);
+  { uint64_t x86 = (x85 >> 0x1a);
+  { uint32_t x87 = ((uint32_t)x85 & 0x3ffffff);
+  { uint64_t x88 = (x86 + x82);
+  { uint64_t x89 = (x88 >> 0x19);
+  { uint32_t x90 = ((uint32_t)x88 & 0x1ffffff);
+  { uint64_t x91 = (x89 + x79);
+  { uint64_t x92 = (x91 >> 0x1a);
+  { uint32_t x93 = ((uint32_t)x91 & 0x3ffffff);
+  { uint64_t x94 = (x92 + x76);
+  { uint64_t x95 = (x94 >> 0x19);
+  { uint32_t x96 = ((uint32_t)x94 & 0x1ffffff);
+  { uint64_t x97 = (x95 + x73);
+  { uint64_t x98 = (x97 >> 0x1a);
+  { uint32_t x99 = ((uint32_t)x97 & 0x3ffffff);
+  { uint64_t x100 = (x98 + x70);
+  { uint64_t x101 = (x100 >> 0x19);
+  { uint32_t x102 = ((uint32_t)x100 & 0x1ffffff);
+  { uint64_t x103 = (x101 + x67);
+  { uint64_t x104 = (x103 >> 0x1a);
+  { uint32_t x105 = ((uint32_t)x103 & 0x3ffffff);
+  { uint64_t x106 = (x104 + x64);
+  { uint64_t x107 = (x106 >> 0x19);
+  { uint32_t x108 = ((uint32_t)x106 & 0x1ffffff);
+  { uint64_t x109 = (x107 + x61);
+  { uint64_t x110 = (x109 >> 0x1a);
+  { uint32_t x111 = ((uint32_t)x109 & 0x3ffffff);
+  { uint64_t x112 = (x110 + x49);
+  { uint64_t x113 = (x112 >> 0x19);
+  { uint32_t x114 = ((uint32_t)x112 & 0x1ffffff);
+  { uint64_t x115 = (x87 + (0x13 * x113));
+  { uint32_t x116 = (uint32_t) (x115 >> 0x1a);
+  { uint32_t x117 = ((uint32_t)x115 & 0x3ffffff);
+  { uint32_t x118 = (x116 + x90);
+  { uint32_t x119 = (x118 >> 0x19);
+  { uint32_t x120 = (x118 & 0x1ffffff);
+  out[0] = x117;
+  out[1] = x120;
+  out[2] = (x119 + x93);
+  out[3] = x96;
+  out[4] = x99;
+  out[5] = x102;
+  out[6] = x105;
+  out[7] = x108;
+  out[8] = x111;
+  out[9] = x114;
+  }}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
+  assert_fe(out);
 }
 
 static void fe_sq2_tt(fe *h, const fe *f) {
@@ -4894,76 +4775,134 @@ static void fe_cswap(fe *f, fe *g, unsigned int b) {
   b = 0-b;
   unsigned i;
   for (i = 0; i < 10; i++) {
-    int32_t x = f->v[i] ^ g->v[i];
+    uint32_t x = f->v[i] ^ g->v[i];
     x &= b;
     f->v[i] ^= x;
     g->v[i] ^= x;
   }
 }
 
-// h = f * 121666
-// Can overlap h with f.
-//
-// Preconditions:
-//    |f| bounded by 1.1*2^26,1.1*2^25,1.1*2^26,1.1*2^25,etc.
-//
-// Postconditions:
-//    |h| bounded by 1.1*2^25,1.1*2^24,1.1*2^25,1.1*2^24,etc.
+// NOTE: based on fiat-crypto fe_mul, edited for in2=121666, 0, 0..
+static void fe_mul_121666_impl(uint32_t out[10], const uint32_t in1[10]) {
+  assert_fe_loose(in1);
+  { const uint32_t x20 = in1[9];
+  { const uint32_t x21 = in1[8];
+  { const uint32_t x19 = in1[7];
+  { const uint32_t x17 = in1[6];
+  { const uint32_t x15 = in1[5];
+  { const uint32_t x13 = in1[4];
+  { const uint32_t x11 = in1[3];
+  { const uint32_t x9 = in1[2];
+  { const uint32_t x7 = in1[1];
+  { const uint32_t x5 = in1[0];
+  { const uint32_t x38 = 0;
+  { const uint32_t x39 = 0;
+  { const uint32_t x37 = 0;
+  { const uint32_t x35 = 0;
+  { const uint32_t x33 = 0;
+  { const uint32_t x31 = 0;
+  { const uint32_t x29 = 0;
+  { const uint32_t x27 = 0;
+  { const uint32_t x25 = 0;
+  { const uint32_t x23 = 121666;
+  { uint64_t x40 = ((uint64_t)x23 * x5);
+  { uint64_t x41 = (((uint64_t)x23 * x7) + ((uint64_t)x25 * x5));
+  { uint64_t x42 = ((((uint64_t)(0x2 * x25) * x7) + ((uint64_t)x23 * x9)) + ((uint64_t)x27 * x5));
+  { uint64_t x43 = (((((uint64_t)x25 * x9) + ((uint64_t)x27 * x7)) + ((uint64_t)x23 * x11)) + ((uint64_t)x29 * x5));
+  { uint64_t x44 = (((((uint64_t)x27 * x9) + (0x2 * (((uint64_t)x25 * x11) + ((uint64_t)x29 * x7)))) + ((uint64_t)x23 * x13)) + ((uint64_t)x31 * x5));
+  { uint64_t x45 = (((((((uint64_t)x27 * x11) + ((uint64_t)x29 * x9)) + ((uint64_t)x25 * x13)) + ((uint64_t)x31 * x7)) + ((uint64_t)x23 * x15)) + ((uint64_t)x33 * x5));
+  { uint64_t x46 = (((((0x2 * ((((uint64_t)x29 * x11) + ((uint64_t)x25 * x15)) + ((uint64_t)x33 * x7))) + ((uint64_t)x27 * x13)) + ((uint64_t)x31 * x9)) + ((uint64_t)x23 * x17)) + ((uint64_t)x35 * x5));
+  { uint64_t x47 = (((((((((uint64_t)x29 * x13) + ((uint64_t)x31 * x11)) + ((uint64_t)x27 * x15)) + ((uint64_t)x33 * x9)) + ((uint64_t)x25 * x17)) + ((uint64_t)x35 * x7)) + ((uint64_t)x23 * x19)) + ((uint64_t)x37 * x5));
+  { uint64_t x48 = (((((((uint64_t)x31 * x13) + (0x2 * (((((uint64_t)x29 * x15) + ((uint64_t)x33 * x11)) + ((uint64_t)x25 * x19)) + ((uint64_t)x37 * x7)))) + ((uint64_t)x27 * x17)) + ((uint64_t)x35 * x9)) + ((uint64_t)x23 * x21)) + ((uint64_t)x39 * x5));
+  { uint64_t x49 = (((((((((((uint64_t)x31 * x15) + ((uint64_t)x33 * x13)) + ((uint64_t)x29 * x17)) + ((uint64_t)x35 * x11)) + ((uint64_t)x27 * x19)) + ((uint64_t)x37 * x9)) + ((uint64_t)x25 * x21)) + ((uint64_t)x39 * x7)) + ((uint64_t)x23 * x20)) + ((uint64_t)x38 * x5));
+  { uint64_t x50 = (((((0x2 * ((((((uint64_t)x33 * x15) + ((uint64_t)x29 * x19)) + ((uint64_t)x37 * x11)) + ((uint64_t)x25 * x20)) + ((uint64_t)x38 * x7))) + ((uint64_t)x31 * x17)) + ((uint64_t)x35 * x13)) + ((uint64_t)x27 * x21)) + ((uint64_t)x39 * x9));
+  { uint64_t x51 = (((((((((uint64_t)x33 * x17) + ((uint64_t)x35 * x15)) + ((uint64_t)x31 * x19)) + ((uint64_t)x37 * x13)) + ((uint64_t)x29 * x21)) + ((uint64_t)x39 * x11)) + ((uint64_t)x27 * x20)) + ((uint64_t)x38 * x9));
+  { uint64_t x52 = (((((uint64_t)x35 * x17) + (0x2 * (((((uint64_t)x33 * x19) + ((uint64_t)x37 * x15)) + ((uint64_t)x29 * x20)) + ((uint64_t)x38 * x11)))) + ((uint64_t)x31 * x21)) + ((uint64_t)x39 * x13));
+  { uint64_t x53 = (((((((uint64_t)x35 * x19) + ((uint64_t)x37 * x17)) + ((uint64_t)x33 * x21)) + ((uint64_t)x39 * x15)) + ((uint64_t)x31 * x20)) + ((uint64_t)x38 * x13));
+  { uint64_t x54 = (((0x2 * ((((uint64_t)x37 * x19) + ((uint64_t)x33 * x20)) + ((uint64_t)x38 * x15))) + ((uint64_t)x35 * x21)) + ((uint64_t)x39 * x17));
+  { uint64_t x55 = (((((uint64_t)x37 * x21) + ((uint64_t)x39 * x19)) + ((uint64_t)x35 * x20)) + ((uint64_t)x38 * x17));
+  { uint64_t x56 = (((uint64_t)x39 * x21) + (0x2 * (((uint64_t)x37 * x20) + ((uint64_t)x38 * x19))));
+  { uint64_t x57 = (((uint64_t)x39 * x20) + ((uint64_t)x38 * x21));
+  { uint64_t x58 = ((uint64_t)(0x2 * x38) * x20);
+  { uint64_t x59 = (x48 + (x58 << 0x4));
+  { uint64_t x60 = (x59 + (x58 << 0x1));
+  { uint64_t x61 = (x60 + x58);
+  { uint64_t x62 = (x47 + (x57 << 0x4));
+  { uint64_t x63 = (x62 + (x57 << 0x1));
+  { uint64_t x64 = (x63 + x57);
+  { uint64_t x65 = (x46 + (x56 << 0x4));
+  { uint64_t x66 = (x65 + (x56 << 0x1));
+  { uint64_t x67 = (x66 + x56);
+  { uint64_t x68 = (x45 + (x55 << 0x4));
+  { uint64_t x69 = (x68 + (x55 << 0x1));
+  { uint64_t x70 = (x69 + x55);
+  { uint64_t x71 = (x44 + (x54 << 0x4));
+  { uint64_t x72 = (x71 + (x54 << 0x1));
+  { uint64_t x73 = (x72 + x54);
+  { uint64_t x74 = (x43 + (x53 << 0x4));
+  { uint64_t x75 = (x74 + (x53 << 0x1));
+  { uint64_t x76 = (x75 + x53);
+  { uint64_t x77 = (x42 + (x52 << 0x4));
+  { uint64_t x78 = (x77 + (x52 << 0x1));
+  { uint64_t x79 = (x78 + x52);
+  { uint64_t x80 = (x41 + (x51 << 0x4));
+  { uint64_t x81 = (x80 + (x51 << 0x1));
+  { uint64_t x82 = (x81 + x51);
+  { uint64_t x83 = (x40 + (x50 << 0x4));
+  { uint64_t x84 = (x83 + (x50 << 0x1));
+  { uint64_t x85 = (x84 + x50);
+  { uint64_t x86 = (x85 >> 0x1a);
+  { uint32_t x87 = ((uint32_t)x85 & 0x3ffffff);
+  { uint64_t x88 = (x86 + x82);
+  { uint64_t x89 = (x88 >> 0x19);
+  { uint32_t x90 = ((uint32_t)x88 & 0x1ffffff);
+  { uint64_t x91 = (x89 + x79);
+  { uint64_t x92 = (x91 >> 0x1a);
+  { uint32_t x93 = ((uint32_t)x91 & 0x3ffffff);
+  { uint64_t x94 = (x92 + x76);
+  { uint64_t x95 = (x94 >> 0x19);
+  { uint32_t x96 = ((uint32_t)x94 & 0x1ffffff);
+  { uint64_t x97 = (x95 + x73);
+  { uint64_t x98 = (x97 >> 0x1a);
+  { uint32_t x99 = ((uint32_t)x97 & 0x3ffffff);
+  { uint64_t x100 = (x98 + x70);
+  { uint64_t x101 = (x100 >> 0x19);
+  { uint32_t x102 = ((uint32_t)x100 & 0x1ffffff);
+  { uint64_t x103 = (x101 + x67);
+  { uint64_t x104 = (x103 >> 0x1a);
+  { uint32_t x105 = ((uint32_t)x103 & 0x3ffffff);
+  { uint64_t x106 = (x104 + x64);
+  { uint64_t x107 = (x106 >> 0x19);
+  { uint32_t x108 = ((uint32_t)x106 & 0x1ffffff);
+  { uint64_t x109 = (x107 + x61);
+  { uint64_t x110 = (x109 >> 0x1a);
+  { uint32_t x111 = ((uint32_t)x109 & 0x3ffffff);
+  { uint64_t x112 = (x110 + x49);
+  { uint64_t x113 = (x112 >> 0x19);
+  { uint32_t x114 = ((uint32_t)x112 & 0x1ffffff);
+  { uint64_t x115 = (x87 + (0x13 * x113));
+  { uint32_t x116 = (uint32_t) (x115 >> 0x1a);
+  { uint32_t x117 = ((uint32_t)x115 & 0x3ffffff);
+  { uint32_t x118 = (x116 + x90);
+  { uint32_t x119 = (x118 >> 0x19);
+  { uint32_t x120 = (x118 & 0x1ffffff);
+  out[0] = x117;
+  out[1] = x120;
+  out[2] = (x119 + x93);
+  out[3] = x96;
+  out[4] = x99;
+  out[5] = x102;
+  out[6] = x105;
+  out[7] = x108;
+  out[8] = x111;
+  out[9] = x114;
+  }}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
+  assert_fe(out);
+}
+
 static void fe_mul121666(fe *h, const fe_loose *f) {
   assert_fe_loose(f->v);
-  int32_t f0 = f->v[0];
-  int32_t f1 = f->v[1];
-  int32_t f2 = f->v[2];
-  int32_t f3 = f->v[3];
-  int32_t f4 = f->v[4];
-  int32_t f5 = f->v[5];
-  int32_t f6 = f->v[6];
-  int32_t f7 = f->v[7];
-  int32_t f8 = f->v[8];
-  int32_t f9 = f->v[9];
-  int64_t h0 = f0 * (int64_t) 121666;
-  int64_t h1 = f1 * (int64_t) 121666;
-  int64_t h2 = f2 * (int64_t) 121666;
-  int64_t h3 = f3 * (int64_t) 121666;
-  int64_t h4 = f4 * (int64_t) 121666;
-  int64_t h5 = f5 * (int64_t) 121666;
-  int64_t h6 = f6 * (int64_t) 121666;
-  int64_t h7 = f7 * (int64_t) 121666;
-  int64_t h8 = f8 * (int64_t) 121666;
-  int64_t h9 = f9 * (int64_t) 121666;
-  int64_t carry0;
-  int64_t carry1;
-  int64_t carry2;
-  int64_t carry3;
-  int64_t carry4;
-  int64_t carry5;
-  int64_t carry6;
-  int64_t carry7;
-  int64_t carry8;
-  int64_t carry9;
-
-  carry9 = h9 + (1 << 24); h0 += (carry9 >> 25) * 19; h9 -= carry9 & kTop39Bits;
-  carry1 = h1 + (1 << 24); h2 += carry1 >> 25; h1 -= carry1 & kTop39Bits;
-  carry3 = h3 + (1 << 24); h4 += carry3 >> 25; h3 -= carry3 & kTop39Bits;
-  carry5 = h5 + (1 << 24); h6 += carry5 >> 25; h5 -= carry5 & kTop39Bits;
-  carry7 = h7 + (1 << 24); h8 += carry7 >> 25; h7 -= carry7 & kTop39Bits;
-
-  carry0 = h0 + (1 << 25); h1 += carry0 >> 26; h0 -= carry0 & kTop38Bits;
-  carry2 = h2 + (1 << 25); h3 += carry2 >> 26; h2 -= carry2 & kTop38Bits;
-  carry4 = h4 + (1 << 25); h5 += carry4 >> 26; h4 -= carry4 & kTop38Bits;
-  carry6 = h6 + (1 << 25); h7 += carry6 >> 26; h6 -= carry6 & kTop38Bits;
-  carry8 = h8 + (1 << 25); h9 += carry8 >> 26; h8 -= carry8 & kTop38Bits;
-
-  h->v[0] = h0;
-  h->v[1] = h1;
-  h->v[2] = h2;
-  h->v[3] = h3;
-  h->v[4] = h4;
-  h->v[5] = h5;
-  h->v[6] = h6;
-  h->v[7] = h7;
-  h->v[8] = h8;
-  h->v[9] = h9;
+  fe_mul_121666_impl(h->v, f->v);
   assert_fe(h->v);
 }
 
