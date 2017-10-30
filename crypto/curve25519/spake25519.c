@@ -49,57 +49,55 @@
 //
 // SEED_N = 'edwards25519 point generation seed (N)'
 // SEED_M = 'edwards25519 point generation seed (M)'
-
-/*
-def genpoint(seed):
-    v = hashlib.sha256(seed).digest()
-    it = 1
-    while True:
-        try:
-            x,y = E.decodepoint(v)
-        except Exception, e:
-            print e
-            it += 1
-            v = hashlib.sha256(v).digest()
-            continue
-        print "Found in %d iterations:" % it
-        print "  x = %d" % x
-        print "  y = %d" % y
-        print " Encoded (hex)"
-        print E.encodepoint((x,y)).encode('hex')
-        return (x,y)
-
-def gentable(P):
-    t = []
-    for i in range(1,16):
-        k = (i >> 3 & 1) * (1 << 192) + \
-            (i >> 2 & 1) * (1 << 128) + \
-            (i >> 1 & 1) * (1 <<  64) + \
-            (i      & 1)
-        t.append(E.scalarmult(P, k))
-    return ''.join(E.encodeint(x) + E.encodeint(y) for (x,y) in t)
-
-def printtable(table, name):
-    print "static const uint8_t %s[15 * 2 * 32] = {" % name,
-    for i in range(15 * 2 * 32):
-        if i % 12 == 0:
-            print "\n   ",
-        print " 0x%02x," % ord(table[i]),
-    print "\n};"
-
-if __name__ == "__main__":
-    print "Searching for N"
-    N = genpoint(SEED_N)
-    print "Generating precomputation table for N"
-    Ntable = gentable(N)
-    printtable(Ntable, "kSpakeNSmallPrecomp")
-
-    print "Searching for M"
-    M = genpoint(SEED_M)
-    print "Generating precomputation table for M"
-    Mtable = gentable(M)
-    printtable(Mtable, "kSpakeMSmallPrecomp")
-*/
+//
+// def genpoint(seed):
+//     v = hashlib.sha256(seed).digest()
+//     it = 1
+//     while True:
+//         try:
+//             x,y = E.decodepoint(v)
+//         except Exception, e:
+//             print e
+//             it += 1
+//             v = hashlib.sha256(v).digest()
+//             continue
+//         print "Found in %d iterations:" % it
+//         print "  x = %d" % x
+//         print "  y = %d" % y
+//         print " Encoded (hex)"
+//         print E.encodepoint((x,y)).encode('hex')
+//         return (x,y)
+//
+// def gentable(P):
+//     t = []
+//     for i in range(1,16):
+//         k = ((i >> 3 & 1) * (1 << 192) +
+//              (i >> 2 & 1) * (1 << 128) +
+//              (i >> 1 & 1) * (1 <<  64) +
+//              (i      & 1))
+//         t.append(E.scalarmult(P, k))
+//     return ''.join(E.encodeint(x) + E.encodeint(y) for (x,y) in t)
+//
+// def printtable(table, name):
+//     print "static const uint8_t %s[15 * 2 * 32] = {" % name,
+//     for i in range(15 * 2 * 32):
+//         if i % 12 == 0:
+//             print "\n   ",
+//         print " 0x%02x," % ord(table[i]),
+//     print "\n};"
+//
+// if __name__ == "__main__":
+//     print "Searching for N"
+//     N = genpoint(SEED_N)
+//     print "Generating precomputation table for N"
+//     Ntable = gentable(N)
+//     printtable(Ntable, "kSpakeNSmallPrecomp")
+//
+//     print "Searching for M"
+//     M = genpoint(SEED_M)
+//     print "Generating precomputation table for M"
+//     Mtable = gentable(M)
+//     printtable(Mtable, "kSpakeMSmallPrecomp")
 
 static const uint8_t kSpakeNSmallPrecomp[15 * 2 * 32] = {
     0x20, 0x1b, 0xc5, 0xb3, 0x43, 0x17, 0x71, 0x10, 0x44, 0x1e, 0x73, 0xb3,
