@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f76345be_6a52fb92",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-10-30T19:29:28Z",
+      "side": 1,
+      "message": "nit: blank lines between functions (here and elsewhere).",
+      "revId": "542ac6a0a54f830ef55f0d87cb14f25079fc277f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9b417f4_07fdb5f4",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 834,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-10-30T19:29:28Z",
+      "side": 1,
+      "message": "This could just be a cast, right?",
+      "revId": "542ac6a0a54f830ef55f0d87cb14f25079fc277f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb6bc263_106ced53",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 1148,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-10-30T19:29:28Z",
+      "side": 1,
+      "message": "I assume that this (and the case below) are where the Ed25519 code isn\u0027t respecting its own documented bounds?",
+      "range": {
+        "startLine": 1148,
+        "startChar": 2,
+        "endLine": 1148,
+        "endChar": 19
+      },
+      "revId": "542ac6a0a54f830ef55f0d87cb14f25079fc277f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
