@@ -16,6 +16,24 @@
       "revId": "ba94746eb2b4b59a0eb72047e4ca2d2d54454c87",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1f89496_06a0e261",
+        "filename": "crypto/curve25519/spake25519.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-10-31T16:31:08Z",
+      "side": 0,
+      "message": "I\u0027ve no strong feelings. Have switched to /* */ in case it helps someone. (Will keep the change to remove \\ from the end of a line though — that can be a pain.)",
+      "parentUuid": "625ec01d_2f0499db",
+      "revId": "ba94746eb2b4b59a0eb72047e4ca2d2d54454c87",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
