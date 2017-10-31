@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f3f7f5a8_607964be",
+        "filename": "crypto/curve25519/spake25519.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-31T20:29:19Z",
+      "side": 1,
+      "message": "Nit: curve25519, since you\u0027re working with the curve here and not the Diffie-Hellman or signature primitive?",
+      "range": {
+        "startLine": 322,
+        "startChar": 54,
+        "endLine": 322,
+        "endChar": 61
+      },
+      "revId": "d096a4022e9572188d3c2aef79ca3e3fea15bff3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "332f9b70_c8fdf49f",
+        "filename": "crypto/curve25519/spake25519.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-31T20:29:19Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "d096a4022e9572188d3c2aef79ca3e3fea15bff3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b93cb75d_488e1205",
+        "filename": "crypto/curve25519/spake25519.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-31T20:29:19Z",
+      "side": 1,
+      "message": "Playing around with godbolt, this doesn\u0027t totally reliably give something branchless at all compilers. Since you\u0027re using uint32_t, you probably could just write:\n\nvoid scalar_add(scalar *dest, const scalar *src) {\n  uint32_t carry \u003d 0;\n\n  for (size_t i \u003d 0; i \u003c 8; i++) {\n    uint64_t tmp \u003d ((uint64_t)dest-\u003ewords[i] + src-\u003ewords[i]) + carry;\n    dest-\u003ewords[i] \u003d (uint32_t)tmp;\n    carry \u003d (uint32_t)(tmp \u003e\u003e 32);\n  }\n}\n\nThe compiler doesn\u0027t turn *that* into the adc chain that we want either, of course, but this isn\u0027t exactly performance critical I guess.\n\n(There is also bn_add_words if you add a BN_ULONG branch to the union. In some alternate universe where BIGNUM weren\u0027t a trainwreck, I could imagine us reusing the same versions of these primitives in a lot of places maybe?)",
+      "revId": "d096a4022e9572188d3c2aef79ca3e3fea15bff3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9ae8417_a335bab8",
+        "filename": "crypto/curve25519/spake25519.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-31T20:29:19Z",
+      "side": 1,
+      "message": "Nit: 80 chars here and below.",
+      "revId": "d096a4022e9572188d3c2aef79ca3e3fea15bff3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e85f0bf4_33445779",
+        "filename": "crypto/curve25519/spake25519.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-31T20:29:19Z",
+      "side": 1,
+      "message": "Nit: You can probably just write password_scalar.bytes.",
+      "range": {
+        "startLine": 432,
+        "startChar": 39,
+        "endLine": 432,
+        "endChar": 64
+      },
+      "revId": "d096a4022e9572188d3c2aef79ca3e3fea15bff3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eedf65fb_3600edd5",
+        "filename": "crypto/curve25519/spake25519.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-31T20:29:19Z",
+      "side": 1,
+      "message": "Does x25519_ge_scalarmult_small_precomp require ctx-\u003epassword_scalar be reduced?",
+      "range": {
+        "startLine": 436,
+        "startChar": 44,
+        "endLine": 436,
+        "endChar": 64
+      },
+      "revId": "d096a4022e9572188d3c2aef79ca3e3fea15bff3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
