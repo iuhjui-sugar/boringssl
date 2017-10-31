@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "6bc456b3_85549b91",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 834,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-31T19:31:26Z",
+      "side": 1,
+      "message": "I believe that would be a strict aliasing violation, yeah. I would hope our primary consumers build with that, but probably best not to depend on that?",
+      "parentUuid": "3d0454c7_66eac535",
+      "revId": "542ac6a0a54f830ef55f0d87cb14f25079fc277f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cb6bc263_106ced53",
         "filename": "crypto/curve25519/curve25519.c",
         "patchSetId": 9
