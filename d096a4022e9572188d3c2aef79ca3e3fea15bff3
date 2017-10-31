@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "807b505a_51d852fd",
+        "filename": "crypto/curve25519/spake25519.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-10-31T20:52:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3f7f5a8_607964be",
+      "range": {
+        "startLine": 322,
+        "startChar": 54,
+        "endLine": 322,
+        "endChar": 61
+      },
+      "revId": "d096a4022e9572188d3c2aef79ca3e3fea15bff3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "332f9b70_c8fdf49f",
         "filename": "crypto/curve25519/spake25519.c",
         "patchSetId": 2
@@ -39,6 +63,24 @@
       "revId": "d096a4022e9572188d3c2aef79ca3e3fea15bff3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eeca0bff_76f0fa58",
+        "filename": "crypto/curve25519/spake25519.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-10-31T20:52:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "332f9b70_c8fdf49f",
+      "revId": "d096a4022e9572188d3c2aef79ca3e3fea15bff3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "93900856_a09efb32",
+        "filename": "crypto/curve25519/spake25519.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-10-31T20:52:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b93cb75d_488e1205",
+      "revId": "d096a4022e9572188d3c2aef79ca3e3fea15bff3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b9ae8417_a335bab8",
         "filename": "crypto/curve25519/spake25519.c",
         "patchSetId": 2
@@ -73,6 +133,24 @@
       "revId": "d096a4022e9572188d3c2aef79ca3e3fea15bff3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "573eacf5_88367be0",
+        "filename": "crypto/curve25519/spake25519.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-10-31T20:52:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9ae8417_a335bab8",
+      "revId": "d096a4022e9572188d3c2aef79ca3e3fea15bff3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -99,6 +177,30 @@
     },
     {
       "key": {
+        "uuid": "4b377150_53e0dd6d",
+        "filename": "crypto/curve25519/spake25519.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-10-31T20:52:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e85f0bf4_33445779",
+      "range": {
+        "startLine": 432,
+        "startChar": 39,
+        "endLine": 432,
+        "endChar": 64
+      },
+      "revId": "d096a4022e9572188d3c2aef79ca3e3fea15bff3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eedf65fb_3600edd5",
         "filename": "crypto/curve25519/spake25519.c",
         "patchSetId": 2
@@ -119,6 +221,30 @@
       "revId": "d096a4022e9572188d3c2aef79ca3e3fea15bff3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "696b7737_a557f77f",
+        "filename": "crypto/curve25519/spake25519.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-10-31T20:52:38Z",
+      "side": 1,
+      "message": "Nope. It works with the full 256 bits of the input.",
+      "parentUuid": "eedf65fb_3600edd5",
+      "range": {
+        "startLine": 436,
+        "startChar": 44,
+        "endLine": 436,
+        "endChar": 64
+      },
+      "revId": "d096a4022e9572188d3c2aef79ca3e3fea15bff3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
