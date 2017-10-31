@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "625ec01d_2f0499db",
+        "filename": "crypto/curve25519/spake25519.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-10-31T05:06:28Z",
+      "side": 0,
+      "message": "Oh whoops. My intention was to put the /* above import hashlib, so we wouldn\u0027t have issues with trailing \\ and one could paste it straight into a file without removing a prefix.\n\nThis works too though. I\u0027ll defer to you whether you prefer uniform //s or ease of pasting code.",
+      "revId": "ba94746eb2b4b59a0eb72047e4ca2d2d54454c87",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
