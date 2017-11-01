@@ -1,0 +1,1032 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "02e63538_d04281b6",
+        "filename": "ssl/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "false",
+      "range": {
+        "startLine": 553,
+        "startChar": 67,
+        "endLine": 553,
+        "endChar": 71
+      },
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d15e596f_9ecd541b",
+        "filename": "ssl/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "true",
+      "range": {
+        "startLine": 553,
+        "startChar": 48,
+        "endLine": 553,
+        "endChar": 51
+      },
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfc80cb6_d6263509",
+        "filename": "ssl/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1179,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "Nit: size is a bit ambiguous between the number of them or the total size of the list. ssl_num_client_CAs? Or just a boolean ssl_has_client_CAs. Or return the STACK_OF(T) out of an ssl_get_client_CA_list. (Maybe that last one? That would be usable in ssl_add_client_CA_list too.)",
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4fd0416_66411641",
+        "filename": "ssl/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 2515,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "Mismerge?",
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67202b07_37c8fa57",
+        "filename": "ssl/ssl_versions.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "This makes our servers enable draft-21, which is problematic when there are no clients shipping it. As this is purely to make QUIC\u0027s non-production interop testing simpler, tls13_draft21 would probably better not participate in this game.",
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2504912_f1d7348e",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1807,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "This needs a comment. Perhaps something like:\n\n  // Per draft-ietf-tls-tls13-21 section 4.1.4, skip offering the session if the selected cipher in HelloRetryRequest does not match. This avoids performing the transcript hash transformation for multiple hashes.\n\nMan, this protocol got really complicated at some point. :-/\n\n(Doing it deep in here is kind of odd, but fine since resumption only figured into one extension I think? I was actually thinking you could put it into tls13_client.cc and just drop ssl-\u003esession completely.)",
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a07c9bf_113ecdc5",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1811,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "Maybe move this to the front of the function? If line 1805 runs the second time, it\u0027ll get confused.",
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "288ac9e7_846071c8",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1289,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "This is just configuring nullptr, no?",
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dda6fb9e_6f4fb882",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2412,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "early_data extension. Or perhaps just \"new session did%s support early data, [...]\".\n\nDo you mind renaming all these early_data_info\u0027s to ticket_supports_early_data or something? \"-expect-early-data-info\" trips me up every time I see it, since it\u0027s not obvious this is talking about the session.",
+      "range": {
+        "startLine": 2412,
+        "startChar": 43,
+        "endLine": 2412,
+        "endChar": 58
+      },
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad05d006_9fcc93b6",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "early_data (there\u0027s no \"info\" anymore).",
+      "range": {
+        "startLine": 465,
+        "startChar": 8,
+        "endLine": 465,
+        "endChar": 22
+      },
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa59f041_f97583ba",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "[Hrmf. Another highlightjs bug. Very similar to the original one too. It gets really confused at nested parens.]",
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b8ec93a2_ea535f24",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 1075,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "early_data",
+      "range": {
+        "startLine": 1075,
+        "startChar": 19,
+        "endLine": 1075,
+        "endChar": 35
+      },
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "786f10c5_53951bb8",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 1477,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "no early_data ticket extension found",
+      "range": {
+        "startLine": 1477,
+        "startChar": 39,
+        "endLine": 1477,
+        "endChar": 44
+      },
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a457eeb_cfa9a976",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 1504,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "When would this be nil?",
+      "range": {
+        "startLine": 1504,
+        "startChar": 32,
+        "endLine": 1504,
+        "endChar": 57
+      },
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "204fc116_49529e6b",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 1801,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "(I guess this TODO can go now.)",
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "862011c7_63a462e3",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 1805,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "I\u0027m guessing ch is contextHash? What about\n\nchHash -\u003e contextHash\ninline contextHash.Sum(nil) into the one place you use it.",
+      "range": {
+        "startLine": 1805,
+        "startChar": 3,
+        "endLine": 1805,
+        "endChar": 9
+      },
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9309939_f3dcaa12",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "I\u0027m really confused what\u0027s going on here. Did you mean TLS 1.3? Surely session can\u0027t be nil since you dereference it on line 383. And when would a session have no wireVersion?",
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "596844f6_d636bc11",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "err?",
+      "range": {
+        "startLine": 611,
+        "startChar": 11,
+        "endLine": 611,
+        "endChar": 14
+      },
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "909bdaa2_073a92da",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 975,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "endOfEarlyData",
+      "range": {
+        "startLine": 975,
+        "startChar": 3,
+        "endLine": 975,
+        "endChar": 7
+      },
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5293375f_34bdde77",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 2013,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "This is redundant with the line 2018 check.",
+      "range": {
+        "startLine": 2013,
+        "startChar": 19,
+        "endLine": 2013,
+        "endChar": 36
+      },
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7dfbe133_771ee6d0",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 2021,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "!\u003d\n\nThe draft-18 version was \u003c because it would keep parsing the body out.\n\n(This parsing code... :-/ Maybe it\u0027s time we gave this thing a real parser.)",
+      "range": {
+        "startLine": 2021,
+        "startChar": 22,
+        "endLine": 2021,
+        "endChar": 23
+      },
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "477808b9_9c971ff7",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 2037,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "!\u003d",
+      "range": {
+        "startLine": 2037,
+        "startChar": 22,
+        "endLine": 2037,
+        "endChar": 23
+      },
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b699b34_97f241ef",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 2040,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "This copy seems kind of unnecessary.",
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c754d36_a1850587",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 2042,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "Contents is never read from again.",
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d2fb452_c1d32e09",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 2059,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "I think you can just omit this?",
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "310695cc_9926533b",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 2063,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "This function is kind of a mess now that the sigalgs and CA stuff is duplicated three times. Maybe move sigalgs and CA parsers into helper functions?",
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b72a57cd_2667e052",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 2259,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "[Ugh. Keeping wireToVersion as-is on the Go side was definitely a mistake.]",
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "61f9da95_9c1065d0",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 2304,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "duplicateEarlyDataExtension?",
+      "range": {
+        "startLine": 2304,
+        "startChar": 8,
+        "endLine": 2304,
+        "endChar": 30
+      },
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc93184c_c744fdbe",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "if err :\u003d ...; err !\u003d nil {",
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27306f09_f3e20724",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "HelloRetryRequest",
+      "range": {
+        "startLine": 608,
+        "startChar": 74,
+        "endLine": 608,
+        "endChar": 77
+      },
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcc98f9b_40f00d8d",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 970,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "endOfEarlyData",
+      "range": {
+        "startLine": 970,
+        "startChar": 3,
+        "endLine": 970,
+        "endChar": 10
+      },
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0690a38e_07923fbf",
+        "filename": "ssl/test/runner/prf.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "Nit: UpdateForHelloRetryRequest?",
+      "range": {
+        "startLine": 243,
+        "startChar": 23,
+        "endLine": 243,
+        "endChar": 32
+      },
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee182b4e_463e1dae",
+        "filename": "ssl/test/runner/prf.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "Probably should add\n\n  if h.buffer !\u003d nil {\n     h.buffer \u003d []byte{}\n  }\n\nAnd then replace 248, 250, and 252 with h.Write(data.finish())",
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c672cf4_572839c7",
+        "filename": "ssl/test/runner/prf.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "Not really an \"add\" operation. Maybe nextSecret() or something? I dunno.\n\nOptional: Hrm. You probably could do the thing you did on the C side with less work by just keeping an h.firstSecret boolean?",
+      "range": {
+        "startLine": 397,
+        "startChar": 23,
+        "endLine": 397,
+        "endChar": 32
+      },
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d61685e1_44969624",
+        "filename": "ssl/test/runner/prf.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "Nit: s/2/Draft21/",
+      "range": {
+        "startLine": 451,
+        "startChar": 23,
+        "endLine": 451,
+        "endChar": 24
+      },
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85b7853d_4a879c36",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 3810,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "Nit: empty",
+      "range": {
+        "startLine": 3810,
+        "startChar": 17,
+        "endLine": 3810,
+        "endChar": 22
+      },
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad5b228c_cbea3d84",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 11280,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "Might be worth a description for this one. Perhaps:\n\n// Test that the client does not offer a PSK in the second ClientHello if the HelloRetryRequest is incompatible with it.",
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2e9224b_cd23b2fc",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 11531,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "[Nice! :-) I don\u0027t think I\u0027d thought of those.]",
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6c23b71c_699a09b6",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 12213,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "Nit: NonEmptyEndOfEarlyData? Probably don\u0027t even need the EarlyData bit then.",
+      "range": {
+        "startLine": 12213,
+        "startChar": 43,
+        "endLine": 12213,
+        "endChar": 51
+      },
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7dc86dd_55cedbe8",
+        "filename": "ssl/tls13_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "Nit: Probably want to initialize this to zero. I am sure a compiler will freak out about this someday, and it seems generally safer.",
+      "range": {
+        "startLine": 66,
+        "startChar": 27,
+        "endLine": 66,
+        "endChar": 39
+      },
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a67c5359_01daa147",
+        "filename": "ssl/tls13_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "Is this actually necessary? We\u0027re not touching the key schedule. (Looks like it might have been but then you switched to computing hash_len on the spot.)",
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e902bc04_d957129f",
+        "filename": "ssl/tls13_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "Nit: I\u0027d swap this with line 96 and chain. I think its a little clearer if the two transcript operations are together, since it doesn\u0027t matter.",
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6a69af9_fdb280a9",
+        "filename": "ssl/tls13_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "Nit: malloc failure.",
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1add4e6b_14d3f5d3",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "clang-format",
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65b55d28_4dc2e2b5",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "Same comment as in previous CL, this conditional looks like it\u0027s checking a lot of tangential stuff. SSL_get_session(hs-\u003essl)-\u003essl_version seems like a better way to get this version out? That way it\u0027ll be based on whether early_session is filled in, which seems a more direct check. Ditto throughout.\n\nI think in an ideal world, we\u0027d maybe have much of this encapsulated in an SSLKeySchedule class or something. Perhaps SSLTranscript can fold into it. (Kinda like the Go code.) And in that universe, SSLKeySchedule would probably just stash a version on init and be done with it.\n\nMaybe we should do that at some point... :-)\n\n(Though this particular one can just be ssl-\u003eversion, right? Early data doesn\u0027t call this function.)",
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b74eaa01_b909fb19",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "[We probably should have made this a char or something. :-/ Something to correct when it goes Span I guess. Unless you feel like doing it right here, which works too.]",
+      "range": {
+        "startLine": 405,
+        "startChar": 27,
+        "endLine": 405,
+        "endChar": 44
+      },
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "78ba0a86_b73522dd",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "if (!session) {\n  return 0;\n}",
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d435a54_85f24913",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "Maybe static_assert(kNumTickets \u003c 256, \"Too many tickets\") for amusements. :-)",
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eef8a255_39b58aab",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "uint8_t nonce[1] \u003d {i};\n\n(Or uint8_t nonce \u003d i; and \u0026nonce / 1 below. Or just CBB_add_u8, really.)",
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "baa79af7_b108558f",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "Do we actually need this line or line 257? (Apart from the hs-\u003ehash_len call below, but tls13_client.cc did that differently.) The only previous benefit I could think of is FreeBuffer to save a copy of the ClientHello, but this code doesn\u0027t do that anyway.",
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a59536fb_75446506",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 704,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "Doesn\u0027t really matter, but\n\n  static const uint8_t kEndOfEarlyData[4] \u003d {...};",
+      "range": {
+        "startLine": 704,
+        "startChar": 7,
+        "endLine": 704,
+        "endChar": 21
+      },
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a9c18a3_19f78de6",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 779,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T00:39:05Z",
+      "side": 1,
+      "message": "if (!ssl_check_message_type(...)) {\n  return ssl_hs_error;\n}\nif (CBS_len(\u0026msg.body) !\u003d 0) {\n  ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);\n  OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);\n  return ssl_hs_error;\n}\n\n(Otherwise we send the wrong alert, not that it matters much.)",
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
