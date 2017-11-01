@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f8456c34_2d425c09",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T21:19:17Z",
+      "side": 1,
+      "message": "Wow, the C++ runtime check actually prevented us from shipping a bug. :-(",
+      "revId": "b636a353f40d2679cf5e3a45ab5ee192ae8467f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
