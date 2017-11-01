@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eb14bd75_0963c902",
+        "filename": "ssl/ssl_versions.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T20:55:16Z",
+      "side": 1,
+      "message": "Revised this a bit per in-person conversation.",
+      "revId": "24a58d846a27d5895064775277478a85cb4681a9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

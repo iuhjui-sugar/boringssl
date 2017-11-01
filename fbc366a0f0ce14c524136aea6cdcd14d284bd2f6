@@ -558,6 +558,30 @@
     },
     {
       "key": {
+        "uuid": "d93b95f0_8c54652f",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 1504,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-01T20:55:16Z",
+      "side": 1,
+      "message": "Think I might have tweaked things to avoid that?",
+      "parentUuid": "c9051939_77aee435",
+      "range": {
+        "startLine": 1504,
+        "startChar": 32,
+        "endLine": 1504,
+        "endChar": 57
+      },
+      "revId": "fbc366a0f0ce14c524136aea6cdcd14d284bd2f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "204fc116_49529e6b",
         "filename": "ssl/test/runner/conn.go",
         "patchSetId": 4
