@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f2584aea_d48150ee",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 998,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-11-03T14:26:51Z",
+      "side": 1,
+      "message": "Maybe SSL_is_signature_algorithm_rsa_pss?",
+      "range": {
+        "startLine": 998,
+        "startChar": 19,
+        "endLine": 998,
+        "endChar": 53
+      },
+      "revId": "76e29257cecaeb5a8e4c02b02fa81f768c462b8b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
