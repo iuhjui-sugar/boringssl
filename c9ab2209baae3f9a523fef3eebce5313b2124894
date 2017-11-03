@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e964b27a_477d818c",
+        "filename": "include/openssl/cipher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-03T00:35:50Z",
+      "side": 1,
+      "message": "This is normally used to toggle EVP_CIPHER_CTX_FLAG_WRAP_ALLOW, which we don\u0027t support.",
+      "revId": "c9ab2209baae3f9a523fef3eebce5313b2124894",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
