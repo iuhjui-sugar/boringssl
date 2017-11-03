@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "20702ff0_62ed0b7a",
+        "filename": "third_party/fiat/LICENSE",
+        "patchSetId": 6
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-03T21:34:04Z",
+      "side": 1,
+      "message": "(Should we include their AUTHORS file?)",
+      "range": {
+        "startLine": 3,
+        "startChar": 57,
+        "endLine": 3,
+        "endChar": 64
+      },
+      "revId": "018bffbc8738455a40fc3ba1cf5782b02d38b7b3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64ddaa22_69aa57cb",
+        "filename": "third_party/fiat/README.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-03T21:34:04Z",
+      "side": 1,
+      "message": "Whatever instructions I followed for the other third_party directories said to put one of those METADATA files in. Though I\u0027m not sure who suited those are to this case.",
+      "revId": "018bffbc8738455a40fc3ba1cf5782b02d38b7b3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7425ae3b_45c31ca9",
+        "filename": "third_party/fiat/curve25519.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-03T21:34:04Z",
+      "side": 1,
+      "message": "Oh the poor compiler... :-)",
+      "revId": "018bffbc8738455a40fc3ba1cf5782b02d38b7b3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
