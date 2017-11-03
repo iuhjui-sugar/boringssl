@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4daf23f3_4dbb1248",
+        "filename": "third_party/fiat/LICENSE",
+        "patchSetId": 6
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-11-03T22:31:25Z",
+      "side": 1,
+      "message": "Have linked to their authors file (which, happily, already includes Google).",
+      "parentUuid": "20702ff0_62ed0b7a",
+      "range": {
+        "startLine": 3,
+        "startChar": 57,
+        "endLine": 3,
+        "endChar": 64
+      },
+      "revId": "018bffbc8738455a40fc3ba1cf5782b02d38b7b3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "64ddaa22_69aa57cb",
         "filename": "third_party/fiat/README.md",
         "patchSetId": 6
@@ -39,6 +63,24 @@
       "revId": "018bffbc8738455a40fc3ba1cf5782b02d38b7b3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f2a0884_ac4b6924",
+        "filename": "third_party/fiat/README.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-11-03T22:31:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64ddaa22_69aa57cb",
+      "revId": "018bffbc8738455a40fc3ba1cf5782b02d38b7b3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
