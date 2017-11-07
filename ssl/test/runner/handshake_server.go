@@ -526,6 +526,7 @@ ResendHelloRetryRequest:
 	}
 	helloRetryRequest := &helloRetryRequestMsg{
 		vers:                c.wireVersion,
+		sessionId:           hs.clientHello.sessionId,
 		cipherSuite:         cipherSuite,
 		duplicateExtensions: config.Bugs.DuplicateHelloRetryRequestExtensions,
 	}
@@ -586,6 +587,10 @@ ResendHelloRetryRequest:
 		hs.writeServerHash(helloRetryRequest.marshal())
 		c.writeRecord(recordTypeHandshake, helloRetryRequest.marshal())
 		c.flushHandshake()
+
+		if isDraft22(c.wireVersion) {
+			c.writeRecord(recordTypeChangeCipherSpec, []byte{1})
+		}
 
 		if hs.clientHello.hasEarlyData {
 			c.skipEarlyData = true
@@ -686,6 +691,12 @@ ResendHelloRetryRequest:
 				earlyLabel = earlyTrafficLabelDraft21
 			}
 
+			if isDraft22(c.wireVersion) {
+				if err := c.readRecord(recordTypeChangeCipherSpec); err != nil {
+					return err
+				}
+			}
+
 			earlyTrafficSecret := hs.finishedHash.deriveSecret(earlyLabel)
 			if err := c.useInTrafficSecret(c.wireVersion, hs.suite, earlyTrafficSecret); err != nil {
 				return err
@@ -782,8 +793,10 @@ ResendHelloRetryRequest:
 	}
 	c.flushHandshake()
 
-	if isResumptionExperiment(c.wireVersion) {
-		c.writeRecord(recordTypeChangeCipherSpec, []byte{1})
+	if !isDraft22(c.wireVersion) || !sendHelloRetryRequest {
+		if isResumptionExperiment(c.wireVersion) {
+			c.writeRecord(recordTypeChangeCipherSpec, []byte{1})
+		}
 	}
 
 	clientLabel := clientHandshakeTrafficLabel
@@ -983,8 +996,10 @@ ResendHelloRetryRequest:
 	}
 
 	if isResumptionClientCCSExperiment(c.wireVersion) && !c.skipEarlyData {
-		if err := c.readRecord(recordTypeChangeCipherSpec); err != nil {
-			return err
+		if !isDraft22(c.wireVersion) || !encryptedExtensions.extensions.hasEarlyData {
+			if err := c.readRecord(recordTypeChangeCipherSpec); err != nil {
+				return err
+			}
 		}
 	}
 

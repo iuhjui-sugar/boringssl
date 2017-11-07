@@ -57,23 +57,57 @@ static enum ssl_hs_wait_t do_read_hello_retry_request(SSL_HANDSHAKE *hs) {
   if (!ssl->method->get_message(ssl, &msg)) {
     return ssl_hs_read_message;
   }
-  if (msg.type != SSL3_MT_HELLO_RETRY_REQUEST) {
-    hs->tls13_state = state_read_server_hello;
-    return ssl_hs_ok;
-  }
 
-  CBS body = msg.body, extensions;
-  uint16_t server_version, cipher_suite = 0;
-  if (!CBS_get_u16(&body, &server_version) ||
-      (ssl_is_draft21(ssl->version) &&
-       !CBS_get_u16(&body, &cipher_suite)) ||
-      !CBS_get_u16_length_prefixed(&body, &extensions) ||
-      // HelloRetryRequest may not be empty.
-      CBS_len(&extensions) == 0 ||
-      CBS_len(&body) != 0) {
-    OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
-    ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
-    return ssl_hs_error;
+  CBS extensions;
+  uint16_t cipher_suite = 0;
+  if (ssl_is_draft22(ssl->version)) {
+    if (msg.type != SSL3_MT_SERVER_HELLO) {
+      OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
+      ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
+      return ssl_hs_error;
+    }
+
+    CBS body = msg.body, server_random;
+    uint16_t server_version;
+    uint8_t sid_length;
+    if (!CBS_get_u16(&body, &server_version) ||
+        !CBS_get_bytes(&body, &server_random, SSL3_RANDOM_SIZE) ||
+        !CBS_get_u8(&body, &sid_length) ||
+        !CBS_skip(&body, sid_length) ||
+        !CBS_get_u16(&body, &cipher_suite) ||
+        !CBS_skip(&body, 1) ||
+        !CBS_get_u16_length_prefixed(&body, &extensions) ||
+        CBS_len(&extensions) == 0 ||
+        CBS_len(&body) != 0) {
+      OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
+      ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
+      return ssl_hs_error;
+    }
+
+    if (OPENSSL_memcmp(kHelloRetryRequest, CBS_data(&server_random),
+                       SSL3_RANDOM_SIZE) != 0) {
+      hs->tls13_state = state_read_server_hello;
+      return ssl_hs_ok;
+    }
+  } else {
+    if (msg.type != SSL3_MT_HELLO_RETRY_REQUEST) {
+      hs->tls13_state = state_read_server_hello;
+      return ssl_hs_ok;
+    }
+
+    CBS body = msg.body;
+    uint16_t server_version;
+    if (!CBS_get_u16(&body, &server_version) ||
+        (ssl_is_draft21(ssl->version) &&
+         !CBS_get_u16(&body, &cipher_suite)) ||
+        !CBS_get_u16_length_prefixed(&body, &extensions) ||
+        // HelloRetryRequest may not be empty.
+        CBS_len(&extensions) == 0 ||
+        CBS_len(&body) != 0) {
+      OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
+      ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
+      return ssl_hs_error;
+    }
   }
 
   if (ssl_is_draft21(ssl->version)) {
@@ -96,11 +130,13 @@ static enum ssl_hs_wait_t do_read_hello_retry_request(SSL_HANDSHAKE *hs) {
   }
 
 
-  bool have_cookie, have_key_share;
-  CBS cookie, key_share;
+  bool have_cookie, have_key_share, have_supported_versions;
+  CBS cookie, key_share, supported_versions;
   const SSL_EXTENSION_TYPE ext_types[] = {
       {TLSEXT_TYPE_key_share, &have_key_share, &key_share},
       {TLSEXT_TYPE_cookie, &have_cookie, &cookie},
+      {TLSEXT_TYPE_supported_versions, &have_supported_versions,
+       &supported_versions},
   };
 
   uint8_t alert = SSL_AD_DECODE_ERROR;
@@ -111,6 +147,11 @@ static enum ssl_hs_wait_t do_read_hello_retry_request(SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
+  if (!ssl_is_draft22(ssl->version) && have_supported_versions) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_EXTENSION);
+    ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_UNSUPPORTED_EXTENSION);
+    return ssl_hs_error;
+  }
   if (have_cookie) {
     CBS cookie_value;
     if (!CBS_get_u16_length_prefixed(&cookie, &cookie_value) ||
@@ -164,7 +205,9 @@ static enum ssl_hs_wait_t do_read_hello_retry_request(SSL_HANDSHAKE *hs) {
   if (hs->in_early_data) {
     return ssl_hs_early_data_rejected;
   }
-  return ssl_hs_ok;
+
+  return ssl_is_draft22(ssl->version) ? ssl_hs_read_change_cipher_spec
+                                      : ssl_hs_ok;
 }
 
 static enum ssl_hs_wait_t do_send_second_client_hello(SSL_HANDSHAKE *hs) {
@@ -365,9 +408,11 @@ static enum ssl_hs_wait_t do_read_server_hello(SSL_HANDSHAKE *hs) {
 
   ssl->method->next_message(ssl);
   hs->tls13_state = state_process_change_cipher_spec;
-  return ssl_is_resumption_experiment(ssl->version)
-             ? ssl_hs_read_change_cipher_spec
-             : ssl_hs_ok;
+  if (ssl_is_resumption_experiment(ssl->version) &&
+      (!ssl_is_draft22(ssl->version) || !hs->received_hello_retry_request)) {
+    return ssl_hs_read_change_cipher_spec;
+  }
+  return ssl_hs_ok;
 }
 
 static enum ssl_hs_wait_t do_process_change_cipher_spec(SSL_HANDSHAKE *hs) {
@@ -642,7 +687,8 @@ static enum ssl_hs_wait_t do_send_end_of_early_data(SSL_HANDSHAKE *hs) {
   }
 
   if (hs->early_data_offered) {
-    if ((ssl_is_resumption_client_ccs_experiment(ssl->version) &&
+    if (((ssl_is_resumption_client_ccs_experiment(ssl->version) &&
+          !ssl_is_draft22(ssl->version)) &&
          !ssl->method->add_change_cipher_spec(ssl)) ||
         !tls13_set_traffic_key(ssl, evp_aead_seal, hs->client_handshake_secret,
                                hs->hash_len)) {
