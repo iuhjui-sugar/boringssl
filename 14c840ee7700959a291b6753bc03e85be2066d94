@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "19825834_7c72c675",
+        "filename": "crypto/fipsmodule/bn/shift.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-10T22:42:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41556e50_ccfe45f0",
+      "range": {
+        "startLine": 212,
+        "startChar": 7,
+        "endLine": 212,
+        "endChar": 12
+      },
+      "revId": "14c840ee7700959a291b6753bc03e85be2066d94",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d6713be2_8b9deb0e",
         "filename": "crypto/fipsmodule/bn/shift.c",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "14c840ee7700959a291b6753bc03e85be2066d94",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1c5122f_5e99a395",
+        "filename": "crypto/fipsmodule/bn/shift.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-10T22:42:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6713be2_8b9deb0e",
+      "range": {
+        "startLine": 219,
+        "startChar": 9,
+        "endLine": 219,
+        "endChar": 14
+      },
+      "revId": "14c840ee7700959a291b6753bc03e85be2066d94",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
