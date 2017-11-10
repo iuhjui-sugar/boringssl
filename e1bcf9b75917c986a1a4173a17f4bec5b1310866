@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "81e0168f_5d90fccf",
+        "filename": "crypto/fipsmodule/bn/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-11-10T22:22:23Z",
+      "side": 1,
+      "message": "(duplicated.)",
+      "range": {
+        "startLine": 217,
+        "startChar": 36,
+        "endLine": 217,
+        "endChar": 79
+      },
+      "revId": "e1bcf9b75917c986a1a4173a17f4bec5b1310866",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb1834f8_83945569",
+        "filename": "crypto/fipsmodule/bn/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-11-10T22:22:23Z",
+      "side": 1,
+      "message": "ditto.",
+      "range": {
+        "startLine": 224,
+        "startChar": 13,
+        "endLine": 224,
+        "endChar": 57
+      },
+      "revId": "e1bcf9b75917c986a1a4173a17f4bec5b1310866",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca5c760d_4795ea3c",
+        "filename": "crypto/fipsmodule/bn/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-11-10T22:22:23Z",
+      "side": 1,
+      "message": "\"which is\"",
+      "range": {
+        "startLine": 236,
+        "startChar": 51,
+        "endLine": 236,
+        "endChar": 53
+      },
+      "revId": "e1bcf9b75917c986a1a4173a17f4bec5b1310866",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "337f55e4_8e2696f8",
+        "filename": "crypto/fipsmodule/bn/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-11-10T22:22:23Z",
+      "side": 1,
+      "message": "\"which is\"",
+      "range": {
+        "startLine": 243,
+        "startChar": 27,
+        "endLine": 243,
+        "endChar": 29
+      },
+      "revId": "e1bcf9b75917c986a1a4173a17f4bec5b1310866",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
