@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f6cfd47d_9c85baff",
+        "filename": "crypto/fipsmodule/bn/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-10T22:16:37Z",
+      "side": 1,
+      "message": "clang-format messes with the tabs every time I touch this file. I went ahead and just clang-formatted this block too.",
+      "revId": "4ea2e333646a48b69de364a428545b845b10daaf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
