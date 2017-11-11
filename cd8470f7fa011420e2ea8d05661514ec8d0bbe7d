@@ -22,6 +22,30 @@
       "revId": "cd8470f7fa011420e2ea8d05661514ec8d0bbe7d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "242b07cd_e3812b68",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 793,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2017-11-11T02:40:24Z",
+      "side": 0,
+      "message": "Fixed.",
+      "parentUuid": "f2a03dfe_80261ea1",
+      "range": {
+        "startLine": 793,
+        "startChar": 15,
+        "endLine": 793,
+        "endChar": 45
+      },
+      "revId": "cd8470f7fa011420e2ea8d05661514ec8d0bbe7d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
