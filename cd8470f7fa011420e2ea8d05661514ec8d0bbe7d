@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f2a03dfe_80261ea1",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 793,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-11T01:27:24Z",
+      "side": 0,
+      "message": "Because this is gone, we need to correspondingly ignore the *encrypted* CCS records if resumption_experiment \u0026\u0026 !draft22, right?",
+      "range": {
+        "startLine": 793,
+        "startChar": 15,
+        "endLine": 793,
+        "endChar": 45
+      },
+      "revId": "cd8470f7fa011420e2ea8d05661514ec8d0bbe7d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

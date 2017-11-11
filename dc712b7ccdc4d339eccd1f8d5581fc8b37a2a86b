@@ -1,0 +1,191 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9c12fc15_b5832b1d",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-11T01:27:24Z",
+      "side": 1,
+      "message": "ssl_is_draft22(ssl-\u003esession-\u003essl_version)\n\n(You should then be able to remove the variant function. The variant functions make assumptions about the variant \u003d\u003e version mapping which is a little finicky.)",
+      "revId": "dc712b7ccdc4d339eccd1f8d5581fc8b37a2a86b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5affdde6_64f49d64",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-11T01:27:24Z",
+      "side": 1,
+      "message": "Nit: You can chain this with \u0026\u0026.",
+      "revId": "dc712b7ccdc4d339eccd1f8d5581fc8b37a2a86b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b68a86d5_c63acf65",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 1325,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-11T01:27:24Z",
+      "side": 1,
+      "message": "Bounds checks.",
+      "revId": "dc712b7ccdc4d339eccd1f8d5581fc8b37a2a86b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ff4b21d_64d71f40",
+        "filename": "ssl/tls13_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-11T01:27:24Z",
+      "side": 1,
+      "message": "This is the wrong alert and the wrong error code. (Just use ssl_check_message_type. That\u0027s why it\u0027s there.)",
+      "revId": "dc712b7ccdc4d339eccd1f8d5581fc8b37a2a86b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45c3c832_6150b2fd",
+        "filename": "ssl/tls13_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-11T01:27:24Z",
+      "side": 1,
+      "message": "Nit: Maybe add a CBS session_id and use CBS_get_u8_length_prefix. Slightly shorter.",
+      "revId": "dc712b7ccdc4d339eccd1f8d5581fc8b37a2a86b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eecc3780_6df7b256",
+        "filename": "ssl/tls13_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-11T01:27:24Z",
+      "side": 1,
+      "message": "This is a little safer (does the length check).\n\n  if (CBS_mem_equal(\u0026server_random, kHelloRetryRequest, sizeof(kHelloRetryRequest))\n\nOr perhaps even:\n\n  if (server_random \u003d\u003d MakeConstSpan(kHelloRetryRequest))",
+      "revId": "dc712b7ccdc4d339eccd1f8d5581fc8b37a2a86b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d62ed84b_13ffd0cf",
+        "filename": "ssl/tls13_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-11T01:27:24Z",
+      "side": 1,
+      "message": "Nit: Stray change?",
+      "revId": "dc712b7ccdc4d339eccd1f8d5581fc8b37a2a86b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08a06e72_ca16d929",
+        "filename": "ssl/tls13_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-11T01:27:24Z",
+      "side": 1,
+      "message": "Unnecessary layer of parentheses? Though at this point you should probably split these into two separate conditions.",
+      "revId": "dc712b7ccdc4d339eccd1f8d5581fc8b37a2a86b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5268587e_b6a55fa2",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-11T01:27:24Z",
+      "side": 1,
+      "message": "!CBB_add_u8(\u0026body, 0) ||\n\n(Missing the compression ID.)",
+      "revId": "dc712b7ccdc4d339eccd1f8d5581fc8b37a2a86b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31a19308_01b8ed4a",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 782,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-11T01:27:24Z",
+      "side": 1,
+      "message": "Nit: This means tls13_set_traffic_key failures get attributed to the wrong state.",
+      "revId": "dc712b7ccdc4d339eccd1f8d5581fc8b37a2a86b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9673ecc4_285c3bed",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-11T01:27:24Z",
+      "side": 1,
+      "message": "For DoS reasons, we must never process unbounded data from the peer without progress. Cap the number of these we\u0027re willing to process. (I had been thinking just feed into the empty record count, but keeping a bit somewhere works too.)",
+      "revId": "dc712b7ccdc4d339eccd1f8d5581fc8b37a2a86b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
