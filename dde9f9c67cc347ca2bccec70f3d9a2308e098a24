@@ -1,0 +1,129 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0de0dfc9_d32a758e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-11T04:22:39Z",
+      "side": 1,
+      "message": "Mind calling out the wire-breaking change in 0-RTT and why it\u0027s fine? (That we\u0027ll never turn it on on the client, etc.)\n\nAlso I guess this should say something about how it\u0027s draft \"22\". :-)",
+      "revId": "dde9f9c67cc347ca2bccec70f3d9a2308e098a24",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d34518a1_ac0949ec",
+        "filename": "ssl/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 1011,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-11T04:22:39Z",
+      "side": 1,
+      "message": "Perhaps do here:\nextern const uint8_t kHelloRetryRequest[SSL3_RANDOM_SIZE];\n\nIn tls13_both.cc\nconst uint8_t kHelloRetryRequest[SSL3_RANDOM_SIZE] \u003d {\n ...\n};\n\nDoesn\u0027t really matter, but avoids an extra 32 bytes in the binary.",
+      "revId": "dde9f9c67cc347ca2bccec70f3d9a2308e098a24",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86f39a76_f6c92022",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1486,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-11T04:22:39Z",
+      "side": 1,
+      "message": "if len(data) \u003c 33 {\n  return false\n}",
+      "revId": "dde9f9c67cc347ca2bccec70f3d9a2308e098a24",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1494c9bb_e38a6f14",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1488,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-11T04:22:39Z",
+      "side": 1,
+      "message": "1+sessionIdLen+3 (cipher suite and compression method)",
+      "range": {
+        "startLine": 1488,
+        "startChar": 52,
+        "endLine": 1488,
+        "endChar": 53
+      },
+      "revId": "dde9f9c67cc347ca2bccec70f3d9a2308e098a24",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f84279c_f50df468",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 997,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-11T04:22:39Z",
+      "side": 1,
+      "message": "Nit: Maybe fold unto the line above.",
+      "revId": "dde9f9c67cc347ca2bccec70f3d9a2308e098a24",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "580786a6_35fc2135",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-11T04:22:39Z",
+      "side": 1,
+      "message": "Probably worth adding a test that TLS13Draft22 tolerates \"missing\" CCS, given the \"compat mode\" interpretation.",
+      "revId": "dde9f9c67cc347ca2bccec70f3d9a2308e098a24",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc48d7d5_49a9aa66",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-11T04:22:39Z",
+      "side": 1,
+      "message": "Mind adding a test here too?",
+      "revId": "dde9f9c67cc347ca2bccec70f3d9a2308e098a24",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
