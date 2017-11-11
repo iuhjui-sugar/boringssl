@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c93f4bf5_02667d41",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-11T04:59:45Z",
+      "side": 1,
+      "message": "Nit: extra space.",
+      "revId": "020f57849591fab200d8b5d70efa5fe507165c9c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "733ac301_d743e8ae",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 11797,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-11T04:59:45Z",
+      "side": 1,
+      "message": "Nit: go fmt",
+      "revId": "020f57849591fab200d8b5d70efa5fe507165c9c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05f87dc9_27077450",
+        "filename": "ssl/tls13_both.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-11T04:59:45Z",
+      "side": 1,
+      "message": "Nit: Extra spaces.",
+      "revId": "020f57849591fab200d8b5d70efa5fe507165c9c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
