@@ -312,6 +312,8 @@ int ssl_write_client_hello(SSL_HANDSHAKE *hs) {
                        ssl->session->session_id_length)) {
       return 0;
     }
+    hs->session_id_len = ssl->session->session_id_length;
+    OPENSSL_memcpy(hs->session_id, ssl->session->session_id, hs->session_id_len);
   } else {
     // In TLS 1.3 experimental encodings, send a fake placeholder session ID
     // when we do not otherwise have one to send.
