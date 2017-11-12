@@ -2785,6 +2785,35 @@ read alert 1 0
 			expectedLocalError: "remote error: illegal parameter",
 		},
 		{
+			testType: clientTest,
+			name:     "TLS13Draft22-InvalidCompressionMethod",
+			config: Config{
+				MaxVersion: VersionTLS13,
+				Bugs: ProtocolBugs{
+					SendCompressionMethod: 1,
+				},
+			},
+			tls13Variant:       TLS13Draft22,
+			shouldFail:         true,
+			expectedError:      ":DECODE_ERROR:",
+			expectedLocalError: "remote error: error decoding message",
+		},
+		{
+			testType: clientTest,
+			name:     "TLS13Draft22-HRR-InvalidCompressionMethod",
+			config: Config{
+				MaxVersion:       VersionTLS13,
+				CurvePreferences: []CurveID{CurveP384},
+				Bugs: ProtocolBugs{
+					SendCompressionMethod: 1,
+				},
+			},
+			tls13Variant:       TLS13Draft22,
+			shouldFail:         true,
+			expectedError:      ":DECODE_ERROR:",
+			expectedLocalError: "remote error: error decoding message",
+		},
+		{
 			name: "GREASE-Client-TLS12",
 			config: Config{
 				MaxVersion: VersionTLS12,
@@ -11030,6 +11059,21 @@ func addTLS13HandshakeTests() {
 			},
 			tls13Variant:  variant,
 			resumeSession: true,
+		})
+
+		testCases = append(testCases, testCase{
+			testType: clientTest,
+			name:     "TLS13-TLS12SessionID-" + name,
+			config: Config{
+				MaxVersion:             VersionTLS12,
+				SessionTicketsDisabled: true,
+			},
+			resumeConfig: &Config{
+				MaxVersion: VersionTLS13,
+			},
+			tls13Variant:         variant,
+			resumeSession:        true,
+			expectResumeRejected: true,
 		})
 
 		// Test that the server correctly echoes back session IDs of
