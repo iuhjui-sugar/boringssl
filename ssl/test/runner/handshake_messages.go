@@ -1409,6 +1409,7 @@ type helloRetryRequestMsg struct {
 	isServerHello       bool
 	sessionId           []byte
 	cipherSuite         uint16
+	compressionMethod   uint8
 	hasSelectedGroup    bool
 	selectedGroup       CurveID
 	cookie              []byte
@@ -1435,7 +1436,7 @@ func (m *helloRetryRequestMsg) marshal() []byte {
 		sessionId := retryRequest.addU8LengthPrefixed()
 		sessionId.addBytes(m.sessionId)
 		retryRequest.addU16(m.cipherSuite)
-		retryRequest.addU8(0)
+		retryRequest.addU8(m.compressionMethod)
 	} else {
 		retryRequest.addU16(m.vers)
 		if isDraft21(m.vers) {

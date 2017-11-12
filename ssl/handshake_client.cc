@@ -472,7 +472,11 @@ static enum ssl_hs_wait_t do_start_connect(SSL_HANDSHAKE *hs) {
 
   // Initialize a random session ID for the experimental TLS 1.3 variant
   // requiring a session id.
-  if (ssl_is_resumption_variant(ssl->tls13_variant)) {
+  if (ssl->session != nullptr) {
+    hs->session_id_len = ssl->session->session_id_length;
+    OPENSSL_memcpy(hs->session_id, ssl->session->session_id,
+                   hs->session_id_len);
+  } else if (ssl_is_resumption_variant(ssl->tls13_variant)) {
     hs->session_id_len = sizeof(hs->session_id);
     if (!RAND_bytes(hs->session_id, hs->session_id_len)) {
       return ssl_hs_error;
