@@ -5954,6 +5954,22 @@ Product = -366c125f96b38b58d01c939c27c4100af3377eabb792b5491a
 A = a57da276998c548101f514e9f
 B = -542fb814f45924aa09a16f2a6
 
+Product = 0
+A = 0
+B = 542fb814f45924aa09a16f2a6
+
+Product = 0
+A = 542fb814f45924aa09a16f2a6
+B = 0
+
+Product = 542fb814f45924aa09a16f2a6
+A = 1
+B = 542fb814f45924aa09a16f2a6
+
+Product = 542fb814f45924aa09a16f2a6
+A = 542fb814f45924aa09a16f2a6
+B = 1
+
 
 # Quotient tests.
 #
