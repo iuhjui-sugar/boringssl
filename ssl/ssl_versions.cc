@@ -344,7 +344,8 @@ bool ssl_supports_version(SSL_HANDSHAKE *hs, uint16_t version) {
   // deployability fixes.
   if (ssl->server &&
       ssl->tls13_variant != tls13_default &&
-      version != TLS1_3_DRAFT21_VERSION) {
+      version != TLS1_3_DRAFT21_VERSION &&
+      version != TLS1_3_DRAFT22_VERSION) {
     return true;
   }
 
