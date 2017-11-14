@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab8a2614_61ff37db",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-14T03:14:32Z",
+      "side": 0,
+      "message": "(goto can\u0027t cross a variable decl.)",
+      "range": {
+        "startLine": 270,
+        "startChar": 4,
+        "endLine": 270,
+        "endChar": 8
+      },
+      "revId": "ba8f1864c15ec938ce0851f416663511c89f454a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
