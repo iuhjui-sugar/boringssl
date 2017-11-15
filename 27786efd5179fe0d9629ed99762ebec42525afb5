@@ -34,6 +34,24 @@
       "revId": "27786efd5179fe0d9629ed99762ebec42525afb5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "990655f9_20e48442",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-15T11:29:47Z",
+      "side": 1,
+      "message": "Sure.",
+      "parentUuid": "44068d57_91240a91",
+      "revId": "27786efd5179fe0d9629ed99762ebec42525afb5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
