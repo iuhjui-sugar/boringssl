@@ -16,6 +16,24 @@
       "revId": "27786efd5179fe0d9629ed99762ebec42525afb5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44068d57_91240a91",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 7235
+      },
+      "writtenOn": "2017-11-15T11:24:34Z",
+      "side": 1,
+      "message": "Ack, this sounds better as it covers everything that BN_is_bit_set does. Should I rebase?",
+      "parentUuid": "382a0438_78a575ed",
+      "revId": "27786efd5179fe0d9629ed99762ebec42525afb5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
