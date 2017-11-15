@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "382a0438_78a575ed",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-15T11:13:13Z",
+      "side": 1,
+      "message": "Hrm. Strictly speaking, this doesn\u0027t say what it returns if the bit exists but isn\u0027t set. How does this sound to you?\n\nBN_is_bit_set returns one if the |n|th least-significant bit in |a| exists and is set. Otherwise, it returns zero.",
+      "revId": "27786efd5179fe0d9629ed99762ebec42525afb5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
