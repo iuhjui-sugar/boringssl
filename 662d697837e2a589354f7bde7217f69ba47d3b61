@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b37dca1_ef00ee7b",
+        "filename": "crypto/fipsmodule/bn/montgomery.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-11-16T22:59:43Z",
+      "side": 1,
+      "message": "I think I\u0027ve managed to convince myself that this is correct, but geez.",
+      "range": {
+        "startLine": 293,
+        "startChar": 4,
+        "endLine": 294,
+        "endChar": 27
+      },
+      "revId": "662d697837e2a589354f7bde7217f69ba47d3b61",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a2b964a_c848fc04",
+        "filename": "crypto/fipsmodule/bn/montgomery.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-11-16T22:59:43Z",
+      "side": 1,
+      "message": "compile assert that sizeof(crypto_word_t) \u003d\u003d sizeof(BN_ULONG)? (Otherwise it might be subject to unsigned promotion, which will leave top bits unset.)",
+      "range": {
+        "startLine": 311,
+        "startChar": 2,
+        "endLine": 311,
+        "endChar": 10
+      },
+      "revId": "662d697837e2a589354f7bde7217f69ba47d3b61",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41c57e65_51d2cf76",
+        "filename": "crypto/fipsmodule/bn/montgomery.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-11-16T22:59:43Z",
+      "side": 1,
+      "message": "This goes wrong when:\n\n1) |carry| is 1 (i.e. rp[2*nl] overflowed and thus we have a MSB on top of that).\n2) |bn_sub_words| returns zero (i.e. there\u0027s no borrow needed to subtract the lower words)\n\nBecause then v \u003d -1 and the next line ends up setting v to 1, which is not a valid mask for |constant_time_select_w|.\n\nHowever, I think that\u0027s impossible because it suggests that, even after subtracting |a|, the result is one-bit too large, and we know that a single subtract is all that\u0027s needed.\n\nIf you think that\u0027s why this is ok, please mention in a comment :)",
+      "range": {
+        "startLine": 312,
+        "startChar": 6,
+        "endLine": 312,
+        "endChar": 12
+      },
+      "revId": "662d697837e2a589354f7bde7217f69ba47d3b61",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
