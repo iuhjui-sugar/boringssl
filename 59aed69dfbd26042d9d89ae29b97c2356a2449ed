@@ -22,6 +22,30 @@
       "revId": "59aed69dfbd26042d9d89ae29b97c2356a2449ed",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37493401_4f390a6c",
+        "filename": "crypto/fipsmodule/bn/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-11-16T23:41:47Z",
+      "side": 1,
+      "message": "I think passing the lengths as a sanity check is perfectly reasonable. Returning void and having the internal check be an assert would be a possible solution.",
+      "parentUuid": "f8fd84ed_24fc2463",
+      "range": {
+        "startLine": 328,
+        "startChar": 76,
+        "endLine": 329,
+        "endChar": 27
+      },
+      "revId": "59aed69dfbd26042d9d89ae29b97c2356a2449ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
