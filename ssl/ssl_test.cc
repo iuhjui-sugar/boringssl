@@ -2960,9 +2960,7 @@ TEST_P(SSLVersionTest, RecordCallback) {
       uint16_t record_version, length;
       ASSERT_TRUE(CBS_get_u8(&cbs, &type));
       ASSERT_TRUE(CBS_get_u16(&cbs, &record_version));
-      EXPECT_TRUE(record_version == version() ||
-                  record_version == (is_dtls() ? DTLS1_VERSION : TLS1_VERSION))
-          << "Invalid record version: " << record_version;
+      EXPECT_EQ(record_version & 0xff00, version() & 0xff00);
       if (is_dtls()) {
         uint16_t epoch;
         ASSERT_TRUE(CBS_get_u16(&cbs, &epoch));

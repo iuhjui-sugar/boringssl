@@ -1305,39 +1305,11 @@ var tlsVersions = []tlsVersion{
 		tls13Variant: TLS13Default,
 	},
 	{
-		name:         "TLS13Draft21",
-		version:      VersionTLS13,
-		excludeFlag:  "-no-tls13",
-		versionWire:  tls13Draft21Version,
-		tls13Variant: TLS13Draft21,
-	},
-	{
-		name:         "TLS13Draft22",
-		version:      VersionTLS13,
-		excludeFlag:  "-no-tls13",
-		versionWire:  tls13Draft22Version,
-		tls13Variant: TLS13Draft22,
-	},
-	{
-		name:         "TLS13Experiment",
-		version:      VersionTLS13,
-		excludeFlag:  "-no-tls13",
-		versionWire:  tls13ExperimentVersion,
-		tls13Variant: TLS13Experiment,
-	},
-	{
 		name:         "TLS13Experiment2",
 		version:      VersionTLS13,
 		excludeFlag:  "-no-tls13",
 		versionWire:  tls13Experiment2Version,
 		tls13Variant: TLS13Experiment2,
-	},
-	{
-		name:         "TLS13Experiment3",
-		version:      VersionTLS13,
-		excludeFlag:  "-no-tls13",
-		versionWire:  tls13Experiment3Version,
-		tls13Variant: TLS13Experiment3,
 	},
 }
 
@@ -3857,7 +3829,7 @@ func addClientAuthTests() {
 	// Test that an empty client CA list doesn't send a CA extension.
 	testCases = append(testCases, testCase{
 		testType: serverTest,
-		name:     "TLS13Draft21-Empty-Client-CA-List",
+		name:     "TLS13-Empty-Client-CA-List",
 		config: Config{
 			MaxVersion:   VersionTLS13,
 			Certificates: []Certificate{rsaCertificate},
@@ -3865,7 +3837,6 @@ func addClientAuthTests() {
 				ExpectNoCertificateAuthoritiesExtension: true,
 			},
 		},
-		tls13Variant: TLS13Draft21,
 		flags: []string{
 			"-require-any-client-certificate",
 			"-use-client-ca-list", "<EMPTY>",
@@ -4223,7 +4194,7 @@ func addStateMachineCoverageTests(config stateMachineTestConfig) {
 		})
 
 		tests = append(tests, testCase{
-			name: "TLS13Draft22-HelloRetryRequest-Client",
+			name: "TLS13Experiment2-HelloRetryRequest-Client",
 			config: Config{
 				MaxVersion: VersionTLS13,
 				MinVersion: VersionTLS13,
@@ -4234,21 +4205,21 @@ func addStateMachineCoverageTests(config stateMachineTestConfig) {
 					ExpectMissingKeyShare: true,
 				},
 			},
-			tls13Variant: TLS13Draft22,
+			tls13Variant: TLS13Experiment2,
 			// Cover HelloRetryRequest during an ECDHE-PSK resumption.
 			resumeSession: true,
 		})
 
 		tests = append(tests, testCase{
 			testType: serverTest,
-			name:     "TLS13Draft22-HelloRetryRequest-Server",
+			name:     "TLS13Experiment2-HelloRetryRequest-Server",
 			config: Config{
 				MaxVersion: VersionTLS13,
 				MinVersion: VersionTLS13,
 				// Require a HelloRetryRequest for every curve.
 				DefaultCurves: []CurveID{},
 			},
-			tls13Variant: TLS13Draft22,
+			tls13Variant: TLS13Experiment2,
 			// Cover HelloRetryRequest during an ECDHE-PSK resumption.
 			resumeSession: true,
 		})
@@ -5271,7 +5242,7 @@ func addVersionNegotiationTests() {
 				if expectedVersion == VersionTLS13 && runnerVers.tls13Variant != shimVers.tls13Variant {
 					expectedClientVersion = VersionTLS12
 					expectedServerVersion = VersionTLS12
-					if shimVers.tls13Variant != TLS13Default && runnerVers.tls13Variant != TLS13Draft21 && runnerVers.tls13Variant != TLS13Draft22 {
+					if shimVers.tls13Variant != TLS13Default {
 						expectedServerVersion = VersionTLS13
 					}
 				}
@@ -5289,10 +5260,7 @@ func addVersionNegotiationTests() {
 				clientVers = recordVersionToWire(clientVers, protocol)
 				serverVers := expectedServerVersion
 				if expectedServerVersion >= VersionTLS13 {
-					serverVers = VersionTLS10
-					if runnerVers.tls13Variant == TLS13Experiment2 || runnerVers.tls13Variant == TLS13Experiment3 || runnerVers.tls13Variant == TLS13Draft22 {
-						serverVers = VersionTLS12
-					}
+					serverVers = VersionTLS12
 				}
 				serverVers = recordVersionToWire(serverVers, protocol)
 
@@ -5471,21 +5439,6 @@ func addVersionNegotiationTests() {
 			MaxVersion: VersionTLS12,
 			Bugs: ProtocolBugs{
 				SendServerSupportedExtensionVersion: VersionTLS12,
-			},
-		},
-		shouldFail:    true,
-		expectedError: ":UNEXPECTED_EXTENSION:",
-	})
-
-	// Test that the non-experimental TLS 1.3 isn't negotiated by the
-	// supported_versions extension in the ServerHello.
-	testCases = append(testCases, testCase{
-		testType: clientTest,
-		name:     "SupportedVersionSelection-TLS13",
-		config: Config{
-			MaxVersion: VersionTLS13,
-			Bugs: ProtocolBugs{
-				SendServerSupportedExtensionVersion: tls13DraftVersion,
 			},
 		},
 		shouldFail:    true,
@@ -10853,7 +10806,7 @@ func makePerMessageTests() []perMessageTest {
 		messageType: typeEndOfEarlyData,
 		test: testCase{
 			testType: serverTest,
-			name:     "TLS13Draft22-EndOfEarlyData",
+			name:     "TLS13-EndOfEarlyData",
 			config: Config{
 				MaxVersion: VersionTLS13,
 			},
@@ -10864,7 +10817,6 @@ func makePerMessageTests() []perMessageTest {
 					ExpectEarlyDataAccepted: true,
 				},
 			},
-			tls13Variant:  TLS13Draft22,
 			resumeSession: true,
 			flags:         []string{"-enable-early-data"},
 		},
@@ -11385,7 +11337,7 @@ func addTLS13HandshakeTests() {
 			expectedError: ":WRONG_CURVE:",
 		})
 
-		if isDraft21(version.versionWire) {
+		if isDraft22(version.versionWire) {
 			testCases = append(testCases, testCase{
 				name: "HelloRetryRequest-CipherChange-" + name,
 				config: Config{
@@ -11672,7 +11624,7 @@ func addTLS13HandshakeTests() {
 			expectedError: ":DECODE_ERROR:",
 		})
 
-		if isDraft21(version.versionWire) {
+		if isDraft22(version.versionWire) {
 			testCases = append(testCases, testCase{
 				name: "UnknownExtensionInCertificateRequest-" + name,
 				config: Config{
@@ -12354,7 +12306,7 @@ func addTLS13HandshakeTests() {
 		})
 
 		expectedError := ":UNEXPECTED_RECORD:"
-		if isDraft21(version.versionWire) {
+		if isDraft22(version.versionWire) {
 			// In draft-21 and up, early data is expected to be
 			// terminated by a handshake message, though we test
 			// with the wrong one.
@@ -12458,7 +12410,7 @@ func addTLS13HandshakeTests() {
 			expectedLocalError: "remote error: error decrypting message",
 		})
 
-		if isDraft21(version.versionWire) {
+		if isDraft22(version.versionWire) {
 			testCases = append(testCases, testCase{
 				testType: serverTest,
 				name:     "Server-NonEmptyEndOfEarlyData-" + name,

@@ -317,7 +317,7 @@ bool Server(const std::vector<std::string> &args) {
 
   // Enabling any TLS 1.3 variant on the server enables all of them.
   if (args_map.count("-tls13-variant") != 0) {
-    SSL_CTX_set_tls13_variant(ctx.get(), tls13_experiment);
+    SSL_CTX_set_tls13_variant(ctx.get(), tls13_experiment2);
   }
 
   if (args_map.count("-debug") != 0) {

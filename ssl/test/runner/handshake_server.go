@@ -281,9 +281,6 @@ func (hs *serverHandshakeState) readClientHello() error {
 	}
 
 	if config.Bugs.ExpectNoTLS12Session {
-		if len(hs.clientHello.sessionId) > 0 && !isResumptionExperiment(c.wireVersion) {
-			return fmt.Errorf("tls: client offered an unexpected session ID")
-		}
 		if len(hs.clientHello.sessionTicket) > 0 {
 			return fmt.Errorf("tls: client offered an unexpected session ticket")
 		}
@@ -583,7 +580,7 @@ ResendHelloRetryRequest:
 	}
 
 	if sendHelloRetryRequest {
-		if isDraft21(c.wireVersion) {
+		if isDraft22(c.wireVersion) {
 			if err := hs.finishedHash.UpdateForHelloRetryRequest(); err != nil {
 				return err
 			}
@@ -652,7 +649,7 @@ ResendHelloRetryRequest:
 
 		// PSK binders and obfuscated ticket age are both updated in the
 		// second ClientHello.
-		if isDraft21(c.wireVersion) && len(oldClientHelloCopy.pskIdentities) != len(newClientHelloCopy.pskIdentities) {
+		if isDraft22(c.wireVersion) && len(oldClientHelloCopy.pskIdentities) != len(newClientHelloCopy.pskIdentities) {
 			newClientHelloCopy.pskIdentities = oldClientHelloCopy.pskIdentities
 		} else {
 			if len(oldClientHelloCopy.pskIdentities) != len(newClientHelloCopy.pskIdentities) {
@@ -693,8 +690,8 @@ ResendHelloRetryRequest:
 		}
 		if encryptedExtensions.extensions.hasEarlyData {
 			earlyLabel := earlyTrafficLabel
-			if isDraft21(c.wireVersion) {
-				earlyLabel = earlyTrafficLabelDraft21
+			if isDraft22(c.wireVersion) {
+				earlyLabel = earlyTrafficLabelDraft22
 			}
 
 			earlyTrafficSecret := hs.finishedHash.deriveSecret(earlyLabel)
@@ -793,7 +790,7 @@ ResendHelloRetryRequest:
 	}
 	c.flushHandshake()
 
-	if !c.config.Bugs.SkipChangeCipherSpec && isResumptionExperiment(c.wireVersion) && !sendHelloRetryRequest {
+	if !c.config.Bugs.SkipChangeCipherSpec && !sendHelloRetryRequest {
 		c.writeRecord(recordTypeChangeCipherSpec, []byte{1})
 	}
 
@@ -803,9 +800,9 @@ ResendHelloRetryRequest:
 
 	clientLabel := clientHandshakeTrafficLabel
 	serverLabel := serverHandshakeTrafficLabel
-	if isDraft21(c.wireVersion) {
-		clientLabel = clientHandshakeTrafficLabelDraft21
-		serverLabel = serverHandshakeTrafficLabelDraft21
+	if isDraft22(c.wireVersion) {
+		clientLabel = clientHandshakeTrafficLabelDraft22
+		serverLabel = serverHandshakeTrafficLabelDraft22
 	}
 
 	// Switch to handshake traffic keys.
@@ -952,10 +949,10 @@ ResendHelloRetryRequest:
 	clientLabel = clientApplicationTrafficLabel
 	serverLabel = serverApplicationTrafficLabel
 	exportLabel := exporterLabel
-	if isDraft21(c.wireVersion) {
-		clientLabel = clientApplicationTrafficLabelDraft21
-		serverLabel = serverApplicationTrafficLabelDraft21
-		exportLabel = exporterLabelDraft21
+	if isDraft22(c.wireVersion) {
+		clientLabel = clientApplicationTrafficLabelDraft22
+		serverLabel = serverApplicationTrafficLabelDraft22
+		exportLabel = exporterLabelDraft22
 	}
 
 	clientTrafficSecret := hs.finishedHash.deriveSecret(clientLabel)
@@ -975,7 +972,7 @@ ResendHelloRetryRequest:
 
 	// Read end_of_early_data.
 	if encryptedExtensions.extensions.hasEarlyData {
-		if isDraft21(c.wireVersion) {
+		if isDraft22(c.wireVersion) {
 			msg, err := c.readHandshake()
 			if err != nil {
 				return err
@@ -996,7 +993,7 @@ ResendHelloRetryRequest:
 			}
 		}
 	}
-	if isResumptionClientCCSExperiment(c.wireVersion) && !isDraft22(c.wireVersion) && !hs.clientHello.hasEarlyData {
+	if !isDraft22(c.wireVersion) && !hs.clientHello.hasEarlyData {
 		// Early versions of the middlebox hacks inserted
 		// ChangeCipherSpec differently on 0-RTT and 2-RTT handshakes.
 		c.expectTLS13ChangeCipherSpec = true
@@ -1116,8 +1113,8 @@ ResendHelloRetryRequest:
 	c.cipherSuite = hs.suite
 
 	resumeLabel := resumptionLabel
-	if isDraft21(c.wireVersion) {
-		resumeLabel = resumptionLabelDraft21
+	if isDraft22(c.wireVersion) {
+		resumeLabel = resumptionLabelDraft22
 	}
 
 	c.resumptionSecret = hs.finishedHash.deriveSecret(resumeLabel)
@@ -2119,8 +2116,8 @@ func verifyPSKBinder(version uint16, clientHello *clientHelloMsg, sessionState *
 	}
 
 	binderLabel := resumptionPSKBinderLabel
-	if isDraft21(version) {
-		binderLabel = resumptionPSKBinderLabelDraft21
+	if isDraft22(version) {
+		binderLabel = resumptionPSKBinderLabelDraft22
 	}
 	binder := computePSKBinder(sessionState.masterSecret, version, binderLabel, pskCipherSuite, firstClientHello, helloRetryRequest, truncatedHello)
 	if !bytes.Equal(binder, binderToVerify) {

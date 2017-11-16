@@ -881,21 +881,17 @@ func (m *serverHelloMsg) marshal() []byte {
 	}
 	if m.versOverride != 0 {
 		hello.addU16(m.versOverride)
-	} else if isResumptionExperiment(m.vers) {
+	} else if vers >= VersionTLS13 {
 		hello.addU16(VersionTLS12)
 	} else {
 		hello.addU16(m.vers)
 	}
 
 	hello.addBytes(m.random)
-	if vers < VersionTLS13 || isResumptionExperiment(m.vers) {
-		sessionId := hello.addU8LengthPrefixed()
-		sessionId.addBytes(m.sessionId)
-	}
+	sessionId := hello.addU8LengthPrefixed()
+	sessionId.addBytes(m.sessionId)
 	hello.addU16(m.cipherSuite)
-	if vers < VersionTLS13 || isResumptionExperiment(m.vers) {
-		hello.addU8(m.compressionMethod)
-	}
+	hello.addU8(m.compressionMethod)
 
 	extensions := hello.addU16LengthPrefixed()
 
@@ -912,14 +908,12 @@ func (m *serverHelloMsg) marshal() []byte {
 			extensions.addU16(2) // Length
 			extensions.addU16(m.pskIdentity)
 		}
-		if isResumptionExperiment(m.vers) || m.supportedVersOverride != 0 {
-			extensions.addU16(extensionSupportedVersions)
-			extensions.addU16(2) // Length
-			if m.supportedVersOverride != 0 {
-				extensions.addU16(m.supportedVersOverride)
-			} else {
-				extensions.addU16(m.vers)
-			}
+		extensions.addU16(extensionSupportedVersions)
+		extensions.addU16(2) // Length
+		if m.supportedVersOverride != 0 {
+			extensions.addU16(m.supportedVersOverride)
+		} else {
+			extensions.addU16(m.vers)
 		}
 		if len(m.customExtension) > 0 {
 			extensions.addU16(extensionCustom)
@@ -966,26 +960,15 @@ func (m *serverHelloMsg) unmarshal(data []byte) bool {
 	}
 	m.random = data[6:38]
 	data = data[38:]
-	if vers < VersionTLS13 || isResumptionExperiment(m.vers) {
-		sessionIdLen := int(data[0])
-		if sessionIdLen > 32 || len(data) < 1+sessionIdLen {
-			return false
-		}
-		m.sessionId = data[1 : 1+sessionIdLen]
-		data = data[1+sessionIdLen:]
-	}
-	if len(data) < 2 {
+	sessionIdLen := int(data[0])
+	if sessionIdLen > 32 || len(data) < 1+sessionIdLen+3 {
 		return false
 	}
+	m.sessionId = data[1 : 1+sessionIdLen]
+	data = data[1+sessionIdLen:]
 	m.cipherSuite = uint16(data[0])<<8 | uint16(data[1])
-	data = data[2:]
-	if vers < VersionTLS13 || isResumptionExperiment(m.vers) {
-		if len(data) < 1 {
-			return false
-		}
-		m.compressionMethod = data[0]
-		data = data[1:]
-	}
+	m.compressionMethod = data[2]
+	data = data[3:]
 
 	if len(data) == 0 && m.vers < VersionTLS13 {
 		// Extension data is optional before TLS 1.3.
@@ -1068,9 +1051,7 @@ func (m *serverHelloMsg) unmarshal(data []byte) bool {
 				m.pskIdentity = uint16(d[0])<<8 | uint16(d[1])
 				m.hasPSKIdentity = true
 			case extensionSupportedVersions:
-				if !isResumptionExperiment(m.vers) {
-					return false
-				}
+				// Already parsed above.
 			default:
 				// Only allow the 3 extensions that are sent in
 				// the clear in TLS 1.3.
@@ -1438,7 +1419,7 @@ func (m *helloRetryRequestMsg) marshal() []byte {
 		retryRequest.addU8(0)
 	} else {
 		retryRequest.addU16(m.vers)
-		if isDraft21(m.vers) {
+		if isDraft22(m.vers) {
 			retryRequest.addU16(m.cipherSuite)
 		}
 	}
@@ -1498,7 +1479,7 @@ func (m *helloRetryRequestMsg) unmarshal(data []byte) bool {
 		data = data[2:]
 		data = data[1:] // Compression Method
 	} else {
-		if isDraft21(m.vers) {
+		if isDraft22(m.vers) {
 			m.cipherSuite = uint16(data[0])<<8 | uint16(data[1])
 			data = data[2:]
 		}
@@ -1955,7 +1936,7 @@ func (m *certificateRequestMsg) marshal() []byte {
 		requestContext := body.addU8LengthPrefixed()
 		requestContext.addBytes(m.requestContext)
 		extensions := newByteBuilder()
-		if isDraft21(m.vers) {
+		if isDraft22(m.vers) {
 			extensions = body.addU16LengthPrefixed()
 			if m.hasSignatureAlgorithm {
 				extensions.addU16(extensionSignatureAlgorithms)
@@ -2083,7 +2064,7 @@ func (m *certificateRequestMsg) unmarshal(data []byte) bool {
 		m.requestContext = make([]byte, contextLen)
 		copy(m.requestContext, data[1:])
 		data = data[1+contextLen:]
-		if isDraft21(m.vers) {
+		if isDraft22(m.vers) {
 			if len(data) < 2 {
 				return false
 			}
@@ -2281,7 +2262,7 @@ func (m *newSessionTicketMsg) marshal() []byte {
 	body.addU32(m.ticketLifetime)
 	if version >= VersionTLS13 {
 		body.addU32(m.ticketAgeAdd)
-		if isDraft21(m.vers) {
+		if isDraft22(m.vers) {
 			body.addU8LengthPrefixed().addBytes(m.ticketNonce)
 		}
 	}
@@ -2293,7 +2274,7 @@ func (m *newSessionTicketMsg) marshal() []byte {
 		extensions := body.addU16LengthPrefixed()
 		if m.maxEarlyDataSize > 0 {
 			extID := extensionTicketEarlyDataInfo
-			if isDraft21(m.vers) {
+			if isDraft22(m.vers) {
 				extID = extensionEarlyData
 			}
 			extensions.addU16(extID)
@@ -2333,7 +2314,7 @@ func (m *newSessionTicketMsg) unmarshal(data []byte) bool {
 		}
 		m.ticketAgeAdd = uint32(data[0])<<24 | uint32(data[1])<<16 | uint32(data[2])<<8 | uint32(data[3])
 		data = data[4:]
-		if isDraft21(m.vers) {
+		if isDraft22(m.vers) {
 			nonceLen := int(data[0])
 			data = data[1:]
 			if len(data) < nonceLen {
@@ -2372,7 +2353,7 @@ func (m *newSessionTicketMsg) unmarshal(data []byte) bool {
 		}
 
 		extID := extensionTicketEarlyDataInfo
-		if isDraft21(m.vers) {
+		if isDraft22(m.vers) {
 			extID = extensionEarlyData
 		}
 

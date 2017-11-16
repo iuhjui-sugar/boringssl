@@ -800,9 +800,6 @@ RestartReadRecord:
 		if c.haveVers {
 			expect = c.vers
 			if c.vers >= VersionTLS13 {
-				expect = VersionTLS10
-			}
-			if isResumptionRecordVersionExperiment(c.wireVersion) {
 				expect = VersionTLS12
 			}
 		} else {
@@ -904,10 +901,7 @@ func (c *Conn) readTLS13ChangeCipherSpec() error {
 	}
 
 	// Check they match that we expect.
-	expected := [6]byte{byte(recordTypeChangeCipherSpec), 3, 1, 0, 1, 1}
-	if isResumptionRecordVersionExperiment(c.wireVersion) {
-		expected[2] = 3
-	}
+	expected := [6]byte{byte(recordTypeChangeCipherSpec), 3, 3, 0, 1, 1}
 	if !bytes.Equal(b.data[:6], expected[:]) {
 		return c.in.setErrorLocked(fmt.Errorf("tls: error invalid TLS 1.3 ChangeCipherSpec: %x", b.data[:6]))
 	}
@@ -1195,7 +1189,7 @@ func (c *Conn) doWriteRecord(typ recordType, data []byte) (n int, err error) {
 			}
 		}
 		vers := c.vers
-		if vers == 0 || vers >= VersionTLS13 {
+		if vers == 0 {
 			// Some TLS servers fail if the record version is
 			// greater than TLS 1.0 for the initial ClientHello.
 			//
@@ -1203,7 +1197,7 @@ func (c *Conn) doWriteRecord(typ recordType, data []byte) (n int, err error) {
 			// layer to {3, 1}.
 			vers = VersionTLS10
 		}
-		if isResumptionRecordVersionExperiment(c.wireVersion) || isResumptionRecordVersionExperiment(c.out.wireVersion) {
+		if c.vers >= VersionTLS13 || c.out.version >= VersionTLS13 {
 			vers = VersionTLS12
 		}
 
@@ -1238,7 +1232,7 @@ func (c *Conn) doWriteRecord(typ recordType, data []byte) (n int, err error) {
 	}
 	c.out.freeBlock(b)
 
-	if typ == recordTypeChangeCipherSpec && !isResumptionExperiment(c.wireVersion) {
+	if typ == recordTypeChangeCipherSpec && c.vers < VersionTLS13 {
 		err = c.out.changeCipherSpec(c.config)
 		if err != nil {
 			return n, c.sendAlertLocked(alertLevelError, err.(alert))
@@ -1561,7 +1555,7 @@ func (c *Conn) processTLS13NewSessionTicket(newSessionTicket *newSessionTicketMs
 		earlyALPN:          c.clientProtocol,
 	}
 
-	if isDraft21(c.wireVersion) {
+	if isDraft22(c.wireVersion) {
 		session.masterSecret = deriveSessionPSK(cipherSuite, c.wireVersion, c.resumptionSecret, newSessionTicket.ticketNonce)
 	}
 
@@ -1857,7 +1851,7 @@ func (c *Conn) ExportKeyingMaterial(length int, label, context []byte, useContex
 	}
 
 	if c.vers >= VersionTLS13 {
-		if isDraft21(c.wireVersion) {
+		if isDraft22(c.wireVersion) {
 			hash := c.cipherSuite.hash()
 			exporterKeyingLabel := []byte("exporter")
 			contextHash := hash.New()
@@ -1929,7 +1923,7 @@ func (c *Conn) SendNewSessionTicket(nonce []byte) error {
 		maxEarlyDataSize:            c.config.MaxEarlyDataSize,
 	}
 
-	if isDraft21(c.wireVersion) {
+	if isDraft22(c.wireVersion) {
 		m.ticketNonce = nonce
 	}
 
@@ -1948,7 +1942,7 @@ func (c *Conn) SendNewSessionTicket(nonce []byte) error {
 		earlyALPN:          []byte(c.clientProtocol),
 	}
 
-	if isDraft21(c.wireVersion) {
+	if isDraft22(c.wireVersion) {
 		state.masterSecret = deriveSessionPSK(c.cipherSuite, c.wireVersion, c.resumptionSecret, nonce)
 	}
 
@@ -1995,11 +1989,7 @@ func (c *Conn) sendFakeEarlyData(len int) error {
 	payload := make([]byte, 5+len)
 	payload[0] = byte(recordTypeApplicationData)
 	payload[1] = 3
-	payload[2] = 1
-	if isResumptionRecordVersionVariant(c.config.TLS13Variant) {
-		payload[1] = 3
-		payload[2] = 3
-	}
+	payload[2] = 3
 	payload[3] = byte(len >> 8)
 	payload[4] = byte(len)
 	_, err := c.conn.Write(payload)

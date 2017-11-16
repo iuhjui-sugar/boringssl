@@ -313,10 +313,11 @@ int ssl_write_client_hello(SSL_HANDSHAKE *hs) {
       return 0;
     }
   } else {
-    // In TLS 1.3 experimental encodings, send a fake placeholder session ID
-    // when we do not otherwise have one to send.
+    // In TLS 1.3, send a fake placeholder session ID when we do not otherwise
+    // have one to send. If this is a renegotiation, don't bother as we won't
+    // speak TLS 1.3 anyway.
     if (hs->max_version >= TLS1_3_VERSION &&
-        ssl_is_resumption_variant(ssl->tls13_variant) &&
+        !ssl->s3->initial_handshake_complete &&
         !CBB_add_bytes(&child, hs->session_id, hs->session_id_len)) {
       return 0;
     }
@@ -470,9 +471,10 @@ static enum ssl_hs_wait_t do_start_connect(SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
-  // Initialize a random session ID for the experimental TLS 1.3 variant
-  // requiring a session id.
-  if (ssl_is_resumption_variant(ssl->tls13_variant)) {
+  // Initialize a random session ID for TLS 1.3. If this is a renegotiation,
+  // don't bother as we won't speak TLS 1.3 anyway.
+  if (hs->max_version >= TLS1_3_VERSION &&
+      !ssl->s3->initial_handshake_complete) {
     hs->session_id_len = sizeof(hs->session_id);
     if (!RAND_bytes(hs->session_id, hs->session_id_len)) {
       return ssl_hs_error;
