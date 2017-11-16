@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e475a15a_c416499e",
+        "filename": "crypto/fipsmodule/bn/mul.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 661,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-11-16T23:40:59Z",
+      "side": 1,
+      "message": "bn_sqr_small checks that |num_a| is within limits. Should this? (And |num_b|, presumably.)",
+      "revId": "9e060d78b6f6db72a678aec657a704902204ccbb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a8321fe_46f8fe17",
+        "filename": "crypto/fipsmodule/bn/mul.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 665,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-11-16T23:40:59Z",
+      "side": 1,
+      "message": "Probably yes, right? 4×64 \u003d 256, which is a size that we care about.",
+      "revId": "9e060d78b6f6db72a678aec657a704902204ccbb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
