@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba62dffb_7d6f2565",
+        "filename": "crypto/fipsmodule/bn/cmp.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-11-16T23:16:05Z",
+      "side": 1,
+      "message": "(This is basically a constant-time function, but it uses a different return-value convention. Just noting that in case you change your mind about what\u0027s best.)",
+      "range": {
+        "startLine": 179,
+        "startChar": 4,
+        "endLine": 179,
+        "endChar": 22
+      },
+      "revId": "a8387b7288007fa34ffda1dda230b5340023075d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "39c1cd44_032f6131",
+        "filename": "crypto/fipsmodule/bn/random.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-11-16T23:16:05Z",
+      "side": 1,
+      "message": "words missing?",
+      "range": {
+        "startLine": 197,
+        "startChar": 21,
+        "endLine": 197,
+        "endChar": 27
+      },
+      "revId": "a8387b7288007fa34ffda1dda230b5340023075d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3b6dd0e_69eb77d2",
+        "filename": "crypto/fipsmodule/bn/random.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-11-16T23:16:05Z",
+      "side": 1,
+      "message": "… to /a/ uniformly …",
+      "range": {
+        "startLine": 227,
+        "startChar": 36,
+        "endLine": 227,
+        "endChar": 37
+      },
+      "revId": "a8387b7288007fa34ffda1dda230b5340023075d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c4f4a6e_cade035a",
+        "filename": "crypto/fipsmodule/bn/random.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-11-16T23:16:05Z",
+      "side": 1,
+      "message": "Use |words| and |mask| together to obtain",
+      "range": {
+        "startLine": 274,
+        "startChar": 22,
+        "endLine": 274,
+        "endChar": 50
+      },
+      "revId": "a8387b7288007fa34ffda1dda230b5340023075d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
