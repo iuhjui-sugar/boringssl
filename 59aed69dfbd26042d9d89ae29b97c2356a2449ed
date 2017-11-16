@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f8fd84ed_24fc2463",
+        "filename": "crypto/fipsmodule/bn/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-16T12:53:48Z",
+      "side": 1,
+      "message": "I\u0027m not thrilled about everything continuing to have needless failure cases, but it seemed poor to pass pointers without lengths. Thoughts? I think it\u0027s less of a big deal now that these functions stack-allocate their scratch space. They were really hard to use in an earlier iteration where the caller allocated the scratch space. Random functions need 2N or 4N scratch space.",
+      "range": {
+        "startLine": 328,
+        "startChar": 76,
+        "endLine": 329,
+        "endChar": 27
+      },
+      "revId": "59aed69dfbd26042d9d89ae29b97c2356a2449ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
