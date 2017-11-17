@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2c9ab6ef_b270f463",
+        "filename": "crypto/fipsmodule/bn/montgomery.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-17T12:09:33Z",
+      "side": 1,
+      "message": "Yeah, I managed to convince myself it was correct at some point too and forget why. One the plus side, it does seem to avoid branches in compilers most of the time, I guess.",
+      "parentUuid": "6b37dca1_ef00ee7b",
+      "range": {
+        "startLine": 293,
+        "startChar": 4,
+        "endLine": 294,
+        "endChar": 27
+      },
+      "revId": "662d697837e2a589354f7bde7217f69ba47d3b61",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4a2b964a_c848fc04",
         "filename": "crypto/fipsmodule/bn/montgomery.c",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "bcb53837_2c0d9d4a",
+        "filename": "crypto/fipsmodule/bn/montgomery.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-17T12:09:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a2b964a_c848fc04",
+      "range": {
+        "startLine": 311,
+        "startChar": 2,
+        "endLine": 311,
+        "endChar": 10
+      },
+      "revId": "662d697837e2a589354f7bde7217f69ba47d3b61",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "41c57e65_51d2cf76",
         "filename": "crypto/fipsmodule/bn/montgomery.c",
         "patchSetId": 3
@@ -68,6 +116,30 @@
       "revId": "662d697837e2a589354f7bde7217f69ba47d3b61",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3b89f5a_c033ad62",
+        "filename": "crypto/fipsmodule/bn/montgomery.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-17T12:09:33Z",
+      "side": 1,
+      "message": "Done. Yeah, I came to the same conclusion as well but forgot to write a comment.",
+      "parentUuid": "41c57e65_51d2cf76",
+      "range": {
+        "startLine": 312,
+        "startChar": 6,
+        "endLine": 312,
+        "endChar": 12
+      },
+      "revId": "662d697837e2a589354f7bde7217f69ba47d3b61",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
