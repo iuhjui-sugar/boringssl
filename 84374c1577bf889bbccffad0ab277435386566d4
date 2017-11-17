@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "782a0dd1_525fdd61",
+        "filename": "crypto/fipsmodule/ec/ec.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-11-17T19:45:53Z",
+      "side": 1,
+      "message": "|order| here is the order of the generator in the group, right? So swap \"order\" and \"p\"?\n\n|#points - (p + 1)| \u003c\u003d 2×sqrt(p). Since we only work with prime-order curves, #points \u003d\u003d order.\n\nThen I can see p + 1 - 2×sqrt(p) \u003c\u003d order.\n\nThen 2p + 2 - 4×sqrt(p) \u003c\u003d 2×order. And we can subtract things from the left while preserving the inequality, and assume that sqrt(p) \u003c p:\n\np \u003c\u003d 2×order. So the conclusion seems ok.",
+      "range": {
+        "startLine": 432,
+        "startChar": 39,
+        "endLine": 432,
+        "endChar": 73
+      },
+      "revId": "84374c1577bf889bbccffad0ab277435386566d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
