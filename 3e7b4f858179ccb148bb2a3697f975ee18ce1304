@@ -16,6 +16,24 @@
       "revId": "3e7b4f858179ccb148bb2a3697f975ee18ce1304",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bf41270_8a11259d",
+        "filename": "crypto/fipsmodule/bn/montgomery.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-17T12:41:42Z",
+      "side": 1,
+      "message": "Oops. Yeah, I transcribed this totally wrong. Actually, r-\u003eneg ^\u003d n-\u003eneg can\u0027t do anything anyway because BN_MONT_CTX_set doesn\u0027t allow negative n. I\u0027ve removed that line.\n\nI\u0027m dubious of what passing in negative r here would mean (normally this algorithm requires 0 \u003c\u003d r \u003c RN), but I\u0027ve retained that line just to be consistent with the other BN_mod_mul_montgomery codepath.",
+      "parentUuid": "b28e2e2c_cae77f34",
+      "revId": "3e7b4f858179ccb148bb2a3697f975ee18ce1304",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
