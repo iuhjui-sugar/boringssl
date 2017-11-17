@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5f9ed888_537dad64",
+        "filename": "crypto/fipsmodule/bn/mul.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 661,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-17T12:32:55Z",
+      "side": 1,
+      "message": "This function doesn\u0027t actually care. None of these codepaths actually need scratch space it seems.",
+      "parentUuid": "e475a15a_c416499e",
+      "revId": "9e060d78b6f6db72a678aec657a704902204ccbb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9a8321fe_46f8fe17",
         "filename": "crypto/fipsmodule/bn/mul.c",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2017-11-16T23:40:59Z",
       "side": 1,
       "message": "Probably yes, right? 4×64 \u003d 256, which is a size that we care about.",
+      "revId": "9e060d78b6f6db72a678aec657a704902204ccbb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eff1bede_d692a7a7",
+        "filename": "crypto/fipsmodule/bn/mul.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 665,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-17T12:32:55Z",
+      "side": 1,
+      "message": "Probably, yeah. Although every architecture with a bn_mul_mont implementation doesn\u0027t care. I\u0027ll benchmark this and inject a commit to resolve the TODO somewhere in the branch. (For this CL, I was just trying to mimic the existing codepaths.)",
+      "parentUuid": "9a8321fe_46f8fe17",
       "revId": "9e060d78b6f6db72a678aec657a704902204ccbb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false

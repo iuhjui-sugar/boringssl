@@ -46,6 +46,30 @@
       "revId": "59aed69dfbd26042d9d89ae29b97c2356a2449ed",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa25eec3_8a203957",
+        "filename": "crypto/fipsmodule/bn/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-17T12:32:55Z",
+      "side": 1,
+      "message": "I poked at this, and then I realized there\u0027s an additional awkwardness, which is that bn_mul_mont\u0027s calling convention allows it to return false for any odd reason. Our code which calls it assumes we know what its input is, and we seem to be right, but I do feel a little weird leaving that error check to purely an assert.\n\nEverything here ultimately is in service of that bn_mod_mul_montgomery_small, which means that removing the return value here doesn\u0027t do a whole lot.\n\nThoughts?",
+      "parentUuid": "37493401_4f390a6c",
+      "range": {
+        "startLine": 328,
+        "startChar": 76,
+        "endLine": 329,
+        "endChar": 27
+      },
+      "revId": "59aed69dfbd26042d9d89ae29b97c2356a2449ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
