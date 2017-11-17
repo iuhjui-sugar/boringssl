@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "570d93b0_fbc4b32d",
+        "filename": "crypto/fipsmodule/bn/exponentiation.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 812,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-11-17T19:20:15Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem very constant-time.",
+      "revId": "f4e9f13d5503bd14bf77359914136b5aac0639b3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
