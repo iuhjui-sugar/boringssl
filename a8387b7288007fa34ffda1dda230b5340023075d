@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3ac724f1_1a0285b5",
+        "filename": "crypto/fipsmodule/bn/cmp.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-17T12:21:22Z",
+      "side": 1,
+      "message": "Ack. Yeah, I just carried this over from RSA land for now. Probably we\u0027ll to make it crypto_word_t at some point? Dunno.",
+      "parentUuid": "ba62dffb_7d6f2565",
+      "range": {
+        "startLine": 179,
+        "startChar": 4,
+        "endLine": 179,
+        "endChar": 22
+      },
+      "revId": "a8387b7288007fa34ffda1dda230b5340023075d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39c1cd44_032f6131",
         "filename": "crypto/fipsmodule/bn/random.c",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "a8387b7288007fa34ffda1dda230b5340023075d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fadfeba9_e24d4f4e",
+        "filename": "crypto/fipsmodule/bn/random.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-17T12:21:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39c1cd44_032f6131",
+      "range": {
+        "startLine": 197,
+        "startChar": 21,
+        "endLine": 197,
+        "endChar": 27
+      },
+      "revId": "a8387b7288007fa34ffda1dda230b5340023075d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "f7d60b9b_ee4b866f",
+        "filename": "crypto/fipsmodule/bn/random.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-17T12:21:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3b6dd0e_69eb77d2",
+      "range": {
+        "startLine": 227,
+        "startChar": 36,
+        "endLine": 227,
+        "endChar": 37
+      },
+      "revId": "a8387b7288007fa34ffda1dda230b5340023075d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4c4f4a6e_cade035a",
         "filename": "crypto/fipsmodule/bn/random.c",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "a8387b7288007fa34ffda1dda230b5340023075d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fef469c4_6633034c",
+        "filename": "crypto/fipsmodule/bn/random.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-17T12:21:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c4f4a6e_cade035a",
+      "range": {
+        "startLine": 274,
+        "startChar": 22,
+        "endLine": 274,
+        "endChar": 50
+      },
+      "revId": "a8387b7288007fa34ffda1dda230b5340023075d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
