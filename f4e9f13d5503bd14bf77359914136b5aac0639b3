@@ -16,6 +16,24 @@
       "revId": "f4e9f13d5503bd14bf77359914136b5aac0639b3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d551d825_1dc04d9a",
+        "filename": "crypto/fipsmodule/bn/exponentiation.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 812,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-18T05:28:23Z",
+      "side": 1,
+      "message": "This function protects |a| but treats |p| and |mont-\u003eN| as public. It\u0027s the analog of BN_mod_mul_montgomery which is similar. (We just use it to do FLT.)\n\nThe one that protects the exponent is the much more complex RSA one that I don\u0027t understand yet. :-)",
+      "parentUuid": "570d93b0_fbc4b32d",
+      "revId": "f4e9f13d5503bd14bf77359914136b5aac0639b3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
