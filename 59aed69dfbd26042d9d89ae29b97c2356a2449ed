@@ -70,6 +70,30 @@
       "revId": "59aed69dfbd26042d9d89ae29b97c2356a2449ed",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cc05e48_2297ec34",
+        "filename": "crypto/fipsmodule/bn/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-11-20T16:22:26Z",
+      "side": 1,
+      "message": "Not a big deal either way. If there\u0027s an underlying boolean return then so it goes.",
+      "parentUuid": "aa25eec3_8a203957",
+      "range": {
+        "startLine": 328,
+        "startChar": 76,
+        "endLine": 329,
+        "endChar": 27
+      },
+      "revId": "59aed69dfbd26042d9d89ae29b97c2356a2449ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
