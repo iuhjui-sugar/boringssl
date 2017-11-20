@@ -16,6 +16,24 @@
       "revId": "0b653b2afc82d78bfd890f23b157b929f37819eb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6389efb5_a23aa194",
+        "filename": "crypto/fipsmodule/ec/ec.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-11-20T16:29:17Z",
+      "side": 1,
+      "message": ":)",
+      "parentUuid": "cb8e25e7_00ef9b7a",
+      "revId": "0b653b2afc82d78bfd890f23b157b929f37819eb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
