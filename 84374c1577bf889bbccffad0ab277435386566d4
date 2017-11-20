@@ -22,6 +22,30 @@
       "revId": "84374c1577bf889bbccffad0ab277435386566d4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67d50b5e_1bc33002",
+        "filename": "crypto/fipsmodule/ec/ec.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-20T15:25:30Z",
+      "side": 1,
+      "message": "Oh oops, I misread that. Fixed the comment, and the copy of it in a later commit.",
+      "parentUuid": "782a0dd1_525fdd61",
+      "range": {
+        "startLine": 432,
+        "startChar": 39,
+        "endLine": 432,
+        "endChar": 73
+      },
+      "revId": "84374c1577bf889bbccffad0ab277435386566d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
