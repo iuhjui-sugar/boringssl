@@ -22,6 +22,30 @@
       "revId": "64d633cee398d3ed38f109476d579f07bc7bef8c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fdd00ea_4753709e",
+        "filename": "crypto/fipsmodule/bn/mul.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-20T15:25:20Z",
+      "side": 1,
+      "message": "Whoops! Fixed. It wasn\u0027t immediately obvious how to test this at this commit (BN_mul has its own special-case), but it\u0027s easily reachable from bn_mul_small, so I added tests to that one. Confirmed those notice the bug and that they pass now.",
+      "parentUuid": "62a84dea_503afcdf",
+      "range": {
+        "startLine": 82,
+        "startChar": 25,
+        "endLine": 82,
+        "endChar": 27
+      },
+      "revId": "64d633cee398d3ed38f109476d579f07bc7bef8c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
