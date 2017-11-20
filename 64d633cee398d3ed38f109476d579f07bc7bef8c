@@ -70,6 +70,30 @@
       "revId": "64d633cee398d3ed38f109476d579f07bc7bef8c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "67fa4f43_f18b1a7c",
+        "filename": "crypto/fipsmodule/bn/mul.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-20T16:52:46Z",
+      "side": 1,
+      "message": "Yeah, I put the tests here:\nhttps://boringssl-review.googlesource.com/c/boringssl/+/23068\n\nBN_mul has it\u0027s own zero check and I wasn\u0027t sure if nb \u003d\u003d 0 was reachable from the recursive thing (didn\u0027t look too closely at it since EC didn\u0027t use it), so I just put the tests in bn_mul_small. It was easier.",
+      "parentUuid": "36b88da7_632f0cc4",
+      "range": {
+        "startLine": 82,
+        "startChar": 25,
+        "endLine": 82,
+        "endChar": 27
+      },
+      "revId": "64d633cee398d3ed38f109476d579f07bc7bef8c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
