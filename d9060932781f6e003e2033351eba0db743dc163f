@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fff820cd_0a85c10b",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-21T17:49:21Z",
+      "side": 1,
+      "message": "Nit: 80 chars.\n\nAlso probably better to put this next to where we fill in hs-\u003esession_id in the other case. I feel like this function shouldn\u0027t have too many side effects, since it\u0027d called a couple of times.\n\nYou probably could even put the has_session_id logic where you fill in hs-\u003esession_id and then this function just blindly writes out hs-\u003esession_id, whatever it may be.",
+      "revId": "d9060932781f6e003e2033351eba0db743dc163f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c0265fa_78591176",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 11063,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-21T17:49:21Z",
+      "side": 1,
+      "message": "Nit: Comment what this is about?",
+      "revId": "d9060932781f6e003e2033351eba0db743dc163f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3259734_e70579bb",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 11066,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-21T17:49:21Z",
+      "side": 1,
+      "message": "EXTREME nitpick: The \"+ name\" will already stick \"TLS13\" in there. :-)",
+      "range": {
+        "startLine": 11066,
+        "startChar": 14,
+        "endLine": 11066,
+        "endChar": 20
+      },
+      "revId": "d9060932781f6e003e2033351eba0db743dc163f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fc5b84b_0bd4c739",
+        "filename": "ssl/tls13_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-21T17:49:21Z",
+      "side": 1,
+      "message": "Missing a test for this bit and the SH version. Also, e.g., I think you aren\u0027t checking server_version in the HRR but you are for SH?\n\nPerhaps it\u0027s worth extracting a function for parsing ServerHellos at this point? That you can put the checks in a common place or something. All the other formats are all still in the way, but they\u0027ll go away at some point.",
+      "revId": "d9060932781f6e003e2033351eba0db743dc163f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
