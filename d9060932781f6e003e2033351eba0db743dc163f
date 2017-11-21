@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "77b0c7f9_e3dd96c0",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-11-21T18:38:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fff820cd_0a85c10b",
+      "revId": "d9060932781f6e003e2033351eba0db743dc163f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8c0265fa_78591176",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "d9060932781f6e003e2033351eba0db743dc163f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71eaa385_ecd78a63",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 11063,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-11-21T18:38:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c0265fa_78591176",
+      "revId": "d9060932781f6e003e2033351eba0db743dc163f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "bcef75ca_d404768d",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 11066,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-11-21T18:38:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3259734_e70579bb",
+      "range": {
+        "startLine": 11066,
+        "startChar": 14,
+        "endLine": 11066,
+        "endChar": 20
+      },
+      "revId": "d9060932781f6e003e2033351eba0db743dc163f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4fc5b84b_0bd4c739",
         "filename": "ssl/tls13_client.cc",
         "patchSetId": 1
@@ -70,6 +130,24 @@
       "writtenOn": "2017-11-21T17:49:21Z",
       "side": 1,
       "message": "Missing a test for this bit and the SH version. Also, e.g., I think you aren\u0027t checking server_version in the HRR but you are for SH?\n\nPerhaps it\u0027s worth extracting a function for parsing ServerHellos at this point? That you can put the checks in a common place or something. All the other formats are all still in the way, but they\u0027ll go away at some point.",
+      "revId": "d9060932781f6e003e2033351eba0db743dc163f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb77f6f1_f72a74cb",
+        "filename": "ssl/tls13_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-11-21T18:38:57Z",
+      "side": 1,
+      "message": "Not needed since we check \u0027HRR\u0027 versions in handshake_client.",
+      "parentUuid": "4fc5b84b_0bd4c739",
       "revId": "d9060932781f6e003e2033351eba0db743dc163f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
