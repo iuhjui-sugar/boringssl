@@ -157,6 +157,28 @@ OPENSSL_EXPORT int EVP_PKEY_assign_EC_KEY(EVP_PKEY *pkey, EC_KEY *key);
 OPENSSL_EXPORT EC_KEY *EVP_PKEY_get0_EC_KEY(EVP_PKEY *pkey);
 OPENSSL_EXPORT EC_KEY *EVP_PKEY_get1_EC_KEY(EVP_PKEY *pkey);
 
+#if !defined(BORINGSSL_NO_CXX)
+extern "C++" {
+
+static inline const RSA *EVP_PKEY_get0_RSA(const EVP_PKEY *pkey) {
+  return EVP_PKEY_get0_RSA(const_cast<EVP_PKEY*>(pkey));
+}
+
+static inline const RSA *EVP_PKEY_get1_RSA(const EVP_PKEY *pkey) {
+  return EVP_PKEY_get1_RSA(const_cast<EVP_PKEY*>(pkey));
+}
+
+static inline const EC_KEY *EVP_PKEY_get0_EC_KEY(const EVP_PKEY *pkey) {
+  return EVP_PKEY_get0_EC_KEY(const_cast<EVP_PKEY*>(pkey));
+}
+
+static inline const EC_KEY *EVP_PKEY_get1_EC_KEY(const EVP_PKEY *pkey) {
+  return EVP_PKEY_get1_EC_KEY(const_cast<EVP_PKEY*>(pkey));
+}
+
+}  // extern "C++"
+#endif  // !BORINGSSL_NO_CXX
+
 // EVP_PKEY_new_ed25519_public returns a newly allocated |EVP_PKEY| wrapping an
 // Ed25519 public key, or NULL on allocation error.
 OPENSSL_EXPORT EVP_PKEY *EVP_PKEY_new_ed25519_public(
