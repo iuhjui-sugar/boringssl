@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f7c066fb_b5e40f35",
+        "filename": "include/openssl/evp.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-22T22:59:48Z",
+      "side": 1,
+      "message": "This one passes ownership to the caller, which would need to RSA_free it, so leaving it const doesn\u0027t really work.\n\nPerhaps that means it should get1 : const EVP_PKEY* -\u003e RSA*, which means it doesn\u0027t need to overload... but if we\u0027re resigned to adding that, then trying to avoid get0 : const EVP_PKEY* -\u003e RSA* is sort of questionable too...\n\nSigh. Honestly, I think the actual answer is EC_KEYs and RSAs should be immutable after construction, but we\u0027d need to convince upstream to break the API again for 1.2.0 first. Ditch RSA_set0_key and friends in favor of RSA_new_public and RSA_new_private.",
+      "range": {
+        "startLine": 167,
+        "startChar": 14,
+        "endLine": 167,
+        "endChar": 20
+      },
+      "revId": "bf618ff097f617311a662a355d1d8c0a29d4d759",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
