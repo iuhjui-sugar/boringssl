@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "66305e44_eaa8ce0a",
+        "filename": "crypto/bytestring/cbb.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-22T22:56:23Z",
+      "side": 1,
+      "message": "(Leaving alone per in-person chat.)",
+      "parentUuid": "b71fe5e7_e4b930a2",
+      "range": {
+        "startLine": 519,
+        "startChar": 9,
+        "endLine": 519,
+        "endChar": 19
+      },
+      "revId": "27590f16bf016bd66a364e1f7b196bc94a62a3a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe7a8ff3_051b22d0",
         "filename": "crypto/obj/obj.c",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "6abf6a2d_e0699f74",
+        "filename": "crypto/obj/obj.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-22T22:56:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe7a8ff3_051b22d0",
+      "range": {
+        "startLine": 616,
+        "startChar": 1,
+        "endLine": 616,
+        "endChar": 2
+      },
+      "revId": "27590f16bf016bd66a364e1f7b196bc94a62a3a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "70c42c70_f11e9988",
         "filename": "include/openssl/bytestring.h",
         "patchSetId": 1
@@ -62,6 +110,24 @@
       "revId": "27590f16bf016bd66a364e1f7b196bc94a62a3a1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d9e8941_3e17305c",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-22T22:56:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70c42c70_f11e9988",
+      "revId": "27590f16bf016bd66a364e1f7b196bc94a62a3a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
