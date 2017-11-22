@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5f00b4d7_d9e7d6aa",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-11-22T21:43:01Z",
+      "side": 1,
+      "message": "There are three flag bits, so isn\u0027t it easier to define this as 29, tweak the constants, and drop the \"5 + \" in |CBS_ASN1_TAG_NUMBER_MASK| below?",
+      "range": {
+        "startLine": 172,
+        "startChar": 27,
+        "endLine": 172,
+        "endChar": 29
+      },
+      "revId": "0cf03e0eefe1ee8241370a32a2e46e13ae889c9a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
