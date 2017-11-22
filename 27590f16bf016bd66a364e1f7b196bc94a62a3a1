@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b71fe5e7_e4b930a2",
+        "filename": "crypto/bytestring/cbb.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-11-22T22:41:25Z",
+      "side": 1,
+      "message": "Maybe be explicit about checking CBS_len(cbs) \u003d\u003d 0?",
+      "range": {
+        "startLine": 519,
+        "startChar": 9,
+        "endLine": 519,
+        "endChar": 19
+      },
+      "revId": "27590f16bf016bd66a364e1f7b196bc94a62a3a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe7a8ff3_051b22d0",
+        "filename": "crypto/obj/obj.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-11-22T22:41:25Z",
+      "side": 1,
+      "message": "if (op \u003d\u003d NULL ||\n    !obj_add_object(op)) {\n return NID_undef;\n}\nreturn op-\u003enid;",
+      "range": {
+        "startLine": 616,
+        "startChar": 1,
+        "endLine": 616,
+        "endChar": 2
+      },
+      "revId": "27590f16bf016bd66a364e1f7b196bc94a62a3a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70c42c70_f11e9988",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-11-22T22:41:25Z",
+      "side": 1,
+      "message": "Add a comment about not supporting large numbers.",
+      "revId": "27590f16bf016bd66a364e1f7b196bc94a62a3a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
