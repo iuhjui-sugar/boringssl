@@ -22,6 +22,30 @@
       "revId": "0cf03e0eefe1ee8241370a32a2e46e13ae889c9a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42785b44_91e44cac",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-22T22:28:31Z",
+      "side": 1,
+      "message": "Per out of band conversation, that trades off awkwardness in CBS_ASN1_TAG_NUMBER_MASK for awkwardness in cbb.c/cbs.c. Neither of us particularly cared, so leaving as is.",
+      "parentUuid": "5f00b4d7_d9e7d6aa",
+      "range": {
+        "startLine": 172,
+        "startChar": 27,
+        "endLine": 172,
+        "endChar": 29
+      },
+      "revId": "0cf03e0eefe1ee8241370a32a2e46e13ae889c9a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
