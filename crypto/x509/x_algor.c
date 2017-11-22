@@ -105,7 +105,7 @@ int X509_ALGOR_set0(X509_ALGOR *alg, const ASN1_OBJECT *aobj, int ptype,
     return 1;
 }
 
-void X509_ALGOR_get0(ASN1_OBJECT **paobj, int *pptype, void **ppval,
+void X509_ALGOR_get0(const ASN1_OBJECT **paobj, int *pptype, void **ppval,
                      X509_ALGOR *algor)
 {
     if (paobj)
