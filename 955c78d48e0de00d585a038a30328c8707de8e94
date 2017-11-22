@@ -114,6 +114,30 @@
       "revId": "955c78d48e0de00d585a038a30328c8707de8e94",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c40a4a0_37244a95",
+        "filename": "crypto/fipsmodule/ecdsa/ecdsa.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-11-22T20:52:33Z",
+      "side": 1,
+      "message": "Nevermind. Saw the next change :)",
+      "parentUuid": "295cd627_d14d3365",
+      "range": {
+        "startLine": 280,
+        "startChar": 9,
+        "endLine": 280,
+        "endChar": 17
+      },
+      "revId": "955c78d48e0de00d585a038a30328c8707de8e94",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
