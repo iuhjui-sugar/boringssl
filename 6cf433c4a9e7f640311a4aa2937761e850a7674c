@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "105d2717_3de8fa91",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-25T13:32:25Z",
+      "side": 0,
+      "message": "Not sure what this was about. Cipher suites are also this uint8[2] vs uint16 thing. Just treating it as uint16 seems simplest, and is what we do in C.",
+      "revId": "6cf433c4a9e7f640311a4aa2937761e850a7674c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
