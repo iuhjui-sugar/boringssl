@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e6991be_9c83cc00",
+        "filename": "crypto/x509v3/v3_utl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-11-27T17:47:12Z",
+      "side": 1,
+      "message": "Your call, but maybe 32 (or 64)? Not sure that I care about anything larger than 2^32 in a decimal setting.",
+      "range": {
+        "startLine": 168,
+        "startChar": 26,
+        "endLine": 168,
+        "endChar": 29
+      },
+      "revId": "90b97e0c4f600636a8b79a9faea12d8213145f7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
