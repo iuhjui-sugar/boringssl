@@ -16,6 +16,24 @@
       "revId": "8829594383c838457c30142f543ca3d2cef0127d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5fbc23d_a488dd01",
+        "filename": "crypto/obj/obj.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 620,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-27T20:53:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9a34b07_ae5e5f80",
+      "revId": "8829594383c838457c30142f543ca3d2cef0127d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
