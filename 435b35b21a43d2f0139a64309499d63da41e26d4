@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c7e87407_1a9ec84b",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-11-27T15:32:12Z",
+      "side": 1,
+      "message": "Potentially just have this match the CBS methods?",
+      "revId": "435b35b21a43d2f0139a64309499d63da41e26d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1db29a31_47200503",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-11-27T15:32:12Z",
+      "side": 1,
+      "message": "Might as well call readUint(\u0026v, 1)",
+      "range": {
+        "startLine": 161,
+        "startChar": 0,
+        "endLine": 161,
+        "endChar": 4
+      },
+      "revId": "435b35b21a43d2f0139a64309499d63da41e26d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c28a1c1_3203e7c5",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-11-27T15:32:12Z",
+      "side": 1,
+      "message": "nit: Is there a magic incant to make go format this all in a reasonable manner?",
+      "revId": "435b35b21a43d2f0139a64309499d63da41e26d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
