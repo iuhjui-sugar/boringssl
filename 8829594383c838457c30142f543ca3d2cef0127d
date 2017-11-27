@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f9a34b07_ae5e5f80",
+        "filename": "crypto/obj/obj.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 620,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-11-27T20:50:27Z",
+      "side": 1,
+      "message": "return op-\u003enid?",
+      "revId": "8829594383c838457c30142f543ca3d2cef0127d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
