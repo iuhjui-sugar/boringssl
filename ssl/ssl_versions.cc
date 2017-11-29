@@ -350,6 +350,11 @@ bool ssl_supports_version(SSL_HANDSHAKE *hs, uint16_t version) {
     return true;
   }
 
+  // Enable Draft 22 globally.
+  if (version == TLS1_3_DRAFT22_VERSION) {
+    return true;
+  }
+
   return false;
 }
 
