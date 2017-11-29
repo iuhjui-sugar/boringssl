@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b3263f9a_2d1aa910",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-11-29T20:16:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5203e2d_91965f62",
+      "revId": "73987d3279f36c34bdedbf002f56d2d1f06dbb5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "388aece9_8a369664",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "73987d3279f36c34bdedbf002f56d2d1f06dbb5c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "653ba041_6caacab8",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 11064,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-11-29T20:16:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "388aece9_8a369664",
+      "revId": "73987d3279f36c34bdedbf002f56d2d1f06dbb5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
