@@ -393,17 +393,17 @@ ECDSA_SIG *ECDSA_do_sign(const uint8_t *digest, size_t digest_len,
   }
 
   const EC_GROUP *group = EC_KEY_get0_group(eckey);
-  const BIGNUM *priv_key_bn = EC_KEY_get0_private_key(eckey);
-  if (group == NULL || priv_key_bn == NULL) {
+  if (group == NULL || eckey->priv_key == NULL) {
     OPENSSL_PUT_ERROR(ECDSA, ERR_R_PASSED_NULL_PARAMETER);
     return NULL;
   }
+  const EC_SCALAR *priv_key = &eckey->priv_key->scalar;
   const BIGNUM *order = EC_GROUP_get0_order(group);
 
   int ok = 0;
   ECDSA_SIG *ret = ECDSA_SIG_new();
   BN_CTX *ctx = BN_CTX_new();
-  EC_SCALAR kinv_mont, priv_key, r_mont, s;
+  EC_SCALAR kinv_mont, r_mont, s;
   EC_LOOSE_SCALAR m, tmp;
   if (ret == NULL || ctx == NULL) {
     OPENSSL_PUT_ERROR(ECDSA, ERR_R_MALLOC_FAILURE);
@@ -411,14 +411,9 @@ ECDSA_SIG *ECDSA_do_sign(const uint8_t *digest, size_t digest_len,
   }
 
   digest_to_scalar(group, &m, digest, digest_len);
-  // TODO(davidben): Store the private key as an |EC_SCALAR| so this is obvious
-  // via the type system.
-  if (!ec_bignum_to_scalar_unchecked(group, &priv_key, priv_key_bn)) {
-    goto err;
-  }
   for (;;) {
     if (!ecdsa_sign_setup(eckey, ctx, &kinv_mont, &ret->r, digest, digest_len,
-                          &priv_key)) {
+                          priv_key)) {
       goto err;
     }
 
@@ -428,7 +423,7 @@ ECDSA_SIG *ECDSA_do_sign(const uint8_t *digest, size_t digest_len,
     if (!ec_bignum_to_scalar(group, &r_mont, ret->r) ||
         !bn_to_montgomery_small(r_mont.words, order->top, r_mont.words,
                                 order->top, group->order_mont) ||
-        !scalar_mod_mul_montgomery(group, &s, &priv_key, &r_mont)) {
+        !scalar_mod_mul_montgomery(group, &s, priv_key, &r_mont)) {
       goto err;
     }
 
@@ -456,7 +451,6 @@ err:
   }
   BN_CTX_free(ctx);
   OPENSSL_cleanse(&kinv_mont, sizeof(kinv_mont));
-  OPENSSL_cleanse(&priv_key, sizeof(priv_key));
   OPENSSL_cleanse(&r_mont, sizeof(r_mont));
   OPENSSL_cleanse(&s, sizeof(s));
   OPENSSL_cleanse(&tmp, sizeof(tmp));

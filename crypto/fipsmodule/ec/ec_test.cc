@@ -559,6 +559,24 @@ TEST_P(ECCurveTest, SetInvalidPrivateKey) {
   ERR_clear_error();
 }
 
+// Test that |EC_KEY_get0_private_key(key)->top| is correct.
+TEST_P(ECCurveTest, ECKeyCorrectTop) {
+  bssl::UniquePtr<EC_KEY> key(EC_KEY_new_by_curve_name(GetParam().nid));
+  ASSERT_TRUE(key);
+  const EC_GROUP *group = EC_KEY_get0_group(key.get());
+  const BIGNUM *order = EC_GROUP_get0_order(group);
+
+  for (int i = 1; i <= order->top; i++) {
+    SCOPED_TRACE(i);
+
+    bssl::UniquePtr<BIGNUM> bn(BN_dup(BN_value_one()));
+    ASSERT_TRUE(bn);
+    ASSERT_TRUE(BN_lshift(bn.get(), bn.get(), (i - 1) * BN_BITS2));
+    ASSERT_TRUE(EC_KEY_set_private_key(key.get(), bn.get()));
+    EXPECT_EQ(i, EC_KEY_get0_private_key(key.get())->top);
+  }
+}
+
 static std::vector<EC_builtin_curve> AllCurves() {
   const size_t num_curves = EC_get_builtin_curves(nullptr, 0);
   std::vector<EC_builtin_curve> curves(num_curves);

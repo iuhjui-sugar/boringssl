@@ -84,6 +84,105 @@
 
 DEFINE_STATIC_EX_DATA_CLASS(g_ec_ex_data_class);
 
+static EC_WRAPPED_SCALAR *ec_wrapped_scalar_new(void) {
+  EC_WRAPPED_SCALAR *wrapped = OPENSSL_malloc(sizeof(EC_WRAPPED_SCALAR));
+  if (wrapped == NULL) {
+    OPENSSL_PUT_ERROR(EC, ERR_R_INTERNAL_ERROR);
+    return NULL;
+  }
+
+  OPENSSL_memset(wrapped, 0, sizeof(EC_WRAPPED_SCALAR));
+  wrapped->bignum.d = wrapped->scalar.words;
+  wrapped->bignum.dmax = OPENSSL_ARRAY_SIZE(wrapped->scalar.words);
+  wrapped->bignum.flags = BN_FLG_STATIC_DATA;
+  return wrapped;
+}
+
+// ec_wrapped_scalar_correct_top fixes |scalar->bignum.top| without leaking
+// information about the value.
+static void ec_wrapped_scalar_correct_top(const EC_GROUP *group,
+                                          EC_WRAPPED_SCALAR *wrapped) {
+  BIGNUM *bn = &wrapped->bignum;
+  // Set |bn->top| to one more than the index of the first non-zero word.
+  int top = 0;
+  for (int i = 0; i < group->order.top; i++) {
+    top =
+        constant_time_select_int(constant_time_is_zero_w(bn->d[i]), top, i + 1);
+  }
+  bn->top = top;
+}
+
+EC_WRAPPED_SCALAR *ec_wrapped_scalar_from_bignum(const EC_GROUP *group,
+                                                 const BIGNUM *bn) {
+  EC_WRAPPED_SCALAR *ret = ec_wrapped_scalar_new();
+  if (ret == NULL ||
+      !ec_bignum_to_scalar(group, &ret->scalar, bn)) {
+    ec_wrapped_scalar_free(ret);
+    return NULL;
+  }
+
+  ec_wrapped_scalar_correct_top(group, ret);
+  return ret;
+}
+
+EC_WRAPPED_SCALAR *ec_wrapped_scalar_from_big_endian(const EC_GROUP *group,
+                                                     const uint8_t *in,
+                                                     size_t len) {
+  // Although RFC 5915 specifies the length of the key, OpenSSL historically
+  // got this wrong, so accept any length. See upstream's
+  // 30cd4ff294252c4b6a4b69cbef6a5b4117705d22.
+  if (len > BN_num_bytes(&group->order)) {
+    OPENSSL_PUT_ERROR(EC, EC_R_INVALID_SCALAR);
+    return NULL;
+  }
+
+  EC_WRAPPED_SCALAR *ret = ec_wrapped_scalar_new();
+  if (ret == NULL) {
+    return NULL;
+  }
+
+  for (size_t i = 0; i < len; i++) {
+    ret->scalar.bytes[len - i - 1] = in[i];
+  }
+  if (!bn_less_than_words(ret->scalar.words, group->order.d,
+                          group->order.top)) {
+    OPENSSL_PUT_ERROR(EC, EC_R_INVALID_SCALAR);
+    ec_wrapped_scalar_free(ret);
+    return NULL;
+  }
+
+  ec_wrapped_scalar_correct_top(group, ret);
+  return ret;
+}
+
+EC_WRAPPED_SCALAR *ec_wrapped_scalar_from_random(const EC_GROUP *group) {
+  static const uint8_t kZeroAdditionalData[32] = {0};
+
+  EC_WRAPPED_SCALAR *ret = ec_wrapped_scalar_new();
+  if (ret == NULL ||
+      !ec_random_nonzero_scalar(group, &ret->scalar, kZeroAdditionalData)) {
+    ec_wrapped_scalar_free(ret);
+    return NULL;
+  }
+
+  ec_wrapped_scalar_correct_top(group, ret);
+  return ret;
+}
+
+EC_WRAPPED_SCALAR *ec_wrapped_scalar_dup(const EC_WRAPPED_SCALAR *scalar) {
+  EC_WRAPPED_SCALAR *ret = ec_wrapped_scalar_new();
+  if (ret == NULL) {
+    return NULL;
+  }
+  ret->bignum.top = scalar->bignum.top;
+  OPENSSL_memcpy(&ret->scalar, &scalar->scalar, sizeof(EC_SCALAR));
+  return ret;
+}
+
+void ec_wrapped_scalar_free(EC_WRAPPED_SCALAR *scalar) {
+  OPENSSL_free(scalar);
+}
+
 EC_KEY *EC_KEY_new(void) { return EC_KEY_new_method(NULL); }
 
 EC_KEY *EC_KEY_new_method(const ENGINE *engine) {
@@ -151,7 +250,7 @@ void EC_KEY_free(EC_KEY *r) {
 
   EC_GROUP_free(r->group);
   EC_POINT_free(r->pub_key);
-  BN_clear_free(r->priv_key);
+  ec_wrapped_scalar_free(r->priv_key);
   BN_free(r->fixed_k);
 
   CRYPTO_free_ex_data(g_ec_ex_data_class_bss_get(), r, &r->ex_data);
@@ -185,13 +284,9 @@ EC_KEY *EC_KEY_copy(EC_KEY *dest, const EC_KEY *src) {
 
   // copy the private key
   if (src->priv_key) {
+    ec_wrapped_scalar_free(dest->priv_key);
+    dest->priv_key = ec_wrapped_scalar_dup(src->priv_key);
     if (dest->priv_key == NULL) {
-      dest->priv_key = BN_new();
-      if (dest->priv_key == NULL) {
-        return NULL;
-      }
-    }
-    if (!BN_copy(dest->priv_key, src->priv_key)) {
       return NULL;
     }
   }
@@ -251,7 +346,7 @@ int EC_KEY_set_group(EC_KEY *key, const EC_GROUP *group) {
 }
 
 const BIGNUM *EC_KEY_get0_private_key(const EC_KEY *key) {
-  return key->priv_key;
+  return key->priv_key != NULL ? &key->priv_key->bignum : NULL;
 }
 
 int EC_KEY_set_private_key(EC_KEY *key, const BIGNUM *priv_key) {
@@ -260,15 +355,15 @@ int EC_KEY_set_private_key(EC_KEY *key, const BIGNUM *priv_key) {
     return 0;
   }
 
-  // XXX: |BN_cmp| is not constant time.
-  if (BN_is_negative(priv_key) ||
-      BN_cmp(priv_key, EC_GROUP_get0_order(key->group)) >= 0) {
-    OPENSSL_PUT_ERROR(EC, EC_R_WRONG_ORDER);
+  EC_WRAPPED_SCALAR *wrapped =
+      ec_wrapped_scalar_from_bignum(key->group, priv_key);
+  if (wrapped == NULL) {
     return 0;
   }
-  BN_clear_free(key->priv_key);
-  key->priv_key = BN_dup(priv_key);
-  return (key->priv_key == NULL) ? 0 : 1;
+
+  ec_wrapped_scalar_free(key->priv_key);
+  key->priv_key = wrapped;
+  return 1;
 }
 
 const EC_POINT *EC_KEY_get0_public_key(const EC_KEY *key) {
@@ -334,15 +429,10 @@ int EC_KEY_check_key(const EC_KEY *eckey) {
   // in case the priv_key is present :
   // check if generator * priv_key == pub_key
   if (eckey->priv_key) {
-    // XXX: |BN_cmp| is not constant time.
-    if (BN_is_negative(eckey->priv_key) ||
-        BN_cmp(eckey->priv_key, EC_GROUP_get0_order(eckey->group)) >= 0) {
-      OPENSSL_PUT_ERROR(EC, EC_R_WRONG_ORDER);
-      goto err;
-    }
     point = EC_POINT_new(eckey->group);
     if (point == NULL ||
-        !EC_POINT_mul(eckey->group, point, eckey->priv_key, NULL, NULL, ctx)) {
+        !ec_point_mul_scalar(eckey->group, point, &eckey->priv_key->scalar,
+                             NULL, NULL, ctx)) {
       OPENSSL_PUT_ERROR(EC, ERR_R_EC_LIB);
       goto err;
     }
@@ -449,8 +539,7 @@ err:
 }
 
 int EC_KEY_generate_key(EC_KEY *eckey) {
-  int ok = 0;
-  BIGNUM *priv_key = NULL;
+  EC_WRAPPED_SCALAR *priv_key = NULL;
   EC_POINT *pub_key = NULL;
 
   if (!eckey || !eckey->group) {
@@ -458,55 +547,32 @@ int EC_KEY_generate_key(EC_KEY *eckey) {
     return 0;
   }
 
-  if (eckey->priv_key == NULL) {
-    priv_key = BN_new();
-    if (priv_key == NULL) {
-      goto err;
-    }
-  } else {
-    priv_key = eckey->priv_key;
-  }
-
-  const BIGNUM *order = EC_GROUP_get0_order(eckey->group);
-
   // Check that the size of the group order is FIPS compliant (FIPS 186-4
   // B.4.2).
-  if (BN_num_bits(order) < 160) {
+  if (BN_num_bits(EC_GROUP_get0_order(eckey->group)) < 160) {
     OPENSSL_PUT_ERROR(EC, EC_R_INVALID_GROUP_ORDER);
     goto err;
   }
 
   // Generate the private key by testing candidates (FIPS 186-4 B.4.2).
-  if (!BN_rand_range_ex(priv_key, 1, order)) {
+  priv_key = ec_wrapped_scalar_from_random(eckey->group);
+  pub_key = EC_POINT_new(eckey->group);
+  if (priv_key == NULL || pub_key == NULL ||
+      !ec_point_mul_scalar(eckey->group, pub_key, &priv_key->scalar, NULL, NULL,
+                           NULL)) {
     goto err;
   }
 
-  if (eckey->pub_key == NULL) {
-    pub_key = EC_POINT_new(eckey->group);
-    if (pub_key == NULL) {
-      goto err;
-    }
-  } else {
-    pub_key = eckey->pub_key;
-  }
-
-  if (!EC_POINT_mul(eckey->group, pub_key, priv_key, NULL, NULL, NULL)) {
-    goto err;
-  }
-
+  ec_wrapped_scalar_free(eckey->priv_key);
   eckey->priv_key = priv_key;
+  EC_POINT_free(eckey->pub_key);
   eckey->pub_key = pub_key;
-
-  ok = 1;
+  return 1;
 
 err:
-  if (eckey->pub_key == NULL) {
-    EC_POINT_free(pub_key);
-  }
-  if (eckey->priv_key == NULL) {
-    BN_free(priv_key);
-  }
-  return ok;
+  EC_POINT_free(pub_key);
+  ec_wrapped_scalar_free(priv_key);
+  return 0;
 }
 
 int EC_KEY_generate_key_fips(EC_KEY *eckey) {
