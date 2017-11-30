@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "60f84b41_f790e9e1",
+        "filename": "crypto/fipsmodule/ec/ec.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 823,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-30T16:42:06Z",
+      "side": 1,
+      "message": "Andres points out that we probably should be actually comparing against the order, not the bit size, so we don\u0027t have to think about whether all our implementations avoid the doubling case for numbers just above the order. This does have the side effect of neutering the SP 800-56A check, but all our curves have cofactor one, so whatever. Were we to support other cofactors, I suppose the story would be that we do it \n\nThat\u0027s also nice in that we can then more consistently say \"an EC_SCALAR is always reduced\" and just put the check in ec_bignum_to_scalar, with the exception of some of the temporaries floating around ECDSA that are thoroughly commented. (Though maybe we should just do the extra subtraction and not care...)\n\nSince all this code has always used BN_num_bits here and I think this would allow reshuffling things, I\u0027ll do that in a follow-up from this CL.",
+      "revId": "da4a6eeef343fa771e7f5e6af5cbd427c8b7a9c2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
