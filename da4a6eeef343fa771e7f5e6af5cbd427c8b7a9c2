@@ -16,6 +16,24 @@
       "revId": "da4a6eeef343fa771e7f5e6af5cbd427c8b7a9c2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b41dbead_9381703c",
+        "filename": "crypto/fipsmodule/ec/ec.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 823,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-11-30T21:51:40Z",
+      "side": 1,
+      "message": "Did the code use to run BN_nnmod just when there were too many bits, or all the time?",
+      "parentUuid": "60f84b41_f790e9e1",
+      "revId": "da4a6eeef343fa771e7f5e6af5cbd427c8b7a9c2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
