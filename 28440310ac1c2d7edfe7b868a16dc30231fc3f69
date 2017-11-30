@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0c704a0_aa433f7f",
+        "filename": "tool/client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-30T17:15:27Z",
+      "side": 1,
+      "message": "early_data.c_str() + 1 or store early_data.substr(1) in a string. (I hate C++.)",
+      "range": {
+        "startLine": 305,
+        "startChar": 29,
+        "endLine": 305,
+        "endChar": 58
+      },
+      "revId": "28440310ac1c2d7edfe7b868a16dc30231fc3f69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a628db4_af1d2da6",
+        "filename": "tool/client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-30T17:15:27Z",
+      "side": 1,
+      "message": "FILE *f \u003d fopen(filename, \"rb\");\n\nAlso, mind calling fclose?",
+      "revId": "28440310ac1c2d7edfe7b868a16dc30231fc3f69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
