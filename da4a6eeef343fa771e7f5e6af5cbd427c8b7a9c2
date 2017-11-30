@@ -34,6 +34,24 @@
       "revId": "da4a6eeef343fa771e7f5e6af5cbd427c8b7a9c2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c265295_99439294",
+        "filename": "crypto/fipsmodule/ec/ec.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 823,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-30T21:54:36Z",
+      "side": 1,
+      "message": "The old code did it based purely on bits. Though I have a followup I\u0027m about ready to upload that does it based on the full comparison.",
+      "parentUuid": "b41dbead_9381703c",
+      "revId": "da4a6eeef343fa771e7f5e6af5cbd427c8b7a9c2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
