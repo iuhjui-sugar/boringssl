@@ -52,6 +52,24 @@
       "revId": "da4a6eeef343fa771e7f5e6af5cbd427c8b7a9c2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1a2eed9_9135083b",
+        "filename": "crypto/fipsmodule/ec/ec.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 823,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-11-30T21:58:05Z",
+      "side": 1,
+      "message": "Ok, so this matches the old behaviour. LGTM.",
+      "parentUuid": "1c265295_99439294",
+      "revId": "da4a6eeef343fa771e7f5e6af5cbd427c8b7a9c2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
