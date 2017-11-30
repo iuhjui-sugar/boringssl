@@ -278,11 +278,21 @@ const EC_METHOD *EC_GFp_nistp256_method(void);
 // x86-64 optimized P256. See http://eprint.iacr.org/2013/816.
 const EC_METHOD *EC_GFp_nistz256_method(void);
 
+// An EC_WRAPPED_SCALAR is an |EC_SCALAR| with a parallel |BIGNUM|
+// representation. It exists purely to support the |EC_KEY_get0_private_key|
+// API. It computes |bignum.top| in constant-time, so merely instantiating it
+// does not leak information, but any attempt to use the |BIGNUM| will not be
+// constant-time.
+typedef struct {
+  BIGNUM bignum;
+  EC_SCALAR scalar;
+} EC_WRAPPED_SCALAR;
+
 struct ec_key_st {
   EC_GROUP *group;
 
   EC_POINT *pub_key;
-  BIGNUM *priv_key;
+  EC_WRAPPED_SCALAR *priv_key;
 
   // fixed_k may contain a specific value of 'k', to be used in ECDSA signing.
   // This is only for the FIPS power-on tests.
@@ -297,6 +307,30 @@ struct ec_key_st {
 
   CRYPTO_EX_DATA ex_data;
 } /* EC_KEY */;
+
+// ec_wrapped_scalar_from_bignum returns a newly-allocated |EC_WRAPPED_SCALAR|
+// with the value of |bn|, or NULL on error or if |bn| was out of range.
+EC_WRAPPED_SCALAR *ec_wrapped_scalar_from_bignum(const EC_GROUP *group,
+                                                 const BIGNUM *bn);
+
+// ec_wrapped_scalar_from_big_endian interprets |in| as a big-endian integer and
+// returns a newly-allocated |EC_WRAPPED_SCALAR| with the value, or NULL on
+// error or if the value was out of range.
+EC_WRAPPED_SCALAR *ec_wrapped_scalar_from_big_endian(const EC_GROUP *group,
+                                                     const uint8_t *in,
+                                                     size_t len);
+
+// ec_wrapped_scalar_from_random returns a newly-allocated |EC_WRAPPED_SCALAR|
+// with a uniformly selected random value from 1 to |group->order - 1, or NULL
+// on error.
+EC_WRAPPED_SCALAR *ec_wrapped_scalar_from_random(const EC_GROUP *group);
+
+// ec_wrapped_scalar_dup returns a newly-allocated copy of |scalar| or NULL on
+// allocation error.
+EC_WRAPPED_SCALAR *ec_wrapped_scalar_dup(const EC_WRAPPED_SCALAR *scalar);
+
+// ec_wrapped_scalar_free releases memory associated with |scalar|.
+void ec_wrapped_scalar_free(EC_WRAPPED_SCALAR *scalar);
 
 struct built_in_curve {
   int nid;
