@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9f70ab9e_364bc9bb",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-11-30T20:15:37Z",
+      "side": 1,
+      "message": "Ah yes, of course this is a separate setting from master:infra/config/cq.cfg\u0027s dry_run_access_list! ;-)",
+      "revId": "be3cf5f26cbdc012f1b3c0b7834cba21c6fb1000",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
