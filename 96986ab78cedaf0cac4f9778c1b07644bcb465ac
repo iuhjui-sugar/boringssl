@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2dc44d27_c8fb5516",
+        "filename": "crypto/fipsmodule/ecdsa/ecdsa.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-12-01T00:15:23Z",
+      "side": 1,
+      "message": "maybe static_assert(sizeof(BN_ULONG) \u003d\u003d sizeof(crypto_word_t)?)",
+      "revId": "96986ab78cedaf0cac4f9778c1b07644bcb465ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
