@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "826477c3_bed7bf92",
+        "filename": "ssl/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 2174,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-12-02T00:09:40Z",
+      "side": 1,
+      "message": "this bit doesn\u0027t follow the use of \"whether\". I think it can just be dropped.",
+      "range": {
+        "startLine": 2173,
+        "startChar": 72,
+        "endLine": 2174,
+        "endChar": 14
+      },
+      "revId": "7f63f1edac7e69c33bfb74c2d1f1ec6d530915a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdecef72_e80c3ae7",
+        "filename": "ssl/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 2184,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-12-02T00:09:40Z",
+      "side": 1,
+      "message": "insert \"whether\".",
+      "range": {
+        "startLine": 2184,
+        "startChar": 40,
+        "endLine": 2184,
+        "endChar": 41
+      },
+      "revId": "7f63f1edac7e69c33bfb74c2d1f1ec6d530915a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
