@@ -15,6 +15,8 @@
 #include <algorithm>
 #include <string>
 
+#include <errno.h>
+
 #include <gtest/gtest.h>
 
 #include <openssl/bio.h>
