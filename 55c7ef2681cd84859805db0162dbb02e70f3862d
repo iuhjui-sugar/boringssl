@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ea73155_ea97db76",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-12-04T22:41:23Z",
+      "side": 1,
+      "message": "did you mean to disable this one?",
+      "range": {
+        "startLine": 70,
+        "startChar": 72,
+        "endLine": 70,
+        "endChar": 73
+      },
+      "revId": "55c7ef2681cd84859805db0162dbb02e70f3862d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
