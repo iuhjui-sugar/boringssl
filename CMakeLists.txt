@@ -63,6 +63,13 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CLANG)
     set(C_CXX_FLAGS "${C_CXX_FLAGS} -Wno-free-nonheap-object")
   endif()
 
+  if(CLANG AND NOT "6.0.0" VERSION_GREATER CMAKE_C_COMPILER_VERSION)
+    # Clang's -Wtautological-constant-compare is far too aggressive and does not
+    # account for, say, wanting the same code to work on both 32-bit and 64-bit
+    # platforms.
+    set(C_CXX_FLAGS "${C_CXX_FLAGS} -Wno-tautological-constant-compare -Wtautological-constant-out-of-range-compare")
+  endif()
+
   if(CLANG OR NOT "7.0.0" VERSION_GREATER CMAKE_C_COMPILER_VERSION)
     set(C_CXX_FLAGS "${C_CXX_FLAGS} -Wimplicit-fallthrough")
   endif()
