@@ -587,6 +587,8 @@ SSL_CTX *SSL_CTX_new(const SSL_METHOD *method) {
     goto err2;
   }
 
+  ret->tls13_variant = tls13_draft22;
+
   return ret;
 
 err:

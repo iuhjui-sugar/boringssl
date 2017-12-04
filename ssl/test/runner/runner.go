@@ -975,6 +975,10 @@ func runTest(test *testCase, shimPath string, mallocNumToFail int64) error {
 
 	}
 
+	if test.config.TLS13Variant == 0 && test.tls13Variant == 0 {
+		test.tls13Variant = TLS13Draft22
+	}
+
 	listener, err := net.ListenTCP("tcp", &net.TCPAddr{IP: net.IPv6loopback})
 	if err != nil {
 		listener, err = net.ListenTCP("tcp4", &net.TCPAddr{IP: net.IP{127, 0, 0, 1}})
@@ -1298,20 +1302,6 @@ var tlsVersions = []tlsVersion{
 		versionDTLS: VersionDTLS12,
 	},
 	{
-		name:         "TLS13",
-		version:      VersionTLS13,
-		excludeFlag:  "-no-tls13",
-		versionWire:  tls13DraftVersion,
-		tls13Variant: TLS13Default,
-	},
-	{
-		name:         "TLS13Draft21",
-		version:      VersionTLS13,
-		excludeFlag:  "-no-tls13",
-		versionWire:  tls13Draft21Version,
-		tls13Variant: TLS13Draft21,
-	},
-	{
 		name:         "TLS13Draft22",
 		version:      VersionTLS13,
 		excludeFlag:  "-no-tls13",
@@ -1319,25 +1309,11 @@ var tlsVersions = []tlsVersion{
 		tls13Variant: TLS13Draft22,
 	},
 	{
-		name:         "TLS13Experiment",
-		version:      VersionTLS13,
-		excludeFlag:  "-no-tls13",
-		versionWire:  tls13ExperimentVersion,
-		tls13Variant: TLS13Experiment,
-	},
-	{
 		name:         "TLS13Experiment2",
 		version:      VersionTLS13,
 		excludeFlag:  "-no-tls13",
 		versionWire:  tls13Experiment2Version,
 		tls13Variant: TLS13Experiment2,
-	},
-	{
-		name:         "TLS13Experiment3",
-		version:      VersionTLS13,
-		excludeFlag:  "-no-tls13",
-		versionWire:  tls13Experiment3Version,
-		tls13Variant: TLS13Experiment3,
 	},
 }
 
@@ -3885,7 +3861,7 @@ func addClientAuthTests() {
 	// Test that an empty client CA list doesn't send a CA extension.
 	testCases = append(testCases, testCase{
 		testType: serverTest,
-		name:     "TLS13Draft21-Empty-Client-CA-List",
+		name:     "TLS13Draft22-Empty-Client-CA-List",
 		config: Config{
 			MaxVersion:   VersionTLS13,
 			Certificates: []Certificate{rsaCertificate},
@@ -3893,7 +3869,7 @@ func addClientAuthTests() {
 				ExpectNoCertificateAuthoritiesExtension: true,
 			},
 		},
-		tls13Variant: TLS13Draft21,
+		tls13Variant: TLS13Draft22,
 		flags: []string{
 			"-require-any-client-certificate",
 			"-use-client-ca-list", "<EMPTY>",
@@ -5298,10 +5274,6 @@ func addVersionNegotiationTests() {
 				expectedClientVersion := expectedVersion
 				if expectedVersion == VersionTLS13 && runnerVers.tls13Variant != shimVers.tls13Variant {
 					expectedClientVersion = VersionTLS12
-					expectedServerVersion = VersionTLS12
-					if shimVers.tls13Variant != TLS13Default && runnerVers.tls13Variant != TLS13Draft21 && runnerVers.tls13Variant != TLS13Draft22 {
-						expectedServerVersion = VersionTLS13
-					}
 				}
 
 				suffix := shimVers.name + "-" + runnerVers.name
@@ -5318,7 +5290,7 @@ func addVersionNegotiationTests() {
 				serverVers := expectedServerVersion
 				if expectedServerVersion >= VersionTLS13 {
 					serverVers = VersionTLS10
-					if runnerVers.tls13Variant == TLS13Experiment2 || runnerVers.tls13Variant == TLS13Experiment3 || runnerVers.tls13Variant == TLS13Draft22 {
+					if runnerVers.tls13Variant == TLS13Experiment2 || runnerVers.tls13Variant == TLS13Draft22 {
 						serverVers = VersionTLS12
 					}
 				}
@@ -5505,21 +5477,6 @@ func addVersionNegotiationTests() {
 		expectedError: ":UNEXPECTED_EXTENSION:",
 	})
 
-	// Test that the non-experimental TLS 1.3 isn't negotiated by the
-	// supported_versions extension in the ServerHello.
-	testCases = append(testCases, testCase{
-		testType: clientTest,
-		name:     "SupportedVersionSelection-TLS13",
-		config: Config{
-			MaxVersion: VersionTLS13,
-			Bugs: ProtocolBugs{
-				SendServerSupportedExtensionVersion: tls13DraftVersion,
-			},
-		},
-		shouldFail:    true,
-		expectedError: ":UNEXPECTED_EXTENSION:",
-	})
-
 	// Test that the maximum version is selected regardless of the
 	// client-sent order.
 	testCases = append(testCases, testCase{
@@ -5527,7 +5484,7 @@ func addVersionNegotiationTests() {
 		name:     "IgnoreClientVersionOrder",
 		config: Config{
 			Bugs: ProtocolBugs{
-				SendSupportedVersions: []uint16{VersionTLS12, tls13DraftVersion},
+				SendSupportedVersions: []uint16{VersionTLS12, tls13Draft22Version},
 			},
 		},
 		expectedVersion: VersionTLS13,
@@ -6778,8 +6735,7 @@ func addResumptionVersionTests() {
 							MaxVersion:   sessionVers.version,
 							TLS13Variant: sessionVers.tls13Variant,
 							Bugs: ProtocolBugs{
-								ExpectNoTLS12Session: sessionVers.version >= VersionTLS13,
-								ExpectNoTLS13PSK:     sessionVers.version < VersionTLS13,
+								ExpectNoTLS13PSK: sessionVers.version < VersionTLS13,
 							},
 						},
 						expectedVersion:       sessionVers.version,
@@ -11119,11 +11075,6 @@ func addTLS13HandshakeTests() {
 			tls13Variant: variant,
 		})
 
-		hasSessionID := false
-		if variant != TLS13Default {
-			hasSessionID = true
-		}
-
 		// Test that the client sends a fake session ID in the correct experiments.
 		testCases = append(testCases, testCase{
 			testType: clientTest,
@@ -11131,7 +11082,7 @@ func addTLS13HandshakeTests() {
 			config: Config{
 				MaxVersion: VersionTLS13,
 				Bugs: ProtocolBugs{
-					ExpectClientHelloSessionID: hasSessionID,
+					ExpectClientHelloSessionID: true,
 				},
 			},
 			tls13Variant: variant,
@@ -11434,7 +11385,7 @@ func addTLS13HandshakeTests() {
 			expectedError: ":WRONG_CURVE:",
 		})
 
-		if isDraft21(version.versionWire) {
+		if isDraft22(version.versionWire) {
 			testCases = append(testCases, testCase{
 				name: "HelloRetryRequest-CipherChange-" + name,
 				config: Config{
@@ -11721,7 +11672,7 @@ func addTLS13HandshakeTests() {
 			expectedError: ":DECODE_ERROR:",
 		})
 
-		if isDraft21(version.versionWire) {
+		if isDraft22(version.versionWire) {
 			testCases = append(testCases, testCase{
 				name: "UnknownExtensionInCertificateRequest-" + name,
 				config: Config{
@@ -12403,7 +12354,7 @@ func addTLS13HandshakeTests() {
 		})
 
 		expectedError := ":UNEXPECTED_RECORD:"
-		if isDraft21(version.versionWire) {
+		if isDraft22(version.versionWire) {
 			// In draft-21 and up, early data is expected to be
 			// terminated by a handshake message, though we test
 			// with the wrong one.
@@ -12507,7 +12458,7 @@ func addTLS13HandshakeTests() {
 			expectedLocalError: "remote error: error decrypting message",
 		})
 
-		if isDraft21(version.versionWire) {
+		if isDraft22(version.versionWire) {
 			testCases = append(testCases, testCase{
 				testType: serverTest,
 				name:     "Server-NonEmptyEndOfEarlyData-" + name,
