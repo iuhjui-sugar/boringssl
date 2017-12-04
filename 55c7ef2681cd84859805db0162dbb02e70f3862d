@@ -22,6 +22,30 @@
       "revId": "55c7ef2681cd84859805db0162dbb02e70f3862d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a43666c_015940b2",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-04T22:48:18Z",
+      "side": 1,
+      "message": "Enable. I just borrowed from Chromium. It seems -Wno-tautological-constant-compare disables -Wtautological-constant-out-of-range-compare which is I suppose a bit less insane?\n\nThat said, I think I have a bigger problem right now which is that Clang versioning is totally nuts. :-) Apple\u0027s clang claims \"Apple LLVM version 9.0.0\" while our newer trunk clang claims \"clang 6.0.0\". Looks like I need to fiddle with this thing...\n\nhttps://cmake.org/cmake/help/v3.0/policy/CMP0025.html",
+      "parentUuid": "5ea73155_ea97db76",
+      "range": {
+        "startLine": 70,
+        "startChar": 72,
+        "endLine": 70,
+        "endChar": 73
+      },
+      "revId": "55c7ef2681cd84859805db0162dbb02e70f3862d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
