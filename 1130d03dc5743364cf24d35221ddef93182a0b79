@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d7cb5812_b0cc26e7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-12-05T15:33:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c916f54_50625c8f",
+      "revId": "1130d03dc5743364cf24d35221ddef93182a0b79",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1721b62d_2e5557e0",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "1130d03dc5743364cf24d35221ddef93182a0b79",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9323bf35_f5ded09f",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3217,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-12-05T15:33:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1721b62d_2e5557e0",
+      "revId": "1130d03dc5743364cf24d35221ddef93182a0b79",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "be4c4ec0_a6b231a6",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2967,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-12-05T15:33:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0cd113df_b89a28cf",
+      "revId": "1130d03dc5743364cf24d35221ddef93182a0b79",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dc63cc3c_e1a602de",
         "filename": "ssl/ssl_versions.cc",
         "patchSetId": 1
@@ -67,6 +121,24 @@
       "revId": "1130d03dc5743364cf24d35221ddef93182a0b79",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4eb71757_f9094a7b",
+        "filename": "ssl/ssl_versions.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-12-05T15:33:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc63cc3c_e1a602de",
+      "revId": "1130d03dc5743364cf24d35221ddef93182a0b79",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "1ccce50e_b2ba83d1",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 980,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-12-05T15:33:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e65d54d_471b125f",
+      "revId": "1130d03dc5743364cf24d35221ddef93182a0b79",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "84d5ec6f_644aa407",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 1
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "58f02880_9e912efd",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 11078,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-12-05T15:33:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84d5ec6f_644aa407",
+      "revId": "1130d03dc5743364cf24d35221ddef93182a0b79",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a42e341e_e9d5fad1",
         "filename": "tool/server.cc",
         "patchSetId": 1
@@ -118,6 +226,24 @@
       "revId": "1130d03dc5743364cf24d35221ddef93182a0b79",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b706f8e_ae02bf58",
+        "filename": "tool/server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2017-12-05T15:33:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a42e341e_e9d5fad1",
+      "revId": "1130d03dc5743364cf24d35221ddef93182a0b79",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
