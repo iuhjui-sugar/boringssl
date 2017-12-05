@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9c916f54_50625c8f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-05T04:20:26Z",
+      "side": 1,
+      "message": "Add an Upgrade-Note line:\n\nUpgrade-Note: SSL_CTX_set_tls13_variant(tls13_experiment) on the server should switch to SSL_CTX_set_tls13_variant(tls13_experiment2). (Configuring any TLS 1.3 variants on the server enables all variants, so this is a no-op. We\u0027re just retiring some old experiments.)",
+      "revId": "1130d03dc5743364cf24d35221ddef93182a0b79",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1721b62d_2e5557e0",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3217,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-05T04:20:26Z",
+      "side": 1,
+      "message": "Rename this to tls13_default and number at zero.",
+      "revId": "1130d03dc5743364cf24d35221ddef93182a0b79",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cd113df_b89a28cf",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2967,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-05T04:20:26Z",
+      "side": 1,
+      "message": "This probably isn\u0027t worth all this complexity as a sanity-check. Just do this:\nhttps://boringssl-review.googlesource.com/c/boringssl/+/23126/1/ssl/ssl_test.cc",
+      "revId": "1130d03dc5743364cf24d35221ddef93182a0b79",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc63cc3c_e1a602de",
+        "filename": "ssl/ssl_versions.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-05T04:20:26Z",
+      "side": 1,
+      "message": "This no longer matches the documentation, we shouldn\u0027t ship Experiment2 to consumers that don\u0027t need it, and this means we can\u0027t turn it back off on the server. I don\u0027t see what was wrong with the way it worked before.",
+      "revId": "1130d03dc5743364cf24d35221ddef93182a0b79",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e65d54d_471b125f",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 980,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-05T04:20:26Z",
+      "side": 1,
+      "message": "As with the C code, make the default the zero value. It is especially stylistically bad in Go to do this.",
+      "revId": "1130d03dc5743364cf24d35221ddef93182a0b79",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84d5ec6f_644aa407",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 11078,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-05T04:20:26Z",
+      "side": 1,
+      "message": "This comment is wrong now.",
+      "revId": "1130d03dc5743364cf24d35221ddef93182a0b79",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a42e341e_e9d5fad1",
+        "filename": "tool/server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-05T04:20:26Z",
+      "side": 1,
+      "message": "What does one do, given you just forced it all on anyway? This can go back to the boolean and then the server scheme back to what it was originally.",
+      "revId": "1130d03dc5743364cf24d35221ddef93182a0b79",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
