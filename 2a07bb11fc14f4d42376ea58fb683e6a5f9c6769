@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "89ba3211_2be4f5b0",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2620,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-05T22:34:01Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "2a07bb11fc14f4d42376ea58fb683e6a5f9c6769",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4aba520_8298eb17",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 5292,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-05T22:34:01Z",
+      "side": 1,
+      "message": "This is always true, right? So just:\n\nif expectedServerVersion \u003e\u003d VersionTLS13 {\n  serverVers \u003d VersionTLS12\n}",
+      "revId": "2a07bb11fc14f4d42376ea58fb683e6a5f9c6769",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfb2e9ad_93244805",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 11077,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-05T22:34:01Z",
+      "side": 1,
+      "message": "(typo)",
+      "range": {
+        "startLine": 11077,
+        "startChar": 60,
+        "endLine": 11077,
+        "endChar": 62
+      },
+      "revId": "2a07bb11fc14f4d42376ea58fb683e6a5f9c6769",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
