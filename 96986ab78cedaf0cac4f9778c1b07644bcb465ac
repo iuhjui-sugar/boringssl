@@ -16,6 +16,24 @@
       "revId": "96986ab78cedaf0cac4f9778c1b07644bcb465ac",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95b126fe_e3661434",
+        "filename": "crypto/fipsmodule/ecdsa/ecdsa.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-05T19:41:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2dc44d27_c8fb5516",
+      "revId": "96986ab78cedaf0cac4f9778c1b07644bcb465ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
