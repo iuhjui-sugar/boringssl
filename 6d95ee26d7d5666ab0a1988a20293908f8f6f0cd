@@ -93,6 +93,24 @@
     },
     {
       "key": {
+        "uuid": "467d7b48_4d39fd4f",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2017-12-06T15:51:39Z",
+      "side": 1,
+      "message": "Done. I wonder how it managed to build with three...",
+      "parentUuid": "99a175e6_f5838a72",
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ccc9eed1_f19acd3e",
         "filename": "third_party/fiat/p256.c",
         "patchSetId": 12
@@ -113,6 +131,30 @@
       "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe0138c2_71c4470c",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 749,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2017-12-06T15:51:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ccc9eed1_f19acd3e",
+      "range": {
+        "startLine": 749,
+        "startChar": 54,
+        "endLine": 749,
+        "endChar": 57
+      },
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -150,6 +192,24 @@
     },
     {
       "key": {
+        "uuid": "355a0a62_df9d3f4e",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2017-12-06T15:51:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cdd9d07c_3d1adc4e",
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8475203d_7e562a13",
         "filename": "third_party/fiat/p256.c",
         "patchSetId": 12
@@ -164,6 +224,24 @@
       "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70580b73_78cd478f",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 862,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2017-12-06T15:51:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8475203d_7e562a13",
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -190,6 +268,30 @@
     },
     {
       "key": {
+        "uuid": "98ad71af_d9ad1a6a",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 872,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2017-12-06T15:51:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "151e4c2f_fecde82e",
+      "range": {
+        "startLine": 872,
+        "startChar": 59,
+        "endLine": 872,
+        "endChar": 64
+      },
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "509b1b54_6a37db5b",
         "filename": "third_party/fiat/p256.c",
         "patchSetId": 12
@@ -213,6 +315,30 @@
     },
     {
       "key": {
+        "uuid": "8484ed29_e8d42c26",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 886,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2017-12-06T15:51:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "509b1b54_6a37db5b",
+      "range": {
+        "startLine": 886,
+        "startChar": 22,
+        "endLine": 886,
+        "endChar": 26
+      },
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "be82253c_4e2d5c10",
         "filename": "third_party/fiat/p256.c",
         "patchSetId": 12
@@ -227,6 +353,24 @@
       "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "caf85368_a1ba98b2",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 894,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2017-12-06T15:51:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be82253c_4e2d5c10",
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -247,6 +391,24 @@
     },
     {
       "key": {
+        "uuid": "f1b34ac1_a3ed07a9",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 911,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2017-12-06T15:51:39Z",
+      "side": 1,
+      "message": "Yes, translated using ad-hoc regular expressions substitution.",
+      "parentUuid": "a6faca2a_14240532",
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f7972111_91022d43",
         "filename": "third_party/fiat/p256.c",
         "patchSetId": 12
@@ -261,6 +423,24 @@
       "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e61116b_6d8f5a8c",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 998,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2017-12-06T15:51:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7972111_91022d43",
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -338,6 +518,30 @@
     },
     {
       "key": {
+        "uuid": "af51f8e4_c8de2af1",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 1042,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2017-12-06T15:51:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b413c0e0_4e958f5e",
+      "range": {
+        "startLine": 1042,
+        "startChar": 5,
+        "endLine": 1042,
+        "endChar": 12
+      },
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e5e731a1_ebd0c53c",
         "filename": "third_party/fiat/p256.c",
         "patchSetId": 12
@@ -361,6 +565,30 @@
     },
     {
       "key": {
+        "uuid": "d816be11_940d083e",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 1045,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2017-12-06T15:51:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5e731a1_ebd0c53c",
+      "range": {
+        "startLine": 1045,
+        "startChar": 13,
+        "endLine": 1045,
+        "endChar": 18
+      },
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9dfdb561_df9e75d2",
         "filename": "third_party/fiat/p256.c",
         "patchSetId": 12
@@ -381,6 +609,30 @@
       "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67773fb9_d1b332f3",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 1055,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2017-12-06T15:51:39Z",
+      "side": 1,
+      "message": "Yes. I have not checked whether it actually does anything useful in this instance, but I think there are optimizations that a compiler could reasonably do with this information, and I don\u0027t see downside to structuring code this way.",
+      "parentUuid": "9dfdb561_df9e75d2",
+      "range": {
+        "startLine": 1055,
+        "startChar": 4,
+        "endLine": 1055,
+        "endChar": 10
+      },
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -421,6 +673,30 @@
       "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "714fae21_b344296c",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 1084,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2017-12-06T15:51:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b83a4c5e_68990421",
+      "range": {
+        "startLine": 1084,
+        "startChar": 5,
+        "endLine": 1084,
+        "endChar": 9
+      },
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -475,6 +751,24 @@
     },
     {
       "key": {
+        "uuid": "9703bb60_f2b9f721",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 1490,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2017-12-06T15:51:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0728db6b_57c766e9",
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b4fdfeb_0f33e14a",
         "filename": "third_party/fiat/p256.c",
         "patchSetId": 12
@@ -489,6 +783,24 @@
       "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df7d6ece_6cd5e716",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 1491,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2017-12-06T15:51:39Z",
+      "side": 1,
+      "message": "Changed to memset.",
+      "parentUuid": "0b4fdfeb_0f33e14a",
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -509,6 +821,24 @@
     },
     {
       "key": {
+        "uuid": "64090514_b9948efd",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 1494,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2017-12-06T15:51:39Z",
+      "side": 1,
+      "message": "fe_cmovznz is my addition, this code was already there. Changed to fe_cmovznz.",
+      "parentUuid": "27eb9a1f_1cd802d4",
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bab9bda3_efdf7019",
         "filename": "third_party/fiat/p256.c",
         "patchSetId": 12
@@ -520,6 +850,30 @@
       "writtenOn": "2017-12-06T00:47:04Z",
       "side": 1,
       "message": "[Weren\u0027t we just talking about how it was unclear whether x \u003d 0 or y \u003d 0 was allowed for the point at infinity? :-) The old code actually had an explicit \"// set nq to the point at infinity\" that was lost here. Maybe worth restoring?]",
+      "range": {
+        "startLine": 1522,
+        "startChar": 13,
+        "endLine": 1522,
+        "endChar": 26
+      },
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f011933a_2dec7786",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 1522,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2017-12-06T15:51:39Z",
+      "side": 1,
+      "message": "Restored old comment. I\u0027m thinking I will add more detailed notes once the formulas have been Coq-checked.",
+      "parentUuid": "bab9bda3_efdf7019",
       "range": {
         "startLine": 1522,
         "startChar": 13,
@@ -555,6 +909,30 @@
     },
     {
       "key": {
+        "uuid": "efc44d67_c70a8c66",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 1611,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2017-12-06T15:51:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a5c053c_2fe522f7",
+      "range": {
+        "startLine": 1611,
+        "startChar": 70,
+        "endLine": 1611,
+        "endChar": 71
+      },
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "108eea25_379adc55",
         "filename": "third_party/fiat/p256.c",
         "patchSetId": 12
@@ -569,6 +947,24 @@
       "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2907dfc0_28cd7720",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 1653,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2017-12-06T15:51:39Z",
+      "side": 1,
+      "message": "unused_ctx",
+      "parentUuid": "108eea25_379adc55",
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -589,6 +985,24 @@
     },
     {
       "key": {
+        "uuid": "3667c91c_40b548b9",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 1678,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2017-12-06T15:51:39Z",
+      "side": 1,
+      "message": "Aligned and wrapped manually.",
+      "parentUuid": "853bda6c_f5deb79c",
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76e11744_3163b6af",
         "filename": "third_party/fiat/p256.c",
         "patchSetId": 12
@@ -603,6 +1017,24 @@
       "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a11a5e9_4d9f8110",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 1703,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2017-12-06T15:51:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76e11744_3163b6af",
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
