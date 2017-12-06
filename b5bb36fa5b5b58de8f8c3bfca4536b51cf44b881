@@ -2,6 +2,165 @@
   "comments": [
     {
       "key": {
+        "uuid": "350807bd_d396b360",
+        "filename": "crypto/fipsmodule/ec/ec.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-12-06T22:54:52Z",
+      "side": 1,
+      "message": "(nit: needs an extra space of indentation. And the next line.)",
+      "revId": "b5bb36fa5b5b58de8f8c3bfca4536b51cf44b881",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c465446_7bae6f7a",
+        "filename": "crypto/fipsmodule/ec/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-12-06T22:54:52Z",
+      "side": 1,
+      "message": "nit: don\u0027t break a given variable, also needs an extra space.\n\n(Wiring up clang-format to your editor is life-changing. Ask David about it :)",
+      "revId": "b5bb36fa5b5b58de8f8c3bfca4536b51cf44b881",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a82a408_ef46c88b",
+        "filename": "crypto/fipsmodule/ec/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-12-06T22:54:52Z",
+      "side": 1,
+      "message": "(nit: blank line before this one.)",
+      "revId": "b5bb36fa5b5b58de8f8c3bfca4536b51cf44b881",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71a52da3_912aad5b",
+        "filename": "crypto/fipsmodule/ec/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-12-06T22:54:52Z",
+      "side": 1,
+      "message": "nit: indentation.",
+      "revId": "b5bb36fa5b5b58de8f8c3bfca4536b51cf44b881",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32db7c98_59ac645d",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-12-06T22:54:52Z",
+      "side": 1,
+      "message": "Ed25519?",
+      "revId": "b5bb36fa5b5b58de8f8c3bfca4536b51cf44b881",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7324bdc_758e6ec6",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-12-06T22:54:52Z",
+      "side": 1,
+      "message": "isn\u0027t this a no-op? (I.e. I don\u0027t think there should be any configuration where neither 32_BIT nor 64_BIT is defined.)",
+      "revId": "b5bb36fa5b5b58de8f8c3bfca4536b51cf44b881",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20d2cb39_53007737",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-12-06T22:54:52Z",
+      "side": 1,
+      "message": "nit: add a comment about what \"opp\" does.",
+      "range": {
+        "startLine": 140,
+        "startChar": 15,
+        "endLine": 140,
+        "endChar": 18
+      },
+      "revId": "b5bb36fa5b5b58de8f8c3bfca4536b51cf44b881",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbb1633b_28faacb0",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 867,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-12-06T22:54:52Z",
+      "side": 1,
+      "message": "(nit: indentation.)",
+      "revId": "b5bb36fa5b5b58de8f8c3bfca4536b51cf44b881",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36674f18_47523ada",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 874,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-12-06T22:54:52Z",
+      "side": 1,
+      "message": "(obvious point for optimisation, of course.)",
+      "revId": "b5bb36fa5b5b58de8f8c3bfca4536b51cf44b881",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bb572f18_f1425666",
         "filename": "third_party/fiat/p256.c",
         "patchSetId": 13
@@ -13,6 +172,23 @@
       "writtenOn": "2017-12-06T22:33:39Z",
       "side": 1,
       "message": "Nit: It\u0027s the same either way, but maybe drop outlimbs now and do:\n\n  memset(out, 0, sizeof(fe) * 3);",
+      "revId": "b5bb36fa5b5b58de8f8c3bfca4536b51cf44b881",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22b1251b_bb26b004",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 1646,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-12-06T22:54:52Z",
+      "side": 1,
+      "message": "It\u0027s unclear to me what the invariants are at this point. Is |x_out| always minimal? (I.e. what prevents a value in [p..2^256)?)",
       "revId": "b5bb36fa5b5b58de8f8c3bfca4536b51cf44b881",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
