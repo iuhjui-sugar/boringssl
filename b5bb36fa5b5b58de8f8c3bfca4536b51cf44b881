@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bb572f18_f1425666",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 1500,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-06T22:33:39Z",
+      "side": 1,
+      "message": "Nit: It\u0027s the same either way, but maybe drop outlimbs now and do:\n\n  memset(out, 0, sizeof(fe) * 3);",
+      "revId": "b5bb36fa5b5b58de8f8c3bfca4536b51cf44b881",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
