@@ -1,0 +1,608 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "13b3a4b5_36ecec81",
+        "filename": "crypto/fipsmodule/ec/ec.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 867,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-06T00:47:04Z",
+      "side": 1,
+      "message": "Nit: Align by one more space.",
+      "range": {
+        "startLine": 867,
+        "startChar": 27,
+        "endLine": 867,
+        "endChar": 30
+      },
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68c455e7_7f139658",
+        "filename": "crypto/fipsmodule/ec/internal.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-06T00:47:04Z",
+      "side": 1,
+      "message": "Nit: spaces and align. Also break before \u0027const EC_SCALAR *g_scalar\u0027.\n\n(I have a keybinding set up for clang-format which is a bit easier.)",
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54311d8e_31c09478",
+        "filename": "crypto/fipsmodule/ec/internal.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-06T00:47:04Z",
+      "side": 1,
+      "message": "Also formatting nit.",
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd849727_0777e08b",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-06T00:47:04Z",
+      "side": 1,
+      "message": "(I expect we\u0027ll need to fiddle with generate_build_files.py, but that\u0027s my or Adam\u0027s problem, unless you feel inspired to mess with hacky build scripts.)",
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99a175e6_f5838a72",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-06T00:47:04Z",
+      "side": 1,
+      "message": "Only two ..s I think?",
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccc9eed1_f19acd3e",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 749,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-06T00:47:04Z",
+      "side": 1,
+      "message": "Nit: I think we usually don\u0027t put smilies into the code. :-)",
+      "range": {
+        "startLine": 749,
+        "startChar": 54,
+        "endLine": 749,
+        "endChar": 57
+      },
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73cd775c_60d1404d",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 833,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-06T00:47:04Z",
+      "side": 1,
+      "message": "[I\u0027m going under the theory that we don\u0027t care about line wrapping and stuff for synthesized code, but handwritten stuff probably ought to match.]",
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cdd9d07c_3d1adc4e",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-06T00:47:04Z",
+      "side": 1,
+      "message": "Style nit: We usually spread this over three lines. Ditto below.",
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8475203d_7e562a13",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 862,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-06T00:47:04Z",
+      "side": 1,
+      "message": "Style nit: line wrap after z[NLIMBS].",
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "151e4c2f_fecde82e",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 872,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-06T00:47:04Z",
+      "side": 1,
+      "message": "Nit: Rather than \u0026 0xff, I\u0027d probably do a (uint8_t) cast in front? The 0xff is a no-op, while the (uint8_t) cast will shut the compiler up if we ever manage to get BoringSSL to pass -Wconversion.",
+      "range": {
+        "startLine": 872,
+        "startChar": 59,
+        "endLine": 872,
+        "endChar": 64
+      },
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "509b1b54_6a37db5b",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 886,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-06T00:47:04Z",
+      "side": 1,
+      "message": "Style nit: kOne",
+      "range": {
+        "startLine": 886,
+        "startChar": 22,
+        "endLine": 886,
+        "endChar": 26
+      },
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be82253c_4e2d5c10",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 894,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-06T00:47:04Z",
+      "side": 1,
+      "message": "Style nit: spread this over three lines.",
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6faca2a_14240532",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 911,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-06T00:47:04Z",
+      "side": 1,
+      "message": "This I assume was translated by hand from the old felem_inv? (Confirmed via git diff --color-words that it\u0027s the same operation with the felem_reduce merged in.)",
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7972111_91022d43",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 998,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-06T00:47:04Z",
+      "side": 1,
+      "message": "Nit: trailing whitespace",
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bcd93e0_6fc8283b",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 1000,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-06T00:47:04Z",
+      "side": 1,
+      "message": "[Just a note for myself: The old code multiplied by three, but I agree that this is the same.]",
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8ef21ed2_d03c6bcc",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 1008,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-06T00:47:04Z",
+      "side": 1,
+      "message": "[Ditto.]",
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "30f4559b_029ebb6e",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 1022,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-06T00:47:04Z",
+      "side": 1,
+      "message": "[Ditto.]",
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b413c0e0_4e958f5e",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 1042,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-06T00:47:04Z",
+      "side": 1,
+      "message": "There\u0027s no more ftmp. Ditto for most of the other ftmp comments below. Although keeping those in was certainly useful for the diff!\n\n(Also, yay getting rid of those ftmps! Trying to follow the original code was torture. Yours very obviously matched the comments, but I felt obligated to also check the comments matched the old code.)",
+      "range": {
+        "startLine": 1042,
+        "startChar": 5,
+        "endLine": 1042,
+        "endChar": 12
+      },
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5e731a1_ebd0c53c",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 1045,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-06T00:47:04Z",
+      "side": 1,
+      "message": "Maybe rename this two_z1z2 or something?",
+      "range": {
+        "startLine": 1045,
+        "startChar": 13,
+        "endLine": 1045,
+        "endChar": 18
+      },
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9dfdb561_df9e75d2",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 1055,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-06T00:47:04Z",
+      "side": 1,
+      "message": "I notice your fe_sqr is just fe_mul(out, in, in), unlike before. I\u0027m guessing the idea is the compiler will figure out the optimizations and make this faster than just multiplying z1z2 directly?",
+      "range": {
+        "startLine": 1055,
+        "startChar": 4,
+        "endLine": 1055,
+        "endChar": 10
+      },
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c914da9_9ba02816",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 1057,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-06T00:47:04Z",
+      "side": 1,
+      "message": "[Old code first added z1z1 + z2z2 and then subtracted, but I agree this is the same thing. I guess the adding separate might have fewer pipeline dependencies?? Dunno if that matters for perf.]",
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b83a4c5e_68990421",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 1084,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-06T00:47:04Z",
+      "side": 1,
+      "message": "z1z1z1",
+      "range": {
+        "startLine": 1084,
+        "startChar": 5,
+        "endLine": 1084,
+        "endChar": 9
+      },
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df0ec782_898c901b",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 1117,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-06T00:47:04Z",
+      "side": 1,
+      "message": "[The old code computed 2*V + J and then subtracted, but I agree this is the same thing.]",
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "965a25f1_6b6a2878",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 1125,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-06T00:47:04Z",
+      "side": 1,
+      "message": "[The old code computed 2*s1j, and then subtraacted, but I agree this is the same thing.]",
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0728db6b_57c766e9",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 1490,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-06T00:47:04Z",
+      "side": 1,
+      "message": "Nit: limb_t *outlimbs",
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b4fdfeb_0f33e14a",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 1491,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-06T00:47:04Z",
+      "side": 1,
+      "message": "Nit: spread over three lines.\n\n(Any reason not to just let memset figure it out?)",
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27eb9a1f_1cd802d4",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 1494,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-06T00:47:04Z",
+      "side": 1,
+      "message": "This isn\u0027t new, but want to add an assert(size \u003c 32) somewhere here? I believe this bit trick here doesn\u0027t work past that point...\n\nOr, actually, any reason all this isn\u0027t just:\n\n  limb_t mismatch \u003d i ^ idx;\n  fe_cmovznz(out[0], mismatch, pre_comp[i][0], out[0]);\n  fe_cmovznz(out[1], mismatch, pre_comp[i][1], out[1]);\n  fe_cmovznz(out[2], mismatch, pre_comp[i][2], out[2]);\n\nAlso avoids risking offending the C compiler. I want to say the outlimbs and inlimbs accesses are actually undefined behavior, since it\u0027s hopping over an object boundary? I could be wrong on that though.\n\n(I guess the bit tricks are something the compiler is unlikely to be able to optimize away, whereas it might actually figure this one out...)",
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bab9bda3_efdf7019",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 1522,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-06T00:47:04Z",
+      "side": 1,
+      "message": "[Weren\u0027t we just talking about how it was unclear whether x \u003d 0 or y \u003d 0 was allowed for the point at infinity? :-) The old code actually had an explicit \"// set nq to the point at infinity\" that was lost here. Maybe worth restoring?]",
+      "range": {
+        "startLine": 1522,
+        "startChar": 13,
+        "endLine": 1522,
+        "endChar": 26
+      },
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a5c053c_2fe522f7",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 1611,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-06T00:47:04Z",
+      "side": 1,
+      "message": "Nit: wrap here.\n\n(Or jus ask clang-format to do it.)",
+      "range": {
+        "startLine": 1611,
+        "startChar": 70,
+        "endLine": 1611,
+        "endChar": 71
+      },
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "108eea25_379adc55",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 1653,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-06T00:47:04Z",
+      "side": 1,
+      "message": "Nit: unused_ctx and wrap to 80 chars. (Or you could just leave it as ctx. Meh. Maybe when we\u0027ve completely purged all of BIGNUM from this code, we can take the BN_CTX argument away.)",
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "853bda6c_f5deb79c",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 1678,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-06T00:47:04Z",
+      "side": 1,
+      "message": "Nit: Mind passing this and the point_add line through clang-format again? \n\n(We usually align at the parens and then line-break at 80-chars. It\u0027s a bit of a hassle to do it by hand, but clang-format is magic.)",
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76e11744_3163b6af",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 1703,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-06T00:47:04Z",
+      "side": 1,
+      "message": "Mind adding a comment? Something to the effect of:\n\n// With 32-bit limbs, our constant-time point multiplication code is significantly slower than the generic variable-time wNAF implementation. Use wNAF when multiplying by a public scalar.",
+      "revId": "6d95ee26d7d5666ab0a1988a20293908f8f6f0cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
