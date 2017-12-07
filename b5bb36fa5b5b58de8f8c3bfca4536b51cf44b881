@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ef9cd2ec_68c24c87",
+        "filename": "crypto/fipsmodule/ec/ec.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2017-12-07T20:12:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "350807bd_d396b360",
+      "revId": "b5bb36fa5b5b58de8f8c3bfca4536b51cf44b881",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2c465446_7bae6f7a",
         "filename": "crypto/fipsmodule/ec/internal.h",
         "patchSetId": 13
@@ -33,6 +51,24 @@
       "revId": "b5bb36fa5b5b58de8f8c3bfca4536b51cf44b881",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4bd394f_8d11b66e",
+        "filename": "crypto/fipsmodule/ec/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2017-12-07T20:12:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c465446_7bae6f7a",
+      "revId": "b5bb36fa5b5b58de8f8c3bfca4536b51cf44b881",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "77e1ba62_c3eecade",
+        "filename": "crypto/fipsmodule/ec/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2017-12-07T20:12:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a82a408_ef46c88b",
+      "revId": "b5bb36fa5b5b58de8f8c3bfca4536b51cf44b881",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "71a52da3_912aad5b",
         "filename": "crypto/fipsmodule/ec/internal.h",
         "patchSetId": 13
@@ -67,6 +121,24 @@
       "revId": "b5bb36fa5b5b58de8f8c3bfca4536b51cf44b881",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d11e5e7_9a343b8f",
+        "filename": "crypto/fipsmodule/ec/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2017-12-07T20:12:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71a52da3_912aad5b",
+      "revId": "b5bb36fa5b5b58de8f8c3bfca4536b51cf44b881",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "8456706e_2973003c",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2017-12-07T20:12:22Z",
+      "side": 1,
+      "message": "Removed Ed25519 references, kept the Fiat reference. Should we say anything else here?",
+      "parentUuid": "32db7c98_59ac645d",
+      "revId": "b5bb36fa5b5b58de8f8c3bfca4536b51cf44b881",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e7324bdc_758e6ec6",
         "filename": "third_party/fiat/p256.c",
         "patchSetId": 13
@@ -101,6 +191,24 @@
       "revId": "b5bb36fa5b5b58de8f8c3bfca4536b51cf44b881",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8652a83b_5c39e4c4",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2017-12-07T20:12:22Z",
+      "side": 1,
+      "message": "I guess so. Does this mean we should remove it?",
+      "parentUuid": "e7324bdc_758e6ec6",
+      "revId": "b5bb36fa5b5b58de8f8c3bfca4536b51cf44b881",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -127,6 +235,54 @@
     },
     {
       "key": {
+        "uuid": "5417016f_71a05a54",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2017-12-07T20:12:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20d2cb39_53007737",
+      "range": {
+        "startLine": 140,
+        "startChar": 15,
+        "endLine": 140,
+        "endChar": 18
+      },
+      "revId": "b5bb36fa5b5b58de8f8c3bfca4536b51cf44b881",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0414f02_71d59968",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2017-12-07T20:12:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20d2cb39_53007737",
+      "range": {
+        "startLine": 140,
+        "startChar": 15,
+        "endLine": 140,
+        "endChar": 18
+      },
+      "revId": "b5bb36fa5b5b58de8f8c3bfca4536b51cf44b881",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fbb1633b_28faacb0",
         "filename": "third_party/fiat/p256.c",
         "patchSetId": 13
@@ -141,6 +297,42 @@
       "revId": "b5bb36fa5b5b58de8f8c3bfca4536b51cf44b881",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "516cd6d9_f1a4ee67",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 867,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2017-12-07T20:12:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fbb1633b_28faacb0",
+      "revId": "b5bb36fa5b5b58de8f8c3bfca4536b51cf44b881",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb3d730f_22affe12",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 867,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2017-12-07T20:12:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fbb1633b_28faacb0",
+      "revId": "b5bb36fa5b5b58de8f8c3bfca4536b51cf44b881",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -178,6 +370,24 @@
     },
     {
       "key": {
+        "uuid": "8f9a7277_ebb263e0",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 1500,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2017-12-07T20:12:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb572f18_f1425666",
+      "revId": "b5bb36fa5b5b58de8f8c3bfca4536b51cf44b881",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "22b1251b_bb26b004",
         "filename": "third_party/fiat/p256.c",
         "patchSetId": 13
@@ -192,6 +402,24 @@
       "revId": "b5bb36fa5b5b58de8f8c3bfca4536b51cf44b881",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddd2d0bc_9751fb76",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 1646,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2017-12-07T20:12:22Z",
+      "side": 1,
+      "message": "The field operations give output in [0, p) if input is in [0, p) (every addition is followed by a conditional subtraction, etc). @davidben tells me that this code is always called with fully reduced field elements. \n\nhttps://github.com/mit-plv/fiat-crypto/blob/102904674d12d1791f55a55cb66a334e5c21715a/src/Specific/Framework/ArithmeticSynthesis/Montgomery.v#L95 is the low-level intermediate specification for this part; \"small\" refers to \u003c 2^256, \"eval m_enc\" is p256.",
+      "parentUuid": "22b1251b_bb26b004",
+      "revId": "b5bb36fa5b5b58de8f8c3bfca4536b51cf44b881",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
