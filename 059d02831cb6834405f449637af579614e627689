@@ -1,0 +1,209 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2516f773_658ec59b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-08T18:22:59Z",
+      "side": 1,
+      "message": "Could you add:\n\nUpdate-Note: Token-binding can no longer be configured with the custom\n    extensions API. Instead, use the new built-in implementation.\n\nSo the internal repo\u0027s folks know to deal with this. Actually, could we just make it temporarily work in both? I think if you did:\n\n1. Pass ssl to tls_extension_find.\n2. In tls_extension_find add some hack:\n\n    // TODO(nharper): Remove this and the SSL parameter when all\n    // consumers have switched to the native API.\n    if (value \u003d\u003d TB \u0026\u0026 TB is not configured on SSL) {\n      return NULL;\n    }\n\n3. Make SSL_extension_supported lie about TB for the time being, also with a TODO. That was always kind of a nonsense API, honestly. Suppose you want to install TB via a custom extension... if SSL_extension_supported returns true, what do you even do? You don\u0027t know what the TB API looks like when you\u0027re writing this code.",
+      "revId": "059d02831cb6834405f449637af579614e627689",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "040dcb19_1fe2ecac",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 2800,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-08T18:22:59Z",
+      "side": 1,
+      "message": "Nit: \"otherwise\"",
+      "range": {
+        "startLine": 2800,
+        "startChar": 28,
+        "endLine": 2800,
+        "endChar": 52
+      },
+      "revId": "059d02831cb6834405f449637af579614e627689",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad00d1d4_cc24b82e",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2127,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-08T18:22:59Z",
+      "side": 1,
+      "message": "Move this to after the check, otherwise calling it with len \u003e 256 is a double-free.\n\n(Hrmf. I need to get back to giving everything destructors...)",
+      "revId": "059d02831cb6834405f449637af579614e627689",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "255a679f_482d5e89",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2128,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-08T18:22:59Z",
+      "side": 1,
+      "message": "OPENSSL_PUT_ERROR something. Maybe just ERR_R_OVERFLOW or ERR_R_SHOULD_NOT_HAVE_BEEN_CALLED, I dunno.",
+      "revId": "059d02831cb6834405f449637af579614e627689",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a917621_f9283967",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2403,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-08T18:22:59Z",
+      "side": 1,
+      "message": "|| ssl-\u003es3-\u003einitial_handshake_complete, so we don\u0027t try to change the value on renego.\n\n(Was that the semantics? I forget.)",
+      "revId": "059d02831cb6834405f449637af579614e627689",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18832b13_c16abaa4",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2403,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-08T18:22:59Z",
+      "side": 1,
+      "message": "(Does TB not work for DTLS? I thought it was fine for either.)",
+      "range": {
+        "startLine": 2403,
+        "startChar": 42,
+        "endLine": 2403,
+        "endChar": 62
+      },
+      "revId": "059d02831cb6834405f449637af579614e627689",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbfc70e1_64d628c0",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2413,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-08T18:22:59Z",
+      "side": 1,
+      "message": "80 chars",
+      "revId": "059d02831cb6834405f449637af579614e627689",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ca164b2_e18785ef",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2503,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-08T18:22:59Z",
+      "side": 1,
+      "message": "What if you just stored token binding versions as uint16_t? Seems a lot less work:\n\nif (version \u003c kMinTokenBindingVersion) {\n  return true;\n}\n\nhs-\u003enegotiated_token_binding_version \u003d std::min(version, kTokenBindingVersion);\n\nObligatory: This versioning scheme makes no sense, etc. etc. :-)",
+      "revId": "059d02831cb6834405f449637af579614e627689",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49a63c0b_8d6cd4ab",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2505,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-08T18:22:59Z",
+      "side": 1,
+      "message": "You could also move the select_tb_param and token_binding_negotiated logic up here, right? That saves stashing the intermediate state onto the SSL_HANDSHAKE.",
+      "revId": "059d02831cb6834405f449637af579614e627689",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2b03743_e9e36f6b",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2537,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-08T18:22:59Z",
+      "side": 1,
+      "message": "Perhaps OPENSSL_PUT_ERROR that error-code you added, just so it\u0027s obvious why it failed. (Then update the tests accordingly.)\n\nAlso, this is just a nitpick, but it might be better to do this in ssl_check_clienthello_tlsext. Currently we assume that add_serverhello can\u0027t actually fail except for malloc failures. All the code above it just puts an ERR_R_INTERNAL_ERROR. This also lets you send the right alert, whichever it is.",
+      "revId": "059d02831cb6834405f449637af579614e627689",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d574cf33_bd46ed8b",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-08T18:22:59Z",
+      "side": 1,
+      "message": "expectedTokenBindingParam? Kind of confusing to have both expectTokenBinding and expectedTokenBinding as options. :-)",
+      "range": {
+        "startLine": 351,
+        "startChar": 1,
+        "endLine": 351,
+        "endChar": 21
+      },
+      "revId": "059d02831cb6834405f449637af579614e627689",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
