@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4990f750_2359542c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-12-08T23:53:26Z",
+      "side": 1,
+      "message": "I added the Update-Note.\n\nI don\u0027t think such a hack will work without some decent refactoring. How much do you want temporary support for both vs just bumping BORINGSSL_API_VERSION?",
+      "parentUuid": "2516f773_658ec59b",
+      "revId": "059d02831cb6834405f449637af579614e627689",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "040dcb19_1fe2ecac",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 5
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "f39bc52c_90500cad",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 2800,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-12-08T23:53:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "040dcb19_1fe2ecac",
+      "range": {
+        "startLine": 2800,
+        "startChar": 28,
+        "endLine": 2800,
+        "endChar": 52
+      },
+      "revId": "059d02831cb6834405f449637af579614e627689",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ad00d1d4_cc24b82e",
         "filename": "ssl/ssl_lib.cc",
         "patchSetId": 5
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "4ddee5cb_1978a57d",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2127,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-12-08T23:53:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad00d1d4_cc24b82e",
+      "revId": "059d02831cb6834405f449637af579614e627689",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "255a679f_482d5e89",
         "filename": "ssl/ssl_lib.cc",
         "patchSetId": 5
@@ -73,6 +133,24 @@
       "revId": "059d02831cb6834405f449637af579614e627689",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c25ecfbf_1b144102",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2128,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-12-08T23:53:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "255a679f_482d5e89",
+      "revId": "059d02831cb6834405f449637af579614e627689",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -116,6 +194,48 @@
     },
     {
       "key": {
+        "uuid": "fc7d5285_443426d8",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2403,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-12-08T23:53:26Z",
+      "side": 1,
+      "message": "I see no reason why it wouldn\u0027t work for DTLS. The I-D specifies it for TLS 1.2 and earlier versions (there\u0027s no mention of DTLS), so I assume it\u0027s only for TLS and not also for DTLS.",
+      "parentUuid": "18832b13_c16abaa4",
+      "range": {
+        "startLine": 2403,
+        "startChar": 42,
+        "endLine": 2403,
+        "endChar": 62
+      },
+      "revId": "059d02831cb6834405f449637af579614e627689",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a915ea7f_27ed0264",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2403,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-12-08T23:53:26Z",
+      "side": 1,
+      "message": "We allow changing the value on renego, so I don\u0027t think that check is right. I still need to implement support for that in chromium.",
+      "parentUuid": "8a917621_f9283967",
+      "revId": "059d02831cb6834405f449637af579614e627689",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dbfc70e1_64d628c0",
         "filename": "ssl/t1_lib.cc",
         "patchSetId": 5
@@ -130,6 +250,24 @@
       "revId": "059d02831cb6834405f449637af579614e627689",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eef7b129_e17fdc8f",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2413,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-12-08T23:53:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dbfc70e1_64d628c0",
+      "revId": "059d02831cb6834405f449637af579614e627689",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -150,6 +288,24 @@
     },
     {
       "key": {
+        "uuid": "d54e791e_34a5b673",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2503,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-12-08T23:53:26Z",
+      "side": 1,
+      "message": "I changed all processing of versions to be with uint16_t. It is a lot less work.",
+      "parentUuid": "9ca164b2_e18785ef",
+      "revId": "059d02831cb6834405f449637af579614e627689",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "49a63c0b_8d6cd4ab",
         "filename": "ssl/t1_lib.cc",
         "patchSetId": 5
@@ -167,6 +323,24 @@
     },
     {
       "key": {
+        "uuid": "6f82ce38_6b003bf2",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2505,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-12-08T23:53:26Z",
+      "side": 1,
+      "message": "Yes, that\u0027s moved up here now. select_tb_param now has a different function signature. I\u0027m still stashing negotiated_token_binding_version (now a uint16_t instead of two uint8_ts) in SSL_HANDSHAKE, but it needs to go somewhere and we don\u0027t need it in the SSL after the handshake.",
+      "parentUuid": "49a63c0b_8d6cd4ab",
+      "revId": "059d02831cb6834405f449637af579614e627689",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b2b03743_e9e36f6b",
         "filename": "ssl/t1_lib.cc",
         "patchSetId": 5
@@ -181,6 +355,24 @@
       "revId": "059d02831cb6834405f449637af579614e627689",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7cdbe17_7da67f57",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2537,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-12-08T23:53:26Z",
+      "side": 1,
+      "message": "Move the EMS/RI check to ssl_check_clienthello_tlsext (with an OPENSSL_PUT_ERROR with the new error code), and the select_tb_param code to parse_clienthello.",
+      "parentUuid": "b2b03743_e9e36f6b",
+      "revId": "059d02831cb6834405f449637af579614e627689",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -204,6 +396,30 @@
       "revId": "059d02831cb6834405f449637af579614e627689",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ccbd0e1_a0ef77b1",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-12-08T23:53:26Z",
+      "side": 1,
+      "message": "Renamed.",
+      "parentUuid": "d574cf33_bd46ed8b",
+      "range": {
+        "startLine": 351,
+        "startChar": 1,
+        "endLine": 351,
+        "endChar": 21
+      },
+      "revId": "059d02831cb6834405f449637af579614e627689",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
