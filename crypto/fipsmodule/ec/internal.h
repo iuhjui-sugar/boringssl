@@ -76,11 +76,18 @@
 #include <openssl/type_check.h>
 
 #include "../bn/internal.h"
+#include "../../internal.h"
 
 #if defined(__cplusplus)
 extern "C" {
 #endif
 
+
+// MSan appears to have a bug that causes code to be miscompiled in opt mode.
+// While that is being looked at, don't run the uint128_t code under MSan.
+#if defined(BORINGSSL_HAS_UINT128) && !defined(MEMORY_SANITIZER)
+#define EC_USE_UINT128_CODE
+#endif
 
 // Cap the size of all field elements and scalars, including custom curves, to
 // 66 bytes, large enough to fit secp521r1 and brainpoolP512r1, which appear to
