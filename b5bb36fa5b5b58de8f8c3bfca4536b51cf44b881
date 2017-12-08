@@ -177,6 +177,24 @@
     },
     {
       "key": {
+        "uuid": "50880ba4_b3bff0ce",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-12-08T17:39:28Z",
+      "side": 1,
+      "message": "I think this is fine. Documentation (elsewhere) about how to import the Fiat code would be nice though :)",
+      "parentUuid": "8456706e_2973003c",
+      "revId": "b5bb36fa5b5b58de8f8c3bfca4536b51cf44b881",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e7324bdc_758e6ec6",
         "filename": "third_party/fiat/p256.c",
         "patchSetId": 13
@@ -209,6 +227,24 @@
       "revId": "b5bb36fa5b5b58de8f8c3bfca4536b51cf44b881",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04331559_a748ff0e",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-12-08T17:39:28Z",
+      "side": 1,
+      "message": "Yea. No point in having something that we don\u0027t think does anything.",
+      "parentUuid": "8652a83b_5c39e4c4",
+      "revId": "b5bb36fa5b5b58de8f8c3bfca4536b51cf44b881",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     },
     {
       "key": {
