@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2145d056_2325fd58",
+        "filename": "crypto/fipsmodule/ec/ec.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-11T20:06:21Z",
+      "side": 1,
+      "message": "Note this switches MSan from running the generic code to the 32-bit P-256 code.",
+      "revId": "8ef346f85e89791fd1901c13df40633a11a65288",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "866499e0_257b3b12",
+        "filename": "crypto/fipsmodule/ec/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-11T20:06:21Z",
+      "side": 1,
+      "message": "Do you know what happened there?",
+      "range": {
+        "startLine": 87,
+        "startChar": 3,
+        "endLine": 87,
+        "endChar": 33
+      },
+      "revId": "8ef346f85e89791fd1901c13df40633a11a65288",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
