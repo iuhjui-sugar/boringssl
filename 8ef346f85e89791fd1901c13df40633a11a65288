@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "77b8f4da_3c275bdc",
+        "filename": "crypto/fipsmodule/ec/ec.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-12-11T21:51:58Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2145d056_2325fd58",
+      "revId": "8ef346f85e89791fd1901c13df40633a11a65288",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "866499e0_257b3b12",
         "filename": "crypto/fipsmodule/ec/internal.h",
         "patchSetId": 2
@@ -39,6 +57,30 @@
       "revId": "8ef346f85e89791fd1901c13df40633a11a65288",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5cc11aa2_fab15047",
+        "filename": "crypto/fipsmodule/ec/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-12-11T21:51:58Z",
+      "side": 1,
+      "message": "Sent you a pointer internally. I think we can probably remove this hack now and try again.\n\n(p.s. should #define have been #undef here?)",
+      "parentUuid": "866499e0_257b3b12",
+      "range": {
+        "startLine": 87,
+        "startChar": 3,
+        "endLine": 87,
+        "endChar": 33
+      },
+      "revId": "8ef346f85e89791fd1901c13df40633a11a65288",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
