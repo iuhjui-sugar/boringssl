@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1f17a269_8a977900",
+        "filename": "ssl/t1_enc.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-11T21:27:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f06206c_4d48a974",
+      "range": {
+        "startLine": 521,
+        "startChar": 6,
+        "endLine": 521,
+        "endChar": 62
+      },
+      "revId": "f2c5ff49e187a6ab93d757f2f37377cfe897a55c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "35f79953_93bf8b35",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2017-12-11T17:51:08Z",
       "side": 1,
       "message": "Can\u0027t this use the exportEarlyKeyingMaterial form?",
+      "range": {
+        "startLine": 9133,
+        "startChar": 0,
+        "endLine": 9135,
+        "endChar": 44
+      },
+      "revId": "f2c5ff49e187a6ab93d757f2f37377cfe897a55c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b73ce025_8690c72f",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 9135,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-11T21:27:24Z",
+      "side": 1,
+      "message": "Nope. See the comment. exportEarlyKeyingMaterial is shorthand for *both* the flags and the doExchange-level check. As this happens during the handshake, we can\u0027t use that code.",
+      "parentUuid": "35f79953_93bf8b35",
       "range": {
         "startLine": 9133,
         "startChar": 0,
