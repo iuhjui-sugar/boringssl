@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fca17ec7_a13d2c23",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 749,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-12-13T22:31:51Z",
+      "side": 1,
+      "message": "Added checks in tls13_client.cc and tls13_server.cc. I also added 2 test cases for the interaction with the early data extension.",
+      "parentUuid": "bb28b609_f5a27f09",
+      "revId": "ac595e5fe14b66b9dedbf90b9523246ac7df3a09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6043bec6_aa1e6612",
         "filename": "ssl/t1_lib.cc",
         "patchSetId": 7
@@ -39,6 +57,30 @@
       "revId": "ac595e5fe14b66b9dedbf90b9523246ac7df3a09",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e1e018b_6db78bd0",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2432,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-12-13T22:31:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6043bec6_aa1e6612",
+      "range": {
+        "startLine": 2432,
+        "startChar": 42,
+        "endLine": 2432,
+        "endChar": 43
+      },
+      "revId": "ac595e5fe14b66b9dedbf90b9523246ac7df3a09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "5624235c_8b91cf30",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2453,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-12-13T22:31:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7200ef5_e6c43ccc",
+      "range": {
+        "startLine": 2453,
+        "startChar": 37,
+        "endLine": 2453,
+        "endChar": 39
+      },
+      "revId": "ac595e5fe14b66b9dedbf90b9523246ac7df3a09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bb964cec_c5e78cf5",
         "filename": "ssl/t1_lib.cc",
         "patchSetId": 7
@@ -79,6 +145,24 @@
       "revId": "ac595e5fe14b66b9dedbf90b9523246ac7df3a09",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0e3aace_dae163a4",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2465,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-12-13T22:31:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb964cec_c5e78cf5",
+      "revId": "ac595e5fe14b66b9dedbf90b9523246ac7df3a09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -105,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "3527cd73_99caeb21",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2492,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-12-13T22:31:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3d92fca_38f849ea",
+      "range": {
+        "startLine": 2492,
+        "startChar": 30,
+        "endLine": 2492,
+        "endChar": 31
+      },
+      "revId": "ac595e5fe14b66b9dedbf90b9523246ac7df3a09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dfcf5702_0a805bda",
         "filename": "ssl/t1_lib.cc",
         "patchSetId": 7
@@ -128,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "f793ad51_84249db2",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2511,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-12-13T22:31:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dfcf5702_0a805bda",
+      "range": {
+        "startLine": 2511,
+        "startChar": 34,
+        "endLine": 2511,
+        "endChar": 35
+      },
+      "revId": "ac595e5fe14b66b9dedbf90b9523246ac7df3a09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c81ecfc9_48669461",
         "filename": "ssl/t1_lib.cc",
         "patchSetId": 7
@@ -142,6 +274,24 @@
       "revId": "ac595e5fe14b66b9dedbf90b9523246ac7df3a09",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "026012b4_ce9bb588",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2532,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-12-13T22:31:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c81ecfc9_48669461",
+      "revId": "ac595e5fe14b66b9dedbf90b9523246ac7df3a09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -168,6 +318,30 @@
     },
     {
       "key": {
+        "uuid": "d9f68e18_de03768f",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1732,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-12-13T22:31:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73fa2964_2fb375b5",
+      "range": {
+        "startLine": 1732,
+        "startChar": 5,
+        "endLine": 1732,
+        "endChar": 12
+      },
+      "revId": "ac595e5fe14b66b9dedbf90b9523246ac7df3a09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e7309557_c5fa7448",
         "filename": "ssl/test/runner/handshake_messages.go",
         "patchSetId": 7
@@ -188,6 +362,30 @@
       "revId": "ac595e5fe14b66b9dedbf90b9523246ac7df3a09",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05ca0ce6_8f656c59",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 833,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-12-13T22:31:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7309557_c5fa7448",
+      "range": {
+        "startLine": 833,
+        "startChar": 100,
+        "endLine": 833,
+        "endChar": 102
+      },
+      "revId": "ac595e5fe14b66b9dedbf90b9523246ac7df3a09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -214,6 +412,30 @@
     },
     {
       "key": {
+        "uuid": "fe5c7ce2_b34fecf8",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1129,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-12-13T22:31:51Z",
+      "side": 1,
+      "message": "If this were a real implementation, the options would be length 1 or not present. However, this is not a real implementation, and at least one test has the server sending 2 params to test the error handling logic in the client when parsing the extension from the server. Instead of writing a real implementation of token binding here and adding a bunch of entries to ProtocolBugs, it was easier to put the token binding logic in the test cases.",
+      "parentUuid": "51c6f25f_e612c1d1",
+      "range": {
+        "startLine": 1129,
+        "startChar": 1,
+        "endLine": 1129,
+        "endChar": 19
+      },
+      "revId": "ac595e5fe14b66b9dedbf90b9523246ac7df3a09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bb72ecee_4ab781c1",
         "filename": "ssl/test/runner/handshake_messages.go",
         "patchSetId": 7
@@ -237,6 +459,30 @@
     },
     {
       "key": {
+        "uuid": "b49f79be_03c13b20",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1326,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-12-13T22:31:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb72ecee_4ab781c1",
+      "range": {
+        "startLine": 1326,
+        "startChar": 134,
+        "endLine": 1326,
+        "endChar": 136
+      },
+      "revId": "ac595e5fe14b66b9dedbf90b9523246ac7df3a09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fdc01e3c_8cb0bb5d",
         "filename": "ssl/test/runner/handshake_server.go",
         "patchSetId": 7
@@ -251,6 +497,24 @@
       "revId": "ac595e5fe14b66b9dedbf90b9523246ac7df3a09",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ff31cb8_c126af26",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1359,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-12-13T22:31:51Z",
+      "side": 1,
+      "message": "In the TokenBinding-Client-[version] test I commented out the flags to have the client send Token Binding, and the test failed because the client sees an unexpected extension.",
+      "parentUuid": "fdc01e3c_8cb0bb5d",
+      "revId": "ac595e5fe14b66b9dedbf90b9523246ac7df3a09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -274,6 +538,30 @@
       "revId": "ac595e5fe14b66b9dedbf90b9523246ac7df3a09",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "710c0fa1_18bc2a81",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 6159,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-12-13T22:31:51Z",
+      "side": 1,
+      "message": "I\u0027m hoping the last bump of the version will be to major version 1 (i.e. published RFC), but agreed that constants will help (if for nothing else than understanding what they mean).",
+      "parentUuid": "9e4b3f37_a30b1df7",
+      "range": {
+        "startLine": 6159,
+        "startChar": 25,
+        "endLine": 6159,
+        "endChar": 27
+      },
+      "revId": "ac595e5fe14b66b9dedbf90b9523246ac7df3a09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
