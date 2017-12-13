@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7297b9b7_1c85d17f",
+        "filename": "third_party/fiat/README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-13T22:14:28Z",
+      "side": 1,
+      "message": "Nit: backticks since you put it on the other file paths.",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 43
+      },
+      "revId": "d01f1837d589523c7cbc03c681b9f30c8c0f0a6b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74fbdacc_fccc5e1b",
+        "filename": "third_party/fiat/README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-13T22:14:28Z",
+      "side": 1,
+      "message": "Nit: Recording an in-person comment from you: saturated Montgomery reduction",
+      "range": {
+        "startLine": 96,
+        "startChar": 43,
+        "endLine": 96,
+        "endChar": 74
+      },
+      "revId": "d01f1837d589523c7cbc03c681b9f30c8c0f0a6b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbb3b283_dd8b2cf6",
+        "filename": "third_party/fiat/README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-13T22:14:28Z",
+      "side": 1,
+      "message": "Nit: backticks",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 63
+      },
+      "revId": "d01f1837d589523c7cbc03c681b9f30c8c0f0a6b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
