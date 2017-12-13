@@ -2,6 +2,69 @@
   "comments": [
     {
       "key": {
+        "uuid": "bb28b609_f5a27f09",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 749,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-13T19:50:37Z",
+      "side": 1,
+      "message": "Sorry I missed this the first time around. This should have checks and tests that:\n\na) On the client, if the server accepts 0-RTT and token binding at the same time, reject the connection.\n\nb) On the server, if the client offers both 0-RTT and token binding, and we are configured to enable both, we negotiate token binding and decline 0-RTT.\n\nI.e. the whole reason we are moving away from the custom extensions API in the first place. :-)",
+      "revId": "ac595e5fe14b66b9dedbf90b9523246ac7df3a09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6043bec6_aa1e6612",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2432,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-13T19:50:37Z",
+      "side": 1,
+      "message": "Nit: newline here",
+      "range": {
+        "startLine": 2432,
+        "startChar": 42,
+        "endLine": 2432,
+        "endChar": 43
+      },
+      "revId": "ac595e5fe14b66b9dedbf90b9523246ac7df3a09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7200ef5_e6c43ccc",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2453,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-13T19:50:37Z",
+      "side": 1,
+      "message": "true",
+      "range": {
+        "startLine": 2453,
+        "startChar": 37,
+        "endLine": 2453,
+        "endChar": 39
+      },
+      "revId": "ac595e5fe14b66b9dedbf90b9523246ac7df3a09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bb964cec_c5e78cf5",
         "filename": "ssl/t1_lib.cc",
         "patchSetId": 7
@@ -13,6 +76,201 @@
       "writtenOn": "2017-12-10T04:22:03Z",
       "side": 1,
       "message": "typo: treu.",
+      "revId": "ac595e5fe14b66b9dedbf90b9523246ac7df3a09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3d92fca_38f849ea",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2492,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-13T19:50:37Z",
+      "side": 1,
+      "message": "newline",
+      "range": {
+        "startLine": 2492,
+        "startChar": 30,
+        "endLine": 2492,
+        "endChar": 31
+      },
+      "revId": "ac595e5fe14b66b9dedbf90b9523246ac7df3a09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfcf5702_0a805bda",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2511,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-13T19:50:37Z",
+      "side": 1,
+      "message": "true",
+      "range": {
+        "startLine": 2511,
+        "startChar": 34,
+        "endLine": 2511,
+        "endChar": 35
+      },
+      "revId": "ac595e5fe14b66b9dedbf90b9523246ac7df3a09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c81ecfc9_48669461",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2532,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-13T19:50:37Z",
+      "side": 1,
+      "message": "This is a no-op now.",
+      "revId": "ac595e5fe14b66b9dedbf90b9523246ac7df3a09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73fa2964_2fb375b5",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1732,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-13T19:50:37Z",
+      "side": 1,
+      "message": "Nit: No else since the other one already did an early return.",
+      "range": {
+        "startLine": 1732,
+        "startChar": 5,
+        "endLine": 1732,
+        "endChar": 12
+      },
+      "revId": "ac595e5fe14b66b9dedbf90b9523246ac7df3a09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7309557_c5fa7448",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 833,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-13T19:50:37Z",
+      "side": 1,
+      "message": "|| len(body) !\u003d 0\n\n(Probably enough expressions to warrant putting the newlines in.)",
+      "range": {
+        "startLine": 833,
+        "startChar": 100,
+        "endLine": 833,
+        "endChar": 102
+      },
+      "revId": "ac595e5fe14b66b9dedbf90b9523246ac7df3a09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51c6f25f_e612c1d1",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1129,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-13T19:50:37Z",
+      "side": 1,
+      "message": "This can only have length 0 or 1, so maybe a byte and a boolean would be better?",
+      "range": {
+        "startLine": 1129,
+        "startChar": 1,
+        "endLine": 1129,
+        "endChar": 19
+      },
+      "revId": "ac595e5fe14b66b9dedbf90b9523246ac7df3a09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb72ecee_4ab781c1",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1326,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-13T19:50:37Z",
+      "side": 1,
+      "message": "|| len(body) !\u003d 0 and newlines.",
+      "range": {
+        "startLine": 1326,
+        "startChar": 134,
+        "endLine": 1326,
+        "endChar": 136
+      },
+      "revId": "ac595e5fe14b66b9dedbf90b9523246ac7df3a09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fdc01e3c_8cb0bb5d",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1359,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-13T19:50:37Z",
+      "side": 1,
+      "message": "I think you don\u0027t actually assert that the client sent what you expected them to send. And so tests would pass if we just omitted the client extension altogether.",
+      "revId": "ac595e5fe14b66b9dedbf90b9523246ac7df3a09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e4b3f37_a30b1df7",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 6159,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-13T19:50:37Z",
+      "side": 1,
+      "message": "Is it worth constants in Go for the expected minimum and maximum versions? Then you can write things like minVersion - 1. I imagine you\u0027ll be bumping this a lot, given the mess that is TB. :-)",
+      "range": {
+        "startLine": 6159,
+        "startChar": 25,
+        "endLine": 6159,
+        "endChar": 27
+      },
       "revId": "ac595e5fe14b66b9dedbf90b9523246ac7df3a09",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
