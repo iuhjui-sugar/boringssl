@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "88e1de60_ae71e400",
+        "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-15T02:09:04Z",
+      "side": 1,
+      "message": "It occurs to me: if this ever ends up being RSA and EC\u0027s last link to BN_div and we can\u0027t just break these keys altogether, we can still sever this link by denying CRT to these keys and using the slow path.",
+      "revId": "5ca197df14736584819bf10e66d675636122ea07",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
