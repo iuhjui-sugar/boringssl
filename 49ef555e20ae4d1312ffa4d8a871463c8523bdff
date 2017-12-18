@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "81ed63e8_6502328d",
+        "filename": "ssl/internal.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 1400,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-18T21:20:10Z",
+      "side": 1,
+      "message": "This is now unused.",
+      "revId": "49ef555e20ae4d1312ffa4d8a871463c8523bdff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7ab91c7_f8285a0c",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2395,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-18T21:20:10Z",
+      "side": 1,
+      "message": "Since this is a little non-obvious why you don\u0027t retain the version, maybe leave a comment like:\n\n// Token binding versions currently match the draft number of draft-ietf-tokbind-protocol, which is mostly receiving editorial changes. Thus we support a range of draft numbers which are all equivalent.\n\n(I am assuming these \"versions\" are all identical and you don\u0027t actually care about reporting the version to the caller?)",
+      "revId": "49ef555e20ae4d1312ffa4d8a871463c8523bdff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2d0b3d8_fa6e7295",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2468,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-18T21:20:10Z",
+      "side": 1,
+      "message": "Nit: Span\u003cconst uint8_t\u003e params. (Maybe peer_params?)\n\nThen you can write:\n\nfor (uint8_t param : params) {\n  if (tb_param \u003d\u003d param) {\n    ...\n  }\n}\n\nYou won\u0027t need the CBS_data/CBS_len stuff because CBS implicitly converts to Span\u003cconst uint8_t\u003e. That ssl-\u003etb_params isn\u0027t using Array\u003cuint8_t\u003e is annoying, but hopefully will be fixed later.",
+      "range": {
+        "startLine": 2467,
+        "startChar": 38,
+        "endLine": 2468,
+        "endChar": 45
+      },
+      "revId": "49ef555e20ae4d1312ffa4d8a871463c8523bdff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

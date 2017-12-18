@@ -518,6 +518,24 @@
     },
     {
       "key": {
+        "uuid": "c7e791f4_e5b2dfe1",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1359,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-18T21:20:10Z",
+      "side": 1,
+      "message": "That\u0027s true. It\u0027s probably still good to check the client send what you expected though? ExpectTokenBindingParams and a bytes.Equal here? *shrug*",
+      "parentUuid": "2ff31cb8_c126af26",
+      "revId": "ac595e5fe14b66b9dedbf90b9523246ac7df3a09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9e4b3f37_a30b1df7",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 7
