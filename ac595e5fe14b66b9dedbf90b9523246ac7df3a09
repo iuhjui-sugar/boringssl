@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "c2bab451_bc8a5ab6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-18T21:22:40Z",
+      "side": 1,
+      "message": "Oh, if we\u0027re going to make the transition discontinuous, what is the story for the internal repo? For Chromium we just do it pretty ad-hoc, because Steven and I manage that one and it\u0027s relatively small, but you\u0027ll want to coordinate with the internal repo or have a BORINGSSL_API_VERSION change in before landing this.",
+      "revId": "ac595e5fe14b66b9dedbf90b9523246ac7df3a09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bb28b609_f5a27f09",
         "filename": "ssl/handshake_client.cc",
         "patchSetId": 7
