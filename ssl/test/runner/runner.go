@@ -66,6 +66,7 @@ var (
 	shimConfigFile     = flag.String("shim-config", "", "A config file to use to configure the tests for this shim.")
 	includeDisabled    = flag.Bool("include-disabled", false, "If true, also runs disabled tests.")
 	repeatUntilFailure = flag.Bool("repeat-until-failure", false, "If true, the first selected test will be run repeatedly until failure.")
+	enableSSL3         = flag.Bool("ssl3", false, "If true, expect the shim to support SSL 3.0")
 )
 
 // ShimConfigurations is used with the “json” package and represents a shim
@@ -1296,11 +1297,6 @@ func (vers tlsVersion) wire(protocol protocol) uint16 {
 }
 
 var tlsVersions = []tlsVersion{
-	{
-		name:        "SSL3",
-		version:     VersionSSL30,
-		excludeFlag: "-no-ssl3",
-	},
 	{
 		name:        "TLS1",
 		version:     VersionTLS10,
@@ -4417,7 +4413,7 @@ func addStateMachineCoverageTests(config stateMachineTestConfig) {
 		// Setting SSL_VERIFY_PEER allows anonymous clients.
 		flags: []string{"-verify-peer"},
 	})
-	if config.protocol == tls {
+	if config.protocol == tls && *enableSSL3 {
 		tests = append(tests, testCase{
 			testType: clientTest,
 			name:     "ClientAuth-NoCertificate-Client-SSL3",
@@ -5768,6 +5764,32 @@ func addMinimumVersionTests() {
 			}
 		}
 	}
+
+	// Test that SSL3 is disabled.
+	if !*enableSSL3 {
+		testCases = append(testCases, testCase{
+			name: "NoSSL3-Client",
+			config: Config{
+				MaxVersion: VersionSSL30,
+				Bugs: ProtocolBugs{
+					NegotiateVersion: VersionSSL30,
+				},
+			},
+			shouldFail:         true,
+			expectedError:      ":UNSUPPORTED_PROTOCOL:",
+			expectedLocalError: "remote error: protocol version not supported",
+		})
+		testCases = append(testCases, testCase{
+			testType: serverTest,
+			name:     "NoSSL3-Server",
+			config: Config{
+				MaxVersion: VersionSSL30,
+			},
+			shouldFail:         true,
+			expectedError:      ":UNSUPPORTED_PROTOCOL:",
+			expectedLocalError: "remote error: protocol version not supported",
+		})
+	}
 }
 
 func addExtensionTests() {
@@ -6435,69 +6457,71 @@ func addExtensionTests() {
 		flags: []string{"-host-name", "01234567890123456789012345678901234567890123456789012345678901234567890123456789.com"},
 	})
 
-	// Extensions should not function in SSL 3.0.
-	testCases = append(testCases, testCase{
-		testType: serverTest,
-		name:     "SSLv3Extensions-NoALPN",
-		config: Config{
-			MaxVersion: VersionSSL30,
-			NextProtos: []string{"foo", "bar", "baz"},
-		},
-		flags: []string{
-			"-select-alpn", "foo",
-		},
-		expectNoNextProto: true,
-	})
+	if *enableSSL3 {
+		// Extensions should not function in SSL 3.0.
+		testCases = append(testCases, testCase{
+			testType: serverTest,
+			name:     "SSLv3Extensions-NoALPN",
+			config: Config{
+				MaxVersion: VersionSSL30,
+				NextProtos: []string{"foo", "bar", "baz"},
+			},
+			flags: []string{
+				"-select-alpn", "foo",
+			},
+			expectNoNextProto: true,
+		})
 
-	// Test session tickets separately as they follow a different codepath.
-	testCases = append(testCases, testCase{
-		testType: serverTest,
-		name:     "SSLv3Extensions-NoTickets",
-		config: Config{
-			MaxVersion: VersionSSL30,
-			Bugs: ProtocolBugs{
-				// Historically, session tickets in SSL 3.0
-				// failed in different ways depending on whether
-				// the client supported renegotiation_info.
-				NoRenegotiationInfo: true,
+		// Test session tickets separately as they follow a different codepath.
+		testCases = append(testCases, testCase{
+			testType: serverTest,
+			name:     "SSLv3Extensions-NoTickets",
+			config: Config{
+				MaxVersion: VersionSSL30,
+				Bugs: ProtocolBugs{
+					// Historically, session tickets in SSL 3.0
+					// failed in different ways depending on whether
+					// the client supported renegotiation_info.
+					NoRenegotiationInfo: true,
+				},
 			},
-		},
-		resumeSession: true,
-	})
-	testCases = append(testCases, testCase{
-		testType: serverTest,
-		name:     "SSLv3Extensions-NoTickets2",
-		config: Config{
-			MaxVersion: VersionSSL30,
-		},
-		resumeSession: true,
-	})
+			resumeSession: true,
+		})
+		testCases = append(testCases, testCase{
+			testType: serverTest,
+			name:     "SSLv3Extensions-NoTickets2",
+			config: Config{
+				MaxVersion: VersionSSL30,
+			},
+			resumeSession: true,
+		})
 
-	// But SSL 3.0 does send and process renegotiation_info.
-	testCases = append(testCases, testCase{
-		testType: serverTest,
-		name:     "SSLv3Extensions-RenegotiationInfo",
-		config: Config{
-			MaxVersion: VersionSSL30,
-			Bugs: ProtocolBugs{
-				RequireRenegotiationInfo: true,
+		// But SSL 3.0 does send and process renegotiation_info.
+		testCases = append(testCases, testCase{
+			testType: serverTest,
+			name:     "SSLv3Extensions-RenegotiationInfo",
+			config: Config{
+				MaxVersion: VersionSSL30,
+				Bugs: ProtocolBugs{
+					RequireRenegotiationInfo: true,
+				},
 			},
-		},
-		flags: []string{"-expect-secure-renegotiation"},
-	})
-	testCases = append(testCases, testCase{
-		testType: serverTest,
-		name:     "SSLv3Extensions-RenegotiationInfo-SCSV",
-		config: Config{
-			MaxVersion: VersionSSL30,
-			Bugs: ProtocolBugs{
-				NoRenegotiationInfo:      true,
-				SendRenegotiationSCSV:    true,
-				RequireRenegotiationInfo: true,
+			flags: []string{"-expect-secure-renegotiation"},
+		})
+		testCases = append(testCases, testCase{
+			testType: serverTest,
+			name:     "SSLv3Extensions-RenegotiationInfo-SCSV",
+			config: Config{
+				MaxVersion: VersionSSL30,
+				Bugs: ProtocolBugs{
+					NoRenegotiationInfo:      true,
+					SendRenegotiationSCSV:    true,
+					RequireRenegotiationInfo: true,
+				},
 			},
-		},
-		flags: []string{"-expect-secure-renegotiation"},
-	})
+			flags: []string{"-expect-secure-renegotiation"},
+		})
+	}
 
 	// Test that illegal extensions in TLS 1.3 are rejected by the client if
 	// in ServerHello.
@@ -7550,21 +7574,23 @@ func addRenegotiationTests() {
 		},
 	})
 
-	// Renegotiation is not allowed at SSL 3.0.
-	testCases = append(testCases, testCase{
-		name: "Renegotiate-Client-SSL3",
-		config: Config{
-			MaxVersion: VersionSSL30,
-		},
-		renegotiate: 1,
-		flags: []string{
-			"-renegotiate-freely",
-			"-expect-total-renegotiations", "1",
-		},
-		shouldFail:         true,
-		expectedError:      ":NO_RENEGOTIATION:",
-		expectedLocalError: "remote error: no renegotiation",
-	})
+	if *enableSSL3 {
+		// Renegotiation is not allowed at SSL 3.0.
+		testCases = append(testCases, testCase{
+			name: "Renegotiate-Client-SSL3",
+			config: Config{
+				MaxVersion: VersionSSL30,
+			},
+			renegotiate: 1,
+			flags: []string{
+				"-renegotiate-freely",
+				"-expect-total-renegotiations", "1",
+			},
+			shouldFail:         true,
+			expectedError:      ":NO_RENEGOTIATION:",
+			expectedLocalError: "remote error: no renegotiation",
+		})
+	}
 
 	// Renegotiation is not allowed when there is an unfinished write.
 	testCases = append(testCases, testCase{
@@ -9284,18 +9310,20 @@ func addExportKeyingMaterialTests() {
 		}
 	}
 
-	testCases = append(testCases, testCase{
-		name: "ExportKeyingMaterial-SSL3",
-		config: Config{
-			MaxVersion: VersionSSL30,
-		},
-		exportKeyingMaterial: 1024,
-		exportLabel:          "label",
-		exportContext:        "context",
-		useExportContext:     true,
-		shouldFail:           true,
-		expectedError:        "failed to export keying material",
-	})
+	if *enableSSL3 {
+		testCases = append(testCases, testCase{
+			name: "ExportKeyingMaterial-SSL3",
+			config: Config{
+				MaxVersion: VersionSSL30,
+			},
+			exportKeyingMaterial: 1024,
+			exportLabel:          "label",
+			exportContext:        "context",
+			useExportContext:     true,
+			shouldFail:           true,
+			expectedError:        "failed to export keying material",
+		})
+	}
 
 	// Exporters work during a False Start.
 	testCases = append(testCases, testCase{
@@ -13472,6 +13500,13 @@ func main() {
 	flag.Parse()
 	*resourceDir = path.Clean(*resourceDir)
 	initCertificates()
+	if *enableSSL3 {
+		tlsVersions = append([]tlsVersion{{
+			name:        "SSL3",
+			version:     VersionSSL30,
+			excludeFlag: "-no-ssl3",
+		}}, tlsVersions...)
+	}
 
 	addBasicTests()
 	addCipherSuiteTests()

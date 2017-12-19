@@ -71,7 +71,9 @@ struct VersionParam {
 static const size_t kTicketKeyLen = 48;
 
 static const VersionParam kAllVersions[] = {
+#if defined(BORINGSSL_ENABLE_SSL3_DEPRECATED)
     {SSL3_VERSION, VersionParam::is_tls, "SSL3"},
+#endif
     {TLS1_VERSION, VersionParam::is_tls, "TLS1"},
     {TLS1_1_VERSION, VersionParam::is_tls, "TLS1_1"},
     {TLS1_2_VERSION, VersionParam::is_tls, "TLS1_2"},
@@ -1955,13 +1957,6 @@ TEST(SSLTest, ClientHello) {
     uint16_t max_version;
     std::vector<uint8_t> expected;
   } kTests[] = {
-    {SSL3_VERSION,
-     {0x16, 0x03, 0x00, 0x00, 0x3b, 0x01, 0x00, 0x00, 0x37, 0x03, 0x00,
-      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-      0x00, 0x10, 0xc0, 0x09, 0xc0, 0x13, 0xc0, 0x0a, 0xc0, 0x14, 0x00,
-      0x2f, 0x00, 0x35, 0x00, 0x0a, 0x00, 0xff, 0x01, 0x00}},
     {TLS1_VERSION,
      {0x16, 0x03, 0x01, 0x00, 0x5a, 0x01, 0x00, 0x00, 0x56, 0x03, 0x01, 0x00,
       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -2006,8 +2001,6 @@ TEST(SSLTest, ClientHello) {
     // Our default cipher list varies by CPU capabilities, so manually place the
     // ChaCha20 ciphers in front.
     const char *cipher_list = "CHACHA20:ALL";
-    // SSLv3 is off by default.
-    ASSERT_TRUE(SSL_CTX_set_min_proto_version(ctx.get(), SSL3_VERSION));
     ASSERT_TRUE(SSL_CTX_set_max_proto_version(ctx.get(), t.max_version));
     ASSERT_TRUE(SSL_CTX_set_strict_cipher_list(ctx.get(), cipher_list));
 
@@ -2611,8 +2604,12 @@ TEST(SSLTest, SetVersion) {
   EXPECT_EQ(TLS1_VERSION, ctx->conf_min_version);
 
   // SSL 3.0 and TLS 1.3 are available, but not by default.
+#if defined(BORINGSSL_ENABLE_SSL3_DEPRECATED)
   EXPECT_TRUE(SSL_CTX_set_min_proto_version(ctx.get(), SSL3_VERSION));
   EXPECT_EQ(SSL3_VERSION, ctx->conf_min_version);
+#else
+  EXPECT_FALSE(SSL_CTX_set_min_proto_version(ctx.get(), SSL3_VERSION));
+#endif
   EXPECT_TRUE(SSL_CTX_set_max_proto_version(ctx.get(), TLS1_3_VERSION));
   EXPECT_EQ(TLS1_3_VERSION, ctx->conf_max_version);
 

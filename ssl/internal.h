@@ -2184,6 +2184,10 @@ struct SSLContext {
   // false_start_allowed_without_alpn is whether False Start (if
   // |SSL_MODE_ENABLE_FALSE_START| is enabled) is allowed without ALPN.
   bool false_start_allowed_without_alpn:1;
+
+  // is_sslv3_method is whether this |SSL_CTX| was created from an SSLv3
+  // |SSL_METHOD|.
+  bool is_sslv3_method:1;
 };
 
 // An ssl_shutdown_t describes the shutdown state of one end of the connection,

@@ -1171,10 +1171,15 @@ static bssl::UniquePtr<SSL_CTX> SetupCtx(SSL_CTX *old_ctx,
   SSL_CTX_set0_buffer_pool(ssl_ctx.get(), g_pool);
 
   // Enable SSL 3.0 and TLS 1.3 for tests.
-  if (!config->is_dtls &&
-      (!SSL_CTX_set_min_proto_version(ssl_ctx.get(), SSL3_VERSION) ||
-       !SSL_CTX_set_max_proto_version(ssl_ctx.get(), TLS1_3_VERSION))) {
-    return nullptr;
+  if (!config->is_dtls) {
+#if defined(BORINGSSL_ENABLE_SSL3_DEPRECATED)
+    if (!SSL_CTX_set_min_proto_version(ssl_ctx.get(), SSL3_VERSION)) {
+      return nullptr;
+    }
+#endif
+    if (!SSL_CTX_set_max_proto_version(ssl_ctx.get(), TLS1_3_VERSION)) {
+      return nullptr;
+    }
   }
 
   std::string cipher_list = "ALL";

@@ -223,6 +223,11 @@ if(FUZZ)
   link_directories(.)
 endif()
 
+if(ENABLE_SSL3_DEPRECATED)
+  add_definitions(-DBORINGSSL_ENABLE_SSL3_DEPRECATED)
+  set(RUNNER_ARGS ${RUNNER_ARGS} "-ssl3")
+endif()
+
 add_definitions(-DBORINGSSL_IMPLEMENTATION)
 
 if (BUILD_SHARED_LIBS)

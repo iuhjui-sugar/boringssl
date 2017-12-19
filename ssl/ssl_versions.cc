@@ -62,7 +62,9 @@ static const uint16_t kTLSVersions[] = {
     TLS1_2_VERSION,
     TLS1_1_VERSION,
     TLS1_VERSION,
+#if defined(BORINGSSL_ENABLE_SSL3_DEPRECATED)
     SSL3_VERSION,
+#endif
 };
 
 static const uint16_t kDTLSVersions[] = {
@@ -209,6 +211,13 @@ const struct {
 
 bool ssl_get_version_range(const SSL *ssl, uint16_t *out_min_version,
                            uint16_t *out_max_version) {
+  // There are still calls to |SSLv3_method| and friends left, and callers often
+  // assume |SSL_CTX_new| cannot fail. So we defer the failures to now.
+  if (ssl->ctx->is_sslv3_method) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_NO_SUPPORTED_VERSIONS_ENABLED);
+    return false;
+  }
+
   // For historical reasons, |SSL_OP_NO_DTLSv1| aliases |SSL_OP_NO_TLSv1|, but
   // DTLS 1.0 should be mapped to TLS 1.1.
   uint32_t options = ssl->options;

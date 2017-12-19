@@ -577,12 +577,11 @@ SSL_CTX *SSL_CTX_new(const SSL_METHOD *method) {
   ret->mode = SSL_MODE_NO_AUTO_CHAIN;
 
   // Lock the SSL_CTX to the specified version, for compatibility with legacy
-  // uses of SSL_METHOD, but we do not set the minimum version for
-  // |SSLv3_method|.
-  if (!SSL_CTX_set_max_proto_version(ret, method->version) ||
-      !SSL_CTX_set_min_proto_version(ret, method->version == SSL3_VERSION
-                                              ? 0  // default
-                                              : method->version)) {
+  // uses of SSL_METHOD.
+  if (method->version == SSL3_VERSION) {
+    ret->is_sslv3_method = true;
+  } else if (!SSL_CTX_set_max_proto_version(ret, method->version) ||
+             !SSL_CTX_set_min_proto_version(ret, method->version)) {
     OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
     goto err2;
   }
