@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f204649f_a485729a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-12-19T01:05:07Z",
+      "side": 1,
+      "message": "I\u0027m working on getting BORINGSSL_API_VERSION changes in google3 to prepare for landing this. Please hold off on landing this change until google3 is ready.",
+      "parentUuid": "c2bab451_bc8a5ab6",
+      "revId": "ac595e5fe14b66b9dedbf90b9523246ac7df3a09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bb28b609_f5a27f09",
         "filename": "ssl/handshake_client.cc",
         "patchSetId": 7
@@ -550,6 +568,24 @@
       "revId": "ac595e5fe14b66b9dedbf90b9523246ac7df3a09",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "672ced13_4ad6bb9d",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1359,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-12-19T01:05:07Z",
+      "side": 1,
+      "message": "Added an ExpectTokenBindingParams field to Config (only checked by the server).",
+      "parentUuid": "c7e791f4_e5b2dfe1",
+      "revId": "ac595e5fe14b66b9dedbf90b9523246ac7df3a09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c799433e_77aea413",
+        "filename": "ssl/internal.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 1400,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-12-19T01:05:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81ed63e8_6502328d",
+      "revId": "49ef555e20ae4d1312ffa4d8a871463c8523bdff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c7ab91c7_f8285a0c",
         "filename": "ssl/t1_lib.cc",
         "patchSetId": 9
@@ -33,6 +51,24 @@
       "revId": "49ef555e20ae4d1312ffa4d8a871463c8523bdff",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffce4411_f7cb2003",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2395,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-12-19T01:05:07Z",
+      "side": 1,
+      "message": "I added a comment about version numbers matching draft numbers.\n\nI\u0027m not aware of any use cases with the currently defined protocol where the caller would need to know the specific version of Token Binding negotiated (or have any control over that). If the need arises, I don\u0027t think it would be too hard to add later.",
+      "parentUuid": "c7ab91c7_f8285a0c",
+      "revId": "49ef555e20ae4d1312ffa4d8a871463c8523bdff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -56,6 +92,30 @@
       "revId": "49ef555e20ae4d1312ffa4d8a871463c8523bdff",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1099116_66684747",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2468,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-12-19T01:05:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2d0b3d8_fa6e7295",
+      "range": {
+        "startLine": 2467,
+        "startChar": 38,
+        "endLine": 2468,
+        "endChar": 45
+      },
+      "revId": "49ef555e20ae4d1312ffa4d8a871463c8523bdff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
