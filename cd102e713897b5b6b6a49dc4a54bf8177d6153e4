@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ddb58f12_8145c862",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3485,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2017-12-20T21:29:03Z",
+      "side": 1,
+      "message": "Something\u0027s wrong here. Maybe \"return one if, for |ssl|, the\"",
+      "range": {
+        "startLine": 3485,
+        "startChar": 37,
+        "endLine": 3485,
+        "endChar": 48
+      },
+      "revId": "cd102e713897b5b6b6a49dc4a54bf8177d6153e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
