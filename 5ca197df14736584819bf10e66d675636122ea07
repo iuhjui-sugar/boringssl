@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "1c311ed3_79d682b3",
+        "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 666,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-22T07:22:20Z",
+      "side": 1,
+      "message": "Oh hah! Thanks for the pointer! If I\u0027m reading it right, it looks like this CL, this comment, and the large TODO below together make up Shay\u0027s technique.\n\nYour code seems to just match Shay\u0027s algorithm though, unless I missed something. Do you remember what the further optimization was?\n\nI assume you reduce c mod q^2 before doing elem_exp_consttime so that it\u0027s bounded by M^2 before doing a Montgomery reduction? I believe it works for inputs up to M*R. So as long as p and q use the same R, that shouldn\u0027t be necessary, right? Were tighter bounds just easier to encode (getting them into the typesystem like that is neat! I wish we could write this in a less unhelpful language...) and the subtraction too insignificant to worry about?\n\nI see you got rid of the RSAZ code, which avoids the dilemma around taking the BN_to_montgomery out of BN_mod_exp_mont_consttime.",
+      "parentUuid": "0c2e838a_6e71ef38",
+      "revId": "5ca197df14736584819bf10e66d675636122ea07",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eadcbf16_b264bb56",
         "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
         "patchSetId": 1
