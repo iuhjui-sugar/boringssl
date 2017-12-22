@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e8b04ebc_407c76af",
+        "filename": "third_party/fiat/curve25519.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 4936,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-22T19:49:58Z",
+      "side": 1,
+      "message": "Nit: Missing a space",
+      "range": {
+        "startLine": 4936,
+        "startChar": 24,
+        "endLine": 4936,
+        "endChar": 25
+      },
+      "revId": "20e895018a0a03c1d6ace6a49773576fea65c890",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9d7758f_a63435a8",
+        "filename": "third_party/fiat/curve25519.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 4972,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-22T19:49:58Z",
+      "side": 1,
+      "message": "We additionally care about https://github.com/mit-plv/fiat-crypto/blob/2456d821825521f7e03e65882cc3521795b0320f/src/Curves/Montgomery/XZProofs.v#L131, right? The proofs and loop transcription use xzladderstep, but boringladderstep matches the code.",
+      "revId": "20e895018a0a03c1d6ace6a49773576fea65c890",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
