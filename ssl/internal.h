@@ -2932,6 +2932,11 @@ void ssl_reset_error_state(SSL *ssl);
 // current state of the error queue.
 void ssl_set_read_error(SSL* ssl);
 
+// ssl_session_verify_cert_chain verifies the certificate chain in |session|,
+// sets |session->verify_result|.
+ssl_verify_result_t ssl_session_verify_cert_chain(SSL_SESSION *session,
+                                                  SSL *ssl, uint8_t *out_alert);
+
 }  // namespace bssl
 
 
@@ -2982,11 +2987,6 @@ struct ssl_x509_method_st {
   int (*session_dup)(SSL_SESSION *new_session, const SSL_SESSION *session);
   // session_clear frees any X509-related state from |session|.
   void (*session_clear)(SSL_SESSION *session);
-  // session_verify_cert_chain verifies the certificate chain in |session|,
-  // sets |session->verify_result| and returns one on success or zero on
-  // error.
-  int (*session_verify_cert_chain)(SSL_SESSION *session, SSL *ssl,
-                                   uint8_t *out_alert);
 
   // hs_flush_cached_ca_names drops any cached |X509_NAME|s from |hs|.
   void (*hs_flush_cached_ca_names)(bssl::SSL_HANDSHAKE *hs);

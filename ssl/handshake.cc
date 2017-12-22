@@ -337,10 +337,8 @@ enum ssl_verify_result_t ssl_verify_peer_cert(SSL_HANDSHAKE *hs) {
         break;
     }
   } else {
-    ret = ssl->ctx->x509_method->session_verify_cert_chain(
-              hs->new_session.get(), ssl, &alert)
-              ? ssl_verify_ok
-              : ssl_verify_invalid;
+    ret = ssl_session_verify_cert_chain(hs->new_session.get(), ssl, &alert);
+    // ssl_session_verify_cert_chain sets hs->new_session->verify_result.
   }
 
   if (ret == ssl_verify_invalid) {
