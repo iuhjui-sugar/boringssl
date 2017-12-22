@@ -87,6 +87,7 @@ func (c *Conn) clientHandshake() error {
 		nextProtoNeg:            len(c.config.NextProtos) > 0,
 		secureRenegotiation:     []byte{},
 		alpnProtocols:           c.config.NextProtos,
+		quicTransportParams:     c.config.QuicTransportParams,
 		duplicateExtension:      c.config.Bugs.DuplicateExtension,
 		channelIDSupported:      c.config.ChannelID != nil,
 		npnAfterAlpn:            c.config.Bugs.SwapNPNAndALPN,
@@ -1501,6 +1502,13 @@ func (hs *clientHandshakeState) processServerExtensions(serverExtensions *server
 		}
 	}
 
+	if len(serverExtensions.quicTransportParams) > 0 {
+		if c.vers < VersionTLS13 {
+			c.sendAlert(alertHandshakeFailure)
+			return errors.New("tls: Server sent QUIC transport params for TLS version less than 1.3")
+		}
+		c.quicTransportParams = serverExtensions.quicTransportParams
+	}
 	return nil
 }
 

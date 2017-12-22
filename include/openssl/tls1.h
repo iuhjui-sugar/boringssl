@@ -202,6 +202,9 @@ extern "C" {
 // ExtensionType value from RFC7627
 #define TLSEXT_TYPE_extended_master_secret 23
 
+// ExtensionType value from draft-ietf-quic-tls
+#define TLSEXT_TYPE_quic_transport_parameters 26
+
 // ExtensionType value from RFC4507
 #define TLSEXT_TYPE_session_ticket 35
 
