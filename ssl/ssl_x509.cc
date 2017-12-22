@@ -414,13 +414,13 @@ static int ssl_verify_alarm_type(long type) {
   }
 }
 
-static int ssl_crypto_x509_session_verify_cert_chain(SSL_SESSION *session,
-                                                     SSL *ssl,
-                                                     uint8_t *out_alert) {
+ssl_verify_result_t ssl_session_verify_cert_chain(SSL_SESSION *session,
+                                                  SSL *ssl,
+                                                  uint8_t *out_alert) {
   *out_alert = SSL_AD_INTERNAL_ERROR;
   STACK_OF(X509) *const cert_chain = session->x509_chain;
   if (cert_chain == NULL || sk_X509_num(cert_chain) == 0) {
-    return 0;
+    return ssl_verify_invalid;
   }
 
   X509_STORE *verify_store = ssl->ctx->cert_store;
@@ -432,11 +432,11 @@ static int ssl_crypto_x509_session_verify_cert_chain(SSL_SESSION *session,
   ScopedX509_STORE_CTX ctx;
   if (!X509_STORE_CTX_init(ctx.get(), verify_store, leaf, cert_chain)) {
     OPENSSL_PUT_ERROR(SSL, ERR_R_X509_LIB);
-    return 0;
+    return ssl_verify_invalid;
   }
   if (!X509_STORE_CTX_set_ex_data(ctx.get(),
                                   SSL_get_ex_data_X509_STORE_CTX_idx(), ssl)) {
-    return 0;
+    return ssl_verify_invalid;
   }
 
   // We need to inherit the verify parameters. These can be determined by the
@@ -465,11 +465,11 @@ static int ssl_crypto_x509_session_verify_cert_chain(SSL_SESSION *session,
   // If |SSL_VERIFY_NONE|, the error is non-fatal, but we keep the result.
   if (verify_ret <= 0 && ssl->verify_mode != SSL_VERIFY_NONE) {
     *out_alert = ssl_verify_alarm_type(ctx->error);
-    return 0;
+    return ssl_verify_invalid;
   }
 
   ERR_clear_error();
-  return 1;
+  return ssl_verify_ok;
 }
 
 static void ssl_crypto_x509_hs_flush_cached_ca_names(SSL_HANDSHAKE *hs) {
@@ -562,7 +562,6 @@ const SSL_X509_METHOD ssl_crypto_x509_method = {
   ssl_crypto_x509_session_cache_objects,
   ssl_crypto_x509_session_dup,
   ssl_crypto_x509_session_clear,
-  ssl_crypto_x509_session_verify_cert_chain,
   ssl_crypto_x509_hs_flush_cached_ca_names,
   ssl_crypto_x509_ssl_new,
   ssl_crypto_x509_ssl_free,
