@@ -2629,6 +2629,14 @@ struct SSLConnection {
   // |token_binding_negotiated| is set.
   uint8_t negotiated_token_binding_param;
 
+  // Contains the QUIC transport params that this endpoint will send.
+  uint8_t *quic_transport_params;
+  size_t quic_transport_params_len;
+
+  // Contains the QUIC transport params received by the peer.
+  uint8_t *peer_quic_transport_params;
+  size_t peer_quic_transport_params_len;
+
   // renegotiate_mode controls how peer renegotiation attempts are handled.
   enum ssl_renegotiate_mode_t renegotiate_mode;
 

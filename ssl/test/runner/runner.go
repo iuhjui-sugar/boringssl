@@ -475,6 +475,10 @@ type testCase struct {
 	// configured with the specified TLS 1.3 variant. This is a convenience
 	// option for configuring both concurrently.
 	tls13Variant int
+
+	// expectedQuicTransportParams contains the QUIC transport
+	// parameters that are expected to be sent by the peer.
+	expectedQuicTransportParams []byte
 }
 
 var testCases []testCase
@@ -711,6 +715,12 @@ func doExchange(test *testCase, config *Config, conn net.Conn, isResume bool, tr
 			if !bytes.Equal(cert.Raw, test.expectPeerCertificate.Certificate[i]) {
 				return fmt.Errorf("peer certificate %d did not match", i+1)
 			}
+		}
+	}
+
+	if len(test.expectedQuicTransportParams) > 0 {
+		if !bytes.Equal(test.expectedQuicTransportParams, connState.QuicTransportParams) {
+			return errors.New("Peer did not send expected QUIC transport params")
 		}
 	}
 
@@ -6567,6 +6577,89 @@ func addExtensionTests() {
 					"-expect-ticket-supports-early-data",
 					"-token-binding-params",
 					base64.StdEncoding.EncodeToString([]byte{2, 1, 0}),
+				},
+			})
+		}
+
+		// Test QUIC transport params
+		if ver.version >= VersionTLS13 {
+			// Client sends params
+			testCases = append(testCases, testCase{
+				testType: clientTest,
+				name: "QuicTransportParams-Client-" + ver.name,
+				config: Config{
+					MinVersion: ver.version,
+					MaxVersion: ver.version,
+					QuicTransportParams: []byte{1, 2},
+				},
+				tls13Variant: ver.tls13Variant,
+				flags: []string{
+					"-quic-transport-params",
+					base64.StdEncoding.EncodeToString([]byte{3, 4}),
+					"-expected-quic-transport-params",
+					base64.StdEncoding.EncodeToString([]byte{1, 2}),
+				},
+				expectedQuicTransportParams: []byte{3, 4},
+			})
+			// Server sends params
+			testCases = append(testCases, testCase{
+				testType: serverTest,
+				name: "QuicTransportParams-Server-" + ver.name,
+				config: Config{
+					MinVersion: ver.version,
+					MaxVersion: ver.version,
+					QuicTransportParams: []byte{1, 2},
+				},
+				tls13Variant: ver.tls13Variant,
+				flags: []string{
+					"-quic-transport-params",
+					base64.StdEncoding.EncodeToString([]byte{3, 4}),
+					"-expected-quic-transport-params",
+					base64.StdEncoding.EncodeToString([]byte{1, 2}),
+				},
+				expectedQuicTransportParams: []byte{3, 4},
+			})
+		} else {
+			testCases = append(testCases, testCase{
+				testType: clientTest,
+				name: "QuicTransportParams-Client-NotSent-" + ver.name,
+				config: Config{
+					MinVersion: ver.version,
+					MaxVersion: ver.version,
+				},
+				tls13Variant: ver.tls13Variant,
+				flags: []string{
+					"-max-version",
+					strconv.Itoa(int(ver.version)),
+					"-quic-transport-params",
+					base64.StdEncoding.EncodeToString([]byte{3, 4}),
+				},
+			})
+			testCases = append(testCases, testCase{
+				testType: serverTest,
+				name: "QuicTransportParams-Server-Rejected-" + ver.name,
+				config: Config{
+					MinVersion: ver.version,
+					MaxVersion: ver.version,
+					QuicTransportParams: []byte{1, 2},
+				},
+				tls13Variant: ver.tls13Variant,
+				flags: []string{
+					"-expected-quic-transport-params",
+					base64.StdEncoding.EncodeToString([]byte{1, 2}),
+				},
+				shouldFail: true,
+			})
+			testCases = append(testCases, testCase{
+				testType: serverTest,
+				name: "QuicTransportParams-OldServerIgnores-" + ver.name,
+				config: Config{
+					MaxVersion: VersionTLS13,
+					QuicTransportParams: []byte{1, 2},
+				},
+				flags: []string{
+					"-min-version", ver.shimFlag(tls),
+					"-max-version", ver.shimFlag(tls),
 				},
 			})
 		}
