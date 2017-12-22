@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "0c2e838a_6e71ef38",
+        "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 666,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2017-12-22T03:03:30Z",
+      "side": 1,
+      "message": "FWIW, this technique or a similar one was described in a paper by Shay Gueron, called Smooth CRT-RSA: https://eprint.iacr.org/2007/039.pdf section 5.3. Also there\u0027s a similar (IIRC, optimized further than Shay\u0027s Smooth CRT-RSA) implementation of this in *ring* at https://github.com/briansmith/ring/blob/master/src/rsa/signing.rs#L547.",
+      "revId": "5ca197df14736584819bf10e66d675636122ea07",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eadcbf16_b264bb56",
         "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
         "patchSetId": 1
