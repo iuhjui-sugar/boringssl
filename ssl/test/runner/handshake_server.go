@@ -1354,6 +1354,14 @@ func (hs *serverHandshakeState) processClientExtensions(serverExtensions *server
 		}
 	}
 
+	if len(hs.clientHello.quicTransportParams) > 0 {
+		if c.vers < VersionTLS13 {
+			return errors.New("tls: Client offered QUIC transport params on TLS version less than 1.3")
+		}
+		c.quicTransportParams = hs.clientHello.quicTransportParams
+		serverExtensions.quicTransportParams = c.config.QuicTransportParams
+	}
+
 	if c.vers < VersionTLS13 || config.Bugs.NegotiateEMSAtAllVersions {
 		disableEMS := config.Bugs.NoExtendedMasterSecret
 		if c.cipherSuite != nil {

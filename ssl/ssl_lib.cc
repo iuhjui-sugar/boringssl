@@ -771,6 +771,8 @@ void SSL_free(SSL *ssl) {
   SSL_CTX_free(ssl->session_ctx);
   OPENSSL_free(ssl->supported_group_list);
   OPENSSL_free(ssl->alpn_client_proto_list);
+  OPENSSL_free(ssl->quic_transport_params);
+  OPENSSL_free(ssl->peer_quic_transport_params);
   EVP_PKEY_free(ssl->tlsext_channel_id_private);
   OPENSSL_free(ssl->psk_identity_hint);
   sk_CRYPTO_BUFFER_pop_free(ssl->client_CA, CRYPTO_BUFFER_free);
@@ -1161,6 +1163,22 @@ int SSL_send_fatal_alert(SSL *ssl, uint8_t alert) {
   }
 
   return ssl_send_alert(ssl, SSL3_AL_FATAL, alert);
+}
+
+int SSL_set_quic_transport_params(SSL *ssl, const uint8_t *params,
+                                  size_t params_len) {
+  ssl->quic_transport_params = (uint8_t *)BUF_memdup(params, params_len);
+  if (!ssl->quic_transport_params) {
+    return 0;
+  }
+  ssl->quic_transport_params_len = params_len;
+  return 1;
+}
+
+void SSL_get_peer_quic_transport_params(const SSL *ssl, uint8_t **params,
+                                        size_t *params_len) {
+  *params = ssl->peer_quic_transport_params;
+  *params_len = ssl->peer_quic_transport_params_len;
 }
 
 void SSL_CTX_set_early_data_enabled(SSL_CTX *ctx, int enabled) {

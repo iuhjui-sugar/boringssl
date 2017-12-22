@@ -278,6 +278,7 @@ type clientHelloMsg struct {
 	supportedVersions       []uint16
 	secureRenegotiation     []byte
 	alpnProtocols           []string
+	quicTransportParams     []byte
 	duplicateExtension      bool
 	channelIDSupported      bool
 	npnAfterAlpn            bool
@@ -327,6 +328,7 @@ func (m *clientHelloMsg) equal(i interface{}) bool {
 		bytes.Equal(m.secureRenegotiation, m1.secureRenegotiation) &&
 		(m.secureRenegotiation == nil) == (m1.secureRenegotiation == nil) &&
 		eqStrings(m.alpnProtocols, m1.alpnProtocols) &&
+		bytes.Equal(m.quicTransportParams, m1.quicTransportParams) &&
 		m.duplicateExtension == m1.duplicateExtension &&
 		m.channelIDSupported == m1.channelIDSupported &&
 		m.npnAfterAlpn == m1.npnAfterAlpn &&
@@ -511,6 +513,11 @@ func (m *clientHelloMsg) marshal() []byte {
 			protocolName := protocolNameList.addU8LengthPrefixed()
 			protocolName.addBytes([]byte(s))
 		}
+	}
+	if len(m.quicTransportParams) > 0 {
+		extensions.addU16(extensionQuicTransportParams)
+		params := extensions.addU16LengthPrefixed()
+		params.addBytes(m.quicTransportParams)
 	}
 	if m.channelIDSupported {
 		extensions.addU16(extensionChannelID)
@@ -813,6 +820,8 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 				}
 				m.alpnProtocols = append(m.alpnProtocols, string(protocol))
 			}
+		case extensionQuicTransportParams:
+			m.quicTransportParams = body
 		case extensionChannelID:
 			if len(body) != 0 {
 				return false
@@ -1107,6 +1116,7 @@ type serverExtensions struct {
 	supportedVersion        uint16
 	supportedPoints         []uint8
 	supportedCurves         []CurveID
+	quicTransportParams     []byte
 	serverNameAck           bool
 }
 
@@ -1222,6 +1232,11 @@ func (m *serverExtensions) marshal(extensions *byteBuilder) {
 			supportedCurves.addU16(uint16(curve))
 		}
 	}
+	if len(m.quicTransportParams) > 0 {
+		extensions.addU16(extensionQuicTransportParams)
+		params := extensions.addU16LengthPrefixed()
+		params.addBytes(m.quicTransportParams)
+	}
 	if m.hasEarlyData {
 		extensions.addU16(extensionEarlyData)
 		extensions.addBytes([]byte{0, 0})
@@ -1320,6 +1335,8 @@ func (m *serverExtensions) unmarshal(data byteReader, version uint16) bool {
 			if version < VersionTLS13 {
 				return false
 			}
+		case extensionQuicTransportParams:
+			m.quicTransportParams = body
 		case extensionEarlyData:
 			if version < VersionTLS13 || len(body) != 0 {
 				return false

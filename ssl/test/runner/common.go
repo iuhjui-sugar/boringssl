@@ -119,6 +119,7 @@ const (
 	extensionSignedCertificateTimestamp uint16 = 18
 	extensionPadding                    uint16 = 21
 	extensionExtendedMasterSecret       uint16 = 23
+	extensionQuicTransportParams        uint16 = 26
 	extensionSessionTicket              uint16 = 35
 	extensionKeyShare                   uint16 = 40    // draft-ietf-tls-tls13-16
 	extensionPreSharedKey               uint16 = 41    // draft-ietf-tls-tls13-16
@@ -261,6 +262,7 @@ type ConnectionState struct {
 	SCTList                    []byte                // signed certificate timestamp list
 	PeerSignatureAlgorithm     signatureAlgorithm    // algorithm used by the peer in the handshake
 	CurveID                    CurveID               // the curve used in ECDHE
+	QuicTransportParams        []byte                // the QUIC transport params received from the peer
 }
 
 // ClientAuthType declares the policy the server will follow for
@@ -473,6 +475,10 @@ type Config struct {
 	// VerifySignatureAlgorithms, if not nil, overrides the default set of
 	// supported signature algorithms that are accepted.
 	VerifySignatureAlgorithms []signatureAlgorithm
+
+	// QuicTransportParams, if not empty, will be sent in the QUIC
+	// transport parameters extension.
+	QuicTransportParams []byte
 
 	// Bugs specifies optional misbehaviour to be used for testing other
 	// implementations.

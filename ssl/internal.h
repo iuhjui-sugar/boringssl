@@ -2615,6 +2615,14 @@ struct SSLConnection {
   uint8_t *alpn_client_proto_list;
   unsigned alpn_client_proto_list_len;
 
+  // Contains the QUIC transport params that this endpoint will send.
+  uint8_t *quic_transport_params;
+  size_t quic_transport_params_len;
+
+  // Contains the QUIC transport params received by the peer.
+  uint8_t *peer_quic_transport_params;
+  size_t peer_quic_transport_params_len;
+
   // renegotiate_mode controls how peer renegotiation attempts are handled.
   enum ssl_renegotiate_mode_t renegotiate_mode;
 
