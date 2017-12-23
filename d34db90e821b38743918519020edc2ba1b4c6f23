@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a1f5b65_4c823a93",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2438,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-12-23T00:55:23Z",
+      "side": 1,
+      "message": "Is this the right version check?",
+      "revId": "d34db90e821b38743918519020edc2ba1b4c6f23",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
