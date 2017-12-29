@@ -366,8 +366,11 @@ int ASN1_INTEGER_set(ASN1_INTEGER *a, long v)
     }
     d = v;
     if (d < 0) {
-        d = -d;
+        if (!ASN1_INTEGER_set_uint64(a, 0 - (uint64_t)v)) {
+          return 0;
+        }
         a->type = V_ASN1_NEG_INTEGER;
+        return 1;
     }
 
     for (i = 0; i < sizeof(long); i++) {
