@@ -1053,12 +1053,7 @@ TEST(X509Test, ASN1IntegerSetting) {
     ASSERT_TRUE(BN_set_word(bn.get(), i));
     ASSERT_TRUE(BN_to_ASN1_INTEGER(bn.get(), by_bn.get()));
 
-    if (i != 0) {
-      // |ASN1_INTEGER_set| and |BN_to_ASN1_INTEGER| disagree about how to
-      // encode zero. The former leaves an empty value while the latter encodes
-      // as a single zero byte.
-      EXPECT_EQ(0, ASN1_INTEGER_cmp(by_bn.get(), by_long.get()));
-    }
+    EXPECT_EQ(0, ASN1_INTEGER_cmp(by_bn.get(), by_long.get()));
     EXPECT_EQ(0, ASN1_INTEGER_cmp(by_bn.get(), by_uint64.get()));
   }
 }

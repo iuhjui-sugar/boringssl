@@ -371,7 +371,7 @@ int ASN1_INTEGER_set(ASN1_INTEGER *a, long v)
     }
 
     for (i = 0; i < sizeof(long); i++) {
-        if (d == 0)
+        if (i > 0 && d == 0)
             break;
         buf[i] = (int)d & 0xff;
         d >>= 8;
