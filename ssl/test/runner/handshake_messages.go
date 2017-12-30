@@ -291,6 +291,7 @@ type clientHelloMsg struct {
 	omitExtensions          bool
 	emptyExtensions         bool
 	pad                     int
+	dummyPQPaddingLen       int
 }
 
 func (m *clientHelloMsg) equal(i interface{}) bool {
@@ -339,7 +340,8 @@ func (m *clientHelloMsg) equal(i interface{}) bool {
 		m.pskBinderFirst == m1.pskBinderFirst &&
 		m.omitExtensions == m1.omitExtensions &&
 		m.emptyExtensions == m1.emptyExtensions &&
-		m.pad == m1.pad
+		m.pad == m1.pad &&
+		m.dummyPQPaddingLen == m1.dummyPQPaddingLen
 }
 
 func (m *clientHelloMsg) marshal() []byte {
@@ -847,6 +849,11 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 			m.sctListSupported = true
 		case extensionCustom:
 			m.customExtension = string(body)
+		case extensionDummyPQPadding:
+			if len(body) == 0 {
+				return false
+			}
+			m.dummyPQPaddingLen = len(body)
 		}
 
 		if isGREASEValue(extension) {
