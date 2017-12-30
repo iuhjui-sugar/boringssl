@@ -6750,6 +6750,34 @@ func addExtensionTests() {
 		shouldFail:    true,
 		expectedError: ":INVALID_SCT_LIST:",
 	})
+
+	for _, version := range allVersions(tls) {
+		if version.version < VersionTLS12 {
+			continue
+		}
+
+		for _, paddingLen := range []int{1, 9700} {
+			flags := []string{
+				"-max-version", version.shimFlag(tls),
+				"-dummy-pq-padding-len", strconv.Itoa(paddingLen),
+			}
+			if version.tls13Variant != 0 {
+				flags = append(flags, "-tls13-variant", strconv.Itoa(version.tls13Variant))
+			}
+
+			testCases = append(testCases, testCase{
+				name:     fmt.Sprintf("DummyPQPadding-%d-%s", paddingLen, version.name),
+				testType: clientTest,
+				config: Config{
+					MaxVersion: version.version,
+					Bugs: ProtocolBugs{
+						ExpectDummyPQPaddingLength: paddingLen,
+					},
+				},
+				flags: flags,
+			})
+		}
+	}
 }
 
 func addResumptionVersionTests() {
