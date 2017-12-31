@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "65b0ba7a_03db8499",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-31T20:43:22Z",
+      "side": 1,
+      "message": "(It\u0027s also what DER says to do.)",
+      "range": {
+        "startLine": 10,
+        "startChar": 25,
+        "endLine": 10,
+        "endChar": 39
+      },
+      "revId": "cd5bf3245a7c15c00735a099758d279ce008663a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23c9dfea_8ada6063",
+        "filename": "crypto/asn1/a_int.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-31T20:43:22Z",
+      "side": 1,
+      "message": "Alternatively, you could just delete this function in favor of:\n\nif (v \u003e\u003d 0) {\n    return ASN1_INTEGER_set_uint64(a, (uint64_t)v);\n}\n\nif (!ASN1_INTEGER_set_uint64(a, (uint64_t)-v)) {\n    return 0;\n}\na-\u003etype \u003d V_ASN1_NEG_INTEGER;\nreturn 1;",
+      "revId": "cd5bf3245a7c15c00735a099758d279ce008663a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
