@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e38d7687_5eaa8da8",
+        "filename": "crypto/asn1/a_int.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2017-12-31T20:46:36Z",
+      "side": 1,
+      "message": "Nit: This check should probably happen before the malloc business above. (Or, better, just replace the whole function with ASN1_INTEGER_set_uint64 per previous CL\u0027s comment.)",
+      "revId": "059fa475e2d96fb9bc27279406c791d3113ca99f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
