@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a1f74e30_d5462b20",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-01-02T16:06:36Z",
+      "side": 1,
+      "message": "I\u0027ll mention that, although i2c_ASN1_INTEGER still exists to translate and ASN1_INTEGERs don\u0027t otherwise store in DER form. (For example, their handling of negative numbers is completely different.)",
+      "parentUuid": "65b0ba7a_03db8499",
+      "range": {
+        "startLine": 10,
+        "startChar": 25,
+        "endLine": 10,
+        "endChar": 39
+      },
+      "revId": "cd5bf3245a7c15c00735a099758d279ce008663a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "23c9dfea_8ada6063",
         "filename": "crypto/asn1/a_int.c",
         "patchSetId": 1
@@ -57,6 +81,24 @@
       "revId": "cd5bf3245a7c15c00735a099758d279ce008663a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9765d06c_8266b2c5",
+        "filename": "crypto/asn1/a_int.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-01-02T16:06:36Z",
+      "side": 1,
+      "message": "That\u0027s better. Thanks!",
+      "parentUuid": "e0fd1270_13b7356e",
+      "revId": "cd5bf3245a7c15c00735a099758d279ce008663a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
