@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "1f74b01a_874e4fd8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-02T22:17:58Z",
+      "side": 1,
+      "message": "Oh! Phew. I was worried we\u0027d have to worry about everyone misencoding things.",
+      "parentUuid": "a1f74e30_d5462b20",
+      "range": {
+        "startLine": 10,
+        "startChar": 25,
+        "endLine": 10,
+        "endChar": 39
+      },
+      "revId": "cd5bf3245a7c15c00735a099758d279ce008663a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "23c9dfea_8ada6063",
         "filename": "crypto/asn1/a_int.c",
         "patchSetId": 1
