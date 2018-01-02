@@ -16,6 +16,24 @@
       "revId": "059fa475e2d96fb9bc27279406c791d3113ca99f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00fddf02_aa3b9e29",
+        "filename": "crypto/asn1/a_int.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-01-02T16:05:51Z",
+      "side": 1,
+      "message": "(Moot. Squashed into prev commit.)",
+      "parentUuid": "e38d7687_5eaa8da8",
+      "revId": "059fa475e2d96fb9bc27279406c791d3113ca99f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
