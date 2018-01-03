@@ -70,6 +70,24 @@
       "revId": "d34db90e821b38743918519020edc2ba1b4c6f23",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb24ce17_4d772bb4",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2438,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-01-03T19:29:44Z",
+      "side": 1,
+      "message": "Check hs-\u003eclient_version?",
+      "parentUuid": "d6f8e85a_e355dec0",
+      "revId": "d34db90e821b38743918519020edc2ba1b4c6f23",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
