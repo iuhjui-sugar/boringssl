@@ -106,6 +106,24 @@
       "revId": "d34db90e821b38743918519020edc2ba1b4c6f23",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9bf185b9_4c518bfb",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2438,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2018-01-03T19:46:29Z",
+      "side": 1,
+      "message": "The marginal value of adding the check to fail instead of ignore the extn in TLS 1.2 and earlier doesn\u0027t seem worth figuring out how to do the check.",
+      "parentUuid": "2e0059e1_ff676d86",
+      "revId": "d34db90e821b38743918519020edc2ba1b4c6f23",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
