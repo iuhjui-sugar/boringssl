@@ -52,6 +52,24 @@
       "revId": "d34db90e821b38743918519020edc2ba1b4c6f23",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6f8e85a_e355dec0",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2438,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2018-01-03T19:28:13Z",
+      "side": 1,
+      "message": "I changed this to return true to take care of the second part of that check, and I added a test for it.",
+      "parentUuid": "d590d194_00eeb2cd",
+      "revId": "d34db90e821b38743918519020edc2ba1b4c6f23",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
