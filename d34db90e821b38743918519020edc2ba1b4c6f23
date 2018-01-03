@@ -88,6 +88,24 @@
       "revId": "d34db90e821b38743918519020edc2ba1b4c6f23",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e0059e1_ff676d86",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2438,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-01-03T19:32:31Z",
+      "side": 1,
+      "message": "Actually nvm, that doesn\u0027t work. You probably should just drop the check for failing if the client sends it at TLS 1.2 (treating it as an \u0027unknown extension\u0027, especially if someone decides to in the future define a TLS 1.2 extension with that version number we don\u0027t know about).",
+      "parentUuid": "cb24ce17_4d772bb4",
+      "revId": "d34db90e821b38743918519020edc2ba1b4c6f23",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
