@@ -52,6 +52,24 @@
       "revId": "af4a88db4456a5c94ab7fc74647eb4d0c076bf4c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06367f5c_72a2ba55",
+        "filename": "third_party/fiat/curve25519.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2018-01-04T19:00:11Z",
+      "side": 1,
+      "message": "The bounds in https://github.com/mit-plv/fiat-crypto/blob/8d465a7de3c0af6be9bc1f998cbeb43f6f4da7fe/src/Specific/solinas32_2e255m19_10limbs/freeze.v talk about the input and output of `freeze`. The bounds on the input obviously imply something about the bounds on intermediate values inside the function, but the specification in that file says nothing about that.\n\nWe can see from the generated code that the word size selection optimization picked uint32_t for `a` and `b` at call of the \"intrinsics\". This was done by propagating bounds through immediate values and then rounding up to next available word size. The pre-rounding bounds for intermediates are not printed anywhere as far as I know. If we had these, it would probably be clear that uint32_t for the sum is enough. However, based on the fact that inputs of addcarryx_u25 are uint32_t, we know that uint64_t for the immediate is enough.\n\nThe definition of addcarry and subborrow in fiat-crypto source code uses mathematical integers and is thus oblivious to boundedness issues. https://github.com/mit-plv/fiat-crypto/blob/9d16ae4ecb6f24ae7eefabd056902b00bf2fe001/src/Util/ZUtil/Definitions.v#L13",
+      "parentUuid": "1c633da1_9475c940",
+      "revId": "af4a88db4456a5c94ab7fc74647eb4d0c076bf4c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
