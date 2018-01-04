@@ -70,6 +70,24 @@
       "revId": "af4a88db4456a5c94ab7fc74647eb4d0c076bf4c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d924a2ed_2565a9b9",
+        "filename": "third_party/fiat/curve25519.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-04T21:10:04Z",
+      "side": 1,
+      "message": "Andres and I chatted out-of-band, resulting in this ticket: https://github.com/mit-plv/fiat-crypto/issues/288",
+      "parentUuid": "06367f5c_72a2ba55",
+      "revId": "af4a88db4456a5c94ab7fc74647eb4d0c076bf4c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
