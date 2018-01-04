@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19da90b1_7f347878",
+        "filename": "third_party/fiat/curve25519.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2018-01-04T14:36:18Z",
+      "side": 1,
+      "message": "It is not obvious to me that it is fine to have this intermediate (and the additions) be 32-bit. addcarryx_u25(1,UINT32_MAX,UINT32_MAX) would overflow here, and nothing in fiat-crypto proves that these functions are not called with large inputs. I am guessing that the performance impact of changing a, b, and x to uint64_t on this line is negligible. I also think that we would be able to reason through freeze code and establish that the bad cases are never triggered, but perhaps that is not the best use of braincycles.\n\nThe same applies to the next three functions as well.",
+      "revId": "af4a88db4456a5c94ab7fc74647eb4d0c076bf4c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
