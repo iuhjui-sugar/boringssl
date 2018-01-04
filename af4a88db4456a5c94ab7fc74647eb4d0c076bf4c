@@ -88,6 +88,23 @@
       "revId": "af4a88db4456a5c94ab7fc74647eb4d0c076bf4c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cbc94ac_7eac0d40",
+        "filename": "third_party/fiat/curve25519.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-04T21:38:20Z",
+      "side": 1,
+      "message": "Notes before I forget:\n\n- If Jason finishes the Fiat bug above by the time I\u0027m not supposed to be writing my talk (I\u0027m too distractable...), use this version, but add an \u00261 after x \u003e\u003e 25 and x \u003e\u003e 26. They\u0027re not necessary, but Fiat hasn\u0027t proved to us that addition doesn\u0027t wraparound.\n\n- If not, switch these to the more conservative 8-bit versions with uint64_t intermediates, along with tidying the p256.c intrinsic. Link to the Fiat bug so it can be switched back afterwards.",
+      "revId": "af4a88db4456a5c94ab7fc74647eb4d0c076bf4c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
