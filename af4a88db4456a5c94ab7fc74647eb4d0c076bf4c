@@ -34,6 +34,24 @@
       "revId": "af4a88db4456a5c94ab7fc74647eb4d0c076bf4c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c633da1_9475c940",
+        "filename": "third_party/fiat/curve25519.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-04T17:11:03Z",
+      "side": 1,
+      "message": "Oh, ugh, I see. Even the first call is out of bounds because of that 1.125 factor...\n\nAt what point in the process do the bounds get applied? How can I find out the actual definition of this intrinsic?",
+      "parentUuid": "ac420d61_15a7587a",
+      "revId": "af4a88db4456a5c94ab7fc74647eb4d0c076bf4c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
