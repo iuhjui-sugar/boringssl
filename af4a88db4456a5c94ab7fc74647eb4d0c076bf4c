@@ -16,6 +16,24 @@
       "revId": "af4a88db4456a5c94ab7fc74647eb4d0c076bf4c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac420d61_15a7587a",
+        "filename": "third_party/fiat/curve25519.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-04T16:37:55Z",
+      "side": 1,
+      "message": "Oh, are the inputs here not bounded by u25? Hrmf. I\u0027d assumed that they were analogous to addcarryx_u32 but with 25-bit numbers. (Where can I find how the operations are defined?)",
+      "parentUuid": "19da90b1_7f347878",
+      "revId": "af4a88db4456a5c94ab7fc74647eb4d0c076bf4c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
