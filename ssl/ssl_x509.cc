@@ -1252,8 +1252,6 @@ int SSL_alert_from_verify_result(long result) {
     case X509_V_ERR_ERROR_IN_CERT_NOT_AFTER_FIELD:
     case X509_V_ERR_ERROR_IN_CRL_LAST_UPDATE_FIELD:
     case X509_V_ERR_ERROR_IN_CRL_NEXT_UPDATE_FIELD:
-    case X509_V_ERR_CERT_NOT_YET_VALID:
-    case X509_V_ERR_CRL_NOT_YET_VALID:
     case X509_V_ERR_CERT_UNTRUSTED:
     case X509_V_ERR_CERT_REJECTED:
     case X509_V_ERR_HOSTNAME_MISMATCH:
@@ -1266,7 +1264,9 @@ int SSL_alert_from_verify_result(long result) {
       return SSL_AD_DECRYPT_ERROR;
 
     case X509_V_ERR_CERT_HAS_EXPIRED:
+    case X509_V_ERR_CERT_NOT_YET_VALID:
     case X509_V_ERR_CRL_HAS_EXPIRED:
+    case X509_V_ERR_CRL_NOT_YET_VALID:
       return SSL_AD_CERTIFICATE_EXPIRED;
 
     case X509_V_ERR_CERT_REVOKED:
