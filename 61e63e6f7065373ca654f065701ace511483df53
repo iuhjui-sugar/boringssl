@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "870a4f27_298892fa",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2389,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-09T22:06:05Z",
+      "side": 1,
+      "message": "ssl-\u003eserver in config functions is kinda weird since that\u0027s a separate config option and we usually allow people to configure things in any order. (In particular, someone using SSL_connect() rather than SSL_set_connect_state() + SSL_do_handshake() will configure client vs. server at the very end.) I think we usually just let things be configured either way and, if it was a no-op, so it goes.",
+      "range": {
+        "startLine": 2389,
+        "startChar": 25,
+        "endLine": 2389,
+        "endChar": 39
+      },
+      "revId": "61e63e6f7065373ca654f065701ace511483df53",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3703385e_7751e4f3",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2338,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-09T22:06:05Z",
+      "side": 1,
+      "message": "It\u0027s only actually invalid with ASN.1, but buffer is nominally not okay to modify after CBB_flush. Move this call to the end?",
+      "range": {
+        "startLine": 2338,
+        "startChar": 6,
+        "endLine": 2338,
+        "endChar": 21
+      },
+      "revId": "61e63e6f7065373ca654f065701ace511483df53",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2f897d7_9655a8ef",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 6766,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-09T22:06:05Z",
+      "side": 1,
+      "message": "You also need to configure the runner to use the particular TLS 1.3 variant. But it\u0027s easier to just set tls13Variant: version.tls13Variant on the test itself, which populates both flags and config.",
+      "revId": "61e63e6f7065373ca654f065701ace511483df53",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
