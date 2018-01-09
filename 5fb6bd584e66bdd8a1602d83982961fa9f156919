@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4eb29df3_d91b6ae6",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-09T14:20:39Z",
+      "side": 1,
+      "message": "Check this in handshake_server.go.",
+      "revId": "5fb6bd584e66bdd8a1602d83982961fa9f156919",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ccb2352_ac3739ca",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 1454,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-09T14:20:39Z",
+      "side": 1,
+      "message": "Nit: Maybe extensionsCopy? I feel like earlyExtensions is a little odd considering \"early data\" is a thing.",
+      "range": {
+        "startLine": 1454,
+        "startChar": 1,
+        "endLine": 1454,
+        "endChar": 16
+      },
+      "revId": "5fb6bd584e66bdd8a1602d83982961fa9f156919",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f084697_2354565f",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 1489,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-09T14:20:39Z",
+      "side": 1,
+      "message": "This can be removed now and just\n\n  \"// Parsed above\"\n\nAs with the ServerHello code.",
+      "revId": "5fb6bd584e66bdd8a1602d83982961fa9f156919",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
