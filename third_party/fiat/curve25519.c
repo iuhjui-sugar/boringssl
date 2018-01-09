@@ -996,8 +996,7 @@ static void ge_p3_to_p2(ge_p2 *r, const ge_p3 *p) {
   fe_copy(&r->Z, &p->Z);
 }
 
-static const fe d2 = {{45281625, 27714825,  36363642, 13898781, 229458,
-                      15978800,  54557047, 27058993,  29715967, 9444199}};
+#include "./curve25519_tables.h"
 
 // r = p
 void x25519_ge_p3_to_cached(ge_cached *r, const ge_p3 *p) {
@@ -1192,8 +1191,6 @@ void x25519_ge_scalarmult_small_precomp(
     x25519_ge_p1p1_to_p3(h, &r);
   }
 }
-
-#include "./curve25519_tables.h"
 
 #if defined(OPENSSL_SMALL)
 
