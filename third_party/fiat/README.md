@@ -7,7 +7,7 @@ licensed under the MIT license. (See LICENSE file.)
 ## Curve25519
 
 To generate the field arithmetic procedures in `curve25519.c` from a fiat-crypto
-checkout (as of `693d62c6fd7370bf71b8eb3b9a5825dfd071fcac`), run
+checkout (as of `f7b212b9075dc3cf323eeb05ab99788eb9094807`), run
 `make src/Specific/solinas32_2e255m19_10limbs/femul.c` (replacing `femul` with
 the desired field operation). The "source" file specifying the finite field and
 referencing the desired implementation strategy is
@@ -16,6 +16,9 @@ referencing the desired implementation strategy is
 unsigned integers with a single carry chain and two wraparound carries" where
 only the prime is considered normative and everything else is treated as
 "compiler hints".
+
+The 64-bit implementation uses 5 limbs of radix 2^51. It is found in
+`src/Specific/solinas64_2e255m19_5limbs`.
 
 ## P256
 
