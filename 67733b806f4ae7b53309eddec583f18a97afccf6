@@ -16,6 +16,24 @@
       "revId": "67733b806f4ae7b53309eddec583f18a97afccf6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e72887b_673140e0",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-01-09T15:16:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3c10500_70325959",
+      "revId": "67733b806f4ae7b53309eddec583f18a97afccf6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
