@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e3c10500_70325959",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-09T14:42:47Z",
+      "side": 1,
+      "message": "Last nitpick: this can be written as\n\ncase extensionOldKeyShare, extensionNewKeyShare:",
+      "revId": "67733b806f4ae7b53309eddec583f18a97afccf6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
