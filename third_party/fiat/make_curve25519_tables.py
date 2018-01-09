@@ -107,6 +107,8 @@ def to_base_25_5(x):
     return ret
 
 def main():
+    d2 = (2 * d) % p
+
     small_precomp = bytearray()
     for i in range(1, 16):
         s = (i&1) | ((i&2) << (64-1)) | ((i&4) << (128-2)) | ((i&8) << (192-3))
@@ -153,6 +155,11 @@ def main():
 // This file is generated from
 //    ./make_curve25519_tables.py > curve25519_tables.h
 
+
+static const fe d2 = {{
+""")
+    buf.write(", ".join(map(str, to_base_25_5(d2))))
+    buf.write("""}};
 
 #if defined(OPENSSL_SMALL)
 

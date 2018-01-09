@@ -24,6 +24,9 @@
 //    ./make_curve25519_tables.py > curve25519_tables.h
 
 
+static const fe d2 = {{45281625, 27714825, 36363642, 13898781, 229458, 15978800,
+                       54557047, 27058993, 29715967, 9444199}};
+
 #if defined(OPENSSL_SMALL)
 
 // This block of code replaces the standard base-point table with a much smaller
