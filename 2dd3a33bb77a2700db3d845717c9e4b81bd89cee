@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "490c7a3c_e24024b9",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2503,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-09T12:56:12Z",
+      "side": 1,
+      "message": "This is hilarious but, yeah, I guess that is actually probably the sanest way to do this...\n\nMind adding a comment here like:\n\n// This is added by TLSEXT_TYPE_new_key_share\u0027s callback.",
+      "revId": "2dd3a33bb77a2700db3d845717c9e4b81bd89cee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eab3e227_acaa24a9",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-09T12:56:12Z",
+      "side": 1,
+      "message": "Maybe something like:\n\n// We assume the client only supports one of draft-22 or draft-23.\nif m.keyShareExtension !\u003d 0 {\n   return false\n}\nm.keyShareExtension \u003d extension\n\nThat way the tests will notice if the client sends the wrong one.",
+      "revId": "2dd3a33bb77a2700db3d845717c9e4b81bd89cee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b018b6f_9744cb9f",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1033,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-09T12:56:12Z",
+      "side": 1,
+      "message": "Up at line 1024, do something like:\n\n  extensionKeyShare :\u003d extensionOldKeyShare\n  if isDraft23(m.vers) {\n    extensionKeyShare \u003d extensionNewKeyShare\n  }\n\nThen you can just switch-case on extensionKeyShare and remove the isDraft23 check. Those don\u0027t have to be constants.\n\nOptional: Do you think it makes sense, here and/or in the C code, to have a function from version to key_share value? Just to save all the little ternaries.",
+      "revId": "2dd3a33bb77a2700db3d845717c9e4b81bd89cee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31636df1_af9d9082",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1474,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-09T12:56:12Z",
+      "side": 1,
+      "message": "Ditto about the extensionKeyShare variable. Probably simpler.",
+      "revId": "2dd3a33bb77a2700db3d845717c9e4b81bd89cee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d186985_d24eca1b",
+        "filename": "ssl/tls13_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-09T12:56:12Z",
+      "side": 1,
+      "message": "Probably cleaner: remove the const and put in the first entry:\n\nssl_is_draft23(ssl-\u003eversion) ? TLSEXT_TYPE_new_key_share : TLSEXT_TYPE_old_key_share",
+      "revId": "2dd3a33bb77a2700db3d845717c9e4b81bd89cee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13d8e2d3_e234b947",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-09T12:56:12Z",
+      "side": 1,
+      "message": "Nit: I suspect clang-format would indent this differently, but I could be wrong.",
+      "revId": "2dd3a33bb77a2700db3d845717c9e4b81bd89cee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
