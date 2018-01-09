@@ -134,10 +134,11 @@ static enum ssl_hs_wait_t do_read_hello_retry_request(SSL_HANDSHAKE *hs) {
   }
 
 
-  bool have_cookie, have_key_share, have_supported_versions;
-  CBS cookie, key_share, supported_versions;
+  bool have_cookie, have_key_share, have_new_key_share, have_supported_versions;
+  CBS cookie, key_share, new_key_share, supported_versions;
   const SSL_EXTENSION_TYPE ext_types[] = {
-      {TLSEXT_TYPE_key_share, &have_key_share, &key_share},
+      {TLSEXT_TYPE_old_key_share, &have_key_share, &key_share},
+      {TLSEXT_TYPE_new_key_share, &have_new_key_share, &new_key_share},
       {TLSEXT_TYPE_cookie, &have_cookie, &cookie},
       {TLSEXT_TYPE_supported_versions, &have_supported_versions,
        &supported_versions},
@@ -155,6 +156,15 @@ static enum ssl_hs_wait_t do_read_hello_retry_request(SSL_HANDSHAKE *hs) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_EXTENSION);
     ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_UNSUPPORTED_EXTENSION);
     return ssl_hs_error;
+  }
+  if ((have_key_share && ssl_is_draft23(ssl->version)) ||
+      (have_new_key_share && !ssl_is_draft23(ssl->version))) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_EXTENSION);
+    ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_UNSUPPORTED_EXTENSION);
+    return ssl_hs_error;
+  } else if (have_new_key_share) {
+      have_key_share = have_new_key_share;
+      key_share = new_key_share;
   }
   if (!have_cookie && !have_key_share) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_EMPTY_HELLO_RETRY_REQUEST);
@@ -302,11 +312,12 @@ static enum ssl_hs_wait_t do_read_server_hello(SSL_HANDSHAKE *hs) {
   }
 
   // Parse out the extensions.
-  bool have_key_share = false, have_pre_shared_key = false,
-       have_supported_versions = false;
-  CBS key_share, pre_shared_key, supported_versions;
+  bool have_key_share = false, have_new_key_share = false,
+       have_pre_shared_key = false, have_supported_versions = false;
+  CBS key_share, new_key_share, pre_shared_key, supported_versions;
   const SSL_EXTENSION_TYPE ext_types[] = {
-      {TLSEXT_TYPE_key_share, &have_key_share, &key_share},
+      {TLSEXT_TYPE_old_key_share, &have_key_share, &key_share},
+      {TLSEXT_TYPE_new_key_share, &have_new_key_share, &new_key_share},
       {TLSEXT_TYPE_pre_shared_key, &have_pre_shared_key, &pre_shared_key},
       {TLSEXT_TYPE_supported_versions, &have_supported_versions,
        &supported_versions},
@@ -318,6 +329,16 @@ static enum ssl_hs_wait_t do_read_server_hello(SSL_HANDSHAKE *hs) {
                             0 /* reject unknown */)) {
     ssl_send_alert(ssl, SSL3_AL_FATAL, alert);
     return ssl_hs_error;
+  }
+
+  if ((have_key_share && ssl_is_draft23(ssl->version)) ||
+      (have_new_key_share && !ssl_is_draft23(ssl->version))) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_EXTENSION);
+    ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_UNSUPPORTED_EXTENSION);
+    return ssl_hs_error;
+  } else if (have_new_key_share) {
+      have_key_share = have_new_key_share;
+      key_share = new_key_share;
   }
 
   alert = SSL_AD_DECODE_ERROR;

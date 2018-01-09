@@ -265,6 +265,7 @@ type clientHelloMsg struct {
 	supportedCurves         []CurveID
 	supportedPoints         []uint8
 	hasKeyShares            bool
+	keyShareExtension       uint16
 	keyShares               []keyShareEntry
 	trailingKeyShareData    bool
 	pskIdentities           []pskIdentity
@@ -444,7 +445,7 @@ func (m *clientHelloMsg) marshal() []byte {
 		supportedPoints.addBytes(m.supportedPoints)
 	}
 	if m.hasKeyShares {
-		extensions.addU16(extensionKeyShare)
+		extensions.addU16(m.keyShareExtension)
 		keyShareList := extensions.addU16LengthPrefixed()
 
 		keyShares := keyShareList.addU16LengthPrefixed()
@@ -719,7 +720,9 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 			// http://tools.ietf.org/html/rfc5077#section-3.2
 			m.ticketSupported = true
 			m.sessionTicket = []byte(body)
-		case extensionKeyShare:
+		case extensionOldKeyShare:
+			fallthrough
+		case extensionNewKeyShare:
 			// draft-ietf-tls-tls13 section 6.3.2.3
 			var keyShares byteReader
 			if !body.readU16LengthPrefixed(&keyShares) || len(body) != 0 {
@@ -912,7 +915,11 @@ func (m *serverHelloMsg) marshal() []byte {
 
 	if vers >= VersionTLS13 {
 		if m.hasKeyShare {
-			extensions.addU16(extensionKeyShare)
+			if isDraft23(m.vers) {
+				extensions.addU16(extensionNewKeyShare)
+			} else {
+				extensions.addU16(extensionOldKeyShare)
+			}
 			keyShare := extensions.addU16LengthPrefixed()
 			keyShare.addU16(uint16(m.keyShare.group))
 			keyExchange := keyShare.addU16LengthPrefixed()
@@ -1023,7 +1030,22 @@ func (m *serverHelloMsg) unmarshal(data []byte) bool {
 				return false
 			}
 			switch extension {
-			case extensionKeyShare:
+			case extensionOldKeyShare:
+				if isDraft23(m.vers) {
+					return false
+				}
+				m.hasKeyShare = true
+				var group uint16
+				if !body.readU16(&group) ||
+					!body.readU16LengthPrefixedBytes(&m.keyShare.keyExchange) ||
+					len(body) != 0 {
+					return false
+				}
+				m.keyShare.group = CurveID(group)
+			case extensionNewKeyShare:
+				if !isDraft23(m.vers) {
+					return false
+				}
 				m.hasKeyShare = true
 				var group uint16
 				if !body.readU16(&group) ||
@@ -1195,7 +1217,7 @@ func (m *serverExtensions) marshal(extensions *byteBuilder) {
 		}
 	}
 	if m.hasKeyShare {
-		extensions.addU16(extensionKeyShare)
+		extensions.addU16(extensionOldKeyShare)
 		keyShare := extensions.addU16LengthPrefixed()
 		keyShare.addU16(uint16(m.keyShare.group))
 		keyExchange := keyShare.addU16LengthPrefixed()
@@ -1388,7 +1410,11 @@ func (m *helloRetryRequestMsg) marshal() []byte {
 			extensions.addU16(m.vers)
 		}
 		if m.hasSelectedGroup {
-			extensions.addU16(extensionKeyShare)
+			if isDraft23(m.vers) {
+				extensions.addU16(extensionNewKeyShare)
+			} else {
+				extensions.addU16(extensionOldKeyShare)
+			}
 			extensions.addU16(2) // length
 			extensions.addU16(uint16(m.selectedGroup))
 		}
@@ -1445,7 +1471,20 @@ func (m *helloRetryRequestMsg) unmarshal(data []byte) bool {
 				len(body) != 0 {
 				return false
 			}
-		case extensionKeyShare:
+		case extensionOldKeyShare:
+			if isDraft23(m.vers) {
+				return false
+			}
+			var v uint16
+			if !body.readU16(&v) || len(body) != 0 {
+				return false
+			}
+			m.hasSelectedGroup = true
+			m.selectedGroup = CurveID(v)
+		case extensionNewKeyShare:
+			if !isDraft23(m.vers) {
+				return false
+			}
 			var v uint16
 			if !body.readU16(&v) || len(body) != 0 {
 				return false
