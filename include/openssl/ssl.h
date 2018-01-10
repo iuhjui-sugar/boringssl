@@ -4381,6 +4381,12 @@ OPENSSL_EXPORT bool SealRecord(SSL *ssl, Span<uint8_t> out_prefix,
                                Span<uint8_t> out, Span<uint8_t> out_suffix,
                                Span<const uint8_t> in);
 
+
+// Split handshakes
+
+bool SSL_serialize_handback(const SSL *ssl, CBB *out);
+bool SSL_apply_handback(SSL *ssl, CBS *handback);
+
 }  // namespace bssl
 
 }  // extern C++

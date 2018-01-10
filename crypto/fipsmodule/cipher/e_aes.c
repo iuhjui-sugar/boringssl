@@ -1373,23 +1373,23 @@ static int aead_aes_gcm_tls12_seal_scatter(
     size_t nonce_len, const uint8_t *in, size_t in_len, const uint8_t *extra_in,
     size_t extra_in_len, const uint8_t *ad, size_t ad_len) {
   struct aead_aes_gcm_tls12_ctx *gcm_ctx = ctx->aead_state;
-  if (gcm_ctx->counter == UINT64_MAX) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_INVALID_NONCE);
-    return 0;
-  }
-
   if (nonce_len != 12) {
     OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_UNSUPPORTED_NONCE_SIZE);
     return 0;
   }
 
-  const uint64_t be_counter = CRYPTO_bswap8(gcm_ctx->counter);
-  if (OPENSSL_memcmp((uint8_t *)&be_counter, nonce + nonce_len - 8, 8) != 0) {
+  // The given nonces must be strictly monotonically increasing.
+  uint64_t given_counter;
+  OPENSSL_memcpy(&given_counter, nonce + nonce_len - sizeof(given_counter),
+                 sizeof(given_counter));
+  given_counter = CRYPTO_bswap8(given_counter);
+  if (given_counter == UINT64_MAX ||
+      given_counter < gcm_ctx->counter) {
     OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_INVALID_NONCE);
     return 0;
   }
 
-  gcm_ctx->counter++;
+  gcm_ctx->counter = given_counter + 1;
 
   return aead_aes_gcm_seal_scatter(ctx, out, out_tag, out_tag_len,
                                    max_out_tag_len, nonce, nonce_len, in,
