@@ -321,9 +321,10 @@ static bool get_key_block_lengths(const SSL *ssl, size_t *out_mac_secret_len,
   return true;
 }
 
-static int tls1_configure_aead(SSL *ssl, evp_aead_direction_t direction,
-                               Array<uint8_t> *key_block_cache,
-                               const SSL_CIPHER *cipher) {
+int tls1_configure_aead(SSL *ssl, evp_aead_direction_t direction,
+                        Array<uint8_t> *key_block_cache,
+                        const SSL_CIPHER *cipher,
+                        Span<const uint8_t> iv_override) {
   size_t mac_secret_len, key_len, iv_len;
   if (!get_key_block_lengths(ssl, &mac_secret_len, &key_len, &iv_len, cipher)) {
     return 0;
@@ -351,6 +352,13 @@ static int tls1_configure_aead(SSL *ssl, evp_aead_direction_t direction,
     iv = key_block.subspan(2 * mac_secret_len + 2 * key_len + iv_len, iv_len);
   }
 
+  if (!iv_override.empty()) {
+    if (iv_override.size() != iv_len) {
+      return 0;
+    }
+    iv = iv_override;
+  }
+
   UniquePtr<SSLAEADContext> aead_ctx = SSLAEADContext::Create(
       direction, ssl->version, SSL_is_dtls(ssl), cipher, key, mac_secret, iv);
   if (!aead_ctx) {
@@ -367,7 +375,7 @@ static int tls1_configure_aead(SSL *ssl, evp_aead_direction_t direction,
 int tls1_change_cipher_state(SSL_HANDSHAKE *hs,
                              evp_aead_direction_t direction) {
   return tls1_configure_aead(hs->ssl, direction, &hs->key_block,
-                             hs->new_cipher);
+                             hs->new_cipher, {});
 }
 
 int tls1_generate_master_secret(SSL_HANDSHAKE *hs, uint8_t *out,

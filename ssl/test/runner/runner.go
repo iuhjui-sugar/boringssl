@@ -1413,6 +1413,36 @@ func bigFromHex(hex string) *big.Int {
 	return ret
 }
 
+func convertToSplitHandshakeTests(tests []testCase) (splitHandshakeTests []testCase) {
+NextTest:
+	for _, test := range tests {
+		if test.protocol != tls ||
+			test.testType != serverTest ||
+			test.config.MaxVersion >= VersionTLS13 ||
+			test.config.MaxVersion < VersionTLS10 ||
+			(test.resumeConfig != nil && (test.resumeConfig.MaxVersion < VersionTLS10 || test.resumeConfig.MaxVersion >= VersionTLS13)) ||
+			strings.HasPrefix(test.name, "VersionNegotiation-") {
+			continue
+		}
+
+		for _, flag := range test.flags {
+			if flag == "-implicit-handshake" {
+				continue NextTest
+			}
+		}
+
+		shTest := test
+		shTest.name += "-Split"
+		shTest.flags = make([]string, len(test.flags), len(test.flags)+1)
+		copy(shTest.flags, test.flags)
+		shTest.flags = append(shTest.flags, "-handback")
+
+		splitHandshakeTests = append(splitHandshakeTests, shTest)
+	}
+
+	return splitHandshakeTests
+}
+
 func addBasicTests() {
 	basicTests := []testCase{
 		{
@@ -13430,6 +13460,18 @@ func addOmitExtensionsTests() {
 	}
 }
 
+func addSplitHandshakeTests() {
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "Handback",
+		config: Config{
+			MinVersion: VersionTLS12,
+			MaxVersion: VersionTLS12,
+		},
+		flags: []string{"-handback"},
+	})
+}
+
 func worker(statusChan chan statusMsg, c chan *testCase, shimPath string, wg *sync.WaitGroup) {
 	defer wg.Done()
 
@@ -13558,6 +13600,8 @@ func main() {
 	addECDSAKeyUsageTests()
 	addExtraHandshakeTests()
 	addOmitExtensionsTests()
+
+	testCases = append(testCases, convertToSplitHandshakeTests(testCases)...)
 
 	var wg sync.WaitGroup
 
