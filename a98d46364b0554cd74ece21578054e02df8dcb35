@@ -70,6 +70,24 @@
       "revId": "a98d46364b0554cd74ece21578054e02df8dcb35",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d899aaf_56fb2b90",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-01-11T22:36:49Z",
+      "side": 1,
+      "message": "It is not normally defined. Are you using the bazel build? From the -with-bazel branch? BORINGSSL_FIPS should not be defined anywhere in there. It should only be possible to define it via the CMake build (for development, with -DFIPS\u003d1) and internally in Google.",
+      "parentUuid": "0de6c916_cfa88040",
+      "revId": "a98d46364b0554cd74ece21578054e02df8dcb35",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
