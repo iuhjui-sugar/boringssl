@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c1873e13_17d6da71",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-01-11T21:16:16Z",
+      "side": 1,
+      "message": "This line is conditional on BORINGSSL_FIPS, but that\u0027s not a configuration that gRPC should be building without in the outside world. Did you mean to put it elsewhere?",
+      "revId": "70b974a2994e4664edf33a8ca62d6d3a3accb5b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
