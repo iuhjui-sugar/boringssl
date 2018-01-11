@@ -33,6 +33,7 @@
 #include <linux/random.h>
 #include <sys/ioctl.h>
 #endif
+#include <linux/types.h>
 #include <sys/syscall.h>
 #endif
 
