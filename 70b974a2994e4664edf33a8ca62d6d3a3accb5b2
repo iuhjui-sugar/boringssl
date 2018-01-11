@@ -34,6 +34,24 @@
       "revId": "70b974a2994e4664edf33a8ca62d6d3a3accb5b2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c70de8b_a88788ab",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 8819
+      },
+      "writtenOn": "2018-01-11T21:50:42Z",
+      "side": 1,
+      "message": "My mistake, let me fix this. Also, BORINGSSL_FIPS was included by accident because I was basing my test off a PR that included fips_fragments to generate build files. Not sure why it was included, but moving #include \u003clinux/types.h\u003e nonetheless.",
+      "parentUuid": "7d637137_aa3cc8f9",
+      "revId": "70b974a2994e4664edf33a8ca62d6d3a3accb5b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
