@@ -88,6 +88,24 @@
       "revId": "a98d46364b0554cd74ece21578054e02df8dcb35",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f82f5d16_f5d79554",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 8819
+      },
+      "writtenOn": "2018-01-11T22:42:39Z",
+      "side": 1,
+      "message": "We\u0027re trying to upgrade to the current chromium-stable branch; we\u0027re using an old version of that branch from around February currently. We\u0027ll need to continue using the non-bazel branch for languages unsupported by Bazel.",
+      "parentUuid": "1d899aaf_56fb2b90",
+      "revId": "a98d46364b0554cd74ece21578054e02df8dcb35",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
