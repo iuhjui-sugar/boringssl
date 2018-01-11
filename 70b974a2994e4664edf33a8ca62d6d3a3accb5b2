@@ -16,6 +16,24 @@
       "revId": "70b974a2994e4664edf33a8ca62d6d3a3accb5b2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d637137_aa3cc8f9",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-01-11T21:34:32Z",
+      "side": 1,
+      "message": "Thank you for including the error message. Looks like you would want this above the include of random.h at least? Still unclear why BORINGSSL_FIPS is defined.",
+      "parentUuid": "c1873e13_17d6da71",
+      "revId": "70b974a2994e4664edf33a8ca62d6d3a3accb5b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
