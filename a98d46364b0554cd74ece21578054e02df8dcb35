@@ -34,6 +34,24 @@
       "revId": "a98d46364b0554cd74ece21578054e02df8dcb35",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aaaf6e61_574aca00",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-01-11T22:19:32Z",
+      "side": 1,
+      "message": "But the error in the commit message is from random.h, and the only #include of linux/random.h is guarded by BORINGSSL_FIPS. Since BORINGSSL_FIPS should not, and is no longer, being defined in your build, is the error in the commit message out of date?",
+      "parentUuid": "7e49295e_baac85c2",
+      "revId": "a98d46364b0554cd74ece21578054e02df8dcb35",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
