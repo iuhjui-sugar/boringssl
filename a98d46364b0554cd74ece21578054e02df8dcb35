@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1fdd0f86_20606bc8",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-01-11T22:02:26Z",
+      "side": 1,
+      "message": "Now that you aren\u0027t defining BORINGSSL_FIPS, does the error go away anyway? (Because random.h isn\u0027t being included.)",
+      "revId": "a98d46364b0554cd74ece21578054e02df8dcb35",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
