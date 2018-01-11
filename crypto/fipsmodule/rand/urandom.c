@@ -31,6 +31,7 @@
 #if defined(OPENSSL_LINUX)
 #if defined(BORINGSSL_FIPS)
 #include <linux/random.h>
+#include <linux/types.h>
 #include <sys/ioctl.h>
 #endif
 #include <sys/syscall.h>
