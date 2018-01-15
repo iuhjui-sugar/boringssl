@@ -151,7 +151,7 @@ class BIGNUMFileTest {
     if (resize) {
       // Test with an oversized |BIGNUM| if necessary.
       if ((large_mask_ & (1 << num_bignums_)) &&
-          !bn_resize_words(ret.get(), ret->top * 2 + 1)) {
+          !bn_resize_words(ret.get(), ret->width * 2 + 1)) {
         return nullptr;
       }
       num_bignums_++;
@@ -725,7 +725,7 @@ static void TestModExp(BIGNUMFileTest *t, BN_CTX *ctx) {
       ASSERT_TRUE(bn_to_montgomery_small(a_words.get(), m_width, a_words.get(),
                                          m_width, mont.get()));
       ASSERT_TRUE(bn_mod_exp_mont_small(r_words.get(), m_width, a_words.get(),
-                                        m_width, e->d, e->top, mont.get()));
+                                        m_width, e->d, e->width, mont.get()));
       ASSERT_TRUE(bn_from_montgomery_small(r_words.get(), m_width,
                                            r_words.get(), m_width, mont.get()));
       ASSERT_TRUE(bn_set_words(ret.get(), r_words.get(), m_width));
@@ -1971,7 +1971,7 @@ TEST_F(BNTest, NonMinimal) {
     SCOPED_TRACE(width);
     // Make a wider version of |ten|.
     EXPECT_TRUE(bn_resize_words(ten.get(), width));
-    EXPECT_EQ(static_cast<int>(width), ten->top);
+    EXPECT_EQ(static_cast<int>(width), ten->width);
 
     EXPECT_TRUE(BN_abs_is_word(ten.get(), 10));
     EXPECT_TRUE(BN_is_word(ten.get(), 10));
@@ -2008,14 +2008,14 @@ TEST_F(BNTest, NonMinimal) {
 
   // |ten| may be resized back down to one word.
   EXPECT_TRUE(bn_resize_words(ten.get(), 1));
-  EXPECT_EQ(1, ten->top);
+  EXPECT_EQ(1, ten->width);
 
   // But not to zero words, which it does not fit.
   EXPECT_FALSE(bn_resize_words(ten.get(), 0));
 
   EXPECT_TRUE(BN_is_pow2(eight.get()));
   EXPECT_TRUE(bn_resize_words(eight.get(), 4));
-  EXPECT_EQ(4, eight->top);
+  EXPECT_EQ(4, eight->width);
   EXPECT_TRUE(BN_is_pow2(eight.get()));
 
   // |BN_MONT_CTX| is always stored minimally and uses the same R independent of
@@ -2037,6 +2037,6 @@ TEST_F(BNTest, NonMinimal) {
       BN_MONT_CTX_new_for_modulus(p.get(), ctx()));
   ASSERT_TRUE(mont2);
 
-  EXPECT_EQ(mont->N.top, mont2->N.top);
+  EXPECT_EQ(mont->N.width, mont2->N.width);
   EXPECT_EQ(0, BN_cmp(&mont->RR, &mont2->RR));
 }
