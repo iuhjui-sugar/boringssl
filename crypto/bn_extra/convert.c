@@ -78,7 +78,7 @@ static const char hextable[] = "0123456789abcdef";
 
 char *BN_bn2hex(const BIGNUM *bn) {
   char *buf = OPENSSL_malloc(1 /* leading '-' */ + 1 /* zero is non-empty */ +
-                             bn->top * BN_BYTES * 2 + 1 /* trailing NUL */);
+                             bn->width * BN_BYTES * 2 + 1 /* trailing NUL */);
   if (buf == NULL) {
     OPENSSL_PUT_ERROR(BN, ERR_R_MALLOC_FAILURE);
     return NULL;
@@ -94,7 +94,7 @@ char *BN_bn2hex(const BIGNUM *bn) {
   }
 
   int z = 0;
-  for (int i = bn->top - 1; i >= 0; i--) {
+  for (int i = bn->width - 1; i >= 0; i--) {
     for (int j = BN_BITS2 - 8; j >= 0; j -= 8) {
       // strip leading zeros
       int v = ((int)(bn->d[i] >> (long)j)) & 0xff;
@@ -153,7 +153,7 @@ static int decode_hex(BIGNUM *bn, const char *in, int in_len) {
     in_len -= todo;
   }
   assert(i <= bn->dmax);
-  bn->top = i;
+  bn->width = i;
   return 1;
 }
 
@@ -222,7 +222,7 @@ static int bn_x2bn(BIGNUM **outp, const char *in, decode_func decode, char_test_
     goto err;
   }
 
-  bn_correct_top(ret);
+  bn_set_minimal_width(ret);
   if (!BN_is_zero(ret)) {
     ret->neg = neg;
   }
@@ -347,7 +347,7 @@ int BN_print(BIO *bp, const BIGNUM *a) {
     goto end;
   }
 
-  for (i = a->top - 1; i >= 0; i--) {
+  for (i = a->width - 1; i >= 0; i--) {
     for (j = BN_BITS2 - 4; j >= 0; j -= 4) {
       // strip leading zeros
       v = ((int)(a->d[i] >> (long)j)) & 0x0f;
