@@ -52,6 +52,7 @@
 #include <limits>
 
 #include <gtest/gtest.h>
+#include <openssl/rand.h>
 
 
 static uint8_t FromBool8(bool b) {
@@ -132,5 +133,43 @@ TEST(ConstantTimeTest, Test) {
       EXPECT_EQ(a, constant_time_select_8(CONSTTIME_TRUE_8, a, b));
       EXPECT_EQ(b, constant_time_select_8(CONSTTIME_FALSE_8, a, b));
     }
+  }
+}
+
+TEST(ConstantTimeTest, NumBits) {
+  // The value zero takes zero bits.
+  EXPECT_EQ(0, constant_time_num_bits(0));
+
+#if defined(OPENSSL_64_BIT)
+  constexpr int kNumBits = 64;
+#else
+  constexpr int kNumBits = 32;
+#endif
+  constexpr crypto_word_t kOne = 1;
+
+  // Values with a single bit set take that many bits.
+  for (int i = 1; i < kNumBits; i++) {
+    EXPECT_EQ(i, constant_time_num_bits(kOne << (i-1)));
+  }
+
+  for (int i = 1; i < 100; i++) {
+    // Generate a random value of a random length.
+    uint8_t buf[1 + sizeof(crypto_word_t)];
+    RAND_bytes(buf, sizeof(buf));
+
+    crypto_word_t w;
+    memcpy(&w, &buf[1], sizeof(w));
+
+    const int num_bits = buf[0] % (kNumBits + 1);
+    if (num_bits == kNumBits) {
+      w |= kOne << (kNumBits-1);
+    } else if (num_bits == 0) {
+      w = 0;
+    } else {
+      w &= (kOne << num_bits) - 1;
+      w |= kOne << (num_bits - 1);
+    }
+
+    EXPECT_EQ(num_bits, constant_time_num_bits(w)) << w;
   }
 }

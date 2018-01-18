@@ -347,6 +347,9 @@ static inline int constant_time_select_int(crypto_word_t mask, int a, int b) {
                                       (crypto_word_t)(b)));
 }
 
+// constant_time_num_bits returns the number of bits needed to contain |x|
+// (i.e. floor(log_2(x))).
+int constant_time_num_bits(crypto_word_t x);
 
 // Thread-safe initialisation.
 

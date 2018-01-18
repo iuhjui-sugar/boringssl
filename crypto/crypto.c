@@ -196,3 +196,29 @@ int OPENSSL_init_crypto(uint64_t opts, const OPENSSL_INIT_SETTINGS *settings) {
   CRYPTO_library_init();
   return 1;
 }
+
+static int32_t constant_time_num_bits32(uint32_t x) {
+  // See https://graphics.stanford.edu/~seander/bithacks.html#IntegerLogIEEE64Float
+  union { uint32_t u[2]; double d; } t;
+  t.u[0] = x;
+  t.u[1] = 0x43300000;
+  t.d -= 4503599627370496.0;
+  // If |x| is zero then the exponent of |t.d| will be zero. Otherwise, it'll
+  // be floor(log_2(x)).
+  const int32_t exp = t.u[1] >> 20;
+  const int32_t mask = (exp-1) >> 31;
+  return ~mask & (exp - 0x3fe);
+}
+
+#if defined(OPENSSL_64_BIT)
+int constant_time_num_bits(crypto_word_t x) {
+  const int32_t low = constant_time_num_bits32(x);
+  const int32_t high = constant_time_num_bits32(x >> 32);
+  const uint32_t mask = (high - 1) >> 31;
+  return (mask & low) | (~mask & (high + 32));
+}
+#else
+int constant_time_num_bits(crypto_word_t x) {
+  return constant_time_num_bits32(x);
+}
+#endif
