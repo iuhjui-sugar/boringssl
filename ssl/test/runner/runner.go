@@ -1361,25 +1361,11 @@ var tlsVersions = []tlsVersion{
 		versionDTLS: VersionDTLS12,
 	},
 	{
-		name:         "TLS13Draft22",
-		version:      VersionTLS13,
-		excludeFlag:  "-no-tls13",
-		versionWire:  tls13Draft22Version,
-		tls13Variant: TLS13Draft22,
-	},
-	{
 		name:         "TLS13Draft23",
 		version:      VersionTLS13,
 		excludeFlag:  "-no-tls13",
 		versionWire:  tls13Draft23Version,
 		tls13Variant: TLS13Draft23,
-	},
-	{
-		name:         "TLS13Experiment2",
-		version:      VersionTLS13,
-		excludeFlag:  "-no-tls13",
-		versionWire:  tls13Experiment2Version,
-		tls13Variant: TLS13Experiment2,
 	},
 }
 
@@ -2843,20 +2829,20 @@ read alert 1 0
 		},
 		{
 			testType: clientTest,
-			name:     "TLS13Draft22-InvalidCompressionMethod",
+			name:     "TLS13Draft23-InvalidCompressionMethod",
 			config: Config{
 				MaxVersion: VersionTLS13,
 				Bugs: ProtocolBugs{
 					SendCompressionMethod: 1,
 				},
 			},
-			tls13Variant:  TLS13Draft22,
+			tls13Variant:  TLS13Draft23,
 			shouldFail:    true,
 			expectedError: ":DECODE_ERROR:",
 		},
 		{
 			testType: clientTest,
-			name:     "TLS13Draft22-HRR-InvalidCompressionMethod",
+			name:     "TLS13Draft23-HRR-InvalidCompressionMethod",
 			config: Config{
 				MaxVersion:       VersionTLS13,
 				CurvePreferences: []CurveID{CurveP384},
@@ -2864,7 +2850,7 @@ read alert 1 0
 					SendCompressionMethod: 1,
 				},
 			},
-			tls13Variant:       TLS13Draft22,
+			tls13Variant:       TLS13Draft23,
 			shouldFail:         true,
 			expectedError:      ":DECODE_ERROR:",
 			expectedLocalError: "remote error: error decoding message",
@@ -3942,7 +3928,7 @@ func addClientAuthTests() {
 	// Test that an empty client CA list doesn't send a CA extension.
 	testCases = append(testCases, testCase{
 		testType: serverTest,
-		name:     "TLS13Draft22-Empty-Client-CA-List",
+		name:     "TLS13Draft23-Empty-Client-CA-List",
 		config: Config{
 			MaxVersion:   VersionTLS13,
 			Certificates: []Certificate{rsaCertificate},
@@ -3950,7 +3936,7 @@ func addClientAuthTests() {
 				ExpectNoCertificateAuthoritiesExtension: true,
 			},
 		},
-		tls13Variant: TLS13Draft22,
+		tls13Variant: TLS13Draft23,
 		flags: []string{
 			"-require-any-client-certificate",
 			"-use-client-ca-list", "<EMPTY>",
@@ -4308,7 +4294,7 @@ func addStateMachineCoverageTests(config stateMachineTestConfig) {
 		})
 
 		tests = append(tests, testCase{
-			name: "TLS13Draft22-HelloRetryRequest-Client",
+			name: "TLS13Draft23-HelloRetryRequest-Client",
 			config: Config{
 				MaxVersion: VersionTLS13,
 				MinVersion: VersionTLS13,
@@ -4319,21 +4305,21 @@ func addStateMachineCoverageTests(config stateMachineTestConfig) {
 					ExpectMissingKeyShare: true,
 				},
 			},
-			tls13Variant: TLS13Draft22,
+			tls13Variant: TLS13Draft23,
 			// Cover HelloRetryRequest during an ECDHE-PSK resumption.
 			resumeSession: true,
 		})
 
 		tests = append(tests, testCase{
 			testType: serverTest,
-			name:     "TLS13Draft22-HelloRetryRequest-Server",
+			name:     "TLS13Draft23-HelloRetryRequest-Server",
 			config: Config{
 				MaxVersion: VersionTLS13,
 				MinVersion: VersionTLS13,
 				// Require a HelloRetryRequest for every curve.
 				DefaultCurves: []CurveID{},
 			},
-			tls13Variant: TLS13Draft22,
+			tls13Variant: TLS13Draft23,
 			// Cover HelloRetryRequest during an ECDHE-PSK resumption.
 			resumeSession: true,
 		})
@@ -6182,14 +6168,14 @@ func addExtensionTests() {
 			name:     "TokenBinding-Server-" + ver.name,
 
 			config: Config{
-				MinVersion: ver.version,
-				MaxVersion: ver.version,
-				TokenBindingParams: []byte{0, 1, 2},
+				MinVersion:          ver.version,
+				MaxVersion:          ver.version,
+				TokenBindingParams:  []byte{0, 1, 2},
 				TokenBindingVersion: maxTokenBindingVersion,
 			},
-			expectTokenBinding: true,
+			expectTokenBinding:        true,
 			expectedTokenBindingParam: 2,
-			tls13Variant: ver.tls13Variant,
+			tls13Variant:              ver.tls13Variant,
 			flags: []string{
 				"-token-binding-params",
 				base64.StdEncoding.EncodeToString([]byte{2, 1, 0}),
@@ -6202,9 +6188,9 @@ func addExtensionTests() {
 			name:     "TokenBinding-Server-UnsupportedParam-" + ver.name,
 
 			config: Config{
-				MinVersion: ver.version,
-				MaxVersion: ver.version,
-				TokenBindingParams: []byte{3},
+				MinVersion:          ver.version,
+				MaxVersion:          ver.version,
+				TokenBindingParams:  []byte{3},
 				TokenBindingVersion: maxTokenBindingVersion,
 			},
 			tls13Variant: ver.tls13Variant,
@@ -6218,9 +6204,9 @@ func addExtensionTests() {
 			name:     "TokenBinding-Server-OldVersion-" + ver.name,
 
 			config: Config{
-				MinVersion: ver.version,
-				MaxVersion: ver.version,
-				TokenBindingParams: []byte{0, 1, 2},
+				MinVersion:          ver.version,
+				MaxVersion:          ver.version,
+				TokenBindingParams:  []byte{0, 1, 2},
 				TokenBindingVersion: minTokenBindingVersion - 1,
 			},
 			tls13Variant: ver.tls13Variant,
@@ -6234,14 +6220,14 @@ func addExtensionTests() {
 			name:     "TokenBinding-Server-NewVersion-" + ver.name,
 
 			config: Config{
-				MinVersion: ver.version,
-				MaxVersion: ver.version,
-				TokenBindingParams: []byte{0, 1, 2},
+				MinVersion:          ver.version,
+				MaxVersion:          ver.version,
+				TokenBindingParams:  []byte{0, 1, 2},
 				TokenBindingVersion: maxTokenBindingVersion + 1,
 			},
-			expectTokenBinding: true,
+			expectTokenBinding:        true,
 			expectedTokenBindingParam: 2,
-			tls13Variant: ver.tls13Variant,
+			tls13Variant:              ver.tls13Variant,
 			flags: []string{
 				"-token-binding-params",
 				base64.StdEncoding.EncodeToString([]byte{2, 1, 0}),
@@ -6254,9 +6240,9 @@ func addExtensionTests() {
 			name:     "TokenBinding-Server-NoParams-" + ver.name,
 
 			config: Config{
-				MinVersion: ver.version,
-				MaxVersion: ver.version,
-				TokenBindingParams: []byte{},
+				MinVersion:          ver.version,
+				MaxVersion:          ver.version,
+				TokenBindingParams:  []byte{},
 				TokenBindingVersion: maxTokenBindingVersion,
 			},
 			tls13Variant: ver.tls13Variant,
@@ -6264,7 +6250,7 @@ func addExtensionTests() {
 				"-token-binding-params",
 				base64.StdEncoding.EncodeToString([]byte{2, 1, 0}),
 			},
-			shouldFail: true,
+			shouldFail:    true,
 			expectedError: ":ERROR_PARSING_EXTENSION:",
 		})
 		testCases = append(testCases, testCase{
@@ -6272,14 +6258,14 @@ func addExtensionTests() {
 			name:     "TokenBinding-Server-RepeatedParam" + ver.name,
 
 			config: Config{
-				MinVersion: ver.version,
-				MaxVersion: ver.version,
-				TokenBindingParams: []byte{0, 1, 2, 2},
+				MinVersion:          ver.version,
+				MaxVersion:          ver.version,
+				TokenBindingParams:  []byte{0, 1, 2, 2},
 				TokenBindingVersion: maxTokenBindingVersion,
 			},
-			expectTokenBinding: true,
+			expectTokenBinding:        true,
 			expectedTokenBindingParam: 2,
-			tls13Variant: ver.tls13Variant,
+			tls13Variant:              ver.tls13Variant,
 			flags: []string{
 				"-token-binding-params",
 				base64.StdEncoding.EncodeToString([]byte{2, 1, 0}),
@@ -6292,10 +6278,10 @@ func addExtensionTests() {
 			name:     "TokenBinding-Client-" + ver.name,
 
 			config: Config{
-				MinVersion: ver.version,
-				MaxVersion: ver.version,
-				TokenBindingParams: []byte{2},
-				TokenBindingVersion: maxTokenBindingVersion,
+				MinVersion:               ver.version,
+				MaxVersion:               ver.version,
+				TokenBindingParams:       []byte{2},
+				TokenBindingVersion:      maxTokenBindingVersion,
 				ExpectTokenBindingParams: []byte{0, 1, 2},
 			},
 			tls13Variant: ver.tls13Variant,
@@ -6311,13 +6297,13 @@ func addExtensionTests() {
 			name:     "TokenBinding-Client-Unexpected-" + ver.name,
 
 			config: Config{
-				MinVersion: ver.version,
-				MaxVersion: ver.version,
-				TokenBindingParams: []byte{2},
+				MinVersion:          ver.version,
+				MaxVersion:          ver.version,
+				TokenBindingParams:  []byte{2},
 				TokenBindingVersion: maxTokenBindingVersion,
 			},
-			tls13Variant: ver.tls13Variant,
-			shouldFail: true,
+			tls13Variant:  ver.tls13Variant,
+			shouldFail:    true,
 			expectedError: ":UNEXPECTED_EXTENSION:",
 		})
 		testCases = append(testCases, testCase{
@@ -6325,10 +6311,10 @@ func addExtensionTests() {
 			name:     "TokenBinding-Client-ExtraParams-" + ver.name,
 
 			config: Config{
-				MinVersion: ver.version,
-				MaxVersion: ver.version,
-				TokenBindingParams: []byte{2, 1},
-				TokenBindingVersion: maxTokenBindingVersion,
+				MinVersion:               ver.version,
+				MaxVersion:               ver.version,
+				TokenBindingParams:       []byte{2, 1},
+				TokenBindingVersion:      maxTokenBindingVersion,
 				ExpectTokenBindingParams: []byte{0, 1, 2},
 			},
 			flags: []string{
@@ -6337,8 +6323,8 @@ func addExtensionTests() {
 				"-expected-token-binding-param",
 				"2",
 			},
-			tls13Variant: ver.tls13Variant,
-			shouldFail: true,
+			tls13Variant:  ver.tls13Variant,
+			shouldFail:    true,
 			expectedError: ":ERROR_PARSING_EXTENSION:",
 		})
 		testCases = append(testCases, testCase{
@@ -6346,10 +6332,10 @@ func addExtensionTests() {
 			name:     "TokenBinding-Client-NoParams-" + ver.name,
 
 			config: Config{
-				MinVersion: ver.version,
-				MaxVersion: ver.version,
-				TokenBindingParams: []byte{},
-				TokenBindingVersion: maxTokenBindingVersion,
+				MinVersion:               ver.version,
+				MaxVersion:               ver.version,
+				TokenBindingParams:       []byte{},
+				TokenBindingVersion:      maxTokenBindingVersion,
 				ExpectTokenBindingParams: []byte{0, 1, 2},
 			},
 			flags: []string{
@@ -6358,8 +6344,8 @@ func addExtensionTests() {
 				"-expected-token-binding-param",
 				"2",
 			},
-			tls13Variant: ver.tls13Variant,
-			shouldFail: true,
+			tls13Variant:  ver.tls13Variant,
+			shouldFail:    true,
 			expectedError: ":ERROR_PARSING_EXTENSION:",
 		})
 		testCases = append(testCases, testCase{
@@ -6367,10 +6353,10 @@ func addExtensionTests() {
 			name:     "TokenBinding-Client-WrongParam-" + ver.name,
 
 			config: Config{
-				MinVersion: ver.version,
-				MaxVersion: ver.version,
-				TokenBindingParams: []byte{3},
-				TokenBindingVersion: maxTokenBindingVersion,
+				MinVersion:               ver.version,
+				MaxVersion:               ver.version,
+				TokenBindingParams:       []byte{3},
+				TokenBindingVersion:      maxTokenBindingVersion,
 				ExpectTokenBindingParams: []byte{0, 1, 2},
 			},
 			flags: []string{
@@ -6379,8 +6365,8 @@ func addExtensionTests() {
 				"-expected-token-binding-param",
 				"2",
 			},
-			tls13Variant: ver.tls13Variant,
-			shouldFail: true,
+			tls13Variant:  ver.tls13Variant,
+			shouldFail:    true,
 			expectedError: ":ERROR_PARSING_EXTENSION:",
 		})
 		testCases = append(testCases, testCase{
@@ -6388,10 +6374,10 @@ func addExtensionTests() {
 			name:     "TokenBinding-Client-OldVersion-" + ver.name,
 
 			config: Config{
-				MinVersion: ver.version,
-				MaxVersion: ver.version,
-				TokenBindingParams: []byte{2},
-				TokenBindingVersion: minTokenBindingVersion - 1,
+				MinVersion:               ver.version,
+				MaxVersion:               ver.version,
+				TokenBindingParams:       []byte{2},
+				TokenBindingVersion:      minTokenBindingVersion - 1,
 				ExpectTokenBindingParams: []byte{0, 1, 2},
 			},
 			flags: []string{
@@ -6405,10 +6391,10 @@ func addExtensionTests() {
 			name:     "TokenBinding-Client-MinVersion-" + ver.name,
 
 			config: Config{
-				MinVersion: ver.version,
-				MaxVersion: ver.version,
-				TokenBindingParams: []byte{2},
-				TokenBindingVersion: minTokenBindingVersion,
+				MinVersion:               ver.version,
+				MaxVersion:               ver.version,
+				TokenBindingParams:       []byte{2},
+				TokenBindingVersion:      minTokenBindingVersion,
 				ExpectTokenBindingParams: []byte{0, 1, 2},
 			},
 			flags: []string{
@@ -6424,18 +6410,18 @@ func addExtensionTests() {
 			name:     "TokenBinding-Client-VersionTooNew-" + ver.name,
 
 			config: Config{
-				MinVersion: ver.version,
-				MaxVersion: ver.version,
-				TokenBindingParams: []byte{2},
-				TokenBindingVersion: maxTokenBindingVersion + 1,
+				MinVersion:               ver.version,
+				MaxVersion:               ver.version,
+				TokenBindingParams:       []byte{2},
+				TokenBindingVersion:      maxTokenBindingVersion + 1,
 				ExpectTokenBindingParams: []byte{0, 1, 2},
 			},
 			flags: []string{
 				"-token-binding-params",
 				base64.StdEncoding.EncodeToString([]byte{0, 1, 2}),
 			},
-			tls13Variant: ver.tls13Variant,
-			shouldFail: true,
+			tls13Variant:  ver.tls13Variant,
+			shouldFail:    true,
 			expectedError: "ERROR_PARSING_EXTENSION",
 		})
 		if ver.version < VersionTLS13 {
@@ -6444,10 +6430,10 @@ func addExtensionTests() {
 				name:     "TokenBinding-Client-NoEMS-" + ver.name,
 
 				config: Config{
-					MinVersion: ver.version,
-					MaxVersion: ver.version,
-					TokenBindingParams: []byte{2},
-					TokenBindingVersion: maxTokenBindingVersion,
+					MinVersion:               ver.version,
+					MaxVersion:               ver.version,
+					TokenBindingParams:       []byte{2},
+					TokenBindingVersion:      maxTokenBindingVersion,
 					ExpectTokenBindingParams: []byte{2, 1, 0},
 					Bugs: ProtocolBugs{
 						NoExtendedMasterSecret: true,
@@ -6458,7 +6444,7 @@ func addExtensionTests() {
 					"-token-binding-params",
 					base64.StdEncoding.EncodeToString([]byte{2, 1, 0}),
 				},
-				shouldFail: true,
+				shouldFail:    true,
 				expectedError: ":NEGOTIATED_TB_WITHOUT_EMS_OR_RI:",
 			})
 			testCases = append(testCases, testCase{
@@ -6466,9 +6452,9 @@ func addExtensionTests() {
 				name:     "TokenBinding-Server-NoEMS-" + ver.name,
 
 				config: Config{
-					MinVersion: ver.version,
-					MaxVersion: ver.version,
-					TokenBindingParams: []byte{0, 1, 2},
+					MinVersion:          ver.version,
+					MaxVersion:          ver.version,
+					TokenBindingParams:  []byte{0, 1, 2},
 					TokenBindingVersion: maxTokenBindingVersion,
 					Bugs: ProtocolBugs{
 						NoExtendedMasterSecret: true,
@@ -6479,7 +6465,7 @@ func addExtensionTests() {
 					"-token-binding-params",
 					base64.StdEncoding.EncodeToString([]byte{2, 1, 0}),
 				},
-				shouldFail: true,
+				shouldFail:    true,
 				expectedError: ":NEGOTIATED_TB_WITHOUT_EMS_OR_RI:",
 			})
 			testCases = append(testCases, testCase{
@@ -6487,10 +6473,10 @@ func addExtensionTests() {
 				name:     "TokenBinding-Client-NoRI-" + ver.name,
 
 				config: Config{
-					MinVersion: ver.version,
-					MaxVersion: ver.version,
-					TokenBindingParams: []byte{2},
-					TokenBindingVersion: maxTokenBindingVersion,
+					MinVersion:               ver.version,
+					MaxVersion:               ver.version,
+					TokenBindingParams:       []byte{2},
+					TokenBindingVersion:      maxTokenBindingVersion,
 					ExpectTokenBindingParams: []byte{2, 1, 0},
 					Bugs: ProtocolBugs{
 						NoRenegotiationInfo: true,
@@ -6501,7 +6487,7 @@ func addExtensionTests() {
 					"-token-binding-params",
 					base64.StdEncoding.EncodeToString([]byte{2, 1, 0}),
 				},
-				shouldFail: true,
+				shouldFail:    true,
 				expectedError: ":NEGOTIATED_TB_WITHOUT_EMS_OR_RI:",
 			})
 			testCases = append(testCases, testCase{
@@ -6509,9 +6495,9 @@ func addExtensionTests() {
 				name:     "TokenBinding-Server-NoRI-" + ver.name,
 
 				config: Config{
-					MinVersion: ver.version,
-					MaxVersion: ver.version,
-					TokenBindingParams: []byte{0, 1, 2},
+					MinVersion:          ver.version,
+					MaxVersion:          ver.version,
+					TokenBindingParams:  []byte{0, 1, 2},
 					TokenBindingVersion: maxTokenBindingVersion,
 					Bugs: ProtocolBugs{
 						NoRenegotiationInfo: true,
@@ -6530,38 +6516,38 @@ func addExtensionTests() {
 				testType: clientTest,
 				name:     "TokenBinding-WithEarlyDataFails-" + ver.name,
 				config: Config{
-					MinVersion: ver.version,
-					MaxVersion: ver.version,
-					TokenBindingParams: []byte{2},
-					TokenBindingVersion: maxTokenBindingVersion,
+					MinVersion:               ver.version,
+					MaxVersion:               ver.version,
+					TokenBindingParams:       []byte{2},
+					TokenBindingVersion:      maxTokenBindingVersion,
 					ExpectTokenBindingParams: []byte{2, 1, 0},
-					MaxEarlyDataSize: 16384,
+					MaxEarlyDataSize:         16384,
 				},
 				resumeSession: true,
-				tls13Variant: ver.tls13Variant,
+				tls13Variant:  ver.tls13Variant,
 				flags: []string{
 					"-enable-early-data",
 					"-expect-ticket-supports-early-data",
 					"-token-binding-params",
 					base64.StdEncoding.EncodeToString([]byte{2, 1, 0}),
 				},
-				shouldFail: true,
+				shouldFail:    true,
 				expectedError: ":UNEXPECTED_EXTENSION_ON_EARLY_DATA:",
 			})
 			testCases = append(testCases, testCase{
 				testType: serverTest,
 				name:     "TokenBinding-EarlyDataRejected-" + ver.name,
 				config: Config{
-					MinVersion: ver.version,
-					MaxVersion: ver.version,
-					TokenBindingParams: []byte{0, 1, 2},
+					MinVersion:          ver.version,
+					MaxVersion:          ver.version,
+					TokenBindingParams:  []byte{0, 1, 2},
 					TokenBindingVersion: maxTokenBindingVersion,
-					MaxEarlyDataSize: 16384,
+					MaxEarlyDataSize:    16384,
 				},
-				resumeSession: true,
-				expectTokenBinding: true,
+				resumeSession:             true,
+				expectTokenBinding:        true,
 				expectedTokenBindingParam: 2,
-				tls13Variant: ver.tls13Variant,
+				tls13Variant:              ver.tls13Variant,
 				flags: []string{
 					"-enable-early-data",
 					"-expect-ticket-supports-early-data",
@@ -7776,14 +7762,14 @@ func addRenegotiationTests() {
 		},
 	})
 	testCases = append(testCases, testCase{
-		name: "Renegotiate-Client-TLS13Draft22",
+		name: "Renegotiate-Client-TLS13Draft23",
 		config: Config{
 			MaxVersion: VersionTLS12,
 			Bugs: ProtocolBugs{
 				FailIfResumeOnRenego: true,
 			},
 		},
-		tls13Variant: TLS13Draft22,
+		tls13Variant: TLS13Draft23,
 		renegotiate:  1,
 		// Test renegotiation after both an initial and resumption
 		// handshake.
@@ -11590,7 +11576,7 @@ func makePerMessageTests() []perMessageTest {
 		messageType: typeEndOfEarlyData,
 		test: testCase{
 			testType: serverTest,
-			name:     "TLS13Draft22-EndOfEarlyData",
+			name:     "TLS13Draft23-EndOfEarlyData",
 			config: Config{
 				MaxVersion: VersionTLS13,
 			},
@@ -11601,7 +11587,7 @@ func makePerMessageTests() []perMessageTest {
 					ExpectEarlyDataAccepted: true,
 				},
 			},
-			tls13Variant:  TLS13Draft22,
+			tls13Variant:  TLS13Draft23,
 			resumeSession: true,
 			flags:         []string{"-enable-early-data"},
 		},
@@ -12148,7 +12134,7 @@ func addTLS13HandshakeTests() {
 			expectedError: ":WRONG_CURVE:",
 		})
 
-		if isDraft22(version.versionWire) {
+		if isDraft23(version.versionWire) {
 			testCases = append(testCases, testCase{
 				name: "HelloRetryRequest-CipherChange-" + name,
 				config: Config{
@@ -12435,7 +12421,7 @@ func addTLS13HandshakeTests() {
 			expectedError: ":DECODE_ERROR:",
 		})
 
-		if isDraft22(version.versionWire) {
+		if isDraft23(version.versionWire) {
 			testCases = append(testCases, testCase{
 				name: "UnknownExtensionInCertificateRequest-" + name,
 				config: Config{
@@ -12668,7 +12654,7 @@ func addTLS13HandshakeTests() {
 			expectedError: ":UNEXPECTED_EXTENSION:",
 		})
 
-		if isDraft22(version.versionWire) {
+		if isDraft23(version.versionWire) {
 			testCases = append(testCases, testCase{
 				testType: clientTest,
 				name:     "SkipChangeCipherSpec-Client-" + name,
@@ -13117,7 +13103,7 @@ func addTLS13HandshakeTests() {
 		})
 
 		expectedError := ":UNEXPECTED_RECORD:"
-		if isDraft22(version.versionWire) {
+		if isDraft23(version.versionWire) {
 			// In draft-21 and up, early data is expected to be
 			// terminated by a handshake message, though we test
 			// with the wrong one.
@@ -13219,7 +13205,7 @@ func addTLS13HandshakeTests() {
 			expectedLocalError: "remote error: error decrypting message",
 		})
 
-		if isDraft22(version.versionWire) {
+		if isDraft23(version.versionWire) {
 			testCases = append(testCases, testCase{
 				testType: serverTest,
 				name:     "Server-NonEmptyEndOfEarlyData-" + name,
