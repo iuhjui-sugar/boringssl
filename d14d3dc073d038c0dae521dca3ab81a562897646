@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cc275ee3_50acb713",
+        "filename": "crypto/fipsmodule/bcm.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-22T19:49:42Z",
+      "side": 1,
+      "message": "This function leaks memory all over the place if tests fail. Dunno if we care. Should be just a matter of lifting some decls to the top of the function and moving some cleanups to the err block.\n\n(I guess if we were ever to run malloc tests again with a leak checker, we\u0027d notice.)",
+      "revId": "d14d3dc073d038c0dae521dca3ab81a562897646",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
