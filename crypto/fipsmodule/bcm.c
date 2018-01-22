@@ -95,7 +95,9 @@
 #include "sha/sha512.c"
 
 
-#if defined(BORINGSSL_FIPS)
+// MSVC wants to put a NUL byte at the end of non-char arrays and so cannot
+// compile this.
+#if !defined(_MSC_VER)
 
 static void hexdump(const uint8_t *in, size_t len) {
   for (size_t i = 0; i < len; i++) {
@@ -288,41 +290,7 @@ static EC_KEY *self_test_ecdsa_key(void) {
   return ec_key;
 }
 
-#if !defined(OPENSSL_ASAN)
-// These symbols are filled in by delocate.go. They point to the start and end
-// of the module, and the location of the integrity hash, respectively.
-extern const uint8_t BORINGSSL_bcm_text_start[];
-extern const uint8_t BORINGSSL_bcm_text_end[];
-extern const uint8_t BORINGSSL_bcm_text_hash[];
-#endif
-
-static void __attribute__((constructor))
-BORINGSSL_bcm_power_on_self_test(void) {
-  CRYPTO_library_init();
-
-#if !defined(OPENSSL_ASAN)
-  // Integrity tests cannot run under ASAN because it involves reading the full
-  // .text section, which triggers the global-buffer overflow detection.
-  const uint8_t *const start = BORINGSSL_bcm_text_start;
-  const uint8_t *const end = BORINGSSL_bcm_text_end;
-
-  static const uint8_t kHMACKey[64] = {0};
-  uint8_t result[SHA512_DIGEST_LENGTH];
-
-  unsigned result_len;
-  if (!HMAC(EVP_sha512(), kHMACKey, sizeof(kHMACKey), start, end - start,
-            result, &result_len) ||
-      result_len != sizeof(result)) {
-    goto err;
-  }
-
-  const uint8_t *expected = BORINGSSL_bcm_text_hash;
-
-  if (!check_test(expected, result, sizeof(result), "FIPS integrity test")) {
-    goto err;
-  }
-#endif
-
+int BORINGSSL_self_test(void) {
   static const uint8_t kAESKey[16] = "BoringCrypto Key";
   static const uint8_t kAESIV[16] = {0};
   static const uint8_t kPlaintext[64] =
@@ -665,6 +633,53 @@ BORINGSSL_bcm_power_on_self_test(void) {
     goto err;
   }
 
+  return 1;
+
+err:
+  return 0;
+}
+
+#if defined(BORINGSSL_FIPS)
+
+#if !defined(OPENSSL_ASAN)
+// These symbols are filled in by delocate.go. They point to the start and end
+// of the module, and the location of the integrity hash, respectively.
+extern const uint8_t BORINGSSL_bcm_text_start[];
+extern const uint8_t BORINGSSL_bcm_text_end[];
+extern const uint8_t BORINGSSL_bcm_text_hash[];
+#endif
+
+static void __attribute__((constructor))
+BORINGSSL_bcm_power_on_self_test(void) {
+  CRYPTO_library_init();
+
+#if !defined(OPENSSL_ASAN)
+  // Integrity tests cannot run under ASAN because it involves reading the full
+  // .text section, which triggers the global-buffer overflow detection.
+  const uint8_t *const start = BORINGSSL_bcm_text_start;
+  const uint8_t *const end = BORINGSSL_bcm_text_end;
+
+  static const uint8_t kHMACKey[64] = {0};
+  uint8_t result[SHA512_DIGEST_LENGTH];
+
+  unsigned result_len;
+  if (!HMAC(EVP_sha512(), kHMACKey, sizeof(kHMACKey), start, end - start,
+            result, &result_len) ||
+      result_len != sizeof(result)) {
+    goto err;
+  }
+
+  const uint8_t *expected = BORINGSSL_bcm_text_hash;
+
+  if (!check_test(expected, result, sizeof(result), "FIPS integrity test")) {
+    goto err;
+  }
+#endif
+
+  if (!BORINGSSL_self_test()) {
+    goto err;
+  }
+
   return;
 
 err:
@@ -677,4 +692,7 @@ void BORINGSSL_FIPS_abort(void) {
     exit(1);
   }
 }
+
 #endif  // BORINGSSL_FIPS
+
+#endif  // !_MSC_VER
