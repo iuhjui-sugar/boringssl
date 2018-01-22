@@ -16,6 +16,24 @@
       "revId": "e0292e809002f3026f56bd42ded0ce0dbf445e41",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a49f6bb_01a1799f",
+        "filename": "crypto/fipsmodule/tls/kdf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-22T20:26:17Z",
+      "side": 1,
+      "message": "(Oh, it\u0027s actually relying on the -Iinclude because ../crypto relative to -Iinclude is crypto. Hrmf.)",
+      "parentUuid": "ffa6eeeb_b2960411",
+      "revId": "e0292e809002f3026f56bd42ded0ce0dbf445e41",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
