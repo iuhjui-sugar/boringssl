@@ -396,10 +396,8 @@ func (h *finishedHash) addEntropy(ikm []byte) {
 }
 
 func (h *finishedHash) nextSecret() {
-	if isDraft22(h.wireVersion) {
-		derivedLabel := []byte("derived")
-		h.secret = hkdfExpandLabel(h.hash, h.wireVersion, h.secret, derivedLabel, h.hash.New().Sum(nil), h.hash.Size())
-	}
+	derivedLabel := []byte("derived")
+	h.secret = hkdfExpandLabel(h.hash, h.wireVersion, h.secret, derivedLabel, h.hash.New().Sum(nil), h.hash.Size())
 }
 
 // hkdfExpandLabel implements TLS 1.3's HKDF-Expand-Label function, as defined
@@ -409,10 +407,7 @@ func hkdfExpandLabel(hash crypto.Hash, version uint16, secret, label, hashValue 
 		panic("hkdfExpandLabel: label or hashValue too long")
 	}
 
-	versionLabel := []byte("TLS 1.3, ")
-	if isDraft22(version) {
-		versionLabel = []byte("tls13 ")
-	}
+	versionLabel := []byte("tls13 ")
 
 	hkdfLabel := make([]byte, 3+len(versionLabel)+len(label)+1+len(hashValue))
 	x := hkdfLabel
@@ -438,29 +433,17 @@ func (h *finishedHash) appendContextHashes(b []byte) []byte {
 
 // The following are labels for traffic secret derivation in TLS 1.3.
 var (
-	externalPSKBinderLabel        = []byte("external psk binder key")
-	resumptionPSKBinderLabel      = []byte("resumption psk binder key")
-	earlyTrafficLabel             = []byte("client early traffic secret")
-	clientHandshakeTrafficLabel   = []byte("client handshake traffic secret")
-	serverHandshakeTrafficLabel   = []byte("server handshake traffic secret")
-	clientApplicationTrafficLabel = []byte("client application traffic secret")
-	serverApplicationTrafficLabel = []byte("server application traffic secret")
-	applicationTrafficLabel       = []byte("application traffic secret")
-	earlyExporterLabel            = []byte("early exporter master secret")
-	exporterLabel                 = []byte("exporter master secret")
-	resumptionLabel               = []byte("resumption master secret")
-
-	externalPSKBinderLabelDraft22        = []byte("ext binder")
-	resumptionPSKBinderLabelDraft22      = []byte("res binder")
-	earlyTrafficLabelDraft22             = []byte("c e traffic")
-	clientHandshakeTrafficLabelDraft22   = []byte("c hs traffic")
-	serverHandshakeTrafficLabelDraft22   = []byte("s hs traffic")
-	clientApplicationTrafficLabelDraft22 = []byte("c ap traffic")
-	serverApplicationTrafficLabelDraft22 = []byte("s ap traffic")
-	applicationTrafficLabelDraft22       = []byte("traffic upd")
-	earlyExporterLabelDraft22            = []byte("e exp master")
-	exporterLabelDraft22                 = []byte("exp master")
-	resumptionLabelDraft22               = []byte("res master")
+	externalPSKBinderLabel        = []byte("ext binder")
+	resumptionPSKBinderLabel      = []byte("res binder")
+	earlyTrafficLabel             = []byte("c e traffic")
+	clientHandshakeTrafficLabel   = []byte("c hs traffic")
+	serverHandshakeTrafficLabel   = []byte("s hs traffic")
+	clientApplicationTrafficLabel = []byte("c ap traffic")
+	serverApplicationTrafficLabel = []byte("s ap traffic")
+	applicationTrafficLabel       = []byte("traffic upd")
+	earlyExporterLabel            = []byte("e exp master")
+	exporterLabel                 = []byte("exp master")
+	resumptionLabel               = []byte("res master")
 
 	resumptionPSKLabel = []byte("resumption")
 )
@@ -514,11 +497,7 @@ func deriveTrafficAEAD(version uint16, suite *cipherSuite, secret []byte, side t
 }
 
 func updateTrafficSecret(hash crypto.Hash, version uint16, secret []byte) []byte {
-	trafficLabel := applicationTrafficLabel
-	if isDraft22(version) {
-		trafficLabel = applicationTrafficLabelDraft22
-	}
-	return hkdfExpandLabel(hash, version, secret, trafficLabel, nil, hash.Size())
+	return hkdfExpandLabel(hash, version, secret, applicationTrafficLabel, nil, hash.Size())
 }
 
 func computePSKBinder(psk []byte, version uint16, label []byte, cipherSuite *cipherSuite, clientHello, helloRetryRequest, truncatedHello []byte) []byte {
@@ -526,7 +505,7 @@ func computePSKBinder(psk []byte, version uint16, label []byte, cipherSuite *cip
 	finishedHash.addEntropy(psk)
 	binderKey := finishedHash.deriveSecret(label)
 	finishedHash.Write(clientHello)
-	if isDraft22(version) && len(helloRetryRequest) != 0 {
+	if len(helloRetryRequest) != 0 {
 		finishedHash.UpdateForHelloRetryRequest()
 	}
 	finishedHash.Write(helloRetryRequest)
