@@ -16,6 +16,24 @@
       "revId": "d14d3dc073d038c0dae521dca3ab81a562897646",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e4617ba_5217b7a9",
+        "filename": "crypto/fipsmodule/bcm.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-01-22T20:00:23Z",
+      "side": 1,
+      "message": "Failure is \"impossible\" but, none the less, we should handle the memory cleanup. Done. PTAL.",
+      "parentUuid": "cc275ee3_50acb713",
+      "revId": "d14d3dc073d038c0dae521dca3ab81a562897646",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
