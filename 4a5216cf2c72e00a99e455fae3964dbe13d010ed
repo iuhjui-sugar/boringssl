@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6e67f021_3c93779e",
+        "filename": "third_party/fiat/curve25519.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-01-23T21:05:02Z",
+      "side": 1,
+      "message": "(new line for this.)",
+      "range": {
+        "startLine": 188,
+        "startChar": 50,
+        "endLine": 188,
+        "endChar": 63
+      },
+      "revId": "4a5216cf2c72e00a99e455fae3964dbe13d010ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
