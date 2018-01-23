@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8f08dd30_66ee3059",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-23T20:55:26Z",
+      "side": 1,
+      "message": "Nit: |TLS_with_buffers_method|, |SSL_set_custom_verify|, and |SSL_CTX_set_custom_verify|. (The documentation generator make them monospace and adds links.)",
+      "range": {
+        "startLine": 195,
+        "startChar": 42,
+        "endLine": 197,
+        "endChar": 34
+      },
+      "revId": "ac0b136a49dcb42ab8040a23f7aca25543a78020",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6127e934_c630d2b9",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3144,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-23T20:55:26Z",
+      "side": 1,
+      "message": "Do you mind additionally adding a test that if you leave everything unconfigured (which defaults to SSL_VERIFY_NONE and null callback), TLS_with_buffers_method indeed treats it as an error, rather seeing an ssl_verify_invalid and applying SSL_VERIFY_NONE?\n\nI believe your CL handles this fine, but that was the main thing I was worried about. SSL_VERIFY_NONE is terrible, so it\u0027d be nice for it to be, at minimum opt-in.",
+      "revId": "ac0b136a49dcb42ab8040a23f7aca25543a78020",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
