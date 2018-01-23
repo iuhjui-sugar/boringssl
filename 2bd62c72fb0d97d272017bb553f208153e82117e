@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "08df440b_7f3a7e10",
+        "filename": "crypto/fipsmodule/ec/wnaf.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-01-23T21:51:18Z",
+      "side": 1,
+      "message": "(weird spacing. Not worth delaying submission for.)",
+      "range": {
+        "startLine": 88,
+        "startChar": 20,
+        "endLine": 88,
+        "endChar": 21
+      },
+      "revId": "2bd62c72fb0d97d272017bb553f208153e82117e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
