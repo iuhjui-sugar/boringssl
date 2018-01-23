@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "672fcf5a_d0f769e3",
+        "filename": "crypto/fipsmodule/bn/exponentiation.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1027,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-01-23T22:17:38Z",
+      "side": 1,
+      "message": "\"bits\"?",
+      "range": {
+        "startLine": 1027,
+        "startChar": 12,
+        "endLine": 1027,
+        "endChar": 13
+      },
+      "revId": "29290664d23f00a63df4e791008d62dd45425908",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
