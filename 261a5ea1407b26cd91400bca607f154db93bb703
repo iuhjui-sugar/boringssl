@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1381e370_89bbe76d",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-01-23T19:01:18Z",
+      "side": 1,
+      "message": "Why not just ssl-\u003ectx-\u003enum_verify_sigalgs \u003d\u003d 0?",
+      "range": {
+        "startLine": 477,
+        "startChar": 8,
+        "endLine": 477,
+        "endChar": 18
+      },
+      "revId": "261a5ea1407b26cd91400bca607f154db93bb703",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
