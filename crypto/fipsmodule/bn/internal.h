@@ -372,6 +372,10 @@ int bn_less_than_montgomery_R(const BIGNUM *bn, const BN_MONT_CTX *mont);
 // to increase without bound. It is assumed that values will be reduced shortly
 // afterwards.
 
+// bn_uadd_fixed behaves like |BN_uadd|, but it pessimally sets
+// |r->width| = |a->width| + |b->width| + 1.
+int bn_uadd_fixed(BIGNUM *r, const BIGNUM *a, const BIGNUM *b);
+
 // bn_lshift1_fixed behaves like |BN_lshift1|, but it pessimally sets |r->width|
 // to |a->width| + 1, to avoid leaking information about |a|.
 int bn_lshift1_fixed(BIGNUM *r, const BIGNUM *a);
@@ -387,6 +391,10 @@ int bn_sqr_fixed(BIGNUM *r, const BIGNUM *a, BN_CTX *ctx);
 
 
 // Constant-time modular arithmetic.
+
+// bn_mod_sub_consttime acts like |BN_mod_sub_quick| but takes a |BN_CTX|.
+int bn_mod_sub_consttime(BIGNUM *r, const BIGNUM *a, const BIGNUM *b,
+                         const BIGNUM *m, BN_CTX *ctx);
 
 // bn_mod_lshift1_consttime acts like |BN_mod_lshift1_quick| but takes a
 // |BN_CTX|.
