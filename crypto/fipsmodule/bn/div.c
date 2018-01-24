@@ -492,17 +492,25 @@ int BN_mod_sub(BIGNUM *r, const BIGNUM *a, const BIGNUM *b, const BIGNUM *m,
   return BN_nnmod(r, r, m, ctx);
 }
 
-// BN_mod_sub variant that may be used if both  a  and  b  are non-negative
-// and less than  m
+int bn_mod_sub_consttime(BIGNUM *r, const BIGNUM *a, const BIGNUM *b,
+                         const BIGNUM *m, BN_CTX *ctx) {
+  BN_CTX_start(ctx);
+  BIGNUM *tmp = BN_CTX_get(ctx);
+  int ok = tmp != NULL &&
+           bn_uadd_fixed(tmp, a, m) &&
+           BN_usub(r, tmp, b) &&
+           reduce_once(r, m, ctx);
+  BN_CTX_end(ctx);
+  return ok;
+}
+
 int BN_mod_sub_quick(BIGNUM *r, const BIGNUM *a, const BIGNUM *b,
                      const BIGNUM *m) {
-  if (!BN_sub(r, a, b)) {
-    return 0;
-  }
-  if (r->neg) {
-    return BN_add(r, r, m);
-  }
-  return 1;
+  BN_CTX *ctx = BN_CTX_new();
+  int ok = ctx != NULL &&
+           bn_mod_sub_consttime(r, a, b, m, ctx);
+  BN_CTX_free(ctx);
+  return ok;
 }
 
 int BN_mod_mul(BIGNUM *r, const BIGNUM *a, const BIGNUM *b, const BIGNUM *m,
