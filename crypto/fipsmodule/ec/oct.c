@@ -320,7 +320,7 @@ int EC_POINT_set_compressed_coordinates_GFp(const EC_GROUP *group,
   if (group->a_is_minus3) {
     if (!bn_mod_lshift1_consttime(tmp2, x, &group->field, ctx) ||
         !BN_mod_add_quick(tmp2, tmp2, x, &group->field) ||
-        !BN_mod_sub_quick(tmp1, tmp1, tmp2, &group->field)) {
+        !bn_mod_sub_consttime(tmp1, tmp1, tmp2, &group->field, ctx)) {
       goto err;
     }
   } else {
