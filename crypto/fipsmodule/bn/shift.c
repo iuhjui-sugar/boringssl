@@ -101,34 +101,28 @@ int BN_lshift(BIGNUM *r, const BIGNUM *a, int n) {
   return 1;
 }
 
-int BN_lshift1(BIGNUM *r, const BIGNUM *a) {
-  BN_ULONG *ap, *rp, t, c;
-  int i;
-
-  if (r != a) {
-    r->neg = a->neg;
-    if (!bn_wexpand(r, a->width + 1)) {
-      return 0;
-    }
-    r->width = a->width;
-  } else {
-    if (!bn_wexpand(r, a->width + 1)) {
-      return 0;
-    }
+int bn_lshift1_fixed(BIGNUM *r, const BIGNUM *a) {
+  if (!bn_wexpand(r, a->width + 1)) {
+    return 0;
   }
-  ap = a->d;
-  rp = r->d;
-  c = 0;
-  for (i = 0; i < a->width; i++) {
-    t = *(ap++);
-    *(rp++) = (t << 1) | c;
+
+  BN_ULONG c = 0;
+  for (int i = 0; i < a->width; i++) {
+    BN_ULONG t = a->d[i];
+    r->d[i] = (t << 1) | c;
     c = t >> (BN_BITS2 - 1);
   }
-  if (c) {
-    *rp = 1;
-    r->width++;
-  }
+  r->d[a->width] = c;
+  r->width = a->width + 1;
+  r->neg = a->neg;
+  return 1;
+}
 
+int BN_lshift1(BIGNUM *r, const BIGNUM *a) {
+  if (!bn_lshift1_fixed(r, a)) {
+    return 0;
+  }
+  bn_set_minimal_width(r);
   return 1;
 }
 
