@@ -315,7 +315,13 @@ int bn_mul_mont(BN_ULONG *rp, const BN_ULONG *ap, const BN_ULONG *bp,
                 const BN_ULONG *np, const BN_ULONG *n0, int num);
 
 uint64_t bn_mont_n0(const BIGNUM *n);
-int bn_mod_exp_base_2_vartime(BIGNUM *r, unsigned p, const BIGNUM *n);
+
+// bn_mod_exp_base_2_consttime calculates r = 2**p (mod n). |p| must be larger
+// than log_2(n); i.e. 2**p must be larger than |n|. |n| must be positive and
+// odd. |p| and the bit width of |n| are assumed public, but |n| is otherwise
+// treated as secret.
+int bn_mod_exp_base_2_consttime(BIGNUM *r, unsigned p, const BIGNUM *n,
+                                BN_CTX *ctx);
 
 #if defined(OPENSSL_X86_64) && defined(_MSC_VER)
 #define BN_UMULT_LOHI(low, high, a, b) ((low) = _umul128((a), (b), &(high)))
@@ -366,6 +372,10 @@ int bn_less_than_montgomery_R(const BIGNUM *bn, const BN_MONT_CTX *mont);
 // to increase without bound. It is assumed that values will be reduced shortly
 // afterwards.
 
+// bn_lshift1_fixed behaves like |BN_lshift1|, but it pessimally sets |r->width|
+// to |a->width| + 1, to avoid leaking information about |a|.
+int bn_lshift1_fixed(BIGNUM *r, const BIGNUM *a);
+
 // bn_mul_fixed behaves like |BN_mul|, but it rejects negative inputs and
 // pessimally sets |r->width| to |a->width| + |b->width|, to avoid leaking
 // information about |a| and |b|.
@@ -374,6 +384,18 @@ int bn_mul_fixed(BIGNUM *r, const BIGNUM *a, const BIGNUM *b, BN_CTX *ctx);
 // bn_sqrt_fixed behaves like |BN_sqrt|, but it pessimally sets |r->width| to
 // 2*|a->width|, to avoid leaking information about |a| and |b|.
 int bn_sqr_fixed(BIGNUM *r, const BIGNUM *a, BN_CTX *ctx);
+
+
+// Constant-time modular arithmetic.
+
+// bn_mod_lshift1_consttime acts like |BN_mod_lshift1_quick| but takes a
+// |BN_CTX|.
+int bn_mod_lshift1_consttime(BIGNUM *r, const BIGNUM *a, const BIGNUM *m,
+                             BN_CTX *ctx);
+
+// bn_mod_lshift_consttime acts like |BN_mod_lshift_quick| but takes a |BN_CTX|.
+int bn_mod_lshift_consttime(BIGNUM *r, const BIGNUM *a, int n, const BIGNUM *m,
+                            BN_CTX *ctx);
 
 
 // Low-level operations for small numbers.
