@@ -203,6 +203,9 @@ int bn_minimal_width(const BIGNUM *bn);
 
 // bn_set_minimal_width sets |bn->width| to |bn_minimal_width(bn)|. If |bn| is
 // zero, |bn->neg| is set to zero.
+//
+// FIXME: Figure out a fixed-width negative numbers story. Simplest is to just
+// say that the fixed-width ones cannot be used on negative numbers.
 void bn_set_minimal_width(BIGNUM *bn);
 
 // bn_wexpand ensures that |bn| has at least |words| works of space without
