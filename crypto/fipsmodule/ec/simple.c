@@ -395,8 +395,8 @@ int ec_GFp_simple_add(const EC_GROUP *group, EC_POINT *r, const EC_POINT *a,
   }
 
   // n5, n6
-  if (!BN_mod_sub_quick(n5, n1, n3, p) ||
-      !BN_mod_sub_quick(n6, n2, n4, p)) {
+  if (!bn_mod_sub_consttime(n5, n1, n3, p, ctx) ||
+      !bn_mod_sub_consttime(n6, n2, n4, p, ctx)) {
     goto end;
   }
   // n5 = n1 - n3
@@ -453,14 +453,14 @@ int ec_GFp_simple_add(const EC_GROUP *group, EC_POINT *r, const EC_POINT *a,
   if (!field_sqr(group, n0, n6, ctx) ||
       !field_sqr(group, n4, n5, ctx) ||
       !field_mul(group, n3, n1, n4, ctx) ||
-      !BN_mod_sub_quick(&r->X, n0, n3, p)) {
+      !bn_mod_sub_consttime(&r->X, n0, n3, p, ctx)) {
     goto end;
   }
   // X_r = n6^2 - n5^2 * 'n7'
 
   // 'n9'
   if (!bn_mod_lshift1_consttime(n0, &r->X, p, ctx) ||
-      !BN_mod_sub_quick(n0, n3, n0, p)) {
+      !bn_mod_sub_consttime(n0, n3, n0, p, ctx)) {
     goto end;
   }
   // n9 = n5^2 * 'n7' - 2 * X_r
@@ -471,7 +471,7 @@ int ec_GFp_simple_add(const EC_GROUP *group, EC_POINT *r, const EC_POINT *a,
     goto end;  // now n5 is n5^3
   }
   if (!field_mul(group, n1, n2, n5, ctx) ||
-      !BN_mod_sub_quick(n0, n0, n1, p)) {
+      !bn_mod_sub_consttime(n0, n0, n1, p, ctx)) {
     goto end;
   }
   if (BN_is_odd(n0) && !BN_add(n0, n0, p)) {
@@ -545,7 +545,7 @@ int ec_GFp_simple_dbl(const EC_GROUP *group, EC_POINT *r, const EC_POINT *a,
   } else if (group->a_is_minus3) {
     if (!field_sqr(group, n1, &a->Z, ctx) ||
         !BN_mod_add_quick(n0, &a->X, n1, p) ||
-        !BN_mod_sub_quick(n2, &a->X, n1, p) ||
+        !bn_mod_sub_consttime(n2, &a->X, n1, p, ctx) ||
         !field_mul(group, n1, n0, n2, ctx) ||
         !bn_mod_lshift1_consttime(n0, n1, p, ctx) ||
         !BN_mod_add_quick(n1, n0, n1, p)) {
@@ -590,7 +590,7 @@ int ec_GFp_simple_dbl(const EC_GROUP *group, EC_POINT *r, const EC_POINT *a,
   // X_r
   if (!bn_mod_lshift1_consttime(n0, n2, p, ctx) ||
       !field_sqr(group, &r->X, n1, ctx) ||
-      !BN_mod_sub_quick(&r->X, &r->X, n0, p)) {
+      !bn_mod_sub_consttime(&r->X, &r->X, n0, p, ctx)) {
     goto err;
   }
   // X_r = n1^2 - 2 * n2
@@ -603,9 +603,9 @@ int ec_GFp_simple_dbl(const EC_GROUP *group, EC_POINT *r, const EC_POINT *a,
   // n3 = 8 * Y_a^4
 
   // Y_r
-  if (!BN_mod_sub_quick(n0, n2, &r->X, p) ||
+  if (!bn_mod_sub_consttime(n0, n2, &r->X, p, ctx) ||
       !field_mul(group, n0, n1, n0, ctx) ||
-      !BN_mod_sub_quick(&r->Y, n0, n3, p)) {
+      !bn_mod_sub_consttime(&r->Y, n0, n3, p, ctx)) {
     goto err;
   }
   // Y_r = n1 * (n2 - X_r) - n3
@@ -690,7 +690,7 @@ int ec_GFp_simple_is_on_curve(const EC_GROUP *group, const EC_POINT *point,
     if (group->a_is_minus3) {
       if (!bn_mod_lshift1_consttime(tmp, Z4, p, ctx) ||
           !BN_mod_add_quick(tmp, tmp, Z4, p) ||
-          !BN_mod_sub_quick(rh, rh, tmp, p) ||
+          !bn_mod_sub_consttime(rh, rh, tmp, p, ctx) ||
           !field_mul(group, rh, rh, &point->X, ctx)) {
         goto err;
       }
