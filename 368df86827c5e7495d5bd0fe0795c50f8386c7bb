@@ -16,6 +16,24 @@
       "revId": "368df86827c5e7495d5bd0fe0795c50f8386c7bb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53a88b6e_39c956bb",
+        "filename": "crypto/bn_extra/convert.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-25T23:03:44Z",
+      "side": 1,
+      "message": "Oh, actually this works as-is, but probably prudent to avoid allocating the extra memory.",
+      "parentUuid": "67e874bf_5a6925f7",
+      "revId": "368df86827c5e7495d5bd0fe0795c50f8386c7bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
