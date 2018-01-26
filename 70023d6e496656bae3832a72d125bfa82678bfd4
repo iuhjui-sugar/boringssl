@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0657664_12ff30c5",
+        "filename": "crypto/fipsmodule/bn/mul.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-26T16:27:09Z",
+      "side": 0,
+      "message": "Actually, I think the documented preconditions still aren\u0027t right. Because those are not sufficient to make this call valid.\n\nI think the preconditions are actually: -1 \u003c\u003d dna,dnb \u003c\u003d 0. In fact, we\u0027re guaranteed that one of them is zero right now because of the i and j munging below. If they\u0027re both -1, I believe this algorithm would still work, but we\u0027re not currently calling it on that.",
+      "range": {
+        "startLine": 393,
+        "startChar": 48,
+        "endLine": 393,
+        "endChar": 63
+      },
+      "revId": "70023d6e496656bae3832a72d125bfa82678bfd4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
