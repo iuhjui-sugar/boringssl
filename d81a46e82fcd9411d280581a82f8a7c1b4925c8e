@@ -1,0 +1,290 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "163f2821_6515a32e",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 2965,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-26T22:49:27Z",
+      "side": 1,
+      "message": "Maybe slightly less wordy:\n\n// BoringSSL handles this extension as an opaque byte string. The caller is\n// responsible for serializing and validating it.",
+      "revId": "d81a46e82fcd9411d280581a82f8a7c1b4925c8e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35a66bf3_18d231cf",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 2980,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-26T22:49:27Z",
+      "side": 1,
+      "message": "Nit: We usually name these out_params and out_params_len, so it\u0027s clear they\u0027re output parameters.",
+      "range": {
+        "startLine": 2980,
+        "startChar": 55,
+        "endLine": 2980,
+        "endChar": 61
+      },
+      "revId": "d81a46e82fcd9411d280581a82f8a7c1b4925c8e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbc6a77e_97c41c9d",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 2981,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-26T22:49:27Z",
+      "side": 1,
+      "message": "Nit: |SSL|",
+      "range": {
+        "startLine": 2981,
+        "startChar": 71,
+        "endLine": 2981,
+        "endChar": 74
+      },
+      "revId": "d81a46e82fcd9411d280581a82f8a7c1b4925c8e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b77a6cd_ada5cb60",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 2984,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-26T22:49:27Z",
+      "side": 1,
+      "message": "const uint8_t **params I think? We don\u0027t want caller scribbling over our storage.",
+      "range": {
+        "startLine": 2984,
+        "startChar": 56,
+        "endLine": 2984,
+        "endChar": 71
+      },
+      "revId": "d81a46e82fcd9411d280581a82f8a7c1b4925c8e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17a5ee1f_4d1179de",
+        "filename": "ssl/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 2638,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-26T22:49:27Z",
+      "side": 1,
+      "message": "Since this is connection state rather than configuration state, it should live on the SSL3_STATE. (This is so it behaves right if someone calls SSL_clear.)",
+      "revId": "d81a46e82fcd9411d280581a82f8a7c1b4925c8e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cdebe0d_8e6d2972",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2624,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-26T22:49:27Z",
+      "side": 1,
+      "message": "CBS_stow, though when you move it to SSL3_STATE, this can be a bssl::Array, in which case it\u0027s CopyFrom(contents).\n\n(We really need to give SSL a destructor and finish that work up...)",
+      "revId": "d81a46e82fcd9411d280581a82f8a7c1b4925c8e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66857256_0df0b663",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2633,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-26T22:49:27Z",
+      "side": 1,
+      "message": "Probably prudent to ignore the extension if quic_transport_params? Seems strange to stash it away if sent over TCP. (Line 2652 would then not be necessary.)",
+      "revId": "d81a46e82fcd9411d280581a82f8a7c1b4925c8e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4153976b_868349dd",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2645,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-26T22:49:27Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "d81a46e82fcd9411d280581a82f8a7c1b4925c8e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fa544fd_6d02ab35",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-26T22:49:27Z",
+      "side": 1,
+      "message": "Nit: Go style is to leave acronyms capitalized when the first letter is capitalized, so QUICTransportParams.",
+      "range": {
+        "startLine": 273,
+        "startChar": 1,
+        "endLine": 273,
+        "endChar": 20
+      },
+      "revId": "d81a46e82fcd9411d280581a82f8a7c1b4925c8e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8f576f4_b710ef3d",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-26T22:49:27Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 501,
+        "startChar": 4,
+        "endLine": 501,
+        "endChar": 23
+      },
+      "revId": "d81a46e82fcd9411d280581a82f8a7c1b4925c8e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d19cc542_93c3b787",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 1538,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-26T22:49:27Z",
+      "side": 1,
+      "message": "Nit: lowercase server\n\n(Expectation with Go errors is that they\u0027ll be folded into a larger sentence rather than start on themselves.)",
+      "range": {
+        "startLine": 1538,
+        "startChar": 27,
+        "endLine": 1538,
+        "endChar": 33
+      },
+      "revId": "d81a46e82fcd9411d280581a82f8a7c1b4925c8e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0f4a07c_f0830bba",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-26T22:49:27Z",
+      "side": 1,
+      "message": "expectedQUICTransportParams",
+      "range": {
+        "startLine": 479,
+        "startChar": 4,
+        "endLine": 479,
+        "endChar": 31
+      },
+      "revId": "d81a46e82fcd9411d280581a82f8a7c1b4925c8e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3b073b6_0c01674c",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 6589,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-26T22:49:27Z",
+      "side": 1,
+      "message": "(Ditto re capitalization)",
+      "range": {
+        "startLine": 6589,
+        "startChar": 11,
+        "endLine": 6589,
+        "endChar": 30
+      },
+      "revId": "d81a46e82fcd9411d280581a82f8a7c1b4925c8e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d5b1570_bc150bbf",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 6651,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-26T22:49:27Z",
+      "side": 1,
+      "message": "This should have an expectedError of some sort. (I actually would have expected it to yell at you about that.)",
+      "revId": "d81a46e82fcd9411d280581a82f8a7c1b4925c8e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
