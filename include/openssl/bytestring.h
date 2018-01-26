@@ -17,6 +17,7 @@
 
 #include <openssl/base.h>
 
+#include <openssl/mem.h>
 #include <openssl/span.h>
 
 #if defined(__cplusplus)
@@ -494,6 +495,18 @@ extern "C++" {
 namespace bssl {
 
 using ScopedCBB = internal::StackAllocated<CBB, void, CBB_zero, CBB_cleanup>;
+
+inline bool CBB_finish(ScopedCBB *cbb, Span<const uint8_t> *out_bytes,
+                       bssl::UniquePtr<uint8_t> *out_storage) {
+  uint8_t *bytes;
+  size_t len;
+  if (!CBB_finish(cbb->get(), &bytes, &len)) {
+    return false;
+  }
+  *out_bytes = Span<const uint8_t>(bytes, len);
+  out_storage->reset(bytes);
+  return true;
+}
 
 }  // namespace bssl
 
