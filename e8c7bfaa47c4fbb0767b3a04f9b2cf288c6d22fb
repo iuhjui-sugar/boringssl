@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0c210d26_56022512",
+        "filename": "ssl/ssl_asn1.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-26T19:54:13Z",
+      "side": 1,
+      "message": "Nit: I think we usually put CBB first. Also it matches the order of ssl_session_serialize.",
+      "revId": "e8c7bfaa47c4fbb0767b3a04f9b2cf288c6d22fb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
