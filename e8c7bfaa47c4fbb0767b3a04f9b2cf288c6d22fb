@@ -16,6 +16,24 @@
       "revId": "e8c7bfaa47c4fbb0767b3a04f9b2cf288c6d22fb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3be7b477_cdd23cfe",
+        "filename": "ssl/ssl_asn1.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-01-26T22:02:57Z",
+      "side": 1,
+      "message": "The session should come first because it\u0027s the |this| pointer for a function called |SSL_SESSION_…|. But you\u0027re correct that |ssl_session_serialize| is inconsistent with that. Fixed.",
+      "parentUuid": "0c210d26_56022512",
+      "revId": "e8c7bfaa47c4fbb0767b3a04f9b2cf288c6d22fb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
