@@ -736,6 +736,7 @@ SSL *SSL_new(SSL_CTX *ctx) {
 
   ssl->signed_cert_timestamps_enabled = ctx->signed_cert_timestamps_enabled;
   ssl->ocsp_stapling_enabled = ctx->ocsp_stapling_enabled;
+  ssl->handoff = ctx->handoff;
 
   return ssl;
 
@@ -1268,6 +1269,9 @@ int SSL_get_error(const SSL *ssl, int ret_code) {
 
     case SSL_CERTIFICATE_SELECTION_PENDING:
       return SSL_ERROR_PENDING_CERTIFICATE;
+
+    case SSL_HANDOFF:
+      return SSL_ERROR_HANDOFF;
 
     case SSL_READING: {
       BIO *bio = SSL_get_rbio(ssl);
@@ -2619,6 +2623,10 @@ int32_t SSL_get_ticket_age_skew(const SSL *ssl) {
 
 void SSL_CTX_set_false_start_allowed_without_alpn(SSL_CTX *ctx, int allowed) {
   ctx->false_start_allowed_without_alpn = !!allowed;
+}
+
+void SSL_CTX_set_handoff_mode(SSL_CTX *ctx, bool on) {
+  ctx->handoff = on;
 }
 
 int SSL_is_draft_downgrade(const SSL *ssl) { return ssl->s3->draft_downgrade; }
